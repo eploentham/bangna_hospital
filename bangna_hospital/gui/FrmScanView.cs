@@ -34,6 +34,7 @@ namespace bangna_hospital.gui
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
 
             theme1.Theme = bc.iniC.themeApplication;
+            btnSave.Click += BtnSave_Click;
             //theme1.SetTheme(sb1, "BeigeOne");
 
             //sb1.Text = "aaaaaaaaaa";
@@ -48,6 +49,13 @@ namespace bangna_hospital.gui
                 pic1.Image = img;
             }            
         }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void FrmScanView_Load(object sender, EventArgs e)
         {
 

@@ -42,6 +42,7 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            theme1.Theme = bc.iniC.themeApplication;
             txtUserName.KeyUp += TxtUserName_KeyUp;
             txtUserName.LostFocus += TxtUserName_LostFocus;
             txtUserName.Enter += TxtUserName_Enter;
@@ -78,6 +79,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             stf = stfDB.selectByLogin(txtUserName.Text, txtPassword.Text);
+            stf.fullname = "111";
             if (stf.fullname.Length > 0)
             {
                 bc.userId = stf.staff_id;

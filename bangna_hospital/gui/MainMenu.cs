@@ -55,6 +55,8 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            theme1.Theme = bc.iniC.themeApplication;
+
             this.FormClosing += MainMenu4_FormClosing;
             menuExit.Click += MenuExit_Click;
             menuScan.Click += MenuScan_Click;

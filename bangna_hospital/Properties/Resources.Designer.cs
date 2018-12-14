@@ -943,6 +943,16 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo {
+            get {
+                object obj = ResourceManager.GetObject("logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lorry_24x24 {
             get {
                 object obj = ResourceManager.GetObject("lorry_24x24", resourceCulture);
@@ -1267,6 +1277,26 @@ namespace bangna_hospital.Properties {
             get {
                 object obj = ResourceManager.GetObject("pdf_symbol_80_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pen_paper_round_icon_by_vexels {
+            get {
+                object obj = ResourceManager.GetObject("pen_paper_round_icon_by_vexels", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon pen_paper_round_icon_by_vexels_JGk_icon {
+            get {
+                object obj = ResourceManager.GetObject("pen_paper_round_icon_by_vexels_JGk_icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

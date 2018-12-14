@@ -262,6 +262,7 @@
             this.Controls.Add(this.c1DockingTab1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
             this.c1DockingTab1.ResumeLayout(false);

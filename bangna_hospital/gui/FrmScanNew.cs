@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Leadtools;
-using Leadtools.Ocr;
+//using Leadtools;
+//using Leadtools.Ocr;
 
 namespace bangna_hospital.gui
 {
@@ -22,10 +23,11 @@ namespace bangna_hospital.gui
         MainMenu menu;
         C1FlexGrid grf;
         Font fEdit, fEditB;
-        private IOcrEngine _ocrEngine;
+        //private IOcrEngine _ocrEngine;
 
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         ArrayList array1 = new ArrayList();
+        Timer timer1;
         public FrmScanNew(BangnaControl bc, MainMenu m)
         {
             InitializeComponent();
@@ -38,7 +40,14 @@ namespace bangna_hospital.gui
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             array1 = new ArrayList();
-            _ocrEngine = OcrEngineManager.CreateEngine(OcrEngineType.LEAD, false);
+            timer1 = new Timer();
+            int chk = 0;
+            int.TryParse(bc.iniC.timerImgScanNew, out chk);
+            timer1.Interval = chk;
+            timer1.Enabled = true;
+            timer1.Tick += Timer1_Tick;
+            timer1.Stop();
+            //_ocrEngine = OcrEngineManager.CreateEngine(OcrEngineType.LEAD, false);
 
             theme1.Theme = bc.iniC.themeApplication;
             theme1.SetTheme(sb1, "BeigeOne");
@@ -47,6 +56,21 @@ namespace bangna_hospital.gui
             sb1.Text = "aaaaaaaaaa";
             initGrf();
             setGrf();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //bool exists = System.IO.Directory.Exists(bc.iniC.pathImgScanNew);
+            DirectoryInfo folderImg = null;
+            if (!Directory.Exists(bc.iniC.pathImgScanNew))
+                folderImg = Directory.CreateDirectory(bc.iniC.pathImgScanNew);
+            String[] Files = Directory.GetFiles(bc.iniC.pathImgScanNew,"*.*", SearchOption.AllDirectories);
+            if (Files.Length > 0)
+            {
+                setImage(Files);
+                timer1.Stop();
+            }
         }
 
         private void BtnOpen_Click(object sender, EventArgs e)
@@ -59,71 +83,76 @@ namespace bangna_hospital.gui
             DialogResult dr = ofd.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
-                int i = 1,j = 1,row = grf.Rows.Count;
-                grf.Rows.Add();
-                row = grf.Rows.Count;
-                String re = "";
-                array1.Clear();
-                foreach (String file in ofd.FileNames)
+                String[] file1 = ofd.FileNames;
+                setImage(file1);
+            }
+            
+        }
+        private void setImage(String[] file1)
+        {
+            int i = 1, j = 1, row = grf.Rows.Count;
+            grf.Rows.Add();
+            row = grf.Rows.Count;
+            String re = "";
+            array1.Clear();
+            foreach (String file in file1)
+            {
+                try
                 {
-                    try
+                    Image loadedImage, resizedImage;
+                    String[] sur = file.Split('.');
+                    String ex = "";
+                    if (sur.Length == 2)
                     {
-                        Image loadedImage, resizedImage;
-                        String[] sur = file.Split('.');
-                        String ex = "";
-                        if (sur.Length == 2)
-                        {
-                            ex = sur[1];
-                        }
-                        
-                        if (!ex.Equals("pdf"))
-                        {
-                            loadedImage = Image.FromFile(file);
-                            int originalWidth = loadedImage.Width;
-                            int newWidth = 180;
-                            resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                        }
-                        else
-                        {
-                            resizedImage = Resources.pdf_symbol_80_2;
-                        }
-                        if (j > 4)
-                        {
-                            grf.Rows.Add();
-                            row = grf.Rows.Count;
-                            j = 1;
-                            i++;
-                        }
-                        grf.Cols[colPic1].ImageAndText = true;
-                        grf.Cols[colPic2].ImageAndText = true;
-                        grf.Cols[colPic3].ImageAndText = true;
-                        grf.Cols[colPic4].ImageAndText = true;
-                        int hei = grf.Rows.DefaultSize;
+                        ex = sur[1];
+                    }
 
-                        //grf[row - 1, colDay2PathPic] = file;
-                        //grfDay2Img[row - 1, colBtn] = "send";
-                        array1.Add(i+","+j+",*"+file);
-                        if (j==1)
-                            grf[i, colPic1] = resizedImage;
-                        else if (j == 2)
-                            grf[i, colPic2] = resizedImage;
-                        else if (j == 3)
-                            grf[i, colPic3] = resizedImage;
-                        else if (j == 4)
-                            grf[i, colPic4] = resizedImage;
-                        j++;
-                        
-                    }
-                    catch (Exception ex)
+                    if (!ex.Equals("pdf"))
                     {
-                        re = ex.Message;
+                        loadedImage = Image.FromFile(file);
+                        int originalWidth = loadedImage.Width;
+                        int newWidth = 180;
+                        resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
                     }
+                    else
+                    {
+                        resizedImage = Resources.pdf_symbol_80_2;
+                    }
+                    if (j > 4)
+                    {
+                        grf.Rows.Add();
+                        row = grf.Rows.Count;
+                        j = 1;
+                        i++;
+                    }
+                    grf.Cols[colPic1].ImageAndText = true;
+                    grf.Cols[colPic2].ImageAndText = true;
+                    grf.Cols[colPic3].ImageAndText = true;
+                    grf.Cols[colPic4].ImageAndText = true;
+                    int hei = grf.Rows.DefaultSize;
+
+                    //grf[row - 1, colDay2PathPic] = file;
+                    //grfDay2Img[row - 1, colBtn] = "send";
+                    array1.Add(i + "," + j + ",*" + file);
+                    if (j == 1)
+                        grf[i, colPic1] = resizedImage;
+                    else if (j == 2)
+                        grf[i, colPic2] = resizedImage;
+                    else if (j == 3)
+                        grf[i, colPic3] = resizedImage;
+                    else if (j == 4)
+                        grf[i, colPic4] = resizedImage;
+                    j++;
+
+                }
+                catch (Exception ex)
+                {
+                    re = ex.Message;
                 }
             }
             grf.AutoSizeCols();
             grf.AutoSizeRows();
         }
-
         private void initGrf()
         {
             grf = new C1FlexGrid();
@@ -211,7 +240,7 @@ namespace bangna_hospital.gui
         }
         private void FrmScanNew_Load(object sender, EventArgs e)
         {
-
+            timer1.Start();
         }
     }
 }

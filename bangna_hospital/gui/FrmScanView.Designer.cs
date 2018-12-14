@@ -38,9 +38,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.pnImg = new System.Windows.Forms.Panel();
-            this.pn = new System.Windows.Forms.Panel();
             this.pic1 = new System.Windows.Forms.PictureBox();
-            this.btnSaveMatura = new C1.Win.C1Input.C1Button();
+            this.pn = new System.Windows.Forms.Panel();
+            this.btnSave = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
@@ -48,9 +48,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtNameFeMale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             this.pnImg.SuspendLayout();
-            this.pn.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSaveMatura)).BeginInit();
+            this.pn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -177,16 +177,6 @@
             this.pnImg.TabIndex = 3;
             this.theme1.SetTheme(this.pnImg, "(default)");
             // 
-            // pn
-            // 
-            this.pn.Controls.Add(this.btnSaveMatura);
-            this.pn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pn.Location = new System.Drawing.Point(832, 66);
-            this.pn.Name = "pn";
-            this.pn.Size = new System.Drawing.Size(257, 663);
-            this.pn.TabIndex = 0;
-            this.theme1.SetTheme(this.pn, "(default)");
-            // 
             // pic1
             // 
             this.pic1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -197,19 +187,29 @@
             this.pic1.TabIndex = 0;
             this.pic1.TabStop = false;
             // 
-            // btnSaveMatura
+            // pn
             // 
-            this.btnSaveMatura.Image = global::bangna_hospital.Properties.Resources.download_database24;
-            this.btnSaveMatura.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveMatura.Location = new System.Drawing.Point(162, 612);
-            this.btnSaveMatura.Name = "btnSaveMatura";
-            this.btnSaveMatura.Size = new System.Drawing.Size(83, 39);
-            this.btnSaveMatura.TabIndex = 537;
-            this.btnSaveMatura.Text = "บันทึกช้อมูล";
-            this.btnSaveMatura.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.theme1.SetTheme(this.btnSaveMatura, "(default)");
-            this.btnSaveMatura.UseVisualStyleBackColor = true;
-            this.btnSaveMatura.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.pn.Controls.Add(this.btnSave);
+            this.pn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn.Location = new System.Drawing.Point(832, 66);
+            this.pn.Name = "pn";
+            this.pn.Size = new System.Drawing.Size(257, 663);
+            this.pn.TabIndex = 0;
+            this.theme1.SetTheme(this.pn, "(default)");
+            // 
+            // btnSave
+            // 
+            this.btnSave.Image = global::bangna_hospital.Properties.Resources.download_database24;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(162, 612);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(83, 39);
+            this.btnSave.TabIndex = 537;
+            this.btnSave.Text = "บันทึกช้อมูล";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnSave, "(default)");
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // FrmScanView
             // 
@@ -231,9 +231,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtNameFeMale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             this.pnImg.ResumeLayout(false);
-            this.pn.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSaveMatura)).EndInit();
+            this.pn.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -252,6 +252,6 @@
         private System.Windows.Forms.Panel pnImg;
         private System.Windows.Forms.Panel pn;
         private System.Windows.Forms.PictureBox pic1;
-        private C1.Win.C1Input.C1Button btnSaveMatura;
+        private C1.Win.C1Input.C1Button btnSave;
     }
 }

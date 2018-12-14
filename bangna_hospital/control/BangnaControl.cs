@@ -82,10 +82,12 @@ namespace bangna_hospital.control
             iniC.themeApplication = iniF.getIni("app", "themeApplication");
             iniC.themeDonor = iniF.getIni("app", "themeDonor");
             iniC.printerSticker = iniF.getIni("app", "printerSticker");
-            iniC.timerlabreqaccept = iniF.getIni("app", "timerlabreqaccept");
+            iniC.timerImgScanNew = iniF.getIni("app", "timerImgScanNew");
+            iniC.pathImgScanNew = iniF.getIni("app", "pathImgScanNew");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
-            
+            iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
+            iniC.pathImgScanNew = iniC.pathImgScanNew == null ? "d:\\images" : iniC.pathImgScanNew.Equals("") ? "d:\\images" : iniC.pathImgScanNew;
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
         }
     }

@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="C1.Win.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Command.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
@@ -64,6 +67,12 @@
     <Compile Include="control\BangnaControl.cs" />
     <Compile Include="gui\CellNote.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmPosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmPosition.designer.cs">
+      <DependentUpon>FrmPosition.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmScanNew.cs">
       <SubType>Form</SubType>
@@ -113,6 +122,7 @@
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
     <Compile Include="objdb\StaffDB.cs" />
+    <Compile Include="object1\FtpClient.cs" />
     <Compile Include="object1\IniFile.cs" />
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LogFile.cs" />
@@ -125,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmPosition.resx">
+      <DependentUpon>FrmPosition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanNew.resx">
       <DependentUpon>FrmScanNew.cs</DependentUpon>
@@ -807,6 +820,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Zoom-out48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="doc\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="doc\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="doc\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pen-paper-round-icon-by-vexels.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Leadtools.dll.NETFramework.20.0.0.3\build\net40\Leadtools.dll.NETFramework.targets" Condition="Exists('..\packages\Leadtools.dll.NETFramework.20.0.0.3\build\net40\Leadtools.dll.NETFramework.targets')" />
