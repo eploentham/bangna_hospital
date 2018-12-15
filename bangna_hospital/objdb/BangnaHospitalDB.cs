@@ -10,6 +10,7 @@ namespace bangna_hospital.objdb
     {
         ConnectDB conn;
         public StaffDB stfDB;
+        public DocGroupScanDB dgsDB;
 
         public BangnaHospitalDB(ConnectDB c)
         {
@@ -19,7 +20,7 @@ namespace bangna_hospital.objdb
         private void initConfig()
         {
             stfDB = new StaffDB(conn);
-
+            dgsDB = new DocGroupScanDB(conn);
         }
     }
 }

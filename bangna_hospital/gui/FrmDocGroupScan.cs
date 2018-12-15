@@ -17,10 +17,10 @@ using bangna_hospital.Properties;
 
 namespace bangna_hospital.gui
 {
-    public partial class FrmPosition : Form
+    public partial class FrmDocGroupScan : Form
     {
-        BangnaControl ic;
-        Position posi;
+        BangnaControl bc;
+        DocGroupScan dgs;
 
         Font fEdit, fEditB;
 
@@ -36,20 +36,20 @@ namespace bangna_hospital.gui
         C1SuperErrorProvider sep;
 
         String userIdVoid = "";
-        public FrmPosition(BangnaControl x)
+        public FrmDocGroupScan(BangnaControl x)
         {
             InitializeComponent();
-            ic = x;
+            bc = x;
             initConfig();
         }
 
         private void initConfig()
         {
-            posi = new Position();
-            fEdit = new Font(ic.iniC.grdViewFontName, ic.grdViewFontSize, FontStyle.Regular);
-            fEditB = new Font(ic.iniC.grdViewFontName, ic.grdViewFontSize, FontStyle.Bold);
+            dgs = new DocGroupScan();
+            fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
+            fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
 
-            C1ThemeController.ApplicationTheme = ic.iniC.themeApplication;
+            C1ThemeController.ApplicationTheme = bc.iniC.themeApplication;
             theme1.Theme = C1ThemeController.ApplicationTheme;
             theme1.SetTheme(sB, "BeigeOne");
             foreach (Control c in panel3.Controls)
@@ -96,11 +96,11 @@ namespace bangna_hospital.gui
         {
             //grfDept.Rows.Count = 7;
 
-            grfPosi.DataSource = ic.ivfDB.posiDB.selectAll1();
+            grfPosi.DataSource = bc.bcDB.dgsDB.selectAll();
             grfPosi.Cols.Count = colCnt;
             CellStyle cs = grfPosi.Styles.Add("btn");
             cs.DataType = typeof(Button);
-            //cs.ComboList = "|Tom|Dick|Harry";
+            //cs.ComboList = "|Tom|Dbck|Harry";
             cs.ForeColor = Color.Navy;
             cs.Font = new Font(Font, FontStyle.Bold);
             cs = grfPosi.Styles.Add("date");
@@ -130,7 +130,7 @@ namespace bangna_hospital.gui
             {
                 grfPosi[i, 0] = i;
                 if (i % 2 == 0)
-                    grfPosi.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(ic.iniC.grfRowColor);
+                    grfPosi.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
             }
             grfPosi.Cols[colID].Visible = false;
             grfPosi.Cols[colE].Visible = false;
@@ -139,7 +139,7 @@ namespace bangna_hospital.gui
         private void textBox_Enter(object sender, EventArgs e)
         {
             C1TextBox a = (C1TextBox)sender;
-            a.BackColor = ic.cTxtFocus;
+            a.BackColor = bc.cTxtFocus;
             a.Font = new Font(ff, FontStyle.Bold);
         }
         private void setFocusColor()
@@ -162,12 +162,12 @@ namespace bangna_hospital.gui
         }
         private void setControl(String posiId)
         {
-            posi = ic.ivfDB.posiDB.selectByPk1(posiId);
-            txtID.Value = posi.posi_id;
-            txtPosiCode.Value = posi.posi_code;
-            txtPosiNameT.Value = posi.posi_name_t;
-            txtRemark.Value = posi.remark;
-            if (posi.status_doctor.Equals("1"))
+            dgs = bc.bcDB.dgsDB.selectByPk(posiId);
+            txtID.Value = dgs.posi_id;
+            txtPosiCode.Value = dgs.posi_code;
+            txtPosiNameT.Value = dgs.posi_name_t;
+            txtRemark.Value = dgs.remark;
+            if (dgs.status_doctor.Equals("1"))
             {
                 chkStatusDoctor.Checked = true;
             }
@@ -175,7 +175,7 @@ namespace bangna_hospital.gui
             {
                 chkStatusDoctor.Checked = false;
             }
-            if (posi.status_embryologist.Equals("1"))
+            if (dgs.status_embryologist.Equals("1"))
             {
                 chkEmbryologist.Checked = true;
             }
@@ -195,13 +195,13 @@ namespace bangna_hospital.gui
         }
         private void setPosition()
         {
-            posi.posi_id = txtID.Text;
-            posi.posi_code = txtPosiCode.Text;
-            posi.posi_name_t = txtPosiNameT.Text;
+            dgs.posi_id = txtID.Text;
+            dgs.posi_code = txtPosiCode.Text;
+            dgs.posi_name_t = txtPosiNameT.Text;
             //posi.posi_name_e = txtPosiNameE.Text;
-            posi.remark = txtRemark.Text;
-            posi.status_doctor = chkStatusDoctor.Checked == true ? "1" : "0";
-            posi.status_embryologist = chkEmbryologist.Checked == true ? "1" : "0";
+            dgs.remark = txtRemark.Text;
+            dgs.status_doctor = chkStatusDoctor.Checked == true ? "1" : "0";
+            dgs.status_embryologist = chkEmbryologist.Checked == true ? "1" : "0";
         }
         private void grfPosi_AfterRowColChange(object sender, C1.Win.C1FlexGrid.RangeEventArgs e)
         {
@@ -237,7 +237,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                userIdVoid = ic.ivfDB.stfDB.selectByPasswordAdmin(txtPasswordVoid.Text.Trim());
+                userIdVoid = bc.bcDB.stfDB.selectByPasswordAdmin(txtPasswordVoid.Text.Trim());
                 if (userIdVoid.Length>0)
                 {
                     txtPasswordVoid.Hide();
@@ -270,7 +270,7 @@ namespace bangna_hospital.gui
         {
             if (MessageBox.Show("ต้องการ ยกเลิกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                ic.ivfDB.posiDB.VoidPosition(txtID.Text, userIdVoid);
+                bc.bcDB.dgsDB.VoidPosition(txtID.Text, userIdVoid);
                 setGrfPosi();
             }
         }
@@ -279,7 +279,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการ บันทึกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 setPosition();
-                String re = ic.ivfDB.posiDB.insertPosition(posi, ic.user.staff_id);
+                String re = bc.bcDB.dgsDB.insertPosition(dgs, bc.user.staff_id);
                 int chk = 0;
                 if (int.TryParse(re, out chk))
                 {

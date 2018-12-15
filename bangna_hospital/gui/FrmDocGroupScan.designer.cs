@@ -1,6 +1,6 @@
 ﻿namespace bangna_hospital.gui
 {
-    partial class FrmPosition
+    partial class FrmDocGroupScan
     {
         /// <summary>
         /// Required designer variable.
@@ -186,7 +186,7 @@
             // 
             // btnNew
             // 
-            this.btnNew.Image = global::clinic_ivf.Properties.Resources.custom_reports24;
+            this.btnNew.Image = global::bangna_hospital.Properties.Resources.custom_reports24;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNew.Location = new System.Drawing.Point(426, 35);
             this.btnNew.Name = "btnNew";
@@ -220,7 +220,7 @@
             // 
             // btnVoid
             // 
-            this.btnVoid.Image = global::clinic_ivf.Properties.Resources.trash24;
+            this.btnVoid.Image = global::bangna_hospital.Properties.Resources.trash24;
             this.btnVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVoid.Location = new System.Drawing.Point(426, 268);
             this.btnVoid.Name = "btnVoid";
@@ -235,7 +235,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Image = global::clinic_ivf.Properties.Resources.lock24;
+            this.btnEdit.Image = global::bangna_hospital.Properties.Resources.lock24;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEdit.Location = new System.Drawing.Point(426, 80);
             this.btnEdit.Name = "btnEdit";
@@ -250,7 +250,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Image = global::clinic_ivf.Properties.Resources.accept_database24;
+            this.btnSave.Image = global::bangna_hospital.Properties.Resources.accept_database24;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(426, 312);
             this.btnSave.Name = "btnSave";

@@ -68,11 +68,11 @@
     <Compile Include="gui\CellNote.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="gui\FrmPosition.cs">
+    <Compile Include="gui\FrmDocGroupScan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="gui\FrmPosition.designer.cs">
-      <DependentUpon>FrmPosition.cs</DependentUpon>
+    <Compile Include="gui\FrmDocGroupScan.designer.cs">
+      <DependentUpon>FrmDocGroupScan.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmScanNew.cs">
       <SubType>Form</SubType>
@@ -121,7 +121,9 @@
     </Compile>
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
+    <Compile Include="objdb\DocGroupScanDB.cs" />
     <Compile Include="objdb\StaffDB.cs" />
+    <Compile Include="object1\DocGroupScan.cs" />
     <Compile Include="object1\FtpClient.cs" />
     <Compile Include="object1\IniFile.cs" />
     <Compile Include="object1\InitConfig.cs" />
@@ -136,8 +138,8 @@
     <EmbeddedResource Include="gui\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="gui\FrmPosition.resx">
-      <DependentUpon>FrmPosition.cs</DependentUpon>
+    <EmbeddedResource Include="gui\FrmDocGroupScan.resx">
+      <DependentUpon>FrmDocGroupScan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanNew.resx">
       <DependentUpon>FrmScanNew.cs</DependentUpon>
