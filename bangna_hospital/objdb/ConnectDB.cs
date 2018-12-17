@@ -13,6 +13,7 @@ namespace bangna_hospital.objdb
     {
         public SqlConnection connMainHIS, conn;
         public Staff user;
+        public long _rowsAffected = 0;
 
         public ConnectDB(InitConfig initc)
         {
@@ -20,6 +21,46 @@ namespace bangna_hospital.objdb
             connMainHIS = new SqlConnection();
             connMainHIS.ConnectionString = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
             conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB + ";";
+        }
+        public String ExecuteNonQuery(String sql)
+        {
+            String toReturn = "";
+            ExecuteNonQuery(conn,sql);
+            return toReturn;
+        }
+        public String ExecuteNonQuery(SqlConnection con, String sql)
+        {
+            String toReturn = "";
+
+            SqlCommand com = new SqlCommand();
+            com.CommandText = sql;
+            com.CommandType = CommandType.Text;
+            com.Connection = con;
+            try
+            {
+                con.Open();
+                //_rowsAffected = com.ExecuteNonQuery();
+                _rowsAffected = (long)com.ExecuteScalar();
+                toReturn = _rowsAffected.ToString();
+                //toReturn = sql.Substring(0, 1).ToLower() == "i" ? com.LastInsertedId.ToString() : _rowsAffected.ToString();
+                //if (sql.IndexOf("Insert Into Visit") >= 0)        //old program
+                //{
+                //    toReturn = _rowsAffected.ToString();
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ExecuteNonQuery::Error occured.", ex);
+                toReturn = ex.Message;
+            }
+            finally
+            {
+                //_mainConnection.Close();
+                con.Close();
+                com.Dispose();
+            }
+
+            return toReturn;
         }
         public DataTable selectData(String sql)
         {

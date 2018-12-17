@@ -33,23 +33,17 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.chkStatusDoctor = new C1.Win.C1Input.C1CheckBox();
             this.txtPasswordVoid = new C1.Win.C1Input.C1TextBox();
             this.btnNew = new C1.Win.C1Input.C1Button();
             this.chkVoid = new C1.Win.C1Input.C1CheckBox();
             this.btnVoid = new C1.Win.C1Input.C1Button();
             this.btnEdit = new C1.Win.C1Input.C1Button();
             this.btnSave = new C1.Win.C1Input.C1Button();
-            this.txtRemark = new C1.Win.C1Input.C1TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPosiNameT = new C1.Win.C1Input.C1TextBox();
+            this.txtDocGroupName = new C1.Win.C1Input.C1TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtID = new C1.Win.C1Input.C1TextBox();
-            this.txtPosiCode = new C1.Win.C1Input.C1TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.sB = new System.Windows.Forms.StatusStrip();
             this.sB1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.chkEmbryologist = new C1.Win.C1Input.C1CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -57,19 +51,15 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDoctor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPasswordVoid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkVoid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVoid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtRemark)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPosiNameT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDocGroupName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPosiCode)).BeginInit();
             this.sB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chkEmbryologist)).BeginInit();
             this.SuspendLayout();
             // 
             // theme1
@@ -128,21 +118,15 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.panel3.Controls.Add(this.chkEmbryologist);
-            this.panel3.Controls.Add(this.chkStatusDoctor);
             this.panel3.Controls.Add(this.txtPasswordVoid);
             this.panel3.Controls.Add(this.btnNew);
             this.panel3.Controls.Add(this.chkVoid);
             this.panel3.Controls.Add(this.btnVoid);
             this.panel3.Controls.Add(this.btnEdit);
             this.panel3.Controls.Add(this.btnSave);
-            this.panel3.Controls.Add(this.txtRemark);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.txtPosiNameT);
+            this.panel3.Controls.Add(this.txtDocGroupName);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.txtID);
-            this.panel3.Controls.Add(this.txtPosiCode);
-            this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.panel3.Location = new System.Drawing.Point(0, 0);
@@ -150,24 +134,6 @@
             this.panel3.Size = new System.Drawing.Size(564, 510);
             this.panel3.TabIndex = 0;
             this.theme1.SetTheme(this.panel3, "(default)");
-            // 
-            // chkStatusDoctor
-            // 
-            this.chkStatusDoctor.BackColor = System.Drawing.Color.Transparent;
-            this.chkStatusDoctor.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.chkStatusDoctor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkStatusDoctor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkStatusDoctor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.chkStatusDoctor.Location = new System.Drawing.Point(124, 173);
-            this.chkStatusDoctor.Name = "chkStatusDoctor";
-            this.chkStatusDoctor.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkStatusDoctor.Size = new System.Drawing.Size(99, 24);
-            this.chkStatusDoctor.TabIndex = 260;
-            this.chkStatusDoctor.Text = "เป้นแพทย์";
-            this.theme1.SetTheme(this.chkStatusDoctor, "(default)");
-            this.chkStatusDoctor.UseVisualStyleBackColor = true;
-            this.chkStatusDoctor.Value = null;
-            this.chkStatusDoctor.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtPasswordVoid
             // 
@@ -263,44 +229,18 @@
             this.btnSave.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtRemark
+            // txtDocGroupName
             // 
-            this.txtRemark.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRemark.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(124, 115);
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(207, 20);
-            this.txtRemark.TabIndex = 240;
-            this.txtRemark.Tag = null;
-            this.theme1.SetTheme(this.txtRemark, "(default)");
-            this.txtRemark.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.label3.Location = new System.Drawing.Point(27, 117);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 16);
-            this.label3.TabIndex = 239;
-            this.label3.Text = "หมายเหตุ :";
-            this.theme1.SetTheme(this.label3, "(default)");
-            // 
-            // txtPosiNameT
-            // 
-            this.txtPosiNameT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPosiNameT.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtPosiNameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPosiNameT.Location = new System.Drawing.Point(124, 89);
-            this.txtPosiNameT.Name = "txtPosiNameT";
-            this.txtPosiNameT.Size = new System.Drawing.Size(207, 20);
-            this.txtPosiNameT.TabIndex = 238;
-            this.txtPosiNameT.Tag = null;
-            this.theme1.SetTheme(this.txtPosiNameT, "(default)");
-            this.txtPosiNameT.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtDocGroupName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDocGroupName.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtDocGroupName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDocGroupName.Location = new System.Drawing.Point(124, 89);
+            this.txtDocGroupName.Name = "txtDocGroupName";
+            this.txtDocGroupName.Size = new System.Drawing.Size(207, 20);
+            this.txtDocGroupName.TabIndex = 238;
+            this.txtDocGroupName.Tag = null;
+            this.theme1.SetTheme(this.txtDocGroupName, "(default)");
+            this.txtDocGroupName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label2
             // 
@@ -329,32 +269,6 @@
             this.txtID.Visible = false;
             this.txtID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
-            // txtPosiCode
-            // 
-            this.txtPosiCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPosiCode.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtPosiCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPosiCode.Location = new System.Drawing.Point(124, 29);
-            this.txtPosiCode.Name = "txtPosiCode";
-            this.txtPosiCode.Size = new System.Drawing.Size(207, 20);
-            this.txtPosiCode.TabIndex = 235;
-            this.txtPosiCode.Tag = null;
-            this.theme1.SetTheme(this.txtPosiCode, "(default)");
-            this.txtPosiCode.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.label1.Location = new System.Drawing.Point(27, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 16);
-            this.label1.TabIndex = 234;
-            this.label1.Text = "รหัส :";
-            this.theme1.SetTheme(this.label1, "(default)");
-            // 
             // sB
             // 
             this.sB.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -371,32 +285,14 @@
             this.sB1.Size = new System.Drawing.Size(118, 17);
             this.sB1.Text = "toolStripStatusLabel1";
             // 
-            // chkEmbryologist
-            // 
-            this.chkEmbryologist.BackColor = System.Drawing.Color.Transparent;
-            this.chkEmbryologist.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.chkEmbryologist.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkEmbryologist.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkEmbryologist.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.chkEmbryologist.Location = new System.Drawing.Point(229, 173);
-            this.chkEmbryologist.Name = "chkEmbryologist";
-            this.chkEmbryologist.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkEmbryologist.Size = new System.Drawing.Size(155, 24);
-            this.chkEmbryologist.TabIndex = 261;
-            this.chkEmbryologist.Text = "Embryologist";
-            this.theme1.SetTheme(this.chkEmbryologist, "(default)");
-            this.chkEmbryologist.UseVisualStyleBackColor = true;
-            this.chkEmbryologist.Value = null;
-            this.chkEmbryologist.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // FrmPosition
+            // FrmDocGroupScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 532);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.sB);
-            this.Name = "FrmPosition";
+            this.Name = "FrmDocGroupScan";
             this.Text = "FrmPosition";
             this.Load += new System.EventHandler(this.FrmPosition_Load);
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).EndInit();
@@ -407,20 +303,16 @@
             this.splitContainer1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDoctor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPasswordVoid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkVoid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVoid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtRemark)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPosiNameT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDocGroupName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPosiCode)).EndInit();
             this.sB.ResumeLayout(false);
             this.sB.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chkEmbryologist)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,15 +332,9 @@
         private C1.Win.C1Input.C1Button btnVoid;
         private C1.Win.C1Input.C1Button btnEdit;
         private C1.Win.C1Input.C1Button btnSave;
-        private C1.Win.C1Input.C1TextBox txtRemark;
-        private System.Windows.Forms.Label label3;
-        private C1.Win.C1Input.C1TextBox txtPosiNameT;
+        private C1.Win.C1Input.C1TextBox txtDocGroupName;
         private System.Windows.Forms.Label label2;
         private C1.Win.C1Input.C1TextBox txtID;
-        private C1.Win.C1Input.C1TextBox txtPosiCode;
-        private System.Windows.Forms.Label label1;
         private C1.Win.C1Input.C1TextBox txtPasswordVoid;
-        private C1.Win.C1Input.C1CheckBox chkStatusDoctor;
-        private C1.Win.C1Input.C1CheckBox chkEmbryologist;
     }
 }

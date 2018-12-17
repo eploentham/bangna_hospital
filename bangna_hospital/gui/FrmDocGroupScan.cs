@@ -57,9 +57,9 @@ namespace bangna_hospital.gui
                 theme1.SetTheme(c, "Office2013Red");
             }
 
-            bg = txtPosiCode.BackColor;
-            fc = txtPosiCode.ForeColor;
-            ff = txtPosiCode.Font;
+            bg = txtDocGroupName.BackColor;
+            fc = txtDocGroupName.ForeColor;
+            ff = txtDocGroupName.Font;
             txtPasswordVoid.KeyUp += TxtPasswordVoid_KeyUp;
 
             initGrfPosi();
@@ -144,14 +144,8 @@ namespace bangna_hospital.gui
         }
         private void setFocusColor()
         {
-            this.txtPosiCode.Leave += new System.EventHandler(this.textBox_Leave);
-            this.txtPosiCode.Enter += new System.EventHandler(this.textBox_Enter);
-
-            this.txtPosiNameT.Leave += new System.EventHandler(this.textBox_Leave);
-            this.txtPosiNameT.Enter += new System.EventHandler(this.textBox_Enter);
-
-            this.txtRemark.Leave += new System.EventHandler(this.textBox_Leave);
-            this.txtRemark.Enter += new System.EventHandler(this.textBox_Enter);
+            this.txtDocGroupName.Leave += new System.EventHandler(this.textBox_Leave);
+            this.txtDocGroupName.Enter += new System.EventHandler(this.textBox_Enter);
         }
         private void textBox_Leave(object sender, EventArgs e)
         {
@@ -163,45 +157,21 @@ namespace bangna_hospital.gui
         private void setControl(String posiId)
         {
             dgs = bc.bcDB.dgsDB.selectByPk(posiId);
-            txtID.Value = dgs.posi_id;
-            txtPosiCode.Value = dgs.posi_code;
-            txtPosiNameT.Value = dgs.posi_name_t;
-            txtRemark.Value = dgs.remark;
-            if (dgs.status_doctor.Equals("1"))
-            {
-                chkStatusDoctor.Checked = true;
-            }
-            else
-            {
-                chkStatusDoctor.Checked = false;
-            }
-            if (dgs.status_embryologist.Equals("1"))
-            {
-                chkEmbryologist.Checked = true;
-            }
-            else
-            {
-                chkEmbryologist.Checked = false;
-            }
+            txtID.Value = dgs.doc_group_id;
+            txtDocGroupName.Value = dgs.doc_group_name;
         }
         private void setControlEnable(Boolean flag)
         {
             //txtID.Enabled = flag;
-            txtPosiCode.Enabled = flag;
-            txtPosiNameT.Enabled = flag;
-            txtRemark.Enabled = flag;
+            txtDocGroupName.Enabled = flag;
             chkVoid.Enabled = flag;
             btnEdit.Image = !flag ? Resources.lock24 : Resources.open24;
         }
         private void setPosition()
         {
-            dgs.posi_id = txtID.Text;
-            dgs.posi_code = txtPosiCode.Text;
-            dgs.posi_name_t = txtPosiNameT.Text;
+            dgs.doc_group_id = txtID.Text;
+            dgs.doc_group_name = txtDocGroupName.Text;
             //posi.posi_name_e = txtPosiNameE.Text;
-            dgs.remark = txtRemark.Text;
-            dgs.status_doctor = chkStatusDoctor.Checked == true ? "1" : "0";
-            dgs.status_embryologist = chkEmbryologist.Checked == true ? "1" : "0";
         }
         private void grfPosi_AfterRowColChange(object sender, C1.Win.C1FlexGrid.RangeEventArgs e)
         {
@@ -237,7 +207,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                userIdVoid = bc.bcDB.stfDB.selectByPasswordAdmin(txtPasswordVoid.Text.Trim());
+                //userIdVoid = bc.bcDB.stfDB.selectByPasswordAdmin(txtPasswordVoid.Text.Trim());
                 if (userIdVoid.Length>0)
                 {
                     txtPasswordVoid.Hide();
@@ -253,9 +223,7 @@ namespace bangna_hospital.gui
         private void btnNew_Click(object sender, EventArgs e)
         {
             txtID.Value = "";
-            txtPosiCode.Value = "";
-            txtPosiNameT.Value = "";
-            txtRemark.Value = "";
+            txtDocGroupName.Value = "";
             chkVoid.Checked = false;
             btnVoid.Hide();
             flagEdit = true;
@@ -268,9 +236,9 @@ namespace bangna_hospital.gui
         }
         private void btnVoid_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("ต้องการ ยกเลิกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            if (MessageBox.Show("ต้องการ ยกเลิกข้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                bc.bcDB.dgsDB.VoidPosition(txtID.Text, userIdVoid);
+                //bc.bcDB.dgsDB.v(txtID.Text, userIdVoid);
                 setGrfPosi();
             }
         }
@@ -279,7 +247,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการ บันทึกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 setPosition();
-                String re = bc.bcDB.dgsDB.insertPosition(dgs, bc.user.staff_id);
+                String re = bc.bcDB.dgsDB.insertDocGroupScan(dgs, bc.user.staff_id);
                 int chk = 0;
                 if (int.TryParse(re, out chk))
                 {

@@ -53,7 +53,7 @@ namespace bangna_hospital.objdb
         }
         public DataTable selectByPk1(String id)
         {
-            Staff cop1 = new Staff();
+            DocGroupScan cop1 = new DocGroupScan();
             DataTable dt = new DataTable();
             String sql = "select * " +
                 "From dgs." + dgs.table +
@@ -62,6 +62,66 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
 
             return dt;
+        }
+        public String insert(DocGroupScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            p.active = "1";
+            //p.ssdata_id = "";
+            int chk = 0;
+            
+            sql = "Insert Into " + dgs.table + " Set " + dgs.doc_group_name + "='"+p.doc_group_name+"'"+
+                "," + dgs.active + "='1' " +
+                ")";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String update(DocGroupScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+                        
+            sql = "Update " + dgs.table + " Set " +
+                " " + dgs.doc_group_name + " = '" + p.doc_group_name + "'" +
+                
+                "Where " + dgs.pkField + "='" + p.doc_group_id + "'"
+                ;
+
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String insertDocGroupScan(DocGroupScan p, String userId)
+        {
+            String re = "";
+
+            if (p.doc_group_id.Equals(""))
+            {
+                re = insert(p, "");
+            }
+            else
+            {
+                re = update(p, "");
+            }
+
+            return re;
         }
         public DocGroupScan setDocGroupScan(DataTable dt)
         {
