@@ -60,6 +60,15 @@ namespace bangna_hospital.gui
             this.FormClosing += MainMenu4_FormClosing;
             menuExit.Click += MenuExit_Click;
             menuScan.Click += MenuScan_Click;
+            menuDocGroup.Click += MenuDocGroup_Click;
+        }
+
+        private void MenuDocGroup_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmDocGroupScan frm = new FrmDocGroupScan(bc);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            AddNewTab(frm, menuDocGroup.Text + " ");
         }
 
         private void MenuScan_Click(object sender, EventArgs e)
@@ -67,7 +76,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             FrmScanNew frm = new FrmScanNew(bc, this);
             frm.FormBorderStyle = FormBorderStyle.None;
-            AddNewTab(frm, menuExamiRoom.Text + " ");
+            AddNewTab(frm, menuScan.Text + " ");
         }
 
         private void MenuExit_Click(object sender, EventArgs e)

@@ -47,7 +47,7 @@
             this.menuPharmacy = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDrugPatient = new System.Windows.Forms.ToolStripMenuItem();
             this.menuInit = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStaff = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDocGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDept = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPosi = new System.Windows.Forms.ToolStripMenuItem();
             this.lABToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,13 +102,13 @@
             // menuScan
             // 
             this.menuScan.Name = "menuScan";
-            this.menuScan.Size = new System.Drawing.Size(180, 22);
+            this.menuScan.Size = new System.Drawing.Size(150, 22);
             this.menuScan.Text = "Scan ใหม่";
             // 
             // menuView
             // 
             this.menuView.Name = "menuView";
-            this.menuView.Size = new System.Drawing.Size(180, 22);
+            this.menuView.Size = new System.Drawing.Size(150, 22);
             this.menuView.Text = "ดูข้อมูลเก่า Scan";
             // 
             // menuNurse
@@ -205,7 +205,7 @@
             // menuInit
             // 
             this.menuInit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuStaff,
+            this.menuDocGroup,
             this.menuDept,
             this.menuPosi,
             this.lABToolStripMenuItem,
@@ -214,11 +214,11 @@
             this.menuInit.Size = new System.Drawing.Size(106, 20);
             this.menuInit.Text = "กำหนดค่าโปรแกรม";
             // 
-            // menuStaff
+            // menuDocGroup
             // 
-            this.menuStaff.Name = "menuStaff";
-            this.menuStaff.Size = new System.Drawing.Size(192, 22);
-            this.menuStaff.Text = "รายชื่อพนักงาน";
+            this.menuDocGroup.Name = "menuDocGroup";
+            this.menuDocGroup.Size = new System.Drawing.Size(192, 22);
+            this.menuDocGroup.Text = "ประเภทเอกสาร";
             // 
             // menuDept
             // 
@@ -339,7 +339,7 @@
         private System.Windows.Forms.ToolStripMenuItem ปอนSpermFreexingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuInit;
         private C1.Win.C1Themes.C1ThemeController theme1;
-        private System.Windows.Forms.ToolStripMenuItem menuStaff;
+        private System.Windows.Forms.ToolStripMenuItem menuDocGroup;
         private System.Windows.Forms.ToolStripMenuItem menuDept;
         private System.Windows.Forms.ToolStripMenuItem menuPosi;
         private System.Windows.Forms.ToolStripMenuItem lABToolStripMenuItem;

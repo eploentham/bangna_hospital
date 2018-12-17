@@ -167,7 +167,7 @@ namespace bangna_hospital.gui
             chkVoid.Enabled = flag;
             btnEdit.Image = !flag ? Resources.lock24 : Resources.open24;
         }
-        private void setPosition()
+        private void setDocGroupScan()
         {
             dgs.doc_group_id = txtID.Text;
             dgs.doc_group_name = txtDocGroupName.Text;
@@ -246,7 +246,7 @@ namespace bangna_hospital.gui
         {
             if (MessageBox.Show("ต้องการ บันทึกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                setPosition();
+                setDocGroupScan();
                 String re = bc.bcDB.dgsDB.insertDocGroupScan(dgs, bc.user.staff_id);
                 int chk = 0;
                 if (int.TryParse(re, out chk))

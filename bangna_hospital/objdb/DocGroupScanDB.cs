@@ -32,10 +32,10 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "select * " +
-                "From dgs."+ dgs.table +
+                "From "+ dgs.table +" dgs "+
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where dgs." + dgs.active + " ='1' ";
-            dt = conn.selectData(conn.connMainHIS, sql);
+                " Where dgs." + dgs.active + " ='1' ";
+            dt = conn.selectData(conn.conn, sql);
             
             return dt;
         }
@@ -47,7 +47,7 @@ namespace bangna_hospital.objdb
                 "From dgs." + dgs.table +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dgs." + dgs.pkField + " ='" + id + "' ";
-            dt = conn.selectData(conn.connMainHIS, sql);
+            dt = conn.selectData(conn.conn, sql);
             cop1 = setDocGroupScan(dt);
             return cop1;
         }
@@ -59,7 +59,7 @@ namespace bangna_hospital.objdb
                 "From dgs." + dgs.table +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dgs." + dgs.pkField + " ='"+id+"' ";
-            dt = conn.selectData(conn.connMainHIS, sql);
+            dt = conn.selectData(conn.conn, sql);
 
             return dt;
         }
@@ -71,8 +71,9 @@ namespace bangna_hospital.objdb
             //p.ssdata_id = "";
             int chk = 0;
             
-            sql = "Insert Into " + dgs.table + " Set " + dgs.doc_group_name + "='"+p.doc_group_name+"'"+
-                "," + dgs.active + "='1' " +
+            sql = "Insert Into " + dgs.table + " (" + dgs.doc_group_name + ","+dgs.active+"" +
+                ") " +
+                "Values ('"+p.doc_group_name+"','1' " +
                 ")";
             try
             {
