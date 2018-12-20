@@ -1,0 +1,371 @@
+﻿using bangna_hospital.object1;
+using C1.Win.C1Input;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace bangna_hospital.objdb
+{
+    public class DocScanDB
+    {
+        public DocScan dsc;
+        ConnectDB conn;
+        public List<DocScan> lDgs;
+
+        public DocScanDB(ConnectDB c)
+        {
+            this.conn = c;
+            initConfig();
+        }
+        private void initConfig()
+        {
+            dsc = new DocScan();
+            lDgs = new List<DocScan>();
+
+            dsc.doc_scan_id = "doc_scan_id";
+            dsc.doc_group_id = "doc_group_id";
+            dsc.row_no = "row_no";
+            dsc.host_ftp = "host_ftp";
+            dsc.image_path = "image_path";
+            dsc.hn = "hn";
+            dsc.vn = "vn";
+            dsc.visit_date = "visit_date";
+            dsc.active = "active";
+            dsc.remark = "remark";
+            dsc.date_create = "date_create";
+            dsc.date_modi = "date_modi";
+            dsc.date_cancel = "date_cancel";
+            dsc.user_create = "user_create";
+            dsc.user_modi = "user_modi";
+            dsc.user_cancel = "user_cancel";
+
+            dsc.table = "doc_scan";
+            dsc.pkField = "doc_scan_id";
+        }
+        public void getlBsp()
+        {
+            //lDept = new List<Position>();
+
+            lDgs.Clear();
+            DataTable dt = new DataTable();
+            dt = selectAll();
+            foreach (DataRow row in dt.Rows)
+            {
+                DocScan itm1 = new DocScan();
+                itm1.doc_scan_id = row[dsc.doc_scan_id].ToString();
+                itm1.doc_group_id = row[dsc.doc_group_id].ToString();
+                itm1.row_no = row[dsc.row_no].ToString();
+                itm1.host_ftp = row[dsc.host_ftp].ToString();
+                itm1.image_path = row[dsc.image_path].ToString();
+                itm1.hn = row[dsc.hn].ToString();
+                itm1.vn = row[dsc.vn].ToString();
+                itm1.visit_date = row[dsc.visit_date].ToString();
+                itm1.active = row[dsc.active].ToString();
+                itm1.remark = row[dsc.remark].ToString();
+                itm1.date_create = row[dsc.date_create].ToString();
+                itm1.date_modi = row[dsc.date_modi].ToString();
+                itm1.date_cancel = row[dsc.date_cancel].ToString();
+                itm1.user_create = row[dsc.user_create].ToString();
+                itm1.user_modi = row[dsc.user_modi].ToString();
+                itm1.user_cancel = row[dsc.user_cancel].ToString();
+
+                //itm1.is_ipd = row[bsp.is_ipd].ToString();
+                lDgs.Add(itm1);
+            }
+        }
+        public DataTable selectAll()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                " Where dsc." + dsc.active + " ='1' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectByHn(String id)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + id + "' and dsc."+dsc.active+"='1'" +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DocScan selectByPk(String id)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.pkField + " ='" + id + "' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            cop1 = setDocScan(dt);
+            return cop1;
+        }
+        public DataTable selectByPk1(String id)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.pkField + " ='" + id + "' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public String selectRowNoByHn(String hn, String docgid)
+        {
+            String re = "0", re1="";
+            int chk = 0;
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select max("+dsc.row_no+") as "+ dsc.row_no+" " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc."+dsc.doc_group_id+"='"+docgid+"' " +
+                "  ";
+            dt = conn.selectData(conn.conn, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re1 = dt.Rows[0][dsc.row_no].ToString();
+                int.TryParse(re1, out chk);
+                chk++;
+                re = chk.ToString();
+            }
+            return re;
+        }
+        public String selectRowNoByHnVn(String hn, String vn, String docgid)
+        {
+            String re = "0", re1 = "";
+            int chk = 0;
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select max(" + dsc.row_no + ") as " + dsc.row_no + " " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.doc_group_id + "='" + docgid + "' and dsc."+dsc.vn+"='"+vn+"' " +
+                "  ";
+            dt = conn.selectData(conn.conn, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re1 = dt.Rows[0][dsc.row_no].ToString();
+                int.TryParse(re1, out chk);
+                chk++;
+                re = chk.ToString();
+            }
+            return re;
+        }
+        private void chkNull(DocScan p)
+        {
+            int chk = 0;
+
+            p.date_modi = p.date_modi == null ? "" : p.date_modi;
+            p.date_cancel = p.date_cancel == null ? "" : p.date_cancel;
+            p.user_create = p.user_create == null ? "" : p.user_create;
+            p.user_modi = p.user_modi == null ? "" : p.user_modi;
+            p.user_cancel = p.user_cancel == null ? "" : p.user_cancel;
+
+            p.host_ftp = p.host_ftp == null ? "" : p.host_ftp;
+            p.image_path = p.image_path == null ? "" : p.image_path;
+            p.hn = p.hn == null ? "" : p.hn;
+            p.vn = p.vn == null ? "" : p.vn;
+            p.visit_date = p.visit_date == null ? "" : p.visit_date;
+            p.remark = p.remark == null ? "" : p.remark;
+            //p.opu_code = p.opu_code == null ? "" : p.opu_code;
+
+            p.doc_group_id = int.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
+            p.row_no = int.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
+            //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
+            //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
+            //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
+        }
+        public String insert(DocScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            p.active = "1";
+            //p.ssdata_id = "";
+            int chk = 0;
+            chkNull(p);
+            sql = "Insert Into " + dsc.table + " (" + dsc.doc_group_id + "," + dsc.active + "," + dsc.row_no + "," +
+                dsc.host_ftp + "," + dsc.image_path + "," + dsc.hn + "," +
+                dsc.vn + "," + dsc.visit_date + "," + dsc.remark + "," +
+                dsc.date_create + "," + dsc.date_modi + "," + dsc.date_cancel + "," +
+                dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + " " +
+                ") " +
+                "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
+                "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
+                "'" + p.vn + "','" + p.visit_date + "','" + p.remark + "'," +
+                "getdate(),'" + p.date_modi + "','" + p.date_cancel + "'," +
+                "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "' " +
+                ")";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String update(DocScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            chkNull(p);
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.doc_group_id + " = '" + p.doc_group_id + "'" +
+                "," + dsc.row_no + " = '" + p.row_no + "'" +
+                "," + dsc.host_ftp + " = '" + p.host_ftp + "'" +
+                "," + dsc.image_path + " = '" + p.image_path + "'" +
+                "," + dsc.hn + " = '" + p.hn + "'" +
+                "," + dsc.vn + " = '" + p.vn + "'" +
+                "," + dsc.visit_date + " = '" + p.visit_date + "'" +
+                "," + dsc.remark + " = '" + p.remark + "'" +
+                "," + dsc.date_modi + " = getdate()" +
+                "," + dsc.user_modi + " = '" + userId + "'" +
+
+                "Where " + dsc.pkField + "='" + p.doc_scan_id + "'"
+                ;
+
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String insertDocScan(DocScan p, String userId)
+        {
+            String re = "";
+
+            if (p.doc_scan_id.Equals(""))
+            {
+                re = insert(p, "");
+            }
+            else
+            {
+                re = update(p, "");
+            }
+
+            return re;
+        }
+        public String voidDocScan(String id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public DocScan setDocScan(DataTable dt)
+        {
+            DocScan dgs1 = new DocScan();
+            if (dt.Rows.Count > 0)
+            {
+                dgs1.doc_scan_id = dt.Rows[0][dsc.doc_scan_id].ToString();
+                dgs1.doc_group_id = dt.Rows[0][dsc.doc_group_id].ToString();
+                dgs1.row_no = dt.Rows[0][dsc.row_no].ToString();
+                dgs1.host_ftp = dt.Rows[0][dsc.host_ftp].ToString();
+                dgs1.image_path = dt.Rows[0][dsc.image_path].ToString();
+                dgs1.hn = dt.Rows[0][dsc.hn].ToString();
+                dgs1.vn = dt.Rows[0][dsc.vn].ToString();
+                dgs1.visit_date = dt.Rows[0][dsc.visit_date].ToString();
+                dgs1.active = dt.Rows[0][dsc.active].ToString();
+                dgs1.remark = dt.Rows[0][dsc.remark].ToString();
+                dgs1.date_create = dt.Rows[0][dsc.date_create].ToString();
+                dgs1.date_modi = dt.Rows[0][dsc.date_modi].ToString();
+                dgs1.date_cancel = dt.Rows[0][dsc.date_cancel].ToString();
+                dgs1.user_create = dt.Rows[0][dsc.user_create].ToString();
+                dgs1.user_modi = dt.Rows[0][dsc.user_modi].ToString();
+                dgs1.user_cancel = dt.Rows[0][dsc.user_cancel].ToString();
+            }
+            else
+            {
+                setDocGroupScan(dgs1);
+            }
+            return dgs1;
+        }
+        public DocScan setDocGroupScan(DocScan dgs1)
+        {
+            dgs1.doc_scan_id = "";
+            dgs1.doc_group_id = "";
+            dgs1.row_no = "";
+            dgs1.host_ftp = "";
+            dgs1.image_path = "";
+            dgs1.hn = "";
+            dgs1.vn = "";
+            dgs1.visit_date = "";
+            dgs1.active = "";
+            dgs1.remark = "";
+            dgs1.date_create = "";
+            dgs1.date_modi = "";
+            dgs1.date_cancel = "";
+            dgs1.user_create = "";
+            dgs1.user_modi = "";
+            dgs1.user_cancel = ""; ;
+            return dgs1;
+        }
+        //public void setCboBsp(C1ComboBox c, String selected)
+        //{
+        //    ComboBoxItem item = new ComboBoxItem();
+        //    //DataTable dt = selectAll();
+        //    int i = 0;
+        //    if (lDgs.Count <= 0) getlBsp();
+        //    item = new ComboBoxItem();
+        //    item.Value = "";
+        //    item.Text = "";
+        //    c.Items.Add(item);
+        //    foreach (DocScan cus1 in lDgs)
+        //    {
+        //        item = new ComboBoxItem();
+        //        item.Value = cus1.doc_group_id;
+        //        item.Text = cus1.doc_group_name;
+        //        c.Items.Add(item);
+        //        if (item.Value.Equals(selected))
+        //        {
+        //            //c.SelectedItem = item.Value;
+        //            c.SelectedText = item.Text;
+        //            c.SelectedIndex = i + 1;
+        //        }
+        //        i++;
+        //    }
+        //}
+    }
+}

@@ -250,9 +250,9 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.label2.Location = new System.Drawing.Point(27, 91);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 16);
+            this.label2.Size = new System.Drawing.Size(66, 16);
             this.label2.TabIndex = 237;
-            this.label2.Text = "ชื่อตำแหน่ง:";
+            this.label2.Text = "กลุ่มเอกสาร :";
             this.theme1.SetTheme(this.label2, "(default)");
             // 
             // txtID

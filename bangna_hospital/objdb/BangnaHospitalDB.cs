@@ -11,6 +11,8 @@ namespace bangna_hospital.objdb
         ConnectDB conn;
         public StaffDB stfDB;
         public DocGroupScanDB dgsDB;
+        public PatientDB pttDB;
+        public DocScanDB dscDB;
 
         public BangnaHospitalDB(ConnectDB c)
         {
@@ -21,6 +23,8 @@ namespace bangna_hospital.objdb
         {
             stfDB = new StaffDB(conn);
             dgsDB = new DocGroupScanDB(conn);
+            pttDB = new PatientDB(conn);
+            dscDB = new DocScanDB(conn);
         }
     }
 }

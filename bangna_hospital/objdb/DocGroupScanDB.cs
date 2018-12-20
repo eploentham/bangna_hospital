@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,8 @@ namespace bangna_hospital.objdb
     {
         public DocGroupScan dgs;
         ConnectDB conn;
+        public List<DocGroupScan> lDgs;
+
         public DocGroupScanDB(ConnectDB c)
         {
             this.conn = c;
@@ -20,6 +23,8 @@ namespace bangna_hospital.objdb
         private void initConfig()
         {
             dgs = new DocGroupScan();
+            lDgs = new List<DocGroupScan>();
+
             dgs.active = "active";
             dgs.doc_group_name = "doc_group_name";
             dgs.doc_group_id = "doc_group_id";
@@ -28,25 +33,73 @@ namespace bangna_hospital.objdb
             dgs.table = "doc_group_scan";
             dgs.pkField = "doc_group_id";
         }
+        public void getlBsp()
+        {
+            //lDept = new List<Position>();
+
+            lDgs.Clear();
+            DataTable dt = new DataTable();
+            dt = selectAll();
+            foreach (DataRow row in dt.Rows)
+            {
+                DocGroupScan itm1 = new DocGroupScan();
+                itm1.active = row[dgs.active].ToString();
+                itm1.doc_group_name = row[dgs.doc_group_name].ToString();
+                itm1.doc_group_id = row[dgs.doc_group_id].ToString();
+                itm1.remark = row[dgs.remark].ToString();                
+
+                //itm1.is_ipd = row[bsp.is_ipd].ToString();
+                lDgs.Add(itm1);
+            }
+        }
+        public String getIdDgs(String name)
+        {
+            String re = "";
+            foreach (DocGroupScan row in lDgs)
+            {
+                if (row.doc_group_name.Trim().Equals(name.Trim()))
+                {
+                    re = row.doc_group_id;
+                    break;
+                }
+            }
+            return re;
+        }
+        public String getNameDgs(String id)
+        {
+            String re = "";
+            foreach (DocGroupScan row in lDgs)
+            {
+                if (row.doc_group_id.Trim().Equals(id.Trim()))
+                {
+                    re = row.doc_group_name;
+                    break;
+                }
+            }
+            return re;
+        }
         public DataTable selectAll()
         {
             DataTable dt = new DataTable();
             String sql = "select * " +
                 "From "+ dgs.table +" dgs "+
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                " Where dgs." + dgs.active + " ='1' ";
+                " Where dgs." + dgs.active + " ='1' " +
+                "Order By doc_group_id ";
             dt = conn.selectData(conn.conn, sql);
             
             return dt;
         }
+
         public DocGroupScan selectByPk(String id)
         {
             DocGroupScan cop1 = new DocGroupScan();
             DataTable dt = new DataTable();
             String sql = "select * " +
-                "From dgs." + dgs.table +
+                "From " + dgs.table +" dgs "+
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where dgs." + dgs.pkField + " ='" + id + "' ";
+                "Where dgs." + dgs.pkField + " ='" + id + "' " +
+                "Order By doc_group_id ";
             dt = conn.selectData(conn.conn, sql);
             cop1 = setDocGroupScan(dt);
             return cop1;
@@ -56,9 +109,10 @@ namespace bangna_hospital.objdb
             DocGroupScan cop1 = new DocGroupScan();
             DataTable dt = new DataTable();
             String sql = "select * " +
-                "From dgs." + dgs.table +
+                "From " + dgs.table + " dgs " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where dgs." + dgs.pkField + " ='"+id+"' ";
+                "Where dgs." + dgs.pkField + " ='"+id+"' " +
+                "Order By doc_group_id ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -147,6 +201,31 @@ namespace bangna_hospital.objdb
             dgs1.doc_group_name = "";
             dgs1.doc_group_id = "";
             return dgs1;
+        }
+        public void setCboBsp(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectAll();
+            int i = 0;
+            if (lDgs.Count <= 0) getlBsp();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (DocGroupScan cus1 in lDgs)
+            {
+                item = new ComboBoxItem();
+                item.Value = cus1.doc_group_id;
+                item.Text = cus1.doc_group_name;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
         }
     }
 }

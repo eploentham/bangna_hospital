@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.Win.C1FlexGrid;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,6 +41,8 @@ namespace bangna_hospital.gui
         {
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
+            bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
+
             array1 = new ArrayList();
             timer1 = new Timer();
             int chk = 0;
@@ -51,11 +55,32 @@ namespace bangna_hospital.gui
 
             theme1.Theme = bc.iniC.themeApplication;
             theme1.SetTheme(sb1, "BeigeOne");
+            theme1.SetTheme(groupBox1, theme1.Theme);
+            theme1.SetTheme(grfScan, theme1.Theme);
+            foreach (Control con in groupBox1.Controls)
+            {
+                theme1.SetTheme(con, theme1.Theme);
+            }
+            foreach (Control con in grfScan.Controls)
+            {
+                theme1.SetTheme(con, theme1.Theme);
+            }
+
             btnOpen.Click += BtnOpen_Click;
+            btnHn.Click += BtnHn_Click;
 
             sb1.Text = "aaaaaaaaaa";
             initGrf();
             setGrf();
+        }
+
+        private void BtnHn_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmSearchHn frm = new FrmSearchHn(bc, FrmSearchHn.StatusConnection.host);
+            frm.ShowDialog(this);
+            txtHn.Value = bc.sPtt.Hn;
+            txtName.Value = bc.sPtt.Name;
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -63,16 +88,29 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             //bool exists = System.IO.Directory.Exists(bc.iniC.pathImgScanNew);
             DirectoryInfo folderImg = null;
-            if (!Directory.Exists(bc.iniC.pathImgScanNew))
-                folderImg = Directory.CreateDirectory(bc.iniC.pathImgScanNew);
-            String[] Files = Directory.GetFiles(bc.iniC.pathImgScanNew,"*.*", SearchOption.AllDirectories);
+            if (!Directory.Exists(bc.iniC.pathImageScan))
+                folderImg = Directory.CreateDirectory(bc.iniC.pathImageScan);
+            setImage1(true);
+            //String[] Files = Directory.GetFiles(bc.iniC.pathImgScanNew,"*.*", SearchOption.AllDirectories);
+            //if (Files.Length > 0)
+            //{
+            //    setImage(Files);
+            //    timer1.Stop();
+            //}
+        }
+        private void setImage1(Boolean flagStop)
+        {
+            String[] Files = Directory.GetFiles(bc.iniC.pathImageScan, "*.*", SearchOption.AllDirectories);
             if (Files.Length > 0)
             {
+                setGrf();
                 setImage(Files);
-                timer1.Stop();
+                if (flagStop)
+                {
+                    timer1.Stop();
+                }
             }
         }
-
         private void BtnOpen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -110,9 +148,16 @@ namespace bangna_hospital.gui
                     if (!ex.Equals("pdf"))
                     {
                         loadedImage = Image.FromFile(file);
-                        int originalWidth = loadedImage.Width;
-                        int newWidth = 180;
+                        MemoryStream stream = new MemoryStream();
+
+                        loadedImage.Save(stream, ImageFormat.Jpeg);
+                        loadedImage.Dispose();
+                        loadedImage = Image.FromStream(stream);
+                        int originalWidth = 0;
+                        originalWidth = loadedImage.Width;
+                        int newWidth = 280;
                         resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                        
                     }
                     else
                     {
@@ -143,7 +188,8 @@ namespace bangna_hospital.gui
                     else if (j == 4)
                         grf[i, colPic4] = resizedImage;
                     j++;
-
+                    
+                    //resizedImage.Dispose();
                 }
                 catch (Exception ex)
                 {
@@ -196,6 +242,11 @@ namespace bangna_hospital.gui
 
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("&แก้ไข Image", new EventHandler(ContextMenu_edit));
+            menuGw.MenuItems.Add("&Rotate Image", new EventHandler(ContextMenu_retate));
+            foreach (DocGroupScan dgs in bc.bcDB.dgsDB.lDgs)
+            {
+                menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image ["+dgs.doc_group_name+"]", new EventHandler(ContextMenu_upload));
+            }
             grf.ContextMenu = menuGw;
 
             //row1[colVSE2] = row[ic.ivfDB.pApmDB.pApm.e2].ToString().Equals("1") ? imgCorr : imgTran;
@@ -206,9 +257,85 @@ namespace bangna_hospital.gui
         //    //throw new NotImplementedException();
 
         //}
+        private String searchInArray()
+        {
+            String dgs = "", name = "";
+            int i = 0;
+            Boolean chk = false;
+            foreach (String aa in array1)
+            {
+                i++;
+                if (aa.IndexOf(grf.Row + "," + grf.Col) >= 0)
+                {
+                    name = array1[i - 1].ToString();
+                    chk = true;
+                    break;
+                }
+            }
+            return name;
+        }
+        private void ContextMenu_retate(object sender, System.EventArgs e)
+        {
+            String dgs = "", filename = "", id = "";
+            filename = searchInArray();
+            try
+            {
+                filename = filename.Substring(filename.IndexOf('*') + 1);
+                Image img = Image.FromFile(filename);
+                Image resizedImage;
+                int originalWidth = img.Width;
+                int newWidth = 280;
+                resizedImage = img.GetThumbnailImage(newWidth, (newWidth * img.Height) / originalWidth, null, IntPtr.Zero);
+                resizedImage = bc.RotateImage(resizedImage);
+                grf[grf.Row, grf.Col] = resizedImage;
+                grf.AutoSizeCols();
+                grf.AutoSizeRows();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_upload(object sender, System.EventArgs e)
+        {
+            String dgs = "", filename = "", id = "";
+            filename = searchInArray();
+            try
+            {
+                filename = filename.Substring(filename.IndexOf('*') + 1);
+                String[] ext = filename.Split('.');
+                dgs = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
+                DocScan dsc = new DocScan();
+                dsc.active = "1";
+                dsc.doc_scan_id = "";
+                dsc.doc_group_id = dgs;
+                dsc.hn = txtHn.Text;
+                dsc.vn = txtVN.Text;
+                dsc.visit_date = txtVisitDate.Text;
+                if (!txtVN.Text.Equals(""))
+                {
+                    dsc.row_no = bc.bcDB.dscDB.selectRowNoByHnVn(txtHn.Text,txtVN.Text, dgs);
+                }
+                else
+                {
+                    dsc.row_no = bc.bcDB.dscDB.selectRowNoByHn(txtHn.Text, dgs);
+                }
+                dsc.host_ftp = bc.iniC.hostFTP;
+                dsc.image_path = txtHn.Text+"//"+txtHn.Text+"_"+dgs+"_"+ dsc.row_no + "." + ext[ext.Length - 1];
+                bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
+                FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                ftp.createDirectory(txtHn.Text);
+                ftp.delete(dsc.image_path);
+                ftp.upload(dsc.image_path, filename);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         private void ContextMenu_edit(object sender, System.EventArgs e)
         {
-            String pttId = "", name = "", id = "";
+            String pttId = "", filename = "", id = "";
             int i = 0;
             Boolean chk = false;
             foreach (String aa in array1)
@@ -216,26 +343,29 @@ namespace bangna_hospital.gui
                 i++;
                 if(aa.IndexOf(grf.Row + "," + grf.Col) >= 0)
                 {
-                    name = array1[i-1].ToString();
+                    filename = array1[i-1].ToString();
                     chk = true;
                     break;
                 }
             }
             try
             {
-                name = name.Substring(name.IndexOf('*') + 1);
+                filename = filename.Substring(filename.IndexOf('*') + 1);
                 //MessageBox.Show("row " + grf.Row + " col " + grf.Col + "\n" + name, "");
                 if (chk)
                 {
-                    FrmScanView frm = new FrmScanView(bc, txtHn.Text, txtVN.Text, txtNameFeMale.Text, name);
+                    String dgs = "";
+                    dgs = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
+                    FrmScanNewView frm = new FrmScanNewView(bc, txtHn.Text, txtVN.Text, txtName.Text, filename, dgs, txtVisitDate.Text);
                     frm.ShowDialog(this);
+                    setGrf();
+                    setImage1(false);
                 }
             }
             catch(Exception ex)
             {
 
             }
-            
             //id = grfPtt[grfPtt.Row, colID] != null ? grfPtt[grfPtt.Row, colID].ToString() : "";
         }
         private void FrmScanNew_Load(object sender, EventArgs e)

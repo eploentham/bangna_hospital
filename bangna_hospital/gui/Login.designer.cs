@@ -46,7 +46,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.btnOk);
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.txtPassword);
@@ -54,12 +54,12 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(376, 249);
             this.panel1.TabIndex = 5;
-            this.theme1.SetTheme(this.panel1, "Office2016DarkGray");
+            this.theme1.SetTheme(this.panel1, "(default)");
             // 
             // btnOk
             // 
@@ -72,6 +72,7 @@
             this.btnOk.TabIndex = 9;
             this.btnOk.Text = "Ok";
             this.btnOk.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnOk, "(default)");
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
@@ -86,6 +87,7 @@
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnCancel, "(default)");
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
@@ -101,6 +103,7 @@
             this.txtPassword.Size = new System.Drawing.Size(171, 24);
             this.txtPassword.TabIndex = 8;
             this.txtPassword.Tag = null;
+            this.theme1.SetTheme(this.txtPassword, "(default)");
             this.txtPassword.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtUserName
@@ -114,6 +117,7 @@
             this.txtUserName.Size = new System.Drawing.Size(171, 24);
             this.txtUserName.TabIndex = 7;
             this.txtUserName.Tag = null;
+            this.theme1.SetTheme(this.txtUserName, "(default)");
             this.txtUserName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label2
@@ -127,6 +131,7 @@
             this.label2.Size = new System.Drawing.Size(67, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "password";
+            this.theme1.SetTheme(this.label2, "(default)");
             // 
             // label1
             // 
@@ -139,6 +144,7 @@
             this.label1.Size = new System.Drawing.Size(71, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "user name";
+            this.theme1.SetTheme(this.label1, "(default)");
             // 
             // theme1
             // 
@@ -150,9 +156,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(376, 249);
             this.Controls.Add(this.panel1);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.theme1.SetTheme(this, "(default)");
             this.Load += new System.EventHandler(this.Login_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

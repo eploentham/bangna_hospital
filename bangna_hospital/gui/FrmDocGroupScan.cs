@@ -26,7 +26,7 @@ namespace bangna_hospital.gui
 
         Color bg, fc;
         Font ff, ffB;
-        int colID = 1, colCode = 2, colName = 3, colRemark = 4, colE = 5, colS = 6, coledit = 7, colCnt = 7;
+        int colID = 1, colName = 2;
 
         C1FlexGrid grfPosi;
 
@@ -60,6 +60,7 @@ namespace bangna_hospital.gui
             bg = txtDocGroupName.BackColor;
             fc = txtDocGroupName.ForeColor;
             ff = txtDocGroupName.Font;
+            
             txtPasswordVoid.KeyUp += TxtPasswordVoid_KeyUp;
 
             initGrfPosi();
@@ -95,46 +96,53 @@ namespace bangna_hospital.gui
         private void setGrfPosi()
         {
             //grfDept.Rows.Count = 7;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.dgsDB.selectAll();
+            grfPosi.DataSource = null;
+            grfPosi.Cols.Count = 3;
+            grfPosi.Rows.Count = 1;
+            //CellStyle cs = grfPosi.Styles.Add("btn");
+            //cs.DataType = typeof(Button);
+            ////cs.ComboList = "|Tom|Dbck|Harry";
+            //cs.ForeColor = Color.Navy;
+            //cs.Font = new Font(Font, FontStyle.Bold);
+            //cs = grfPosi.Styles.Add("date");
+            //cs.DataType = typeof(DateTime);
+            //cs.Format = "dd-MMM-yy";
+            //cs.ForeColor = Color.DarkGoldenrod;
 
-            grfPosi.DataSource = bc.bcDB.dgsDB.selectAll();
-            grfPosi.Cols.Count = colCnt;
-            CellStyle cs = grfPosi.Styles.Add("btn");
-            cs.DataType = typeof(Button);
-            //cs.ComboList = "|Tom|Dbck|Harry";
-            cs.ForeColor = Color.Navy;
-            cs.Font = new Font(Font, FontStyle.Bold);
-            cs = grfPosi.Styles.Add("date");
-            cs.DataType = typeof(DateTime);
-            cs.Format = "dd-MMM-yy";
-            cs.ForeColor = Color.DarkGoldenrod;
-
-            grfPosi.Cols[colE].Style = grfPosi.Styles["btn"];
-            grfPosi.Cols[colS].Style = grfPosi.Styles["date"];
-
+            //grfPosi.Cols[colE].Style = grfPosi.Styles["btn"];
+            //grfPosi.Cols[colS].Style = grfPosi.Styles["date"];
+            C1TextBox txt = new C1TextBox();
+            grfPosi.Cols[colName].Editor = txt;
             grfPosi.Cols[colID].Width = 60;
 
-            grfPosi.Cols[colCode].Width = 80;
+            //grfPosi.Cols[colCode].Width = 80;
             grfPosi.Cols[colName].Width = 300;
 
             grfPosi.ShowCursor = true;
             //grdFlex.Cols[colID].Caption = "no";
             //grfDept.Cols[colCode].Caption = "รหัส";
 
-            grfPosi.Cols[colCode].Caption = "รหัส";
+            //grfPosi.Cols[colCode].Caption = "รหัส";
             grfPosi.Cols[colName].Caption = "ชื่อตำแหน่ง";
-            grfPosi.Cols[colRemark].Caption = "หมายเหตุ";
+            //grfPosi.Cols[colRemark].Caption = "หมายเหตุ";
 
             //grfDept.Cols[coledit].Visible = false;
-            CellRange rg = grfPosi.GetCellRange(2, colE);
-            for (int i = 1; i < grfPosi.Rows.Count; i++)
+            //CellRange rg = grfPosi.GetCellRange(2, colE);
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                grfPosi[i, 0] = i;
+                Row row = grfPosi.Rows.Add();
+                row[colID] = dt.Rows[i]["doc_group_id"].ToString();
+                row[colName] = dt.Rows[i]["doc_group_name"].ToString();
+                row[0] = (i+1);
                 if (i % 2 == 0)
                     grfPosi.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
             }
+
             grfPosi.Cols[colID].Visible = false;
-            grfPosi.Cols[colE].Visible = false;
-            grfPosi.Cols[colS].Visible = false;
+            //grfPosi.Cols[colE].Visible = false;
+            //grfPosi.Cols[colS].Visible = false;
         }
         private void textBox_Enter(object sender, EventArgs e)
         {

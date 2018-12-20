@@ -50,6 +50,10 @@
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
+    <Reference Include="Leadtools.Controls.WinForms, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Leadtools.Controls.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -74,17 +78,32 @@
     <Compile Include="gui\FrmDocGroupScan.designer.cs">
       <DependentUpon>FrmDocGroupScan.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmPasswordConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmScanNew.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmScanNew.Designer.cs">
       <DependentUpon>FrmScanNew.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmScanNewView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmScanNewView.Designer.cs">
+      <DependentUpon>FrmScanNewView.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmScanView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmScanView.Designer.cs">
       <DependentUpon>FrmScanView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmSearchHn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSearchHn.designer.cs">
+      <DependentUpon>FrmSearchHn.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmSplash.cs">
       <SubType>Form</SubType>
@@ -113,6 +132,18 @@
     <Compile Include="gui\MainMenu.designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\OcrEngineSelectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\OcrEngineSelectDialog.designer.cs">
+      <DependentUpon>OcrEngineSelectDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\OcrProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\OcrProgressDialog.designer.cs">
+      <DependentUpon>OcrProgressDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\PasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,14 +153,23 @@
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
     <Compile Include="objdb\DocGroupScanDB.cs" />
+    <Compile Include="objdb\DocScanDB.cs" />
+    <Compile Include="objdb\PatientDB.cs" />
     <Compile Include="objdb\StaffDB.cs" />
+    <Compile Include="object1\ComboBoxItem.cs" />
+    <Compile Include="object1\Demos.cs" />
     <Compile Include="object1\DocGroupScan.cs" />
+    <Compile Include="object1\DocScan.cs" />
     <Compile Include="object1\FtpClient.cs" />
+    <Compile Include="object1\Globalization.cs" />
     <Compile Include="object1\IniFile.cs" />
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LogFile.cs" />
+    <Compile Include="object1\Messager.cs" />
+    <Compile Include="object1\Patient.cs" />
     <Compile Include="object1\Persistent.cs" />
     <Compile Include="object1\Staff.cs" />
+    <Compile Include="object1\Visit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="gui\CellNote.resx">
@@ -144,8 +184,14 @@
     <EmbeddedResource Include="gui\FrmScanNew.resx">
       <DependentUpon>FrmScanNew.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmScanNewView.resx">
+      <DependentUpon>FrmScanNewView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanView.resx">
       <DependentUpon>FrmScanView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmSearchHn.resx">
+      <DependentUpon>FrmSearchHn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSplash.resx">
       <DependentUpon>FrmSplash.cs</DependentUpon>
@@ -155,6 +201,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\OcrEngineSelectDialog.ja.resx">
+      <DependentUpon>OcrEngineSelectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\OcrEngineSelectDialog.resx">
+      <DependentUpon>OcrEngineSelectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\OcrProgressDialog.resx">
+      <DependentUpon>OcrProgressDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>

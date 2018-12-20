@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace bangna_hospital.object1
+{
+    public class DocScan:Persistent
+    {
+        public String doc_scan_id { get; set; }
+        public String doc_group_id { get; set; }
+        public String row_no { get; set; }
+        public String host_ftp { get; set; }
+        public String image_path { get; set; }
+        public String hn { get; set; }
+        public String vn { get; set; }
+        public String visit_date { get; set; }
+        public String active { get; set; }
+        public String remark { get; set; }
+        public String date_create { get; set; }
+        public String date_modi { get; set; }
+        public String date_cancel { get; set; }
+        public String user_create { get; set; }
+        public String user_modi { get; set; }
+        public String user_cancel { get; set; }
+    }
+}

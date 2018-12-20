@@ -57,6 +57,10 @@ namespace bangna_hospital.gui
             stt = new C1SuperTooltip();
             sep = new C1SuperErrorProvider();
             stfDB = new StaffDB(bc.conn);
+            foreach (Control con in panel1.Controls)
+            {
+                theme1.SetTheme(con, "Windows8Gray");
+            }
             //stt.BackgroundGradient = C1.Win.C1SuperTooltip.BackgroundGradient.Gold;
             //stt.
         }
