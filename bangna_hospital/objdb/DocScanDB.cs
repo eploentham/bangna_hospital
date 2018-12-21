@@ -41,6 +41,7 @@ namespace bangna_hospital.objdb
             dsc.user_create = "user_create";
             dsc.user_modi = "user_modi";
             dsc.user_cancel = "user_cancel";
+            dsc.an = "an";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -71,7 +72,7 @@ namespace bangna_hospital.objdb
                 itm1.user_create = row[dsc.user_create].ToString();
                 itm1.user_modi = row[dsc.user_modi].ToString();
                 itm1.user_cancel = row[dsc.user_cancel].ToString();
-
+                itm1.an = row[dsc.an].ToString();
                 //itm1.is_ipd = row[bsp.is_ipd].ToString();
                 lDgs.Add(itm1);
             }
@@ -185,7 +186,7 @@ namespace bangna_hospital.objdb
             p.vn = p.vn == null ? "" : p.vn;
             p.visit_date = p.visit_date == null ? "" : p.visit_date;
             p.remark = p.remark == null ? "" : p.remark;
-            //p.opu_code = p.opu_code == null ? "" : p.opu_code;
+            p.an = p.an == null ? "" : p.an;
 
             p.doc_group_id = int.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
             p.row_no = int.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
@@ -205,13 +206,15 @@ namespace bangna_hospital.objdb
                 dsc.host_ftp + "," + dsc.image_path + "," + dsc.hn + "," +
                 dsc.vn + "," + dsc.visit_date + "," + dsc.remark + "," +
                 dsc.date_create + "," + dsc.date_modi + "," + dsc.date_cancel + "," +
-                dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + " " +
+                dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
+                dsc.an + " " +
                 ") " +
                 "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
                 "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
                 "'" + p.vn + "','" + p.visit_date + "','" + p.remark + "'," +
                 "getdate(),'" + p.date_modi + "','" + p.date_cancel + "'," +
-                "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "' " +
+                "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "'," +
+                "'" + p.an + "' " +
                 ")";
             try
             {
@@ -241,7 +244,7 @@ namespace bangna_hospital.objdb
                 "," + dsc.remark + " = '" + p.remark + "'" +
                 "," + dsc.date_modi + " = getdate()" +
                 "," + dsc.user_modi + " = '" + userId + "'" +
-
+                "," + dsc.an + " = '" + p.an + "'" +
                 "Where " + dsc.pkField + "='" + p.doc_scan_id + "'"
                 ;
 
@@ -315,6 +318,7 @@ namespace bangna_hospital.objdb
                 dgs1.user_create = dt.Rows[0][dsc.user_create].ToString();
                 dgs1.user_modi = dt.Rows[0][dsc.user_modi].ToString();
                 dgs1.user_cancel = dt.Rows[0][dsc.user_cancel].ToString();
+                dgs1.an = dt.Rows[0][dsc.an].ToString();
             }
             else
             {
@@ -339,7 +343,8 @@ namespace bangna_hospital.objdb
             dgs1.date_cancel = "";
             dgs1.user_create = "";
             dgs1.user_modi = "";
-            dgs1.user_cancel = ""; ;
+            dgs1.user_cancel = "";
+            dgs1.an = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)
