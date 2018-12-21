@@ -68,7 +68,7 @@ namespace bangna_hospital.gui
         private void TxtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (txtSearch.Text.Length >= 4)
+            if (txtSearch.Text.Length >= 5)
             {
                 setGrfCu();
             }

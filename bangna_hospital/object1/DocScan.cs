@@ -24,5 +24,6 @@ namespace bangna_hospital.object1
         public String user_create { get; set; }
         public String user_modi { get; set; }
         public String user_cancel { get; set; }
+        public String an { get; set; }
     }
 }

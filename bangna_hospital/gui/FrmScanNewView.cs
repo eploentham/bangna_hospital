@@ -56,6 +56,8 @@ namespace bangna_hospital.gui
 
         MemoryStream stream;
         Image img1=null;
+        string MY_LICENSE_FILE = @"eval-license-files.lic";
+        string MY_DEVELOPER_KEY = "gMxMXs9T3paebVPDRdEyk4CRX8BNLmMIvN383qJp6jProMPYamOe136YzHr+CmFEOZzOcuiabiSFpOJGrOHJlx8jHKErnx";
         public FrmScanNewView(BangnaControl bc, String hn, String vn, String name, String filename, String dsg, String visitdate)
         {
             InitializeComponent();
@@ -130,7 +132,7 @@ namespace bangna_hospital.gui
 
             // Show the OCR engine selection dialog to startup the OCR engine
             string engineType = settings.OcrEngineType;
-
+            SetLicenseFileExample();
             using (OcrEngineSelectDialog dlg = new OcrEngineSelectDialog(Messager.Caption, engineType, true))
             {
                 // Use the same RasterCodecs instance in the OCR engine
@@ -349,6 +351,16 @@ namespace bangna_hospital.gui
 
             //_deleteWordToolStripButton.Enabled = _deleteButton.Enabled;
             //_updateWordToolStripButton.Enabled = _updateButton.Enabled;
+        }
+        public void SetLicenseFileExample()
+        {
+            string StartupPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            RasterSupport.SetLicense(StartupPath+"\\"+MY_LICENSE_FILE, MY_DEVELOPER_KEY);
+            bool isLocked = RasterSupport.IsLocked(RasterSupportType.Document);
+            if (isLocked)
+                Console.WriteLine("Document support is locked");
+            else
+                Console.WriteLine("Document support is unlocked");
         }
         private void BtnAnalyze_Click(object sender, EventArgs e)
         {

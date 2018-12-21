@@ -42,7 +42,9 @@ namespace bangna_hospital.gui
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
-
+            DateTime dt = DateTime.Now;
+            dt = dt.AddDays(-1);
+            txtVisitDate.Value = dt.Year + "-" + dt.ToString("MM-dd");
             array1 = new ArrayList();
             timer1 = new Timer();
             int chk = 0;
@@ -311,6 +313,7 @@ namespace bangna_hospital.gui
                 dsc.doc_group_id = dgs;
                 dsc.hn = txtHn.Text;
                 dsc.vn = txtVN.Text;
+                dsc.an = txtAN.Text;
                 dsc.visit_date = txtVisitDate.Text;
                 if (!txtVN.Text.Equals(""))
                 {
