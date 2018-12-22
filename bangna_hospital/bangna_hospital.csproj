@@ -225,6 +225,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="LEADTOOLS.LIC.KEY" />
     <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.Cmc7.bin" />
     <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.de.bin" />
     <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.de.dic" />
@@ -240,6 +241,7 @@
     <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.it.dic" />
     <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.Micr.bin" />
     <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.Mrz.bin" />
+    <None Include="LEADTOOLS.LIC" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

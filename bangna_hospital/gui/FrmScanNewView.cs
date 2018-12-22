@@ -56,8 +56,8 @@ namespace bangna_hospital.gui
 
         MemoryStream stream;
         Image img1=null;
-        string MY_LICENSE_FILE = @"eval-license-files.lic";
-        string MY_DEVELOPER_KEY = "gMxMXs9T3paebVPDRdEyk4CRX8BNLmMIvN383qJp6jProMPYamOe136YzHr+CmFEOZzOcuiabiSFpOJGrOHJlx8jHKErnx";
+        string MY_LICENSE_FILE = @"LEADTOOLS.lic";
+        string MY_DEVELOPER_KEY = "gMxMXs9T3paebVPDRdEyk4CRX8BNLmMIvN383qJp6jProMPYamOe136YzHr+CmFEOZzOcuiabiSFpOJGrOHJlx8jHKErnx/u";
         public FrmScanNewView(BangnaControl bc, String hn, String vn, String name, String filename, String dsg, String visitdate)
         {
             InitializeComponent();
