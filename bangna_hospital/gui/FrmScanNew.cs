@@ -367,7 +367,7 @@ namespace bangna_hospital.gui
             }
             catch(Exception ex)
             {
-
+                filename = ex.Message;
             }
             //id = grfPtt[grfPtt.Row, colID] != null ? grfPtt[grfPtt.Row, colID].ToString() : "";
         }

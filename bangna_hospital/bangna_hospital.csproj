@@ -50,9 +50,37 @@
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
+    <Reference Include="Leadtools.Barcode, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LEADTOOLS 20\Bin\Dotnet4\Win32\Leadtools.Barcode.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Codecs.Tif, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LEADTOOLS 20\Bin\Dotnet4\Win32\Leadtools.Codecs.Tif.dll</HintPath>
+    </Reference>
     <Reference Include="Leadtools.Controls.WinForms, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Leadtools.Controls.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Forms.Auto, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LEADTOOLS 20\Bin\Dotnet4\Win32\Leadtools.Forms.Auto.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Forms.Common, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LEADTOOLS 20\Bin\Dotnet4\Win32\Leadtools.Forms.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Forms.Processing, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LEADTOOLS 20\Bin\Dotnet4\Win32\Leadtools.Forms.Processing.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Forms.Recognition, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LEADTOOLS 20\Bin\Dotnet4\Win32\Leadtools.Forms.Recognition.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Forms.Recognition.Ocr, Version=20.0.4.0, Culture=neutral, PublicKeyToken=9cf889f53ea9b907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\LEADTOOLS 20\Bin\Dotnet4\Win32\Leadtools.Forms.Recognition.Ocr.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
