@@ -106,6 +106,12 @@
     <Compile Include="gui\FrmDocGroupScan.designer.cs">
       <DependentUpon>FrmDocGroupScan.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmDocGroupSub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDocGroupSub.Designer.cs">
+      <DependentUpon>FrmDocGroupSub.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmPasswordConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDocGroupScan.resx">
       <DependentUpon>FrmDocGroupScan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDocGroupSub.resx">
+      <DependentUpon>FrmDocGroupSub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanNew.resx">
       <DependentUpon>FrmScanNew.cs</DependentUpon>
