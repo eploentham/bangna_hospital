@@ -48,7 +48,7 @@
             this.menuDrugPatient = new System.Windows.Forms.ToolStripMenuItem();
             this.menuInit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDocGroup = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuDept = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDocGroupSub = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPosi = new System.Windows.Forms.ToolStripMenuItem();
             this.lABToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOpuProce = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,13 +102,13 @@
             // menuScan
             // 
             this.menuScan.Name = "menuScan";
-            this.menuScan.Size = new System.Drawing.Size(180, 22);
+            this.menuScan.Size = new System.Drawing.Size(150, 22);
             this.menuScan.Text = "Scan ใหม่";
             // 
             // menuScanView
             // 
             this.menuScanView.Name = "menuScanView";
-            this.menuScanView.Size = new System.Drawing.Size(180, 22);
+            this.menuScanView.Size = new System.Drawing.Size(150, 22);
             this.menuScanView.Text = "ดูข้อมูลเก่า Scan";
             // 
             // menuNurse
@@ -206,7 +206,7 @@
             // 
             this.menuInit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuDocGroup,
-            this.menuDept,
+            this.menuDocGroupSub,
             this.menuPosi,
             this.lABToolStripMenuItem,
             this.convertPatientDonorToolStripMenuItem});
@@ -220,11 +220,11 @@
             this.menuDocGroup.Size = new System.Drawing.Size(192, 22);
             this.menuDocGroup.Text = "ประเภทเอกสาร";
             // 
-            // menuDept
+            // menuDocGroupSub
             // 
-            this.menuDept.Name = "menuDept";
-            this.menuDept.Size = new System.Drawing.Size(192, 22);
-            this.menuDept.Text = "แผนก";
+            this.menuDocGroupSub.Name = "menuDocGroupSub";
+            this.menuDocGroupSub.Size = new System.Drawing.Size(192, 22);
+            this.menuDocGroupSub.Text = "ประเภทเอกสารย่อย";
             // 
             // menuPosi
             // 
@@ -340,7 +340,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuInit;
         private C1.Win.C1Themes.C1ThemeController theme1;
         private System.Windows.Forms.ToolStripMenuItem menuDocGroup;
-        private System.Windows.Forms.ToolStripMenuItem menuDept;
+        private System.Windows.Forms.ToolStripMenuItem menuDocGroupSub;
         private System.Windows.Forms.ToolStripMenuItem menuPosi;
         private System.Windows.Forms.ToolStripMenuItem lABToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuOpuProce;

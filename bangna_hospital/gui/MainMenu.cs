@@ -62,6 +62,15 @@ namespace bangna_hospital.gui
             menuScan.Click += MenuScan_Click;
             menuDocGroup.Click += MenuDocGroup_Click;
             menuScanView.Click += MenuScanView_Click;
+            menuDocGroupSub.Click += MenuDocGroupSub_Click;
+        }
+
+        private void MenuDocGroupSub_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmDocGroupSub frm = new FrmDocGroupSub(bc);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            AddNewTab(frm, menuDocGroupSub.Text + " ");
         }
 
         private void MenuScanView_Click(object sender, EventArgs e)

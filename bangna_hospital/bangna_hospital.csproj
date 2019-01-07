@@ -187,12 +187,14 @@
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
     <Compile Include="objdb\DocGroupScanDB.cs" />
+    <Compile Include="objdb\DocGroupSubScanDB.cs" />
     <Compile Include="objdb\DocScanDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
     <Compile Include="objdb\StaffDB.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
     <Compile Include="object1\Demos.cs" />
     <Compile Include="object1\DocGroupScan.cs" />
+    <Compile Include="object1\DocGroupSubScan.cs" />
     <Compile Include="object1\DocScan.cs" />
     <Compile Include="object1\FtpClient.cs" />
     <Compile Include="object1\Globalization.cs" />

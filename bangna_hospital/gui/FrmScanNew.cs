@@ -245,10 +245,41 @@ namespace bangna_hospital.gui
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("&แก้ไข Image", new EventHandler(ContextMenu_edit));
             menuGw.MenuItems.Add("&Rotate Image", new EventHandler(ContextMenu_retate));
-            foreach (DocGroupScan dgs in bc.bcDB.dgsDB.lDgs)
+            //foreach (DocGroupScan dgs in bc.bcDB.dgsDB.lDgs)
+            //{
+                //menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image ["+dgs.doc_group_name+"]", new EventHandler(ContextMenu_upload));
+            String idOld = "";
+            //if (lDgss.Count <= 0) getlBsp();
+            if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
+            foreach(DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
             {
-                menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image ["+dgs.doc_group_name+"]", new EventHandler(ContextMenu_upload));
+                String dgssid = "";
+                dgssid = bc.bcDB.dgssDB.getIdDgss(dgss.doc_group_sub_name);
+                if (!dgssid.Equals(idOld))
+                {
+                    idOld = dgssid;
+                    String name = "";
+                    name = bc.bcDB.dgsDB.getNameDgs(dgss.doc_group_id);
+                    MenuItem addDevice = new MenuItem("[" + name + "]");
+                    menuGw.MenuItems.Add(addDevice);
+                    foreach (DocGroupSubScan dgsss in bc.bcDB.dgssDB.lDgss)
+                    {
+                        if (dgsss.doc_group_id.Equals(dgss.doc_group_id))
+                        {
+                            addDevice.MenuItems.Add(new MenuItem(dgsss.doc_group_sub_name, new EventHandler(ContextMenu_upload)));
+
+                        }
+                    }
+                }
+                else
+                {
+                    
+                }
             }
+                
+            //addDevice.MenuItems.Add("", new EventHandler(ContextMenu_upload));
+            //menuGw.MenuItems.Add(addDevice);
+            //}
             grf.ContextMenu = menuGw;
 
             //row1[colVSE2] = row[ic.ivfDB.pApmDB.pApm.e2].ToString().Equals("1") ? imgCorr : imgTran;

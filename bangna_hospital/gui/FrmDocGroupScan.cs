@@ -101,18 +101,7 @@ namespace bangna_hospital.gui
             grfPosi.DataSource = null;
             grfPosi.Cols.Count = 3;
             grfPosi.Rows.Count = 1;
-            //CellStyle cs = grfPosi.Styles.Add("btn");
-            //cs.DataType = typeof(Button);
-            ////cs.ComboList = "|Tom|Dbck|Harry";
-            //cs.ForeColor = Color.Navy;
-            //cs.Font = new Font(Font, FontStyle.Bold);
-            //cs = grfPosi.Styles.Add("date");
-            //cs.DataType = typeof(DateTime);
-            //cs.Format = "dd-MMM-yy";
-            //cs.ForeColor = Color.DarkGoldenrod;
 
-            //grfPosi.Cols[colE].Style = grfPosi.Styles["btn"];
-            //grfPosi.Cols[colS].Style = grfPosi.Styles["date"];
             C1TextBox txt = new C1TextBox();
             grfPosi.Cols[colName].Editor = txt;
             grfPosi.Cols[colID].Width = 60;
@@ -125,7 +114,7 @@ namespace bangna_hospital.gui
             //grfDept.Cols[colCode].Caption = "รหัส";
 
             //grfPosi.Cols[colCode].Caption = "รหัส";
-            grfPosi.Cols[colName].Caption = "ชื่อตำแหน่ง";
+            grfPosi.Cols[colName].Caption = "ชื่อประเภทเอกสาร";
             //grfPosi.Cols[colRemark].Caption = "หมายเหตุ";
 
             //grfDept.Cols[coledit].Visible = false;
