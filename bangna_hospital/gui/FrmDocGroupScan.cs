@@ -56,6 +56,7 @@ namespace bangna_hospital.gui
             {
                 theme1.SetTheme(c, "Office2013Red");
             }
+            theme1.SetTheme(panel3, "Office2013Red");
             theme1.SetTheme(panel4, "Office2013Red");
             bg = txtDocGroupName.BackColor;
             fc = txtDocGroupName.ForeColor;
@@ -227,6 +228,8 @@ namespace bangna_hospital.gui
             chkVoid.Checked = false;
             btnVoid.Hide();
             flagEdit = true;
+            chkIPD.Checked = false;
+            chkOPD.Checked = false;
             setControlEnable(true);
         }
         private void btnEdit_Click(object sender, EventArgs e)

@@ -23,7 +23,7 @@ namespace bangna_hospital.gui
         Color bg, fc;
         Font ff, ffB;
         int colCuHn = 1, colCuName = 2;
-        int colVsName = 1, colVsDate=2, colVsVn=3, colVsPreNo=4, colVsmeno=5, colVsDsc=6, coLVsAn=8, colVsStatus=7, colVsAnDate=9;
+        int colVsName = 1, colVsDate=2, colVsVn=3, colVsPreNo=4, colVsmeno=5, colVsDsc=6, coLVsAn=8, colVsStatus=7, colVsAnDate=9, colVsHn=10;
 
         C1FlexGrid grfCu, grfVn, grfDay5, grfDay6;
         C1SuperTooltip stt;
@@ -120,7 +120,8 @@ namespace bangna_hospital.gui
             grfVn.Font = fEdit;
             grfVn.Dock = System.Windows.Forms.DockStyle.Fill;
             grfVn.Location = new System.Drawing.Point(0, 0);
-
+            grfVn.Rows.Count = 1;
+            grfVn.Cols.Count = 11;
             //FilterRow fr = new FilterRow(grfExpn);
 
             grfVn.AfterRowColChange += GrfVn_AfterRowColChange;
@@ -141,9 +142,14 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.NewRange.r1 < 0) return;
             if (e.NewRange.Data == null) return;
-            String vn = "";
+            String vn = "", hn="";
             vn = grfVn[grfVn.Row, colVsVn] != null ? grfVn[grfVn.Row, colVsVn].ToString() : "";
+            hn = grfVn[grfVn.Row, colVsHn] != null ? grfVn[grfVn.Row, colVsHn].ToString() : "";
             txtVn.Value = vn;
+            Patient ptt = new Patient();
+            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            txtHn.Value = ptt.Hn;
+            txtName.Value = ptt.Name;
             txtVisitDate.Value = grfVn[grfVn.Row, colVsDate] != null ? grfVn[grfVn.Row, colVsDate].ToString() : "";
             txtPreNo.Value = grfVn[grfVn.Row, colVsPreNo] != null ? grfVn[grfVn.Row, colVsPreNo].ToString() : "";
             chkIPD.Checked = grfVn[grfVn.Row, colVsStatus] != null ? grfVn[grfVn.Row, colVsStatus].ToString().Equals("I") ? true : false : false;
@@ -202,8 +208,8 @@ namespace bangna_hospital.gui
             grfCu.Cols[colCuHn].Editor = txt;            
             grfCu.Cols[colCuName].Editor = txt;
 
-            grfCu.Cols[colCuHn].Width = 100;            
-            grfCu.Cols[colCuName].Width = 280;            
+            grfCu.Cols[colCuHn].Width = 70;            
+            grfCu.Cols[colCuName].Width = 240;            
             //grfCu.Cols[colCuTime].Width = 80;
 
             grfCu.ShowCursor = true;
@@ -220,7 +226,7 @@ namespace bangna_hospital.gui
             for (int i = 0; i <= dt.Rows.Count-1; i++)
             {
                 Row row = grfCu.Rows.Add();
-                row[0] = i;
+                row[0] = (i+1);
                 
                 row[colCuHn] = dt.Rows[i]["MNC_HN_NO"].ToString();
                 row[colCuName] = dt.Rows[i]["prefix"].ToString()+" "+ dt.Rows[i]["MNC_FNAME_T"].ToString()+" "+ dt.Rows[i]["MNC_LNAME_T"].ToString();
@@ -228,7 +234,14 @@ namespace bangna_hospital.gui
                 
             }
             grfCu.Cols[colCuHn].AllowEditing = false;            
-            grfCu.Cols[colCuName].AllowEditing = false;            
+            grfCu.Cols[colCuName].AllowEditing = false;
+            if (dt.Rows.Count == 1)
+            {
+                if(grfCu[1, colCuHn]!=null)
+                {
+                    setGrfVn(grfCu[1, colCuHn].ToString());
+                }
+            }
         }
         private void setGrfVn(String hn)
         {
@@ -242,7 +255,7 @@ namespace bangna_hospital.gui
             //con.CloseConnectionEx();
             //grfExpn.Rows.Count = dt.Rows.Count + 1;
             grfVn.Rows.Count = 1;
-            grfVn.Cols.Count = 10;
+            grfVn.Cols.Count = 11;
             C1TextBox txt = new C1TextBox();
             C1ComboBox cboproce = new C1ComboBox();
             //ic.ivfDB.itmDB.setCboItem(cboproce);
@@ -286,14 +299,17 @@ namespace bangna_hospital.gui
                 row[colVsPreNo] = dt.Rows[i]["mnc_pre_no"].ToString();
                 row[colVsmeno] = dt.Rows[i]["mnc_shif_memo"].ToString();
                 row[colVsDsc] = dt.Rows[i]["mnc_ref_dsc"].ToString();
-                row[coLVsAn] = dt.Rows[i]["mnc_an_no"].ToString();
+                row[coLVsAn] = dt.Rows[i]["mnc_an_no"].ToString()+"/"+ dt.Rows[i]["mnc_an_yr"].ToString();
                 row[colVsStatus] = dt.Rows[i]["MNC_PAT_FLAG"].ToString();
                 row[colVsAnDate] = bc.datetoShow(dt.Rows[i]["mnc_ad_date"].ToString());
+                row[colVsHn] = dt.Rows[i]["mnc_hn_no"].ToString();
+
             }
             grfVn.Cols[colVsVn].AllowEditing = false;
             grfVn.Cols[colCuName].AllowEditing = false;
             grfVn.Cols[colVsPreNo].Visible = false;
             grfVn.Cols[colVsName].Visible = false;
+            grfVn.Cols[colVsHn].Visible = false;
         }
         private void FrmSearchHn_Load(object sender, EventArgs e)
         {

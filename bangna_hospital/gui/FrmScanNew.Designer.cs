@@ -31,6 +31,8 @@
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkIPD = new C1.Win.C1Input.C1CheckBox();
+            this.txtAnDate = new C1.Win.C1Input.C1DateEdit();
             this.txtPreNo = new C1.Win.C1Input.C1TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtAN = new C1.Win.C1Input.C1TextBox();
@@ -47,11 +49,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.grfScan = new System.Windows.Forms.GroupBox();
-            this.txtAnDate = new C1.Win.C1Input.C1DateEdit();
-            this.chkIPD = new C1.Win.C1Input.C1CheckBox();
+            this.txtAnCnt = new C1.Win.C1Input.C1TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPreNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).BeginInit();
@@ -62,8 +65,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAnDate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnCnt)).BeginInit();
             this.SuspendLayout();
             // 
             // sb1
@@ -78,6 +80,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.txtAnCnt);
             this.groupBox1.Controls.Add(this.chkIPD);
             this.groupBox1.Controls.Add(this.txtAnDate);
             this.groupBox1.Controls.Add(this.txtPreNo);
@@ -104,6 +107,70 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Patient";
             this.theme1.SetTheme(this.groupBox1, "(default)");
+            // 
+            // chkIPD
+            // 
+            this.chkIPD.BackColor = System.Drawing.Color.Transparent;
+            this.chkIPD.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkIPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkIPD.Location = new System.Drawing.Point(529, 36);
+            this.chkIPD.Name = "chkIPD";
+            this.chkIPD.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.chkIPD.Size = new System.Drawing.Size(61, 24);
+            this.chkIPD.TabIndex = 553;
+            this.chkIPD.Text = "IPD";
+            this.theme1.SetTheme(this.chkIPD, "(default)");
+            this.chkIPD.UseVisualStyleBackColor = true;
+            this.chkIPD.Value = null;
+            this.chkIPD.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // txtAnDate
+            // 
+            this.txtAnDate.AllowSpinLoop = false;
+            this.txtAnDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // 
+            // 
+            this.txtAnDate.Calendar.ArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtAnDate.Calendar.BackColor = System.Drawing.Color.White;
+            this.txtAnDate.Calendar.DayNamesColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtAnDate.Calendar.DayNamesFont = new System.Drawing.Font("Tahoma", 8F);
+            this.txtAnDate.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.txtAnDate.Calendar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.txtAnDate.Calendar.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtAnDate.Calendar.SelectionForeColor = System.Drawing.Color.White;
+            this.txtAnDate.Calendar.TitleBackColor = System.Drawing.Color.White;
+            this.txtAnDate.Calendar.TitleFont = new System.Drawing.Font("Tahoma", 8F);
+            this.txtAnDate.Calendar.TitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtAnDate.Calendar.TodayBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtAnDate.Calendar.TrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtAnDate.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtAnDate.Culture = 1054;
+            this.txtAnDate.CurrentTimeZone = false;
+            this.txtAnDate.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtAnDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtAnDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtAnDate.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtAnDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtAnDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtAnDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtAnDate.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtAnDate.Location = new System.Drawing.Point(720, 39);
+            this.txtAnDate.Name = "txtAnDate";
+            this.txtAnDate.Size = new System.Drawing.Size(111, 18);
+            this.txtAnDate.TabIndex = 552;
+            this.txtAnDate.Tag = null;
+            this.theme1.SetTheme(this.txtAnDate, "(default)");
+            this.txtAnDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtPreNo
             // 
@@ -141,7 +208,7 @@
             this.txtAN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtAN.Location = new System.Drawing.Point(350, 37);
             this.txtAN.Name = "txtAN";
-            this.txtAN.Size = new System.Drawing.Size(150, 20);
+            this.txtAN.Size = new System.Drawing.Size(132, 20);
             this.txtAN.TabIndex = 549;
             this.txtAN.Tag = null;
             this.theme1.SetTheme(this.txtAN, "(default)");
@@ -358,69 +425,19 @@
             this.grfScan.Text = "File Scan";
             this.theme1.SetTheme(this.grfScan, "(default)");
             // 
-            // txtAnDate
+            // txtAnCnt
             // 
-            this.txtAnDate.AllowSpinLoop = false;
-            this.txtAnDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            // 
-            // 
-            // 
-            this.txtAnDate.Calendar.ArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtAnDate.Calendar.BackColor = System.Drawing.Color.White;
-            this.txtAnDate.Calendar.DayNamesColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtAnDate.Calendar.DayNamesFont = new System.Drawing.Font("Tahoma", 8F);
-            this.txtAnDate.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
-            this.txtAnDate.Calendar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.txtAnDate.Calendar.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtAnDate.Calendar.SelectionForeColor = System.Drawing.Color.White;
-            this.txtAnDate.Calendar.TitleBackColor = System.Drawing.Color.White;
-            this.txtAnDate.Calendar.TitleFont = new System.Drawing.Font("Tahoma", 8F);
-            this.txtAnDate.Calendar.TitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtAnDate.Calendar.TodayBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtAnDate.Calendar.TrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtAnDate.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            this.txtAnDate.Culture = 1054;
-            this.txtAnDate.CurrentTimeZone = false;
-            this.txtAnDate.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtAnDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtAnDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtAnDate.EditFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtAnDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtAnDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtAnDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
-            this.txtAnDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtAnDate.Location = new System.Drawing.Point(720, 39);
-            this.txtAnDate.Name = "txtAnDate";
-            this.txtAnDate.Size = new System.Drawing.Size(111, 18);
-            this.txtAnDate.TabIndex = 552;
-            this.txtAnDate.Tag = null;
-            this.theme1.SetTheme(this.txtAnDate, "(default)");
-            this.txtAnDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // chkIPD
-            // 
-            this.chkIPD.BackColor = System.Drawing.Color.Transparent;
-            this.chkIPD.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkIPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.chkIPD.Location = new System.Drawing.Point(506, 36);
-            this.chkIPD.Name = "chkIPD";
-            this.chkIPD.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkIPD.Size = new System.Drawing.Size(87, 24);
-            this.chkIPD.TabIndex = 553;
-            this.chkIPD.Text = "IPD";
-            this.theme1.SetTheme(this.chkIPD, "(default)");
-            this.chkIPD.UseVisualStyleBackColor = true;
-            this.chkIPD.Value = null;
-            this.chkIPD.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtAnCnt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.txtAnCnt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAnCnt.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtAnCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAnCnt.Location = new System.Drawing.Point(488, 37);
+            this.txtAnCnt.Name = "txtAnCnt";
+            this.txtAnCnt.Size = new System.Drawing.Size(35, 20);
+            this.txtAnCnt.TabIndex = 554;
+            this.txtAnCnt.Tag = null;
+            this.theme1.SetTheme(this.txtAnCnt, "(default)");
+            this.txtAnCnt.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // FrmScanNew
             // 
@@ -439,6 +456,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPreNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).EndInit();
@@ -449,8 +468,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAnDate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnCnt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,5 +497,6 @@
         private C1.Win.C1Input.C1TextBox txtPreNo;
         private C1.Win.C1Input.C1DateEdit txtAnDate;
         private C1.Win.C1Input.C1CheckBox chkIPD;
+        private C1.Win.C1Input.C1TextBox txtAnCnt;
     }
 }

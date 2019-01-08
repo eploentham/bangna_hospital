@@ -29,5 +29,6 @@ namespace bangna_hospital.object1
         public String pre_no { get; set; }
         public String an_date { get; set; }
         public String status_ipd { get; set; }
+        public String an_cnt { get; set; }
     }
 }

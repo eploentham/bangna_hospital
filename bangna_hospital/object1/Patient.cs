@@ -8,6 +8,6 @@ namespace bangna_hospital.object1
 {
     public class Patient:Persistent
     {
-        public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="";
+        public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="", anCnt="";
     }
 }

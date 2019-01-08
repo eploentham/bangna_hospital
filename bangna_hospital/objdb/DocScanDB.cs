@@ -46,7 +46,7 @@ namespace bangna_hospital.objdb
             dsc.pre_no = "pre_no";
             dsc.an_date = "an_date";
             dsc.status_ipd = "status_ipd";
-            
+            dsc.an_cnt = "an_cnt";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -82,6 +82,7 @@ namespace bangna_hospital.objdb
                 itm1.pre_no = row[dsc.pre_no].ToString();
                 itm1.an_date = row[dsc.an_date].ToString();
                 itm1.status_ipd = row[dsc.status_ipd].ToString();
+                itm1.an_cnt = row[dsc.an_cnt].ToString();
                 lDgs.Add(itm1);
             }
         }
@@ -198,6 +199,7 @@ namespace bangna_hospital.objdb
             p.pre_no = p.pre_no == null ? "" : p.pre_no;
             p.an_date = p.an_date == null ? "" : p.an_date;
             p.status_ipd = p.status_ipd == null ? "" : p.status_ipd;
+            p.an_cnt = p.an_cnt == null ? "" : p.an_cnt;
 
             p.doc_group_id = long.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
             p.row_no = long.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
@@ -219,15 +221,15 @@ namespace bangna_hospital.objdb
                 dsc.date_create + "," + dsc.date_modi + "," + dsc.date_cancel + "," +
                 dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
                 dsc.an + "," + dsc.doc_group_sub_id + "," + dsc.pre_no + "," +
-                dsc.an_date + "," + dsc.status_ipd + "," +
+                dsc.an_date + "," + dsc.status_ipd + "," + dsc.an_cnt + " " +
                 ") " +
                 "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
                 "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
                 "'" + p.vn + "','" + p.visit_date + "','" + p.remark + "'," +
-                "getdate(),'" + p.date_modi + "','" + p.date_cancel + "'," +
+                "convert(varchar, getdate(), 23),'" + p.date_modi + "','" + p.date_cancel + "'," +
                 "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "'," +
-                "'" + p.an + "','" + p.doc_group_sub_id + "' " + p.pre_no + "'," +
-                "'" + p.an_date + "','" + p.status_ipd + "' " +
+                "'" + p.an + "','" + p.doc_group_sub_id + "','" + p.pre_no + "'," +
+                "'" + p.an_date + "','" + p.status_ipd + "','" + p.an_cnt + "' " +
                 ")";
             try
             {
@@ -265,13 +267,14 @@ namespace bangna_hospital.objdb
                 "," + dsc.vn + " = '" + p.vn + "'" +
                 "," + dsc.visit_date + " = '" + p.visit_date + "'" +
                 "," + dsc.remark + " = '" + p.remark + "'" +
-                "," + dsc.date_modi + " = getdate()" +
+                "," + dsc.date_modi + " = convert(varchar, getdate(), 23)" +
                 "," + dsc.user_modi + " = '" + userId + "'" +
                 "," + dsc.an + " = '" + p.an + "'" +
                 "," + dsc.doc_group_sub_id + " = '" + p.doc_group_sub_id + "'" +
                 "," + dsc.pre_no + " = '" + p.pre_no + "'" +
                 "," + dsc.an_date + " = '" + p.an_date + "'" +
                 "," + dsc.status_ipd + " = '" + p.status_ipd + "'" +
+                "," + dsc.an_cnt + " = '" + p.an_cnt + "'" +
                 "Where " + dsc.pkField + "='" + p.doc_scan_id + "'"
                 ;
 
@@ -350,6 +353,7 @@ namespace bangna_hospital.objdb
                 dgs1.pre_no = dt.Rows[0][dsc.pre_no].ToString();
                 dgs1.an_date = dt.Rows[0][dsc.an_date].ToString();
                 dgs1.status_ipd = dt.Rows[0][dsc.status_ipd].ToString();
+                dgs1.an_cnt = dt.Rows[0][dsc.an_cnt].ToString();
             }
             else
             {
@@ -380,6 +384,7 @@ namespace bangna_hospital.objdb
             dgs1.pre_no = "";
             dgs1.an_date = "";
             dgs1.status_ipd = "";
+            dgs1.an_cnt = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

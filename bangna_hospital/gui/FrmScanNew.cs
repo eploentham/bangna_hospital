@@ -81,14 +81,26 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             FrmSearchHn frm = new FrmSearchHn(bc, FrmSearchHn.StatusConnection.host);
             frm.ShowDialog(this);
+            String[] an = bc.sPtt.an.Split('/');
+            if (an.Length > 1)
+            {
+                txtAN.Value = an[0];
+                txtAnCnt.Value = an[1];
+            }
+            else
+            {
+                txtAN.Value = bc.sPtt.an;
+                txtAnCnt.Value = "";
+            }
             txtHn.Value = bc.sPtt.Hn;
             txtName.Value = bc.sPtt.Name;
             txtVN.Value = bc.sPtt.vn;
             txtVisitDate.Value = bc.sPtt.visitDate;
             txtPreNo.Value = bc.sPtt.preno;
-            txtAN.Value = bc.sPtt.an;
+            
             txtAnDate.Value = bc.sPtt.anDate;
             chkIPD.Checked = bc.sPtt.statusIPD.Equals("I") ? true : false;
+            
             if (chkIPD.Checked)
             {
                 txtVisitDate.Hide();
@@ -373,7 +385,7 @@ namespace bangna_hospital.gui
                     dsc.hn = txtHn.Text;
                     dsc.vn = txtVN.Text;
                     dsc.an = txtAN.Text;
-                    dsc.visit_date = txtVisitDate.Text;
+                    dsc.visit_date = bc.datetoDB(txtVisitDate.Text);
                     if (!txtVN.Text.Equals(""))
                     {
                         dsc.row_no = bc.bcDB.dscDB.selectRowNoByHnVn(txtHn.Text, txtVN.Text, dgs);
@@ -383,8 +395,18 @@ namespace bangna_hospital.gui
                         dsc.row_no = bc.bcDB.dscDB.selectRowNoByHn(txtHn.Text, dgs);
                     }
                     dsc.host_ftp = bc.iniC.hostFTP;
-                    dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgs + "_" + dsc.row_no + "." + ext[ext.Length - 1];
+                    dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
                     dsc.doc_group_sub_id = dgssid;
+                    dsc.pre_no = txtPreNo.Text;
+                    dsc.an = txtAN.Text;
+                    DateTime dt = new DateTime();
+
+                    dsc.an_date = (DateTime.TryParse(txtAnDate.Text, out dt)) ? bc.datetoDB(txtAnDate.Text) : "";
+                    if (dsc.an_date.Equals("1-01-01"))
+                    {
+                        dsc.an_date = "";
+                    }
+                    dsc.status_ipd = chkIPD.Checked ? "I" : "O";
                     String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     ftp.createDirectory(txtHn.Text);
