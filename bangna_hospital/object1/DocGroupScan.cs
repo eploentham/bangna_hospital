@@ -12,5 +12,6 @@ namespace bangna_hospital.object1
         public String doc_group_name { get; set; }
         public String active { get; set; }
         public String remark { get; set; }
+        public String status_opd { get; set; }
     }
 }

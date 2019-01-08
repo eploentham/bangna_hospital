@@ -25,5 +25,9 @@ namespace bangna_hospital.object1
         public String user_modi { get; set; }
         public String user_cancel { get; set; }
         public String an { get; set; }
+        public String doc_group_sub_id { get; set; }
+        public String pre_no { get; set; }
+        public String an_date { get; set; }
+        public String status_ipd { get; set; }
     }
 }

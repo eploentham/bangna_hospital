@@ -44,6 +44,9 @@
             this.txtID = new C1.Win.C1Input.C1TextBox();
             this.sB = new System.Windows.Forms.StatusStrip();
             this.sB1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.chkOPD = new System.Windows.Forms.RadioButton();
+            this.chkIPD = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -60,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDocGroupName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtID)).BeginInit();
             this.sB.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // theme1
@@ -118,6 +122,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.txtPasswordVoid);
             this.panel3.Controls.Add(this.btnNew);
             this.panel3.Controls.Add(this.chkVoid);
@@ -271,6 +276,7 @@
             // 
             // sB
             // 
+            this.sB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.sB.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sB1});
             this.sB.Location = new System.Drawing.Point(0, 510);
@@ -278,12 +284,59 @@
             this.sB.Size = new System.Drawing.Size(922, 22);
             this.sB.TabIndex = 3;
             this.sB.Text = "statusStrip1";
+            this.theme1.SetTheme(this.sB, "(default)");
             // 
             // sB1
             // 
             this.sB1.Name = "sB1";
             this.sB1.Size = new System.Drawing.Size(118, 17);
             this.sB1.Text = "toolStripStatusLabel1";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.panel4.Controls.Add(this.chkIPD);
+            this.panel4.Controls.Add(this.chkOPD);
+            this.panel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.panel4.Location = new System.Drawing.Point(124, 115);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(296, 68);
+            this.panel4.TabIndex = 5;
+            this.theme1.SetTheme(this.panel4, "(default)");
+            // 
+            // chkOPD
+            // 
+            this.chkOPD.AutoSize = true;
+            this.chkOPD.BackColor = System.Drawing.Color.Transparent;
+            this.chkOPD.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.chkOPD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(189)))), ((int)(((byte)(182)))));
+            this.chkOPD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(189)))), ((int)(((byte)(182)))));
+            this.chkOPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.chkOPD.Location = new System.Drawing.Point(3, 21);
+            this.chkOPD.Name = "chkOPD";
+            this.chkOPD.Size = new System.Drawing.Size(48, 17);
+            this.chkOPD.TabIndex = 0;
+            this.chkOPD.TabStop = true;
+            this.chkOPD.Text = "OPD";
+            this.theme1.SetTheme(this.chkOPD, "(default)");
+            this.chkOPD.UseVisualStyleBackColor = false;
+            // 
+            // chkIPD
+            // 
+            this.chkIPD.AutoSize = true;
+            this.chkIPD.BackColor = System.Drawing.Color.Transparent;
+            this.chkIPD.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.chkIPD.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(189)))), ((int)(((byte)(182)))));
+            this.chkIPD.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(189)))), ((int)(((byte)(182)))));
+            this.chkIPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.chkIPD.Location = new System.Drawing.Point(118, 21);
+            this.chkIPD.Name = "chkIPD";
+            this.chkIPD.Size = new System.Drawing.Size(43, 17);
+            this.chkIPD.TabIndex = 1;
+            this.chkIPD.TabStop = true;
+            this.chkIPD.Text = "IPD";
+            this.theme1.SetTheme(this.chkIPD, "(default)");
+            this.chkIPD.UseVisualStyleBackColor = false;
             // 
             // FrmDocGroupScan
             // 
@@ -292,8 +345,10 @@
             this.ClientSize = new System.Drawing.Size(922, 532);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.sB);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.Name = "FrmDocGroupScan";
             this.Text = "FrmPosition";
+            this.theme1.SetTheme(this, "(default)");
             this.Load += new System.EventHandler(this.FrmPosition_Load);
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -313,6 +368,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtID)).EndInit();
             this.sB.ResumeLayout(false);
             this.sB.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,5 +393,8 @@
         private System.Windows.Forms.Label label2;
         private C1.Win.C1Input.C1TextBox txtID;
         private C1.Win.C1Input.C1TextBox txtPasswordVoid;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.RadioButton chkIPD;
+        private System.Windows.Forms.RadioButton chkOPD;
     }
 }

@@ -29,6 +29,7 @@ namespace bangna_hospital.objdb
             dgs.doc_group_name = "doc_group_name";
             dgs.doc_group_id = "doc_group_id";
             dgs.remark = "remark";
+            dgs.status_opd = "status_opd";
 
             dgs.table = "doc_group_scan";
             dgs.pkField = "doc_group_id";
@@ -46,7 +47,8 @@ namespace bangna_hospital.objdb
                 itm1.active = row[dgs.active].ToString();
                 itm1.doc_group_name = row[dgs.doc_group_name].ToString();
                 itm1.doc_group_id = row[dgs.doc_group_id].ToString();
-                itm1.remark = row[dgs.remark].ToString();                
+                itm1.remark = row[dgs.remark].ToString();
+                itm1.status_opd = row[dgs.status_opd].ToString();
 
                 //itm1.is_ipd = row[bsp.is_ipd].ToString();
                 lDgs.Add(itm1);
@@ -125,9 +127,9 @@ namespace bangna_hospital.objdb
             //p.ssdata_id = "";
             int chk = 0;
             
-            sql = "Insert Into " + dgs.table + " (" + dgs.doc_group_name + ","+dgs.active+"" +
-                ") " +
-                "Values ('"+p.doc_group_name.Replace("'", "''") + "','1' " +
+            sql = "Insert Into " + dgs.table + " (" + dgs.doc_group_name + ","+dgs.active+","+dgs.status_opd + "" +
+               ") " +
+                "Values ('"+p.doc_group_name.Replace("'", "''") + "','1','" +p.status_opd+"'"+
                 ")";
             try
             {
@@ -148,7 +150,8 @@ namespace bangna_hospital.objdb
                         
             sql = "Update " + dgs.table + " Set " +
                 " " + dgs.doc_group_name + " = '" + p.doc_group_name.Replace("'", "''") + "'" +
-                
+                "," + dgs.status_opd + " = '" + p.status_opd.Replace("'", "''") + "'" +
+
                 "Where " + dgs.pkField + "='" + p.doc_group_id + "'"
                 ;
 
@@ -187,6 +190,7 @@ namespace bangna_hospital.objdb
                 dgs1.doc_group_name = dt.Rows[0][dgs.doc_group_name].ToString();
                 dgs1.remark = dt.Rows[0][dgs.remark].ToString();
                 dgs1.active = dt.Rows[0][dgs.active].ToString();
+                dgs1.status_opd = dt.Rows[0][dgs.status_opd].ToString();
             }
             else
             {
@@ -200,6 +204,7 @@ namespace bangna_hospital.objdb
             dgs1.remark = "";
             dgs1.doc_group_name = "";
             dgs1.doc_group_id = "";
+            dgs1.status_opd = "";
             return dgs1;
         }
         public void setCboBsp(C1ComboBox c, String selected)

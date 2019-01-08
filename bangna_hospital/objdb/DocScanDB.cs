@@ -42,6 +42,11 @@ namespace bangna_hospital.objdb
             dsc.user_modi = "user_modi";
             dsc.user_cancel = "user_cancel";
             dsc.an = "an";
+            dsc.doc_group_sub_id = "doc_group_sub_id";
+            dsc.pre_no = "pre_no";
+            dsc.an_date = "an_date";
+            dsc.status_ipd = "status_ipd";
+            
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -73,7 +78,10 @@ namespace bangna_hospital.objdb
                 itm1.user_modi = row[dsc.user_modi].ToString();
                 itm1.user_cancel = row[dsc.user_cancel].ToString();
                 itm1.an = row[dsc.an].ToString();
-                //itm1.is_ipd = row[bsp.is_ipd].ToString();
+                itm1.doc_group_sub_id = row[dsc.doc_group_sub_id].ToString();
+                itm1.pre_no = row[dsc.pre_no].ToString();
+                itm1.an_date = row[dsc.an_date].ToString();
+                itm1.status_ipd = row[dsc.status_ipd].ToString();
                 lDgs.Add(itm1);
             }
         }
@@ -172,7 +180,7 @@ namespace bangna_hospital.objdb
         }
         private void chkNull(DocScan p)
         {
-            int chk = 0;
+            long chk = 0;
 
             p.date_modi = p.date_modi == null ? "" : p.date_modi;
             p.date_cancel = p.date_cancel == null ? "" : p.date_cancel;
@@ -187,11 +195,14 @@ namespace bangna_hospital.objdb
             p.visit_date = p.visit_date == null ? "" : p.visit_date;
             p.remark = p.remark == null ? "" : p.remark;
             p.an = p.an == null ? "" : p.an;
+            p.pre_no = p.pre_no == null ? "" : p.pre_no;
+            p.an_date = p.an_date == null ? "" : p.an_date;
+            p.status_ipd = p.status_ipd == null ? "" : p.status_ipd;
 
-            p.doc_group_id = int.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
-            p.row_no = int.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
-            //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
-            //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
+            p.doc_group_id = long.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
+            p.row_no = long.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
+            p.doc_group_sub_id = long.TryParse(p.doc_group_sub_id, out chk) ? chk.ToString() : "0";
+            //p.pre_no = int.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";
             //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
         }
         public String insert(DocScan p, String userId)
@@ -207,18 +218,30 @@ namespace bangna_hospital.objdb
                 dsc.vn + "," + dsc.visit_date + "," + dsc.remark + "," +
                 dsc.date_create + "," + dsc.date_modi + "," + dsc.date_cancel + "," +
                 dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
-                dsc.an + " " +
+                dsc.an + "," + dsc.doc_group_sub_id + "," + dsc.pre_no + "," +
+                dsc.an_date + "," + dsc.status_ipd + "," +
                 ") " +
                 "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
                 "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
                 "'" + p.vn + "','" + p.visit_date + "','" + p.remark + "'," +
                 "getdate(),'" + p.date_modi + "','" + p.date_cancel + "'," +
                 "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "'," +
-                "'" + p.an + "' " +
+                "'" + p.an + "','" + p.doc_group_sub_id + "' " + p.pre_no + "'," +
+                "'" + p.an_date + "','" + p.status_ipd + "' " +
                 ")";
             try
             {
                 re = conn.ExecuteNonQuery(conn.conn, sql);
+                if (re.Equals("1"))
+                {
+                    DataTable dt = new DataTable();
+                    sql = "Select max("+dsc.doc_scan_id+") as cnt From "+dsc.table;
+                    dt = conn.selectData(conn.conn, sql);
+                    if (dt.Rows.Count > 0)
+                    {
+                        re = dt.Rows[0]["cnt"].ToString();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -245,6 +268,10 @@ namespace bangna_hospital.objdb
                 "," + dsc.date_modi + " = getdate()" +
                 "," + dsc.user_modi + " = '" + userId + "'" +
                 "," + dsc.an + " = '" + p.an + "'" +
+                "," + dsc.doc_group_sub_id + " = '" + p.doc_group_sub_id + "'" +
+                "," + dsc.pre_no + " = '" + p.pre_no + "'" +
+                "," + dsc.an_date + " = '" + p.an_date + "'" +
+                "," + dsc.status_ipd + " = '" + p.status_ipd + "'" +
                 "Where " + dsc.pkField + "='" + p.doc_scan_id + "'"
                 ;
 
@@ -319,6 +346,10 @@ namespace bangna_hospital.objdb
                 dgs1.user_modi = dt.Rows[0][dsc.user_modi].ToString();
                 dgs1.user_cancel = dt.Rows[0][dsc.user_cancel].ToString();
                 dgs1.an = dt.Rows[0][dsc.an].ToString();
+                dgs1.doc_group_sub_id = dt.Rows[0][dsc.doc_group_sub_id].ToString();
+                dgs1.pre_no = dt.Rows[0][dsc.pre_no].ToString();
+                dgs1.an_date = dt.Rows[0][dsc.an_date].ToString();
+                dgs1.status_ipd = dt.Rows[0][dsc.status_ipd].ToString();
             }
             else
             {
@@ -345,6 +376,10 @@ namespace bangna_hospital.objdb
             dgs1.user_modi = "";
             dgs1.user_cancel = "";
             dgs1.an = "";
+            dgs1.doc_group_sub_id = "";
+            dgs1.pre_no = "";
+            dgs1.an_date = "";
+            dgs1.status_ipd = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

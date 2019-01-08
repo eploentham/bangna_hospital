@@ -83,6 +83,24 @@ namespace bangna_hospital.gui
             frm.ShowDialog(this);
             txtHn.Value = bc.sPtt.Hn;
             txtName.Value = bc.sPtt.Name;
+            txtVN.Value = bc.sPtt.vn;
+            txtVisitDate.Value = bc.sPtt.visitDate;
+            txtPreNo.Value = bc.sPtt.preno;
+            txtAN.Value = bc.sPtt.an;
+            txtAnDate.Value = bc.sPtt.anDate;
+            chkIPD.Checked = bc.sPtt.statusIPD.Equals("I") ? true : false;
+            if (chkIPD.Checked)
+            {
+                txtVisitDate.Hide();
+                txtAnDate.Show();
+                label6.Text = "AN Date :";
+            }
+            else
+            {
+                txtVisitDate.Show();
+                txtAnDate.Hide();
+                label6.Text = "Visit Date :";
+            }
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -198,7 +216,7 @@ namespace bangna_hospital.gui
                     re = ex.Message;
                 }
             }
-            grf.AutoSizeCols();
+            //grf.AutoSizeCols();
             grf.AutoSizeRows();
         }
         private void initGrf()
@@ -236,10 +254,10 @@ namespace bangna_hospital.gui
             colpic3.DataType = typeof(Image);
             Column colpic4 = grf.Cols[colPic4];
             colpic4.DataType = typeof(Image);
-            grf.Cols[colPic1].Width = 100;
-            grf.Cols[colPic2].Width = 100;
-            grf.Cols[colPic3].Width = 100;
-            grf.Cols[colPic4].Width = 100;
+            grf.Cols[colPic1].Width = 310;
+            grf.Cols[colPic2].Width = 310;
+            grf.Cols[colPic3].Width = 310;
+            grf.Cols[colPic4].Width = 310;
             grf.ShowCursor = true;
 
             ContextMenu menuGw = new ContextMenu();
@@ -253,11 +271,11 @@ namespace bangna_hospital.gui
             if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
             foreach(DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
             {
-                String dgssid = "";
-                dgssid = bc.bcDB.dgssDB.getIdDgss(dgss.doc_group_sub_name);
-                if (!dgssid.Equals(idOld))
+                String dgsid = "";
+                dgsid = bc.bcDB.dgssDB.getDgsIdDgss(dgss.doc_group_sub_name);
+                if (!dgsid.Equals(idOld))
                 {
-                    idOld = dgssid;
+                    idOld = dgsid;
                     String name = "";
                     name = bc.bcDB.dgsDB.getNameDgs(dgss.doc_group_id);
                     MenuItem addDevice = new MenuItem("[" + name + "]");
@@ -337,30 +355,49 @@ namespace bangna_hospital.gui
             {
                 filename = filename.Substring(filename.IndexOf('*') + 1);
                 String[] ext = filename.Split('.');
-                dgs = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
-                DocScan dsc = new DocScan();
-                dsc.active = "1";
-                dsc.doc_scan_id = "";
-                dsc.doc_group_id = dgs;
-                dsc.hn = txtHn.Text;
-                dsc.vn = txtVN.Text;
-                dsc.an = txtAN.Text;
-                dsc.visit_date = txtVisitDate.Text;
-                if (!txtVN.Text.Equals(""))
+                String dgssname = "", dgssid="";
+                dgssname = ((MenuItem)sender).Text;
+                dgssid = bc.bcDB.dgssDB.getIdDgss(dgssname);
+                DocGroupSubScan dgss = new DocGroupSubScan();
+                dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
+                if (!dgss.doc_group_sub_id.Equals(""))
                 {
-                    dsc.row_no = bc.bcDB.dscDB.selectRowNoByHnVn(txtHn.Text,txtVN.Text, dgs);
+                    //dgs = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
+                    int row = 0, col = 0;
+                    row = grf.Row;
+                    col = grf.Col;
+                    DocScan dsc = new DocScan();
+                    dsc.active = "1";
+                    dsc.doc_scan_id = "";
+                    dsc.doc_group_id = dgss.doc_group_id;
+                    dsc.hn = txtHn.Text;
+                    dsc.vn = txtVN.Text;
+                    dsc.an = txtAN.Text;
+                    dsc.visit_date = txtVisitDate.Text;
+                    if (!txtVN.Text.Equals(""))
+                    {
+                        dsc.row_no = bc.bcDB.dscDB.selectRowNoByHnVn(txtHn.Text, txtVN.Text, dgs);
+                    }
+                    else
+                    {
+                        dsc.row_no = bc.bcDB.dscDB.selectRowNoByHn(txtHn.Text, dgs);
+                    }
+                    dsc.host_ftp = bc.iniC.hostFTP;
+                    dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgs + "_" + dsc.row_no + "." + ext[ext.Length - 1];
+                    dsc.doc_group_sub_id = dgssid;
+                    String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
+                    FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                    ftp.createDirectory(txtHn.Text);
+                    ftp.delete(dsc.image_path);
+                    ftp.upload(dsc.image_path, filename);
+                    
+                    CellRange cr = grf.GetCellRange(grf.Row, grf.Col);
+                    CellStyle cs = grf.Styles.Normal;
+                    cs.BackColor = Color.Green;
+                    cs.Border.Color = Color.FromArgb(196, 228, 223);
+                    cs.Border.Color = Color.Black;
+                    cr.Style = cs;
                 }
-                else
-                {
-                    dsc.row_no = bc.bcDB.dscDB.selectRowNoByHn(txtHn.Text, dgs);
-                }
-                dsc.host_ftp = bc.iniC.hostFTP;
-                dsc.image_path = txtHn.Text+"//"+txtHn.Text+"_"+dgs+"_"+ dsc.row_no + "." + ext[ext.Length - 1];
-                bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
-                FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
-                ftp.createDirectory(txtHn.Text);
-                ftp.delete(dsc.image_path);
-                ftp.upload(dsc.image_path, filename);
             }
             catch (Exception ex)
             {

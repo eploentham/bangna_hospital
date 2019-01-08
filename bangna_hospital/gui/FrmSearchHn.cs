@@ -23,8 +23,9 @@ namespace bangna_hospital.gui
         Color bg, fc;
         Font ff, ffB;
         int colCuHn = 1, colCuName = 2;
+        int colVsName = 1, colVsDate=2, colVsVn=3, colVsPreNo=4, colVsmeno=5, colVsDsc=6, coLVsAn=8, colVsStatus=7, colVsAnDate=9;
 
-        C1FlexGrid grfCu, grfDay3, grfDay5, grfDay6;
+        C1FlexGrid grfCu, grfVn, grfDay5, grfDay6;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         public enum StatusConnection {host, hostEx};
@@ -54,6 +55,7 @@ namespace bangna_hospital.gui
             sep = new C1SuperErrorProvider();
             
             initGrfCu();
+            initGrfVn();
             setGrfCu();
             tC1.SelectedTab = tabCurrent;
             btnSearch.Click += BtnSearch_Click;
@@ -108,9 +110,55 @@ namespace bangna_hospital.gui
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
             grfCu.ContextMenu = menuGw;
-            gbHn.Controls.Add(grfCu);
+            panel2.Controls.Add(grfCu);
 
             theme1.SetTheme(grfCu, "Office2010Blue");
+        }
+        private void initGrfVn()
+        {
+            grfVn = new C1FlexGrid();
+            grfVn.Font = fEdit;
+            grfVn.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfVn.Location = new System.Drawing.Point(0, 0);
+
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfVn.AfterRowColChange += GrfVn_AfterRowColChange;
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+            ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            grfVn.ContextMenu = menuGw;
+            panel3.Controls.Add(grfVn);
+
+            theme1.SetTheme(grfVn, "Office2010Red");
+        }
+
+        private void GrfVn_AfterRowColChange(object sender, RangeEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.NewRange.r1 < 0) return;
+            if (e.NewRange.Data == null) return;
+            String vn = "";
+            vn = grfVn[grfVn.Row, colVsVn] != null ? grfVn[grfVn.Row, colVsVn].ToString() : "";
+            txtVn.Value = vn;
+            txtVisitDate.Value = grfVn[grfVn.Row, colVsDate] != null ? grfVn[grfVn.Row, colVsDate].ToString() : "";
+            txtPreNo.Value = grfVn[grfVn.Row, colVsPreNo] != null ? grfVn[grfVn.Row, colVsPreNo].ToString() : "";
+            chkIPD.Checked = grfVn[grfVn.Row, colVsStatus] != null ? grfVn[grfVn.Row, colVsStatus].ToString().Equals("I") ? true : false : false;
+            txtAn.Value = grfVn[grfVn.Row, coLVsAn] != null ? grfVn[grfVn.Row, coLVsAn].ToString() : "";
+            txtAnDate.Value = grfVn[grfVn.Row, colVsAnDate] != null ? grfVn[grfVn.Row, colVsAnDate].ToString() : "";
+
+            bc.sPtt = new Patient();
+            bc.sPtt.Hn = txtHn.Text;
+            bc.sPtt.Name = txtName.Text;
+            bc.sPtt.vn = txtVn.Text;
+            bc.sPtt.visitDate = txtVisitDate.Text;
+            bc.sPtt.preno = txtPreNo.Text;
+            bc.sPtt.statusIPD = chkIPD.Checked ? "I" : "O";
+            bc.sPtt.anDate = txtAnDate.Text;
+            bc.sPtt.an = txtAn.Text;
         }
 
         private void GrfCu_AfterRowColChange(object sender, RangeEventArgs e)
@@ -129,6 +177,7 @@ namespace bangna_hospital.gui
 
                 txtHn.Value = bc.sPtt.Hn;
                 txtName.Value = bc.sPtt.Name;
+                setGrfVn(bc.sPtt.Hn);
                 //txtVn.Value = bc.sVsOld.VN;
             }
             //grfAddr.DataSource = xC.iniDB.addrDB.selectByTableId1(vn);
@@ -140,7 +189,7 @@ namespace bangna_hospital.gui
             grfCu.Clear();
             DataTable dt = new DataTable();
             grfCu.DataSource = null;
-            ConnectDB con = new ConnectDB(bc.iniC);
+            //ConnectDB con = new ConnectDB(bc.iniC);
             //con.OpenConnectionEx();
             dt = bc.bcDB.pttDB.selectPatient(txtSearch.Text, txtSearch.Text);
             //con.CloseConnectionEx();
@@ -180,6 +229,71 @@ namespace bangna_hospital.gui
             }
             grfCu.Cols[colCuHn].AllowEditing = false;            
             grfCu.Cols[colCuName].AllowEditing = false;            
+        }
+        private void setGrfVn(String hn)
+        {
+            //grfDept.Rows.Count = 7;
+            grfVn.Clear();
+            DataTable dt = new DataTable();
+            grfVn.DataSource = null;
+            //ConnectDB con = new ConnectDB(bc.iniC);
+            //con.OpenConnectionEx();
+            dt = bc.bcDB.vsDB.selectVisitByHn3(hn);
+            //con.CloseConnectionEx();
+            //grfExpn.Rows.Count = dt.Rows.Count + 1;
+            grfVn.Rows.Count = 1;
+            grfVn.Cols.Count = 10;
+            C1TextBox txt = new C1TextBox();
+            C1ComboBox cboproce = new C1ComboBox();
+            //ic.ivfDB.itmDB.setCboItem(cboproce);
+            grfVn.Cols[colVsName].Editor = txt;
+            grfVn.Cols[colVsDate].Editor = txt;
+
+            grfVn.Cols[colVsName].Width = 140;
+            grfVn.Cols[colVsDate].Width = 120;
+            grfVn.Cols[colVsVn].Width = 80;
+            grfVn.Cols[colVsmeno].Width = 140;
+            grfVn.Cols[colVsDsc].Width = 80;
+            grfVn.Cols[coLVsAn].Width = 80;
+            grfVn.Cols[colVsStatus].Width = 40;
+            grfVn.Cols[colVsAnDate].Width = 120;
+
+            grfVn.ShowCursor = true;
+            //grdFlex.Cols[colID].Caption = "no";
+            //grfDept.Cols[colCode].Caption = "รหัส";
+
+            grfVn.Cols[colVsName].Caption = "HN";
+            grfVn.Cols[colVsDate].Caption = "Visit Date";
+            grfVn.Cols[colVsVn].Caption = "VN";
+            grfVn.Cols[colVsmeno].Caption = "อาการ";
+            grfVn.Cols[colVsDsc].Caption = "desc";
+            grfVn.Cols[coLVsAn].Caption = "AN";
+            grfVn.Cols[colVsStatus].Caption = " ";
+            grfVn.Cols[colVsAnDate].Caption = "AN Date";
+
+            Color color = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            //CellRange rg1 = grfBank.GetCellRange(1, colE, grfBank.Rows.Count, colE);
+            //rg1.Style = grfBank.Styles["date"];
+            //grfCu.Cols[colID].Visible = false;
+            for (int i = 0; i <= dt.Rows.Count - 1; i++)
+            {
+                Row row = grfVn.Rows.Add();
+                row[0] = i;
+
+                row[colVsVn] = dt.Rows[i]["MNC_VN_NO"].ToString()+"/"+ dt.Rows[i]["MNC_VN_SEQ"].ToString() + "(" + dt.Rows[i]["MNC_VN_SUM"].ToString()+")";
+                row[colVsName] = dt.Rows[i]["prefix"].ToString() + " " + dt.Rows[i]["MNC_FNAME_T"].ToString() + " " + dt.Rows[i]["MNC_LNAME_T"].ToString();
+                row[colVsDate] =  bc.datetoShow(dt.Rows[i]["mnc_date"].ToString());
+                row[colVsPreNo] = dt.Rows[i]["mnc_pre_no"].ToString();
+                row[colVsmeno] = dt.Rows[i]["mnc_shif_memo"].ToString();
+                row[colVsDsc] = dt.Rows[i]["mnc_ref_dsc"].ToString();
+                row[coLVsAn] = dt.Rows[i]["mnc_an_no"].ToString();
+                row[colVsStatus] = dt.Rows[i]["MNC_PAT_FLAG"].ToString();
+                row[colVsAnDate] = bc.datetoShow(dt.Rows[i]["mnc_ad_date"].ToString());
+            }
+            grfVn.Cols[colVsVn].AllowEditing = false;
+            grfVn.Cols[colCuName].AllowEditing = false;
+            grfVn.Cols[colVsPreNo].Visible = false;
+            grfVn.Cols[colVsName].Visible = false;
         }
         private void FrmSearchHn_Load(object sender, EventArgs e)
         {

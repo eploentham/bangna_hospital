@@ -49,11 +49,11 @@ namespace bangna_hospital.objdb
                 itm1.doc_group_id = row[dgss.doc_group_id].ToString();
                 itm1.remark = row[dgss.remark].ToString();
 
-                //itm1.is_ipd = row[bsp.is_ipd].ToString();
+                itm1.doc_group_sub_id = row[dgss.doc_group_sub_id].ToString();
                 lDgss.Add(itm1);
             }
         }
-        public String getIdDgss(String name)
+        public String getDgsIdDgss(String name)
         {
             String re = "";
             foreach (DocGroupSubScan row in lDgss)
@@ -66,12 +66,25 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String getIdDgss(String name)
+        {
+            String re = "";
+            foreach (DocGroupSubScan row in lDgss)
+            {
+                if (row.doc_group_sub_name.Trim().Equals(name.Trim()))
+                {
+                    re = row.doc_group_sub_id;
+                    break;
+                }
+            }
+            return re;
+        }
         public String getNameDgss(String id)
         {
             String re = "";
             foreach (DocGroupSubScan row in lDgss)
             {
-                if (row.doc_group_id.Trim().Equals(id.Trim()))
+                if (row.doc_group_sub_id.Trim().Equals(id.Trim()))
                 {
                     re = row.doc_group_sub_name;
                     break;

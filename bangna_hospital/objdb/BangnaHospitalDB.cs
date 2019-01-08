@@ -14,6 +14,7 @@ namespace bangna_hospital.objdb
         public PatientDB pttDB;
         public DocScanDB dscDB;
         public DocGroupSubScanDB dgssDB;
+        public VisitDB vsDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -26,6 +27,7 @@ namespace bangna_hospital.objdb
             pttDB = new PatientDB(conn);
             dscDB = new DocScanDB(conn);
             dgssDB = new DocGroupSubScanDB(conn);
+            vsDB = new VisitDB(conn);
         }
     }
 }

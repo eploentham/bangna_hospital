@@ -56,7 +56,7 @@ namespace bangna_hospital.gui
             {
                 theme1.SetTheme(c, "Office2013Red");
             }
-
+            theme1.SetTheme(panel4, "Office2013Red");
             bg = txtDocGroupName.BackColor;
             fc = txtDocGroupName.ForeColor;
             ff = txtDocGroupName.Font;
@@ -156,6 +156,8 @@ namespace bangna_hospital.gui
             dgs = bc.bcDB.dgsDB.selectByPk(posiId);
             txtID.Value = dgs.doc_group_id;
             txtDocGroupName.Value = dgs.doc_group_name;
+            chkOPD.Checked = dgs.status_opd.Equals("1") ? true : false;
+            chkIPD.Checked = dgs.status_opd.Equals("2") ? true : false;
         }
         private void setControlEnable(Boolean flag)
         {
@@ -163,12 +165,13 @@ namespace bangna_hospital.gui
             txtDocGroupName.Enabled = flag;
             chkVoid.Enabled = flag;
             btnEdit.Image = !flag ? Resources.lock24 : Resources.open24;
+            panel4.Enabled = flag;
         }
         private void setDocGroupScan()
         {
             dgs.doc_group_id = txtID.Text;
             dgs.doc_group_name = txtDocGroupName.Text;
-            //posi.posi_name_e = txtPosiNameE.Text;
+            dgs.status_opd = chkOPD.Checked ? "1" : "2";
         }
         private void grfPosi_AfterRowColChange(object sender, C1.Win.C1FlexGrid.RangeEventArgs e)
         {
