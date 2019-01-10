@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
+using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using System;
 using System.Collections;
@@ -24,6 +25,9 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         MainMenu menu;
         C1FlexGrid grf;
+        C1DockingTab tcDtr;
+        C1DockingTabPage tabScan;
+        C1DockingTabPage[] tabPage1;
         Font fEdit, fEditB;
         //private IOcrEngine _ocrEngine;
 
@@ -41,6 +45,24 @@ namespace bangna_hospital.gui
         {
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
+            tcDtr = new C1DockingTab();
+            tcDtr.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcDtr.Location = new System.Drawing.Point(0, 266);
+            tcDtr.Name = "c1DockingTab1";
+            tcDtr.Size = new System.Drawing.Size(669, 200);
+            tcDtr.TabIndex = 0;
+            tcDtr.TabsSpacing = 5;
+            panel1.Controls.Add(tcDtr);
+            //theme1.SetTheme(tcDtr, "Office2010Blue");
+            tabScan = new C1DockingTabPage();
+            tabScan.Location = new System.Drawing.Point(1, 24);
+            tabScan.Name = "c1DockingTabPage1";
+            tabScan.Size = new System.Drawing.Size(667, 175);
+            tabScan.TabIndex = 0;
+            tabScan.Text = "PageScan";
+            tabScan.Name = "Page Scan";
+            tcDtr.Controls.Add(tabScan);
+
             bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
             DateTime dt = DateTime.Now;
             dt = dt.AddDays(-1);
@@ -58,22 +80,125 @@ namespace bangna_hospital.gui
             theme1.Theme = bc.iniC.themeApplication;
             theme1.SetTheme(sb1, "BeigeOne");
             theme1.SetTheme(groupBox1, theme1.Theme);
-            theme1.SetTheme(grfScan, theme1.Theme);
+            theme1.SetTheme(panel1, theme1.Theme);
+            theme1.SetTheme(tcDtr, theme1.Theme);
             foreach (Control con in groupBox1.Controls)
             {
-                theme1.SetTheme(con, theme1.Theme);
+                if(con is ProgressBar)
+                {
+                    
+                }
+                else
+                {
+                    theme1.SetTheme(con, theme1.Theme);
+                }
+                
             }
-            foreach (Control con in grfScan.Controls)
+            foreach (Control con in panel1.Controls)
             {
-                theme1.SetTheme(con, theme1.Theme);
+                //theme1.SetTheme(con, theme1.Theme);
             }
-
+            
             btnOpen.Click += BtnOpen_Click;
             btnHn.Click += BtnHn_Click;
 
             sb1.Text = "aaaaaaaaaa";
             initGrf();
             setGrf();
+            //pB1.Hide();
+            int i = 0;
+            String idOld = "";
+            //foreach (DocGroupScan dgs in bc.bcDB.dgsDB.lDgs)
+            //{
+            //    C1DockingTabPage tabPage = new C1DockingTabPage();
+            //    tabPage.Location = new System.Drawing.Point(1, 24);
+            //    tabPage.Size = new System.Drawing.Size(667, 175);
+                
+            //    tabPage.TabIndex = 0;
+            //    tabPage.Text = "Page" + dgs.doc_group_name;
+            //    tabPage.Name = " " + dgs.doc_group_id+"  ";
+            //    tcDtr.Controls.Add(tabPage);
+            //    i++;
+            //    String dgsid = "";
+            //    dgsid = bc.bcDB.dgssDB.getDgsIdDgss(dgss.doc_group_sub_name);
+            //    if (!dgsid.Equals(idOld))
+            //    {
+
+            //    }
+            //}
+            if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
+            foreach (DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
+            {
+                String dgsid = "";
+                dgsid = bc.bcDB.dgssDB.getDgsIdDgss(dgss.doc_group_sub_name);
+                if (!dgsid.Equals(idOld))
+                {
+                    idOld = dgsid;
+                    String name = "";
+                    name = bc.bcDB.dgsDB.getNameDgs(dgss.doc_group_id);
+                    C1DockingTabPage tabPage = new C1DockingTabPage();
+                    tabPage.Location = new System.Drawing.Point(1, 24);
+                    tabPage.Size = new System.Drawing.Size(667, 175);
+
+                    tabPage.TabIndex = 0;
+                    tabPage.Text = " " + name+"  ";
+                    tabPage.Name = dgsid;
+                    tcDtr.Controls.Add(tabPage);
+                    i++;
+                    C1DockingTab tabDtr1 = new C1DockingTab();
+                    tabDtr1.Dock = System.Windows.Forms.DockStyle.Fill;
+                    tabDtr1.Location = new System.Drawing.Point(0, 266);
+                    tabDtr1.Name = "c1DockingTab1";
+                    tabDtr1.Size = new System.Drawing.Size(669, 200);
+                    tabDtr1.TabIndex = 0;
+                    tabDtr1.TabsSpacing = 5;
+                    tabPage.Controls.Add(tabDtr1);
+                    theme1.SetTheme(tabDtr1, "Office2010Red");
+                    foreach (DocGroupSubScan dgsss in bc.bcDB.dgssDB.lDgss)
+                    {
+                        if (dgsss.doc_group_id.Equals(dgss.doc_group_id))
+                        {
+                            //addDevice.MenuItems.Add(new MenuItem(dgsss.doc_group_sub_name, new EventHandler(ContextMenu_upload)));
+                            
+                            C1DockingTabPage tabPage2 = new C1DockingTabPage();
+                            tabPage2.Location = new System.Drawing.Point(1, 24);
+                            tabPage2.Size = new System.Drawing.Size(667, 175);
+                            tabPage2.TabIndex = 0;
+                            tabPage2.Text = " " + dgsss.doc_group_sub_name + "  ";
+                            tabPage2.Name = "tab"+dgsss.doc_group_sub_id;
+                            tabDtr1.Controls.Add(tabPage2);
+                            C1FlexGrid grf = new C1FlexGrid();
+                            grf.Font = fEdit;
+                            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+                            grf.Location = new System.Drawing.Point(0, 0);
+                            grf.Rows[0].Visible = false;
+                            grf.Cols[0].Visible = false;
+                            grf.Rows.Count = 1;
+                            grf.Name = dgsss.doc_group_sub_id;
+                            grf.Cols.Count = 5;
+                            Column colpic1 = grf.Cols[colPic1];
+                            colpic1.DataType = typeof(Image);
+                            Column colpic2 = grf.Cols[colPic2];
+                            colpic2.DataType = typeof(Image);
+                            Column colpic3 = grf.Cols[colPic3];
+                            colpic3.DataType = typeof(Image);
+                            Column colpic4 = grf.Cols[colPic4];
+                            colpic4.DataType = typeof(Image);
+                            grf.Cols[colPic1].Width = 310;
+                            grf.Cols[colPic2].Width = 310;
+                            grf.Cols[colPic3].Width = 310;
+                            grf.Cols[colPic4].Width = 310;
+                            grf.ShowCursor = true;
+
+                            tabPage2.Controls.Add(grf);
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+            }
         }
 
         private void BtnHn_Click(object sender, EventArgs e)
@@ -160,76 +285,127 @@ namespace bangna_hospital.gui
         }
         private void setImage(String[] file1)
         {
+            txtVN.Hide();
+            btnVn.Hide();
+            label3.Hide();
+            txtAN.Hide();
+            txtAnCnt.Hide();
+            chkIPD.Hide();
+            label6.Hide();
+            txtVisitDate.Hide();
+            txtAnDate.Hide();
+            txtPreNo.Hide();
+
+            ProgressBar pB1 = new ProgressBar();
+            pB1.Location = new System.Drawing.Point(113, 36);
+            pB1.Name = "pB1";
+            pB1.Size = new System.Drawing.Size(862, 23);
+            groupBox1.Controls.Add(pB1);
+            pB1.Show();
             int i = 1, j = 1, row = grf.Rows.Count;
             grf.Rows.Add();
             row = grf.Rows.Count;
             String re = "";
             array1.Clear();
-            foreach (String file in file1)
+            try
             {
-                try
+                pB1.Value = 0;
+                pB1.Minimum = 0;
+                pB1.Maximum = file1.Length;
+                foreach (String file in file1)
                 {
-                    Image loadedImage, resizedImage;
-                    String[] sur = file.Split('.');
-                    String ex = "";
-                    if (sur.Length == 2)
+                    try
                     {
-                        ex = sur[1];
-                    }
+                        Image loadedImage, resizedImage;
+                        String[] sur = file.Split('.');
+                        String ex = "";
+                        if (sur.Length == 2)
+                        {
+                            ex = sur[1];
+                        }
 
-                    if (!ex.Equals("pdf"))
-                    {
-                        loadedImage = Image.FromFile(file);
-                        MemoryStream stream = new MemoryStream();
+                        if (!ex.Equals("pdf"))
+                        {
+                            loadedImage = Image.FromFile(file);
+                            //byte[] buff = System.IO.File.ReadAllBytes(file);
+                            //System.IO.MemoryStream ms = new System.IO.MemoryStream(buff);
+                            //MemoryStream stream = new MemoryStream(buff);
 
-                        loadedImage.Save(stream, ImageFormat.Jpeg);
-                        loadedImage.Dispose();
-                        loadedImage = Image.FromStream(stream);
-                        int originalWidth = 0;
-                        originalWidth = loadedImage.Width;
-                        int newWidth = 280;
-                        resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                        
-                    }
-                    else
-                    {
-                        resizedImage = Resources.pdf_symbol_80_2;
-                    }
-                    if (j > 4)
-                    {
-                        grf.Rows.Add();
-                        row = grf.Rows.Count;
-                        j = 1;
-                        i++;
-                    }
-                    grf.Cols[colPic1].ImageAndText = true;
-                    grf.Cols[colPic2].ImageAndText = true;
-                    grf.Cols[colPic3].ImageAndText = true;
-                    grf.Cols[colPic4].ImageAndText = true;
-                    int hei = grf.Rows.DefaultSize;
+                            //loadedImage.Save(stream, ImageFormat.Jpeg);
+                            //loadedImage.Dispose();
+                            //loadedImage = Image.FromStream(stream);
+                            int originalWidth = 0;
+                            originalWidth = loadedImage.Width;
+                            int newWidth = 280;
+                            resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
 
-                    //grf[row - 1, colDay2PathPic] = file;
-                    //grfDay2Img[row - 1, colBtn] = "send";
-                    array1.Add(i + "," + j + ",*" + file);
-                    if (j == 1)
-                        grf[i, colPic1] = resizedImage;
-                    else if (j == 2)
-                        grf[i, colPic2] = resizedImage;
-                    else if (j == 3)
-                        grf[i, colPic3] = resizedImage;
-                    else if (j == 4)
-                        grf[i, colPic4] = resizedImage;
-                    j++;
-                    
-                    //resizedImage.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    re = ex.Message;
+                        }
+                        else
+                        {
+                            resizedImage = Resources.pdf_symbol_80_2;
+                        }
+                        if (j > 4)
+                        {
+                            grf.Rows.Add();
+                            row = grf.Rows.Count;
+                            j = 1;
+                            i++;
+                        }
+                        //grf.Cols[colPic1].ImageAndText = true;
+                        //grf.Cols[colPic2].ImageAndText = true;
+                        //grf.Cols[colPic3].ImageAndText = true;
+                        //grf.Cols[colPic4].ImageAndText = true;
+                        int hei = grf.Rows.DefaultSize;
+
+                        //grf[row - 1, colDay2PathPic] = file;
+                        //grfDay2Img[row - 1, colBtn] = "send";
+                        array1.Add(i + "," + j + ",*" + file);
+                        if (j == 1)
+                            grf[i, colPic1] = resizedImage;
+                        else if (j == 2)
+                            grf[i, colPic2] = resizedImage;
+                        else if (j == 3)
+                            grf[i, colPic3] = resizedImage;
+                        else if (j == 4)
+                            grf[i, colPic4] = resizedImage;
+                        j++;
+                        pB1.Value++;
+                        //resizedImage.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        re = ex.Message;
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error"+ex.Message, "");
+            }
+            
             //grf.AutoSizeCols();
             grf.AutoSizeRows();
+            grf.Rows[0].Visible = false;
+            grf.Cols[0].Visible = false;
+            pB1.Dispose();
+            txtVN.Show();
+            btnVn.Show();
+            label3.Show();
+            txtAN.Show();
+            txtAnCnt.Show();
+            chkIPD.Show();
+            label6.Show();
+            if (chkIPD.Checked)
+            {
+                txtVisitDate.Hide();
+                txtAnDate.Show();
+            }
+            else
+            {
+                txtVisitDate.Show();
+                txtAnDate.Hide();
+            }
+            txtPreNo.Show();
         }
         private void initGrf()
         {
@@ -248,9 +424,10 @@ namespace bangna_hospital.gui
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
 
-            grfScan.Controls.Add(grf);
-
-            theme1.SetTheme(grf, "Office2010Blue");
+            tabScan.Controls.Add(grf);
+            grf.Rows[0].Visible = false;
+            grf.Cols[0].Visible = false;
+            //theme1.SetTheme(grf, "Office2010Blue");
 
         }
         private void setGrf()
@@ -271,7 +448,10 @@ namespace bangna_hospital.gui
             grf.Cols[colPic3].Width = 310;
             grf.Cols[colPic4].Width = 310;
             grf.ShowCursor = true;
-
+            grf.Cols[colPic1].ImageAndText = true;
+            grf.Cols[colPic2].ImageAndText = true;
+            grf.Cols[colPic3].ImageAndText = true;
+            grf.Cols[colPic4].ImageAndText = true;
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("&แก้ไข Image", new EventHandler(ContextMenu_edit));
             menuGw.MenuItems.Add("&Rotate Image", new EventHandler(ContextMenu_retate));
@@ -363,6 +543,11 @@ namespace bangna_hospital.gui
         {
             String dgs = "", filename = "", id = "";
             filename = searchInArray();
+            if (txtHn.Text.Equals(""))
+            {
+                MessageBox.Show("กรุณาป้อน HN", "");
+                return;
+            }
             try
             {
                 filename = filename.Substring(filename.IndexOf('*') + 1);
@@ -412,13 +597,68 @@ namespace bangna_hospital.gui
                     ftp.createDirectory(txtHn.Text);
                     ftp.delete(dsc.image_path);
                     ftp.upload(dsc.image_path, filename);
-                    
-                    CellRange cr = grf.GetCellRange(grf.Row, grf.Col);
-                    CellStyle cs = grf.Styles.Normal;
+                    foreach(Control con in this.Controls)
+                    {
+                        if(con is Panel)
+                        {
+                            foreach (Control conp in con.Controls)
+                            {
+                                if (conp is C1DockingTab)
+                                {
+                                    foreach (Control cond in conp.Controls)
+                                    {
+                                        if(cond is C1DockingTabPage)
+                                        {
+                                            foreach (Control cong in cond.Controls)
+                                            {
+                                                if (cong is C1DockingTab)
+                                                {
+                                                    foreach (Control congd in cong.Controls)
+                                                    {
+                                                        if (congd is C1DockingTabPage)
+                                                        {
+                                                            foreach (Control congd1 in congd.Controls)
+                                                            {
+                                                                if (congd1 is C1FlexGrid)
+                                                                {
+                                                                    if (congd1.Name.Equals(dsc.doc_group_sub_id))
+                                                                    {
+                                                                        String aa = "";
+                                                                        C1FlexGrid grf1;
+                                                                        grf1 = (C1FlexGrid)congd1;
+                                                                        Row rowg = grf1.Rows.Add();
+                                                                        Image loadedImage, resizedImage;
+                                                                        loadedImage = Image.FromFile(filename);
+                                                                        int originalWidth = 0;
+                                                                        originalWidth = loadedImage.Width;
+                                                                        int newWidth = 280;
+                                                                        resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+
+                                                                        rowg[colPic1] = resizedImage;
+                                                                        grf[grf.Row, grf.Col] = dsc.doc_group_sub_id;
+                                                                        grf1.AutoSizeRows();
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //grf.AutoSizeRows();
+                    //grf.AutoSizeCols();
+                    //CellRange cr = grf.GetCellRange(grf.Row, grf.Col);
+                    CellStyle cs = grf.Styles.Add("CellNeWStyle");
                     cs.BackColor = Color.Green;
                     cs.Border.Color = Color.FromArgb(196, 228, 223);
                     cs.Border.Color = Color.Black;
-                    cr.Style = cs;
+                    //cr.Style = cs;
+                    grf.SetCellStyle(grf.Row, grf.Col, cs);
                 }
             }
             catch (Exception ex)
