@@ -124,7 +124,6 @@ namespace bangna_hospital.objdb
                 comMainhis.Dispose();
                 adapMainhis.Dispose();
             }
-
             return toReturn;
         }
     }

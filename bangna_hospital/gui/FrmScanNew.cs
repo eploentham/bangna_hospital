@@ -32,7 +32,7 @@ namespace bangna_hospital.gui
         //private IOcrEngine _ocrEngine;
 
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
-        ArrayList array1 = new ArrayList();
+        ArrayList array1,arrayImg;
         Timer timer1;
         public FrmScanNew(BangnaControl bc, MainMenu m)
         {
@@ -68,6 +68,7 @@ namespace bangna_hospital.gui
             dt = dt.AddDays(-1);
             txtVisitDate.Value = dt.Year + "-" + dt.ToString("MM-dd");
             array1 = new ArrayList();
+            arrayImg = new ArrayList();
             timer1 = new Timer();
             int chk = 0;
             int.TryParse(bc.iniC.timerImgScanNew, out chk);
@@ -179,7 +180,7 @@ namespace bangna_hospital.gui
                             Column colpic1 = grf.Cols[colPic1];
                             colpic1.DataType = typeof(Image);
                             Column colpic2 = grf.Cols[colPic2];
-                            colpic2.DataType = typeof(Image);
+                            colpic2.DataType = typeof(String);
                             Column colpic3 = grf.Cols[colPic3];
                             colpic3.DataType = typeof(Image);
                             Column colpic4 = grf.Cols[colPic4];
@@ -189,7 +190,9 @@ namespace bangna_hospital.gui
                             grf.Cols[colPic3].Width = 310;
                             grf.Cols[colPic4].Width = 310;
                             grf.ShowCursor = true;
-
+                            grf.Cols[colPic2].Visible = false;
+                            grf.Cols[colPic3].Visible = false;
+                            grf.Cols[colPic4].Visible = false;
                             tabPage2.Controls.Add(grf);
                         }
                     }
@@ -338,7 +341,7 @@ namespace bangna_hospital.gui
                             originalWidth = loadedImage.Width;
                             int newWidth = 280;
                             resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-
+                            arrayImg.Add(file+",");
                         }
                         else
                         {
@@ -517,6 +520,92 @@ namespace bangna_hospital.gui
             }
             return name;
         }
+        private String addInArrayImg(String filename, String dgssid)
+        {
+            String dgs = "", name = "";
+            int i = 0;
+            Boolean chk = false;
+            foreach (String aa in arrayImg)
+            {
+                i++;
+                if (aa.IndexOf(filename) >= 0)
+                {
+                    if (aa.Equals(filename + ","))
+                    {
+                        arrayImg.Remove(aa);
+                        arrayImg.Add(aa + ","+ dgssid);
+                    }
+                    else
+                    {
+                        String[] aaa = aa.Split(',');
+                        if (aaa.Length > 1)
+                        {
+                            String filename1 = "", dgssidold = "";
+                            filename1 = aaa[0];
+                            dgssidold = aaa[1];
+                            arrayImg.Remove(aa);
+                            arrayImg.Add(aa + "," + dgssid);
+                            foreach (Control con in this.Controls)
+                            {
+                                if (con is Panel)
+                                {
+                                    foreach (Control conp in con.Controls)
+                                    {
+                                        if (conp is C1DockingTab)
+                                        {
+                                            foreach (Control cond in conp.Controls)
+                                            {
+                                                if (cond is C1DockingTabPage)
+                                                {
+                                                    foreach (Control cong in cond.Controls)
+                                                    {
+                                                        if (cong is C1DockingTab)
+                                                        {
+                                                            foreach (Control congd in cong.Controls)
+                                                            {
+                                                                if (congd is C1DockingTabPage)
+                                                                {
+                                                                    foreach (Control congd1 in congd.Controls)
+                                                                    {
+                                                                        if (congd1 is C1FlexGrid)
+                                                                        {
+                                                                            if (congd1.Name.Equals(dgssid))
+                                                                            {
+                                                                                C1FlexGrid grf1;
+                                                                                grf1 = (C1FlexGrid)congd1;
+                                                                                int j = 0;
+                                                                                foreach(Row rowa in grf1.Rows)
+                                                                                {
+                                                                                    String namerow = "";
+                                                                                    namerow = rowa[colPic2].ToString();
+                                                                                    if (namerow.Equals(filename1))
+                                                                                    {
+                                                                                        grf1.RemoveItem(j);
+                                                                                    }
+                                                                                    j++;
+                                                                                }
+
+                                                                                grf1.AutoSizeRows();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            return name;
+        }
         private void ContextMenu_retate(object sender, System.EventArgs e)
         {
             String dgs = "", filename = "", id = "";
@@ -633,8 +722,9 @@ namespace bangna_hospital.gui
                                                                         originalWidth = loadedImage.Width;
                                                                         int newWidth = 280;
                                                                         resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-
+                                                                        addInArrayImg(filename,dsc.doc_group_sub_id);
                                                                         rowg[colPic1] = resizedImage;
+                                                                        rowg[colPic2] = filename;
                                                                         grf[grf.Row, grf.Col] = dsc.doc_group_sub_id;
                                                                         grf1.AutoSizeRows();
                                                                     }
