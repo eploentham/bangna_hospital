@@ -62,6 +62,8 @@ namespace bangna_hospital.gui
             tabScan.Text = "PageScan";
             tabScan.Name = "Page Scan";
             tcDtr.Controls.Add(tabScan);
+            txtAnDate.Left = txtVisitDate.Left;
+            txtAnDate.Top = txtVisitDate.Top;
 
             bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
             DateTime dt = DateTime.Now;
@@ -210,16 +212,16 @@ namespace bangna_hospital.gui
             FrmSearchHn frm = new FrmSearchHn(bc, FrmSearchHn.StatusConnection.host);
             frm.ShowDialog(this);
             String[] an = bc.sPtt.an.Split('/');
-            if (an.Length > 1)
-            {
-                txtAN.Value = an[0];
-                txtAnCnt.Value = an[1];
-            }
-            else
-            {
+            //if (an.Length > 1)
+            //{
+            //    txtAN.Value = an[0];
+            //    txtAnCnt.Value = an[1];
+            //}
+            //else
+            //{
                 txtAN.Value = bc.sPtt.an;
                 txtAnCnt.Value = "";
-            }
+            //}
             txtHn.Value = bc.sPtt.Hn;
             txtName.Value = bc.sPtt.Name;
             txtVN.Value = bc.sPtt.vn;
@@ -533,7 +535,7 @@ namespace bangna_hospital.gui
                     if (aa.Equals(filename + ","))
                     {
                         arrayImg.Remove(aa);
-                        arrayImg.Add(aa + ","+ dgssid);
+                        arrayImg.Add(filename + ","+ dgssid);
                     }
                     else
                     {
@@ -569,7 +571,7 @@ namespace bangna_hospital.gui
                                                                     {
                                                                         if (congd1 is C1FlexGrid)
                                                                         {
-                                                                            if (congd1.Name.Equals(dgssid))
+                                                                            if (congd1.Name.Equals(dgssidold))
                                                                             {
                                                                                 C1FlexGrid grf1;
                                                                                 grf1 = (C1FlexGrid)congd1;
@@ -577,14 +579,17 @@ namespace bangna_hospital.gui
                                                                                 foreach(Row rowa in grf1.Rows)
                                                                                 {
                                                                                     String namerow = "";
-                                                                                    namerow = rowa[colPic2].ToString();
-                                                                                    if (namerow.Equals(filename1))
+                                                                                    if(rowa[colPic2] != null)
                                                                                     {
-                                                                                        grf1.RemoveItem(j);
+                                                                                        namerow = rowa[colPic2].ToString();
+                                                                                        if (namerow.Equals(filename1))
+                                                                                        {
+                                                                                            grf1.RemoveItem(j);
+                                                                                        }
                                                                                     }
+                                                                                    
                                                                                     j++;
                                                                                 }
-
                                                                                 grf1.AutoSizeRows();
                                                                             }
                                                                         }
@@ -640,7 +645,8 @@ namespace bangna_hospital.gui
             try
             {
                 filename = filename.Substring(filename.IndexOf('*') + 1);
-                String[] ext = filename.Split('.');
+                //String[] ext = filename.Split('.');
+                string ext = Path.GetExtension(filename);
                 String dgssname = "", dgssid="";
                 dgssname = ((MenuItem)sender).Text;
                 dgssid = bc.bcDB.dgssDB.getIdDgss(dgssname);
@@ -660,16 +666,17 @@ namespace bangna_hospital.gui
                     dsc.vn = txtVN.Text;
                     dsc.an = txtAN.Text;
                     dsc.visit_date = bc.datetoDB(txtVisitDate.Text);
-                    if (!txtVN.Text.Equals(""))
-                    {
-                        dsc.row_no = bc.bcDB.dscDB.selectRowNoByHnVn(txtHn.Text, txtVN.Text, dgs);
-                    }
-                    else
-                    {
-                        dsc.row_no = bc.bcDB.dscDB.selectRowNoByHn(txtHn.Text, dgs);
-                    }
+                    //if (!txtVN.Text.Equals(""))
+                    //{
+                    //    dsc.row_no = bc.bcDB.dscDB.selectRowNoByHnVn(txtHn.Text, txtVN.Text, dgs);
+                    //}
+                    //else
+                    //{
+                    //    dsc.row_no = bc.bcDB.dscDB.selectRowNoByHn(txtHn.Text, dgs);
+                    //}
                     dsc.host_ftp = bc.iniC.hostFTP;
-                    dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
+                    //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
+                    dsc.image_path = ext;
                     dsc.doc_group_sub_id = dgssid;
                     dsc.pre_no = txtPreNo.Text;
                     dsc.an = txtAN.Text;
@@ -682,6 +689,7 @@ namespace bangna_hospital.gui
                     }
                     dsc.status_ipd = chkIPD.Checked ? "I" : "O";
                     String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
+                    dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     ftp.createDirectory(txtHn.Text);
                     ftp.delete(dsc.image_path);
@@ -722,11 +730,13 @@ namespace bangna_hospital.gui
                                                                         originalWidth = loadedImage.Width;
                                                                         int newWidth = 280;
                                                                         resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                                                                        addInArrayImg(filename,dsc.doc_group_sub_id);
+                                                                        //
                                                                         rowg[colPic1] = resizedImage;
                                                                         rowg[colPic2] = filename;
                                                                         grf[grf.Row, grf.Col] = dsc.doc_group_sub_id;
                                                                         grf1.AutoSizeRows();
+                                                                        Application.DoEvents();
+                                                                        addInArrayImg(filename, dsc.doc_group_sub_id);
                                                                     }
                                                                 }
                                                             }

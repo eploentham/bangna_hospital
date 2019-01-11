@@ -14,7 +14,7 @@ namespace bangna_hospital.objdb
         public SqlConnection connMainHIS, conn;
         public Staff user;
         public long _rowsAffected = 0;
-
+        public SqlCommand comStore;
         public ConnectDB(InitConfig initc)
         {
             conn = new SqlConnection();
@@ -26,6 +26,33 @@ namespace bangna_hospital.objdb
         {
             String toReturn = "";
             ExecuteNonQuery(conn,sql);
+            return toReturn;
+        }
+        public String ExecuteNonQueryStore(SqlConnection con, String sql)
+        {
+            String toReturn = "";
+                        
+            try
+            {
+                con.Open();
+                
+                _rowsAffected = comStore.ExecuteNonQuery();
+                //}
+                toReturn = _rowsAffected.ToString();
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ExecuteNonQuery::Error occured.", ex);
+                toReturn = ex.Message;
+            }
+            finally
+            {
+                //_mainConnection.Close();
+                con.Close();
+                comStore.Dispose();
+            }
+
             return toReturn;
         }
         public String ExecuteNonQuery(SqlConnection con, String sql)

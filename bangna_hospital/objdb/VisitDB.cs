@@ -118,7 +118,7 @@ namespace bangna_hospital.objdb
                     "When '' Then '' " +
                     "Else MNC_FN_TYP_DSC " +
                     "End as MNC_FN_TYP_DSC, " +
-                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, t01.mnc_date, t01.mnc_shif_memo, t01.mnc_ref_dsc," +
+                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, t01.mnc_date, t01.mnc_ref_dsc," +
                 "t01_2.mnc_an_no, t01_2.MNC_PAT_FLAG, t01_2.mnc_an_yr, t01_2.mnc_ad_date, t01_2.mnc_an_yr " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
