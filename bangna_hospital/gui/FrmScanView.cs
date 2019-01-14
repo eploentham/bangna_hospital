@@ -26,7 +26,8 @@ namespace bangna_hospital.gui
         C1FlexGrid grfVs;
         Font fEdit, fEditB;
         C1DockingTab tcDtr;
-        C1DockingTabPage tabScan;
+        C1DockingTabPage tabScan, tabOrder;
+        C1FlexGrid grfOrder;
 
         int colVsVsDate=1, colVsVn = 2, colVsStatus=3, colVsDept = 4, colVsPreno=5, colVsAn=6, colVsAndate=7;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
@@ -37,7 +38,9 @@ namespace bangna_hospital.gui
         List<listStream> lStream;
         listStream strm;
         Image resizedImage, img;
-        C1PictureBox pic;
+        C1PictureBox pic, picL,picR;
+        FlowLayoutPanel fpL, fpR;
+        SplitContainer sct;
         //VScrollBar vScroller;
         //int y = 0;
         Form frmImg;
@@ -65,6 +68,7 @@ namespace bangna_hospital.gui
             array1 = new ArrayList();
             lStream = new List<listStream>();
             strm = new listStream();
+            grfOrder = new C1FlexGrid();
             //timer1 = new Timer();
             //int chk = 0;
             //int.TryParse(bc.iniC.timerImgScanNew, out chk);
@@ -104,12 +108,30 @@ namespace bangna_hospital.gui
             panel3.Controls.Add(tcDtr);
             tabScan = new C1DockingTabPage();
             tabScan.Location = new System.Drawing.Point(1, 24);
-            tabScan.Name = "c1DockingTabPage1";
+            //tabScan.Name = "c1DockingTabPage1";
             tabScan.Size = new System.Drawing.Size(667, 175);
             tabScan.TabIndex = 0;
-            tabScan.Text = "PageScan";
-            tabScan.Name = "Page Scan";
+            tabScan.Text = "ใบยา / Staff's Note";
+            tabScan.Name = "tabPageScan";
             tcDtr.Controls.Add(tabScan);
+            tabOrder = new C1DockingTabPage();
+            tabOrder.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabOrder.Size = new System.Drawing.Size(667, 175);
+            tabOrder.TabIndex = 0;
+            tabOrder.Text = "ประวัติการสั่งการ";
+            tabOrder.Name = "tabOrder";
+            tcDtr.Controls.Add(tabOrder);
+            grfOrder.Font = fEdit;
+            grfOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOrder.Location = new System.Drawing.Point(0, 0);
+            grfOrder.Rows[0].Visible = false;
+            grfOrder.Cols[0].Visible = false;
+            grfOrder.Rows.Count = 1;
+            grfOrder.Cols.Count = 3;
+            grfOrder.Name = "grfOrder";
+            tabOrder.Controls.Add(grfOrder);
+            setPicStaffNote();
             theme1.SetTheme(tcDtr, theme1.Theme);
             int i = 0;
             String idOld = "";
@@ -191,7 +213,44 @@ namespace bangna_hospital.gui
                 }
             }
         }
+        private void setPicStaffNote()
+        {
 
+            //pnL = new Panel();
+            //pnL.Dock = DockStyle.Left;
+            //pnL.Width = tabScan.Width / 2;
+            //tabScan.Controls.Add(pnL);
+            //pnR = new Panel();
+            //pnR.Dock = DockStyle.Fill;
+            //pnR.Width = tabScan.Width / 2;
+            //tabScan.Controls.Add(pnR);
+            sct = new SplitContainer();
+            sct.Dock = DockStyle.Fill;
+            tabScan.Controls.Add(sct);
+
+            fpL = new FlowLayoutPanel();
+            fpL.Dock = DockStyle.Fill;
+            fpL.AutoScroll = true;
+            sct.Panel1.Controls.Add(fpL);
+            //tabScan.Controls.Add(fpL);
+            fpR = new FlowLayoutPanel();
+            fpR.Dock = DockStyle.Fill;
+            fpR.AutoScroll = true;
+            //tabScan.Controls.Add(fpR);
+            sct.Panel2.Controls.Add(fpR);
+
+            picL = new C1PictureBox();
+            picL = new C1PictureBox();
+            picL.Dock = DockStyle.Fill;
+            picL.SizeMode = PictureBoxSizeMode.AutoSize;
+            fpL.Controls.Add(picL);
+
+            picR = new C1PictureBox();
+            picR = new C1PictureBox();
+            picR.Dock = DockStyle.Fill;
+            picR.SizeMode = PictureBoxSizeMode.AutoSize;
+            fpR.Controls.Add(picR);
+        }
         private void Grf_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -376,18 +435,35 @@ namespace bangna_hospital.gui
             //txtPreNo.Hide();
 
             clearGrf();
-            String statusOPD = "", vsDate="", vn="", an="", anDate="", hn="";
+            String statusOPD = "", vsDate="", vn="", an="", anDate="", hn="", preno="";
             statusOPD = grfVs[e.NewRange.r1, colVsStatus] != null ? grfVs[e.NewRange.r1, colVsStatus].ToString() : "";
-            
+            preno = grfVs[e.NewRange.r1, colVsPreno] != null ? grfVs[e.NewRange.r1, colVsPreno].ToString() : "";
+            vsDate = grfVs[e.NewRange.r1, colVsVsDate] != null ? grfVs[e.NewRange.r1, colVsVsDate].ToString() : "";
             if (statusOPD.Equals("OPD"))
             {
-                vsDate = grfVs[e.NewRange.r1, colVsVsDate] != null ? grfVs[e.NewRange.r1, colVsVsDate].ToString() : "";
                 vn = grfVs[e.NewRange.r1, colVsVn] != null ? grfVs[e.NewRange.r1, colVsVn].ToString() : "";
             }
             else
             {
                 an = grfVs[e.NewRange.r1, colVsAn] != null ? grfVs[e.NewRange.r1, colVsAn].ToString() : "";
             }
+            String file = "", dd="", mm="", yy="";
+            Image stffnoteL, stffnoteR;
+            if (vsDate.Length > 8)
+            {
+                String preno1 = preno;
+                dd = vsDate.Substring(0, 2);
+                mm = vsDate.Substring(3,2);
+                yy = vsDate.Substring(vsDate.Length - 4);
+                file = "\\\\172.25.10.5\\image\\OPD\\"+ yy+"\\"+mm+"\\"+dd+"\\";
+                preno1 = "000000"+ preno1;
+                preno1 = preno1.Substring(preno1.Length- 6);
+                stffnoteL = Image.FromFile(file+ preno1+"R.JPG");
+                stffnoteR = Image.FromFile(file+ preno1+ "S.JPG");
+                picL.Image = stffnoteL;
+                picR.Image = stffnoteR;
+            }
+
             DataTable dt = new DataTable();
             dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
             if (dt.Rows.Count > 0)
@@ -590,7 +666,12 @@ namespace bangna_hospital.gui
         }
         private void FrmScanView_Load(object sender, EventArgs e)
         {
-
+            fpL.Width = tabScan.Width / 2;
+            fpR.Width = fpL.Width+5;
+            sct.SplitterDistance = fpL.Width;
+            //sct.Panel1.Width = fpL.Width;
+            //sct.Panel2.Width = fpR.Width;
+            //pnR.Width = 0;
         }
     }
 }
