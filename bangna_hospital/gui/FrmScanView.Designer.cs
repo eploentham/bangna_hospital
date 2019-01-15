@@ -48,6 +48,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkIPD = new C1.Win.C1Input.C1CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -62,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
             this.SuspendLayout();
             // 
             // sb1
@@ -76,6 +78,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.chkIPD);
             this.groupBox1.Controls.Add(this.txt);
             this.groupBox1.Controls.Add(this.btnRefresh);
             this.groupBox1.Controls.Add(this.btnOpen);
@@ -104,9 +107,9 @@
             // 
             this.txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txt.Location = new System.Drawing.Point(602, 40);
+            this.txt.Location = new System.Drawing.Point(572, 40);
             this.txt.Name = "txt";
-            this.txt.Size = new System.Drawing.Size(373, 20);
+            this.txt.Size = new System.Drawing.Size(338, 20);
             this.txt.TabIndex = 551;
             this.txt.Tag = null;
             this.theme1.SetTheme(this.txt, "(default)");
@@ -117,9 +120,9 @@
             // 
             this.btnRefresh.Image = global::bangna_hospital.Properties.Resources.refresh16;
             this.btnRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRefresh.Location = new System.Drawing.Point(512, 36);
+            this.btnRefresh.Location = new System.Drawing.Point(437, 36);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(78, 24);
+            this.btnRefresh.Size = new System.Drawing.Size(62, 24);
             this.btnRefresh.TabIndex = 550;
             this.btnRefresh.Text = "refresh";
             this.btnRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -167,7 +170,7 @@
             | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
             this.txtVisitDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtVisitDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtVisitDate.Location = new System.Drawing.Point(386, 39);
+            this.txtVisitDate.Location = new System.Drawing.Point(321, 39);
             this.txtVisitDate.Name = "txtVisitDate";
             this.txtVisitDate.Size = new System.Drawing.Size(111, 18);
             this.txtVisitDate.TabIndex = 548;
@@ -182,7 +185,7 @@
             this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label6.Location = new System.Drawing.Point(307, 40);
+            this.label6.Location = new System.Drawing.Point(242, 40);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 16);
             this.label6.TabIndex = 547;
@@ -191,7 +194,7 @@
             // 
             // btnVn
             // 
-            this.btnVn.Location = new System.Drawing.Point(269, 36);
+            this.btnVn.Location = new System.Drawing.Point(204, 36);
             this.btnVn.Name = "btnVn";
             this.btnVn.Size = new System.Drawing.Size(28, 23);
             this.btnVn.TabIndex = 545;
@@ -217,7 +220,7 @@
             // 
             this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtVN.Location = new System.Drawing.Point(113, 37);
+            this.txtVN.Location = new System.Drawing.Point(48, 37);
             this.txtVN.Name = "txtVN";
             this.txtVN.Size = new System.Drawing.Size(150, 20);
             this.txtVN.TabIndex = 543;
@@ -232,7 +235,7 @@
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label1.Location = new System.Drawing.Point(599, 17);
+            this.label1.Location = new System.Drawing.Point(534, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 16);
             this.label1.TabIndex = 542;
@@ -248,7 +251,7 @@
             this.cboDgs.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboDgs.ItemsDisplayMember = "";
             this.cboDgs.ItemsValueMember = "";
-            this.cboDgs.Location = new System.Drawing.Point(700, 13);
+            this.cboDgs.Location = new System.Drawing.Point(635, 13);
             this.cboDgs.Name = "cboDgs";
             this.cboDgs.Size = new System.Drawing.Size(275, 20);
             this.cboDgs.TabIndex = 3;
@@ -261,7 +264,7 @@
             // 
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtName.Location = new System.Drawing.Point(303, 13);
+            this.txtName.Location = new System.Drawing.Point(238, 13);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(287, 20);
             this.txtName.TabIndex = 541;
@@ -272,7 +275,7 @@
             // 
             // btnHn
             // 
-            this.btnHn.Location = new System.Drawing.Point(269, 12);
+            this.btnHn.Location = new System.Drawing.Point(204, 12);
             this.btnHn.Name = "btnHn";
             this.btnHn.Size = new System.Drawing.Size(28, 23);
             this.btnHn.TabIndex = 540;
@@ -298,7 +301,7 @@
             // 
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtHn.Location = new System.Drawing.Point(113, 13);
+            this.txtHn.Location = new System.Drawing.Point(48, 13);
             this.txtHn.Name = "txtHn";
             this.txtHn.Size = new System.Drawing.Size(150, 20);
             this.txtHn.TabIndex = 538;
@@ -336,6 +339,24 @@
             this.panel2.TabIndex = 0;
             this.theme1.SetTheme(this.panel2, "(default)");
             // 
+            // chkIPD
+            // 
+            this.chkIPD.BackColor = System.Drawing.Color.Transparent;
+            this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
+            this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkIPD.ForeColor = System.Drawing.Color.Black;
+            this.chkIPD.Location = new System.Drawing.Point(505, 36);
+            this.chkIPD.Name = "chkIPD";
+            this.chkIPD.Padding = new System.Windows.Forms.Padding(1);
+            this.chkIPD.Size = new System.Drawing.Size(61, 24);
+            this.chkIPD.TabIndex = 554;
+            this.chkIPD.Text = "IPD";
+            this.theme1.SetTheme(this.chkIPD, "(default)");
+            this.chkIPD.UseVisualStyleBackColor = true;
+            this.chkIPD.Value = null;
+            this.chkIPD.VisualStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.chkIPD.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // FrmScanView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -362,6 +383,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,5 +411,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
+        private C1.Win.C1Input.C1CheckBox chkIPD;
     }
 }

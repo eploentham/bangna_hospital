@@ -31,6 +31,7 @@ namespace bangna_hospital.gui
 
         int colVsVsDate=1, colVsVn = 2, colVsStatus=3, colVsDept = 4, colVsPreno=5, colVsAn=6, colVsAndate=7;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
+        int colOrderId = 1, colOrderName = 2, colOrderMed = 3, colOrderQty = 4;
         int newHeight = 720;
         int mouseWheel = 0;
         int originalHeight = 0;
@@ -127,9 +128,17 @@ namespace bangna_hospital.gui
             grfOrder.Location = new System.Drawing.Point(0, 0);
             grfOrder.Rows[0].Visible = false;
             grfOrder.Cols[0].Visible = false;
+            grfOrder.Cols[colOrderId].Visible = false;
             grfOrder.Rows.Count = 1;
-            grfOrder.Cols.Count = 3;
+            grfOrder.Cols.Count = 5;
+            grfOrder.Cols[colOrderName].Caption = "ชื่อ";
+            grfOrder.Cols[colOrderMed].Caption = "-";
+            grfOrder.Cols[colOrderQty].Caption = "QTY";
+            grfOrder.Cols[colOrderName].Width = 300;
+            grfOrder.Cols[colOrderMed].Width = 200;
+            grfOrder.Cols[colOrderQty].Width = 60;
             grfOrder.Name = "grfOrder";
+            theme1.SetTheme(grfOrder, "Office2016Black");
             tabOrder.Controls.Add(grfOrder);
             setPicStaffNote();
             theme1.SetTheme(tcDtr, theme1.Theme);
@@ -424,6 +433,7 @@ namespace bangna_hospital.gui
             pB1.Name = "pB1";
             pB1.Size = new System.Drawing.Size(862, 23);
             groupBox1.Controls.Add(pB1);
+            pB1.Left = txtVN.Left;
             pB1.Show();
             txtVN.Hide();
             btnVn.Hide();
@@ -431,7 +441,7 @@ namespace bangna_hospital.gui
             txt.Hide();
             label6.Hide();
             txtVisitDate.Hide();
-            //txtAnDate.Hide();
+            chkIPD.Hide();
             //txtPreNo.Hide();
 
             clearGrf();
@@ -439,13 +449,22 @@ namespace bangna_hospital.gui
             statusOPD = grfVs[e.NewRange.r1, colVsStatus] != null ? grfVs[e.NewRange.r1, colVsStatus].ToString() : "";
             preno = grfVs[e.NewRange.r1, colVsPreno] != null ? grfVs[e.NewRange.r1, colVsPreno].ToString() : "";
             vsDate = grfVs[e.NewRange.r1, colVsVsDate] != null ? grfVs[e.NewRange.r1, colVsVsDate].ToString() : "";
+            txtVisitDate.Value = vsDate;
             if (statusOPD.Equals("OPD"))
             {
+                chkIPD.Checked = false;
                 vn = grfVs[e.NewRange.r1, colVsVn] != null ? grfVs[e.NewRange.r1, colVsVn].ToString() : "";
+                txtVN.Value = vn;
+                label2.Text = "VN :";
             }
             else
             {
+                chkIPD.Checked = true;
                 an = grfVs[e.NewRange.r1, colVsAn] != null ? grfVs[e.NewRange.r1, colVsAn].ToString() : "";
+                anDate = grfVs[e.NewRange.r1, colVsAndate] != null ? grfVs[e.NewRange.r1, colVsAndate].ToString() : "";
+                txtVN.Value = an;
+                label2.Text = "AN :";
+                txtVisitDate.Value = anDate;
             }
             String file = "", dd="", mm="", yy="";
             Image stffnoteL, stffnoteR;
@@ -463,66 +482,107 @@ namespace bangna_hospital.gui
                 picL.Image = stffnoteL;
                 picR.Image = stffnoteR;
             }
-
+            DataTable dtOrder = new DataTable();
+            vn = grfVs[e.NewRange.r1, colVsVn] != null ? grfVs[e.NewRange.r1, colVsVn].ToString() : "";
+            if (vn.IndexOf("(") > 0)
+            {
+                vn = vn.Substring(0, vn.IndexOf("("));
+            }
+            if (vn.IndexOf("/") > 0)
+            {
+                vn = vn.Substring(0, vn.IndexOf("/"));
+            }
+            Application.DoEvents();
+            dtOrder = bc.bcDB.vsDB.selectDrug(txtHn.Text, vn, preno);
+            grfOrder.Rows.Count = 1;
+            if (dtOrder.Rows.Count > 0)
+            {
+                try
+                {
+                    pB1.Value = 0;
+                    pB1.Minimum = 0;
+                    pB1.Maximum = dtOrder.Rows.Count;
+                    foreach (DataRow row in dtOrder.Rows)
+                    {
+                        Row rowg = grfOrder.Rows.Add();
+                        rowg[colOrderName] = row["MNC_PH_TN"].ToString();
+                        rowg[colOrderMed] = "";
+                        rowg[colOrderQty] = row["qty"].ToString();
+                        pB1.Value++;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("" + ex.Message, "");
+                }
+            }
+            GC.Collect();
             DataTable dt = new DataTable();
             dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
             if (dt.Rows.Count > 0)
             {
-                pB1.Value = 0;
-                pB1.Minimum = 0;
-                pB1.Maximum = dt.Rows.Count;
-                FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
-                foreach (DataRow row in dt.Rows)
+                try
                 {
-                    String dgssid = "", filename = "", ftphost="", id="";
-                    id = row[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
-                    dgssid = row[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
-                    filename = row[bc.bcDB.dscDB.dsc.image_path].ToString();
-                    ftphost = row[bc.bcDB.dscDB.dsc.host_ftp].ToString();
-                    foreach (Control con in panel3.Controls)
+                    pB1.Value = 0;
+                    pB1.Minimum = 0;
+                    pB1.Maximum = dt.Rows.Count;
+                    MemoryStream stream;
+                    Image loadedImage, resizedImage;
+                    C1FlexGrid grf1;
+                    FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                    foreach (DataRow row in dt.Rows)
                     {
-                        if (con is C1DockingTab)
+                        String dgssid = "", filename = "", ftphost = "", id = "";
+                        id = row[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                        dgssid = row[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
+                        filename = row[bc.bcDB.dscDB.dsc.image_path].ToString();
+                        ftphost = row[bc.bcDB.dscDB.dsc.host_ftp].ToString();
+                        foreach (Control con in panel3.Controls)
                         {
-                            foreach (Control cond in con.Controls)
+                            if (con is C1DockingTab)
                             {
-                                if (cond is C1DockingTabPage)
+                                foreach (Control cond in con.Controls)
                                 {
-                                    foreach (Control cong in cond.Controls)
+                                    if (cond is C1DockingTabPage)
                                     {
-                                        if (cong is C1DockingTab)
+                                        foreach (Control cong in cond.Controls)
                                         {
-                                            foreach (Control congd in cong.Controls)
+                                            if (cong is C1DockingTab)
                                             {
-                                                if (congd is C1DockingTabPage)
+                                                foreach (Control congd in cong.Controls)
                                                 {
-                                                    foreach (Control congd1 in congd.Controls)
+                                                    if (congd is C1DockingTabPage)
                                                     {
-                                                        if (congd1 is C1FlexGrid)
+                                                        foreach (Control congd1 in congd.Controls)
                                                         {
-                                                            if (congd1.Name.Equals(dgssid))
+                                                            if (congd1 is C1FlexGrid)
                                                             {
-                                                                C1FlexGrid grf1;
-                                                                grf1 = (C1FlexGrid)congd1;
-                                                                Row rowd = grf1.Rows.Add();
-                                                                Image loadedImage, resizedImage;
-                                                                MemoryStream stream = new MemoryStream();
-                                                                stream = ftp.download(filename);
-                                                                
-                                                                //loadedImage = Image.FromFile(filename);
-                                                                loadedImage = new Bitmap(stream);
-                                                                int originalWidth = 0;
-                                                                originalWidth = loadedImage.Width;
-                                                                int newWidth = 280;
-                                                                resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                                                                //
-                                                                rowd[colPic1] = resizedImage;
-                                                                rowd[colPic2] = id;
-                                                                strm = new listStream();
-                                                                strm.id = id;
-                                                                strm.stream = stream;
-                                                                lStream.Add(strm);
-                                                                Application.DoEvents();
-                                                                grf1.AutoSizeRows();
+                                                                if (congd1.Name.Equals(dgssid))
+                                                                {
+                                                                    
+                                                                    grf1 = (C1FlexGrid)congd1;
+                                                                    Row rowd = grf1.Rows.Add();
+                                                                    
+                                                                    stream = new MemoryStream();
+                                                                    stream = ftp.download(filename);
+
+                                                                    //loadedImage = Image.FromFile(filename);
+                                                                    loadedImage = new Bitmap(stream);
+                                                                    int originalWidth = 0;
+                                                                    originalWidth = loadedImage.Width;
+                                                                    int newWidth = 280;
+                                                                    resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                                                                    //
+                                                                    rowd[colPic1] = resizedImage;
+                                                                    rowd[colPic2] = id;
+                                                                    strm = new listStream();
+                                                                    strm.id = id;
+                                                                    strm.stream = stream;
+                                                                    lStream.Add(strm);
+                                                                    Application.DoEvents();
+                                                                    grf1.AutoSizeRows();
+                                                                    GC.Collect();
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -533,9 +593,14 @@ namespace bangna_hospital.gui
                                 }
                             }
                         }
+                        pB1.Value++;
                     }
-                    pB1.Value++;
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("" + ex.Message, "");
+                }
+                
             }
             pB1.Dispose();
             txtVN.Show();
@@ -543,6 +608,8 @@ namespace bangna_hospital.gui
             btnRefresh.Show();
             txt.Show();
             label6.Show();
+            chkIPD.Show();
+            //grf1.AutoSizeRows();
             panel2.Enabled = true;
         }
         private void clearGrf()
@@ -629,8 +696,7 @@ namespace bangna_hospital.gui
                 String status = "", vn = "";
                 
                 status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
-                vn = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")" 
-                    : row1["mnc_an_no"].ToString()+"/"+ row1["mnc_an_yr"].ToString() : "-";
+                vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")" ;
                 rowa[colVsVsDate] = bc.datetoShow(row1["mnc_date"]);
                 rowa[colVsVn] = vn;
                 rowa[colVsStatus] = status;

@@ -43,8 +43,6 @@
             this.btnVn = new C1.Win.C1Input.C1Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtVN = new C1.Win.C1Input.C1TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cboDgs = new C1.Win.C1Input.C1ComboBox();
             this.txtName = new C1.Win.C1Input.C1TextBox();
             this.btnHn = new C1.Win.C1Input.C1Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -62,7 +60,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnOpen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
@@ -92,8 +89,6 @@
             this.groupBox1.Controls.Add(this.btnVn);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtVN);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.cboDgs);
             this.groupBox1.Controls.Add(this.txtName);
             this.groupBox1.Controls.Add(this.btnHn);
             this.groupBox1.Controls.Add(this.label4);
@@ -112,7 +107,7 @@
             // 
             this.txtAnCnt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAnCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAnCnt.Location = new System.Drawing.Point(488, 37);
+            this.txtAnCnt.Location = new System.Drawing.Point(424, 37);
             this.txtAnCnt.Name = "txtAnCnt";
             this.txtAnCnt.Size = new System.Drawing.Size(35, 20);
             this.txtAnCnt.TabIndex = 554;
@@ -126,9 +121,8 @@
             this.chkIPD.BackColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIPD.ForeColor = System.Drawing.Color.Black;
-            this.chkIPD.Location = new System.Drawing.Point(529, 36);
+            this.chkIPD.Location = new System.Drawing.Point(465, 36);
             this.chkIPD.Name = "chkIPD";
             this.chkIPD.Padding = new System.Windows.Forms.Padding(1);
             this.chkIPD.Size = new System.Drawing.Size(61, 24);
@@ -166,7 +160,7 @@
             | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
             this.txtAnDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtAnDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtAnDate.Location = new System.Drawing.Point(720, 39);
+            this.txtAnDate.Location = new System.Drawing.Point(656, 39);
             this.txtAnDate.Name = "txtAnDate";
             this.txtAnDate.Size = new System.Drawing.Size(111, 18);
             this.txtAnDate.TabIndex = 552;
@@ -179,7 +173,7 @@
             // 
             this.txtPreNo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPreNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPreNo.Location = new System.Drawing.Point(825, 37);
+            this.txtPreNo.Location = new System.Drawing.Point(761, 37);
             this.txtPreNo.Name = "txtPreNo";
             this.txtPreNo.Size = new System.Drawing.Size(75, 20);
             this.txtPreNo.TabIndex = 551;
@@ -195,7 +189,7 @@
             this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label3.Location = new System.Drawing.Point(308, 39);
+            this.label3.Location = new System.Drawing.Point(244, 39);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(36, 16);
             this.label3.TabIndex = 550;
@@ -206,7 +200,7 @@
             // 
             this.txtAN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtAN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAN.Location = new System.Drawing.Point(350, 37);
+            this.txtAN.Location = new System.Drawing.Point(286, 37);
             this.txtAN.Name = "txtAN";
             this.txtAN.Size = new System.Drawing.Size(132, 20);
             this.txtAN.TabIndex = 549;
@@ -241,7 +235,7 @@
             | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
             this.txtVisitDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtVisitDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtVisitDate.Location = new System.Drawing.Point(700, 39);
+            this.txtVisitDate.Location = new System.Drawing.Point(636, 39);
             this.txtVisitDate.Name = "txtVisitDate";
             this.txtVisitDate.Size = new System.Drawing.Size(111, 18);
             this.txtVisitDate.TabIndex = 548;
@@ -256,7 +250,7 @@
             this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label6.Location = new System.Drawing.Point(599, 39);
+            this.label6.Location = new System.Drawing.Point(535, 39);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 16);
             this.label6.TabIndex = 547;
@@ -269,7 +263,7 @@
             this.btnOpen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOpen.Location = new System.Drawing.Point(981, 12);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(77, 43);
+            this.btnOpen.Size = new System.Drawing.Size(71, 30);
             this.btnOpen.TabIndex = 546;
             this.btnOpen.Text = "Open";
             this.btnOpen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -279,7 +273,7 @@
             // 
             // btnVn
             // 
-            this.btnVn.Location = new System.Drawing.Point(269, 36);
+            this.btnVn.Location = new System.Drawing.Point(205, 36);
             this.btnVn.Name = "btnVn";
             this.btnVn.Size = new System.Drawing.Size(28, 23);
             this.btnVn.TabIndex = 545;
@@ -305,7 +299,7 @@
             // 
             this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtVN.Location = new System.Drawing.Point(113, 37);
+            this.txtVN.Location = new System.Drawing.Point(49, 37);
             this.txtVN.Name = "txtVN";
             this.txtVN.Size = new System.Drawing.Size(150, 20);
             this.txtVN.TabIndex = 543;
@@ -314,42 +308,11 @@
             this.txtVN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label1.Location = new System.Drawing.Point(599, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 16);
-            this.label1.TabIndex = 542;
-            this.label1.Text = "ประเภทเอกสาร  :";
-            this.theme1.SetTheme(this.label1, "(default)");
-            // 
-            // cboDgs
-            // 
-            this.cboDgs.AllowSpinLoop = false;
-            this.cboDgs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cboDgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboDgs.GapHeight = 0;
-            this.cboDgs.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboDgs.ItemsDisplayMember = "";
-            this.cboDgs.ItemsValueMember = "";
-            this.cboDgs.Location = new System.Drawing.Point(700, 13);
-            this.cboDgs.Name = "cboDgs";
-            this.cboDgs.Size = new System.Drawing.Size(275, 20);
-            this.cboDgs.TabIndex = 3;
-            this.cboDgs.Tag = null;
-            this.theme1.SetTheme(this.cboDgs, "(default)");
-            this.cboDgs.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            // 
             // txtName
             // 
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtName.Location = new System.Drawing.Point(303, 13);
+            this.txtName.Location = new System.Drawing.Point(239, 13);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(287, 20);
             this.txtName.TabIndex = 541;
@@ -360,7 +323,7 @@
             // 
             // btnHn
             // 
-            this.btnHn.Location = new System.Drawing.Point(269, 12);
+            this.btnHn.Location = new System.Drawing.Point(205, 12);
             this.btnHn.Name = "btnHn";
             this.btnHn.Size = new System.Drawing.Size(28, 23);
             this.btnHn.TabIndex = 540;
@@ -386,7 +349,7 @@
             // 
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtHn.Location = new System.Drawing.Point(113, 13);
+            this.txtHn.Location = new System.Drawing.Point(49, 13);
             this.txtHn.Name = "txtHn";
             this.txtHn.Size = new System.Drawing.Size(150, 20);
             this.txtHn.TabIndex = 538;
@@ -432,7 +395,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnOpen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
@@ -450,8 +412,6 @@
         private C1.Win.C1Input.C1Button btnHn;
         private System.Windows.Forms.Label label4;
         private C1.Win.C1Input.C1TextBox txtHn;
-        private System.Windows.Forms.Label label1;
-        private C1.Win.C1Input.C1ComboBox cboDgs;
         private System.Windows.Forms.Label label2;
         private C1.Win.C1Input.C1TextBox txtVN;
         private C1.Win.C1Input.C1Button btnVn;

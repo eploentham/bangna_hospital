@@ -65,7 +65,7 @@ namespace bangna_hospital.gui
             txtAnDate.Left = txtVisitDate.Left;
             txtAnDate.Top = txtVisitDate.Top;
 
-            bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
+            //bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
             DateTime dt = DateTime.Now;
             dt = dt.AddDays(-1);
             txtVisitDate.Value = dt.Year + "-" + dt.ToString("MM-dd");
@@ -306,6 +306,7 @@ namespace bangna_hospital.gui
             pB1.Name = "pB1";
             pB1.Size = new System.Drawing.Size(862, 23);
             groupBox1.Controls.Add(pB1);
+            pB1.Left = txtVN.Left;
             pB1.Show();
             int i = 1, j = 1, row = grf.Rows.Count;
             grf.Rows.Add();
@@ -466,7 +467,8 @@ namespace bangna_hospital.gui
             String idOld = "";
             //if (lDgss.Count <= 0) getlBsp();
             if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
-            foreach(DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
+            if (bc.bcDB.dgsDB.lDgs.Count <= 0) bc.bcDB.dgsDB.getlBsp();
+            foreach (DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
             {
                 String dgsid = "";
                 dgsid = bc.bcDB.dgssDB.getDgsIdDgss(dgss.doc_group_sub_name);
@@ -788,7 +790,7 @@ namespace bangna_hospital.gui
                 if (chk)
                 {
                     String dgs = "";
-                    dgs = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
+                    //dgs = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
                     FrmScanNewView frm = new FrmScanNewView(bc, txtHn.Text, txtVN.Text, txtName.Text, filename, dgs, txtVisitDate.Text);
                     frm.ShowDialog(this);
                     setGrf();
