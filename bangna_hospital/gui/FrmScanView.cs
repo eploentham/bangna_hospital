@@ -526,8 +526,8 @@ namespace bangna_hospital.gui
                     pB1.Value = 0;
                     pB1.Minimum = 0;
                     pB1.Maximum = dt.Rows.Count;
-                    MemoryStream stream;
-                    Image loadedImage, resizedImage;
+                    //MemoryStream stream;
+                    //Image loadedImage, resizedImage;
                     C1FlexGrid grf1;
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     foreach (DataRow row in dt.Rows)
@@ -562,11 +562,13 @@ namespace bangna_hospital.gui
                                                                     
                                                                     grf1 = (C1FlexGrid)congd1;
                                                                     Row rowd = grf1.Rows.Add();
-                                                                    
+                                                                    MemoryStream stream;
+                                                                    Image loadedImage, resizedImage;
                                                                     stream = new MemoryStream();
                                                                     stream = ftp.download(filename);
 
                                                                     //loadedImage = Image.FromFile(filename);
+                                                                    
                                                                     loadedImage = new Bitmap(stream);
                                                                     int originalWidth = 0;
                                                                     originalWidth = loadedImage.Width;
@@ -579,9 +581,14 @@ namespace bangna_hospital.gui
                                                                     strm.id = id;
                                                                     strm.stream = stream;
                                                                     lStream.Add(strm);
-                                                                    Application.DoEvents();
+                                                                    
                                                                     grf1.AutoSizeRows();
-                                                                    GC.Collect();
+
+                                                                    //loadedImage.Dispose();
+                                                                    //resizedImage.Dispose();
+                                                                    //stream.Dispose();
+                                                                    //Application.DoEvents();
+                                                                    //GC.Collect();
                                                                 }
                                                             }
                                                         }
