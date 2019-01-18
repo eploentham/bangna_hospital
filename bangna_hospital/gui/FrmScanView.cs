@@ -587,7 +587,7 @@ namespace bangna_hospital.gui
                                                                     //loadedImage.Dispose();
                                                                     //resizedImage.Dispose();
                                                                     //stream.Dispose();
-                                                                    //Application.DoEvents();
+                                                                    Application.DoEvents();
                                                                     //GC.Collect();
                                                                 }
                                                             }

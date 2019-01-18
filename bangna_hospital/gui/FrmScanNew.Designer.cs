@@ -48,6 +48,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDel = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -63,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDel)).BeginInit();
             this.SuspendLayout();
             // 
             // sb1
@@ -77,6 +79,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.btnDel);
             this.groupBox1.Controls.Add(this.txtAnCnt);
             this.groupBox1.Controls.Add(this.chkIPD);
             this.groupBox1.Controls.Add(this.txtAnDate);
@@ -369,6 +372,20 @@
             this.panel1.TabIndex = 4;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
+            // btnDel
+            // 
+            this.btnDel.Image = global::bangna_hospital.Properties.Resources.trash24;
+            this.btnDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDel.Location = new System.Drawing.Point(884, 13);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(71, 30);
+            this.btnDel.TabIndex = 555;
+            this.btnDel.Text = "Delete";
+            this.btnDel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnDel, "(default)");
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // FrmScanNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -398,6 +415,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,5 +443,6 @@
         private C1.Win.C1Input.C1CheckBox chkIPD;
         private C1.Win.C1Input.C1TextBox txtAnCnt;
         private System.Windows.Forms.Panel panel1;
+        private C1.Win.C1Input.C1Button btnDel;
     }
 }

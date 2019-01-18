@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_hospital.object1
 {
@@ -89,7 +90,9 @@ namespace bangna_hospital.object1
                 ftpRequest.UsePassive = false;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
-                
+                //ftpRequest.Proxy = new WebProxy();
+                MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
+                MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);
                 ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
                 /* Establish Return Communication with the FTP Server */
 
@@ -118,6 +121,7 @@ namespace bangna_hospital.object1
             catch (Exception ex)
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
+                MessageBox.Show(""+ ex.ToString(), "Error");
                 Console.WriteLine(ex.ToString());
             }
             return;
@@ -134,7 +138,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = false;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
@@ -144,7 +148,11 @@ namespace bangna_hospital.object1
                 ftpResponse.Close();
                 ftpRequest = null;
             }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex.ToString(), "Error");
+                Console.WriteLine(ex.ToString());
+            }
             return;
         }
         /* Delete Dir*/
@@ -158,7 +166,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = false;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
@@ -211,8 +219,8 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
-                //ftpRequest.UsePassive = false;
+                //ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = false;
                 ftpRequest.KeepAlive = true;
                 //ftpRequest.EnableSsl = true;
                 /* Specify the Type of FTP Request */
@@ -226,6 +234,7 @@ namespace bangna_hospital.object1
             catch (Exception ex)
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
+                MessageBox.Show("" + ex.ToString(), "Error");
                 Console.WriteLine(ex.ToString());
             }
             return;

@@ -104,6 +104,7 @@ namespace bangna_hospital.gui
             
             btnOpen.Click += BtnOpen_Click;
             btnHn.Click += BtnHn_Click;
+            btnDel.Click += BtnDel_Click;
 
             sb1.Text = "aaaaaaaaaa";
             initGrf();
@@ -202,6 +203,23 @@ namespace bangna_hospital.gui
                 else
                 {
 
+                }
+            }
+        }
+
+        private void BtnDel_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();            
+            
+            if (Directory.Exists(bc.iniC.pathImageScan))
+            {
+                if (MessageBox.Show("ต้องการ ลบข้อมูล รูป scan ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    DirectoryInfo dir = new DirectoryInfo(bc.iniC.pathImageScan);
+                    foreach (FileInfo fi in dir.GetFiles())
+                    {
+                        fi.Delete();
+                    }
                 }
             }
         }
@@ -345,6 +363,7 @@ namespace bangna_hospital.gui
                             int newWidth = 280;
                             resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
                             arrayImg.Add(file+",");
+                            loadedImage.Dispose();
                         }
                         else
                         {
@@ -367,7 +386,10 @@ namespace bangna_hospital.gui
                         //grfDay2Img[row - 1, colBtn] = "send";
                         array1.Add(i + "," + j + ",*" + file);
                         if (j == 1)
+                        {
                             grf[i, colPic1] = resizedImage;
+                            
+                        }
                         else if (j == 2)
                             grf[i, colPic2] = resizedImage;
                         else if (j == 3)
@@ -693,8 +715,11 @@ namespace bangna_hospital.gui
                     String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
                     dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                    MessageBox.Show("111", "");
                     ftp.createDirectory(txtHn.Text);
+                    MessageBox.Show("222", "");
                     ftp.delete(dsc.image_path);
+                    MessageBox.Show("333", "");
                     ftp.upload(dsc.image_path, filename);
                     foreach(Control con in this.Controls)
                     {
