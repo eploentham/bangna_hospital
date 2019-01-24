@@ -119,17 +119,17 @@
     <Compile Include="gui\FrmPasswordConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="gui\FrmScanNew.cs">
+    <Compile Include="gui\FrmScanAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="gui\FrmScanNew.Designer.cs">
-      <DependentUpon>FrmScanNew.cs</DependentUpon>
+    <Compile Include="gui\FrmScanAdd.Designer.cs">
+      <DependentUpon>FrmScanAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="gui\FrmScanNewView.cs">
+    <Compile Include="gui\FrmScanAddView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="gui\FrmScanNewView.Designer.cs">
-      <DependentUpon>FrmScanNewView.cs</DependentUpon>
+    <Compile Include="gui\FrmScanAddView.Designer.cs">
+      <DependentUpon>FrmScanAddView.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmScanView.cs">
       <SubType>Form</SubType>
@@ -225,11 +225,11 @@
     <EmbeddedResource Include="gui\FrmDocGroupSub.resx">
       <DependentUpon>FrmDocGroupSub.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="gui\FrmScanNew.resx">
-      <DependentUpon>FrmScanNew.cs</DependentUpon>
+    <EmbeddedResource Include="gui\FrmScanAdd.resx">
+      <DependentUpon>FrmScanAdd.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="gui\FrmScanNewView.resx">
-      <DependentUpon>FrmScanNewView.cs</DependentUpon>
+    <EmbeddedResource Include="gui\FrmScanAddView.resx">
+      <DependentUpon>FrmScanAddView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanView.resx">
       <DependentUpon>FrmScanView.cs</DependentUpon>

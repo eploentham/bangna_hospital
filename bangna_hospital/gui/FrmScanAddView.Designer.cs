@@ -1,6 +1,6 @@
 ﻿namespace bangna_hospital.gui
 {
-    partial class FrmScanNewView
+    partial class FrmScanAddView
     {
         /// <summary>
         /// Required designer variable.

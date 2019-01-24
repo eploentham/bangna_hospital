@@ -20,7 +20,7 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
-    public partial class FrmScanNew : Form
+    public partial class FrmScanAdd : Form
     {
         BangnaControl bc;
         MainMenu menu;
@@ -34,7 +34,7 @@ namespace bangna_hospital.gui
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         ArrayList array1,arrayImg;
         Timer timer1;
-        public FrmScanNew(BangnaControl bc, MainMenu m)
+        public FrmScanAdd(BangnaControl bc, MainMenu m)
         {
             InitializeComponent();
             this.bc = bc;
@@ -387,15 +387,24 @@ namespace bangna_hospital.gui
                         array1.Add(i + "," + j + ",*" + file);
                         if (j == 1)
                         {
-                            grf[i, colPic1] = resizedImage;
-                            
+                            //grf[i, colPic1] = resizedImage;
+                            grf.SetCellImage(i, colPic1, resizedImage);
                         }
                         else if (j == 2)
-                            grf[i, colPic2] = resizedImage;
+                        {
+                            //grf[i, colPic2] = resizedImage;
+                            grf.SetCellImage(i, colPic2, resizedImage);
+                        }
                         else if (j == 3)
-                            grf[i, colPic3] = resizedImage;
+                        {
+                            //grf[i, colPic3] = resizedImage;
+                            grf.SetCellImage(i, colPic3, resizedImage);
+                        }
                         else if (j == 4)
-                            grf[i, colPic4] = resizedImage;
+                        {
+                            //grf[i, colPic4] = resizedImage;
+                            grf.SetCellImage(i, colPic4, resizedImage);
+                        }
                         j++;
                         pB1.Value++;
                         //resizedImage.Dispose();
@@ -460,17 +469,18 @@ namespace bangna_hospital.gui
         }
         private void setGrf()
         {
-            grf.Clear();
+            //grf.Clear();
+            grf.Rows.Count = 0;
             grf.Rows.Count = 1;
             grf.Cols.Count = 5;
-            Column colpic1 = grf.Cols[colPic1];
-            colpic1.DataType = typeof(Image);
-            Column colpic2 = grf.Cols[colPic2];
-            colpic2.DataType = typeof(Image);
-            Column colpic3 = grf.Cols[colPic3];
-            colpic3.DataType = typeof(Image);
-            Column colpic4 = grf.Cols[colPic4];
-            colpic4.DataType = typeof(Image);
+            //Column colpic1 = grf.Cols[colPic1];
+            //colpic1.DataType = typeof(Image);
+            //Column colpic2 = grf.Cols[colPic2];
+            //colpic2.DataType = typeof(Image);
+            //Column colpic3 = grf.Cols[colPic3];
+            //colpic3.DataType = typeof(Image);
+            //Column colpic4 = grf.Cols[colPic4];
+            //colpic4.DataType = typeof(Image);
             grf.Cols[colPic1].Width = 310;
             grf.Cols[colPic2].Width = 310;
             grf.Cols[colPic3].Width = 310;
@@ -480,6 +490,8 @@ namespace bangna_hospital.gui
             grf.Cols[colPic2].ImageAndText = true;
             grf.Cols[colPic3].ImageAndText = true;
             grf.Cols[colPic4].ImageAndText = true;
+            grf.Styles.Normal.ImageAlign = ImageAlignEnum.CenterTop;
+            grf.Styles.Normal.TextAlign = TextAlignEnum.CenterBottom;
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("&แก้ไข Image", new EventHandler(ContextMenu_edit));
             menuGw.MenuItems.Add("&Rotate Image", new EventHandler(ContextMenu_retate));
@@ -571,28 +583,35 @@ namespace bangna_hospital.gui
                             dgssidold = aaa[1];
                             arrayImg.Remove(aa);
                             arrayImg.Add(aa + "," + dgssid);
+                            Boolean findTrue = false;
                             foreach (Control con in this.Controls)
                             {
+                                if (findTrue) break;
                                 if (con is Panel)
                                 {
                                     foreach (Control conp in con.Controls)
                                     {
+                                        if (findTrue) break;
                                         if (conp is C1DockingTab)
                                         {
                                             foreach (Control cond in conp.Controls)
                                             {
+                                                if (findTrue) break;
                                                 if (cond is C1DockingTabPage)
                                                 {
                                                     foreach (Control cong in cond.Controls)
                                                     {
+                                                        if (findTrue) break;
                                                         if (cong is C1DockingTab)
                                                         {
                                                             foreach (Control congd in cong.Controls)
                                                             {
+                                                                if (findTrue) break;
                                                                 if (congd is C1DockingTabPage)
                                                                 {
                                                                     foreach (Control congd1 in congd.Controls)
                                                                     {
+                                                                        if (findTrue) break;
                                                                         if (congd1 is C1FlexGrid)
                                                                         {
                                                                             if (congd1.Name.Equals(dgssidold))
@@ -611,8 +630,9 @@ namespace bangna_hospital.gui
                                                                                             grf1.RemoveItem(j);
                                                                                         }
                                                                                     }
-                                                                                    
                                                                                     j++;
+                                                                                    findTrue = true;
+                                                                                    break;
                                                                                 }
                                                                                 grf1.AutoSizeRows();
                                                                             }
@@ -715,34 +735,41 @@ namespace bangna_hospital.gui
                     String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
                     dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
-                    MessageBox.Show("111", "");
+                    //MessageBox.Show("111", "");
                     ftp.createDirectory(txtHn.Text);
-                    MessageBox.Show("222", "");
+                    //MessageBox.Show("222", "");
                     ftp.delete(dsc.image_path);
-                    MessageBox.Show("333", "");
+                    //MessageBox.Show("333", "");
                     ftp.upload(dsc.image_path, filename);
+                    Boolean findTrue = false;
                     foreach(Control con in this.Controls)
                     {
-                        if(con is Panel)
+                        if (findTrue) break;
+                        if (con is Panel)
                         {
                             foreach (Control conp in con.Controls)
                             {
+                                if (findTrue) break;
                                 if (conp is C1DockingTab)
                                 {
                                     foreach (Control cond in conp.Controls)
                                     {
-                                        if(cond is C1DockingTabPage)
+                                        if (findTrue) break;
+                                        if (cond is C1DockingTabPage)
                                         {
                                             foreach (Control cong in cond.Controls)
                                             {
+                                                if (findTrue) break;
                                                 if (cong is C1DockingTab)
                                                 {
                                                     foreach (Control congd in cong.Controls)
                                                     {
+                                                        if (findTrue) break;
                                                         if (congd is C1DockingTabPage)
                                                         {
                                                             foreach (Control congd1 in congd.Controls)
                                                             {
+                                                                if (findTrue) break;
                                                                 if (congd1 is C1FlexGrid)
                                                                 {
                                                                     if (congd1.Name.Equals(dsc.doc_group_sub_id))
@@ -760,10 +787,14 @@ namespace bangna_hospital.gui
                                                                         //
                                                                         rowg[colPic1] = resizedImage;
                                                                         rowg[colPic2] = filename;
-                                                                        grf[grf.Row, grf.Col] = dsc.doc_group_sub_id;
+                                                                        //grf[grf.Row, grf.Col] = dsc.doc_group_sub_id;
                                                                         grf1.AutoSizeRows();
                                                                         Application.DoEvents();
                                                                         addInArrayImg(filename, dsc.doc_group_sub_id);
+
+                                                                        grf.SetData(grf.Row, grf.Col, dgssname);
+                                                                        findTrue = true;
+                                                                        break;
                                                                     }
                                                                 }
                                                             }
@@ -777,8 +808,8 @@ namespace bangna_hospital.gui
                             }
                         }
                     }
-                    //grf.AutoSizeRows();
-                    //grf.AutoSizeCols();
+                    grf.AutoSizeRows();
+                    grf.AutoSizeCols();
                     //CellRange cr = grf.GetCellRange(grf.Row, grf.Col);
                     CellStyle cs = grf.Styles.Add("CellNeWStyle");
                     cs.BackColor = Color.Green;
@@ -786,6 +817,9 @@ namespace bangna_hospital.gui
                     cs.Border.Color = Color.Black;
                     //cr.Style = cs;
                     grf.SetCellStyle(grf.Row, grf.Col, cs);
+                    grf.Styles.Normal.ImageAlign = C1.Win.C1FlexGrid.ImageAlignEnum.CenterTop;
+                    grf.Styles.Normal.TextAlign = C1.Win.C1FlexGrid.TextAlignEnum.CenterBottom;
+                    grf.SetData(grf.Row, grf.Col, dgssname);
                 }
             }
             catch (Exception ex)
@@ -816,7 +850,7 @@ namespace bangna_hospital.gui
                 {
                     String dgs = "";
                     //dgs = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
-                    FrmScanNewView frm = new FrmScanNewView(bc, txtHn.Text, txtVN.Text, txtName.Text, filename, dgs, txtVisitDate.Text);
+                    FrmScanAddView frm = new FrmScanAddView(bc, txtHn.Text, txtVN.Text, txtName.Text, filename, dgs, txtVisitDate.Text);
                     frm.ShowDialog(this);
                     setGrf();
                     setImage1(false);

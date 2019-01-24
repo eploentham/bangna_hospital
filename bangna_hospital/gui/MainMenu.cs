@@ -92,7 +92,7 @@ namespace bangna_hospital.gui
         private void MenuScan_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            FrmScanNew frm = new FrmScanNew(bc, this);
+            FrmScanAdd frm = new FrmScanAdd(bc, this);
             frm.FormBorderStyle = FormBorderStyle.None;
             AddNewTab(frm, menuScan.Text + " ");
         }

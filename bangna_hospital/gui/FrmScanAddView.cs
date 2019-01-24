@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
-    public partial class FrmScanNewView : Form
+    public partial class FrmScanAddView : Form
     {
         BangnaControl bc;
         Font fEdit, fEditB;
@@ -67,7 +67,7 @@ namespace bangna_hospital.gui
         
         //Create the OCR Engine to use in the recognition 
         IOcrEngine formsOCREngine;
-        public FrmScanNewView(BangnaControl bc, String hn, String vn, String name, String filename, String dsg, String visitdate)
+        public FrmScanAddView(BangnaControl bc, String hn, String vn, String name, String filename, String dsg, String visitdate)
         {
             InitializeComponent();
             this.bc = bc;

@@ -530,8 +530,10 @@ namespace bangna_hospital.gui
                     //Image loadedImage, resizedImage;
                     C1FlexGrid grf1;
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                    Boolean findTrue = false;
                     foreach (DataRow row in dt.Rows)
                     {
+                        if (findTrue) break;
                         String dgssid = "", filename = "", ftphost = "", id = "";
                         id = row[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
                         dgssid = row[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
@@ -539,18 +541,22 @@ namespace bangna_hospital.gui
                         ftphost = row[bc.bcDB.dscDB.dsc.host_ftp].ToString();
                         foreach (Control con in panel3.Controls)
                         {
+                            if (findTrue) break;
                             if (con is C1DockingTab)
                             {
                                 foreach (Control cond in con.Controls)
                                 {
+                                    if (findTrue) break;
                                     if (cond is C1DockingTabPage)
                                     {
                                         foreach (Control cong in cond.Controls)
                                         {
+                                            if (findTrue) break;
                                             if (cong is C1DockingTab)
                                             {
                                                 foreach (Control congd in cong.Controls)
                                                 {
+                                                    if (findTrue) break;
                                                     if (congd is C1DockingTabPage)
                                                     {
                                                         foreach (Control congd1 in congd.Controls)
@@ -588,6 +594,8 @@ namespace bangna_hospital.gui
                                                                     //resizedImage.Dispose();
                                                                     //stream.Dispose();
                                                                     Application.DoEvents();
+                                                                    findTrue = true;
+                                                                    break;
                                                                     //GC.Collect();
                                                                 }
                                                             }
