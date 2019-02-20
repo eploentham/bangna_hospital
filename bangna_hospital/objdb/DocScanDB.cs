@@ -48,6 +48,7 @@ namespace bangna_hospital.objdb
             dsc.an_date = "an_date";
             dsc.status_ipd = "status_ipd";
             dsc.an_cnt = "an_cnt";
+            dsc.folder_ftp = "folder_ftp";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -227,6 +228,7 @@ namespace bangna_hospital.objdb
             p.an_date = p.an_date == null ? "" : p.an_date;
             p.status_ipd = p.status_ipd == null ? "" : p.status_ipd;
             p.an_cnt = p.an_cnt == null ? "" : p.an_cnt;
+            p.folder_ftp = p.folder_ftp == null ? "" : p.folder_ftp;
 
             p.doc_group_id = long.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
             p.row_no = long.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
@@ -249,7 +251,8 @@ namespace bangna_hospital.objdb
                 dsc.date_create + "," + dsc.date_modi + "," + dsc.date_cancel + "," +
                 dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
                 dsc.an + "," + dsc.doc_group_sub_id + "," + dsc.pre_no + "," +
-                dsc.an_date + "," + dsc.status_ipd + "," + dsc.an_cnt + " " +
+                dsc.an_date + "," + dsc.status_ipd + "," + dsc.an_cnt + "," +
+                dsc.folder_ftp + "," +
                 ") " +
                 "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
                 "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
@@ -258,6 +261,7 @@ namespace bangna_hospital.objdb
                 "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "'," +
                 "'" + p.an + "','" + p.doc_group_sub_id + "','" + p.pre_no + "'," +
                 "'" + p.an_date + "','" + p.status_ipd + "','" + p.an_cnt + "' " +
+                "'" + p.folder_ftp + "' " +
                 ")";
             try
             {
@@ -278,6 +282,7 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("status_ipd", p.status_ipd);
                 conn.comStore.Parameters.AddWithValue("ext", p.image_path);
                 conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
+                conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
                 SqlParameter retval =  conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
@@ -322,6 +327,7 @@ namespace bangna_hospital.objdb
                 "," + dsc.an_date + " = '" + p.an_date + "'" +
                 "," + dsc.status_ipd + " = '" + p.status_ipd + "'" +
                 "," + dsc.an_cnt + " = '" + p.an_cnt + "'" +
+                "," + dsc.folder_ftp + " = '" + p.folder_ftp + "'" +
                 "Where " + dsc.pkField + "='" + p.doc_scan_id + "'"
                 ;
 
@@ -401,6 +407,7 @@ namespace bangna_hospital.objdb
                 dgs1.an_date = dt.Rows[0][dsc.an_date].ToString();
                 dgs1.status_ipd = dt.Rows[0][dsc.status_ipd].ToString();
                 dgs1.an_cnt = dt.Rows[0][dsc.an_cnt].ToString();
+                dgs1.folder_ftp = dt.Rows[0][dsc.folder_ftp].ToString();
             }
             else
             {
@@ -432,6 +439,7 @@ namespace bangna_hospital.objdb
             dgs1.an_date = "";
             dgs1.status_ipd = "";
             dgs1.an_cnt = "";
+            dgs1.folder_ftp = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

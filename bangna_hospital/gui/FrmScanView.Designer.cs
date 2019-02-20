@@ -31,6 +31,7 @@
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkIPD = new C1.Win.C1Input.C1CheckBox();
             this.txt = new C1.Win.C1Input.C1TextBox();
             this.btnRefresh = new C1.Win.C1Input.C1Button();
             this.btnOpen = new C1.Win.C1Input.C1Button();
@@ -48,10 +49,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.chkIPD = new C1.Win.C1Input.C1CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOpen)).BeginInit();
@@ -63,7 +64,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
             this.SuspendLayout();
             // 
             // sb1
@@ -102,6 +102,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Patient";
             this.theme1.SetTheme(this.groupBox1, "(default)");
+            // 
+            // chkIPD
+            // 
+            this.chkIPD.BackColor = System.Drawing.Color.Transparent;
+            this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
+            this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkIPD.ForeColor = System.Drawing.Color.Black;
+            this.chkIPD.Location = new System.Drawing.Point(505, 36);
+            this.chkIPD.Name = "chkIPD";
+            this.chkIPD.Padding = new System.Windows.Forms.Padding(1);
+            this.chkIPD.Size = new System.Drawing.Size(61, 24);
+            this.chkIPD.TabIndex = 554;
+            this.chkIPD.Text = "IPD";
+            this.theme1.SetTheme(this.chkIPD, "(default)");
+            this.chkIPD.UseVisualStyleBackColor = true;
+            this.chkIPD.Value = null;
+            this.chkIPD.VisualStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.chkIPD.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txt
             // 
@@ -339,24 +357,6 @@
             this.panel2.TabIndex = 0;
             this.theme1.SetTheme(this.panel2, "(default)");
             // 
-            // chkIPD
-            // 
-            this.chkIPD.BackColor = System.Drawing.Color.Transparent;
-            this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
-            this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkIPD.ForeColor = System.Drawing.Color.Black;
-            this.chkIPD.Location = new System.Drawing.Point(505, 36);
-            this.chkIPD.Name = "chkIPD";
-            this.chkIPD.Padding = new System.Windows.Forms.Padding(1);
-            this.chkIPD.Size = new System.Drawing.Size(61, 24);
-            this.chkIPD.TabIndex = 554;
-            this.chkIPD.Text = "IPD";
-            this.theme1.SetTheme(this.chkIPD, "(default)");
-            this.chkIPD.UseVisualStyleBackColor = true;
-            this.chkIPD.Value = null;
-            this.chkIPD.VisualStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            this.chkIPD.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
             // FrmScanView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -372,6 +372,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOpen)).EndInit();
@@ -383,7 +384,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
