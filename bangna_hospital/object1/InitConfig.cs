@@ -11,7 +11,7 @@ namespace bangna_hospital.object1
         public String hostDB = "", userDB = "", passDB = "", nameDB = "", portDB = "";
         public String hostDBMainHIS = "", userDBMainHIS = "", passDBMainHIS = "", nameDBMainHIS = "", portDBMainHIS = "";
         public String hostDBIm = "", userDBIm = "", passDBIm = "", nameDBIm = "", portDBIm = "";
-        public String hostFTP = "", userFTP = "", passFTP = "", portFTP = "";
+        public String hostFTP = "", userFTP = "", passFTP = "", portFTP = "", folderFTP = "";
 
         public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "";
 

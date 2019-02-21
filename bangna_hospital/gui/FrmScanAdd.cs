@@ -206,20 +206,77 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
+        private void delFile()
+        {
+            DirectoryInfo dir = new DirectoryInfo(bc.iniC.pathImageScan);
+            foreach (FileInfo fi in dir.GetFiles())
+            {
+                fi.Delete();
+            }
+        }
         private void BtnDel_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();            
             
             if (Directory.Exists(bc.iniC.pathImageScan))
             {
-                if (MessageBox.Show("ต้องการ ลบข้อมูล รูป scan ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                if (MessageBox.Show("ยืนยัน upload รูป เวชระเบียน เข้ากลุ่มอื่นๆ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    DirectoryInfo dir = new DirectoryInfo(bc.iniC.pathImageScan);
-                    foreach (FileInfo fi in dir.GetFiles())
+                    int i = 0;
+                    String dgs = "", name = "";
+                    Boolean chk = false;
+                    foreach (String aa in array1)
                     {
-                        fi.Delete();
+                        i++;
+                        String[] aaa = aa.Split(',');
+                        if (aaa.Length == 3)
+                        {
+                            name = aaa[2].Replace("*", "");
+                            string ext = Path.GetExtension(name);
+                            String dgssname = "", dgssid = "", vn="";
+                            dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
+                            DocGroupSubScan dgss = new DocGroupSubScan();
+                            dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
+                            DocScan dsc = new DocScan();
+                            dsc.active = "1";
+                            dsc.doc_scan_id = "";
+                            dsc.doc_group_id = dgss.doc_group_id;
+                            dsc.hn = txtHn.Text;
+                            dsc.vn = txtVN.Text;
+                            dsc.an = txtAN.Text;
+                            dsc.visit_date = bc.datetoDB(txtVisitDate.Text);
+                            dsc.host_ftp = bc.iniC.hostFTP;
+                            //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
+                            dsc.image_path = "";
+                            dsc.doc_group_sub_id = dgssid;
+                            dsc.pre_no = txtPreNo.Text;
+                            dsc.an = txtAN.Text;
+                            DateTime dt = new DateTime();
+
+                            dsc.an_date = (DateTime.TryParse(txtAnDate.Text, out dt)) ? bc.datetoDB(txtAnDate.Text) : "";
+                            if (dsc.an_date.Equals("1-01-01"))
+                            {
+                                dsc.an_date = "";
+                            }
+                            dsc.folder_ftp = bc.iniC.folderFTP;
+                            dsc.status_ipd = chkIPD.Checked ? "I" : "O";
+                            String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
+                            //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
+                            vn = txtVN.Text.Replace("/", "_").Replace("(", "_").Replace(")", "");
+                            dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;
+                            String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
+                            FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                            //MessageBox.Show("111", "");
+                            //ftp.createDirectory(txtHn.Text);
+                            ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-") + "-" + vn);
+                            //MessageBox.Show("222", "");
+                            ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
+                            //MessageBox.Show("333", "");
+                            ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, name);
+                            //break;
+                        }
                     }
+                    //delFile();
                 }
             }
         }
@@ -486,12 +543,12 @@ namespace bangna_hospital.gui
             grf.Cols[colPic3].Width = 310;
             grf.Cols[colPic4].Width = 310;
             grf.ShowCursor = true;
-            grf.Cols[colPic1].ImageAndText = true;
-            grf.Cols[colPic2].ImageAndText = true;
-            grf.Cols[colPic3].ImageAndText = true;
-            grf.Cols[colPic4].ImageAndText = true;
-            grf.Styles.Normal.ImageAlign = ImageAlignEnum.CenterTop;
-            grf.Styles.Normal.TextAlign = TextAlignEnum.CenterBottom;
+            //grf.Cols[colPic1].ImageAndText = true;
+            //grf.Cols[colPic2].ImageAndText = true;
+            //grf.Cols[colPic3].ImageAndText = true;
+            //grf.Cols[colPic4].ImageAndText = true;
+            //grf.Styles.Normal.ImageAlign = ImageAlignEnum.CenterTop;
+            //grf.Styles.Normal.TextAlign = TextAlignEnum.CenterBottom;
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("&แก้ไข Image", new EventHandler(ContextMenu_edit));
             menuGw.MenuItems.Add("&Rotate Image", new EventHandler(ContextMenu_retate));
@@ -720,7 +777,7 @@ namespace bangna_hospital.gui
                     //}
                     dsc.host_ftp = bc.iniC.hostFTP;
                     //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
-                    dsc.image_path = ext;
+                    dsc.image_path = "";
                     dsc.doc_group_sub_id = dgssid;
                     dsc.pre_no = txtPreNo.Text;
                     dsc.an = txtAN.Text;
@@ -731,9 +788,12 @@ namespace bangna_hospital.gui
                     {
                         dsc.an_date = "";
                     }
+                    dsc.folder_ftp = bc.iniC.folderFTP;
                     dsc.status_ipd = chkIPD.Checked ? "I" : "O";
                     String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
-                    dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
+                    //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
+                    dsc.image_path = txtVN.Text + "//" + txtHn.Text.Replace("/", "-") + "_" + txtVN.Text + "_" + re + ext;
+                    String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     //MessageBox.Show("111", "");
                     ftp.createDirectory(txtHn.Text);

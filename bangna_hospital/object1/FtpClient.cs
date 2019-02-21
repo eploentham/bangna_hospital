@@ -91,8 +91,8 @@ namespace bangna_hospital.object1
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 //ftpRequest.Proxy = new WebProxy();
-                MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
-                MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);
+                //MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
+                //MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);
                 ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
                 /* Establish Return Communication with the FTP Server */
 

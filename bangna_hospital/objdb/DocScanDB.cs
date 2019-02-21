@@ -252,7 +252,7 @@ namespace bangna_hospital.objdb
                 dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
                 dsc.an + "," + dsc.doc_group_sub_id + "," + dsc.pre_no + "," +
                 dsc.an_date + "," + dsc.status_ipd + "," + dsc.an_cnt + "," +
-                dsc.folder_ftp + "," +
+                dsc.folder_ftp + " " +
                 ") " +
                 "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
                 "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
@@ -286,8 +286,7 @@ namespace bangna_hospital.objdb
                 SqlParameter retval =  conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
-
-
+                
                 conn.conn.Open();
                 conn.comStore.ExecuteNonQuery();
                 re = (String)conn.comStore.Parameters["row_no1"].Value;
@@ -353,6 +352,27 @@ namespace bangna_hospital.objdb
             else
             {
                 re = update(p, "");
+            }
+
+            return re;
+        }
+        public String updateImagepath(String image_path, String id)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            //chkNull(p);
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.image_path + " = '" + image_path + "'" +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
             }
 
             return re;

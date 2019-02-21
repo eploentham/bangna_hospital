@@ -523,7 +523,7 @@
             this.txtSearch.Location = new System.Drawing.Point(475, 12);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(110, 20);
-            this.txtSearch.TabIndex = 518;
+            this.txtSearch.TabIndex = 1;
             this.txtSearch.Tag = null;
             this.theme1.SetTheme(this.txtSearch, "(default)");
             this.txtSearch.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;

@@ -534,11 +534,12 @@ namespace bangna_hospital.gui
                     foreach (DataRow row in dt.Rows)
                     {
                         if (findTrue) break;
-                        String dgssid = "", filename = "", ftphost = "", id = "";
+                        String dgssid = "", filename = "", ftphost = "", id = "", folderftp="";
                         id = row[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
                         dgssid = row[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
                         filename = row[bc.bcDB.dscDB.dsc.image_path].ToString();
                         ftphost = row[bc.bcDB.dscDB.dsc.host_ftp].ToString();
+                        folderftp = row[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
                         foreach (Control con in panel3.Controls)
                         {
                             if (findTrue) break;
@@ -565,38 +566,45 @@ namespace bangna_hospital.gui
                                                             {
                                                                 if (congd1.Name.Equals(dgssid))
                                                                 {
-                                                                    
-                                                                    grf1 = (C1FlexGrid)congd1;
-                                                                    Row rowd = grf1.Rows.Add();
-                                                                    MemoryStream stream;
-                                                                    Image loadedImage, resizedImage;
-                                                                    stream = new MemoryStream();
-                                                                    stream = ftp.download(filename);
+                                                                    try
+                                                                    {
+                                                                        grf1 = (C1FlexGrid)congd1;
+                                                                        Row rowd = grf1.Rows.Add();
+                                                                        MemoryStream stream;
+                                                                        Image loadedImage, resizedImage;
+                                                                        stream = new MemoryStream();
+                                                                        stream = ftp.download(folderftp + "//" + filename);
 
-                                                                    //loadedImage = Image.FromFile(filename);
-                                                                    
-                                                                    loadedImage = new Bitmap(stream);
-                                                                    int originalWidth = 0;
-                                                                    originalWidth = loadedImage.Width;
-                                                                    int newWidth = 280;
-                                                                    resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                                                                    //
-                                                                    rowd[colPic1] = resizedImage;
-                                                                    rowd[colPic2] = id;
-                                                                    strm = new listStream();
-                                                                    strm.id = id;
-                                                                    strm.stream = stream;
-                                                                    lStream.Add(strm);
-                                                                    
-                                                                    grf1.AutoSizeRows();
+                                                                        //loadedImage = Image.FromFile(filename);
 
-                                                                    //loadedImage.Dispose();
-                                                                    //resizedImage.Dispose();
-                                                                    //stream.Dispose();
-                                                                    Application.DoEvents();
-                                                                    findTrue = true;
-                                                                    break;
-                                                                    //GC.Collect();
+                                                                        loadedImage = new Bitmap(stream);
+                                                                        int originalWidth = 0;
+                                                                        originalWidth = loadedImage.Width;
+                                                                        int newWidth = 280;
+                                                                        resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                                                                        //
+                                                                        rowd[colPic1] = resizedImage;
+                                                                        rowd[colPic2] = id;
+                                                                        strm = new listStream();
+                                                                        strm.id = id;
+                                                                        strm.stream = stream;
+                                                                        lStream.Add(strm);
+
+                                                                        grf1.AutoSizeRows();
+
+                                                                        //loadedImage.Dispose();
+                                                                        //resizedImage.Dispose();
+                                                                        //stream.Dispose();
+                                                                        Application.DoEvents();
+                                                                        //findTrue = true;
+                                                                        break;
+                                                                        //GC.Collect();
+                                                                    }
+                                                                    catch (Exception ex)
+                                                                    {
+                                                                        String aaa = ex.Message;
+                                                                    }
+                                                                    
                                                                 }
                                                             }
                                                         }

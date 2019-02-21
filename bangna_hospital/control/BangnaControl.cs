@@ -83,6 +83,7 @@ namespace bangna_hospital.control
             iniC.userFTP = iniF.getIni("ftp", "userFTP");
             iniC.passFTP = iniF.getIni("ftp", "passFTP");
             iniC.portFTP = iniF.getIni("ftp", "portFTP");
+            iniC.folderFTP = iniF.getIni("ftp", "folderFTP");
 
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
@@ -101,6 +102,7 @@ namespace bangna_hospital.control
             iniC.pathImageScan = iniC.pathImageScan == null ? "d:\\images" : iniC.pathImageScan.Equals("") ? "d:\\images" : iniC.pathImageScan;
 
             //iniC.pathImgScanNew = iniC.pathImgScanNew == null ? "d:\\images" : iniC.pathImgScanNew.Equals("") ? "d:\\images" : iniC.pathImgScanNew;
+            iniC.folderFTP = iniC.folderFTP == null ? "images_medical_record" : iniC.folderFTP.Equals("") ? "images_medical_record" : iniC.folderFTP;
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
