@@ -121,7 +121,7 @@ namespace bangna_hospital.object1
             catch (Exception ex)
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
-                MessageBox.Show(""+ ex.ToString(), "Error");
+                MessageBox.Show(""+ ex.ToString(), "Error ftp upload -> ");
                 Console.WriteLine(ex.ToString());
             }
             return;
@@ -150,7 +150,7 @@ namespace bangna_hospital.object1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("" + ex.ToString(), "Error");
+                //MessageBox.Show("" + ex.ToString(), "Error ftp delete -> ");
                 Console.WriteLine(ex.ToString());
             }
             return;
@@ -234,7 +234,7 @@ namespace bangna_hospital.object1
             catch (Exception ex)
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
-                MessageBox.Show("" + ex.ToString(), "Error");
+                //MessageBox.Show(" " + ex.ToString(), "Error createDirectory -> ");
                 Console.WriteLine(ex.ToString());
             }
             return;

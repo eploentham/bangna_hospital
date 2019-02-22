@@ -211,7 +211,15 @@ namespace bangna_hospital.gui
             DirectoryInfo dir = new DirectoryInfo(bc.iniC.pathImageScan);
             foreach (FileInfo fi in dir.GetFiles())
             {
-                fi.Delete();
+                try
+                {
+                    fi.Delete();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("error delFile -> "+ex.Message, "");
+                }
+                
             }
         }
         private void BtnDel_Click(object sender, EventArgs e)
@@ -276,7 +284,7 @@ namespace bangna_hospital.gui
                             //break;
                         }
                     }
-                    //delFile();
+                    delFile();
                 }
             }
         }

@@ -1,14 +1,7 @@
 ﻿using bangna_hospital.control;
 
 using bangna_hospital.object1;
-using Leadtools;
-using Leadtools.Codecs;
-using Leadtools.Controls;
-using Leadtools.Forms.Auto;
-using Leadtools.Forms.Processing;
-using Leadtools.Forms.Recognition;
-using Leadtools.Forms.Recognition.Ocr;
-using Leadtools.Ocr;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,18 +22,7 @@ namespace bangna_hospital.gui
         Font fEdit, fEditB;
         String hn = "", vn = "", name = "", filename = "", visitDate="", dgs="";
 
-        // The RasterCodecs instance used to load/save images
-        private RasterCodecs _rasterCodecs;
-        // The OCR engine instance used in this demo
-        private IOcrEngine _ocrEngine;
-        // The current OCR document
-        private IOcrDocument _ocrDocument;
-        // The current OCR page in the viewer
-        private IOcrPage _ocrPage;
-        // The current recognized characters
-        private IOcrPageCharacters _ocrPageCharacters;
-        // The current recognized words
-        private List<List<OcrWord>> _ocrZoneWords;
+
         // Selected word index into _ocrZoneWords
         private int _selectedZoneIndex;
         // Selected word index into the _ocrZoneWords[_selectedZoneIndex];
@@ -56,17 +38,14 @@ namespace bangna_hospital.gui
 
         private string _openInitialPath = string.Empty;
 
-        ImageViewer _imageViewer;
+        //ImageViewer _imageViewer;
 
         MemoryStream stream;
         Image img1=null;
         string MY_LICENSE_FILE = @"LEADTOOLS.lic";
         string MY_DEVELOPER_KEY = "gMxMXs9T3paebVPDRdEyk4CRX8BNLmMIvN383qJp6jProMPYamOe136YzHr+CmFEOZzOcuiabiSFpOJGrOHJlx8jHKErnx/u";
 
-        //Create the recognition engine 
-        
-        //Create the OCR Engine to use in the recognition 
-        IOcrEngine formsOCREngine;
+
         public FrmScanAddView(BangnaControl bc, String hn, String vn, String name, String filename, String dsg, String visitdate)
         {
             InitializeComponent();
@@ -140,96 +119,96 @@ namespace bangna_hospital.gui
         private void FrmScanNewView_FormClosing(object sender, FormClosingEventArgs e)
         {
             //throw new NotImplementedException();
-            if (formsOCREngine != null && formsOCREngine.IsStarted)
-                formsOCREngine.Shutdown();
+            //if (formsOCREngine != null && formsOCREngine.IsStarted)
+            //    formsOCREngine.Shutdown();
         }
 
-        private void Startup()
-        {
-            try
-            {
-                string MY_LICENSE_FILE = @"C:\LEADTOOLS 20\Common\License\LEADTOOLS.LIC";
+        //private void Startup()
+        //{
+        //    try
+        //    {
+        //        string MY_LICENSE_FILE = @"C:\LEADTOOLS 20\Common\License\LEADTOOLS.LIC";
 
-                // Unlock support 
-                string MY_DEVELOPER_KEY = "gMxMXs9T3paebVPDRdEyk4CRX8BNLmMIvN383qJp6jProMPYamOe136YzHr+CmFEOZzOcuiabiSFpOJGrOHJlx8jHKErnx/u";
-                RasterSupport.SetLicense(MY_LICENSE_FILE, MY_DEVELOPER_KEY);
-                FormRecognitionEngine recognitionEngine = new FormRecognitionEngine();
-                RasterCodecs codecs;
+        //        // Unlock support 
+        //        string MY_DEVELOPER_KEY = "gMxMXs9T3paebVPDRdEyk4CRX8BNLmMIvN383qJp6jProMPYamOe136YzHr+CmFEOZzOcuiabiSFpOJGrOHJlx8jHKErnx/u";
+        //        RasterSupport.SetLicense(MY_LICENSE_FILE, MY_DEVELOPER_KEY);
+        //        //FormRecognitionEngine recognitionEngine = new FormRecognitionEngine();
+        //        RasterCodecs codecs;
 
-                codecs = new RasterCodecs();
-                //Create a LEADTOOLS OCR Module - LEAD Engine and start it 
-                formsOCREngine = OcrEngineManager.CreateEngine(OcrEngineType.LEAD, false);
-                formsOCREngine.Startup(codecs, null, null, @"C:\LEADTOOLS 20\Bin\Common\OcrLEADRuntime");
-                //Add an OCRObjectManager to the recognition engines 
-                //ObjectManager collection 
-                OcrObjectsManager ocrObjectsManager = new OcrObjectsManager(formsOCREngine);
-                ocrObjectsManager.Engine = formsOCREngine;
-                recognitionEngine.ObjectsManagers.Add(ocrObjectsManager);
+        //        codecs = new RasterCodecs();
+        //        //Create a LEADTOOLS OCR Module - LEAD Engine and start it 
+        //        formsOCREngine = OcrEngineManager.CreateEngine(OcrEngineType.LEAD, false);
+        //        formsOCREngine.Startup(codecs, null, null, @"C:\LEADTOOLS 20\Bin\Common\OcrLEADRuntime");
+        //        //Add an OCRObjectManager to the recognition engines 
+        //        //ObjectManager collection 
+        //        OcrObjectsManager ocrObjectsManager = new OcrObjectsManager(formsOCREngine);
+        //        ocrObjectsManager.Engine = formsOCREngine;
+        //        recognitionEngine.ObjectsManagers.Add(ocrObjectsManager);
 
-                //Get master form filenames 
-                //You may need to update the below path to point to the "Leadtools Images\Forms\MasterForm Sets\OCR" directory. 
-                string[] masterFileNames = Directory.GetFiles(@"C:\Users\Public\Documents\LEADTOOLS Images\Forms\MasterForm Sets",
-                                                                   "StaffNote.tif",
-                                                                   SearchOption.AllDirectories);
-                foreach (string masterFileName in masterFileNames)
-                {
-                    string formName = Path.GetFileNameWithoutExtension(masterFileName);
-                    //Load the master form image 
-                    RasterImage image = codecs.Load(masterFileName, 0, CodecsLoadByteOrder.BgrOrGray, 1, -1);
-                    //Create a new master form 
-                    FormRecognitionAttributes masterFormAttributes = recognitionEngine.CreateMasterForm(formName, Guid.Empty, null);
-                    for (int i = 0; i < image.PageCount; i++)
-                    {
-                        image.Page = i + 1;
-                        //Add the master form page to the recognition engine 
-                        recognitionEngine.AddMasterFormPage(masterFormAttributes, image, null);
-                    }
-                    //Close the master form and save it's attributes 
-                    recognitionEngine.CloseMasterForm(masterFormAttributes);
-                    //File.WriteAllBytes(formName + ".bin", masterFormAttributes.GetData());
-                }
-                MessageBox.Show("Master Form Processing Complete", "Complete");
+        //        //Get master form filenames 
+        //        //You may need to update the below path to point to the "Leadtools Images\Forms\MasterForm Sets\OCR" directory. 
+        //        string[] masterFileNames = Directory.GetFiles(@"C:\Users\Public\Documents\LEADTOOLS Images\Forms\MasterForm Sets",
+        //                                                           "StaffNote.tif",
+        //                                                           SearchOption.AllDirectories);
+        //        foreach (string masterFileName in masterFileNames)
+        //        {
+        //            string formName = Path.GetFileNameWithoutExtension(masterFileName);
+        //            //Load the master form image 
+        //            RasterImage image = codecs.Load(masterFileName, 0, CodecsLoadByteOrder.BgrOrGray, 1, -1);
+        //            //Create a new master form 
+        //            FormRecognitionAttributes masterFormAttributes = recognitionEngine.CreateMasterForm(formName, Guid.Empty, null);
+        //            for (int i = 0; i < image.PageCount; i++)
+        //            {
+        //                image.Page = i + 1;
+        //                //Add the master form page to the recognition engine 
+        //                recognitionEngine.AddMasterFormPage(masterFormAttributes, image, null);
+        //            }
+        //            //Close the master form and save it's attributes 
+        //            recognitionEngine.CloseMasterForm(masterFormAttributes);
+        //            //File.WriteAllBytes(formName + ".bin", masterFormAttributes.GetData());
+        //        }
+        //        MessageBox.Show("Master Form Processing Complete", "Complete");
                 
-                //For this tutorial, we will use the sample W9 filled form. 
-                //You may need to update the below path to point to "\LEADTOOLS Images\Forms\Forms to be Recognized\OCR\W9_OCR_Filled.tif". 
-                string formToRecognize = @"C:\Users\ekapop-pc\Desktop\bangna_hospital\20181222-00800002.tif";
-                RasterImage image1 = codecs.Load(formToRecognize, 0, CodecsLoadByteOrder.BgrOrGray, 1, -1);
-                //Load the image to recognize 
-                FormRecognitionAttributes filledFormAttributes = recognitionEngine.CreateForm(null);
-                for (int i = 0; i < image1.PageCount; i++)
-                {
-                    image1.Page = i + 1;
-                    //Add each page of the filled form to the recognition engine 
-                    recognitionEngine.AddFormPage(filledFormAttributes, image1, null);
-                }
-                recognitionEngine.CloseForm(filledFormAttributes);
-                string resultMessage = "The form could not be recognized";
-                //Compare the attributes of each master form to the attributes of the filled form 
-                string[] masterFileNames1 = Directory.GetFiles(Application.StartupPath, "*.bin");
-                foreach (string masterFileName in masterFileNames1)
-                {
-                    FormRecognitionAttributes masterFormAttributes = new FormRecognitionAttributes();
-                    masterFormAttributes.SetData(File.ReadAllBytes(masterFileName));
-                    FormRecognitionResult recognitionResult = recognitionEngine.CompareForm(masterFormAttributes, filledFormAttributes, null);
-                    //In this example, we consider a confidence equal to or greater 
-                    //than 90 to be a match 
-                    if (recognitionResult.Confidence >= 90)
-                    {
-                        resultMessage = String.Format("This form has been recognized as a {0}", Path.GetFileNameWithoutExtension(masterFileName));
-                        break;
-                    }
-                }
-                MessageBox.Show(resultMessage, "Recognition Results");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        //For this tutorial, we will use the sample W9 filled form. 
+        //        //You may need to update the below path to point to "\LEADTOOLS Images\Forms\Forms to be Recognized\OCR\W9_OCR_Filled.tif". 
+        //        string formToRecognize = @"C:\Users\ekapop-pc\Desktop\bangna_hospital\20181222-00800002.tif";
+        //        RasterImage image1 = codecs.Load(formToRecognize, 0, CodecsLoadByteOrder.BgrOrGray, 1, -1);
+        //        //Load the image to recognize 
+        //        FormRecognitionAttributes filledFormAttributes = recognitionEngine.CreateForm(null);
+        //        for (int i = 0; i < image1.PageCount; i++)
+        //        {
+        //            image1.Page = i + 1;
+        //            //Add each page of the filled form to the recognition engine 
+        //            recognitionEngine.AddFormPage(filledFormAttributes, image1, null);
+        //        }
+        //        recognitionEngine.CloseForm(filledFormAttributes);
+        //        string resultMessage = "The form could not be recognized";
+        //        //Compare the attributes of each master form to the attributes of the filled form 
+        //        string[] masterFileNames1 = Directory.GetFiles(Application.StartupPath, "*.bin");
+        //        foreach (string masterFileName in masterFileNames1)
+        //        {
+        //            FormRecognitionAttributes masterFormAttributes = new FormRecognitionAttributes();
+        //            masterFormAttributes.SetData(File.ReadAllBytes(masterFileName));
+        //            FormRecognitionResult recognitionResult = recognitionEngine.CompareForm(masterFormAttributes, filledFormAttributes, null);
+        //            //In this example, we consider a confidence equal to or greater 
+        //            //than 90 to be a match 
+        //            if (recognitionResult.Confidence >= 90)
+        //            {
+        //                resultMessage = String.Format("This form has been recognized as a {0}", Path.GetFileNameWithoutExtension(masterFileName));
+        //                break;
+        //            }
+        //        }
+        //        MessageBox.Show(resultMessage, "Recognition Results");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
         private void BtnAnalyze_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            Startup();
+            //Startup();
         }
 
         private void BtnRotate_Click(object sender, EventArgs e)

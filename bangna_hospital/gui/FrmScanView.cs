@@ -470,17 +470,25 @@ namespace bangna_hospital.gui
             Image stffnoteL, stffnoteR;
             if (vsDate.Length > 8)
             {
-                String preno1 = preno;
-                dd = vsDate.Substring(0, 2);
-                mm = vsDate.Substring(3,2);
-                yy = vsDate.Substring(vsDate.Length - 4);
-                file = "\\\\172.25.10.5\\image\\OPD\\"+ yy+"\\"+mm+"\\"+dd+"\\";
-                preno1 = "000000"+ preno1;
-                preno1 = preno1.Substring(preno1.Length- 6);
-                stffnoteL = Image.FromFile(file+ preno1+"R.JPG");
-                stffnoteR = Image.FromFile(file+ preno1+ "S.JPG");
-                picL.Image = stffnoteL;
-                picR.Image = stffnoteR;
+                try
+                {
+                    String preno1 = preno;
+                    dd = vsDate.Substring(0, 2);
+                    mm = vsDate.Substring(3, 2);
+                    yy = vsDate.Substring(vsDate.Length - 4);
+                    file = "\\\\172.25.10.5\\image\\OPD\\" + yy + "\\" + mm + "\\" + dd + "\\";
+                    preno1 = "000000" + preno1;
+                    preno1 = preno1.Substring(preno1.Length - 6);
+                    stffnoteL = Image.FromFile(file + preno1 + "R.JPG");
+                    stffnoteR = Image.FromFile(file + preno1 + "S.JPG");
+                    picL.Image = stffnoteL;
+                    picR.Image = stffnoteR;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("error "+ex.Message, "");
+                }
+                
             }
             DataTable dtOrder = new DataTable();
             vn = grfVs[e.NewRange.r1, colVsVn] != null ? grfVs[e.NewRange.r1, colVsVn].ToString() : "";
