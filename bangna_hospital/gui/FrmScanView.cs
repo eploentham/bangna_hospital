@@ -45,6 +45,7 @@ namespace bangna_hospital.gui
         //VScrollBar vScroller;
         //int y = 0;
         Form frmImg;
+        String dsc_id = "";
         //Timer timer1;
         [STAThread]
         private void txtStatus(String msg)
@@ -263,9 +264,12 @@ namespace bangna_hospital.gui
         private void Grf_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            MessageBox.Show("Row " + ((C1FlexGrid)sender).Row+"\n grf name "+ ((C1FlexGrid)sender).Name, "Col "+((C1FlexGrid)sender).Col+" id "+ ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row,colPic2].ToString());
+            //MessageBox.Show("Row " + ((C1FlexGrid)sender).Row+"\n grf name "+ ((C1FlexGrid)sender).Name, "Col "+((C1FlexGrid)sender).Col+" id "+ ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row,colPic2].ToString());
+            if (((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colPic2] == null) return;
+            if (((C1FlexGrid)sender).Row <= 0) return;
             String id = "";
             id = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colPic2].ToString();
+            dsc_id = id;
             MemoryStream strm = null;
             foreach(listStream lstrmm in lStream)
             {
@@ -305,15 +309,31 @@ namespace bangna_hospital.gui
                 frmImg.Controls.Add(pn);
                 pn.Controls.Add(pic);
                 //pn.Controls.Add(vScroller);
+                ContextMenu menuGw = new ContextMenu();
+                menuGw.MenuItems.Add("ต้องการ ลบข้อมูลนี้", new EventHandler(ContextMenu_Delete));
                 mouseWheel = 0;
                 pic.MouseWheel += Pic_MouseWheel;
+                pic.ContextMenu = menuGw;
                 //vScroller.Scroll += VScroller_Scroll;
                 //pic.Paint += Pic_Paint;
                 //vScroller.Hide();
                 frmImg.ShowDialog(this);
             }
         }
-
+        private void ContextMenu_Delete(object sender, System.EventArgs e)
+        {
+            if (MessageBox.Show("ต้องการ ลบข้อมูลนี้ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            {
+                int chk = 0;
+                String re = bc.bcDB.dscDB.voidDocScan(dsc_id,"");
+                if(int.TryParse(re, out chk))
+                {
+                    frmImg.Dispose();
+                    setGrf();
+                    clearGrf();
+                }
+            }
+        }
         //private void Pic_Paint(object sender, PaintEventArgs e)
         //{
         //    //throw new NotImplementedException();
@@ -473,10 +493,14 @@ namespace bangna_hospital.gui
                 try
                 {
                     String preno1 = preno;
+                    int chk = 0;
                     dd = vsDate.Substring(0, 2);
                     mm = vsDate.Substring(3, 2);
                     yy = vsDate.Substring(vsDate.Length - 4);
-                    file = "\\\\172.25.10.5\\image\\OPD\\" + yy + "\\" + mm + "\\" + dd + "\\";
+                    int.TryParse(yy, out chk);
+                    if (chk > 2500)
+                        chk -= 543;
+                    file = "\\\\172.25.10.5\\image\\OPD\\" + chk + "\\" + mm + "\\" + dd + "\\";
                     preno1 = "000000" + preno1;
                     preno1 = preno1.Substring(preno1.Length - 6);
                     stffnoteL = Image.FromFile(file + preno1 + "R.JPG");

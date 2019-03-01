@@ -233,9 +233,31 @@ namespace bangna_hospital.gui
                     int i = 0;
                     String dgs = "", name = "";
                     Boolean chk = false;
+                    txtVN.Hide();
+                    btnVn.Hide();
+                    label3.Hide();
+                    txtAN.Hide();
+                    txtAnCnt.Hide();
+                    chkIPD.Hide();
+                    label6.Hide();
+                    txtVisitDate.Hide();
+                    txtAnDate.Hide();
+                    txtPreNo.Hide();
+
+                    ProgressBar pB1 = new ProgressBar();
+                    pB1.Location = new System.Drawing.Point(113, 36);
+                    pB1.Name = "pB1";
+                    pB1.Size = new System.Drawing.Size(862, 23);
+                    pB1.Left = txtVN.Left;
+                    pB1.Show();
+                    pB1.Value = 0;
+                    pB1.Minimum = 0;
+                    pB1.Maximum = array1.Count;
+                    Application.DoEvents();
                     foreach (String aa in array1)
                     {
                         i++;
+                        pB1.Value++;
                         String[] aaa = aa.Split(',');
                         if (aaa.Length == 3)
                         {
@@ -282,9 +304,20 @@ namespace bangna_hospital.gui
                             //MessageBox.Show("333", "");
                             ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, name);
                             //break;
+                            Application.DoEvents();
                         }
                     }
+                    pB1.Dispose();
+                    txtVN.Show();
+                    btnVn.Show();
+                    label3.Show();
+                    txtAN.Show();
+                    txtAnCnt.Show();
+                    chkIPD.Show();
+                    label6.Show();
                     delFile();
+                    setImage1(true);
+                    MessageBox.Show("Upload รูป เวชระเบียน เรียบร้อย", "");
                 }
             }
         }
