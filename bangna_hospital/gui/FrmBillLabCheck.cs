@@ -64,6 +64,47 @@ namespace bangna_hospital.gui
         private void BtnCheck2_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            pB1.Show();
+            pB1.Minimum = 0;
+            pB1.Maximum = lItm.Count;
+            foreach (String str in lItm)
+            {
+                try
+                {
+                    String[] itm = str.Split('|');
+                    String col1 = "", date = "", hn = "", name = "", fntype="",col6="",col7="", labcode="", labdate1 = "",labdate = "", labdateOld="";
+                    col1 = itm[0];
+                    date = itm[1];
+                    hn = itm[2];
+                    name = itm[3];
+                    fntype = itm[4];
+                    col6 = itm[5];
+                    col7 = itm[6];
+                    labcode = itm[7];
+                    labdate1 = (int.Parse(date.Substring(6)) - 543) + "-" + date.Substring(3, 2) + "-" + date.Substring(0, 2);
+                    String sql = "";
+                    sql = "select lab_t05.MNC_req_no,LAB_T01.MNC_PRE_NO " +
+                        "from PATIENT_T01 " +
+                        "inner join LAB_T01 on LAB_T01.mnc_hn_no = PATIENT_T01.mnc_hn_no " +
+                        "and LAB_T01.mnc_pre_no = PATIENT_T01.mnc_pre_no " +
+                        "and LAB_T01.mnc_date = PATIENT_T01.MNC_DATE " +
+                        "inner join LAB_T05 on lab_t05.MNC_REQ_YR = lab_t01.MNC_REQ_YR " +
+                        "and lab_t05.MNC_REQ_no = lab_t01.MNC_REQ_no " +
+                        "and lab_t05.MNC_REQ_dat = lab_t01.MNC_REQ_dat " +
+                        "where lab_t05.MNC_REQ_DAT >= '" + labdate1 + "' " +
+                        "and lab_t05.MNC_REQ_DAT <= '" + labdate1 + "' " +
+                        //"and patient_t01.MNC_STS = 'f' " +
+                        //"and LAB_T01.MNC_REQ_STS = 'Q' " +
+                        "and LAB_T01.mnc_hn_no ='" + hn + "' " +
+                        "and lab_t05.mnc_lb_cd ='" + labcode + "'";
+                    pB1.Value++;
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            pB1.Hide();
             //pB1.Show();
             //Microsoft.Office.Interop.Excel.Application excelapp = new Microsoft.Office.Interop.Excel.Application();
             //excelapp.Visible = false;
