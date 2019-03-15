@@ -70,6 +70,12 @@
     <Compile Include="gui\CellNote.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmBillLabCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmBillLabCheck.Designer.cs">
+      <DependentUpon>FrmBillLabCheck.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmDocGroupScan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmBillLabCheck.resx">
+      <DependentUpon>FrmBillLabCheck.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDocGroupScan.resx">
       <DependentUpon>FrmDocGroupScan.cs</DependentUpon>

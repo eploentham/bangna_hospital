@@ -25,7 +25,7 @@ namespace bangna_hospital.control
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
-        public int grdViewFontSize = 0;
+        public int grdViewFontSize = 0, imggridscanwidth=0;
 
         public BangnaHospitalDB bcDB;
 
@@ -96,16 +96,19 @@ namespace bangna_hospital.control
             iniC.printerSticker = iniF.getIni("app", "printerSticker");
             iniC.timerImgScanNew = iniF.getIni("app", "timerImgScanNew");
             iniC.pathImageScan = iniF.getIni("app", "pathImageScan");
+            iniC.imggridscanwidth = iniF.getIni("app", "imggridscanwidth");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
             iniC.pathImageScan = iniC.pathImageScan == null ? "d:\\images" : iniC.pathImageScan.Equals("") ? "d:\\images" : iniC.pathImageScan;
+            iniC.imggridscanwidth = iniC.imggridscanwidth == null ? "380" : iniC.imggridscanwidth.Equals("") ? "380" : iniC.imggridscanwidth;
 
             //iniC.pathImgScanNew = iniC.pathImgScanNew == null ? "d:\\images" : iniC.pathImgScanNew.Equals("") ? "d:\\images" : iniC.pathImgScanNew;
             iniC.folderFTP = iniC.folderFTP == null ? "images_medical_record" : iniC.folderFTP.Equals("") ? "images_medical_record" : iniC.folderFTP;
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
+            int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {
@@ -198,6 +201,102 @@ namespace bangna_hospital.control
             }
             return re;
         }
-        
+        public String getMonth(String monthId)
+        {
+            if (monthId == "01")
+            {
+                return "มกราคม";
+            }
+            else if (monthId == "02")
+            {
+                return "กุมภาพันธ์";
+            }
+            else if (monthId == "03")
+            {
+                return "มีนาคม";
+            }
+            else if (monthId == "04")
+            {
+                return "เมษายน";
+            }
+            else if (monthId == "05")
+            {
+                return "พฤษภาคม";
+            }
+            else if (monthId == "06")
+            {
+                return "มิถุนายน";
+            }
+            else if (monthId == "07")
+            {
+                return "กรกฎาคม";
+            }
+            else if (monthId == "08")
+            {
+                return "สิงหาคม";
+            }
+            else if (monthId == "09")
+            {
+                return "กันยายน";
+            }
+            else if (monthId == "10")
+            {
+                return "ตุลาคม";
+            }
+            else if (monthId == "11")
+            {
+                return "พฤศจิกายน";
+            }
+            else if (monthId == "12")
+            {
+                return "ธันวาคม";
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public ComboBox setCboMonth(ComboBox c)
+        {
+            c.Items.Clear();
+            var items = new[]{
+                new{Text = "มกราคม", Value="01"},
+                new{Text = "กุมภาพันธ์", Value="02"},
+                new{Text = "มีนาคม", Value="03"},
+                new{Text = "เมษายน", Value="04"},
+                new{Text = "พฤษภาคม", Value="05"},
+                new{Text = "มิถุนายน", Value="06"},
+                new{Text = "กรกฎาคม", Value="07"},
+                new{Text = "สิงหาคม", Value="08"},
+                new{Text = "กันยายน", Value="09"},
+                new{Text = "ตุลาคม", Value="10"},
+                new{Text = "พฤศจิกายน", Value="11"},
+                new{Text = "ธันวาคม", Value="12"}
+            };
+            c.DataSource = items;
+            c.DisplayMember = "Text";
+
+            c.ValueMember = "Value";
+            c.SelectedIndex = c.FindStringExact(getMonth(System.DateTime.Now.Month.ToString("00")));
+            return c;
+        }
+        public ComboBox setCboYear(ComboBox c)
+        {
+            c.Items.Clear();
+            c.Items.Add(System.DateTime.Now.Year + 543);
+            c.Items.Add(System.DateTime.Now.Year + 543 - 1);
+            c.Items.Add(System.DateTime.Now.Year + 543 - 2);
+            c.SelectedIndex = c.FindStringExact(String.Concat(System.DateTime.Now.Year + 543));
+            return c;
+        }
+        public ComboBox setCboPeriod(ComboBox c)
+        {
+            c.Items.Clear();
+            c.Items.Add(1);
+            c.Items.Add(2);
+
+            c.SelectedIndex = 0;
+            return c;
+        }
     }
 }

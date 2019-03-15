@@ -217,7 +217,7 @@ namespace bangna_hospital.gui
         private void MainMenu_Load(object sender, EventArgs e)
         {
             
-            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2019-03-01 ";
+            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2019-03-13 ";
             //theme1.SetTheme(this, ic.theme);
             theme1.SetTheme(this, bc.theme);
             theme1.SetTheme(menuStrip1, bc.theme);

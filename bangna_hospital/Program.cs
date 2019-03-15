@@ -20,9 +20,11 @@ namespace bangna_hospital
             Application.SetCompatibleTextRenderingDefault(false);
 
             BangnaControl bc = new BangnaControl();
-            FrmSplash spl = new FrmSplash();
-            spl.Show();
-            Application.Run(new gui.MainMenu(bc, spl));
+            //FrmSplash spl = new FrmSplash();
+            //spl.Show();
+            //Application.Run(new gui.MainMenu(bc, spl));
+
+            Application.Run(new gui.FrmBillLabCheck(bc));
         }
     }
 }
