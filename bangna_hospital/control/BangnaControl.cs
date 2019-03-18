@@ -97,6 +97,7 @@ namespace bangna_hospital.control
             iniC.timerImgScanNew = iniF.getIni("app", "timerImgScanNew");
             iniC.pathImageScan = iniF.getIni("app", "pathImageScan");
             iniC.imggridscanwidth = iniF.getIni("app", "imggridscanwidth");
+            iniC.hostname = iniF.getIni("app", "hostname");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -106,6 +107,7 @@ namespace bangna_hospital.control
             //iniC.pathImgScanNew = iniC.pathImgScanNew == null ? "d:\\images" : iniC.pathImgScanNew.Equals("") ? "d:\\images" : iniC.pathImgScanNew;
             iniC.folderFTP = iniC.folderFTP == null ? "images_medical_record" : iniC.folderFTP.Equals("") ? "images_medical_record" : iniC.folderFTP;
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
+            iniC.hostname = iniC.hostname == null ? "โรงพยาบาล" : iniC.hostname.Equals("") ? "โรงพยาบาล" : iniC.hostname;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);

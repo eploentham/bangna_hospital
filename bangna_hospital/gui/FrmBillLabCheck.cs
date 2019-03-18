@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.objdb;
 using bangna_hospital.Properties;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1SuperTooltip;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -26,7 +28,7 @@ namespace bangna_hospital.gui
 
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
-        List<String> lItm;
+        List<String> lItm, lItmC, lItmE;
         C1FlexGrid grf2;
 
         public FrmBillLabCheck(BangnaControl x)
@@ -50,39 +52,134 @@ namespace bangna_hospital.gui
             bc.setCboPeriod(cboPeriod);
             pic1.Image = Resources.Navigate_right;
             pic2.Image = Resources.Navigate_right;
+            //pic3.Image = Resources.Navigate_right;
             pic21.Image = Resources.Navigate_left;
+            pic31.Image = Resources.Navigate_left;
 
             btnCheck.Click += BtnCheck_Click;
             bthPath.Click += BthPath_Click;
             btnOpen.Click += BtnOpen_Click;
             btnCheck2.Click += BtnCheck2_Click;
+            pic1.Click += Pic1_Click;
+            pic2.Click += Pic2_Click;
+            pic31.Click += Pic31_Click;
+            pic21.Click += Pic21_Click;
+            btnTab3.Click += BtnTab3_Click;
+            btnPrint.Click += BtnPrint_Click;
             btnCheck.Enabled = false;
+            btnOpen.Enabled = false;
+            btnCheck2.Enabled = false;
+            btnTab3.Enabled = false;
+            panel8.Hide();
             label6.Text = "";
-            initGrf();
+            //initGrf();
+            String chk = "", printerDefault = "";
+            try
+            {
+                PrinterSettings settings = new PrinterSettings();
+                int i = 0;
+                foreach (string printer in PrinterSettings.InstalledPrinters)
+                {
+                    settings.PrinterName = printer;
+                    cboPrinter.Items.Insert(i, printer);
+                    if (settings.IsDefaultPrinter)
+                        printerDefault = printer;
+                    i++;
+                }
+                PrinterSettings settings1 = new PrinterSettings();
+                //settings1.PrinterName = ;
+
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message.ToString();
+            }
+        }
+
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            PrintDocument document = new PrintDocument();
+            document.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
+
+            //This is where you set the printer in your case you could use "EPSON USB"
+
+            //or whatever it is called on your machine, by Default it will choose the default printer
+
+            document.PrinterSettings.PrinterName = cboPrinter.Text;
+            //document.ShowDialog();
+            document.Print();
+        }
+
+        private void BtnTab3_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            tC.SelectedTab = tab3;
+        }
+
+        private void Pic21_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            tC.SelectedTab = tab1;
+        }
+
+        private void Pic31_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            tC.SelectedTab = tab2;
+        }
+
+        private void Pic2_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            tC.SelectedTab = tab3;
+        }
+
+        private void Pic1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            tC.SelectedTab = tab2;
         }
 
         private void BtnCheck2_Click(object sender, EventArgs e)
         {
+            int cnt = 0, cntErr=0;
+            Decimal sum = 0, price1=0, net=0, minus=0;
             //throw new NotImplementedException();
-            pB1.Show();
-            pB1.Minimum = 0;
-            pB1.Maximum = lItm.Count;
+            pB2.Show();
+            pB2.Minimum = 0;
+            pB2.Maximum = lItm.Count;
+            ConnectDB conn;
+            conn = new ConnectDB(bc.iniC);
+            lItmC = new List<string>();
+            lItmE = new List<string>();
+            label11.Text = chkBn1.Checked ? "bangna1" : chkBn2.Checked ? "bangna2" : chkBn5.Checked ? "bangna5" : "";
+            label12.Text = cboYear.Text;
+            label13.Text = cboMonth.Text;
+            label14.Text = cboPeriod.Text;
             foreach (String str in lItm)
             {
                 try
                 {
                     String[] itm = str.Split('|');
-                    String col1 = "", date = "", hn = "", name = "", fntype="",col6="",col7="", labcode="", labdate1 = "",labdate = "", labdateOld="";
+                    String col1 = "", date = "", hn = "", name = "", fntype="",col6="", labname = "", labcode="", labdate1 = "",labdate = "", labdateOld="", price="";
                     col1 = itm[0];
                     date = itm[1];
                     hn = itm[2];
                     name = itm[3];
                     fntype = itm[4];
                     col6 = itm[5];
-                    col7 = itm[6];
+                    price = itm[6];
                     labcode = itm[7];
+                    labname = itm[8];
                     labdate1 = (int.Parse(date.Substring(6)) - 543) + "-" + date.Substring(3, 2) + "-" + date.Substring(0, 2);
+                    price1 = 0;
+                    if (Decimal.TryParse(price, out price1))
+                    {
+                        sum += price1;
+                    }
                     String sql = "";
+                    DataTable dt = new DataTable();
                     sql = "select lab_t05.MNC_req_no,LAB_T01.MNC_PRE_NO " +
                         "from PATIENT_T01 " +
                         "inner join LAB_T01 on LAB_T01.mnc_hn_no = PATIENT_T01.mnc_hn_no " +
@@ -97,7 +194,28 @@ namespace bangna_hospital.gui
                         //"and LAB_T01.MNC_REQ_STS = 'Q' " +
                         "and LAB_T01.mnc_hn_no ='" + hn + "' " +
                         "and lab_t05.mnc_lb_cd ='" + labcode + "'";
-                    pB1.Value++;
+                    dt = conn.selectData(conn.conn, sql);
+                    if (dt.Rows.Count > 0)
+                    {
+                        itm[8] = dt.Rows[0]["MNC_PRE_NO"].ToString();
+                        itm[9] = dt.Rows[0]["MNC_req_no"].ToString();
+                        listBox2.Items.Add(date+" "+ hn+" "+ name+" "+ labcode+" "+ labname);
+                        lItmC.Add(col1+"|"+ date+"|"+hn+"|"+ name+"|"+ fntype+"|"+ col6+"|"+ price+"|"+ labcode+"|"+ labname+"|"+ itm[8]+"|"+ itm[9]);
+                        cnt++;
+                        net += price1;
+                    }
+                    else
+                    {
+                        cntErr++;
+                        minus += price1;
+                        listBox3.Items.Add(date + " " + hn + " " + name + " " + labcode + " " + labname);
+                        lItmC.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|" + itm[8] + "|" + itm[9]+"|-"+"|-");
+                        lItmE.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|" + itm[8] + "|" + itm[9] + "|-" + "|-");
+                        //itm[8] = dt.Rows[0]["MNC_PRE_NO"].ToString();
+                        //itm[9] = dt.Rows[0]["MNC_req_no"].ToString();
+                        //listBox2.Items.Add(itm.ToString());
+                    }
+                    pB2.Value++;
                 }
                 catch (Exception ex)
                 {
@@ -105,6 +223,15 @@ namespace bangna_hospital.gui
                 }
             }
             pB1.Hide();
+            label18.Text = lItm.Count.ToString();
+            label17.Text = cnt.ToString();
+            label16.Text = cntErr.ToString();
+            label15.Text = sum.ToString("0,000.00");
+            label23.Text = net.ToString("0,000.00");
+            label26.Text = minus.ToString("0,000.00");
+            btnTab3.Enabled = true;
+            pB2.Hide();
+            tC.SelectedTab = tab3;
             //pB1.Show();
             //Microsoft.Office.Interop.Excel.Application excelapp = new Microsoft.Office.Interop.Excel.Application();
             //excelapp.Visible = false;
@@ -238,6 +365,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             int i = 0;
+            lItm = new List<string>();
             const Int32 BufferSize = 4096;
             using (var fileStream = File.OpenRead(txtPath.Text))
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
@@ -286,13 +414,14 @@ namespace bangna_hospital.gui
                             cboPeriod.Text = "2";
                         }
                     }
-                    listBox1.Items.Add(line);
-                    lItm.Add(line);
+                    listBox1.Items.Add(line+"|0|0");
+                    lItm.Add(line + "|0|0");
                     i++;
                 }
                 btnCheck.Enabled = true;
                 label6.Text = "จำนวนข้อมูล "+i;
             }
+            panel8.Show();
         }
 
         private void BthPath_Click(object sender, EventArgs e)
@@ -307,12 +436,19 @@ namespace bangna_hospital.gui
                 txtPath.Text = res.FileName;
                 //Do something
             }
+            
             btnCheck.Enabled = false;
+            btnOpen.Enabled = true;
         }
 
         private void BtnCheck_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            label11.Text = chkBn1.Checked ? "bangna1" : chkBn2.Checked ? "bangna2" : chkBn5.Checked ? "bangna5" : "";
+            label12.Text = cboYear.Text;
+            label13.Text = cboMonth.Text;
+            label14.Text = cboPeriod.Text;
+            btnCheck2.Enabled = true;
             tC.SelectedTab = tab2;
         }
         private void initGrf()
@@ -333,6 +469,145 @@ namespace bangna_hospital.gui
             C1Theme theme = C1ThemeController.GetThemeByName("Office2013Red", false);
             C1ThemeController.ApplyThemeToObject(grf2, theme);
         }
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            float linesPerPage = 0;
+            float yPos = 0;
+            int count = 0;
+            float leftMargin = e.MarginBounds.Left;
+            float topMargin = e.MarginBounds.Top;
+            float marginR = e.MarginBounds.Right;
+            float avg = marginR / 2;
+            string line = null;
+            Size proposedSize = new Size(100, 100);  //maximum size you would ever want to allow
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            Size textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            Int32 xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            Int32 yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+
+            // Calculate the number of lines per page.
+            linesPerPage = e.MarginBounds.Height / fEdit.GetHeight(e.Graphics);
+
+            count++;
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = bc.iniC.hostname;
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+            count++;
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "ใบตรวจสอบ ข้อมูล LAB ";
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+            count++;
+            String date = "";
+            date = System.DateTime.Now.Year + 543 + DateTime.Now.ToString("-MM-dd");
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "วันที่ ตรวจ "+ date;
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+            count++;
+            
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "ข้อมูลที่ใช้ตรวจ สาขา" + label11.Text + "  ปี "+ label12.Text +" เดือน "+ label13.Text +" งวด "+ label14.Text;
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+            count++;
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "จำนวนข้อมูลทั้งหมด " + label18.Text + " รายการ";
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+            count++;
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "จำนวนข้อมูล ที่ตรวจพบ " + label17.Text + " รายการ     มูลค่า วางบิล " + label15.Text;
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+            count++;
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "จำนวนข้อมูล ที่ตรวจพบ " + label17.Text + " รายการ    มูลค่า ตรวจพบ " + label23.Text;
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+            count++;
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "จำนวนข้อมูล ที่ตรวจไม่พบ " + label16.Text + " รายการ    มูลค่า ตรวจพบ " + label26.Text;
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+
+
+            count++; count++; count++;
+            yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+            line = "จำนวนข้อมูล ที่ตรวจไม่พบ " + label16.Text + " รายการ    มูลค่า ตรวจพบ " + label26.Text;
+            textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+            int page = 50, i=0;
+            foreach (String txt in lItmE)
+            {
+                String[] itm = txt.Split('|');
+                String col1 = "", date1 = "", hn = "", name = "", fntype = "", col6 = "", labname = "", labcode = "", labdate1 = "", labdate = "", labdateOld = "", price = "";
+                col1 = itm[0];
+                date1 = itm[1];
+                hn = itm[2];
+                name = itm[3];
+                fntype = itm[4];
+                col6 = itm[5];
+                price = itm[6];
+                labcode = itm[7];
+                labname = itm[8];
+                count++;
+                yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));                
+                textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+                xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+                yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+                e.Graphics.DrawString(date1 + " " + hn + " " + name + " " + labcode + " " + labname, fEdit, Brushes.Black, leftMargin, yPos, flags);
+                i++;
+
+                if (i >= page)
+                {
+                    e.HasMorePages = true;
+                    i = 0;
+                }
+                else
+                    e.HasMorePages = false;
+            }
+
+            //line = null;
+            
+        }
+
         private void FrmBillLabCheck_Load(object sender, EventArgs e)
         {
             tC.SelectedTab = tab1;

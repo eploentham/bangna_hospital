@@ -17,7 +17,7 @@ namespace bangna_hospital.object1
 
         public String sticker_donor_width = "", sticker_donor_height = "", sticker_donor_start_x = "", sticker_donor_start_y = "", sticker_donor_barcode_height = "", sticker_donor_barcode_gap_x = "", sticker_donor_barcode_gap_y = "", sticker_donor_gap="";
         public String statusAppDonor = "", patientaddpanel1weight="", barcode_width_minus="", status_show_border="";
-        public String themeDonor = "", printerSticker="";
+        public String themeDonor = "", printerSticker="", hostname="";
         public String timerImgScanNew = "", pathImageScan="", imggridscanwidth="";
     }
 }
