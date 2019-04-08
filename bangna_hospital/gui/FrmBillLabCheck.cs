@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.objdb;
 using bangna_hospital.Properties;
+using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
@@ -28,7 +29,8 @@ namespace bangna_hospital.gui
 
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
-        List<String> lItm, lItmC, lItmE;
+        List<String> lItm, lItmC, lItmE, lPaid;
+        List<int> lPaidCntErr, lPaidCnt;
         C1FlexGrid grf2;
 
         public FrmBillLabCheck(BangnaControl x)
@@ -100,13 +102,14 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             PrintDocument document = new PrintDocument();
+            document.PrinterSettings.PrinterName = cboPrinter.Text;
             document.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
 
             //This is where you set the printer in your case you could use "EPSON USB"
 
             //or whatever it is called on your machine, by Default it will choose the default printer
 
-            document.PrinterSettings.PrinterName = cboPrinter.Text;
+            
             //document.ShowDialog();
             document.Print();
         }
@@ -157,6 +160,7 @@ namespace bangna_hospital.gui
             label12.Text = cboYear.Text;
             label13.Text = cboMonth.Text;
             label14.Text = cboPeriod.Text;
+            Application.DoEvents();
             foreach (String str in lItm)
             {
                 try
@@ -203,6 +207,10 @@ namespace bangna_hospital.gui
                         lItmC.Add(col1+"|"+ date+"|"+hn+"|"+ name+"|"+ fntype+"|"+ col6+"|"+ price+"|"+ labcode+"|"+ labname+"|"+ itm[8]+"|"+ itm[9]);
                         cnt++;
                         net += price1;
+                        if((cnt % 100)== 0)
+                        {
+                            Application.DoEvents();
+                        }
                     }
                     else
                     {
@@ -211,6 +219,17 @@ namespace bangna_hospital.gui
                         listBox3.Items.Add(date + " " + hn + " " + name + " " + labcode + " " + labname);
                         lItmC.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|" + itm[8] + "|" + itm[9]+"|-"+"|-");
                         lItmE.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|" + itm[8] + "|" + itm[9] + "|-" + "|-");
+                        int cnt1 = 0;
+                        foreach (String paid in lPaid)
+                        {
+                            if (paid.Equals(fntype))
+                            {
+                                //int cnt2 = 0;
+                                lPaidCntErr[cnt1]++;
+                                //int.TryParse(lPaidCnt[cnt1],out cnt2);
+                            }
+                            cnt1++;
+                        }
                         //itm[8] = dt.Rows[0]["MNC_PRE_NO"].ToString();
                         //itm[9] = dt.Rows[0]["MNC_req_no"].ToString();
                         //listBox2.Items.Add(itm.ToString());
@@ -222,13 +241,67 @@ namespace bangna_hospital.gui
 
                 }
             }
+            //Control ctn = this.GetControl("listBoxSum3");
+            ListBox listsum = new ListBox();
+            foreach (Control ctl in this.Controls)
+            {
+                if((ctl is C1DockingTab) && (ctl.Name.Equals("tC")))
+                {
+                    foreach (Control ctl1 in ctl.Controls)
+                    {
+                        if ((ctl1 is C1DockingTabPage) && (ctl1.Name.Equals("tab3")))
+                        {                            
+                            foreach (Control ctl2 in ctl1.Controls)
+                            {
+                                if ((ctl2 is Panel) && (ctl2.Name.Equals("panel3")))
+                                {
+                                    foreach (Control ctl3 in ctl2.Controls)
+                                    {
+                                        if ((ctl3 is C1DockingTab) && (ctl3.Name.Equals("tC3")))
+                                        {
+                                            foreach (Control ctl4 in ctl3.Controls)
+                                            {
+                                                if ((ctl4 is C1DockingTabPage) && (ctl4.Name.Equals("tabsum")))
+                                                {
+                                                    foreach (Control ctl5 in ctl4.Controls)
+                                                    {
+                                                        if ((ctl5 is ListBox) && (ctl5.Name.Equals("listBoxSum3")))
+                                                        {
+                                                            listsum = (ListBox)ctl5;
+                                                            listsum.Items.Clear();
+                                                            int i = 0;
+                                                            foreach (String txt in lPaid)
+                                                            {
+                                                                listsum.Items.Add(txt + "  จำนวน " + lPaidCnt[i] + " ไม่พบ จำนวน " + lPaidCntErr[i]);
+                                                                i++;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //listsum.Items.Clear();
+            //int i = 0;
+            //foreach (String txt in lPaid)
+            //{
+            //    listsum.Items.Add(txt + "  จำนวน " + lPaidCnt[i]+" ไม่พบ จำนวน "+ lPaidCntErr[i]);
+            //    i++;
+            //}
+
             pB1.Hide();
             label18.Text = lItm.Count.ToString();
             label17.Text = cnt.ToString();
             label16.Text = cntErr.ToString();
-            label15.Text = sum.ToString("0,000.00");
-            label23.Text = net.ToString("0,000.00");
-            label26.Text = minus.ToString("0,000.00");
+            label15.Text = sum.ToString("#,###.00");
+            label23.Text = net.ToString("#,###.00");
+            label26.Text = minus.ToString("#,###.00");
             btnTab3.Enabled = true;
             pB2.Hide();
             tC.SelectedTab = tab3;
@@ -365,7 +438,11 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             int i = 0;
-            lItm = new List<string>();
+            Boolean findPaid = false;
+            lItm = new List<String>();
+            lPaid = new List<String>();
+            lPaidCntErr = new List<int>();
+            lPaidCnt = new List<int>();
             const Int32 BufferSize = 4096;
             using (var fileStream = File.OpenRead(txtPath.Text))
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
@@ -374,13 +451,14 @@ namespace bangna_hospital.gui
                 String line;
                 while ((line = streamReader.ReadLine()) != null)
                 {
+                    findPaid = false;
+                    String[] line1 = line.Split('|');
+                    String hn = "", date = "", year = "", month = "", date1 = "", paidtype = "";
                     if (i == 0)
                     {
-                        String[] line1 = line.Split('|');
-                        String hn = "", date="", year="", month="", date1="";
                         int day = 0;
                         hn = line1[2];
-                        date = line1[1];
+                        date = line1[1];                        
                         year = date.Substring(date.Length - 4);
                         month = date.Substring(3,2);
                         date1 = date.Substring(0, 2);
@@ -414,12 +492,100 @@ namespace bangna_hospital.gui
                             cboPeriod.Text = "2";
                         }
                     }
+                    paidtype = line1[4];
+                    foreach (String paid in lPaid)
+                    {
+                        if (paid.Equals(paidtype))
+                        {
+                            findPaid = true;
+                        }
+                    }
+                    if (!findPaid)
+                    {
+                        lPaid.Add(paidtype);
+                        lPaidCntErr.Add(0);
+                        lPaidCnt.Add(0);
+                    }
                     listBox1.Items.Add(line+"|0|0");
                     lItm.Add(line + "|0|0");
                     i++;
                 }
                 btnCheck.Enabled = true;
                 label6.Text = "จำนวนข้อมูล "+i;
+            }
+            if (lPaid.Count > 0)
+            {
+                
+                C1DockingTabPage tabsum = new C1DockingTabPage();
+                C1DockingTabPage tabsum1 = new C1DockingTabPage();
+                tabsum.Text = "สรุป";
+                tabsum.Name = "tabsum";
+                tabsum1.Text = "สรุป";
+                tabsum1.Name = "tabsum1";
+                tC1.TabPages.Add(tabsum1);
+                tC3.TabPages.Add(tabsum);
+                ListBox listsum = new ListBox();
+                listsum.BackColor = System.Drawing.Color.White;
+                listsum.Dock = System.Windows.Forms.DockStyle.Fill;
+                listsum.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+                listsum.FormattingEnabled = true;
+                listsum.Name = "listBoxSum3";
+                theme1.SetTheme(listsum, "(default)");
+                ListBox listsum1 = new ListBox();
+                listsum1.BackColor = System.Drawing.Color.White;
+                listsum1.Dock = System.Windows.Forms.DockStyle.Fill;
+                listsum1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+                listsum1.FormattingEnabled = true;
+                listsum1.Name = "listBoxSum1";
+                theme1.SetTheme(listsum1, "(default)");
+
+                tabsum.Controls.Add(listsum);
+                tabsum1.Controls.Add(listsum1);
+                int ii = 0;
+                foreach (String paid in lPaid)
+                {
+                    int cnt = 0;                    
+                    //C1DockingTabPage tab = new C1DockingTabPage();
+                    C1DockingTabPage tab1 = new C1DockingTabPage();
+                    //tab.Text = paid;
+                    tab1.Text = paid;
+                    tC1.TabPages.Add(tab1);
+                    //tC3.TabPages.Add(tab);
+                    //ListBox list = new ListBox();
+                    //list.BackColor = System.Drawing.Color.White;
+                    //list.Dock = System.Windows.Forms.DockStyle.Fill;
+                    //list.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+                    //list.FormattingEnabled = true;
+                    //list.Name = "listBox1"+ paid;
+                    //theme1.SetTheme(list, "(default)");
+                    ListBox list1 = new ListBox();
+                    list1.BackColor = System.Drawing.Color.White;
+                    list1.Dock = System.Windows.Forms.DockStyle.Fill;
+                    list1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+                    list1.FormattingEnabled = true;
+                    list1.Name = "listBox1" + paid;
+                    theme1.SetTheme(list1, "(default)");
+
+                    //tab.Controls.Add(list);
+                    tab1.Controls.Add(list1);
+                    foreach (String txt in lItm)
+                    {
+                        String[] line1 = txt.Split('|');
+                        String hn = "", date = "", year = "", month = "", date1 = "", paidtype = "";
+                        paidtype = line1[4];
+                        if (paid.Equals(paidtype))
+                        {
+                            //findPaid = true;
+                            //list.Items.Add(txt);
+                            list1.Items.Add(txt);
+                            cnt++;
+                        }
+                    }
+                    lPaidCnt[ii] = cnt;
+                    listsum.Items.Add(paid+"  จำนวน "+ cnt);
+                    listsum1.Items.Add(paid + "  จำนวน " + cnt);
+                    ii++;
+                }
             }
             panel8.Show();
         }
@@ -556,6 +722,23 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
 
             count++;
+            int ii = 0;
+            foreach (String txt in lPaid)
+            {
+                count++;
+                yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
+                //line = "จำนวนข้อมูล ที่ตรวจไม่พบ " + label16.Text + " รายการ    มูลค่า ตรวจพบ " + label26.Text;
+                line = txt + "  จำนวน " + lPaidCnt[ii] + " ไม่พบ จำนวน " + lPaidCntErr[ii];
+                textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+                xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+                yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+                                                                    //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+                e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+                //listsum.Items.Add(txt + "  จำนวน " + lPaidCnt[ii] + " ไม่พบ จำนวน " + lPaidCntErr[ii]);
+                ii++;
+            }
+
+            count++;
             yPos = topMargin + (count * fEdit.GetHeight(e.Graphics));
             line = "จำนวนข้อมูล ที่ตรวจไม่พบ " + label16.Text + " รายการ    มูลค่า ตรวจพบ " + label26.Text;
             textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
@@ -573,6 +756,7 @@ namespace bangna_hospital.gui
             yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
             //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
             e.Graphics.DrawString(line, fEdit, Brushes.Black, leftMargin, yPos, flags);
+            
             int page = 50, i=0;
             foreach (String txt in lItmE)
             {

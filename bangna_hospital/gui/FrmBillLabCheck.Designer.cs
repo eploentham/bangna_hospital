@@ -33,6 +33,8 @@
             this.tab1 = new C1.Win.C1Command.C1DockingTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.tC1 = new C1.Win.C1Command.C1DockingTab();
+            this.c1DockingTabPage5 = new C1.Win.C1Command.C1DockingTabPage();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -74,7 +76,14 @@
             this.pic2 = new C1.Win.C1Input.C1PictureBox();
             this.tab3 = new C1.Win.C1Command.C1DockingTabPage();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.tC3 = new C1.Win.C1Command.C1DockingTab();
+            this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
+            this.listBox3 = new System.Windows.Forms.ListBox();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.cboPrinter = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -90,13 +99,6 @@
             this.label22 = new System.Windows.Forms.Label();
             this.pic31 = new C1.Win.C1Input.C1PictureBox();
             this.c1PictureBox2 = new C1.Win.C1Input.C1PictureBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
-            this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
-            this.listBox3 = new System.Windows.Forms.ListBox();
             this.tab4 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1DockingTab2 = new C1.Win.C1Command.C1DockingTab();
             this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
@@ -107,6 +109,9 @@
             this.tab1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
+            this.tC1.SuspendLayout();
+            this.c1DockingTabPage5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic11)).BeginInit();
@@ -118,13 +123,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pic2)).BeginInit();
             this.tab3.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tC3)).BeginInit();
+            this.tC3.SuspendLayout();
+            this.c1DockingTabPage1.SuspendLayout();
+            this.c1DockingTabPage2.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic31)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1PictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
-            this.c1DockingTab1.SuspendLayout();
-            this.c1DockingTabPage1.SuspendLayout();
-            this.c1DockingTabPage2.SuspendLayout();
             this.tab4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).BeginInit();
             this.c1DockingTab2.SuspendLayout();
@@ -143,7 +148,7 @@
             this.tC.Location = new System.Drawing.Point(0, 0);
             this.tC.Name = "tC";
             this.tC.SelectedIndex = 3;
-            this.tC.Size = new System.Drawing.Size(923, 622);
+            this.tC.Size = new System.Drawing.Size(1086, 687);
             this.tC.TabIndex = 0;
             this.tC.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
             this.tC.TabsShowFocusCues = false;
@@ -156,7 +161,7 @@
             this.tab1.Controls.Add(this.panel1);
             this.tab1.Location = new System.Drawing.Point(1, 24);
             this.tab1.Name = "tab1";
-            this.tab1.Size = new System.Drawing.Size(921, 597);
+            this.tab1.Size = new System.Drawing.Size(1084, 662);
             this.tab1.TabIndex = 0;
             this.tab1.Text = "Page1";
             // 
@@ -169,21 +174,47 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(921, 597);
+            this.panel1.Size = new System.Drawing.Size(1084, 662);
             this.panel1.TabIndex = 0;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.White;
-            this.panel5.Controls.Add(this.listBox1);
+            this.panel5.Controls.Add(this.tC1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel5.Location = new System.Drawing.Point(0, 125);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(921, 472);
+            this.panel5.Size = new System.Drawing.Size(1084, 537);
             this.panel5.TabIndex = 1;
             this.theme1.SetTheme(this.panel5, "(default)");
+            // 
+            // tC1
+            // 
+            this.tC1.BackColor = System.Drawing.Color.White;
+            this.tC1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tC1.Controls.Add(this.c1DockingTabPage5);
+            this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tC1.HotTrack = true;
+            this.tC1.Location = new System.Drawing.Point(0, 0);
+            this.tC1.Name = "tC1";
+            this.tC1.Size = new System.Drawing.Size(1084, 537);
+            this.tC1.TabIndex = 1;
+            this.tC1.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
+            this.tC1.TabsShowFocusCues = false;
+            this.tC1.TabsSpacing = 2;
+            this.tC1.TabStyle = C1.Win.C1Command.TabStyleEnum.Office2007;
+            this.theme1.SetTheme(this.tC1, "(default)");
+            // 
+            // c1DockingTabPage5
+            // 
+            this.c1DockingTabPage5.Controls.Add(this.listBox1);
+            this.c1DockingTabPage5.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage5.Name = "c1DockingTabPage5";
+            this.c1DockingTabPage5.Size = new System.Drawing.Size(1082, 512);
+            this.c1DockingTabPage5.TabIndex = 0;
+            this.c1DockingTabPage5.Text = "Page5";
             // 
             // listBox1
             // 
@@ -193,7 +224,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(921, 472);
+            this.listBox1.Size = new System.Drawing.Size(1082, 512);
             this.listBox1.TabIndex = 0;
             this.theme1.SetTheme(this.listBox1, "(default)");
             // 
@@ -214,7 +245,7 @@
             this.panel4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(921, 125);
+            this.panel4.Size = new System.Drawing.Size(1084, 125);
             this.panel4.TabIndex = 0;
             this.theme1.SetTheme(this.panel4, "(default)");
             // 
@@ -394,7 +425,7 @@
             this.pB1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pB1.Location = new System.Drawing.Point(0, 102);
             this.pB1.Name = "pB1";
-            this.pB1.Size = new System.Drawing.Size(921, 23);
+            this.pB1.Size = new System.Drawing.Size(1084, 23);
             this.pB1.TabIndex = 31;
             // 
             // btnCheck
@@ -448,7 +479,7 @@
             this.tab2.Controls.Add(this.panel2);
             this.tab2.Location = new System.Drawing.Point(1, 24);
             this.tab2.Name = "tab2";
-            this.tab2.Size = new System.Drawing.Size(921, 597);
+            this.tab2.Size = new System.Drawing.Size(1084, 662);
             this.tab2.TabIndex = 1;
             this.tab2.Text = "Page2";
             // 
@@ -461,7 +492,7 @@
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(921, 597);
+            this.panel2.Size = new System.Drawing.Size(1084, 662);
             this.panel2.TabIndex = 0;
             this.theme1.SetTheme(this.panel2, "(default)");
             // 
@@ -472,7 +503,7 @@
             this.panel7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel7.Location = new System.Drawing.Point(0, 125);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(921, 472);
+            this.panel7.Size = new System.Drawing.Size(1084, 537);
             this.panel7.TabIndex = 2;
             this.theme1.SetTheme(this.panel7, "(default)");
             // 
@@ -496,7 +527,7 @@
             this.panel6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(921, 125);
+            this.panel6.Size = new System.Drawing.Size(1084, 125);
             this.panel6.TabIndex = 1;
             this.theme1.SetTheme(this.panel6, "(default)");
             // 
@@ -505,7 +536,7 @@
             this.pB2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pB2.Location = new System.Drawing.Point(0, 102);
             this.pB2.Name = "pB2";
-            this.pB2.Size = new System.Drawing.Size(921, 23);
+            this.pB2.Size = new System.Drawing.Size(1084, 23);
             this.pB2.TabIndex = 45;
             // 
             // btnTab3
@@ -649,22 +680,83 @@
             this.tab3.Controls.Add(this.panel3);
             this.tab3.Location = new System.Drawing.Point(1, 24);
             this.tab3.Name = "tab3";
-            this.tab3.Size = new System.Drawing.Size(921, 597);
+            this.tab3.Size = new System.Drawing.Size(1084, 662);
             this.tab3.TabIndex = 2;
             this.tab3.Text = "Page3";
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Controls.Add(this.c1DockingTab1);
+            this.panel3.Controls.Add(this.tC3);
             this.panel3.Controls.Add(this.panel9);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(921, 597);
+            this.panel3.Size = new System.Drawing.Size(1084, 662);
             this.panel3.TabIndex = 0;
             this.theme1.SetTheme(this.panel3, "(default)");
+            // 
+            // tC3
+            // 
+            this.tC3.BackColor = System.Drawing.Color.White;
+            this.tC3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tC3.Controls.Add(this.c1DockingTabPage1);
+            this.tC3.Controls.Add(this.c1DockingTabPage2);
+            this.tC3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tC3.HotTrack = true;
+            this.tC3.Location = new System.Drawing.Point(0, 119);
+            this.tC3.Name = "tC3";
+            this.tC3.SelectedIndex = 1;
+            this.tC3.Size = new System.Drawing.Size(1084, 543);
+            this.tC3.TabIndex = 3;
+            this.tC3.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
+            this.tC3.TabsShowFocusCues = false;
+            this.tC3.TabsSpacing = 2;
+            this.tC3.TabStyle = C1.Win.C1Command.TabStyleEnum.Office2007;
+            this.theme1.SetTheme(this.tC3, "(default)");
+            // 
+            // c1DockingTabPage1
+            // 
+            this.c1DockingTabPage1.Controls.Add(this.listBox2);
+            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage1.Name = "c1DockingTabPage1";
+            this.c1DockingTabPage1.Size = new System.Drawing.Size(1082, 518);
+            this.c1DockingTabPage1.TabIndex = 0;
+            this.c1DockingTabPage1.Text = "ข้อมูลนำมา ตรวจ";
+            // 
+            // listBox2
+            // 
+            this.listBox2.BackColor = System.Drawing.Color.White;
+            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(0, 0);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(1082, 518);
+            this.listBox2.TabIndex = 1;
+            this.theme1.SetTheme(this.listBox2, "(default)");
+            // 
+            // c1DockingTabPage2
+            // 
+            this.c1DockingTabPage2.Controls.Add(this.listBox3);
+            this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage2.Name = "c1DockingTabPage2";
+            this.c1DockingTabPage2.Size = new System.Drawing.Size(1082, 518);
+            this.c1DockingTabPage2.TabIndex = 1;
+            this.c1DockingTabPage2.Text = "ข้อมูล ที่ตรวจไม่พบ";
+            // 
+            // listBox3
+            // 
+            this.listBox3.BackColor = System.Drawing.Color.White;
+            this.listBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(0, 0);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(1082, 518);
+            this.listBox3.TabIndex = 2;
+            this.theme1.SetTheme(this.listBox3, "(default)");
             // 
             // panel9
             // 
@@ -690,9 +782,33 @@
             this.panel9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(921, 119);
+            this.panel9.Size = new System.Drawing.Size(1084, 119);
             this.panel9.TabIndex = 2;
             this.theme1.SetTheme(this.panel9, "(default)");
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.BackColor = System.Drawing.Color.White;
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label26.Location = new System.Drawing.Point(350, 78);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(57, 13);
+            this.label26.TabIndex = 50;
+            this.label26.Text = "ข้อมูล สาขา";
+            this.theme1.SetTheme(this.label26, "(default)");
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.BackColor = System.Drawing.Color.White;
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label27.Location = new System.Drawing.Point(248, 78);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(88, 13);
+            this.label27.TabIndex = 49;
+            this.label27.Text = "มูลค่า ตรวจไม่พบ";
+            this.theme1.SetTheme(this.label27, "(default)");
             // 
             // label25
             // 
@@ -865,97 +981,12 @@
             this.c1PictureBox2.TabIndex = 2;
             this.c1PictureBox2.TabStop = false;
             // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.BackColor = System.Drawing.Color.White;
-            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label26.Location = new System.Drawing.Point(350, 78);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(57, 13);
-            this.label26.TabIndex = 50;
-            this.label26.Text = "ข้อมูล สาขา";
-            this.theme1.SetTheme(this.label26, "(default)");
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.BackColor = System.Drawing.Color.White;
-            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label27.Location = new System.Drawing.Point(248, 78);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(88, 13);
-            this.label27.TabIndex = 49;
-            this.label27.Text = "มูลค่า ตรวจไม่พบ";
-            this.theme1.SetTheme(this.label27, "(default)");
-            // 
-            // c1DockingTab1
-            // 
-            this.c1DockingTab1.BackColor = System.Drawing.Color.White;
-            this.c1DockingTab1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
-            this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1DockingTab1.HotTrack = true;
-            this.c1DockingTab1.Location = new System.Drawing.Point(0, 119);
-            this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.SelectedIndex = 1;
-            this.c1DockingTab1.Size = new System.Drawing.Size(921, 478);
-            this.c1DockingTab1.TabIndex = 3;
-            this.c1DockingTab1.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
-            this.c1DockingTab1.TabsShowFocusCues = false;
-            this.c1DockingTab1.TabsSpacing = 2;
-            this.c1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Office2007;
-            this.theme1.SetTheme(this.c1DockingTab1, "(default)");
-            // 
-            // c1DockingTabPage1
-            // 
-            this.c1DockingTabPage1.Controls.Add(this.listBox2);
-            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(919, 453);
-            this.c1DockingTabPage1.TabIndex = 0;
-            this.c1DockingTabPage1.Text = "ข้อมูลนำมา ตรวจ";
-            // 
-            // listBox2
-            // 
-            this.listBox2.BackColor = System.Drawing.Color.White;
-            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(0, 0);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(919, 453);
-            this.listBox2.TabIndex = 1;
-            this.theme1.SetTheme(this.listBox2, "(default)");
-            // 
-            // c1DockingTabPage2
-            // 
-            this.c1DockingTabPage2.Controls.Add(this.listBox3);
-            this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(919, 453);
-            this.c1DockingTabPage2.TabIndex = 1;
-            this.c1DockingTabPage2.Text = "ข้อมูล ที่ตรวจไม่พบ";
-            // 
-            // listBox3
-            // 
-            this.listBox3.BackColor = System.Drawing.Color.White;
-            this.listBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(0, 0);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(919, 453);
-            this.listBox3.TabIndex = 2;
-            this.theme1.SetTheme(this.listBox3, "(default)");
-            // 
             // tab4
             // 
             this.tab4.Controls.Add(this.c1DockingTab2);
             this.tab4.Location = new System.Drawing.Point(1, 24);
             this.tab4.Name = "tab4";
-            this.tab4.Size = new System.Drawing.Size(921, 597);
+            this.tab4.Size = new System.Drawing.Size(1084, 662);
             this.tab4.TabIndex = 3;
             this.tab4.Text = "รายงาน LAB";
             // 
@@ -970,7 +1001,7 @@
             this.c1DockingTab2.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab2.Name = "c1DockingTab2";
             this.c1DockingTab2.SelectedIndex = 1;
-            this.c1DockingTab2.Size = new System.Drawing.Size(921, 597);
+            this.c1DockingTab2.Size = new System.Drawing.Size(1084, 662);
             this.c1DockingTab2.TabIndex = 1;
             this.c1DockingTab2.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
             this.c1DockingTab2.TabsShowFocusCues = false;
@@ -982,7 +1013,7 @@
             // 
             this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 24);
             this.c1DockingTabPage3.Name = "c1DockingTabPage3";
-            this.c1DockingTabPage3.Size = new System.Drawing.Size(919, 572);
+            this.c1DockingTabPage3.Size = new System.Drawing.Size(1082, 637);
             this.c1DockingTabPage3.TabIndex = 0;
             this.c1DockingTabPage3.Text = "Page3";
             // 
@@ -990,7 +1021,7 @@
             // 
             this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 24);
             this.c1DockingTabPage4.Name = "c1DockingTabPage4";
-            this.c1DockingTabPage4.Size = new System.Drawing.Size(919, 572);
+            this.c1DockingTabPage4.Size = new System.Drawing.Size(1082, 637);
             this.c1DockingTabPage4.TabIndex = 1;
             this.c1DockingTabPage4.Text = "Page4";
             // 
@@ -998,7 +1029,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(923, 622);
+            this.ClientSize = new System.Drawing.Size(1086, 687);
             this.Controls.Add(this.tC);
             this.Name = "FrmBillLabCheck";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1010,6 +1041,9 @@
             this.tab1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tC1)).EndInit();
+            this.tC1.ResumeLayout(false);
+            this.c1DockingTabPage5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel8.ResumeLayout(false);
@@ -1024,14 +1058,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pic2)).EndInit();
             this.tab3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tC3)).EndInit();
+            this.tC3.ResumeLayout(false);
+            this.c1DockingTabPage1.ResumeLayout(false);
+            this.c1DockingTabPage2.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic31)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1PictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
-            this.c1DockingTab1.ResumeLayout(false);
-            this.c1DockingTabPage1.ResumeLayout(false);
-            this.c1DockingTabPage2.ResumeLayout(false);
             this.tab4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).EndInit();
             this.c1DockingTab2.ResumeLayout(false);
@@ -1105,7 +1139,7 @@
         private System.Windows.Forms.ComboBox cboPrinter;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
-        private C1.Win.C1Command.C1DockingTab c1DockingTab1;
+        private C1.Win.C1Command.C1DockingTab tC3;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage1;
         private System.Windows.Forms.ListBox listBox2;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage2;
@@ -1114,5 +1148,7 @@
         private C1.Win.C1Command.C1DockingTab c1DockingTab2;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage3;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage4;
+        private C1.Win.C1Command.C1DockingTab tC1;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
     }
 }

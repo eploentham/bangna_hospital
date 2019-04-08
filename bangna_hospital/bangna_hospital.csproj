@@ -142,18 +142,6 @@
     <Compile Include="gui\MainMenu.designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="gui\OcrEngineSelectDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="gui\OcrEngineSelectDialog.designer.cs">
-      <DependentUpon>OcrEngineSelectDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="gui\OcrProgressDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="gui\OcrProgressDialog.designer.cs">
-      <DependentUpon>OcrProgressDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="gui\PasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,15 +209,6 @@
     <EmbeddedResource Include="gui\MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="gui\OcrEngineSelectDialog.ja.resx">
-      <DependentUpon>OcrEngineSelectDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="gui\OcrEngineSelectDialog.resx">
-      <DependentUpon>OcrEngineSelectDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="gui\OcrProgressDialog.resx">
-      <DependentUpon>OcrProgressDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="gui\PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -245,21 +224,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="LEADTOOLS.LIC.KEY" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.Cmc7.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.de.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.de.dic" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.en.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.en.bin2" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.en.dic" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.es.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.es.dic" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.Field.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.fr.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.fr.dic" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.it.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.it.dic" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.Micr.bin" />
-    <None Include="LEADTOOLS\OcrLEADRuntime\LEAD.Mrz.bin" />
     <None Include="LEADTOOLS.LIC" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
