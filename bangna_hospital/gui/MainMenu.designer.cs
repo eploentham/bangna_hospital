@@ -120,23 +120,24 @@
             this.menuNurse.Name = "menuNurse";
             this.menuNurse.Size = new System.Drawing.Size(50, 20);
             this.menuNurse.Text = "Nurse";
+            this.menuNurse.Visible = false;
             // 
             // menuReqLab
             // 
             this.menuReqLab.Name = "menuReqLab";
-            this.menuReqLab.Size = new System.Drawing.Size(174, 22);
+            this.menuReqLab.Size = new System.Drawing.Size(180, 22);
             this.menuReqLab.Text = "Request Lab";
             // 
             // menuNurseDefault
             // 
             this.menuNurseDefault.Name = "menuNurseDefault";
-            this.menuNurseDefault.Size = new System.Drawing.Size(174, 22);
+            this.menuNurseDefault.Size = new System.Drawing.Size(180, 22);
             this.menuNurseDefault.Text = "Nurse Screen";
             // 
             // menuExamiRoom
             // 
             this.menuExamiRoom.Name = "menuExamiRoom";
-            this.menuExamiRoom.Size = new System.Drawing.Size(174, 22);
+            this.menuExamiRoom.Size = new System.Drawing.Size(180, 22);
             this.menuExamiRoom.Text = "Examination Room";
             // 
             // menuLab
@@ -151,41 +152,42 @@
             this.menuLab.Name = "menuLab";
             this.menuLab.Size = new System.Drawing.Size(40, 20);
             this.menuLab.Text = "LAB";
+            this.menuLab.Visible = false;
             // 
             // menuLabAccept
             // 
             this.menuLabAccept.Name = "menuLabAccept";
-            this.menuLabAccept.Size = new System.Drawing.Size(179, 22);
+            this.menuLabAccept.Size = new System.Drawing.Size(180, 22);
             this.menuLabAccept.Text = "Accept Lab";
             // 
             // menuLabOpu
             // 
             this.menuLabOpu.Name = "menuLabOpu";
-            this.menuLabOpu.Size = new System.Drawing.Size(179, 22);
+            this.menuLabOpu.Size = new System.Drawing.Size(180, 22);
             this.menuLabOpu.Text = "ป้อน OPU";
             // 
             // menuLabFet
             // 
             this.menuLabFet.Name = "menuLabFet";
-            this.menuLabFet.Size = new System.Drawing.Size(179, 22);
+            this.menuLabFet.Size = new System.Drawing.Size(180, 22);
             this.menuLabFet.Text = "ป้อน FET";
             // 
             // ปอนSemenAnalysisToolStripMenuItem
             // 
             this.ปอนSemenAnalysisToolStripMenuItem.Name = "ปอนSemenAnalysisToolStripMenuItem";
-            this.ปอนSemenAnalysisToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.ปอนSemenAnalysisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ปอนSemenAnalysisToolStripMenuItem.Text = "ป้อน Semen Analysis";
             // 
             // ปอนSpermFreexingToolStripMenuItem
             // 
             this.ปอนSpermFreexingToolStripMenuItem.Name = "ปอนSpermFreexingToolStripMenuItem";
-            this.ปอนSpermFreexingToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.ปอนSpermFreexingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ปอนSpermFreexingToolStripMenuItem.Text = "ป้อนSperm Freezing";
             // 
             // menuTestForm
             // 
             this.menuTestForm.Name = "menuTestForm";
-            this.menuTestForm.Size = new System.Drawing.Size(179, 22);
+            this.menuTestForm.Size = new System.Drawing.Size(180, 22);
             this.menuTestForm.Text = "Test Form";
             // 
             // menuPharmacy
@@ -195,6 +197,7 @@
             this.menuPharmacy.Name = "menuPharmacy";
             this.menuPharmacy.Size = new System.Drawing.Size(72, 20);
             this.menuPharmacy.Text = "Pharmacy";
+            this.menuPharmacy.Visible = false;
             // 
             // menuDrugPatient
             // 

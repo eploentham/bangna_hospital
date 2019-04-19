@@ -31,14 +31,14 @@ namespace bangna_hospital.gui
         C1SuperErrorProvider sep;
         List<String> lItm, lItmC, lItmE, lPaid;
         List<int> lPaidCntErr, lPaidCnt;
-        C1FlexGrid grf2;
+        C1FlexGrid grf2, grf11;
+        DataTable dtChk, dtChkGrp;
 
         public FrmBillLabCheck(BangnaControl x)
         {
             InitializeComponent();
             bc = x;
             initConfig();
-
         }
         private void initConfig()
         {
@@ -48,6 +48,11 @@ namespace bangna_hospital.gui
 
             C1ThemeController.ApplicationTheme = bc.iniC.themeApplication;
             theme1.Theme = C1ThemeController.ApplicationTheme;
+            dtChk = new DataTable();
+            dtChkGrp = new DataTable();
+            addColumn(dtChk);
+            //dtAll.Columns.Add("row1", typeof(int));
+
             //theme1.SetTheme(sB, "BeigeOne");
             bc.setCboMonth(cboMonth);
             bc.setCboYear(cboYear);
@@ -74,7 +79,8 @@ namespace bangna_hospital.gui
             btnTab3.Enabled = false;
             panel8.Hide();
             label6.Text = "";
-            //initGrf();
+            initGrf();
+            initGrf11();
             String chk = "", printerDefault = "";
             try
             {
@@ -97,7 +103,23 @@ namespace bangna_hospital.gui
                 chk = ex.Message.ToString();
             }
         }
-
+        private void addColumn(DataTable dt)
+        {
+            dt.Columns.Add("row1", typeof(int));
+            dt.Columns.Add("lab_code", typeof(String));
+            dt.Columns.Add("lab_name", typeof(String));
+            dt.Columns.Add("qty", typeof(int));
+            dt.Columns.Add("price", typeof(String));
+            dt.Columns.Add("net_price", typeof(String));
+            dt.Columns.Add("amount", typeof(String));
+            dt.Columns.Add("paidtype", typeof(String));
+            dt.Columns.Add("status_chk", typeof(String));
+            dt.Columns.Add("ptt_name", typeof(String));
+            dt.Columns.Add("date", typeof(String));
+            dt.Columns.Add("hn", typeof(String));
+            dt.Columns.Add("col1", typeof(String));
+            
+        }
         private void BtnPrint_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -143,7 +165,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             tC.SelectedTab = tab2;
         }
-
         private void BtnCheck2_Click(object sender, EventArgs e)
         {
             int cnt = 0, cntErr=0;
@@ -161,21 +182,34 @@ namespace bangna_hospital.gui
             label13.Text = cboMonth.Text;
             label14.Text = cboPeriod.Text;
             Application.DoEvents();
-            foreach (String str in lItm)
+            //foreach (String str in lItm)
+            foreach (DataRow str in dtChk.Rows)
             {
                 try
                 {
-                    String[] itm = str.Split('|');
+                    //String[] itm = str.Split('|');
+                    //String[] itm = str.Split('|');
                     String col1 = "", date = "", hn = "", name = "", fntype="",col6="", labname = "", labcode="", labdate1 = "",labdate = "", labdateOld="", price="";
-                    col1 = itm[0];
-                    date = itm[1];
-                    hn = itm[2];
-                    name = itm[3];
-                    fntype = itm[4];
-                    col6 = itm[5];
-                    price = itm[6];
-                    labcode = itm[7];
-                    labname = itm[8];
+                    //col1 = itm[0];
+                    //date = itm[1];
+                    //hn = itm[2];
+                    //name = itm[3];
+                    //fntype = itm[4];
+                    //col6 = itm[5];
+                    //price = itm[6];
+                    //labcode = itm[7];
+                    //labname = itm[8];
+
+                    col1 = str["col1"].ToString();
+                    date = str["date"].ToString();
+                    hn = str["hn"].ToString();
+                    name = str["ptt_name"].ToString();
+                    fntype = str["paidtype"].ToString();
+                    col6 = str["net_price"].ToString();
+                    price = str["price"].ToString();
+                    labcode = str["lab_code"].ToString();
+                    labname = str["lab_name"].ToString();
+
                     labdate1 = (int.Parse(date.Substring(6)) - 543) + "-" + date.Substring(3, 2) + "-" + date.Substring(0, 2);
                     price1 = 0;
                     if (Decimal.TryParse(price, out price1))
@@ -201,10 +235,11 @@ namespace bangna_hospital.gui
                     dt = conn.selectData(conn.conn, sql);
                     if (dt.Rows.Count > 0)
                     {
-                        itm[8] = dt.Rows[0]["MNC_PRE_NO"].ToString();
-                        itm[9] = dt.Rows[0]["MNC_req_no"].ToString();
+                        //itm[8] = dt.Rows[0]["MNC_PRE_NO"].ToString();
+                        //itm[9] = dt.Rows[0]["MNC_req_no"].ToString();
+                        str["status_chk"] = "1";
                         listBox2.Items.Add(date+" "+ hn+" "+ name+" "+ labcode+" "+ labname);
-                        lItmC.Add(col1+"|"+ date+"|"+hn+"|"+ name+"|"+ fntype+"|"+ col6+"|"+ price+"|"+ labcode+"|"+ labname+"|"+ itm[8]+"|"+ itm[9]);
+                        lItmC.Add(col1+"|"+ date+"|"+hn+"|"+ name+"|"+ fntype+"|"+ col6+"|"+ price+"|"+ labcode+"|"+ labname+"|"+ dt.Rows[0]["MNC_PRE_NO"].ToString() + "|"+ dt.Rows[0]["MNC_req_no"].ToString());
                         cnt++;
                         net += price1;
                         if((cnt % 100)== 0)
@@ -217,8 +252,8 @@ namespace bangna_hospital.gui
                         cntErr++;
                         minus += price1;
                         listBox3.Items.Add(date + " " + hn + " " + name + " " + labcode + " " + labname);
-                        lItmC.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|" + itm[8] + "|" + itm[9]+"|-"+"|-");
-                        lItmE.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|" + itm[8] + "|" + itm[9] + "|-" + "|-");
+                        lItmC.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|0|0|-"+"|-");
+                        lItmE.Add(col1 + "|" + date + "|" + hn + "|" + name + "|" + fntype + "|" + col6 + "|" + price + "|" + labcode + "|" + labname + "|0|0|-" + "|-");
                         int cnt1 = 0;
                         foreach (String paid in lPaid)
                         {
@@ -287,6 +322,7 @@ namespace bangna_hospital.gui
                     }
                 }
             }
+
             //listsum.Items.Clear();
             //int i = 0;
             //foreach (String txt in lPaid)
@@ -305,135 +341,113 @@ namespace bangna_hospital.gui
             btnTab3.Enabled = true;
             pB2.Hide();
             tC.SelectedTab = tab3;
+            setGrf();
+            //DataTable dt11 = new DataTable();
+            dtChkGrp = GroupBy("paidtype", "paidtype", dtChk);
+            setGrf11(dtChkGrp);
+            if (dtChkGrp.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChkGrp.Rows)
+                {
+                    C1DockingTabPage tab1 = new C1DockingTabPage();
+                    tab1.Text = row["paidtype"].ToString();
+                    tC3.TabPages.Add(tab1);
+                    C1FlexGrid grf = new C1FlexGrid();
+                    grf.Font = fEdit;
+                    grf.Dock = System.Windows.Forms.DockStyle.Fill;
+                    grf.Location = new System.Drawing.Point(0, 0);
+                    tab1.Controls.Add(grf);
+                    DataRow[] result = dtChk.Select("paidtype = '"+ row["paidtype"].ToString() + "'");
+                    DataTable dt1 = new DataTable();
+                    addColumn(dt1);
+                    foreach(DataRow row1 in result)
+                    {
+                        DataRow row2 = dt1.NewRow();
+                        ///row2 = row1;
+                        row2["row1"] = int.Parse(row1["row1"].ToString())+1;
+                        row2["lab_code"] = row1["lab_code"];
+                        row2["lab_name"] = row1["lab_name"];
+                        row2["qty"] = row1["qty"];
+                        row2["price"] = row1["price"];
+                        row2["net_price"] = row1["net_price"];
+                        row2["amount"] = row1["amount"];
+                        row2["paidtype"] = row1["paidtype"];
+                        row2["status_chk"] = row1["status_chk"];
+                        row2["ptt_name"] = row1["ptt_name"];
+                        row2["date"] = row1["date"];
+                        row2["hn"] = row1["hn"];
+                        row2["col1"] = row1["col1"];
+                        dt1.Rows.Add(row2);
+                    }
+                    DataTable dt2 = new DataTable();
+                    dt2 = GroupBy1("lab_code", "lab_code", dt1);
+                    foreach (DataRow row3 in dt2.Rows)
+                    {
+                        DataRow[] result1 = dtChk.Select("lab_code = '"+ row3 ["lab_code"].ToString()+ "'");
+                        if (result.Length > 0)
+                        {
+                            row3["lab_name"] = result1[0]["lab_name"].ToString();
+                        }
+                        Console.WriteLine("{0}, {1}", row[0], row[1]);
+                    }
+                    //dt1.ad
+                    grf.DataSource = dt2;
+                    grf.Cols["price"].Visible = false;
+                    grf.Cols["net_price"].Visible = false;
+                    grf.Cols["amount"].Visible = false;
+                    grf.Cols["lab_code"].Width = 100;
+                    grf.Cols["lab_name"].Width = 300;
+                    C1Theme theme = C1ThemeController.GetThemeByName("Office2013Red", false);
+                    C1ThemeController.ApplyThemeToObject(grf, theme);
+                }
+            }
             //pB1.Show();
-            //Microsoft.Office.Interop.Excel.Application excelapp = new Microsoft.Office.Interop.Excel.Application();
-            //excelapp.Visible = false;
-            ////String visitDate = "", visitTime = "", err = "", err1 = "", pharName = "";
-
-            //Microsoft.Office.Interop.Excel._Workbook workbook = excelapp.Workbooks.Open(txtPath.Text);
-            //Microsoft.Office.Interop.Excel._Worksheet worksheet = (Microsoft.Office.Interop.Excel._Worksheet)workbook.ActiveSheet;
-            //Microsoft.Office.Interop.Excel.Range xlRange = worksheet.UsedRange;
-            //int rowCount = xlRange.Rows.Count;
-            //int rowWork = 0, rowErr = 0, cntOK = 0, row1 = 9;
-            //pB1.Minimum = 0;
-            //pB1.Maximum = rowCount;
-            //////worksheet.Cells[0, 0] = "patient name";
-            //String hnOld = "", hn1 = "", flagBr = "", labdateOld = "", err = "", labcodeOld = "", price31 = "";
-            //flagBr = chkBn1.Checked ? "1" : chkBn2.Checked ? "2" : chkBn5.Checked ? "5" : "";
-            //ConnectDB conn = new ConnectDB("mainhis", flagBr);
-            //conn.connMainHIS5.Open();
-            //Config1 cf = new Config1();
-            //Decimal noFind = 0, price3 = 0;
-            //try
-            //{
-            //    DataTable dt = new DataTable();
-            //    for (int i = 1; i < rowCount; i++)
-            //    {
-            //        try
-            //        {
-            //            if (i == 1) continue;
-            //            String hn = worksheet.Cells[i, 3].Value != null ? worksheet.Cells[i, 3].Value.ToString() : "";
-            //            String labdate = worksheet.Cells[i, 2].Value != null ? worksheet.Cells[i, 2].Value.ToString() : "";
-            //            String labcode = worksheet.Cells[i, 6].Value != null ? worksheet.Cells[i, 6].Value.ToString() : "";
-            //            price31 = worksheet.Cells[i, 10].Value != null ? worksheet.Cells[i, 10].Value.ToString() : "";
-            //            if (hn.Equals(""))
-            //            {
-            //                hn = hnOld;
-            //            }
-            //            else
-            //            {
-            //                hnOld = hn;
-            //            }
-            //            if (labdate.Equals(""))
-            //            {
-            //                labdate = labdateOld;
-            //            }
-            //            else
-            //            {
-            //                labdateOld = labdate;
-            //            }
-            //            String labdate1 = "";
-            //            if (labdate.Length < 10) continue;
-            //            if (labcode.Equals(""))
-            //            {
-            //                labcode = labcodeOld;
-            //            }
-            //            else
-            //            {
-            //                labcodeOld = labcode;
-            //            }
-            //            //labdate1 = cf.datetoDB(labdate);
-            //            labdate1 = (int.Parse(labdate.Substring(6)) - 543) + "-" + labdate.Substring(3, 2) + "-" + labdate.Substring(0, 2);
-
-            //            String sql = "";
-            //            sql = "select lab_t05.MNC_req_no,LAB_T01.MNC_PRE_NO " +
-            //                "from PATIENT_T01 " +
-            //                "inner join LAB_T01 on LAB_T01.mnc_hn_no = PATIENT_T01.mnc_hn_no " +
-            //                "and LAB_T01.mnc_pre_no = PATIENT_T01.mnc_pre_no " +
-            //                "and LAB_T01.mnc_date = PATIENT_T01.MNC_DATE " +
-            //                "inner join LAB_T05 on lab_t05.MNC_REQ_YR = lab_t01.MNC_REQ_YR " +
-            //                "and lab_t05.MNC_REQ_no = lab_t01.MNC_REQ_no " +
-            //                "and lab_t05.MNC_REQ_dat = lab_t01.MNC_REQ_dat " +
-            //                "where lab_t05.MNC_REQ_DAT >= '" + labdate1 + "' " +
-            //                "and lab_t05.MNC_REQ_DAT <= '" + labdate1 + "' " +
-            //                //"and patient_t01.MNC_STS = 'f' " +
-            //                //"and LAB_T01.MNC_REQ_STS = 'Q' " +
-            //                "and LAB_T01.mnc_hn_no ='" + hn + "' " +
-            //                "and lab_t05.mnc_lb_cd ='" + labcode + "'";
-            //            dt.Clear();
-            //            dt = conn.selectDataNoClose(sql);
-            //            if (dt.Rows.Count > 0)
-            //            {
-            //                cntOK++;
-            //                worksheet.Cells[i, 16] = "ok";
-            //                worksheet.Cells[i, 17] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            //                worksheet.Cells[i, 18] = "MNC_req_no " + dt.Rows[0]["MNC_req_no"].ToString() + "; MNC_PRE_NO " + dt.Rows[0]["MNC_PRE_NO"].ToString();
-            //            }
-            //            else
-            //            {
-            //                //sql = "";
-            //                row1++;
-            //                worksheet.Cells[row1, 15] = "row " + i + "; hn " + hn + "; labdate1 " + labdate1 + "; labcode " + labcode + " price3 " + price31;
-            //                worksheet.Cells[i, 16] = sql;
-            //                //price31 = worksheet.Cells[i, 10].Value != null ? worksheet.Cells[i, 10].Value.toString() : 0;
-            //                noFind += Decimal.Parse(price31);
-            //            }
-
-            //            pB1.Value = i;
-            //            rowWork++;
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            rowErr++;
-            //            //MessageBox.Show("Error " + ex.Message + "\n row " + i, "error " + err);
-            //        }
-
-
-            //    }
-            //    worksheet.Cells[2, 15] = "year month period " + cboYear.Text + " " + cboMonth.Text + " " + cboPeriod.Text;
-            //    worksheet.Cells[3, 15] = "row work " + rowWork;
-            //    worksheet.Cells[4, 15] = "row error " + rowErr;
-            //    worksheet.Cells[5, 15] = "row Excel " + rowCount;
-            //    worksheet.Cells[6, 15] = "search find " + cntOK;
-            //    worksheet.Cells[7, 15] = "search no find " + (rowCount - cntOK);
-            //    worksheet.Cells[8, 15] = "amount no find " + noFind;
-
-            //    GC.Collect();
-            //    GC.WaitForPendingFinalizers();
-            //    workbook.Save();
-            //    workbook.Close();
-            //    excelapp.Quit();
-            //    conn.connMainHIS5.Close();
-            //}
-            //catch (Exception ex)
-            //{
-            //    err = ex.Message;
-            //}
-
-            //MessageBox.Show("Check Data เรียบร้อย ", "");
 
         }
+        public DataTable GroupBy(string i_sGroupByColumn, string i_sAggregateColumn, DataTable i_dSourceTable)
+        {
 
+            DataView dv = new DataView(i_dSourceTable);
+
+            //getting distinct values for group column
+            DataTable dtGroup = dv.ToTable(true, new string[] { i_sGroupByColumn });
+
+            //adding column for the row count
+            dtGroup.Columns.Add("Count", typeof(int));
+
+            //looping thru distinct values for the group, counting
+            foreach (DataRow dr in dtGroup.Rows)
+            {
+                dr["Count"] = i_dSourceTable.Compute("Count(" + i_sAggregateColumn + ")", i_sGroupByColumn + " = '" + dr[i_sGroupByColumn] + "'");
+            }
+
+            //returning grouped/counted result
+            return dtGroup;
+        }
+        public DataTable GroupBy1(string i_sGroupByColumn, string i_sAggregateColumn, DataTable i_dSourceTable)
+        {
+
+            DataView dv = new DataView(i_dSourceTable);
+
+            //getting distinct values for group column
+            DataTable dtGroup = dv.ToTable(true, new string[] { i_sGroupByColumn });
+
+            //adding column for the row count
+            dtGroup.Columns.Add("lab_name", typeof(String));
+            dtGroup.Columns.Add("Count", typeof(int));
+            dtGroup.Columns.Add("price", typeof(String));
+            dtGroup.Columns.Add("net_price", typeof(String));
+            dtGroup.Columns.Add("amount", typeof(String));
+
+            //looping thru distinct values for the group, counting
+            foreach (DataRow dr in dtGroup.Rows)
+            {
+                dr["Count"] = i_dSourceTable.Compute("Count(" + i_sAggregateColumn + ")", i_sGroupByColumn + " = '" + dr[i_sGroupByColumn] + "'");
+            }
+
+            //returning grouped/counted result
+            return dtGroup;
+        }
         private void BtnOpen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -444,6 +458,7 @@ namespace bangna_hospital.gui
             lPaidCntErr = new List<int>();
             lPaidCnt = new List<int>();
             const Int32 BufferSize = 4096;
+            dtChk.Clear();
             using (var fileStream = File.OpenRead(txtPath.Text))
             using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
             {
@@ -453,7 +468,7 @@ namespace bangna_hospital.gui
                 {
                     findPaid = false;
                     String[] line1 = line.Split('|');
-                    String hn = "", date = "", year = "", month = "", date1 = "", paidtype = "";
+                    String hn = "", date = "", year = "", month = "", date1 = "", paidtype = "", labcode = "", name = "", fntype = "", price = "", labname = "", netprice="",col1="";
                     if (i == 0)
                     {
                         int day = 0;
@@ -492,7 +507,15 @@ namespace bangna_hospital.gui
                             cboPeriod.Text = "2";
                         }
                     }
+                    col1 = line1[0];
+                    hn = line1[2];
+                    date = line1[1];
+                    name = line1[3];
                     paidtype = line1[4];
+                    price = line1[5];
+                    labcode = line1[7];
+                    labname = line1[8];
+                    netprice = line1[6];
                     foreach (String paid in lPaid)
                     {
                         if (paid.Equals(paidtype))
@@ -506,6 +529,27 @@ namespace bangna_hospital.gui
                         lPaidCntErr.Add(0);
                         lPaidCnt.Add(0);
                     }
+                    DataRow row1 = dtChk.NewRow();
+                    row1["row1"] = i;
+                    row1["lab_code"] = labcode;
+                    row1["lab_name"] = labname;
+                    row1["qty"] = 1;
+                    row1["price"] = price;
+                    row1["net_price"] = netprice;
+                    row1["amount"] = labcode;
+                    row1["paidtype"] = paidtype;
+                    row1["status_chk"] = "0";
+                    row1["ptt_name"] = name;
+                    row1["date"] = date;
+                    row1["hn"] = hn;
+                    row1["col1"] = col1;
+                    //dtChk.Columns.Add("lab_name", typeof(String));
+                    //dtChk.Columns.Add("qty", typeof(int));
+                    //dtChk.Columns.Add("price", typeof(String));
+                    //dtChk.Columns.Add("net_price", typeof(String));
+                    //dtChk.Columns.Add("amount", typeof(String));
+                    //dtChk.Rows.InsertAt(row1, i);
+                    dtChk.Rows.Add(row1);
                     listBox1.Items.Add(line+"|0|0");
                     lItm.Add(line + "|0|0");
                     i++;
@@ -515,7 +559,6 @@ namespace bangna_hospital.gui
             }
             if (lPaid.Count > 0)
             {
-                
                 C1DockingTabPage tabsum = new C1DockingTabPage();
                 C1DockingTabPage tabsum1 = new C1DockingTabPage();
                 tabsum.Text = "สรุป";
@@ -630,10 +673,79 @@ namespace bangna_hospital.gui
             //grf2.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfPosi_CellButtonClick);
             //grf2.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfPosi_CellChanged);
 
-            panel7.Controls.Add(this.grf2);
+            panel10.Controls.Add(this.grf2);
 
             C1Theme theme = C1ThemeController.GetThemeByName("Office2013Red", false);
             C1ThemeController.ApplyThemeToObject(grf2, theme);
+        }
+        private void initGrf11()
+        {
+            grf11 = new C1FlexGrid();
+            grf11.Font = fEdit;
+            grf11.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf11.Location = new System.Drawing.Point(0, 0);
+
+            //FilterRow fr = new FilterRow(grfPosi);
+
+            //grf2.AfterRowColChange += new C1.Win.C1FlexGrid.RangeEventHandler(this.grfPosi_AfterRowColChange);
+            //grf2.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfPosi_CellButtonClick);
+            //grf2.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfPosi_CellChanged);
+
+            panel11.Controls.Add(this.grf11);
+
+            C1Theme theme = C1ThemeController.GetThemeByName("Office2013Red", false);
+            C1ThemeController.ApplyThemeToObject(grf11, theme);
+        }
+        private void setGrf11(DataTable dt11)
+        {
+            grf11.Clear();
+            //grf11.Rows.Count = 1;
+            //grf11.Cols.Count = 4;
+            //DataTable dt = ic.ivfDB.noteDB.selectByPttId(ptt.t_patient_id);
+
+            grf11.DataSource = dt11;
+
+            grf11.ShowCursor = true;
+
+            grf2.Cols[1].Caption = "Note";
+        }
+        private void setGrf()
+        {
+            grf2.Clear();
+            grf2.Rows.Count = 1;
+            grf2.Cols.Count = 4;
+            //DataTable dt = ic.ivfDB.noteDB.selectByPttId(ptt.t_patient_id);
+
+            grf2.DataSource = dtChk;
+
+            //grf2.Cols[colNoteId].Width = 250;
+            //grf2.Cols[colNote].Width = 600;
+
+            grf2.ShowCursor = true;
+
+            grf2.Cols[1].Caption = "Note";
+
+            int i = 1;
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    grfNote[i, colNoteId] = row[ic.ivfDB.noteDB.note.note_id].ToString();
+            //    grfNote[i, colNote] = row[ic.ivfDB.noteDB.note.note_1].ToString();
+            //    grfNote[i, colNoteStatusAll] = row[ic.ivfDB.noteDB.note.status_all].ToString();
+            //    i++;
+            //}
+            //grfNote.Cols[colNoteId].Visible = false;
+            //grfNote.Cols[colNoteStatusAll].Visible = false;
+            grf2.Cols[0].AllowEditing = false;
+            grf2.Cols[1].AllowEditing = false;
+            grf2.Cols[2].AllowEditing = false;
+            grf2.Cols[3].AllowEditing = false;
+            grf2.Cols[4].AllowEditing = false;
+            grf2.Cols[5].AllowEditing = false;
+            grf2.Cols[6].AllowEditing = false;
+            grf2.Cols[7].AllowEditing = false;
+            grf2.Cols[8].AllowEditing = false;
+
+            theme1.SetTheme(grf2, "Office2016DarkGray");
         }
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {

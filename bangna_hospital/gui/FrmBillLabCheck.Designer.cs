@@ -103,6 +103,10 @@
             this.c1DockingTab2 = new C1.Win.C1Command.C1DockingTab();
             this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1DockingTabPage4 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1DockingTabPage6 = new C1.Win.C1Command.C1DockingTabPage();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.c1DockingTabPage7 = new C1.Win.C1Command.C1DockingTabPage();
+            this.panel11 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -133,6 +137,8 @@
             this.tab4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).BeginInit();
             this.c1DockingTab2.SuspendLayout();
+            this.c1DockingTabPage6.SuspendLayout();
+            this.c1DockingTabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tC
@@ -703,6 +709,8 @@
             this.tC3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tC3.Controls.Add(this.c1DockingTabPage1);
             this.tC3.Controls.Add(this.c1DockingTabPage2);
+            this.tC3.Controls.Add(this.c1DockingTabPage6);
+            this.tC3.Controls.Add(this.c1DockingTabPage7);
             this.tC3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC3.HotTrack = true;
             this.tC3.Location = new System.Drawing.Point(0, 119);
@@ -1025,6 +1033,46 @@
             this.c1DockingTabPage4.TabIndex = 1;
             this.c1DockingTabPage4.Text = "Page4";
             // 
+            // c1DockingTabPage6
+            // 
+            this.c1DockingTabPage6.Controls.Add(this.panel10);
+            this.c1DockingTabPage6.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage6.Name = "c1DockingTabPage6";
+            this.c1DockingTabPage6.Size = new System.Drawing.Size(1082, 518);
+            this.c1DockingTabPage6.TabIndex = 2;
+            this.c1DockingTabPage6.Text = "Page6";
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.White;
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(1082, 518);
+            this.panel10.TabIndex = 1;
+            this.theme1.SetTheme(this.panel10, "(default)");
+            // 
+            // c1DockingTabPage7
+            // 
+            this.c1DockingTabPage7.Controls.Add(this.panel11);
+            this.c1DockingTabPage7.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage7.Name = "c1DockingTabPage7";
+            this.c1DockingTabPage7.Size = new System.Drawing.Size(1082, 518);
+            this.c1DockingTabPage7.TabIndex = 3;
+            this.c1DockingTabPage7.Text = "Page7";
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.White;
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.panel11.Location = new System.Drawing.Point(0, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(1082, 518);
+            this.panel11.TabIndex = 0;
+            this.theme1.SetTheme(this.panel11, "(default)");
+            // 
             // FrmBillLabCheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1069,6 +1117,8 @@
             this.tab4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).EndInit();
             this.c1DockingTab2.ResumeLayout(false);
+            this.c1DockingTabPage6.ResumeLayout(false);
+            this.c1DockingTabPage7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1150,5 +1200,9 @@
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage4;
         private C1.Win.C1Command.C1DockingTab tC1;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage6;
+        private System.Windows.Forms.Panel panel10;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage7;
+        private System.Windows.Forms.Panel panel11;
     }
 }
