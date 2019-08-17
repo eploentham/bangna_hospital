@@ -636,7 +636,6 @@ namespace bangna_hospital.gui
                                                                     {
                                                                         String aaa = ex.Message;
                                                                     }
-                                                                    
                                                                 }
                                                             }
                                                         }

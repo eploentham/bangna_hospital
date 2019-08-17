@@ -218,20 +218,34 @@ namespace bangna_hospital.gui
                     }
                     String sql = "";
                     DataTable dt = new DataTable();
-                    sql = "select lab_t05.MNC_req_no,LAB_T01.MNC_PRE_NO " +
+                    //sql = "select lab_t05.MNC_req_no,LAB_T01.MNC_PRE_NO " +
+                    //    "from PATIENT_T01 " +
+                    //    "inner join LAB_T01 on LAB_T01.mnc_hn_no = PATIENT_T01.mnc_hn_no " +
+                    //    "and LAB_T01.mnc_pre_no = PATIENT_T01.mnc_pre_no " +
+                    //    "and LAB_T01.mnc_date = PATIENT_T01.MNC_DATE " +
+                    //    "inner join LAB_T05 on lab_t05.MNC_REQ_YR = lab_t01.MNC_REQ_YR " +
+                    //    "and lab_t05.MNC_REQ_no = lab_t01.MNC_REQ_no " +
+                    //    "and lab_t05.MNC_REQ_dat = lab_t01.MNC_REQ_dat " +
+                    //    "where lab_t05.MNC_REQ_DAT >= '" + labdate1 + "' " +
+                    //    "and lab_t05.MNC_REQ_DAT <= '" + labdate1 + "' " +
+                    //    //"and patient_t01.MNC_STS = 'f' " +
+                    //    //"and LAB_T01.MNC_REQ_STS = 'Q' " +
+                    //    "and LAB_T01.mnc_hn_no ='" + hn + "' " +
+                    //    "and lab_t05.mnc_lb_cd ='" + labcode + "'";
+                    sql = "select lab_t02.MNC_req_no,LAB_T01.MNC_PRE_NO " +
                         "from PATIENT_T01 " +
                         "inner join LAB_T01 on LAB_T01.mnc_hn_no = PATIENT_T01.mnc_hn_no " +
                         "and LAB_T01.mnc_pre_no = PATIENT_T01.mnc_pre_no " +
                         "and LAB_T01.mnc_date = PATIENT_T01.MNC_DATE " +
-                        "inner join LAB_T05 on lab_t05.MNC_REQ_YR = lab_t01.MNC_REQ_YR " +
-                        "and lab_t05.MNC_REQ_no = lab_t01.MNC_REQ_no " +
-                        "and lab_t05.MNC_REQ_dat = lab_t01.MNC_REQ_dat " +
-                        "where lab_t05.MNC_REQ_DAT >= '" + labdate1 + "' " +
-                        "and lab_t05.MNC_REQ_DAT <= '" + labdate1 + "' " +
+                        "inner join lab_t02 on lab_t02.MNC_REQ_YR = lab_t01.MNC_REQ_YR " +
+                        "and lab_t02.MNC_REQ_no = lab_t01.MNC_REQ_no " +
+                        "and lab_t02.MNC_REQ_dat = lab_t01.MNC_REQ_dat " +
+                        "where lab_t02.MNC_REQ_DAT >= '" + labdate1 + "' " +
+                        "and lab_t02.MNC_REQ_DAT <= '" + labdate1 + "' " +
                         //"and patient_t01.MNC_STS = 'f' " +
                         //"and LAB_T01.MNC_REQ_STS = 'Q' " +
                         "and LAB_T01.mnc_hn_no ='" + hn + "' " +
-                        "and lab_t05.mnc_lb_cd ='" + labcode + "'";
+                        "and lab_t02.mnc_lb_cd ='" + labcode + "'";
                     dt = conn.selectData(conn.conn, sql);
                     if (dt.Rows.Count > 0)
                     {
@@ -273,7 +287,7 @@ namespace bangna_hospital.gui
                 }
                 catch (Exception ex)
                 {
-
+                    MessageBox.Show("ex"+ex.Message, "");
                 }
             }
             //Control ctn = this.GetControl("listBoxSum3");
@@ -908,6 +922,8 @@ namespace bangna_hospital.gui
         {
             tC.SelectedTab = tab1;
             tC.ShowTabs = false;
+
+            this.Text = "08-07-19 " + bc.iniC.hostDB + " " + bc.iniC.nameDB;
         }
     }
 }
