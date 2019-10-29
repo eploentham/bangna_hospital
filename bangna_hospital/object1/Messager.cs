@@ -2,7 +2,7 @@
 // Copyright (c) 1991-2018 LEAD Technologies, Inc.              
 // All Rights Reserved.                                         
 // *************************************************************
-using Leadtools;
+
 using System;
 using System.Windows.Forms;
 

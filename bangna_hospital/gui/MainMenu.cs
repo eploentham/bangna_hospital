@@ -76,7 +76,7 @@ namespace bangna_hospital.gui
         private void MenuScanView_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            FrmScanView frm = new FrmScanView(bc);
+            FrmScanView1 frm = new FrmScanView1(bc);
             frm.FormBorderStyle = FormBorderStyle.None;
             AddNewTab(frm, menuScanView.Text + " ");
         }

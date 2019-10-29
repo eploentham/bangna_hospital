@@ -21,7 +21,7 @@ namespace bangna_hospital.control
         private IniFile iniF;
         public ConnectDB conn;
 
-        public String theme = "", userId = "";
+        public String theme = "", userId = "", hn="", vn="", preno="";
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
@@ -30,7 +30,8 @@ namespace bangna_hospital.control
         public BangnaHospitalDB bcDB;
 
         public Patient sPtt;
-        
+        public Boolean ftpUsePassive = false;
+
         public BangnaControl()
         {
             initConfig();
@@ -79,11 +80,18 @@ namespace bangna_hospital.control
             iniC.passDBMainHIS = iniF.getIni("connection", "passDBMainHIS");
             iniC.portDBMainHIS = iniF.getIni("connection", "portDBMainHIS");
 
+            iniC.hostDBPACs = iniF.getIni("connection", "hostDBPACs");
+            iniC.nameDBPACs = iniF.getIni("connection", "nameDBPACs");
+            iniC.userDBPACs = iniF.getIni("connection", "userDBPACs");
+            iniC.passDBPACs = iniF.getIni("connection", "passDBPACs");
+            iniC.portDBPACs = iniF.getIni("connection", "portDBPACs");
+
             iniC.hostFTP = iniF.getIni("ftp", "hostFTP");
             iniC.userFTP = iniF.getIni("ftp", "userFTP");
             iniC.passFTP = iniF.getIni("ftp", "passFTP");
             iniC.portFTP = iniF.getIni("ftp", "portFTP");
             iniC.folderFTP = iniF.getIni("ftp", "folderFTP");
+            iniC.usePassiveFTP = iniF.getIni("ftp", "usePassiveFTP");
 
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
@@ -108,9 +116,11 @@ namespace bangna_hospital.control
             iniC.folderFTP = iniC.folderFTP == null ? "images_medical_record" : iniC.folderFTP.Equals("") ? "images_medical_record" : iniC.folderFTP;
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
             iniC.hostname = iniC.hostname == null ? "โรงพยาบาล" : iniC.hostname.Equals("") ? "โรงพยาบาล" : iniC.hostname;
+            iniC.usePassiveFTP = iniC.usePassiveFTP == null ? "false" : iniC.usePassiveFTP.Equals("") ? "false" : iniC.usePassiveFTP;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
+            Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {

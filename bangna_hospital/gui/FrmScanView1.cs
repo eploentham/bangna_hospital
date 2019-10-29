@@ -19,15 +19,15 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
-    public partial class FrmScanView : Form
+    public partial class FrmScanView1 : Form
     {
         BangnaControl bc;
 
         C1FlexGrid grfVs;
         Font fEdit, fEditB;
         C1DockingTab tcDtr;
-        C1DockingTabPage tabScan, tabOrder;
-        C1FlexGrid grfOrder;
+        C1DockingTabPage tabStfNote, tabOrder,  tabScan;
+        C1FlexGrid grfOrder, grfScan;
 
         int colVsVsDate=1, colVsVn = 2, colVsStatus=3, colVsDept = 4, colVsPreno=5, colVsAn=6, colVsAndate=7;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
@@ -55,13 +55,13 @@ namespace bangna_hospital.gui
                 txt.Value = msg;
             }));
         }
-        public FrmScanView(BangnaControl bc)
+        public FrmScanView1(BangnaControl bc)
         {
             InitializeComponent();
             this.bc = bc;
             initConfig();
         }
-        public FrmScanView(BangnaControl bc, String hn)
+        public FrmScanView1(BangnaControl bc, String hn)
         {
             InitializeComponent();
             this.bc = bc;
@@ -104,7 +104,7 @@ namespace bangna_hospital.gui
             
             btnHn.Click += BtnHn_Click;
             btnOpen.Click += BtnOpen_Click;
-            btnRefresh.Click += BtnRefresh_Click;
+            //btnRefresh.Click += BtnRefresh_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
 
             tcDtr = new C1DockingTab();
@@ -115,14 +115,15 @@ namespace bangna_hospital.gui
             tcDtr.TabIndex = 0;
             tcDtr.TabsSpacing = 5;
             panel3.Controls.Add(tcDtr);
-            tabScan = new C1DockingTabPage();
-            tabScan.Location = new System.Drawing.Point(1, 24);
+            tabStfNote = new C1DockingTabPage();
+            tabStfNote.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
-            tabScan.Size = new System.Drawing.Size(667, 175);
-            tabScan.TabIndex = 0;
-            tabScan.Text = "ใบยา / Staff's Note";
-            tabScan.Name = "tabPageScan";
-            tcDtr.Controls.Add(tabScan);
+            tabStfNote.Size = new System.Drawing.Size(667, 175);
+            tabStfNote.TabIndex = 0;
+            tabStfNote.Text = "ใบยา / Staff's Note";
+            tabStfNote.Name = "tabPageScan";
+            tcDtr.Controls.Add(tabStfNote);
+
             tabOrder = new C1DockingTabPage();
             tabOrder.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
@@ -131,6 +132,16 @@ namespace bangna_hospital.gui
             tabOrder.Text = "ประวัติการสั่งการ";
             tabOrder.Name = "tabOrder";
             tcDtr.Controls.Add(tabOrder);
+
+            tabScan = new C1DockingTabPage();
+            tabScan.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabScan.Size = new System.Drawing.Size(667, 175);
+            tabScan.TabIndex = 0;
+            tabScan.Text = "ใบยา / Staff's Note";
+            tabScan.Name = "tabPageScan";
+            tcDtr.Controls.Add(tabScan);
+
             grfOrder.Font = fEdit;
             grfOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrder.Location = new System.Drawing.Point(0, 0);
@@ -146,90 +157,123 @@ namespace bangna_hospital.gui
             grfOrder.Cols[colOrderMed].Width = 200;
             grfOrder.Cols[colOrderQty].Width = 60;
             grfOrder.Name = "grfOrder";
+
+            grfScan = new C1FlexGrid();
+            grfScan.Font = fEdit;
+            grfScan.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfScan.Location = new System.Drawing.Point(0, 0);
+            grfScan.Rows[0].Visible = false;
+            grfScan.Cols[0].Visible = false;
+            grfScan.Rows.Count = 1;
+            grfScan.Name = "grfScan";
+            grfScan.Cols.Count = 5;
+            Column colpic1 = grfScan.Cols[colPic1];
+            colpic1.DataType = typeof(Image);
+            Column colpic2 = grfScan.Cols[colPic2];
+            colpic2.DataType = typeof(String);
+            Column colpic3 = grfScan.Cols[colPic3];
+            colpic3.DataType = typeof(Image);
+            Column colpic4 = grfScan.Cols[colPic4];
+            colpic4.DataType = typeof(Image);
+            grfScan.Cols[colPic1].Width = 310;
+            grfScan.Cols[colPic2].Width = 310;
+            grfScan.Cols[colPic3].Width = 310;
+            grfScan.Cols[colPic4].Width = 310;
+            grfScan.ShowCursor = true;
+            grfScan.Cols[colPic2].Visible = false;
+            grfScan.Cols[colPic3].Visible = true;
+            grfScan.Cols[colPic4].Visible = false;
+            grfScan.Cols[colPic1].AllowEditing = false;
+            grfScan.Cols[colPic3].AllowEditing = false;
+            grfScan.DoubleClick += Grf_DoubleClick;
+            
+            //tabScan.Controls.Add(grfScan);
+
             theme1.SetTheme(grfOrder, "Office2016Black");
             tabOrder.Controls.Add(grfOrder);
+            tabScan.Controls.Add(grfScan);
             setPicStaffNote();
             theme1.SetTheme(tcDtr, theme1.Theme);
-            int i = 0;
-            String idOld = "";
-            if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
-            foreach (DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
-            {
-                String dgsid = "";
-                dgsid = bc.bcDB.dgssDB.getDgsIdDgss(dgss.doc_group_sub_name);
-                if (!dgsid.Equals(idOld))
-                {
-                    idOld = dgsid;
-                    String name = "";
-                    name = bc.bcDB.dgsDB.getNameDgs(dgss.doc_group_id);
-                    C1DockingTabPage tabPage = new C1DockingTabPage();
-                    tabPage.Location = new System.Drawing.Point(1, 24);
-                    tabPage.Size = new System.Drawing.Size(667, 175);
+            //int i = 0;
+            //String idOld = "";
+            //if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
+            //foreach (DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
+            //{
+            //    String dgsid = "";
+            //    dgsid = bc.bcDB.dgssDB.getDgsIdDgss(dgss.doc_group_sub_name);
+            //    if (!dgsid.Equals(idOld))
+            //    {
+            //        idOld = dgsid;
+            //        String name = "";
+            //        name = bc.bcDB.dgsDB.getNameDgs(dgss.doc_group_id);
+            //        C1DockingTabPage tabPage = new C1DockingTabPage();
+            //        tabPage.Location = new System.Drawing.Point(1, 24);
+            //        tabPage.Size = new System.Drawing.Size(667, 175);
 
-                    tabPage.TabIndex = 0;
-                    tabPage.Text = " " + name + "  ";
-                    tabPage.Name = dgsid;
-                    tcDtr.Controls.Add(tabPage);
-                    i++;
-                    C1DockingTab tabDtr1 = new C1DockingTab();
-                    tabDtr1.Dock = System.Windows.Forms.DockStyle.Fill;
-                    tabDtr1.Location = new System.Drawing.Point(0, 266);
-                    tabDtr1.Name = "c1DockingTab1";
-                    tabDtr1.Size = new System.Drawing.Size(669, 200);
-                    tabDtr1.TabIndex = 0;
-                    tabDtr1.TabsSpacing = 5;
-                    tabPage.Controls.Add(tabDtr1);
-                    theme1.SetTheme(tabDtr1, "Office2010Red");
-                    foreach (DocGroupSubScan dgsss in bc.bcDB.dgssDB.lDgss)
-                    {
-                        if (dgsss.doc_group_id.Equals(dgss.doc_group_id))
-                        {
-                            //addDevice.MenuItems.Add(new MenuItem(dgsss.doc_group_sub_name, new EventHandler(ContextMenu_upload)));
+            //        tabPage.TabIndex = 0;
+            //        tabPage.Text = " " + name + "  ";
+            //        tabPage.Name = dgsid;
+            //        tcDtr.Controls.Add(tabPage);
+            //        i++;
+            //        C1DockingTab tabDtr1 = new C1DockingTab();
+            //        tabDtr1.Dock = System.Windows.Forms.DockStyle.Fill;
+            //        tabDtr1.Location = new System.Drawing.Point(0, 266);
+            //        tabDtr1.Name = "c1DockingTab1";
+            //        tabDtr1.Size = new System.Drawing.Size(669, 200);
+            //        tabDtr1.TabIndex = 0;
+            //        tabDtr1.TabsSpacing = 5;
+            //        tabPage.Controls.Add(tabDtr1);
+            //        theme1.SetTheme(tabDtr1, "Office2010Red");
+            //        foreach (DocGroupSubScan dgsss in bc.bcDB.dgssDB.lDgss)
+            //        {
+            //            if (dgsss.doc_group_id.Equals(dgss.doc_group_id))
+            //            {
+            //                //addDevice.MenuItems.Add(new MenuItem(dgsss.doc_group_sub_name, new EventHandler(ContextMenu_upload)));
 
-                            C1DockingTabPage tabPage2 = new C1DockingTabPage();
-                            tabPage2.Location = new System.Drawing.Point(1, 24);
-                            tabPage2.Size = new System.Drawing.Size(667, 175);
-                            tabPage2.TabIndex = 0;
-                            tabPage2.Text = " " + dgsss.doc_group_sub_name + "  ";
-                            tabPage2.Name = "tab" + dgsss.doc_group_sub_id;
-                            tabDtr1.Controls.Add(tabPage2);
-                            C1FlexGrid grf = new C1FlexGrid();
-                            grf.Font = fEdit;
-                            grf.Dock = System.Windows.Forms.DockStyle.Fill;
-                            grf.Location = new System.Drawing.Point(0, 0);
-                            grf.Rows[0].Visible = false;
-                            grf.Cols[0].Visible = false;
-                            grf.Rows.Count = 1;
-                            grf.Name = dgsss.doc_group_sub_id;
-                            grf.Cols.Count = 5;
-                            Column colpic1 = grf.Cols[colPic1];
-                            colpic1.DataType = typeof(Image);
-                            Column colpic2 = grf.Cols[colPic2];
-                            colpic2.DataType = typeof(String);
-                            Column colpic3 = grf.Cols[colPic3];
-                            colpic3.DataType = typeof(Image);
-                            Column colpic4 = grf.Cols[colPic4];
-                            colpic4.DataType = typeof(Image);
-                            grf.Cols[colPic1].Width = 310;
-                            grf.Cols[colPic2].Width = 310;
-                            grf.Cols[colPic3].Width = 310;
-                            grf.Cols[colPic4].Width = 310;
-                            grf.ShowCursor = true;
-                            grf.Cols[colPic2].Visible = false;
-                            grf.Cols[colPic3].Visible = true;
-                            grf.Cols[colPic4].Visible = false;
-                            grf.Cols[colPic1].AllowEditing = false;
-                            grf.Cols[colPic3].AllowEditing = false;
-                            grf.DoubleClick += Grf_DoubleClick;
-                            tabPage2.Controls.Add(grf);
-                        }
-                    }
-                }
-                else
-                {
+            //                C1DockingTabPage tabPage2 = new C1DockingTabPage();
+            //                tabPage2.Location = new System.Drawing.Point(1, 24);
+            //                tabPage2.Size = new System.Drawing.Size(667, 175);
+            //                tabPage2.TabIndex = 0;
+            //                tabPage2.Text = " " + dgsss.doc_group_sub_name + "  ";
+            //                tabPage2.Name = "tab" + dgsss.doc_group_sub_id;
+            //                tabDtr1.Controls.Add(tabPage2);
+            //                C1FlexGrid grf = new C1FlexGrid();
+            //                grf.Font = fEdit;
+            //                grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            //                grf.Location = new System.Drawing.Point(0, 0);
+            //                grf.Rows[0].Visible = false;
+            //                grf.Cols[0].Visible = false;
+            //                grf.Rows.Count = 1;
+            //                grf.Name = dgsss.doc_group_sub_id;
+            //                grf.Cols.Count = 5;
+            //                Column colpic1 = grf.Cols[colPic1];
+            //                colpic1.DataType = typeof(Image);
+            //                Column colpic2 = grf.Cols[colPic2];
+            //                colpic2.DataType = typeof(String);
+            //                Column colpic3 = grf.Cols[colPic3];
+            //                colpic3.DataType = typeof(Image);
+            //                Column colpic4 = grf.Cols[colPic4];
+            //                colpic4.DataType = typeof(Image);
+            //                grf.Cols[colPic1].Width = 310;
+            //                grf.Cols[colPic2].Width = 310;
+            //                grf.Cols[colPic3].Width = 310;
+            //                grf.Cols[colPic4].Width = 310;
+            //                grf.ShowCursor = true;
+            //                grf.Cols[colPic2].Visible = false;
+            //                grf.Cols[colPic3].Visible = true;
+            //                grf.Cols[colPic4].Visible = false;
+            //                grf.Cols[colPic1].AllowEditing = false;
+            //                grf.Cols[colPic3].AllowEditing = false;
+            //                grf.DoubleClick += Grf_DoubleClick;
+            //                tabPage2.Controls.Add(grf);
+            //            }
+            //        }
+            //    }
+            //    else
+            //    {
 
-                }
-            }
+            //    }
+            //}
         }
         private void setPicStaffNote()
         {
@@ -244,7 +288,7 @@ namespace bangna_hospital.gui
             //tabScan.Controls.Add(pnR);
             sct = new SplitContainer();
             sct.Dock = DockStyle.Fill;
-            tabScan.Controls.Add(sct);
+            tabStfNote.Controls.Add(sct);
 
             fpL = new FlowLayoutPanel();
             fpL.Dock = DockStyle.Fill;
@@ -495,11 +539,11 @@ namespace bangna_hospital.gui
             pB1.Left = txtVN.Left;
             pB1.Show();
             txtVN.Hide();
-            btnVn.Hide();
-            btnRefresh.Hide();
+            //btnVn.Hide();
+            //btnRefresh.Hide();
             txt.Hide();
-            label6.Hide();
-            txtVisitDate.Hide();
+            //label6.Hide();
+            //txtVisitDate.Hide();
             chkIPD.Hide();
             //txtPreNo.Hide();
 
@@ -508,7 +552,7 @@ namespace bangna_hospital.gui
             statusOPD = grfVs[e.NewRange.r1, colVsStatus] != null ? grfVs[e.NewRange.r1, colVsStatus].ToString() : "";
             preno = grfVs[e.NewRange.r1, colVsPreno] != null ? grfVs[e.NewRange.r1, colVsPreno].ToString() : "";
             vsDate = grfVs[e.NewRange.r1, colVsVsDate] != null ? grfVs[e.NewRange.r1, colVsVsDate].ToString() : "";
-            txtVisitDate.Value = vsDate;
+            //txtVisitDate.Value = vsDate;
             if (statusOPD.Equals("OPD"))
             {
                 chkIPD.Checked = false;
@@ -523,7 +567,7 @@ namespace bangna_hospital.gui
                 anDate = grfVs[e.NewRange.r1, colVsAndate] != null ? grfVs[e.NewRange.r1, colVsAndate].ToString() : "";
                 txtVN.Value = an;
                 label2.Text = "AN :";
-                txtVisitDate.Value = anDate;
+                //txtVisitDate.Value = anDate;
             }
             setStaffNote(vsDate, preno);
 
@@ -564,186 +608,145 @@ namespace bangna_hospital.gui
             GC.Collect();
             DataTable dt = new DataTable();
             dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
+            grfScan.Rows.Count = 0;
             if (dt.Rows.Count > 0)
             {
                 try
                 {
+                    int cnt = 0;
+                    cnt = dt.Rows.Count / 2;
+                    
+                    grfScan.Rows.Count = cnt + 1;
+                    foreach(Row row1 in grfScan.Rows)
+                    {
+                        row1.Height = 100;
+                    }
                     pB1.Value = 0;
                     pB1.Minimum = 0;
                     pB1.Maximum = dt.Rows.Count;
                     //MemoryStream stream;
                     //Image loadedImage, resizedImage;
-                    C1FlexGrid grf1;
+                    
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     Boolean findTrue = false;
-                    int colcnt = 0;
+                    int colcnt = 0, rowrun=0;
                     foreach (DataRow row in dt.Rows)
                     {
                         if (findTrue) break;
                         colcnt++;
-                        if (colcnt >= 2)
-                        {
-                            colcnt = 0;
-                        }
                         String dgssid = "", filename = "", ftphost = "", id = "", folderftp="";
                         id = row[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
                         dgssid = row[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
                         filename = row[bc.bcDB.dscDB.dsc.image_path].ToString();
                         ftphost = row[bc.bcDB.dscDB.dsc.host_ftp].ToString();
                         folderftp = row[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
-                        foreach (Control con in panel3.Controls)
-                        {
-                            if (findTrue) break;
-                            if (con is C1DockingTab)
+                        
+                        //new Thread(() =>
+                        //{
+                            String err = "";
+                            try
                             {
-                                foreach (Control cond in con.Controls)
+                                FtpWebRequest ftpRequest = null;
+                                FtpWebResponse ftpResponse = null;
+                                Stream ftpStream = null;
+                                int bufferSize = 2048;
+                                err = "00";
+                                Row rowd;
+                                if ((colcnt % 2) == 0)
                                 {
-                                    if (findTrue) break;
-                                    if (cond is C1DockingTabPage)
+                                    rowd = grfScan.Rows[rowrun];
+                                }
+                                else
+                                {
+                                    rowrun++;
+                                    rowd = grfScan.Rows[rowrun];
+                                }
+                                
+                                MemoryStream stream;
+                                Image loadedImage, resizedImage;
+                                stream = new MemoryStream();
+                                //stream = ftp.download(folderftp + "//" + filename);
+
+                                //loadedImage = Image.FromFile(filename);
+                                err = "01";
+
+                                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(ftphost + "/" + folderftp + "/" + filename);
+                                ftpRequest.Credentials = new NetworkCredential(bc.iniC.userFTP, bc.iniC.passFTP);
+                                ftpRequest.UseBinary = true;
+                                ftpRequest.UsePassive = bc.ftpUsePassive;
+                                ftpRequest.KeepAlive = true;
+                                ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+                                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                                ftpStream = ftpResponse.GetResponseStream();
+                                err = "02";
+                                byte[] byteBuffer = new byte[bufferSize];
+                                int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
+                                try
+                                {
+                                    while (bytesRead > 0)
                                     {
-                                        foreach (Control cong in cond.Controls)
-                                        {
-                                            if (findTrue) break;
-                                            if (cong is C1DockingTab)
-                                            {
-                                                foreach (Control congd in cong.Controls)
-                                                {
-                                                    if (findTrue) break;
-                                                    if (congd is C1DockingTabPage)
-                                                    {
-                                                        foreach (Control congd1 in congd.Controls)
-                                                        {
-                                                            if (congd1 is C1FlexGrid)
-                                                            {
-                                                                if (congd1.Name.Equals(dgssid))
-                                                                {
-                                                                    new Thread(() =>
-                                                                    {
-                                                                        String err = "";
-                                                                        try
-                                                                        {
-                                                                            FtpWebRequest ftpRequest = null;
-                                                                            FtpWebResponse ftpResponse = null;
-                                                                            Stream ftpStream = null;
-                                                                            int bufferSize = 2048;
-                                                                            err = "00";
-                                                                            grf1 = (C1FlexGrid)congd1;
-                                                                            Row rowd;
-                                                                            if (colcnt == 1)
-                                                                            {
-                                                                                err = "001";
-                                                                                //grfPtt.Rows[i].StyleNew.BackColor = color;
-                                                                                rowd = grf1.Rows.Add();
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                err = "002";
-                                                                                if (grf1.Rows.Count == 0)
-                                                                                {
-                                                                                    err = "0021";
-                                                                                    rowd = grf1.Rows.Add();
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    err = "0022";
-                                                                                    rowd = grf1.Rows[grf1.Rows.Count - 1];
-                                                                                }
-                                                                            }
-                                                                            MemoryStream stream;
-                                                                            Image loadedImage, resizedImage;
-                                                                            stream = new MemoryStream();
-                                                                            //stream = ftp.download(folderftp + "//" + filename);
-
-                                                                            //loadedImage = Image.FromFile(filename);
-                                                                            err = "01";
-
-                                                                            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(ftphost + "/" + folderftp + "/" + filename);
-                                                                            ftpRequest.Credentials = new NetworkCredential(bc.iniC.userFTP, bc.iniC.passFTP);
-                                                                            ftpRequest.UseBinary = true;
-                                                                            ftpRequest.UsePassive = bc.ftpUsePassive;
-                                                                            ftpRequest.KeepAlive = true;
-                                                                            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
-                                                                            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                                                                            ftpStream = ftpResponse.GetResponseStream();
-                                                                            err = "02";
-                                                                            byte[] byteBuffer = new byte[bufferSize];
-                                                                            int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
-                                                                            try
-                                                                            {
-                                                                                while (bytesRead > 0)
-                                                                                {
-                                                                                    stream.Write(byteBuffer, 0, bytesRead);
-                                                                                    bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
-                                                                                }
-                                                                            }
-                                                                            catch (Exception ex)
-                                                                            {
-                                                                                Console.WriteLine(ex.ToString());
-                                                                            }
-                                                                            err = "03";
-
-
-                                                                            loadedImage = new Bitmap(stream);
-                                                                            err = "04";
-                                                                            int originalWidth = 0;
-                                                                            originalWidth = loadedImage.Width;
-                                                                            int newWidth = 600;
-                                                                            resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                                                                            //
-                                                                            err = "05";
-                                                                            if (colcnt == 1)
-                                                                            {
-                                                                                err = "051";
-                                                                                rowd[colPic1] = resizedImage;
-                                                                                err = "06";
-                                                                                rowd[colPic2] = id;
-                                                                                err = "07";
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                err = "052 "+ colPic3+" cnt "+ grf1.Cols.Count;
-                                                                                rowd[colPic3] = resizedImage;
-                                                                                err = "061";
-                                                                                rowd[colPic4] = id;
-                                                                                err = "071";
-                                                                            }
-                                                                            
-                                                                            strm = new listStream();
-                                                                            strm.id = id;
-                                                                            err = "08";
-                                                                            strm.stream = stream;
-                                                                            err = "09";
-                                                                            lStream.Add(strm);
-
-                                                                            //grf1.AutoSizeRows();
-                                                                            //err = "10";
-                                                                            //grf1.AutoSizeCols();
-                                                                            //err = "11";
-                                                                            //loadedImage.Dispose();
-                                                                            //resizedImage.Dispose();
-                                                                            //stream.Dispose();
-                                                                            //Application.DoEvents();
-                                                                            err = "12";
-                                                                            //findTrue = true;
-                                                                            //break;
-                                                                            //GC.Collect();
-                                                                        }
-                                                                        catch (Exception ex)
-                                                                        {
-                                                                            String aaa = ex.Message+" "+err;
-                                                                        }
-                                                                    }).Start();
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        stream.Write(byteBuffer, 0, bytesRead);
+                                        bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
                                     }
                                 }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.ToString());
+                                }
+                                err = "03";
+
+
+                                loadedImage = new Bitmap(stream);
+                                err = "04";
+                                int originalWidth = 0;
+                                originalWidth = loadedImage.Width;
+                                int newWidth = 640;
+                                resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                                //
+                                err = "05";
+                                if ((colcnt % 2) == 0)
+                                {
+                                    err = "051";
+                                    rowd[colPic1] = resizedImage;
+                                    err = "06";
+                                    rowd[colPic2] = id;
+                                    err = "07";
+                                }
+                                else
+                                {
+                                    err = "052 "+ colPic3+" cnt "+ grfScan.Cols.Count;
+                                    rowd[colPic3] = resizedImage;
+                                    err = "061";
+                                    rowd[colPic4] = id;
+                                    err = "071";
+                                }
+                                
+                                strm = new listStream();
+                                strm.id = id;
+                                err = "08";
+                                strm.stream = stream;
+                                err = "09";
+                                lStream.Add(strm);
+
+                            //grf1.AutoSizeRows();
+                            //err = "10";
+                            //grf1.AutoSizeCols();
+                            //err = "11";
+                            //loadedImage.Dispose();
+                            //resizedImage.Dispose();
+                            //stream.Dispose();
+                            Application.DoEvents();
+                            err = "12";
+                                //findTrue = true;
+                                //break;
+                                //GC.Collect();
                             }
-                        }
+                            catch (Exception ex)
+                            {
+                                String aaa = ex.Message+" "+err;
+                            }
+                        //}).Start();
+                        
                         pB1.Value++;
                     }
                 }
@@ -755,10 +758,10 @@ namespace bangna_hospital.gui
             }
             pB1.Dispose();
             txtVN.Show();
-            btnVn.Show();
-            btnRefresh.Show();
+            //btnVn.Show();
+            //btnRefresh.Show();
             txt.Show();
-            label6.Show();
+            //label6.Show();
             chkIPD.Show();
             //grf1.AutoSizeRows();
             //grf1.AutoSizeRows();
@@ -883,9 +886,9 @@ namespace bangna_hospital.gui
             public String id = "";
             public MemoryStream stream;
         }
-        private void FrmScanView_Load(object sender, EventArgs e)
+        private void FrmScanView1_Load(object sender, EventArgs e)
         {
-            fpL.Width = tabScan.Width / 2;
+            fpL.Width = tabStfNote.Width / 2;
             fpR.Width = fpL.Width+5;
             sct.SplitterDistance = fpL.Width;
             //sct.Panel1.Width = fpL.Width;

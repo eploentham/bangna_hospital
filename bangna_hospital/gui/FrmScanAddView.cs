@@ -21,8 +21,7 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         Font fEdit, fEditB;
         String hn = "", vn = "", name = "", filename = "", visitDate="", dgs="";
-
-
+        
         // Selected word index into _ocrZoneWords
         private int _selectedZoneIndex;
         // Selected word index into the _ocrZoneWords[_selectedZoneIndex];

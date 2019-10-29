@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using System.Drawing;
 using System.Windows.Forms;
 
-using Leadtools;
+
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Reflection;

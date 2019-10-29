@@ -11,7 +11,7 @@ namespace bangna_hospital.objdb
 {
     public class ConnectDB
     {
-        public SqlConnection connMainHIS, conn;
+        public SqlConnection connMainHIS, conn, connPACs;
         public Staff user;
         public long _rowsAffected = 0;
         public SqlCommand comStore;
@@ -19,13 +19,15 @@ namespace bangna_hospital.objdb
         {
             conn = new SqlConnection();
             connMainHIS = new SqlConnection();
+            connPACs = new SqlConnection();
             connMainHIS.ConnectionString = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
             conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB + ";";
+            connPACs.ConnectionString = "Server=" + initc.hostDBPACs + ";Database=" + initc.nameDBPACs + ";Uid=" + initc.userDBPACs + ";Pwd=" + initc.passDBPACs + ";";
         }
         public String ExecuteNonQuery(String sql)
         {
             String toReturn = "";
-            ExecuteNonQuery(conn,sql);
+            toReturn = ExecuteNonQuery(conn,sql);
             return toReturn;
         }
         public String ExecuteNonQueryStore(SqlConnection con, String sql)

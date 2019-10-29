@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_hospital.object1
 {
@@ -20,6 +21,10 @@ namespace bangna_hospital.object1
             if (File.Exists(filename))
             {
                 data = parser.ReadFile(filename);
+            }
+            else
+            {
+                MessageBox.Show("error path ini file ไม่ถูกต้อง " + filename, "");
             }
         }
         public String getIni(String section, String node)

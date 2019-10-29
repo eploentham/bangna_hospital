@@ -923,7 +923,7 @@ namespace bangna_hospital.gui
             tC.SelectedTab = tab1;
             tC.ShowTabs = false;
 
-            this.Text = "08-07-19 " + bc.iniC.hostDB + " " + bc.iniC.nameDB;
+            this.Text = "13-09-19 " + bc.iniC.hostDB + " " + bc.iniC.nameDB;
         }
     }
 }

@@ -15,6 +15,8 @@ namespace bangna_hospital.objdb
         public DocScanDB dscDB;
         public DocGroupSubScanDB dgssDB;
         public VisitDB vsDB;
+        public XrayDB xrDB;
+        public ResOrderTabDB resoDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -28,6 +30,8 @@ namespace bangna_hospital.objdb
             dscDB = new DocScanDB(conn);
             dgssDB = new DocGroupSubScanDB(conn);
             vsDB = new VisitDB(conn);
+            xrDB = new XrayDB(conn);
+            resoDB = new ResOrderTabDB(conn);
         }
     }
 }
