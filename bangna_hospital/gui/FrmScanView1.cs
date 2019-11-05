@@ -47,6 +47,7 @@ namespace bangna_hospital.gui
         Form frmImg;
         String dsc_id = "", hn="";
         //Timer timer1;
+        Patient ptt;
         [STAThread]
         private void txtStatus(String msg)
         {
@@ -70,6 +71,8 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            this.FormBorderStyle = FormBorderStyle.None;
+
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
@@ -78,6 +81,7 @@ namespace bangna_hospital.gui
             lStream = new List<listStream>();
             strm = new listStream();
             grfOrder = new C1FlexGrid();
+            ptt = new Patient();
             //timer1 = new Timer();
             //int chk = 0;
             //int.TryParse(bc.iniC.timerImgScanNew, out chk);
@@ -86,13 +90,14 @@ namespace bangna_hospital.gui
             //timer1.Tick += Timer1_Tick;
             //timer1.Stop();
 
-            theme1.SetTheme(sb1, "ExpressionDark");
-            theme1.SetTheme(groupBox1, "ExpressionDark");
-            theme1.SetTheme(panel2, "ExpressionDark");
-            theme1.SetTheme(panel3, "ExpressionDark");
+            theme1.SetTheme(sb1, bc.iniC.themeApplication);
+            theme1.SetTheme(groupBox1, bc.iniC.themeApplication);
+            theme1.SetTheme(panel2, bc.iniC.themeApplication);
+            theme1.SetTheme(panel3, bc.iniC.themeApplication);
+            theme1.SetTheme(sC1, bc.iniC.themeApplication);
             foreach (Control con in groupBox1.Controls)
             {
-                theme1.SetTheme(con, "ExpressionDark");
+                theme1.SetTheme(con, bc.iniC.themeApplication);
             }
             //foreach (Control con in grfScan.Controls)
             //{
@@ -100,12 +105,18 @@ namespace bangna_hospital.gui
             //}
             initGrf();
             txtHn.Value = hn;
-            setGrf();
+            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            txtName.Value = ptt.Name;
+            setGrfVs();
             
             btnHn.Click += BtnHn_Click;
             btnOpen.Click += BtnOpen_Click;
             //btnRefresh.Click += BtnRefresh_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
+            //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged;
+            //sC1.TabIndexChanged += SC1_TabIndexChanged;
+            //tcDtr.TabClick += TcDtr_TabClick;
+
 
             tcDtr = new C1DockingTab();
             tcDtr.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -115,6 +126,7 @@ namespace bangna_hospital.gui
             tcDtr.TabIndex = 0;
             tcDtr.TabsSpacing = 5;
             panel3.Controls.Add(tcDtr);
+            theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
             tabStfNote = new C1DockingTabPage();
             tabStfNote.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
@@ -123,6 +135,7 @@ namespace bangna_hospital.gui
             tabStfNote.Text = "ใบยา / Staff's Note";
             tabStfNote.Name = "tabPageScan";
             tcDtr.Controls.Add(tabStfNote);
+            tcDtr.TabClick += TcDtr_TabClick;
 
             tabOrder = new C1DockingTabPage();
             tabOrder.Location = new System.Drawing.Point(1, 24);
@@ -138,8 +151,9 @@ namespace bangna_hospital.gui
             //tabScan.Name = "c1DockingTabPage1";
             tabScan.Size = new System.Drawing.Size(667, 175);
             tabScan.TabIndex = 0;
-            tabScan.Text = "ใบยา / Staff's Note";
+            tabScan.Text = "เวชระเบียน Scan";
             tabScan.Name = "tabPageScan";
+            
             tcDtr.Controls.Add(tabScan);
 
             grfOrder.Font = fEdit;
@@ -186,7 +200,8 @@ namespace bangna_hospital.gui
             grfScan.Cols[colPic1].AllowEditing = false;
             grfScan.Cols[colPic3].AllowEditing = false;
             grfScan.DoubleClick += Grf_DoubleClick;
-            
+            //grfScan.AutoSizeRows();
+            //grfScan.AutoSizeCols();
             //tabScan.Controls.Add(grfScan);
 
             theme1.SetTheme(grfOrder, "Office2016Black");
@@ -275,6 +290,59 @@ namespace bangna_hospital.gui
             //    }
             //}
         }
+
+        private void TcDtr_TabClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (tcDtr.SelectedTab == tabScan)
+            {
+                grfScan.AutoSizeCols();
+                grfScan.AutoSizeRows();
+            }
+        }
+
+        private void TcDtr_SelectedTabChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(tcDtr.SelectedTab == tabScan)
+            {
+                grfScan.AutoSizeCols();
+                grfScan.AutoSizeRows();
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // ...
+            if (keyData == (Keys.Escape))
+            {
+                //appExit();
+                //if (MessageBox.Show("ต้องการออกจากโปรแกรม1", "ออกจากโปรแกรม", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                //{
+                //frmmain.Show();
+                Close();
+                //    return true;
+                //}
+            }
+            //else
+            //{
+            //    switch (keyData)
+            //    {
+            //        case Keys.K | Keys.Control:
+            //            if (flagShowTitle)
+            //                flagShowTitle = false;
+            //            else
+            //                flagShowTitle = true;
+            //            setTitle(flagShowTitle);
+            //            return true;
+            //        case Keys.X | Keys.Control:
+            //            //frmmain.Show();
+            //            Close();
+            //            return true;
+            //    }
+            //}
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void setPicStaffNote()
         {
 
@@ -318,7 +386,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             //MessageBox.Show("Row " + ((C1FlexGrid)sender).Row+"\n grf name "+ ((C1FlexGrid)sender).Name, "Col "+((C1FlexGrid)sender).Col+" id "+ ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row,colPic2].ToString());
             if (((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colPic2] == null) return;
-            if (((C1FlexGrid)sender).Row <= 0) return;
+            if (((C1FlexGrid)sender).Row < 0) return;
             String id = "";
             ((C1FlexGrid)sender).AutoSizeCols();
             ((C1FlexGrid)sender).AutoSizeRows();
@@ -383,8 +451,9 @@ namespace bangna_hospital.gui
                 if(int.TryParse(re, out chk))
                 {
                     frmImg.Dispose();
-                    setGrf();
-                    clearGrf();
+                    setGrfVs();
+                    grfScan.Rows.Count = 0;
+                    //clearGrf();
                 }
             }
         }
@@ -438,7 +507,9 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if(e.KeyCode == Keys.Enter)
             {
-                setGrf();
+                ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+                txtName.Value = ptt.Name;
+                setGrfVs();
             }
         }
 
@@ -452,7 +523,7 @@ namespace bangna_hospital.gui
         private void BtnOpen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setGrf();
+            setGrfVs();
         }
 
         private void BtnHn_Click(object sender, EventArgs e)
@@ -462,7 +533,7 @@ namespace bangna_hospital.gui
             frm.ShowDialog(this);
             txtHn.Value = bc.sPtt.Hn;
             txtName.Value = bc.sPtt.Name;
-            setGrf();
+            setGrfVs();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -480,6 +551,7 @@ namespace bangna_hospital.gui
             //FilterRow fr = new FilterRow(grfExpn);
 
             grfVs.AfterRowColChange += GrfVs_AfterRowColChange;
+            //grfVs.row
             //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
 
@@ -529,42 +601,52 @@ namespace bangna_hospital.gui
             if (e.NewRange.Data == null) return;
 
             if (txtHn.Text.Equals("")) return;
+
+            setGrfScan(e.NewRange.r1);
+        }
+        private void setGrfScan(int row)
+        {
             panel2.Enabled = false;
 
             ProgressBar pB1 = new ProgressBar();
-            pB1.Location = new System.Drawing.Point(113, 36);
+            pB1.Location = new System.Drawing.Point(20, 16);
             pB1.Name = "pB1";
             pB1.Size = new System.Drawing.Size(862, 23);
             groupBox1.Controls.Add(pB1);
-            pB1.Left = txtVN.Left;
+            pB1.Left = txtHn.Left;
             pB1.Show();
             txtVN.Hide();
-            //btnVn.Hide();
-            //btnRefresh.Hide();
+            txtHn.Hide();
+            txtName.Hide();
+            label1.Hide();
+            cboDgs.Hide();
+            btnOpen.Hide();
+            btnHn.Hide();
+
             txt.Hide();
             //label6.Hide();
             //txtVisitDate.Hide();
             chkIPD.Hide();
             //txtPreNo.Hide();
 
-            clearGrf();
-            String statusOPD = "", vsDate="", vn="", an="", anDate="", hn="", preno="";
-            statusOPD = grfVs[e.NewRange.r1, colVsStatus] != null ? grfVs[e.NewRange.r1, colVsStatus].ToString() : "";
-            preno = grfVs[e.NewRange.r1, colVsPreno] != null ? grfVs[e.NewRange.r1, colVsPreno].ToString() : "";
-            vsDate = grfVs[e.NewRange.r1, colVsVsDate] != null ? grfVs[e.NewRange.r1, colVsVsDate].ToString() : "";
+            //clearGrf();
+            String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "";
+            statusOPD = grfVs[row, colVsStatus] != null ? grfVs[row, colVsStatus].ToString() : "";
+            preno = grfVs[row, colVsPreno] != null ? grfVs[row, colVsPreno].ToString() : "";
+            vsDate = grfVs[row, colVsVsDate] != null ? grfVs[row, colVsVsDate].ToString() : "";
             //txtVisitDate.Value = vsDate;
             if (statusOPD.Equals("OPD"))
             {
                 chkIPD.Checked = false;
-                vn = grfVs[e.NewRange.r1, colVsVn] != null ? grfVs[e.NewRange.r1, colVsVn].ToString() : "";
+                vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
                 txtVN.Value = vn;
                 label2.Text = "VN :";
             }
             else
             {
                 chkIPD.Checked = true;
-                an = grfVs[e.NewRange.r1, colVsAn] != null ? grfVs[e.NewRange.r1, colVsAn].ToString() : "";
-                anDate = grfVs[e.NewRange.r1, colVsAndate] != null ? grfVs[e.NewRange.r1, colVsAndate].ToString() : "";
+                an = grfVs[row, colVsAn] != null ? grfVs[row, colVsAn].ToString() : "";
+                anDate = grfVs[row, colVsAndate] != null ? grfVs[row, colVsAndate].ToString() : "";
                 txtVN.Value = an;
                 label2.Text = "AN :";
                 //txtVisitDate.Value = anDate;
@@ -572,7 +654,7 @@ namespace bangna_hospital.gui
             setStaffNote(vsDate, preno);
 
             DataTable dtOrder = new DataTable();
-            vn = grfVs[e.NewRange.r1, colVsVn] != null ? grfVs[e.NewRange.r1, colVsVn].ToString() : "";
+            vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
             if (vn.IndexOf("(") > 0)
             {
                 vn = vn.Substring(0, vn.IndexOf("("));
@@ -591,12 +673,12 @@ namespace bangna_hospital.gui
                     pB1.Value = 0;
                     pB1.Minimum = 0;
                     pB1.Maximum = dtOrder.Rows.Count;
-                    foreach (DataRow row in dtOrder.Rows)
+                    foreach (DataRow row1 in dtOrder.Rows)
                     {
                         Row rowg = grfOrder.Rows.Add();
-                        rowg[colOrderName] = row["MNC_PH_TN"].ToString();
+                        rowg[colOrderName] = row1["MNC_PH_TN"].ToString();
                         rowg[colOrderMed] = "";
-                        rowg[colOrderQty] = row["qty"].ToString();
+                        rowg[colOrderQty] = row1["qty"].ToString();
                         pB1.Value++;
                     }
                 }
@@ -615,9 +697,9 @@ namespace bangna_hospital.gui
                 {
                     int cnt = 0;
                     cnt = dt.Rows.Count / 2;
-                    
+
                     grfScan.Rows.Count = cnt + 1;
-                    foreach(Row row1 in grfScan.Rows)
+                    foreach (Row row1 in grfScan.Rows)
                     {
                         row1.Height = 100;
                     }
@@ -626,107 +708,107 @@ namespace bangna_hospital.gui
                     pB1.Maximum = dt.Rows.Count;
                     //MemoryStream stream;
                     //Image loadedImage, resizedImage;
-                    
+
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     Boolean findTrue = false;
-                    int colcnt = 0, rowrun=0;
-                    foreach (DataRow row in dt.Rows)
+                    int colcnt = 0, rowrun = -1;
+                    foreach (DataRow row1 in dt.Rows)
                     {
                         if (findTrue) break;
                         colcnt++;
-                        String dgssid = "", filename = "", ftphost = "", id = "", folderftp="";
-                        id = row[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
-                        dgssid = row[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
-                        filename = row[bc.bcDB.dscDB.dsc.image_path].ToString();
-                        ftphost = row[bc.bcDB.dscDB.dsc.host_ftp].ToString();
-                        folderftp = row[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
-                        
+                        String dgssid = "", filename = "", ftphost = "", id = "", folderftp = "";
+                        id = row1[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                        dgssid = row1[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
+                        filename = row1[bc.bcDB.dscDB.dsc.image_path].ToString();
+                        ftphost = row1[bc.bcDB.dscDB.dsc.host_ftp].ToString();
+                        folderftp = row1[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
+
                         //new Thread(() =>
                         //{
-                            String err = "";
+                        String err = "";
+                        try
+                        {
+                            FtpWebRequest ftpRequest = null;
+                            FtpWebResponse ftpResponse = null;
+                            Stream ftpStream = null;
+                            int bufferSize = 2048;
+                            err = "00";
+                            Row rowd;
+                            if ((colcnt % 2) == 0)
+                            {
+                                rowd = grfScan.Rows[rowrun];
+                            }
+                            else
+                            {
+                                rowrun++;
+                                rowd = grfScan.Rows[rowrun];
+                            }
+
+                            MemoryStream stream;
+                            Image loadedImage, resizedImage;
+                            stream = new MemoryStream();
+                            //stream = ftp.download(folderftp + "//" + filename);
+
+                            //loadedImage = Image.FromFile(filename);
+                            err = "01";
+
+                            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(ftphost + "/" + folderftp + "/" + filename);
+                            ftpRequest.Credentials = new NetworkCredential(bc.iniC.userFTP, bc.iniC.passFTP);
+                            ftpRequest.UseBinary = true;
+                            ftpRequest.UsePassive = bc.ftpUsePassive;
+                            ftpRequest.KeepAlive = true;
+                            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+                            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                            ftpStream = ftpResponse.GetResponseStream();
+                            err = "02";
+                            byte[] byteBuffer = new byte[bufferSize];
+                            int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
                             try
                             {
-                                FtpWebRequest ftpRequest = null;
-                                FtpWebResponse ftpResponse = null;
-                                Stream ftpStream = null;
-                                int bufferSize = 2048;
-                                err = "00";
-                                Row rowd;
-                                if ((colcnt % 2) == 0)
+                                while (bytesRead > 0)
                                 {
-                                    rowd = grfScan.Rows[rowrun];
+                                    stream.Write(byteBuffer, 0, bytesRead);
+                                    bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
                                 }
-                                else
-                                {
-                                    rowrun++;
-                                    rowd = grfScan.Rows[rowrun];
-                                }
-                                
-                                MemoryStream stream;
-                                Image loadedImage, resizedImage;
-                                stream = new MemoryStream();
-                                //stream = ftp.download(folderftp + "//" + filename);
-
-                                //loadedImage = Image.FromFile(filename);
-                                err = "01";
-
-                                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(ftphost + "/" + folderftp + "/" + filename);
-                                ftpRequest.Credentials = new NetworkCredential(bc.iniC.userFTP, bc.iniC.passFTP);
-                                ftpRequest.UseBinary = true;
-                                ftpRequest.UsePassive = bc.ftpUsePassive;
-                                ftpRequest.KeepAlive = true;
-                                ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
-                                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                                ftpStream = ftpResponse.GetResponseStream();
-                                err = "02";
-                                byte[] byteBuffer = new byte[bufferSize];
-                                int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
-                                try
-                                {
-                                    while (bytesRead > 0)
-                                    {
-                                        stream.Write(byteBuffer, 0, bytesRead);
-                                        bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.WriteLine(ex.ToString());
-                                }
-                                err = "03";
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                            }
+                            err = "03";
 
 
-                                loadedImage = new Bitmap(stream);
-                                err = "04";
-                                int originalWidth = 0;
-                                originalWidth = loadedImage.Width;
-                                int newWidth = 640;
-                                resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                                //
-                                err = "05";
-                                if ((colcnt % 2) == 0)
-                                {
-                                    err = "051";
-                                    rowd[colPic1] = resizedImage;
-                                    err = "06";
-                                    rowd[colPic2] = id;
-                                    err = "07";
-                                }
-                                else
-                                {
-                                    err = "052 "+ colPic3+" cnt "+ grfScan.Cols.Count;
-                                    rowd[colPic3] = resizedImage;
-                                    err = "061";
-                                    rowd[colPic4] = id;
-                                    err = "071";
-                                }
-                                
-                                strm = new listStream();
-                                strm.id = id;
-                                err = "08";
-                                strm.stream = stream;
-                                err = "09";
-                                lStream.Add(strm);
+                            loadedImage = new Bitmap(stream);
+                            err = "04";
+                            int originalWidth = 0;
+                            originalWidth = loadedImage.Width;
+                            int newWidth = 640;
+                            resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                            //
+                            err = "05";
+                            if ((colcnt % 2) == 0)
+                            {
+                                err = "051";
+                                rowd[colPic1] = resizedImage;
+                                err = "06";
+                                rowd[colPic2] = id;
+                                err = "07";
+                            }
+                            else
+                            {
+                                err = "052 " + colPic3 + " cnt " + grfScan.Cols.Count;
+                                rowd[colPic3] = resizedImage;
+                                err = "061";
+                                rowd[colPic4] = id;
+                                err = "071";
+                            }
+
+                            strm = new listStream();
+                            strm.id = id;
+                            err = "08";
+                            strm.stream = stream;
+                            err = "09";
+                            lStream.Add(strm);
 
                             //grf1.AutoSizeRows();
                             //err = "10";
@@ -737,29 +819,33 @@ namespace bangna_hospital.gui
                             //stream.Dispose();
                             Application.DoEvents();
                             err = "12";
-                                //findTrue = true;
-                                //break;
-                                //GC.Collect();
-                            }
-                            catch (Exception ex)
-                            {
-                                String aaa = ex.Message+" "+err;
-                            }
+                            //findTrue = true;
+                            //break;
+                            //GC.Collect();
+                        }
+                        catch (Exception ex)
+                        {
+                            String aaa = ex.Message + " " + err;
+                        }
                         //}).Start();
-                        
+
                         pB1.Value++;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("" + ex.Message, "");
                 }
-                
+
             }
             pB1.Dispose();
             txtVN.Show();
-            //btnVn.Show();
-            //btnRefresh.Show();
+            txtHn.Show();
+            txtName.Show();
+            label1.Show();
+            cboDgs.Show();
+            btnOpen.Show();
+            btnHn.Show();
             txt.Show();
             //label6.Show();
             chkIPD.Show();
@@ -805,21 +891,21 @@ namespace bangna_hospital.gui
             }
         }
 
-        private void setGrf()
+        private void setGrfVs()
         {
             grfVs.Clear();
             grfVs.Rows.Count = 1;
             grfVs.Cols.Count = 8;
             
-            C1TextBox text = new C1TextBox();
-            grfVs.Cols[colVsVsDate].Editor = text;
-            grfVs.Cols[colVsVn].Editor = text;
-            grfVs.Cols[colVsDept].Editor = text;
-            grfVs.Cols[colVsPreno].Editor = text;
+            //C1TextBox text = new C1TextBox();
+            //grfVs.Cols[colVsVsDate].Editor = text;
+            //grfVs.Cols[colVsVn].Editor = text;
+            //grfVs.Cols[colVsDept].Editor = text;
+            //grfVs.Cols[colVsPreno].Editor = text;
 
             grfVs.Cols[colVsVsDate].Width = 100;
             grfVs.Cols[colVsVn].Width = 80;
-            grfVs.Cols[colVsDept].Width = 100;
+            grfVs.Cols[colVsDept].Width = 240;
             grfVs.Cols[colVsPreno].Width = 100;
             grfVs.Cols[colVsStatus].Width = 60;
             grfVs.ShowCursor = true;
@@ -840,7 +926,7 @@ namespace bangna_hospital.gui
             grfVs.Cols[colVsPreno].AllowEditing = false;
 
             DataTable dt = new DataTable();
-            MessageBox.Show("hn "+hn, "");
+            //MessageBox.Show("hn "+hn, "");
             dt = bc.bcDB.vsDB.selectVisitByHn3(txtHn.Text);
             int i = 1, j = 1, row = grfVs.Rows.Count;
             //txtVN.Value = dt.Rows.Count;
@@ -891,6 +977,8 @@ namespace bangna_hospital.gui
             fpL.Width = tabStfNote.Width / 2;
             fpR.Width = fpL.Width+5;
             sct.SplitterDistance = fpL.Width;
+            sC1.HeaderHeight = 0;
+            scVs.Width = 240;
             //sct.Panel1.Width = fpL.Width;
             //sct.Panel2.Width = fpR.Width;
             //pnR.Width = 0;

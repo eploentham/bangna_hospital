@@ -22,7 +22,7 @@ namespace bangna_hospital
             BangnaControl bc = new BangnaControl();
             if (args.Length == 1)
             {
-                MessageBox.Show("hn "+ args[0], "");
+                //MessageBox.Show("hn "+ args[0], "");
                 bc.hn = args[0];
                 //bc.hn = args[0];
             }
@@ -40,9 +40,17 @@ namespace bangna_hospital
             //Application.Run(new gui.FrmBillLabCheck(bc));
 
             //Application.Run(new gui.FrmXrayViewDaily(bc));
-            FrmScanView1 frm = new FrmScanView1(bc, bc.hn);
-            frm.WindowState = FormWindowState.Maximized;
-            Application.Run(frm);
+            try
+            {
+                FrmScanView1 frm = new FrmScanView1(bc, bc.hn);
+                frm.WindowState = FormWindowState.Maximized;
+                Application.Run(frm);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("error "+ex.Message, "");
+            }
+            
         }
     }
 }
