@@ -30,7 +30,7 @@ namespace bangna_hospital.control
         public BangnaHospitalDB bcDB;
 
         public Patient sPtt;
-        public Boolean ftpUsePassive = false;
+        public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
 
         public BangnaControl()
         {
@@ -93,6 +93,13 @@ namespace bangna_hospital.control
             iniC.folderFTP = iniF.getIni("ftp", "folderFTP");
             iniC.usePassiveFTP = iniF.getIni("ftp", "usePassiveFTP");
 
+            iniC.hostFTPLabOut = iniF.getIni("ftp", "hostFTPLabOut");
+            iniC.userFTPLabOut = iniF.getIni("ftp", "userFTPLabOut");
+            iniC.passFTPLabOut = iniF.getIni("ftp", "passFTPLabOut");
+            iniC.portFTPLabOut = iniF.getIni("ftp", "portFTPLabOut");
+            iniC.folderFTPLabOut = iniF.getIni("ftp", "folderFTPLabOut");
+            iniC.usePassiveFTPLabOut = iniF.getIni("ftp", "usePassiveFTPLabOut");
+
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
 
@@ -106,6 +113,10 @@ namespace bangna_hospital.control
             iniC.pathImageScan = iniF.getIni("app", "pathImageScan");
             iniC.imggridscanwidth = iniF.getIni("app", "imggridscanwidth");
             iniC.hostname = iniF.getIni("app", "hostname");
+            iniC.printerA4 = iniF.getIni("app", "printerA4");
+            iniC.programLoad = iniF.getIni("app", "programLoad");
+            iniC.labOutOpenFileDialog = iniF.getIni("app", "labOutOpenFileDialog");
+            iniC.windows = iniF.getIni("app", "windows");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -117,10 +128,14 @@ namespace bangna_hospital.control
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
             iniC.hostname = iniC.hostname == null ? "โรงพยาบาล" : iniC.hostname.Equals("") ? "โรงพยาบาล" : iniC.hostname;
             iniC.usePassiveFTP = iniC.usePassiveFTP == null ? "false" : iniC.usePassiveFTP.Equals("") ? "false" : iniC.usePassiveFTP;
+            iniC.usePassiveFTPLabOut = iniC.usePassiveFTPLabOut == null ? "false" : iniC.usePassiveFTPLabOut.Equals("") ? "false" : iniC.usePassiveFTPLabOut;
+            iniC.labOutOpenFileDialog = iniC.labOutOpenFileDialog == null ? "" : iniC.labOutOpenFileDialog.Equals("") ? "" : iniC.labOutOpenFileDialog;
+            iniC.windows = iniC.windows == null ? "" : iniC.windows.Equals("") ? "" : iniC.windows;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
+            Boolean.TryParse(iniC.usePassiveFTPLabOut, out ftpUsePassiveLabOut);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {
@@ -309,6 +324,109 @@ namespace bangna_hospital.control
 
             c.SelectedIndex = 0;
             return c;
+        }
+        public String shortPaidName(String name)
+        {
+            if (name == "ประกันสังคม (บ.1)")
+            {
+                return "ปกส(บ.1)";
+            }
+            else if (name == "ประกันสังคม (บ.2)")
+            {
+                return "ปกส(บ.2)";
+            }
+            else if (name == "ประกันสังคม (บ.5)")
+            {
+                return "ปกส(บ.5)";
+            }
+            else if (name == "ประกันสังคมอิสระ (บ.1)")
+            {
+                return "ปกต(บ.1)";
+            }
+            else if (name == "ประกันสังคมอิสระ (บ.5)")
+            {
+                return "ปกต(บ.5)";
+            }
+            else if (name == "ตรวจสุขภาพ (เงินสด)")
+            {
+                return "ตส(เงินสด)";
+            }
+            else if (name == "ตรวจสุขภาพ (บริษัท)")
+            {
+                return "ตส(บริษัท)";
+            }
+            else if (name == "ตรวจสุขภาพ (PACKAGE)")
+            {
+                return "ตส(PACKAGE)";
+            }
+            else if (name == "ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปากน้ำ")
+            {
+                return "ลูกหนี้(ปากน้ำ)";
+            }
+            else if (name == "ลูกหนี้บางนา 1")
+            {
+                return "ลูกหนี้(บ.1)";
+            }
+            else if (name == "บริษัทประกัน")
+            {
+                return "บ.ประกัน";
+            }
+            else if (name == "ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปู่เจ้า")
+            {
+                return "ลูกหนี้(ปู่เจ้า)";
+            }
+            else
+            {
+                return name;
+            }
+        }
+        public String dateDBtoShowShort(String dt)
+        {
+            if (dt != "")
+            {
+                if (Int16.Parse(dt.Substring(0, 4)) < 1957)
+                {
+                    return dt.Substring(8, 2) + "-" + dt.Substring(5, 2) + "-" + String.Concat(Int16.Parse(dt.Substring(0, 4)) + 543);
+                }
+                else
+                {
+                    return dt.Substring(8, 2) + "-" + dt.Substring(5, 2) + "-" + String.Concat(Int16.Parse(dt.Substring(0, 4)) + 543).Substring(2);
+                }
+
+            }
+            else
+            {
+                return dt;
+            }
+        }
+        public String FormatTime(String t)
+        {
+            String aa = "";
+            aa = "0000" + t;
+            if (aa.Length >= 4)
+            {
+                aa = aa.Substring(aa.Length - 4, 2) + ":" + aa.Substring(aa.Length - 2);
+            }
+            return aa;
+        }
+        public String dateDBtoShowShort1(String dt)
+        {
+            if (dt != "")
+            {
+                if (Int16.Parse(dt.Substring(0, 4)) < 1957)
+                {
+                    return dt.Substring(8, 2) + "-" + dt.Substring(5, 2) + "-" + String.Concat(Int16.Parse(dt.Substring(0, 4)) + 543);
+                }
+                else
+                {
+                    return dt.Substring(8, 2) + "-" + dt.Substring(5, 2) + "-" + String.Concat(Int16.Parse(dt.Substring(0, 4)) + 543).Substring(2);
+                }
+
+            }
+            else
+            {
+                return dt;
+            }
         }
     }
 }

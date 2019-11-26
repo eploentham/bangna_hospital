@@ -18,13 +18,18 @@ namespace bangna_hospital.object1
         FtpWebResponse ftpResponse = null;
         Stream ftpStream = null;
         int bufferSize = 2048;
+        Boolean ftpUsePassive = false;
 
         /* Construct Object */
         public FtpClient(string hostIP, string userName, string password)
         {
             host = hostIP; user = userName; pass = password;
         }
-
+        public FtpClient(string hostIP, string userName, string password, Boolean ftpUsePassive)
+        {
+            host = hostIP; user = userName; pass = password;
+            this.ftpUsePassive = ftpUsePassive;
+        }
         /* Download File */
         public MemoryStream download(String remoteFile)
         {
@@ -37,7 +42,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = false;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
@@ -87,7 +92,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = false;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 //ftpRequest.Proxy = new WebProxy();
@@ -126,7 +131,58 @@ namespace bangna_hospital.object1
             }
             return;
         }
+        public void upload(string remoteFile, string localFile, String webproxy, int port)
+        {
+            try
+            {
+                /* Create an FTP Request */
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
+                /* Log in to the FTP Server with the User Name and Password Provided */
+                WebProxy wproxy = new WebProxy(webproxy, port);
+                ftpRequest.Proxy = wproxy;
 
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                /* When in doubt, use these options */
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = ftpUsePassive;
+                ftpRequest.KeepAlive = true;
+                /* Specify the Type of FTP Request */
+                //ftpRequest.Proxy = new WebProxy();
+                //MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
+                //MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);
+                ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                /* Establish Return Communication with the FTP Server */
+
+                /* Open a File Stream to Read the File for Upload */
+                if (!File.Exists(localFile)) return;
+                FileStream localFileStream = new FileStream(localFile, FileMode.Open, FileAccess.Read);
+                ftpStream = ftpRequest.GetRequestStream();
+                /* Buffer for the Downloaded Data */
+                byte[] byteBuffer = new byte[bufferSize];
+                int bytesSent = localFileStream.Read(byteBuffer, 0, bufferSize);
+                /* Upload the File by Sending the Buffered Data Until the Transfer is Complete */
+                try
+                {
+                    while (bytesSent != 0)
+                    {
+                        ftpStream.Write(byteBuffer, 0, bytesSent);
+                        bytesSent = localFileStream.Read(byteBuffer, 0, bufferSize);
+                    }
+                }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+                /* Resource Cleanup */
+                localFileStream.Close();
+                ftpStream.Close();
+                ftpRequest = null;
+            }
+            catch (Exception ex)
+            {
+                //String status = ((FtpWebResponse)ex.Response).StatusDescription;
+                MessageBox.Show("" + ex.ToString(), "Error ftp upload -> WebProxy");
+                Console.WriteLine(ex.ToString());
+            }
+            return;
+        }
         /* Delete File */
         public void delete(string deleteFile)
         {
@@ -138,7 +194,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = false;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
@@ -166,7 +222,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = false;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
@@ -190,7 +246,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.Rename;
@@ -220,7 +276,7 @@ namespace bangna_hospital.object1
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
                 //ftpRequest.UsePassive = true;
-                ftpRequest.UsePassive = false;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 //ftpRequest.EnableSsl = true;
                 /* Specify the Type of FTP Request */
@@ -251,7 +307,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.GetDateTimestamp;
@@ -290,7 +346,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.GetFileSize;
@@ -329,7 +385,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
@@ -369,7 +425,7 @@ namespace bangna_hospital.object1
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
-                ftpRequest.UsePassive = true;
+                ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.ListDirectoryDetails;

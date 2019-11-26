@@ -53,13 +53,13 @@ namespace bangna_hospital.gui
             fc = txtUserName.ForeColor;
 
             //theme1.SetTheme(panel1, "Office2013Red");
-            //theme1.SetTheme(label2, "Office2010Blue");
+            theme1.SetTheme(btnOk, bc.iniC.themeApplication);
             stt = new C1SuperTooltip();
             sep = new C1SuperErrorProvider();
             stfDB = new StaffDB(bc.conn);
             foreach (Control con in panel1.Controls)
             {
-                theme1.SetTheme(con, "Windows8Gray");
+                theme1.SetTheme(con, bc.iniC.themeApplication);
             }
             //stt.BackgroundGradient = C1.Win.C1SuperTooltip.BackgroundGradient.Gold;
             //stt.
@@ -153,12 +153,12 @@ namespace bangna_hospital.gui
         {
             //if (ic.iniC.statusAppDonor.Equals("1"))
             //{
-            theme1.SetTheme(this, bc.theme);
-            theme1.SetTheme(panel1, bc.theme);
-            foreach (Control c in panel1.Controls)
-            {
-                theme1.SetTheme(c,bc.theme);
-            }
+            //theme1.SetTheme(this, bc.theme);
+            //theme1.SetTheme(panel1, bc.theme);
+            //foreach (Control c in panel1.Controls)
+            //{
+            //    theme1.SetTheme(c,bc.theme);
+            //}
             bg = txtUserName.BackColor;
             fc = txtUserName.ForeColor;
             //}

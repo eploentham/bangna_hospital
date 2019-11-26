@@ -17,6 +17,7 @@ namespace bangna_hospital.objdb
         public VisitDB vsDB;
         public XrayDB xrDB;
         public ResOrderTabDB resoDB;
+        public LabExDB labexDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -32,6 +33,7 @@ namespace bangna_hospital.objdb
             vsDB = new VisitDB(conn);
             xrDB = new XrayDB(conn);
             resoDB = new ResOrderTabDB(conn);
+            labexDB = new LabExDB(conn);
         }
     }
 }

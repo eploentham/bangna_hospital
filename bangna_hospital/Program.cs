@@ -42,9 +42,36 @@ namespace bangna_hospital
             //Application.Run(new gui.FrmXrayViewDaily(bc));
             try
             {
-                FrmScanView1 frm = new FrmScanView1(bc, bc.hn);
-                frm.WindowState = FormWindowState.Maximized;
-                Application.Run(frm);
+                if (bc.iniC.programLoad.Equals("ScanView"))
+                {
+                    FrmScanView1 frm = new FrmScanView1(bc, bc.hn);
+                    frm.WindowState = FormWindowState.Maximized;
+                    Application.Run(frm);
+                }
+                else if (bc.iniC.programLoad.Equals("ScanAdd"))
+                {
+                    FrmSplash spl = new FrmSplash();
+                    spl.Show();
+                    Application.Run(new gui.MainMenu(bc, spl));
+                    //Application.Run(frm);
+                }
+                else if (bc.iniC.programLoad.Equals("XrayImportToPACs"))
+                {
+                    Application.Run(new gui.FrmXrayViewDaily(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("LabOut"))
+                {
+                    Application.Run(new gui.FrmScanAddLabOut(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("nhsoPrint"))
+                {
+                    Application.Run(new gui.frmNHSOPrint(bc));
+                }
+                else
+                {
+
+                }
+                
             }
             catch(Exception ex)
             {

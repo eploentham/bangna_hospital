@@ -109,7 +109,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(944, 63);
+            this.groupBox2.Size = new System.Drawing.Size(1088, 63);
             this.groupBox2.TabIndex = 526;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Search Patient";
@@ -314,7 +314,7 @@
             this.tC1.Location = new System.Drawing.Point(0, 63);
             this.tC1.Name = "tC1";
             this.tC1.SelectedIndex = 1;
-            this.tC1.Size = new System.Drawing.Size(944, 451);
+            this.tC1.Size = new System.Drawing.Size(1088, 451);
             this.tC1.TabIndex = 527;
             this.tC1.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
             this.tC1.TabsShowFocusCues = false;
@@ -327,7 +327,7 @@
             this.tabCurrent.Controls.Add(this.gbCu);
             this.tabCurrent.Location = new System.Drawing.Point(1, 24);
             this.tabCurrent.Name = "tabCurrent";
-            this.tabCurrent.Size = new System.Drawing.Size(942, 426);
+            this.tabCurrent.Size = new System.Drawing.Size(1086, 426);
             this.tabCurrent.TabIndex = 0;
             this.tabCurrent.Text = "current visit";
             // 
@@ -338,7 +338,7 @@
             this.gbCu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.gbCu.Location = new System.Drawing.Point(0, 0);
             this.gbCu.Name = "gbCu";
-            this.gbCu.Size = new System.Drawing.Size(942, 426);
+            this.gbCu.Size = new System.Drawing.Size(1086, 426);
             this.gbCu.TabIndex = 0;
             this.gbCu.TabStop = false;
             this.gbCu.Text = "groupBox2";
@@ -349,7 +349,7 @@
             this.tabSearch.Controls.Add(this.panel1);
             this.tabSearch.Location = new System.Drawing.Point(1, 24);
             this.tabSearch.Name = "tabSearch";
-            this.tabSearch.Size = new System.Drawing.Size(942, 426);
+            this.tabSearch.Size = new System.Drawing.Size(1086, 426);
             this.tabSearch.TabIndex = 1;
             this.tabSearch.Text = "search hn";
             // 
@@ -362,7 +362,7 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(942, 426);
+            this.panel1.Size = new System.Drawing.Size(1086, 426);
             this.panel1.TabIndex = 0;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
@@ -375,7 +375,7 @@
             this.gbHn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.gbHn.Location = new System.Drawing.Point(0, 45);
             this.gbHn.Name = "gbHn";
-            this.gbHn.Size = new System.Drawing.Size(942, 381);
+            this.gbHn.Size = new System.Drawing.Size(1086, 381);
             this.gbHn.TabIndex = 528;
             this.gbHn.TabStop = false;
             this.gbHn.Text = "Patient Search";
@@ -388,7 +388,7 @@
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.panel3.Location = new System.Drawing.Point(370, 16);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(569, 362);
+            this.panel3.Size = new System.Drawing.Size(713, 362);
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
             // 
@@ -420,7 +420,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(942, 45);
+            this.groupBox1.Size = new System.Drawing.Size(1086, 45);
             this.groupBox1.TabIndex = 527;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search";
@@ -637,7 +637,7 @@
             this.sB1});
             this.sB.Location = new System.Drawing.Point(0, 514);
             this.sB.Name = "sB";
-            this.sB.Size = new System.Drawing.Size(944, 22);
+            this.sB.Size = new System.Drawing.Size(1088, 22);
             this.sB.TabIndex = 525;
             this.sB.Text = "statusStrip1";
             // 
@@ -651,7 +651,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 536);
+            this.ClientSize = new System.Drawing.Size(1088, 536);
             this.Controls.Add(this.tC1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.sB);

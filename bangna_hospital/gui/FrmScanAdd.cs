@@ -95,7 +95,6 @@ namespace bangna_hospital.gui
                 {
                     theme1.SetTheme(con, theme1.Theme);
                 }
-                
             }
             foreach (Control con in panel1.Controls)
             {
@@ -291,6 +290,8 @@ namespace bangna_hospital.gui
                             }
                             dsc.folder_ftp = bc.iniC.folderFTP;
                             dsc.status_ipd = chkIPD.Checked ? "I" : "O";
+                            dsc.row_no = i.ToString();
+                            dsc.row_cnt = array1.Count.ToString();
                             String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
                             //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
                             if (chkIPD.Checked)
@@ -303,6 +304,8 @@ namespace bangna_hospital.gui
                             }
                             dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;
                             String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
+
+
                             FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                             //MessageBox.Show("111", "");
                             //ftp.createDirectory(txtHn.Text);

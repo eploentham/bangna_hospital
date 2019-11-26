@@ -49,6 +49,11 @@ namespace bangna_hospital.objdb
             dsc.status_ipd = "status_ipd";
             dsc.an_cnt = "an_cnt";
             dsc.folder_ftp = "folder_ftp";
+            dsc.row_cnt = "row_cnt";
+            dsc.status_ml = "status_ml";
+            dsc.ml_date_time_start = "ml_date_time_start";
+            dsc.ml_date_time_end = "ml_date_time_end";
+            dsc.ml_fm = "ml_fm";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -230,6 +235,12 @@ namespace bangna_hospital.objdb
             p.an_cnt = p.an_cnt == null ? "" : p.an_cnt;
             p.folder_ftp = p.folder_ftp == null ? "" : p.folder_ftp;
 
+            p.status_ml = p.status_ml == null ? "" : p.status_ml;
+            p.row_cnt = p.row_cnt == null ? "" : p.row_cnt;
+            p.ml_date_time_start = p.ml_date_time_start == null ? "" : p.ml_date_time_start;
+            p.ml_date_time_end = p.ml_date_time_end == null ? "" : p.ml_date_time_end;
+            p.ml_fm = p.ml_fm == null ? "" : p.ml_fm;
+
             p.doc_group_id = long.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
             p.row_no = long.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
             p.doc_group_sub_id = long.TryParse(p.doc_group_sub_id, out chk) ? chk.ToString() : "0";
@@ -252,7 +263,8 @@ namespace bangna_hospital.objdb
                 dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
                 dsc.an + "," + dsc.doc_group_sub_id + "," + dsc.pre_no + "," +
                 dsc.an_date + "," + dsc.status_ipd + "," + dsc.an_cnt + "," +
-                dsc.folder_ftp + " " +
+                dsc.folder_ftp + "," + dsc.status_ml + "," + dsc.row_cnt + "," +
+                dsc.ml_date_time_start + "," + dsc.ml_date_time_end + "," + dsc.ml_fm + " " +
                 ") " +
                 "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
                 "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
@@ -260,8 +272,9 @@ namespace bangna_hospital.objdb
                 "convert(varchar, getdate(), 23),'" + p.date_modi + "','" + p.date_cancel + "'," +
                 "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "'," +
                 "'" + p.an + "','" + p.doc_group_sub_id + "','" + p.pre_no + "'," +
-                "'" + p.an_date + "','" + p.status_ipd + "','" + p.an_cnt + "' " +
-                "'" + p.folder_ftp + "' " +
+                "'" + p.an_date + "','" + p.status_ipd + "','" + p.an_cnt + "', " +
+                "'" + p.folder_ftp + "','" + p.status_ml + "','" + p.row_cnt + "', " +
+                "'" + p.ml_date_time_start + "','" + p.ml_date_time_end + "','" + p.ml_fm + "' " +
                 ")";
             try
             {
@@ -283,6 +296,8 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("ext", p.image_path);
                 conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
                 conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
+                conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
+                conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
                 SqlParameter retval =  conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;

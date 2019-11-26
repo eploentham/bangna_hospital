@@ -31,5 +31,10 @@ namespace bangna_hospital.object1
         public String status_ipd { get; set; }
         public String an_cnt { get; set; }
         public String folder_ftp { get; set; }
+        public String row_cnt { get; set; }
+        public String status_ml { get; set; }
+        public String ml_date_time_start { get; set; }
+        public String ml_date_time_end { get; set; }
+        public String ml_fm { get; set; }
     }
 }
