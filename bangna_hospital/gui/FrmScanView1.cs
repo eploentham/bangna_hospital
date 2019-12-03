@@ -228,10 +228,10 @@ namespace bangna_hospital.gui
             colpic3.DataType = typeof(Image);
             Column colpic4 = grfScan.Cols[colPic4];
             colpic4.DataType = typeof(String);
-            grfScan.Cols[colPic1].Width = 310;
-            grfScan.Cols[colPic2].Width = 310;
-            grfScan.Cols[colPic3].Width = 310;
-            grfScan.Cols[colPic4].Width = 310;
+            grfScan.Cols[colPic1].Width = bc.grfScanHeight;
+            grfScan.Cols[colPic2].Width = bc.grfScanHeight;
+            grfScan.Cols[colPic3].Width = bc.grfScanHeight;
+            grfScan.Cols[colPic4].Width = bc.grfScanHeight;
             grfScan.ShowCursor = true;
             grfScan.Cols[colPic2].Visible = false;
             grfScan.Cols[colPic3].Visible = true;
@@ -1135,9 +1135,13 @@ namespace bangna_hospital.gui
                     cnt = dt.Rows.Count / 2;
 
                     grfScan.Rows.Count = cnt + 1;
-                    foreach (Row row1 in grfScan.Rows)
+                    //foreach (Row row1 in grfScan.Rows)
+                    //{
+                    //    row1.Height = 100;
+                    //}
+                    for(int k=0; k < grfScan.Rows.Count; k++)
                     {
-                        row1.Height = 100;
+                        grfScan.Rows[k].Height = 200;
                     }
                     pB1.Value = 0;
                     pB1.Minimum = 0;
@@ -1187,7 +1191,7 @@ namespace bangna_hospital.gui
 
                             //loadedImage = Image.FromFile(filename);
                             err = "01";
-
+                            Application.DoEvents();
                             ftpRequest = (FtpWebRequest)FtpWebRequest.Create(ftphost + "/" + folderftp + "/" + filename);
                             ftpRequest.Credentials = new NetworkCredential(bc.iniC.userFTP, bc.iniC.passFTP);
                             ftpRequest.UseBinary = true;

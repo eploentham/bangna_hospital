@@ -31,6 +31,7 @@ namespace bangna_hospital.control
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
+        public int grfScanHeight = 0;
 
         public BangnaControl()
         {
@@ -117,6 +118,7 @@ namespace bangna_hospital.control
             iniC.programLoad = iniF.getIni("app", "programLoad");
             iniC.labOutOpenFileDialog = iniF.getIni("app", "labOutOpenFileDialog");
             iniC.windows = iniF.getIni("app", "windows");
+            iniC.grfScanHeight = iniF.getIni("app", "grfScanHeight");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -135,7 +137,9 @@ namespace bangna_hospital.control
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
-            Boolean.TryParse(iniC.usePassiveFTPLabOut, out ftpUsePassiveLabOut);
+            Boolean.TryParse(iniC.grfScanHeight, out grfScanHeight);
+
+            int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {

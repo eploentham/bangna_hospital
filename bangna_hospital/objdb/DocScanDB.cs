@@ -151,7 +151,7 @@ namespace bangna_hospital.objdb
             String sql = "select * " +
                 "From " + dsc.table + " dsc " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc."+dsc.vn+"='"+vn+"' and dsc."+dsc.visit_date + "='"+vsDate+"' and dsc."+dsc.active+"='1'" +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc."+dsc.vn+"='"+vn+"' and dsc."+dsc.visit_date + "='"+vsDate+"' and dsc."+dsc.active+"='1' " +
                 "Order By doc_group_id ";
             dt = conn.selectData(conn.conn, sql);
 
@@ -164,7 +164,7 @@ namespace bangna_hospital.objdb
             String sql = "select * " +
                 "From " + dsc.table + " dsc " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1'" +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' " +
                 "Order By doc_group_id ";
             dt = conn.selectData(conn.conn, sql);
 
