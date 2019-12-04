@@ -31,7 +31,7 @@ namespace bangna_hospital.control
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
-        public int grfScanHeight = 0;
+        public int grfScanWidth = 0, imgScanWidth = 0;
 
         public BangnaControl()
         {
@@ -118,7 +118,9 @@ namespace bangna_hospital.control
             iniC.programLoad = iniF.getIni("app", "programLoad");
             iniC.labOutOpenFileDialog = iniF.getIni("app", "labOutOpenFileDialog");
             iniC.windows = iniF.getIni("app", "windows");
-            iniC.grfScanHeight = iniF.getIni("app", "grfScanHeight");
+            iniC.grfScanWidth = iniF.getIni("app", "grfScanWidth");
+            iniC.imgScanWidth = iniF.getIni("app", "imgScanWidth");
+            iniC.pathScanStaffNote = iniF.getIni("app", "pathScanStaffNote");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -133,13 +135,16 @@ namespace bangna_hospital.control
             iniC.usePassiveFTPLabOut = iniC.usePassiveFTPLabOut == null ? "false" : iniC.usePassiveFTPLabOut.Equals("") ? "false" : iniC.usePassiveFTPLabOut;
             iniC.labOutOpenFileDialog = iniC.labOutOpenFileDialog == null ? "" : iniC.labOutOpenFileDialog.Equals("") ? "" : iniC.labOutOpenFileDialog;
             iniC.windows = iniC.windows == null ? "" : iniC.windows.Equals("") ? "" : iniC.windows;
+            iniC.imgScanWidth = iniC.imgScanWidth == null ? "380" : iniC.imgScanWidth.Equals("") ? "380" : iniC.imgScanWidth;
+            iniC.pathScanStaffNote = iniC.pathScanStaffNote == null ? "172.25.10.5" : iniC.pathScanStaffNote.Equals("") ? "172.25.10.5" : iniC.pathScanStaffNote;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
-            Boolean.TryParse(iniC.grfScanHeight, out grfScanHeight);
+            int.TryParse(iniC.grfScanWidth, out grfScanWidth);
 
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
+            int.TryParse(iniC.imgScanWidth, out imgScanWidth);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {

@@ -31,7 +31,7 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
 
-        C1FlexGrid grfVs;
+        C1FlexGrid grfIPD, grfOPD;
         Font fEdit, fEditB;
         C1DockingTab tcDtr, tcVs;
         C1DockingTabPage tabStfNote, tabOrder,  tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD;
@@ -62,7 +62,7 @@ namespace bangna_hospital.gui
         String dsc_id = "", hn="";
         //Timer timer1;
         Patient ptt;
-        Stream streamPrint;
+        Stream streamPrint, streamPrintL, streamPrintR;
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         [STAThread]
@@ -120,11 +120,11 @@ namespace bangna_hospital.gui
             //{
             //    theme1.SetTheme(con, "ExpressionDark");
             //}
-            initGrf();
+            
             txtHn.Value = hn;
             ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
             txtName.Value = ptt.Name;
-            setGrfVs();
+            
             
             btnHn.Click += BtnHn_Click;
             btnOpen.Click += BtnOpen_Click;
@@ -144,6 +144,12 @@ namespace bangna_hospital.gui
             tcDtr.TabsSpacing = 5;
             panel3.Controls.Add(tcDtr);
             theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
+
+            initTabVS();
+            initGrfOPD();
+            initGrfIPD();
+            setGrfVsIPD();
+
             tabStfNote = new C1DockingTabPage();
             tabStfNote.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
@@ -228,10 +234,10 @@ namespace bangna_hospital.gui
             colpic3.DataType = typeof(Image);
             Column colpic4 = grfScan.Cols[colPic4];
             colpic4.DataType = typeof(String);
-            grfScan.Cols[colPic1].Width = bc.grfScanHeight;
-            grfScan.Cols[colPic2].Width = bc.grfScanHeight;
-            grfScan.Cols[colPic3].Width = bc.grfScanHeight;
-            grfScan.Cols[colPic4].Width = bc.grfScanHeight;
+            grfScan.Cols[colPic1].Width = bc.grfScanWidth;
+            grfScan.Cols[colPic2].Width = bc.grfScanWidth;
+            grfScan.Cols[colPic3].Width = bc.grfScanWidth;
+            grfScan.Cols[colPic4].Width = bc.grfScanWidth;
             grfScan.ShowCursor = true;
             grfScan.Cols[colPic2].Visible = false;
             grfScan.Cols[colPic3].Visible = true;
@@ -268,88 +274,38 @@ namespace bangna_hospital.gui
             
             setPicStaffNote();
             theme1.SetTheme(tcDtr, theme1.Theme);
-            //int i = 0;
-            //String idOld = "";
-            //if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
-            //foreach (DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
-            //{
-            //    String dgsid = "";
-            //    dgsid = bc.bcDB.dgssDB.getDgsIdDgss(dgss.doc_group_sub_name);
-            //    if (!dgsid.Equals(idOld))
-            //    {
-            //        idOld = dgsid;
-            //        String name = "";
-            //        name = bc.bcDB.dgsDB.getNameDgs(dgss.doc_group_id);
-            //        C1DockingTabPage tabPage = new C1DockingTabPage();
-            //        tabPage.Location = new System.Drawing.Point(1, 24);
-            //        tabPage.Size = new System.Drawing.Size(667, 175);
-
-            //        tabPage.TabIndex = 0;
-            //        tabPage.Text = " " + name + "  ";
-            //        tabPage.Name = dgsid;
-            //        tcDtr.Controls.Add(tabPage);
-            //        i++;
-            //        C1DockingTab tabDtr1 = new C1DockingTab();
-            //        tabDtr1.Dock = System.Windows.Forms.DockStyle.Fill;
-            //        tabDtr1.Location = new System.Drawing.Point(0, 266);
-            //        tabDtr1.Name = "c1DockingTab1";
-            //        tabDtr1.Size = new System.Drawing.Size(669, 200);
-            //        tabDtr1.TabIndex = 0;
-            //        tabDtr1.TabsSpacing = 5;
-            //        tabPage.Controls.Add(tabDtr1);
-            //        theme1.SetTheme(tabDtr1, "Office2010Red");
-            //        foreach (DocGroupSubScan dgsss in bc.bcDB.dgssDB.lDgss)
-            //        {
-            //            if (dgsss.doc_group_id.Equals(dgss.doc_group_id))
-            //            {
-            //                //addDevice.MenuItems.Add(new MenuItem(dgsss.doc_group_sub_name, new EventHandler(ContextMenu_upload)));
-
-            //                C1DockingTabPage tabPage2 = new C1DockingTabPage();
-            //                tabPage2.Location = new System.Drawing.Point(1, 24);
-            //                tabPage2.Size = new System.Drawing.Size(667, 175);
-            //                tabPage2.TabIndex = 0;
-            //                tabPage2.Text = " " + dgsss.doc_group_sub_name + "  ";
-            //                tabPage2.Name = "tab" + dgsss.doc_group_sub_id;
-            //                tabDtr1.Controls.Add(tabPage2);
-            //                C1FlexGrid grf = new C1FlexGrid();
-            //                grf.Font = fEdit;
-            //                grf.Dock = System.Windows.Forms.DockStyle.Fill;
-            //                grf.Location = new System.Drawing.Point(0, 0);
-            //                grf.Rows[0].Visible = false;
-            //                grf.Cols[0].Visible = false;
-            //                grf.Rows.Count = 1;
-            //                grf.Name = dgsss.doc_group_sub_id;
-            //                grf.Cols.Count = 5;
-            //                Column colpic1 = grf.Cols[colPic1];
-            //                colpic1.DataType = typeof(Image);
-            //                Column colpic2 = grf.Cols[colPic2];
-            //                colpic2.DataType = typeof(String);
-            //                Column colpic3 = grf.Cols[colPic3];
-            //                colpic3.DataType = typeof(Image);
-            //                Column colpic4 = grf.Cols[colPic4];
-            //                colpic4.DataType = typeof(Image);
-            //                grf.Cols[colPic1].Width = 310;
-            //                grf.Cols[colPic2].Width = 310;
-            //                grf.Cols[colPic3].Width = 310;
-            //                grf.Cols[colPic4].Width = 310;
-            //                grf.ShowCursor = true;
-            //                grf.Cols[colPic2].Visible = false;
-            //                grf.Cols[colPic3].Visible = true;
-            //                grf.Cols[colPic4].Visible = false;
-            //                grf.Cols[colPic1].AllowEditing = false;
-            //                grf.Cols[colPic3].AllowEditing = false;
-            //                grf.DoubleClick += Grf_DoubleClick;
-            //                tabPage2.Controls.Add(grf);
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
+            
         }
+        private void initTabVS()
+        {
+            tcVs = new C1DockingTab();
+            tcVs.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcVs.Location = new System.Drawing.Point(0, 266);
+            tcVs.Name = "c1DockingTab1";
+            tcVs.Size = new System.Drawing.Size(669, 200);
+            tcVs.TabIndex = 0;
+            tcVs.TabsSpacing = 5;
+            panel2.Controls.Add(tcVs);
+            theme1.SetTheme(tcVs, bc.iniC.themeApplication);
 
+            tabOPD = new C1DockingTabPage();
+            tabOPD.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabOPD.Size = new System.Drawing.Size(667, 175);
+            tabOPD.TabIndex = 0;
+            tabOPD.Text = "OPD";
+            tabOPD.Name = "tabOPD";
+            tcVs.Controls.Add(tabOPD);
+
+            tabIPD = new C1DockingTabPage();
+            tabIPD.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabIPD.Size = new System.Drawing.Size(667, 175);
+            tabIPD.TabIndex = 0;
+            tabIPD.Text = "IPD";
+            tabIPD.Name = "tabIPD";
+            tcVs.Controls.Add(tabIPD);
+        }
         private void TcDtr_TabClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -644,7 +600,7 @@ namespace bangna_hospital.gui
                 if(int.TryParse(re, out chk))
                 {
                     frmImg.Dispose();
-                    setGrfVs();
+                    setGrfVsIPD();
                     grfScan.Rows.Count = 0;
                     //clearGrf();
                 }
@@ -702,21 +658,22 @@ namespace bangna_hospital.gui
             {
                 ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
                 txtName.Value = ptt.Name;
-                setGrfVs();
+                setGrfVsIPD();
+                setGrfVsOPD();
             }
         }
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            grfVs.AutoSizeCols();
-            grfVs.AutoSizeRows();
+            grfIPD.AutoSizeCols();
+            grfIPD.AutoSizeRows();
         }
 
         private void BtnOpen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setGrfVs();
+            setGrfVsIPD();
         }
 
         private void BtnHn_Click(object sender, EventArgs e)
@@ -726,7 +683,7 @@ namespace bangna_hospital.gui
             frm.ShowDialog(this);
             txtHn.Value = bc.sPtt.Hn;
             txtName.Value = bc.sPtt.Name;
-            setGrfVs();
+            setGrfVsIPD();
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -734,16 +691,16 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
 
         }
-        private void initGrf()
+        private void initGrfOPD()
         {
-            grfVs = new C1FlexGrid();
-            grfVs.Font = fEdit;
-            grfVs.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfVs.Location = new System.Drawing.Point(0, 0);
-
+            grfOPD = new C1FlexGrid();
+            grfOPD.Font = fEdit;
+            grfOPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOPD.Location = new System.Drawing.Point(0, 0);
+            grfOPD.Rows.Count = 1;
             //FilterRow fr = new FilterRow(grfExpn);
 
-            grfVs.AfterRowColChange += GrfVs_AfterRowColChange;
+            //grfOPD.AfterRowColChange += GrfVs_AfterRowColChange;
             //grfVs.row
             //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
@@ -752,15 +709,38 @@ namespace bangna_hospital.gui
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
 
-            panel2.Controls.Add(grfVs);
+            tabOPD.Controls.Add(grfOPD);
 
-            theme1.SetTheme(grfVs, "ExpressionDark");
+            theme1.SetTheme(grfOPD, "ExpressionDark");
+
+        }
+        private void initGrfIPD()
+        {
+            grfIPD = new C1FlexGrid();
+            grfIPD.Font = fEdit;
+            grfIPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfIPD.Location = new System.Drawing.Point(0, 0);
+            grfIPD.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfIPD.AfterRowColChange += GrfVs_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            tabIPD.Controls.Add(grfIPD);
+
+            theme1.SetTheme(grfIPD, "ExpressionDark");
 
         }
         private void setStaffNote(String vsDate, String preno)
         {
             String file = "", dd = "", mm = "", yy = "";
-            Image stffnoteL, stffnoteR;
+            Image stffnoteR, stffnoteS;
             if (vsDate.Length > 8)
             {
                 try
@@ -773,19 +753,135 @@ namespace bangna_hospital.gui
                     int.TryParse(yy, out chk);
                     if (chk > 2500)
                         chk -= 543;
-                    file = "\\\\172.25.10.5\\image\\OPD\\" + chk + "\\" + mm + "\\" + dd + "\\";
+                    file = "\\\\"+bc.iniC.pathScanStaffNote + chk + "\\" + mm + "\\" + dd + "\\";
                     preno1 = "000000" + preno1;
                     preno1 = preno1.Substring(preno1.Length - 6);
-                    stffnoteL = Image.FromFile(file + preno1 + "R.JPG");
-                    stffnoteR = Image.FromFile(file + preno1 + "S.JPG");
-                    picL.Image = stffnoteL;
+                    stffnoteR = Image.FromFile(file + preno1 + "R.JPG");
+                    stffnoteS = Image.FromFile(file + preno1 + "S.JPG");
+                    picL.Image = stffnoteS;
                     picR.Image = stffnoteR;
-                    
+                    ContextMenu menuGwL = new ContextMenu();
+                    menuGwL.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_print_staffnote_L));
+                    ContextMenu menuGwR = new ContextMenu();
+                    menuGwR.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_print_staffnote_R));
+                    picL.ContextMenu = menuGwL;
+                    picR.ContextMenu = menuGwR;
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("error " + ex.Message, "");
                 }
+            }
+        }
+        private void ContextMenu_print_staffnote_L(object sender, System.EventArgs e)
+        {
+            setGrfScanToPrintStaffNoteL();
+        }
+        private void ContextMenu_print_staffnote_R(object sender, System.EventArgs e)
+        {
+            setGrfScanToPrintStaffNoteR();
+        }
+        private void setGrfScanToPrintStaffNoteR()
+        {
+            SetDefaultPrinter(bc.iniC.printerA4);
+            System.Threading.Thread.Sleep(500);
+
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += Pd_PrintPageA4_staffnote_R;
+            //here to select the printer attached to user PC
+            PrintDialog printDialog1 = new PrintDialog();
+            printDialog1.Document = pd;
+            DialogResult result = printDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                pd.Print();//this will trigger the Print Event handeler PrintPage
+            }
+        }
+        private void setGrfScanToPrintStaffNoteL()
+        {
+            SetDefaultPrinter(bc.iniC.printerA4);
+            System.Threading.Thread.Sleep(500);
+
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += Pd_PrintPageA4_staffnote_L;
+            //here to select the printer attached to user PC
+            PrintDialog printDialog1 = new PrintDialog();
+            printDialog1.Document = pd;
+            DialogResult result = printDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                pd.Print();//this will trigger the Print Event handeler PrintPage
+            }
+        }
+        private void Pd_PrintPageA4_staffnote_R(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                float newWidth = picR.Image.Width * 100 / picR.Image.HorizontalResolution;
+                float newHeight = picR.Image.Height * 100 / picR.Image.VerticalResolution;
+
+                float widthFactor = newWidth / e.MarginBounds.Width;
+                float heightFactor = newHeight / e.MarginBounds.Height;
+
+                if (widthFactor > 1 | heightFactor > 1)
+                {
+                    if (widthFactor > heightFactor)
+                    {
+                        widthFactor = 1;
+                        newWidth = newWidth / widthFactor;
+                        newHeight = newHeight / widthFactor;
+                        //newWidth = newWidth / 1.2;
+                        //newHeight = newHeight / 1.2;
+                    }
+                    else
+                    {
+                        newWidth = newWidth / heightFactor;
+                        newHeight = newHeight / heightFactor;
+                    }
+                }
+                e.Graphics.DrawImage(picR.Image, 0, 0, (int)newWidth, (int)newHeight);
+                //}
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        private void Pd_PrintPageA4_staffnote_L(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                float newWidth = picL.Image.Width * 100 / picL.Image.HorizontalResolution;
+                float newHeight = picL.Image.Height * 100 / picL.Image.VerticalResolution;
+
+                float widthFactor = newWidth / e.MarginBounds.Width;
+                float heightFactor = newHeight / e.MarginBounds.Height;
+
+                if (widthFactor > 1 | heightFactor > 1)
+                {
+                    if (widthFactor > heightFactor)
+                    {
+                        widthFactor = 1;
+                        newWidth = newWidth / widthFactor;
+                        newHeight = newHeight / widthFactor;
+                        //newWidth = newWidth / 1.2;
+                        //newHeight = newHeight / 1.2;
+                    }
+                    else
+                    {
+                        newWidth = newWidth / heightFactor;
+                        newHeight = newHeight / heightFactor;
+                    }
+                }
+                e.Graphics.DrawImage(picL.Image, 0, 0, (int)newWidth, (int)newHeight);
+                //}
+            }
+            catch (Exception)
+            {
+
             }
         }
         private void GrfVs_AfterRowColChange(object sender, RangeEventArgs e)
@@ -828,10 +924,10 @@ namespace bangna_hospital.gui
                 }
             }
             String vn = "", preno = "", vsdate = "", an = "";
-            vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
-            preno = grfVs[row, colVsPreno] != null ? grfVs[row, colVsPreno].ToString() : "";
-            vsdate = grfVs[row, colVsVsDate] != null ? grfVs[row, colVsVsDate].ToString() : "";
-            an = grfVs[row, colVsAn] != null ? grfVs[row, colVsAn].ToString() : "";
+            vn = grfIPD[row, colVsVn] != null ? grfIPD[row, colVsVn].ToString() : "";
+            preno = grfIPD[row, colVsPreno] != null ? grfIPD[row, colVsPreno].ToString() : "";
+            vsdate = grfIPD[row, colVsVsDate] != null ? grfIPD[row, colVsVsDate].ToString() : "";
+            an = grfIPD[row, colVsAn] != null ? grfIPD[row, colVsAn].ToString() : "";
             vn = vn.Replace("/", ".").Replace("(", ".").Replace(")", "");
             DataTable dt = new DataTable();
             dt = bc.bcDB.labexDB.selectByVn(txtHn.Text.Trim(), vn);
@@ -903,10 +999,10 @@ namespace bangna_hospital.gui
             //{
             DataTable dt = new DataTable();
             String vn = "", preno = "", vsdate = "", an = "";
-            vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
-            preno = grfVs[row, colVsPreno] != null ? grfVs[row, colVsPreno].ToString() : "";
-            vsdate = grfVs[row, colVsVsDate] != null ? grfVs[row, colVsVsDate].ToString() : "";
-            an = grfVs[row, colVsAn] != null ? grfVs[row, colVsAn].ToString() : "";
+            vn = grfIPD[row, colVsVn] != null ? grfIPD[row, colVsVn].ToString() : "";
+            preno = grfIPD[row, colVsPreno] != null ? grfIPD[row, colVsPreno].ToString() : "";
+            vsdate = grfIPD[row, colVsVsDate] != null ? grfIPD[row, colVsVsDate].ToString() : "";
+            an = grfIPD[row, colVsAn] != null ? grfIPD[row, colVsAn].ToString() : "";
             if (vn.IndexOf("(") > 0)
             {
                 vn = vn.Substring(0, vn.IndexOf("("));
@@ -967,10 +1063,10 @@ namespace bangna_hospital.gui
             //{
                 DataTable dt = new DataTable();
                 String vn = "", preno = "", vsdate="", an="";
-                vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
-                preno = grfVs[row, colVsPreno] != null ? grfVs[row, colVsPreno].ToString() : "";
-                vsdate = grfVs[row, colVsVsDate] != null ? grfVs[row, colVsVsDate].ToString() : "";
-                an = grfVs[row, colVsAn] != null ? grfVs[row, colVsAn].ToString() : "";
+                vn = grfIPD[row, colVsVn] != null ? grfIPD[row, colVsVn].ToString() : "";
+                preno = grfIPD[row, colVsPreno] != null ? grfIPD[row, colVsPreno].ToString() : "";
+                vsdate = grfIPD[row, colVsVsDate] != null ? grfIPD[row, colVsVsDate].ToString() : "";
+                an = grfIPD[row, colVsAn] != null ? grfIPD[row, colVsAn].ToString() : "";
                 if (vn.IndexOf("(") > 0)
                 {
                     vn = vn.Substring(0, vn.IndexOf("("));
@@ -1057,22 +1153,22 @@ namespace bangna_hospital.gui
 
             //clearGrf();
             String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "";
-            statusOPD = grfVs[row, colVsStatus] != null ? grfVs[row, colVsStatus].ToString() : "";
-            preno = grfVs[row, colVsPreno] != null ? grfVs[row, colVsPreno].ToString() : "";
-            vsDate = grfVs[row, colVsVsDate] != null ? grfVs[row, colVsVsDate].ToString() : "";
+            statusOPD = grfIPD[row, colVsStatus] != null ? grfIPD[row, colVsStatus].ToString() : "";
+            preno = grfIPD[row, colVsPreno] != null ? grfIPD[row, colVsPreno].ToString() : "";
+            vsDate = grfIPD[row, colVsVsDate] != null ? grfIPD[row, colVsVsDate].ToString() : "";
             //txtVisitDate.Value = vsDate;
             if (statusOPD.Equals("OPD"))
             {
                 chkIPD.Checked = false;
-                vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
+                vn = grfIPD[row, colVsVn] != null ? grfIPD[row, colVsVn].ToString() : "";
                 txtVN.Value = vn;
                 label2.Text = "VN :";
             }
             else
             {
                 chkIPD.Checked = true;
-                an = grfVs[row, colVsAn] != null ? grfVs[row, colVsAn].ToString() : "";
-                anDate = grfVs[row, colVsAndate] != null ? grfVs[row, colVsAndate].ToString() : "";
+                an = grfIPD[row, colVsAn] != null ? grfIPD[row, colVsAn].ToString() : "";
+                anDate = grfIPD[row, colVsAndate] != null ? grfIPD[row, colVsAndate].ToString() : "";
                 txtVN.Value = an;
                 label2.Text = "AN :";
                 //txtVisitDate.Value = anDate;
@@ -1080,7 +1176,7 @@ namespace bangna_hospital.gui
             setStaffNote(vsDate, preno);
 
             DataTable dtOrder = new DataTable();
-            vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
+            vn = grfIPD[row, colVsVn] != null ? grfIPD[row, colVsVn].ToString() : "";
             if (vn.IndexOf("(") > 0)
             {
                 vn = vn.Substring(0, vn.IndexOf("("));
@@ -1118,7 +1214,7 @@ namespace bangna_hospital.gui
             dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
             if (dt.Rows.Count == 0)
             {
-                vn = grfVs[row, colVsVn] != null ? grfVs[row, colVsVn].ToString() : "";
+                vn = grfIPD[row, colVsVn] != null ? grfIPD[row, colVsVn].ToString() : "";
                 dt = bc.bcDB.dscDB.selectByVn(txtHn.Text, vn, bc.datetoDB(vsDate));
             }
             ContextMenu menuGw = new ContextMenu();
@@ -1222,7 +1318,7 @@ namespace bangna_hospital.gui
                             err = "04";
                             int originalWidth = 0;
                             originalWidth = loadedImage.Width;
-                            int newWidth = 640;
+                            int newWidth = bc.imgScanWidth;
                             resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
                             //
                             err = "05";
@@ -1330,49 +1426,120 @@ namespace bangna_hospital.gui
             //MessageBox.Show("row "+ grfScan.Row+"\n"+"col "+grfScan.Col+"\n ", "");
 
         }
-        private void clearGrf()
+        //private void clearGrf()
+        //{
+        //    foreach (Control con in panel3.Controls)
+        //    {
+        //        if (con is C1DockingTab)
+        //        {
+        //            foreach (Control cond in con.Controls)
+        //            {
+        //                if (cond is C1DockingTabPage)
+        //                {
+        //                    foreach (Control cong in cond.Controls)
+        //                    {
+        //                        if (cong is C1DockingTab)
+        //                        {
+        //                            foreach (Control congd in cong.Controls)
+        //                            {
+        //                                if (congd is C1DockingTabPage)
+        //                                {
+        //                                    foreach (Control congd1 in congd.Controls)
+        //                                    {
+        //                                        if (congd1 is C1FlexGrid)
+        //                                        {
+        //                                            C1FlexGrid grf1;
+        //                                            grf1 = (C1FlexGrid)congd1;
+        //                                            //grf1.Clear();
+        //                                            grf1.Rows.Count = 0;
+        //                                        }
+        //                                    }
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+        private void setGrfVsOPD()
         {
-            foreach (Control con in panel3.Controls)
-            {
-                if (con is C1DockingTab)
-                {
-                    foreach (Control cond in con.Controls)
-                    {
-                        if (cond is C1DockingTabPage)
-                        {
-                            foreach (Control cong in cond.Controls)
-                            {
-                                if (cong is C1DockingTab)
-                                {
-                                    foreach (Control congd in cong.Controls)
-                                    {
-                                        if (congd is C1DockingTabPage)
-                                        {
-                                            foreach (Control congd1 in congd.Controls)
-                                            {
-                                                if (congd1 is C1FlexGrid)
-                                                {
-                                                    C1FlexGrid grf1;
-                                                    grf1 = (C1FlexGrid)congd1;
-                                                    //grf1.Clear();
-                                                    grf1.Rows.Count = 0;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+            grfOPD.Clear();
+            grfOPD.Rows.Count = 1;
+            grfOPD.Cols.Count = 8;
 
-        private void setGrfVs()
+            //C1TextBox text = new C1TextBox();
+            //grfVs.Cols[colVsVsDate].Editor = text;
+            //grfVs.Cols[colVsVn].Editor = text;
+            //grfVs.Cols[colVsDept].Editor = text;
+            //grfVs.Cols[colVsPreno].Editor = text;
+
+            grfOPD.Cols[colVsVsDate].Width = 100;
+            grfOPD.Cols[colVsVn].Width = 80;
+            grfOPD.Cols[colVsDept].Width = 240;
+            grfOPD.Cols[colVsPreno].Width = 100;
+            grfOPD.Cols[colVsStatus].Width = 60;
+            grfOPD.ShowCursor = true;
+            //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
+            grfOPD.Cols[colVsVsDate].Caption = "Visit Date";
+            grfOPD.Cols[colVsVn].Caption = "VN";
+            grfOPD.Cols[colVsDept].Caption = "แผนก";
+            grfOPD.Cols[colVsPreno].Caption = "";
+            grfOPD.Cols[colVsPreno].Visible = false;
+            grfOPD.Cols[colVsVn].Visible = true;
+            grfOPD.Cols[colVsAn].Visible = true;
+            grfOPD.Cols[colVsAndate].Visible = false;
+            grfOPD.Rows[0].Visible = false;
+            grfOPD.Cols[0].Visible = false;
+            grfOPD.Cols[colVsVsDate].AllowEditing = false;
+            grfOPD.Cols[colVsVn].AllowEditing = false;
+            grfOPD.Cols[colVsDept].AllowEditing = false;
+            grfOPD.Cols[colVsPreno].AllowEditing = false;
+
+            DataTable dt = new DataTable();
+            //MessageBox.Show("hn "+hn, "");
+            dt = bc.bcDB.vsDB.selectVisitByHn4(txtHn.Text,"O");
+            int i = 1, j = 1, row = grfOPD.Rows.Count;
+            //txtVN.Value = dt.Rows.Count;
+            //txtName.Value = "";
+            //txt.Value = "";
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfOPD.Rows.Add();
+                String status = "", vn = "";
+
+                status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
+                vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")";
+                rowa[colVsVsDate] = bc.datetoShow(row1["mnc_date"]);
+                rowa[colVsVn] = vn;
+                rowa[colVsStatus] = status;
+                rowa[colVsPreno] = row1["mnc_pre_no"].ToString();
+                rowa[colVsDept] = row1["MNC_SHIF_MEMO"].ToString();
+                rowa[colVsAn] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
+                rowa[colVsAndate] = bc.datetoShow(row1["mnc_ad_date"].ToString());
+            }
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("&ยกเลิก รูปภาพนี้", new EventHandler(ContextMenu_Void));
+            //menuGw.MenuItems.Add("&Update ข้อมูล", new EventHandler(ContextMenu_Update));
+            //foreach (DocGroupScan dgs in bc.bcDB.dgsDB.lDgs)
+            //{
+            //    menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image [" + dgs.doc_group_name + "]", new EventHandler(ContextMenu_upload));
+            //}
+            //grfVs.ContextMenu = menuGw;
+            //grfVs.Cols[colVsVsDate].Visible = false;
+            //grfVs.Cols[colImagePath].Visible = false;
+            //row1[colVSE2] = row[ic.ivfDB.pApmDB.pApm.e2].ToString().Equals("1") ? imgCorr : imgTran;
+            //grfVs.AutoSizeCols();
+            //grfVs.AutoSizeRows();
+            //grfVs.Refresh();
+            //theme1.SetTheme(grfVs, "ExpressionDark");
+        }
+        private void setGrfVsIPD()
         {
-            grfVs.Clear();
-            grfVs.Rows.Count = 1;
-            grfVs.Cols.Count = 8;
+            grfIPD.Clear();
+            grfIPD.Rows.Count = 1;
+            grfIPD.Cols.Count = 8;
             
             //C1TextBox text = new C1TextBox();
             //grfVs.Cols[colVsVsDate].Editor = text;
@@ -1380,38 +1547,38 @@ namespace bangna_hospital.gui
             //grfVs.Cols[colVsDept].Editor = text;
             //grfVs.Cols[colVsPreno].Editor = text;
 
-            grfVs.Cols[colVsVsDate].Width = 100;
-            grfVs.Cols[colVsVn].Width = 80;
-            grfVs.Cols[colVsDept].Width = 240;
-            grfVs.Cols[colVsPreno].Width = 100;
-            grfVs.Cols[colVsStatus].Width = 60;
-            grfVs.ShowCursor = true;
+            grfIPD.Cols[colVsVsDate].Width = 100;
+            grfIPD.Cols[colVsVn].Width = 80;
+            grfIPD.Cols[colVsDept].Width = 240;
+            grfIPD.Cols[colVsPreno].Width = 100;
+            grfIPD.Cols[colVsStatus].Width = 60;
+            grfIPD.ShowCursor = true;
             //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
-            grfVs.Cols[colVsVsDate].Caption = "Visit Date";
-            grfVs.Cols[colVsVn].Caption = "VN";
-            grfVs.Cols[colVsDept].Caption = "แผนก";
-            grfVs.Cols[colVsPreno].Caption = "";
-            grfVs.Cols[colVsPreno].Visible = false;
-            grfVs.Cols[colVsVn].Visible = true;
-            grfVs.Cols[colVsAn].Visible = true;
-            grfVs.Cols[colVsAndate].Visible = false;
-            grfVs.Rows[0].Visible = false;
-            grfVs.Cols[0].Visible = false;
-            grfVs.Cols[colVsVsDate].AllowEditing = false;
-            grfVs.Cols[colVsVn].AllowEditing = false;
-            grfVs.Cols[colVsDept].AllowEditing = false;
-            grfVs.Cols[colVsPreno].AllowEditing = false;
+            grfIPD.Cols[colVsVsDate].Caption = "Visit Date";
+            grfIPD.Cols[colVsVn].Caption = "VN";
+            grfIPD.Cols[colVsDept].Caption = "แผนก";
+            grfIPD.Cols[colVsPreno].Caption = "";
+            grfIPD.Cols[colVsPreno].Visible = false;
+            grfIPD.Cols[colVsVn].Visible = true;
+            grfIPD.Cols[colVsAn].Visible = true;
+            grfIPD.Cols[colVsAndate].Visible = false;
+            grfIPD.Rows[0].Visible = false;
+            grfIPD.Cols[0].Visible = false;
+            grfIPD.Cols[colVsVsDate].AllowEditing = false;
+            grfIPD.Cols[colVsVn].AllowEditing = false;
+            grfIPD.Cols[colVsDept].AllowEditing = false;
+            grfIPD.Cols[colVsPreno].AllowEditing = false;
 
             DataTable dt = new DataTable();
             //MessageBox.Show("hn "+hn, "");
-            dt = bc.bcDB.vsDB.selectVisitByHn3(txtHn.Text);
-            int i = 1, j = 1, row = grfVs.Rows.Count;
+            dt = bc.bcDB.vsDB.selectVisitByHn4(txtHn.Text,"I");
+            int i = 1, j = 1, row = grfIPD.Rows.Count;
             //txtVN.Value = dt.Rows.Count;
             //txtName.Value = "";
             //txt.Value = "";
             foreach (DataRow row1 in dt.Rows)
             {
-                Row rowa = grfVs.Rows.Add();
+                Row rowa = grfIPD.Rows.Add();
                 String status = "", vn = "";
                 
                 status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
