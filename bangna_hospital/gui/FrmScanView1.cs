@@ -33,8 +33,8 @@ namespace bangna_hospital.gui
 
         C1FlexGrid grfVs;
         Font fEdit, fEditB;
-        C1DockingTab tcDtr;
-        C1DockingTabPage tabStfNote, tabOrder,  tabScan, tabLab, tabXray, tablabOut;
+        C1DockingTab tcDtr, tcVs;
+        C1DockingTabPage tabStfNote, tabOrder,  tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray;
         C1FlexViewer labOutView;
 
@@ -108,11 +108,11 @@ namespace bangna_hospital.gui
             //timer1.Stop();
 
             theme1.SetTheme(sb1, bc.iniC.themeApplication);
-            theme1.SetTheme(groupBox1, bc.iniC.themeApplication);
+            theme1.SetTheme(gbPtt, bc.iniC.themeApplication);
             theme1.SetTheme(panel2, bc.iniC.themeApplication);
             theme1.SetTheme(panel3, bc.iniC.themeApplication);
             theme1.SetTheme(sC1, bc.iniC.themeApplication);
-            foreach (Control con in groupBox1.Controls)
+            foreach (Control con in gbPtt.Controls)
             {
                 theme1.SetTheme(con, bc.iniC.themeApplication);
             }
@@ -1038,7 +1038,7 @@ namespace bangna_hospital.gui
             pB1.Location = new System.Drawing.Point(20, 16);
             pB1.Name = "pB1";
             pB1.Size = new System.Drawing.Size(862, 23);
-            groupBox1.Controls.Add(pB1);
+            gbPtt.Controls.Add(pB1);
             pB1.Left = txtHn.Left;
             pB1.Show();
             txtVN.Hide();
@@ -1139,10 +1139,10 @@ namespace bangna_hospital.gui
                     //{
                     //    row1.Height = 100;
                     //}
-                    for(int k=0; k < grfScan.Rows.Count; k++)
-                    {
-                        grfScan.Rows[k].Height = 200;
-                    }
+                    //for(int k=0; k < grfScan.Rows.Count; k++)
+                    //{
+                    //    grfScan.Rows[k].Height = 200;
+                    //}
                     pB1.Value = 0;
                     pB1.Minimum = 0;
                     pB1.Maximum = dt.Rows.Count;
