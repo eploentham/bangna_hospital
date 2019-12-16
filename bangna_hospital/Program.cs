@@ -67,6 +67,10 @@ namespace bangna_hospital
                 {
                     Application.Run(new gui.frmNHSOPrint(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("screenCapture"))
+                {
+                    Application.Run(new gui.FrmScreenCapture(bc));
+                }
                 else
                 {
 

@@ -169,6 +169,18 @@
     <Compile Include="gui\FrmScanView1.Designer.cs">
       <DependentUpon>FrmScanView1.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmScreenCapture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmScreenCapture.Designer.cs">
+      <DependentUpon>FrmScreenCapture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmScreenCaptureUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmScreenCaptureUpload.Designer.cs">
+      <DependentUpon>FrmScreenCaptureUpload.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmSearchHn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +244,7 @@
     <Compile Include="object1\DocGroupSubScan.cs" />
     <Compile Include="object1\DocScan.cs" />
     <Compile Include="object1\FtpClient.cs" />
+    <Compile Include="object1\GDI32.cs" />
     <Compile Include="object1\Globalization.cs" />
     <Compile Include="object1\IniFile.cs" />
     <Compile Include="object1\InitConfig.cs" />
@@ -241,7 +254,9 @@
     <Compile Include="object1\Patient.cs" />
     <Compile Include="object1\Persistent.cs" />
     <Compile Include="object1\ResOrderTab.cs" />
+    <Compile Include="object1\ScreenCapture.cs" />
     <Compile Include="object1\Staff.cs" />
+    <Compile Include="object1\User32.cs" />
     <Compile Include="object1\Visit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -283,6 +298,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanView1.resx">
       <DependentUpon>FrmScanView1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmScreenCapture.resx">
+      <DependentUpon>FrmScreenCapture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmScreenCaptureUpload.resx">
+      <DependentUpon>FrmScreenCaptureUpload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSearchHn.resx">
       <DependentUpon>FrmSearchHn.cs</DependentUpon>

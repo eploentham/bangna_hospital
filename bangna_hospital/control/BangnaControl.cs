@@ -121,6 +121,7 @@ namespace bangna_hospital.control
             iniC.grfScanWidth = iniF.getIni("app", "grfScanWidth");
             iniC.imgScanWidth = iniF.getIni("app", "imgScanWidth");
             iniC.pathScanStaffNote = iniF.getIni("app", "pathScanStaffNote");
+            iniC.pathScreenCaptureUpload = iniF.getIni("app", "pathScreenCaptureUpload");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;

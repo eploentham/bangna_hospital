@@ -5,15 +5,8 @@ using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 //using Leadtools;
 //using Leadtools.Ocr;
@@ -32,7 +25,7 @@ namespace bangna_hospital.gui
         //private IOcrEngine _ocrEngine;
 
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
-        ArrayList array1,arrayImg;
+        ArrayList array1, arrayImg;
         Timer timer1;
         public FrmScanAdd(BangnaControl bc, MainMenu m)
         {
@@ -87,9 +80,9 @@ namespace bangna_hospital.gui
             theme1.SetTheme(tcDtr, theme1.Theme);
             foreach (Control con in groupBox1.Controls)
             {
-                if(con is ProgressBar)
+                if (con is ProgressBar)
                 {
-                    
+
                 }
                 else
                 {
@@ -100,7 +93,7 @@ namespace bangna_hospital.gui
             {
                 //theme1.SetTheme(con, theme1.Theme);
             }
-            
+
             btnOpen.Click += BtnOpen_Click;
             btnHn.Click += BtnHn_Click;
             btnDel.Click += BtnDel_Click;
@@ -116,7 +109,7 @@ namespace bangna_hospital.gui
             //    C1DockingTabPage tabPage = new C1DockingTabPage();
             //    tabPage.Location = new System.Drawing.Point(1, 24);
             //    tabPage.Size = new System.Drawing.Size(667, 175);
-                
+
             //    tabPage.TabIndex = 0;
             //    tabPage.Text = "Page" + dgs.doc_group_name;
             //    tabPage.Name = " " + dgs.doc_group_id+"  ";
@@ -144,7 +137,7 @@ namespace bangna_hospital.gui
                     tabPage.Size = new System.Drawing.Size(667, 175);
 
                     tabPage.TabIndex = 0;
-                    tabPage.Text = " " + name+"  ";
+                    tabPage.Text = " " + name + "  ";
                     tabPage.Name = dgsid;
                     tcDtr.Controls.Add(tabPage);
                     i++;
@@ -162,13 +155,13 @@ namespace bangna_hospital.gui
                         if (dgsss.doc_group_id.Equals(dgss.doc_group_id))
                         {
                             //addDevice.MenuItems.Add(new MenuItem(dgsss.doc_group_sub_name, new EventHandler(ContextMenu_upload)));
-                            
+
                             C1DockingTabPage tabPage2 = new C1DockingTabPage();
                             tabPage2.Location = new System.Drawing.Point(1, 24);
                             tabPage2.Size = new System.Drawing.Size(667, 175);
                             tabPage2.TabIndex = 0;
                             tabPage2.Text = " " + dgsss.doc_group_sub_name + "  ";
-                            tabPage2.Name = "tab"+dgsss.doc_group_sub_id;
+                            tabPage2.Name = "tab" + dgsss.doc_group_sub_id;
                             tabDtr1.Controls.Add(tabPage2);
                             C1FlexGrid grf = new C1FlexGrid();
                             grf.Font = fEdit;
@@ -214,17 +207,17 @@ namespace bangna_hospital.gui
                 {
                     fi.Delete();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("error delFile -> "+ex.Message, "");
+                    MessageBox.Show("error delFile -> " + ex.Message, "");
                 }
-                
+
             }
         }
         private void BtnDel_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();            
-            
+
             if (Directory.Exists(bc.iniC.pathImageScan))
             {
                 if (MessageBox.Show("ยืนยัน upload รูป เวชระเบียน เข้ากลุ่มอื่นๆ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
@@ -263,7 +256,7 @@ namespace bangna_hospital.gui
                         {
                             name = aaa[2].Replace("*", "");
                             string ext = Path.GetExtension(name);
-                            String dgssname = "", dgssid = "", vn="", an="";
+                            String dgssname = "", dgssid = "", vn = "", an = "";
                             dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
                             DocGroupSubScan dgss = new DocGroupSubScan();
                             dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
@@ -349,18 +342,18 @@ namespace bangna_hospital.gui
             //}
             //else
             //{
-                txtAN.Value = bc.sPtt.an;
-                txtAnCnt.Value = "";
+            txtAN.Value = bc.sPtt.an;
+            txtAnCnt.Value = "";
             //}
             txtHn.Value = bc.sPtt.Hn;
             txtName.Value = bc.sPtt.Name;
             txtVN.Value = bc.sPtt.vn;
             txtVisitDate.Value = bc.sPtt.visitDate;
             txtPreNo.Value = bc.sPtt.preno;
-            
+
             txtAnDate.Value = bc.sPtt.anDate;
             chkIPD.Checked = bc.sPtt.statusIPD.Equals("I") ? true : false;
-            
+
             if (chkIPD.Checked)
             {
                 txtVisitDate.Hide();
@@ -474,7 +467,7 @@ namespace bangna_hospital.gui
                             int newWidth = 280;
                             newWidth = bc.imggridscanwidth;
                             resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                            arrayImg.Add(file+",");
+                            arrayImg.Add(file + ",");
                             loadedImage.Dispose();
                         }
                         else
@@ -527,11 +520,11 @@ namespace bangna_hospital.gui
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error"+ex.Message, "");
+                MessageBox.Show("Error" + ex.Message, "");
             }
-            
+
             grf.AutoSizeCols();
             grf.AutoSizeRows();
             grf.Rows[0].Visible = false;
@@ -636,10 +629,10 @@ namespace bangna_hospital.gui
                 }
                 else
                 {
-                    
+
                 }
             }
-                
+
             //addDevice.MenuItems.Add("", new EventHandler(ContextMenu_upload));
             //menuGw.MenuItems.Add(addDevice);
             //}
@@ -683,7 +676,7 @@ namespace bangna_hospital.gui
                     if (aa.Equals(filename + ","))
                     {
                         arrayImg.Remove(aa);
-                        arrayImg.Add(filename + ","+ dgssid);
+                        arrayImg.Add(filename + "," + dgssid);
                     }
                     else
                     {
@@ -731,10 +724,10 @@ namespace bangna_hospital.gui
                                                                                 C1FlexGrid grf1;
                                                                                 grf1 = (C1FlexGrid)congd1;
                                                                                 int j = 0;
-                                                                                foreach(Row rowa in grf1.Rows)
+                                                                                foreach (Row rowa in grf1.Rows)
                                                                                 {
                                                                                     String namerow = "";
-                                                                                    if(rowa[colPic2] != null)
+                                                                                    if (rowa[colPic2] != null)
                                                                                     {
                                                                                         namerow = rowa[colPic2].ToString();
                                                                                         if (namerow.Equals(filename1))
@@ -803,7 +796,7 @@ namespace bangna_hospital.gui
                 filename = filename.Substring(filename.IndexOf('*') + 1);
                 //String[] ext = filename.Split('.');
                 string ext = Path.GetExtension(filename);
-                String dgssname = "", dgssid="";
+                String dgssname = "", dgssid = "";
                 dgssname = ((MenuItem)sender).Text;
                 dgssid = bc.bcDB.dgssDB.getIdDgss(dgssname);
                 DocGroupSubScan dgss = new DocGroupSubScan();
@@ -857,7 +850,7 @@ namespace bangna_hospital.gui
                     //MessageBox.Show("333", "");
                     ftp.upload(dsc.image_path, filename);
                     Boolean findTrue = false;
-                    foreach(Control con in this.Controls)
+                    foreach (Control con in this.Controls)
                     {
                         if (findTrue) break;
                         if (con is Panel)
@@ -950,9 +943,9 @@ namespace bangna_hospital.gui
             foreach (String aa in array1)
             {
                 i++;
-                if(aa.IndexOf(grf.Row + "," + grf.Col) >= 0)
+                if (aa.IndexOf(grf.Row + "," + grf.Col) >= 0)
                 {
-                    filename = array1[i-1].ToString();
+                    filename = array1[i - 1].ToString();
                     chk = true;
                     break;
                 }
@@ -971,7 +964,7 @@ namespace bangna_hospital.gui
                     setImage1(false);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 filename = ex.Message;
             }
@@ -999,7 +992,7 @@ namespace bangna_hospital.gui
                     String[] aaa = filename.Split(',');
                     if (aaa.Length >= 3)
                     {
-                        FileInfo fi1 = new FileInfo(aaa[2].Replace("*",""));
+                        FileInfo fi1 = new FileInfo(aaa[2].Replace("*", ""));
                         if (fi1.Exists)
                         {
                             if (MessageBox.Show("ต้องการลบ File image นี้ \n" + filename, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)

@@ -125,7 +125,7 @@ namespace bangna_hospital.objdb
                 comMainhis.Dispose();
                 adapMainhis.Dispose();
             }
-                        
+
             return toReturn;
         }
         public DataTable selectData(SqlConnection con, String sql)
