@@ -12,7 +12,7 @@ namespace bangna_hospital.object1
         public String hostDBMainHIS = "", userDBMainHIS = "", passDBMainHIS = "", nameDBMainHIS = "", portDBMainHIS = "";
         public String hostDBPACs = "", userDBPACs = "", passDBPACs = "", nameDBPACs = "", portDBPACs = "";
         public String hostDBIm = "", userDBIm = "", passDBIm = "", nameDBIm = "", portDBIm = "";
-        public String hostFTP = "", userFTP = "", passFTP = "", portFTP = "", folderFTP = "", usePassiveFTP = "";
+        public String hostFTP = "", userFTP = "", passFTP = "", portFTP = "", folderFTP = "", usePassiveFTP = "", ProxyProxyType="", ProxyHost="", ProxyPort="";
         public String hostFTPLabOut = "", userFTPLabOut = "", passFTPLabOut = "", portFTPLabOut = "", folderFTPLabOut = "", usePassiveFTPLabOut = "";
         
         public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "";

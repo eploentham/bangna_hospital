@@ -13,5 +13,6 @@ namespace bangna_hospital.object1
         public String doc_group_sub_name { get; set; }
         public String active { get; set; }
         public String remark { get; set; }
+        public String dept_us { get; set; }
     }
 }

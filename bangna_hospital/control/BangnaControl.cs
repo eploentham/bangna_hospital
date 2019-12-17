@@ -93,6 +93,9 @@ namespace bangna_hospital.control
             iniC.portFTP = iniF.getIni("ftp", "portFTP");
             iniC.folderFTP = iniF.getIni("ftp", "folderFTP");
             iniC.usePassiveFTP = iniF.getIni("ftp", "usePassiveFTP");
+            iniC.ProxyHost = iniF.getIni("ftp", "ProxyHost");
+            iniC.ProxyPort = iniF.getIni("ftp", "ProxyPort");
+            iniC.ProxyProxyType = iniF.getIni("ftp", "ProxyProxyType");
 
             iniC.hostFTPLabOut = iniF.getIni("ftp", "hostFTPLabOut");
             iniC.userFTPLabOut = iniF.getIni("ftp", "userFTPLabOut");
@@ -138,6 +141,8 @@ namespace bangna_hospital.control
             iniC.windows = iniC.windows == null ? "" : iniC.windows.Equals("") ? "" : iniC.windows;
             iniC.imgScanWidth = iniC.imgScanWidth == null ? "380" : iniC.imgScanWidth.Equals("") ? "380" : iniC.imgScanWidth;
             iniC.pathScanStaffNote = iniC.pathScanStaffNote == null ? "172.25.10.5" : iniC.pathScanStaffNote.Equals("") ? "172.25.10.5" : iniC.pathScanStaffNote;
+            iniC.ProxyProxyType = iniC.ProxyProxyType == null ? "0" : iniC.ProxyProxyType.Equals("") ? "0" : iniC.ProxyProxyType;
+            iniC.ProxyPort = iniC.ProxyPort == null ? "0" : iniC.ProxyPort.Equals("") ? "0" : iniC.ProxyPort;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);

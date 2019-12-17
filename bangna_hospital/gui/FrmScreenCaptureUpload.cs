@@ -32,7 +32,8 @@ namespace bangna_hospital.gui
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             picWait.Hide();
 
-            bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
+            //bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
+            bc.bcDB.dgssDB.setCboBspDeptUS(cboDgs, "");
             txtHn.Value = hn;
             lbName.Text = pttname;
 
@@ -52,7 +53,7 @@ namespace bangna_hospital.gui
             picWait.Show();
             string ext = Path.GetExtension(filename);
             String dgssname = "",  vn = "", an = "";
-            dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
+            //dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
             DocGroupSubScan dgss = new DocGroupSubScan();
             dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
             DocScan dsc = new DocScan();
@@ -88,6 +89,7 @@ namespace bangna_hospital.gui
                 //MessageBox.Show("222", "");
                 ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
                 //MessageBox.Show("333", "");
+
                 ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename);
                 File.Delete(filename);
                 this.Dispose();
@@ -96,6 +98,12 @@ namespace bangna_hospital.gui
 
         private void FrmScreenCaptureUpload_Load(object sender, EventArgs e)
         {
+            theme1.SetTheme(this, bc.iniC.themeApplication);
+            theme1.SetTheme(label1, bc.iniC.themeApplication);
+            theme1.SetTheme(txtHn, bc.iniC.themeApplication);
+            theme1.SetTheme(label2, bc.iniC.themeApplication);
+            theme1.SetTheme(lbName, bc.iniC.themeApplication);
+            theme1.SetTheme(cboDgs, bc.iniC.themeApplication);
             sB1.Text = "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
         }
     }

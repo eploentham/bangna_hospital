@@ -79,7 +79,7 @@ namespace bangna_hospital
             }
             catch(Exception ex)
             {
-                MessageBox.Show("error "+ex.Message, "");
+                MessageBox.Show("error Main " + ex.Message, "");
             }
             
         }

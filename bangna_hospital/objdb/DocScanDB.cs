@@ -109,10 +109,36 @@ namespace bangna_hospital.objdb
         {
             //DocScan cop1 = new DocScan();
             DataTable dt = new DataTable();
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + id + "' and dsc."+dsc.active+ "='1'  " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectByHnDeptUS(String id)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + id + "' and dsc." + dsc.active + "='1' and dgss.dept_us = '1' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectByHnDeptUs(String id)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
             String sql = "select * " +
                 "From " + dsc.table + " dsc " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where dsc." + dsc.hn + " ='" + id + "' and dsc."+dsc.active+"='1'" +
+                "Where dsc." + dsc.hn + " ='" + id + "' and dsc." + dsc.active + "='1' and " +
                 "Order By doc_group_id ";
             dt = conn.selectData(conn.conn, sql);
 

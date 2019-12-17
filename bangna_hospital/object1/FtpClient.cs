@@ -13,7 +13,7 @@ namespace bangna_hospital.object1
     {
         string host = null;
         string user = null;
-        string pass = null;
+        string pass = null, ProxyProxyType="", ProxyHost="", ProxyPort="";
         FtpWebRequest ftpRequest = null;
         FtpWebResponse ftpResponse = null;
         Stream ftpStream = null;
@@ -29,6 +29,15 @@ namespace bangna_hospital.object1
         {
             host = hostIP; user = userName; pass = password;
             this.ftpUsePassive = ftpUsePassive;
+        }
+        public FtpClient(string hostIP, string userName, string password, Boolean ftpUsePassive, String ProxyProxyType, String ProxyHost, String ProxyPort)
+        {
+            host = hostIP; user = userName; pass = password;
+            this.ftpUsePassive = ftpUsePassive;
+            this.ProxyProxyType = ProxyProxyType;
+            this.ProxyHost = ProxyHost;
+            this.ProxyPort = ProxyPort;
+
         }
         /* Download File */
         public MemoryStream download(String remoteFile)
@@ -95,6 +104,11 @@ namespace bangna_hospital.object1
                 ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
+                ftpRequest.Proxy = new WebProxy();
+                if (ProxyProxyType.Equals("1"))
+                {
+                    ftpRequest.Proxy = new WebProxy(ProxyHost, int.Parse(ProxyPort));
+                }
                 //ftpRequest.Proxy = new WebProxy();
                 //MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
                 //MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);

@@ -770,7 +770,7 @@ namespace bangna_hospital.gui
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("error " + ex.Message, "");
+                    MessageBox.Show("error setStaffNote " + ex.Message, "");
                 }
             }
         }
