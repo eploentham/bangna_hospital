@@ -54,6 +54,7 @@ namespace bangna_hospital.objdb
             dsc.ml_date_time_start = "ml_date_time_start";
             dsc.ml_date_time_end = "ml_date_time_end";
             dsc.ml_fm = "ml_fm";
+            dsc.status_version = "status_version";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -90,6 +91,7 @@ namespace bangna_hospital.objdb
                 itm1.an_date = row[dsc.an_date].ToString();
                 itm1.status_ipd = row[dsc.status_ipd].ToString();
                 itm1.an_cnt = row[dsc.an_cnt].ToString();
+                itm1.status_version = row[dsc.status_version].ToString();
                 lDgs.Add(itm1);
             }
         }
@@ -266,6 +268,7 @@ namespace bangna_hospital.objdb
             p.ml_date_time_start = p.ml_date_time_start == null ? "" : p.ml_date_time_start;
             p.ml_date_time_end = p.ml_date_time_end == null ? "" : p.ml_date_time_end;
             p.ml_fm = p.ml_fm == null ? "" : p.ml_fm;
+            p.status_version = p.status_version == null ? "" : p.status_version;
 
             p.doc_group_id = long.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
             p.row_no = long.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
@@ -306,7 +309,7 @@ namespace bangna_hospital.objdb
             {
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.conn;
-                conn.comStore.CommandText = "insert_doc_scan";
+                conn.comStore.CommandText = "insert_doc_scan_v2";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
                 conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
@@ -324,6 +327,7 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
                 conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
                 conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
+                conn.comStore.Parameters.AddWithValue("status_version", p.status_version);
                 SqlParameter retval =  conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
@@ -469,6 +473,7 @@ namespace bangna_hospital.objdb
                 dgs1.status_ipd = dt.Rows[0][dsc.status_ipd].ToString();
                 dgs1.an_cnt = dt.Rows[0][dsc.an_cnt].ToString();
                 dgs1.folder_ftp = dt.Rows[0][dsc.folder_ftp].ToString();
+                dgs1.status_version = dt.Rows[0][dsc.status_version].ToString();
             }
             else
             {
@@ -501,6 +506,7 @@ namespace bangna_hospital.objdb
             dgs1.status_ipd = "";
             dgs1.an_cnt = "";
             dgs1.folder_ftp = "";
+            dgs1.status_version = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

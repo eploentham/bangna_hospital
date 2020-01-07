@@ -32,24 +32,24 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.lbName = new System.Windows.Forms.Label();
-            this.picWait = new C1.Win.C1Input.C1PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboDgs = new C1.Win.C1Input.C1ComboBox();
             this.btnUpload = new C1.Win.C1Input.C1Button();
             this.sB11 = new System.Windows.Forms.StatusStrip();
-            this.sB1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.picWait = new C1.Win.C1Input.C1PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).BeginInit();
-            this.sB11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWait)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label1.Location = new System.Drawing.Point(6, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 16);
@@ -74,7 +74,9 @@
             // lbName
             // 
             this.lbName.AutoSize = true;
+            this.lbName.BackColor = System.Drawing.Color.White;
             this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.lbName.Location = new System.Drawing.Point(135, 12);
             this.lbName.Name = "lbName";
             this.lbName.Size = new System.Drawing.Size(17, 16);
@@ -82,20 +84,12 @@
             this.lbName.Text = "...";
             this.theme1.SetTheme(this.lbName, "(default)");
             // 
-            // picWait
-            // 
-            this.picWait.Image = global::bangna_hospital.Properties.Resources.loading_transparent;
-            this.picWait.Location = new System.Drawing.Point(97, 63);
-            this.picWait.Name = "picWait";
-            this.picWait.Size = new System.Drawing.Size(135, 125);
-            this.picWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picWait.TabIndex = 5;
-            this.picWait.TabStop = false;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label2.Location = new System.Drawing.Point(6, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 16);
@@ -119,7 +113,7 @@
             this.cboDgs.Size = new System.Drawing.Size(246, 24);
             this.cboDgs.Style.DropDownBackColor = System.Drawing.Color.White;
             this.cboDgs.Style.DropDownBorderColor = System.Drawing.Color.Gainsboro;
-            this.cboDgs.Style.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDgs.Style.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboDgs.TabIndex = 7;
             this.cboDgs.Tag = null;
             this.theme1.SetTheme(this.cboDgs, "(default)");
@@ -137,12 +131,11 @@
             this.btnUpload.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.theme1.SetTheme(this.btnUpload, "(default)");
             this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // sB11
             // 
             this.sB11.BackColor = System.Drawing.Color.White;
-            this.sB11.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sB1});
             this.sB11.Location = new System.Drawing.Point(0, 203);
             this.sB11.Name = "sB11";
             this.sB11.Size = new System.Drawing.Size(342, 22);
@@ -150,11 +143,15 @@
             this.sB11.Text = "statusStrip1";
             this.theme1.SetTheme(this.sB11, "(default)");
             // 
-            // sB1
+            // picWait
             // 
-            this.sB1.Name = "sB1";
-            this.sB1.Size = new System.Drawing.Size(118, 17);
-            this.sB1.Text = "toolStripStatusLabel1";
+            this.picWait.Image = global::bangna_hospital.Properties.Resources.loading_transparent;
+            this.picWait.Location = new System.Drawing.Point(97, 63);
+            this.picWait.Name = "picWait";
+            this.picWait.Size = new System.Drawing.Size(135, 125);
+            this.picWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picWait.TabIndex = 5;
+            this.picWait.TabStop = false;
             // 
             // FrmScreenCaptureUpload
             // 
@@ -175,11 +172,9 @@
             this.Load += new System.EventHandler(this.FrmScreenCaptureUpload_Load);
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).EndInit();
-            this.sB11.ResumeLayout(false);
-            this.sB11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWait)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,6 +190,5 @@
         private C1.Win.C1Input.C1ComboBox cboDgs;
         private C1.Win.C1Input.C1Button btnUpload;
         private System.Windows.Forms.StatusStrip sB11;
-        private System.Windows.Forms.ToolStripStatusLabel sB1;
     }
 }

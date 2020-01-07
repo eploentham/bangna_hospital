@@ -13,6 +13,9 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
+    /*
+     * 62-12-24     0001    การเก็บ file ของ FTP server การสร้าง Folder
+     * */
     public partial class FrmScanAdd : Form
     {
         BangnaControl bc;
@@ -247,6 +250,7 @@ namespace bangna_hospital.gui
                     pB1.Maximum = array1.Count;
                     groupBox1.Controls.Add(pB1);
                     Application.DoEvents();
+                    FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
                     foreach (String aa in array1)
                     {
                         i++;
@@ -285,6 +289,7 @@ namespace bangna_hospital.gui
                             dsc.status_ipd = chkIPD.Checked ? "I" : "O";
                             dsc.row_no = i.ToString();
                             dsc.row_cnt = array1.Count.ToString();
+                            dsc.status_version = "2";
                             String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
                             //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
                             if (chkIPD.Checked)
@@ -295,14 +300,14 @@ namespace bangna_hospital.gui
                             {
                                 vn = txtVN.Text.Replace("/", "_").Replace("(", "_").Replace(")", "");
                             }
-                            dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;
+                            //dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;       //-1
+                            dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
                             String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
-
-
-                            FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                            
                             //MessageBox.Show("111", "");
                             //ftp.createDirectory(txtHn.Text);
-                            ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-") + "-" + vn);
+                            ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-"));       // สร้าง Folder HN
+                            ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn);
                             //MessageBox.Show("222", "");
                             ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
                             //MessageBox.Show("333", "");
@@ -838,6 +843,7 @@ namespace bangna_hospital.gui
                     }
                     dsc.folder_ftp = bc.iniC.folderFTP;
                     dsc.status_ipd = chkIPD.Checked ? "I" : "O";
+                    dsc.status_version = "2";
                     String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
                     //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
                     dsc.image_path = txtVN.Text + "//" + txtHn.Text.Replace("/", "-") + "_" + txtVN.Text + "_" + re + ext;
@@ -1017,6 +1023,8 @@ namespace bangna_hospital.gui
         private void FrmScanNew_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            this.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            sb1.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
         }
     }
 }

@@ -216,8 +216,8 @@ namespace bangna_hospital.gui
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            
-            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2019-11-26 ";
+            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            //sb1.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //theme1.SetTheme(this, ic.theme);
             theme1.SetTheme(this, bc.theme);
             theme1.SetTheme(menuStrip1, bc.theme);

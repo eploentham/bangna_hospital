@@ -104,10 +104,14 @@ namespace bangna_hospital.object1
                 ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
-                ftpRequest.Proxy = new WebProxy();
                 if (ProxyProxyType.Equals("1"))
                 {
-                    ftpRequest.Proxy = new WebProxy(ProxyHost, int.Parse(ProxyPort));
+                    ftpRequest.Proxy = new WebProxy();
+                    int chk = 0;
+                    if ((ProxyHost.Length > 0) && (int.TryParse(ProxyPort, out chk)))
+                    {
+                        ftpRequest.Proxy = new WebProxy(ProxyHost, chk);                        
+                    }
                 }
                 //ftpRequest.Proxy = new WebProxy();
                 //MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
@@ -140,7 +144,7 @@ namespace bangna_hospital.object1
             catch (Exception ex)
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
-                MessageBox.Show(""+ ex.ToString(), "Error ftp upload -> ");
+                MessageBox.Show(""+ ex.ToString(), "Error ftp upload  ");
                 Console.WriteLine(ex.ToString());
             }
             return;
@@ -161,6 +165,11 @@ namespace bangna_hospital.object1
                 ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 /* Specify the Type of FTP Request */
+                if (ProxyProxyType.Equals("1"))
+                {
+                    ftpRequest.Proxy = new WebProxy();
+                    ftpRequest.Proxy = new WebProxy(ProxyHost, int.Parse(ProxyPort));
+                }
                 //ftpRequest.Proxy = new WebProxy();
                 //MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
                 //MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);
@@ -207,6 +216,11 @@ namespace bangna_hospital.object1
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
+                //if (ProxyProxyType.Equals("1"))
+                //{
+                //    ftpRequest.Proxy = new WebProxy();
+                //    ftpRequest.Proxy = new WebProxy(ProxyHost, int.Parse(ProxyPort));
+                //}
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
@@ -283,13 +297,40 @@ namespace bangna_hospital.object1
             {
                 /* Create an FTP Request */
                 //ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + newDirectory+"/");
-                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + newDirectory);
+                ftpRequest = (FtpWebRequest)WebRequest.Create(host + "//" + newDirectory);
                 //ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/images/");
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
+                //ftpRequest.Proxy = new WebProxy();
                 //ftpRequest.UsePassive = true;
+                //if (ProxyProxyType.Equals("1"))
+                //{
+                //    //ftpRequest.Proxy = new WebProxy();
+                //    //MessageBox.Show("ProxyHost  " + ProxyHost, "");
+                //    if (ProxyHost.Length == 0)
+                //    {
+                //        //MessageBox.Show("ProxyHost  "+ ProxyHost, "");
+                //    }
+                //    else
+                //    {
+                //        int chk = 0;
+                //        if (int.TryParse(ProxyPort, out chk))
+                //        {
+                //            ftpRequest.Proxy = new WebProxy(ProxyHost, chk);
+                //            //MessageBox.Show("ProxyPort  " + ProxyPort+ " ProxyHost "+ ProxyHost, "");
+                //        }
+                //        else
+                //        {
+                //            //MessageBox.Show("ProxyPort  " + ProxyPort, "");
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    //MessageBox.Show("ProxyProxyType NO  ", "");
+                //}
                 ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 //ftpRequest.EnableSsl = true;
@@ -305,6 +346,7 @@ namespace bangna_hospital.object1
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
                 //MessageBox.Show(" " + ex.ToString(), "Error createDirectory -> ");
+                new LogWriter("e", "createDirectory newDirectory " + host + "//" + newDirectory +" "+ ex.ToString());
                 Console.WriteLine(ex.ToString());
             }
             return;

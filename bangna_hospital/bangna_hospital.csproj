@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital</AssemblyName>
+    <AssemblyName>bangna_hospital_scan_view</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -117,6 +117,12 @@
     </Compile>
     <Compile Include="gui\FrmDocGroupSub.Designer.cs">
       <DependentUpon>FrmDocGroupSub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmDoctorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDoctorView.Designer.cs">
+      <DependentUpon>FrmDoctorView.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\frmNHSOPrint.cs">
       <SubType>Form</SubType>
@@ -237,6 +243,7 @@
     <Compile Include="objdb\StaffDB.cs" />
     <Compile Include="objdb\VisitDB.cs" />
     <Compile Include="objdb\XrayDB.cs" />
+    <Compile Include="object1\Age.cs" />
     <Compile Include="object1\CellNoteManager.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
     <Compile Include="object1\Demos.cs" />
@@ -250,6 +257,7 @@
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LabEx.cs" />
     <Compile Include="object1\LogFile.cs" />
+    <Compile Include="object1\LogWriter.cs" />
     <Compile Include="object1\Messager.cs" />
     <Compile Include="object1\Patient.cs" />
     <Compile Include="object1\Persistent.cs" />
@@ -274,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDocGroupSub.resx">
       <DependentUpon>FrmDocGroupSub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDoctorView.resx">
+      <DependentUpon>FrmDoctorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\frmNHSOPrint.resx">
       <DependentUpon>frmNHSOPrint.cs</DependentUpon>
@@ -1002,6 +1013,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon-sqr-01.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paomedia-Small-N-Flat-Floppy.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

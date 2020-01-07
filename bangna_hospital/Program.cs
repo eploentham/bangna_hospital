@@ -71,6 +71,12 @@ namespace bangna_hospital
                 {
                     Application.Run(new gui.FrmScreenCapture(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("doctorView"))
+                {
+                    FrmSplash spl = new FrmSplash();
+                    spl.Show();
+                    Application.Run(new gui.FrmDoctorView(bc, spl));
+                }
                 else
                 {
 

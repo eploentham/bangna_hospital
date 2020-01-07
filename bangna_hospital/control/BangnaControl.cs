@@ -21,7 +21,7 @@ namespace bangna_hospital.control
         private IniFile iniF;
         public ConnectDB conn;
 
-        public String theme = "", userId = "", hn="", vn="", preno="";
+        public String theme = "", userId = "", hn="", vn="", preno="", appName = "";
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
@@ -31,7 +31,7 @@ namespace bangna_hospital.control
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
-        public int grfScanWidth = 0, imgScanWidth = 0;
+        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0;
 
         public BangnaControl()
         {
@@ -39,7 +39,7 @@ namespace bangna_hospital.control
         }
         private void initConfig()
         {
-            String appName = "";
+            
             appName = System.AppDomain.CurrentDomain.FriendlyName;
             appName = appName.ToLower().Replace(".exe", "");
             if (System.IO.File.Exists(Environment.CurrentDirectory + "\\" + appName + ".ini"))
@@ -50,6 +50,10 @@ namespace bangna_hospital.control
             {
                 appName = Environment.CurrentDirectory + "\\" + Application.ProductName + ".ini";
             }
+            //if (!File.Exists(appName))
+            //{
+            //    appName = "c:\\";
+            //}
             iniF = new IniFile(appName);
             iniC = new InitConfig();
             cTxtFocus = ColorTranslator.FromHtml(iniC.txtFocus);
@@ -125,6 +129,9 @@ namespace bangna_hospital.control
             iniC.imgScanWidth = iniF.getIni("app", "imgScanWidth");
             iniC.pathScanStaffNote = iniF.getIni("app", "pathScanStaffNote");
             iniC.pathScreenCaptureUpload = iniF.getIni("app", "pathScreenCaptureUpload");
+            iniC.pathIniFile = iniF.getIni("app", "pathIniFile");
+            iniC.statusShowPrintDialog = iniF.getIni("app", "statusShowPrintDialog");
+            iniC.txtSearchHnLenghtStart = iniF.getIni("app", "txtSearchHnLenghtStart");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -143,6 +150,8 @@ namespace bangna_hospital.control
             iniC.pathScanStaffNote = iniC.pathScanStaffNote == null ? "172.25.10.5" : iniC.pathScanStaffNote.Equals("") ? "172.25.10.5" : iniC.pathScanStaffNote;
             iniC.ProxyProxyType = iniC.ProxyProxyType == null ? "0" : iniC.ProxyProxyType.Equals("") ? "0" : iniC.ProxyProxyType;
             iniC.ProxyPort = iniC.ProxyPort == null ? "0" : iniC.ProxyPort.Equals("") ? "0" : iniC.ProxyPort;
+            iniC.pathIniFile = iniC.pathIniFile == null ? "" : iniC.pathIniFile.Equals("") ? "" : iniC.pathIniFile;
+            iniC.statusShowPrintDialog = iniC.statusShowPrintDialog == null ? "0" : iniC.statusShowPrintDialog.Equals("") ? "0" : iniC.statusShowPrintDialog;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -151,6 +160,7 @@ namespace bangna_hospital.control
 
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             int.TryParse(iniC.imgScanWidth, out imgScanWidth);
+            int.TryParse(iniC.txtSearchHnLenghtStart, out txtSearchHnLenghtStart);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {

@@ -26,7 +26,7 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         Font fEdit, fEditB;
         C1PictureBox picScr;
-        C1FlexGrid grfView, grfUpload;
+        C1FlexGrid grfView, grfDownload;
         C1List listView;
         private System.IO.FileSystemWatcher m_Watcher;
         List<String> lFile, lFilePrint;
@@ -91,6 +91,12 @@ namespace bangna_hospital.gui
             //FrmScreenCapturePrintMulti frm = new FrmScreenCapturePrintMulti();
             //frm.Show(this);
             initPrintMulti();
+
+            if (File.Exists(bc.hn))
+            {
+                getListFile();
+            }
+            //MessageBox.Show("args "+bc.hn, "");
             //pnMain.Hide();
             //this.Width = this.Width - int.Parse(bc.iniC.imggridscanwidth);
             //this.Width = formwidth + int.Parse(bc.iniC.imggridscanwidth);
@@ -106,7 +112,7 @@ namespace bangna_hospital.gui
         private void ChkView_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            initGrfUpload();
+            initGrfDownload();
             setGrfUpload();
         }
 
@@ -124,7 +130,7 @@ namespace bangna_hospital.gui
         private void FrmScreenCapture_Activated(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            getListFile();
+            //getListFile();
         }
 
         private void FrmScreenCapture_FormClosed(object sender, FormClosedEventArgs e)
@@ -132,25 +138,25 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             //m_Watcher.Dispose();
         }
-        private void initGrfUpload()
+        private void initGrfDownload()
         {
             if(grfView != null)
             {
                 grfView.Dispose();
             }
-            grfUpload = new C1FlexGrid();
-            grfUpload.Font = fEdit;
-            grfUpload.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfUpload.Location = new System.Drawing.Point(0, 0);
+            grfDownload = new C1FlexGrid();
+            grfDownload.Font = fEdit;
+            grfDownload.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfDownload.Location = new System.Drawing.Point(0, 0);
 
-            grfUpload.Rows[0].Visible = false;
-            grfUpload.Cols[0].Visible = false;
-            pnView.Controls.Add(grfUpload);
+            grfDownload.Rows[0].Visible = false;
+            grfDownload.Cols[0].Visible = false;
+            pnView.Controls.Add(grfDownload);
 
-            grfUpload.Rows.Count = 1;
-            grfUpload.Cols.Count = 3;
-            grfUpload.Cols[1].Width = this.Width - 50;
-            grfUpload.DoubleClick += GrfUpload_DoubleClick;
+            grfDownload.Rows.Count = 1;
+            grfDownload.Cols.Count = 5;
+            grfDownload.Cols[1].Width = this.Width - 50;
+            grfDownload.DoubleClick += GrfDownload_DoubleClick;
             
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_View_Print));
@@ -160,19 +166,23 @@ namespace bangna_hospital.gui
             menuGw.MenuItems.Add("ต้องการ ลบข้อมูลนี้", new EventHandler(ContextMenu_View_Delete));
             //mouseWheel = 0;
             //pic.MouseWheel += Pic_MouseWheel;
-            grfUpload.ContextMenu = menuGw;
+            grfDownload.ContextMenu = menuGw;
 
-            grfUpload.Cols[2].Visible = false;
+            grfDownload.Cols[colUploadId].Visible = false;
+            grfDownload.Cols[colUploadName].Visible = false;
+            grfDownload.Cols[colUploadPath].Visible = false;
+            grfDownload.Cols[colUploadImg].AllowEditing = false;
+            //grfUpload.Cols[2].Visible = false;
         }
 
-        private void GrfUpload_DoubleClick(object sender, EventArgs e)
+        private void GrfDownload_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (grfUpload.Row < 0) return;
-            if (grfUpload.Col < 0) return;
+            if (grfDownload.Row < 0) return;
+            if (grfDownload.Col < 0) return;
             String id = "", filename="";
-            id = grfUpload[grfUpload.Row, colUploadId].ToString();
-            filename = grfUpload[grfUpload.Row, colUploadPath].ToString();
+            id = grfDownload[grfDownload.Row, colUploadId].ToString();
+            filename = grfDownload[grfDownload.Row, colUploadPath].ToString();
             string ext = Path.GetExtension(filename);
             if (ext.ToLower().IndexOf("pdf") > 0)
             {
@@ -318,10 +328,10 @@ namespace bangna_hospital.gui
         private void ContextMenu_View_Print_multi(object sender, System.EventArgs e)
         {
             String id = "", filename = "", txtmenu="";
-            if (grfUpload.Col <= 0) return;
-            if (grfUpload.Row < 0) return;
-            id = grfUpload[grfUpload.Row, colUploadId].ToString();
-            filename = grfUpload[grfUpload.Row, colUploadPath].ToString();
+            if (grfDownload.Col <= 0) return;
+            if (grfDownload.Row < 0) return;
+            id = grfDownload[grfDownload.Row, colUploadId].ToString();
+            filename = grfDownload[grfDownload.Row, colUploadPath].ToString();
             txtmenu = sender.ToString();
             MenuItem menu = (MenuItem)sender;
             //lFilePrint[cntPrint] = filename;
@@ -359,7 +369,6 @@ namespace bangna_hospital.gui
             }
             else
             {
-                
                 frmImg.Hide();
                 frmImg.Show();
                 frmImg.Location = new System.Drawing.Point(this.Location.X + this.Width + 20, screenHeight - frmImg.Height-40);
@@ -370,11 +379,11 @@ namespace bangna_hospital.gui
         private void ContextMenu_View_Print(object sender, System.EventArgs e)
         {
             String id = "", filename="";
-            if (grfUpload.Col <= 0) return;
-            if (grfUpload.Row < 0) return;
-            id = grfUpload[grfUpload.Row, colUploadId].ToString();
-            filename = grfUpload[grfUpload.Row, colUploadPath].ToString();
-            
+            if (grfDownload.Col <= 0) return;
+            if (grfDownload.Row < 0) return;
+            id = grfDownload[grfDownload.Row, colUploadId].ToString();
+            filename = grfDownload[grfDownload.Row, colUploadPath].ToString();
+            //MessageBox.Show("bc.iniC.hostFTP "+ bc.iniC.hostFTP+ "\nbc.iniC.userFTP "+ bc.iniC.userFTP+ "\nfilename "+ filename+"\n filename Replase "+ filename.Replace(bc.iniC.hostFTP,""), "");
             FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
             streamPrint = ftpc.download(filename.Replace(bc.iniC.hostFTP, ""));
 
@@ -463,22 +472,34 @@ namespace bangna_hospital.gui
         }
         private void setGrfUpload()
         {
-            grfUpload.Cols.Count = 5;
-            grfUpload.Rows.Count = 0;
-            Column colpic1 = grfUpload.Cols[colUploadImg];
+            grfDownload.Cols.Count = 5;
+            grfDownload.Rows.Count = 0;
+            Column colpic1 = grfDownload.Cols[colUploadImg];
             colpic1.DataType = typeof(Image);
 
 
-            grfUpload.ShowCursor = true;
-            grfUpload.Cols[colUploadId].Visible = false;
-            grfUpload.Cols[colUploadName].Visible = false;
-            grfUpload.Cols[colUploadPath].Visible = false;
+            grfDownload.ShowCursor = true;
+            grfDownload.Cols[colUploadId].Visible = false;
+            grfDownload.Cols[colUploadName].Visible = false;
+            grfDownload.Cols[colUploadPath].Visible = false;
+
+            ProgressBar pB1 = new ProgressBar();
+            pB1.Minimum = 0;
+            pB1.Location = new Point(20, 5);
+            pB1.Width = panel2.Width-60;
+            panel2.Controls.Add(pB1);
+            label1.Hide();
+            lbName.Hide();
+            txtHn.Hide();
+            chkUpload.Hide();
+            chkView.Hide();
 
             DataTable dt = new DataTable();
             dt = bc.bcDB.dscDB.selectByHnDeptUS(txtHn.Text);
             if (dt.Rows.Count > 0)
             {
-                grfUpload.Rows.Count = dt.Rows.Count;
+                pB1.Maximum = dt.Rows.Count;
+                grfDownload.Rows.Count = dt.Rows.Count;
                 String err = "", filename = "";
                 for(int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -488,8 +509,8 @@ namespace bangna_hospital.gui
                         filename = dt.Rows[i][bc.bcDB.dscDB.dsc.host_ftp].ToString() + "//" + dt.Rows[i][bc.bcDB.dscDB.dsc.folder_ftp].ToString() + "//" + dt.Rows[i][bc.bcDB.dscDB.dsc.image_path].ToString();
                         string ext = Path.GetExtension(filename);
 
-                        grfUpload[i, colUploadId] = dt.Rows[i][bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
-                        grfUpload[i, colUploadPath] = filename;
+                        grfDownload[i, colUploadId] = dt.Rows[i][bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                        grfDownload[i, colUploadPath] = filename;
                         FtpWebRequest ftpRequest = null;
                         FtpWebResponse ftpResponse = null;
                         Stream ftpStream = null;
@@ -525,35 +546,42 @@ namespace bangna_hospital.gui
 
                         if (ext.ToLower().IndexOf("pdf") > 0)
                         {
-                            grfUpload[i, colUploadImg] = Resources.pdf_symbol_300;
+                            grfDownload[i, colUploadImg] = Resources.pdf_symbol_300;
                         }
                         else
                         {
-                            grfUpload.Cols[0].Width = bc.imggridscanwidth;
+                            grfDownload.Cols[0].Width = bc.imggridscanwidth;
                             loadedImage = new Bitmap(stream);
                             err = "04";
                             int originalWidth = 0;
                             originalWidth = loadedImage.Width;
                             int newWidth = bc.imggridscanwidth;
                             resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                            grfUpload[i, colUploadImg] = resizedImage;
+                            grfDownload[i, colUploadImg] = resizedImage;
                         }
                     }
                     catch(Exception ex)
                     {
-                        MessageBox.Show("err " + err + " filename " + filename + "\n "+ex.Message, "");
+                        //MessageBox.Show("err " + err + " filename " + filename + "\n "+ex.Message, "");
                     }
-                    
+                    Application.DoEvents();
+                    pB1.Value = i;
                 }
-                grfUpload.AutoSizeCols();
-                grfUpload.AutoSizeRows();
+                grfDownload.AutoSizeCols();
+                grfDownload.AutoSizeRows();
             }
+            pB1.Dispose();
+            label1.Show();
+            lbName.Show();
+            txtHn.Show();
+            chkUpload.Show();
+            chkView.Show();
         }
         private void initGrfView()
         {
-            if (grfUpload != null)
+            if (grfDownload != null)
             {
-                grfUpload.Dispose();
+                grfDownload.Dispose();
             }
             grfView = new C1FlexGrid();
             grfView.Font = fEdit;
@@ -611,7 +639,25 @@ namespace bangna_hospital.gui
         private void getListFile()
         {
             if (grfView == null) return;
-            DirectoryInfo dir = new DirectoryInfo(bc.iniC.pathScreenCaptureUpload);
+            String path = "";
+            if (bc.hn.Length > 0)
+            {
+                if (File.Exists(bc.hn))
+                {
+                    //path = bc.hn;
+                    path = Path.GetDirectoryName(bc.hn);
+                }
+                else
+                {
+                    path = bc.iniC.pathScreenCaptureUpload;
+                }
+            }
+            else
+            {
+                path = bc.iniC.pathScreenCaptureUpload;
+            }
+            //MessageBox.Show("path "+ path, "");
+            DirectoryInfo dir = new DirectoryInfo(path);
             FileInfo[] Files = dir.GetFiles("*.*");
             string str = "";
             //grfView.Rows.Count = 4;
@@ -619,7 +665,16 @@ namespace bangna_hospital.gui
             lFile.Clear();
             foreach (FileInfo file in Files)
             {
-                lFile.Add(file.FullName);
+                if (bc.hn.Length > 0)
+                {
+                    lFile.Add(bc.hn);
+                    break;
+                }
+                string ext = Path.GetExtension(file.FullName);
+                if(ext.ToLower().Equals(".pdf") || ext.ToLower().Equals(".jpg"))
+                {
+                    lFile.Add(file.FullName);
+                }
             }
             setListView();
         }
@@ -751,7 +806,7 @@ namespace bangna_hospital.gui
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new System.Drawing.Point(5, screenHeight - this.Height - 40);
             frmImg.Location = new System.Drawing.Point(this.Location.X + this.Width + 20, this.Top);
-            this.Text = "Last Update 2019-12-17";
+            this.Text = "Last Update 2019-12-24 ProxyProxyType " + bc.iniC.ProxyProxyType;
         }
     }
 }

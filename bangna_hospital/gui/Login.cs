@@ -61,6 +61,8 @@ namespace bangna_hospital.gui
             {
                 theme1.SetTheme(con, bc.iniC.themeApplication);
             }
+            theme1.SetTheme(txtUserName, bc.iniC.themeDonor);
+            theme1.SetTheme(txtPassword, bc.iniC.themeDonor);
             //stt.BackgroundGradient = C1.Win.C1SuperTooltip.BackgroundGradient.Gold;
             //stt.
         }
@@ -83,7 +85,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             stf = stfDB.selectByLogin(txtUserName.Text, txtPassword.Text);
-            stf.fullname = "111";
+            //stf.fullname = "111";
             if (stf.fullname.Length > 0)
             {
                 bc.userId = stf.staff_id;

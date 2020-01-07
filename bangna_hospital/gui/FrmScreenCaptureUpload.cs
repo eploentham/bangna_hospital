@@ -75,15 +75,18 @@ namespace bangna_hospital.gui
             dsc.row_no = "1";
             dsc.row_cnt = "1";
             String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
-
+            
+            sB11.Text = " filename " + filename + " bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path;
             long chk = 0;
             if(long.TryParse(re, out chk))
             {
+                //dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
                 dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + re + ext;
                 String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
-
-                FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
-                //MessageBox.Show("111", "");
+                //MessageBox.Show("filename" + filename + "\n bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path, "");
+                //FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP,bc.ftpUsePassive,bc.iniC.ProxyProxyType, bc.iniC.ProxyHost, bc.iniC.ProxyPort);
+                //MessageBox.Show("HN "+ txtHn.Text.Replace("/", "-"), "");
                 //ftp.createDirectory(txtHn.Text);
                 ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-"));
                 //MessageBox.Show("222", "");
@@ -92,6 +95,7 @@ namespace bangna_hospital.gui
 
                 ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename);
                 File.Delete(filename);
+                System.Threading.Thread.Sleep(1000);
                 this.Dispose();
             }
         }
@@ -104,7 +108,8 @@ namespace bangna_hospital.gui
             theme1.SetTheme(label2, bc.iniC.themeApplication);
             theme1.SetTheme(lbName, bc.iniC.themeApplication);
             theme1.SetTheme(cboDgs, bc.iniC.themeApplication);
-            sB1.Text = "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            theme1.SetTheme(sB11, bc.iniC.themeApplication);
+            sB11.Text = "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP+" ini path "+bc.appName;
         }
     }
 }
