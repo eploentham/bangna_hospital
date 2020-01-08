@@ -133,6 +133,12 @@
     <Compile Include="gui\FrmPasswordConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmPrintCri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmPrintCri.Designer.cs">
+      <DependentUpon>FrmPrintCri.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmQueueAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +294,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\frmNHSOPrint.resx">
       <DependentUpon>frmNHSOPrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmPrintCri.resx">
+      <DependentUpon>FrmPrintCri.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueAdd.resx">
       <DependentUpon>FrmQueueAdd.cs</DependentUpon>

@@ -58,6 +58,7 @@
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
             this.PageS = new C1.Win.C1Command.C1DockingTabPage();
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
+            this.menuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tCC1)).BeginInit();
             this.tCC1.SuspendLayout();
@@ -87,14 +88,15 @@
             // 
             this.menuExit.Image = global::bangna_hospital.Properties.Resources.login24;
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(53, 20);
+            this.menuExit.Size = new System.Drawing.Size(54, 20);
             this.menuExit.Text = "Exit";
             // 
             // menuMedicalRecord
             // 
             this.menuMedicalRecord.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuScan,
-            this.menuScanView});
+            this.menuScanView,
+            this.menuPrint});
             this.menuMedicalRecord.Name = "menuMedicalRecord";
             this.menuMedicalRecord.Size = new System.Drawing.Size(101, 20);
             this.menuMedicalRecord.Text = "Medical Record";
@@ -102,13 +104,13 @@
             // menuScan
             // 
             this.menuScan.Name = "menuScan";
-            this.menuScan.Size = new System.Drawing.Size(150, 22);
+            this.menuScan.Size = new System.Drawing.Size(180, 22);
             this.menuScan.Text = "Scan ใหม่";
             // 
             // menuScanView
             // 
             this.menuScanView.Name = "menuScanView";
-            this.menuScanView.Size = new System.Drawing.Size(150, 22);
+            this.menuScanView.Size = new System.Drawing.Size(180, 22);
             this.menuScanView.Text = "ดูข้อมูลเก่า Scan";
             // 
             // menuNurse
@@ -125,19 +127,19 @@
             // menuReqLab
             // 
             this.menuReqLab.Name = "menuReqLab";
-            this.menuReqLab.Size = new System.Drawing.Size(180, 22);
+            this.menuReqLab.Size = new System.Drawing.Size(175, 22);
             this.menuReqLab.Text = "Request Lab";
             // 
             // menuNurseDefault
             // 
             this.menuNurseDefault.Name = "menuNurseDefault";
-            this.menuNurseDefault.Size = new System.Drawing.Size(180, 22);
+            this.menuNurseDefault.Size = new System.Drawing.Size(175, 22);
             this.menuNurseDefault.Text = "Nurse Screen";
             // 
             // menuExamiRoom
             // 
             this.menuExamiRoom.Name = "menuExamiRoom";
-            this.menuExamiRoom.Size = new System.Drawing.Size(180, 22);
+            this.menuExamiRoom.Size = new System.Drawing.Size(175, 22);
             this.menuExamiRoom.Text = "Examination Room";
             // 
             // menuLab
@@ -157,37 +159,37 @@
             // menuLabAccept
             // 
             this.menuLabAccept.Name = "menuLabAccept";
-            this.menuLabAccept.Size = new System.Drawing.Size(180, 22);
+            this.menuLabAccept.Size = new System.Drawing.Size(179, 22);
             this.menuLabAccept.Text = "Accept Lab";
             // 
             // menuLabOpu
             // 
             this.menuLabOpu.Name = "menuLabOpu";
-            this.menuLabOpu.Size = new System.Drawing.Size(180, 22);
+            this.menuLabOpu.Size = new System.Drawing.Size(179, 22);
             this.menuLabOpu.Text = "ป้อน OPU";
             // 
             // menuLabFet
             // 
             this.menuLabFet.Name = "menuLabFet";
-            this.menuLabFet.Size = new System.Drawing.Size(180, 22);
+            this.menuLabFet.Size = new System.Drawing.Size(179, 22);
             this.menuLabFet.Text = "ป้อน FET";
             // 
             // ปอนSemenAnalysisToolStripMenuItem
             // 
             this.ปอนSemenAnalysisToolStripMenuItem.Name = "ปอนSemenAnalysisToolStripMenuItem";
-            this.ปอนSemenAnalysisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ปอนSemenAnalysisToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.ปอนSemenAnalysisToolStripMenuItem.Text = "ป้อน Semen Analysis";
             // 
             // ปอนSpermFreexingToolStripMenuItem
             // 
             this.ปอนSpermFreexingToolStripMenuItem.Name = "ปอนSpermFreexingToolStripMenuItem";
-            this.ปอนSpermFreexingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ปอนSpermFreexingToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.ปอนSpermFreexingToolStripMenuItem.Text = "ป้อนSperm Freezing";
             // 
             // menuTestForm
             // 
             this.menuTestForm.Name = "menuTestForm";
-            this.menuTestForm.Size = new System.Drawing.Size(180, 22);
+            this.menuTestForm.Size = new System.Drawing.Size(179, 22);
             this.menuTestForm.Text = "Test Form";
             // 
             // menuPharmacy
@@ -305,6 +307,12 @@
             // 
             this.theme1.Theme = "BeigeOne";
             // 
+            // menuPrint
+            // 
+            this.menuPrint.Name = "menuPrint";
+            this.menuPrint.Size = new System.Drawing.Size(180, 22);
+            this.menuPrint.Text = "พิมพ์เอกสาร";
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,5 +368,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuExamiRoom;
         private System.Windows.Forms.ToolStripMenuItem menuPharmacy;
         private System.Windows.Forms.ToolStripMenuItem menuDrugPatient;
+        private System.Windows.Forms.ToolStripMenuItem menuPrint;
     }
 }

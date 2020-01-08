@@ -133,8 +133,7 @@ namespace bangna_hospital.gui
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged;
             //sC1.TabIndexChanged += SC1_TabIndexChanged;
             //tcDtr.TabClick += TcDtr_TabClick;
-
-
+            
             tcDtr = new C1DockingTab();
             tcDtr.Dock = System.Windows.Forms.DockStyle.Fill;
             tcDtr.Location = new System.Drawing.Point(0, 266);
@@ -154,6 +153,7 @@ namespace bangna_hospital.gui
             initGrf();
 
             setPicStaffNote();
+            setControlHN();
             theme1.SetTheme(tcDtr, theme1.Theme);
 
         }
@@ -698,13 +698,16 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
-                txtName.Value = ptt.Name;
-                setGrfVsIPD();
-                setGrfVsOPD();
+                setControlHN();
             }
         }
-
+        private void setControlHN()
+        {
+            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            txtName.Value = ptt.Name;
+            setGrfVsIPD();
+            setGrfVsOPD();
+        }
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

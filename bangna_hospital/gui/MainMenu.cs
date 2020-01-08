@@ -63,6 +63,13 @@ namespace bangna_hospital.gui
             menuDocGroup.Click += MenuDocGroup_Click;
             menuScanView.Click += MenuScanView_Click;
             menuDocGroupSub.Click += MenuDocGroupSub_Click;
+            menuPrint.Click += MenuPrint_Click;
+        }
+
+        private void MenuPrint_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void MenuDocGroupSub_Click(object sender, EventArgs e)

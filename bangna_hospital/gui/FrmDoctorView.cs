@@ -78,7 +78,7 @@ namespace bangna_hospital.gui
             timer1 = new System.Windows.Forms.Timer();
             int chk = 0;
             int.TryParse(bc.iniC.timerImgScanNew, out chk);
-            timer1.Interval = chk;
+            timer1.Interval = chk*1000;
             timer1.Enabled = true;
             timer1.Tick += Timer1_Tick;
             timer1.Stop();
