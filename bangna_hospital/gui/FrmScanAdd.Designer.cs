@@ -30,7 +30,7 @@
         {
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnDel = new C1.Win.C1Input.C1Button();
+            this.btnUpload = new C1.Win.C1Input.C1Button();
             this.txtAnCnt = new C1.Win.C1Input.C1TextBox();
             this.chkIPD = new C1.Win.C1Input.C1CheckBox();
             this.txtAnDate = new C1.Win.C1Input.C1DateEdit();
@@ -51,7 +51,7 @@
             this.sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAnCnt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAnDate)).BeginInit();
@@ -70,7 +70,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
-            this.groupBox1.Controls.Add(this.btnDel);
+            this.groupBox1.Controls.Add(this.btnUpload);
             this.groupBox1.Controls.Add(this.txtAnCnt);
             this.groupBox1.Controls.Add(this.chkIPD);
             this.groupBox1.Controls.Add(this.txtAnDate);
@@ -97,19 +97,19 @@
             this.groupBox1.Text = "Patient";
             this.theme1.SetTheme(this.groupBox1, "(default)");
             // 
-            // btnDel
+            // btnUpload
             // 
-            this.btnDel.Image = global::bangna_hospital.Properties.Resources.download_database24;
-            this.btnDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDel.Location = new System.Drawing.Point(931, 13);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(71, 30);
-            this.btnDel.TabIndex = 555;
-            this.btnDel.Text = "Upload";
-            this.btnDel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.theme1.SetTheme(this.btnDel, "(default)");
-            this.btnDel.UseVisualStyleBackColor = true;
-            this.btnDel.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.btnUpload.Image = global::bangna_hospital.Properties.Resources.download_database24;
+            this.btnUpload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpload.Location = new System.Drawing.Point(931, 13);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(71, 30);
+            this.btnUpload.TabIndex = 555;
+            this.btnUpload.Text = "Upload";
+            this.btnUpload.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnUpload, "(default)");
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtAnCnt
             // 
@@ -129,7 +129,6 @@
             this.chkIPD.BackColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIPD.ForeColor = System.Drawing.Color.Black;
             this.chkIPD.Location = new System.Drawing.Point(465, 36);
             this.chkIPD.Name = "chkIPD";
@@ -403,7 +402,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAnCnt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAnDate)).EndInit();
@@ -443,7 +442,7 @@
         private C1.Win.C1Input.C1CheckBox chkIPD;
         private C1.Win.C1Input.C1TextBox txtAnCnt;
         private System.Windows.Forms.Panel panel1;
-        private C1.Win.C1Input.C1Button btnDel;
+        private C1.Win.C1Input.C1Button btnUpload;
         private C1.Win.C1Ribbon.C1StatusBar sb1;
     }
 }

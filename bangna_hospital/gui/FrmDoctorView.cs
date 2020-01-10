@@ -72,8 +72,13 @@ namespace bangna_hospital.gui
             c1Label3.Font = fEdit;
             c1Label2.Font = fEditBig;
             tC1.Font = fEditBig;
+            txtHn.Font = fEdit;
+            c1Label1.Font = fEdit;
+
             txtDate.DropDownClosed += TxtDate_DropDownClosed;
             tC1.Click += TC1_Click;
+            btnHnSearch.Click += BtnHnSearch_Click;
+            txtHn.KeyUp += TxtHn_KeyUp;
 
             timer1 = new System.Windows.Forms.Timer();
             int chk = 0;
@@ -86,6 +91,25 @@ namespace bangna_hospital.gui
             initGrfQue();
             setGrfQue();
             initGrfApm();
+        }
+
+        private void TxtHn_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                String hn = "", pttname = "";
+                Patient ptt = new Patient();
+                ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+                hn = txtHn.Text;
+                openNewForm(hn, ptt.Name);
+            }
+        }
+
+        private void BtnHnSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void TC1_Click(object sender, EventArgs e)
@@ -239,7 +263,11 @@ namespace bangna_hospital.gui
             vn = grfQue[grfQue.Row, colQueVnShow] != null ? grfQue[grfQue.Row, colQueVnShow].ToString() : "";
             hn = grfQue[grfQue.Row, colQueHn] != null ? grfQue[grfQue.Row, colQueHn].ToString() : "";
             txt = grfQue[grfQue.Row, colQuePttName] != null ? grfQue[grfQue.Row, colQuePttName].ToString() : "";
+            openNewForm(hn, txt);
 
+        }
+        private void openNewForm(String hn, String txt)
+        {
             FrmScanView1 frm = new FrmScanView1(bc, hn);
             frm.FormBorderStyle = FormBorderStyle.None;
             AddNewTab(frm, txt);
@@ -291,7 +319,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
 
         }
-
         private void setGrfQue()
         {
             grfQue.Clear();

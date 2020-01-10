@@ -99,7 +99,7 @@ namespace bangna_hospital.gui
 
             btnOpen.Click += BtnOpen_Click;
             btnHn.Click += BtnHn_Click;
-            btnDel.Click += BtnDel_Click;
+            btnUpload.Click += BtnUploadl_Click;
 
             sb1.Text = "aaaaaaaaaa";
             initGrf();
@@ -217,10 +217,24 @@ namespace bangna_hospital.gui
 
             }
         }
-        private void BtnDel_Click(object sender, EventArgs e)
+        private void BtnUploadl_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();            
-
+            if (txtHn.Text.Trim().Length <= 0)
+            {
+                MessageBox.Show("ไม่พบ HN", "");
+                return;
+            }
+            if (chkIPD.Checked && txtAN.Text.Trim().Length <= 0)
+            {
+                MessageBox.Show("ไม่พบ AN", "");
+                return;
+            }
+            else if (!chkIPD.Checked && txtVN.Text.Trim().Length <= 0)
+            {
+                MessageBox.Show("ไม่พบ VN", "");
+                return;
+            }
             if (Directory.Exists(bc.iniC.pathImageScan))
             {
                 if (MessageBox.Show("ยืนยัน upload รูป เวชระเบียน เข้ากลุ่มอื่นๆ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
