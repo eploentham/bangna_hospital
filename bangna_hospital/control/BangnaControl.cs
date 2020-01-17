@@ -91,6 +91,12 @@ namespace bangna_hospital.control
             iniC.passDBPACs = iniF.getIni("connection", "passDBPACs");
             iniC.portDBPACs = iniF.getIni("connection", "portDBPACs");
 
+            iniC.hostDBLabOut = iniF.getIni("connection", "hostDBLabOut");
+            iniC.nameDBLabOut = iniF.getIni("connection", "nameDBLabOut");
+            iniC.userDBLabOut = iniF.getIni("connection", "userDBLabOut");
+            iniC.passDBLabOut = iniF.getIni("connection", "passDBLabOut");
+            iniC.portDBLabOut = iniF.getIni("connection", "portDBLabOut");
+
             iniC.hostFTP = iniF.getIni("ftp", "hostFTP");
             iniC.userFTP = iniF.getIni("ftp", "userFTP");
             iniC.passFTP = iniF.getIni("ftp", "passFTP");
@@ -132,6 +138,8 @@ namespace bangna_hospital.control
             iniC.pathIniFile = iniF.getIni("app", "pathIniFile");
             iniC.statusShowPrintDialog = iniF.getIni("app", "statusShowPrintDialog");
             iniC.txtSearchHnLenghtStart = iniF.getIni("app", "txtSearchHnLenghtStart");
+            iniC.pathLabOutReceive = iniF.getIni("app", "pathLabOutReceive");
+            iniC.pathLabOutBackup = iniF.getIni("app", "pathLabOutBackup");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -156,6 +164,7 @@ namespace bangna_hospital.control
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
+            Boolean.TryParse(iniC.usePassiveFTPLabOut, out ftpUsePassiveLabOut);
             int.TryParse(iniC.grfScanWidth, out grfScanWidth);
 
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);

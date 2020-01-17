@@ -280,7 +280,7 @@ namespace bangna_hospital.objdb
                 " Where " + labex.Vn + " = '" + vn + "' " +
                 "and " + labex.Active + " = '1' and " + labex.Hn + " = '" + hn + "' " +
                 " Order by " + labex.RowNumber + " ";
-            dt = conn.selectData(conn.conn, sql);
+            dt = conn.selectData(conn.connLabOut, sql);
             return dt;
         }
         public DataTable selectByHn(String hn)
@@ -292,7 +292,7 @@ namespace bangna_hospital.objdb
                 " Where " + labex.Hn+ " = '" + hn + "' " +
                 "and " + labex.Active+ " = '1' " +
                 " Order by " + labex.RowNumber+ " ";
-            dt = conn.selectData(sql);
+            dt = conn.selectData(conn.connLabOut,sql);
             return dt;
         }
         public DataTable selectByHn1(String hn)

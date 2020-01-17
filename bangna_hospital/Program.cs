@@ -83,6 +83,12 @@ namespace bangna_hospital
                     spl.Show();
                     Application.Run(new gui.FrmPrintCri(bc, spl));
                 }
+                else if (bc.iniC.programLoad.Equals("LabOutReceive"))
+                {
+                    //FrmSplash spl = new FrmSplash();
+                    //spl.Show();
+                    Application.Run(new gui.FrmLabOutReceive(bc));
+                }
                 else
                 {
 
