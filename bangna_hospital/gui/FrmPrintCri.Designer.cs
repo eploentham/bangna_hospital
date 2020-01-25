@@ -38,6 +38,10 @@
             this.pnHn = new System.Windows.Forms.Panel();
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BtnPrepare = new C1.Win.C1Input.C1Button();
+            this.chkResXray = new C1.Win.C1Input.C1CheckBox();
+            this.chkResLab = new C1.Win.C1Input.C1CheckBox();
+            this.chkReqXray = new C1.Win.C1Input.C1CheckBox();
             this.btnSearch = new C1.Win.C1Input.C1Button();
             this.txtDateEnd = new C1.Win.C1Input.C1DateEdit();
             this.txtDateStart = new C1.Win.C1Input.C1DateEdit();
@@ -52,10 +56,6 @@
             this.c1Label1 = new C1.Win.C1Input.C1Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.tabPrn2 = new C1.Win.C1Command.C1DockingTabPage();
-            this.chkReqXray = new C1.Win.C1Input.C1CheckBox();
-            this.chkResLab = new C1.Win.C1Input.C1CheckBox();
-            this.chkResXray = new C1.Win.C1Input.C1CheckBox();
-            this.BtnPrepare = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sB1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
@@ -65,6 +65,10 @@
             this.sC1.SuspendLayout();
             this.c1SplitterPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnPrepare)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkResXray)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkResLab)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkReqXray)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).BeginInit();
@@ -78,10 +82,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkReqXray)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkResLab)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkResXray)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnPrepare)).BeginInit();
             this.SuspendLayout();
             // 
             // sB1
@@ -203,6 +203,74 @@
             this.panel1.Size = new System.Drawing.Size(1112, 188);
             this.panel1.TabIndex = 0;
             this.theme1.SetTheme(this.panel1, "(default)");
+            // 
+            // BtnPrepare
+            // 
+            this.BtnPrepare.Image = global::bangna_hospital.Properties.Resources.database48;
+            this.BtnPrepare.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnPrepare.Location = new System.Drawing.Point(806, 106);
+            this.BtnPrepare.Name = "BtnPrepare";
+            this.BtnPrepare.Size = new System.Drawing.Size(110, 63);
+            this.BtnPrepare.TabIndex = 16;
+            this.BtnPrepare.Text = "Prepare";
+            this.BtnPrepare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.BtnPrepare, "(default)");
+            this.BtnPrepare.UseVisualStyleBackColor = true;
+            this.BtnPrepare.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // chkResXray
+            // 
+            this.chkResXray.BackColor = System.Drawing.Color.Transparent;
+            this.chkResXray.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.chkResXray.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkResXray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkResXray.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkResXray.Location = new System.Drawing.Point(262, 150);
+            this.chkResXray.Name = "chkResXray";
+            this.chkResXray.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.chkResXray.Size = new System.Drawing.Size(104, 24);
+            this.chkResXray.TabIndex = 15;
+            this.chkResXray.Text = "ใบผล X-ray";
+            this.theme1.SetTheme(this.chkResXray, "(default)");
+            this.chkResXray.UseVisualStyleBackColor = true;
+            this.chkResXray.Value = null;
+            this.chkResXray.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // chkResLab
+            // 
+            this.chkResLab.BackColor = System.Drawing.Color.Transparent;
+            this.chkResLab.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.chkResLab.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkResLab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkResLab.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkResLab.Location = new System.Drawing.Point(262, 124);
+            this.chkResLab.Name = "chkResLab";
+            this.chkResLab.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.chkResLab.Size = new System.Drawing.Size(104, 24);
+            this.chkResLab.TabIndex = 14;
+            this.chkResLab.Text = "ใบผล Lab";
+            this.theme1.SetTheme(this.chkResLab, "(default)");
+            this.chkResLab.UseVisualStyleBackColor = true;
+            this.chkResLab.Value = null;
+            this.chkResLab.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // chkReqXray
+            // 
+            this.chkReqXray.BackColor = System.Drawing.Color.Transparent;
+            this.chkReqXray.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.chkReqXray.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkReqXray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkReqXray.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkReqXray.Location = new System.Drawing.Point(132, 150);
+            this.chkReqXray.Name = "chkReqXray";
+            this.chkReqXray.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.chkReqXray.Size = new System.Drawing.Size(104, 24);
+            this.chkReqXray.TabIndex = 13;
+            this.chkReqXray.Text = "ใบReuest X-ray";
+            this.theme1.SetTheme(this.chkReqXray, "(default)");
+            this.chkReqXray.UseVisualStyleBackColor = true;
+            this.chkReqXray.Value = null;
+            this.chkReqXray.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnSearch
             // 
@@ -492,74 +560,6 @@
             this.tabPrn2.TabIndex = 1;
             this.tabPrn2.Text = "Criteria Print 2";
             // 
-            // chkReqXray
-            // 
-            this.chkReqXray.BackColor = System.Drawing.Color.Transparent;
-            this.chkReqXray.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
-            this.chkReqXray.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkReqXray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkReqXray.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.chkReqXray.Location = new System.Drawing.Point(132, 150);
-            this.chkReqXray.Name = "chkReqXray";
-            this.chkReqXray.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkReqXray.Size = new System.Drawing.Size(104, 24);
-            this.chkReqXray.TabIndex = 13;
-            this.chkReqXray.Text = "ใบReuest X-ray";
-            this.theme1.SetTheme(this.chkReqXray, "(default)");
-            this.chkReqXray.UseVisualStyleBackColor = true;
-            this.chkReqXray.Value = null;
-            this.chkReqXray.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // chkResLab
-            // 
-            this.chkResLab.BackColor = System.Drawing.Color.Transparent;
-            this.chkResLab.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
-            this.chkResLab.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkResLab.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkResLab.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.chkResLab.Location = new System.Drawing.Point(262, 124);
-            this.chkResLab.Name = "chkResLab";
-            this.chkResLab.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkResLab.Size = new System.Drawing.Size(104, 24);
-            this.chkResLab.TabIndex = 14;
-            this.chkResLab.Text = "ใบผล Lab";
-            this.theme1.SetTheme(this.chkResLab, "(default)");
-            this.chkResLab.UseVisualStyleBackColor = true;
-            this.chkResLab.Value = null;
-            this.chkResLab.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // chkResXray
-            // 
-            this.chkResXray.BackColor = System.Drawing.Color.Transparent;
-            this.chkResXray.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
-            this.chkResXray.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkResXray.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkResXray.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.chkResXray.Location = new System.Drawing.Point(262, 150);
-            this.chkResXray.Name = "chkResXray";
-            this.chkResXray.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkResXray.Size = new System.Drawing.Size(104, 24);
-            this.chkResXray.TabIndex = 15;
-            this.chkResXray.Text = "ใบผล X-ray";
-            this.theme1.SetTheme(this.chkResXray, "(default)");
-            this.chkResXray.UseVisualStyleBackColor = true;
-            this.chkResXray.Value = null;
-            this.chkResXray.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // BtnPrepare
-            // 
-            this.BtnPrepare.Image = global::bangna_hospital.Properties.Resources.database48;
-            this.BtnPrepare.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnPrepare.Location = new System.Drawing.Point(806, 106);
-            this.BtnPrepare.Name = "BtnPrepare";
-            this.BtnPrepare.Size = new System.Drawing.Size(110, 63);
-            this.BtnPrepare.TabIndex = 16;
-            this.BtnPrepare.Text = "Prepare";
-            this.BtnPrepare.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.theme1.SetTheme(this.BtnPrepare, "(default)");
-            this.BtnPrepare.UseVisualStyleBackColor = true;
-            this.BtnPrepare.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
             // FrmPrintCri
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -581,6 +581,10 @@
             this.c1SplitterPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnPrepare)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkResXray)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkResLab)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkReqXray)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).EndInit();
@@ -594,10 +598,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkReqXray)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkResLab)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkResXray)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnPrepare)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

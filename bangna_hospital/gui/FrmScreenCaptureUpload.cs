@@ -16,14 +16,16 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
         Font fEdit, fEditB;
-        String filename = "", hn="", pttname="";
-        public FrmScreenCaptureUpload(BangnaControl bc, String filename, String hn, String pttname)
+        String filename = "", hn="", pttname="", vn="", flagVn="";
+        public FrmScreenCaptureUpload(BangnaControl bc, String filename, String hn, String pttname, String vn, String flagVn)
         {
             InitializeComponent();
             this.bc = bc;
             this.filename = filename;
             this.hn = hn;
             this.pttname = pttname;
+            this.vn = vn;
+            this.flagVn = flagVn;
             initConfig();
         }
         private void initConfig()
@@ -36,6 +38,8 @@ namespace bangna_hospital.gui
             bc.bcDB.dgssDB.setCboBspDeptUS(cboDgs, "");
             txtHn.Value = hn;
             lbName.Text = pttname;
+            lbVn.Text = flagVn;
+            txtVn.Value = vn;
 
             btnUpload.Click += BtnUpload_Click;
         }
@@ -57,12 +61,21 @@ namespace bangna_hospital.gui
             DocGroupSubScan dgss = new DocGroupSubScan();
             dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
             DocScan dsc = new DocScan();
+            //new LogWriter("d", "BtnUpload_Click dsc.vn " + dsc.vn + " dsc.an " + dsc.an);
             dsc.active = "1";
             dsc.doc_scan_id = "";
             dsc.doc_group_id = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
             dsc.hn = txtHn.Text;
-            dsc.vn = "";
-            dsc.an = "";
+            if (lbVn.Text.Trim().Equals("VN :"))
+            {
+                dsc.an = "";
+                dsc.vn = txtVn.Text.Trim();
+            }
+            else
+            {
+                dsc.vn = "";
+                dsc.an = txtVn.Text.Trim();
+            }
             dsc.visit_date = "";
             dsc.host_ftp = bc.iniC.hostFTP;
             //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
@@ -74,7 +87,9 @@ namespace bangna_hospital.gui
             dsc.status_ipd = "O";
             dsc.row_no = "1";
             dsc.row_cnt = "1";
-            String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
+            dsc.status_ml = "2";
+            dsc.ml_fm = txtFM.Text.Trim();
+            String re = bc.bcDB.dscDB.insertScreenCapture(dsc, bc.userId);
             
             sB11.Text = " filename " + filename + " bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path;
             long chk = 0;
@@ -109,6 +124,10 @@ namespace bangna_hospital.gui
             theme1.SetTheme(lbName, bc.iniC.themeApplication);
             theme1.SetTheme(cboDgs, bc.iniC.themeApplication);
             theme1.SetTheme(sB11, bc.iniC.themeApplication);
+            theme1.SetTheme(lbVn, bc.iniC.themeApplication);
+            theme1.SetTheme(txtVn, bc.iniC.themeApplication);
+            theme1.SetTheme(txtFM, bc.iniC.themeApplication);
+            theme1.SetTheme(label3, bc.iniC.themeApplication);
             sB11.Text = "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP+" ini path "+bc.appName;
         }
     }

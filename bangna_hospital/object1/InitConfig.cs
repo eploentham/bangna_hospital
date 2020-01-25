@@ -23,5 +23,6 @@ namespace bangna_hospital.object1
         public String themeDonor = "", printerSticker="", hostname="";
         public String timerImgScanNew = "", pathImageScan="", imggridscanwidth="", txtSearchHnLenghtStart="", pathLabOutReceive="", pathLabOutBackup="";
         public String printerA4 = "", programLoad="", labOutOpenFileDialog="", windows="", grfScanWidth="", imgScanWidth = "", pathScanStaffNote="", pathScreenCaptureUpload = "", pathIniFile="", statusShowPrintDialog="";
+        public String timerCheckLabOut = "", pathProgramCapture = "";
     }
 }

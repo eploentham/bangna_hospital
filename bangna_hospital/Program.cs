@@ -89,9 +89,21 @@ namespace bangna_hospital
                     //spl.Show();
                     Application.Run(new gui.FrmLabOutReceive(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("LabOutReceiveView"))
+                {
+                    Application.Run(new gui.FrmLabOutReceiveView(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("NurseScanView"))
+                {
+                    Application.Run(new gui.FrmNurseScanView(bc));
+                }
                 else
                 {
-
+                    if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
+                    {
+                        //MessageBox.Show("labex", "labex");
+                        Application.Run(new FrmScreenCapture(bc));
+                    }
                 }
                 
             }

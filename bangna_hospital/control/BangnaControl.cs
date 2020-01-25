@@ -31,7 +31,7 @@ namespace bangna_hospital.control
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
-        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0;
+        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0;
 
         public BangnaControl()
         {
@@ -50,10 +50,10 @@ namespace bangna_hospital.control
             {
                 appName = Environment.CurrentDirectory + "\\" + Application.ProductName + ".ini";
             }
-            //if (!File.Exists(appName))
-            //{
-            //    appName = "c:\\";
-            //}
+            if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
+            {
+                appName = "c:\\bangna_hospital.ini";
+            }
             iniF = new IniFile(appName);
             iniC = new InitConfig();
             cTxtFocus = ColorTranslator.FromHtml(iniC.txtFocus);
@@ -140,6 +140,8 @@ namespace bangna_hospital.control
             iniC.txtSearchHnLenghtStart = iniF.getIni("app", "txtSearchHnLenghtStart");
             iniC.pathLabOutReceive = iniF.getIni("app", "pathLabOutReceive");
             iniC.pathLabOutBackup = iniF.getIni("app", "pathLabOutBackup");
+            iniC.timerCheckLabOut = iniF.getIni("app", "timerCheckLabOut");
+            //iniC.pathScreenCaptureUpload = iniF.getIni("app", "pathScreenCaptureUpload");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -160,12 +162,14 @@ namespace bangna_hospital.control
             iniC.ProxyPort = iniC.ProxyPort == null ? "0" : iniC.ProxyPort.Equals("") ? "0" : iniC.ProxyPort;
             iniC.pathIniFile = iniC.pathIniFile == null ? "" : iniC.pathIniFile.Equals("") ? "" : iniC.pathIniFile;
             iniC.statusShowPrintDialog = iniC.statusShowPrintDialog == null ? "0" : iniC.statusShowPrintDialog.Equals("") ? "0" : iniC.statusShowPrintDialog;
+            iniC.timerCheckLabOut = iniC.timerCheckLabOut == null ? "0" : iniC.timerCheckLabOut.Equals("") ? "0" : iniC.timerCheckLabOut;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
             Boolean.TryParse(iniC.usePassiveFTPLabOut, out ftpUsePassiveLabOut);
             int.TryParse(iniC.grfScanWidth, out grfScanWidth);
+            int.TryParse(iniC.timerCheckLabOut, out timerCheckLabOut);
 
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             int.TryParse(iniC.imgScanWidth, out imgScanWidth);

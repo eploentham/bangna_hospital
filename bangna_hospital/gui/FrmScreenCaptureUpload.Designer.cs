@@ -37,11 +37,17 @@
             this.btnUpload = new C1.Win.C1Input.C1Button();
             this.sB11 = new System.Windows.Forms.StatusStrip();
             this.picWait = new C1.Win.C1Input.C1PictureBox();
+            this.txtFM = new C1.Win.C1Input.C1TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtVn = new C1.Win.C1Input.C1TextBox();
+            this.lbVn = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWait)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVn)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -123,7 +129,7 @@
             // 
             this.btnUpload.Image = global::bangna_hospital.Properties.Resources.refresh48;
             this.btnUpload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpload.Location = new System.Drawing.Point(242, 128);
+            this.btnUpload.Location = new System.Drawing.Point(242, 167);
             this.btnUpload.Name = "btnUpload";
             this.btnUpload.Size = new System.Drawing.Size(88, 60);
             this.btnUpload.TabIndex = 8;
@@ -136,7 +142,7 @@
             // sB11
             // 
             this.sB11.BackColor = System.Drawing.Color.White;
-            this.sB11.Location = new System.Drawing.Point(0, 203);
+            this.sB11.Location = new System.Drawing.Point(0, 233);
             this.sB11.Name = "sB11";
             this.sB11.Size = new System.Drawing.Size(342, 22);
             this.sB11.TabIndex = 9;
@@ -146,18 +152,78 @@
             // picWait
             // 
             this.picWait.Image = global::bangna_hospital.Properties.Resources.loading_transparent;
-            this.picWait.Location = new System.Drawing.Point(97, 63);
+            this.picWait.Location = new System.Drawing.Point(97, 102);
             this.picWait.Name = "picWait";
             this.picWait.Size = new System.Drawing.Size(135, 125);
             this.picWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picWait.TabIndex = 5;
             this.picWait.TabStop = false;
             // 
+            // txtFM
+            // 
+            this.txtFM.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.txtFM.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFM.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtFM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFM.Location = new System.Drawing.Point(96, 67);
+            this.txtFM.Name = "txtFM";
+            this.txtFM.Size = new System.Drawing.Size(111, 24);
+            this.txtFM.TabIndex = 11;
+            this.txtFM.Tag = null;
+            this.theme1.SetTheme(this.txtFM, "(default)");
+            this.txtFM.Value = "FM-IMG-999";
+            this.txtFM.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label3.Location = new System.Drawing.Point(6, 72);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 16);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "FM code :";
+            this.theme1.SetTheme(this.label3, "(default)");
+            // 
+            // txtVn
+            // 
+            this.txtVn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.txtVn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtVn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVn.Location = new System.Drawing.Point(251, 67);
+            this.txtVn.Name = "txtVn";
+            this.txtVn.Size = new System.Drawing.Size(79, 24);
+            this.txtVn.TabIndex = 13;
+            this.txtVn.Tag = null;
+            this.theme1.SetTheme(this.txtVn, "(default)");
+            this.txtVn.Value = "FM-IMG-999";
+            this.txtVn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // lbVn
+            // 
+            this.lbVn.AutoSize = true;
+            this.lbVn.BackColor = System.Drawing.Color.White;
+            this.lbVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbVn.Location = new System.Drawing.Point(211, 72);
+            this.lbVn.Name = "lbVn";
+            this.lbVn.Size = new System.Drawing.Size(28, 16);
+            this.lbVn.TabIndex = 12;
+            this.lbVn.Text = "vn :";
+            this.theme1.SetTheme(this.lbVn, "(default)");
+            // 
             // FrmScreenCaptureUpload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 225);
+            this.ClientSize = new System.Drawing.Size(342, 255);
+            this.Controls.Add(this.txtVn);
+            this.Controls.Add(this.lbVn);
+            this.Controls.Add(this.txtFM);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.sB11);
             this.Controls.Add(this.btnUpload);
             this.Controls.Add(this.cboDgs);
@@ -175,6 +241,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWait)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,5 +258,9 @@
         private C1.Win.C1Input.C1ComboBox cboDgs;
         private C1.Win.C1Input.C1Button btnUpload;
         private System.Windows.Forms.StatusStrip sB11;
+        private C1.Win.C1Input.C1TextBox txtFM;
+        private System.Windows.Forms.Label label3;
+        private C1.Win.C1Input.C1TextBox txtVn;
+        private System.Windows.Forms.Label lbVn;
     }
 }

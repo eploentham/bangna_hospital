@@ -30,7 +30,15 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.listBox3 = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -51,17 +59,67 @@
             this.listBox1.Size = new System.Drawing.Size(421, 450);
             this.listBox1.TabIndex = 0;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(421, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(379, 450);
+            this.panel2.TabIndex = 1;
+            // 
+            // listBox2
+            // 
+            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(0, 0);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(379, 233);
+            this.listBox2.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.listBox3);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(379, 217);
+            this.panel3.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.listBox2);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 217);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(379, 233);
+            this.panel4.TabIndex = 2;
+            // 
+            // listBox3
+            // 
+            this.listBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(0, 0);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(379, 217);
+            this.listBox3.TabIndex = 0;
+            // 
             // FrmLabOutReceive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "FrmLabOutReceive";
             this.Text = "FrmLabOutReceive";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmLabOutReceive_Load);
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -70,5 +128,10 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ListBox listBox3;
     }
 }

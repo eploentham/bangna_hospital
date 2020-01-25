@@ -55,6 +55,9 @@ namespace bangna_hospital.objdb
             dsc.ml_date_time_end = "ml_date_time_end";
             dsc.ml_fm = "ml_fm";
             dsc.status_version = "status_version";
+            dsc.pic_before_scan_cnt = "pic_before_scan_cnt";
+            dsc.date_req = "date_req";
+            dsc.req_id = "req_id";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -92,6 +95,9 @@ namespace bangna_hospital.objdb
                 itm1.status_ipd = row[dsc.status_ipd].ToString();
                 itm1.an_cnt = row[dsc.an_cnt].ToString();
                 itm1.status_version = row[dsc.status_version].ToString();
+                itm1.pic_before_scan_cnt = row[dsc.pic_before_scan_cnt].ToString();
+                itm1.date_req = row[dsc.date_req].ToString();
+                itm1.req_id = row[dsc.req_id].ToString();
                 lDgs.Add(itm1);
             }
         }
@@ -128,6 +134,20 @@ namespace bangna_hospital.objdb
                 "From " + dsc.table + " dsc " +
                 "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
                 "Where dsc." + dsc.hn + " ='" + id + "' and dsc." + dsc.active + "='1' and dgss.dept_us = '1' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectLabOutByDateReceive(String datestart, String dateend)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.date_create + " >='" + datestart + "' and dsc." + dsc.date_create + " <='" + dateend + "' " +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.ml_fm+"='FM-LAB-999' " +
                 "Order By dsc.doc_scan_id ";
             dt = conn.selectData(conn.conn, sql);
 
@@ -269,14 +289,17 @@ namespace bangna_hospital.objdb
             p.ml_date_time_end = p.ml_date_time_end == null ? "" : p.ml_date_time_end;
             p.ml_fm = p.ml_fm == null ? "" : p.ml_fm;
             p.status_version = p.status_version == null ? "" : p.status_version;
+            p.date_req = p.date_req == null ? "" : p.date_req;
+            p.req_id = p.req_id == null ? "" : p.req_id;
+            //p.ml_fm = p.req_id == null ? "" : p.req_id;
 
             p.doc_group_id = long.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
             p.row_no = long.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
             p.doc_group_sub_id = long.TryParse(p.doc_group_sub_id, out chk) ? chk.ToString() : "0";
-            //p.pre_no = int.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";
+            p.pic_before_scan_cnt = long.TryParse(p.pic_before_scan_cnt, out chk) ? chk.ToString() : "0";
             //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
         }
-        public String insert(DocScan p, String userId)
+        public String insertScreenCapture(DocScan p, String userId)
         {
             String re = "";
             String sql = "";
@@ -285,31 +308,13 @@ namespace bangna_hospital.objdb
             //p.ssdata_id = "";
             int chk = 0;
             chkNull(p);
-            sql = "Insert Into " + dsc.table + " (" + dsc.doc_group_id + "," + dsc.active + "," + dsc.row_no + "," +
-                dsc.host_ftp + "," + dsc.image_path + "," + dsc.hn + "," +
-                dsc.vn + "," + dsc.visit_date + "," + dsc.remark + "," +
-                dsc.date_create + "," + dsc.date_modi + "," + dsc.date_cancel + "," +
-                dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
-                dsc.an + "," + dsc.doc_group_sub_id + "," + dsc.pre_no + "," +
-                dsc.an_date + "," + dsc.status_ipd + "," + dsc.an_cnt + "," +
-                dsc.folder_ftp + "," + dsc.status_ml + "," + dsc.row_cnt + "," +
-                dsc.ml_date_time_start + "," + dsc.ml_date_time_end + "," + dsc.ml_fm + " " +
-                ") " +
-                "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
-                "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
-                "'" + p.vn + "','" + p.visit_date + "','" + p.remark + "'," +
-                "convert(varchar, getdate(), 23),'" + p.date_modi + "','" + p.date_cancel + "'," +
-                "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "'," +
-                "'" + p.an + "','" + p.doc_group_sub_id + "','" + p.pre_no + "'," +
-                "'" + p.an_date + "','" + p.status_ipd + "','" + p.an_cnt + "', " +
-                "'" + p.folder_ftp + "','" + p.status_ml + "','" + p.row_cnt + "', " +
-                "'" + p.ml_date_time_start + "','" + p.ml_date_time_end + "','" + p.ml_fm + "' " +
-                ")";
+
             try
             {
+                //new LogWriter("d", "insertScreenCapture p.an " + p.an+ " p.vn "+ p.vn);
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.conn;
-                conn.comStore.CommandText = "insert_doc_scan_v2";
+                conn.comStore.CommandText = "insert_doc_scan_v4";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
                 conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
@@ -328,6 +333,138 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
                 conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
                 conn.comStore.Parameters.AddWithValue("status_version", p.status_version);
+                conn.comStore.Parameters.AddWithValue("pic_before_scan", p.pic_before_scan_cnt);
+                conn.comStore.Parameters.AddWithValue("ml_fm", p.ml_fm);
+                conn.comStore.Parameters.AddWithValue("status_ml", p.status_ml);
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.conn.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+                //string retunvalue = (string)sqlcomm.Parameters["@b"].Value;
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            finally
+            {
+                conn.conn.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insertLabOut(DocScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            DataTable dt = new DataTable();
+            p.active = "1";
+            //p.ssdata_id = "";
+            int chk = 0;
+            chkNull(p);
+            
+            try
+            {
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.conn;
+                conn.comStore.CommandText = "insert_doc_scan_v3";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
+                conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
+                conn.comStore.Parameters.AddWithValue("hn", p.hn);
+                conn.comStore.Parameters.AddWithValue("vn", p.vn);
+                conn.comStore.Parameters.AddWithValue("remark", p.remark);
+                conn.comStore.Parameters.AddWithValue("user_create", userId);
+                conn.comStore.Parameters.AddWithValue("an", p.an);
+                conn.comStore.Parameters.AddWithValue("doc_group_sub_id", p.doc_group_sub_id);
+                conn.comStore.Parameters.AddWithValue("pre_no", p.pre_no);
+                conn.comStore.Parameters.AddWithValue("an_date", p.an_date);
+                conn.comStore.Parameters.AddWithValue("status_ipd", p.status_ipd);
+                conn.comStore.Parameters.AddWithValue("ext", p.image_path);
+                conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
+                conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
+                conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
+                conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
+                conn.comStore.Parameters.AddWithValue("status_version", p.status_version);
+                conn.comStore.Parameters.AddWithValue("pic_before_scan", p.pic_before_scan_cnt);
+                conn.comStore.Parameters.AddWithValue("date_req", p.date_req);
+                conn.comStore.Parameters.AddWithValue("req_id", p.req_id);
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.conn.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+                //string retunvalue = (string)sqlcomm.Parameters["@b"].Value;
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            finally
+            {
+                conn.conn.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insert(DocScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            DataTable dt = new DataTable();
+            p.active = "1";
+            //p.ssdata_id = "";
+            int chk = 0;
+            chkNull(p);
+            sql = "Insert Into " + dsc.table + " (" + dsc.doc_group_id + "," + dsc.active + "," + dsc.row_no + "," +
+                dsc.host_ftp + "," + dsc.image_path + "," + dsc.hn + "," +
+                dsc.vn + "," + dsc.visit_date + "," + dsc.remark + "," +
+                dsc.date_create + "," + dsc.date_modi + "," + dsc.date_cancel + "," +
+                dsc.user_create + "," + dsc.user_modi + "," + dsc.user_cancel + "," +
+                dsc.an + "," + dsc.doc_group_sub_id + "," + dsc.pre_no + "," +
+                dsc.an_date + "," + dsc.status_ipd + "," + dsc.an_cnt + "," +
+                dsc.folder_ftp + "," + dsc.status_ml + "," + dsc.row_cnt + "," +
+                dsc.ml_date_time_start + "," + dsc.ml_date_time_end + "," + dsc.ml_fm + "," + dsc.pic_before_scan_cnt + " " +
+                ") " +
+                "Values ('" + p.doc_group_id + "','1','" + p.row_no + "',"+
+                "'"+ p.host_ftp + "','" + p.image_path + "','" + p.hn + "'," +
+                "'" + p.vn + "','" + p.visit_date + "','" + p.remark + "'," +
+                "convert(varchar, getdate(), 23),'" + p.date_modi + "','" + p.date_cancel + "'," +
+                "'" + userId + "','" + p.user_modi + "','" + p.user_cancel + "'," +
+                "'" + p.an + "','" + p.doc_group_sub_id + "','" + p.pre_no + "'," +
+                "'" + p.an_date + "','" + p.status_ipd + "','" + p.an_cnt + "', " +
+                "'" + p.folder_ftp + "','" + p.status_ml + "','" + p.row_cnt + "', " +
+                "'" + p.ml_date_time_start + "','" + p.ml_date_time_end + "','" + p.ml_fm + "','" + p.pic_before_scan_cnt + "' " +
+                ")";
+            try
+            {
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.conn;
+                conn.comStore.CommandText = "insert_doc_scan_v3";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
+                conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
+                conn.comStore.Parameters.AddWithValue("hn", p.hn);
+                conn.comStore.Parameters.AddWithValue("vn", p.vn);
+                conn.comStore.Parameters.AddWithValue("remark", p.remark);
+                conn.comStore.Parameters.AddWithValue("user_create", userId);
+                conn.comStore.Parameters.AddWithValue("an", p.an);
+                conn.comStore.Parameters.AddWithValue("doc_group_sub_id", p.doc_group_sub_id);
+                conn.comStore.Parameters.AddWithValue("pre_no", p.pre_no);
+                conn.comStore.Parameters.AddWithValue("an_date", p.an_date);
+                conn.comStore.Parameters.AddWithValue("status_ipd", p.status_ipd);
+                conn.comStore.Parameters.AddWithValue("ext", p.image_path);
+                conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
+                conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
+                conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
+                conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
+                conn.comStore.Parameters.AddWithValue("status_version", p.status_version);
+                conn.comStore.Parameters.AddWithValue("pic_before_scan", p.pic_before_scan_cnt);
                 SqlParameter retval =  conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
@@ -445,6 +582,52 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+        public String voidDocScanVN(String id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                "Where " + dsc.vn + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String voidDocScanAN(String id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                "Where " + dsc.an + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
         public DocScan setDocScan(DataTable dt)
         {
             DocScan dgs1 = new DocScan();
@@ -474,6 +657,7 @@ namespace bangna_hospital.objdb
                 dgs1.an_cnt = dt.Rows[0][dsc.an_cnt].ToString();
                 dgs1.folder_ftp = dt.Rows[0][dsc.folder_ftp].ToString();
                 dgs1.status_version = dt.Rows[0][dsc.status_version].ToString();
+                dgs1.pic_before_scan_cnt = dt.Rows[0][dsc.pic_before_scan_cnt].ToString();
             }
             else
             {
@@ -507,6 +691,7 @@ namespace bangna_hospital.objdb
             dgs1.an_cnt = "";
             dgs1.folder_ftp = "";
             dgs1.status_version = "";
+            dgs1.pic_before_scan_cnt = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

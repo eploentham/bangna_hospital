@@ -41,6 +41,43 @@ namespace bangna_hospital.objdb
             cop1 = setStaff(dt);
             return cop1;
         }
+        public Staff selectByLogin(String username)
+        {
+            Staff cop1 = new Staff();
+            DataTable dt = new DataTable();
+            try
+            {
+                cop1 = setStaff1(cop1);
+                if (username == null)
+                {
+                    return cop1;
+                }
+                //if (password1 == null)
+                //{
+                //    return cop1;
+                //}
+                if (username.Equals(""))
+                {
+                    return cop1;
+                }
+                //if (password1.Equals(""))
+                //{
+                //    return cop1;
+                //}
+                String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full " +
+                    "From " + stf.table + " stf " +
+                    //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                    "Where stf." + stf.username + " ='" + username + "'  ";
+                dt = conn.selectData(conn.connMainHIS, sql);
+                cop1 = setStaff(dt);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex.Message, "error");
+            }
+
+            return cop1;
+        }
         public Staff selectByLogin(String username, String password1)
         {
             Staff cop1 = new Staff();

@@ -33,6 +33,22 @@ namespace bangna_hospital.objdb
             vs.table = "";
             vs.pkField = "";
         }
+        public DataTable SelectHnLabOut(String reqid, String datereq)
+        {
+            DataTable dt = new DataTable();
+            String year = "";
+            int year2 = 0;
+            year = datereq.Substring(0, 4);
+            int.TryParse(year, out year2);
+            year = (year2 + 543).ToString();
+            String sql = "Select lt01.*, ptt01.mnc_vn_seq, ptt01.mnc_vn_sum, ptt01.mnc_vn_no " +
+                "From Lab_t01 lt01 " +
+                "inner join patient_t01 ptt01 on ptt01.mnc_hn_no = lt01.mnc_hn_no and ptt01.mnc_pre_no = lt01.mnc_pre_no and ptt01.mnc_hn_yr = lt01.mnc_hn_yr " +
+                "Where mnc_req_yr = '"+year+"' and mnc_req_dat = '"+datereq+"' and mnc_req_no = '"+reqid+"'" ;
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public Visit selectVisit(String vn)
         {
             DataTable dt = new DataTable();

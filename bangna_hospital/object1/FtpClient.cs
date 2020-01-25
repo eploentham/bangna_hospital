@@ -91,8 +91,9 @@ namespace bangna_hospital.object1
         }
 
         /* Upload File */
-        public void upload(string remoteFile, string localFile)
+        public Boolean upload(string remoteFile, string localFile)
         {
+            Boolean chk = false;
             try
             {
                 /* Create an FTP Request */
@@ -107,10 +108,10 @@ namespace bangna_hospital.object1
                 if (ProxyProxyType.Equals("1"))
                 {
                     ftpRequest.Proxy = new WebProxy();
-                    int chk = 0;
-                    if ((ProxyHost.Length > 0) && (int.TryParse(ProxyPort, out chk)))
+                    int chk1 = 0;
+                    if ((ProxyHost.Length > 0) && (int.TryParse(ProxyPort, out chk1)))
                     {
-                        ftpRequest.Proxy = new WebProxy(ProxyHost, chk);                        
+                        ftpRequest.Proxy = new WebProxy(ProxyHost, chk1);                        
                     }
                 }
                 //ftpRequest.Proxy = new WebProxy();
@@ -120,7 +121,7 @@ namespace bangna_hospital.object1
                 /* Establish Return Communication with the FTP Server */
 
                 /* Open a File Stream to Read the File for Upload */
-                if (!File.Exists(localFile)) return;
+                if (!File.Exists(localFile)) return false;
                 FileStream localFileStream = new FileStream(localFile, FileMode.Open, FileAccess.Read);
                 ftpStream = ftpRequest.GetRequestStream();
                 /* Buffer for the Downloaded Data */
@@ -140,14 +141,16 @@ namespace bangna_hospital.object1
                 localFileStream.Close();
                 ftpStream.Close();
                 ftpRequest = null;
+                chk = true;
             }
             catch (Exception ex)
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
                 MessageBox.Show(""+ ex.ToString(), "Error ftp upload  ");
                 Console.WriteLine(ex.ToString());
+                chk = false;
             }
-            return;
+            return chk;
         }
         public void upload(string remoteFile, string localFile, String webproxy, int port)
         {

@@ -33,6 +33,7 @@
             this.menuMedicalRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.menuScan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuScanView = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNurse = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReqLab = new System.Windows.Forms.ToolStripMenuItem();
             this.menuNurseDefault = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +59,7 @@
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
             this.PageS = new C1.Win.C1Command.C1DockingTabPage();
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
-            this.menuPrint = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuNurseScanView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tCC1)).BeginInit();
             this.tCC1.SuspendLayout();
@@ -72,8 +73,8 @@
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(161)))), ((int)(((byte)(106)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuExit,
-            this.menuMedicalRecord,
             this.menuNurse,
+            this.menuMedicalRecord,
             this.menuLab,
             this.menuPharmacy,
             this.menuInit});
@@ -113,33 +114,39 @@
             this.menuScanView.Size = new System.Drawing.Size(180, 22);
             this.menuScanView.Text = "ดูข้อมูลเก่า Scan";
             // 
+            // menuPrint
+            // 
+            this.menuPrint.Name = "menuPrint";
+            this.menuPrint.Size = new System.Drawing.Size(180, 22);
+            this.menuPrint.Text = "พิมพ์เอกสาร";
+            // 
             // menuNurse
             // 
             this.menuNurse.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuReqLab,
             this.menuNurseDefault,
-            this.menuExamiRoom});
+            this.menuExamiRoom,
+            this.menuNurseScanView});
             this.menuNurse.Name = "menuNurse";
             this.menuNurse.Size = new System.Drawing.Size(50, 20);
             this.menuNurse.Text = "Nurse";
-            this.menuNurse.Visible = false;
             // 
             // menuReqLab
             // 
             this.menuReqLab.Name = "menuReqLab";
-            this.menuReqLab.Size = new System.Drawing.Size(175, 22);
+            this.menuReqLab.Size = new System.Drawing.Size(180, 22);
             this.menuReqLab.Text = "Request Lab";
             // 
             // menuNurseDefault
             // 
             this.menuNurseDefault.Name = "menuNurseDefault";
-            this.menuNurseDefault.Size = new System.Drawing.Size(175, 22);
+            this.menuNurseDefault.Size = new System.Drawing.Size(180, 22);
             this.menuNurseDefault.Text = "Nurse Screen";
             // 
             // menuExamiRoom
             // 
             this.menuExamiRoom.Name = "menuExamiRoom";
-            this.menuExamiRoom.Size = new System.Drawing.Size(175, 22);
+            this.menuExamiRoom.Size = new System.Drawing.Size(180, 22);
             this.menuExamiRoom.Text = "Examination Room";
             // 
             // menuLab
@@ -307,11 +314,11 @@
             // 
             this.theme1.Theme = "BeigeOne";
             // 
-            // menuPrint
+            // menuNurseScanView
             // 
-            this.menuPrint.Name = "menuPrint";
-            this.menuPrint.Size = new System.Drawing.Size(180, 22);
-            this.menuPrint.Text = "พิมพ์เอกสาร";
+            this.menuNurseScanView.Name = "menuNurseScanView";
+            this.menuNurseScanView.Size = new System.Drawing.Size(180, 22);
+            this.menuNurseScanView.Text = "ดูเอกสารscan";
             // 
             // MainMenu
             // 
@@ -369,5 +376,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuPharmacy;
         private System.Windows.Forms.ToolStripMenuItem menuDrugPatient;
         private System.Windows.Forms.ToolStripMenuItem menuPrint;
+        private System.Windows.Forms.ToolStripMenuItem menuNurseScanView;
     }
 }

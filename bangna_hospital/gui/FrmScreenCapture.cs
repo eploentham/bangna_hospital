@@ -85,6 +85,7 @@ namespace bangna_hospital.gui
             txtHn.KeyUp += TxtHn_KeyUp;
             chkView.Click += ChkView_Click;
             chkUpload.Click += ChkUpload_Click;
+            btnSearch.Click += BtnSearch_Click;
 
             chkUpload.Checked = true;
             initGrfView();
@@ -102,6 +103,71 @@ namespace bangna_hospital.gui
             //this.Width = formwidth + int.Parse(bc.iniC.imggridscanwidth);
         }
 
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmSearchHn frm = new FrmSearchHn(bc, FrmSearchHn.StatusConnection.host);
+            frm.ShowDialog(this);
+            String[] an = bc.sPtt.an.Split('/');
+            //if (an.Length > 1)
+            //{
+            //    txtAN.Value = an[0];
+            //    txtAnCnt.Value = an[1];
+            //}
+            //else
+            //{
+            clearText();
+            if (bc.sPtt.an.Replace("/","").Length > 0)
+            {
+                lbVn.Text = "AN :";
+                txtVN.Value = bc.sPtt.an.Trim();
+                txtHn.Value = bc.sPtt.Hn.Trim();
+                lbName.Text = bc.sPtt.Name;
+            }
+            else if (bc.sPtt.vn.Length > 0)
+            {
+                lbVn.Text = "VN :";
+                txtVN.Value = bc.sPtt.vn.Trim();
+                txtHn.Value = bc.sPtt.Hn.Trim();
+                lbName.Text = bc.sPtt.Name;
+            }
+            else
+            {
+                MessageBox.Show("ไม่พบ ข้อมูล an หรือ vn", "");
+                return;
+            }
+            //txtAN.Value = bc.sPtt.an;
+            //txtAnCnt.Value = "";
+            ////}
+            //txtHn.Value = bc.sPtt.Hn;
+            //txtName.Value = bc.sPtt.Name;
+            //txtVN.Value = bc.sPtt.vn;
+            //txtVisitDate.Value = bc.sPtt.visitDate;
+            //txtPreNo.Value = bc.sPtt.preno;
+
+            //txtAnDate.Value = bc.sPtt.anDate;
+            //chkIPD.Checked = bc.sPtt.statusIPD.Equals("I") ? true : false;
+
+            //if (chkIPD.Checked)
+            //{
+            //    txtVisitDate.Hide();
+            //    txtAnDate.Show();
+            //    label6.Text = "AN Date :";
+            //}
+            //else
+            //{
+            //    txtVisitDate.Show();
+            //    txtAnDate.Hide();
+            //    label6.Text = "Visit Date :";
+            //}
+        }
+        private void clearText()
+        {
+            lbVn.Text = "";
+            txtVN.Value = "";
+            txtHn.Value = "";
+            lbName.Text = "";
+        }
         private void ChkUpload_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -623,8 +689,9 @@ namespace bangna_hospital.gui
             filename = grfView[grfView.Row, colUploadPath].ToString();
             if (File.Exists(filename))
             {
-                FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text);
+                FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim());
                 frm.ShowDialog(this);
+                Application.Exit();
                 getListFile();
             }
             else
@@ -685,28 +752,37 @@ namespace bangna_hospital.gui
             grfView.Rows.Count = 0;
             Column colpic1 = grfView.Cols[colUploadImg];
             colpic1.DataType = typeof(Image);
-
+            
             foreach (String file in lFile)
             {
-                Row row = grfView.Rows.Add();
-                row[colUploadPath] = file;
-                string ext = Path.GetExtension(file);
-                Image loadedImage, resizedImage;
-                if (ext.ToLower().IndexOf("pdf") < 0)
+                try
                 {
-                    loadedImage = Image.FromFile(file);
-                    int originalWidth = 0;
-                    originalWidth = loadedImage.Width;
-                    int newWidth = 280;
-                    newWidth = bc.imggridscanwidth;
-                    resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                    row[colUploadImg] = resizedImage;
-                    loadedImage.Dispose();
+                    Row row = grfView.Rows.Add();
+                    row[colUploadPath] = file;
+                    string ext = Path.GetExtension(file);
+                    Image loadedImage, resizedImage;
+                    if (ext.ToLower().IndexOf("pdf") < 0)
+                    {
+                        loadedImage = Image.FromFile(file);
+                        int originalWidth = 0;
+                        originalWidth = loadedImage.Width;
+                        int newWidth = 280;
+                        newWidth = bc.imggridscanwidth;
+                        resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                        row[colUploadImg] = resizedImage;
+                        loadedImage.Dispose();
+                    }
+                    else
+                    {
+                        row[colUploadImg] = Resources.pdf_symbol_300;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    row[colUploadImg] = Resources.pdf_symbol_300;
+                    new LogWriter("e", file + " " + ex.Message);
+                    MessageBox.Show("err "+ file +" "+ ex.Message,"");
                 }
+                
             }
             grfView.AutoSizeCols();
             grfView.AutoSizeRows();

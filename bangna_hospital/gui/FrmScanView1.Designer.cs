@@ -250,10 +250,10 @@
             this.txtHn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtHn.Location = new System.Drawing.Point(48, 13);
+            this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtHn.Location = new System.Drawing.Point(48, 11);
             this.txtHn.Name = "txtHn";
-            this.txtHn.Size = new System.Drawing.Size(150, 20);
+            this.txtHn.Size = new System.Drawing.Size(150, 27);
             this.txtHn.TabIndex = 538;
             this.txtHn.Tag = null;
             this.theme1.SetTheme(this.txtHn, "(default)");

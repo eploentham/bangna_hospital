@@ -239,7 +239,7 @@ namespace bangna_hospital.gui
             {
                 if (MessageBox.Show("ยืนยัน upload รูป เวชระเบียน เข้ากลุ่มอื่นๆ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    int i = 0;
+                    int i = 0, cnt=0;
                     String dgs = "", name = "";
                     Boolean chk = false;
                     txtVN.Hide();
@@ -264,6 +264,10 @@ namespace bangna_hospital.gui
                     pB1.Maximum = array1.Count;
                     groupBox1.Controls.Add(pB1);
                     Application.DoEvents();
+                    String dgssid = "";
+                    dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
+                    DocGroupSubScan dgss = new DocGroupSubScan();
+                    dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
                     foreach (String aa in array1)
                     {
@@ -274,10 +278,7 @@ namespace bangna_hospital.gui
                         {
                             name = aaa[2].Replace("*", "");
                             string ext = Path.GetExtension(name);
-                            String dgssname = "", dgssid = "", vn = "", an = "";
-                            dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
-                            DocGroupSubScan dgss = new DocGroupSubScan();
-                            dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
+                            String dgssname = "", vn = "", an = "";
                             DocScan dsc = new DocScan();
                             dsc.active = "1";
                             dsc.doc_scan_id = "";
@@ -304,6 +305,7 @@ namespace bangna_hospital.gui
                             dsc.row_no = i.ToString();
                             dsc.row_cnt = array1.Count.ToString();
                             dsc.status_version = "2";
+                            dsc.pic_before_scan_cnt = lbPicBefore.Text;
                             String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
                             //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + re + ext;
                             if (chkIPD.Checked)
@@ -316,6 +318,7 @@ namespace bangna_hospital.gui
                             }
                             //dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;       //-1
                             dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
+                            
                             String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
                             
                             //MessageBox.Show("111", "");
@@ -325,7 +328,10 @@ namespace bangna_hospital.gui
                             //MessageBox.Show("222", "");
                             ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
                             //MessageBox.Show("333", "");
-                            ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, name);
+                            if(ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, name))
+                            {
+                                cnt++;
+                            }
                             //break;
                             //Application.DoEvents();
                         }
@@ -343,6 +349,7 @@ namespace bangna_hospital.gui
                     initGrf();
                     setGrf();
                     setImage1(true);
+                    lbPicAfter.Text = cnt.ToString();
                     MessageBox.Show("Upload รูป เวชระเบียน เรียบร้อย", "");
                 }
             }
@@ -456,6 +463,7 @@ namespace bangna_hospital.gui
             array1.Clear();
             try
             {
+                lbPicBefore.Text = file1.Length.ToString();
                 pB1.Value = 0;
                 pB1.Minimum = 0;
                 pB1.Maximum = file1.Length;

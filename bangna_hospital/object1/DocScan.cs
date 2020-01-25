@@ -37,5 +37,8 @@ namespace bangna_hospital.object1
         public String ml_date_time_end { get; set; }
         public String ml_fm { get; set; }
         public String status_version { get; set; }
+        public String pic_before_scan_cnt { get; set; }
+        public String date_req { get; set; }
+        public String req_id { get; set; }
     }
 }
