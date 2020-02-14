@@ -31,6 +31,8 @@
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.gbPtt = new System.Windows.Forms.GroupBox();
+            this.lbAge = new System.Windows.Forms.Label();
+            this.lbCnt = new System.Windows.Forms.Label();
             this.chkIPD = new C1.Win.C1Input.C1CheckBox();
             this.txt = new C1.Win.C1Input.C1TextBox();
             this.btnOpen = new C1.Win.C1Input.C1Button();
@@ -48,6 +50,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lbDrugAllergy = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.gbPtt.SuspendLayout();
@@ -78,6 +81,9 @@
             // gbPtt
             // 
             this.gbPtt.BackColor = System.Drawing.Color.White;
+            this.gbPtt.Controls.Add(this.lbDrugAllergy);
+            this.gbPtt.Controls.Add(this.lbAge);
+            this.gbPtt.Controls.Add(this.lbCnt);
             this.gbPtt.Controls.Add(this.chkIPD);
             this.gbPtt.Controls.Add(this.txt);
             this.gbPtt.Controls.Add(this.btnOpen);
@@ -93,35 +99,59 @@
             this.gbPtt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.gbPtt.Location = new System.Drawing.Point(0, 0);
             this.gbPtt.Name = "gbPtt";
-            this.gbPtt.Size = new System.Drawing.Size(1410, 45);
+            this.gbPtt.Size = new System.Drawing.Size(1410, 69);
             this.gbPtt.TabIndex = 2;
             this.gbPtt.TabStop = false;
             this.gbPtt.Text = "Patient";
             this.theme1.SetTheme(this.gbPtt, "(default)");
             // 
+            // lbAge
+            // 
+            this.lbAge.AutoSize = true;
+            this.lbAge.BackColor = System.Drawing.Color.White;
+            this.lbAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbAge.Location = new System.Drawing.Point(531, 15);
+            this.lbAge.Name = "lbAge";
+            this.lbAge.Size = new System.Drawing.Size(21, 20);
+            this.lbAge.TabIndex = 556;
+            this.lbAge.Text = "...";
+            this.theme1.SetTheme(this.lbAge, "(default)");
+            // 
+            // lbCnt
+            // 
+            this.lbCnt.AutoSize = true;
+            this.lbCnt.BackColor = System.Drawing.Color.White;
+            this.lbCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCnt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbCnt.Location = new System.Drawing.Point(1277, 17);
+            this.lbCnt.Name = "lbCnt";
+            this.lbCnt.Size = new System.Drawing.Size(17, 16);
+            this.lbCnt.TabIndex = 555;
+            this.lbCnt.Text = "...";
+            this.theme1.SetTheme(this.lbCnt, "(default)");
+            // 
             // chkIPD
             // 
             this.chkIPD.BackColor = System.Drawing.Color.Transparent;
-            this.chkIPD.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkIPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkIPD.ForeColor = System.Drawing.Color.Black;
             this.chkIPD.Location = new System.Drawing.Point(1065, 12);
             this.chkIPD.Name = "chkIPD";
-            this.chkIPD.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.chkIPD.Padding = new System.Windows.Forms.Padding(1);
             this.chkIPD.Size = new System.Drawing.Size(50, 24);
             this.chkIPD.TabIndex = 554;
             this.chkIPD.Text = "IPD";
             this.theme1.SetTheme(this.chkIPD, "(default)");
             this.chkIPD.UseVisualStyleBackColor = true;
             this.chkIPD.Value = null;
+            this.chkIPD.VisualStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             this.chkIPD.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txt
             // 
-            this.txt.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txt.Location = new System.Drawing.Point(1121, 13);
             this.txt.Name = "txt";
@@ -129,7 +159,8 @@
             this.txt.TabIndex = 551;
             this.txt.Tag = null;
             this.theme1.SetTheme(this.txt, "(default)");
-            this.txt.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txt.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txt.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // btnOpen
             // 
@@ -160,9 +191,7 @@
             // 
             // txtVN
             // 
-            this.txtVN.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtVN.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtVN.Location = new System.Drawing.Point(952, 13);
             this.txtVN.Name = "txtVN";
@@ -170,7 +199,8 @@
             this.txtVN.TabIndex = 543;
             this.txtVN.Tag = null;
             this.theme1.SetTheme(this.txtVN, "(default)");
-            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtVN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // label1
             // 
@@ -178,7 +208,7 @@
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label1.Location = new System.Drawing.Point(534, 17);
+            this.label1.Location = new System.Drawing.Point(626, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(87, 16);
             this.label1.TabIndex = 542;
@@ -188,38 +218,34 @@
             // cboDgs
             // 
             this.cboDgs.AllowSpinLoop = false;
-            this.cboDgs.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.cboDgs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cboDgs.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.cboDgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboDgs.GapHeight = 0;
             this.cboDgs.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboDgs.ItemsDisplayMember = "";
             this.cboDgs.ItemsValueMember = "";
-            this.cboDgs.Location = new System.Drawing.Point(635, 13);
+            this.cboDgs.Location = new System.Drawing.Point(727, 13);
             this.cboDgs.Name = "cboDgs";
-            this.cboDgs.Size = new System.Drawing.Size(275, 20);
-            this.cboDgs.Style.DropDownBackColor = System.Drawing.Color.White;
-            this.cboDgs.Style.DropDownBorderColor = System.Drawing.Color.Gainsboro;
-            this.cboDgs.Style.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDgs.Size = new System.Drawing.Size(184, 20);
             this.cboDgs.TabIndex = 3;
             this.cboDgs.Tag = null;
             this.theme1.SetTheme(this.cboDgs, "(default)");
-            this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.cboDgs.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // txtName
             // 
-            this.txtName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.txtName.AutoSize = false;
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtName.Location = new System.Drawing.Point(238, 13);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(287, 20);
+            this.txtName.Size = new System.Drawing.Size(287, 49);
             this.txtName.TabIndex = 541;
             this.txtName.Tag = null;
             this.theme1.SetTheme(this.txtName, "(default)");
-            this.txtName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtName.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // btnHn
             // 
@@ -247,9 +273,7 @@
             // 
             // txtHn
             // 
-            this.txtHn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtHn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtHn.Location = new System.Drawing.Point(48, 11);
             this.txtHn.Name = "txtHn";
@@ -257,7 +281,8 @@
             this.txtHn.TabIndex = 538;
             this.txtHn.Tag = null;
             this.theme1.SetTheme(this.txtHn, "(default)");
-            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtHn.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // panel1
             // 
@@ -265,32 +290,29 @@
             this.panel1.Controls.Add(this.sC1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.panel1.Location = new System.Drawing.Point(0, 45);
+            this.panel1.Location = new System.Drawing.Point(0, 69);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1410, 602);
+            this.panel1.Size = new System.Drawing.Size(1410, 578);
             this.panel1.TabIndex = 5;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
             // sC1
             // 
             this.sC1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.sC1.BackColor = System.Drawing.Color.White;
-            this.sC1.CollapsingAreaColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.sC1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.sC1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(221)))), ((int)(((byte)(238)))));
+            this.sC1.CollapsingAreaColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(250)))));
             this.sC1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sC1.FixedLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
-            this.sC1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.sC1.HeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.sC1.HeaderLineWidth = 1;
+            this.sC1.FixedLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(166)))), ((int)(((byte)(194)))));
+            this.sC1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
             this.sC1.Location = new System.Drawing.Point(0, 0);
             this.sC1.Name = "sC1";
             this.sC1.Panels.Add(this.scVs);
             this.sC1.Panels.Add(this.scScan);
-            this.sC1.Size = new System.Drawing.Size(1410, 602);
-            this.sC1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
-            this.sC1.SplitterMovingColor = System.Drawing.Color.Black;
+            this.sC1.Size = new System.Drawing.Size(1410, 578);
+            this.sC1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(166)))), ((int)(((byte)(194)))));
             this.sC1.TabIndex = 2;
             this.theme1.SetTheme(this.sC1, "(default)");
+            this.sC1.ToolTipGradient = C1.Win.C1SplitContainer.ToolTipGradient.Blue;
             this.sC1.UseParentVisualStyle = false;
             // 
             // scVs
@@ -300,8 +322,8 @@
             this.scVs.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.scVs.Location = new System.Drawing.Point(0, 21);
             this.scVs.Name = "scVs";
-            this.scVs.Size = new System.Drawing.Size(265, 581);
-            this.scVs.SizeRatio = 19.312D;
+            this.scVs.Size = new System.Drawing.Size(265, 557);
+            this.scVs.SizeRatio = 19.346D;
             this.scVs.TabIndex = 0;
             this.scVs.Text = "Panel 1";
             this.scVs.Width = 272;
@@ -313,17 +335,17 @@
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(265, 581);
+            this.panel2.Size = new System.Drawing.Size(265, 557);
             this.panel2.TabIndex = 0;
             this.theme1.SetTheme(this.panel2, "(default)");
             // 
             // scScan
             // 
             this.scScan.Controls.Add(this.panel3);
-            this.scScan.Height = 602;
+            this.scScan.Height = 578;
             this.scScan.Location = new System.Drawing.Point(276, 21);
             this.scScan.Name = "scScan";
-            this.scScan.Size = new System.Drawing.Size(1134, 581);
+            this.scScan.Size = new System.Drawing.Size(1134, 557);
             this.scScan.TabIndex = 1;
             this.scScan.Text = "Panel 2";
             // 
@@ -334,9 +356,22 @@
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1134, 581);
+            this.panel3.Size = new System.Drawing.Size(1134, 557);
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
+            // 
+            // lbDrugAllergy
+            // 
+            this.lbDrugAllergy.AutoSize = true;
+            this.lbDrugAllergy.BackColor = System.Drawing.Color.White;
+            this.lbDrugAllergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDrugAllergy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbDrugAllergy.Location = new System.Drawing.Point(531, 42);
+            this.lbDrugAllergy.Name = "lbDrugAllergy";
+            this.lbDrugAllergy.Size = new System.Drawing.Size(21, 20);
+            this.lbDrugAllergy.TabIndex = 557;
+            this.lbDrugAllergy.Text = "...";
+            this.theme1.SetTheme(this.lbDrugAllergy, "(default)");
             // 
             // FrmScanView1
             // 
@@ -393,5 +428,8 @@
         private C1.Win.C1SplitContainer.C1SplitContainer sC1;
         private C1.Win.C1SplitContainer.C1SplitterPanel scVs;
         private C1.Win.C1SplitContainer.C1SplitterPanel scScan;
+        private System.Windows.Forms.Label lbCnt;
+        private System.Windows.Forms.Label lbAge;
+        private System.Windows.Forms.Label lbDrugAllergy;
     }
 }

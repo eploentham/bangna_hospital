@@ -44,5 +44,18 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectResultByHn(String acc)
+        {
+            //ResOrderTab cop1 = new ResOrderTab();
+            DataTable dt = new DataTable();
+            String sql = "Select rpttc.*,ReportTab.pid,ReportTab.insertername, ReportTab.studydesc,ReportTab.pkname,ReportTab.studydate,ReportTab.confirmdate, reporttab.accessnum  " +
+                "From " + rpttc.table + " rpttc " +
+                "inner join ReportTab on rpttc.StudyKey = ReportTab.StudyKey and rpttc.HistNo = ReportTab.HistNo " +
+                "Where ReportTab.PID in (" + acc + ") " +
+                "Order By ReportTab.studydate, ReportTab.studytime ";
+            dt = conn.selectData(conn.connPACs, sql);
+
+            return dt;
+        }
     }
 }

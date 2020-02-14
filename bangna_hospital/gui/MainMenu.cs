@@ -65,6 +65,15 @@ namespace bangna_hospital.gui
             menuDocGroupSub.Click += MenuDocGroupSub_Click;
             menuPrint.Click += MenuPrint_Click;
             menuNurseScanView.Click += MenuNurseScanView_Click;
+            menuScanChk.Click += MenuScanChk_Click1;
+        }
+
+        private void MenuScanChk_Click1(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmScanCheck frm = new FrmScanCheck(bc, this);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            AddNewTab(frm, menuScanChk.Text + " ");
         }
 
         private void MenuNurseScanView_Click(object sender, EventArgs e)
@@ -155,22 +164,22 @@ namespace bangna_hospital.gui
                 return false;
             }
         }
-        public void AddNewTab(Form frm, String label)
+        public C1DockingTabPage AddNewTab(Form frm, String label)
         {
-            foreach (Control y in tC1.Controls)
-            {
-                if (y is C1DockingTabPage)
-                {
-                    if (y.Text.Equals("Import JOB"))
-                    {
-                        if (label.Equals("Import JOB"))
-                        {
-                            tC1.SelectedTab = (C1DockingTabPage)y;
-                            return;
-                        }
-                    }
-                }
-            }
+            //foreach (Control y in tC1.Controls)
+            //{
+            //    if (y is C1DockingTabPage)
+            //    {
+            //        if (y.Text.Equals("Import JOB"))
+            //        {
+            //            if (label.Equals("Import JOB"))
+            //            {
+            //                tC1.SelectedTab = (C1DockingTabPage)y;
+            //                return null;
+            //            }
+            //        }
+            //    }
+            //}
             C1DockingTabPage tab = new C1DockingTabPage();
             tab.SuspendLayout();
             frm.TopLevel = false;
@@ -210,6 +219,11 @@ namespace bangna_hospital.gui
             tC1.SelectedTab = tab;
             //theme1.SetTheme(tC1, "Office2010Blue");
             //theme1.SetTheme(tC1, "Office2010Green");
+            return tab;
+        }
+private void MenuScanChk_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -232,7 +246,7 @@ namespace bangna_hospital.gui
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2020-01-20 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2020-01-30 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //sb1.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //theme1.SetTheme(this, ic.theme);
             theme1.SetTheme(this, bc.theme);

@@ -81,8 +81,7 @@ def routeFM(XX, YY, IMG,HH,WW):
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='REG' and fm[2]=='017' :
 			chk1 = True
-		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and len(fm[2])==4 :
-			chk1 = True
+		
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='LAB' and fm[2]=='096' :
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='001' :
@@ -492,6 +491,24 @@ def routeFM(XX, YY, IMG,HH,WW):
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='090' :
 			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='091' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='092' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='093' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='094' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='095' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='096' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='097' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='098' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='ORD' and fm[2]=='099' :
+			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1].upper()=='AMS' and fm[2]=='014' :
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='XRT' and fm[2]=='042' :
@@ -514,7 +531,7 @@ dataDB="bn5_scan"
 #conn = pymssql.connect('Driver={SQL Server};Server='+serverName+';Database='+dataDB+';;UID='+userDB+';PWD='+passDB+';Trusted_Connection=yes;')
 conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
 cur = conn.cursor()
-sql = "Select top (1000) * From doc_scan where status_ml is null and doc_scan_id > 1000033190 Order By doc_scan_id"
+sql = "Select top (1000) * From doc_scan where status_ml is null and doc_scan_id > 1000061000 Order By doc_scan_id"
 cur.execute(sql)
 myresult = cur.fetchall()
 print('ok1')

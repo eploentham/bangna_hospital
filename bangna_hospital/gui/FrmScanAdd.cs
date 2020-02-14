@@ -204,11 +204,31 @@ namespace bangna_hospital.gui
         private void delFile()
         {
             DirectoryInfo dir = new DirectoryInfo(bc.iniC.pathImageScan);
+            if (!Directory.Exists(bc.iniC.pathTempScanAdd))
+            {
+                Directory.CreateDirectory(bc.iniC.pathTempScanAdd);
+            }
+            String datetick1 = "";
+            datetick1 = DateTime.Now.Ticks.ToString();
+            Application.DoEvents();
+            System.Threading.Thread.Sleep(50);
+            if (!Directory.Exists(bc.iniC.pathTempScanAdd+"\\"+ datetick1))
+            {
+                Directory.CreateDirectory(bc.iniC.pathTempScanAdd + "\\" + datetick1);
+            }
+            Application.DoEvents();
+            System.Threading.Thread.Sleep(50);
             foreach (FileInfo fi in dir.GetFiles())
             {
                 try
                 {
-                    fi.Delete();
+                    String datetick = "", ext="";
+                    ext = Path.GetExtension(fi.Name);
+                    datetick = DateTime.Now.Ticks.ToString();
+                    //fi.Delete();
+                    fi.MoveTo(bc.iniC.pathTempScanAdd + "\\" + datetick1 + "\\" + datetick+ext);
+                    Application.DoEvents();
+                    System.Threading.Thread.Sleep(50);
                 }
                 catch (Exception ex)
                 {
@@ -478,17 +498,9 @@ namespace bangna_hospital.gui
                         {
                             ex = sur[1];
                         }
-
                         if (!ex.Equals("pdf"))
                         {
                             loadedImage = Image.FromFile(file);
-                            //byte[] buff = System.IO.File.ReadAllBytes(file);
-                            //System.IO.MemoryStream ms = new System.IO.MemoryStream(buff);
-                            //MemoryStream stream = new MemoryStream(buff);
-
-                            //loadedImage.Save(stream, ImageFormat.Jpeg);
-                            //loadedImage.Dispose();
-                            //loadedImage = Image.FromStream(stream);
                             int originalWidth = 0;
                             originalWidth = loadedImage.Width;
                             int newWidth = 280;
@@ -1045,8 +1057,8 @@ namespace bangna_hospital.gui
         private void FrmScanNew_Load(object sender, EventArgs e)
         {
             timer1.Start();
-            this.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
-            sb1.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2020-01-30 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            sb1.Text = "Last Update 2019-12-29 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
         }
     }
 }

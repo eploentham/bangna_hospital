@@ -40,5 +40,7 @@ namespace bangna_hospital.object1
         public String pic_before_scan_cnt { get; set; }
         public String date_req { get; set; }
         public String req_id { get; set; }
+        public String patient_fullname { get; set; }
+        public String status_record { get; set; }
     }
 }

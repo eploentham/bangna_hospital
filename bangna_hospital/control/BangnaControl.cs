@@ -141,12 +141,15 @@ namespace bangna_hospital.control
             iniC.pathLabOutReceive = iniF.getIni("app", "pathLabOutReceive");
             iniC.pathLabOutBackup = iniF.getIni("app", "pathLabOutBackup");
             iniC.timerCheckLabOut = iniF.getIni("app", "timerCheckLabOut");
-            //iniC.pathScreenCaptureUpload = iniF.getIni("app", "pathScreenCaptureUpload");
+            iniC.pathTempScanAdd = iniF.getIni("app", "pathTempScanAdd");
+            iniC.themeApp = iniF.getIni("app", "themeApp");
+            iniC.station = iniF.getIni("app", "station");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
             iniC.pathImageScan = iniC.pathImageScan == null ? "d:\\images" : iniC.pathImageScan.Equals("") ? "d:\\images" : iniC.pathImageScan;
             iniC.imggridscanwidth = iniC.imggridscanwidth == null ? "380" : iniC.imggridscanwidth.Equals("") ? "380" : iniC.imggridscanwidth;
+            iniC.themeApp = iniC.themeApp == null ? "Office2007Blue" : iniC.themeApp.Equals("") ? "Office2007Blue" : iniC.themeApp;
 
             //iniC.pathImgScanNew = iniC.pathImgScanNew == null ? "d:\\images" : iniC.pathImgScanNew.Equals("") ? "d:\\images" : iniC.pathImgScanNew;
             iniC.folderFTP = iniC.folderFTP == null ? "images_medical_record" : iniC.folderFTP.Equals("") ? "images_medical_record" : iniC.folderFTP;
@@ -163,6 +166,7 @@ namespace bangna_hospital.control
             iniC.pathIniFile = iniC.pathIniFile == null ? "" : iniC.pathIniFile.Equals("") ? "" : iniC.pathIniFile;
             iniC.statusShowPrintDialog = iniC.statusShowPrintDialog == null ? "0" : iniC.statusShowPrintDialog.Equals("") ? "0" : iniC.statusShowPrintDialog;
             iniC.timerCheckLabOut = iniC.timerCheckLabOut == null ? "0" : iniC.timerCheckLabOut.Equals("") ? "0" : iniC.timerCheckLabOut;
+            iniC.station = iniC.station == null ? "0" : iniC.station.Equals("") ? "0" : iniC.station;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -215,14 +219,19 @@ namespace bangna_hospital.control
             DateTime dt1 = new DateTime();
             //MySqlDateTime dtm = new MySqlDateTime();
             String re = "";
-            if (dt != null)
+            if (iniC.windows.Equals("windowsxp"))
             {
-                if (DateTime.TryParse(dt.ToString(), out dt1))
+                re = dt.ToString();
+            }
+            else
+            {
+                if (dt != null)
                 {
-                    re = dt1.ToString("dd-MM-yyyy");
+                    if (DateTime.TryParse(dt.ToString(), out dt1))
+                    {
+                        re = dt1.ToString("dd-MM-yyyy");
+                    }
                 }
-
-
             }
             return re;
         }
@@ -230,40 +239,56 @@ namespace bangna_hospital.control
         {
             DateTime dt1 = new DateTime();
             String re = "";
-            if (dt != null)
+            if (iniC.windows.Equals("windowsxp"))
             {
-                if (!dt.Equals(""))
+                if (dt.Length > 0)
                 {
-                    // Thread แบบนี้ ทำให้ โปรแกรม ที่ไปลงที Xtrim ไม่เอา date ผิด
-                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-us")
+                    re = dt.Substring(dt.Length - 4)+"-"+ dt.Substring(3,2) + "-" + dt.Substring(0, 2);
+                }
+                else
+                {
+
+                }
+                //re = dt1.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                if (dt != null)
+                {
+                    if (!dt.Equals(""))
                     {
-                        DateTimeFormat =
+                        // Thread แบบนี้ ทำให้ โปรแกรม ที่ไปลงที Xtrim ไม่เอา date ผิด
+                        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-us")
+                        {
+                            DateTimeFormat =
                         {
                             DateSeparator = "-"
                         }
-                    };
-                    if (DateTime.TryParse(dt, out dt1))
-                    {
-                        re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
-                    }
-                    else
-                    {
-                        Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH")
-                        {
-                            DateTimeFormat =
-                            {
-                                DateSeparator = "-"
-                            }
                         };
                         if (DateTime.TryParse(dt, out dt1))
                         {
-                            re = dt1.ToString("yyyy-MM-dd");
+                            re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
                         }
-                    }
-                    //dt1 = DateTime.Parse(dt.ToString());
+                        else
+                        {
+                            Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH")
+                            {
+                                DateTimeFormat =
+                            {
+                                DateSeparator = "-"
+                            }
+                            };
+                            if (DateTime.TryParse(dt, out dt1))
+                            {
+                                re = dt1.ToString("yyyy-MM-dd");
+                            }
+                        }
+                        //dt1 = DateTime.Parse(dt.ToString());
 
+                    }
                 }
             }
+            
             return re;
         }
         public String getMonth(String monthId)

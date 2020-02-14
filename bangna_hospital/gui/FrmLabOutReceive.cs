@@ -68,68 +68,178 @@ namespace bangna_hospital.gui
             //listBox1.Dock = DockStyle.Fill;
 
             //panel1.Controls.Add(listBox1);
-            listBox1.Items.Clear();
+            listBox3.Items.Clear();     //listBox1
             DirectoryInfo d = new DirectoryInfo(bc.iniC.pathLabOutReceive);//Assuming Test is your Folder
-            FileInfo[] Files = d.GetFiles("*.*"); //Getting Text files
-            string str = "";
-            foreach (FileInfo file in Files)
+            DirectoryInfo[] dirs = d.GetDirectories();
+            foreach (DirectoryInfo diNext in dirs)
             {
-                //str = str + ", " + file.Name;
-                listBox1.BeginUpdate();
-                listBox1.Items.Add(file.Name);
-                listBox1.EndUpdate();
-                chkFile = true;
-                //listBoxSetText(file.Name);
-                //listBox1.Invoke(() => listBox1.Items.Add(file.Name));
+                Console.WriteLine("The number of files in {0} is {1}", diNext, diNext.GetFiles().Length);
+                FileInfo[] Files = diNext.GetFiles("*.*"); //Getting Text files
+                string str = "";
+                foreach (FileInfo file in Files)
+                {
+                    //str = str + ", " + file.Name;
+                    listBox3.BeginUpdate();     //listBox1
+                    listBox3.Items.Add(file.FullName);     //listBox1
+                    listBox3.EndUpdate();     //listBox1
+                    chkFile = true;
+                    //listBoxSetText(file.Name);
+                    //listBox1.Invoke(() => listBox1.Items.Add(file.Name));
+                }
             }
         }
         private void uploadFiletoServer()
         {
             timer.Stop();
-            listBox3.Items.Clear();
+            listBox2.Items.Clear();     //listBox3
             Application.DoEvents();
             Thread.Sleep(1000);
 
             FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
-            String[] filePaths = Directory.GetFiles(bc.iniC.pathLabOutReceive, "*.*", SearchOption.TopDirectoryOnly);
+            //String[] filePaths = Directory.GetFiles(bc.iniC.pathLabOutReceive, "*.*", SearchOption.TopDirectoryOnly);
+            List<String> filePaths = new List<String>();
+            DirectoryInfo d = new DirectoryInfo(bc.iniC.pathLabOutReceive);//Assuming Test is your Folder
+            DirectoryInfo[] dirs = d.GetDirectories();
+            foreach (DirectoryInfo diNext in dirs)
+            {
+                Console.WriteLine("The number of files in {0} is {1}", diNext, diNext.GetFiles().Length);
+                FileInfo[] Files = diNext.GetFiles("*.*"); //Getting Text files
+                string str = "";
+                foreach (FileInfo file in Files)
+                {
+                    filePaths.Add(file.FullName);
+                }
+            }
             String dgssid = "";
             dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
             DocGroupSubScan dgss = new DocGroupSubScan();
             dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
             foreach (String filename in filePaths)
             {
-                listBox3.Items.Add("พบ file "+ filename);
+                listBox2.Items.Add("พบ file "+ filename);
+                Application.DoEvents();
                 int year2 = 0;
-                String yy = "", mm = "", dd = "", reqid = "", vn="", filename1="", filename2="", year1="";
+                String yy = "", mm = "", dd = "", reqid = "", vn="", filename1="", filename2="", year1="", ext="";
+                String pathname = "",tmp="";
+                tmp = bc.iniC.pathLabOutReceive.Replace("\\\\", "\\");
                 filename1 = Path.GetFileName(filename);
-                string ext = Path.GetExtension(filename1);
-                filename2 = filename1.Replace(".pdf", "");
+                pathname = filename.Replace(filename1, "").Replace(tmp, "").Replace("\\", "");
+                pathname = pathname.Replace("\\", "");
+                String[] txt = filename1.Split('_');
+                if (txt.Length > 1)
+                {
+                    filename2 = txt[0];
+                }
+                else
+                {
+                    filename2 = filename1.Replace(".pdf", "");
+                }
+                ext = Path.GetExtension(filename1);
+                
                 if (filename2.Replace(".pdf","").Length < 10)
                 {
                     String datetick = "";
                     new LogWriter("e", "Filename ไม่ถูก FORMAT");
+                    listBox2.Items.Add("Filename ไม่ถูก FORMAT " + filename);
                     //MessageBox.Show("Filename ไม่ถูก FORMAT", "");
                     datetick = DateTime.Now.Ticks.ToString();
                     if (!Directory.Exists(bc.iniC.pathLabOutBackup))
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackup);
                     }
+                    if (pathname.Length > 0)
+                    {
+                        if (!Directory.Exists(bc.iniC.pathLabOutBackup+"\\"+pathname))
+                        {
+                            Directory.CreateDirectory(bc.iniC.pathLabOutBackup + "\\" + pathname);
+                        }
+                    }
                     Thread.Sleep(200);
-                    File.Move(filename, bc.iniC.pathLabOutBackup + "\\err_" + filename2 + "_" + datetick + ext);
+                    if (pathname.Length > 0)
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    else
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
                     Thread.Sleep(1000);
                     continue;
                 }
-                reqid = filename2.Substring(filename2.Length - 3);
+                if (filename2.Length <= 10)
+                {
+                    String datetick = "";
+                    new LogWriter("e", "Filename ชื่อ File สั้นไป "+ filename);
+                    listBox2.Items.Add("Filename ชื่อ File สั้นไป " + filename);
+                    //MessageBox.Show("Filename ไม่ถูก FORMAT", "");
+                    datetick = DateTime.Now.Ticks.ToString();
+                    if (!Directory.Exists(bc.iniC.pathLabOutBackup))
+                    {
+                        Directory.CreateDirectory(bc.iniC.pathLabOutBackup);
+                    }
+                    if (pathname.Length > 0)
+                    {
+                        if (!Directory.Exists(bc.iniC.pathLabOutBackup + "\\" + pathname))
+                        {
+                            Directory.CreateDirectory(bc.iniC.pathLabOutBackup + "\\" + pathname);
+                        }
+                    }
+                    Thread.Sleep(200);
+                    if (pathname.Length > 0)
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    else
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    Thread.Sleep(1000);
+                    continue;
+                }
+                DateTime dtt1 = new DateTime();
+                int.TryParse(year1, out year2);
                 yy = filename2.Substring(filename2.Length - 5, 2);
                 mm = filename2.Substring(filename2.Length - 7, 2);
                 dd = filename2.Substring(filename2.Length - 9, 2);
                 year1 = "20" + yy;
-                int.TryParse(year1, out year2);
+                if (!DateTime.TryParse(year1 + "-"+mm+"-"+dd, out dtt1))
+                {
+                    String datetick = "";
+                    new LogWriter("e", "Filename ชื่อ File ไม่สามารถหา date ได้ " + filename);
+                    listBox2.Items.Add("Filename ชื่อ File ไม่สามารถหา date ได้ " + filename);
+                    //MessageBox.Show("Filename ไม่ถูก FORMAT", "");
+                    datetick = DateTime.Now.Ticks.ToString();
+                    if (!Directory.Exists(bc.iniC.pathLabOutBackup))
+                    {
+                        Directory.CreateDirectory(bc.iniC.pathLabOutBackup);
+                    }
+                    if (pathname.Length > 0)
+                    {
+                        if (!Directory.Exists(bc.iniC.pathLabOutBackup + "\\" + pathname))
+                        {
+                            Directory.CreateDirectory(bc.iniC.pathLabOutBackup + "\\" + pathname);
+                        }
+                    }
+                    Thread.Sleep(200);
+                    if (pathname.Length > 0)
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    else
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    Thread.Sleep(1000);
+                    continue;
+                }
+                reqid = filename2.Substring(filename2.Length - 3);
+                
                 DataTable dt = new DataTable();
                 dt = bc.bcDB.vsDB.SelectHnLabOut(reqid, year1 + "-" + mm + "-"+ dd);
                 if(dt.Rows.Count <= 0)
                 {
-                    listBox3.Items.Add("Filename ไม่พบข้อมูล HIS " + filename);
+                    listBox2.Items.Add("Filename ไม่พบข้อมูล HIS " + filename);
+                    Application.DoEvents();
                     String datetick = "";
                     new LogWriter("e", "Filename ไม่พบข้อมูล HIS");
                     //MessageBox.Show("Filename ไม่พบข้อมูล HIS", "");
@@ -138,26 +248,41 @@ namespace bangna_hospital.gui
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackup);
                     }
+                    if (pathname.Length > 0)
+                    {
+                        if (!Directory.Exists(bc.iniC.pathLabOutBackup + "\\" + pathname))
+                        {
+                            Directory.CreateDirectory(bc.iniC.pathLabOutBackup + "\\" + pathname);
+                        }
+                    }
                     Thread.Sleep(200);
-                    File.Move(filename, bc.iniC.pathLabOutBackup + "\\err_" + filename2 + "_" + datetick + ext);
+                    if (pathname.Length > 0)
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    else
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
                     Thread.Sleep(1000);
                     continue;
                 }
-                listBox3.Items.Add("พบข้อมูล HIS " + dt.Rows[0]["mnc_hn_no"].ToString());
+                listBox2.Items.Add("พบข้อมูล HIS " + dt.Rows[0]["mnc_hn_no"].ToString());
+                Application.DoEvents();
                 DocScan dsc = new DocScan();
                 dsc.active = "1";
                 dsc.doc_scan_id = "";
                 dsc.doc_group_id = dgss.doc_group_id;
                 dsc.hn = dt.Rows[0]["mnc_hn_no"].ToString();
                 dsc.vn = dt.Rows[0]["MNC_VN_NO"].ToString() + "/" + dt.Rows[0]["MNC_VN_SEQ"].ToString() + "(" + dt.Rows[0]["MNC_VN_SUM"].ToString() + ")";
-                dsc.an = "";
+                dsc.an = dt.Rows[0]["MNC_AN_NO"].ToString() + "/" + dt.Rows[0]["MNC_AN_YR"].ToString();
                 dsc.visit_date = "";
                 dsc.host_ftp = bc.iniC.hostFTP;
                 //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
                 dsc.image_path = "";
                 dsc.doc_group_sub_id = dgssid;
                 dsc.pre_no = dt.Rows[0]["mnc_pre_no"].ToString();
-                dsc.an = "";
+                //dsc.an = "";
                 //DateTime dt = new DateTime();
 
                 //    dsc.an_date = (DateTime.TryParse(txtAnDate.Text, out dt)) ? bc.datetoDB(txtAnDate.Text) : "";
@@ -170,8 +295,69 @@ namespace bangna_hospital.gui
                 dsc.row_no = "1";
                 dsc.row_cnt = "1";
                 dsc.status_version = "2";
-                String re = bc.bcDB.dscDB.insertDocScan(dsc, bc.userId);
-                listBox3.Items.Add("ได้เลขที่ " + re);
+                dsc.req_id = dt.Rows[0]["mnc_req_no"].ToString();
+                DateTime dtt = new DateTime();
+                if (DateTime.TryParse(dt.Rows[0]["mnc_req_dat"].ToString(), out dtt))
+                {
+                    dsc.date_req = dtt.Year.ToString() + "-" + dtt.ToString("MM-dd");
+                }
+                else
+                {
+                    dsc.date_req = "";
+                }
+                if (dsc.an.Length > 0)
+                {
+                    dsc.status_ipd = "1";
+                }
+                else
+                {
+                    dsc.status_ipd = "0";
+                }
+                //dsc.ml_fm = "FM-LAB-999";
+                if (pathname.Equals("ClinicalReport"))
+                {
+                    dsc.ml_fm = "FM-LAB-998";
+                }
+                else
+                {
+                    dsc.ml_fm = "FM-LAB-997";       //PathoReport
+                }
+                dsc.patient_fullname = dt.Rows[0]["mnc_patname"].ToString();
+                dsc.status_record = "2";
+                String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
+                if (re.Length <= 0)
+                {
+                    listBox2.Items.Add("ไม่ได้เลขที่ " + filename);
+                    Application.DoEvents();
+                    String datetick = "";
+                    new LogWriter("e", "ไม่ได้เลขที่ " + filename);
+                    //MessageBox.Show("Filename ไม่พบข้อมูล HIS", "");
+                    datetick = DateTime.Now.Ticks.ToString();
+                    if (!Directory.Exists(bc.iniC.pathLabOutBackup))
+                    {
+                        Directory.CreateDirectory(bc.iniC.pathLabOutBackup);
+                    }
+                    if (pathname.Length > 0)
+                    {
+                        if (!Directory.Exists(bc.iniC.pathLabOutBackup + "\\" + pathname))
+                        {
+                            Directory.CreateDirectory(bc.iniC.pathLabOutBackup + "\\" + pathname);
+                        }
+                    }
+                    Thread.Sleep(200);
+                    if (pathname.Length > 0)
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    else
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\err_" + filename2 + "_" + datetick + ext);
+                    }
+                    Thread.Sleep(1000);
+                    continue;
+                }
+                listBox2.Items.Add("ได้เลขที่ " + re);
+                Application.DoEvents();
                 dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString() + "//" + dt.Rows[0]["mnc_hn_no"].ToString() + "_" + re + ext;
                 //    if (chkIPD.Checked)
                 //    {
@@ -180,12 +366,21 @@ namespace bangna_hospital.gui
                 //    else
                 //    {
                 vn = dsc.vn.Replace("/", "_").Replace("(", "_").Replace(")", "");
-                dsc.ml_fm = "FM-LAB-999";
+                if (pathname.Equals("ClinicalReport"))
+                {
+                    dsc.ml_fm = "FM-LAB-998";
+                }
+                else 
+                {
+                    dsc.ml_fm = "FM-LAB-997";       //PathoReport
+                }
                 //    }
                 //    //dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;       //-1
-                dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "//" + dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
+                dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "//" + dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1                
+                
                 String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
-                listBox3.Items.Add("updateImagepath " + dsc.image_path);
+                listBox2.Items.Add("updateImagepath " + dsc.image_path);
+                Application.DoEvents();
                 //    //MessageBox.Show("111", "");
 
                 ftp.createDirectory(bc.iniC.folderFTP + "//" + dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-"));       // สร้าง Folder HN
@@ -196,7 +391,8 @@ namespace bangna_hospital.gui
                 Thread.Sleep(200);
                 if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
                 {
-                    listBox3.Items.Add("FTP upload success " );
+                    listBox2.Items.Add("FTP upload success " );
+                    Application.DoEvents();
                     Thread.Sleep(1000);
                     String datetick = "";
                     datetick = DateTime.Now.Ticks.ToString();
@@ -204,16 +400,32 @@ namespace bangna_hospital.gui
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackup);
                     }
-                    Thread.Sleep(200);
-                    File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + filename2 + "_" + datetick + ext);
+                    if (pathname.Length > 0)
+                    {
+                        if (!Directory.Exists(bc.iniC.pathLabOutBackup + "\\" + pathname))
+                        {
+                            Directory.CreateDirectory(bc.iniC.pathLabOutBackup + "\\" + pathname);
+                        }
+                    }
                     Thread.Sleep(1000);
-                    listBox2.BeginUpdate();
-                    listBox2.Items.Add(bc.iniC.folderFTP + "//" + dsc.image_path);
-                    listBox2.EndUpdate();
+                    if (pathname.Length > 0)
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + pathname + "\\" + filename2 + "_" + datetick + ext);
+                    }
+                    else
+                    {
+                        File.Move(filename, bc.iniC.pathLabOutBackup + "\\" + filename2 + "_" + datetick + ext);
+                    }
+                    listBox1.BeginUpdate();     //listBox2
+                    listBox1.Items.Add(filename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
+                    listBox1.EndUpdate();     //listBox2
+                    Application.DoEvents();
+                    Thread.Sleep(1000*60);
                 }
                 else
                 {
-                    listBox3.Items.Add("FTP upload success ");
+                    listBox2.Items.Add("FTP upload success ");
+                    Application.DoEvents();
                     new LogWriter("e", "FTP upload no success");
                 }
             }
@@ -234,7 +446,7 @@ namespace bangna_hospital.gui
 
         private void FrmLabOutReceive_Load(object sender, EventArgs e)
         {
-
+            this.Text = "Last Update 2020-02-12";
         }
     }
 }

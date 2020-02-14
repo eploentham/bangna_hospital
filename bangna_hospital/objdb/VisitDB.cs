@@ -72,6 +72,25 @@ namespace bangna_hospital.objdb
             }
             return vs;
         }
+        public Patient selectPatientName(String hn)
+        {
+            Patient ptt = new Patient();
+            DataTable dt = new DataTable();
+            String sql = "";
+            String[] aa = hn.Split('/');
+            sql = "Select   m01.*,m02.MNC_PFIX_DSC as prefix " +
+                "From  patient_m01 m01  " +
+                " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                //" inner join patient_t01 t01 on m01.MNC_HN_NO =t01.MNC_HN_NO " +
+                " Where m01.MNC_HN_NO = '" + hn + "' ";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                ptt.Name = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
+                ptt.patient_birthday = dt.Rows[0]["mnc_bday"].ToString();
+            }
+            return ptt;
+        }
         public DataTable selectAppointmentByDtr(String dtrid, String date)
         {
             DataTable dt = new DataTable();
@@ -108,6 +127,30 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectPttinWard(String wdno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "select patient_t08.mnc_hn_no,patient_m02.MNC_PFIX_DSC as prefix,patient_m01.MNC_FNAME_T, " +
+                "patient_m01.MNC_LNAME_T,patient_t08.MNC_AD_DATE,patient_t08.MNC_DS_DATE,patient_t08.MNC_AN_NO, " +
+                "patient_m32.MNC_MD_DEP_DSC,patient_t08.MNC_RM_NAM,PATIENT_T08.MNC_BD_NO , " +
+                "patient_t01.MNC_SHIF_MEMO,aa.MNC_PFIX_DSC,patient_m26.MNC_DOT_FNAME,patient_m26.MNC_DOT_LNAME,bb.MNC_MD_DEP_DSC as before, " +
+                "DATEDIFF(DAY,MNC_AD_DATE,MNC_DS_DATE) as day " +
+                "from PATIENT_T08 " +
+                " inner join PATIENT_T01 on patient_t01.MNC_PRE_NO =PATIENT_T08.MNC_PRE_NO and patient_t01.MNC_date = PATIENT_T08.MNC_date " +
+                " INNER JOIN dbo.PATIENT_M01 ON dbo.PATIENT_T08.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO  " +
+                " INNER JOIN dbo.PATIENT_M02 ON dbo.PATIENT_M01.MNC_PFIX_CDT = dbo.PATIENT_M02.MNC_PFIX_CD " +
+                "inner join	patient_m26 on PATIENT_T08.MNC_DOT_CD_S = patient_m26.MNC_DOT_CD " +
+                "INNER JOIN	PATIENT_M32 ON PATIENT_T08.MNC_SEC_NO = PATIENT_M32.MNC_SEC_NO " +
+                "INNER JOIN	FINANCE_M02 ON PATIENT_T08.MNC_FN_TYP_CD = FINANCE_M02.MNC_FN_TYP_CD " +
+                "INNER JOIN	dbo.PATIENT_M02 as aa ON dbo.PATIENT_M26.MNC_DOT_PFIX = aa.MNC_PFIX_CD " +
+                "inner join	PATIENT_M32 as bb ON bb.MNC_SEC_NO = PATIENT_M26.MNC_SEC_NO " +
+                " WHERE   PATIENT_T08.MNC_AD_STS = 'A' and mnc_ds_lev = '1' and PATIENT_T08.mnc_wd_no = '"+ wdno+"' " +
+                " Order By PATIENT_T08.mnc_ad_date, PATIENT_T08.mnc_ad_time ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectVisitByDtr(String dtrid, String date)
         {
             DataTable dt = new DataTable();
@@ -137,8 +180,8 @@ namespace bangna_hospital.objdb
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " inner join FINANCE_M02 f02 ON t01.MNC_FN_TYP_CD = f02.MNC_FN_TYP_CD " +
-                " Where t01.MNC_DOT_CD = '" + dtrid + "' and t01.mnc_date = '" + date + "'" +
-                "and t01.MNC_STS <> 'C' " +
+                " Where t01.MNC_DOT_CD = '" + dtrid + "' and t01.mnc_date = '" + date + "' and t01.mnc_act_no = '110' " +
+                "and t01.MNC_STS <> 'C' " +     // mnc_act_number 110 = ส่งพบแพทย์, 610 พยาบาล ปิดทำงาน ไปการเงิน
                 " Order By t01.MNC_DATE, t01.MNC_TIME ";
             dt = conn.selectData(sql);
 
@@ -177,6 +220,67 @@ namespace bangna_hospital.objdb
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
                 "and t01.MNC_STS <> 'C' " +
                 " Order by t01.MNC_HN_NO ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable selectVisitByHn(String hn, String datestart, String dateend)
+        {
+            String wherehn = "", wheredateend = "", wheredatestart = "", where = "";
+            DataTable dt = new DataTable();
+            if (hn.Length > 0)
+            {
+                wherehn = " t01.mnc_hn_no like '%" + hn + "%'";
+            }
+            if (dateend.Length > 0)
+            {
+                wheredateend = " t01.mnc_date <='" + dateend + "' ";
+            }
+            if (datestart.Length > 0)
+            {
+                wheredatestart = " t01.mnc_date >='" + datestart + "' ";
+            }
+            if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+            {
+                where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+            }
+            else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+            {
+                where = wheredatestart + " and " + wherehn;
+            }
+            else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+            {
+                where = wherehn;
+            }
+            String sql = "";
+            sql = "Select   t01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, " +
+                "Case f02.MNC_FN_TYP_DSC " +
+                    "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
+                    "When 'ประกันสังคม (บ.2)' Then 'ปกส(บ.2)' " +
+                    "When 'ประกันสังคม (บ.5)' Then 'ปกส(บ.5)' " +
+                    "When 'ประกันสังคมอิสระ (บ.1)' Then 'ปกต(บ.1)' " +
+                    "When 'ประกันสังคมอิสระ (บ.5)' Then 'ปกต(บ.5)' " +
+                    "When 'ตรวจสุขภาพ (เงินสด)' Then 'ตส(เงินสด)' " +
+                    "When 'ตรวจสุขภาพ (บริษัท)' Then 'ตส(บริษัท)' " +
+                    "When 'ตรวจสุขภาพ (PACKAGE)' Then 'ตส(PACKAGE)' " +
+                    "When 'ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปากน้ำ' Then 'ลูกหนี้(ปากน้ำ)' " +
+                    "When 'ลูกหนี้บางนา 1' Then 'ลูกหนี้(บ.1)' " +
+                    "When 'บริษัทประกัน' Then 'บ.ประกัน' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "Else MNC_FN_TYP_DSC " +
+                    "End as MNC_FN_TYP_DSC, " +
+                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_doc_sts,m01.mnc_bday,m01.mnc_sex" +
+                ", t01.mnc_date, t01.mnc_time, t01.mnc_weight, t01.mnc_high, t01.MNC_TEMP, t01.mnc_ratios, t01.mnc_breath, t01.mnc_bp1_l, t01.mnc_bp1_r, t01.mnc_bp2_l, t01.mnc_bp2_r,t01.MNC_pre_no, t01.mnc_ref_dsc " +
+                "From patient_t01 t01 " +
+                " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
+                " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                " inner join FINANCE_M02 f02 ON t01.MNC_FN_TYP_CD = f02.MNC_FN_TYP_CD " +
+                " Where " + where +
+                "and t01.MNC_STS <> 'C' " +
+                " Order By t01.MNC_DATE, t01.MNC_TIME ";
             dt = conn.selectData(sql);
 
             return dt;
@@ -505,6 +609,20 @@ namespace bangna_hospital.objdb
                 "and t01.mnc_vn_no = '"+ vn + "' "+
                 "and t01.mnc_pre_no = '"+ preno + "' " +
                 "Order By LAB_T05.MNC_REQ_DAT";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectDrugAllergy(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "SELECT t02.* ,pharm36.MNC_PH_ALG_DSC, pharm01.mnc_ph_tn " +
+                "FROM     PATIENT_T02 t02 " +
+                "left join pharmacy_m01 pharm01 ON t02.mnc_ph_cd = pharm01.mnc_ph_cd  " +
+                "left join pharmacy_m36 pharm36 ON t02.MNC_PH_ALG_CD = pharm36.MNC_PH_ALG_CD  " +
+                "where  t02.mnc_hn_no = '" + hn + "' " +
+                "Order By t02.mnc_stamp_dat, t02.mnc_stamp_tim ";
 
             dt = conn.selectData(sql);
             return dt;

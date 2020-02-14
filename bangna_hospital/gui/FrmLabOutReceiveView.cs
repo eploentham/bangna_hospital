@@ -39,8 +39,24 @@ namespace bangna_hospital.gui
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
 
             btnOk.Click += BtnOk_Click;
-
+            theme1.SetTheme(sb1, bc.iniC.themeApplication);
+            theme1.SetTheme(panel1, bc.iniC.themeApplication);
+            theme1.SetTheme(panel2, bc.iniC.themeApplication);
+            theme1.SetTheme(panel3, bc.iniC.themeApplication);
+            foreach (Control con in panel1.Controls)
+            {
+                theme1.SetTheme(con, bc.iniC.themeApplication);
+            }
+            foreach (Control con in panel2.Controls)
+            {
+                theme1.SetTheme(con, bc.iniC.themeApplication);
+            }
+            foreach (Control con in panel3.Controls)
+            {
+                theme1.SetTheme(con, bc.iniC.themeApplication);
+            }
             initGrf();
+            setGrf();
         }
 
         private void BtnOk_Click(object sender, EventArgs e)
@@ -68,7 +84,7 @@ namespace bangna_hospital.gui
             panel2.Controls.Add(grfHn);
             grfHn.Rows[0].Visible = false;
             grfHn.Cols[0].Visible = false;
-            //theme1.SetTheme(grf, "Office2010Blue");
+            theme1.SetTheme(grfHn, bc.iniC.themeApplication);
 
         }
         private void GrfHn_DoubleClick(object sender, EventArgs e)
@@ -129,10 +145,12 @@ namespace bangna_hospital.gui
         {
             String datestart = "", dateend = "", hn = "", txt = "";
             DataTable dt = new DataTable();
+            //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
+            //MessageBox.Show("txtDateEnd " + txtDateEnd.Text, "");
             datestart = bc.datetoDB(txtDateStart.Text);
             dateend = bc.datetoDB(txtDateEnd.Text);
-
-            dt = bc.bcDB.dscDB.selectLabOutByDateReceive(datestart, dateend);
+            //MessageBox.Show("datestart "+ datestart, "");
+            //MessageBox.Show("dateend "+ dateend, "");
             grfHn.Clear();
             grfHn.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
@@ -150,8 +168,26 @@ namespace bangna_hospital.gui
             grfHn.Cols[colDateReceive].Width = 100;
             grfHn.Cols[colReqNo].Width = 80;
             grfHn.Cols[colVN].Width = 80;
+            //MessageBox.Show("1111", "");
+            if (datestart.Length <= 0 && dateend.Length <= 0 && txtHn.Text.Length <= 0)
+            {
+                return;
+            }
+            if (chkDateReq.Checked)
+            {
+                dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "daterequest");
+            }
+            else
+            {
+                dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
+            }
             //grfHn.Cols[colHnPrnStaffNote].Width = 60;
 
+            //if (datestart.Length <= 0 && dateend.Length <= 0)
+            //{
+            //    MessageBox.Show("วันทีเริ่มต้น ไม่มีค่า", "");
+            //    return;
+            //}
             grfHn.ShowCursor = true;
             ContextMenu menuGw = new ContextMenu();
             grfHn.ContextMenu = menuGw;
@@ -163,7 +199,7 @@ namespace bangna_hospital.gui
                 {
                     grfHn[i, 0] = (i);
                     grfHn[i, colHN] = row["hn"].ToString();
-                    grfHn[i, colFullName] = "";//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfHn[i, colFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
                     grfHn[i, colDateReceive] = bc.datetoShow(row["date_create"].ToString());
                     grfHn[i, colDateReq] = bc.datetoShow(row["date_req"].ToString());
                     grfHn[i, colReqNo] = row["req_id"].ToString();
@@ -176,10 +212,17 @@ namespace bangna_hospital.gui
                 }
                 i++;
             }
+            grfHn.Cols[colId].Visible = false;
+            grfHn.Cols[colHN].AllowEditing = false;
+            grfHn.Cols[colFullName].AllowEditing = false;
+            grfHn.Cols[colDateReceive].AllowEditing = false;
+            grfHn.Cols[colDateReq].AllowEditing = false;
+            grfHn.Cols[colReqNo].AllowEditing = false;
+            grfHn.Cols[colVN].AllowEditing = false;
         }
         private void FrmLabOutReceiveView_Load(object sender, EventArgs e)
         {
-
+            this.Text = "Last Update 2020-02-06 " ;
         }
     }
 }

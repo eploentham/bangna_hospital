@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.object1
 {
+    /*
+     * 0002     scan แล้วเก็บข้อมูลไม่ครบ
+     */
     public class FtpClient
     {
         string host = null;
@@ -94,12 +97,14 @@ namespace bangna_hospital.object1
         public Boolean upload(string remoteFile, string localFile)
         {
             Boolean chk = false;
+            String err = "";
             try
             {
                 /* Create an FTP Request */
                 ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
+                err = "00";
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = ftpUsePassive;
@@ -114,6 +119,7 @@ namespace bangna_hospital.object1
                         ftpRequest.Proxy = new WebProxy(ProxyHost, chk1);                        
                     }
                 }
+                err = "01";
                 //ftpRequest.Proxy = new WebProxy();
                 //MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
                 //MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);
@@ -122,12 +128,16 @@ namespace bangna_hospital.object1
 
                 /* Open a File Stream to Read the File for Upload */
                 if (!File.Exists(localFile)) return false;
+                err = "02";
                 FileStream localFileStream = new FileStream(localFile, FileMode.Open, FileAccess.Read);
+                err = "03";
                 ftpStream = ftpRequest.GetRequestStream();
+                err = "04";
                 /* Buffer for the Downloaded Data */
                 byte[] byteBuffer = new byte[bufferSize];
                 int bytesSent = localFileStream.Read(byteBuffer, 0, bufferSize);
                 /* Upload the File by Sending the Buffered Data Until the Transfer is Complete */
+                err = "05";
                 try
                 {
                     while (bytesSent != 0)
@@ -136,7 +146,11 @@ namespace bangna_hospital.object1
                         bytesSent = localFileStream.Read(byteBuffer, 0, bufferSize);
                     }
                 }
-                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+                catch (Exception ex) 
+                {
+                    new LogWriter("e", "upload localFile " + localFile + ex.ToString() + " Error ftp upload write file  ");      //+0002
+                    Console.WriteLine(ex.ToString()); 
+                }
                 /* Resource Cleanup */
                 localFileStream.Close();
                 ftpStream.Close();
@@ -146,6 +160,7 @@ namespace bangna_hospital.object1
             catch (Exception ex)
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
+                new LogWriter("e", err+" upload localFile " + localFile + ex.ToString()+" remote file "+ remoteFile + "\nError ftp upload  ");
                 MessageBox.Show(""+ ex.ToString(), "Error ftp upload  ");
                 Console.WriteLine(ex.ToString());
                 chk = false;
@@ -349,8 +364,8 @@ namespace bangna_hospital.object1
             {
                 //String status = ((FtpWebResponse)ex.Response).StatusDescription;
                 //MessageBox.Show(" " + ex.ToString(), "Error createDirectory -> ");
-                new LogWriter("e", "createDirectory newDirectory " + host + "//" + newDirectory +" "+ ex.ToString());
-                Console.WriteLine(ex.ToString());
+                //new LogWriter("e", "createDirectory newDirectory " + host + "//" + newDirectory +" "+ ex.ToString());
+                //Console.WriteLine(ex.ToString());
             }
             return;
         }

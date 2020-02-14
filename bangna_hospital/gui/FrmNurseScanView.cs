@@ -2,6 +2,7 @@
 using bangna_hospital.object1;
 using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
+using C1.Win.C1SplitContainer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,13 +20,19 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         MainMenu menu;
 
+        Panel pnLabOut, pnXray, pnXrayL, pnXrayR;
+        C1SplitterPanel spPttinWrd, spPttL, spPttR, spLabOutR, spXray, spItem;
         C1DockingTab tC1;
-        C1DockingTabPage tabApm, tabHn;
-        C1FlexGrid grfHn, grfQue, grfApm;
+        C1DockingTabPage tabApm, tabHn,tabPttinWrd, tabLabOutRec, tabLabOutReq;
+        C1FlexGrid grfHn, grfQue, grfApm, grfPttinWrd, grfLabOutFinish, grfXrayFinish, grfLabOutRec, grfLabOutReq;
         Font fEdit, fEditB, fEditBig;
         int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7;
-        int colQueId = 1, colQueVnShow = 2, colQueHn = 3, colQuePttName = 4, colQueVsDate = 5, colQueVsTime = 6, colQueSex = 7, colQueAge = 8, colQuePaid = 9, colQueSymptom = 10, colQueHeight = 11, coolQueBw = 12, colQueBp = 13, colQuePulse = 14, colQyeTemp = 15, colQuePreNo = 16, colQueDsc = 17;
+        //int colQueId = 1, colQueVnShow = 2, colQueHn = 3, colQuePttName = 4, colQueVsDate = 5, colQueVsTime = 6, colQueSex = 7, colQueAge = 8, colQuePaid = 9, colQueSymptom = 10, colQueHeight = 11, coolQueBw = 12, colQueBp = 13, colQuePulse = 14, colQyeTemp = 15, colQuePreNo = 16, colQueDsc = 17;
         int colApmId = 1, colApmHn = 2, colApmPttName = 3, colApmDate = 4, colApmTime = 5, colApmSex = 6, colApmAge = 7, colApmDsc = 8, colApmRemark = 9, colApmDept = 10;
+        int colLabOutHn = 1, colLabOutPttName = 2, colLabOutWard = 3, colLabOutRoom = 4, colLabOutDtrName = 5, colLabOutRemark = 6, colLabOutBefore = 7;
+        int colLabOutFDateReq = 1, colLabOutFHN = 2, colLabOutFFullName = 3, colLabOutFVN = 4, colLabOutFDateReceive = 5, colLabOutFReqNo = 6, colLabOutFId = 7;
+        System.Windows.Forms.Timer timer;
+        String HNinWrd = "";
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -49,26 +56,56 @@ namespace bangna_hospital.gui
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
 
-            chkDoctor.Checked = true;
+            chkHn.Checked = true;
             btnOk.Click += BtnOk_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
             chkHn.Click += ChkHn_Click;
             chkDoctor.Click += ChkDoctor_Click;
+            chkDateReq.Click += ChkDateReq_Click;
+            chkDateLabOut.Click += ChkDateLabOut_Click;
             txtDateStart.Value = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
             txtDateEnd.Value = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
             initTab();
+            setGrfPttinWrd();
+            setGrfLabOutFinish(HNinWrd);
+            setGrfXrayFinish(HNinWrd);
+
+            timer = new System.Windows.Forms.Timer();
+            timer.Enabled = true;
+            timer.Interval = bc.timerCheckLabOut * 1000;
+            timer.Tick += Timer_Tick;
 
             theme1.Theme = bc.iniC.themeApplication;
             setTheme();
             //initGrf();
             //initGrfApm();
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfPttinWrd();
+            setGrfLabOutFinish(HNinWrd);
+        }
+
+        private void ChkDateLabOut_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setCheckHn();
+        }
+
+        private void ChkDateReq_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setCheckHn();
+        }
+
         private void setTheme()
         {
             theme1.SetTheme(this, theme1.Theme);
             theme1.SetTheme(panel1, theme1.Theme);
             theme1.SetTheme(panel2, theme1.Theme);
-            theme1.SetTheme(panel3, theme1.Theme);
+            theme1.SetTheme(pnHead, theme1.Theme);
         }
         private void ChkDoctor_Click(object sender, EventArgs e)
         {
@@ -85,11 +122,23 @@ namespace bangna_hospital.gui
         {
             if (chkHn.Checked)
             {
-                txtDateEnd.Enabled = true;
+                c1Label4.Visible = true;
+                txtDateEnd.Visible = true;
+            }
+            else if (chkDateReq.Checked)
+            {
+                txtDateStart.Visible = true;
+                txtDateEnd.Visible = true;
+            }
+            else if (chkDateLabOut.Checked)
+            {
+                txtDateStart.Visible = true;
+                txtDateEnd.Visible = true;
             }
             else
             {
-                txtDateEnd.Enabled = false;
+                txtDateEnd.Visible = false;
+                c1Label4.Visible = false;
             }
         }
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
@@ -108,10 +157,30 @@ namespace bangna_hospital.gui
         }
         private void setGrf()
         {
-            tC1.TabPages.Clear();
+            //tC1.TabPages.Clear();
             if (chkHn.Checked)
             {
-                setGrfHn();
+                String allergy = "";
+                Patient ptt = new Patient();
+                ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+                
+                if (ptt.Name.Length <= 0)
+                {
+                    MessageBox.Show("ไม่พบ hn ในระบบ", "");
+                    return;
+                }
+                lbName.Text = ptt.Name;
+                openNewForm(txtHn.Text.Trim(), ptt.Name);
+            }
+            else if (chkDateLabOut.Checked)
+            {
+                setGrfLabOutRec();
+                tC1.SelectedTab = tabLabOutRec;
+            }
+            else if (chkDateReq.Checked)
+            {
+                setGrfLabOutReq();
+                tC1.SelectedTab = tabLabOutReq;
             }
             else
             {
@@ -132,10 +201,238 @@ namespace bangna_hospital.gui
             tC1.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
             tC1.TabsShowFocusCues = true;
             tC1.TabsSpacing = 2;
+            tC1.CanCloseTabs = true;
+            tC1.CanAutoHide = false;
+            tC1.ShowCaption = true;
+            tC1.SelectedTabBold = true;
             theme1.SetTheme(this.tC1, bc.iniC.themeApplication);
             panel2.Controls.Add(tC1);
+            initTabLabOut();
+            //initTabXray();
+            initGrfDateLabRec();
+            initGrfDateLabReq();
         }
-        private void initGrfApm()
+        private void initGrfDateLabReq()
+        {
+            tabLabOutReq = new C1.Win.C1Command.C1DockingTabPage();
+            tabLabOutReq.CaptionVisible = true;
+            //tabQue.Controls.Add(this.pnQue);
+            tabLabOutReq.Location = new System.Drawing.Point(1, 1);
+            tabLabOutReq.Name = "tabLabOutRec";
+            tabLabOutReq.Size = new System.Drawing.Size(1010, 575);
+            tabLabOutReq.TabIndex = 0;
+            tabLabOutReq.Text = "ค้นหารายการ Out Lab ตามวันที่ request ";
+            tC1.Controls.Add(tabLabOutReq);
+            Panel pnLabOutReq = new Panel();
+            pnLabOutReq.Dock = DockStyle.Fill;
+            tabLabOutReq.Controls.Add(pnLabOutReq);
+            //pnApm.Controls.Add(tabApm);
+
+            grfLabOutReq = new C1FlexGrid();
+            grfLabOutReq.Font = fEdit;
+            grfLabOutReq.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfLabOutReq.Location = new System.Drawing.Point(0, 0);
+            grfLabOutReq.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfLabOutReq.DoubleClick += GrfLabOutReq_DoubleClick;
+
+            pnLabOutReq.Controls.Add(grfLabOutReq);
+            grfLabOutReq.Rows[0].Visible = false;
+            grfLabOutReq.Cols[0].Visible = false;
+            tC1.SelectedTab = tabLabOutReq;
+            theme1.SetTheme(grfLabOutReq, bc.iniC.themeApp);
+        }
+
+        private void GrfLabOutReq_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfLabOutReq == null) return;
+            if (grfLabOutReq.Row <= 0) return;
+            if (grfLabOutReq.Col <= 0) return;
+
+            String hn = "", pttname = "";
+            hn = grfLabOutReq[grfLabOutReq.Row, colLabOutFHN].ToString();
+            pttname = grfLabOutReq[grfLabOutReq.Row, colLabOutFFullName].ToString();
+            openNewForm(hn, pttname);
+        }
+        private void setGrfLabOutReq()
+        {
+            String datestart = "", dateend = "";
+            DataTable dt = new DataTable();
+            datestart = bc.datetoDB(txtDateStart.Text);
+            dateend = bc.datetoDB(txtDateEnd.Text);
+            grfLabOutReq.Clear();
+            grfLabOutReq.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfLabOutReq.Cols.Count = 8;
+            grfLabOutReq.Cols[colLabOutFDateReq].Caption = "Date Req";
+            grfLabOutReq.Cols[colLabOutFHN].Caption = "HN";
+            grfLabOutReq.Cols[colLabOutFFullName].Caption = "Name";
+            grfLabOutReq.Cols[colLabOutFVN].Caption = "VN";
+            grfLabOutReq.Cols[colLabOutFDateReceive].Caption = "Date Rec";
+            grfLabOutReq.Cols[colLabOutFReqNo].Caption = "Req No";
+            grfLabOutReq.Cols[colLabOutFId].Caption = "id";
+
+            grfLabOutReq.Cols[colLabOutFDateReq].Width = 100;
+            grfLabOutReq.Cols[colLabOutFHN].Width = 80;
+            grfLabOutReq.Cols[colLabOutFFullName].Width = 300;
+            grfLabOutReq.Cols[colLabOutFVN].Width = 100;
+            grfLabOutReq.Cols[colLabOutFDateReceive].Width = 100;
+            grfLabOutReq.Cols[colLabOutFReqNo].Width = 80;
+
+            dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "daterequest");
+
+            //grfLabOutReq.Cols[colHnPrnStaffNote].Width = 60;
+
+            //if (datestart.Length <= 0 && dateend.Length <= 0)
+            //{
+            //    MessageBox.Show("วันทีเริ่มต้น ไม่มีค่า", "");
+            //    return;
+            //}
+            grfLabOutReq.ShowCursor = true;
+            ContextMenu menuGw = new ContextMenu();
+            grfLabOutReq.ContextMenu = menuGw;
+            int i = 1;
+            grfLabOutReq.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfLabOutReq[i, 0] = (i);
+                    grfLabOutReq[i, colLabOutFHN] = row["hn"].ToString();
+                    grfLabOutReq[i, colLabOutFFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfLabOutReq[i, colLabOutFDateReceive] = bc.datetoShow(row["date_create"].ToString());
+                    grfLabOutReq[i, colLabOutFDateReq] = bc.datetoShow(row["date_req"].ToString());
+                    grfLabOutReq[i, colLabOutFReqNo] = row["req_id"].ToString();
+                    grfLabOutReq[i, colLabOutFVN] = row["vn"].ToString();
+                    grfLabOutReq[i, colLabOutFId] = row["doc_scan_id"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmNurseScanView setGrfLabOutRec ex " + ex.Message);
+                }
+                i++;
+            }
+            grfLabOutReq.Cols[colId].Visible = false;
+            grfLabOutReq.Cols[colLabOutFHN].AllowEditing = false;
+            grfLabOutReq.Cols[colLabOutFFullName].AllowEditing = false;
+            grfLabOutReq.Cols[colLabOutFDateReceive].AllowEditing = false;
+            grfLabOutReq.Cols[colLabOutFDateReq].AllowEditing = false;
+            grfLabOutReq.Cols[colLabOutFReqNo].AllowEditing = false;
+            grfLabOutReq.Cols[colLabOutFVN].AllowEditing = false;
+        }
+        private void initGrfDateLabRec()
+        {
+            tabLabOutRec = new C1.Win.C1Command.C1DockingTabPage();
+            tabLabOutRec.CaptionVisible = true;
+            //tabQue.Controls.Add(this.pnQue);
+            tabLabOutRec.Location = new System.Drawing.Point(1, 1);
+            tabLabOutRec.Name = "tabLabOutRec";
+            tabLabOutRec.Size = new System.Drawing.Size(1010, 575);
+            tabLabOutRec.TabIndex = 0;
+            tabLabOutRec.Text = "ค้นหารายการ Out Lab ตามวันที่รับผล " ;
+            tC1.Controls.Add(tabLabOutRec);
+            Panel pnLabOutRec = new Panel();
+            pnLabOutRec.Dock = DockStyle.Fill;
+            tabLabOutRec.Controls.Add(pnLabOutRec);
+            //pnApm.Controls.Add(tabApm);
+
+            grfLabOutRec = new C1FlexGrid();
+            grfLabOutRec.Font = fEdit;
+            grfLabOutRec.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfLabOutRec.Location = new System.Drawing.Point(0, 0);
+            grfLabOutRec.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfLabOutRec.DoubleClick += GrfLabOutRec_DoubleClick;
+
+            pnLabOutRec.Controls.Add(grfLabOutRec);
+            grfLabOutRec.Rows[0].Visible = false;
+            grfLabOutRec.Cols[0].Visible = false;
+            tC1.SelectedTab = tabLabOutRec;
+            theme1.SetTheme(grfLabOutRec, bc.iniC.themeApp);
+        }
+
+        private void GrfLabOutRec_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfLabOutRec == null) return;
+            if (grfLabOutRec.Row <= 0) return;
+            if (grfLabOutRec.Col <= 0) return;
+
+            String hn = "", pttname = "";
+            hn = grfLabOutRec[grfLabOutRec.Row, colLabOutFHN].ToString();
+            pttname = grfLabOutRec[grfLabOutRec.Row, colLabOutFFullName].ToString();
+            openNewForm(hn, pttname);
+        }
+        private void setGrfLabOutRec()
+        {
+            String datestart = "", dateend = "";
+            DataTable dt = new DataTable();
+            datestart = bc.datetoDB(txtDateStart.Text);
+            dateend = bc.datetoDB(txtDateEnd.Text);
+            grfLabOutRec.Clear();
+            grfLabOutRec.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfLabOutRec.Cols.Count = 8;
+            grfLabOutRec.Cols[colLabOutFDateReq].Caption = "Date Req";
+            grfLabOutRec.Cols[colLabOutFHN].Caption = "HN";
+            grfLabOutRec.Cols[colLabOutFFullName].Caption = "Name";
+            grfLabOutRec.Cols[colLabOutFVN].Caption = "VN";
+            grfLabOutRec.Cols[colLabOutFDateReceive].Caption = "Date Rec";
+            grfLabOutRec.Cols[colLabOutFReqNo].Caption = "Req No";
+            grfLabOutRec.Cols[colLabOutFId].Caption = "id";
+
+            grfLabOutRec.Cols[colLabOutFDateReq].Width = 100;
+            grfLabOutRec.Cols[colLabOutFHN].Width = 80;
+            grfLabOutRec.Cols[colLabOutFFullName].Width = 300;
+            grfLabOutRec.Cols[colLabOutFVN].Width = 100;
+            grfLabOutRec.Cols[colLabOutFDateReceive].Width = 100;
+            grfLabOutRec.Cols[colLabOutFReqNo].Width = 80;
+
+            dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
+
+            //grfLabOutRec.Cols[colHnPrnStaffNote].Width = 60;
+
+            //if (datestart.Length <= 0 && dateend.Length <= 0)
+            //{
+            //    MessageBox.Show("วันทีเริ่มต้น ไม่มีค่า", "");
+            //    return;
+            //}
+            grfLabOutRec.ShowCursor = true;
+            ContextMenu menuGw = new ContextMenu();
+            grfLabOutRec.ContextMenu = menuGw;
+            int i = 1;
+            grfLabOutRec.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfLabOutRec[i, 0] = (i);
+                    grfLabOutRec[i, colLabOutFHN] = row["hn"].ToString();
+                    grfLabOutRec[i, colLabOutFFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfLabOutRec[i, colLabOutFDateReceive] = bc.datetoShow(row["date_create"].ToString());
+                    grfLabOutRec[i, colLabOutFDateReq] = bc.datetoShow(row["date_req"].ToString());
+                    grfLabOutRec[i, colLabOutFReqNo] = row["req_id"].ToString();
+                    grfLabOutRec[i, colLabOutFVN] = row["vn"].ToString();
+                    grfLabOutRec[i, colLabOutFId] = row["doc_scan_id"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmNurseScanView setGrfLabOutRec ex " + ex.Message);
+                }
+                i++;
+            }
+            grfLabOutRec.Cols[colId].Visible = false;
+            grfLabOutRec.Cols[colLabOutFHN].AllowEditing = false;
+            grfLabOutRec.Cols[colLabOutFFullName].AllowEditing = false;
+            grfLabOutRec.Cols[colLabOutFDateReceive].AllowEditing = false;
+            grfLabOutRec.Cols[colLabOutFDateReq].AllowEditing = false;
+            grfLabOutRec.Cols[colLabOutFReqNo].AllowEditing = false;
+            grfLabOutRec.Cols[colLabOutFVN].AllowEditing = false;
+        }
+        private void initGrfApm(String name)
         {
             tabApm = new C1.Win.C1Command.C1DockingTabPage();
             tabApm.CaptionVisible = true;
@@ -144,7 +441,7 @@ namespace bangna_hospital.gui
             tabApm.Name = "tabApm";
             tabApm.Size = new System.Drawing.Size(1010, 575);
             tabApm.TabIndex = 0;
-            tabApm.Text = "Apointment";
+            tabApm.Text = "นัดของ "+ name;
             tC1.Controls.Add(tabApm);
             Panel pnApm = new Panel();
             pnApm.Dock = DockStyle.Fill;
@@ -163,6 +460,7 @@ namespace bangna_hospital.gui
             pnApm.Controls.Add(grfApm);
             grfApm.Rows[0].Visible = false;
             grfApm.Cols[0].Visible = false;
+            tC1.SelectedTab = tabApm;
             theme1.SetTheme(grfApm, "Office2010Blue");
         }
 
@@ -211,6 +509,7 @@ namespace bangna_hospital.gui
             tab.Width = tC1.Width - 10;
             tab.Height = tC1.Height - 35;
             tab.Name = frm.Name;
+            
 
             frm.Parent = tab;
             frm.Dock = DockStyle.Fill;
@@ -248,6 +547,430 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
 
         }
+        private void initTabLabOut()
+        {
+            tabPttinWrd = new C1.Win.C1Command.C1DockingTabPage();
+            tabPttinWrd.CaptionVisible = true;
+            //tabQue.Controls.Add(this.pnQue);
+            tabPttinWrd.Location = new System.Drawing.Point(1, 1);
+            tabPttinWrd.Name = "tabLabOut";
+            
+            tabPttinWrd.Size = new System.Drawing.Size(1010, 575);
+            tabPttinWrd.TabIndex = 0;
+            tabPttinWrd.Text = "Out LAB / Xray";
+            tC1.Controls.Add(tabPttinWrd);
+            C1SplitContainer scPttinWrd = new C1SplitContainer();
+            scPttinWrd.Height = 565;
+            scPttinWrd.Location = new System.Drawing.Point(0, 183);
+            scPttinWrd.Name = "scPttinWrd";
+            scPttinWrd.Size = new System.Drawing.Size(895, 544);
+            scPttinWrd.TabIndex = 1;
+            scPttinWrd.Text = "";
+            scPttinWrd.Dock = DockStyle.Fill;
+            C1SplitContainer scPttL = new C1SplitContainer();
+            scPttL.Height = 565;
+            scPttL.Location = new System.Drawing.Point(0, 183);
+            scPttL.Name = "scPttL";
+            scPttL.Size = new System.Drawing.Size(895, 544);
+            scPttL.TabIndex = 1;
+            scPttL.Text = "";
+            scPttL.Dock = DockStyle.Fill;
+            C1SplitContainer scPttR = new C1SplitContainer();
+            scPttR.Height = 565;
+            scPttR.Location = new System.Drawing.Point(0, 183);
+            scPttR.Name = "scPttR";
+            scPttR.Size = new System.Drawing.Size(895, 544);
+            scPttR.TabIndex = 1;
+            scPttR.Text = "";
+            scPttR.Dock = DockStyle.Fill;
+
+            //spLabOut.Dock = PanelDockStyle
+            tabPttinWrd.Controls.Add(scPttinWrd);
+
+            pnLabOut = new Panel();
+            pnLabOut.Dock = DockStyle.Fill;
+            pnLabOut.Size = new Size(this.Width / 2, this.Height);
+            //tabLabOut.Controls.Add(pnLabOut);
+
+            spPttinWrd = new C1SplitterPanel();
+            spPttinWrd.Dock = PanelDockStyle.Top;
+            Size pnlsize = new Size(pnLabOut.Width / 2, pnLabOut.Height);
+            spPttinWrd.Size = pnlsize;
+            spPttinWrd.Location = new System.Drawing.Point(0, 0);
+
+            spItem = new C1SplitterPanel();
+            //spItem.Dock = PanelDockStyle.Left;
+            //spItem.Size = pnlsize;
+            spItem.Location = new System.Drawing.Point(0, 0);
+
+            //pnLabOut.Controls.Add(spPttinWrd);
+            spPttL = new C1SplitterPanel();
+            spPttL.Size = pnlsize;
+            spPttL.Dock = PanelDockStyle.Left;
+            spPttR = new C1SplitterPanel();
+            //pnLabOutR.Dock = DockStyle.Right;
+            spPttR.Size = pnlsize;
+
+            spLabOutR = new C1SplitterPanel();
+            spLabOutR.Dock = PanelDockStyle.Top;
+            spLabOutR.Size = pnlsize;
+            spLabOutR.Location = new System.Drawing.Point(0, 0);
+            spXray = new C1SplitterPanel();
+            
+            //spLabOutR.Dock = PanelDockStyle.Top;
+            spXray.Size = pnlsize;
+            spXray.Location = new System.Drawing.Point(0, 0);
+
+            //pnLabOut.Controls.Add(pnLabOutR);
+            //scPttinWrd.Panels.Add(spPttinWrd);
+            scPttinWrd.Panels.Add(spPttL);
+            scPttinWrd.Panels.Add(spPttR);
+            spPttR.Controls.Add(scPttR);
+            spPttL.Controls.Add(scPttL);
+            scPttR.SplitterWidth = 4;
+            scPttR.HeaderHeight = 20;
+            spLabOutR.Text = "Out Lab";
+            spXray.Text = "Xray";
+            scPttR.Panels.Add(spLabOutR);
+            scPttR.Panels.Add(spXray);
+
+            scPttL.SplitterWidth = 4;
+            scPttL.HeaderHeight = 20;
+            spPttinWrd.Text = "Patient in Ward";
+            spItem.Text = "รายการ";
+            scPttL.Panels.Add(spPttinWrd);
+            scPttL.Panels.Add(spItem);
+
+
+            grfPttinWrd = new C1FlexGrid();
+            grfPttinWrd.Font = fEdit;
+            grfPttinWrd.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfPttinWrd.Location = new System.Drawing.Point(0, 0);
+            grfLabOutFinish = new C1FlexGrid();
+            grfLabOutFinish.Font = fEdit;
+            grfLabOutFinish.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfLabOutFinish.Location = new System.Drawing.Point(0, 0);
+            //FilterRow fr = new FilterRow(grfExpn);
+            grfXrayFinish = new C1FlexGrid();
+            grfXrayFinish.Font = fEdit;
+            grfXrayFinish.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfXrayFinish.Location = new System.Drawing.Point(0, 0);
+
+            grfPttinWrd.DoubleClick += GrfPttinWrd_DoubleClick;
+            grfLabOutFinish.DoubleClick += GrfLabOutFinish_DoubleClick;
+            grfLabOutFinish.DoubleClick += GrfXrayFinish_DoubleClick;
+            //grfHn.Click += GrfHn_Click;
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            spPttinWrd.Controls.Add(grfPttinWrd);
+            spLabOutR.Controls.Add(grfLabOutFinish);
+            spXray.Controls.Add(grfXrayFinish);
+
+            //grfLabOutWait.Rows[0].Visible = false;
+            //grfLabOutWait.Cols[0].Visible = false;
+            theme1.SetTheme(grfPttinWrd, bc.iniC.themeApp);
+            theme1.SetTheme(grfLabOutFinish, bc.iniC.themeApp);
+        }
+
+        private void GrfPttinWrd_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfPttinWrd == null) return;
+            if (grfPttinWrd.Row <= 0) return;
+            if (grfPttinWrd.Col <= 0) return;
+
+            String hn = "", pttname = "";
+            hn = grfPttinWrd[grfPttinWrd.Row, colLabOutHn].ToString();
+            pttname = grfPttinWrd[grfPttinWrd.Row, colLabOutPttName].ToString();
+            openNewForm(hn, pttname);
+        }
+
+        private void GrfXrayFinish_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+        private void GrfLabOutFinish_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfLabOutFinish == null) return;
+            if (grfLabOutFinish.Row <= 0) return;
+            if (grfLabOutFinish.Col <= 0) return;
+
+            String hn = "", pttname = "";
+            hn = grfLabOutFinish[grfLabOutFinish.Row, colLabOutFHN].ToString();
+            pttname = grfLabOutFinish[grfLabOutFinish.Row, colLabOutFFullName].ToString();
+            openNewForm(hn, pttname);
+        }
+        private void setGrfPttinWrd()
+        {
+            grfPttinWrd.Clear();
+            grfPttinWrd.Font = fEdit;
+            grfPttinWrd.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfPttinWrd.Cols.Count = 8;
+            grfPttinWrd.Cols[colLabOutHn].Caption = "HN";
+            grfPttinWrd.Cols[colLabOutPttName].Caption = "Patient Name";
+            grfPttinWrd.Cols[colLabOutWard].Caption = "Ward";
+            grfPttinWrd.Cols[colLabOutRoom].Caption = "Room";
+            grfPttinWrd.Cols[colLabOutDtrName].Caption = "Doctor";
+            grfPttinWrd.Cols[colLabOutRemark].Caption = "";
+            grfPttinWrd.Cols[colLabOutBefore].Caption = "Before";
+            //grfLabOutWait.Cols[colApmRemark].Caption = "Remark";
+            //grfLabOutWait.Cols[colApmDept].Caption = "Dept";
+
+            grfPttinWrd.Cols[colLabOutHn].Width = 90;
+            grfPttinWrd.Cols[colLabOutPttName].Width = 250;
+            grfPttinWrd.Cols[colLabOutWard].Width = 80;
+            grfPttinWrd.Cols[colLabOutRoom].Width = 40;
+            grfPttinWrd.Cols[colLabOutDtrName].Width = 200;
+            grfPttinWrd.Cols[colLabOutRemark].Width = 200;
+            grfPttinWrd.Cols[colLabOutBefore].Width = 300;
+            //grfLabOutWait.Cols[colApmRemark].Width = 300;
+            //grfLabOutWait.Cols[colApmDept].Width = 110;
+
+            ContextMenu menuGw = new ContextMenu();
+            grfPttinWrd.ContextMenu = menuGw;
+            DataTable dt = new DataTable();
+            HNinWrd = "";
+            dt = bc.bcDB.vsDB.selectPttinWard(bc.iniC.station);
+            //}
+            int i = 1;
+            grfPttinWrd.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    //Patient ptt = new Patient();
+                    //ptt.patient_birthday = bc.datetoDB(row["mnc_bday"].ToString());
+                    grfPttinWrd[i, 0] = (i);
+                    grfPttinWrd[i, colLabOutHn] = row["MNC_HN_NO"].ToString();
+                    grfPttinWrd[i, colLabOutPttName] = row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfPttinWrd[i, colLabOutWard] = row["mnc_md_dep_dsc"].ToString();
+                    grfPttinWrd[i, colLabOutRoom] = row["mnc_rm_nam"].ToString();
+                    grfPttinWrd[i, colLabOutDtrName] = row["mnc_pfix_dsc"].ToString() + " " + row["MNC_DOT_FNAME"].ToString() + " " + row["MNC_DOT_LNAME"].ToString();
+                    grfPttinWrd[i, colLabOutRemark] = row["MNC_shif_memo"].ToString();
+                    grfPttinWrd[i, colLabOutBefore] = row["before"].ToString();
+                    HNinWrd += row["MNC_HN_NO"].ToString()+",";
+                    //grfLabOutWait[i, colApmRemark] = row["MNC_REM_MEMO"].ToString();
+                    //grfLabOutWait[i, colApmDept] = row["mnc_name"].ToString();
+                    //grfLabOutWait[i, colApmId] = row["mnc_name"].ToString();
+                    //if ((i % 2) == 0)
+                    //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    i++;
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmNurseScanView setGrfLabOutWait ex " + ex.Message);
+                }
+            }
+            //grfLabOutWait.Cols[colApmId].Visible = false;
+
+            grfPttinWrd.Cols[colLabOutHn].AllowEditing = false;
+            grfPttinWrd.Cols[colLabOutPttName].AllowEditing = false;
+            grfPttinWrd.Cols[colLabOutWard].AllowEditing = false;
+            grfPttinWrd.Cols[colLabOutRoom].AllowEditing = false;
+            grfPttinWrd.Cols[colLabOutDtrName].AllowEditing = false;
+            grfPttinWrd.Cols[colLabOutRemark].AllowEditing = false;
+            grfPttinWrd.Cols[colLabOutBefore].AllowEditing = false;
+            //grfLabOutWait.Cols[colApmRemark].AllowEditing = false;
+            //grfLabOutWait.Cols[colApmDept].AllowEditing = false;
+        }
+        private void setGrfLabOutFinish(String hn)
+        {
+            String hn1 = "";
+            if (hn.Length <= 0) return;
+            hn1 = hn.Substring(hn.Length-1, 1);
+            if (hn1.IndexOf(",")>=0)
+            {
+                hn1 = hn.Substring(0, hn.Length-1);
+            }
+            DataTable dt = new DataTable();            
+
+            grfLabOutFinish.Clear();
+            grfLabOutFinish.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfLabOutFinish.Cols.Count = 8;
+            grfLabOutFinish.Cols[colLabOutFDateReq].Caption = "Date Req";
+            grfLabOutFinish.Cols[colLabOutFHN].Caption = "HN";
+            grfLabOutFinish.Cols[colLabOutFFullName].Caption = "Name";
+            grfLabOutFinish.Cols[colLabOutFVN].Caption = "VN";
+            grfLabOutFinish.Cols[colLabOutFDateReceive].Caption = "Date Rec";
+            grfLabOutFinish.Cols[colLabOutFReqNo].Caption = "Req No";
+            grfLabOutFinish.Cols[colLabOutFId].Caption = "id";
+
+            grfLabOutFinish.Cols[colLabOutFDateReq].Width = 100;
+            grfLabOutFinish.Cols[colLabOutFHN].Width = 80;
+            grfLabOutFinish.Cols[colLabOutFFullName].Width = 300;
+            grfLabOutFinish.Cols[colLabOutFVN].Width = 100;
+            grfLabOutFinish.Cols[colLabOutFDateReceive].Width = 80;
+            grfLabOutFinish.Cols[colLabOutFReqNo].Width = 80;
+            
+            dt = bc.bcDB.dscDB.selectLabOutByHn(hn1);
+            
+            //grfLabOutFinish.Cols[colHnPrnStaffNote].Width = 60;
+
+            //if (datestart.Length <= 0 && dateend.Length <= 0)
+            //{
+            //    MessageBox.Show("วันทีเริ่มต้น ไม่มีค่า", "");
+            //    return;
+            //}
+            grfLabOutFinish.ShowCursor = true;
+            ContextMenu menuGw = new ContextMenu();
+            grfLabOutFinish.ContextMenu = menuGw;
+            int i = 1;
+            grfLabOutFinish.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfLabOutFinish[i, 0] = (i);
+                    grfLabOutFinish[i, colLabOutFHN] = row["hn"].ToString();
+                    grfLabOutFinish[i, colLabOutFFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfLabOutFinish[i, colLabOutFDateReceive] = bc.datetoShow(row["date_create"].ToString());
+                    grfLabOutFinish[i, colLabOutFDateReq] = bc.datetoShow(row["date_req"].ToString());
+                    grfLabOutFinish[i, colLabOutFReqNo] = row["req_id"].ToString();
+                    grfLabOutFinish[i, colLabOutFVN] = row["vn"].ToString();
+                    grfLabOutFinish[i, colLabOutFId] = row["doc_scan_id"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmLabOutReceiveView setGrf ex " + ex.Message);
+                }
+                i++;
+            }
+            grfLabOutFinish.Cols[colId].Visible = false;
+            grfLabOutFinish.Cols[colLabOutFHN].AllowEditing = false;
+            grfLabOutFinish.Cols[colLabOutFFullName].AllowEditing = false;
+            grfLabOutFinish.Cols[colLabOutFDateReceive].AllowEditing = false;
+            grfLabOutFinish.Cols[colLabOutFDateReq].AllowEditing = false;
+            grfLabOutFinish.Cols[colLabOutFReqNo].AllowEditing = false;
+            grfLabOutFinish.Cols[colLabOutFVN].AllowEditing = false;
+        }
+        private void setGrfXrayFinish(String hn)
+        {
+            String hn1 = "",hn3="";
+            if (hn.Length <= 0) return;
+            hn1 = hn.Substring(hn.Length - 1, 1);
+            if (hn1.IndexOf(",") >= 0)
+            {
+                hn1 = hn.Substring(0, hn.Length - 1);
+            }
+            String[] hn2 = hn1.Split(',');
+            if (hn2.Length > 0)
+            {
+                foreach(String hn4 in hn2)
+                {
+                    hn3 += "'" + hn4+"',";
+                }
+            }
+            if (hn3.Length <= 0) return;
+            hn1 = hn3.Substring(hn3.Length - 1, 1);
+            if (hn1.IndexOf(",") >= 0)
+            {
+                hn1 = hn3.Substring(0, hn3.Length - 1);
+            }
+            DataTable dt = new DataTable();
+
+            grfXrayFinish.Clear();
+            grfXrayFinish.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfXrayFinish.Cols.Count = 8;
+            grfXrayFinish.Cols[colLabOutFDateReq].Caption = "Date Req";
+            grfXrayFinish.Cols[colLabOutFHN].Caption = "HN";
+            grfXrayFinish.Cols[colLabOutFFullName].Caption = "Name";
+            grfXrayFinish.Cols[colLabOutFVN].Caption = "VN";
+            grfXrayFinish.Cols[colLabOutFDateReceive].Caption = "Date Rec";
+            grfXrayFinish.Cols[colLabOutFReqNo].Caption = "Req No";
+            grfXrayFinish.Cols[colLabOutFId].Caption = "id";
+
+            grfXrayFinish.Cols[colLabOutFDateReq].Width = 100;
+            grfXrayFinish.Cols[colLabOutFHN].Width = 80;
+            grfXrayFinish.Cols[colLabOutFFullName].Width = 300;
+            grfXrayFinish.Cols[colLabOutFVN].Width = 100;
+            grfXrayFinish.Cols[colLabOutFDateReceive].Width = 80;
+            grfXrayFinish.Cols[colLabOutFReqNo].Width = 80;
+
+            dt = bc.bcDB.rpttcDB.selectResultByHn(hn1);
+
+            //grfXrayFinish.Cols[colHnPrnStaffNote].Width = 60;
+
+            //if (datestart.Length <= 0 && dateend.Length <= 0)
+            //{
+            //    MessageBox.Show("วันทีเริ่มต้น ไม่มีค่า", "");
+            //    return;
+            //}
+            grfXrayFinish.ShowCursor = true;
+            ContextMenu menuGw = new ContextMenu();
+            grfXrayFinish.ContextMenu = menuGw;
+            int i = 1;
+            grfXrayFinish.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfXrayFinish[i, 0] = (i);
+                    grfXrayFinish[i, colLabOutFHN] = row["PID"].ToString();
+                    grfXrayFinish[i, colLabOutFFullName] = row["pkname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfXrayFinish[i, colLabOutFDateReceive] = bc.datetoShow(row["confirmdate"].ToString());
+                    grfXrayFinish[i, colLabOutFDateReq] = bc.datetoShow(row["studydate"].ToString());
+                    grfXrayFinish[i, colLabOutFReqNo] = row["accessnum"].ToString();
+                    grfXrayFinish[i, colLabOutFVN] = row["accessnum"].ToString();
+                    grfXrayFinish[i, colLabOutFId] = row["studykey"].ToString()+"."+ row["histno"].ToString()+"."+row["recno"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmNurseScanView setGrfXrayFinish ex " + ex.Message);
+                }
+                i++;
+            }
+            grfXrayFinish.Cols[colId].Visible = false;
+            grfXrayFinish.Cols[colLabOutFHN].AllowEditing = false;
+            grfXrayFinish.Cols[colLabOutFFullName].AllowEditing = false;
+            grfXrayFinish.Cols[colLabOutFDateReceive].AllowEditing = false;
+            grfXrayFinish.Cols[colLabOutFDateReq].AllowEditing = false;
+            grfXrayFinish.Cols[colLabOutFReqNo].AllowEditing = false;
+            grfXrayFinish.Cols[colLabOutFVN].AllowEditing = false;
+        }
+        private void initTabXray()
+        {
+            pnXray = new Panel();
+            pnXray.Dock = DockStyle.Fill;
+            pnXray.Size = new Size(this.Width / 2, this.Height);
+
+            pnXrayL = new Panel();
+            pnXrayL.Dock = DockStyle.Left;
+            Size pnlsize = new Size(pnXray.Width / 2, pnXray.Height);
+            pnXrayL.Size = pnlsize;
+            pnXrayL.Location = new System.Drawing.Point(0, 0);
+            pnXray.Controls.Add(pnXrayL);
+            pnXrayR = new Panel();
+            pnXrayR.Dock = DockStyle.Right;
+            pnXrayR.Size = pnlsize;
+            pnXray.Controls.Add(pnXrayR);
+            grfXrayFinish = new C1FlexGrid();
+            grfXrayFinish.Font = fEdit;
+            grfXrayFinish.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfXrayFinish.Location = new System.Drawing.Point(0, 0);
+            //FilterRow fr = new FilterRow(grfExpn);
+            
+            grfXrayFinish.DoubleClick += GrfXrayFinish_DoubleClick;
+            //grfHn.Click += GrfHn_Click;
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            
+            pnXrayR.Controls.Add(grfXrayFinish);
+
+            //grfLabOutWait.Rows[0].Visible = false;
+            //grfLabOutWait.Cols[0].Visible = false;
+            theme1.SetTheme(grfXrayFinish, bc.iniC.themeApp);
+        }
+        
         private void initGrfHn()
         {
             tabHn = new C1.Win.C1Command.C1DockingTabPage();
@@ -262,7 +985,7 @@ namespace bangna_hospital.gui
             Panel pnHn = new Panel();
             pnHn.Dock = DockStyle.Fill;
             tabHn.Controls.Add(pnHn);
-            pnHn.Controls.Add(grfHn);
+            
 
             grfHn = new C1FlexGrid();
             grfHn.Font = fEdit;
@@ -278,7 +1001,7 @@ namespace bangna_hospital.gui
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
 
-            //panel2.Controls.Add(grfHn);
+            pnHn.Controls.Add(grfHn);
             grfHn.Rows[0].Visible = false;
             grfHn.Cols[0].Visible = false;
             theme1.SetTheme(grfHn, "Office2010Blue");
@@ -286,110 +1009,283 @@ namespace bangna_hospital.gui
         }
         private void GrfHn_DoubleClick(object sender, EventArgs e)
         {
+            //if (grfHn == null) return;
+            //if (grfHn.Row <= 0) return;
+            //if (grfHn.Col <= 0) return;
 
+            //String hn = "", pttname = "";
+            //hn = grfHn[grfHn.Row, colQueHn].ToString();
+            //Patient ptt = new Patient();
+            //ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ////hn = txtHn.Text;
+            //if (ptt.Name.Length <= 0)
+            //{
+            //    MessageBox.Show("ไม่พบ hn ในระบบ", "");
+            //    return;
+            //}
+            //openNewForm(hn, ptt.Name);
         }
         private void setGrfApm()
         {
-            if (grfApm != null) grfApm.Dispose();
-            if (grfHn != null) grfHn.Dispose();
+            if (grfApm != null)
+            {
+                grfApm.Dispose();
+                grfApm = null;
+            }
+            if (grfHn != null)
+            {
+                grfHn.Dispose();
+                grfHn = null;
+            }
             if (txtHn.Text.Trim().Length <= 0)
             {
                 MessageBox.Show("ไม่พบ รหัสแพทย์", "");
                 return;
             }
-            String datestart = "", dateend = "", hn = "", txt = "";
-            datestart = bc.datetoDB(txtDateStart.Text);
-            dateend = bc.datetoDB(txtDateEnd.Text);
-            Staff stf = bc.bcDB.stfDB.selectByLogin(txtHn.Text);
-            if (stf.fullname.Length <= 0)
+            try
             {
-                MessageBox.Show("ไม่พบ รหัสแพทย์ ในระบบ", "");
-                return;
+                String datestart = "", dateend = "", hn = "", txt = "", err="";
+                datestart = bc.datetoDB(txtDateStart.Text);
+                dateend = bc.datetoDB(txtDateEnd.Text);
+                Staff stf = bc.bcDB.stfDB.selectByLogin(txtHn.Text);
+                if (stf.fullname.Length <= 0)
+                {
+                    MessageBox.Show("ไม่พบ รหัสแพทย์ ในระบบ", "");
+                    return;
+                }
+                err = "01";
+                lbName.Text = stf.fullname;
+                initGrfApm(stf.fullname);
+                grfApm.Clear();
+                grfApm.Font = fEdit;
+                grfApm.Rows.Count = 1;
+                //grfQue.Rows.Count = 1;
+                grfApm.Cols.Count = 11;
+                grfApm.Cols[colApmHn].Caption = "HN";
+                grfApm.Cols[colApmPttName].Caption = "Patient Name";
+                grfApm.Cols[colApmDate].Caption = "Date";
+                grfApm.Cols[colApmTime].Caption = "Time";
+                grfApm.Cols[colApmSex].Caption = "Sex";
+                grfApm.Cols[colApmAge].Caption = "Age";
+                grfApm.Cols[colApmDsc].Caption = "Appointment";
+                grfApm.Cols[colApmRemark].Caption = "Remark";
+                grfApm.Cols[colApmDept].Caption = "Dept";
+
+                grfApm.Cols[colApmHn].Width = 80;
+                grfApm.Cols[colApmPttName].Width = 300;
+                grfApm.Cols[colApmDate].Width = 100;
+                grfApm.Cols[colApmTime].Width = 80;
+                grfApm.Cols[colApmSex].Width = 80;
+                grfApm.Cols[colApmAge].Width = 80;
+                grfApm.Cols[colApmDsc].Width = 300;
+                grfApm.Cols[colApmRemark].Width = 300;
+                grfApm.Cols[colApmDept].Width = 110;
+                err = "02";
+                ContextMenu menuGw = new ContextMenu();
+                grfApm.ContextMenu = menuGw;
+                //String date = "";
+                //if (lDgss.Count <= 0) getlBsp();
+                //date = txtDate.Text;
+                DataTable dt = new DataTable();
+                //if (chkHn.Checked)
+                //{
+                //    dt = bc.bcDB.vsDB.selectVisitByHn(txtHn.Text.Trim(), bc.datetoDB(datestart), bc.datetoDB(dateend));
+                //}
+                //else
+                //{
+                //new LogWriter("e", "FrmNurseScanView setGrfApm datestart " + datestart);
+                err = "03 datestart "+ datestart;
+                dt = bc.bcDB.vsDB.selectAppointmentByDtr(txtHn.Text.Trim(), datestart);
+                //}
+                int i = 1;
+                grfApm.Rows.Count = dt.Rows.Count + 1;
+                foreach (DataRow row in dt.Rows)
+                {
+                    try
+                    {
+                        Patient ptt = new Patient();
+                        ptt.patient_birthday = bc.datetoDB(row["mnc_bday"].ToString());
+                        grfApm[i, 0] = (i);
+                        grfApm[i, colApmHn] = row["MNC_HN_NO"].ToString();
+                        grfApm[i, colApmHn] = row["MNC_HN_NO"].ToString();
+                        grfApm[i, colApmPttName] = row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                        grfApm[i, colApmDate] = bc.datetoShow(row["mnc_app_dat"].ToString());
+                        grfApm[i, colApmTime] = bc.FormatTime(row["mnc_app_tim"].ToString());
+                        grfApm[i, colApmSex] = row["mnc_sex"].ToString();
+                        grfApm[i, colApmAge] = ptt.AgeStringShort();
+                        grfApm[i, colApmDsc] = row["mnc_app_dsc"].ToString();
+                        grfApm[i, colApmRemark] = row["MNC_REM_MEMO"].ToString();
+                        grfApm[i, colApmDept] = row["mnc_name"].ToString();
+                        //grfApm[i, colApmId] = row["mnc_name"].ToString();
+                        //if ((i % 2) == 0)
+                        //    grfApm.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                        i++;
+                    }
+                    catch (Exception ex)
+                    {
+                        new LogWriter("e", "FrmNurseScanView setGrfApm ex " + ex.Message);
+                    }
+                }
+                grfApm.Cols[colApmId].Visible = false;
+
+                grfApm.Cols[colApmHn].AllowEditing = false;
+                grfApm.Cols[colApmPttName].AllowEditing = false;
+                grfApm.Cols[colApmDate].AllowEditing = false;
+                grfApm.Cols[colApmTime].AllowEditing = false;
+                grfApm.Cols[colApmSex].AllowEditing = false;
+                grfApm.Cols[colApmAge].AllowEditing = false;
+                grfApm.Cols[colApmDsc].AllowEditing = false;
+                grfApm.Cols[colApmRemark].AllowEditing = false;
+                grfApm.Cols[colApmDept].AllowEditing = false;
             }
-            lbName.Text = stf.fullname;
-            initGrfApm();
-            grfApm.Clear();
-            grfApm.Font = fEdit;
-            grfApm.Rows.Count = 1;
-            //grfQue.Rows.Count = 1;
-            grfApm.Cols.Count = 11;
-            grfApm.Cols[colApmHn].Caption = "HN";
-            grfApm.Cols[colApmPttName].Caption = "Patient Name";
-            grfApm.Cols[colApmDate].Caption = "Date";
-            grfApm.Cols[colApmTime].Caption = "Time";
-            grfApm.Cols[colApmSex].Caption = "Sex";
-            grfApm.Cols[colApmAge].Caption = "Age";
-            grfApm.Cols[colApmDsc].Caption = "Appointment";
-            grfApm.Cols[colApmRemark].Caption = "Remark";
-            grfApm.Cols[colApmDept].Caption = "Dept";
-
-            grfApm.Cols[colApmHn].Width = 80;
-            grfApm.Cols[colApmPttName].Width = 300;
-            grfApm.Cols[colApmDate].Width = 100;
-            grfApm.Cols[colApmTime].Width = 80;
-            grfApm.Cols[colApmSex].Width = 80;
-            grfApm.Cols[colApmAge].Width = 80;
-            grfApm.Cols[colApmDsc].Width = 300;
-            grfApm.Cols[colApmRemark].Width = 300;
-            grfApm.Cols[colApmDept].Width = 110;
-
-            ContextMenu menuGw = new ContextMenu();
-            grfApm.ContextMenu = menuGw;
-            //String date = "";
-            //if (lDgss.Count <= 0) getlBsp();
-            //date = txtDate.Text;
-            DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectAppointmentByDtr(txtHn.Text.Trim(), bc.datetoDB(datestart));
-            int i = 1;
-            grfApm.Rows.Count = dt.Rows.Count + 1;
-            foreach (DataRow row in dt.Rows)
+            catch(Exception ex)
             {
-                try
-                {
-                    Patient ptt = new Patient();
-                    ptt.patient_birthday = bc.datetoDB(row["mnc_bday"].ToString());
-                    grfApm[i, 0] = (i);
-                    grfApm[i, colApmHn] = row["MNC_HN_NO"].ToString();
-                    grfApm[i, colApmHn] = row["MNC_HN_NO"].ToString();
-                    grfApm[i, colApmPttName] = row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
-                    grfApm[i, colApmDate] = bc.datetoShow(row["mnc_app_dat"].ToString());
-                    grfApm[i, colApmTime] = bc.FormatTime(row["mnc_app_tim"].ToString());
-                    grfApm[i, colApmSex] = row["mnc_sex"].ToString();
-                    grfApm[i, colApmAge] = ptt.AgeStringShort();
-                    grfApm[i, colApmDsc] = row["mnc_app_dsc"].ToString();
-                    grfApm[i, colApmRemark] = row["MNC_REM_MEMO"].ToString();
-                    grfApm[i, colApmDept] = row["mnc_name"].ToString();
-                    //grfApm[i, colApmId] = row["mnc_name"].ToString();
-                    //if ((i % 2) == 0)
-                    //    grfApm.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
-                    i++;
-                }
-                catch (Exception ex)
-                {
-                    new LogWriter("e", "FrmDoctorView setGrfApm ex " + ex.Message);
-                }
+                new LogWriter("e", "FrmNurseScanView setGrfApm ex " +ex.Message);
             }
-            grfApm.Cols[colApmId].Visible = false;
+            
+        }
+        //private void setGrfHn()
+        //{
+        //    if (grfApm != null)
+        //    {
+        //        grfApm.Dispose();
+        //        grfApm = null;
+        //    }
+        //    if (grfHn != null)
+        //    {
+        //        grfHn.Dispose();
+        //        grfHn = null;
+        //    }
+        //    if (txtHn.Text.Trim().Length <= 0)
+        //    {
+        //        MessageBox.Show("ไม่พบ รหัสแพทย์", "");
+        //        return;
+        //    }
+        //    //initGrfHn();
+        //    String datestart = "", dateend = "", hn = "", txt = "";
+        //    datestart = bc.datetoDB(txtDateStart.Text);
+        //    dateend = bc.datetoDB(txtDateEnd.Text);
+        //    Patient ptt1 = bc.bcDB.vsDB.selectPatientName(txtHn.Text);
+        //    if (ptt1.Name.Length <= 0)
+        //    {
+        //        MessageBox.Show("ไม่พบ ข้อมูลคนไข้ ในระบบ", "");
+        //        return;
+        //    }
+        //    lbName.Text = ptt1.Name;
+        //    initGrfHn();
+        //    grfHn.Clear();
+        //    grfHn.Font = fEdit;
+        //    grfHn.Rows.Count = 1;
+        //    //grfQue.Rows.Count = 1;
+        //    grfHn.Cols.Count = 18;
+        //    grfHn.Cols[colQueVnShow].Caption = "VN";
+        //    grfHn.Cols[colQueHn].Caption = "HN";
+        //    grfHn.Cols[colQuePttName].Caption = "Patient Name";
+        //    grfHn.Cols[colQueVsDate].Caption = "Date";
+        //    grfHn.Cols[colQueVsTime].Caption = "Time";
+        //    grfHn.Cols[colQueSex].Caption = "Sex";
+        //    grfHn.Cols[colQueAge].Caption = "Age";
+        //    grfHn.Cols[colQuePaid].Caption = "Paid";
+        //    grfHn.Cols[colQueSymptom].Caption = "Symptom";
+        //    grfHn.Cols[colQueHeight].Caption = "Height";
+        //    grfHn.Cols[coolQueBw].Caption = "BW";
+        //    grfHn.Cols[colQueBp].Caption = "BP";
+        //    grfHn.Cols[colQuePulse].Caption = "Pulse";
+        //    grfHn.Cols[colQyeTemp].Caption = "Temp";
+        //    grfHn.Cols[colQueDsc].Caption = "Description";
 
-            grfApm.Cols[colApmHn].AllowEditing = false;
-            grfApm.Cols[colApmPttName].AllowEditing = false;
-            grfApm.Cols[colApmDate].AllowEditing = false;
-            grfApm.Cols[colApmTime].AllowEditing = false;
-            grfApm.Cols[colApmSex].AllowEditing = false;
-            grfApm.Cols[colApmAge].AllowEditing = false;
-            grfApm.Cols[colApmDsc].AllowEditing = false;
-            grfApm.Cols[colApmRemark].AllowEditing = false;
-            grfApm.Cols[colApmDept].AllowEditing = false;
-        }
-        private void setGrfHn()
-        {
-            if (grfApm != null) grfApm.Dispose();
-            if (grfHn != null) grfHn.Dispose();
-            initGrfHn();
-        }
+        //    grfHn.Cols[colQueVnShow].Width = 80;
+        //    grfHn.Cols[colQueHn].Width = 80;
+        //    grfHn.Cols[colQuePttName].Width = 310;
+        //    grfHn.Cols[colQueVsDate].Width = 110;
+        //    grfHn.Cols[colQueVsTime].Width = 80;
+        //    grfHn.Cols[colQueSex].Width = 60;
+        //    grfHn.Cols[colQueAge].Width = 80;
+        //    grfHn.Cols[colQuePaid].Width = 110;
+        //    grfHn.Cols[colQueSymptom].Width = 300;
+        //    grfHn.Cols[colQueHeight].Width = 60;
+        //    grfHn.Cols[coolQueBw].Width = 60;
+        //    grfHn.Cols[colQueBp].Width = 60;
+        //    grfHn.Cols[colQuePulse].Width = 60;
+        //    grfHn.Cols[colQyeTemp].Width = 60;
+        //    grfHn.Cols[colQueDsc].Width = 300;
+
+        //    ContextMenu menuGw = new ContextMenu();
+        //    grfHn.ContextMenu = menuGw;
+        //    //String date = "";
+        //    //if (lDgss.Count <= 0) getlBsp();
+        //    //date = txtDate.Text;
+        //    DataTable dt = new DataTable();
+        //    //if (chkHn.Checked)
+        //    //{
+        //    //    dt = bc.bcDB.vsDB.selectVisitByHn(txtHn.Text.Trim(), bc.datetoDB(datestart), bc.datetoDB(dateend));
+        //    //}
+        //    //else
+        //    //{
+        //    dt = bc.bcDB.vsDB.selectVisitByHn(txtHn.Text.Trim(), bc.datetoDB(datestart), bc.datetoDB(dateend));
+        //    //}
+        //    int i = 1;
+        //    grfHn.Rows.Count = dt.Rows.Count + 1;
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        try
+        //        {
+        //            String status = "", vn = "";
+        //            //Patient ptt = new Patient();
+        //            //vn = row["MNC_VN_NO"].ToString() + "/" + row["MNC_VN_SEQ"].ToString() + "(" + row["MNC_VN_SUM"].ToString() + ")";
+        //            //ptt.patient_birthday = bc.datetoDB(row["mnc_bday"].ToString());
+        //            grfHn[i, 0] = (i);
+        //            grfHn[i, colQueId] = vn;
+        //            grfHn[i, colQueVnShow] = vn;
+        //            grfHn[i, colQueVsDate] = bc.datetoShow(row["mnc_date"].ToString());
+        //            grfHn[i, colQueHn] = row["MNC_HN_NO"].ToString();
+        //            grfHn[i, colQuePttName] = row["prefix"].ToString() + "" + row["MNC_FNAME_T"].ToString() + "" + row["MNC_LNAME_T"].ToString();
+        //            grfHn[i, colQueVsTime] = bc.FormatTime(row["mnc_time"].ToString());
+        //            //grfHn[i, colQueVnShow] = row["MNC_REQ_DAT"].ToString();
+        //            grfHn[i, colQueSex] = row["mnc_sex"].ToString();
+        //            //grfHn[i, colQueAge] = ptt.AgeStringShort();
+        //            grfHn[i, colQuePaid] = row["MNC_FN_TYP_DSC"].ToString();
+        //            grfHn[i, colQueSymptom] = row["MNC_SHIF_MEMO"].ToString();
+        //            grfHn[i, colQueHeight] = row["mnc_high"].ToString();
+        //            grfHn[i, coolQueBw] = row["mnc_weight"].ToString();
+        //            grfHn[i, colQueBp] = row["mnc_bp1_l"].ToString();
+        //            grfHn[i, colQuePulse] = row["MNC_ratios"].ToString();
+        //            grfHn[i, colQyeTemp] = row["MNC_temp"].ToString();
+        //            grfHn[i, colQuePreNo] = row["MNC_pre_no"].ToString();
+        //            grfHn[i, colQueDsc] = row["MNC_ref_dsc"].ToString();
+        //            if ((i % 2) == 0)
+        //                grfHn.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+
+        //            i++;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            new LogWriter("e", "FrmDoctorView setGrfQue ex " + ex.Message);
+        //        }
+        //    }
+        //    grfHn.Cols[colApmId].Visible = false;
+
+        //    grfHn.Cols[colApmHn].AllowEditing = false;
+        //    grfHn.Cols[colApmPttName].AllowEditing = false;
+        //    grfHn.Cols[colApmDate].AllowEditing = false;
+        //    grfHn.Cols[colApmTime].AllowEditing = false;
+        //    grfHn.Cols[colApmSex].AllowEditing = false;
+        //    grfHn.Cols[colApmAge].AllowEditing = false;
+        //    grfHn.Cols[colApmDsc].AllowEditing = false;
+        //    grfHn.Cols[colApmRemark].AllowEditing = false;
+        //    grfHn.Cols[colApmDept].AllowEditing = false;
+        //}
         private void FrmNurseScanView_Load(object sender, EventArgs e)
         {
-
+            this.Text = "Last Update 2020-02-14";
+            pnLabOut.Size = new Size(this.Width / 2, this.Height);
+            Size pnlsize = new Size(pnLabOut.Width / 2, pnLabOut.Height);
+            spPttinWrd.Size = pnlsize;
+            spLabOutR.Size = pnlsize;
+            tC1.SelectedTab = tabPttinWrd;
+            //pnXray.Size = new Size(this.Width / 2, this.Height);
+            //pnXrayL.Size = pnlsize;
+            //pnXrayR.Size = pnlsize;
         }
     }
 }

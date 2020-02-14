@@ -57,7 +57,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,m01.MNC_bday " +
                 "From  patient_m01 m01 " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " Where m01.MNC_HN_NO = '" + hn + "' ";
@@ -66,6 +66,7 @@ namespace bangna_hospital.objdb
             {
                 ptt.Hn = dt.Rows[0]["MNC_HN_NO"].ToString();
                 ptt.Age = dt.Rows[0]["MNC_AGE"].ToString();
+                ptt.patient_birthday = dt.Rows[0]["MNC_bday"].ToString();
                 ptt.Name = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
             }
             return ptt;

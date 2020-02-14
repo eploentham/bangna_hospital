@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
@@ -58,6 +59,8 @@ namespace bangna_hospital.objdb
             dsc.pic_before_scan_cnt = "pic_before_scan_cnt";
             dsc.date_req = "date_req";
             dsc.req_id = "req_id";
+            dsc.patient_fullname = "patient_fullname";
+            dsc.status_record = "status_record";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -98,6 +101,8 @@ namespace bangna_hospital.objdb
                 itm1.pic_before_scan_cnt = row[dsc.pic_before_scan_cnt].ToString();
                 itm1.date_req = row[dsc.date_req].ToString();
                 itm1.req_id = row[dsc.req_id].ToString();
+                itm1.patient_fullname = row[dsc.patient_fullname].ToString();
+                itm1.status_record = row[dsc.status_record].ToString();
                 lDgs.Add(itm1);
             }
         }
@@ -139,6 +144,132 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectDistByDateCrate(String datestart, String dateend)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select dsc.hn, dsc.vn, dsc.an, dsc.visit_date, dsc.date_create, dsc.row_cnt, dsc.pic_before_scan_cnt" +
+                ",pm02.MNC_PFIX_DSC as prefix, pm01.mnc_fname_t, pm01.mnc_lname_t, count(1) as cnt " +
+                "From bn5_scan.dbo." + dsc.table + " dsc " +
+                "Left Join bn5_scan.dbo.doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Left Join BNG5_DBMS_FRONT.dbo.patient_m01 pm01 on pm01.mnc_hn_no = dsc.hn " +
+                " inner join BNG5_DBMS_FRONT.dbo.patient_m02 pm02 on pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Where dsc." + dsc.date_create + " >='" + datestart + "' and dsc." + dsc.date_create + " <='" + dateend + "' " +
+                "and dsc." + dsc.active + "='1'   " +
+                "Group By dsc.hn, dsc.vn, dsc.an, dsc.visit_date, dsc.date_create, dsc.row_cnt, dsc.pic_before_scan_cnt, pm02.MNC_PFIX_DSC , pm01.mnc_fname_t, pm01.mnc_lname_t " +
+                "Order By dsc.date_create ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectLabOutByDateReq(String datestart, String dateend)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "";
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.date_req + " >='" + datestart + "' and dsc." + dsc.date_req + " <='" + dateend + "' " +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + "='2' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectLabOutByDateReq(String datestart, String dateend, String hn, String flagDate)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "", wheredateend="", wheredatestart="", where="", orderby="";
+            if (hn.Length > 0)
+            {
+                wherehn = " dsc.hn like '%"+ hn + "%'";
+            }
+            if (flagDate.Equals("daterequest"))
+            {
+                if (dateend.Length > 0)
+                {
+                    wheredateend = " dsc." + dsc.date_req + " <='" + dateend + "' ";
+                }
+                if (datestart.Length > 0)
+                {
+                    wheredatestart = " dsc." + dsc.date_req + " >='" + datestart + "' ";
+                }
+                if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length > 0) && (hn.Length <= 0))
+                {
+                    where = wheredatestart + " and " + wheredateend;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wherehn;
+                }
+                else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wherehn;
+                }
+                orderby = "Order By dsc.date_req, dsc.doc_scan_id ";
+            }
+            else
+            {
+                if (dateend.Length > 0)
+                {
+                    wheredateend = " dsc." + dsc.date_create + " <='" + dateend + "' ";
+                }
+                if (datestart.Length > 0)
+                {
+                    wheredatestart = " dsc." + dsc.date_create + " >='" + datestart + "' ";
+                }
+                if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length > 0) && (hn.Length <= 0))
+                {
+                    where = wheredatestart + " and " + wheredateend;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wherehn;
+                }
+                else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wherehn;
+                }
+                orderby = "Order By dsc.doc_scan_id ";
+            }
+            //MessageBox.Show("2222", "");
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where  " + where +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + "='2' " +
+                orderby;
+            //new LogWriter("d", "sql " + sql);
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectLabOutByHn(String hn)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "", wheredateend = "", wheredatestart = "", where = "";
+            
+            String sql = "Select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where  dsc." + dsc.hn + " in (" + hn + ") " +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + "='2' "+ 
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectLabOutByDateReceive(String datestart, String dateend)
         {
             //DocScan cop1 = new DocScan();
@@ -147,7 +278,7 @@ namespace bangna_hospital.objdb
                 "From " + dsc.table + " dsc " +
                 "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
                 "Where dsc." + dsc.date_create + " >='" + datestart + "' and dsc." + dsc.date_create + " <='" + dateend + "' " +
-                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.ml_fm+"='FM-LAB-999' " +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record+"='2' " +
                 "Order By dsc.doc_scan_id ";
             dt = conn.selectData(conn.conn, sql);
 
@@ -263,6 +394,7 @@ namespace bangna_hospital.objdb
         private void chkNull(DocScan p)
         {
             long chk = 0;
+            int chk1 = 0;
 
             p.date_modi = p.date_modi == null ? "" : p.date_modi;
             p.date_cancel = p.date_cancel == null ? "" : p.date_cancel;
@@ -291,13 +423,15 @@ namespace bangna_hospital.objdb
             p.status_version = p.status_version == null ? "" : p.status_version;
             p.date_req = p.date_req == null ? "" : p.date_req;
             p.req_id = p.req_id == null ? "" : p.req_id;
-            //p.ml_fm = p.req_id == null ? "" : p.req_id;
+            p.patient_fullname = p.patient_fullname == null ? "" : p.patient_fullname;
+            //p.status_record = p.status_record == null ? "" : p.status_record;
 
             p.doc_group_id = long.TryParse(p.doc_group_id, out chk) ? chk.ToString() : "0";
             p.row_no = long.TryParse(p.row_no, out chk) ? chk.ToString() : "0";
             p.doc_group_sub_id = long.TryParse(p.doc_group_sub_id, out chk) ? chk.ToString() : "0";
             p.pic_before_scan_cnt = long.TryParse(p.pic_before_scan_cnt, out chk) ? chk.ToString() : "0";
-            //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
+            
+            p.status_record = int.TryParse(p.status_record, out chk1) ? chk1.ToString() : "0";
         }
         public String insertScreenCapture(DocScan p, String userId)
         {
@@ -368,23 +502,25 @@ namespace bangna_hospital.objdb
             
             try
             {
+                p.patient_fullname = p.patient_fullname.Replace("'", "''");
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.conn;
-                conn.comStore.CommandText = "insert_doc_scan_v3";
+                conn.comStore.CommandText = "[insert_doc_scan_lab_out]";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
                 conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
                 conn.comStore.Parameters.AddWithValue("hn", p.hn);
                 conn.comStore.Parameters.AddWithValue("vn", p.vn);
+                conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
                 conn.comStore.Parameters.AddWithValue("remark", p.remark);
                 conn.comStore.Parameters.AddWithValue("user_create", userId);
                 conn.comStore.Parameters.AddWithValue("an", p.an);
                 conn.comStore.Parameters.AddWithValue("doc_group_sub_id", p.doc_group_sub_id);
                 conn.comStore.Parameters.AddWithValue("pre_no", p.pre_no);
+
                 conn.comStore.Parameters.AddWithValue("an_date", p.an_date);
                 conn.comStore.Parameters.AddWithValue("status_ipd", p.status_ipd);
-                conn.comStore.Parameters.AddWithValue("ext", p.image_path);
-                conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
+                conn.comStore.Parameters.AddWithValue("ext", p.image_path);                
                 conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
                 conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
                 conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
@@ -392,6 +528,10 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("pic_before_scan", p.pic_before_scan_cnt);
                 conn.comStore.Parameters.AddWithValue("date_req", p.date_req);
                 conn.comStore.Parameters.AddWithValue("req_id", p.req_id);
+
+                conn.comStore.Parameters.AddWithValue("ml_fm", p.ml_fm);
+                conn.comStore.Parameters.AddWithValue("patient_fullname", p.patient_fullname);
+                
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
@@ -404,6 +544,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertLabOut "+ sql);
             }
             finally
             {
@@ -477,6 +618,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insert " + sql);
             }
             finally
             {
@@ -578,6 +720,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "voidDocScan " + sql);
             }
 
             return re;
@@ -601,6 +744,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "voidDocScanVN " + sql);
             }
 
             return re;
@@ -624,6 +768,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "voidDocScanAN " + sql);
             }
 
             return re;

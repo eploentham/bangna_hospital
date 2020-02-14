@@ -98,18 +98,21 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if(e.KeyCode == Keys.Enter)
             {
-                String hn = "", pttname = "";
-                Patient ptt = new Patient();
-                ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
-                hn = txtHn.Text;
-                openNewForm(hn, ptt.Name);
+                setSearch();
             }
         }
-
+        private void setSearch()
+        {
+            String hn = "", pttname = "";
+            Patient ptt = new Patient();
+            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            hn = txtHn.Text;
+            openNewForm(hn, ptt.Name);
+        }
         private void BtnHnSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            setSearch();
         }
 
         private void TC1_Click(object sender, EventArgs e)
@@ -276,7 +279,7 @@ namespace bangna_hospital.gui
         {            
             frm.FormBorderStyle = FormBorderStyle.None;
             C1DockingTabPage tab = new C1DockingTabPage();
-            tab.SuspendLayout();
+            //tab.SuspendLayout();
             frm.TopLevel = false;
             tab.Width = tC1.Width - 10;
             tab.Height = tC1.Height - 35;
@@ -286,6 +289,7 @@ namespace bangna_hospital.gui
             frm.Dock = DockStyle.Fill;
             frm.Width = tab.Width;
             frm.Height = tab.Height;
+            frm.WindowState = FormWindowState.Maximized;
             tab.Text = label;
             //foreach (Control x in frm.Controls)
             //{
@@ -380,10 +384,20 @@ namespace bangna_hospital.gui
             //{
             //menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image ["+dgs.doc_group_name+"]", new EventHandler(ContextMenu_upload));
             String date = "";
+            DateTime dtt = new DateTime();
             //if (lDgss.Count <= 0) getlBsp();
             date = txtDate.Text;
             DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, bc.datetoDB(date));
+            if(DateTime.TryParse(txtDate.Value.ToString(), out dtt))
+            {
+                date = dtt.Year.ToString() + "-" + dtt.ToString("MM-dd");
+            }
+            if (date.Length <= 0)
+            {
+                return;
+            }
+            this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") +" ["+ date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, date);
             int i = 1;
             grfQue.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)
@@ -461,7 +475,7 @@ namespace bangna_hospital.gui
         {
             tC1.SelectedTab = tabQue;
             timer1.Start();
-            this.Text = "Last Update 2019-01-04 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2020-02-07 Format Date "+ System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
         }
     }
 }
