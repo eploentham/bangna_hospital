@@ -31,6 +31,7 @@
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.gbPtt = new System.Windows.Forms.GroupBox();
+            this.lbDrugAllergy = new System.Windows.Forms.Label();
             this.lbAge = new System.Windows.Forms.Label();
             this.lbCnt = new System.Windows.Forms.Label();
             this.chkIPD = new C1.Win.C1Input.C1CheckBox();
@@ -50,7 +51,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lbDrugAllergy = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.gbPtt.SuspendLayout();
@@ -105,13 +105,25 @@
             this.gbPtt.Text = "Patient";
             this.theme1.SetTheme(this.gbPtt, "(default)");
             // 
+            // lbDrugAllergy
+            // 
+            this.lbDrugAllergy.BackColor = System.Drawing.Color.White;
+            this.lbDrugAllergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDrugAllergy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbDrugAllergy.Location = new System.Drawing.Point(531, 39);
+            this.lbDrugAllergy.Name = "lbDrugAllergy";
+            this.lbDrugAllergy.Size = new System.Drawing.Size(380, 20);
+            this.lbDrugAllergy.TabIndex = 557;
+            this.lbDrugAllergy.Text = "...";
+            this.theme1.SetTheme(this.lbDrugAllergy, "(default)");
+            // 
             // lbAge
             // 
             this.lbAge.AutoSize = true;
             this.lbAge.BackColor = System.Drawing.Color.White;
             this.lbAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbAge.Location = new System.Drawing.Point(531, 15);
+            this.lbAge.Location = new System.Drawing.Point(531, 10);
             this.lbAge.Name = "lbAge";
             this.lbAge.Size = new System.Drawing.Size(21, 20);
             this.lbAge.TabIndex = 556;
@@ -359,19 +371,6 @@
             this.panel3.Size = new System.Drawing.Size(1134, 557);
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
-            // 
-            // lbDrugAllergy
-            // 
-            this.lbDrugAllergy.AutoSize = true;
-            this.lbDrugAllergy.BackColor = System.Drawing.Color.White;
-            this.lbDrugAllergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDrugAllergy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbDrugAllergy.Location = new System.Drawing.Point(531, 42);
-            this.lbDrugAllergy.Name = "lbDrugAllergy";
-            this.lbDrugAllergy.Size = new System.Drawing.Size(21, 20);
-            this.lbDrugAllergy.TabIndex = 557;
-            this.lbDrugAllergy.Text = "...";
-            this.theme1.SetTheme(this.lbDrugAllergy, "(default)");
             // 
             // FrmScanView1
             // 

@@ -138,12 +138,15 @@ namespace bangna_hospital.control
             iniC.pathIniFile = iniF.getIni("app", "pathIniFile");
             iniC.statusShowPrintDialog = iniF.getIni("app", "statusShowPrintDialog");
             iniC.txtSearchHnLenghtStart = iniF.getIni("app", "txtSearchHnLenghtStart");
-            iniC.pathLabOutReceive = iniF.getIni("app", "pathLabOutReceive");
-            iniC.pathLabOutBackup = iniF.getIni("app", "pathLabOutBackup");
+            iniC.pathLabOutReceiveInnoTech = iniF.getIni("app", "pathLabOutReceiveInnoTech");
+            iniC.pathLabOutBackupInnoTech = iniF.getIni("app", "pathLabOutBackupInnoTech");
             iniC.timerCheckLabOut = iniF.getIni("app", "timerCheckLabOut");
             iniC.pathTempScanAdd = iniF.getIni("app", "pathTempScanAdd");
             iniC.themeApp = iniF.getIni("app", "themeApp");
             iniC.station = iniF.getIni("app", "station");
+            iniC.pathLabOutReceiveRIA = iniF.getIni("app", "pathLabOutReceiveRIA");
+            iniC.pathLabOutBackupRIA = iniF.getIni("app", "pathLabOutBackupRIA");
+            iniC.pathLabOutBackupRIAZipExtract = iniF.getIni("app", "pathLabOutBackupRIAZipExtract");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -221,7 +224,22 @@ namespace bangna_hospital.control
             String re = "";
             if (iniC.windows.Equals("windowsxp"))
             {
-                re = dt.ToString();
+                if (DateTime.TryParse(dt.ToString(), out dt1))
+                {
+                    if (dt1.Year > 2500)
+                    {
+                        re = dt1.ToString("dd-MM") + "-" + (dt1.Year - 543).ToString();
+                    }
+                    else if (dt1.Year < 1500)
+                    {
+                        re = dt1.ToString("dd-MM")+ "-"+ (dt1.Year + 543).ToString();
+                    }
+                    else
+                    {
+                        re = dt1.ToString("MM-dd") + "-" + dt1.Year.ToString();
+                    }
+                }
+                //re = dt.ToString();
             }
             else
             {
@@ -238,21 +256,72 @@ namespace bangna_hospital.control
         public String datetoDB(String dt)
         {
             DateTime dt1 = new DateTime();
-            String re = "";
+            String re = "", year1="",mm="",dd="";
+            int year = 0, mon=0, day=0;
+            //new LogWriter("d", "datetoDB 01" );
             if (iniC.windows.Equals("windowsxp"))
             {
-                if (dt.Length > 0)
+                //new LogWriter("d", "datetoDB 02 iniC.windowsxp ");
+                if (DateTime.TryParse(dt, out dt1))
                 {
-                    re = dt.Substring(dt.Length - 4)+"-"+ dt.Substring(3,2) + "-" + dt.Substring(0, 2);
+                    //new LogWriter("d", "datetoDB 02 iniC.windowsxp DateTime.TryParse(dt, out dt1) true dt1.Year"+ dt1.Year);
+                    if (dt1.Year > 2500)
+                    {
+                        re = (dt1.Year - 543).ToString() + "-" + dt1.ToString("MM-dd");
+                    }
+                    else if (dt1.Year < 1500)
+                    {
+                        re = (dt1.Year + 543).ToString() + "-" + dt1.ToString("MM-dd");
+                    }
+                    else
+                    {
+                        re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
+                    }                    
                 }
                 else
                 {
+                    //new LogWriter("d", "datetoDB 02 iniC.windowsxp DateTime.TryParse(dt, out dt1) false ");
+                    if (dt.Length >= 10)
+                    {
+                        year1 = dt.Substring(6, 4);
+                        mm = dt.Substring(3, 2);
+                        dd = dt.Substring(0, 2);
+                        int.TryParse(mm, out mon);
+                        if (mon > 12)
+                        {
+                            mm = dt.Substring(0, 2);
+                            dd = dt.Substring(3, 2);
+                            int.TryParse(mm, out mon);
+                        }
+                        //new LogWriter("d", "datetoDB year1 " + year1);
+                        if (int.TryParse(year1, out year))
+                        {
+                            //new LogWriter("d", "datetoDB year1 int.TryParse(year1, out year) " + year);
+                            if (year <= 1500)
+                            {
+                                year = year + 543;
+                            }
+                            else if (year >= 2500)
+                            {
+                                year = year - 543;
+                            }
+                        }
+                        else
+                        {
+                            //new LogWriter("d", "datetoDB year1 else int.TryParse(year1, out year) ");
+                        }
+                        re = year.ToString() + "-" + mm + "-" + dd;
+                    }
+                    else
+                    {
 
+                    }
                 }
                 //re = dt1.ToString("yyyy-MM-dd");
             }
             else
             {
+                //new LogWriter("d", "datetoDB 03 iniC.windows 10 ");
                 if (dt != null)
                 {
                     if (!dt.Equals(""))

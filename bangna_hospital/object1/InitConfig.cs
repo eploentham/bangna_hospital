@@ -21,7 +21,8 @@ namespace bangna_hospital.object1
         public String sticker_donor_width = "", sticker_donor_height = "", sticker_donor_start_x = "", sticker_donor_start_y = "", sticker_donor_barcode_height = "", sticker_donor_barcode_gap_x = "", sticker_donor_barcode_gap_y = "", sticker_donor_gap="";
         public String statusAppDonor = "", patientaddpanel1weight="", barcode_width_minus="", status_show_border="";
         public String themeDonor = "", printerSticker="", hostname="", themeApp="";
-        public String timerImgScanNew = "", pathImageScan="", imggridscanwidth="", txtSearchHnLenghtStart="", pathLabOutReceive="", pathLabOutBackup="";
+        public String timerImgScanNew = "", pathImageScan = "", imggridscanwidth = "", txtSearchHnLenghtStart = "";
+        public String pathLabOutReceiveInnoTech="", pathLabOutBackupInnoTech="", pathLabOutReceiveRIA = "", pathLabOutBackupRIA = "", pathLabOutBackupRIAZipExtract="";
         public String printerA4 = "", programLoad="", labOutOpenFileDialog="", windows="", grfScanWidth="", imgScanWidth = "", pathScanStaffNote="", pathScreenCaptureUpload = "", pathIniFile="", statusShowPrintDialog="";
         public String timerCheckLabOut = "", pathProgramCapture = "", pathTempScanAdd="", station="";
     }
