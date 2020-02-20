@@ -560,5 +560,9 @@ namespace bangna_hospital.control
                 return dt;
             }
         }
+        public Size MeasureString(Control c)
+        {
+            return TextRenderer.MeasureText(c.Text, c.Font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
+        }
     }
 }
