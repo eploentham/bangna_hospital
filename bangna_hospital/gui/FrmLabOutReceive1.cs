@@ -35,6 +35,9 @@ namespace bangna_hospital.gui
         C1FlexGrid grfVisit;
         RadioButton chkOPD, chkIPD;
 
+        int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
+        int colIPDDate = 1, colIPDAnShow = 2, colIPDStatus = 3, colIPDDept = 4, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
+
         private C1.Win.C1Ribbon.C1StatusBar sb1;
         private C1.Win.C1Themes.C1ThemeController theme1;
         private System.Windows.Forms.ListBox listBox1, listBox2, listBox3;
@@ -272,7 +275,14 @@ namespace bangna_hospital.gui
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-
+            if (chkOPD.Checked)
+            {
+                setGrfVsOPD();
+            }
+            else if (chkIPD.Checked)
+            {
+                setGrfVsIPD();
+            }
         }
 
         private void BtnBrow_Click(object sender, EventArgs e)
@@ -993,6 +1003,115 @@ namespace bangna_hospital.gui
                 }
             }
             timer.Start();
+        }
+        private void setGrfVsOPD()
+        {
+            grfVisit.Clear();
+            grfVisit.Rows.Count = 1;
+            grfVisit.Cols.Count = 8;                        
+
+            grfVisit.Cols[colVsVsDate].Width = 100;
+            grfVisit.Cols[colVsVn].Width = 80;
+            grfVisit.Cols[colVsDept].Width = 240;
+            grfVisit.Cols[colVsPreno].Width = 100;
+            grfVisit.Cols[colVsStatus].Width = 60;
+            grfVisit.ShowCursor = true;
+            //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
+            grfVisit.Cols[colVsVsDate].Caption = "Visit Date";
+            grfVisit.Cols[colVsVn].Caption = "VN";
+            grfVisit.Cols[colVsDept].Caption = "แผนก";
+            grfVisit.Cols[colVsPreno].Caption = "";
+            grfVisit.Cols[colVsPreno].Visible = false;
+            grfVisit.Cols[colVsVn].Visible = true;
+            grfVisit.Cols[colVsAn].Visible = true;
+            grfVisit.Cols[colVsAndate].Visible = false;
+            grfVisit.Rows[0].Visible = false;
+            grfVisit.Cols[0].Visible = false;
+            grfVisit.Cols[colVsVsDate].AllowEditing = false;
+            grfVisit.Cols[colVsVn].AllowEditing = false;
+            grfVisit.Cols[colVsDept].AllowEditing = false;
+            grfVisit.Cols[colVsPreno].AllowEditing = false;
+
+            DataTable dt = new DataTable();
+            //MessageBox.Show("hn "+hn, "");
+            dt = bc.bcDB.vsDB.selectVisitByHn4(txtHn.Text, "O");
+            int i = 1, j = 1, row = grfVisit.Rows.Count;
+                     
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfVisit.Rows.Add();
+                String status = "", vn = "";
+
+                status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
+                vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")";
+                rowa[colVsVsDate] = bc.datetoShow(row1["mnc_date"]);
+                rowa[colVsVn] = vn;
+                rowa[colVsStatus] = status;
+                rowa[colVsPreno] = row1["mnc_pre_no"].ToString();
+                rowa[colVsDept] = row1["MNC_SHIF_MEMO"].ToString();
+                rowa[colVsAn] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
+                rowa[colVsAndate] = bc.datetoShow(row1["mnc_ad_date"].ToString());
+            }
+            
+        }
+        private void setGrfVsIPD()
+        {
+            grfVisit.Clear();
+            grfVisit.Rows.Count = 1;
+            grfVisit.Cols.Count = 10;
+
+            grfVisit.Cols[colIPDDate].Width = 100;
+            grfVisit.Cols[colIPDVn].Width = 80;
+            grfVisit.Cols[colIPDDept].Width = 240;
+            grfVisit.Cols[colIPDPreno].Width = 100;
+            grfVisit.Cols[colIPDStatus].Width = 60;
+            grfVisit.ShowCursor = true;
+            //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
+            grfVisit.Cols[colIPDDate].Caption = "Visit Date";
+            grfVisit.Cols[colIPDVn].Caption = "VN";
+            grfVisit.Cols[colIPDDept].Caption = "แผนก";
+            grfVisit.Cols[colIPDPreno].Caption = "";
+            grfVisit.Cols[colIPDPreno].Visible = false;
+            grfVisit.Cols[colIPDVn].Visible = true;
+            grfVisit.Cols[colIPDAnShow].Visible = true;
+            grfVisit.Cols[colIPDAndate].Visible = false;
+            grfVisit.Rows[0].Visible = false;
+            grfVisit.Cols[0].Visible = false;
+            grfVisit.Cols[colIPDDate].AllowEditing = false;
+            grfVisit.Cols[colIPDVn].AllowEditing = false;
+            grfVisit.Cols[colIPDDept].AllowEditing = false;
+            grfVisit.Cols[colIPDPreno].AllowEditing = false;
+
+            DataTable dt = new DataTable();
+            //MessageBox.Show("hn "+hn, "");
+            dt = bc.bcDB.vsDB.selectVisitByHn4(txtHn.Text, "I");
+            int i = 0, j = 1, row = grfVisit.Rows.Count;
+            
+            grfVisit.Rows.Count = 0;
+            grfVisit.Rows.Count = dt.Rows.Count;
+            
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfVisit.Rows[i];
+                String status = "", vn = "";
+
+                status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
+                vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")";
+                rowa[colIPDDate] = bc.datetoShow(row1["mnc_date"]);
+                rowa[colIPDVn] = vn;
+                rowa[colIPDStatus] = status;
+                rowa[colIPDPreno] = row1["mnc_pre_no"].ToString();
+                rowa[colIPDDept] = row1["MNC_SHIF_MEMO"].ToString();
+                rowa[colIPDAnShow] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
+                rowa[colIPDAndate] = bc.datetoShow(row1["mnc_ad_date"].ToString());
+                rowa[colIPDAnYr] = row1["mnc_an_yr"].ToString();
+                rowa[colIPDAn] = row1["mnc_an_no"].ToString();
+                i++;
+            }
+            
+            grfVisit.Cols[colIPDStatus].Visible = false;
+            grfVisit.Cols[colIPDAnYr].Visible = false;
+            grfVisit.Cols[colIPDAn].Visible = false;
         }
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
