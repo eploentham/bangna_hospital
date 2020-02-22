@@ -41,6 +41,18 @@ namespace bangna_hospital.objdb
             labo.table = "t_lab_out";
             labo.pkField = "labex_id";
         }
+        public DataTable selectByDateReq(String vsDate)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select labo.* " +
+                "From " + labo.table + " labo " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where labo." + labo.visit_date + "='" + vsDate + "' and dsc." + labo.active + "='1' " +
+                "Order By labo. "+ labo.lab_out_id;
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         private void chkNull(LabOut p)
         {
             long chk = 0;

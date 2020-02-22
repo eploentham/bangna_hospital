@@ -330,8 +330,9 @@ namespace bangna_hospital.gui
             grfLabOut.Cols[colHISLabName].Width = 300;
             grfLabOut.Cols[colHISReqNo].Width = 60;
             //MessageBox.Show("1111", "");
-            
-            dt = bc.bcDB.vsDB.selectRequestOutLabbyDateReq(datestart);
+
+            dt = bc.bcDB.laboDB.selectByDateReq(datestart);
+            if(dt.Rows.Count<=0) dt = bc.bcDB.vsDB.selectRequestOutLabbyDateReq(datestart);
 
             //grfHn.Cols[colHnPrnStaffNote].Width = 60;
 
