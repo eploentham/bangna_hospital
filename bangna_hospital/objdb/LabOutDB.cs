@@ -73,13 +73,14 @@ namespace bangna_hospital.objdb
                 p.patient_fullname = p.patient_fullname.Replace("'", "''");
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.conn;
-                conn.comStore.CommandText = "[insert_lab_out]";
+                conn.comStore.CommandText = "[insert_t_lab_out]";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("lab_code", p.lab_code);
                 conn.comStore.Parameters.AddWithValue("lab_name", p.lab_name.Replace("'", "''"));
                 conn.comStore.Parameters.AddWithValue("patient_fullname", p.patient_fullname.Replace("'", "''"));
                 conn.comStore.Parameters.AddWithValue("hn", p.hn);
                 conn.comStore.Parameters.AddWithValue("an", p.an);
+                conn.comStore.Parameters.AddWithValue("vn", p.vn);
                 conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
                 conn.comStore.Parameters.AddWithValue("pre_no", p.pre_no);
                 conn.comStore.Parameters.AddWithValue("req_no", p.req_no);
@@ -101,7 +102,7 @@ namespace bangna_hospital.objdb
                 conn.conn.Close();
                 conn.comStore.Dispose();
             }
-            return chk;
+            return re;
         }
         public String update(LabOut p, String userId)
         {

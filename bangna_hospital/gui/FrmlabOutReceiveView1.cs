@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
+using bangna_hospital.Properties;
 using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
@@ -24,7 +25,7 @@ namespace bangna_hospital.gui
         C1FlexGrid grfHn, grfLabOut;
         Font fEdit, fEditB, fEditBig;
         int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7;
-        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISLabCode = 5, colHISLabName = 6, colHISReqNo = 7, colHISEdit=8;
+        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISLabCode = 5, colHISLabName = 6, colHISReqNo = 7, colHISEdit=8, colHISpreno=9;
 
         C1DockingTab tC1;
         C1DockingTabPage tabSearch, tabLabOut;
@@ -37,13 +38,16 @@ namespace bangna_hospital.gui
 
         private C1.Win.C1Ribbon.C1StatusBar sb1;
         private C1.Win.C1Themes.C1ThemeController theme1;
+        Form frmFlash;
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmLabOutReceiveView1(BangnaControl bc)
         {
+            showFormWaiting();
             this.bc = bc;
             initConfig();
+            frmFlash.Dispose();
         }
         private void initConfig()
         {
@@ -79,28 +83,49 @@ namespace bangna_hospital.gui
         private void BtnImport_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (grfLabOut.Rows.Count <= 1) return;
             foreach(Row row in grfLabOut.Rows)
             {
                 long chk = 0;
                 if (row[colHISDateReq] == null) continue;
+                if (row[colHISDateReq].ToString().Equals("Date Req")) continue;
+                if (row[colHISEdit] == null) continue;
                 if (!row[colHISEdit].ToString().Equals("1")) continue;
-                String datereq = "", hn = "", pttfullname = "", vn = "", labcode = "", labname = "", reqno = "";
+                //String datereq = "", hn = "", pttfullname = "", vn = "", labcode = "", labname = "", reqno = "";
                 LabOut labo = new LabOut();
-                labo.visit_date = row[colHISDateReq].ToString();
+                labo.visit_date = bc.datetoDB(row[colHISDateReq].ToString());
                 labo.hn = row[colHISHN].ToString();
                 labo.patient_fullname = row[colHISFullName].ToString();
                 labo.vn = row[colHISVN].ToString();
                 labo.lab_code = row[colHISLabCode].ToString();
                 labo.lab_name = row[colHISLabName].ToString();
                 labo.req_no = row[colHISReqNo].ToString();
+                labo.pre_no = row[colHISpreno].ToString();
                 String re = bc.bcDB.laboDB.insertLabOut(labo);
                 if(long.TryParse(re, out chk))
                 {
-                    row.StyleNew.BackColor = Color.White;
+                    //row.StyleNew.BackColor = Color.White;
                 }
             }
         }
-
+        private void showFormWaiting()
+        {
+            frmFlash = new Form();
+            frmFlash.Size = new Size(300, 300);
+            frmFlash.StartPosition = FormStartPosition.CenterScreen;
+            C1PictureBox picFlash = new C1PictureBox();
+            //Image img = new Image();
+            picFlash.SuspendLayout();
+            picFlash.Image = Resources.loading_transparent;
+            picFlash.Width = 230;
+            picFlash.Height = 230;
+            picFlash.Location = new Point(30, 10);
+            picFlash.SizeMode = PictureBoxSizeMode.StretchImage;
+            frmFlash.Controls.Add(picFlash);
+            picFlash.ResumeLayout();
+            frmFlash.Show();
+            Application.DoEvents();
+        }
         private void BtnHISSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -303,6 +328,7 @@ namespace bangna_hospital.gui
         }
         private void setHISSearch()
         {
+            showFormWaiting();
             String datestart = "", dateend = "", hn = "", txt = "";
             DataTable dt = new DataTable();
             //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
@@ -314,7 +340,7 @@ namespace bangna_hospital.gui
             grfLabOut.Clear();
             grfLabOut.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
-            grfLabOut.Cols.Count = 8;
+            grfLabOut.Cols.Count = 10;
             grfLabOut.Cols[colHISDateReq].Caption = "Date Req";
             grfLabOut.Cols[colHISHN].Caption = "HN";
             grfLabOut.Cols[colHISFullName].Caption = "Name";
@@ -352,10 +378,11 @@ namespace bangna_hospital.gui
                     grfLabOut[i, colHISLabCode] = row["MNC_LB_CD"].ToString();
                     grfLabOut[i, colHISLabName] = row["MNC_LB_DSC"].ToString();
                     grfLabOut[i, colHISReqNo] = row["mnc_req_no"].ToString();
+                    grfLabOut[i, colHISpreno] = row["mnc_pre_no"].ToString();
                     grfLabOut[i, colHISEdit] = "1";
                     //if ((i % 2) == 0)
                     //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
-                    grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    //grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
                 }
                 catch (Exception ex)
                 {
@@ -364,6 +391,7 @@ namespace bangna_hospital.gui
                 i++;
             }
             grfLabOut.Cols[colHISEdit].Visible = false;
+            grfLabOut.Cols[colHISpreno].Visible = false;
             grfLabOut.Cols[colHISHN].AllowEditing = false;
             grfLabOut.Cols[colHISFullName].AllowEditing = false;
             grfLabOut.Cols[colHISDateReq].AllowEditing = false;
@@ -371,6 +399,7 @@ namespace bangna_hospital.gui
             grfLabOut.Cols[colHISLabCode].AllowEditing = false;
             grfLabOut.Cols[colHISLabName].AllowEditing = false;
             grfLabOut.Cols[colHISReqNo].AllowEditing = false;
+            frmFlash.Dispose();
         }
         private void initCompoment()
         {
