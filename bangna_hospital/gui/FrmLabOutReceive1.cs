@@ -264,7 +264,6 @@ namespace bangna_hospital.gui
             grfVisit.Location = new System.Drawing.Point(gapX, gapLine + chkOPD.Location.Y+10);
             grfVisit.Size = new Size(900, 300);
             
-
             this.theme1.Theme = "BeigeOne";
 
             this.Controls.Add(panel1);

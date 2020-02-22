@@ -24,7 +24,7 @@ namespace bangna_hospital.gui
         C1FlexGrid grfHn, grfLabOut;
         Font fEdit, fEditB, fEditBig;
         int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7;
-        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISLabCode = 5, colHISLabName = 6, colHISReqNo = 7;
+        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISLabCode = 5, colHISLabName = 6, colHISReqNo = 7, colHISEdit=8;
 
         C1DockingTab tC1;
         C1DockingTabPage tabSearch, tabLabOut;
@@ -55,6 +55,7 @@ namespace bangna_hospital.gui
             this.Load += FrmlabOutReceiveView1_Load;
             btnOk.Click += BtnOk_Click;
             btnHISSearch.Click += BtnHISSearch_Click;
+            btnImport.Click += BtnImport_Click;
 
             theme1.SetTheme(sb1, bc.iniC.themeApplication);
             theme1.SetTheme(tC1, bc.iniC.themeApplication);
@@ -73,6 +74,31 @@ namespace bangna_hospital.gui
             initGrf();
             setGrf();
             initGrfLabOut();
+        }
+
+        private void BtnImport_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            foreach(Row row in grfLabOut.Rows)
+            {
+                long chk = 0;
+                if (row[colHISDateReq] == null) continue;
+                if (!row[colHISEdit].ToString().Equals("1")) continue;
+                String datereq = "", hn = "", pttfullname = "", vn = "", labcode = "", labname = "", reqno = "";
+                LabOut labo = new LabOut();
+                labo.visit_date = row[colHISDateReq].ToString();
+                labo.hn = row[colHISHN].ToString();
+                labo.patient_fullname = row[colHISFullName].ToString();
+                labo.vn = row[colHISVN].ToString();
+                labo.lab_code = row[colHISLabCode].ToString();
+                labo.lab_name = row[colHISLabName].ToString();
+                labo.req_no = row[colHISReqNo].ToString();
+                String re = bc.bcDB.laboDB.insertLabOut(labo);
+                if(long.TryParse(re, out chk))
+                {
+                    row.StyleNew.BackColor = Color.White;
+                }
+            }
         }
 
         private void BtnHISSearch_Click(object sender, EventArgs e)
@@ -326,6 +352,10 @@ namespace bangna_hospital.gui
                     grfLabOut[i, colHISLabCode] = row["MNC_LB_CD"].ToString();
                     grfLabOut[i, colHISLabName] = row["MNC_LB_DSC"].ToString();
                     grfLabOut[i, colHISReqNo] = row["mnc_req_no"].ToString();
+                    grfLabOut[i, colHISEdit] = "1";
+                    //if ((i % 2) == 0)
+                    //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
                 }
                 catch (Exception ex)
                 {
@@ -333,6 +363,7 @@ namespace bangna_hospital.gui
                 }
                 i++;
             }
+            grfLabOut.Cols[colHISEdit].Visible = false;
             grfLabOut.Cols[colHISHN].AllowEditing = false;
             grfLabOut.Cols[colHISFullName].AllowEditing = false;
             grfLabOut.Cols[colHISDateReq].AllowEditing = false;

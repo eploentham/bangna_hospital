@@ -19,6 +19,7 @@ namespace bangna_hospital.objdb
         public ResOrderTabDB resoDB;
         public LabExDB labexDB;
         public ReportTabContentsDB rpttcDB;
+        public LabOutDB laboDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -36,6 +37,7 @@ namespace bangna_hospital.objdb
             resoDB = new ResOrderTabDB(conn);
             labexDB = new LabExDB(conn);
             rpttcDB = new ReportTabContentsDB(conn);
+            laboDB = new LabOutDB(conn);
 
         }
     }

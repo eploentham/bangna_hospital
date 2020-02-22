@@ -296,6 +296,7 @@
     <Compile Include="objdb\DocGroupSubScanDB.cs" />
     <Compile Include="objdb\DocScanDB.cs" />
     <Compile Include="objdb\LabExDB.cs" />
+    <Compile Include="objdb\LabOutDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
     <Compile Include="objdb\ReportTabContentsDB.cs" />
     <Compile Include="objdb\ResOrderTabDB.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="object1\IniFile.cs" />
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LabEx.cs" />
+    <Compile Include="object1\LabOut.cs" />
     <Compile Include="object1\LogFile.cs" />
     <Compile Include="object1\LogWriter.cs" />
     <Compile Include="object1\Messager.cs" />
