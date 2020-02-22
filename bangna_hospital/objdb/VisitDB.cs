@@ -840,7 +840,7 @@ namespace bangna_hospital.objdb
             String sql = "";
             DataTable dt = new DataTable();
             sql = "SELECT lt02.MNC_LB_CD, LAB_M01.MNC_LB_DSC,convert(VARCHAR(20),lt02.mnc_req_dat,23) as mnc_req_dat, lt02.mnc_req_no,lt01.mnc_patname,lt01.mnc_hn_no,lt01.mnc_req_no,convert(VARCHAR(20),lt01.mnc_req_dat,23) as mnc_req_dat,lt01.MNC_AN_NO, lt01.MNC_AN_YR" +
-                ", ptt01.mnc_vn_seq, ptt01.mnc_vn_sum, ptt01.mnc_vn_no  " +
+                ", ptt01.mnc_vn_seq, ptt01.mnc_vn_sum, ptt01.mnc_vn_no, ptt01.mnc_pre_no  " +
                 "FROM     PATIENT_T01 t01 " +
                 "inner join LAB_T01 lt01 ON t01.MNC_PRE_NO = lt01.MNC_PRE_NO AND t01.MNC_DATE = lt01.MNC_DATE and lt01.mnc_hn_no = t01.mnc_hn_no and lt01.mnc_hn_yr = t01.mnc_hn_yr " +
                 "left join LAB_T02 lt02 ON lt01.MNC_REQ_NO = lt02.MNC_REQ_NO AND lt01.MNC_REQ_DAT = lt02.MNC_REQ_DAT AND lt01.MNC_REQ_YR = lt02.MNC_REQ_YR " +
