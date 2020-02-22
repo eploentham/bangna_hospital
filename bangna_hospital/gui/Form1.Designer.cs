@@ -43,14 +43,15 @@
             this.c1SuperErrorProvider1 = new C1.Win.C1SuperTooltip.C1SuperErrorProvider(this.components);
             this.c1DockingTab2 = new C1.Win.C1Command.C1DockingTab();
             this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1FlexViewer1 = new C1.Win.FlexViewer.C1FlexViewer();
+            this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1CommandDock1 = new C1.Win.C1Command.C1CommandDock();
             this.c1List1 = new C1.Win.C1List.C1List();
             this.c1DockingManager1 = new C1.Win.C1Command.C1DockingManager(this.components);
-            this.c1FlexViewer1 = new C1.Win.FlexViewer.C1FlexViewer();
             this.c1PdfDocument1 = new C1.C1Pdf.C1PdfDocument();
-            this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1FlexReport1 = new C1.Win.FlexReport.C1FlexReport();
             this.c1PdfDocument2 = new C1.C1Pdf.C1PdfDocument();
+            this.c1PdfDocumentSource1 = new C1.Win.C1Document.C1PdfDocumentSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -65,10 +66,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).BeginInit();
             this.c1DockingTab2.SuspendLayout();
             this.c1DockingTabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).BeginInit();
             this.SuspendLayout();
             // 
             // c1Combo1
@@ -264,6 +265,50 @@
             this.c1DockingTabPage2.TabIndex = 0;
             this.c1DockingTabPage2.Text = "Page2";
             // 
+            // c1FlexViewer1
+            // 
+            this.c1FlexViewer1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.c1FlexViewer1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.c1FlexViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1FlexViewer1.Location = new System.Drawing.Point(0, 0);
+            this.c1FlexViewer1.Name = "c1FlexViewer1";
+            this.c1FlexViewer1.OutlineAreaBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer1.OutlineBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1FlexViewer1.OutlineBackColorHotSelected = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.c1FlexViewer1.OutlineBackColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer1.OutlineBackColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+            this.c1FlexViewer1.OutlineButtonBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1FlexViewer1.OutlineButtonBackColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer1.OutlineButtonBackColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.c1FlexViewer1.OutlineButtonBorderColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer1.OutlineButtonBorderColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer1.OutlineButtonBorderColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer1.OutlineButtonForeColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.OutlineButtonForeColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.OutlineButtonForeColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.OutlineForeColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.OutlineForeColorHotSelected = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.OutlineForeColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.OutlineForeColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.OutlineLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1FlexViewer1.ParamHeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer1.ParamHeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer1.Size = new System.Drawing.Size(298, 175);
+            this.c1FlexViewer1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1FlexViewer1.TabIndex = 0;
+            this.c1ThemeController1.SetTheme(this.c1FlexViewer1, "(default)");
+            this.c1FlexViewer1.ThumbBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1FlexViewer1.ThumbBackColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.c1FlexViewer1.ThumbBackColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+            // 
+            // c1DockingTabPage3
+            // 
+            this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage3.Name = "c1DockingTabPage3";
+            this.c1DockingTabPage3.Size = new System.Drawing.Size(298, 175);
+            this.c1DockingTabPage3.TabIndex = 1;
+            this.c1DockingTabPage3.Text = "Page3";
+            // 
             // c1CommandDock1
             // 
             this.c1CommandDock1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
@@ -305,42 +350,6 @@
             // 
             this.c1DockingManager1.ParentContainer = this;
             // 
-            // c1FlexViewer1
-            // 
-            this.c1FlexViewer1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.c1FlexViewer1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.c1FlexViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1FlexViewer1.Location = new System.Drawing.Point(0, 0);
-            this.c1FlexViewer1.Name = "c1FlexViewer1";
-            this.c1FlexViewer1.OutlineAreaBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1FlexViewer1.OutlineBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.c1FlexViewer1.OutlineBackColorHotSelected = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
-            this.c1FlexViewer1.OutlineBackColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1FlexViewer1.OutlineBackColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
-            this.c1FlexViewer1.OutlineButtonBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.c1FlexViewer1.OutlineButtonBackColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1FlexViewer1.OutlineButtonBackColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
-            this.c1FlexViewer1.OutlineButtonBorderColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1FlexViewer1.OutlineButtonBorderColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1FlexViewer1.OutlineButtonBorderColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1FlexViewer1.OutlineButtonForeColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.OutlineButtonForeColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.OutlineButtonForeColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.OutlineForeColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.OutlineForeColorHotSelected = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.OutlineForeColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.OutlineForeColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.OutlineLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
-            this.c1FlexViewer1.ParamHeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1FlexViewer1.ParamHeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexViewer1.Size = new System.Drawing.Size(298, 175);
-            this.c1FlexViewer1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
-            this.c1FlexViewer1.TabIndex = 0;
-            this.c1ThemeController1.SetTheme(this.c1FlexViewer1, "(default)");
-            this.c1FlexViewer1.ThumbBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.c1FlexViewer1.ThumbBackColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
-            this.c1FlexViewer1.ThumbBackColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
-            // 
             // c1PdfDocument1
             // 
             this.c1PdfDocument1.DocumentInfo.Author = "";
@@ -356,14 +365,6 @@
             this.c1PdfDocument1.RotateAngle = 0F;
             this.c1PdfDocument1.UseFastTextOut = true;
             this.c1PdfDocument1.UseFontShaping = true;
-            // 
-            // c1DockingTabPage3
-            // 
-            this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage3.Name = "c1DockingTabPage3";
-            this.c1DockingTabPage3.Size = new System.Drawing.Size(298, 175);
-            this.c1DockingTabPage3.TabIndex = 1;
-            this.c1DockingTabPage3.Text = "Page3";
             // 
             // c1FlexReport1
             // 
@@ -416,10 +417,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).EndInit();
             this.c1DockingTab2.ResumeLayout(false);
             this.c1DockingTabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,6 +448,7 @@
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage3;
         private C1.Win.FlexReport.C1FlexReport c1FlexReport1;
         private C1.C1Pdf.C1PdfDocument c1PdfDocument2;
+        private C1.Win.C1Document.C1PdfDocumentSource c1PdfDocumentSource1;
     }
 }
 

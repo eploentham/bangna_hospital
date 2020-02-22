@@ -254,6 +254,83 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectLabOutByDateReq1(String datestart, String dateend, String hn, String flagDate)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "", wheredateend = "", wheredatestart = "", where = "", orderby = "";
+            if (hn.Length > 0)
+            {
+                wherehn = " dsc.hn like '%" + hn + "%'";
+            }
+            if (flagDate.Equals("daterequest"))
+            {
+                if (dateend.Length > 0)
+                {
+                    wheredateend = " dsc." + dsc.date_req + " <='" + dateend + "' ";
+                }
+                if (datestart.Length > 0)
+                {
+                    wheredatestart = " dsc." + dsc.date_req + " >='" + datestart + "' ";
+                }
+                if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length > 0) && (hn.Length <= 0))
+                {
+                    where = wheredatestart + " and " + wheredateend;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wherehn;
+                }
+                else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wherehn;
+                }
+                orderby = "Order By dsc.date_req, dsc.doc_scan_id ";
+            }
+            else
+            {
+                if (dateend.Length > 0)
+                {
+                    wheredateend = " dsc." + dsc.date_create + " <='" + dateend + "' ";
+                }
+                if (datestart.Length > 0)
+                {
+                    wheredatestart = " dsc." + dsc.date_create + " >='" + datestart + "' ";
+                }
+                if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length > 0) && (hn.Length <= 0))
+                {
+                    where = wheredatestart + " and " + wheredateend;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wherehn;
+                }
+                else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wherehn;
+                }
+                orderby = "Order By dsc.doc_scan_id ";
+            }
+            //MessageBox.Show("2222", "");
+            String sql = "select dsc.doc_scan_id, dsc.hn, dsc.patient_fullname, convert(VARCHAR(20),dsc.date_create,23), convert(VARCHAR(20),dsc.date_req,23), dsc.req_id, dsc.vn, dsc.doc_scan_id " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where  " + where +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + "='2' " +
+                orderby;
+            //new LogWriter("d", "sql " + sql);
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectLabOutByHn(String hn)
         {
             //DocScan cop1 = new DocScan();

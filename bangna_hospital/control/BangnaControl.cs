@@ -147,6 +147,7 @@ namespace bangna_hospital.control
             iniC.pathLabOutReceiveRIA = iniF.getIni("app", "pathLabOutReceiveRIA");
             iniC.pathLabOutBackupRIA = iniF.getIni("app", "pathLabOutBackupRIA");
             iniC.pathLabOutBackupRIAZipExtract = iniF.getIni("app", "pathLabOutBackupRIAZipExtract");
+            iniC.pathLabOutBackupManual = iniF.getIni("app", "pathLabOutBackupManual");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;

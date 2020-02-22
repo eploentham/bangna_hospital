@@ -92,7 +92,7 @@ namespace bangna_hospital
                 }
                 else if (bc.iniC.programLoad.Equals("LabOutReceiveView"))
                 {
-                    Application.Run(new gui.FrmLabOutReceiveView(bc));
+                    Application.Run(new gui.FrmLabOutReceiveView1(bc));
                 }
                 else if (bc.iniC.programLoad.Equals("NurseScanView"))
                 {

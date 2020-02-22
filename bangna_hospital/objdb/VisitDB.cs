@@ -32,7 +32,7 @@ namespace bangna_hospital.objdb
 
             vs.table = "";
             vs.pkField = "";
-        }
+        }        
         public DataTable SelectHnLabOut(String reqid, String datereq)
         {
             DataTable dt = new DataTable();
@@ -45,7 +45,24 @@ namespace bangna_hospital.objdb
                 ", ptt01.mnc_vn_seq, ptt01.mnc_vn_sum, ptt01.mnc_vn_no " +
                 "From Lab_t01 lt01 " +
                 "inner join patient_t01 ptt01 on ptt01.mnc_hn_no = lt01.mnc_hn_no and ptt01.mnc_pre_no = lt01.mnc_pre_no and ptt01.mnc_hn_yr = lt01.mnc_hn_yr " +
-                "Where mnc_req_yr = '"+year+"' and mnc_req_dat = '"+datereq+"' and mnc_req_no = '"+reqid+"'" ;
+                "Where mnc_req_yr = '"+year+"' and mnc_req_dat = '"+datereq+"' and mnc_req_no = '"+ reqid + "'" ;
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable SelectHnLabOut1(String hn, String datereq)
+        {
+            DataTable dt = new DataTable();
+            String year = "";
+            int year2 = 0;
+            year = datereq.Substring(0, 4);
+            int.TryParse(year, out year2);
+            year = (year2 + 543).ToString();
+            String sql = "Select lt01.mnc_patname,lt01.mnc_pre_no,lt01.mnc_hn_no,lt01.mnc_req_no,convert(VARCHAR(20),lt01.mnc_req_dat,23) as mnc_req_dat,lt01.MNC_AN_NO, lt01.MNC_AN_YR" +
+                ", ptt01.mnc_vn_seq, ptt01.mnc_vn_sum, ptt01.mnc_vn_no " +
+                "From Lab_t01 lt01 " +
+                "inner join patient_t01 ptt01 on ptt01.mnc_hn_no = lt01.mnc_hn_no and ptt01.mnc_pre_no = lt01.mnc_pre_no and ptt01.mnc_hn_yr = lt01.mnc_hn_yr " +
+                "Where mnc_req_yr = '" + year + "' and mnc_req_dat = '" + datereq + "' and lt01.mnc_hn_no = '" + hn + "'";
             dt = conn.selectData(sql);
 
             return dt;
@@ -359,8 +376,8 @@ namespace bangna_hospital.objdb
                     "When '' Then '' " +
                     "Else MNC_FN_TYP_DSC " +
                     "End as MNC_FN_TYP_DSC, " +
-                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, convert(VARCHAR(20),t01.mnc_date,103) as mnc_date, t01.mnc_ref_dsc," +
-                "t01_2.mnc_an_no, t01_2.MNC_PAT_FLAG, t01_2.mnc_an_yr, convert(VARCHAR(20),t01_2.mnc_ad_date,102) as mnc_ad_date, t01_2.mnc_an_yr " +
+                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.mnc_ref_dsc," +
+                "t01_2.mnc_an_no, t01_2.MNC_PAT_FLAG, t01_2.mnc_an_yr, convert(VARCHAR(20),t01_2.mnc_ad_date,23) as mnc_ad_date, t01_2.mnc_an_yr " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -814,6 +831,24 @@ namespace bangna_hospital.objdb
                 "and xt01.mnc_an_yr = '" + anyr + "'  " +
                 "and xt01.mnc_hn_no = '" + hn + "' " +
                 "Order By xt04.MNC_XR_CD  ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectRequestOutLabbyDateReq(String date_req)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            sql = "SELECT lt02.MNC_LB_CD, LAB_M01.MNC_LB_DSC,convert(VARCHAR(20),lt02.mnc_req_dat,23) as mnc_req_dat, lt02.mnc_req_no,lt01.mnc_patname,lt01.mnc_hn_no,lt01.mnc_req_no,convert(VARCHAR(20),lt01.mnc_req_dat,23) as mnc_req_dat,lt01.MNC_AN_NO, lt01.MNC_AN_YR" +
+                ", ptt01.mnc_vn_seq, ptt01.mnc_vn_sum, ptt01.mnc_vn_no  " +
+                "FROM     PATIENT_T01 t01 " +
+                "inner join LAB_T01 lt01 ON t01.MNC_PRE_NO = lt01.MNC_PRE_NO AND t01.MNC_DATE = lt01.MNC_DATE and lt01.mnc_hn_no = t01.mnc_hn_no and lt01.mnc_hn_yr = t01.mnc_hn_yr " +
+                "left join LAB_T02 lt02 ON lt01.MNC_REQ_NO = lt02.MNC_REQ_NO AND lt01.MNC_REQ_DAT = lt02.MNC_REQ_DAT AND lt01.MNC_REQ_YR = lt02.MNC_REQ_YR " +
+                "left join LAB_M01 ON lt02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "inner join patient_t01 ptt01 on ptt01.mnc_hn_no = lt01.mnc_hn_no and ptt01.mnc_pre_no = lt01.mnc_pre_no and ptt01.mnc_hn_yr = lt01.mnc_hn_yr " +
+                "where lt01.mnc_req_dat = '" + date_req + "'  " +
+                "and LAB_M01.mnc_lb_dsc like '%out lab%'   " +
+                "Order By lt01.mnc_req_dat,LAB_M01.MNC_LB_CD ";
 
             dt = conn.selectData(sql);
             return dt;

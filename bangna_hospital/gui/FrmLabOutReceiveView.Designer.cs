@@ -42,6 +42,7 @@
             this.txtDateStart = new C1.Win.C1Input.C1DateEdit();
             this.c1Label3 = new C1.Win.C1Input.C1Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkDateReqHIS = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -60,7 +61,7 @@
             this.sb1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             this.sb1.Location = new System.Drawing.Point(0, 428);
             this.sb1.Name = "sb1";
-            this.sb1.Size = new System.Drawing.Size(926, 22);
+            this.sb1.Size = new System.Drawing.Size(990, 22);
             this.theme1.SetTheme(this.sb1, "(default)");
             this.sb1.VisualStyle = C1.Win.C1Ribbon.VisualStyle.Custom;
             // 
@@ -79,7 +80,7 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(926, 55);
+            this.panel1.Size = new System.Drawing.Size(990, 55);
             this.panel1.TabIndex = 2;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
@@ -87,7 +88,7 @@
             // 
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHn.Location = new System.Drawing.Point(442, 13);
+            this.txtHn.Location = new System.Drawing.Point(416, 10);
             this.txtHn.Name = "txtHn";
             this.txtHn.Size = new System.Drawing.Size(100, 24);
             this.txtHn.TabIndex = 17;
@@ -103,9 +104,9 @@
             this.c1Label1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.c1Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.c1Label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.c1Label1.Location = new System.Drawing.Point(385, 16);
+            this.c1Label1.Location = new System.Drawing.Point(379, 16);
             this.c1Label1.Name = "c1Label1";
-            this.c1Label1.Size = new System.Drawing.Size(51, 13);
+            this.c1Label1.Size = new System.Drawing.Size(32, 13);
             this.c1Label1.TabIndex = 16;
             this.c1Label1.Tag = null;
             this.theme1.SetTheme(this.c1Label1, "(default)");
@@ -114,12 +115,13 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.chkDateReqHIS);
             this.panel3.Controls.Add(this.chkDateLabOut);
             this.panel3.Controls.Add(this.chkDateReq);
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.panel3.Location = new System.Drawing.Point(551, 6);
+            this.panel3.Location = new System.Drawing.Point(522, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(267, 37);
+            this.panel3.Size = new System.Drawing.Size(390, 37);
             this.panel3.TabIndex = 5;
             this.theme1.SetTheme(this.panel3, "(default)");
             // 
@@ -143,13 +145,13 @@
             this.chkDateReq.AutoSize = true;
             this.chkDateReq.BackColor = System.Drawing.Color.Transparent;
             this.chkDateReq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDateReq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkDateReq.ForeColor = System.Drawing.Color.Black;
             this.chkDateReq.Location = new System.Drawing.Point(3, 8);
             this.chkDateReq.Name = "chkDateReq";
-            this.chkDateReq.Size = new System.Drawing.Size(98, 20);
+            this.chkDateReq.Size = new System.Drawing.Size(101, 20);
             this.chkDateReq.TabIndex = 0;
             this.chkDateReq.TabStop = true;
-            this.chkDateReq.Text = "วันที่Request";
+            this.chkDateReq.Text = "วันที่ Request";
             this.theme1.SetTheme(this.chkDateReq, "(default)");
             this.chkDateReq.UseVisualStyleBackColor = false;
             // 
@@ -157,7 +159,7 @@
             // 
             this.btnOk.Image = global::bangna_hospital.Properties.Resources.custom_reports24;
             this.btnOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOk.Location = new System.Drawing.Point(825, 6);
+            this.btnOk.Location = new System.Drawing.Point(914, 6);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(73, 37);
             this.btnOk.TabIndex = 15;
@@ -194,7 +196,7 @@
             this.txtDateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDateEnd.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtDateEnd.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtDateEnd.Location = new System.Drawing.Point(268, 12);
+            this.txtDateEnd.Location = new System.Drawing.Point(262, 12);
             this.txtDateEnd.Name = "txtDateEnd";
             this.txtDateEnd.Size = new System.Drawing.Size(111, 20);
             this.txtDateEnd.TabIndex = 14;
@@ -244,7 +246,7 @@
             this.txtDateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDateStart.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtDateStart.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtDateStart.Location = new System.Drawing.Point(76, 12);
+            this.txtDateStart.Location = new System.Drawing.Point(80, 12);
             this.txtDateStart.Name = "txtDateStart";
             this.txtDateStart.Size = new System.Drawing.Size(111, 20);
             this.txtDateStart.TabIndex = 12;
@@ -275,15 +277,30 @@
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel2.Location = new System.Drawing.Point(0, 55);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(926, 373);
+            this.panel2.Size = new System.Drawing.Size(990, 373);
             this.panel2.TabIndex = 3;
             this.theme1.SetTheme(this.panel2, "(default)");
+            // 
+            // chkDateReqHIS
+            // 
+            this.chkDateReqHIS.AutoSize = true;
+            this.chkDateReqHIS.BackColor = System.Drawing.Color.Transparent;
+            this.chkDateReqHIS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDateReqHIS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkDateReqHIS.Location = new System.Drawing.Point(261, 8);
+            this.chkDateReqHIS.Name = "chkDateReqHIS";
+            this.chkDateReqHIS.Size = new System.Drawing.Size(126, 20);
+            this.chkDateReqHIS.TabIndex = 2;
+            this.chkDateReqHIS.TabStop = true;
+            this.chkDateReqHIS.Text = "วันที่ Request HIS";
+            this.theme1.SetTheme(this.chkDateReqHIS, "(default)");
+            this.chkDateReqHIS.UseVisualStyleBackColor = false;
             // 
             // FrmLabOutReceiveView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(926, 450);
+            this.ClientSize = new System.Drawing.Size(990, 450);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.sb1);
@@ -325,5 +342,6 @@
         private System.Windows.Forms.RadioButton chkDateReq;
         private C1.Win.C1Input.C1Label c1Label1;
         private C1.Win.C1Input.C1TextBox txtHn;
+        private System.Windows.Forms.RadioButton chkDateReqHIS;
     }
 }

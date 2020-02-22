@@ -55,6 +55,7 @@ namespace bangna_hospital.gui
             {
                 theme1.SetTheme(con, bc.iniC.themeApplication);
             }
+            //theme1.SetTheme(chkDateLabOut, bc.iniC.themeApplication);
             initGrf();
             setGrf();
         }
@@ -177,7 +178,11 @@ namespace bangna_hospital.gui
             {
                 dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "daterequest");
             }
-            else
+            else if (chkDateLabOut.Checked)
+            {
+                dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
+            }
+            else if (chkDateReqHIS.Checked)
             {
                 dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
             }
