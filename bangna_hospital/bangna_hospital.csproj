@@ -291,6 +291,7 @@
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="objdb\BangnaHospitalDB.cs" />
+    <Compile Include="objdb\BLabOutDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
     <Compile Include="objdb\DocGroupScanDB.cs" />
     <Compile Include="objdb\DocGroupSubScanDB.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="objdb\VisitDB.cs" />
     <Compile Include="objdb\XrayDB.cs" />
     <Compile Include="object1\Age.cs" />
+    <Compile Include="object1\BLabOut.cs" />
     <Compile Include="object1\CellNoteManager.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
     <Compile Include="object1\Demos.cs" />

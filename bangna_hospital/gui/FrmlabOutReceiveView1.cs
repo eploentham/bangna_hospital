@@ -24,13 +24,14 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
 
-        C1FlexGrid grfHn, grfLabOut;
+        C1FlexGrid grfHn, grfLabOut, grfMas;
         Font fEdit, fEditB, fEditBig;
         int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7;
         int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISLabCode = 5, colHISLabName = 6, colHISReqNo = 7, colHISEdit=8, colHISpreno=9;
+        int colMasId = 1, colMasCode = 2, colMasName = 3, colMasCompName=4, colMasPrice=5, colMasPeriod=6;
 
         C1DockingTab tC1;
-        C1DockingTabPage tabSearch, tabLabOut;
+        C1DockingTabPage tabSearch, tabLabOut, tabMasLabOut;
         Panel pnLabOut, panel1, panel2, panel3, pnLabOutTop, pnLabOutBotton;
         C1TextBox txtHn;
         C1Label lbtxtHn, lbtxtDateEnd, lbtxtDateStart, lbtxtDate;
@@ -91,6 +92,8 @@ namespace bangna_hospital.gui
             initGrf();
             setGrf();
             initGrfLabOut();
+            initGrfMas();
+            setGrfMas();
         }
 
         private void TimerStt_Tick(object sender, EventArgs e)
@@ -179,7 +182,91 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             setHISSearch("auto");
         }
+        private void initGrfMas()
+        {
+            grfMas = new C1FlexGrid();
+            grfMas.Font = fEdit;
+            grfMas.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfMas.Location = new System.Drawing.Point(0, 0);
 
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfMas.DoubleClick += GrfMas_DoubleClick;
+            //grfHn.Click += GrfHn_Click;
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            grfMas.Rows.Count = 1;
+            tabMasLabOut.Controls.Add(grfMas);
+            grfMas.Rows[0].Visible = false;
+            grfMas.Cols[0].Visible = false;
+            theme1.SetTheme(grfMas, bc.iniC.themeApplication);
+
+            //foreach (Control con in panel1.Controls)
+            //{
+            //    theme1.SetTheme(con, bc.iniC.themeApplication);
+            //}
+        }
+
+        private void GrfMas_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+        private void setGrfMas()
+        {
+            String datestart = "", dateend = "", hn = "", txt = "";
+            DataTable dt = new DataTable();
+            
+            grfMas.Clear();
+            grfMas.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfMas.Cols.Count = 7;
+            grfMas.Cols[colMasCode].Caption = "Code";
+            grfMas.Cols[colMasName].Caption = "Name";
+            grfMas.Cols[colMasCompName].Caption = "Comp Name";
+            grfMas.Cols[colMasPrice].Caption = "Price";
+            grfMas.Cols[colMasPeriod].Caption = "Period";
+
+            grfMas.Cols[colMasCode].Width = 80;
+            grfMas.Cols[colMasName].Width = 300;
+            grfMas.Cols[colMasCompName].Width = 300;
+            grfMas.Cols[colMasPrice].Width = 100;
+            grfMas.Cols[colMasPeriod].Width = 60;
+            //MessageBox.Show("1111", "");            
+            dt = bc.bcDB.labbDB.selectAll();
+
+            grfMas.ShowCursor = true;
+            ContextMenu menuGw = new ContextMenu();
+            grfHn.ContextMenu = menuGw;
+            int i = 1;
+            grfMas.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfMas[i, 0] = (i);
+                    grfMas[i, colMasId] = row["lab_id"].ToString();
+                    grfMas[i, colMasCode] = row["lab_code"].ToString();
+                    grfMas[i, colMasName] = row["lab_name"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfMas[i, colMasCompName] = row["out_lab_comp_code"].ToString();
+                    grfMas[i, colMasPrice] = row["out_lab_price"].ToString();
+                    grfMas[i, colMasPeriod] = row["period_result"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmLabOutReceiveView setGrf ex " + ex.Message);
+                }
+                i++;
+            }
+            grfMas.Cols[colMasId].Visible = false;
+            grfMas.Cols[colMasCode].AllowEditing = false;
+            grfMas.Cols[colMasName].AllowEditing = false;
+            grfMas.Cols[colMasCompName].AllowEditing = false;
+            grfMas.Cols[colMasPrice].AllowEditing = false;
+            grfMas.Cols[colMasPeriod].AllowEditing = false;
+        }
         private void initGrfLabOut()
         {
             grfLabOut = new C1FlexGrid();
@@ -502,6 +589,7 @@ namespace bangna_hospital.gui
             tC1 = new C1DockingTab();
             tabSearch = new C1DockingTabPage();
             tabLabOut = new C1DockingTabPage();
+            tabMasLabOut = new C1DockingTabPage();
             lbtxtDateStart = new C1Label();
             lbtxtDateEnd = new C1Label();
             lbtxtDate = new C1Label();
@@ -525,6 +613,7 @@ namespace bangna_hospital.gui
             panel3.SuspendLayout();
             tabSearch.SuspendLayout();
             tabLabOut.SuspendLayout();
+            tabMasLabOut.SuspendLayout();
             this.SuspendLayout();
 
             //pnSearch.Dock = DockStyle.Fill;
@@ -557,6 +646,9 @@ namespace bangna_hospital.gui
             tabLabOut.Name = "tabLabOut";
             tabLabOut.TabIndex = 0;
             tabLabOut.Text = "Import HIS  to Out LAB";
+            tabMasLabOut.Name = "tabLabOut";
+            tabMasLabOut.TabIndex = 0;
+            tabMasLabOut.Text = "Master Out LAB";
 
             //c1Label1.AutoSize = true;
 
@@ -775,6 +867,7 @@ namespace bangna_hospital.gui
 
             tC1.Controls.Add(tabSearch);
             tC1.Controls.Add(tabLabOut);
+            tC1.Controls.Add(tabMasLabOut);
             //tabSearch.Controls.Add(pnSearch);
             tabLabOut.Controls.Add(pnLabOut);
             tabSearch.Controls.Add(this.panel2);
@@ -791,6 +884,7 @@ namespace bangna_hospital.gui
             panel3.ResumeLayout(false);
             tabSearch.ResumeLayout(false);
             tabLabOut.ResumeLayout(false);
+            tabMasLabOut.ResumeLayout(false);
             this.ResumeLayout(false);
             //pnSearch.PerformLayout();
             pnLabOut.PerformLayout();

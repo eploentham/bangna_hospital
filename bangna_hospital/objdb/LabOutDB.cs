@@ -39,7 +39,7 @@ namespace bangna_hospital.objdb
             labo.req_no = "req_no";
 
             labo.table = "t_lab_out";
-            labo.pkField = "labex_id";
+            labo.pkField = "lab_out_id";
         }
         public DataTable selectByDateReq(String vsDate)
         {
