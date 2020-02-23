@@ -225,13 +225,13 @@ namespace bangna_hospital.gui
             grfMas.Cols.Count = 7;
             grfMas.Cols[colMasCode].Caption = "Code";
             grfMas.Cols[colMasName].Caption = "Name";
-            grfMas.Cols[colMasCompName].Caption = "Comp Name";
+            grfMas.Cols[colMasCompName].Caption = "Comp outLab Name";
             grfMas.Cols[colMasPrice].Caption = "Price";
             grfMas.Cols[colMasPeriod].Caption = "Period";
 
             grfMas.Cols[colMasCode].Width = 80;
-            grfMas.Cols[colMasName].Width = 300;
-            grfMas.Cols[colMasCompName].Width = 300;
+            grfMas.Cols[colMasName].Width = 400;
+            grfMas.Cols[colMasCompName].Width = 100;
             grfMas.Cols[colMasPrice].Width = 100;
             grfMas.Cols[colMasPeriod].Width = 60;
             //MessageBox.Show("1111", "");            
