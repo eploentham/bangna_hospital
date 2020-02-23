@@ -4,6 +4,7 @@ using bangna_hospital.Properties;
 using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
+using C1.Win.C1SuperTooltip;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace bangna_hospital.gui
 {
@@ -35,10 +37,14 @@ namespace bangna_hospital.gui
         C1Button btnOk, btnHISSearch, btnImport;
         C1DateEdit txtDateStart, txtDateEnd, txtDate;
         RadioButton chkDateLabOut, chkDateReq, chkDateReqHIS;
+        C1SuperTooltip stt;
+        C1SuperErrorProvider sep;
 
         private C1.Win.C1Ribbon.C1StatusBar sb1;
         private C1.Win.C1Themes.C1ThemeController theme1;
         Form frmFlash;
+        Timer timerStt;
+        Boolean flagImport = true;
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -55,6 +61,13 @@ namespace bangna_hospital.gui
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
+            stt = new C1SuperTooltip();
+            sep = new C1SuperErrorProvider();
+            timerStt = new System.Windows.Forms.Timer();
+            timerStt.Interval = 3000;
+            timerStt.Enabled = true;
+            timerStt.Stop();
+            timerStt.Tick += TimerStt_Tick;
 
             this.Load += FrmlabOutReceiveView1_Load;
             btnOk.Click += BtnOk_Click;
@@ -80,11 +93,41 @@ namespace bangna_hospital.gui
             initGrfLabOut();
         }
 
+        private void TimerStt_Tick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            stt.Hide();
+            timerStt.Stop();
+            //timerStt.Enabled = false;
+        }
+
         private void BtnImport_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (flagImport)
+            {
+                setImport();
+            }
+            else
+            {
+                setVoid();
+            }
+        }
+        private void setVoid()
+        {
+            String re = bc.bcDB.laboDB.voidByDate(bc.datetoDB(txtDate.Text), "");
+           
+            stt.Show("<p><b>Delete Success "+ re + "</b></p>", txtDate, 60, 30);
+            Application.DoEvents();
+            setHISSearch("auto");
+            timerStt.Start();
+            
+        }
+        private void setImport()
+        {
             if (grfLabOut.Rows.Count <= 1) return;
-            foreach(Row row in grfLabOut.Rows)
+            
+            foreach (Row row in grfLabOut.Rows)
             {
                 long chk = 0;
                 if (row[colHISDateReq] == null) continue;
@@ -102,11 +145,16 @@ namespace bangna_hospital.gui
                 labo.req_no = row[colHISReqNo].ToString();
                 labo.pre_no = row[colHISpreno].ToString();
                 String re = bc.bcDB.laboDB.insertLabOut(labo);
-                if(long.TryParse(re, out chk))
+                if (long.TryParse(re, out chk))
                 {
                     //row.StyleNew.BackColor = Color.White;
                 }
             }
+            setHISSearch("");
+            stt.Show("<p><b>Import Success</b></p>", txtDate, 30, 30);
+            Application.DoEvents();
+            timerStt.Start();
+            //stt.Hide(txtDate);
         }
         private void showFormWaiting()
         {
@@ -129,7 +177,7 @@ namespace bangna_hospital.gui
         private void BtnHISSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setHISSearch();
+            setHISSearch("auto");
         }
 
         private void initGrfLabOut()
@@ -326,7 +374,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             setGrf();
         }
-        private void setHISSearch()
+        private void setHISSearch(String flagauto)
         {
             showFormWaiting();
             String datestart = "", dateend = "", hn = "", txt = "";
@@ -356,9 +404,27 @@ namespace bangna_hospital.gui
             grfLabOut.Cols[colHISLabName].Width = 300;
             grfLabOut.Cols[colHISReqNo].Width = 60;
             //MessageBox.Show("1111", "");
-
+            String flag = "";
             dt = bc.bcDB.laboDB.selectByDateReq(datestart);
-            if(dt.Rows.Count<=0) dt = bc.bcDB.vsDB.selectRequestOutLabbyDateReq(datestart);
+            theme1.SetTheme(grfLabOut, bc.iniC.themeApplication);
+            if (flagauto.Equals("auto"))
+            {
+                if (dt.Rows.Count <= 0)
+                {
+                    dt = bc.bcDB.vsDB.selectRequestOutLabbyDateReq(datestart);
+                    theme1.SetTheme(grfLabOut, bc.iniC.themeDonor);
+                    flag = "new";
+                    flagImport = true;
+                    btnImport.Text = "Import Data";
+                }
+                else
+                {
+                    theme1.SetTheme(grfLabOut, bc.iniC.themeApplication);
+                    flag = "old";
+                    flagImport = false;
+                    btnImport.Text = "Void Data";
+                }
+            }
 
             //grfHn.Cols[colHnPrnStaffNote].Width = 60;
 
@@ -372,15 +438,31 @@ namespace bangna_hospital.gui
                 try
                 {
                     grfLabOut[i, 0] = (i);
-                    grfLabOut[i, colHISHN] = row["mnc_hn_no"].ToString();
-                    grfLabOut[i, colHISFullName] = row["mnc_patname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
-                    grfLabOut[i, colHISDateReq] = bc.datetoShow(row["mnc_req_dat"].ToString());
-                    grfLabOut[i, colHISVN] = row["MNC_VN_NO"].ToString() + "/" + row["MNC_VN_SEQ"].ToString() + "(" + row["MNC_VN_SUM"].ToString() + ")";
-                    grfLabOut[i, colHISLabCode] = row["MNC_LB_CD"].ToString();
-                    grfLabOut[i, colHISLabName] = row["MNC_LB_DSC"].ToString();
-                    grfLabOut[i, colHISReqNo] = row["mnc_req_no"].ToString();
-                    grfLabOut[i, colHISpreno] = row["mnc_pre_no"].ToString();
-                    grfLabOut[i, colHISEdit] = "1";
+                    if (flag.Equals("new"))
+                    {
+                        grfLabOut[i, colHISHN] = row["mnc_hn_no"].ToString();
+                        grfLabOut[i, colHISFullName] = row["mnc_patname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                        grfLabOut[i, colHISDateReq] = bc.datetoShow(row["mnc_req_dat"].ToString());
+                        grfLabOut[i, colHISVN] = row["MNC_VN_NO"].ToString() + "/" + row["MNC_VN_SEQ"].ToString() + "(" + row["MNC_VN_SUM"].ToString() + ")";
+                        grfLabOut[i, colHISLabCode] = row["MNC_LB_CD"].ToString();
+                        grfLabOut[i, colHISLabName] = row["MNC_LB_DSC"].ToString();
+                        grfLabOut[i, colHISReqNo] = row["mnc_req_no"].ToString();
+                        grfLabOut[i, colHISpreno] = row["mnc_pre_no"].ToString();
+                        grfLabOut[i, colHISEdit] = "1";
+                    }
+                    else
+                    {
+                        grfLabOut[i, colHISHN] = row["hn"].ToString();
+                        grfLabOut[i, colHISFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                        grfLabOut[i, colHISDateReq] = bc.datetoShow(row["visit_date"].ToString());
+                        grfLabOut[i, colHISVN] = row["vn"].ToString();
+                        grfLabOut[i, colHISLabCode] = row["lab_code"].ToString();
+                        grfLabOut[i, colHISLabName] = row["lab_name"].ToString();
+                        grfLabOut[i, colHISReqNo] = row["req_no"].ToString();
+                        grfLabOut[i, colHISpreno] = row["pre_no"].ToString();
+                        grfLabOut[i, colHISEdit] = "0";
+                    }
+                    
                     //if ((i % 2) == 0)
                     //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
                     //grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);

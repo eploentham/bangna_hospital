@@ -47,7 +47,7 @@ namespace bangna_hospital.objdb
             String sql = "select labo.* " +
                 "From " + labo.table + " labo " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where labo." + labo.visit_date + "='" + vsDate + "' and dsc." + labo.active + "='1' " +
+                "Where labo." + labo.visit_date + "='" + vsDate + "' and labo." + labo.active + "='1' " +
                 "Order By labo. "+ labo.lab_out_id;
             dt = conn.selectData(conn.conn, sql);
 
@@ -146,6 +146,28 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+        public String voidByDate(String req_date, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            //chkNull(p);
+            sql = "Update " + labo.table + " Set " +
+                " " + labo.active + " = '3'" +
+                "," + labo.date_cancel + " = convert(varchar, getdate(), 23)" +
+                "," + labo.user_cancel + " = '" + userId + "'" +
+                "Where " + labo.visit_date + "='" + req_date + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
 
+            return re;
+        }
     }
 }
