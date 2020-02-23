@@ -24,19 +24,19 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
 
-        C1FlexGrid grfHn, grfLabOut, grfMas;
+        C1FlexGrid grfHn, grfLabOut, grfMas, grfLabOutView;
         Font fEdit, fEditB, fEditBig;
         int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7;
         int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISLabCode = 5, colHISLabName = 6, colHISReqNo = 7, colHISEdit=8, colHISpreno=9;
         int colMasId = 1, colMasCode = 2, colMasName = 3, colMasCompName=4, colMasPrice=5, colMasPeriod=6;
 
         C1DockingTab tC1;
-        C1DockingTabPage tabSearch, tabLabOut, tabMasLabOut;
-        Panel pnLabOut, panel1, panel2, panel3, pnLabOutTop, pnLabOutBotton;
+        C1DockingTabPage tabSearch, tabLabOut, tabMasLabOut, tabLabOutView;
+        Panel pnLabOut, panel1, panel2, panel3, pnLabOutTop, pnLabOutBotton, pnLabOutView, pnLabOutViewTop, pnLabOutViewBotton;
         C1TextBox txtHn;
-        C1Label lbtxtHn, lbtxtDateEnd, lbtxtDateStart, lbtxtDate;
-        C1Button btnOk, btnHISSearch, btnImport;
-        C1DateEdit txtDateStart, txtDateEnd, txtDate;
+        C1Label lbtxtHn, lbtxtDateEnd, lbtxtDateStart, lbtxtDate, lbLabOutViewDate;
+        C1Button btnOk, btnHISSearch, btnImport, btnLabOutViewDate;
+        C1DateEdit txtDateStart, txtDateEnd, txtDate, txtLabOutViewDate;
         RadioButton chkDateLabOut, chkDateReq, chkDateReqHIS;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
@@ -74,6 +74,7 @@ namespace bangna_hospital.gui
             btnOk.Click += BtnOk_Click;
             btnHISSearch.Click += BtnHISSearch_Click;
             btnImport.Click += BtnImport_Click;
+            btnLabOutViewDate.Click += BtnLabOutViewDate_Click;
 
             theme1.SetTheme(sb1, bc.iniC.themeApplication);
             theme1.SetTheme(tC1, bc.iniC.themeApplication);
@@ -93,7 +94,14 @@ namespace bangna_hospital.gui
             setGrf();
             initGrfLabOut();
             initGrfMas();
-            setGrfMas();
+            //setGrfMas();
+            initGrfLabOutView();
+        }
+
+        private void BtnLabOutViewDate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setgrfLabOutView();
         }
 
         private void TimerStt_Tick(object sender, EventArgs e)
@@ -267,6 +275,39 @@ namespace bangna_hospital.gui
             grfMas.Cols[colMasPrice].AllowEditing = false;
             grfMas.Cols[colMasPeriod].AllowEditing = false;
         }
+        private void initGrfLabOutView()
+        {
+            grfLabOutView = new C1FlexGrid();
+            grfLabOutView.Font = fEdit;
+            grfLabOutView.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfLabOutView.Location = new System.Drawing.Point(0, 0);
+
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfLabOutView.DoubleClick += GrfLabOutView_DoubleClick;
+            //grfHn.Click += GrfHn_Click;
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            grfLabOutView.Rows.Count = 1;
+            pnLabOutViewBotton.Controls.Add(grfLabOutView);
+            grfLabOutView.Rows[0].Visible = false;
+            grfLabOutView.Cols[0].Visible = false;
+            theme1.SetTheme(grfLabOutView, bc.iniC.themeApplication);
+
+            //foreach (Control con in panel1.Controls)
+            //{
+            //    theme1.SetTheme(con, bc.iniC.themeApplication);
+            //}
+        }
+
+        private void GrfLabOutView_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void initGrfLabOut()
         {
             grfLabOut = new C1FlexGrid();
@@ -571,6 +612,86 @@ namespace bangna_hospital.gui
             grfLabOut.Cols[colHISReqNo].AllowEditing = false;
             frmFlash.Dispose();
         }
+        private void setgrfLabOutView()
+        {
+            showFormWaiting();
+            String datestart = "", dateend = "", hn = "", txt = "";
+            DataTable dt = new DataTable();
+            //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
+            //MessageBox.Show("txtDateEnd " + txtDateEnd.Text, "");
+            datestart = bc.datetoDB(txtLabOutViewDate.Text);
+            //dateend = bc.datetoDB(txtDateEnd.Text);
+            //MessageBox.Show("datestart "+ datestart, "");
+            //MessageBox.Show("dateend "+ dateend, "");
+            grfLabOutView.Clear();
+            grfLabOutView.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfLabOutView.Cols.Count = 10;
+            grfLabOutView.Cols[colHISDateReq].Caption = "Date Req";
+            grfLabOutView.Cols[colHISHN].Caption = "HN";
+            grfLabOutView.Cols[colHISFullName].Caption = "Name";
+            grfLabOutView.Cols[colHISVN].Caption = "VN";
+            grfLabOutView.Cols[colHISLabCode].Caption = "Code";
+            grfLabOutView.Cols[colHISLabName].Caption = "Lab Name";
+            grfLabOutView.Cols[colHISReqNo].Caption = "req id";
+            grfLabOutView.Cols[colHISDateReq].Width = 100;
+            grfLabOutView.Cols[colHISHN].Width = 80;
+            grfLabOutView.Cols[colHISFullName].Width = 260;
+            grfLabOutView.Cols[colHISVN].Width = 100;
+            grfLabOutView.Cols[colHISLabCode].Width = 80;
+            grfLabOutView.Cols[colHISLabName].Width = 300;
+            grfLabOutView.Cols[colHISReqNo].Width = 60;
+            //MessageBox.Show("1111", "");
+            String flag = "";
+            dt = bc.bcDB.laboDB.selectByDateReq(datestart);
+            theme1.SetTheme(grfLabOutView, bc.iniC.themeApplication);
+            
+            dt = bc.bcDB.vsDB.selectRequestOutLabbyDateReq(datestart);
+
+            //grfHn.Cols[colHnPrnStaffNote].Width = 60;
+
+            grfLabOutView.ShowCursor = true;
+            ContextMenu menuGw = new ContextMenu();
+            grfLabOutView.ContextMenu = menuGw;
+            int i = 1;
+            grfLabOutView.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfLabOutView[i, 0] = (i);
+
+                    grfLabOutView[i, colHISHN] = row["hn"].ToString();
+                    grfLabOutView[i, colHISFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfLabOutView[i, colHISDateReq] = bc.datetoShow(row["visit_date"].ToString());
+                    grfLabOutView[i, colHISVN] = row["vn"].ToString();
+                    grfLabOutView[i, colHISLabCode] = row["lab_code"].ToString();
+                    grfLabOutView[i, colHISLabName] = row["lab_name"].ToString();
+                    grfLabOutView[i, colHISReqNo] = row["req_no"].ToString();
+                    grfLabOutView[i, colHISpreno] = row["pre_no"].ToString();
+                    grfLabOutView[i, colHISEdit] = "0";
+
+                    //if ((i % 2) == 0)
+                    //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    //grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmLabOutReceiveView setGrf ex " + ex.Message);
+                }
+                i++;
+            }
+            grfLabOutView.Cols[colHISEdit].Visible = false;
+            grfLabOutView.Cols[colHISpreno].Visible = false;
+            grfLabOutView.Cols[colHISHN].AllowEditing = false;
+            grfLabOutView.Cols[colHISFullName].AllowEditing = false;
+            grfLabOutView.Cols[colHISDateReq].AllowEditing = false;
+            grfLabOutView.Cols[colHISVN].AllowEditing = false;
+            grfLabOutView.Cols[colHISLabCode].AllowEditing = false;
+            grfLabOutView.Cols[colHISLabName].AllowEditing = false;
+            grfLabOutView.Cols[colHISReqNo].AllowEditing = false;
+            frmFlash.Dispose();
+        }
         private void initCompoment()
         {
             int gapLine = 20, gapX = 20;
@@ -582,6 +703,9 @@ namespace bangna_hospital.gui
             pnLabOut = new Panel();
             pnLabOutTop = new Panel();
             pnLabOutBotton = new Panel();
+            pnLabOutView = new Panel();
+            pnLabOutViewTop = new Panel();
+            pnLabOutViewBotton = new Panel();
             panel1 = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
@@ -590,12 +714,15 @@ namespace bangna_hospital.gui
             tabSearch = new C1DockingTabPage();
             tabLabOut = new C1DockingTabPage();
             tabMasLabOut = new C1DockingTabPage();
+            tabLabOutView = new C1DockingTabPage();
             lbtxtDateStart = new C1Label();
             lbtxtDateEnd = new C1Label();
             lbtxtDate = new C1Label();
+            lbLabOutViewDate = new C1Label();
             txtDateStart = new C1DateEdit();
             txtDateEnd = new C1DateEdit();
             txtDate = new C1DateEdit();
+            txtLabOutViewDate = new C1DateEdit();
             lbtxtHn = new C1Label();
             txtHn = new C1TextBox();
             chkDateLabOut = new RadioButton();
@@ -603,21 +730,28 @@ namespace bangna_hospital.gui
             chkDateReqHIS = new RadioButton();
             btnOk = new C1Button();
             btnHISSearch = new C1Button();
+            btnLabOutViewDate = new C1Button();
 
             //pnSearch.SuspendLayout();
             pnLabOut.SuspendLayout();
             pnLabOutBotton.SuspendLayout();
             pnLabOutTop.SuspendLayout();
+            pnLabOutView.SuspendLayout();
+            pnLabOutViewBotton.SuspendLayout();
+            pnLabOutViewTop.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             tabSearch.SuspendLayout();
             tabLabOut.SuspendLayout();
             tabMasLabOut.SuspendLayout();
+            tabLabOutView.SuspendLayout();
             this.SuspendLayout();
 
             //pnSearch.Dock = DockStyle.Fill;
             pnLabOut.Dock = DockStyle.Fill;
+            pnLabOutView.Dock = DockStyle.Fill;
+            pnLabOutView.Name = "pnLabOutView";
             panel1.Size = new System.Drawing.Size(990, 55);
             panel1.Dock = System.Windows.Forms.DockStyle.Top;
             panel1.Name = "panel1";
@@ -646,9 +780,12 @@ namespace bangna_hospital.gui
             tabLabOut.Name = "tabLabOut";
             tabLabOut.TabIndex = 0;
             tabLabOut.Text = "Import HIS  to Out LAB";
-            tabMasLabOut.Name = "tabLabOut";
+            tabMasLabOut.Name = "tabMasLabOut";
             tabMasLabOut.TabIndex = 0;
             tabMasLabOut.Text = "Master Out LAB";
+            tabLabOutView.Name = "tabLabOutView";
+            tabLabOutView.TabIndex = 0;
+            tabLabOutView.Text = "Out LAB Transaction";
 
             //c1Label1.AutoSize = true;
 
@@ -788,7 +925,7 @@ namespace bangna_hospital.gui
             lbtxtDate.Font = fEdit;
             lbtxtDate.ForeColor = System.Drawing.SystemColors.ControlText;
             lbtxtDate.Location = new System.Drawing.Point(gapX, 10);
-            lbtxtDate.Value = "วันที่:";
+            lbtxtDate.Value = "วันที่: ";
             txtDate.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
             txtDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             txtDate.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
@@ -835,12 +972,66 @@ namespace bangna_hospital.gui
             btnImport.Size = new Size(size.Width + 80, 25);
             btnImport.Font = fEdit;
 
+            lbLabOutViewDate.AutoSize = true;
+            lbLabOutViewDate.BorderColor = System.Drawing.Color.Transparent;
+            lbLabOutViewDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            lbLabOutViewDate.Font = fEdit;
+            lbLabOutViewDate.ForeColor = System.Drawing.SystemColors.ControlText;
+            lbLabOutViewDate.Location = new System.Drawing.Point(gapX, 10);
+            lbLabOutViewDate.Value = "วันที่: ";
+            lbLabOutViewDate.Name = "lbLabOutViewDate";
+            txtLabOutViewDate.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
+            txtLabOutViewDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            txtLabOutViewDate.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            txtLabOutViewDate.Culture = 1054;
+            txtLabOutViewDate.CurrentTimeZone = false;
+            txtLabOutViewDate.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            txtLabOutViewDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            txtLabOutViewDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            txtLabOutViewDate.EditFormat.CustomFormat = "dd/MM/yyyy";
+            txtLabOutViewDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            txtLabOutViewDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            txtLabOutViewDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            txtLabOutViewDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            txtLabOutViewDate.ImagePadding = new System.Windows.Forms.Padding(0);
+            size = bc.MeasureString(lbLabOutViewDate);
+            txtLabOutViewDate.Location = new System.Drawing.Point(lbLabOutViewDate.Location.X + size.Width + 5, lbLabOutViewDate.Location.Y);
+            txtLabOutViewDate.Name = "txtLabOutViewDate";
+            txtLabOutViewDate.Size = new System.Drawing.Size(111, 20);
+            txtLabOutViewDate.TabIndex = 14;
+            txtLabOutViewDate.Tag = null;
+            theme1.SetTheme(this.txtDateEnd, "(default)");
+            txtLabOutViewDate.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            txtLabOutViewDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            btnLabOutViewDate = new C1Button();
+            btnLabOutViewDate.Name = "btnLabOutViewDate";
+            btnLabOutViewDate.Text = "Search";
+            btnLabOutViewDate.Font = fEdit;
+            size = bc.MeasureString(btnLabOutViewDate);
+            btnLabOutViewDate.Location = new System.Drawing.Point(txtLabOutViewDate.Location.X + txtLabOutViewDate.Width + 10, lbLabOutViewDate.Location.Y);
+            size = bc.MeasureString(btnLabOutViewDate);
+            btnLabOutViewDate.Size = new Size(size.Width + 80, 25);
+            btnLabOutViewDate.Font = fEdit;
+
             pnLabOutTop.Size = new System.Drawing.Size(990, 55);
             pnLabOutTop.Dock = System.Windows.Forms.DockStyle.Top;
             pnLabOutTop.Name = "pnLabOutTop";
             pnLabOutBotton.Size = new System.Drawing.Size(990, 55);
             pnLabOutBotton.Dock = System.Windows.Forms.DockStyle.Fill;
             pnLabOutBotton.Name = "pnLabOutBotton";
+
+            pnLabOutViewTop.Size = new System.Drawing.Size(990, 55);
+            pnLabOutViewTop.Dock = System.Windows.Forms.DockStyle.Top;
+            pnLabOutViewTop.Name = "pnLabOutViewTop";
+            pnLabOutViewBotton.Size = new System.Drawing.Size(990, 55);
+            pnLabOutViewBotton.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnLabOutViewBotton.Name = "pnLabOutViewBotton";
 
             theme1.Theme = bc.iniC.themeApplication;
             this.Controls.Add(tC1);
@@ -859,19 +1050,30 @@ namespace bangna_hospital.gui
             panel1.Controls.Add(this.lbtxtDateStart);
             pnLabOut.Controls.Add(this.pnLabOutBotton);
             pnLabOut.Controls.Add(this.pnLabOutTop);
-            
+            pnLabOutView.Controls.Add(this.pnLabOutViewBotton);
+            pnLabOutView.Controls.Add(this.pnLabOutViewTop);
+            pnLabOutViewTop.Controls.Add(lbLabOutViewDate);
+            pnLabOutViewTop.Controls.Add(txtLabOutViewDate);
+            pnLabOutViewTop.Controls.Add(btnLabOutViewDate);
+
             pnLabOutTop.Controls.Add(lbtxtDate);
             pnLabOutTop.Controls.Add(txtDate);
             pnLabOutTop.Controls.Add(btnHISSearch);
             pnLabOutTop.Controls.Add(btnImport);
 
+            pnLabOutViewTop.Controls.Add(lbLabOutViewDate);
+            pnLabOutViewTop.Controls.Add(txtLabOutViewDate);
+            pnLabOutViewTop.Controls.Add(btnLabOutViewDate);
+
             tC1.Controls.Add(tabSearch);
             tC1.Controls.Add(tabLabOut);
             tC1.Controls.Add(tabMasLabOut);
+            tC1.Controls.Add(tabLabOutView);
             //tabSearch.Controls.Add(pnSearch);
             tabLabOut.Controls.Add(pnLabOut);
             tabSearch.Controls.Add(this.panel2);
             tabSearch.Controls.Add(this.panel1);
+            tabLabOutView.Controls.Add(pnLabOutView);
 
             this.WindowState = FormWindowState.Maximized;
 
@@ -879,17 +1081,24 @@ namespace bangna_hospital.gui
             pnLabOut.ResumeLayout(false);
             pnLabOutBotton.ResumeLayout(false);
             pnLabOutTop.ResumeLayout(false);
+            pnLabOutView.ResumeLayout(false);
+            pnLabOutViewBotton.ResumeLayout(false);
+            pnLabOutViewTop.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             tabSearch.ResumeLayout(false);
             tabLabOut.ResumeLayout(false);
+            tabLabOutView.ResumeLayout(false);
             tabMasLabOut.ResumeLayout(false);
             this.ResumeLayout(false);
             //pnSearch.PerformLayout();
             pnLabOut.PerformLayout();
             pnLabOutBotton.PerformLayout();
             pnLabOutTop.PerformLayout();
+            pnLabOutView.PerformLayout();
+            pnLabOutViewBotton.PerformLayout();
+            pnLabOutViewTop.PerformLayout();
             panel1.PerformLayout();
             panel2.PerformLayout();
             panel3.PerformLayout();
@@ -898,7 +1107,7 @@ namespace bangna_hospital.gui
         private void FrmlabOutReceiveView1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-02-22 ";
+            this.Text = "Last Update 2020-02-23 ";
         }
     }
 }
