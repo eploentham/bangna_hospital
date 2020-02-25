@@ -254,6 +254,38 @@ namespace bangna_hospital.control
             }
             return re;
         }
+        public String datetoShow1(String dt)
+        {
+            DateTime dt1 = new DateTime();
+            //MySqlDateTime dtm = new MySqlDateTime();
+            String re = "", year1 = "", mm = "", dd = "";
+            if (iniC.windows.Equals("windowsxp"))
+            {
+                if (dt.Length >= 10)
+                {
+                    year1 = dt.Substring(0, 4);
+                    mm = dt.Substring(5, 2);
+                    dd = dt.Substring(8, 2);
+                    re = dd + "-" + mm + "-" + year1;
+                }
+                else
+                {
+                    re = "";
+                }
+                //re = dt.ToString();
+            }
+            else
+            {
+                if (dt != null)
+                {
+                    if (DateTime.TryParse(dt.ToString(), out dt1))
+                    {
+                        re = dt1.ToString("dd-MM-yyyy");
+                    }
+                }
+            }
+            return re;
+        }
         public String datetoDB(String dt)
         {
             DateTime dt1 = new DateTime();
@@ -263,24 +295,24 @@ namespace bangna_hospital.control
             if (iniC.windows.Equals("windowsxp"))
             {
                 //new LogWriter("d", "datetoDB 02 iniC.windowsxp ");
-                if (DateTime.TryParse(dt, out dt1))
-                {
-                    //new LogWriter("d", "datetoDB 02 iniC.windowsxp DateTime.TryParse(dt, out dt1) true dt1.Year"+ dt1.Year);
-                    if (dt1.Year > 2500)
-                    {
-                        re = (dt1.Year - 543).ToString() + "-" + dt1.ToString("MM-dd");
-                    }
-                    else if (dt1.Year < 1500)
-                    {
-                        re = (dt1.Year + 543).ToString() + "-" + dt1.ToString("MM-dd");
-                    }
-                    else
-                    {
-                        re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
-                    }                    
-                }
-                else
-                {
+                //if (DateTime.TryParse(dt, out dt1))
+                //{
+                //    //new LogWriter("d", "datetoDB 02 iniC.windowsxp DateTime.TryParse(dt, out dt1) true dt1.Year"+ dt1.Year);
+                //    if (dt1.Year > 2500)
+                //    {
+                //        re = (dt1.Year - 543).ToString() + "-" + dt1.ToString("MM-dd");
+                //    }
+                //    else if (dt1.Year < 1500)
+                //    {
+                //        re = (dt1.Year + 543).ToString() + "-" + dt1.ToString("MM-dd");
+                //    }
+                //    else
+                //    {
+                //        re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
+                //    }                    
+                //}
+                //else
+                //{
                     //new LogWriter("d", "datetoDB 02 iniC.windowsxp DateTime.TryParse(dt, out dt1) false ");
                     if (dt.Length >= 10)
                     {
@@ -317,7 +349,7 @@ namespace bangna_hospital.control
                     {
 
                     }
-                }
+                //}
                 //re = dt1.ToString("yyyy-MM-dd");
             }
             else

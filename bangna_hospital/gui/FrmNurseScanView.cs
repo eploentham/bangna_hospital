@@ -816,6 +816,7 @@ namespace bangna_hospital.gui
         }
         private void setGrfLabOutFinish(String hn)
         {
+            grfLabOutFinish.Rows.Count = 1;
             String hn1 = "";
             if (hn.Length <= 0) return;
             hn1 = hn.Substring(hn.Length-1, 1);
@@ -888,6 +889,7 @@ namespace bangna_hospital.gui
         private void setGrfXrayFinish(String hn)
         {
             String hn1 = "",hn3="";
+            grfXrayFinish.Rows.Count = 1;
             if (hn.Length <= 0) return;
             hn1 = hn.Substring(hn.Length - 1, 1);
             if (hn1.IndexOf(",") >= 0)
@@ -1312,7 +1314,7 @@ namespace bangna_hospital.gui
         //}
         private void FrmNurseScanView_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2020-02-19";
+            this.Text = "Last Update 2020-02-24";
             pnLabOut.Size = new Size(this.Width / 2, this.Height);
             Size pnlsize = new Size(pnLabOut.Width / 2, pnLabOut.Height);
             spPttinWrd.Size = pnlsize;

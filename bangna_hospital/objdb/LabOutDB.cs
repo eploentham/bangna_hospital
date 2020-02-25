@@ -37,6 +37,8 @@ namespace bangna_hospital.objdb
             labo.user_modi = "user_modi";
             labo.user_cancel = "user_cancel";
             labo.req_no = "req_no";
+            labo.status_result = "status_result";
+            labo.date_result = "date_result";
 
             labo.table = "t_lab_out";
             labo.pkField = "lab_out_id";
@@ -70,7 +72,9 @@ namespace bangna_hospital.objdb
             p.hn = p.hn == null ? "" : p.hn;
             p.an = p.an == null ? "" : p.an;
             p.visit_date = p.visit_date == null ? "" : p.visit_date;
-            //p.pre_no = p.pre_no == null ? "" : p.pre_no;
+            p.status_result = p.status_result == null ? "0" : p.status_result;
+            p.status_result = p.status_result.Length == 0 ? "0" : p.status_result;
+            p.date_result = p.date_result == null ? "" : p.date_result;
 
             p.req_no = long.TryParse(p.req_no, out chk) ? chk.ToString() : "0";
             p.pre_no = long.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";
@@ -165,6 +169,30 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String updateStatusResult(String hn, String req_date, String req_id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            //chkNull(p);
+            sql = "Update " + labo.table + " Set " +
+                " " + labo.status_result + " = '1'" +
+                "," + labo.date_result + " = convert(varchar, getdate(), 23)" +
+                "," + labo.user_cancel + " = '" + userId + "'" +
+                "Where " + labo.visit_date + "='" + req_date + "' and "+labo.hn +"='"+hn+"' and "+labo.req_no+"='"+req_id+"'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateStatusResult " + sql);
             }
 
             return re;

@@ -94,7 +94,7 @@ namespace bangna_hospital.gui
             setGrf();
             initGrfLabOut();
             initGrfMas();
-            //setGrfMas();
+            setGrfMas();
             initGrfLabOutView();
         }
 
@@ -216,7 +216,6 @@ namespace bangna_hospital.gui
             //    theme1.SetTheme(con, bc.iniC.themeApplication);
             //}
         }
-
         private void GrfMas_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -645,8 +644,8 @@ namespace bangna_hospital.gui
             String flag = "";
             dt = bc.bcDB.laboDB.selectByDateReq(datestart);
             theme1.SetTheme(grfLabOutView, bc.iniC.themeApplication);
-            
-            dt = bc.bcDB.vsDB.selectRequestOutLabbyDateReq(datestart);
+
+            dt = bc.bcDB.laboDB.selectByDateReq(datestart);
 
             //grfHn.Cols[colHnPrnStaffNote].Width = 60;
 

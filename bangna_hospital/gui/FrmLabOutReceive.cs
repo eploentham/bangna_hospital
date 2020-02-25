@@ -399,7 +399,6 @@ namespace bangna_hospital.gui
                             {
                                 String aaaa = "";
                             }
-
                         }
                     }
                     //else

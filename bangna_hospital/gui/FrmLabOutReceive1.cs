@@ -776,12 +776,13 @@ namespace bangna_hospital.gui
                     listBox1.BeginUpdate();     //listBox2
                     listBox1.Items.Add(zipFilename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
                     listBox1.EndUpdate();     //listBox2
+                    bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
                     Thread.Sleep(1000 * 60);
                 }
                 else
                 {
-                    listBox2.Items.Add("FTP upload success ");
+                    listBox2.Items.Add("FTP upload no success ");
                     Application.DoEvents();
                     new LogWriter("e", "FTP upload no success");
                 }
@@ -815,7 +816,7 @@ namespace bangna_hospital.gui
             listBox2.Items.Clear();     //listBox3
             Application.DoEvents();
             Thread.Sleep(1000);
-
+            new LogWriter("e", "uploadFiletoServerInnoTech 00");
             FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
             //String[] filePaths = Directory.GetFiles(bc.iniC.pathLabOutReceive, "*.*", SearchOption.TopDirectoryOnly);
             List<String> filePaths = new List<String>();
@@ -831,7 +832,7 @@ namespace bangna_hospital.gui
                     filePaths.Add(file.FullName);
                 }
             }
-            //new LogWriter("d", "uploadFiletoServerInnoTech 01" );
+            new LogWriter("d", "uploadFiletoServerInnoTech 01");
             String dgssid = "";
             dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
             DocGroupSubScan dgss = new DocGroupSubScan();
@@ -839,13 +840,15 @@ namespace bangna_hospital.gui
             foreach (String filename in filePaths)
             {
                 listBox2.Items.Add("พบ file " + filename);
+                new LogWriter("d", "uploadFiletoServerInnoTech file " + filename);
                 Application.DoEvents();
                 int year2 = 0;
                 String yy = "", mm = "", dd = "", reqid = "", vn = "", filename1 = "", filename2 = "", year1 = "", ext = "";
                 String pathname = "", tmp = "";
                 //tmp = bc.iniC.pathLabOutReceiveInnoTech.Replace("\\\\", "\\");
                 filename1 = Path.GetFileName(filename);
-                pathname = filename.Replace(filename1, "").Replace(tmp, "").Replace("\\", "");
+                new LogWriter("d", "uploadFiletoServerInnoTech file " + filename+" 999");
+                pathname = filename.Replace(filename1, "").Replace(bc.iniC.pathLabOutReceiveInnoTech, "").Replace("\\", "");
                 pathname = pathname.Replace("\\", "");
                 String[] txt = filename1.Split('_');
                 if (txt.Length > 1)
@@ -857,7 +860,7 @@ namespace bangna_hospital.gui
                     filename2 = filename1.Replace(".pdf", "");
                 }
                 ext = Path.GetExtension(filename1);
-
+                new LogWriter("d", "uploadFiletoServerInnoTech file " + filename+" 000");
                 if (filename2.Replace(".pdf", "").Length < 10)
                 {
                     String datetick = "";
@@ -888,6 +891,7 @@ namespace bangna_hospital.gui
                     Thread.Sleep(1000);
                     continue;
                 }
+                new LogWriter("d", "uploadFiletoServerInnoTech file " + filename + " 001");
                 if (filename2.Length <= 10)
                 {
                     String datetick = "";
@@ -918,6 +922,7 @@ namespace bangna_hospital.gui
                     Thread.Sleep(1000);
                     continue;
                 }
+                new LogWriter("d", "uploadFiletoServerInnoTech 01 000");
                 DateTime dtt1 = new DateTime();
                 int.TryParse(year1, out year2);
                 yy = filename2.Substring(filename2.Length - 5, 2);
@@ -955,7 +960,7 @@ namespace bangna_hospital.gui
                     continue;
                 }
                 reqid = filename2.Substring(filename2.Length - 3);
-
+                new LogWriter("e", "uploadFiletoServerInnoTech 01 001");
                 DataTable dt = new DataTable();
                 dt = bc.bcDB.vsDB.SelectHnLabOut(reqid, year1 + "-" + mm + "-" + dd);
                 if (dt.Rows.Count <= 0)
@@ -989,6 +994,7 @@ namespace bangna_hospital.gui
                     Thread.Sleep(1000);
                     continue;
                 }
+                new LogWriter("d", "uploadFiletoServerInnoTech 01 002");
                 listBox2.Items.Add("พบข้อมูล HIS " + dt.Rows[0]["mnc_hn_no"].ToString());
                 Application.DoEvents();
                 DocScan dsc = new DocScan();
@@ -1016,6 +1022,7 @@ namespace bangna_hospital.gui
                 //    {
                 //        dsc.an_date = "";
                 //    }
+                new LogWriter("e", "uploadFiletoServerInnoTech 02");
                 dsc.folder_ftp = bc.iniC.folderFTP;
                 //    dsc.status_ipd = chkIPD.Checked ? "I" : "O";
                 dsc.row_no = "1";
@@ -1051,6 +1058,7 @@ namespace bangna_hospital.gui
                 dsc.patient_fullname = dt.Rows[0]["mnc_patname"].ToString();
                 dsc.status_record = "2";
                 String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
+                new LogWriter("e", "uploadFiletoServerInnoTech 03");
                 if (re.Length <= 0)
                 {
                     listBox2.Items.Add("ไม่ได้เลขที่ " + filename);
@@ -1145,12 +1153,13 @@ namespace bangna_hospital.gui
                     listBox1.BeginUpdate();     //listBox2
                     listBox1.Items.Add(filename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
                     listBox1.EndUpdate();     //listBox2
+                    bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
                     Thread.Sleep(1000 * 60);
                 }
                 else
                 {
-                    listBox2.Items.Add("FTP upload success ");
+                    listBox2.Items.Add("FTP upload no success ");
                     Application.DoEvents();
                     new LogWriter("e", "FTP upload no success");
                 }
@@ -1423,6 +1432,7 @@ namespace bangna_hospital.gui
                     listBox1.BeginUpdate();     //listBox2
                     listBox1.Items.Add(filename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
                     listBox1.EndUpdate();     //listBox2
+                    bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
                     lbMessage.Text = "Upload เรียบร้อย";
                     Thread.Sleep(2000);
@@ -1488,7 +1498,6 @@ namespace bangna_hospital.gui
                 rowa[colVsAndate] = bc.datetoShow(row1["mnc_ad_date"].ToString());
                 i++;
             }
-            
         }
         
         private void setGrfVsH()
@@ -1511,7 +1520,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-02-21 bc.timerCheckLabOut " + bc.timerCheckLabOut;
+            this.Text = "Last Update 2020-02-23 bc.timerCheckLabOut " + bc.timerCheckLabOut;
         }
     }
 }
