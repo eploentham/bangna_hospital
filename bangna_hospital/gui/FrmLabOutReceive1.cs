@@ -154,65 +154,47 @@ namespace bangna_hospital.gui
                 txtMedFilename.Value = ofd.FileName;
                 int pagesToScan = 2;
                 string strText = "", outPath = "";
-                PdfReader reader = new PdfReader(ofd.FileName);
+                //PdfReader reader = new PdfReader(ofd.FileName);
                 try
                 {
-                    for (int page = 1; page <= pagesToScan; page++) //(int page = 1; page <= reader.NumberOfPages; page++) <- for scanning all the pages in A PDF
+                    String pathname = "", filename="", pttname1="";
+                    pathname = Path.GetDirectoryName(txtMedFilename.Text.Trim());
+                    filename = Path.GetFileNameWithoutExtension(txtMedFilename.Text.Trim());
+                    String lastFolderName = Path.GetFileName(pathname.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                    String[] pttname2 = lastFolderName.Split('_');
+                    if (pttname2.Length >= 4)
                     {
-                        ITextExtractionStrategy its = new LocationTextExtractionStrategy();
-                        strText = PdfTextExtractor.GetTextFromPage(reader, page, its);
-
-                        //strText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(strText)));
-                        //creating the string array and storing the PDF line by line
-                        string[] lines = strText.Split('\n');
-                        foreach (string line in lines)
-                        {
-                            //Creating and appending to a text file
-                            //using (StreamWriter file = new StreamWriter(outPath, true))
-                            //{
-                            // file.WriteLine(line);
-
-                            int indexpttname = line.LastIndexOf("PATIENT NAME");
-                            if (indexpttname >= 0)
-                            {
-                                var pttname = line.Substring(indexpttname, (line.Length - indexpttname));
-                                lbMedPttNmae.Text = pttname.Replace("PATIENT NAME", "").Trim();
-                            }
-                            int indexhn = line.LastIndexOf("HN");
-                            if (indexhn >= 0)
-                            {
-                                var pttname = line.Substring(indexhn, (line.Length - indexhn));
-                                txtMedHn.Value = pttname.Replace("HN", "").Trim();
-                            }
-                            int indexoutlabdate = line.LastIndexOf("REGISTERED DATE");
-                            if (indexoutlabdate >= 0)
-                            {
-                                var pttname = line.Substring(indexoutlabdate, (line.Length - indexoutlabdate));
-                                String txt = "";
-                                txt = pttname.Replace("REGISTERED DATE", "").Trim();
-                                if (lbMedOutLabDate.Text.Length <= 0)
-                                {
-                                    lbMedOutLabDate.Text = txt;
-                                }
-                            }
-                            else
-                            {
-                                indexoutlabdate = line.LastIndexOf("OPD1");
-                                if (indexoutlabdate >= 0)
-                                {
-                                    var pttname = line.Substring(indexoutlabdate, (line.Length - indexoutlabdate));
-                                    String txt = "";
-                                    txt = pttname.Replace("OPD1", "").Trim();
-                                    if (lbMedOutLabDate.Text.Length <= 0)
-                                    {
-                                        lbMedOutLabDate.Text = txt;
-                                    }
-                                }
-                            }
-
-                            //}
-                        }
+                        pttname1 = pttname2[1] + " " + pttname2[0];
+                        txtMedHn.Value = pttname2[3].Replace("_", "");
+                        lbMedPttNmae.Text = pttname1;
+                        chkMedOPD.Checked = true;
+                        txtMedVsDate.Value = filename;
+                        //setGrf();
                     }
+                    //for (int page = 1; page <= pagesToScan; page++) //(int page = 1; page <= reader.NumberOfPages; page++) <- for scanning all the pages in A PDF
+                    //{
+                    //    ITextExtractionStrategy its = new LocationTextExtractionStrategy();
+                    //    strText = PdfTextExtractor.GetTextFromPage(reader, page, its);
+
+                    //    //strText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(strText)));
+                    //    //creating the string array and storing the PDF line by line
+                    //    string[] lines = strText.Split('\n');
+                    //    foreach (string line in lines)
+                    //    {
+                    //        //Creating and appending to a text file
+                    //        //using (StreamWriter file = new StreamWriter(outPath, true))
+                    //        //{
+                    //        // file.WriteLine(line);
+
+                    //        int indexpttname = line.LastIndexOf("Patient");
+                    //        if (indexpttname >= 0)
+                    //        {
+                    //            var pttname = line.Substring(indexpttname, (line.Length - indexpttname));
+                    //            lbMedPttNmae.Text = pttname.Replace("Patient", "").Trim();
+                    //        }
+                    //        //}
+                    //    }
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -222,8 +204,8 @@ namespace bangna_hospital.gui
                 }
                 finally
                 {
-                    reader.Close();
-                    reader.Dispose();
+                    //reader.Close();
+                    //reader.Dispose();
                 }
             }
         }
@@ -353,91 +335,8 @@ namespace bangna_hospital.gui
             tabMed.TabIndex = 0;
             tabMed.Text = "Medical";
 
-            lbStep1 = new Label();
-            lbStep1.Text = "Step 1 Browe File PDF ";
-            lbStep1.Font = fEdit;
-            lbStep1.Location = new System.Drawing.Point(gapX, 10);
-            lbStep1.AutoSize = true;
-            size = bc.MeasureString(lbStep1);
-            btnBrow = new C1Button();
-            btnBrow.Name = "btnBrow";
-            btnBrow.Text = "...";
-            btnBrow.Font = fEdit;
-            btnBrow.Location = new System.Drawing.Point(gapX + size.Width, lbStep1.Location.Y);
-            btnBrow.Size = new Size(30, lbStep1.Height);
-            btnBrow.Font = fEdit;
-            
-            txtFilename = new C1TextBox();
-            txtFilename.Font = fEdit;
-            txtFilename.Location = new System.Drawing.Point(btnBrow.Location.X + btnBrow.Width + 5, btnBrow.Location.Y);
-            txtFilename.Size = new Size(400, btnBrow.Height+5);
 
-            lbStep2 = new Label();
-            lbStep2.Text = "Step 2 HN :";
-            lbStep2.Font = fEdit;
-            lbStep2.Location = new System.Drawing.Point(gapX, gapLine + txtFilename.Height);
-            lbStep2.AutoSize = true;
-            size = bc.MeasureString(lbStep2);
-            txtHn = new C1TextBox();
-            txtHn.Font = fEdit;
-            txtHn.Location = new System.Drawing.Point(gapX + size.Width + 5, lbStep2.Location.Y);
-            txtHn.Size = new Size(80, btnBrow.Height + 5);
-            
-            lbPttNmae = new Label();
-            lbPttNmae.Text = "xxxx";
-            lbPttNmae.Font = fEdit;
-            lbPttNmae.Location = new System.Drawing.Point(txtHn.Location.X + txtHn.Width + 5, lbStep2.Location.Y);
-            lbPttNmae.AutoSize = true;
-            lbOutLabDate = new Label();
-            lbOutLabDate.Text = "xxxx";
-            lbOutLabDate.Font = fEdit;
-            lbOutLabDate.Location = new System.Drawing.Point(txtHn.Location.X + txtHn.Width + 250, lbStep2.Location.Y);
-            lbOutLabDate.AutoSize = true;
-
-            lbVisitStatus = new Label();
-            lbVisitStatus.Text = "สถานะ visit";
-            lbVisitStatus.Font = fEdit;
-            lbVisitStatus.Location = new System.Drawing.Point(gapX, gapLine + txtHn.Location.Y + txtHn.Height);
-            lbVisitStatus.AutoSize = true;
-            size = bc.MeasureString(lbVisitStatus);
-            chkOPD = new RadioButton();
-            chkOPD.Text = "OPD";
-            chkOPD.Font = fEdit;
-            chkOPD.Location = new System.Drawing.Point(lbVisitStatus.Location.X + size.Width + 5, lbVisitStatus.Location.Y);
-            chkOPD.AutoSize = true;
-            size = bc.MeasureString(chkOPD);
-            chkIPD = new RadioButton();
-            chkIPD.Text = "IPD";
-            chkIPD.Font = fEdit;
-            chkIPD.Location = new System.Drawing.Point(chkOPD.Location.X + size.Width + 25, chkOPD.Location.Y);
-            chkIPD.AutoSize = true;
-            txtVnAn = new C1TextBox();
-            txtVnAn.Font = fEdit;
-            txtVnAn.Location = new System.Drawing.Point(chkIPD.Location.X + size.Width + 25, chkOPD.Location.Y);
-            txtVnAn.Size = new Size(80, btnBrow.Height + 5);
-            txtVsDate = new C1TextBox();
-            txtVsDate.Font = fEdit;
-            txtVsDate.Location = new System.Drawing.Point(txtVnAn.Location.X + txtVnAn.Width + 25, txtVnAn.Location.Y);
-            txtVsDate.Size = new Size(80, btnBrow.Height + 5);
-            btnUpload = new C1Button();
-            btnUpload.Name = "btnUpload";
-            btnUpload.Text = "Upload";
-            size = bc.MeasureString(btnUpload);
-            btnUpload.Font = fEdit;
-            btnUpload.Location = new System.Drawing.Point(txtVsDate.Location.X+ txtVsDate.Width+10, chkOPD.Location.Y);
-            btnUpload.Size = new Size(size.Width+15, lbStep1.Height);
-            btnUpload.Font = fEdit;
-            lbMessage = new Label();
-            lbMessage.Text = "";
-            lbMessage.Font = fEdit;
-            lbMessage.Location = new System.Drawing.Point(btnUpload.Location.X + btnUpload.Width + 10, chkOPD.Location.Y);
-            lbMessage.AutoSize = true;
-
-            grfVisit = new C1FlexGrid();
-            grfVisit.Font = fEdit;
-            grfVisit.Location = new System.Drawing.Point(gapX, gapLine + chkOPD.Location.Y+10);
-            grfVisit.Size = new Size(900, 300);
-
+            setTabLabManual();
             setTabMed();
 
             this.theme1.Theme = "BeigeOne";
@@ -503,6 +402,96 @@ namespace bangna_hospital.gui
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+        private void setTabLabManual()
+        {
+            int gapLine = 20, gapX = 20;
+            Size size = new Size();
+            int scrW = Screen.PrimaryScreen.Bounds.Width;
+            lbStep1 = new Label();
+            lbStep1.Text = "Step 1 Browe File PDF ";
+            lbStep1.Font = fEdit;
+            lbStep1.Location = new System.Drawing.Point(gapX, 10);
+            lbStep1.AutoSize = true;
+            size = bc.MeasureString(lbStep1);
+            btnBrow = new C1Button();
+            btnBrow.Name = "btnBrow";
+            btnBrow.Text = "...";
+            btnBrow.Font = fEdit;
+            btnBrow.Location = new System.Drawing.Point(gapX + size.Width, lbStep1.Location.Y);
+            btnBrow.Size = new Size(30, lbStep1.Height);
+            btnBrow.Font = fEdit;
+
+            txtFilename = new C1TextBox();
+            txtFilename.Font = fEdit;
+            txtFilename.Location = new System.Drawing.Point(btnBrow.Location.X + btnBrow.Width + 5, btnBrow.Location.Y);
+            txtFilename.Size = new Size(400, btnBrow.Height + 5);
+
+            lbStep2 = new Label();
+            lbStep2.Text = "Step 2 HN :";
+            lbStep2.Font = fEdit;
+            lbStep2.Location = new System.Drawing.Point(gapX, gapLine + txtFilename.Height);
+            lbStep2.AutoSize = true;
+            size = bc.MeasureString(lbStep2);
+            txtHn = new C1TextBox();
+            txtHn.Font = fEdit;
+            txtHn.Location = new System.Drawing.Point(gapX + size.Width + 5, lbStep2.Location.Y);
+            txtHn.Size = new Size(80, btnBrow.Height + 5);
+
+            lbPttNmae = new Label();
+            lbPttNmae.Text = "xxxx";
+            lbPttNmae.Font = fEdit;
+            lbPttNmae.Location = new System.Drawing.Point(txtHn.Location.X + txtHn.Width + 5, lbStep2.Location.Y);
+            lbPttNmae.AutoSize = true;
+            lbOutLabDate = new Label();
+            lbOutLabDate.Text = "xxxx";
+            lbOutLabDate.Font = fEdit;
+            lbOutLabDate.Location = new System.Drawing.Point(txtHn.Location.X + txtHn.Width + 250, lbStep2.Location.Y);
+            lbOutLabDate.AutoSize = true;
+
+            lbVisitStatus = new Label();
+            lbVisitStatus.Text = "สถานะ visit";
+            lbVisitStatus.Font = fEdit;
+            lbVisitStatus.Location = new System.Drawing.Point(gapX, gapLine + txtHn.Location.Y + txtHn.Height);
+            lbVisitStatus.AutoSize = true;
+            size = bc.MeasureString(lbVisitStatus);
+            chkOPD = new RadioButton();
+            chkOPD.Text = "OPD";
+            chkOPD.Font = fEdit;
+            chkOPD.Location = new System.Drawing.Point(lbVisitStatus.Location.X + size.Width + 5, lbVisitStatus.Location.Y);
+            chkOPD.AutoSize = true;
+            size = bc.MeasureString(chkOPD);
+            chkIPD = new RadioButton();
+            chkIPD.Text = "IPD";
+            chkIPD.Font = fEdit;
+            chkIPD.Location = new System.Drawing.Point(chkOPD.Location.X + size.Width + 25, chkOPD.Location.Y);
+            chkIPD.AutoSize = true;
+            txtVnAn = new C1TextBox();
+            txtVnAn.Font = fEdit;
+            txtVnAn.Location = new System.Drawing.Point(chkIPD.Location.X + size.Width + 25, chkOPD.Location.Y);
+            txtVnAn.Size = new Size(80, btnBrow.Height + 5);
+            txtVsDate = new C1TextBox();
+            txtVsDate.Font = fEdit;
+            txtVsDate.Location = new System.Drawing.Point(txtVnAn.Location.X + txtVnAn.Width + 25, txtVnAn.Location.Y);
+            txtVsDate.Size = new Size(80, btnBrow.Height + 5);
+            btnUpload = new C1Button();
+            btnUpload.Name = "btnUpload";
+            btnUpload.Text = "Upload";
+            size = bc.MeasureString(btnUpload);
+            btnUpload.Font = fEdit;
+            btnUpload.Location = new System.Drawing.Point(txtVsDate.Location.X + txtVsDate.Width + 10, chkOPD.Location.Y);
+            btnUpload.Size = new Size(size.Width + 15, lbStep1.Height);
+            btnUpload.Font = fEdit;
+            lbMessage = new Label();
+            lbMessage.Text = "";
+            lbMessage.Font = fEdit;
+            lbMessage.Location = new System.Drawing.Point(btnUpload.Location.X + btnUpload.Width + 10, chkOPD.Location.Y);
+            lbMessage.AutoSize = true;
+
+            grfVisit = new C1FlexGrid();
+            grfVisit.Font = fEdit;
+            grfVisit.Location = new System.Drawing.Point(gapX, gapLine + chkOPD.Location.Y + 10);
+            grfVisit.Size = new Size(900, 300);
+        }
         private void setTabMed()
         {
             int gapLine = 20, gapX = 20;
@@ -526,7 +515,7 @@ namespace bangna_hospital.gui
             txtMedFilename = new C1TextBox();
             txtMedFilename.Font = fEdit;
             txtMedFilename.Location = new System.Drawing.Point(btnMedBrow.Location.X + btnMedBrow.Width + 5, btnMedBrow.Location.Y);
-            txtMedFilename.Size = new Size(400, btnMedBrow.Height + 5);
+            txtMedFilename.Size = new Size(600, btnMedBrow.Height + 5);
 
             lbMedStep2 = new Label();
             lbMedStep2.Text = "Step 2 HN :";
@@ -1767,20 +1756,37 @@ namespace bangna_hospital.gui
                 int year2 = 0;
                 String yy = "", mm = "", dd = "", reqid = "", vn = "", filename1 = "", filename2 = "", year1 = "", ext = "";
                 String pathname = "", tmp = "";
+                String pathname1 = "", filename11 = "", pttname1 = "";
+                pathname1 = Path.GetDirectoryName(txtMedFilename.Text.Trim());
+                filename11 = Path.GetFileNameWithoutExtension(txtMedFilename.Text.Trim());
+                String lastFolderName = Path.GetFileName(pathname1.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
+                String[] pttname2 = lastFolderName.Split('_');
+                //if (pttname2.Length >= 4)
+                //{
+                //    pttname1 = pttname2[1] + " " + pttname2[0];
+                //    //txtMedHn.Value = pttname2[3].Replace("_", "");
+                //    //lbMedPttNmae.Text = pttname1;
+                //    //chkMedOPD.Checked = true;
+                //    //txtMedVsDate.Value = filename11;
+
+                //    filename2 = txtMedHn.Text.Trim();
+                //    //setGrf();
+                //}
+                filename2 = txtMedHn.Text.Trim();
                 //tmp = bc.iniC.pathLabOutReceiveInnoTech.Replace("\\\\", "\\");
-                filename1 = Path.GetFileName(filename);
-                pathname = Path.GetDirectoryName(filename);
-                //pathname = filename.Replace(filename1, "").Replace(tmp, "").Replace("\\", "");
-                //pathname = pathname.Replace("\\", "");
-                String[] txt = filename1.Split('_');
-                if (txt.Length > 1)
-                {
-                    filename2 = txt[0];
-                }
-                else
-                {
-                    filename2 = filename1.Replace(".pdf", "");
-                }
+                //filename1 = Path.GetFileName(filename);
+                //pathname = Path.GetDirectoryName(filename);
+                ////pathname = filename.Replace(filename1, "").Replace(tmp, "").Replace("\\", "");
+                ////pathname = pathname.Replace("\\", "");
+                //String[] txt = filename1.Split('_');
+                //if (txt.Length > 1)
+                //{
+                //    filename2 = txt[0];
+                //}
+                //else
+                //{
+                //    filename2 = filename1.Replace(".pdf", "");
+                //}
                 ext = Path.GetExtension(filename1);
 
 
@@ -2155,7 +2161,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-02-23 bc.timerCheckLabOut " + bc.timerCheckLabOut;
+            this.Text = "Last Update 2020-02-28 bc.timerCheckLabOut " + bc.timerCheckLabOut;
         }
     }
 }
