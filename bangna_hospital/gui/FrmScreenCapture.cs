@@ -225,6 +225,7 @@ namespace bangna_hospital.gui
             grfDownload.DoubleClick += GrfDownload_DoubleClick;
             
             ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("ต้องการ Download ภาพนี้", new EventHandler(ContextMenu_View_Download));
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_View_Print));
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้ แบบ 3 ภาพ ภาพที่ 1", new EventHandler(ContextMenu_View_Print_multi));
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้ แบบ 3 ภาพ ภาพที่ 2", new EventHandler(ContextMenu_View_Print_multi));
@@ -442,6 +443,27 @@ namespace bangna_hospital.gui
             //
             //this.Width = formwidth + int.Parse(bc.iniC.imggridscanwidth);
         }
+        private void ContextMenu_View_Download(object sender, System.EventArgs e)
+        {
+            String id = "", datetick = "", filename = "";
+            Stream streamDownload = null;
+            if (grfDownload.Col <= 0) return;
+            if (grfDownload.Row < 0) return;
+            id = grfDownload[grfDownload.Row, colUploadId].ToString();
+            filename = grfDownload[grfDownload.Row, colUploadPath].ToString();
+            FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+            streamDownload = ftpc.download(filename.Replace(bc.iniC.hostFTP, ""));
+
+            streamDownload.Position = 0;
+            datetick = DateTime.Now.Ticks.ToString();
+            Image img = Image.FromStream(streamDownload);
+            if (!Directory.Exists(bc.iniC.pathDownloadFile))
+            {
+                Directory.CreateDirectory(bc.iniC.pathDownloadFile);
+            }
+            img.Save(bc.iniC.pathDownloadFile + "\\" + txtHn.Text.Trim() + "_" + datetick + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bc.ExploreFile(bc.iniC.pathDownloadFile + "\\" + txtHn.Text.Trim() + "_" + datetick + ".jpg");
+        }
         private void ContextMenu_View_Print(object sender, System.EventArgs e)
         {
             String id = "", filename="";
@@ -499,33 +521,22 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             try
             {
-
-                System.Drawing.Image img = Image.FromStream(streamPrint);
-
-                float newWidth = img.Width * 100 / img.HorizontalResolution;
-                float newHeight = img.Height * 100 / img.VerticalResolution;
-
-                float widthFactor = newWidth / e.MarginBounds.Width;
-                float heightFactor = newHeight / e.MarginBounds.Height;
-
-                if (widthFactor > 1 | heightFactor > 1)
+                Image img = Image.FromStream(streamPrint);
+                Image aaa = bc.ResizeImagetoA4Lan(img);
+                Rectangle m = e.MarginBounds;
+                //m.Width = aaa.Width;
+                //m.Height = aaa.Height;
+                if ((double)aaa.Width / (double)aaa.Height > (double)m.Width / (double)m.Height) // image is wider
                 {
-                    if (widthFactor > heightFactor)
-                    {
-                        widthFactor = 1;
-                        newWidth = newWidth / widthFactor;
-                        newHeight = newHeight / widthFactor;
-                        //newWidth = newWidth / 1.2;
-                        //newHeight = newHeight / 1.2;
-                    }
-                    else
-                    {
-                        newWidth = newWidth / heightFactor;
-                        newHeight = newHeight / heightFactor;
-                    }
+                    m.Height = (int)((double)aaa.Height / (double)aaa.Width * (double)m.Width);
                 }
-                e.Graphics.DrawImage(img, 0, 0, (int)newWidth, (int)newHeight);
+                else
+                {
+                    m.Width = (int)((double)aaa.Width / (double)aaa.Height * (double)m.Height);
+                }
+                //e.Graphics.DrawImage(img, m);
                 //}
+                e.Graphics.DrawImage(aaa,m);
             }
             catch (Exception)
             {

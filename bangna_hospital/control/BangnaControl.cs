@@ -4,6 +4,7 @@ using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
@@ -148,6 +149,7 @@ namespace bangna_hospital.control
             iniC.pathLabOutBackupRIA = iniF.getIni("app", "pathLabOutBackupRIA");
             iniC.pathLabOutBackupRIAZipExtract = iniF.getIni("app", "pathLabOutBackupRIAZipExtract");
             iniC.pathLabOutBackupManual = iniF.getIni("app", "pathLabOutBackupManual");
+            iniC.pathDownloadFile = iniF.getIni("app", "pathDownloadFile");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -171,6 +173,7 @@ namespace bangna_hospital.control
             iniC.statusShowPrintDialog = iniC.statusShowPrintDialog == null ? "0" : iniC.statusShowPrintDialog.Equals("") ? "0" : iniC.statusShowPrintDialog;
             iniC.timerCheckLabOut = iniC.timerCheckLabOut == null ? "0" : iniC.timerCheckLabOut.Equals("") ? "0" : iniC.timerCheckLabOut;
             iniC.station = iniC.station == null ? "0" : iniC.station.Equals("") ? "0" : iniC.station;
+            iniC.pathDownloadFile = iniC.pathDownloadFile == null ? "" : iniC.pathDownloadFile.Equals("") ? "" : iniC.pathDownloadFile;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -596,6 +599,115 @@ namespace bangna_hospital.control
         public Size MeasureString(Control c)
         {
             return TextRenderer.MeasureText(c.Text, c.Font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
+        }
+        
+        public Bitmap ResizeImage(Image image, int width, int height)
+        {            
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+        public Bitmap ResizeImagetoA4(Image image)
+        {
+            /*
+             * 
+             */
+            float tgtWidthMM = 210;  //A4 paper size
+            float tgtHeightMM = 297;
+            float tgtWidthInches = tgtWidthMM / 25.4f;
+            float tgtHeightInches = tgtHeightMM / 25.4f;
+            float srcWidthPx = image.Width;
+            float srcHeightPx = image.Height;
+            float dpiX = srcWidthPx / tgtWidthInches;
+            float dpiY = srcHeightPx / tgtHeightInches;
+
+            var destRect = new Rectangle(0, 0, 210, 297);
+            var destImage = new Bitmap(210, 297);
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+        public Bitmap ResizeImagetoA4Lan(Image image)
+        {
+            /*
+             * 
+             */
+            Image aaa = RotateImage(image);
+            float tgtWidthMM = 297;  //A4 paper size
+            float tgtHeightMM = 210;
+            float tgtWidthInches = tgtWidthMM / 25.4f;
+            float tgtHeightInches = tgtHeightMM / 25.4f;
+            //float srcWidthPx = aaa.Width;
+            //float srcHeightPx = aaa.Height;
+            float srcWidthPx = aaa.Height;
+            float srcHeightPx = aaa.Width;
+            float dpiX = srcWidthPx / tgtWidthInches;
+            float dpiY = srcHeightPx / tgtHeightInches;
+
+            var destRect = new Rectangle(0, 0, 210, 297);
+            var destImage = new Bitmap(210, 297);
+            destImage.SetResolution(aaa.HorizontalResolution, aaa.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(aaa, destRect, 0, 0, aaa.Width, aaa.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+        public bool ExploreFile(string filePath)
+        {
+            if (!System.IO.File.Exists(filePath))
+            {
+                return false;
+            }
+            //Clean up file path so it can be navigated OK
+            filePath = System.IO.Path.GetFullPath(filePath);
+            System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", filePath));
+            return true;
         }
     }
 }

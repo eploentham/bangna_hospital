@@ -671,7 +671,23 @@ namespace bangna_hospital.gui
 
             scPttL.SplitterWidth = 4;
             scPttL.HeaderHeight = 20;
-            spPttinWrd.Text = "Patient in Ward";
+            if (bc.iniC.station.Equals("101"))      //OPD1
+            {
+                spPttinWrd.Text = "Patient in OPD1";
+            }
+            else if (bc.iniC.station.Equals("107"))      //OPD2
+            {
+                spPttinWrd.Text = "Patient in OPD2";
+            }
+            else if (bc.iniC.station.Equals("103"))      //OPD3
+            {
+                spPttinWrd.Text = "Patient in OPD3";
+            }
+            else
+            {
+                spPttinWrd.Text = "Patient in Ward";
+            }
+            
             spItem.Text = "รายการ";
             scPttL.Panels.Add(spPttinWrd);
             scPttL.Panels.Add(spItem);
@@ -771,7 +787,22 @@ namespace bangna_hospital.gui
             grfPttinWrd.ContextMenu = menuGw;
             DataTable dt = new DataTable();
             HNinWrd = "";
-            dt = bc.bcDB.vsDB.selectPttinWard(bc.iniC.station);
+            if (bc.iniC.station.Equals("101"))      //OPD1
+            {
+                dt = bc.bcDB.vsDB.selectPttinOPD(bc.iniC.station, bc.datetoDB(txtDateStart.Text));
+            }
+            else if (bc.iniC.station.Equals("107"))      //OPD2
+            {
+                dt = bc.bcDB.vsDB.selectPttinOPD(bc.iniC.station, bc.datetoDB(txtDateStart.Text));
+            }
+            else if (bc.iniC.station.Equals("103"))      //OPD3
+            {
+                dt = bc.bcDB.vsDB.selectPttinOPD(bc.iniC.station, bc.datetoDB(txtDateStart.Text));
+            }
+            else
+            {
+                dt = bc.bcDB.vsDB.selectPttinWard(bc.iniC.station);
+            }
             //}
             int i = 1;
             grfPttinWrd.Rows.Count = dt.Rows.Count + 1;
@@ -1314,7 +1345,7 @@ namespace bangna_hospital.gui
         //}
         private void FrmNurseScanView_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2020-02-24";
+            this.Text = "Last Update 2020-02-26";
             pnLabOut.Size = new Size(this.Width / 2, this.Height);
             Size pnlsize = new Size(pnLabOut.Width / 2, pnLabOut.Height);
             spPttinWrd.Size = pnlsize;

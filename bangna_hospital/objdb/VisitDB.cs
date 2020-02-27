@@ -169,6 +169,29 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectPttinOPD(String wdno, String date)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "select PATIENT_T01.mnc_hn_no,patient_m02.MNC_PFIX_DSC as prefix,patient_m01.MNC_FNAME_T, " +
+                "patient_m01.MNC_LNAME_T,PATIENT_T01.mnc_date as MNC_AD_DATE,'' as MNC_DS_DATE,'' as MNC_AN_NO, " +
+                "patient_m32.MNC_MD_DEP_DSC,'' as MNC_RM_NAM,'' as MNC_BD_NO , " +
+                "patient_t01.MNC_SHIF_MEMO,aa.MNC_PFIX_DSC,patient_m26.MNC_DOT_FNAME,patient_m26.MNC_DOT_LNAME,bb.MNC_MD_DEP_DSC as before, " +
+                "'' as day " +
+                "from  PATIENT_T01  /*on patient_t01.MNC_PRE_NO =PATIENT_T08.MNC_PRE_NO and patient_t01.MNC_date = PATIENT_T08.MNC_date */" +
+                " INNER JOIN dbo.PATIENT_M01 ON dbo.patient_t01.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO  " +
+                " INNER JOIN dbo.PATIENT_M02 ON dbo.PATIENT_M01.MNC_PFIX_CDT = dbo.PATIENT_M02.MNC_PFIX_CD " +
+                "inner join	patient_m26 on patient_t01.MNC_DOT_CD = patient_m26.MNC_DOT_CD " +
+                "INNER JOIN	PATIENT_M32 ON patient_t01.MNC_SEC_NO = PATIENT_M32.MNC_SEC_NO " +
+                "INNER JOIN	FINANCE_M02 ON PATIENT_T01.MNC_FN_TYP_CD = FINANCE_M02.MNC_FN_TYP_CD " +
+                "INNER JOIN	dbo.PATIENT_M02 as aa ON dbo.PATIENT_M26.MNC_DOT_PFIX = aa.MNC_PFIX_CD " +
+                "inner join	PATIENT_M32 as bb ON bb.MNC_SEC_NO = PATIENT_M26.MNC_SEC_NO " +
+                " WHERE   PATIENT_T01.MNC_STS <> 'C'  and PATIENT_T01.MNC_DEP_NO = '" + wdno + "' and patient_t01.mnc_date ='"+date+"' " +
+                " Order By PATIENT_T01.mnc_date desc, PATIENT_T01.mnc_time desc ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectVisitByDtr(String dtrid, String date)
         {
             DataTable dt = new DataTable();

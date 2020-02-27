@@ -67,7 +67,7 @@ namespace bangna_hospital.gui
         String dsc_id = "", hn = "";
         //Timer timer1;
         Patient ptt;
-        Stream streamPrint, streamPrintL, streamPrintR;
+        Stream streamPrint, streamPrintL, streamPrintR, streamDownload;
         Form frmFlash;
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
@@ -669,7 +669,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             try
             {
-
                 System.Drawing.Image img = Image.FromStream(streamPrint);
 
                 float newWidth = img.Width * 100 / img.HorizontalResolution;
@@ -697,9 +696,9 @@ namespace bangna_hospital.gui
                 e.Graphics.DrawImage(img, 0, 0, (int)newWidth, (int)newHeight);
                 //}
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmScanView1 Pd_PrintPageA4 error " + ex.Message);
             }
         }
         private void Pd_PrintPage(object sender, PrintPageEventArgs e)
@@ -730,9 +729,9 @@ namespace bangna_hospital.gui
                 e.Graphics.DrawImage(img, m);
                 //}
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmScanView1 Pd_PrintPage error " + ex.Message);
             }
         }
         private void ContextMenu_Delete(object sender, System.EventArgs e)
@@ -2214,6 +2213,7 @@ namespace bangna_hospital.gui
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_grfscan_print));
             menuGw.MenuItems.Add("ต้องการ Print ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_print_all));
+            menuGw.MenuItems.Add("ต้องการ Download ภาพนี้", new EventHandler(ContextMenu_grfscan_Download));
             //menuGw.MenuItems.Add("ต้องการ ลบข้อมูลนี้", new EventHandler(ContextMenu_Delete));
             grfScan.ContextMenu = menuGw;
             //new LogWriter("e", "FrmScanView1 setGrfScan 6 ");
@@ -2383,6 +2383,40 @@ namespace bangna_hospital.gui
             }
             //new LogWriter("e", "FrmScanView1 setGrfScan 10 ");
             setHeaderEnable(pB1);
+        }
+        private void ContextMenu_grfscan_Download(object sender, System.EventArgs e)
+        {
+            String id = "", datetick="";
+            if (grfScan.Col <= 0) return;
+            if (grfScan.Row < 0) return;
+            if (grfScan.Col == 1)
+            {
+                id = grfScan[grfScan.Row, colPic2].ToString();
+            }
+            else
+            {
+                id = grfScan[grfScan.Row, colPic4].ToString();
+            }
+            dsc_id = id;
+            Stream streamDownload = null;
+            MemoryStream strm = null;
+            foreach (listStream lstrmm in lStream)
+            {
+                if (lstrmm.id.Equals(id))
+                {
+                    strm = lstrmm.stream;
+                    streamDownload = lstrmm.stream;
+                    break;
+                }
+            }
+            if (!Directory.Exists(bc.iniC.pathDownloadFile))
+            {
+                Directory.CreateDirectory(bc.iniC.pathDownloadFile);
+            }
+            datetick = DateTime.Now.Ticks.ToString();
+            Image img = Image.FromStream(streamDownload);
+            img.Save(bc.iniC.pathDownloadFile+"\\"+txtHn.Text.Trim()+"_"+ datetick+".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            bc.ExploreFile(bc.iniC.pathDownloadFile + "\\" + txtHn.Text.Trim() + "_" + datetick + ".jpg");
         }
         private void ContextMenu_grfscan_print(object sender, System.EventArgs e)
         {
