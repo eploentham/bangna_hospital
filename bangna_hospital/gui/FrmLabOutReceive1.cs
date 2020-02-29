@@ -334,6 +334,7 @@ namespace bangna_hospital.gui
             tC1.TabsShowFocusCues = true;
             tC1.Alignment = TabAlignment.Bottom;
             tC1.SelectedTabBold = true;
+            tC1.Name = "tC1";
 
             pnAuto.Dock = DockStyle.Fill;
             pnManual.Dock = DockStyle.Fill;
