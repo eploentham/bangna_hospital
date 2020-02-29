@@ -841,6 +841,11 @@ namespace bangna_hospital.gui
                     reader.Close();
                     reader.Dispose();
                 }
+                if (txtHn.Text.Length >= 7)
+                {
+                    setControlHN();
+                    setGrf();
+                }
             }
         }
 
