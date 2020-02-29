@@ -140,6 +140,9 @@
     <Compile Include="gui\FrmDoctorView.Designer.cs">
       <DependentUpon>FrmDoctorView.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmDoctorView1.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmLabOutReceive.cs">
       <SubType>Form</SubType>
     </Compile>

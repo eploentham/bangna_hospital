@@ -40,7 +40,7 @@
             this.c1Label2 = new C1.Win.C1Input.C1Label();
             this.c1Label3 = new C1.Win.C1Input.C1Label();
             this.txtDate = new C1.Win.C1Input.C1DateEdit();
-            this.phHead = new System.Windows.Forms.Panel();
+            this.pnHead = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnHnSearch = new C1.Win.C1Input.C1Button();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
@@ -57,7 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).BeginInit();
-            this.phHead.SuspendLayout();
+            this.pnHead.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHnSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
@@ -244,21 +244,21 @@
             this.theme1.SetTheme(this.txtDate, "(default)");
             this.txtDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
-            // phHead
+            // pnHead
             // 
-            this.phHead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(161)))), ((int)(((byte)(106)))));
-            this.phHead.Controls.Add(this.panel4);
-            this.phHead.Controls.Add(this.txtDtrId);
-            this.phHead.Controls.Add(this.phHeadRight);
-            this.phHead.Controls.Add(this.lbDtrName);
-            this.phHead.Controls.Add(this.c1Label2);
-            this.phHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.phHead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.phHead.Location = new System.Drawing.Point(0, 0);
-            this.phHead.Name = "phHead";
-            this.phHead.Size = new System.Drawing.Size(1012, 44);
-            this.phHead.TabIndex = 1;
-            this.theme1.SetTheme(this.phHead, "(default)");
+            this.pnHead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(161)))), ((int)(((byte)(106)))));
+            this.pnHead.Controls.Add(this.panel4);
+            this.pnHead.Controls.Add(this.txtDtrId);
+            this.pnHead.Controls.Add(this.phHeadRight);
+            this.pnHead.Controls.Add(this.lbDtrName);
+            this.pnHead.Controls.Add(this.c1Label2);
+            this.pnHead.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnHead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.pnHead.Location = new System.Drawing.Point(0, 0);
+            this.pnHead.Name = "pnHead";
+            this.pnHead.Size = new System.Drawing.Size(1012, 44);
+            this.pnHead.TabIndex = 1;
+            this.theme1.SetTheme(this.pnHead, "(default)");
             // 
             // panel4
             // 
@@ -357,7 +357,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 644);
             this.Controls.Add(this.phBody);
-            this.Controls.Add(this.phHead);
+            this.Controls.Add(this.pnHead);
             this.Name = "FrmDoctorView";
             this.Text = "FrmDoctorView";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -371,8 +371,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).EndInit();
-            this.phHead.ResumeLayout(false);
-            this.phHead.PerformLayout();
+            this.pnHead.ResumeLayout(false);
+            this.pnHead.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHnSearch)).EndInit();
@@ -399,7 +399,7 @@
         private C1.Win.C1Input.C1Label c1Label3;
         private C1.Win.C1Input.C1Label c1Label2;
         private C1.Win.C1Input.C1DateEdit txtDate;
-        private System.Windows.Forms.Panel phHead;
+        private System.Windows.Forms.Panel pnHead;
         private System.Windows.Forms.Panel phBody;
         private System.Windows.Forms.Panel phHeadRight;
         private C1.Win.C1Input.C1Label txtDtrId;
