@@ -26,7 +26,7 @@ namespace bangna_hospital.gui
 
         C1FlexGrid grfHn, grfLabOut, grfMas, grfLabOutView;
         Font fEdit, fEditB, fEditBig;
-        int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7;
+        int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7, colComp=8;
         int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISLabCode = 5, colHISLabName = 6, colHISReqNo = 7, colHISEdit=8, colHISpreno=9;
         int colMasId = 1, colMasCode = 2, colMasName = 3, colMasCompName=4, colMasPrice=5, colMasPeriod=6;
 
@@ -426,7 +426,7 @@ namespace bangna_hospital.gui
             grfHn.Clear();
             grfHn.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
-            grfHn.Cols.Count = 8;
+            grfHn.Cols.Count = 9;
             grfHn.Cols[colDateReq].Caption = "Date Req";
             grfHn.Cols[colHN].Caption = "HN";
             grfHn.Cols[colFullName].Caption = "Name";
@@ -434,12 +434,14 @@ namespace bangna_hospital.gui
             grfHn.Cols[colReqNo].Caption = "Req No";
             grfHn.Cols[colVN].Caption = "VN";
             grfHn.Cols[colId].Caption = "id";
+            grfHn.Cols[colComp].Caption = "Comp";
             grfHn.Cols[colDateReq].Width = 100;
             grfHn.Cols[colHN].Width = 80;
             grfHn.Cols[colFullName].Width = 300;
             grfHn.Cols[colDateReceive].Width = 100;
             grfHn.Cols[colReqNo].Width = 80;
             grfHn.Cols[colVN].Width = 80;
+            grfHn.Cols[colComp].Width = 100;
             //MessageBox.Show("1111", "");
             if (datestart.Length <= 0 && dateend.Length <= 0 && txtHn.Text.Length <= 0)
             {
@@ -481,6 +483,8 @@ namespace bangna_hospital.gui
                     grfHn[i, colReqNo] = row["req_id"].ToString();
                     grfHn[i, colVN] = row["vn"].ToString();
                     grfHn[i, colId] = row["doc_scan_id"].ToString();
+                    
+                    grfHn[i, colComp] = row["ml_fm"].ToString().Equals("FM-LAB-998") ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-997") ? "InnoTect" : row["ml_fm"].ToString().Equals("FM-LAB-996") ? "RIA" : row["ml_fm"].ToString().Equals("FM-LAB-995") ? "Medica" : row["ml_fm"].ToString().Equals("FM-LAB-994") ? "GM" : "";
                 }
                 catch (Exception ex)
                 {
@@ -495,6 +499,7 @@ namespace bangna_hospital.gui
             grfHn.Cols[colDateReq].AllowEditing = false;
             grfHn.Cols[colReqNo].AllowEditing = false;
             grfHn.Cols[colVN].AllowEditing = false;
+            grfHn.Cols[colComp].AllowEditing = false;
         }
         private void BtnOk_Click(object sender, EventArgs e)
         {

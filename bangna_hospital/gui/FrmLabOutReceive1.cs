@@ -128,7 +128,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (MessageBox.Show("ต้องการ Upload MED ช้อมูล \n" + txtHn.Text + " " + lbPttNmae.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                uploadFiletoServerMedHolter();
+                uploadFiletoServerMedCarilo();
             }
         }
 
@@ -197,9 +197,9 @@ namespace bangna_hospital.gui
                             if (indexpttname >= 0)
                             {
                                 chkMedCarilo.Checked = true;
-                                chkMedEcho.Checked = true;
-                                chkMedEndoscope.Checked = true;
-                                chkMedHolter.Checked = true;
+                                chkMedEcho.Checked = false;
+                                chkMedEndoscope.Checked = false;
+                                chkMedHolter.Checked = false;
                             }
                             //}
                         }
@@ -344,15 +344,15 @@ namespace bangna_hospital.gui
 
             tabAuto.Name = "tabAuto";
             tabAuto.TabIndex = 0;
-            tabAuto.Text = "Lab Auto";
+            tabAuto.Text = "Lab Auto Result";
 
             tabManual.Name = "tabManual";
             tabManual.TabIndex = 0;
-            tabManual.Text = "Lab Manual";
+            tabManual.Text = "Lab Manual Result";
 
             tabMed.Name = "tabManual";
             tabMed.TabIndex = 0;
-            tabMed.Text = "Medical";
+            tabMed.Text = "Medical Result";
 
 
             setTabLabManual();
@@ -777,8 +777,8 @@ namespace bangna_hospital.gui
                             int indexcompn = line.LastIndexOf("Genome-Molecule Laboratory Co.,Ltd.");
                             if (indexcompn >= 0)
                             {
-                                chkLabComp1.Checked = true;     //medica
-                                chkLabComp2.Checked = false;
+                                chkLabComp1.Checked = false;     
+                                chkLabComp2.Checked = true;     //GN
                             }
                             
                             int indexpttname = line.LastIndexOf("PATIENT NAME");
@@ -786,8 +786,8 @@ namespace bangna_hospital.gui
                             {
                                 var pttname = line.Substring(indexpttname, (line.Length - indexpttname));
                                 lbPttNmae.Text = pttname.Replace("PATIENT NAME", "").Trim();
-                                chkLabComp1.Checked = false;     
-                                chkLabComp2.Checked = true;     //GM
+                                chkLabComp1.Checked = true;    //medica 
+                                chkLabComp2.Checked = false;     
                             }
                             int indexhn = line.LastIndexOf("HN");
                             if (indexhn >= 0)
@@ -1746,7 +1746,16 @@ namespace bangna_hospital.gui
                 dsc.ml_fm = "FM-LAB-995";       //PathoReport
                 
                 dsc.patient_fullname = dt.Rows[0]["mnc_patname"].ToString();
-                dsc.status_record = "4";
+                if (chkLabComp1.Checked)
+                {
+                    dsc.status_record = "4";        // medica
+                    dsc.ml_fm = "FM-LAB-995";
+                }
+                else if (chkLabComp2.Checked)
+                {
+                    dsc.status_record = "5";        // gm
+                    dsc.ml_fm = "FM-LAB-994";
+                }
                 String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
                 if (re.Length <= 0)
                 {
@@ -1847,7 +1856,7 @@ namespace bangna_hospital.gui
             }
             timer.Start();
         }
-        private void uploadFiletoServerMedHolter()
+        private void uploadFiletoServerMedCarilo()
         {
             if (txtMedVsDate.Text.Length <= 0)
             {
@@ -2044,11 +2053,11 @@ namespace bangna_hospital.gui
                 }
                 //dsc.ml_fm = "FM-LAB-999";
 
-                dsc.ml_fm = "FM-MED-999";       //PathoReport
+                //dsc.ml_fm = "FM-MED-999";       //Med Carilo
 
                 dsc.patient_fullname = lbMedPttNmae.Text.Trim(); ;
                 dsc.status_record = "2";
-                String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
+                String re = bc.bcDB.dscDB.insertMed(dsc, bc.userId);
                 if (re.Length <= 0)
                 {
                     listBox2.Items.Add("ไม่ได้เลขที่ " + filename);
@@ -2093,7 +2102,7 @@ namespace bangna_hospital.gui
                 //    {
                 vn = dsc.vn.Replace("/", "_").Replace("(", "_").Replace(")", "");
 
-                dsc.ml_fm = "FM-MED-999";       //Med Holter
+                dsc.ml_fm = "FM-MED-999";       //Med Carilo
 
                 //    }
                 //    //dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;       //-1

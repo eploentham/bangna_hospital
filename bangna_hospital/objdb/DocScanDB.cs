@@ -247,7 +247,54 @@ namespace bangna_hospital.objdb
                 "From " + dsc.table + " dsc " +
                 "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
                 "Where  " + where +
-                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + "='2' " +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + " = '2' " +
+                orderby;
+            //new LogWriter("d", "sql " + sql);
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectMedResultByDateReq(String datestart, String dateend, String hn)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "", wheredateend = "", wheredatestart = "", where = "", orderby = "";
+            if (hn.Length > 0)
+            {
+                wherehn = " dsc.hn like '%" + hn + "%'";
+            }
+            
+            if (dateend.Length > 0)
+            {
+                wheredateend = " dsc." + dsc.date_req + " <='" + dateend + "' ";
+            }
+            if (datestart.Length > 0)
+            {
+                wheredatestart = " dsc." + dsc.date_req + " >='" + datestart + "' ";
+            }
+            if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+            {
+                where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+            }
+            else if ((datestart.Length > 0) && (dateend.Length > 0) && (hn.Length <= 0))
+            {
+                where = wheredatestart + " and " + wheredateend;
+            }
+            else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+            {
+                where = wheredatestart + " and " + wherehn;
+            }
+            else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+            {
+                where = wherehn;
+            }
+            orderby = "Order By dsc.date_req, dsc.doc_scan_id ";            
+            //MessageBox.Show("2222", "");
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where  " + where +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + " = '3' " +
                 orderby;
             //new LogWriter("d", "sql " + sql);
             dt = conn.selectData(conn.conn, sql);
@@ -622,6 +669,69 @@ namespace bangna_hospital.objdb
             {
                 sql = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "insertLabOut "+ sql);
+            }
+            finally
+            {
+                conn.conn.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insertMed(DocScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            DataTable dt = new DataTable();
+            p.active = "1";
+            //p.ssdata_id = "";
+            int chk = 0;
+            chkNull(p);
+
+            try
+            {
+                p.patient_fullname = p.patient_fullname.Replace("'", "''");
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.conn;
+                conn.comStore.CommandText = "[insert_doc_scan_med]";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
+                conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
+                conn.comStore.Parameters.AddWithValue("hn", p.hn);
+                conn.comStore.Parameters.AddWithValue("vn", p.vn);
+                conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
+                conn.comStore.Parameters.AddWithValue("remark", p.remark);
+                conn.comStore.Parameters.AddWithValue("user_create", userId);
+                conn.comStore.Parameters.AddWithValue("an", p.an);
+                conn.comStore.Parameters.AddWithValue("doc_group_sub_id", p.doc_group_sub_id);
+                conn.comStore.Parameters.AddWithValue("pre_no", p.pre_no);
+
+                conn.comStore.Parameters.AddWithValue("an_date", p.an_date);
+                conn.comStore.Parameters.AddWithValue("status_ipd", p.status_ipd);
+                conn.comStore.Parameters.AddWithValue("ext", p.image_path);
+                conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
+                conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
+                conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
+                conn.comStore.Parameters.AddWithValue("status_version", p.status_version);
+                conn.comStore.Parameters.AddWithValue("pic_before_scan", p.pic_before_scan_cnt);
+                conn.comStore.Parameters.AddWithValue("date_req", p.date_req);
+                conn.comStore.Parameters.AddWithValue("req_id", p.req_id);
+
+                conn.comStore.Parameters.AddWithValue("ml_fm", p.ml_fm);
+                conn.comStore.Parameters.AddWithValue("patient_fullname", p.patient_fullname);
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.conn.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+                //string retunvalue = (string)sqlcomm.Parameters["@b"].Value;
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertLabOut " + sql);
             }
             finally
             {
