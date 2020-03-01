@@ -70,6 +70,8 @@ namespace bangna_hospital.gui
             chkDoctor.Click += ChkDoctor_Click;
             chkDateReq.Click += ChkDateReq_Click;
             chkDateLabOut.Click += ChkDateLabOut_Click;
+            btnCap.Click += BtnCap_Click;
+
             txtDateStart.Value = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
             txtDateEnd.Value = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
             initTab();
@@ -87,6 +89,15 @@ namespace bangna_hospital.gui
             //initGrf();
             //initGrfApm();
         }
+
+        private void BtnCap_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmCapture frm = new FrmCapture(bc, this);
+            frm.Show();
+            this.Hide();
+        }
+
         private void showFormWaiting()
         {
             frmFlash = new Form();
@@ -787,6 +798,10 @@ namespace bangna_hospital.gui
             grfPttinWrd.ContextMenu = menuGw;
             DataTable dt = new DataTable();
             HNinWrd = "";
+            if (bc.iniC.station.Equals("100"))
+            {
+                return;
+            }
             if (bc.iniC.station.Equals("101"))      //OPD1
             {
                 dt = bc.bcDB.vsDB.selectPttinOPD(bc.iniC.station, bc.datetoDB(txtDateStart.Text));

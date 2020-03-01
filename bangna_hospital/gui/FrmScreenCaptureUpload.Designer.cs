@@ -36,18 +36,18 @@
             this.cboDgs = new C1.Win.C1Input.C1ComboBox();
             this.btnUpload = new C1.Win.C1Input.C1Button();
             this.sB11 = new System.Windows.Forms.StatusStrip();
-            this.picWait = new C1.Win.C1Input.C1PictureBox();
             this.txtFM = new C1.Win.C1Input.C1TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtVn = new C1.Win.C1Input.C1TextBox();
             this.lbVn = new System.Windows.Forms.Label();
+            this.picWait = new C1.Win.C1Input.C1PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWait)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -65,9 +65,7 @@
             // 
             // txtHn
             // 
-            this.txtHn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtHn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHn.Location = new System.Drawing.Point(52, 7);
             this.txtHn.Name = "txtHn";
@@ -75,7 +73,8 @@
             this.txtHn.TabIndex = 3;
             this.txtHn.Tag = null;
             this.theme1.SetTheme(this.txtHn, "(default)");
-            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtHn.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // lbName
             // 
@@ -106,9 +105,7 @@
             // cboDgs
             // 
             this.cboDgs.AllowSpinLoop = false;
-            this.cboDgs.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.cboDgs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cboDgs.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.cboDgs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboDgs.GapHeight = 0;
             this.cboDgs.ImagePadding = new System.Windows.Forms.Padding(0);
@@ -117,13 +114,11 @@
             this.cboDgs.Location = new System.Drawing.Point(96, 37);
             this.cboDgs.Name = "cboDgs";
             this.cboDgs.Size = new System.Drawing.Size(246, 24);
-            this.cboDgs.Style.DropDownBackColor = System.Drawing.Color.White;
-            this.cboDgs.Style.DropDownBorderColor = System.Drawing.Color.Gainsboro;
-            this.cboDgs.Style.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboDgs.TabIndex = 7;
             this.cboDgs.Tag = null;
             this.theme1.SetTheme(this.cboDgs, "(default)");
-            this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.cboDgs.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // btnUpload
             // 
@@ -149,21 +144,9 @@
             this.sB11.Text = "statusStrip1";
             this.theme1.SetTheme(this.sB11, "(default)");
             // 
-            // picWait
-            // 
-            this.picWait.Image = global::bangna_hospital.Properties.Resources.loading_transparent;
-            this.picWait.Location = new System.Drawing.Point(97, 102);
-            this.picWait.Name = "picWait";
-            this.picWait.Size = new System.Drawing.Size(135, 125);
-            this.picWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picWait.TabIndex = 5;
-            this.picWait.TabStop = false;
-            // 
             // txtFM
             // 
-            this.txtFM.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtFM.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFM.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtFM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFM.Location = new System.Drawing.Point(96, 67);
             this.txtFM.Name = "txtFM";
@@ -172,7 +155,8 @@
             this.txtFM.Tag = null;
             this.theme1.SetTheme(this.txtFM, "(default)");
             this.txtFM.Value = "FM-IMG-999";
-            this.txtFM.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtFM.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtFM.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // label3
             // 
@@ -189,9 +173,7 @@
             // 
             // txtVn
             // 
-            this.txtVn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtVn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtVn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVn.Location = new System.Drawing.Point(251, 67);
             this.txtVn.Name = "txtVn";
@@ -200,7 +182,8 @@
             this.txtVn.Tag = null;
             this.theme1.SetTheme(this.txtVn, "(default)");
             this.txtVn.Value = "FM-IMG-999";
-            this.txtVn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtVn.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtVn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // lbVn
             // 
@@ -214,6 +197,16 @@
             this.lbVn.TabIndex = 12;
             this.lbVn.Text = "vn :";
             this.theme1.SetTheme(this.lbVn, "(default)");
+            // 
+            // picWait
+            // 
+            this.picWait.Image = global::bangna_hospital.Properties.Resources.loading_transparent;
+            this.picWait.Location = new System.Drawing.Point(97, 102);
+            this.picWait.Name = "picWait";
+            this.picWait.Size = new System.Drawing.Size(135, 125);
+            this.picWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picWait.TabIndex = 5;
+            this.picWait.TabStop = false;
             // 
             // FrmScreenCaptureUpload
             // 
@@ -240,9 +233,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picWait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picWait)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

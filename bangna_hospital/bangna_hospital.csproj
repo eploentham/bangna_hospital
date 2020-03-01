@@ -122,6 +122,9 @@
     <Compile Include="gui\FrmBillLabCheck.Designer.cs">
       <DependentUpon>FrmBillLabCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmCapture.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmDocGroupScan.cs">
       <SubType>Form</SubType>
     </Compile>
