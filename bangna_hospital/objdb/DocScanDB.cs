@@ -655,7 +655,8 @@ namespace bangna_hospital.objdb
 
                 conn.comStore.Parameters.AddWithValue("ml_fm", p.ml_fm);
                 conn.comStore.Parameters.AddWithValue("patient_fullname", p.patient_fullname);
-                
+                conn.comStore.Parameters.AddWithValue("comp_labout_id", p.comp_labout_id);
+
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;

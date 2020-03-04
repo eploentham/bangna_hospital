@@ -917,7 +917,7 @@ namespace bangna_hospital.gui
             foreach (String zipFilename in filePaths)
             {
                 listBox2.Items.Add("พบ file " + zipFilename);
-                new LogWriter("d", "uploadFiletoServerRIA zipFilename "+ zipFilename);
+                //new LogWriter("d", "uploadFiletoServerRIA zipFilename "+ zipFilename);
                 Application.DoEvents();
                 int year2 = 0;
                 String yy = "", mm = "", dd = "", reqid = "", vn = "", datetick1 = "", pathbackup = "", year1 = "", ext = "", pathname = "", tmp = "", filename2 = "", hn = "", filenamePDF = "";
@@ -1011,8 +1011,9 @@ namespace bangna_hospital.gui
                 filesZip = null;
                 if (filename2.Length <= 0)
                 {
-                    MessageBox.Show("aaaaaa", "");
-                    return;
+                    //MessageBox.Show("aaaaaa", "");
+                    new LogWriter("e", "Filename ไม่พบข้อมูล reqid " + zipFilename);
+                    continue;
                 }
                 dZip = null;
                 zf.Dispose();
@@ -1104,7 +1105,8 @@ namespace bangna_hospital.gui
                 dsc.ml_fm = "FM-LAB-996";       //RIA
 
                 dsc.patient_fullname = dt.Rows[0]["mnc_patname"].ToString();
-                dsc.status_record = "3";        // status ria
+                dsc.status_record = "2";        // status ria
+                dsc.comp_labout_id = "1040000001";
                 String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
                 if (re.Length <= 0)
                 {
@@ -1462,6 +1464,7 @@ namespace bangna_hospital.gui
                 }
                 dsc.patient_fullname = dt.Rows[0]["mnc_patname"].ToString();
                 dsc.status_record = "2";
+                dsc.comp_labout_id = "1040000000";
                 String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
                 new LogWriter("e", "uploadFiletoServerInnoTech 03");
                 if (re.Length <= 0)
@@ -1753,14 +1756,17 @@ namespace bangna_hospital.gui
                 dsc.patient_fullname = dt.Rows[0]["mnc_patname"].ToString();
                 if (chkLabComp1.Checked)
                 {
-                    dsc.status_record = "4";        // medica
+                    dsc.status_record = "2";        // medica
                     dsc.ml_fm = "FM-LAB-995";
+                    dsc.comp_labout_id = "1040000002";
                 }
                 else if (chkLabComp2.Checked)
                 {
-                    dsc.status_record = "5";        // gm
+                    dsc.status_record = "2";        // gm
                     dsc.ml_fm = "FM-LAB-994";
+                    dsc.comp_labout_id = "1040000003";
                 }
+                
                 String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
                 if (re.Length <= 0)
                 {
@@ -2061,7 +2067,7 @@ namespace bangna_hospital.gui
                 //dsc.ml_fm = "FM-MED-999";       //Med Carilo
 
                 dsc.patient_fullname = lbMedPttNmae.Text.Trim(); ;
-                dsc.status_record = "2";
+                dsc.status_record = "3";
                 String re = bc.bcDB.dscDB.insertMed(dsc, bc.userId);
                 if (re.Length <= 0)
                 {
@@ -2306,7 +2312,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-02-28 bc.timerCheckLabOut " + bc.timerCheckLabOut;
+            this.Text = "Last Update 2020-03-04 bc.timerCheckLabOut " + bc.timerCheckLabOut;
         }
     }
 }
