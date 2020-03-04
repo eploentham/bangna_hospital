@@ -24,6 +24,6 @@ namespace bangna_hospital.object1
         public String timerImgScanNew = "", pathImageScan = "", imggridscanwidth = "", txtSearchHnLenghtStart = "";
         public String pathLabOutReceiveInnoTech="", pathLabOutBackupInnoTech="", pathLabOutReceiveRIA = "", pathLabOutBackupRIA = "", pathLabOutBackupRIAZipExtract="", pathLabOutBackupManual="";
         public String printerA4 = "", programLoad="", labOutOpenFileDialog="", windows="", grfScanWidth="", imgScanWidth = "", pathScanStaffNote="", pathScreenCaptureUpload = "", pathIniFile="", statusShowPrintDialog="";
-        public String timerCheckLabOut = "", pathProgramCapture = "", pathTempScanAdd="", station="", pathDownloadFile="";
+        public String timerCheckLabOut = "", pathProgramCapture = "", pathTempScanAdd="", station="", pathDownloadFile="", pathScreenCaptureSend="";
     }
 }

@@ -44,6 +44,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnCap = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.panel1.SuspendLayout();
             this.pnHead.SuspendLayout();
@@ -53,6 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCap)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -63,13 +65,14 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1001, 47);
+            this.panel1.Size = new System.Drawing.Size(1005, 47);
             this.panel1.TabIndex = 0;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
             // pnHead
             // 
             this.pnHead.BackColor = System.Drawing.Color.White;
+            this.pnHead.Controls.Add(this.btnCap);
             this.pnHead.Controls.Add(this.chkDateLabOut);
             this.pnHead.Controls.Add(this.chkDateReq);
             this.pnHead.Controls.Add(this.lbName);
@@ -85,7 +88,7 @@
             this.pnHead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.pnHead.Location = new System.Drawing.Point(3, 3);
             this.pnHead.Name = "pnHead";
-            this.pnHead.Size = new System.Drawing.Size(995, 41);
+            this.pnHead.Size = new System.Drawing.Size(1002, 41);
             this.pnHead.TabIndex = 542;
             this.theme1.SetTheme(this.pnHead, "(default)");
             // 
@@ -159,7 +162,7 @@
             this.txtDateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDateEnd.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtDateEnd.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtDateEnd.Location = new System.Drawing.Point(834, 9);
+            this.txtDateEnd.Location = new System.Drawing.Point(823, 9);
             this.txtDateEnd.Name = "txtDateEnd";
             this.txtDateEnd.Size = new System.Drawing.Size(112, 20);
             this.txtDateEnd.TabIndex = 18;
@@ -173,7 +176,7 @@
             this.c1Label4.AutoSize = true;
             this.c1Label4.BorderColor = System.Drawing.Color.Transparent;
             this.c1Label4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.c1Label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.c1Label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.c1Label4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.c1Label4.Location = new System.Drawing.Point(762, 10);
             this.c1Label4.Name = "c1Label4";
@@ -186,12 +189,11 @@
             // btnOk
             // 
             this.btnOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOk.Location = new System.Drawing.Point(953, 7);
+            this.btnOk.Location = new System.Drawing.Point(940, 7);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(26, 24);
             this.btnOk.TabIndex = 543;
             this.btnOk.Text = "...";
-            this.btnOk.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.theme1.SetTheme(this.btnOk, "(default)");
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
@@ -202,7 +204,7 @@
             this.chkDoctor.BackColor = System.Drawing.Color.Transparent;
             this.chkDoctor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkDoctor.ForeColor = System.Drawing.Color.Black;
-            this.chkDoctor.Location = new System.Drawing.Point(358, 10);
+            this.chkDoctor.Location = new System.Drawing.Point(358, 9);
             this.chkDoctor.Name = "chkDoctor";
             this.chkDoctor.Size = new System.Drawing.Size(73, 22);
             this.chkDoctor.TabIndex = 1;
@@ -251,7 +253,7 @@
             this.c1Label3.AutoSize = true;
             this.c1Label3.BorderColor = System.Drawing.Color.Transparent;
             this.c1Label3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.c1Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.c1Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.c1Label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.c1Label3.Location = new System.Drawing.Point(581, 10);
             this.c1Label3.Name = "c1Label3";
@@ -309,15 +311,27 @@
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel2.Location = new System.Drawing.Point(0, 47);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1001, 403);
+            this.panel2.Size = new System.Drawing.Size(1005, 403);
             this.panel2.TabIndex = 1;
             this.theme1.SetTheme(this.panel2, "(default)");
+            // 
+            // btnCap
+            // 
+            this.btnCap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCap.Location = new System.Drawing.Point(970, 7);
+            this.btnCap.Name = "btnCap";
+            this.btnCap.Size = new System.Drawing.Size(26, 24);
+            this.btnCap.TabIndex = 546;
+            this.btnCap.Text = "xxxx";
+            this.theme1.SetTheme(this.btnCap, "(default)");
+            this.btnCap.UseVisualStyleBackColor = true;
+            this.btnCap.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // FrmNurseScanView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 450);
+            this.ClientSize = new System.Drawing.Size(1005, 450);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "FrmNurseScanView";
@@ -334,6 +348,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCap)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -356,5 +371,6 @@
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.RadioButton chkDateLabOut;
         private System.Windows.Forms.RadioButton chkDateReq;
+        private C1.Win.C1Input.C1Button btnCap;
     }
 }

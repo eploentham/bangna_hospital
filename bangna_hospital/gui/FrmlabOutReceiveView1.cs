@@ -89,7 +89,7 @@ namespace bangna_hospital.gui
             //{
             //    theme1.SetTheme(con, bc.iniC.themeApp);
             //}
-
+            chkDateLabOut.Checked = true;
             initGrf();
             setGrf();
             initGrfLabOut();
