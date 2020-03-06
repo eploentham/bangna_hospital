@@ -137,7 +137,7 @@ namespace bangna_hospital.gui
             if (stf1.fullname.Length > 0)
             {
                 btnOk.Image = Resources.Accept_Male_User24;
-                stt.Show("<p><b>สวัสดี</b></p>คุณ " + stf1.staff_fname_e + " " + stf1.staff_lname_e + "<br> กรุณา ป้อนรหัสผ่าน", txtUserName);
+                stt.Show("<p><b>สวัสดี</b></p>คุณ " + stf1.fullname + "<br> กรุณา ป้อนรหัสผ่าน", txtUserName);
 
                 //stt.SetToolTip(txtUserName, "<p><b>สวัสดี</b></p>คุณ " + stf1.staff_fname_t + " " + stf1.staff_lname_t + "<br> กรุณา ป้อนรหัสผ่าน");
                 sep.Clear();
@@ -163,6 +163,7 @@ namespace bangna_hospital.gui
             //}
             bg = txtUserName.BackColor;
             fc = txtUserName.ForeColor;
+            this.Text = "Last Update 2020-03-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //}
             //else
             //{

@@ -270,7 +270,7 @@ namespace bangna_hospital.gui
         }
         private void openNewForm(String hn, String txt)
         {
-            FrmScanView1 frm = new FrmScanView1(bc, hn);
+            FrmScanView1 frm = new FrmScanView1(bc, hn,"");
             frm.FormBorderStyle = FormBorderStyle.None;
             AddNewTab(frm, txt);
         }

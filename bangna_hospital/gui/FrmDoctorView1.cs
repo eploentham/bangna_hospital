@@ -37,7 +37,7 @@ namespace bangna_hospital.gui
         Panel panel1, pnHead, pnBotton, pnQue, pnApm, pnFinish;
 
         int colQueId = 1, colQueVnShow = 2, colQueHn = 3, colQuePttName = 4, colQueVsDate = 5, colQueVsTime = 6, colQueSex = 7, colQueAge = 8, colQuePaid = 9, colQueSymptom = 10, colQueHeight = 11, coolQueBw = 12, colQueBp = 13, colQuePulse = 14, colQyeTemp = 15, colQuePreNo = 16, colQueDsc = 17;
-        int colApmId = 1, colApmHn = 2, colApmPttName = 3, colApmDate = 4, colApmTime = 5, colApmSex = 6, colApmAge = 7, colApmDsc = 8, colApmRemark = 9, colApmDept = 10;
+        int colApmId = 1, colApmVnShow = 2, colApmHn = 3, colApmPttName = 4, colApmDate = 5, colApmTime = 6, colApmSex = 7, colApmAge = 8, colApmDsc = 9, colApmRemark = 10, colApmDept = 11;
 
         Boolean flagExit = false;
         Font fEdit, fEditB, fEditBig;
@@ -181,14 +181,15 @@ namespace bangna_hospital.gui
             tabQue.TabIndex = 0;
             tabQue.Text = "Queue";
             tabQue.Font = fEditB;
+            //tabQue.TabIndex = tC1.TabCount + 1;
 
             tabApm.Name = "tabApm";
-            tabApm.TabIndex = 0;
+            tabApm.TabIndex = 1;
             tabApm.Text = "Appointment";
             tabApm.Font = fEditB;
 
             tabFinish.Name = "tabFinish";
-            tabFinish.TabIndex = 0;
+            tabFinish.TabIndex = 2;
             tabFinish.Text = "Finish";
             tabFinish.Font = fEditB;
 
@@ -199,19 +200,22 @@ namespace bangna_hospital.gui
             tC1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             tC1.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
             tC1.TabsShowFocusCues = true;
-            tC1.Alignment = TabAlignment.Bottom;
+            tC1.Alignment = TabAlignment.Top;
             tC1.SelectedTabBold = true;
             tC1.Name = "tC1";
             tC1.Font = fEditB;
+            tC1.CanCloseTabs = true;
+            tC1.CanAutoHide = false;
+            tC1.SelectedTabBold = true;
             //tC1.Location = new System.Drawing.Point(0, 0);
             //tC1.BackColor = Color.White;            
 
             pnHead.Dock = DockStyle.Top;
             pnBotton.Dock = DockStyle.Fill;            
             pnBotton.BorderStyle = BorderStyle.FixedSingle;
-            pnQue.Dock = DockStyle.Top;
-            pnApm.Dock = DockStyle.Top;
-            pnFinish.Dock = DockStyle.Top;
+            pnQue.Dock = DockStyle.Fill;
+            pnApm.Dock = DockStyle.Fill;
+            pnFinish.Dock = DockStyle.Fill;
 
             setControlComponent();
 
@@ -235,7 +239,7 @@ namespace bangna_hospital.gui
             pnHead.Controls.Add(txtDate);
             pnHead.Controls.Add(lbTxtDate);
             pnHead.Controls.Add(lbTxtPttHn);
-            pnHead.Controls.Add(lbPttName);
+            //pnHead.Controls.Add(lbPttName);
 
             this.WindowState = FormWindowState.Maximized;
 
@@ -291,12 +295,12 @@ namespace bangna_hospital.gui
             btnHnSearch.Size = new Size(30, lbTxtPttHn.Height);
             btnHnSearch.Font = fEdit;
 
-            lbPttName = new Label();
-            lbPttName.Text = "...";
-            lbPttName.Font = fEditBig;
-            lbPttName.Location = new System.Drawing.Point(btnHnSearch.Location.X + btnHnSearch.Width + 10, lbTxtPttHn.Location.Y);
-            lbPttName.AutoSize = true;
-            lbPttName.Name = "lbPttName";
+            //lbPttName = new Label();
+            //lbPttName.Text = "...";
+            //lbPttName.Font = fEditBig;
+            //lbPttName.Location = new System.Drawing.Point(btnHnSearch.Location.X + btnHnSearch.Width + 10, lbTxtPttHn.Location.Y);
+            //lbPttName.AutoSize = true;
+            //lbPttName.Name = "lbPttName";
 
             txtDate = new C1DateEdit();
             txtDate.AllowSpinLoop = false;
@@ -372,7 +376,7 @@ namespace bangna_hospital.gui
             pnQue.Controls.Add(grfQue);
             grfQue.Rows[0].Visible = false;
             grfQue.Cols[0].Visible = false;
-            //theme1.SetTheme(grf, "Office2010Blue");
+            theme1.SetTheme(grfQue, bc.iniC.themeApp);
 
         }
 
@@ -453,20 +457,21 @@ namespace bangna_hospital.gui
             String date = "";
             DateTime dtt = new DateTime();
             //if (lDgss.Count <= 0) getlBsp();
-            new LogWriter("d", "FrmDoctorView1 setGrfQue 01 ");
+            //new LogWriter("d", "FrmDoctorView1 setGrfQue 01 ");
             date = txtDate.Text;
             DataTable dt = new DataTable();
-            if (DateTime.TryParse(txtDate.Value.ToString(), out dtt))
-            {
-                date = dtt.Year.ToString() + "-" + dtt.ToString("MM-dd");
-            }
-            if (date.Length <= 0)
-            {
-                return;
-            }
+            //if (DateTime.TryParse(txtDate.Value.ToString(), out dtt))
+            //{
+            //    date = dtt.Year.ToString() + "-" + dtt.ToString("MM-dd");
+            //}
+            //if (date.Length <= 0)
+            //{
+            //    return;
+            //}
             //this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + " [" + date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
-            new LogWriter("d", "FrmDoctorView1 setGrfQue 02 ");
-            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, date);
+            //new LogWriter("d", "FrmDoctorView1 setGrfQue 02 date "+ date);
+            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, bc.datetoDB(date));
+            //new LogWriter("d", "FrmDoctorView1 setGrfQue 03 ");
             int i = 1;
             grfQue.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)
@@ -482,7 +487,7 @@ namespace bangna_hospital.gui
                     grfQue[i, colQueVnShow] = vn;
                     grfQue[i, colQueVsDate] = bc.datetoShow(row["mnc_date"].ToString());
                     grfQue[i, colQueHn] = row["MNC_HN_NO"].ToString();
-                    grfQue[i, colQuePttName] = row["prefix"].ToString() + "" + row["MNC_FNAME_T"].ToString() + "" + row["MNC_LNAME_T"].ToString();
+                    grfQue[i, colQuePttName] = row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
                     grfQue[i, colQueVsTime] = bc.FormatTime(row["mnc_time"].ToString());
                     //grfQue[i, colQueVnShow] = row["MNC_REQ_DAT"].ToString();
                     grfQue[i, colQueSex] = row["mnc_sex"].ToString();
@@ -548,13 +553,21 @@ namespace bangna_hospital.gui
             pnApm.Controls.Add(grfApm);
             grfApm.Rows[0].Visible = false;
             grfApm.Cols[0].Visible = false;
-            theme1.SetTheme(grfApm, "Office2010Blue");
+            theme1.SetTheme(grfApm, bc.iniC.themeApp);
         }
 
         private void GrfApm_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (grfApm == null) return;
+            if (grfApm.Row <= 0) return;
+            if (grfApm.Col <= 0) return;
 
+            String vn = "", hn = "", vsdate = "", txt = "";
+            vn = grfApm[grfApm.Row, colQueVnShow] != null ? grfApm[grfApm.Row, colQueVnShow].ToString() : "";
+            hn = grfApm[grfApm.Row, colApmHn] != null ? grfApm[grfApm.Row, colApmHn].ToString() : "";
+            txt = grfApm[grfApm.Row, colApmPttName] != null ? grfApm[grfApm.Row, colApmPttName].ToString() : "";
+            openNewForm(hn, txt);
         }
 
         private void setGrfApm()
@@ -562,8 +575,9 @@ namespace bangna_hospital.gui
             grfApm.Clear();
             grfApm.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
-            grfApm.Cols.Count = 11;
+            grfApm.Cols.Count = 12;
             grfApm.Cols[colApmHn].Caption = "HN";
+            grfApm.Cols[colApmVnShow].Caption = "VN";
             grfApm.Cols[colApmPttName].Caption = "Patient Name";
             grfApm.Cols[colApmDate].Caption = "Date";
             grfApm.Cols[colApmTime].Caption = "Time";
@@ -574,6 +588,7 @@ namespace bangna_hospital.gui
             grfApm.Cols[colApmDept].Caption = "Dept";
 
             grfApm.Cols[colApmHn].Width = 80;
+            grfApm.Cols[colApmVnShow].Width = 80;
             grfApm.Cols[colApmPttName].Width = 300;
             grfApm.Cols[colApmDate].Width = 100;
             grfApm.Cols[colApmTime].Width = 80;
@@ -596,12 +611,14 @@ namespace bangna_hospital.gui
             {
                 try
                 {
+                    String status = "", vn = "";
                     Patient ptt = new Patient();
                     ptt.patient_birthday = bc.datetoDB(row["mnc_bday"].ToString());
+                    vn = row["MNC_VN_NO"].ToString() + "/" + row["MNC_VN_SEQ"].ToString() + "(" + row["MNC_VN_SUM"].ToString() + ")";
                     grfApm[i, 0] = (i);
                     grfApm[i, colApmHn] = row["MNC_HN_NO"].ToString();
-                    grfApm[i, colApmHn] = row["MNC_HN_NO"].ToString();
-                    grfApm[i, colApmPttName] = row["prefix"].ToString() + "" + row["MNC_FNAME_T"].ToString() + "" + row["MNC_LNAME_T"].ToString();
+                    grfApm[i, colApmVnShow] = vn;
+                    grfApm[i, colApmPttName] = row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
                     grfApm[i, colApmDate] = bc.datetoShow(row["mnc_app_dat"].ToString());
                     grfApm[i, colApmTime] = bc.FormatTime(row["mnc_app_tim"].ToString());
                     grfApm[i, colApmSex] = row["mnc_sex"].ToString();
@@ -621,6 +638,7 @@ namespace bangna_hospital.gui
             grfApm.Cols[colApmId].Visible = false;
 
             grfApm.Cols[colApmHn].AllowEditing = false;
+            grfApm.Cols[colApmVnShow].Visible = false;
             grfApm.Cols[colApmPttName].AllowEditing = false;
             grfApm.Cols[colApmDate].AllowEditing = false;
             grfApm.Cols[colApmTime].AllowEditing = false;
@@ -642,16 +660,17 @@ namespace bangna_hospital.gui
                 MessageBox.Show("ไม่พบ hn ในระบบ", "");
                 return;
             }
-            lbPttName.Text = ptt.Name;
+            //lbPttName.Text = ptt.Name;
             openNewForm(txtPttHn.Text.Trim(), ptt.Name);
-
+            
             frmFlash.Dispose();
         }
         private void openNewForm(String hn, String txt)
         {
-            FrmScanView1 frm = new FrmScanView1(bc, hn);
+            FrmScanView1 frm = new FrmScanView1(bc, hn,"hide");
             frm.FormBorderStyle = FormBorderStyle.None;
             AddNewTab(frm, txt);
+            txtPttHn.Value = "";
         }
         public C1DockingTabPage AddNewTab(Form frm, String label)
         {
@@ -669,6 +688,8 @@ namespace bangna_hospital.gui
             frm.Width = tab.Width;
             frm.Height = tab.Height;
             tab.Text = label;
+            tab.TabIndex = tC1.TabCount + 1;
+            
             //foreach (Control x in frm.Controls)
             //{
             //    if (x is DataGridView)
@@ -679,8 +700,8 @@ namespace bangna_hospital.gui
             //tab.BackColor = System.Drawing.ColorTranslator.FromHtml("#1E1E1E");
             frm.Visible = true;
 
-            tC1.TabPages.Add(tab);
-
+            //tC1.TabPages.Add(tab);
+            tC1.TabPages.Insert(tC1.TabCount, tab);
             //frm.Location = new Point((tab.Width - frm.Width) / 2, (tab.Height - frm.Height) / 2);
             frm.Location = new Point(0, 0);
             tab.ResumeLayout();
@@ -726,11 +747,12 @@ namespace bangna_hospital.gui
             lbTxtPttHn.Font = fEditBig;
             size = bc.MeasureString(lbTxtPttHn);
             txtPttHn.Font = fEditBig;
-            lbPttName.Font = fEditBig;
+            //lbPttName.Font = fEditBig;
             tC1.Font = fEdit;
+            theme1.SetTheme(tC1, bc.iniC.themeDonor);
             txtPttHn.Location = new System.Drawing.Point(lbTxtPttHn.Location.X + size.Width + 5, lbTxtPttHn.Location.Y);
             sb1.Text = "Text";
-            this.Text = "Last Update 2020-03-05 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2020-03-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel1, bc.iniC.themeApp);
             theme1.SetTheme(pnHead, bc.iniC.themeApp);
