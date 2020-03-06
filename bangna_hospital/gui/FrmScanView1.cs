@@ -152,9 +152,7 @@ namespace bangna_hospital.gui
                 lbDrugAllergy.Text = "ไม่มีข้อมูล การแพ้ยา ";
             }
             lbAge.Text = "อายุ "+ptt.AgeStringShort();
-
             btnHn.Click += BtnHn_Click;
-            btnOpen.Click += BtnOpen_Click;
             //btnRefresh.Click += BtnRefresh_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
             //picExit.Click += PicExit_Click;
@@ -1231,7 +1229,7 @@ namespace bangna_hospital.gui
             txtName.Show();
             label1.Show();
             cboDgs.Show();
-            btnOpen.Show();
+            
             btnHn.Show();
             txt.Show();
             //label6.Show();
@@ -1247,7 +1245,7 @@ namespace bangna_hospital.gui
             txtName.Hide();
             label1.Hide();
             cboDgs.Hide();
-            btnOpen.Hide();
+            
             btnHn.Hide();
             txt.Hide();
             //label6.Show();
@@ -1261,12 +1259,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             grfIPD.AutoSizeCols();
             grfIPD.AutoSizeRows();
-        }
-
-        private void BtnOpen_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            setGrfVsIPD();
         }
 
         private void BtnHn_Click(object sender, EventArgs e)
@@ -1354,6 +1346,8 @@ namespace bangna_hospital.gui
             if (e.NewRange.r1 == e.OldRange.r1 && e.OldRange.r1 !=1) return;
 
             if (txtHn.Text.Equals("")) return;
+            chkIPD.Checked = false;
+            txt.Value = "";
             //new LogWriter("d", "FrmScanView1 GrfOPD_AfterRowColChange 01 setGrfLab");
             try
             {
@@ -1812,9 +1806,17 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.NewRange.r1 < 0) return;
             if (e.NewRange.Data == null) return;
-            if (e.NewRange.r1 == e.OldRange.r1) return;
-
+            String an = "";
+            chkIPD.Checked = true;
+            an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+            txt.Value = an;
+            if (grfIPD.Row != 0)
+            {
+                if (e.NewRange.r1 == e.OldRange.r1) return;
+            }
+            
             if (txtHn.Text.Equals("")) return;
+            
             setGrfLab(e.NewRange.r1, "IPD");
             setGrfXray(e.NewRange.r1);
             setGrfScan(e.NewRange.r1, "IPD");
@@ -2406,7 +2408,6 @@ namespace bangna_hospital.gui
                                 rowrun++;
                                 rowd = grfScan.Rows[rowrun];
                             }
-
                             MemoryStream stream;
                             Image loadedImage, resizedImage;
                             stream = new MemoryStream();
@@ -2437,9 +2438,9 @@ namespace bangna_hospital.gui
                             catch (Exception ex)
                             {
                                 Console.WriteLine(ex.ToString());
+                                new LogWriter("e", "FrmScanView1 SetGrfScan try int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize); ex " + ex.Message + " " + err);
                             }
                             err = "03";
-
 
                             loadedImage = new Bitmap(stream);
                             err = "04";
@@ -2494,10 +2495,13 @@ namespace bangna_hospital.gui
                             //findTrue = true;
                             //break;
                             //GC.Collect();
+                            if(colcnt==50) GC.Collect();
+                            if (colcnt == 100) GC.Collect();
                         }
                         catch (Exception ex)
                         {
                             String aaa = ex.Message + " " + err;
+                            new LogWriter("e", "FrmScanView1 SetGrfScan ex " + ex.Message+" "+ err+ " colcnt " + colcnt+" HN "+ txtHn.Text+" "+ an);
                         }
                     //}).Start();
 
@@ -2507,7 +2511,8 @@ namespace bangna_hospital.gui
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("" + ex.Message, "");
+                    //MessageBox.Show("" + ex.Message, "");
+                    new LogWriter("e", "FrmScanView1 SetGrfScan if (dt.Rows.Count > 0) ex " + ex.Message);
                 }
             }
             //new LogWriter("e", "FrmScanView1 setGrfScan 10 ");
@@ -2857,7 +2862,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-02-11";
+            this.Text = "Last Update 2020-03-04";
         }
     }
 }

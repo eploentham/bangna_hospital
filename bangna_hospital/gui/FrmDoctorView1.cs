@@ -453,6 +453,7 @@ namespace bangna_hospital.gui
             String date = "";
             DateTime dtt = new DateTime();
             //if (lDgss.Count <= 0) getlBsp();
+            new LogWriter("d", "FrmDoctorView1 setGrfQue 01 ");
             date = txtDate.Text;
             DataTable dt = new DataTable();
             if (DateTime.TryParse(txtDate.Value.ToString(), out dtt))
@@ -463,7 +464,8 @@ namespace bangna_hospital.gui
             {
                 return;
             }
-            this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + " [" + date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            //this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + " [" + date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            new LogWriter("d", "FrmDoctorView1 setGrfQue 02 ");
             dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, date);
             int i = 1;
             grfQue.Rows.Count = dt.Rows.Count + 1;
@@ -728,6 +730,7 @@ namespace bangna_hospital.gui
             tC1.Font = fEdit;
             txtPttHn.Location = new System.Drawing.Point(lbTxtPttHn.Location.X + size.Width + 5, lbTxtPttHn.Location.Y);
             sb1.Text = "Text";
+            this.Text = "Last Update 2020-03-05 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel1, bc.iniC.themeApp);
             theme1.SetTheme(pnHead, bc.iniC.themeApp);

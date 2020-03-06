@@ -92,7 +92,6 @@ namespace bangna_hospital.gui
             setGrfQue();
             initGrfApm();
         }
-
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -396,7 +395,7 @@ namespace bangna_hospital.gui
             {
                 return;
             }
-            this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") +" ["+ date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            //this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") +" ["+ date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, date);
             int i = 1;
             grfQue.Rows.Count = dt.Rows.Count + 1;

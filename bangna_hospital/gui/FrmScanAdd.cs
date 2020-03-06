@@ -338,20 +338,29 @@ namespace bangna_hospital.gui
                             }
                             //dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;       //-1
                             dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
-                            
+                            Application.DoEvents();
                             String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
-                            
+                            int chk1 = 0;
+                            if(int.TryParse(re1, out chk1))
+                            {
+                                ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-"));       // สร้าง Folder HN
+                                ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn);
+                                //MessageBox.Show("222", "");
+                                ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
+                                //MessageBox.Show("333", "");
+                                Application.DoEvents();
+                                if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, name))
+                                {
+                                    cnt++;
+                                }
+                            }
+                            else
+                            {
+                                new LogWriter("e", "FrmScanAdd BtnUpload can not upload File String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);  re1 " + re1);
+                            }
                             //MessageBox.Show("111", "");
                             //ftp.createDirectory(txtHn.Text);
-                            ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-"));       // สร้าง Folder HN
-                            ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn);
-                            //MessageBox.Show("222", "");
-                            ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
-                            //MessageBox.Show("333", "");
-                            if(ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, name))
-                            {
-                                cnt++;
-                            }
+                            
                             //break;
                             //Application.DoEvents();
                         }
