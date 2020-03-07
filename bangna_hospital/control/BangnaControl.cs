@@ -9,6 +9,8 @@ using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -151,6 +153,8 @@ namespace bangna_hospital.control
             iniC.pathLabOutBackupManual = iniF.getIni("app", "pathLabOutBackupManual");
             iniC.pathDownloadFile = iniF.getIni("app", "pathDownloadFile");
             iniC.pathScreenCaptureSend = iniF.getIni("app", "pathScreenCaptureSend");
+            iniC.pacsServerIP = iniF.getIni("app", "pacsServerIP");
+            iniC.pacsServerPort = iniF.getIni("app", "pacsServerPort");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -176,6 +180,8 @@ namespace bangna_hospital.control
             iniC.timerCheckLabOut = iniC.timerCheckLabOut == null ? "0" : iniC.timerCheckLabOut.Equals("") ? "0" : iniC.timerCheckLabOut;
             iniC.station = iniC.station == null ? "0" : iniC.station.Equals("") ? "0" : iniC.station;
             iniC.pathDownloadFile = iniC.pathDownloadFile == null ? "" : iniC.pathDownloadFile.Equals("") ? "" : iniC.pathDownloadFile;
+            iniC.pacsServerIP = iniC.pacsServerIP == null ? "" : iniC.pacsServerIP.Equals("") ? "" : iniC.pacsServerIP;
+            iniC.pacsServerPort = iniC.pacsServerPort == null ? "" : iniC.pacsServerPort.Equals("") ? "" : iniC.pacsServerPort;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -710,6 +716,25 @@ namespace bangna_hospital.control
             filePath = System.IO.Path.GetFullPath(filePath);
             System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", filePath));
             return true;
+        }
+        public void serverPACsInfinittStart(TcpListener tcpServerListener, String ipaddress, String port)
+        {
+            try
+            {
+                IPAddress ipad = IPAddress.Parse(ipaddress);
+                tcpServerListener = new TcpListener(ipad, int.Parse(port));
+
+                tcpServerListener.Start();
+
+                Socket socket = tcpServerListener.AcceptSocket();
+                byte[] b = new byte[100];
+                int k = socket.Receive(b);
+
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

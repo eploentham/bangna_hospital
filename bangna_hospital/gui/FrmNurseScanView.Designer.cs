@@ -31,6 +31,7 @@
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnHead = new System.Windows.Forms.Panel();
+            this.btnCap = new C1.Win.C1Input.C1Button();
             this.chkDateLabOut = new System.Windows.Forms.RadioButton();
             this.chkDateReq = new System.Windows.Forms.RadioButton();
             this.lbName = new System.Windows.Forms.Label();
@@ -44,25 +45,24 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnCap = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.panel1.SuspendLayout();
             this.pnHead.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCap)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
             this.panel1.Controls.Add(this.pnHead);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1005, 47);
@@ -71,7 +71,7 @@
             // 
             // pnHead
             // 
-            this.pnHead.BackColor = System.Drawing.Color.White;
+            this.pnHead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
             this.pnHead.Controls.Add(this.btnCap);
             this.pnHead.Controls.Add(this.chkDateLabOut);
             this.pnHead.Controls.Add(this.chkDateReq);
@@ -85,19 +85,31 @@
             this.pnHead.Controls.Add(this.chkHn);
             this.pnHead.Controls.Add(this.label4);
             this.pnHead.Controls.Add(this.txtHn);
-            this.pnHead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.pnHead.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.pnHead.Location = new System.Drawing.Point(3, 3);
             this.pnHead.Name = "pnHead";
             this.pnHead.Size = new System.Drawing.Size(1002, 41);
             this.pnHead.TabIndex = 542;
             this.theme1.SetTheme(this.pnHead, "(default)");
             // 
+            // btnCap
+            // 
+            this.btnCap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCap.Location = new System.Drawing.Point(970, 7);
+            this.btnCap.Name = "btnCap";
+            this.btnCap.Size = new System.Drawing.Size(26, 24);
+            this.btnCap.TabIndex = 546;
+            this.btnCap.Text = "xxxx";
+            this.theme1.SetTheme(this.btnCap, "(default)");
+            this.btnCap.UseVisualStyleBackColor = true;
+            this.btnCap.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // chkDateLabOut
             // 
             this.chkDateLabOut.AutoSize = true;
             this.chkDateLabOut.BackColor = System.Drawing.Color.Transparent;
             this.chkDateLabOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDateLabOut.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkDateLabOut.ForeColor = System.Drawing.Color.Black;
             this.chkDateLabOut.Location = new System.Drawing.Point(129, 8);
             this.chkDateLabOut.Name = "chkDateLabOut";
             this.chkDateLabOut.Size = new System.Drawing.Size(166, 24);
@@ -112,7 +124,7 @@
             this.chkDateReq.AutoSize = true;
             this.chkDateReq.BackColor = System.Drawing.Color.Transparent;
             this.chkDateReq.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkDateReq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkDateReq.ForeColor = System.Drawing.Color.Black;
             this.chkDateReq.Location = new System.Drawing.Point(3, 8);
             this.chkDateReq.Name = "chkDateReq";
             this.chkDateReq.Size = new System.Drawing.Size(118, 24);
@@ -125,9 +137,9 @@
             // lbName
             // 
             this.lbName.AutoSize = true;
-            this.lbName.BackColor = System.Drawing.Color.White;
+            this.lbName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
             this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.lbName.Location = new System.Drawing.Point(12, 41);
             this.lbName.Name = "lbName";
             this.lbName.Size = new System.Drawing.Size(21, 20);
@@ -268,7 +280,7 @@
             this.chkHn.AutoSize = true;
             this.chkHn.BackColor = System.Drawing.Color.Transparent;
             this.chkHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.chkHn.ForeColor = System.Drawing.Color.Black;
             this.chkHn.Location = new System.Drawing.Point(304, 10);
             this.chkHn.Name = "chkHn";
             this.chkHn.Size = new System.Drawing.Size(46, 20);
@@ -281,9 +293,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.label4.Location = new System.Drawing.Point(431, 13);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 16);
@@ -306,26 +318,14 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.panel2.Location = new System.Drawing.Point(0, 47);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1005, 403);
             this.panel2.TabIndex = 1;
             this.theme1.SetTheme(this.panel2, "(default)");
-            // 
-            // btnCap
-            // 
-            this.btnCap.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCap.Location = new System.Drawing.Point(970, 7);
-            this.btnCap.Name = "btnCap";
-            this.btnCap.Size = new System.Drawing.Size(26, 24);
-            this.btnCap.TabIndex = 546;
-            this.btnCap.Text = "xxxx";
-            this.theme1.SetTheme(this.btnCap, "(default)");
-            this.btnCap.UseVisualStyleBackColor = true;
-            this.btnCap.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // FrmNurseScanView
             // 
@@ -342,13 +342,13 @@
             this.panel1.ResumeLayout(false);
             this.pnHead.ResumeLayout(false);
             this.pnHead.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCap)).EndInit();
             this.ResumeLayout(false);
 
         }

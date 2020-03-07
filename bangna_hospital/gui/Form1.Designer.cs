@@ -52,6 +52,9 @@
             this.c1FlexReport1 = new C1.Win.FlexReport.C1FlexReport();
             this.c1PdfDocument2 = new C1.C1Pdf.C1PdfDocument();
             this.c1PdfDocumentSource1 = new C1.Win.C1Document.C1PdfDocumentSource(this.components);
+            this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -67,9 +70,12 @@
             this.c1DockingTab2.SuspendLayout();
             this.c1DockingTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).BeginInit();
+            this.c1DockingTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
+            this.c1SplitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1Combo1
@@ -303,6 +309,7 @@
             // 
             // c1DockingTabPage3
             // 
+            this.c1DockingTabPage3.Controls.Add(this.c1SplitContainer1);
             this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 24);
             this.c1DockingTabPage3.Name = "c1DockingTabPage3";
             this.c1DockingTabPage3.Size = new System.Drawing.Size(298, 175);
@@ -387,6 +394,42 @@
             this.c1PdfDocument2.UseFastTextOut = true;
             this.c1PdfDocument2.UseFontShaping = true;
             // 
+            // c1SplitContainer1
+            // 
+            this.c1SplitContainer1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer1.HeaderLineWidth = 1;
+            this.c1SplitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer1.Name = "c1SplitContainer1";
+            this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel1);
+            this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel2);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(298, 175);
+            this.c1SplitContainer1.SplitterMovingColor = System.Drawing.Color.Black;
+            this.c1SplitContainer1.TabIndex = 0;
+            this.c1ThemeController1.SetTheme(this.c1SplitContainer1, "(default)");
+            // 
+            // c1SplitterPanel1
+            // 
+            this.c1SplitterPanel1.Collapsible = true;
+            this.c1SplitterPanel1.Height = 86;
+            this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel1.Name = "c1SplitterPanel1";
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(298, 58);
+            this.c1SplitterPanel1.TabIndex = 0;
+            this.c1SplitterPanel1.Text = "Panel 1";
+            // 
+            // c1SplitterPanel2
+            // 
+            this.c1SplitterPanel2.Height = 85;
+            this.c1SplitterPanel2.Location = new System.Drawing.Point(0, 111);
+            this.c1SplitterPanel2.Name = "c1SplitterPanel2";
+            this.c1SplitterPanel2.Size = new System.Drawing.Size(298, 64);
+            this.c1SplitterPanel2.TabIndex = 1;
+            this.c1SplitterPanel2.Text = "Panel 2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -418,9 +461,12 @@
             this.c1DockingTab2.ResumeLayout(false);
             this.c1DockingTabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).EndInit();
+            this.c1DockingTabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
+            this.c1SplitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -449,6 +495,9 @@
         private C1.Win.FlexReport.C1FlexReport c1FlexReport1;
         private C1.C1Pdf.C1PdfDocument c1PdfDocument2;
         private C1.Win.C1Document.C1PdfDocumentSource c1PdfDocumentSource1;
+        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel2;
     }
 }
 
