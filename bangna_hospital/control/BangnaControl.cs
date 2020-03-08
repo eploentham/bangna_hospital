@@ -736,5 +736,192 @@ namespace bangna_hospital.control
 
             }
         }
+        public PACsMSH genPAsMSH(String reqdept)
+        {
+            PACsMSH msh = new PACsMSH();
+            msh.FieldSeparator = "";
+            msh.EncodingCharacters = "^~\\&";
+            msh.SendingApplication = "HIS";
+            msh.SendingFacility = reqdept;
+            msh.ReceivingApplication = "ThaiGL";
+            msh.ReceivingFacility = "";
+            msh.DateTimeOfMessage = DateTime.Now.Year+DateTime.Now.ToString("MMddHHmmss");
+            msh.Security = "";
+            msh.MessageType = "ADT^A08";
+            msh.MessageControlID = "331950";
+            msh.ProcessingID = "P";
+            msh.VersionID = "2.3";
+            msh.SequenceNumber = "";
+            msh.ContinuationPointer = "";
+            msh.AcceptAcknowledgementType = "";
+            msh.ApplicationAcknowledgementType = "";
+            msh.CountryCode = "";
+            msh.CharacterSet = "";
+            msh.PrincipalLanguageOfMessage = "";
+            msh.AlternateCharacterSetHandlingScheme = "UNICODE UTF-8";
+            
+            return msh;
+        }
+        public PACsEVN genPACsEVN()
+        {
+            PACsEVN evn = new PACsEVN();
+            evn.EventTypeCode = "";
+            evn.RecordedDateTime = DateTime.Now.Year + DateTime.Now.ToString("MMddHHmmss");
+            evn.DateTimePlannedEvent = "";
+            evn.EventReasonCode = "";
+            evn.OperatorID = "";
+            evn.EventOccurred = DateTime.Now.Year + DateTime.Now.ToString("MMddHHmmss");
+
+            return evn;
+        }
+        public PACsPID genPACsPID(String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation)
+        {
+            PACsPID pid = new PACsPID();
+            pid = new PACsPID();
+            pid.SetID = "";
+            pid.PatientID = "";
+            pid.PatientIdentifierList = hn;
+            pid.AlternatePatientID = "";
+            pid.PatientName = pttprefix+"^"+ pttfirstname+"^^^"+ pttlastame;
+            pid.MothersMaidenName = "";
+            pid.DateTimeOfBirth = dob;
+            pid.Sex = sex;
+            pid.PatientAlias = "";
+            pid.Race = "";
+            pid.PatientAddress = "";
+            pid.CountyCode = "";
+            pid.HomePhoneNumber = "";
+            pid.BusinessPhoneNumber = "";
+            pid.PrimaryLanguage = "";
+            pid.MaritalStatus = "";
+            pid.Religion = "";
+            pid.PatientAccountNumber = "";
+            pid.SSNNumber = "";
+            pid.DriversLicenseNumber = "";
+            pid.MothersIdentifier = "";
+            pid.EthnicGroup = "";
+            pid.BirthPlace = "";
+            pid.MultipleBirthIndicator = "";
+            pid.BirthOrder = "";
+            pid.Citizenship = "";
+            pid.VeteransMilitaryStatus = "";
+            pid.Nationality = nation;
+            pid.PatientDeathDateAndTime = "";
+            pid.PatientDeathIndicator = "";
+
+            return pid;
+        }
+        public PACsPV1 genPV1()
+        {
+            PACsPV1 pv1 = new PACsPV1();
+            pv1.SetID = "";
+            pv1.PatientClass = "";
+            pv1.AssignedPatientLocation = "";
+            pv1.AdmissionType = "";
+            pv1.PreadmitNumber = "";
+            pv1.PriorPatientLocation = "";
+            pv1.AttendingDoctor = "";
+            pv1.ReferringDoctor = "";
+            pv1.ConsultingDoctor = "";
+            pv1.HospitalService = "";
+            pv1.TemporaryLocation = "";
+            pv1.PreadmitTestIndicator = "";
+            pv1.ReadmissionIndicator = "";
+            pv1.AdmitSource = "";
+            pv1.AmbulatoryStatus = "";
+            pv1.VIPIndicator = "";
+            pv1.AdmittingDoctor = "";
+            pv1.PatientType = "";
+            pv1.VisitNumber = "";
+            pv1.FinancialClass = "";
+            pv1.ChargePriceIndicator = "";
+            pv1.CourtesyCode = "";
+            pv1.CreditRating = "";
+            pv1.ContractCode = "";
+            pv1.ContractEffectiveDate = "";
+            pv1.ContractAmount = "";
+            pv1.ContractPeriod = "";
+            pv1.InterestCode = "";
+            pv1.TransferToBadDebtCode = "";
+            pv1.TransferToBadDebtDate = "";
+            pv1.BadDebtAgencyCode = "";
+            pv1.BadDebtTransferAmount = "";
+            pv1.BadDebtRecoveryAmount = "";
+            pv1.DeleteAccountIndicator = "";
+            pv1.DeleteAccountDate = "";
+            pv1.DischargeDisposition = "";
+            pv1.DischargedToLocation = "";
+            pv1.DietType = "";
+            pv1.ServicingFacility = "";
+            pv1.BedStatus = "";
+            pv1.AccountStatus = "";
+            pv1.PendingLocation = "";
+            pv1.PriorTemporaryLocation = "";
+            pv1.AdmitDateTime = "";
+            pv1.DischargeDateTime = "";
+            pv1.CurrentPatientBalance = "";
+            pv1.TotalCharges = "";
+            pv1.TotalAdjustments = "";
+            pv1.TotalPayments = "";
+            pv1.AlternateVisitID = "";
+            pv1.VisitIndicator = "";
+            pv1.OtherHealthcareProvider = "";
+
+            return pv1;
+        }
+        public String PACsADT(PACsMSH msh, PACsEVN evn, PACsPID pid, PACsPV1 pv1)
+        {
+            String txt = "", MSH="", separate="|", EVN="", PID="", PV1="";
+            txt = "\x0b";
+
+            MSH = "MSH" + separate + msh.EncodingCharacters + separate + msh.SendingApplication + separate + msh.SendingFacility + separate + msh.ReceivingApplication
+                + separate + msh.ReceivingFacility + separate + msh.DateTimeOfMessage + separate + msh.Security + separate + msh.MessageType
+                + separate + msh.MessageControlID + separate + msh.ProcessingID + separate + msh.VersionID + separate + msh.SequenceNumber
+                + separate + msh.ContinuationPointer + separate + msh.AcceptAcknowledgementType + separate + msh.ApplicationAcknowledgementType + separate + msh.CountryCode
+                + separate + msh.CharacterSet + separate + msh.PrincipalLanguageOfMessage + separate + msh.AlternateCharacterSetHandlingScheme;
+
+            EVN = "EVN" + separate + evn.EventTypeCode + separate + evn.RecordedDateTime + separate + evn.DateTimePlannedEvent + separate + evn.EventReasonCode
+                + separate + evn.OperatorID + separate + evn.EventOccurred;
+
+            PID = "EVN" + separate + pid.SetID + separate + pid.PatientID + separate + pid.PatientIdentifierList + separate + pid.AlternatePatientID
+                + pid.PatientName + separate + pid.MothersMaidenName + separate + pid.DateTimeOfBirth + separate + pid.Sex
+                + pid.PatientAlias + separate + pid.Race + separate + pid.PatientAddress + separate + pid.CountyCode
+                + pid.HomePhoneNumber + separate + pid.BusinessPhoneNumber + separate + pid.PrimaryLanguage + separate + pid.MaritalStatus
+                + pid.Religion + separate + pid.PatientAccountNumber + separate + pid.SSNNumber + separate + pid.DriversLicenseNumber
+                + pid.MothersIdentifier + separate + pid.EthnicGroup + separate + pid.BirthPlace + separate + pid.MultipleBirthIndicator
+                + pid.BirthOrder + separate + pid.Citizenship + separate + pid.VeteransMilitaryStatus + separate + pid.Nationality
+                + pid.PatientDeathDateAndTime + separate + pid.PatientDeathIndicator;
+
+            PV1 = "PV1" + separate + pv1.SetID + separate + pv1.PatientClass + separate + pv1.AssignedPatientLocation + separate + pv1.AdmissionType
+                + separate + pv1.PreadmitNumber + separate + pv1.PriorPatientLocation + separate + pv1.AttendingDoctor + separate + pv1.ReferringDoctor
+                + separate + pv1.ConsultingDoctor + separate + pv1.HospitalService + separate + pv1.TemporaryLocation + separate + pv1.PreadmitTestIndicator
+                + separate + pv1.ReadmissionIndicator + separate + pv1.AdmitSource + separate + pv1.AmbulatoryStatus + separate + pv1.VIPIndicator
+                + separate + pv1.AdmittingDoctor + separate + pv1.PatientType + separate + pv1.VisitNumber + separate + pv1.FinancialClass
+                + separate + pv1.ChargePriceIndicator + separate + pv1.CourtesyCode + separate + pv1.CreditRating + separate + pv1.ContractCode
+                + separate + pv1.ContractEffectiveDate + separate + pv1.ContractAmount + separate + pv1.ContractPeriod + separate + pv1.InterestCode
+                + separate + pv1.TransferToBadDebtCode + separate + pv1.TransferToBadDebtDate + separate + pv1.BadDebtAgencyCode + separate + pv1.BadDebtTransferAmount
+                + separate + pv1.BadDebtRecoveryAmount + separate + pv1.DeleteAccountIndicator + separate + pv1.DeleteAccountDate + separate + pv1.DischargeDisposition
+                + separate + pv1.DischargedToLocation + separate + pv1.DietType + separate + pv1.ServicingFacility + separate + pv1.BedStatus
+                + separate + pv1.AccountStatus + separate + pv1.PendingLocation + separate + pv1.PriorTemporaryLocation + separate + pv1.AdmitDateTime
+                + separate + pv1.DischargeDateTime + separate + pv1.CurrentPatientBalance + separate + pv1.TotalCharges + separate + pv1.TotalAdjustments
+                + separate + pv1.TotalPayments + separate + pv1.AlternateVisitID + separate + pv1.VisitIndicator + separate + pv1.OtherHealthcareProvider;
+
+            return txt;
+        }
+        public String genADT(String reqdept, String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation)
+        {
+            String txt = "";
+            PACsMSH msh = new PACsMSH();
+            PACsPID pid = new PACsPID();
+            PACsEVN evn = new PACsEVN();
+            PACsPV1 pv1 = new PACsPV1();
+            msh = genPAsMSH(reqdept);
+            pid = genPACsPID(hn, pttprefix, pttfirstname, pttlastame, dob, sex, nation);
+            pv1 = genPV1();
+            evn = genPACsEVN();
+
+            txt = PACsADT(msh, evn, pid, pv1);
+            return txt;
+        }
     }
 }

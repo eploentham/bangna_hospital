@@ -130,9 +130,9 @@ namespace bangna_hospital.gui
             preno = grfReq[grfReq.Row, colreqpreno] != null ? grfReq[grfReq.Row, colreqpreno].ToString() : "";
             reqno = grfReq[grfReq.Row, colReqreqno] != null ? grfReq[grfReq.Row, colReqreqno].ToString() : "";
             xray = grfReq[grfReq.Row, colxrdesc] != null ? grfReq[grfReq.Row, colxrdesc].ToString() : "";
-            ResOrderTab reso = new ResOrderTab();
+            //ResOrderTab reso = new ResOrderTab();
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
-            reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
+            //reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
             //MessageBox.Show("InsertDate " + reso.InsertDate , "");
 
 
@@ -163,14 +163,19 @@ namespace bangna_hospital.gui
                 {
                     //send message to server
                     String txt = "", txt1="";
-                    txt = reso.KPatientName + " " + reso.PatientID;
-                    clientStreamWriter.WriteLine(txt);
-                    clientStreamWriter.Flush();
-                    Application.DoEvents();
-                    txt1 = clientStreamReader.ReadLine();
-                    Console.WriteLine("SERVER: " + txt1);
-                    listBox2.Items.Add("SERVER " + txt1 + "  " + System.DateTime.Now.ToString());
-                    Application.DoEvents();
+                    //txt = reso.KPatientName + " " + reso.PatientID;
+                    String[] aaa = name.Split(' ');
+                    if (aaa.Length > 2)
+                    {
+                        txt = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI");
+                        clientStreamWriter.WriteLine(txt);
+                        clientStreamWriter.Flush();
+                        Application.DoEvents();
+                        txt1 = clientStreamReader.ReadLine();
+                        Console.WriteLine("SERVER: " + txt1);
+                        listBox2.Items.Add("SERVER " + txt1 + "  " + System.DateTime.Now.ToString());
+                        Application.DoEvents();
+                    }
                 }
                 catch (Exception se)
                 {

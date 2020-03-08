@@ -334,6 +334,14 @@
     <Compile Include="object1\LogFile.cs" />
     <Compile Include="object1\LogWriter.cs" />
     <Compile Include="object1\Messager.cs" />
+    <Compile Include="object1\PACsEVN.cs" />
+    <Compile Include="object1\PACsMSH.cs" />
+    <Compile Include="object1\PACsOBR.cs" />
+    <Compile Include="object1\PACsOBX.cs" />
+    <Compile Include="object1\PACsORC.cs" />
+    <Compile Include="object1\PACsPID.cs" />
+    <Compile Include="object1\PACsPV1.cs" />
+    <Compile Include="object1\PACsZDS.cs" />
     <Compile Include="object1\Patient.cs" />
     <Compile Include="object1\Persistent.cs" />
     <Compile Include="object1\ReportTabContents.cs" />
