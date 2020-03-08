@@ -42,7 +42,7 @@ namespace bangna_hospital.gui
         C1Button btnLisStart;
         C1TextBox txtIp, txtPort;
         Label lbTxtIp, lbTxtPort;
-        ListBox listBox1;
+        ListBox listBox1, listBox2;
 
         int colReqId = 1, colReqHn = 2, colReqName = 3, colReqVn = 4, colReqXn = 5, colReqDtr = 6, colReqDpt = 7, colReqreqyr = 8, colReqreqno = 9, colreqhnyr = 10, colreqpreno = 11, colreqsex = 12, colreqdob = 13, colreqsickness = 14, colxrdesc = 15;
         Timer timer1;
@@ -54,6 +54,10 @@ namespace bangna_hospital.gui
         private StreamWriter serverStreamWriter;
         private StreamReader serverStreamReader;
         private Thread n_server;
+
+        private StreamReader clientStreamReader;
+        private StreamWriter clientStreamWriter;
+        TcpClient tcpClient;
         public FrmXrayPACsAdd(BangnaControl bc)
         {
             showFormWaiting();
@@ -130,20 +134,86 @@ namespace bangna_hospital.gui
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
             reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
             //MessageBox.Show("InsertDate " + reso.InsertDate , "");
-            String re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
-            //MessageBox.Show("re " + re, "");
-            long chk = 0, chk1 = 0;
-            if (long.TryParse(re, out chk))
+
+
+
+
+            //ใช้งานจริงๆ เอา comment ออก
+            //String re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
+            ////MessageBox.Show("re " + re, "");
+            //long chk = 0, chk1 = 0;
+            //if (long.TryParse(re, out chk))
+            //{
+            //    //MessageBox.Show("chk " + chk, "");
+            //    String re1 = "";
+            //    re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear);
+            //    //MessageBox.Show("re1 " + re1, "");
+            //    if (long.TryParse(re1, out chk1))
+            //    {
+            //        setGrfReq();
+            //    }
+            //}
+            if (tcpClient == null || !tcpClient.Connected)
             {
-                //MessageBox.Show("chk " + chk, "");
-                String re1 = "";
-                re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear);
-                //MessageBox.Show("re1 " + re1, "");
-                if (long.TryParse(re1, out chk1))
+                ConnectToServer();
+            }
+            if (tcpClient.Connected)
+            {
+                try
                 {
-                    setGrfReq();
+                    //send message to server
+                    String txt = "", txt1="";
+                    txt = reso.KPatientName + " " + reso.PatientID;
+                    clientStreamWriter.WriteLine(txt);
+                    clientStreamWriter.Flush();
+                    Application.DoEvents();
+                    txt1 = clientStreamReader.ReadLine();
+                    Console.WriteLine("SERVER: " + txt1);
+                    listBox2.Items.Add("SERVER " + txt1 + "  " + System.DateTime.Now.ToString());
+                    Application.DoEvents();
+                }
+                catch (Exception se)
+                {
+                    Console.WriteLine(se.StackTrace);
+                    listBox2.Items.Add("Error " + se.StackTrace + "  " + System.DateTime.Now.ToString());
+                    Application.DoEvents();
+                }
+                finally
+                {
+                    //tcpClient.Close();
+                    //clientStreamWriter.Close();
+                    //clientStreamReader.Close();
+                    Application.DoEvents();
+                    //tcpClient = null;
+                    //clientStreamWriter.Dispose();
+                    //clientStreamReader.Dispose();
+
                 }
             }
+        }
+        private bool ConnectToServer()
+        {
+            //connect to server at given port
+            try
+            {
+                tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                Console.WriteLine("Connected to Server");
+                listBox1.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                Application.DoEvents();
+                //get a network stream from server
+                NetworkStream clientSockStream = tcpClient.GetStream();
+                clientStreamReader = new StreamReader(clientSockStream);
+                clientStreamWriter = new StreamWriter(clientSockStream);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                listBox1.Items.Add("Error " + e.StackTrace + " " + System.DateTime.Now.ToString());
+                Application.DoEvents();
+                return false;
+            }
+
+            return true;
         }
         private void setGrfReq()
         {
@@ -307,7 +377,6 @@ namespace bangna_hospital.gui
         private void BtnLisStart_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            
             if(btnLisStart.Image.GetHashCode() == imgStart.GetHashCode())
             {
                 btnLisStart.Image = imgStop;
@@ -326,7 +395,6 @@ namespace bangna_hospital.gui
                 listBox1.Items.Add("Stop Listening " + System.DateTime.Now.ToString());
             }
         }
-
         private void initCompoment()
         {
             int gapLine = 20, gapX = 20;
@@ -349,6 +417,8 @@ namespace bangna_hospital.gui
             c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             pnListen = new Panel();
             listBox1 = new System.Windows.Forms.ListBox();
+            pnQue = new Panel();
+            listBox2 = new System.Windows.Forms.ListBox();
 
             panel1.SuspendLayout();
             tC1.SuspendLayout();
@@ -358,6 +428,7 @@ namespace bangna_hospital.gui
             tabListen.SuspendLayout();
             splitContainer1.SuspendLayout();
             pnListen.SuspendLayout();
+            pnQue.SuspendLayout();
 
             this.SuspendLayout();
 
@@ -386,6 +457,8 @@ namespace bangna_hospital.gui
 
             pnListen.Dock = System.Windows.Forms.DockStyle.Fill;
             pnListen.Name = "pnListen";
+            pnQue.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnQue.Name = "pnQue";
 
             sb1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             sb1.Name = "sb1";
@@ -437,6 +510,7 @@ namespace bangna_hospital.gui
             splitContainer1.Panels.Add(c1SplitterPanel1);
             splitContainer1.Panels.Add(c1SplitterPanel2);
             tabListen.Controls.Add(pnListen);
+            c1SplitterPanel1.Controls.Add(pnQue);
 
             pnListen.Controls.Add(btnLisStart);
             pnListen.Controls.Add(lbTxtIp);
@@ -444,6 +518,7 @@ namespace bangna_hospital.gui
             pnListen.Controls.Add(lbTxtPort);
             pnListen.Controls.Add(txtPort);
             pnListen.Controls.Add(listBox1);
+            c1SplitterPanel2.Controls.Add(listBox2);
 
             panel1.ResumeLayout(false);
             tC1.ResumeLayout(false);
@@ -453,6 +528,7 @@ namespace bangna_hospital.gui
             tabListen.ResumeLayout(false);
             splitContainer1.ResumeLayout(false);
             pnListen.ResumeLayout(false);
+            pnQue.ResumeLayout(false);
 
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -509,6 +585,13 @@ namespace bangna_hospital.gui
             listBox1.Size = new System.Drawing.Size(600, 450);
             listBox1.TabIndex = 0;
 
+            listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            listBox2.FormattingEnabled = true;
+            listBox2.Location = new System.Drawing.Point(btnLisStart.Location.X, btnLisStart.Height + gapLine + 10);
+            listBox2.Name = "listBox2";
+            listBox2.Size = new System.Drawing.Size(600, 450);
+            listBox2.TabIndex = 0;
+
         }
         private void showFormWaiting()
         {
@@ -536,7 +619,7 @@ namespace bangna_hospital.gui
         private void FrmXrayPACsAdd_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Lasst Update 2020-03-07";
+            this.Text = "Lasst Update 2020-03-07 pacsServerIP " + bc.iniC.pacsServerIP+ " pacsServerPort " + bc.iniC.pacsServerPort;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
         }
