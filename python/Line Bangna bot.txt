@@ -1,0 +1,8 @@
+		Line Bangna bot
+
+1. พิมพ์ profile add ตามด้วย ว.แพทย์ หรือ รหัสพนักงาน เช่น
+	profile add 12345
+2. รูปแบบ คำสั่ง	ใช้ space ในการ เว้นวรรค คำสั่ง
+	ขอ outlab 5555555 -> HN   ขอ ผล outlab HN 5555555
+	ขอ lab 5555555 20/03/2020 ขอ ผล lab HN 5555555 วันที่ dd/MM/yyyy
+	
