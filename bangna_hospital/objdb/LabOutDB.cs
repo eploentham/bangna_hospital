@@ -39,6 +39,7 @@ namespace bangna_hospital.objdb
             labo.req_no = "req_no";
             labo.status_result = "status_result";
             labo.date_result = "date_result";
+            labo.date_req = "date_req";
 
             labo.table = "t_lab_out";
             labo.pkField = "lab_out_id";
@@ -75,6 +76,7 @@ namespace bangna_hospital.objdb
             p.status_result = p.status_result == null ? "0" : p.status_result;
             p.status_result = p.status_result.Length == 0 ? "0" : p.status_result;
             p.date_result = p.date_result == null ? "" : p.date_result;
+            p.date_result = p.date_req == null ? "" : p.date_req;
 
             p.req_no = long.TryParse(p.req_no, out chk) ? chk.ToString() : "0";
             p.pre_no = long.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";

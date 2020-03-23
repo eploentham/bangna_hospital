@@ -42,7 +42,7 @@ namespace bangna_hospital.gui
         C1Button btnLisStart;
         C1TextBox txtIp, txtPort;
         Label lbTxtIp, lbTxtPort;
-        ListBox listBox1, listBox2;
+        ListBox lboxServer, lboxClient;
 
         int colReqId = 1, colReqHn = 2, colReqName = 3, colReqVn = 4, colReqXn = 5, colReqDtr = 6, colReqDpt = 7, colReqreqyr = 8, colReqreqno = 9, colreqhnyr = 10, colreqpreno = 11, colreqsex = 12, colreqdob = 13, colreqsickness = 14, colxrdesc = 15;
         Timer timer1;
@@ -82,11 +82,25 @@ namespace bangna_hospital.gui
 
             this.Load += FrmXrayPACsAdd_Load;
             btnLisStart.Click += BtnLisStart_Click;
+            this.Disposed += FrmXrayPACsAdd_Disposed;
 
             //this.c1List1.AddItemTitles("First Name; LastName; Phone Number");
             initGrfReq();
             setGrfReq();
         }
+
+        private void FrmXrayPACsAdd_Disposed(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(tcpClient != null)
+            {
+                if (tcpClient.Connected)
+                {
+                    tcpClient.Close();
+                }
+            }
+        }
+
         private void initGrfReq()
         {
             grfReq = new C1FlexGrid();
@@ -168,19 +182,20 @@ namespace bangna_hospital.gui
                     if (aaa.Length > 2)
                     {
                         txt = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI");
+                        //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
                         clientStreamWriter.WriteLine(txt);
                         clientStreamWriter.Flush();
                         Application.DoEvents();
                         txt1 = clientStreamReader.ReadLine();
                         Console.WriteLine("SERVER: " + txt1);
-                        listBox2.Items.Add("SERVER " + txt1 + "  " + System.DateTime.Now.ToString());
+                        lboxClient.Items.Add("SERVER " + txt1 + "  " + System.DateTime.Now.ToString());
                         Application.DoEvents();
                     }
                 }
                 catch (Exception se)
                 {
                     Console.WriteLine(se.StackTrace);
-                    listBox2.Items.Add("Error " + se.StackTrace + "  " + System.DateTime.Now.ToString());
+                    lboxClient.Items.Add("Error " + se.StackTrace + "  " + System.DateTime.Now.ToString());
                     Application.DoEvents();
                 }
                 finally
@@ -203,7 +218,7 @@ namespace bangna_hospital.gui
             {
                 tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
                 Console.WriteLine("Connected to Server");
-                listBox1.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
                 Application.DoEvents();
                 //get a network stream from server
                 NetworkStream clientSockStream = tcpClient.GetStream();
@@ -213,7 +228,7 @@ namespace bangna_hospital.gui
             catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
-                listBox1.Items.Add("Error " + e.StackTrace + " " + System.DateTime.Now.ToString());
+                lboxServer.Items.Add("Error " + e.StackTrace + " " + System.DateTime.Now.ToString());
                 Application.DoEvents();
                 return false;
             }
@@ -330,7 +345,7 @@ namespace bangna_hospital.gui
             tcpServerListener.Start();      //start server
             //Console.WriteLine("Server Started");
             //listBox1.Items.Add("Start Listening " + System.DateTime.Now.ToString());
-            listBox1.Invoke((MethodInvoker)delegate { listBox1.Items.Add("Start Listening " + System.DateTime.Now.ToString());});
+            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Start Listening " + System.DateTime.Now.ToString());});
             Application.DoEvents();
             //this.btnStartServer.Enabled = false;
             //block tcplistener to accept incoming connection
@@ -342,7 +357,7 @@ namespace bangna_hospital.gui
                 {
                     //Console.WriteLine("Client connected");
                     //listBox1.Items.Add("Client connected " + System.DateTime.Now.ToString());
-                    listBox1.Invoke((MethodInvoker)delegate { listBox1.Items.Add("Client connected " + System.DateTime.Now.ToString()); });
+                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Client connected " + System.DateTime.Now.ToString()); });
                     Application.DoEvents();
                     //open network stream on accepted socket
                     NetworkStream serverSockStream = new NetworkStream(serverSocket);
@@ -362,21 +377,29 @@ namespace bangna_hospital.gui
         {
             if (StartServer())
             {
-                while (true)
+                try
                 {
-                    //Console.WriteLine("CLIENT: " + serverStreamReader.ReadLine());
-                    string line = "";
-                    if ((line = serverStreamReader.ReadLine()) != null)
+                    while (true)
                     {
-                        listBox1.Invoke((MethodInvoker)delegate { listBox1.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
-                        Application.DoEvents();
-                        serverStreamWriter.WriteLine("Hi!");
-                        serverStreamWriter.Flush();
-                    }
+                        //Console.WriteLine("CLIENT: " + serverStreamReader.ReadLine());
+                        string line = "";
+                        if ((line = serverStreamReader.ReadLine()) != null)
+                        {
+                            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
+                            Application.DoEvents();
+                            serverStreamWriter.WriteLine("Hi!");
+                            serverStreamWriter.Flush();
+                        }
 
-                    //listBox1.Items.Add("Date Time : " + System.DateTime.Now.ToString() + " Receive " + serverStreamReader.ReadLine());
+                        //listBox1.Items.Add("Date Time : " + System.DateTime.Now.ToString() + " Receive " + serverStreamReader.ReadLine());
 
-                }//while
+                    }//while
+                }
+                catch(Exception ex)
+                {
+                    new LogWriter("e", "FrmXrayPACsAdd listenServer error " + ex.Message);
+                }
+                
             }
         }
         private void BtnLisStart_Click(object sender, EventArgs e)
@@ -386,7 +409,7 @@ namespace bangna_hospital.gui
             {
                 btnLisStart.Image = imgStop;
                 btnLisStart.Text = "Stop";
-                listBox1.Items.Clear();
+                lboxServer.Items.Clear();
                 //listenServer();
                 n_server = new Thread(new ThreadStart(listenServer));
                 n_server.IsBackground = true;
@@ -397,7 +420,7 @@ namespace bangna_hospital.gui
             {
                 btnLisStart.Image = imgStart;
                 btnLisStart.Text = "Start";
-                listBox1.Items.Add("Stop Listening " + System.DateTime.Now.ToString());
+                lboxServer.Items.Add("Stop Listening " + System.DateTime.Now.ToString());
             }
         }
         private void initCompoment()
@@ -421,9 +444,9 @@ namespace bangna_hospital.gui
             c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             pnListen = new Panel();
-            listBox1 = new System.Windows.Forms.ListBox();
+            lboxServer = new System.Windows.Forms.ListBox();
             pnQue = new Panel();
-            listBox2 = new System.Windows.Forms.ListBox();
+            lboxClient = new System.Windows.Forms.ListBox();
 
             panel1.SuspendLayout();
             tC1.SuspendLayout();
@@ -522,8 +545,8 @@ namespace bangna_hospital.gui
             pnListen.Controls.Add(txtIp);
             pnListen.Controls.Add(lbTxtPort);
             pnListen.Controls.Add(txtPort);
-            pnListen.Controls.Add(listBox1);
-            c1SplitterPanel2.Controls.Add(listBox2);
+            pnListen.Controls.Add(lboxServer);
+            c1SplitterPanel2.Controls.Add(lboxClient);
 
             panel1.ResumeLayout(false);
             tC1.ResumeLayout(false);
@@ -583,19 +606,19 @@ namespace bangna_hospital.gui
             txtPort.Location = new System.Drawing.Point(lbTxtPort.Location.X + size.Width + 5, lbTxtPort.Location.Y);
             txtPort.Size = new Size(120, 20);
 
-            listBox1.Dock = System.Windows.Forms.DockStyle.None;
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new System.Drawing.Point(btnLisStart.Location.X, btnLisStart.Height + gapLine+10);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new System.Drawing.Size(600, 450);
-            listBox1.TabIndex = 0;
+            lboxServer.Dock = System.Windows.Forms.DockStyle.None;
+            lboxServer.FormattingEnabled = true;
+            lboxServer.Location = new System.Drawing.Point(btnLisStart.Location.X, btnLisStart.Height + gapLine+10);
+            lboxServer.Name = "listBox1";
+            lboxServer.Size = new System.Drawing.Size(900, 450);
+            lboxServer.TabIndex = 0;
 
-            listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            listBox2.FormattingEnabled = true;
-            listBox2.Location = new System.Drawing.Point(btnLisStart.Location.X, btnLisStart.Height + gapLine + 10);
-            listBox2.Name = "listBox2";
-            listBox2.Size = new System.Drawing.Size(600, 450);
-            listBox2.TabIndex = 0;
+            lboxClient.Dock = System.Windows.Forms.DockStyle.Fill;
+            lboxClient.FormattingEnabled = true;
+            lboxClient.Location = new System.Drawing.Point(btnLisStart.Location.X, btnLisStart.Height + gapLine + 10);
+            lboxClient.Name = "listBox2";
+            lboxClient.Size = new System.Drawing.Size(600, 450);
+            lboxClient.TabIndex = 0;
 
         }
         private void showFormWaiting()
@@ -624,7 +647,7 @@ namespace bangna_hospital.gui
         private void FrmXrayPACsAdd_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Lasst Update 2020-03-07 pacsServerIP " + bc.iniC.pacsServerIP+ " pacsServerPort " + bc.iniC.pacsServerPort;
+            this.Text = "Lasst Update 2020-03-09 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
         }

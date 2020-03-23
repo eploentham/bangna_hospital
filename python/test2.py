@@ -252,6 +252,28 @@ def routeFM(XX, YY, IMG,HH,WW):
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='136' :
 			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='150' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='151' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='152' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='153' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='154' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='155' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='156' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='157' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='158' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='159' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='160' :
+			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='161' :
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='162' :
@@ -292,6 +314,46 @@ def routeFM(XX, YY, IMG,HH,WW):
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='199' :
 			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='200' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='201' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='202' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='203' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='204' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='205' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='206' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='207' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='208' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='209' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='210' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='211' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='212' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='213' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='214' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='215' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='216' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='217' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='218' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='219' :
+			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2].upper()=='06C' :
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2].upper()=='O6C' :
@@ -308,6 +370,8 @@ def routeFM(XX, YY, IMG,HH,WW):
 			elif fm[2][:3]=='039':
 				chk1 = True
 			elif fm[2][:3]=='050':
+				chk1 = True
+			elif fm[2][:3]=='007':
 				chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='MED' and fm[2]=='001' :
 			chk1 = True
@@ -637,7 +701,7 @@ for res in myresult:
 			#crop_img = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
 			#crop_img = cv2.cvtColor(img[yy-int(h): yy, xx:xx+w], cv2.COLOR_BGR2GRAY)
 			#print("For y ")
-			print('xx[' + str(xx)+'] yy['+str(yy)+'] y['+ str(y)+'] res[22] '+res[22]+' res[4] '+res[4])
+			print('xx[' + str(xx)+'] yy['+str(yy)+'] y['+ str(y)+'] res[22] '+res[22]+' res[4] '+res[4]+' '+filename)
 			#cv2.imshow('img', crop_img)
 			#cv2.waitKey()
 			#txt = pytesseract.image_to_string(cv2.cvtColor(img[yy-int(h): yy, xx:xx+w], cv2.COLOR_BGR2GRAY),lang='eng')

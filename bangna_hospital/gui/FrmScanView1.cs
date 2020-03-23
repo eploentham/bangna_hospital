@@ -41,7 +41,7 @@ namespace bangna_hospital.gui
         List<C1DockingTabPage> tabHnLabOutR;
 
         int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
-        int colIPDDate = 1, colIPDAnShow = 2, colIPDStatus = 3, colIPDDept = 4, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
+        int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         int colOrderId = 1, colOrderName = 2, colOrderMed = 3, colOrderQty = 4;
         int colLabDate = 1, colLabName = 2, colLabNameSub = 3, colLabResult = 4, colInterpret = 5, colNormal = 6, colUnit = 7;
@@ -60,11 +60,11 @@ namespace bangna_hospital.gui
         //SplitContainer sct;
         C1SplitContainer sct;
         C1SplitterPanel cspL, cspR;
-
+        RichTextBox rtb;
         //VScrollBar vScroller;
         //int y = 0;
         Form frmImg;
-        String dsc_id = "", hn = "", flagShowBtnSearch="";
+        String dsc_id = "", hn = "", flagShowBtnSearch="", preno="";
         //Timer timer1;
         Patient ptt;
         Stream streamPrint, streamPrintL, streamPrintR, streamDownload;
@@ -379,6 +379,8 @@ namespace bangna_hospital.gui
         }
         private void initGrf()
         {
+            
+
             grfOrder = new C1FlexGrid();
             grfOrder.Font = fEdit;
             grfOrder.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -441,12 +443,24 @@ namespace bangna_hospital.gui
 
             grfXray = new C1FlexGrid();
             grfXray.Font = fEdit;
-            grfXray.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfXray.Dock = System.Windows.Forms.DockStyle.Top;
             grfXray.Location = new System.Drawing.Point(0, 0);
-            //grfLab.Rows[0].Visible = false;
+            grfXray.Height = 200;
+            grfXray.Click += GrfXray_Click;
             //grfLab.Cols[0].Visible = false;
             grfXray.Name = "grfXray";
             grfXray.Rows.Count = 1;
+
+            rtb = new RichTextBox();
+            //rtb.Location = new Point(20, 20);
+            rtb.Dock = DockStyle.Fill;
+            //rtb.Height = 200;
+            // Set background and foreground  
+            rtb.BackColor = Color.Gray;
+            rtb.ForeColor = Color.Black;
+            rtb.Text = "";
+            rtb.Name = "rtb";
+            rtb.Font = fEdit3B;
 
             //theme1.SetTheme(grfOrder, "Office2016Black");
             theme1.SetTheme(grfOrder, bc.iniC.themeApp);
@@ -457,14 +471,64 @@ namespace bangna_hospital.gui
             tabOrder.Controls.Add(grfOrder);
             tabScan.Controls.Add(grfScan);
             tabLab.Controls.Add(grfLab);
+            tabXray.Controls.Add(rtb);
             tabXray.Controls.Add(grfXray);
 
             initGrfPrn();
             //initGrfHn();
         }
+
+        private void GrfXray_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfXray == null) return;
+            if (grfXray.Row <= 0) return;
+
+            String an = "",vn="", vsdate="", xraycode="";
+            DataTable dt = new DataTable();
+            if (chkIPD.Checked)
+            {
+                //an = grfXray[grfXray.Row, colIPDAnShow] != null ? grfXray[grfXray.Row, colIPDAnShow].ToString() : "";
+
+                String[] an1 = txtVN.Text.Trim().Split('/');
+                if (an1.Length > 0)
+                {
+                    dt = bc.bcDB.vsDB.selectResultXraybyAN(txtHn.Text, an1[0], an1[1]);
+                }
+                //dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, preno, vsdate, xraycode);
+            }
+            else
+            {
+                vsdate = grfXray[grfXray.Row, colXrayDate] != null ? grfXray[grfXray.Row, colXrayDate].ToString() : "";
+                //preno = txtVN.Text.Trim();
+                xraycode = grfXray[grfXray.Row, colXrayCode] != null ? grfXray[grfXray.Row, colXrayCode].ToString() : "";
+                vsdate = bc.datetoDB(vsdate);
+                dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, this.preno, vsdate, xraycode);
+                new LogWriter("d", "GrfXray_Click 00 "+ vsdate);
+            }
+            new LogWriter("d", "GrfXray_Click 01");
+            if (dt.Rows.Count > 0)
+            {
+                //new LogWriter("d", "GrfXray_Click 02");
+                rtb.Text = dt.Rows[0]["MNC_XR_DSC"].ToString();
+                Application.DoEvents();
+                new LogWriter("d", "GrfXray_Click 02 "+ dt.Rows[0]["MNC_XR_DSC"].ToString());
+            }
+            else
+            {
+                new LogWriter("d", "GrfXray_Click 03");
+                rtb.Text = "";
+            }
+            new LogWriter("d", "GrfXray_Click 04");
+        }
+
         private void TcDtr_TabClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            String vsDate = "";
+            this.preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+            vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+            vsDate = bc.datetoDB(vsDate);
             if (tcDtr.SelectedTab == tabScan)
             {
                 grfScan.AutoSizeCols();
@@ -472,53 +536,68 @@ namespace bangna_hospital.gui
             }
             else if (tcDtr.SelectedTab == tabOrder)
             {
-                if (grfIPD.Row == null) return;
-
-                String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "";
-                DataTable dtOrder = new DataTable();
-                if (chkIPD.Checked)
-                {
-                    statusOPD = grfIPD[grfIPD.Row, colIPDStatus] != null ? grfIPD[grfIPD.Row, colIPDStatus].ToString() : "";
-                    preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
-                    vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
-
-                    chkIPD.Checked = true;
-                    an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
-                    anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
-                    anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
-                    //txtVN.Value = an;
-                    label2.Text = "AN :";
-                    dtOrder = bc.bcDB.vsDB.selectDrugIPD(txtHn.Text, an, anyr);
-                }
-                else
-                {
-                    statusOPD = grfOPD[grfOPD.Row, colVsStatus] != null ? grfOPD[grfOPD.Row, colVsStatus].ToString() : "";
-                    preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
-                    vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
-                    //vsDate = bc.datetoDB(vsDate);
-
-                    chkIPD.Checked = false;
-                    vn = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
-                    txtVN.Value = vn;
-                    label2.Text = "VN :";
-                    if (vn.IndexOf("(") > 0)
-                    {
-                        vn1 = vn.Substring(0, vn.IndexOf("("));
-                    }
-                    if (vn.IndexOf("/") > 0)
-                    {
-                        vn1 = vn.Substring(0, vn.IndexOf("/"));
-                    }
-                    dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn1, preno);
-                }
-                setGrfOrder(dtOrder);
+                tabOrderActive();
             }
             else if (tcDtr.SelectedTab == tabPrn)
             {
 
             }
+            else if (tcDtr.SelectedTab == tabStfNote)
+            {
+                setStaffNote(vsDate, preno);
+            }
+            else if (tcDtr.SelectedTab == tabLab)
+            {
+                setGrfLab(grfOPD.Row, "OPD");
+            }
+            else if (tcDtr.SelectedTab == tabXray)
+            {
+                setGrfXrayOPD(grfOPD.Row);
+            }
         }
+        private void tabOrderActive()
+        {
+            if (grfIPD.Row == null) return;
 
+            String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "";
+            DataTable dtOrder = new DataTable();
+            if (chkIPD.Checked)
+            {
+                statusOPD = grfIPD[grfIPD.Row, colIPDStatus] != null ? grfIPD[grfIPD.Row, colIPDStatus].ToString() : "";
+                preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+                vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+
+                chkIPD.Checked = true;
+                an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
+                anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
+                //txtVN.Value = an;
+                label2.Text = "AN :";
+                dtOrder = bc.bcDB.vsDB.selectDrugIPD(txtHn.Text, an, anyr);
+            }
+            else
+            {
+                statusOPD = grfOPD[grfOPD.Row, colVsStatus] != null ? grfOPD[grfOPD.Row, colVsStatus].ToString() : "";
+                preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                //vsDate = bc.datetoDB(vsDate);
+
+                chkIPD.Checked = false;
+                vn = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
+                txtVN.Value = vn;
+                label2.Text = "VN :";
+                if (vn.IndexOf("(") > 0)
+                {
+                    vn1 = vn.Substring(0, vn.IndexOf("("));
+                }
+                if (vn.IndexOf("/") > 0)
+                {
+                    vn1 = vn.Substring(0, vn.IndexOf("/"));
+                }
+                dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn1, preno);
+            }
+            setGrfOrder(dtOrder);
+        }
         private void TcDtr_SelectedTabChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -870,8 +949,9 @@ namespace bangna_hospital.gui
         {
             ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
             txtName.Value = ptt.Name;
+            tcDtr.SelectedTab = tabStfNote;
             //lbAge.Text = "อายุ " + ptt.AgeStringShort();
-            String allergy = "";
+            String allergy = "", vsDate = "";
             DataTable dt = new DataTable();
             dt = bc.bcDB.vsDB.selectDrugAllergy(txtHn.Text.Trim());
             foreach (DataRow row in dt.Rows)
@@ -900,7 +980,11 @@ namespace bangna_hospital.gui
             {
                 grfOPD.Row = 1;
                 grfOPD.Col = 1;
-                setGrfScan(grfOPD.Row, "OPD");
+                //setGrfScan(grfOPD.Row, "OPD");
+                preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                vsDate = bc.datetoDB(vsDate);
+                setStaffNote(vsDate, preno);
             }
         }
         private void setTabHnLabOut()
@@ -1280,7 +1364,7 @@ namespace bangna_hospital.gui
             //label1.Show();
             //cboDgs.Show();
             
-            btnHn.Show();
+            //btnHn.Show();
             //txt.Show();
             //label6.Show();
             chkIPD.Show();
@@ -1397,16 +1481,36 @@ namespace bangna_hospital.gui
 
             if (txtHn.Text.Equals("")) return;
             chkIPD.Checked = false;
+            rtb.Text = "";
             //txt.Value = "";
             //new LogWriter("d", "FrmScanView1 GrfOPD_AfterRowColChange 01 setGrfLab");
             try
             {
                 showFormWaiting();
-                setGrfLab(e.NewRange.r1, "OPD");
+                String vsDate = "";
+                this.preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                vsDate = bc.datetoDB(vsDate);
+                if (tcDtr.SelectedTab == tabOrder)
+                {
+                    tabOrderActive();
+                }
+                else if (tcDtr.SelectedTab == tabXray)
+                {
+                    setGrfXrayOPD(e.NewRange.r1);
+                }
+                else if (tcDtr.SelectedTab == tabStfNote)
+                {
+                    setStaffNote(vsDate, preno);
+                }
+                else if (tcDtr.SelectedTab == tabLab)
+                {
+                    setGrfLab(e.NewRange.r1, "OPD");
+                }
                 //new LogWriter("d", "FrmScanView1 GrfOPD_AfterRowColChange 02 setGrfXrayOPD");
-                setGrfXrayOPD(e.NewRange.r1);
+                
                 //new LogWriter("d", "FrmScanView1 GrfOPD_AfterRowColChange 03 setGrfScan");
-                setGrfScan(e.NewRange.r1, "OPD");
+                
                 //new LogWriter("d", "FrmScanView1 GrfOPD_AfterRowColChange 04 setTabLabOut");
                 if (!bc.iniC.windows.Equals("windowsxp"))
                 {
@@ -1693,7 +1797,8 @@ namespace bangna_hospital.gui
         }
         private void GrfHn_AfterRowColChange(object sender, RangeEventArgs e)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
         }
 
         private void GrfPrn_AfterRowColChange(object sender, RangeEventArgs e)
@@ -1701,7 +1806,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
 
         }
-
         private void setStaffNote(String vsDate, String preno)
         {
             String file = "", dd = "", mm = "", yy = "";
@@ -1858,6 +1962,7 @@ namespace bangna_hospital.gui
             if (e.NewRange.Data == null) return;
             String an = "";
             chkIPD.Checked = true;
+            rtb.Text = "";
             an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
             //txt.Value = an;
             txtVN.Value = an;
@@ -2029,7 +2134,7 @@ namespace bangna_hospital.gui
             }
             else
             {
-                dt = bc.bcDB.vsDB.selectLabbyVN(vsdate, vsdate, txtHn.Text, vn, preno);
+                //dt = bc.bcDB.vsDB.selectLabbyVN(vsdate, vsdate, txtHn.Text, vn, preno);
             }
             grfXray.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
@@ -2053,11 +2158,12 @@ namespace bangna_hospital.gui
                 grfXray[i, colXrayDate] = bc.datetoShow(row1["MNC_REQ_DAT"].ToString());
                 grfXray[i, colXrayName] = row1["MNC_XR_DSC"].ToString();
                 grfXray[i, colXrayCode] = row1["MNC_XR_CD"].ToString();
-                grfXray[i, colXrayResult] = row1["result"].ToString();
+                //grfXray[i, colXrayResult] = row1["result"].ToString();
                 
                 //row1[0] = (i - 2);
             }
             CellNoteManager mgr = new CellNoteManager(grfXray);
+            grfXray.Cols[colXrayResult].Visible = false;
             grfXray.Cols[colXrayDate].AllowEditing = false;
             grfXray.Cols[colXrayName].AllowEditing = false;
             grfXray.Cols[colXrayCode].AllowEditing = false;
@@ -2101,7 +2207,7 @@ namespace bangna_hospital.gui
             //}
             //else
             //{
-                dt = bc.bcDB.vsDB.selectResultXraybyVN(txtHn.Text, vn, vsdate);
+                dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, preno, vsdate);
             //}
             grfXray.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
@@ -2110,7 +2216,7 @@ namespace bangna_hospital.gui
             grfXray.Cols[colXrayDate].Caption = "วันที่สั่ง";
             grfXray.Cols[colXrayName].Caption = "ชื่อX-Ray";
             grfXray.Cols[colXrayCode].Caption = "Code X-Ray";
-            grfXray.Cols[colXrayResult].Caption = "ผล X-Ray";
+            //grfXray.Cols[colXrayResult].Caption = "ผล X-Ray";
 
             grfXray.Cols[colXrayDate].Width = 100;
             grfXray.Cols[colXrayName].Width = 250;
@@ -2129,7 +2235,7 @@ namespace bangna_hospital.gui
                     grfXray[i, colXrayDate] = bc.datetoShow(row1["MNC_REQ_DAT"].ToString());
                     grfXray[i, colXrayName] = row1["MNC_XR_DSC"].ToString();
                     grfXray[i, colXrayCode] = row1["MNC_XR_CD"].ToString();
-                    grfXray[i, colXrayResult] = row1["result"].ToString();
+                    //grfXray[i, colXrayResult] = row1["result"].ToString();
 
                     //row1[0] = (i - 2);
                 }
@@ -2270,28 +2376,22 @@ namespace bangna_hospital.gui
             //clearGrf();
             String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr="", vn1="";
             DataTable dtOrder = new DataTable();
+            
+            //new LogWriter("e", "FrmScanView1 setGrfScan 5 ");
+            GC.Collect();
+            Application.DoEvents();
+            DataTable dt = new DataTable();
             if (flagOPD.Equals("OPD"))
             {
                 statusOPD = grfOPD[row, colVsStatus] != null ? grfOPD[row, colVsStatus].ToString() : "";
                 preno = grfOPD[row, colVsPreno] != null ? grfOPD[row, colVsPreno].ToString() : "";
                 vsDate = grfOPD[row, colVsVsDate] != null ? grfOPD[row, colVsVsDate].ToString() : "";
                 //vsDate = bc.datetoDB(vsDate);
-
                 chkIPD.Checked = false;
                 vn = grfOPD[row, colVsVn] != null ? grfOPD[row, colVsVn].ToString() : "";
-                txtVN.Value = vn;
                 label2.Text = "VN :";
-                if (vn.IndexOf("(") > 0)
-                {
-                    vn1 = vn.Substring(0, vn.IndexOf("("));
-                }
-                if (vn.IndexOf("/") > 0)
-                {
-                    vn1 = vn.Substring(0, vn.IndexOf("/"));
-                }
-                //new LogWriter("e", "FrmScanView1 setGrfScan 1 " +DateTime.Now.ToString());
-                dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn1, preno);
-                //new LogWriter("e", "FrmScanView1 setGrfScan 2 " + DateTime.Now.ToString());
+                txtVN.Value = vn;
+                dt = bc.bcDB.dscDB.selectByVn(txtHn.Text, vn, vsDate);
             }
             else
             {
@@ -2303,86 +2403,7 @@ namespace bangna_hospital.gui
                 an = grfIPD[row, colIPDAn] != null ? grfIPD[row, colIPDAn].ToString() : "";
                 anDate = grfIPD[row, colIPDDate] != null ? grfIPD[row, colIPDDate].ToString() : "";
                 anyr = grfIPD[row, colIPDAnYr] != null ? grfIPD[row, colIPDAnYr].ToString() : "";
-                //txtVN.Value = an;
                 label2.Text = "AN :";
-                //txtVisitDate.Value = anDate;
-                //dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, an, anDate);
-                //new LogWriter("e", "FrmScanView1 setGrfScan 1 " + DateTime.Now.ToString());
-                dtOrder = bc.bcDB.vsDB.selectDrugIPD(txtHn.Text, an, anyr);
-                //new LogWriter("e", "FrmScanView1 setGrfScan 2 " + DateTime.Now.ToString());
-            }
-
-            //txtVisitDate.Value = vsDate;
-            //if (vsDate.Length >= 10)
-            //{
-            //    MessageBox.Show("vsDate " + vsDate + " " + vsDate.Substring(6,4) + "-" + vsDate.Substring(3, 2) + "-" + vsDate.Substring(0, 2), "");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("vsDate " + vsDate, "");
-            //}
-            //MessageBox.Show("vsDate " + vsDate, "");
-            //new LogWriter("e", "FrmScanView1 setGrfScan 3 " + vsDate);
-            vsDate = bc.datetoDB(vsDate);
-            setStaffNote(vsDate, preno);
-            
-            //vn = grfIPD[row, colIPDAnShow] != null ? grfIPD[row, colIPDAnShow].ToString() : "";
-            //if (vn.IndexOf("(") > 0)
-            //{
-            //    vn = vn.Substring(0, vn.IndexOf("("));
-            //}
-            //if (vn.IndexOf("/") > 0)
-            //{
-            //    vn = vn.Substring(0, vn.IndexOf("/"));
-            //}
-            Application.DoEvents();
-            //new LogWriter("e", "FrmScanView1 setGrfScan 4 ");
-            //setGrfOrder(dtOrder);
-            //grfOrder.Rows.Count = 0;
-            //grfOrder.Rows.Count = 1;
-            //grfOrder.Cols[colOrderName].Caption = "รายการยา";
-            //grfOrder.Cols[colOrderMed].Caption = "med";
-            //grfOrder.Cols[colOrderQty].Caption = "qty";
-            //grfOrder.Cols[colOrderName].Width = 250;
-            //grfOrder.Cols[colOrderMed].Width = 250;
-            //grfOrder.Cols[colOrderQty].Width = 80;
-            //if (dtOrder.Rows.Count > 0)
-            //{
-            //    try
-            //    {
-            //        pB1.Value = 0;
-            //        pB1.Minimum = 0;
-            //        pB1.Maximum = dtOrder.Rows.Count;
-
-            //        grfOrder.Rows.Count = dtOrder.Rows.Count+1;
-            //        foreach (DataRow row1 in dtOrder.Rows)
-            //        {
-            //            Row rowg = grfOrder.Rows[pB1.Value+1];
-            //            rowg[colOrderName] = row1["MNC_PH_TN"].ToString();
-            //            rowg[colOrderMed] = "";
-            //            rowg[colOrderQty] = row1["qty"].ToString();
-            //            pB1.Value++;
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("" + ex.Message, "");
-            //    }
-            //    grfOrder.Cols[colOrderName].AllowEditing = false;
-            //    grfOrder.Cols[colOrderMed].AllowEditing = false;
-            //    grfOrder.Cols[colOrderQty].AllowEditing = false;
-            //    grfOrder.Cols[colOrderId].Visible = false;
-            //}
-            //new LogWriter("e", "FrmScanView1 setGrfScan 5 ");
-            GC.Collect();
-            Application.DoEvents();
-            DataTable dt = new DataTable();
-            if (flagOPD.Equals("OPD"))
-            {
-                dt = bc.bcDB.dscDB.selectByVn(txtHn.Text, vn, vsDate);
-            }
-            else
-            {
                 an = grfIPD[row, colIPDAnShow] != null ? grfIPD[row, colIPDAnShow].ToString() : "";
                 dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
                 //if (dt.Rows.Count == 0)
@@ -2391,7 +2412,9 @@ namespace bangna_hospital.gui
                 //    dt = bc.bcDB.dscDB.selectByVn(txtHn.Text, vn, bc.datetoDB(vsDate));
                 //}
             }
-            
+            vsDate = bc.datetoDB(vsDate);
+            //setStaffNote(vsDate, preno);
+
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_grfscan_print));
             menuGw.MenuItems.Add("ต้องการ Print ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_print_all));
@@ -2848,7 +2871,7 @@ namespace bangna_hospital.gui
 
             DataTable dt = new DataTable();
             //MessageBox.Show("hn "+hn, "");
-            dt = bc.bcDB.vsDB.selectVisitByHn4(txtHn.Text,"I");
+            dt = bc.bcDB.vsDB.selectVisitByHn5(txtHn.Text,"I");
             int i = 0, j = 1, row = grfIPD.Rows.Count;
             //txtVN.Value = dt.Rows.Count;
             //txtName.Value = "";
@@ -2905,6 +2928,7 @@ namespace bangna_hospital.gui
             widthR = widthL + 5;
             //sct.SplitterDistance = fpL.Width;
             cspL.Width = widthL;
+            //cspL.Width = 1300;
             sC1.HeaderHeight = 0;
             scVs.Width = 240;
             //sct.Panel1.Width = fpL.Width;
@@ -2915,7 +2939,7 @@ namespace bangna_hospital.gui
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
             this.Text = "Last Update 2020-03-04";
-            gbPtt.Height = 60;
+            gbPtt.Height = 70;
             size = bc.MeasureString(txtName);
             txtName.Size = size;
             if (!flagShowBtnSearch.Equals("show"))
@@ -2935,7 +2959,7 @@ namespace bangna_hospital.gui
                 //txt.Location = new Point(chkIPD.Location.X + chkIPD.Width + 10, txtName.Location.Y);
                 lbCnt.Location = new Point(chkIPD.Location.X + chkIPD.Width + 10, txtName.Location.Y);
             }
-            lbDrugAllergy.Location = new Point(txtName.Location.X + 10,  txtName.Height+6);
+            lbDrugAllergy.Location = new Point(txtName.Location.X + 10,  txtName.Height+13);
             
         }
     }

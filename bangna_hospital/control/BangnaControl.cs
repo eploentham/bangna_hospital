@@ -374,13 +374,21 @@ namespace bangna_hospital.control
                         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-us")
                         {
                             DateTimeFormat =
-                        {
-                            DateSeparator = "-"
-                        }
+                            {
+                                DateSeparator = "-"
+                            }
                         };
                         if (DateTime.TryParse(dt, out dt1))
                         {
-                            re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
+                            
+                            if (dt1.Year > 2500)
+                            {
+                                re = (dt1.Year -543).ToString() + "-" + dt1.ToString("MM-dd");
+                            }
+                            else
+                            {
+                                re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
+                            }
                         }
                         else
                         {
@@ -905,7 +913,7 @@ namespace bangna_hospital.control
                 + separate + pv1.AccountStatus + separate + pv1.PendingLocation + separate + pv1.PriorTemporaryLocation + separate + pv1.AdmitDateTime
                 + separate + pv1.DischargeDateTime + separate + pv1.CurrentPatientBalance + separate + pv1.TotalCharges + separate + pv1.TotalAdjustments
                 + separate + pv1.TotalPayments + separate + pv1.AlternateVisitID + separate + pv1.VisitIndicator + separate + pv1.OtherHealthcareProvider;
-
+            txt = txt+Environment.NewLine + MSH + Environment.NewLine + EVN + Environment.NewLine + PID + Environment.NewLine + PV1;
             return txt;
         }
         public String genADT(String reqdept, String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation)
