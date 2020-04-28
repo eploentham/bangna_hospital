@@ -23,6 +23,10 @@ using Path = System.IO.Path;
 
 namespace bangna_hospital.gui
 {
+    /*
+     * 63-04-02     0004
+     * 63-03-28     0003
+     */
     public class FrmLabOutReceive1:Form
     {
         BangnaControl bc;
@@ -965,12 +969,16 @@ namespace bangna_hospital.gui
                 //        }
                 //    }
                 //}
-                RIA_Patient aaa = new RIA_Patient();
+                //List<RIA_Patient> listRiaAtach = new List<RIA_Patient>();       //+0004
+                RIA_Patient aaa = new RIA_Patient();       //-0004
+                aaa.attach = "";       //-0004
+
                 ZipFile zf = new ZipFile(zipFilename);
                 zf.ExtractAll(pathbackup);
                 DirectoryInfo dZip = new DirectoryInfo(pathbackup);
                 FileInfo[] filesZip = dZip.GetFiles("*.*");
                 //new LogWriter("d", "uploadFiletoServerRIA foreach (String zipFilename in filePaths) ");
+                LabOutRIAResult objRiaR = null;
                 foreach (FileInfo file in filesZip)
                 {
                     ext = Path.GetExtension(file.FullName);
@@ -979,28 +987,18 @@ namespace bangna_hospital.gui
                         using (StreamReader file1 = File.OpenText(file.FullName))
                         using (JsonTextReader reader = new JsonTextReader(file1))
                         {
-                            JObject o2 = (JObject)JToken.ReadFrom(reader);
+                            try
+                            {
+                                //var ojbJson = JsonConvert.DeserializeObject<LabOutRIAResult>(reader);
+                                LabOutRIAResult riaRes = (LabOutRIAResult)new JsonSerializer().Deserialize(reader, typeof(LabOutRIAResult));
+                                //LabOutRIAResult riaRes = JsonConvert.DeserializeObject<LabOutRIAResult>(reader);
+                                filename2 = riaRes.orderdetail.ref_no;
+                                objRiaR = riaRes;
+                            }
+                            catch(Exception ex)
+                            {
 
-                            dynamic objPtt = o2["patient"];
-                            dynamic objOrd = o2["orderdetail"];
-                            aaa.hn = objPtt.hn;
-                            aaa.idcard = objPtt.idcard;
-                            aaa.fname = objPtt.fname;
-                            aaa.lname = objPtt.lname;
-                            aaa.ref_no = objOrd.ref_no;
-                            aaa.order_number = objOrd.order_number;
-                            aaa.ln = objOrd.ln;
-                            aaa.hn_customer = objOrd.hn_customer;
-                            aaa.status = objOrd.status;
-                            aaa.comment_order = objOrd.comment_order;
-                            aaa.comment_patient = objOrd.comment_patient;
-                            aaa.ward_customer = objOrd.ward_customer;
-                            aaa.doctor = objOrd.doctor;
-                            aaa.time_register = objOrd.time_register;
-                            aaa.ward_customer = objOrd.ward_customer;
-                            filename2 = aaa.ref_no;
-                            //aaa = (RIA_Patient)o2["patient"];
-                            //IList<JToken> results = o2["patient"]["fname"].Children().ToList();
+                            }
                         }
                     }
                     else if (ext.ToLower().Equals(".pdf"))
@@ -1059,7 +1057,8 @@ namespace bangna_hospital.gui
                 Application.DoEvents();
                 if (!dt.Rows[0]["mnc_hn_no"].ToString().Equals(aaa.hn_customer))
                 {
-                    MessageBox.Show("aaaaaa", "");
+                    //MessageBox.Show("aaaaaa", "");
+                    new LogWriter("e", "uploadFiletoServerRIA if (!dt.Rows[0]['mnc_hn_no'].ToString().Equals(aaa.hn_customer)) ");
                 }
                 DocScan dsc = new DocScan();
                 dsc.active = "1";
@@ -1108,6 +1107,30 @@ namespace bangna_hospital.gui
                 dsc.status_record = "2";        // status ria
                 dsc.comp_labout_id = "1040000001";
                 String re = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
+                String reattch = "";         //+0003
+                Dictionary<string, string> dict = new Dictionary<string, string>();//+0004
+                Dictionary<string, string> dict1 = new Dictionary<string, string>();//+0004
+                
+                Application.DoEvents();
+                    
+                if (objRiaR != null)
+                {
+                    listBox2.Items.Add("มี Attach File ");
+                    foreach (LabOutRIALabs ddd in objRiaR.labs)
+                    {
+                        foreach (Object att in ddd.attach)
+                        {
+                            if ((att != null) && (att.ToString().Length > 0))
+                            {
+                                listBox2.Items.Add("มี Attach File ");
+                                String reattch1 = bc.bcDB.dscDB.insertLabOut(dsc, bc.userId);
+                                dict.Add(reattch1, pathbackup+"\\"+att.ToString());
+                                dict1.Add(reattch1, "");
+                            }
+                        }
+                    }
+                }
+
                 if (re.Length <= 0)
                 {
                     listBox2.Items.Add("ไม่ได้เลขที่ " + zipFilename);
@@ -1139,6 +1162,20 @@ namespace bangna_hospital.gui
                 dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "//" + dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1                
 
                 String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
+                String image_path_attach = "";
+                
+                if (dict.Count > 0)         //+0004
+                {
+                    foreach (KeyValuePair<string, string> pair1 in dict)
+                    {
+                        String extattach = Path.GetExtension(pair1.Value);
+                        image_path_attach = dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "//" + dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "-" + vn + "-" + pair1.Key + extattach;         //+0003
+                        String re1attach = bc.bcDB.dscDB.updateImagepath(image_path_attach, pair1.Key);
+                        dict1[pair1.Key] = pair1.Value + "#" + image_path_attach;
+                        listBox2.Items.Add("มี Attach File 1 " + image_path_attach);
+                    }
+                }
+                    
                 listBox2.Items.Add("updateImagepath " + dsc.image_path);
                 Application.DoEvents();
                 //    //MessageBox.Show("111", "");
@@ -1150,17 +1187,40 @@ namespace bangna_hospital.gui
                 ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
                 //    //MessageBox.Show("333", "");
                 Thread.Sleep(200);
-                if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, zipFilename))
+                String filenamezip = "";
+                if(dsc.image_path.Length > 4)
+                {
+                    filenamezip = dsc.image_path.Substring(0,dsc.image_path.Length-4)+".zip";
+                }
+
+                if (ftp.upload(bc.iniC.folderFTP + "//" + filenamezip, zipFilename))
                 {
                     Thread.Sleep(200);
+                    String ext1 = "", ext2="";
+                    ext1 = Path.GetExtension(filenamePDF);
+                    ext2 = Path.GetExtension(dsc.image_path);
+                    dsc.image_path = dsc.image_path.Replace(ext2, ext1);
                     if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filenamePDF))
                     {
+                        if (dict.Count > 0)         //+0004
+                        {
+                            foreach (KeyValuePair<string, string> pair in dict1)
+                            {
+                                Thread.Sleep(200);         //+0003
+                                String[] eee = pair.Value.Split('#');
+                                if (eee.Length > 0)
+                                {
+                                    ftp.upload(bc.iniC.folderFTP + "//" + eee[1], eee[0]);         //+0004
+                                    listBox2.Items.Add("มี Attach File Upload " + eee[0]);
+                                }
+                            }
+                        }
                         listBox2.Items.Add("FTP upload success ");
                         Application.DoEvents();
                         Thread.Sleep(1000);
                         String datetick = "";
                         datetick = DateTime.Now.Ticks.ToString();
-                        
+
                         Thread.Sleep(1000);
                         if (File.Exists(zipFilename))
                         {
@@ -1173,7 +1233,6 @@ namespace bangna_hospital.gui
                             {
                                 String aaaa = "";
                             }
-
                         }
                     }
                     //else
@@ -1194,6 +1253,9 @@ namespace bangna_hospital.gui
                     new LogWriter("e", "FTP upload no success");
                 }
             }
+
+
+
             timer.Start();
         }
         private void getFileinFolderInnoTech()
@@ -2312,7 +2374,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-03-05 bc.timerCheckLabOut " + bc.timerCheckLabOut;
+            this.Text = "Last Update 2020-04-18 แก้ 0004 RIA  bc.timerCheckLabOut " + bc.timerCheckLabOut;
         }
     }
 }

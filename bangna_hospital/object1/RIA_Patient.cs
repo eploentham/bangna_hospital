@@ -24,5 +24,6 @@ namespace bangna_hospital.object1
         public String doctor { get; set; }
         public String ward_customer { get; set; }
         public String time_register { get; set; }
+        public String attach { get; set; }
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
-            this.sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.gbPtt = new System.Windows.Forms.GroupBox();
             this.lbDrugAllergy = new System.Windows.Forms.Label();
             this.lbAge = new System.Windows.Forms.Label();
@@ -44,11 +43,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.sC1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.scVs = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.gbPtt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
@@ -61,15 +59,6 @@
             this.scVs.SuspendLayout();
             this.scScan.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // sb1
-            // 
-            this.sb1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
-            this.sb1.Location = new System.Drawing.Point(0, 647);
-            this.sb1.Name = "sb1";
-            this.sb1.Size = new System.Drawing.Size(1209, 22);
-            this.theme1.SetTheme(this.sb1, "(default)");
-            this.sb1.VisualStyle = C1.Win.C1Ribbon.VisualStyle.Custom;
             // 
             // gbPtt
             // 
@@ -88,7 +77,7 @@
             this.gbPtt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.gbPtt.Location = new System.Drawing.Point(0, 0);
             this.gbPtt.Name = "gbPtt";
-            this.gbPtt.Size = new System.Drawing.Size(1209, 69);
+            this.gbPtt.Size = new System.Drawing.Size(1209, 45);
             this.gbPtt.TabIndex = 2;
             this.gbPtt.TabStop = false;
             this.gbPtt.Text = "Patient";
@@ -99,7 +88,7 @@
             this.lbDrugAllergy.BackColor = System.Drawing.Color.White;
             this.lbDrugAllergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDrugAllergy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbDrugAllergy.Location = new System.Drawing.Point(500, 39);
+            this.lbDrugAllergy.Location = new System.Drawing.Point(1109, 13);
             this.lbDrugAllergy.Name = "lbDrugAllergy";
             this.lbDrugAllergy.Size = new System.Drawing.Size(380, 20);
             this.lbDrugAllergy.TabIndex = 557;
@@ -178,9 +167,10 @@
             // 
             // txtName
             // 
+            this.txtName.AutoSize = false;
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtName.Location = new System.Drawing.Point(207, 13);
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Location = new System.Drawing.Point(146, 11);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(287, 27);
             this.txtName.TabIndex = 541;
@@ -215,11 +205,12 @@
             // 
             // txtHn
             // 
+            this.txtHn.AutoSize = false;
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtHn.Location = new System.Drawing.Point(48, 11);
             this.txtHn.Name = "txtHn";
-            this.txtHn.Size = new System.Drawing.Size(120, 27);
+            this.txtHn.Size = new System.Drawing.Size(92, 27);
             this.txtHn.TabIndex = 538;
             this.txtHn.Tag = null;
             this.theme1.SetTheme(this.txtHn, "(default)");
@@ -232,9 +223,9 @@
             this.panel1.Controls.Add(this.sC1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.panel1.Location = new System.Drawing.Point(0, 69);
+            this.panel1.Location = new System.Drawing.Point(0, 45);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1209, 578);
+            this.panel1.Size = new System.Drawing.Size(1209, 624);
             this.panel1.TabIndex = 5;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
@@ -250,7 +241,7 @@
             this.sC1.Name = "sC1";
             this.sC1.Panels.Add(this.scVs);
             this.sC1.Panels.Add(this.scScan);
-            this.sC1.Size = new System.Drawing.Size(1209, 578);
+            this.sC1.Size = new System.Drawing.Size(1209, 624);
             this.sC1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(166)))), ((int)(((byte)(194)))));
             this.sC1.TabIndex = 2;
             this.theme1.SetTheme(this.sC1, "(default)");
@@ -264,30 +255,19 @@
             this.scVs.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.scVs.Location = new System.Drawing.Point(0, 21);
             this.scVs.Name = "scVs";
-            this.scVs.Size = new System.Drawing.Size(226, 557);
-            this.scVs.SizeRatio = 19.346D;
+            this.scVs.Size = new System.Drawing.Size(226, 603);
+            this.scVs.SizeRatio = 19.336D;
             this.scVs.TabIndex = 0;
             this.scVs.Text = "Panel 1";
             this.scVs.Width = 233;
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(226, 557);
-            this.panel2.TabIndex = 0;
-            this.theme1.SetTheme(this.panel2, "(default)");
-            // 
             // scScan
             // 
             this.scScan.Controls.Add(this.panel3);
-            this.scScan.Height = 578;
+            this.scScan.Height = 624;
             this.scScan.Location = new System.Drawing.Point(237, 21);
             this.scScan.Name = "scScan";
-            this.scScan.Size = new System.Drawing.Size(972, 557);
+            this.scScan.Size = new System.Drawing.Size(972, 603);
             this.scScan.TabIndex = 1;
             this.scScan.Text = "Panel 2";
             // 
@@ -298,9 +278,20 @@
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(972, 557);
+            this.panel3.Size = new System.Drawing.Size(972, 603);
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(226, 603);
+            this.panel2.TabIndex = 0;
+            this.theme1.SetTheme(this.panel2, "(default)");
             // 
             // FrmScanView1
             // 
@@ -309,12 +300,10 @@
             this.ClientSize = new System.Drawing.Size(1209, 669);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gbPtt);
-            this.Controls.Add(this.sb1);
             this.Name = "FrmScanView1";
             this.Text = "FrmScanView1";
             this.Load += new System.EventHandler(this.FrmScanView1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sb1)).EndInit();
             this.gbPtt.ResumeLayout(false);
             this.gbPtt.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
@@ -328,14 +317,12 @@
             this.scVs.ResumeLayout(false);
             this.scScan.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private C1.Win.C1Themes.C1ThemeController theme1;
-        private C1.Win.C1Ribbon.C1StatusBar sb1;
         private System.Windows.Forms.GroupBox gbPtt;
         private System.Windows.Forms.Label label2;
         private C1.Win.C1Input.C1TextBox txtVN;
@@ -345,7 +332,6 @@
         private C1.Win.C1Input.C1TextBox txtHn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel2;
         private C1.Win.C1Input.C1CheckBox chkIPD;
         private C1.Win.C1SplitContainer.C1SplitContainer sC1;
         private C1.Win.C1SplitContainer.C1SplitterPanel scVs;
@@ -353,5 +339,6 @@
         private System.Windows.Forms.Label lbCnt;
         private System.Windows.Forms.Label lbAge;
         private System.Windows.Forms.Label lbDrugAllergy;
+        private System.Windows.Forms.Panel panel2;
     }
 }

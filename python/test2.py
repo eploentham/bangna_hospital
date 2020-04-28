@@ -595,7 +595,7 @@ dataDB="bn5_scan"
 #conn = pymssql.connect('Driver={SQL Server};Server='+serverName+';Database='+dataDB+';;UID='+userDB+';PWD='+passDB+';Trusted_Connection=yes;')
 conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
 cur = conn.cursor()
-sql = "Select top (1000) * From doc_scan where status_ml is null and doc_scan_id > 1000061000 Order By doc_scan_id"
+sql = "Select top (1000) * From doc_scan where doc_scan_id > 1000061000 and status_ml is null and status_record = '1' and active = '1' and status_ftpfile_notfound is null  Order By doc_scan_id"
 cur.execute(sql)
 myresult = cur.fetchall()
 print('ok1')
@@ -621,6 +621,30 @@ for res in myresult:
 	#ftpfilename = '//sharedfolders//'+res[22]+'//'+res[4]
 	ftpfilename = '//'+res[22]+'//'+res[4]
 	print('res[22] '+res[22]+' res[4] '+res[4]+" start date "+startdate)
+	#print('res[22] '+res[22]+' res[4] '+res[4]+" start date "+startdate)
+	#print(ftpfilename)
+	#ftp.put_passive(True)
+	filename = 'c:\\temp\\'+timestamp+'.jpg'
+	sizeftpfile = 0
+	print('res[4] '+res[4])
+	listres = res[4].split('//')
+	fileexit=''
+	if len(listres) > 0:
+		#print('listres '+listres[0])
+		#print(listres[1])
+		#print('listres[2] '+listres[2])
+		ftp.cwd('//'+res[22]+'//'+res[5]+'//'+listres[1])
+		nitems = ftp.nlst()
+		for item in nitems:
+			#print('item '+str(item)+' listres[2] '+listres[2])
+			#print('listres[2] '+listres[2])
+			if item == listres[2]:
+				fileexit='OK'
+				print('found OK')
+				break
+	#print('nitems '+str(nitems))
+	if fileexit != 'OK':
+		continue
 	#print(ftpfilename)
 	#ftp.put_passive(True)
 	filename = 'd:\\temp\\'+timestamp+'.jpg'

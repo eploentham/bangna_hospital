@@ -655,7 +655,7 @@ namespace bangna_hospital.gui
             String idOld = "";
             //if (lDgss.Count <= 0) getlBsp();
             if (bc.bcDB.dgssDB.lDgss.Count <= 0) bc.bcDB.dgssDB.getlBsp();
-            if (bc.bcDB.dgsDB.lDgs.Count <= 0) bc.bcDB.dgsDB.getlBsp();
+            if (bc.bcDB.dgsDB.lDgs.Count <= 0) bc.bcDB.dgsDB.getlDgs();
             foreach (DocGroupSubScan dgss in bc.bcDB.dgssDB.lDgss)
             {
                 String dgsid = "";
@@ -1066,8 +1066,8 @@ namespace bangna_hospital.gui
         private void FrmScanNew_Load(object sender, EventArgs e)
         {
             timer1.Start();
-            this.Text = "Last Update 2020-01-30 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
-            sb1.Text = "Last Update 2019-12-29 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2020-04-28 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            sb1.Text = "Last Update 2020-04-28 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
         }
     }
 }

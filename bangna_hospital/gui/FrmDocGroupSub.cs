@@ -58,7 +58,7 @@ namespace bangna_hospital.gui
             bg = txtDocGroupSubName.BackColor;
             fc = txtDocGroupSubName.ForeColor;
             ff = txtDocGroupSubName.Font;
-            bc.bcDB.dgsDB.setCboBsp(cboDocGroupName, "");
+            bc.bcDB.dgsDB.setCboDgs(cboDocGroupName, "");
 
             txtPasswordVoid.KeyUp += TxtPasswordVoid_KeyUp;
             btnNew.Click += BtnNew_Click;

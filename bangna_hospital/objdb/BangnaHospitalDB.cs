@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bangna_hospital.object1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace bangna_hospital.objdb
         public ReportTabContentsDB rpttcDB;
         public LabOutDB laboDB;
         public BLabOutDB labbDB;
+        public DocGroupFMDB dfmDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -40,6 +42,7 @@ namespace bangna_hospital.objdb
             rpttcDB = new ReportTabContentsDB(conn);
             laboDB = new LabOutDB(conn);
             labbDB = new BLabOutDB(conn);
+            dfmDB = new DocGroupFMDB(conn);
 
         }
     }

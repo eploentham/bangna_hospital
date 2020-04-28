@@ -1,0 +1,230 @@
+﻿using bangna_hospital.control;
+
+using bangna_hospital.object1;
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace bangna_hospital.gui
+{
+    public partial class FrmScanViewEdit : Form
+    {
+        BangnaControl bc;
+        Font fEdit, fEditB;
+        String hn = "", vn = "", name = "", filename = "", visitDate="", dscid = "";
+        
+        MemoryStream stream;
+        Image img1=null;
+        DocScan dgs;
+        Boolean pageLoad = false;
+        public FrmScanViewEdit(BangnaControl bc, String hn, String vn, String name, Image img, String dscid)
+        {
+            InitializeComponent();
+            this.bc = bc;
+            this.hn = hn;
+            this.vn = vn;
+            this.name = name;
+            this.img1 = img;
+            this.dscid = dscid;
+            //visitDate = visitdate;
+            initConfig();
+        }
+
+        private void initConfig()
+        {
+            pageLoad = false;
+            fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
+            fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
+
+            theme.Theme = bc.iniC.themeApplication;
+            btnRotate.Click += BtnRotate_Click;
+            bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
+
+            btnSave.Click += BtnSave_Click;
+            btnAnalyze.Click += BtnAnalyze_Click;
+            this.FormClosing += FrmScanNewView_FormClosing;
+            txtFmCode.KeyUp += TxtFmCode_KeyUp;
+            btnSaveFmCode.Click += BtnSaveFmCode_Click;
+            cboDgs.SelectedIndexChanged += CboDgs_SelectedIndexChanged;
+            chkVoid.Click += ChkVoid_Click;
+            btnVoid.Click += BtnVoid_Click;
+            //theme1.SetTheme(sb1, "BeigeOne");
+
+            //sb1.Text = "aaaaaaaaaa";
+
+            setControl();
+            pageLoad = true;
+        }
+
+        private void BtnVoid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (MessageBox.Show("ต้องการ ยกเลิกรายการ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            {
+                String re = "";
+                int chk = 0;
+                re = bc.bcDB.dscDB.voidDocScan(txtID.Text, txtFmCode.Text.Trim());
+                if (int.TryParse(re, out chk))
+                {
+                    MessageBox.Show("ยกเลิกรายการ เรียบร้อย", "");
+                }
+            }
+        }
+
+        private void ChkVoid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkVoid.Checked)
+            {
+                btnVoid.Show();
+            }
+            else
+            {
+                btnVoid.Hide();
+            }
+        }
+
+        private void CboDgs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            String dgsid = "";
+            dgsid = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
+            if (dgsid.Length > 0)
+            {
+                bc.bcDB.dgssDB.setCboDGSS(cboDgss, dgsid, "");
+            }
+        }
+
+        private void setControl()
+        {
+            dgs = bc.bcDB.dscDB.selectByPk(dscid);
+            bc.bcDB.dgssDB.setCboDGSS(cboDgss, "");
+            bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
+            txtID.Value = dgs.doc_scan_id;
+            txtHn.Value = hn;
+            txtVN.Value = dgs.vn;
+            txtAn.Value = dgs.an;
+            txtPttName.Value = name;
+            txtVisitDate.Value = visitDate;
+            txtSort1.Value = dgs.sort1;
+            txtFmCode.Value = dgs.ml_fm;
+            //bc.setC1Combo(cboDgs, dgs);
+            pic1.Image = img1;
+            btnSaveFmCode.Hide();
+            btnVoid.Hide();
+        }
+        private void BtnSaveFmCode_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String re = "";
+            int chk = 0;
+            re = bc.bcDB.dscDB.updateFMCode(txtID.Text, txtFmCode.Text.Trim());
+            if (int.TryParse(re, out chk))
+            {
+                MessageBox.Show("แก้ไขข้อมูล เรียบร้อย", "");
+            }
+        }
+
+        private void TxtFmCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                pageLoad = false;
+                DocGroupFM dfm = new DocGroupFM();
+                dfm = bc.bcDB.dfmDB.selectByFMCode(txtFmCode.Text.Trim());
+                if ((dfm.doc_group_id != null) && (dfm.doc_group_id.Length > 0))
+                {
+                    bc.setC1Combo(cboDgs, dfm.doc_group_id);
+                    bc.bcDB.dgssDB.setCboDGSS(cboDgs, dfm.doc_group_id, "");
+                    bc.setC1Combo(cboDgss, dfm.doc_group_sub_id);
+                    btnSaveFmCode.Show();
+                }
+                pageLoad = true;
+            }
+            else
+            {
+                btnSaveFmCode.Hide();
+            }
+        }
+
+        private void FrmScanNewView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //throw new NotImplementedException();
+            //if (formsOCREngine != null && formsOCREngine.IsStarted)
+            //    formsOCREngine.Shutdown();
+        }
+        private void BtnAnalyze_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //Startup();
+        }
+
+        private void BtnRotate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String dgs = "", id = "";            
+            try
+            {
+                filename = filename.Substring(filename.IndexOf('*') + 1);
+                //Image img=null;
+                //img.Save(stream, ImageFormat.Jpeg);
+                //resizedImage = bc.RotateImage(img);
+                img1 = bc.RotateImage(img1);
+                //img.Dispose();
+                //if (File.Exists(filename))
+                //{
+                //    File.Delete(filename);
+                //}
+                //img1.Save(filename);
+                //Bitmap bmp;
+                //bmp = (Bitmap)img1;
+                //bmp.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+                //Image img2 = Image.FromFile(filename);
+                pic1.Image = img1;
+                //pnImg.Width = img1.
+                
+            }
+            catch (Exception ex)
+            {
+                dgs = ex.Message;
+            }
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String re = "";
+            int chk = 0;
+            re = bc.bcDB.dscDB.updateSort(txtID.Text, txtSort1.Text.Trim());
+            if(int.TryParse(re, out chk))
+            {
+                MessageBox.Show("แก้ไขข้อมูล เรียบร้อย", "");
+            }
+
+        }
+        private void FrmScanViewEdit_Load(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+            theme.SetTheme(pn, bc.iniC.themeApp);
+            foreach(Control c in pn.Controls)
+            {
+                c.Font = fEdit;
+            }
+            //Screen.PrimaryScreen.Bounds.Width.ToString();
+            //pn.Width = 340;
+            //pic1.Size = img1.Size;
+            pic1.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+    }
+}

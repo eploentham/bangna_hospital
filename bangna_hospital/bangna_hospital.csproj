@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_nurse_scan_view</AssemblyName>
+    <AssemblyName>bangna_hospital_scan_view</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -15,6 +15,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,7 +28,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -125,6 +125,12 @@
     <Compile Include="gui\FrmCapture.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmDocGroupFm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDocGroupFm.Designer.cs">
+      <DependentUpon>FrmDocGroupFm.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmDocGroupScan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,6 +182,18 @@
     <Compile Include="gui\FrmNurseScanView.Designer.cs">
       <DependentUpon>FrmNurseScanView.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmScanAddView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmScanAddView.Designer.cs">
+      <DependentUpon>FrmScanAddView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmScanViewEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmScanViewEdit.Designer.cs">
+      <DependentUpon>FrmScanViewEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmXrayPACsAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,12 +229,6 @@
     </Compile>
     <Compile Include="gui\FrmScanAddLabOut.Designer.cs">
       <DependentUpon>FrmScanAddLabOut.cs</DependentUpon>
-    </Compile>
-    <Compile Include="gui\FrmScanAddView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="gui\FrmScanAddView.Designer.cs">
-      <DependentUpon>FrmScanAddView.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmScanCheck.cs">
       <SubType>Form</SubType>
@@ -305,6 +317,7 @@
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\BLabOutDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
+    <Compile Include="objdb\DocGroupFMDB.cs" />
     <Compile Include="objdb\DocGroupScanDB.cs" />
     <Compile Include="objdb\DocGroupSubScanDB.cs" />
     <Compile Include="objdb\DocScanDB.cs" />
@@ -321,6 +334,7 @@
     <Compile Include="object1\CellNoteManager.cs" />
     <Compile Include="object1\ComboBoxItem.cs" />
     <Compile Include="object1\Demos.cs" />
+    <Compile Include="object1\DocGroupFM.cs" />
     <Compile Include="object1\DocGroupScan.cs" />
     <Compile Include="object1\DocGroupSubScan.cs" />
     <Compile Include="object1\DocScan.cs" />
@@ -331,6 +345,11 @@
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LabEx.cs" />
     <Compile Include="object1\LabOut.cs" />
+    <Compile Include="object1\LabOutRIAaiJson.cs" />
+    <Compile Include="object1\LabOutRIALabs.cs" />
+    <Compile Include="object1\LabOutRIAOrderDetail.cs" />
+    <Compile Include="object1\LabOutRIAPatient.cs" />
+    <Compile Include="object1\LabOutRIAResult.cs" />
     <Compile Include="object1\LogFile.cs" />
     <Compile Include="object1\LogWriter.cs" />
     <Compile Include="object1\Messager.cs" />
@@ -370,6 +389,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmBillLabCheck.resx">
       <DependentUpon>FrmBillLabCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDocGroupFm.resx">
+      <DependentUpon>FrmDocGroupFm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDocGroupScan.resx">
       <DependentUpon>FrmDocGroupScan.cs</DependentUpon>
@@ -413,11 +435,17 @@
     <EmbeddedResource Include="gui\FrmScanCheck.resx">
       <DependentUpon>FrmScanCheck.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmScanEdit.resx">
+      <DependentUpon>FrmScanEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanView.resx">
       <DependentUpon>FrmScanView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanView1.resx">
       <DependentUpon>FrmScanView1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmScanViewEdit.resx">
+      <DependentUpon>FrmScanViewEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScreenCapture.resx">
       <DependentUpon>FrmScreenCapture.cs</DependentUpon>

@@ -15,6 +15,7 @@ namespace bangna_hospital.objdb
         ConnectDB conn;
         public List<DocGroupSubScan> lDgss;
         public List<DocGroupSubScan> lDgssDeptUS;
+        public List<DocGroupSubScan> lDgssAll;
         public DocGroupSubScanDB(ConnectDB c)
         {
             conn = c;
@@ -25,6 +26,7 @@ namespace bangna_hospital.objdb
             dgss = new DocGroupSubScan();
             lDgss = new List<DocGroupSubScan>();
             lDgssDeptUS = new List<DocGroupSubScan>();
+            lDgssAll = new List<DocGroupSubScan>();
 
             dgss.doc_group_sub_id = "doc_group_sub_id";
             dgss.active = "active";
@@ -35,6 +37,25 @@ namespace bangna_hospital.objdb
 
             dgss.table = "doc_group_sub_scan";
             dgss.pkField = "doc_group_sub_id";
+        }
+        public void getlAll()
+        {
+            //lDept = new List<Position>();
+
+            lDgssAll.Clear();
+            DataTable dt = new DataTable();
+            dt = selectAll();
+            foreach (DataRow row in dt.Rows)
+            {
+                DocGroupSubScan itm1 = new DocGroupSubScan();
+                itm1.active = row[dgss.active].ToString();
+                itm1.doc_group_sub_name = row[dgss.doc_group_sub_name].ToString();
+                itm1.doc_group_id = row[dgss.doc_group_id].ToString();
+                itm1.remark = row[dgss.remark].ToString();
+
+                itm1.doc_group_sub_id = row[dgss.doc_group_sub_id].ToString();
+                lDgssAll.Add(itm1);
+            }
         }
         public void getlBspDeptUS()
         {
@@ -137,7 +158,18 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectByDgsID(String dgsid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select dgss.*, dgs.doc_group_name " +
+                "From " + dgss.table + " dgss " +
+                "Left Join doc_group_scan dgs On dgs.doc_group_id = dgss.doc_group_id " +
+                " Where dgss." + dgss.active + " ='1' and dgss."+dgss.doc_group_id+" = '"+dgsid+"' " +
+                "Order By dgss.doc_group_id, dgss.doc_group_sub_id ";
+            dt = conn.selectData(conn.conn, sql);
 
+            return dt;
+        }
         public DocGroupSubScan selectByPk(String id)
         {
             DocGroupSubScan cop1 = new DocGroupSubScan();
@@ -195,6 +227,7 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dgss.table + " Set " +
                 " " + dgss.doc_group_sub_name + " = '" + p.doc_group_sub_name.Replace("'", "''") + "'" +
+                ", " + dgss.doc_group_id + " = '" + p.doc_group_id + "'" +
 
                 "Where " + dgss.pkField + "='" + p.doc_group_sub_id + "'"
                 ;
@@ -253,17 +286,18 @@ namespace bangna_hospital.objdb
             dgs1.dept_us = "";
             return dgs1;
         }
-        public void setCboBsp(C1ComboBox c, String selected)
+        
+        public void setCboBspDeptUS(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
             //DataTable dt = selectAll();
             int i = 0;
-            if (lDgss.Count <= 0) getlBsp();
+            if (lDgssDeptUS.Count <= 0) getlBspDeptUS();
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";
             c.Items.Add(item);
-            foreach (DocGroupSubScan cus1 in lDgss)
+            foreach (DocGroupSubScan cus1 in lDgssDeptUS)
             {
                 item = new ComboBoxItem();
                 item.Value = cus1.doc_group_sub_id;
@@ -278,17 +312,44 @@ namespace bangna_hospital.objdb
                 i++;
             }
         }
-        public void setCboBspDeptUS(C1ComboBox c, String selected)
+        public void setCboDGSS(C1ComboBox c, String dgsid, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
-            //DataTable dt = selectAll();
+            DataTable dt = selectAll();
             int i = 0;
-            if (lDgssDeptUS.Count <= 0) getlBspDeptUS();
+            c.Items.Clear();
+            dt = selectByDgsID(dgsid);
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";
             c.Items.Add(item);
-            foreach (DocGroupSubScan cus1 in lDgssDeptUS)
+            foreach (DataRow row in dt.Rows)
+            {
+                item = new ComboBoxItem();
+                item.Value = row[dgss.doc_group_sub_id].ToString();
+                item.Text = row[dgss.doc_group_sub_name].ToString();
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+        }
+        public void setCboDGSS(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectAll();
+            int i = 0;
+            if (lDgssAll.Count <= 0) getlAll();
+            c.Items.Clear();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (DocGroupSubScan cus1 in lDgssAll)
             {
                 item = new ComboBoxItem();
                 item.Value = cus1.doc_group_sub_id;

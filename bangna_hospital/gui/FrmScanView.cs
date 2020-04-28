@@ -72,7 +72,7 @@ namespace bangna_hospital.gui
         {
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
-            bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
+            bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
 
             array1 = new ArrayList();
             lStream = new List<listStream>();

@@ -76,6 +76,7 @@ namespace bangna_hospital.gui
             btnHISSearch.Click += BtnHISSearch_Click;
             btnImport.Click += BtnImport_Click;
             btnLabOutViewDate.Click += BtnLabOutViewDate_Click;
+            txtHn.KeyUp += TxtHn_KeyUp;
 
             theme1.SetTheme(sb1, bc.iniC.themeApplication);
             theme1.SetTheme(tC1, bc.iniC.themeApplication);
@@ -97,6 +98,15 @@ namespace bangna_hospital.gui
             initGrfMas();
             setGrfMas();
             initGrfLabOutView();
+        }
+
+        private void TxtHn_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                setGrf();
+            }
         }
 
         private void BtnLabOutViewDate_Click(object sender, EventArgs e)
@@ -380,18 +390,20 @@ namespace bangna_hospital.gui
                 MemoryStream stream;
                 int bufferSize = 2048;
                 Stream ftpStream = null;
-                String dgssid = "", filename = "", ftphost = "", id = "", folderftp = "", datetick = "";
+                String dgssid = "", filename = "", ftphost = "", id = "", folderftp = "", datetick = "", ext="";
                 datetick = DateTime.Now.Ticks.ToString();
                 stream = new MemoryStream();
                 FtpWebRequest ftpRequest = null;
                 FtpWebResponse ftpResponse = null;
                 FtpClient ftpc = new FtpClient(dsc.host_ftp, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
 
+                filename = dsc.image_path;
+                ext = Path.GetExtension(filename);
                 stream = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path);
                 if (stream == null) return;
                 if (stream.Length == 0) return;
                 stream.Seek(0, SeekOrigin.Begin);
-                var fileStream = new FileStream("report\\" + datetick + ".pdf", FileMode.Create, FileAccess.Write);
+                var fileStream = new FileStream("report\\" + datetick + ext, FileMode.Create, FileAccess.Write);
                 stream.CopyTo(fileStream);
                 fileStream.Flush();
                 fileStream.Dispose();
@@ -409,7 +421,7 @@ namespace bangna_hospital.gui
                 webb.Dock = DockStyle.Fill;
                 webb.Name = "webBrowser1";
                 pn.Controls.Add(webb);
-                webb.Navigate(currentDirectory + "\\report\\" + datetick + ".pdf");
+                webb.Navigate(currentDirectory + "\\report\\" + datetick + ext);
 
                 frm.ShowDialog(this);
             }
@@ -1124,7 +1136,7 @@ namespace bangna_hospital.gui
         private void FrmlabOutReceiveView1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-03-11 ";
+            this.Text = "Last Update 2020-04-09 ";
             tC1.Font = fEdit;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel3, bc.iniC.themeApp);
