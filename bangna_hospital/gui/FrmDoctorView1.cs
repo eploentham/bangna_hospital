@@ -231,8 +231,7 @@ namespace bangna_hospital.gui
             tabQue.Controls.Add(pnQue);
             tabApm.Controls.Add(pnApm);
             tabFinish.Controls.Add(pnFinish);
-
-            
+                        
             pnHead.Controls.Add(lbDtrName);
             pnHead.Controls.Add(txtPttHn);
             pnHead.Controls.Add(btnHnSearch);
