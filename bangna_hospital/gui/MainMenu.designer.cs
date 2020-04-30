@@ -39,6 +39,7 @@
             this.menuScan = new System.Windows.Forms.ToolStripMenuItem();
             this.menuScanView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPrint = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuScanChk = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLab = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLabAccept = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLabOpu = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,7 @@
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
             this.PageS = new C1.Win.C1Command.C1DockingTabPage();
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
-            this.menuScanChk = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFMCode = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tCC1)).BeginInit();
             this.tCC1.SuspendLayout();
@@ -142,20 +143,26 @@
             // menuScan
             // 
             this.menuScan.Name = "menuScan";
-            this.menuScan.Size = new System.Drawing.Size(180, 22);
+            this.menuScan.Size = new System.Drawing.Size(162, 22);
             this.menuScan.Text = "Scan ใหม่";
             // 
             // menuScanView
             // 
             this.menuScanView.Name = "menuScanView";
-            this.menuScanView.Size = new System.Drawing.Size(180, 22);
+            this.menuScanView.Size = new System.Drawing.Size(162, 22);
             this.menuScanView.Text = "ดูข้อมูลเก่า Scan";
             // 
             // menuPrint
             // 
             this.menuPrint.Name = "menuPrint";
-            this.menuPrint.Size = new System.Drawing.Size(180, 22);
+            this.menuPrint.Size = new System.Drawing.Size(162, 22);
             this.menuPrint.Text = "พิมพ์เอกสาร";
+            // 
+            // menuScanChk
+            // 
+            this.menuScanChk.Name = "menuScanChk";
+            this.menuScanChk.Size = new System.Drawing.Size(162, 22);
+            this.menuScanChk.Text = "ตรวจสอบFile Scan";
             // 
             // menuLab
             // 
@@ -227,6 +234,7 @@
             this.menuInit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuDocGroup,
             this.menuDocGroupSub,
+            this.menuFMCode,
             this.menuPosi,
             this.lABToolStripMenuItem,
             this.convertPatientDonorToolStripMenuItem});
@@ -322,11 +330,11 @@
             // 
             this.theme1.Theme = "BeigeOne";
             // 
-            // menuScanChk
+            // menuFMCode
             // 
-            this.menuScanChk.Name = "menuScanChk";
-            this.menuScanChk.Size = new System.Drawing.Size(180, 22);
-            this.menuScanChk.Text = "ตรวจสอบFile Scan";
+            this.menuFMCode.Name = "menuFMCode";
+            this.menuFMCode.Size = new System.Drawing.Size(192, 22);
+            this.menuFMCode.Text = "รหัส FM CODE";
             // 
             // MainMenu
             // 
@@ -386,5 +394,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuPrint;
         private System.Windows.Forms.ToolStripMenuItem menuNurseScanView;
         private System.Windows.Forms.ToolStripMenuItem menuScanChk;
+        private System.Windows.Forms.ToolStripMenuItem menuFMCode;
     }
 }

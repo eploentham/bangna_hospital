@@ -252,6 +252,28 @@ def routeFM(XX, YY, IMG,HH,WW):
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='136' :
 			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='150' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='151' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='152' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='153' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='154' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='155' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='156' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='157' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='158' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='159' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='160' :
+			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='161' :
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='162' :
@@ -292,6 +314,46 @@ def routeFM(XX, YY, IMG,HH,WW):
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='199' :
 			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='200' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='201' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='202' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='203' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='204' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='205' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='206' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='207' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='208' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='209' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='210' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='211' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='212' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='213' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='214' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='215' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='216' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='217' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='218' :
+			chk1 = True
+		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2]=='219' :
+			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2].upper()=='06C' :
 			chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='NUR' and fm[2].upper()=='O6C' :
@@ -308,6 +370,8 @@ def routeFM(XX, YY, IMG,HH,WW):
 			elif fm[2][:3]=='039':
 				chk1 = True
 			elif fm[2][:3]=='050':
+				chk1 = True
+			elif fm[2][:3]=='007':
 				chk1 = True
 		elif len(fm)>=3 and fm[0]=='FM' and fm[1]=='MED' and fm[2]=='001' :
 			chk1 = True
@@ -531,7 +595,7 @@ dataDB="bn5_scan"
 #conn = pymssql.connect('Driver={SQL Server};Server='+serverName+';Database='+dataDB+';;UID='+userDB+';PWD='+passDB+';Trusted_Connection=yes;')
 conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
 cur = conn.cursor()
-sql = "Select top (1000) * From doc_scan where status_ml is null and doc_scan_id > 1000061000 Order By doc_scan_id"
+sql = "Select top (1000) * From doc_scan where doc_scan_id > 1000061000 and status_ml is null and status_record = '1' and active = '1' and status_ftpfile_notfound is null  Order By doc_scan_id"
 cur.execute(sql)
 myresult = cur.fetchall()
 print('ok1')
@@ -557,6 +621,30 @@ for res in myresult:
 	#ftpfilename = '//sharedfolders//'+res[22]+'//'+res[4]
 	ftpfilename = '//'+res[22]+'//'+res[4]
 	print('res[22] '+res[22]+' res[4] '+res[4]+" start date "+startdate)
+	#print('res[22] '+res[22]+' res[4] '+res[4]+" start date "+startdate)
+	#print(ftpfilename)
+	#ftp.put_passive(True)
+	filename = 'c:\\temp\\'+timestamp+'.jpg'
+	sizeftpfile = 0
+	print('res[4] '+res[4])
+	listres = res[4].split('//')
+	fileexit=''
+	if len(listres) > 0:
+		#print('listres '+listres[0])
+		#print(listres[1])
+		#print('listres[2] '+listres[2])
+		ftp.cwd('//'+res[22]+'//'+res[5]+'//'+listres[1])
+		nitems = ftp.nlst()
+		for item in nitems:
+			#print('item '+str(item)+' listres[2] '+listres[2])
+			#print('listres[2] '+listres[2])
+			if item == listres[2]:
+				fileexit='OK'
+				print('found OK')
+				break
+	#print('nitems '+str(nitems))
+	if fileexit != 'OK':
+		continue
 	#print(ftpfilename)
 	#ftp.put_passive(True)
 	filename = 'd:\\temp\\'+timestamp+'.jpg'
@@ -637,7 +725,7 @@ for res in myresult:
 			#crop_img = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
 			#crop_img = cv2.cvtColor(img[yy-int(h): yy, xx:xx+w], cv2.COLOR_BGR2GRAY)
 			#print("For y ")
-			print('xx[' + str(xx)+'] yy['+str(yy)+'] y['+ str(y)+'] res[22] '+res[22]+' res[4] '+res[4])
+			print('xx[' + str(xx)+'] yy['+str(yy)+'] y['+ str(y)+'] res[22] '+res[22]+' res[4] '+res[4]+' '+filename)
 			#cv2.imshow('img', crop_img)
 			#cv2.waitKey()
 			#txt = pytesseract.image_to_string(cv2.cvtColor(img[yy-int(h): yy, xx:xx+w], cv2.COLOR_BGR2GRAY),lang='eng')

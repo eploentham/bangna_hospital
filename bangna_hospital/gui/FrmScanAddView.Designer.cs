@@ -41,7 +41,7 @@
             this.txtVN = new C1.Win.C1Input.C1TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cboDgs = new C1.Win.C1Input.C1ComboBox();
-            this.txtNameFeMale = new C1.Win.C1Input.C1TextBox();
+            this.txtPttName = new C1.Win.C1Input.C1TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.pnImg = new System.Windows.Forms.Panel();
@@ -56,7 +56,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtNameFeMale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             this.pnImg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
@@ -78,7 +78,7 @@
             this.groupBox1.Controls.Add(this.txtVN);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cboDgs);
-            this.groupBox1.Controls.Add(this.txtNameFeMale);
+            this.groupBox1.Controls.Add(this.txtPttName);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtHn);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -260,18 +260,18 @@
             this.cboDgs.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
-            // txtNameFeMale
+            // txtPttName
             // 
-            this.txtNameFeMale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNameFeMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtNameFeMale.Location = new System.Drawing.Point(201, 13);
-            this.txtNameFeMale.Name = "txtNameFeMale";
-            this.txtNameFeMale.Size = new System.Drawing.Size(287, 20);
-            this.txtNameFeMale.TabIndex = 541;
-            this.txtNameFeMale.Tag = null;
-            this.theme1.SetTheme(this.txtNameFeMale, "(default)");
-            this.txtNameFeMale.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtNameFeMale.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtPttName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPttName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttName.Location = new System.Drawing.Point(201, 13);
+            this.txtPttName.Name = "txtPttName";
+            this.txtPttName.Size = new System.Drawing.Size(287, 20);
+            this.txtPttName.TabIndex = 541;
+            this.txtPttName.Tag = null;
+            this.theme1.SetTheme(this.txtPttName, "(default)");
+            this.txtPttName.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtPttName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // label4
             // 
@@ -357,7 +357,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FrmScanAddView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FrmScanView";
+            this.Text = "FrmScanAddView";
             this.Load += new System.EventHandler(this.FrmScanView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -368,7 +368,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtNameFeMale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             this.pnImg.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).EndInit();
@@ -386,7 +386,7 @@
         private C1.Win.C1Input.C1TextBox txtVN;
         private System.Windows.Forms.Label label1;
         private C1.Win.C1Input.C1ComboBox cboDgs;
-        private C1.Win.C1Input.C1TextBox txtNameFeMale;
+        private C1.Win.C1Input.C1TextBox txtPttName;
         private System.Windows.Forms.Label label4;
         private C1.Win.C1Input.C1TextBox txtHn;
         private System.Windows.Forms.Panel pnImg;

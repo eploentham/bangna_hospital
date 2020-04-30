@@ -83,6 +83,7 @@ def routeFM(XX, YY, IMG,HH,WW):
 		fm = txt.split('-')
 		#txt1 = txt
 
+
 		if fm[1] == 'NUR' and chk1 = False
 			if chkPHA(txtFM)
 				chk1 = True
@@ -106,6 +107,31 @@ def routeFM(XX, YY, IMG,HH,WW):
 				chk1 = True
 		elif fm[1] == 'REG' and chk1 = False
 			if chkPHA(txtFM)
+
+		print('len(fm) ',len(fm))
+		if len(fm)==3 and chk1 == False and fm[1] == 'NUR':
+			if (chkPHA(fm[2])):
+				chk1 = True
+		elif len(fm)==3 and chk1 == False and fm[1] == 'ORD':
+			if (chkPHA(fm[2])):
+				chk1 = True
+		elif len(fm)==3 and chk1 == False and fm[1] == 'PHA':
+			if (chkPHA(fm[2])):
+				chk1 = True
+		elif len(fm)==3 and chk1 == False and fm[1] == 'XRT':
+			if (chkPHA(fm[2])):
+				chk1 = True
+		elif len(fm)==3 and chk1 == False and fm[1] == 'AMS':
+			if (chkPHA(fm[2])):
+				chk1 = True
+		elif len(fm)==3 and chk1 == False and fm[1] == 'LAB':
+			if (chkPHA(fm[2])):
+				chk1 = True
+		elif len(fm)==3 and chk1 == False and fm[1] == 'MED':
+			if (chkPHA(fm[2])):
+				chk1 = True
+		elif len(fm)==3 and chk1 == False and fm[1] == 'REG':
+			if (chkPHA(fm[2])):
 				chk1 = True
 
 		if len(fm)==1:
@@ -181,7 +207,9 @@ dataDB="bn5_scan"
 #conn = pymssql.connect('Driver={SQL Server};Server='+serverName+';Database='+dataDB+';;UID='+userDB+';PWD='+passDB+';Trusted_Connection=yes;')
 conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
 cur = conn.cursor()
-sql = "Select top (3000) * From doc_scan where doc_scan_id >= 1000000000 and doc_scan_id <= 1000030000 and status_ml = '1' and active = '1' and status_record = '1' Order By doc_scan_id"
+
+sql = "Select top (3000) * From doc_scan where doc_scan_id >= 1000030000 and doc_scan_id <= 1000060000 and status_ml = '1' and active = '1' and status_record = '1' Order By doc_scan_id"
+
 cur.execute(sql)
 myresult = cur.fetchall()
 print('ok1')

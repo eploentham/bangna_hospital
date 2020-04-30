@@ -61,6 +61,7 @@ namespace bangna_hospital.objdb
             dsc.req_id = "req_id";
             dsc.patient_fullname = "patient_fullname";
             dsc.status_record = "status_record";
+            dsc.sort1 = "sort1";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -103,6 +104,7 @@ namespace bangna_hospital.objdb
                 itm1.req_id = row[dsc.req_id].ToString();
                 itm1.patient_fullname = row[dsc.patient_fullname].ToString();
                 itm1.status_record = row[dsc.status_record].ToString();
+                itm1.sort1 = row[dsc.sort1].ToString();
                 lDgs.Add(itm1);
             }
         }
@@ -218,11 +220,11 @@ namespace bangna_hospital.objdb
             {
                 if (dateend.Length > 0)
                 {
-                    wheredateend = " dsc." + dsc.date_create + " <='" + dateend + "' ";
+                    wheredateend = " dsc." + dsc.date_create + " <='" + dateend + " 23:59:59' ";
                 }
                 if (datestart.Length > 0)
                 {
-                    wheredatestart = " dsc." + dsc.date_create + " >='" + datestart + "' ";
+                    wheredatestart = " dsc." + dsc.date_create + " >='" + datestart + " 00:00:00' ";
                 }
                 if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
                 {
@@ -455,7 +457,7 @@ namespace bangna_hospital.objdb
                 "From " + dsc.table + " dsc " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dsc." + dsc.hn + " ='" + hn + "' and dsc."+dsc.vn+"='"+vn+"' and dsc."+dsc.visit_date + "='"+vsDate+"' and dsc."+dsc.active+"='1' " +
-                "Order By doc_group_id ";
+                "Order By sort1 ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -468,7 +470,7 @@ namespace bangna_hospital.objdb
                 "From " + dsc.table + " dsc " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' " +
-                "Order By doc_group_id ";
+                "Order By sort1 ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -556,6 +558,7 @@ namespace bangna_hospital.objdb
             p.pic_before_scan_cnt = long.TryParse(p.pic_before_scan_cnt, out chk) ? chk.ToString() : "0";
             
             p.status_record = int.TryParse(p.status_record, out chk1) ? chk1.ToString() : "0";
+            p.sort1 = int.TryParse(p.sort1, out chk1) ? chk1.ToString() : "0";
         }
         public String insertScreenCapture(DocScan p, String userId)
         {
@@ -774,7 +777,7 @@ namespace bangna_hospital.objdb
             {
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.conn;
-                conn.comStore.CommandText = "insert_doc_scan_v3";
+                conn.comStore.CommandText = "insert_doc_scan_v31";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
                 conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
@@ -961,6 +964,50 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+        public String updateFMCode(String id, String fmcode)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.ml_fm + " = '" + fmcode + "'" +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateSort " + sql);
+            }
+
+            return re;
+        }
+        public String updateSort(String id, String sort1)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.sort1 + " = '"+ sort1 + "'" +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateSort " + sql);
+            }
+
+            return re;
+        }
         public DocScan setDocScan(DataTable dt)
         {
             DocScan dgs1 = new DocScan();
@@ -991,6 +1038,8 @@ namespace bangna_hospital.objdb
                 dgs1.folder_ftp = dt.Rows[0][dsc.folder_ftp].ToString();
                 dgs1.status_version = dt.Rows[0][dsc.status_version].ToString();
                 dgs1.pic_before_scan_cnt = dt.Rows[0][dsc.pic_before_scan_cnt].ToString();
+                dgs1.status_record = dt.Rows[0][dsc.status_record].ToString();
+                dgs1.sort1 = dt.Rows[0][dsc.sort1].ToString();
             }
             else
             {
@@ -1025,6 +1074,8 @@ namespace bangna_hospital.objdb
             dgs1.folder_ftp = "";
             dgs1.status_version = "";
             dgs1.pic_before_scan_cnt = "";
+            dgs1.status_record = "";
+            dgs1.sort1 = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

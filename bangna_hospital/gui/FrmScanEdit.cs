@@ -24,7 +24,21 @@ namespace bangna_hospital.gui
         C1ThemeController theme1;
         Panel panel1, pnHead, pnBotton;
         Label lbTxtPttHn;
+        C1TextBox txtPttHn;
+        C1Button btnSave;
 
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // FrmScanEdit
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "FrmScanEdit";
+            this.Load += new System.EventHandler(this.FrmScanEdit_Load);
+            this.ResumeLayout(false);
+
+        }
         public FrmScanEdit(BangnaControl bc)
         {
             showFormWaiting();
@@ -87,6 +101,10 @@ namespace bangna_hospital.gui
             picFlash.ResumeLayout();
             frmFlash.Show();
             Application.DoEvents();
+        }
+        private void FrmScanEdit_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

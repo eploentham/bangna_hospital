@@ -66,6 +66,15 @@ namespace bangna_hospital.gui
             menuPrint.Click += MenuPrint_Click;
             menuNurseScanView.Click += MenuNurseScanView_Click;
             menuScanChk.Click += MenuScanChk_Click1;
+            menuFMCode.Click += MenuFMCode_Click;
+        }
+
+        private void MenuFMCode_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmDocGroupFm frm = new FrmDocGroupFm(bc);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            AddNewTab(frm, menuFMCode.Text + " ");
         }
 
         private void MenuScanChk_Click1(object sender, EventArgs e)
@@ -246,7 +255,7 @@ private void MenuScanChk_Click(object sender, EventArgs e)
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2020-01-30 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2020-04-28 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //sb1.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //theme1.SetTheme(this, ic.theme);
             theme1.SetTheme(this, bc.theme);

@@ -374,13 +374,21 @@ namespace bangna_hospital.control
                         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-us")
                         {
                             DateTimeFormat =
-                        {
-                            DateSeparator = "-"
-                        }
+                            {
+                                DateSeparator = "-"
+                            }
                         };
                         if (DateTime.TryParse(dt, out dt1))
                         {
-                            re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
+                            
+                            if (dt1.Year > 2500)
+                            {
+                                re = (dt1.Year -543).ToString() + "-" + dt1.ToString("MM-dd");
+                            }
+                            else
+                            {
+                                re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
+                            }
                         }
                         else
                         {
@@ -736,7 +744,7 @@ namespace bangna_hospital.control
 
             }
         }
-        public PACsMSH genPAsMSH(String reqdept)
+        public PACsMSH genPAsMSH(String reqdept, String MessageType)
         {
             PACsMSH msh = new PACsMSH();
             msh.FieldSeparator = "";
@@ -747,7 +755,8 @@ namespace bangna_hospital.control
             msh.ReceivingFacility = "";
             msh.DateTimeOfMessage = DateTime.Now.Year+DateTime.Now.ToString("MMddHHmmss");
             msh.Security = "";
-            msh.MessageType = "ADT^A08";
+            //msh.MessageType = "ADT^A08";
+            msh.MessageType = MessageType;
             msh.MessageControlID = "331950";
             msh.ProcessingID = "P";
             msh.VersionID = "2.3";
@@ -811,12 +820,12 @@ namespace bangna_hospital.control
 
             return pid;
         }
-        public PACsPV1 genPV1()
+        public PACsPV1 genPV1(String opdtype, String depcode, String depname)
         {
             PACsPV1 pv1 = new PACsPV1();
             pv1.SetID = "";
-            pv1.PatientClass = "";
-            pv1.AssignedPatientLocation = "";
+            pv1.PatientClass = opdtype;
+            pv1.AssignedPatientLocation = depcode+"^"+ depname;
             pv1.AdmissionType = "";
             pv1.PreadmitNumber = "";
             pv1.PriorPatientLocation = "";
@@ -883,7 +892,164 @@ namespace bangna_hospital.control
             EVN = "EVN" + separate + evn.EventTypeCode + separate + evn.RecordedDateTime + separate + evn.DateTimePlannedEvent + separate + evn.EventReasonCode
                 + separate + evn.OperatorID + separate + evn.EventOccurred;
 
-            PID = "EVN" + separate + pid.SetID + separate + pid.PatientID + separate + pid.PatientIdentifierList + separate + pid.AlternatePatientID
+            PID = "PID" + separate + pid.SetID + separate + pid.PatientID + separate + pid.PatientIdentifierList + separate + pid.AlternatePatientID
+                + pid.PatientName + separate + pid.MothersMaidenName + separate + pid.DateTimeOfBirth + separate + pid.Sex
+                + pid.PatientAlias + separate + pid.Race + separate + pid.PatientAddress + separate + pid.CountyCode
+                + pid.HomePhoneNumber + separate + pid.BusinessPhoneNumber + separate + pid.PrimaryLanguage + separate + pid.MaritalStatus
+                + pid.Religion + separate + pid.PatientAccountNumber + separate + pid.SSNNumber + separate + pid.DriversLicenseNumber
+                + pid.MothersIdentifier + separate + pid.EthnicGroup + separate + pid.BirthPlace + separate + pid.MultipleBirthIndicator
+                + pid.BirthOrder + separate + pid.Citizenship + separate + pid.VeteransMilitaryStatus + separate + pid.Nationality
+                + pid.PatientDeathDateAndTime + separate + pid.PatientDeathIndicator;
+
+            PV1 = "PV1" + separate + pv1.SetID + separate + pv1.PatientClass + separate + pv1.AssignedPatientLocation + separate + pv1.AdmissionType
+                + separate + pv1.PreadmitNumber + separate + pv1.PriorPatientLocation + separate + pv1.AttendingDoctor + separate + pv1.ReferringDoctor
+                + separate + pv1.ConsultingDoctor + separate + pv1.HospitalService + separate + pv1.TemporaryLocation + separate + pv1.PreadmitTestIndicator
+                + separate + pv1.ReadmissionIndicator + separate + pv1.AdmitSource + separate + pv1.AmbulatoryStatus + separate + pv1.VIPIndicator
+                + separate + pv1.AdmittingDoctor + separate + pv1.PatientType + separate + pv1.VisitNumber + separate + pv1.FinancialClass
+                + separate + pv1.ChargePriceIndicator + separate + pv1.CourtesyCode + separate + pv1.CreditRating + separate + pv1.ContractCode
+                + separate + pv1.ContractEffectiveDate + separate + pv1.ContractAmount + separate + pv1.ContractPeriod + separate + pv1.InterestCode
+                + separate + pv1.TransferToBadDebtCode + separate + pv1.TransferToBadDebtDate + separate + pv1.BadDebtAgencyCode + separate + pv1.BadDebtTransferAmount
+                + separate + pv1.BadDebtRecoveryAmount + separate + pv1.DeleteAccountIndicator + separate + pv1.DeleteAccountDate + separate + pv1.DischargeDisposition
+                + separate + pv1.DischargedToLocation + separate + pv1.DietType + separate + pv1.ServicingFacility + separate + pv1.BedStatus
+                + separate + pv1.AccountStatus + separate + pv1.PendingLocation + separate + pv1.PriorTemporaryLocation + separate + pv1.AdmitDateTime
+                + separate + pv1.DischargeDateTime + separate + pv1.CurrentPatientBalance + separate + pv1.TotalCharges + separate + pv1.TotalAdjustments
+                + separate + pv1.TotalPayments + separate + pv1.AlternateVisitID + separate + pv1.VisitIndicator + separate + pv1.OtherHealthcareProvider;
+            txt = txt + MSH + Environment.NewLine + EVN + Environment.NewLine + PID + Environment.NewLine + PV1;
+            return txt;
+        }
+        public String genADT(String reqdept, String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation, String opdtype, String depcode, String depname)
+        {
+            String txt = "";
+            PACsMSH msh = new PACsMSH();
+            PACsPID pid = new PACsPID();
+            PACsEVN evn = new PACsEVN();
+            PACsPV1 pv1 = new PACsPV1();
+            msh = genPAsMSH(reqdept, "ADT^A08");
+            pid = genPACsPID(hn, pttprefix, pttfirstname, pttlastame, dob, sex, nation);
+            pv1 = genPV1(opdtype, depcode, depname);
+            evn = genPACsEVN();
+
+            txt = PACsADT(msh, evn, pid, pv1);
+            return txt;
+        }
+        public PACsORC genORC(String xrayyear, String reqno, String xraycode, String userid, String username)
+        {
+            String code = "";
+            code = bcDB.xrDB.selectPACsInfinittCode(xraycode);
+            PACsORC orc = new PACsORC();
+            orc.OrderControl = "NW";
+            orc.PlacerOrderNumber = xrayyear+ reqno+ code;
+            orc.FillerOrderNumber = "";
+            orc.PlacerGroupNumber = "";
+            orc.OrderStatus = "SC";
+            orc.ResponseFlag = "";
+            orc.QuantityTiming = "";
+            orc.Parent = "";
+
+            orc.DateTimeOfTransaction = DateTime.Now.Year + DateTime.Now.ToString("MMddHHmmss");
+            orc.EnteredBy = userid+"^"+ username;
+            orc.VerifiedBy = "";
+            orc.OrderingProvider = userid + "^" + username;
+            orc.EnterersLocation = "";
+            orc.CallBackPhoneNumber = "";
+            orc.OrderEffectiveDateTime = DateTime.Now.Year + DateTime.Now.ToString("MMddHHmmss");
+            orc.OrderControlCodeReason = "";
+
+            orc.EnteringOrganization = "";
+            orc.EnteringDevice = "";
+            orc.ActionBy = "";
+            orc.AdvancedBeneficiaryNoticeCode = "";
+            orc.OrderingFacilityName = "";
+            orc.OrderingFacilityAddress = "";
+            orc.OrderingFacilityPhoneNumber = "";
+            orc.OrderingProviderAddress = "";
+            return orc;
+        }
+        public PACsOBR genOBR(String xrayyear, String reqno, String xraycode,String xrayname, String xraytype, String userid, String username)
+        {
+            PACsOBR obr = new PACsOBR();
+            obr.SetID = "";
+            obr.PlacerOrderNumber = "";
+            obr.FillerOrderNumber = "";
+            String code = "";
+            code = bcDB.xrDB.selectPACsInfinittCode(xraycode);
+            obr.UniversalServiceID = code + "^"+ xrayname;
+            obr.Priority = "";
+            obr.RequestedDateTime = "";
+            obr.ObservationDateTime = "";
+            obr.ObservationEndDateTime = "";
+
+            obr.CollectionVolume = "";
+            obr.CollectorIdentifier = "";
+            obr.SpecimenActionCode = "";
+            obr.DangerCode = "";
+            obr.RelevantClinicalInfo = "";
+            obr.SpecimenReceivedDateTime = "";
+            obr.SpecimenSource = "";
+            obr.OrderingProvider = userid + "^" + username;
+
+            obr.OrderCallbackPhoneNumber = "";
+            obr.PlacerField1 = xrayyear + reqno + code;
+            obr.PlacerField2 = "RP"+ xrayyear + reqno + code;
+            obr.FillerField1 = "SS" + xrayyear + reqno + code;
+            obr.FillerField2 = "";
+            obr.ResultsRptStatusChngDateTime = "";
+            obr.ChargeToPractice = "";
+            obr.DiagnosticServSectID = "CR";
+            obr.ResultStatus = xraytype;
+            obr.ParentResult = "";
+            obr.QuantityTiming = "";
+            obr.ResultCopiesTo = "";
+
+            obr.ParentNumber = "";
+            obr.TransportationMode = "";
+            obr.ReasonForStudy = "";
+            obr.PrincipalResultInterpreter = "";
+            obr.AssistantResultInterpreter = "";
+            obr.Technician = "";
+            obr.Transcriptionist = "";
+            obr.ScheduledDateTime = "";
+            obr.NumberOfSampleContainers = "";
+            obr.TransportLogisticsOfCollectedSample = "";
+            obr.CollectorsComment = "";
+            obr.TransportArrangementResponsibility = "";
+            obr.TransportArranged = "";
+            obr.EscortRequired = "A";
+            obr.PlannedPatientTransportComment = "";
+            obr.ProcedureCode = "";
+            obr.ProcedureCodeModifier = code + "^" + xrayname;
+            return obr;
+        }
+        public PACsZDS genZDS(String xrayyear, String reqno, String xraycode, String modality)
+        {
+            String code = "";
+            code = bcDB.xrDB.selectPACsInfinittCode(xraycode);
+            PACsZDS zds = new PACsZDS();
+            zds.ZDS_Field1 = "1.2.410.2000010.66.101." + xrayyear + reqno + code;
+            zds.ZDS_Field2 ="";
+            zds.ZDS_Field3 ="";
+            zds.ZDS_Field4 ="";
+            zds.ZDS_Field5 ="";
+            zds.ZDS_Field6 ="";
+            zds.ZDS_Field7 ="";
+            zds.ZDS_Field8 ="";
+            zds.ZDS_Field9 ="";
+            zds.ZDS_Field10 = "";
+
+            return zds;
+        }
+        public String PACsORM(PACsMSH msh, PACsPID pid, PACsPV1 pv1, PACsORC orc, PACsOBR obr, PACsZDS zds)
+        {
+            String txt = "", MSH = "", separate = "|", PID = "", PV1 = "", ORC = "", OBR = "", ZDS = "";
+            txt = "\x0b";
+
+            MSH = "MSH" + separate + msh.EncodingCharacters + separate + msh.SendingApplication + separate + msh.SendingFacility + separate + msh.ReceivingApplication
+                + separate + msh.ReceivingFacility + separate + msh.DateTimeOfMessage + separate + msh.Security + separate + msh.MessageType
+                + separate + msh.MessageControlID + separate + msh.ProcessingID + separate + msh.VersionID + separate + msh.SequenceNumber
+                + separate + msh.ContinuationPointer + separate + msh.AcceptAcknowledgementType + separate + msh.ApplicationAcknowledgementType + separate + msh.CountryCode
+                + separate + msh.CharacterSet + separate + msh.PrincipalLanguageOfMessage + separate + msh.AlternateCharacterSetHandlingScheme;
+            
+            PID = "PID" + separate + pid.SetID + separate + pid.PatientID + separate + pid.PatientIdentifierList + separate + pid.AlternatePatientID
                 + pid.PatientName + separate + pid.MothersMaidenName + separate + pid.DateTimeOfBirth + separate + pid.Sex
                 + pid.PatientAlias + separate + pid.Race + separate + pid.PatientAddress + separate + pid.CountyCode
                 + pid.HomePhoneNumber + separate + pid.BusinessPhoneNumber + separate + pid.PrimaryLanguage + separate + pid.MaritalStatus
@@ -906,21 +1072,52 @@ namespace bangna_hospital.control
                 + separate + pv1.DischargeDateTime + separate + pv1.CurrentPatientBalance + separate + pv1.TotalCharges + separate + pv1.TotalAdjustments
                 + separate + pv1.TotalPayments + separate + pv1.AlternateVisitID + separate + pv1.VisitIndicator + separate + pv1.OtherHealthcareProvider;
 
+            ORC = "ORC" + separate + orc.OrderControl + separate + orc.PlacerOrderNumber + separate + orc.FillerOrderNumber + separate + orc.PlacerGroupNumber + separate
+                + orc.OrderStatus + separate + orc.ResponseFlag + separate + orc.QuantityTiming + separate + orc.Parent + separate
+                + orc.DateTimeOfTransaction + separate + orc.EnteredBy + separate + orc.VerifiedBy + separate + orc.OrderingProvider + separate
+                + orc.EnterersLocation + separate + orc.CallBackPhoneNumber + separate + orc.OrderEffectiveDateTime + separate + orc.OrderControlCodeReason + separate
+                + orc.EnteringOrganization + separate + orc.EnteringDevice + separate + orc.ActionBy + separate + orc.AdvancedBeneficiaryNoticeCode + separate
+                + orc.OrderingFacilityName + separate + orc.OrderingFacilityAddress + separate + orc.OrderingFacilityPhoneNumber + separate + orc.OrderingProviderAddress;
+
+            OBR = "OBR" + separate + obr.SetID + separate + obr.PlacerOrderNumber + separate + obr.FillerOrderNumber + separate + obr.UniversalServiceID + separate
+                + obr.Priority + separate + obr.RequestedDateTime + separate + obr.ObservationDateTime + separate + obr.ObservationEndDateTime + separate
+                + obr.CollectionVolume + separate + obr.CollectorIdentifier + separate + obr.SpecimenActionCode + separate + obr.DangerCode + separate
+                + obr.RelevantClinicalInfo + separate + obr.SpecimenReceivedDateTime + separate + obr.SpecimenSource + separate + obr.OrderingProvider + separate
+                + obr.OrderCallbackPhoneNumber + separate + obr.PlacerField1 + separate + obr.PlacerField2 + separate + obr.FillerField1 + separate
+                + obr.FillerField2 + separate + obr.ResultsRptStatusChngDateTime + separate + obr.ChargeToPractice + separate + obr.DiagnosticServSectID + separate
+                + obr.ResultStatus + separate + obr.ParentResult + separate + obr.QuantityTiming + separate + obr.ResultCopiesTo + separate
+                + obr.ParentNumber + separate + obr.TransportationMode + separate + obr.ReasonForStudy + separate + obr.PrincipalResultInterpreter + separate
+                + obr.AssistantResultInterpreter + separate + obr.Technician + separate + obr.Transcriptionist + separate + obr.ScheduledDateTime + separate
+                + obr.NumberOfSampleContainers + separate + obr.TransportLogisticsOfCollectedSample + separate + obr.CollectorsComment + separate + obr.TransportArrangementResponsibility + separate
+                + obr.TransportArranged + separate + obr.EscortRequired + separate + obr.PlannedPatientTransportComment + separate + obr.ProcedureCode
+                + obr.ProcedureCodeModifier;
+
+            ZDS = "ZDS" + separate + zds.ZDS_Field1 + separate + zds.ZDS_Field2 + separate + zds.ZDS_Field3 + separate + zds.ZDS_Field4 + separate
+                + zds.ZDS_Field5 + separate + zds.ZDS_Field6 + separate + zds.ZDS_Field7 + separate + zds.ZDS_Field8 + separate
+                + zds.ZDS_Field9 + separate + zds.ZDS_Field10;
+
+            txt = txt + MSH + Environment.NewLine + PID + Environment.NewLine + PV1 + Environment.NewLine + ORC + Environment.NewLine + OBR + Environment.NewLine + ZDS+ "\x0c";
             return txt;
         }
-        public String genADT(String reqdept, String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation)
+        public String genORM(String reqdept, String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation
+            , String xrayyear, String reqno, String xraycode, String xrayname, String xraytype, String userid, String username, String modality
+            , String opdtype, String depcode, String depname)
         {
             String txt = "";
             PACsMSH msh = new PACsMSH();
             PACsPID pid = new PACsPID();
-            PACsEVN evn = new PACsEVN();
             PACsPV1 pv1 = new PACsPV1();
-            msh = genPAsMSH(reqdept);
-            pid = genPACsPID(hn, pttprefix, pttfirstname, pttlastame, dob, sex, nation);
-            pv1 = genPV1();
-            evn = genPACsEVN();
 
-            txt = PACsADT(msh, evn, pid, pv1);
+            PACsORC orc = new PACsORC();
+            PACsOBR obr = new PACsOBR();
+            PACsZDS zds = new PACsZDS();
+            msh = genPAsMSH(reqdept, "ORM^O01");
+            pid = genPACsPID(hn, pttprefix, pttfirstname, pttlastame, dob, sex, nation);
+            pv1 = genPV1(opdtype, depcode, depname);
+            orc = genORC(xrayyear, reqno, xraycode, userid, username);
+            obr = genOBR(xrayyear, reqno, xraycode, xrayname, xraytype, userid, username);
+            zds = genZDS(xrayyear, reqno, xraycode, modality);
+            txt = PACsORM(msh, pid, pv1, orc, obr, zds);
             return txt;
         }
     }

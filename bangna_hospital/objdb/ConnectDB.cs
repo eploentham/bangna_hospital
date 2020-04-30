@@ -102,6 +102,36 @@ namespace bangna_hospital.objdb
 
             return toReturn;
         }
+        public DataTable selectStoreProcedure(SqlCommand comMainhis)
+        {
+            DataTable toReturn = new DataTable();
+            comMainhis.Connection = connMainHIS;
+            //SqlCommand comMainhis = new SqlCommand();
+            //comMainhis.CommandText = storename;
+            //comMainhis.CommandType = CommandType.StoredProcedure;
+            //comMainhis.Connection = connMainHIS;
+            //comMainhis.Parameters.Add("@CustomerId", SqlDbType.Int).Value = customerId;
+            //comMainhis.Parameters.Add("@Qid", SqlDbType.VarChar).Value = qid;
+            SqlDataAdapter adapMainhis = new SqlDataAdapter(comMainhis);
+            try
+            {
+                connMainHIS.Open();
+                adapMainhis.Fill(toReturn);
+                //return toReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            finally
+            {
+                connMainHIS.Close();
+                comMainhis.Dispose();
+                adapMainhis.Dispose();
+            }
+
+            return toReturn;
+        }
         public DataTable selectData(String sql)
         {
             DataTable toReturn = new DataTable();

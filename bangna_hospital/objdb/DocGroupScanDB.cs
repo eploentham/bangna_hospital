@@ -34,7 +34,7 @@ namespace bangna_hospital.objdb
             dgs.table = "doc_group_scan";
             dgs.pkField = "doc_group_id";
         }
-        public void getlBsp()
+        public void getlDgs()
         {
             //lDept = new List<Position>();
 
@@ -207,12 +207,12 @@ namespace bangna_hospital.objdb
             dgs1.status_opd = "";
             return dgs1;
         }
-        public void setCboBsp(C1ComboBox c, String selected)
+        public void setCboDgs(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
             //DataTable dt = selectAll();
             int i = 0;
-            if (lDgs.Count <= 0) getlBsp();
+            if (lDgs.Count <= 0) getlDgs();
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";

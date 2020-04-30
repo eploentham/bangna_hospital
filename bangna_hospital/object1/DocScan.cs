@@ -43,5 +43,6 @@ namespace bangna_hospital.object1
         public String patient_fullname { get; set; }
         public String status_record { get; set; }
         public String comp_labout_id { get; set; }
+        public String sort1 { get; set; }
     }
 }
