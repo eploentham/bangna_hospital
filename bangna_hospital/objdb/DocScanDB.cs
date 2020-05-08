@@ -133,6 +133,12 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectPicByHn(string hn)
+        {
+            DocScan docScan = new DocScan();
+            DataTable dataTable = new DataTable();
+            return this.conn.selectData(this.conn.conn, "select dsc.* From " + this.dsc.table + " dsc Where dsc." + this.dsc.hn + " ='" + hn + "' and dsc." + this.dsc.active + "='1' and dsc.status_record = '4' Order By dsc.sort1,dsc.doc_scan_id ");
+        }
         public DataTable selectByHnDeptUS(String id)
         {
             //DocScan cop1 = new DocScan();
@@ -145,6 +151,12 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
+        }
+        public DataTable selectBySortID(string hn, string an, string sort1)
+        {
+            DocScan docScan = new DocScan();
+            DataTable dataTable = new DataTable();
+            return this.conn.selectData(this.conn.conn, "select dsc.* From " + this.dsc.table + " dsc Where dsc." + this.dsc.hn + " ='" + hn + "' and dsc." + this.dsc.an + "='" + an + "' and dsc." + this.dsc.active + "='1' and dsc." + this.dsc.sort1 + " in (" + sort1 + ") Order By dsc." + this.dsc.sort1);
         }
         public DataTable selectDistByDateCrate(String datestart, String dateend)
         {

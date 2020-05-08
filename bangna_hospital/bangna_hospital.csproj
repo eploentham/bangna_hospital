@@ -378,6 +378,11 @@
     <Compile Include="object1\Visit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="report\result_lab.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>result_lab.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmScanView2.resx">
       <DependentUpon>FrmScanView2.cs</DependentUpon>
     </EmbeddedResource>
@@ -508,10 +513,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="report\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="report\result_lab.xsc">
+      <DependentUpon>result_lab.xsd</DependentUpon>
+    </None>
+    <None Include="report\result_lab.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>result_lab.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="report\result_lab.xss">
+      <DependentUpon>result_lab.xsd</DependentUpon>
+    </None>
     <None Include="Resources\698929.png" />
   </ItemGroup>
   <ItemGroup>

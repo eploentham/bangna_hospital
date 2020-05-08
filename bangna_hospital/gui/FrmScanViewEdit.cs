@@ -107,21 +107,40 @@ namespace bangna_hospital.gui
 
         private void setControl()
         {
-            dgs = bc.bcDB.dscDB.selectByPk(dscid);
-            bc.bcDB.dgssDB.setCboDGSS(cboDgss, "");
-            bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
-            txtID.Value = dgs.doc_scan_id;
-            txtHn.Value = hn;
-            txtVN.Value = dgs.vn;
-            txtAn.Value = dgs.an;
-            txtPttName.Value = name;
-            txtVisitDate.Value = visitDate;
-            txtSort1.Value = dgs.sort1;
-            txtFmCode.Value = dgs.ml_fm;
-            //bc.setC1Combo(cboDgs, dgs);
-            pic1.Image = img1;
-            btnSaveFmCode.Hide();
-            btnVoid.Hide();
+            string str = "";
+            try
+            {
+                dgs = bc.bcDB.dscDB.selectByPk(dscid);
+                bc.bcDB.dgssDB.setCboDGSS(cboDgss, "");
+                bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
+                txtID.Value = dgs.doc_scan_id;
+                txtHn.Value = hn;
+                txtVN.Value = dgs.vn;
+                txtAn.Value = dgs.an;
+                txtPttName.Value = name;
+                txtVisitDate.Value = visitDate;
+                txtSort1.Value = dgs.sort1;
+                txtFmCode.Value = dgs.ml_fm;
+                //bc.setC1Combo(cboDgs, dgs);
+                txtSortMax.Value = dgs.row_cnt;
+                DocGroupFM docGroupFm1 = new DocGroupFM();
+                DocGroupFM docGroupFm2 = this.bc.bcDB.dfmDB.selectByFMCode(this.dgs.ml_fm);
+                if (docGroupFm2.fm_id.Length > 0)
+                {
+                    this.bc.setC1Combo(this.cboDgs, docGroupFm2.doc_group_id);
+                    this.bc.bcDB.dgssDB.setCboDGSS(this.cboDgs, docGroupFm2.doc_group_id, "");
+                    this.bc.setC1Combo(this.cboDgss, docGroupFm2.doc_group_sub_id);
+                }
+                str = "02";
+                pic1.Image = img1;
+                btnSaveFmCode.Hide();
+                btnVoid.Hide();
+            }
+            catch (Exception ex)
+            {
+                LogWriter logWriter = new LogWriter("e", "FrmScanViewEdit setControl err " + str + " " + ex.Message);
+            }
+            
         }
         private void BtnSaveFmCode_Click(object sender, EventArgs e)
         {

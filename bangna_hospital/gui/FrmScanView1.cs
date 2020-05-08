@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
@@ -35,8 +36,8 @@ namespace bangna_hospital.gui
         C1FlexGrid grfIPD, grfOPD;
         Font fEdit, fEditB, fEdit3B;
         C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac;
-        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabHn, tabHnLabOut;
-        C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn;
+        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabHn, tabHnLabOut, tabPic;
+        C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic;
         C1FlexViewer labOutView;
         List<C1DockingTabPage> tabHnLabOutR;
 
@@ -52,10 +53,12 @@ namespace bangna_hospital.gui
         int mouseWheel = 0;
         int originalHeight = 0;
         ArrayList array1 = new ArrayList();
-        List<listStream> lStream;
+        List<listStream> lStream, lStreamPic;
         listStream strm;
         Image resizedImage, img;
         C1PictureBox pic, picL, picR;
+        private RadioButton chkPrnAll, chkPrnCri, chkPrnLab, chkXray;
+        C1TextBox txtPrnCri;
         //FlowLayoutPanel fpL, fpR;
         //SplitContainer sct;
         C1SplitContainer sct;
@@ -106,6 +109,7 @@ namespace bangna_hospital.gui
 
             array1 = new ArrayList();
             lStream = new List<listStream>();
+            lStreamPic = new List<listStream>();
             strm = new listStream();
             tabHnLabOutR = new List<C1DockingTabPage>();
 
@@ -179,7 +183,8 @@ namespace bangna_hospital.gui
             initTabVS();
             initGrfOPD();
             initGrfIPD();
-            //setGrfVsIPD();
+            initTabPicture();
+            initTabPrn();
 
             initTabDtr();
             initGrf();
@@ -205,7 +210,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             Close();
         }
-
         private void initTabDtr()
         {
             tabStfNote = new C1DockingTabPage();
@@ -310,6 +314,14 @@ namespace bangna_hospital.gui
             tcMac.DoubleClick += TcMac_DoubleClick;
             tabHn.Controls.Add(tcMac);
             theme1.SetTheme(tcMac, bc.iniC.themeApplication);
+
+            tabPic = new C1DockingTabPage();
+            tabPic.Location = new Point(1, 24);
+            tabPic.Size = new Size(667, 175);
+            tabPic.TabIndex = 0;
+            tabPic.Text = "Picture";
+            tabPic.Name = "tabPic";
+            tcDtr.Controls.Add(tabPic);
         }
 
         private void TcMac_DoubleClick(object sender, EventArgs e)
@@ -379,8 +391,6 @@ namespace bangna_hospital.gui
         }
         private void initGrf()
         {
-            
-
             grfOrder = new C1FlexGrid();
             grfOrder.Font = fEdit;
             grfOrder.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -474,7 +484,7 @@ namespace bangna_hospital.gui
             tabXray.Controls.Add(rtb);
             tabXray.Controls.Add(grfXray);
 
-            initGrfPrn();
+            //initGrfPrn();
             //initGrfHn();
         }
 
@@ -999,7 +1009,7 @@ namespace bangna_hospital.gui
             setGrfVsIPD();
             setGrfVsOPD();
             setTabHnLabOut();
-            //setGrHn();
+            setGrfPic();
             grfOPD.Focus();
             if (grfOPD.Rows.Count > 1)
             {
@@ -1012,6 +1022,207 @@ namespace bangna_hospital.gui
                 setStaffNote(vsDate, preno);
             }
             setControlGbPtt();
+        }
+        private void setGrfPic()
+        {
+            DataTable dataTable1 = new DataTable();
+            DataTable dataTable2 = this.bc.bcDB.dscDB.selectPicByHn(txtHn.Text.Trim());
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_grfPic_print));
+            contextMenu.MenuItems.Add("ต้องการ Download ภาพนี้", new EventHandler(ContextMenu_grfPic_download));
+            grfPic.ContextMenu = contextMenu;
+            grfPic.Rows.Count = 0;
+            if (dataTable2.Rows.Count > 0)
+            {
+                try
+                {
+                    grfPic.Rows.Count = (dataTable2.Rows.Count / 2) + 1;
+                    FtpClient ftpClient = new FtpClient(this.bc.iniC.hostFTP, this.bc.iniC.userFTP, this.bc.iniC.passFTP);
+                    bool flag = false;
+                    int num1 = 0;
+                    int num2 = -1;
+                    foreach (DataRow row1 in (InternalDataCollectionBase)dataTable2.Rows)
+                    {
+                        if (!flag)
+                        {
+                            ++num1;
+                            string str1 = "";
+                            string str2 = "";
+                            string str3 = row1[this.bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                            str1 = row1[this.bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
+                            string str4 = row1[this.bc.bcDB.dscDB.dsc.image_path].ToString();
+                            string str5 = row1[this.bc.bcDB.dscDB.dsc.host_ftp].ToString();
+                            string str6 = row1[this.bc.bcDB.dscDB.dsc.folder_ftp].ToString();
+                            try
+                            {
+                                int count1 = 2048;
+                                str2 = "00";
+                                Row row2;
+                                if (num1 % 2 == 0)
+                                {
+                                    row2 = grfPic.Rows[num2];
+                                }
+                                else
+                                {
+                                    ++num2;
+                                    row2 = grfPic.Rows[num2];
+                                }
+                                MemoryStream memoryStream = new MemoryStream();
+                                str2 = "01";
+                                Application.DoEvents();
+                                FtpWebRequest ftpWebRequest = (FtpWebRequest)WebRequest.Create(str5 + "/" + str6 + "/" + str4);
+                                ftpWebRequest.Credentials = (ICredentials)new NetworkCredential(this.bc.iniC.userFTP, this.bc.iniC.passFTP);
+                                ftpWebRequest.UseBinary = true;
+                                ftpWebRequest.UsePassive = this.bc.ftpUsePassive;
+                                ftpWebRequest.KeepAlive = true;
+                                ftpWebRequest.Method = "RETR";
+                                Stream responseStream = ftpWebRequest.GetResponse().GetResponseStream();
+                                str2 = "02";
+                                byte[] buffer = new byte[count1];
+                                int count2 = responseStream.Read(buffer, 0, count1);
+                                try
+                                {
+                                    for (; count2 > 0; count2 = responseStream.Read(buffer, 0, count1))
+                                        memoryStream.Write(buffer, 0, count2);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.ToString());
+                                    LogWriter logWriter = new LogWriter("e", "FrmScanView1 SetGrfScan try int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize); ex " + ex.Message + " " + str2);
+                                }
+                                str2 = "03";
+                                Image image = (Image)new Bitmap((Stream)memoryStream);
+                                str2 = "04";
+                                int width = image.Width;
+                                int imgScanWidth = this.bc.imgScanWidth;
+                                Image thumbnailImage = image.GetThumbnailImage(imgScanWidth, imgScanWidth * image.Height / width, (Image.GetThumbnailImageAbort)null, IntPtr.Zero);
+                                str2 = "05";
+                                if (num1 % 2 == 0)
+                                {
+                                    row2[colPic3]= thumbnailImage;
+                                    str2 = "061";
+                                    row2[colPic4] = str3;
+                                    str2 = "071";
+                                }
+                                else
+                                {
+                                    str2 = "051";
+                                    row2[colPic1] = thumbnailImage;
+                                    str2 = "06";
+                                    row2[colPic2] = str3;
+                                    str2 = "07";
+                                }
+                                this.strm = new FrmScanView1.listStream();
+                                this.strm.id = str3;
+                                str2 = "08";
+                                this.strm.stream = memoryStream;
+                                str2 = "09";
+                                lStreamPic.Add(strm);
+                                Application.DoEvents();
+                                str2 = "12";
+                                if (num1 == 50)
+                                    GC.Collect();
+                                if (num1 == 100)
+                                    GC.Collect();
+                            }
+                            catch (Exception ex)
+                            {
+                                string str7 = ex.Message + " " + str2;
+                                LogWriter logWriter = new LogWriter("e", "FrmScanView1 setGrfPic ex " + ex.Message + " " + str2 + " colcnt " + num1.ToString() + " HN " + ((Control)this.txtHn).Text + " ");
+                            }
+                        }
+                        else
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogWriter logWriter = new LogWriter("e", "FrmScanView1 setGrfPic if (dt.Rows.Count > 0) ex " + ex.Message);
+                }
+            }
+            grfPic.AutoSizeRows();
+        }
+        private void ContextMenu_grfPic_download(object sender, EventArgs e)
+        {
+            if (grfPic.Col <= 0 || (grfPic.Row < 0))
+                return;
+            string str1 = grfPic.Col != 1 ? grfPic[grfPic.Row, colPic4].ToString() : grfPic[grfPic.Row, colPic2].ToString();
+            this.dsc_id = str1;
+            Stream stream = (Stream)null;
+            MemoryStream memoryStream = (MemoryStream)null;
+            foreach (FrmScanView1.listStream listStream in lStreamPic)
+            {
+                if (listStream.id.Equals(str1))
+                {
+                    memoryStream = listStream.stream;
+                    stream = (Stream)listStream.stream;
+                    break;
+                }
+            }
+            try
+            {
+                if (!Directory.Exists(this.bc.iniC.pathDownloadFile))
+                    Directory.CreateDirectory(this.bc.iniC.pathDownloadFile);
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("path" + this.bc.iniC.pathDownloadFile + " error " + ex.Message, "");
+            }
+            string str2 = DateTime.Now.Ticks.ToString();
+            Image.FromStream(stream).Save(this.bc.iniC.pathDownloadFile + "\\" + ((Control)this.txtHn).Text.Trim() + "_" + str2 + ".jpg", ImageFormat.Jpeg);
+            this.bc.ExploreFile(this.bc.iniC.pathDownloadFile + "\\" + ((Control)this.txtHn).Text.Trim() + "_" + str2 + ".jpg");
+        }
+        private void ContextMenu_grfPic_print(object sender, EventArgs e)
+        {
+            if ((grfPic.Col <= 0 ) || (grfPic.Row < 0))
+                return;
+            //grfFMCode[e.NewRange.r1, colID] != null ? grfFMCode[e.NewRange.r1, colID].ToString() : "";
+            string str = grfPic.Col != 1 ? grfPic[grfPic.Row, colPic4].ToString() : grfPic[grfPic.Row, colPic2].ToString();
+            this.dsc_id = str;
+            MemoryStream memoryStream = (MemoryStream)null;
+            foreach (FrmScanView1.listStream listStream in lStreamPic)
+            {
+                if (listStream.id.Equals(str))
+                {
+                    memoryStream = listStream.stream;
+                    this.streamPrint = (Stream)listStream.stream;
+                    break;
+                }
+            }
+            FrmScanView1.SetDefaultPrinter(this.bc.iniC.printerA4);
+            Thread.Sleep(500);
+            PrintPic(this.streamPrint);
+        }
+        public void PrintPic(Stream streamPic)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            try
+            {
+                PrintDocument pd = new PrintDocument();
+                pd.PrintController = (PrintController)new StandardPrintController();
+                pd.DefaultPageSettings.Margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
+                pd.PrinterSettings.DefaultPageSettings.Margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
+                pd.PrintPage += (PrintPageEventHandler)((sndr, args) =>
+                {
+                    Image image = Image.FromStream(streamPic);
+                    Rectangle marginBounds = args.MarginBounds;
+                    if ((double)image.Width / (double)image.Height > (double)marginBounds.Width / (double)marginBounds.Height)
+                        marginBounds.Height = (int)((double)image.Height / (double)image.Width * (double)marginBounds.Width);
+                    else
+                        marginBounds.Width = (int)((double)image.Width / (double)image.Height * (double)marginBounds.Height);
+                    pd.DefaultPageSettings.Landscape = marginBounds.Width > marginBounds.Height;
+                    marginBounds.Y = (((PrintDocument)sndr).DefaultPageSettings.PaperSize.Height - marginBounds.Height) / 2;
+                    marginBounds.X = (((PrintDocument)sndr).DefaultPageSettings.PaperSize.Width - marginBounds.Width) / 2;
+                    args.Graphics.DrawImage(image, marginBounds);
+                });
+                pd.Print();
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+            }
         }
         private void setTabHnLabOut()
         {
@@ -1585,6 +1796,48 @@ namespace bangna_hospital.gui
             
             grfOPD.Focus();
         }
+        private void initTabPicture()
+        {
+            Size size = new Size();
+            Panel panel = new Panel();
+            panel.Dock = DockStyle.Fill;
+            grfPic = new C1FlexGrid();
+            grfPic.Font = fEdit;
+            grfPic.Dock = DockStyle.Fill;
+            grfPic.Location = new Point(0, 0);
+            grfPic.Rows.Count = 1;
+            grfPic.Name = "grfScan";
+            grfPic.Cols.Count = 5;
+            Column colpic1 = grfPic.Cols[colPic1];
+            colpic1.DataType = typeof(Image);
+            Column colpic2 = grfPic.Cols[colPic2];
+            colpic2.DataType = typeof(String);
+            Column colpic3 = grfPic.Cols[colPic3];
+            colpic3.DataType = typeof(Image);
+            Column colpic4 = grfPic.Cols[colPic4];
+            colpic4.DataType = typeof(String);
+            grfPic.Cols[colPic1].Width = bc.grfScanWidth;
+            grfPic.Cols[colPic2].Width = bc.grfScanWidth;
+            grfPic.Cols[colPic3].Width = bc.grfScanWidth;
+            grfPic.Cols[colPic4].Width = bc.grfScanWidth;
+            grfPic.ShowCursor = true;
+            grfPic.Cols[colPic2].Visible = false;
+            grfPic.Cols[colPic3].Visible = true;
+            grfPic.Cols[colPic4].Visible = false;
+            grfPic.Cols[colPic1].AllowEditing = false;
+            grfPic.Cols[colPic3].AllowEditing = false;
+            grfPic.DoubleClick += GrfPic_DoubleClick;
+            panel.Controls.Add(grfPic);
+            tabPic.Controls.Add(panel);
+            theme1.SetTheme(grfPic, bc.iniC.themeApp);
+            theme1.SetTheme(panel, bc.iniC.themeApp);
+        }
+
+        private void GrfPic_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
 
         private void initGrfIPD()
         {
@@ -1628,26 +1881,141 @@ namespace bangna_hospital.gui
                 }
             }
         }
-        private void initGrfPrn()
+        private void initTabPrn()
         {
+            int y1 = 20;
+            int x = 20;
+            Size size1 = new Size();
+            Panel panel = new Panel();
+            panel.Dock = DockStyle.Fill;
+            GroupBox groupBox1 = new GroupBox();
+            groupBox1.Size = new Size(600, 300);
+            groupBox1.Location = new Point(10, 10);
+            chkPrnAll = new RadioButton();
+            chkPrnAll.Text = "พิมพ์ ทั้งหมด";
+            chkPrnAll.Name = "chkPrnAll";
+            chkPrnAll.Font = this.fEdit;
+            chkPrnAll.Width = this.bc.MeasureString(chkPrnAll).Width + 20;
+            chkPrnAll.Location = new Point(x, y1);
+            chkPrnCri = new RadioButton();
+            chkPrnCri.Text = "พิมพ์ ตามเงื่อนไข";
+            chkPrnCri.Name = "chkPrnCri";
+            chkPrnCri.Font = fEdit;
+            chkPrnCri.Checked = true;
+            chkPrnCri.Width = bc.MeasureString(chkPrnCri).Width + 20;
+            Size size2 = bc.MeasureString(chkPrnAll);
+            chkPrnCri.Location = new Point(x + size2.Width + 40, y1);
+            txtPrnCri = new C1TextBox();
+            txtPrnCri.Text = "";
+            txtPrnCri.Name = "chkPrchkPrnCrinAll";
+            txtPrnCri.Font = fEdit;
+            Size size3 = bc.MeasureString(chkPrnCri);
+            txtPrnCri.Location = new Point(chkPrnCri.Location.X + size3.Width + 40, y1);
+            C1Button btnPrn = new C1Button();
+            btnPrn.Name = "btnPrn";
+            btnPrn.Text = "Print";
+            btnPrn.Font = this.fEdit;
+            size3 = new Size(80, 40);
+            btnPrn.Size = size3;
+            btnPrn.Location = new Point(txtPrnCri.Location.X + txtPrnCri.Width + 40, y1);
+            btnPrn.Click += BtnPrn_Click;
+            Label label = new Label();
+            label.Font = this.fEdit;
+            int y2 = y1 + 25;
+            label.Location = new Point(this.chkPrnCri.Location.X + 40, y2);
+            label.Text = "ตัวอย่าง 1-30 หรือ 1,2,3,4,5,6,7";
+            Size size4 = this.bc.MeasureString((Control)label);
+            label.Size = size4;
+            int y3 = 20;
+            GroupBox groupBox2 = new GroupBox();
+            groupBox2.Size = new Size(tcDtr.Width - 80, 400);
+            groupBox2.Location = new Point(10, groupBox1.Height + 20);
+            chkPrnLab = new RadioButton();
+            chkPrnLab.Text = "พิมพ์ ผลLAB";
+            chkPrnLab.Name = "chkPrnLab";
+            chkPrnLab.Font = this.fEdit;
+            chkPrnLab.Width = this.bc.MeasureString((Control)this.chkPrnLab).Width + 20;
+            chkPrnLab.Location = new Point(x, y3);
+            chkXray = new RadioButton();
+            chkXray.Text = "พิมพ์ ผลXray";
+            chkXray.Name = "chkXray";
+            chkXray.Font = fEdit;
+            chkXray.Checked = true;
+            chkXray.Width = bc.MeasureString(chkXray).Width + 20;
+            Size size5 = bc.MeasureString(chkPrnLab);
+            chkXray.Location = new Point(x + size5.Width + 40, y3);
             grfPrn = new C1FlexGrid();
-            grfPrn.Font = fEdit;
-            grfPrn.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfPrn.Location = new System.Drawing.Point(0, 0);
+            grfPrn.Font = this.fEdit;
+            grfPrn.Dock = DockStyle.Bottom;
+            grfPrn.Location = new Point(0, 0);
             grfPrn.Rows.Count = 1;
-            //FilterRow fr = new FilterRow(grfExpn);
-
-            grfPrn.AfterRowColChange += GrfPrn_AfterRowColChange;
-            //grfVs.row
-            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
-            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
-            
-            tabPrn.Controls.Add(grfPrn);
-
-            theme1.SetTheme(grfPrn, "ExpressionDark");
-
+            size5 = new Size(groupBox2.Width - 100, groupBox2.Height - 60);
+            grfPrn.Size = size5;
+            groupBox2.Controls.Add(grfPrn);
+            groupBox2.Controls.Add(chkXray);
+            groupBox2.Controls.Add(chkPrnLab);
+            panel.Controls.Add(groupBox2);
+            groupBox1.Controls.Add(label);
+            groupBox1.Controls.Add(btnPrn);
+            groupBox1.Controls.Add(txtPrnCri);
+            groupBox1.Controls.Add(chkPrnCri);
+            groupBox1.Controls.Add(chkPrnAll);
+            panel.Controls.Add((Control)groupBox1);
+            tabPrn.Controls.Add(panel);
+            theme1.SetTheme(btnPrn, this.bc.iniC.themeApp);
+            theme1.SetTheme(panel, this.bc.iniC.themeApp);
+            theme1.SetTheme(groupBox1, this.bc.iniC.themeApp);
         }
-        
+
+        private void BtnPrn_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!this.chkPrnCri.Checked)
+                return;
+            string sort1 = "";
+            string[] strArray1 = ((Control)this.txtPrnCri).Text.Trim().Split('-');
+            string[] strArray2 = ((Control)this.txtPrnCri).Text.Trim().Split(',');
+            if (strArray1.Length != 0 && !strArray1[0].Equals(((Control)this.txtPrnCri).Text.Trim()))
+            {
+                int result1 = 0;
+                int result2 = 0;
+                int.TryParse(strArray1[0], out result1);
+                int.TryParse(strArray1[1], out result2);
+                for (int index = result1; index <= result2; ++index)
+                    sort1 = sort1 + index.ToString() + ",";
+            }
+            else if ((uint)strArray2.Length > 0U)
+            {
+                foreach (string str in strArray2)
+                {
+                    if (str.Length > 0)
+                        sort1 = sort1 + str + ",";
+                }
+            }
+            if (sort1.Length > 1)
+                sort1 = sort1.Substring(0, sort1.Length - 1);
+            LogWriter logWriter1 = new LogWriter("d", "FrmScanView1 BtnPrn_Click  ");
+            DataTable dataTable1 = new DataTable();
+            DataTable dataTable2 = this.bc.bcDB.dscDB.selectBySortID(((Control)this.txtHn).Text.Trim(), ((Control)this.txtVN).Text.Trim(), sort1);
+            if (dataTable2.Rows.Count > 0)
+            {
+                LogWriter logWriter2 = new LogWriter("d", "FrmScanView1 BtnPrn_Click  dt.Rows.Count");
+                this.streamPrint = (Stream)null;
+                foreach (DataRow row in (InternalDataCollectionBase)dataTable2.Rows)
+                {
+                    foreach (FrmScanView1.listStream listStream in this.lStream)
+                    {
+                        if (listStream.id.Equals(row[this.bc.bcDB.dscDB.dsc.doc_scan_id].ToString()))
+                        {
+                            LogWriter logWriter3 = new LogWriter("d", "FrmScanView1 BtnPrn_Click  foreach (DataRow drow in dt.Rows)");
+                            this.streamPrint = (Stream)listStream.stream;
+                            this.setGrfScanToPrint();
+                        }
+                    }
+                }
+            }
+        }
+
         private void initGrfHn()
         {
             grfHn = new C1FlexGrid();

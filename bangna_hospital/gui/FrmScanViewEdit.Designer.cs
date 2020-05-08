@@ -58,6 +58,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.theme = new C1.Win.C1Themes.C1ThemeController();
+            this.label10 = new System.Windows.Forms.Label();
+            this.c1NumericEdit1 = new C1.Win.C1Input.C1NumericEdit();
+            this.txtSortMax = new C1.Win.C1Input.C1TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.c1Button1 = new C1.Win.C1Input.C1Button();
             this.pnImg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
             this.pn.SuspendLayout();
@@ -79,6 +84,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1NumericEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnImg
@@ -102,6 +110,11 @@
             // 
             // pn
             // 
+            this.pn.Controls.Add(this.c1Button1);
+            this.pn.Controls.Add(this.txtSortMax);
+            this.pn.Controls.Add(this.label11);
+            this.pn.Controls.Add(this.c1NumericEdit1);
+            this.pn.Controls.Add(this.label10);
             this.pn.Controls.Add(this.btnVoid);
             this.pn.Controls.Add(this.chkVoid);
             this.pn.Controls.Add(this.btnSaveFmCode);
@@ -137,11 +150,11 @@
             // 
             // btnVoid
             // 
-            this.btnVoid.Location = new System.Drawing.Point(248, 422);
+            this.btnVoid.Location = new System.Drawing.Point(246, 439);
             this.btnVoid.Name = "btnVoid";
             this.btnVoid.Size = new System.Drawing.Size(51, 22);
             this.btnVoid.TabIndex = 558;
-            this.btnVoid.Text = "save";
+            this.btnVoid.Text = "Void";
             this.theme.SetTheme(this.btnVoid, "(default)");
             this.btnVoid.UseVisualStyleBackColor = true;
             // 
@@ -151,7 +164,7 @@
             this.chkVoid.BorderColor = System.Drawing.Color.Transparent;
             this.chkVoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.chkVoid.ForeColor = System.Drawing.Color.Black;
-            this.chkVoid.Location = new System.Drawing.Point(72, 422);
+            this.chkVoid.Location = new System.Drawing.Point(106, 439);
             this.chkVoid.Name = "chkVoid";
             this.chkVoid.Padding = new System.Windows.Forms.Padding(1);
             this.chkVoid.Size = new System.Drawing.Size(134, 24);
@@ -165,7 +178,7 @@
             // 
             // btnSaveFmCode
             // 
-            this.btnSaveFmCode.Location = new System.Drawing.Point(248, 338);
+            this.btnSaveFmCode.Location = new System.Drawing.Point(248, 308);
             this.btnSaveFmCode.Name = "btnSaveFmCode";
             this.btnSaveFmCode.Size = new System.Drawing.Size(51, 22);
             this.btnSaveFmCode.TabIndex = 25;
@@ -198,11 +211,11 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(249, 373);
+            this.btnSave.Location = new System.Drawing.Point(249, 353);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(51, 22);
             this.btnSave.TabIndex = 22;
-            this.btnSave.Text = "save";
+            this.btnSave.Text = "gen";
             this.theme.SetTheme(this.btnSave, "(default)");
             this.btnSave.UseVisualStyleBackColor = true;
             // 
@@ -229,7 +242,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 305);
+            this.label9.Location = new System.Drawing.Point(6, 291);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 13);
             this.label9.TabIndex = 19;
@@ -261,7 +274,7 @@
             this.cboDgss.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboDgss.ItemsDisplayMember = "";
             this.cboDgss.ItemsValueMember = "";
-            this.cboDgss.Location = new System.Drawing.Point(106, 300);
+            this.cboDgss.Location = new System.Drawing.Point(106, 286);
             this.cboDgss.Name = "cboDgss";
             this.cboDgss.Size = new System.Drawing.Size(200, 18);
             this.cboDgss.TabIndex = 17;
@@ -317,7 +330,7 @@
             // txtSort1
             // 
             this.txtSort1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSort1.Location = new System.Drawing.Point(106, 376);
+            this.txtSort1.Location = new System.Drawing.Point(106, 356);
             this.txtSort1.Name = "txtSort1";
             this.txtSort1.Size = new System.Drawing.Size(136, 18);
             this.txtSort1.TabIndex = 13;
@@ -329,7 +342,7 @@
             // txtFmCode
             // 
             this.txtFmCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFmCode.Location = new System.Drawing.Point(106, 341);
+            this.txtFmCode.Location = new System.Drawing.Point(106, 311);
             this.txtFmCode.Name = "txtFmCode";
             this.txtFmCode.Size = new System.Drawing.Size(136, 18);
             this.txtFmCode.TabIndex = 12;
@@ -405,17 +418,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 376);
+            this.label2.Location = new System.Drawing.Point(6, 356);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Sort :";
+            this.label2.Text = "ลำดับเดืม :";
             this.theme.SetTheme(this.label2, "(default)");
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 341);
+            this.label1.Location = new System.Drawing.Point(6, 311);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 4;
@@ -441,6 +454,58 @@
             this.label6.TabIndex = 2;
             this.label6.Text = "Name :";
             this.theme.SetTheme(this.label6, "(default)");
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 404);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.TabIndex = 559;
+            this.label10.Text = "ลำดับ :";
+            this.theme.SetTheme(this.label10, "(default)");
+            // 
+            // c1NumericEdit1
+            // 
+            this.c1NumericEdit1.ImagePadding = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            this.c1NumericEdit1.Location = new System.Drawing.Point(106, 404);
+            this.c1NumericEdit1.Name = "c1NumericEdit1";
+            this.c1NumericEdit1.Size = new System.Drawing.Size(138, 18);
+            this.c1NumericEdit1.TabIndex = 560;
+            this.c1NumericEdit1.Tag = null;
+            this.theme.SetTheme(this.c1NumericEdit1, "(default)");
+            // 
+            // txtSortMax
+            // 
+            this.txtSortMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSortMax.Location = new System.Drawing.Point(106, 380);
+            this.txtSortMax.Name = "txtSortMax";
+            this.txtSortMax.Size = new System.Drawing.Size(136, 18);
+            this.txtSortMax.TabIndex = 562;
+            this.txtSortMax.Tag = null;
+            this.theme.SetTheme(this.txtSortMax, "(default)");
+            this.txtSortMax.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSortMax.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 380);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 13);
+            this.label11.TabIndex = 561;
+            this.label11.Text = "จำนวนหน้า :";
+            this.theme.SetTheme(this.label11, "(default)");
+            // 
+            // c1Button1
+            // 
+            this.c1Button1.Location = new System.Drawing.Point(248, 402);
+            this.c1Button1.Name = "c1Button1";
+            this.c1Button1.Size = new System.Drawing.Size(51, 22);
+            this.c1Button1.TabIndex = 563;
+            this.c1Button1.Text = "save";
+            this.theme.SetTheme(this.c1Button1, "(default)");
+            this.c1Button1.UseVisualStyleBackColor = true;
             // 
             // FrmScanViewEdit
             // 
@@ -472,6 +537,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1NumericEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -510,5 +578,10 @@
         private C1.Win.C1Input.C1Button btnSaveFmCode;
         private C1.Win.C1Input.C1Button btnVoid;
         private C1.Win.C1Input.C1CheckBox chkVoid;
+        private System.Windows.Forms.Label label10;
+        private C1.Win.C1Input.C1NumericEdit c1NumericEdit1;
+        private C1.Win.C1Input.C1TextBox txtSortMax;
+        private System.Windows.Forms.Label label11;
+        private C1.Win.C1Input.C1Button c1Button1;
     }
 }
