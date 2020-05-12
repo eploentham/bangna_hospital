@@ -396,7 +396,7 @@ namespace bangna_hospital.gui
                 return;
             }
             //this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") +" ["+ date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
-            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, date);
+            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, date, "queue");
             int i = 1;
             grfQue.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)

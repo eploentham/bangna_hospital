@@ -98,6 +98,8 @@ namespace bangna_hospital.gui
             initGrfMas();
             setGrfMas();
             initGrfLabOutView();
+            txtDateStart.Value = System.DateTime.Now;
+            txtDateEnd.Value = System.DateTime.Now;
         }
 
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
@@ -379,6 +381,77 @@ namespace bangna_hospital.gui
             if (grfHn.Col <= 0) return;
 
             dscid = grfHn[grfHn.Row, colId].ToString();
+            if (bc.iniC.statusShowLabOutFrmLabOutReceiveView.Equals("windows10"))
+            {
+                String hn = "";
+                hn = grfHn[grfHn.Row, colHN].ToString();
+                showFormWaiting();
+                Patient ptt = new Patient();
+                ptt = bc.bcDB.pttDB.selectPatinet(hn);
+
+                if (ptt.Name.Length <= 0)
+                {
+                    frmFlash.Dispose();
+                    MessageBox.Show("ไม่พบ hn ในระบบ", "");
+                    return;
+                }
+                openNewForm(ptt.Hn, ptt.Name);
+                frmFlash.Dispose();
+            }
+            else
+            {
+                showResultWindowsXP(dscid);
+            }
+        }
+        private void openNewForm(String hn, String txt)
+        {
+            FrmScanView1 frm = new FrmScanView1(bc, hn, "hide");
+            frm.FormBorderStyle = FormBorderStyle.None;
+            AddNewTab(frm, txt);
+        }
+        public C1DockingTabPage AddNewTab(Form frm, String label)
+        {
+            frm.FormBorderStyle = FormBorderStyle.None;
+            C1DockingTabPage tab = new C1DockingTabPage();
+            tab.SuspendLayout();
+            frm.TopLevel = false;
+            tab.Width = tC1.Width - 10;
+            tab.Height = tC1.Height - 35;
+            tab.Name = frm.Name;
+
+
+            frm.Parent = tab;
+            frm.Dock = DockStyle.Fill;
+            frm.Width = tab.Width;
+            frm.Height = tab.Height;
+            tab.Text = label;
+            
+            frm.Visible = true;
+
+            tC1.TabPages.Add(tab);
+
+            //frm.Location = new Point((tab.Width - frm.Width) / 2, (tab.Height - frm.Height) / 2);
+            frm.Location = new Point(0, 0);
+            tab.ResumeLayout();
+            tab.Refresh();
+            tab.Text = label;
+            tab.Closing += Tab_Closing;
+
+            theme1.SetTheme(tC1, bc.iniC.themeApplication);
+
+            tC1.SelectedTab = tab;
+            
+            return tab;
+        }
+
+        private void Tab_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void showResultWindowsXP(String dscid)
+        {
             DocScan dsc = new DocScan();
             dsc = bc.bcDB.dscDB.selectByPk(dscid);
             if (!dsc.doc_scan_id.Equals(""))
@@ -390,7 +463,7 @@ namespace bangna_hospital.gui
                 MemoryStream stream;
                 int bufferSize = 2048;
                 Stream ftpStream = null;
-                String dgssid = "", filename = "", ftphost = "", id = "", folderftp = "", datetick = "", ext="";
+                String dgssid = "", filename = "", ftphost = "", id = "", folderftp = "", datetick = "", ext = "";
                 datetick = DateTime.Now.Ticks.ToString();
                 stream = new MemoryStream();
                 FtpWebRequest ftpRequest = null;
@@ -1136,7 +1209,7 @@ namespace bangna_hospital.gui
         private void FrmlabOutReceiveView1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-04-09 ";
+            this.Text = "Last Update 2020-05-12 ";
             tC1.Font = fEdit;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel3, bc.iniC.themeApp);

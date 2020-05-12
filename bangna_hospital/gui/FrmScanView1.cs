@@ -183,10 +183,10 @@ namespace bangna_hospital.gui
             initTabVS();
             initGrfOPD();
             initGrfIPD();
-            initTabPicture();
-            initTabPrn();
-
+            
             initTabDtr();
+            initGrfPicture();
+            initTabPrn();
             initGrf();
 
             setPicStaffNote();
@@ -1368,6 +1368,9 @@ namespace bangna_hospital.gui
                 {
                     try
                     {
+                        String ext1 = "";
+                        ext1 = Path.GetExtension(rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
+                        if (ext1.Length <= 0) continue;
                         k++;
                         //pB1.Value = k;
                         String vn = "", preno = "", vsdate = "", an = "", labexid = "", yearid = "", filename = "", filename1 = "", datetick = "";
@@ -1398,7 +1401,7 @@ namespace bangna_hospital.gui
                         }
                         tabHnLabOut.Name = "tabHnLabOut_" + datetick;
                         //tabHnLabOut.DoubleClick += TabHnLabOut_DoubleClick;
-                        tcHnLabOut.TabPages.Add(tabHnLabOut);
+                        
                         //for (int i = 0; i < 6; i++)
                         //{
                         MemoryStream stream;
@@ -1413,11 +1416,13 @@ namespace bangna_hospital.gui
                         if (stream == null)
                         {
                             setHeaderEnable(pB1);
+                            tabHnLabOut.Dispose();
                             continue;
                         }
                         if (stream.Length == 0)
                         {
                             setHeaderEnable(pB1);
+                            tabHnLabOut.Dispose();
                             continue;
                         }
                         stream.Seek(0, SeekOrigin.Begin);
@@ -1429,7 +1434,7 @@ namespace bangna_hospital.gui
                         fileStream.Dispose();
                         Application.DoEvents();
                         Thread.Sleep(200);
-
+                        tcHnLabOut.TabPages.Add(tabHnLabOut);
                         //tcHnLabOut.Controls.Add(tablabOut);
                         if (bc.iniC.windows.Equals("windowsxp"))
                         {
@@ -1471,7 +1476,7 @@ namespace bangna_hospital.gui
                                 labOutView.Dock = DockStyle.None;
                                 labOutView.SizeMode = PictureBoxSizeMode.StretchImage;
                                 labOutView.Image = img;
-                                labOutView.Size = new Size(400, 600);
+                                labOutView.Size = new Size(bc.tabLabOutImageWidth, bc.tabLabOutImageHeight);
 
                                 tabHnLabOut.Controls.Add(labOutView);
                             }
@@ -1796,7 +1801,7 @@ namespace bangna_hospital.gui
             
             grfOPD.Focus();
         }
-        private void initTabPicture()
+        private void initGrfPicture()
         {
             Size size = new Size();
             Panel panel = new Panel();

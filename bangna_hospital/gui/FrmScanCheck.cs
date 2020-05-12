@@ -102,7 +102,7 @@ namespace bangna_hospital.gui
             FrmScanView1 frm = new FrmScanView1(bc, hn,"hide");
             frm.FormBorderStyle = FormBorderStyle.None;
             
-            frm.FormBorderStyle = FormBorderStyle.None;
+            //frm.FormBorderStyle = FormBorderStyle.None;
             menu.AddNewTab(frm, txt);
         }
         private void setGrf()

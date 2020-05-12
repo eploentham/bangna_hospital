@@ -32,23 +32,23 @@
             this.sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.chkVsDate = new System.Windows.Forms.RadioButton();
+            this.chkScanDate = new System.Windows.Forms.RadioButton();
             this.btnOk = new C1.Win.C1Input.C1Button();
             this.txtDateEnd = new C1.Win.C1Input.C1DateEdit();
             this.c1Label4 = new C1.Win.C1Input.C1Label();
             this.txtDateStart = new C1.Win.C1Input.C1DateEdit();
             this.c1Label3 = new C1.Win.C1Input.C1Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.chkVsDate = new System.Windows.Forms.RadioButton();
-            this.chkScanDate = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).BeginInit();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // sb1
@@ -88,145 +88,6 @@
             this.panel1.TabIndex = 4;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
-            // btnOk
-            // 
-            this.btnOk.Image = global::bangna_hospital.Properties.Resources.custom_reports24;
-            this.btnOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOk.Location = new System.Drawing.Point(751, 6);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(110, 37);
-            this.btnOk.TabIndex = 15;
-            this.btnOk.Text = "ดึงข้อมูล";
-            this.btnOk.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.theme1.SetTheme(this.btnOk, "(default)");
-            this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // txtDateEnd
-            // 
-            this.txtDateEnd.AllowSpinLoop = false;
-            this.txtDateEnd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            // 
-            // 
-            // 
-            this.txtDateEnd.Calendar.ArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateEnd.Calendar.BackColor = System.Drawing.Color.White;
-            this.txtDateEnd.Calendar.DayNamesColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateEnd.Calendar.DayNamesFont = new System.Drawing.Font("Tahoma", 8F);
-            this.txtDateEnd.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
-            this.txtDateEnd.Calendar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.txtDateEnd.Calendar.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateEnd.Calendar.SelectionForeColor = System.Drawing.Color.White;
-            this.txtDateEnd.Calendar.TitleBackColor = System.Drawing.Color.White;
-            this.txtDateEnd.Calendar.TitleFont = new System.Drawing.Font("Tahoma", 8F);
-            this.txtDateEnd.Calendar.TitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateEnd.Calendar.TodayBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateEnd.Calendar.TrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtDateEnd.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            this.txtDateEnd.Culture = 1054;
-            this.txtDateEnd.CurrentTimeZone = false;
-            this.txtDateEnd.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtDateEnd.DisplayFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtDateEnd.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
-            this.txtDateEnd.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtDateEnd.EditFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtDateEnd.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
-            this.txtDateEnd.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtDateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDateEnd.GMTOffset = System.TimeSpan.Parse("00:00:00");
-            this.txtDateEnd.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtDateEnd.Location = new System.Drawing.Point(313, 12);
-            this.txtDateEnd.Name = "txtDateEnd";
-            this.txtDateEnd.Size = new System.Drawing.Size(134, 20);
-            this.txtDateEnd.TabIndex = 14;
-            this.txtDateEnd.Tag = null;
-            this.theme1.SetTheme(this.txtDateEnd, "(default)");
-            this.txtDateEnd.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // c1Label4
-            // 
-            this.c1Label4.AutoSize = true;
-            this.c1Label4.BorderColor = System.Drawing.Color.Transparent;
-            this.c1Label4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.c1Label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.c1Label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.c1Label4.Location = new System.Drawing.Point(241, 12);
-            this.c1Label4.Name = "c1Label4";
-            this.c1Label4.Size = new System.Drawing.Size(51, 13);
-            this.c1Label4.TabIndex = 13;
-            this.c1Label4.Tag = null;
-            this.theme1.SetTheme(this.c1Label4, "(default)");
-            this.c1Label4.Value = "วันที่สิ้นสุด:";
-            this.c1Label4.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Custom;
-            // 
-            // txtDateStart
-            // 
-            this.txtDateStart.AllowSpinLoop = false;
-            this.txtDateStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            // 
-            // 
-            // 
-            this.txtDateStart.Calendar.ArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateStart.Calendar.BackColor = System.Drawing.Color.White;
-            this.txtDateStart.Calendar.DayNamesColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateStart.Calendar.DayNamesFont = new System.Drawing.Font("Tahoma", 8F);
-            this.txtDateStart.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
-            this.txtDateStart.Calendar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.txtDateStart.Calendar.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateStart.Calendar.SelectionForeColor = System.Drawing.Color.White;
-            this.txtDateStart.Calendar.TitleBackColor = System.Drawing.Color.White;
-            this.txtDateStart.Calendar.TitleFont = new System.Drawing.Font("Tahoma", 8F);
-            this.txtDateStart.Calendar.TitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateStart.Calendar.TodayBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.txtDateStart.Calendar.TrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtDateStart.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            this.txtDateStart.CurrentTimeZone = false;
-            this.txtDateStart.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
-            this.txtDateStart.DisplayFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtDateStart.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
-            this.txtDateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtDateStart.EditFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtDateStart.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
-            this.txtDateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtDateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDateStart.GMTOffset = System.TimeSpan.Parse("00:00:00");
-            this.txtDateStart.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtDateStart.Location = new System.Drawing.Point(76, 12);
-            this.txtDateStart.Name = "txtDateStart";
-            this.txtDateStart.Size = new System.Drawing.Size(134, 20);
-            this.txtDateStart.TabIndex = 12;
-            this.txtDateStart.Tag = null;
-            this.theme1.SetTheme(this.txtDateStart, "(default)");
-            this.txtDateStart.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // c1Label3
-            // 
-            this.c1Label3.AutoSize = true;
-            this.c1Label3.BorderColor = System.Drawing.Color.Transparent;
-            this.c1Label3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.c1Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.c1Label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.c1Label3.Location = new System.Drawing.Point(15, 12);
-            this.c1Label3.Name = "c1Label3";
-            this.c1Label3.Size = new System.Drawing.Size(51, 13);
-            this.c1Label3.TabIndex = 11;
-            this.c1Label3.Tag = null;
-            this.theme1.SetTheme(this.c1Label3, "(default)");
-            this.c1Label3.Value = "วันที่เริ่มต้น:";
-            this.c1Label3.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Custom;
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
@@ -249,7 +110,6 @@
             this.chkVsDate.Name = "chkVsDate";
             this.chkVsDate.Size = new System.Drawing.Size(75, 20);
             this.chkVsDate.TabIndex = 1;
-            this.chkVsDate.TabStop = true;
             this.chkVsDate.Text = "วันที่ Visit";
             this.theme1.SetTheme(this.chkVsDate, "(default)");
             this.chkVsDate.UseVisualStyleBackColor = false;
@@ -258,6 +118,7 @@
             // 
             this.chkScanDate.AutoSize = true;
             this.chkScanDate.BackColor = System.Drawing.Color.Transparent;
+            this.chkScanDate.Checked = true;
             this.chkScanDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkScanDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.chkScanDate.Location = new System.Drawing.Point(3, 8);
@@ -268,6 +129,121 @@
             this.chkScanDate.Text = "วันที่ Scan";
             this.theme1.SetTheme(this.chkScanDate, "(default)");
             this.chkScanDate.UseVisualStyleBackColor = false;
+            // 
+            // btnOk
+            // 
+            this.btnOk.Image = global::bangna_hospital.Properties.Resources.custom_reports24;
+            this.btnOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOk.Location = new System.Drawing.Point(751, 6);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(110, 37);
+            this.btnOk.TabIndex = 15;
+            this.btnOk.Text = "ดึงข้อมูล";
+            this.btnOk.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnOk, "(default)");
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // txtDateEnd
+            // 
+            this.txtDateEnd.AllowSpinLoop = false;
+            this.txtDateEnd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // 
+            // 
+            this.txtDateEnd.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.txtDateEnd.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtDateEnd.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtDateEnd.Culture = 1054;
+            this.txtDateEnd.CurrentTimeZone = false;
+            this.txtDateEnd.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtDateEnd.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            this.txtDateEnd.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDateEnd.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtDateEnd.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            this.txtDateEnd.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDateEnd.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtDateEnd.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtDateEnd.Location = new System.Drawing.Point(313, 12);
+            this.txtDateEnd.Name = "txtDateEnd";
+            this.txtDateEnd.Size = new System.Drawing.Size(134, 20);
+            this.txtDateEnd.TabIndex = 14;
+            this.txtDateEnd.Tag = null;
+            this.theme1.SetTheme(this.txtDateEnd, "(default)");
+            this.txtDateEnd.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtDateEnd.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // c1Label4
+            // 
+            this.c1Label4.AutoSize = true;
+            this.c1Label4.BorderColor = System.Drawing.Color.Transparent;
+            this.c1Label4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.c1Label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.c1Label4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.c1Label4.Location = new System.Drawing.Point(241, 12);
+            this.c1Label4.Name = "c1Label4";
+            this.c1Label4.Size = new System.Drawing.Size(51, 13);
+            this.c1Label4.TabIndex = 13;
+            this.c1Label4.Tag = null;
+            this.theme1.SetTheme(this.c1Label4, "(default)");
+            this.c1Label4.Value = "วันที่สิ้นสุด:";
+            // 
+            // txtDateStart
+            // 
+            this.txtDateStart.AllowSpinLoop = false;
+            this.txtDateStart.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // 
+            // 
+            this.txtDateStart.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.txtDateStart.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtDateStart.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtDateStart.CurrentTimeZone = false;
+            this.txtDateStart.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtDateStart.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            this.txtDateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDateStart.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtDateStart.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            this.txtDateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDateStart.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtDateStart.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtDateStart.Location = new System.Drawing.Point(76, 12);
+            this.txtDateStart.Name = "txtDateStart";
+            this.txtDateStart.Size = new System.Drawing.Size(134, 20);
+            this.txtDateStart.TabIndex = 12;
+            this.txtDateStart.Tag = null;
+            this.theme1.SetTheme(this.txtDateStart, "(default)");
+            this.txtDateStart.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtDateStart.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // c1Label3
+            // 
+            this.c1Label3.AutoSize = true;
+            this.c1Label3.BorderColor = System.Drawing.Color.Transparent;
+            this.c1Label3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.c1Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.c1Label3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.c1Label3.Location = new System.Drawing.Point(15, 12);
+            this.c1Label3.Name = "c1Label3";
+            this.c1Label3.Size = new System.Drawing.Size(51, 13);
+            this.c1Label3.TabIndex = 11;
+            this.c1Label3.Tag = null;
+            this.theme1.SetTheme(this.c1Label3, "(default)");
+            this.c1Label3.Value = "วันที่เริ่มต้น:";
             // 
             // FrmScanCheck
             // 
@@ -284,13 +260,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.sb1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

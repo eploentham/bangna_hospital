@@ -24,20 +24,21 @@ namespace bangna_hospital.gui
         private Point _imageLocation = new Point(13, 5);
         private Point _imgHitArea = new Point(13, 2);
         Image CloseImage;
-        C1FlexGrid grfQue, grfApm;
+        C1FlexGrid grfQue, grfApm, grfFin, grfIPD;
         private C1.Win.C1Ribbon.C1StatusBar sb1;
         private C1.Win.C1Themes.C1ThemeController theme1;
         C1DockingTab tC1;
-        C1DockingTabPage tabQue, tabApm, tabFinish;
+        C1DockingTabPage tabQue, tabApm, tabFinish, tabIPD;
         Label lbDtrName, lbTxtPttHn, lbTxtDate, lbPttName;
         C1TextBox txtPttHn;
         C1Button btnHnSearch;
         C1DateEdit txtDate;
 
-        Panel panel1, pnHead, pnBotton, pnQue, pnApm, pnFinish;
+        Panel panel1, pnHead, pnBotton, pnQue, pnApm, pnFinish, pnIPD;
 
         int colQueId = 1, colQueVnShow = 2, colQueHn = 3, colQuePttName = 4, colQueVsDate = 5, colQueVsTime = 6, colQueSex = 7, colQueAge = 8, colQuePaid = 9, colQueSymptom = 10, colQueHeight = 11, coolQueBw = 12, colQueBp = 13, colQuePulse = 14, colQyeTemp = 15, colQuePreNo = 16, colQueDsc = 17;
         int colApmId = 1, colApmVnShow = 2, colApmHn = 3, colApmPttName = 4, colApmDate = 5, colApmTime = 6, colApmSex = 7, colApmAge = 8, colApmDsc = 9, colApmRemark = 10, colApmDept = 11;
+        int colFinId = 1, colFinVnShow = 2, colFinHn = 3, colFinPttName = 4, colFinDate = 5, colFinTime = 6, colFinSex = 7, colFinAge = 8, colFinDsc = 9, colFinRemark = 10, colFinDept = 11;
 
         Boolean flagExit = false;
         Font fEdit, fEditB, fEditBig;
@@ -98,6 +99,8 @@ namespace bangna_hospital.gui
             initGrfQue();
             setGrfQue();
             initGrfApm();
+            initGrfFinish();
+            initGrfIPD();
             //lbDtrName.Font = fEditBig;
             //lbTxtPttHn.Font = fEditBig;
             //txtPttHn.Font = fEditBig;
@@ -144,12 +147,14 @@ namespace bangna_hospital.gui
             pnQue = new System.Windows.Forms.Panel();
             pnApm = new System.Windows.Forms.Panel();
             pnFinish = new System.Windows.Forms.Panel();
+            pnIPD = new System.Windows.Forms.Panel();
 
             theme1 = new C1.Win.C1Themes.C1ThemeController();
             tC1 = new C1.Win.C1Command.C1DockingTab();
             tabQue = new C1.Win.C1Command.C1DockingTabPage();
             tabApm = new C1.Win.C1Command.C1DockingTabPage();
             tabFinish = new C1.Win.C1Command.C1DockingTabPage();
+            tabIPD = new C1.Win.C1Command.C1DockingTabPage();
 
             panel1.SuspendLayout();
             pnHead.SuspendLayout();
@@ -157,11 +162,13 @@ namespace bangna_hospital.gui
             pnQue.SuspendLayout();
             pnApm.SuspendLayout();
             pnFinish.SuspendLayout();
+            pnIPD.SuspendLayout();
             tC1.SuspendLayout();
             tabQue.SuspendLayout();
             tabApm.SuspendLayout();
             tabFinish.SuspendLayout();
-            
+            tabIPD.SuspendLayout();
+
             this.SuspendLayout();
 
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -193,7 +200,10 @@ namespace bangna_hospital.gui
             tabFinish.Text = "Finish";
             tabFinish.Font = fEditB;
 
-
+            tabIPD.Name = "tabIPD";
+            tabIPD.TabIndex = 3;
+            tabIPD.Text = "IPD";
+            tabIPD.Font = fEditB;
 
             tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             tC1.HotTrack = true;
@@ -216,6 +226,7 @@ namespace bangna_hospital.gui
             pnQue.Dock = DockStyle.Fill;
             pnApm.Dock = DockStyle.Fill;
             pnFinish.Dock = DockStyle.Fill;
+            pnIPD.Dock = DockStyle.Fill;
 
             setControlComponent();
 
@@ -228,10 +239,12 @@ namespace bangna_hospital.gui
             tC1.Controls.Add(tabQue);
             tC1.Controls.Add(tabApm);
             tC1.Controls.Add(tabFinish);
+            tC1.Controls.Add(tabIPD);
             tabQue.Controls.Add(pnQue);
             tabApm.Controls.Add(pnApm);
             tabFinish.Controls.Add(pnFinish);
-                        
+            tabIPD.Controls.Add(pnIPD);
+
             pnHead.Controls.Add(lbDtrName);
             pnHead.Controls.Add(txtPttHn);
             pnHead.Controls.Add(btnHnSearch);
@@ -250,10 +263,12 @@ namespace bangna_hospital.gui
             pnQue.ResumeLayout(false);
             pnApm.ResumeLayout(false);
             pnFinish.ResumeLayout(false);
+            pnIPD.ResumeLayout(false);
             tC1.ResumeLayout(false);
             tabQue.ResumeLayout(false);
             tabApm.ResumeLayout(false);
             tabFinish.ResumeLayout(false);
+            tabIPD.ResumeLayout(false);
 
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -355,6 +370,10 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabQue)
             {
                 setGrfQue();
+            }
+            else if (tC1.SelectedTab == tabFinish)
+            {
+                setGrfFinish();
             }
         }
         private void initGrfQue()
@@ -469,7 +488,7 @@ namespace bangna_hospital.gui
             //}
             //this.Text = "Last Update 2020-02-06 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + " [" + date + "] hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //new LogWriter("d", "FrmDoctorView1 setGrfQue 02 date "+ date);
-            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, bc.datetoDB(date));
+            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, bc.datetoDB(date), "queue");
             //new LogWriter("d", "FrmDoctorView1 setGrfQue 03 ");
             int i = 1;
             grfQue.Rows.Count = dt.Rows.Count + 1;
@@ -538,13 +557,144 @@ namespace bangna_hospital.gui
             grfQue.Cols[colQueDsc].AllowEditing = false;
             //grfQue.Cols[colQueVnShow].AllowEditing = false;
         }
+        private void initGrfIPD()
+        {
+            grfIPD = new C1FlexGrid();
+            grfIPD.Font = fEdit;
+            grfIPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfIPD.Location = new System.Drawing.Point(0, 0);
+            grfIPD.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfIPD.DoubleClick += GrfIPD_DoubleClick;
+
+            pnIPD.Controls.Add(grfIPD);
+            grfIPD.Rows[0].Visible = false;
+            grfIPD.Cols[0].Visible = false;
+            theme1.SetTheme(grfIPD, bc.iniC.themeApp);
+        }
+
+        private void GrfIPD_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void initGrfFinish()
+        {
+            grfFin = new C1FlexGrid();
+            grfFin.Font = fEdit;
+            grfFin.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfFin.Location = new System.Drawing.Point(0, 0);
+            grfFin.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfFin.DoubleClick += GrfFin_DoubleClick;
+
+            pnFinish.Controls.Add(grfFin);
+            grfFin.Rows[0].Visible = false;
+            grfFin.Cols[0].Visible = false;
+            theme1.SetTheme(grfFin, bc.iniC.themeApp);
+        }
+
+        private void GrfFin_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfFin == null) return;
+            if (grfFin.Row <= 0) return;
+            if (grfFin.Col <= 0) return;
+
+            String vn = "", hn = "", vsdate = "", txt = "";
+            vn = grfFin[grfFin.Row, colFinVnShow] != null ? grfFin[grfFin.Row, colFinVnShow].ToString() : "";
+            hn = grfFin[grfFin.Row, colFinHn] != null ? grfFin[grfFin.Row, colFinHn].ToString() : "";
+            txt = grfFin[grfFin.Row, colFinPttName] != null ? grfFin[grfFin.Row, colFinPttName].ToString() : "";
+            openNewForm(hn, txt);
+        }
+        private void setGrfFinish()
+        {
+            grfFin.Clear();
+            grfFin.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfFin.Cols.Count = 12;
+            grfFin.Cols[colFinHn].Caption = "HN";
+            grfFin.Cols[colFinVnShow].Caption = "VN";
+            grfFin.Cols[colFinPttName].Caption = "Patient Name";
+            grfFin.Cols[colFinDate].Caption = "Date";
+            grfFin.Cols[colFinTime].Caption = "Time";
+            grfFin.Cols[colFinSex].Caption = "Sex";
+            grfFin.Cols[colFinAge].Caption = "Age";
+            grfFin.Cols[colFinDsc].Caption = "Description";
+            grfFin.Cols[colFinRemark].Caption = "Symptom";
+            grfFin.Cols[colFinDept].Caption = "Dept";
+
+            grfFin.Cols[colFinHn].Width = 80;
+            grfFin.Cols[colFinVnShow].Width = 80;
+            grfFin.Cols[colFinPttName].Width = 300;
+            grfFin.Cols[colFinDate].Width = 100;
+            grfFin.Cols[colFinTime].Width = 80;
+            grfFin.Cols[colFinSex].Width = 80;
+            grfFin.Cols[colFinAge].Width = 80;
+            grfFin.Cols[colFinDsc].Width = 300;
+            grfFin.Cols[colFinRemark].Width = 300;
+            grfFin.Cols[colFinDept].Width = 110;
+
+            ContextMenu menuGw = new ContextMenu();
+            grfFin.ContextMenu = menuGw;
+            String date = "";
+            //if (lDgss.Count <= 0) getlBsp();
+            date = txtDate.Text;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, bc.datetoDB(date), "finish");
+            int i = 1;
+            grfFin.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    String status = "", vn = "";
+                    Patient ptt = new Patient();
+                    ptt.patient_birthday = bc.datetoDB(row["mnc_bday"].ToString());
+                    vn = row["MNC_VN_NO"].ToString() + "/" + row["MNC_VN_SEQ"].ToString() + "(" + row["MNC_VN_SUM"].ToString() + ")";
+                    grfFin[i, 0] = (i);
+                    grfFin[i, colFinHn] = row["MNC_HN_NO"].ToString();
+                    grfFin[i, colFinVnShow] = vn;
+                    grfFin[i, colFinPttName] = row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfFin[i, colFinDate] = bc.datetoShow(row["mnc_date"].ToString());
+                    grfFin[i, colFinTime] = bc.FormatTime(row["mnc_time"].ToString());
+                    grfFin[i, colFinSex] = row["mnc_sex"].ToString();
+                    grfFin[i, colFinAge] = ptt.AgeStringShort();
+                    grfFin[i, colFinDsc] = row["MNC_ref_dsc"].ToString();
+                    grfFin[i, colFinRemark] = row["MNC_SHIF_MEMO"].ToString();
+                    //grfFin[i, colApmDept] = row["mnc_name"].ToString();
+                    //if ((i % 2) == 0)
+                    //    grfFin.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    i++;
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmDoctorView setGrfApm ex " + ex.Message);
+                }
+            }
+            grfFin.Cols[colFinId].Visible = false;
+
+            grfFin.Cols[colFinHn].AllowEditing = false;
+            grfFin.Cols[colFinVnShow].Visible = false;
+            grfFin.Cols[colFinPttName].AllowEditing = false;
+            grfFin.Cols[colFinDate].AllowEditing = false;
+            grfFin.Cols[colFinTime].AllowEditing = false;
+            grfFin.Cols[colFinSex].AllowEditing = false;
+            grfFin.Cols[colFinAge].AllowEditing = false;
+            grfFin.Cols[colFinDsc].AllowEditing = false;
+            grfFin.Cols[colFinRemark].AllowEditing = false;
+            grfFin.Cols[colFinDept].AllowEditing = false;
+        }
         private void initGrfApm()
         {
             grfApm = new C1FlexGrid();
             grfApm.Font = fEdit;
             grfApm.Dock = System.Windows.Forms.DockStyle.Fill;
             grfApm.Location = new System.Drawing.Point(0, 0);
-
+            grfApm.Rows.Count = 1;
             //FilterRow fr = new FilterRow(grfExpn);
 
             grfApm.DoubleClick += GrfApm_DoubleClick;
@@ -563,7 +713,7 @@ namespace bangna_hospital.gui
             if (grfApm.Col <= 0) return;
 
             String vn = "", hn = "", vsdate = "", txt = "";
-            vn = grfApm[grfApm.Row, colQueVnShow] != null ? grfApm[grfApm.Row, colQueVnShow].ToString() : "";
+            vn = grfApm[grfApm.Row, colApmVnShow] != null ? grfApm[grfApm.Row, colApmVnShow].ToString() : "";
             hn = grfApm[grfApm.Row, colApmHn] != null ? grfApm[grfApm.Row, colApmHn].ToString() : "";
             txt = grfApm[grfApm.Row, colApmPttName] != null ? grfApm[grfApm.Row, colApmPttName].ToString() : "";
             openNewForm(hn, txt);
@@ -750,7 +900,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(tC1, bc.iniC.themeDonor);
             txtPttHn.Location = new System.Drawing.Point(lbTxtPttHn.Location.X + size.Width + 5, lbTxtPttHn.Location.Y);
             sb1.Text = "Text";
-            this.Text = "Last Update 2020-04-08 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2020-05-12 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel1, bc.iniC.themeApp);
             theme1.SetTheme(pnHead, bc.iniC.themeApp);

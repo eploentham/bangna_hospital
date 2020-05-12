@@ -39,6 +39,7 @@ namespace bangna_hospital.gui
             this.bc = bc;
             this.splash = splash;
             initConfig();
+            //new LogWriter("e", "Login InitializeComponent Start Form");
         }
         private void initConfig()
         {

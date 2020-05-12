@@ -124,12 +124,12 @@ namespace bangna_hospital.gui
                 //bc.setC1Combo(cboDgs, dgs);
                 txtSortMax.Value = dgs.row_cnt;
                 DocGroupFM docGroupFm1 = new DocGroupFM();
-                DocGroupFM docGroupFm2 = this.bc.bcDB.dfmDB.selectByFMCode(this.dgs.ml_fm);
+                DocGroupFM docGroupFm2 = bc.bcDB.dfmDB.selectByFMCode(this.dgs.ml_fm);
                 if (docGroupFm2.fm_id.Length > 0)
                 {
-                    this.bc.setC1Combo(this.cboDgs, docGroupFm2.doc_group_id);
-                    this.bc.bcDB.dgssDB.setCboDGSS(this.cboDgs, docGroupFm2.doc_group_id, "");
-                    this.bc.setC1Combo(this.cboDgss, docGroupFm2.doc_group_sub_id);
+                    bc.setC1Combo(cboDgs, docGroupFm2.doc_group_id);
+                    bc.bcDB.dgssDB.setCboDGSS(cboDgs, docGroupFm2.doc_group_id, "");
+                    bc.setC1Combo(cboDgss, docGroupFm2.doc_group_sub_id);
                 }
                 str = "02";
                 pic1.Image = img1;

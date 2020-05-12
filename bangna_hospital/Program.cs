@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.gui;
+using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace bangna_hospital
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            //new LogWriter("e", "Program Start Form");
             BangnaControl bc = new BangnaControl();
             if (args.Length == 1)
             {
@@ -38,7 +39,7 @@ namespace bangna_hospital
             //Application.Run(new gui.MainMenu(bc, spl));
 
             //Application.Run(new gui.FrmBillLabCheck(bc));
-
+            //MessageBox.Show("error Main " , "");
             //Application.Run(new gui.FrmXrayViewDaily(bc));
             try
             {
@@ -73,6 +74,7 @@ namespace bangna_hospital
                 }
                 else if (bc.iniC.programLoad.Equals("doctorView"))
                 {
+                    //new LogWriter("e", "Program doctorView Start Form");
                     FrmSplash spl = new FrmSplash();
                     spl.Show();
                     Application.Run(new gui.FrmDoctorView1(bc, spl));
@@ -110,10 +112,10 @@ namespace bangna_hospital
                         Application.Run(new FrmScreenCapture(bc));
                     }
                 }
-                
             }
             catch(Exception ex)
             {
+                new LogWriter("e", "Program doctorView Start Form");
                 MessageBox.Show("error Main " + ex.Message, "");
             }
             

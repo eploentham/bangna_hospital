@@ -192,8 +192,10 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public DataTable selectVisitByDtr(String dtrid, String date)
+        public DataTable selectVisitByDtr(String dtrid, String date, String flagVisit)
         {
+            String actno = "";
+            actno = flagVisit.Equals("finish") ? "610" : "110";
             DataTable dt = new DataTable();
             String sql = "";
             sql = "Select   t01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
@@ -221,7 +223,7 @@ namespace bangna_hospital.objdb
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " inner join FINANCE_M02 f02 ON t01.MNC_FN_TYP_CD = f02.MNC_FN_TYP_CD " +
-                " Where t01.MNC_DOT_CD = '" + dtrid + "' and t01.mnc_date = '" + date + "' and t01.mnc_act_no = '110' " +
+                " Where t01.MNC_DOT_CD = '" + dtrid + "' and t01.mnc_date = '" + date + "' and t01.mnc_act_no = '"+ actno + "' " +
                 "and t01.MNC_STS <> 'C' " +     // mnc_act_number 110 = ส่งพบแพทย์, 610 พยาบาล ปิดทำงาน ไปการเงิน
                 " Order By t01.MNC_DATE, t01.MNC_TIME ";
             dt = conn.selectData(sql);

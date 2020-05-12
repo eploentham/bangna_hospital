@@ -1112,7 +1112,7 @@ namespace bangna_hospital.gui
                 Dictionary<string, string> dict1 = new Dictionary<string, string>();//+0004
                 
                 Application.DoEvents();
-                    
+
                 if (objRiaR != null)
                 {
                     listBox2.Items.Add("มี Attach File ");
@@ -1154,12 +1154,14 @@ namespace bangna_hospital.gui
                 }
                 listBox2.Items.Add("ได้เลขที่ " + re);
                 Application.DoEvents();
-                dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString() + "//" + dt.Rows[0]["mnc_hn_no"].ToString() + "_" + re + ext;
+                String extori = Path.GetExtension(filenamePDF);
+
+                dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString() + "//" + dt.Rows[0]["mnc_hn_no"].ToString() + "_" + re + extori;
                 
                 vn = dsc.vn.Replace("/", "_").Replace("(", "_").Replace(")", "");
 
                 dsc.ml_fm = "FM-LAB-996";       //RIA
-                dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "//" + dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1                
+                dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "//" + dt.Rows[0]["mnc_hn_no"].ToString().Replace("/", "-") + "-" + vn + "-" + re + extori;         //+1
 
                 String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
                 String image_path_attach = "";
@@ -2374,7 +2376,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-04-18 แก้ 0004 RIA  bc.timerCheckLabOut " + bc.timerCheckLabOut;
+            this.Text = "Last Update 2020-05-12 แก้ 0004 RIA  bc.timerCheckLabOut " + bc.timerCheckLabOut;
         }
     }
 }

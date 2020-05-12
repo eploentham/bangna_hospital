@@ -34,7 +34,7 @@ namespace bangna_hospital.control
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
-        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0;
+        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0;
 
         public BangnaControl()
         {
@@ -42,32 +42,42 @@ namespace bangna_hospital.control
         }
         private void initConfig()
         {
-            
-            appName = System.AppDomain.CurrentDomain.FriendlyName;
-            appName = appName.ToLower().Replace(".exe", "");
-            if (System.IO.File.Exists(Environment.CurrentDirectory + "\\" + appName + ".ini"))
+            //MessageBox.Show("h1111n ", "");
+            try
             {
-                appName = Environment.CurrentDirectory + "\\" + appName + ".ini";
-            }
-            else
-            {
-                appName = Environment.CurrentDirectory + "\\" + Application.ProductName + ".ini";
-            }
-            if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
-            {
-                appName = "c:\\bangna_hospital.ini";
-            }
-            iniF = new IniFile(appName);
-            iniC = new InitConfig();
-            cTxtFocus = ColorTranslator.FromHtml(iniC.txtFocus);
-            user = new Staff();
-            sPtt = new Patient();
-            sStf = new Staff();
-            cStf = new Staff();
+                appName = System.AppDomain.CurrentDomain.FriendlyName;
+                appName = appName.ToLower().Replace(".exe", "");
+                if (System.IO.File.Exists(Environment.CurrentDirectory + "\\" + appName + ".ini"))
+                {
+                    appName = Environment.CurrentDirectory + "\\" + appName + ".ini";
+                }
+                else
+                {
+                    appName = Environment.CurrentDirectory + "\\" + Application.ProductName + ".ini";
+                }
+                if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
+                {
+                    appName = "c:\\bangna_hospital.ini";
+                }
+                //MessageBox.Show("h1111n ", "");
+                iniF = new IniFile(appName);
+                iniC = new InitConfig();
+                cTxtFocus = ColorTranslator.FromHtml(iniC.txtFocus);
+                user = new Staff();
+                sPtt = new Patient();
+                sStf = new Staff();
+                cStf = new Staff();
 
-            GetConfig();
-            conn = new ConnectDB(iniC);
-            bcDB = new BangnaHospitalDB(conn);
+                GetConfig();
+                conn = new ConnectDB(iniC);
+                bcDB = new BangnaHospitalDB(conn);
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("e", "BangnaControl initConfig ");
+                MessageBox.Show("error "+ex.Message, "");
+            }
+            
         }
         public void getInit()
         {
@@ -76,6 +86,7 @@ namespace bangna_hospital.control
         }
         public void GetConfig()
         {
+            //MessageBox.Show("hn " , "");
             iniC.hostDB = iniF.getIni("connection", "hostDB");
             iniC.nameDB = iniF.getIni("connection", "nameDB");
             iniC.userDB = iniF.getIni("connection", "userDB");
@@ -155,6 +166,9 @@ namespace bangna_hospital.control
             iniC.pathScreenCaptureSend = iniF.getIni("app", "pathScreenCaptureSend");
             iniC.pacsServerIP = iniF.getIni("app", "pacsServerIP");
             iniC.pacsServerPort = iniF.getIni("app", "pacsServerPort");
+            iniC.tabLabOutImageHeight = iniF.getIni("app", "tabLabOutImageHeight");
+            iniC.tabLabOutImageWidth = iniF.getIni("app", "tabLabOutImageWidth");
+            iniC.statusShowLabOutFrmLabOutReceiveView = iniF.getIni("app", "statusShowLabOutFrmLabOutReceiveView");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -182,6 +196,9 @@ namespace bangna_hospital.control
             iniC.pathDownloadFile = iniC.pathDownloadFile == null ? "" : iniC.pathDownloadFile.Equals("") ? "" : iniC.pathDownloadFile;
             iniC.pacsServerIP = iniC.pacsServerIP == null ? "" : iniC.pacsServerIP.Equals("") ? "" : iniC.pacsServerIP;
             iniC.pacsServerPort = iniC.pacsServerPort == null ? "" : iniC.pacsServerPort.Equals("") ? "" : iniC.pacsServerPort;
+            iniC.tabLabOutImageHeight = iniC.tabLabOutImageHeight == null ? "842" : iniC.tabLabOutImageHeight.Equals("") ? "842" : iniC.tabLabOutImageHeight;
+            iniC.tabLabOutImageWidth = iniC.tabLabOutImageWidth == null ? "595" : iniC.tabLabOutImageWidth.Equals("") ? "595" : iniC.tabLabOutImageWidth;
+            iniC.statusShowLabOutFrmLabOutReceiveView = iniC.statusShowLabOutFrmLabOutReceiveView == null ? "windows10" : iniC.statusShowLabOutFrmLabOutReceiveView.Equals("") ? "windows10" : iniC.statusShowLabOutFrmLabOutReceiveView;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -193,6 +210,8 @@ namespace bangna_hospital.control
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             int.TryParse(iniC.imgScanWidth, out imgScanWidth);
             int.TryParse(iniC.txtSearchHnLenghtStart, out txtSearchHnLenghtStart);
+            int.TryParse(iniC.tabLabOutImageHeight, out tabLabOutImageHeight);
+            int.TryParse(iniC.tabLabOutImageWidth, out tabLabOutImageWidth);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {
