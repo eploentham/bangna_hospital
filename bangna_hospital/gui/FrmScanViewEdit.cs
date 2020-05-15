@@ -57,12 +57,38 @@ namespace bangna_hospital.gui
             cboDgs.SelectedIndexChanged += CboDgs_SelectedIndexChanged;
             chkVoid.Click += ChkVoid_Click;
             btnVoid.Click += BtnVoid_Click;
+            btnGenSort.Click += BtnGenSort_Click;
             //theme1.SetTheme(sb1, "BeigeOne");
 
             //sb1.Text = "aaaaaaaaaa";
 
             setControl();
             pageLoad = true;
+        }
+
+        private void BtnGenSort_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            DataTable dataTable1 = new DataTable();
+            DataTable dataTable2 = this.bc.bcDB.dscDB.selectByAnSortID(((Control)this.txtHn).Text, ((Control)this.txtAn).Text);
+            if (dataTable2.Rows.Count <= 0)
+                return;
+            long result1 = 0;
+            if (long.TryParse(dataTable2.Rows[0][this.bc.bcDB.dscDB.dsc.sort1].ToString(), out result1))
+            {
+                int num = 0;
+                foreach (DataRow row in (InternalDataCollectionBase)dataTable2.Rows)
+                {
+                    ++num;
+                    int result2 = 0;
+                    if (!int.TryParse(this.bc.bcDB.dscDB.updateSort(row[this.bc.bcDB.dscDB.dsc.doc_scan_id].ToString(), num.ToString()), out result2))
+                        ;
+                }
+                DocScan docScan1 = new DocScan();
+                DocScan docScan2 = this.bc.bcDB.dscDB.selectByPk(((Control)this.txtID).Text);
+                txtSort.Value = docScan2.sort1;
+                txtSort.Value = docScan2.sort1;
+            }
         }
 
         private void BtnVoid_Click(object sender, EventArgs e)
@@ -110,19 +136,22 @@ namespace bangna_hospital.gui
             string str = "";
             try
             {
+                str = "00";
                 dgs = bc.bcDB.dscDB.selectByPk(dscid);
                 bc.bcDB.dgssDB.setCboDGSS(cboDgss, "");
                 bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
+                str = "01";
                 txtID.Value = dgs.doc_scan_id;
                 txtHn.Value = hn;
                 txtVN.Value = dgs.vn;
                 txtAn.Value = dgs.an;
                 txtPttName.Value = name;
                 txtVisitDate.Value = visitDate;
-                txtSort1.Value = dgs.sort1;
+                txtSort.Value = dgs.sort1;
                 txtFmCode.Value = dgs.ml_fm;
                 //bc.setC1Combo(cboDgs, dgs);
                 txtSortMax.Value = dgs.row_cnt;
+                //txtSortMax.Value = dgs.row_cnt;
                 DocGroupFM docGroupFm1 = new DocGroupFM();
                 DocGroupFM docGroupFm2 = bc.bcDB.dfmDB.selectByFMCode(this.dgs.ml_fm);
                 if (docGroupFm2.fm_id.Length > 0)
@@ -150,7 +179,7 @@ namespace bangna_hospital.gui
             re = bc.bcDB.dscDB.updateFMCode(txtID.Text, txtFmCode.Text.Trim());
             if (int.TryParse(re, out chk))
             {
-                MessageBox.Show("แก้ไขข้อมูล เรียบร้อย", "");
+                MessageBox.Show("แก้ไขข้อมูล FM-CODE เรียบร้อย", "");
             }
         }
 
@@ -228,7 +257,7 @@ namespace bangna_hospital.gui
             re = bc.bcDB.dscDB.updateSort(txtID.Text, txtSort1.Text.Trim());
             if(int.TryParse(re, out chk))
             {
-                MessageBox.Show("แก้ไขข้อมูล เรียบร้อย", "");
+                MessageBox.Show("แก้ไขข้อมูล ลำดับ เรียบร้อย", "");
             }
 
         }

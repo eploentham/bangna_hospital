@@ -62,6 +62,7 @@ namespace bangna_hospital.objdb
             dsc.patient_fullname = "patient_fullname";
             dsc.status_record = "status_record";
             dsc.sort1 = "sort1";
+            //dsc.row_cnt = "row_cnt";
 
             dsc.table = "doc_scan";
             dsc.pkField = "doc_scan_id";
@@ -151,6 +152,12 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
+        }
+        public DataTable selectByAnSortID(string hn, string an)
+        {
+            DocScan docScan = new DocScan();
+            DataTable dataTable = new DataTable();
+            return this.conn.selectData(this.conn.conn, "select dsc.* From " + this.dsc.table + " dsc Where dsc." + this.dsc.hn + " ='" + hn + "' and dsc." + this.dsc.an + "='" + an + "' and dsc." + this.dsc.active + "='1' Order By dsc." + this.dsc.sort1);
         }
         public DataTable selectBySortID(string hn, string an, string sort1)
         {
@@ -486,6 +493,12 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
+        }
+        public DataTable selectByAn(string hn, string an, string sort1)
+        {
+            DocScan docScan = new DocScan();
+            DataTable dataTable = new DataTable();
+            return this.conn.selectData(this.conn.conn, "select dsc.* From " + this.dsc.table + " dsc Where dsc." + this.dsc.hn + " ='" + hn + "' and dsc." + this.dsc.an + "='" + an + "' and dsc." + this.dsc.active + "='1' and dsc." + this.dsc.sort1 + " > " + sort1 + " Order By dsc.sort1 ");
         }
         public String selectRowNoByHn(String hn, String docgid)
         {
@@ -1052,6 +1065,8 @@ namespace bangna_hospital.objdb
                 dgs1.pic_before_scan_cnt = dt.Rows[0][dsc.pic_before_scan_cnt].ToString();
                 dgs1.status_record = dt.Rows[0][dsc.status_record].ToString();
                 dgs1.sort1 = dt.Rows[0][dsc.sort1].ToString();
+                dgs1.ml_fm = dt.Rows[0][dsc.ml_fm].ToString();
+                dgs1.row_cnt = dt.Rows[0][dsc.row_cnt].ToString();
             }
             else
             {
@@ -1088,6 +1103,8 @@ namespace bangna_hospital.objdb
             dgs1.pic_before_scan_cnt = "";
             dgs1.status_record = "";
             dgs1.sort1 = "";
+            dgs1.ml_fm = "";
+            dgs1.row_cnt = "";
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

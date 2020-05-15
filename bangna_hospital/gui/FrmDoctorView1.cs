@@ -912,8 +912,12 @@ namespace bangna_hospital.gui
         private void openNewForm(String hn, String txt)
         {
             FrmScanView1 frm = new FrmScanView1(bc, hn,"hide");
-            frm.FormBorderStyle = FormBorderStyle.None;
-            AddNewTab(frm, txt);
+            //frm.FormBorderStyle = FormBorderStyle.None;
+            //AddNewTab(frm, txt);
+            frm.FormBorderStyle = FormBorderStyle.FixedSingle;
+            frm.WindowState = FormWindowState.Maximized;
+            frm.Show(this);
+
             txtPttHn.Value = "";
         }
         public C1DockingTabPage AddNewTab(Form frm, String label)

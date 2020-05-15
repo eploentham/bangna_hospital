@@ -31,6 +31,11 @@
             this.pnImg = new System.Windows.Forms.Panel();
             this.pic1 = new System.Windows.Forms.PictureBox();
             this.pn = new System.Windows.Forms.Panel();
+            this.btnGenSort = new C1.Win.C1Input.C1Button();
+            this.txtSortMax = new C1.Win.C1Input.C1TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtSort1 = new C1.Win.C1Input.C1NumericEdit();
+            this.label10 = new System.Windows.Forms.Label();
             this.btnVoid = new C1.Win.C1Input.C1Button();
             this.chkVoid = new C1.Win.C1Input.C1CheckBox();
             this.btnSaveFmCode = new C1.Win.C1Input.C1Button();
@@ -45,7 +50,7 @@
             this.txtVisitDate = new C1.Win.C1Input.C1DateEdit();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.txtAn = new C1.Win.C1Input.C1TextBox();
-            this.txtSort1 = new C1.Win.C1Input.C1TextBox();
+            this.txtSort = new C1.Win.C1Input.C1TextBox();
             this.txtFmCode = new C1.Win.C1Input.C1TextBox();
             this.txtVN = new C1.Win.C1Input.C1TextBox();
             this.txtPttName = new C1.Win.C1Input.C1TextBox();
@@ -58,14 +63,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.theme = new C1.Win.C1Themes.C1ThemeController();
-            this.label10 = new System.Windows.Forms.Label();
-            this.c1NumericEdit1 = new C1.Win.C1Input.C1NumericEdit();
-            this.txtSortMax = new C1.Win.C1Input.C1TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.c1Button1 = new C1.Win.C1Input.C1Button();
             this.pnImg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
             this.pn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnGenSort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSort1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVoid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkVoid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSaveFmCode)).BeginInit();
@@ -79,14 +82,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSort1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFmCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1NumericEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnImg
@@ -110,10 +110,10 @@
             // 
             // pn
             // 
-            this.pn.Controls.Add(this.c1Button1);
+            this.pn.Controls.Add(this.btnGenSort);
             this.pn.Controls.Add(this.txtSortMax);
             this.pn.Controls.Add(this.label11);
-            this.pn.Controls.Add(this.c1NumericEdit1);
+            this.pn.Controls.Add(this.txtSort1);
             this.pn.Controls.Add(this.label10);
             this.pn.Controls.Add(this.btnVoid);
             this.pn.Controls.Add(this.chkVoid);
@@ -129,7 +129,7 @@
             this.pn.Controls.Add(this.txtVisitDate);
             this.pn.Controls.Add(this.txtHn);
             this.pn.Controls.Add(this.txtAn);
-            this.pn.Controls.Add(this.txtSort1);
+            this.pn.Controls.Add(this.txtSort);
             this.pn.Controls.Add(this.txtFmCode);
             this.pn.Controls.Add(this.txtVN);
             this.pn.Controls.Add(this.txtPttName);
@@ -147,6 +147,67 @@
             this.pn.Size = new System.Drawing.Size(399, 723);
             this.pn.TabIndex = 1;
             this.theme.SetTheme(this.pn, "(default)");
+            // 
+            // btnGenSort
+            // 
+            this.btnGenSort.Location = new System.Drawing.Point(248, 353);
+            this.btnGenSort.Name = "btnGenSort";
+            this.btnGenSort.Size = new System.Drawing.Size(51, 22);
+            this.btnGenSort.TabIndex = 563;
+            this.btnGenSort.Text = "gen";
+            this.theme.SetTheme(this.btnGenSort, "(default)");
+            this.btnGenSort.UseVisualStyleBackColor = true;
+            // 
+            // txtSortMax
+            // 
+            this.txtSortMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSortMax.Location = new System.Drawing.Point(106, 380);
+            this.txtSortMax.Name = "txtSortMax";
+            this.txtSortMax.Size = new System.Drawing.Size(136, 18);
+            this.txtSortMax.TabIndex = 562;
+            this.txtSortMax.Tag = null;
+            this.theme.SetTheme(this.txtSortMax, "(default)");
+            this.txtSortMax.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSortMax.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 380);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 13);
+            this.label11.TabIndex = 561;
+            this.label11.Text = "จำนวนหน้า :";
+            this.theme.SetTheme(this.label11, "(default)");
+            // 
+            // txtSort1
+            // 
+            this.txtSort1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // 
+            // 
+            this.txtSort1.Calculator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
+            this.txtSort1.Calculator.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort1.Calculator.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort1.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtSort1.Location = new System.Drawing.Point(106, 404);
+            this.txtSort1.Name = "txtSort1";
+            this.txtSort1.Size = new System.Drawing.Size(138, 18);
+            this.txtSort1.TabIndex = 560;
+            this.txtSort1.Tag = null;
+            this.theme.SetTheme(this.txtSort1, "(default)");
+            this.txtSort1.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort1.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 404);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(38, 13);
+            this.label10.TabIndex = 559;
+            this.label10.Text = "ลำดับ :";
+            this.theme.SetTheme(this.label10, "(default)");
             // 
             // btnVoid
             // 
@@ -180,9 +241,9 @@
             // 
             this.btnSaveFmCode.Location = new System.Drawing.Point(248, 308);
             this.btnSaveFmCode.Name = "btnSaveFmCode";
-            this.btnSaveFmCode.Size = new System.Drawing.Size(51, 22);
+            this.btnSaveFmCode.Size = new System.Drawing.Size(99, 22);
             this.btnSaveFmCode.TabIndex = 25;
-            this.btnSaveFmCode.Text = "save";
+            this.btnSaveFmCode.Text = "save FM code";
             this.theme.SetTheme(this.btnSaveFmCode, "(default)");
             this.btnSaveFmCode.UseVisualStyleBackColor = true;
             // 
@@ -211,11 +272,11 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(249, 353);
+            this.btnSave.Location = new System.Drawing.Point(248, 404);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(51, 22);
+            this.btnSave.Size = new System.Drawing.Size(97, 22);
             this.btnSave.TabIndex = 22;
-            this.btnSave.Text = "gen";
+            this.btnSave.Text = "Save ลำดับ";
             this.theme.SetTheme(this.btnSave, "(default)");
             this.btnSave.UseVisualStyleBackColor = true;
             // 
@@ -327,17 +388,17 @@
             this.txtAn.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             this.txtAn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
-            // txtSort1
+            // txtSort
             // 
-            this.txtSort1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSort1.Location = new System.Drawing.Point(106, 356);
-            this.txtSort1.Name = "txtSort1";
-            this.txtSort1.Size = new System.Drawing.Size(136, 18);
-            this.txtSort1.TabIndex = 13;
-            this.txtSort1.Tag = null;
-            this.theme.SetTheme(this.txtSort1, "(default)");
-            this.txtSort1.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtSort1.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSort.Location = new System.Drawing.Point(106, 356);
+            this.txtSort.Name = "txtSort";
+            this.txtSort.Size = new System.Drawing.Size(136, 18);
+            this.txtSort.TabIndex = 13;
+            this.txtSort.Tag = null;
+            this.theme.SetTheme(this.txtSort, "(default)");
+            this.txtSort.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // txtFmCode
             // 
@@ -455,58 +516,6 @@
             this.label6.Text = "Name :";
             this.theme.SetTheme(this.label6, "(default)");
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 404);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(38, 13);
-            this.label10.TabIndex = 559;
-            this.label10.Text = "ลำดับ :";
-            this.theme.SetTheme(this.label10, "(default)");
-            // 
-            // c1NumericEdit1
-            // 
-            this.c1NumericEdit1.ImagePadding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            this.c1NumericEdit1.Location = new System.Drawing.Point(106, 404);
-            this.c1NumericEdit1.Name = "c1NumericEdit1";
-            this.c1NumericEdit1.Size = new System.Drawing.Size(138, 18);
-            this.c1NumericEdit1.TabIndex = 560;
-            this.c1NumericEdit1.Tag = null;
-            this.theme.SetTheme(this.c1NumericEdit1, "(default)");
-            // 
-            // txtSortMax
-            // 
-            this.txtSortMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtSortMax.Location = new System.Drawing.Point(106, 380);
-            this.txtSortMax.Name = "txtSortMax";
-            this.txtSortMax.Size = new System.Drawing.Size(136, 18);
-            this.txtSortMax.TabIndex = 562;
-            this.txtSortMax.Tag = null;
-            this.theme.SetTheme(this.txtSortMax, "(default)");
-            this.txtSortMax.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtSortMax.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 380);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(66, 13);
-            this.label11.TabIndex = 561;
-            this.label11.Text = "จำนวนหน้า :";
-            this.theme.SetTheme(this.label11, "(default)");
-            // 
-            // c1Button1
-            // 
-            this.c1Button1.Location = new System.Drawing.Point(248, 402);
-            this.c1Button1.Name = "c1Button1";
-            this.c1Button1.Size = new System.Drawing.Size(51, 22);
-            this.c1Button1.TabIndex = 563;
-            this.c1Button1.Text = "save";
-            this.theme.SetTheme(this.c1Button1, "(default)");
-            this.c1Button1.UseVisualStyleBackColor = true;
-            // 
             // FrmScanViewEdit
             // 
             this.ClientSize = new System.Drawing.Size(1114, 723);
@@ -519,6 +528,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).EndInit();
             this.pn.ResumeLayout(false);
             this.pn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnGenSort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSort1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVoid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkVoid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSaveFmCode)).EndInit();
@@ -532,14 +544,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSort1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFmCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1NumericEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -565,7 +574,7 @@
         private System.Windows.Forms.Label label3;
         private C1.Win.C1Input.C1TextBox txtAn;
         private System.Windows.Forms.Label label8;
-        private C1.Win.C1Input.C1TextBox txtSort1;
+        private C1.Win.C1Input.C1TextBox txtSort;
         private System.Windows.Forms.Label label7;
         private C1.Win.C1Input.C1TextBox txtFmCode;
         private System.Windows.Forms.Label label5;
@@ -579,9 +588,9 @@
         private C1.Win.C1Input.C1Button btnVoid;
         private C1.Win.C1Input.C1CheckBox chkVoid;
         private System.Windows.Forms.Label label10;
-        private C1.Win.C1Input.C1NumericEdit c1NumericEdit1;
+        private C1.Win.C1Input.C1NumericEdit txtSort1;
         private C1.Win.C1Input.C1TextBox txtSortMax;
         private System.Windows.Forms.Label label11;
-        private C1.Win.C1Input.C1Button c1Button1;
+        private C1.Win.C1Input.C1Button btnGenSort;
     }
 }

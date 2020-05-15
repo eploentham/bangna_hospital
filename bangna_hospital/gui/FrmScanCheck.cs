@@ -42,7 +42,9 @@ namespace bangna_hospital.gui
             theme1.SetTheme(sb1, bc.iniC.themeApplication);
             theme1.SetTheme(panel1, bc.iniC.themeApplication);
             theme1.SetTheme(panel2, bc.iniC.themeApplication);
-            
+            txtDateStart.Value = DateTime.Now;
+            txtDateEnd.Value = DateTime.Now;
+
             foreach (Control con in panel1.Controls)
             {
                 theme1.SetTheme(con, bc.iniC.themeApplication);
