@@ -60,6 +60,20 @@ namespace bangna_hospital.objdb
             
             return dt;
         }
+        public DataTable selectAll()
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            
+            sql = "Select  xm01.* " +
+                "From  xray_m01 xm01  " +
+
+                " Where xm01.MNC_XR_STS = 'Y'  " +
+                "Order By xm01.MNC_XR_CD";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectVisitStatusPacsProcessByDate(String Date)
         {
             DataTable dt = new DataTable();
@@ -97,6 +111,13 @@ namespace bangna_hospital.objdb
             String sql = "", re="";
             sql = "Update xray_t01 Set status_pacs = '1' Where mnc_req_no = '" + reqno+"' and mnc_req_yr = '"+reqyr+"' ";
             re = conn.ExecuteNonQuery(sql);
+            return re;
+        }
+        public String updateModality(String xrcode, String modalitycode)
+        {
+            String sql = "", re = "";
+            sql = "Update xray_m01 Set modality_code = '"+ modalitycode + "' Where mnc_xr_cd = '" + xrcode + "' ";
+            re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             return re;
         }
         public String selectPACsInfinittCode(String xraycode)

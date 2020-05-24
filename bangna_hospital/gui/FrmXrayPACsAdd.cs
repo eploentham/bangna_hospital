@@ -34,30 +34,36 @@ namespace bangna_hospital.gui
         C1StatusBar sb1;
         C1ThemeController theme1;
         C1DockingTab tC1;
-        C1FlexGrid grfReq, grfProc;
-        C1DockingTabPage tabReq, tabApm, tabFinish, tabListen;
-        C1SplitContainer splitContainer1;
-        C1SplitterPanel c1SplitterPanel1;
-        C1SplitterPanel c1SplitterPanel2;
-        C1Button btnLisStart;
-        C1TextBox txtIp, txtPort;
-        Label lbTxtIp, lbTxtPort;
+        C1FlexGrid grfReq, grfProc, grfFinish, grfMaster;
+        C1DockingTabPage tabReq, tabApm, tabFinish, tabListen, tabmaster;
+        C1SplitContainer splitContainer1, sCMaster;
+        C1SplitterPanel c1SplitterPanel1, c1SplitterPanel2, scpMasterTop, scpMasterButton;
+        
+        C1Button btnLisStart, btnModality;
+        C1TextBox txtIp, txtPort,txtXrCode, txtXrName, txtPacsCode, txtModality;
+        Label lbTxtIp, lbTxtPort, lbXrCode, lbXrName, lbPacsCode, lbModality;
+        C1ComboBox cboModality;
         ListBox lboxServer, lboxClient;
 
         int colReqId = 1, colReqHn = 2, colReqName = 3, colReqVn = 4, colReqXn = 5, colReqDtr = 6, colReqDpt = 7, colReqreqyr = 8, colReqreqno = 9, colreqhnyr = 10, colreqpreno = 11, colreqsex = 12, colreqdob = 13, colreqsickness = 14, colxrdesc = 15, colxrcode=16, colxrstfcode=17, colxrstfname=18, colxrdepno=19, colxrdepname=20, colpttstatus=21;
+        int colMasId = 1, colMasCode = 2, colMasDsc = 3, colMasTyp = 4, colMasGrp = 5, colMasDis = 6, colMasDeccode = 7, colMasDecNo = 8, colMasInfinittCode=9, colMasModalityCode=10;
         Timer timer1;
 
-        Panel panel1, pnHead, pnBotton, pnQue, pnListen;
+        Panel panel1, pnHead, pnBotton, pnQue, pnListen, pnMaster;
         Form frmFlash;
-        Image imgStart, imgStop;
+        Image imgStart, imgStop, imgSave;
 
         private StreamWriter serverStreamWriter;
         private StreamReader serverStreamReader;
         private Thread n_server;
 
-        private StreamReader clientStreamReader;
+        //private StreamReader clientStreamReader;
         private StreamWriter clientStreamWriter;
-        TcpClient tcpClient;
+        //TcpClient tcpClient;
+        Socket serverSocket;
+        TcpListener tcpServerListener;
+        NetworkStream serverSockStream;
+        Boolean pageLoad = false;
         public FrmXrayPACsAdd(BangnaControl bc)
         {
             showFormWaiting();
@@ -66,6 +72,7 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            pageLoad = true;
             initCompoment();
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 3, FontStyle.Bold);
@@ -82,25 +89,191 @@ namespace bangna_hospital.gui
 
             this.Load += FrmXrayPACsAdd_Load;
             btnLisStart.Click += BtnLisStart_Click;
+            btnModality.Click += BtnModality_Click;
+            cboModality.SelectedItemChanged += CboModality_SelectedItemChanged;
             this.Disposed += FrmXrayPACsAdd_Disposed;
 
             //this.c1List1.AddItemTitles("First Name; LastName; Phone Number");
             initGrfReq();
             setGrfReq();
+            initGrfMaster();
+            setGrfMaster();
+            pageLoad = false;
+        }
+
+        private void CboModality_SelectedItemChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!pageLoad)
+            {
+                ComboBoxItem item = (ComboBoxItem)cboModality.SelectedItem;
+
+                txtModality.Value = cboModality.SelectedItem != null ? ((ComboBoxItem)cboModality.SelectedItem).Value : "";
+            }
+        }
+
+        private void BtnModality_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (MessageBox.Show("Save Modality ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            {
+                int chk = 0;
+                String id = "", name = "", modality = "", pacscpde = "", re="";
+                id = txtXrCode.Text.Trim();
+                modality = cboModality.SelectedItem != null ? ((ComboBoxItem)cboModality.SelectedItem).Value : "";
+                re = bc.bcDB.xrDB.updateModality(id, modality);
+                if(int.TryParse(re, out chk) && chk > 0)
+                {
+                    MessageBox.Show("save Modality success "+ modality, "");
+                    setGrfMaster();
+                }
+            }
         }
 
         private void FrmXrayPACsAdd_Disposed(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if(tcpClient != null)
-            {
-                if (tcpClient.Connected)
-                {
-                    tcpClient.Close();
-                }
-            }
+            //if(tcpClient != null)
+            //{
+            //    if (tcpClient.Connected)
+            //    {
+            //        tcpClient.Close();
+            //    }
+            //}
+        }
+        private void initGrfMaster()
+        {
+            grfMaster = new C1FlexGrid();
+            grfMaster.Font = fEdit;
+            grfMaster.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfMaster.Location = new System.Drawing.Point(0, 0);
+
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfMaster.DoubleClick += GrfMasterDoubleClick;
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfBillD.AfterDataRefresh += GrfBillD_AfterDataRefresh;
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("ออก บิล", new EventHandler(ContextMenu_edit_bill));
+            //menuGw.MenuItems.Add("ส่งกลับ", new EventHandler(ContextMenu_send_back));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            //grfBillD.ContextMenu = menuGw;
+            //grfBillD.SubtotalPosition = SubtotalPositionEnum.BelowData;
+            scpMasterTop.Controls.Add(grfMaster);
+
+            theme1.SetTheme(grfMaster, bc.iniC.themeApp);
+
+            //theme1.SetTheme(tabDiag, "Office2010Blue");
+            //theme1.SetTheme(tabFinish, "Office2010Blue");
+
         }
 
+        private void GrfMasterDoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfMaster == null) return;
+            if (grfMaster.Row <= 0) return;
+            if (grfMaster.Col <= 0) return;
+
+            String id = "", name = "", modality = "", pacscpde = "";
+            id = grfMaster[grfMaster.Row, colMasId].ToString();
+            name = grfMaster[grfMaster.Row, colMasDsc].ToString();
+            modality = grfMaster[grfMaster.Row, colMasModalityCode].ToString();
+            pacscpde = grfMaster[grfMaster.Row, colMasInfinittCode].ToString();
+            txtXrCode.Value = id;
+            txtXrName.Value = name;
+            txtPacsCode.Value = pacscpde;
+            bc.setC1Combo(cboModality, modality);
+        }
+        private void setGrfMaster()
+        {
+            //grfDept.Rows.Count = 7;
+            grfMaster.Clear();
+            grfMaster.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            
+            dt = bc.bcDB.xrDB.selectAll();
+            //grfExpn.Rows.Count = dt.Rows.Count + 1;
+
+            grfMaster.Rows.Count = dt.Rows.Count + 1;
+            grfMaster.Cols.Count = 11;            
+
+            grfMaster.Cols[colMasCode].Width = 80;
+            grfMaster.Cols[colMasDsc].Width = 200;
+            grfMaster.Cols[colMasTyp].Width = 80;
+            grfMaster.Cols[colMasGrp].Width = 80;
+            grfMaster.Cols[colMasDis].Width = 80;
+            grfMaster.Cols[colMasDeccode].Width = 100;
+            grfMaster.Cols[colMasDecNo].Width = 60;
+            grfMaster.Cols[colMasInfinittCode].Width = 60;
+            grfMaster.Cols[colMasModalityCode].Width = 80;            
+
+            grfReq.ShowCursor = true;
+            //grdFlex.Cols[colID].Caption = "no";
+            //grfDept.Cols[colCode].Caption = "รหัส";
+
+            grfMaster.Cols[colMasCode].Caption = "Code";
+            grfMaster.Cols[colMasDsc].Caption = "Name";
+            grfMaster.Cols[colMasTyp].Caption = "TYP_CD";
+            grfMaster.Cols[colMasGrp].Caption = "GRP_CD";
+            grfMaster.Cols[colMasDis].Caption = "MNC_XR_DIS_STS";
+            grfMaster.Cols[colMasDeccode].Caption = "MNC_DEC_CD";
+            grfMaster.Cols[colMasDecNo].Caption = "MNC_DEC_NO";
+            grfMaster.Cols[colMasInfinittCode].Caption = "Infinitt";
+            grfMaster.Cols[colMasModalityCode].Caption = "Modality";
+            //grfReq.Cols[colxrdesc].Caption = "X-Ray";
+            //grfReq.Cols[colxrcode].Caption = "";
+
+            Color color = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            //CellRange rg1 = grfBank.GetCellRange(1, colE, grfBank.Rows.Count, colE);
+            //rg1.Style = grfBank.Styles["date"];
+            //grfCu.Cols[colID].Visible = false;
+            int i = 1;
+            Decimal inc = 0, ext = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfMaster[i, 0] = i;
+                    grfMaster[i, colMasId] = row["MNC_XR_CD"].ToString();
+                    grfMaster[i, colMasCode] = row["MNC_XR_CTL_CD"].ToString();
+                    grfMaster[i, colMasDsc] = row["MNC_XR_DSC"].ToString();
+                    grfMaster[i, colMasTyp] = row["MNC_XR_TYP_CD"].ToString();
+
+                    grfMaster[i, colMasGrp] = row["MNC_XR_GRP_CD"].ToString();
+                    grfMaster[i, colMasDis] = row["MNC_XR_DIS_STS"].ToString();
+                    grfMaster[i, colMasDeccode] = row["MNC_DEC_CD"].ToString();
+                    grfMaster[i, colMasDecNo] = row["MNC_DEC_NO"].ToString();
+                    grfMaster[i, colMasInfinittCode] = row["pacs_infinitt_code"].ToString();
+                    grfMaster[i, colMasModalityCode] = row["modality_code"].ToString();
+                    
+                    i++;
+                }
+                catch (Exception ex)
+                {
+                    String err = "";
+                }
+            }
+            CellNoteManager mgr = new CellNoteManager(grfReq);
+            //grfReq.Cols[colReqId].Visible = false;
+            //grfReq.Cols[colReqreqyr].Visible = false;
+            //grfReq.Cols[colReqreqno].Visible = false;
+            //grfReq.Cols[colreqhnyr].Visible = false;
+            //grfReq.Cols[colreqpreno].Visible = false;
+            //grfReq.Cols[colReqDpt].Visible = false;
+            //grfReq.Cols[colReqDtr].Visible = false;
+
+            grfMaster.Cols[colMasId].AllowEditing = false;
+            grfMaster.Cols[colMasCode].AllowEditing = false;
+            grfMaster.Cols[colMasDsc].AllowEditing = false;
+            grfMaster.Cols[colMasTyp].AllowEditing = false;
+            grfMaster.Cols[colMasGrp].AllowEditing = false;
+            grfMaster.Cols[colMasDis].AllowEditing = false;
+            grfMaster.Cols[colMasDeccode].AllowEditing = false;
+            grfMaster.Cols[colMasDecNo].AllowEditing = false;
+            grfMaster.Cols[colMasInfinittCode].AllowEditing = false;
+            grfMaster.Cols[colMasModalityCode].AllowEditing = false;
+        }
         private void initGrfReq()
         {
             grfReq = new C1FlexGrid();
@@ -176,37 +349,98 @@ namespace bangna_hospital.gui
             //        setGrfReq();
             //    }
             //}
-            if (tcpClient == null || !tcpClient.Connected)
-            {
-                ConnectToServer();
-            }
-            if (tcpClient.Connected)
-            {
+            //if (tcpClient == null || !tcpClient.Connected)
+            //{
+            //    ConnectToServer();
+            //}
+            //if(tcpClient == null)
+            //{
+            //    Console.WriteLine("");
+            //    lboxClient.Items.Add("Error tcpclient is null  " + System.DateTime.Now.ToString());
+            //    Application.DoEvents();
+            //    return;
+            //}
+            //if (tcpClient.Connected)
+            //{
+                String txtADT = "", txtORM = "", resp = "";
                 try
                 {
                     //send message to server
-                    String txtADT = "", txtORM="", resp="";
                     //txt = reso.KPatientName + " " + reso.PatientID;
                     String[] aaa = name.Split(' ');
                     if (aaa.Length > 2)
                     {
                         txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
                         txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                            , hnreqyear, reqno, xrcode, xray, "CR","","","CR", opdtype, depcode, depname);
-                        //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
-                        //Test process
-                        using (StreamWriter writetext = new StreamWriter("write_pacs.txt"))
-                        {
-                            writetext.WriteLine(txtADT);
-                        }
-                        using (StreamWriter writetext = new StreamWriter("write_pacs_orm.txt"))
-                        {
-                            writetext.WriteLine(txtORM);
-                        }
-                        clientStreamWriter.WriteLine(txtADT);
-                        clientStreamWriter.Flush();
+                            , hnreqyear, reqno, xrcode, xray, "CR","333","Ekapop","CR", opdtype, depcode, depname, "Clinical Information");
+                    //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
+                    //Test process
+
+                    //StreamWriter clientStreamWriter = new StreamWriter(;
+                    TcpClient tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                    
+                        Console.WriteLine("Connected to Server");
+                        lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
                         Application.DoEvents();
-                        resp = clientStreamReader.ReadLine();
+                        //get a network stream from server
+                        NetworkStream clientSockStream = tcpClient.GetStream();
+                    StreamReader clientStreamReader = new StreamReader(clientSockStream);
+                    StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
+
+                        //byte[] byteArrayADT = Encoding.UTF8.GetBytes(txtADT);
+                        //MemoryStream streamADT = new MemoryStream(byteArrayADT);
+                        //streamADT.Position = 0;
+                        //using (StreamWriter writetext = new StreamWriter(streamADT, Encoding.UTF8))
+                        //{
+                        //    writetext.WriteLine(txtADT);
+                        //    //writetext.Flush();
+                        //    //writetext.Close();
+                        //}
+
+                        clientStreamWriter.Write(txtADT);
+                        clientStreamWriter.Flush();
+                    clientStreamWriter.Close();
+                    Application.DoEvents();
+                        resp = clientStreamReader.ReadToEnd();
+                        
+                        clientStreamReader.Close();
+                        clientSockStream.Close();
+
+                    tcpClient.Close();
+                    lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                    Application.DoEvents();
+
+
+
+
+                    TcpClient tcpClientORM = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                        Console.WriteLine("Connected to Server");
+                        //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                        Application.DoEvents();
+                        //get a network stream from server
+                        NetworkStream clientSockStreamORM = tcpClientORM.GetStream();
+                    StreamReader clientStreamReaderORM = new StreamReader(clientSockStreamORM);
+                    StreamWriter clientStreamWriterORM = new StreamWriter(clientSockStreamORM);
+
+                    //byte[] byteArrayORM = Encoding.UTF8.GetBytes(txtORM);
+                    //MemoryStream streamORM = new MemoryStream(byteArrayORM);
+                    //streamORM.Position = 0;
+                    //using (StreamWriter writetext = new StreamWriter(streamORM, Encoding.UTF8))
+                    //{
+                    //    writetext.WriteLine(txtORM);
+                    //    //writetext.Close();
+                    //}
+                    resp = "";
+                    //resp = clientStreamReaderORM.ReadLine();
+                    clientStreamWriterORM.Write(txtORM);
+                    clientStreamWriterORM.Flush();
+                        Application.DoEvents();
+                    resp = "";
+                        resp = clientStreamReaderORM.ReadToEnd();
+                    clientStreamWriterORM.Close();
+                    clientStreamReaderORM.Close();
+                        clientSockStreamORM.Close();
+                    tcpClientORM.Close();
                         Console.WriteLine("SERVER: " + resp);
                         lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
                         Application.DoEvents();
@@ -229,29 +463,29 @@ namespace bangna_hospital.gui
                     //clientStreamReader.Dispose();
 
                 }
-            }
+            //}
         }
         private bool ConnectToServer()
         {
             //connect to server at given port
-            try
-            {
-                tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-                Console.WriteLine("Connected to Server");
-                lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                Application.DoEvents();
-                //get a network stream from server
-                NetworkStream clientSockStream = tcpClient.GetStream();
-                clientStreamReader = new StreamReader(clientSockStream);
-                clientStreamWriter = new StreamWriter(clientSockStream);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-                lboxServer.Items.Add("Error " + e.StackTrace + " " + System.DateTime.Now.ToString());
-                Application.DoEvents();
-                return false;
-            }
+            //try
+            //{
+            //    tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+            //    Console.WriteLine("Connected to Server");
+            //    lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+            //    Application.DoEvents();
+            //    //get a network stream from server
+            //    NetworkStream clientSockStream = tcpClient.GetStream();
+            //    clientStreamReader = new StreamReader(clientSockStream);
+            //    clientStreamWriter = new StreamWriter(clientSockStream);
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.StackTrace);
+            //    lboxServer.Items.Add("Error " + e.StackTrace + " " + System.DateTime.Now.ToString());
+            //    Application.DoEvents();
+            //    return false;
+            //}
 
             return true;
         }
@@ -372,7 +606,7 @@ namespace bangna_hospital.gui
         {
             //create server's tcp listener for incoming connection
             IPAddress ipad = IPAddress.Parse(txtIp.Text);
-            TcpListener tcpServerListener = new TcpListener(ipad, int.Parse(txtPort.Text));
+            tcpServerListener = new TcpListener(ipad, int.Parse(txtPort.Text));
             tcpServerListener.Start();      //start server
             //Console.WriteLine("Server Started");
             //listBox1.Items.Add("Start Listening " + System.DateTime.Now.ToString());
@@ -380,7 +614,7 @@ namespace bangna_hospital.gui
             Application.DoEvents();
             //this.btnStartServer.Enabled = false;
             //block tcplistener to accept incoming connection
-            Socket serverSocket = tcpServerListener.AcceptSocket();
+            serverSocket = tcpServerListener.AcceptSocket();
 
             try
             {
@@ -391,9 +625,9 @@ namespace bangna_hospital.gui
                     lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Client connected " + System.DateTime.Now.ToString()); });
                     Application.DoEvents();
                     //open network stream on accepted socket
-                    NetworkStream serverSockStream = new NetworkStream(serverSocket);
-                    serverStreamWriter = new StreamWriter(serverSockStream);
-                    serverStreamReader = new StreamReader(serverSockStream);
+                    //serverSockStream = new NetworkStream(serverSocket);
+                    //serverStreamWriter = new StreamWriter(serverSockStream);
+                    //serverStreamReader = new StreamReader(serverSockStream);
                 }
             }
             catch (Exception e)
@@ -410,21 +644,71 @@ namespace bangna_hospital.gui
             {
                 try
                 {
-                    while (true)
-                    {
+                    //while (true)
+                    //{
                         //Console.WriteLine("CLIENT: " + serverStreamReader.ReadLine());
                         string line = "";
-                        if ((line = serverStreamReader.ReadLine()) != null)
+                        //if ((line = serverStreamReader.ReadLine()) != null)
+                        //{
+                        //    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
+                        //    Application.DoEvents();
+
+                        //    //    serverStreamWriter.WriteLine("Hi!");
+                        //    //    serverStreamWriter.Flush();
+                        //}
+                        //if ((line = serverStreamReader.ReadToEnd()) != null)
+                        //{
+                        TcpClient tcpClient = tcpServerListener.AcceptTcpClient();
+                        NetworkStream serverSockStream = tcpClient.GetStream();
+                        serverStreamWriter = new StreamWriter(serverSockStream);
+                    Application.DoEvents();
+                    if (serverSockStream.DataAvailable)
                         {
-                            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
-                            Application.DoEvents();
-                            serverStreamWriter.WriteLine("Hi!");
-                            serverStreamWriter.Flush();
+                            MessageClint mClient = new MessageClint(tcpClient);
+                            //Thread n_clint;
+                            
+                            //ParameterizedThreadStart start = new ParameterizedThreadStart(messageClicnt);
+                            //n_clint = new Thread();
+                            //n_clint.IsBackground = true;
+                            //n_clint.Start(tcpClient);
                         }
+                        //using (StreamReader serverStreamReader = new StreamReader(serverStreamWriter.BaseStream))
+                        //{
+                        //    line = serverStreamReader.ReadToEnd();
+                        //}
 
-                        //listBox1.Items.Add("Date Time : " + System.DateTime.Now.ToString() + " Receive " + serverStreamReader.ReadLine());
+                        //lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
+                        //Application.DoEvents();
+                        //String fileName = "", path="";
+                        //path = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\";
+                        //new LogWriter("e", "FrmXrayPACsAdd path " + path);
+                        //if (!Directory.Exists(path + "message"))
+                        //{
+                        //    Directory.CreateDirectory(path + "message");
+                        //}
+                        //lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Directory.CreateDirectory : " + path + "\\message\\" + fileName); });
+                        //Application.DoEvents();
+                        //fileName = DateTime.Now.Ticks.ToString()+".txt";
+                        //new LogWriter("e", "FrmXrayPACsAdd fileName " + path + "message\\" + fileName);
+                        //FileStream stream = new FileStream(path + "message\\"+fileName, FileMode.CreateNew);
+                        //using (StreamWriter writer = new StreamWriter(stream))
+                        //{
+                        //    writer.Write(line);
+                        //}
+                        //stream.Close();
+                        //lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "write file success "); });
+                        //Application.DoEvents();
 
-                    }//while
+                        ////NetworkStream clientSockStream = tcpClient.GetStream();
+                        ////StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
+                        //serverStreamWriter.WriteLine("ACK");
+                        //serverStreamWriter.Close();
+                        //tcpClient.Close();
+                        //}
+
+                    //listBox1.Items.Add("Date Time : " + System.DateTime.Now.ToString() + " Receive " + serverStreamReader.ReadLine());
+
+                    //}//while
                 }
                 catch(Exception ex)
                 {
@@ -441,17 +725,27 @@ namespace bangna_hospital.gui
                 btnLisStart.Image = imgStop;
                 btnLisStart.Text = "Stop";
                 lboxServer.Items.Clear();
-                //listenServer();
-                n_server = new Thread(new ThreadStart(listenServer));
-                n_server.IsBackground = true;
-                n_server.Start();
+                listenServer();
+                //n_server = new Thread(new ThreadStart(listenServer));
+                //n_server.IsBackground = true;
+                //n_server.Start();
+                //ServerListen();
                 //listBox1.Items.Add("Start Listening "+ System.DateTime.Now.ToString());
+
+
+
+
+
             }
             else
             {
                 btnLisStart.Image = imgStart;
                 btnLisStart.Text = "Start";
                 lboxServer.Items.Add("Stop Listening " + System.DateTime.Now.ToString());
+                serverSocket.Close();
+                serverSockStream.Close();
+                tcpServerListener.Stop();
+                //tcpServerListener.cl
             }
         }
         private void initCompoment()
@@ -462,6 +756,7 @@ namespace bangna_hospital.gui
 
             imgStart = Resources.start128;
             imgStop = Resources.stop_red128;
+            imgSave = Resources.save;
 
             theme1 = new C1ThemeController();
             sb1 = new C1StatusBar();
@@ -471,10 +766,16 @@ namespace bangna_hospital.gui
             tabApm = new C1DockingTabPage();
             tabFinish = new C1DockingTabPage();
             tabListen = new C1DockingTabPage();
+            tabmaster = new C1DockingTabPage();
             splitContainer1 = new C1SplitContainer();
             c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            sCMaster = new C1SplitContainer();
+            scpMasterTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            scpMasterButton = new C1.Win.C1SplitContainer.C1SplitterPanel();
+
             pnListen = new Panel();
+            pnMaster = new Panel();
             lboxServer = new System.Windows.Forms.ListBox();
             pnQue = new Panel();
             lboxClient = new System.Windows.Forms.ListBox();
@@ -485,9 +786,16 @@ namespace bangna_hospital.gui
             tabApm.SuspendLayout();
             tabFinish.SuspendLayout();
             tabListen.SuspendLayout();
+            tabmaster.SuspendLayout();
             splitContainer1.SuspendLayout();
+            c1SplitterPanel1.SuspendLayout();
+            c1SplitterPanel2.SuspendLayout();
+            sCMaster.SuspendLayout();
+            scpMasterTop.SuspendLayout();
+            scpMasterButton.SuspendLayout();
             pnListen.SuspendLayout();
             pnQue.SuspendLayout();
+            pnMaster.SuspendLayout();
 
             this.SuspendLayout();
 
@@ -510,14 +818,21 @@ namespace bangna_hospital.gui
             tabFinish.Font = fEditB;
 
             tabListen.Name = "tabListen";
-            tabListen.TabIndex = 2;
+            tabListen.TabIndex = 3;
             tabListen.Text = "Listen PACs Infinitt";
             tabListen.Font = fEditB;
+
+            tabmaster.Name = "tabmaster";
+            tabmaster.TabIndex = 4;
+            tabmaster.Text = "Master X-ray";
+            tabmaster.Font = fEditB;
 
             pnListen.Dock = System.Windows.Forms.DockStyle.Fill;
             pnListen.Name = "pnListen";
             pnQue.Dock = System.Windows.Forms.DockStyle.Fill;
             pnQue.Name = "pnQue";
+            pnMaster.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnMaster.Name = "pnMaster";
 
             sb1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             sb1.Name = "sb1";
@@ -540,22 +855,43 @@ namespace bangna_hospital.gui
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Size = new System.Drawing.Size(800, 450);
             splitContainer1.TabIndex = 0;
-            
+
+            sCMaster.Dock = System.Windows.Forms.DockStyle.Fill;
+            sCMaster.Location = new System.Drawing.Point(0, 0);
+            sCMaster.Name = "sCMaster";
+            sCMaster.Size = new System.Drawing.Size(800, 450);
+            sCMaster.TabIndex = 0;
+
             c1SplitterPanel1.Collapsible = true;
             c1SplitterPanel1.Height = 86;
             c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             c1SplitterPanel1.Name = "c1SplitterPanel1";
             c1SplitterPanel1.Size = new System.Drawing.Size(298, 58);
             c1SplitterPanel1.TabIndex = 0;
-            c1SplitterPanel1.Text = "Panel 1";
+            c1SplitterPanel1.Text = "Master List";
             c1SplitterPanel1.Dock = PanelDockStyle.Top;
-            this.c1SplitterPanel2.Height = 85;
-            this.c1SplitterPanel2.Location = new System.Drawing.Point(0, 111);
-            this.c1SplitterPanel2.Name = "c1SplitterPanel2";
-            this.c1SplitterPanel2.Size = new System.Drawing.Size(298, 64);
-            this.c1SplitterPanel2.TabIndex = 1;
-            this.c1SplitterPanel2.Text = "Panel 2";
-            
+            c1SplitterPanel2.Height = 85;
+            c1SplitterPanel2.Location = new System.Drawing.Point(0, 111);
+            c1SplitterPanel2.Name = "c1SplitterPanel2";
+            c1SplitterPanel2.Size = new System.Drawing.Size(298, 64);
+            c1SplitterPanel2.TabIndex = 1;
+            c1SplitterPanel2.Text = "Master Add/Edit";
+
+            scpMasterTop.Collapsible = true;
+            scpMasterTop.Height = 86;
+            scpMasterTop.Location = new System.Drawing.Point(0, 21);
+            scpMasterTop.Name = "scpMasterTop";
+            scpMasterTop.Size = new System.Drawing.Size(298, 58);
+            scpMasterTop.TabIndex = 0;
+            scpMasterTop.Text = "Panel 1";
+            scpMasterTop.Dock = PanelDockStyle.Top;
+            scpMasterButton.Height = 85;
+            scpMasterButton.Location = new System.Drawing.Point(0, 111);
+            scpMasterButton.Name = "scpMasterButton";
+            scpMasterButton.Size = new System.Drawing.Size(298, 64);
+            scpMasterButton.TabIndex = 1;
+            scpMasterButton.Text = "Panel 2";
+
             setControlComponent();
 
             this.Controls.Add(panel1);
@@ -565,11 +901,17 @@ namespace bangna_hospital.gui
             tC1.Controls.Add(tabApm);
             tC1.Controls.Add(tabFinish);
             tC1.Controls.Add(tabListen);
+            tC1.Controls.Add(tabmaster);
             tabReq.Controls.Add(splitContainer1);
             splitContainer1.Panels.Add(c1SplitterPanel1);
             splitContainer1.Panels.Add(c1SplitterPanel2);
             tabListen.Controls.Add(pnListen);
+            tabmaster.Controls.Add(pnMaster);
+            pnMaster.Controls.Add(sCMaster);
             c1SplitterPanel1.Controls.Add(pnQue);
+            //tabmaster.Controls.Add(sCMaster);
+            sCMaster.Panels.Add(scpMasterTop);
+            sCMaster.Panels.Add(scpMasterButton);
 
             pnListen.Controls.Add(btnLisStart);
             pnListen.Controls.Add(lbTxtIp);
@@ -579,14 +921,32 @@ namespace bangna_hospital.gui
             pnListen.Controls.Add(lboxServer);
             c1SplitterPanel2.Controls.Add(lboxClient);
 
+            scpMasterButton.Controls.Add(lbXrCode);
+            scpMasterButton.Controls.Add(lbXrName);
+            scpMasterButton.Controls.Add(lbPacsCode);
+            scpMasterButton.Controls.Add(lbModality);
+            scpMasterButton.Controls.Add(txtXrCode);
+            scpMasterButton.Controls.Add(txtXrName);
+            scpMasterButton.Controls.Add(txtPacsCode);
+            scpMasterButton.Controls.Add(cboModality);
+            scpMasterButton.Controls.Add(btnModality);
+            scpMasterButton.Controls.Add(txtModality);
+
             panel1.ResumeLayout(false);
             tC1.ResumeLayout(false);
             tabReq.ResumeLayout(false);
             tabApm.ResumeLayout(false);
             tabFinish.ResumeLayout(false);
             tabListen.ResumeLayout(false);
+            tabmaster.ResumeLayout(false);
             splitContainer1.ResumeLayout(false);
+            c1SplitterPanel1.ResumeLayout(false);
+            c1SplitterPanel2.ResumeLayout(false);
+            scpMasterButton.ResumeLayout(false);
+            scpMasterTop.ResumeLayout(false);
+            sCMaster.ResumeLayout(false);
             pnListen.ResumeLayout(false);
+            pnMaster.ResumeLayout(false);
             pnQue.ResumeLayout(false);
 
             this.ResumeLayout(false);
@@ -651,6 +1011,76 @@ namespace bangna_hospital.gui
             lboxClient.Size = new System.Drawing.Size(600, 450);
             lboxClient.TabIndex = 0;
 
+            lbXrCode = new Label();
+            lbXrCode.Text = "Xray Code : ";
+            lbXrCode.Font = fEditBig;
+            lbXrCode.Location = new System.Drawing.Point(gapX, gapLine);
+            lbXrCode.AutoSize = true;
+            lbXrCode.Name = "lbXrCode";
+            txtXrCode = new C1TextBox();
+            txtXrCode.Font = fEdit;
+            size = bc.MeasureString(lbXrCode);
+            txtXrCode.Location = new System.Drawing.Point(lbXrCode.Location.X + size.Width+10, lbXrCode.Location.Y);
+            txtXrCode.Size = new Size(120, 20);
+
+            gapLine += 20;
+            lbXrName = new Label();
+            lbXrName.Text = "Xray Name : ";
+            lbXrName.Font = fEditBig;
+            lbXrName.Location = new System.Drawing.Point(gapX, gapLine);
+            lbXrName.AutoSize = true;
+            lbXrName.Name = "lbXrName";
+            txtXrName = new C1TextBox();
+            txtXrName.Font = fEdit;
+            size = bc.MeasureString(lbXrName);
+            txtXrName.Location = new System.Drawing.Point(lbXrName.Location.X + size.Width + 10, lbXrName.Location.Y);
+            txtXrName.Size = new Size(120, 20);
+
+            gapLine += 20;
+            lbPacsCode = new Label();
+            lbPacsCode.Text = "Pacs Code : ";
+            lbPacsCode.Font = fEditBig;
+            lbPacsCode.Location = new System.Drawing.Point(gapX, gapLine);
+            lbPacsCode.AutoSize = true;
+            lbPacsCode.Name = "lbPacsCode";
+            txtPacsCode = new C1TextBox();
+            txtPacsCode.Font = fEdit;
+            size = bc.MeasureString(lbPacsCode);
+            txtPacsCode.Location = new System.Drawing.Point(lbPacsCode.Location.X + lbPacsCode.Width + 20, lbPacsCode.Location.Y);
+            txtPacsCode.Size = new Size(120, 20);
+
+            gapLine += 20;
+            lbModality = new Label();
+            lbModality.Text = "Modality : ";
+            lbModality.Font = fEditBig;
+            lbModality.Location = new System.Drawing.Point(gapX, gapLine);
+            lbModality.AutoSize = true;
+            lbModality.Name = "lbModality";
+            cboModality = new C1ComboBox();
+            cboModality.Font = fEdit;
+            size = bc.MeasureString(lbModality);
+            cboModality.Location = new System.Drawing.Point(lbModality.Location.X + lbModality.Width + 20, lbModality.Location.Y);
+            //txtPacsCode.Size = new Size(120, 20);
+            txtModality = new C1TextBox();
+            txtModality.Font = fEdit;
+            size = bc.MeasureString(lbPacsCode);
+            txtModality.Location = new System.Drawing.Point(cboModality.Location.X + cboModality.Width + 20, cboModality.Location.Y);
+            txtModality.Size = new Size(120, 20);
+
+            gapLine += 40;
+            btnModality = new C1Button();
+            btnModality.Name = "btnModality";
+            btnModality.Text = "Save";
+            btnModality.Font = fEdit;
+            //size = bc.MeasureString(btnHnSearch);
+            btnModality.Location = new System.Drawing.Point(gapX, gapLine);
+            btnModality.Size = new Size(200, 140);
+            btnModality.Font = fEdit;
+            btnModality.Image = Resources.Save_small;
+            btnModality.TextAlign = ContentAlignment.MiddleRight;
+            btnModality.ImageAlign = ContentAlignment.MiddleLeft;
+
+            bc.setCboMOdality(cboModality, "");
         }
         private void showFormWaiting()
         {
@@ -678,7 +1108,7 @@ namespace bangna_hospital.gui
         private void FrmXrayPACsAdd_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Lasst Update 2020-03-09 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort;
+            this.Text = "Lasst Update 2020-05-19 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
         }

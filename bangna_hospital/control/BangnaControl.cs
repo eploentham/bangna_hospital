@@ -510,6 +510,196 @@ namespace bangna_hospital.control
             c.SelectedIndex = c.FindStringExact(getMonth(System.DateTime.Now.Month.ToString("00")));
             return c;
         }
+        public void setCboMOdality(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectAll();
+            int i = 0;
+            
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "CR";
+            item.Text = "Computed Radiography";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "CT";
+            item.Text = "Computed Tomography";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "MR";
+            item.Text = "Magnetic Resonance";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "NR";
+            item.Text = "Nuclear Medicine";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "UA";
+            item.Text = "Ultrasound";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "OT";
+            item.Text = "Other";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "BI";
+            item.Text = "Biomagnetic Imaging";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "CD";
+            item.Text = "Color Flow Doppler";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "DD";
+            item.Text = "Duplex Doppler";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "DG";
+            item.Text = "Diaphanography";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ES";
+            item.Text = "Endoscopy";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "LS";
+            item.Text = "Laser Surface Scan";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "PT";
+            item.Text = "Positron Emission Tomography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RG";
+            item.Text = "Radiographic Imaging";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ST";
+            item.Text = "Single-photon Emission Computed Tomography (SPECT)";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "TG";
+            item.Text = "Thermography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "XA";
+            item.Text = "X-Ray Angiography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RF";
+            item.Text = "Radio Fluoroscopy";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RTIMAGE";
+            item.Text = "Radiotherapy Image";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RTDOSE";
+            item.Text = "Radiotherapy Dose";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RTSTRUCT";
+            item.Text = "RadioTherapy Structure Set";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RTPLAN";
+            item.Text = "Radiotherapy Plan";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RTRECORD";
+            item.Text = "Radiotherapy Treatment Record";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "HC";
+            item.Text = "Hard Copy";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "DX";
+            item.Text = "Digital Radiography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "MG";
+            item.Text = "Mammography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "IO";
+            item.Text = "Intra-oral Radiography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "PX";
+            item.Text = "Panoramic X-Ray";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "GM";
+            item.Text = "General Microscopy";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "SM";
+            item.Text = "Slide Microscopy";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "XC";
+            item.Text = "External-camera Photography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "PR";
+            item.Text = "Presentation State";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "AU";
+            item.Text = "Audio";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ECG";
+            item.Text = "Electrocardiography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "EPS";
+            item.Text = "Cardiac Electrophysiology";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "HD";
+            item.Text = "Hemodynamic Waveform";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "SR";
+            item.Text = "Structured Report Document";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "IVUS";
+            item.Text = "Intravascular Ultrasound";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "OP";
+            item.Text = "Ophthalmic Photography";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "SMR";
+            item.Text = "Stereometric Relationship";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "SC";
+            item.Text = "Secondary Capture";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "SD";
+            item.Text = "Scanned Document";
+            c.Items.Add(item);
+        }
         public ComboBox setCboYear(ComboBox c)
         {
             c.Items.Clear();
@@ -1057,9 +1247,9 @@ namespace bangna_hospital.control
 
             return zds;
         }
-        public String PACsORM(PACsMSH msh, PACsPID pid, PACsPV1 pv1, PACsORC orc, PACsOBR obr, PACsZDS zds)
+        public String PACsORM(PACsMSH msh, PACsPID pid, PACsPV1 pv1, PACsORC orc, PACsOBR obr, PACsZDS zds, String comment)
         {
-            String txt = "", MSH = "", separate = "|", PID = "", PV1 = "", ORC = "", OBR = "", ZDS = "";
+            String txt = "", MSH = "", separate = "|", PID = "", PV1 = "", ORC = "", OBR = "", ZDS = "", NTE="";
             txt = "\x0b";
 
             MSH = "MSH" + separate + msh.EncodingCharacters + separate + msh.SendingApplication + separate + msh.SendingFacility + separate + msh.ReceivingApplication
@@ -1114,13 +1304,13 @@ namespace bangna_hospital.control
             ZDS = "ZDS" + separate + zds.ZDS_Field1 + separate + zds.ZDS_Field2 + separate + zds.ZDS_Field3 + separate + zds.ZDS_Field4 + separate
                 + zds.ZDS_Field5 + separate + zds.ZDS_Field6 + separate + zds.ZDS_Field7 + separate + zds.ZDS_Field8 + separate
                 + zds.ZDS_Field9 + separate + zds.ZDS_Field10;
-
-            txt = txt + MSH + Environment.NewLine + PID + Environment.NewLine + PV1 + Environment.NewLine + ORC + Environment.NewLine + OBR + Environment.NewLine + ZDS+ "\x0c";
+            NTE = "NTE" + separate +"1"+ separate+ comment;
+            txt = txt + MSH + Environment.NewLine + PID + Environment.NewLine + PV1 + Environment.NewLine + ORC + Environment.NewLine + OBR + Environment.NewLine + ZDS + Environment.NewLine+ NTE+ "\x0c";
             return txt;
         }
         public String genORM(String reqdept, String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation
             , String xrayyear, String reqno, String xraycode, String xrayname, String xraytype, String userid, String username, String modality
-            , String opdtype, String depcode, String depname)
+            , String opdtype, String depcode, String depname, String comment)
         {
             String txt = "";
             PACsMSH msh = new PACsMSH();
@@ -1136,7 +1326,7 @@ namespace bangna_hospital.control
             orc = genORC(xrayyear, reqno, xraycode, userid, username);
             obr = genOBR(xrayyear, reqno, xraycode, xrayname, xraytype, userid, username);
             zds = genZDS(xrayyear, reqno, xraycode, modality);
-            txt = PACsORM(msh, pid, pv1, orc, obr, zds);
+            txt = PACsORM(msh, pid, pv1, orc, obr, zds, comment);
             return txt;
         }
     }

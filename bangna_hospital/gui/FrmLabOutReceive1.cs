@@ -763,74 +763,83 @@ namespace bangna_hospital.gui
                     pds.LoadFromFile(ofd.FileName);
                     //pds.LoadFromFile(filename1);
                     labOutView.DocumentSource = pds;
+                    pagesToScan = pds.PageCount;
                     Application.DoEvents();
                     for (int page = 1; page <= pagesToScan; page++) //(int page = 1; page <= reader.NumberOfPages; page++) <- for scanning all the pages in A PDF
                     {
-                        ITextExtractionStrategy its = new LocationTextExtractionStrategy();
-                        strText = PdfTextExtractor.GetTextFromPage(reader, page, its);
-
-                        //strText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(strText)));
-                        //creating the string array and storing the PDF line by line
-                        string[] lines = strText.Split('\n');
-                        foreach (string line in lines)
+                        try
                         {
-                            //Creating and appending to a text file
-                            //using (StreamWriter file = new StreamWriter(outPath, true))
-                            //{
-                            // file.WriteLine(line);
-                            int indexcompn = line.LastIndexOf("Genome-Molecule Laboratory Co.,Ltd.");
-                            if (indexcompn >= 0)
+                            ITextExtractionStrategy its = new LocationTextExtractionStrategy();
+                            strText = PdfTextExtractor.GetTextFromPage(reader, page, its);
+
+                            //strText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(strText)));
+                            //creating the string array and storing the PDF line by line
+                            string[] lines = strText.Split('\n');
+                            foreach (string line in lines)
                             {
-                                chkLabComp1.Checked = false;     
-                                chkLabComp2.Checked = true;     //GN
-                            }
-                            
-                            int indexpttname = line.LastIndexOf("PATIENT NAME");
-                            if (indexpttname >= 0)
-                            {
-                                var pttname = line.Substring(indexpttname, (line.Length - indexpttname));
-                                lbPttNmae.Text = pttname.Replace("PATIENT NAME", "").Trim();
-                                chkLabComp1.Checked = true;    //medica 
-                                chkLabComp2.Checked = false;     
-                            }
-                            int indexhn = line.LastIndexOf("HN");
-                            if (indexhn >= 0)
-                            {
-                                var pttname = line.Substring(indexhn, (line.Length - indexhn));
-                                txtHn.Value = pttname.Replace("HN", "").Trim();
-                                if (txtHn.Text.Length > 7)
+                                //Creating and appending to a text file
+                                //using (StreamWriter file = new StreamWriter(outPath, true))
+                                //{
+                                // file.WriteLine(line);
+                                int indexcompn = line.LastIndexOf("Genome-Molecule Laboratory Co.,Ltd.");
+                                if (indexcompn >= 0)
                                 {
-                                    txtHn.Value = txtHn.Text.Substring(0, 7);
+                                    chkLabComp1.Checked = false;
+                                    chkLabComp2.Checked = true;     //GN
                                 }
-                            }
-                            int indexoutlabdate = line.LastIndexOf("REGISTERED DATE");
-                            if (indexoutlabdate >= 0)
-                            {
-                                var pttname = line.Substring(indexoutlabdate, (line.Length - indexoutlabdate));
-                                String txt = "";
-                                txt = pttname.Replace("REGISTERED DATE", "").Trim();
-                                if (lbOutLabDate.Text.Length <= 0)
+
+                                int indexpttname = line.LastIndexOf("PATIENT NAME");
+                                if (indexpttname >= 0)
                                 {
-                                    lbOutLabDate.Text = txt;
+                                    var pttname = line.Substring(indexpttname, (line.Length - indexpttname));
+                                    lbPttNmae.Text = pttname.Replace("PATIENT NAME", "").Trim();
+                                    chkLabComp1.Checked = true;    //medica 
+                                    chkLabComp2.Checked = false;
                                 }
-                            }
-                            else
-                            {
-                                indexoutlabdate = line.LastIndexOf("OPD1");
+                                int indexhn = line.LastIndexOf("HN");
+                                if (indexhn >= 0)
+                                {
+                                    var pttname = line.Substring(indexhn, (line.Length - indexhn));
+                                    txtHn.Value = pttname.Replace("HN", "").Trim();
+                                    if (txtHn.Text.Length > 7)
+                                    {
+                                        txtHn.Value = txtHn.Text.Substring(0, 7);
+                                    }
+                                }
+                                int indexoutlabdate = line.LastIndexOf("REGISTERED DATE");
                                 if (indexoutlabdate >= 0)
                                 {
                                     var pttname = line.Substring(indexoutlabdate, (line.Length - indexoutlabdate));
                                     String txt = "";
-                                    txt = pttname.Replace("OPD1", "").Trim();
+                                    txt = pttname.Replace("REGISTERED DATE", "").Trim();
                                     if (lbOutLabDate.Text.Length <= 0)
                                     {
                                         lbOutLabDate.Text = txt;
                                     }
                                 }
-                            }
+                                else
+                                {
+                                    indexoutlabdate = line.LastIndexOf("OPD1");
+                                    if (indexoutlabdate >= 0)
+                                    {
+                                        var pttname = line.Substring(indexoutlabdate, (line.Length - indexoutlabdate));
+                                        String txt = "";
+                                        txt = pttname.Replace("OPD1", "").Trim();
+                                        if (lbOutLabDate.Text.Length <= 0)
+                                        {
+                                            lbOutLabDate.Text = txt;
+                                        }
+                                    }
+                                }
 
-                            //}
+                                //}
+                            }
                         }
+                        catch(Exception ex)
+                        {
+                            lbMessage.Text = "error " + ex.Message;
+                        }
+                        
                     }
                     
                 }
@@ -1020,13 +1029,49 @@ namespace bangna_hospital.gui
                 mm = filename2.Substring(filename2.Length - 7, 2);
                 dd = filename2.Substring(filename2.Length - 9, 2);
                 year1 = "20" + yy;
+                DateTime dttest = new DateTime();
+                if(!DateTime.TryParse(year1 + "-" + mm + "-" + dd, out dttest))
+                {
+                    listBox2.Items.Add("Filename refid ไม่ถูกต้อง " + zipFilename);
+                    Application.DoEvents();
+                    String datetick = "", fileerr="", extfileerr = "";
+                    fileerr = Path.GetFileName(zipFilename);
+                    extfileerr = Path.GetExtension(zipFilename);
+                    new LogWriter("e", "Filename refid ไม่ถูกต้อง หา req date ไม่ได้ " + reqid + " " + year1 + "-" + mm + "-" + dd+" ria filename "+ fileerr);
+
+                    datetick = DateTime.Now.Ticks.ToString();
+                    if (!Directory.Exists(bc.iniC.pathLabOutBackupRIA))
+                    {
+                        Directory.CreateDirectory(bc.iniC.pathLabOutBackupRIA);
+                    }
+                    if (pathname.Length > 0)
+                    {
+                        if (!Directory.Exists(bc.iniC.pathLabOutBackupRIA + "\\" + pathname))
+                        {
+                            Directory.CreateDirectory(bc.iniC.pathLabOutBackupRIA + "\\" + pathname);
+                        }
+                    }
+                    Thread.Sleep(200);
+                    if (pathname.Length > 0)
+                    {
+                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\" + pathname + "\\err_" + filename2 + "_หา req date ไม่ได้" + "_" + datetick+"_"+ fileerr + extfileerr);
+                    }
+                    else
+                    {
+                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\err_" + filename2 + "_หา req date ไม่ได้" + "_" + datetick + "_" + fileerr + extfileerr);
+                    }
+                    Thread.Sleep(1000);
+                    continue;
+                }
                 DataTable dt = new DataTable();
                 dt = bc.bcDB.vsDB.SelectHnLabOut(reqid, year1 + "-" + mm + "-" + dd);
                 if (dt.Rows.Count <= 0)
                 {
                     listBox2.Items.Add("Filename ไม่พบข้อมูล HIS " + zipFilename);
                     Application.DoEvents();
-                    String datetick = "";
+                    String datetick = "", fileerr = "", extfileerr = "";
+                    fileerr = Path.GetFileName(zipFilename);
+                    extfileerr = Path.GetExtension(zipFilename);
                     new LogWriter("e", "Filename ไม่พบข้อมูล HIS  reqid " + reqid +" "+ year1 + "-" + mm + "-" + dd);
                     //MessageBox.Show("Filename ไม่พบข้อมูล HIS", "");
                     datetick = DateTime.Now.Ticks.ToString();
@@ -1044,11 +1089,11 @@ namespace bangna_hospital.gui
                     Thread.Sleep(200);
                     if (pathname.Length > 0)
                     {
-                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
+                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + extfileerr);
                     }
                     else
                     {
-                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\err_" + filename2 + "_" + datetick + ext);
+                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\err_" + filename2 + "_" + datetick + extfileerr);
                     }
                     Thread.Sleep(1000);
                     continue;
@@ -1135,7 +1180,9 @@ namespace bangna_hospital.gui
                 {
                     listBox2.Items.Add("ไม่ได้เลขที่ " + zipFilename);
                     Application.DoEvents();
-                    String datetick = "";
+                    String datetick = "", fileerr = "", extfileerr = "";
+                    fileerr = Path.GetFileName(zipFilename);
+                    extfileerr = Path.GetExtension(zipFilename);
                     new LogWriter("e", "ไม่ได้เลขที่ " + zipFilename);
                     //MessageBox.Show("Filename ไม่พบข้อมูล HIS", "");
                     datetick = DateTime.Now.Ticks.ToString();
@@ -1143,11 +1190,11 @@ namespace bangna_hospital.gui
                     Thread.Sleep(200);
                     if (pathname.Length > 0)
                     {
-                        File.Move(zipFilename, pathbackup + "\\err_" + filename2 + "_" + datetick + ext);
+                        File.Move(zipFilename, pathbackup + "\\err_" + filename2 + "_" + datetick + "_"+ fileerr + extfileerr);
                     }
                     else
                     {
-                        File.Move(zipFilename, pathbackup + "\\err_" + filename2 + "_" + datetick + ext);
+                        File.Move(zipFilename, pathbackup + "\\err_" + filename2 + "_" + datetick + "_" + fileerr + extfileerr);
                     }
                     Thread.Sleep(1000);
                     continue;

@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_doctor_view</AssemblyName>
+    <AssemblyName>bangna_hospital_pacs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon-sqr-01.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -352,6 +352,7 @@
     <Compile Include="object1\LabOutRIAResult.cs" />
     <Compile Include="object1\LogFile.cs" />
     <Compile Include="object1\LogWriter.cs" />
+    <Compile Include="object1\MessageClint.cs" />
     <Compile Include="object1\Messager.cs" />
     <Compile Include="object1\PACsEVN.cs" />
     <Compile Include="object1\PACsMSH.cs" />
