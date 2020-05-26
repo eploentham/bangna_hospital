@@ -1,10 +1,12 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.FlexGrid;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.Win.C1Command;
 using C1.Win.C1Document;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
+using C1.Win.C1Ribbon;
 using C1.Win.C1SplitContainer;
 using C1.Win.FlexViewer;
 using System;
@@ -37,8 +39,68 @@ namespace bangna_hospital.gui
         C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac;
         C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabHn, tabHnLabOut, tabPic, tabOrdAdd;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic, grfIPD, grfOPD;
+        C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem;
         C1FlexViewer labOutView;
         List<C1DockingTabPage> tabHnLabOutR;
+        Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem;
+        C1Ribbon ribDiag1, ribDiag2, ribDiag3;
+        RibbonApplicationMenu ribbonApplicationMenu1;
+        RibbonBottomToolBar ribbonBottomToolBar1;
+        RibbonConfigToolBar ribbonConfigToolBar1;
+        RibbonQat ribbonQat1;
+        RibbonButton UndoButton;
+        RibbonButton RedoButton;
+        RibbonTab HomeTab;
+        RibbonTopToolBar ribbonTopToolBar1;
+        RibbonTab ViewTab;
+        RibbonTab ribbonTab1;
+        RibbonButton ExitButton;
+        RibbonButton NewDocumentButton;
+        RibbonButton OpenDocumentButton;
+        RibbonButton SaveDocumentButton;
+        RibbonSplitButton SaveDocumentAsButton;
+        RibbonComboBox ribbonStyleCombo;
+        RibbonButton F1HelpButton;
+        RibbonGroup ClipboardGroup;
+        RibbonGroup FontGroup;
+        RibbonGroup ParagraphGroup;
+        RibbonGroup ribbonGroup1,ribbonGroup2;
+        RibbonGroup ViewZoomGroup;
+        RibbonButton SaveDocumentAsRtfButton;
+        RibbonButton SaveDocumentAsTextButton;
+        RibbonComboBox ViewZoomCombobox;
+        RibbonButton SaveDocumentAsOtherButton;
+        RibbonButton NormalSizeButton;
+        RibbonButton rbPgPrint;
+        RibbonSplitButton PasteSplitButton;
+        RichTextBox richTextBox1;
+        RibbonButton CutButton;
+        RibbonButton CopyButton;
+        RibbonButton FormatPainterButton;
+        RibbonButton PasteButton;
+        RibbonButton PasteAsTextButton;
+        RibbonToolBar ribbonToolBar1;
+        RibbonToolBar ribbonToolBar2;
+        RibbonToolBar ribbonToolBar3;
+        RibbonToolBar ribbonToolBar4;
+        RibbonComboBox ribbonComboBox1;
+        RibbonComboBox FontFaceComboBox;
+        RibbonComboBox FontSizeComboBox;
+        RibbonToggleButton FontBoldButton;
+        RibbonToggleButton FontItalicButton;
+        RibbonToggleButton FontUnderlineButton;
+        RibbonToggleButton FontStrikeoutButton;
+        RibbonSeparator ribbonSeparator1;
+        RibbonColorPicker FontColorPicker;
+        RibbonColorPicker BackColorPicker;
+        RibbonButton DecreaseIndentButton;
+        RibbonButton IncreaseIndentButton;
+        RibbonToggleGroup ribbonToggleGroup1;
+        RibbonToggleButton ParagraphAlignLeftButton;
+        RibbonToggleButton ParagraphAlignCenterButton;
+        RibbonToggleButton ParagraphAlignRightButton;
+
+        ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmScanView1));
 
         int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
@@ -48,6 +110,9 @@ namespace bangna_hospital.gui
         int colXrayDate = 1, colXrayCode = 2, colXrayName = 3, colXrayResult = 4;
         int colLabOutDateReq = 1, colLabOutHN = 2, colLabOutFullName = 3, colLabOutVN = 4, colLabOutDateReceive = 5, colLabOutReqNo = 6, colLabOutId = 7;
         int colDrugAllCode = 1, colDrugAllName = 2, colDrugAllDsc = 3, colDrugAllAlg=4;
+        int colOrdDrugId = 1, colOrdDrugNameT = 2, colOrdDrugNameE = 3, colOrdDrugUnit = 4;
+        int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=10;
+
         int newHeight = 720;
         int mouseWheel = 0;
         int originalHeight = 0;
@@ -172,7 +237,7 @@ namespace bangna_hospital.gui
             tcDtr = new C1DockingTab();
             tcDtr.Dock = System.Windows.Forms.DockStyle.Fill;
             tcDtr.Location = new System.Drawing.Point(0, 266);
-            tcDtr.Name = "c1DockingTab1";
+            tcDtr.Name = "tcDtr";
             tcDtr.Size = new System.Drawing.Size(669, 200);
             tcDtr.TabIndex = 0;
             tcDtr.TabsSpacing = 5;
@@ -190,6 +255,15 @@ namespace bangna_hospital.gui
             initTabPrn();
             initGrf();
             initTabOrdAdd();
+            initGrfOrdDrug();
+            initGrfOrdSup();
+            initGrfOrdLab();
+            initGrfOrdXray();
+            initGrfOrdOR();
+            setGrfOrdDrug();
+            setGrfOrdSup();
+            initGrfOrdItem();
+            setGrfOrdLab();
 
             setPicStaffNote();
             setControlHN();
@@ -1880,18 +1954,145 @@ namespace bangna_hospital.gui
         }
         private void initTabOrdAdd()
         {
+            C1DockingTab tabOrdSearch;
+            C1DockingTabPage tabOrdSearchDrug, tabOrdSearchSup, tabOrdSearchLab, tabOrdSearchXray, tabOrdSearchOR;
             Panel pnOrdLeft = new Panel();
             Panel pnOrdRight = new Panel();
             pnOrdLeft.Dock = DockStyle.Fill;
             pnOrdRight.Dock = DockStyle.Fill;
+            Panel pnOrdDrugSarch = new Panel();
+            Panel pnOrdDrugAdd = new Panel();
+            Panel pnOrdDiag1 = new Panel();
+            Panel pnOrdDiag2 = new Panel();
+            Panel pnOrdDiag3 = new Panel();
+            ribDiag1 = new C1Ribbon();
+            ribDiag2 = new C1Ribbon();
+            ribDiag3 = new C1Ribbon();
+
+            pnOrdDrugSarch.Dock = DockStyle.Fill;
+            pnOrdDrugAdd.Dock = DockStyle.Fill;
+            pnOrdDiag1.Dock = DockStyle.Fill;
+            pnOrdDiag2.Dock = DockStyle.Fill;
+            pnOrdDiag3.Dock = DockStyle.Fill;
+
+            pnOrdSearchDrug = new Panel();
+            pnOrdSearchSup = new Panel();
+            pnOrdSearchLab = new Panel();
+            pnOrdSearchXray = new Panel();
+            pnOrdSearchOR = new Panel();
+            pnOrdItem = new Panel();
+            pnOrdSearchDrug.Dock = DockStyle.Fill;
+            pnOrdSearchSup.Dock = DockStyle.Fill;
+            pnOrdSearchLab.Dock = DockStyle.Fill;
+            pnOrdSearchXray.Dock = DockStyle.Fill;
+            pnOrdSearchOR.Dock = DockStyle.Fill;
+            pnOrdItem.Dock = DockStyle.Fill;
+
             C1SplitterPanel scOrdLeft = new C1.Win.C1SplitContainer.C1SplitterPanel();
             C1SplitterPanel scOrdRight = new C1.Win.C1SplitContainer.C1SplitterPanel();
             C1SplitContainer sCOrdAdd = new C1.Win.C1SplitContainer.C1SplitContainer();
+
+            C1SplitterPanel scOrdDrugAdd = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            C1SplitterPanel scOrdDrugSearch = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            C1SplitContainer sCOrdDrug = new C1.Win.C1SplitContainer.C1SplitContainer();
+
+            C1SplitterPanel scOrdDiag1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            C1SplitterPanel scOrdDiag2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            C1SplitterPanel scOrdDiag3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            C1SplitContainer sCOrdDiag = new C1.Win.C1SplitContainer.C1SplitContainer();
+
+            tabOrdSearch = new C1DockingTab();
+            tabOrdSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabOrdSearch.Location = new System.Drawing.Point(0, 266);
+            tabOrdSearch.Name = "tabOrdSearch";
+            tabOrdSearch.Size = new System.Drawing.Size(669, 200);
+            tabOrdSearch.TabIndex = 0;
+            tabOrdSearch.TabsSpacing = 5;
+            tabOrdSearch.TabClick += TabOrdSearch_TabClick;
+            //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged1;
+            pnOrdDrugSarch.Controls.Add(tabOrdSearch);
+            theme1.SetTheme(tabOrdSearch, bc.iniC.themeApplication);
+
+            tabOrdSearchDrug = new C1DockingTabPage();
+            tabOrdSearchDrug.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabOrdSearchDrug.Size = new System.Drawing.Size(667, 175);
+            tabOrdSearchDrug.TabIndex = 0;
+            tabOrdSearchDrug.Text = "Drug List";
+            tabOrdSearchDrug.Name = "tabOrdSearchDrug";
+            tabOrdSearchDrug.Controls.Add(pnOrdSearchDrug);
+            
+
+            tabOrdSearchSup = new C1DockingTabPage();
+            tabOrdSearchSup.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabOrdSearchSup.Size = new System.Drawing.Size(667, 175);
+            tabOrdSearchSup.TabIndex = 0;
+            tabOrdSearchSup.Text = "Supply List";
+            tabOrdSearchSup.Name = "tabOrdSearchSup";
+            tabOrdSearchSup.Controls.Add(pnOrdSearchSup);
+            
+
+            tabOrdSearchLab = new C1DockingTabPage();
+            tabOrdSearchLab.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabOrdSearchLab.Size = new System.Drawing.Size(667, 175);
+            tabOrdSearchLab.TabIndex = 0;
+            tabOrdSearchLab.Text = "LAB List";
+            tabOrdSearchLab.Name = "tabOrdSearchLab";
+            tabOrdSearchLab.Controls.Add(pnOrdSearchLab);
+            
+
+            tabOrdSearchXray = new C1DockingTabPage();
+            tabOrdSearchXray.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabOrdSearchXray.Size = new System.Drawing.Size(667, 175);
+            tabOrdSearchXray.TabIndex = 0;
+            tabOrdSearchXray.Text = "X-Ray List";
+            tabOrdSearchXray.Name = "tabOrdSearchXray";
+            tabOrdSearchXray.Controls.Add(pnOrdSearchXray);
+            
+
+            tabOrdSearchOR = new C1DockingTabPage();
+            tabOrdSearchOR.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabOrdSearchOR.Size = new System.Drawing.Size(667, 175);
+            tabOrdSearchOR.TabIndex = 0;
+            tabOrdSearchOR.Text = "OR List";
+            tabOrdSearchOR.Name = "tabOrdSearchOR";
+            tabOrdSearchOR.Controls.Add(pnOrdSearchOR);
+            
+            tabOrdSearch.Controls.Add(tabOrdSearchDrug);
+            tabOrdSearch.Controls.Add(tabOrdSearchSup);
+            tabOrdSearch.Controls.Add(tabOrdSearchLab);
+            tabOrdSearch.Controls.Add(tabOrdSearchXray);
+            tabOrdSearch.Controls.Add(tabOrdSearchOR);
+
+            tabOrdSearch.SuspendLayout();
             sCOrdAdd.SuspendLayout();
             scOrdLeft.SuspendLayout();
             scOrdRight.SuspendLayout();
             pnOrdLeft.SuspendLayout();
             pnOrdRight.SuspendLayout();
+            sCOrdDrug.SuspendLayout();
+            scOrdDrugSearch.SuspendLayout();
+            scOrdDrugAdd.SuspendLayout();
+            sCOrdDiag.SuspendLayout();
+            scOrdDiag1.SuspendLayout();
+            scOrdDiag2.SuspendLayout();
+            scOrdDiag3.SuspendLayout();
+            pnOrdDrugSarch.SuspendLayout();
+            pnOrdDrugAdd.SuspendLayout();
+            pnOrdItem.SuspendLayout();
+            pnOrdSearchDrug.SuspendLayout();
+            pnOrdSearchSup.SuspendLayout();
+            pnOrdSearchLab.SuspendLayout();
+            pnOrdSearchXray.SuspendLayout();
+            pnOrdSearchOR.SuspendLayout();
+            pnOrdDiag1.SuspendLayout();
+            pnOrdDiag2.SuspendLayout();
+            pnOrdDiag3.SuspendLayout();
+
             sCOrdAdd.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
             sCOrdAdd.Name = "sCOrdAdd";
             sCOrdAdd.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1911,20 +2112,430 @@ namespace bangna_hospital.gui
             scOrdRight.Name = "scOrdRight";
             //scOrdRight.HeaderHeight = 10;
             scOrdRight.Controls.Add(pnOrdRight);
+            pnOrdRight.Controls.Add(sCOrdDrug);
 
             tabOrdAdd.Controls.Add(sCOrdAdd);
 
+            sCOrdDrug.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            sCOrdDrug.Name = "sCOrdDrug";
+            sCOrdDrug.Dock = System.Windows.Forms.DockStyle.Fill;
+            sCOrdDrug.Panels.Add(scOrdDrugSearch);
+            sCOrdDrug.Panels.Add(scOrdDrugAdd);
+            sCOrdDrug.HeaderHeight = 20;
+            scOrdDrugSearch.Collapsible = true;
+            scOrdDrugSearch.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Top;
+            scOrdDrugSearch.Location = new System.Drawing.Point(0, 21);
+            scOrdDrugSearch.Name = "scOrdDrugSearch";
+            scOrdDrugSearch.Controls.Add(pnOrdDrugSarch);
+            //scOrdLeft.HeaderHeight = 10;
+            scOrdDrugAdd.Collapsible = true;
+            scOrdDrugAdd.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            scOrdDrugAdd.Location = new System.Drawing.Point(0, 21);
+            scOrdDrugAdd.Name = "scOrdDrugAdd";
+            //scOrdRight.HeaderHeight = 10;
+            scOrdDrugAdd.Controls.Add(pnOrdItem);
+
+            pnOrdLeft.Controls.Add(sCOrdDiag);
+            sCOrdDiag.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            sCOrdDiag.Name = "sCOrdDiag";
+            sCOrdDiag.Dock = System.Windows.Forms.DockStyle.Fill;
+            sCOrdDiag.Panels.Add(scOrdDiag1);
+            sCOrdDiag.Panels.Add(scOrdDiag2);
+            sCOrdDiag.Panels.Add(scOrdDiag3);
+            sCOrdDiag.HeaderHeight = 20;
+            scOrdDiag1.Collapsible = true;
+            scOrdDiag1.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Top;
+            scOrdDiag1.Location = new System.Drawing.Point(0, 21);
+            scOrdDiag1.Name = "scOrdDiag1";
+            scOrdDiag1.Controls.Add(pnOrdDiag1);
+            //scOrdLeft.HeaderHeight = 10;
+            scOrdDiag2.Collapsible = true;
+            scOrdDiag2.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            scOrdDiag2.Location = new System.Drawing.Point(0, 21);
+            scOrdDiag2.Name = "scOrdDiag2";
+            //scOrdRight.HeaderHeight = 10;
+            scOrdDiag3.Controls.Add(pnOrdDiag2);
+            scOrdDiag3.Collapsible = true;
+            scOrdDiag3.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            scOrdDiag3.Location = new System.Drawing.Point(0, 21);
+            scOrdDiag3.Name = "scOrdDiag3";
+            //scOrdRight.HeaderHeight = 10;
+            scOrdDiag3.Controls.Add(pnOrdDiag3);
+            pnOrdDiag1.Controls.Add(richTextBox1);
+            pnOrdDiag1.Controls.Add(ribDiag1);
+            
+            pnOrdDiag2.Controls.Add(ribDiag2);
+            pnOrdDiag3.Controls.Add(ribDiag3);
+
+            ribbonApplicationMenu1 = new C1.Win.C1Ribbon.RibbonApplicationMenu();
+            ribbonBottomToolBar1 = new C1.Win.C1Ribbon.RibbonBottomToolBar();
+            this.UndoButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.RedoButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.HomeTab = new C1.Win.C1Ribbon.RibbonTab();
+            this.ribbonTopToolBar1 = new C1.Win.C1Ribbon.RibbonTopToolBar();
+            this.ViewTab = new C1.Win.C1Ribbon.RibbonTab();
+            this.ribbonTab1 = new C1.Win.C1Ribbon.RibbonTab();
+            this.ExitButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.NewDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.OpenDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.SaveDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.SaveDocumentAsButton = new C1.Win.C1Ribbon.RibbonSplitButton();
+            this.ribbonStyleCombo = new C1.Win.C1Ribbon.RibbonComboBox();
+            this.F1HelpButton = new C1.Win.C1Ribbon.RibbonButton();
+            ribbonQat1 = new C1.Win.C1Ribbon.RibbonQat();
+            this.ViewZoomGroup = new C1.Win.C1Ribbon.RibbonGroup();
+            this.ribbonGroup1 = new C1.Win.C1Ribbon.RibbonGroup();
+            this.ribbonGroup2 = new C1.Win.C1Ribbon.RibbonGroup();
+            this.SaveDocumentAsRtfButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.SaveDocumentAsTextButton = new C1.Win.C1Ribbon.RibbonButton();
+            ViewZoomCombobox = new C1.Win.C1Ribbon.RibbonComboBox();
+            this.SaveDocumentAsOtherButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.NormalSizeButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.rbPgPrint = new C1.Win.C1Ribbon.RibbonButton();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            ribbonConfigToolBar1 = new RibbonConfigToolBar();
+            ClipboardGroup = new RibbonGroup();
+            PasteSplitButton = new RibbonSplitButton();
+            CutButton = new RibbonButton();
+            CopyButton = new RibbonButton();
+            FormatPainterButton = new C1.Win.C1Ribbon.RibbonButton();
+            PasteButton = new C1.Win.C1Ribbon.RibbonButton();
+            PasteAsTextButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonToolBar1 = new C1.Win.C1Ribbon.RibbonToolBar();
+            this.ribbonToolBar2 = new C1.Win.C1Ribbon.RibbonToolBar();
+            this.ribbonToolBar3 = new C1.Win.C1Ribbon.RibbonToolBar();
+            this.ribbonToolBar4 = new C1.Win.C1Ribbon.RibbonToolBar();
+            this.ribbonComboBox1 = new C1.Win.C1Ribbon.RibbonComboBox();
+            this.FontFaceComboBox = new C1.Win.C1Ribbon.RibbonComboBox();
+            this.FontBoldButton = new C1.Win.C1Ribbon.RibbonToggleButton();
+            this.FontItalicButton = new C1.Win.C1Ribbon.RibbonToggleButton();
+            this.FontUnderlineButton = new C1.Win.C1Ribbon.RibbonToggleButton();
+            this.FontStrikeoutButton = new C1.Win.C1Ribbon.RibbonToggleButton();
+            this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
+            this.FontColorPicker = new C1.Win.C1Ribbon.RibbonColorPicker();
+            this.BackColorPicker = new C1.Win.C1Ribbon.RibbonColorPicker();
+            this.DecreaseIndentButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.IncreaseIndentButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonToggleGroup1 = new C1.Win.C1Ribbon.RibbonToggleGroup();
+            this.ParagraphAlignLeftButton = new C1.Win.C1Ribbon.RibbonToggleButton();
+            this.ParagraphAlignCenterButton = new C1.Win.C1Ribbon.RibbonToggleButton();
+            this.ParagraphAlignRightButton = new C1.Win.C1Ribbon.RibbonToggleButton();
+            this.FontGroup = new C1.Win.C1Ribbon.RibbonGroup();
+            this.ParagraphGroup = new C1.Win.C1Ribbon.RibbonGroup();
+            this.FontSizeComboBox = new C1.Win.C1Ribbon.RibbonComboBox();
+
+            this.ribbonStyleCombo.DropDownStyle = C1.Win.C1Ribbon.RibbonComboBoxStyle.DropDownList;
+            this.ribbonStyleCombo.Label = "Theme";
+            this.ribbonStyleCombo.Name = "ribbonStyleCombo";
+            this.ribbonStyleCombo.TextAreaWidth = 120;
+            
+            this.ribbonBottomToolBar1.Name = "ribbonBottomToolBar1";
+            this.ribbonConfigToolBar1.Items.Add(this.ribbonStyleCombo);
+            this.ribbonConfigToolBar1.Items.Add(this.F1HelpButton);
+            this.ribbonConfigToolBar1.Name = "ribbonConfigToolBar1";
+            this.ClipboardGroup.Items.Add(this.PasteSplitButton);
+            this.ClipboardGroup.Items.Add(this.CutButton);
+            this.ClipboardGroup.Items.Add(this.CopyButton);
+            this.ClipboardGroup.Items.Add(this.FormatPainterButton);
+            this.ClipboardGroup.Name = "ClipboardGroup";
+            this.ClipboardGroup.Text = "Clipboard";
+            this.PasteSplitButton.Items.Add(this.PasteButton);
+            this.PasteSplitButton.Items.Add(this.PasteAsTextButton);
+            this.PasteSplitButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("PasteSplitButton.LargeImage")));
+            this.PasteSplitButton.Name = "PasteSplitButton";
+            this.PasteSplitButton.Text = "Paste";
+            this.PasteSplitButton.TextImageRelation = C1.Win.C1Ribbon.TextImageRelation.ImageAboveText;
+            this.CutButton.Name = "CutButton";
+            this.CutButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("CutButton.SmallImage")));
+            this.CutButton.Text = "Cut";
+            this.CutButton.ToolTip = "Cut (Ctrl-X)";
+            this.CopyButton.Name = "CopyButton";
+            this.CopyButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("CopyButton.SmallImage")));
+            this.CopyButton.Text = "Copy";
+            this.CopyButton.ToolTip = "Copy (Ctrl-C)";
+            this.PasteButton.Name = "PasteButton";
+            this.PasteButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PasteButton.SmallImage")));
+            this.PasteButton.Text = "Paste";
+            this.PasteAsTextButton.Name = "PasteAsTextButton";
+            this.PasteAsTextButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PasteAsTextButton.SmallImage")));
+            this.PasteAsTextButton.Text = "Paste As Text";
+            this.FontGroup.HasLauncherButton = true;
+            this.FontGroup.Image = ((System.Drawing.Image)(resources.GetObject("FontGroup.Image")));
+            this.FontGroup.Items.Add(this.ribbonToolBar1);
+            this.FontGroup.Items.Add(this.ribbonToolBar2);
+            this.FontGroup.Name = "FontGroup";
+            this.FontGroup.Text = "Font";
+            this.ParagraphGroup.Image = ((System.Drawing.Image)(resources.GetObject("ParagraphGroup.Image")));
+            this.ParagraphGroup.Items.Add(this.ribbonToolBar3);
+            this.ParagraphGroup.Items.Add(this.ribbonToolBar4);
+            this.ParagraphGroup.Name = "ParagraphGroup";
+            this.ParagraphGroup.Text = "Paragraph";
+            this.ribbonGroup2.Items.Add(this.ribbonComboBox1);
+            this.ribbonGroup2.Name = "ribbonGroup2";
+            this.ribbonGroup2.Text = "Templete";
+            this.ribbonToolBar1.Items.Add(this.FontFaceComboBox);
+            this.ribbonToolBar1.Items.Add(this.FontSizeComboBox);
+            this.ribbonToolBar1.Name = "ribbonToolBar1";
+            this.ribbonToolBar2.Items.Add(this.FontBoldButton);
+            this.ribbonToolBar2.Items.Add(this.FontItalicButton);
+            this.ribbonToolBar2.Items.Add(this.FontUnderlineButton);
+            this.ribbonToolBar2.Items.Add(this.FontStrikeoutButton);
+            this.ribbonToolBar2.Items.Add(this.ribbonSeparator1);
+            this.ribbonToolBar2.Items.Add(this.FontColorPicker);
+            this.ribbonToolBar2.Items.Add(this.BackColorPicker);
+            this.ribbonToolBar2.Name = "ribbonToolBar2";
+            this.ribbonToolBar3.Items.Add(this.DecreaseIndentButton);
+            this.ribbonToolBar3.Items.Add(this.IncreaseIndentButton);
+            this.ribbonToolBar3.Name = "ribbonToolBar3";
+            this.ribbonToolBar4.Items.Add(this.ribbonToggleGroup1);
+            this.ribbonToolBar4.Name = "ribbonToolBar4";
+            this.ribbonComboBox1.Label = "Templete";
+            this.ribbonComboBox1.Name = "ribbonComboBox1";
+            this.FontFaceComboBox.GripHandleVisible = true;
+            this.FontFaceComboBox.MaxDropDownItems = 20;
+            this.FontFaceComboBox.Name = "FontFaceComboBox";
+            this.FontFaceComboBox.Text = "Arial";
+            this.FontFaceComboBox.TextAreaWidth = 120;
+            this.FontSizeComboBox.GripHandleVisible = true;
+            this.FontSizeComboBox.MaxDropDownItems = 100;
+            this.FontSizeComboBox.MaxLength = 3;
+            this.FontSizeComboBox.Name = "FontSizeComboBox";
+            this.FontSizeComboBox.Text = "12";
+            this.FontBoldButton.Name = "FontBoldButton";
+            this.FontBoldButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontBoldButton.SmallImage")));
+            this.FontBoldButton.ToolTip = "Bold (Ctrl-B)";
+            this.FontItalicButton.Name = "FontItalicButton";
+            this.FontItalicButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontItalicButton.SmallImage")));
+            this.FontItalicButton.ToolTip = "Italic (Ctrl-I)";
+            this.FontUnderlineButton.Name = "FontUnderlineButton";
+            this.FontUnderlineButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontUnderlineButton.SmallImage")));
+            this.FontUnderlineButton.ToolTip = "Underline (Ctrl-U)";
+            this.FontStrikeoutButton.Name = "FontStrikeoutButton";
+            this.FontStrikeoutButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontStrikeoutButton.SmallImage")));
+            this.FontStrikeoutButton.ToolTip = "Strikeout";
+            this.ribbonSeparator1.Name = "ribbonSeparator1";
+            this.FontColorPicker.Color = System.Drawing.Color.Red;
+            this.FontColorPicker.Name = "FontColorPicker";
+            this.FontColorPicker.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontColorPicker.SmallImage")));
+            this.DecreaseIndentButton.Name = "DecreaseIndentButton";
+            this.DecreaseIndentButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("DecreaseIndentButton.SmallImage")));
+            this.DecreaseIndentButton.ToolTip = "Decrease Indent";
+            // 
+            // IncreaseIndentButton
+            // 
+            this.IncreaseIndentButton.Name = "IncreaseIndentButton";
+            this.IncreaseIndentButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IncreaseIndentButton.SmallImage")));
+            this.IncreaseIndentButton.ToolTip = "Increase Indent";
+            // 
+            // BackColorPicker
+            // 
+            this.BackColorPicker.Color = System.Drawing.Color.Yellow;
+            this.BackColorPicker.Name = "BackColorPicker";
+            this.BackColorPicker.SmallImage = ((System.Drawing.Image)(resources.GetObject("BackColorPicker.SmallImage")));
+            // 
+            this.ribbonToggleGroup1.Items.Add(this.ParagraphAlignLeftButton);
+            this.ribbonToggleGroup1.Items.Add(this.ParagraphAlignCenterButton);
+            this.ribbonToggleGroup1.Items.Add(this.ParagraphAlignRightButton);
+            this.ribbonToggleGroup1.Name = "ribbonToggleGroup1";
+
+
+            this.ribbonQat1.HotItemLinks.Add(this.SaveDocumentButton);
+            this.ribbonQat1.HotItemLinks.Add(this.UndoButton);
+            this.ribbonQat1.HotItemLinks.Add(this.RedoButton);
+            this.ribbonQat1.ItemLinks.Add(this.SaveDocumentButton);
+            this.ribbonQat1.ItemLinks.Add(this.UndoButton);
+            this.ribbonQat1.ItemLinks.Add(this.RedoButton);
+            this.ribbonQat1.Name = "ribbonQat1";
+            this.UndoButton.Name = "UndoButton";
+            this.UndoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("UndoButton.SmallImage")));
+            this.UndoButton.ToolTip = "Undo";
+            this.RedoButton.Name = "RedoButton";
+            this.RedoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RedoButton.SmallImage")));
+            this.RedoButton.ToolTip = "Redo";
+            this.HomeTab.Groups.Add(this.ClipboardGroup);
+            this.HomeTab.Groups.Add(this.FontGroup);
+            this.HomeTab.Groups.Add(this.ParagraphGroup);
+            this.HomeTab.Groups.Add(this.ribbonGroup2);
+            this.HomeTab.Name = "HomeTab";
+            this.HomeTab.Text = "&Home";
+            this.ribbonTopToolBar1.Name = "ribbonTopToolBar1";
+            this.ViewTab.Groups.Add(this.ViewZoomGroup);
+            this.ViewTab.Name = "ViewTab";
+            this.ViewTab.Text = "View";
+            this.ribbonTab1.Groups.Add(this.ribbonGroup1);
+            this.ribbonTab1.Name = "ribbonTab1";
+            this.ribbonTab1.Text = "Print";
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ExitButton.SmallImage")));
+            this.ExitButton.Text = "E&xit WordPad Sample";
+            this.NewDocumentButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("NewDocumentButton.LargeImage")));
+            this.NewDocumentButton.Name = "NewDocumentButton";
+            this.NewDocumentButton.Text = "&New";
+            this.OpenDocumentButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("OpenDocumentButton.LargeImage")));
+            this.OpenDocumentButton.Name = "OpenDocumentButton";
+            this.OpenDocumentButton.Text = "&Open";
+            this.SaveDocumentButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentButton.LargeImage")));
+            this.SaveDocumentButton.Name = "SaveDocumentButton";
+            this.SaveDocumentButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentButton.SmallImage")));
+            this.SaveDocumentButton.Text = "&Save";
+            this.SaveDocumentAsButton.Items.Add(this.SaveDocumentAsRtfButton);
+            this.SaveDocumentAsButton.Items.Add(this.SaveDocumentAsTextButton);
+            this.SaveDocumentAsButton.Items.Add(this.SaveDocumentAsOtherButton);
+            this.SaveDocumentAsButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsButton.LargeImage")));
+            this.SaveDocumentAsButton.Name = "SaveDocumentAsButton";
+            this.SaveDocumentAsButton.Text = "Save &As";
+            
+            this.F1HelpButton.Name = "F1HelpButton";
+            this.F1HelpButton.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.F1HelpButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("F1HelpButton.SmallImage")));
+            this.F1HelpButton.ToolTip = "Help";
+            this.ViewZoomGroup.Items.Add(this.ViewZoomCombobox);
+            this.ViewZoomGroup.Items.Add(this.NormalSizeButton);
+            this.ViewZoomGroup.Name = "ViewZoomGroup";
+            this.ViewZoomGroup.Text = "Zoom";
+            this.ribbonGroup1.Items.Add(this.rbPgPrint);
+            this.ribbonGroup1.Name = "ribbonGroup1";
+            this.ribbonGroup1.Text = "Group";
+            this.SaveDocumentAsRtfButton.Description = "Save the document in the Rich Text File format.";
+            this.SaveDocumentAsRtfButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsRtfButton.LargeImage")));
+            this.SaveDocumentAsRtfButton.Name = "SaveDocumentAsRtfButton";
+            this.SaveDocumentAsRtfButton.Text = "Rich Text File";
+            this.SaveDocumentAsTextButton.Description = "Save the document as Plain text file.";
+            this.SaveDocumentAsTextButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsTextButton.LargeImage")));
+            this.SaveDocumentAsTextButton.Name = "SaveDocumentAsTextButton";
+            this.SaveDocumentAsTextButton.Text = "Text File";
+            this.ViewZoomCombobox.MaxLength = 4;
+            this.ViewZoomCombobox.Name = "ViewZoomCombobox";
+            this.SaveDocumentAsOtherButton.Description = "Open the Save As dialog to select from all possible file types.";
+            this.SaveDocumentAsOtherButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsOtherButton.LargeImage")));
+            this.SaveDocumentAsOtherButton.Name = "SaveDocumentAsOtherButton";
+            this.SaveDocumentAsOtherButton.Text = "Other formats";
+            this.ParagraphAlignLeftButton.Name = "ParagraphAlignLeftButton";
+            this.ParagraphAlignLeftButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ParagraphAlignLeftButton.SmallImage")));
+            this.ParagraphAlignLeftButton.ToolTip = "Align Left";
+            // 
+            // ParagraphAlignCenterButton
+            // 
+            this.ParagraphAlignCenterButton.Name = "ParagraphAlignCenterButton";
+            this.ParagraphAlignCenterButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ParagraphAlignCenterButton.SmallImage")));
+            this.ParagraphAlignCenterButton.ToolTip = "Align Center";
+            // 
+            // ParagraphAlignRightButton
+            // 
+            this.ParagraphAlignRightButton.Name = "ParagraphAlignRightButton";
+            this.ParagraphAlignRightButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ParagraphAlignRightButton.SmallImage")));
+            this.ParagraphAlignRightButton.ToolTip = "Align Right";
+            // NormalSizeButton
+            // 
+            this.NormalSizeButton.Name = "NormalSizeButton";
+            this.NormalSizeButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("NormalSizeButton.SmallImage")));
+            this.NormalSizeButton.Text = "100%";
+            this.rbPgPrint.LargeImage = ((System.Drawing.Image)(resources.GetObject("rbPgPrint.LargeImage")));
+            this.rbPgPrint.Name = "rbPgPrint";
+            this.rbPgPrint.SmallImage = ((System.Drawing.Image)(resources.GetObject("rbPgPrint.SmallImage")));
+            this.rbPgPrint.Text = "Print";
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 146);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(906, 519);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            ((System.ComponentModel.ISupportInitialize)(this.ribDiag1)).BeginInit();
+            
+            //ribDiag1.ApplicationMenuHolder = this.ribbonApplicationMenu1;
+            //ribDiag1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
+            //ribDiag1.BottomToolBarHolder = this.ribbonBottomToolBar1;
+            //ribDiag1.ConfigToolBarHolder = this.ribbonConfigToolBar1;
+            //ribDiag1.Location = new System.Drawing.Point(0, 0);
+            //ribDiag1.Name = "ribDiag1";
+            //ribDiag1.QatHolder = this.ribbonQat1;
+            //ribDiag1.QatItemsHolder.Add(this.UndoButton);
+            //ribDiag1.QatItemsHolder.Add(this.RedoButton);
+            //ribDiag1.Size = new System.Drawing.Size(906, 146);
+            //ribDiag1.Tabs.Add(this.HomeTab);
+            //ribDiag1.Tabs.Add(this.ViewTab);
+            //ribDiag1.Tabs.Add(this.ribbonTab1);
+            //theme1.SetTheme(this.ribDiag1, "(default)");
+            //ribDiag1.TopToolBarHolder = this.ribbonTopToolBar1;
+            //ribDiag1.VisualStyle = C1.Win.C1Ribbon.VisualStyle.Custom;
+
+            ribDiag1.Dock = DockStyle.Top;
+            ribDiag1.Load(Path.GetDirectoryName(Application.ExecutablePath)+"\\ribbon_progress_note.xml");
+            this.ribbonApplicationMenu1.BottomPaneItems.Add(this.ExitButton);
+            this.ribbonApplicationMenu1.DropDownWidth = 370;
+            this.ribbonApplicationMenu1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonApplicationMenu1.LargeImage")));
+            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.NewDocumentButton);
+            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.OpenDocumentButton);
+            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.SaveDocumentButton);
+            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.SaveDocumentAsButton);
+            this.ribbonApplicationMenu1.Name = "ribbonApplicationMenu1";
+            this.ribbonApplicationMenu1.Text = "File";
+
+            ((System.ComponentModel.ISupportInitialize)(this.ribDiag1)).EndInit();
+
+
+            tabOrdSearch.ResumeLayout(false);
             pnOrdLeft.ResumeLayout(false);
             pnOrdRight.ResumeLayout(false);
+            pnOrdItem.ResumeLayout(false);
+            pnOrdDrugSarch.ResumeLayout(false);
+            pnOrdDrugAdd.ResumeLayout(false);
             scOrdLeft.ResumeLayout(false);
             scOrdRight.ResumeLayout(false);
             sCOrdAdd.ResumeLayout(false);
+            sCOrdDrug.ResumeLayout(false);
+            scOrdDrugSearch.ResumeLayout(false);
+            scOrdDrugAdd.ResumeLayout(false);
+            sCOrdDiag.ResumeLayout(false);
+            scOrdDiag1.ResumeLayout(false);
+            scOrdDiag2.ResumeLayout(false);
+            scOrdDiag3.ResumeLayout(false);
+            pnOrdSearchDrug.ResumeLayout(false);
+            pnOrdSearchSup.ResumeLayout(false);
+            pnOrdSearchLab.ResumeLayout(false);
+            pnOrdSearchXray.ResumeLayout(false);
+            pnOrdSearchOR.ResumeLayout(false);
+            pnOrdDiag1.ResumeLayout(false);
+            pnOrdDiag2.ResumeLayout(false);
+            pnOrdDiag3.ResumeLayout(false);
+
+            tabOrdSearch.PerformLayout();
             pnOrdLeft.PerformLayout();
             pnOrdRight.PerformLayout();
+            pnOrdDrugSarch.PerformLayout();
+            pnOrdDrugAdd.PerformLayout();
+            pnOrdItem.PerformLayout();
             scOrdLeft.PerformLayout();
             scOrdRight.PerformLayout();
             sCOrdAdd.PerformLayout();
+            sCOrdDrug.PerformLayout();
+            scOrdDrugSearch.PerformLayout();
+            scOrdDrugAdd.PerformLayout();
+            sCOrdDiag.PerformLayout();
+            scOrdDiag1.PerformLayout();
+            scOrdDiag2.PerformLayout();
+            scOrdDiag3.PerformLayout();
+            pnOrdSearchDrug.PerformLayout();
+            pnOrdSearchSup.PerformLayout();
+            pnOrdSearchLab.PerformLayout();
+            pnOrdSearchXray.PerformLayout();
+            pnOrdSearchOR.PerformLayout();
+            pnOrdDiag1.PerformLayout();
+            pnOrdDiag2.PerformLayout();
+            pnOrdDiag3.PerformLayout();
         }
+
+        private void TabDiag_TabClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TabOrdSearch_TabClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void initGrfIPD()
         {
             grfIPD = new C1FlexGrid();
@@ -2100,6 +2711,381 @@ namespace bangna_hospital.gui
                     }
                 }
             }
+        }
+        private void initGrfOrdItem()
+        {
+            grfOrdItem = new C1FlexGrid();
+            grfOrdItem.Font = fEdit;
+            grfOrdItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOrdItem.Location = new System.Drawing.Point(0, 0);
+            grfOrdItem.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnOrdItem.Controls.Add(grfOrdItem);
+
+            theme1.SetTheme(grfOrdItem, bc.iniC.themeApp);
+
+        }
+        private void initGrfOrdDrug()
+        {
+            grfOrdDrug = new C1FlexGrid();
+            grfOrdDrug.Font = fEdit;
+            grfOrdDrug.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOrdDrug.Location = new System.Drawing.Point(0, 0);
+            grfOrdDrug.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnOrdSearchDrug.Controls.Add(grfOrdDrug);
+
+            theme1.SetTheme(grfOrdDrug, bc.iniC.themeApp);
+
+        }
+        private void setGrfOrdDrug()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.drugDB.selectDrugAll();
+
+            grfOrdDrug.Rows.Count = 1;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfOrdDrug.Rows.Count = dt.Rows.Count + 1;
+            grfOrdDrug.Cols.Count = dt.Rows.Count + 1;
+            grfOrdDrug.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
+            grfOrdDrug.Cols[colOrdDrugNameT].Caption = "ชื่อX-Ray";
+            grfOrdDrug.Cols[colOrdDrugNameE].Caption = "Code X-Ray";
+            grfOrdDrug.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
+
+            grfOrdDrug.Cols[colOrdDrugId].Width = 100;
+            grfOrdDrug.Cols[colOrdDrugNameT].Width = 250;
+            grfOrdDrug.Cols[colOrdDrugNameE].Width = 100;
+            grfOrdDrug.Cols[colOrdDrugUnit].Width = 200;
+
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfOrdDrug.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                grfOrdDrug.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfOrdDrug.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfOrdDrug[i, colOrdDrugId] = row1["MNC_ph_cd"].ToString();
+                grfOrdDrug[i, colOrdDrugNameT] = row1["MNC_ph_tn"].ToString();
+                grfOrdDrug[i, colOrdDrugNameE] = row1["MNC_ph_gn"].ToString();
+                grfOrdDrug[i, colOrdDrugUnit] = row1["mnc_ph_unt_cd"].ToString();
+
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfOrdDrug);
+            //grfOrdDrug.Cols[colXrayResult].Visible = false;
+            grfOrdDrug.Cols[colOrdDrugId].AllowEditing = false;
+            grfOrdDrug.Cols[colOrdDrugNameT].AllowEditing = false;
+            grfOrdDrug.Cols[colOrdDrugNameE].AllowEditing = false;
+            grfOrdDrug.Cols[colOrdDrugUnit].AllowEditing = false;
+            FilterRow fr = new FilterRow(grfOrdDrug);
+            grfOrdDrug.AllowFiltering = true;
+            grfOrdDrug.AfterFilter += GrfOrdDrug_AfterFilter;
+            //}).Start();
+        }
+        private void GrfOrdDrug_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfOrdDrug.Cols.Fixed; col < grfOrdDrug.Cols.Count; ++col)
+            {
+                var filter = grfOrdDrug.Cols[col].ActiveFilter;
+            }
+        }
+
+        private void initGrfOrdSup()
+        {
+            grfOrdSup = new C1FlexGrid();
+            grfOrdSup.Font = fEdit;
+            grfOrdSup.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOrdSup.Location = new System.Drawing.Point(0, 0);
+            grfOrdSup.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnOrdSearchSup.Controls.Add(grfOrdSup);
+
+            theme1.SetTheme(grfOrdSup, bc.iniC.themeApp);
+
+        }
+        private void setGrfOrdSup()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.drugDB.selectDrugAll();
+
+            grfOrdSup.Rows.Count = 1;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfOrdSup.Rows.Count = dt.Rows.Count + 1;
+            grfOrdSup.Cols.Count = dt.Rows.Count + 1;
+            grfOrdSup.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
+            grfOrdSup.Cols[colOrdDrugNameT].Caption = "ชื่อX-Ray";
+            grfOrdSup.Cols[colOrdDrugNameE].Caption = "Code X-Ray";
+            grfOrdSup.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
+
+            grfOrdSup.Cols[colOrdDrugId].Width = 100;
+            grfOrdSup.Cols[colOrdDrugNameT].Width = 250;
+            grfOrdSup.Cols[colOrdDrugNameE].Width = 100;
+            grfOrdSup.Cols[colOrdDrugUnit].Width = 200;
+
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfOrdSup.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                grfOrdSup.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfOrdSup.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfOrdSup[i, colOrdDrugId] = row1["MNC_ph_cd"].ToString();
+                grfOrdSup[i, colOrdDrugNameT] = row1["MNC_ph_tn"].ToString();
+                grfOrdSup[i, colOrdDrugNameE] = row1["MNC_ph_gn"].ToString();
+                grfOrdSup[i, colOrdDrugUnit] = row1["mnc_ph_unt_cd"].ToString();
+
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfOrdSup);
+            //grfOrdDrug.Cols[colXrayResult].Visible = false;
+            grfOrdSup.Cols[colOrdDrugId].AllowEditing = false;
+            grfOrdSup.Cols[colOrdDrugNameT].AllowEditing = false;
+            grfOrdSup.Cols[colOrdDrugNameE].AllowEditing = false;
+            grfOrdSup.Cols[colOrdDrugUnit].AllowEditing = false;
+            FilterRow fr = new FilterRow(grfOrdSup);
+            grfOrdSup.AllowFiltering = true;
+            grfOrdSup.AfterFilter += GrfOrdSup_AfterFilter;
+            //}).Start();
+        }
+
+        private void GrfOrdSup_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfOrdSup.Cols.Fixed; col < grfOrdSup.Cols.Count; ++col)
+            {
+                var filter = grfOrdSup.Cols[col].ActiveFilter;
+            }
+        }
+
+        private void initGrfOrdLab()
+        {
+            grfOrdLab = new C1FlexGrid();
+            grfOrdLab.Font = fEdit;
+            grfOrdLab.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOrdLab.Location = new System.Drawing.Point(0, 0);
+            grfOrdLab.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnOrdSearchLab.Controls.Add(grfOrdLab);
+
+            theme1.SetTheme(grfOrdLab, bc.iniC.themeApp);
+
+        }
+        private void setGrfOrdLab()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.labDB.selectLabAll();
+
+            grfOrdLab.Rows.Count = 1;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfOrdLab.Rows.Count = dt.Rows.Count + 1;
+            grfOrdLab.Cols.Count = dt.Rows.Count + 1;
+            grfOrdLab.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
+
+            grfOrdLab.Cols[colOrdDrugNameT].Caption = "ชื่อX-Ray";
+            grfOrdLab.Cols[colOrdDrugNameE].Caption = "Code X-Ray";
+            grfOrdLab.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
+
+            grfOrdLab.Cols[colOrdDrugId].Width = 100;
+            grfOrdLab.Cols[colOrdDrugNameT].Width = 250;
+            grfOrdLab.Cols[colOrdDrugNameE].Width = 100;
+            grfOrdLab.Cols[colOrdDrugUnit].Width = 200;
+
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfOrdLab.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                grfOrdLab.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfOrdLab.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfOrdLab[i, colOrdDrugId] = row1["MNC_lb_cd"].ToString();
+                grfOrdLab[i, colOrdDrugNameT] = row1["MNC_lb_dsc"].ToString();
+                grfOrdLab[i, colOrdDrugNameE] = row1["mnc_lb_typ_cd"].ToString();
+                grfOrdLab[i, colOrdDrugUnit] = row1["mnc_lb_grp_cd"].ToString();
+
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfOrdSup);
+            //grfOrdDrug.Cols[colXrayResult].Visible = false;
+            grfOrdLab.Cols[colOrdDrugId].AllowEditing = false;
+            grfOrdLab.Cols[colOrdDrugNameT].AllowEditing = false;
+            grfOrdLab.Cols[colOrdDrugNameE].AllowEditing = false;
+            grfOrdLab.Cols[colOrdDrugUnit].AllowEditing = false;
+            FilterRow fr = new FilterRow(grfOrdLab);
+            grfOrdLab.AllowFiltering = true;
+            grfOrdLab.AfterFilter += GrfOrdLab_AfterFilter;
+            //}).Start();
+        }
+
+        private void GrfOrdLab_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfOrdLab.Cols.Fixed; col < grfOrdLab.Cols.Count; ++col)
+            {
+                var filter = grfOrdLab.Cols[col].ActiveFilter;
+            }
+        }
+
+        private void initGrfOrdXray()
+        {
+            grfOrdXray = new C1FlexGrid();
+            grfOrdXray.Font = fEdit;
+            grfOrdXray.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOrdXray.Location = new System.Drawing.Point(0, 0);
+            grfOrdXray.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnOrdSearchXray.Controls.Add(grfOrdXray);
+
+            theme1.SetTheme(grfOrdXray, bc.iniC.themeApp);
+
+        }
+        private void setGrfOrdXray()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.xrDB.selectXrayAll();
+
+            grfOrdXray.Rows.Count = 1;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfOrdXray.Rows.Count = dt.Rows.Count + 1;
+            grfOrdXray.Cols.Count = dt.Rows.Count + 1;
+            grfOrdXray.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
+
+            grfOrdXray.Cols[colOrdDrugNameT].Caption = "ชื่อX-Ray";
+            grfOrdXray.Cols[colOrdDrugNameE].Caption = "Code X-Ray";
+            grfOrdXray.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
+
+            grfOrdXray.Cols[colOrdDrugId].Width = 100;
+            grfOrdXray.Cols[colOrdDrugNameT].Width = 250;
+            grfOrdXray.Cols[colOrdDrugNameE].Width = 100;
+            grfOrdXray.Cols[colOrdDrugUnit].Width = 200;
+
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfOrdXray.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                grfOrdXray.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfOrdXray.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfOrdXray[i, colOrdDrugId] = row1["MNC_lb_cd"].ToString();
+                grfOrdXray[i, colOrdDrugNameT] = row1["MNC_lb_dsc"].ToString();
+                grfOrdXray[i, colOrdDrugNameE] = row1["mnc_lb_typ_cd"].ToString();
+                grfOrdXray[i, colOrdDrugUnit] = row1["mnc_lb_grp_cd"].ToString();
+
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfOrdSup);
+            //grfOrdDrug.Cols[colXrayResult].Visible = false;
+            grfOrdXray.Cols[colOrdDrugId].AllowEditing = false;
+            grfOrdXray.Cols[colOrdDrugNameT].AllowEditing = false;
+            grfOrdXray.Cols[colOrdDrugNameE].AllowEditing = false;
+            grfOrdXray.Cols[colOrdDrugUnit].AllowEditing = false;
+            FilterRow fr = new FilterRow(grfOrdXray);
+            grfOrdXray.AllowFiltering = true;
+            grfOrdXray.AfterFilter += GrfOrdXray_AfterFilter;
+            //}).Start();
+        }
+
+        private void GrfOrdXray_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfOrdXray.Cols.Fixed; col < grfOrdXray.Cols.Count; ++col)
+            {
+                var filter = grfOrdXray.Cols[col].ActiveFilter;
+            }
+        }
+
+        private void initGrfOrdOR()
+        {
+            grfOrdOR = new C1FlexGrid();
+            grfOrdOR.Font = fEdit;
+            grfOrdOR.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOrdOR.Location = new System.Drawing.Point(0, 0);
+            grfOrdOR.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnOrdSearchOR.Controls.Add(grfOrdOR);
+
+            theme1.SetTheme(grfOrdOR, bc.iniC.themeApp);
+
         }
 
         private void initGrfHn()

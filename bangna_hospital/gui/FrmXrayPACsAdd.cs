@@ -397,16 +397,18 @@ namespace bangna_hospital.gui
                         //    //writetext.Close();
                         //}
 
-                        clientStreamWriter.Write(txtADT);
-                        clientStreamWriter.Flush();
-                    clientStreamWriter.Close();
+                    clientStreamWriter.Write(txtADT);
+                    clientStreamWriter.Flush();
+                    //clientStreamWriter.Close();
                     Application.DoEvents();
-                        resp = clientStreamReader.ReadToEnd();
-                        
-                        clientStreamReader.Close();
-                        clientSockStream.Close();
+                    
+                    resp = clientStreamReader.ReadToEnd();
+                    
 
-                    tcpClient.Close();
+                    //clientStreamReader.Close();
+                    //clientSockStream.Close();
+
+                    //tcpClient.Close();
                     lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
                     Application.DoEvents();
 
@@ -430,6 +432,8 @@ namespace bangna_hospital.gui
                     //    writetext.WriteLine(txtORM);
                     //    //writetext.Close();
                     //}
+                    //Application.DoEvents();
+                    //Thread.Sleep(500);
                     resp = "";
                     //resp = clientStreamReaderORM.ReadLine();
                     clientStreamWriterORM.Write(txtORM);

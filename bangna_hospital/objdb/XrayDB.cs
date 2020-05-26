@@ -74,6 +74,20 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectXrayAll()
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+
+            sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_typ_cd, xm01.grp_cd " +
+                "From  xray_m01 xm01  " +
+
+                " Where xm01.MNC_XR_STS = 'Y'  " +
+                "Order By xm01.MNC_XR_CD";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectVisitStatusPacsProcessByDate(String Date)
         {
             DataTable dt = new DataTable();
