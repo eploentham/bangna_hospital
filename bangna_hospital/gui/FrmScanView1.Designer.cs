@@ -43,9 +43,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.sC1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.scVs = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.gbPtt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
@@ -261,6 +261,17 @@
             this.scVs.Text = "Panel 1";
             this.scVs.Width = 233;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(226, 603);
+            this.panel2.TabIndex = 0;
+            this.theme1.SetTheme(this.panel2, "(default)");
+            // 
             // scScan
             // 
             this.scScan.Controls.Add(this.panel3);
@@ -281,17 +292,6 @@
             this.panel3.Size = new System.Drawing.Size(972, 603);
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(226, 603);
-            this.panel2.TabIndex = 0;
-            this.theme1.SetTheme(this.panel2, "(default)");
             // 
             // FrmScanView1
             // 
