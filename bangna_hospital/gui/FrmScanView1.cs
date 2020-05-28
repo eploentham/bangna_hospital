@@ -43,65 +43,7 @@ namespace bangna_hospital.gui
         C1FlexViewer labOutView;
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem;
-        C1Ribbon ribDiag1, ribDiag2, ribDiag3;
-        RibbonApplicationMenu ribbonApplicationMenu1;
-        RibbonBottomToolBar ribbonBottomToolBar1;
-        RibbonConfigToolBar ribbonConfigToolBar1;
-        RibbonQat ribbonQat1;
-        RibbonButton UndoButton;
-        RibbonButton RedoButton;
-        RibbonTab HomeTab;
-        RibbonTopToolBar ribbonTopToolBar1;
-        RibbonTab ViewTab;
-        RibbonTab ribbonTab1;
-        RibbonButton ExitButton;
-        RibbonButton NewDocumentButton;
-        RibbonButton OpenDocumentButton;
-        RibbonButton SaveDocumentButton;
-        RibbonSplitButton SaveDocumentAsButton;
-        RibbonComboBox ribbonStyleCombo;
-        RibbonButton F1HelpButton;
-        RibbonGroup ClipboardGroup;
-        RibbonGroup FontGroup;
-        RibbonGroup ParagraphGroup;
-        RibbonGroup ribbonGroup1,ribbonGroup2;
-        RibbonGroup ViewZoomGroup;
-        RibbonButton SaveDocumentAsRtfButton;
-        RibbonButton SaveDocumentAsTextButton;
-        RibbonComboBox ViewZoomCombobox;
-        RibbonButton SaveDocumentAsOtherButton;
-        RibbonButton NormalSizeButton;
-        RibbonButton rbPgPrint;
-        RibbonSplitButton PasteSplitButton;
-        RichTextBox richTextBox1;
-        RibbonButton CutButton;
-        RibbonButton CopyButton;
-        RibbonButton FormatPainterButton;
-        RibbonButton PasteButton;
-        RibbonButton PasteAsTextButton;
-        RibbonToolBar ribbonToolBar1;
-        RibbonToolBar ribbonToolBar2;
-        RibbonToolBar ribbonToolBar3;
-        RibbonToolBar ribbonToolBar4;
-        RibbonComboBox ribbonComboBox1;
-        RibbonComboBox FontFaceComboBox;
-        RibbonComboBox FontSizeComboBox;
-        RibbonToggleButton FontBoldButton;
-        RibbonToggleButton FontItalicButton;
-        RibbonToggleButton FontUnderlineButton;
-        RibbonToggleButton FontStrikeoutButton;
-        RibbonSeparator ribbonSeparator1;
-        RibbonColorPicker FontColorPicker;
-        RibbonColorPicker BackColorPicker;
-        RibbonButton DecreaseIndentButton;
-        RibbonButton IncreaseIndentButton;
-        RibbonToggleGroup ribbonToggleGroup1;
-        RibbonToggleButton ParagraphAlignLeftButton;
-        RibbonToggleButton ParagraphAlignCenterButton;
-        RibbonToggleButton ParagraphAlignRightButton;
-
-        ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmScanView1));
-
+        
         int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
@@ -642,25 +584,29 @@ namespace bangna_hospital.gui
         private void setActive()
         {
             String vsDate = "";
+            int sizeradio = 10;
             //preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
             //vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
             //vsDate = bc.datetoDB(vsDate);
             if (tcDtr.SelectedTab == tabScan)
             {
+                scVs.SizeRatio = sizeradio;
                 setGrfScan();
                 grfScan.AutoSizeCols();
                 grfScan.AutoSizeRows();
             }
             else if (tcDtr.SelectedTab == tabOrder)
             {
+                scVs.SizeRatio = sizeradio;
                 tabOrderActive();
             }
             else if (tcDtr.SelectedTab == tabPrn)
             {
-
+                scVs.SizeRatio = sizeradio;
             }
             else if (tcDtr.SelectedTab == tabStfNote)
             {
+                scVs.SizeRatio = sizeradio;
                 if (!chkIPD.Checked)
                 {
                     preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
@@ -677,6 +623,7 @@ namespace bangna_hospital.gui
             }
             else if (tcDtr.SelectedTab == tabLab)
             {
+                scVs.SizeRatio = sizeradio;
                 if (chkIPD.Checked)
                 {
                     setGrfLab();
@@ -688,11 +635,16 @@ namespace bangna_hospital.gui
             }
             else if (tcDtr.SelectedTab == tabXray)
             {
+                scVs.SizeRatio = sizeradio;
                 setGrfXrayOPD(grfOPD.Row);
             }
             else if (tcDtr.SelectedTab == tabScan)
             {
-
+                scVs.SizeRatio = sizeradio;
+            }
+            else if (tcDtr.SelectedTab == tabOrdAdd)
+            {
+                scVs.SizeRatio = 1;
             }
         }
         private void tabOrderActive()
@@ -1965,10 +1917,7 @@ namespace bangna_hospital.gui
             Panel pnOrdDiag1 = new Panel();
             Panel pnOrdDiag2 = new Panel();
             Panel pnOrdDiag3 = new Panel();
-            ribDiag1 = new C1Ribbon();
-            ribDiag2 = new C1Ribbon();
-            ribDiag3 = new C1Ribbon();
-
+            
             pnOrdDrugSarch.Dock = DockStyle.Fill;
             pnOrdDrugAdd.Dock = DockStyle.Fill;
             pnOrdDiag1.Dock = DockStyle.Fill;
@@ -2001,6 +1950,8 @@ namespace bangna_hospital.gui
             C1SplitterPanel scOrdDiag3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             C1SplitContainer sCOrdDiag = new C1.Win.C1SplitContainer.C1SplitContainer();
 
+            
+
             tabOrdSearch = new C1DockingTab();
             tabOrdSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             tabOrdSearch.Location = new System.Drawing.Point(0, 266);
@@ -2008,6 +1959,7 @@ namespace bangna_hospital.gui
             tabOrdSearch.Size = new System.Drawing.Size(669, 200);
             tabOrdSearch.TabIndex = 0;
             tabOrdSearch.TabsSpacing = 5;
+            tabOrdSearch.Alignment = TabAlignment.Left;
             tabOrdSearch.TabClick += TabOrdSearch_TabClick;
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged1;
             pnOrdDrugSarch.Controls.Add(tabOrdSearch);
@@ -2154,325 +2106,37 @@ namespace bangna_hospital.gui
             scOrdDiag2.Location = new System.Drawing.Point(0, 21);
             scOrdDiag2.Name = "scOrdDiag2";
             //scOrdRight.HeaderHeight = 10;
-            scOrdDiag3.Controls.Add(pnOrdDiag2);
+            scOrdDiag2.Controls.Add(pnOrdDiag2);
             scOrdDiag3.Collapsible = true;
             scOrdDiag3.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
             scOrdDiag3.Location = new System.Drawing.Point(0, 21);
             scOrdDiag3.Name = "scOrdDiag3";
             //scOrdRight.HeaderHeight = 10;
             scOrdDiag3.Controls.Add(pnOrdDiag3);
-            pnOrdDiag1.Controls.Add(richTextBox1);
-            pnOrdDiag1.Controls.Add(ribDiag1);
-            
-            pnOrdDiag2.Controls.Add(ribDiag2);
-            pnOrdDiag3.Controls.Add(ribDiag3);
 
-            ribbonApplicationMenu1 = new C1.Win.C1Ribbon.RibbonApplicationMenu();
-            ribbonBottomToolBar1 = new C1.Win.C1Ribbon.RibbonBottomToolBar();
-            this.UndoButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.RedoButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.HomeTab = new C1.Win.C1Ribbon.RibbonTab();
-            this.ribbonTopToolBar1 = new C1.Win.C1Ribbon.RibbonTopToolBar();
-            this.ViewTab = new C1.Win.C1Ribbon.RibbonTab();
-            this.ribbonTab1 = new C1.Win.C1Ribbon.RibbonTab();
-            this.ExitButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.NewDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.OpenDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.SaveDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.SaveDocumentAsButton = new C1.Win.C1Ribbon.RibbonSplitButton();
-            this.ribbonStyleCombo = new C1.Win.C1Ribbon.RibbonComboBox();
-            this.F1HelpButton = new C1.Win.C1Ribbon.RibbonButton();
-            ribbonQat1 = new C1.Win.C1Ribbon.RibbonQat();
-            this.ViewZoomGroup = new C1.Win.C1Ribbon.RibbonGroup();
-            this.ribbonGroup1 = new C1.Win.C1Ribbon.RibbonGroup();
-            this.ribbonGroup2 = new C1.Win.C1Ribbon.RibbonGroup();
-            this.SaveDocumentAsRtfButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.SaveDocumentAsTextButton = new C1.Win.C1Ribbon.RibbonButton();
-            ViewZoomCombobox = new C1.Win.C1Ribbon.RibbonComboBox();
-            this.SaveDocumentAsOtherButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.NormalSizeButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.rbPgPrint = new C1.Win.C1Ribbon.RibbonButton();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            ribbonConfigToolBar1 = new RibbonConfigToolBar();
-            ClipboardGroup = new RibbonGroup();
-            PasteSplitButton = new RibbonSplitButton();
-            CutButton = new RibbonButton();
-            CopyButton = new RibbonButton();
-            FormatPainterButton = new C1.Win.C1Ribbon.RibbonButton();
-            PasteButton = new C1.Win.C1Ribbon.RibbonButton();
-            PasteAsTextButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.ribbonToolBar1 = new C1.Win.C1Ribbon.RibbonToolBar();
-            this.ribbonToolBar2 = new C1.Win.C1Ribbon.RibbonToolBar();
-            this.ribbonToolBar3 = new C1.Win.C1Ribbon.RibbonToolBar();
-            this.ribbonToolBar4 = new C1.Win.C1Ribbon.RibbonToolBar();
-            this.ribbonComboBox1 = new C1.Win.C1Ribbon.RibbonComboBox();
-            this.FontFaceComboBox = new C1.Win.C1Ribbon.RibbonComboBox();
-            this.FontBoldButton = new C1.Win.C1Ribbon.RibbonToggleButton();
-            this.FontItalicButton = new C1.Win.C1Ribbon.RibbonToggleButton();
-            this.FontUnderlineButton = new C1.Win.C1Ribbon.RibbonToggleButton();
-            this.FontStrikeoutButton = new C1.Win.C1Ribbon.RibbonToggleButton();
-            this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
-            this.FontColorPicker = new C1.Win.C1Ribbon.RibbonColorPicker();
-            this.BackColorPicker = new C1.Win.C1Ribbon.RibbonColorPicker();
-            this.DecreaseIndentButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.IncreaseIndentButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.ribbonToggleGroup1 = new C1.Win.C1Ribbon.RibbonToggleGroup();
-            this.ParagraphAlignLeftButton = new C1.Win.C1Ribbon.RibbonToggleButton();
-            this.ParagraphAlignCenterButton = new C1.Win.C1Ribbon.RibbonToggleButton();
-            this.ParagraphAlignRightButton = new C1.Win.C1Ribbon.RibbonToggleButton();
-            this.FontGroup = new C1.Win.C1Ribbon.RibbonGroup();
-            this.ParagraphGroup = new C1.Win.C1Ribbon.RibbonGroup();
-            this.FontSizeComboBox = new C1.Win.C1Ribbon.RibbonComboBox();
-
-            this.ribbonStyleCombo.DropDownStyle = C1.Win.C1Ribbon.RibbonComboBoxStyle.DropDownList;
-            this.ribbonStyleCombo.Label = "Theme";
-            this.ribbonStyleCombo.Name = "ribbonStyleCombo";
-            this.ribbonStyleCombo.TextAreaWidth = 120;
-            
-            this.ribbonBottomToolBar1.Name = "ribbonBottomToolBar1";
-            this.ribbonConfigToolBar1.Items.Add(this.ribbonStyleCombo);
-            this.ribbonConfigToolBar1.Items.Add(this.F1HelpButton);
-            this.ribbonConfigToolBar1.Name = "ribbonConfigToolBar1";
-            this.ClipboardGroup.Items.Add(this.PasteSplitButton);
-            this.ClipboardGroup.Items.Add(this.CutButton);
-            this.ClipboardGroup.Items.Add(this.CopyButton);
-            this.ClipboardGroup.Items.Add(this.FormatPainterButton);
-            this.ClipboardGroup.Name = "ClipboardGroup";
-            this.ClipboardGroup.Text = "Clipboard";
-            this.PasteSplitButton.Items.Add(this.PasteButton);
-            this.PasteSplitButton.Items.Add(this.PasteAsTextButton);
-            this.PasteSplitButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("PasteSplitButton.LargeImage")));
-            this.PasteSplitButton.Name = "PasteSplitButton";
-            this.PasteSplitButton.Text = "Paste";
-            this.PasteSplitButton.TextImageRelation = C1.Win.C1Ribbon.TextImageRelation.ImageAboveText;
-            this.CutButton.Name = "CutButton";
-            this.CutButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("CutButton.SmallImage")));
-            this.CutButton.Text = "Cut";
-            this.CutButton.ToolTip = "Cut (Ctrl-X)";
-            this.CopyButton.Name = "CopyButton";
-            this.CopyButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("CopyButton.SmallImage")));
-            this.CopyButton.Text = "Copy";
-            this.CopyButton.ToolTip = "Copy (Ctrl-C)";
-            this.PasteButton.Name = "PasteButton";
-            this.PasteButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PasteButton.SmallImage")));
-            this.PasteButton.Text = "Paste";
-            this.PasteAsTextButton.Name = "PasteAsTextButton";
-            this.PasteAsTextButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("PasteAsTextButton.SmallImage")));
-            this.PasteAsTextButton.Text = "Paste As Text";
-            this.FontGroup.HasLauncherButton = true;
-            this.FontGroup.Image = ((System.Drawing.Image)(resources.GetObject("FontGroup.Image")));
-            this.FontGroup.Items.Add(this.ribbonToolBar1);
-            this.FontGroup.Items.Add(this.ribbonToolBar2);
-            this.FontGroup.Name = "FontGroup";
-            this.FontGroup.Text = "Font";
-            this.ParagraphGroup.Image = ((System.Drawing.Image)(resources.GetObject("ParagraphGroup.Image")));
-            this.ParagraphGroup.Items.Add(this.ribbonToolBar3);
-            this.ParagraphGroup.Items.Add(this.ribbonToolBar4);
-            this.ParagraphGroup.Name = "ParagraphGroup";
-            this.ParagraphGroup.Text = "Paragraph";
-            this.ribbonGroup2.Items.Add(this.ribbonComboBox1);
-            this.ribbonGroup2.Name = "ribbonGroup2";
-            this.ribbonGroup2.Text = "Templete";
-            this.ribbonToolBar1.Items.Add(this.FontFaceComboBox);
-            this.ribbonToolBar1.Items.Add(this.FontSizeComboBox);
-            this.ribbonToolBar1.Name = "ribbonToolBar1";
-            this.ribbonToolBar2.Items.Add(this.FontBoldButton);
-            this.ribbonToolBar2.Items.Add(this.FontItalicButton);
-            this.ribbonToolBar2.Items.Add(this.FontUnderlineButton);
-            this.ribbonToolBar2.Items.Add(this.FontStrikeoutButton);
-            this.ribbonToolBar2.Items.Add(this.ribbonSeparator1);
-            this.ribbonToolBar2.Items.Add(this.FontColorPicker);
-            this.ribbonToolBar2.Items.Add(this.BackColorPicker);
-            this.ribbonToolBar2.Name = "ribbonToolBar2";
-            this.ribbonToolBar3.Items.Add(this.DecreaseIndentButton);
-            this.ribbonToolBar3.Items.Add(this.IncreaseIndentButton);
-            this.ribbonToolBar3.Name = "ribbonToolBar3";
-            this.ribbonToolBar4.Items.Add(this.ribbonToggleGroup1);
-            this.ribbonToolBar4.Name = "ribbonToolBar4";
-            this.ribbonComboBox1.Label = "Templete";
-            this.ribbonComboBox1.Name = "ribbonComboBox1";
-            this.FontFaceComboBox.GripHandleVisible = true;
-            this.FontFaceComboBox.MaxDropDownItems = 20;
-            this.FontFaceComboBox.Name = "FontFaceComboBox";
-            this.FontFaceComboBox.Text = "Arial";
-            this.FontFaceComboBox.TextAreaWidth = 120;
-            this.FontSizeComboBox.GripHandleVisible = true;
-            this.FontSizeComboBox.MaxDropDownItems = 100;
-            this.FontSizeComboBox.MaxLength = 3;
-            this.FontSizeComboBox.Name = "FontSizeComboBox";
-            this.FontSizeComboBox.Text = "12";
-            this.FontBoldButton.Name = "FontBoldButton";
-            this.FontBoldButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontBoldButton.SmallImage")));
-            this.FontBoldButton.ToolTip = "Bold (Ctrl-B)";
-            this.FontItalicButton.Name = "FontItalicButton";
-            this.FontItalicButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontItalicButton.SmallImage")));
-            this.FontItalicButton.ToolTip = "Italic (Ctrl-I)";
-            this.FontUnderlineButton.Name = "FontUnderlineButton";
-            this.FontUnderlineButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontUnderlineButton.SmallImage")));
-            this.FontUnderlineButton.ToolTip = "Underline (Ctrl-U)";
-            this.FontStrikeoutButton.Name = "FontStrikeoutButton";
-            this.FontStrikeoutButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontStrikeoutButton.SmallImage")));
-            this.FontStrikeoutButton.ToolTip = "Strikeout";
-            this.ribbonSeparator1.Name = "ribbonSeparator1";
-            this.FontColorPicker.Color = System.Drawing.Color.Red;
-            this.FontColorPicker.Name = "FontColorPicker";
-            this.FontColorPicker.SmallImage = ((System.Drawing.Image)(resources.GetObject("FontColorPicker.SmallImage")));
-            this.DecreaseIndentButton.Name = "DecreaseIndentButton";
-            this.DecreaseIndentButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("DecreaseIndentButton.SmallImage")));
-            this.DecreaseIndentButton.ToolTip = "Decrease Indent";
-            // 
-            // IncreaseIndentButton
-            // 
-            this.IncreaseIndentButton.Name = "IncreaseIndentButton";
-            this.IncreaseIndentButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("IncreaseIndentButton.SmallImage")));
-            this.IncreaseIndentButton.ToolTip = "Increase Indent";
-            // 
-            // BackColorPicker
-            // 
-            this.BackColorPicker.Color = System.Drawing.Color.Yellow;
-            this.BackColorPicker.Name = "BackColorPicker";
-            this.BackColorPicker.SmallImage = ((System.Drawing.Image)(resources.GetObject("BackColorPicker.SmallImage")));
-            // 
-            this.ribbonToggleGroup1.Items.Add(this.ParagraphAlignLeftButton);
-            this.ribbonToggleGroup1.Items.Add(this.ParagraphAlignCenterButton);
-            this.ribbonToggleGroup1.Items.Add(this.ParagraphAlignRightButton);
-            this.ribbonToggleGroup1.Name = "ribbonToggleGroup1";
-
-
-            this.ribbonQat1.HotItemLinks.Add(this.SaveDocumentButton);
-            this.ribbonQat1.HotItemLinks.Add(this.UndoButton);
-            this.ribbonQat1.HotItemLinks.Add(this.RedoButton);
-            this.ribbonQat1.ItemLinks.Add(this.SaveDocumentButton);
-            this.ribbonQat1.ItemLinks.Add(this.UndoButton);
-            this.ribbonQat1.ItemLinks.Add(this.RedoButton);
-            this.ribbonQat1.Name = "ribbonQat1";
-            this.UndoButton.Name = "UndoButton";
-            this.UndoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("UndoButton.SmallImage")));
-            this.UndoButton.ToolTip = "Undo";
-            this.RedoButton.Name = "RedoButton";
-            this.RedoButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("RedoButton.SmallImage")));
-            this.RedoButton.ToolTip = "Redo";
-            this.HomeTab.Groups.Add(this.ClipboardGroup);
-            this.HomeTab.Groups.Add(this.FontGroup);
-            this.HomeTab.Groups.Add(this.ParagraphGroup);
-            this.HomeTab.Groups.Add(this.ribbonGroup2);
-            this.HomeTab.Name = "HomeTab";
-            this.HomeTab.Text = "&Home";
-            this.ribbonTopToolBar1.Name = "ribbonTopToolBar1";
-            this.ViewTab.Groups.Add(this.ViewZoomGroup);
-            this.ViewTab.Name = "ViewTab";
-            this.ViewTab.Text = "View";
-            this.ribbonTab1.Groups.Add(this.ribbonGroup1);
-            this.ribbonTab1.Name = "ribbonTab1";
-            this.ribbonTab1.Text = "Print";
-            this.ExitButton.Name = "ExitButton";
-            this.ExitButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ExitButton.SmallImage")));
-            this.ExitButton.Text = "E&xit WordPad Sample";
-            this.NewDocumentButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("NewDocumentButton.LargeImage")));
-            this.NewDocumentButton.Name = "NewDocumentButton";
-            this.NewDocumentButton.Text = "&New";
-            this.OpenDocumentButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("OpenDocumentButton.LargeImage")));
-            this.OpenDocumentButton.Name = "OpenDocumentButton";
-            this.OpenDocumentButton.Text = "&Open";
-            this.SaveDocumentButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentButton.LargeImage")));
-            this.SaveDocumentButton.Name = "SaveDocumentButton";
-            this.SaveDocumentButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentButton.SmallImage")));
-            this.SaveDocumentButton.Text = "&Save";
-            this.SaveDocumentAsButton.Items.Add(this.SaveDocumentAsRtfButton);
-            this.SaveDocumentAsButton.Items.Add(this.SaveDocumentAsTextButton);
-            this.SaveDocumentAsButton.Items.Add(this.SaveDocumentAsOtherButton);
-            this.SaveDocumentAsButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsButton.LargeImage")));
-            this.SaveDocumentAsButton.Name = "SaveDocumentAsButton";
-            this.SaveDocumentAsButton.Text = "Save &As";
-            
-            this.F1HelpButton.Name = "F1HelpButton";
-            this.F1HelpButton.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.F1HelpButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("F1HelpButton.SmallImage")));
-            this.F1HelpButton.ToolTip = "Help";
-            this.ViewZoomGroup.Items.Add(this.ViewZoomCombobox);
-            this.ViewZoomGroup.Items.Add(this.NormalSizeButton);
-            this.ViewZoomGroup.Name = "ViewZoomGroup";
-            this.ViewZoomGroup.Text = "Zoom";
-            this.ribbonGroup1.Items.Add(this.rbPgPrint);
-            this.ribbonGroup1.Name = "ribbonGroup1";
-            this.ribbonGroup1.Text = "Group";
-            this.SaveDocumentAsRtfButton.Description = "Save the document in the Rich Text File format.";
-            this.SaveDocumentAsRtfButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsRtfButton.LargeImage")));
-            this.SaveDocumentAsRtfButton.Name = "SaveDocumentAsRtfButton";
-            this.SaveDocumentAsRtfButton.Text = "Rich Text File";
-            this.SaveDocumentAsTextButton.Description = "Save the document as Plain text file.";
-            this.SaveDocumentAsTextButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsTextButton.LargeImage")));
-            this.SaveDocumentAsTextButton.Name = "SaveDocumentAsTextButton";
-            this.SaveDocumentAsTextButton.Text = "Text File";
-            this.ViewZoomCombobox.MaxLength = 4;
-            this.ViewZoomCombobox.Name = "ViewZoomCombobox";
-            this.SaveDocumentAsOtherButton.Description = "Open the Save As dialog to select from all possible file types.";
-            this.SaveDocumentAsOtherButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentAsOtherButton.LargeImage")));
-            this.SaveDocumentAsOtherButton.Name = "SaveDocumentAsOtherButton";
-            this.SaveDocumentAsOtherButton.Text = "Other formats";
-            this.ParagraphAlignLeftButton.Name = "ParagraphAlignLeftButton";
-            this.ParagraphAlignLeftButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ParagraphAlignLeftButton.SmallImage")));
-            this.ParagraphAlignLeftButton.ToolTip = "Align Left";
-            // 
-            // ParagraphAlignCenterButton
-            // 
-            this.ParagraphAlignCenterButton.Name = "ParagraphAlignCenterButton";
-            this.ParagraphAlignCenterButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ParagraphAlignCenterButton.SmallImage")));
-            this.ParagraphAlignCenterButton.ToolTip = "Align Center";
-            // 
-            // ParagraphAlignRightButton
-            // 
-            this.ParagraphAlignRightButton.Name = "ParagraphAlignRightButton";
-            this.ParagraphAlignRightButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ParagraphAlignRightButton.SmallImage")));
-            this.ParagraphAlignRightButton.ToolTip = "Align Right";
-            // NormalSizeButton
-            // 
-            this.NormalSizeButton.Name = "NormalSizeButton";
-            this.NormalSizeButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("NormalSizeButton.SmallImage")));
-            this.NormalSizeButton.Text = "100%";
-            this.rbPgPrint.LargeImage = ((System.Drawing.Image)(resources.GetObject("rbPgPrint.LargeImage")));
-            this.rbPgPrint.Name = "rbPgPrint";
-            this.rbPgPrint.SmallImage = ((System.Drawing.Image)(resources.GetObject("rbPgPrint.SmallImage")));
-            this.rbPgPrint.Text = "Print";
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 146);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(906, 519);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
-            ((System.ComponentModel.ISupportInitialize)(this.ribDiag1)).BeginInit();
-            
-            //ribDiag1.ApplicationMenuHolder = this.ribbonApplicationMenu1;
-            //ribDiag1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
-            //ribDiag1.BottomToolBarHolder = this.ribbonBottomToolBar1;
-            //ribDiag1.ConfigToolBarHolder = this.ribbonConfigToolBar1;
-            //ribDiag1.Location = new System.Drawing.Point(0, 0);
-            //ribDiag1.Name = "ribDiag1";
-            //ribDiag1.QatHolder = this.ribbonQat1;
-            //ribDiag1.QatItemsHolder.Add(this.UndoButton);
-            //ribDiag1.QatItemsHolder.Add(this.RedoButton);
-            //ribDiag1.Size = new System.Drawing.Size(906, 146);
-            //ribDiag1.Tabs.Add(this.HomeTab);
-            //ribDiag1.Tabs.Add(this.ViewTab);
-            //ribDiag1.Tabs.Add(this.ribbonTab1);
-            //theme1.SetTheme(this.ribDiag1, "(default)");
-            //ribDiag1.TopToolBarHolder = this.ribbonTopToolBar1;
-            //ribDiag1.VisualStyle = C1.Win.C1Ribbon.VisualStyle.Custom;
-
-            ribDiag1.Dock = DockStyle.Top;
-            ribDiag1.Load(Path.GetDirectoryName(Application.ExecutablePath)+"\\ribbon_progress_note.xml");
-            this.ribbonApplicationMenu1.BottomPaneItems.Add(this.ExitButton);
-            this.ribbonApplicationMenu1.DropDownWidth = 370;
-            this.ribbonApplicationMenu1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonApplicationMenu1.LargeImage")));
-            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.NewDocumentButton);
-            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.OpenDocumentButton);
-            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.SaveDocumentButton);
-            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.SaveDocumentAsButton);
-            this.ribbonApplicationMenu1.Name = "ribbonApplicationMenu1";
-            this.ribbonApplicationMenu1.Text = "File";
-
-            ((System.ComponentModel.ISupportInitialize)(this.ribDiag1)).EndInit();
-
+            FrmDoctorDiag frmDtrDiag1 = new FrmDoctorDiag(bc);
+            frmDtrDiag1.FormBorderStyle = FormBorderStyle.None;
+            frmDtrDiag1.TopLevel = false;
+            frmDtrDiag1.Dock = DockStyle.Fill;
+            frmDtrDiag1.AutoScroll = true;
+            pnOrdDiag1.Controls.Add(frmDtrDiag1);
+            FrmDoctorDiag frmDtrDiag2 = new FrmDoctorDiag(bc);
+            frmDtrDiag2.FormBorderStyle = FormBorderStyle.None;
+            frmDtrDiag2.TopLevel = false;
+            frmDtrDiag2.Dock = DockStyle.Fill;
+            frmDtrDiag2.AutoScroll = true;
+            pnOrdDiag2.Controls.Add(frmDtrDiag2);
+            FrmDoctorDiag frmDtrDiag3 = new FrmDoctorDiag(bc);
+            frmDtrDiag3.FormBorderStyle = FormBorderStyle.None;
+            frmDtrDiag3.TopLevel = false;
+            frmDtrDiag3.Dock = DockStyle.Fill;
+            frmDtrDiag3.AutoScroll = true;
+            pnOrdDiag3.Controls.Add(frmDtrDiag3);
+            frmDtrDiag1.Show();
+            frmDtrDiag2.Show();
+            frmDtrDiag3.Show();
+            //pnOrdDiag1.BackColor = Color.Red;
+            scOrdLeft.SizeRatio = 20;
 
             tabOrdSearch.ResumeLayout(false);
             pnOrdLeft.ResumeLayout(false);
@@ -2714,11 +2378,99 @@ namespace bangna_hospital.gui
         }
         private void initGrfOrdItem()
         {
+            int gapY = 30, gapX = 20, gapLine=0, gapColName=70;
+            Size size = new Size();
+
+            C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
+            Label lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2;
+            Panel pnscOrdItem = new Panel();
+            pnscOrdItem.Dock = DockStyle.Fill;
+
+            C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
+            sCOrdItem.SuspendLayout();
+            scOrdItem.SuspendLayout();
+            scOrdItemGrf.SuspendLayout();
+
             grfOrdItem = new C1FlexGrid();
             grfOrdItem.Font = fEdit;
             grfOrdItem.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrdItem.Location = new System.Drawing.Point(0, 0);
             grfOrdItem.Rows.Count = 1;
+
+            scOrdItem.Collapsible = true;
+            scOrdItem.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            scOrdItem.Location = new System.Drawing.Point(0, 21);
+            scOrdItem.Name = "scOrdItem";
+            scOrdItem.Controls.Add(pnscOrdItem);
+            scOrdItemGrf.Collapsible = true;
+            scOrdItemGrf.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            scOrdItemGrf.Location = new System.Drawing.Point(0, 21);
+            scOrdItemGrf.Name = "scOrdItemGrf";
+            scOrdItemGrf.Controls.Add(grfOrdItem);
+            sCOrdItem.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            sCOrdItem.Name = "sCOrdItem";
+            sCOrdItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            sCOrdItem.Panels.Add(scOrdItem);
+            sCOrdItem.Panels.Add(scOrdItemGrf);
+            sCOrdItem.HeaderHeight = 20;
+            
+            lbItmId = new Label();
+            lbItmId.Text = "รหัส";
+            lbItmId.Font = fEdit;
+            lbItmId.Location = new System.Drawing.Point(gapX, 5);
+            lbItmId.AutoSize = true;
+            lbItmId.Name = "lbItmId";
+            txtItmId = new C1TextBox();
+            txtItmId.Font = fEdit;
+            txtItmId.Name = "txtItmId";
+            txtItmId.Location = new System.Drawing.Point(gapColName, lbItmId.Location.Y);
+            txtItmId.Size = new Size(120, 20);
+            gapLine += gapY;
+            lbItmName = new Label();
+            lbItmName.Text = "ชื่อ";
+            lbItmName.Font = fEdit;
+            lbItmName.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmName.AutoSize = true;
+            lbItmName.Name = "lbItmName";
+            txtItmName = new C1TextBox();
+            txtItmName.Font = fEdit;
+            txtItmName.Name = "txtItmName";
+            txtItmName.Location = new System.Drawing.Point(gapColName, lbItmName.Location.Y);
+            txtItmName.Size = new Size(120, 20);
+            gapLine += gapY;
+            lbItmQty = new Label();
+            lbItmQty.Text = "QTY";
+            lbItmQty.Font = fEdit;
+            lbItmQty.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmQty.AutoSize = true;
+            lbItmQty.Name = "lbItmQty";
+            txtItmQty = new C1TextBox();
+            txtItmQty.Font = fEdit;
+            txtItmQty.Name = "txtItmQty";
+            txtItmQty.Location = new System.Drawing.Point(gapColName, lbItmQty.Location.Y);
+            txtItmQty.Size = new Size(120, 20);
+            gapLine += gapY;
+            lbItmFre = new Label();
+            lbItmFre.Text = "วิธีใช้";
+            lbItmFre.Font = fEdit;
+            lbItmFre.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmFre.AutoSize = true;
+            lbItmFre.Name = "lbItmFre";
+            txtItmFre = new C1TextBox();
+            txtItmFre.Font = fEdit;
+            txtItmFre.Name = "txtItmFre";
+            txtItmFre.Location = new System.Drawing.Point(gapColName, lbItmFre.Location.Y);
+            txtItmFre.Size = new Size(120, 20);
+            pnscOrdItem.BackColor = Color.Brown;
+            pnscOrdItem.Controls.Add(lbItmId);
+            pnscOrdItem.Controls.Add(txtItmId);
+            pnscOrdItem.Controls.Add(lbItmName);
+            pnscOrdItem.Controls.Add(txtItmName);
+            pnscOrdItem.Controls.Add(lbItmFre);
+            pnscOrdItem.Controls.Add(txtItmFre);
+            scOrdItem.SizeRatio = 30;
             //FilterRow fr = new FilterRow(grfExpn);
 
             //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
@@ -2730,10 +2482,18 @@ namespace bangna_hospital.gui
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
 
-            pnOrdItem.Controls.Add(grfOrdItem);
+            pnOrdItem.Controls.Add(sCOrdItem);
+            pnOrdItem.BackColor = Color.Red;
 
+            scOrdItemGrf.ResumeLayout(false);
+            scOrdItem.ResumeLayout(false);
+            sCOrdItem.ResumeLayout(false);
+            scOrdItemGrf.PerformLayout();
+            scOrdItem.PerformLayout();
+            sCOrdItem.PerformLayout();
             theme1.SetTheme(grfOrdItem, bc.iniC.themeApp);
-
+            //theme1.SetTheme(pnscOrdItem, "Office2016Colorful");
+            theme1.SetTheme(pnscOrdItem, "VS2013Purple");
         }
         private void initGrfOrdDrug()
         {

@@ -16,6 +16,7 @@ namespace bangna_hospital.gui
         public FrmDoctorDiag(BangnaControl bc)
         {
             InitializeComponent();
+            this.bc = bc;
         }
 
         private void FrmDoctorDiag_Load(object sender, EventArgs e)
