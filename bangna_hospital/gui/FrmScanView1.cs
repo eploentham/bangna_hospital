@@ -43,7 +43,8 @@ namespace bangna_hospital.gui
         C1FlexViewer labOutView;
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem;
-        
+        C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
+
         int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
@@ -53,6 +54,8 @@ namespace bangna_hospital.gui
         int colLabOutDateReq = 1, colLabOutHN = 2, colLabOutFullName = 3, colLabOutVN = 4, colLabOutDateReceive = 5, colLabOutReqNo = 6, colLabOutId = 7;
         int colDrugAllCode = 1, colDrugAllName = 2, colDrugAllDsc = 3, colDrugAllAlg=4;
         int colOrdDrugId = 1, colOrdDrugNameT = 2, colOrdDrugNameE = 3, colOrdDrugUnit = 4;
+        int colOrdXrayId = 1, colOrdXrayName = 2, colXraytypcd = 3, colXraygrpcd = 4, colXraygrpdsc = 5;
+        int colOrdLabId = 1, colOrdLabName = 2, colLabtypcd = 3, colLabgrpdsc = 4, colLabtypdsc = 5;
         int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=10;
 
         int newHeight = 720;
@@ -206,7 +209,7 @@ namespace bangna_hospital.gui
             setGrfOrdSup();
             initGrfOrdItem();
             setGrfOrdLab();
-
+            setGrfOrdXray();
             setPicStaffNote();
             setControlHN();
             theme1.SetTheme(tcDtr, theme1.Theme);
@@ -1949,9 +1952,7 @@ namespace bangna_hospital.gui
             C1SplitterPanel scOrdDiag2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             C1SplitterPanel scOrdDiag3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             C1SplitContainer sCOrdDiag = new C1.Win.C1SplitContainer.C1SplitContainer();
-
             
-
             tabOrdSearch = new C1DockingTab();
             tabOrdSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             tabOrdSearch.Location = new System.Drawing.Point(0, 266);
@@ -1961,6 +1962,7 @@ namespace bangna_hospital.gui
             tabOrdSearch.TabsSpacing = 5;
             tabOrdSearch.Alignment = TabAlignment.Left;
             tabOrdSearch.TabClick += TabOrdSearch_TabClick;
+            tabOrdSearch.Font = fEdit;
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged1;
             pnOrdDrugSarch.Controls.Add(tabOrdSearch);
             theme1.SetTheme(tabOrdSearch, bc.iniC.themeApplication);
@@ -1973,7 +1975,8 @@ namespace bangna_hospital.gui
             tabOrdSearchDrug.Text = "Drug List";
             tabOrdSearchDrug.Name = "tabOrdSearchDrug";
             tabOrdSearchDrug.Controls.Add(pnOrdSearchDrug);
-            
+            tabOrdSearchDrug.Font = fEdit;
+
 
             tabOrdSearchSup = new C1DockingTabPage();
             tabOrdSearchSup.Location = new System.Drawing.Point(1, 24);
@@ -2004,7 +2007,6 @@ namespace bangna_hospital.gui
             tabOrdSearchXray.Name = "tabOrdSearchXray";
             tabOrdSearchXray.Controls.Add(pnOrdSearchXray);
             
-
             tabOrdSearchOR = new C1DockingTabPage();
             tabOrdSearchOR.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
@@ -2187,8 +2189,10 @@ namespace bangna_hospital.gui
             pnOrdDiag1.PerformLayout();
             pnOrdDiag2.PerformLayout();
             pnOrdDiag3.PerformLayout();
-        }
 
+            //theme1.SetTheme(tabOrdSearchDrug, "ExpressionDark");
+            //tabOrdSearchDrug.tabc
+        }
         private void TabDiag_TabClick(object sender, EventArgs e)
         {
             throw new NotImplementedException();
@@ -2378,10 +2382,9 @@ namespace bangna_hospital.gui
         }
         private void initGrfOrdItem()
         {
-            int gapY = 30, gapX = 20, gapLine=0, gapColName=70;
+            int gapY = 30, gapX = 20, gapLine=0, gapColName=100;
             Size size = new Size();
-
-            C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
+            
             Label lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2;
             Panel pnscOrdItem = new Panel();
             pnscOrdItem.Dock = DockStyle.Fill;
@@ -2398,6 +2401,7 @@ namespace bangna_hospital.gui
             grfOrdItem.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrdItem.Location = new System.Drawing.Point(0, 0);
             grfOrdItem.Rows.Count = 1;
+            grfOrdItem.DoubleClick += GrfOrdItem_DoubleClick;
 
             scOrdItem.Collapsible = true;
             scOrdItem.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
@@ -2463,6 +2467,30 @@ namespace bangna_hospital.gui
             txtItmFre.Name = "txtItmFre";
             txtItmFre.Location = new System.Drawing.Point(gapColName, lbItmFre.Location.Y);
             txtItmFre.Size = new Size(120, 20);
+            gapLine += gapY;
+            lbItmIn1 = new Label();
+            lbItmIn1.Text = "ข้อควรระวัง1";
+            lbItmIn1.Font = fEdit;
+            lbItmIn1.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmIn1.AutoSize = true;
+            lbItmIn1.Name = "lbItmIn1";
+            txtItmIn1 = new C1TextBox();
+            txtItmIn1.Font = fEdit;
+            txtItmIn1.Name = "txtItmIn1";
+            txtItmIn1.Location = new System.Drawing.Point(gapColName, lbItmIn1.Location.Y);
+            txtItmIn1.Size = new Size(120, 20);
+            gapLine += gapY;
+            lbItmIn2 = new Label();
+            lbItmIn2.Text = "ข้อควรระวัง2";
+            lbItmIn2.Font = fEdit;
+            lbItmIn2.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmIn2.AutoSize = true;
+            lbItmIn2.Name = "lbItmIn2";
+            txtItmIn2 = new C1TextBox();
+            txtItmIn2.Font = fEdit;
+            txtItmIn2.Name = "txtItmIn2";
+            txtItmIn2.Location = new System.Drawing.Point(gapColName, lbItmIn2.Location.Y);
+            txtItmIn2.Size = new Size(120, 20);
             pnscOrdItem.BackColor = Color.Brown;
             pnscOrdItem.Controls.Add(lbItmId);
             pnscOrdItem.Controls.Add(txtItmId);
@@ -2470,6 +2498,10 @@ namespace bangna_hospital.gui
             pnscOrdItem.Controls.Add(txtItmName);
             pnscOrdItem.Controls.Add(lbItmFre);
             pnscOrdItem.Controls.Add(txtItmFre);
+            pnscOrdItem.Controls.Add(lbItmIn1);
+            pnscOrdItem.Controls.Add(txtItmIn1);
+            pnscOrdItem.Controls.Add(lbItmIn2);
+            pnscOrdItem.Controls.Add(txtItmIn2);
             scOrdItem.SizeRatio = 30;
             //FilterRow fr = new FilterRow(grfExpn);
 
@@ -2495,6 +2527,13 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(pnscOrdItem, "Office2016Colorful");
             theme1.SetTheme(pnscOrdItem, "VS2013Purple");
         }
+
+        private void GrfOrdItem_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void initGrfOrdDrug()
         {
             grfOrdDrug = new C1FlexGrid();
@@ -2502,6 +2541,7 @@ namespace bangna_hospital.gui
             grfOrdDrug.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrdDrug.Location = new System.Drawing.Point(0, 0);
             grfOrdDrug.Rows.Count = 1;
+            grfOrdDrug.DoubleClick += GrfOrdDrug_DoubleClick;
             //FilterRow fr = new FilterRow(grfExpn);
 
             //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
@@ -2515,8 +2555,33 @@ namespace bangna_hospital.gui
 
             pnOrdSearchDrug.Controls.Add(grfOrdDrug);
 
-            theme1.SetTheme(grfOrdDrug, bc.iniC.themeApp);
+            theme1.SetTheme(grfOrdDrug, "Office2010Red");
 
+        }
+
+        private void GrfOrdDrug_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setOrdDrugItem();
+        }
+        private void setOrdDrugItem()
+        {
+            if (grfOrdDrug == null) return;
+            if (grfOrdDrug.Row <= 1) return;
+            if (grfOrdDrug.Col <= 0) return;
+            String code = "";
+            DataTable dt = new DataTable();
+            code = grfOrdDrug[grfOrdDrug.Row, colOrdDrugId].ToString();
+            dt = bc.bcDB.drugDB.selectDrugByCode(code);
+            Row rowdrug = grfOrdItem.Rows.Add();
+            rowdrug[colOrdDrugId] = dt.Rows[0]["MNC_ph_cd"].ToString();
+            rowdrug[colOrdDrugNameT] = dt.Rows[0]["MNC_ph_tn"].ToString();
+            rowdrug[colOrdDrugNameE] = dt.Rows[0]["MNC_ph_gn"].ToString();
+            rowdrug[colOrdDrugUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
+            //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
+            //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
+            txtItmId.Value = dt.Rows[0]["MNC_ph_cd"].ToString();
+            txtItmName.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
         }
         private void setGrfOrdDrug()
         {
@@ -2533,7 +2598,7 @@ namespace bangna_hospital.gui
             grfOrdDrug.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
 
             grfOrdDrug.Cols[colOrdDrugId].Width = 100;
-            grfOrdDrug.Cols[colOrdDrugNameT].Width = 250;
+            grfOrdDrug.Cols[colOrdDrugNameT].Width = 350;
             grfOrdDrug.Cols[colOrdDrugNameE].Width = 100;
             grfOrdDrug.Cols[colOrdDrugUnit].Width = 200;
 
@@ -2583,6 +2648,7 @@ namespace bangna_hospital.gui
             grfOrdSup.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrdSup.Location = new System.Drawing.Point(0, 0);
             grfOrdSup.Rows.Count = 1;
+            grfOrdSup.DoubleClick += GrfOrdSup_DoubleClick;
             //FilterRow fr = new FilterRow(grfExpn);
 
             //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
@@ -2596,13 +2662,38 @@ namespace bangna_hospital.gui
 
             pnOrdSearchSup.Controls.Add(grfOrdSup);
 
-            theme1.SetTheme(grfOrdSup, bc.iniC.themeApp);
+            theme1.SetTheme(grfOrdSup, "ShinyBlue");
 
+        }
+
+        private void GrfOrdSup_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setOrdSupItem();
+        }
+        private void setOrdSupItem()
+        {
+            if (grfOrdSup == null) return;
+            if (grfOrdSup.Row <= 1) return;
+            if (grfOrdSup.Col <= 0) return;
+            String code = "";
+            DataTable dt = new DataTable();
+            code = grfOrdSup[grfOrdSup.Row, colOrdDrugId].ToString();
+            dt = bc.bcDB.drugDB.selectDrugByCode(code);
+            Row rowdrug = grfOrdItem.Rows.Add();
+            rowdrug[colOrdDrugId] = dt.Rows[0]["MNC_ph_cd"].ToString();
+            rowdrug[colOrdDrugNameT] = dt.Rows[0]["MNC_ph_tn"].ToString();
+            rowdrug[colOrdDrugNameE] = dt.Rows[0]["MNC_ph_gn"].ToString();
+            rowdrug[colOrdDrugUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
+            //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
+            //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
+            txtItmId.Value = dt.Rows[0]["MNC_ph_cd"].ToString();
+            txtItmName.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
         }
         private void setGrfOrdSup()
         {
             DataTable dt = new DataTable();
-            dt = bc.bcDB.drugDB.selectDrugAll();
+            dt = bc.bcDB.drugDB.selectSupplyAll();
 
             grfOrdSup.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
@@ -2614,7 +2705,7 @@ namespace bangna_hospital.gui
             grfOrdSup.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
 
             grfOrdSup.Cols[colOrdDrugId].Width = 100;
-            grfOrdSup.Cols[colOrdDrugNameT].Width = 250;
+            grfOrdSup.Cols[colOrdDrugNameT].Width = 350;
             grfOrdSup.Cols[colOrdDrugNameE].Width = 100;
             grfOrdSup.Cols[colOrdDrugUnit].Width = 200;
 
@@ -2665,6 +2756,7 @@ namespace bangna_hospital.gui
             grfOrdLab.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrdLab.Location = new System.Drawing.Point(0, 0);
             grfOrdLab.Rows.Count = 1;
+            grfOrdLab.DoubleClick += GrfOrdLab_DoubleClick;
             //FilterRow fr = new FilterRow(grfExpn);
 
             //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
@@ -2678,8 +2770,33 @@ namespace bangna_hospital.gui
 
             pnOrdSearchLab.Controls.Add(grfOrdLab);
 
-            theme1.SetTheme(grfOrdLab, bc.iniC.themeApp);
+            theme1.SetTheme(grfOrdLab, "RainerOrange");
 
+        }
+
+        private void GrfOrdLab_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setOrdLabItem();
+        }
+        private void setOrdLabItem()
+        {
+            if (grfOrdLab == null) return;
+            if (grfOrdLab.Row <= 1) return;
+            if (grfOrdLab.Col <= 0) return;
+            String code = "";
+            DataTable dt = new DataTable();
+            code = grfOrdLab[grfOrdLab.Row, colOrdDrugId].ToString();
+            dt = bc.bcDB.labDB.selectLabByCode(code);
+            Row rowdrug = grfOrdItem.Rows.Add();
+            rowdrug[colOrdDrugId] = dt.Rows[0]["MNC_lb_cd"].ToString();
+            rowdrug[colOrdDrugNameT] = dt.Rows[0]["mnc_lb_dsc"].ToString();
+            //rowdrug[colOrdDrugNameE] = dt.Rows[0]["MNC_ph_gn"].ToString();
+            //rowdrug[colOrdDrugUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
+            //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
+            //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
+            txtItmId.Value = dt.Rows[0]["MNC_lb_cd"].ToString();
+            txtItmName.Value = dt.Rows[0]["mnc_lb_dsc"].ToString();
         }
         private void setGrfOrdLab()
         {
@@ -2697,7 +2814,7 @@ namespace bangna_hospital.gui
             grfOrdLab.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
 
             grfOrdLab.Cols[colOrdDrugId].Width = 100;
-            grfOrdLab.Cols[colOrdDrugNameT].Width = 250;
+            grfOrdLab.Cols[colOrdDrugNameT].Width = 350;
             grfOrdLab.Cols[colOrdDrugNameE].Width = 100;
             grfOrdLab.Cols[colOrdDrugUnit].Width = 200;
 
@@ -2748,6 +2865,7 @@ namespace bangna_hospital.gui
             grfOrdXray.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrdXray.Location = new System.Drawing.Point(0, 0);
             grfOrdXray.Rows.Count = 1;
+            grfOrdXray.DoubleClick += GrfOrdXray_DoubleClick;
             //FilterRow fr = new FilterRow(grfExpn);
 
             //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
@@ -2761,8 +2879,33 @@ namespace bangna_hospital.gui
 
             pnOrdSearchXray.Controls.Add(grfOrdXray);
 
-            theme1.SetTheme(grfOrdXray, bc.iniC.themeApp);
+            theme1.SetTheme(grfOrdXray, "Office2016Colorful");
 
+        }
+
+        private void GrfOrdXray_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setOrdXrayItem();
+        }
+        private void setOrdXrayItem()
+        {
+            if (grfOrdXray == null) return;
+            if (grfOrdXray.Row <= 1) return;
+            if (grfOrdXray.Col <= 0) return;
+            String code = "";
+            DataTable dt = new DataTable();
+            code = grfOrdXray[grfOrdXray.Row, colOrdDrugId].ToString();
+            dt = bc.bcDB.xrDB.selectXrayByCode(code);
+            Row rowdrug = grfOrdItem.Rows.Add();
+            rowdrug[colOrdDrugId] = dt.Rows[0]["MNC_xr_cd"].ToString();
+            rowdrug[colOrdDrugNameT] = dt.Rows[0]["mnc_xr_dsc"].ToString();
+            //rowdrug[colOrdDrugNameE] = dt.Rows[0]["MNC_ph_gn"].ToString();
+            //rowdrug[colOrdDrugUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
+            //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
+            //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
+            txtItmId.Value = dt.Rows[0]["MNC_xr_cd"].ToString();
+            txtItmName.Value = dt.Rows[0]["mnc_xr_dsc"].ToString();
         }
         private void setGrfOrdXray()
         {
@@ -2773,16 +2916,17 @@ namespace bangna_hospital.gui
             //grfLab.Cols[colOrderId].Visible = false;
             grfOrdXray.Rows.Count = dt.Rows.Count + 1;
             grfOrdXray.Cols.Count = dt.Rows.Count + 1;
-            grfOrdXray.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
+            grfOrdXray.Cols[colOrdXrayId].Caption = "Code";
+            grfOrdXray.Cols[colOrdXrayName].Caption = "Xray Description";
+            grfOrdXray.Cols[colXraytypcd].Caption = "typ cd";
+            grfOrdXray.Cols[colXraygrpcd].Caption = "grp cd";
+            grfOrdXray.Cols[colXraygrpdsc].Caption = "Grp Description";
 
-            grfOrdXray.Cols[colOrdDrugNameT].Caption = "ชื่อX-Ray";
-            grfOrdXray.Cols[colOrdDrugNameE].Caption = "Code X-Ray";
-            grfOrdXray.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
-
-            grfOrdXray.Cols[colOrdDrugId].Width = 100;
-            grfOrdXray.Cols[colOrdDrugNameT].Width = 250;
-            grfOrdXray.Cols[colOrdDrugNameE].Width = 100;
-            grfOrdXray.Cols[colOrdDrugUnit].Width = 200;
+            grfOrdXray.Cols[colOrdXrayId].Width = 100;
+            grfOrdXray.Cols[colOrdXrayName].Width = 350;
+            grfOrdXray.Cols[colXraytypcd].Width = 100;
+            grfOrdXray.Cols[colXraygrpcd].Width = 100;
+            grfOrdXray.Cols[colXraygrpdsc].Width = 200;
 
             int i = 0;
             decimal aaa = 0;
@@ -2796,19 +2940,21 @@ namespace bangna_hospital.gui
             {
                 i++;
                 if (i == 1) continue;
-                grfOrdXray[i, colOrdDrugId] = row1["MNC_lb_cd"].ToString();
-                grfOrdXray[i, colOrdDrugNameT] = row1["MNC_lb_dsc"].ToString();
-                grfOrdXray[i, colOrdDrugNameE] = row1["mnc_lb_typ_cd"].ToString();
-                grfOrdXray[i, colOrdDrugUnit] = row1["mnc_lb_grp_cd"].ToString();
+                grfOrdXray[i, colOrdXrayId] = row1["mnc_xr_cd"].ToString();
+                grfOrdXray[i, colOrdXrayName] = row1["mnc_xr_dsc"].ToString();
+                grfOrdXray[i, colXraytypcd] = row1["mnc_xr_typ_cd"].ToString();
+                grfOrdXray[i, colXraygrpcd] = row1["MNC_XR_GRP_CD"].ToString();
+                grfOrdXray[i, colXraygrpdsc] = row1["MNC_XR_GRP_DSC"].ToString();
 
                 //row1[0] = (i - 2);
             }
             CellNoteManager mgr = new CellNoteManager(grfOrdSup);
             //grfOrdDrug.Cols[colXrayResult].Visible = false;
-            grfOrdXray.Cols[colOrdDrugId].AllowEditing = false;
-            grfOrdXray.Cols[colOrdDrugNameT].AllowEditing = false;
-            grfOrdXray.Cols[colOrdDrugNameE].AllowEditing = false;
-            grfOrdXray.Cols[colOrdDrugUnit].AllowEditing = false;
+            grfOrdXray.Cols[colOrdXrayId].AllowEditing = false;
+            grfOrdXray.Cols[colOrdXrayName].AllowEditing = false;
+            grfOrdXray.Cols[colXraytypcd].AllowEditing = false;
+            grfOrdXray.Cols[colXraygrpcd].AllowEditing = false;
+            grfOrdXray.Cols[colXraygrpdsc].AllowEditing = false;
             FilterRow fr = new FilterRow(grfOrdXray);
             grfOrdXray.AllowFiltering = true;
             grfOrdXray.AfterFilter += GrfOrdXray_AfterFilter;
@@ -2844,7 +2990,7 @@ namespace bangna_hospital.gui
 
             pnOrdSearchOR.Controls.Add(grfOrdOR);
 
-            theme1.SetTheme(grfOrdOR, bc.iniC.themeApp);
+            theme1.SetTheme(grfOrdOR, "GreenHouse");
 
         }
 

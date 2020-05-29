@@ -79,10 +79,25 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
 
+            sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_xr_typ_cd, xm01.MNC_XR_GRP_CD, XRAY_M05.MNC_XR_GRP_DSC " +
+                "From  xray_m01 xm01  " +
+                " inner join XRAY_M05 on xm01.MNC_XR_GRP_CD = XRAY_M05.MNC_XR_GRP_CD" +
+
+                " Where xm01.MNC_XR_STS = 'Y'  " +
+                "Order By xm01.MNC_XR_CD";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable selectXrayByCode(String code)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+
             sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_typ_cd, xm01.grp_cd " +
                 "From  xray_m01 xm01  " +
 
-                " Where xm01.MNC_XR_STS = 'Y'  " +
+                " Where xm01.MNC_XR_STS = 'Y' and xm01.mnc_xr_cd = '"+code+"' " +
                 "Order By xm01.MNC_XR_CD";
             dt = conn.selectData(sql);
 
