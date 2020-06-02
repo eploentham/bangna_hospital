@@ -226,27 +226,27 @@ namespace bangna_hospital.gui
         private void BtnItmDrugSet_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            Form frmDrugSet = new Form();
+            FrmDoctorDrugSet frmDrugSet = new FrmDoctorDrugSet(bc);
             frmDrugSet.WindowState = FormWindowState.Normal;
             frmDrugSet.StartPosition = FormStartPosition.CenterScreen;
-            frmDrugSet.Size = new Size(600, 800);
+            frmDrugSet.Size = new Size(1200, 800);
 
-            C1FlexViewer flexv = new C1FlexViewer();
-            flexv.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            flexv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            flexv.Dock = System.Windows.Forms.DockStyle.Fill;
-            flexv.Location = new System.Drawing.Point(0, 0);
-            flexv.Name = "flexv";
-            flexv.Size = new System.Drawing.Size(1065, 790);
-            flexv.TabIndex = 0;
-            C1PdfDocumentSource pds = new C1PdfDocumentSource();
-            MemoryStream stream = new MemoryStream();
-            FileStream file = new FileStream("d:\\picture\\ออกตรวจ_26052563.pdf", FileMode.Open, FileAccess.Read);
-            file.CopyTo(stream);
-            stream.Seek(0, SeekOrigin.Begin);
-            pds.LoadFromStream(stream);
-            flexv.DocumentSource = pds;
-            frmDrugSet.Controls.Add(flexv);
+            //C1FlexViewer flexv = new C1FlexViewer();
+            //flexv.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            //flexv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            //flexv.Dock = System.Windows.Forms.DockStyle.Fill;
+            //flexv.Location = new System.Drawing.Point(0, 0);
+            //flexv.Name = "flexv";
+            //flexv.Size = new System.Drawing.Size(1065, 790);
+            //flexv.TabIndex = 0;
+            //C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            //MemoryStream stream = new MemoryStream();
+            //FileStream file = new FileStream("d:\\picture\\ออกตรวจ_26052563.pdf", FileMode.Open, FileAccess.Read);
+            //file.CopyTo(stream);
+            //stream.Seek(0, SeekOrigin.Begin);
+            //pds.LoadFromStream(stream);
+            //flexv.DocumentSource = pds;
+            //frmDrugSet.Controls.Add(flexv);
             
             frmDrugSet.ShowDialog(this);
         }
@@ -1943,7 +1943,7 @@ namespace bangna_hospital.gui
         }
         private void initTabOrdAdd()
         {
-            C1DockingTab tabOrdSearch;
+            C1DockingTab tcOrdSearch;
             C1DockingTabPage tabOrdSearchDrug, tabOrdSearchSup, tabOrdSearchLab, tabOrdSearchXray, tabOrdSearchOR;
             Panel pnOrdLeft = new Panel();
             Panel pnOrdRight = new Panel();
@@ -1987,19 +1987,19 @@ namespace bangna_hospital.gui
             C1SplitterPanel scOrdDiag3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             C1SplitContainer sCOrdDiag = new C1.Win.C1SplitContainer.C1SplitContainer();
             
-            tabOrdSearch = new C1DockingTab();
-            tabOrdSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            tabOrdSearch.Location = new System.Drawing.Point(0, 266);
-            tabOrdSearch.Name = "tabOrdSearch";
-            tabOrdSearch.Size = new System.Drawing.Size(669, 200);
-            tabOrdSearch.TabIndex = 0;
-            tabOrdSearch.TabsSpacing = 5;
-            tabOrdSearch.Alignment = TabAlignment.Left;
-            tabOrdSearch.TabClick += TabOrdSearch_TabClick;
-            tabOrdSearch.Font = fEdit;
+            tcOrdSearch = new C1DockingTab();
+            tcOrdSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcOrdSearch.Location = new System.Drawing.Point(0, 266);
+            tcOrdSearch.Name = "tabOrdSearch";
+            tcOrdSearch.Size = new System.Drawing.Size(669, 200);
+            tcOrdSearch.TabIndex = 0;
+            tcOrdSearch.TabsSpacing = 5;
+            tcOrdSearch.Alignment = TabAlignment.Left;
+            tcOrdSearch.TabClick += TabOrdSearch_TabClick;
+            tcOrdSearch.Font = fEdit;
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged1;
-            pnOrdDrugSarch.Controls.Add(tabOrdSearch);
-            theme1.SetTheme(tabOrdSearch, bc.iniC.themeApplication);
+            pnOrdDrugSarch.Controls.Add(tcOrdSearch);
+            theme1.SetTheme(tcOrdSearch, bc.iniC.themeApplication);
 
             tabOrdSearchDrug = new C1DockingTabPage();
             tabOrdSearchDrug.Location = new System.Drawing.Point(1, 24);
@@ -2050,13 +2050,13 @@ namespace bangna_hospital.gui
             tabOrdSearchOR.Name = "tabOrdSearchOR";
             tabOrdSearchOR.Controls.Add(pnOrdSearchOR);
             
-            tabOrdSearch.Controls.Add(tabOrdSearchDrug);
-            tabOrdSearch.Controls.Add(tabOrdSearchSup);
-            tabOrdSearch.Controls.Add(tabOrdSearchLab);
-            tabOrdSearch.Controls.Add(tabOrdSearchXray);
-            tabOrdSearch.Controls.Add(tabOrdSearchOR);
+            tcOrdSearch.Controls.Add(tabOrdSearchDrug);
+            tcOrdSearch.Controls.Add(tabOrdSearchSup);
+            tcOrdSearch.Controls.Add(tabOrdSearchLab);
+            tcOrdSearch.Controls.Add(tabOrdSearchXray);
+            tcOrdSearch.Controls.Add(tabOrdSearchOR);
 
-            tabOrdSearch.SuspendLayout();
+            tcOrdSearch.SuspendLayout();
             sCOrdAdd.SuspendLayout();
             scOrdLeft.SuspendLayout();
             scOrdRight.SuspendLayout();
@@ -2174,7 +2174,7 @@ namespace bangna_hospital.gui
             //pnOrdDiag1.BackColor = Color.Red;
             scOrdLeft.SizeRatio = 20;
 
-            tabOrdSearch.ResumeLayout(false);
+            tcOrdSearch.ResumeLayout(false);
             pnOrdLeft.ResumeLayout(false);
             pnOrdRight.ResumeLayout(false);
             pnOrdItem.ResumeLayout(false);
@@ -2199,7 +2199,7 @@ namespace bangna_hospital.gui
             pnOrdDiag2.ResumeLayout(false);
             pnOrdDiag3.ResumeLayout(false);
 
-            tabOrdSearch.PerformLayout();
+            tcOrdSearch.PerformLayout();
             pnOrdLeft.PerformLayout();
             pnOrdRight.PerformLayout();
             pnOrdDrugSarch.PerformLayout();
@@ -2434,6 +2434,7 @@ namespace bangna_hospital.gui
             grfOrdItem.Location = new System.Drawing.Point(0, 0);
             grfOrdItem.Rows.Count = 1;
             grfOrdItem.Cols.Count = 12;
+            grfOrdItem.Name = "grfOrdItem";
             grfOrdItem.DoubleClick += GrfOrdItem_DoubleClick;
             grfOrdItem.Cols[colOrdDrugNameT].Caption = "ชื่อ";
             grfOrdItem.Cols[colOrdDrugtypcd].Caption = "ประเภท";
@@ -2552,7 +2553,7 @@ namespace bangna_hospital.gui
 
 
 
-            pnscOrdItem.BackColor = Color.Brown;
+            pnscOrdItem.BackColor = this.BackColor;
             pnscOrdItem.Controls.Add(lbItmId);
             pnscOrdItem.Controls.Add(txtItmId);
             pnscOrdItem.Controls.Add(lbItmName);
@@ -2581,7 +2582,7 @@ namespace bangna_hospital.gui
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
 
             pnOrdItem.Controls.Add(sCOrdItem);
-            pnOrdItem.BackColor = Color.Red;
+            pnOrdItem.BackColor = this.BackColor;
 
             scOrdItemGrf.ResumeLayout(false);
             scOrdItem.ResumeLayout(false);

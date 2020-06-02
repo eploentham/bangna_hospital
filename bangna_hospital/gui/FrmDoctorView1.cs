@@ -76,7 +76,7 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
-            initCompoment();
+            initComponent();
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize+3, FontStyle.Bold);
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize+7, FontStyle.Regular);
@@ -132,7 +132,7 @@ namespace bangna_hospital.gui
             }
         }
 
-        private void initCompoment()
+        private void initComponent()
         {
             int gapLine = 20, gapX = 20;
             Size size = new Size();
@@ -268,8 +268,14 @@ namespace bangna_hospital.gui
             tabApm.ResumeLayout(false);
             tabFinish.ResumeLayout(false);
             tabIPD.ResumeLayout(false);
-
             this.ResumeLayout(false);
+
+            pnQue.PerformLayout();
+            pnApm.PerformLayout();
+            
+            tC1.PerformLayout();
+            tabQue.PerformLayout();
+            tabApm.PerformLayout();
             this.PerformLayout();
         }
         private void setControlComponent()
