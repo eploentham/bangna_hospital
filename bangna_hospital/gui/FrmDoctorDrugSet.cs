@@ -16,17 +16,17 @@ namespace bangna_hospital.gui
     public class FrmDoctorDrugSet:Form
     {
         BangnaControl bc;
-        C1FlexGrid grfView, grfItem, grfDrug, grfSup, grfLab, grfXray, grfCopy, grfCopyItem;
+        C1FlexGrid grfView, grfItem, grfDrug, grfSup, grfLab, grfXray, grfCopy, grfCopyItem, grfAddNewItem;
         C1DockingTab tC1, tcAddNewItemGrf;
-        C1DockingTabPage tabView, tabCopy, tabAdd, tabDrug, tabSup, tabLab, tabXray;
-        Label lbDoctor, lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2, lbDrugSetName;
-        C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtDrugSetName, txtDrugSetId;
+        C1DockingTabPage tabView, tabCopy, tabAdd, tabReMed, tabDrug, tabSup, tabLab, tabXray;
+        Label lbDoctor, lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2, lbItmNewId, lbItmNewName, lbItmNewQty, lbItmNewFre, lbItmNewIn1, lbItmNewIn2, lbDrugSetName;
+        C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtItmNewId, txtItmNewName, txtItmNewQty, txtItmNewFre, txtItmNewIn1, txtItmNewIn2, txtDrugSetName, txtDrugSetId;
         C1Button btnHnSearch;
         C1ComboBox cboDoctor;
         Panel pnCopyAddView, pnCopyAddItem, pnCopyAdd, pnCopyCtl, pnView, pnCopy, pnAdd, pnViewLeft, pnViewItem, pnCopyCtlCtl, pnCopyCtlCtlItem, pnAddNew, pnAddNewItemGrf, pnAddNewItem;
         C1ThemeController theme1;
-        C1SplitterPanel scView, scViewItem, scCopy, scCopyCtl, scCopyAddView, scCopyAddItem, scCopyCtlCtl, scCopyCtlCtlItem, scAddNew, scAddNewItemGrf, scAddNewItem;
-        C1SplitContainer sCView, sCCopy, sCCopyAdd, sCCopyCtlCtl, sCAddNew;
+        C1SplitterPanel scView, scViewItem, scCopy, scCopyCtl, scCopyAddView, scCopyAddItem, scCopyCtlCtl, scCopyCtlCtlItem, scAddNew, scAddNewItemGrf, scAddNewItem, scAddNewItmGrf, scAddNewItm;
+        C1SplitContainer sCView, sCCopy, sCCopyAdd, sCCopyCtlCtl, sCAddNew, sCAddNewItm;
 
         Font fEdit, fEditB, fEditBig;
         Size size = new Size();
@@ -36,6 +36,7 @@ namespace bangna_hospital.gui
             initComponent();
             initComponentpnCopyCtlCtl();
             initComponentpnCopyCtlCtlItem();
+            initComponentpnAddNewItem();
             initGrfCopy();
             initGrfCopyItem();
             initConfig();
@@ -60,6 +61,7 @@ namespace bangna_hospital.gui
             tabSup = new C1DockingTabPage();
             tabLab = new C1DockingTabPage();
             tabXray = new C1DockingTabPage();
+            tabReMed = new C1DockingTabPage();
             pnView = new Panel();
             pnCopy = new Panel();
             pnAdd = new Panel();
@@ -90,6 +92,9 @@ namespace bangna_hospital.gui
             scAddNewItemGrf = new C1SplitterPanel();
             scAddNewItem = new C1SplitterPanel();
             sCAddNew = new C1SplitContainer();
+            scAddNewItmGrf = new C1SplitterPanel();
+            scAddNewItm = new C1SplitterPanel();
+            sCAddNewItm = new C1SplitContainer();
 
             tC1.SuspendLayout();
             tcAddNewItemGrf.SuspendLayout();
@@ -100,6 +105,7 @@ namespace bangna_hospital.gui
             tabView.SuspendLayout();
             tabCopy.SuspendLayout();
             tabAdd.SuspendLayout();
+            tabReMed.SuspendLayout();
             pnView.SuspendLayout();
             pnCopy.SuspendLayout();
             pnAdd.SuspendLayout();
@@ -128,6 +134,9 @@ namespace bangna_hospital.gui
             scAddNew.SuspendLayout();
             scAddNewItemGrf.SuspendLayout();
             scAddNewItem.SuspendLayout();
+            sCAddNewItm.SuspendLayout();
+            scAddNewItm.SuspendLayout();
+            scAddNewItmGrf.SuspendLayout();
 
             pnView.Dock = DockStyle.Fill;
             pnCopy.Dock = DockStyle.Fill;
@@ -175,12 +184,17 @@ namespace bangna_hospital.gui
             tabAdd.TabIndex = 0;
             tabAdd.Text = "สร้างรายการใหม่";
             tabAdd.Font = fEditB;
+            tabReMed.Name = "tabReMed";
+            tabReMed.TabIndex = 0;
+            tabReMed.Text = "re medical";
+            tabReMed.Font = fEditB;
             tabView.Controls.Add(pnView);
             tabCopy.Controls.Add(pnCopy);
             tabAdd.Controls.Add(pnAdd);
             tC1.Controls.Add(tabView);
             tC1.Controls.Add(tabCopy);
             tC1.Controls.Add(tabAdd);
+            tC1.Controls.Add(tabReMed);
             pnView.Controls.Add(sCView);
             pnCopy.Controls.Add(sCCopy);
             pnAdd.Controls.Add(sCAddNew);
@@ -284,7 +298,7 @@ namespace bangna_hospital.gui
             scAddNewItem.Dock = PanelDockStyle.Bottom;
             scAddNewItem.Location = new Point(0, 21);
             scAddNewItem.Name = "scAddNewItem";
-            scAddNewItem.Controls.Add(pnAddNewItem);
+            //scAddNewItem.Controls.Add(pnAddNewItem);
             sCAddNew.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
             sCAddNew.Name = "sCAddNew";
             sCAddNew.Dock = DockStyle.Fill;
@@ -292,6 +306,24 @@ namespace bangna_hospital.gui
             sCAddNew.Panels.Add(scAddNewItemGrf);
             sCAddNew.Panels.Add(scAddNewItem);
             sCAddNew.HeaderHeight = 20;
+
+            scAddNewItm.Collapsible = true;
+            scAddNewItm.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            scAddNewItm.Location = new System.Drawing.Point(0, 21);
+            scAddNewItm.Name = "scAddNewItm";
+            scAddNewItm.Controls.Add(pnAddNewItem);
+            scAddNewItmGrf.Collapsible = true;
+            scAddNewItmGrf.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            scAddNewItmGrf.Location = new System.Drawing.Point(0, 21);
+            scAddNewItmGrf.Name = "scAddNewItmGrf";
+            scAddNewItmGrf.Controls.Add(pnViewItem);
+            sCAddNewItm.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            sCAddNewItm.Name = "sCAddNewItm";
+            sCAddNewItm.Dock = System.Windows.Forms.DockStyle.Fill;
+            sCAddNewItm.Panels.Add(scAddNewItm);
+            sCAddNewItm.Panels.Add(scAddNewItmGrf);
+            sCAddNewItm.HeaderHeight = 20;
+            scAddNewItem.Controls.Add(sCAddNewItm);
 
             tcAddNewItemGrf.Dock = DockStyle.Fill;
             tcAddNewItemGrf.HotTrack = true;
@@ -343,6 +375,7 @@ namespace bangna_hospital.gui
             tabSup.ResumeLayout(false);
             tabLab.ResumeLayout(false);
             tabXray.ResumeLayout(false);
+            tabReMed.ResumeLayout(false);
             tC1.ResumeLayout(false);
             tabView.ResumeLayout(false);
             tabCopy.ResumeLayout(false);
@@ -357,6 +390,9 @@ namespace bangna_hospital.gui
             scAddNewItemGrf.ResumeLayout(false);
             scAddNew.ResumeLayout(false);
             sCAddNew.ResumeLayout(false);
+            sCAddNewItm.ResumeLayout(false);
+            scAddNewItm.ResumeLayout(false);
+            scAddNewItmGrf.ResumeLayout(false);
             pnView.ResumeLayout(false);
             pnCopy.ResumeLayout(false);
             pnCopyCtl.ResumeLayout(false);
@@ -390,6 +426,9 @@ namespace bangna_hospital.gui
             scAddNewItemGrf.PerformLayout();
             scAddNew.PerformLayout();
             sCAddNew.PerformLayout();
+            sCAddNewItm.PerformLayout();
+            scAddNewItm.PerformLayout();
+            scAddNewItmGrf.PerformLayout();
             pnCopyCtl.PerformLayout();
             pnCopyAdd.PerformLayout();
             pnView.PerformLayout();
@@ -409,11 +448,101 @@ namespace bangna_hospital.gui
             tabSup.PerformLayout();
             tabLab.PerformLayout();
             tabXray.PerformLayout();
+            tabReMed.PerformLayout();
             tC1.PerformLayout();
             tabView.PerformLayout();
             tabCopy.PerformLayout();
             tabAdd.PerformLayout();
             
+        }
+        private void initComponentpnAddNewItem()
+        {
+            int gapY = 30, gapX = 20, gapLine = 0, gapColName = 120;
+
+            lbItmNewId = new Label();
+            lbItmNewId.Text = "รหัส";
+            lbItmNewId.Font = fEdit;
+            lbItmNewId.Location = new System.Drawing.Point(gapX, 5);
+            lbItmNewId.AutoSize = true;
+            lbItmNewId.Name = "lbItmNewId";
+            txtItmNewId = new C1TextBox();
+            txtItmNewId.Font = fEdit;
+            txtItmNewId.Name = "txtItmNewId";
+            txtItmNewId.Location = new System.Drawing.Point(gapColName, lbItmId.Location.Y);
+            txtItmNewId.Size = new Size(120, 20);
+            gapLine += gapY;
+            lbItmNewName = new Label();
+            lbItmNewName.Text = "ชื่อ";
+            lbItmNewName.Font = fEdit;
+            lbItmNewName.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmNewName.AutoSize = true;
+            lbItmNewName.Name = "lbItmNewName";
+            txtItmNewName = new C1TextBox();
+            txtItmNewName.Font = fEdit;
+            txtItmNewName.Name = "txtItmNewName";
+            txtItmNewName.Location = new System.Drawing.Point(gapColName, lbItmName.Location.Y);
+            txtItmNewName.Size = new Size(300, 20);
+            gapLine += gapY;
+            lbItmNewQty = new Label();
+            lbItmNewQty.Text = "QTY";
+            lbItmNewQty.Font = fEdit;
+            lbItmNewQty.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmNewQty.AutoSize = true;
+            lbItmNewQty.Name = "lbItmNewQty";
+            txtItmNewQty = new C1TextBox();
+            txtItmNewQty.Font = fEdit;
+            txtItmNewQty.Name = "txtItmNewQty";
+            txtItmNewQty.Location = new System.Drawing.Point(gapColName, lbItmQty.Location.Y);
+            txtItmNewQty.Size = new Size(120, 20);
+            gapLine += gapY;
+            lbItmNewFre = new Label();
+            lbItmNewFre.Text = "วิธีใช้";
+            lbItmNewFre.Font = fEdit;
+            lbItmNewFre.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmNewFre.AutoSize = true;
+            lbItmNewFre.Name = "lbItmNewFre";
+            txtItmNewFre = new C1TextBox();
+            txtItmNewFre.Font = fEdit;
+            txtItmNewFre.Name = "txtItmNewFre";
+            txtItmNewFre.Location = new System.Drawing.Point(gapColName, lbItmFre.Location.Y);
+            txtItmNewFre.Size = new Size(300, 20);
+            gapLine += gapY;
+            lbItmNewIn1 = new Label();
+            lbItmNewIn1.Text = "ข้อควรระวัง1";
+            lbItmNewIn1.Font = fEdit;
+            lbItmNewIn1.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmNewIn1.AutoSize = true;
+            lbItmNewIn1.Name = "lbItmNewIn1";
+            txtItmNewIn1 = new C1TextBox();
+            txtItmNewIn1.Font = fEdit;
+            txtItmNewIn1.Name = "txtItmNewIn1";
+            txtItmNewIn1.Location = new System.Drawing.Point(gapColName, lbItmIn1.Location.Y);
+            txtItmNewIn1.Size = new Size(300, 20);
+            gapLine += gapY;
+            lbItmNewIn2 = new Label();
+            lbItmNewIn2.Text = "ข้อควรระวัง2";
+            lbItmNewIn2.Font = fEdit;
+            lbItmNewIn2.Location = new System.Drawing.Point(gapX, gapLine);
+            lbItmNewIn2.AutoSize = true;
+            lbItmNewIn2.Name = "lbItmNewIn2";
+            txtItmNewIn2 = new C1TextBox();
+            txtItmNewIn2.Font = fEdit;
+            txtItmNewIn2.Name = "txtItNewmIn2";
+            txtItmNewIn2.Location = new System.Drawing.Point(gapColName, lbItmIn2.Location.Y);
+            txtItmNewIn2.Size = new Size(300, 20);
+
+            pnAddNewItem.Controls.Add(lbItmNewId);
+            pnAddNewItem.Controls.Add(txtItmNewId);
+            pnAddNewItem.Controls.Add(lbItmNewName);
+            pnAddNewItem.Controls.Add(txtItmNewName);
+            pnAddNewItem.Controls.Add(lbItmNewQty);
+            pnAddNewItem.Controls.Add(txtItmNewQty);
+            pnAddNewItem.Controls.Add(lbItmNewFre);
+            pnAddNewItem.Controls.Add(txtItmNewFre);
+            pnAddNewItem.Controls.Add(lbItmNewIn1);
+            pnAddNewItem.Controls.Add(txtItmNewIn1);
+            pnAddNewItem.Controls.Add(lbItmNewIn2);
+            pnAddNewItem.Controls.Add(txtItmNewIn2);
         }
         private void initComponentpnCopyCtlCtl()
         {
@@ -528,14 +657,35 @@ namespace bangna_hospital.gui
             initGrfSup();
             initGrfLab();
             initGrfXray();
+            initGrfAddItem();
             this.Load += FrmDoctorDrugSet_Load;
         }
+        private void initGrfAddItem()
+        {
+            grfAddNewItem = new C1FlexGrid();
+            grfAddNewItem.Font = fEdit;
+            grfAddNewItem.Dock = DockStyle.Fill;
+            grfAddNewItem.Location = new Point(0, 0);
+            grfAddNewItem.Rows.Count = 1;
+            grfAddNewItem.DoubleClick += GrfAddNewItem_DoubleClick;
+            scAddNewItmGrf.Controls.Add(grfAddNewItem);
+
+            theme1.SetTheme(grfAddNewItem, "Office2010Red");
+
+        }
+
+        private void GrfAddNewItem_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void initGrfCopy()
         {
             grfCopy = new C1FlexGrid();
             grfCopy.Font = fEdit;
-            grfCopy.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfCopy.Location = new System.Drawing.Point(0, 0);
+            grfCopy.Dock = DockStyle.Fill;
+            grfCopy.Location = new Point(0, 0);
             grfCopy.Rows.Count = 1;
             grfCopy.DoubleClick += GrfCopy_DoubleClick;
             pnCopyAddView.Controls.Add(grfCopy);
