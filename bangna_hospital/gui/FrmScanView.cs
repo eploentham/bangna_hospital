@@ -538,7 +538,7 @@ namespace bangna_hospital.gui
                 vn = vn.Substring(0, vn.IndexOf("/"));
             }
             Application.DoEvents();
-            dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn, preno);
+            dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn, preno, bc.datetoDB(vsDate));
             grfOrder.Rows.Count = 1;
             if (dtOrder.Rows.Count > 0)
             {

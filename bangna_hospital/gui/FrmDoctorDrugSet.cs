@@ -1,4 +1,6 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.FlexGrid;
+using bangna_hospital.object1;
 using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
@@ -6,6 +8,7 @@ using C1.Win.C1SplitContainer;
 using C1.Win.C1Themes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,27 +19,41 @@ namespace bangna_hospital.gui
     public class FrmDoctorDrugSet:Form
     {
         BangnaControl bc;
-        C1FlexGrid grfView, grfItem, grfDrug, grfSup, grfLab, grfXray, grfCopy, grfCopyItem, grfAddNewItem;
+        C1FlexGrid grfView, grfItem, grfDrug, grfSup, grfLab, grfXray, grfCopy, grfCopyItem, grfAddNewItem, grfReMedVs, grfReMedItem;
         C1DockingTab tC1, tcAddNewItemGrf;
         C1DockingTabPage tabView, tabCopy, tabAdd, tabReMed, tabDrug, tabSup, tabLab, tabXray;
         Label lbDoctor, lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2, lbItmNewId, lbItmNewName, lbItmNewQty, lbItmNewFre, lbItmNewIn1, lbItmNewIn2, lbDrugSetName;
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtItmNewId, txtItmNewName, txtItmNewQty, txtItmNewFre, txtItmNewIn1, txtItmNewIn2, txtDrugSetName, txtDrugSetId;
-        C1Button btnHnSearch;
+        C1TextBox txtTabAddDrugSetName, txtTabAddDrugSetId, txtTabAddDrugSetRemark;
+        Label lbTabAddDrugSetName, lbTabAddDrugSetRemark;
+        C1Button btnReMedItemSen;
         C1ComboBox cboDoctor;
         Panel pnCopyAddView, pnCopyAddItem, pnCopyAdd, pnCopyCtl, pnView, pnCopy, pnAdd, pnViewLeft, pnViewItem, pnCopyCtlCtl, pnCopyCtlCtlItem, pnAddNew, pnAddNewItemGrf, pnAddNewItem;
+        Panel pnscReMedVs, pnsCReMedItem, pnsCReMedItemSend;
         C1ThemeController theme1;
         C1SplitterPanel scView, scViewItem, scCopy, scCopyCtl, scCopyAddView, scCopyAddItem, scCopyCtlCtl, scCopyCtlCtlItem, scAddNew, scAddNewItemGrf, scAddNewItem, scAddNewItmGrf, scAddNewItm;
-        C1SplitContainer sCView, sCCopy, sCCopyAdd, sCCopyCtlCtl, sCAddNew, sCAddNewItm;
+        C1SplitterPanel scReMedVs, sCReMedItem;
+        C1SplitContainer sCView, sCCopy, sCCopyAdd, sCCopyCtlCtl, sCAddNew, sCAddNewItm, sCReMed;
+
+        int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
+        int colOrdDrugChk=1, colOrdDrugId = 2, colOrdDrugDate = 3, colOrdDrugNameT = 4, colOrdDrugQty = 5, colOrdDrugtypcd = 6, colOrdAddDrugFr = 7, colOrdAddDrugIn = 8, colOrdDrugUnit = 9;
+        int colOrdLabId = 1, colOrdLabName = 2, colOrdlabUnit = 3, colLabtypcd = 4, colLabgrpcd = 5, colLabgrpdsc = 6;
+        int colOrdXrayId = 1, colOrdXrayName = 2, colOrdXrayUnit = 3, colXraytypcd = 4, colXraygrpcd = 5, colXraygrpdsc = 6;
+        int colOrderId = 1, colOrderDate = 2, colOrderName = 3, colOrderMed = 4, colOrderQty = 5;
 
         Font fEdit, fEditB, fEditBig;
         Size size = new Size();
-        public FrmDoctorDrugSet(BangnaControl bc)
+
+        String hn = "";
+        public FrmDoctorDrugSet(BangnaControl bc, String hn)
         {
             this.bc = bc;
+            this.hn = hn;
             initComponent();
             initComponentpnCopyCtlCtl();
             initComponentpnCopyCtlCtlItem();
             initComponentpnAddNewItem();
+            initComponentTabRemed();
             initGrfCopy();
             initGrfCopyItem();
             initConfig();
@@ -455,6 +472,513 @@ namespace bangna_hospital.gui
             tabAdd.PerformLayout();
             
         }
+        private void initComponentTabRemed()
+        {
+            int gapY = 30, gapX = 20, gapLine = 0, gapColName = 120;
+
+            sCReMed = new C1SplitContainer();
+            scReMedVs = new C1SplitterPanel();
+            sCReMedItem = new C1SplitterPanel();
+            pnscReMedVs = new Panel();
+            pnsCReMedItem = new Panel();
+            pnsCReMedItemSend = new Panel();
+
+            sCReMed.SuspendLayout();
+            scReMedVs.SuspendLayout();
+            sCReMedItem.SuspendLayout();
+            pnscReMedVs.SuspendLayout();
+            pnsCReMedItem.SuspendLayout();
+            pnsCReMedItemSend.SuspendLayout();
+
+            pnscReMedVs.Dock = DockStyle.Fill;
+            pnsCReMedItem.Dock = DockStyle.Fill;
+            pnsCReMedItemSend.Dock = DockStyle.Bottom;
+
+            scReMedVs.Collapsible = true;
+            scReMedVs.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            scReMedVs.Location = new System.Drawing.Point(0, 21);
+            scReMedVs.Name = "scReMedVs";
+            scReMedVs.Controls.Add(pnscReMedVs);
+            sCReMedItem.Collapsible = true;
+            sCReMedItem.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            sCReMedItem.Location = new System.Drawing.Point(0, 21);
+            sCReMedItem.Name = "sCReMedItem";
+            sCReMedItem.Controls.Add(pnsCReMedItem);
+            sCReMedItem.Controls.Add(pnsCReMedItemSend);
+            sCReMed.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            sCReMed.Name = "sCReMed";
+            sCReMed.Dock = System.Windows.Forms.DockStyle.Fill;
+            sCReMed.Panels.Add(scReMedVs);
+            sCReMed.Panels.Add(sCReMedItem);
+            sCReMed.HeaderHeight = 20;
+
+            grfReMedVs = new C1FlexGrid();
+            grfReMedVs.Font = fEdit;
+            grfReMedVs.Dock = DockStyle.Fill;
+            grfReMedVs.Location = new Point(0, 0);
+            grfReMedVs.Rows.Count = 1;
+            grfReMedVs.Name = "grfReMedVs";
+            grfReMedVs.DoubleClick += GrfVs_DoubleClick;
+            pnscReMedVs.Controls.Add(grfReMedVs);
+            theme1.SetTheme(grfReMedVs, "Office2010Red");
+            grfReMedItem = new C1FlexGrid();
+            grfReMedItem.Font = fEdit;
+            grfReMedItem.Dock = DockStyle.Fill;
+            grfReMedItem.Location = new Point(0, 0);
+            grfReMedItem.Rows.Count = 1;
+            grfReMedItem.Name = "grfReMedItem";
+            grfReMedItem.DoubleClick += GrfReMedItem_DoubleClick;
+            pnsCReMedItem.Controls.Add(grfReMedItem);
+            theme1.SetTheme(grfReMedItem, "Office2010Red");
+
+            btnReMedItemSen = new C1Button();
+            btnReMedItemSen.Text = "ส่งไป หน้าป้อนยา";
+            btnReMedItemSen.Name = "btnReMedItemSen";
+            btnReMedItemSen.Location = new Point( 100, 20);
+            btnReMedItemSen.Size = new Size(140, 40);
+            pnsCReMedItemSend.Controls.Add(btnReMedItemSen);
+
+            sCReMedItem.ResumeLayout(false);
+            scReMedVs.ResumeLayout(false);
+            sCReMed.ResumeLayout(false);
+            pnscReMedVs.ResumeLayout(false);
+            pnsCReMedItem.ResumeLayout(false);
+            pnsCReMedItemSend.ResumeLayout(false);
+
+            pnsCReMedItemSend.PerformLayout();
+            pnscReMedVs.PerformLayout();
+            pnsCReMedItem.PerformLayout();
+            sCReMedItem.PerformLayout();
+            scReMedVs.PerformLayout();
+            sCReMed.PerformLayout();
+            tabReMed.Controls.Add(sCReMed);
+        }
+
+        private void GrfReMedItem_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfReMedItem.Row <= 0) return;
+            if (grfReMedItem.Col <= 0) return;
+            grfReMedItem[grfReMedItem.Row, colOrdDrugChk] = !Boolean.Parse(grfReMedItem[grfReMedItem.Row, colOrdDrugChk].ToString());
+            Boolean chhk = false;
+
+        }
+
+        private void initComponentTabAdd()
+        {
+            int gapY = 30, gapX = 20, gapLine = 0, gapColName = 120;
+            lbTabAddDrugSetName = new Label();
+            lbTabAddDrugSetName.Text = "QTY";
+            lbTabAddDrugSetName.Font = fEdit;
+            lbTabAddDrugSetName.Location = new System.Drawing.Point(gapX, gapLine);
+            lbTabAddDrugSetName.AutoSize = true;
+            lbTabAddDrugSetName.Name = "lbTabAddDrugSetName";
+            txtTabAddDrugSetName = new C1TextBox();
+            txtTabAddDrugSetName.Font = fEdit;
+            txtTabAddDrugSetName.Name = "txtTabAddDrugSetName";
+            txtTabAddDrugSetName.Location = new System.Drawing.Point(gapColName, lbItmQty.Location.Y);
+            txtTabAddDrugSetName.Size = new Size(120, 20);
+
+            pnAddNew.Controls.Add(lbTabAddDrugSetName);
+            pnAddNew.Controls.Add(txtTabAddDrugSetName);
+        }
+        private void GrfVs_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfReMedVs.Row < 0) return;
+            if (grfReMedVs.Col < 0) return;
+            setGrfVsItem();
+
+        }
+        private void setGrfVsItem()
+        {
+            FrmWaiting frmW = new FrmWaiting();
+            frmW.StartPosition = FormStartPosition.CenterScreen;
+            frmW.Show(this);
+            try
+            {
+                String vn = "", vn1 = "", preno = "", vsDate="";
+                DataTable dtOrder = new DataTable();
+                preno = grfReMedVs[grfReMedVs.Row, colVsPreno] != null ? grfReMedVs[grfReMedVs.Row, colVsPreno].ToString() : "";
+                vn = grfReMedVs[grfReMedVs.Row, colVsVn] != null ? grfReMedVs[grfReMedVs.Row, colVsVn].ToString() : "";
+                vsDate = grfReMedVs[grfReMedVs.Row, colVsVsDate] != null ? grfReMedVs[grfReMedVs.Row, colVsVsDate].ToString() : "";
+                if (vn.IndexOf("(") > 0)
+                {
+                    vn1 = vn.Substring(0, vn.IndexOf("("));
+                }
+                if (vn.IndexOf("/") > 0)
+                {
+                    vn1 = vn.Substring(0, vn.IndexOf("/"));
+                }
+                vsDate = bc.datetoDB(vsDate);
+                dtOrder = bc.bcDB.vsDB.selectDrugOPD(hn, vn1, preno, vsDate);
+
+                CellStyle cs = grfReMedItem.Styles.Add("bool");
+                cs.DataType = typeof(bool);
+                cs.ImageAlign = ImageAlignEnum.LeftCenter;
+
+                grfReMedItem.Cols.Count = 10;
+                //grfReMedItem.Rows.Count = 0;
+                grfReMedItem.Rows.Count = 1;
+                grfReMedItem.Rows.Count = dtOrder.Rows.Count + 1;
+                //grfReMedItem.Cols.Count = 6;
+                grfReMedItem.Cols[colOrdDrugNameT].Caption = "Drug Name";
+                grfReMedItem.Cols[colOrdDrugId].Caption = "CODE";
+                grfReMedItem.Cols[colOrdDrugQty].Caption = "QTY";
+                grfReMedItem.Cols[colOrdDrugDate].Caption = "Date";
+                grfReMedItem.Cols[colOrdAddDrugFr].Caption = "วิธีใช้";
+                grfReMedItem.Cols[colOrdAddDrugIn].Caption = "ข้อควรระวัง";
+                grfReMedItem.Cols[colOrdDrugUnit].Caption = "หน่วย";
+
+                grfReMedItem.Cols[colOrdDrugNameT].Width = 400;
+                grfReMedItem.Cols[colOrdDrugId].Width = 80;
+                grfReMedItem.Cols[colOrdDrugQty].Width = 60;
+                grfReMedItem.Cols[colOrdDrugDate].Width = 100;
+                grfReMedItem.Cols[colOrdAddDrugFr].Width = 300;
+                grfReMedItem.Cols[colOrdAddDrugIn].Width = 300;
+                grfReMedItem.Cols[colOrdDrugUnit].Width = 70;
+                grfReMedItem.Cols[colOrdDrugChk].Width = 40;
+
+                CellRange rg = grfReMedItem.GetCellRange(1, colOrdDrugChk, grfReMedItem.Rows.Count - 1, colOrdDrugChk);
+                rg.Style = cs;
+                rg.Style = grfReMedItem.Styles["bool"];
+                int i = 0;
+                decimal aaa = 0;
+                foreach (DataRow row1 in dtOrder.Rows)
+                {
+                    i++;
+                    grfReMedItem[i, colOrdDrugId] = row1["MNC_PH_CD"].ToString();
+                    grfReMedItem[i, colOrdDrugNameT] = row1["MNC_PH_TN"].ToString();
+                    //grfReMedItem[i, colOrderMed] = "";
+                    grfReMedItem[i, colOrdDrugQty] = row1["qty"].ToString();
+                    grfReMedItem[i, colOrdDrugDate] = bc.datetoShow(row1["mnc_req_dat"]);
+                    grfReMedItem[i, colOrdAddDrugFr] = row1["MNC_PH_DIR_DSC"].ToString();
+                    grfReMedItem[i, colOrdAddDrugIn] = row1["MNC_PH_CAU_dsc"].ToString();
+                    grfReMedItem[i, colOrdDrugUnit] = row1["MNC_PH_unt_cd"].ToString();
+                    grfReMedItem[i, colOrdDrugChk] = true;
+                    //row1[0] = (i - 2);
+                }
+                CellNoteManager mgr = new CellNoteManager(grfReMedItem);
+                grfReMedItem.Cols[colOrdDrugNameT].AllowEditing = false;
+                grfReMedItem.Cols[colOrdDrugQty].AllowEditing = false;
+                grfReMedItem.Cols[colOrdDrugDate].AllowEditing = false;
+                grfReMedItem.Cols[colOrdDrugId].AllowEditing = false;
+                grfReMedItem.Cols[colOrdAddDrugIn].AllowEditing = false;
+                grfReMedItem.Cols[colOrdAddDrugFr].AllowEditing = false;
+                grfReMedItem.Cols[colOrdDrugDate].AllowEditing = false;
+                grfReMedItem.Cols[colOrdDrugNameT].AllowSorting = false;
+                grfReMedItem.Cols[colOrdDrugQty].AllowSorting = false;
+                grfReMedItem.Cols[colOrdDrugDate].AllowSorting = false;
+                grfReMedItem.Cols[colOrdAddDrugIn].AllowSorting = false;
+                grfReMedItem.Cols[colOrdAddDrugFr].AllowSorting = false;
+
+                grfReMedItem.Cols[colOrdDrugUnit].Visible = true;
+                grfReMedItem.Cols[colOrdDrugtypcd].Visible = false;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            frmW.Dispose();
+        }
+        private void setGrfVsOPD()
+        {
+            grfReMedVs.Clear();
+            grfReMedVs.Rows.Count = 1;
+            grfReMedVs.Cols.Count = 8;
+
+            grfReMedVs.Cols[colVsVsDate].Width = 100;
+            grfReMedVs.Cols[colVsVn].Width = 80;
+            grfReMedVs.Cols[colVsDept].Width = 240;
+            grfReMedVs.Cols[colVsPreno].Width = 100;
+            grfReMedVs.Cols[colVsStatus].Width = 60;
+            grfReMedVs.ShowCursor = true;
+            //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
+            grfReMedVs.Cols[colVsVsDate].Caption = "Visit Date";
+            grfReMedVs.Cols[colVsVn].Caption = "VN";
+            grfReMedVs.Cols[colVsDept].Caption = "แผนก";
+            grfReMedVs.Cols[colVsPreno].Caption = "";
+            grfReMedVs.Cols[colVsPreno].Visible = false;
+            grfReMedVs.Cols[colVsVn].Visible = true;
+            grfReMedVs.Cols[colVsAn].Visible = true;
+            grfReMedVs.Cols[colVsAndate].Visible = false;
+            grfReMedVs.Rows[0].Visible = false;
+            grfReMedVs.Cols[0].Visible = false;
+            grfReMedVs.Cols[colVsVsDate].AllowEditing = false;
+            grfReMedVs.Cols[colVsVn].AllowEditing = false;
+            grfReMedVs.Cols[colVsDept].AllowEditing = false;
+            grfReMedVs.Cols[colVsPreno].AllowEditing = false;
+
+            DataTable dt = new DataTable();
+            //MessageBox.Show("hn "+hn, "");
+            dt = bc.bcDB.vsDB.selectVisitByHn4(hn, "O");
+            int i = 1, j = 1, row = grfReMedVs.Rows.Count;
+            
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfReMedVs.Rows.Add();
+                String status = "", vn = "";
+
+                status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
+                vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")";
+                rowa[colVsVsDate] = bc.datetoShow1(row1["mnc_date"].ToString());
+                rowa[colVsVn] = vn;
+                rowa[colVsStatus] = status;
+                rowa[colVsPreno] = row1["mnc_pre_no"].ToString();
+                rowa[colVsDept] = row1["MNC_SHIF_MEMO"].ToString();
+                rowa[colVsAn] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
+                rowa[colVsAndate] = bc.datetoShow1(row1["mnc_ad_date"].ToString());
+            }            
+            //theme1.SetTheme(grfVs, "ExpressionDark");
+        }
+        private void setGrfDrug()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.drugDB.selectDrugAll();
+
+            grfDrug.Rows.Count = 1;
+            grfDrug.Cols.Count = 9;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfDrug.Rows.Count = dt.Rows.Count + 1;
+            grfDrug.Cols.Count = dt.Rows.Count + 1;
+            grfDrug.Cols[colOrdDrugId].Caption = "code";
+            grfDrug.Cols[colOrdDrugNameT].Caption = "ชื่อ ยา";
+            grfDrug.Cols[colOrdDrugtypcd].Caption = " typ cd";
+            grfDrug.Cols[colOrdDrugUnit].Caption = "unit";
+            grfDrug.Cols[colOrdAddDrugFr].Caption = "วิธีใช้";
+            grfDrug.Cols[colOrdAddDrugIn].Caption = "ข้อควรระวัง";
+            grfDrug.Cols[colOrdDrugQty].Caption = "qty";
+
+            grfDrug.Cols[colOrdDrugId].Width = 100;
+            grfDrug.Cols[colOrdDrugNameT].Width = 350;
+            grfDrug.Cols[colOrdDrugtypcd].Width = 100;
+            grfDrug.Cols[colOrdDrugUnit].Width = 200;
+            grfDrug.Cols[colOrdAddDrugFr].Width = 300;
+            grfDrug.Cols[colOrdAddDrugIn].Width = 300;
+            grfDrug.Cols[colOrdDrugQty].Width = 60;
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfDrug.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                //grfDrug.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfDrug.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfDrug[i, colOrdDrugId] = row1["MNC_ph_cd"].ToString();
+                grfDrug[i, colOrdDrugNameT] = row1["MNC_ph_tn"].ToString();
+                grfDrug[i, colOrdDrugtypcd] = row1["MNC_ph_typ_cd"].ToString();
+                grfDrug[i, colOrdDrugUnit] = row1["mnc_ph_unt_cd"].ToString();
+                grfDrug[i, colOrdAddDrugFr] = row1["MNC_ph_dir_dsc"].ToString();
+                grfDrug[i, colOrdAddDrugIn] = row1["MNC_ph_cau_dsc"].ToString();
+                grfDrug[i, colOrdDrugQty] = "";
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfDrug);
+            //grfDrug.Cols[colXrayResult].Visible = false;
+            grfDrug.Cols[colOrdDrugId].AllowEditing = false;
+            grfDrug.Cols[colOrdDrugNameT].AllowEditing = false;
+            grfDrug.Cols[colOrdDrugtypcd].AllowEditing = false;
+            grfDrug.Cols[colOrdDrugUnit].AllowEditing = false;
+            grfDrug.Cols[colOrdDrugDate].Visible = false;
+            FilterRow fr = new FilterRow(grfDrug);
+            grfDrug.AllowFiltering = true;
+            grfDrug.AfterFilter += GrfDrug_AfterFilter;
+            //}).Start();
+        }
+
+        private void GrfDrug_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfDrug.Cols.Fixed; col < grfDrug.Cols.Count; ++col)
+            {
+                var filter = grfDrug.Cols[col].ActiveFilter;
+            }
+        }
+        private void setGrfOrdLab()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.labDB.selectLabAll();
+
+            grfLab.Rows.Count = 1;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfLab.Rows.Count = dt.Rows.Count + 1;
+            grfLab.Cols.Count = dt.Rows.Count + 1;
+            grfLab.Cols[colOrdLabId].Caption = "code";
+
+            grfLab.Cols[colOrdLabName].Caption = "ชื่อ LAB";
+            grfLab.Cols[colLabtypcd].Caption = "ประเภท";
+            grfLab.Cols[colOrdlabUnit].Caption = "หน่วย";
+            grfLab.Cols[colLabgrpdsc].Caption = "กลุ่ม";
+            //grfLab.Cols[colOrdDrugUnit].Caption = "หน่วย";
+
+            grfLab.Cols[colOrdDrugId].Width = 100;
+            grfLab.Cols[colOrdLabName].Width = 350;
+            grfLab.Cols[colOrdDrugtypcd].Width = 100;
+            grfLab.Cols[colOrdDrugUnit].Width = 200;
+            grfLab.Cols[colLabgrpdsc].Width = 300;
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfLab.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                //grfLab.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfLab.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfLab[i, colOrdLabId] = row1["MNC_lb_cd"].ToString();
+                grfLab[i, colOrdLabName] = row1["MNC_lb_dsc"].ToString();
+                grfLab[i, colOrdDrugtypcd] = row1["MNC_LB_TYP_DSC"].ToString();
+                grfLab[i, colLabgrpdsc] = row1["MNC_LB_GRP_DSC"].ToString();
+                grfLab[i, colOrdlabUnit] = "";
+
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfLab);
+            //grfOrdDrug.Cols[colXrayResult].Visible = false;
+            grfLab.Cols[colOrdLabId].AllowEditing = false;
+            grfLab.Cols[colOrdLabName].AllowEditing = false;
+            grfLab.Cols[colOrdDrugtypcd].AllowEditing = false;
+            grfLab.Cols[colLabgrpdsc].AllowEditing = false;
+            grfLab.Cols[colOrdlabUnit].AllowEditing = false;
+            FilterRow fr = new FilterRow(grfLab);
+            grfLab.AllowFiltering = true;
+            grfLab.AfterFilter += GrfLab_AfterFilter;
+            //}).Start();
+        }
+
+        private void GrfLab_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfLab.Cols.Fixed; col < grfLab.Cols.Count; ++col)
+            {
+                var filter = grfLab.Cols[col].ActiveFilter;
+            }
+        }
+        private void setGrfOrdXray()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.xrDB.selectXrayAll();
+
+            grfXray.Rows.Count = 1;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfXray.Rows.Count = dt.Rows.Count + 1;
+            grfXray.Cols.Count = dt.Rows.Count + 1;
+            grfXray.Cols[colOrdXrayId].Caption = "Code";
+            grfXray.Cols[colOrdXrayName].Caption = "Xray Description";
+            grfXray.Cols[colXraytypcd].Caption = "typ cd";
+            grfXray.Cols[colXraygrpcd].Caption = "grp cd";
+            grfXray.Cols[colXraygrpdsc].Caption = "Grp Description";
+
+            grfXray.Cols[colOrdXrayId].Width = 100;
+            grfXray.Cols[colOrdXrayName].Width = 350;
+            grfXray.Cols[colXraytypcd].Width = 100;
+            grfXray.Cols[colXraygrpcd].Width = 100;
+            grfXray.Cols[colXraygrpdsc].Width = 200;
+
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfXray.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                grfXray.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfXray.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfXray[i, colOrdXrayId] = row1["mnc_xr_cd"].ToString();
+                grfXray[i, colOrdXrayName] = row1["mnc_xr_dsc"].ToString();
+                grfXray[i, colXraytypcd] = row1["mnc_xr_typ_cd"].ToString();
+                grfXray[i, colXraygrpcd] = row1["MNC_XR_GRP_CD"].ToString();
+                grfXray[i, colXraygrpdsc] = row1["MNC_XR_GRP_DSC"].ToString();
+
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfXray);
+            //grfOrdDrug.Cols[colXrayResult].Visible = false;
+            grfXray.Cols[colOrdXrayId].AllowEditing = false;
+            grfXray.Cols[colOrdXrayName].AllowEditing = false;
+            grfXray.Cols[colXraytypcd].AllowEditing = false;
+            grfXray.Cols[colXraygrpcd].AllowEditing = false;
+            grfXray.Cols[colXraygrpdsc].AllowEditing = false;
+            FilterRow fr = new FilterRow(grfXray);
+            grfXray.AllowFiltering = true;
+            grfXray.AfterFilter += GrfXray_AfterFilter;
+            //}).Start();
+        }
+
+        private void GrfXray_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfXray.Cols.Fixed; col < grfXray.Cols.Count; ++col)
+            {
+                var filter = grfXray.Cols[col].ActiveFilter;
+            }
+        }
+        private void setGrfOrdSup()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.drugDB.selectSupplyAll();
+
+            grfSup.Rows.Count = 1;
+            //grfLab.Cols[colOrderId].Visible = false;
+            grfSup.Rows.Count = dt.Rows.Count + 1;
+            grfSup.Cols.Count = dt.Rows.Count + 1;
+            grfSup.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
+            grfSup.Cols[colOrdDrugNameT].Caption = "ชื่อ";
+            grfSup.Cols[colOrdDrugtypcd].Caption = "Code ";
+            grfSup.Cols[colOrdDrugUnit].Caption = "หน่วย";
+
+            grfSup.Cols[colOrdDrugId].Width = 100;
+            grfSup.Cols[colOrdDrugNameT].Width = 350;
+            grfSup.Cols[colOrdDrugtypcd].Width = 100;
+            grfSup.Cols[colOrdDrugUnit].Width = 200;
+
+            int i = 0;
+            decimal aaa = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfSup.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                grfSup.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfSup.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                if (i == 1) continue;
+                grfSup[i, colOrdDrugId] = row1["MNC_ph_cd"].ToString();
+                grfSup[i, colOrdDrugNameT] = row1["MNC_ph_tn"].ToString();
+                grfSup[i, colOrdDrugtypcd] = row1["MNC_ph_gn"].ToString();
+                grfSup[i, colOrdDrugUnit] = row1["mnc_ph_unt_cd"].ToString();
+
+                //row1[0] = (i - 2);
+            }
+            CellNoteManager mgr = new CellNoteManager(grfSup);
+            //grfOrdDrug.Cols[colXrayResult].Visible = false;
+            grfSup.Cols[colOrdDrugId].AllowEditing = false;
+            grfSup.Cols[colOrdDrugNameT].AllowEditing = false;
+            grfSup.Cols[colOrdDrugtypcd].AllowEditing = false;
+            grfSup.Cols[colOrdDrugUnit].AllowEditing = false;
+            FilterRow fr = new FilterRow(grfSup);
+            grfSup.AllowFiltering = true;
+            grfSup.AfterFilter += GrfSup_AfterFilter;
+            //}).Start();
+        }
+
+        private void GrfSup_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void initComponentpnAddNewItem()
         {
             int gapY = 30, gapX = 20, gapLine = 0, gapColName = 120;
@@ -658,6 +1182,11 @@ namespace bangna_hospital.gui
             initGrfLab();
             initGrfXray();
             initGrfAddItem();
+            setGrfVsOPD();
+            setGrfDrug();
+            setGrfOrdLab();
+            setGrfOrdXray();
+            setGrfOrdSup();
             this.Load += FrmDoctorDrugSet_Load;
         }
         private void initGrfAddItem()
@@ -800,7 +1329,9 @@ namespace bangna_hospital.gui
         private void FrmDoctorDrugSet_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            btnReMedItemSen.Location = new Point(pnsCReMedItemSend.Width - 60, pnsCReMedItemSend.Height - btnReMedItemSen.Height - 10);
+            scAddNew.SizeRatio = 17;
+            scReMedVs.SizeRatio = 17;
         }
     }
 }

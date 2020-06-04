@@ -53,7 +53,7 @@ namespace bangna_hospital.gui
         int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
-        int colOrderId = 1, colOrderDate = 2, colOrderName = 3, colOrderMed = 4, colOrderQty = 5;
+        int colOrderId = 1, colOrderDate = 2, colOrderName = 3, colOrderQty = 4, colOrderFre=5, colOrderIn1=6, colOrderMed = 7;
         int colLabDate = 1, colLabName = 2, colLabNameSub = 3, colLabResult = 4, colInterpret = 5, colNormal = 6, colUnit = 7;
         int colXrayDate = 1, colXrayCode = 2, colXrayName = 3, colXrayResult = 4;
         int colLabOutDateReq = 1, colLabOutHN = 2, colLabOutFullName = 3, colLabOutVN = 4, colLabOutDateReceive = 5, colLabOutReqNo = 6, colLabOutId = 7;
@@ -226,7 +226,7 @@ namespace bangna_hospital.gui
         private void BtnItmDrugSet_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            FrmDoctorDrugSet frmDrugSet = new FrmDoctorDrugSet(bc);
+            FrmDoctorDrugSet frmDrugSet = new FrmDoctorDrugSet(bc, txtHn.Text.Trim());
             frmDrugSet.WindowState = FormWindowState.Normal;
             frmDrugSet.StartPosition = FormStartPosition.CenterScreen;
             frmDrugSet.Size = new Size(1200, 800);
@@ -454,7 +454,7 @@ namespace bangna_hospital.gui
             //grfOrder.Cols[0].Visible = false;
             grfOrder.Cols[colOrderId].Visible = false;
             grfOrder.Rows.Count = 1;
-            grfOrder.Cols.Count = 6;
+            grfOrder.Cols.Count = 8;
             grfOrder.Cols[colOrderName].Caption = "ชื่อ";
             grfOrder.Cols[colOrderMed].Caption = "-";
             grfOrder.Cols[colOrderQty].Caption = "QTY";
@@ -727,7 +727,8 @@ namespace bangna_hospital.gui
                     {
                         vn1 = vn.Substring(0, vn.IndexOf("/"));
                     }
-                    dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn1, preno);
+                    vsDate = bc.datetoDB(vsDate);
+                    dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn1, preno, vsDate);
                 }
                 setGrfOrder(dtOrder);
             }
@@ -2782,9 +2783,9 @@ namespace bangna_hospital.gui
             grfOrdSup.Rows.Count = dt.Rows.Count + 1;
             grfOrdSup.Cols.Count = dt.Rows.Count + 1;
             grfOrdSup.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
-            grfOrdSup.Cols[colOrdDrugNameT].Caption = "ชื่อX-Ray";
-            grfOrdSup.Cols[colOrdDrugtypcd].Caption = "Code X-Ray";
-            grfOrdSup.Cols[colOrdDrugUnit].Caption = "ผล X-Ray";
+            grfOrdSup.Cols[colOrdDrugNameT].Caption = "ชื่อ";
+            grfOrdSup.Cols[colOrdDrugtypcd].Caption = "Code ";
+            grfOrdSup.Cols[colOrdDrugUnit].Caption = "หน่วย";
 
             grfOrdSup.Cols[colOrdDrugId].Width = 100;
             grfOrdSup.Cols[colOrdDrugNameT].Width = 350;
@@ -2925,7 +2926,7 @@ namespace bangna_hospital.gui
 
                 //row1[0] = (i - 2);
             }
-            CellNoteManager mgr = new CellNoteManager(grfOrdSup);
+            CellNoteManager mgr = new CellNoteManager(grfOrdLab);
             //grfOrdDrug.Cols[colXrayResult].Visible = false;
             grfOrdLab.Cols[colOrdLabId].AllowEditing = false;
             grfOrdLab.Cols[colOrdLabName].AllowEditing = false;
@@ -2937,7 +2938,6 @@ namespace bangna_hospital.gui
             grfOrdLab.AfterFilter += GrfOrdLab_AfterFilter;
             //}).Start();
         }
-
         private void GrfOrdLab_AfterFilter(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3037,7 +3037,7 @@ namespace bangna_hospital.gui
 
                 //row1[0] = (i - 2);
             }
-            CellNoteManager mgr = new CellNoteManager(grfOrdSup);
+            CellNoteManager mgr = new CellNoteManager(grfOrdXray);
             //grfOrdDrug.Cols[colXrayResult].Visible = false;
             grfOrdXray.Cols[colOrdXrayId].AllowEditing = false;
             grfOrdXray.Cols[colOrdXrayName].AllowEditing = false;
@@ -3171,7 +3171,7 @@ namespace bangna_hospital.gui
             //dt = bc.bcDB.vsDB.selectDrugAllergy(txtHn.Text.Trim());
             //grfHn.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
-            grfOrder.Cols.Count = 6;
+            grfOrder.Cols.Count = 8;
             grfOrder.Rows.Count = 1;
             grfOrder.Rows.Count = dtOrder.Rows.Count + 1;
             //grfOrder.Cols.Count = 6;
@@ -3179,11 +3179,15 @@ namespace bangna_hospital.gui
             grfOrder.Cols[colOrderMed].Caption = "MED";
             grfOrder.Cols[colOrderQty].Caption = "QTY";
             grfOrder.Cols[colOrderDate].Caption = "Date";
+            grfOrder.Cols[colOrderFre].Caption = "วิธีใช้";
+            grfOrder.Cols[colOrderIn1].Caption = "ข้อควรระวัง";
 
             grfOrder.Cols[colOrderName].Width = 400;
             grfOrder.Cols[colOrderMed].Width = 200;
             grfOrder.Cols[colOrderQty].Width = 80;
             grfOrder.Cols[colOrderDate].Width = 100;
+            grfOrder.Cols[colOrderFre].Width = 100;
+            grfOrder.Cols[colOrderIn1].Width = 100;
 
             int i = 0;
             decimal aaa = 0;
@@ -3194,6 +3198,8 @@ namespace bangna_hospital.gui
                 grfOrder[i, colOrderMed] = "";
                 grfOrder[i, colOrderQty] = row1["qty"].ToString();
                 grfOrder[i, colOrderDate] = bc.datetoShow(row1["mnc_req_dat"]);
+                grfOrder[i, colOrderFre] = row1["MNC_PH_DIR_DSC"].ToString();
+                grfOrder[i, colOrderIn1] = row1["MNC_PH_CAU_dsc"].ToString();
 
                 //row1[0] = (i - 2);
             }
@@ -3201,6 +3207,8 @@ namespace bangna_hospital.gui
             grfOrder.Cols[colOrderName].AllowEditing = false;
             grfOrder.Cols[colOrderQty].AllowEditing = false;
             grfOrder.Cols[colOrderMed].AllowEditing = false;
+            grfOrder.Cols[colOrderFre].AllowEditing = false;
+            grfOrder.Cols[colOrderIn1].AllowEditing = false;
             grfOrder.Cols[colOrderId].Visible = false;
             
             grfOrder.Cols[colOrderDate].AllowEditing = false;
@@ -3235,7 +3243,8 @@ namespace bangna_hospital.gui
                 {
                     vn1 = vn.Substring(0, vn.IndexOf("/"));
                 }
-                dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn, preno);
+                vsDate = bc.datetoDB(vsDate);
+                dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtHn.Text, vn, preno, vsDate);
             }
             else
             {
