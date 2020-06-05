@@ -357,6 +357,7 @@
     <Compile Include="object1\InitConfig.cs" />
     <Compile Include="object1\LabEx.cs" />
     <Compile Include="object1\LabOut.cs" />
+    <Compile Include="object1\LabOutMedicaResult.cs" />
     <Compile Include="object1\LabOutRIAaiJson.cs" />
     <Compile Include="object1\LabOutRIALabs.cs" />
     <Compile Include="object1\LabOutRIAOrderDetail.cs" />

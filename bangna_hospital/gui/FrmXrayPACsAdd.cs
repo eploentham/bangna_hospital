@@ -629,9 +629,9 @@ namespace bangna_hospital.gui
                     lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Client connected " + System.DateTime.Now.ToString()); });
                     Application.DoEvents();
                     //open network stream on accepted socket
-                    //serverSockStream = new NetworkStream(serverSocket);
-                    //serverStreamWriter = new StreamWriter(serverSockStream);
-                    //serverStreamReader = new StreamReader(serverSockStream);
+                    serverSockStream = new NetworkStream(serverSocket);
+                    serverStreamWriter = new StreamWriter(serverSockStream);
+                    serverStreamReader = new StreamReader(serverSockStream);
                 }
             }
             catch (Exception e)
@@ -644,82 +644,96 @@ namespace bangna_hospital.gui
         }
         private void listenServer()
         {
-            if (StartServer())
+            //if (StartServer())
+            //{
+            IPAddress ipad = IPAddress.Parse(txtIp.Text);
+            tcpServerListener = new TcpListener(ipad, int.Parse(txtPort.Text));
+            tcpServerListener.Start();      //start server
+            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Start Listening " + System.DateTime.Now.ToString()); });
+            Application.DoEvents();
+            while (true)
             {
                 try
                 {
                     //while (true)
                     //{
-                        //Console.WriteLine("CLIENT: " + serverStreamReader.ReadLine());
-                        string line = "";
-                        //if ((line = serverStreamReader.ReadLine()) != null)
-                        //{
-                        //    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
-                        //    Application.DoEvents();
+                    //Console.WriteLine("CLIENT: " + serverStreamReader.ReadLine());
 
-                        //    //    serverStreamWriter.WriteLine("Hi!");
-                        //    //    serverStreamWriter.Flush();
-                        //}
-                        //if ((line = serverStreamReader.ReadToEnd()) != null)
-                        //{
-                        TcpClient tcpClient = tcpServerListener.AcceptTcpClient();
-                        NetworkStream serverSockStream = tcpClient.GetStream();
-                        serverStreamWriter = new StreamWriter(serverSockStream);
+                    //IPAddress ipad = IPAddress.Parse(txtIp.Text);
+                    //tcpServerListener = new TcpListener(ipad, int.Parse(txtPort.Text));
+                    TcpClient tcpClient = tcpServerListener.AcceptTcpClient();
+                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Client connected " + System.DateTime.Now.ToString()); });
                     Application.DoEvents();
-                    if (serverSockStream.DataAvailable)
-                        {
-                            MessageClint mClient = new MessageClint(tcpClient);
-                            //Thread n_clint;
-                            
-                            //ParameterizedThreadStart start = new ParameterizedThreadStart(messageClicnt);
-                            //n_clint = new Thread();
-                            //n_clint.IsBackground = true;
-                            //n_clint.Start(tcpClient);
-                        }
-                        //using (StreamReader serverStreamReader = new StreamReader(serverStreamWriter.BaseStream))
-                        //{
-                        //    line = serverStreamReader.ReadToEnd();
-                        //}
-
-                        //lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
-                        //Application.DoEvents();
-                        //String fileName = "", path="";
-                        //path = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\";
-                        //new LogWriter("e", "FrmXrayPACsAdd path " + path);
-                        //if (!Directory.Exists(path + "message"))
-                        //{
-                        //    Directory.CreateDirectory(path + "message");
-                        //}
-                        //lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Directory.CreateDirectory : " + path + "\\message\\" + fileName); });
-                        //Application.DoEvents();
-                        //fileName = DateTime.Now.Ticks.ToString()+".txt";
-                        //new LogWriter("e", "FrmXrayPACsAdd fileName " + path + "message\\" + fileName);
-                        //FileStream stream = new FileStream(path + "message\\"+fileName, FileMode.CreateNew);
-                        //using (StreamWriter writer = new StreamWriter(stream))
-                        //{
-                        //    writer.Write(line);
-                        //}
-                        //stream.Close();
-                        //lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "write file success "); });
-                        //Application.DoEvents();
-
-                        ////NetworkStream clientSockStream = tcpClient.GetStream();
-                        ////StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
-                        //serverStreamWriter.WriteLine("ACK");
-                        //serverStreamWriter.Close();
-                        //tcpClient.Close();
-                        //}
+                    //NetworkStream serverSockStream = tcpClient.GetStream();
+                    Thread n_server = new Thread(new ParameterizedThreadStart(getMessageClient));
+                    //n_server.IsBackground = true;
+                    n_server.Start(tcpClient);
+                    //tcpClient.Close();
+                    //}
 
                     //listBox1.Items.Add("Date Time : " + System.DateTime.Now.ToString() + " Receive " + serverStreamReader.ReadLine());
 
                     //}//while
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     new LogWriter("e", "FrmXrayPACsAdd listenServer error " + ex.Message);
                 }
-                
+        }
+        //}
+    }
+        private void getMessageClient(object tcpclient)
+        {
+            string line = "";
+            TcpClient tcpClient = (TcpClient)tcpclient;
+            //serverStreamWriter = new StreamWriter(serverSockStream);
+            Application.DoEvents();
+            byte[] messsage = new byte[4096];
+            int byteread = 0;
+            String ackmsg = "";
+
+            using (NetworkStream serverSockStream = tcpClient.GetStream())
+            {
+                //line = serverStreamReader.ReadToEnd();
+                try
+                {
+                    byteread = serverSockStream.Read(messsage, 0, messsage.Length);
+                    ackmsg = " MSA|AA";
+                    serverSockStream.Write(System.Text.Encoding.UTF8.GetBytes(ackmsg), 0, System.Text.Encoding.Default.GetByteCount(ackmsg));
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
+            line = System.Text.Encoding.UTF8.GetString(messsage, 0, byteread);
+
+            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
+            Application.DoEvents();
+            String fileName = "", path = "";
+            path = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\";
+            new LogWriter("e", "FrmXrayPACsAdd path " + path);
+            if (!Directory.Exists(path + "message"))
+            {
+                Directory.CreateDirectory(path + "message");
+            }
+            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Directory.CreateDirectory : " + path + "\\message\\" + fileName); });
+            Application.DoEvents();
+            fileName = DateTime.Now.Ticks.ToString() + ".txt";
+            new LogWriter("e", "FrmXrayPACsAdd fileName " + path + "message\\" + fileName);
+            FileStream stream = new FileStream(path + "message\\" + fileName, FileMode.CreateNew);
+            using (StreamWriter writer = new StreamWriter(stream))
+            {
+                writer.Write(line);
+            }
+            stream.Close();
+            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "write file success "); });
+            Application.DoEvents();
+
+            //NetworkStream clientSockStream = tcpClient.GetStream();
+            //StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
+            //serverStreamWriter.WriteLine("ACK");
+            //serverStreamWriter.Close();
         }
         private void BtnLisStart_Click(object sender, EventArgs e)
         {
@@ -729,10 +743,10 @@ namespace bangna_hospital.gui
                 btnLisStart.Image = imgStop;
                 btnLisStart.Text = "Stop";
                 lboxServer.Items.Clear();
-                listenServer();
-                //n_server = new Thread(new ThreadStart(listenServer));
-                //n_server.IsBackground = true;
-                //n_server.Start();
+                //listenServer();
+                n_server = new Thread(new ThreadStart(listenServer));
+                n_server.IsBackground = true;
+                n_server.Start();
                 //ServerListen();
                 //listBox1.Items.Add("Start Listening "+ System.DateTime.Now.ToString());
 

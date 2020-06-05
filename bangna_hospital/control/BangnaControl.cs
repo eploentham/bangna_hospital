@@ -128,6 +128,13 @@ namespace bangna_hospital.control
             iniC.folderFTPLabOut = iniF.getIni("ftp", "folderFTPLabOut");
             iniC.usePassiveFTPLabOut = iniF.getIni("ftp", "usePassiveFTPLabOut");
 
+            iniC.hostFTPLabOutMedica = iniF.getIni("ftp", "hostFTPLabOut_MADICA");
+            iniC.userFTPLabOutMedica = iniF.getIni("ftp", "userFTPLabOut_MADICA");
+            iniC.passFTPLabOutMedica = iniF.getIni("ftp", "passFTPLabOut_MADICA");
+            iniC.portFTPLabOutMedica = iniF.getIni("ftp", "portFTPLabOut_MADICA");
+            iniC.folderFTPLabOutMedica = iniF.getIni("ftp", "folderFTPLabOut_MADICA");
+            iniC.usePassiveFTPLabOutMedica = iniF.getIni("ftp", "usePassiveFTPLabOut_MADICA");
+
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
 

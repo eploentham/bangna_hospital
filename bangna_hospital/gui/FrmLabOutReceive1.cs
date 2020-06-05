@@ -16,6 +16,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -878,6 +879,9 @@ namespace bangna_hospital.gui
             {
                 uploadFiletoServerRIA();
             }
+
+
+            getFileinFolderMedica();
         }
         private void getFileinFolderRIA()
         {
@@ -1293,7 +1297,7 @@ namespace bangna_hospital.gui
                     listBox1.EndUpdate();     //listBox2
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
-                    Thread.Sleep(1000 * 60);
+                    Thread.Sleep(1000 * 20);
                 }
                 else
                 {
@@ -1303,9 +1307,53 @@ namespace bangna_hospital.gui
                 }
             }
 
-
-
             timer.Start();
+        }
+        private void getFileinFolderMedica()
+        {
+            String page = "http://119.59.102.111/app/getlist.php?date=2020-06-02&hosp_code=CT-MD0166";
+            WebClient webClient = new WebClient();
+            var http = (HttpWebRequest)WebRequest.Create(new Uri(page));
+            http.Accept = "application/json";
+            http.ContentType = "application/json";
+            http.Method = "POST";
+            var response = http.GetResponse();
+            var stream = response.GetResponseStream();
+            var sr = new StreamReader(stream);
+            var content = sr.ReadToEnd();
+            dynamic obj = JsonConvert.DeserializeObject(content);
+            
+            var list = JsonConvert.DeserializeObject<List<LabOutMedicaResult>>(content);
+            foreach (LabOutMedicaResult lab in list)
+            {
+                String datetick = "";
+                String address = bc.iniC.hostFTPLabOutMedica+bc.iniC.folderFTPLabOutMedica+"//"+lab.labno+".pdf";
+                FtpClient ftp = new FtpClient(bc.iniC.hostFTPLabOutMedica, bc.iniC.userFTPLabOutMedica, bc.iniC.passFTPLabOutMedica, bc.ftpUsePassiveLabOut);
+                MemoryStream streamresult = ftp.download(address);
+                if (streamresult == null)
+                {
+                    continue;
+                }
+                if (streamresult.Length == 0)
+                {
+                    continue;
+                }
+                streamresult.Seek(0, SeekOrigin.Begin);
+                datetick = DateTime.Now.Ticks.ToString();
+                if (!Directory.Exists("report"))
+                {
+                    Directory.CreateDirectory("report");
+                }
+                var fileStream = new FileStream("report\\" + datetick + ".pdf", FileMode.Create, FileAccess.Write);
+                stream.CopyTo(fileStream);
+                fileStream.Flush();
+                fileStream.Dispose();
+                Application.DoEvents();
+                Thread.Sleep(200);
+            }
+            
+            //MemoryStream stream = ftp.download("");
+
         }
         private void getFileinFolderInnoTech()
         {
@@ -1674,7 +1722,7 @@ namespace bangna_hospital.gui
                     listBox1.EndUpdate();     //listBox2
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
-                    Thread.Sleep(1000 * 60);
+                    Thread.Sleep(1000 * 30);
                 }
                 else
                 {
@@ -1701,7 +1749,7 @@ namespace bangna_hospital.gui
             lbMessage.Text = "เตรียม Upload";
             listBox2.Items.Clear();     //listBox3
             Application.DoEvents();
-            Thread.Sleep(1000);
+            Thread.Sleep(200);
 
             FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
             //String[] filePaths = Directory.GetFiles(bc.iniC.pathLabOutReceive, "*.*", SearchOption.TopDirectoryOnly);
@@ -1735,7 +1783,6 @@ namespace bangna_hospital.gui
                     filename2 = filename1.Replace(".pdf", "");
                 }
                 ext = Path.GetExtension(filename1);
-                
                 
                 DateTime dtt1 = new DateTime();
                 int.TryParse(year1, out year2);
@@ -1943,14 +1990,14 @@ namespace bangna_hospital.gui
                 {
                     listBox2.Items.Add("FTP upload success ");
                     Application.DoEvents();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     String datetick = "";
                     datetick = DateTime.Now.Ticks.ToString();
                     if (!Directory.Exists(bc.iniC.pathLabOutBackupManual))
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackupManual);
+                        Thread.Sleep(1000);
                     }
-                    Thread.Sleep(1000);
                     try
                     {
                         File.Move(filename, bc.iniC.pathLabOutBackupManual + "\\" + filename2 + "_" + datetick + ext);
@@ -1960,14 +2007,13 @@ namespace bangna_hospital.gui
                         MessageBox.Show("ไม่สามารถ move file ได้\n"+"ex "+ex.Message, "");
                     }
                     
-                    
                     listBox1.BeginUpdate();     //listBox2
                     listBox1.Items.Add(filename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
                     listBox1.EndUpdate();     //listBox2
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
                     lbMessage.Text = "Upload เรียบร้อย";
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                 }
                 else
                 {

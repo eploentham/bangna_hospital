@@ -15,7 +15,8 @@ namespace bangna_hospital.object1
         public String hostDBIm = "", userDBIm = "", passDBIm = "", nameDBIm = "", portDBIm = "";
         public String hostFTP = "", userFTP = "", passFTP = "", portFTP = "", folderFTP = "", usePassiveFTP = "", ProxyProxyType="", ProxyHost="", ProxyPort="";
         public String hostFTPLabOut = "", userFTPLabOut = "", passFTPLabOut = "", portFTPLabOut = "", folderFTPLabOut = "", usePassiveFTPLabOut = "";
-        
+        public String hostFTPLabOutMedica = "", userFTPLabOutMedica = "", passFTPLabOutMedica = "", portFTPLabOutMedica = "", folderFTPLabOutMedica = "", usePassiveFTPLabOutMedica = "";
+
         public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "";
 
         public String sticker_donor_width = "", sticker_donor_height = "", sticker_donor_start_x = "", sticker_donor_start_y = "", sticker_donor_barcode_height = "", sticker_donor_barcode_gap_x = "", sticker_donor_barcode_gap_y = "", sticker_donor_gap="";
