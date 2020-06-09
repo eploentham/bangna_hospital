@@ -968,6 +968,20 @@ namespace bangna_hospital.gui
             pnQue.ResumeLayout(false);
 
             this.ResumeLayout(false);
+
+            panel1.PerformLayout();
+            pnListen.PerformLayout();
+            pnMaster.PerformLayout();
+            pnQue.PerformLayout();
+            tabReq.PerformLayout();
+            tabApm.PerformLayout();
+            tabFinish.PerformLayout();
+            tabListen.PerformLayout();
+            tabmaster.PerformLayout();
+            splitContainer1.PerformLayout();
+            c1SplitterPanel1.PerformLayout();
+            c1SplitterPanel2.PerformLayout();
+            tC1.PerformLayout();
             this.PerformLayout();
         }
         private void setControlComponent()
