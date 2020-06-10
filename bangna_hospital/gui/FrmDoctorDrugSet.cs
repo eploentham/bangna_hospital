@@ -26,7 +26,7 @@ namespace bangna_hospital.gui
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtItmNewId, txtItmNewName, txtItmNewQty, txtItmNewFre, txtItmNewIn1, txtItmNewIn2, txtDrugSetName, txtDrugSetId;
         C1TextBox txtTabAddDrugSetName, txtTabAddDrugSetId, txtTabAddDrugSetRemark;
         Label lbTabAddDrugSetName, lbTabAddDrugSetRemark;
-        C1Button btnReMedItemSen;
+        C1Button btnReMedItemSen, btnTabAddDrugSetSave;
         C1ComboBox cboDoctor;
         Panel pnCopyAddView, pnCopyAddItem, pnCopyAdd, pnCopyCtl, pnView, pnCopy, pnAdd, pnViewLeft, pnViewItem, pnCopyCtlCtl, pnCopyCtlCtlItem, pnAddNew, pnAddNewItemGrf, pnAddNewItem;
         Panel pnscReMedVs, pnsCReMedItem, pnsCReMedItemSend;
@@ -53,6 +53,7 @@ namespace bangna_hospital.gui
             initComponentpnCopyCtlCtl();
             initComponentpnCopyCtlCtlItem();
             initComponentpnAddNewItem();
+            initComponentTabAdd();
             initComponentTabRemed();
             initGrfCopy();
             initGrfCopyItem();
@@ -561,26 +562,58 @@ namespace bangna_hospital.gui
             if (grfReMedItem.Col <= 0) return;
             grfReMedItem[grfReMedItem.Row, colOrdDrugChk] = !Boolean.Parse(grfReMedItem[grfReMedItem.Row, colOrdDrugChk].ToString());
             Boolean chhk = false;
-
         }
 
         private void initComponentTabAdd()
         {
             int gapY = 30, gapX = 20, gapLine = 0, gapColName = 120;
+
+            txtTabAddDrugSetId = new C1TextBox();
+            txtTabAddDrugSetId.Font = fEdit;
+            txtTabAddDrugSetId.Name = "txtTabAddDrugSetId";
+            txtTabAddDrugSetId.Location = new System.Drawing.Point(gapX, gapY);
+            txtTabAddDrugSetId.Size = new Size(240, 20);
+            txtTabAddDrugSetId.Hide();
+
             lbTabAddDrugSetName = new Label();
-            lbTabAddDrugSetName.Text = "QTY";
             lbTabAddDrugSetName.Font = fEdit;
-            lbTabAddDrugSetName.Location = new System.Drawing.Point(gapX, gapLine);
-            lbTabAddDrugSetName.AutoSize = true;
+            lbTabAddDrugSetName.Text = "ชื่อ ชุดรายการ : ";
             lbTabAddDrugSetName.Name = "lbTabAddDrugSetName";
+            lbTabAddDrugSetName.Location = new System.Drawing.Point(gapX, gapY);
+            lbTabAddDrugSetName.AutoSize = true;
+            size = bc.MeasureString(lbTabAddDrugSetName);
             txtTabAddDrugSetName = new C1TextBox();
             txtTabAddDrugSetName.Font = fEdit;
             txtTabAddDrugSetName.Name = "txtTabAddDrugSetName";
-            txtTabAddDrugSetName.Location = new System.Drawing.Point(gapColName, lbItmQty.Location.Y);
-            txtTabAddDrugSetName.Size = new Size(120, 20);
+            txtTabAddDrugSetName.Location = new System.Drawing.Point(lbTabAddDrugSetName.Location.X + size.Width+5, lbTabAddDrugSetName.Location.Y);
+            txtTabAddDrugSetName.Size = new Size(240, 20);
 
+            gapY += gapY;
+            lbTabAddDrugSetRemark = new Label();
+            lbTabAddDrugSetRemark.Font = fEdit;
+            lbTabAddDrugSetRemark.Text = "หมายเหตุ : ";
+            lbTabAddDrugSetRemark.Name = "lbTabAddDrugSetRemark";
+            lbTabAddDrugSetRemark.Location = new System.Drawing.Point(gapX, gapY);
+            lbTabAddDrugSetRemark.AutoSize = true;
+            size = bc.MeasureString(lbTabAddDrugSetRemark);
+            txtTabAddDrugSetRemark = new C1TextBox();
+            txtTabAddDrugSetRemark.Font = fEdit;
+            txtTabAddDrugSetRemark.Name = "txtTabAddDrugSetRemark";
+            txtTabAddDrugSetRemark.Location = new System.Drawing.Point(txtTabAddDrugSetName.Location.X, lbTabAddDrugSetRemark.Location.Y);
+            txtTabAddDrugSetRemark.Size = new Size(240, 20);
+
+            btnTabAddDrugSetSave = new C1Button();
+            btnTabAddDrugSetSave.Text = "save ชุดรายการ";
+            btnTabAddDrugSetSave.Name = "btnTabAddDrugSetSave";
+            btnTabAddDrugSetSave.Location = new Point(txtTabAddDrugSetRemark.Location.X + txtTabAddDrugSetRemark.Width + 40, lbTabAddDrugSetRemark.Location.Y);
+            btnTabAddDrugSetSave.Size = new Size(140, 40);
+
+            pnAddNew.Controls.Add(txtTabAddDrugSetId);
             pnAddNew.Controls.Add(lbTabAddDrugSetName);
             pnAddNew.Controls.Add(txtTabAddDrugSetName);
+            pnAddNew.Controls.Add(lbTabAddDrugSetRemark);
+            pnAddNew.Controls.Add(txtTabAddDrugSetRemark);
+            pnAddNew.Controls.Add(btnTabAddDrugSetSave);
         }
         private void GrfVs_DoubleClick(object sender, EventArgs e)
         {
@@ -1187,8 +1220,16 @@ namespace bangna_hospital.gui
             setGrfOrdLab();
             setGrfOrdXray();
             setGrfOrdSup();
+            btnTabAddDrugSetSave.Click += BtnTabAddDrugSetSave_Click;
             this.Load += FrmDoctorDrugSet_Load;
         }
+
+        private void BtnTabAddDrugSetSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void initGrfAddItem()
         {
             grfAddNewItem = new C1FlexGrid();
@@ -1265,7 +1306,7 @@ namespace bangna_hospital.gui
         private void GrfDrug_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            if (grfDrug == null) return;
         }
         private void initGrfSup()
         {

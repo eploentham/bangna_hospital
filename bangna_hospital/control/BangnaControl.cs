@@ -177,6 +177,7 @@ namespace bangna_hospital.control
             iniC.tabLabOutImageWidth = iniF.getIni("app", "tabLabOutImageWidth");
             iniC.statusShowLabOutFrmLabOutReceiveView = iniF.getIni("app", "statusShowLabOutFrmLabOutReceiveView");
             iniC.pathLabOutReceiveMedica = iniF.getIni("app", "pathLabOutReceiveMedica");
+            iniC.pathLabOutBackupMedica = iniF.getIni("app", "pathLabOutBackupMedica");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -208,6 +209,7 @@ namespace bangna_hospital.control
             iniC.tabLabOutImageWidth = iniC.tabLabOutImageWidth == null ? "595" : iniC.tabLabOutImageWidth.Equals("") ? "595" : iniC.tabLabOutImageWidth;
             iniC.statusShowLabOutFrmLabOutReceiveView = iniC.statusShowLabOutFrmLabOutReceiveView == null ? "windows10" : iniC.statusShowLabOutFrmLabOutReceiveView.Equals("") ? "windows10" : iniC.statusShowLabOutFrmLabOutReceiveView;
             iniC.pathLabOutReceiveMedica = iniC.pathLabOutReceiveMedica == null ? "c:\\medica\\result" : iniC.pathLabOutReceiveMedica.Equals("") ? "c:\\medica\\result" : iniC.pathLabOutReceiveMedica;
+            iniC.pathLabOutBackupMedica = iniC.pathLabOutBackupMedica == null ? "c:\\medica\\backup" : iniC.pathLabOutBackupMedica.Equals("") ? "c:\\medica\\backup" : iniC.pathLabOutReceiveMedica;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
