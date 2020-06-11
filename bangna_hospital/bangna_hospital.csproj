@@ -331,6 +331,7 @@
     <Compile Include="objdb\DocGroupSubScanDB.cs" />
     <Compile Include="objdb\DocScanDB.cs" />
     <Compile Include="objdb\DrugDB.cs" />
+    <Compile Include="objdb\DrugSetDB.cs" />
     <Compile Include="objdb\LabDB.cs" />
     <Compile Include="objdb\LabExDB.cs" />
     <Compile Include="objdb\LabOutDB.cs" />
@@ -349,6 +350,7 @@
     <Compile Include="object1\DocGroupScan.cs" />
     <Compile Include="object1\DocGroupSubScan.cs" />
     <Compile Include="object1\DocScan.cs" />
+    <Compile Include="object1\DrugSet.cs" />
     <Compile Include="object1\FilterRow.cs" />
     <Compile Include="object1\FtpClient.cs" />
     <Compile Include="object1\GDI32.cs" />

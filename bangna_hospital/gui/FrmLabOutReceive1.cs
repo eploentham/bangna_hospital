@@ -1347,6 +1347,7 @@ namespace bangna_hospital.gui
         {
             Boolean chk = false;
             String currDate = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd");
+            //currDate = "2020-06-10";
             String page = "http://119.59.102.111/app/getlist.php?date="+ currDate + "&hosp_code=CT-MD0166";
             WebClient webClient = new WebClient();
             var http = (HttpWebRequest)WebRequest.Create(new Uri(page));
@@ -1468,8 +1469,6 @@ namespace bangna_hospital.gui
                 {
                     new LogWriter("e", "BtnBrow_Click " + ex.Message);
                 }
-
-                
                 
                 //}
                 streamresult.Close();
@@ -2915,7 +2914,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-05-12 แก้ 0004 RIA  bc.timerCheckLabOut " + bc.timerCheckLabOut;
+            this.Text = "Last Update 2020-05-12 แก้ online Medica  bc.timerCheckLabOut " + bc.timerCheckLabOut;
         }
     }
 }

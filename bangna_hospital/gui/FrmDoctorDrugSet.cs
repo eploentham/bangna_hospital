@@ -20,7 +20,7 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
         C1FlexGrid grfView, grfItem, grfDrug, grfSup, grfLab, grfXray, grfCopy, grfCopyItem, grfAddNewItem, grfReMedVs, grfReMedItem;
-        C1DockingTab tC1, tcAddNewItemGrf;
+        C1DockingTab tC1, tcAddNewGrf;
         C1DockingTabPage tabView, tabCopy, tabAdd, tabReMed, tabDrug, tabSup, tabLab, tabXray;
         Label lbDoctor, lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2, lbItmNewId, lbItmNewName, lbItmNewQty, lbItmNewFre, lbItmNewIn1, lbItmNewIn2, lbDrugSetName;
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtItmNewId, txtItmNewName, txtItmNewQty, txtItmNewFre, txtItmNewIn1, txtItmNewIn2, txtDrugSetName, txtDrugSetId;
@@ -28,10 +28,10 @@ namespace bangna_hospital.gui
         Label lbTabAddDrugSetName, lbTabAddDrugSetRemark;
         C1Button btnReMedItemSen, btnTabAddDrugSetSave;
         C1ComboBox cboDoctor;
-        Panel pnCopyAddView, pnCopyAddItem, pnCopyAdd, pnCopyCtl, pnView, pnCopy, pnAdd, pnViewLeft, pnViewItem, pnCopyCtlCtl, pnCopyCtlCtlItem, pnAddNew, pnAddNewItemGrf, pnAddNewItem;
+        Panel pnCopyAddView, pnCopyAddItem, pnCopyAdd, pnCopyCtl, pnView, pnCopy, pnAdd, pnViewLeft, pnViewItem, pnCopyCtlCtl, pnCopyCtlCtlItem, pnAddNew, pnAddNewItemGrf, pnAddNewItem, pnAddNewGrf;
         Panel pnscReMedVs, pnsCReMedItem, pnsCReMedItemSend;
         C1ThemeController theme1;
-        C1SplitterPanel scView, scViewItem, scCopy, scCopyCtl, scCopyAddView, scCopyAddItem, scCopyCtlCtl, scCopyCtlCtlItem, scAddNew, scAddNewItemGrf, scAddNewItem, scAddNewItmGrf, scAddNewItm;
+        C1SplitterPanel scView, scViewItem, scCopy, scCopyCtl, scCopyAddView, scCopyAddItem, scCopyCtlCtl, scCopyCtlCtlItem, scAddNew, scAddNewGrf, scAddNewItem, scAddNewItmGrf, scAddNewItm;
         C1SplitterPanel scReMedVs, sCReMedItem;
         C1SplitContainer sCView, sCCopy, sCCopyAdd, sCCopyCtlCtl, sCAddNew, sCAddNewItm, sCReMed;
 
@@ -40,6 +40,8 @@ namespace bangna_hospital.gui
         int colOrdLabId = 1, colOrdLabName = 2, colOrdlabUnit = 3, colLabtypcd = 4, colLabgrpcd = 5, colLabgrpdsc = 6;
         int colOrdXrayId = 1, colOrdXrayName = 2, colOrdXrayUnit = 3, colXraytypcd = 4, colXraygrpcd = 5, colXraygrpdsc = 6;
         int colOrderId = 1, colOrderDate = 2, colOrderName = 3, colOrderMed = 4, colOrderQty = 5;
+
+        int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty = 4, colOrdAddDrugFr1 = 5, colOrdAddDrugIn1 = 6, colOrdDrugIn1 = 7, colOrdAddItemType = 10;
 
         Font fEdit, fEditB, fEditBig;
         Size size = new Size();
@@ -71,7 +73,7 @@ namespace bangna_hospital.gui
             theme1.Theme = bc.iniC.themeApplication;
 
             tC1 = new C1DockingTab();
-            tcAddNewItemGrf = new C1DockingTab();
+            tcAddNewGrf = new C1DockingTab();
             tabView = new C1DockingTabPage();
             tabCopy = new C1DockingTabPage();
             tabAdd = new C1DockingTabPage();
@@ -94,6 +96,7 @@ namespace bangna_hospital.gui
             pnAddNew = new Panel();
             pnAddNewItemGrf = new Panel();
             pnAddNewItem = new Panel();
+            pnAddNewGrf = new Panel();
             scView = new C1SplitterPanel();
             scViewItem = new C1SplitterPanel();
             sCView = new C1SplitContainer();
@@ -107,7 +110,7 @@ namespace bangna_hospital.gui
             scCopyCtlCtl = new C1SplitterPanel();
             sCCopyCtlCtl = new C1SplitContainer();
             scAddNew = new C1SplitterPanel();
-            scAddNewItemGrf = new C1SplitterPanel();
+            scAddNewGrf = new C1SplitterPanel();
             scAddNewItem = new C1SplitterPanel();
             sCAddNew = new C1SplitContainer();
             scAddNewItmGrf = new C1SplitterPanel();
@@ -115,7 +118,7 @@ namespace bangna_hospital.gui
             sCAddNewItm = new C1SplitContainer();
 
             tC1.SuspendLayout();
-            tcAddNewItemGrf.SuspendLayout();
+            tcAddNewGrf.SuspendLayout();
             tabDrug.SuspendLayout();
             tabSup.SuspendLayout();
             tabLab.SuspendLayout();
@@ -136,6 +139,7 @@ namespace bangna_hospital.gui
             pnAddNew.SuspendLayout();
             pnAddNewItemGrf.SuspendLayout();
             pnAddNewItem.SuspendLayout();
+            pnAddNewGrf.SuspendLayout();
             sCView.SuspendLayout();
             scView.SuspendLayout();
             scViewItem.SuspendLayout();
@@ -150,7 +154,7 @@ namespace bangna_hospital.gui
             scCopyCtlCtlItem.SuspendLayout();
             sCAddNew.SuspendLayout();
             scAddNew.SuspendLayout();
-            scAddNewItemGrf.SuspendLayout();
+            scAddNewGrf.SuspendLayout();
             scAddNewItem.SuspendLayout();
             sCAddNewItm.SuspendLayout();
             scAddNewItm.SuspendLayout();
@@ -170,6 +174,7 @@ namespace bangna_hospital.gui
             pnAddNew.Dock = DockStyle.Fill;
             pnAddNewItemGrf.Dock = DockStyle.Fill;
             pnAddNewItem.Dock = DockStyle.Fill;
+            pnAddNewGrf.Dock = DockStyle.Fill;
             pnCopyAddView.BackColor = Color.Red;
             pnCopyAddItem.BackColor = Color.Green;
             pnCopyCtlCtl.BackColor = Color.Fuchsia;
@@ -177,6 +182,7 @@ namespace bangna_hospital.gui
             pnAddNew.BackColor = Color.Red;
             pnAddNewItemGrf.BackColor = Color.Green;
             pnAddNewItem.BackColor = Color.Peru;
+            pnAddNewGrf.BackColor = Color.Orange;
 
             tC1.Dock = DockStyle.Fill;
             tC1.HotTrack = true;
@@ -307,21 +313,21 @@ namespace bangna_hospital.gui
             scAddNew.Location = new Point(0, 21);
             scAddNew.Name = "scAddNew";
             scAddNew.Controls.Add(pnAddNew);
-            scAddNewItemGrf.Collapsible = true;
-            scAddNewItemGrf.Dock = PanelDockStyle.Top;
-            scAddNewItemGrf.Location = new Point(0, 21);
-            scAddNewItemGrf.Name = "scAddNewItemGrf";
-            scAddNewItemGrf.Controls.Add(pnAddNewItemGrf);
+            scAddNewGrf.Collapsible = true;
+            scAddNewGrf.Dock = PanelDockStyle.Top;
+            scAddNewGrf.Location = new Point(0, 21);
+            scAddNewGrf.Name = "scAddNewGrf";
+            scAddNewGrf.Controls.Add(pnAddNewGrf);
             scAddNewItem.Collapsible = true;
             scAddNewItem.Dock = PanelDockStyle.Bottom;
             scAddNewItem.Location = new Point(0, 21);
             scAddNewItem.Name = "scAddNewItem";
-            //scAddNewItem.Controls.Add(pnAddNewItem);
+            scAddNewItem.Controls.Add(pnAddNewItem);
             sCAddNew.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
             sCAddNew.Name = "sCAddNew";
             sCAddNew.Dock = DockStyle.Fill;
             sCAddNew.Panels.Add(scAddNew);
-            sCAddNew.Panels.Add(scAddNewItemGrf);
+            sCAddNew.Panels.Add(scAddNewGrf);
             sCAddNew.Panels.Add(scAddNewItem);
             sCAddNew.HeaderHeight = 20;
 
@@ -334,7 +340,7 @@ namespace bangna_hospital.gui
             scAddNewItmGrf.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             scAddNewItmGrf.Location = new System.Drawing.Point(0, 21);
             scAddNewItmGrf.Name = "scAddNewItmGrf";
-            scAddNewItmGrf.Controls.Add(pnViewItem);
+            scAddNewItmGrf.Controls.Add(pnAddNewItemGrf);
             sCAddNewItm.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
             sCAddNewItm.Name = "sCAddNewItm";
             sCAddNewItm.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -343,18 +349,18 @@ namespace bangna_hospital.gui
             sCAddNewItm.HeaderHeight = 20;
             scAddNewItem.Controls.Add(sCAddNewItm);
 
-            tcAddNewItemGrf.Dock = DockStyle.Fill;
-            tcAddNewItemGrf.HotTrack = true;
-            tcAddNewItemGrf.BorderStyle = BorderStyle.FixedSingle;
-            tcAddNewItemGrf.TabSizeMode = TabSizeModeEnum.Fit;
-            tcAddNewItemGrf.TabsShowFocusCues = true;
-            tcAddNewItemGrf.Alignment = TabAlignment.Left;
-            tcAddNewItemGrf.SelectedTabBold = true;
-            tcAddNewItemGrf.Name = "tcAddNewItemGrf";
-            tcAddNewItemGrf.Font = fEdit;
-            tcAddNewItemGrf.CanCloseTabs = true;
-            tcAddNewItemGrf.CanAutoHide = false;
-            tcAddNewItemGrf.SelectedTabBold = true;
+            tcAddNewGrf.Dock = DockStyle.Fill;
+            tcAddNewGrf.HotTrack = true;
+            tcAddNewGrf.BorderStyle = BorderStyle.FixedSingle;
+            tcAddNewGrf.TabSizeMode = TabSizeModeEnum.Fit;
+            tcAddNewGrf.TabsShowFocusCues = true;
+            tcAddNewGrf.Alignment = TabAlignment.Left;
+            tcAddNewGrf.SelectedTabBold = true;
+            tcAddNewGrf.Name = "tcAddNewItemGrf";
+            tcAddNewGrf.Font = fEdit;
+            tcAddNewGrf.CanCloseTabs = true;
+            tcAddNewGrf.CanAutoHide = false;
+            tcAddNewGrf.SelectedTabBold = true;
             tabDrug.Name = "tabDrug";
             tabDrug.TabIndex = 0;
             tabDrug.Text = "Drug List";
@@ -371,11 +377,13 @@ namespace bangna_hospital.gui
             tabXray.TabIndex = 0;
             tabXray.Text = "X-Ray List";
             tabXray.Font = fEditB;
-            tcAddNewItemGrf.Controls.Add(tabDrug);
-            tcAddNewItemGrf.Controls.Add(tabSup);
-            tcAddNewItemGrf.Controls.Add(tabLab);
-            tcAddNewItemGrf.Controls.Add(tabXray);
-            pnAddNewItemGrf.Controls.Add(tcAddNewItemGrf);
+            tcAddNewGrf.Controls.Add(tabDrug);
+            tcAddNewGrf.Controls.Add(tabSup);
+            tcAddNewGrf.Controls.Add(tabLab);
+            tcAddNewGrf.Controls.Add(tabXray);
+            pnAddNewGrf.Controls.Add(tcAddNewGrf);
+            tcAddNewGrf.Dock = DockStyle.Fill;
+            tcAddNewGrf.BackColor = Color.Indigo;
 
             this.Controls.Add(tC1);
 
@@ -387,8 +395,9 @@ namespace bangna_hospital.gui
             pnAddNew.ResumeLayout(false);
             pnAddNewItemGrf.ResumeLayout(false);
             pnAddNewItem.ResumeLayout(false);
+            pnAddNewGrf.ResumeLayout(false);
 
-            tcAddNewItemGrf.ResumeLayout(false);
+            tcAddNewGrf.ResumeLayout(false);
             tabDrug.ResumeLayout(false);
             tabSup.ResumeLayout(false);
             tabLab.ResumeLayout(false);
@@ -405,7 +414,7 @@ namespace bangna_hospital.gui
             scCopy.ResumeLayout(false);
             sCCopy.ResumeLayout(false);
             scAddNewItem.ResumeLayout(false);
-            scAddNewItemGrf.ResumeLayout(false);
+            scAddNewGrf.ResumeLayout(false);
             scAddNew.ResumeLayout(false);
             sCAddNew.ResumeLayout(false);
             sCAddNewItm.ResumeLayout(false);
@@ -441,7 +450,7 @@ namespace bangna_hospital.gui
             scCopyCtlCtl.PerformLayout();
             scCopyCtlCtlItem.PerformLayout();
             scAddNewItem.PerformLayout();
-            scAddNewItemGrf.PerformLayout();
+            scAddNewGrf.PerformLayout();
             scAddNew.PerformLayout();
             sCAddNew.PerformLayout();
             sCAddNewItm.PerformLayout();
@@ -461,7 +470,8 @@ namespace bangna_hospital.gui
             pnAddNew.PerformLayout();
             pnAddNewItemGrf.PerformLayout();
             pnAddNewItem.PerformLayout();
-            tcAddNewItemGrf.PerformLayout();
+            pnAddNewGrf.PerformLayout();
+            tcAddNewGrf.PerformLayout();
             tabDrug.PerformLayout();
             tabSup.PerformLayout();
             tabLab.PerformLayout();
@@ -761,7 +771,7 @@ namespace bangna_hospital.gui
                 rowa[colVsDept] = row1["MNC_SHIF_MEMO"].ToString();
                 rowa[colVsAn] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
                 rowa[colVsAndate] = bc.datetoShow1(row1["mnc_ad_date"].ToString());
-            }            
+            }
             //theme1.SetTheme(grfVs, "ExpressionDark");
         }
         private void setGrfDrug()
@@ -817,6 +827,7 @@ namespace bangna_hospital.gui
             grfDrug.Cols[colOrdDrugtypcd].AllowEditing = false;
             grfDrug.Cols[colOrdDrugUnit].AllowEditing = false;
             grfDrug.Cols[colOrdDrugDate].Visible = false;
+            grfDrug.Cols[colOrdDrugChk].Visible = false;
             FilterRow fr = new FilterRow(grfDrug);
             grfDrug.AllowFiltering = true;
             grfDrug.AfterFilter += GrfDrug_AfterFilter;
@@ -1222,6 +1233,8 @@ namespace bangna_hospital.gui
             setGrfOrdSup();
             btnTabAddDrugSetSave.Click += BtnTabAddDrugSetSave_Click;
             this.Load += FrmDoctorDrugSet_Load;
+
+            theme1.SetTheme(grfView, "Office2010Red");
         }
 
         private void BtnTabAddDrugSetSave_Click(object sender, EventArgs e)
@@ -1238,7 +1251,7 @@ namespace bangna_hospital.gui
             grfAddNewItem.Location = new Point(0, 0);
             grfAddNewItem.Rows.Count = 1;
             grfAddNewItem.DoubleClick += GrfAddNewItem_DoubleClick;
-            scAddNewItmGrf.Controls.Add(grfAddNewItem);
+            pnAddNewItemGrf.Controls.Add(grfAddNewItem);
 
             theme1.SetTheme(grfAddNewItem, "Office2010Red");
 
@@ -1307,6 +1320,55 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             if (grfDrug == null) return;
+            if (grfDrug.Row <= 1) return;
+            if (grfDrug.Col <= 0) return;
+
+            setOrdDrugItem();
+        }
+        private void setOrdDrugItem()
+        {
+            if (grfDrug == null) return;
+            if (grfDrug.Row <= 1) return;
+            if (grfDrug.Col <= 0) return;
+            String code = "";
+            grfAddNewItem.Cols.Count = 11;
+
+            DataTable dt = new DataTable();
+            code = grfDrug[grfDrug.Row, colOrdDrugId].ToString();
+            dt = bc.bcDB.drugDB.selectDrugByCode(code);
+            grfAddNewItem.Cols[colOrdAddId].Caption = "หน่วย";
+            grfAddNewItem.Cols[colOrdAddNameT].Caption = "หน่วย";
+            grfAddNewItem.Cols[colOrdAddItemType].Caption = "หน่วย";
+            grfAddNewItem.Cols[colOrdAddUnit].Caption = "หน่วย";
+            grfAddNewItem.Cols[colOrdAddDrugFr1].Caption = "หน่วย";
+            grfAddNewItem.Cols[colOrdAddDrugIn1].Caption = "หน่วย";
+
+            grfAddNewItem.Cols[colOrdAddId].Width = 100;
+            grfAddNewItem.Cols[colOrdAddNameT].Width = 100;
+            grfAddNewItem.Cols[colOrdAddItemType].Width = 100;
+            grfAddNewItem.Cols[colOrdAddUnit].Width = 100;
+            grfAddNewItem.Cols[colOrdAddDrugFr1].Width = 100;
+            grfAddNewItem.Cols[colOrdAddDrugIn1].Width = 100;
+            grfAddNewItem.Cols[colOrdAddDrugIn].Visible = false;
+
+            Row rowdrug = grfAddNewItem.Rows.Add();
+            rowdrug[colOrdAddId] = dt.Rows[0]["MNC_ph_cd"].ToString();
+            rowdrug[colOrdAddNameT] = dt.Rows[0]["MNC_ph_tn"].ToString();
+            rowdrug[colOrdAddItemType] = dt.Rows[0]["mnc_ph_typ_cd"].ToString();
+            rowdrug[colOrdAddUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
+            rowdrug[colOrdAddDrugFr1] = dt.Rows[0]["MNC_ph_dir_dsc"].ToString();
+            rowdrug[colOrdAddDrugIn1] = dt.Rows[0]["MNC_ph_cau_dsc"].ToString();
+            //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
+            //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
+            txtItmNewId.Value = dt.Rows[0]["MNC_ph_cd"].ToString();
+            txtItmNewName.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
+            txtItmNewFre.Value = dt.Rows[0]["MNC_ph_dir_dsc"].ToString();
+            txtItmNewIn1.Value = dt.Rows[0]["MNC_ph_cau_dsc"].ToString();
+            txtItmNewQty.Value = "1";
+            //txtItmIn2.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
+            txtItmNewFre.Show();
+            txtItmNewIn1.Show();
+            txtItmNewQty.Show();
         }
         private void initGrfSup()
         {
