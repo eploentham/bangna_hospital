@@ -1363,6 +1363,7 @@ namespace bangna_hospital.gui
             var list = JsonConvert.DeserializeObject<List<LabOutMedicaResult>>(content);
             foreach (LabOutMedicaResult lab in list)
             {
+                chk = false;
                 String datetick = "", path="", reqid = "";
                 path = bc.iniC.folderFTPLabOutMedica + "//";
                 //path = bc.iniC.hostFTPLabOutMedica + "medicalab/www/app/pdf/";
@@ -1386,6 +1387,13 @@ namespace bangna_hospital.gui
                     Directory.CreateDirectory(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
                 }
                 const Int32 BufferSize = 128;
+                if(!File.Exists(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate + "\\list.txt"))
+                {
+                    using (StreamWriter w = File.AppendText(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate + "\\list.txt"))
+                    {
+                        w.WriteLine("");
+                    }
+                }
                 using (var fileStream = File.OpenRead(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate + "\\list.txt"))
                 using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, BufferSize))
                 {
@@ -1400,11 +1408,7 @@ namespace bangna_hospital.gui
                     }
                     // Process line
                 }
-                if (chkFileExit) continue;
-                using (StreamWriter w = File.AppendText(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate+"\\list.txt"))
-                {
-                    w.WriteLine(lab.labno);
-                }
+                
                 //if (!File.Exists(bc.iniC.pathLabOutReceiveMedica + "\\" + lab.labno + ".pdf"))
                 //{
                 MemoryStream aaa = new MemoryStream();
@@ -1436,6 +1440,22 @@ namespace bangna_hospital.gui
                             {
                                 reqid = reqid1.ToString();
                                 chk = true;
+                            }
+                            if (!chk)
+                            {
+                                txt = lines[5];
+                                txt1 = txt.Split(' ');
+                                txt2 = "";
+                                if (txt1.Length >= 1)
+                                {
+                                    txt2 = txt1[txt1.Length - 1];
+                                }
+                                reqid1 = 0;
+                                if (long.TryParse(txt2.Trim(), out reqid1))
+                                {
+                                    reqid = reqid1.ToString();
+                                    chk = true;
+                                }
                             }
                         }
                     }
@@ -1469,8 +1489,13 @@ namespace bangna_hospital.gui
                 {
                     new LogWriter("e", "BtnBrow_Click " + ex.Message);
                 }
-                
+
                 //}
+                if (chkFileExit) continue;
+                using (StreamWriter w = File.AppendText(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate + "\\list.txt"))
+                {
+                    w.WriteLine(lab.labno);
+                }
                 streamresult.Close();
                 Application.DoEvents();
                 Thread.Sleep(200);
@@ -1502,10 +1527,10 @@ namespace bangna_hospital.gui
         }
         private void uploadFiletoServerInnoTech()
         {
-            timer.Stop();
+            //timer.Stop();
             listBox2.Items.Clear();     //listBox3
             Application.DoEvents();
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             //new LogWriter("e", "uploadFiletoServerInnoTech 00");
             FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
             //String[] filePaths = Directory.GetFiles(bc.iniC.pathLabOutReceive, "*.*", SearchOption.TopDirectoryOnly);
@@ -1538,18 +1563,21 @@ namespace bangna_hospital.gui
                 //tmp = bc.iniC.pathLabOutReceiveInnoTech.Replace("\\\\", "\\");
                 filename1 = Path.GetFileName(filename);
                 //new LogWriter("d", "uploadFiletoServerInnoTech file " + filename+" 999");
-                pathname = filename.Replace(filename1, "").Replace(bc.iniC.pathLabOutReceiveInnoTech, "").Replace("\\", "");
-                pathname = pathname.Replace("\\", "");
-                String[] txt = filename1.Split('_');
-                if (txt.Length > 1)
-                {
-                    filename2 = txt[0];
-                }
-                else
-                {
-                    filename2 = filename1.Replace(".pdf", "");
-                }
+                //pathname = filename.Replace(filename1, "").Replace(bc.iniC.pathLabOutReceiveInnoTech, "").Replace("\\", "");                
+                //pathname = pathname.Replace("\\", "");
+                pathname = Path.GetDirectoryName(filename);
+                pathname = pathname.Replace(bc.iniC.pathLabOutReceiveInnoTech,"").Replace("\\", "");
+                //String[] txt = filename1.Split('_');
+                //if (txt.Length > 1)
+                //{
+                //    filename2 = txt[0];
+                //}
+                //else
+                //{
+                //    filename2 = filename1.Replace(".pdf", "");
+                //}
                 ext = Path.GetExtension(filename1);
+                filename2 = Path.GetFileNameWithoutExtension(filename);
                 //new LogWriter("d", "uploadFiletoServerInnoTech file " + filename+" 000");
                 if (filename2.Replace(".pdf", "").Length < 10)
                 {
@@ -1615,9 +1643,21 @@ namespace bangna_hospital.gui
                 //new LogWriter("d", "uploadFiletoServerInnoTech 01 000");
                 DateTime dtt1 = new DateTime();
                 int.TryParse(year1, out year2);
-                yy = filename2.Substring(filename2.Length - 5, 2);
-                mm = filename2.Substring(filename2.Length - 7, 2);
-                dd = filename2.Substring(filename2.Length - 9, 2);
+                if (filename2.IndexOf("(")>0)
+                {
+                    String aaa = "";
+                    aaa = filename2.Substring(0, filename2.IndexOf("("));
+                    yy = aaa.Substring(aaa.Length - 5, 2);
+                    mm = aaa.Substring(aaa.Length - 7, 2);
+                    dd = aaa.Substring(aaa.Length - 9, 2);
+                }
+                else
+                {
+                    yy = filename2.Substring(filename2.Length - 5, 2);
+                    mm = filename2.Substring(filename2.Length - 7, 2);
+                    dd = filename2.Substring(filename2.Length - 9, 2);
+                }
+                
                 year1 = "20" + yy;
                 if (!DateTime.TryParse(year1 + "-" + mm + "-" + dd, out dtt1))
                 {
@@ -1649,7 +1689,17 @@ namespace bangna_hospital.gui
                     Thread.Sleep(1000);
                     continue;
                 }
-                reqid = filename2.Substring(filename2.Length - 3);
+                if (filename2.IndexOf("(") > 0)
+                {
+                    String aaa = "";
+                    aaa = filename2.Substring(0, filename2.IndexOf("("));
+                    reqid = aaa.Substring(aaa.Length - 3);
+                }
+                else
+                {
+                    reqid = filename2.Substring(filename2.Length - 3);
+                }
+                    
                 //new LogWriter("e", "uploadFiletoServerInnoTech 01 001");
                 DataTable dt = new DataTable();
                 dt = bc.bcDB.vsDB.SelectHnLabOut(reqid, year1 + "-" + mm + "-" + dd);
@@ -1855,7 +1905,7 @@ namespace bangna_hospital.gui
                     new LogWriter("e", "FTP upload no success");
                 }
             }
-            timer.Start();
+            //timer.Start();
         }
         private void uploadFiletoServerMedica()
         {
