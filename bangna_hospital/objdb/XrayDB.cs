@@ -139,7 +139,7 @@ namespace bangna_hospital.objdb
         {
             String sql = "", re="";
             sql = "Update xray_t01 Set status_pacs = '1' Where mnc_req_no = '" + reqno+"' and mnc_req_yr = '"+reqyr+"' ";
-            re = conn.ExecuteNonQuery(sql);
+            re = conn.ExecuteNonQuery(conn.connMainHIS,sql);
             return re;
         }
         public String updateModality(String xrcode, String modalitycode)

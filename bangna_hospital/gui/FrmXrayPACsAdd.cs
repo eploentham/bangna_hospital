@@ -73,6 +73,7 @@ namespace bangna_hospital.gui
         private void initConfig()
         {
             pageLoad = true;
+            //MessageBox.Show("0000000", "");
             initCompoment();
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 3, FontStyle.Bold);
@@ -83,7 +84,7 @@ namespace bangna_hospital.gui
             timer1.Interval = bc.timerCheckLabOut * 1000;
             timer1.Tick += Timer1_Tick;
             timer1.Stop();
-
+            //MessageBox.Show("11111", "");
             txtIp.Value = bc.iniC.pacsServerIP;
             txtPort.Value = bc.iniC.pacsServerPort;
 
@@ -98,6 +99,17 @@ namespace bangna_hospital.gui
             setGrfReq();
             initGrfMaster();
             setGrfMaster();
+            //MessageBox.Show("22222", "");
+            if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
+            {
+                timer1.Start();
+                tabListen.Hide();
+                //tC1.TabPages[3].Hide();
+            }
+            else
+            {
+                timer1.Stop();
+            }
             pageLoad = false;
         }
 
@@ -326,29 +338,26 @@ namespace bangna_hospital.gui
             depname = grfReq[grfReq.Row, colxrdepname] != null ? grfReq[grfReq.Row, colxrdepname].ToString() : "";
             opdtype = grfReq[grfReq.Row, colpttstatus] != null ? grfReq[grfReq.Row, colpttstatus].ToString() : "";
             opdtype = opdtype.Trim().Equals("I") ? "I" : "O";
-            //ResOrderTab reso = new ResOrderTab();
+            ResOrderTab reso = new ResOrderTab();
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
-            //reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
+            reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
             //MessageBox.Show("InsertDate " + reso.InsertDate , "");
 
-
-
-
             //ใช้งานจริงๆ เอา comment ออก
-            //String re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
+            String re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
             ////MessageBox.Show("re " + re, "");
-            //long chk = 0, chk1 = 0;
-            //if (long.TryParse(re, out chk))
-            //{
-            //    //MessageBox.Show("chk " + chk, "");
-            //    String re1 = "";
-            //    re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear);
-            //    //MessageBox.Show("re1 " + re1, "");
-            //    if (long.TryParse(re1, out chk1))
-            //    {
-            //        setGrfReq();
-            //    }
-            //}
+            long chk = 0, chk1 = 0;
+            if (long.TryParse(re, out chk))
+            {
+                //MessageBox.Show("chk " + chk, "");
+                String re1 = "";
+                re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear);
+                //MessageBox.Show("re1 " + re1, "");
+                if (long.TryParse(re1, out chk1))
+                {
+                    setGrfReq();
+                }
+            }
             //if (tcpClient == null || !tcpClient.Connected)
             //{
             //    ConnectToServer();
@@ -362,7 +371,7 @@ namespace bangna_hospital.gui
             //}
             //if (tcpClient.Connected)
             //{
-                String txtADT = "", txtORM = "", resp = "";
+            String txtADT = "", txtORM = "", resp = "";
                 try
                 {
                     //send message to server
@@ -909,7 +918,7 @@ namespace bangna_hospital.gui
             scpMasterButton.Size = new System.Drawing.Size(298, 64);
             scpMasterButton.TabIndex = 1;
             scpMasterButton.Text = "Panel 2";
-
+            //MessageBox.Show("aaaaaaa", "");
             setControlComponent();
 
             this.Controls.Add(panel1);
@@ -1015,7 +1024,7 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(lbTxtIp);
             txtIp.Location = new System.Drawing.Point(lbTxtIp.Location.X + size.Width + 5, lbTxtIp.Location.Y);
             txtIp.Size = new Size(120, 20);
-
+            //MessageBox.Show("mmmmmm", "");
             lbTxtPort = new Label();
             lbTxtPort.Text = "PORT PACs : ";
             lbTxtPort.Font = fEditBig;
@@ -1140,9 +1149,14 @@ namespace bangna_hospital.gui
         private void FrmXrayPACsAdd_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Lasst Update 2020-05-19 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort;
+            this.Text = "Lasst Update 2020-06-15 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
+            c1SplitterPanel1.SizeRatio = 80;
+            if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
+            {
+                tabListen.Hide();
+            }
         }
     }
 }
