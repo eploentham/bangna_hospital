@@ -372,39 +372,39 @@ namespace bangna_hospital.gui
             //if (tcpClient.Connected)
             //{
             String txtADT = "", txtORM = "", resp = "";
-                try
+            try
+            {
+                //send message to server
+                //txt = reso.KPatientName + " " + reso.PatientID;
+                String[] aaa = name.Split(' ');
+                if (aaa.Length > 2)
                 {
-                    //send message to server
-                    //txt = reso.KPatientName + " " + reso.PatientID;
-                    String[] aaa = name.Split(' ');
-                    if (aaa.Length > 2)
-                    {
-                        txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
-                        txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                            , hnreqyear, reqno, xrcode, xray, "CR","333","Ekapop","CR", opdtype, depcode, depname, "Clinical Information");
+                    txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
+                    txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                        , hnreqyear, reqno, xrcode, xray, "CR","333","Ekapop","CR", opdtype, depcode, depname, "Clinical Information");
                     //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
                     //Test process
 
                     //StreamWriter clientStreamWriter = new StreamWriter(;
                     TcpClient tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
                     
-                        Console.WriteLine("Connected to Server");
-                        lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                        Application.DoEvents();
+                    Console.WriteLine("Connected to Server");
+                    lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                    Application.DoEvents();
                         //get a network stream from server
-                        NetworkStream clientSockStream = tcpClient.GetStream();
+                    NetworkStream clientSockStream = tcpClient.GetStream();
                     StreamReader clientStreamReader = new StreamReader(clientSockStream);
                     StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
 
-                        //byte[] byteArrayADT = Encoding.UTF8.GetBytes(txtADT);
-                        //MemoryStream streamADT = new MemoryStream(byteArrayADT);
-                        //streamADT.Position = 0;
-                        //using (StreamWriter writetext = new StreamWriter(streamADT, Encoding.UTF8))
-                        //{
-                        //    writetext.WriteLine(txtADT);
-                        //    //writetext.Flush();
-                        //    //writetext.Close();
-                        //}
+                    //byte[] byteArrayADT = Encoding.UTF8.GetBytes(txtADT);
+                    //MemoryStream streamADT = new MemoryStream(byteArrayADT);
+                    //streamADT.Position = 0;
+                    //using (StreamWriter writetext = new StreamWriter(streamADT, Encoding.UTF8))
+                    //{
+                    //    writetext.WriteLine(txtADT);
+                    //    //writetext.Flush();
+                    //    //writetext.Close();
+                    //}
 
                     clientStreamWriter.Write(txtADT);
                     clientStreamWriter.Flush();
@@ -425,11 +425,11 @@ namespace bangna_hospital.gui
 
 
                     TcpClient tcpClientORM = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-                        Console.WriteLine("Connected to Server");
-                        //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                        Application.DoEvents();
-                        //get a network stream from server
-                        NetworkStream clientSockStreamORM = tcpClientORM.GetStream();
+                    Console.WriteLine("Connected to Server");
+                    //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                    Application.DoEvents();
+                    //get a network stream from server
+                    NetworkStream clientSockStreamORM = tcpClientORM.GetStream();
                     StreamReader clientStreamReaderORM = new StreamReader(clientSockStreamORM);
                     StreamWriter clientStreamWriterORM = new StreamWriter(clientSockStreamORM);
 
@@ -447,35 +447,35 @@ namespace bangna_hospital.gui
                     //resp = clientStreamReaderORM.ReadLine();
                     clientStreamWriterORM.Write(txtORM);
                     clientStreamWriterORM.Flush();
-                        Application.DoEvents();
+                    Application.DoEvents();
                     resp = "";
-                        resp = clientStreamReaderORM.ReadToEnd();
+                    resp = clientStreamReaderORM.ReadToEnd();
                     clientStreamWriterORM.Close();
                     clientStreamReaderORM.Close();
-                        clientSockStreamORM.Close();
+                    clientSockStreamORM.Close();
                     tcpClientORM.Close();
-                        Console.WriteLine("SERVER: " + resp);
-                        lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
-                        Application.DoEvents();
-                    }
-                }
-                catch (Exception se)
-                {
-                    Console.WriteLine(se.StackTrace);
-                    lboxClient.Items.Add("Error " + se.StackTrace + "  " + System.DateTime.Now.ToString());
+                    Console.WriteLine("SERVER: " + resp);
+                    lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
                     Application.DoEvents();
                 }
-                finally
-                {
-                    //tcpClient.Close();
-                    //clientStreamWriter.Close();
-                    //clientStreamReader.Close();
-                    Application.DoEvents();
-                    //tcpClient = null;
-                    //clientStreamWriter.Dispose();
-                    //clientStreamReader.Dispose();
+            }
+            catch (Exception se)
+            {
+                Console.WriteLine(se.StackTrace);
+                lboxClient.Items.Add("Error " + se.StackTrace + "  " + System.DateTime.Now.ToString());
+                Application.DoEvents();
+            }
+            finally
+            {
+                //tcpClient.Close();
+                //clientStreamWriter.Close();
+                //clientStreamReader.Close();
+                Application.DoEvents();
+                //tcpClient = null;
+                //clientStreamWriter.Dispose();
+                //clientStreamReader.Dispose();
 
-                }
+            }
             //}
         }
         private bool ConnectToServer()
@@ -1149,7 +1149,7 @@ namespace bangna_hospital.gui
         private void FrmXrayPACsAdd_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Lasst Update 2020-06-15 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline;
+            this.Text = "Lasst Update 2020-06-19 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

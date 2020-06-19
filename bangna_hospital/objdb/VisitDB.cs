@@ -64,7 +64,7 @@ namespace bangna_hospital.objdb
                 "inner join patient_t01 ptt01 on ptt01.mnc_hn_no = lt01.mnc_hn_no and ptt01.mnc_pre_no = lt01.mnc_pre_no and ptt01.mnc_hn_yr = lt01.mnc_hn_yr " +
                 "Where mnc_req_yr = '" + year + "' and mnc_req_dat = '" + datereq + "' and lt01.mnc_hn_no = '" + hn + "'";
             dt = conn.selectData(sql);
-
+            new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
         public Visit selectVisit(String vn)

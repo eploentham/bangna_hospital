@@ -179,6 +179,10 @@ namespace bangna_hospital.control
             iniC.pathLabOutReceiveMedica = iniF.getIni("app", "pathLabOutReceiveMedica");
             iniC.pathLabOutBackupMedica = iniF.getIni("app", "pathLabOutBackupMedica");
             iniC.statusLabOutReceiveOnline = iniF.getIni("app", "statusLabOutReceiveOnline");
+            iniC.laboutMedicahosp_code = iniF.getIni("app", "laboutMedicahosp_code");
+            iniC.statusLabOutAutoPrint = iniF.getIni("app", "statusLabOutAutoPrint");
+            iniC.printerLabOut = iniF.getIni("app", "printerLabOut");
+            
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -212,6 +216,9 @@ namespace bangna_hospital.control
             iniC.pathLabOutReceiveMedica = iniC.pathLabOutReceiveMedica == null ? "c:\\medica\\result" : iniC.pathLabOutReceiveMedica.Equals("") ? "c:\\medica\\result" : iniC.pathLabOutReceiveMedica;
             iniC.pathLabOutBackupMedica = iniC.pathLabOutBackupMedica == null ? "c:\\medica\\backup" : iniC.pathLabOutBackupMedica.Equals("") ? "c:\\medica\\backup" : iniC.pathLabOutBackupMedica;
             iniC.statusLabOutReceiveOnline = iniC.statusLabOutReceiveOnline == null ? "0" : iniC.statusLabOutReceiveOnline.Equals("") ? "0" : iniC.statusLabOutReceiveOnline;
+            iniC.statusLabOutAutoPrint = iniC.statusLabOutAutoPrint == null ? "0" : iniC.statusLabOutAutoPrint.Equals("") ? "0" : iniC.statusLabOutAutoPrint;
+            iniC.printerLabOut = iniC.printerLabOut == null ? "" : iniC.printerLabOut.Equals("") ? "" : iniC.printerLabOut;
+            
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);

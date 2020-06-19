@@ -144,7 +144,7 @@ namespace bangna_hospital.objdb
             reso1.AccessNumber = vn + "@" + preno + "@" + hnyear + "@" + reqno;
             reso1.KPatientName = name;
             reso1.EPatientName = name;
-            reso1.DateOfBirth = dob;
+            reso1.DateOfBirth = dob.Replace("-","");
             reso1.PatientSex = sex;
             reso1.PatientClass = "CR";
             reso1.Modality = "CR";

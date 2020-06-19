@@ -14,9 +14,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -55,6 +57,10 @@ namespace bangna_hospital.gui
         private C1.Win.C1Themes.C1ThemeController theme1;
         private System.Windows.Forms.ListBox listBox1, listBox2, listBox3;
         private System.Windows.Forms.SplitContainer splitContainer1;
+
+        Stream streamPrint;
+        [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool SetDefaultPrinter(string Printer);
         public FrmLabOutReceive1(BangnaControl bc)
         {
             this.bc = bc;
@@ -902,6 +908,25 @@ namespace bangna_hospital.gui
                 setOutLab(ofd.FileName);
             }
         }
+        private void printLabOut()
+        {
+            if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+            SetDefaultPrinter(bc.iniC.printerLabOut);
+
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+
+            //mstream.Seek(0, SeekOrigin.Begin);
+            pds.LoadFromStream(streamPrint);
+            pds.Print();
+            //System.Threading.Thread.Sleep(200);
+            ////streamPrint = mstream;
+            //PrintDocument pd = new PrintDocument();
+            //pd.PrintPage += Pd_PrintPage;
+            ////here to select the printer attached to user PC
+            
+            //pd.Print();
+            
+        }        
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -1349,6 +1374,8 @@ namespace bangna_hospital.gui
                     listBox1.Items.Add(zipFilename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
                     listBox1.EndUpdate();     //listBox2
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
+                    streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
+                    printLabOut();
                     Application.DoEvents();
                     Thread.Sleep(1000 * 20);
                 }
@@ -1364,13 +1391,14 @@ namespace bangna_hospital.gui
         }
         private Boolean getFileinFolderMedica()
         {
-            
+            timer.Stop();
             Boolean chk = false;
             String currDate = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd");
             //currDate = "2020-06-11";
-            listBox2.Items.Add("Check Medica date "+currDate);
+            listBox2.Items.Add("Check Medica date "+currDate+ " hosp_code=" + bc.iniC.laboutMedicahosp_code);
             Application.DoEvents();
-            String page = "http://119.59.102.111/app/getlist.php?date="+ currDate + "&hosp_code=CT-MD0166";
+            //String page = "http://119.59.102.111/app/getlist.php?date="+ currDate + "&hosp_code=CT-MD0166";
+            String page = "http://119.59.102.111/app/getlist.php?date=" + currDate + "&hosp_code="+bc.iniC.laboutMedicahosp_code;
             WebClient webClient = new WebClient();
             var http = (HttpWebRequest)WebRequest.Create(new Uri(page));
             http.Accept = "application/json";
@@ -1579,6 +1607,7 @@ namespace bangna_hospital.gui
                 Thread.Sleep(200);
             }
             stream.Close();
+            timer.Start();
             return chk;
             //MemoryStream stream = ftp.download("");
         }
@@ -1725,12 +1754,14 @@ namespace bangna_hospital.gui
                 {
                     String aaa = "";
                     aaa = filename2.Substring(0, filename2.IndexOf("("));
+                    aaa = aaa.Replace("_", "").Replace("-", "");
                     yy = aaa.Substring(aaa.Length - 5, 2);
                     mm = aaa.Substring(aaa.Length - 7, 2);
                     dd = aaa.Substring(aaa.Length - 9, 2);
                 }
                 else
                 {
+                    //filename2 = filename2.Replace("_", "").Replace("-", "");
                     yy = filename2.Substring(filename2.Length - 5, 2);
                     mm = filename2.Substring(filename2.Length - 7, 2);
                     dd = filename2.Substring(filename2.Length - 9, 2);
@@ -1771,13 +1802,15 @@ namespace bangna_hospital.gui
                 {
                     String aaa = "";
                     aaa = filename2.Substring(0, filename2.IndexOf("("));
+                    aaa = aaa.Replace("_", "").Replace("-", "");
                     reqid = aaa.Substring(aaa.Length - 3);
                 }
                 else
                 {
                     reqid = filename2.Substring(filename2.Length - 3);
                 }
-                    
+                listBox2.Items.Add("filename2 " + filename2 + " reqid " + reqid + " " + year1 + "-" + mm + "-" + dd);
+                Application.DoEvents();
                 //new LogWriter("e", "uploadFiletoServerInnoTech 01 001");
                 DataTable dt = new DataTable();
                 dt = bc.bcDB.vsDB.SelectHnLabOut(reqid, year1 + "-" + mm + "-" + dd);
@@ -1974,6 +2007,8 @@ namespace bangna_hospital.gui
                     listBox1.EndUpdate();     //listBox2
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
+                    streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
+                    printLabOut();
                     Thread.Sleep(1000 * 30);
                 }
                 else
@@ -2587,6 +2622,8 @@ namespace bangna_hospital.gui
                     listBox1.EndUpdate();     //listBox2
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
+                    streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
+                    printLabOut();
                     Thread.Sleep(1000 * 30);
                 }
                 else
@@ -3043,7 +3080,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-05-12 แก้ online Medica  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline;
+            this.Text = "Last Update 2020-05-18 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline;
         }
     }
 }
