@@ -1530,7 +1530,8 @@ namespace bangna_hospital.gui
                                 reqid1 = 0;
                                 if (long.TryParse(txt2.Trim(), out reqid1))
                                 {
-                                    reqid = reqid1.ToString();
+                                    //reqid = reqid1.ToString();        //มี bug ถ้ามี ) นำหน้า
+                                    reqid = txt2.Trim();
                                     chk = true;
                                 }
                             }
@@ -3100,7 +3101,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-06-21 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline;
+            this.Text = "Last Update 2020-06-22 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline;
         }
     }
 }
