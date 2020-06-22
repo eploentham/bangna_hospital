@@ -1393,29 +1393,45 @@ namespace bangna_hospital.gui
         {
             timer.Stop();
             Boolean chk = false;
+            List<LabOutMedicaResult> list = null;
+            Stream stream = null;
             String currDate = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd");
-            //currDate = "2020-06-11";
+            //currDate = "2020-06-19";
             listBox2.Items.Add("Check Medica date "+currDate+ " hosp_code=" + bc.iniC.laboutMedicahosp_code);
             Application.DoEvents();
-            //String page = "http://119.59.102.111/app/getlist.php?date="+ currDate + "&hosp_code=CT-MD0166";
-            String page = "http://119.59.102.111/app/getlist.php?date=" + currDate + "&hosp_code="+bc.iniC.laboutMedicahosp_code;
-            WebClient webClient = new WebClient();
-            var http = (HttpWebRequest)WebRequest.Create(new Uri(page));
-            http.Accept = "application/json";
-            http.ContentType = "application/json";
-            http.Method = "POST";
-            var response = http.GetResponse();
-            Application.DoEvents();
-            Thread.Sleep(100);
-            var stream = response.GetResponseStream();
-            Application.DoEvents();
-            Thread.Sleep(100);
-            var sr = new StreamReader(stream);
-            var content = sr.ReadToEnd();
-            dynamic obj = JsonConvert.DeserializeObject(content);
-            Application.DoEvents();
-            Thread.Sleep(100);
-            var list = JsonConvert.DeserializeObject<List<LabOutMedicaResult>>(content);
+            try
+            {
+                //String page = "http://119.59.102.111/app/getlist.php?date="+ currDate + "&hosp_code=CT-MD0166";
+                String page = "http://119.59.102.111/app/getlist.php?date=" + currDate + "&hosp_code=" + bc.iniC.laboutMedicahosp_code;
+                //WebClient webClient = new WebClient();
+                var http = (HttpWebRequest)WebRequest.Create(new Uri(page));
+                http.Accept = "application/json";
+                http.ContentType = "application/json";
+                http.Method = "POST";
+                var response = http.GetResponse();
+                Application.DoEvents();
+                Thread.Sleep(100);
+                stream = response.GetResponseStream();
+                Application.DoEvents();
+                Thread.Sleep(100);
+                var sr = new StreamReader(stream);
+                var content = sr.ReadToEnd();
+                dynamic obj = JsonConvert.DeserializeObject(content);
+                Application.DoEvents();
+                Thread.Sleep(100);
+                //var list = JsonConvert.DeserializeObject<List<LabOutMedicaResult>>(content);
+                list = JsonConvert.DeserializeObject<List<LabOutMedicaResult>>(content);
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("e", "cannot connect to host medica " + ex.Message);
+            }
+            
+            if (list == null)
+            {
+                chk = false;
+                return chk;
+            }
             listBox2.Items.Add("Check Medica lab Count " + list.Count);
             Application.DoEvents();
             foreach (LabOutMedicaResult lab in list)
@@ -2041,7 +2057,8 @@ namespace bangna_hospital.gui
             FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
             //String[] filePaths = Directory.GetFiles(bc.iniC.pathLabOutReceive, "*.*", SearchOption.TopDirectoryOnly);
             List<String> filePaths = new List<String>();
-            
+            listBox2.Items.Add("Check Medica date " );
+            Application.DoEvents();
             filePaths.Add(txtFilename.Text);
             //new LogWriter("d", "uploadFiletoServerMedica 01");
             String dgssid = "";
@@ -2327,7 +2344,10 @@ namespace bangna_hospital.gui
             FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
             //String[] filePaths = Directory.GetFiles(bc.iniC.pathLabOutReceive, "*.*", SearchOption.TopDirectoryOnly);
             List<String> filePaths = new List<String>();
+            //currDate = "2020-06-19";
             DirectoryInfo dirs = new DirectoryInfo(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
+            listBox2.Items.Add("uploadFiletoServerMedicaOnLine currDate " + currDate + " hosp_code=" + bc.iniC.laboutMedicahosp_code);
+            Application.DoEvents();
             FileInfo[] Files = dirs.GetFiles("*.pdf");
             foreach (FileInfo file in Files)
             {                
@@ -3080,7 +3100,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-05-18 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline;
+            this.Text = "Last Update 2020-06-21 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline;
         }
     }
 }
