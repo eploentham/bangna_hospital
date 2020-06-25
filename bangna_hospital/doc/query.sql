@@ -20,3 +20,16 @@ values('29142917143','NEW','5033707','2006082914293','Mr. Test','Mr. Ekapop Ploe
 ,'admin','administrator','IT','RAD','017DV','Neck'
 ,'0','H8','Hong Gil dong','XG-1'
 );
+
+
+insert into bn1_outlab.dbo.b_company
+(comp_name_e, comp_name_t, active)
+values('RIA','RIA','1');
+
+insert into bn1_outlab.dbo.b_company
+(comp_name_e, comp_name_t, active)
+values('Medica','Medica','1');
+
+insert into bn1_outlab.dbo.b_company
+(comp_name_e, comp_name_t, active)
+values('GM','GM','1');

@@ -1396,7 +1396,7 @@ namespace bangna_hospital.gui
             List<LabOutMedicaResult> list = null;
             Stream stream = null;
             String currDate = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd");
-            //currDate = "2020-06-19";
+            //currDate = "2020-06-24";
             listBox2.Items.Add("Check Medica date "+currDate+ " hosp_code=" + bc.iniC.laboutMedicahosp_code);
             Application.DoEvents();
             try
@@ -2336,7 +2336,7 @@ namespace bangna_hospital.gui
             //listBox2.Items.Clear();     //listBox3
             Application.DoEvents();
             Thread.Sleep(500);
-            //currDate = "2020-06-11";
+            //currDate = "2020-06-24";
             if (!Directory.Exists(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate))
             {
                 Directory.CreateDirectory(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
@@ -2404,7 +2404,7 @@ namespace bangna_hospital.gui
                     continue;
                 }
                 //new LogWriter("d", "uploadFiletoServerInnoTech file " + filename + " 001");
-                if (filename2.Length <= 10)
+                if (filename2.Length < 10)
                 {
                     String datetick = "";
                     new LogWriter("e", "Filename ชื่อ File สั้นไป " + filename);
@@ -2415,22 +2415,11 @@ namespace bangna_hospital.gui
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica);
                     }
-                    if (pathname.Length > 0)
-                    {
-                        if (!Directory.Exists(bc.iniC.pathLabOutBackupMedica + "\\" + pathname))
-                        {
-                            Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica + "\\" + pathname);
-                        }
-                    }
+                    
                     Thread.Sleep(200);
-                    if (pathname.Length > 0)
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
-                    else
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
+                    
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    
                     Thread.Sleep(1000);
                     continue;
                 }
@@ -2452,22 +2441,11 @@ namespace bangna_hospital.gui
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica);
                     }
-                    if (pathname.Length > 0)
-                    {
-                        if (!Directory.Exists(bc.iniC.pathLabOutBackupMedica + "\\" + pathname))
-                        {
-                            Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica + "\\" + pathname);
-                        }
-                    }
+                    
                     Thread.Sleep(200);
-                    if (pathname.Length > 0)
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
-                    else
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
+                    
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    
                     Thread.Sleep(1000);
                     continue;
                 }
@@ -2487,22 +2465,11 @@ namespace bangna_hospital.gui
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica);
                     }
-                    if (pathname.Length > 0)
-                    {
-                        if (!Directory.Exists(bc.iniC.pathLabOutBackupMedica + "\\" + pathname))
-                        {
-                            Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica + "\\" + pathname);
-                        }
-                    }
+                    
                     Thread.Sleep(200);
-                    if (pathname.Length > 0)
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
-                    else
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
+                    
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    
                     Thread.Sleep(1000);
                     continue;
                 }
@@ -2578,22 +2545,11 @@ namespace bangna_hospital.gui
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica);
                     }
-                    if (pathname.Length > 0)
-                    {
-                        if (!Directory.Exists(bc.iniC.pathLabOutBackupMedica + "\\" + pathname))
-                        {
-                            Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica + "\\" + pathname);
-                        }
-                    }
+                    
                     Thread.Sleep(200);
-                    if (pathname.Length > 0)
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
-                    else
-                    {
-                        File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
-                    }
+                    
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    
                     Thread.Sleep(1000);
                     continue;
                 }
