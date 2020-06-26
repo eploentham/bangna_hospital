@@ -1386,7 +1386,6 @@ namespace bangna_hospital.gui
                     new LogWriter("e", "FTP upload no success");
                 }
             }
-
             timer.Start();
         }
         private Boolean getFileinFolderMedica()

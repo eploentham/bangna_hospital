@@ -33,3 +33,8 @@ values('Medica','Medica','1');
 insert into bn1_outlab.dbo.b_company
 (comp_name_e, comp_name_t, active)
 values('GM','GM','1');
+
+
+select *
+from mc_result
+where hospital_code = 'CT-MD0076' and updatedate = '2020-06-26'
