@@ -9,7 +9,8 @@
     {% block scripts %}
       <script src="{{url_for('.static', filename='/bootstrap-3.3.7-dist/js/bootstrap.js')}}"></script>
     {% endblock %}
-   
+    
+    
     <!--<script src="/js/jquery-3.4.0.js"></script>-->
 
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,20 +20,19 @@
 <body>
     <div class="container-fluid">
         <div class="row-fluid">
-          <div class="col-md-4">
+          <div class="col-md-4" >
             <!--Sidebar content-->
-            <h1 align="center"> List Date</h1>
-            hi grid {{ hn }} row count {{ rowcnt }}
-            
+            <h4 align="center"> List Date</h4>           
+
             {% for row in data1 %}
-              <div class="row">
-                <div class="col-md-2">
+              <div class="row" onMouseOver="this.style.background='#0F0'" onMouseOut="this.style.background='#FFFFFF'">
+                <div class="col-md-2" >
                   {{ row.4 }}
                 </div>
-                <div class="col-md-8">
-                  <a href="/view_pdf?hn={{ row.2 }}&doc_scan_id={{ row.0 }}"  >{{ row.7 }}</a>
+                <div class="col-md-8" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#00F'">
+                  <a href="/view_pdf?hn={{ row.2 }}&doc_scan_id={{ row.0 }}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#00F'">{{ row.7 }}</a>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" >
                   {{ row.3 }}
                 </div>
               </div>

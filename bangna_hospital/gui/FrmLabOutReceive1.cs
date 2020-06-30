@@ -1306,7 +1306,7 @@ namespace bangna_hospital.gui
                         listBox2.Items.Add("มี Attach File 1 " + image_path_attach);
                     }
                 }
-                    
+
                 listBox2.Items.Add("updateImagepath " + dsc.image_path);
                 Application.DoEvents();
                 //    //MessageBox.Show("111", "");
