@@ -510,11 +510,15 @@ namespace bangna_hospital.gui
             grfXray.Font = fEdit;
             grfXray.Dock = System.Windows.Forms.DockStyle.Top;
             grfXray.Location = new System.Drawing.Point(0, 0);
-            grfXray.Height = 70;
+            grfXray.Height = 120;
             grfXray.Click += GrfXray_Click;
             //grfLab.Cols[0].Visible = false;
             grfXray.Name = "grfXray";
             grfXray.Rows.Count = 1;
+            ContextMenu menuGwX = new ContextMenu();
+            menuGwX.MenuItems.Add("เปิด PACs infinitt", new EventHandler(ContextMenu_xray_infinitt));
+
+            grfXray.ContextMenu = menuGwX;
 
             rtb = new RichTextBox();
             //rtb.Location = new Point(20, 20);
@@ -542,7 +546,16 @@ namespace bangna_hospital.gui
             //initGrfPrn();
             //initGrfHn();
         }
+        private void ContextMenu_xray_infinitt(object sender, System.EventArgs e)
+        {
+            if (grfOrdXray == null) return;
+            if (grfOrdXray.Row <= 1) return;
+            if (grfOrdXray.Col <= 0) return;
+            String address = "";
 
+            address = "http://172.25.10.9/pkg_pacs/external_interface.aspx?TYPE=W&LID=itadmin&LPW=itadmin&PID=" + txtHn.Text.Trim();
+            System.Diagnostics.Process.Start("iexplore", address);
+        }
         private void GrfXray_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -2961,17 +2974,16 @@ namespace bangna_hospital.gui
             //grfVs.row
             //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
-
-            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
-            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
-            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
-
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("เปิด PACs infinitt", new EventHandler(ContextMenu_xray_infinitt));
+            
+            //grfOrdXray.ContextMenu = menuGw;
             pnOrdSearchXray.Controls.Add(grfOrdXray);
 
             theme1.SetTheme(grfOrdXray, "Office2016Colorful");
 
         }
-
+        
         private void GrfOrdXray_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

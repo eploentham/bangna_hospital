@@ -1577,7 +1577,7 @@ namespace bangna_hospital.gui
                             String s = "";
                             while ((s = sr1.ReadLine()) != null)
                             {
-                                listBox2.Items.Add("Check file FTP reqid "+ reqid +" s"+ s);
+                                listBox2.Items.Add("Check file FTP reqid "+ reqid +" s "+ s);
                                 Application.DoEvents();
                                 Thread.Sleep(100);
                                 if (s.Equals(reqid))

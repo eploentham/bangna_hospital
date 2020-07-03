@@ -94,6 +94,7 @@ namespace bangna_hospital.gui
             cboModality.SelectedItemChanged += CboModality_SelectedItemChanged;
             this.Disposed += FrmXrayPACsAdd_Disposed;
             tC1.SelectedIndexChanged += TC1_SelectedIndexChanged;
+            tabReq.DoubleClick += TabReq_DoubleClick;
 
             //this.c1List1.AddItemTitles("First Name; LastName; Phone Number");
             initGrfReq();
@@ -112,6 +113,12 @@ namespace bangna_hospital.gui
                 timer1.Stop();
             }
             pageLoad = false;
+        }
+
+        private void TabReq_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfReq();
         }
 
         private void TC1_SelectedIndexChanged(object sender, EventArgs e)
@@ -350,7 +357,7 @@ namespace bangna_hospital.gui
             xrgrpcd = grfReq[grfReq.Row, colxrgrpcd] != null ? grfReq[grfReq.Row, colxrgrpcd].ToString() : "";
             reqdate = grfReq[grfReq.Row, colxrdate] != null ? grfReq[grfReq.Row, colxrdate].ToString() : "";
             opdtype = opdtype.Trim().Equals("I") ? "I" : "O";
-            reqdate = bc.datetoDB(reqdate);
+            //reqdate = bc.datetoDB(reqdate);
             ResOrderTab reso = new ResOrderTab();
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
             reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
@@ -367,7 +374,7 @@ namespace bangna_hospital.gui
                 String date = "";
                 date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
                 re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear, xrcode, reqdate);
-                re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear, xrcode, date);
+                //re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear, xrcode, date);
                 //MessageBox.Show("re1 " + re1, "");
                 if (long.TryParse(re1, out chk1))
                 {
@@ -413,8 +420,10 @@ namespace bangna_hospital.gui
                         grp = "CR";
                     }
                     txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
+                    //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                    //    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
                     txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                        , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, "Clinical Information");
+                        , reqdate.Replace("-",""), reqno, xrcode, xray, grp, "333", "Ekapop", grp, opdtype, depcode, depname, sickness);
                     //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
                     //Test process
 
@@ -453,9 +462,6 @@ namespace bangna_hospital.gui
                     //tcpClient.Close();
                     lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
                     Application.DoEvents();
-
-
-
 
                     TcpClient tcpClientORM = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
                     Console.WriteLine("Connected to Server");
@@ -510,31 +516,7 @@ namespace bangna_hospital.gui
 
             }
             //}
-        }
-        private bool ConnectToServer()
-        {
-            //connect to server at given port
-            //try
-            //{
-            //    tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-            //    Console.WriteLine("Connected to Server");
-            //    lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-            //    Application.DoEvents();
-            //    //get a network stream from server
-            //    NetworkStream clientSockStream = tcpClient.GetStream();
-            //    clientStreamReader = new StreamReader(clientSockStream);
-            //    clientStreamWriter = new StreamWriter(clientSockStream);
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.StackTrace);
-            //    lboxServer.Items.Add("Error " + e.StackTrace + " " + System.DateTime.Now.ToString());
-            //    Application.DoEvents();
-            //    return false;
-            //}
-
-            return true;
-        }
+        }        
         private void setGrfReq()
         {
             //grfDept.Rows.Count = 7;
@@ -549,14 +531,7 @@ namespace bangna_hospital.gui
 
             grfReq.Rows.Count = dt.Rows.Count + 1;
             grfReq.Cols.Count = 25;
-            //C1TextBox txt = new C1TextBox();
-            //C1ComboBox cboproce = new C1ComboBox();
-            //ic.ivfDB.itmDB.setCboItem(cboproce);
-            //grfBillD.Cols[colName].Editor = txt;
-            //grfBillD.Cols[colAmt].Editor = txt;
-            //grfBillD.Cols[colDiscount].Editor = txt;
-            //grfBillD.Cols[colNetAmt].Editor = txt;
-
+            
             grfReq.Cols[colReqHn].Width = 80;
             grfReq.Cols[colReqName].Width = 200;
             grfReq.Cols[colReqVn].Width = 80;
@@ -588,6 +563,7 @@ namespace bangna_hospital.gui
             grfReq.Cols[colxrcode].Caption = "";
             grfReq.Cols[colxrgrpdsc].Caption = "Group";
             grfReq.Cols[colxrdate].Caption = "xr date";
+            grfReq.Cols[colReqreqno].Caption = "req no";
 
             Color color = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
             //CellRange rg1 = grfBank.GetCellRange(1, colE, grfBank.Rows.Count, colE);
@@ -625,7 +601,7 @@ namespace bangna_hospital.gui
                     grfReq[i, colpttstatus] = row["MNC_STS"].ToString();
                     grfReq[i, colxrgrpcd] = row["MNC_XR_GRP_CD"].ToString();
                     grfReq[i, colxrgrpdsc] = row["MNC_XR_GRP_dsc"].ToString();
-                    grfReq[i, colxrdate] = row["mnc_req_dat"].ToString();
+                    grfReq[i, colxrdate] = row["mnc_req_dat1"].ToString();
                     i++;
                 }
                 catch (Exception ex)
@@ -636,7 +612,7 @@ namespace bangna_hospital.gui
             CellNoteManager mgr = new CellNoteManager(grfReq);
             grfReq.Cols[colReqId].Visible = false;
             grfReq.Cols[colReqreqyr].Visible = false;
-            grfReq.Cols[colReqreqno].Visible = false;
+            //grfReq.Cols[colReqreqno].Visible = false;
             grfReq.Cols[colreqhnyr].Visible = false;
             grfReq.Cols[colreqpreno].Visible = false;
             grfReq.Cols[colReqDpt].Visible = false;
@@ -705,12 +681,6 @@ namespace bangna_hospital.gui
             {
                 try
                 {
-                    //while (true)
-                    //{
-                    //Console.WriteLine("CLIENT: " + serverStreamReader.ReadLine());
-
-                    //IPAddress ipad = IPAddress.Parse(txtIp.Text);
-                    //tcpServerListener = new TcpListener(ipad, int.Parse(txtPort.Text));
                     TcpClient tcpClient = tcpServerListener.AcceptTcpClient();
                     lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Client connected " + System.DateTime.Now.ToString()); });
                     Application.DoEvents();
@@ -718,20 +688,13 @@ namespace bangna_hospital.gui
                     Thread n_server = new Thread(new ParameterizedThreadStart(getMessageClient));
                     //n_server.IsBackground = true;
                     n_server.Start(tcpClient);
-                    //tcpClient.Close();
-                    //}
-
-                    //listBox1.Items.Add("Date Time : " + System.DateTime.Now.ToString() + " Receive " + serverStreamReader.ReadLine());
-
-                    //}//while
                 }
                 catch (Exception ex)
                 {
                     new LogWriter("e", "FrmXrayPACsAdd listenServer error " + ex.Message);
                 }
+            }
         }
-        //}
-    }
         private void getMessageClient(object tcpclient)
         {
             string line = "";
@@ -779,11 +742,81 @@ namespace bangna_hospital.gui
             stream.Close();
             lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "write file success "); });
             Application.DoEvents();
+            try
+            {
+                String assionno = "", hn = "", reqno = "", reqdate = "", code = "", hnyr = "", diag = "", dtrcode = "";
+                String[] txt = line.Split(Environment.NewLine.ToCharArray());
+                foreach(String txt1 in txt)
+                {
+                    String[] txt2 = txt1.Split('|');
+                    if (txt2.Length > 4)
+                    {
+                        if (txt2[0] == "PID")
+                        {
+                            hn = txt2[3].Replace("BN5","").Replace("^","");
+                        }
+                        else if (txt2[0] == "OBR")
+                        {
+                            assionno = txt2[3];
+                            if (assionno.Length > 10)
+                            {
+                                hnyr = assionno.Substring(0, 4);
+                                reqdate = assionno.Substring(0, 8);
+                                code = assionno.Substring(assionno.Length - 4);
+                                reqno = assionno.Replace(reqdate, "").Replace(code, "");
+                                int hnyr1 = 0;
+                                int.TryParse(hnyr, out hnyr1);
+                                hnyr1 += 543;
+                                hnyr = hnyr1.ToString();
+                            }
+                        }
+                        else if (txt2[0] == "OBX")
+                        {
+                            diag += txt2[5] + Environment.NewLine;
+                            if (dtrcode.Length == 0)
+                            {
+                                dtrcode = txt2[txt2.Length - 1];
+                                String[] dtr = dtrcode.Split('^');
+                                if (dtr.Length > 1)
+                                {
+                                    dtrcode = dtr[0];
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                String xrcode = "", chkinsert="", re="";
+                xrcode = bc.bcDB.xrDB.selectXrayByCode1(code);
+                lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Doctor : " + dtrcode + " hn " + hn + " reqdate " + reqdate + " reqno " + reqno + " code " + code+" xrcode "+xrcode); });
+                Application.DoEvents();
+                chkinsert = bc.bcDB.xrt04DB.selectByPk(hnyr, reqdate, reqno, xrcode);
+                XrayT04 xrt04 = new XrayT04();
+                xrt04.MNC_REQ_YR = hnyr;
+                xrt04.MNC_REQ_NO = reqno;
+                xrt04.MNC_REQ_DAT = reqdate;
+                xrt04.MNC_XR_DSC = diag;
+                xrt04.MNC_DOT_DF_CD = dtrcode;
+                xrt04.MNC_XR_CD = xrcode;
+                xrt04.MNC_STS = "N";
+                xrt04.MNC_XR_USR = "00000";
+                if (chkinsert.Equals("insert"))
+                {
+                    re = bc.bcDB.xrt04DB.insert(xrt04);
+                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Insert success "); });
+                    Application.DoEvents();
+                }
+                else
+                {
+                    re = bc.bcDB.xrt04DB.update(xrt04);
+                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Update success "); });
+                    Application.DoEvents();
+                }
+            }
+            catch(Exception ex)
+            {
 
-            //NetworkStream clientSockStream = tcpClient.GetStream();
-            //StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
-            //serverStreamWriter.WriteLine("ACK");
-            //serverStreamWriter.Close();
+            }
         }
         private void BtnLisStart_Click(object sender, EventArgs e)
         {
@@ -799,10 +832,6 @@ namespace bangna_hospital.gui
                 n_server.Start();
                 //ServerListen();
                 //listBox1.Items.Add("Start Listening "+ System.DateTime.Now.ToString());
-
-
-
-
 
             }
             else
@@ -1194,7 +1223,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2020-06-26 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2020-07-03 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

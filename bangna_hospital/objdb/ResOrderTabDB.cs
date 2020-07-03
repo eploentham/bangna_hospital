@@ -163,7 +163,7 @@ namespace bangna_hospital.objdb
             //reso1.ProcDesc = "E017";
             //reso1.ExanDescription = "NEck";
             reso1.ExamCode = "";
-            reso1.ExanDescription = "";
+            reso1.ExanDescription = xraydesc;
             reso1.ReadingPriority = "0";
             reso1.ReqPhysicianID = "";
             reso1.ReqPhysicianName = "";

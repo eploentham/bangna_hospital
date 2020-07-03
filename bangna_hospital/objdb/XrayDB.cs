@@ -46,7 +46,7 @@ namespace bangna_hospital.objdb
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,ptt01.MNC_VN_NO, " +
                 " ptt01.MNC_VN_SEQ,ptt01.MNC_VN_SUM, ptt01.mnc_vn_no,ptt01.mnc_vn_seq, m01.mnc_vn_sum ,convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday, " +
                 "m01.mnc_sex, ptt01.mnc_shif_memo, xt02.MNC_XR_CD, xm01.MNC_XR_DSC, xr01.mnc_empr_cd, um01.mnc_usr_full,ptt01.MNC_SEC_NO, pm32.MNC_MD_DEP_DSC, ptt01.mnc_sts, xm01.mnc_xr_grp_cd" +
-                ", xm05.mnc_xr_grp_dsc,convert(VARCHAR(20),xr01.mnc_req_dat,23) as mnc_req_dat " +
+                ", xm05.mnc_xr_grp_dsc,convert(VARCHAR(20),xr01.mnc_req_dat,23) as mnc_req_dat1 " +
                 "From  xray_t01 xr01  " +
                 "inner Join patient_m01 m01  on xr01 .mnc_hn_no = m01.mnc_hn_no  " +
                 "inner join patient_m02 m02 on m01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
@@ -104,6 +104,23 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
 
             return dt;
+        }
+        public String selectXrayByCode1(String code)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re="";
+
+            sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_typ_cd, xm01.grp_cd " +
+                "From  xray_m01 xm01  " +
+
+                " Where xm01.pacs_infinitt_code = '" + code + "' " +
+                "Order By xm01.MNC_XR_CD";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["mnc_xr_cd"].ToString();
+            }
+            return re;
         }
         public DataTable selectVisitStatusPacsProcessByDate(String Date)
         {

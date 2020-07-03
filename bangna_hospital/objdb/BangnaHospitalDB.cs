@@ -25,6 +25,7 @@ namespace bangna_hospital.objdb
         public DocGroupFMDB dfmDB;
         public DrugDB drugDB;
         public LabDB labDB;
+        public XrayT04DB xrt04DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -47,6 +48,7 @@ namespace bangna_hospital.objdb
             dfmDB = new DocGroupFMDB(conn);
             drugDB = new DrugDB(conn);
             labDB = new LabDB(conn);
+            xrt04DB = new XrayT04DB(conn);
         }
     }
 }

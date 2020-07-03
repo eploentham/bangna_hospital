@@ -38,3 +38,13 @@ values('GM','GM','1');
 select *
 from mc_result
 where hospital_code = 'CT-MD0076' and updatedate = '2020-06-26'
+
+select *
+from XRAY_T02
+where MNC_REQ_YR = '2563' and MNC_REQ_DAT = '2020-07-02' and MNC_XR_CD in ('UAB008','XCH001') and MNC_REQ_NO = '10745';
+
+update XRAY_T02
+set status_pacs = '0'
+where MNC_REQ_YR = '2563' and MNC_REQ_DAT = '2020-07-02' and MNC_XR_CD in ('UAB008','XCH001') and MNC_REQ_NO = '10745';
+
+Update xray_t02 Set status_pacs = '1' Where mnc_req_no = '10745' and mnc_req_yr = '2563' and mnc_xr_cd = 'UAB008' and mnc_req_dat = '2020-07-02'

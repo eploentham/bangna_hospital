@@ -1167,7 +1167,7 @@ namespace bangna_hospital.control
             code = bcDB.xrDB.selectPACsInfinittCode(xraycode);
             PACsORC orc = new PACsORC();
             orc.OrderControl = "NW";
-            orc.PlacerOrderNumber = xrayyear+ reqno+ code;
+            orc.PlacerOrderNumber = xrayyear + reqno + code;
             orc.FillerOrderNumber = "";
             orc.PlacerGroupNumber = "";
             orc.OrderStatus = "SC";
@@ -1224,7 +1224,7 @@ namespace bangna_hospital.control
             obr.FillerField2 = "";
             obr.ResultsRptStatusChngDateTime = "";
             obr.ChargeToPractice = "";
-            obr.DiagnosticServSectID = "CR";
+            obr.DiagnosticServSectID = xraytype;
             obr.ResultStatus = xraytype;
             obr.ParentResult = "";
             obr.QuantityTiming = "";
