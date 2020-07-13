@@ -452,6 +452,18 @@ namespace bangna_hospital.gui
             splitContainer1.Panel2.ResumeLayout(false);
             splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            panel1.PerformLayout();
+            pnAuto.PerformLayout();
+            pnManual.PerformLayout();
+            pnMed.PerformLayout();
+            pnMedMachine.PerformLayout();
+            pnLabComp.PerformLayout();
+            splitContainer1.Panel1.PerformLayout();
+            splitContainer1.Panel2.PerformLayout();
+            splitContainer1.PerformLayout();
+            tabMed.PerformLayout();
+            tabAuto.PerformLayout();
+            tC1.PerformLayout();
             this.PerformLayout();
         }
         private void setTabLabManual()
@@ -1514,8 +1526,58 @@ namespace bangna_hospital.gui
                             long reqid1 = 0;
                             if(long.TryParse(txt2.Trim(), out reqid1))
                             {
-                                reqid = reqid1.ToString();
+                                reqid = txt2.ToString();
                                 chk = true;
+                            }
+                            else
+                            {
+                                //ตัวรองสุดท้าย ว่า ใช่ไหม
+                                if (txt1.Length >= 2)
+                                {
+                                    txt2 = txt1[txt1.Length - 2];
+                                }
+                                long reqid2 = 0;
+                                if (long.TryParse(txt2.Trim(), out reqid2))
+                                {
+                                    reqid = txt2.ToString();
+                                    chk = true;
+                                }
+                                else
+                                {
+                                    //ตัวถัดมา ว่า ใช่ไหม
+                                    if (txt1.Length >= 3)
+                                    {
+                                        txt2 = txt1[txt1.Length - 3];
+                                    }
+                                    long reqid3 = 0;
+                                    if (long.TryParse(txt2.Trim(), out reqid3))
+                                    {
+                                        reqid = txt2.ToString();
+                                        chk = true;
+                                    }
+                                    //ตัวถัดมา ว่า ใช่ไหม
+                                    if (txt1.Length >= 4)
+                                    {
+                                        txt2 = txt1[txt1.Length - 4];
+                                    }
+                                    long reqid4 = 0;
+                                    if (long.TryParse(txt2.Trim(), out reqid4))
+                                    {
+                                        reqid = txt2.ToString();
+                                        chk = true;
+                                    }
+                                    //ตัวถัดมา ว่า ใช่ไหม
+                                    if (txt1.Length >= 5)
+                                    {
+                                        txt2 = txt1[txt1.Length - 5];
+                                    }
+                                    long reqid5 = 0;
+                                    if (long.TryParse(txt2.Trim(), out reqid5))
+                                    {
+                                        reqid = txt2.ToString();
+                                        chk = true;
+                                    }
+                                }
                             }
                             if (!chk)
                             {
@@ -2380,7 +2442,7 @@ namespace bangna_hospital.gui
                 if (filename2.Replace(".pdf", "").Length < 10)
                 {
                     String datetick = "";
-                    new LogWriter("e", "Filename ไม่ถูก FORMAT");
+                    new LogWriter("e", "Filename ไม่ถูก FORMAT" + filename);
                     listBox2.Items.Add("Filename ไม่ถูก FORMAT " + filename);
                     //MessageBox.Show("Filename ไม่ถูก FORMAT", "");
                     datetick = DateTime.Now.Ticks.ToString();
@@ -2457,7 +2519,7 @@ namespace bangna_hospital.gui
                     listBox2.Items.Add("Filename ไม่พบข้อมูล HIS " + filename + " reqid " + reqid + " " + year1 + "-" + mm + "-" + dd);
                     Application.DoEvents();
                     String datetick = "";
-                    new LogWriter("e", "Filename ไม่พบข้อมูล HIS");
+                    new LogWriter("e", "Filename ไม่พบข้อมูล HIS" + filename + " reqid " + reqid + " " + year1 + "-" + mm + "-" + dd);
                     //MessageBox.Show("Filename ไม่พบข้อมูล HIS", "");
                     datetick = DateTime.Now.Ticks.ToString();
                     if (!Directory.Exists(bc.iniC.pathLabOutBackupMedica))
@@ -3056,7 +3118,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-06-22 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline;
+            this.Text = "Last Update 2020-07-11 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
         }
     }
 }

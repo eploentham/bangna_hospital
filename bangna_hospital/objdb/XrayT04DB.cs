@@ -100,11 +100,12 @@ namespace bangna_hospital.objdb
                     p.MNC_XR_USR + "','" + p.MNC_DOT_DF_CD + "','0'," +
                     "convert(VARCHAR(20),getdate(),20),'0'" +
                     ") ";
-                chk = conn.ExecuteNonQuery(sql);
+                chk = conn.ExecuteNonQuery(conn.connMainHIS,sql);
             }
             catch (Exception ex)
             {
-                
+                chk = ex.Message+" "+ex.InnerException;
+                new LogWriter("e", "insert Insert  sql " + sql +" ex "+chk);
             }
             return chk;
         }
@@ -118,7 +119,7 @@ namespace bangna_hospital.objdb
                     xrt04.MNC_XR_DSC + "= '" + p.MNC_XR_DSC + "'," +
                     xrt04.MNC_STAMP_DAT + "= convert(VARCHAR(20),getdate(),20)," +
                     "Where " + xrt04.MNC_REQ_YR + "='" + p.MNC_REQ_YR + "' and " + xrt04.MNC_REQ_NO + "='" + p.MNC_REQ_NO + "' and " + xrt04.MNC_REQ_DAT + "='" + p.MNC_REQ_DAT + "' and " + xrt04.MNC_XR_CD + "='" + p.MNC_XR_CD + "' ";
-                chk = conn.ExecuteNonQuery(sql);
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)
             {

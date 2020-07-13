@@ -8,6 +8,7 @@
     {% endblock %}
     {% block scripts %}
       <script src="{{url_for('.static', filename='/bootstrap-3.3.7-dist/js/bootstrap.js')}}"></script>
+      <script src="{{url_for('.static', filename='/js/jquery-3.4.0.js')}}"></script>
     {% endblock %}
     
     
@@ -16,24 +17,38 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script type="text/javascript"> 
+      $(document).keypress(function(event) {
+          var keycode = event.keyCode || event.which;
+          if(keycode == '13') {
+             submitHn();
+          }
+      });
+      function submitHn() {
+         //alert($("#txthn"). val()); 
+          //document.getElementById("myform").submit();
+          $('#myform').submit();
+      }
+    </script>
 </head>
 <body>
+  <form name="myform" id="myform" method="get">
     <div class="container-fluid">
         <div class="row-fluid">
           <div class="col-md-4" >
             <!--Sidebar content-->
-            <h4 align="center"> List Date</h4>           
+            <h4 align="center"> List Out Lab <label for="txthn">ค้นหา HN : &nbsp;&nbsp;</label><input type="text" id="txthn" name="txthn" size="10" value="{{ hn }}"></h4>           
 
             {% for row in data1 %}
-              <div class="row" onMouseOver="this.style.background='#0F0'" onMouseOut="this.style.background='#FFFFFF'">
-                <div class="col-md-2" >
-                  {{ row.4 }}
+              <div class="row" onMouseOver="this.style.background='#FFA500'" onMouseOut="this.style.background='#FFFFFF'" onclick=''>
+                <div class="col-md-1" >
+                  {{ row.4 }} 
                 </div>
-                <div class="col-md-8" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#00F'">
-                  <a href="/view_pdf?hn={{ row.2 }}&doc_scan_id={{ row.0 }}" onMouseOver="this.style.color='#0F0'" onMouseOut="this.style.color='#00F'">{{ row.7 }}</a>
+                <div class="col-md-8" onMouseOver="this.style.background='#FFA500'" onMouseOut="this.style.background='#FFFFFF'">
+                  <a href="/view_pdf?hn={{ row.2 }}&doc_scan_id={{ row.0 }}" onMouseOver="this.style.background='#FFA500'" onMouseOut="this.style.background='#FFFFFF'">{{ row.7 }} [ {{ row.2 }} ]</a>
                 </div>
-                <div class="col-md-2" >
-                  {{ row.3 }}
+                <div class="col-md-3" >
+                  {{ row.8 }} [ {{ row.9 }} ]
                 </div>
               </div>
             
@@ -46,5 +61,6 @@
           </div>
         </div>
       </div>
+    </form>
 </body>
 </html>

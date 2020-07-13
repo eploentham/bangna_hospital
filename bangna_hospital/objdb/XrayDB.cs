@@ -96,7 +96,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
 
-            sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_typ_cd, xm01.grp_cd " +
+            sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_xr_typ_cd, xm01.mnc_xr_grp_cd " +
                 "From  xray_m01 xm01  " +
 
                 " Where xm01.MNC_XR_STS = 'Y' and xm01.mnc_xr_cd = '"+code+"' " +
@@ -110,7 +110,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "", re="";
 
-            sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_typ_cd, xm01.grp_cd " +
+            sql = "Select  xm01.mnc_xr_cd, xm01.mnc_xr_dsc, xm01.mnc_xr_typ_cd, xm01.mnc_xr_grp_cd " +
                 "From  xray_m01 xm01  " +
 
                 " Where xm01.pacs_infinitt_code = '" + code + "' " +

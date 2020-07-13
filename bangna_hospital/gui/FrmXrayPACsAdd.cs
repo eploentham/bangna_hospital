@@ -39,7 +39,7 @@ namespace bangna_hospital.gui
         C1SplitContainer splitContainer1, sCMaster;
         C1SplitterPanel c1SplitterPanel1, c1SplitterPanel2, scpMasterTop, scpMasterButton;
         
-        C1Button btnLisStart, btnModality;
+        C1Button btnLisStart, btnModality, btnBrowTxtInfinitt;
         C1TextBox txtIp, txtPort,txtXrCode, txtXrName, txtPacsCode, txtModality;
         Label lbTxtIp, lbTxtPort, lbXrCode, lbXrName, lbPacsCode, lbModality;
         C1ComboBox cboModality;
@@ -95,6 +95,7 @@ namespace bangna_hospital.gui
             this.Disposed += FrmXrayPACsAdd_Disposed;
             tC1.SelectedIndexChanged += TC1_SelectedIndexChanged;
             tabReq.DoubleClick += TabReq_DoubleClick;
+            btnBrowTxtInfinitt.Click += BtnBrowTxtInfinitt_Click;
 
             //this.c1List1.AddItemTitles("First Name; LastName; Phone Number");
             initGrfReq();
@@ -113,6 +114,124 @@ namespace bangna_hospital.gui
                 timer1.Stop();
             }
             pageLoad = false;
+        }
+
+        private void BtnBrowTxtInfinitt_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog res = new OpenFileDialog();
+
+            //Filter
+            res.Filter = "Txt Files|*.txt;";
+
+            //When the user select the file
+            if (res.ShowDialog() == DialogResult.OK)
+            {
+                //Get the file's path
+                var filePath = res.FileName;
+                //Do something
+                string text, err="";
+                var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                using (var streamReader = new StreamReader(filePath, Encoding.UTF8))
+                {
+                    text = streamReader.ReadToEnd();
+                }
+
+                //lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "write file success "); });
+                Application.DoEvents();
+                try
+                {
+                    String assionno = "", hn = "", reqno = "", reqdate = "", code = "", hnyr = "", diag = "", dtrcode = "";
+                    String[] txt = text.Split(Environment.NewLine.ToCharArray());
+                    foreach (String txt1 in txt)
+                    {
+                        String[] txt2 = txt1.Split('|');
+                        if (txt2.Length > 4)
+                        {
+                            if (txt2[0] == "PID")
+                            {
+                                hn = txt2[3].Replace("BN5", "").Replace("^", "");
+                            }
+                            else if (txt2[0] == "OBR")
+                            {
+                                assionno = txt2[3];
+                                if (assionno.Length > 10)
+                                {
+                                    hnyr = assionno.Substring(0, 4);
+                                    reqdate = assionno.Substring(0, 8);
+                                    code = assionno.Substring(assionno.Length - 4);
+                                    reqno = assionno.Replace(reqdate, "").Replace(code, "");
+                                    int hnyr1 = 0;
+                                    int.TryParse(hnyr, out hnyr1);
+                                    hnyr1 += 543;
+                                    hnyr = hnyr1.ToString();
+                                }
+                            }
+                            else if (txt2[0] == "OBX")
+                            {
+                                diag += txt2[5] + Environment.NewLine;
+                                if (dtrcode.Length == 0)
+                                {
+                                    dtrcode = txt2[txt2.Length - 1];
+                                    String[] dtr = dtrcode.Split('^');
+                                    if (dtr.Length > 1)
+                                    {
+                                        dtrcode = dtr[0];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Doctor : " + dtrcode + " hn " + hn + " reqdate " + reqdate + " reqno " + reqno + " code " + code); });
+                    Application.DoEvents();
+                    String xrcode = "", chkinsert = "", re = "";
+                    err = "00";
+                    xrcode = bc.bcDB.xrDB.selectXrayByCode1(code);
+                    err = "01";
+                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Doctor : " + dtrcode + " hn " + hn + " reqdate " + reqdate + " reqno " + reqno + " code " + code + " xrcode " + xrcode); });
+                    Application.DoEvents();
+                    chkinsert = bc.bcDB.xrt04DB.selectByPk(hnyr, reqdate, reqno, xrcode);
+                    err = "02";
+                    XrayT04 xrt04 = new XrayT04();
+                    xrt04.MNC_REQ_YR = hnyr;
+                    xrt04.MNC_REQ_NO = reqno;
+                    xrt04.MNC_REQ_DAT = reqdate;
+                    xrt04.MNC_XR_DSC = diag;
+                    xrt04.MNC_DOT_DF_CD = dtrcode;
+                    xrt04.MNC_XR_CD = xrcode;
+                    xrt04.MNC_STS = "N";
+                    xrt04.MNC_XR_USR = "00000";
+                    if (chkinsert.Equals("insert"))
+                    {
+                        err = "03";
+                        re = bc.bcDB.xrt04DB.insert(xrt04);
+                        long chk11 = 0;
+                        if (long.TryParse(re, out chk11))
+                        {
+                            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Insert success "); });
+                        }
+                        else
+                        {
+                            lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("no Insert error " + re); });
+                            new LogWriter("e", "getMessageClient Insert  err " + re);
+                        }
+                        Application.DoEvents();
+                    }
+                    else
+                    {
+                        err = "04";
+                        re = bc.bcDB.xrt04DB.update(xrt04);
+                        lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Update success "); });
+                        Application.DoEvents();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "getMessageClient 00 ex " + ex.Message + " err " + err);
+                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Error " + ex.Message); });
+                    Application.DoEvents();
+                }
+            }
         }
 
         private void TabReq_DoubleClick(object sender, EventArgs e)
@@ -723,7 +842,7 @@ namespace bangna_hospital.gui
 
             lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Date Time : " + System.DateTime.Now.ToString() + "Receive : " + line); });
             Application.DoEvents();
-            String fileName = "", path = "";
+            String fileName = "", path = "", err = "";
             path = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "\\";
             new LogWriter("e", "FrmXrayPACsAdd path " + path);
             if (!Directory.Exists(path + "message"))
@@ -785,12 +904,16 @@ namespace bangna_hospital.gui
                         }
                     }
                 }
-                
+                lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Doctor : " + dtrcode + " hn " + hn + " reqdate " + reqdate + " reqno " + reqno + " code " + code ); });
+                Application.DoEvents();
                 String xrcode = "", chkinsert="", re="";
+                err = "00";
                 xrcode = bc.bcDB.xrDB.selectXrayByCode1(code);
-                lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Doctor : " + dtrcode + " hn " + hn + " reqdate " + reqdate + " reqno " + reqno + " code " + code+" xrcode "+xrcode); });
+                err = "01";
+                lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Doctor : " + dtrcode + " hn " + hn + " reqdate " + reqdate + " reqno " + reqno + " code " + code + " xrcode " + xrcode); });
                 Application.DoEvents();
                 chkinsert = bc.bcDB.xrt04DB.selectByPk(hnyr, reqdate, reqno, xrcode);
+                err = "02";
                 XrayT04 xrt04 = new XrayT04();
                 xrt04.MNC_REQ_YR = hnyr;
                 xrt04.MNC_REQ_NO = reqno;
@@ -802,12 +925,23 @@ namespace bangna_hospital.gui
                 xrt04.MNC_XR_USR = "00000";
                 if (chkinsert.Equals("insert"))
                 {
+                    err = "03";
                     re = bc.bcDB.xrt04DB.insert(xrt04);
-                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Insert success "); });
+                    long chk11 = 0;
+                    if(long.TryParse(re, out chk11))
+                    {
+                        lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Insert success "); });
+                    }
+                    else
+                    {
+                        lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("no Insert error "+re); });
+                        new LogWriter("e", "getMessageClient Insert  err " + re);
+                    }
                     Application.DoEvents();
                 }
                 else
                 {
+                    err = "04";
                     re = bc.bcDB.xrt04DB.update(xrt04);
                     lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Update success "); });
                     Application.DoEvents();
@@ -815,7 +949,9 @@ namespace bangna_hospital.gui
             }
             catch(Exception ex)
             {
-
+                new LogWriter("e", "getMessageClient 00 ex " +ex.Message+" err "+err);
+                lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Error " + ex.Message); });
+                Application.DoEvents();
             }
         }
         private void BtnLisStart_Click(object sender, EventArgs e)
@@ -1016,6 +1152,7 @@ namespace bangna_hospital.gui
             pnListen.Controls.Add(lbTxtPort);
             pnListen.Controls.Add(txtPort);
             pnListen.Controls.Add(lboxServer);
+            pnListen.Controls.Add(btnBrowTxtInfinitt);
             c1SplitterPanel2.Controls.Add(lboxClient);
 
             scpMasterButton.Controls.Add(lbXrCode);
@@ -1081,6 +1218,7 @@ namespace bangna_hospital.gui
             btnLisStart.Image = imgStart;
             btnLisStart.TextAlign = ContentAlignment.MiddleRight;
             btnLisStart.ImageAlign = ContentAlignment.MiddleLeft;
+            //btnBrowTxtInfinitt
 
             lbTxtIp = new Label();
             lbTxtIp.Text = "IP PACs : ";
@@ -1191,6 +1329,16 @@ namespace bangna_hospital.gui
             btnModality.TextAlign = ContentAlignment.MiddleRight;
             btnModality.ImageAlign = ContentAlignment.MiddleLeft;
 
+            btnBrowTxtInfinitt = new C1Button();
+            btnBrowTxtInfinitt.Name = "btnBrowTxtInfinitt";
+            btnBrowTxtInfinitt.Text = "Browe Txt";
+            btnBrowTxtInfinitt.Font = fEdit;
+            //size = bc.MeasureString(btnHnSearch);
+            btnBrowTxtInfinitt.Location = new System.Drawing.Point(txtPort.Location.X + txtPort.Width +20, txtPort.Location.Y);
+            btnBrowTxtInfinitt.Size = new Size(80, 80);
+            btnBrowTxtInfinitt.Font = fEdit;
+            //btnBrowTxtInfinitt.Image = imgStart;
+
             bc.setCboMOdality(cboModality, "");
         }
         private void showFormWaiting()
@@ -1223,7 +1371,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2020-07-03 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2020-07-07 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

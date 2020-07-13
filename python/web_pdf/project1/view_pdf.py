@@ -2,7 +2,8 @@ from flask import Flask, request, render_template
 from flask_bootstrap import Bootstrap
 from datetime import datetime
 from ftplib import FTP
-import pyodbc
+#import pyodbc
+import pymssql
 
 app = Flask(__name__, static_folder='app/static')
 Bootstrap(app)
@@ -14,20 +15,29 @@ def hello():
 
 @app.route("/view_pdf", methods=['GET'])
 def view_pdf():
-    ftp = FTP('172.25.10.3')
-    ftp.login("imagescan", "imagescan")
-    hn1 = request.args.get("hn")
+    #ftp = FTP('172.1.1.5')
+    ftp = FTP('localhost')
+    ftp.login("ftpoutlab", "ftpoutlab")
+    hn1=""
+    
+    txthn = request.args.get("txthn", None)
+    if 'hn' in request.args:
+        hn1 = request.args.get("hn")
+    if 'txthn' in request.args and 'hn' not in request.args:        
+        hn1 = txthn
+    print("hn1 "+hn1)
     docscanid = "0"
     if request.args.get("doc_scan_id"):
         docscanid = request.args.get("doc_scan_id")
     print("docscanid "+docscanid)
-    serverName="172.25.10.5"
+    serverName="172.1.1.1"
     userDB="sa"
     passDB=""
-    dataDB="bn5_scan"
-    conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
+    dataDB="bn1_outlab"
+    #conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
+    conn = pymssql.connect("172.1.1.1","sa","","bn1_outlab")
     cur = conn.cursor()
-    sql = "Select doc_scan_id, visit_date, hn, vn, row_no, host_ftp, image_path, patient_fullname From doc_scan where hn = '"+hn1+"' and status_record = '2' and active = '1' Order By doc_scan_id"
+    sql = "Select doc_scan_id, visit_date, hn, vn, row_no, host_ftp, image_path, patient_fullname, date_req, req_id From doc_scan where hn = '"+hn1+"' and status_record = '2' and active = '1' Order By doc_scan_id"
     cur.execute(sql)
     result = cur.fetchall()
     rowcnt =cur.rowcount
@@ -45,9 +55,10 @@ def view_pdf():
         timestamp = str(datetime.timestamp(datetime.now())).replace(".", "_")
         ftpfilename = '//'+res[22]+'//'+res[4]
         #filename = 'c:\\temp\\'+timestamp+'.pdf'
-        filename = "d:\\source\\bangna\\bangna_hospital\\python\\web_pdf\\project1\\app\static\\temp\\"+timestamp+".pdf"
+        #filename = "d:\\source\\bangna\\bangna_hospital\\python\\web_pdf\\project1\\app\static\\temp\\"+timestamp+".pdf"
+        filename = "//root//view_pdf//view_pdf_bn1//app//static//temp//"+timestamp+".pdf"
         try:
-            #ftp.sendcmd('TYPE I')
+            #ftp.sendcmd('TYPE I')pdf
             #sizeftpfile = ftp.size(ftpfilename)
             #if sizeftpfile <= 0 :
             #	continue
