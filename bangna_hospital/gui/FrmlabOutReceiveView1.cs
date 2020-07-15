@@ -602,7 +602,7 @@ namespace bangna_hospital.gui
             //dateend = bc.datetoDB(txtDateEnd.Text);
             //MessageBox.Show("datestart "+ datestart, "");
             //MessageBox.Show("dateend "+ dateend, "");
-            grfLabOut.Clear();
+            //grfLabOut.Clear();
             grfLabOut.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
             grfLabOut.Cols.Count = 12;
