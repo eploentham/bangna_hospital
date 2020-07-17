@@ -27,7 +27,7 @@ namespace bangna_hospital.gui
         C1FlexGrid grfHn, grfLabOut, grfMas, grfLabOutView;
         Font fEdit, fEditB, fEditBig;
         int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7, colComp=8;
-        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISVsDate=5, colHISLabCode = 6, colHISLabName = 7, colHISReqNo = 8, colHISEdit=9, colHISpreno=10, colHISStatusRes=11;
+        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISVsDate=5, colHISLabCode = 6, colHISLabName = 7, colHISReqNo = 8, colHISEdit=9, colHISpreno=10, colHISStatusRes=11, colHISDateResult=12;
         int colMasId = 1, colMasCode = 2, colMasName = 3, colMasCompName=4, colMasPrice=5, colMasPeriod=6;
 
         C1DockingTab tC1;
@@ -100,6 +100,7 @@ namespace bangna_hospital.gui
             initGrfLabOutView();
             txtDateStart.Value = System.DateTime.Now;
             txtDateEnd.Value = System.DateTime.Now;
+            txtLabOutViewDate.Value = System.DateTime.Now;
         }
 
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
@@ -717,10 +718,10 @@ namespace bangna_hospital.gui
             //dateend = bc.datetoDB(txtDateEnd.Text);
             //MessageBox.Show("datestart "+ datestart, "");
             //MessageBox.Show("dateend "+ dateend, "");
-            grfLabOutView.Clear();
+            //grfLabOutView.Clear();
             grfLabOutView.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
-            grfLabOutView.Cols.Count = 12;
+            grfLabOutView.Cols.Count = 13;
             grfLabOutView.Cols[colHISDateReq].Caption = "Date Req";
             grfLabOutView.Cols[colHISHN].Caption = "HN";
             grfLabOutView.Cols[colHISFullName].Caption = "Name";
@@ -730,6 +731,7 @@ namespace bangna_hospital.gui
             grfLabOutView.Cols[colHISReqNo].Caption = "req id";
             grfLabOutView.Cols[colHISStatusRes].Caption = "Status";
             grfLabOutView.Cols[colHISVsDate].Caption = "Date Visit";
+            grfLabOutView.Cols[colHISDateResult].Caption = "Date Result";
             grfLabOutView.Cols[colHISDateReq].Width = 100;
             grfLabOutView.Cols[colHISHN].Width = 80;
             grfLabOutView.Cols[colHISFullName].Width = 260;
@@ -738,7 +740,8 @@ namespace bangna_hospital.gui
             grfLabOutView.Cols[colHISLabName].Width = 300;
             grfLabOutView.Cols[colHISReqNo].Width = 60;
             grfLabOutView.Cols[colHISStatusRes].Width = 60;
-            grfLabOutView.Cols[colHISVsDate].Width = 60;
+            grfLabOutView.Cols[colHISVsDate].Width = 90;
+            grfLabOutView.Cols[colHISDateResult].Width = 90;
             //MessageBox.Show("1111", "");
             String flag = "";
             //dt = bc.bcDB.laboDB.selectByDateReq(datestart);
@@ -752,12 +755,13 @@ namespace bangna_hospital.gui
             ContextMenu menuGw = new ContextMenu();
             grfLabOutView.ContextMenu = menuGw;
             int i = 1;
-            grfLabOutView.Rows.Count = dt.Rows.Count + 1;
+            grfLabOutView.Rows.Count = dt.Rows.Count + 2;
             foreach (DataRow row in dt.Rows)
             {
                 try
                 {
-                    grfLabOutView[i, 0] = (i);
+                    i++;
+                    grfLabOutView[i, 0] = (i-1);
 
                     grfLabOutView[i, colHISHN] = row["hn"].ToString();
                     grfLabOutView[i, colHISFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
@@ -769,7 +773,11 @@ namespace bangna_hospital.gui
                     grfLabOutView[i, colHISpreno] = row["pre_no"].ToString();
                     grfLabOutView[i, colHISVsDate] = bc.datetoShow(row["visit_date"].ToString());
                     grfLabOutView[i, colHISEdit] = "0";
-
+                    if (row["status_result"].ToString().Equals("1"))
+                    {
+                        grfLabOutView[i, colHISStatusRes] = "OK";
+                    }
+                    grfLabOutView[i, colHISDateResult] = bc.datetoShow(row["date_result"].ToString());
                     //if ((i % 2) == 0)
                     //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
                     //grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
@@ -778,8 +786,9 @@ namespace bangna_hospital.gui
                 {
                     new LogWriter("e", "FrmLabOutReceiveView setGrf ex " + ex.Message);
                 }
-                i++;
+                
             }
+            grfLabOutView.Cols[0].Visible = true;
             grfLabOutView.Cols[colHISEdit].Visible = false;
             grfLabOutView.Cols[colHISpreno].Visible = false;
             grfLabOutView.Cols[colHISHN].AllowEditing = false;
@@ -877,7 +886,7 @@ namespace bangna_hospital.gui
 
             tabSearch.Name = "tabSearch";
             tabSearch.TabIndex = 0;
-            tabSearch.Text = "Search result Out LAB";
+            tabSearch.Text = "Search result Out LAB(receive result)";
             tabLabOut.Name = "tabLabOut";
             tabLabOut.TabIndex = 0;
             tabLabOut.Text = "Import HIS  to Out LAB";
@@ -886,7 +895,7 @@ namespace bangna_hospital.gui
             tabMasLabOut.Text = "Master Out LAB";
             tabLabOutView.Name = "tabLabOutView";
             tabLabOutView.TabIndex = 0;
-            tabLabOutView.Text = "Out LAB Transaction";
+            tabLabOutView.Text = "Out LAB Transaction(HIS order outlab)";
 
             //c1Label1.AutoSize = true;
 

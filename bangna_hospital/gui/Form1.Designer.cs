@@ -89,6 +89,8 @@
             this.ViewZoomCombobox = new C1.Win.C1Ribbon.RibbonComboBox();
             this.NormalSizeButton = new C1.Win.C1Ribbon.RibbonButton();
             this.ribbonTopToolBar1 = new C1.Win.C1Ribbon.RibbonTopToolBar();
+            this.c1DockingTabPage5 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1FlexViewer2 = new C1.Win.FlexViewer.C1FlexViewer();
             this.c1ThemeController1 = new C1.Win.C1Themes.C1ThemeController();
             this.c1SuperTooltip1 = new C1.Win.C1SuperTooltip.C1SuperTooltip(this.components);
             this.c1FlexGrid1 = new C1.Win.C1FlexGrid.C1FlexGrid();
@@ -117,6 +119,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).BeginInit();
             this.c1DockingTabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1Ribbon1)).BeginInit();
+            this.c1DockingTabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1ThemeController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SuperErrorProvider1)).BeginInit();
@@ -128,6 +132,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).BeginInit();
+            this.c1CommandDock1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
             this.SuspendLayout();
@@ -157,15 +162,21 @@
             // 
             // c1DockingTab1
             // 
+            this.c1DockingTab1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
             this.c1DockingTab1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
             this.c1DockingTab1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.c1DockingTab1.CanAutoHide = true;
+            this.c1DockingTab1.CanCloseTabs = true;
+            this.c1DockingTab1.CanMoveTabs = true;
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage4);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage5);
             this.c1DockingTab1.HotTrack = true;
-            this.c1DockingTab1.Location = new System.Drawing.Point(38, 12);
+            this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.SelectedIndex = 1;
-            this.c1DockingTab1.Size = new System.Drawing.Size(300, 200);
+            this.c1DockingTab1.SelectedIndex = 2;
+            this.c1DockingTab1.ShowCaption = true;
+            this.c1DockingTab1.Size = new System.Drawing.Size(357, 450);
             this.c1DockingTab1.TabIndex = 1;
             this.c1DockingTab1.TabSizeMode = C1.Win.C1Command.TabSizeModeEnum.Fit;
             this.c1DockingTab1.TabsShowFocusCues = false;
@@ -175,14 +186,15 @@
             // 
             // c1DockingTabPage1
             // 
+            this.c1DockingTabPage1.CaptionVisible = true;
             this.c1DockingTabPage1.Controls.Add(this.c1DateEdit2);
             this.c1DockingTabPage1.Controls.Add(this.c1Button1);
             this.c1DockingTabPage1.Controls.Add(this.c1DateEdit1);
             this.c1DockingTabPage1.Controls.Add(this.c1TextBox1);
             this.c1DockingTabPage1.Controls.Add(this.c1Combo1);
-            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 1);
             this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(298, 175);
+            this.c1DockingTabPage1.Size = new System.Drawing.Size(352, 425);
             this.c1DockingTabPage1.TabIndex = 0;
             this.c1DockingTabPage1.Text = "Page1";
             // 
@@ -270,10 +282,11 @@
             // 
             // c1DockingTabPage4
             // 
+            this.c1DockingTabPage4.CaptionVisible = true;
             this.c1DockingTabPage4.Controls.Add(this.c1Ribbon1);
-            this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 1);
             this.c1DockingTabPage4.Name = "c1DockingTabPage4";
-            this.c1DockingTabPage4.Size = new System.Drawing.Size(298, 175);
+            this.c1DockingTabPage4.Size = new System.Drawing.Size(352, 425);
             this.c1DockingTabPage4.TabIndex = 1;
             this.c1DockingTabPage4.Text = "Page4";
             // 
@@ -283,12 +296,12 @@
             this.c1Ribbon1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             this.c1Ribbon1.BottomToolBarHolder = this.ribbonBottomToolBar1;
             this.c1Ribbon1.ConfigToolBarHolder = this.ribbonConfigToolBar1;
-            this.c1Ribbon1.Location = new System.Drawing.Point(0, 0);
+            this.c1Ribbon1.Location = new System.Drawing.Point(0, 22);
             this.c1Ribbon1.Name = "c1Ribbon1";
             this.c1Ribbon1.QatHolder = this.ribbonQat1;
             this.c1Ribbon1.QatItemsHolder.Add(this.UndoButton);
             this.c1Ribbon1.QatItemsHolder.Add(this.RedoButton);
-            this.c1Ribbon1.Size = new System.Drawing.Size(298, 146);
+            this.c1Ribbon1.Size = new System.Drawing.Size(352, 140);
             this.c1Ribbon1.Tabs.Add(this.HomeTab);
             this.c1Ribbon1.Tabs.Add(this.ViewTab);
             this.c1ThemeController1.SetTheme(this.c1Ribbon1, "(default)");
@@ -395,6 +408,7 @@
             this.ribbonQat1.ItemLinks.Add(this.UndoButton);
             this.ribbonQat1.ItemLinks.Add(this.RedoButton);
             this.ribbonQat1.Name = "ribbonQat1";
+            this.ribbonQat1.Visible = false;
             // 
             // UndoButton
             // 
@@ -634,6 +648,52 @@
             // 
             this.ribbonTopToolBar1.Name = "ribbonTopToolBar1";
             // 
+            // c1DockingTabPage5
+            // 
+            this.c1DockingTabPage5.CaptionVisible = true;
+            this.c1DockingTabPage5.Controls.Add(this.c1FlexViewer2);
+            this.c1DockingTabPage5.Location = new System.Drawing.Point(1, 1);
+            this.c1DockingTabPage5.Name = "c1DockingTabPage5";
+            this.c1DockingTabPage5.Size = new System.Drawing.Size(352, 425);
+            this.c1DockingTabPage5.TabIndex = 2;
+            this.c1DockingTabPage5.Text = "Page5";
+            // 
+            // c1FlexViewer2
+            // 
+            this.c1FlexViewer2.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.c1FlexViewer2.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.c1FlexViewer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1FlexViewer2.Location = new System.Drawing.Point(0, 22);
+            this.c1FlexViewer2.Name = "c1FlexViewer2";
+            this.c1FlexViewer2.OutlineAreaBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer2.OutlineBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1FlexViewer2.OutlineBackColorHotSelected = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.c1FlexViewer2.OutlineBackColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer2.OutlineBackColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+            this.c1FlexViewer2.OutlineButtonBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1FlexViewer2.OutlineButtonBackColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer2.OutlineButtonBackColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.c1FlexViewer2.OutlineButtonBorderColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer2.OutlineButtonBorderColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer2.OutlineButtonBorderColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer2.OutlineButtonForeColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.OutlineButtonForeColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.OutlineButtonForeColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.OutlineForeColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.OutlineForeColorHotSelected = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.OutlineForeColorNormal = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.OutlineForeColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.OutlineLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1FlexViewer2.ParamHeaderBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1FlexViewer2.ParamHeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1FlexViewer2.Size = new System.Drawing.Size(352, 403);
+            this.c1FlexViewer2.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1FlexViewer2.TabIndex = 0;
+            this.c1ThemeController1.SetTheme(this.c1FlexViewer2, "(default)");
+            this.c1FlexViewer2.ThumbBackColorHot = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1FlexViewer2.ThumbBackColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.c1FlexViewer2.ThumbBackColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+            // 
             // c1ThemeController1
             // 
             this.c1ThemeController1.Theme = "ExpressionDark";
@@ -650,7 +710,7 @@
             this.c1FlexGrid1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.c1FlexGrid1.ColumnInfo = "10,1,0,0,0,95,Columns:";
             this.c1FlexGrid1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1FlexGrid1.Location = new System.Drawing.Point(343, 12);
+            this.c1FlexGrid1.Location = new System.Drawing.Point(519, 12);
             this.c1FlexGrid1.Name = "c1FlexGrid1";
             this.c1FlexGrid1.Rows.DefaultSize = 19;
             this.c1FlexGrid1.ShowThemedHeaders = C1.Win.C1FlexGrid.ShowThemedHeadersEnum.None;
@@ -674,7 +734,7 @@
             this.c1DockingTab2.Controls.Add(this.c1DockingTabPage2);
             this.c1DockingTab2.Controls.Add(this.c1DockingTabPage3);
             this.c1DockingTab2.HotTrack = true;
-            this.c1DockingTab2.Location = new System.Drawing.Point(362, 181);
+            this.c1DockingTab2.Location = new System.Drawing.Point(478, 196);
             this.c1DockingTab2.Name = "c1DockingTab2";
             this.c1DockingTab2.SelectedIndex = 1;
             this.c1DockingTab2.Size = new System.Drawing.Size(300, 200);
@@ -783,12 +843,13 @@
             // c1CommandDock1
             // 
             this.c1CommandDock1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1CommandDock1.Controls.Add(this.c1DockingTab1);
             this.c1CommandDock1.Dock = System.Windows.Forms.DockStyle.Left;
             this.c1CommandDock1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.c1CommandDock1.Id = 1;
             this.c1CommandDock1.Location = new System.Drawing.Point(0, 0);
             this.c1CommandDock1.Name = "c1CommandDock1";
-            this.c1CommandDock1.Size = new System.Drawing.Size(32, 450);
+            this.c1CommandDock1.Size = new System.Drawing.Size(357, 450);
             this.c1ThemeController1.SetTheme(this.c1CommandDock1, "(default)");
             // 
             // c1List1
@@ -801,7 +862,7 @@
             this.c1List1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.c1List1.Images.Add(((System.Drawing.Image)(resources.GetObject("c1List1.Images"))));
             this.c1List1.ItemHeight = 15;
-            this.c1List1.Location = new System.Drawing.Point(50, 265);
+            this.c1List1.Location = new System.Drawing.Point(401, 125);
             this.c1List1.MatchEntryTimeout = ((long)(2000));
             this.c1List1.Name = "c1List1";
             this.c1List1.PreviewInfo.Location = new System.Drawing.Point(0, 0);
@@ -867,7 +928,6 @@
             this.Controls.Add(this.c1CommandDock1);
             this.Controls.Add(this.c1DockingTab2);
             this.Controls.Add(this.c1FlexGrid1);
-            this.Controls.Add(this.c1DockingTab1);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.Name = "Form1";
             this.Text = "Form1";
@@ -885,6 +945,8 @@
             this.c1DockingTabPage4.ResumeLayout(false);
             this.c1DockingTabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1Ribbon1)).EndInit();
+            this.c1DockingTabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1ThemeController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SuperErrorProvider1)).EndInit();
@@ -896,6 +958,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
             this.c1SplitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).EndInit();
+            this.c1CommandDock1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
             this.ResumeLayout(false);
@@ -981,6 +1044,8 @@
         private C1.Win.C1Ribbon.RibbonGroup ViewZoomGroup;
         private C1.Win.C1Ribbon.RibbonComboBox ViewZoomCombobox;
         private C1.Win.C1Ribbon.RibbonButton NormalSizeButton;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
+        private C1.Win.FlexViewer.C1FlexViewer c1FlexViewer2;
     }
 }
 

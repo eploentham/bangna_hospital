@@ -1448,7 +1448,7 @@ namespace bangna_hospital.gui
                             labOutView.Name = "c1FlexViewer1" + k.ToString();
                             labOutView.Size = new System.Drawing.Size(1065, 790);
                             labOutView.TabIndex = 0;
-
+                            labOutView.Ribbon.Minimized = true;
                             tabHnLabOut.Controls.Add(labOutView);
 
                             C1PdfDocumentSource pds = new C1PdfDocumentSource();
@@ -1600,7 +1600,7 @@ namespace bangna_hospital.gui
                                 labOutView.Name = "c1FlexViewer1" + k.ToString();
                                 labOutView.Size = new System.Drawing.Size(1065, 790);
                                 labOutView.TabIndex = 0;
-
+                                labOutView.Ribbon.Minimized = true;
                                 tabHnLabOut.Controls.Add(labOutView);
 
                                 C1PdfDocumentSource pds = new C1PdfDocumentSource();
@@ -1610,6 +1610,7 @@ namespace bangna_hospital.gui
                                 //pds.LoadFromFile(filename1);
 
                                 labOutView.DocumentSource = pds;
+                                //labOutView.Ribbon.Minimized = true;
                             }
                         }
                     }
@@ -3197,9 +3198,9 @@ namespace bangna_hospital.gui
             grfOrder.Cols[colOrderName].Width = 400;
             grfOrder.Cols[colOrderMed].Width = 200;
             grfOrder.Cols[colOrderQty].Width = 80;
-            grfOrder.Cols[colOrderDate].Width = 100;
-            grfOrder.Cols[colOrderFre].Width = 100;
-            grfOrder.Cols[colOrderIn1].Width = 100;
+            grfOrder.Cols[colOrderDate].Width = 90;
+            grfOrder.Cols[colOrderFre].Width = 300;
+            grfOrder.Cols[colOrderIn1].Width = 300;
 
             int i = 0;
             decimal aaa = 0;
@@ -4565,7 +4566,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-04-21";
+            this.Text = "Last Update 2020-07-17";
 
             setControlGbPtt();
             //btnItmSend.Location = new Point(180, 180);
