@@ -98,6 +98,7 @@ namespace bangna_hospital.gui
         //        txt.Value = msg;
         //    }));
         //}
+        Boolean flagTabOutlabLoad = false;
         public FrmScanView1(BangnaControl bc,String flagShoSearch)
         {
             InitializeComponent();
@@ -696,6 +697,20 @@ namespace bangna_hospital.gui
             {
                 scVs.SizeRatio = 1;
             }
+            else if(tcDtr.SelectedTab == tabHnLabOut)
+            {
+                if (!flagTabOutlabLoad)
+                {
+                    FrmWaiting frmW = new FrmWaiting();
+                    frmW.StartPosition = FormStartPosition.CenterScreen;
+                    frmW.Show(this);
+
+                    setTabHnLabOut();
+
+                    frmW.Dispose();
+                }
+                flagTabOutlabLoad = true;
+            }
         }
         private void tabOrderActive()
         {
@@ -1118,7 +1133,7 @@ namespace bangna_hospital.gui
             picR.Image = null;
             setGrfVsIPD();
             setGrfVsOPD();
-            setTabHnLabOut();
+            //setTabHnLabOut();
             setGrfPic();
             grfOPD.Focus();
             if (grfOPD.Rows.Count > 1)
@@ -1462,7 +1477,7 @@ namespace bangna_hospital.gui
                     }
                     catch(Exception ex)
                     {
-                        new LogWriter("e", "FrmScanView1 setTabHnLabOut " + ex.Message);
+                        new LogWriter("e", "FrmScanView1 setTabHnLabOut " + ex.Message+" hn "+txtHn.Text);
                     }
                     //}
                 }

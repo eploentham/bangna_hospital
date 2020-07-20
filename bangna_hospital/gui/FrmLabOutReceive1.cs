@@ -1914,11 +1914,11 @@ namespace bangna_hospital.gui
                     Thread.Sleep(200);
                     if (pathname.Length > 0)
                     {
-                        File.Move(filename, bc.iniC.pathLabOutBackupInnoTech + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
+                        File.Move(filename, bc.iniC.pathLabOutBackupInnoTech + "\\" + pathname + "\\err_select_HIS_not_found_" + reqid+"_"+ year1 + "-" + mm + "-" + dd + "_" + filename2 + "_" + datetick + ext);
                     }
                     else
                     {
-                        File.Move(filename, bc.iniC.pathLabOutBackupInnoTech + "\\err_" + filename2 + "_" + datetick + ext);
+                        File.Move(filename, bc.iniC.pathLabOutBackupInnoTech + "\\err_select_HIS_not_found_" + reqid + "_" + year1 + "-" + mm + "-" + dd + "_" + filename2 + "_" + datetick + ext);
                     }
                     Thread.Sleep(1000);
                     continue;

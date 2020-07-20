@@ -45,6 +45,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkDateApm = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.panel1.SuspendLayout();
             this.pnHead.SuspendLayout();
@@ -72,6 +73,7 @@
             // pnHead
             // 
             this.pnHead.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.pnHead.Controls.Add(this.chkDateApm);
             this.pnHead.Controls.Add(this.btnCap);
             this.pnHead.Controls.Add(this.chkDateLabOut);
             this.pnHead.Controls.Add(this.chkDateReq);
@@ -112,10 +114,10 @@
             this.chkDateLabOut.ForeColor = System.Drawing.Color.Black;
             this.chkDateLabOut.Location = new System.Drawing.Point(129, 8);
             this.chkDateLabOut.Name = "chkDateLabOut";
-            this.chkDateLabOut.Size = new System.Drawing.Size(166, 24);
+            this.chkDateLabOut.Size = new System.Drawing.Size(99, 24);
             this.chkDateLabOut.TabIndex = 545;
             this.chkDateLabOut.TabStop = true;
-            this.chkDateLabOut.Text = "วันที่ รับผลจาก out lab";
+            this.chkDateLabOut.Text = "วันที่Result";
             this.theme1.SetTheme(this.chkDateLabOut, "(default)");
             this.chkDateLabOut.UseVisualStyleBackColor = false;
             // 
@@ -127,10 +129,10 @@
             this.chkDateReq.ForeColor = System.Drawing.Color.Black;
             this.chkDateReq.Location = new System.Drawing.Point(3, 8);
             this.chkDateReq.Name = "chkDateReq";
-            this.chkDateReq.Size = new System.Drawing.Size(118, 24);
+            this.chkDateReq.Size = new System.Drawing.Size(114, 24);
             this.chkDateReq.TabIndex = 544;
             this.chkDateReq.TabStop = true;
-            this.chkDateReq.Text = "วันที่ Request";
+            this.chkDateReq.Text = "วันที่Request";
             this.theme1.SetTheme(this.chkDateReq, "(default)");
             this.chkDateReq.UseVisualStyleBackColor = false;
             // 
@@ -188,7 +190,7 @@
             this.c1Label4.AutoSize = true;
             this.c1Label4.BorderColor = System.Drawing.Color.Transparent;
             this.c1Label4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.c1Label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.c1Label4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.c1Label4.Location = new System.Drawing.Point(762, 10);
             this.c1Label4.Name = "c1Label4";
@@ -265,7 +267,7 @@
             this.c1Label3.AutoSize = true;
             this.c1Label3.BorderColor = System.Drawing.Color.Transparent;
             this.c1Label3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.c1Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.c1Label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.c1Label3.Location = new System.Drawing.Point(581, 10);
             this.c1Label3.Name = "c1Label3";
@@ -327,6 +329,21 @@
             this.panel2.TabIndex = 1;
             this.theme1.SetTheme(this.panel2, "(default)");
             // 
+            // chkDateApm
+            // 
+            this.chkDateApm.AutoSize = true;
+            this.chkDateApm.BackColor = System.Drawing.Color.Transparent;
+            this.chkDateApm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDateApm.ForeColor = System.Drawing.Color.Black;
+            this.chkDateApm.Location = new System.Drawing.Point(234, 10);
+            this.chkDateApm.Name = "chkDateApm";
+            this.chkDateApm.Size = new System.Drawing.Size(61, 20);
+            this.chkDateApm.TabIndex = 547;
+            this.chkDateApm.TabStop = true;
+            this.chkDateApm.Text = "วันที่นัด";
+            this.theme1.SetTheme(this.chkDateApm, "(default)");
+            this.chkDateApm.UseVisualStyleBackColor = false;
+            // 
             // FrmNurseScanView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -372,5 +389,6 @@
         private System.Windows.Forms.RadioButton chkDateLabOut;
         private System.Windows.Forms.RadioButton chkDateReq;
         private C1.Win.C1Input.C1Button btnCap;
+        private System.Windows.Forms.RadioButton chkDateApm;
     }
 }

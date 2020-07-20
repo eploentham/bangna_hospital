@@ -44,6 +44,33 @@ namespace bangna_hospital.objdb
             labo.table = "t_lab_out";
             labo.pkField = "lab_out_id";
         }
+        public DataTable selectLabM01By(String labcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From LAB_M01 " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where MNC_LB_CD ='" + labcode + "'  " +
+                "Order By MNC_LB_CD ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
+        public DataTable selectByHnDateReqLabCode(String hn, String vsDate, String labcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select labo.* " +
+                "From " + labo.table + " labo " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where labo." + labo.visit_date + "='" + vsDate + "' " +
+                "and labo." + labo.lab_code + "='"+labcode+"' " +
+                "and labo." + labo.hn + "='"+hn+"' " +
+                "and labo." + labo.active + "='1' " +
+                "Order By labo. " + labo.hn + "," + labo.lab_code + "," + labo.lab_out_id;
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectByDateReq(String vsDate)
         {
             DataTable dt = new DataTable();
@@ -51,7 +78,7 @@ namespace bangna_hospital.objdb
                 "From " + labo.table + " labo " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where labo." + labo.visit_date + "='" + vsDate + "' and labo." + labo.active + "='1' " +
-                "Order By labo. "+ labo.lab_out_id;
+                "Order By labo. "+ labo.hn+","+labo.lab_code+","+labo.lab_out_id;
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -184,8 +211,32 @@ namespace bangna_hospital.objdb
             sql = "Update " + labo.table + " Set " +
                 " " + labo.status_result + " = '1'" +
                 "," + labo.date_result + " = convert(varchar, getdate(), 23)" +
-                "," + labo.user_cancel + " = '" + userId + "'" +
+                "," + labo.user_modi + " = '" + userId + "'" +
                 "Where " + labo.visit_date + "='" + req_date + "' and "+labo.hn +"='"+hn+"' and "+labo.req_no+"='"+req_id+"'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateStatusResult " + sql);
+            }
+
+            return re;
+        }
+        public String updateStatusResultByID(String id)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            //chkNull(p);
+            sql = "Update " + labo.table + " Set " +
+                " " + labo.status_result + " = '1'" +
+                "," + labo.date_result + " = convert(varchar, getdate(), 23)" +
+                //"," + labo.user_cancel + " = '" + userId + "'" +
+                "Where " + labo.lab_out_id + "='" + id + "'"
                 ;
             try
             {

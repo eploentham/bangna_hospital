@@ -5,6 +5,7 @@ using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,7 +28,7 @@ namespace bangna_hospital.gui
         C1FlexGrid grfHn, grfLabOut, grfMas, grfLabOutView;
         Font fEdit, fEditB, fEditBig;
         int colDateReq = 1, colHN = 2, colFullName = 3, colVN = 4, colDateReceive = 5, colReqNo = 6, colId = 7, colComp=8;
-        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISVsDate=5, colHISLabCode = 6, colHISLabName = 7, colHISReqNo = 8, colHISEdit=9, colHISpreno=10, colHISStatusRes=11, colHISDateResult=12;
+        int colHISDateReq = 1, colHISHN = 2, colHISFullName = 3, colHISVN = 4, colHISVsDate=5, colHISLabCode = 6, colHISLabName = 7, colHISReqNo = 8, colHISEdit=9, colHISpreno=10, colHISStatusRes=11, colHISDateResult=12, colHISPeriodResult=13, colHISid=14;
         int colMasId = 1, colMasCode = 2, colMasName = 3, colMasCompName=4, colMasPrice=5, colMasPeriod=6;
 
         C1DockingTab tC1;
@@ -35,7 +36,7 @@ namespace bangna_hospital.gui
         Panel pnLabOut, panel1, panel2, panel3, pnLabOutTop, pnLabOutBotton, pnLabOutView, pnLabOutViewTop, pnLabOutViewBotton;
         C1TextBox txtHn;
         C1Label lbtxtHn, lbtxtDateEnd, lbtxtDateStart, lbtxtDate, lbLabOutViewDate;
-        C1Button btnOk, btnHISSearch, btnImport, btnLabOutViewDate;
+        C1Button btnOk, btnHISSearch, btnImport, btnLabOutViewDate, btntabLabOutViewChk;
         C1DateEdit txtDateStart, txtDateEnd, txtDate, txtLabOutViewDate;
         RadioButton chkDateLabOut, chkDateReq, chkDateReqHIS;
         C1SuperTooltip stt;
@@ -77,6 +78,7 @@ namespace bangna_hospital.gui
             btnImport.Click += BtnImport_Click;
             btnLabOutViewDate.Click += BtnLabOutViewDate_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
+            btntabLabOutViewChk.Click += BtntabLabOutViewChk_Click;
 
             theme1.SetTheme(sb1, bc.iniC.themeApplication);
             theme1.SetTheme(tC1, bc.iniC.themeApplication);
@@ -101,6 +103,36 @@ namespace bangna_hospital.gui
             txtDateStart.Value = System.DateTime.Now;
             txtDateEnd.Value = System.DateTime.Now;
             txtLabOutViewDate.Value = System.DateTime.Now;
+        }
+
+        private void BtntabLabOutViewChk_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            foreach(Row row in grfLabOutView.Rows)
+            {
+                if (row[colHISStatusRes] != null && row[colHISStatusRes].ToString().Equals(""))
+                {
+                    DataTable dt = new DataTable();
+                    String hn = "", reqid = "", reqdate = "", labcode = "", preno = "", vsdate = "", reqno = "", id="";
+                    id = row[colHISid] != null ? row[colHISid].ToString() : "";
+                    hn = row[colHISHN] != null ? row[colHISHN].ToString() : "";
+                    reqid = row[colHISDateReq] != null ? row[colHISDateReq].ToString() : "";
+                    reqdate = row[colHISDateReq] != null ? row[colHISDateReq].ToString() : "";
+                    labcode = row[colHISLabCode] != null ? row[colHISLabCode].ToString() : "";
+                    preno = row[colHISpreno] != null ? row[colHISpreno].ToString() : "";
+                    vsdate = row[colHISVsDate] != null ? row[colHISVsDate].ToString() : "";
+                    reqno = row[colHISReqNo] != null ? row[colHISReqNo].ToString() : "";
+                    vsdate = bc.datetoDB(vsdate);
+                    reqdate = bc.datetoDB(reqdate);
+                    dt = bc.bcDB.dscDB.selectLabOutByHnReqDateReqNo(hn, vsdate, preno, !reqdate.Equals("") ? reqdate : vsdate, reqno);
+                    if (dt.Rows.Count > 0)
+                    {
+                        row[colHISStatusRes] = "OK";
+                        row[colHISDateResult] = bc.datetoShow(dt.Rows[0]["date_create"].ToString());
+                        bc.bcDB.laboDB.updateStatusResultByID(id);
+                    }
+                }
+            }
         }
 
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
@@ -318,7 +350,23 @@ namespace bangna_hospital.gui
         private void GrfLabOutView_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (grfLabOutView.Row <= 0) return;
+            if (grfLabOutView.Col <= 0) return;
+            showFormWaiting();
 
+            String hn = "";
+            hn = grfLabOutView[grfLabOutView.Row, colHISHN].ToString();
+            Patient ptt = new Patient();
+            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            if (ptt.Name.Length <= 0)
+            {
+                frmFlash.Dispose();
+                MessageBox.Show("ไม่พบ hn ในระบบ", "");
+                return;
+            }
+            openNewForm(ptt.Hn, ptt.Name);
+
+            frmFlash.Dispose();
         }
 
         private void initGrfLabOut()
@@ -712,6 +760,7 @@ namespace bangna_hospital.gui
             showFormWaiting();
             String datestart = "", dateend = "", hn = "", txt = "";
             DataTable dt = new DataTable();
+            DataTable dtM01 = new DataTable();
             //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
             //MessageBox.Show("txtDateEnd " + txtDateEnd.Text, "");
             datestart = bc.datetoDB(txtLabOutViewDate.Text);
@@ -721,7 +770,7 @@ namespace bangna_hospital.gui
             //grfLabOutView.Clear();
             grfLabOutView.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
-            grfLabOutView.Cols.Count = 13;
+            grfLabOutView.Cols.Count = 15;
             grfLabOutView.Cols[colHISDateReq].Caption = "Date Req";
             grfLabOutView.Cols[colHISHN].Caption = "HN";
             grfLabOutView.Cols[colHISFullName].Caption = "Name";
@@ -762,7 +811,7 @@ namespace bangna_hospital.gui
                 {
                     i++;
                     grfLabOutView[i, 0] = (i-1);
-
+                    grfLabOutView[i, colHISid] = row["lab_out_id"].ToString();
                     grfLabOutView[i, colHISHN] = row["hn"].ToString();
                     grfLabOutView[i, colHISFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
                     grfLabOutView[i, colHISDateReq] = bc.datetoShow(row["date_req"].ToString());
@@ -777,7 +826,19 @@ namespace bangna_hospital.gui
                     {
                         grfLabOutView[i, colHISStatusRes] = "OK";
                     }
+                    else
+                    {
+                        grfLabOutView[i, colHISStatusRes] = "";
+                    }
                     grfLabOutView[i, colHISDateResult] = bc.datetoShow(row["date_result"].ToString());
+                    if (row["lab_code"] != null)
+                    {
+                        dtM01 = bc.bcDB.laboDB.selectLabM01By(row["lab_code"].ToString());
+                        if (dtM01.Rows.Count > 0)
+                        {
+                            grfLabOutView[i, colHISPeriodResult] = dtM01.Rows[0]["MNC_SCH_ACT"].ToString();
+                        }
+                    }
                     //if ((i % 2) == 0)
                     //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
                     //grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
@@ -789,6 +850,7 @@ namespace bangna_hospital.gui
                 
             }
             grfLabOutView.Cols[0].Visible = true;
+            grfLabOutView.Cols[colHISid].Visible = false;
             grfLabOutView.Cols[colHISEdit].Visible = false;
             grfLabOutView.Cols[colHISpreno].Visible = false;
             grfLabOutView.Cols[colHISHN].AllowEditing = false;
@@ -841,6 +903,7 @@ namespace bangna_hospital.gui
             btnOk = new C1Button();
             btnHISSearch = new C1Button();
             btnLabOutViewDate = new C1Button();
+            btntabLabOutViewChk = new C1Button();
 
             //pnSearch.SuspendLayout();
             pnLabOut.SuspendLayout();
@@ -1081,6 +1144,7 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(btnImport);
             btnImport.Size = new Size(size.Width + 80, 25);
             btnImport.Font = fEdit;
+            
 
             lbLabOutViewDate.AutoSize = true;
             lbLabOutViewDate.BorderColor = System.Drawing.Color.Transparent;
@@ -1128,6 +1192,14 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(btnLabOutViewDate);
             btnLabOutViewDate.Size = new Size(size.Width + 80, 25);
             btnLabOutViewDate.Font = fEdit;
+            btntabLabOutViewChk = new C1Button();
+            btntabLabOutViewChk.Name = "btntabLabOutViewChk";
+            btntabLabOutViewChk.Text = "Check Result outlab";
+            btntabLabOutViewChk.Font = fEdit;
+            btntabLabOutViewChk.Location = new System.Drawing.Point(btnLabOutViewDate.Location.X + btnLabOutViewDate.Width + 10, lbLabOutViewDate.Location.Y);
+            size = bc.MeasureString(btntabLabOutViewChk);
+            btntabLabOutViewChk.Size = new Size(size.Width + 80, 25);
+            btntabLabOutViewChk.Font = fEdit;
 
             pnLabOutTop.Size = new System.Drawing.Size(990, 55);
             pnLabOutTop.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1165,6 +1237,7 @@ namespace bangna_hospital.gui
             pnLabOutViewTop.Controls.Add(lbLabOutViewDate);
             pnLabOutViewTop.Controls.Add(txtLabOutViewDate);
             pnLabOutViewTop.Controls.Add(btnLabOutViewDate);
+            pnLabOutViewTop.Controls.Add(btntabLabOutViewChk);
 
             pnLabOutTop.Controls.Add(lbtxtDate);
             pnLabOutTop.Controls.Add(txtDate);
@@ -1218,7 +1291,7 @@ namespace bangna_hospital.gui
         private void FrmlabOutReceiveView1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-05-12 ";
+            this.Text = "Last Update 2020-07-20 ";
             tC1.Font = fEdit;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel3, bc.iniC.themeApp);

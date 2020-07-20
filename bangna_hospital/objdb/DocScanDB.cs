@@ -198,6 +198,21 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectLabOutByHnReqDateReqNo(String hn, String datestart, String preno, String datereq, String reqno)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "";
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' /*and dsc." + dsc.visit_date + " ='" + datestart + "'*/ " +
+                "and dsc." + dsc.active + "='1'  and dsc."+dsc.pre_no +"= '"+ preno + "' and dsc." + dsc.status_record + "='2' and dsc."+ dsc.req_id+" = '"+ reqno+"' and dsc."+dsc.date_req+" = '"+datereq+"' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectLabOutByDateReq(String datestart, String dateend, String hn, String flagDate)
         {
             //DocScan cop1 = new DocScan();
