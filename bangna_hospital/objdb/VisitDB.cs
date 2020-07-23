@@ -226,7 +226,7 @@ namespace bangna_hospital.objdb
                 "patient_m01.MNC_LNAME_T,patient_t08.MNC_AD_DATE,patient_t08.MNC_DS_DATE,patient_t08.MNC_AN_NO, " +
                 "patient_m32.MNC_MD_DEP_DSC,patient_t08.MNC_RM_NAM,PATIENT_T08.MNC_BD_NO , " +
                 "patient_t01.MNC_SHIF_MEMO,aa.MNC_PFIX_DSC,patient_m26.MNC_DOT_FNAME,patient_m26.MNC_DOT_LNAME,bb.MNC_MD_DEP_DSC as before, " +
-                "DATEDIFF(DAY,MNC_AD_DATE,MNC_DS_DATE) as day " +
+                "DATEDIFF(DAY,MNC_AD_DATE,MNC_DS_DATE) as day, convert(VARCHAR(20),PATIENT_T01.mnc_date, 23) as mnc_date,PATIENT_T01.mnc_pre_no " +
                 "from PATIENT_T08 " +
                 " inner join PATIENT_T01 on patient_t01.MNC_PRE_NO =PATIENT_T08.MNC_PRE_NO and patient_t01.MNC_date = PATIENT_T08.MNC_date " +
                 " INNER JOIN dbo.PATIENT_M01 ON dbo.PATIENT_T08.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO  " +
@@ -940,7 +940,7 @@ namespace bangna_hospital.objdb
                 " and t01.mnc_hn_no = '" + hn + "' " +
                 //"and t01.mnc_vn_no = '" + vn + "'  " +
                 //"and t01.mnc_Pre_no = '" + preNo + "'" +
-                " and LAB_M01.MNC_LB_DSC like '%out%' " +
+                "and (LAB_M01.mnc_lb_dsc like '%out lab%' or LAB_M01.mnc_lb_dsc like '%outlab%')  " +
                 //"and  (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 'ch040', 'ch037', " +
                 //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
                 //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
@@ -954,8 +954,9 @@ namespace bangna_hospital.objdb
             String sql = "";
             DataTable dt = new DataTable();
             
-
-            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat, lab_t05.mnc_res, lab_t05.mnc_req_no " +
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES" +
+                ", LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no,LAB_M01.mnc_sch_act " +
                 "FROM     PATIENT_T01 t01 " +
                 "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
                 "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
@@ -964,7 +965,9 @@ namespace bangna_hospital.objdb
                 "where t01.MNC_DATE = '" + dateStart + "' " +
                 " and t01.mnc_hn_no = '" + hn + "' " +
                 //"and t01.mnc_vn_no = '" + vn + "'  " +
-                "and t01.mnc_Pre_no = '" + preNo + "' and LAB_M01.MNC_LB_DSC like '%out%' " +
+                "and t01.mnc_Pre_no = '" + preNo + "' " +
+                "and (LAB_M01.mnc_lb_dsc like '%out lab%' or LAB_M01.mnc_lb_dsc like '%outlab%')  " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'" +
                 //"and  (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 'ch040', 'ch037', " +
                 //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
                 //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
@@ -1063,6 +1066,7 @@ namespace bangna_hospital.objdb
                 "where LAB_T01.mnc_an_no = '" + an + "'  " +
                 "and LAB_T01.mnc_an_yr = '" + anyr + "'  " +
                 "and t01.mnc_hn_no = '" + hn + "' " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'" +
                 "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
 
             dt = conn.selectData(sql);
@@ -1116,7 +1120,7 @@ namespace bangna_hospital.objdb
                 "left join LAB_M01 ON lt02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
                 
                 "where lt01.mnc_req_dat = '" + date_req + "'  " +
-                "and LAB_M01.mnc_lb_dsc like '%out lab%'   " +
+                "and (LAB_M01.mnc_lb_dsc like '%out lab%' or LAB_M01.mnc_lb_dsc like '%outlab%')   " +
                 "and lt02.mnc_req_sts <> 'C'  and lt01.mnc_req_sts <> 'C'" +
                 "Order By lt01.mnc_req_dat,LAB_M01.MNC_LB_CD ";
 

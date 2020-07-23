@@ -77,7 +77,7 @@ namespace bangna_hospital.objdb
             String sql = "select labo.* " +
                 "From " + labo.table + " labo " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where labo." + labo.visit_date + "='" + vsDate + "' and labo." + labo.active + "='1' " +
+                "Where labo." + labo.date_req + "='" + vsDate + "' and labo." + labo.active + "='1' " +
                 "Order By labo. "+ labo.hn+","+labo.lab_code+","+labo.lab_out_id;
             dt = conn.selectData(conn.conn, sql);
 

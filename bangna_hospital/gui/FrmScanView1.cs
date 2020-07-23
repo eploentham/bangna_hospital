@@ -43,7 +43,8 @@ namespace bangna_hospital.gui
         C1FlexViewer labOutView;
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem;
-        
+        Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
+
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -1984,12 +1985,14 @@ namespace bangna_hospital.gui
             Panel pnOrdDiag1 = new Panel();
             Panel pnOrdDiag2 = new Panel();
             Panel pnOrdDiag3 = new Panel();
-            
+            Panel pnOrdDiagVal = new Panel();
+
             pnOrdDrugSarch.Dock = DockStyle.Fill;
             pnOrdDrugAdd.Dock = DockStyle.Fill;
             pnOrdDiag1.Dock = DockStyle.Fill;
             pnOrdDiag2.Dock = DockStyle.Fill;
             pnOrdDiag3.Dock = DockStyle.Fill;
+            pnOrdDiagVal.Dock = DockStyle.Fill;
 
             pnOrdSearchDrug = new Panel();
             pnOrdSearchSup = new Panel();
@@ -2018,6 +2021,12 @@ namespace bangna_hospital.gui
             C1SplitContainer sCOrdDiag = new C1.Win.C1SplitContainer.C1SplitContainer();
             
             tcOrdSearch = new C1DockingTab();
+            tabOrdSearchDrug = new C1DockingTabPage();
+            tabOrdSearchSup = new C1DockingTabPage();
+            tabOrdSearchLab = new C1DockingTabPage();
+            tabOrdSearchXray = new C1DockingTabPage();
+            tabOrdSearchOR = new C1DockingTabPage();
+
             tcOrdSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             tcOrdSearch.Location = new System.Drawing.Point(0, 266);
             tcOrdSearch.Name = "tabOrdSearch";
@@ -2030,8 +2039,7 @@ namespace bangna_hospital.gui
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged1;
             pnOrdDrugSarch.Controls.Add(tcOrdSearch);
             theme1.SetTheme(tcOrdSearch, bc.iniC.themeApplication);
-
-            tabOrdSearchDrug = new C1DockingTabPage();
+            
             tabOrdSearchDrug.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
             tabOrdSearchDrug.Size = new System.Drawing.Size(667, 175);
@@ -2040,9 +2048,7 @@ namespace bangna_hospital.gui
             tabOrdSearchDrug.Name = "tabOrdSearchDrug";
             tabOrdSearchDrug.Controls.Add(pnOrdSearchDrug);
             tabOrdSearchDrug.Font = fEdit;
-
-
-            tabOrdSearchSup = new C1DockingTabPage();
+            
             tabOrdSearchSup.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
             tabOrdSearchSup.Size = new System.Drawing.Size(667, 175);
@@ -2051,8 +2057,6 @@ namespace bangna_hospital.gui
             tabOrdSearchSup.Name = "tabOrdSearchSup";
             tabOrdSearchSup.Controls.Add(pnOrdSearchSup);
             
-
-            tabOrdSearchLab = new C1DockingTabPage();
             tabOrdSearchLab.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
             tabOrdSearchLab.Size = new System.Drawing.Size(667, 175);
@@ -2061,8 +2065,6 @@ namespace bangna_hospital.gui
             tabOrdSearchLab.Name = "tabOrdSearchLab";
             tabOrdSearchLab.Controls.Add(pnOrdSearchLab);
             
-
-            tabOrdSearchXray = new C1DockingTabPage();
             tabOrdSearchXray.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
             tabOrdSearchXray.Size = new System.Drawing.Size(667, 175);
@@ -2071,7 +2073,6 @@ namespace bangna_hospital.gui
             tabOrdSearchXray.Name = "tabOrdSearchXray";
             tabOrdSearchXray.Controls.Add(pnOrdSearchXray);
             
-            tabOrdSearchOR = new C1DockingTabPage();
             tabOrdSearchOR.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
             tabOrdSearchOR.Size = new System.Drawing.Size(667, 175);
@@ -2110,6 +2111,7 @@ namespace bangna_hospital.gui
             pnOrdDiag1.SuspendLayout();
             pnOrdDiag2.SuspendLayout();
             pnOrdDiag3.SuspendLayout();
+            pnOrdDiagVal.SuspendLayout();
 
             sCOrdAdd.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
             sCOrdAdd.Name = "sCOrdAdd";
@@ -2157,6 +2159,7 @@ namespace bangna_hospital.gui
             sCOrdDiag.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
             sCOrdDiag.Name = "sCOrdDiag";
             sCOrdDiag.Dock = System.Windows.Forms.DockStyle.Fill;
+            //sCOrdDiag.Panels.Add(pnOrdDiagVal);
             sCOrdDiag.Panels.Add(scOrdDiag1);
             sCOrdDiag.Panels.Add(scOrdDiag2);
             sCOrdDiag.Panels.Add(scOrdDiag3);
@@ -2165,7 +2168,14 @@ namespace bangna_hospital.gui
             scOrdDiag1.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Top;
             scOrdDiag1.Location = new System.Drawing.Point(0, 21);
             scOrdDiag1.Name = "scOrdDiag1";
+            pnOrdDiagVal.Name = "pnOrdDiagVal";
+            pnOrdDiagVal.Width = 30;
+            pnOrdDiagVal.Dock = DockStyle.Top;
+            pnOrdDiag1.Dock = DockStyle.Fill;
+            //pnOrdDiagVal.BackColor = Color.Red;
+            
             scOrdDiag1.Controls.Add(pnOrdDiag1);
+            scOrdDiag1.Controls.Add(pnOrdDiagVal);
             //scOrdLeft.HeaderHeight = 10;
             scOrdDiag2.Collapsible = true;
             scOrdDiag2.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
@@ -2180,19 +2190,19 @@ namespace bangna_hospital.gui
             //scOrdRight.HeaderHeight = 10;
             scOrdDiag3.Controls.Add(pnOrdDiag3);
 
-            FrmDoctorDiag frmDtrDiag1 = new FrmDoctorDiag(bc);
+            FrmDoctorDiag frmDtrDiag1 = new FrmDoctorDiag(bc, "Medical Examination");
             frmDtrDiag1.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag1.TopLevel = false;
             frmDtrDiag1.Dock = DockStyle.Fill;
             frmDtrDiag1.AutoScroll = true;
             pnOrdDiag1.Controls.Add(frmDtrDiag1);
-            FrmDoctorDiag frmDtrDiag2 = new FrmDoctorDiag(bc);
+            FrmDoctorDiag frmDtrDiag2 = new FrmDoctorDiag(bc, "");
             frmDtrDiag2.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag2.TopLevel = false;
             frmDtrDiag2.Dock = DockStyle.Fill;
             frmDtrDiag2.AutoScroll = true;
             pnOrdDiag2.Controls.Add(frmDtrDiag2);
-            FrmDoctorDiag frmDtrDiag3 = new FrmDoctorDiag(bc);
+            FrmDoctorDiag frmDtrDiag3 = new FrmDoctorDiag(bc, "Diagnose");
             frmDtrDiag3.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag3.TopLevel = false;
             frmDtrDiag3.Dock = DockStyle.Fill;
@@ -2228,6 +2238,7 @@ namespace bangna_hospital.gui
             pnOrdDiag1.ResumeLayout(false);
             pnOrdDiag2.ResumeLayout(false);
             pnOrdDiag3.ResumeLayout(false);
+            pnOrdDiagVal.ResumeLayout(false);
 
             tcOrdSearch.PerformLayout();
             pnOrdLeft.PerformLayout();
@@ -2253,6 +2264,7 @@ namespace bangna_hospital.gui
             pnOrdDiag1.PerformLayout();
             pnOrdDiag2.PerformLayout();
             pnOrdDiag3.PerformLayout();
+            pnOrdDiagVal.PerformLayout();
 
             //theme1.SetTheme(tabOrdSearchDrug, "ExpressionDark");
             //tabOrdSearchDrug.tabc

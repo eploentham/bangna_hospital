@@ -31,11 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDoctorDiag));
             this.c1Ribbon1 = new C1.Win.C1Ribbon.C1Ribbon();
             this.ribbonApplicationMenu1 = new C1.Win.C1Ribbon.RibbonApplicationMenu();
-            this.ribbonQat1 = new C1.Win.C1Ribbon.RibbonQat();
-            this.ribbonConfigToolBar1 = new C1.Win.C1Ribbon.RibbonConfigToolBar();
-            this.ribbonTopToolBar1 = new C1.Win.C1Ribbon.RibbonTopToolBar();
-            this.ribbonBottomToolBar1 = new C1.Win.C1Ribbon.RibbonBottomToolBar();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.ExitButton = new C1.Win.C1Ribbon.RibbonButton();
             this.NewDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
             this.OpenDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
             this.SaveDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
@@ -43,9 +39,11 @@
             this.SaveDocumentAsRtfButton = new C1.Win.C1Ribbon.RibbonButton();
             this.SaveDocumentAsTextButton = new C1.Win.C1Ribbon.RibbonButton();
             this.SaveDocumentAsOtherButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.ExitButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonBottomToolBar1 = new C1.Win.C1Ribbon.RibbonBottomToolBar();
+            this.ribbonConfigToolBar1 = new C1.Win.C1Ribbon.RibbonConfigToolBar();
             this.ribbonStyleCombo = new C1.Win.C1Ribbon.RibbonComboBox();
             this.F1HelpButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonQat1 = new C1.Win.C1Ribbon.RibbonQat();
             this.UndoButton = new C1.Win.C1Ribbon.RibbonButton();
             this.RedoButton = new C1.Win.C1Ribbon.RibbonButton();
             this.HomeTab = new C1.Win.C1Ribbon.RibbonTab();
@@ -81,6 +79,10 @@
             this.ViewZoomGroup = new C1.Win.C1Ribbon.RibbonGroup();
             this.ViewZoomCombobox = new C1.Win.C1Ribbon.RibbonComboBox();
             this.NormalSizeButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonTopToolBar1 = new C1.Win.C1Ribbon.RibbonTopToolBar();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.ribbonGroup1 = new C1.Win.C1Ribbon.RibbonGroup();
+            this.ribbonLabel1 = new C1.Win.C1Ribbon.RibbonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.c1Ribbon1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,38 +114,11 @@
             this.ribbonApplicationMenu1.Name = "ribbonApplicationMenu1";
             this.ribbonApplicationMenu1.Text = "File";
             // 
-            // ribbonQat1
+            // ExitButton
             // 
-            this.ribbonQat1.HotItemLinks.Add(this.SaveDocumentButton);
-            this.ribbonQat1.HotItemLinks.Add(this.UndoButton);
-            this.ribbonQat1.HotItemLinks.Add(this.RedoButton);
-            this.ribbonQat1.ItemLinks.Add(this.SaveDocumentButton);
-            this.ribbonQat1.ItemLinks.Add(this.UndoButton);
-            this.ribbonQat1.ItemLinks.Add(this.RedoButton);
-            this.ribbonQat1.Name = "ribbonQat1";
-            // 
-            // ribbonConfigToolBar1
-            // 
-            this.ribbonConfigToolBar1.Items.Add(this.ribbonStyleCombo);
-            this.ribbonConfigToolBar1.Items.Add(this.F1HelpButton);
-            this.ribbonConfigToolBar1.Name = "ribbonConfigToolBar1";
-            // 
-            // ribbonTopToolBar1
-            // 
-            this.ribbonTopToolBar1.Name = "ribbonTopToolBar1";
-            // 
-            // ribbonBottomToolBar1
-            // 
-            this.ribbonBottomToolBar1.Name = "ribbonBottomToolBar1";
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(0, 156);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(918, 465);
-            this.richTextBox1.TabIndex = 1;
-            this.richTextBox1.Text = "";
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ExitButton.SmallImage")));
+            this.ExitButton.Text = "E&xit WordPad Sample";
             // 
             // NewDocumentButton
             // 
@@ -194,11 +169,15 @@
             this.SaveDocumentAsOtherButton.Name = "SaveDocumentAsOtherButton";
             this.SaveDocumentAsOtherButton.Text = "Other formats";
             // 
-            // ExitButton
+            // ribbonBottomToolBar1
             // 
-            this.ExitButton.Name = "ExitButton";
-            this.ExitButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("ExitButton.SmallImage")));
-            this.ExitButton.Text = "E&xit WordPad Sample";
+            this.ribbonBottomToolBar1.Name = "ribbonBottomToolBar1";
+            // 
+            // ribbonConfigToolBar1
+            // 
+            this.ribbonConfigToolBar1.Items.Add(this.ribbonStyleCombo);
+            this.ribbonConfigToolBar1.Items.Add(this.F1HelpButton);
+            this.ribbonConfigToolBar1.Name = "ribbonConfigToolBar1";
             // 
             // ribbonStyleCombo
             // 
@@ -214,6 +193,16 @@
             this.F1HelpButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("F1HelpButton.SmallImage")));
             this.F1HelpButton.ToolTip = "Help";
             // 
+            // ribbonQat1
+            // 
+            this.ribbonQat1.HotItemLinks.Add(this.SaveDocumentButton);
+            this.ribbonQat1.HotItemLinks.Add(this.UndoButton);
+            this.ribbonQat1.HotItemLinks.Add(this.RedoButton);
+            this.ribbonQat1.ItemLinks.Add(this.SaveDocumentButton);
+            this.ribbonQat1.ItemLinks.Add(this.UndoButton);
+            this.ribbonQat1.ItemLinks.Add(this.RedoButton);
+            this.ribbonQat1.Name = "ribbonQat1";
+            // 
             // UndoButton
             // 
             this.UndoButton.Name = "UndoButton";
@@ -228,6 +217,7 @@
             // 
             // HomeTab
             // 
+            this.HomeTab.Groups.Add(this.ribbonGroup1);
             this.HomeTab.Groups.Add(this.ClipboardGroup);
             this.HomeTab.Groups.Add(this.FontGroup);
             this.HomeTab.Groups.Add(this.ParagraphGroup);
@@ -448,6 +438,30 @@
             this.NormalSizeButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("NormalSizeButton.SmallImage")));
             this.NormalSizeButton.Text = "100%";
             // 
+            // ribbonTopToolBar1
+            // 
+            this.ribbonTopToolBar1.Name = "ribbonTopToolBar1";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 156);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(918, 465);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            // 
+            // ribbonGroup1
+            // 
+            this.ribbonGroup1.Items.Add(this.ribbonLabel1);
+            this.ribbonGroup1.Name = "ribbonGroup1";
+            this.ribbonGroup1.Text = "Group";
+            // 
+            // ribbonLabel1
+            // 
+            this.ribbonLabel1.Name = "ribbonLabel1";
+            this.ribbonLabel1.Text = "Label";
+            // 
             // FrmDoctorDiag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -518,5 +532,7 @@
         private C1.Win.C1Ribbon.RibbonButton NormalSizeButton;
         private C1.Win.C1Ribbon.RibbonTopToolBar ribbonTopToolBar1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private C1.Win.C1Ribbon.RibbonGroup ribbonGroup1;
+        private C1.Win.C1Ribbon.RibbonLabel ribbonLabel1;
     }
 }

@@ -178,7 +178,6 @@ namespace bangna_hospital.gui
             Application.DoEvents();
             setHISSearch("auto");
             timerStt.Start();
-            
         }
         private void setImport()
         {
@@ -847,7 +846,6 @@ namespace bangna_hospital.gui
                 {
                     new LogWriter("e", "FrmLabOutReceiveView setGrf ex " + ex.Message);
                 }
-                
             }
             grfLabOutView.Cols[0].Visible = true;
             grfLabOutView.Cols[colHISid].Visible = false;
@@ -1291,7 +1289,7 @@ namespace bangna_hospital.gui
         private void FrmlabOutReceiveView1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-07-20 ";
+            this.Text = "Last Update 2020-07-22 ";
             tC1.Font = fEdit;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel3, bc.iniC.themeApp);

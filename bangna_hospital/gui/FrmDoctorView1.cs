@@ -1005,7 +1005,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(tC1, bc.iniC.themeDonor);
             txtPttHn.Location = new System.Drawing.Point(lbTxtPttHn.Location.X + size.Width + 5, lbTxtPttHn.Location.Y);
             sb1.Text = "Text";
-            this.Text = "Last Update 2020-07-17 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2020-07-22 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel1, bc.iniC.themeApp);
             theme1.SetTheme(pnHead, bc.iniC.themeApp);

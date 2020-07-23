@@ -182,7 +182,8 @@ namespace bangna_hospital.control
             iniC.laboutMedicahosp_code = iniF.getIni("app", "laboutMedicahosp_code");
             iniC.statusLabOutAutoPrint = iniF.getIni("app", "statusLabOutAutoPrint");
             iniC.printerLabOut = iniF.getIni("app", "printerLabOut");
-            
+            iniC.statusLabOutReceiveTabShow = iniF.getIni("app", "statusLabOutReceiveTabShow");
+            iniC.branchId = iniF.getIni("app", "branchId");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -218,7 +219,8 @@ namespace bangna_hospital.control
             iniC.statusLabOutReceiveOnline = iniC.statusLabOutReceiveOnline == null ? "0" : iniC.statusLabOutReceiveOnline.Equals("") ? "0" : iniC.statusLabOutReceiveOnline;
             iniC.statusLabOutAutoPrint = iniC.statusLabOutAutoPrint == null ? "0" : iniC.statusLabOutAutoPrint.Equals("") ? "0" : iniC.statusLabOutAutoPrint;
             iniC.printerLabOut = iniC.printerLabOut == null ? "" : iniC.printerLabOut.Equals("") ? "" : iniC.printerLabOut;
-            
+            iniC.statusLabOutReceiveTabShow = iniC.statusLabOutReceiveTabShow == null ? "1" : iniC.statusLabOutReceiveTabShow.Equals("") ? "1" : iniC.statusLabOutReceiveTabShow;
+            iniC.branchId = iniC.branchId == null ? "005" : iniC.branchId.Equals("") ? "005" : iniC.branchId;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -287,7 +289,7 @@ namespace bangna_hospital.control
                     }
                     else
                     {
-                        re = dt1.ToString("MM-dd") + "-" + dt1.Year.ToString();
+                        re = dt1.ToString("dd-MM") + "-" + dt1.Year.ToString();
                     }
                 }
                 //re = dt.ToString();

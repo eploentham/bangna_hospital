@@ -855,6 +855,16 @@ namespace bangna_hospital.gui
                 {
                     //Patient ptt = new Patient();
                     //ptt.patient_birthday = bc.datetoDB(row["mnc_bday"].ToString());
+                    DataTable dtitm = new DataTable();
+                    if (bc.iniC.station.Equals("101") || bc.iniC.station.Equals("107") || bc.iniC.station.Equals("103"))
+                    {
+                        dtitm = bc.bcDB.vsDB.selectLabOutbyVN(row["mnc_date"].ToString(), row["MNC_HN_NO"].ToString(), row["mnc_pre_no"].ToString());
+                    }
+                    else
+                    {
+                        dtitm = bc.bcDB.vsDB.selectLabOutbyVN(row["mnc_date"].ToString(), row["MNC_HN_NO"].ToString(), row["mnc_pre_no"].ToString());
+                    }
+                    //dtitm = bc.bcDB.vsDB.selectLabOutbyVN(row["mnc_date"].ToString(), row["MNC_HN_NO"].ToString(), row["mnc_pre_no"].ToString());
                     grfPttinWrd[i, 0] = (i);
                     grfPttinWrd[i, colLabOutHn] = row["MNC_HN_NO"].ToString();
                     grfPttinWrd[i, colLabOutPttName] = row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
@@ -869,6 +879,35 @@ namespace bangna_hospital.gui
                     //grfLabOutWait[i, colApmId] = row["mnc_name"].ToString();
                     //if ((i % 2) == 0)
                     //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    String txt1 = "", txt2 = "";
+                    if (dtitm.Rows.Count > 0)
+                    {
+                        foreach (DataRow vsrow1 in dtitm.Rows)
+                        {
+                            DataTable dtlabout = new DataTable();
+                            dtlabout = bc.bcDB.laboDB.selectByHnDateReqLabCode(row["MNC_HN_NO"].ToString(), row["mnc_date"].ToString(), vsrow1["MNC_LB_CD"].ToString());
+                            if (dtlabout.Rows.Count > 0)
+                            {
+                                if (dtlabout.Rows[0]["status_result"].ToString().Equals("1"))
+                                {
+                                    txt1 += "มี  " + vsrow1["MNC_LB_DSC"].ToString() + " -> OK " + Environment.NewLine;
+                                }
+                                else
+                                {
+                                    txt1 += "มี  " + vsrow1["MNC_LB_DSC"].ToString() + " -> waiting " + vsrow1["MNC_sch_act"].ToString() + Environment.NewLine;
+                                }
+                            }
+                            else
+                            {
+                                txt1 += "มี  " + vsrow1["MNC_LB_DSC"].ToString() + " -> waiting " + vsrow1["MNC_sch_act"].ToString() + Environment.NewLine;
+                            }
+                            CellNote1 note1 = new CellNote1(txt1);
+                            CellRange rg2 = grfPttinWrd.GetCellRange(i, colLabOutHn);
+                            rg2.UserData = note1;
+                        }
+                        //txt2 = "มี outlab";
+                        
+                    }
                     i++;
                 }
                 catch (Exception ex)
@@ -877,7 +916,7 @@ namespace bangna_hospital.gui
                 }
             }
             //grfLabOutWait.Cols[colApmId].Visible = false;
-
+            CellNoteManager1 mgr = new CellNoteManager1(grfPttinWrd);
             grfPttinWrd.Cols[colLabOutHn].AllowEditing = false;
             grfPttinWrd.Cols[colLabOutPttName].AllowEditing = false;
             grfPttinWrd.Cols[colLabOutWard].AllowEditing = false;
@@ -908,7 +947,7 @@ namespace bangna_hospital.gui
             grfLabOutFinish.Cols[colLabOutFHN].Caption = "HN";
             grfLabOutFinish.Cols[colLabOutFFullName].Caption = "Name";
             grfLabOutFinish.Cols[colLabOutFVN].Caption = "VN";
-            grfLabOutFinish.Cols[colLabOutFDateReceive].Caption = "Date Rec";
+            grfLabOutFinish.Cols[colLabOutFDateReceive].Caption = "Date Result";
             grfLabOutFinish.Cols[colLabOutFReqNo].Caption = "Req No";
             grfLabOutFinish.Cols[colLabOutFId].Caption = "id";
 
@@ -916,7 +955,7 @@ namespace bangna_hospital.gui
             grfLabOutFinish.Cols[colLabOutFHN].Width = 80;
             grfLabOutFinish.Cols[colLabOutFFullName].Width = 300;
             grfLabOutFinish.Cols[colLabOutFVN].Width = 100;
-            grfLabOutFinish.Cols[colLabOutFDateReceive].Width = 80;
+            grfLabOutFinish.Cols[colLabOutFDateReceive].Width = 100;
             grfLabOutFinish.Cols[colLabOutFReqNo].Width = 80;
             
             dt = bc.bcDB.dscDB.selectLabOutByHn(hn1);
@@ -994,7 +1033,7 @@ namespace bangna_hospital.gui
             grfXrayFinish.Cols[colLabOutFHN].Caption = "HN";
             grfXrayFinish.Cols[colLabOutFFullName].Caption = "Name";
             grfXrayFinish.Cols[colLabOutFVN].Caption = "VN";
-            grfXrayFinish.Cols[colLabOutFDateReceive].Caption = "Date Rec";
+            grfXrayFinish.Cols[colLabOutFDateReceive].Caption = "Date Result";
             grfXrayFinish.Cols[colLabOutFReqNo].Caption = "Req No";
             grfXrayFinish.Cols[colLabOutFId].Caption = "id";
 
@@ -1002,7 +1041,7 @@ namespace bangna_hospital.gui
             grfXrayFinish.Cols[colLabOutFHN].Width = 80;
             grfXrayFinish.Cols[colLabOutFFullName].Width = 300;
             grfXrayFinish.Cols[colLabOutFVN].Width = 100;
-            grfXrayFinish.Cols[colLabOutFDateReceive].Width = 80;
+            grfXrayFinish.Cols[colLabOutFDateReceive].Width = 100;
             grfXrayFinish.Cols[colLabOutFReqNo].Width = 80;
 
             dt = bc.bcDB.rpttcDB.selectResultByHn(hn1);
@@ -1217,7 +1256,7 @@ namespace bangna_hospital.gui
                 {
                     try
                     {
-                        if (row["MNC_HN_NO"].ToString().Equals("5190797"))
+                        if (row["MNC_HN_NO"].ToString().Equals("5201798"))
                         {
                             String sql = "";
                         }
@@ -1256,8 +1295,6 @@ namespace bangna_hospital.gui
                                         txt1 += "      " + vsrow1["MNC_LB_DSC"].ToString() + " -> OK " + Environment.NewLine;
                                     }
                                 }
-                                
-                                
                             }
                             txt2 = "มี outlab";
                             CellNote note2 = new CellNote(txt2);
@@ -1267,7 +1304,8 @@ namespace bangna_hospital.gui
                         err = "03";
                         if (dtapm.Rows.Count > 0)
                         {
-                            foreach(DataRow drow in dtapm.Rows)
+                            String txt22 = "";
+                            foreach (DataRow drow in dtapm.Rows)
                             {
                                 txt1 += "   วันที่นัด " + bc.datetoShow(drow["mnc_app_dat"].ToString()) + " " + drow["mnc_app_dsc"].ToString() + Environment.NewLine;
                                 DataTable dtvs = new DataTable();
@@ -1287,6 +1325,7 @@ namespace bangna_hospital.gui
                                             else
                                             {
                                                 txt1 += "      " + vsrow["MNC_LB_DSC"].ToString() + " -> waiting " + Environment.NewLine;
+                                                grfApm.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
                                             }
                                         }
                                         else
@@ -1295,10 +1334,11 @@ namespace bangna_hospital.gui
                                             txt1 += "      " + vsrow["MNC_LB_DSC"].ToString() + " -> waiting "+ vsrow["MNC_sch_act"].ToString() + Environment.NewLine;
                                         }
                                     }
-                                    txt2 = "มี outlab";
-                                    CellNote note2 = new CellNote(txt2);
-                                    CellRange rg2 = grfApm.GetCellRange(i, colApmSex);
-                                    rg2.UserData = note2;
+                                    txt22 = "มี outlab";
+                                    CellNote note22 = new CellNote(txt22);
+                                    CellRange rg22 = grfApm.GetCellRange(i, colApmSex);
+                                    rg22.UserData = note22;
+                                    //grfApm.GetCellRange(i, colApmSex).UserData = new CellNote(txt2);
                                 }
                                 else
                                 {
@@ -1306,7 +1346,7 @@ namespace bangna_hospital.gui
                                 }
                             }
                         }
-                        CellNote note = new CellNote(txt1);
+                        CellNote1 note = new CellNote1(txt1);
                         CellRange rg = grfApm.GetCellRange(i, colApmHn);
                         rg.UserData = note;
                         
@@ -1320,6 +1360,7 @@ namespace bangna_hospital.gui
                     }
                 }
                 CellNoteManager mgr = new CellNoteManager(grfApm);
+                CellNoteManager1 mgr1 = new CellNoteManager1(grfApm);
                 grfApm.Cols[colApmId].Visible = false;
 
                 grfApm.Cols[colApmHn].AllowEditing = false;
@@ -1591,12 +1632,16 @@ namespace bangna_hospital.gui
         //}
         private void FrmNurseScanView_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2020-07-20 date "+DateTime.Now.Day.ToString()+" month ";
+            this.Text = "Last Update 2020-07-22 date "+DateTime.Now.Day.ToString()+" month ";
             pnLabOut.Size = new Size(this.Width / 2, this.Height);
             Size pnlsize = new Size(pnLabOut.Width / 2, pnLabOut.Height);
             spPttinWrd.Size = pnlsize;
             spLabOutR.Size = pnlsize;
             tC1.SelectedTab = tabPttinWrd;
+            if (bc.iniC.station.Equals("101") || bc.iniC.station.Equals("107") || bc.iniC.station.Equals("103"))
+            {
+                tC1.TabPages[0].Hide();
+            }
             //pnXray.Size = new Size(this.Width / 2, this.Height);
             //pnXrayL.Size = pnlsize;
             //pnXrayR.Size = pnlsize;

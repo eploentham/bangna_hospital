@@ -39,7 +39,7 @@ namespace bangna_hospital.gui
         System.Windows.Forms.Timer timer;
         Boolean chkFileInnoTech = false, chkFileRIA = false;
         C1DockingTab tC1;
-        C1DockingTabPage tabAuto, tabManual, tabMed;
+        C1DockingTabPage tabLabAuto, tabManual, tabMed;
         Panel pnAuto, pnManual, panel1, pnLeft, pnRightTop, pnRightBotton, pnMed, pnMedMachine, pnLabComp;
         Label lbStep1, lbStep2, lbPttNmae, lbVisitStatus, lbOutLabDate, lbMessage, lbMedStep1, lbMedStep2, lbMedPttNmae, lbMedVisitStatus, lbMedOutLabDate, lbMedMessage;
         C1Button btnBrow, btnUpload, btnMedBrow, btnMedUpload;
@@ -84,6 +84,7 @@ namespace bangna_hospital.gui
             else
             {
                 timer.Stop();
+                //tabLabAuto.Hide();
             }
 
             this.Load += FrmLabOutReceive1_Load;
@@ -121,13 +122,28 @@ namespace bangna_hospital.gui
             if (grfMedVisit.Col <= 0) return;
             if (grfMedVisit[grfMedVisit.Row, colVsVn] == null) return;
 
+            
+            if (grfMedVisit[grfMedVisit.Row, colVsStatus].ToString().Trim().Equals("OPD"))
+            {
+                chkMedOPD.Checked = true;
+            }
+            else
+            {
+                chkMedIPD.Checked = true;
+            }
             if (chkMedOPD.Checked)
             {
                 txtMedVnAn.Value = grfMedVisit[grfMedVisit.Row, colVsVn].ToString().Trim();
+                //chkMedOPD.Checked = true;
             }
             else if (chkMedIPD.Checked)
             {
                 txtMedVnAn.Value = grfMedVisit[grfMedVisit.Row, colVsAn].ToString().Trim();
+                //chkMedIPD.Checked = true;
+            }
+            else
+            {
+
             }
             preno = grfMedVisit[grfMedVisit.Row, colVsPreno].ToString().Trim();
             txtMedVsDate.Value = grfMedVisit[grfMedVisit.Row, colVsVsDate].ToString().Trim();
@@ -146,7 +162,7 @@ namespace bangna_hospital.gui
         private void BtnMedUpload_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (MessageBox.Show("ต้องการ Upload MED ช้อมูล \n" + txtHn.Text + " " + lbPttNmae.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            if (MessageBox.Show("ต้องการ Upload MED ช้อมูล \n" + txtMedHn.Text + " " + lbMedPttNmae.Text, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 uploadFiletoServerMedCarilo();
             }
@@ -179,10 +195,42 @@ namespace bangna_hospital.gui
                 PdfReader reader = new PdfReader(ofd.FileName);
                 try
                 {
+                    //pds.LoadFromFile(filename1);
                     C1PdfDocumentSource pds = new C1PdfDocumentSource();
                     pds.LoadFromFile(ofd.FileName);
-                    //pds.LoadFromFile(filename1);
-                    medView.DocumentSource = pds;
+                    if (bc.iniC.windows.Equals("windowsxp"))
+                    {
+                        string currentDirectory = Directory.GetCurrentDirectory();
+                        String datetick = DateTime.Now.Ticks.ToString();
+                        WebBrowser webBrowser1;
+                        webBrowser1 = new System.Windows.Forms.WebBrowser();
+                        //webBrowser1.Enabled = true;
+                        //webBrowser1.Location = new System.Drawing.Point(192, 0);
+                        webBrowser1.Name = "webBrowser1";
+                        //axAcroPDF1.OcxState = ((System.Windows.Forms.AxHost.State)(Resources.GetObject("axAcroPDF1.OcxState")));
+                        //webBrowser1.Size = new System.Drawing.Size(192, 192);
+                        webBrowser1.Dock = DockStyle.Fill;
+                        webBrowser1.Dock = System.Windows.Forms.DockStyle.None;
+                        webBrowser1.Size = medView.Size;
+                        webBrowser1.Location = medView.Location;
+                        //axAcroPDF1.TabIndex = 7;
+                        String file1 = "";
+                        file1 = ofd.FileName;
+                        //new LogWriter("d", file1);
+                        if (!File.Exists(file1))
+                        {
+                            MessageBox.Show("ไม่พบ File " + file1, "");
+                        }
+                        medView.Hide();
+                        pnMed.Controls.Add(webBrowser1);
+                        webBrowser1.Navigate(file1);
+                        //tabHnLabOut.Controls.Add(webBrowser1);
+                    }
+                    else
+                    {
+                        medView.DocumentSource = pds;
+                    }
+                        
                     Application.DoEvents();
                     String pathname = "", filename="", pttname1="";
                     pathname = Path.GetDirectoryName(txtMedFilename.Text.Trim());
@@ -198,31 +246,62 @@ namespace bangna_hospital.gui
                         txtMedVsDate.Value = filename;
                         //setGrf();
                     }
+                    pagesToScan = pds.PageCount;
                     for (int page = 1; page <= pagesToScan; page++) //(int page = 1; page <= reader.NumberOfPages; page++) <- for scanning all the pages in A PDF
                     {
-                        ITextExtractionStrategy its = new LocationTextExtractionStrategy();
-                        strText = PdfTextExtractor.GetTextFromPage(reader, page, its);
-
-                        //strText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(strText)));
-                        //creating the string array and storing the PDF line by line
-                        string[] lines = strText.Split('\n');
-                        foreach (string line in lines)
+                        try
                         {
-                            //Creating and appending to a text file
-                            //using (StreamWriter file = new StreamWriter(outPath, true))
-                            //{
-                            // file.WriteLine(line);
+                            ITextExtractionStrategy its = new LocationTextExtractionStrategy();
+                            strText = PdfTextExtractor.GetTextFromPage(reader, page, its);
 
-                            int indexpttname = line.LastIndexOf("Q-Stress Final Report");
-                            if (indexpttname >= 0)
+                            //strText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(strText)));
+                            //creating the string array and storing the PDF line by line
+                            string[] lines = strText.Split('\n');
+                            foreach (string line in lines)
                             {
-                                chkMedCarilo.Checked = true;
-                                chkMedEcho.Checked = false;
-                                chkMedEndoscope.Checked = false;
-                                chkMedHolter.Checked = false;
+                                //Creating and appending to a text file
+                                //using (StreamWriter file = new StreamWriter(outPath, true))
+                                //{
+                                // file.WriteLine(line);
+
+                                int indexpttname = line.LastIndexOf("Q-Stress Final Report");
+                                if (indexpttname >= 0)
+                                {
+                                    chkMedCarilo.Checked = true;
+                                    chkMedEcho.Checked = false;
+                                    chkMedEndoscope.Checked = false;
+                                    chkMedHolter.Checked = false;
+                                }
+                                int indexendoscop = line.LastIndexOf("Endoscope");
+                                if (indexendoscop >= 0)
+                                {
+                                    chkMedCarilo.Checked = false;
+                                    chkMedEcho.Checked = false;
+                                    chkMedEndoscope.Checked = true;
+                                    chkMedHolter.Checked = false;
+                                }
+                                int indexhn = line.LastIndexOf("HN");
+                                if (indexhn < 0)
+                                {
+                                    indexhn = line.LastIndexOf("H N");
+                                }
+                                if (indexhn >= 0)
+                                {
+                                    txtMedHn.Value = line.Replace("H", "").Replace("N", "").Replace(":","").Trim();
+                                    setControlHNMed();
+                                    setGrfMed();
+                                    //Patient ptt = new Patient();
+                                    //ptt = bc.bcDB.pttDB.selectPatinet(txtMedHn.Text.Trim());
+                                    //lbPttNmae.Text = ptt.Name;
+                                }
+                                //}
                             }
-                            //}
                         }
+                        catch(Exception ex)
+                        {
+
+                        }
+                        
                     }
                 }
                 catch (Exception ex)
@@ -280,7 +359,7 @@ namespace bangna_hospital.gui
             this.panel1 = new System.Windows.Forms.Panel();
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             tC1 = new C1.Win.C1Command.C1DockingTab();
-            tabAuto = new C1.Win.C1Command.C1DockingTabPage();
+            tabLabAuto = new C1.Win.C1Command.C1DockingTabPage();
             tabManual = new C1.Win.C1Command.C1DockingTabPage();
             tabMed = new C1.Win.C1Command.C1DockingTabPage();
             pnAuto = new Panel();
@@ -305,7 +384,7 @@ namespace bangna_hospital.gui
             pnMedMachine.SuspendLayout();
             pnLabComp.SuspendLayout();
             tC1.SuspendLayout();
-            tabAuto.SuspendLayout();
+            tabLabAuto.SuspendLayout();
             tabManual.SuspendLayout();
             tabMed.SuspendLayout();
             this.SuspendLayout();
@@ -362,9 +441,9 @@ namespace bangna_hospital.gui
             pnMedMachine.Dock = DockStyle.None;
             pnLabComp.Dock = DockStyle.None;
 
-            tabAuto.Name = "tabAuto";
-            tabAuto.TabIndex = 0;
-            tabAuto.Text = "Lab Auto Result";
+            tabLabAuto.Name = "tabAuto";
+            tabLabAuto.TabIndex = 0;
+            tabLabAuto.Text = "Lab Auto Result";
 
             tabManual.Name = "tabManual";
             tabManual.TabIndex = 0;
@@ -374,7 +453,6 @@ namespace bangna_hospital.gui
             tabMed.TabIndex = 0;
             tabMed.Text = "Medical Result";
 
-
             setTabLabManual();
             setTabMed();
 
@@ -383,10 +461,10 @@ namespace bangna_hospital.gui
             this.Controls.Add(panel1);
             this.Controls.Add(this.sb1);
             panel1.Controls.Add(tC1);
-            tC1.Controls.Add(tabAuto);
+            tC1.Controls.Add(tabLabAuto);
             tC1.Controls.Add(tabManual);
             tC1.Controls.Add(tabMed);
-            tabAuto.Controls.Add(pnAuto);
+            tabLabAuto.Controls.Add(pnAuto);
             tabManual.Controls.Add(pnManual);
             tabMed.Controls.Add(pnMed);
             pnMed.Controls.Add(pnMedMachine);
@@ -445,7 +523,7 @@ namespace bangna_hospital.gui
             pnMedMachine.ResumeLayout(false);
             pnLabComp.ResumeLayout(false);
             tC1.ResumeLayout(false);
-            tabAuto.ResumeLayout(false);
+            tabLabAuto.ResumeLayout(false);
             tabManual.ResumeLayout(false);
             tabMed.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
@@ -462,7 +540,7 @@ namespace bangna_hospital.gui
             splitContainer1.Panel2.PerformLayout();
             splitContainer1.PerformLayout();
             tabMed.PerformLayout();
-            tabAuto.PerformLayout();
+            tabLabAuto.PerformLayout();
             tC1.PerformLayout();
             this.PerformLayout();
         }
@@ -2388,7 +2466,7 @@ namespace bangna_hospital.gui
                     new LogWriter("e", "FTP upload no success");
                 }
             }
-            timer.Start();
+            //timer.Start();
         }
         private void uploadFiletoServerMedicaOnLine()
         {
@@ -2713,33 +2791,10 @@ namespace bangna_hospital.gui
                 filename11 = Path.GetFileNameWithoutExtension(txtMedFilename.Text.Trim());
                 String lastFolderName = Path.GetFileName(pathname1.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
                 String[] pttname2 = lastFolderName.Split('_');
-                //if (pttname2.Length >= 4)
-                //{
-                //    pttname1 = pttname2[1] + " " + pttname2[0];
-                //    //txtMedHn.Value = pttname2[3].Replace("_", "");
-                //    //lbMedPttNmae.Text = pttname1;
-                //    //chkMedOPD.Checked = true;
-                //    //txtMedVsDate.Value = filename11;
 
-                //    filename2 = txtMedHn.Text.Trim();
-                //    //setGrf();
-                //}
                 filename2 = txtMedHn.Text.Trim();
-                //tmp = bc.iniC.pathLabOutReceiveInnoTech.Replace("\\\\", "\\");
-                //filename1 = Path.GetFileName(filename);
-                //pathname = Path.GetDirectoryName(filename);
-                ////pathname = filename.Replace(filename1, "").Replace(tmp, "").Replace("\\", "");
-                ////pathname = pathname.Replace("\\", "");
-                //String[] txt = filename1.Split('_');
-                //if (txt.Length > 1)
-                //{
-                //    filename2 = txt[0];
-                //}
-                //else
-                //{
-                //    filename2 = filename1.Replace(".pdf", "");
-                //}
-                ext = Path.GetExtension(filename1);
+
+                ext = Path.GetExtension(filename);
                 
                 DateTime dtt1 = new DateTime();
                 int.TryParse(year1, out year2);
@@ -2778,41 +2833,7 @@ namespace bangna_hospital.gui
                     continue;
                 }
                 reqid = "";
-
-                //DataTable dt = new DataTable();
-                //dt = bc.bcDB.vsDB.SelectHnLabOut1(txtMedHn.Text.Trim(), year1 + "-" + mm + "-" + dd);
-                //if (dt.Rows.Count <= 0)
-                //{
-                //    listBox2.Items.Add("Filename ไม่พบข้อมูล HIS " + filename);
-                //    Application.DoEvents();
-                //    String datetick = "";
-                //    new LogWriter("e", "Filename ไม่พบข้อมูล HIS" + txtHn.Text.Trim() + " " + year1 + "-" + mm + "-" + dd);
-                //    //MessageBox.Show("Filename ไม่พบข้อมูล HIS", "");
-                //    datetick = DateTime.Now.Ticks.ToString();
-                //    if (!Directory.Exists(bc.iniC.pathLabOutBackupManual))
-                //    {
-                //        Directory.CreateDirectory(bc.iniC.pathLabOutBackupManual);
-                //    }
-                //    if (pathname.Length > 0)
-                //    {
-                //        if (!Directory.Exists(bc.iniC.pathLabOutBackupManual + "\\" + pathname))
-                //        {
-                //            Directory.CreateDirectory(bc.iniC.pathLabOutBackupManual + "\\" + pathname);
-                //        }
-                //    }
-                //    Thread.Sleep(200);
-                //    if (pathname.Length > 0)
-                //    {
-                //        File.Move(filename, bc.iniC.pathLabOutBackupManual + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + ext);
-                //    }
-                //    else
-                //    {
-                //        File.Move(filename, bc.iniC.pathLabOutBackupManual + "\\err_" + filename2 + "_" + datetick + ext);
-                //    }
-                //    Thread.Sleep(1000);
-                //    continue;
-                //}
-                //reqid = dt.Rows[0]["mnc_req_no"].ToString();
+                
                 reqid = "";
                 listBox2.Items.Add("พบข้อมูล HIS " + txtMedHn.Text);
                 Application.DoEvents();
@@ -2822,13 +2843,21 @@ namespace bangna_hospital.gui
                 dsc.doc_group_id = dgss.doc_group_id;
                 dsc.hn = txtMedHn.Text.Trim();
                 //dsc.vn = dt.Rows[0]["MNC_VN_NO"].ToString() + "/" + dt.Rows[0]["MNC_VN_SEQ"].ToString() + "(" + dt.Rows[0]["MNC_VN_SUM"].ToString() + ")";
-                dsc.vn =txtMedVnAn.Text.Trim();
-                //dsc.an = dt.Rows[0]["MNC_AN_NO"].ToString() + "/" + dt.Rows[0]["MNC_AN_YR"].ToString();
-                dsc.an = "";
-                if (dsc.an.Equals("/"))
+                if (chkMedIPD.Checked)
                 {
-                    dsc.an = "";
+                    dsc.an = txtMedVnAn.Text.Trim();
+                    if (dsc.an.Equals("/"))
+                    {
+                        dsc.an = "";
+                    }
+                    //dsc.an_date
                 }
+                else
+                {
+                    dsc.vn = txtMedVnAn.Text.Trim();
+                    dsc.an = "";
+                }                
+                //dsc.an = dt.Rows[0]["MNC_AN_NO"].ToString() + "/" + dt.Rows[0]["MNC_AN_YR"].ToString();
                 dsc.visit_date = bc.datetoDB(txtMedVsDate.Text.Trim());
                 dsc.host_ftp = bc.iniC.hostFTP;
                 //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
@@ -2836,14 +2865,7 @@ namespace bangna_hospital.gui
                 dsc.doc_group_sub_id = dgssid;
                 //dsc.pre_no = dt.Rows[0]["mnc_pre_no"].ToString();
                 dsc.pre_no = preno;
-                //dsc.an = "";
-                //DateTime dt = new DateTime();
 
-                //    dsc.an_date = (DateTime.TryParse(txtAnDate.Text, out dt)) ? bc.datetoDB(txtAnDate.Text) : "";
-                //    if (dsc.an_date.Equals("1-01-01"))
-                //    {
-                //        dsc.an_date = "";
-                //    }
                 dsc.folder_ftp = bc.iniC.folderFTP;
                 //    dsc.status_ipd = chkIPD.Checked ? "I" : "O";
                 dsc.row_no = "1";
@@ -2851,14 +2873,7 @@ namespace bangna_hospital.gui
                 dsc.status_version = "2";
                 dsc.req_id = reqid;
                 DateTime dtt = new DateTime();
-                //if (DateTime.TryParse(dt.Rows[0]["mnc_req_dat"].ToString(), out dtt))
-                //{
-                //    dsc.date_req = dtt.Year.ToString() + "-" + dtt.ToString("MM-dd");
-                //}
-                //else
-                //{
-                //    dsc.date_req = "";
-                //}
+
                 dsc.date_req = dsc.visit_date;
                 if (dsc.an.Length > 0)
                 {
@@ -2869,8 +2884,22 @@ namespace bangna_hospital.gui
                     dsc.status_ipd = "0";
                 }
                 //dsc.ml_fm = "FM-LAB-999";
-
-                //dsc.ml_fm = "FM-MED-999";       //Med Carilo
+                if (chkMedCarilo.Checked)
+                {
+                    dsc.ml_fm = "FM-MED-999";       //Med Carilo
+                }
+                else if (chkMedEcho.Checked)
+                {
+                    dsc.ml_fm = "FM-MED-998";       //Med Carilo
+                }
+                else if (chkMedEndoscope.Checked)
+                {
+                    dsc.ml_fm = "FM-MED-997";       //Med Carilo
+                }
+                else if (chkMedHolter.Checked)
+                {
+                    dsc.ml_fm = "FM-MED-996";       //Med Carilo
+                }
 
                 dsc.patient_fullname = lbMedPttNmae.Text.Trim(); ;
                 dsc.status_record = "3";
@@ -2940,7 +2969,7 @@ namespace bangna_hospital.gui
                 {
                     listBox2.Items.Add("FTP upload success ");
                     Application.DoEvents();
-                    Thread.Sleep(1000);
+                    //Thread.Sleep(1000);
                     String datetick = "";
                     datetick = DateTime.Now.Ticks.ToString();
                     if (!Directory.Exists(bc.iniC.pathLabOutBackupManual))
@@ -2954,9 +2983,8 @@ namespace bangna_hospital.gui
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("ไม่สามารถ move file ได้\n" + "ex " + ex.Message, "");
+                        MessageBox.Show("upload file ผล สำเร็จ \nแต่ไม่สามารถ move file ได้\n" + "ex " + ex.Message+"\n"+ bc.iniC.pathLabOutBackupManual + "\\" + filename2 + "_" + datetick + ext, "");
                     }
-
 
                     listBox1.BeginUpdate();     //listBox2
                     listBox1.Items.Add(filename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
@@ -2964,7 +2992,7 @@ namespace bangna_hospital.gui
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
                     lbMedMessage.Text = "Upload เรียบร้อย";
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                 }
                 else
                 {
@@ -2973,7 +3001,7 @@ namespace bangna_hospital.gui
                     new LogWriter("e", "FTP upload no success");
                 }
             }
-            timer.Start();
+            //timer.Start();
         }
         private void setGrfVsOPD()
         {
@@ -3118,7 +3146,31 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-07-11 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
+            this.Text = "Last Update 2020-07-23 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
+            if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
+            {
+                tC1.ShowTabs = true;
+                tC1.SelectedTab = tabLabAuto;
+            }
+            else
+            {
+                //tabLabAuto.Hide();
+                tC1.ShowTabs = false;
+                if (bc.iniC.statusLabOutReceiveTabShow.Equals("2"))
+                {
+                    tC1.SelectedTab = tabManual;
+                }
+                else if (bc.iniC.statusLabOutReceiveTabShow.Equals("3"))
+                {
+                    tC1.SelectedTab = tabMed;
+                }
+                else if (bc.iniC.statusLabOutReceiveTabShow.Equals("ๅ"))
+                {
+                    tC1.SelectedTab = tabLabAuto;
+                }
+                labOutView.Ribbon.Minimized = true;
+                medView.Ribbon.Minimized = true;
+            }
         }
     }
 }
