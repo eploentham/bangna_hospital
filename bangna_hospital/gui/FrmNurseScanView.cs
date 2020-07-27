@@ -797,7 +797,7 @@ namespace bangna_hospital.gui
         }
         private void setGrfPttinWrd()
         {
-            grfPttinWrd.Clear();
+            //grfPttinWrd.Clear();
             grfPttinWrd.Font = fEdit;
             grfPttinWrd.Rows.Count = 1;
             //grfQue.Rows.Count = 1;

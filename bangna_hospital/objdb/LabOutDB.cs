@@ -40,6 +40,8 @@ namespace bangna_hospital.objdb
             labo.status_result = "status_result";
             labo.date_result = "date_result";
             labo.date_req = "date_req";
+            labo.status_urgent = "status_urgent";
+            labo.doc_scan_id = "doc_scan_id";
 
             labo.table = "t_lab_out";
             labo.pkField = "lab_out_id";
@@ -237,6 +239,30 @@ namespace bangna_hospital.objdb
                 "," + labo.date_result + " = convert(varchar, getdate(), 23)" +
                 //"," + labo.user_cancel + " = '" + userId + "'" +
                 "Where " + labo.lab_out_id + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateStatusResult " + sql);
+            }
+
+            return re;
+        }
+        public String updateStatusUrgentBydscid(String hn, String req_date, String req_id)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            //chkNull(p);
+            sql = "Update " + labo.table + " Set " +
+                " " + labo.status_urgent + " = '1' " +
+                //"," + labo.date_result + " = convert(varchar, getdate(), 23)" +
+                //"," + labo.user_cancel + " = '" + userId + "'" +
+                "Where " + labo.visit_date + "='" + req_date + "' and " + labo.hn + "='" + hn + "' and " + labo.req_no + "='" + req_id + "'"
                 ;
             try
             {

@@ -116,6 +116,12 @@
     <Compile Include="gui\CellNote.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmBillLabCheck.cs">
       <SubType>Form</SubType>
     </Compile>

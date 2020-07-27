@@ -42,8 +42,9 @@ namespace bangna_hospital.gui
         C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem;
         C1FlexViewer labOutView;
         List<C1DockingTabPage> tabHnLabOutR;
-        Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem;
+        Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
+        Label lbPttSymptom, lbPttVsDate, lbPaidType;
 
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave;
@@ -51,7 +52,7 @@ namespace bangna_hospital.gui
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
 
-        int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7;
+        int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         int colOrderId = 1, colOrderDate = 2, colOrderName = 3, colOrderQty = 4, colOrderFre=5, colOrderIn1=6, colOrderMed = 7;
@@ -82,7 +83,7 @@ namespace bangna_hospital.gui
         //VScrollBar vScroller;
         //int y = 0;
         Form frmImg;
-        String dsc_id = "", hn = "", flagShowBtnSearch="", preno="";
+        String dsc_id = "", hn = "", flagShowBtnSearch="", preno="",vsDate = "";
         //Timer timer1;
         Patient ptt;
         Stream streamPrint, streamPrintL, streamPrintR, streamDownload;
@@ -198,7 +199,7 @@ namespace bangna_hospital.gui
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged1;
             panel3.Controls.Add(tcDtr);
             theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
-
+            //MessageBox.Show("111", "");
             initTabVS();
             initGrfOPD();
             initGrfIPD();
@@ -221,7 +222,7 @@ namespace bangna_hospital.gui
             setPicStaffNote();
             setControlHN();
             theme1.SetTheme(tcDtr, theme1.Theme);
-            
+            //MessageBox.Show("222", "");
             setTabMachineResult();
         }
 
@@ -635,7 +636,7 @@ namespace bangna_hospital.gui
         }
         private void setActive()
         {
-            String vsDate = "";
+            //String vsDate = "";
             int sizeradio = 10;
             //preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
             //vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
@@ -1112,7 +1113,7 @@ namespace bangna_hospital.gui
             txtName.Value = ptt.Name;
             tcDtr.SelectedTab = tabStfNote;
             //lbAge.Text = "อายุ " + ptt.AgeStringShort();
-            String allergy = "", vsDate = "";
+            String allergy = "";
             DataTable dt = new DataTable();
             dt = bc.bcDB.vsDB.selectDrugAllergy(txtHn.Text.Trim());
             foreach (DataRow row in dt.Rows)
@@ -1142,10 +1143,34 @@ namespace bangna_hospital.gui
                 grfOPD.Row = 1;
                 grfOPD.Col = 1;
                 //setGrfScan(grfOPD.Row, "OPD");
+                String symptom = "", paidtype="", high="", weight="", cc="", ccin="", ccex="", abc="", hc="", bp1l="", bp1r="", bp2l="",bp2r="", temp="", vitalsign="", pres="", breath="", radios="";
                 preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
                 vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                symptom = grfOPD[grfOPD.Row, colVsDept] != null ? grfOPD[grfOPD.Row, colVsDept].ToString() : "";
+                paidtype = grfOPD[grfOPD.Row, colVsPaidType] != null ? grfOPD[grfOPD.Row, colVsPaidType].ToString() : "";
+
+                high = grfOPD[grfOPD.Row, colVsHigh] != null ? grfOPD[grfOPD.Row, colVsHigh].ToString() : "";
+                weight = grfOPD[grfOPD.Row, colVsWeight] != null ? grfOPD[grfOPD.Row, colVsWeight].ToString() : "";
+                cc = grfOPD[grfOPD.Row, colVscc] != null ? grfOPD[grfOPD.Row, colVscc].ToString() : "";
+                ccin = grfOPD[grfOPD.Row, colVsccin] != null ? grfOPD[grfOPD.Row, colVsccin].ToString() : "";
+                ccex = grfOPD[grfOPD.Row, colVsccex] != null ? grfOPD[grfOPD.Row, colVsccex].ToString() : "";
+                abc = grfOPD[grfOPD.Row, colVsabc] != null ? grfOPD[grfOPD.Row, colVsabc].ToString() : "";
+                hc = grfOPD[grfOPD.Row, colVshc16] != null ? grfOPD[grfOPD.Row, colVshc16].ToString() : "";
+                bp1l = grfOPD[grfOPD.Row, colVsbp1l] != null ? grfOPD[grfOPD.Row, colVsbp1l].ToString() : "";
+                bp1r = grfOPD[grfOPD.Row, colVsbp1r] != null ? grfOPD[grfOPD.Row, colVsbp1r].ToString() : "";
+                bp2l = grfOPD[grfOPD.Row, colVsbp2l] != null ? grfOPD[grfOPD.Row, colVsbp2l].ToString() : "";
+                bp2r = grfOPD[grfOPD.Row, colVsbp2r] != null ? grfOPD[grfOPD.Row, colVsbp2r].ToString() : "";
+                temp = grfOPD[grfOPD.Row, colVsTemp] != null ? grfOPD[grfOPD.Row, colVsTemp].ToString() : "";
+                vitalsign = grfOPD[grfOPD.Row, colVsVital] != null ? grfOPD[grfOPD.Row, colVsVital].ToString() : "";
+                pres = grfOPD[grfOPD.Row, colVsPres] != null ? grfOPD[grfOPD.Row, colVsPres].ToString() : "";
+                radios = grfOPD[grfOPD.Row, colVsRadios] != null ? grfOPD[grfOPD.Row, colVsRadios].ToString() : "";
+                breath = grfOPD[grfOPD.Row, colVsBreath] != null ? grfOPD[grfOPD.Row, colVsBreath].ToString() : "";
                 vsDate = bc.datetoDB(vsDate);
+                bc.preno = preno;
+                bc.vsdate = vsDate;
+                bc.hn = txtHn.Text.Trim();
                 setStaffNote(vsDate, preno);
+                setControlPnOrdDiagVal(vitalsign, pres, temp, weight, high, "", cc, ccin, ccex, abc, hc, bp1l, bp2l, radios, breath, symptom, vsDate, paidtype);
             }
             setControlGbPtt();
         }
@@ -1553,36 +1578,54 @@ namespace bangna_hospital.gui
                         }
                         stream.Seek(0, SeekOrigin.Begin);
                         String ext = Path.GetExtension(rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
-
-                        var fileStream = new FileStream("report\\" + datetick + ext, FileMode.Create, FileAccess.Write);
-                        stream.CopyTo(fileStream);
-                        fileStream.Flush();
-                        fileStream.Dispose();
+                                                
                         Application.DoEvents();
                         Thread.Sleep(200);
                         tcHnLabOut.TabPages.Add(tabHnLabOut);
                         //tcHnLabOut.Controls.Add(tablabOut);
                         if (bc.iniC.windows.Equals("windowsxp"))
                         {
-                            string currentDirectory = Directory.GetCurrentDirectory();
-                            WebBrowser webBrowser1;
-                            webBrowser1 = new System.Windows.Forms.WebBrowser();
-                            //webBrowser1.Enabled = true;
-                            //webBrowser1.Location = new System.Drawing.Point(192, 0);
-                            webBrowser1.Name = "webBrowser1";
-                            //axAcroPDF1.OcxState = ((System.Windows.Forms.AxHost.State)(Resources.GetObject("axAcroPDF1.OcxState")));
-                            //webBrowser1.Size = new System.Drawing.Size(192, 192);
-                            webBrowser1.Dock = DockStyle.Fill;
-                            //axAcroPDF1.TabIndex = 7;
-                            String file1 = "";
-                            file1 = currentDirectory + "\\report\\" + datetick + ".pdf";
-                            //new LogWriter("d", file1);
-                            if (!File.Exists(file1))
+                            var fileStream = new FileStream("report\\" + datetick + ext, FileMode.Create, FileAccess.Write);
+                            stream.CopyTo(fileStream);
+                            fileStream.Flush();
+                            fileStream.Dispose();
+                            if (ext.Equals(".jpg"))
                             {
-                                MessageBox.Show("ไม่พบ File " + file1, "");
+                                C1PictureBox labOutView = new C1PictureBox();
+                                Image img = Image.FromStream(stream);
+                                labOutView.Dock = DockStyle.None;
+                                labOutView.SizeMode = PictureBoxSizeMode.StretchImage;
+                                labOutView.Image = img;
+                                labOutView.Size = new Size(bc.tabLabOutImageWidth, bc.tabLabOutImageHeight);
+                                ContextMenu menuGw = new ContextMenu();
+                                menuGw.MenuItems.Add("Print Out Lab", new EventHandler(ContextMenu_LabOut_Print));
+                                labOutView.ContextMenu = menuGw;
+                                streamPrint = stream;
+                                tabHnLabOut.Controls.Add(labOutView);
                             }
-                            webBrowser1.Navigate(file1);
-                            tabHnLabOut.Controls.Add(webBrowser1);
+                            else
+                            {
+                                string currentDirectory = Directory.GetCurrentDirectory();
+                                WebBrowser webBrowser1;
+                                webBrowser1 = new System.Windows.Forms.WebBrowser();
+                                //webBrowser1.Enabled = true;
+                                //webBrowser1.Location = new System.Drawing.Point(192, 0);
+                                webBrowser1.Name = "webBrowser1";
+                                //axAcroPDF1.OcxState = ((System.Windows.Forms.AxHost.State)(Resources.GetObject("axAcroPDF1.OcxState")));
+                                //webBrowser1.Size = new System.Drawing.Size(192, 192);
+                                webBrowser1.Dock = DockStyle.Fill;
+                                //axAcroPDF1.TabIndex = 7;
+                                String file1 = "";
+                                file1 = currentDirectory + "\\report\\" + datetick + ext;
+                                //new LogWriter("d", file1);
+                                if (!File.Exists(file1))
+                                {
+                                    MessageBox.Show("ไม่พบ File " + file1, "");
+                                }
+                                webBrowser1.Navigate(file1);
+                                tabHnLabOut.Controls.Add(webBrowser1);
+                            }
+                            
                         }
                         else
                         {
@@ -1620,7 +1663,6 @@ namespace bangna_hospital.gui
                                 tabHnLabOut.Controls.Add(labOutView);
 
                                 C1PdfDocumentSource pds = new C1PdfDocumentSource();
-
                                 pds.LoadFromStream(stream);
 
                                 //pds.LoadFromFile(filename1);
@@ -1638,6 +1680,11 @@ namespace bangna_hospital.gui
                 }
             }
                 setHeaderEnable(pB1);
+        }
+        private void ContextMenu_LabOut_Print(object sender, System.EventArgs e)
+        {
+            SetDefaultPrinter(bc.iniC.printerA4);
+            setGrfScanToPrint();
         }
         private void setTabMachineResult()
         {
@@ -1985,7 +2032,7 @@ namespace bangna_hospital.gui
             Panel pnOrdDiag1 = new Panel();
             Panel pnOrdDiag2 = new Panel();
             Panel pnOrdDiag3 = new Panel();
-            Panel pnOrdDiagVal = new Panel();
+            pnOrdDiagVal = new Panel();
 
             pnOrdDrugSarch.Dock = DockStyle.Fill;
             pnOrdDrugAdd.Dock = DockStyle.Fill;
@@ -2189,20 +2236,21 @@ namespace bangna_hospital.gui
             scOrdDiag3.Name = "scOrdDiag3";
             //scOrdRight.HeaderHeight = 10;
             scOrdDiag3.Controls.Add(pnOrdDiag3);
+            initComTabVital();
 
-            FrmDoctorDiag frmDtrDiag1 = new FrmDoctorDiag(bc, "Medical Examination");
+            FrmDoctorDiag frmDtrDiag1 = new FrmDoctorDiag(bc, "cc", txtHn.Text.Trim());
             frmDtrDiag1.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag1.TopLevel = false;
             frmDtrDiag1.Dock = DockStyle.Fill;
             frmDtrDiag1.AutoScroll = true;
             pnOrdDiag1.Controls.Add(frmDtrDiag1);
-            FrmDoctorDiag frmDtrDiag2 = new FrmDoctorDiag(bc, "");
+            FrmDoctorDiag frmDtrDiag2 = new FrmDoctorDiag(bc, "me", txtHn.Text.Trim());
             frmDtrDiag2.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag2.TopLevel = false;
             frmDtrDiag2.Dock = DockStyle.Fill;
             frmDtrDiag2.AutoScroll = true;
             pnOrdDiag2.Controls.Add(frmDtrDiag2);
-            FrmDoctorDiag frmDtrDiag3 = new FrmDoctorDiag(bc, "Diagnose");
+            FrmDoctorDiag frmDtrDiag3 = new FrmDoctorDiag(bc, "diag", txtHn.Text.Trim());
             frmDtrDiag3.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag3.TopLevel = false;
             frmDtrDiag3.Dock = DockStyle.Fill;
@@ -2269,9 +2317,239 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(tabOrdSearchDrug, "ExpressionDark");
             //tabOrdSearchDrug.tabc
         }
-        private void TabDiag_TabClick(object sender, EventArgs e)
+        private void initComTabVital()
         {
-            throw new NotImplementedException();
+            int gapLine = 20, gapX = 20, gapY=20;
+            Size size = new Size();
+            int scrW = Screen.PrimaryScreen.Bounds.Width;
+            lbPttVitalSigns = new Label();
+            lbPttVitalSigns.Text = "Vital Sign :";
+            lbPttVitalSigns.Font = fEdit;
+            size = bc.MeasureString(lbPttVitalSigns);
+            lbPttVitalSigns.Location = new System.Drawing.Point(gapX, gapY);
+            lbPttVitalSigns.AutoSize = true;
+            lbPttVitalSigns.Name = "lbPttVitalSigns";
+
+            lbPttPressure = new Label();
+            lbPttPressure.Text = "Pressure :";
+            lbPttPressure.Font = fEdit;
+            size = bc.MeasureString(lbPttPressure);
+            lbPttPressure.Location = new System.Drawing.Point(lbPttVitalSigns.Location.X+ size.Width + 20, gapY);
+            lbPttPressure.AutoSize = true;
+            lbPttPressure.Name = "lbPttPressure";
+
+            lbPttTemp = new Label();
+            lbPttTemp.Text = "Temp :";
+            lbPttTemp.Font = fEdit;
+            size = bc.MeasureString(lbPttTemp);
+            lbPttTemp.Location = new System.Drawing.Point(lbPttPressure.Location.X + size.Width + 20, gapY);
+            lbPttTemp.AutoSize = true;
+            lbPttTemp.Name = "lbPttTemp";
+
+            lbPttWeight = new Label();
+            lbPttWeight.Text = "Weight :";
+            lbPttWeight.Font = fEdit;
+            size = bc.MeasureString(lbPttWeight);
+            lbPttWeight.Location = new System.Drawing.Point(lbPttTemp.Location.X + size.Width + 20, gapY);
+            lbPttWeight.AutoSize = true;
+            lbPttWeight.Name = "lbPttWeight";
+
+            lbPttHigh = new Label();
+            lbPttHigh.Text = "High :";
+            lbPttHigh.Font = fEdit;
+            size = bc.MeasureString(lbPttWeight);
+            lbPttHigh.Location = new System.Drawing.Point(lbPttWeight.Location.X + size.Width + 20, gapY);
+            lbPttHigh.AutoSize = true;
+            lbPttHigh.Name = "lbPttHigh";
+
+            lbPttBloodGroup = new Label();
+            lbPttBloodGroup.Text = "BloodGroup :";
+            lbPttBloodGroup.Font = fEdit;
+            size = bc.MeasureString(lbPttBloodGroup);
+            lbPttBloodGroup.Location = new System.Drawing.Point(lbPttHigh.Location.X + size.Width + 20, gapY);
+            lbPttBloodGroup.AutoSize = true;
+            lbPttBloodGroup.Name = "lbPttBloodGroup";
+
+            gapY += gapLine;
+            lbPttCC = new Label();
+            lbPttCC.Text = "CC :";
+            lbPttCC.Font = fEdit;
+            size = bc.MeasureString(lbPttCC);
+            lbPttCC.Location = new System.Drawing.Point(gapX, gapY);
+            lbPttCC.AutoSize = true;
+            lbPttCC.Name = "lbPttCC";
+
+            lbPttCCin = new Label();
+            lbPttCCin.Text = "CC in :";
+            lbPttCCin.Font = fEdit;
+            size = bc.MeasureString(lbPttCCin);
+            lbPttCCin.Location = new System.Drawing.Point(lbPttCC.Location.X + size.Width + 20, gapY);
+            lbPttCCin.AutoSize = true;
+            lbPttCCin.Name = "lbPttCCin";
+
+            lbPttCCex = new Label();
+            lbPttCCex.Text = "CC ex :";
+            lbPttCCex.Font = fEdit;
+            size = bc.MeasureString(lbPttCCex);
+            lbPttCCex.Location = new System.Drawing.Point(lbPttCCin.Location.X + size.Width + 20, gapY);
+            lbPttCCex.AutoSize = true;
+            lbPttCCex.Name = "lbPttCCex";
+
+            lbPttAbc = new Label();
+            lbPttAbc.Text = "Abc :";
+            lbPttAbc.Font = fEdit;
+            size = bc.MeasureString(lbPttAbc);
+            lbPttAbc.Location = new System.Drawing.Point(lbPttCCex.Location.X + size.Width + 20, gapY);
+            lbPttAbc.AutoSize = true;
+            lbPttAbc.Name = "lbPttAbc";
+
+            lbPttHC = new Label();
+            lbPttHC.Text = "HC :";
+            lbPttHC.Font = fEdit;
+            size = bc.MeasureString(lbPttHC);
+            lbPttHC.Location = new System.Drawing.Point(lbPttAbc.Location.X + size.Width + 20, gapY);
+            lbPttHC.AutoSize = true;
+            lbPttHC.Name = "lbPttHC";
+
+            lbPttBp1 = new Label();
+            lbPttBp1.Text = "Bp 1 :";
+            lbPttBp1.Font = fEdit;
+            size = bc.MeasureString(lbPttBp1);
+            lbPttBp1.Location = new System.Drawing.Point(lbPttHC.Location.X + size.Width + 20, gapY);
+            lbPttBp1.AutoSize = true;
+            lbPttBp1.Name = "lbPttBp1";
+
+            lbPttBp2 = new Label();
+            lbPttBp2.Text = "Bp 2 :";
+            lbPttBp2.Font = fEdit;
+            size = bc.MeasureString(lbPttBp2);
+            lbPttBp2.Location = new System.Drawing.Point(lbPttBp1.Location.X + size.Width + 20, gapY);
+            lbPttBp2.AutoSize = true;
+            lbPttBp2.Name = "lbPttBp2";
+
+            lbPttHrate = new Label();
+            lbPttHrate.Text = "H rate :";
+            lbPttHrate.Font = fEdit;
+            size = bc.MeasureString(lbPttHrate);
+            lbPttHrate.Location = new System.Drawing.Point(lbPttBp2.Location.X + size.Width + 20, gapY);
+            lbPttHrate.AutoSize = true;
+            lbPttHrate.Name = "lbPttHrate";
+
+            lbPttLRate = new Label();
+            lbPttLRate.Text = "L rate :";
+            lbPttLRate.Font = fEdit;
+            size = bc.MeasureString(lbPttLRate);
+            lbPttLRate.Location = new System.Drawing.Point(lbPttHrate.Location.X + size.Width + 20, gapY);
+            lbPttLRate.AutoSize = true;
+            lbPttLRate.Name = "lbPttLRate";
+
+            gapY += gapLine;
+            lbPttSymptom = new Label();
+            lbPttSymptom.Text = "Symptom :";
+            lbPttSymptom.Font = fEdit;
+            size = bc.MeasureString(lbPttSymptom);
+            lbPttSymptom.Location = new System.Drawing.Point(gapX, gapY);
+            lbPttSymptom.AutoSize = true;
+            lbPttSymptom.Name = "lbPttSymptom";
+
+            lbPttVsDate = new Label();
+            lbPttVsDate.Text = "Visit Date :";
+            lbPttVsDate.Font = fEdit;
+            size = bc.MeasureString(lbPttVsDate);
+            lbPttVsDate.Location = new System.Drawing.Point(lbPttSymptom.Location.X + size.Width + 20, gapY);
+            lbPttVsDate.AutoSize = true;
+            lbPttVsDate.Name = "lbPttVsDate";
+            
+            lbPaidType = new Label();
+            lbPaidType.Text = "สิทธิ :";
+            lbPaidType.Font = fEdit;
+            size = bc.MeasureString(lbPaidType);
+            lbPaidType.Location = new System.Drawing.Point(lbPttSymptom.Location.X + size.Width + 20, gapY);
+            lbPaidType.AutoSize = true;
+            lbPaidType.Name = "lbPaidType";
+
+            pnOrdDiagVal.Controls.Add(lbPttVitalSigns);
+            pnOrdDiagVal.Controls.Add(lbPttPressure);
+            pnOrdDiagVal.Controls.Add(lbPttTemp);
+            pnOrdDiagVal.Controls.Add(lbPttWeight);
+            pnOrdDiagVal.Controls.Add(lbPttHigh);
+            pnOrdDiagVal.Controls.Add(lbPttBloodGroup);
+            pnOrdDiagVal.Controls.Add(lbPttCC);
+            pnOrdDiagVal.Controls.Add(lbPttCCin);
+            pnOrdDiagVal.Controls.Add(lbPttCCex);
+            pnOrdDiagVal.Controls.Add(lbPttAbc);
+            pnOrdDiagVal.Controls.Add(lbPttHC);
+            pnOrdDiagVal.Controls.Add(lbPttBp1);
+            pnOrdDiagVal.Controls.Add(lbPttBp2);
+            pnOrdDiagVal.Controls.Add(lbPttHrate);
+            pnOrdDiagVal.Controls.Add(lbPttLRate);
+            pnOrdDiagVal.Controls.Add(lbPttSymptom);
+            pnOrdDiagVal.Controls.Add(lbPttVsDate);
+            pnOrdDiagVal.Controls.Add(lbPaidType);
+        }
+        private void setControlPnOrdDiagVal(String vitalSign, String pressure, String temp, String weight, String high, String bloodgroup, String cc, String ccin, String ccex
+            , String abc, String hc, String bp1, String bp2, String hrate, String lrate, String symptom, String vsdate, String paidtype)
+        {
+            Size size = new Size();
+
+            lbPttVitalSigns.Text = !vitalSign.Equals("") ? "Vital Sign : "+ vitalSign: "Vital Sign : ";
+            lbPttPressure.Text = !pressure.Equals("") ? "Pressure : " + pressure: "Pressure : ";
+            lbPttTemp.Text = !temp.Equals("") ? "Temp : " + temp: "Temp : ";
+            lbPttWeight.Text = !weight.Equals("") ? "Weight : " + weight: "Weight : " ;
+            lbPttHigh.Text = !high.Equals("") ? "High : "+ high: "High : " ;
+            lbPttBloodGroup.Text = !bloodgroup.Equals("") ? "BloodGroup : "+ bloodgroup: "BloodGroup : " ;
+            lbPttCC.Text = !cc.Equals("") ? "CC : "+ cc: "CC : " ;
+            lbPttCCin.Text = !ccin.Equals("") ? "CC in : " + ccin: "CC in :" ;
+            lbPttCCex.Text = !ccex.Equals("") ? "CC ex : " + ccex: "CC ex : " ;
+            lbPttAbc.Text = !abc.Equals("") ? "Abc :" + abc: "Abc :";
+            lbPttHC.Text = !hc.Equals("") ? "HC : ": "HC : " + hc;
+            lbPttBp1.Text = !bp1.Equals("") ? "Bp 1 : " + bp1: "Bp1 :";
+            lbPttBp2.Text = !bp2.Equals("") ? "Bp 2 : "+ bp2: "Bp 2 :";
+            lbPttHrate.Text = !hrate.Equals("") ? "H rate : "+ hrate: "H rate :";
+            lbPttLRate.Text = !lrate.Equals("") ? "R rate : " + lrate: "R rate :" ;
+            lbPttSymptom.Text = !symptom.Equals("") ? "Symptom : " + symptom: "Symptom :";
+            lbPttVsDate.Text = !vsdate.Equals("") ? "Visit Date : "  + vsdate: "Visit Date :";
+            lbPaidType.Text = !paidtype.Equals("") ? "สิทธิ : " + paidtype: "สิทธิ :";
+
+            size = bc.MeasureString(lbPttVitalSigns);
+            lbPttVitalSigns.Location = new System.Drawing.Point(lbPttVitalSigns.Location.X, lbPttVitalSigns.Location.Y);
+            size = bc.MeasureString(lbPttVitalSigns);
+            lbPttPressure.Location = new System.Drawing.Point(lbPttVitalSigns.Location.X + size.Width + 20, lbPttVitalSigns.Location.Y);
+            size = bc.MeasureString(lbPttPressure);
+            lbPttTemp.Location = new System.Drawing.Point(lbPttPressure.Location.X + size.Width + 20, lbPttVitalSigns.Location.Y);
+            size = bc.MeasureString(lbPttTemp);
+            lbPttWeight.Location = new System.Drawing.Point(lbPttTemp.Location.X + size.Width + 20, lbPttVitalSigns.Location.Y);
+            size = bc.MeasureString(lbPttWeight);
+            lbPttHigh.Location = new System.Drawing.Point(lbPttWeight.Location.X + size.Width + 20, lbPttVitalSigns.Location.Y);
+            size = bc.MeasureString(lbPttHigh);
+            lbPttBloodGroup.Location = new System.Drawing.Point(lbPttHigh.Location.X + size.Width + 20, lbPttVitalSigns.Location.Y);
+
+
+            size = bc.MeasureString(lbPttCC);
+            lbPttCC.Location = new System.Drawing.Point(lbPttCC.Location.X, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttCC);
+            lbPttCCin.Location = new System.Drawing.Point(lbPttCC.Location.X + size.Width + 20, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttCCin);
+            lbPttCCex.Location = new System.Drawing.Point(lbPttCCin.Location.X + size.Width + 20, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttCCex);
+            lbPttAbc.Location = new System.Drawing.Point(lbPttCCex.Location.X + size.Width + 20, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttAbc);
+            lbPttHC.Location = new System.Drawing.Point(lbPttAbc.Location.X + size.Width + 20, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttHC);
+            lbPttBp1.Location = new System.Drawing.Point(lbPttHC.Location.X + size.Width + 20, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttBp1);
+            lbPttBp2.Location = new System.Drawing.Point(lbPttBp1.Location.X + size.Width + 20, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttBp2);
+            lbPttHrate.Location = new System.Drawing.Point(lbPttBp2.Location.X + size.Width + 20, lbPttCC.Location.Y);
+            size = bc.MeasureString(lbPttHrate);
+            lbPttLRate.Location = new System.Drawing.Point(lbPttHrate.Location.X + size.Width + 20, lbPttCC.Location.Y);
+
+            size = bc.MeasureString(lbPttSymptom);
+            lbPttSymptom.Location = new System.Drawing.Point(lbPttSymptom.Location.X, lbPttSymptom.Location.Y);
+            size = bc.MeasureString(lbPttSymptom);
+            lbPttVsDate.Location = new System.Drawing.Point(lbPttSymptom.Location.X + size.Width + 20, lbPttSymptom.Location.Y);
+            size = bc.MeasureString(lbPttVsDate);
+            lbPaidType.Location = new System.Drawing.Point(lbPttVsDate.Location.X + size.Width + 20, lbPttSymptom.Location.Y);
         }
 
         private void TabOrdSearch_TabClick(object sender, EventArgs e)
@@ -4373,7 +4651,7 @@ namespace bangna_hospital.gui
 
             grfOPD.Clear();
             grfOPD.Rows.Count = 1;
-            grfOPD.Cols.Count = 8;
+            grfOPD.Cols.Count = 25;
 
             //C1TextBox text = new C1TextBox();
             //grfVs.Cols[colVsVsDate].Editor = text;
@@ -4426,6 +4704,21 @@ namespace bangna_hospital.gui
                 rowa[colVsDept] = row1["MNC_SHIF_MEMO"].ToString();
                 rowa[colVsAn] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
                 rowa[colVsAndate] = bc.datetoShow1(row1["mnc_ad_date"].ToString());
+                rowa[colVsPaidType] = row1["MNC_FN_TYP_DSC"].ToString();
+                rowa[colVsHigh] = row1["MNC_HIGH"].ToString();
+                rowa[colVsWeight] = row1["MNC_WEIGHT"].ToString();
+                rowa[colVscc] = row1["MNC_CC"].ToString();
+                rowa[colVsccex] = row1["MNC_CC_EX"].ToString();
+                rowa[colVsccin] = row1["MNC_CC_IN"].ToString();
+                rowa[colVsabc] = row1["MNC_ABC"].ToString();
+                rowa[colVshc16] = row1["MNC_HC"].ToString();
+                rowa[colVsbp1l] = row1["MNC_BP1_L"].ToString();
+                rowa[colVsbp1r] = row1["MNC_BP1_R"].ToString();
+                rowa[colVsbp2l] = row1["MNC_BP2_L"].ToString();
+                rowa[colVsbp2r] = row1["MNC_BP2_R"].ToString();
+                rowa[colVsTemp] = row1["MNC_TEMP"].ToString();
+                rowa[colVsVital] = row1["MNC_BREATH"].ToString();
+                rowa[colVsPres] = row1["MNC_CIR_HEAD"].ToString();
             }
             //ContextMenu menuGw = new ContextMenu();
             //menuGw.MenuItems.Add("&ยกเลิก รูปภาพนี้", new EventHandler(ContextMenu_Void));
@@ -4435,7 +4728,20 @@ namespace bangna_hospital.gui
             //    menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image [" + dgs.doc_group_name + "]", new EventHandler(ContextMenu_upload));
             //}
             //grfVs.ContextMenu = menuGw;
-            //grfVs.Cols[colVsVsDate].Visible = false;
+            grfOPD.Cols[colVsbp2r].Visible = false;
+            grfOPD.Cols[colVsbp2l].Visible = false;
+            grfOPD.Cols[colVsbp1r].Visible = false;
+            grfOPD.Cols[colVsbp1l].Visible = false;
+            grfOPD.Cols[colVshc16].Visible = false;
+            grfOPD.Cols[colVsabc].Visible = false;
+            grfOPD.Cols[colVsccin].Visible = false;
+            grfOPD.Cols[colVsccex].Visible = false;
+            grfOPD.Cols[colVscc].Visible = false;
+            grfOPD.Cols[colVsWeight].Visible = false;
+            grfOPD.Cols[colVsHigh].Visible = false;
+            grfOPD.Cols[colVsVital].Visible = false;
+            grfOPD.Cols[colVsPres].Visible = false;
+            //grfOPD.Cols[colVsbp2r].Visible = false;
             //grfVs.Cols[colImagePath].Visible = false;
             //row1[colVSE2] = row[ic.ivfDB.pApmDB.pApm.e2].ToString().Equals("1") ? imgCorr : imgTran;
             //grfVs.AutoSizeCols();
@@ -4588,12 +4894,11 @@ namespace bangna_hospital.gui
         }
         private void FrmScanView1_Load(object sender, EventArgs e)
         {
-            
             //Point poigtt = new Point();
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-07-17";
+            this.Text = "Last Update 2020-07-27";
 
             setControlGbPtt();
             //btnItmSend.Location = new Point(180, 180);

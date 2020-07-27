@@ -151,6 +151,11 @@ namespace bangna_hospital.objdb
                 stf1.username = dt.Rows[0]["mnc_usr_name"].ToString();
                 stf1.password1 = dt.Rows[0]["mnc_usr_pw"].ToString();
                 stf1.fullname = dt.Rows[0]["mnc_usr_full"].ToString();
+                stf1.priority = dt.Rows[0]["mnc_usr_lev"].ToString();
+                if (stf1.priority.Equals("5"))
+                {
+                    stf1.status_module_doctor = "1";
+                }
             }
             else
             {

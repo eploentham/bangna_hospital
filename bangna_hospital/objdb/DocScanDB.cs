@@ -62,6 +62,8 @@ namespace bangna_hospital.objdb
             dsc.patient_fullname = "patient_fullname";
             dsc.status_record = "status_record";
             dsc.sort1 = "sort1";
+            dsc.comp_labout_id = "comp_labout_id";
+            dsc.sort1 = "sort1";
             //dsc.row_cnt = "row_cnt";
 
             dsc.table = "doc_scan";
@@ -210,7 +212,7 @@ namespace bangna_hospital.objdb
                 "and dsc." + dsc.active + "='1'  and dsc."+dsc.pre_no +"= '"+ preno + "' and dsc." + dsc.status_record + "='2' and dsc."+ dsc.req_id+" = '"+ reqno+"' and dsc."+dsc.date_req+" = '"+datereq+"' " +
                 "Order By dsc.doc_scan_id ";
             dt = conn.selectData(conn.conn, sql);
-
+            //new LogWriter("d", "selectLabOutByHnReqDateReqNo sql " + sql);
             return dt;
         }
         public DataTable selectLabOutByDateReq(String datestart, String dateend, String hn, String flagDate)
@@ -482,6 +484,23 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
+        }
+        public DocScan selectByStatusMedicalExamination(String hn, String mlfm, String vsdate, String preno)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                "and status_record = '5' " +
+                "and ml_fm = '"+ mlfm + "' " +
+                "and visit_date = '" + vsdate + "' " +
+                "and pre_no = '" + preno + "' and active = '1' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            cop1 = setDocScan(dt);
+            return cop1;
         }
         public DataTable selectByVn(String hn, String vn, String vsDate)
         {
@@ -784,6 +803,69 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String insertMedicalExamination(DocScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            DataTable dt = new DataTable();
+            p.active = "1";
+            //p.ssdata_id = "";
+            int chk = 0;
+            chkNull(p);
+
+            try
+            {
+                p.patient_fullname = p.patient_fullname.Replace("'", "''");
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.conn;
+                conn.comStore.CommandText = "[insert_doc_scan_medical_examination]";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
+                conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
+                conn.comStore.Parameters.AddWithValue("hn", p.hn);
+                conn.comStore.Parameters.AddWithValue("vn", p.vn);
+                conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
+                conn.comStore.Parameters.AddWithValue("remark", p.remark);
+                conn.comStore.Parameters.AddWithValue("user_create", userId);
+                conn.comStore.Parameters.AddWithValue("an", p.an);
+                conn.comStore.Parameters.AddWithValue("doc_group_sub_id", p.doc_group_sub_id);
+                conn.comStore.Parameters.AddWithValue("pre_no", p.pre_no);
+
+                conn.comStore.Parameters.AddWithValue("an_date", p.an_date);
+                conn.comStore.Parameters.AddWithValue("status_ipd", p.status_ipd);
+                conn.comStore.Parameters.AddWithValue("ext", p.image_path);
+                conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
+                conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
+                conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
+                conn.comStore.Parameters.AddWithValue("status_version", p.status_version);
+                conn.comStore.Parameters.AddWithValue("pic_before_scan", p.pic_before_scan_cnt);
+                conn.comStore.Parameters.AddWithValue("date_req", p.date_req);
+                conn.comStore.Parameters.AddWithValue("req_id", p.req_id);
+
+                conn.comStore.Parameters.AddWithValue("ml_fm", p.ml_fm);
+                conn.comStore.Parameters.AddWithValue("patient_fullname", p.patient_fullname);
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.conn.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+                //string retunvalue = (string)sqlcomm.Parameters["@b"].Value;
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertLabOut " + sql);
+            }
+            finally
+            {
+                conn.conn.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
         public String insert(DocScan p, String userId)
         {
             String re = "";
@@ -932,6 +1014,35 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+
+        public String voidDocScanByStatusMedicalExamination(String hn, String mlfm, String vsdate, String preno, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "' " +
+                "Where " + dsc.hn + " ='" + hn + "' " +
+                "and status_record = '5' " +
+                "and ml_fm = '" + mlfm + "' " +
+                "and visit_date = '" + vsdate + "' " +
+                "and pre_no = '" + preno + "' "
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+
+            return re;
+        }
         public String voidDocScan(String id, String userId)
         {
             String re = "";
@@ -951,7 +1062,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("e", "voidDocScan " + sql);
+                //new LogWriter("e", "voidDocScan " + sql);
             }
 
             return re;
@@ -975,7 +1086,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("e", "voidDocScanVN " + sql);
+                //new LogWriter("e", "voidDocScanVN " + sql);
             }
 
             return re;
@@ -999,7 +1110,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("e", "voidDocScanAN " + sql);
+                //new LogWriter("e", "voidDocScanAN " + sql);
             }
 
             return re;
@@ -1021,7 +1132,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("e", "updateSort " + sql);
+                //new LogWriter("e", "updateSort " + sql);
             }
 
             return re;
@@ -1043,7 +1154,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("e", "updateSort " + sql);
+                //new LogWriter("e", "updateSort " + sql);
             }
 
             return re;
@@ -1082,6 +1193,13 @@ namespace bangna_hospital.objdb
                 dgs1.sort1 = dt.Rows[0][dsc.sort1].ToString();
                 dgs1.ml_fm = dt.Rows[0][dsc.ml_fm].ToString();
                 dgs1.row_cnt = dt.Rows[0][dsc.row_cnt].ToString();
+                dgs1.req_id = dt.Rows[0][dsc.req_id].ToString();
+                dgs1.comp_labout_id = dt.Rows[0][dsc.comp_labout_id] != null ? dt.Rows[0][dsc.comp_labout_id].ToString() : "";
+                dgs1.patient_fullname = dt.Rows[0][dsc.patient_fullname].ToString();
+                dgs1.ml_date_time_start = dt.Rows[0][dsc.ml_date_time_start].ToString();
+                dgs1.ml_date_time_end = dt.Rows[0][dsc.ml_date_time_end].ToString();
+                dgs1.status_ml = dt.Rows[0][dsc.status_ml].ToString();
+                //dgs1.ml_date_time_end = dt.Rows[0][dsc.ml_date_time_end].ToString();
             }
             else
             {
@@ -1120,6 +1238,14 @@ namespace bangna_hospital.objdb
             dgs1.sort1 = "";
             dgs1.ml_fm = "";
             dgs1.row_cnt = "";
+            dgs1.status_ml = "";
+            dgs1.ml_date_time_start = "";
+            dgs1.ml_date_time_end = "";
+            dgs1.date_req = "";
+            dgs1.req_id = "";
+            dgs1.patient_fullname = "";
+            dgs1.comp_labout_id = "";
+            
             return dgs1;
         }
         //public void setCboBsp(C1ComboBox c, String selected)

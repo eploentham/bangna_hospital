@@ -64,7 +64,7 @@ namespace bangna_hospital.objdb
                 "inner join patient_t01 ptt01 on ptt01.mnc_hn_no = lt01.mnc_hn_no and ptt01.mnc_pre_no = lt01.mnc_pre_no and ptt01.mnc_hn_yr = lt01.mnc_hn_yr " +
                 "Where mnc_req_yr = '" + year + "' and mnc_req_dat = '" + datereq + "' and lt01.mnc_hn_no = '" + hn + "'";
             dt = conn.selectData(sql);
-            new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
         public Visit selectVisit(String vn)
@@ -520,7 +520,10 @@ namespace bangna_hospital.objdb
                     "Else MNC_FN_TYP_DSC " +
                     "End as MNC_FN_TYP_DSC, " +
                 " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.mnc_ref_dsc," +
-                "t01_2.mnc_an_no, t01_2.MNC_PAT_FLAG, t01_2.mnc_an_yr, convert(VARCHAR(20),t01_2.mnc_ad_date,23) as mnc_ad_date, t01_2.mnc_an_yr " +
+                "t01_2.mnc_an_no, t01_2.MNC_PAT_FLAG, t01_2.mnc_an_yr, convert(VARCHAR(20),t01_2.mnc_ad_date,23) as mnc_ad_date, t01_2.mnc_an_yr" +
+                ", isnull(t01.mnc_high,'') as mnc_high, isnull(t01.mnc_weight,'') as mnc_weight, isnull(t01.mnc_temp,'') as mnc_temp, isnull(t01.mnc_cc,'') as mnc_cc, isnull(t01.mnc_cc_in,'') as mnc_cc_in" +
+                ", isnull(t01.mnc_cc_ex,'') as mnc_cc_ex, isnull(t01.mnc_abc,'') as mnc_abc, isnull(t01.mnc_hc,'') as mnc_hc, isnull(t01.mnc_bp1_r,'') as mnc_bp1_r, isnull(t01.mnc_bp1_l,'') as mnc_bp1_l " +
+                ", isnull(t01.mnc_bp2_r,'') as mnc_bp2_r, isnull(t01.mnc_bp2_l,'') as mnc_bp2_l, isnull(t01.mnc_breath,'') as mnc_breath, isnull(t01.mnc_cir_head,'') as mnc_cir_head, isnull(t01.mnc_ratios,'') as mnc_ratios, isnull(t01.mnc_bld_l,'') as mnc_bld_l, isnull(t01.mnc_bld_h,'') as mnc_bld_h " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +

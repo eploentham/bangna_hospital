@@ -27,5 +27,7 @@ namespace bangna_hospital.object1
         public String status_result { get; set; }
         public String date_result { get; set; }
         public String date_req { get; set; }
+        public String doc_scan_id { get; set; }
+        public String status_urgent { get; set; }
     }
 }

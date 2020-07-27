@@ -34,7 +34,7 @@
             this.ExitButton = new C1.Win.C1Ribbon.RibbonButton();
             this.NewDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
             this.OpenDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
-            this.SaveDocumentButton = new C1.Win.C1Ribbon.RibbonButton();
+            this.rbnSave = new C1.Win.C1Ribbon.RibbonButton();
             this.SaveDocumentAsButton = new C1.Win.C1Ribbon.RibbonSplitButton();
             this.SaveDocumentAsRtfButton = new C1.Win.C1Ribbon.RibbonButton();
             this.SaveDocumentAsTextButton = new C1.Win.C1Ribbon.RibbonButton();
@@ -47,6 +47,8 @@
             this.UndoButton = new C1.Win.C1Ribbon.RibbonButton();
             this.RedoButton = new C1.Win.C1Ribbon.RibbonButton();
             this.HomeTab = new C1.Win.C1Ribbon.RibbonTab();
+            this.ribbonGroup1 = new C1.Win.C1Ribbon.RibbonGroup();
+            this.ribbonLabel1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.ClipboardGroup = new C1.Win.C1Ribbon.RibbonGroup();
             this.PasteSplitButton = new C1.Win.C1Ribbon.RibbonSplitButton();
             this.PasteButton = new C1.Win.C1Ribbon.RibbonButton();
@@ -81,8 +83,8 @@
             this.NormalSizeButton = new C1.Win.C1Ribbon.RibbonButton();
             this.ribbonTopToolBar1 = new C1.Win.C1Ribbon.RibbonTopToolBar();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.ribbonGroup1 = new C1.Win.C1Ribbon.RibbonGroup();
-            this.ribbonLabel1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbnBullet = new C1.Win.C1Ribbon.RibbonButton();
+            this.rbnPaint = new C1.Win.C1Ribbon.RibbonButton();
             ((System.ComponentModel.ISupportInitialize)(this.c1Ribbon1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,7 +111,7 @@
             this.ribbonApplicationMenu1.LargeImage = ((System.Drawing.Image)(resources.GetObject("ribbonApplicationMenu1.LargeImage")));
             this.ribbonApplicationMenu1.LeftPaneItems.Add(this.NewDocumentButton);
             this.ribbonApplicationMenu1.LeftPaneItems.Add(this.OpenDocumentButton);
-            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.SaveDocumentButton);
+            this.ribbonApplicationMenu1.LeftPaneItems.Add(this.rbnSave);
             this.ribbonApplicationMenu1.LeftPaneItems.Add(this.SaveDocumentAsButton);
             this.ribbonApplicationMenu1.Name = "ribbonApplicationMenu1";
             this.ribbonApplicationMenu1.Text = "File";
@@ -132,12 +134,12 @@
             this.OpenDocumentButton.Name = "OpenDocumentButton";
             this.OpenDocumentButton.Text = "&Open";
             // 
-            // SaveDocumentButton
+            // rbnSave
             // 
-            this.SaveDocumentButton.LargeImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentButton.LargeImage")));
-            this.SaveDocumentButton.Name = "SaveDocumentButton";
-            this.SaveDocumentButton.SmallImage = ((System.Drawing.Image)(resources.GetObject("SaveDocumentButton.SmallImage")));
-            this.SaveDocumentButton.Text = "&Save";
+            this.rbnSave.LargeImage = ((System.Drawing.Image)(resources.GetObject("rbnSave.LargeImage")));
+            this.rbnSave.Name = "rbnSave";
+            this.rbnSave.SmallImage = ((System.Drawing.Image)(resources.GetObject("rbnSave.SmallImage")));
+            this.rbnSave.Text = "&Save";
             // 
             // SaveDocumentAsButton
             // 
@@ -195,10 +197,10 @@
             // 
             // ribbonQat1
             // 
-            this.ribbonQat1.HotItemLinks.Add(this.SaveDocumentButton);
+            this.ribbonQat1.HotItemLinks.Add(this.rbnSave);
             this.ribbonQat1.HotItemLinks.Add(this.UndoButton);
             this.ribbonQat1.HotItemLinks.Add(this.RedoButton);
-            this.ribbonQat1.ItemLinks.Add(this.SaveDocumentButton);
+            this.ribbonQat1.ItemLinks.Add(this.rbnSave);
             this.ribbonQat1.ItemLinks.Add(this.UndoButton);
             this.ribbonQat1.ItemLinks.Add(this.RedoButton);
             this.ribbonQat1.Name = "ribbonQat1";
@@ -223,6 +225,17 @@
             this.HomeTab.Groups.Add(this.ParagraphGroup);
             this.HomeTab.Name = "HomeTab";
             this.HomeTab.Text = "&Home";
+            // 
+            // ribbonGroup1
+            // 
+            this.ribbonGroup1.Items.Add(this.ribbonLabel1);
+            this.ribbonGroup1.Name = "ribbonGroup1";
+            this.ribbonGroup1.Text = "Group";
+            // 
+            // ribbonLabel1
+            // 
+            this.ribbonLabel1.Name = "ribbonLabel1";
+            this.ribbonLabel1.Text = "Label";
             // 
             // ClipboardGroup
             // 
@@ -362,7 +375,9 @@
             // 
             this.ParagraphGroup.Image = ((System.Drawing.Image)(resources.GetObject("ParagraphGroup.Image")));
             this.ParagraphGroup.Items.Add(this.ribbonToolBar3);
+            this.ParagraphGroup.Items.Add(this.rbnPaint);
             this.ParagraphGroup.Items.Add(this.ribbonToolBar4);
+            this.ParagraphGroup.Items.Add(this.rbnBullet);
             this.ParagraphGroup.Name = "ParagraphGroup";
             this.ParagraphGroup.Text = "Paragraph";
             // 
@@ -451,16 +466,15 @@
             this.richTextBox1.TabIndex = 1;
             this.richTextBox1.Text = "";
             // 
-            // ribbonGroup1
+            // rbnBullet
             // 
-            this.ribbonGroup1.Items.Add(this.ribbonLabel1);
-            this.ribbonGroup1.Name = "ribbonGroup1";
-            this.ribbonGroup1.Text = "Group";
+            this.rbnBullet.Name = "rbnBullet";
+            this.rbnBullet.SmallImage = global::bangna_hospital.Properties.Resources.Bullets_small;
             // 
-            // ribbonLabel1
+            // rbnPaint
             // 
-            this.ribbonLabel1.Name = "ribbonLabel1";
-            this.ribbonLabel1.Text = "Label";
+            this.rbnPaint.Name = "rbnPaint";
+            this.rbnPaint.SmallImage = ((System.Drawing.Image)(resources.GetObject("rbnPaint.SmallImage")));
             // 
             // FrmDoctorDiag
             // 
@@ -485,7 +499,7 @@
         private C1.Win.C1Ribbon.RibbonButton ExitButton;
         private C1.Win.C1Ribbon.RibbonButton NewDocumentButton;
         private C1.Win.C1Ribbon.RibbonButton OpenDocumentButton;
-        private C1.Win.C1Ribbon.RibbonButton SaveDocumentButton;
+        private C1.Win.C1Ribbon.RibbonButton rbnSave;
         private C1.Win.C1Ribbon.RibbonSplitButton SaveDocumentAsButton;
         private C1.Win.C1Ribbon.RibbonButton SaveDocumentAsRtfButton;
         private C1.Win.C1Ribbon.RibbonButton SaveDocumentAsTextButton;
@@ -534,5 +548,7 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private C1.Win.C1Ribbon.RibbonGroup ribbonGroup1;
         private C1.Win.C1Ribbon.RibbonLabel ribbonLabel1;
+        private C1.Win.C1Ribbon.RibbonButton rbnBullet;
+        private C1.Win.C1Ribbon.RibbonButton rbnPaint;
     }
 }

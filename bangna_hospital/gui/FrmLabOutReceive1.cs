@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.IO;
@@ -41,9 +42,9 @@ namespace bangna_hospital.gui
         C1DockingTab tC1;
         C1DockingTabPage tabLabAuto, tabManual, tabMed;
         Panel pnAuto, pnManual, panel1, pnLeft, pnRightTop, pnRightBotton, pnMed, pnMedMachine, pnLabComp;
-        Label lbStep1, lbStep2, lbPttNmae, lbVisitStatus, lbOutLabDate, lbMessage, lbMedStep1, lbMedStep2, lbMedPttNmae, lbMedVisitStatus, lbMedOutLabDate, lbMedMessage;
-        C1Button btnBrow, btnUpload, btnMedBrow, btnMedUpload;
-        C1TextBox txtFilename, txtHn, txtVnAn, txtVsDate, txtMedFilename, txtMedHn, txtMedVnAn, txtMedVsDate;
+        Label lbStep1, lbStep2, lbPttNmae, lbVisitStatus, lbOutLabDate, lbMessage, lbMedStep1, lbMedStep2, lbMedPttNmae, lbMedVisitStatus, lbMedOutLabDate, lbMedMessage, lbMedicaManualDate;
+        C1Button btnBrow, btnUpload, btnMedBrow, btnMedUpload, btnMedicaManual;
+        C1TextBox txtFilename, txtHn, txtVnAn, txtVsDate, txtMedFilename, txtMedHn, txtMedVnAn, txtMedVsDate, txtMedicaManualDate;
         C1FlexGrid grfVisit, grfMedVisit;
         RadioButton chkOPD, chkIPD, chkMedOPD, chkMedIPD, chkMedHolter, chkMedCarilo, chkMedEcho, chkMedEndoscope, chkLabComp1, chkLabComp2;
         C1FlexViewer labOutView, medView;
@@ -101,6 +102,17 @@ namespace bangna_hospital.gui
             grfMedVisit.RowColChange += GrfMedVisit_RowColChange;
             chkMedOPD.Click += ChkMedOPD_Click;
             chkMedIPD.Click += ChkMedIPD_Click;
+            btnMedicaManual.Click += BtnMedicaManual_Click;
+        }
+        private void BtnMedicaManual_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkLabComp1.Checked)
+            {
+                tC1.SelectedTab = tabLabAuto;
+                getFileinFolderMedica(txtMedicaManualDate.Text.Trim());
+                uploadFiletoServerMedicaOnLine(txtMedicaManualDate.Text.Trim());
+            }
         }
 
         private void ChkMedIPD_Click(object sender, EventArgs e)
@@ -121,8 +133,7 @@ namespace bangna_hospital.gui
             if (grfMedVisit.Row <= 0) return;
             if (grfMedVisit.Col <= 0) return;
             if (grfMedVisit[grfMedVisit.Row, colVsVn] == null) return;
-
-            
+                        
             if (grfMedVisit[grfMedVisit.Row, colVsStatus].ToString().Trim().Equals("OPD"))
             {
                 chkMedOPD.Checked = true;
@@ -488,6 +499,9 @@ namespace bangna_hospital.gui
             pnManual.Controls.Add(lbMessage);
             pnManual.Controls.Add(grfVisit);
             pnManual.Controls.Add(labOutView);
+            pnManual.Controls.Add(lbMedicaManualDate);
+            pnManual.Controls.Add(txtMedicaManualDate);
+            pnManual.Controls.Add(btnMedicaManual);
             pnManual.Controls.Add(pnLabComp);
             pnLabComp.Controls.Add(chkLabComp1);
             pnLabComp.Controls.Add(chkLabComp2);
@@ -628,6 +642,26 @@ namespace bangna_hospital.gui
             lbMessage.Font = fEdit;
             lbMessage.Location = new System.Drawing.Point(btnUpload.Location.X + btnUpload.Width + 10, chkOPD.Location.Y);
             lbMessage.AutoSize = true;
+            lbMedicaManualDate = new Label();
+            lbMedicaManualDate.Text = "Date  Manual ";
+            lbMedicaManualDate.Font = fEdit;
+            lbMedicaManualDate.Location = new System.Drawing.Point(lbMessage.Location.X + 100, chkOPD.Location.Y);
+            lbMedicaManualDate.AutoSize = true;
+            lbMedicaManualDate.Name = "lbMedicaManualDate";
+            size = bc.MeasureString(lbMedicaManualDate);
+            txtMedicaManualDate = new C1TextBox();
+            txtMedicaManualDate.Font = fEdit;
+            txtMedicaManualDate.Location = new System.Drawing.Point(lbMedicaManualDate.Location.X + size.Width + 15, chkOPD.Location.Y);
+            txtMedicaManualDate.Size = new Size(80, btnBrow.Height + 5);
+            txtMedicaManualDate.Name = "";
+            btnMedicaManual = new C1Button();
+            btnMedicaManual.Name = "btnMedicaManual";
+            btnMedicaManual.Text = "Upload Manual";
+            size = bc.MeasureString(btnMedicaManual);
+            btnMedicaManual.Font = fEdit;
+            btnMedicaManual.Location = new System.Drawing.Point(txtMedicaManualDate.Location.X+ txtMedicaManualDate.Width + 20, chkOPD.Location.Y);
+            btnMedicaManual.Size = new Size(size.Width + 15, lbStep1.Height);
+            btnMedicaManual.Font = fEdit;
 
             grfVisit = new C1FlexGrid();
             grfVisit.Font = fEdit;
@@ -895,11 +929,22 @@ namespace bangna_hospital.gui
                             int indexhn = line.LastIndexOf("HN");
                             if (indexhn >= 0)
                             {
-                                var pttname = line.Substring(indexhn, (line.Length - indexhn));
-                                txtHn.Value = pttname.Replace("HN", "").Trim();
-                                if (txtHn.Text.Length > 7)
+                                var ptthn = line.Substring(indexhn, (line.Length - indexhn));
+                                String temphn = ptthn.Replace("HN", "").Replace(":", "").Trim();
+                                if (temphn.Length >= 7)
                                 {
-                                    txtHn.Value = txtHn.Text.Substring(0, 7);
+                                    //txtHn.Value = txtHn.Text.Substring(0, 7);
+                                    int chk = 0;
+                                    String txt1 = "";
+                                    txt1 = temphn.Trim();
+                                    if(int.TryParse(txt1, out chk))
+                                    {
+                                        txtHn.Value = txt1;     // hn lenght = 8
+                                    }
+                                    else
+                                    {
+                                        txtHn.Value = temphn.Substring(0, 7);// hn lenght = 7
+                                    }
                                 }
                             }
                             int indexoutlabdate = line.LastIndexOf("REGISTERED DATE");
@@ -996,6 +1041,9 @@ namespace bangna_hospital.gui
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 setOutLab(ofd.FileName);
+
+                //Stream fs = File.OpenRead(@ofd.FileName);
+                //chkAttendUrgent(null, fs);
             }
         }
         private void printLabOut()
@@ -1043,8 +1091,10 @@ namespace bangna_hospital.gui
             {
                 uploadFiletoServerRIA();
             }
-            getFileinFolderMedica();
-            uploadFiletoServerMedicaOnLine();
+            String chkdate = "";
+            chkdate = "";
+            getFileinFolderMedica(chkdate);
+            uploadFiletoServerMedicaOnLine(chkdate);
             Thread.Sleep(200);
             listBox2.Items.Add("Check ");
             Application.DoEvents();
@@ -1466,6 +1516,7 @@ namespace bangna_hospital.gui
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
                     printLabOut();
+                    chkAttendUrgent(dsc, streamPrint);
                     Application.DoEvents();
                     Thread.Sleep(1000 * 20);
                 }
@@ -1478,14 +1529,83 @@ namespace bangna_hospital.gui
             }
             timer.Start();
         }
-        private Boolean getFileinFolderMedica()
+        private void chkAttendUrgent(DocScan dsc, Stream stream)
+        {
+            try
+            {
+                stream.Position = 0;
+                PdfReader reader = new PdfReader(stream);
+                for (int page1 = 1; page1 <= reader.NumberOfPages; page1++)
+                {
+                    string strText = "";
+                    ITextExtractionStrategy its = new LocationTextExtractionStrategy();
+                    strText = PdfTextExtractor.GetTextFromPage(reader, page1, its);
+                    Boolean chkUrgent = false;
+                    
+                    //แจ้งแพทย์ด่วน
+                    //แจจงแพทยษดมวน แจจงแพทยษดมวน
+                    if (strText.IndexOf("แจจงแพทยษดมวน") >= 0)
+                    {
+                        chkUrgent = true;
+                    }
+                    if (strText.IndexOf("แจ้งแพทย์ด่วน") >= 0)
+                    {
+                        chkUrgent = true;
+                    }
+                    if (!chkUrgent)
+                    {
+                        string[] lines = strText.Split('\n');
+                        foreach (String str in lines)
+                        {
+                            if (str.IndexOf("แจ้งแพทย์ด่วน") >= 0)
+                            {
+                                chkUrgent = true;
+                            }
+                            else if (str.IndexOf("แจจงแพทยษดมวน") >= 0)
+                            {
+                                chkUrgent = true;
+                            }
+                        }
+                    }
+                    if (chkUrgent)
+                    {
+                        bc.bcDB.laboDB.updateStatusUrgentBydscid(dsc.hn, dsc.date_req, dsc.req_id);
+                        String cmd = "", args = "";
+                        cmd = "c:\\python\\line_bot_labout_urgent_bangna.py";
+                        args = dsc.doc_scan_id;
+                        ProcessStartInfo start = new ProcessStartInfo();
+                        start.FileName = "python.exe";
+                        start.Arguments = string.Format("{0} {1}", cmd, args);
+                        start.UseShellExecute = false;
+                        start.RedirectStandardOutput = true;
+                        using (Process process = Process.Start(start))
+                        {
+                            //using (StreamReader reader = process.StandardOutput)
+                            //{
+                            //    string result = reader.ReadToEnd();
+                            //    Console.Write(result);
+                            //}
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "chkAttendUrgent " + ex.Message);
+            }
+        }
+        private Boolean getFileinFolderMedica(String manualDate)
         {
             timer.Stop();
             Boolean chk = false;
             List<LabOutMedicaResult> list = null;
             Stream stream = null;
             String currDate = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd");
-            //currDate = "2020-06-24";
+            if (manualDate.Length > 0)
+            {
+                currDate = manualDate;
+            }            
+            //currDate = "2020-07-24";
             listBox2.Items.Add("Check Medica date "+currDate+ " hosp_code=" + bc.iniC.laboutMedicahosp_code);
             Application.DoEvents();
             try
@@ -1528,6 +1648,14 @@ namespace bangna_hospital.gui
                 chk = false;
                 String datetick = "", path="", reqid = "";
                 path = bc.iniC.folderFTPLabOutMedica + "//";
+                //if (lab.labno.Equals("200714864"))
+                //{
+                //    string aaa1 = "";
+                //}
+                //else
+                //{
+                //    continue;
+                //}
                 //path = bc.iniC.hostFTPLabOutMedica + "medicalab/www/app/pdf/";
                 String address = path+lab.labno+".pdf";
                 Boolean chkFileExit = false;
@@ -1544,6 +1672,7 @@ namespace bangna_hospital.gui
                 {
                     continue;
                 }
+                
                 streamresult.Seek(0, SeekOrigin.Begin);
                 listBox2.Items.Add("Check Medica ftp " + lab.labno);
                 Application.DoEvents();
@@ -1672,6 +1801,26 @@ namespace bangna_hospital.gui
                                     //reqid = reqid1.ToString();        //มี bug ถ้ามี ) นำหน้า
                                     reqid = txt2.Trim();
                                     chk = true;
+                                }
+                                else
+                                {
+                                    txt2 = "";
+                                    txt2 = txt1[1];
+                                    if (long.TryParse(txt2.Trim(), out reqid1))
+                                    {
+                                        reqid = txt2.Trim();
+                                        chk = true;
+                                    }
+                                    else
+                                    {
+                                        txt2 = "";
+                                        txt2 = txt1[2];
+                                        if (long.TryParse(txt2.Trim(), out reqid1))
+                                        {
+                                            reqid = txt2.Trim();
+                                            chk = true;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -2164,6 +2313,7 @@ namespace bangna_hospital.gui
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
                     streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
+                    chkAttendUrgent(dsc, streamPrint);
                     printLabOut();
                     Thread.Sleep(1000 * 30);
                 }
@@ -2421,6 +2571,7 @@ namespace bangna_hospital.gui
 
                 String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
                 listBox2.Items.Add("updateImagepath " + dsc.image_path);
+                lbMessage.Text = "ได้เลขที่ " + re+" Update Ok";
                 Application.DoEvents();
                 //    //MessageBox.Show("111", "");
 
@@ -2432,6 +2583,7 @@ namespace bangna_hospital.gui
                 Thread.Sleep(200);
                 if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
                 {
+                    lbMessage.Text = "ได้เลขที่ "+" [Update Ok] Upload OK";
                     listBox2.Items.Add("FTP upload success ");
                     Application.DoEvents();
                     Thread.Sleep(500);
@@ -2468,10 +2620,14 @@ namespace bangna_hospital.gui
             }
             //timer.Start();
         }
-        private void uploadFiletoServerMedicaOnLine()
+        private void uploadFiletoServerMedicaOnLine(String manualDate)
         {
             String currDate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
             timer.Stop();
+            if (manualDate.Length > 0)
+            {
+                currDate = manualDate;
+            }
             //listBox2.Items.Clear();     //listBox3
             Application.DoEvents();
             Thread.Sleep(500);
@@ -2537,7 +2693,7 @@ namespace bangna_hospital.gui
                     }
                     Thread.Sleep(200);
                     
-                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\backup\\err_" + filename2 + "_" + datetick + ext);
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\backup\\err_not_correct_FORMAT" + filename2 + "_" + datetick + ext);
                     
                     Thread.Sleep(1000);
                     continue;
@@ -2557,7 +2713,7 @@ namespace bangna_hospital.gui
                     
                     Thread.Sleep(200);
                     
-                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_File_short" + filename2 + "_" + datetick + ext);
                     
                     Thread.Sleep(1000);
                     continue;
@@ -2583,7 +2739,7 @@ namespace bangna_hospital.gui
                     
                     Thread.Sleep(200);
                     
-                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_File_no_found_date" + filename2 + "_" + datetick + ext);
                     
                     Thread.Sleep(1000);
                     continue;
@@ -2607,7 +2763,7 @@ namespace bangna_hospital.gui
                     
                     Thread.Sleep(200);
                     
-                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_not_found_HIS" + filename2 + "_" + datetick + ext);
                     
                     Thread.Sleep(1000);
                     continue;
@@ -2687,7 +2843,7 @@ namespace bangna_hospital.gui
                     
                     Thread.Sleep(200);
                     
-                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_" + filename2 + "_" + datetick + ext);
+                    File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_no_req_id" + filename2 + "_" + datetick + ext);
                     
                     Thread.Sleep(1000);
                     continue;
@@ -2728,9 +2884,7 @@ namespace bangna_hospital.gui
                     {
                         Directory.CreateDirectory(bc.iniC.pathLabOutBackupMedica);
                     }
-                    
                     Thread.Sleep(500);
-                    
                     File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\" + filename2 + "_" + datetick + ext);
                     
                     listBox1.BeginUpdate();     //listBox2
@@ -2740,7 +2894,7 @@ namespace bangna_hospital.gui
                     Application.DoEvents();
                     streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
                     printLabOut();
-                    Thread.Sleep(1000 * 30);
+                    Thread.Sleep(1000 * 10);
                 }
                 else
                 {
@@ -2901,7 +3055,7 @@ namespace bangna_hospital.gui
                     dsc.ml_fm = "FM-MED-996";       //Med Carilo
                 }
 
-                dsc.patient_fullname = lbMedPttNmae.Text.Trim(); ;
+                dsc.patient_fullname = lbMedPttNmae.Text.Trim();
                 dsc.status_record = "3";
                 String re = bc.bcDB.dscDB.insertMed(dsc, bc.userId);
                 if (re.Length <= 0)
@@ -2948,7 +3102,7 @@ namespace bangna_hospital.gui
                 //    {
                 vn = dsc.vn.Replace("/", "_").Replace("(", "_").Replace(")", "");
 
-                dsc.ml_fm = "FM-MED-999";       //Med Carilo
+                //dsc.ml_fm = "FM-MED-999";       //Med Carilo
 
                 //    }
                 //    //dsc.image_path = txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;       //-1
@@ -2989,7 +3143,7 @@ namespace bangna_hospital.gui
                     listBox1.BeginUpdate();     //listBox2
                     listBox1.Items.Add(filename + " -> " + bc.iniC.hostFTP + "//" + bc.iniC.folderFTP + "//" + dsc.image_path);     //listBox2
                     listBox1.EndUpdate();     //listBox2
-                    bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
+                    //bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
                     lbMedMessage.Text = "Upload เรียบร้อย";
                     Thread.Sleep(1000);
@@ -3146,7 +3300,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-07-23 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
+            this.Text = "Last Update 2020-07-25 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;

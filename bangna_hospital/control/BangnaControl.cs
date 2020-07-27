@@ -24,7 +24,7 @@ namespace bangna_hospital.control
         private IniFile iniF;
         public ConnectDB conn;
 
-        public String theme = "", userId = "", hn="", vn="", preno="", appName = "";
+        public String theme = "", userId = "", hn="", vn="", preno="", appName = "", vsdate="";
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
