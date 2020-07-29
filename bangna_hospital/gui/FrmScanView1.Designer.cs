@@ -46,6 +46,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lbChronic1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.gbPtt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
@@ -63,6 +64,7 @@
             // gbPtt
             // 
             this.gbPtt.BackColor = System.Drawing.Color.White;
+            this.gbPtt.Controls.Add(this.lbChronic1);
             this.gbPtt.Controls.Add(this.lbDrugAllergy);
             this.gbPtt.Controls.Add(this.lbAge);
             this.gbPtt.Controls.Add(this.lbCnt);
@@ -77,7 +79,7 @@
             this.gbPtt.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.gbPtt.Location = new System.Drawing.Point(0, 0);
             this.gbPtt.Name = "gbPtt";
-            this.gbPtt.Size = new System.Drawing.Size(1209, 45);
+            this.gbPtt.Size = new System.Drawing.Size(1679, 45);
             this.gbPtt.TabIndex = 2;
             this.gbPtt.TabStop = false;
             this.gbPtt.Text = "Patient";
@@ -225,7 +227,7 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel1.Location = new System.Drawing.Point(0, 45);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1209, 624);
+            this.panel1.Size = new System.Drawing.Size(1679, 624);
             this.panel1.TabIndex = 5;
             this.theme1.SetTheme(this.panel1, "(default)");
             // 
@@ -241,7 +243,7 @@
             this.sC1.Name = "sC1";
             this.sC1.Panels.Add(this.scVs);
             this.sC1.Panels.Add(this.scScan);
-            this.sC1.Size = new System.Drawing.Size(1209, 624);
+            this.sC1.Size = new System.Drawing.Size(1679, 624);
             this.sC1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(166)))), ((int)(((byte)(194)))));
             this.sC1.TabIndex = 2;
             this.theme1.SetTheme(this.sC1, "(default)");
@@ -255,11 +257,11 @@
             this.scVs.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.scVs.Location = new System.Drawing.Point(0, 21);
             this.scVs.Name = "scVs";
-            this.scVs.Size = new System.Drawing.Size(226, 603);
+            this.scVs.Size = new System.Drawing.Size(317, 603);
             this.scVs.SizeRatio = 19.336D;
             this.scVs.TabIndex = 0;
             this.scVs.Text = "Panel 1";
-            this.scVs.Width = 233;
+            this.scVs.Width = 324;
             // 
             // panel2
             // 
@@ -268,7 +270,7 @@
             this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(226, 603);
+            this.panel2.Size = new System.Drawing.Size(317, 603);
             this.panel2.TabIndex = 0;
             this.theme1.SetTheme(this.panel2, "(default)");
             // 
@@ -276,9 +278,9 @@
             // 
             this.scScan.Controls.Add(this.panel3);
             this.scScan.Height = 624;
-            this.scScan.Location = new System.Drawing.Point(237, 21);
+            this.scScan.Location = new System.Drawing.Point(328, 21);
             this.scScan.Name = "scScan";
-            this.scScan.Size = new System.Drawing.Size(972, 603);
+            this.scScan.Size = new System.Drawing.Size(1351, 603);
             this.scScan.TabIndex = 1;
             this.scScan.Text = "Panel 2";
             // 
@@ -289,15 +291,27 @@
             this.panel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(972, 603);
+            this.panel3.Size = new System.Drawing.Size(1351, 603);
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
+            // 
+            // lbChronic1
+            // 
+            this.lbChronic1.BackColor = System.Drawing.Color.White;
+            this.lbChronic1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbChronic1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbChronic1.Location = new System.Drawing.Point(1504, 15);
+            this.lbChronic1.Name = "lbChronic1";
+            this.lbChronic1.Size = new System.Drawing.Size(380, 20);
+            this.lbChronic1.TabIndex = 558;
+            this.lbChronic1.Text = "...";
+            this.theme1.SetTheme(this.lbChronic1, "(default)");
             // 
             // FrmScanView1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1209, 669);
+            this.ClientSize = new System.Drawing.Size(1679, 669);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gbPtt);
             this.Name = "FrmScanView1";
@@ -340,5 +354,6 @@
         private System.Windows.Forms.Label lbAge;
         private System.Windows.Forms.Label lbDrugAllergy;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lbChronic1;
     }
 }

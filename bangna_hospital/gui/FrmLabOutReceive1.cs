@@ -290,23 +290,83 @@ namespace bangna_hospital.gui
                                     chkMedEcho.Checked = false;
                                     chkMedEndoscope.Checked = true;
                                     chkMedHolter.Checked = false;
+                                    int indexhn = line.LastIndexOf("HN");
+                                    if (indexhn < 0)
+                                    {
+                                        indexhn = line.LastIndexOf("H N");
+                                    }
+                                    if (indexhn >= 0)
+                                    {
+                                        txtMedHn.Value = line.Replace("H", "").Replace("N", "").Replace(":", "").Trim();
+                                        setControlHNMed();
+                                        setGrfMed();
+                                        //Patient ptt = new Patient();
+                                        //ptt = bc.bcDB.pttDB.selectPatinet(txtMedHn.Text.Trim());
+                                        //lbPttNmae.Text = ptt.Name;
+                                    }
                                 }
-                                int indexhn = line.LastIndexOf("HN");
-                                if (indexhn < 0)
+                                int indexeholter = line.LastIndexOf("HOLTER");
+                                if (indexeholter >= 0)
                                 {
-                                    indexhn = line.LastIndexOf("H N");
+                                    chkMedCarilo.Checked = false;
+                                    chkMedEcho.Checked = false;
+                                    chkMedEndoscope.Checked = false;
+                                    chkMedHolter.Checked = true;
+                                    int indexhn = line.LastIndexOf("ID");
+                                    if (indexhn >= 0)
+                                    {
+                                        txtMedHn.Value = line.Replace("ID", "").Replace(":", "").Trim();
+                                        setControlHNMed();
+                                        setGrfMed();
+                                        //Patient ptt = new Patient();
+                                        //ptt = bc.bcDB.pttDB.selectPatinet(txtMedHn.Text.Trim());
+                                        //lbPttNmae.Text = ptt.Name;
+                                    }
+                                    String hn = "";
+                                    if (lines.Length > 9)
+                                    {
+                                        int chk = 0;
+                                        String[] txtchk = lines[6].Split(' ');
+                                        if (txtchk.Length > 1)
+                                        {
+                                            if (int.TryParse(txtchk[0], out chk))
+                                            {
+                                                hn = txtchk[0];
+                                                txtMedHn.Value = hn;
+                                                setControlHNMed();
+                                                setGrfMed();
+                                                break;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (int.TryParse(lines[6], out chk))
+                                            {
+                                                hn = lines[6];
+                                                txtMedHn.Value = hn;
+                                                setControlHNMed();
+                                                setGrfMed();
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                if (int.TryParse(lines[7], out chk))
+                                                {
+                                                    hn = lines[7];
+                                                    txtMedHn.Value = hn;
+                                                    setControlHNMed();
+                                                    setGrfMed();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        
+                                    }
                                 }
-                                if (indexhn >= 0)
-                                {
-                                    txtMedHn.Value = line.Replace("H", "").Replace("N", "").Replace(":","").Trim();
-                                    setControlHNMed();
-                                    setGrfMed();
-                                    //Patient ptt = new Patient();
-                                    //ptt = bc.bcDB.pttDB.selectPatinet(txtMedHn.Text.Trim());
-                                    //lbPttNmae.Text = ptt.Name;
-                                }
+                                
                                 //}
                             }
+                            
                         }
                         catch(Exception ex)
                         {
@@ -314,6 +374,9 @@ namespace bangna_hospital.gui
                         }
                         
                     }
+                    pds.Dispose();
+                    reader.Close();
+                    reader.Dispose();
                 }
                 catch (Exception ex)
                 {
@@ -1571,7 +1634,7 @@ namespace bangna_hospital.gui
                     {
                         bc.bcDB.laboDB.updateStatusUrgentBydscid(dsc.hn, dsc.date_req, dsc.req_id);
                         String cmd = "", args = "";
-                        cmd = "c:\\python\\line_bot_labout_urgent_bangna.py";
+                        cmd = bc.iniC.pathline_bot_labout_urgent_bangna;
                         args = dsc.doc_scan_id;
                         ProcessStartInfo start = new ProcessStartInfo();
                         start.FileName = "python.exe";
@@ -3044,7 +3107,7 @@ namespace bangna_hospital.gui
                 }
                 else if (chkMedEcho.Checked)
                 {
-                    dsc.ml_fm = "FM-MED-998";       //Med Carilo
+                    dsc.ml_fm = "FM-MED-998";       //Med Echo
                 }
                 else if (chkMedEndoscope.Checked)
                 {
@@ -3052,7 +3115,7 @@ namespace bangna_hospital.gui
                 }
                 else if (chkMedHolter.Checked)
                 {
-                    dsc.ml_fm = "FM-MED-996";       //Med Carilo
+                    dsc.ml_fm = "FM-MED-996";       //Med Holter
                 }
 
                 dsc.patient_fullname = lbMedPttNmae.Text.Trim();

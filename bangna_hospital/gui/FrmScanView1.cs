@@ -34,10 +34,10 @@ namespace bangna_hospital.gui
     public partial class FrmScanView1 : Form
     {
         BangnaControl bc;
-                
+
         Font fEdit, fEditB, fEdit3B;
         C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac;
-        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabHn, tabHnLabOut, tabPic, tabOrdAdd;
+        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic, grfIPD, grfOPD;
         C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem;
         C1FlexViewer labOutView;
@@ -45,7 +45,7 @@ namespace bangna_hospital.gui
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
         Label lbPttSymptom, lbPttVsDate, lbPaidType;
-
+        
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -88,7 +88,9 @@ namespace bangna_hospital.gui
         Patient ptt;
         Stream streamPrint, streamPrintL, streamPrintR, streamDownload;
         Form frmFlash;
-        String grfActive = "";
+        String grfActive = "", txtChronic = "";
+        DataTable dtchronic = new DataTable();
+        
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -160,25 +162,25 @@ namespace bangna_hospital.gui
             //}
 
             txtHn.Value = hn;
-            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
-            txtName.Value = ptt.Name;
-            String allergy = "";
-            DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectDrugAllergy(txtHn.Text.Trim());
-            foreach (DataRow row in dt.Rows)
-            {
-                allergy += row["MNC_ph_tn"].ToString() + " " + row["MNC_ph_memo"].ToString() + ", ";
-            }
-            lbDrugAllergy.Text = "";
-            if (allergy.Length > 0)
-            {
-                lbDrugAllergy.Text = "แพ้ยา " + allergy;
-            }
-            else
-            {
-                lbDrugAllergy.Text = "ไม่มีข้อมูล การแพ้ยา ";
-            }
-            lbAge.Text = "อายุ "+ptt.AgeStringShort();
+            //ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            //txtName.Value = ptt.Name;
+            //String allergy = "";
+            //DataTable dt = new DataTable();
+            //dt = bc.bcDB.vsDB.selectDrugAllergy(txtHn.Text.Trim());
+            //foreach (DataRow row in dt.Rows)
+            //{
+            //    allergy += row["MNC_ph_tn"].ToString() + " " + row["MNC_ph_memo"].ToString() + ", ";
+            //}
+            //lbDrugAllergy.Text = "";
+            //if (allergy.Length > 0)
+            //{
+            //    lbDrugAllergy.Text = "แพ้ยา " + allergy;
+            //}
+            //else
+            //{
+            //    lbDrugAllergy.Text = "ไม่มีข้อมูล การแพ้ยา ";
+            //}
+            //lbAge.Text = "อายุ "+ptt.AgeStringShort();
             btnHn.Click += BtnHn_Click;
             
             //btnRefresh.Click += BtnRefresh_Click;
@@ -196,7 +198,7 @@ namespace bangna_hospital.gui
             tcDtr.TabIndex = 0;
             tcDtr.TabsSpacing = 5;
             tcDtr.TabClick += TcDtr_TabClick;
-            //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged1;
+            
             panel3.Controls.Add(tcDtr);
             theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
             //MessageBox.Show("111", "");
@@ -223,7 +225,21 @@ namespace bangna_hospital.gui
             setControlHN();
             theme1.SetTheme(tcDtr, theme1.Theme);
             //MessageBox.Show("222", "");
-            setTabMachineResult();
+            //setTabMachineResult();
+
+            tabHnLabOut.DoubleClick += TabHnLabOut_DoubleClick;
+        }
+
+        private void TabHnLabOut_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmWaiting frmW = new FrmWaiting();
+            frmW.StartPosition = FormStartPosition.CenterScreen;
+            frmW.Show(this);
+
+            setTabHnLabOut();
+
+            frmW.Dispose();
         }
 
         private void BtnItmDrugSet_Click(object sender, EventArgs e)
@@ -319,15 +335,15 @@ namespace bangna_hospital.gui
             tabPrn.Name = "tabPrn";
             tcDtr.Controls.Add(tabPrn);
 
-            tabHn = new C1DockingTabPage();
-            tabHn.Location = new System.Drawing.Point(1, 24);
+            tabMac = new C1DockingTabPage();
+            tabMac.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
-            tabHn.Size = new System.Drawing.Size(667, 175);
-            tabHn.TabIndex = 0;
+            tabMac.Size = new System.Drawing.Size(667, 175);
+            tabMac.TabIndex = 0;
             //tabHn.Text = "Hn เวชระเบียน";
-            tabHn.Text = "Machine Result";
-            tabHn.Name = "tabHn";
-            tcDtr.Controls.Add(tabHn);
+            tabMac.Text = "Machine Result";
+            tabMac.Name = "tabHn";
+            tcDtr.Controls.Add(tabMac);
 
             tabHnLabOut = new C1DockingTabPage();
             tabHnLabOut.Location = new System.Drawing.Point(1, 24);
@@ -361,7 +377,7 @@ namespace bangna_hospital.gui
             tcMac.TabIndex = 0;
             tcMac.TabsSpacing = 5;
             tcMac.DoubleClick += TcMac_DoubleClick;
-            tabHn.Controls.Add(tcMac);
+            tabMac.Controls.Add(tcMac);
             theme1.SetTheme(tcMac, bc.iniC.themeApplication);
 
             tabPic = new C1DockingTabPage();
@@ -712,6 +728,14 @@ namespace bangna_hospital.gui
                     frmW.Dispose();
                 }
                 flagTabOutlabLoad = true;
+            }
+            else if (tcDtr.SelectedTab == tabPic)
+            {
+                setTabGrfPicPatient();
+            }
+            else if (tcDtr.SelectedTab == tabMac)
+            {
+                setTabMachineResult();
             }
         }
         private void tabOrderActive()
@@ -1116,6 +1140,7 @@ namespace bangna_hospital.gui
             String allergy = "";
             DataTable dt = new DataTable();
             dt = bc.bcDB.vsDB.selectDrugAllergy(txtHn.Text.Trim());
+            dtchronic = bc.bcDB.vsDB.SelectChronicByPID(ptt.idcard);
             foreach (DataRow row in dt.Rows)
             {
                 allergy += row["MNC_ph_tn"].ToString() + " " + row["MNC_ph_memo"].ToString() + ", ";
@@ -1129,6 +1154,11 @@ namespace bangna_hospital.gui
             {
                 lbDrugAllergy.Text = "ไม่มีข้อมูล การแพ้ยา ";
             }
+            
+            foreach (DataRow row in dtchronic.Rows)
+            {
+                txtChronic += row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString() +",";
+            }
             lbAge.Text = "อายุ " + ptt.AgeStringShort();
 
             picL.Image = null;
@@ -1136,7 +1166,7 @@ namespace bangna_hospital.gui
             setGrfVsIPD();
             setGrfVsOPD();
             //setTabHnLabOut();
-            setGrfPic();
+            //setTabGrfPicPatient();
             grfOPD.Focus();
             if (grfOPD.Rows.Count > 1)
             {
@@ -1174,7 +1204,7 @@ namespace bangna_hospital.gui
             }
             setControlGbPtt();
         }
-        private void setGrfPic()
+        private void setTabGrfPicPatient()
         {
             DataTable dataTable1 = new DataTable();
             DataTable dataTable2 = this.bc.bcDB.dscDB.selectPicByHn(txtHn.Text.Trim());
@@ -1377,18 +1407,18 @@ namespace bangna_hospital.gui
         }
         private void setTabHnLabOut()
         {
-            ProgressBar pB1 = new ProgressBar();
-            pB1.Location = new System.Drawing.Point(20, 16);
-            pB1.Name = "pB1";
-            pB1.Size = new System.Drawing.Size(862, 23);
-            gbPtt.Controls.Add(pB1);
-            pB1.Left = txtHn.Left;
-            pB1.Show();
+            //ProgressBar pB1 = new ProgressBar();
+            //pB1.Location = new System.Drawing.Point(20, 16);
+            //pB1.Name = "pB1";
+            //pB1.Size = new System.Drawing.Size(862, 23);
+            //gbPtt.Controls.Add(pB1);
+            //pB1.Left = txtHn.Left;
+            //pB1.Show();
             setHeaderDisable();
 
             if (txtHn.Text.Trim().Length <= 0)
             {
-                setHeaderEnable(pB1);
+                setHeaderEnable();
                 return;
             }
             tcHnLabOut.TabPages.Clear();
@@ -1398,7 +1428,7 @@ namespace bangna_hospital.gui
             dtlaboutdsc = bc.bcDB.dscDB.selectLabOutByDateReq("","",txtHn.Text.Trim(), "daterequest");
             if (dtlaboutOld.Rows.Count > 0)
             {
-                pB1.Maximum = dtlaboutOld.Rows.Count;
+                //pB1.Maximum = dtlaboutOld.Rows.Count;
                 //new LogWriter("w", "setTabHnLabOut");
                 tcHnLabOut.TabPages.Clear();
                 int k = 0;
@@ -1407,7 +1437,7 @@ namespace bangna_hospital.gui
                     try
                     {
                         k++;
-                        pB1.Value = k;
+                        //pB1.Value = k;
                         String vn = "", preno = "", vsdate = "", an = "", labexid = "", yearid = "", filename = "", filename1 = "", datetick = "";
                         datetick = DateTime.Now.Ticks.ToString();
                         labexid = dtlaboutOld.Rows[0][bc.bcDB.labexDB.labex.Id].ToString();
@@ -1415,8 +1445,7 @@ namespace bangna_hospital.gui
                         yearid = dtlaboutOld.Rows[0][bc.bcDB.labexDB.labex.YearId].ToString();
                         vn = dtlaboutOld.Rows[0][bc.bcDB.labexDB.labex.Vn].ToString();
                         vn = vn.Replace("/", ".").Replace("(", ".").Replace(")", "");
-
-                        
+                                                
                         //for (int i = 0; i < 6; i++)
                         //{
                         MemoryStream stream;
@@ -1430,12 +1459,12 @@ namespace bangna_hospital.gui
                         stream = ftpc.download(bc.iniC.folderFTPLabOut + "//" + yearid + "//" + filename);
                         if (stream == null)
                         {
-                            setHeaderEnable(pB1);
+                            setHeaderEnable();
                             continue;
                         }
                         if (stream.Length == 0)
                         {
-                            setHeaderEnable(pB1);
+                            setHeaderEnable();
                             continue;
                         }
                         C1DockingTabPage tabHnLabOut = new C1DockingTabPage();
@@ -1449,16 +1478,17 @@ namespace bangna_hospital.gui
                         tcHnLabOut.TabPages.Add(tabHnLabOut);
 
                         stream.Seek(0, SeekOrigin.Begin);
-                        var fileStream = new FileStream("report\\" + datetick + ".pdf", FileMode.Create, FileAccess.Write);
-                        stream.CopyTo(fileStream);
-                        fileStream.Flush();
-                        fileStream.Dispose();
-                        Application.DoEvents();
-                        Thread.Sleep(200);
-
+                        
                         //tcHnLabOut.Controls.Add(tablabOut);
                         if (bc.iniC.windows.Equals("windowsxp"))
                         {
+                            var fileStream = new FileStream("report\\" + datetick + ".pdf", FileMode.Create, FileAccess.Write);
+                            stream.CopyTo(fileStream);
+                            fileStream.Flush();
+                            fileStream.Dispose();
+                            Application.DoEvents();
+                            Thread.Sleep(50);
+
                             string currentDirectory = Directory.GetCurrentDirectory();
                             WebBrowser webBrowser1;
                             webBrowser1 = new System.Windows.Forms.WebBrowser();
@@ -1566,13 +1596,13 @@ namespace bangna_hospital.gui
                         stream = ftpc.download(rowdsc[bc.bcDB.dscDB.dsc.folder_ftp] + "/" + rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
                         if (stream == null)
                         {
-                            setHeaderEnable(pB1);
+                            setHeaderEnable();
                             tabHnLabOut.Dispose();
                             continue;
                         }
                         if (stream.Length == 0)
                         {
-                            setHeaderEnable(pB1);
+                            setHeaderEnable();
                             tabHnLabOut.Dispose();
                             continue;
                         }
@@ -1580,13 +1610,14 @@ namespace bangna_hospital.gui
                         String ext = Path.GetExtension(rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
                                                 
                         Application.DoEvents();
-                        Thread.Sleep(200);
+                        
                         tcHnLabOut.TabPages.Add(tabHnLabOut);
                         //tcHnLabOut.Controls.Add(tablabOut);
                         if (bc.iniC.windows.Equals("windowsxp"))
                         {
                             var fileStream = new FileStream("report\\" + datetick + ext, FileMode.Create, FileAccess.Write);
                             stream.CopyTo(fileStream);
+                            Thread.Sleep(50);
                             fileStream.Flush();
                             fileStream.Dispose();
                             if (ext.Equals(".jpg"))
@@ -1679,7 +1710,7 @@ namespace bangna_hospital.gui
                     
                 }
             }
-                setHeaderEnable(pB1);
+            setHeaderEnable();
         }
         private void ContextMenu_LabOut_Print(object sender, System.EventArgs e)
         {
@@ -1777,7 +1808,7 @@ namespace bangna_hospital.gui
                             labOutView.Name = "c1FlexViewer1" + k.ToString();
                             labOutView.Size = new System.Drawing.Size(1065, 790);
                             labOutView.TabIndex = 0;
-
+                            labOutView.Ribbon.Minimized = true;
                             tabHnLabOut.Controls.Add(labOutView);
 
                             C1PdfDocumentSource pds = new C1PdfDocumentSource();
@@ -1785,7 +1816,7 @@ namespace bangna_hospital.gui
                             pds.LoadFromStream(stream);
 
                             //pds.LoadFromFile(filename1);
-
+                            labOutView.Ribbon.Minimized = true;
                             labOutView.DocumentSource = pds;
                         }
                     }
@@ -1813,6 +1844,17 @@ namespace bangna_hospital.gui
             //grf1.AutoSizeRows();
             panel2.Enabled = true;
         }
+        private void setHeaderEnable()
+        {
+            
+            txtVN.Show();
+            txtHn.Show();
+            txtName.Show();
+            
+            chkIPD.Show();
+            
+            panel2.Enabled = true;
+        }
         private void setHeaderDisable()
         {
             txtVN.Hide();
@@ -1835,7 +1877,6 @@ namespace bangna_hospital.gui
             grfIPD.AutoSizeCols();
             grfIPD.AutoSizeRows();
         }
-
         private void BtnHn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -2943,9 +2984,7 @@ namespace bangna_hospital.gui
             pnOrdSearchDrug.Controls.Add(grfOrdDrug);
 
             theme1.SetTheme(grfOrdDrug, "Office2010Red");
-
         }
-
         private void GrfOrdDrug_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3419,7 +3458,7 @@ namespace bangna_hospital.gui
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
 
-            tabHn.Controls.Add(grfHn);
+            tabMac.Controls.Add(grfHn);
 
             theme1.SetTheme(grfHn, bc.iniC.themeApp);
 
@@ -4629,13 +4668,13 @@ namespace bangna_hospital.gui
         //}
         private void setGrfVsOPD()
         {
-            ProgressBar pB1 = new ProgressBar();
-            pB1.Location = new System.Drawing.Point(20, 16);
-            pB1.Name = "pB1";
-            pB1.Size = new System.Drawing.Size(862, 23);
-            gbPtt.Controls.Add(pB1);
-            pB1.Left = txtHn.Left;
-            pB1.Show();
+            //ProgressBar pB1 = new ProgressBar();
+            //pB1.Location = new System.Drawing.Point(20, 16);
+            //pB1.Name = "pB1";
+            //pB1.Size = new System.Drawing.Size(862, 23);
+            //gbPtt.Controls.Add(pB1);
+            //pB1.Left = txtHn.Left;
+            //pB1.Show();
             setHeaderDisable();
 
             //if (cspL.Controls.Count > 0)
@@ -4688,10 +4727,10 @@ namespace bangna_hospital.gui
             //txtVN.Value = dt.Rows.Count;
             //txtName.Value = ""; 
             //txt.Value = "";
-            pB1.Maximum = dt.Rows.Count;
+            //pB1.Maximum = dt.Rows.Count;
             foreach (DataRow row1 in dt.Rows)
             {
-                pB1.Value++;
+                //pB1.Value++;
                 Row rowa = grfOPD.Rows.Add();
                 String status = "", vn = "";
 
@@ -4748,20 +4787,20 @@ namespace bangna_hospital.gui
             //grfVs.AutoSizeRows();
             //grfVs.Refresh();
             //theme1.SetTheme(grfVs, "ExpressionDark");
-            setHeaderEnable(pB1);
+            setHeaderEnable();
         }
         private void setGrfVsIPD()
         {
-            ProgressBar pB1 = new ProgressBar();
-            pB1.Location = new System.Drawing.Point(20, 16);
-            pB1.Name = "pB1";
-            pB1.Size = new System.Drawing.Size(862, 23);
-            gbPtt.Controls.Add(pB1);
-            pB1.Left = txtHn.Left;
-            pB1.Show();
+            //ProgressBar pB1 = new ProgressBar();
+            //pB1.Location = new System.Drawing.Point(20, 16);
+            //pB1.Name = "pB1";
+            //pB1.Size = new System.Drawing.Size(862, 23);
+            //gbPtt.Controls.Add(pB1);
+            //pB1.Left = txtHn.Left;
+            //pB1.Show();
             setHeaderDisable();
 
-            grfIPD.Clear();
+            //grfIPD.Clear();
             grfIPD.Rows.Count = 1;
             grfIPD.Cols.Count = 10;
             
@@ -4802,10 +4841,10 @@ namespace bangna_hospital.gui
             //txt.Value = "";
             grfIPD.Rows.Count = 0;
             grfIPD.Rows.Count = dt.Rows.Count;
-            pB1.Maximum = dt.Rows.Count;
+            //pB1.Maximum = dt.Rows.Count;
             foreach (DataRow row1 in dt.Rows)
             {
-                pB1.Value++;
+                //pB1.Value++;
                 Row rowa = grfIPD.Rows[i];
                 String status = "", vn = "";
 
@@ -4834,7 +4873,7 @@ namespace bangna_hospital.gui
             grfIPD.Cols[colIPDStatus].Visible = false;
             grfIPD.Cols[colIPDAnYr].Visible = false;
             grfIPD.Cols[colIPDAn].Visible = false;
-            setHeaderEnable(pB1);
+            setHeaderEnable();
         }
         private void ContextMenu_Void(object sender, System.EventArgs e)
         {
@@ -4891,6 +4930,11 @@ namespace bangna_hospital.gui
             lbCnt.Location = new Point(chkIPD.Location.X + chkIPD.Width + 10, txtName.Location.Y);
             size = bc.MeasureString(lbCnt);
             lbDrugAllergy.Location = new Point(lbCnt.Location.X + size.Width + 10, txtName.Location.Y);
+            
+            size = bc.MeasureString(lbDrugAllergy);
+            lbChronic1.AutoSize = true;
+            lbChronic1.Location = new System.Drawing.Point(lbDrugAllergy.Location.X + size.Width + 10, txtName.Location.Y);
+            lbChronic1.Text = "Chronic : " + txtChronic;
         }
         private void FrmScanView1_Load(object sender, EventArgs e)
         {

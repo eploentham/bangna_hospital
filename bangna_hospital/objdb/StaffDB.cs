@@ -33,7 +33,7 @@ namespace bangna_hospital.objdb
         {
             Staff cop1 = new Staff();
             DataTable dt = new DataTable();
-            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full " +
+            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
                 "From userlog_m01 stf " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where stf." + stf.username + " ='" + username + "' ";
@@ -64,7 +64,7 @@ namespace bangna_hospital.objdb
                 //{
                 //    return cop1;
                 //}
-                String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full " +
+                String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
                     "From " + stf.table + " stf " +
                     //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                     "Where stf." + stf.username + " ='" + username + "'  ";
@@ -101,7 +101,7 @@ namespace bangna_hospital.objdb
                 {
                     return cop1;
                 }
-                String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full " +
+                String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
                     "From " + stf.table + " stf " +
                     //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                     "Where stf." + stf.username + " ='" + username + "' and stf." + stf.password1 + "='" + password1 + "' ";
@@ -119,7 +119,7 @@ namespace bangna_hospital.objdb
         {
             Staff cop1 = new Staff();
             DataTable dt = new DataTable();
-            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full  " +
+            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev  " +
                 "From " + stf.table + " stf " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where stf." + stf.password1 + " ='" + pass + "' ";

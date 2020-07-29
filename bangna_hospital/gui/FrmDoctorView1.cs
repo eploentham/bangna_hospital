@@ -423,7 +423,7 @@ namespace bangna_hospital.gui
 
         private void setGrfQue()
         {
-            grfQue.Clear();
+            //grfQue.Clear();
             grfQue.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
             grfQue.Cols.Count = 18;
@@ -538,7 +538,8 @@ namespace bangna_hospital.gui
                     new LogWriter("e", "FrmDoctorView setGrfQue ex " + ex.Message);
                 }
             }
-
+            grfQue.Cols[0].Visible = true;
+            grfQue.Rows[0].Visible = true;
             //addDevice.MenuItems.Add("", new EventHandler(ContextMenu_upload));
             //menuGw.MenuItems.Add(addDevice);
             //}
@@ -598,7 +599,7 @@ namespace bangna_hospital.gui
         }
         private void setGrfIPD()
         {
-            grfIPD.Clear();
+            //grfIPD.Clear();
             grfIPD.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
             grfIPD.Cols.Count = 14;
@@ -668,6 +669,8 @@ namespace bangna_hospital.gui
                 }
             }
             grfIPD.Cols[colIPDId].Visible = false;
+            grfIPD.Cols[0].Visible = true;
+            grfIPD.Rows[0].Visible = true;
 
             grfIPD.Cols[colIPDHn].AllowEditing = false;
             grfIPD.Cols[colIPDVnShow].Visible = false;
@@ -713,7 +716,7 @@ namespace bangna_hospital.gui
         }
         private void setGrfFinish()
         {
-            grfFin.Clear();
+            //grfFin.Clear();
             grfFin.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
             grfFin.Cols.Count = 12;
@@ -777,6 +780,8 @@ namespace bangna_hospital.gui
                 }
             }
             grfFin.Cols[colFinId].Visible = false;
+            grfFin.Cols[0].Visible = true;
+            grfFin.Rows[0].Visible = true;
 
             grfFin.Cols[colFinHn].AllowEditing = false;
             grfFin.Cols[colFinVnShow].Visible = false;
@@ -822,7 +827,7 @@ namespace bangna_hospital.gui
 
         private void setGrfApm()
         {
-            grfApm.Clear();
+            //grfApm.Clear();
             grfApm.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
             grfApm.Cols.Count = 12;
@@ -886,6 +891,8 @@ namespace bangna_hospital.gui
                 }
             }
             grfApm.Cols[colApmId].Visible = false;
+            grfApm.Cols[0].Visible = true;
+            grfApm.Rows[0].Visible = true;
 
             grfApm.Cols[colApmHn].AllowEditing = false;
             grfApm.Cols[colApmVnShow].Visible = false;
@@ -902,21 +909,22 @@ namespace bangna_hospital.gui
         {
             Patient ptt = new Patient();
             ptt = bc.bcDB.pttDB.selectPatinet(txtPttHn.Text.Trim());
-            showFormWaiting();
+            //showFormWaiting();
             String allergy = "";
             if (ptt.Name.Length <= 0)
             {
-                frmFlash.Dispose();
+                //frmFlash.Dispose();
                 MessageBox.Show("ไม่พบ hn ในระบบ", "");
                 return;
             }
             //lbPttName.Text = ptt.Name;
             openNewForm(txtPttHn.Text.Trim(), ptt.Name);
             
-            frmFlash.Dispose();
+            //frmFlash.Dispose();
         }
         private void openNewForm(String hn, String txt)
         {
+            showFormWaiting();
             FrmScanView1 frm = new FrmScanView1(bc, hn,"hide");
             //frm.FormBorderStyle = FormBorderStyle.None;
             //AddNewTab(frm, txt);
@@ -925,6 +933,7 @@ namespace bangna_hospital.gui
             frm.Show(this);
 
             txtPttHn.Value = "";
+            frmFlash.Dispose();
         }
         public C1DockingTabPage AddNewTab(Form frm, String label)
         {
@@ -988,7 +997,9 @@ namespace bangna_hospital.gui
             picFlash.Location = new Point(30, 10);
             picFlash.SizeMode = PictureBoxSizeMode.StretchImage;
             frmFlash.Controls.Add(picFlash);
-            picFlash.ResumeLayout();
+            
+            picFlash.ResumeLayout(false);
+            picFlash.PerformLayout();
             frmFlash.Show();
             Application.DoEvents();
         }
@@ -1005,7 +1016,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(tC1, bc.iniC.themeDonor);
             txtPttHn.Location = new System.Drawing.Point(lbTxtPttHn.Location.X + size.Width + 5, lbTxtPttHn.Location.Y);
             sb1.Text = "Text";
-            this.Text = "Last Update 2020-07-25 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2020-07-29 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel1, bc.iniC.themeApp);
             theme1.SetTheme(pnHead, bc.iniC.themeApp);

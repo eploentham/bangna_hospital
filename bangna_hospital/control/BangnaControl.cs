@@ -184,6 +184,7 @@ namespace bangna_hospital.control
             iniC.printerLabOut = iniF.getIni("app", "printerLabOut");
             iniC.statusLabOutReceiveTabShow = iniF.getIni("app", "statusLabOutReceiveTabShow");
             iniC.branchId = iniF.getIni("app", "branchId");
+            iniC.pathline_bot_labout_urgent_bangna = iniF.getIni("app", "pathline_bot_labout_urgent_bangna");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -221,6 +222,7 @@ namespace bangna_hospital.control
             iniC.printerLabOut = iniC.printerLabOut == null ? "" : iniC.printerLabOut.Equals("") ? "" : iniC.printerLabOut;
             iniC.statusLabOutReceiveTabShow = iniC.statusLabOutReceiveTabShow == null ? "1" : iniC.statusLabOutReceiveTabShow.Equals("") ? "1" : iniC.statusLabOutReceiveTabShow;
             iniC.branchId = iniC.branchId == null ? "005" : iniC.branchId.Equals("") ? "005" : iniC.branchId;
+            iniC.pathline_bot_labout_urgent_bangna = iniC.pathline_bot_labout_urgent_bangna == null ? "c:\\python\\line_bot_labout_urgent_bangna.py" : iniC.pathline_bot_labout_urgent_bangna.Equals("") ? "c:\\python\\line_bot_labout_urgent_bangna.py" : iniC.pathline_bot_labout_urgent_bangna;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
