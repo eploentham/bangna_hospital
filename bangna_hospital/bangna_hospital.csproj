@@ -116,6 +116,12 @@
     <Compile Include="gui\CellNote.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FindForm.designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\Form2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +143,9 @@
     <Compile Include="gui\FrmDocGroupFm.Designer.cs">
       <DependentUpon>FrmDocGroupFm.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmDocGroupFmEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmDocGroupScan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +163,15 @@
     </Compile>
     <Compile Include="gui\FrmDoctorDiag.Designer.cs">
       <DependentUpon>FrmDoctorDiag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmDoctorDiag1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDoctorDiag2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDoctorDiag2.Designer.cs">
+      <DependentUpon>FrmDoctorDiag2.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmDoctorDrugSet.cs">
       <SubType>Form</SubType>
@@ -196,6 +214,9 @@
     </Compile>
     <Compile Include="gui\FrmNurseScanView.Designer.cs">
       <DependentUpon>FrmNurseScanView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmOrOperativeNote.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmScanAddView.cs">
       <SubType>Form</SubType>
@@ -329,6 +350,15 @@
     <Compile Include="gui\PasswordForm.designer.cs">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\ReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\ReplaceForm.designer.cs">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\RicherTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\BLabOutDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
@@ -419,8 +449,14 @@
     <EmbeddedResource Include="gui\CellNote.resx">
       <DependentUpon>CellNote.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmBillLabCheck.resx">
       <DependentUpon>FrmBillLabCheck.cs</DependentUpon>
@@ -436,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorDiag.resx">
       <DependentUpon>FrmDoctorDiag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDoctorDiag2.resx">
+      <DependentUpon>FrmDoctorDiag2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorView.resx">
       <DependentUpon>FrmDoctorView.cs</DependentUpon>
@@ -514,6 +553,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\ReplaceForm.resx">
+      <DependentUpon>ReplaceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\RicherTextBox.resx">
+      <DependentUpon>RicherTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="object1\SearchBox.resx">
       <DependentUpon>SearchBox.cs</DependentUpon>

@@ -479,7 +479,7 @@ namespace bangna_hospital.gui
             //reqdate = bc.datetoDB(reqdate);
             ResOrderTab reso = new ResOrderTab();
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
-            reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
+            reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, preno, hnreqyear, reqno, dob, sex, sickness, xray);
             //MessageBox.Show("InsertDate " + reso.InsertDate , "");
 
             //ใช้งานจริงๆ เอา comment ออก
@@ -646,6 +646,7 @@ namespace bangna_hospital.gui
             date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
 
             dt = bc.bcDB.xrDB.selectVisitStatusPacsReqByDate(date);
+            //dt = bc.bcDB.xrDB.selectVisitStatusPacsReqByDateTestHN(date, "5203491");
             //grfExpn.Rows.Count = dt.Rows.Count + 1;
 
             grfReq.Rows.Count = dt.Rows.Count + 1;
@@ -1371,7 +1372,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2020-07-07 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2020-07-31 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

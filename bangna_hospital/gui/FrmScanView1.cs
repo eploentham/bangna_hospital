@@ -91,7 +91,6 @@ namespace bangna_hospital.gui
         String grfActive = "", txtChronic = "";
         DataTable dtchronic = new DataTable();
         
-
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         //[STAThread]
@@ -1707,7 +1706,6 @@ namespace bangna_hospital.gui
                     {
                         new LogWriter("e", "FrmScanView1 setTabHnLabOut "+ex.Message);
                     }
-                    
                 }
             }
             setHeaderEnable();
@@ -2279,19 +2277,20 @@ namespace bangna_hospital.gui
             scOrdDiag3.Controls.Add(pnOrdDiag3);
             initComTabVital();
 
-            FrmDoctorDiag frmDtrDiag1 = new FrmDoctorDiag(bc, "cc", txtHn.Text.Trim());
+            FrmDoctorDiag1 frmDtrDiag1 = new FrmDoctorDiag1(bc, "cc", txtHn.Text.Trim());
             frmDtrDiag1.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag1.TopLevel = false;
             frmDtrDiag1.Dock = DockStyle.Fill;
             frmDtrDiag1.AutoScroll = true;
             pnOrdDiag1.Controls.Add(frmDtrDiag1);
-            FrmDoctorDiag frmDtrDiag2 = new FrmDoctorDiag(bc, "me", txtHn.Text.Trim());
+            FrmDoctorDiag1 frmDtrDiag2 = new FrmDoctorDiag1(bc, "me", txtHn.Text.Trim());
             frmDtrDiag2.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag2.TopLevel = false;
             frmDtrDiag2.Dock = DockStyle.Fill;
             frmDtrDiag2.AutoScroll = true;
             pnOrdDiag2.Controls.Add(frmDtrDiag2);
-            FrmDoctorDiag frmDtrDiag3 = new FrmDoctorDiag(bc, "diag", txtHn.Text.Trim());
+            FrmDoctorDiag1 frmDtrDiag3 = new FrmDoctorDiag1(bc, "diag", txtHn.Text.Trim());
+            
             frmDtrDiag3.FormBorderStyle = FormBorderStyle.None;
             frmDtrDiag3.TopLevel = false;
             frmDtrDiag3.Dock = DockStyle.Fill;
@@ -4364,7 +4363,7 @@ namespace bangna_hospital.gui
 
                         //new Thread(() =>
                         //{
-                            String err = "";
+                        String err = "";
                         try
                         {
                             FtpWebRequest ftpRequest = null;

@@ -104,6 +104,10 @@ namespace bangna_hospital
                 {
                     Application.Run(new gui.FrmXrayPACsAdd(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("OrOperativeNote"))
+                {
+                    Application.Run(new gui.FrmOrOperativeNote(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

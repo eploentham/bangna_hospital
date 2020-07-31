@@ -123,6 +123,24 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectGroupByMlFM(String limit)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String limit1 = "";
+            if (limit.Length > 0)
+            {
+                limit1 = " TOP ("+limit+")";
+            }
+            String sql = "select "+ limit1 + " dsc.ml_fm, count(1) as cnt " +
+                "From " + dsc.table + " dsc " +
+                "Where dsc." + dsc.active + "='1'  " +
+                "Group By dsc.ml_fm " +
+                "Order By dsc.ml_fm ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectByHn(String id)
         {
             //DocScan cop1 = new DocScan();
@@ -511,6 +529,18 @@ namespace bangna_hospital.objdb
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dsc." + dsc.hn + " ='" + hn + "' and dsc."+dsc.vn+"='"+vn+"' and dsc."+dsc.visit_date + "='"+vsDate+"' and dsc."+dsc.active+"='1' " +
                 "Order By sort1 ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectByFmCode(String fmcode, String limit)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select TOP("+ limit + ") dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Where dsc." + dsc.ml_fm + " ='" + fmcode.Replace("'","''") + "' and dsc." + dsc.active + "='1' " +
+                "Order By dsc.doc_scan_id ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -989,6 +1019,29 @@ namespace bangna_hospital.objdb
             else
             {
                 re = update(p, "");
+            }
+
+            return re;
+        }
+        public String updateFmCodeByFmCodeLimit(String mlfm_new, String mlfm_old, String limit)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            //chkNull(p);
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.ml_fm + " = '" + mlfm_new + "' " +
+                "Where " + dsc.ml_fm + "='" + mlfm_old.Replace("'","''") + "' and active = '1' " +
+                //"ORDER BY dsc."+dsc.pkField+" LIMIT "+ limit
+                " "
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
             }
 
             return re;

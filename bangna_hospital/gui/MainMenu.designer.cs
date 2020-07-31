@@ -52,6 +52,7 @@
             this.menuInit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDocGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDocGroupSub = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFMCode = new System.Windows.Forms.ToolStripMenuItem();
             this.menuPosi = new System.Windows.Forms.ToolStripMenuItem();
             this.lABToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOpuProce = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +62,7 @@
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
             this.PageS = new C1.Win.C1Command.C1DockingTabPage();
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
-            this.menuFMCode = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFmEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tCC1)).BeginInit();
             this.tCC1.SuspendLayout();
@@ -135,7 +136,8 @@
             this.menuScan,
             this.menuScanView,
             this.menuPrint,
-            this.menuScanChk});
+            this.menuScanChk,
+            this.menuFmEdit});
             this.menuMedicalRecord.Name = "menuMedicalRecord";
             this.menuMedicalRecord.Size = new System.Drawing.Size(101, 20);
             this.menuMedicalRecord.Text = "Medical Record";
@@ -143,25 +145,25 @@
             // menuScan
             // 
             this.menuScan.Name = "menuScan";
-            this.menuScan.Size = new System.Drawing.Size(162, 22);
+            this.menuScan.Size = new System.Drawing.Size(180, 22);
             this.menuScan.Text = "Scan ใหม่";
             // 
             // menuScanView
             // 
             this.menuScanView.Name = "menuScanView";
-            this.menuScanView.Size = new System.Drawing.Size(162, 22);
+            this.menuScanView.Size = new System.Drawing.Size(180, 22);
             this.menuScanView.Text = "ดูข้อมูลเก่า Scan";
             // 
             // menuPrint
             // 
             this.menuPrint.Name = "menuPrint";
-            this.menuPrint.Size = new System.Drawing.Size(162, 22);
+            this.menuPrint.Size = new System.Drawing.Size(180, 22);
             this.menuPrint.Text = "พิมพ์เอกสาร";
             // 
             // menuScanChk
             // 
             this.menuScanChk.Name = "menuScanChk";
-            this.menuScanChk.Size = new System.Drawing.Size(162, 22);
+            this.menuScanChk.Size = new System.Drawing.Size(180, 22);
             this.menuScanChk.Text = "ตรวจสอบFile Scan";
             // 
             // menuLab
@@ -254,6 +256,12 @@
             this.menuDocGroupSub.Size = new System.Drawing.Size(192, 22);
             this.menuDocGroupSub.Text = "ประเภทเอกสารย่อย";
             // 
+            // menuFMCode
+            // 
+            this.menuFMCode.Name = "menuFMCode";
+            this.menuFMCode.Size = new System.Drawing.Size(192, 22);
+            this.menuFMCode.Text = "รหัส FM CODE";
+            // 
             // menuPosi
             // 
             this.menuPosi.Name = "menuPosi";
@@ -330,11 +338,11 @@
             // 
             this.theme1.Theme = "BeigeOne";
             // 
-            // menuFMCode
+            // menuFmEdit
             // 
-            this.menuFMCode.Name = "menuFMCode";
-            this.menuFMCode.Size = new System.Drawing.Size(192, 22);
-            this.menuFMCode.Text = "รหัส FM CODE";
+            this.menuFmEdit.Name = "menuFmEdit";
+            this.menuFmEdit.Size = new System.Drawing.Size(180, 22);
+            this.menuFmEdit.Text = "แก้ไข รหัส FM Code";
             // 
             // MainMenu
             // 
@@ -395,5 +403,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuNurseScanView;
         private System.Windows.Forms.ToolStripMenuItem menuScanChk;
         private System.Windows.Forms.ToolStripMenuItem menuFMCode;
+        private System.Windows.Forms.ToolStripMenuItem menuFmEdit;
     }
 }

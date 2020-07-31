@@ -35,7 +35,7 @@ namespace bangna_hospital.control
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
         public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0;
-
+        public int grfImgWidth = 0;
         public BangnaControl()
         {
             initConfig();
@@ -185,6 +185,7 @@ namespace bangna_hospital.control
             iniC.statusLabOutReceiveTabShow = iniF.getIni("app", "statusLabOutReceiveTabShow");
             iniC.branchId = iniF.getIni("app", "branchId");
             iniC.pathline_bot_labout_urgent_bangna = iniF.getIni("app", "pathline_bot_labout_urgent_bangna");
+            iniC.grfImgWidth = iniF.getIni("app", "grfImgWidth");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -223,6 +224,7 @@ namespace bangna_hospital.control
             iniC.statusLabOutReceiveTabShow = iniC.statusLabOutReceiveTabShow == null ? "1" : iniC.statusLabOutReceiveTabShow.Equals("") ? "1" : iniC.statusLabOutReceiveTabShow;
             iniC.branchId = iniC.branchId == null ? "005" : iniC.branchId.Equals("") ? "005" : iniC.branchId;
             iniC.pathline_bot_labout_urgent_bangna = iniC.pathline_bot_labout_urgent_bangna == null ? "c:\\python\\line_bot_labout_urgent_bangna.py" : iniC.pathline_bot_labout_urgent_bangna.Equals("") ? "c:\\python\\line_bot_labout_urgent_bangna.py" : iniC.pathline_bot_labout_urgent_bangna;
+            iniC.grfImgWidth = iniC.grfImgWidth == null ? "500" : iniC.grfImgWidth.Equals("") ? "500" : iniC.grfImgWidth;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -236,6 +238,7 @@ namespace bangna_hospital.control
             int.TryParse(iniC.txtSearchHnLenghtStart, out txtSearchHnLenghtStart);
             int.TryParse(iniC.tabLabOutImageHeight, out tabLabOutImageHeight);
             int.TryParse(iniC.tabLabOutImageWidth, out tabLabOutImageWidth);
+            int.TryParse(iniC.grfImgWidth, out grfImgWidth);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {

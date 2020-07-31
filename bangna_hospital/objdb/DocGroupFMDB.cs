@@ -209,8 +209,8 @@ namespace bangna_hospital.objdb
             //p.ssdata_id = "";
             int chk = 0;
             chkNull(p);
-            sql = "Insert Into " + dfm.table + " (" + dfm.fm_code + "," + dfm.active + "," + dfm.fm_name + "," + dfm.doc_group_sub_id +"'"+
-                ",'" + dfm.status_doc_adminsion + "','" + dfm.status_doc_medical + "','" + dfm.status_doc_nurse + "','" + dfm.status_doc_office + "'"+
+            sql = "Insert Into " + dfm.table + " (" + dfm.fm_code + "," + dfm.active + "," + dfm.fm_name + "," + dfm.doc_group_sub_id +""+
+                "," + dfm.status_doc_adminsion + "," + dfm.status_doc_medical + "," + dfm.status_doc_nurse + "," + dfm.status_doc_office + ""+
                 ") " +
                 "Values ('" + p.fm_code.Replace("'", "''") + "','1','" + p.fm_name.Replace("'", "''") + "','" + p.doc_group_sub_id + "' " +
                 ",'" + p.status_doc_adminsion + "','" + p.status_doc_medical + "','" + p.status_doc_nurse + "','" + p.status_doc_office + "' " +
@@ -254,6 +254,34 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+        public String updateCode(DocGroupFM p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            chkNull(p);
+            sql = "Update " + dfm.table + " Set " +
+                " " + dfm.fm_code + " = '" + p.fm_code.Replace("'", "''") + "'" +
+                //", " + dfm.fm_name + " = '" + p.fm_name.Replace("'", "''") + "'" +
+                //", " + dfm.doc_group_sub_id + " = '" + p.doc_group_sub_id + "'" +
+                //", " + dfm.status_doc_adminsion + " = '" + p.status_doc_adminsion + "'" +
+                //", " + dfm.status_doc_medical + " = '" + p.status_doc_medical + "'" +
+                //", " + dfm.status_doc_nurse + " = '" + p.status_doc_nurse + "'" +
+                //", " + dfm.status_doc_office + " = '" + p.status_doc_office + "'" +
+                "Where " + dfm.pkField + "='" + p.fm_id + "'"
+                ;
+
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
         public String insertDocGroupFM(DocGroupFM p, String userId)
         {
             String re = "";
@@ -265,6 +293,21 @@ namespace bangna_hospital.objdb
             else
             {
                 re = update(p, "");
+            }
+
+            return re;
+        }
+        public String insertDocGroupFMCode(DocGroupFM p, String userId)
+        {
+            String re = "";
+
+            if (p.fm_id.Equals(""))
+            {
+                re = insert(p, "");
+            }
+            else
+            {
+                re = updateCode(p, "");
             }
 
             return re;

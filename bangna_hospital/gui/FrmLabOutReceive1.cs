@@ -43,7 +43,7 @@ namespace bangna_hospital.gui
         C1DockingTabPage tabLabAuto, tabManual, tabMed;
         Panel pnAuto, pnManual, panel1, pnLeft, pnRightTop, pnRightBotton, pnMed, pnMedMachine, pnLabComp;
         Label lbStep1, lbStep2, lbPttNmae, lbVisitStatus, lbOutLabDate, lbMessage, lbMedStep1, lbMedStep2, lbMedPttNmae, lbMedVisitStatus, lbMedOutLabDate, lbMedMessage, lbMedicaManualDate;
-        C1Button btnBrow, btnUpload, btnMedBrow, btnMedUpload, btnMedicaManual;
+        C1Button btnBrow, btnUpload, btnMedBrow, btnMedUpload, btnMedicaManual, btnLabTest;
         C1TextBox txtFilename, txtHn, txtVnAn, txtVsDate, txtMedFilename, txtMedHn, txtMedVnAn, txtMedVsDate, txtMedicaManualDate;
         C1FlexGrid grfVisit, grfMedVisit;
         RadioButton chkOPD, chkIPD, chkMedOPD, chkMedIPD, chkMedHolter, chkMedCarilo, chkMedEcho, chkMedEndoscope, chkLabComp1, chkLabComp2;
@@ -103,7 +103,18 @@ namespace bangna_hospital.gui
             chkMedOPD.Click += ChkMedOPD_Click;
             chkMedIPD.Click += ChkMedIPD_Click;
             btnMedicaManual.Click += BtnMedicaManual_Click;
+            btnLabTest.Click += BtnLabTest_Click;
         }
+        private void BtnLabTest_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String hn = "";
+            hn = txtHn.Text.Trim();
+            //streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
+            //printLabOut();
+            //chkAttendUrgent(dsc, streamPrint);
+        }
+
         private void BtnMedicaManual_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -565,6 +576,7 @@ namespace bangna_hospital.gui
             pnManual.Controls.Add(lbMedicaManualDate);
             pnManual.Controls.Add(txtMedicaManualDate);
             pnManual.Controls.Add(btnMedicaManual);
+            pnManual.Controls.Add(btnLabTest);
             pnManual.Controls.Add(pnLabComp);
             pnLabComp.Controls.Add(chkLabComp1);
             pnLabComp.Controls.Add(chkLabComp2);
@@ -722,9 +734,17 @@ namespace bangna_hospital.gui
             btnMedicaManual.Text = "Upload Manual";
             size = bc.MeasureString(btnMedicaManual);
             btnMedicaManual.Font = fEdit;
-            btnMedicaManual.Location = new System.Drawing.Point(txtMedicaManualDate.Location.X+ txtMedicaManualDate.Width + 20, chkOPD.Location.Y);
+            btnMedicaManual.Location = new System.Drawing.Point(txtMedicaManualDate.Location.X+ txtMedicaManualDate.Width + 15, chkOPD.Location.Y);
             btnMedicaManual.Size = new Size(size.Width + 15, lbStep1.Height);
             btnMedicaManual.Font = fEdit;
+            btnLabTest = new C1Button();
+            btnLabTest.Name = "btnLabTest";
+            btnLabTest.Text = "Test Manual";
+            size = bc.MeasureString(btnLabTest);
+            btnLabTest.Font = fEdit;
+            btnLabTest.Location = new System.Drawing.Point(btnMedicaManual.Location.X + btnMedicaManual.Width + 10, chkOPD.Location.Y);
+            btnLabTest.Size = new Size(size.Width + 15, lbStep1.Height);
+            btnLabTest.Font = fEdit;
 
             grfVisit = new C1FlexGrid();
             grfVisit.Font = fEdit;
@@ -1103,10 +1123,10 @@ namespace bangna_hospital.gui
             ofd.Multiselect = false;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                setOutLab(ofd.FileName);
+                //setOutLab(ofd.FileName);
 
-                //Stream fs = File.OpenRead(@ofd.FileName);
-                //chkAttendUrgent(null, fs);
+                Stream fs = File.OpenRead(@ofd.FileName);
+                chkAttendUrgent(null, fs);
             }
         }
         private void printLabOut()
@@ -1604,14 +1624,26 @@ namespace bangna_hospital.gui
                     ITextExtractionStrategy its = new LocationTextExtractionStrategy();
                     strText = PdfTextExtractor.GetTextFromPage(reader, page1, its);
                     Boolean chkUrgent = false;
-                    
+
                     //แจ้งแพทย์ด่วน
-                    //แจจงแพทยษดมวน แจจงแพทยษดมวน
+                    //แจจงแพทยษดมวน แจจงแพทยษดมวน  แจจงแพทยนดดวน
                     if (strText.IndexOf("แจจงแพทยษดมวน") >= 0)
                     {
                         chkUrgent = true;
                     }
                     if (strText.IndexOf("แจ้งแพทย์ด่วน") >= 0)
+                    {
+                        chkUrgent = true;
+                    }
+                    if (strText.IndexOf("แจจงแพทยนดดวน") >= 0)
+                    {
+                        chkUrgent = true;
+                    }
+                    if (strText.IndexOf("แจจง") >= 0)
+                    {
+                        chkUrgent = true;
+                    }
+                    if (strText.IndexOf("แพทย") >= 0)
                     {
                         chkUrgent = true;
                     }
@@ -1625,6 +1657,10 @@ namespace bangna_hospital.gui
                                 chkUrgent = true;
                             }
                             else if (str.IndexOf("แจจงแพทยษดมวน") >= 0)
+                            {
+                                chkUrgent = true;
+                            }
+                            else if (str.IndexOf("แจจงแพทยนดดวน") >= 0)
                             {
                                 chkUrgent = true;
                             }
@@ -3363,7 +3399,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-07-25 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
+            this.Text = "Last Update 2020-07-31 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;

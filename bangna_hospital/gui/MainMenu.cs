@@ -67,6 +67,15 @@ namespace bangna_hospital.gui
             menuNurseScanView.Click += MenuNurseScanView_Click;
             menuScanChk.Click += MenuScanChk_Click1;
             menuFMCode.Click += MenuFMCode_Click;
+            menuFmEdit.Click += MenuFmEdit_Click;
+        }
+
+        private void MenuFmEdit_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmDocGroupFmEdit frm = new FrmDocGroupFmEdit(bc);
+            frm.FormBorderStyle = FormBorderStyle.None;
+            AddNewTab(frm, menuFmEdit.Text + " ");
         }
 
         private void MenuFMCode_Click(object sender, EventArgs e)
