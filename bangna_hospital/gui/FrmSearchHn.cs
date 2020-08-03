@@ -23,7 +23,7 @@ namespace bangna_hospital.gui
         Color bg, fc;
         Font ff, ffB;
         int colCuHn = 1, colCuName = 2;
-        int colVsName = 1, colVsDate=2, colVsVn=3, colVsPreNo=4, colVsmeno=5, colVsDsc=6, coLVsAn=8, colVsStatus=7, colVsAnDate=9, colVsHn=10;
+        int colVsName = 1, colVsDate=2, colVsVn=3, colVsPreNo=4, colVsmeno=5, colVsDsc=6, coLVsAn=8, colVsStatus=7, colVsAnDate=9, colVsHn=10, colDOB=11;
 
         C1FlexGrid grfCu, grfVn, grfDay5, grfDay6;
         C1SuperTooltip stt;
@@ -165,6 +165,8 @@ namespace bangna_hospital.gui
             bc.sPtt.statusIPD = chkIPD.Checked ? "I" : "O";
             bc.sPtt.anDate = txtAnDate.Text;
             bc.sPtt.an = txtAn.Text;
+            bc.sPtt.patient_birthday = grfVn[grfVn.Row, colDOB] != null ? grfVn[grfVn.Row, colDOB].ToString() : "";
+            bc.sPtt.dob = bc.sPtt.patient_birthday;
         }
 
         private void GrfCu_AfterRowColChange(object sender, RangeEventArgs e)
@@ -255,7 +257,7 @@ namespace bangna_hospital.gui
             //con.CloseConnectionEx();
             //grfExpn.Rows.Count = dt.Rows.Count + 1;
             grfVn.Rows.Count = 1;
-            grfVn.Cols.Count = 11;
+            grfVn.Cols.Count = 12;
             C1TextBox txt = new C1TextBox();
             C1ComboBox cboproce = new C1ComboBox();
             //ic.ivfDB.itmDB.setCboItem(cboproce);
@@ -303,6 +305,7 @@ namespace bangna_hospital.gui
                 row[colVsStatus] = dt.Rows[i]["MNC_PAT_FLAG"].ToString();
                 row[colVsAnDate] = bc.datetoShow(dt.Rows[i]["mnc_ad_date"].ToString());
                 row[colVsHn] = dt.Rows[i]["mnc_hn_no"].ToString();
+                row[colDOB] = dt.Rows[i]["MNC_bday"].ToString();
 
             }
             grfVn.Cols[colVsVn].AllowEditing = false;
@@ -310,6 +313,7 @@ namespace bangna_hospital.gui
             grfVn.Cols[colVsPreNo].Visible = false;
             grfVn.Cols[colVsName].Visible = false;
             grfVn.Cols[colVsHn].Visible = false;
+            grfVn.Cols[colDOB].Visible = false;
         }
         private void FrmSearchHn_Load(object sender, EventArgs e)
         {

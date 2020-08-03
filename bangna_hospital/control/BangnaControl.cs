@@ -24,7 +24,7 @@ namespace bangna_hospital.control
         private IniFile iniF;
         public ConnectDB conn;
 
-        public String theme = "", userId = "", hn="", vn="", preno="", appName = "", vsdate="";
+        public String theme = "", userId = "", hn="", vn="", preno="", appName = "", vsdate="", operative_note_precidures_1, operative_note_finding_1, operative_note_hn;
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
@@ -1355,6 +1355,14 @@ namespace bangna_hospital.control
             zds = genZDS(xrayyear, reqno, xraycode, modality);
             txt = PACsORM(msh, pid, pv1, orc, obr, zds, comment);
             return txt;
+        }
+        public void setControlLabel(ref Label lb, Font fEdit, String text, String name, int x, int y)
+        {
+            lb.Text = text;
+            lb.Font = fEdit;
+            lb.Location = new System.Drawing.Point(x, y);
+            lb.AutoSize = true;
+            lb.Name = name;
         }
     }
 }

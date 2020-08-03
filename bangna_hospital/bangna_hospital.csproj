@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_doctor_view</AssemblyName>
+    <AssemblyName>bangna_hospital_labout_receive</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -371,6 +371,8 @@
     <Compile Include="objdb\LabDB.cs" />
     <Compile Include="objdb\LabExDB.cs" />
     <Compile Include="objdb\LabOutDB.cs" />
+    <Compile Include="objdb\OperativeNoteDB.cs" />
+    <Compile Include="objdb\OrDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
     <Compile Include="objdb\ReportTabContentsDB.cs" />
     <Compile Include="objdb\ResOrderTabDB.cs" />
@@ -381,6 +383,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="object1\CellNoteManager1.cs" />
+    <Compile Include="object1\OperativeNote.cs" />
+    <Compile Include="object1\PatientM22.cs" />
+    <Compile Include="object1\PatientM29.cs" />
+    <Compile Include="object1\PatientM32.cs" />
     <Compile Include="object1\PharT05.cs" />
     <Compile Include="object1\PharT06.cs" />
     <Compile Include="object1\XrayT04.cs" />

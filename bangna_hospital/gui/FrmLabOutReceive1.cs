@@ -1094,7 +1094,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "BtnBrow_Click " + ex.Message);
+                new LogWriter("e", "setOutLab " + ex.Message);
                 lbMessage.Text = "error " + ex.Message;
                 Console.Write(ex);
             }
@@ -1113,6 +1113,26 @@ namespace bangna_hospital.gui
         private void BtnBrow_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+
+            //String cmd = "", args = "";
+            //cmd = bc.iniC.pathline_bot_labout_urgent_bangna;
+            //args = "1000000982";
+            //ProcessStartInfo start = new ProcessStartInfo();
+            //start.FileName = "python.exe";
+            //start.Arguments = string.Format("{0} {1}", cmd, args);
+            //start.UseShellExecute = true;
+            //start.RedirectStandardOutput = true;
+            //new LogWriter("d", "chkAttendUrgent 02 cmd " + cmd);
+            //using (Process process = Process.Start(start))
+            //{
+            //    //using (StreamReader reader = process.StandardOutput)
+            //    //{
+            //    //    string result = reader.ReadToEnd();
+            //    //    Console.Write(result);
+            //    //}
+            //}
+
+
             OpenFileDialog ofd;
             ofd = new OpenFileDialog();
             ofd.Title = "Browse PDF Files";
@@ -1123,10 +1143,10 @@ namespace bangna_hospital.gui
             ofd.Multiselect = false;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                //setOutLab(ofd.FileName);
+                setOutLab(ofd.FileName);
 
-                Stream fs = File.OpenRead(@ofd.FileName);
-                chkAttendUrgent(null, fs);
+                //Stream fs = File.OpenRead(@ofd.FileName);
+                //chkAttendUrgent(null, fs);
             }
         }
         private void printLabOut()
@@ -1507,7 +1527,7 @@ namespace bangna_hospital.gui
                 listBox2.Items.Add("ได้เลขที่ " + re);
                 Application.DoEvents();
                 String extori = Path.GetExtension(filenamePDF);
-
+                dsc.doc_scan_id = re;
                 dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString() + "//" + dt.Rows[0]["mnc_hn_no"].ToString() + "_" + re + extori;
                 
                 vn = dsc.vn.Replace("/", "_").Replace("(", "_").Replace(")", "");
@@ -1624,29 +1644,33 @@ namespace bangna_hospital.gui
                     ITextExtractionStrategy its = new LocationTextExtractionStrategy();
                     strText = PdfTextExtractor.GetTextFromPage(reader, page1, its);
                     Boolean chkUrgent = false;
-
+                    String txtchktrue = "";
                     //แจ้งแพทย์ด่วน
                     //แจจงแพทยษดมวน แจจงแพทยษดมวน  แจจงแพทยนดดวน
                     if (strText.IndexOf("แจจงแพทยษดมวน") >= 0)
                     {
                         chkUrgent = true;
+                        txtchktrue = "แจจงแพทยษดมวน";
                     }
                     if (strText.IndexOf("แจ้งแพทย์ด่วน") >= 0)
                     {
                         chkUrgent = true;
+                        txtchktrue = "แจ้งแพทย์ด่วน";
                     }
                     if (strText.IndexOf("แจจงแพทยนดดวน") >= 0)
                     {
                         chkUrgent = true;
+                        txtchktrue = "แจจงแพทยนดดวน";
                     }
-                    if (strText.IndexOf("แจจง") >= 0)
+                    if (strText.IndexOf("แจจงแพ") >= 0)
                     {
                         chkUrgent = true;
+                        txtchktrue = "แจจงแพ";
                     }
-                    if (strText.IndexOf("แพทย") >= 0)
-                    {
-                        chkUrgent = true;
-                    }
+                    //if (strText.IndexOf("แพทย") >= 0)
+                    //{
+                    //    chkUrgent = true;
+                    //}
                     if (!chkUrgent)
                     {
                         string[] lines = strText.Split('\n');
@@ -1655,20 +1679,24 @@ namespace bangna_hospital.gui
                             if (str.IndexOf("แจ้งแพทย์ด่วน") >= 0)
                             {
                                 chkUrgent = true;
+                                txtchktrue = "foreach แจ้งแพทย์ด่วน";
                             }
                             else if (str.IndexOf("แจจงแพทยษดมวน") >= 0)
                             {
                                 chkUrgent = true;
+                                txtchktrue = "foreach แจจงแพทยษดมวน";
                             }
                             else if (str.IndexOf("แจจงแพทยนดดวน") >= 0)
                             {
                                 chkUrgent = true;
+                                txtchktrue = "foreach แจจงแพทยนดดวน";
                             }
                         }
                     }
                     if (chkUrgent)
                     {
                         bc.bcDB.laboDB.updateStatusUrgentBydscid(dsc.hn, dsc.date_req, dsc.req_id);
+                        new LogWriter("d", "chkAttendUrgent 01 hn "+ dsc.hn+ " doc_scan_id " + dsc.doc_scan_id);
                         String cmd = "", args = "";
                         cmd = bc.iniC.pathline_bot_labout_urgent_bangna;
                         args = dsc.doc_scan_id;
@@ -1677,6 +1705,7 @@ namespace bangna_hospital.gui
                         start.Arguments = string.Format("{0} {1}", cmd, args);
                         start.UseShellExecute = false;
                         start.RedirectStandardOutput = true;
+                        new LogWriter("d", "chkAttendUrgent 02 cmd "+ cmd+ " txtchktrue " + txtchktrue);
                         using (Process process = Process.Start(start))
                         {
                             //using (StreamReader reader = process.StandardOutput)
@@ -2000,7 +2029,7 @@ namespace bangna_hospital.gui
                 }
                 catch (Exception ex)
                 {
-                    new LogWriter("e", "BtnBrow_Click " + ex.Message);
+                    new LogWriter("e", "getFileinFolderMedica " + ex.Message);
                 }
 
                 //}
@@ -2347,6 +2376,7 @@ namespace bangna_hospital.gui
                     continue;
                 }
                 listBox2.Items.Add("ได้เลขที่ " + re);
+                dsc.doc_scan_id = re;
                 Application.DoEvents();
                 dsc.image_path = dt.Rows[0]["mnc_hn_no"].ToString() + "//" + dt.Rows[0]["mnc_hn_no"].ToString() + "_" + re + ext;
                 //    if (chkIPD.Checked)
@@ -3399,7 +3429,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-07-31 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
+            this.Text = "Last Update 2020-08-03 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;

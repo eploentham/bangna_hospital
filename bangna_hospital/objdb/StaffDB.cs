@@ -29,6 +29,18 @@ namespace bangna_hospital.objdb
 
             stf.table = "userlog_m01";
         }
+        public Staff selectByUsernameLevelDoctor(String username)
+        {
+            Staff cop1 = new Staff();
+            DataTable dt = new DataTable();
+            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
+                "From userlog_m01 stf " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where stf." + stf.username + " ='" + username + "' and mnc_usr_lev = '5'  ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            cop1 = setStaff(dt);
+            return cop1;
+        }
         public Staff selectByUsername(String username)
         {
             Staff cop1 = new Staff();

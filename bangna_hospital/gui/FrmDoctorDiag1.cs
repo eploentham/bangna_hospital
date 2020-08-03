@@ -354,8 +354,26 @@ namespace bangna_hospital.gui
         private void TsbtnSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            
+            if (status.Equals("cc"))
+            {
                 
+            }
+            else if (status.Equals("me"))
+            {
+                
+            }
+            else if (status.Equals("diag"))
+            {
+                
+            }
+            else if (status.Equals("operative_note"))
+            {
+                if (bc.hn.Length <= 0)
+                {
+                    MessageBox.Show("ไม่พบ HN บันทึก ไม่สำเร็จ ", "");
+                    return;
+                }
+            }
             try
             {
                 bc.cStf.staff_id = "";
@@ -412,6 +430,10 @@ namespace bangna_hospital.gui
                         {
                             dsc.ml_fm = "FM-MED-902";       //
                         }
+                        else if (status.Equals("operative_note"))
+                        {
+                            dsc.ml_fm = "FM-MED-903";       //
+                        }
                         bc.bcDB.dscDB.voidDocScanByStatusMedicalExamination(hn, dsc.ml_fm, bc.vsdate, bc.preno, bc.cStf.staff_id);
                         dsc.patient_fullname = ptt.Name;
                         dsc.status_record = "5";        // status medical diagnose
@@ -424,7 +446,22 @@ namespace bangna_hospital.gui
                         Thread.Sleep(100);
                         if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
                         {
-
+                            if (status.Equals("cc"))
+                            {
+                                
+                            }
+                            else if (status.Equals("me"))
+                            {
+                                
+                            }
+                            else if (status.Equals("diag"))
+                            {
+                                
+                            }
+                            else if (status.Equals("operative_note_precidures_1"))
+                            {
+                                bc.operative_note_precidures_1 = re;
+                            }
                         }
                     }
                 }

@@ -6,8 +6,6 @@ import cv2
 from pdf2image import convert_from_path, convert_from_bytes
 from PIL import Image, ImageDraw, ImageFont
 import os
-import sys
-import json
 from flask import Flask, request, abort
 
 from linebot import (
@@ -26,7 +24,7 @@ app = Flask(__name__)
 
 line_bot_api = LineBotApi('CWWqAvxq9ruJYJTQWPagh8BwRIVj3W7yq9KHzqftSws6im1ajcg8GqUSWQgh85MJp2Lo4g/T3XztgIwWGNJGWv9y6aLAgUTsg76Ry+SMlVuN24Yq8K8S1lst23qUoeiP8HQQZ5lLPLw+zOWj4s/TZQdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('2d9a359eea72d3255015291b54549207')
-json_line=""
+
 
 def sendOutLab(hn, userid):
     sql = "Select doc_scan_id, host_ftp, image_path,patient_fullname, folder_ftp from doc_scan Where hn = '"+hn+"' and active = '1' and status_record = '2' "
@@ -134,8 +132,8 @@ def sendLab(hn, reqdate2, userid):
     timestamp1_re = timestamp+'_lab_re.jpg'
     url_org = 'https://bangna.co.th/line_bot/'+timestamp1
     urlprev = 'https://bangna.co.th/line_bot/'+timestamp1_re
-    fnt = ImageFont.truetype('c:\\webview\\webview\\THSarabunNew.ttf', 42)
-    fntB1 = ImageFont.truetype('c:\\webview\\webview\\THSarabunNew.ttf', 52)
+    fnt = ImageFont.truetype('c:\\python\\THSarabunNew.ttf', 42)
+    fntB1 = ImageFont.truetype('c:\\python\\THSarabunNew.ttf', 52)
     
     sql = sql1 + sql2 + sql3 + sql4+ sql41 + sql5 + sql6 + sql61 + sql7 + sql8 + sql9 + sql10 + sql11
     print('sql ', sql)
@@ -341,7 +339,7 @@ def sendLab(hn, reqdate2, userid):
     cur.close()
     conn.close()
     print('send line_bot_api completed ')
-#json_line=""
+
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -350,35 +348,9 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-    json_line=""
+
     # handle webhook body
     try:
-        #json_line = request.get_json()
-        id1=''
-        text = ''
-        json_line = json.dumps(request.get_json())
-        decoded = json.loads(json_line)
-        eventtype = decoded["events"][0]['type']
-        messagetype = decoded["events"][0]['message']['type']
-        if(messagetype == "test"):
-            text = decoded["events"][0]['message']['text']
-        userid = decoded["events"][0]['source']['userId']
-        sourcetype = decoded["events"][0]['source']['type']
-        #sourceuser = decoded["events"][0]['source']['userId']
-        print('text '+text)
-        if(eventtype == "join"):
-            conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
-            cur = conn.cursor()
-            params = (text, userid,json_line,eventtype,sourcetype,userid,messagetype, id1)
-            cur.execute("{call insert_t_line_bot_log1(?, ?, ?, ?, ?, ?, ?, ?)}", params)
-            cur.commit()
-        elif (eventtype == "message" and (sourcetype == "user")):
-            conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
-            cur = conn.cursor()
-            params = (text, userid,json_line,eventtype,sourcetype,userid,messagetype, id1)
-            cur.execute("{call insert_t_line_bot_log1(?, ?, ?, ?, ?, ?, ?, ?)}", params)
-            cur.commit()
-        
         handler.handle(body, signature)
     except InvalidSignatureError:
         print("Invalid signature. Please check your channel access token/channel secret.")
@@ -386,19 +358,19 @@ def callback():
 
     return 'OK'
 
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    #print('event.message '+event.message) 
     text = event.message.text
     txt1 = ''
     txt2 = ''
     sql = ""
-    #id1=''
-    #conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
-    #cur = conn.cursor()
-    #params = (text, event.source.user_id,json_line, id1)
-    #cur.execute("{call insert_t_line_bot_log(?, ?, ?, ?)}", params)
-    #cur.commit()
+    id1=''
+    conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
+    cur = conn.cursor()
+    params = (event.source.user_id, txt2, id1)
+    cur.execute("{call insert_t_line_bot_log(?, ?, ?)}", params)
+    cur.commit()
 
     if(len(text)>2):
         txt1 = text[0:2]
@@ -420,7 +392,7 @@ def handle_message(event):
             #conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
             conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
             cur = conn.cursor()
-            sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full From userlog_m01 Where mnc_usr_name = '" + txt2 + "'"
+            #sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full From userlog_m01 Where mnc_usr_name = '" + txt2 + "'"
             #curSel = conn.cursor()
             #myresultSel = curSel.fetchall()
             #for res in myresultSel:
@@ -442,7 +414,7 @@ def handle_message(event):
             cur.close()
             conn.close()
             #print('ans '+ans)
-            line_bot_api.reply_message(event.reply_token,TextSendMessage('สวัสดี '+re+' add Line success'))
+            line_bot_api.reply_message(event.reply_token,TextSendMessage('สวัสดดี '+re+' add Line success'))
         else:
             txt3 = text.split()
             #if text[0:2] == 'ขอ':

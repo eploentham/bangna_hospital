@@ -1,8 +1,13 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.object1;
+using bangna_hospital.Properties;
+using C1.Util.DX.Direct2D;
 using C1.Win.C1Input;
+using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,7 +19,7 @@ namespace bangna_hospital.gui
     public class FrmOrOperativeNote:Form
     {
         BangnaControl bc;
-        Font fEdit, fEditB, fEdit1;
+        Font fEdit, fEditB, fEdit1, fEdit1B;
 
         Label lbTitle, lbDept, lbWard, lbDtrId, lbDtrName, lbPttid, lbPttName, lbDateOperative, lbTimeInsion, lbTimeFinish, lbTotalTime, lbSurgeon, lbSurgeon1, lbSurgeon2, lbSurgeon3, lbSurgeon4;
         Label lbSurgeonName1, lbSurgeonName2, lbSurgeonName3, lbSurgeonName4, lbAssistant, lbAssistant1, lbAssistant2, lbAssistant3, lbAssistant4, lbAssistantName1, lbAssistantName2, lbAssistantName3, lbAssistantName4;
@@ -27,8 +32,8 @@ namespace bangna_hospital.gui
         C1TextBox txtPerfusionist1, txtPerfusionist2;
         Label lbAnesthetist, lbAnesthetist1, lbAnesthetistName1;
         C1TextBox txtAnesthetist1;
-        Label lbAnesthetistAssist, lbAnesthetistAssist1, lbAnesthetistAssistName1;
-        C1TextBox txtAnesthetistAssist1;
+        Label lbAnesthetistAssist, lbAnesthetistAssist1, lbAnesthetistAssistName1, lbAnesthetistAssist2, lbAnesthetistAssistName2;
+        C1TextBox txtAnesthetistAssist1, txtAnesthetistAssist2;
         Label lbTimeAnthe, lbTimeFinishAnthe, lbTotalTimeAnthe;
         C1TextBox txtTimeAnthe, txtTimeFinishAnthe, txtTotalTimeAnthe;
 
@@ -44,17 +49,27 @@ namespace bangna_hospital.gui
         Label lbFinding;
         C1TextBox txtFinding;
 
-        C1Button btnPttSearch;
+        C1Button btnPttSearch, btnSave, btnPrint;
         C1DateEdit txtDateOperative;
         RadioButton chkOPD, chkIPD;
         Panel pnOperative, pnProcidures;
         C1ThemeController theme1;
+        Patient ptt;
+
+        ContextMenu menuAnesTech, menuOrDeptOpeNote, menuDept;
+        OperativeNote operNote;
+
+        C1SuperTooltip stt;
+        C1SuperErrorProvider sep;
+
+        String opernote_id = "";
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
-        public FrmOrOperativeNote(BangnaControl bc)
+        public FrmOrOperativeNote(BangnaControl bc, String opernote_id)
         {
             this.bc = bc;
+            this.opernote_id = opernote_id;
             initConfig();
         }
         private void initConfig()
@@ -62,12 +77,823 @@ namespace bangna_hospital.gui
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEdit1 = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
+            fEdit1B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Bold);
             theme1 = new C1.Win.C1Themes.C1ThemeController();
+            operNote = new OperativeNote();
+            operNote = bc.bcDB.operNoteDB.setOperativeNote(operNote);
+            stt = new C1SuperTooltip();
+            sep = new C1SuperErrorProvider();
+
             initCompoment();
             
             this.Load += FrmOrOperativeNote_Load;
+            btnPttSearch.Click += BtnPttSearch_Click;
+            txtDtrId.KeyUp += TxtDtrId_KeyUp;
+            btnSave.Click += BtnSave_Click;
+            btnPrint.Click += BtnPrint_Click;
+
+            //txtAnesthetistTechni1.KeyUp += TxtAnesthetistTechni1_KeyUp;
+            txtSurgeon1.KeyUp += TxtSurgeon1_KeyUp;
+            txtSurgeon2.KeyUp += TxtSurgeon2_KeyUp;
+            txtSurgeon3.KeyUp += TxtSurgeon3_KeyUp;
+            txtSurgeon4.KeyUp += TxtSurgeon4_KeyUp;
+            txtAssistant1.KeyUp += TxtAssistant1_KeyUp;
+            txtAssistant2.KeyUp += TxtAssistant2_KeyUp;
+            txtAssistant3.KeyUp += TxtAssistant3_KeyUp;
+            txtAssistant4.KeyUp += TxtAssistant4_KeyUp;
+            txtScrubNurse1.KeyUp += TxtScrubNurse1_KeyUp;
+            txtScrubNurse2.KeyUp += TxtScrubNurse2_KeyUp;
+            txtScrubNurse3.KeyUp += TxtScrubNurse3_KeyUp;
+            txtScrubNurse4.KeyUp += TxtScrubNurse4_KeyUp;
+            txtCircuNurse1.KeyUp += TxtCircuNurse1_KeyUp;
+            txtCircuNurse2.KeyUp += TxtCircuNurse2_KeyUp;
+            txtCircuNurse3.KeyUp += TxtCircuNurse3_KeyUp;
+            txtCircuNurse4.KeyUp += TxtCircuNurse4_KeyUp;
+            txtPerfusionist1.KeyUp += TxtPerfusionist1_KeyUp;
+            txtPerfusionist2.KeyUp += TxtPerfusionist2_KeyUp;
+            txtAnesthetist1.KeyUp += TxtAnesthetist1_KeyUp1;
+            txtAnesthetistAssist1.KeyUp += TxtAnesthetistAssist1_KeyUp;
+            txtAnesthetistAssist2.KeyUp += TxtAnesthetistAssist2_KeyUp;
+
+            txtDateOperative.Value = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+            setContextMenuAnesthesis();
+            setContextMenuOrDepartment();
+            setContextMenuDepartment();
+            txtAnesthetistTechni1.ContextMenu = menuAnesTech;
+            txtDept.ContextMenu = menuOrDeptOpeNote;
+            txtWard.ContextMenu = menuDept;
+
+            setControl();
         }
-        
+        private void setControl()
+        {
+            operNote = bc.bcDB.operNoteDB.selectByPk(opernote_id);
+            ptt = bc.bcDB.pttDB.selectPatinet(operNote.patient_hn);
+                        
+            lbDept.Text = operNote.dept_name;
+            lbWard.Text = operNote.ward_name;
+            lbDtrName.Text = operNote.attending_stf_name;
+            lbPttName.Text = ptt.Name + " Age " + ptt.AgeStringShort() + " An " + bc.sPtt.an;
+            lbDateOperative.Text = operNote.date_operation;
+            lbTimeInsion.Text = operNote.time_start;
+            lbTimeFinish.Text = operNote.time_finish;
+            lbTotalTime.Text = operNote.total_time;
+            lbSurgeonName1.Text = operNote.surgeon_name_1;
+            txtSurgeon1.Text = operNote.surgeon_id_1;
+            lbSurgeonName2.Text = operNote.surgeon_name_2;
+            txtSurgeon2.Text = operNote.surgeon_id_2;
+            lbSurgeonName3.Text = operNote.surgeon_name_3;
+            txtSurgeon3.Text = operNote.surgeon_id_3;
+            lbSurgeonName4.Text = operNote.surgeon_name_4;
+            txtSurgeon4.Text = operNote.surgeon_id_4;
+
+            txtTimeInsion.Text = operNote.time_start;
+            txtTimeFinish.Text = operNote.time_finish;
+            txtTotalTime.Text = operNote.total_time;
+
+            txtDateOperative.Value = operNote.date_operation;
+
+            lbAssistantName1.Text = operNote.assistant_name_1;
+            txtAssistant1.Text = operNote.assistant_id_1;
+            lbAssistantName2.Text = operNote.assistant_name_2;
+            txtAssistant2.Text = operNote.assistant_id_2;
+            lbAssistantName3.Text = operNote.assistant_name_3;
+            txtAssistant3.Text = operNote.assistant_id_3;
+            lbAssistantName4.Text = operNote.assistant_name_4;
+            txtAssistant4.Text = operNote.assistant_id_4;
+
+            lbScrubNurseName1.Text = operNote.scrub_nurse_name_1;
+            txtScrubNurse1.Text = operNote.assistant_id_1;
+            lbScrubNurseName1.Text = operNote.scrub_nurse_name_2;
+            txtScrubNurse2.Text = operNote.assistant_id_2;
+            lbScrubNurseName1.Text = operNote.scrub_nurse_name_3;
+            txtScrubNurse3.Text = operNote.assistant_id_3;
+            lbScrubNurseName1.Text = operNote.scrub_nurse_name_4;
+            txtScrubNurse4.Text = operNote.assistant_id_4;
+
+            lbCircuNurseName1.Text = operNote.circulation_nurse_name_1;
+            txtCircuNurse1.Text = operNote.circulation_nurse_id_1;
+            lbCircuNurseName2.Text = operNote.circulation_nurse_name_2;
+            txtCircuNurse2.Text = operNote.circulation_nurse_id_2;
+            lbCircuNurseName3.Text = operNote.circulation_nurse_name_3;
+            txtCircuNurse3.Text = operNote.circulation_nurse_id_3;
+            lbCircuNurseName4.Text = operNote.circulation_nurse_name_4;
+            txtCircuNurse4.Text = operNote.circulation_nurse_id_4;
+
+            lbPerfusionistName1.Text = operNote.perfusionist_name_1;
+            txtPerfusionist1.Text = operNote.perfusionist_id_1;
+            lbPerfusionistName2.Text = operNote.perfusionist_name_2;
+            txtPerfusionist2.Text = operNote.perfusionist_id_2;
+
+            lbAnesthetistName1.Text = operNote.anesthetist_name_1;
+            txtAnesthetist1.Text = operNote.anesthetist_id_1;
+
+            lbAnesthetistAssistName1.Text = operNote.anesthetist_assistant_name_1;
+            txtAnesthetistAssist1.Text = operNote.anesthetist_assistant_id_1;
+            lbAnesthetistAssistName2.Text = operNote.anesthetist_assistant_name_2;
+            txtAnesthetistAssist2.Text = operNote.anesthetist_assistant_id_2;
+
+            txtTimeAnthe.Text = operNote.time_start_anesthesia_techique_1;
+            txtTimeFinishAnthe.Text = operNote.time_finish_anesthesia_techique_1;
+            txtTotalTimeAnthe.Text = operNote.total_time_anesthesia_1;
+
+            txtAnesthetistTechni1.Value = operNote.anesthesia_techique_id_1;
+            txtPreOperation.Value = operNote.pre_operatation_diagnosis;
+            txtPostOperation.Value = operNote.post_operation_diagnosis;
+            txtOperation1.Value = operNote.operation_1;
+            txtOperation2.Value = operNote.operation_2;
+            txtOperation3.Value = operNote.operation_3;
+            txtOperation4.Value = operNote.operation_4;
+
+            txtFinding.Value = operNote.finding_1;
+
+            lbDept.Text = operNote.dept_name;
+            lbDept.Text = operNote.dept_name;
+            lbDept.Text = operNote.dept_name;
+            lbDept.Text = operNote.dept_name;
+            lbDept.Text = operNote.dept_name;
+            lbDept.Text = operNote.dept_name;
+        }
+        private Boolean setOperativeNote()
+        {
+            Boolean chk = false;
+            //chk = operNote.patient_hn.Length <= 0 ? false : true;
+            //chk = operNote.an.Length <= 0 ? false : true;
+            //chk = operNote.pre_no.Length <= 0 ? false : true;
+            //chk = operNote.anesthesia_techique_id_1.Length <= 0 ? false : true;
+            if (chk = operNote.attending_stf_id.Length <= 0)
+            {
+                sep.SetError(txtDtrId, "ไม่พบรหัส");
+                txtDtrId.Focus();
+                txtDtrId.SelectAll();
+                return chk;
+            }
+            if (chk = operNote.patient_hn.Length <= 0)
+            {
+                sep.SetError(btnPttSearch, "ไม่พบรหัส");
+                btnPttSearch.Focus();
+                return chk;
+            }
+            if (chk = operNote.dept_id.Length <= 0)
+            {
+                sep.SetError(txtDept, "ไม่พบรหัส");
+                txtDept.Focus();
+                txtDept.SelectAll();
+                return chk;
+            }
+            if (chk = operNote.ward_id.Length <= 0)
+            {
+                sep.SetError(txtWard, "ไม่พบรหัส");
+                txtWard.Focus();
+                txtWard.SelectAll();
+                return chk;
+            }
+
+            chk = true;
+            //chk = operNote.anesthetist_id_1.Length <= 0 ? false : true;
+            return chk;
+        }
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (MessageBox.Show("ต้องการ บันทึกข้อมูล ", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (setOperativeNote())
+                {
+                    String re = "";
+                    int chk = 0;
+                    re = bc.bcDB.operNoteDB.insertOperativeNote(operNote,"");
+                    operNote.operative_note_id = re;
+                }
+            }
+        }
+
+        private void TxtAnesthetistAssist2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtAnesthetistAssist2.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbAnesthetistAssistName2.Text = stf1.fullname;
+                    operNote.anesthetist_assistant_id_2 = stf1.staff_id;
+                    operNote.anesthetist_assistant_name_2 = stf1.fullname;
+                    sep.Clear();
+                    txtAnesthetistTechni1.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtAnesthetistAssist1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtAnesthetistAssist1.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbAnesthetistAssistName1.Text = stf1.fullname;
+                    operNote.anesthetist_assistant_id_1 = stf1.staff_id;
+                    operNote.anesthetist_assistant_name_1 = stf1.fullname;
+                    sep.Clear();
+                    txtAnesthetistAssist2.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtAnesthetist1_KeyUp1(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAnesthetist1.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbAnesthetistName1.Text = stf1.fullname;
+                    operNote.anesthetist_id_1 = stf1.staff_id;
+                    operNote.anesthetist_name_1 = stf1.fullname;
+                    sep.Clear();
+                    txtAnesthetistAssist1.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtPerfusionist2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtPerfusionist2.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbPerfusionistName2.Text = stf1.fullname;
+                    operNote.perfusionist_id_2 = stf1.staff_id;
+                    operNote.perfusionist_name_2 = stf1.fullname;
+                    sep.Clear();
+                    txtAnesthetist1.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtPerfusionist1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtPerfusionist1.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbPerfusionistName1.Text = stf1.fullname;
+                    operNote.perfusionist_id_1 = stf1.staff_id;
+                    operNote.perfusionist_name_1 = stf1.fullname;
+                    sep.Clear();
+                    txtPerfusionist2.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtCircuNurse4_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse4.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbCircuNurseName4.Text = stf1.fullname;
+                    operNote.circulation_nurse_id_4 = stf1.staff_id;
+                    operNote.circulation_nurse_name_4 = stf1.fullname;
+                    sep.Clear();
+                    txtPerfusionist1.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtCircuNurse3_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse3.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbCircuNurseName3.Text = stf1.fullname;
+                    operNote.circulation_nurse_id_3 = stf1.staff_id;
+                    operNote.circulation_nurse_name_3 = stf1.fullname;
+                    sep.Clear();
+                    txtCircuNurse4.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtCircuNurse2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse2.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbCircuNurseName2.Text = stf1.fullname;
+                    operNote.circulation_nurse_id_2 = stf1.staff_id;
+                    operNote.circulation_nurse_name_2 = stf1.fullname;
+                    sep.Clear();
+                    txtCircuNurse3.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtCircuNurse1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse1.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbCircuNurseName1.Text = stf1.fullname;
+                    operNote.circulation_nurse_id_1 = stf1.staff_id;
+                    operNote.circulation_nurse_name_1 = stf1.fullname;
+                    sep.Clear();
+                    txtCircuNurse2.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtScrubNurse4_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse4.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbScrubNurseName4.Text = stf1.fullname;
+                    operNote.scrub_nurse_id_4 = stf1.staff_id;
+                    operNote.scrub_nurse_name_4 = stf1.fullname;
+                    sep.Clear();
+                    txtCircuNurse1.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtScrubNurse3_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse3.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbScrubNurseName3.Text = stf1.fullname;
+                    operNote.scrub_nurse_id_3 = stf1.staff_id;
+                    operNote.scrub_nurse_name_3 = stf1.fullname;
+                    sep.Clear();
+                    txtScrubNurse4.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtScrubNurse2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse2.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbScrubNurseName2.Text = stf1.fullname;
+                    operNote.scrub_nurse_id_2 = stf1.staff_id;
+                    operNote.scrub_nurse_name_2 = stf1.fullname;
+                    sep.Clear();
+                    txtScrubNurse3.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtScrubNurse1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse1.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbScrubNurseName1.Text = stf1.fullname;
+                    operNote.scrub_nurse_id_1 = stf1.staff_id;
+                    operNote.scrub_nurse_name_1 = stf1.fullname;
+                    sep.Clear();
+                    txtScrubNurse2.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtAssistant4_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant4.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbAssistantName4.Text = stf1.fullname;
+                    operNote.assistant_id_4 = stf1.staff_id;
+                    operNote.assistant_name_4 = stf1.fullname;
+                    sep.Clear();
+                    txtScrubNurse1.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtAssistant3_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant3.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbAssistantName3.Text = stf1.fullname;
+                    operNote.assistant_id_3 = stf1.staff_id;
+                    operNote.assistant_name_3 = stf1.fullname;
+                    sep.Clear();
+                    txtAssistant4.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtAssistant2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant2.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbAssistantName2.Text = stf1.fullname;
+                    operNote.assistant_id_2 = stf1.staff_id;
+                    operNote.assistant_name_2 = stf1.fullname;
+                    sep.Clear();
+                    txtAssistant3.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtAssistant1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant1.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbAssistantName1.Text = stf1.fullname;
+                    operNote.assistant_id_1 = stf1.staff_id;
+                    operNote.assistant_name_1 = stf1.fullname;
+                    sep.Clear();
+                    txtAssistant2.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtSurgeon4_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon4.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbSurgeonName4.Text = stf1.fullname;
+                    operNote.surgeon_id_4 = stf1.staff_id;
+                    operNote.surgeon_name_4 = stf1.fullname;
+                    sep.Clear();
+                    txtAssistant1.Focus();
+                }
+                else
+                {
+                    sep.SetError(txtSurgeon4, "ไม่พบรหัส");
+                    txtSurgeon4.SelectAll();
+                }
+            }
+        }
+
+        private void TxtSurgeon3_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon3.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbSurgeonName3.Text = stf1.fullname;
+                    operNote.surgeon_id_3 = stf1.staff_id;
+                    operNote.surgeon_name_3 = stf1.fullname;
+                    sep.Clear();
+                    txtSurgeon4.Focus();
+                }
+                else
+                {
+                    sep.SetError(txtSurgeon3, "ไม่พบรหัส");
+                    txtSurgeon3.SelectAll();
+                    //MessageBox.Show("No Found", "");
+                }
+            }
+        }
+
+        private void TxtSurgeon2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon2.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbSurgeonName2.Text = stf1.fullname;
+                    operNote.surgeon_id_2 = stf1.staff_id;
+                    operNote.surgeon_name_2 = stf1.fullname;
+                    sep.Clear();
+                    txtSurgeon3.Focus();
+                }
+                else
+                {
+                    sep.SetError(txtSurgeon2, "ไม่พบรหัส");
+                    txtSurgeon2.SelectAll();
+                }
+            }
+        }
+
+        private void TxtSurgeon1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon1.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbSurgeonName1.Text = stf1.fullname;
+                    operNote.surgeon_id_1 = stf1.staff_id;
+                    operNote.surgeon_name_1 = stf1.fullname;
+                    sep.Clear();
+                    txtSurgeon2.Focus();
+                }
+                else
+                {
+                    sep.SetError(txtSurgeon1, "ไม่พบรหัส");
+                    txtSurgeon1.SelectAll();
+                }
+            }
+        }
+
+        private void setContextMenuAnesthesis()
+        {
+            menuAnesTech = new ContextMenu();
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.orDB.SelectAnesthesisAll();
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    MenuItem mitm = new MenuItem();
+                    int chk = 0;
+                    int.TryParse(row["mnc_oruse_cd"].ToString(), out chk);
+                    mitm.Index = chk;
+                    mitm.Text = row["mnc_oruse_dsc"].ToString();
+                    mitm.Click += Mitm_Click;
+                    menuAnesTech.MenuItems.Add(mitm);
+                }
+            }
+        }
+        private void setContextMenuDepartment()
+        {
+            menuDept = new ContextMenu();
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.orDB.SelectDepartment();
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    MenuItem mordept = new MenuItem();
+                    int chk = 0;
+                    int.TryParse(row["mnc_sec_no"].ToString(), out chk);
+                    mordept.Index = chk;
+                    mordept.Text = row["mnc_md_dep_dsc"].ToString();
+                    mordept.Click += MwardDept_Click;
+                    menuDept.MenuItems.Add(mordept);
+                }
+            }
+        }
+        private void setContextMenuOrDepartment()
+        {
+            menuOrDeptOpeNote = new ContextMenu();
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.orDB.SelectOrDepatmentAll();
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    MenuItem mordept = new MenuItem();
+                    int chk = 0;
+                    int.TryParse(row["mnc_diaor_grp_cd"].ToString(), out chk);
+                    mordept.Index = chk;
+                    mordept.Text = row["mnc_diaor_grp_dsc"].ToString();
+                    mordept.Click += MorDept_Click;
+                    menuOrDeptOpeNote.MenuItems.Add(mordept);
+                }
+            }
+        }
+        private void MwardDept_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //e.ToString();
+            MenuItem mitm = new MenuItem();
+            mitm = (MenuItem)sender;
+            txtWard.Value = mitm.Text;
+
+            operNote.ward_id = mitm.Index.ToString().Length == 1 ? "0" +mitm.Index.ToString(): mitm.Index.ToString();
+            operNote.ward_name = mitm.Text;
+            sep.Clear();
+
+        }
+        private void MorDept_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //e.ToString();
+            MenuItem mitm = new MenuItem();
+            mitm = (MenuItem)sender;
+            txtDept.Value = mitm.Text;
+
+            operNote.dept_id = mitm.Index.ToString().Length == 1 ? "0" + mitm.Index.ToString() : mitm.Index.ToString();
+            operNote.dept_name = mitm.Text;
+            sep.Clear();
+        }
+        private void Mitm_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //e.ToString();
+            MenuItem mitm = new MenuItem();
+            mitm = (MenuItem)sender;
+            txtAnesthetistTechni1.Value = mitm.Text;
+
+            operNote.anesthesia_techique_id_1 = mitm.Index.ToString().Length == 1 ? "0" + mitm.Index.ToString() : mitm.Index.ToString();
+            operNote.anesthesia_techique_name_1 = mitm.Text;
+            sep.Clear();
+        }
+
+        private void TxtDtrId_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                Staff stf1 = new Staff();
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtDtrId.Text.Trim());
+                if (stf1.fullname.Length > 0)
+                {
+                    lbDtrName.Text = stf1.fullname;
+                    operNote.attending_stf_id = stf1.staff_id;
+                    operNote.attending_stf_name = stf1.fullname;
+                    sep.Clear();
+                    btnPttSearch.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบรหัส");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void BtnPttSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmSearchHn frm = new FrmSearchHn(bc, FrmSearchHn.StatusConnection.host);
+            frm.ShowDialog(this);
+            String[] an = bc.sPtt.an.Split('/');
+            ptt = bc.sPtt;
+            operNote.patient_fullname = ptt.Name;
+            operNote.patient_hn = ptt.Hn;
+            operNote.an = bc.sPtt.an;
+            operNote.age = ptt.AgeStringShort();
+            operNote.mnc_date = bc.datetoDB(ptt.visitDate);
+            operNote.pre_no = ptt.preno;
+            bc.hn = ptt.Hn;     // ใช้ในหน้าจอ FrmDoctorDiag1
+            lbPttName.Text = ptt.Name+" Age " + ptt.AgeStringShort() + " An " + bc.sPtt.an;
+
+        }
+
         private void initCompoment()
         {
             int gapLine = 30, gapX = 20, gapY = 20, xCol2=130, xCol1=80,xCol3=370, xCol4=700, xCol5=1030;
@@ -83,14 +909,7 @@ namespace bangna_hospital.gui
             pnOperative.Dock = DockStyle.Fill;
             pnOperative.Name = "pnOperative";
 
-            lbTitle = new Label();
-            lbTitle.Text = "Operative Note ";
-            lbTitle.Font = fEdit;
-            size = bc.MeasureString(lbTitle);
-            lbTitle.Location = new System.Drawing.Point(gapX, (scrW/2) + (size.Width /2));
-            lbTitle.AutoSize = true;
-
-            gapY += gapLine;
+            //gapY += gapLine;
 
             lbDept = new Label();
             lbDept.Text = "Department :";
@@ -101,7 +920,7 @@ namespace bangna_hospital.gui
             txtDept = new C1TextBox();
             txtDept.Font = fEdit;
             txtDept.Location = new System.Drawing.Point(xCol2, lbDept.Location.Y);
-            txtDept.Size = new Size(120, 30);
+            txtDept.Size = new Size(380, 30);
 
             lbWard = new Label();
             lbWard.Text = "Ward :";
@@ -221,7 +1040,35 @@ namespace bangna_hospital.gui
             txtTotalTime.Size = new Size(80, 30);
             txtTotalTime.Name = "txtTotalTime";
 
+            btnSave = new C1Button();
+            btnSave.Name = "btnSave";
+            btnSave.Text = "Save ";
+            btnSave.Font = fEdit;
+            btnSave.Location = new System.Drawing.Point(txtTotalTime.Location.X + txtTotalTime.Width + 45, txtTotalTime.Location.Y);
+            btnSave.Size = new Size(90, 35);
+            btnSave.Font = fEdit;
+            btnSave.Image = Resources.save;
+            btnSave.TextAlign = ContentAlignment.MiddleRight;
+            btnSave.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPrint = new C1Button();
+            btnPrint.Name = "btnPrint";
+            btnPrint.Text = "Print ";
+            btnPrint.Font = fEdit;
+            btnPrint.Location = new System.Drawing.Point(btnSave.Location.X + btnSave.Width + 35, txtTotalTime.Location.Y);
+            btnPrint.Size = new Size(90, 35);
+            btnPrint.Font = fEdit;
+            btnPrint.Image = Resources.printer_blue16;
+            btnPrint.TextAlign = ContentAlignment.MiddleRight;
+            btnPrint.ImageAlign = ContentAlignment.MiddleLeft;
+
             gapY += gapLine;
+            lbTitle = new Label();
+            lbTitle.Text = "Operative Note ";
+            lbTitle.Font = fEdit1B;
+            size = bc.MeasureString(lbTitle);
+            lbTitle.Location = new System.Drawing.Point((scrW / 2)/2 + (size.Width / 2), gapY);
+            lbTitle.AutoSize = true;
+
             gapY += gapLine;
             lbSurgeon = new Label();
             lbSurgeon.Text = "Surgeon ";
@@ -610,16 +1457,10 @@ namespace bangna_hospital.gui
             lbAnesthetistName1.Name = "lbAnesthetistName1";
 
             lbAnesthetistAssist = new Label();
-            lbAnesthetistAssist.Text = "Anesthetist assistant ";
-            lbAnesthetistAssist.Font = fEdit;
-            lbAnesthetistAssist.Location = new System.Drawing.Point(xCol4, lbPerfusionist.Location.Y);
-            lbAnesthetistAssist.AutoSize = true;
+            bc.setControlLabel(ref lbAnesthetistAssist, fEdit, "Anesthetist assistant", "lbAnesthetistAssist", xCol4, lbPerfusionist.Location.Y);
             size = bc.MeasureString(lbAnesthetistAssist);
             lbAnesthetistAssist1 = new Label();
-            lbAnesthetistAssist1.Text = "1 :";
-            lbAnesthetistAssist1.Font = fEdit;
-            lbAnesthetistAssist1.Location = new System.Drawing.Point(xCol4, lbPerfusionist1.Location.Y);
-            lbAnesthetistAssist1.AutoSize = true;
+            bc.setControlLabel(ref lbAnesthetistAssist1, fEdit, "1 :", "lbAnesthetistAssist1", xCol4, lbPerfusionist1.Location.Y);
             size = bc.MeasureString(lbAnesthetist1);
             txtAnesthetistAssist1 = new C1TextBox();
             txtAnesthetistAssist1.Font = fEdit;
@@ -627,19 +1468,23 @@ namespace bangna_hospital.gui
             txtAnesthetistAssist1.Size = new Size(80, 30);
             txtAnesthetistAssist1.Name = "txtAnesthetistAssist1";
             lbAnesthetistAssistName1 = new Label();
-            lbAnesthetistAssistName1.Text = "...";
-            lbAnesthetistAssistName1.Font = fEdit;
-            lbAnesthetistAssistName1.Location = new System.Drawing.Point(txtAnesthetistAssist1.Location.X + txtAnesthetistAssist1.Width + 15, lbPerfusionist1.Location.Y);
-            lbAnesthetistAssistName1.AutoSize = true;
-            lbAnesthetistAssistName1.Name = "lbAnesthetistAssistName1";
+            bc.setControlLabel(ref lbAnesthetistAssistName1, fEdit, "...", "lbAnesthetistAssistName1", txtAnesthetistAssist1.Location.X + txtAnesthetistAssist1.Width + 15, lbPerfusionist1.Location.Y);
+
+            lbAnesthetistAssist2 = new Label();
+            bc.setControlLabel(ref lbAnesthetistAssist2, fEdit, "2 :", "lbAnesthetistAssist2", xCol4, lbPerfusionist2.Location.Y);
+            size = bc.MeasureString(lbAnesthetist1);
+            txtAnesthetistAssist2 = new C1TextBox();
+            txtAnesthetistAssist2.Font = fEdit;
+            txtAnesthetistAssist2.Location = new System.Drawing.Point(lbAnesthetistAssist1.Location.X + size.Width + 5, lbPerfusionist2.Location.Y);
+            txtAnesthetistAssist2.Size = new Size(80, 30);
+            txtAnesthetistAssist2.Name = "txtAnesthetistAssist2";
+            lbAnesthetistAssistName2 = new Label();
+            bc.setControlLabel(ref lbAnesthetistAssistName2, fEdit, "...", "lbAnesthetistAssistName2", txtAnesthetistAssist1.Location.X + txtAnesthetistAssist1.Width + 15, lbPerfusionist2.Location.Y);
 
             gapY += gapLine;
             lbAnesthetistTechni = new Label();
-            lbAnesthetistTechni.Text = "Anesthetist Technique ";
-            lbAnesthetistTechni.Font = fEdit;
-            lbAnesthetistTechni.Location = new System.Drawing.Point(xCol3-200, gapY);
-            lbAnesthetistTechni.AutoSize = true;
-            
+            bc.setControlLabel(ref lbAnesthetistTechni, fEdit, "Anesthetist Technique", "lbAnesthetistTechni", xCol3 - 200, gapY);
+
             size = bc.MeasureString(lbAnesthetistTechni);
             
             txtAnesthetistTechni1 = new C1TextBox();
@@ -649,10 +1494,7 @@ namespace bangna_hospital.gui
             txtAnesthetistTechni1.Name = "txtAnesthetistTechni1";
 
             lbTimeAnthe = new Label();
-            lbTimeAnthe.Text = "Anthesia Time :";
-            lbTimeAnthe.Font = fEdit;
-            lbTimeAnthe.Location = new System.Drawing.Point(txtAnesthetistTechni1.Location.X + txtAnesthetistTechni1.Width + 15, lbAnesthetistTechni.Location.Y);
-            lbTimeAnthe.AutoSize = true;
+            bc.setControlLabel(ref lbTimeAnthe, fEdit, "Anthesia Time :", "lbTimeAnthe", txtAnesthetistTechni1.Location.X + txtAnesthetistTechni1.Width + 15, lbAnesthetistTechni.Location.Y);
             size = bc.MeasureString(lbTimeAnthe);
             txtTimeAnthe = new C1TextBox();
             txtTimeAnthe.Font = fEdit;
@@ -660,10 +1502,7 @@ namespace bangna_hospital.gui
             txtTimeAnthe.Size = new Size(80, 30);
             txtTimeAnthe.Name = "txtTimeAnthe";
             lbTimeFinishAnthe = new Label();
-            lbTimeFinishAnthe.Text = "Finish :";
-            lbTimeFinishAnthe.Font = fEdit;
-            lbTimeFinishAnthe.Location = new System.Drawing.Point(txtTimeAnthe.Location.X + txtTimeAnthe.Width + 15, lbAnesthetistTechni.Location.Y);
-            lbTimeFinishAnthe.AutoSize = true;
+            bc.setControlLabel(ref lbTimeFinishAnthe, fEdit, "Finish :", "lbTimeFinishAnthe", txtTimeAnthe.Location.X + txtTimeAnthe.Width + 15, lbAnesthetistTechni.Location.Y);
             size = bc.MeasureString(lbTimeFinishAnthe);
             txtTimeFinishAnthe = new C1TextBox();
             txtTimeFinishAnthe.Font = fEdit;
@@ -671,10 +1510,7 @@ namespace bangna_hospital.gui
             txtTimeFinishAnthe.Size = new Size(80, 30);
             txtTimeFinishAnthe.Name = "txtTimeFinishAnthe";
             lbTotalTimeAnthe = new Label();
-            lbTotalTimeAnthe.Text = "Total :";
-            lbTotalTimeAnthe.Font = fEdit;
-            lbTotalTimeAnthe.Location = new System.Drawing.Point(txtTimeFinishAnthe.Location.X + txtTimeFinishAnthe.Width + 15, lbAnesthetistTechni.Location.Y);
-            lbTotalTimeAnthe.AutoSize = true;
+            bc.setControlLabel(ref lbTotalTimeAnthe, fEdit, "Total :", "lbTotalTimeAnthe", txtTimeFinishAnthe.Location.X + txtTimeFinishAnthe.Width + 15, lbAnesthetistTechni.Location.Y);
             size = bc.MeasureString(lbTotalTimeAnthe);
             txtTotalTimeAnthe = new C1TextBox();
             txtTotalTimeAnthe.Font = fEdit;
@@ -684,10 +1520,7 @@ namespace bangna_hospital.gui
 
             gapY += gapLine;
             lbPreOperation = new Label();
-            lbPreOperation.Text = "Pre Operation :";
-            lbPreOperation.Font = fEdit;
-            lbPreOperation.Location = new System.Drawing.Point(gapX, gapY);
-            lbPreOperation.AutoSize = true;
+            bc.setControlLabel(ref lbPreOperation, fEdit, "Pre Operation :", "lbPreOperation", gapX, gapY);
             size = bc.MeasureString(lbPreOperation);
             txtPreOperation = new C1TextBox();
             txtPreOperation.Font = fEdit;
@@ -696,10 +1529,7 @@ namespace bangna_hospital.gui
             txtPreOperation.Name = "txtPreOperation";
 
             lbFinding = new Label();
-            lbFinding.Text = "Finding :";
-            lbFinding.Font = fEdit;
-            lbFinding.Location = new System.Drawing.Point(xCol4, gapY);
-            lbFinding.AutoSize = true;
+            bc.setControlLabel(ref lbFinding, fEdit, "Finding :", "lbFinding", xCol4, gapY);
             size = bc.MeasureString(lbFinding);
             txtFinding = new C1TextBox();
             txtFinding.Font = fEdit;
@@ -709,10 +1539,7 @@ namespace bangna_hospital.gui
 
             gapY += gapLine;
             lbPostOperation = new Label();
-            lbPostOperation.Text = "Post Operation :";
-            lbPostOperation.Font = fEdit;
-            lbPostOperation.Location = new System.Drawing.Point(gapX, gapY);
-            lbPostOperation.AutoSize = true;
+            bc.setControlLabel(ref lbPostOperation, fEdit, "Post Operation :", "lbPostOperation", gapX, gapY);
             size = bc.MeasureString(lbPostOperation);
             txtPostOperation = new C1TextBox();
             txtPostOperation.Font = fEdit;
@@ -722,10 +1549,7 @@ namespace bangna_hospital.gui
 
             gapY += gapLine;
             lbOperation1 = new Label();
-            lbOperation1.Text = "Operation1 :";
-            lbOperation1.Font = fEdit;
-            lbOperation1.Location = new System.Drawing.Point(gapX, gapY);
-            lbOperation1.AutoSize = true;
+            bc.setControlLabel(ref lbOperation1, fEdit, "Operation1 :", "lbOperation1", gapX, gapY);
             size = bc.MeasureString(lbOperation1);
             txtOperation1 = new C1TextBox();
             txtOperation1.Font = fEdit;
@@ -734,10 +1558,7 @@ namespace bangna_hospital.gui
             txtOperation1.Name = "txtOperation1";
             
             lbOperation3 = new Label();
-            lbOperation3.Text = "Operation3 :";
-            lbOperation3.Font = fEdit;
-            lbOperation3.Location = new System.Drawing.Point(xCol4, gapY);
-            lbOperation3.AutoSize = true;
+            bc.setControlLabel(ref lbOperation3, fEdit, "Operation3 :", "lbOperation3", xCol4, gapY);
             size = bc.MeasureString(lbOperation3);
             txtOperation3 = new C1TextBox();
             txtOperation3.Font = fEdit;
@@ -747,22 +1568,17 @@ namespace bangna_hospital.gui
 
             gapY += gapLine;
             lbOperation2 = new Label();
-            lbOperation2.Text = "Operation2 :";
-            lbOperation2.Font = fEdit;
-            lbOperation2.Location = new System.Drawing.Point(gapX, gapY);
-            lbOperation2.AutoSize = true;
+            bc.setControlLabel(ref lbOperation2, fEdit, "Operation2 :", "lbOperation2", gapX, gapY);
             size = bc.MeasureString(lbOperation2);
             txtOperation2 = new C1TextBox();
             txtOperation2.Font = fEdit;
             txtOperation2.Location = new System.Drawing.Point(lbOperation2.Location.X + size.Width + 5, lbOperation2.Location.Y);
             txtOperation2.Size = new Size(300, 30);
             txtOperation2.Name = "txtOperation2";
-            
+
             lbOperation4 = new Label();
-            lbOperation4.Text = "Operation4 :";
-            lbOperation4.Font = fEdit;
-            lbOperation4.Location = new System.Drawing.Point(xCol4, gapY);
-            lbOperation4.AutoSize = true;
+            
+            bc.setControlLabel(ref lbOperation4, fEdit, "Operation4 :", "lbOperation4", xCol4, gapY);
             size = bc.MeasureString(lbOperation4);
             txtOperation4 = new C1TextBox();
             txtOperation4.Font = fEdit;
@@ -770,12 +1586,14 @@ namespace bangna_hospital.gui
             txtOperation4.Size = new Size(300, 30);
             txtOperation4.Name = "txtOperation4";
 
+            gapY += gapLine;
             pnProcidures = new Panel();
             pnProcidures.Dock = DockStyle.Bottom;
             pnProcidures.Height = 300;
             pnProcidures.BackColor = Color.Red;
+            pnProcidures.Location = new System.Drawing.Point(gapX, gapY);
 
-            FrmDoctorDiag1 frm = new FrmDoctorDiag1(bc,"Procidures","");
+            FrmDoctorDiag1 frm = new FrmDoctorDiag1(bc, "operative_note_precidures_1", "");
             frm.FormBorderStyle = FormBorderStyle.None;
             frm.TopLevel = false;
             frm.Dock = DockStyle.Fill;
@@ -783,6 +1601,17 @@ namespace bangna_hospital.gui
             frm.Show();
 
             pnProcidures.Controls.Add(frm);
+            setControlpnOperativeAdd();
+            this.Controls.Add(pnOperative);
+
+            pnOperative.ResumeLayout(false);
+            this.ResumeLayout(false);
+            pnOperative.PerformLayout();
+            this.PerformLayout();
+        }
+        
+        private void setControlpnOperativeAdd()
+        {
             pnOperative.Controls.Add(pnProcidures);
             pnOperative.Controls.Add(lbFinding);
             pnOperative.Controls.Add(txtFinding);
@@ -814,6 +1643,9 @@ namespace bangna_hospital.gui
             pnOperative.Controls.Add(lbAnesthetistAssist1);
             pnOperative.Controls.Add(txtAnesthetistAssist1);
             pnOperative.Controls.Add(lbAnesthetistAssistName1);
+            pnOperative.Controls.Add(lbAnesthetistAssist2);
+            pnOperative.Controls.Add(txtAnesthetistAssist2);
+            pnOperative.Controls.Add(lbAnesthetistAssistName2);
 
             pnOperative.Controls.Add(lbAnesthetist);
             pnOperative.Controls.Add(lbAnesthetist1);
@@ -903,21 +1735,21 @@ namespace bangna_hospital.gui
             pnOperative.Controls.Add(txtWard);
             pnOperative.Controls.Add(txtDept);
             pnOperative.Controls.Add(txtDtrId);
-            this.Controls.Add(pnOperative);
 
-            pnOperative.ResumeLayout(false);
-            this.ResumeLayout(false);
-            pnOperative.PerformLayout();
-            this.PerformLayout();
+            pnOperative.Controls.Add(btnPrint);
+            pnOperative.Controls.Add(btnSave);
         }
         private void setLayout()
         {
             int gapLine = 20, gapX = 20, gapY=20;
             Size size = new Size();
             int scrW = Screen.PrimaryScreen.Bounds.Width;
+            int scrH = Screen.PrimaryScreen.Bounds.Height;
 
             size = bc.MeasureString(lbTitle);
-            lbTitle.Location = new System.Drawing.Point((scrW / 2) + (size.Width / 2), gapY);
+            //lbTitle.Location = new System.Drawing.Point((scrW / 2) + (size.Width / 2), gapY);
+            pnProcidures.Location = new System.Drawing.Point(gapX, txtOperation4.Location.Y + gapLine);
+            pnProcidures.Height = scrH - txtOperation4.Location.Y -100;
         }
         private void FrmOrOperativeNote_Load(object sender, EventArgs e)
         {
