@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_labout_receive</AssemblyName>
+    <AssemblyName>bangna_hospital_operativenote</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon-sqr-01.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -214,6 +214,9 @@
     </Compile>
     <Compile Include="gui\FrmNurseScanView.Designer.cs">
       <DependentUpon>FrmNurseScanView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmOperativeNoteView.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmOrOperativeNote.cs">
       <SubType>Form</SubType>

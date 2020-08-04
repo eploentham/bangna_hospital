@@ -2782,7 +2782,6 @@ namespace bangna_hospital.gui
             Label lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2;
             pnscOrdItem = new Panel();
             pnscOrdItem.Dock = DockStyle.Fill;
-
             
             sCOrdItem.SuspendLayout();
             scOrdItem.SuspendLayout();

@@ -114,6 +114,7 @@ namespace bangna_hospital.objdb
             operNote.tissue_biopsy = "tissue_biopsy";
             operNote.tissue_biopsy_unit = "tissue_biopsy_unit";
             operNote.special_specimen = "special_specimen";
+            operNote.date_modi = "date_modi";
 
             operNote.table = "t_operative_note";
             operNote.pkField = "operative_note_id";
@@ -123,16 +124,27 @@ namespace bangna_hospital.objdb
             OperativeNote oper = new OperativeNote();
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,m01.MNC_bday, m01.mnc_id_no " +
+            sql = "Select * " +
                 "From  t_operative_note " +
                 " " +
                 " Where "+operNote.operative_note_id+" = '" + opernoteid + "' ";
             dt = conn.selectData(conn.conn, sql);
-            
-            dt = conn.selectData(conn.conn, sql);
             oper = setOperativeNote(dt);
             return oper;
+        }
+        public DataTable selectByHn(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select opernote.operative_note_id,opernote.dept_name,opernote.ward_name,convert(VARCHAR(20),opernote.date_operation,23) as date_operation,opernote.attending_stf_name,opernote.time_start" +
+                ",opernote.patient_fullname,opernote.patient_hn,opernote.an,convert(VARCHAR(20),opernote.mnc_date,23) as mnc_date,opernote.pre_no " +
+                "From  t_operative_note opernote " +
+                " " +
+                " Where opernote." + operNote.patient_hn + " like '" + hn + "%' " +
+                "Order By opernote.date_operation ";
+            dt = conn.selectData(conn.conn, sql);
+            
+            return dt;
         }
         private void chkNull(OperativeNote p)
         {
@@ -390,87 +402,138 @@ namespace bangna_hospital.objdb
                     operNote.mnc_date + "='" + p.mnc_date + "', " +
                     operNote.pre_no + "='" + p.pre_no + "', " +
                     operNote.doc_scan_id + "='" + p.doc_scan_id + "', " +
-                    operNote.date_operation + "='" + p.date_operation + "' " +
-                    operNote.time_start + "='" + p.time_start + "' " +
-                    operNote.time_finish + "='" + p.time_finish + "' " +
-                    operNote.total_time + "='" + p.total_time + "' " +
-                    operNote.surgeon_id_1 + "='" + p.surgeon_id_1 + "' " +
-                    operNote.surgeon_name_1 + "='" + p.surgeon_name_1 + "' " +
-                    operNote.surgeon_id_2 + "='" + p.surgeon_id_2 + "' " +
-                    operNote.surgeon_name_2 + "='" + p.surgeon_name_2 + "' " +
-                    operNote.surgeon_id_3 + "='" + p.surgeon_id_3 + "' " +
-                    operNote.surgeon_name_3 + "='" + p.surgeon_name_3 + "' " +
-                    operNote.surgeon_id_4 + "='" + p.surgeon_id_4 + "' " +
-                    operNote.surgeon_name_4 + "='" + p.surgeon_name_4 + "' " +
-                    operNote.assistant_id_1 + "='" + p.assistant_id_1 + "' " +
-                    operNote.assistant_name_1 + "='" + p.assistant_name_1 + "' " +
-                    operNote.assistant_id_2 + "='" + p.assistant_id_2 + "' " +
-                    operNote.assistant_name_2 + "='" + p.assistant_name_2 + "' " +
-                    operNote.assistant_id_3 + "='" + p.assistant_id_3 + "' " +
-                    operNote.assistant_name_3 + "='" + p.assistant_name_3 + "' " +
-                    operNote.assistant_id_4 + "='" + p.assistant_id_4 + "' " +
-                    operNote.assistant_name_4 + "='" + p.assistant_name_4 + "' " +
-                    operNote.scrub_nurse_id_1 + "='" + p.scrub_nurse_id_1 + "' " +
-                    operNote.scrub_nurse_name_1 + "='" + p.scrub_nurse_name_1 + "' " +
-                    operNote.scrub_nurse_id_2 + "='" + p.scrub_nurse_id_2 + "' " +
-                    operNote.scrub_nurse_name_2 + "='" + p.scrub_nurse_name_2 + "' " +
-                    operNote.scrub_nurse_id_3 + "='" + p.scrub_nurse_id_3 + "' " +
-                    operNote.scrub_nurse_name_3 + "='" + p.scrub_nurse_name_3 + "' " +
-                    operNote.scrub_nurse_id_4 + "='" + p.scrub_nurse_id_4 + "' " +
-                    operNote.scrub_nurse_name_4 + "='" + p.scrub_nurse_name_4 + "' " +
-                    operNote.circulation_nurse_id_1 + "='" + p.circulation_nurse_id_1 + "' " +
-                    operNote.circulation_nurse_name_1 + "='" + p.circulation_nurse_name_1 + "' " +
-                    operNote.circulation_nurse_id_2 + "='" + p.circulation_nurse_id_2 + "' " +
-                    operNote.circulation_nurse_name_2 + "='" + p.circulation_nurse_name_2 + "' " +
-                    operNote.circulation_nurse_id_3 + "='" + p.circulation_nurse_id_3 + "' " +
-                    operNote.circulation_nurse_name_3 + "='" + p.circulation_nurse_name_3 + "' " +
-                    operNote.circulation_nurse_id_4 + "='" + p.circulation_nurse_id_4 + "' " +
-                    operNote.circulation_nurse_name_4 + "='" + p.circulation_nurse_name_4 + "' " +
-                    operNote.perfusionist_id_1 + "='" + p.perfusionist_id_1 + "' " +
-                    operNote.perfusionist_name_1 + "='" + p.perfusionist_name_1 + "' " +
-                    operNote.perfusionist_id_2 + "='" + p.perfusionist_id_2 + "' " +
-                    operNote.perfusionist_name_2 + "='" + p.perfusionist_name_2 + "' " +
-                    operNote.perfusionist_id_3 + "='" + p.perfusionist_id_3 + "' " +
-                    operNote.perfusionist_name_3 + "='" + p.perfusionist_name_3 + "' " +
-                    operNote.perfusionist_id_4 + "='" + p.perfusionist_id_4 + "' " +
-                    operNote.perfusionist_name_4 + "='" + p.perfusionist_name_4 + "' " +
-                    operNote.anesthetist_id_1 + "='" + p.anesthetist_id_1 + "' " +
-                    operNote.anesthetist_name_1 + "='" + p.anesthetist_name_1 + "' " +
-                    operNote.anesthetist_id_2 + "='" + p.anesthetist_id_2 + "' " +
-                    operNote.anesthetist_name_2 + "='" + p.anesthetist_name_2 + "' " +
-                    operNote.anesthetist_assistant_id_1 + "='" + p.anesthetist_assistant_id_1 + "' " +
-                    operNote.anesthetist_assistant_name_1 + "='" + p.anesthetist_assistant_name_1 + "' " +
-                    operNote.anesthetist_assistant_id_2 + "='" + p.anesthetist_assistant_id_2 + "' " +
-                    operNote.anesthetist_assistant_name_2 + "='" + p.anesthetist_assistant_name_2 + "' " +
-                    operNote.anesthesia_techique_id_1 + "='" + p.anesthesia_techique_id_1 + "' " +
-                    operNote.anesthesia_techique_name_1 + "='" + p.anesthesia_techique_name_1 + "' " +
-                    operNote.anesthesia_techique_id_2 + "='" + p.anesthesia_techique_id_2 + "' " +
-                    operNote.anesthesia_techique_name_2 + "='" + p.anesthesia_techique_name_2 + "' " +
-                    operNote.time_start_anesthesia_techique_1 + "='" + p.time_start_anesthesia_techique_1 + "' " +
-                    operNote.time_finish_anesthesia_techique_1 + "='" + p.time_finish_anesthesia_techique_1 + "' " +
-                    operNote.time_start_anesthesia_techique_2 + "='" + p.time_start_anesthesia_techique_2 + "' " +
-                    operNote.time_finish_anesthesia_techique_2 + "='" + p.time_finish_anesthesia_techique_2 + "' " +
-                    operNote.total_time_anesthesia_1 + "='" + p.total_time_anesthesia_1 + "' " +
-                    operNote.total_time_anesthesia_2 + "='" + p.total_time_anesthesia_2 + "' " +
-                    operNote.pre_operatation_diagnosis + "='" + p.pre_operatation_diagnosis + "' " +
-                    operNote.post_operation_diagnosis + "='" + p.post_operation_diagnosis + "' " +
-                    operNote.operation_1 + "='" + p.operation_1 + "' " +
-                    operNote.operation_2 + "='" + p.operation_2 + "' " +
-                    operNote.operation_3 + "='" + p.operation_3 + "' " +
-                    operNote.operation_4 + "='" + p.operation_4 + "' " +
-                    operNote.finding_1 + "='" + p.finding_1 + "' " +
-                    operNote.finding_2 + "='" + p.finding_2 + "' " +
-                    operNote.procidures_1 + "='" + p.procidures_1 + "' " +
-                    operNote.procidures_2 + "='" + p.procidures_2 + "' " +
-                    operNote.complication + "='" + p.complication + "' " +
-                    operNote.estimated_blood_loss + "='" + p.estimated_blood_loss + "' " +
-                    operNote.tissue_biopsy + "='" + p.tissue_biopsy + "' " +
-                    operNote.tissue_biopsy_unit + "='" + p.tissue_biopsy_unit + "' " +
-                    operNote.special_specimen + "='" + p.special_specimen + "' " +
-
+                    operNote.date_operation + "='" + p.date_operation + "', " +
+                    operNote.time_start + "='" + p.time_start + "', " +
+                    operNote.time_finish + "='" + p.time_finish + "', " +
+                    operNote.total_time + "='" + p.total_time + "', " +
+                    operNote.surgeon_id_1 + "='" + p.surgeon_id_1 + "', " +
+                    operNote.surgeon_name_1 + "='" + p.surgeon_name_1 + "', " +
+                    operNote.surgeon_id_2 + "='" + p.surgeon_id_2 + "', " +
+                    operNote.surgeon_name_2 + "='" + p.surgeon_name_2 + "', " +
+                    operNote.surgeon_id_3 + "='" + p.surgeon_id_3 + "', " +
+                    operNote.surgeon_name_3 + "='" + p.surgeon_name_3 + "', " +
+                    operNote.surgeon_id_4 + "='" + p.surgeon_id_4 + "', " +
+                    operNote.surgeon_name_4 + "='" + p.surgeon_name_4 + "', " +
+                    operNote.assistant_id_1 + "='" + p.assistant_id_1 + "', " +
+                    operNote.assistant_name_1 + "='" + p.assistant_name_1 + "', " +
+                    operNote.assistant_id_2 + "='" + p.assistant_id_2 + "', " +
+                    operNote.assistant_name_2 + "='" + p.assistant_name_2 + "', " +
+                    operNote.assistant_id_3 + "='" + p.assistant_id_3 + "', " +
+                    operNote.assistant_name_3 + "='" + p.assistant_name_3 + "', " +
+                    operNote.assistant_id_4 + "='" + p.assistant_id_4 + "', " +
+                    operNote.assistant_name_4 + "='" + p.assistant_name_4 + "', " +
+                    operNote.scrub_nurse_id_1 + "='" + p.scrub_nurse_id_1 + "', " +
+                    operNote.scrub_nurse_name_1 + "='" + p.scrub_nurse_name_1 + "', " +
+                    operNote.scrub_nurse_id_2 + "='" + p.scrub_nurse_id_2 + "', " +
+                    operNote.scrub_nurse_name_2 + "='" + p.scrub_nurse_name_2 + "', " +
+                    operNote.scrub_nurse_id_3 + "='" + p.scrub_nurse_id_3 + "', " +
+                    operNote.scrub_nurse_name_3 + "='" + p.scrub_nurse_name_3 + "', " +
+                    operNote.scrub_nurse_id_4 + "='" + p.scrub_nurse_id_4 + "', " +
+                    operNote.scrub_nurse_name_4 + "='" + p.scrub_nurse_name_4 + "', " +
+                    operNote.circulation_nurse_id_1 + "='" + p.circulation_nurse_id_1 + "', " +
+                    operNote.circulation_nurse_name_1 + "='" + p.circulation_nurse_name_1 + "', " +
+                    operNote.circulation_nurse_id_2 + "='" + p.circulation_nurse_id_2 + "', " +
+                    operNote.circulation_nurse_name_2 + "='" + p.circulation_nurse_name_2 + "', " +
+                    operNote.circulation_nurse_id_3 + "='" + p.circulation_nurse_id_3 + "', " +
+                    operNote.circulation_nurse_name_3 + "='" + p.circulation_nurse_name_3 + "', " +
+                    operNote.circulation_nurse_id_4 + "='" + p.circulation_nurse_id_4 + "', " +
+                    operNote.circulation_nurse_name_4 + "='" + p.circulation_nurse_name_4 + "', " +
+                    operNote.perfusionist_id_1 + "='" + p.perfusionist_id_1 + "', " +
+                    operNote.perfusionist_name_1 + "='" + p.perfusionist_name_1 + "', " +
+                    operNote.perfusionist_id_2 + "='" + p.perfusionist_id_2 + "', " +
+                    operNote.perfusionist_name_2 + "='" + p.perfusionist_name_2 + "', " +
+                    operNote.perfusionist_id_3 + "='" + p.perfusionist_id_3 + "', " +
+                    operNote.perfusionist_name_3 + "='" + p.perfusionist_name_3 + "'," +
+                    operNote.perfusionist_id_4 + "='" + p.perfusionist_id_4 + "', " +
+                    operNote.perfusionist_name_4 + "='" + p.perfusionist_name_4 + "', " +
+                    operNote.anesthetist_id_1 + "='" + p.anesthetist_id_1 + "', " +
+                    operNote.anesthetist_name_1 + "='" + p.anesthetist_name_1 + "', " +
+                    operNote.anesthetist_id_2 + "='" + p.anesthetist_id_2 + "', " +
+                    operNote.anesthetist_name_2 + "='" + p.anesthetist_name_2 + "', " +
+                    operNote.anesthetist_assistant_id_1 + "='" + p.anesthetist_assistant_id_1 + "', " +
+                    operNote.anesthetist_assistant_name_1 + "='" + p.anesthetist_assistant_name_1 + "', " +
+                    operNote.anesthetist_assistant_id_2 + "='" + p.anesthetist_assistant_id_2 + "', " +
+                    operNote.anesthetist_assistant_name_2 + "='" + p.anesthetist_assistant_name_2 + "', " +
+                    operNote.anesthesia_techique_id_1 + "='" + p.anesthesia_techique_id_1 + "', " +
+                    operNote.anesthesia_techique_name_1 + "='" + p.anesthesia_techique_name_1 + "', " +
+                    operNote.anesthesia_techique_id_2 + "='" + p.anesthesia_techique_id_2 + "', " +
+                    operNote.anesthesia_techique_name_2 + "='" + p.anesthesia_techique_name_2 + "', " +
+                    operNote.time_start_anesthesia_techique_1 + "='" + p.time_start_anesthesia_techique_1 + "', " +
+                    operNote.time_finish_anesthesia_techique_1 + "='" + p.time_finish_anesthesia_techique_1 + "', " +
+                    operNote.time_start_anesthesia_techique_2 + "='" + p.time_start_anesthesia_techique_2 + "', " +
+                    operNote.time_finish_anesthesia_techique_2 + "='" + p.time_finish_anesthesia_techique_2 + "', " +
+                    operNote.total_time_anesthesia_1 + "='" + p.total_time_anesthesia_1 + "', " +
+                    operNote.total_time_anesthesia_2 + "='" + p.total_time_anesthesia_2 + "', " +
+                    operNote.pre_operatation_diagnosis + "='" + p.pre_operatation_diagnosis + "', " +
+                    operNote.post_operation_diagnosis + "='" + p.post_operation_diagnosis + "', " +
+                    operNote.operation_1 + "='" + p.operation_1 + "', " +
+                    operNote.operation_2 + "='" + p.operation_2 + "', " +
+                    operNote.operation_3 + "='" + p.operation_3 + "', " +
+                    operNote.operation_4 + "='" + p.operation_4 + "', " +
+                    operNote.finding_1 + "='" + p.finding_1 + "', " +
+                    operNote.finding_2 + "='" + p.finding_2 + "', " +
+                    //operNote.procidures_1 + "='" + p.procidures_1 + "', " +
+                    //operNote.procidures_2 + "='" + p.procidures_2 + "', " +
+                    operNote.complication + "='" + p.complication + "', " +
+                    operNote.estimated_blood_loss + "='" + p.estimated_blood_loss + "', " +
+                    operNote.tissue_biopsy + "='" + p.tissue_biopsy + "', " +
+                    operNote.tissue_biopsy_unit + "='" + p.tissue_biopsy_unit + "', " +
+                    operNote.special_specimen + "='" + p.special_specimen + "', " +
+                    operNote.date_modi + " = convert(varchar, getdate(), 121) " +
                     "Where " + operNote.pkField + "='" + p.operative_note_id + "'";
                 chk = conn.ExecuteNonQuery(sql);
                 chk = p.operative_note_id;
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error " + ex.ToString(), "update OperativeNote");
+            }
+            return chk;
+        }
+        public String updateProcidures1(String opernoteid, String docscanid)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update " + operNote.table + " Set " + 
+                    operNote.procidures_1 + "='" + docscanid + "' " +
+                    "Where " + operNote.pkField + "='" + opernoteid + "'";
+                chk = conn.ExecuteNonQuery(sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error " + ex.ToString(), "update OperativeNote");
+            }
+            return chk;
+        }
+        public String updateFinding1(String opernoteid, String docscanid)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update " + operNote.table + " Set " +
+                    operNote.finding_1 + "='" + docscanid + "' " +
+                    "Where " + operNote.pkField + "='" + opernoteid + "'";
+                chk = conn.ExecuteNonQuery(sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error " + ex.ToString(), "update OperativeNote");
+            }
+            return chk;
+        }
+        public String updateProcidures2(String opernoteid, String docscanid)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update " + operNote.table + " Set " +
+                    operNote.procidures_2 + "='" + docscanid + "' " +
+                    "Where " + operNote.pkField + "='" + opernoteid + "'";
+                chk = conn.ExecuteNonQuery(sql);
                 //chk = p.RowNumber;
             }
             catch (Exception ex)

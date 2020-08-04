@@ -106,7 +106,7 @@ namespace bangna_hospital
                 }
                 else if (bc.iniC.programLoad.Equals("OrOperativeNote"))
                 {
-                    Application.Run(new gui.FrmOrOperativeNote(bc));
+                    Application.Run(new gui.FrmOrOperativeNote(bc,""));
                 }
                 else
                 {

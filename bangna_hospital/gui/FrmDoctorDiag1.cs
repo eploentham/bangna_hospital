@@ -19,7 +19,7 @@ namespace bangna_hospital.gui
     public class FrmDoctorDiag1:Form
     {
         BangnaControl bc;
-        String title = "", filename = "", hn = "", vsdate = "", preno = "", status = "";
+        String title = "", filename = "", hn = "", vsdate = "", preno = "", status = "", docscanid="", opernoteid="";
         Font fEdit, fEditB, fEditBig;
         Patient ptt;
         private int indent = 10;
@@ -75,6 +75,25 @@ namespace bangna_hospital.gui
             InitComponent();
             this.Load += FrmDoctorDiag1_Load;
         }
+        public FrmDoctorDiag1(BangnaControl bc, String title, String hn, String docscanid, String opernoteid)
+        {
+            this.bc = bc;
+            this.title = title;
+            this.hn = hn;
+            this.docscanid = docscanid;
+            this.opernoteid = opernoteid;
+
+            status = title;
+
+            fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
+            fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
+            fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
+            ptt = new Patient();
+            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+
+            InitComponent();
+            this.Load += FrmDoctorDiag1_Load;
+        }
         private void InitComponent()
         {
             toolStrip1 = new ToolStrip();
@@ -108,7 +127,7 @@ namespace bangna_hospital.gui
             //this.rtbDocument.ContextMenuStrip = this.contextMenu;
             this.rtbDocument.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbDocument.EnableAutoDragDrop = true;
-            this.rtbDocument.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtbDocument.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtbDocument.Location = new System.Drawing.Point(0, 51);
             this.rtbDocument.Name = "rtbDocument";
             this.rtbDocument.Size = new System.Drawing.Size(667, 262);
@@ -192,7 +211,14 @@ namespace bangna_hospital.gui
             {
                 tslbTitle.Text = "Diagnose";
             }
-            
+            else if (title.Equals("operative_note_precidures_1"))
+            {
+                tslbTitle.Text = "Precidures";
+            }
+            else if (title.Equals("operative_note_finding_1"))
+            {
+                tslbTitle.Text = "Finding";
+            }
 
             this.tscmbFontSize.Name = "tscmbFontSize";
             this.tscmbFontSize.Size = new System.Drawing.Size(40, 21);
@@ -461,6 +487,12 @@ namespace bangna_hospital.gui
                             else if (status.Equals("operative_note_precidures_1"))
                             {
                                 bc.operative_note_precidures_1 = re;
+                                bc.bcDB.operNoteDB.updateProcidures1(opernoteid, re);
+                            }
+                            else if (status.Equals("operative_note_finding_1"))
+                            {
+                                bc.operative_note_finding_1 = re;
+                                bc.bcDB.operNoteDB.updateFinding1(opernoteid, re);
                             }
                         }
                     }
@@ -801,19 +833,28 @@ namespace bangna_hospital.gui
             DocScan docCC = new DocScan();
             //DocScan docME = new DocScan();
             //DocScan docDiag = new DocScan();
-            if (status.Equals("cc"))
+            if (hn.Length <= 0) return;
+            if (docscanid.Length > 0)
             {
-                mlfm = "FM-MED-900";
+                docCC = bc.bcDB.dscDB.selectByPk(docscanid);
             }
-            else if (title.Equals("me"))
+            else
             {
-                mlfm = "FM-MED-901";
+                if (status.Equals("cc"))
+                {
+                    mlfm = "FM-MED-900";
+                }
+                else if (title.Equals("me"))
+                {
+                    mlfm = "FM-MED-901";
+                }
+                else if (title.Equals("diag"))
+                {
+                    mlfm = "FM-MED-902";
+                }
+                docCC = bc.bcDB.dscDB.selectByStatusMedicalExamination(hn, mlfm, bc.vsdate, bc.preno);
             }
-            else if (title.Equals("diag"))
-            {
-                mlfm = "FM-MED-902";
-            }
-            docCC = bc.bcDB.dscDB.selectByStatusMedicalExamination(hn, mlfm, bc.vsdate, bc.preno);
+            
             //docME = bc.bcDB.dscDB.selectByStatusMedicalExamination(hn, "FM-MED-901", vsdate, preno);
             //docDiag = bc.bcDB.dscDB.selectByStatusMedicalExamination(hn, "FM-MED-902", vsdate, preno);
             MemoryStream streamCC, streamME, streamDiag;
@@ -841,10 +882,10 @@ namespace bangna_hospital.gui
             }
             tscmbFont.SelectedItem = "Microsoft Sans Serif";
 
-            tscmbFontSize.SelectedItem = "9";
+            tscmbFontSize.SelectedItem = "12";
             loadDoctorDiag();
             theme1 = new C1.Win.C1Themes.C1ThemeController();
-            theme1.SetTheme(toolStrip1, bc.iniC.themeApplication);
+            //theme1.SetTheme(toolStrip1, bc.iniC.themeApplication);
             //tstxtZoomFactor.Text = Convert.ToString(rtbDocument.ZoomFactor * 100);
         }
     }

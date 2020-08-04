@@ -1364,5 +1364,12 @@ namespace bangna_hospital.control
             lb.AutoSize = true;
             lb.Name = name;
         }
+        public void setControlC1TextBox(ref C1TextBox txt, Font fEdit, String text, int width, int x, int y)
+        {
+            txt.Font = fEdit;
+            txt.Location = new System.Drawing.Point(x, y);
+            txt.Size = new Size(width, 30);
+            txt.Name = text;
+        }
     }
 }
