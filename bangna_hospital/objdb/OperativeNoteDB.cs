@@ -115,6 +115,7 @@ namespace bangna_hospital.objdb
             operNote.tissue_biopsy_unit = "tissue_biopsy_unit";
             operNote.special_specimen = "special_specimen";
             operNote.date_modi = "date_modi";
+            operNote.complication_other = "complication_other";
 
             operNote.table = "t_operative_note";
             operNote.pkField = "operative_note_id";
@@ -360,7 +361,7 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("tissue_biopsy_unit", p.tissue_biopsy_unit.Replace("'", "''"));
                 conn.comStore.Parameters.AddWithValue("special_specimen", p.special_specimen.Replace("'", "''"));
                 conn.comStore.Parameters.AddWithValue("user_create", userid.Replace("'", "''"));
-
+                conn.comStore.Parameters.AddWithValue("complication_other", p.complication_other.Replace("'", "''"));
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
@@ -479,6 +480,7 @@ namespace bangna_hospital.objdb
                     operNote.tissue_biopsy + "='" + p.tissue_biopsy + "', " +
                     operNote.tissue_biopsy_unit + "='" + p.tissue_biopsy_unit + "', " +
                     operNote.special_specimen + "='" + p.special_specimen + "', " +
+                    operNote.complication_other + "='" + p.complication_other + "', " +
                     operNote.date_modi + " = convert(varchar, getdate(), 121) " +
                     "Where " + operNote.pkField + "='" + p.operative_note_id + "'";
                 chk = conn.ExecuteNonQuery(sql);
@@ -654,6 +656,7 @@ namespace bangna_hospital.objdb
                 operNote1.tissue_biopsy = dt.Rows[0]["tissue_biopsy"].ToString();
                 operNote1.tissue_biopsy_unit = dt.Rows[0]["tissue_biopsy_unit"].ToString();
                 operNote1.special_specimen = dt.Rows[0]["special_specimen"].ToString();
+                operNote1.complication_other = dt.Rows[0]["complication_other"].ToString();
             }
             else
             {
@@ -756,7 +759,7 @@ namespace bangna_hospital.objdb
             operNote1.tissue_biopsy = "";
             operNote1.tissue_biopsy_unit = "";
             operNote1.special_specimen = "";
-
+            operNote1.complication_other = "";
             return operNote1;
         }
     }

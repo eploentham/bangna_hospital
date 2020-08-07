@@ -99,5 +99,6 @@ namespace bangna_hospital.object1
         public String tissue_biopsy { get; set; }
         public String tissue_biopsy_unit { get; set; }
         public String special_specimen { get; set; }
+        public String complication_other { get; set; }
     }
 }

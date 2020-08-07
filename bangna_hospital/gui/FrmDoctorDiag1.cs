@@ -47,7 +47,9 @@ namespace bangna_hospital.gui
         ToolStripButton tsbtnOutdent;
         ToolStripButton tsbtnBullets;
         ToolStripButton tsbtnInsertPicture;
+        ToolStripButton tsbtnInsertPicture1;
         ToolStripSeparator toolStripSeparator5;
+        ToolStripSeparator toolStripSeparator6;
         ToolStripButton tsbtnUndo;
         ToolStripButton tsbtnRedo;
         ToolStripLabel tslbTitle;
@@ -102,6 +104,7 @@ namespace bangna_hospital.gui
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripSeparator4 = new ToolStripSeparator();
             toolStripSeparator5 = new ToolStripSeparator();
+            toolStripSeparator6 = new ToolStripSeparator();
             rtbDocument = new System.Windows.Forms.RichTextBox();
 
             tsbtnSave = new System.Windows.Forms.ToolStripButton();
@@ -119,6 +122,7 @@ namespace bangna_hospital.gui
             tsbtnOutdent = new System.Windows.Forms.ToolStripButton();
             tsbtnBullets = new System.Windows.Forms.ToolStripButton();
             tsbtnInsertPicture = new System.Windows.Forms.ToolStripButton();
+            tsbtnInsertPicture1 = new System.Windows.Forms.ToolStripButton();
             tsbtnUndo = new System.Windows.Forms.ToolStripButton();
             tsbtnRedo = new System.Windows.Forms.ToolStripButton();
             tslbTitle = new System.Windows.Forms.ToolStripLabel();
@@ -157,6 +161,8 @@ namespace bangna_hospital.gui
             this.tsbtnBullets,
             this.toolStripSeparator5,
             this.tsbtnInsertPicture,
+            this.tsbtnInsertPicture1,
+            this.toolStripSeparator6,
             tslbTitle
             });
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -174,6 +180,8 @@ namespace bangna_hospital.gui
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 26);
 
             this.tscmbFont.Name = "tscmbFont";
             this.tscmbFont.Size = new System.Drawing.Size(121, 26);
@@ -226,8 +234,8 @@ namespace bangna_hospital.gui
             this.tscmbFontSize.TextChanged += TscmbFontSize_TextChanged;
 
             this.tsbtnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnSave.Image = Resources.Save_small;
-            this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Black;
+            this.tsbtnSave.Image = Resources.filesave;
+            //this.tsbtnSave.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnSave.Name = "tsbtnSave";
             this.tsbtnSave.Size = new System.Drawing.Size(23, 23);
             this.tsbtnSave.Text = "toolStripButton1";
@@ -235,9 +243,10 @@ namespace bangna_hospital.gui
             this.tsbtnSave.Click += TsbtnSave_Click;
 
             this.tsbtnBold.CheckOnClick = true;
+            this.tsbtnBold.Image = Resources.charactergrowfont;
             this.tsbtnBold.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtnBold.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tsbtnBold.ImageTransparentColor = System.Drawing.Color.Magenta;
+            //this.tsbtnBold.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnBold.Name = "tsbtnBold";
             this.tsbtnBold.Size = new System.Drawing.Size(24, 23);
             this.tsbtnBold.Text = "B";
@@ -249,7 +258,7 @@ namespace bangna_hospital.gui
             this.tsbtnItalic.CheckOnClick = true;
             this.tsbtnItalic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtnItalic.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic);
-            this.tsbtnItalic.ImageTransparentColor = System.Drawing.Color.Magenta;
+            //this.tsbtnItalic.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnItalic.Name = "tsbtnItalic";
             this.tsbtnItalic.Size = new System.Drawing.Size(23, 23);
             this.tsbtnItalic.Text = "I";
@@ -261,7 +270,7 @@ namespace bangna_hospital.gui
             this.tsbtnUnderline.CheckOnClick = true;
             this.tsbtnUnderline.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtnUnderline.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Underline);
-            this.tsbtnUnderline.ImageTransparentColor = System.Drawing.Color.Magenta;
+            //this.tsbtnUnderline.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnUnderline.Name = "tsbtnUnderline";
             this.tsbtnUnderline.Size = new System.Drawing.Size(24, 23);
             this.tsbtnUnderline.Text = "U";
@@ -270,7 +279,7 @@ namespace bangna_hospital.gui
 
             this.tsbtnChooseFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnChooseFont.Image = Resources.GrowFont_small;
-            this.tsbtnChooseFont.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnChooseFont.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnChooseFont.Name = "tsbtnChooseFont";
             this.tsbtnChooseFont.Size = new System.Drawing.Size(23, 23);
             this.tsbtnChooseFont.Text = "toolStripButton1";
@@ -280,7 +289,7 @@ namespace bangna_hospital.gui
             this.tsbtnAlignLeft.CheckOnClick = true;
             this.tsbtnAlignLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnAlignLeft.Image = Resources.AlignTextLeft_small;
-            this.tsbtnAlignLeft.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnAlignLeft.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnAlignLeft.Name = "tsbtnAlignLeft";
             this.tsbtnAlignLeft.Size = new System.Drawing.Size(23, 23);
             this.tsbtnAlignLeft.Text = "toolStripButton1";
@@ -292,7 +301,7 @@ namespace bangna_hospital.gui
             this.tsbtnAlignCenter.CheckOnClick = true;
             this.tsbtnAlignCenter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnAlignCenter.Image = Resources.AlignTextCenter_small;
-            this.tsbtnAlignCenter.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnAlignCenter.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnAlignCenter.Name = "tsbtnAlignCenter";
             this.tsbtnAlignCenter.Size = new System.Drawing.Size(23, 23);
             this.tsbtnAlignCenter.Text = "toolStripButton2";
@@ -304,7 +313,7 @@ namespace bangna_hospital.gui
             this.tsbtnAlignRight.CheckOnClick = true;
             this.tsbtnAlignRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnAlignRight.Image = Resources.AlignTextRight_small;
-            this.tsbtnAlignRight.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnAlignRight.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnAlignRight.Name = "tsbtnAlignRight";
             this.tsbtnAlignRight.Size = new System.Drawing.Size(23, 23);
             this.tsbtnAlignRight.Text = "toolStripButton3";
@@ -315,7 +324,7 @@ namespace bangna_hospital.gui
             // 
             this.tsbtnFontColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnFontColor.Image = Resources.FontColor_small;
-            this.tsbtnFontColor.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnFontColor.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnFontColor.Name = "tsbtnFontColor";
             this.tsbtnFontColor.Size = new System.Drawing.Size(23, 23);
             this.tsbtnFontColor.Text = "toolStripButton4";
@@ -324,7 +333,7 @@ namespace bangna_hospital.gui
 
             this.tsbtnIndent.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnIndent.Image = Resources.DecreaseIndent_small;
-            this.tsbtnIndent.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnIndent.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnIndent.Name = "tsbtnIndent";
             this.tsbtnIndent.Size = new System.Drawing.Size(23, 23);
             this.tsbtnIndent.Text = "toolStripButton1";
@@ -335,7 +344,7 @@ namespace bangna_hospital.gui
             // 
             this.tsbtnOutdent.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnOutdent.Image = Resources.IncreaseIndent_small;
-            this.tsbtnOutdent.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnOutdent.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnOutdent.Name = "tsbtnOutdent";
             this.tsbtnOutdent.Size = new System.Drawing.Size(23, 23);
             this.tsbtnOutdent.Text = "toolStripButton3";
@@ -346,8 +355,8 @@ namespace bangna_hospital.gui
             // 
             this.tsbtnBullets.CheckOnClick = true;
             this.tsbtnBullets.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnBullets.Image = Resources.Bullets_small;
-            this.tsbtnBullets.ImageTransparentColor = System.Drawing.Color.Black;
+            this.tsbtnBullets.Image = Resources.listbullets;
+            //this.tsbtnBullets.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnBullets.Name = "tsbtnBullets";
             this.tsbtnBullets.Size = new System.Drawing.Size(23, 23);
             this.tsbtnBullets.Text = "toolStripButton2";
@@ -358,12 +367,21 @@ namespace bangna_hospital.gui
             // 
             this.tsbtnInsertPicture.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbtnInsertPicture.Image = Resources.Image_small;
-            this.tsbtnInsertPicture.ImageTransparentColor = System.Drawing.Color.Black;
+            //this.tsbtnInsertPicture.ImageTransparentColor = System.Drawing.Color.Black;
             this.tsbtnInsertPicture.Name = "tsbtnInsertPicture";
             this.tsbtnInsertPicture.Size = new System.Drawing.Size(23, 23);
             this.tsbtnInsertPicture.Text = "toolStripButton1";
             this.tsbtnInsertPicture.ToolTipText = "Insert Picture";
             this.tsbtnInsertPicture.Click += TsbtnInsertPicture_Click;
+
+            this.tsbtnInsertPicture1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbtnInsertPicture1.Image = Resources.Image_small;
+            //this.tsbtnInsertPicture1.ImageTransparentColor = System.Drawing.Color.Black;
+            this.tsbtnInsertPicture1.Name = "tsbtnInsertPicture1";
+            this.tsbtnInsertPicture1.Size = new System.Drawing.Size(23, 23);
+            this.tsbtnInsertPicture1.Text = "toolStripButton1";
+            this.tsbtnInsertPicture1.ToolTipText = "Insert Table Picture";
+            this.tsbtnInsertPicture1.Click += TsbtnInsertPicture1_Click;
 
             this.Controls.Add(this.rtbDocument);
             this.Controls.Add(this.toolStrip1);
@@ -500,10 +518,12 @@ namespace bangna_hospital.gui
             }
             catch (IOException exc)
             {
+                new LogWriter("e", "FrmDoctorDiag1 TsbtnSave_Click  " + exc.Message);
                 MessageBox.Show("Error writing file: \n" + exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (ArgumentException exc_a)
             {
+                new LogWriter("e", "FrmDoctorDiag1 TsbtnSave_Click  " + exc_a.Message);
                 MessageBox.Show("Error writing file: \n" + exc_a.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
                 
@@ -529,7 +549,8 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmDoctorDiag1 SaveDocumentMedicalExamination  "+ex.Message);
+                MessageBox.Show("error Save Pic", "");
             }
         }
         private void RtbDocument_SelectionChanged(object sender, EventArgs e)
@@ -736,6 +757,23 @@ namespace bangna_hospital.gui
                 MessageBox.Show(ex.Message.ToString(), "Error");
             }
         }
+        private void insertTableRichtextbox()
+        {
+            StringBuilder strtbl = new StringBuilder();
+            strtbl.Append(@"{\rtf1 ");
+            strtbl.Append(@"\trowd");
+            strtbl.Append(@"\cellx5000");
+            strtbl.Append(@"\cellx8000");
+            strtbl.Append(@"\intbl \cell \row");
+            strtbl.Append(@"\pard");
+            strtbl.Append(@"}");
+            rtbDocument.Rtf = strtbl.ToString();
+        }
+        private void TsbtnInsertPicture1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertTableRichtextbox();
+        }
         private void TsbtnInsertPicture_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -758,6 +796,7 @@ namespace bangna_hospital.gui
                 };
                 Process procPaint = Process.Start(Info);
                 procPaint.WaitForExit();
+                Thread.Sleep(200);
                 setImagePaint(filename);
                 this.filename = filename;
             }
@@ -765,7 +804,28 @@ namespace bangna_hospital.gui
         private void setImagePaint(String filename)
         {
             Clipboard.SetImage(System.Drawing.Image.FromFile(filename));
+            Thread.Sleep(200);
             rtbDocument.Paste();
+
+
+
+            //StringBuilder tableRtf = new StringBuilder();
+            //tableRtf.Append(@"{\fonttbl{\f0\fnil\fcharset0 Courier;}}");
+
+            //    tableRtf.Append(@"\trowd");
+            //    tableRtf.Append(@"\cellx2500" + "  ");
+            //    tableRtf.Append(@"\intbl\cell");
+            //    tableRtf.Append(@"\cellx10000\intbl\cell");
+            //    tableRtf.Append(@"\intbl\clmrg\cell\row");
+
+
+            //tableRtf.Append(@"\pard");
+            //tableRtf.Append(@"}");
+
+            //string rtf1 = rtbDocument.Rtf.Trim().TrimEnd('}');
+            //string rtf2 = tableRtf.ToString();
+            //rtbDocument.Rtf = rtf1 + rtf2;
+
         }
         public void SetFontFamily(FontFamily family)
         {

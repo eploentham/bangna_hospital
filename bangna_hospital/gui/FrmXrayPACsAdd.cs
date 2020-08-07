@@ -469,7 +469,7 @@ namespace bangna_hospital.gui
             xrcode = grfReq[grfReq.Row, colxrcode] != null ? grfReq[grfReq.Row, colxrcode].ToString() : "";
             stfcode = grfReq[grfReq.Row, colxrstfcode] != null ? grfReq[grfReq.Row, colxrstfcode].ToString() : "";
             stfname = grfReq[grfReq.Row, colxrstfname] != null ? grfReq[grfReq.Row, colxrstfname].ToString() : "";
-            stfname = grfReq[grfReq.Row, colxrstfname] != null ? grfReq[grfReq.Row, colxrstfname].ToString() : "";
+            //stfname = grfReq[grfReq.Row, colxrstfname] != null ? grfReq[grfReq.Row, colxrstfname].ToString() : "";
             depcode = grfReq[grfReq.Row, colxrdepno] != null ? grfReq[grfReq.Row, colxrdepno].ToString() : "";
             depname = grfReq[grfReq.Row, colxrdepname] != null ? grfReq[grfReq.Row, colxrdepname].ToString() : "";
             opdtype = grfReq[grfReq.Row, colpttstatus] != null ? grfReq[grfReq.Row, colpttstatus].ToString() : "";
@@ -530,6 +530,10 @@ namespace bangna_hospital.gui
                     {
                         grp = "US";
                     }
+                    else if (xrgrpcd.Equals("G"))
+                    {
+                        grp = "MG";
+                    }
                     else if (xrgrpcd.Equals("M"))
                     {
                         grp = "MR";
@@ -542,7 +546,7 @@ namespace bangna_hospital.gui
                     //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
                     //    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
                     txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                        , reqdate.Replace("-",""), reqno, xrcode, xray, grp, "333", "Ekapop", grp, opdtype, depcode, depname, sickness);
+                        , reqdate.Replace("-",""), reqno, xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
                     //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
                     //Test process
 
@@ -573,7 +577,6 @@ namespace bangna_hospital.gui
                     Application.DoEvents();
                     
                     resp = clientStreamReader.ReadToEnd();
-                    
 
                     //clientStreamReader.Close();
                     //clientSockStream.Close();
@@ -615,6 +618,71 @@ namespace bangna_hospital.gui
                     Console.WriteLine("SERVER: " + resp);
                     lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
                     Application.DoEvents();
+                    if (xrcode.ToUpper().Equals("SMM005"))
+                    {
+                        try
+                        {
+                            grp = "US";
+                            txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
+                            //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                            //    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
+                            txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                                , reqdate.Replace("-", ""), reqno+"1", xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
+
+                            TcpClient tcpClient1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+
+                            Console.WriteLine("Connected to Server");
+                            lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                            Application.DoEvents();
+                            //get a network stream from server
+                            NetworkStream clientSockStream1 = tcpClient1.GetStream();
+                            StreamReader clientStreamReader1 = new StreamReader(clientSockStream1);
+                            StreamWriter clientStreamWriter1 = new StreamWriter(clientSockStream1);
+
+                            clientStreamWriter1.Write(txtADT);
+                            clientStreamWriter1.Flush();
+                            //clientStreamWriter.Close();
+                            Application.DoEvents();
+
+                            resp = clientStreamReader1.ReadToEnd();
+
+                            //clientStreamReader.Close();
+                            //clientSockStream.Close();
+
+                            //tcpClient.Close();
+                            lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                            Application.DoEvents();
+
+                            TcpClient tcpClientORM1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                            Console.WriteLine("Connected to Server");
+                            //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                            Application.DoEvents();
+                            //get a network stream from server
+                            NetworkStream clientSockStreamORM1 = tcpClientORM1.GetStream();
+                            StreamReader clientStreamReaderORM1 = new StreamReader(clientSockStreamORM1);
+                            StreamWriter clientStreamWriterORM1 = new StreamWriter(clientSockStreamORM1);
+
+                            resp = "";
+                            //resp = clientStreamReaderORM.ReadLine();
+                            clientStreamWriterORM1.Write(txtORM);
+                            clientStreamWriterORM1.Flush();
+                            Application.DoEvents();
+                            resp = "";
+                            resp = clientStreamReaderORM1.ReadToEnd();
+                            //clientSockStream1.Close();
+                            clientStreamWriterORM1.Close();
+                            clientStreamReaderORM1.Close();
+                            clientSockStreamORM1.Close();
+                            tcpClientORM1.Close();
+                            Console.WriteLine("SERVER: " + resp);
+                            lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                            Application.DoEvents();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
                 }
             }
             catch (Exception se)
@@ -714,7 +782,7 @@ namespace bangna_hospital.gui
                     grfReq[i, colreqdob] = row["mnc_bday"].ToString();
                     grfReq[i, colxrdesc] = row["MNC_XR_DSC"].ToString();
                     grfReq[i, colxrcode] = row["MNC_XR_CD"].ToString();
-                    grfReq[i, colxrstfcode] = row["mnc_empr_cd"].ToString();
+                    grfReq[i, colxrstfcode] = row["MNC_DOT_CD"].ToString();
                     grfReq[i, colxrstfname] = row["mnc_usr_full"].ToString();
                     grfReq[i, colxrdepno] = row["mnc_req_dep"].ToString();
                     grfReq[i, colxrdepname] = row["MNC_MD_DEP_DSC"].ToString();
@@ -737,7 +805,7 @@ namespace bangna_hospital.gui
             grfReq.Cols[colreqpreno].Visible = false;
             grfReq.Cols[colReqDpt].Visible = false;
             grfReq.Cols[colReqDtr].Visible = false;
-            grfReq.Cols[colxrgrpcd].Visible = false;
+            //grfReq.Cols[colxrgrpcd].Visible = false;
 
             grfReq.Cols[colReqHn].AllowEditing = false;
             grfReq.Cols[colReqName].AllowEditing = false;
@@ -1372,7 +1440,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2020-07-31 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2020-08-08 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

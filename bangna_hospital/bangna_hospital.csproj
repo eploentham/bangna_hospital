@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_operativenote</AssemblyName>
+    <AssemblyName>bangna_hospital_xray</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,7 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icon-sqr-01.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -1263,6 +1263,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bangna_hospital_scan_add.ico" />
+    <None Include="Resources\editpaste.png" />
+    <None Include="Resources\paragraphleftjustify.png" />
+    <None Include="Resources\paragraphfulljustify.png" />
+    <None Include="Resources\paragraphcenterjustify.png" />
+    <None Include="Resources\paragraphincreaseindentation.png" />
+    <None Include="Resources\paragraphdecreaseindentation.png" />
+    <None Include="Resources\fileopen.png" />
+    <None Include="Resources\editundo.png" />
+    <None Include="Resources\editredo.png" />
+    <None Include="Resources\editcopy.png" />
+    <None Include="Resources\editcut.png" />
+    <None Include="Resources\charactershrinkfont.png" />
+    <None Include="Resources\charactergrowfont.png" />
+    <None Include="Resources\listbullets.png" />
+    <None Include="Resources\listnumbering.png" />
+    <None Include="Resources\filesave.png" />
     <None Include="Resources\start128.png" />
     <None Include="Resources\stop-red128.png" />
   </ItemGroup>

@@ -52,7 +52,7 @@ namespace bangna_hospital.gui
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
 
-        int colVsVsDate = 1, colVsVn = 2, colVsStatus = 3, colVsDept = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24;
+        int colVsVsDate = 1, colVsDept = 2, colVsVn = 3, colVsStatus = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16=16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         int colOrderId = 1, colOrderDate = 2, colOrderName = 3, colOrderQty = 4, colOrderFre=5, colOrderIn1=6, colOrderMed = 7;
@@ -652,7 +652,7 @@ namespace bangna_hospital.gui
         private void setActive()
         {
             //String vsDate = "";
-            int sizeradio = 10;
+            int sizeradio = bc.scVssizeradio;
             //preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
             //vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
             //vsDate = bc.datetoDB(vsDate);
@@ -4696,7 +4696,7 @@ namespace bangna_hospital.gui
             //grfVs.Cols[colVsDept].Editor = text;
             //grfVs.Cols[colVsPreno].Editor = text;
 
-            grfOPD.Cols[colVsVsDate].Width = 100;
+            grfOPD.Cols[colVsVsDate].Width = 80;
             grfOPD.Cols[colVsVn].Width = 80;
             grfOPD.Cols[colVsDept].Width = 240;
             grfOPD.Cols[colVsPreno].Width = 100;
@@ -4707,10 +4707,10 @@ namespace bangna_hospital.gui
             grfOPD.Cols[colVsVn].Caption = "VN";
             grfOPD.Cols[colVsDept].Caption = "แผนก";
             grfOPD.Cols[colVsPreno].Caption = "";
-            grfOPD.Cols[colVsPreno].Visible = false;
-            grfOPD.Cols[colVsVn].Visible = true;
-            grfOPD.Cols[colVsAn].Visible = true;
-            grfOPD.Cols[colVsAndate].Visible = false;
+            //grfOPD.Cols[colVsPreno].Visible = false;
+            //grfOPD.Cols[colVsVn].Visible = true;
+            //grfOPD.Cols[colVsAn].Visible = true;
+            //grfOPD.Cols[colVsAndate].Visible = false;
             grfOPD.Rows[0].Visible = false;
             grfOPD.Cols[0].Visible = false;
             grfOPD.Cols[colVsVsDate].AllowEditing = false;
@@ -4734,7 +4734,7 @@ namespace bangna_hospital.gui
 
                 status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
                 vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")";
-                rowa[colVsVsDate] = bc.datetoShow1(row1["mnc_date"].ToString());
+                rowa[colVsVsDate] = bc.datetoShowShort(row1["mnc_date"].ToString());
                 rowa[colVsVn] = vn;
                 rowa[colVsStatus] = status;
                 rowa[colVsPreno] = row1["mnc_pre_no"].ToString();
@@ -4765,6 +4765,11 @@ namespace bangna_hospital.gui
             //    menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image [" + dgs.doc_group_name + "]", new EventHandler(ContextMenu_upload));
             //}
             //grfVs.ContextMenu = menuGw;
+            grfOPD.Cols[colVsPreno].Visible = false;
+            grfOPD.Cols[colVsAn].Visible = false;
+            grfOPD.Cols[colVsAndate].Visible = false;
+            grfOPD.Cols[colVsVn].Visible = false;
+
             grfOPD.Cols[colVsbp2r].Visible = false;
             grfOPD.Cols[colVsbp2l].Visible = false;
             grfOPD.Cols[colVsbp1r].Visible = false;
@@ -4778,8 +4783,11 @@ namespace bangna_hospital.gui
             grfOPD.Cols[colVsHigh].Visible = false;
             grfOPD.Cols[colVsVital].Visible = false;
             grfOPD.Cols[colVsPres].Visible = false;
-            //grfOPD.Cols[colVsbp2r].Visible = false;
-            //grfVs.Cols[colImagePath].Visible = false;
+            grfOPD.Cols[colVsTemp].Visible = false;
+            grfOPD.Cols[colVsPaidType].Visible = false;
+            grfOPD.Cols[colVsRadios].Visible = false;
+            grfOPD.Cols[colVsBreath].Visible = false;
+            grfOPD.Cols[colVsStatus].Visible = false;
             //row1[colVSE2] = row[ic.ivfDB.pApmDB.pApm.e2].ToString().Equals("1") ? imgCorr : imgTran;
             //grfVs.AutoSizeCols();
             //grfVs.AutoSizeRows();
@@ -4904,7 +4912,7 @@ namespace bangna_hospital.gui
             tabOPD.Width = 240;
             gbPtt.Height = 45;
             tcDtr.Width = 1700;
-            scVs.SizeRatio  = 10;       // set ขนาด หน้าจอ ซ้ายกับขวา ให้ set ตรงนี้
+            scVs.SizeRatio  = bc.scVssizeradio;       // set ขนาด หน้าจอ ซ้ายกับขวา ให้ set ตรงนี้
             Application.DoEvents();
             //size = bc.MeasureString(txtName);
             //txtName.Size = size;

@@ -887,7 +887,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("e", "insertLabOut " + sql);
+                new LogWriter("e", "insertMedicalExamination " + sql);
             }
             finally
             {

@@ -34,8 +34,8 @@ namespace bangna_hospital.control
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
-        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0;
-        public int grfImgWidth = 0;
+        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0;
+        
         public BangnaControl()
         {
             initConfig();
@@ -186,6 +186,7 @@ namespace bangna_hospital.control
             iniC.branchId = iniF.getIni("app", "branchId");
             iniC.pathline_bot_labout_urgent_bangna = iniF.getIni("app", "pathline_bot_labout_urgent_bangna");
             iniC.grfImgWidth = iniF.getIni("app", "grfImgWidth");
+            iniC.scVssizeradio = iniF.getIni("app", "scVssizeradio");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -225,6 +226,7 @@ namespace bangna_hospital.control
             iniC.branchId = iniC.branchId == null ? "005" : iniC.branchId.Equals("") ? "005" : iniC.branchId;
             iniC.pathline_bot_labout_urgent_bangna = iniC.pathline_bot_labout_urgent_bangna == null ? "c:\\python\\line_bot_labout_urgent_bangna.py" : iniC.pathline_bot_labout_urgent_bangna.Equals("") ? "c:\\python\\line_bot_labout_urgent_bangna.py" : iniC.pathline_bot_labout_urgent_bangna;
             iniC.grfImgWidth = iniC.grfImgWidth == null ? "500" : iniC.grfImgWidth.Equals("") ? "500" : iniC.grfImgWidth;
+            iniC.scVssizeradio = iniC.scVssizeradio == null ? "20" : iniC.scVssizeradio.Equals("") ? "20" : iniC.scVssizeradio;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -239,6 +241,7 @@ namespace bangna_hospital.control
             int.TryParse(iniC.tabLabOutImageHeight, out tabLabOutImageHeight);
             int.TryParse(iniC.tabLabOutImageWidth, out tabLabOutImageWidth);
             int.TryParse(iniC.grfImgWidth, out grfImgWidth);
+            int.TryParse(iniC.scVssizeradio, out scVssizeradio);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {
@@ -338,6 +341,38 @@ namespace bangna_hospital.control
                     if (DateTime.TryParse(dt.ToString(), out dt1))
                     {
                         re = dt1.ToString("dd-MM-yyyy");
+                    }
+                }
+            }
+            return re;
+        }
+        public String datetoShowShort(String dt)
+        {
+            DateTime dt1 = new DateTime();
+            //MySqlDateTime dtm = new MySqlDateTime();
+            String re = "", year1 = "", mm = "", dd = "";
+            if (iniC.windows.Equals("windowsxp"))
+            {
+                if (dt.Length >= 10)
+                {
+                    year1 = dt.Substring(0, 4);
+                    mm = dt.Substring(5, 2);
+                    dd = dt.Substring(8, 2);
+                    re = dd + "-" + mm + "-" + year1;
+                }
+                else
+                {
+                    re = "";
+                }
+                //re = dt.ToString();
+            }
+            else
+            {
+                if (dt != null)
+                {
+                    if (DateTime.TryParse(dt.ToString(), out dt1))
+                    {
+                        re = dt1.ToString("dd-MM-yy");
                     }
                 }
             }

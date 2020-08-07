@@ -58,6 +58,10 @@ namespace bangna_hospital.gui
         Label lbOperation1, lbOperation2, lbOperation3, lbOperation4;
         C1TextBox txtOperation1, txtOperation2, txtOperation3, txtOperation4;
 
+        Label lbComplication, lbEstimateBloodlose, lbTissueBiopsy, lbSpecialSpecimen, lbEstimateBloodloseUnit;
+        RadioButton chkComplicationNo, chkComplicationYes, chkTissueBiopsyNo, chkTissueBiopsyYes;
+        C1TextBox txtComplication, txtEstimateBloodlose, txtTissueBiopsy, txtSpecialSpecimen;
+
         Label lbFinding;
         C1TextBox txtFinding;
 
@@ -67,7 +71,7 @@ namespace bangna_hospital.gui
         C1Button btnPttSearch, btnSave, btnPrint, btnNew;
         C1DateEdit txtDateOperative;
         RadioButton chkOPD, chkIPD;
-        Panel pnOperative, pnProcidures, pnLeft, pnLeftTop, pnLeftBotton;
+        Panel pnOperative, pnProcidures, pnLeft, pnLeftTop, pnLeftBotton, pnComplication, pnTissue;
         C1ThemeController theme1;
         Patient ptt;
 
@@ -78,6 +82,7 @@ namespace bangna_hospital.gui
         C1SuperErrorProvider sep;
         C1.C1Pdf.C1PdfDocument _c1pdf;
 
+        int rtfFinding = 0, rtfProcidures=0;
         String opernote_id = "";
         int colHn = 1, colName = 2, colAn = 3, colDateOper = 4, colDept = 5, colWard = 6, colAttending = 7, colID=8;
 
@@ -144,6 +149,15 @@ namespace bangna_hospital.gui
             txtTimeFinish.KeyUp += TxtTimeFinish_KeyUp;
             txtTotalTime.KeyUp += TxtTotalTime_KeyUp;
             txtTotalTimeAnthe.KeyUp += TxtTotalTimeAnthe_KeyUp;
+            txtTimeAnthe.KeyUp += TxtTimeAnthe_KeyUp;
+            txtTimeFinishAnthe.KeyUp += TxtTimeFinishAnthe_KeyUp;
+            txtTimeAnthe.Enter += TxtTimeAnthe_Enter;
+            txtPreOperation.KeyUp += TxtPreOperation_KeyUp;
+            txtPostOperation.KeyUp += TxtPostOperation_KeyUp;
+            txtOperation1.KeyUp += TxtOperation1_KeyUp;
+            txtOperation2.KeyUp += TxtOperation2_KeyUp;
+            txtOperation3.KeyUp += TxtOperation3_KeyUp;
+            txtOperation4.KeyUp += TxtOperation4_KeyUp;
 
             txtDateOperative.Value = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
             setContextMenuAnesthesis();
@@ -156,10 +170,128 @@ namespace bangna_hospital.gui
             setControl();
         }
 
-        private void TxtTotalTimeAnthe_KeyUp(object sender, KeyEventArgs e)
+        private void TxtOperation4_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
 
+        }
+
+        private void TxtOperation3_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtOperation4.SelectAll();
+                txtOperation4.Focus();
+            }
+        }
+
+        private void TxtOperation2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtOperation3.SelectAll();
+                txtOperation3.Focus();
+            }
+        }
+
+        private void TxtOperation1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtOperation2.SelectAll();
+                txtOperation2.Focus();
+            }
+        }
+
+        private void TxtPostOperation_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtOperation1.SelectAll();
+                txtOperation1.Focus();
+            }
+        }
+
+        private void TxtPreOperation_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPostOperation.SelectAll();
+                txtPostOperation.Focus();
+            }
+        }
+
+        private void TxtTimeAnthe_Enter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtTimeAnthe.SelectAll();
+        }
+
+        private void TxtTimeFinishAnthe_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                //TimeSpan chk = new TimeSpan();
+                DateTime chk = new DateTime();
+                String date = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+                if (DateTime.TryParse(date + " " + txtTimeFinishAnthe.Text.Trim(), out chk))
+                {
+                    DateTime chkstart = new DateTime();
+                    DateTime chkend = new DateTime();
+                    if (DateTime.TryParse(txtDateOperative.Text + " " + txtTimeAnthe.Text.Trim(), out chkstart))
+                    {
+                        if (DateTime.TryParse(txtDateOperative.Text + " " + txtTimeFinishAnthe.Text.Trim(), out chkend))
+                        {
+                            TimeSpan span = chkend.Subtract(chkstart);
+
+                            txtTotalTimeAnthe.Value = span.TotalMinutes;
+                        }
+                    }
+                    sep.Clear();
+                    txtTotalTimeAnthe.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบtime");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtTimeAnthe_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                //TimeSpan chk = new TimeSpan();
+                DateTime chk = new DateTime();
+                String date = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+                if (DateTime.TryParse(date + " " + txtTimeAnthe.Text.Trim(), out chk))
+                {
+                    sep.Clear();
+                    txtTimeFinishAnthe.Focus();
+                }
+                else
+                {
+                    sep.SetError((Control)sender, "ไม่พบtime");
+                    ((C1TextBox)sender).SelectAll();
+                }
+            }
+        }
+
+        private void TxtTotalTimeAnthe_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPreOperation.Focus();
+            }
         }
 
         private void TxtTotalTime_KeyUp(object sender, KeyEventArgs e)
@@ -179,8 +311,18 @@ namespace bangna_hospital.gui
                 //TimeSpan chk = new TimeSpan();
                 DateTime chk = new DateTime();
                 String date = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
-                if (DateTime.TryParse(date + txtTimeFinish.Text.Trim(), out chk))
+                if (DateTime.TryParse(date + " " + txtTimeFinish.Text.Trim(), out chk))
                 {
+                    DateTime chkstart = new DateTime();
+                    DateTime chkend = new DateTime();
+                    if (DateTime.TryParse(txtDateOperative.Text + " " + txtTimeInsion.Text.Trim(), out chkstart))
+                    {
+                        if (DateTime.TryParse(txtDateOperative.Text + " " + txtTimeFinish.Text.Trim(), out chkend))
+                        {
+                            TimeSpan span = chkend.Subtract(chkstart);
+                            txtTotalTime.Value = span.TotalMinutes;
+                        }
+                    }
                     sep.Clear();
                     txtTotalTime.Focus();
                 }
@@ -200,7 +342,7 @@ namespace bangna_hospital.gui
                 //TimeSpan chk = new TimeSpan();
                 DateTime chk = new DateTime();
                 String date = DateTime.Now.Year+"-"+ DateTime.Now.ToString("MM-dd");
-                if(DateTime.TryParse(date+txtTimeInsion.Text.Trim(), out chk))
+                if(DateTime.TryParse(date+" "+txtTimeInsion.Text.Trim(), out chk))
                 {
                     sep.Clear();
                     txtTimeFinish.Focus();
@@ -380,6 +522,16 @@ namespace bangna_hospital.gui
             txtOperation3.Value = "";
             txtOperation4.Value = "";
 
+            txtComplication.Value = "";
+            txtTissueBiopsy.Value = "";
+            txtEstimateBloodlose.Value = "";
+            txtSpecialSpecimen.Value = "";
+            
+            chkComplicationNo.Checked = false;
+            chkComplicationYes.Checked = false;
+            chkTissueBiopsyNo.Checked = false;
+            chkTissueBiopsyYes.Checked = false;
+
             //txtFinding.Value = operNote.finding_1;
             setControlFrmDoctorDiag();
         }
@@ -465,6 +617,16 @@ namespace bangna_hospital.gui
             txtOperation3.Value = operNote.operation_3;
             txtOperation4.Value = operNote.operation_4;
 
+            txtComplication.Value = operNote.complication_other;
+            txtSpecialSpecimen.Value = operNote.special_specimen;
+            txtEstimateBloodlose.Value = operNote.estimated_blood_loss;
+            txtTissueBiopsy.Value = operNote.tissue_biopsy_unit;
+
+            chkComplicationYes.Checked = operNote.complication.Equals("1") ? true : false;
+            chkComplicationNo.Checked = operNote.complication.Equals("0") ? true : false;
+            chkTissueBiopsyYes.Checked = operNote.tissue_biopsy.Equals("1") ? true : false;
+            chkTissueBiopsyNo.Checked = operNote.tissue_biopsy.Equals("0") ? true : false;
+
             //txtFinding.Value = operNote.finding_1;
 
             setControlFrmDoctorDiag();
@@ -522,7 +684,6 @@ namespace bangna_hospital.gui
             pnProcidures.Controls.Add(sCFinding);
             frmPrecidures.Show();
 
-
             frmFinding.Show();
         }
         private Boolean setOperativeNote()
@@ -573,6 +734,13 @@ namespace bangna_hospital.gui
             operNote.operation_3 = txtOperation3.Text.Trim();
             operNote.operation_4 = txtOperation4.Text.Trim();
             operNote.procidures_1 = bc.operative_note_precidures_1;
+            operNote.finding_1 = bc.operative_note_finding_1;
+            operNote.complication = chkComplicationYes.Checked ? "1" :"0";
+            operNote.special_specimen = txtSpecialSpecimen.Text.Trim();
+            operNote.estimated_blood_loss = txtEstimateBloodlose.Text.Trim();
+            operNote.tissue_biopsy = chkTissueBiopsyYes.Checked ? "1" : "0";
+            operNote.tissue_biopsy_unit = txtTissueBiopsy.Text.Trim();
+            operNote.complication_other = txtComplication.Text.Trim();
             chk = true;
             //chk = operNote.anesthetist_id_1.Length <= 0 ? false : true;
             return chk;
@@ -1022,7 +1190,6 @@ namespace bangna_hospital.gui
             //rc.Y = gapY - 2;
             //_c1pdf.DrawString(operNote.finding_1, txtFont, Brushes.Black, rc);
 
-
             OperativeNote operNote1 = new OperativeNote();      // ต้องดึงใหม่ เพื่อ มีการแก้ไข รูป แล้วไม่ได้ save Operative Note save แต่ richtextbox อย่างเดียว
             operNote1 = bc.bcDB.operNoteDB.selectByPk(operNote.operative_note_id);
             DocScan dscProcidures = new DocScan();
@@ -1035,22 +1202,47 @@ namespace bangna_hospital.gui
             streamFind = ftp.download(bc.iniC.folderFTP + "//" + dscFinding.image_path);
             Thread.Sleep(200);
             streamFind.Position = 0;
+            int sizertfFinding = 0, sizertfProcidures = 0;
             if (streamFind.Length > 0)
             {
                 StreamReader reader = new StreamReader(streamFind, System.Text.Encoding.UTF8, true);
                 String aaa = reader.ReadToEnd();
-                RectangleF myRectangle = new Rectangle(0, 0, 600, 400);
+                //RectangleF myRectangle = new Rectangle(0, 0, 600, 400);
                 //myRectangle.Size = _c1pdf.MeasureStringRtf(aaa, txtFont, rc.Width);
-                gapY += gapLine;
-                gapX = xCol1;
-                rc.X = gapX;
-                rc.Y = gapY;
+                
+                RichTextBox rtf = new RichTextBox();
+                rtf.Dock = System.Windows.Forms.DockStyle.Fill;
+                rtf.EnableAutoDragDrop = true;
+                rtf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+                rtf.Location = new System.Drawing.Point(0, 51);
+                rtf.Name = "rtf";
+                //rtf.Size = new System.Drawing.Size(667, 262);
+                rtf.TabIndex = 0;
+                rtf.ContentsResized += Rtf_ContentsResized;
+                //rtf.Text = "";
+                streamFind.Position = 0;
+                rtf.LoadFile(streamFind, RichTextBoxStreamType.RichText);
+                size = bc.MeasureString(rtf);
+                sizertfFinding = size.Width;
+
+                if ((gapY + rtfFinding) >= _c1pdf.PageSize.Height)
+                {
+                    _c1pdf.NewPage();
+                    gapY = gapLine;
+                }
+                else
+                {
+                    gapY += gapLine;
+                    gapX = xCol1;
+                    rc.X = gapX;
+                    rc.Y = gapY;
+                }
                 _c1pdf.DrawString("Finding ", txtFont, Brushes.Black, rc);
                 rc.X = gapX + 60;
                 rc.Y = gapY + 2;
                 _c1pdf.DrawStringRtf(aaa, txtFont, Brushes.White, rc);
             }
-
+            
             streamPro = ftp.download(bc.iniC.folderFTP + "//" + dscProcidures.image_path);
             Thread.Sleep(200);
             streamPro.Position = 0;
@@ -1058,9 +1250,29 @@ namespace bangna_hospital.gui
             {
                 StreamReader reader = new StreamReader(streamPro, System.Text.Encoding.UTF8, true);
                 String aaa = reader.ReadToEnd();
-                RectangleF myRectangle = new Rectangle(0, 0, 600, 400);
+                RichTextBox rtf1 = new RichTextBox();
+                rtf1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+                rtf1.Name = "rtf1";
+                streamPro.Position = 0;
+                rtf1.ContentsResized += Rtf1_ContentsResized;
+                rtf1.LoadFile(streamPro, RichTextBoxStreamType.RichText);
+                size = bc.MeasureString(rtf1);
+                sizertfProcidures = size.Width;
+                SizeF sizef = _c1pdf.PageSize;
+                //operNote1.procidures_1
+                if ((gapY + rtfFinding + rtfProcidures) >= _c1pdf.PageSize.Height)
+                {
+                    _c1pdf.NewPage();
+                    gapY = gapLine;
+                }
+                else
+                {
+                    gapY += sizertfFinding + 300;
+                }
+
+                //RectangleF myRectangle = new Rectangle(0, 0, 600, 400);
                 //myRectangle.Size = _c1pdf.MeasureStringRtf(aaa, txtFont, rc.Width);
-                gapY += 300;
+                
                 gapX = xCol1;
                 rc.X = gapX;
                 rc.Y = gapY;
@@ -1125,6 +1337,25 @@ namespace bangna_hospital.gui
 
             Process.Start(fileName);
         }
+
+        private void Rtf1_ContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            var richTextBox = (RichTextBox)sender;
+            richTextBox.Width = e.NewRectangle.Width;
+            richTextBox.Height = e.NewRectangle.Height;
+            rtfProcidures = richTextBox.Height;
+        }
+
+        private void Rtf_ContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            var richTextBox = (RichTextBox)sender;
+            richTextBox.Width = e.NewRectangle.Width;
+            richTextBox.Height = e.NewRectangle.Height;
+            rtfFinding = richTextBox.Height;
+        }
+
         private static IEnumerable<string> ReadLines(StreamReader stream)
         {
             StringBuilder sb = new StringBuilder();
@@ -1911,7 +2142,7 @@ namespace bangna_hospital.gui
             operNote.mnc_date = bc.datetoDB(ptt.visitDate);
             operNote.pre_no = ptt.preno;
             bc.hn = ptt.Hn;     // ใช้ในหน้าจอ FrmDoctorDiag1
-            lbPttName.Text = ptt.Name+" Age " + ptt.AgeStringShort() + " An " + bc.sPtt.an;
+            lbPttName.Text = ptt.Hn + " "+ptt.Name+" Age " + ptt.AgeStringShort() + " An " + bc.sPtt.an;
 
         }
         private void initGrfView()
@@ -1954,7 +2185,7 @@ namespace bangna_hospital.gui
 
         private void initCompoment()
         {
-            int gapLine = 30, gapX = 20, gapY = 20, xCol2=130, xCol1=80,xCol3=370, xCol4=700, xCol5=1030;
+            int gapLine = 25, gapX = 20, gapY = 20, xCol2=130, xCol1=80,xCol3=330, xCol4=640, xCol5=950;
             Size size = new Size();
             int scrW = Screen.PrimaryScreen.Bounds.Width;
             int scrH = Screen.PrimaryScreen.Bounds.Height;
@@ -2052,11 +2283,8 @@ namespace bangna_hospital.gui
 
             //gapY += gapLine;
 
-            lbDept = new Label();
-            lbDept.Text = "Department :";
-            lbDept.Font = fEdit;
-            lbDept.Location = new System.Drawing.Point(gapX, gapY);
-            lbDept.AutoSize = true;
+            lbDept = new Label();            
+            bc.setControlLabel(ref lbDept, fEdit, "Department :", "lbDept", gapX, gapY);
             size = bc.MeasureString(lbDept);
             txtDept = new C1TextBox();
             txtDept.Font = fEdit;
@@ -2153,37 +2381,34 @@ namespace bangna_hospital.gui
             txtTimeInsion = new C1TextBox();
             txtTimeInsion.Font = fEdit;
             txtTimeInsion.Location = new System.Drawing.Point(lbTimeInsion.Location.X + size.Width + 5, lbDateOperative.Location.Y);
+            txtTimeInsion.EditMask = "00:00";
+
             txtTimeInsion.Size = new Size(80, 30);
             lbTimeFinish = new Label();
-            lbTimeFinish.Text = "Finish Time :";
-            lbTimeFinish.Font = fEdit;
-            lbTimeFinish.Location = new System.Drawing.Point(txtTimeInsion.Location.X + txtTimeInsion.Width + 15, lbDateOperative.Location.Y);
-            lbTimeFinish.AutoSize = true;
+            bc.setControlLabel(ref lbTimeFinish, fEdit, "Finish Time :", "lbTimeFinish", txtTimeInsion.Location.X + txtTimeInsion.Width + 15, lbDateOperative.Location.Y);
             size = bc.MeasureString(lbTimeFinish);
             txtTimeFinish = new C1TextBox();
             txtTimeFinish.Font = fEdit;
             txtTimeFinish.Location = new System.Drawing.Point(lbTimeFinish.Location.X + size.Width + 5, lbDateOperative.Location.Y);
             txtTimeFinish.Size = new Size(80, 30);
+            txtTimeFinish.EditMask = "00:00";
             lbTotalTime = new Label();
-            lbTotalTime.Text = "Total Time :";
-            lbTotalTime.Font = fEdit;
-            lbTotalTime.Location = new System.Drawing.Point(txtTimeFinish.Location.X + txtTimeFinish.Width + 15, lbDateOperative.Location.Y);
-            lbTotalTime.AutoSize = true;
+            bc.setControlLabel(ref lbTotalTime, fEdit, "Total Time :", "lbTotalTime", txtTimeFinish.Location.X + txtTimeFinish.Width + 15, lbDateOperative.Location.Y);
             size = bc.MeasureString(lbTotalTime);
             txtTotalTime = new C1TextBox();
             txtTotalTime.Font = fEdit;
-            txtTotalTime.Location = new System.Drawing.Point(lbTotalTime.Location.X + size.Width + 5, lbDateOperative.Location.Y);
-            txtTotalTime.Size = new Size(80, 30);
+            txtTotalTime.Location = new System.Drawing.Point(lbTotalTime.Location.X + size.Width, lbDateOperative.Location.Y);
+            txtTotalTime.Size = new Size(50, 30);
             txtTotalTime.Name = "txtTotalTime";
 
             btnSave = new C1Button();
             btnSave.Name = "btnSave";
             btnSave.Text = "Save ";
             btnSave.Font = fEdit;
-            btnSave.Location = new System.Drawing.Point(txtTotalTime.Location.X + txtTotalTime.Width + 45, txtTotalTime.Location.Y);
+            btnSave.Location = new System.Drawing.Point(txtTotalTime.Location.X + txtTotalTime.Width + 5, txtTotalTime.Location.Y);
             btnSave.Size = new Size(90, 35);
             btnSave.Font = fEdit;
-            btnSave.Image = Resources.save;
+            btnSave.Image = Resources.Save_large;
             btnSave.TextAlign = ContentAlignment.MiddleRight;
             btnSave.ImageAlign = ContentAlignment.MiddleLeft;
             btnPrint = new C1Button();
@@ -2193,7 +2418,7 @@ namespace bangna_hospital.gui
             btnPrint.Location = new System.Drawing.Point(btnSave.Location.X + btnSave.Width + 35, txtTotalTime.Location.Y);
             btnPrint.Size = new Size(90, 35);
             btnPrint.Font = fEdit;
-            btnPrint.Image = Resources.printer_blue16;
+            btnPrint.Image = Resources.printer_blue24;
             btnPrint.TextAlign = ContentAlignment.MiddleRight;
             btnPrint.ImageAlign = ContentAlignment.MiddleLeft;
 
@@ -2207,17 +2432,11 @@ namespace bangna_hospital.gui
 
             gapY += gapLine;
             lbSurgeon = new Label();
-            lbSurgeon.Text = "Surgeon ";
-            lbSurgeon.Font = fEdit;
-            lbSurgeon.Location = new System.Drawing.Point(gapX, gapY);
-            lbSurgeon.AutoSize = true;
+            bc.setControlLabel(ref lbSurgeon, fEdit, "Surgeon ", "lbSurgeon", gapX, gapY);
             //size = bc.MeasureString(lbSurgeon);
             gapY += gapLine;
             lbSurgeon1 = new Label();
-            lbSurgeon1.Text = "1 :";
-            lbSurgeon1.Font = fEdit;
-            lbSurgeon1.Location = new System.Drawing.Point(gapX, gapY);
-            lbSurgeon1.AutoSize = true;
+            bc.setControlLabel(ref lbSurgeon1, fEdit, "1 :", "lbSurgeon1", gapX, gapY);
             size = bc.MeasureString(lbSurgeon1);
             txtSurgeon1 = new C1TextBox();
             txtSurgeon1.Font = fEdit;
@@ -2225,22 +2444,13 @@ namespace bangna_hospital.gui
             txtSurgeon1.Size = new Size(80, 30);
             txtSurgeon1.Name = "txtSurgeon1";
             lbSurgeonName1 = new Label();
-            lbSurgeonName1.Text = "...";
-            lbSurgeonName1.Font = fEdit;
-            lbSurgeonName1.Location = new System.Drawing.Point(txtSurgeon1.Location.X + txtSurgeon1.Width + 15, lbSurgeon1.Location.Y);
-            lbSurgeonName1.AutoSize = true;
-            lbSurgeonName1.Name = "lbSurgeonName1";
+            bc.setControlLabel(ref lbSurgeonName1, fEdit, "...", "lbSurgeonName1", txtSurgeon1.Location.X + txtSurgeon1.Width + 5, lbSurgeon1.Location.Y);
 
             lbAssistant = new Label();
-            lbAssistant.Text = "Assistant ";
-            lbAssistant.Font = fEdit;
-            lbAssistant.Location = new System.Drawing.Point(xCol3, lbSurgeon.Location.Y);
-            lbAssistant.AutoSize = true;
+            bc.setControlLabel(ref lbAssistant, fEdit, "Assistant ", "lbAssistant", xCol3, lbSurgeon.Location.Y);
             size = bc.MeasureString(lbAssistant);
             lbAssistant1 = new Label();
-            lbAssistant1.Text = "1 :";
-            lbAssistant1.Font = fEdit;
-            lbAssistant1.Location = new System.Drawing.Point(xCol3, lbSurgeon1.Location.Y);
+            bc.setControlLabel(ref lbAssistant1, fEdit, "1 :", "lbAssistant1", xCol3, lbSurgeon1.Location.Y);
             lbAssistant1.AutoSize = true;
             size = bc.MeasureString(lbAssistant1);
             txtAssistant1 = new C1TextBox();
@@ -2249,17 +2459,10 @@ namespace bangna_hospital.gui
             txtAssistant1.Size = new Size(80, 30);
             txtAssistant1.Name = "txtAssistant1";
             lbAssistantName1 = new Label();
-            lbAssistantName1.Text = "...";
-            lbAssistantName1.Font = fEdit;
-            lbAssistantName1.Location = new System.Drawing.Point(txtAssistant1.Location.X + txtAssistant1.Width + 15, lbSurgeon1.Location.Y);
-            lbAssistantName1.AutoSize = true;
-            lbAssistantName1.Name = "lbAssistantName1";
+            bc.setControlLabel(ref lbAssistantName1, fEdit, "...", "lbAssistantName1", txtAssistant1.Location.X + txtAssistant1.Width + 5, lbSurgeon1.Location.Y);
 
             lbScrubNurse = new Label();
-            lbScrubNurse.Text = "Scrub Nurse ";
-            lbScrubNurse.Font = fEdit;
-            lbScrubNurse.Location = new System.Drawing.Point(xCol4, lbSurgeon.Location.Y);
-            lbScrubNurse.AutoSize = true;
+            bc.setControlLabel(ref lbScrubNurse, fEdit, "Scrub Nurse ", "lbScrubNurse", xCol4, lbSurgeon.Location.Y);
             size = bc.MeasureString(lbScrubNurse);
             lbScrubNurse1 = new Label();
             lbScrubNurse1.Text = "1 :";
@@ -2275,7 +2478,7 @@ namespace bangna_hospital.gui
             lbScrubNurseName1 = new Label();
             lbScrubNurseName1.Text = "...";
             lbScrubNurseName1.Font = fEdit;
-            lbScrubNurseName1.Location = new System.Drawing.Point(txtScrubNurse1.Location.X + txtScrubNurse1.Width + 15, lbSurgeon1.Location.Y);
+            lbScrubNurseName1.Location = new System.Drawing.Point(txtScrubNurse1.Location.X + txtScrubNurse1.Width + 5, lbSurgeon1.Location.Y);
             lbScrubNurseName1.AutoSize = true;
             lbScrubNurseName1.Name = "lbScrubNurseName1";
 
@@ -2299,7 +2502,7 @@ namespace bangna_hospital.gui
             lbCircuNurseName1 = new Label();
             lbCircuNurseName1.Text = "...";
             lbCircuNurseName1.Font = fEdit;
-            lbCircuNurseName1.Location = new System.Drawing.Point(txtCircuNurse1.Location.X + txtCircuNurse1.Width + 15, lbSurgeon1.Location.Y);
+            lbCircuNurseName1.Location = new System.Drawing.Point(txtCircuNurse1.Location.X + txtCircuNurse1.Width + 5, lbSurgeon1.Location.Y);
             lbCircuNurseName1.AutoSize = true;
             lbCircuNurseName1.Name = "lbCircuNurseName1";
 
@@ -2319,7 +2522,7 @@ namespace bangna_hospital.gui
             lbSurgeonName2 = new Label();
             lbSurgeonName2.Text = "...";
             lbSurgeonName2.Font = fEdit;
-            lbSurgeonName2.Location = new System.Drawing.Point(txtSurgeon2.Location.X + txtSurgeon2.Width + 15, lbSurgeon2.Location.Y);
+            lbSurgeonName2.Location = new System.Drawing.Point(txtSurgeon2.Location.X + txtSurgeon2.Width + 5, lbSurgeon2.Location.Y);
             lbSurgeonName2.AutoSize = true;
             lbSurgeonName2.Name = "lbSurgeonName2";
             lbAssistant2 = new Label();
@@ -2336,7 +2539,7 @@ namespace bangna_hospital.gui
             lbAssistantName2 = new Label();
             lbAssistantName2.Text = "...";
             lbAssistantName2.Font = fEdit;
-            lbAssistantName2.Location = new System.Drawing.Point(txtAssistant2.Location.X + txtAssistant2.Width + 15, lbSurgeon2.Location.Y);
+            lbAssistantName2.Location = new System.Drawing.Point(txtAssistant2.Location.X + txtAssistant2.Width + 5, lbSurgeon2.Location.Y);
             lbAssistantName2.AutoSize = true;
             lbAssistantName2.Name = "lbAssistantName2";
 
@@ -2354,7 +2557,7 @@ namespace bangna_hospital.gui
             lbScrubNurseName2 = new Label();
             lbScrubNurseName2.Text = "...";
             lbScrubNurseName2.Font = fEdit;
-            lbScrubNurseName2.Location = new System.Drawing.Point(txtScrubNurse2.Location.X + txtScrubNurse2.Width + 15, lbSurgeon2.Location.Y);
+            lbScrubNurseName2.Location = new System.Drawing.Point(txtScrubNurse2.Location.X + txtScrubNurse2.Width + 5, lbSurgeon2.Location.Y);
             lbScrubNurseName2.AutoSize = true;
             lbScrubNurseName2.Name = "lbScrubNurseName2";
 
@@ -2372,7 +2575,7 @@ namespace bangna_hospital.gui
             lbCircuNurseName2 = new Label();
             lbCircuNurseName2.Text = "...";
             lbCircuNurseName2.Font = fEdit;
-            lbCircuNurseName2.Location = new System.Drawing.Point(txtCircuNurse2.Location.X + txtCircuNurse2.Width + 15, lbSurgeon2.Location.Y);
+            lbCircuNurseName2.Location = new System.Drawing.Point(txtCircuNurse2.Location.X + txtCircuNurse2.Width + 5, lbSurgeon2.Location.Y);
             lbCircuNurseName2.AutoSize = true;
             lbCircuNurseName2.Name = "lbCircuNurseName2";
 
@@ -2544,7 +2747,7 @@ namespace bangna_hospital.gui
             lbPerfusionistName1 = new Label();
             lbPerfusionistName1.Text = "...";
             lbPerfusionistName1.Font = fEdit;
-            lbPerfusionistName1.Location = new System.Drawing.Point(txtPerfusionist1.Location.X + txtPerfusionist1.Width + 15, lbPerfusionist1.Location.Y);
+            lbPerfusionistName1.Location = new System.Drawing.Point(txtPerfusionist1.Location.X + txtPerfusionist1.Width + 5, lbPerfusionist1.Location.Y);
             lbPerfusionistName1.AutoSize = true;
             lbPerfusionistName1.Name = "lbPerfusionistName1";
 
@@ -2564,7 +2767,7 @@ namespace bangna_hospital.gui
             lbPerfusionistName2 = new Label();
             lbPerfusionistName2.Text = "...";
             lbPerfusionistName2.Font = fEdit;
-            lbPerfusionistName2.Location = new System.Drawing.Point(txtPerfusionist2.Location.X + txtPerfusionist2.Width + 15, lbPerfusionist2.Location.Y);
+            lbPerfusionistName2.Location = new System.Drawing.Point(txtPerfusionist2.Location.X + txtPerfusionist2.Width + 5, lbPerfusionist2.Location.Y);
             lbPerfusionistName2.AutoSize = true;
             lbPerfusionistName2.Name = "lbPerfusionistName2";
 
@@ -2588,7 +2791,7 @@ namespace bangna_hospital.gui
             lbAnesthetistName1 = new Label();
             lbAnesthetistName1.Text = "...";
             lbAnesthetistName1.Font = fEdit;
-            lbAnesthetistName1.Location = new System.Drawing.Point(txtAnesthetist1.Location.X + txtAnesthetist1.Width + 15, lbPerfusionist1.Location.Y);
+            lbAnesthetistName1.Location = new System.Drawing.Point(txtAnesthetist1.Location.X + txtAnesthetist1.Width + 5, lbPerfusionist1.Location.Y);
             lbAnesthetistName1.AutoSize = true;
             lbAnesthetistName1.Name = "lbAnesthetistName1";
 
@@ -2604,7 +2807,7 @@ namespace bangna_hospital.gui
             txtAnesthetistAssist1.Size = new Size(80, 30);
             txtAnesthetistAssist1.Name = "txtAnesthetistAssist1";
             lbAnesthetistAssistName1 = new Label();
-            bc.setControlLabel(ref lbAnesthetistAssistName1, fEdit, "...", "lbAnesthetistAssistName1", txtAnesthetistAssist1.Location.X + txtAnesthetistAssist1.Width + 15, lbPerfusionist1.Location.Y);
+            bc.setControlLabel(ref lbAnesthetistAssistName1, fEdit, "...", "lbAnesthetistAssistName1", txtAnesthetistAssist1.Location.X + txtAnesthetistAssist1.Width + 5, lbPerfusionist1.Location.Y);
 
             lbAnesthetistAssist2 = new Label();
             bc.setControlLabel(ref lbAnesthetistAssist2, fEdit, "2 :", "lbAnesthetistAssist2", xCol4, lbPerfusionist2.Location.Y);
@@ -2615,14 +2818,12 @@ namespace bangna_hospital.gui
             txtAnesthetistAssist2.Size = new Size(80, 30);
             txtAnesthetistAssist2.Name = "txtAnesthetistAssist2";
             lbAnesthetistAssistName2 = new Label();
-            bc.setControlLabel(ref lbAnesthetistAssistName2, fEdit, "...", "lbAnesthetistAssistName2", txtAnesthetistAssist1.Location.X + txtAnesthetistAssist1.Width + 15, lbPerfusionist2.Location.Y);
+            bc.setControlLabel(ref lbAnesthetistAssistName2, fEdit, "...", "lbAnesthetistAssistName2", txtAnesthetistAssist1.Location.X + txtAnesthetistAssist1.Width + 5, lbPerfusionist2.Location.Y);
 
             gapY += gapLine;
             lbAnesthetistTechni = new Label();
-            bc.setControlLabel(ref lbAnesthetistTechni, fEdit, "Anesthetist Technique", "lbAnesthetistTechni", xCol3 - 200, gapY);
-
+            bc.setControlLabel(ref lbAnesthetistTechni, fEdit, "Anesthetist Technique", "lbAnesthetistTechni", gapX+100, gapY);
             size = bc.MeasureString(lbAnesthetistTechni);
-            
             txtAnesthetistTechni1 = new C1TextBox();
             txtAnesthetistTechni1.Font = fEdit;
             txtAnesthetistTechni1.Location = new System.Drawing.Point(lbAnesthetistTechni.Location.X + size.Width + 5, lbAnesthetistTechni.Location.Y);
@@ -2637,6 +2838,7 @@ namespace bangna_hospital.gui
             txtTimeAnthe.Location = new System.Drawing.Point(lbTimeAnthe.Location.X + size.Width + 5, lbAnesthetistTechni.Location.Y);
             txtTimeAnthe.Size = new Size(80, 30);
             txtTimeAnthe.Name = "txtTimeAnthe";
+            txtTimeAnthe.EditMask = "00:00";
             lbTimeFinishAnthe = new Label();
             bc.setControlLabel(ref lbTimeFinishAnthe, fEdit, "Finish :", "lbTimeFinishAnthe", txtTimeAnthe.Location.X + txtTimeAnthe.Width + 15, lbAnesthetistTechni.Location.Y);
             size = bc.MeasureString(lbTimeFinishAnthe);
@@ -2645,13 +2847,14 @@ namespace bangna_hospital.gui
             txtTimeFinishAnthe.Location = new System.Drawing.Point(lbTimeFinishAnthe.Location.X + size.Width + 5, lbAnesthetistTechni.Location.Y);
             txtTimeFinishAnthe.Size = new Size(80, 30);
             txtTimeFinishAnthe.Name = "txtTimeFinishAnthe";
+            txtTimeFinishAnthe.EditMask = "00:00";
             lbTotalTimeAnthe = new Label();
             bc.setControlLabel(ref lbTotalTimeAnthe, fEdit, "Total :", "lbTotalTimeAnthe", txtTimeFinishAnthe.Location.X + txtTimeFinishAnthe.Width + 15, lbAnesthetistTechni.Location.Y);
             size = bc.MeasureString(lbTotalTimeAnthe);
             txtTotalTimeAnthe = new C1TextBox();
             txtTotalTimeAnthe.Font = fEdit;
-            txtTotalTimeAnthe.Location = new System.Drawing.Point(lbTotalTimeAnthe.Location.X + size.Width + 5, lbAnesthetistTechni.Location.Y);
-            txtTotalTimeAnthe.Size = new Size(80, 30);
+            txtTotalTimeAnthe.Location = new System.Drawing.Point(lbTotalTimeAnthe.Location.X + size.Width, lbAnesthetistTechni.Location.Y);
+            txtTotalTimeAnthe.Size = new Size(50, 30);
             txtTotalTimeAnthe.Name = "txtTotalTimeAnthe";
 
             int widthoperation = 500;
@@ -2714,7 +2917,6 @@ namespace bangna_hospital.gui
             txtOperation2.Name = "txtOperation2";
 
             lbOperation4 = new Label();
-            
             bc.setControlLabel(ref lbOperation4, fEdit, "Operation4 :", "lbOperation4", xCol4, gapY);
             size = bc.MeasureString(lbOperation4);
             txtOperation4 = new C1TextBox();
@@ -2724,9 +2926,85 @@ namespace bangna_hospital.gui
             txtOperation4.Name = "txtOperation4";
 
             gapY += gapLine;
+            lbComplication = new Label();
+            bc.setControlLabel(ref lbComplication, fEdit, "Complication ", "lbComplication", gapX, gapY);
+            size = bc.MeasureString(lbComplication);
+            pnComplication = new Panel();
+            pnComplication.Location = new System.Drawing.Point(lbComplication.Location.X + size.Width + 5, lbComplication.Location.Y-8);
+            pnComplication.Size = new Size(130, 40);
+            chkComplicationNo = new RadioButton();
+            chkComplicationNo.Name = "chkComplicationNo";
+            chkComplicationNo.Font = fEdit;
+            chkComplicationNo.Text = "NO";
+            size = bc.MeasureString(chkComplicationNo);
+            chkComplicationNo.Location = new System.Drawing.Point(10, 10);
+            chkComplicationNo.Width = size.Width+20;
+            chkComplicationYes = new RadioButton();
+            chkComplicationYes.Name = "chkComplicationYes";
+            chkComplicationYes.Font = fEdit;
+            chkComplicationYes.Text = "YES";
+            chkComplicationYes.Location = new System.Drawing.Point(size.Width +40, 10);
+            size = bc.MeasureString(chkComplicationYes);
+            chkComplicationYes.Width = size.Width + 20;
+            pnComplication.Controls.Add(chkComplicationNo);
+            pnComplication.Controls.Add(chkComplicationYes);
+            txtComplication = new C1TextBox();
+            txtComplication.Font = fEdit;
+            txtComplication.Location = new System.Drawing.Point(pnComplication.Location.X + pnComplication.Width + 5, lbComplication.Location.Y);
+            txtComplication.Size = new Size(100, 30);
+            txtComplication.Name = "txtComplication";
+            lbEstimateBloodlose = new Label();
+            bc.setControlLabel(ref lbEstimateBloodlose, fEdit, "Estimate Blood lose ", "lbEstimateBloodlose", txtComplication.Location.X + txtComplication.Width + 30, lbComplication.Location.Y);
+            size = bc.MeasureString(lbEstimateBloodlose);
+            txtEstimateBloodlose = new C1TextBox();
+            txtEstimateBloodlose.Font = fEdit;
+            txtEstimateBloodlose.Location = new System.Drawing.Point(lbEstimateBloodlose.Location.X + size.Width + 5, lbComplication.Location.Y);
+            txtEstimateBloodlose.Size = new Size(60, 30);
+            txtEstimateBloodlose.Name = "txtEstimateBloodlose";
+            lbEstimateBloodloseUnit = new Label();
+            bc.setControlLabel(ref lbEstimateBloodloseUnit, fEdit, "ML. ", "lbEstimateBloodloseUnit", txtEstimateBloodlose.Location.X + txtEstimateBloodlose.Width + 5, lbComplication.Location.Y);
+            size = bc.MeasureString(lbEstimateBloodloseUnit);
+            lbTissueBiopsy = new Label();
+            bc.setControlLabel(ref lbTissueBiopsy, fEdit, "Tissue Biopsy ", "lbTissueBiopsy", lbEstimateBloodloseUnit.Location.X+ size.Width + 35, lbComplication.Location.Y);
+            size = bc.MeasureString(lbTissueBiopsy);
+            pnTissue = new Panel();
+            pnTissue.Location = new System.Drawing.Point(lbTissueBiopsy.Location.X + size.Width + 5, lbTissueBiopsy.Location.Y - 8);
+            pnTissue.Size = new Size(130, 40);
+            chkTissueBiopsyNo = new RadioButton();
+            chkTissueBiopsyNo.Name = "chkTissueBiopsyNo";
+            chkTissueBiopsyNo.Font = fEdit;
+            chkTissueBiopsyNo.Text = "NO";
+            size = bc.MeasureString(chkTissueBiopsyNo);
+            chkTissueBiopsyNo.Location = new System.Drawing.Point(10, 10);
+            chkTissueBiopsyNo.Width = size.Width + 20;
+            chkTissueBiopsyYes = new RadioButton();
+            chkTissueBiopsyYes.Name = "chkTissueBiopsyYes";
+            chkTissueBiopsyYes.Font = fEdit;
+            chkTissueBiopsyYes.Text = "YES";
+            chkTissueBiopsyYes.Location = new System.Drawing.Point(size.Width + 40, 10);
+            size = bc.MeasureString(chkTissueBiopsyYes);
+            chkTissueBiopsyYes.Width = size.Width + 20;
+            pnTissue.Controls.Add(chkTissueBiopsyNo);
+            pnTissue.Controls.Add(chkTissueBiopsyYes);
+            txtTissueBiopsy = new C1TextBox();
+            txtTissueBiopsy.Font = fEdit;
+            txtTissueBiopsy.Location = new System.Drawing.Point(pnTissue.Location.X + pnTissue.Width + 5, lbTissueBiopsy.Location.Y);
+            txtTissueBiopsy.Size = new Size(100, 30);
+            txtTissueBiopsy.Name = "txtTissueBiopsy";
+
+            lbSpecialSpecimen = new Label();
+            bc.setControlLabel(ref lbSpecialSpecimen, fEdit, "Unit     Special Specimen ", "lbSpecialSpecimen", txtTissueBiopsy.Location.X + txtTissueBiopsy.Width + 5, lbTissueBiopsy.Location.Y);
+            size = bc.MeasureString(lbSpecialSpecimen);
+            txtSpecialSpecimen = new C1TextBox();
+            txtSpecialSpecimen.Font = fEdit;
+            txtSpecialSpecimen.Location = new System.Drawing.Point(lbSpecialSpecimen.Location.X + size.Width + 5, lbTissueBiopsy.Location.Y);
+            txtSpecialSpecimen.Size = new Size(200, 30);
+            txtSpecialSpecimen.Name = "txtSpecialSpecimen";
+
+            gapY += gapLine;
             pnProcidures = new Panel();
             pnProcidures.Dock = DockStyle.Bottom;
-            pnProcidures.Height = 300;
+            //pnProcidures.Height = 300;
             //pnProcidures.BackColor = Color.Red;
             pnProcidures.Location = new System.Drawing.Point(gapX, gapY);
             
@@ -2888,6 +3166,18 @@ namespace bangna_hospital.gui
             pnOperative.Controls.Add(txtDept);
             pnOperative.Controls.Add(txtDtrId);
 
+            pnOperative.Controls.Add(lbComplication);
+            pnOperative.Controls.Add(txtComplication);
+            pnOperative.Controls.Add(pnComplication);
+            pnOperative.Controls.Add(pnTissue);
+            pnOperative.Controls.Add(lbEstimateBloodlose);
+            pnOperative.Controls.Add(lbTissueBiopsy);
+            pnOperative.Controls.Add(lbSpecialSpecimen);
+            pnOperative.Controls.Add(txtEstimateBloodlose);
+            pnOperative.Controls.Add(txtTissueBiopsy);
+            pnOperative.Controls.Add(txtSpecialSpecimen);
+            pnOperative.Controls.Add(lbEstimateBloodloseUnit);
+
             pnOperative.Controls.Add(btnPrint);
             pnOperative.Controls.Add(btnSave);
 
@@ -2904,8 +3194,8 @@ namespace bangna_hospital.gui
 
             size = bc.MeasureString(lbTitle);
             //lbTitle.Location = new System.Drawing.Point((scrW / 2) + (size.Width / 2), gapY);
-            pnProcidures.Location = new System.Drawing.Point(gapX, txtOperation4.Location.Y + gapLine);
-            pnProcidures.Height = scrH - txtOperation4.Location.Y -100;
+            pnProcidures.Location = new System.Drawing.Point(gapX, lbComplication.Location.Y + gapLine);
+            pnProcidures.Height = scrH - lbComplication.Location.Y -100;
             scOperAdd.SizeRatio = 100;
             scOperView.SizeRatio = 0;
             //scOperView.
@@ -2914,7 +3204,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             this.WindowState = FormWindowState.Maximized;
-            this.Text = "Last Update 2020-08-04 ";
+            this.Text = "Last Update 2020-08-06 ";
             setLayout();
         }
     }

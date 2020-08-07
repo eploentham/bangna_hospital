@@ -109,6 +109,7 @@
             this.c1FlexReport1 = new C1.Win.FlexReport.C1FlexReport();
             this.c1PdfDocument2 = new C1.C1Pdf.C1PdfDocument();
             this.c1PdfDocumentSource1 = new C1.Win.C1Document.C1PdfDocumentSource(this.components);
+            this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -135,6 +136,7 @@
             this.c1CommandDock1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // c1Combo1
@@ -919,11 +921,28 @@
             this.c1PdfDocument2.UseFastTextOut = true;
             this.c1PdfDocument2.UseFontShaping = true;
             // 
+            // c1TextBox2
+            // 
+            this.c1TextBox2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.c1TextBox2.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
+            this.c1TextBox2.EditMask = "XX:XX";
+            this.c1TextBox2.Location = new System.Drawing.Point(376, 381);
+            this.c1TextBox2.MaskInfo.EmptyAsNull = true;
+            this.c1TextBox2.MaskInfo.Inherit = ((C1.Win.C1Input.MaskInfoInheritFlags)((C1.Win.C1Input.MaskInfoInheritFlags.CaseSensitive | C1.Win.C1Input.MaskInfoInheritFlags.ErrorMessage)));
+            this.c1TextBox2.Name = "c1TextBox2";
+            this.c1TextBox2.Size = new System.Drawing.Size(100, 18);
+            this.c1TextBox2.TabIndex = 6;
+            this.c1TextBox2.Tag = null;
+            this.c1ThemeController1.SetTheme(this.c1TextBox2, "(default)");
+            this.c1TextBox2.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.c1TextBox2);
             this.Controls.Add(this.c1List1);
             this.Controls.Add(this.c1CommandDock1);
             this.Controls.Add(this.c1DockingTab2);
@@ -961,6 +980,7 @@
             this.c1CommandDock1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1046,6 +1066,7 @@
         private C1.Win.C1Ribbon.RibbonButton NormalSizeButton;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
         private C1.Win.FlexViewer.C1FlexViewer c1FlexViewer2;
+        private C1.Win.C1Input.C1TextBox c1TextBox2;
     }
 }
 
