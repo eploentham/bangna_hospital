@@ -1,4 +1,5 @@
-﻿using bangna_hospital.control;
+﻿using AutocompleteMenuNS;
+using bangna_hospital.control;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.C1Pdf;
@@ -20,6 +21,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -81,10 +83,22 @@ namespace bangna_hospital.gui
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         C1.C1Pdf.C1PdfDocument _c1pdf;
+        RichTextBox rtbBcPreOpration, rtbBcPostOpration, rtbBcOperation;
 
         int rtfFinding = 0, rtfProcidures=0;
         String opernote_id = "";
         int colHn = 1, colName = 2, colAn = 3, colDateOper = 4, colDept = 5, colWard = 6, colAttending = 7, colID=8;
+
+        AutocompleteMenu acmPreOper, acmPostOper, acmOperation;
+        string[] keywords = { "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "explore", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "wound", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
+        string[] methods = { "Equals()", "GetHashCode()", "GetType()", "ToString()" };
+        string[] snippets = { "if(^)\n{\n}", "if(^)\n{\n}\nelse\n{\n}", "for(^;;)\n{\n}", "while(^)\n{\n}", "do${\n^}while();", "switch(^)\n{\n\tcase : break;\n}" };
+        string[] declarationSnippets = {
+               "public class ^\n{\n}", "private class ^\n{\n}", "internal class ^\n{\n}",
+               "public struct ^\n{\n}", "private struct ^\n{\n}", "internal struct ^\n{\n}",
+               "public void ^()\n{\n}", "private void ^()\n{\n}", "internal void ^()\n{\n}", "protected void ^()\n{\n}",
+               "public ^{ get; set; }", "private ^{ get; set; }", "internal ^{ get; set; }", "protected ^{ get; set; }"
+               };
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -111,6 +125,9 @@ namespace bangna_hospital.gui
             _c1pdf.Security.AllowEditAnnotations = true;
             _c1pdf.Security.AllowEditContent = true;
             _c1pdf.Security.AllowPrint = true;
+            bc.readPreOperation();
+            bc.readPostOperation();
+            bc.readOperation();
 
             initCompoment();
             initGrfView();
@@ -159,6 +176,13 @@ namespace bangna_hospital.gui
             txtOperation3.KeyUp += TxtOperation3_KeyUp;
             txtOperation4.KeyUp += TxtOperation4_KeyUp;
 
+            lbPreOperation.DoubleClick += LbPreOperation_DoubleClick;
+            lbPostOperation.DoubleClick += LbPostOperation_DoubleClick;
+            lbOperation1.DoubleClick += LbOperation1_DoubleClick;
+            lbOperation2.DoubleClick += LbOperation1_DoubleClick;
+            lbOperation3.DoubleClick += LbOperation1_DoubleClick;
+            lbOperation4.DoubleClick += LbOperation1_DoubleClick;
+
             txtDateOperative.Value = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
             setContextMenuAnesthesis();
             setContextMenuOrDepartment();
@@ -168,6 +192,143 @@ namespace bangna_hospital.gui
             txtWard.ContextMenu = menuDept;
 
             setControl();
+            acmPreOper = new AutocompleteMenuNS.AutocompleteMenu();
+            acmPreOper.AllowsTabKey = true;
+            //autocompleteMenu1.Colors = ((AutocompleteMenuNS.Colors)(Resources.GetObject("autocompleteMenu1.Colors")));
+            acmPreOper.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 9F);
+            //autocompleteMenu1.ImageList = this.imageList1;
+            acmPreOper.Items = new string[0];
+            acmPreOper.SearchPattern = "[\\w\\.:=!<>]";
+            acmPreOper.TargetControlWrapper = null;
+
+            acmPostOper = new AutocompleteMenuNS.AutocompleteMenu();
+            acmPostOper.AllowsTabKey = true;
+            acmPostOper.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 9F);
+            acmPostOper.Items = new string[0];
+            acmPostOper.SearchPattern = "[\\w\\.:=!<>]";
+            acmPostOper.TargetControlWrapper = null;
+
+            acmOperation = new AutocompleteMenuNS.AutocompleteMenu();
+            acmOperation.AllowsTabKey = true;
+            acmOperation.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 9F);
+            acmOperation.Items = new string[0];
+            acmOperation.SearchPattern = "[\\w\\.:=!<>]";
+            acmOperation.TargetControlWrapper = null;
+
+            BuildAutocompleteMenuPreOpration();
+            BuildAutocompleteMenuPostOpration();
+            BuildAutocompleteMenuOpration();
+            acmPreOper.SetAutocompleteMenu(txtPreOperation, acmPreOper);
+            acmPostOper.SetAutocompleteMenu(txtPostOperation, acmPostOper);
+            acmOperation.SetAutocompleteMenu(txtOperation1, acmOperation);
+            acmOperation.SetAutocompleteMenu(txtOperation2, acmOperation);
+            acmOperation.SetAutocompleteMenu(txtOperation3, acmOperation);
+            acmOperation.SetAutocompleteMenu(txtOperation4, acmOperation);
+        }
+
+        private void LbOperation1_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            Form frm = new Form();
+            frm.Name = "";
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.WindowState = FormWindowState.Normal;
+            frm.Size = new Size(300, 400);
+            frm.FormClosing += Frm_FormClosing2;
+
+            rtbBcOperation = new System.Windows.Forms.RichTextBox();
+            rtbBcOperation.AcceptsTab = true;
+            //this.rtbDocument.ContextMenuStrip = this.contextMenu;
+            rtbBcOperation.Dock = System.Windows.Forms.DockStyle.Fill;
+            rtbBcOperation.EnableAutoDragDrop = true;
+            rtbBcOperation.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            rtbBcOperation.Location = new System.Drawing.Point(0, 51);
+            rtbBcOperation.Name = "rtbBcOperation";
+            rtbBcOperation.Size = new System.Drawing.Size(frm.Width - 20, frm.Height - 20);
+            rtbBcOperation.TabIndex = 0;
+
+            rtbBcOperation.LoadFile(bc.ToStreamTxt(bc.operation), RichTextBoxStreamType.PlainText);
+
+            frm.Controls.Add(rtbBcOperation);
+            frm.ShowDialog(this);
+        }
+
+        private void LbPostOperation_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            Form frm = new Form();
+            frm.Name = "";
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.WindowState = FormWindowState.Normal;
+            frm.Size = new Size(300, 400);
+            frm.FormClosing += Frm_FormClosing1;
+
+            rtbBcPostOpration = new System.Windows.Forms.RichTextBox();
+            rtbBcPostOpration.AcceptsTab = true;
+            //this.rtbDocument.ContextMenuStrip = this.contextMenu;
+            rtbBcPostOpration.Dock = System.Windows.Forms.DockStyle.Fill;
+            rtbBcPostOpration.EnableAutoDragDrop = true;
+            rtbBcPostOpration.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            rtbBcPostOpration.Location = new System.Drawing.Point(0, 51);
+            rtbBcPostOpration.Name = "rtbBcPostOpration";
+            rtbBcPostOpration.Size = new System.Drawing.Size(frm.Width - 20, frm.Height - 20);
+            rtbBcPostOpration.TabIndex = 0;
+
+            rtbBcPostOpration.LoadFile(bc.ToStreamTxt(bc.postoperation), RichTextBoxStreamType.PlainText);
+
+            frm.Controls.Add(rtbBcPostOpration);
+            frm.ShowDialog(this);
+        }
+
+        private void LbPreOperation_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            Form frm = new Form();
+            frm.Name = "";
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.WindowState = FormWindowState.Normal;
+            frm.Size = new Size(300, 400);
+            frm.FormClosing += Frm_FormClosing;
+
+            rtbBcPreOpration = new System.Windows.Forms.RichTextBox();
+            rtbBcPreOpration.AcceptsTab = true;
+            //this.rtbDocument.ContextMenuStrip = this.contextMenu;
+            rtbBcPreOpration.Dock = System.Windows.Forms.DockStyle.Fill;
+            rtbBcPreOpration.EnableAutoDragDrop = true;
+            rtbBcPreOpration.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            rtbBcPreOpration.Location = new System.Drawing.Point(0, 51);
+            rtbBcPreOpration.Name = "rtbBcPreOpration";
+            rtbBcPreOpration.Size = new System.Drawing.Size(frm.Width-20, frm.Height - 20);
+            rtbBcPreOpration.TabIndex = 0;
+            
+            rtbBcPreOpration.LoadFile(bc.ToStreamTxt(bc.preoperation), RichTextBoxStreamType.PlainText);
+
+            frm.Controls.Add(rtbBcPreOpration);
+            frm.ShowDialog(this);
+        }
+        private void Frm_FormClosing2(object sender, FormClosingEventArgs e)
+        {
+            //throw new NotImplementedException();
+            bc.operation = rtbBcOperation.Text.Split('\n');
+            bc.writeOperation();
+            bc.readOperation();
+            BuildAutocompleteMenuOpration();
+        }
+        private void Frm_FormClosing1(object sender, FormClosingEventArgs e)
+        {
+            //throw new NotImplementedException();
+            bc.postoperation = rtbBcPostOpration.Text.Split('\n');
+            bc.writePostOperation();
+            bc.readPostOperation();
+            BuildAutocompleteMenuPostOpration();
+        }
+        private void Frm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //throw new NotImplementedException();
+            bc.preoperation = rtbBcPreOpration.Text.Split('\n');
+            bc.writePreOperation();
+            bc.readPreOperation();
+            BuildAutocompleteMenuPreOpration();
         }
 
         private void TxtOperation4_KeyUp(object sender, KeyEventArgs e)
@@ -761,10 +922,10 @@ namespace bangna_hospital.gui
             //rc.Inflate(-10, 0);
 
             // add title
-            Font titleFont = new Font("Microsoft Sans Serif", 18, FontStyle.Bold);
-            Font hdrFont = new Font("Microsoft Sans Serif", 16, FontStyle.Bold);
-            Font ftrFont = new Font("Microsoft Sans Serif", 8);
-            Font txtFont = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
+            Font titleFont = new Font(bc.iniC.grdViewFontName, 18, FontStyle.Bold);
+            Font hdrFont = new Font(bc.iniC.grdViewFontName, 16, FontStyle.Bold);
+            Font ftrFont = new Font(bc.iniC.grdViewFontName, 8);
+            Font txtFont = new Font(bc.iniC.grdViewFontName, 10, FontStyle.Regular);
 
             rc.X = gapX;
             rc.Y = gapY;
@@ -1178,17 +1339,94 @@ namespace bangna_hospital.gui
             rc.Y = gapY - 2;
             _c1pdf.DrawString(operNote.operation_4, txtFont, Brushes.Black, rc);
 
-            //gapY += gapLine;
-            //gapX = xCol1;
-            //rc.X = gapX;
-            //rc.Y = gapY;
-            //_c1pdf.DrawString("Finding ", txtFont, Brushes.Black, rc);
-            //rc.X = gapX + 60;
-            //rc.Y = gapY + 2;
-            //_c1pdf.DrawString("..................................................................................................................................................... ", txtFont, Brushes.Black, rc);
-            //rc.X = gapX + 62;
-            //rc.Y = gapY - 2;
-            //_c1pdf.DrawString(operNote.finding_1, txtFont, Brushes.Black, rc);
+            gapY += gapLine;
+            gapX = xCol1;
+            rc.X = gapX;
+            rc.Y = gapY;
+            _c1pdf.DrawString("Complication ", txtFont, Brushes.Black, rc);
+            if (operNote.complication.Equals("1"))
+            {
+                rc.X = gapX + 60;
+                rc.Y = gapY + 2;
+                _c1pdf.DrawString(".................................................................................................................................... ", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 62;
+                rc.Y = gapY - 2;
+                _c1pdf.DrawString("YES", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 92;
+                rc.Y = gapY - 2;
+                _c1pdf.DrawString(operNote.complication_other, txtFont, Brushes.Black, rc);
+            }
+            else
+            {
+                rc.X = gapX + 60;
+                rc.Y = gapY + 2;
+                _c1pdf.DrawString("................ ", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 62;
+                rc.Y = gapY - 2;
+                _c1pdf.DrawString("NO", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 92;
+                rc.Y = gapY - 2;
+                _c1pdf.DrawString(operNote.complication_other, txtFont, Brushes.Black, rc);
+            }
+            
+
+            gapY += gapLine;
+            gapX = xCol1;
+            rc.X = gapX;
+            rc.Y = gapY;
+            _c1pdf.DrawString("Estimated Blood loss ", txtFont, Brushes.Black, rc);
+            rc.X = gapX + 95;
+            rc.Y = gapY + 2;
+            _c1pdf.DrawString("................ ", txtFont, Brushes.Black, rc);
+            rc.X = gapX + 97;
+            rc.Y = gapY - 2;
+            _c1pdf.DrawString(operNote.estimated_blood_loss, txtFont, Brushes.Black, rc);
+            rc.X = gapX + 145;
+            rc.Y = gapY + 2;
+            _c1pdf.DrawString("ML. ", txtFont, Brushes.Black, rc);
+
+            gapX = xCol3;
+            rc.X = gapX;
+            rc.Y = gapY;
+            _c1pdf.DrawString("TISSUE BIOPSY ", txtFont, Brushes.Black, rc);
+            if (operNote.tissue_biopsy.Equals("1"))
+            {
+                rc.X = gapX + 63;
+                rc.Y = gapY + 2;
+                _c1pdf.DrawString("................ ", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 65;
+                rc.Y = gapY - 2;
+                _c1pdf.DrawString(operNote.tissue_biopsy, txtFont, Brushes.Black, rc);
+                rc.X = gapX + 125;
+                rc.Y = gapY + 2;
+                _c1pdf.DrawString("UNIT", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 95;
+                rc.Y = gapY - 2;
+                _c1pdf.DrawString(operNote.tissue_biopsy_unit, txtFont, Brushes.Black, rc);
+            }
+            else
+            {
+                rc.X = gapX + 83;
+                rc.Y = gapY + 2;
+                _c1pdf.DrawString("................ ", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 85;
+                rc.Y = gapY - 2;
+                _c1pdf.DrawString("-", txtFont, Brushes.Black, rc);
+                rc.X = gapX + 135;
+                rc.Y = gapY + 2;
+                _c1pdf.DrawString("UNIT", txtFont, Brushes.Black, rc);
+            }
+            gapY += gapLine;
+            gapX = xCol1;
+            rc.X = gapX;
+            rc.Y = gapY;
+            _c1pdf.DrawString("Special Specimen ", txtFont, Brushes.Black, rc);
+            rc.X = gapX + 83;
+            rc.Y = gapY + 2;
+            _c1pdf.DrawString("....................................................................................................................................................................... ", txtFont, Brushes.Black, rc);
+            rc.X = gapX + 85;
+            rc.Y = gapY - 2;
+            _c1pdf.DrawString(operNote.special_specimen, txtFont, Brushes.Black, rc);
 
             OperativeNote operNote1 = new OperativeNote();      // ต้องดึงใหม่ เพื่อ มีการแก้ไข รูป แล้วไม่ได้ save Operative Note save แต่ richtextbox อย่างเดียว
             operNote1 = bc.bcDB.operNoteDB.selectByPk(operNote.operative_note_id);
@@ -1213,7 +1451,7 @@ namespace bangna_hospital.gui
                 RichTextBox rtf = new RichTextBox();
                 rtf.Dock = System.Windows.Forms.DockStyle.Fill;
                 rtf.EnableAutoDragDrop = true;
-                rtf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+                rtf.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
                 rtf.Location = new System.Drawing.Point(0, 51);
                 rtf.Name = "rtf";
                 //rtf.Size = new System.Drawing.Size(667, 262);
@@ -1234,9 +1472,9 @@ namespace bangna_hospital.gui
                 {
                     gapY += gapLine;
                     gapX = xCol1;
-                    rc.X = gapX;
-                    rc.Y = gapY;
                 }
+                rc.X = gapX;
+                rc.Y = gapY;
                 _c1pdf.DrawString("Finding ", txtFont, Brushes.Black, rc);
                 rc.X = gapX + 60;
                 rc.Y = gapY + 2;
@@ -1251,7 +1489,7 @@ namespace bangna_hospital.gui
                 StreamReader reader = new StreamReader(streamPro, System.Text.Encoding.UTF8, true);
                 String aaa = reader.ReadToEnd();
                 RichTextBox rtf1 = new RichTextBox();
-                rtf1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+                rtf1.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
                 rtf1.Name = "rtf1";
                 streamPro.Position = 0;
                 rtf1.ContentsResized += Rtf1_ContentsResized;
@@ -2362,7 +2600,7 @@ namespace bangna_hospital.gui
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart)
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)
             | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            txtDateOperative.Font = new System.Drawing.Font("Microsoft Sans Serif", 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            txtDateOperative.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             txtDateOperative.GMTOffset = System.TimeSpan.Parse("00:00:00");
             txtDateOperative.ImagePadding = new System.Windows.Forms.Padding(0);
             size = bc.MeasureString(lbDateOperative);
@@ -3199,6 +3437,189 @@ namespace bangna_hospital.gui
             scOperAdd.SizeRatio = 100;
             scOperView.SizeRatio = 0;
             //scOperView.
+        }
+        private void BuildAutocompleteMenuPreOpration()
+        {
+            var items = new List<AutocompleteItem>();
+            if (bc.preoperation != null)
+            {
+                foreach (var item in bc.preoperation)
+                    items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
+            }
+            foreach (var item in declarationSnippets)
+                items.Add(new DeclarationSnippet(item) { ImageIndex = 0 });
+            foreach (var item in methods)
+                items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2 });
+            foreach (var item in keywords)
+                items.Add(new AutocompleteItem(item));
+
+            items.Add(new InsertSpaceSnippet());
+            items.Add(new InsertSpaceSnippet(@"^(\w+)([=<>!:]+)(\w+)$"));
+            items.Add(new InsertEnterSnippet());
+
+            //set as autocomplete source
+            acmPreOper.SetAutocompleteItems(items);
+        }
+        private void BuildAutocompleteMenuPostOpration()
+        {
+            var items = new List<AutocompleteItem>();
+            if(bc.postoperation != null)
+            {
+                foreach (var item in bc.postoperation)
+                    items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
+            }
+            
+            foreach (var item in declarationSnippets)
+                items.Add(new DeclarationSnippet(item) { ImageIndex = 0 });
+            foreach (var item in methods)
+                items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2 });
+            foreach (var item in keywords)
+                items.Add(new AutocompleteItem(item));
+
+            items.Add(new InsertSpaceSnippet());
+            items.Add(new InsertSpaceSnippet(@"^(\w+)([=<>!:]+)(\w+)$"));
+            items.Add(new InsertEnterSnippet());
+
+            //set as autocomplete source
+            acmPostOper.SetAutocompleteItems(items);
+        }
+        private void BuildAutocompleteMenuOpration()
+        {
+            var items = new List<AutocompleteItem>();
+            if (bc.operation != null)
+            {
+                foreach (var item in bc.operation)
+                    items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
+            }
+
+            foreach (var item in declarationSnippets)
+                items.Add(new DeclarationSnippet(item) { ImageIndex = 0 });
+            foreach (var item in methods)
+                items.Add(new MethodAutocompleteItem(item) { ImageIndex = 2 });
+            foreach (var item in keywords)
+                items.Add(new AutocompleteItem(item));
+
+            items.Add(new InsertSpaceSnippet());
+            items.Add(new InsertSpaceSnippet(@"^(\w+)([=<>!:]+)(\w+)$"));
+            items.Add(new InsertEnterSnippet());
+
+            //set as autocomplete source
+            acmOperation.SetAutocompleteItems(items);
+        }
+        class DeclarationSnippet : SnippetAutocompleteItem
+        {
+            public static string RegexSpecSymbolsPattern = @"[\^\$\[\]\(\)\.\\\*\+\|\?\{\}]";
+
+            public DeclarationSnippet(string snippet)
+                : base(snippet)
+            {
+            }
+
+            public override CompareResult Compare(string fragmentText)
+            {
+                var pattern = Regex.Replace(fragmentText, RegexSpecSymbolsPattern, "\\$0");
+                if (Regex.IsMatch(Text, "\\b" + pattern, RegexOptions.IgnoreCase))
+                    return CompareResult.Visible;
+                return CompareResult.Hidden;
+            }
+        }
+        /// <summary>
+        /// Divides numbers and words: "123AND456" -> "123 AND 456"
+        /// Or "i=2" -> "i = 2"
+        /// </summary>
+        class InsertSpaceSnippet : AutocompleteItem
+        {
+            string pattern;
+
+            public InsertSpaceSnippet(string pattern)
+                : base("")
+            {
+                this.pattern = pattern;
+            }
+
+            public InsertSpaceSnippet()
+                : this(@"^(\d+)([a-zA-Z_]+)(\d*)$")
+            {
+            }
+
+            public override CompareResult Compare(string fragmentText)
+            {
+                if (Regex.IsMatch(fragmentText, pattern))
+                {
+                    Text = InsertSpaces(fragmentText);
+                    if (Text != fragmentText)
+                        return CompareResult.Visible;
+                }
+                return CompareResult.Hidden;
+            }
+
+            public string InsertSpaces(string fragment)
+            {
+                var m = Regex.Match(fragment, pattern);
+                if (m.Groups[1].Value == "" && m.Groups[3].Value == "")
+                    return fragment;
+                return (m.Groups[1].Value + " " + m.Groups[2].Value + " " + m.Groups[3].Value).Trim();
+            }
+
+            public override string ToolTipTitle
+            {
+                get
+                {
+                    return Text;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inerts line break after '}'
+        /// </summary>
+        class InsertEnterSnippet : AutocompleteItem
+        {
+            int enterPlace = 0;
+
+            public InsertEnterSnippet()
+                : base("[Line break]")
+            {
+            }
+
+            public override CompareResult Compare(string fragmentText)
+            {
+                var tb = Parent.TargetControlWrapper;
+
+                var text = tb.Text;
+                for (int i = Parent.Fragment.Start - 1; i >= 0; i--)
+                {
+                    if (text[i] == '\n')
+                        break;
+                    if (text[i] == '}')
+                    {
+                        enterPlace = i;
+                        return CompareResult.Visible;
+                    }
+                }
+
+                return CompareResult.Hidden;
+            }
+
+            public override string GetTextForReplace()
+            {
+                var tb = Parent.TargetControlWrapper;
+
+                //insert line break
+                tb.SelectionStart = enterPlace + 1;
+                tb.SelectedText = "\n";
+                Parent.Fragment.Start += 1;
+                Parent.Fragment.End += 1;
+                return Parent.Fragment.Text;
+            }
+
+            public override string ToolTipTitle
+            {
+                get
+                {
+                    return "Insert line break after '}'";
+                }
+            }
         }
         private void FrmOrOperativeNote_Load(object sender, EventArgs e)
         {

@@ -35,6 +35,7 @@ namespace bangna_hospital.control
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
         public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0;
+        public String[] preoperation, postoperation, operation;
         
         public BangnaControl()
         {
@@ -1401,10 +1402,124 @@ namespace bangna_hospital.control
         }
         public void setControlC1TextBox(ref C1TextBox txt, Font fEdit, String text, int width, int x, int y)
         {
+            //txt = new C1TextBox();
             txt.Font = fEdit;
             txt.Location = new System.Drawing.Point(x, y);
             txt.Size = new Size(width, 30);
             txt.Name = text;
+        }
+        public Boolean readOperation()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\opration.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                operation = File.ReadAllLines(filename);
+            }
+            return chk;
+        }
+        public Boolean writeOperation()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\opration.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                File.WriteAllLines(filename, operation, Encoding.UTF8);
+            }
+            else
+            {
+                File.CreateText(filename);
+            }
+            return chk;
+        }
+        public Boolean readPostOperation()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\postopration.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                postoperation = File.ReadAllLines(filename);
+            }            
+            return chk;
+        }
+        public Boolean writePostOperation()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\postopration.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                File.WriteAllLines(filename, postoperation, Encoding.UTF8);
+            }
+            else
+            {
+                File.CreateText(filename);
+            }
+            return chk;
+        }
+        public Boolean readPreOperation()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\preopration.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                preoperation = File.ReadAllLines(filename);
+                
+            }
+            return chk;
+        }
+        public Boolean writePreOperation()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\preopration.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                File.WriteAllLines(filename, preoperation, Encoding.UTF8);
+            }
+            else
+            {
+                File.CreateText(filename);
+            }
+            return chk;
+        }
+        public Stream ToStream(String str)
+        {
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(str);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
+        }
+        public Stream ToStreamTxt(String[] str)
+        {
+            if (str == null) return null;
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            foreach(String txt in str)
+            {
+                writer.Write(txt+ Environment.NewLine);
+            }
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
     }
 }

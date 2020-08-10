@@ -104,12 +104,14 @@
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1CommandDock1 = new C1.Win.C1Command.C1CommandDock();
             this.c1List1 = new C1.Win.C1List.C1List();
+            this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
             this.c1DockingManager1 = new C1.Win.C1Command.C1DockingManager(this.components);
             this.c1PdfDocument1 = new C1.C1Pdf.C1PdfDocument();
             this.c1FlexReport1 = new C1.Win.FlexReport.C1FlexReport();
             this.c1PdfDocument2 = new C1.C1Pdf.C1PdfDocument();
             this.c1PdfDocumentSource1 = new C1.Win.C1Document.C1PdfDocumentSource(this.components);
-            this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.autocompleteMenu1 = new AutocompleteMenuNS.AutocompleteMenu();
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -135,8 +137,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).BeginInit();
             this.c1CommandDock1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
             this.SuspendLayout();
             // 
             // c1Combo1
@@ -203,6 +205,7 @@
             // c1DateEdit2
             // 
             this.c1DateEdit2.AllowSpinLoop = false;
+            this.autocompleteMenu1.SetAutocompleteMenu(this.c1DateEdit2, null);
             this.c1DateEdit2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
             this.c1DateEdit2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.c1DateEdit2.Calendar.ArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
@@ -241,6 +244,7 @@
             // c1DateEdit1
             // 
             this.c1DateEdit1.AllowSpinLoop = false;
+            this.autocompleteMenu1.SetAutocompleteMenu(this.c1DateEdit1, null);
             this.c1DateEdit1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             // 
             // 
@@ -271,6 +275,7 @@
             // 
             // c1TextBox1
             // 
+            this.autocompleteMenu1.SetAutocompleteMenu(this.c1TextBox1, null);
             this.c1TextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
             this.c1TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.c1TextBox1.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
@@ -880,6 +885,23 @@
             this.c1ThemeController1.SetTheme(this.c1List1, "(default)");
             this.c1List1.PropBag = resources.GetString("c1List1.PropBag");
             // 
+            // c1TextBox2
+            // 
+            this.autocompleteMenu1.SetAutocompleteMenu(this.c1TextBox2, null);
+            this.c1TextBox2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.c1TextBox2.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
+            this.c1TextBox2.EditMask = "XX:XX";
+            this.c1TextBox2.Location = new System.Drawing.Point(376, 381);
+            this.c1TextBox2.MaskInfo.EmptyAsNull = true;
+            this.c1TextBox2.MaskInfo.Inherit = ((C1.Win.C1Input.MaskInfoInheritFlags)((C1.Win.C1Input.MaskInfoInheritFlags.CaseSensitive | C1.Win.C1Input.MaskInfoInheritFlags.ErrorMessage)));
+            this.c1TextBox2.Name = "c1TextBox2";
+            this.c1TextBox2.Size = new System.Drawing.Size(100, 18);
+            this.c1TextBox2.TabIndex = 6;
+            this.c1TextBox2.Tag = null;
+            this.c1ThemeController1.SetTheme(this.c1TextBox2, "(default)");
+            this.c1TextBox2.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // c1DockingManager1
             // 
             this.c1DockingManager1.ParentContainer = this;
@@ -921,27 +943,29 @@
             this.c1PdfDocument2.UseFastTextOut = true;
             this.c1PdfDocument2.UseFontShaping = true;
             // 
-            // c1TextBox2
+            // richTextBox1
             // 
-            this.c1TextBox2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
-            this.c1TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.c1TextBox2.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
-            this.c1TextBox2.EditMask = "XX:XX";
-            this.c1TextBox2.Location = new System.Drawing.Point(376, 381);
-            this.c1TextBox2.MaskInfo.EmptyAsNull = true;
-            this.c1TextBox2.MaskInfo.Inherit = ((C1.Win.C1Input.MaskInfoInheritFlags)((C1.Win.C1Input.MaskInfoInheritFlags.CaseSensitive | C1.Win.C1Input.MaskInfoInheritFlags.ErrorMessage)));
-            this.c1TextBox2.Name = "c1TextBox2";
-            this.c1TextBox2.Size = new System.Drawing.Size(100, 18);
-            this.c1TextBox2.TabIndex = 6;
-            this.c1TextBox2.Tag = null;
-            this.c1ThemeController1.SetTheme(this.c1TextBox2, "(default)");
-            this.c1TextBox2.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.autocompleteMenu1.SetAutocompleteMenu(this.richTextBox1, this.autocompleteMenu1);
+            this.richTextBox1.Location = new System.Drawing.Point(376, 33);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(100, 96);
+            this.richTextBox1.TabIndex = 8;
+            this.richTextBox1.Text = "";
+            // 
+            // autocompleteMenu1
+            // 
+            this.autocompleteMenu1.Colors = ((AutocompleteMenuNS.Colors)(resources.GetObject("autocompleteMenu1.Colors")));
+            this.autocompleteMenu1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.autocompleteMenu1.ImageList = null;
+            this.autocompleteMenu1.Items = new string[0];
+            this.autocompleteMenu1.TargetControlWrapper = null;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.c1TextBox2);
             this.Controls.Add(this.c1List1);
             this.Controls.Add(this.c1CommandDock1);
@@ -979,8 +1003,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1CommandDock1)).EndInit();
             this.c1CommandDock1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1067,6 +1091,8 @@
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
         private C1.Win.FlexViewer.C1FlexViewer c1FlexViewer2;
         private C1.Win.C1Input.C1TextBox c1TextBox2;
+        private AutocompleteMenuNS.AutocompleteMenu autocompleteMenu1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

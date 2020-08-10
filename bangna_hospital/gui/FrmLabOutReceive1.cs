@@ -1699,6 +1699,11 @@ namespace bangna_hospital.gui
                         new LogWriter("d", "chkAttendUrgent 01 hn "+ dsc.hn+ " doc_scan_id " + dsc.doc_scan_id);
                         String cmd = "", args = "";
                         cmd = bc.iniC.pathline_bot_labout_urgent_bangna;
+                        if (!File.Exists(cmd))
+                        {
+                            new LogWriter("d", "chkAttendUrgent 01 hn " + cmd + " not found ");
+                            return;
+                        }
                         args = dsc.doc_scan_id;
                         ProcessStartInfo start = new ProcessStartInfo();
                         start.FileName = "python.exe";
@@ -2805,7 +2810,7 @@ namespace bangna_hospital.gui
                 if (filename2.Replace(".pdf", "").Length < 10)
                 {
                     String datetick = "";
-                    new LogWriter("e", "Filename ไม่ถูก FORMAT" + filename);
+                    new LogWriter("e", "madical online Filename ไม่ถูก FORMAT" + filename);
                     listBox2.Items.Add("Filename ไม่ถูก FORMAT " + filename);
                     //MessageBox.Show("Filename ไม่ถูก FORMAT", "");
                     datetick = DateTime.Now.Ticks.ToString();
