@@ -1607,7 +1607,7 @@ namespace bangna_hospital.gui
                         }
                         stream.Seek(0, SeekOrigin.Begin);
                         String ext = Path.GetExtension(rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
-                                                
+
                         Application.DoEvents();
                         
                         tcHnLabOut.TabPages.Add(tabHnLabOut);

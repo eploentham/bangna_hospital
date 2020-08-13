@@ -35,7 +35,7 @@ namespace bangna_hospital.control
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
         public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0;
-        public String[] preoperation, postoperation, operation;
+        public String[] preoperation, postoperation, operation, fining, procidures;
         
         public BangnaControl()
         {
@@ -1496,6 +1496,32 @@ namespace bangna_hospital.control
             else
             {
                 File.CreateText(filename);
+            }
+            return chk;
+        }
+        public Boolean readFinding()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\finding.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                fining = File.ReadAllLines(filename);
+            }
+            return chk;
+        }
+        public Boolean readProcidures()
+        {
+            Boolean chk = true;
+            String path = "", filename = "";
+            path = "medical";
+            filename = path + "\\procidures.txt";
+            if (File.Exists(filename))
+            {
+                // Store each line in array of strings 
+                procidures = File.ReadAllLines(filename);
             }
             return chk;
         }

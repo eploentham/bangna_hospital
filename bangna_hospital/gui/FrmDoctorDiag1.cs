@@ -88,6 +88,8 @@ namespace bangna_hospital.gui
             ptt = bc.bcDB.pttDB.selectPatinet(hn);
 
             InitComponent();
+            bc.readFinding();
+            bc.readProcidures();
             BuildAutocompleteMenu();
             autocompleteMenu1.SetAutocompleteMenu(this.rtbDocument, autocompleteMenu1);
             this.Load += FrmDoctorDiag1_Load;
@@ -447,6 +449,11 @@ namespace bangna_hospital.gui
                     return;
                 }
             }
+            else if (bc.hn.Equals(""))
+            {
+                MessageBox.Show("ไม่พบ HN บันทึก ไม่สำเร็จ ", "");
+                return;
+            }
             try
             {
                 bc.cStf.staff_id = "";
@@ -503,22 +510,27 @@ namespace bangna_hospital.gui
                         {
                             dsc.ml_fm = "FM-MED-902";       //
                         }
-                        else if (status.Equals("operative_note"))
+                        else if (status.Equals("operative_note_precidures_1"))
                         {
                             dsc.ml_fm = "FM-MED-903";       //
                         }
-                        bc.bcDB.dscDB.voidDocScanByStatusMedicalExamination(hn, dsc.ml_fm, bc.vsdate, bc.preno, bc.cStf.staff_id);
+                        else if (status.Equals("operative_note_finding_1"))
+                        {
+                            dsc.ml_fm = "FM-MED-904";       //
+                        }
+                        bc.bcDB.dscDB.voidDocScanByStatusMedicalExamination(bc.hn, dsc.ml_fm, bc.vsdate, bc.preno, bc.cStf.staff_id);
                         dsc.patient_fullname = ptt.Name;
                         dsc.status_record = "5";        // status medical diagnose
                         dsc.comp_labout_id = "";
                         String re = bc.bcDB.dscDB.insertMedicalExamination(dsc, bc.userId);
-                        dsc.image_path = hn + "//" + status + "_" + bc.hn + "_" + bc.vsdate + "_" + bc.preno + "_" + re + ext;
+                        dsc.image_path = bc.hn + "//" + status + "_" + bc.hn + "_" + bc.vsdate + "_" + bc.preno + "_" + re + ext;
                         String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
-                        ftp.createDirectory(bc.iniC.folderFTP + "//" + hn.Replace("/", "-"));       // สร้าง Folder HN
+                        ftp.createDirectory(bc.iniC.folderFTP + "//" + bc.hn.Replace("/", "-"));       // สร้าง Folder HN
                         ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
                         Thread.Sleep(100);
                         if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
                         {
+                            new LogWriter("d", "FrmDoctorDiag1 TsbtnSave_Click status "+ status);
                             if (status.Equals("cc"))
                             {
                                 
@@ -534,6 +546,7 @@ namespace bangna_hospital.gui
                             else if (status.Equals("operative_note_precidures_1"))
                             {
                                 bc.operative_note_precidures_1 = re;
+                                new LogWriter("d", "FrmDoctorDiag1 TsbtnSave_Click status " + status+" re "+ re);
                                 bc.bcDB.operNoteDB.updateProcidures1(opernoteid, re);
                             }
                             else if (status.Equals("operative_note_finding_1"))
@@ -1083,9 +1096,20 @@ namespace bangna_hospital.gui
         private void BuildAutocompleteMenu()
         {
             var items = new List<AutocompleteItem>();
-
-            foreach (var item in snippets)
-                items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
+            if (bc.fining != null)
+            {
+                //foreach (var item in snippets)
+                if (status.Equals("operative_note_finding_1"))
+                {
+                    foreach (var item in bc.fining)
+                        items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
+                }
+                else if (status.Equals("operative_note_precidures_1"))
+                {
+                    foreach (var item in bc.fining)
+                        items.Add(new SnippetAutocompleteItem(item) { ImageIndex = 1 });
+                }
+            }
             foreach (var item in declarationSnippets)
                 items.Add(new DeclarationSnippet(item) { ImageIndex = 0 });
             foreach (var item in methods)

@@ -63,6 +63,25 @@ namespace bangna_hospital.gui
             btnUpdate.Click += BtnUpdate_Click;
             btnFmCode.Click += BtnFmCode_Click;
             txtMlFmCode.Enter += TxtMlFmCode_Enter;
+            txtMlFmCodeNew.Enter += TxtMlFmCodeNew_Enter;
+            txtMlFmCodeNew.EnabledChanged += TxtMlFmCodeNew_EnabledChanged;
+        }
+
+        private void TxtMlFmCodeNew_EnabledChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String[] txt = txtMlFmCodeNew.Text.Trim().Split('-');
+            if (txt.Length >= 2)
+            {
+                String code = "";
+                code = "FM" + txt[1] + "-" + txt[2];
+            }
+        }
+
+        private void TxtMlFmCodeNew_Enter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            
         }
 
         private void TxtMlFmCode_Enter(object sender, EventArgs e)
@@ -108,8 +127,8 @@ namespace bangna_hospital.gui
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (MessageBox.Show("ต้องการ บันทึกข้อมูล \nFM code เดิม "+txtMlFmCode.Text+" Fm code ใหม่ "+txtMlFmCodeNew.Text, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
+            //if (MessageBox.Show("ต้องการ บันทึกข้อมูล \nFM code เดิม "+txtMlFmCode.Text+" Fm code ใหม่ "+txtMlFmCodeNew.Text, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //{
                 String re = "";
                 int chk = 0;
                 re = bc.bcDB.dscDB.updateFmCodeByFmCodeLimit(txtMlFmCodeNew.Text.Trim(), txtMlFmCode.Text,"40");
@@ -117,7 +136,7 @@ namespace bangna_hospital.gui
                 setGrfLeft();
                 grfImg.Rows.Count = 0;
                 //txtMlFmCodeNew.Value = "";
-            }
+            //}
         }
 
         private void setConponent()
