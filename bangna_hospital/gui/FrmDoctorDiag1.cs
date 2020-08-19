@@ -50,6 +50,7 @@ namespace bangna_hospital.gui
         ToolStripButton tsbtnBullets;
         ToolStripButton tsbtnInsertPicture;
         ToolStripButton tsbtnInsertPicture1;
+        
         ToolStripSeparator toolStripSeparator5;
         ToolStripSeparator toolStripSeparator6;
         ToolStripButton tsbtnUndo;
@@ -57,6 +58,8 @@ namespace bangna_hospital.gui
         ToolStripLabel tslbTitle;
         private C1ThemeController theme1;
         RichTextBox rtbDocument;
+        ToolStripDropDownButton tsddb;
+        ToolStripMenuItem tsmAbdomen, tsdFinger, tsdFingerThumb, tsdFootRight, tsdFootLeft, tsdHandRight, tsdHandLeft;
 
         AutocompleteMenu autocompleteMenu1;
         string[] keywords = { "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "explore", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "wound", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
@@ -110,10 +113,14 @@ namespace bangna_hospital.gui
             ptt = new Patient();
             ptt = bc.bcDB.pttDB.selectPatinet(hn);
 
-            InitComponent();
+            initConfig();
             BuildAutocompleteMenu();
             autocompleteMenu1.SetAutocompleteMenu(this.rtbDocument, autocompleteMenu1);
             this.Load += FrmDoctorDiag1_Load;
+        }
+        private void initConfig()
+        {
+            InitComponent();
         }
         private void InitComponent()
         {
@@ -157,6 +164,17 @@ namespace bangna_hospital.gui
             tsbtnUndo = new System.Windows.Forms.ToolStripButton();
             tsbtnRedo = new System.Windows.Forms.ToolStripButton();
             tslbTitle = new System.Windows.Forms.ToolStripLabel();
+            tsddb = new System.Windows.Forms.ToolStripDropDownButton();
+            tsmAbdomen = new System.Windows.Forms.ToolStripMenuItem();
+            tsdFinger = new System.Windows.Forms.ToolStripMenuItem();
+            tsdFingerThumb = new System.Windows.Forms.ToolStripMenuItem();
+            tsdHandLeft = new System.Windows.Forms.ToolStripMenuItem();
+            tsdHandRight = new System.Windows.Forms.ToolStripMenuItem();
+            tsdFootLeft = new System.Windows.Forms.ToolStripMenuItem();
+            tsdFootRight = new System.Windows.Forms.ToolStripMenuItem();
+
+            this.toolStrip1.SuspendLayout();
+            this.SuspendLayout();
 
             this.rtbDocument.AcceptsTab = true;
             //this.rtbDocument.ContextMenuStrip = this.contextMenu;
@@ -192,7 +210,7 @@ namespace bangna_hospital.gui
             this.tsbtnBullets,
             this.toolStripSeparator5,
             this.tsbtnInsertPicture,
-            this.tsbtnInsertPicture1,
+            this.tsddb,
             this.toolStripSeparator6,
             tslbTitle
             });
@@ -414,16 +432,112 @@ namespace bangna_hospital.gui
             this.tsbtnInsertPicture1.ToolTipText = "Insert Table Picture";
             this.tsbtnInsertPicture1.Click += TsbtnInsertPicture1_Click;
 
+            this.tsddb.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsddb.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmAbdomen,
+            this.tsdFinger,
+            this.tsdFingerThumb,
+            this.tsdFootLeft,
+            this.tsdFootRight,
+            this.tsdHandLeft,
+            this.tsdHandRight});
+            this.tsddb.Image = ((System.Drawing.Image)(Resources.maintenance16));
+            this.tsddb.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddb.Name = "tsddb";
+            this.tsddb.Size = new System.Drawing.Size(29, 22);
+            this.tsddb.Text = "tsddb";
+
+            this.tsmAbdomen.Name = "tsmAbdomen";
+            this.tsmAbdomen.Size = new System.Drawing.Size(180, 22);
+            this.tsmAbdomen.Text = "รูป Abdomen";
+            tsmAbdomen.Click += TsmAbdomen_Click;
+            // 
+            // bbbToolStripMenuItem
+            // 
+            this.tsdFinger.Name = "tsdFinger";
+            this.tsdFinger.Size = new System.Drawing.Size(180, 22);
+            this.tsdFinger.Text = "รูป นิ้ว";
+            tsdFinger.Click += TsdFinger_Click;
+            // 
+            // cccToolStripMenuItem
+            // 
+            this.tsdFingerThumb.Name = "tsdFingerThumb";
+            this.tsdFingerThumb.Size = new System.Drawing.Size(180, 22);
+            this.tsdFingerThumb.Text = "รูป นิ้วโป้ง";
+            tsdFingerThumb.Click += TsdFingerThumb_Click;
+
+            this.tsdFootLeft.Name = "tsdFootLeft";
+            this.tsdFootLeft.Size = new System.Drawing.Size(180, 22);
+            this.tsdFootLeft.Text = "รูป เท้าซ้าย";
+            tsdFootLeft.Click += TsdFootLeft_Click;
+
+            this.tsdFootRight.Name = "tsdFootRight";
+            this.tsdFootRight.Size = new System.Drawing.Size(180, 22);
+            this.tsdFootRight.Text = "รูป เท้าขวา";
+            tsdFootRight.Click += TsdFootRight_Click;
+
+            this.tsdHandLeft.Name = "tsdHandLeft";
+            this.tsdHandLeft.Size = new System.Drawing.Size(180, 22);
+            this.tsdHandLeft.Text = "รูป มือซ้าย";
+            tsdHandLeft.Click += TsdHandLeft_Click;
+
+            this.tsdHandRight.Name = "tsdHandRight";
+            this.tsdHandRight.Size = new System.Drawing.Size(180, 22);
+            this.tsdHandRight.Text = "รูป มือขวา";
+            tsdHandRight.Click += TsdHandRight_Click;
+
             this.Controls.Add(this.rtbDocument);
             this.Controls.Add(this.toolStrip1);
 
-            toolStrip1.SuspendLayout();
-            this.SuspendLayout();
+            //toolStrip1.SuspendLayout();
+            //this.SuspendLayout();
 
             toolStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             toolStrip1.PerformLayout();
             this.PerformLayout();
+        }
+
+        private void TsdHandRight_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertPicture("hand_right");
+        }
+
+        private void TsdHandLeft_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertPicture("hand_left");
+        }
+
+        private void TsdFootRight_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertPicture("foot_right");
+        }
+
+        private void TsdFootLeft_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertPicture("foot_left");
+        }
+
+        private void TsdFingerThumb_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertPicture("finger_thumb");
+        }
+
+        private void TsdFinger_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertPicture("finger");
+        }
+
+        private void TsmAbdomen_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            insertPicture("abdomen");
         }
 
         private void TsbtnSave_Click(object sender, EventArgs e)
@@ -546,11 +660,21 @@ namespace bangna_hospital.gui
                             else if (status.Equals("operative_note_precidures_1"))
                             {
                                 bc.operative_note_precidures_1 = re;
-                                new LogWriter("d", "FrmDoctorDiag1 TsbtnSave_Click status " + status+" re "+ re);
-                                bc.bcDB.operNoteDB.updateProcidures1(opernoteid, re);
+                                if (opernoteid.Length == 0)
+                                {
+                                    MessageBox.Show("no id operative note please save", "");
+                                    opernoteid = bc.operative_note_id;
+                                }
+                                String re2 = bc.bcDB.operNoteDB.updateProcidures1(opernoteid, re);
+                                new LogWriter("d", "FrmDoctorDiag1 TsbtnSave_Click status " + status + " re " + re + " opernoteid " + opernoteid+" re2 "+re2);
                             }
                             else if (status.Equals("operative_note_finding_1"))
                             {
+                                if (opernoteid.Length == 0)
+                                {
+                                    MessageBox.Show("no id operative note please save", "");
+                                    opernoteid = bc.operative_note_id;
+                                }
                                 bc.operative_note_finding_1 = re;
                                 bc.bcDB.operNoteDB.updateFinding1(opernoteid, re);
                             }
@@ -829,6 +953,32 @@ namespace bangna_hospital.gui
                 datetick = DateTime.Now.Ticks.ToString();
                 filename = "temp_med\\" + datetick + ".jpg";
                 File.Copy(@"white_300_200.jpg", filename);
+                var filePath = @filename;
+                ProcessStartInfo Info = new ProcessStartInfo()
+                {
+                    FileName = "mspaint.exe",
+                    WindowStyle = ProcessWindowStyle.Maximized,
+                    Arguments = filePath
+                };
+                Process procPaint = Process.Start(Info);
+                procPaint.WaitForExit();
+                Thread.Sleep(200);
+                setImagePaint(filename);
+                this.filename = filename;
+            }
+        }
+        private void insertPicture(String picname)
+        {
+            if (File.Exists(@picname+".jpg"))
+            {
+                if (!Directory.Exists("temp_med"))
+                {
+                    Directory.CreateDirectory("temp_med");
+                }
+                String datetick = "", filename = "";
+                datetick = DateTime.Now.Ticks.ToString();
+                filename = "temp_med\\" + datetick + ".jpg";
+                File.Copy(@picname+".jpg", filename);
                 var filePath = @filename;
                 ProcessStartInfo Info = new ProcessStartInfo()
                 {

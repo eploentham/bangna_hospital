@@ -3023,7 +3023,7 @@ namespace bangna_hospital.gui
             grfOrdDrug.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
             grfOrdDrug.Rows.Count = dt.Rows.Count + 1;
-            grfOrdDrug.Cols.Count = dt.Rows.Count + 1;
+            grfOrdDrug.Cols.Count = dt.Columns.Count + 1;
             grfOrdDrug.Cols[colOrdDrugId].Caption = "code";
             grfOrdDrug.Cols[colOrdDrugNameT].Caption = "ชื่อ ยา";
             grfOrdDrug.Cols[colOrdDrugtypcd].Caption = " typ cd";
@@ -3137,7 +3137,7 @@ namespace bangna_hospital.gui
             grfOrdSup.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
             grfOrdSup.Rows.Count = dt.Rows.Count + 1;
-            grfOrdSup.Cols.Count = dt.Rows.Count + 1;
+            grfOrdSup.Cols.Count = dt.Columns.Count + 1;
             grfOrdSup.Cols[colOrdDrugId].Caption = "วันที่สั่ง";
             grfOrdSup.Cols[colOrdDrugNameT].Caption = "ชื่อ";
             grfOrdSup.Cols[colOrdDrugtypcd].Caption = "Code ";
@@ -3248,7 +3248,7 @@ namespace bangna_hospital.gui
             grfOrdLab.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
             grfOrdLab.Rows.Count = dt.Rows.Count + 1;
-            grfOrdLab.Cols.Count = dt.Rows.Count + 1;
+            grfOrdLab.Cols.Count = dt.Columns.Count + 1;
             grfOrdLab.Cols[colOrdLabId].Caption = "code";
 
             grfOrdLab.Cols[colOrdLabName].Caption = "ชื่อ LAB";
@@ -3359,7 +3359,7 @@ namespace bangna_hospital.gui
             grfOrdXray.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
             grfOrdXray.Rows.Count = dt.Rows.Count + 1;
-            grfOrdXray.Cols.Count = dt.Rows.Count + 1;
+            grfOrdXray.Cols.Count = 7;
             grfOrdXray.Cols[colOrdXrayId].Caption = "Code";
             grfOrdXray.Cols[colOrdXrayName].Caption = "Xray Description";
             grfOrdXray.Cols[colXraytypcd].Caption = "typ cd";

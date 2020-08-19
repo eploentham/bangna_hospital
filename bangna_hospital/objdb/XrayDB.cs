@@ -20,6 +20,49 @@ namespace bangna_hospital.objdb
         {
 
         }
+        public DataTable selectVisitStatus1PacsReqByDate(String Date)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            String[] aa = Date.Split('/');
+            //sql = "Select  xr01.*, xr01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
+            //    "ptt01.MNC_FNAME_T,ptt01.MNC_LNAME_T,ptt01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, t01.mnc_vn_no, t01.mnc_vn_seq, t01.mnc_vn_sum " +
+            //    ",ptt01.mnc_bday, ptt01.mnc_sex, t01.mnc_shif_memo " +
+            //    "From  xray_t01 xr01  " +
+            //    "Left Join patient_m01 ptt01 on xr01.mnc_hn_no = ptt01.mnc_hn_no and xr01.mnc_hn_yr = ptt01.mnc_hn_yr " +
+            //    "Left join patient_m02 m02 on ptt01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
+            //    " inner join patient_t01 t01 on xr01.MNC_HN_NO = t01.MNC_HN_NO " +
+            //    " Where xr01.MNC_req_dat = '" + Date + "' and t01.mnc_sts <> 'C' and xr01.mnc_req_sts <> 'A' and xr01.status_pacs <> '1' ";
+            //sql = "Select  xr01.*, xr01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
+            //    "ptt01.MNC_FNAME_T,ptt01.MNC_LNAME_T,ptt01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, t01.mnc_vn_no, t01.mnc_vn_seq, t01.mnc_vn_sum " +
+            //    ",ptt01.mnc_bday, ptt01.mnc_sex, t01.mnc_shif_memo " +
+            //    "From  xray_t01 xr01  " +
+            //    "Left Join patient_m01 ptt01 on xr01.mnc_hn_no = ptt01.mnc_hn_no and xr01.mnc_hn_yr = ptt01.mnc_hn_yr " +
+            //    "Left join patient_m02 m02 on ptt01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
+            //    " inner join patient_t01 t01 on xr01.MNC_HN_NO = t01.MNC_HN_NO  and xr01.mnc_hn_yr = t01.mnc_hn_yr " +
+            //    " Where t01.MNC_date = '" + Date + "' and t01.mnc_sts <> 'C' and xr01.status_pacs = '0' " +
+            //    "Order By xr01.mnc_req_dat, xr01.mnc_req_tim";
+            sql = "Select  xr01.mnc_req_yr,xr01.mnc_req_no, xt02.MNC_XR_CD, xr01.mnc_req_dep, xr01.MNC_HN_NO,m02.MNC_PFIX_DSC +' '+ m01.MNC_FNAME_T+' '+m01.MNC_LNAME_T as fullname " +
+                ",m01.MNC_AGE,ptt01.MNC_VN_NO, " +
+                " ptt01.MNC_VN_SEQ,ptt01.MNC_VN_SUM, ptt01.mnc_vn_no,ptt01.mnc_vn_seq, m01.mnc_vn_sum ,convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday, " +
+                "m01.mnc_sex, ptt01.mnc_shif_memo, xt02.MNC_XR_CD, xm01.MNC_XR_DSC, xr01.MNC_DOT_CD, um01.mnc_usr_full,ptt01.MNC_SEC_NO, pm32.MNC_MD_DEP_DSC, ptt01.mnc_sts, xm01.mnc_xr_grp_cd" +
+                ", xm05.mnc_xr_grp_dsc,convert(VARCHAR(20),xr01.mnc_req_dat,23) as mnc_req_dat1 " +
+                "From  xray_t01 xr01  " +
+                "inner Join patient_m01 m01  on xr01 .mnc_hn_no = m01.mnc_hn_no  " +
+                "inner join patient_m02 m02 on m01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
+                "inner join PATIENT_T01 ptt01 on xr01 .mnc_hn_no = ptt01.mnc_hn_no and xr01.MNC_DATE = ptt01.MNC_DATE and xr01 .MNC_PRE_NO = ptt01.MNC_PRE_NO  " +
+                "Left Join xray_t02 xt02 on xr01.MNC_REQ_NO = xt02.MNC_REQ_NO  and xr01.MNC_REQ_YR = xt02.MNC_REQ_YR and xr01.MNC_REQ_DAT = xt02.MNC_REQ_DAT " +
+                " Left Join xray_m01 xm01 on xm01.MNC_XR_CD = xt02.MNC_XR_CD " +
+                " Left Join userlog_m01 um01 on xr01.MNC_DOT_CD = um01.mnc_usr_name " +
+                " Left Join patient_m32 pm32 on ptt01.MNC_SEC_NO = pm32.MNC_SEC_NO " +
+                "Left Join xray_m05 xm05 on xm01.mnc_xr_grp_cd = xm05.mnc_xr_grp_cd " +
+                " Where xr01.MNC_REQ_DAT = '" + Date + "' and xr01.MNC_REQ_STS = 'A' " +
+                "and xt02.status_pacs = '1' " +
+                "Order By xr01.mnc_req_dat, xr01.mnc_req_tim";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectVisitStatusPacsReqByDate(String Date)
         {
             DataTable dt = new DataTable();

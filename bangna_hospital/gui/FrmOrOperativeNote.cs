@@ -89,7 +89,7 @@ namespace bangna_hospital.gui
         String opernote_id = "";
         int colHn = 1, colName = 2, colAn = 3, colDateOper = 4, colDept = 5, colWard = 6, colAttending = 7, colID=8;
 
-        AutocompleteMenu acmPreOper, acmPostOper, acmOperation;
+        AutocompleteMenu acmPreOper, acmPostOper, acmOperation, acmStf;
         string[] keywords = { "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "explore", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "wound", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
         string[] methods = { "Equals()", "GetHashCode()", "GetType()", "ToString()" };
         string[] snippets = { "if(^)\n{\n}", "if(^)\n{\n}\nelse\n{\n}", "for(^;;)\n{\n}", "while(^)\n{\n}", "do${\n^}while();", "switch(^)\n{\n\tcase : break;\n}" };
@@ -138,6 +138,7 @@ namespace bangna_hospital.gui
             btnSave.Click += BtnSave_Click;
             btnPrint.Click += BtnPrint_Click;
             btnNew.Click += BtnNew_Click;
+            txtDtrId.Leave += TxtDtrId_Leave;
 
             //txtAnesthetistTechni1.KeyUp += TxtAnesthetistTechni1_KeyUp;
             txtSurgeon1.KeyUp += TxtSurgeon1_KeyUp;
@@ -177,6 +178,11 @@ namespace bangna_hospital.gui
             txtOperation4.KeyUp += TxtOperation4_KeyUp;
 
             lbScrubNurse1.DoubleClick += LbScrubNurse1_DoubleClick;
+            lbScrubNurse2.DoubleClick += LbScrubNurse1_DoubleClick;
+            //lbScrubNurse3.DoubleClick += LbScrubNurse1_DoubleClick;
+            //lbScrubNurse4.DoubleClick += LbScrubNurse1_DoubleClick;
+            lbCircuNurse1.DoubleClick += LbScrubNurse1_DoubleClick;
+            lbCircuNurse2.DoubleClick += LbScrubNurse1_DoubleClick;
 
             lbPreOperation.DoubleClick += LbPreOperation_DoubleClick;
             lbPostOperation.DoubleClick += LbPostOperation_DoubleClick;
@@ -184,7 +190,7 @@ namespace bangna_hospital.gui
             lbOperation2.DoubleClick += LbOperation1_DoubleClick;
             lbOperation3.DoubleClick += LbOperation1_DoubleClick;
             lbOperation4.DoubleClick += LbOperation1_DoubleClick;
-
+            
             txtDateOperative.Value = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
             setContextMenuAnesthesis();
             setContextMenuOrDepartment();
@@ -217,21 +223,45 @@ namespace bangna_hospital.gui
             acmOperation.SearchPattern = "[\\w\\.:=!<>]";
             acmOperation.TargetControlWrapper = null;
 
+            acmStf = new AutocompleteMenuNS.AutocompleteMenu();
+            acmStf.AllowsTabKey = true;
+            acmStf.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 9F);
+            acmStf.Items = new string[0];
+            acmStf.SearchPattern = "[\\w\\.:=!<>]";
+            acmStf.TargetControlWrapper = null;
+
             BuildAutocompleteMenuPreOpration();
             BuildAutocompleteMenuPostOpration();
             BuildAutocompleteMenuOpration();
+            BuildAutocompleteMenuStaff();
             acmPreOper.SetAutocompleteMenu(txtPreOperation, acmPreOper);
             acmPostOper.SetAutocompleteMenu(txtPostOperation, acmPostOper);
             acmOperation.SetAutocompleteMenu(txtOperation1, acmOperation);
             acmOperation.SetAutocompleteMenu(txtOperation2, acmOperation);
             acmOperation.SetAutocompleteMenu(txtOperation3, acmOperation);
             acmOperation.SetAutocompleteMenu(txtOperation4, acmOperation);
+
+            acmStf.SetAutocompleteMenu(txtDtrId, acmStf);
+            acmStf.SetAutocompleteMenu(txtSurgeon1, acmStf);
+            acmStf.SetAutocompleteMenu(txtSurgeon2, acmStf);
+            acmStf.SetAutocompleteMenu(txtScrubNurse1, acmStf);
+            acmStf.SetAutocompleteMenu(txtScrubNurse2, acmStf);
+            acmStf.SetAutocompleteMenu(txtCircuNurse1, acmStf);
+            acmStf.SetAutocompleteMenu(txtCircuNurse2, acmStf);
+            acmStf.SetAutocompleteMenu(txtAssistant1, acmStf);
+            acmStf.SetAutocompleteMenu(txtAssistant2, acmStf);
+            acmStf.SetAutocompleteMenu(txtPerfusionist1, acmStf);
+            acmStf.SetAutocompleteMenu(txtPerfusionist2, acmStf);
+            acmStf.SetAutocompleteMenu(txtAnesthetist1, acmStf);
+            //acmStf.SetAutocompleteMenu(txtAnesthetist2, acmStf);
+            acmStf.SetAutocompleteMenu(txtAnesthetistAssist1, acmStf);
+            acmStf.SetAutocompleteMenu(txtAnesthetistAssist2, acmStf);
         }
 
-        private void LbScrubNurse1_DoubleClick(object sender, EventArgs e)
+        private void TxtDtrId_Leave(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            setDtrId(sender);
         }
 
         private void LbOperation1_DoubleClick(object sender, EventArgs e)
@@ -626,7 +656,10 @@ namespace bangna_hospital.gui
             {
                 grfView.Rows.Count = 1;
             }
-
+            bc.operative_note_finding_1 = "";
+            bc.operative_note_precidures_1 = "";
+            bc.operative_note_id = "";
+            bc.operative_note_hn = "";
             txtDept.Value = "";
             txtWard.Value = "";
             lbDtrName.Text = "...";
@@ -1551,7 +1584,14 @@ namespace bangna_hospital.gui
                 }
                 else
                 {
-                    gapY += sizertfFinding;
+                    if (sizertfFinding == 0)
+                    {
+                        gapY += sizertfFinding+gapLine;
+                    }
+                    else
+                    {
+                        gapY += sizertfFinding;
+                    }
                 }
 
                 //RectangleF myRectangle = new Rectangle(0, 0, 600, 400);
@@ -1806,6 +1846,7 @@ namespace bangna_hospital.gui
                 int chk = 0;
                 re = bc.bcDB.operNoteDB.insertOperativeNote(operNote,"");
                 operNote.operative_note_id = re;
+                bc.operative_note_id = re;
             }
             else
             {
@@ -1819,123 +1860,160 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtAnesthetistAssist2.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbAnesthetistAssistName2.Text = stf1.fullname;
-                    operNote.anesthetist_assistant_id_2 = stf1.staff_id;
-                    operNote.anesthetist_assistant_name_2 = stf1.fullname;
-                    sep.Clear();
-                    txtAnesthetistTechni1.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                setTxtAnesthetistAssist2(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void setTxtAnesthetistAssist2(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsername1(txtAnesthetistAssist2.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbAnesthetistAssistName2.Text = stf1.fullname;
+                operNote.anesthetist_assistant_id_2 = stf1.staff_id;
+                operNote.anesthetist_assistant_name_2 = stf1.fullname;
+                sep.Clear();
+                txtAnesthetistTechni1.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void TxtAnesthetistAssist1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtAnesthetistAssist1.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbAnesthetistAssistName1.Text = stf1.fullname;
-                    operNote.anesthetist_assistant_id_1 = stf1.staff_id;
-                    operNote.anesthetist_assistant_name_1 = stf1.fullname;
-                    sep.Clear();
-                    txtAnesthetistAssist2.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                setTxtAnesthetistAssist1(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void setTxtAnesthetistAssist1(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsername1(txtAnesthetistAssist1.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbAnesthetistAssistName1.Text = stf1.fullname;
+                operNote.anesthetist_assistant_id_1 = stf1.staff_id;
+                operNote.anesthetist_assistant_name_1 = stf1.fullname;
+                sep.Clear();
+                txtAnesthetistAssist2.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void TxtAnesthetist1_KeyUp1(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAnesthetist1.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbAnesthetistName1.Text = stf1.fullname;
-                    operNote.anesthetist_id_1 = stf1.staff_id;
-                    operNote.anesthetist_name_1 = stf1.fullname;
-                    sep.Clear();
-                    txtAnesthetistAssist1.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                setTxtAnesthetist1(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void setTxtAnesthetist1(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtAnesthetist1.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbAnesthetistName1.Text = stf1.fullname;
+                operNote.anesthetist_id_1 = stf1.staff_id;
+                operNote.anesthetist_name_1 = stf1.fullname;
+                sep.Clear();
+                txtAnesthetistAssist1.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void TxtPerfusionist2_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtPerfusionist2.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbPerfusionistName2.Text = stf1.fullname;
-                    operNote.perfusionist_id_2 = stf1.staff_id;
-                    operNote.perfusionist_name_2 = stf1.fullname;
-                    sep.Clear();
-                    txtAnesthetist1.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                settxtPerfusionist2(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void settxtPerfusionist2(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtPerfusionist2.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbPerfusionistName2.Text = stf1.fullname;
+                operNote.perfusionist_id_2 = stf1.staff_id;
+                operNote.perfusionist_name_2 = stf1.fullname;
+                txtPerfusionist2.Value = stf1.staff_id;
+                sep.Clear();
+                txtAnesthetist1.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void TxtPerfusionist1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtPerfusionist1.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbPerfusionistName1.Text = stf1.fullname;
-                    operNote.perfusionist_id_1 = stf1.staff_id;
-                    operNote.perfusionist_name_1 = stf1.fullname;
-                    sep.Clear();
-                    txtPerfusionist2.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                settxtPerfusionist1(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void settxtPerfusionist1(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtPerfusionist1.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbPerfusionistName1.Text = stf1.fullname;
+                operNote.perfusionist_id_1 = stf1.staff_id;
+                operNote.perfusionist_name_1 = stf1.fullname;
+                txtPerfusionist1.Value = stf1.staff_id;
+                sep.Clear();
+                txtPerfusionist2.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void TxtCircuNurse4_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse4.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtCircuNurse4.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
                     lbCircuNurseName4.Text = stf1.fullname;
@@ -1958,7 +2036,7 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse3.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtCircuNurse3.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
                     lbCircuNurseName3.Text = stf1.fullname;
@@ -1981,20 +2059,20 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse2.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtCircuNurse2.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
-                    lbCircuNurseName2.Text = stf1.fullname;
-                    operNote.circulation_nurse_id_2 = stf1.staff_id;
-                    operNote.circulation_nurse_name_2 = stf1.fullname;
-                    sep.Clear();
-                    txtPerfusionist1.Focus();
+                    setCircuNurse2(stf1.staff_id, stf1.fullname);
                 }
                 else
                 {
                     sep.SetError((Control)sender, "ไม่พบรหัส");
                     ((C1TextBox)sender).SelectAll();
                 }
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(txtCircuNurse2, null);
             }
         }
 
@@ -2004,20 +2082,20 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtCircuNurse1.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtCircuNurse1.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
-                    lbCircuNurseName1.Text = stf1.fullname;
-                    operNote.circulation_nurse_id_1 = stf1.staff_id;
-                    operNote.circulation_nurse_name_1 = stf1.fullname;
-                    sep.Clear();
-                    txtCircuNurse2.Focus();
+                    setCircuNurse1(stf1.staff_id, stf1.fullname);
                 }
                 else
                 {
                     sep.SetError((Control)sender, "ไม่พบรหัส");
                     ((C1TextBox)sender).SelectAll();
                 }
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(txtCircuNurse1, null);
             }
         }
 
@@ -2027,7 +2105,7 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse4.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtScrubNurse4.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
                     lbScrubNurseName4.Text = stf1.fullname;
@@ -2043,21 +2121,16 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
         private void TxtScrubNurse3_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse3.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtScrubNurse3.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
-                    lbScrubNurseName3.Text = stf1.fullname;
-                    operNote.scrub_nurse_id_3 = stf1.staff_id;
-                    operNote.scrub_nurse_name_3 = stf1.fullname;
-                    sep.Clear();
-                    txtScrubNurse4.Focus();
+                    setScrubNurse3(stf1.staff_id, stf1.fullname);
                 }
                 else
                 {
@@ -2066,21 +2139,16 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
         private void TxtScrubNurse2_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse2.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtScrubNurse2.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
-                    lbScrubNurseName2.Text = stf1.fullname;
-                    operNote.scrub_nurse_id_2 = stf1.staff_id;
-                    operNote.scrub_nurse_name_2 = stf1.fullname;
-                    sep.Clear();
-                    txtCircuNurse1.Focus();
+                    setScrubNurse2(stf1.staff_id, stf1.fullname);
                 }
                 else
                 {
@@ -2088,22 +2156,21 @@ namespace bangna_hospital.gui
                     ((C1TextBox)sender).SelectAll();
                 }
             }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(txtScrubNurse2, null);
+            }
         }
-
         private void TxtScrubNurse1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsername(txtScrubNurse1.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsername1(txtScrubNurse1.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
-                    lbScrubNurseName1.Text = stf1.fullname;
-                    operNote.scrub_nurse_id_1 = stf1.staff_id;
-                    operNote.scrub_nurse_name_1 = stf1.fullname;
-                    sep.Clear();
-                    txtScrubNurse2.Focus();
+                    setScrubNurse1(stf1.staff_id, stf1.fullname);
                 }
                 else
                 {
@@ -2111,15 +2178,167 @@ namespace bangna_hospital.gui
                     ((C1TextBox)sender).SelectAll();
                 }
             }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(txtScrubNurse1, null);
+            }
         }
+        private void LbScrubNurse1_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            bc.sStf.staff_id = "";
+            bc.sStf.username = "";
+            bc.sStf.fullname = "";
+            FrmSearchStaff frm = new FrmSearchStaff(bc);
+            frm.WindowState = FormWindowState.Normal;
+            frm.StartPosition = FormStartPosition.CenterScreen;
 
+            frm.ShowDialog(this);
+            if(sender is Label)
+            {
+                if (((Label)sender).Name.Equals("lbScrubNurse1"))
+                {
+                    setScrubNurse1(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((Label)sender).Name.Equals("lbScrubNurse2"))
+                {
+                    setScrubNurse2(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((Label)sender).Name.Equals("lbScrubNurse3"))
+                {
+                    setScrubNurse3(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((Label)sender).Name.Equals("lbCircuNurse1"))
+                {
+                    setCircuNurse1(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((Label)sender).Name.Equals("lbCircuNurse2"))
+                {
+                    setCircuNurse2(bc.sStf.username, bc.sStf.fullname);
+                }
+            }
+            else if (sender is C1TextBox)
+            {
+                if (((C1TextBox)sender).Name.Equals("txtScrubNurse1"))
+                {
+                    setScrubNurse1(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtScrubNurse2"))
+                {
+                    setScrubNurse2(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtCircuNurse1"))
+                {
+                    setCircuNurse1(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtCircuNurse2"))
+                {
+                    setCircuNurse2(bc.sStf.username, bc.sStf.fullname);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtDtrId"))
+                {
+                    txtDtrId.Value = bc.sStf.username;
+                    setDtrId(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtSurgeon1"))
+                {
+                    txtSurgeon1.Value = bc.sStf.username;
+                    setSurgeon1(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtSurgeon2"))
+                {
+                    txtSurgeon2.Value = bc.sStf.username;
+                    setSurgeon2(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtAssistant1"))
+                {
+                    txtAssistant1.Value = bc.sStf.username;
+                    setAssistant1(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtAssistant2"))
+                {
+                    txtAssistant2.Value = bc.sStf.username;
+                    setAssistant2(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtPerfusionist1"))
+                {
+                    txtPerfusionist1.Value = bc.sStf.username;
+                    settxtPerfusionist1(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtPerfusionist2"))
+                {
+                    txtPerfusionist2.Value = bc.sStf.username;
+                    settxtPerfusionist2(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtAnesthetist1"))
+                {
+                    txtAnesthetist1.Value = bc.sStf.username;
+                    setTxtAnesthetist1(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtAnesthetistAssist1"))
+                {
+                    txtAnesthetistAssist1.Value = bc.sStf.username;
+                    setTxtAnesthetistAssist1(sender);
+                }
+                else if (((C1TextBox)sender).Name.Equals("txtAnesthetistAssist2"))
+                {
+                    txtAnesthetistAssist2.Value = bc.sStf.username;
+                    setTxtAnesthetistAssist2(sender);
+                }
+            }
+        }
+        private void setScrubNurse1(String id, String name)
+        {
+            lbScrubNurseName1.Text = name;
+            operNote.scrub_nurse_id_1 = id;
+            operNote.scrub_nurse_name_1 = name;
+            txtScrubNurse1.Value = id;
+            sep.Clear();
+            txtScrubNurse2.Focus();
+        }
+        private void setScrubNurse2(String id, String name)
+        {
+            lbScrubNurseName2.Text = name;
+            operNote.scrub_nurse_id_2 = id;
+            operNote.scrub_nurse_name_2 = name;
+            txtScrubNurse2.Value = id;
+            sep.Clear();
+            txtCircuNurse1.Focus();
+        }
+        private void setScrubNurse3(String id, String name)
+        {
+            lbScrubNurseName3.Text = name;
+            operNote.scrub_nurse_id_3 = id;
+            operNote.scrub_nurse_name_3 = name;
+            txtScrubNurse3.Value = id;
+            sep.Clear();
+            txtScrubNurse4.Focus();
+        }
+        private void setCircuNurse1(String id, String name)
+        {
+            lbCircuNurseName1.Text = name;
+            operNote.circulation_nurse_id_1 = id;
+            operNote.circulation_nurse_name_1 = name;
+            txtCircuNurse1.Value = id;
+            sep.Clear();
+            txtCircuNurse2.Focus();
+        }
+        private void setCircuNurse2(String id, String name)
+        {
+            lbCircuNurseName2.Text = name;
+            operNote.circulation_nurse_id_2 = id;
+            operNote.circulation_nurse_name_2 = name;
+            txtCircuNurse2.Value = id;
+            sep.Clear();
+            txtPerfusionist1.Focus();
+        }
         private void TxtAssistant4_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant4.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtAssistant4.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
                     lbAssistantName4.Text = stf1.fullname;
@@ -2142,7 +2361,7 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant3.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtAssistant3.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
                     lbAssistantName3.Text = stf1.fullname;
@@ -2164,54 +2383,70 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant2.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbAssistantName2.Text = stf1.fullname;
-                    operNote.assistant_id_2 = stf1.staff_id;
-                    operNote.assistant_name_2 = stf1.fullname;
-                    sep.Clear();
-                    txtScrubNurse1.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                setAssistant2(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void setAssistant2(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsername1(txtAssistant2.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbAssistantName2.Text = stf1.fullname;
+                operNote.assistant_id_2 = stf1.staff_id;
+                operNote.assistant_name_2 = stf1.fullname;
+                txtAssistant2.Value = stf1.staff_id;
+                sep.Clear();
+                txtScrubNurse1.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void TxtAssistant1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtAssistant1.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbAssistantName1.Text = stf1.fullname;
-                    operNote.assistant_id_1 = stf1.staff_id;
-                    operNote.assistant_name_1 = stf1.fullname;
-                    sep.Clear();
-                    txtAssistant2.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                setAssistant1(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void setAssistant1(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsername1(txtAssistant1.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbAssistantName1.Text = stf1.fullname;
+                operNote.assistant_id_1 = stf1.staff_id;
+                operNote.assistant_name_1 = stf1.fullname;
+                txtAssistant1.Value = stf1.staff_id;
+                sep.Clear();
+                txtAssistant2.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void TxtSurgeon4_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon4.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtSurgeon4.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
                     lbSurgeonName4.Text = stf1.fullname;
@@ -2234,7 +2469,7 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon3.Text.Trim());
+                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtSurgeon3.Text.Trim());
                 if (stf1.fullname.Length > 0)
                 {
                     lbSurgeonName3.Text = stf1.fullname;
@@ -2257,47 +2492,63 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon2.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbSurgeonName2.Text = stf1.fullname;
-                    operNote.surgeon_id_2 = stf1.staff_id;
-                    operNote.surgeon_name_2 = stf1.fullname;
-                    sep.Clear();
-                    txtAssistant1.Focus();
-                }
-                else
-                {
-                    sep.SetError(txtSurgeon2, "ไม่พบรหัส");
-                    txtSurgeon2.SelectAll();
-                }
+                setSurgeon2(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(txtSurgeon2, null);
             }
         }
-
+        private void setSurgeon2(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtSurgeon2.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbSurgeonName2.Text = stf1.fullname;
+                operNote.surgeon_id_2 = stf1.staff_id;
+                operNote.surgeon_name_2 = stf1.fullname;
+                txtSurgeon2.Value = stf1.staff_id;
+                sep.Clear();
+                txtAssistant1.Focus();
+            }
+            else
+            {
+                sep.SetError(txtSurgeon2, "ไม่พบรหัส");
+                txtSurgeon2.SelectAll();
+            }
+        }
         private void TxtSurgeon1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtSurgeon1.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbSurgeonName1.Text = stf1.fullname;
-                    operNote.surgeon_id_1 = stf1.staff_id;
-                    operNote.surgeon_name_1 = stf1.fullname;
-                    sep.Clear();
-                    txtSurgeon2.Focus();
-                }
-                else
-                {
-                    sep.SetError(txtSurgeon1, "ไม่พบรหัส");
-                    txtSurgeon1.SelectAll();
-                }
+                setSurgeon1(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(txtSurgeon1, null);
             }
         }
-
+        private void setSurgeon1(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtSurgeon1.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbSurgeonName1.Text = stf1.fullname;
+                operNote.surgeon_id_1 = stf1.staff_id;
+                operNote.surgeon_name_1 = stf1.fullname;
+                txtSurgeon1.Value = stf1.staff_id;
+                sep.Clear();
+                txtSurgeon2.Focus();
+            }
+            else
+            {
+                sep.SetError(txtSurgeon1, "ไม่พบรหัส");
+                txtSurgeon1.SelectAll();
+            }
+        }
         private void setContextMenuAnesthesis()
         {
             menuAnesTech = new ContextMenu();
@@ -2398,24 +2649,32 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if(e.KeyCode == Keys.Enter)
             {
-                Staff stf1 = new Staff();
-                stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor(txtDtrId.Text.Trim());
-                if (stf1.fullname.Length > 0)
-                {
-                    lbDtrName.Text = stf1.fullname;
-                    operNote.attending_stf_id = stf1.staff_id;
-                    operNote.attending_stf_name = stf1.fullname;
-                    sep.Clear();
-                    btnPttSearch.Focus();
-                }
-                else
-                {
-                    sep.SetError((Control)sender, "ไม่พบรหัส");
-                    ((C1TextBox)sender).SelectAll();
-                }
+                setDtrId(sender);
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                LbScrubNurse1_DoubleClick(sender, null);
             }
         }
-
+        private void setDtrId(object sender)
+        {
+            Staff stf1 = new Staff();
+            stf1 = bc.bcDB.stfDB.selectByUsernameLevelDoctor1(txtDtrId.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                lbDtrName.Text = stf1.fullname;
+                operNote.attending_stf_id = stf1.staff_id;
+                operNote.attending_stf_name = stf1.fullname;
+                txtDtrId.Value = stf1.staff_id;
+                sep.Clear();
+                btnPttSearch.Focus();
+            }
+            else
+            {
+                sep.SetError((Control)sender, "ไม่พบรหัส");
+                ((C1TextBox)sender).SelectAll();
+            }
+        }
         private void BtnPttSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -2613,6 +2872,7 @@ namespace bangna_hospital.gui
             txtDtrId.Font = fEdit;
             txtDtrId.Location = new System.Drawing.Point(lbDtrId.Location.X + size.Width + 5, lbDept.Location.Y);
             txtDtrId.Size = new Size(100, 30);
+            txtDtrId.Name = "txtDtrId";
             lbDtrName = new Label();
             bc.setControlLabel(ref lbDtrName, fEdit, "...", "lbDtrName", txtDtrId.Location.X + txtDtrId.Width + 5, gapY);
 
@@ -2792,8 +3052,9 @@ namespace bangna_hospital.gui
             txtSurgeon2.Name = "txtSurgeon2";
             lbSurgeonName2 = new Label();
             bc.setControlLabel(ref lbSurgeonName2, fEdit, "...", "lbSurgeonName2", txtSurgeon2.Location.X + txtSurgeon2.Width + 5, lbSurgeon2.Location.Y);
+
             lbAssistant2 = new Label();
-            bc.setControlLabel(ref lbAssistant2, fEdit, "2 :", "lbAssistant2", txtSurgeon2.Location.X + txtSurgeon2.Width + 5, lbSurgeon2.Location.Y);
+            bc.setControlLabel(ref lbAssistant2, fEdit, "2 :", "lbAssistant2", xCol3, lbSurgeon2.Location.Y);
             size = bc.MeasureString(lbAssistant2);
             txtAssistant2 = new C1TextBox();
             txtAssistant2.Font = fEdit;
@@ -3486,6 +3747,22 @@ namespace bangna_hospital.gui
             //set as autocomplete source
             acmOperation.SetAutocompleteItems(items);
         }
+        private void BuildAutocompleteMenuStaff()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.stfDB.selectByLevel("'5','6'");
+            //acmStf.MaximumSize = new System.Drawing.Size(250, 200);
+            var columnWidth = new int[] { 50, 400 };
+            ////get all classes and methods of Form's assembly
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["MNC_USR_NAME"] == null) continue;
+                if (row["MNC_USR_NAME"].ToString().Equals("")) continue;
+                acmStf.AddItem(new MulticolumnAutocompleteItem(new[] { row["MNC_USR_NAME"].ToString(), row["MNC_USR_FULL"].ToString()  }, row["MNC_USR_FULL"].ToString()) { ColumnWidth = columnWidth, ImageIndex = 0 });
+            }
+
+            //acmStf.SetAutocompleteItems(items);
+        }
         class DeclarationSnippet : SnippetAutocompleteItem
         {
             public static string RegexSpecSymbolsPattern = @"[\^\$\[\]\(\)\.\\\*\+\|\?\{\}]";
@@ -3605,7 +3882,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             this.WindowState = FormWindowState.Maximized;
-            this.Text = "Last Update 2020-08-13 ";
+            this.Text = "Last Update 2020-08-15 ";
             setLayout();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.FlexGrid;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.Win.C1Command;
@@ -35,7 +36,7 @@ namespace bangna_hospital.gui
         C1ThemeController theme1;
         C1DockingTab tC1;
         C1FlexGrid grfReq, grfProc, grfFinish, grfMaster;
-        C1DockingTabPage tabReq, tabApm, tabFinish, tabListen, tabmaster;
+        C1DockingTabPage tabReq, tabProc, tabFinish, tabListen, tabmaster;
         C1SplitContainer splitContainer1, sCMaster;
         C1SplitterPanel c1SplitterPanel1, c1SplitterPanel2, scpMasterTop, scpMasterButton;
         
@@ -49,7 +50,7 @@ namespace bangna_hospital.gui
         int colMasId = 1, colMasCode = 2, colMasDsc = 3, colMasTyp = 4, colMasGrp = 5, colMasDis = 6, colMasDeccode = 7, colMasDecNo = 8, colMasInfinittCode=9, colMasModalityCode=10;
         Timer timer1;
 
-        Panel panel1, pnHead, pnBotton, pnQue, pnListen, pnMaster;
+        Panel panel1, pnHead, pnBotton, pnQue, pnListen, pnMaster, pnProc;
         Form frmFlash;
         Image imgStart, imgStop, imgSave;
 
@@ -102,6 +103,8 @@ namespace bangna_hospital.gui
             setGrfReq();
             initGrfMaster();
             setGrfMaster();
+            initGrfProcess();
+            setGrfProc();
             //MessageBox.Show("22222", "");
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
@@ -246,6 +249,10 @@ namespace bangna_hospital.gui
             if(tC1.SelectedTab == tabReq)
             {
                 setGrfReq();
+            }
+            else if (tC1.SelectedTab == tabProc)
+            {
+                setGrfProc();
             }
         }
 
@@ -422,6 +429,169 @@ namespace bangna_hospital.gui
             grfMaster.Cols[colMasInfinittCode].AllowEditing = false;
             grfMaster.Cols[colMasModalityCode].AllowEditing = false;
         }
+        private void initGrfProcess()
+        {
+            grfProc = new C1FlexGrid();
+            grfProc.Font = fEdit;
+            grfProc.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfProc.Location = new System.Drawing.Point(0, 0);
+
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfReq.DoubleClick += GrfReq_DoubleClick;
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfBillD.AfterDataRefresh += GrfBillD_AfterDataRefresh;
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("ออก บิล", new EventHandler(ContextMenu_edit_bill));
+            //menuGw.MenuItems.Add("ส่งกลับ", new EventHandler(ContextMenu_send_back));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            //grfBillD.ContextMenu = menuGw;
+            //grfBillD.SubtotalPosition = SubtotalPositionEnum.BelowData;
+            pnProc.Controls.Add(grfProc);
+
+            theme1.SetTheme(grfProc, bc.iniC.themeApp);
+            FilterRow fr = new FilterRow(grfProc);
+            grfProc.AllowFiltering = true;
+            grfProc.AfterFilter += GrfProc_AfterFilter;
+            //theme1.SetTheme(tabDiag, "Office2010Blue");
+            //theme1.SetTheme(tabFinish, "Office2010Blue");
+
+        }
+        private void setGrfProc()
+        {
+            //grfDept.Rows.Count = 7;
+            //grfReq.Clear();
+            grfProc.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            String date = "";
+            date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
+
+            dt = bc.bcDB.xrDB.selectVisitStatus1PacsReqByDate(date);
+            //dt = bc.bcDB.xrDB.selectVisitStatusPacsReqByDateTestHN(date, "5203491");
+            //grfExpn.Rows.Count = dt.Rows.Count + 1;
+
+            grfProc.Rows.Count = dt.Rows.Count + 1;
+            grfProc.Cols.Count = 31;
+
+            grfProc.Cols[colReqHn].Width = 80;
+            grfProc.Cols[colReqName].Width = 200;
+            grfProc.Cols[colReqVn].Width = 80;
+            grfProc.Cols[colReqXn].Width = 80;
+            grfProc.Cols[colReqDtr].Width = 100;
+            grfProc.Cols[colReqDpt].Width = 100;
+            grfProc.Cols[colreqsex].Width = 60;
+            grfProc.Cols[colreqdob].Width = 60;
+            grfProc.Cols[colreqsickness].Width = 160;
+            grfProc.Cols[colxrdesc].Width = 180;
+            grfProc.Cols[colxrcode].Width = 80;
+            grfProc.Cols[colxrcode].Width = 80;
+            grfProc.Cols[colxrdepno].Width = 80;
+
+            grfProc.ShowCursor = true;
+            //grdFlex.Cols[colID].Caption = "no";
+            //grfDept.Cols[colCode].Caption = "รหัส";
+
+            
+
+            Color color = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            //CellRange rg1 = grfBank.GetCellRange(1, colE, grfBank.Rows.Count, colE);
+            //rg1.Style = grfBank.Styles["date"];
+            //grfCu.Cols[colID].Visible = false;
+            int i = 0;
+            Decimal inc = 0, ext = 0;
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfProc.Cols[col + 1].DataType = dt.Columns[col].DataType;
+                grfProc.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfProc.Cols[col + 1].Name = dt.Columns[col].ColumnName;
+            }
+            grfProc.Cols[colReqHn].Caption = "HN";
+            grfProc.Cols[colReqName].Caption = "Name";
+            grfProc.Cols[colReqVn].Caption = "VN";
+            grfProc.Cols[colReqXn].Caption = "XN";
+            grfProc.Cols[colReqDtr].Caption = "Doctor";
+            grfProc.Cols[colReqDpt].Caption = "Department";
+            grfProc.Cols[colreqsex].Caption = "Sex";
+            grfProc.Cols[colreqdob].Caption = "DOB";
+            grfProc.Cols[colreqsickness].Caption = "Sickness";
+            grfProc.Cols[colxrdesc].Caption = "X-Ray";
+            grfProc.Cols[colxrcode].Caption = "";
+            grfProc.Cols[colxrgrpdsc].Caption = "Group";
+            grfProc.Cols[colxrdate].Caption = "xr date";
+            grfProc.Cols[colReqreqno].Caption = "req no";
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    i++;
+                    if (i == 1) continue;
+                    grfProc[i, 0] = (i-1);
+                    grfProc[i, colReqId] = "";
+                    grfProc[i, colReqHn] = row["mnc_hn_no"].ToString();
+                    grfProc[i, colReqName] = row["fullname"].ToString();
+                    grfProc[i, colReqVn] = row["mnc_vn_no"].ToString() + "." + row["mnc_vn_seq"].ToString() + "." + row["mnc_vn_sum"].ToString();
+
+                    grfProc[i, colReqXn] = "";
+                    grfProc[i, colReqDtr] = "";
+                    grfProc[i, colReqDpt] = "";
+                    grfProc[i, colReqreqyr] = row["mnc_req_yr"].ToString();
+                    grfProc[i, colReqreqno] = row["mnc_req_no"].ToString();
+                    //grfProc[i, colreqhnyr] = row["mnc_hn_yr"].ToString();
+                    //grfProc[i, colreqpreno] = row["mnc_pre_no"].ToString();
+                    grfProc[i, colreqsex] = row["mnc_sex"].ToString();
+                    grfProc[i, colreqsickness] = row["mnc_shif_memo"].ToString();
+
+                    grfProc[i, colreqdob] = row["mnc_bday"].ToString();
+                    grfProc[i, colxrdesc] = row["MNC_XR_DSC"].ToString();
+                    grfProc[i, colxrcode] = row["MNC_XR_CD"].ToString();
+                    grfProc[i, colxrstfcode] = row["MNC_DOT_CD"].ToString();
+                    grfProc[i, colxrstfname] = row["mnc_usr_full"].ToString();
+                    grfProc[i, colxrdepno] = row["mnc_req_dep"].ToString();
+                    grfProc[i, colxrdepname] = row["MNC_MD_DEP_DSC"].ToString();
+                    grfProc[i, colpttstatus] = row["MNC_STS"].ToString();
+                    grfProc[i, colxrgrpcd] = row["MNC_XR_GRP_CD"].ToString();
+                    grfProc[i, colxrgrpdsc] = row["MNC_XR_GRP_dsc"].ToString();
+                    grfProc[i, colxrdate] = row["mnc_req_dat1"].ToString();
+                    
+                }
+                catch (Exception ex)
+                {
+                    String err = "";
+                }
+            }
+            CellNoteManager mgr = new CellNoteManager(grfProc);
+            grfProc.Cols[colReqId].Visible = false;
+            grfProc.Cols[colReqreqyr].Visible = false;
+            //grfProc.Cols[colReqreqno].Visible = false;
+            grfProc.Cols[colreqhnyr].Visible = false;
+            grfProc.Cols[colreqpreno].Visible = false;
+            grfProc.Cols[colReqDpt].Visible = false;
+            grfProc.Cols[colReqDtr].Visible = false;
+            //grfProc.Cols[colxrgrpcd].Visible = false;
+
+            grfProc.Cols[colReqHn].AllowEditing = false;
+            grfProc.Cols[colReqName].AllowEditing = false;
+            grfProc.Cols[colReqVn].AllowEditing = false;
+            grfProc.Cols[colReqXn].AllowEditing = false;
+            grfProc.Cols[colReqDtr].AllowEditing = false;
+            grfProc.Cols[colReqDpt].AllowEditing = false;
+            grfProc.Cols[colxrcode].AllowEditing = false;
+            grfProc.Cols[colxrdepno].AllowEditing = false;
+            grfProc.Cols[colxrdepname].AllowEditing = false;
+            grfProc.Cols[colpttstatus].AllowEditing = false;
+            grfProc.Cols[colxrgrpdsc].AllowEditing = false;
+            grfProc.Cols[colxrdate].AllowEditing = false;
+            
+        }
+        private void GrfProc_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            for (int col = grfProc.Cols.Fixed; col < grfProc.Cols.Count; ++col)
+            {
+                var filter = grfProc.Cols[col].ActiveFilter;
+            }
+        }
+
         private void initGrfReq()
         {
             grfReq = new C1FlexGrid();
@@ -622,61 +792,61 @@ namespace bangna_hospital.gui
                     {
                         try
                         {
-                            grp = "US";
-                            txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
+                            //grp = "US";
+                            //txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
+                            ////txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                            ////    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
                             //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                            //    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
-                            txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                                , reqdate.Replace("-", ""), reqno+"1", xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
+                            //    , reqdate.Replace("-", ""), reqno+"1", xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
 
-                            TcpClient tcpClient1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                            //TcpClient tcpClient1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
 
-                            Console.WriteLine("Connected to Server");
-                            lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                            Application.DoEvents();
-                            //get a network stream from server
-                            NetworkStream clientSockStream1 = tcpClient1.GetStream();
-                            StreamReader clientStreamReader1 = new StreamReader(clientSockStream1);
-                            StreamWriter clientStreamWriter1 = new StreamWriter(clientSockStream1);
-
-                            clientStreamWriter1.Write(txtADT);
-                            clientStreamWriter1.Flush();
-                            //clientStreamWriter.Close();
-                            Application.DoEvents();
-
-                            resp = clientStreamReader1.ReadToEnd();
-
-                            //clientStreamReader.Close();
-                            //clientSockStream.Close();
-
-                            //tcpClient.Close();
-                            lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
-                            Application.DoEvents();
-
-                            TcpClient tcpClientORM1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-                            Console.WriteLine("Connected to Server");
+                            //Console.WriteLine("Connected to Server");
                             //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                            Application.DoEvents();
-                            //get a network stream from server
-                            NetworkStream clientSockStreamORM1 = tcpClientORM1.GetStream();
-                            StreamReader clientStreamReaderORM1 = new StreamReader(clientSockStreamORM1);
-                            StreamWriter clientStreamWriterORM1 = new StreamWriter(clientSockStreamORM1);
+                            //Application.DoEvents();
+                            ////get a network stream from server
+                            //NetworkStream clientSockStream1 = tcpClient1.GetStream();
+                            //StreamReader clientStreamReader1 = new StreamReader(clientSockStream1);
+                            //StreamWriter clientStreamWriter1 = new StreamWriter(clientSockStream1);
 
-                            resp = "";
-                            //resp = clientStreamReaderORM.ReadLine();
-                            clientStreamWriterORM1.Write(txtORM);
-                            clientStreamWriterORM1.Flush();
-                            Application.DoEvents();
-                            resp = "";
-                            resp = clientStreamReaderORM1.ReadToEnd();
-                            //clientSockStream1.Close();
-                            clientStreamWriterORM1.Close();
-                            clientStreamReaderORM1.Close();
-                            clientSockStreamORM1.Close();
-                            tcpClientORM1.Close();
-                            Console.WriteLine("SERVER: " + resp);
-                            lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
-                            Application.DoEvents();
+                            //clientStreamWriter1.Write(txtADT);
+                            //clientStreamWriter1.Flush();
+                            ////clientStreamWriter.Close();
+                            //Application.DoEvents();
+
+                            //resp = clientStreamReader1.ReadToEnd();
+
+                            ////clientStreamReader.Close();
+                            ////clientSockStream.Close();
+
+                            ////tcpClient.Close();
+                            //lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                            //Application.DoEvents();
+
+                            //TcpClient tcpClientORM1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                            //Console.WriteLine("Connected to Server");
+                            ////lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                            //Application.DoEvents();
+                            ////get a network stream from server
+                            //NetworkStream clientSockStreamORM1 = tcpClientORM1.GetStream();
+                            //StreamReader clientStreamReaderORM1 = new StreamReader(clientSockStreamORM1);
+                            //StreamWriter clientStreamWriterORM1 = new StreamWriter(clientSockStreamORM1);
+
+                            //resp = "";
+                            ////resp = clientStreamReaderORM.ReadLine();
+                            //clientStreamWriterORM1.Write(txtORM);
+                            //clientStreamWriterORM1.Flush();
+                            //Application.DoEvents();
+                            //resp = "";
+                            //resp = clientStreamReaderORM1.ReadToEnd();
+                            ////clientSockStream1.Close();
+                            //clientStreamWriterORM1.Close();
+                            //clientStreamReaderORM1.Close();
+                            //clientSockStreamORM1.Close();
+                            //tcpClientORM1.Close();
+                            //Console.WriteLine("SERVER: " + resp);
+                            //lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                            //Application.DoEvents();
                         }
                         catch (Exception ex)
                         {
@@ -1065,7 +1235,7 @@ namespace bangna_hospital.gui
             panel1 = new Panel();
             tC1 = new C1DockingTab();
             tabReq = new C1DockingTabPage();
-            tabApm = new C1DockingTabPage();
+            tabProc = new C1DockingTabPage();
             tabFinish = new C1DockingTabPage();
             tabListen = new C1DockingTabPage();
             tabmaster = new C1DockingTabPage();
@@ -1080,12 +1250,13 @@ namespace bangna_hospital.gui
             pnMaster = new Panel();
             lboxServer = new System.Windows.Forms.ListBox();
             pnQue = new Panel();
+            pnProc = new Panel();
             lboxClient = new System.Windows.Forms.ListBox();
 
             panel1.SuspendLayout();
             tC1.SuspendLayout();
             tabReq.SuspendLayout();
-            tabApm.SuspendLayout();
+            tabProc.SuspendLayout();
             tabFinish.SuspendLayout();
             tabListen.SuspendLayout();
             tabmaster.SuspendLayout();
@@ -1098,6 +1269,7 @@ namespace bangna_hospital.gui
             pnListen.SuspendLayout();
             pnQue.SuspendLayout();
             pnMaster.SuspendLayout();
+            pnProc.SuspendLayout();
 
             this.SuspendLayout();
 
@@ -1109,10 +1281,10 @@ namespace bangna_hospital.gui
             tabReq.Text = "Request";
             tabReq.Font = fEditB;
 
-            tabApm.Name = "tabApm";
-            tabApm.TabIndex = 1;
-            tabApm.Text = "Process";
-            tabApm.Font = fEditB;
+            tabProc.Name = "tabApm";
+            tabProc.TabIndex = 1;
+            tabProc.Text = "Process";
+            tabProc.Font = fEditB;
 
             tabFinish.Name = "tabFinish";
             tabFinish.TabIndex = 2;
@@ -1135,6 +1307,8 @@ namespace bangna_hospital.gui
             pnQue.Name = "pnQue";
             pnMaster.Dock = System.Windows.Forms.DockStyle.Fill;
             pnMaster.Name = "pnMaster";
+            pnProc.Dock = System.Windows.Forms.DockStyle.Fill;
+            pnProc.Name = "pnProc";
 
             sb1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             sb1.Name = "sb1";
@@ -1200,7 +1374,7 @@ namespace bangna_hospital.gui
             this.Controls.Add(this.sb1);
             panel1.Controls.Add(tC1);
             tC1.Controls.Add(tabReq);
-            tC1.Controls.Add(tabApm);
+            tC1.Controls.Add(tabProc);
             tC1.Controls.Add(tabFinish);
             tC1.Controls.Add(tabListen);
             tC1.Controls.Add(tabmaster);
@@ -1211,6 +1385,7 @@ namespace bangna_hospital.gui
             tabmaster.Controls.Add(pnMaster);
             pnMaster.Controls.Add(sCMaster);
             c1SplitterPanel1.Controls.Add(pnQue);
+            tabProc.Controls.Add(pnProc);
             //tabmaster.Controls.Add(sCMaster);
             sCMaster.Panels.Add(scpMasterTop);
             sCMaster.Panels.Add(scpMasterButton);
@@ -1238,7 +1413,7 @@ namespace bangna_hospital.gui
             panel1.ResumeLayout(false);
             tC1.ResumeLayout(false);
             tabReq.ResumeLayout(false);
-            tabApm.ResumeLayout(false);
+            tabProc.ResumeLayout(false);
             tabFinish.ResumeLayout(false);
             tabListen.ResumeLayout(false);
             tabmaster.ResumeLayout(false);
@@ -1251,6 +1426,7 @@ namespace bangna_hospital.gui
             pnListen.ResumeLayout(false);
             pnMaster.ResumeLayout(false);
             pnQue.ResumeLayout(false);
+            pnProc.ResumeLayout(false);
 
             this.ResumeLayout(false);
 
@@ -1258,8 +1434,9 @@ namespace bangna_hospital.gui
             pnListen.PerformLayout();
             pnMaster.PerformLayout();
             pnQue.PerformLayout();
+            pnProc.PerformLayout();
             tabReq.PerformLayout();
-            tabApm.PerformLayout();
+            tabProc.PerformLayout();
             tabFinish.PerformLayout();
             tabListen.PerformLayout();
             tabmaster.PerformLayout();
@@ -1440,7 +1617,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2020-08-08 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2020-08-15 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace bangna_hospital.object1
 {
-    public class PharT05:Persistent
+    public class PharmacyT05:Persistent
     {
         public String MNC_DOC_CD { get; set; }
         public String MNC_CFR_YR { get; set; }

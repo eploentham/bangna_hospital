@@ -36,7 +36,19 @@ namespace bangna_hospital.objdb
             String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
                 "From userlog_m01 stf " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where stf." + stf.username + " ='" + username + "' and mnc_usr_lev = '5'  ";
+                "Where stf." + stf.username + " ='" + username + " and mnc_usr_lev = '5'  ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            cop1 = setStaff(dt);
+            return cop1;
+        }
+        public Staff selectByUsernameLevelDoctor1(String username)
+        {
+            Staff cop1 = new Staff();
+            DataTable dt = new DataTable();
+            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
+                "From userlog_m01 stf " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where (stf." + stf.username + " ='" + username + "' or stf." + stf.fullname + " like '" + username + "%') and mnc_usr_lev = '5'  ";
             dt = conn.selectData(conn.connMainHIS, sql);
             cop1 = setStaff(dt);
             return cop1;
@@ -52,6 +64,31 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             cop1 = setStaff(dt);
             return cop1;
+        }
+        public Staff selectByUsername1(String username)
+        {
+            Staff cop1 = new Staff();
+            DataTable dt = new DataTable();
+            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
+                "From userlog_m01 stf " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where stf." + stf.username + " ='" + username + "' or stf." + stf.fullname + " like '" + username + "%'";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            cop1 = setStaff(dt);
+            return cop1;
+        }
+        public DataTable selectByLevel(String username)
+        {
+            Staff cop1 = new Staff();
+            DataTable dt = new DataTable();
+            String sql = "select stf.mnc_usr_name, stf.mnc_usr_full " +
+                "From userlog_m01 stf " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where stf.mnc_usr_lev in (" + username + ") " +
+                "Order By stf.mnc_usr_name ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //cop1 = setStaff(dt);
+            return dt;
         }
         public Staff selectByLogin(String username)
         {

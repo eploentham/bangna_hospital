@@ -96,7 +96,7 @@ namespace bangna_hospital.objdb
                     ") " +
                     "Values('" + p.MNC_REQ_YR + "','" + p.MNC_REQ_NO + "','" + p.MNC_REQ_DAT + "','" +
                     p.MNC_XR_CD + "','" + p.MNC_STS + "','" + p.MNC_XR_TYP + "','" +
-                    p.MNC_GRP_NO + "','" + p.MNC_XR_DSC + "','" + p.MNC_RES + "','" +
+                    p.MNC_GRP_NO + "','" + p.MNC_XR_DSC.Replace("'","''") + "','" + p.MNC_RES.Replace("'", "''") + "','" +
                     p.MNC_XR_USR + "','" + p.MNC_DOT_DF_CD + "','0'," +
                     "convert(VARCHAR(20),getdate(),20),'0'" +
                     ") ";
