@@ -3434,7 +3434,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-08-03 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint;
+            this.Text = "Last Update 2020-08-03 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutDate "+bc.iniC.laboutdateMedica;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;
