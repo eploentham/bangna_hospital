@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -76,5 +77,140 @@ namespace bangna_hospital.objdb
 
 
         }
+
+        public PharmacyM01 setPharmacyM01(DataTable dt)
+        {
+            PharmacyM01 pharM01 = new PharmacyM01();
+            if (dt.Rows.Count > 0)
+            {
+                pharM01.MNC_PH_CD = dt.Rows[0]["MNC_PH_CD"].ToString();
+                pharM01.MNC_PH_ID = dt.Rows[0]["MNC_PH_ID"].ToString();
+                pharM01.MNC_PH_CTL_CD = dt.Rows[0]["MNC_PH_CTL_CD"].ToString();
+                pharM01.MNC_PH_TN = dt.Rows[0]["MNC_PH_TN"].ToString();
+                pharM01.MNC_PH_GN = dt.Rows[0]["MNC_PH_GN"].ToString();
+                pharM01.MNC_PH_UNT_CD = dt.Rows[0]["MNC_PH_UNT_CD"].ToString();
+                pharM01.MNC_PH_GRP_CD = dt.Rows[0]["MNC_PH_GRP_CD"].ToString();
+                pharM01.MNC_PH_TYP_CD = dt.Rows[0]["MNC_PH_TYP_CD"].ToString();
+                pharM01.MNC_PH_DIR_CD = dt.Rows[0]["MNC_PH_DIR_CD"].ToString();
+                pharM01.MNC_PH_CAU_CD = dt.Rows[0]["MNC_PH_CAU_CD"].ToString();
+                pharM01.MNC_PH_MIN = dt.Rows[0]["MNC_PH_MIN"].ToString();
+                pharM01.MNC_PH_MAX = dt.Rows[0]["MNC_PH_MAX"].ToString();
+                pharM01.MNC_PH_DAY = dt.Rows[0]["MNC_PH_DAY"].ToString();
+                pharM01.MNC_PR_STD = dt.Rows[0]["MNC_PR_STD"].ToString();
+                pharM01.MNC_SUP_STS = dt.Rows[0]["MNC_SUP_STS"].ToString();
+                pharM01.MNC_PRO_LOC = dt.Rows[0]["MNC_PRO_LOC"].ToString();
+                pharM01.MNC_PH_AT = dt.Rows[0]["MNC_PH_AT"].ToString();
+                pharM01.MNC_FN_CD = dt.Rows[0]["MNC_FN_CD"].ToString();
+                pharM01.MNC_PH_STS = dt.Rows[0]["MNC_PH_STS"].ToString();
+                pharM01.MNC_PH_LQ = dt.Rows[0]["MNC_PH_LQ"].ToString();
+                pharM01.MNC_PH_LV = dt.Rows[0]["MNC_PH_LV"].ToString();
+                pharM01.MNC_PH_LI = dt.Rows[0]["MNC_PH_LI"].ToString();
+                pharM01.MNC_PH_LC = dt.Rows[0]["MNC_PH_LC"].ToString();
+                pharM01.MNC_PH_LD = dt.Rows[0]["MNC_PH_LD"].ToString();
+                pharM01.MNC_PH_DIS_STS = dt.Rows[0]["MNC_PH_DIS_STS"].ToString();
+                pharM01.MNC_PH_DIV_CD = dt.Rows[0]["MNC_PH_DIV_CD"].ToString();
+                pharM01.MNC_PH_FRE_CD = dt.Rows[0]["MNC_PH_FRE_CD"].ToString();
+                pharM01.MNC_PH_TIM_CD = dt.Rows[0]["MNC_PH_TIM_CD"].ToString();
+                pharM01.MNC_PH_IND_CD = dt.Rows[0]["MNC_PH_IND_CD"].ToString();
+                pharM01.MNC_GRP_PH_CD = dt.Rows[0]["MNC_GRP_PH_CD"].ToString();
+                pharM01.MNC_PH_GRP_SUB_CD = dt.Rows[0]["MNC_PH_GRP_SUB_CD"].ToString();
+                pharM01.MNC_PH_DIR_TXT = dt.Rows[0]["MNC_PH_DIR_TXT"].ToString();
+                pharM01.MNC_DEC_CD = dt.Rows[0]["MNC_DEC_CD"].ToString();
+                pharM01.MNC_DEC_NO = dt.Rows[0]["MNC_DEC_NO"].ToString();
+                pharM01.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+                pharM01.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_TIM"].ToString();
+                pharM01.MNC_USR_ADD = dt.Rows[0]["MNC_USR_ADD"].ToString();
+                pharM01.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
+                pharM01.MNC_PH_PRI = dt.Rows[0]["MNC_PH_PRI"].ToString();
+                pharM01.MNC_PH_PRO_STS = dt.Rows[0]["MNC_PH_PRO_STS"].ToString();
+                pharM01.MNC_DOSAGE_FORM = dt.Rows[0]["MNC_DOSAGE_FORM"].ToString();
+                pharM01.MNC_PH_STRENGTH = dt.Rows[0]["MNC_PH_STRENGTH"].ToString();
+                pharM01.MNC_PH_COMM_THAI = dt.Rows[0]["MNC_PH_COMM_THAI"].ToString();
+                pharM01.MNC_PH_COMM_ENG = dt.Rows[0]["MNC_PH_COMM_ENG"].ToString();
+                pharM01.MNC_PH_DIV_CD_I = dt.Rows[0]["MNC_PH_DIV_CD_I"].ToString();
+                pharM01.MNC_PH_MAT_FLG = dt.Rows[0]["MNC_PH_MAT_FLG"].ToString();
+                pharM01.MNC_PH_TYP_FLG = dt.Rows[0]["MNC_PH_TYP_FLG"].ToString();
+                pharM01.MNC_VEN_CD = dt.Rows[0]["MNC_VEN_CD"].ToString();
+                pharM01.MNC_OLD_CD = dt.Rows[0]["MNC_OLD_CD"].ToString();
+                pharM01.MNC_PH_WRN_CD = dt.Rows[0]["MNC_PH_WRN_CD"].ToString();
+                pharM01.MNC_PH_AUTO = dt.Rows[0]["MNC_PH_AUTO"].ToString();
+                pharM01.MNC_FN_TYP_CD = dt.Rows[0]["MNC_FN_TYP_CD"].ToString();
+                pharM01.MNC_PRINT_FLG = dt.Rows[0]["MNC_PRINT_FLG"].ToString();
+                pharM01.MNC_PH_NEW_SS = dt.Rows[0]["MNC_PH_NEW_SS"].ToString();
+                pharM01.tmt_code = dt.Rows[0]["tmt_code"].ToString();
+                
+
+
+            }
+            else
+            {
+                setPharmacyM01(pharM01);
+            }
+            return pharM01;
+        }
+        public PharmacyM01 setPharmacyM01(PharmacyM01 p)
+        {
+
+            p.MNC_PH_CD = "";
+            p.MNC_PH_ID = "";
+            p.MNC_PH_CTL_CD = "";
+            p.MNC_PH_TN = "";
+            p.MNC_PH_GN = "";
+            p.MNC_PH_UNT_CD = "";
+            p.MNC_PH_GRP_CD = "";
+            p.MNC_PH_TYP_CD = "";
+            p.MNC_PH_DIR_CD = "";
+            p.MNC_PH_CAU_CD = "";
+            p.MNC_PH_MIN = "";
+            p.MNC_PH_MAX = "";
+            p.MNC_PH_DAY = "";
+            p.MNC_PR_STD = "";
+            p.MNC_SUP_STS = "";
+            p.MNC_PRO_LOC = "";
+            p.MNC_PH_AT = "";
+            p.MNC_FN_CD = "";
+            p.MNC_PH_STS = "";
+            p.MNC_PH_LQ = "";
+            p.MNC_PH_LV = "";
+            p.MNC_PH_LI = "";
+            p.MNC_PH_LC = "";
+            p.MNC_PH_LD = "";
+            p.MNC_PH_DIS_STS = "";
+            p.MNC_PH_DIV_CD = "";
+            p.MNC_PH_FRE_CD = "";
+            p.MNC_PH_TIM_CD = "";
+            p.MNC_PH_IND_CD = "";
+            p.MNC_GRP_PH_CD = "";
+            p.MNC_PH_GRP_SUB_CD = "";
+            p.MNC_PH_DIR_TXT = "";
+            p.MNC_DEC_CD = "";
+            p.MNC_DEC_NO = "";
+            p.MNC_STAMP_DAT = "";
+            p.MNC_STAMP_TIM = "";
+            p.MNC_USR_ADD = "";
+            p.MNC_USR_UPD = "";
+            p.MNC_PH_PRI = "";
+            p.MNC_PH_PRO_STS = "";
+            p.MNC_DOSAGE_FORM = "";
+            p.MNC_PH_STRENGTH = "";
+            p.MNC_PH_COMM_THAI = "";
+            p.MNC_PH_COMM_ENG = "";
+            p.MNC_PH_DIV_CD_I = "";
+            p.MNC_PH_MAT_FLG = "";
+            p.MNC_PH_TYP_FLG = "";
+            p.MNC_VEN_CD = "";
+            p.MNC_OLD_CD = "";
+            p.MNC_PH_WRN_CD = "";
+            p.MNC_PH_AUTO = "";
+            p.MNC_FN_TYP_CD = "";
+            p.MNC_PRINT_FLG = "";
+            p.MNC_PH_NEW_SS = "";
+            p.tmt_code = "";
+
+
+            return p;
+        }
+
+
     }
 }

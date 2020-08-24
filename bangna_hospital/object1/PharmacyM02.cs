@@ -22,7 +22,7 @@ namespace bangna_hospital.object1
         public String MNC_FREEZ_DAT { get; set; }
         public String MNC_FREEZ_ISS { get; set; }
         public String MNC_LOT_NO { get; set; }
-        public String MNC_EXP_DA { get; set; }
+        public String MNC_EXP_DAT { get; set; }
         public String MNC_PH_STS { get; set; }
         public String MNC_STAMP_DAT { get; set; }
         public String MNC_STAMP_TIM{ get; set; }

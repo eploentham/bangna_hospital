@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -48,9 +49,90 @@ namespace bangna_hospital.objdb
             pharT02.MNC_PH_REM = "MNC_PH_REM";
             pharT02.MNC_PAY_FLAG = "MNC_PAY_FLAG";
             pharT02.MNC_PH_STS = "MNC_PH_STS";
+            pharT02.MNC_AN_NO = "MNC_AN_NO";
 
          }
 
+        public PharmacyT02 setPharmacyT02(DataTable dt)
+        {
+            PharmacyT02 pharT02 = new PharmacyT02();
+            if (dt.Rows.Count > 0)
+            {
+                pharT02.MNC_DOC_CD = dt.Rows[0]["MNC_DOC_CD"].ToString();
+                pharT02.MNC_REQ_YR = dt.Rows[0]["MNC_REQ_YR"].ToString();
+                pharT02.MNC_REQ_NO = dt.Rows[0]["MNC_REQ_NO"].ToString();
+                pharT02.MNC_PH_CD = dt.Rows[0]["MNC_PH_CD"].ToString();
+                pharT02.MNC_PH_QTY = dt.Rows[0]["MNC_PH_QTY"].ToString();
+                pharT02.MNC_PH_UNTF_QTY = dt.Rows[0]["MNC_PH_UNTF_QTY"].ToString();
+                pharT02.MNC_PH_UNT_CD = dt.Rows[0]["MNC_PH_UNT_CD"].ToString();
+                pharT02.MNC_PH_DIR_DSC = dt.Rows[0]["MNC_PH_DIR_DSC"].ToString();
+                pharT02.MNC_PH_PRI = dt.Rows[0]["MNC_PH_PRI"].ToString();
+                pharT02.MNC_PH_COS = dt.Rows[0]["MNC_PH_COS"].ToString();
+                pharT02.MNC_SUP_STS = dt.Rows[0]["MNC_SUP_STS"].ToString();
+                pharT02.MNC_ORD_NO = dt.Rows[0]["MNC_ORD_NO"].ToString();
+                pharT02.MNC_PH_RFN = dt.Rows[0]["MNC_PH_RFN"].ToString();
+                pharT02.MNC_PH_DIR_CD = dt.Rows[0]["MNC_PH_DIR_CD"].ToString();
+                pharT02.MNC_PH_FRE_CD = dt.Rows[0]["MNC_PH_FRE_CD"].ToString();
+                pharT02.MNC_PH_TIM_CD = dt.Rows[0]["MNC_PH_TIM_CD"].ToString();
+                pharT02.MNC_PH_CAU = dt.Rows[0]["MNC_PH_CAU"].ToString();
+                pharT02.MNC_FN_CD = dt.Rows[0]["MNC_FN_CD"].ToString();
+                pharT02.MNC_PHA_HID = dt.Rows[0]["MNC_PHA_HID"].ToString();
+                pharT02.MNC_PH_FLG = dt.Rows[0]["MNC_PH_FLG"].ToString();
+                pharT02.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+                pharT02.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+                pharT02.MNC_USR_ADD = dt.Rows[0]["MNC_USR_ADD"].ToString();
+                pharT02.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
+                pharT02.MNC_PH_DIR_TXT = dt.Rows[0]["MNC_PH_DIR_TXT"].ToString();
+                pharT02.MNC_CANCEL_STS = dt.Rows[0]["MNC_CANCEL_STS"].ToString();
+                pharT02.MNC_PH_REM = dt.Rows[0]["MNC_PH_REM"].ToString();
+                pharT02.MNC_PAY_FLAG = dt.Rows[0]["MNC_PAY_FLAG"].ToString();
+                pharT02.MNC_PH_STS = dt.Rows[0]["MNC_PH_STS"].ToString();
+                pharT02.MNC_AN_NO = dt.Rows[0]["MNC_AN_NO"].ToString();
 
+
+            }
+            else
+            {
+                setPharmacyT02(pharT02);
+            }
+            return pharT02;
+        }
+        public PharmacyT02 setPharmacyT02(PharmacyT02 p)
+        {
+
+            p.MNC_DOC_CD = "";
+            p.MNC_REQ_YR = "";
+            p.MNC_REQ_NO = "";
+            p.MNC_PH_CD = "";
+            p.MNC_PH_QTY = "";
+            p.MNC_PH_UNTF_QTY = "";
+            p.MNC_PH_UNT_CD = "";
+            p.MNC_PH_DIR_DSC = "";
+            p.MNC_PH_PRI = "";
+            p.MNC_PH_COS = "";
+            p.MNC_SUP_STS = "";
+            p.MNC_ORD_NO = "";
+            p.MNC_PH_RFN = "";
+            p.MNC_PH_DIR_CD = "";
+            p.MNC_PH_FRE_CD = "";
+            p.MNC_PH_TIM_CD = "";
+            p.MNC_PH_CAU = "";
+            p.MNC_PH_IND = "";
+            p.MNC_FN_CD = "";
+            p.MNC_PHA_HID = "";
+            p.MNC_PH_FLG = "";
+            p.MNC_STAMP_DAT = "";
+            p.MNC_STAMP_TIM = "";
+            p.MNC_USR_ADD = "";
+            p.MNC_USR_UPD = "";
+            p.MNC_PH_DIR_TXT = "";
+            p.MNC_CANCEL_STS = "";
+            p.MNC_PH_REM = "";
+            p.MNC_PAY_FLAG = "";
+            p.MNC_PH_STS = "";
+            p.MNC_AN_NO = "";
+
+            return p;
+        }
     }
 }

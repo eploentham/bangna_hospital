@@ -7,6 +7,7 @@ namespace bangna_hospital.object1
 {
     public class PharmacyT06:Persistent
     {
+
         public String MNC_DOC_CD { get; set; }
         public String MNC_CFR_YR { get; set; }
         public String MNC_CFR_NO { get; set; }
