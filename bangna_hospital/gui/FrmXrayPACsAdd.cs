@@ -616,7 +616,6 @@ namespace bangna_hospital.gui
 
             //theme1.SetTheme(tabDiag, "Office2010Blue");
             //theme1.SetTheme(tabFinish, "Office2010Blue");
-
         }
 
         private void GrfReq_DoubleClick(object sender, EventArgs e)
@@ -624,7 +623,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (grfReq.Row <= 0) return;
             if (grfReq.Col <= 0) return;
-            String hn = "", name = "", sex = "", dob = "", sickness = "", vn = "", hnreqyear = "", preno = "", reqno = "", xray = "", xrcode="", stfcode="", stfname="";
+            String hn = "", name = "", sex = "", dob = "", sickness = "", vn = "", hnreqyear = "", preno = "", reqno = "", xray = "", xrcode="", stfcode="", stfname="", dtrid="";
             String opdtype = "", depcode = "", depname = "", xrgrpcd="", reqdate="";
             hn = grfReq[grfReq.Row, colReqHn] != null ? grfReq[grfReq.Row, colReqHn].ToString() : "";
             name = grfReq[grfReq.Row, colReqName] != null ? grfReq[grfReq.Row, colReqName].ToString() : "";
@@ -638,8 +637,8 @@ namespace bangna_hospital.gui
             xray = grfReq[grfReq.Row, colxrdesc] != null ? grfReq[grfReq.Row, colxrdesc].ToString() : "";
             xrcode = grfReq[grfReq.Row, colxrcode] != null ? grfReq[grfReq.Row, colxrcode].ToString() : "";
             stfcode = grfReq[grfReq.Row, colxrstfcode] != null ? grfReq[grfReq.Row, colxrstfcode].ToString() : "";
+            dtrid = grfReq[grfReq.Row, colReqDtr] != null ? grfReq[grfReq.Row, colReqDtr].ToString() : "";
             stfname = grfReq[grfReq.Row, colxrstfname] != null ? grfReq[grfReq.Row, colxrstfname].ToString() : "";
-            //stfname = grfReq[grfReq.Row, colxrstfname] != null ? grfReq[grfReq.Row, colxrstfname].ToString() : "";
             depcode = grfReq[grfReq.Row, colxrdepno] != null ? grfReq[grfReq.Row, colxrdepno].ToString() : "";
             depname = grfReq[grfReq.Row, colxrdepname] != null ? grfReq[grfReq.Row, colxrdepname].ToString() : "";
             opdtype = grfReq[grfReq.Row, colpttstatus] != null ? grfReq[grfReq.Row, colpttstatus].ToString() : "";
@@ -647,13 +646,18 @@ namespace bangna_hospital.gui
             reqdate = grfReq[grfReq.Row, colxrdate] != null ? grfReq[grfReq.Row, colxrdate].ToString() : "";
             opdtype = opdtype.Trim().Equals("I") ? "I" : "O";
             //reqdate = bc.datetoDB(reqdate);
+            String re = "0";
             ResOrderTab reso = new ResOrderTab();
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
-            reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, preno, hnreqyear, reqno, dob, sex, sickness, xray);
-            //MessageBox.Show("InsertDate " + reso.InsertDate , "");
+            if (!xrgrpcd.Equals("U") || !xrgrpcd.Equals("C") || !xrgrpcd.Equals("G") || !xrgrpcd.Equals("M"))
+            {
+                reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, preno, hnreqyear, reqno, dob, sex, sickness, xray, xrcode, depname, dtrid, stfname);
+                //MessageBox.Show("InsertDate " + reso.InsertDate , "");
 
-            //ใช้งานจริงๆ เอา comment ออก
-            String re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
+                //ใช้งานจริงๆ เอา comment ออก
+                re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
+            }
+            
             ////MessageBox.Show("re " + re, "");
             long chk = 0, chk1 = 0;
             if (long.TryParse(re, out chk))
@@ -884,7 +888,7 @@ namespace bangna_hospital.gui
             date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
 
             dt = bc.bcDB.xrDB.selectVisitStatusPacsReqByDate(date);
-            //dt = bc.bcDB.xrDB.selectVisitStatusPacsReqByDateTestHN(date, "5203491");
+            //dt = bc.bcDB.xrDB.selectVisitStatusPacsReqByDateTestHN(date, "5132957");
             //grfExpn.Rows.Count = dt.Rows.Count + 1;
 
             grfReq.Rows.Count = dt.Rows.Count + 1;
@@ -940,7 +944,7 @@ namespace bangna_hospital.gui
                     grfReq[i, colReqVn] = row["mnc_vn_no"].ToString() + "." + row["mnc_vn_seq"].ToString() + "." + row["mnc_vn_sum"].ToString();
 
                     grfReq[i, colReqXn] = "";
-                    grfReq[i, colReqDtr] = "";
+                    grfReq[i, colReqDtr] = row["MNC_DOT_CD"].ToString();
                     grfReq[i, colReqDpt] = "";
                     grfReq[i, colReqreqyr] = row["mnc_req_yr"].ToString();
                     grfReq[i, colReqreqno] = row["mnc_req_no"].ToString();
@@ -1617,7 +1621,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2020-08-15 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2020-08-24 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

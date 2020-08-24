@@ -133,7 +133,7 @@ namespace bangna_hospital.objdb
             //p.pre_no = int.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";
             //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
         }
-        public ResOrderTab setResOrderTab(String hn, String name, String vn, String preno, String hnyear, String reqno, String dob, String sex, String sickness, String xraydesc)
+        public ResOrderTab setResOrderTab(String hn, String name, String vn, String preno, String hnyear, String reqno, String dob, String sex, String sickness, String xraydesc, String xraycode,String deptname, String dtrid, String dtrname)
         {
             String date = "";
             date = System.DateTime.Now.Year + System.DateTime.Now.ToString("MMddHHmmss");
@@ -141,7 +141,7 @@ namespace bangna_hospital.objdb
             reso1.ResOrderKey = "";
             reso1.OrderClass = "NEW";
             reso1.PatientID = hn;
-            reso1.AccessNumber = vn + "@" + preno + "@" + hnyear + "@" + reqno;
+            reso1.AccessNumber = vn + "@" + preno + "@" + hnyear + "@" + reqno+"@"+ xraycode;
             reso1.KPatientName = name;
             reso1.EPatientName = name;
             reso1.DateOfBirth = dob.Replace("-","");
@@ -156,9 +156,9 @@ namespace bangna_hospital.objdb
             reso1.ResStatusPolling = "";
             reso1.InsertDate = date;
             reso1.OrderDate = date;
-            reso1.PhysicianID = "admin";
-            reso1.PhysicianName = "administrator";
-            reso1.OrderDept = "IT";
+            reso1.PhysicianID = dtrid;
+            reso1.PhysicianName = dtrname;
+            reso1.OrderDept = deptname;
             reso1.ModalityCode = "";
             //reso1.ProcDesc = "E017";
             //reso1.ExanDescription = "NEck";

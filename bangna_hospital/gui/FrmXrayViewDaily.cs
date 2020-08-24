@@ -237,7 +237,7 @@ namespace bangna_hospital.gui
             xray = grfReq[grfReq.Row, colxrdesc] != null ? grfReq[grfReq.Row, colxrdesc].ToString() : "";
             ResOrderTab reso = new ResOrderTab();
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
-            reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray);
+            reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, hnreqyear, preno, reqno, dob, sex, sickness, xray,"","","","");
             //MessageBox.Show("InsertDate " + reso.InsertDate , "");
             String re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
             //MessageBox.Show("re " + re, "");
