@@ -41,10 +41,7 @@ namespace bangna_hospital.objdb
             pharM02.MNC_USR_ADD = "MNC_USR_ADD";
             pharM02.MNC_USR_UPD = "MNC_USR_UPD";
             pharM02.MNC_MAC_ID = "MNC_MAC_ID";
-
-
          }
-
         public PharmacyM02 setPharmacyM02(DataTable dt)
         {
             PharmacyM02 pharM02 = new PharmacyM02();
@@ -72,8 +69,6 @@ namespace bangna_hospital.objdb
                 pharM02.MNC_USR_ADD = dt.Rows[0]["MNC_USR_ADD"].ToString();
                 pharM02.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
                 pharM02.MNC_MAC_ID = dt.Rows[0]["MNC_MAC_ID"].ToString();
-
-
             }
             else
             {
@@ -83,7 +78,6 @@ namespace bangna_hospital.objdb
         }
         public PharmacyM02 setPharmacyM02(PharmacyM02 p)
         {
-
             p.MNC_PH_CD = "";
             p.MNC_DEP_NO = "";
             p.MNC_SEC_NO = "";
@@ -106,10 +100,7 @@ namespace bangna_hospital.objdb
             p.MNC_USR_ADD = "";
             p.MNC_USR_UPD = "";
             p.MNC_MAC_ID = "";
-
             return p;
         }
-
-
     }
 }

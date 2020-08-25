@@ -62,9 +62,7 @@ namespace bangna_hospital.object1
             pharT01.MNC_PAC_TYP = "MNC_PAC_TYP";
             pharT01.MNC_REQ_COUNT = "MNC_REQ_COUNT";
             pharT01.MNC_REQ_TYP = "MNC_REQ_TYP";
-
         }
-
         public PharmacyT01 setPharmacyT01(DataTable dt)
         {
             PharmacyT01 pharT01 = new PharmacyT01();
@@ -113,8 +111,6 @@ namespace bangna_hospital.object1
                 pharT01.MNC_PAC_TYP = dt.Rows[0]["MNC_PAC_TYP"].ToString();
                 pharT01.MNC_REQ_COUNT = dt.Rows[0]["MNC_REQ_COUNT"].ToString();
                 pharT01.MNC_REQ_TYP = dt.Rows[0]["MNC_REQ_TYP"].ToString();
-
-
             }
             else
             {
@@ -124,7 +120,6 @@ namespace bangna_hospital.object1
         }
         public PharmacyT01 setPharmacyT01(PharmacyT01 p)
         {
-
             p.MNC_DOC_CD = "";
             p.MNC_REQ_YR = "";
             p.MNC_REQ_NO = "";
@@ -168,9 +163,7 @@ namespace bangna_hospital.object1
             p.MNC_PAC_TYP = "";
             p.MNC_REQ_COUNT = "";
             p.MNC_REQ_TYP = "";
-
             return p;
         }
-
     }
 }

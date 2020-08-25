@@ -104,7 +104,6 @@ namespace bangna_hospital.objdb
                 pharT05.MNC_PHA_STS = dt.Rows[0]["MNC_PHA_STS"].ToString();
                 pharT05.MNC_REQ_COUNT = dt.Rows[0]["MNC_REQ_COUNT"].ToString();
                 pharT05.MNC_REQ_TYP = dt.Rows[0]["MNC_REQ_TYP"].ToString();
-
             }
             else
             {
@@ -114,7 +113,6 @@ namespace bangna_hospital.objdb
         }
         public PharmacyT05 setPharmacyT05(PharmacyT05 p)
         {
-            
             p.MNC_DOC_CD = "";
             p.MNC_CFR_YR = "";
             p.MNC_CFR_NO = "";
@@ -156,7 +154,5 @@ namespace bangna_hospital.objdb
             p.MNC_REQ_TYP = "";
             return p;
         }
-
-
     }
 }

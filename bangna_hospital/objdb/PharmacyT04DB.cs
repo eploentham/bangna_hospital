@@ -95,5 +95,4 @@ namespace bangna_hospital.objdb
             return p;
         }
     }
-
 }

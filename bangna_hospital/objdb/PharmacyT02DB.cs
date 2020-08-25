@@ -50,9 +50,7 @@ namespace bangna_hospital.objdb
             pharT02.MNC_PAY_FLAG = "MNC_PAY_FLAG";
             pharT02.MNC_PH_STS = "MNC_PH_STS";
             pharT02.MNC_AN_NO = "MNC_AN_NO";
-
          }
-
         public PharmacyT02 setPharmacyT02(DataTable dt)
         {
             PharmacyT02 pharT02 = new PharmacyT02();
@@ -88,8 +86,6 @@ namespace bangna_hospital.objdb
                 pharT02.MNC_PAY_FLAG = dt.Rows[0]["MNC_PAY_FLAG"].ToString();
                 pharT02.MNC_PH_STS = dt.Rows[0]["MNC_PH_STS"].ToString();
                 pharT02.MNC_AN_NO = dt.Rows[0]["MNC_AN_NO"].ToString();
-
-
             }
             else
             {
@@ -99,7 +95,6 @@ namespace bangna_hospital.objdb
         }
         public PharmacyT02 setPharmacyT02(PharmacyT02 p)
         {
-
             p.MNC_DOC_CD = "";
             p.MNC_REQ_YR = "";
             p.MNC_REQ_NO = "";
@@ -131,7 +126,6 @@ namespace bangna_hospital.objdb
             p.MNC_PAY_FLAG = "";
             p.MNC_PH_STS = "";
             p.MNC_AN_NO = "";
-
             return p;
         }
     }
