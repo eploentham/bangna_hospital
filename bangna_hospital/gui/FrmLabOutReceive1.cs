@@ -1195,7 +1195,7 @@ namespace bangna_hospital.gui
                 uploadFiletoServerRIA();
             }
             String chkdate = "";
-            chkdate = "2020-08-18";
+            //chkdate = "2020-08-18";
             getFileinFolderMedica(chkdate);
             uploadFiletoServerMedicaOnLine(chkdate);
             Thread.Sleep(200);
