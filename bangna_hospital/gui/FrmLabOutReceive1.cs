@@ -1195,7 +1195,7 @@ namespace bangna_hospital.gui
                 uploadFiletoServerRIA();
             }
             String chkdate = "";
-            chkdate = "2020-08-16";
+            chkdate = "2020-08-18";
             getFileinFolderMedica(chkdate);
             uploadFiletoServerMedicaOnLine(chkdate);
             Thread.Sleep(200);
@@ -1792,7 +1792,7 @@ namespace bangna_hospital.gui
                 //path = bc.iniC.hostFTPLabOutMedica + "medicalab/www/app/pdf/";
                 String address = path+lab.labno+".pdf";
                 Boolean chkFileExit = false;
-                listBox2.Items.Add("Check Medica lab " + lab.labno);
+                listBox2.Items.Add("Check Medica lab " + lab.labno+ " bc.iniC.hostFTPLabOutMedica "+ bc.iniC.hostFTPLabOutMedica+ " bc.iniC.userFTPLabOutMedica " + bc.iniC.userFTPLabOutMedica+ " bc.iniC.passFTPLabOutMedica " + bc.iniC.passFTPLabOutMedica+ " bc.ftpUsePassiveLabOut " + bc.ftpUsePassiveLabOut);
                 Application.DoEvents();
                 Thread.Sleep(200);
                 FtpClient ftp = new FtpClient(bc.iniC.hostFTPLabOutMedica, bc.iniC.userFTPLabOutMedica, bc.iniC.passFTPLabOutMedica, bc.ftpUsePassiveLabOut);
@@ -1813,6 +1813,8 @@ namespace bangna_hospital.gui
                 if (!Directory.Exists(bc.iniC.pathLabOutReceiveMedica+"\\"+ currDate))
                 {
                     Directory.CreateDirectory(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
+                    listBox2.Items.Add("CreateDirectory " + bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
+                    new LogWriter("d", "CreateDirectory " + bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
                 }
                 const Int32 BufferSize = 128;
                 if(!File.Exists(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate + "\\list.txt"))
@@ -1836,6 +1838,7 @@ namespace bangna_hospital.gui
                     }
                     // Process line
                 }
+                new LogWriter("d", "PdfReader 00 chkFileExit"+ chkFileExit);
                 if (chkFileExit) continue;
                 //if (!File.Exists(bc.iniC.pathLabOutReceiveMedica + "\\" + lab.labno + ".pdf"))
                 //{
@@ -1846,13 +1849,17 @@ namespace bangna_hospital.gui
                 //PdfReader reader = new PdfReader(streamresult);
                 try
                 {
+                    new LogWriter("d", "PdfReader 01 ");
                     PdfReader reader = new PdfReader(aaa);
                     for (int page1 = 1; page1 <= reader.NumberOfPages; page1++)
                     {
                         string strText = "";
+                        if (page1 > 1) break;
+                        chk = false;
                         ITextExtractionStrategy its = new LocationTextExtractionStrategy();
                         strText = PdfTextExtractor.GetTextFromPage(reader, page1, its);
                         string[] lines = strText.Split('\n');
+                        new LogWriter("d", "PdfReader 02 lines.Length " + lines.Length);
                         if (lines.Length >= 4)
                         {
                             String txt = "";
@@ -1924,9 +1931,18 @@ namespace bangna_hospital.gui
                                     {
                                         if (chkrequest.ToUpper().IndexOf("REQUEST")>=0)
                                         {
-                                            String bbb = "";
-                                            reqid = chkrequest.Replace("REQUEST", "");
-                                            chk = true;
+                                            long reqid6 = 0;
+                                            if (long.TryParse(chkrequest.Trim().Replace("REQUEST", ""), out reqid6))
+                                            {
+                                                reqid = chkrequest.ToString();
+                                                chk = true;
+                                                break;
+                                            }
+                                            //String bbb = "";
+                                            //reqid = chkrequest.Replace("REQUEST", "");
+                                            //chk = true;
+                                            //new LogWriter("d", "foreach(String chkrequest in lines) reqid " + reqid);
+                                            
                                         }
                                     }
                                 }
@@ -1971,6 +1987,7 @@ namespace bangna_hospital.gui
                         }
                     }
                     reader.Close();
+                    listBox2.Items.Add("Check Medica chk " + chk);
                     //streamresult.Position = 0;
                     if (chk == false)
                     {
@@ -2776,7 +2793,7 @@ namespace bangna_hospital.gui
             }
             //listBox2.Items.Clear();     //listBox3
             Application.DoEvents();
-            Thread.Sleep(500);
+            Thread.Sleep(200);
             //currDate = "2020-06-24";
             if (!Directory.Exists(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate))
             {
@@ -2788,7 +2805,8 @@ namespace bangna_hospital.gui
             List<String> filePaths = new List<String>();
             //currDate = "2020-06-19";
             DirectoryInfo dirs = new DirectoryInfo(bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
-            listBox2.Items.Add("uploadFiletoServerMedicaOnLine currDate " + currDate + " hosp_code=" + bc.iniC.laboutMedicahosp_code);
+            listBox2.Items.Add("uploadFiletoServerMedicaOnLine currDate " + currDate + " hosp_code=" + bc.iniC.laboutMedicahosp_code+ " filePaths " + filePaths.Count);
+            listBox2.Items.Add("filePaths  " + bc.iniC.pathLabOutReceiveMedica + "\\" + currDate);
             Application.DoEvents();
             FileInfo[] Files = dirs.GetFiles("*.pdf");
             foreach (FileInfo file in Files)
@@ -2841,7 +2859,7 @@ namespace bangna_hospital.gui
                     
                     File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\backup\\err_not_correct_FORMAT" + filename2 + "_" + datetick + ext);
                     
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     continue;
                 }
                 //new LogWriter("d", "uploadFiletoServerInnoTech file " + filename + " 001");
@@ -2861,7 +2879,7 @@ namespace bangna_hospital.gui
                     
                     File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_File_short" + filename2 + "_" + datetick + ext);
                     
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     continue;
                 }
                 //new LogWriter("d", "uploadFiletoServerInnoTech 01 000");
@@ -2887,7 +2905,7 @@ namespace bangna_hospital.gui
                     
                     File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_File_no_found_date" + filename2 + "_" + datetick + ext);
                     
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     continue;
                 }
                 reqid = filename2.Substring(filename2.Length - 3);
@@ -2911,7 +2929,7 @@ namespace bangna_hospital.gui
                     
                     File.Move(filename, bc.iniC.pathLabOutBackupMedica + "\\err_not_found_HIS" + filename2 + "_" + datetick + ext);
                     
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     continue;
                 }
                 //new LogWriter("d", "uploadFiletoServerInnoTech 01 002");
@@ -3023,7 +3041,7 @@ namespace bangna_hospital.gui
                 {
                     listBox2.Items.Add("FTP upload success ");
                     Application.DoEvents();
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
                     String datetick = "";
                     datetick = DateTime.Now.Ticks.ToString();
                     if (!Directory.Exists(bc.iniC.pathLabOutBackupMedica))
@@ -3040,7 +3058,7 @@ namespace bangna_hospital.gui
                     Application.DoEvents();
                     streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
                     printLabOut();
-                    Thread.Sleep(1000 * 10);
+                    Thread.Sleep(1000);
                 }
                 else
                 {
@@ -3446,7 +3464,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-08-03 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutDate "+bc.iniC.laboutdateMedica;
+            this.Text = "Last Update 2020-08-26-1 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutmedicacode "+bc.iniC.laboutMedicahosp_code;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;
