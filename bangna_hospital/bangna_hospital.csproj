@@ -476,6 +476,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>result_lab.xsd</DependentUpon>
     </Compile>
+    <Compile Include="report\xray_result.cs">
+      <DependentUpon>xray_result.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="report\xray_result.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>xray_result.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FrmScanView2.resx">
       <DependentUpon>FrmScanView2.cs</DependentUpon>
     </EmbeddedResource>
@@ -641,6 +649,17 @@
     </None>
     <None Include="report\result_lab.xss">
       <DependentUpon>result_lab.xsd</DependentUpon>
+    </None>
+    <None Include="report\xray_result.xsc">
+      <DependentUpon>xray_result.xsd</DependentUpon>
+    </None>
+    <None Include="report\xray_result.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>xray_result.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="report\xray_result.xss">
+      <DependentUpon>xray_result.xsd</DependentUpon>
     </None>
     <None Include="Resources\698929.png" />
   </ItemGroup>

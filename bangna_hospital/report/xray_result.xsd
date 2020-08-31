@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="xray_result" targetNamespace="http://tempuri.org/xray_result.xsd" xmlns:mstns="http://tempuri.org/xray_result.xsd" xmlns="http://tempuri.org/xray_result.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="xray_result" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="xray_result" msprop:Generator_UserDSName="xray_result">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ptt_name" msprop:Generator_ColumnVarNameInTable="columnptt_name" msprop:Generator_ColumnPropNameInRow="ptt_name" msprop:Generator_ColumnPropNameInTable="ptt_nameColumn" msprop:Generator_UserColumnName="ptt_name" type="xs:string" minOccurs="0" />
+              <xs:element name="ptt_hn" msprop:Generator_ColumnVarNameInTable="columnptt_hn" msprop:Generator_ColumnPropNameInRow="ptt_hn" msprop:Generator_ColumnPropNameInTable="ptt_hnColumn" msprop:Generator_UserColumnName="ptt_hn" type="xs:string" minOccurs="0" />
+              <xs:element name="ptt_age" msprop:Generator_ColumnVarNameInTable="columnptt_age" msprop:Generator_ColumnPropNameInRow="ptt_age" msprop:Generator_ColumnPropNameInTable="ptt_ageColumn" msprop:Generator_UserColumnName="ptt_age" type="xs:string" minOccurs="0" />
+              <xs:element name="xray_requestno" msprop:Generator_ColumnVarNameInTable="columnxray_requestno" msprop:Generator_ColumnPropNameInRow="xray_requestno" msprop:Generator_ColumnPropNameInTable="xray_requestnoColumn" msprop:Generator_UserColumnName="xray_requestno" type="xs:string" minOccurs="0" />
+              <xs:element name="ptt_vn" msprop:Generator_ColumnVarNameInTable="columnptt_vn" msprop:Generator_ColumnPropNameInRow="ptt_vn" msprop:Generator_ColumnPropNameInTable="ptt_vnColumn" msprop:Generator_UserColumnName="ptt_vn" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_doctor" msprop:Generator_ColumnVarNameInTable="columnxry_doctor" msprop:Generator_ColumnPropNameInRow="xry_doctor" msprop:Generator_ColumnPropNameInTable="xry_doctorColumn" msprop:Generator_UserColumnName="xry_doctor" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_request_date" msprop:Generator_ColumnVarNameInTable="columnxry_request_date" msprop:Generator_ColumnPropNameInRow="xry_request_date" msprop:Generator_ColumnPropNameInTable="xry_request_dateColumn" msprop:Generator_UserColumnName="xry_request_date" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_result_date" msprop:Generator_ColumnVarNameInTable="columnxry_result_date" msprop:Generator_ColumnPropNameInRow="xry_result_date" msprop:Generator_ColumnPropNameInTable="xry_result_dateColumn" msprop:Generator_UserColumnName="xry_result_date" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_print" msprop:Generator_ColumnVarNameInTable="columnxry_print" msprop:Generator_ColumnPropNameInRow="xry_print" msprop:Generator_ColumnPropNameInTable="xry_printColumn" msprop:Generator_UserColumnName="xry_print" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_ordername" msprop:Generator_ColumnVarNameInTable="columnxry_ordername" msprop:Generator_ColumnPropNameInRow="xry_ordername" msprop:Generator_ColumnPropNameInTable="xry_ordernameColumn" msprop:Generator_UserColumnName="xry_ordername" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_orderdetail" msprop:Generator_ColumnVarNameInTable="columnxry_orderdetail" msprop:Generator_ColumnPropNameInRow="xry_orderdetail" msprop:Generator_ColumnPropNameInTable="xry_orderdetailColumn" msprop:Generator_UserColumnName="xry_orderdetail" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_result" msprop:Generator_ColumnVarNameInTable="columnxry_result" msprop:Generator_ColumnPropNameInRow="xry_result" msprop:Generator_ColumnPropNameInTable="xry_resultColumn" msprop:Generator_UserColumnName="xry_result" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_conslution" msprop:Generator_ColumnVarNameInTable="columnxry_conslution" msprop:Generator_ColumnPropNameInRow="xry_conslution" msprop:Generator_ColumnPropNameInTable="xry_conslutionColumn" msprop:Generator_UserColumnName="xry_conslution" type="xs:string" minOccurs="0" />
+              <xs:element name="xry_xraydoctor" msprop:Generator_ColumnVarNameInTable="columnxry_xraydoctor" msprop:Generator_ColumnPropNameInRow="xry_xraydoctor" msprop:Generator_ColumnPropNameInTable="xry_xraydoctorColumn" msprop:Generator_UserColumnName="xry_xraydoctor" type="xs:string" minOccurs="0" />
+              <xs:element name="ptt_comp" msprop:Generator_ColumnVarNameInTable="columnptt_comp" msprop:Generator_ColumnPropNameInRow="ptt_comp" msprop:Generator_ColumnPropNameInTable="ptt_compColumn" msprop:Generator_UserColumnName="ptt_comp" type="xs:string" minOccurs="0" />
+              <xs:element name="ptt_department" msprop:Generator_ColumnVarNameInTable="columnptt_department" msprop:Generator_ColumnPropNameInRow="ptt_department" msprop:Generator_ColumnPropNameInTable="ptt_departmentColumn" msprop:Generator_UserColumnName="ptt_department" type="xs:string" minOccurs="0" />
+              <xs:element name="ptt_type" msprop:Generator_ColumnVarNameInTable="columnptt_type" msprop:Generator_ColumnPropNameInRow="ptt_type" msprop:Generator_ColumnPropNameInTable="ptt_typeColumn" msprop:Generator_UserColumnName="ptt_type" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
