@@ -570,7 +570,7 @@ namespace bangna_hospital.gui
             if (grfOrdXray == null) return;
             if (grfOrdXray.Row <= 1) return;
             if (grfOrdXray.Col <= 0) return;
-            String an = "", vn = "", vsdate = "", xraycode = "";
+            String an = "", vn = "", vsdate = "", xraycode = "",txt1="";
             Boolean flagPACsPlus = false;
             DataTable dt = new DataTable();
             DataTable dtpacsplus = new DataTable();
@@ -601,6 +601,10 @@ namespace bangna_hospital.gui
             }
             if (dt.Rows.Count > 0)
             {
+                txt1 = dt.Rows[0]["MNC_XR_DSC"].ToString();
+            }
+            else
+            {
                 if (flagPACsPlus)
                 {
                     String txt = "", studydesc = "", studydescold = "";
@@ -618,10 +622,32 @@ namespace bangna_hospital.gui
                             txt += row["interpretation"].ToString();
                         }
                     }
+                    txt1 = txt;
                 }
             }
-            dt.Columns.Add("date_time_result", typeof(String));
+            dt.Columns.Add("ptt_name", typeof(String));
+            dt.Columns.Add("ptt_hn", typeof(String));
+            dt.Columns.Add("ptt_age", typeof(String));
+            dt.Columns.Add("xray_requestno", typeof(String));
+            dt.Columns.Add("ptt_vn", typeof(String));
+            dt.Columns.Add("xry_doctor", typeof(String));
+            dt.Columns.Add("xry_request_date", typeof(String));
+            dt.Columns.Add("xry_print", typeof(String));
+            dt.Columns.Add("xry_orderdetail", typeof(String));
+            dt.Columns.Add("xry_result", typeof(String));
+            dt.Columns.Add("xry_conslution", typeof(String));
+            dt.Columns.Add("xry_xraydoctor", typeof(String));
+            dt.Columns.Add("ptt_comp", typeof(String));
+            dt.Columns.Add("ptt_department", typeof(String));
+            dt.Columns.Add("ptt_type", typeof(String));
+
             DataRow drow = dt.NewRow();
+            drow["ptt_name"] = txtName.Text.Trim();
+            drow["ptt_hn"] = txtHn.Text;
+            drow["ptt_age"] = lbAge.Text;
+            //drow["xray_requestno"] = txt1;
+            drow["ptt_vn"] = txtVN.Text;
+            drow["xry_result"] = txt1;
             FrmReport frm = new FrmReport(bc, this, "", dt);
         }
         private void ContextMenu_xray_infinitt(object sender, System.EventArgs e)
