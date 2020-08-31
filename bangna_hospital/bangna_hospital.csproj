@@ -79,6 +79,10 @@
     <Reference Include="C1.Win.FlexReport.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.FlexViewer.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.ImportServices.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="DotNetZip, Version=1.13.5.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.5\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
@@ -219,6 +223,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmOrOperativeNote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmReport.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmScanAddView.cs">

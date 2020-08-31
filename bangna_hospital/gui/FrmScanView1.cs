@@ -535,6 +535,7 @@ namespace bangna_hospital.gui
             grfXray.Rows.Count = 1;
             ContextMenu menuGwX = new ContextMenu();
             menuGwX.MenuItems.Add("เปิด PACs infinitt", new EventHandler(ContextMenu_xray_infinitt));
+            menuGwX.MenuItems.Add("พิมพ์ผล Xray", new EventHandler(ContextMenu_xray_result_print));
 
             grfXray.ContextMenu = menuGwX;
 
@@ -563,6 +564,65 @@ namespace bangna_hospital.gui
 
             //initGrfPrn();
             //initGrfHn();
+        }
+        private void ContextMenu_xray_result_print(object sender, System.EventArgs e)
+        {
+            if (grfOrdXray == null) return;
+            if (grfOrdXray.Row <= 1) return;
+            if (grfOrdXray.Col <= 0) return;
+            String an = "", vn = "", vsdate = "", xraycode = "";
+            Boolean flagPACsPlus = false;
+            DataTable dt = new DataTable();
+            DataTable dtpacsplus = new DataTable();
+            if (chkIPD.Checked)
+            {
+                //an = grfXray[grfXray.Row, colIPDAnShow] != null ? grfXray[grfXray.Row, colIPDAnShow].ToString() : "";
+
+                String[] an1 = txtVN.Text.Trim().Split('/');
+                if (an1.Length > 0)
+                {
+                    dt = bc.bcDB.vsDB.selectResultXraybyAN(txtHn.Text, an1[0], an1[1]);
+                }
+                //dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, preno, vsdate, xraycode);
+            }
+            else
+            {
+                vsdate = grfXray[grfXray.Row, colXrayDate] != null ? grfXray[grfXray.Row, colXrayDate].ToString() : "";
+                //preno = txtVN.Text.Trim();
+                xraycode = grfXray[grfXray.Row, colXrayCode] != null ? grfXray[grfXray.Row, colXrayCode].ToString() : "";
+                vsdate = bc.datetoDB(vsdate);
+                dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, this.preno, vsdate, xraycode);
+                if (dt.Rows.Count <= 0)
+                {
+                    dtpacsplus = bc.bcDB.xrDB.selectResultXrayPACsPlusbyVN1(txtHn.Text, this.preno, vsdate, xraycode);
+                    flagPACsPlus = (dtpacsplus.Rows.Count > 0) ? true : false;
+                }
+                //new LogWriter("d", "GrfXray_Click 00 "+ vsdate);
+            }
+            if (dt.Rows.Count > 0)
+            {
+                if (flagPACsPlus)
+                {
+                    String txt = "", studydesc = "", studydescold = "";
+                    foreach (DataRow row in dtpacsplus.Rows)
+                    {
+                        studydesc = row["studydesc"].ToString();
+                        //studydescold = !studydesc.Equals(studydescold) ? row["studydesc"].ToString() : studydescold;
+                        if (!studydescold.Equals(studydesc))
+                        {
+                            txt += Environment.NewLine + Environment.NewLine + studydesc + Environment.NewLine + row["interpretation"].ToString();
+                            studydescold = studydesc;
+                        }
+                        else
+                        {
+                            txt += row["interpretation"].ToString();
+                        }
+                    }
+                }
+            }
+            dt.Columns.Add("date_time_result", typeof(String));
+            DataRow drow = dt.NewRow();
+            FrmReport frm = new FrmReport(bc, this, "", dt);
         }
         private void ContextMenu_xray_infinitt(object sender, System.EventArgs e)
         {
