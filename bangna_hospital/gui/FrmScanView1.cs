@@ -698,7 +698,7 @@ namespace bangna_hospital.gui
                 drow["xry_doctor"] = dtrname;
                 drow["xry_ordername"] = ordname;
                 drow["xry_xraydoctor"] = dtrxrname;
-                drow["xry_xraydoctor"] = dtrxrname;
+                //drow["xry_xraydoctor"] = dtrxrname;
                 drow["xry_result_date"] = bc.datetoShow(resdate);
                 drow["ptt_comp"] = pttcompname;
                 drow["ptt_type"] = paidname;
