@@ -1090,23 +1090,7 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
-        public DataTable selectResultXraybyAN(String hn, String an, String anyr)
-        {
-            String sql = "";
-            DataTable dt = new DataTable();
-            sql = "Select convert(VARCHAR(20),xt01.MNC_REQ_DAT,23) as MNC_REQ_DAT, XRAY_T02.MNC_XR_CD,xray_m01.MNC_XR_DSC  " +
-                "From xray_t01 xt01  " +
-                "left join XRAY_T02 on XRAY_T02.MNC_REQ_NO = xt01 .MNC_REQ_NO and XRAY_T02.MNC_REQ_DAT = xt01.MNC_REQ_DAT and XRAY_T02.MNC_REQ_YR = xt01.MNC_REQ_YR " +
-                "left join xray_m01 on xray_m01.MNC_XR_CD = XRAY_T02.MNC_XR_CD" +
-                " " +
-                "where xt01.mnc_an_no = '" + an + "'  " +
-                "and xt01.mnc_an_yr = '" + anyr + "'  " +
-                "and xt01.mnc_hn_no = '" + hn + "' " +
-                "Order By XRAY_T02.MNC_XR_CD  ";
-
-            dt = conn.selectData(sql);
-            return dt;
-        }
+        
         public DataTable selectResultXraybyAN(String hn, String an, String anyr, String xraycode)
         {
             String sql = "";
@@ -1165,7 +1149,7 @@ namespace bangna_hospital.objdb
         {
             String sql = "";
             DataTable dt = new DataTable();
-            sql = "Select convert(VARCHAR(20),xt01.MNC_REQ_DAT,23) as MNC_REQ_DAT, XRAY_T02.MNC_XR_CD,xray_m01.MNC_XR_DSC  " +
+            sql = "Select convert(VARCHAR(20),xt01.MNC_REQ_DAT,23) as MNC_REQ_DAT, XRAY_T02.MNC_XR_CD,xray_m01.MNC_XR_DSC,xt01.MNC_REQ_NO,convert(VARCHAR(20),xt01.MNC_Date,23) as MNC_Date  " +
                 "From xray_t01 xt01  " +
                 "left join XRAY_T02 on XRAY_T02.MNC_REQ_NO = xt01.MNC_REQ_NO and XRAY_T02.MNC_REQ_DAT = xt01.MNC_REQ_DAT and XRAY_T02.MNC_REQ_YR = xt01.MNC_REQ_YR " +
                 "left join xray_m01 on xray_m01.MNC_XR_CD = XRAY_T02.MNC_XR_CD " +
@@ -1178,19 +1162,87 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
-        public DataTable selectResultXraybyVN1(String hn, String preno, String vsdate, String xraycode)
+        public DataTable selectResultXrayXrDtrbyVN1(String hn, String preno, String vsdate, String xraycode)
         {
             String sql = "";
             DataTable dt = new DataTable();
-            sql = "Select xray_t04.MNC_XR_DSC,xray_t04.MNC_XR_DSC1 " +
+            sql = "Select xray_t04.MNC_XR_DSC,xray_t04.MNC_XR_DSC1,convert(VARCHAR(20),xt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,xt01.MNC_REQ_NO,convert(VARCHAR(20),xt01.MNC_Date,23) as MNC_Date,xt01.mnc_dot_cd " +
+                ",patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name  " +
                 "From xray_t01 xt01  " +
-                "left join XRAY_T02 on XRAY_T02.MNC_REQ_NO = xt01.MNC_REQ_NO and XRAY_T02.MNC_REQ_DAT = xt01.MNC_REQ_DAT and XRAY_T02.MNC_REQ_YR = xt01.MNC_REQ_YR " +
-                "left join xray_t04  on xray_t04.MNC_REQ_NO = XRAY_T02.MNC_REQ_NO and xray_t04.MNC_REQ_DAT = XRAY_T02.MNC_REQ_DAT and xray_t04.MNC_REQ_YR = XRAY_T02.MNC_REQ_YR and xray_t04.MNC_XR_CD = XRAY_T02.MNC_XR_CD " +
+                "inner join XRAY_T02 on XRAY_T02.MNC_REQ_NO = xt01.MNC_REQ_NO and XRAY_T02.MNC_REQ_DAT = xt01.MNC_REQ_DAT and XRAY_T02.MNC_REQ_YR = xt01.MNC_REQ_YR " +
+                "inner join xray_t04  on xray_t04.MNC_REQ_NO = XRAY_T02.MNC_REQ_NO and xray_t04.MNC_REQ_DAT = XRAY_T02.MNC_REQ_DAT and xray_t04.MNC_REQ_YR = XRAY_T02.MNC_REQ_YR and xray_t04.MNC_XR_CD = XRAY_T02.MNC_XR_CD " +
+                " inner join patient_m26 on xray_t04.mnc_dot_df_cd = patient_m26.MNC_DOT_CD " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
                 "where xt01.mnc_pre_no = '" + preno + "'  " +
                 "and xt01.mnc_date = '" + vsdate + "'  " +
                 "and xt01.mnc_hn_no = '" + hn + "' " +
                 "and xray_t04.mnc_xr_cd = '" + xraycode + "' " +
                 "Order By xt01.MNC_REQ_NO, xray_t04.MNC_XR_CD  ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectResultXraybyVN1(String hn, String preno, String vsdate, String xraycode)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            sql = "Select xray_t04.MNC_XR_DSC,xray_t04.MNC_XR_DSC1,convert(VARCHAR(20),xt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,xt01.MNC_REQ_NO,convert(VARCHAR(20),xt01.MNC_Date,23) as MNC_Date,xt01.mnc_dot_cd " +
+                ",patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name,convert(VARCHAR(20),xray_t04.mnc_stamp_dat,23) as mnc_stamp_dat  " +
+                "From xray_t01 xt01  " +
+                "left join XRAY_T02 on XRAY_T02.MNC_REQ_NO = xt01.MNC_REQ_NO and XRAY_T02.MNC_REQ_DAT = xt01.MNC_REQ_DAT and XRAY_T02.MNC_REQ_YR = xt01.MNC_REQ_YR " +
+                "left join xray_t04  on xray_t04.MNC_REQ_NO = XRAY_T02.MNC_REQ_NO and xray_t04.MNC_REQ_DAT = XRAY_T02.MNC_REQ_DAT and xray_t04.MNC_REQ_YR = XRAY_T02.MNC_REQ_YR and xray_t04.MNC_XR_CD = XRAY_T02.MNC_XR_CD " +
+                " inner join patient_m26 on xt01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                "where xt01.mnc_pre_no = '" + preno + "'  " +
+                "and xt01.mnc_date = '" + vsdate + "'  " +
+                "and xt01.mnc_hn_no = '" + hn + "' " +
+                "and xray_t04.mnc_xr_cd = '" + xraycode + "' " +
+                "Order By xt01.MNC_REQ_NO, xray_t04.MNC_XR_CD  ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectRequestXraybyVN1(String hn, String preno, String vsdate, String xraycode)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            sql = "Select convert(VARCHAR(20),xt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,xt01.MNC_REQ_NO,xt01.MNC_REQ_YR,convert(VARCHAR(20),xt01.MNC_Date,23) as MNC_Date,xt01.mnc_dot_cd " +
+                ",patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name, xm01.MNC_XR_DSC, xm05.mnc_xr_grp_dsc, pttm24.MNC_COM_DSC,fn02.MNC_FN_TYP_DSC,xt01.MNC_REQ_DEP  " +
+                "From xray_t01 xt01  " +
+                "left join XRAY_T02 on XRAY_T02.MNC_REQ_NO = xt01.MNC_REQ_NO and XRAY_T02.MNC_REQ_DAT = xt01.MNC_REQ_DAT and XRAY_T02.MNC_REQ_YR = xt01.MNC_REQ_YR " +
+                "left join patient_m24 pttm24  on xt01.MNC_com_cd = pttm24.MNC_com_cd  " +
+                " inner join patient_m26 on xt01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                " Left Join xray_m01 xm01 on xm01.MNC_XR_CD = XRAY_T02.MNC_XR_CD " +
+                "Left Join xray_m05 xm05 on xm01.mnc_xr_grp_cd = xm05.mnc_xr_grp_cd " +
+                "Left Join finance_m02 fn02 on xt01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
+                //"Left Join patient_m32 pttm32 on xt01.MNC_REQ_DEP = pttm32.MNC_REQ_DEP " +
+                "where xt01.mnc_pre_no = '" + preno + "'  " +
+                "and xt01.mnc_date = '" + vsdate + "'  " +
+                "and xt01.mnc_hn_no = '" + hn + "' " +
+                "and xray_t02.mnc_xr_cd = '" + xraycode + "' " +
+                "Order By xt01.MNC_REQ_NO  ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectResultXraybyAN(String hn, String an, String anyr)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            sql = "Select convert(VARCHAR(20),xt01.MNC_REQ_DAT,23) as MNC_REQ_DAT, XRAY_T02.MNC_XR_CD,xray_m01.MNC_XR_DSC,xt01.MNC_REQ_NO,convert(VARCHAR(20),xt01.MNC_Date,23) as MNC_Date,xt01.mnc_dot_cd " +
+                ",patient_m02.MNC_PFIX_DSC+' '+patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME  as dtr_name " +
+                "From xray_t01 xt01  " +
+                "left join XRAY_T02 on XRAY_T02.MNC_REQ_NO = xt01 .MNC_REQ_NO and XRAY_T02.MNC_REQ_DAT = xt01.MNC_REQ_DAT and XRAY_T02.MNC_REQ_YR = xt01.MNC_REQ_YR " +
+                "left join xray_m01 on xray_m01.MNC_XR_CD = XRAY_T02.MNC_XR_CD" +
+                " inner join patient_m26 on xt01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                //" Left Join xray_m01 xm01 on xm01.MNC_XR_CD = XRAY_T02.MNC_XR_CD " +
+                //"Left Join xray_m05 xm05 on xm01.mnc_xr_grp_cd = xm05.mnc_xr_grp_cd " +
+                "where xt01.mnc_an_no = '" + an + "'  " +
+                "and xt01.mnc_an_yr = '" + anyr + "'  " +
+                "and xt01.mnc_hn_no = '" + hn + "' " +
+                "Order By XRAY_T02.MNC_XR_CD  ";
 
             dt = conn.selectData(sql);
             return dt;

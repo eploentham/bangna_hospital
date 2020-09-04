@@ -570,14 +570,16 @@ namespace bangna_hospital.gui
             if (grfOrdXray == null) return;
             if (grfOrdXray.Row <= 1) return;
             if (grfOrdXray.Col <= 0) return;
-            String an = "", vn = "", vsdate = "", xraycode = "",txt1="";
+            String an = "", vn = "", vsdate = "", xraycode = "",txt1="", reqdate="",reqno="", dtrname="", ordname="", orddetail="",dtrxrname="", resdate="", pttcompname="", paidname="", depname="";
+            //MessageBox.Show("10 ", "");
             Boolean flagPACsPlus = false;
             DataTable dt = new DataTable();
+            DataTable dtreq = new DataTable();
             DataTable dtpacsplus = new DataTable();
+            //MessageBox.Show("11 ", "");
             if (chkIPD.Checked)
             {
                 //an = grfXray[grfXray.Row, colIPDAnShow] != null ? grfXray[grfXray.Row, colIPDAnShow].ToString() : "";
-
                 String[] an1 = txtVN.Text.Trim().Split('/');
                 if (an1.Length > 0)
                 {
@@ -594,22 +596,50 @@ namespace bangna_hospital.gui
                 dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, this.preno, vsdate, xraycode);
                 if (dt.Rows.Count <= 0)
                 {
+                    //MessageBox.Show("bc.bcDB.vsDB.selectResultXraybyVN1 ", "");
                     dtpacsplus = bc.bcDB.xrDB.selectResultXrayPACsPlusbyVN1(txtHn.Text, this.preno, vsdate, xraycode);
                     flagPACsPlus = (dtpacsplus.Rows.Count > 0) ? true : false;
                 }
+                else
+                {
+                    //MessageBox.Show("else bc.bcDB.vsDB.selectResultXraybyVN1 ", "");
+                    resdate = dt.Rows[0]["mnc_stamp_dat"].ToString();
+                    dtrxrname = dt.Rows[0]["dtr_name"].ToString();
+                }
                 //new LogWriter("d", "GrfXray_Click 00 "+ vsdate);
+            }
+            dtreq = bc.bcDB.vsDB.selectRequestXraybyVN1(txtHn.Text, this.preno, vsdate, xraycode);
+            if (dtreq.Rows.Count > 0)
+            {
+                reqdate = dtreq.Rows[0]["MNC_REQ_DAT"].ToString();
+                reqno = dtreq.Rows[0]["MNC_REQ_NO"].ToString()+"/"+ dtreq.Rows[0]["MNC_REQ_YR"].ToString();
+                dtrname = dtreq.Rows[0]["dtr_name"].ToString()+"["+dtreq.Rows[0]["mnc_dot_cd"].ToString()+"]";
+                ordname = dtreq.Rows[0]["MNC_XR_DSC"].ToString();
+                pttcompname = dtreq.Rows[0]["MNC_COM_DSC"].ToString();
+                paidname = dtreq.Rows[0]["mnc_fn_typ_dsc"].ToString();
+                depname = dtreq.Rows[0]["MNC_REQ_DEP"].ToString();
             }
             if (dt.Rows.Count > 0)
             {
                 txt1 = dt.Rows[0]["MNC_XR_DSC"].ToString();
+                //reqdate = dt.Rows[0]["MNC_REQ_DAT"].ToString();
+                //reqno = dt.Rows[0]["MNC_REQ_NO"].ToString();
+                //dtrname = dt.Rows[0]["dtr_name"].ToString();
             }
             else
             {
+                dt.Rows.Add(dt.NewRow());
                 if (flagPACsPlus)
                 {
                     String txt = "", studydesc = "", studydescold = "";
                     foreach (DataRow row in dtpacsplus.Rows)
                     {
+                        resdate = row["readingdate"].ToString();
+                        if (resdate.Length >= 8)
+                        {
+                            resdate = resdate.Substring(0, 4) + "-" + resdate.Substring(4, 2) + "-" + resdate.Substring(resdate.Length - 2);
+                        }
+                        dtrxrname = row["readingdr"].ToString();
                         studydesc = row["studydesc"].ToString();
                         //studydescold = !studydesc.Equals(studydescold) ? row["studydesc"].ToString() : studydescold;
                         if (!studydescold.Equals(studydesc))
@@ -625,10 +655,11 @@ namespace bangna_hospital.gui
                     txt1 = txt;
                 }
             }
+            //MessageBox.Show("20 ", "");
             dt.Columns.Add("ptt_name", typeof(String));
             dt.Columns.Add("ptt_hn", typeof(String));
             dt.Columns.Add("ptt_age", typeof(String));
-            dt.Columns.Add("xray_requestno", typeof(String));
+            dt.Columns.Add("xry_requestno", typeof(String));
             dt.Columns.Add("ptt_vn", typeof(String));
             dt.Columns.Add("xry_doctor", typeof(String));
             dt.Columns.Add("xry_request_date", typeof(String));
@@ -640,15 +671,46 @@ namespace bangna_hospital.gui
             dt.Columns.Add("ptt_comp", typeof(String));
             dt.Columns.Add("ptt_department", typeof(String));
             dt.Columns.Add("ptt_type", typeof(String));
+            dt.Columns.Add("xry_ordername", typeof(String));
+            dt.Columns.Add("xry_ordertetail", typeof(String));
+            dt.Columns.Add("xry_result_date", typeof(String));
+            foreach (DataRow drow in dt.Rows)
+            {
+                Boolean chkname = false;
+                chkname = txtName.Text.Any(c => !Char.IsLetterOrDigit(c));
+                if (chkname)
+                {
+                    drow["ptt_age"] = ptt.AgeString().Replace("Year", "ปี").Replace("Month", "เดือน").Replace("Days", "วัน").Replace("s", "");
+                }
+                else
+                {
+                    drow["ptt_age"] = ptt.AgeString();
+                }
+                drow["ptt_name"] = txtName.Text.Trim();
+                drow["ptt_hn"] = txtHn.Text;
 
-            DataRow drow = dt.NewRow();
-            drow["ptt_name"] = txtName.Text.Trim();
-            drow["ptt_hn"] = txtHn.Text;
-            drow["ptt_age"] = lbAge.Text;
-            //drow["xray_requestno"] = txt1;
-            drow["ptt_vn"] = txtVN.Text;
-            drow["xry_result"] = txt1;
-            FrmReport frm = new FrmReport(bc, this, "", dt);
+                drow["ptt_hn"] = txtHn.Text;
+                //drow["xray_requestno"] = txt1;
+                drow["ptt_vn"] = txtVN.Text;
+                drow["xry_result"] = txt1;
+                drow["xry_request_date"] = bc.datetoShow(reqdate);
+                drow["xry_requestno"] = reqno;
+                drow["xry_doctor"] = dtrname;
+                drow["xry_ordername"] = ordname;
+                drow["xry_xraydoctor"] = dtrxrname;
+                drow["xry_xraydoctor"] = dtrxrname;
+                drow["xry_result_date"] = bc.datetoShow(resdate);
+                drow["ptt_comp"] = pttcompname;
+                drow["ptt_type"] = paidname;
+                drow["ptt_department"] = depname.Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" : 
+                    depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" : 
+                    depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU": depname;
+            }
+            //MessageBox.Show("reqdate ", reqdate);
+            //MessageBox.Show("reqno ", reqno);
+            //MessageBox.Show("dtrname ", dtrname);
+
+            FrmReport frm = new FrmReport(bc, this, "xray_result", dt);
         }
         private void ContextMenu_xray_infinitt(object sender, System.EventArgs e)
         {
@@ -693,6 +755,7 @@ namespace bangna_hospital.gui
                 dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, this.preno, vsdate, xraycode);
                 if (dt.Rows.Count <= 0)
                 {
+                    //MessageBox.Show("11 ", "");
                     dtpacsplus = bc.bcDB.xrDB.selectResultXrayPACsPlusbyVN1(txtHn.Text, this.preno, vsdate, xraycode);
                     flagPACsPlus = (dtpacsplus.Rows.Count > 0) ? true : false;
                 }
@@ -701,6 +764,7 @@ namespace bangna_hospital.gui
             //new LogWriter("d", "GrfXray_Click 01");
             if (dt.Rows.Count > 0)
             {
+                //MessageBox.Show("22 ", "");
                 //new LogWriter("d", "GrfXray_Click 02");
                 rtb.Text = dt.Rows[0]["MNC_XR_DSC"].ToString();
                 Application.DoEvents();
@@ -708,6 +772,7 @@ namespace bangna_hospital.gui
             }
             else if (flagPACsPlus)
             {
+                //MessageBox.Show("33 ", "");
                 //new LogWriter("d", "GrfXray_Click 03");
                 rtb.Text = "";
                 String txt = "", studydesc="", studydescold = "";
@@ -2054,10 +2119,12 @@ namespace bangna_hospital.gui
             //new LogWriter("d", "FrmScanView1 GrfOPD_AfterRowColChange 01 setGrfLab");
             try
             {
+                txtVN.Value = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
+                this.preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
                 setActive();
                 //showFormWaiting();
                 //String vsDate = "";
-                //this.preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+
                 //vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
                 //vsDate = bc.datetoDB(vsDate);
                 //txtVN.Value = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
@@ -4138,13 +4205,13 @@ namespace bangna_hospital.gui
         }
         private void setGrfXrayOPD(int row)
         {
-            ProgressBar pB1 = new ProgressBar();
-            pB1.Location = new System.Drawing.Point(20, 16);
-            pB1.Name = "pB1";
-            pB1.Size = new System.Drawing.Size(862, 23);
-            gbPtt.Controls.Add(pB1);
-            pB1.Left = txtHn.Left;
-            pB1.Show();
+            //ProgressBar pB1 = new ProgressBar();
+            //pB1.Location = new System.Drawing.Point(20, 16);
+            //pB1.Name = "pB1";
+            //pB1.Size = new System.Drawing.Size(862, 23);
+            //gbPtt.Controls.Add(pB1);
+            //pB1.Left = txtHn.Left;
+            //pB1.Show();
             setHeaderDisable();
             DataTable dt = new DataTable();
             String vn = "", preno = "", vsdate = "", an = "";
@@ -4191,13 +4258,13 @@ namespace bangna_hospital.gui
 
             int i = 0;
             decimal aaa = 0;
-            pB1.Maximum = dt.Rows.Count;
+            //pB1.Maximum = dt.Rows.Count;
             try
             {
                 foreach (DataRow row1 in dt.Rows)
                 {
                     i++;
-                    pB1.Value = i;
+                    //pB1.Value = i;
                     grfXray[i, colXrayDate] = bc.datetoShow(row1["MNC_REQ_DAT"].ToString());
                     grfXray[i, colXrayName] = row1["MNC_XR_DSC"].ToString();
                     grfXray[i, colXrayCode] = row1["MNC_XR_CD"].ToString();
@@ -4220,9 +4287,13 @@ namespace bangna_hospital.gui
             grfXray.Cols[colXrayName].AllowEditing = false;
             grfXray.Cols[colXrayCode].AllowEditing = false;
             grfXray.Cols[colXrayResult].AllowEditing = false;
+            if (dt.Rows.Count > 0)
+            {
+                setXrayResult();
+            }
             //}).Start();
 
-            setHeaderEnable(pB1);
+            setHeaderEnable();
         }
         private void setGrfLab()
         {
