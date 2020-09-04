@@ -12,7 +12,7 @@ namespace bangna_hospital.object1
 		public String MNC_PH_ID { get; set; }
 		public String MNC_PH_CTL_CD { get; set; }
 		public String MNC_PH_TN { get; set; }
-		public String MNC_PH_GN { get; set; }
+		public String MNC_PH_GN  { get; set; }
 		public String MNC_PH_UNT_CD { get; set; }
 		public String MNC_PH_GRP_CD { get; set; }
 		public String MNC_PH_TYP_CD { get; set; }
