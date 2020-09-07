@@ -29,7 +29,7 @@ namespace bangna_hospital.report {
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public result_lab() {
             this.BeginInit();
             this.InitClass();
@@ -40,7 +40,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         protected result_lab(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
@@ -76,7 +76,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public result_labDataTable _result_lab {
@@ -86,7 +86,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -99,7 +99,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public new global::System.Data.DataTableCollection Tables {
             get {
@@ -108,7 +108,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Hidden)]
         public new global::System.Data.DataRelationCollection Relations {
             get {
@@ -117,7 +117,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         protected override void InitializeDerivedDataSet() {
             this.BeginInit();
             this.InitClass();
@@ -125,7 +125,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public override global::System.Data.DataSet Clone() {
             result_lab cln = ((result_lab)(base.Clone()));
             cln.InitVars();
@@ -134,19 +134,19 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         protected override bool ShouldSerializeTables() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         protected override bool ShouldSerializeRelations() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         protected override void ReadXmlSerializable(global::System.Xml.XmlReader reader) {
             if ((this.DetermineSchemaSerializationMode(reader) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 this.Reset();
@@ -171,7 +171,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         protected override global::System.Xml.Schema.XmlSchema GetSchemaSerializable() {
             global::System.IO.MemoryStream stream = new global::System.IO.MemoryStream();
             this.WriteXmlSchema(new global::System.Xml.XmlTextWriter(stream, null));
@@ -180,13 +180,13 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         internal void InitVars() {
             this.InitVars(true);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         internal void InitVars(bool initTable) {
             this.tableresult_lab = ((result_labDataTable)(base.Tables["result_lab"]));
             if ((initTable == true)) {
@@ -197,7 +197,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitClass() {
             this.DataSetName = "result_lab";
             this.Prefix = "";
@@ -209,13 +209,13 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private bool ShouldSerialize_result_lab() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void SchemaChanged(object sender, global::System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == global::System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -223,7 +223,7 @@ namespace bangna_hospital.report {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
             result_lab ds = new result_lab();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
@@ -269,7 +269,7 @@ namespace bangna_hospital.report {
             return type;
         }
         
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public delegate void result_labRowChangeEventHandler(object sender, result_labRowChangeEvent e);
         
         /// <summary>
@@ -279,30 +279,52 @@ namespace bangna_hospital.report {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class result_labDataTable : global::System.Data.TypedTableBase<result_labRow> {
             
-            private global::System.Data.DataColumn columnlab_group;
+            private global::System.Data.DataColumn columnmnc_lb_grp_cd;
             
-            private global::System.Data.DataColumn columnlab_name;
+            private global::System.Data.DataColumn columnmnc_lb_dsc;
             
-            private global::System.Data.DataColumn columnlab_sub_name;
+            private global::System.Data.DataColumn columnmnc_res;
             
-            private global::System.Data.DataColumn columnresult;
+            private global::System.Data.DataColumn columnmnc_res_value;
             
-            private global::System.Data.DataColumn columnnormal_value;
+            private global::System.Data.DataColumn columnmnc_lb_res;
             
-            private global::System.Data.DataColumn columnunit;
+            private global::System.Data.DataColumn columnmnc_res_unt;
             
-            private global::System.Data.DataColumn columninterpret;
+            private global::System.Data.DataColumn columnpatient_name;
             
-            private global::System.Data.DataColumn columnreactive_message;
+            private global::System.Data.DataColumn columnpatient_hn;
             
-            private global::System.Data.DataColumn columnmethod;
+            private global::System.Data.DataColumn columnrequest_no;
             
-            private global::System.Data.DataColumn columnDataColumn1;
+            private global::System.Data.DataColumn columndoctor;
             
-            private global::System.Data.DataColumn columnMNC_LB_GRP_CD;
+            private global::System.Data.DataColumn columnpatient_company;
+            
+            private global::System.Data.DataColumn columnpatient_age;
+            
+            private global::System.Data.DataColumn columnpatient_vn;
+            
+            private global::System.Data.DataColumn columnresult_date;
+            
+            private global::System.Data.DataColumn columnprint_date;
+            
+            private global::System.Data.DataColumn columnpatient_dep;
+            
+            private global::System.Data.DataColumn columnpatient_type;
+            
+            private global::System.Data.DataColumn columnuser_lab;
+            
+            private global::System.Data.DataColumn columnuser_report;
+            
+            private global::System.Data.DataColumn columnuser_check;
+            
+            private global::System.Data.DataColumn columnmnc_res_min;
+            
+            private global::System.Data.DataColumn columnmnc_res_max;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public result_labDataTable() {
                 this.TableName = "result_lab";
                 this.BeginInit();
@@ -311,7 +333,7 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal result_labDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
@@ -328,102 +350,190 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected result_labDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn lab_groupColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_lb_grp_cdColumn {
                 get {
-                    return this.columnlab_group;
+                    return this.columnmnc_lb_grp_cd;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn lab_nameColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_lb_dscColumn {
                 get {
-                    return this.columnlab_name;
+                    return this.columnmnc_lb_dsc;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn lab_sub_nameColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_resColumn {
                 get {
-                    return this.columnlab_sub_name;
+                    return this.columnmnc_res;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn resultColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_res_valueColumn {
                 get {
-                    return this.columnresult;
+                    return this.columnmnc_res_value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn normal_valueColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_lb_resColumn {
                 get {
-                    return this.columnnormal_value;
+                    return this.columnmnc_lb_res;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn unitColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_res_untColumn {
                 get {
-                    return this.columnunit;
+                    return this.columnmnc_res_unt;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn interpretColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn patient_nameColumn {
                 get {
-                    return this.columninterpret;
+                    return this.columnpatient_name;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn reactive_messageColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn patient_hnColumn {
                 get {
-                    return this.columnreactive_message;
+                    return this.columnpatient_hn;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn methodColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn request_noColumn {
                 get {
-                    return this.columnmethod;
+                    return this.columnrequest_no;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DataColumn1Column {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn doctorColumn {
                 get {
-                    return this.columnDataColumn1;
+                    return this.columndoctor;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn MNC_LB_GRP_CDColumn {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn patient_companyColumn {
                 get {
-                    return this.columnMNC_LB_GRP_CD;
+                    return this.columnpatient_company;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn patient_ageColumn {
+                get {
+                    return this.columnpatient_age;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn patient_vnColumn {
+                get {
+                    return this.columnpatient_vn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn result_dateColumn {
+                get {
+                    return this.columnresult_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn print_dateColumn {
+                get {
+                    return this.columnprint_date;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn patient_depColumn {
+                get {
+                    return this.columnpatient_dep;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn patient_typeColumn {
+                get {
+                    return this.columnpatient_type;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn user_labColumn {
+                get {
+                    return this.columnuser_lab;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn user_reportColumn {
+                get {
+                    return this.columnuser_report;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn user_checkColumn {
+                get {
+                    return this.columnuser_check;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_res_minColumn {
+                get {
+                    return this.columnmnc_res_min;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn mnc_res_maxColumn {
+                get {
+                    return this.columnmnc_res_max;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -432,54 +542,87 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public result_labRow this[int index] {
                 get {
                     return ((result_labRow)(this.Rows[index]));
                 }
             }
             
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public event result_labRowChangeEventHandler result_labRowChanging;
             
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public event result_labRowChangeEventHandler result_labRowChanged;
             
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public event result_labRowChangeEventHandler result_labRowDeleting;
             
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public event result_labRowChangeEventHandler result_labRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void Addresult_labRow(result_labRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public result_labRow Addresult_labRow(string lab_group, string lab_name, string lab_sub_name, string result, string normal_value, string unit, string interpret, string reactive_message, string method, string DataColumn1, string MNC_LB_GRP_CD) {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public result_labRow Addresult_labRow(
+                        string mnc_lb_grp_cd, 
+                        string mnc_lb_dsc, 
+                        string mnc_res, 
+                        string mnc_res_value, 
+                        string mnc_lb_res, 
+                        string mnc_res_unt, 
+                        string patient_name, 
+                        string patient_hn, 
+                        string request_no, 
+                        string doctor, 
+                        string patient_company, 
+                        string patient_age, 
+                        string patient_vn, 
+                        string result_date, 
+                        string print_date, 
+                        string patient_dep, 
+                        string patient_type, 
+                        string user_lab, 
+                        string user_report, 
+                        string user_check, 
+                        string mnc_res_min, 
+                        string mnc_res_max) {
                 result_labRow rowresult_labRow = ((result_labRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        lab_group,
-                        lab_name,
-                        lab_sub_name,
-                        result,
-                        normal_value,
-                        unit,
-                        interpret,
-                        reactive_message,
-                        method,
-                        DataColumn1,
-                        MNC_LB_GRP_CD};
+                        mnc_lb_grp_cd,
+                        mnc_lb_dsc,
+                        mnc_res,
+                        mnc_res_value,
+                        mnc_lb_res,
+                        mnc_res_unt,
+                        patient_name,
+                        patient_hn,
+                        request_no,
+                        doctor,
+                        patient_company,
+                        patient_age,
+                        patient_vn,
+                        result_date,
+                        print_date,
+                        patient_dep,
+                        patient_type,
+                        user_lab,
+                        user_report,
+                        user_check,
+                        mnc_res_min,
+                        mnc_res_max};
                 rowresult_labRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowresult_labRow);
                 return rowresult_labRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public override global::System.Data.DataTable Clone() {
                 result_labDataTable cln = ((result_labDataTable)(base.Clone()));
                 cln.InitVars();
@@ -487,84 +630,115 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
                 return new result_labDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columnlab_group = base.Columns["lab_group"];
-                this.columnlab_name = base.Columns["lab_name"];
-                this.columnlab_sub_name = base.Columns["lab_sub_name"];
-                this.columnresult = base.Columns["result"];
-                this.columnnormal_value = base.Columns["normal_value"];
-                this.columnunit = base.Columns["unit"];
-                this.columninterpret = base.Columns["interpret"];
-                this.columnreactive_message = base.Columns["reactive_message"];
-                this.columnmethod = base.Columns["method"];
-                this.columnDataColumn1 = base.Columns["DataColumn1"];
-                this.columnMNC_LB_GRP_CD = base.Columns["MNC_LB_GRP_CD"];
+                this.columnmnc_lb_grp_cd = base.Columns["mnc_lb_grp_cd"];
+                this.columnmnc_lb_dsc = base.Columns["mnc_lb_dsc"];
+                this.columnmnc_res = base.Columns["mnc_res"];
+                this.columnmnc_res_value = base.Columns["mnc_res_value"];
+                this.columnmnc_lb_res = base.Columns["mnc_lb_res"];
+                this.columnmnc_res_unt = base.Columns["mnc_res_unt"];
+                this.columnpatient_name = base.Columns["patient_name"];
+                this.columnpatient_hn = base.Columns["patient_hn"];
+                this.columnrequest_no = base.Columns["request_no"];
+                this.columndoctor = base.Columns["doctor"];
+                this.columnpatient_company = base.Columns["patient_company"];
+                this.columnpatient_age = base.Columns["patient_age"];
+                this.columnpatient_vn = base.Columns["patient_vn"];
+                this.columnresult_date = base.Columns["result_date"];
+                this.columnprint_date = base.Columns["print_date"];
+                this.columnpatient_dep = base.Columns["patient_dep"];
+                this.columnpatient_type = base.Columns["patient_type"];
+                this.columnuser_lab = base.Columns["user_lab"];
+                this.columnuser_report = base.Columns["user_report"];
+                this.columnuser_check = base.Columns["user_check"];
+                this.columnmnc_res_min = base.Columns["mnc_res_min"];
+                this.columnmnc_res_max = base.Columns["mnc_res_max"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnlab_group = new global::System.Data.DataColumn("lab_group", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlab_group);
-                this.columnlab_name = new global::System.Data.DataColumn("lab_name", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlab_name);
-                this.columnlab_sub_name = new global::System.Data.DataColumn("lab_sub_name", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlab_sub_name);
-                this.columnresult = new global::System.Data.DataColumn("result", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnresult);
-                this.columnnormal_value = new global::System.Data.DataColumn("normal_value", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnnormal_value);
-                this.columnunit = new global::System.Data.DataColumn("unit", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnunit);
-                this.columninterpret = new global::System.Data.DataColumn("interpret", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columninterpret);
-                this.columnreactive_message = new global::System.Data.DataColumn("reactive_message", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnreactive_message);
-                this.columnmethod = new global::System.Data.DataColumn("method", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmethod);
-                this.columnDataColumn1 = new global::System.Data.DataColumn("DataColumn1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDataColumn1);
-                this.columnMNC_LB_GRP_CD = new global::System.Data.DataColumn("MNC_LB_GRP_CD", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMNC_LB_GRP_CD);
-                this.columnlab_group.Caption = "DataColumn1";
-                this.columnlab_name.Caption = "DataColumn1";
-                this.columnlab_sub_name.Caption = "DataColumn1";
-                this.columnresult.Caption = "DataColumn1";
-                this.columnnormal_value.Caption = "DataColumn1";
-                this.columnunit.Caption = "DataColumn1";
-                this.columnreactive_message.Caption = "DataColumn1";
-                this.columnmethod.Caption = "DataColumn1";
+                this.columnmnc_lb_grp_cd = new global::System.Data.DataColumn("mnc_lb_grp_cd", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_lb_grp_cd);
+                this.columnmnc_lb_dsc = new global::System.Data.DataColumn("mnc_lb_dsc", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_lb_dsc);
+                this.columnmnc_res = new global::System.Data.DataColumn("mnc_res", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_res);
+                this.columnmnc_res_value = new global::System.Data.DataColumn("mnc_res_value", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_res_value);
+                this.columnmnc_lb_res = new global::System.Data.DataColumn("mnc_lb_res", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_lb_res);
+                this.columnmnc_res_unt = new global::System.Data.DataColumn("mnc_res_unt", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_res_unt);
+                this.columnpatient_name = new global::System.Data.DataColumn("patient_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpatient_name);
+                this.columnpatient_hn = new global::System.Data.DataColumn("patient_hn", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpatient_hn);
+                this.columnrequest_no = new global::System.Data.DataColumn("request_no", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrequest_no);
+                this.columndoctor = new global::System.Data.DataColumn("doctor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndoctor);
+                this.columnpatient_company = new global::System.Data.DataColumn("patient_company", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpatient_company);
+                this.columnpatient_age = new global::System.Data.DataColumn("patient_age", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpatient_age);
+                this.columnpatient_vn = new global::System.Data.DataColumn("patient_vn", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpatient_vn);
+                this.columnresult_date = new global::System.Data.DataColumn("result_date", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnresult_date);
+                this.columnprint_date = new global::System.Data.DataColumn("print_date", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprint_date);
+                this.columnpatient_dep = new global::System.Data.DataColumn("patient_dep", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpatient_dep);
+                this.columnpatient_type = new global::System.Data.DataColumn("patient_type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpatient_type);
+                this.columnuser_lab = new global::System.Data.DataColumn("user_lab", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnuser_lab);
+                this.columnuser_report = new global::System.Data.DataColumn("user_report", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnuser_report);
+                this.columnuser_check = new global::System.Data.DataColumn("user_check", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnuser_check);
+                this.columnmnc_res_min = new global::System.Data.DataColumn("mnc_res_min", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_res_min);
+                this.columnmnc_res_max = new global::System.Data.DataColumn("mnc_res_max", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmnc_res_max);
+                this.columnmnc_lb_grp_cd.Caption = "DataColumn1";
+                this.columnmnc_lb_dsc.Caption = "DataColumn1";
+                this.columnmnc_res.Caption = "DataColumn1";
+                this.columnmnc_res_value.Caption = "DataColumn1";
+                this.columnmnc_lb_res.Caption = "DataColumn1";
+                this.columnmnc_res_unt.Caption = "DataColumn1";
                 this.ExtendedProperties.Add("Generator_TablePropName", "_result_lab");
                 this.ExtendedProperties.Add("Generator_UserTableName", "result_lab");
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public result_labRow Newresult_labRow() {
                 return ((result_labRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
                 return new result_labRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Type GetRowType() {
                 return typeof(result_labRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
                 if ((this.result_labRowChanged != null)) {
@@ -573,7 +747,7 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
                 if ((this.result_labRowChanging != null)) {
@@ -582,7 +756,7 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
                 if ((this.result_labRowDeleted != null)) {
@@ -591,7 +765,7 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
                 if ((this.result_labRowDeleting != null)) {
@@ -600,13 +774,13 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void Removeresult_labRow(result_labRow row) {
                 this.Rows.Remove(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
@@ -677,325 +851,633 @@ namespace bangna_hospital.report {
             private result_labDataTable tableresult_lab;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal result_labRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableresult_lab = ((result_labDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string lab_group {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_lb_grp_cd {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.lab_groupColumn]));
+                        return ((string)(this[this.tableresult_lab.mnc_lb_grp_cdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'lab_group\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_lb_grp_cd\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.lab_groupColumn] = value;
+                    this[this.tableresult_lab.mnc_lb_grp_cdColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string lab_name {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_lb_dsc {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.lab_nameColumn]));
+                        return ((string)(this[this.tableresult_lab.mnc_lb_dscColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'lab_name\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_lb_dsc\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.lab_nameColumn] = value;
+                    this[this.tableresult_lab.mnc_lb_dscColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string lab_sub_name {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_res {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.lab_sub_nameColumn]));
+                        return ((string)(this[this.tableresult_lab.mnc_resColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'lab_sub_name\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_res\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.lab_sub_nameColumn] = value;
+                    this[this.tableresult_lab.mnc_resColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string result {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_res_value {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.resultColumn]));
+                        return ((string)(this[this.tableresult_lab.mnc_res_valueColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'result\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_res_value\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.resultColumn] = value;
+                    this[this.tableresult_lab.mnc_res_valueColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string normal_value {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_lb_res {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.normal_valueColumn]));
+                        return ((string)(this[this.tableresult_lab.mnc_lb_resColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'normal_value\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_lb_res\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.normal_valueColumn] = value;
+                    this[this.tableresult_lab.mnc_lb_resColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string unit {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_res_unt {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.unitColumn]));
+                        return ((string)(this[this.tableresult_lab.mnc_res_untColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'unit\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_res_unt\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.unitColumn] = value;
+                    this[this.tableresult_lab.mnc_res_untColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string interpret {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string patient_name {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.interpretColumn]));
+                        return ((string)(this[this.tableresult_lab.patient_nameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'interpret\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'patient_name\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.interpretColumn] = value;
+                    this[this.tableresult_lab.patient_nameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string reactive_message {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string patient_hn {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.reactive_messageColumn]));
+                        return ((string)(this[this.tableresult_lab.patient_hnColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'reactive_message\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'patient_hn\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.reactive_messageColumn] = value;
+                    this[this.tableresult_lab.patient_hnColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string method {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string request_no {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.methodColumn]));
+                        return ((string)(this[this.tableresult_lab.request_noColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'method\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'request_no\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.methodColumn] = value;
+                    this[this.tableresult_lab.request_noColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DataColumn1 {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string doctor {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.DataColumn1Column]));
+                        return ((string)(this[this.tableresult_lab.doctorColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DataColumn1\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'doctor\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.DataColumn1Column] = value;
+                    this[this.tableresult_lab.doctorColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string MNC_LB_GRP_CD {
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string patient_company {
                 get {
                     try {
-                        return ((string)(this[this.tableresult_lab.MNC_LB_GRP_CDColumn]));
+                        return ((string)(this[this.tableresult_lab.patient_companyColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'MNC_LB_GRP_CD\' in table \'result_lab\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'patient_company\' in table \'result_lab\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableresult_lab.MNC_LB_GRP_CDColumn] = value;
+                    this[this.tableresult_lab.patient_companyColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Islab_groupNull() {
-                return this.IsNull(this.tableresult_lab.lab_groupColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string patient_age {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.patient_ageColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'patient_age\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.patient_ageColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setlab_groupNull() {
-                this[this.tableresult_lab.lab_groupColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string patient_vn {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.patient_vnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'patient_vn\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.patient_vnColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Islab_nameNull() {
-                return this.IsNull(this.tableresult_lab.lab_nameColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string result_date {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.result_dateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'result_date\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.result_dateColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setlab_nameNull() {
-                this[this.tableresult_lab.lab_nameColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string print_date {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.print_dateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'print_date\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.print_dateColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Islab_sub_nameNull() {
-                return this.IsNull(this.tableresult_lab.lab_sub_nameColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string patient_dep {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.patient_depColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'patient_dep\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.patient_depColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setlab_sub_nameNull() {
-                this[this.tableresult_lab.lab_sub_nameColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string patient_type {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.patient_typeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'patient_type\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.patient_typeColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsresultNull() {
-                return this.IsNull(this.tableresult_lab.resultColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string user_lab {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.user_labColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'user_lab\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.user_labColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetresultNull() {
-                this[this.tableresult_lab.resultColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string user_report {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.user_reportColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'user_report\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.user_reportColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isnormal_valueNull() {
-                return this.IsNull(this.tableresult_lab.normal_valueColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string user_check {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.user_checkColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'user_check\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.user_checkColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setnormal_valueNull() {
-                this[this.tableresult_lab.normal_valueColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_res_min {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.mnc_res_minColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_res_min\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.mnc_res_minColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsunitNull() {
-                return this.IsNull(this.tableresult_lab.unitColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string mnc_res_max {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.mnc_res_maxColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'mnc_res_max\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.mnc_res_maxColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetunitNull() {
-                this[this.tableresult_lab.unitColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_lb_grp_cdNull() {
+                return this.IsNull(this.tableresult_lab.mnc_lb_grp_cdColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsinterpretNull() {
-                return this.IsNull(this.tableresult_lab.interpretColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_lb_grp_cdNull() {
+                this[this.tableresult_lab.mnc_lb_grp_cdColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetinterpretNull() {
-                this[this.tableresult_lab.interpretColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_lb_dscNull() {
+                return this.IsNull(this.tableresult_lab.mnc_lb_dscColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Isreactive_messageNull() {
-                return this.IsNull(this.tableresult_lab.reactive_messageColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_lb_dscNull() {
+                this[this.tableresult_lab.mnc_lb_dscColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Setreactive_messageNull() {
-                this[this.tableresult_lab.reactive_messageColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_resNull() {
+                return this.IsNull(this.tableresult_lab.mnc_resColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsmethodNull() {
-                return this.IsNull(this.tableresult_lab.methodColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_resNull() {
+                this[this.tableresult_lab.mnc_resColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetmethodNull() {
-                this[this.tableresult_lab.methodColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_res_valueNull() {
+                return this.IsNull(this.tableresult_lab.mnc_res_valueColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDataColumn1Null() {
-                return this.IsNull(this.tableresult_lab.DataColumn1Column);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_res_valueNull() {
+                this[this.tableresult_lab.mnc_res_valueColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDataColumn1Null() {
-                this[this.tableresult_lab.DataColumn1Column] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_lb_resNull() {
+                return this.IsNull(this.tableresult_lab.mnc_lb_resColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsMNC_LB_GRP_CDNull() {
-                return this.IsNull(this.tableresult_lab.MNC_LB_GRP_CDColumn);
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_lb_resNull() {
+                this[this.tableresult_lab.mnc_lb_resColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetMNC_LB_GRP_CDNull() {
-                this[this.tableresult_lab.MNC_LB_GRP_CDColumn] = global::System.Convert.DBNull;
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_res_untNull() {
+                return this.IsNull(this.tableresult_lab.mnc_res_untColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_res_untNull() {
+                this[this.tableresult_lab.mnc_res_untColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ispatient_nameNull() {
+                return this.IsNull(this.tableresult_lab.patient_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setpatient_nameNull() {
+                this[this.tableresult_lab.patient_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ispatient_hnNull() {
+                return this.IsNull(this.tableresult_lab.patient_hnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setpatient_hnNull() {
+                this[this.tableresult_lab.patient_hnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isrequest_noNull() {
+                return this.IsNull(this.tableresult_lab.request_noColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setrequest_noNull() {
+                this[this.tableresult_lab.request_noColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsdoctorNull() {
+                return this.IsNull(this.tableresult_lab.doctorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetdoctorNull() {
+                this[this.tableresult_lab.doctorColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ispatient_companyNull() {
+                return this.IsNull(this.tableresult_lab.patient_companyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setpatient_companyNull() {
+                this[this.tableresult_lab.patient_companyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ispatient_ageNull() {
+                return this.IsNull(this.tableresult_lab.patient_ageColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setpatient_ageNull() {
+                this[this.tableresult_lab.patient_ageColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ispatient_vnNull() {
+                return this.IsNull(this.tableresult_lab.patient_vnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setpatient_vnNull() {
+                this[this.tableresult_lab.patient_vnColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isresult_dateNull() {
+                return this.IsNull(this.tableresult_lab.result_dateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setresult_dateNull() {
+                this[this.tableresult_lab.result_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isprint_dateNull() {
+                return this.IsNull(this.tableresult_lab.print_dateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setprint_dateNull() {
+                this[this.tableresult_lab.print_dateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ispatient_depNull() {
+                return this.IsNull(this.tableresult_lab.patient_depColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setpatient_depNull() {
+                this[this.tableresult_lab.patient_depColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ispatient_typeNull() {
+                return this.IsNull(this.tableresult_lab.patient_typeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setpatient_typeNull() {
+                this[this.tableresult_lab.patient_typeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isuser_labNull() {
+                return this.IsNull(this.tableresult_lab.user_labColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setuser_labNull() {
+                this[this.tableresult_lab.user_labColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isuser_reportNull() {
+                return this.IsNull(this.tableresult_lab.user_reportColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setuser_reportNull() {
+                this[this.tableresult_lab.user_reportColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isuser_checkNull() {
+                return this.IsNull(this.tableresult_lab.user_checkColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setuser_checkNull() {
+                this[this.tableresult_lab.user_checkColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_res_minNull() {
+                return this.IsNull(this.tableresult_lab.mnc_res_minColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_res_minNull() {
+                this[this.tableresult_lab.mnc_res_minColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Ismnc_res_maxNull() {
+                return this.IsNull(this.tableresult_lab.mnc_res_maxColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setmnc_res_maxNull() {
+                this[this.tableresult_lab.mnc_res_maxColumn] = global::System.Convert.DBNull;
             }
         }
         
         /// <summary>
         ///Row event argument class
         ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public class result_labRowChangeEvent : global::System.EventArgs {
             
             private result_labRow eventRow;
@@ -1003,14 +1485,14 @@ namespace bangna_hospital.report {
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public result_labRowChangeEvent(result_labRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public result_labRow Row {
                 get {
                     return this.eventRow;
@@ -1018,7 +1500,7 @@ namespace bangna_hospital.report {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataRowAction Action {
                 get {
                     return this.eventAction;
