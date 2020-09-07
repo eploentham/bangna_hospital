@@ -12,7 +12,7 @@
   <xs:element name="result_lab" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="result_lab" msprop:Generator_UserDSName="result_lab">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="result_lab" msprop:Generator_TableClassName="result_labDataTable" msprop:Generator_TableVarName="tableresult_lab" msprop:Generator_TablePropName="_result_lab" msprop:Generator_RowDeletingName="result_labRowDeleting" msprop:Generator_RowChangingName="result_labRowChanging" msprop:Generator_RowEvHandlerName="result_labRowChangeEventHandler" msprop:Generator_RowDeletedName="result_labRowDeleted" msprop:Generator_UserTableName="result_lab" msprop:Generator_RowChangedName="result_labRowChanged" msprop:Generator_RowEvArgName="result_labRowChangeEvent" msprop:Generator_RowClassName="result_labRow">
+        <xs:element name="result_lab" msprop:Generator_TableClassName="result_labDataTable" msprop:Generator_TableVarName="tableresult_lab" msprop:Generator_RowChangedName="result_labRowChanged" msprop:Generator_TablePropName="_result_lab" msprop:Generator_RowDeletingName="result_labRowDeleting" msprop:Generator_RowChangingName="result_labRowChanging" msprop:Generator_RowEvHandlerName="result_labRowChangeEventHandler" msprop:Generator_RowDeletedName="result_labRowDeleted" msprop:Generator_RowClassName="result_labRow" msprop:Generator_UserTableName="result_lab" msprop:Generator_RowEvArgName="result_labRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="mnc_lb_grp_cd" msdata:Caption="DataColumn1" msprop:Generator_ColumnVarNameInTable="columnmnc_lb_grp_cd" msprop:Generator_ColumnPropNameInRow="mnc_lb_grp_cd" msprop:Generator_ColumnPropNameInTable="mnc_lb_grp_cdColumn" msprop:Generator_UserColumnName="mnc_lb_grp_cd" type="xs:string" minOccurs="0" />
@@ -37,6 +37,7 @@
               <xs:element name="user_check" msprop:Generator_ColumnVarNameInTable="columnuser_check" msprop:Generator_ColumnPropNameInRow="user_check" msprop:Generator_ColumnPropNameInTable="user_checkColumn" msprop:Generator_UserColumnName="user_check" type="xs:string" minOccurs="0" />
               <xs:element name="mnc_res_min" msprop:Generator_ColumnVarNameInTable="columnmnc_res_min" msprop:Generator_ColumnPropNameInRow="mnc_res_min" msprop:Generator_ColumnPropNameInTable="mnc_res_minColumn" msprop:Generator_UserColumnName="mnc_res_min" type="xs:string" minOccurs="0" />
               <xs:element name="mnc_res_max" msprop:Generator_ColumnVarNameInTable="columnmnc_res_max" msprop:Generator_ColumnPropNameInRow="mnc_res_max" msprop:Generator_ColumnPropNameInTable="mnc_res_maxColumn" msprop:Generator_UserColumnName="mnc_res_max" type="xs:string" minOccurs="0" />
+              <xs:element name="mnc_lb_grp_dsc" msprop:Generator_ColumnVarNameInTable="columnmnc_lb_grp_dsc" msprop:Generator_ColumnPropNameInRow="mnc_lb_grp_dsc" msprop:Generator_ColumnPropNameInTable="mnc_lb_grp_dscColumn" msprop:Generator_UserColumnName="mnc_lb_grp_dsc" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
