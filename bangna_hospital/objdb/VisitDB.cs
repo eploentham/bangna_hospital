@@ -309,7 +309,7 @@ namespace bangna_hospital.objdb
                 "patient_m01.MNC_LNAME_T,convert(VARCHAR(20),PATIENT_T01.mnc_date,23) as MNC_AD_DATE,'' as MNC_DS_DATE,'' as MNC_AN_NO, " +
                 "patient_m32.MNC_MD_DEP_DSC,'' as MNC_RM_NAM,'' as MNC_BD_NO , " +
                 "patient_t01.MNC_SHIF_MEMO,aa.MNC_PFIX_DSC,patient_m26.MNC_DOT_FNAME,patient_m26.MNC_DOT_LNAME,bb.MNC_MD_DEP_DSC as before, " +
-                "'' as day,convert(VARCHAR(20),PATIENT_T01.mnc_date,23) as mnc_date " +
+                "'' as day,convert(VARCHAR(20),PATIENT_T01.mnc_date,23) as mnc_date,patient_t01.MNC_PRE_NO " +
                 "from  PATIENT_T01  /*on patient_t01.MNC_PRE_NO =PATIENT_T08.MNC_PRE_NO and patient_t01.MNC_date = PATIENT_T08.MNC_date */" +
                 " INNER JOIN dbo.PATIENT_M01 ON dbo.patient_t01.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO  " +
                 " INNER JOIN dbo.PATIENT_M02 ON dbo.PATIENT_M01.MNC_PFIX_CDT = dbo.PATIENT_M02.MNC_PFIX_CD " +
@@ -996,72 +996,76 @@ namespace bangna_hospital.objdb
         }
         public DataTable selectLabbyVN1(String dateStart, String dateEnd, String hn, String vn, String preNo)
         {
-            //select PATIENT_T01.MNC_HN_NO,PATIENT_T01.MNC_PRE_NO,
-            //PATIENT_T01.MNC_DATE,PATIENT_T01.MNC_TIME,
-            //Patient_t09.MNC_DIA_CD,
-            //PATIENT_T09_1.CHRONICCODE,
-            //PHARMACY_T06.MNC_PH_CD,
-            //Pharmacy_m01.MNC_PH_TN,
-            //lab_t05.MNC_LB_CD,lab_m01.MNC_LB_DSC,
-            //lab_t05.MNC_RES_VALUE,
-            //lab_t05.MNC_STS
-            //from PATIENT_T01
-            //left join PATIENT_T09_1 on Patient_t01.MNC_ID_NAM = PATIENT_T09_1.MNC_IDNUM
-            //left join PATIENT_T09 on Patient_t01.MNC_PRE_NO =Patient_t09.MNC_PRE_NO and
-            //Patient_t01.MNC_date =Patient_t09.MNC_date
-            //left join Patient_m18 on Patient_t09.MNC_DIA_CD = Patient_m18 .MNC_DIA_CD
-            //left join PHARMACY_T05 on Patient_t01.MNC_PRE_NO = PHARMACY_T05.MNC_PRE_NO and
-            //Patient_t01.MNC_date = PHARMACY_T05.mnc_date
-            //left join PHARMACY_T06 on Pharmacy_t05.MNC_CFR_NO = Pharmacy_t06.MNC_CFR_NO and
-            //Pharmacy_t05.MNC_CFG_DAT = Pharmacy_t06.MNC_CFR_dat
-            //left join PHARMACY_M01 on Pharmacy_t06.MNC_PH_CD = Pharmacy_m01.MNC_PH_CD
-            //left join LAB_T01 on  Patient_t01.MNC_PRE_NO = lab_t01.MNC_PRE_NO and
-            //Patient_t01.MNC_date = LAB_T01.mnc_date
-            //left join LAB_T05 on lab_t01.MNC_REQ_NO = lab_t05.MNC_REQ_NO and
-            //lab_t01.MNC_REQ_DAT = lab_t05.MNC_REQ_DAT
-            //left join LAB_M01 on lab_t05.MNC_LB_CD = lab_m01.MNC_LB_CD
-            //where PATIENT_T01.MNC_DATE BETWEEN '03/02/2014' AND '03/02/2014'
-            //and Patient_t01.MNC_FN_TYP_CD in ('44','45','46','47','48','49')
-            //and lab_t05.MNC_LB_CD in ('ch002','ch250','ch003','ch004','ch040','ch037','ch039','ch036','ch038',
-            //'se005','se038','se047','ch006','ch007','ch008','ch009','se165') 
-            //order by PATIENT_T01.MNC_HN_NO
-
-
-            //            SELECT LAB_T05.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_REQ_YR, LAB_T05.MNC_REQ_NO, LAB_T05.MNC_REQ_DAT, LAB_T05.MNC_LB_CD AS ExPr1, 
-            //                  LAB_T05.MNC_LB_RES_CD, LAB_T05.MNC_RES, LAB_T05.MNC_RES_VALUE AS ExPr2, LAB_T05.MNC_LB_USR, LAB_T05.MNC_STS AS ExPr3, LAB_T05.MNC_RES_MIN, LAB_T05.MNC_RES_MAX, 
-            //                  LAB_T05.MNC_LB_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_ACT, LAB_T05.MNC_STAMP_DAT, LAB_T05.MNC_STAMP_TIM, LAB_T05.MNC_LAB_PRN
-            //FROM     PATIENT_T01 AS t01 LEFT OUTER JOIN
-            //                  LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE LEFT OUTER JOIN
-            //                  LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT LEFT OUTER JOIN
-            //                  LAB_M01 ON LAB_T05.MNC_LB_CD = LAB_M01.MNC_LB_CD
-            //WHERE  (t01.MNC_DATE BETWEEN '2014-03-31' AND '2014-03-31') AND (t01.MNC_FN_TYP_CD IN ('44', '45', '46', '47', '48', '49')) AND (t01.MNC_HN_NO = '5077727') AND (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 
-            //                  'ch040', 'ch037', 'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165'))
-
             String sql = "";
             DataTable dt = new DataTable();
-            //sql = "SELECT distinct LAB_T05.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS " +
-            //    "FROM     PATIENT_T01 t01 " +
-            //    "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE " +
-            //    "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT " +
-            //    "left join LAB_M01 ON LAB_T05.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
-            //    "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
-            //    "and t01.MNC_FN_TYP_CD in ('44','45','46','47','48','49') " + " and t01.mnc_hn_no = '" + hn + "' " +
-            //    "and t01.mnc_vn_no = '" + vn + "'  "+
-            //    "and t01.mnc_Pre_no = '" + preNo + "'  " +
-            //    "and  (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 'ch040', 'ch037', "+
-            //    "'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) "+
-            //    "and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' ";
-
-            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat, lab_t05.mnc_res, lab_t05.mnc_req_no " +
+            //[MNC_LB_GRP_DSC]
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no, lab_t05.MNC_RES_MIN, lab_t05.MNC_RES_MAX,usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check, lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD " +
                 "FROM     PATIENT_T01 t01 " +
                 "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
                 "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
                 "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
                 "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
                 "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
                 " and t01.mnc_hn_no = '" + hn + "' " +
                 "and t01.mnc_vn_no = '" + vn + "'  " +
                 "and t01.mnc_Pre_no = '" + preNo + "'  " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                //"and  (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 'ch040', 'ch037', " +
+                //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+                //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+                "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectLabRequestbyVN1(String dateStart, String dateEnd, String hn, String preNo)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+
+            //sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+            //    ", lab_t05.mnc_res, lab_t05.mnc_req_no,fn02.MNC_FN_TYP_DSC, pttm24.MNC_COM_DSC, LAB_T01.mnc_req_yr,patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name,convert(VARCHAR(20),lab_t05.MNC_STAMP_DAT) as MNC_STAMP_DAT, lab_t05.MNC_LB_USR,LAB_T01.mnc_dot_cd,lab_t01.MNC_REQ_DEP " +
+            //    "FROM     PATIENT_T01 t01 " +
+            //    "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+            //    "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+            //    "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+            //    "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+            //    "Left Join finance_m02 fn02 on LAB_T01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
+            //    "left join patient_m24 pttm24  on LAB_T01.MNC_com_cd = pttm24.MNC_com_cd  " +
+            //    " inner join patient_m26 on LAB_T01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+            //    " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+            //    "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
+            //    " and t01.mnc_hn_no = '" + hn + "' " +
+            //    "and t01.mnc_vn_no = '" + vn + "'  " +
+            //    "and t01.mnc_Pre_no = '" + preNo + "'  " +
+            //    "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'" +
+            //    //"and  (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 'ch040', 'ch037', " +
+            //    //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+            //    //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+            //    "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat " +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no,fn02.MNC_FN_TYP_DSC, pttm24.MNC_COM_DSC, LAB_T01.mnc_req_yr,patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name " +
+                ",convert(VARCHAR(20),lab_t05.MNC_STAMP_DAT) as MNC_STAMP_DAT, lab_t05.MNC_LB_USR,LAB_T01.mnc_dot_cd,lab_t01.MNC_REQ_DEP,lab_m01.MNC_LB_DSC, lab_m07.MNC_LB_TYP_DSC " +
+                "FROM LAB_T01  " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "Left Join finance_m02 fn02 on LAB_T01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
+                "left join patient_m24 pttm24  on LAB_T01.MNC_com_cd = pttm24.MNC_com_cd  " +
+                " inner join patient_m26 on LAB_T01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                //"inner join lab_m01 on lab_t02.MNC_LB_CD =lab_m01.MNC_LB_CD " +
+                "inner join lab_m07 on lab_m01.MNC_LB_GRP_CD =lab_m07.MNC_LB_GRP_CD " +
+                "where LAB_T01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
+                " and LAB_T01.mnc_hn_no = '" + hn + "' " +
+                //"and LAB_T01.mnc_vn_no = '" + vn + "'  " +
+                "and LAB_T01.mnc_Pre_no = '" + preNo + "'  " +
                 "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'" +
                 //"and  (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 'ch040', 'ch037', " +
                 //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
@@ -1071,16 +1075,63 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
+        public DataTable selectRequestLabbyAN(String hn, String an, String anyr)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            //sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat, lab_t05.mnc_res" +
+            //    ", lab_t05.mnc_req_no ,fn02.MNC_FN_TYP_DSC, pttm24.MNC_COM_DSC, LAB_T01.mnc_req_yr,patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name,convert(VARCHAR(20),lab_t05.MNC_STAMP_DAT) as MNC_STAMP_DAT, lab_t05.MNC_LB_USR, LAB_T01.mnc_dot_cd,lab_t01.MNC_REQ_DEP" +
+            //    "FROM     PATIENT_T01 t01 " +
+            //    "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+            //    "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+            //    "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+            //    "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+            //    "Left Join finance_m02 fn02 on LAB_T01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
+            //    "left join patient_m24 pttm24  on LAB_T01.MNC_com_cd = pttm24.MNC_com_cd  " +
+            //    " inner join patient_m26 on LAB_T01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+            //    " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+            //    "where LAB_T01.mnc_an_no = '" + an + "'  " +
+            //    "and LAB_T01.mnc_an_yr = '" + anyr + "'  " +
+            //    "and t01.mnc_hn_no = '" + hn + "' " +
+            //    "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'" +
+            //    "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat, lab_t05.mnc_res" +
+                ", lab_t05.mnc_req_no ,fn02.MNC_FN_TYP_DSC, pttm24.MNC_COM_DSC, LAB_T01.mnc_req_yr,patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name" +
+                ",convert(VARCHAR(20),lab_t05.MNC_STAMP_DAT) as MNC_STAMP_DAT, lab_t05.MNC_LB_USR, LAB_T01.mnc_dot_cd,lab_t01.MNC_REQ_DEP,lab_m01.MNC_LB_DSC, lab_m07.MNC_LB_TYP_DSC " +
+                "FROM  LAB_T01  " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "Left Join finance_m02 fn02 on LAB_T01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
+                "left join patient_m24 pttm24  on LAB_T01.MNC_com_cd = pttm24.MNC_com_cd  " +                
+                " inner join patient_m26 on LAB_T01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                //"inner join lab_m01 on lab_t02.MNC_LB_CD =lab_m01.MNC_LB_CD " +
+                "inner join lab_m07 on lab_m01.MNC_LB_GRP_CD =lab_m07.MNC_LB_GRP_CD " +
+                "where LAB_T01.mnc_an_no = '" + an + "'  " +
+                "and LAB_T01.mnc_an_yr = '" + anyr + "'  " +
+                "and LAB_T01.mnc_hn_no = '" + hn + "' " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'" +
+                "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public DataTable selectResultLabbyAN(String hn, String an, String anyr)
         {
             String sql = "";
             DataTable dt = new DataTable();
-            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat, lab_t05.mnc_res, lab_t05.mnc_req_no " +
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no, lab_t05.MNC_RES_MIN, lab_t05.MNC_RES_MAX ,usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check, lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD  " +
                 "FROM     PATIENT_T01 t01 " +
                 "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
                 "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
                 "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
                 "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
                 "where LAB_T01.mnc_an_no = '" + an + "'  " +
                 "and LAB_T01.mnc_an_yr = '" + anyr + "'  " +
                 "and t01.mnc_hn_no = '" + hn + "' " +

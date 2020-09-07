@@ -912,7 +912,7 @@ namespace bangna_hospital.gui
                 }
                 catch (Exception ex)
                 {
-                    new LogWriter("e", "FrmNurseScanView setGrfLabOutWait ex " + ex.Message);
+                    new LogWriter("e", "FrmNurseScanView setGrfPttinWrd ex " + ex.Message);
                 }
             }
             //grfLabOutWait.Cols[colApmId].Visible = false;

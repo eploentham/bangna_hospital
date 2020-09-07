@@ -189,6 +189,7 @@ namespace bangna_hospital.control
             iniC.grfImgWidth = iniF.getIni("app", "grfImgWidth");
             iniC.scVssizeradio = iniF.getIni("app", "scVssizeradio");
             iniC.laboutdateMedica = iniF.getIni("app", "laboutdateMedica");
+            iniC.medicalrecordexportpath = iniF.getIni("app", "medicalrecordexportpath");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -230,6 +231,7 @@ namespace bangna_hospital.control
             iniC.grfImgWidth = iniC.grfImgWidth == null ? "500" : iniC.grfImgWidth.Equals("") ? "500" : iniC.grfImgWidth;
             iniC.scVssizeradio = iniC.scVssizeradio == null ? "20" : iniC.scVssizeradio.Equals("") ? "20" : iniC.scVssizeradio;
             iniC.laboutdateMedica = iniC.laboutdateMedica == null ? "" : iniC.laboutdateMedica.Equals("") ? "" : iniC.laboutdateMedica;
+            iniC.medicalrecordexportpath = iniC.medicalrecordexportpath == null ? "c:\\exportpath" : iniC.medicalrecordexportpath.Equals("") ? "" : iniC.medicalrecordexportpath;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
