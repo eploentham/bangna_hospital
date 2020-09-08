@@ -1,8 +1,12 @@
 ﻿using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using C1.Win.C1Input;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using CrystalDecisions.Windows.Forms;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -276,7 +280,7 @@ namespace bangna_hospital.control
             //bmp.Dispose();
             return bmp;
         }
-        public Stream ToStream(Image image, ImageFormat format)
+        public Stream ToStream(Image image, System.Drawing.Imaging.ImageFormat format)
         {
             var stream = new System.IO.MemoryStream();
             image.Save(stream, format);
@@ -1550,6 +1554,99 @@ namespace bangna_hospital.control
             writer.Flush();
             stream.Position = 0;
             return stream;
+        }
+        public void exportResultXray(DataTable dt, String hn, String vn)
+        {
+            ReportDocument rpt;
+            CrystalReportViewer crv = new CrystalReportViewer();
+            rpt = new ReportDocument();
+            rpt.Load("xray_result.rpt");
+            crv.ReportSource = rpt;
+
+            crv.Refresh();
+            //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
+            //rd.Load("StudentReg.rpt");
+            rpt.SetDataSource(dt);
+            //crv.ReportSource = rd;
+            //crv.Refresh();
+            if (!Directory.Exists(iniC.medicalrecordexportpath))
+            {
+                Directory.CreateDirectory(iniC.medicalrecordexportpath);
+            }
+            if (File.Exists(iniC.medicalrecordexportpath + "\\result_xray_" + hn + "_" + vn.Replace("/", "_") + ".pdf"))
+                File.Delete(iniC.medicalrecordexportpath + "\\result_xray_" + hn + "_" + vn.Replace("/", "_") + ".pdf");
+
+            ExportOptions CrExportOptions;
+            DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+            PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+            CrDiskFileDestinationOptions.DiskFileName = iniC.medicalrecordexportpath + "\\result_xray_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            CrExportOptions = rpt.ExportOptions;
+            {
+                CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+                CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+                CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+                CrExportOptions.FormatOptions = CrFormatTypeOptions;
+            }
+            rpt.Export();
+            
+            string filePath = iniC.medicalrecordexportpath + "\\resultresult_xray__lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            // combine the arguments together
+            // it doesn't matter if there is a space after ','
+            string argument = "/select, \"" + filePath + "\"";
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+        }
+        public void exportResultLab(DataTable dt, String hn, String vn)
+        {
+            ReportDocument rpt;
+            CrystalReportViewer crv = new CrystalReportViewer();
+            rpt = new ReportDocument();
+            rpt.Load("lab_result.rpt");
+            crv.ReportSource = rpt;
+
+            crv.Refresh();
+            //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
+            //rd.Load("StudentReg.rpt");
+            rpt.SetDataSource(dt);
+            //crv.ReportSource = rd;
+            //crv.Refresh();
+            if (!Directory.Exists(iniC.medicalrecordexportpath))
+            {
+                Directory.CreateDirectory(iniC.medicalrecordexportpath);
+            }
+            if (File.Exists(iniC.medicalrecordexportpath + "\\result_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf"))
+                File.Delete(iniC.medicalrecordexportpath + "\\result_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf");
+
+            ExportOptions CrExportOptions;
+            DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+            PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+            CrDiskFileDestinationOptions.DiskFileName = iniC.medicalrecordexportpath + "\\lab_result_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            CrExportOptions = rpt.ExportOptions;
+            {
+                CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+                CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+                CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+                CrExportOptions.FormatOptions = CrFormatTypeOptions;
+            }
+            rpt.Export();
+            //frmW.Dispose();
+
+            string filePath = iniC.medicalrecordexportpath + "\\result_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            // combine the arguments together
+            // it doesn't matter if there is a space after ','
+            string argument = "/select, \"" + filePath + "\"";
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
         }
     }
 }
