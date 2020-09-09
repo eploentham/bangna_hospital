@@ -221,7 +221,6 @@ namespace bangna_hospital.gui
             initTabPrn();
             initGrf();
             
-            
             setPicStaffNote();
             setControlHN();
             theme1.SetTheme(tcDtr, theme1.Theme);
@@ -598,9 +597,9 @@ namespace bangna_hospital.gui
         private DataTable setPrintXray()
         {
             DataTable dt = new DataTable();
-            if (grfOrdXray == null) return dt;
-            if (grfOrdXray.Row <= 1) return dt;
-            if (grfOrdXray.Col <= 0) return dt;
+            if (grfXray == null) return dt;
+            if (grfXray.Row <= 1) return dt;
+            if (grfXray.Col <= 0) return dt;
             String an = "", vn = "", vsdate = "", xraycode = "", txt1 = "", reqdate = "", reqno = "", dtrname = "", ordname = "", orddetail = "", dtrxrname = "", resdate = "", pttcompname = "", paidname = "", depname = "";
             //MessageBox.Show("10 ", "");
             Boolean flagPACsPlus = false;
@@ -1424,6 +1423,7 @@ namespace bangna_hospital.gui
                 bc.preno = preno;
                 bc.vsdate = vsDate;
                 bc.hn = txtHn.Text.Trim();
+                txtVN.Value = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
                 setStaffNote(vsDate, preno);
                 //setControlPnOrdDiagVal(vitalsign, pres, temp, weight, high, "", cc, ccin, ccex, abc, hc, bp1l, bp2l, radios, breath, symptom, vsDate, paidtype);
             }
@@ -1747,6 +1747,7 @@ namespace bangna_hospital.gui
                             labOutView.Ribbon.Minimized = true;
                             tabHnLabOut.Controls.Add(labOutView);
 
+
                             C1PdfDocumentSource pds = new C1PdfDocumentSource();
 
                             pds.LoadFromStream(stream);
@@ -1918,9 +1919,13 @@ namespace bangna_hospital.gui
                                 labOutView.Ribbon.Minimized = true;
                                 tabHnLabOut.Controls.Add(labOutView);
 
+                                ContextMenu menuGw = new ContextMenu();
+                                menuGw.MenuItems.Add("Export Out Lab", new EventHandler(ContextMenu_LabOut_export_outlab));
+                                labOutView.ContextMenu = menuGw;
+
                                 C1PdfDocumentSource pds = new C1PdfDocumentSource();
                                 pds.LoadFromStream(stream);
-
+                                streamPrint = stream;
                                 //pds.LoadFromFile(filename1);
 
                                 labOutView.DocumentSource = pds;
@@ -1935,6 +1940,29 @@ namespace bangna_hospital.gui
                 }
             }
             setHeaderEnable();
+        }
+        private void ContextMenu_LabOut_export_outlab(object sender, System.EventArgs e)
+        {
+            String datetick = DateTime.Now.Ticks.ToString();
+            streamPrint.Seek(0, SeekOrigin.Begin);
+            //streamPrint.CopyTo
+            var fileStream = new FileStream(bc.iniC.medicalrecordexportpath+"\\outlab_"+txtHn.Text.Trim()+"_" + datetick + ".pdf", FileMode.Create, FileAccess.Write);
+            streamPrint.CopyTo(fileStream);
+            fileStream.Flush();
+            fileStream.Dispose();
+            Application.DoEvents();
+            Thread.Sleep(200);
+            string filePath = bc.iniC.medicalrecordexportpath + "\\outlab_" + txtHn.Text.Trim() + "_" + datetick + ".pdf";
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            // combine the arguments together
+            // it doesn't matter if there is a space after ','
+            string argument = "/select, \"" + filePath + "\"";
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
         }
         private void ContextMenu_LabOut_Print(object sender, System.EventArgs e)
         {
@@ -2156,7 +2184,8 @@ namespace bangna_hospital.gui
 
             tabOPD.Controls.Add(grfOPD);
 
-            theme1.SetTheme(grfOPD, "ExpressionDark");
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfOPD, bc.iniC.themegrfOpd);
         }
         private void ContextMenu_delete_opd_all(object sender, System.EventArgs e)
         {
@@ -2189,7 +2218,8 @@ namespace bangna_hospital.gui
             grfActive = "grfOPD";
             chkIPD.Checked = false;
             label2.Text = "VN :";
-            rtb.Text = "";
+            if(rtb !=null)
+                rtb.Text = "";
             //txt.Value = "";
             //new LogWriter("d", "FrmScanView1 GrfOPD_AfterRowColChange 01 setGrfLab");
             try
@@ -2848,8 +2878,8 @@ namespace bangna_hospital.gui
 
             tabIPD.Controls.Add(grfIPD);
 
-            theme1.SetTheme(grfIPD, "ExpressionDark");
-
+            //theme1.SetTheme(grfIPD, "ExpressionDark");
+            theme1.SetTheme(grfIPD, bc.iniC.themegrfIpd);
         }
         private void ContextMenu_delete_ipd_all(object sender, System.EventArgs e)
         {
@@ -3917,8 +3947,10 @@ namespace bangna_hospital.gui
                     picR.Image = stffnoteR;
                     ContextMenu menuGwL = new ContextMenu();
                     menuGwL.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_print_staffnote_L));
+                    menuGwL.MenuItems.Add("ต้องการ Download ภาพนี้ L", new EventHandler(ContextMenu_export_staffnote_L));
                     ContextMenu menuGwR = new ContextMenu();
                     menuGwR.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_print_staffnote_R));
+                    menuGwR.MenuItems.Add("ต้องการ Download ภาพนี้ R", new EventHandler(ContextMenu_export_staffnote_R));
                     picL.ContextMenu = menuGwL;
                     picR.ContextMenu = menuGwR;
 
@@ -3936,6 +3968,41 @@ namespace bangna_hospital.gui
         private void ContextMenu_print_staffnote_R(object sender, System.EventArgs e)
         {
             setGrfScanToPrintStaffNoteR();
+        }
+        private void ContextMenu_export_staffnote_R(object sender, System.EventArgs e)
+        {
+            String datetick = DateTime.Now.Ticks.ToString();
+            String filename = bc.iniC.medicalrecordexportpath + "\\staff_note_"+txtHn.Text.Trim()+""+txtVN.Text.Trim().Replace("/", "_")+".jpg";
+            picR.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //string filePath = bc.iniC.medicalrecordexportpath + "\\resultresult_xray_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            if (!File.Exists(filename))
+            {
+                return;
+            }
+
+            // combine the arguments together
+            // it doesn't matter if there is a space after ','
+            string argument = "/select, \"" + filename + "\"";
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+        }
+        private void ContextMenu_export_staffnote_L(object sender, System.EventArgs e)
+        {
+            //setGrfScanToPrintStaffNoteL();
+            String datetick = DateTime.Now.Ticks.ToString();
+            String filename = bc.iniC.medicalrecordexportpath + "\\doctor_order_" + txtHn.Text.Trim() + "" + txtVN.Text.Trim().Replace("/", "_") + ".jpg";
+            picL.Image.Save(filename, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //string filePath = bc.iniC.medicalrecordexportpath + "\\resultresult_xray_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            if (!File.Exists(filename))
+            {
+                return;
+            }
+
+            // combine the arguments together
+            // it doesn't matter if there is a space after ','
+            string argument = "/select, \"" + filename + "\"";
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
         }
         private void setGrfScanToPrintStaffNoteR()
         {
@@ -4047,7 +4114,8 @@ namespace bangna_hospital.gui
             grfActive = "grfIPD";
             String an = "", vsDate="", preno="";
             chkIPD.Checked = true;
-            rtb.Text = "";
+            if(rtb!=null)
+                rtb.Text = "";
             label2.Text = "AN :";
 
             an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
@@ -4497,13 +4565,14 @@ namespace bangna_hospital.gui
         private void setGrfScan()
         {
             Application.DoEvents();
-            ProgressBar pB1 = new ProgressBar();
-            pB1.Location = new System.Drawing.Point(20, 16);
-            pB1.Name = "pB1";
-            pB1.Size = new System.Drawing.Size(862, 23);
-            gbPtt.Controls.Add(pB1);
-            pB1.Left = txtHn.Left;
-            pB1.Show();
+            //ProgressBar pB1 = new ProgressBar();
+            //pB1.Location = new System.Drawing.Point(20, 16);
+            //pB1.Name = "pB1";
+            //pB1.Size = new System.Drawing.Size(862, 23);
+            //gbPtt.Controls.Add(pB1);
+            //pB1.Left = txtHn.Left;
+            //pB1.Show();
+            showLbLoading();
             setHeaderDisable();
 
             //clearGrf();
@@ -4572,15 +4641,15 @@ namespace bangna_hospital.gui
                     //{
                     //    grfScan.Rows[k].Height = 200;
                     //}
-                    pB1.Value = 0;
-                    pB1.Minimum = 0;
-                    pB1.Maximum = dt.Rows.Count;
+                    //pB1.Value = 0;
+                    //pB1.Minimum = 0;
+                    //pB1.Maximum = dt.Rows.Count;
                     //MemoryStream stream;
                     //Image loadedImage, resizedImage;
-                    if (pB1.Value == 0)
-                    {
+                    //if (pB1.Value == 0)
+                    //{
                         lbCnt.Text = "["+dt.Rows[0][bc.bcDB.dscDB.dsc.pic_before_scan_cnt].ToString()+"]"+ "[" + dt.Rows[0][bc.bcDB.dscDB.dsc.row_cnt].ToString() + "]";
-                    }
+                    //}
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     Boolean findTrue = false;
                     int colcnt = 0, rowrun = -1;
@@ -4712,7 +4781,7 @@ namespace bangna_hospital.gui
                         }
                     //}).Start();
 
-                    pB1.Value++;
+                    //pB1.Value++;
                         Application.DoEvents();
                     }
                 }
@@ -4723,8 +4792,9 @@ namespace bangna_hospital.gui
                 }
             }
             //new LogWriter("e", "FrmScanView1 setGrfScan 10 ");
-            setHeaderEnable(pB1);
+            setHeaderEnable();
             setControlGbPtt();
+            hideLbLoading();
         }
         private void ContextMenu_grfscan_Download(object sender, System.EventArgs e)
         {
@@ -4877,9 +4947,9 @@ namespace bangna_hospital.gui
         private DataTable setPrintLab()
         {
             DataTable dt = new DataTable();
-            if (grfOrdLab == null) return dt;
-            if (grfOrdLab.Row <= 1) return dt;
-            if (grfOrdLab.Col <= 0) return dt;
+            //if (grfOrdLab == null) return dt;
+            //if (grfOrdLab.Row <= 1) return dt;
+            //if (grfOrdLab.Col <= 0) return dt;
             String an = "", vn = "", vsdate = "", xraycode = "", txt1 = "", reqdate = "", reqno = "", dtrname = "", ordname = "", orddetail = "", dtrxrname = "", resdate = "", pttcompname = "", paidname = "", depname = "";
             
             DataTable dtreq = new DataTable();
@@ -4949,6 +5019,7 @@ namespace bangna_hospital.gui
             dt.Columns.Add("patient_type", typeof(String));
             dt.Columns.Add("mnc_lb_dsc", typeof(String));
             dt.Columns.Add("mnc_lb_grp_cd", typeof(String));
+            dt.Columns.Add("sort1", typeof(String));
             //dt.Columns.Add("xry_result_date", typeof(String));
             foreach (DataRow drow in dt.Rows)
             {
@@ -4969,7 +5040,7 @@ namespace bangna_hospital.gui
                 drow["patient_vn"] = txtVN.Text;
                 //drow["patient_dep"] = ptt.Name;
                 drow["patient_type"] = dtreq.Rows[0]["MNC_FN_TYP_DSC"].ToString();
-                drow["request_no"] = dtreq.Rows[0]["MNC_REQ_NO"].ToString() + "/" + dtreq.Rows[0]["MNC_REQ_YR"].ToString();
+                drow["request_no"] = dtreq.Rows[0]["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
                 drow["doctor"] = dtreq.Rows[0]["dtr_name"].ToString() + "[" + dtreq.Rows[0]["mnc_dot_cd"].ToString() + "]";
                 drow["result_date"] = bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
                 drow["print_date"] = bc.datetoShow(dtreq.Rows[0]["MNC_STAMP_DAT"].ToString());
@@ -4986,6 +5057,7 @@ namespace bangna_hospital.gui
                     drow["MNC_RES_UNT"] = "";
                 }
                 drow["MNC_RES_UNT"] = drow["MNC_RES_UNT"].ToString().Replace("0.00-0.00", "").Replace("0.00 - 0.00", "").Replace("0.00", "");
+                drow["sort1"] = dtreq.Rows[0]["mnc_req_dat"].ToString().Replace("-","").Replace("-", "") + dtreq.Rows[0]["MNC_REQ_NO"].ToString();
             }
             return dt;
         }
@@ -5011,7 +5083,7 @@ namespace bangna_hospital.gui
             //cspL.Controls.Add(picL);
             //cspR.Controls.Add(picR);
 
-            grfOPD.Clear();
+            //grfOPD.Clear();
             grfOPD.Rows.Count = 1;
             grfOPD.Cols.Count = 25;
 
@@ -5045,7 +5117,8 @@ namespace bangna_hospital.gui
 
             DataTable dt = new DataTable();
             //MessageBox.Show("hn "+hn, "");
-            dt = bc.bcDB.vsDB.selectVisitByHn4(txtHn.Text,"O");
+            // query นี้ ไปดึงข้อมูล จาก patient_t01_2 ซึ่งมีข้อมูลเยอะมาก  ตัดออกได้ไหม เพราะเป็น IPD       แก้แล้ว
+            dt = bc.bcDB.vsDB.selectVisitByHn6(txtHn.Text,"O");
             int i = 1, j = 1, row = grfOPD.Rows.Count;
             //txtVN.Value = dt.Rows.Count;
             //txtName.Value = ""; 
@@ -5201,6 +5274,9 @@ namespace bangna_hospital.gui
             //    menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image [" + dgs.doc_group_name + "]", new EventHandler(ContextMenu_upload));
             //}
             //grfVs.ContextMenu = menuGw;
+            grfIPD.Cols[colIPDAnShow].Visible = false;
+            grfIPD.Cols[colIPDPreno].Visible = false;
+            grfIPD.Cols[colIPDVn].Visible = false;
             grfIPD.Cols[colIPDStatus].Visible = false;
             grfIPD.Cols[colIPDAnYr].Visible = false;
             grfIPD.Cols[colIPDAn].Visible = false;
@@ -5273,7 +5349,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-07-27";
+            this.Text = "Last Update 2020-09-09";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

@@ -194,6 +194,8 @@ namespace bangna_hospital.control
             iniC.scVssizeradio = iniF.getIni("app", "scVssizeradio");
             iniC.laboutdateMedica = iniF.getIni("app", "laboutdateMedica");
             iniC.medicalrecordexportpath = iniF.getIni("app", "medicalrecordexportpath");
+            iniC.themegrfOpd = iniF.getIni("app", "themegrfOpd");
+            iniC.themegrfIpd = iniF.getIni("app", "themegrfIpd");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -236,6 +238,8 @@ namespace bangna_hospital.control
             iniC.scVssizeradio = iniC.scVssizeradio == null ? "20" : iniC.scVssizeradio.Equals("") ? "20" : iniC.scVssizeradio;
             iniC.laboutdateMedica = iniC.laboutdateMedica == null ? "" : iniC.laboutdateMedica.Equals("") ? "" : iniC.laboutdateMedica;
             iniC.medicalrecordexportpath = iniC.medicalrecordexportpath == null ? "c:\\exportpath" : iniC.medicalrecordexportpath.Equals("") ? "" : iniC.medicalrecordexportpath;
+            iniC.themegrfOpd = iniC.themegrfOpd == null ? "Office2016Colorful" : iniC.themegrfOpd.Equals("") ? "Office2016Colorful" : iniC.themegrfOpd;
+            iniC.themegrfIpd = iniC.themegrfIpd == null ? "Office2007Black" : iniC.themegrfIpd.Equals("") ? "Office2007Black" : iniC.themegrfIpd;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -1589,7 +1593,7 @@ namespace bangna_hospital.control
             }
             rpt.Export();
             
-            string filePath = iniC.medicalrecordexportpath + "\\resultresult_xray__lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            string filePath = iniC.medicalrecordexportpath + "\\resultresult_xray_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
             if (!File.Exists(filePath))
             {
                 return;

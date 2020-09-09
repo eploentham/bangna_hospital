@@ -325,6 +325,8 @@ namespace bangna_hospital.report {
             
             private global::System.Data.DataColumn columnmnc_lb_grp_dsc;
             
+            private global::System.Data.DataColumn columnsort1;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public result_labDataTable() {
@@ -544,6 +546,14 @@ namespace bangna_hospital.report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn sort1Column {
+                get {
+                    return this.columnsort1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -602,7 +612,8 @@ namespace bangna_hospital.report {
                         string user_check, 
                         string mnc_res_min, 
                         string mnc_res_max, 
-                        string mnc_lb_grp_dsc) {
+                        string mnc_lb_grp_dsc, 
+                        string sort1) {
                 result_labRow rowresult_labRow = ((result_labRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         mnc_lb_grp_cd,
@@ -627,7 +638,8 @@ namespace bangna_hospital.report {
                         user_check,
                         mnc_res_min,
                         mnc_res_max,
-                        mnc_lb_grp_dsc};
+                        mnc_lb_grp_dsc,
+                        sort1};
                 rowresult_labRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowresult_labRow);
                 return rowresult_labRow;
@@ -673,6 +685,7 @@ namespace bangna_hospital.report {
                 this.columnmnc_res_min = base.Columns["mnc_res_min"];
                 this.columnmnc_res_max = base.Columns["mnc_res_max"];
                 this.columnmnc_lb_grp_dsc = base.Columns["mnc_lb_grp_dsc"];
+                this.columnsort1 = base.Columns["sort1"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -724,6 +737,8 @@ namespace bangna_hospital.report {
                 base.Columns.Add(this.columnmnc_res_max);
                 this.columnmnc_lb_grp_dsc = new global::System.Data.DataColumn("mnc_lb_grp_dsc", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmnc_lb_grp_dsc);
+                this.columnsort1 = new global::System.Data.DataColumn("sort1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnsort1);
                 this.columnmnc_lb_grp_cd.Caption = "DataColumn1";
                 this.columnmnc_lb_dsc.Caption = "DataColumn1";
                 this.columnmnc_res.Caption = "DataColumn1";
@@ -1242,6 +1257,22 @@ namespace bangna_hospital.report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string sort1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableresult_lab.sort1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'sort1\' in table \'result_lab\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableresult_lab.sort1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool Ismnc_lb_grp_cdNull() {
                 return this.IsNull(this.tableresult_lab.mnc_lb_grp_cdColumn);
             }
@@ -1514,6 +1545,18 @@ namespace bangna_hospital.report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void Setmnc_lb_grp_dscNull() {
                 this[this.tableresult_lab.mnc_lb_grp_dscColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Issort1Null() {
+                return this.IsNull(this.tableresult_lab.sort1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setsort1Null() {
+                this[this.tableresult_lab.sort1Column] = global::System.Convert.DBNull;
             }
         }
         
