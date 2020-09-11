@@ -200,24 +200,19 @@ namespace bangna_hospital.gui
             //sC1.TabIndexChanged += SC1_TabIndexChanged;
             //tcDtr.TabClick += TcDtr_TabClick;
             
-            tcDtr.TabClick += TcDtr_TabClick;
-            
-            panel3.Controls.Add(tcDtr);
-            theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
             //MessageBox.Show("111", "");
             initTabDtr();
             initTabVS();
             initGrfOPD();
             initGrfIPD();
             
-            
             //initGrfPicture();
             //initTabPrn();
             //initGrf();
-            
+
             setPicStaffNote();
             setControlHN();
-            theme1.SetTheme(tcDtr, theme1.Theme);
+            //theme1.SetTheme(tcDtr, theme1.Theme);
             //MessageBox.Show("222", "");
             //setTabMachineResult();
 
@@ -278,6 +273,7 @@ namespace bangna_hospital.gui
             tcDtr.Size = new System.Drawing.Size(669, 200);
             tcDtr.TabIndex = 0;
             tcDtr.TabsSpacing = 5;
+            tcDtr.TabClick += TcDtr_TabClick;
 
             tabStfNote = new C1DockingTabPage();
             tabStfNote.Location = new System.Drawing.Point(1, 24);
@@ -397,6 +393,8 @@ namespace bangna_hospital.gui
             tabOrdAdd.Text = "สั่งยา & Diagnose";
             tabOrdAdd.Name = "tabOrdAdd";
             tcDtr.Controls.Add(tabOrdAdd);
+            panel3.Controls.Add(tcDtr);
+            theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
         }
 
         private void TcMac_DoubleClick(object sender, EventArgs e)
