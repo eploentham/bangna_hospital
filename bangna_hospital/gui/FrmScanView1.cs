@@ -598,7 +598,7 @@ namespace bangna_hospital.gui
         {
             DataTable dt = new DataTable();
             if (grfXray == null) return dt;
-            if (grfXray.Row <= 1) return dt;
+            if (grfXray.Row <= 0) return dt;
             if (grfXray.Col <= 0) return dt;
             String an = "", vn = "", vsdate = "", xraycode = "", txt1 = "", reqdate = "", reqno = "", dtrname = "", ordname = "", orddetail = "", dtrxrname = "", resdate = "", pttcompname = "", paidname = "", depname = "";
             //MessageBox.Show("10 ", "");
@@ -5040,7 +5040,7 @@ namespace bangna_hospital.gui
                 drow["patient_vn"] = txtVN.Text;
                 //drow["patient_dep"] = ptt.Name;
                 drow["patient_type"] = dtreq.Rows[0]["MNC_FN_TYP_DSC"].ToString();
-                drow["request_no"] = dtreq.Rows[0]["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
+                drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(drow["mnc_req_dat"].ToString());
                 drow["doctor"] = dtreq.Rows[0]["dtr_name"].ToString() + "[" + dtreq.Rows[0]["mnc_dot_cd"].ToString() + "]";
                 drow["result_date"] = bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
                 drow["print_date"] = bc.datetoShow(dtreq.Rows[0]["MNC_STAMP_DAT"].ToString());
@@ -5057,7 +5057,20 @@ namespace bangna_hospital.gui
                     drow["MNC_RES_UNT"] = "";
                 }
                 drow["MNC_RES_UNT"] = drow["MNC_RES_UNT"].ToString().Replace("0.00-0.00", "").Replace("0.00 - 0.00", "").Replace("0.00", "");
-                drow["sort1"] = dtreq.Rows[0]["mnc_req_dat"].ToString().Replace("-","").Replace("-", "") + dtreq.Rows[0]["MNC_REQ_NO"].ToString();
+                drow["sort1"] = drow["mnc_req_dat"].ToString().Replace("-","").Replace("-", "") + drow["MNC_REQ_NO"].ToString();
+            }
+            foreach (DataRow drow in dt.Rows)
+            {
+                //MessageBox.Show(drow["sort1"].ToString(), "");
+                if (drow["sort1"] == null)
+                {
+                    MessageBox.Show("11", "");
+                }
+
+                if (drow["sort1"].ToString().Equals(""))
+                {
+                    MessageBox.Show("22", "");
+                }
             }
             return dt;
         }
