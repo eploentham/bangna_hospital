@@ -104,7 +104,7 @@ namespace bangna_hospital.gui
         //        txt.Value = msg;
         //    }));
         //}
-        Boolean flagTabOutlabLoad = false, flagTabDtrOrdLoad=false, flagTabOrderLoad=false;
+        Boolean flagTabOutlabLoad = false, flagTabDtrOrdLoad=false, flagTabOrderLoad=false, flagTabPrn = false, flagTabPic = false, flagtabScan=false;
         public FrmScanView1(BangnaControl bc,String flagShoSearch)
         {
             InitializeComponent();
@@ -199,27 +199,21 @@ namespace bangna_hospital.gui
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged;
             //sC1.TabIndexChanged += SC1_TabIndexChanged;
             //tcDtr.TabClick += TcDtr_TabClick;
-
-            tcDtr = new C1DockingTab();
-            tcDtr.Dock = System.Windows.Forms.DockStyle.Fill;
-            tcDtr.Location = new System.Drawing.Point(0, 266);
-            tcDtr.Name = "tcDtr";
-            tcDtr.Size = new System.Drawing.Size(669, 200);
-            tcDtr.TabIndex = 0;
-            tcDtr.TabsSpacing = 5;
+            
             tcDtr.TabClick += TcDtr_TabClick;
             
             panel3.Controls.Add(tcDtr);
             theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
             //MessageBox.Show("111", "");
+            initTabDtr();
             initTabVS();
             initGrfOPD();
             initGrfIPD();
             
-            initTabDtr();
-            initGrfPicture();
-            initTabPrn();
-            initGrf();
+            
+            //initGrfPicture();
+            //initTabPrn();
+            //initGrf();
             
             setPicStaffNote();
             setControlHN();
@@ -277,6 +271,14 @@ namespace bangna_hospital.gui
         }
         private void initTabDtr()
         {
+            tcDtr = new C1DockingTab();
+            tcDtr.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcDtr.Location = new System.Drawing.Point(0, 266);
+            tcDtr.Name = "tcDtr";
+            tcDtr.Size = new System.Drawing.Size(669, 200);
+            tcDtr.TabIndex = 0;
+            tcDtr.TabsSpacing = 5;
+
             tabStfNote = new C1DockingTabPage();
             tabStfNote.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
@@ -286,7 +288,6 @@ namespace bangna_hospital.gui
             tabStfNote.Name = "tabStfNote";
             tcDtr.Controls.Add(tabStfNote);
             
-
             tabOrder = new C1DockingTabPage();
             tabOrder.Location = new System.Drawing.Point(1, 24);
             //tabScan.Name = "c1DockingTabPage1";
@@ -901,6 +902,11 @@ namespace bangna_hospital.gui
             else if (tcDtr.SelectedTab == tabScan)
             {
                 scVs.SizeRatio = sizeradio;
+                if (!flagtabScan)
+                {
+                    initGrf();
+                }
+                flagtabScan = true;
             }
             else if (tcDtr.SelectedTab == tabOrdAdd)
             {
@@ -948,6 +954,22 @@ namespace bangna_hospital.gui
             else if (tcDtr.SelectedTab == tabMac)
             {
                 setTabMachineResult();
+            }
+            else if (tcDtr.SelectedTab == tabPrn)
+            {
+                if (!flagTabPrn)
+                {
+                    initTabPrn();
+                }
+                flagTabPrn = true;
+            }
+            else if (tcDtr.SelectedTab == tabPic)
+            {
+                if (!flagTabPic)
+                {
+                    initGrfPicture();
+                }
+                flagTabPic = true;
             }
         }
         private void showLbLoading()
