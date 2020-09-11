@@ -38,7 +38,7 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
 
-        Font fEdit, fEditB, fEdit3B;
+        Font fEdit, fEditB, fEdit3B, fEdit5B;
         C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac;
         C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic, grfIPD, grfOPD;
@@ -127,7 +127,7 @@ namespace bangna_hospital.gui
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEdit3B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize+3, FontStyle.Bold);
-            //bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
+            fEdit5B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 5, FontStyle.Bold);
 
             array1 = new ArrayList();
             lStream = new List<listStream>();
@@ -147,11 +147,11 @@ namespace bangna_hospital.gui
             lbDrugAllergy.Font = fEdit3B;
 
             lbLoading = new Label();
-            lbLoading.Font = fEdit3B;
+            lbLoading.Font = fEdit5B;
             lbLoading.BackColor = Color.WhiteSmoke;
             lbLoading.ForeColor = Color.Black;
             lbLoading.AutoSize = false;
-            lbLoading.Size = new Size(200, 40);
+            lbLoading.Size = new Size(300, 60);
             this.Controls.Add(lbLoading);
 
             //theme1.SetTheme(sb1, bc.iniC.themeApplication);
@@ -835,6 +835,11 @@ namespace bangna_hospital.gui
             if (tcDtr.SelectedTab == tabScan)
             {
                 scVs.SizeRatio = sizeradio;
+                if (!flagtabScan)
+                {
+                    initGrf();
+                }
+                flagtabScan = true;
                 setGrfScan();
                 grfScan.AutoSizeCols();
                 grfScan.AutoSizeRows();
@@ -897,15 +902,15 @@ namespace bangna_hospital.gui
                 flagTabOrderLoad = true;
                 setGrfXrayOPD(grfOPD.Row);
             }
-            else if (tcDtr.SelectedTab == tabScan)
-            {
-                scVs.SizeRatio = sizeradio;
-                if (!flagtabScan)
-                {
-                    initGrf();
-                }
-                flagtabScan = true;
-            }
+            //else if (tcDtr.SelectedTab == tabScan)
+            //{
+            //    scVs.SizeRatio = sizeradio;
+            //    if (!flagtabScan)
+            //    {
+            //        initGrf();
+            //    }
+            //    flagtabScan = true;
+            //}
             else if (tcDtr.SelectedTab == tabOrdAdd)
             {
                 scVs.SizeRatio = 1;
@@ -4813,7 +4818,7 @@ namespace bangna_hospital.gui
             }
             //new LogWriter("e", "FrmScanView1 setGrfScan 10 ");
             setHeaderEnable();
-            setControlGbPtt();
+            //setControlGbPtt();
             hideLbLoading();
         }
         private void ContextMenu_grfscan_Download(object sender, System.EventArgs e)
