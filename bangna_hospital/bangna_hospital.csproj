@@ -482,6 +482,14 @@
     <Compile Include="object1\Visit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="report\pharmacy_result.cs">
+      <DependentUpon>pharmacy_result.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="report\pharmacy_result.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>pharmacy_result.xsd</DependentUpon>
+    </Compile>
     <Compile Include="report\result_lab.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -650,6 +658,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="report\pharmacy_result.xsc">
+      <DependentUpon>pharmacy_result.xsd</DependentUpon>
+    </None>
+    <None Include="report\pharmacy_result.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>pharmacy_result.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="report\pharmacy_result.xss">
+      <DependentUpon>pharmacy_result.xsd</DependentUpon>
+    </None>
     <None Include="report\result_lab.xsc">
       <DependentUpon>result_lab.xsd</DependentUpon>
     </None>
