@@ -46,6 +46,10 @@ namespace bangna_hospital.gui
                 {
                     setRptLabResult();
                 }
+                else if (reportname.Equals("pharmacy_result"))
+                {
+                    setRptLabResult();
+                }
             }
             catch(Exception ex)
             {
@@ -96,6 +100,37 @@ namespace bangna_hospital.gui
             
         }
         private void setRptLabResult()
+        {
+            //Form frm = new Form();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.WindowState = FormWindowState.Maximized;
+            //MessageBox.Show("60 ", "");
+            try
+            {
+                //DataTable dt = new DataTable();
+                rpt = new ReportDocument();
+                if (!File.Exists(reportname + ".rpt"))
+                {
+                    MessageBox.Show("File not Found " + reportname + ".rpt", "");
+                }
+                rpt.Load(reportname + ".rpt");
+                rpt.SetDataSource(dt);
+                //rpt.SetParameterValue("line1", "");
+                //rpt.SetParameterValue("line2", "");
+                //rpt.SetParameterValue("line3", "");
+                crv.ReportSource = rpt;
+                crv.Refresh();
+                this.Controls.Add(crv);
+                this.ShowDialog(frmParent);
+            }
+            catch (Exception ex)
+            {
+                String chk = ex.Message.ToString();
+                MessageBox.Show("error " + ex.Message, "");
+            }
+
+        }
+        private void setRptPharmacyResult()
         {
             //Form frm = new Form();
             this.StartPosition = FormStartPosition.CenterScreen;

@@ -480,6 +480,10 @@ namespace bangna_hospital.gui
             grfOrder.Cols[colOrderMed].Width = 200;
             grfOrder.Cols[colOrderQty].Width = 60;
             grfOrder.Name = "grfOrder";
+            ContextMenu menuGwOrder = new ContextMenu();
+            menuGwOrder.MenuItems.Add("ต้องการ Print ", new EventHandler(ContextMenu_print_Order));
+            menuGwOrder.MenuItems.Add("ต้องการ Export PDF ", new EventHandler(ContextMenu_print_Order_export));
+            grfOrder.ContextMenu = menuGwOrder;
 
             grfLab = new C1FlexGrid();
             grfLab.Font = fEdit;
@@ -573,6 +577,152 @@ namespace bangna_hospital.gui
             
             //initGrfPrn();
             //initGrfHn();
+        }
+        private void ContextMenu_print_Order(object sender, System.EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt = setPrintOrder();
+            FrmReport frm = new FrmReport(bc, this, "pharmacy_result", dt);
+        }
+        private void ContextMenu_print_Order_export(object sender, System.EventArgs e)
+        {
+            showLbLoading();
+
+            DataTable dt = new DataTable();
+            dt = setPrintOrder();
+
+            bc.exportResultPharmacy(dt, txtHn.Text.Trim(), txtVN.Text.Trim());
+            hideLbLoading();
+        }
+        private DataTable setPrintOrder()
+        {
+            DataTable dt = new DataTable();
+            //if (grfOrdLab == null) return dt;
+            //if (grfOrdLab.Row <= 1) return dt;
+            //if (grfOrdLab.Col <= 0) return dt;
+            String an = "", vn = "", vsdate = "", xraycode = "", txt1 = "", reqdate = "", reqno = "", dtrname = "", ordname = "", orddetail = "", dtrxrname = "", resdate = "", pttcompname = "", paidname = "", depname = "";
+
+            DataTable dtreq = new DataTable();
+            if (chkIPD.Checked)
+            {
+                vn = grfIPD[grfIPD.Row, colIPDVn] != null ? grfIPD[grfIPD.Row, colIPDVn].ToString() : "";
+                preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+                vsdate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+                if (an.Length > 0)
+                {
+                    String[] an1 = an.Split('/');
+                    if (an1.Length > 0)
+                    {
+                        dt = bc.bcDB.vsDB.selectResultLabbyAN(txtHn.Text, an1[0], an1[1]);
+                        dtreq = bc.bcDB.vsDB.selectRequestLabbyAN(txtHn.Text, an1[0], an1[1]);
+                    }
+                }
+            }
+            else
+            {
+                vn = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
+                preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                vsdate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                an = grfOPD[grfOPD.Row, colVsAn] != null ? grfOPD[grfOPD.Row, colVsAn].ToString() : "";
+                vsdate = bc.datetoDB(vsdate);
+                if (vsdate.Length <= 0)
+                {
+                    return dt;
+                }
+                if (vn.IndexOf("(") > 0)
+                {
+                    vn = vn.Substring(0, vn.IndexOf("("));
+                }
+                if (vn.IndexOf("/") > 0)
+                {
+                    vn = vn.Substring(0, vn.IndexOf("/"));
+                }
+                dt = bc.bcDB.vsDB.selectLabbyVN1(vsdate, vsdate, txtHn.Text, vn, preno);
+                dtreq = bc.bcDB.vsDB.selectLabRequestbyVN1(vsdate, vsdate, txtHn.Text, preno);
+            }
+
+            //if (dtreq.Rows.Count > 0)
+            //{
+            //    reqdate = dtreq.Rows[0]["MNC_REQ_DAT"].ToString();
+            //    reqno = dtreq.Rows[0]["MNC_REQ_NO"].ToString() + "/" + dtreq.Rows[0]["MNC_REQ_YR"].ToString();
+            //    dtrname = dtreq.Rows[0]["dtr_name"].ToString() + "[" + dtreq.Rows[0]["mnc_dot_cd"].ToString() + "]";
+            //    ordname = dtreq.Rows[0]["MNC_XR_DSC"].ToString();
+            //    pttcompname = dtreq.Rows[0]["MNC_COM_DSC"].ToString();
+            //    paidname = dtreq.Rows[0]["mnc_fn_typ_dsc"].ToString();
+            //    depname = dtreq.Rows[0]["MNC_REQ_DEP"].ToString();
+            //}
+            dt.Columns.Add("patient_name", typeof(String));
+            dt.Columns.Add("patient_hn", typeof(String));
+            dt.Columns.Add("patient_age", typeof(String));
+            dt.Columns.Add("request_no", typeof(String));
+            dt.Columns.Add("patient_vn", typeof(String));
+            dt.Columns.Add("doctor", typeof(String));
+            dt.Columns.Add("result_date", typeof(String));
+            dt.Columns.Add("print_date", typeof(String));
+            //dt.Columns.Add("user_lab", typeof(String));
+            //dt.Columns.Add("user_check", typeof(String));
+            //dt.Columns.Add("user_report", typeof(String));
+            dt.Columns.Add("patient_dep", typeof(String));
+            dt.Columns.Add("patient_company", typeof(String));
+            //dt.Columns.Add("ptt_department", typeof(String));
+            dt.Columns.Add("patient_type", typeof(String));
+            dt.Columns.Add("mnc_lb_dsc", typeof(String));
+            dt.Columns.Add("mnc_lb_grp_cd", typeof(String));
+            dt.Columns.Add("sort1", typeof(String));
+            //dt.Columns.Add("xry_result_date", typeof(String));
+            foreach (DataRow drow in dt.Rows)
+            {
+                Boolean chkname = false;
+                chkname = txtName.Text.Any(c => !Char.IsLetterOrDigit(c));
+                if (chkname)
+                {
+                    drow["patient_age"] = ptt.AgeString().Replace("Year", "ปี").Replace("Month", "เดือน").Replace("Days", "วัน").Replace("s", "");
+                }
+                else
+                {
+                    drow["patient_age"] = ptt.AgeString();
+                }
+                drow["patient_name"] = ptt.Name;
+                drow["patient_hn"] = ptt.Hn;
+                drow["patient_company"] = dtreq.Rows[0]["MNC_COM_DSC"].ToString();
+                //drow["patient_age"] = ptt.Name;
+                drow["patient_vn"] = txtVN.Text;
+                //drow["patient_dep"] = ptt.Name;
+                drow["patient_type"] = dtreq.Rows[0]["MNC_FN_TYP_DSC"].ToString();
+                drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(drow["mnc_req_dat"].ToString());
+                drow["doctor"] = dtreq.Rows[0]["dtr_name"].ToString() + "[" + dtreq.Rows[0]["mnc_dot_cd"].ToString() + "]";
+                drow["result_date"] = bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
+                drow["print_date"] = bc.datetoShow(dtreq.Rows[0]["MNC_STAMP_DAT"].ToString());
+                drow["user_lab"] = drow["user_lab"].ToString() + " [ทน." + drow["MNC_USR_NAME_result"].ToString() + "]";
+                drow["user_report"] = drow["user_report"].ToString() + " [ทน." + drow["MNC_USR_NAME_report"].ToString() + "]";
+                drow["user_check"] = drow["user_check"].ToString() + " [ทน." + drow["MNC_USR_NAME_approve"].ToString() + "]";
+                drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                    depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
+                    depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                drow["mnc_lb_dsc"] = dtreq.Rows[0]["MNC_LB_DSC"].ToString();
+                drow["mnc_lb_grp_cd"] = dtreq.Rows[0]["MNC_LB_TYP_DSC"].ToString();
+                if (drow["MNC_RES_VALUE"].ToString().Equals("-"))
+                {
+                    drow["MNC_RES_UNT"] = "";
+                }
+                drow["MNC_RES_UNT"] = drow["MNC_RES_UNT"].ToString().Replace("0.00-0.00", "").Replace("0.00 - 0.00", "").Replace("0.00", "");
+                drow["sort1"] = drow["mnc_req_dat"].ToString().Replace("-", "").Replace("-", "") + drow["MNC_REQ_NO"].ToString();
+            }
+            foreach (DataRow drow in dt.Rows)
+            {
+                //MessageBox.Show(drow["sort1"].ToString(), "");
+                if (drow["sort1"] == null)
+                {
+                    MessageBox.Show("11", "");
+                }
+
+                if (drow["sort1"].ToString().Equals(""))
+                {
+                    MessageBox.Show("22", "");
+                }
+            }
+            return dt;
         }
         private void ContextMenu_xray_result_print(object sender, System.EventArgs e)
         {

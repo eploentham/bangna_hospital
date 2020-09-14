@@ -1652,5 +1652,52 @@ namespace bangna_hospital.control
 
             System.Diagnostics.Process.Start("explorer.exe", argument);
         }
+        public void exportResultPharmacy(DataTable dt, String hn, String vn)
+        {
+            ReportDocument rpt;
+            CrystalReportViewer crv = new CrystalReportViewer();
+            rpt = new ReportDocument();
+            rpt.Load("pharmacy_result.rpt");
+            crv.ReportSource = rpt;
+
+            crv.Refresh();
+            //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
+            //rd.Load("StudentReg.rpt");
+            rpt.SetDataSource(dt);
+            //crv.ReportSource = rd;
+            //crv.Refresh();
+            if (!Directory.Exists(iniC.medicalrecordexportpath))
+            {
+                Directory.CreateDirectory(iniC.medicalrecordexportpath);
+            }
+            if (File.Exists(iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf"))
+                File.Delete(iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf");
+
+            ExportOptions CrExportOptions;
+            DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+            PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+            CrDiskFileDestinationOptions.DiskFileName = iniC.medicalrecordexportpath + "\\pharmacy_result_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            CrExportOptions = rpt.ExportOptions;
+            {
+                CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+                CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+                CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+                CrExportOptions.FormatOptions = CrFormatTypeOptions;
+            }
+            rpt.Export();
+            //frmW.Dispose();
+
+            string filePath = iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
+            // combine the arguments together
+            // it doesn't matter if there is a space after ','
+            string argument = "/select, \"" + filePath + "\"";
+
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+        }
     }
 }
