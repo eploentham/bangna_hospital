@@ -1632,7 +1632,7 @@ namespace bangna_hospital.gui
         //}
         private void FrmNurseScanView_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2020-07-22 date "+DateTime.Now.Day.ToString()+" month ";
+            this.Text = "Last Update 2020-09-16 date "+DateTime.Now.Day.ToString()+" month ";
             pnLabOut.Size = new Size(this.Width / 2, this.Height);
             Size pnlsize = new Size(pnLabOut.Width / 2, pnLabOut.Height);
             spPttinWrd.Size = pnlsize;
