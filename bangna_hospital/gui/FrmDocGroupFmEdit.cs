@@ -124,6 +124,25 @@ namespace bangna_hospital.gui
             fm.active = "";
             bc.bcDB.dfmDB.insertDocGroupFMCode(fm, "");
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // FrmDocGroupFmEdit
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "FrmDocGroupFmEdit";
+            this.Load += new System.EventHandler(this.FrmDocGroupFmEdit_Load_1);
+            this.ResumeLayout(false);
+
+        }
+
+        private void FrmDocGroupFmEdit_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

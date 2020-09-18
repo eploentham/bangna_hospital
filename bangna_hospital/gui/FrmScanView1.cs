@@ -17,6 +17,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
@@ -47,13 +48,17 @@ namespace bangna_hospital.gui
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
-        Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading;
+        Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
         
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
+
+        C1Button btnDocOk, btnDocExport;
+        Label lbDocGrp, lbDocSubGrp;
+        C1ComboBox cboDocGrp, cboDocSubGrp;
 
         int colVsVsDate = 1, colVsDept = 2, colVsVn = 3, colVsStatus = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16=16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
@@ -86,13 +91,14 @@ namespace bangna_hospital.gui
         //VScrollBar vScroller;
         //int y = 0;
         Form frmImg;
-        String dsc_id = "", hn = "", flagShowBtnSearch="", preno="",vsDate = "";
+        String dsc_id = "", hn = "", flagShowBtnSearch="", preno="",vsDate = "", docgrpid="";
         //Timer timer1;
         Patient ptt;
         Stream streamPrint, streamPrintL, streamPrintR, streamDownload;
         Form frmFlash;
         String grfActive = "", txtChronic = "";
         DataTable dtchronic = new DataTable();
+        Color colorLbDoc;
         
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -534,8 +540,15 @@ namespace bangna_hospital.gui
             tabXray.Controls.Add(rtb);
             tabXray.Controls.Add(grfXray);
         }
-        private void initGrf()
+        private void initGrfScan()
         {
+            Panel pnScanTop = new Panel();
+            Panel pnScan = new Panel();
+
+            pnScanTop.Dock = DockStyle.Top;
+            pnScanTop.Height = 30;
+            pnScan.Dock = DockStyle.Fill;
+
             grfScan = new C1FlexGrid();
             grfScan.Font = fEdit;
             grfScan.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -564,20 +577,117 @@ namespace bangna_hospital.gui
             grfScan.Cols[colPic1].AllowEditing = false;
             grfScan.Cols[colPic3].AllowEditing = false;
             grfScan.DoubleClick += Grf_DoubleClick;
+
+            lbDocAll = new Label();
+            bc.setControlLabel(ref lbDocAll, fEditB, "All", "lbDocAll", 20, 5);
+            lbDocGrp1 = new Label();
+            bc.setControlLabel(ref lbDocGrp1, fEditB, "DISCHARGE", "lbDocGrp1", lbDocAll.Width + 20, 5);
+            lbDocGrp2 = new Label();
+            bc.setControlLabel(ref lbDocGrp2, fEditB, "ADMISSION", "lbDocGrp2", lbDocGrp1.Location.X + lbDocGrp1.Width + 20, 5);
+            lbDocGrp3 = new Label();
+            bc.setControlLabel(ref lbDocGrp3, fEditB, "ORDER", "lbDocGrp3", lbDocGrp2.Location.X + lbDocGrp2.Width + 20, 5);
+            lbDocGrp4 = new Label();
+            bc.setControlLabel(ref lbDocGrp4, fEditB, "OPERATIVE", "lbDocGrp4", lbDocGrp3.Location.X + lbDocGrp3.Width + 50, 5);
+            lbDocGrp5 = new Label();
+            bc.setControlLabel(ref lbDocGrp5, fEditB, "INVESTIGATION", "lbDocGrp5", lbDocGrp4.Location.X + lbDocGrp4.Width + 40, 5);
+            lbDocGrp6 = new Label();
+            bc.setControlLabel(ref lbDocGrp6, fEditB, "NURSE", "lbDocGrp6", lbDocGrp5.Location.X + lbDocGrp5.Width + 60, 5);
+            lbDocGrp7 = new Label();
+            bc.setControlLabel(ref lbDocGrp7, fEditB, "MEDICATION", "lbDocGrp7", lbDocGrp6.Location.X + lbDocGrp6.Width + 40, 5);
+            lbDocGrp8 = new Label();
+            bc.setControlLabel(ref lbDocGrp8, fEditB, "OTHER", "lbDocGrp8", lbDocGrp7.Location.X + lbDocGrp7.Width + 40, 5);
+            lbDocAll.Click += LbDocAll_Click;
+            lbDocGrp1.Click += LbDocAll_Click;
+            lbDocGrp2.Click += LbDocAll_Click;
+            lbDocGrp3.Click += LbDocAll_Click;
+            lbDocGrp4.Click += LbDocAll_Click;
+            lbDocGrp5.Click += LbDocAll_Click;
+            lbDocGrp6.Click += LbDocAll_Click;
+            lbDocGrp7.Click += LbDocAll_Click;
+            lbDocGrp8.Click += LbDocAll_Click;
             //grfScan.AutoSizeRows();
             //grfScan.AutoSizeCols();
             //tabScan.Controls.Add(grfScan);
-            
+
             //theme1.SetTheme(grfOrder, "Office2016Black");
-            
+
             //theme1.SetTheme(grfLab, "Office2016Black");
             //theme1.SetTheme(grfXray, "Office2016Black");
-            
-            tabScan.Controls.Add(grfScan);
-            
+            colorLbDoc = lbDocAll.ForeColor;
+            docgrpid = "1100000099";
+            setForColorLbDocGrp();
+            lbDocAll.ForeColor = Color.Red;
+            pnScanTop.Controls.Add(lbDocAll);
+            pnScanTop.Controls.Add(lbDocGrp1);
+            pnScanTop.Controls.Add(lbDocGrp2);
+            pnScanTop.Controls.Add(lbDocGrp3);
+            pnScanTop.Controls.Add(lbDocGrp4);
+            pnScanTop.Controls.Add(lbDocGrp5);
+            pnScanTop.Controls.Add(lbDocGrp6);
+            pnScanTop.Controls.Add(lbDocGrp7);
+            pnScanTop.Controls.Add(lbDocGrp8);
+            tabScan.Controls.Add(pnScan);
+            tabScan.Controls.Add(pnScanTop);
+            pnScan.Controls.Add(grfScan);
             //initGrfPrn();
             //initGrfHn();
         }
+        private void setForColorLbDocGrp()
+        {
+            lbDocAll.ForeColor = colorLbDoc;
+            lbDocGrp1.ForeColor = colorLbDoc;
+            lbDocGrp2.ForeColor = colorLbDoc;
+            lbDocGrp3.ForeColor = colorLbDoc;
+            lbDocGrp4.ForeColor = colorLbDoc;
+            lbDocGrp5.ForeColor = colorLbDoc;
+            lbDocGrp6.ForeColor = colorLbDoc;
+            lbDocGrp7.ForeColor = colorLbDoc;
+            lbDocGrp8.ForeColor = colorLbDoc;
+        }
+        private void LbDocAll_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setForColorLbDocGrp();
+            ((Label)sender).ForeColor = Color.Red;
+            if (((Label)sender).Name.Equals("lbDocAll"))
+            {
+                docgrpid = "1100000099";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp1"))
+            {
+                docgrpid = "1100000000";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp2"))
+            {
+                docgrpid = "1100000001";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp3"))
+            {
+                docgrpid = "1100000002";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp4"))
+            {
+                docgrpid = "1100000003";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp5"))
+            {
+                docgrpid = "1100000004";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp6"))
+            {
+                docgrpid = "1100000005";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp7"))
+            {
+                docgrpid = "1100000006";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp8"))
+            {
+                docgrpid = "1100000007";
+            }
+            setGrfScan();
+        }
+
         private void ContextMenu_print_Order(object sender, System.EventArgs e)
         {
             DataTable dt = new DataTable();
@@ -623,7 +733,7 @@ namespace bangna_hospital.gui
             dtOrder.Columns.Add("mnc_lb_dsc", typeof(String));
             dtOrder.Columns.Add("mnc_lb_grp_cd", typeof(String));
             dtOrder.Columns.Add("sort1", typeof(String));
-            //dt.Columns.Add("xry_result_date", typeof(String));
+            //dtOrder.Columns.Add("request_no", typeof(String));
             foreach (DataRow drow in dtOrder.Rows)
             {
                 Boolean chkname = false;
@@ -645,7 +755,9 @@ namespace bangna_hospital.gui
                 drow["patient_type"] = "";
                 //drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(drow["mnc_req_dat"].ToString());
                 drow["doctor"] = "";
-                //drow["result_date"] = bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
+                drow["request_no"] = drow["MNC_REQ_NO"].ToString()+"/"+ drow["MNC_REQ_yr"].ToString();
+                drow["patient_visitdate"] = bc.datetoShow(drow["patient_visitdate"].ToString());
+                drow["request_date"] = bc.datetoShow(drow["request_date"].ToString());
                 //drow["print_date"] = bc.datetoShow(dtreq.Rows[0]["MNC_STAMP_DAT"].ToString());
                 //drow["user_lab"] = drow["user_lab"].ToString() + " [ทน." + drow["MNC_USR_NAME_result"].ToString() + "]";
                 //drow["user_report"] = drow["user_report"].ToString() + " [ทน." + drow["MNC_USR_NAME_report"].ToString() + "]";
@@ -940,12 +1052,11 @@ namespace bangna_hospital.gui
                 scVs.SizeRatio = sizeradio;
                 if (!flagtabScan)
                 {
-                    initGrf();
+                    initGrfScan();
                 }
                 flagtabScan = true;
                 setGrfScan();
-                grfScan.AutoSizeCols();
-                grfScan.AutoSizeRows();
+                
             }
             else if (tcDtr.SelectedTab == tabOrder)
             {
@@ -956,10 +1067,6 @@ namespace bangna_hospital.gui
                 }
                 flagTabOrderLoad = true;
                 tabOrderActive();
-            }
-            else if (tcDtr.SelectedTab == tabPrn)
-            {
-                scVs.SizeRatio = sizeradio;
             }
             else if (tcDtr.SelectedTab == tabStfNote)
             {
@@ -3015,13 +3122,13 @@ namespace bangna_hospital.gui
         }
         private void initTabPrn()
         {
-            int y1 = 20;
-            int x = 20;
+            int y1 = 20, x = 20, gapLine = 20, gapX = 20;
             Size size1 = new Size();
+            Size size = new Size();
             Panel panel = new Panel();
             panel.Dock = DockStyle.Fill;
             GroupBox groupBox1 = new GroupBox();
-            groupBox1.Size = new Size(600, 300);
+            groupBox1.Size = new Size(tabPrn.Width -20, tabPrn.Height - 20);
             groupBox1.Location = new Point(10, 10);
             chkPrnAll = new RadioButton();
             chkPrnAll.Text = "พิมพ์ ทั้งหมด";
@@ -3058,45 +3165,151 @@ namespace bangna_hospital.gui
             label.Text = "ตัวอย่าง 1-30 หรือ 1,2,3,4,5,6,7";
             Size size4 = this.bc.MeasureString((Control)label);
             label.Size = size4;
+
+            gapLine += 60;
+            lbDocGrp = new Label();
+            lbDocGrp.Text = "กลุ่มเอกสารหลัก : ";
+            lbDocGrp.Font = fEdit;
+            lbDocGrp.Location = new System.Drawing.Point(gapX, gapLine);
+            lbDocGrp.AutoSize = true;
+            lbDocGrp.Name = "lbDocGrp";
+            cboDocGrp = new C1ComboBox();
+            cboDocGrp.Font = fEdit;
+            cboDocGrp.Name = "cboDocGrp";
+            size = bc.MeasureString(lbDocGrp);
+            cboDocGrp.Location = new System.Drawing.Point(lbDocGrp.Location.X + size.Width + 5, lbDocGrp.Location.Y);
+            bc.bcDB.dgsDB.setCboDgs(cboDocGrp, "");
+
+            lbDocSubGrp = new Label();
+            lbDocSubGrp.Text = "กลุ่มเอกสาร : ";
+            lbDocSubGrp.Font = fEdit;
+            lbDocSubGrp.Location = new System.Drawing.Point(cboDocGrp.Location.X + cboDocGrp.Width + 20, lbDocGrp.Location.Y);
+            lbDocSubGrp.AutoSize = true;
+            lbDocSubGrp.Name = "lbDocSubGrp";
+            cboDocSubGrp = new C1ComboBox();
+            cboDocSubGrp.Font = fEdit;
+            cboDocSubGrp.Name = "cboDocSubGrp";
+            size = bc.MeasureString(lbDocSubGrp);
+            cboDocSubGrp.Location = new System.Drawing.Point(lbDocSubGrp.Location.X + size.Width + 5, lbDocGrp.Location.Y);
+            
+            btnDocOk = new C1Button();
+            btnDocOk.Name = "btnDocOk";
+            btnDocOk.Text = "...";
+            btnDocOk.Font = this.fEdit;
+            size3 = new Size(40, 30);
+            btnDocOk.Size = size3;
+            btnDocOk.Location = new Point(cboDocSubGrp.Location.X + cboDocSubGrp.Width + 20, lbDocGrp.Location.Y);
+            btnDocOk.Click += BtnDocOk_Click;
+            btnDocExport = new C1Button();
+            btnDocExport.Name = "btnDocExport";
+            btnDocExport.Text = "export";
+            btnDocExport.Font = this.fEdit;
+            size3 = new Size(70, 30);
+            btnDocExport.Size = size3;
+            btnDocExport.Location = new Point(btnDocOk.Location.X + btnDocOk.Width + 20, lbDocGrp.Location.Y);
+            btnDocExport.Click += BtnDocExport_Click;
+            theme1.SetTheme(btnDocOk, this.bc.iniC.themeApplication);
+            theme1.SetTheme(btnDocExport, this.bc.iniC.themeApplication);
+
             int y3 = 20;
-            GroupBox groupBox2 = new GroupBox();
-            groupBox2.Size = new Size(tcDtr.Width - 80, 400);
-            groupBox2.Location = new Point(10, groupBox1.Height + 20);
-            chkPrnLab = new RadioButton();
-            chkPrnLab.Text = "พิมพ์ ผลLAB";
-            chkPrnLab.Name = "chkPrnLab";
-            chkPrnLab.Font = this.fEdit;
-            chkPrnLab.Width = this.bc.MeasureString((Control)this.chkPrnLab).Width + 20;
-            chkPrnLab.Location = new Point(x, y3);
-            chkXray = new RadioButton();
-            chkXray.Text = "พิมพ์ ผลXray";
-            chkXray.Name = "chkXray";
-            chkXray.Font = fEdit;
-            chkXray.Checked = true;
-            chkXray.Width = bc.MeasureString(chkXray).Width + 20;
-            Size size5 = bc.MeasureString(chkPrnLab);
-            chkXray.Location = new Point(x + size5.Width + 40, y3);
+            
             grfPrn = new C1FlexGrid();
             grfPrn.Font = this.fEdit;
             grfPrn.Dock = DockStyle.Bottom;
             grfPrn.Location = new Point(0, 0);
             grfPrn.Rows.Count = 1;
-            size5 = new Size(groupBox2.Width - 100, groupBox2.Height - 60);
-            grfPrn.Size = size5;
-            groupBox2.Controls.Add(grfPrn);
-            groupBox2.Controls.Add(chkXray);
-            groupBox2.Controls.Add(chkPrnLab);
-            panel.Controls.Add(groupBox2);
+            grfPrn.Height = groupBox1.Height - 120;
+            
             groupBox1.Controls.Add(label);
             groupBox1.Controls.Add(btnPrn);
             groupBox1.Controls.Add(txtPrnCri);
             groupBox1.Controls.Add(chkPrnCri);
             groupBox1.Controls.Add(chkPrnAll);
+            groupBox1.Controls.Add(lbDocGrp);
+            groupBox1.Controls.Add(cboDocGrp);
+            groupBox1.Controls.Add(lbDocSubGrp);
+            groupBox1.Controls.Add(cboDocSubGrp);
+            groupBox1.Controls.Add(grfPrn);
+            groupBox1.Controls.Add(btnDocOk);
+            groupBox1.Controls.Add(btnDocExport);
             panel.Controls.Add((Control)groupBox1);
             tabPrn.Controls.Add(panel);
             theme1.SetTheme(btnPrn, this.bc.iniC.themeApp);
             theme1.SetTheme(panel, this.bc.iniC.themeApp);
             theme1.SetTheme(groupBox1, this.bc.iniC.themeApp);
+        }
+
+        private void BtnDocExport_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            showLbLoading();
+            if (chkIPD.Checked)
+            {
+                DataTable dt = new DataTable();
+                String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "", err="";
+                statusOPD = grfIPD[grfIPD.Row, colIPDStatus] != null ? grfIPD[grfIPD.Row, colIPDStatus].ToString() : "";
+                preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+                vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+
+                chkIPD.Checked = true;
+                an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
+                anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
+                label2.Text = "AN :";
+                an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+                if (docgrpid.Equals("1100000099"))
+                {
+                    dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
+                }
+                else
+                {
+                    dt = bc.bcDB.dscDB.selectByAnDocGrp(txtHn.Text, an, docgrpid);
+                }
+                if (dt.Rows.Count > 0)
+                {
+                    try
+                    {
+                        if (Directory.Exists(bc.iniC.medicalrecordexportpath))
+                        {
+                            Directory.Delete(bc.iniC.medicalrecordexportpath , true);
+                        }
+                        if (Directory.Exists(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim()))
+                        {
+                            Directory.Delete(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim(), true);
+                        }
+                        Directory.CreateDirectory(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim());
+                        Thread.Sleep(200);
+                        FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                        err = "00";
+                        foreach (DataRow row1 in dt.Rows)
+                        {
+                            Image loadedImage, resizedImage = null;
+                            String dscid = "", filename = "", ftphost = "", id = "", folderftp = "";
+                            dscid = row1[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                            filename = row1[bc.bcDB.dscDB.dsc.image_path].ToString();
+                            ftphost = row1[bc.bcDB.dscDB.dsc.host_ftp].ToString();
+                            folderftp = row1[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
+                            MemoryStream stream;
+                            stream = ftp.download(folderftp + "//" + filename);
+                            loadedImage = Image.FromStream(stream);
+                            loadedImage.Save(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim() + "\\" + txtHn.Text.Trim() + "_" + dscid + "_1.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                        }
+                        Process.Start("explorer.exe", bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim());
+                    }
+                    catch (Exception ex)
+                    {
+                        String aaa = ex.Message + " " + err;
+                        new LogWriter("e", "FrmScanView1 SetGrfScan ex " + ex.Message + " " + err + " colcnt " + " HN " + txtHn.Text + " " + an);
+                    }
+                }
+            }
+            hideLbLoading();
+        }
+
+        private void BtnDocOk_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void BtnPrn_Click(object sender, EventArgs e)
@@ -4722,7 +4935,14 @@ namespace bangna_hospital.gui
                 anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
                 label2.Text = "AN :";
                 an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
-                dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
+                if (docgrpid.Equals("1100000099"))
+                {
+                    dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
+                }
+                else
+                {
+                    dt = bc.bcDB.dscDB.selectByAnDocGrp(txtHn.Text, an, docgrpid);
+                }                
                 //if (dt.Rows.Count == 0)
                 //{
                 //    vn = grfIPD[row, colIPDVn] != null ? grfIPD[row, colIPDVn].ToString() : "";
@@ -4909,6 +5129,8 @@ namespace bangna_hospital.gui
             //new LogWriter("e", "FrmScanView1 setGrfScan 10 ");
             setHeaderEnable();
             //setControlGbPtt();
+            grfScan.AutoSizeCols();
+            grfScan.AutoSizeRows();
             hideLbLoading();
         }
         private void ContextMenu_grfscan_Download(object sender, System.EventArgs e)

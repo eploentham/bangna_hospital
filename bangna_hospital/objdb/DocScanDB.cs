@@ -558,6 +558,20 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectByAnDocGrp(String hn, String an, String docgrpid)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "inner Join doc_group_fm fmcode On dsc.ml_fm = fmcode.fm_code " +
+                "inner join doc_group_sub_scan dgss on fmcode.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' and dgss.doc_group_id ='"+ docgrpid + "' " +
+                "Order By sort1 ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectByAn(string hn, string an, string sort1)
         {
             DocScan docScan = new DocScan();

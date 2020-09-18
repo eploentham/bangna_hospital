@@ -264,7 +264,7 @@ private void MenuScanChk_Click(object sender, EventArgs e)
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2020-09-08 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "สวัสดี คุณ "+bc.user.staff_fname_t +" "+bc.user.staff_lname_t+" Update 2020-09-17 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //sb1.Text = "Last Update 2019-12-24 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             //theme1.SetTheme(this, ic.theme);
             theme1.SetTheme(this, bc.theme);

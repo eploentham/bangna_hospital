@@ -265,8 +265,8 @@ namespace bangna_hospital.gui
             }
 
             grfFMCode.Cols[colID].Visible = false;
-            //grfPosi.Cols[colE].Visible = false;
-            //grfPosi.Cols[colS].Visible = false;
+            grfFMCode.Cols[colSubName].AllowEditing = false;
+            grfFMCode.Cols[colCode].AllowEditing = false;
         }
         private void FrmDocGroupFm_Load(object sender, EventArgs e)
         {
