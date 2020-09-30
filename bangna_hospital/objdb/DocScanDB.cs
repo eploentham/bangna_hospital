@@ -233,6 +233,29 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "selectLabOutByHnReqDateReqNo sql " + sql);
             return dt;
         }
+        public DataTable selectLabOutByAn( String hn, String an)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "", wherean = "", wheredatestart = "", where = "", orderby = "";
+            if (hn.Length > 0)
+            {
+                wherehn = " dsc.hn like '%" + hn + "%' ";
+            }
+            wherean = " and dsc.an = '"+ an + "'";
+            where = wherehn+ wherean;
+            //MessageBox.Show("2222", "");
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where  " + where +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + " = '2' " +
+                orderby;
+            //new LogWriter("d", "sql " + sql);
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectLabOutByDateReq(String datestart, String dateend, String hn, String flagDate)
         {
             //DocScan cop1 = new DocScan();

@@ -152,6 +152,9 @@
     <Compile Include="gui\FrmCapture.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmDocCreatePDF.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmDocGroupFm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -57,7 +57,7 @@ namespace bangna_hospital.gui
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
 
         C1Button btnDocOk, btnDocExport;
-        Label lbDocGrp, lbDocSubGrp;
+        Label lbDocGrp, lbDocSubGrp, lbDocAn;
         C1ComboBox cboDocGrp, cboDocSubGrp;
 
         int colVsVsDate = 1, colVsDept = 2, colVsVn = 3, colVsStatus = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16=16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24;
@@ -120,11 +120,16 @@ namespace bangna_hospital.gui
         }
         public FrmScanView1(BangnaControl bc, String hn, String flagShowBtnSearch)
         {
+            //new LogWriter("d", "FrmScanView1 InitializeComponent start");
             InitializeComponent();
+            //new LogWriter("d", "FrmScanView1 InitializeComponent end");
+            //MessageBox.Show("22", "");
             this.bc = bc;
             this.hn = hn;
             this.flagShowBtnSearch = flagShowBtnSearch;
+            //new LogWriter("d", "FrmScanView1 initConfig start");
             initConfig();
+            //new LogWriter("d", "FrmScanView1 initConfig end");
         }
         private void initConfig()
         {
@@ -417,7 +422,8 @@ namespace bangna_hospital.gui
 
             //}
             String filename = "";
-            //((C1DockingTab)sender).SelectedTab.Name
+            //((C1DockingTab)sender).SelectedTab.Name 
+            if (((C1DockingTab)sender).SelectedTab == null) return;
             filename = ((C1DockingTab)sender).SelectedTab.Name;
             String[] txt1 = filename.Split('_');
             if (txt1.Length > 1)
@@ -802,11 +808,13 @@ namespace bangna_hospital.gui
         private void ContextMenu_xray_result_print_export(object sender, System.EventArgs e)
         {
             showLbLoading();
-
+            String datetick = "", pathFolder = "";
+            datetick = DateTime.Now.Ticks.ToString();
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim() + "\\" + datetick;
             DataTable dt = new DataTable();
             dt = setPrintXray();
 
-            bc.exportResultXray(dt, txtHn.Text.Trim(), txtVN.Text.Trim());
+            bc.exportResultXray(dt, txtHn.Text.Trim(), txtVN.Text.Trim(),"open", pathFolder);
         }
         private DataTable setPrintXray()
         {
@@ -1160,10 +1168,10 @@ namespace bangna_hospital.gui
                 }
                 flagTabOutlabLoad = true;
             }
-            else if (tcDtr.SelectedTab == tabPic)
-            {
-                setTabGrfPicPatient();
-            }
+            //else if (tcDtr.SelectedTab == tabPic)
+            //{
+            //    setTabGrfPicPatient();
+            //}
             else if (tcDtr.SelectedTab == tabMac)
             {
                 setTabMachineResult();
@@ -1183,6 +1191,7 @@ namespace bangna_hospital.gui
                     initGrfPicture();
                 }
                 flagTabPic = true;
+                setTabGrfPicPatient();
             }
         }
         private void showLbLoading()
@@ -1464,7 +1473,7 @@ namespace bangna_hospital.gui
                 DialogResult result = printDialog1.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    pd.Print();//this will trigger the Print Event handeler PrintPage
+                    pd.Print();     //this will trigger the Print Event handeler PrintPage
                 }
             }
             else
@@ -3168,11 +3177,7 @@ namespace bangna_hospital.gui
 
             gapLine += 60;
             lbDocGrp = new Label();
-            lbDocGrp.Text = "กลุ่มเอกสารหลัก : ";
-            lbDocGrp.Font = fEdit;
-            lbDocGrp.Location = new System.Drawing.Point(gapX, gapLine);
-            lbDocGrp.AutoSize = true;
-            lbDocGrp.Name = "lbDocGrp";
+            bc.setControlLabel(ref lbDocGrp, fEdit, "กลุ่มเอกสารหลัก : ", "lbDocGrp", gapX, gapLine);
             cboDocGrp = new C1ComboBox();
             cboDocGrp.Font = fEdit;
             cboDocGrp.Name = "cboDocGrp";
@@ -3181,11 +3186,7 @@ namespace bangna_hospital.gui
             bc.bcDB.dgsDB.setCboDgs(cboDocGrp, "");
 
             lbDocSubGrp = new Label();
-            lbDocSubGrp.Text = "กลุ่มเอกสาร : ";
-            lbDocSubGrp.Font = fEdit;
-            lbDocSubGrp.Location = new System.Drawing.Point(cboDocGrp.Location.X + cboDocGrp.Width + 20, lbDocGrp.Location.Y);
-            lbDocSubGrp.AutoSize = true;
-            lbDocSubGrp.Name = "lbDocSubGrp";
+            bc.setControlLabel(ref lbDocSubGrp, fEdit, "กลุ่มเอกสาร : ", "lbDocSubGrp", cboDocGrp.Location.X + cboDocGrp.Width + 20, lbDocGrp.Location.Y);
             cboDocSubGrp = new C1ComboBox();
             cboDocSubGrp.Font = fEdit;
             cboDocSubGrp.Name = "cboDocSubGrp";
@@ -3208,6 +3209,10 @@ namespace bangna_hospital.gui
             btnDocExport.Size = size3;
             btnDocExport.Location = new Point(btnDocOk.Location.X + btnDocOk.Width + 20, lbDocGrp.Location.Y);
             btnDocExport.Click += BtnDocExport_Click;
+
+            lbDocAn = new Label();
+            bc.setControlLabel(ref lbDocAn, fEdit, "doc an ", "lbDocAn", btnDocExport.Location.X + btnDocExport.Width + 20, lbDocGrp.Location.Y);
+
             theme1.SetTheme(btnDocOk, this.bc.iniC.themeApplication);
             theme1.SetTheme(btnDocExport, this.bc.iniC.themeApplication);
 
@@ -3232,6 +3237,7 @@ namespace bangna_hospital.gui
             groupBox1.Controls.Add(grfPrn);
             groupBox1.Controls.Add(btnDocOk);
             groupBox1.Controls.Add(btnDocExport);
+            groupBox1.Controls.Add(lbDocAn);
             panel.Controls.Add((Control)groupBox1);
             tabPrn.Controls.Add(panel);
             theme1.SetTheme(btnPrn, this.bc.iniC.themeApp);
@@ -3246,17 +3252,21 @@ namespace bangna_hospital.gui
             if (chkIPD.Checked)
             {
                 DataTable dt = new DataTable();
-                String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "", err="";
+                String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "", err="", datetick="", pathFolder="";
+                datetick = DateTime.Now.Ticks.ToString();
+                pathFolder = bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim() + "\\" + datetick;
                 statusOPD = grfIPD[grfIPD.Row, colIPDStatus] != null ? grfIPD[grfIPD.Row, colIPDStatus].ToString() : "";
                 preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
                 vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
 
-                chkIPD.Checked = true;
+                //chkIPD.Checked = true;
                 an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
                 anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
                 anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
                 label2.Text = "AN :";
                 an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+                docgrpid = cboDocGrp.SelectedItem != null ? cboDocGrp.SelectedItem.ToString() : "1100000099";
+                docgrpid = cboDocGrp.SelectedItem == null ? "1100000099" : ((ComboBoxItem)cboDocGrp.SelectedItem).Value;
                 if (docgrpid.Equals("1100000099"))
                 {
                     dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
@@ -3265,19 +3275,41 @@ namespace bangna_hospital.gui
                 {
                     dt = bc.bcDB.dscDB.selectByAnDocGrp(txtHn.Text, an, docgrpid);
                 }
+                try
+                {
+                    if (Directory.Exists(pathFolder))
+                    {
+                        Directory.Delete(pathFolder, true);
+                        Thread.Sleep(200);
+                        Application.DoEvents();
+                    }
+                    Thread.Sleep(100);
+                    //if (Directory.Exists(bc.iniC.medicalrecordexportpath))
+                    //{
+                    //    Directory.Delete(bc.iniC.medicalrecordexportpath, true);
+                    //    Thread.Sleep(200);
+                    //    Application.DoEvents();
+                    //}
+                }
+                catch (Exception ex)
+                {
+
+                }
                 if (dt.Rows.Count > 0)
                 {
                     try
                     {
-                        if (Directory.Exists(bc.iniC.medicalrecordexportpath))
-                        {
-                            Directory.Delete(bc.iniC.medicalrecordexportpath , true);
-                        }
-                        if (Directory.Exists(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim()))
-                        {
-                            Directory.Delete(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim(), true);
-                        }
-                        Directory.CreateDirectory(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim());
+                        //if (Directory.Exists(pathFolder))
+                        //{
+                        //    Directory.Delete(pathFolder, true);
+                        //}
+                        //Thread.Sleep(100);
+                        //if (Directory.Exists(bc.iniC.medicalrecordexportpath))
+                        //{
+                        //    Directory.Delete(bc.iniC.medicalrecordexportpath , true);
+                        //}
+                        
+                        Directory.CreateDirectory(pathFolder);
                         Thread.Sleep(200);
                         FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                         err = "00";
@@ -3291,15 +3323,84 @@ namespace bangna_hospital.gui
                             folderftp = row1[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
                             MemoryStream stream;
                             stream = ftp.download(folderftp + "//" + filename);
+                            stream.Position = 0;
                             loadedImage = Image.FromStream(stream);
-                            loadedImage.Save(bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim() + "\\" + txtHn.Text.Trim() + "_" + dscid + "_1.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                            loadedImage.Save(pathFolder + "\\" + txtHn.Text.Trim() + "_" + dscid + "_1.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                         }
-                        Process.Start("explorer.exe", bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim());
+                        //  result lab
+                        DataTable dtLab = new DataTable();
+                        dtLab = setPrintLab();
+                        if(dtLab.Rows.Count>0)
+                            bc.exportResultLab(dtLab, txtHn.Text.Trim(), txtVN.Text.Trim(),"", pathFolder);
+                        // result xray
+                        DataTable dtXray = new DataTable();
+                        dtXray = setPrintXray();
+                        if(dtXray.Rows.Count>0)
+                            bc.exportResultXray(dtXray, txtHn.Text.Trim(), txtVN.Text.Trim(),"", pathFolder);
+
+                        DataTable dtlaboutdsc = new DataTable();
+                        //dtlaboutdsc = bc.bcDB.dscDB.selectLabOutByAn(txtHn.Text.Trim(), an);
+                        dtlaboutdsc = bc.bcDB.dscDB.selectLabOutByDateReq("","",txtHn.Text.Trim(), "");
+                        List<String> lAn = new List<string>();
+                        foreach (DataRow rowdsc in dtlaboutdsc.Rows)
+                        {
+                            String an1 = "";
+                            an1 = rowdsc[bc.bcDB.dscDB.dsc.an] != null ? rowdsc[bc.bcDB.dscDB.dsc.an].ToString() : "";
+                            if (lAn.Count == 0)
+                            {
+                                lAn.Add(an1);
+                            }
+                            foreach (String an2 in lAn)
+                            {
+                                if (!an2.Equals(an1))
+                                {
+                                    lAn.Add(an2);
+                                }
+                            }
+                        }
+                        if (lAn.Count == 0)
+                        {
+
+                        }
+                        foreach (DataRow rowdsc in dtlaboutdsc.Rows)
+                        {
+                            try
+                            {
+                                String dscid = "", filename = "", ftphost = "", id = "", folderftp = "", an1="";
+                                an1 = rowdsc[bc.bcDB.dscDB.dsc.an] != null ? rowdsc[bc.bcDB.dscDB.dsc.an].ToString() : "";
+                                dscid = rowdsc[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                                
+                                MemoryStream stream;
+                                stream = ftp.download(rowdsc[bc.bcDB.dscDB.dsc.folder_ftp] + "/" + rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
+                                String ext = Path.GetExtension(rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
+                                if (ext.Equals(".jpg"))
+                                {
+                                    Image loadedImage, resizedImage = null;
+                                    loadedImage = Image.FromStream(stream);
+                                    loadedImage.Save(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                }
+                                else
+                                {
+                                    var fileStream = new FileStream(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext, FileMode.Create, FileAccess.Write);
+                                    stream.Position = 0;
+                                    stream.CopyTo(fileStream);
+                                    fileStream.Dispose();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                new LogWriter("e", "FrmScanView1 BtnDocExport_Click foreach (DataRow rowdsc in dtlaboutdsc.Rows) " + ex.Message);
+                            }
+                        }
+                        Thread.Sleep(200);
+                        Application.DoEvents();
+                        //MessageBox.Show("1111", "");
+                        Process.Start("explorer.exe", pathFolder);
                     }
                     catch (Exception ex)
                     {
                         String aaa = ex.Message + " " + err;
-                        new LogWriter("e", "FrmScanView1 SetGrfScan ex " + ex.Message + " " + err + " colcnt " + " HN " + txtHn.Text + " " + an);
+                        new LogWriter("e", "FrmScanView1 BtnDocExport_Click if (dt.Rows.Count > 0) ex " + ex.Message + " " + err + " colcnt " + " HN " + txtHn.Text + " " + an);
                     }
                 }
             }
@@ -4902,7 +5003,7 @@ namespace bangna_hospital.gui
             //pB1.Show();
             showLbLoading();
             setHeaderDisable();
-
+            lStream.Clear();
             //clearGrf();
             String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr="", vn1="";
             DataTable dtOrder = new DataTable();
@@ -5236,32 +5337,54 @@ namespace bangna_hospital.gui
             //frmW.ShowDialog(this);
 
             int i = 0;
-            foreach(Row row in grfScan.Rows)
+            //foreach(Row row in grfScan.Rows)
+            //{
+            //    String idLeft = "", idRight="";
+                //if (i==0)
+                //{
+                //    if (row[colPic4] == null) continue;
+                //    idLeft = row[colPic2].ToString();
+                //    i = 1;
+                //}
+                //else
+                //{
+                //    if (row[colPic4] == null) continue;
+                //    idLeft = row[colPic4].ToString();
+                //    i = 0;
+                //}
+                //if (row[colPic2] == null) continue;
+                //idLeft = row[colPic2].ToString();
+                //if (row[colPic4] == null) continue;
+                //idRight = row[colPic4].ToString();
+
+                //dsc_id = idLeft;
+                //MemoryStream strm = null;
+            foreach (listStream lstrmm in lStream)
             {
-                String id = "";
-                if (i==0)
-                {
-                    id = row[colPic2].ToString();
-                    i = 1;
-                }
-                else
-                {
-                    id = row[colPic4].ToString();
-                    i = 0;
-                }
-                dsc_id = id;
-                MemoryStream strm = null;
-                foreach (listStream lstrmm in lStream)
-                {
-                    if (lstrmm.id.Equals(id))
-                    {
-                        strm = lstrmm.stream;
-                        streamPrint = lstrmm.stream;
-                        break;
-                    }
-                }
+                //if (lstrmm.id.Equals(idLeft))
+                //{
+                    //strm = lstrmm.stream;
+                streamPrint = lstrmm.stream;
                 setGrfScanToPrint();
+                //break;
+                //}
             }
+                
+
+                //dsc_id = idRight;
+                //MemoryStream strmR = null;
+                //foreach (listStream lstrmm in lStream)
+                //{
+                //    if (lstrmm.id.Equals(idRight))
+                //    {
+                //        strmR = lstrmm.stream;
+                //        streamPrint = lstrmm.stream;
+                //        break;
+                //    }
+                //}
+                //setGrfScanToPrint();
+
+            //}
 
             //frmW.Dispose();
         }
@@ -5274,11 +5397,14 @@ namespace bangna_hospital.gui
         private void ContextMenu_print_lab_export(object sender, System.EventArgs e)
         {
             showLbLoading();
+            String  datetick = "", pathFolder = "";
+            datetick = DateTime.Now.Ticks.ToString();
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim() + "\\" + datetick;
 
             DataTable dt = new DataTable();
             dt = setPrintLab();
 
-            bc.exportResultLab(dt, txtHn.Text.Trim(), txtVN.Text.Trim());
+            bc.exportResultLab(dt, txtHn.Text.Trim(), txtVN.Text.Trim(),"open", pathFolder);
             hideLbLoading();
         }
         private DataTable setPrintLab()
@@ -5401,12 +5527,12 @@ namespace bangna_hospital.gui
                 //MessageBox.Show(drow["sort1"].ToString(), "");
                 if (drow["sort1"] == null)
                 {
-                    MessageBox.Show("11", "");
+                    //MessageBox.Show("11", "");
                 }
 
                 if (drow["sort1"].ToString().Equals(""))
                 {
-                    MessageBox.Show("22", "");
+                    //MessageBox.Show("22", "");
                 }
             }
             return dt;
@@ -5469,6 +5595,7 @@ namespace bangna_hospital.gui
             //MessageBox.Show("hn "+hn, "");
             // query นี้ ไปดึงข้อมูล จาก patient_t01_2 ซึ่งมีข้อมูลเยอะมาก  ตัดออกได้ไหม เพราะเป็น IPD       แก้แล้ว
             dt = bc.bcDB.vsDB.selectVisitByHn6(txtHn.Text,"O");
+            //MessageBox.Show("01 ", "");
             int i = 1, j = 1, row = grfOPD.Rows.Count;
             //txtVN.Value = dt.Rows.Count;
             //txtName.Value = ""; 

@@ -644,6 +644,7 @@ namespace bangna_hospital.objdb
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
                 "and t01.MNC_STS <> 'C'  " + whereflag +
                 " Order by t01.MNC_HN_NO, t01.mnc_date desc ";
+            //new LogWriter("e", "VisitDB selectVisitByHn6  " + sql );
             dt = conn.selectData(sql);
 
             return dt;

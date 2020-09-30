@@ -19,11 +19,12 @@ namespace bangna_hospital
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //new LogWriter("e", "Program Start Form");
+            //new LogWriter("d", "Program Start Form "+ args.Length);
             BangnaControl bc = new BangnaControl();
             if (args.Length == 1)
             {
                 //MessageBox.Show("hn "+ args[0], "");
+                //new LogWriter("d", "Program Start Form args[0] " + args[0]);
                 bc.hn = args[0];
                 //bc.hn = args[0];
             }
@@ -107,6 +108,11 @@ namespace bangna_hospital
                 else if (bc.iniC.programLoad.Equals("OrOperativeNote"))
                 {
                     Application.Run(new gui.FrmOrOperativeNote(bc,""));
+                }
+                else if (bc.iniC.programLoad.Equals("createPDF"))
+                {
+                    new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.FrmDocCreatePDF(bc, "",""));
                 }
                 else
                 {

@@ -925,9 +925,11 @@ namespace bangna_hospital.gui
         private void openNewForm(String hn, String txt)
         {
             showFormWaiting();
+            //MessageBox.Show("11", "");
             FrmScanView1 frm = new FrmScanView1(bc, hn,"hide");
             //frm.FormBorderStyle = FormBorderStyle.None;
             //AddNewTab(frm, txt);
+            
             frm.FormBorderStyle = FormBorderStyle.FixedSingle;
             frm.WindowState = FormWindowState.Maximized;
             frm.Show(this);
