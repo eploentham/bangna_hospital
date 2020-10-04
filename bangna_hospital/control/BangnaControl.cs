@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.objdb;
 using bangna_hospital.object1;
+using C1.Win.C1Document;
 using C1.Win.C1Input;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
@@ -1561,7 +1562,7 @@ namespace bangna_hospital.control
             stream.Position = 0;
             return stream;
         }
-        public void exportResultXray(DataTable dt, String hn, String vn, String flagOpenFile, String pathFolder)
+        public String exportResultXray(DataTable dt, String hn, String vn, String flagOpenFile, String pathFolder)
         {
             ReportDocument rpt;
             CrystalReportViewer crv = new CrystalReportViewer();
@@ -1603,8 +1604,20 @@ namespace bangna_hospital.control
             
             if (!File.Exists(filePath))
             {
-                return;
+                return "";
             }
+
+            C1PdfDocumentSource pdf = new C1PdfDocumentSource();
+            String filename = "", ext = "";
+
+            filename = Path.GetFileNameWithoutExtension(filePath) + ".jpg";
+            var exporter = pdf.SupportedExportProviders[4].NewExporter();
+            exporter.ShowOptions = false;
+            exporter.FileName = filename;
+
+            pdf.LoadFromFile(filePath);
+            pdf.Export(exporter);
+
             if (flagOpenFile.Equals("open"))
             {
                 // combine the arguments together
@@ -1613,8 +1626,9 @@ namespace bangna_hospital.control
 
                 System.Diagnostics.Process.Start("explorer.exe", argument);
             }
+            return filename;
         }
-        public void exportResultLab(DataTable dt, String hn, String vn, String flagOpenFile, String pathFolder)
+        public String exportResultLab(DataTable dt, String hn, String vn, String flagOpenFile, String pathFolder)
         {
             ReportDocument rpt;
             CrystalReportViewer crv = new CrystalReportViewer();
@@ -1653,12 +1667,23 @@ namespace bangna_hospital.control
             }
             rpt.Export();
             //frmW.Dispose();
-
             
             if (!File.Exists(filePath))
             {
-                return;
+                return "";
             }
+
+            C1PdfDocumentSource pdf = new C1PdfDocumentSource();
+            String filename = "",ext="";
+            
+            filename = Path.GetDirectoryName(filePath)+"\\"+ Path.GetFileNameWithoutExtension(filePath)+".jpg";
+            var exporter = pdf.SupportedExportProviders[4].NewExporter();
+            exporter.ShowOptions = false;
+            exporter.FileName = filename;
+
+            pdf.LoadFromFile(filePath);
+            pdf.Export(exporter);
+
             if (flagOpenFile.Equals("open"))
             {
                 // combine the arguments together
@@ -1667,7 +1692,7 @@ namespace bangna_hospital.control
 
                 System.Diagnostics.Process.Start("explorer.exe", argument);
             }
-            
+            return filename;
         }
         public void exportResultPharmacy(DataTable dt, String hn, String vn)
         {

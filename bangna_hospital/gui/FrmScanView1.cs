@@ -2,8 +2,10 @@
 using bangna_hospital.FlexGrid;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
+using C1.C1Pdf;
 using C1.Win.C1Command;
 using C1.Win.C1Document;
+using C1.Win.C1Document.Export;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1Ribbon;
@@ -837,6 +839,11 @@ namespace bangna_hospital.gui
                 {
                     dt = bc.bcDB.vsDB.selectResultXraybyAN(txtHn.Text, an1[0], an1[1]);
                 }
+                if (dt.Rows.Count <= 0)
+                {
+                    dtpacsplus = bc.bcDB.xrDB.selectResultXrayPACsPlusbyVN1(txtHn.Text, this.preno, vsdate, xraycode);
+                    flagPACsPlus = (dtpacsplus.Rows.Count > 0) ? true : false;
+                }
                 //dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, preno, vsdate, xraycode);
             }
             else
@@ -986,11 +993,11 @@ namespace bangna_hospital.gui
             if (chkIPD.Checked)
             {
                 //an = grfXray[grfXray.Row, colIPDAnShow] != null ? grfXray[grfXray.Row, colIPDAnShow].ToString() : "";
-
+                xraycode = grfXray[grfXray.Row, colXrayCode] != null ? grfXray[grfXray.Row, colXrayCode].ToString() : "";
                 String[] an1 = txtVN.Text.Trim().Split('/');
                 if (an1.Length > 0)
                 {
-                    dt = bc.bcDB.vsDB.selectResultXraybyAN(txtHn.Text, an1[0], an1[1]);
+                    dt = bc.bcDB.vsDB.selectResultXraybyAN1(txtHn.Text, an1[0], an1[1], xraycode);
                 }
                 //dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, preno, vsdate, xraycode);
             }
@@ -1014,8 +1021,14 @@ namespace bangna_hospital.gui
             {
                 //MessageBox.Show("22 ", "");
                 //new LogWriter("d", "GrfXray_Click 02");
-                rtb.Text = dt.Rows[0]["MNC_XR_DSC"].ToString();
-                Application.DoEvents();
+                //rtb.Text = dt.Rows[0]["MNC_XR_DSC"].ToString();
+                String txt = "";
+                foreach (DataRow row in dt.Rows)
+                {
+                    txt += Environment.NewLine + row["MNC_XR_DSC"].ToString();
+                }
+                rtb.Text = txt;
+                //Application.DoEvents();
                 //new LogWriter("d", "GrfXray_Click 02 "+ dt.Rows[0]["MNC_XR_DSC"].ToString());
             }
             else if (flagPACsPlus)
@@ -1101,14 +1114,9 @@ namespace bangna_hospital.gui
                     initGrfOrderLabXray();
                 }
                 flagTabOrderLoad = true;
-                if (chkIPD.Checked)
-                {
-                    setGrfLab();
-                }
-                else
-                {
-                    setGrfLab();
-                }
+                
+                setGrfLab();
+                
             }
             else if (tcDtr.SelectedTab == tabXray)
             {
@@ -1118,7 +1126,9 @@ namespace bangna_hospital.gui
                     initGrfOrderLabXray();
                 }
                 flagTabOrderLoad = true;
-                setGrfXrayOPD(grfOPD.Row);
+                
+                setGrfXray(grfOPD.Row);
+                
             }
             //else if (tcDtr.SelectedTab == tabScan)
             //{
@@ -2364,8 +2374,8 @@ namespace bangna_hospital.gui
         {
             
             txtVN.Show();
-            txtHn.Show();
-            txtName.Show();
+            //txtHn.Show();
+            //txtName.Show();
             
             chkIPD.Show();
             
@@ -2374,8 +2384,8 @@ namespace bangna_hospital.gui
         private void setHeaderDisable()
         {
             txtVN.Hide();
-            txtHn.Hide();
-            txtName.Hide();
+            //txtHn.Hide();
+            //txtName.Hide();
             //label1.Hide();
             //cboDgs.Hide();
             
@@ -2463,7 +2473,7 @@ namespace bangna_hospital.gui
                 if (int.TryParse(re, out chk))
                 {
                     setGrfLab();
-                    setGrfXrayOPD(grfOPD.Row);
+                    setGrfXray(grfOPD.Row);
                     setGrfScan();
                     if (!bc.iniC.windows.Equals("windowsxp"))
                     {
@@ -3308,7 +3318,7 @@ namespace bangna_hospital.gui
                         //{
                         //    Directory.Delete(bc.iniC.medicalrecordexportpath , true);
                         //}
-                        
+                        C1PdfDocument pdfdoc = new C1PdfDocument();
                         Directory.CreateDirectory(pathFolder);
                         Thread.Sleep(200);
                         FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
@@ -3326,17 +3336,122 @@ namespace bangna_hospital.gui
                             stream.Position = 0;
                             loadedImage = Image.FromStream(stream);
                             loadedImage.Save(pathFolder + "\\" + txtHn.Text.Trim() + "_" + dscid + "_1.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                            float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                            float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+                            float widthFactor = 1.5F;
+                            float heightFactor = 1.5F;
+
+                            if (widthFactor > 1 | heightFactor > 1)
+                            {
+                                if (widthFactor > heightFactor)
+                                {
+                                    widthFactor = 1;
+                                    newWidth = newWidth / widthFactor;
+                                    newHeight = newHeight / widthFactor;
+                                    //newWidth = newWidth / 1.2;
+                                    //newHeight = newHeight / 1.2;
+                                }
+                                else
+                                {
+                                    newWidth = newWidth / heightFactor;
+                                    newHeight = newHeight / heightFactor;
+                                }
+                            }
+                            RectangleF recf = new RectangleF(10, 10, (int)newWidth, (int)newHeight);
+                            
+                            pdfdoc.DrawImage(loadedImage, recf);
+                            pdfdoc.NewPage();
                         }
                         //  result lab
                         DataTable dtLab = new DataTable();
                         dtLab = setPrintLab();
-                        if(dtLab.Rows.Count>0)
-                            bc.exportResultLab(dtLab, txtHn.Text.Trim(), txtVN.Text.Trim(),"", pathFolder);
+                        if (dtLab.Rows.Count > 0)
+                        {
+                            String filename = bc.exportResultLab(dtLab, txtHn.Text.Trim(), txtVN.Text.Trim(), "", pathFolder);
+                            Application.DoEvents();
+                            for (int i = 1; i <= 30; i++)
+                            {
+                                if (File.Exists(filename.Replace(".jpg","") + "_page" + i + ".jpg"))
+                                {
+                                    Image loadedImage, resizedImage = null;
+                                    loadedImage = Image.FromFile(filename.Replace(".jpg", "") + "_page" + i + ".jpg");
+                                    float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                                    float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+                                    float widthFactor = 1.5F;
+                                    float heightFactor = 1.5F;
+
+                                    if (widthFactor > 1 | heightFactor > 1)
+                                    {
+                                        if (widthFactor > heightFactor)
+                                        {
+                                            widthFactor = 1;
+                                            newWidth = newWidth / widthFactor;
+                                            newHeight = newHeight / widthFactor;
+                                            //newWidth = newWidth / 1.2;
+                                            //newHeight = newHeight / 1.2;
+                                        }
+                                        else
+                                        {
+                                            newWidth = newWidth / heightFactor;
+                                            newHeight = newHeight / heightFactor;
+                                        }
+                                    }
+
+                                    RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                                    pdfdoc.DrawImage(loadedImage, recf);
+                                    pdfdoc.NewPage();
+                                }
+                            }
+                        }
+
                         // result xray
                         DataTable dtXray = new DataTable();
                         dtXray = setPrintXray();
-                        if(dtXray.Rows.Count>0)
-                            bc.exportResultXray(dtXray, txtHn.Text.Trim(), txtVN.Text.Trim(),"", pathFolder);
+                        if (dtXray.Rows.Count > 0)
+                        {
+                            if((dtXray.Rows[0]["xry_result"] != null) && (!dtXray.Rows[0]["xry_result"].ToString().Equals("")))
+                            {
+                                String filename = bc.exportResultXray(dtXray, txtHn.Text.Trim(), txtVN.Text.Trim(), "", pathFolder);
+                                Application.DoEvents();
+                                for (int i = 1; i <= 30; i++)
+                                {
+                                    if (File.Exists(filename + "_page" + i + ".jpg"))
+                                    {
+                                        Image loadedImage, resizedImage = null;
+                                        loadedImage = Image.FromFile(filename + "_page" + i + ".jpg");
+                                        float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                                        float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+                                        float widthFactor = 1.5F;
+                                        float heightFactor = 1.5F;
+
+                                        if (widthFactor > 1 | heightFactor > 1)
+                                        {
+                                            if (widthFactor > heightFactor)
+                                            {
+                                                widthFactor = 1;
+                                                newWidth = newWidth / widthFactor;
+                                                newHeight = newHeight / widthFactor;
+                                                //newWidth = newWidth / 1.2;
+                                                //newHeight = newHeight / 1.2;
+                                            }
+                                            else
+                                            {
+                                                newWidth = newWidth / heightFactor;
+                                                newHeight = newHeight / heightFactor;
+                                            }
+                                        }
+
+                                        RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                                        pdfdoc.DrawImage(loadedImage, recf);
+                                        pdfdoc.NewPage();
+                                    }
+                                }
+                            }
+                            
+                        }
 
                         DataTable dtlaboutdsc = new DataTable();
                         //dtlaboutdsc = bc.bcDB.dscDB.selectLabOutByAn(txtHn.Text.Trim(), an);
@@ -3378,13 +3493,88 @@ namespace bangna_hospital.gui
                                     Image loadedImage, resizedImage = null;
                                     loadedImage = Image.FromStream(stream);
                                     loadedImage.Save(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    Application.DoEvents();
+                                    if (File.Exists(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext))
+                                    {
+                                        float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                                        float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+                                        float widthFactor = 1.5F;
+                                        float heightFactor = 1.5F;
+
+                                        if (widthFactor > 1 | heightFactor > 1)
+                                        {
+                                            if (widthFactor > heightFactor)
+                                            {
+                                                widthFactor = 1;
+                                                newWidth = newWidth / widthFactor;
+                                                newHeight = newHeight / widthFactor;
+                                                //newWidth = newWidth / 1.2;
+                                                //newHeight = newHeight / 1.2;
+                                            }
+                                            else
+                                            {
+                                                newWidth = newWidth / heightFactor;
+                                                newHeight = newHeight / heightFactor;
+                                            }
+                                        }
+                                        RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                                        pdfdoc.DrawImage(loadedImage, recf);
+                                        pdfdoc.NewPage();
+                                    }
                                 }
                                 else
                                 {
-                                    var fileStream = new FileStream(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext, FileMode.Create, FileAccess.Write);
+                                    //var fileStream = new FileStream(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext, FileMode.Create, FileAccess.Write);
                                     stream.Position = 0;
-                                    stream.CopyTo(fileStream);
-                                    fileStream.Dispose();
+                                    //stream.CopyTo(fileStream);
+                                    //fileStream.Dispose();
+                                    //Application.DoEvents();
+
+                                    C1PdfDocumentSource pdf = new C1PdfDocumentSource();
+                                    
+                                    var exporter = pdf.SupportedExportProviders[4].NewExporter();
+                                    exporter.ShowOptions = false;
+                                    exporter.FileName = pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid;
+                                    
+                                    pdf.LoadFromStream(stream);
+                                    pdf.Export(exporter);
+                                    Application.DoEvents();
+                                    for(int i = 1; i <= 30; i++)
+                                    {
+                                        if (File.Exists(exporter.FileName + "_page"+i+".jpg"))
+                                        {
+                                            Image loadedImage, resizedImage = null;
+                                            loadedImage = Image.FromFile(exporter.FileName + "_page" + i + ".jpg");
+                                            float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                                            float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+                                            float widthFactor = 1.5F;
+                                            float heightFactor = 1.5F;
+
+                                            if (widthFactor > 1 | heightFactor > 1)
+                                            {
+                                                if (widthFactor > heightFactor)
+                                                {
+                                                    widthFactor = 1;
+                                                    newWidth = newWidth / widthFactor;
+                                                    newHeight = newHeight / widthFactor;
+                                                    //newWidth = newWidth / 1.2;
+                                                    //newHeight = newHeight / 1.2;
+                                                }
+                                                else
+                                                {
+                                                    newWidth = newWidth / heightFactor;
+                                                    newHeight = newHeight / heightFactor;
+                                                }
+                                            }
+
+                                            RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                                            pdfdoc.DrawImage(loadedImage, recf);
+                                            pdfdoc.NewPage();
+                                        }
+                                    }
+                                    
                                 }
                             }
                             catch (Exception ex)
@@ -3394,6 +3584,8 @@ namespace bangna_hospital.gui
                         }
                         Thread.Sleep(200);
                         Application.DoEvents();
+
+                        pdfdoc.Save(pathFolder + "\\" +txtHn.Text+".pdf");
                         //MessageBox.Show("1111", "");
                         Process.Start("explorer.exe", pathFolder);
                     }
@@ -4560,7 +4752,7 @@ namespace bangna_hospital.gui
             if (txtHn.Text.Equals("")) return;
 
             setActive();
-
+            grfIPD.Focus();
             //if (tcDtr.SelectedTab == tabOrder)
             //{
             //    tabOrderActive();
@@ -4728,7 +4920,7 @@ namespace bangna_hospital.gui
             {
                 vn = vn.Substring(0, vn.IndexOf("/"));
             }
-            Application.DoEvents();
+            //Application.DoEvents();
             if (an.Length > 0)
             {
                 String[] an1 = an.Split('/');
@@ -4775,7 +4967,7 @@ namespace bangna_hospital.gui
             grfXray.Cols[colXrayResult].AllowEditing = false;
             //}).Start();
         }
-        private void setGrfXrayOPD(int row)
+        private void setGrfXray(int row)
         {
             //ProgressBar pB1 = new ProgressBar();
             //pB1.Location = new System.Drawing.Point(20, 16);
@@ -4787,21 +4979,46 @@ namespace bangna_hospital.gui
             setHeaderDisable();
             DataTable dt = new DataTable();
             String vn = "", preno = "", vsdate = "", an = "";
-            vn = grfOPD[row, colVsVn] != null ? grfOPD[row, colVsVn].ToString() : "";
-            preno = grfOPD[row, colVsPreno] != null ? grfOPD[row, colVsPreno].ToString() : "";
-            vsdate = grfOPD[row, colVsVsDate] != null ? grfOPD[row, colVsVsDate].ToString() : "";
-            an = grfOPD[row, colVsAn] != null ? grfOPD[row, colVsAn].ToString() : "";
+            if (!chkIPD.Checked)
+            {
+                vn = grfOPD[row, colVsVn] != null ? grfOPD[row, colVsVn].ToString() : "";
+                preno = grfOPD[row, colVsPreno] != null ? grfOPD[row, colVsPreno].ToString() : "";
+                vsdate = grfOPD[row, colVsVsDate] != null ? grfOPD[row, colVsVsDate].ToString() : "";
+                an = grfOPD[row, colVsAn] != null ? grfOPD[row, colVsAn].ToString() : "";
+                vsdate = bc.datetoDB(vsdate);
+                if (vn.IndexOf("(") > 0)
+                {
+                    vn = vn.Substring(0, vn.IndexOf("("));
+                }
+                if (vn.IndexOf("/") > 0)
+                {
+                    vn = vn.Substring(0, vn.IndexOf("/"));
+                }
+                dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, preno, vsdate);
+            }
+            else
+            {
+                vn = grfIPD[grfIPD.Row, colIPDVn] != null ? grfIPD[grfIPD.Row, colIPDVn].ToString() : "";
+                preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+                vsdate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+                vsdate = bc.datetoDB(vsdate);
+                dt = bc.bcDB.vsDB.selectResultXraybyDate(txtHn.Text, vsdate);
+                //if (an.Length > 0)
+                //{
+                //    String[] an1 = an.Split('/');
+                //    if (an1.Length > 0)
+                //    {
+                //        //dt = bc.bcDB.vsDB.selectResultLabbyAN(txtHn.Text, an1[0], an1[1]);
+                //        dt = bc.bcDB.vsDB.selectResultXraybyAN(txtHn.Text, an1[0], an1[1]);
+                        
+                //    }
+                //}
+            }
+            
             //new LogWriter("e", "FrmScanView1 setGrfXrayOPD vsdate " + vsdate);
-            vsdate = bc.datetoDB(vsdate);
-            if (vn.IndexOf("(") > 0)
-            {
-                vn = vn.Substring(0, vn.IndexOf("("));
-            }
-            if (vn.IndexOf("/") > 0)
-            {
-                vn = vn.Substring(0, vn.IndexOf("/"));
-            }
-            Application.DoEvents();
+            
+            //Application.DoEvents();
             //if (an.Length > 0)
             //{
             //    String[] an1 = an.Split('/');
@@ -4812,7 +5029,7 @@ namespace bangna_hospital.gui
             //}
             //else
             //{
-                dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtHn.Text, preno, vsdate);
+                
             //}
             grfXray.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
@@ -4859,10 +5076,10 @@ namespace bangna_hospital.gui
             grfXray.Cols[colXrayName].AllowEditing = false;
             grfXray.Cols[colXrayCode].AllowEditing = false;
             grfXray.Cols[colXrayResult].AllowEditing = false;
-            if (dt.Rows.Count > 0)
-            {
-                setXrayResult();
-            }
+            //if (dt.Rows.Count > 0)
+            //{
+            //    setXrayResult();
+            //}
             //}).Start();
 
             setHeaderEnable();
@@ -5826,7 +6043,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-09-09";
+            this.Text = "Last Update 2020-10-02";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

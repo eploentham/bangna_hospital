@@ -31,10 +31,15 @@ namespace bangna_hospital
             //for (int i = 0; i < args.Length; i++)
             //{
             //    string argument = args[i];
-            //    bc.hn = argument;
+            //    new LogWriter("d","i "+i+ " argument " + argument);
+            //    //bc.hn = argument;
 
             //}
-
+            //string[] arguments = Environment.GetCommandLineArgs();
+            //foreach(String aaa in arguments)
+            //{
+            //    new LogWriter("d", "aaa " + aaa);
+            //}
             //FrmSplash spl = new FrmSplash();
             //spl.Show();
             //Application.Run(new gui.MainMenu(bc, spl));
