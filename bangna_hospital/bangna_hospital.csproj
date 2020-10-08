@@ -7,8 +7,8 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_scan_view</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <AssemblyName>bangna_hospital_nurse_scan_view</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>

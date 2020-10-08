@@ -246,7 +246,7 @@ namespace bangna_hospital.gui
                         //"and LAB_T01.MNC_REQ_STS = 'Q' " +
                         "and LAB_T01.mnc_hn_no ='" + hn + "' " +
                         "and lab_t02.mnc_lb_cd ='" + labcode + "'";
-                    dt = conn.selectData(conn.conn, sql);
+                    dt = conn.selectData(conn.connMainHIS, sql);
                     if (dt.Rows.Count > 0)
                     {
                         //itm[8] = dt.Rows[0]["MNC_PRE_NO"].ToString();

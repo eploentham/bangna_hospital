@@ -114,6 +114,10 @@ namespace bangna_hospital
                 {
                     Application.Run(new gui.FrmOrOperativeNote(bc,""));
                 }
+                else if (bc.iniC.programLoad.Equals("BillLabCheck"))
+                {
+                    Application.Run(new gui.FrmBillLabCheck(bc));
+                }
                 else if (bc.iniC.programLoad.Equals("createPDF"))
                 {
                     new LogWriter("d", "args " + args.Length);
