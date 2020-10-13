@@ -968,6 +968,8 @@ namespace bangna_hospital.control
             /*
              * 
              */
+            int ww = 697, hh= 610;
+
             Image aaa = RotateImage(image);
             float tgtWidthMM = 297;  //A4 paper size
             float tgtHeightMM = 210;
@@ -980,8 +982,8 @@ namespace bangna_hospital.control
             float dpiX = srcWidthPx / tgtWidthInches;
             float dpiY = srcHeightPx / tgtHeightInches;
 
-            var destRect = new Rectangle(0, 0, 210, 297);
-            var destImage = new Bitmap(210, 297);
+            var destRect = new Rectangle(0, 0, ww, hh-100);
+            var destImage = new Bitmap(ww , hh- 100);
             destImage.SetResolution(aaa.HorizontalResolution, aaa.VerticalResolution);
 
             using (var graphics = Graphics.FromImage(destImage))

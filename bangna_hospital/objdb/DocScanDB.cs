@@ -556,6 +556,19 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectByVnDocScan(String hn, String vn, String vsDate)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.vn + "='" + vn + "' and dsc." + dsc.visit_date + "='" + vsDate + "' and dsc." + dsc.active + "='1' and status_ipd = 'O' " +
+                "Order By sort1 ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectByFmCode(String fmcode, String limit)
         {
             DocScan cop1 = new DocScan();
@@ -1337,6 +1350,48 @@ namespace bangna_hospital.objdb
             dgs1.comp_labout_id = "";
             
             return dgs1;
+        }
+        public DocScan castDocScan(DocScan dsc1)
+        {
+            DocScan dsc2 = new DocScan();
+            dsc2.doc_scan_id = dsc1.doc_scan_id;
+            dsc2.doc_group_id = dsc1.doc_group_id;
+            dsc2.row_no = dsc1.row_no;
+            dsc2.host_ftp = dsc1.host_ftp;
+            dsc2.image_path = dsc1.image_path;
+            dsc2.hn = dsc1.hn;
+            dsc2.vn = dsc1.vn;
+            dsc2.visit_date = dsc1.visit_date;
+            dsc2.active = dsc1.active;
+            dsc2.remark = dsc1.remark;
+            dsc2.date_create = dsc1.date_create;
+            dsc2.date_modi = dsc1.date_modi;
+            dsc2.date_cancel = dsc1.date_cancel;
+            dsc2.user_create = dsc1.user_create;
+            dsc2.user_modi = dsc1.user_modi;
+            dsc2.user_cancel = dsc1.user_cancel;
+            dsc2.an = dsc1.an;
+            dsc2.doc_group_sub_id = dsc1.doc_group_sub_id;
+            dsc2.pre_no = dsc1.pre_no;
+            dsc2.an_date = dsc1.an_date;
+            dsc2.status_ipd = dsc1.status_ipd;
+            dsc2.an_cnt = dsc1.an_cnt;
+            dsc2.folder_ftp = dsc1.folder_ftp;
+            dsc2.status_version = dsc1.status_version;
+            dsc2.pic_before_scan_cnt = dsc1.pic_before_scan_cnt;
+            dsc2.status_record = dsc1.status_record;
+            dsc2.sort1 = dsc1.sort1;
+            dsc2.ml_fm = dsc1.ml_fm;
+            dsc2.row_cnt = dsc1.row_cnt;
+            dsc2.status_ml = dsc1.status_ml;
+            dsc2.ml_date_time_start = dsc1.ml_date_time_start;
+            dsc2.ml_date_time_end = dsc1.ml_date_time_end;
+            dsc2.date_req = dsc1.date_req;
+            dsc2.req_id = dsc1.req_id;
+            dsc2.patient_fullname = dsc1.patient_fullname;
+            dsc2.comp_labout_id = dsc1.comp_labout_id;
+
+            return dsc2;
         }
         //public void setCboBsp(C1ComboBox c, String selected)
         //{

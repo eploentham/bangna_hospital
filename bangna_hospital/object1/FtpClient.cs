@@ -94,6 +94,81 @@ namespace bangna_hospital.object1
         }
 
         /* Upload File */
+        public Boolean upload(string remoteFile, Stream localFile)
+        {
+            Boolean chk = false;
+            String err = "";
+            try
+            {
+                /* Create an FTP Request */
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
+                /* Log in to the FTP Server with the User Name and Password Provided */
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                err = "00";
+                /* When in doubt, use these options */
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = ftpUsePassive;
+                ftpRequest.KeepAlive = true;
+                /* Specify the Type of FTP Request */
+                if (ProxyProxyType.Equals("1"))
+                {
+                    ftpRequest.Proxy = new WebProxy();
+                    int chk1 = 0;
+                    if ((ProxyHost.Length > 0) && (int.TryParse(ProxyPort, out chk1)))
+                    {
+                        ftpRequest.Proxy = new WebProxy(ProxyHost, chk1);
+                    }
+                }
+                err = "01";
+                //ftpRequest.Proxy = new WebProxy();
+                //MessageBox.Show("host " + host + "/" + remoteFile, "localFile " + localFile);
+                //MessageBox.Show("Proxy " + ftpRequest.Proxy, "localFile "+ localFile);
+                ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                /* Establish Return Communication with the FTP Server */
+
+                /* Open a File Stream to Read the File for Upload */
+                if (localFile.Length <=0) return false;
+                err = "02";
+                //FileStream localFileStream = new FileStream(localFile, FileMode.Open, FileAccess.Read);
+                //FileStream localFileStream = (FileStream)localFile;
+                err = "03";
+                ftpStream = ftpRequest.GetRequestStream();
+                err = "04";
+                /* Buffer for the Downloaded Data */
+                byte[] byteBuffer = new byte[bufferSize];
+                //int bytesSent = localFileStream.Read(byteBuffer, 0, bufferSize);
+                int bytesSent = localFile.Read(byteBuffer, 0, bufferSize);
+                /* Upload the File by Sending the Buffered Data Until the Transfer is Complete */
+                err = "05";
+                try
+                {
+                    while (bytesSent != 0)
+                    {
+                        ftpStream.Write(byteBuffer, 0, bytesSent);
+                        bytesSent = localFile.Read(byteBuffer, 0, bufferSize);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "upload localFile " + localFile + ex.ToString() + " Error ftp upload write file  ");      //+0002
+                    Console.WriteLine(ex.ToString());
+                }
+                /* Resource Cleanup */
+                //localFileStream.Close();
+                ftpStream.Close();
+                ftpRequest = null;
+                chk = true;
+            }
+            catch (Exception ex)
+            {
+                //String status = ((FtpWebResponse)ex.Response).StatusDescription;
+                new LogWriter("e", err + " upload localFile " + localFile + ex.ToString() + " remote file " + remoteFile + "\nError ftp upload  ");
+                MessageBox.Show("" + ex.ToString(), "Error ftp upload  ");
+                Console.WriteLine(ex.ToString());
+                chk = false;
+            }
+            return chk;
+        }
         public Boolean upload(string remoteFile, string localFile)
         {
             Boolean chk = false;

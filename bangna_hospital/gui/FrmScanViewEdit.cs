@@ -26,7 +26,7 @@ namespace bangna_hospital.gui
         Image img1=null;
         DocScan dgs;
         Boolean pageLoad = false;
-        public FrmScanViewEdit(BangnaControl bc, String hn, String vn, String name, Image img, String dscid)
+        public FrmScanViewEdit(BangnaControl bc, String hn, String vn, String name, Image img, String dscid, String statusOPD)
         {
             InitializeComponent();
             this.bc = bc;
@@ -58,12 +58,40 @@ namespace bangna_hospital.gui
             chkVoid.Click += ChkVoid_Click;
             btnVoid.Click += BtnVoid_Click;
             btnGenSort.Click += BtnGenSort_Click;
+            btnRotate.Click += BtnRotate_Click;
+            btnSaveRotate.Click += BtnSaveRotate_Click;
             //theme1.SetTheme(sb1, "BeigeOne");
 
             //sb1.Text = "aaaaaaaaaa";
 
             setControl();
             pageLoad = true;
+        }
+        private void BtnSaveRotate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            Stream stream = new MemoryStream();
+            pic1.Image.Save(stream, ImageFormat.Jpeg);
+            
+            DocScan dsc = new DocScan();
+            dsc = bc.bcDB.dscDB.castDocScan(dgs);
+            dsc.doc_scan_id = "";
+            string ext = Path.GetExtension(dgs.image_path);
+
+            String re = bc.bcDB.dscDB.insertDocScan(dsc, "");
+            dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn.Replace("/", "_").Replace("(", "_").Replace(")", "") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn.Replace("/", "_").Replace("(", "_").Replace(")", "") + "-" + re + ext;         //+1
+            int chk = 0;
+            if(int.TryParse(re, out chk))
+            {
+                String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
+                FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                stream.Seek(0, SeekOrigin.Begin);
+                //MessageBox.Show(bc.iniC.folderFTP + "//" + dsc.image_path, "");
+                Boolean chk1 = ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, stream);
+
+                bc.bcDB.dscDB.voidDocScan(dgs.doc_scan_id, "");
+                MessageBox.Show("save file Rotate to seerver success", "");
+            }
         }
 
         private void BtnGenSort_Click(object sender, EventArgs e)

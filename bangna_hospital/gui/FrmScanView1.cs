@@ -81,7 +81,7 @@ namespace bangna_hospital.gui
         ArrayList array1 = new ArrayList();
         List<listStream> lStream, lStreamPic;
         listStream strm;
-        Image resizedImage, img;
+        Image resizedImage, img, imgLR;
         C1PictureBox pic, picL, picR;
         private RadioButton chkPrnAll, chkPrnCri, chkPrnLab, chkXray;
         C1TextBox txtPrnCri;
@@ -4602,6 +4602,7 @@ namespace bangna_hospital.gui
             {
                 try
                 {
+                    imgLR = null;
                     picL.Image = null;
                     picR.Image = null;
                     String preno1 = preno;
@@ -4621,6 +4622,7 @@ namespace bangna_hospital.gui
                     picR.Image = stffnoteR;
                     ContextMenu menuGwL = new ContextMenu();
                     menuGwL.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_print_staffnote_L));
+                    menuGwL.MenuItems.Add("ต้องการ Print ภาพนี้ L R", new EventHandler(ContextMenu_print_staffnote_LR));
                     menuGwL.MenuItems.Add("ต้องการ Download ภาพนี้ L", new EventHandler(ContextMenu_export_staffnote_L));
                     ContextMenu menuGwR = new ContextMenu();
                     menuGwR.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_print_staffnote_R));
@@ -4638,6 +4640,10 @@ namespace bangna_hospital.gui
         private void ContextMenu_print_staffnote_L(object sender, System.EventArgs e)
         {
             setGrfScanToPrintStaffNoteL();
+        }
+        private void ContextMenu_print_staffnote_LR(object sender, System.EventArgs e)
+        {
+            setGrfScanToPrintStaffNoteLR();
         }
         private void ContextMenu_print_staffnote_R(object sender, System.EventArgs e)
         {
@@ -4681,7 +4687,7 @@ namespace bangna_hospital.gui
         private void setGrfScanToPrintStaffNoteR()
         {
             SetDefaultPrinter(bc.iniC.printerA4);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(100);
 
             PrintDocument pd = new PrintDocument();
             pd.PrintPage += Pd_PrintPageA4_staffnote_R;
@@ -4694,10 +4700,26 @@ namespace bangna_hospital.gui
                 pd.Print();//this will trigger the Print Event handeler PrintPage
             }
         }
+        private void setGrfScanToPrintStaffNoteLR()
+        {
+            SetDefaultPrinter(bc.iniC.printerA4);
+            System.Threading.Thread.Sleep(100);
+
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += Pd_PrintPageA4_staffnote_LR;
+            //here to select the printer attached to user PC
+            PrintDialog printDialog1 = new PrintDialog();
+            printDialog1.Document = pd;
+            DialogResult result = printDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                pd.Print();//this will trigger the Print Event handeler PrintPage
+            }
+        }
         private void setGrfScanToPrintStaffNoteL()
         {
             SetDefaultPrinter(bc.iniC.printerA4);
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(100);
 
             PrintDocument pd = new PrintDocument();
             pd.PrintPage += Pd_PrintPageA4_staffnote_L;
@@ -4776,6 +4798,24 @@ namespace bangna_hospital.gui
                 //}
             }
             catch (Exception)
+            {
+
+            }
+        }
+        private void Pd_PrintPageA4_staffnote_LR(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                Image imgL = null;
+                Image imgR = null;
+
+                imgL = bc.ResizeImagetoA4Lan(picL.Image);
+                imgR = bc.ResizeImagetoA4Lan(picR.Image);
+                e.Graphics.DrawImage(imgR, 60, 20, imgL.Width, imgL.Height);
+                e.Graphics.DrawImage(imgL, 60, imgL.Height + 60, imgR.Width, imgR.Height);
+            }
+            catch (Exception ex)
             {
 
             }
@@ -5297,7 +5337,7 @@ namespace bangna_hospital.gui
                 vn = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
                 label2.Text = "VN :";
                 txtVN.Value = vn;
-                dt = bc.bcDB.dscDB.selectByVn(txtHn.Text, vn, vsDate);
+                dt = bc.bcDB.dscDB.selectByVnDocScan(txtHn.Text, vn, vsDate);
             }
             else
             {
@@ -5359,7 +5399,7 @@ namespace bangna_hospital.gui
                     //Image loadedImage, resizedImage;
                     //if (pB1.Value == 0)
                     //{
-                        lbCnt.Text = "["+dt.Rows[0][bc.bcDB.dscDB.dsc.pic_before_scan_cnt].ToString()+"]"+ "[" + dt.Rows[0][bc.bcDB.dscDB.dsc.row_cnt].ToString() + "]";
+                    lbCnt.Text = "["+dt.Rows[0][bc.bcDB.dscDB.dsc.pic_before_scan_cnt].ToString()+"]"+ "[" + dt.Rows[0][bc.bcDB.dscDB.dsc.row_cnt].ToString() + "]";
                     //}
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     Boolean findTrue = false;
@@ -5394,6 +5434,7 @@ namespace bangna_hospital.gui
                             {
                                 rowrun++;
                                 rowd = grfScan.Rows[rowrun];
+                                Application.DoEvents();
                             }
                             MemoryStream stream;
                             Image loadedImage, resizedImage;
@@ -5402,7 +5443,7 @@ namespace bangna_hospital.gui
 
                             //loadedImage = Image.FromFile(filename);
                             err = "01";
-                            Application.DoEvents();
+                            
                             ftpRequest = (FtpWebRequest)FtpWebRequest.Create(ftphost + "/" + folderftp + "/" + filename);
                             ftpRequest.Credentials = new NetworkCredential(bc.iniC.userFTP, bc.iniC.passFTP);
                             ftpRequest.UseBinary = true;
@@ -5428,7 +5469,18 @@ namespace bangna_hospital.gui
                                 new LogWriter("e", "FrmScanView1 SetGrfScan try int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize); ex " + ex.Message + " " + err);
                             }
                             err = "03";
-
+                            //if (id.Length != 10)
+                            //{
+                            //    string aa = "";
+                            //}
+                            //if (id.Equals("1000309865"))
+                            //{
+                            //    string aa = "";
+                            //}
+                            //if (stream.Length <= 0)
+                            //{
+                            //    string aa = "";
+                            //}
                             loadedImage = new Bitmap(stream);
                             err = "04";
                             int originalWidth = 0;
@@ -5477,7 +5529,7 @@ namespace bangna_hospital.gui
                             //loadedImage.Dispose();
                             //resizedImage.Dispose();
                             //stream.Dispose();
-                            Application.DoEvents();
+                            //Application.DoEvents();
                             err = "12";
                             //findTrue = true;
                             //break;
@@ -5488,12 +5540,12 @@ namespace bangna_hospital.gui
                         catch (Exception ex)
                         {
                             String aaa = ex.Message + " " + err;
-                            new LogWriter("e", "FrmScanView1 SetGrfScan ex " + ex.Message+" "+ err+ " colcnt " + colcnt+" HN "+ txtHn.Text+" "+ an);
+                            new LogWriter("e", "FrmScanView1 SetGrfScan ex " + ex.Message+" "+ err+ " colcnt " + colcnt+" HN "+ txtHn.Text+" "+ an+" doc_scan_id "+id);
                         }
                     //}).Start();
 
                     //pB1.Value++;
-                        Application.DoEvents();
+                        //Application.DoEvents();
                     }
                 }
                 catch (Exception ex)
@@ -5550,12 +5602,13 @@ namespace bangna_hospital.gui
             if (grfScan.Row < 0) return;
             if (grfScan.Col == 1)
             {
-                id = grfScan[grfScan.Row, colPic2].ToString();
+                id = grfScan[grfScan.Row, colPic2] != null ? grfScan[grfScan.Row, colPic2].ToString(): "";
             }
             else
             {
-                id = grfScan[grfScan.Row, colPic4].ToString();
+                id = grfScan[grfScan.Row, colPic4] !=  null ? grfScan[grfScan.Row, colPic4].ToString() : "";
             }
+            if (id.Length <= 0) return;
             dsc_id = id;
             Stream streamDownload = null;
             MemoryStream strm = null;
@@ -5574,7 +5627,7 @@ namespace bangna_hospital.gui
             }
             datetick = DateTime.Now.Ticks.ToString();
             Image img = Image.FromStream(streamDownload);
-            FrmScanViewEdit frm = new FrmScanViewEdit(bc, txtHn.Text, txtVN.Text, txtName.Text, img, dsc_id);
+            FrmScanViewEdit frm = new FrmScanViewEdit(bc, txtHn.Text, txtVN.Text, txtName.Text, img, dsc_id, chkIPD.Checked ? "OPD":"IPD");
             frm.ShowDialog(this);
         }
         private void ContextMenu_grfscan_print(object sender, System.EventArgs e)

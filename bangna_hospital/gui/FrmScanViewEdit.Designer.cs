@@ -63,6 +63,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.theme = new C1.Win.C1Themes.C1ThemeController();
+            this.btnSaveRotate = new C1.Win.C1Input.C1Button();
+            this.c1Button1 = new C1.Win.C1Input.C1Button();
             this.pnImg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
             this.pn.SuspendLayout();
@@ -87,6 +89,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSaveRotate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnImg
@@ -110,6 +114,8 @@
             // 
             // pn
             // 
+            this.pn.Controls.Add(this.c1Button1);
+            this.pn.Controls.Add(this.btnSaveRotate);
             this.pn.Controls.Add(this.btnGenSort);
             this.pn.Controls.Add(this.txtSortMax);
             this.pn.Controls.Add(this.label11);
@@ -262,7 +268,7 @@
             // 
             // btnSaveImg
             // 
-            this.btnSaveImg.Location = new System.Drawing.Point(248, 500);
+            this.btnSaveImg.Location = new System.Drawing.Point(315, 441);
             this.btnSaveImg.Name = "btnSaveImg";
             this.btnSaveImg.Size = new System.Drawing.Size(51, 22);
             this.btnSaveImg.TabIndex = 23;
@@ -516,6 +522,26 @@
             this.label6.Text = "Name :";
             this.theme.SetTheme(this.label6, "(default)");
             // 
+            // btnSaveRotate
+            // 
+            this.btnSaveRotate.Location = new System.Drawing.Point(223, 500);
+            this.btnSaveRotate.Name = "btnSaveRotate";
+            this.btnSaveRotate.Size = new System.Drawing.Size(103, 22);
+            this.btnSaveRotate.TabIndex = 564;
+            this.btnSaveRotate.Text = "save Rotate";
+            this.theme.SetTheme(this.btnSaveRotate, "(default)");
+            this.btnSaveRotate.UseVisualStyleBackColor = true;
+            // 
+            // c1Button1
+            // 
+            this.c1Button1.Location = new System.Drawing.Point(106, 605);
+            this.c1Button1.Name = "c1Button1";
+            this.c1Button1.Size = new System.Drawing.Size(103, 49);
+            this.c1Button1.TabIndex = 565;
+            this.c1Button1.Text = "Print";
+            this.theme.SetTheme(this.c1Button1, "(default)");
+            this.c1Button1.UseVisualStyleBackColor = true;
+            // 
             // FrmScanViewEdit
             // 
             this.ClientSize = new System.Drawing.Size(1114, 723);
@@ -549,6 +575,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSaveRotate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -592,5 +620,7 @@
         private C1.Win.C1Input.C1TextBox txtSortMax;
         private System.Windows.Forms.Label label11;
         private C1.Win.C1Input.C1Button btnGenSort;
+        private C1.Win.C1Input.C1Button btnSaveRotate;
+        private C1.Win.C1Input.C1Button c1Button1;
     }
 }

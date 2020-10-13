@@ -1352,7 +1352,7 @@ namespace bangna_hospital.gui
                 {
                     //MessageBox.Show("aaaaaa", "");
                     listBox2.Items.Add("Filename if (filename2.Length <= 0) " + zipFilename);
-                    new LogWriter("e", "Filename ไม่พบข้อมูล reqid " + zipFilename);
+                    new LogWriter("e", "Filename ไม่พบข้อมูล filename2.Length <= 0 reqid " + zipFilename);
                     continue;
                 }
                 dZip = null;
@@ -1422,11 +1422,11 @@ namespace bangna_hospital.gui
                     Thread.Sleep(100);
                     if (pathname.Length > 0)
                     {
-                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\" + pathname + "\\err_" + filename2 + "_" + datetick + extfileerr);
+                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\" + pathname + "\\err_ไม่พบข้อมูล_HIS_" + filename2 + "_" + datetick + extfileerr);
                     }
                     else
                     {
-                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\err_" + filename2 + "_" + datetick + extfileerr);
+                        File.Move(zipFilename, bc.iniC.pathLabOutBackupRIA + "\\err_ไม่พบข้อมูล_HIS_" + filename2 + "_" + datetick + extfileerr);
                     }
                     Thread.Sleep(100);
                     continue;
