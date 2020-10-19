@@ -148,7 +148,7 @@ namespace bangna_hospital.gui
             pnFinish = new System.Windows.Forms.Panel();
             pnIPD = new System.Windows.Forms.Panel();
 
-            theme1 = new C1.Win.C1Themes.C1ThemeController();
+            //theme1 = new C1.Win.C1Themes.C1ThemeController();
             tC1 = new C1.Win.C1Command.C1DockingTab();
             tabQue = new C1.Win.C1Command.C1DockingTabPage();
             tabApm = new C1.Win.C1Command.C1DockingTabPage();

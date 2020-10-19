@@ -29,6 +29,7 @@ namespace bangna_hospital.gui
             this.bc = bc;
             InitializeComponent();
             login = new Login(bc, splash);
+            splash.Dispose();
             login.ShowDialog(this);
             new Thread(() =>
             {
@@ -37,7 +38,7 @@ namespace bangna_hospital.gui
                 bc.bcDB = new objdb.BangnaHospitalDB(bc.conn);
                 bc.getInit();
             }).Start();
-            splash.Dispose();
+            
             if (login.LogonSuccessful.Equals("1"))
             {
                 initConfig();

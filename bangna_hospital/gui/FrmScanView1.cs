@@ -53,10 +53,11 @@ namespace bangna_hospital.gui
         Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
         
         C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
-        C1Button btnItmSend, btnItmDrugSet, btnItmSave;
+        C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
+        C1DateEdit txtPrnDateStart, txtPrnDateEnd;
 
         C1Button btnDocOk, btnDocExport;
         Label lbDocGrp, lbDocSubGrp, lbDocAn;
@@ -74,6 +75,7 @@ namespace bangna_hospital.gui
         int colOrdXrayId = 1, colOrdXrayName = 2, colOrdXrayUnit = 3, colXraytypcd = 4, colXraygrpcd = 5, colXraygrpdsc = 6;
         int colOrdLabId = 1, colOrdLabName = 2, colOrdlabUnit = 3, colLabtypcd = 4, colLabgrpcd = 5, colLabgrpdsc = 6;
         int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=10;
+        int colPrnlabHn = 1, colPrnlabName = 2, colPrnlabVN = 3, colPrnlabAN = 4, colPrnlabReqDate = 5, colPrnlabReqNo = 6;
 
         int newHeight = 720;
         int mouseWheel = 0;
@@ -3213,30 +3215,62 @@ namespace bangna_hospital.gui
             chkPrnCri.Name = "chkPrnCri";
             chkPrnCri.Font = fEdit;
             chkPrnCri.Checked = true;
-            chkPrnCri.Width = bc.MeasureString(chkPrnCri).Width + 20;
-            Size size2 = bc.MeasureString(chkPrnAll);
-            chkPrnCri.Location = new Point(x + size2.Width + 40, y1);
+            chkPrnCri.Width = bc.MeasureString(chkPrnAll).Width + 20;
+            Size size2 = bc.MeasureString(chkPrnCri);
+            chkPrnCri.Location = new Point(x + size2.Width + 10, y1);
+
+            chkPrnLab = new RadioButton();
+            chkPrnLab.Text = "lab ตามเงื่อนไข";
+            chkPrnLab.Name = "chkPrnLab";
+            chkPrnLab.Font = fEdit;
+            chkPrnLab.Checked = false;
+            chkPrnLab.Width = bc.MeasureString(chkPrnLab).Width + 20;
+            size2 = bc.MeasureString(chkPrnCri);
+            chkPrnLab.Location = new Point(chkPrnCri.Location.X + size2.Width + 120, y1);
+
+            
+
             txtPrnCri = new C1TextBox();
             txtPrnCri.Text = "";
             txtPrnCri.Name = "chkPrchkPrnCrinAll";
             txtPrnCri.Font = fEdit;
             Size size3 = bc.MeasureString(chkPrnCri);
-            txtPrnCri.Location = new Point(chkPrnCri.Location.X + size3.Width + 40, y1);
+            txtPrnCri.Location = new Point(chkPrnLab.Location.X + size3.Width + 40, y1);
             C1Button btnPrn = new C1Button();
             btnPrn.Name = "btnPrn";
             btnPrn.Text = "Print";
             btnPrn.Font = this.fEdit;
             size3 = new Size(80, 40);
             btnPrn.Size = size3;
-            btnPrn.Location = new Point(txtPrnCri.Location.X + txtPrnCri.Width + 40, y1);
+            btnPrn.Location = new Point(txtPrnCri.Location.X + txtPrnCri.Width + 40, y1-10);
             btnPrn.Click += BtnPrn_Click;
             Label label = new Label();
             label.Font = this.fEdit;
             int y2 = y1 + 25;
-            label.Location = new Point(this.chkPrnCri.Location.X + 40, y2);
+            label.Location = new Point(this.chkPrnCri.Location.X, y2);
             label.Text = "ตัวอย่าง 1-30 หรือ 1,2,3,4,5,6,7";
             Size size4 = this.bc.MeasureString((Control)label);
             label.Size = size4;
+            Label labe2 = new Label();
+            labe2.Font = this.fEdit;
+            y2 = y1 + 25;
+            labe2.Location = new Point(this.chkPrnLab.Location.X, y2);
+            labe2.Text = "ตัวอย่าง SE161,SE165";
+            size4 = this.bc.MeasureString((Control)labe2);
+            labe2.Size = size4;
+            Label lbPrnDateStart = new Label();
+            txtPrnDateStart = new C1DateEdit();
+            Label lbPrnDateEnd = new Label();
+            txtPrnDateEnd = new C1DateEdit();
+
+            bc.setControlLabel(ref lbPrnDateStart, fEdit, "วันที่เริ่มต้น :", "lbPrnDateStart", labe2.Location.X + size4.Width + 20, labe2.Location.Y);
+            size4 = this.bc.MeasureString((Control)lbPrnDateStart);
+            bc.setControlC1DateTimeEdit(ref txtPrnDateStart, "txtPrnDateStart", lbPrnDateStart.Location.X + size4.Width + 5, labe2.Location.Y);
+            bc.setControlLabel(ref lbPrnDateEnd, fEdit, "วันที่สิ้นสุด :", "lbPrnDateEnd", txtPrnDateStart.Location.X + txtPrnDateStart.Width + 20, labe2.Location.Y);
+            size4 = this.bc.MeasureString((Control)lbPrnDateEnd);
+            bc.setControlC1DateTimeEdit(ref txtPrnDateEnd, "txtPrnDateEnd", lbPrnDateEnd.Location.X + size4.Width + 5, labe2.Location.Y);
+            txtPrnDateStart.Value = System.DateTime.Now;
+            txtPrnDateEnd.Value = System.DateTime.Now;
 
             gapLine += 60;
             lbDocGrp = new Label();
@@ -3289,9 +3323,15 @@ namespace bangna_hospital.gui
             grfPrn.Height = groupBox1.Height - 120;
             
             groupBox1.Controls.Add(label);
+            groupBox1.Controls.Add(labe2);
+            groupBox1.Controls.Add(lbPrnDateStart);
+            groupBox1.Controls.Add(lbPrnDateEnd);
+            groupBox1.Controls.Add(txtPrnDateStart);
+            groupBox1.Controls.Add(txtPrnDateEnd);
             groupBox1.Controls.Add(btnPrn);
             groupBox1.Controls.Add(txtPrnCri);
             groupBox1.Controls.Add(chkPrnCri);
+            groupBox1.Controls.Add(chkPrnLab);
             groupBox1.Controls.Add(chkPrnAll);
             groupBox1.Controls.Add(lbDocGrp);
             groupBox1.Controls.Add(cboDocGrp);
@@ -3343,7 +3383,7 @@ namespace bangna_hospital.gui
                     if (Directory.Exists(pathFolder))
                     {
                         Directory.Delete(pathFolder, true);
-                        Thread.Sleep(200);
+                        Thread.Sleep(100);
                         Application.DoEvents();
                     }
                     Thread.Sleep(100);
@@ -3661,8 +3701,238 @@ namespace bangna_hospital.gui
         private void BtnPrn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (!this.chkPrnCri.Checked)
-                return;
+            if (this.chkPrnCri.Checked)
+            {
+                setPrnCri();
+            }
+            else if (this.chkPrnLab.Checked)
+            {
+                showLbLoading();
+                setPrnLabCri();
+                String pathFolder = setExportOutLabtoFolder();
+                setFileOutLab(pathFolder);
+                Process.Start("explorer.exe", pathFolder);
+                hideLbLoading();
+            }
+        }
+        private String setExportOutLabtoFolder()
+        {
+            String pathFolder = "", datetick = "";
+
+            datetick = DateTime.Now.Ticks.ToString();
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\" + datetick;
+            if (Directory.Exists(pathFolder))
+            {
+                Directory.Delete(pathFolder, true);
+                Thread.Sleep(100);
+                Application.DoEvents();
+            }
+            Directory.CreateDirectory(pathFolder);
+            FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+            foreach (Row row in grfPrn.Rows)
+            {
+                String hn = "", reqdate = "", reqno = "", filename = "";
+                if (hn.Equals("HN")) continue;
+                hn = row[colPrnlabHn] != null ? row[colPrnlabHn].ToString() : "";
+                reqdate = row[colPrnlabReqDate] != null ? row[colPrnlabReqDate].ToString() : "";
+                reqno = row[colPrnlabReqNo] != null ? row[colPrnlabReqNo].ToString() : "";
+                DataTable dt = new DataTable();
+                //reqdate = bc.datetoDB(reqdate);
+                dt = bc.bcDB.dscDB.selectLabOutByHnReqDateReqNo(hn, reqdate, reqno);
+                int i = 0;
+                foreach (DataRow drow in dt.Rows)
+                {
+                    try
+                    {
+                        i++;
+                        String dscid = "", image_path = "", ftphost = "", id = "", folderftp = "", ext = "";
+                        folderftp = drow[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
+                        image_path = drow[bc.bcDB.dscDB.dsc.image_path].ToString();
+                        ext = Path.GetExtension(image_path);
+                        filename = hn + "_" + datetick + "_" + i + ext;
+                        MemoryStream stream;
+                        stream = ftp.download(folderftp + "//" + image_path);
+                        stream.Position = 0;
+                        FileStream filestream = new FileStream(pathFolder + "\\" + filename, FileMode.Create, FileAccess.Write);
+                        stream.WriteTo(filestream);
+                        filestream.Close();
+                        stream.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        string ex1 = ex.Message;
+                    }
+
+                }
+            }
+            return pathFolder;
+        }
+        private void setFileOutLab(String pathFolder)
+        {
+            List<String> filePaths = new List<String>();
+            DirectoryInfo d = new DirectoryInfo(pathFolder);
+            FileInfo[] dirs = d.GetFiles("*.*");
+            C1PdfDocument pdfdoc = new C1PdfDocument();
+            int i1 = 0;
+            foreach (FileInfo diNext in dirs)
+            {
+                String filename = diNext.FullName;
+                try
+                {
+                    String dscid = "", ftphost = "", id = "", folderftp = "", an1 = "";
+
+                    String ext = Path.GetExtension(filename);
+                    if (ext.Equals(".jpg"))
+                    {
+                        Image loadedImage, resizedImage = null;
+                        loadedImage = Image.FromFile(filename);
+                        loadedImage.Save(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        Application.DoEvents();
+                        if (File.Exists(pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + dscid + ext))
+                        {
+                            float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                            float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+                            float widthFactor = 1.5F;
+                            float heightFactor = 1.5F;
+
+                            if (widthFactor > 1 | heightFactor > 1)
+                            {
+                                if (widthFactor > heightFactor)
+                                {
+                                    widthFactor = 1;
+                                    newWidth = newWidth / widthFactor;
+                                    newHeight = newHeight / widthFactor;
+                                    //newWidth = newWidth / 1.2;
+                                    //newHeight = newHeight / 1.2;
+                                }
+                                else
+                                {
+                                    newWidth = newWidth / heightFactor;
+                                    newHeight = newHeight / heightFactor;
+                                }
+                            }
+                            RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                            pdfdoc.DrawImage(loadedImage, recf);
+                            pdfdoc.NewPage();
+                        }
+                    }
+                    else
+                    {
+                        C1PdfDocumentSource pdf = new C1PdfDocumentSource();
+                        i1++;
+                        var exporter = pdf.SupportedExportProviders[4].NewExporter();
+                        exporter.ShowOptions = false;
+                        exporter.FileName = pathFolder + "\\" + txtHn.Text.Trim() + "_outlab_" + i1;
+
+                        pdf.LoadFromFile(filename);
+                        pdf.Export(exporter);
+                        Application.DoEvents();
+                        Thread.Sleep(50);
+                        for (int i = 1; i <= 40; i++)
+                        {
+                            if (File.Exists(exporter.FileName + "_page" + i + ".jpg"))
+                            {
+                                Image loadedImage, resizedImage = null;
+                                loadedImage = Image.FromFile(exporter.FileName + "_page" + i + ".jpg");
+                                float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                                float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+                                float widthFactor = 1.5F;
+                                float heightFactor = 1.5F;
+
+                                if (widthFactor > 1 | heightFactor > 1)
+                                {
+                                    if (widthFactor > heightFactor)
+                                    {
+                                        widthFactor = 1;
+                                        newWidth = newWidth / widthFactor;
+                                        newHeight = newHeight / widthFactor;
+                                        //newWidth = newWidth / 1.2;
+                                        //newHeight = newHeight / 1.2;
+                                    }
+                                    else
+                                    {
+                                        newWidth = newWidth / heightFactor;
+                                        newHeight = newHeight / heightFactor;
+                                    }
+                                }
+
+                                RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                                pdfdoc.DrawImage(loadedImage, recf);
+                                pdfdoc.NewPage();
+                            }
+                        }
+                    }
+                    Thread.Sleep(50);
+                    Application.DoEvents();
+                    
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmScanView1 BtnDocExport_Click foreach (DataRow rowdsc in dtlaboutdsc.Rows) " + ex.Message);
+                }
+            }
+            Thread.Sleep(50);
+            Application.DoEvents();
+            pdfdoc.Save(pathFolder + "\\" + txtHn.Text + "_outlab_all.pdf");
+        }
+        private void setPrnLabCri()
+        {
+            grfPrn.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            String datestart = "", dateend = "", lbcode="";
+            String[] lbcode1 = txtPrnCri.Text.Trim().Split(',');
+            for (int j = 0; j < lbcode1.Length; j++)
+            {
+                lbcode1[j] = "'" + lbcode1[j].Trim() + "'";
+                lbcode += lbcode1[j] + ",";
+            }
+            if (lbcode.Length > 0)
+            {
+                if (lbcode.Substring(lbcode.Length - 1).Equals(","))
+                {
+                    lbcode = lbcode.Substring(0, lbcode.Length - 1);
+                }
+            }
+            datestart = bc.datetoDB(txtPrnDateStart.Text);
+            dateend = bc.datetoDB(txtPrnDateEnd.Text);
+            dt = bc.bcDB.labDB.SelectHnLabOut(datestart, dateend, lbcode);
+            
+            grfPrn.Cols.Count = 7;
+            grfPrn.Rows.Count = dt.Rows.Count+1;
+            grfPrn.Cols[colPrnlabHn].Caption = "HN";
+            grfPrn.Cols[colPrnlabName].Caption = "Patient Name";
+            grfPrn.Cols[colPrnlabVN].Caption = "VN";
+            grfPrn.Cols[colPrnlabAN].Caption = "AN";
+            grfPrn.Cols[colPrnlabReqDate].Caption = "req date";
+            grfPrn.Cols[colPrnlabReqNo].Caption = "req no";
+            grfPrn.Cols[colPrnlabHn].Width = 100;
+            grfPrn.Cols[colPrnlabName].Width = 200;
+            grfPrn.Cols[colPrnlabVN].Width = 100;
+            grfPrn.Cols[colPrnlabAN].Width = 100;
+            grfPrn.Cols[colPrnlabReqDate].Width = 100;
+            grfPrn.Cols[colPrnlabReqNo].Width = 100;
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                i++;
+                grfPrn[i, 0] = (i);
+                grfPrn[i, colPrnlabHn] = row["mnc_hn_no"].ToString();
+                grfPrn[i, colPrnlabName] = row["mnc_patname"].ToString();
+                grfPrn[i, colPrnlabVN] = row["mnc_vn_no"].ToString()+"."+ row["mnc_vn_seq"].ToString()+"."+ row["mnc_vn_sum"].ToString();
+                grfPrn[i, colPrnlabAN] = row["MNC_AN_NO"].ToString()+"/"+ row["MNC_AN_YR"].ToString();
+                grfPrn[i, colPrnlabReqDate] = row["mnc_req_dat"].ToString();
+                grfPrn[i, colPrnlabReqNo] = row["mnc_req_no"].ToString();
+            }
+
+            //grfPrn[i, colLabNameSub] = row1["mnc_res"].ToString();
+            CellNoteManager mgr = new CellNoteManager(grfPrn);
+            grfPrn.Cols[colLabName].AllowEditing = false;
+            
+        }
+        private void setPrnCri()
+        {
             string sort1 = "";
             string[] strArray1 = ((Control)this.txtPrnCri).Text.Trim().Split('-');
             string[] strArray2 = ((Control)this.txtPrnCri).Text.Trim().Split(',');
@@ -5234,7 +5504,7 @@ namespace bangna_hospital.gui
                 }
             }
             
-            Application.DoEvents();
+            //Application.DoEvents();
                 
             grfLab.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
@@ -6154,7 +6424,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-10-08";
+            this.Text = "Last Update 2020-10-14";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

@@ -49,5 +49,23 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable SelectHnLabOut(String datereq1, String datereq2, String labcode)
+        {
+            DataTable dt = new DataTable();
+            String year = "";
+            int year2 = 0;
+            year = datereq1.Substring(0, 4);
+            int.TryParse(year, out year2);
+            year = (year2 + 543).ToString();
+            String sql = "Select lt01.mnc_patname,lt01.mnc_pre_no,lt01.mnc_hn_no,lt01.mnc_req_no,convert(VARCHAR(20),lt01.mnc_req_dat,23) as mnc_req_dat,lt01.MNC_AN_NO, lt01.MNC_AN_YR " +
+                ", ptt01.mnc_vn_seq, ptt01.mnc_vn_sum, ptt01.mnc_vn_no " +
+                "From Lab_t01 lt01 " +
+                "inner join patient_t01 ptt01 on ptt01.mnc_hn_no = lt01.mnc_hn_no and ptt01.mnc_pre_no = lt01.mnc_pre_no and ptt01.mnc_hn_yr = lt01.mnc_hn_yr " +
+                "inner join LAB_T02 lt02 ON lt01.MNC_REQ_NO = lt02.MNC_REQ_NO AND lt01.MNC_REQ_DAT = lt02.MNC_REQ_DAT " +
+                "Where lt01.mnc_req_yr = '" + year + "' and lt01.mnc_req_dat >= '" + datereq1 + "' and lt01.mnc_req_dat <= '" + datereq2 + "' and lt02.MNC_LB_CD in ("+ labcode + ")";
+            dt = conn.selectData(sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
     }
 }

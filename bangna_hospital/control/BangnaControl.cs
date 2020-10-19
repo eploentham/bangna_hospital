@@ -1425,6 +1425,38 @@ namespace bangna_hospital.control
             txt.Size = new Size(width, 30);
             txt.Name = text;
         }
+        public void setControlC1DateTimeEdit(ref C1DateEdit txt, String name, int x, int y)
+        {
+            txt.AllowSpinLoop = false;
+            txt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txt.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
+            txt.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            txt.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            txt.CurrentTimeZone = false;
+            txt.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            txt.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            txt.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            txt.EditFormat.CustomFormat = "dd/MM/yyyy";
+            txt.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.CustomFormat;
+            txt.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart)
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            txt.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            txt.ImagePadding = new System.Windows.Forms.Padding(0);
+            
+            txt.Location = new System.Drawing.Point(x, y);
+            txt.Name = name;
+            txt.Size = new System.Drawing.Size(111, 20);
+            txt.TabIndex = 12;
+            txt.Tag = null;
+            txt.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            txt.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+        }
         public Boolean readOperation()
         {
             Boolean chk = true;
