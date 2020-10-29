@@ -1425,6 +1425,91 @@ namespace bangna_hospital.control
             txt.Size = new Size(width, 30);
             txt.Name = text;
         }
+        public void setControlRadioBox(ref RadioButton chk, Font fEdit, String text, String name, int x, int y)
+        {
+            chk.Checked = false;
+            chk.Name = name;
+            chk.Text = text;
+            chk.Font = fEdit;
+            Size size = MeasureString(chk);
+            chk.Width = size.Width + 20;
+            chk.Location = new Point(x, y);
+        }
+        public void setControlC1CheckBox(ref C1CheckBox chk, Font fEdit, String text, String name, int x, int y)
+        {
+            chk.BackColor = System.Drawing.Color.Transparent;
+            chk.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            chk.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            chk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            chk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            chk.Location = new System.Drawing.Point(x, y);
+            chk.Name = name;
+            chk.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            chk.Text = text;
+            chk.Value = text;
+            Size size = MeasureString(chk);
+            chk.Width = size.Width;
+            chk.TabIndex = 0;
+            //theme1.SetTheme(this.chkVoid, "(default)");
+            chk.UseVisualStyleBackColor = true;
+            chk.Value = null;
+            chk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            chk.Font = fEdit;
+        }
+        public void setControlCheckBox(ref CheckBox chk, Font fEdit, String text, String name, int x, int y)
+        {
+            chk.BackColor = System.Drawing.Color.Transparent;
+            //chk.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            //chk.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            chk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            //chk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            chk.Location = new System.Drawing.Point(x, y);
+            chk.Name = name;
+            chk.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            chk.Text = text;
+            //chk.Value = text;
+            Size size = MeasureString(chk);
+            chk.Width = size.Width;
+            chk.TabIndex = 0;
+            //theme1.SetTheme(this.chkVoid, "(default)");
+            chk.UseVisualStyleBackColor = true;
+            //chk.Value = null;
+            //chk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            chk.Font = fEdit;
+        }
+        public void setControlC1Button(ref C1Button btn, Font fEdit, String text, String name, int x, int y)
+        {
+            btn = new C1Button();
+            btn.Name = name;
+            btn.Text = text;
+            btn.Font = fEdit;
+            btn.Location = new System.Drawing.Point(x, y);
+            btn.Size = new Size(MeasureString(btn).Width + 50, 30);
+            btn.ImageAlign = ContentAlignment.MiddleLeft;
+            btn.TextAlign = ContentAlignment.MiddleRight;
+            btn.Font = fEdit;
+        }
+        public void setControlC1ComboBox(ref C1ComboBox cbo, String name, int width, int x, int y)
+        {
+            cbo.AllowSpinLoop = false;
+            cbo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            cbo.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            cbo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            cbo.GapHeight = 0;
+            cbo.ImagePadding = new System.Windows.Forms.Padding(0);
+            cbo.ItemsDisplayMember = "";
+            cbo.ItemsValueMember = "";
+            cbo.Location = new System.Drawing.Point(x, y);
+            cbo.Name = name;
+            cbo.Size = new System.Drawing.Size(65, 20);
+            cbo.Style.DropDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            cbo.Style.DropDownBorderColor = System.Drawing.Color.Gainsboro;
+            cbo.Style.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            cbo.TabIndex = 538;
+            cbo.Tag = null;
+            cbo.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            cbo.Size = new Size(width, 30);
+        }
         public void setControlC1DateTimeEdit(ref C1DateEdit txt, String name, int x, int y)
         {
             txt.AllowSpinLoop = false;
