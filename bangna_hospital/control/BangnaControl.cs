@@ -1729,7 +1729,7 @@ namespace bangna_hospital.control
             C1PdfDocumentSource pdf = new C1PdfDocumentSource();
             String filename = "", ext = "";
 
-            filename = Path.GetFileNameWithoutExtension(filePath) + ".jpg";
+            filename = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + ".jpg";
             var exporter = pdf.SupportedExportProviders[4].NewExporter();
             exporter.ShowOptions = false;
             exporter.FileName = filename;
