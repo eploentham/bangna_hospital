@@ -48,19 +48,19 @@ namespace bangna_hospital.gui
         C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem;
         C1FlexViewer labOutView;
         List<C1DockingTabPage> tabHnLabOutR;
-        Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal;
+        Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal, pnPrnEmail;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
         Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
         
-        C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2;
-        C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile;
+        C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody;
+        C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
         C1DateEdit txtPrnDateStart, txtPrnDateEnd;
 
         C1Button btnDocOk, btnDocExport;
-        Label lbDocGrp, lbDocSubGrp, lbDocAn, lbPrnDateStart, lbPrnDateEnd;
+        Label lbDocGrp, lbDocSubGrp, lbDocAn, lbPrnDateStart, lbPrnDateEnd, label11, labe2, lbtxtPrnEmailTo, lbtxtPrnEmailSubject, lbtxtPrnEmailBody;
         C1ComboBox cboDocGrp, cboDocSubGrp;
 
         int colVsVsDate = 1, colVsDept = 2, colVsVn = 3, colVsStatus = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16=16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24;
@@ -86,7 +86,7 @@ namespace bangna_hospital.gui
         listStream strm;
         Image resizedImage, img, imgLR;
         C1PictureBox pic, picL, picR;
-        private RadioButton chkPrnAll, chkPrnCri, chkPrnLab, chkXray, chkPrnSSO;
+        private RadioButton chkPrnAll, chkPrnCri, chkPrnLab, chkXray, chkPrnSSO, chkPrnEmail, chkPrnFAX, chkPrnEmailSummary, chkPrnEmailDrug, chkPrnEmailLab, chkPrnEmailXray;
         C1TextBox txtPrnCri;
         C1CheckBox chkPrnSSOall;
         //FlowLayoutPanel fpL, fpR;
@@ -344,7 +344,7 @@ namespace bangna_hospital.gui
             //tabScan.Name = "c1DockingTabPage1";
             tabPrn.Size = new System.Drawing.Size(667, 175);
             tabPrn.TabIndex = 0;
-            tabPrn.Text = "Print";
+            tabPrn.Text = "Print Email FAX";
             tabPrn.Name = "tabPrn";
             tcDtr.Controls.Add(tabPrn);
 
@@ -880,6 +880,10 @@ namespace bangna_hospital.gui
                         }
                         dt.Rows.Add(dt.NewRow());
                         txt1 = txt;
+                    }
+                    else
+                    {
+                        txt1 = dt.Rows[0]["mnc_xr_dsc"].ToString();
                     }
                 }
                 flagPACsPlus = (dtpacsplus.Rows.Count > 0) ? true : false;
@@ -3370,11 +3374,12 @@ namespace bangna_hospital.gui
         private void initTabPrn()
         {
             //new LogWriter("e", "initTabPrn 01");
-            int y1 = 20, x = 20, gapLine = 20, gapX = 20;
+            int y1 = 20, x = 20, gapLine = 70, gapX = 20, gapY=0, col2=90, col3=600,col4=655;
             Size size1 = new Size();
             Size size = new Size();
             Panel panel = new Panel();
             panel.Dock = DockStyle.Fill;
+            
             GroupBox groupBox1 = new GroupBox();
             groupBox1.Size = new Size(tabPrn.Width -20, tabPrn.Height - 20);
             groupBox1.Location = new Point(10, 5);
@@ -3407,23 +3412,28 @@ namespace bangna_hospital.gui
             bc.setControlC1CheckBox(ref chkPrnSSOall, fEdit, "all", "chkPrnSSOall", chkPrnSSO.Location.X + size2.Width + 20, y1);
             chkPrnSSOall.CheckedChanged += ChkPrnSSOall_CheckedChanged;
 
-            C1Button btnSearch = new C1Button();
+            btnSearch = new C1Button();
             bc.setControlC1Button(ref btnSearch, fEdit, "...", "btnSearch", chkPrnSSOall.Location.X + chkPrnSSOall.Width + 20, y1 - 10);
             btnSearch.Width = 30;
             btnSearch.Click += BtnSearch_Click;
 
-            C1Button btnPrn = new C1Button();
+            btnPrn = new C1Button();
             bc.setControlC1Button(ref btnPrn, fEdit, "Print", "btnPrn", chkPrnSSOall.Location.X + chkPrnSSOall.Width + 140, y1 - 10);
             btnPrn.Click += BtnPrn_Click;
 
-            Label label = new Label();
-            label.Font = this.fEdit;
+            chkPrnEmail = new RadioButton();
+            size2 = bc.MeasureString(chkPrnLab);
+            bc.setControlRadioBox(ref chkPrnEmail, fEdit, "Email ", "chkPrnEmail", btnPrn.Location.X + btnPrn.Width + 20, y1);
+            chkPrnEmail.CheckedChanged += ChkPrnEmail_CheckedChanged;
+
+            label11 = new Label();
+            label11.Font = this.fEdit;
             int y2 = y1 + 25;
-            label.Location = new Point(this.chkPrnCri.Location.X, y2);
-            label.Text = "ตัวอย่าง 1-30 หรือ 1,2,3,4,5,6,7";
-            Size size4 = this.bc.MeasureString((Control)label);
-            label.Size = size4;
-            Label labe2 = new Label();
+            label11.Location = new Point(this.chkPrnCri.Location.X, y2);
+            label11.Text = "ตัวอย่าง 1-30 หรือ 1,2,3,4,5,6,7";
+            Size size4 = this.bc.MeasureString((Control)label11);
+            label11.Size = size4;
+            labe2 = new Label();
             labe2.Font = this.fEdit;
             y2 = y1 + 25;
             labe2.Location = new Point(this.chkPrnLab.Location.X, y2);
@@ -3444,9 +3454,43 @@ namespace bangna_hospital.gui
             txtPrnDateStart.Value = System.DateTime.Now;
             txtPrnDateEnd.Value = System.DateTime.Now;
 
-            gapLine += 60;
+            lbtxtPrnEmailTo = new Label();
+            bc.setControlLabel(ref lbtxtPrnEmailTo, fEdit, "TO :", "lbtxtPrnEmailTo", x, label11.Location.Y);
+            txtPrnEmailTo = new C1TextBox();
+            size4 = this.bc.MeasureString(lbtxtPrnEmailTo);
+            bc.setControlC1TextBox(ref txtPrnEmailTo, fEdit, "txtPrnEmailTo", 250, col2, lbtxtPrnEmailTo.Location.Y);
+
+            lbtxtPrnEmailBody = new Label();
+            bc.setControlLabel(ref lbtxtPrnEmailBody, fEdit, "Body :", "lbtxtPrnEmailBody", col3, label11.Location.Y);
+            txtPrnEmailBody = new C1TextBox();
+            size4 = this.bc.MeasureString(lbtxtPrnEmailTo);
+            bc.setControlC1TextBox(ref txtPrnEmailBody, fEdit, "txtPrnEmailBody", 450, col4, lbtxtPrnEmailTo.Location.Y);
+            txtPrnEmailBody.Multiline = true;
+            txtPrnEmailBody.Height = 70;
+
+            pnPrnEmail = new Panel();
+            pnPrnEmail.Width = 200;
+            pnPrnEmail.Height = 30;
+            pnPrnEmail.Location = new Point(txtPrnEmailBody.Location.X + txtPrnEmailBody.Width, chkPrnEmail.Location.Y-5);
+            //pnPrnEmail.BackColor = Color.Red;
+            chkPrnEmailSummary = new RadioButton();
+            size2 = bc.MeasureString(chkPrnLab);
+            bc.setControlRadioBox(ref chkPrnEmailSummary, fEdit, "งบสรุป ", "chkPrnEmailSummary", 5, 5);
+            chkPrnEmailDrug = new RadioButton();
+            size2 = bc.MeasureString(chkPrnEmailSummary);
+            bc.setControlRadioBox(ref chkPrnEmailDrug, fEdit, "ยา ", "chkPrnEmailDrug", chkPrnEmailSummary.Location.X + size2.Width +20, chkPrnEmailSummary.Location.Y);
+            chkPrnEmailLab = new RadioButton();
+            size2 = bc.MeasureString(chkPrnEmailDrug);
+            bc.setControlRadioBox(ref chkPrnEmailLab, fEdit, "LAB ", "chkPrnEmailLab", chkPrnEmailDrug.Location.X + size2.Width + 20, chkPrnEmailSummary.Location.Y);
+            chkPrnEmailXray = new RadioButton();
+            size2 = bc.MeasureString(chkPrnEmailLab);
+            bc.setControlRadioBox(ref chkPrnEmailXray, fEdit, "Xray ", "chkPrnEmailXray", chkPrnLab.Location.X + size2.Width + 20, chkPrnEmailSummary.Location.Y);
+
+
+            //gapLine += 60;
+            gapY += gapLine;
             lbDocGrp = new Label();
-            bc.setControlLabel(ref lbDocGrp, fEdit, "กลุ่มเอกสารหลัก : ", "lbDocGrp", gapX, gapLine);
+            bc.setControlLabel(ref lbDocGrp, fEdit, "กลุ่มเอกสารหลัก : ", "lbDocGrp", gapX, gapY);
             cboDocGrp = new C1ComboBox();
             cboDocGrp.Font = fEdit;
             cboDocGrp.Name = "cboDocGrp";
@@ -3461,7 +3505,13 @@ namespace bangna_hospital.gui
             cboDocSubGrp.Name = "cboDocSubGrp";
             size = bc.MeasureString(lbDocSubGrp);
             cboDocSubGrp.Location = new System.Drawing.Point(lbDocSubGrp.Location.X + size.Width + 5, lbDocGrp.Location.Y);
-            
+
+            lbtxtPrnEmailSubject = new Label();
+            bc.setControlLabel(ref lbtxtPrnEmailSubject, fEdit, "Subject :", "lbtxtPrnEmailSubject", x, gapY);
+            txtPrnEmailSubject = new C1TextBox();
+            size4 = this.bc.MeasureString(lbtxtPrnEmailSubject);
+            bc.setControlC1TextBox(ref txtPrnEmailSubject, fEdit, "txtPrnEmailSubject", 500, col2, lbtxtPrnEmailSubject.Location.Y);
+
             btnDocOk = new C1Button();
             btnDocOk.Name = "btnDocOk";
             btnDocOk.Text = "...";
@@ -3497,7 +3547,7 @@ namespace bangna_hospital.gui
             grfPrn.RowColChange += GrfPrn_RowColChange;
             grfPrn.AfterRowColChange += GrfPrn_AfterRowColChange1;
 
-            groupBox1.Controls.Add(label);
+            groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(labe2);
             groupBox1.Controls.Add(lbPrnDateStart);
             groupBox1.Controls.Add(lbPrnDateEnd);
@@ -3519,6 +3569,18 @@ namespace bangna_hospital.gui
             groupBox1.Controls.Add(chkPrnSSO);
             groupBox1.Controls.Add(chkPrnSSOall);
             groupBox1.Controls.Add(btnSearch);
+            groupBox1.Controls.Add(chkPrnEmail);
+            groupBox1.Controls.Add(lbtxtPrnEmailSubject);
+            groupBox1.Controls.Add(lbtxtPrnEmailTo);
+            groupBox1.Controls.Add(txtPrnEmailSubject);
+            groupBox1.Controls.Add(txtPrnEmailTo);
+            groupBox1.Controls.Add(lbtxtPrnEmailBody);
+            groupBox1.Controls.Add(txtPrnEmailBody);
+            groupBox1.Controls.Add(pnPrnEmail);
+            pnPrnEmail.Controls.Add(chkPrnEmailSummary);
+            pnPrnEmail.Controls.Add(chkPrnEmailDrug);
+            pnPrnEmail.Controls.Add(chkPrnEmailLab);
+            pnPrnEmail.Controls.Add(chkPrnEmailXray);
             panel.Controls.Add(groupBox1);
             tabPrn.Controls.Add(panel);
             theme1.SetTheme(btnPrn, this.bc.iniC.themeApp);
@@ -3527,6 +3589,13 @@ namespace bangna_hospital.gui
             theme1.SetTheme(chkPrnSSOall, this.bc.iniC.themeApp);
             theme1.SetTheme(btnSearch, this.bc.iniC.themeApp);
             //new LogWriter("e", "initTabPrn 02");
+            lbtxtPrnEmailTo.Visible = false;
+            lbtxtPrnEmailSubject.Visible = false;
+            txtPrnEmailTo.Visible = false;
+            txtPrnEmailSubject.Visible = false;
+            lbtxtPrnEmailBody.Visible = false;
+            txtPrnEmailBody.Visible = false;
+            pnPrnEmail.Visible = false;
         }
         private void GrfPrn_AfterRowColChange1(object sender, RangeEventArgs e)
         {
@@ -3589,7 +3658,43 @@ namespace bangna_hospital.gui
                 setGrfPrnSSO_OPD();
             }
         }
+        private void setShowTabPrnLine2(Boolean flag)
+        {
+            label11.Visible = !flag;
+            labe2.Visible = !flag;
+            lbPrnDateStart.Visible = !flag;
+            txtPrnDateStart.Visible = !flag;
+            lbPrnDateEnd.Visible = !flag;
+            txtPrnDateEnd.Visible = !flag;
+            lbDocGrp.Visible = !flag;
+            cboDocGrp.Visible = !flag;
+            lbDocSubGrp.Visible = !flag;
+            cboDocSubGrp.Visible = !flag;
+            btnDocOk.Visible = !flag;
+            btnDocExport.Visible = !flag;
+            lbDocAn.Visible = !flag;
+            btnPrn.Visible = !flag;
+            btnSearch.Visible = !flag;
+            chkPrnSSOall.Visible = !flag;
+            //lbtxtPrnEmailTo.Visible = flag;
+            //lbtxtPrnEmailSubject.Visible = flag;
+            //txtPrnEmailTo.Visible = flag;
+            //txtPrnEmailSubject.Visible = flag;
 
+            lbtxtPrnEmailTo.Visible = flag;
+            lbtxtPrnEmailSubject.Visible = flag;
+            pnPrnEmail.Visible = flag;
+            txtPrnEmailTo.Visible = flag;
+            txtPrnEmailSubject.Visible = flag;
+            txtPrnEmailBody.Visible = flag;
+            lbtxtPrnEmailBody.Visible = flag;
+            btnPrn.Visible = flag;
+            //lbtxtPrnEmailSubject.Visible = flag;
+            //txtPrnEmailTo.Visible = flag;
+            //txtPrnEmailSubject.Visible = flag;
+            btnPrn.Visible = true;
+            btnPrn.Text = chkPrnEmail.Checked ? "Send" : "Print";
+        }
         private void ChkPrnSSOall_CheckedChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3601,7 +3706,18 @@ namespace bangna_hospital.gui
                 lbPrnDateStart.Visible = !chkPrnSSOall.Checked;
             }
         }
-
+        private void ChkPrnEmail_CheckedChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkPrnEmail.Checked)
+            {
+                setShowTabPrnLine2(chkPrnEmail.Checked);
+            }
+            else
+            {
+                setShowTabPrnLine2(chkPrnEmail.Checked);
+            }
+        }
         private void BtnDocExport_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3995,10 +4111,19 @@ namespace bangna_hospital.gui
             C1PdfDocument pdfdocS = new C1PdfDocument();
             C1PdfDocument pdfdocL = new C1PdfDocument();
             C1PdfDocument pdfdocX = new C1PdfDocument();
+            int rowi = 0,rowcnt=0;
             foreach (Row row in grfPrn.Rows)
             {
                 if (row[colPrnSSOchk].ToString().Equals("True"))
                 {
+                    rowcnt++;
+                }
+            }
+            foreach (Row row in grfPrn.Rows)
+            {
+                if (row[colPrnSSOchk].ToString().Equals("True"))
+                {
+                    rowi++;
                     try
                     {
                         Image stffnoteR, stffnoteS;
@@ -4022,6 +4147,7 @@ namespace bangna_hospital.gui
                         filename = "\\" + txtHn.Text.Trim() + "_" + yy + mm + dd + "_" + preno1;
                         stffnoteR.Save(pathFolder + filename + "_R.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                         stffnoteS.Save(pathFolder + filename + "_S.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                        new LogWriter("d", "FrmScanView1 setExportSSOtoFolder hn "+txtHn.Text.Trim()+" vsdate "+yy+mm+dd+" preno "+preno1+ " rowi " + rowi+" rowcnt "+ rowcnt);
 
                         Image loadedImage, resizedImage = null;
                         loadedImage = stffnoteR;
@@ -4050,8 +4176,10 @@ namespace bangna_hospital.gui
 
                         RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
                         pdfdocR.DrawImage(loadedImage, recf);
-                        pdfdocR.NewPage();
-
+                        if (rowi < rowcnt)
+                        {
+                            pdfdocR.NewPage();
+                        }
                         loadedImage = stffnoteS;
                         newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
                         newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
@@ -4076,8 +4204,10 @@ namespace bangna_hospital.gui
                             }
                         }
                         pdfdocS.DrawImage(loadedImage, recf);
-                        pdfdocS.NewPage();
-
+                        if (rowi < rowcnt)
+                        {
+                            pdfdocS.NewPage();
+                        }
 
                         //LAB
                         DataTable dtLab = new DataTable();                        
@@ -4174,17 +4304,16 @@ namespace bangna_hospital.gui
                     }
                     catch(Exception ex)
                     {
-
+                        new LogWriter("e", "FrmScanView1 setExportSSOtoFolder error "+ex.Message);
                     }                    
                 }
             }
             Thread.Sleep(200);
             Application.DoEvents();
-            pdfdocR.Save(pathFolder + "\\" + txtHn.Text + "_R.pdf");
-            pdfdocS.Save(pathFolder + "\\" + txtHn.Text + "_S.pdf");
-            pdfdocL.Save(pathFolder + "\\" + txtHn.Text + "_Lab.pdf");
-            pdfdocX.Save(pathFolder + "\\" + txtHn.Text + "_Xray.pdf");
-
+            pdfdocR.Save(pathFolder + "\\" + bc.iniC.ssoid+"_" +ptt.idcard + "_MED.pdf");
+            pdfdocS.Save(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_Main.pdf");
+            pdfdocL.Save(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_Lab.pdf");
+            pdfdocX.Save(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_Xray.pdf");
 
             return pathFolder;
         }
@@ -6496,8 +6625,9 @@ namespace bangna_hospital.gui
             {
                 vn = vn.Substring(0, vn.IndexOf("/"));
             }
-            dt = bc.bcDB.vsDB.selectLabbyVN1(vsdate, vsdate, txtHn.Text, vn, preno);
-            dtreq = bc.bcDB.vsDB.selectLabRequestbyVN1(vsdate, vsdate, txtHn.Text, preno);
+            dt = bc.bcDB.vsDB.selectLabbyVN1(vsdate, vsdate, txtHn.Text.Trim(), vn, preno);
+            dtreq = bc.bcDB.vsDB.selectLabRequestbyVN1(vsdate, vsdate, txtHn.Text.Trim(), preno);
+            new LogWriter("d", "FrmScanView1 setPrintLabPrnSSO preno " + preno+ " vsdate "+ vsdate +" hn "+txtHn.Text.Trim()+" vn "+vn);
 
             dt.Columns.Add("patient_name", typeof(String));
             dt.Columns.Add("patient_hn", typeof(String));
@@ -6543,9 +6673,25 @@ namespace bangna_hospital.gui
                 drow["user_lab"] = drow["user_lab"].ToString() + " [ทน." + drow["MNC_USR_NAME_result"].ToString() + "]";
                 drow["user_report"] = drow["user_report"].ToString() + " [ทน." + drow["MNC_USR_NAME_report"].ToString() + "]";
                 drow["user_check"] = drow["user_check"].ToString() + " [ทน." + drow["MNC_USR_NAME_approve"].ToString() + "]";
-                drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                if (bc.iniC.branchId.Equals("005"))
+                {
+                    drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
                     depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
                     depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                }
+                else if (bc.iniC.branchId.Equals("002"))
+                {
+                    drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                    depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
+                    depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                }
+                else if (bc.iniC.branchId.Equals("001"))
+                {
+                    drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                    depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
+                    depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                }
+
                 drow["mnc_lb_dsc"] = dtreq.Rows[0]["MNC_LB_DSC"].ToString();
                 drow["mnc_lb_grp_cd"] = dtreq.Rows[0]["MNC_LB_TYP_DSC"].ToString();
                 if (drow["MNC_RES_VALUE"].ToString().Equals("-"))
@@ -7029,7 +7175,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-10-29";
+            this.Text = "Last Update 2020-11-04";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

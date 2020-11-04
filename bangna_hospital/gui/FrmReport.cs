@@ -84,9 +84,9 @@ namespace bangna_hospital.gui
                 }
                 rpt.Load(reportname + ".rpt");
                 rpt.SetDataSource(dt);
-                rpt.SetParameterValue("line1", "");
-                rpt.SetParameterValue("line2", "");
-                rpt.SetParameterValue("line3", "");
+                rpt.SetParameterValue("line1", bc.iniC.hostname);
+                //rpt.SetParameterValue("line2", "");
+                //rpt.SetParameterValue("line3", "");
                 crv.ReportSource = rpt;
                 crv.Refresh();
                 this.Controls.Add(crv);
@@ -115,7 +115,7 @@ namespace bangna_hospital.gui
                 }
                 rpt.Load(reportname + ".rpt");
                 rpt.SetDataSource(dt);
-                //rpt.SetParameterValue("line1", "");
+                rpt.SetParameterValue("line1", bc.iniC.hostname);
                 //rpt.SetParameterValue("line2", "");
                 //rpt.SetParameterValue("line3", "");
                 crv.ReportSource = rpt;

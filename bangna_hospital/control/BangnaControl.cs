@@ -198,6 +198,7 @@ namespace bangna_hospital.control
             iniC.themegrfOpd = iniF.getIni("app", "themegrfOpd");
             iniC.themegrfIpd = iniF.getIni("app", "themegrfIpd");
             iniC.statusoutlabMedica = iniF.getIni("app", "statusoutlabMedica");
+            iniC.ssoid = iniF.getIni("app", "ssoid");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -1417,13 +1418,13 @@ namespace bangna_hospital.control
             lb.AutoSize = true;
             lb.Name = name;
         }
-        public void setControlC1TextBox(ref C1TextBox txt, Font fEdit, String text, int width, int x, int y)
+        public void setControlC1TextBox(ref C1TextBox txt, Font fEdit, String name, int width, int x, int y)
         {
             //txt = new C1TextBox();
             txt.Font = fEdit;
             txt.Location = new System.Drawing.Point(x, y);
             txt.Size = new Size(width, 30);
-            txt.Name = text;
+            txt.Name = name;
         }
         public void setControlRadioBox(ref RadioButton chk, Font fEdit, String text, String name, int x, int y)
         {
@@ -1687,12 +1688,14 @@ namespace bangna_hospital.control
             CrystalReportViewer crv = new CrystalReportViewer();
             rpt = new ReportDocument();
             rpt.Load("xray_result.rpt");
+            
             crv.ReportSource = rpt;
 
             crv.Refresh();
             //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
             //rd.Load("StudentReg.rpt");
             rpt.SetDataSource(dt);
+            rpt.SetParameterValue("line1", iniC.hostname);
             //crv.ReportSource = rd;
             //crv.Refresh();
             //if (!Directory.Exists(iniC.medicalrecordexportpath))
@@ -1759,6 +1762,7 @@ namespace bangna_hospital.control
             //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
             //rd.Load("StudentReg.rpt");
             rpt.SetDataSource(dt);
+            rpt.SetParameterValue("line1", iniC.hostname);
             //crv.ReportSource = rd;
             //crv.Refresh();
             //if (!Directory.Exists(iniC.medicalrecordexportpath))
@@ -1825,6 +1829,7 @@ namespace bangna_hospital.control
             //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
             //rd.Load("StudentReg.rpt");
             rpt.SetDataSource(dt);
+            rpt.SetParameterValue("line1", iniC.hostname);
             //crv.ReportSource = rd;
             //crv.Refresh();
             if (!Directory.Exists(iniC.medicalrecordexportpath))
