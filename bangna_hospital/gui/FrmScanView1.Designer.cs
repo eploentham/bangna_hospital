@@ -30,6 +30,7 @@
         {
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.gbPtt = new System.Windows.Forms.GroupBox();
+            this.lbChronic1 = new System.Windows.Forms.Label();
             this.lbDrugAllergy = new System.Windows.Forms.Label();
             this.lbAge = new System.Windows.Forms.Label();
             this.lbCnt = new System.Windows.Forms.Label();
@@ -46,7 +47,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lbChronic1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.gbPtt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
@@ -84,6 +84,18 @@
             this.gbPtt.TabStop = false;
             this.gbPtt.Text = "Patient";
             this.theme1.SetTheme(this.gbPtt, "(default)");
+            // 
+            // lbChronic1
+            // 
+            this.lbChronic1.BackColor = System.Drawing.Color.White;
+            this.lbChronic1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbChronic1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbChronic1.Location = new System.Drawing.Point(1504, 15);
+            this.lbChronic1.Name = "lbChronic1";
+            this.lbChronic1.Size = new System.Drawing.Size(380, 20);
+            this.lbChronic1.TabIndex = 558;
+            this.lbChronic1.Text = "...";
+            this.theme1.SetTheme(this.lbChronic1, "(default)");
             // 
             // lbDrugAllergy
             // 
@@ -294,18 +306,6 @@
             this.panel3.Size = new System.Drawing.Size(1351, 603);
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
-            // 
-            // lbChronic1
-            // 
-            this.lbChronic1.BackColor = System.Drawing.Color.White;
-            this.lbChronic1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbChronic1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbChronic1.Location = new System.Drawing.Point(1504, 15);
-            this.lbChronic1.Name = "lbChronic1";
-            this.lbChronic1.Size = new System.Drawing.Size(380, 20);
-            this.lbChronic1.TabIndex = 558;
-            this.lbChronic1.Text = "...";
-            this.theme1.SetTheme(this.lbChronic1, "(default)");
             // 
             // FrmScanView1
             // 

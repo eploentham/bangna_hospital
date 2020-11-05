@@ -8,7 +8,7 @@ namespace bangna_hospital.object1
 {
     public class Patient:Persistent
     {
-        public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="", anCnt="", dob="", idcard="", fname="", lname="", title="";
+        public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="", anCnt="", dob="", idcard="", fname="", lname="", title="", hnyr="";
         public String patient_birthday = "";
         public Age age = new Age(DateTime.Now);
         public String AgeString()

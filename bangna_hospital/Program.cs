@@ -52,6 +52,7 @@ namespace bangna_hospital
                 if (bc.iniC.programLoad.Equals("ScanView"))
                 {
                     FrmScanView1 frm = new FrmScanView1(bc, bc.hn,"show");
+                    //Form1 frm = new Form1();
                     frm.WindowState = FormWindowState.Maximized;
                     Application.Run(frm);
                 }

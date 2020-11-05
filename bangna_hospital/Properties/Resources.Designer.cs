@@ -1103,6 +1103,16 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LOGO_BW_tran {
+            get {
+                object obj = ResourceManager.GetObject("LOGO_BW_tran", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lorry_24x24 {
             get {
                 object obj = ResourceManager.GetObject("lorry_24x24", resourceCulture);

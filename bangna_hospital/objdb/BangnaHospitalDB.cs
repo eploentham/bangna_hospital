@@ -28,6 +28,8 @@ namespace bangna_hospital.objdb
         public XrayT04DB xrt04DB;
         public OrDB orDB;
         public OperativeNoteDB operNoteDB;
+        public TemporaryM01DB tem01DB;
+        public TemporaryM02DB tem02DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -53,6 +55,8 @@ namespace bangna_hospital.objdb
             xrt04DB = new XrayT04DB(conn);
             orDB = new OrDB(conn);
             operNoteDB = new OperativeNoteDB(conn);
+            tem01DB = new TemporaryM01DB(conn);
+            tem02DB = new TemporaryM02DB(conn);
         }
     }
 }

@@ -1771,5 +1771,17 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectFinance(String hn, String hnyr, String preno, String vsdate)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereAn = "";
+
+            sql = "Select fnt01.*, convert(VARCHAR(20),fnt01.MNC_Date,23) as vs_date, convert(VARCHAR(20),fnt01.mnc_doc_dat,23) as doc_date " +
+            "From finance_t01 fnt01 " +
+            "where fnt01.mnc_hn_no = '" + hn + "' and fnt01.mnc_hn_yr = '"+hnyr+"' and fnt01.mnc_pre_no = '"+preno+"' and fnt01.mnc_date = '"+vsdate+"' and fnt01.mnc_doc_sts = 'F' ";
+            //}
+            dt = conn.selectData(sql);
+            return dt;
+        }
     }
 }

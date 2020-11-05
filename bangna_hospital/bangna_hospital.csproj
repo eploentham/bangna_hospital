@@ -412,6 +412,8 @@
     <Compile Include="objdb\ReportTabContentsDB.cs" />
     <Compile Include="objdb\ResOrderTabDB.cs" />
     <Compile Include="objdb\StaffDB.cs" />
+    <Compile Include="objdb\TemporaryM01DB.cs" />
+    <Compile Include="objdb\TemporaryM02DB.cs" />
     <Compile Include="objdb\VisitDB.cs" />
     <Compile Include="objdb\XrayDB.cs" />
     <Compile Include="gui\CellNote1.cs">
@@ -430,6 +432,8 @@
     <Compile Include="object1\PharmacyT04.cs" />
     <Compile Include="object1\PharmacyT05.cs" />
     <Compile Include="object1\PharmacyT06.cs" />
+    <Compile Include="object1\TemporaryM01.cs" />
+    <Compile Include="object1\TemporaryM02.cs" />
     <Compile Include="object1\XrayT04.cs" />
     <Compile Include="objdb\XrayT04DB.cs" />
     <Compile Include="object1\Age.cs" />
@@ -1347,6 +1351,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bangna_hospital_scan_add.ico" />
+    <None Include="Resources\LOGO-BW-tran.jpg" />
     <None Include="Resources\editpaste.png" />
     <None Include="Resources\paragraphleftjustify.png" />
     <None Include="Resources\paragraphfulljustify.png" />

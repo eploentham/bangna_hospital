@@ -42,13 +42,13 @@ namespace bangna_hospital.gui
         BangnaControl bc;
 
         Font fEdit, fEditB, fEdit3B, fEdit5B;
-        C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac;
-        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd;
+        C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac, tcPrnEmail;
+        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd, tabPrnEmailDrug, tabPrnEmailLab, tabPrnEmailXray, tabPrnEmailSummary,  tabPrnEmailOther;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic, grfIPD, grfOPD;
         C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem;
-        C1FlexViewer labOutView;
+        C1FlexViewer labOutView, fvPrnEmailSummary, fvPrnEmailDrug, fvPrnEmailLab, fvPrnEmailXray, fvPrnEmailOther;
         List<C1DockingTabPage> tabHnLabOutR;
-        Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal, pnPrnEmail;
+        Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal, pnPrnEmail, pnPrnEmailGrfPrn;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
         Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
         
@@ -77,6 +77,7 @@ namespace bangna_hospital.gui
         int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=10;
         int colPrnlabHn = 1, colPrnlabName = 2, colPrnlabVN = 3, colPrnlabAN = 4, colPrnlabReqDate = 5, colPrnlabReqNo = 6;
         int colPrnSSOchk = 1, colPrnSSOVn = 2, colPrnSSOvsDate = 3, colPrnSSODesc = 4, colPrnSSOpreno = 5;
+        int colPrnEmailDocCD = 1, colPrnEmailDocYr = 2, colPrnEmailDocNo = 3, colPrnEmailDocDat = 4, colPrnEmailDate = 5, colPrnEmailPaidName=6;
 
         int newHeight = 720;
         int mouseWheel = 0;
@@ -86,13 +87,13 @@ namespace bangna_hospital.gui
         listStream strm;
         Image resizedImage, img, imgLR;
         C1PictureBox pic, picL, picR;
-        private RadioButton chkPrnAll, chkPrnCri, chkPrnLab, chkXray, chkPrnSSO, chkPrnEmail, chkPrnFAX, chkPrnEmailSummary, chkPrnEmailDrug, chkPrnEmailLab, chkPrnEmailXray;
+        private RadioButton chkPrnAll, chkPrnCri, chkPrnLab, chkXray, chkPrnSSO, chkPrnEmail, chkPrnFAX;
         C1TextBox txtPrnCri;
-        C1CheckBox chkPrnSSOall;
+        C1CheckBox chkPrnSSOall, chkPrnEmailSummary, chkPrnEmailDrug, chkPrnEmailLab, chkPrnEmailXray;
         //FlowLayoutPanel fpL, fpR;
         //SplitContainer sct;
-        C1SplitContainer sct;
-        C1SplitterPanel cspL, cspR;
+        C1SplitContainer sct, sCPrn;
+        C1SplitterPanel cspL, cspR, cspPrnLeft, cspPrnRight;
         RichTextBox rtb;
         //VScrollBar vScroller;
         //int y = 0;
@@ -117,6 +118,7 @@ namespace bangna_hospital.gui
         //    }));
         //}
         Boolean flagTabOutlabLoad = false, flagTabDtrOrdLoad=false, flagTabOrderLoad=false, flagTabPrn = false, flagTabPic = false, flagtabScan=false;
+        Boolean flagTabPrnEmailSummary = false, flagTabPrnEmailDrug = false, flagTabPrnEmailLab = false, flagTabPrnEmailXray = false, flagTabPrnEmailOther = false;
         public FrmScanView1(BangnaControl bc,String flagShoSearch)
         {
             InitializeComponent();
@@ -1424,6 +1426,19 @@ namespace bangna_hospital.gui
                 {
                     initTabPrn();
                 }
+                if (!chkIPD.Checked)
+                {
+                    preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                    vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                    vsDate = bc.datetoDB(vsDate);
+                }
+                else
+                {
+                    preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+                    vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                    vsDate = bc.datetoDB(vsDate);
+                }
+                ChkPrnEmail_CheckedChanged(null, null);
                 flagTabPrn = true;
             }
             else if (tcDtr.SelectedTab == tabPic)
@@ -3381,6 +3396,31 @@ namespace bangna_hospital.gui
             panel.Dock = DockStyle.Fill;
             
             GroupBox groupBox1 = new GroupBox();
+            pnPrnEmail = new Panel();
+            pnPrnEmailGrfPrn = new Panel();
+            tcPrnEmail = new C1DockingTab();
+            tabPrnEmailDrug = new C1DockingTabPage();
+            tabPrnEmailLab = new C1DockingTabPage();
+            tabPrnEmailXray = new C1DockingTabPage();
+            tabPrnEmailSummary = new C1DockingTabPage();
+            tabPrnEmailOther = new C1DockingTabPage();
+            sCPrn = new C1.Win.C1SplitContainer.C1SplitContainer();
+            cspPrnLeft = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            cspPrnRight = new C1.Win.C1SplitContainer.C1SplitterPanel();
+
+            pnPrnEmail.SuspendLayout();
+            groupBox1.SuspendLayout();
+            pnPrnEmailGrfPrn.SuspendLayout();
+            tcPrnEmail.SuspendLayout();
+            tabPrnEmailDrug.SuspendLayout();
+            tabPrnEmailLab.SuspendLayout();
+            tabPrnEmailXray.SuspendLayout();
+            tabPrnEmailSummary.SuspendLayout();
+            tabPrnEmailOther.SuspendLayout();
+            sCPrn.SuspendLayout();
+            cspPrnLeft.SuspendLayout();
+            cspPrnRight.SuspendLayout();
+
             groupBox1.Size = new Size(tabPrn.Width -20, tabPrn.Height - 20);
             groupBox1.Location = new Point(10, 5);
             chkPrnAll = new RadioButton();
@@ -3468,23 +3508,23 @@ namespace bangna_hospital.gui
             txtPrnEmailBody.Multiline = true;
             txtPrnEmailBody.Height = 70;
 
-            pnPrnEmail = new Panel();
-            pnPrnEmail.Width = 200;
+            
+            pnPrnEmail.Width = 300;
             pnPrnEmail.Height = 30;
             pnPrnEmail.Location = new Point(txtPrnEmailBody.Location.X + txtPrnEmailBody.Width, chkPrnEmail.Location.Y-5);
             //pnPrnEmail.BackColor = Color.Red;
-            chkPrnEmailSummary = new RadioButton();
+            chkPrnEmailSummary = new C1CheckBox();
             size2 = bc.MeasureString(chkPrnLab);
-            bc.setControlRadioBox(ref chkPrnEmailSummary, fEdit, "งบสรุป ", "chkPrnEmailSummary", 5, 5);
-            chkPrnEmailDrug = new RadioButton();
+            bc.setControlC1CheckBox(ref chkPrnEmailSummary, fEdit, "งบสรุป ", "chkPrnEmailSummary", 20, 5);
+            chkPrnEmailDrug = new C1CheckBox();
             size2 = bc.MeasureString(chkPrnEmailSummary);
-            bc.setControlRadioBox(ref chkPrnEmailDrug, fEdit, "ยา ", "chkPrnEmailDrug", chkPrnEmailSummary.Location.X + size2.Width +20, chkPrnEmailSummary.Location.Y);
-            chkPrnEmailLab = new RadioButton();
+            bc.setControlC1CheckBox(ref chkPrnEmailDrug, fEdit, "ยา ", "chkPrnEmailDrug", chkPrnEmailSummary.Location.X + size2.Width +30, chkPrnEmailSummary.Location.Y);
+            chkPrnEmailLab = new C1CheckBox();
             size2 = bc.MeasureString(chkPrnEmailDrug);
-            bc.setControlRadioBox(ref chkPrnEmailLab, fEdit, "LAB ", "chkPrnEmailLab", chkPrnEmailDrug.Location.X + size2.Width + 20, chkPrnEmailSummary.Location.Y);
-            chkPrnEmailXray = new RadioButton();
+            bc.setControlC1CheckBox(ref chkPrnEmailLab, fEdit, "LAB ", "chkPrnEmailLab", chkPrnEmailDrug.Location.X + size2.Width + 30, chkPrnEmailSummary.Location.Y);
+            chkPrnEmailXray = new C1CheckBox();
             size2 = bc.MeasureString(chkPrnEmailLab);
-            bc.setControlRadioBox(ref chkPrnEmailXray, fEdit, "Xray ", "chkPrnEmailXray", chkPrnLab.Location.X + size2.Width + 20, chkPrnEmailSummary.Location.Y);
+            bc.setControlC1CheckBox(ref chkPrnEmailXray, fEdit, "Xray ", "chkPrnEmailXray", chkPrnEmailLab.Location.X + size2.Width + 30, chkPrnEmailSummary.Location.Y);
 
 
             //gapLine += 60;
@@ -3536,16 +3576,90 @@ namespace bangna_hospital.gui
             theme1.SetTheme(btnDocExport, this.bc.iniC.themeApplication);
 
             int y3 = 20;
+
             
+            pnPrnEmailGrfPrn.Dock = DockStyle.Fill;
+            //pnPrnEmailGrfPrn.BackColor = Color.Red;
+            //pnPrn.Height = groupBox1.Height - 120;
+            
+
             grfPrn = new C1FlexGrid();
             grfPrn.Font = this.fEdit;
-            grfPrn.Dock = DockStyle.Bottom;
+            //grfPrn.Dock = DockStyle.Bottom;
+            grfPrn.Dock = DockStyle.Fill;
             grfPrn.Location = new Point(0, 0);
             grfPrn.Rows.Count = 1;
-            grfPrn.Height = groupBox1.Height - 120;
+            //grfPrn.Height = groupBox1.Height - 120;
             grfPrn.MouseClick += GrfPrn_MouseClick;
-            grfPrn.RowColChange += GrfPrn_RowColChange;
-            grfPrn.AfterRowColChange += GrfPrn_AfterRowColChange1;
+            grfPrn.AfterRowColChange += GrfPrn_AfterRowColChange;
+            pnPrnEmailGrfPrn.Controls.Add(grfPrn);
+
+            
+            tcPrnEmail.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcPrnEmail.Location = new System.Drawing.Point(0, 266);
+            tcPrnEmail.Name = "tcPrnEmail";
+            tcPrnEmail.Size = new System.Drawing.Size(669, 200);
+            tcPrnEmail.TabIndex = 0;
+            tcPrnEmail.TabsSpacing = 5;
+            tcPrnEmail.Font = fEdit;
+
+            
+            tabPrnEmailDrug.Location = new System.Drawing.Point(1, 24);
+            tabPrnEmailDrug.Size = new System.Drawing.Size(667, 175);
+            tabPrnEmailDrug.TabIndex = 1;
+            tabPrnEmailDrug.Text = "รายการยา";
+            tabPrnEmailDrug.Name = "tabPrnEmailDrug";
+            
+            tabPrnEmailLab.Location = new System.Drawing.Point(1, 24);
+            tabPrnEmailLab.Size = new System.Drawing.Size(667, 175);
+            tabPrnEmailLab.TabIndex = 2;
+            tabPrnEmailLab.Text = "ผล LAB";
+            tabPrnEmailLab.Name = "tabPrnEmailLab";
+
+            tabPrnEmailXray.Location = new System.Drawing.Point(1, 24);
+            tabPrnEmailXray.Size = new System.Drawing.Size(667, 175);
+            tabPrnEmailXray.TabIndex = 3;
+            tabPrnEmailXray.Text = "ผล Xray";
+            tabPrnEmailXray.Name = "tabPrnEmailXray";
+            
+            tabPrnEmailSummary.Location = new System.Drawing.Point(1, 24);
+            tabPrnEmailSummary.Size = new System.Drawing.Size(667, 175);
+            tabPrnEmailSummary.TabIndex = 0;
+            tabPrnEmailSummary.Text = "ใบงบสรุป";
+            tabPrnEmailSummary.Name = "tabPrnEmailSummary";
+
+            tabPrnEmailOther.Location = new System.Drawing.Point(1, 24);
+            tabPrnEmailOther.Size = new System.Drawing.Size(667, 175);
+            tabPrnEmailOther.TabIndex = 0;
+            tabPrnEmailOther.Text = "Other";
+            tabPrnEmailOther.Name = "tabPrnEmailOther";
+            tcPrnEmail.Controls.Add(tabPrnEmailSummary);
+            tcPrnEmail.Controls.Add(tabPrnEmailDrug);
+            tcPrnEmail.Controls.Add(tabPrnEmailLab);
+            tcPrnEmail.Controls.Add(tabPrnEmailXray);
+            tcPrnEmail.Controls.Add(tabPrnEmailOther);
+
+            sCPrn.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            sCPrn.Name = "sCPrn";
+            sCPrn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            sCPrn.Height = groupBox1.Height - 120;
+            sCPrn.Panels.Add(cspPrnLeft);
+            sCPrn.Panels.Add(cspPrnRight);
+            sCPrn.HeaderHeight = 20;
+
+            cspPrnLeft.Collapsible = true;
+            cspPrnLeft.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            cspPrnLeft.Location = new System.Drawing.Point(0, 21);
+            cspPrnLeft.Name = "cspPrnLeft";
+            cspPrnLeft.Controls.Add(pnPrnEmailGrfPrn);
+            //scOrdLeft.HeaderHeight = 10;
+            cspPrnRight.Collapsible = true;
+            cspPrnRight.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            cspPrnRight.Location = new System.Drawing.Point(0, 21);
+            cspPrnRight.Name = "cspPrnRight";
+            //scOrdRight.HeaderHeight = 10;
+            cspPrnRight.Controls.Add(tcPrnEmail);
+
 
             groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(labe2);
@@ -3562,7 +3676,8 @@ namespace bangna_hospital.gui
             groupBox1.Controls.Add(cboDocGrp);
             groupBox1.Controls.Add(lbDocSubGrp);
             groupBox1.Controls.Add(cboDocSubGrp);
-            groupBox1.Controls.Add(grfPrn);
+            //groupBox1.Controls.Add(grfPrn);
+            groupBox1.Controls.Add(sCPrn);
             groupBox1.Controls.Add(btnDocOk);
             groupBox1.Controls.Add(btnDocExport);
             groupBox1.Controls.Add(lbDocAn);
@@ -3588,6 +3703,10 @@ namespace bangna_hospital.gui
             theme1.SetTheme(groupBox1, this.bc.iniC.themeApp);
             theme1.SetTheme(chkPrnSSOall, this.bc.iniC.themeApp);
             theme1.SetTheme(btnSearch, this.bc.iniC.themeApp);
+            theme1.SetTheme(chkPrnEmailSummary, this.bc.iniC.themeApp);
+            theme1.SetTheme(chkPrnEmailDrug, this.bc.iniC.themeApp);
+            theme1.SetTheme(chkPrnEmailLab, this.bc.iniC.themeApp);
+            theme1.SetTheme(chkPrnEmailXray, this.bc.iniC.themeApp);
             //new LogWriter("e", "initTabPrn 02");
             lbtxtPrnEmailTo.Visible = false;
             lbtxtPrnEmailSubject.Visible = false;
@@ -3596,8 +3715,32 @@ namespace bangna_hospital.gui
             lbtxtPrnEmailBody.Visible = false;
             txtPrnEmailBody.Visible = false;
             pnPrnEmail.Visible = false;
+
+            pnPrnEmail.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            pnPrnEmailGrfPrn.ResumeLayout(false);
+            tcPrnEmail.ResumeLayout(false);
+            tabPrnEmailDrug.ResumeLayout(false);
+            tabPrnEmailLab.ResumeLayout(false);
+            tabPrnEmailXray.ResumeLayout(false);
+            tabPrnEmailSummary.ResumeLayout(false);
+            sCPrn.ResumeLayout(false);
+            cspPrnLeft.ResumeLayout(false);
+            cspPrnRight.ResumeLayout(false);
+
+            pnPrnEmail.PerformLayout();
+            groupBox1.PerformLayout();
+            pnPrnEmailGrfPrn.PerformLayout();
+            tcPrnEmail.PerformLayout();
+            tabPrnEmailDrug.PerformLayout();
+            tabPrnEmailLab.PerformLayout();
+            tabPrnEmailXray.PerformLayout();
+            tabPrnEmailSummary.PerformLayout();
+            sCPrn.PerformLayout();
+            cspPrnLeft.PerformLayout();
+            cspPrnRight.PerformLayout();
         }
-        private void GrfPrn_AfterRowColChange1(object sender, RangeEventArgs e)
+        private void GrfPrn_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
             if (grfPrn.Row <= 0) return;
@@ -3613,14 +3756,402 @@ namespace bangna_hospital.gui
                     grfPrn.Rows[e.NewRange.BottomRow].StyleNew.BackColor = Color.White; 
                 }
             }
+            else if (chkPrnEmail.Checked)
+            {
+                setActiveTabPrnEmail();
+            }
         }
-
-        private void GrfPrn_RowColChange(object sender, EventArgs e)
+        private void setActiveTabPrnEmail()
         {
-            //throw new NotImplementedException();
-            
+            if (tcPrnEmail.SelectedTab == tabPrnEmailSummary)
+            {
+                if (!flagTabPrnEmailSummary)
+                {
+                    bc.setControlC1FlexViewer(ref fvPrnEmailSummary, "fvPrnEmailSummary");
+                    tabPrnEmailSummary.Controls.Add(fvPrnEmailSummary);
+                    flagTabPrnEmailSummary = true;
+                }
+                setTabPrnEmailSummary1();
+            }
+            else if (tcPrnEmail.SelectedTab == tabPrnEmailDrug)
+            {
+                if (!flagTabPrnEmailDrug)
+                {
+                    bc.setControlC1FlexViewer(ref fvPrnEmailDrug, "fvPrnEmailDrug");
+                    tabPrnEmailDrug.Controls.Add(fvPrnEmailDrug);
+                    flagTabPrnEmailDrug = true;
+                }
+            }
+            else if (tcPrnEmail.SelectedTab == tabPrnEmailLab)
+            {
+                if (!flagTabPrnEmailLab)
+                {
+                    bc.setControlC1FlexViewer(ref fvPrnEmailLab, "fvPrnEmailLab");
+                    tabPrnEmailLab.Controls.Add(fvPrnEmailLab);
+                    flagTabPrnEmailLab = true;
+                }
+            }
+            else if (tcPrnEmail.SelectedTab == tabPrnEmailXray)
+            {
+                if (!flagTabPrnEmailXray)
+                {
+                    bc.setControlC1FlexViewer(ref fvPrnEmailXray, "fvPrnEmailXray");
+                    tabPrnEmailXray.Controls.Add(fvPrnEmailXray);
+                    flagTabPrnEmailXray = true;
+                }
+            }
+            else if (tcPrnEmail.SelectedTab == tabPrnEmailOther)
+            {
+                if (!flagTabPrnEmailOther)
+                {
+                    bc.setControlC1FlexViewer(ref fvPrnEmailOther, "fvPrnEmailOther");
+                    tabPrnEmailOther.Controls.Add(fvPrnEmailOther);
+                    flagTabPrnEmailOther = true;
+                }
+            }
         }
+        private void setTabPrnEmailSummary2()
+        {
+            int gapLine = 16, gapX = 20, gapY = 60, xCol2 = 130, xCol1 = 20, xCol3 = 300, xCol4 = 390, xCol5 = 1030;
+            Size size = new Size();
+            String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "", pathFolder = "", datetick = "", filename = "";
+            DataTable dt = new DataTable();
 
+            if (chkIPD.Checked)
+            {
+                an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
+                anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
+            }
+            else
+            {
+                preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                vsDate = grfPrn[grfPrn.Row, colPrnEmailDocDat] != null ? grfPrn[grfPrn.Row, colPrnEmailDocDat].ToString() : "";
+                vn = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
+            }
+            vn1 = vn.IndexOf("(") > 0 ? vn.Substring(0, vn.IndexOf("(")) : "";
+            dt = bc.bcDB.tem01DB.selectSummaryOPD(txtHn.Text.Trim(), ptt.hnyr, vn1, vsDate);
+            if (dt.Rows.Count <= 0) return;
+
+            iTextSharp.text.pdf.BaseFont bfR, bfR1;
+            iTextSharp.text.BaseColor clrBlack = new iTextSharp.text.BaseColor(0, 0, 0);
+
+        }
+        private void setTabPrnEmailSummary1()
+        {
+            int gapLine = 20, gapX = 40, gapY = 20, xCol2 = 130, xCol1 = 20, xCol3 = 300, xCol4 = 390, xCol5 = 1030;
+            Size size = new Size();
+
+            String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "", pathFolder = "", datetick = "", filename = "";
+            
+            DataTable dt = new DataTable();
+            
+
+            if (chkIPD.Checked)
+            {
+                an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
+                anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
+            }
+            else
+            {
+                preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                vsDate = grfPrn[grfPrn.Row, colPrnEmailDocDat] != null ? grfPrn[grfPrn.Row, colPrnEmailDocDat].ToString() : "";
+                vn = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
+            }
+            vn1 = vn.IndexOf("(") > 0 ? vn.Substring(0, vn.IndexOf("(")) : "";
+            dt = bc.bcDB.tem01DB.selectSummaryOPD(txtHn.Text.Trim(), ptt.hnyr, vn1, vsDate);
+            if (dt.Rows.Count <= 0) return;
+
+            C1PdfDocument pdf = new C1PdfDocument();
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            StringFormat _sfRight, _sfRightCenter;
+            //Font _fontTitle = new Font("Tahoma", 15, FontStyle.Bold);
+            _sfRight = new StringFormat();
+            _sfRight.Alignment = StringAlignment.Far;
+            _sfRightCenter = new StringFormat();
+            _sfRightCenter.Alignment = StringAlignment.Far;
+            _sfRightCenter.LineAlignment = StringAlignment.Center;
+
+            //RectangleF rc = GetPageRect(pdf);
+            Font titleFont = new Font(bc.iniC.pdfFontName, 18, FontStyle.Bold);
+            Font hdrFont = new Font(bc.iniC.pdfFontName, 14, FontStyle.Regular);
+            Font hdrFontB = new Font(bc.iniC.pdfFontName, 16, FontStyle.Bold);
+            Font ftrFont = new Font(bc.iniC.pdfFontName, 8);
+            Font txtFont = new Font(bc.iniC.pdfFontName, 10, FontStyle.Regular);
+            pdf.Clear();
+            pdf.FontType = FontTypeEnum.Embedded;
+
+            //get page rectangle, discount margins
+            RectangleF rcPage = pdf.PageRectangle;
+            rcPage = RectangleF.Empty;
+            rcPage.Inflate(-72, -92);
+            rcPage.Location = new PointF(rcPage.X, rcPage.Y + titleFont.SizeInPoints + 10);
+            rcPage.Size = new SizeF(0, titleFont.SizeInPoints + 3);
+            rcPage.Width = 110;
+
+            //loop through selected categories
+            int page = 0;
+
+            //add page break, update page counter
+            if (page > 0) pdf.NewPage();
+            page++;
+            Image loadedImage;
+            loadedImage = Resources.LOGO_BW_tran;
+            float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+            float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+            float widthFactor = 4.8F;
+            float heightFactor = 4.8F;
+
+            if (widthFactor > 1 | heightFactor > 1)
+            {
+                if (widthFactor > heightFactor)
+                {
+                    widthFactor = 1;
+                    newWidth = newWidth / widthFactor;
+                    newHeight = newHeight / widthFactor;
+                    //newWidth = newWidth / 1.2;
+                    //newHeight = newHeight / 1.2;
+                }
+                else
+                {
+                    newWidth = newWidth / heightFactor;
+                    newHeight = newHeight / heightFactor;
+                }
+            }
+
+            RectangleF recf = new RectangleF(15, 15, (int)newWidth, (int)newHeight);
+            pdf.DrawImage(loadedImage, recf);
+
+            rcPage.X = gapX+50;
+            rcPage.Y = 20;
+            //rcPage.Width = 500;
+            pdf.DrawString(bc.iniC.hostname, titleFont, Brushes.Black, rcPage);
+            rcPage.X = gapX + 180;
+            rcPage.Width = 500;
+            rcPage.Y = rcPage.Y + 7;
+            pdf.DrawString(bc.iniC.hostaddresst, ftrFont, Brushes.Black, rcPage);
+            gapY += gapLine;
+            rcPage.X = gapX+50;
+            rcPage.Y = gapY;
+            rcPage.Width = 500;
+            pdf.DrawString(bc.iniC.hostnamee , titleFont, Brushes.Black, rcPage);
+            rcPage.X = gapX + 230;
+            rcPage.Y = rcPage.Y + 7;
+            pdf.DrawString( bc.iniC.hostaddresse, ftrFont, Brushes.Black, rcPage);
+            //gapY += gapLine;
+            //rcPage.X = gapX+50;
+            //rcPage.Y = gapY;
+            //rcPage.Width = 100;
+            //pdf.DrawString("HN  "+txtHn.Text.Trim(), txtFont, Brushes.Black, rcPage);
+            //rcPage.X = gapX + 185;
+            //rcPage.Width = 310;
+            //pdf.DrawString("เลขที่/No.  ", txtFont, Brushes.Black, rcPage, _sfRight);
+            gapY += gapLine;
+            //rcPage.X = gapX + 50;
+            //rcPage.Y = gapY;
+            //rcPage.Width = 100;
+            //pdf.DrawString("HN  " + txtHn.Text.Trim(), txtFont, Brushes.Black, rcPage);
+
+            rcPage.X = gapX + 180;
+            rcPage.Y = gapY;
+            pdf.DrawString("เลขที่ประจำตัวผู้เสียภาษีอากร.  0105526004138", hdrFont, Brushes.Black, rcPage);
+            gapY += gapLine;
+            rcPage.X = gapX + 50;
+            rcPage.Y = gapY;
+            pdf.DrawString("HN  " + txtHn.Text.Trim(), txtFont, Brushes.Black, rcPage);
+            rcPage.X = gapX + 180;
+            rcPage.Y = gapY;
+            
+            pdf.DrawString("TAX I.D. NO.  0105526004138", hdrFont, Brushes.Black, rcPage);
+            rcPage.X = gapX + 185;
+            rcPage.Width = 310;
+            pdf.DrawString("เลขที่/No.  ", txtFont, Brushes.Black, rcPage, _sfRight);
+
+            gapY += gapLine+5;
+            rcPage.X = gapX+180;
+            rcPage.Y = gapY;
+            rcPage.Width = 270;
+            pdf.DrawString("ใบงบหน้าสรุปรายการค่ารักษาพยาบาล", titleFont, Brushes.Black, rcPage);
+            rcPage.X = gapX + 260;
+            pdf.DrawString("วันที่/Date  "+bc.datetoShow(dt.Rows[0]["doc_dat"].ToString()), txtFont, Brushes.Black, rcPage, _sfRight);
+
+            gapY += gapLine;
+            gapY += gapLine;
+            RectangleF rcHdr = new RectangleF();
+            rcHdr.Width = pdf.PageSize.Width - gapX -30;
+            rcHdr.Height = 500;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY;
+            //rcHdr.Location
+            pdf.DrawRectangle(Pens.Black, rcHdr);       // ตารางใหญ่
+
+            pdf.DrawLine(Pens.Black, rcHdr.X, rcHdr.Y + 50, rcHdr.X + rcHdr.Width, rcHdr.Y + 50);
+            pdf.DrawLine(Pens.Black, rcHdr.X, rcHdr.Y + 80, rcHdr.X + rcHdr.Width, rcHdr.Y + 80);
+            pdf.DrawLine(Pens.Black, rcHdr.X + rcHdr.Width - 90, rcHdr.Y + 50, rcHdr.X + rcHdr.Width - 90, rcHdr.Y + rcHdr.Height);     //เส้นตั้ง จำนวนเงิน
+            pdf.DrawLine(Pens.Black, rcHdr.X + 230, rcHdr.Y, rcHdr.X + 230, rcHdr.Y + 50);      //  เส้นตั้ง ชื่อ - นามสกุล
+            float xxx = rcHdr.X + rcHdr.Width - 90;
+            float yyy = rcHdr.Y + rcHdr.Height;
+
+            gapY += 510;
+            rcHdr.Width = rcHdr.X + rcHdr.Width - 230;
+            rcHdr.Height = 30;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY;
+            pdf.DrawRectangle(Pens.Black, rcHdr);       // ตารางจำนวนเงิน ตัวอักษร
+
+            rcHdr.Width =  500 - xxx + gapX + 42;
+            rcHdr.Height = 75;
+            rcHdr.X = xxx;
+            rcHdr.Y = yyy;
+            pdf.DrawRectangle(Pens.Black, rcHdr);       // ตารางรวมเงิน ด้านล่าง
+
+            int rowline = 0;
+            rowline = 220;
+            foreach (DataRow drow in dt.Rows)
+            {
+                rowline += gapLine;
+                rcPage.X = gapX + 10;
+                rcPage.Y = rowline;
+                rcPage.Width = 300;
+                String txt = "";
+                txt = drow["MNC_DEF_CD"].ToString() + " " + drow["MNC_DEF_DSC"].ToString();
+                pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+                float amt = 0;
+                if(float.TryParse(drow["MNC_amt"].ToString(), out amt) && (amt > 0))
+                {
+                    rcPage.X = 470;
+                    rcPage.Width = 100;
+                    pdf.DrawString(amt.ToString(), txtFont, Brushes.Black, rcPage, _sfRight);
+                }
+            }
+
+            datetick = DateTime.Now.Ticks.ToString();
+            pathFolder = "D:\\" + datetick;
+            if (!Directory.Exists(pathFolder))
+            {
+                Directory.CreateDirectory(pathFolder);
+            }
+            filename = pathFolder + "\\" + txtHn.Text.TrimEnd() + "_summary.pdf";
+            pdf.Save(filename);
+            pdf.Clear();
+            pdf.Dispose();
+            //Application.DoEvents();
+            //Thread.Sleep(200);
+            //MemoryStream stream = new MemoryStream();
+            //pdf.Save(stream);
+            //stream.Seek(0, SeekOrigin.Begin);
+            
+            pds.LoadFromFile(filename);
+            //pds.LoadFromFile("d:\\ct_part5.pdf");
+            //Application.DoEvents();
+            //Thread.Sleep(200);
+            fvPrnEmailSummary.DocumentSource = pds;
+
+            //System.Diagnostics.Process.Start("explorer.exe", pathFolder);
+        }
+        private void setTabPrnEmailSummary()
+        {
+            int gapLine = 16, gapX = 20, gapY = 60, xCol2 = 130, xCol1 = 20, xCol3 = 300, xCol4 = 390, xCol5 = 1030;
+            Size size = new Size();
+
+            String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "", pathFolder = "", datetick = "";
+            DataTable dt = new DataTable();
+            C1PdfDocument pdf = new C1PdfDocument();
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                        
+            if (chkIPD.Checked)
+            {
+                an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
+                anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
+            }
+            else
+            {
+                preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                vsDate = grfPrn[grfPrn.Row, colPrnEmailDocDat] != null ? grfPrn[grfPrn.Row, colPrnEmailDocDat].ToString() : "";
+                vn = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
+            }
+            vn1 = vn.IndexOf("(") > 0 ? vn.Substring(0, vn.IndexOf("(")) : "";
+            dt = bc.bcDB.tem01DB.selectSummaryOPD(txtHn.Text.Trim(), ptt.hnyr, vn1, vsDate);
+            //RectangleF rc = GetPageRect(pdf);
+            Font titleFont = new Font(bc.iniC.pdfFontName, 18, FontStyle.Bold);
+            Font hdrFont = new Font(bc.iniC.pdfFontName, 16, FontStyle.Bold);
+            Font ftrFont = new Font(bc.iniC.pdfFontName, 8);
+            Font txtFont = new Font(bc.iniC.pdfFontName, 10, FontStyle.Regular);
+
+
+            //get page rectangle, discount margins
+            RectangleF rcPage = pdf.PageRectangle;
+            rcPage.Inflate(-72, -92);
+
+            //loop through selected categories
+            int page = 0;
+
+            //add page break, update page counter
+            if (page > 0) pdf.NewPage();
+            page++;
+            gapY += gapLine;
+            rcPage.X = gapX + 160;
+            rcPage.Y = gapY;
+            pdf.DrawString("ใบงบหน้าสรุป", titleFont, Brushes.Blue, rcPage);
+
+
+            //pdf.Clear();
+            //pdf.DocumentInfo.Producer = "ComponentOne C1Pdf";
+            //pdf.Security.AllowCopyContent = true;
+            //pdf.Security.AllowEditAnnotations = true;
+            //pdf.Security.AllowEditContent = true;
+            //pdf.Security.AllowPrint = true;
+            //pdf.FontType = FontTypeEnum.TrueType;
+
+            //pdf.DocumentInfo.Title = "ใบงบหน้าสรุปรายการค่ารักษาพยาบาล " + txtHn.Text.Trim();
+            //gapY += gapLine;
+            //rc.X = gapX+160;
+            //rc.Y = gapY;
+            //rc.Height = 120;
+            //RectangleF rcPage = pdf.PageRectangle;
+
+            //rcPage.Inflate(-72, -92);
+            //RectangleF rcRows = new RectangleF();
+
+            //rcRows = RectangleF.Empty;
+            //rcRows.Location = new PointF(rcPage.X, rcPage.Y + titleFont.SizeInPoints + 10);
+            //rcRows.Size = new SizeF(0, titleFont.SizeInPoints + 3);
+
+            //rcRows.Width = 210;      // Product Name            
+
+            //rcRows.X = rcRows.X + rcRows.Width + 8;
+
+            ////rc.Location = new PointF(rc.X, rc.Y + titleFont.SizeInPoints + 10);
+            ////rc.Size = new SizeF(0, titleFont.SizeInPoints + 3);
+            ////pdf.DrawString("ใบงบหน้าสรุปรายการค่ารักษาพยาบาล ", titleFont, Brushes.Black, rcRows);      //New PointF(30, 447)
+            ////pdf.DrawString("ใบงบหน้าสรุปรายการค่ารักษาพยาบาล ", titleFont, Brushes.Black, new PointF(gapX + 160, gapY));
+            //pdf.DrawString("ใบงบหน้าสรุป", titleFont, Brushes.Blue, rcPage);
+
+            datetick = DateTime.Now.Ticks.ToString();
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\" + datetick;
+            if (!Directory.Exists(pathFolder))
+            {
+                Directory.CreateDirectory(pathFolder);
+            }
+            //MemoryStream stream = new MemoryStream();
+            ////String path = Path.GetDirectoryName(Application.ExecutablePath);
+            pdf.Save(pathFolder + "\\"+txtHn.Text.Trim()+"_summary.pdf");
+            //pdf.Save(stream);
+            //stream.Seek(0, SeekOrigin.Begin);
+            //pds.LoadFromStream(stream);
+            fvPrnEmailSummary.DocumentSource = pds;
+            Process.Start("explorer.exe", pathFolder);
+        }
+        internal RectangleF GetPageRect(C1PdfDocument pdf)
+        {
+            RectangleF rcPage = pdf.PageRectangle;
+            rcPage.Inflate(-72, -72);
+            return rcPage;
+        }
         private void GrfPrn_MouseClick(object sender, MouseEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3649,7 +4180,7 @@ namespace bangna_hospital.gui
             lbPrnDateEnd.Visible = chkPrnLab.Checked;
             lbPrnDateStart.Visible = chkPrnLab.Checked;
         }
-
+        
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3657,6 +4188,46 @@ namespace bangna_hospital.gui
             {
                 setGrfPrnSSO_OPD();
             }
+        }
+        private void setGrfPrnEmail()
+        {
+            grfPrn.Rows.Count = 1;
+            DataTable dt = new DataTable();
+
+            grfPrn.Cols.Count = 7;
+            
+            grfPrn.Cols[colPrnEmailPaidName].Caption = "paid";
+            grfPrn.Cols[colPrnEmailDocNo].Caption = "NO";
+            grfPrn.Cols[colPrnEmailDocDat].Caption = "prn date";
+            grfPrn.Cols[colPrnEmailDate].Caption = "vs date";
+
+            grfPrn.Cols[colPrnEmailPaidName].Width = 100;
+            grfPrn.Cols[colPrnEmailDocNo].Width = 60;
+            grfPrn.Cols[colPrnEmailDocDat].Width = 100;
+            grfPrn.Cols[colPrnEmailDate].Width = 100;
+            grfPrn.Cols[colPrnEmailDocCD].Width = 60;
+            grfPrn.Cols[colPrnEmailDocYr].Width = 60;
+            dt = bc.bcDB.vsDB.selectFinance(txtHn.Text.Trim(), ptt.hnyr, preno, vsDate);
+            grfPrn.Rows.Count = dt.Rows.Count + 1;
+            int i = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                i++;
+                grfPrn[i, 0] = (i);
+                grfPrn[i, colPrnEmailPaidName] = row["mnc_fn_typ_cd"].ToString();
+                grfPrn[i, colPrnEmailDocNo] = row["mnc_doc_no"].ToString();
+                grfPrn[i, colPrnEmailDocDat] = row["doc_date"].ToString();
+                grfPrn[i, colPrnEmailDate] = row["vs_date"].ToString();
+                grfPrn[i, colPrnEmailDocCD] = row["mnc_doc_cd"].ToString();
+                grfPrn[i, colPrnEmailDocYr] = row["mnc_doc_yr"].ToString();
+            }
+            CellNoteManager mgr = new CellNoteManager(grfPrn);
+            grfPrn.Cols[colPrnEmailPaidName].AllowEditing = false;
+            grfPrn.Cols[colPrnEmailDocNo].AllowEditing = false;
+            grfPrn.Cols[colPrnEmailDocDat].AllowEditing = false;
+            grfPrn.Cols[colPrnEmailDate].AllowEditing = false;
+            grfPrn.Cols[colPrnEmailDocCD].AllowEditing = false;
+            grfPrn.Cols[colPrnEmailDocYr].AllowEditing = false;
         }
         private void setShowTabPrnLine2(Boolean flag)
         {
@@ -3711,10 +4282,14 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (chkPrnEmail.Checked)
             {
+                cspPrnLeft.Width = 300;
+                
                 setShowTabPrnLine2(chkPrnEmail.Checked);
+                setGrfPrnEmail();
             }
             else
             {
+                cspPrnLeft.Width = tabPrn.Width - 0;
                 setShowTabPrnLine2(chkPrnEmail.Checked);
             }
         }
@@ -5456,12 +6031,6 @@ namespace bangna_hospital.gui
             //}).Start();
         }
         private void GrfHn_AfterRowColChange(object sender, RangeEventArgs e)
-        {
-            //throw new NotImplementedException();
-
-        }
-
-        private void GrfPrn_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
 

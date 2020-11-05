@@ -91,6 +91,10 @@
             this.ribbonTopToolBar1 = new C1.Win.C1Ribbon.RibbonTopToolBar();
             this.c1DockingTabPage5 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1FlexViewer2 = new C1.Win.FlexViewer.C1FlexViewer();
+            this.c1DockingTabPage6 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer2 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel4 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1ThemeController1 = new C1.Win.C1Themes.C1ThemeController();
             this.c1SuperTooltip1 = new C1.Win.C1SuperTooltip.C1SuperTooltip(this.components);
             this.c1FlexGrid1 = new C1.Win.C1FlexGrid.C1FlexGrid();
@@ -124,6 +128,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Ribbon1)).BeginInit();
             this.c1DockingTabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer2)).BeginInit();
+            this.c1DockingTabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).BeginInit();
+            this.c1SplitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1ThemeController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SuperErrorProvider1)).BeginInit();
@@ -175,10 +182,11 @@
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage4);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage5);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage6);
             this.c1DockingTab1.HotTrack = true;
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.SelectedIndex = 2;
+            this.c1DockingTab1.SelectedIndex = 3;
             this.c1DockingTab1.ShowCaption = true;
             this.c1DockingTab1.Size = new System.Drawing.Size(357, 450);
             this.c1DockingTab1.TabIndex = 1;
@@ -240,6 +248,7 @@
             this.c1ThemeController1.SetTheme(this.c1Button1, "(default)");
             this.c1Button1.UseVisualStyleBackColor = true;
             this.c1Button1.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.c1Button1.Click += new System.EventHandler(this.c1Button1_Click);
             // 
             // c1DateEdit1
             // 
@@ -701,6 +710,58 @@
             this.c1FlexViewer2.ThumbBackColorPressed = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
             this.c1FlexViewer2.ThumbBackColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
             // 
+            // c1DockingTabPage6
+            // 
+            this.c1DockingTabPage6.CaptionVisible = true;
+            this.c1DockingTabPage6.Controls.Add(this.c1SplitContainer2);
+            this.c1DockingTabPage6.Location = new System.Drawing.Point(1, 1);
+            this.c1DockingTabPage6.Name = "c1DockingTabPage6";
+            this.c1DockingTabPage6.Size = new System.Drawing.Size(352, 425);
+            this.c1DockingTabPage6.TabIndex = 3;
+            this.c1DockingTabPage6.Text = "Page6";
+            // 
+            // c1SplitContainer2
+            // 
+            this.c1SplitContainer2.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer2.BackColor = System.Drawing.Color.Gray;
+            this.c1SplitContainer2.CollapsingAreaColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.c1SplitContainer2.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer2.FixedLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1SplitContainer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1SplitContainer2.HeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1SplitContainer2.HeaderLineWidth = 1;
+            this.c1SplitContainer2.Location = new System.Drawing.Point(0, 22);
+            this.c1SplitContainer2.Name = "c1SplitContainer2";
+            this.c1SplitContainer2.Panels.Add(this.c1SplitterPanel3);
+            this.c1SplitContainer2.Panels.Add(this.c1SplitterPanel4);
+            this.c1SplitContainer2.Size = new System.Drawing.Size(352, 403);
+            this.c1SplitContainer2.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1SplitContainer2.SplitterMovingColor = System.Drawing.Color.Black;
+            this.c1SplitContainer2.TabIndex = 0;
+            this.c1ThemeController1.SetTheme(this.c1SplitContainer2, "(default)");
+            this.c1SplitContainer2.UseParentVisualStyle = false;
+            // 
+            // c1SplitterPanel3
+            // 
+            this.c1SplitterPanel3.Height = 315;
+            this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel3.Name = "c1SplitterPanel3";
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(352, 294);
+            this.c1SplitterPanel3.SizeRatio = 79.023D;
+            this.c1SplitterPanel3.TabIndex = 0;
+            this.c1SplitterPanel3.Text = "Panel 1";
+            this.c1SplitterPanel3.Width = 352;
+            // 
+            // c1SplitterPanel4
+            // 
+            this.c1SplitterPanel4.Height = 84;
+            this.c1SplitterPanel4.Location = new System.Drawing.Point(0, 340);
+            this.c1SplitterPanel4.Name = "c1SplitterPanel4";
+            this.c1SplitterPanel4.Size = new System.Drawing.Size(352, 63);
+            this.c1SplitterPanel4.TabIndex = 1;
+            this.c1SplitterPanel4.Text = "Panel 2";
+            // 
             // c1ThemeController1
             // 
             this.c1ThemeController1.Theme = "ExpressionDark";
@@ -990,6 +1051,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Ribbon1)).EndInit();
             this.c1DockingTabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer2)).EndInit();
+            this.c1DockingTabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).EndInit();
+            this.c1SplitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1ThemeController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SuperErrorProvider1)).EndInit();
@@ -1093,6 +1157,10 @@
         private C1.Win.C1Input.C1TextBox c1TextBox2;
         private AutocompleteMenuNS.AutocompleteMenu autocompleteMenu1;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage6;
+        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer2;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel3;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel4;
     }
 }
 

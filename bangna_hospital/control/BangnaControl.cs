@@ -2,6 +2,7 @@
 using bangna_hospital.object1;
 using C1.Win.C1Document;
 using C1.Win.C1Input;
+using C1.Win.FlexViewer;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using CrystalDecisions.Windows.Forms;
@@ -199,6 +200,10 @@ namespace bangna_hospital.control
             iniC.themegrfIpd = iniF.getIni("app", "themegrfIpd");
             iniC.statusoutlabMedica = iniF.getIni("app", "statusoutlabMedica");
             iniC.ssoid = iniF.getIni("app", "ssoid");
+            iniC.pdfFontName = iniF.getIni("app", "pdfFontName");
+            iniC.hostnamee = iniF.getIni("app", "hostnamee");
+            iniC.hostaddresst = iniF.getIni("app", "hostaddresst");
+            iniC.hostaddresse = iniF.getIni("app", "hostaddresse");
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -244,6 +249,10 @@ namespace bangna_hospital.control
             iniC.themegrfOpd = iniC.themegrfOpd == null ? "Office2016Colorful" : iniC.themegrfOpd.Equals("") ? "Office2016Colorful" : iniC.themegrfOpd;
             iniC.themegrfIpd = iniC.themegrfIpd == null ? "Office2007Black" : iniC.themegrfIpd.Equals("") ? "Office2007Black" : iniC.themegrfIpd;
             iniC.statusoutlabMedica = iniC.statusoutlabMedica == null ? "1" : iniC.statusoutlabMedica.Equals("") ? "1" : iniC.statusoutlabMedica;
+            iniC.pdfFontName = iniC.pdfFontName == null ? iniC.grdViewFontName : iniC.pdfFontName.Equals("") ? iniC.grdViewFontName : iniC.pdfFontName;
+            iniC.hostnamee = iniC.hostnamee == null ? "" : iniC.hostnamee.Equals("") ? "" : iniC.hostnamee;
+            iniC.hostaddresst = iniC.hostaddresst == null ? "" : iniC.hostaddresst.Equals("") ? "" : iniC.hostaddresst;
+            iniC.hostaddresse = iniC.hostaddresse == null ? "" : iniC.hostaddresse.Equals("") ? "" : iniC.hostaddresse;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -1448,14 +1457,15 @@ namespace bangna_hospital.control
             chk.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
             chk.Text = text;
             chk.Value = text;
+            chk.Font = fEdit;
             Size size = MeasureString(chk);
-            chk.Width = size.Width;
+            chk.Width = size.Width + 30;
             chk.TabIndex = 0;
             //theme1.SetTheme(this.chkVoid, "(default)");
             chk.UseVisualStyleBackColor = true;
             chk.Value = null;
             chk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            chk.Font = fEdit;
+            
         }
         public void setControlCheckBox(ref CheckBox chk, Font fEdit, String text, String name, int x, int y)
         {
@@ -1542,6 +1552,18 @@ namespace bangna_hospital.control
             txt.Tag = null;
             txt.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             txt.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+        }
+        public void setControlC1FlexViewer(ref C1FlexViewer fvPrnEmailSummary, String name)
+        {
+            fvPrnEmailSummary = new C1FlexViewer();
+            fvPrnEmailSummary.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            fvPrnEmailSummary.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            fvPrnEmailSummary.Dock = System.Windows.Forms.DockStyle.Fill;
+            fvPrnEmailSummary.Location = new System.Drawing.Point(0, 0);
+            fvPrnEmailSummary.Name = name;
+            fvPrnEmailSummary.Size = new System.Drawing.Size(1065, 790);
+            fvPrnEmailSummary.TabIndex = 0;
+            fvPrnEmailSummary.Ribbon.Minimized = true;
         }
         public Boolean readOperation()
         {
