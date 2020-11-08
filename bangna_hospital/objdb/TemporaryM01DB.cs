@@ -102,10 +102,26 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "", whereAn = "";
 
-            sql = "Select tem02.*, tem01.mnc_hn_name, tem01.mnc_com_name, tem01.mnc_com_addr, tem01.mnc_age, tem01.mnc_sex,convert(VARCHAR(20), tem01.mnc_doc_dat ,23) as doc_dat " +
+            sql = "Select tem02.*, tem01.mnc_hn_name, tem01.mnc_com_name, tem01.mnc_com_addr, tem01.mnc_age, tem01.mnc_sex,convert(VARCHAR(20), tem01.mnc_doc_dat ,23) as doc_dat, tem02.MNC_def_lev " +
+                ", tem01.MNC_SUM_AMT, tem01.MNC_FN_TYP_CD, tem01.MNC_FN_TYP_DSC,tem01.MNC_COM_NAME, tem01.MNC_DIA_DSC, convert(VARCHAR(20),tem01.MNC_DIS_DAT) as MNC_DIS_DAT, convert(VARCHAR(20),tem01.MNC_ADM_DAT) as MNC_ADM_DAT, convert(VARCHAR(20),tem01.MNC_DIA_DAT) as MNC_DIA_DAT " +
             "From temporary_m01 tem01 " +
             "inner join temporary_m02 tem02 on tem01.MNC_DOC_CD = tem02.MNC_DOC_CD and tem01.MNC_DOC_YR = tem02.MNC_DOC_YR and tem01.MNC_DOC_NO = tem02.MNC_DOC_NO and tem01.MNC_DOC_DAT = tem02.MNC_DOC_DAT " +
             "where tem01.mnc_hn_yr  = '"+ hnyr + "' and tem01.mnc_hn_no = '"+ hn + "' and tem01.mnc_vn_no = '"+vn+"' and tem01.mnc_doc_dat = '"+vsdate+"'" +
+            "Order By tem02.mnc_ord_by ";
+            //}
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectSummaryIPD(String hn, String hnyr, String an, String anyr, String doccd, String docno, String docyr)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereAn = "";
+
+            sql = "Select tem02.*, tem01.mnc_hn_name, tem01.mnc_com_name, tem01.mnc_com_addr, tem01.mnc_age, tem01.mnc_sex,convert(VARCHAR(20), tem01.mnc_doc_dat ,23) as doc_dat, tem02.MNC_def_lev" +
+                ", tem01.MNC_SUM_AMT, tem01.MNC_FN_TYP_CD, tem01.MNC_FN_TYP_DSC,tem01.MNC_COM_NAME, tem01.MNC_DIA_DSC, convert(VARCHAR(20),tem01.MNC_DIS_DAT) as MNC_DIS_DAT, convert(VARCHAR(20),tem01.MNC_ADM_DAT) as MNC_ADM_DAT, convert(VARCHAR(20),tem01.MNC_DIA_DAT) as MNC_DIA_DAT " +
+            "From temporary_m01 tem01 " +
+            "inner join temporary_m02 tem02 on tem01.MNC_DOC_CD = tem02.MNC_DOC_CD and tem01.MNC_DOC_YR = tem02.MNC_DOC_YR and tem01.MNC_DOC_NO = tem02.MNC_DOC_NO and tem01.MNC_DOC_DAT = tem02.MNC_DOC_DAT " +
+            "where tem01.mnc_hn_yr  = '" + hnyr + "' and tem01.mnc_hn_no = '" + hn + "' and tem01.mnc_an_no = '" + an + "' and tem01.mnc_an_yr = '" + anyr + "' and tem01.mnc_doc_cd = '"+ doccd + "' and tem01.mnc_doc_no = '"+docno +"' and tem01.mnc_doc_yr = '"+docyr + "' "+
             "Order By tem02.mnc_ord_by ";
             //}
             dt = conn.selectData(sql);

@@ -42,7 +42,8 @@ namespace bangna_hospital.control
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
         public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0;
         public String[] preoperation, postoperation, operation, fining, procidures;
-        
+        public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
+
         public BangnaControl()
         {
             initConfig();
@@ -205,6 +206,12 @@ namespace bangna_hospital.control
             iniC.hostaddresst = iniF.getIni("app", "hostaddresst");
             iniC.hostaddresse = iniF.getIni("app", "hostaddresse");
 
+            iniC.email_form = iniF.getIni("email", "email_form");
+            iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
+            iniC.email_auth_pass = iniF.getIni("email", "email_auth_pass");
+            iniC.email_port = iniF.getIni("email", "email_port");
+            iniC.email_ssl = iniF.getIni("email", "email_ssl");
+
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
             iniC.pathImageScan = iniC.pathImageScan == null ? "d:\\images" : iniC.pathImageScan.Equals("") ? "d:\\images" : iniC.pathImageScan;
@@ -251,8 +258,11 @@ namespace bangna_hospital.control
             iniC.statusoutlabMedica = iniC.statusoutlabMedica == null ? "1" : iniC.statusoutlabMedica.Equals("") ? "1" : iniC.statusoutlabMedica;
             iniC.pdfFontName = iniC.pdfFontName == null ? iniC.grdViewFontName : iniC.pdfFontName.Equals("") ? iniC.grdViewFontName : iniC.pdfFontName;
             iniC.hostnamee = iniC.hostnamee == null ? "" : iniC.hostnamee.Equals("") ? "" : iniC.hostnamee;
-            iniC.hostaddresst = iniC.hostaddresst == null ? "" : iniC.hostaddresst.Equals("") ? "" : iniC.hostaddresst;
-            iniC.hostaddresse = iniC.hostaddresse == null ? "" : iniC.hostaddresse.Equals("") ? "" : iniC.hostaddresse;
+            iniC.email_auth_pass = iniC.email_auth_pass == null ? "" : iniC.email_auth_pass.Equals("") ? "" : iniC.email_auth_pass;
+            iniC.email_auth_user = iniC.email_auth_user == null ? "" : iniC.email_auth_user.Equals("") ? "" : iniC.email_auth_user;
+            iniC.email_form = iniC.email_form == null ? "" : iniC.email_form.Equals("") ? "" : iniC.email_form;
+            iniC.email_port = iniC.email_port == null ? "" : iniC.email_port.Equals("") ? "" : iniC.email_port;
+            iniC.email_ssl = iniC.email_ssl == null ? "" : iniC.email_ssl.Equals("") ? "" : iniC.email_ssl;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
@@ -1745,7 +1755,6 @@ namespace bangna_hospital.control
             }
             rpt.Export();
             
-            
             if (!File.Exists(filePath))
             {
                 return "";
@@ -1787,10 +1796,10 @@ namespace bangna_hospital.control
             rpt.SetParameterValue("line1", iniC.hostname);
             //crv.ReportSource = rd;
             //crv.Refresh();
-            //if (!Directory.Exists(iniC.medicalrecordexportpath))
-            //{
-            //    Directory.CreateDirectory(iniC.medicalrecordexportpath);
-            //}
+            if (!Directory.Exists(pathFolder))
+            {
+                Directory.CreateDirectory(pathFolder);
+            }
             //if (!Directory.Exists(iniC.medicalrecordexportpath+"\\"+hn))
             //{
             //    Directory.CreateDirectory(iniC.medicalrecordexportpath + "\\" + hn);
@@ -1839,7 +1848,7 @@ namespace bangna_hospital.control
             }
             return filename;
         }
-        public void exportResultPharmacy(DataTable dt, String hn, String vn)
+        public String exportResultPharmacy(DataTable dt, String hn, String vn, String flagExpoler)
         {
             ReportDocument rpt;
             CrystalReportViewer crv = new CrystalReportViewer();
@@ -1854,17 +1863,19 @@ namespace bangna_hospital.control
             rpt.SetParameterValue("line1", iniC.hostname);
             //crv.ReportSource = rd;
             //crv.Refresh();
+            String filename = "";
+            filename = iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
             if (!Directory.Exists(iniC.medicalrecordexportpath))
             {
                 Directory.CreateDirectory(iniC.medicalrecordexportpath);
             }
-            if (File.Exists(iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf"))
-                File.Delete(iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf");
+            if (File.Exists(filename))
+                File.Delete(filename);
 
             ExportOptions CrExportOptions;
             DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
             PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
-            CrDiskFileDestinationOptions.DiskFileName = iniC.medicalrecordexportpath + "\\pharmacy_result_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            CrDiskFileDestinationOptions.DiskFileName = filename;
             CrExportOptions = rpt.ExportOptions;
             {
                 CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
@@ -1875,17 +1886,205 @@ namespace bangna_hospital.control
             rpt.Export();
             //frmW.Dispose();
 
-            string filePath = iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            string filePath = filename;
             if (!File.Exists(filePath))
             {
-                return;
+                return "";
             }
 
             // combine the arguments together
             // it doesn't matter if there is a space after ','
-            string argument = "/select, \"" + filePath + "\"";
+            if (flagExpoler.Equals("open"))
+            {
+                string argument = "/select, \"" + filePath + "\"";
+                System.Diagnostics.Process.Start("explorer.exe", argument);
+            }
+            return filePath;
+        }
+        public string NumberToText(long number)
+        {
+            StringBuilder wordNumber = new StringBuilder();
 
-            System.Diagnostics.Process.Start("explorer.exe", argument);
+            string[] powers = new string[] { "Thousand ", "Million ", "Billion " };
+            string[] tens = new string[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+            string[] ones = new string[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                                       "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+
+            if (number == 0) { return "Zero"; }
+            if (number < 0)
+            {
+                wordNumber.Append("Negative ");
+                number = -number;
+            }
+
+            long[] groupedNumber = new long[] { 0, 0, 0, 0 };
+            int groupIndex = 0;
+
+            while (number > 0)
+            {
+                groupedNumber[groupIndex++] = number % 1000;
+                number /= 1000;
+            }
+
+            for (int i = 3; i >= 0; i--)
+            {
+                long group = groupedNumber[i];
+
+                if (group >= 100)
+                {
+                    wordNumber.Append(ones[group / 100 - 1] + " Hundred ");
+                    group %= 100;
+
+                    if (group == 0 && i > 0)
+                        wordNumber.Append(powers[i - 1]);
+                }
+
+                if (group >= 20)
+                {
+                    if ((group % 10) != 0)
+                        wordNumber.Append(tens[group / 10 - 2] + " " + ones[group % 10 - 1] + " ");
+                    else
+                        wordNumber.Append(tens[group / 10 - 2] + " ");
+                }
+                else if (group > 0)
+                    wordNumber.Append(ones[group - 1] + " ");
+
+                if (group != 0 && i > 0)
+                    wordNumber.Append(powers[i - 1]);
+            }
+
+            return wordNumber.ToString().Trim();
+        }
+        public string NumberToCurrencyTextThaiBaht(decimal number, MidpointRounding midpointRounding)
+        {
+            // Round the value just in case the decimal value is longer than two digits
+            number = decimal.Round(number, 2, midpointRounding);
+
+            string wordNumber = string.Empty;
+
+            // Divide the number into the whole and fractional part strings
+            string[] arrNumber = number.ToString().Split('.');
+
+            // Get the whole number text
+            long wholePart = long.Parse(arrNumber[0]);
+            string strWholePart = NumberToText(wholePart);
+
+            // For amounts of zero dollars show 'No Dollars...' instead of 'Zero Dollars...'
+            //wordNumber = (wholePart == 0 ? "No" : strWholePart) + (wholePart == 1 ? " Dollar and " : " Dollars and ");
+            wordNumber = (wholePart == 0 ? "No" : strWholePart) + (wholePart == 1 ? " Baht " : " Baht ");
+
+            // If the array has more than one element then there is a fractional part otherwise there isn't
+            // just add 'No Cents' to the end
+            //if (arrNumber.Length > 1)
+            //{
+            //    // If the length of the fractional element is only 1, add a 0 so that the text returned isn't,
+            //    // 'One', 'Two', etc but 'Ten', 'Twenty', etc.
+            //    long fractionPart = long.Parse((arrNumber[1].Length == 1 ? arrNumber[1] + "0" : arrNumber[1]));
+            //    string strFarctionPart = NumberToText(fractionPart);
+
+            //    wordNumber += (fractionPart == 0 ? " No" : strFarctionPart) + (fractionPart == 1 ? " Cent" : " Cents");
+            //}
+            //else
+            //    wordNumber += "No Cents";
+
+            return wordNumber;
+        }
+        public string ThaiBahtText(string strNumber, bool IsTrillion = false)
+        {
+            string BahtText = "";
+            string strTrillion = "";
+            string[] strThaiNumber = { "ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า", "สิบ" };
+            string[] strThaiPos = { "", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน" };
+
+            decimal decNumber = 0;
+            decimal.TryParse(strNumber, out decNumber);
+
+            if (decNumber == 0)
+            {
+                return "ศูนย์บาทถ้วน";
+            }
+
+            strNumber = decNumber.ToString("0.00");
+            string strInteger = strNumber.Split('.')[0];
+            string strSatang = strNumber.Split('.')[1];
+
+            if (strInteger.Length > 13)
+                throw new Exception("รองรับตัวเลขได้เพียง ล้านล้าน เท่านั้น!");
+
+            bool _IsTrillion = strInteger.Length > 7;
+            if (_IsTrillion)
+            {
+                strTrillion = strInteger.Substring(0, strInteger.Length - 6);
+                BahtText = ThaiBahtText(strTrillion, _IsTrillion);
+                strInteger = strInteger.Substring(strTrillion.Length);
+            }
+
+            int strLength = strInteger.Length;
+            for (int i = 0; i < strInteger.Length; i++)
+            {
+                string number = strInteger.Substring(i, 1);
+                if (number != "0")
+                {
+                    if (i == strLength - 1 && number == "1" && strLength != 1)
+                    {
+                        BahtText += "เอ็ด";
+                    }
+                    else if (i == strLength - 2 && number == "2" && strLength != 1)
+                    {
+                        BahtText += "ยี่";
+                    }
+                    else if (i != strLength - 2 || number != "1")
+                    {
+                        BahtText += strThaiNumber[int.Parse(number)];
+                    }
+
+                    BahtText += strThaiPos[(strLength - i) - 1];
+                }
+            }
+
+            if (IsTrillion)
+            {
+                return BahtText + "ล้าน";
+            }
+
+            if (strInteger != "0")
+            {
+                BahtText += "บาท";
+            }
+
+            if (strSatang == "00")
+            {
+                BahtText += "ถ้วน";
+            }
+            else
+            {
+                strLength = strSatang.Length;
+                for (int i = 0; i < strSatang.Length; i++)
+                {
+                    string number = strSatang.Substring(i, 1);
+                    if (number != "0")
+                    {
+                        if (i == strLength - 1 && number == "1" && strSatang[0].ToString() != "0")
+                        {
+                            BahtText += "เอ็ด";
+                        }
+                        else if (i == strLength - 2 && number == "2" && strSatang[0].ToString() != "0")
+                        {
+                            BahtText += "ยี่";
+                        }
+                        else if (i != strLength - 2 || number != "1")
+                        {
+                            BahtText += strThaiNumber[int.Parse(number)];
+                        }
+
+                        BahtText += strThaiPos[(strLength - i) - 1];
+                    }
+                }
+
+                BahtText += "สตางค์";
+            }
+
+            return BahtText;
         }
     }
 }

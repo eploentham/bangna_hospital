@@ -61,6 +61,16 @@ namespace bangna_hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon _ {
+            get {
+                object obj = ResourceManager.GetObject("_", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap _698929 {
@@ -201,6 +211,16 @@ namespace bangna_hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon application {
+            get {
+                object obj = ResourceManager.GetObject("application", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap AppMenuArrow {
@@ -227,6 +247,16 @@ namespace bangna_hospital.Properties {
             get {
                 object obj = ResourceManager.GetObject("arrow_true_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon backup_restore {
+            get {
+                object obj = ResourceManager.GetObject("backup_restore", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -821,12 +851,32 @@ namespace bangna_hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon front_desk_icon_127279 {
+            get {
+                object obj = ResourceManager.GetObject("front_desk_icon_127279", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap GoToNext_small {
             get {
                 object obj = ResourceManager.GetObject("GoToNext_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Graphicloads_100_Flat_Laboratory {
+            get {
+                object obj = ResourceManager.GetObject("Graphicloads_100_Flat_Laboratory", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -916,6 +966,16 @@ namespace bangna_hospital.Properties {
         internal static System.Drawing.Icon icon_bangna_hospital_scan_add {
             get {
                 object obj = ResourceManager.GetObject("icon_bangna_hospital_scan_add", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Iconshock_Real_Vista_Education_Laboratory {
+            get {
+                object obj = ResourceManager.GetObject("Iconshock_Real_Vista_Education_Laboratory", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -1241,6 +1301,26 @@ namespace bangna_hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Message_already_read {
+            get {
+                object obj = ResourceManager.GetObject("Message_already_read", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon monitor {
+            get {
+                object obj = ResourceManager.GetObject("monitor", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Navigate_left {
@@ -1487,6 +1567,46 @@ namespace bangna_hospital.Properties {
             get {
                 object obj = ResourceManager.GetObject("pdf_symbol_80_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon phone_blue {
+            get {
+                object obj = ResourceManager.GetObject("phone_blue", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon phone_green {
+            get {
+                object obj = ResourceManager.GetObject("phone_green", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon phone_grey {
+            get {
+                object obj = ResourceManager.GetObject("phone_grey", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon phone_red {
+            get {
+                object obj = ResourceManager.GetObject("phone_red", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -1941,6 +2061,16 @@ namespace bangna_hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon signal_receiver {
+            get {
+                object obj = ResourceManager.GetObject("signal_receiver", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap SmartArt_large {
@@ -2287,6 +2417,16 @@ namespace bangna_hospital.Properties {
             get {
                 object obj = ResourceManager.GetObject("ValidateDocument_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon webpage {
+            get {
+                object obj = ResourceManager.GetObject("webpage", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

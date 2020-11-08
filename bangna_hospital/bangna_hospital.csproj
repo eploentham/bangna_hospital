@@ -1351,6 +1351,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bangna_hospital_scan_add.ico" />
+    <None Include="Resources\webpage.ico" />
+    <None Include="Resources\signal-receiver.ico" />
+    <None Include="Resources\phone_red.ico" />
+    <None Include="Resources\phone_grey.ico" />
+    <None Include="Resources\phone_green.ico" />
+    <None Include="Resources\phone_blue.ico" />
+    <None Include="Resources\monitor.ico" />
+    <None Include="Resources\Message-already-read.ico" />
+    <None Include="Resources\Iconshock-Real-Vista-Education-Laboratory.ico" />
+    <None Include="Resources\Graphicloads-100-Flat-Laboratory.ico" />
+    <None Include="Resources\front_desk_icon_127279.ico" />
+    <None Include="Resources\backup-restore.ico" />
+    <None Include="Resources\application.ico" />
+    <None Include="Resources\%40.ico" />
     <None Include="Resources\LOGO-BW-tran.jpg" />
     <None Include="Resources\editpaste.png" />
     <None Include="Resources\paragraphleftjustify.png" />

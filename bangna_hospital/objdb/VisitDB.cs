@@ -82,17 +82,17 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
-        public Visit selectVisit(String vn)
+        public Visit selectVisit(String hn, String vsdate, String preno)
         {
             DataTable dt = new DataTable();
             String sql = "";
-            String[] aa = vn.Split('/');
+            //String[] aa = vn.Split('/');
             sql = "Select   m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM " +
-                "From  patient_m01 m01 on t01.mnc_dot_cd = m01.MNC_DOT_CD " +
-                " inner join patient_m02 m02 on m01.MNC_DOT_PFIX =m02.MNC_PFIX_CD " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, t01.MNC_TIME " +
+                "From  patient_m01 m01 " +
+                " inner join patient_m02 m02 on m01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
                 " inner join patient_t01 t01 on m01.MNC_HN_NO =t01.MNC_HN_NO " +
-                " Where t01.MNC_VN_NO = '" + vn + "' and t01.MNC_VN_SEQ = '" + vn + "' and t01.MNC_VN_SUM='" + vn+"'";
+                " Where t01.MNC_hn_NO = '" + hn + "' and t01.MNC_date = '" + vsdate + "' and t01.MNC_pre_no='" + preno+"'";
             dt = conn.selectData(sql);
             if (dt.Rows.Count > 0)
             {
@@ -101,6 +101,14 @@ namespace bangna_hospital.objdb
                 vs.vn = dt.Rows[0]["MNC_VN_NO"].ToString();
                 vs.vnseq = dt.Rows[0]["MNC_VN_SEQ"].ToString();
                 vs.vnsum = dt.Rows[0]["MNC_VN_SUM"].ToString();
+                vs.VisitTime = "0000"+dt.Rows[0]["mnc_time"].ToString();
+                if (vs.VisitTime.Length >= 4)
+                {
+                    vs.VisitTime = vs.VisitTime.Substring(vs.VisitTime.Length - 4);
+                    vs.VisitTime = vs.VisitTime.Substring(0, 2) + ":" + vs.VisitTime.Substring(vs.VisitTime.Length - 2);
+
+                }
+                
                 vs.PatientName = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
             }
             return vs;
