@@ -3439,7 +3439,7 @@ namespace bangna_hospital.gui
             panel.Dock = DockStyle.Fill;
             
             GroupBox groupBox1 = new GroupBox();
-            pnPrnEmail = new Panel();
+            
             pnPrnEmailGrfPrn = new Panel();
             tcPrnEmail = new C1DockingTab();
             tabPrnEmailDrug = new C1DockingTabPage();
@@ -3451,7 +3451,7 @@ namespace bangna_hospital.gui
             cspPrnLeft = new C1.Win.C1SplitContainer.C1SplitterPanel();
             cspPrnRight = new C1.Win.C1SplitContainer.C1SplitterPanel();
 
-            pnPrnEmail.SuspendLayout();
+            
             groupBox1.SuspendLayout();
             pnPrnEmailGrfPrn.SuspendLayout();
             tcPrnEmail.SuspendLayout();
@@ -3477,7 +3477,8 @@ namespace bangna_hospital.gui
             chkPrnLab = new RadioButton();
             size2 = bc.MeasureString(chkPrnCri);
             bc.setControlRadioBox(ref chkPrnLab, fEdit, "lab ตามเงื่อนไข", "chkPrnLab", chkPrnCri.Location.X + size2.Width + 120, y1);
-            chkPrnLab.CheckedChanged += ChkPrnLab_CheckedChanged;
+            //chkPrnLab.CheckedChanged += ChkPrnLab_CheckedChanged;
+            chkPrnLab.Click += ChkPrnLab_Click;
 
             txtPrnCri = new C1TextBox();
             txtPrnCri.Text = "";
@@ -3489,6 +3490,7 @@ namespace bangna_hospital.gui
             chkPrnSSO = new RadioButton();
             size2 = bc.MeasureString(chkPrnLab);
             bc.setControlRadioBox(ref chkPrnSSO, fEdit, "export ปกส", "chkPrnSSO", txtPrnCri.Location.X + txtPrnCri.Width + 20, y1);
+            chkPrnSSO.Click += ChkPrnSSO_Click;
 
             chkPrnSSOall = new C1CheckBox();
             size2 = bc.MeasureString(chkPrnSSO);
@@ -3501,13 +3503,14 @@ namespace bangna_hospital.gui
             btnSearch.Click += BtnSearch_Click;
 
             btnPrn = new C1Button();
-            bc.setControlC1Button(ref btnPrn, fEdit, "Print", "btnPrn", chkPrnSSOall.Location.X + chkPrnSSOall.Width + 140, y1 - 10);
+            bc.setControlC1Button(ref btnPrn, fEdit, "Print", "btnPrn", btnSearch.Location.X + btnSearch.Width + 40, y1 - 10);
             btnPrn.Click += BtnPrn_Click;
 
             chkPrnEmail = new RadioButton();
             size2 = bc.MeasureString(chkPrnLab);
             bc.setControlRadioBox(ref chkPrnEmail, fEdit, "Email ", "chkPrnEmail", btnPrn.Location.X + btnPrn.Width + 20, y1);
-            chkPrnEmail.CheckedChanged += ChkPrnEmail_CheckedChanged;
+            //chkPrnEmail.CheckedChanged += ChkPrnEmail_CheckedChanged;
+            chkPrnEmail.Click += ChkPrnEmail_Click;
 
             label11 = new Label();
             label11.Font = this.fEdit;
@@ -3552,22 +3555,9 @@ namespace bangna_hospital.gui
             txtPrnEmailBody.Height = 70;
 
             
-            pnPrnEmail.Width = 300;
-            pnPrnEmail.Height = 30;
-            pnPrnEmail.Location = new Point(txtPrnEmailBody.Location.X + txtPrnEmailBody.Width, chkPrnEmail.Location.Y-5);
+            
             //pnPrnEmail.BackColor = Color.Red;
-            chkPrnEmailSummary = new C1CheckBox();
-            size2 = bc.MeasureString(chkPrnLab);
-            bc.setControlC1CheckBox(ref chkPrnEmailSummary, fEdit, "งบสรุป ", "chkPrnEmailSummary", 20, 5);
-            chkPrnEmailDrug = new C1CheckBox();
-            size2 = bc.MeasureString(chkPrnEmailSummary);
-            bc.setControlC1CheckBox(ref chkPrnEmailDrug, fEdit, "ยา ", "chkPrnEmailDrug", chkPrnEmailSummary.Location.X + size2.Width +30, chkPrnEmailSummary.Location.Y);
-            chkPrnEmailLab = new C1CheckBox();
-            size2 = bc.MeasureString(chkPrnEmailDrug);
-            bc.setControlC1CheckBox(ref chkPrnEmailLab, fEdit, "LAB ", "chkPrnEmailLab", chkPrnEmailDrug.Location.X + size2.Width + 30, chkPrnEmailSummary.Location.Y);
-            chkPrnEmailXray = new C1CheckBox();
-            size2 = bc.MeasureString(chkPrnEmailLab);
-            bc.setControlC1CheckBox(ref chkPrnEmailXray, fEdit, "Xray ", "chkPrnEmailXray", chkPrnEmailLab.Location.X + size2.Width + 30, chkPrnEmailSummary.Location.Y);
+            
 
 
             //gapLine += 60;
@@ -3734,11 +3724,8 @@ namespace bangna_hospital.gui
             groupBox1.Controls.Add(txtPrnEmailTo);
             groupBox1.Controls.Add(lbtxtPrnEmailBody);
             groupBox1.Controls.Add(txtPrnEmailBody);
-            groupBox1.Controls.Add(pnPrnEmail);
-            pnPrnEmail.Controls.Add(chkPrnEmailSummary);
-            pnPrnEmail.Controls.Add(chkPrnEmailDrug);
-            pnPrnEmail.Controls.Add(chkPrnEmailLab);
-            pnPrnEmail.Controls.Add(chkPrnEmailXray);
+            
+            
             panel.Controls.Add(groupBox1);
             tabPrn.Controls.Add(panel);
             theme1.SetTheme(btnPrn, this.bc.iniC.themeApp);
@@ -3746,10 +3733,10 @@ namespace bangna_hospital.gui
             theme1.SetTheme(groupBox1, this.bc.iniC.themeApp);
             theme1.SetTheme(chkPrnSSOall, this.bc.iniC.themeApp);
             theme1.SetTheme(btnSearch, this.bc.iniC.themeApp);
-            theme1.SetTheme(chkPrnEmailSummary, this.bc.iniC.themeApp);
-            theme1.SetTheme(chkPrnEmailDrug, this.bc.iniC.themeApp);
-            theme1.SetTheme(chkPrnEmailLab, this.bc.iniC.themeApp);
-            theme1.SetTheme(chkPrnEmailXray, this.bc.iniC.themeApp);
+            //theme1.SetTheme(chkPrnEmailDrug, this.bc.iniC.themeApp);
+            //theme1.SetTheme(chkPrnEmailDrug, this.bc.iniC.themeApp);
+            //theme1.SetTheme(chkPrnEmailDrug, this.bc.iniC.themeApp);
+
             //new LogWriter("e", "initTabPrn 02");
             lbtxtPrnEmailTo.Visible = false;
             lbtxtPrnEmailSubject.Visible = false;
@@ -3757,9 +3744,9 @@ namespace bangna_hospital.gui
             txtPrnEmailSubject.Visible = false;
             lbtxtPrnEmailBody.Visible = false;
             txtPrnEmailBody.Visible = false;
-            pnPrnEmail.Visible = false;
+            //pnPrnEmail.Visible = false;
 
-            pnPrnEmail.ResumeLayout(false);
+            
             groupBox1.ResumeLayout(false);
             pnPrnEmailGrfPrn.ResumeLayout(false);
             tcPrnEmail.ResumeLayout(false);
@@ -3771,7 +3758,7 @@ namespace bangna_hospital.gui
             cspPrnLeft.ResumeLayout(false);
             cspPrnRight.ResumeLayout(false);
 
-            pnPrnEmail.PerformLayout();
+            
             groupBox1.PerformLayout();
             pnPrnEmailGrfPrn.PerformLayout();
             tcPrnEmail.PerformLayout();
@@ -3783,6 +3770,82 @@ namespace bangna_hospital.gui
             cspPrnLeft.PerformLayout();
             cspPrnRight.PerformLayout();
         }
+
+        private void ChkPrnLab_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtPrnDateStart.Visible = true;
+            txtPrnDateEnd.Visible = true;
+            lbPrnDateEnd.Visible = true;
+            lbPrnDateStart.Visible = true;
+            labe2.Visible = true;
+            lbDocGrp.Visible = true;
+            cboDocGrp.Visible = true;
+            lbDocSubGrp.Visible = true;
+            cboDocSubGrp.Visible = true;
+            btnDocOk.Visible = true;
+            btnDocExport.Visible = true;
+            lbDocAn.Visible = true;
+
+            lbtxtPrnEmailTo.Visible = false;
+            lbtxtPrnEmailSubject.Visible = false;
+            //pnPrnEmail.Visible = flag;
+            txtPrnEmailTo.Visible = false;
+            txtPrnEmailSubject.Visible = false;
+            txtPrnEmailBody.Visible = false;
+            lbtxtPrnEmailBody.Visible = false;
+            chkPrnSSOall.Visible = false;
+            btnPrn.Visible = false;
+            btnSearch.Visible = false;
+        }
+
+        private void ChkPrnSSO_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            label11.Visible = false;
+            labe2.Visible = false;
+            lbPrnDateStart.Visible = true;
+            txtPrnDateStart.Visible = true;
+            lbPrnDateEnd.Visible = true;
+            txtPrnDateEnd.Visible = true;
+            lbDocGrp.Visible = false;
+            cboDocGrp.Visible = false;
+            lbDocSubGrp.Visible = false;
+            cboDocSubGrp.Visible = false;
+            btnDocOk.Visible = false;
+            btnDocExport.Visible = false;
+            lbDocAn.Visible = false;
+            btnPrn.Visible = false;
+            btnSearch.Visible = true;
+            chkPrnSSOall.Visible = true;
+            //lbtxtPrnEmailTo.Visible = flag;
+            //lbtxtPrnEmailSubject.Visible = flag;
+            //txtPrnEmailTo.Visible = flag;
+            //txtPrnEmailSubject.Visible = flag;
+
+            lbtxtPrnEmailTo.Visible = false;
+            lbtxtPrnEmailSubject.Visible = false;
+            //pnPrnEmail.Visible = flag;
+            txtPrnEmailTo.Visible = false;
+            txtPrnEmailSubject.Visible = false;
+            txtPrnEmailBody.Visible = false;
+            lbtxtPrnEmailBody.Visible = false;
+            btnPrn.Visible = true;
+        }
+
+        private void ChkPrnEmail_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            cspPrnLeft.Width = 300;
+
+            setShowTabPrnLine2(chkPrnEmail.Checked);
+            setGrfPrnEmail();
+            if (fvPrnEmailSummary != null) fvPrnEmailSummary.DocumentSource = null;
+            if (fvPrnEmailDrug != null) fvPrnEmailDrug.DocumentSource = null;
+            if (fvPrnEmailLab != null) fvPrnEmailLab.DocumentSource = null;
+            if (fvPrnEmailXray != null) fvPrnEmailXray.DocumentSource = null;
+        }
+
         private void GrfPrn_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3812,28 +3875,30 @@ namespace bangna_hospital.gui
         }
         private void setActiveTabPrnEmail()
         {
+            showLbLoading();
+            if (!flagTabPrnEmailSummary)
+            {
+
+                bc.setControlC1FlexViewer(ref fvPrnEmailSummary, "fvPrnEmailSummary");
+                tabPrnEmailSummary.Controls.Add(fvPrnEmailSummary);
+                bc.setControlC1FlexViewer(ref fvPrnEmailDrug, "fvPrnEmailDrug");
+                tabPrnEmailDrug.Controls.Add(fvPrnEmailDrug);
+                bc.setControlC1FlexViewer(ref fvPrnEmailLab, "fvPrnEmailLab");
+                tabPrnEmailDrug.Controls.Add(fvPrnEmailLab);
+                bc.setControlC1FlexViewer(ref fvPrnEmailXray, "fvPrnEmailXray");
+                tabPrnEmailXray.Controls.Add(fvPrnEmailXray);
+                flagTabPrnEmailSummary = true;
+                initTabPrnEmailOther();
+            }
+            setTabPrnEmailSummary1();
+            setTabPrnEmailOrder();
+            setTabPrnEmailLab();
+            setTabPrnEmailXray();
             if (tcPrnEmail.SelectedTab == tabPrnEmailSummary)
             {
-                showLbLoading();
-                if (!flagTabPrnEmailSummary)
-                {
-                    
-                    bc.setControlC1FlexViewer(ref fvPrnEmailSummary, "fvPrnEmailSummary");
-                    tabPrnEmailSummary.Controls.Add(fvPrnEmailSummary);
-                    bc.setControlC1FlexViewer(ref fvPrnEmailDrug, "fvPrnEmailDrug");
-                    tabPrnEmailDrug.Controls.Add(fvPrnEmailDrug);
-                    bc.setControlC1FlexViewer(ref fvPrnEmailLab, "fvPrnEmailLab");
-                    tabPrnEmailDrug.Controls.Add(fvPrnEmailLab);
-                    bc.setControlC1FlexViewer(ref fvPrnEmailXray, "fvPrnEmailXray");
-                    tabPrnEmailXray.Controls.Add(fvPrnEmailXray);
-                    flagTabPrnEmailSummary = true;
-                    
-                }
-                setTabPrnEmailSummary1();
-                setTabPrnEmailOrder();
-                setTabPrnEmailLab();
-                setTabPrnEmailXray();
-                hideLbLoading();
+                
+                
+                
             }
             else if (tcPrnEmail.SelectedTab == tabPrnEmailDrug)
             {
@@ -3843,10 +3908,10 @@ namespace bangna_hospital.gui
                     //tabPrnEmailDrug.Controls.Add(fvPrnEmailDrug);
                     flagTabPrnEmailDrug = true;
                 }
-                setTabPrnEmailSummary1();
-                setTabPrnEmailOrder();
-                setTabPrnEmailLab();
-                setTabPrnEmailXray();
+                //setTabPrnEmailSummary1();
+                //setTabPrnEmailOrder();
+                //setTabPrnEmailLab();
+                //setTabPrnEmailXray();
             }
             else if (tcPrnEmail.SelectedTab == tabPrnEmailLab)
             {
@@ -3856,10 +3921,10 @@ namespace bangna_hospital.gui
                     //tabPrnEmailLab.Controls.Add(fvPrnEmailLab);
                     flagTabPrnEmailLab = true;
                 }
-                setTabPrnEmailSummary1();
-                setTabPrnEmailOrder();
-                setTabPrnEmailLab();
-                setTabPrnEmailXray();
+                //setTabPrnEmailSummary1();
+                //setTabPrnEmailOrder();
+                //setTabPrnEmailLab();
+                //setTabPrnEmailXray();
             }
             else if (tcPrnEmail.SelectedTab == tabPrnEmailXray)
             {
@@ -3869,10 +3934,10 @@ namespace bangna_hospital.gui
                     //tabPrnEmailXray.Controls.Add(fvPrnEmailXray);
                     flagTabPrnEmailXray = true;
                 }
-                setTabPrnEmailSummary1();
-                setTabPrnEmailOrder();
-                setTabPrnEmailLab();
-                setTabPrnEmailXray();
+                //setTabPrnEmailSummary1();
+                //setTabPrnEmailOrder();
+                //setTabPrnEmailLab();
+                //setTabPrnEmailXray();
             }
             else if (tcPrnEmail.SelectedTab == tabPrnEmailOther)
             {
@@ -3884,26 +3949,49 @@ namespace bangna_hospital.gui
                     initTabPrnEmailOther();
                 }
             }
+            hideLbLoading();
         }
         private void initTabPrnEmailOther()
         {
             int gapLine = 16, gapX = 20, gapY = 20, xCol2 = 130, xCol1 = 20, xCol3 = 300, xCol4 = 390, xCol5 = 1030;
+            //pnPrnEmail = new Panel();
+            //
+            
+            //pnPrnEmail.Dock = DockStyle.Fill;
+            //pnPrnEmail.Location = new Point(txtPrnEmailBody.Location.X + txtPrnEmailBody.Width, chkPrnEmail.Location.Y - 5);
+            //pnPrnEmail.SuspendLayout();
+            //pnPrnEmail.BackColor = Color.Red;
+
+            btnPrnEmailImgOpen = new C1Button();
+            bc.setControlC1Button(ref btnPrnEmailImgOpen, fEdit, "1. ดึงรูป Scan", "btnPrnEmailImpOpen", 5, 10);
+            btnPrnEmailImgOpen.Size = new Size(130, 40);
+            btnPrnEmailImgOpen.Click += BtnPrnEmailImgOpen_Click;
 
             btnPrnEmailImgBrow = new C1Button();
-            bc.setControlC1Button(ref btnPrnEmailImgBrow, fEdit, "...", "btnPrnEmailImgBrow", 5, 10);
+            bc.setControlC1Button(ref btnPrnEmailImgBrow, fEdit, "2. รูป เพิ่มเติม", "btnPrnEmailImgBrow", btnPrnEmailImgOpen.Location.X + btnPrnEmailImgOpen.Size.Width + 20, 10);
             btnPrnEmailImgBrow.Image = Resources.folder;
-            btnPrnEmailImgBrow.Size = new Size(90, 40);
+            btnPrnEmailImgBrow.Size = new Size(130, 40);
             btnPrnEmailImgBrow.Click += BtnPrnEmailImgBrow_Click;
-            btnPrnEmailImgOpen = new C1Button();
-            bc.setControlC1Button(ref btnPrnEmailImgOpen, fEdit, "...", "btnPrnEmailImpOpen", btnPrnEmailImgBrow.Location.X + btnPrnEmailImgBrow.Size.Width+20, 10);
-            btnPrnEmailImgOpen.Size = new Size(90, 40);
-            btnPrnEmailImgOpen.Click += BtnPrnEmailImgOpen_Click;
+            
             btnPrnEmailImgSend = new C1Button();
-            bc.setControlC1Button(ref btnPrnEmailImgSend, fEdit, "...", "btnPrnEmailImgSend", btnPrnEmailImgOpen.Location.X + btnPrnEmailImgOpen.Size.Width + 20, 10);
-            btnPrnEmailImgSend.Size = new Size(90, 40);
-            btnPrnEmailImgSend.Image = Resources.Email_icon;
+            bc.setControlC1Button(ref btnPrnEmailImgSend, fEdit, "ส่ง Email", "btnPrnEmailImgSend", btnPrnEmailImgBrow.Location.X + btnPrnEmailImgBrow.Size.Width + 20, 10);
+            btnPrnEmailImgSend.Size = new Size(130, 40);
+            btnPrnEmailImgSend.Image = Resources.Email_icon_24;
             btnPrnEmailImgSend.Click += BtnPrnEmailImgSend_Click;
 
+            chkPrnEmailSummary = new C1CheckBox();
+            Size size2 = bc.MeasureString(chkPrnLab);
+            bc.setControlC1CheckBox(ref chkPrnEmailSummary, fEdit, "งบสรุป ", "chkPrnEmailSummary", btnPrnEmailImgSend.Location.X+ btnPrnEmailImgSend.Width+20, 5);
+            chkPrnEmailDrug = new C1CheckBox();
+            size2 = bc.MeasureString(chkPrnEmailSummary);
+            bc.setControlC1CheckBox(ref chkPrnEmailDrug, fEdit, "ยา ", "chkPrnEmailDrug", chkPrnEmailSummary.Location.X + size2.Width + 30, chkPrnEmailSummary.Location.Y);
+            chkPrnEmailLab = new C1CheckBox();
+            size2 = bc.MeasureString(chkPrnEmailDrug);
+            bc.setControlC1CheckBox(ref chkPrnEmailLab, fEdit, "LAB ", "chkPrnEmailLab", chkPrnEmailDrug.Location.X + size2.Width + 30, chkPrnEmailSummary.Location.Y);
+            chkPrnEmailXray = new C1CheckBox();
+            size2 = bc.MeasureString(chkPrnEmailLab);
+            bc.setControlC1CheckBox(ref chkPrnEmailXray, fEdit, "Xray ", "chkPrnEmailXray", chkPrnEmailLab.Location.X + size2.Width + 30, chkPrnEmailSummary.Location.Y);
+            
             gapY += gapLine;
             gapY += gapLine;
             //gapY += gapLine;
@@ -3934,9 +4022,23 @@ namespace bangna_hospital.gui
             tabPrnEmailOther.Controls.Add(btnPrnEmailImgOpen);
             tabPrnEmailOther.Controls.Add(btnPrnEmailImgSend);
             tabPrnEmailOther.Controls.Add(grfPrnEmailImg);
+
+            tabPrnEmailOther.Controls.Add(chkPrnEmailSummary);
+            tabPrnEmailOther.Controls.Add(chkPrnEmailDrug);
+            tabPrnEmailOther.Controls.Add(chkPrnEmailLab);
+            tabPrnEmailOther.Controls.Add(chkPrnEmailXray);
+            //tabPrnEmailOther.Controls.Add(pnPrnEmail);
+
             theme1.SetTheme(btnPrnEmailImgBrow, this.bc.iniC.themeApp);
             theme1.SetTheme(btnPrnEmailImgOpen, this.bc.iniC.themeApp);
             theme1.SetTheme(btnPrnEmailImgSend, this.bc.iniC.themeApp);
+            //theme1.SetTheme(chkPrnEmailSummary, this.bc.iniC.themeApp);
+            //theme1.SetTheme(chkPrnEmailDrug, this.bc.iniC.themeApp);
+            //theme1.SetTheme(chkPrnEmailLab, this.bc.iniC.themeApp);
+            //theme1.SetTheme(chkPrnEmailXray, this.bc.iniC.themeApp);
+
+            //pnPrnEmail.ResumeLayout(false);
+            //pnPrnEmail.PerformLayout();
         }
 
         private void BtnPrnEmailImgSend_Click(object sender, EventArgs e)
@@ -4744,10 +4846,10 @@ namespace bangna_hospital.gui
         private void ChkPrnLab_CheckedChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            txtPrnDateStart.Visible = chkPrnLab.Checked;
-            txtPrnDateEnd.Visible = chkPrnLab.Checked;
-            lbPrnDateEnd.Visible = chkPrnLab.Checked;
-            lbPrnDateStart.Visible = chkPrnLab.Checked;
+            //txtPrnDateStart.Visible = chkPrnLab.Checked;
+            //txtPrnDateEnd.Visible = chkPrnLab.Checked;
+            //lbPrnDateEnd.Visible = chkPrnLab.Checked;
+            //lbPrnDateStart.Visible = chkPrnLab.Checked;
         }
         
         private void BtnSearch_Click(object sender, EventArgs e)
@@ -4832,17 +4934,17 @@ namespace bangna_hospital.gui
 
             lbtxtPrnEmailTo.Visible = flag;
             lbtxtPrnEmailSubject.Visible = flag;
-            pnPrnEmail.Visible = flag;
+            //pnPrnEmail.Visible = flag;
             txtPrnEmailTo.Visible = flag;
             txtPrnEmailSubject.Visible = flag;
             txtPrnEmailBody.Visible = flag;
             lbtxtPrnEmailBody.Visible = flag;
-            btnPrn.Visible = flag;
+            //btnPrn.Visible = flag;
             //lbtxtPrnEmailSubject.Visible = flag;
             //txtPrnEmailTo.Visible = flag;
             //txtPrnEmailSubject.Visible = flag;
-            btnPrn.Visible = true;
-            btnPrn.Text = chkPrnEmail.Checked ? "Send" : "Print";
+            //btnPrn.Visible = true;
+            //btnPrn.Text = chkPrnEmail.Checked ? "Send" : "Print";
         }
         private void ChkPrnSSOall_CheckedChanged(object sender, EventArgs e)
         {
@@ -8348,7 +8450,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-11-06";
+            this.Text = "Last Update 2020-11-11 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year;
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
