@@ -12,9 +12,7 @@ using C1.Win.C1Input;
 using C1.Win.C1Ribbon;
 using C1.Win.C1SplitContainer;
 using C1.Win.FlexViewer;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
-using CrystalDecisions.Windows.Forms;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
