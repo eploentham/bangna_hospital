@@ -171,6 +171,8 @@ namespace bangna_hospital.objdb
             SqlDataAdapter adapMainhis = new SqlDataAdapter(comMainhis);
             try
             {
+                //new LogWriter("e", "ConnectDB selectData con.ConnectionString " + con.ConnectionString);
+
                 con.Open();
                 adapMainhis.Fill(toReturn);
                 //return toReturn;

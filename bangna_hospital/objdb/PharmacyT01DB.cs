@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -63,6 +64,107 @@ namespace bangna_hospital.object1
             pharT01.MNC_REQ_COUNT = "MNC_REQ_COUNT";
             pharT01.MNC_REQ_TYP = "MNC_REQ_TYP";
         }
+        private void chkNull(PharmacyT01 p)
+        {
+            long chk = 0;
+            int chk1 = 0;
+            decimal chk2 = 0;
+
+            p.MNC_DOC_CD = p.MNC_DOC_CD == null ? "" : p.MNC_DOC_CD;
+            p.MNC_REQ_STS = p.MNC_REQ_STS == null ? "" : p.MNC_REQ_STS;
+            p.MNC_RM_NAM = p.MNC_RM_NAM == null ? "" : p.MNC_RM_NAM;
+            p.MNC_DOT_CD = p.MNC_DOT_CD == null ? "" : p.MNC_DOT_CD;
+            p.MNC_FN_TYP_CD = p.MNC_FN_TYP_CD == null ? "" : p.MNC_FN_TYP_CD;
+            p.MNC_COM_CD = p.MNC_COM_CD == null ? "" : p.MNC_COM_CD;
+            p.MNC_USE_LOG = p.MNC_USE_LOG == null ? "" : p.MNC_USE_LOG;
+            p.MNC_PHA_STS = p.MNC_PHA_STS == null ? "" : p.MNC_PHA_STS;
+            p.MNC_EMPR_CD = p.MNC_EMPR_CD == null ? "" : p.MNC_EMPR_CD;
+            p.MNC_EMPC_CD = p.MNC_EMPC_CD == null ? "" : p.MNC_EMPC_CD;
+            p.MNC_ORD_DOT = p.MNC_ORD_DOT == null ? "" : p.MNC_ORD_DOT;
+            p.MNC_CFM_DOT = p.MNC_CFM_DOT == null ? "" : p.MNC_CFM_DOT;
+            p.MNC_CANCEL_STS = p.MNC_CANCEL_STS == null ? "" : p.MNC_CANCEL_STS;
+            p.MNC_USR_ADD = p.MNC_USR_ADD == null ? "" : p.MNC_USR_ADD;
+            p.MNC_USR_UPD = p.MNC_USR_UPD == null ? "" : p.MNC_USR_UPD;
+            p.MNC_PH_REM = p.MNC_PH_REM == null ? "" : p.MNC_PH_REM;
+            p.MNC_PAC_CD = p.MNC_PAC_CD == null ? "" : p.MNC_PAC_CD;
+            p.MNC_PAC_TYP = p.MNC_PAC_TYP == null ? "" : p.MNC_PAC_TYP;
+            p.MNC_REQ_TYP = p.MNC_REQ_TYP == null ? "" : p.MNC_REQ_TYP;
+
+            p.MNC_REQ_YR = long.TryParse(p.MNC_REQ_YR, out chk) ? chk.ToString() : "0";
+            p.MNC_REQ_NO = long.TryParse(p.MNC_REQ_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_REQ_TIM = long.TryParse(p.MNC_REQ_TIM, out chk) ? chk.ToString() : "0";
+            p.MNC_DEP_NO = long.TryParse(p.MNC_DEP_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_HN_YR = long.TryParse(p.MNC_HN_YR, out chk) ? chk.ToString() : "0";
+            p.MNC_HN_NO = long.TryParse(p.MNC_HN_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_AN_YR = long.TryParse(p.MNC_AN_YR, out chk) ? chk.ToString() : "0";
+            p.MNC_AN_NO = long.TryParse(p.MNC_AN_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_PRE_NO = long.TryParse(p.MNC_PRE_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_TIME = long.TryParse(p.MNC_TIME, out chk) ? chk.ToString() : "0";
+            p.MNC_WD_NO = long.TryParse(p.MNC_WD_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_BD_NO = long.TryParse(p.MNC_BD_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_CAL_NO = long.TryParse(p.MNC_CAL_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_SEC_NO = long.TryParse(p.MNC_SEC_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_DEPC_NO = long.TryParse(p.MNC_DEPC_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_SECC_NO = long.TryParse(p.MNC_SECC_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_STAMP_TIM = long.TryParse(p.MNC_STAMP_TIM, out chk) ? chk.ToString() : "0";
+            p.MNC_REQ_COUNT = long.TryParse(p.MNC_REQ_COUNT, out chk) ? chk.ToString() : "0";
+
+            p.MNC_SUM_PRI = decimal.TryParse(p.MNC_SUM_PRI, out chk2) ? chk2.ToString() : "0";
+            p.MNC_SUM_COS = decimal.TryParse(p.MNC_SUM_COS, out chk2) ? chk2.ToString() : "0";
+            
+        }
+        public PharmacyT01 selectCheckReqNoFromPreNO(String hn, String hnyr, String preno)
+        {
+            PharmacyT01 pharT01 = new PharmacyT01();
+            DataTable dt = new DataTable();
+            String reqno = "", sql="";
+            sql = "Select * " +
+                "From pharmacy_t01 " +
+                "Where mnc_hn_no = '"+hn+"' and mnc_hn_yr = '"+hnyr +"' and mnc_pre_no = '"+preno+"'";
+            dt = conn.selectData(sql);
+            pharT01 = setPharmacyT01(dt);
+            return pharT01;
+        }
+        public String insertPharmacyT01(PharmacyT01 p)
+        {
+            String sql = "", chk = "", re = "";
+            
+            chkNull(p);
+            if (p.MNC_REQ_NO.Length <= 0)
+            {
+                re = insert(p, "");
+            }
+            else
+            {
+                    
+            }
+            return re;
+        }
+        public String insert(PharmacyT01 p, String userid)
+        {
+            String sql = "", chk = "", re = "";
+            try
+            {
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.conn;
+                conn.comStore.CommandText = "[insert_pharmacy_t01_pop]";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("dept_id", p.MNC_DOC_CD);
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.conn.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "insertOperative Note " + ex.Message + " " + sql);
+            }
+            return re;
+        }
         public PharmacyT01 setPharmacyT01(DataTable dt)
         {
             PharmacyT01 pharT01 = new PharmacyT01();
@@ -71,6 +173,7 @@ namespace bangna_hospital.object1
                 pharT01.MNC_DOC_CD = dt.Rows[0]["MNC_DOC_CD"].ToString();
                 pharT01.MNC_REQ_YR = dt.Rows[0]["MNC_REQ_YR"].ToString();
                 pharT01.MNC_REQ_NO = dt.Rows[0]["MNC_REQ_NO"].ToString();
+
                 pharT01.MNC_REQ_DAT = dt.Rows[0]["MNC_REQ_DAT"].ToString();
                 pharT01.MNC_REQ_STS = dt.Rows[0]["MNC_REQ_STS"].ToString();
                 pharT01.MNC_REQ_TIM = dt.Rows[0]["MNC_REQ_TIM"].ToString();

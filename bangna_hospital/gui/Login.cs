@@ -85,6 +85,7 @@ namespace bangna_hospital.gui
         private void BtnOk_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            //new LogWriter("e", "Login BtnOk_Click " );
             stf = stfDB.selectByLogin(txtUserName.Text, txtPassword.Text);
             //stf.fullname = "111";
             if (stf.fullname.Length > 0)

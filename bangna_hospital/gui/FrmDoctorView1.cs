@@ -76,11 +76,12 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            //new LogWriter("e", "FrmDoctorView initConfig 00 ");
             initComponent();
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize+3, FontStyle.Bold);
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize+7, FontStyle.Regular);
-
+            //new LogWriter("e", "FrmDoctorView initConfig 01 ");
             timer1 = new System.Windows.Forms.Timer();
             timer1.Enabled = true;
             timer1.Interval = bc.timerCheckLabOut * 1000;
@@ -96,12 +97,14 @@ namespace bangna_hospital.gui
             theme1.Theme = bc.iniC.themeApplication;
             txtDate.Value = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
             lbDtrName.Text = bc.user.fullname;
-
+            //new LogWriter("e", "FrmDoctorView initConfig 02 ");
             initGrfQue();
             setGrfQue();
+            //new LogWriter("e", "FrmDoctorView initConfig 03 ");
             initGrfApm();
             initGrfFinish();
             initGrfIPD();
+            //new LogWriter("e", "FrmDoctorView initConfig End ");
             //lbDtrName.Font = fEditBig;
             //lbTxtPttHn.Font = fEditBig;
             //txtPttHn.Font = fEditBig;
@@ -134,6 +137,7 @@ namespace bangna_hospital.gui
 
         private void initComponent()
         {
+            //new LogWriter("d", "FrmDoctorView initComponent 00 ");
             int gapLine = 20, gapX = 20;
             Size size = new Size();
             int scrW = Screen.PrimaryScreen.Bounds.Width;
@@ -226,7 +230,7 @@ namespace bangna_hospital.gui
             pnApm.Dock = DockStyle.Fill;
             pnFinish.Dock = DockStyle.Fill;
             pnIPD.Dock = DockStyle.Fill;
-
+            //new LogWriter("d", "FrmDoctorView initComponent 01 ");
             setControlComponent();
 
             this.Controls.Add(panel1);
@@ -280,6 +284,7 @@ namespace bangna_hospital.gui
         }
         private void setControlComponent()
         {
+            //new LogWriter("d", "FrmDoctorView setControlComponent 00 ");
             int gapLine = 10, gapX = 20;
             Size size = new Size();
             int scrW = Screen.PrimaryScreen.Bounds.Width;
@@ -360,6 +365,7 @@ namespace bangna_hospital.gui
             lbTxtDate.Location = new System.Drawing.Point(txtDate .Location.X - size.Width -5, lbTxtPttHn.Location.Y);
             lbTxtDate.AutoSize = true;
             lbTxtDate.Name = "lbTxtPttHn";
+            //new LogWriter("d", "FrmDoctorView setControlComponent End ");
         }
         private void Timer1_Tick(object sender, EventArgs e)
         {

@@ -30,6 +30,8 @@ namespace bangna_hospital.objdb
         public OperativeNoteDB operNoteDB;
         public TemporaryM01DB tem01DB;
         public TemporaryM02DB tem02DB;
+        public PharmacyT01DB pharT01DB;
+        public PharmacyT02DB pharT02DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -57,6 +59,8 @@ namespace bangna_hospital.objdb
             operNoteDB = new OperativeNoteDB(conn);
             tem01DB = new TemporaryM01DB(conn);
             tem02DB = new TemporaryM02DB(conn);
+            pharT01DB = new PharmacyT01DB(conn);
+            pharT02DB = new PharmacyT02DB(conn);
         }
     }
 }

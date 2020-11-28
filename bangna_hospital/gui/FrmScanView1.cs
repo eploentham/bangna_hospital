@@ -1351,7 +1351,6 @@ namespace bangna_hospital.gui
                 }
                 flagtabScan = true;
                 setGrfScan();
-                
             }
             else if (tcDtr.SelectedTab == tabOrder)
             {
@@ -1370,7 +1369,22 @@ namespace bangna_hospital.gui
                 {
                     preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
                     vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
-                    vsDate = bc.datetoDB(vsDate);
+                    if (vsDate.Length >= 8)
+                    {
+                        String yy = "";
+                        yy = vsDate.Substring(vsDate.Length - 2);
+                        int chkyy = 0;
+                        int.TryParse(yy, out chkyy);
+                        chkyy = (chkyy > 60) ? chkyy += 2500 : chkyy += 2000;
+                        //new LogWriter("d", "FrmScanView setActive chkyy " + chkyy);
+                        vsDate = vsDate.Substring(0,vsDate.Length - 2) + chkyy;
+                        //new LogWriter("d", "FrmScanView setActive vsDate " + vsDate);
+                        vsDate = bc.datetoDB(vsDate);
+                    }
+                    else
+                    {
+                        vsDate = bc.datetoDB(vsDate);
+                    }
                 }
                 else
                 {
@@ -1378,6 +1392,7 @@ namespace bangna_hospital.gui
                     vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
                     vsDate = bc.datetoDB(vsDate);
                 }
+                //new LogWriter("d", "FrmScanView setActive colVsVsDate " + grfOPD[grfOPD.Row, colVsVsDate].ToString()+" "+);
                 setStaffNote(vsDate, preno);
             }
             else if (tcDtr.SelectedTab == tabLab)
@@ -5970,8 +5985,7 @@ namespace bangna_hospital.gui
             btnItmSave.Name = "btnItmSave";
             btnItmSave.Location = new Point(btnItmDrugSet.Location.X - btnItmDrugSet.Width - 40, btnItmSend.Location.Y);
             btnItmSave.Size = new Size(70, 50);
-
-
+            btnItmSave.Click += BtnItmSave_Click;
 
             pnscOrdItem.BackColor = this.BackColor;
             pnscOrdItem.Controls.Add(lbItmId);
@@ -6013,6 +6027,29 @@ namespace bangna_hospital.gui
             theme1.SetTheme(grfOrdItem, bc.iniC.themeApp);
             //theme1.SetTheme(pnscOrdItem, "Office2016Colorful");
             theme1.SetTheme(pnscOrdItem, "VS2013Purple");
+        }
+        private void setPharT01()
+        {
+            PharmacyT01 phart01 = new PharmacyT01();
+            if (!chkIPD.Checked)
+            {
+                phart01 = bc.bcDB.pharT01DB.selectCheckReqNoFromPreNO(txtHn.Text.Trim(), ptt.hnyr, preno);
+            }
+
+            phart01.MNC_DOC_CD = "ROS";
+            phart01.MNC_REQ_NO = "";
+            phart01.MNC_REQ_YR = (DateTime.Now.Year+543).ToString();
+            phart01.MNC_REQ_DAT = DateTime.Now.Year+"-"+DateTime.Now.ToString("MM-dd");
+            phart01.MNC_HN_NO = ptt.Hn;
+            phart01.MNC_HN_YR = ptt.hnyr;
+
+            bc.bcDB.pharT01DB.insertPharmacyT01(phart01);
+        }
+        private void BtnItmSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            MessageBox.Show("BtnItmSave_Click  preno "+preno +" hnyr " + ptt.hnyr, "");
+            setPharT01();
         }
 
         private void GrfOrdItem_DoubleClick(object sender, EventArgs e)
@@ -6723,12 +6760,12 @@ namespace bangna_hospital.gui
             Image stffnoteR, stffnoteS;
             if (vsDate.Length > 8)
             {
+                String preno1 = preno;
                 try
                 {
                     imgLR = null;
                     picL.Image = null;
                     picR.Image = null;
-                    String preno1 = preno;
                     int chk = 0;
                     dd = vsDate.Substring(vsDate.Length - 2);
                     mm = vsDate.Substring(5, 2);
@@ -6739,6 +6776,7 @@ namespace bangna_hospital.gui
                     file = "\\\\"+bc.iniC.pathScanStaffNote + chk + "\\" + mm + "\\" + dd + "\\";
                     preno1 = "000000" + preno1;
                     preno1 = preno1.Substring(preno1.Length - 6);
+                    //new LogWriter("e", "FrmScanView1 setStaffNote file  " + file + preno1+" hn "+txtHn.Text+" yy "+yy);
                     stffnoteR = Image.FromFile(file + preno1 + "R.JPG");
                     stffnoteS = Image.FromFile(file + preno1 + "S.JPG");
                     picL.Image = stffnoteS;
@@ -6757,6 +6795,7 @@ namespace bangna_hospital.gui
                 catch (Exception ex)
                 {
                     //MessageBox.Show("ไม่พบ StaffNote ในระบบ " + ex.Message, "");
+                    new LogWriter("e", "FrmScanView1 setStaffNote ex  " + ex.Message+ " InnerException " + ex.InnerException+" file  " + file + preno1+" hn "+txtHn.Text+" yy "+yy);
                 }
             }
         }
