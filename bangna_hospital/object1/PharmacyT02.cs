@@ -37,6 +37,5 @@ namespace bangna_hospital.object1
         public String MNC_PH_REM { get; set; }
         public String MNC_PAY_FLAG { get; set; }
         public String MNC_PH_STS { get; set; }
-        public string MNC_AN_NO { get; internal set; }
     }
 }

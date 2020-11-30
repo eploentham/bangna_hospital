@@ -49,8 +49,99 @@ namespace bangna_hospital.objdb
             pharT02.MNC_PH_REM = "MNC_PH_REM";
             pharT02.MNC_PAY_FLAG = "MNC_PAY_FLAG";
             pharT02.MNC_PH_STS = "MNC_PH_STS";
-            pharT02.MNC_AN_NO = "MNC_AN_NO";
-         }
+            
+        }
+        private void chkNull(PharmacyT02 p)
+        {
+            long chk = 0;
+            int chk1 = 0;
+            decimal chk2 = 0;
+
+            p.MNC_DOC_CD = p.MNC_DOC_CD == null ? "" : p.MNC_DOC_CD;
+            p.MNC_PH_CD = p.MNC_PH_CD == null ? "" : p.MNC_PH_CD;
+            p.MNC_PH_UNT_CD = p.MNC_PH_UNT_CD == null ? "" : p.MNC_PH_UNT_CD;
+            p.MNC_PH_DIR_DSC = p.MNC_PH_DIR_DSC == null ? "" : p.MNC_PH_DIR_DSC;
+            p.MNC_SUP_STS = p.MNC_SUP_STS == null ? "" : p.MNC_SUP_STS;
+            p.MNC_PH_DIR_CD = p.MNC_PH_DIR_CD == null ? "" : p.MNC_PH_DIR_CD;
+            p.MNC_PH_FRE_CD = p.MNC_PH_FRE_CD == null ? "" : p.MNC_PH_FRE_CD;
+            p.MNC_PH_TIM_CD = p.MNC_PH_TIM_CD == null ? "" : p.MNC_PH_TIM_CD;
+            p.MNC_PH_CAU = p.MNC_PH_CAU == null ? "" : p.MNC_PH_CAU;
+            p.MNC_PH_IND = p.MNC_PH_IND == null ? "" : p.MNC_PH_IND;
+            p.MNC_FN_CD = p.MNC_FN_CD == null ? "" : p.MNC_FN_CD;
+            p.MNC_PHA_HID = p.MNC_PHA_HID == null ? "" : p.MNC_PHA_HID;
+            p.MNC_PH_FLG = p.MNC_PH_FLG == null ? "" : p.MNC_PH_FLG;
+            p.MNC_STAMP_DAT = p.MNC_STAMP_DAT == null ? "" : p.MNC_STAMP_DAT;
+            p.MNC_USR_ADD = p.MNC_USR_ADD == null ? "" : p.MNC_USR_ADD;
+            p.MNC_USR_UPD = p.MNC_USR_UPD == null ? "" : p.MNC_USR_UPD;
+            p.MNC_PH_DIR_TXT = p.MNC_PH_DIR_TXT == null ? "" : p.MNC_PH_DIR_TXT;
+            p.MNC_CANCEL_STS = p.MNC_CANCEL_STS == null ? "" : p.MNC_CANCEL_STS;
+            p.MNC_PH_REM = p.MNC_PH_REM == null ? "" : p.MNC_PH_REM;
+            p.MNC_PAY_FLAG = p.MNC_PAY_FLAG == null ? "" : p.MNC_PAY_FLAG;
+            p.MNC_PH_STS = p.MNC_PH_STS == null ? "" : p.MNC_PH_STS;
+            //p.MNC_DOC_CD1 = p.MNC_DOC_CD1 == null ? "" : p.MNC_DOC_CD1;
+
+            p.MNC_REQ_YR = long.TryParse(p.MNC_REQ_YR, out chk) ? chk.ToString() : "0";
+            p.MNC_REQ_NO = long.TryParse(p.MNC_REQ_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_ORD_NO = long.TryParse(p.MNC_ORD_NO, out chk) ? chk.ToString() : "0";
+            p.MNC_STAMP_TIM = long.TryParse(p.MNC_STAMP_TIM, out chk) ? chk.ToString() : "0";
+
+            p.MNC_PH_QTY = decimal.TryParse(p.MNC_PH_QTY, out chk2) ? chk2.ToString() : "0";
+            p.MNC_PH_UNTF_QTY = decimal.TryParse(p.MNC_PH_UNTF_QTY, out chk2) ? chk2.ToString() : "0";
+            p.MNC_PH_PRI = decimal.TryParse(p.MNC_PH_PRI, out chk2) ? chk2.ToString() : "0";
+            p.MNC_PH_COS = decimal.TryParse(p.MNC_PH_COS, out chk2) ? chk2.ToString() : "0";
+            p.MNC_PH_RFN = decimal.TryParse(p.MNC_PH_RFN, out chk2) ? chk2.ToString() : "0";
+            
+        }
+        public String insertPharmacyT02(PharmacyT02 p, String userId)
+        {
+            String sql = "",re="";
+
+            chkNull(p);
+            sql = "Insert Into pharmacy_t01" +
+                "(MNC_DOC_CD,MNC_REQ_YR,MNC_REQ_NO,MNC_PH_CD" +
+                ",MNC_PH_QTY,MNC_PH_UNTF_QTY,MNC_PH_UNT_CD,MNC_PH_DIR_DSC" +
+                ",MNC_PH_PRI, MNC_PH_COS, MNC_SUP_STS,MNC_ORD_NO" +
+                ",MNC_PH_RFN,MNC_PH_DIR_CD,MNC_PH_FRE_CD,MNC_PH_TIM_CD" +
+                ",MNC_PH_CAU,MNC_PH_IND,MNC_FN_CD,MNC_PHA_HID" +
+                ",MNC_PH_FLG,MNC_STAMP_DAT,MNC_STAMP_TIM,MNC_USR_ADD" +
+                ",MNC_USR_UPD,MNC_PH_DIR_TXT,MNC_CANCEL_STS,MNC_PH_REM" +
+                ",MNC_PAY_FLAG,MNC_PH_STS" +
+                ")" +
+                "Values('"+p.MNC_DOC_CD+"','"+p.MNC_REQ_YR+"','"+p.MNC_REQ_NO+"','"+p.MNC_PH_CD+"'" +
+                ",'" + p.MNC_PH_QTY + "','" + p.MNC_PH_UNTF_QTY + "','" + p.MNC_PH_UNT_CD + "','" + p.MNC_PH_DIR_DSC + "'" +
+                ",'" + p.MNC_PH_PRI + "','" + p.MNC_PH_COS + "','" + p.MNC_SUP_STS + "','" + p.MNC_ORD_NO + "'" +
+                ",'" + p.MNC_PH_RFN + "','" + p.MNC_PH_DIR_CD + "','" + p.MNC_PH_FRE_CD + "','" + p.MNC_PH_TIM_CD + "'" +
+                ",'" + p.MNC_PH_CAU + "','" + p.MNC_PH_IND + "','" + p.MNC_FN_CD + "','" + p.MNC_PHA_HID + "'" +
+                ",'" + p.MNC_PH_FLG + "','" + p.MNC_STAMP_DAT + "','" + p.MNC_STAMP_TIM + "','" + p.MNC_USR_ADD + "'" +
+                ",'" + p.MNC_USR_UPD + "','" + p.MNC_PH_DIR_TXT + "','" + p.MNC_CANCEL_STS + "','" + p.MNC_PH_REM + "'" +
+                ",'" + p.MNC_PAY_FLAG + "','" + p.MNC_PH_STS + "'" +
+                ")";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+
+            return re;
+        }
+        public String deleteReqNo(String doccd, String reqyr, String reqno)
+        {
+            String sql = "", re = "";
+            sql = "Delete From pharmacy_t01 Where mnc_doc_cd = 'ROS' and mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "'";
+
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            return re;
+        }
         public PharmacyT02 setPharmacyT02(DataTable dt)
         {
             PharmacyT02 pharT02 = new PharmacyT02();
@@ -128,5 +219,6 @@ namespace bangna_hospital.objdb
             p.MNC_AN_NO = "";
             return p;
         }
+        
     }
 }

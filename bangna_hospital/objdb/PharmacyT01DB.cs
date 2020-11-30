@@ -145,8 +145,9 @@ namespace bangna_hospital.object1
             String sql = "", chk = "", re = "";
             try
             {
+                new LogWriter("e", "PharmacyT01 insert " );
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
-                conn.comStore.Connection = conn.conn;
+                conn.comStore.Connection = conn.connMainHIS;
                 conn.comStore.CommandText = "[insert_pharmacy_t01_pop]";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("dept_id", p.MNC_DOC_CD);
@@ -155,7 +156,7 @@ namespace bangna_hospital.object1
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
 
-                conn.conn.Open();
+                conn.connMainHIS.Open();
                 conn.comStore.ExecuteNonQuery();
                 re = (String)conn.comStore.Parameters["row_no1"].Value;
             }
