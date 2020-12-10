@@ -17,12 +17,12 @@ namespace bangna_hospital.object1
         public String hostFTPLabOut = "", userFTPLabOut = "", passFTPLabOut = "", portFTPLabOut = "", folderFTPLabOut = "", usePassiveFTPLabOut = "";
         public String hostFTPLabOutMedica = "", userFTPLabOutMedica = "", passFTPLabOutMedica = "", portFTPLabOutMedica = "", folderFTPLabOutMedica = "", usePassiveFTPLabOutMedica = "";
 
-        public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "";
+        public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "", pdfFontSize="", pdfFontName = "";
         public String email_form = "", email_auth_user = "", email_auth_pass = "", email_port = "", email_ssl = "";
 
         public String sticker_donor_width = "", sticker_donor_height = "", sticker_donor_start_x = "", sticker_donor_start_y = "", sticker_donor_barcode_height = "", sticker_donor_barcode_gap_x = "", sticker_donor_barcode_gap_y = "", sticker_donor_gap="";
         public String statusAppDonor = "", patientaddpanel1weight="", barcode_width_minus="", status_show_border="";
-        public String themeDonor = "", printerSticker="", hostname="", themeApp="", ssoid="", pdfFontName="", hostnamee="", hostaddresst="", hostaddresse="";
+        public String themeDonor = "", printerSticker="", hostname="", themeApp="", ssoid="", hostnamee="", hostaddresst="", hostaddresse="";
         public String timerImgScanNew = "", pathImageScan = "", imggridscanwidth = "", txtSearchHnLenghtStart = "";
         public String pathLabOutReceiveInnoTech="", pathLabOutBackupInnoTech="", pathLabOutReceiveRIA = "", pathLabOutBackupRIA = "", pathLabOutBackupRIAZipExtract="", pathLabOutBackupManual="";
         public String printerA4 = "", programLoad="", labOutOpenFileDialog="", windows="", grfScanWidth="", imgScanWidth = "", pathScanStaffNote="", pathScreenCaptureUpload = "", pathIniFile="", statusShowPrintDialog="";

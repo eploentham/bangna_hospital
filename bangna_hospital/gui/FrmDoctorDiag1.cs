@@ -583,7 +583,7 @@ namespace bangna_hospital.gui
                     filename = "medical\\" + hn + "_" + bc.vsdate + "_" + bc.preno + "_" + status + ".rtf";
                     SaveDocumentMedicalExamination(filename);
                     Application.DoEvents();
-                    Thread.Sleep(200);
+                    Thread.Sleep(100);
                     if (File.Exists(filename))
                     {
                         ext = Path.GetExtension(filename);
@@ -692,8 +692,6 @@ namespace bangna_hospital.gui
                 new LogWriter("e", "FrmDoctorDiag1 TsbtnSave_Click  " + exc_a.Message);
                 MessageBox.Show("Error writing file: \n" + exc_a.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-                
-            
         }
         private void SaveDocumentMedicalExamination(String filename)
         {
@@ -980,6 +978,8 @@ namespace bangna_hospital.gui
                 filename = "temp_med\\" + datetick + ".jpg";
                 File.Copy(@picname+".jpg", filename);
                 var filePath = @filename;
+                new LogWriter("d", "FrmDoctorDiag1 insertPicture");
+
                 ProcessStartInfo Info = new ProcessStartInfo()
                 {
                     FileName = "mspaint.exe",

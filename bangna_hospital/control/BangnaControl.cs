@@ -34,7 +34,7 @@ namespace bangna_hospital.control
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
-        public int grdViewFontSize = 0, imggridscanwidth=0;
+        public int grdViewFontSize = 0, imggridscanwidth=0, pdfFontSize=0;
 
         public BangnaHospitalDB bcDB;
 
@@ -145,6 +145,8 @@ namespace bangna_hospital.control
 
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
+            iniC.pdfFontSize = iniF.getIni("app", "pdfFontSize");
+            iniC.pdfFontName = iniF.getIni("app", "pdfFontName");
 
             iniC.txtFocus = iniF.getIni("app", "txtFocus");
             iniC.grfRowColor = iniF.getIni("app", "grfRowColor");
@@ -201,7 +203,7 @@ namespace bangna_hospital.control
             iniC.themegrfIpd = iniF.getIni("app", "themegrfIpd");
             iniC.statusoutlabMedica = iniF.getIni("app", "statusoutlabMedica");
             iniC.ssoid = iniF.getIni("app", "ssoid");
-            iniC.pdfFontName = iniF.getIni("app", "pdfFontName");
+            
             iniC.hostnamee = iniF.getIni("app", "hostnamee");
             iniC.hostaddresst = iniF.getIni("app", "hostaddresst");
             iniC.hostaddresse = iniF.getIni("app", "hostaddresse");
@@ -222,6 +224,8 @@ namespace bangna_hospital.control
             //iniC.pathImgScanNew = iniC.pathImgScanNew == null ? "d:\\images" : iniC.pathImgScanNew.Equals("") ? "d:\\images" : iniC.pathImgScanNew;
             iniC.folderFTP = iniC.folderFTP == null ? "images_medical_record" : iniC.folderFTP.Equals("") ? "images_medical_record" : iniC.folderFTP;
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
+            iniC.pdfFontName = iniC.pdfFontName.Equals("") ? iniC.grdViewFontName : iniC.pdfFontName;
+            iniC.pdfFontSize = iniC.pdfFontSize.Equals("") ? iniC.grdViewFontSize : iniC.pdfFontSize;
             iniC.hostname = iniC.hostname == null ? "โรงพยาบาล" : iniC.hostname.Equals("") ? "โรงพยาบาล" : iniC.hostname;
             iniC.usePassiveFTP = iniC.usePassiveFTP == null ? "false" : iniC.usePassiveFTP.Equals("") ? "false" : iniC.usePassiveFTP;
             iniC.usePassiveFTPLabOut = iniC.usePassiveFTPLabOut == null ? "false" : iniC.usePassiveFTPLabOut.Equals("") ? "false" : iniC.usePassiveFTPLabOut;
@@ -265,6 +269,7 @@ namespace bangna_hospital.control
             iniC.email_ssl = iniC.email_ssl == null ? "" : iniC.email_ssl.Equals("") ? "" : iniC.email_ssl;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
+            int.TryParse(iniC.pdfFontSize, out pdfFontSize);
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
             Boolean.TryParse(iniC.usePassiveFTPLabOut, out ftpUsePassiveLabOut);
@@ -923,7 +928,11 @@ namespace bangna_hospital.control
         {
             return TextRenderer.MeasureText(c.Text, c.Font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
         }
-        
+        public Size MeasureString(String txt, Font font)
+        {
+            return TextRenderer.MeasureText(txt, font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
+        }
+
         public Bitmap ResizeImage(Image image, int width, int height)
         {            
             var destRect = new Rectangle(0, 0, width, height);

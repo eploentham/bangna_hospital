@@ -87,11 +87,14 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             //String[] aa = vn.Split('/');
-            sql = "Select   m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, t01.MNC_TIME " +
+            sql = "Select   m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, FINANCE_M02.MNC_FN_TYP_DSC,convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday,m01.mnc_sex" +
+                ",m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, t01.MNC_TIME" +
+                ", t01.mnc_weight, t01.mnc_high, t01.MNC_TEMP, t01.mnc_ratios, t01.mnc_breath, t01.mnc_bp1_l, t01.mnc_bp1_r, t01.mnc_bp2_l, t01.mnc_bp2_r,t01.MNC_pre_no, t01.mnc_ref_dsc" +
+                ", t01.mnc_id_nam, t01.mnc_shif_memo,t01.mnc_bld_l, t01.mnc_bld_h, t01.mnc_cir_head, t01.mnc_cc, t01.mnc_cc_in, t01.mnc_cc_ex " +
                 "From  patient_m01 m01 " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
                 " inner join patient_t01 t01 on m01.MNC_HN_NO =t01.MNC_HN_NO " +
+                "INNER JOIN	FINANCE_M02 ON t01.MNC_FN_TYP_CD = FINANCE_M02.MNC_FN_TYP_CD " +
                 " Where t01.MNC_hn_NO = '" + hn + "' and t01.MNC_date = '" + vsdate + "' and t01.MNC_pre_no='" + preno+"'";
             dt = conn.selectData(sql);
             if (dt.Rows.Count > 0)
@@ -106,10 +109,20 @@ namespace bangna_hospital.objdb
                 {
                     vs.VisitTime = vs.VisitTime.Substring(vs.VisitTime.Length - 4);
                     vs.VisitTime = vs.VisitTime.Substring(0, 2) + ":" + vs.VisitTime.Substring(vs.VisitTime.Length - 2);
-
                 }
-                
                 vs.PatientName = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
+                vs.PaidName = dt.Rows[0]["MNC_FN_TYP_DSC"].ToString();
+                vs.ID = dt.Rows[0]["mnc_id_nam"].ToString();
+                vs.weight = dt.Rows[0]["mnc_weight"].ToString();
+                vs.high = dt.Rows[0]["mnc_high"].ToString();
+                vs.temp = dt.Rows[0]["MNC_TEMP"].ToString();
+                vs.ratios = dt.Rows[0]["mnc_ratios"].ToString();
+                vs.breath = dt.Rows[0]["mnc_breath"].ToString();
+                vs.bp1l = dt.Rows[0]["mnc_bp1_l"].ToString();
+                vs.bp1r = dt.Rows[0]["mnc_bp1_r"].ToString();
+                vs.bp2l = dt.Rows[0]["mnc_bp2_l"].ToString();
+                vs.bp2r = dt.Rows[0]["mnc_bp2_r"].ToString();
+                vs.symptom = dt.Rows[0]["mnc_shif_memo"].ToString();
             }
             return vs;
         }

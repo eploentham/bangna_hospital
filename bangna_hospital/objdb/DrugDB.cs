@@ -29,8 +29,7 @@ namespace bangna_hospital.objdb
                 "From  pharmacy_m01 pm01 " +
                 "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +
                 "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
-
-                " Where pm01.MNC_ph_STS = 'Y' and pm01.mnc_ph_typ_flg = 'P' " +
+                "Where pm01.MNC_ph_STS = 'Y' and pm01.mnc_ph_typ_flg = 'P' " +
                 "Order By pm01.mnc_ph_tn";
             dt = conn.selectData(sql);
 

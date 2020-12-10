@@ -348,6 +348,92 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectLabOutByDateReq2(String datestart, String dateend, String hn, String flagDate)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "", wheredateend = "", wheredatestart = "", where = "", orderby = "";
+            if (hn.Length > 0)
+            {
+                wherehn = " dsc.hn like '%" + hn + "%'";
+            }
+            if (flagDate.Equals("daterequest"))
+            {
+                if (dateend.Length > 0)
+                {
+                    wheredateend = " dsc." + dsc.date_req + " <='" + dateend + "' ";
+                }
+                if (datestart.Length > 0)
+                {
+                    wheredatestart = " dsc." + dsc.date_req + " >='" + datestart + "' ";
+                }
+                if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length > 0) && (hn.Length <= 0))
+                {
+                    where = wheredatestart + " and " + wheredateend;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wherehn;
+                }
+                else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wherehn;
+                }
+                orderby = "Order By dsc.date_req, dsc.doc_scan_id ";
+            }
+            else
+            {
+                if (dateend.Length > 0)
+                {
+                    wheredateend = " dsc." + dsc.date_create + " <='" + dateend + " 23:59:59' ";
+                }
+                if (datestart.Length > 0)
+                {
+                    wheredatestart = " dsc." + dsc.date_create + " >='" + datestart + " 00:00:00' ";
+                }
+                if ((datestart.Length >= 0) && (dateend.Length > 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wheredateend + " and " + wherehn;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length > 0) && (hn.Length <= 0))
+                {
+                    where = wheredatestart + " and " + wheredateend;
+                }
+                else if ((datestart.Length > 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wheredatestart + " and " + wherehn;
+                }
+                else if ((datestart.Length <= 0) && (dateend.Length <= 0) && (hn.Length > 0))
+                {
+                    where = wherehn;
+                }
+                orderby = "Order By dsc.doc_scan_id ";
+            }
+            //MessageBox.Show("2222", "");
+            String sql = "select dsc.*, pm01.mnc_id_nam " +
+                "From "+ conn .connMainHIS.Database+ ".dbo." + dsc.table + " dsc " +
+                "Left Join " + conn.connMainHIS.Database + ".dbo.doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Left Join " + conn.connMainHIS.Database + ".dbo.patient_m01 pm01 on dsc.hn = pm01.mnc_hn_ho " +
+                "Where  " + where +
+                "and dsc." + dsc.active + "='1'  /*and dgss.dept_us = '1'*/ and dsc." + dsc.status_record + " = '2' " +
+                orderby;
+            //new LogWriter("d", "sql " + sql);
+            try
+            {
+                dt = conn.selectData(conn.conn, sql);
+                new LogWriter("d", "DocScanDb selectLabOutByDateReq2 sql " + sql);
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("e", "DocScanDb selectLabOutByDateReq2 sql " + sql);
+            }
+
+            return dt;
+        }
         public DataTable selectMedResultByDateReq(String datestart, String dateend, String hn)
         {
             //DocScan cop1 = new DocScan();

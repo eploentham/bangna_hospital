@@ -52,7 +52,7 @@ namespace bangna_hospital.gui
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
         Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
         
-        C1TextBox txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody;
+        C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -74,7 +74,9 @@ namespace bangna_hospital.gui
         int colOrdDrugId = 1, colOrdDrugNameT = 2, colOrdDrugUnit = 3, colOrdDrugtypcd = 4;
         int colOrdXrayId = 1, colOrdXrayName = 2, colOrdXrayUnit = 3, colXraytypcd = 4, colXraygrpcd = 5, colXraygrpdsc = 6;
         int colOrdLabId = 1, colOrdLabName = 2, colOrdlabUnit = 3, colLabtypcd = 4, colLabgrpcd = 5, colLabgrpdsc = 6;
-        int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=10;
+
+        int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=8, colOrdAddRowNo=9;        // order add
+
         int colPrnlabHn = 1, colPrnlabName = 2, colPrnlabVN = 3, colPrnlabAN = 4, colPrnlabReqDate = 5, colPrnlabReqNo = 6;
         int colPrnSSOchk = 1, colPrnSSOVn = 2, colPrnSSOvsDate = 3, colPrnSSODesc = 4, colPrnSSOpreno = 5;
         int colPrnEmailDocCD = 1, colPrnEmailDocYr = 2, colPrnEmailDocNo = 3, colPrnEmailDocDat = 4, colPrnEmailDate = 5, colPrnEmailPaidName=6, colPrnEmailStatusOPD=7, colPrnEmailAn=8, colPrnEmailAnYr=9;
@@ -215,6 +217,7 @@ namespace bangna_hospital.gui
             //}
             //lbAge.Text = "อายุ "+ptt.AgeStringShort();
             btnHn.Click += BtnHn_Click;
+
             
             //btnRefresh.Click += BtnRefresh_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
@@ -1448,6 +1451,7 @@ namespace bangna_hospital.gui
                     setGrfOrdSup();
                     setGrfOrdLab();
                     setGrfOrdXray();
+                    setGrfOrdItem();
                     tabOrdAdd.Show();
                 }
                 flagTabDtrOrdLoad = true;
@@ -3078,6 +3082,9 @@ namespace bangna_hospital.gui
             //scOrdRight.HeaderHeight = 10;
             scOrdDiag3.Controls.Add(pnOrdDiag3);
             initComTabVital();
+            Visit vs = new Visit();
+            vs = bc.bcDB.vsDB.selectVisit(txtHn.Text.Trim(), vsDate, preno);
+            setControlPnOrdDiagVal(vs.bp1l, vs.breath, vs.temp, vs.weight, vs.high,"",vs.cc, vs.ccin, vs.ccex,"","", vs.bp1l, vs.bp2l,"","",vs.symptom, vsDate,vs.PaidName);
 
             FrmDoctorDiag1 frmDtrDiag1 = new FrmDoctorDiag1(bc, "cc", txtHn.Text.Trim());
             frmDtrDiag1.FormBorderStyle = FormBorderStyle.None;
@@ -3345,10 +3352,10 @@ namespace bangna_hospital.gui
             lbPttCCex.Text = !ccex.Equals("") ? "CC ex : " + ccex: "CC ex : " ;
             lbPttAbc.Text = !abc.Equals("") ? "Abc :" + abc: "Abc :";
             lbPttHC.Text = !hc.Equals("") ? "HC : ": "HC : " + hc;
-            lbPttBp1.Text = !bp1.Equals("") ? "Bp 1 : " + bp1: "Bp1 :";
-            lbPttBp2.Text = !bp2.Equals("") ? "Bp 2 : "+ bp2: "Bp 2 :";
-            lbPttHrate.Text = !hrate.Equals("") ? "H rate : "+ hrate: "H rate :";
-            lbPttLRate.Text = !lrate.Equals("") ? "R rate : " + lrate: "R rate :" ;
+            lbPttBp1.Text = !bp1.Equals("") ? "BP1 : " + bp1: "BP1 :";
+            lbPttBp2.Text = !bp2.Equals("") ? "BP2 : "+ bp2: "BP2 :";
+            lbPttHrate.Text = !hrate.Equals("") ? "H.Rate : "+ hrate: "H.Rate :";
+            lbPttLRate.Text = !lrate.Equals("") ? "R.Rate : " + lrate: "R.Rate :" ;
             lbPttSymptom.Text = !symptom.Equals("") ? "Symptom : " + symptom: "Symptom :";
             lbPttVsDate.Text = !vsdate.Equals("") ? "Visit Date : "  + vsdate: "Visit Date :";
             lbPaidType.Text = !paidtype.Equals("") ? "สิทธิ : " + paidtype: "สิทธิ :";
@@ -5187,10 +5194,11 @@ namespace bangna_hospital.gui
                             }
                             
                         }
-
+                        //      lab out
                         DataTable dtlaboutdsc = new DataTable();
                         //dtlaboutdsc = bc.bcDB.dscDB.selectLabOutByAn(txtHn.Text.Trim(), an);
                         dtlaboutdsc = bc.bcDB.dscDB.selectLabOutByDateReq("","",txtHn.Text.Trim(), "");
+                        //dtlaboutdsc = bc.bcDB.dscDB.selectLabOutByDateReq2("", "", txtHn.Text.Trim(), "");
                         List<String> lAn = new List<string>();
                         foreach (DataRow rowdsc in dtlaboutdsc.Rows)
                         {
@@ -5216,9 +5224,10 @@ namespace bangna_hospital.gui
                         {
                             try
                             {
-                                String dscid = "", filename = "", ftphost = "", id = "", folderftp = "", an1="";
+                                String dscid = "", filename = "", ftphost = "", id = "", folderftp = "", an1="", pid="";
                                 an1 = rowdsc[bc.bcDB.dscDB.dsc.an] != null ? rowdsc[bc.bcDB.dscDB.dsc.an].ToString() : "";
                                 dscid = rowdsc[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                                pid = rowdsc[bc.bcDB.dscDB.dsc.an] != null ? rowdsc["mnc_id_nam"].ToString() : "";
                                 
                                 MemoryStream stream;
                                 stream = ftp.download(rowdsc[bc.bcDB.dscDB.dsc.folder_ftp] + "/" + rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
@@ -5303,13 +5312,13 @@ namespace bangna_hospital.gui
                                                     newHeight = newHeight / heightFactor;
                                                 }
                                             }
-
                                             RectangleF recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                                            pdfdoc.DrawString("ID "+ pid, fEdit5B, SystemBrushes.WindowText, recf);
+                                            recf = new RectangleF(35, 35, (int)newWidth, (int)newHeight);
                                             pdfdoc.DrawImage(loadedImage, recf);
                                             pdfdoc.NewPage();
                                         }
                                     }
-                                    
                                 }
                             }
                             catch (Exception ex)
@@ -5359,7 +5368,7 @@ namespace bangna_hospital.gui
             else if (this.chkPrnSSO.Checked)
             {
                 showLbLoading();
-
+                MessageBox.Show("11", "");
                 String pathFolder = setExportSSOtoFolder();
 
                 Process.Start("explorer.exe", pathFolder);
@@ -5870,16 +5879,35 @@ namespace bangna_hospital.gui
             grfOrdItem.Rows.Count = 1;
             grfOrdItem.Cols.Count = 12;
             grfOrdItem.Name = "grfOrdItem";
-            grfOrdItem.DoubleClick += GrfOrdItem_DoubleClick;
-            grfOrdItem.Cols[colOrdDrugNameT].Caption = "ชื่อ";
-            grfOrdItem.Cols[colOrdDrugtypcd].Caption = "ประเภท";
-            grfOrdItem.Cols[colOrdDrugUnit].Caption = "หน่วย";
-            grfOrdItem.Cols[colOrdDrugNameT].Width = 300;
-            grfOrdItem.Cols[colOrdDrugtypcd].Width = 100;
-            grfOrdItem.Cols[colOrdDrugUnit].Width = 100;
-            grfOrdItem.Cols[colOrdDrugId].Visible = false;
-            grfOrdItem.Cols[colOrdDrugId].Visible = false;
-            grfOrdItem.Cols[colOrdDrugId].Visible = false;
+            grfOrdItem.MouseClick += GrfOrdItem_MouseClick;
+            grfOrdItem.Cols[colOrdAddNameT].Caption = "ชื่อ";
+            grfOrdItem.Cols[colOrdAddQty].Caption = "QTY";
+            grfOrdItem.Cols[colOrdAddItemType].Caption = "หน่วย";
+            grfOrdItem.Cols[colOrdAddUnit].Caption = "หน่วย";
+            grfOrdItem.Cols[colOrdAddDrugFr].Caption = "ความถี่";
+            grfOrdItem.Cols[colOrdAddDrugIn].Caption = "ข้อความระวัง";
+            grfOrdItem.Cols[colOrdAddNameT].Width = 300;
+            grfOrdItem.Cols[colOrdAddQty].Width = 50;
+            grfOrdItem.Cols[colOrdAddItemType].Width = 80;
+            grfOrdItem.Cols[colOrdAddUnit].Width = 80;
+            grfOrdItem.Cols[colOrdAddDrugFr].Width = 200;
+            grfOrdItem.Cols[colOrdAddDrugIn].Width = 200;
+
+            grfOrdItem.Cols[colOrdAddUnit].Visible = false;
+            //grfOrdItem.Cols[colOrdDrugId].Visible = false;
+            //grfOrdItem.Cols[colOrdDrugId].Visible = false;
+            grfOrdItem.Cols[colOrdAddNameT].AllowEditing = false;
+            grfOrdItem.Cols[colOrdAddQty].AllowEditing = false;
+            grfOrdItem.Cols[colOrdAddItemType].AllowEditing = false;
+            grfOrdItem.Cols[colOrdAddUnit].AllowEditing = false;
+            grfOrdItem.Cols[colOrdAddDrugFr].AllowEditing = false;
+            grfOrdItem.Cols[colOrdAddDrugIn].AllowEditing = false;
+            //grfOrdItem.DoubleClick += GrfOrdItem_DoubleClick1;
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("ต้องการลบข้อมูล รายการนี้", new EventHandler(ContextMenu_delete_ord_item));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            grfOrdItem.ContextMenu = menuGw;
 
             scOrdItem.Collapsible = true;
             scOrdItem.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
@@ -5908,7 +5936,13 @@ namespace bangna_hospital.gui
             txtItmId.Font = fEdit;
             txtItmId.Name = "txtItmId";
             txtItmId.Location = new System.Drawing.Point(gapColName, lbItmId.Location.Y);
-            txtItmId.Size = new Size(120, 20);
+            txtItmId.Size = new Size(120, 20);      //txtItmRowNo
+            txtItmRowNo = new C1TextBox();
+            txtItmRowNo.Font = fEdit;
+            txtItmRowNo.Name = "txtItmRowNo";
+            txtItmRowNo.Location = new System.Drawing.Point(gapColName, lbItmId.Location.Y);
+            txtItmRowNo.Size = new Size(120, 20);      //txtItmRowNo
+            txtItmRowNo.Hide();
             gapLine += gapY;
             lbItmName = new Label();
             lbItmName.Text = "ชื่อ";
@@ -5921,6 +5955,8 @@ namespace bangna_hospital.gui
             txtItmName.Name = "txtItmName";
             txtItmName.Location = new System.Drawing.Point(gapColName, lbItmName.Location.Y);
             txtItmName.Size = new Size(300, 20);
+            txtItmName.LostFocus += TxtItmName_LostFocus;
+
             gapLine += gapY;
             lbItmQty = new Label();
             lbItmQty.Text = "QTY";
@@ -5933,6 +5969,8 @@ namespace bangna_hospital.gui
             txtItmQty.Name = "txtItmQty";
             txtItmQty.Location = new System.Drawing.Point(gapColName, lbItmQty.Location.Y);
             txtItmQty.Size = new Size(120, 20);
+            txtItmQty.LostFocus += TxtItmQty_LostFocus;
+
             gapLine += gapY;
             lbItmFre = new Label();
             lbItmFre.Text = "วิธีใช้";
@@ -5945,6 +5983,8 @@ namespace bangna_hospital.gui
             txtItmFre.Name = "txtItmFre";
             txtItmFre.Location = new System.Drawing.Point(gapColName, lbItmFre.Location.Y);
             txtItmFre.Size = new Size(300, 20);
+            txtItmFre.LostFocus += TxtItmFre_LostFocus;
+
             gapLine += gapY;
             lbItmIn1 = new Label();
             lbItmIn1.Text = "ข้อควรระวัง1";
@@ -5957,6 +5997,8 @@ namespace bangna_hospital.gui
             txtItmIn1.Name = "txtItmIn1";
             txtItmIn1.Location = new System.Drawing.Point(gapColName, lbItmIn1.Location.Y);
             txtItmIn1.Size = new Size(300, 20);
+            txtItmIn1.LostFocus += TxtItmIn1_LostFocus;
+
             gapLine += gapY;
             lbItmIn2 = new Label();
             lbItmIn2.Text = "ข้อควรระวัง2";
@@ -5974,6 +6016,8 @@ namespace bangna_hospital.gui
             btnItmSend.Name = "btnItmSend";
             btnItmSend.Location = new Point(txtItmIn2.Width -btnItmSend.Width + 100, txtItmIn2.Location.Y + txtItmIn2.Height + 20);
             btnItmSend.Size = new Size(70, 50);
+            btnItmSend.Click += BtnItmSend_Click;
+
             btnItmDrugSet = new C1Button();
             btnItmDrugSet.Text = "ยา ชุด";
             btnItmDrugSet.Name = "btnItmDrugSet";
@@ -5989,7 +6033,8 @@ namespace bangna_hospital.gui
 
             pnscOrdItem.BackColor = this.BackColor;
             pnscOrdItem.Controls.Add(lbItmId);
-            pnscOrdItem.Controls.Add(txtItmId);
+            pnscOrdItem.Controls.Add(txtItmId); 
+            pnscOrdItem.Controls.Add(txtItmRowNo);
             pnscOrdItem.Controls.Add(lbItmName);
             pnscOrdItem.Controls.Add(txtItmName);
             pnscOrdItem.Controls.Add(lbItmQty);
@@ -6028,7 +6073,105 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(pnscOrdItem, "Office2016Colorful");
             theme1.SetTheme(pnscOrdItem, "VS2013Purple");
         }
-        private void setPharT01()
+
+        private void BtnItmSend_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            drawImageMedicalRecord();
+        }
+
+        private void ContextMenu_delete_ord_item(object sender, System.EventArgs e)
+        {
+            grfOrdItem.Rows.Remove(grfOrdItem.Row);
+        }
+        private void GrfOrdItem_MouseClick(object sender, MouseEventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtItmRowNo.Value = grfOrdItem.Row.ToString();
+            txtItmName.Value = grfOrdItem[grfOrdItem.Row, colOrdAddNameT].ToString();
+            txtItmFre.Value = grfOrdItem[grfOrdItem.Row, colOrdAddDrugFr].ToString();
+            txtItmIn1.Value = grfOrdItem[grfOrdItem.Row, colOrdAddDrugIn].ToString();
+            txtItmId.Value = grfOrdItem[grfOrdItem.Row, colOrdAddId].ToString();
+            txtItmQty.Value = grfOrdItem[grfOrdItem.Row, colOrdAddQty].ToString();
+        }
+
+        private void TxtItmIn1_LostFocus(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            int row = 0;
+            if (int.TryParse(txtItmRowNo.Text, out row))
+            {
+                if (grfOrdItem.Rows.Count == row)
+                {
+                    grfOrdItem[row - 1, colOrdAddDrugIn] = txtItmIn1.Text.Trim();
+                }
+                else
+                {
+                    grfOrdItem[row, colOrdAddDrugIn] = txtItmIn1.Text.Trim();
+                }
+            }
+        }
+
+        private void TxtItmFre_LostFocus(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            int row = 0;
+            if (int.TryParse(txtItmRowNo.Text, out row))
+            {
+                
+                    if (grfOrdItem.Rows.Count == row)
+                    {
+                        grfOrdItem[row-1, colOrdAddDrugFr] = txtItmFre.Text.Trim();
+                    }
+                    else
+                    {
+                        grfOrdItem[row, colOrdAddDrugFr] = txtItmFre.Text.Trim();
+                    }
+            }
+        }
+
+        private void TxtItmQty_LostFocus(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            int row = 0;
+            if (int.TryParse(txtItmRowNo.Text, out row))
+            {
+                //if (grfOrdItem.Rows.Count == 2)
+                //{
+                //    grfOrdItem[row-1, colOrdAddQty] = txtItmQty.Text.Trim();
+                //}
+                //else
+                //{
+                    if (grfOrdItem.Rows.Count == row)
+                    {
+                        grfOrdItem[row-1, colOrdAddQty] = txtItmQty.Text.Trim();
+                    }
+                    else
+                    {
+                        grfOrdItem[row, colOrdAddQty] = txtItmQty.Text.Trim();
+                    }
+                //}
+            }
+        }
+
+        private void TxtItmName_LostFocus(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            int row = 0;
+            if(int.TryParse(txtItmRowNo.Text, out row))
+            {
+                if (grfOrdItem.Rows.Count == 2)
+                {
+                    grfOrdItem[row - 1, colOrdAddNameT] = txtItmName.Text.Trim();
+                }
+                else
+                {
+                    grfOrdItem[row, colOrdAddNameT] = txtItmName.Text.Trim();
+                }
+            }
+        }
+
+        private void savePharT01()
         {
             PharmacyT01 phart01 = new PharmacyT01();
             //if (!chkIPD.Checked)
@@ -6053,7 +6196,7 @@ namespace bangna_hospital.gui
             phart01.MNC_DEPC_NO = "";
             phart01.MNC_DEP_NO = "";
             phart01.MNC_DOC_CD = "";
-            phart01.MNC_DOT_CD = "";
+            phart01.MNC_DOT_CD = bc.user.username;
             phart01.MNC_EMPC_CD = "";
             phart01.MNC_EMPR_CD = bc.user.username;
             phart01.MNC_FN_TYP_CD = "";
@@ -6071,8 +6214,8 @@ namespace bangna_hospital.gui
             phart01.MNC_RM_NAM = "";
             phart01.MNC_SECC_NO = "";
             phart01.MNC_SEC_NO = "";
-            phart01.MNC_SUM_COS = "";
-            phart01.MNC_SUM_PRI = "";
+            phart01.MNC_SUM_COS = "1";
+            phart01.MNC_SUM_PRI = "1";
             phart01.MNC_STAMP_DAT = "";
             phart01.MNC_STAMP_TIM = "";
             phart01.MNC_TIME = "";
@@ -6080,64 +6223,424 @@ namespace bangna_hospital.gui
             phart01.MNC_USR_ADD = bc.user.username;
             phart01.MNC_USR_UPD = bc.user.username;
             phart01.MNC_WD_NO = "";
-
+            new LogWriter("d", "PharmacyT02 insertPharmacyT01 hn " + phart01.MNC_HN_NO+" hnyr "+ phart01.MNC_HN_YR+" date "+ phart01.MNC_DATE+" preno "+ phart01.MNC_PRE_NO+ "select * from PHARMACY_T01 where MNC_HN_NO = '" + phart01.MNC_HN_NO + "' and mnc_req_dat = '"+ vsDate + "' and MNC_PRE_NO = '" + phart01.MNC_PRE_NO + "'");
             String re = bc.bcDB.pharT01DB.insertPharmacyT01(phart01);
-            foreach(Row rowdrug in grfOrdDrug.Rows)
+            new LogWriter("d", "PharmacyT02 insertPharmacyT01 re " + re);
+            int chk = 0;
+            if(int.TryParse(re, out chk))
             {
-                String itmcode = "", drugFr="", drugIn="", untcode="";
-                itmcode = rowdrug[colOrdAddId].ToString();
-                drugFr = rowdrug[colOrdAddDrugFr].ToString();
-                drugIn = rowdrug[colOrdAddDrugIn].ToString();
-                untcode = rowdrug[colOrdAddUnit].ToString();
-                PharmacyT02 phart02 = new PharmacyT02();
-                
-                phart02.MNC_CANCEL_STS = "";
-                phart02.MNC_DOC_CD = "ROS";
-                phart02.MNC_FN_CD = "";
-                phart02.MNC_ORD_NO = "";
-                phart02.MNC_PAY_FLAG = "";
-                phart02.MNC_PHA_HID = "";
-                phart02.MNC_PH_CAU = drugIn;
-                phart02.MNC_PH_CD = itmcode;
-                phart02.MNC_PH_COS = "";
-                phart02.MNC_PH_DIR_CD = "";
-                phart02.MNC_PH_DIR_DSC = drugFr;
-                phart02.MNC_PH_DIR_TXT = "";
-                phart02.MNC_PH_FLG = "";
-                phart02.MNC_PH_FRE_CD = "";
-                phart02.MNC_PH_IND = "";
-                phart02.MNC_PH_PRI = "0";
-                phart02.MNC_PH_QTY = "0";
-                phart02.MNC_PH_REM = "";
-                phart02.MNC_PH_RFN = "";
-                phart02.MNC_PH_STS = "";
-                phart02.MNC_PH_TIM_CD = "";
-                phart02.MNC_PH_UNTF_QTY = "";
-                phart02.MNC_PH_UNT_CD = untcode;
-                phart02.MNC_REQ_NO = re;
-                phart02.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
-                phart02.MNC_STAMP_DAT = "";
-                phart02.MNC_STAMP_TIM = "";
-                phart02.MNC_SUP_STS = "";
-                phart02.MNC_USR_ADD = bc.user.username;
-                phart02.MNC_USR_UPD = bc.user.username;
+                bc.bcDB.pharT02DB.deleteReqNo(phart01.MNC_REQ_YR, re);
+                foreach (Row rowdrug in grfOrdItem.Rows)
+                {
+                    String itmcode = "", drugFr = "", drugIn = "", untcode = "", qty = "";
+                    if (rowdrug[colOrdAddId] == null) continue;
+                    itmcode = rowdrug[colOrdAddId].ToString();
+                    drugFr = rowdrug[colOrdAddDrugFr].ToString();
+                    drugIn = rowdrug[colOrdAddDrugIn].ToString();
+                    untcode = rowdrug[colOrdAddUnit].ToString();
+                    qty = rowdrug[colOrdAddQty].ToString();
+                    PharmacyT02 phart02 = new PharmacyT02();
 
-                bc.bcDB.pharT02DB.insertPharmacyT02(phart02, "");
+                    phart02.MNC_CANCEL_STS = "";
+                    phart02.MNC_DOC_CD = "ROS";
+                    phart02.MNC_FN_CD = "";
+                    phart02.MNC_ORD_NO = "";
+                    phart02.MNC_PAY_FLAG = "";
+                    phart02.MNC_PHA_HID = "";
+                    phart02.MNC_PH_CAU = drugIn;
+                    phart02.MNC_PH_CD = itmcode;
+                    phart02.MNC_PH_COS = "";
+                    phart02.MNC_PH_DIR_CD = "";
+                    phart02.MNC_PH_DIR_DSC = drugFr;
+                    phart02.MNC_PH_DIR_TXT = "";
+                    phart02.MNC_PH_FLG = "";
+                    phart02.MNC_PH_FRE_CD = "";
+                    phart02.MNC_PH_IND = "";
+                    phart02.MNC_PH_PRI = "0";
+                    phart02.MNC_PH_QTY = qty;
+                    phart02.MNC_PH_REM = "";
+                    phart02.MNC_PH_RFN = "";
+                    phart02.MNC_PH_STS = "";
+                    phart02.MNC_PH_TIM_CD = "";
+                    phart02.MNC_PH_UNTF_QTY = "";
+                    phart02.MNC_PH_UNT_CD = untcode;
+                    phart02.MNC_REQ_NO = re;
+                    phart02.MNC_REQ_YR = phart01.MNC_REQ_YR;
+                    phart02.MNC_STAMP_DAT = "";
+                    phart02.MNC_STAMP_TIM = "";
+                    phart02.MNC_SUP_STS = "";
+                    phart02.MNC_USR_ADD = bc.user.username;
+                    phart02.MNC_USR_UPD = bc.user.username;
+
+
+                    bc.bcDB.pharT02DB.insertPharmacyT02(phart02, "");
+                }
             }
+        }
+        private void drawImageMedicalRecord()
+        {
+            String filename = "";
+            //filename = txtHn.Text.Trim()+"_"+
+            //if (File.Exists("medicalrecord.jpg"))
+            //new LogWriter("d", "FrmScanView1 drawImageMedicalRecord 00 start");
+            {
+                int gapLine = 18, gapX = 15, gapY = 10, col1=130, col11=300, col12 = 400, col2=530, temp=0,col3=1000, col31=1200, col4=1338, col5=1320, col6=1570;
+                String mlfm = "";
+                C1PictureBox pic = new C1PictureBox();
+                C1PdfDocument _c1pdf;
+                C1PdfDocumentSource pdf = new C1PdfDocumentSource();
+                MemoryStream streamCC, streamME, streamDiag, streamCC1 = new MemoryStream(), streamME1 = new MemoryStream(), streamDiag1 = new MemoryStream();
+                FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                DocScan docCC = new DocScan();
+                DocScan docME = new DocScan();
+                DocScan docDiag = new DocScan();
+                
+                //mlfm = "FM-MED-900";
+                //mlfm = "FM-MED-901";
+                //mlfm = "FM-MED-902";
+
+                docCC = bc.bcDB.dscDB.selectByStatusMedicalExamination(hn, "FM-MED-900", vsDate, preno);    //cc
+                docME = bc.bcDB.dscDB.selectByStatusMedicalExamination(hn, "FM-MED-901", vsDate, preno);
+                docDiag = bc.bcDB.dscDB.selectByStatusMedicalExamination(hn, "FM-MED-902", vsDate, preno);
+
+                Visit vs = new Visit();
+                Pen pen = new Pen(Color.Black);
+                pen.Width = 2;
+                vs = bc.bcDB.vsDB.selectVisit(txtHn.Text.Trim(), vsDate, preno);
+                //new LogWriter("d", "FrmScanView1 drawImageMedicalRecord 01");
+                Image img = Image.FromFile("medicalrecord.jpg");
+                Graphics graphicImage = Graphics.FromImage(img);
+                Font font = new Font(bc.iniC.pdfFontName, bc.pdfFontSize, FontStyle.Regular);
+                Font fontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSize, FontStyle.Bold);
+                Font font5 = new Font(bc.iniC.pdfFontName, 14+24, FontStyle.Bold);
+                int height = 20, branch=0;
+
+                _c1pdf = new C1.C1Pdf.C1PdfDocument();
+                _c1pdf.DocumentInfo.Producer = "C1Pdf";
+                _c1pdf.Security.AllowCopyContent = true;
+                _c1pdf.Security.AllowEditAnnotations = true;
+                _c1pdf.Security.AllowEditContent = true;
+                _c1pdf.Security.AllowPrint = true;
+                _c1pdf.DocumentInfo.Title = " ";
+
+                streamCC = ftp.download(bc.iniC.folderFTP + "//" + docCC.image_path);
+                streamME = ftp.download(bc.iniC.folderFTP + "//" + docME.image_path);
+                streamDiag = ftp.download(bc.iniC.folderFTP + "//" + docDiag.image_path);
+                streamCC.Position = 0;
+                streamDiag.Position = 0;
+                streamME.Position = 0;
+                StreamReader reader;
+                RectangleF rc;
+                Image impCC =null, impME = null, impDiag = null;
+                if (streamCC.Length > 0)
+                {
+                    reader = new StreamReader(streamCC, System.Text.Encoding.UTF8, true);
+                    reader.BaseStream.Position = 0;
+                    rc = new RectangleF(0, 0, 200, 200);
+                    var exporter = pdf.SupportedExportProviders[4].NewExporter();
+                    exporter.ShowOptions = false;
+                    filename = txtHn.Text.Trim() + "_cc_" + preno;
+                    exporter.FileName = filename;
+
+                    _c1pdf.DrawStringRtf(reader.ReadToEnd(), font, Brushes.White, rc);
+                    _c1pdf.Save(streamCC1);
+                    //_c1pdf.Save("aaaaa.pdf");
+                    streamCC1.Position = 0;
+                    pdf.LoadFromStream(streamCC1);
+                    pdf.Export(exporter);
+                    Application.DoEvents();
+                    filename = filename + "_page1.jpg";
+                    impCC = Image.FromFile(filename);
+                    Bitmap bmpImage = new Bitmap(impCC);
+                    bmpImage = bmpImage.Clone(new Rectangle(0, 0, 400, 300), bmpImage.PixelFormat);
+                    impCC = bmpImage;
+                    if (streamME.Length > 0)
+                    {
+                        reader = new StreamReader(streamME, System.Text.Encoding.UTF8, true);
+                        reader.BaseStream.Position = 0;
+                        filename = txtHn.Text.Trim() + "_me_" + preno;
+                        exporter.FileName = filename;
+                        _c1pdf.Clear();
+                        _c1pdf.DrawStringRtf(reader.ReadToEnd(), font, Brushes.White, rc);
+                        _c1pdf.Save(streamME1);
+                        streamME1.Position = 0;
+                        pdf.LoadFromStream(streamME1);
+                        pdf.Export(exporter);
+                        Application.DoEvents();
+                        filename = filename + "_page1.jpg";
+                        impME = Image.FromFile(filename);
+                        bmpImage = new Bitmap(impME);
+                        bmpImage = bmpImage.Clone(new Rectangle(0, 0, 400, 600), bmpImage.PixelFormat);
+                        impME = bmpImage;
+                    }
+                    if (streamDiag.Length > 0)
+                    {
+                        reader = new StreamReader(streamDiag, System.Text.Encoding.UTF8, true);
+                        reader.BaseStream.Position = 0;
+                        filename = txtHn.Text.Trim() + "_diag_" + preno;
+                        exporter.FileName = filename;
+                        _c1pdf.Clear();
+                        _c1pdf.DrawStringRtf(reader.ReadToEnd(), font, Brushes.White, rc);
+                        _c1pdf.Save(streamDiag1);
+                        streamDiag1.Position = 0;
+                        pdf.LoadFromStream(streamDiag1);
+                        pdf.Export(exporter);
+                        Application.DoEvents();
+                        filename = filename + "_page1.jpg";
+                        impDiag = Image.FromFile(filename);
+                        bmpImage = new Bitmap(impDiag);
+                        bmpImage = bmpImage.Clone(new Rectangle(0, 0, 400, 600), bmpImage.PixelFormat);
+                        impDiag = bmpImage;
+                    }
+                }
+
+                String txt = "";
+                gapLine = int.Parse(font.Size.ToString())+4;
+                txt = "HN " + txtHn.Text.Trim() + " ชื่อ-นามสกุล " + txtName.Text.Trim();
+                Size size = TextRenderer.MeasureText(txt, font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
+                RectangleF recf = new RectangleF(0, 0, size.Width, size.Height);
+                graphicImage.DrawString("0,0 " + font.Name+" "+ font.Size, font, SystemBrushes.WindowText, recf);
+                gapY += gapLine;
+                
+                txt = int.Parse(bc.iniC.branchId).ToString();
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(470, gapY-12, size.Width+10, size.Height+20);
+                graphicImage.DrawString(txt, font5, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col4, gapY-12, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font5, SystemBrushes.WindowText, recf);
+
+                gapY += gapLine;
+                txt = "H.N. "+txtHn.Text.Trim() +"     V.N. "+txtVN.Text.Trim();
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col2, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col5, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                gapY += gapLine;
+                txt = vs.PaidName;
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col3, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "ชื่อ "+txtName.Text;
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col2, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col5, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                //gapY += gapLine;
+                gapY += gapLine;
+                
+                txt = "เลขที่บัตร " + vs.ID;
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col2, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col5, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                gapY += gapLine;
+                txt = "โรคประจำตัว";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                Rectangle rec = new Rectangle(col11, gapY+3, 20, 20);
+                graphicImage.DrawRectangle(pen, rec);
+                txt = "ไม่มี";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col11 + 25, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "อายุ " + ptt.AgeString() + " (" + bc.datetoShow(ptt.patient_birthday) + ")";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col2, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col5, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                gapY += gapLine;
+                rec = new Rectangle(col11, gapY + 3, 20, 20);
+                graphicImage.DrawRectangle(pen, rec);
+                txt = "มีโรค  ระบุ";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col11 + 25, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "วันที่เวลา " + System.DateTime.Now.ToString("dd/MM/yyyy hh:MM");
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col2, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col5, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                gapY += gapLine;
+                txt = "โรคเรื้อรัง";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                temp = size.Width;
+                txt = lbChronic1.Text.Replace("Chronic : ","");
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1 + temp, gapY, size.Width + temp + 10, size.Height);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                gapY += gapLine;
+                txt = "ชื่อแพทย์ " + bc.user.fullname + "("+bc.user.username+")";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col3, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                //gapY += gapLine;
+                txt = "DR Time.                        ปิดใบยา";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col2, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                gapY += gapLine;
+                txt = lbPttTemp.Text;
+                //size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1, gapY, 120, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttHrate.Text;
+                recf = new RectangleF(col1 + 120, gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttLRate.Text;
+                recf = new RectangleF(col1 + (120*2), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttBp1.Text;
+                recf = new RectangleF(col1 + (120*3), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "Time ";
+                recf = new RectangleF(col1 + (120 * 4), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttBp2.Text;
+                recf = new RectangleF(col1 + (120 * 5), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "Time ";
+                recf = new RectangleF(col1 + (120 * 6), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                gapY += gapLine;
+                txt = lbPttWeight.Text;
+                recf = new RectangleF(col1, gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttHigh.Text;
+                recf = new RectangleF(col1+120, gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "BMI ";
+                recf = new RectangleF(col1 + (120 * 2), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttCC.Text;
+                recf = new RectangleF(col1 + (120 * 3), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttCCin.Text;
+                recf = new RectangleF(col1 + (120 * 4), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = lbPttCCex.Text;
+                recf = new RectangleF(col1 + (120 * 5), gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "Ab.C ";
+                recf = new RectangleF(col1 + 650, gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                txt = "H.C. ";
+                recf = new RectangleF(col1 + 750, gapY, 100, 30);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                //gapY += gapLine;
+                //size = bc.MeasureString(txt, font);
+                //recf = new RectangleF(gapX, gapY, size.Width, height);
+                //graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                gapY += gapLine;
+                txt = "แพ้ยา/อาหาร/อื่นๆ";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col3, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                rec = new Rectangle(col11, gapY + 3, 20, 20);
+                graphicImage.DrawRectangle(pen, rec);
+                rec = new Rectangle(col31, gapY + 3, 20, 20);
+                graphicImage.DrawRectangle(pen, rec);
+                txt = "ไม่มี";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col11 + 25, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col31 + 25, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                gapY += gapLine;
+                rec = new Rectangle(col11, gapY + 3, 20, 20);
+                graphicImage.DrawRectangle(pen, rec);
+                rec = new Rectangle(col31, gapY + 3, 20, 20);
+                graphicImage.DrawRectangle(pen, rec);
+                txt = "มี ระบุอาการ";
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col11 + 25, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col31 + 25, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+
+                gapY += gapLine;
+                txt = "อาการเบื้องต้น "+vs.symptom;
+                size = bc.MeasureString(txt, font);
+                recf = new RectangleF(col1, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                recf = new RectangleF(col3, gapY, size.Width + 10, size.Height + 20);
+                graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                gapY += gapLine;
+                gapY += gapLine;
+
+                recf = new RectangleF(col1, gapY, 200, 200);
+                if (impCC != null)
+                {
+                    graphicImage.DrawImage(impCC, recf);
+                }
+                gapY += gapLine;
+                recf = new RectangleF(col1, gapY, 200, 200);
+                if (impME != null)
+                {
+                    graphicImage.DrawImage(impME, recf);
+                }
+                gapY += gapLine;
+                recf = new RectangleF(col1, gapY, 200, 200);
+                if (impDiag != null)
+                {
+                    graphicImage.DrawImage(impDiag, recf);
+                }
+                //gapY += gapLine;
+                int i = 1;
+                //new LogWriter("d", "FrmScanView1 drawImageMedicalRecord 99");
+                gapLine = 30;
+                foreach (Row row in grfOrdItem.Rows)
+                {
+                    if (row[colOrdAddId] == null) continue;
+                    gapY += gapLine;
+                    txt = i+". "+ row[colOrdAddId].ToString()+" "+ row[colOrdAddNameT].ToString();
+                    recf = new RectangleF(col3, gapY, 800, 30);
+                    graphicImage.DrawString(txt, fontB, SystemBrushes.WindowText, recf);
+
+                    txt = row[colOrdAddQty].ToString()+" "+ row[colOrdAddUnit].ToString();
+                    recf = new RectangleF(col6, gapY, 200, 30);
+                    graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                    gapY += gapLine;
+                    //txt = row[colOrdAddDrugFr].ToString() + " " + row[colOrdAddDrugIn].ToString();
+                    txt = row[colOrdAddDrugFr].ToString() ;
+                    recf = new RectangleF(col3+10, gapY, 750, 30);
+                    graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
+                    
+                    i++;
+                }
+                img.Save("medicalrecord_1.jpg");
+            }
+            
         }
         private void BtnItmSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             MessageBox.Show("BtnItmSave_Click  preno "+preno +" hnyr " + ptt.hnyr, "");
-            setPharT01();
+
+            //savePharT01();
         }
-
-        private void GrfOrdItem_DoubleClick(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-
-        }
-
         private void initGrfOrdDrug()
         {
             grfOrdDrug = new C1FlexGrid();
@@ -6182,8 +6685,11 @@ namespace bangna_hospital.gui
             rowdrug[colOrdAddUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
             rowdrug[colOrdAddDrugFr] = dt.Rows[0]["MNC_ph_dir_dsc"].ToString();
             rowdrug[colOrdAddDrugIn] = dt.Rows[0]["MNC_ph_cau_dsc"].ToString();
+            rowdrug[colOrdAddQty] = "";
+            rowdrug[0] = (grfOrdItem.Rows.Count-1);
             //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
             //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
+            txtItmRowNo.Value = grfOrdItem.Rows.Count;
             txtItmId.Value = dt.Rows[0]["MNC_ph_cd"].ToString();
             txtItmName.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
             txtItmFre.Value = dt.Rows[0]["MNC_ph_dir_dsc"].ToString();
@@ -6192,6 +6698,27 @@ namespace bangna_hospital.gui
             txtItmFre.Show();
             txtItmIn1.Show();
             txtItmIn2.Show();
+        }
+        private void setGrfOrdItem()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.pharT02DB.selectReq(ptt.hnyr, txtHn.Text.Trim(), vsDate, preno);
+            grfOrdItem.Rows.Count = 1;
+            grfOrdItem.Rows.Count = dt.Rows.Count+1;
+            int i = 0;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfOrdItem[i, colOrdAddId] = row1["MNC_ph_cd"].ToString();
+                grfOrdItem[i, colOrdAddNameT] = row1["mnc_ph_tn"].ToString();
+                grfOrdItem[i, colOrdAddItemType] = row1["MNC_ph_cd"].ToString();
+                grfOrdItem[i, colOrdAddUnit] = row1["mnc_ph_unt_cd"].ToString();
+                grfOrdItem[i, colOrdAddDrugFr] = row1["mnc_ph_dir_dsc"].ToString();
+                grfOrdItem[i, colOrdAddDrugIn] = row1["MNC_PH_CAU_dsc"].ToString();
+                grfOrdItem[i, colOrdAddQty] = row1["MNC_ph_qty"].ToString();
+                grfOrdItem[i, 0] = i;
+            }
         }
         private void setGrfOrdDrug()
         {

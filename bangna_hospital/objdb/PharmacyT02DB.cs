@@ -49,7 +49,8 @@ namespace bangna_hospital.objdb
             pharT02.MNC_PH_REM = "MNC_PH_REM";
             pharT02.MNC_PAY_FLAG = "MNC_PAY_FLAG";
             pharT02.MNC_PH_STS = "MNC_PH_STS";
-            
+
+            pharT02.table = "pharmacy_t02";
         }
         private void chkNull(PharmacyT02 p)
         {
@@ -92,12 +93,29 @@ namespace bangna_hospital.objdb
             p.MNC_PH_RFN = decimal.TryParse(p.MNC_PH_RFN, out chk2) ? chk2.ToString() : "0";
             
         }
+        public DataTable selectReq(String hnyr, String hn, String vsdate, String preno)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+
+            sql = "Select phart02.*, pharm01.mnc_ph_tn, pharm01.mnc_ph_id, pharm01.mnc_ph_ctl_cd, pharm01.mnc_ph_gn " +
+                ", pharm01.mnc_ph_unt_cd, pharm01.mnc_ph_grp_cd, pharm01.mnc_ph_typ_cd " +
+                ", pharm01.mnc_ph_dir_cd, pm04.mnc_ph_dir_dsc, pharm01.MNC_PH_CAU_CD, pm11.MNC_PH_CAU_dsc " +
+                "From " +pharT02.table+" phart02 " +
+                "inner join pharmacy_t01 phart01 on phart02.mnc_doc_cd = phart01.mnc_doc_cd and phart02.mnc_req_no = phart01.mnc_req_no and phart02.mnc_req_yr = phart01.mnc_req_yr " +
+                "Left Join pharmacy_m01 pharm01 on phart02.mnc_ph_cd = pharm01.mnc_ph_cd  " +
+                "Left join pharmacy_m04 pm04 on pharm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +
+                "Left join PHARMACY_M11 pm11 on pharm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
+                "Where phart01.mnc_hn_no = '" +hn+"' and phart01.mnc_hn_yr = '"+hnyr+"' and phart01.mnc_pre_no = '"+preno+"' and phart01.mnc_date = '"+vsdate+"' ";
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public String insertPharmacyT02(PharmacyT02 p, String userId)
         {
             String sql = "",re="";
 
             chkNull(p);
-            sql = "Insert Into pharmacy_t01" +
+            sql = "Insert Into pharmacy_t02 " +
                 "(MNC_DOC_CD,MNC_REQ_YR,MNC_REQ_NO,MNC_PH_CD" +
                 ",MNC_PH_QTY,MNC_PH_UNTF_QTY,MNC_PH_UNT_CD,MNC_PH_DIR_DSC" +
                 ",MNC_PH_PRI, MNC_PH_COS, MNC_SUP_STS,MNC_ORD_NO" +
@@ -107,7 +125,7 @@ namespace bangna_hospital.objdb
                 ",MNC_USR_UPD,MNC_PH_DIR_TXT,MNC_CANCEL_STS,MNC_PH_REM" +
                 ",MNC_PAY_FLAG,MNC_PH_STS" +
                 ")" +
-                "Values('"+p.MNC_DOC_CD+"','"+p.MNC_REQ_YR+"','"+p.MNC_REQ_NO+"','"+p.MNC_PH_CD+"'" +
+                "Values ('"+p.MNC_DOC_CD+"','"+p.MNC_REQ_YR+"','"+p.MNC_REQ_NO+"','"+p.MNC_PH_CD+"'" +
                 ",'" + p.MNC_PH_QTY + "','" + p.MNC_PH_UNTF_QTY + "','" + p.MNC_PH_UNT_CD + "','" + p.MNC_PH_DIR_DSC + "'" +
                 ",'" + p.MNC_PH_PRI + "','" + p.MNC_PH_COS + "','" + p.MNC_SUP_STS + "','" + p.MNC_ORD_NO + "'" +
                 ",'" + p.MNC_PH_RFN + "','" + p.MNC_PH_DIR_CD + "','" + p.MNC_PH_FRE_CD + "','" + p.MNC_PH_TIM_CD + "'" +
@@ -119,18 +137,20 @@ namespace bangna_hospital.objdb
             try
             {
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                new LogWriter("d", "PharmacyT02 insertPharmacyT02 sql " + sql);
             }
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "PharmacyT02 insertPharmacyT02 " + ex.InnerException);
             }
 
             return re;
         }
-        public String deleteReqNo(String doccd, String reqyr, String reqno)
+        public String deleteReqNo(String reqyr, String reqno)
         {
             String sql = "", re = "";
-            sql = "Delete From pharmacy_t01 Where mnc_doc_cd = 'ROS' and mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "'";
+            sql = "Delete From pharmacy_t02 Where mnc_doc_cd = 'ROS' and mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "'";
 
             try
             {
@@ -176,7 +196,7 @@ namespace bangna_hospital.objdb
                 pharT02.MNC_PH_REM = dt.Rows[0]["MNC_PH_REM"].ToString();
                 pharT02.MNC_PAY_FLAG = dt.Rows[0]["MNC_PAY_FLAG"].ToString();
                 pharT02.MNC_PH_STS = dt.Rows[0]["MNC_PH_STS"].ToString();
-                pharT02.MNC_AN_NO = dt.Rows[0]["MNC_AN_NO"].ToString();
+                //pharT02.MNC_AN_NO = dt.Rows[0]["MNC_AN_NO"].ToString();
             }
             else
             {
@@ -216,9 +236,8 @@ namespace bangna_hospital.objdb
             p.MNC_PH_REM = "";
             p.MNC_PAY_FLAG = "";
             p.MNC_PH_STS = "";
-            p.MNC_AN_NO = "";
+            //p.MNC_AN_NO = "";
             return p;
         }
-        
     }
 }

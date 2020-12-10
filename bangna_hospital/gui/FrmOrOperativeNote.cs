@@ -120,7 +120,7 @@ namespace bangna_hospital.gui
             stt = new C1SuperTooltip();
             sep = new C1SuperErrorProvider();
             _c1pdf = new C1.C1Pdf.C1PdfDocument();
-            _c1pdf.DocumentInfo.Producer = "ComponentOne C1Pdf";
+            _c1pdf.DocumentInfo.Producer = "C1Pdf";
             _c1pdf.Security.AllowCopyContent = true;
             _c1pdf.Security.AllowEditAnnotations = true;
             _c1pdf.Security.AllowEditContent = true;

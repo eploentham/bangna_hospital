@@ -416,6 +416,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="object1\CellNoteManager1.cs" />
+    <Compile Include="object1\Graphics_DrawRtfText.cs" />
     <Compile Include="object1\OperativeNote.cs" />
     <Compile Include="object1\PatientM22.cs" />
     <Compile Include="object1\PatientM29.cs" />
