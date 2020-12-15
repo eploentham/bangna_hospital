@@ -2770,13 +2770,11 @@ namespace bangna_hospital.gui
             frmPrecidures.Dock = DockStyle.Fill;
             frmPrecidures.AutoScroll = true;
             
-
             frmFinding.FormBorderStyle = FormBorderStyle.None;
             frmFinding.TopLevel = false;
             frmFinding.Dock = DockStyle.Fill;
             frmFinding.AutoScroll = true;
             
-
             scFinding.Collapsible = true;
             scFinding.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             scFinding.Location = new System.Drawing.Point(0, 21);
@@ -2815,8 +2813,6 @@ namespace bangna_hospital.gui
             pnLeft.Controls.Add(pnLeftBotton);
             pnLeft.Controls.Add(pnLeftTop);
             //pnLeftTop.Controls.Add();
-
-
 
             pnOperative.Dock = DockStyle.Fill;
             pnOperative.Name = "pnOperative";

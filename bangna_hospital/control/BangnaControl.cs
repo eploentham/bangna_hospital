@@ -40,7 +40,7 @@ namespace bangna_hospital.control
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
-        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0;
+        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0, imageCC_width = 0, imageME_width = 0, imageDiag_width = 0, imageCC_Height = 0, imageME_Height = 0, imageDiag_Height = 0;
         public String[] preoperation, postoperation, operation, fining, procidures;
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
 
@@ -208,6 +208,13 @@ namespace bangna_hospital.control
             iniC.hostaddresst = iniF.getIni("app", "hostaddresst");
             iniC.hostaddresse = iniF.getIni("app", "hostaddresse");
 
+            iniC.imageCC_width = iniF.getIni("app", "imageCC_width");
+            iniC.imageME_width = iniF.getIni("app", "imageME_width");
+            iniC.imageDiag_width = iniF.getIni("app", "imageDiag_width");
+            iniC.imageCC_Height = iniF.getIni("app", "imageCC_Height");
+            iniC.imageME_Height = iniF.getIni("app", "imageME_Height");
+            iniC.imageDiag_Height = iniF.getIni("app", "imageDiag_Height");
+
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
             iniC.email_auth_pass = iniF.getIni("email", "email_auth_pass");
@@ -267,6 +274,12 @@ namespace bangna_hospital.control
             iniC.email_form = iniC.email_form == null ? "" : iniC.email_form.Equals("") ? "" : iniC.email_form;
             iniC.email_port = iniC.email_port == null ? "" : iniC.email_port.Equals("") ? "" : iniC.email_port;
             iniC.email_ssl = iniC.email_ssl == null ? "" : iniC.email_ssl.Equals("") ? "" : iniC.email_ssl;
+            iniC.imageCC_width = iniC.imageCC_width == null ? "800" : iniC.imageCC_width.Equals("") ? "800" : iniC.imageCC_width;
+            iniC.imageME_width = iniC.imageME_width == null ? "800" : iniC.imageME_width.Equals("") ? "800" : iniC.imageME_width;
+            iniC.imageDiag_width = iniC.imageDiag_width == null ? "800" : iniC.imageDiag_width.Equals("") ? "800" : iniC.imageDiag_width;
+            iniC.imageCC_Height = iniC.imageCC_Height == null ? "400" : iniC.imageCC_Height.Equals("") ? "400" : iniC.imageCC_Height;
+            iniC.imageME_Height = iniC.imageME_Height == null ? "400" : iniC.imageME_Height.Equals("") ? "400" : iniC.imageME_Height;
+            iniC.imageDiag_Height = iniC.imageDiag_Height == null ? "400" : iniC.imageDiag_Height.Equals("") ? "400" : iniC.imageDiag_Height;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -283,6 +296,12 @@ namespace bangna_hospital.control
             int.TryParse(iniC.tabLabOutImageWidth, out tabLabOutImageWidth);
             int.TryParse(iniC.grfImgWidth, out grfImgWidth);
             int.TryParse(iniC.scVssizeradio, out scVssizeradio);
+            int.TryParse(iniC.imageCC_width, out imageCC_width);
+            int.TryParse(iniC.imageME_width, out imageME_width);
+            int.TryParse(iniC.imageDiag_width, out imageDiag_width);
+            int.TryParse(iniC.imageCC_Height, out imageCC_Height);
+            int.TryParse(iniC.imageME_Height, out imageME_Height);
+            int.TryParse(iniC.imageDiag_Height, out imageDiag_Height);
         }
         public void setC1Combo(C1ComboBox c, String data)
         {

@@ -124,6 +124,11 @@ namespace bangna_hospital
                     new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmDocCreatePDF(bc, "",""));
                 }
+                else if (bc.iniC.programLoad.Equals("OPBKKClaim"))
+                {
+                    new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.FrmOPBKKClaim(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

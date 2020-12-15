@@ -6332,6 +6332,7 @@ namespace bangna_hospital.gui
                 StreamReader reader;
                 RectangleF rc;
                 Image impCC =null, impME = null, impDiag = null;
+                String txt = "";
                 if (streamCC.Length > 0)
                 {
                     reader = new StreamReader(streamCC, System.Text.Encoding.UTF8, true);
@@ -6352,8 +6353,13 @@ namespace bangna_hospital.gui
                     filename = filename + "_page1.jpg";
                     impCC = Image.FromFile(filename);
                     Bitmap bmpImage = new Bitmap(impCC);
-                    bmpImage = bmpImage.Clone(new Rectangle(0, 0, 400, 300), bmpImage.PixelFormat);
+                    bmpImage = bmpImage.Clone(new Rectangle(0, 0, bc.imageCC_width, bc.imageCC_Height), bmpImage.PixelFormat);
                     impCC = bmpImage;
+                    txt = "Chief Compliant";
+                    Size size11 = bc.MeasureString(txt, font);
+                    Graphics graphicImageCC = Graphics.FromImage(impCC);
+                    RectangleF recf11 = new RectangleF(0, 0, size11.Width, size11.Height);
+                    graphicImageCC.DrawString(txt, font, SystemBrushes.WindowText, recf11);
                     if (streamME.Length > 0)
                     {
                         reader = new StreamReader(streamME, System.Text.Encoding.UTF8, true);
@@ -6370,8 +6376,14 @@ namespace bangna_hospital.gui
                         filename = filename + "_page1.jpg";
                         impME = Image.FromFile(filename);
                         bmpImage = new Bitmap(impME);
-                        bmpImage = bmpImage.Clone(new Rectangle(0, 0, 400, 600), bmpImage.PixelFormat);
+                        bmpImage = bmpImage.Clone(new Rectangle(0, 0, bc.imageME_width, bc.imageME_Height+600), bmpImage.PixelFormat);
+                        bmpImage = bc.ResizeImage(bmpImage, bc.imageME_width, bc.imageME_Height);
                         impME = bmpImage;
+                        txt = "Physical Exam";
+                        Size size1 = bc.MeasureString(txt, font);
+                        Graphics graphicImageME = Graphics.FromImage(impME);
+                        RectangleF recf1 = new RectangleF(0, 0, size1.Width, size1.Height);
+                        graphicImageME.DrawString(txt, font, SystemBrushes.WindowText, recf1);
                     }
                     if (streamDiag.Length > 0)
                     {
@@ -6389,12 +6401,17 @@ namespace bangna_hospital.gui
                         filename = filename + "_page1.jpg";
                         impDiag = Image.FromFile(filename);
                         bmpImage = new Bitmap(impDiag);
-                        bmpImage = bmpImage.Clone(new Rectangle(0, 0, 400, 600), bmpImage.PixelFormat);
+                        bmpImage = bmpImage.Clone(new Rectangle(0, 0, bc.imageDiag_width, bc.imageDiag_Height), bmpImage.PixelFormat);
                         impDiag = bmpImage;
+                        txt = "Diagnosis";
+                        Size size1 = bc.MeasureString(txt, font);
+                        Graphics graphicImageME = Graphics.FromImage(impDiag);
+                        RectangleF recf1 = new RectangleF(0, 0, size1.Width, size1.Height);
+                        graphicImageME.DrawString(txt, font, SystemBrushes.WindowText, recf1);
                     }
                 }
 
-                String txt = "";
+                
                 gapLine = int.Parse(font.Size.ToString())+4;
                 txt = "HN " + txtHn.Text.Trim() + " ชื่อ-นามสกุล " + txtName.Text.Trim();
                 Size size = TextRenderer.MeasureText(txt, font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
@@ -6590,19 +6607,19 @@ namespace bangna_hospital.gui
                 gapY += gapLine;
                 gapY += gapLine;
 
-                recf = new RectangleF(col1, gapY, 200, 200);
+                recf = new RectangleF(col1 - 20, gapY, bc.imageCC_width, bc.imageCC_Height);
                 if (impCC != null)
                 {
                     graphicImage.DrawImage(impCC, recf);
                 }
-                gapY += gapLine;
-                recf = new RectangleF(col1, gapY, 200, 200);
+                gapY += (gapLine + (impCC != null ? impCC.Height : 0));
+                recf = new RectangleF(col1 - 21, gapY, bc.imageME_width, bc.imageME_Height);
                 if (impME != null)
                 {
                     graphicImage.DrawImage(impME, recf);
                 }
-                gapY += gapLine;
-                recf = new RectangleF(col1, gapY, 200, 200);
+                gapY += (gapLine + (impME != null ? impME.Height : 0));
+                recf = new RectangleF(col1 - 21, gapY, bc.imageDiag_width, bc.imageDiag_Height);
                 if (impDiag != null)
                 {
                     graphicImage.DrawImage(impDiag, recf);
@@ -6624,7 +6641,7 @@ namespace bangna_hospital.gui
                     graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
                     gapY += gapLine;
                     //txt = row[colOrdAddDrugFr].ToString() + " " + row[colOrdAddDrugIn].ToString();
-                    txt = row[colOrdAddDrugFr].ToString() ;
+                    txt = row[colOrdAddDrugFr].ToString();
                     recf = new RectangleF(col3+10, gapY, 750, 30);
                     graphicImage.DrawString(txt, font, SystemBrushes.WindowText, recf);
                     
