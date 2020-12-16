@@ -55,7 +55,7 @@ namespace bangna_hospital.objdb
             String sql = "";
 
             sql = "Select  pm01.mnc_ph_cd, pm01.mnc_ph_id, pm01.mnc_ph_ctl_cd, pm01.mnc_ph_tn, pm01.mnc_ph_gn, pm01.mnc_ph_unt_cd, pm01.mnc_ph_grp_cd" +
-                ", pm01.mnc_ph_typ_cd, pm01.MNC_PH_CAU_CD,pm11.MNC_PH_CAU_dsc,pm01.mnc_ph_dir_cd,pm04.mnc_ph_dir_dsc " +
+                ", pm01.mnc_ph_typ_cd, pm01.MNC_PH_CAU_CD,pm11.MNC_PH_CAU_dsc,pm01.mnc_ph_dir_cd,pm04.mnc_ph_dir_dsc,pm01.mnc_ph_typ_flg " +
                 "From  pharmacy_m01 pm01  " +
                 "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +
                 "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +

@@ -1746,7 +1746,7 @@ namespace bangna_hospital.gui
             {
                 currDate = manualDate;
             }            
-            currDate = "2020-09-25";
+            //currDate = "2020-09-25";
             listBox2.Items.Add("Check Medica date "+currDate+ " hosp_code=" + bc.iniC.laboutMedicahosp_code);
             Application.DoEvents();
             try
@@ -3485,7 +3485,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-09-20 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutmedicacode "+bc.iniC.laboutMedicahosp_code;
+            this.Text = "Last Update 2020-12-15 แก้ online Medica, '_,-' innotech, auto print  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutmedicacode "+bc.iniC.laboutMedicahosp_code;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;

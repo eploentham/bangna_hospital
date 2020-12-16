@@ -52,7 +52,7 @@ namespace bangna_hospital.gui
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
         Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
         
-        C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody;
+        C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody, txtItmFlag;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -75,7 +75,7 @@ namespace bangna_hospital.gui
         int colOrdXrayId = 1, colOrdXrayName = 2, colOrdXrayUnit = 3, colXraytypcd = 4, colXraygrpcd = 5, colXraygrpdsc = 6;
         int colOrdLabId = 1, colOrdLabName = 2, colOrdlabUnit = 3, colLabtypcd = 4, colLabgrpcd = 5, colLabgrpdsc = 6;
 
-        int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=8, colOrdAddRowNo=9;        // order add
+        int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty=4, colOrdAddDrugFr=5, colOrdAddDrugIn=6, colOrdDrugIn1=7, colOrdAddItemType=8, colOrdAddRowNo=9, colOrdAddFlag=10;        // order add
 
         int colPrnlabHn = 1, colPrnlabName = 2, colPrnlabVN = 3, colPrnlabAN = 4, colPrnlabReqDate = 5, colPrnlabReqNo = 6;
         int colPrnSSOchk = 1, colPrnSSOVn = 2, colPrnSSOvsDate = 3, colPrnSSODesc = 4, colPrnSSOpreno = 5;
@@ -5877,7 +5877,7 @@ namespace bangna_hospital.gui
             grfOrdItem.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOrdItem.Location = new System.Drawing.Point(0, 0);
             grfOrdItem.Rows.Count = 1;
-            grfOrdItem.Cols.Count = 12;
+            grfOrdItem.Cols.Count = 11;
             grfOrdItem.Name = "grfOrdItem";
             grfOrdItem.MouseClick += GrfOrdItem_MouseClick;
             grfOrdItem.Cols[colOrdAddNameT].Caption = "ชื่อ";
@@ -5894,7 +5894,7 @@ namespace bangna_hospital.gui
             grfOrdItem.Cols[colOrdAddDrugIn].Width = 200;
 
             grfOrdItem.Cols[colOrdAddUnit].Visible = false;
-            //grfOrdItem.Cols[colOrdDrugId].Visible = false;
+            grfOrdItem.Cols[colOrdAddFlag].Visible = false;
             //grfOrdItem.Cols[colOrdDrugId].Visible = false;
             grfOrdItem.Cols[colOrdAddNameT].AllowEditing = false;
             grfOrdItem.Cols[colOrdAddQty].AllowEditing = false;
@@ -5925,7 +5925,11 @@ namespace bangna_hospital.gui
             sCOrdItem.Panels.Add(scOrdItem);
             sCOrdItem.Panels.Add(scOrdItemGrf);
             sCOrdItem.HeaderHeight = 20;
-            
+
+            txtItmFlag = new C1TextBox();
+            bc.setControlC1TextBox(ref txtItmFlag, fEdit, "txtItmFlag", 20, 0, 0);
+            txtItmFlag.Hide();
+
             lbItmId = new Label();
             lbItmId.Text = "รหัส";
             lbItmId.Font = fEdit;
@@ -5933,10 +5937,12 @@ namespace bangna_hospital.gui
             lbItmId.AutoSize = true;
             lbItmId.Name = "lbItmId";
             txtItmId = new C1TextBox();
-            txtItmId.Font = fEdit;
-            txtItmId.Name = "txtItmId";
-            txtItmId.Location = new System.Drawing.Point(gapColName, lbItmId.Location.Y);
-            txtItmId.Size = new Size(120, 20);      //txtItmRowNo
+            //txtItmId.Font = fEdit;
+            //txtItmId.Name = "txtItmId";
+            //txtItmId.Location = new System.Drawing.Point(gapColName, lbItmId.Location.Y);
+            //txtItmId.Size = new Size(120, 20);      //txtItmRowNo
+            bc.setControlC1TextBox(ref txtItmId, fEdit, "txtItmId", 120, gapColName, lbItmId.Location.Y);
+
             txtItmRowNo = new C1TextBox();
             txtItmRowNo.Font = fEdit;
             txtItmRowNo.Name = "txtItmRowNo";
@@ -6048,6 +6054,7 @@ namespace bangna_hospital.gui
             pnscOrdItem.Controls.Add(btnItmSend);
             pnscOrdItem.Controls.Add(btnItmDrugSet);
             pnscOrdItem.Controls.Add(btnItmSave);
+            pnscOrdItem.Controls.Add(txtItmFlag);
             scOrdItem.SizeRatio = 30;
             //FilterRow fr = new FilterRow(grfExpn);
 
@@ -6088,10 +6095,10 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             txtItmRowNo.Value = grfOrdItem.Row.ToString();
+            txtItmId.Value = grfOrdItem[grfOrdItem.Row, colOrdAddId].ToString();
             txtItmName.Value = grfOrdItem[grfOrdItem.Row, colOrdAddNameT].ToString();
             txtItmFre.Value = grfOrdItem[grfOrdItem.Row, colOrdAddDrugFr].ToString();
             txtItmIn1.Value = grfOrdItem[grfOrdItem.Row, colOrdAddDrugIn].ToString();
-            txtItmId.Value = grfOrdItem[grfOrdItem.Row, colOrdAddId].ToString();
             txtItmQty.Value = grfOrdItem[grfOrdItem.Row, colOrdAddQty].ToString();
         }
 
@@ -6232,48 +6239,58 @@ namespace bangna_hospital.gui
                 bc.bcDB.pharT02DB.deleteReqNo(phart01.MNC_REQ_YR, re);
                 foreach (Row rowdrug in grfOrdItem.Rows)
                 {
-                    String itmcode = "", drugFr = "", drugIn = "", untcode = "", qty = "";
+                    String itmcode = "", drugFr = "", drugIn = "", untcode = "", qty = "", itmflag="";
                     if (rowdrug[colOrdAddId] == null) continue;
                     itmcode = rowdrug[colOrdAddId].ToString();
                     drugFr = rowdrug[colOrdAddDrugFr].ToString();
                     drugIn = rowdrug[colOrdAddDrugIn].ToString();
                     untcode = rowdrug[colOrdAddUnit].ToString();
                     qty = rowdrug[colOrdAddQty].ToString();
-                    PharmacyT02 phart02 = new PharmacyT02();
+                    itmflag = rowdrug[colOrdAddFlag].ToString();
+                    if ((itmflag.Equals("P")) || (itmflag.Equals("O")))
+                    {
+                        PharmacyT02 phart02 = new PharmacyT02();
+                        phart02.MNC_CANCEL_STS = "";
+                        phart02.MNC_DOC_CD = "ROS";
+                        phart02.MNC_FN_CD = "";
+                        phart02.MNC_ORD_NO = "";
+                        phart02.MNC_PAY_FLAG = "";
+                        phart02.MNC_PHA_HID = "";
+                        phart02.MNC_PH_CAU = drugIn;
+                        phart02.MNC_PH_CD = itmcode;
+                        phart02.MNC_PH_COS = "";
+                        phart02.MNC_PH_DIR_CD = "";
+                        phart02.MNC_PH_DIR_DSC = drugFr;
+                        phart02.MNC_PH_DIR_TXT = "";
+                        phart02.MNC_PH_FLG = "";
+                        phart02.MNC_PH_FRE_CD = "";
+                        phart02.MNC_PH_IND = "";
+                        phart02.MNC_PH_PRI = "0";
+                        phart02.MNC_PH_QTY = qty;
+                        phart02.MNC_PH_REM = "";
+                        phart02.MNC_PH_RFN = "";
+                        phart02.MNC_PH_STS = "";
+                        phart02.MNC_PH_TIM_CD = "";
+                        phart02.MNC_PH_UNTF_QTY = "";
+                        phart02.MNC_PH_UNT_CD = untcode;
+                        phart02.MNC_REQ_NO = re;
+                        phart02.MNC_REQ_YR = phart01.MNC_REQ_YR;
+                        phart02.MNC_STAMP_DAT = "";
+                        phart02.MNC_STAMP_TIM = "";
+                        phart02.MNC_SUP_STS = "";
+                        phart02.MNC_USR_ADD = bc.user.username;
+                        phart02.MNC_USR_UPD = bc.user.username;
 
-                    phart02.MNC_CANCEL_STS = "";
-                    phart02.MNC_DOC_CD = "ROS";
-                    phart02.MNC_FN_CD = "";
-                    phart02.MNC_ORD_NO = "";
-                    phart02.MNC_PAY_FLAG = "";
-                    phart02.MNC_PHA_HID = "";
-                    phart02.MNC_PH_CAU = drugIn;
-                    phart02.MNC_PH_CD = itmcode;
-                    phart02.MNC_PH_COS = "";
-                    phart02.MNC_PH_DIR_CD = "";
-                    phart02.MNC_PH_DIR_DSC = drugFr;
-                    phart02.MNC_PH_DIR_TXT = "";
-                    phart02.MNC_PH_FLG = "";
-                    phart02.MNC_PH_FRE_CD = "";
-                    phart02.MNC_PH_IND = "";
-                    phart02.MNC_PH_PRI = "0";
-                    phart02.MNC_PH_QTY = qty;
-                    phart02.MNC_PH_REM = "";
-                    phart02.MNC_PH_RFN = "";
-                    phart02.MNC_PH_STS = "";
-                    phart02.MNC_PH_TIM_CD = "";
-                    phart02.MNC_PH_UNTF_QTY = "";
-                    phart02.MNC_PH_UNT_CD = untcode;
-                    phart02.MNC_REQ_NO = re;
-                    phart02.MNC_REQ_YR = phart01.MNC_REQ_YR;
-                    phart02.MNC_STAMP_DAT = "";
-                    phart02.MNC_STAMP_TIM = "";
-                    phart02.MNC_SUP_STS = "";
-                    phart02.MNC_USR_ADD = bc.user.username;
-                    phart02.MNC_USR_UPD = bc.user.username;
+                        bc.bcDB.pharT02DB.insertPharmacyT02(phart02, "");
+                    }
+                    else if (itmflag.Equals("L"))
+                    {
 
+                    }
+                    else if (itmflag.Equals("X"))
+                    {
 
-                    bc.bcDB.pharT02DB.insertPharmacyT02(phart02, "");
+                    }
                 }
             }
         }
@@ -6703,6 +6720,7 @@ namespace bangna_hospital.gui
             rowdrug[colOrdAddDrugFr] = dt.Rows[0]["MNC_ph_dir_dsc"].ToString();
             rowdrug[colOrdAddDrugIn] = dt.Rows[0]["MNC_ph_cau_dsc"].ToString();
             rowdrug[colOrdAddQty] = "";
+            rowdrug[colOrdAddFlag] = dt.Rows[0]["mnc_ph_typ_flg"].ToString();       //drug=P,supp=O,lab=xray=
             rowdrug[0] = (grfOrdItem.Rows.Count-1);
             //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
             //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
@@ -6711,7 +6729,8 @@ namespace bangna_hospital.gui
             txtItmName.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
             txtItmFre.Value = dt.Rows[0]["MNC_ph_dir_dsc"].ToString();
             txtItmIn1.Value = dt.Rows[0]["MNC_ph_cau_dsc"].ToString();
-            //txtItmIn2.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
+            txtItmQty.Value = "1";
+            txtItmFlag.Value = dt.Rows[0]["mnc_ph_typ_flg"].ToString();
             txtItmFre.Show();
             txtItmIn1.Show();
             txtItmIn2.Show();
@@ -6734,6 +6753,7 @@ namespace bangna_hospital.gui
                 grfOrdItem[i, colOrdAddDrugFr] = row1["mnc_ph_dir_dsc"].ToString();
                 grfOrdItem[i, colOrdAddDrugIn] = row1["MNC_PH_CAU_dsc"].ToString();
                 grfOrdItem[i, colOrdAddQty] = row1["MNC_ph_qty"].ToString();
+                grfOrdItem[i, colOrdAddFlag] = row1["mnc_ph_typ_flg"].ToString();      //drug=P,supp=O,lab, xray
                 grfOrdItem[i, 0] = i;
             }
         }
@@ -6842,14 +6862,26 @@ namespace bangna_hospital.gui
             code = grfOrdSup[grfOrdSup.Row, colOrdDrugId].ToString();
             dt = bc.bcDB.drugDB.selectDrugByCode(code);
             Row rowdrug = grfOrdItem.Rows.Add();
-            rowdrug[colOrdDrugId] = dt.Rows[0]["MNC_ph_cd"].ToString();
-            rowdrug[colOrdDrugNameT] = dt.Rows[0]["MNC_ph_tn"].ToString();
-            rowdrug[colOrdDrugtypcd] = dt.Rows[0]["MNC_ph_gn"].ToString();
-            rowdrug[colOrdDrugUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
-            //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
-            //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
+            rowdrug[colOrdAddId] = dt.Rows[0]["MNC_ph_cd"].ToString();
+            rowdrug[colOrdAddNameT] = dt.Rows[0]["MNC_ph_tn"].ToString();
+            rowdrug[colOrdAddItemType] = dt.Rows[0]["mnc_ph_typ_cd"].ToString();
+            rowdrug[colOrdAddUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
+            rowdrug[colOrdAddFlag] = dt.Rows[0]["mnc_ph_typ_flg"].ToString();       //drug=P,supp=O,lab=xray=
+            rowdrug[colOrdAddDrugFr] = "";
+            rowdrug[colOrdAddDrugIn] = "";
+            rowdrug[colOrdAddQty] = "";
+
+            txtItmRowNo.Value = grfOrdItem.Rows.Count;
             txtItmId.Value = dt.Rows[0]["MNC_ph_cd"].ToString();
             txtItmName.Value = dt.Rows[0]["MNC_ph_tn"].ToString();
+            txtItmFre.Value = "";
+            txtItmIn1.Value = "";
+            txtItmQty.Value = "0";
+            txtItmFlag.Value = dt.Rows[0]["mnc_ph_typ_flg"].ToString();
+
+            txtItmFre.Hide();
+            txtItmIn1.Hide();
+            txtItmIn2.Hide();
         }
         private void setGrfOrdSup()
         {

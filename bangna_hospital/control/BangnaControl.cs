@@ -951,7 +951,6 @@ namespace bangna_hospital.control
         {
             return TextRenderer.MeasureText(txt, font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
         }
-
         public Bitmap ResizeImage(Image image, int width, int height)
         {            
             var destRect = new Rectangle(0, 0, width, height);
