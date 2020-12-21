@@ -396,7 +396,11 @@
     <Compile Include="objdb\DrugSetDB.cs" />
     <Compile Include="objdb\LabDB.cs" />
     <Compile Include="objdb\LabExDB.cs" />
+    <Compile Include="objdb\LabM01DB.cs" />
+    <Compile Include="objdb\LabM02DB.cs" />
     <Compile Include="objdb\LabOutDB.cs" />
+    <Compile Include="objdb\LabT01DB.cs" />
+    <Compile Include="objdb\LabT02DB.cs" />
     <Compile Include="objdb\OperativeNoteDB.cs" />
     <Compile Include="objdb\OrDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
@@ -418,6 +422,8 @@
     <Compile Include="gui\CellNote1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="objdb\XrayM01DB.cs" />
+    <Compile Include="objdb\XrayM02DB.cs" />
     <Compile Include="object1\CellNoteManager1.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
     <Compile Include="object1\OperativeNote.cs" />
