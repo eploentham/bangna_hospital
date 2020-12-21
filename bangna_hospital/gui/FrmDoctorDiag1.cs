@@ -180,7 +180,8 @@ namespace bangna_hospital.gui
             //this.rtbDocument.ContextMenuStrip = this.contextMenu;
             this.rtbDocument.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbDocument.EnableAutoDragDrop = true;
-            this.rtbDocument.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            //this.rtbDocument.Font = new System.Drawing.Font(bc.iniC.grdViewFontName, 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rtbDocument.Font = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtbDocument.Location = new System.Drawing.Point(0, 51);
             this.rtbDocument.Name = "rtbDocument";
             this.rtbDocument.Size = new System.Drawing.Size(667, 262);
@@ -1281,9 +1282,11 @@ namespace bangna_hospital.gui
             {
                 tscmbFont.Items.Add(family.Name);
             }
-            tscmbFont.SelectedItem = bc.iniC.grdViewFontName;
+            //tscmbFont.SelectedItem = bc.iniC.grdViewFontName;
+            tscmbFont.SelectedItem = bc.iniC.pdfFontName;
 
-            tscmbFontSize.SelectedItem = "12";
+            //tscmbFontSize.SelectedItem = "12";
+            tscmbFontSize.SelectedItem = bc.pdfFontSize.ToString();
             loadDoctorDiag();
             theme1 = new C1.Win.C1Themes.C1ThemeController();
             //theme1.SetTheme(toolStrip1, bc.iniC.themeApplication);
