@@ -1,6 +1,8 @@
 ﻿using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,9 +58,81 @@ namespace bangna_hospital.objdb
             XrayT01.MNC_PAC_CD = "MNC_PAC_CD";
             XrayT01.MNC_PAC_TYP = "MNC_PAC_TYP";
             XrayT01.status_pacs = "status_pacs";
+        }
+        private void chkNull(XrayT01 p)
+        {
+            long chk = 0;
+            int chk1 = 0;
+            decimal chk2 = 0;
 
+        }
+        public String insertPharmacyT01(XrayT01 p)
+        {
+            String sql = "", chk = "", re = "";
 
+            chkNull(p);
+            if (p.MNC_REQ_NO.Equals("0"))
+            {
+                re = insertOPD(p, "");
+            }
+            else
+            {
 
+            }
+            return re;
+        }
+        public String insertOPD(XrayT01 p, String userid)
+        {
+            String sql = "", chk = "", re = "";
+            try
+            {
+                //new LogWriter("e", "PharmacyT01 insert " );
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+                conn.comStore.CommandText = "insert_xray_t01_opd";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                //conn.comStore.Parameters.AddWithValue("mnc_req_yr", p.MNC_REQ_YR);
+                //conn.comStore.Parameters.AddWithValue("mnc_req_dat", p.MNC_REQ_DAT);
+                //conn.comStore.Parameters.AddWithValue("mnc_req_tim", p.MNC_REQ_TIM);
+                //conn.comStore.Parameters.AddWithValue("mnc_sum_pri", p.MNC_SUM_PRI);
+                //conn.comStore.Parameters.AddWithValue("mnc_sum_cos", p.MNC_SUM_COS);
+                //conn.comStore.Parameters.AddWithValue("mnc_dep_no", p.MNC_DEP_NO);
+                conn.comStore.Parameters.AddWithValue("mnc_hn_yr", p.MNC_HN_YR);
+                conn.comStore.Parameters.AddWithValue("mnc_hn_no", p.MNC_HN_NO);
+                conn.comStore.Parameters.AddWithValue("mnc_date", p.MNC_DATE);
+                conn.comStore.Parameters.AddWithValue("mnc_pre_no", p.MNC_PRE_NO);
+
+                //conn.comStore.Parameters.AddWithValue("mnc_pre_seq", p.MNC_PRE_SEQ);
+                //conn.comStore.Parameters.AddWithValue("mnc_time", p.MNC_TIME);
+                conn.comStore.Parameters.AddWithValue("mnc_dot_cd", p.MNC_DOT_CD);
+                //conn.comStore.Parameters.AddWithValue("mnc_fn_typ_cd", p.MNC_FN_TYP_CD);
+                //conn.comStore.Parameters.AddWithValue("mnc_com_cd", p.MNC_COM_CD);
+                //conn.comStore.Parameters.AddWithValue("mnc_sec_no", p.MNC_SEC_NO);
+                //conn.comStore.Parameters.AddWithValue("mnc_depc_no", p.MNC_DEPC_NO);
+                //conn.comStore.Parameters.AddWithValue("mnc_secc_no", p.MNC_SECC_NO);
+                //conn.comStore.Parameters.AddWithValue("mnc_cancel_sts", p.MNC_CANCEL_STS);
+                //conn.comStore.Parameters.AddWithValue("mnc_usr_add", p.MNC_USR_ADD);
+
+                //conn.comStore.Parameters.AddWithValue("mnc_usr_upd", p.MNC_USR_UPD);
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "PharmacyT01DB.XrayT01 " + ex.Message + " " + sql);
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
         }
     }
 }
