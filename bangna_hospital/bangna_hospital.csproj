@@ -425,6 +425,7 @@
     <Compile Include="objdb\XrayM01DB.cs" />
     <Compile Include="objdb\XrayM02DB.cs" />
     <Compile Include="objdb\XrayT01DB.cs" />
+    <Compile Include="objdb\XrayT02DB.cs" />
     <Compile Include="object1\CellNoteManager1.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
     <Compile Include="object1\LabM01.cs" />
