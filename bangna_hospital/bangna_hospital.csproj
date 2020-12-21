@@ -424,8 +424,13 @@
     </Compile>
     <Compile Include="objdb\XrayM01DB.cs" />
     <Compile Include="objdb\XrayM02DB.cs" />
+    <Compile Include="objdb\XrayT01DB.cs" />
     <Compile Include="object1\CellNoteManager1.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
+    <Compile Include="object1\LabM01.cs" />
+    <Compile Include="object1\LabM02.cs" />
+    <Compile Include="object1\LabT01.cs" />
+    <Compile Include="object1\LabT02.cs" />
     <Compile Include="object1\OperativeNote.cs" />
     <Compile Include="object1\PatientM22.cs" />
     <Compile Include="object1\PatientM29.cs" />
@@ -440,6 +445,10 @@
     <Compile Include="object1\PharmacyT06.cs" />
     <Compile Include="object1\TemporaryM01.cs" />
     <Compile Include="object1\TemporaryM02.cs" />
+    <Compile Include="object1\XrayM01.cs" />
+    <Compile Include="object1\XrayM02.cs" />
+    <Compile Include="object1\XrayT01.cs" />
+    <Compile Include="object1\XrayT02.cs" />
     <Compile Include="object1\XrayT04.cs" />
     <Compile Include="objdb\XrayT04DB.cs" />
     <Compile Include="object1\Age.cs" />
