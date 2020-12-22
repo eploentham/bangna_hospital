@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,9 +56,7 @@ namespace bangna_hospital.objdb
             labM02.MNC_USR_ADD = "MNC_USR_ADD";
             labM02.MNC_USR_UPD = "MNC_USR_UPD";
             labM02.MNC_CHARGE_NO = "MNC_CHARGE_NO";
-
         }
-
         public LabM02 setLabM02(DataTable dt)
         {
             LabM02 labM02 = new LabM02();

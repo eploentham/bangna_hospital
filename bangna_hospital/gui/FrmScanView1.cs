@@ -6361,7 +6361,7 @@ namespace bangna_hospital.gui
                 labT01.MNC_PATNAME = "";
                 labT01.MNC_LOAD_STS = "";
                 labT01.MNC_IP_REC = "";
-                reLab = bc.bcDB.labT01DB.in(xrayT01);
+                reLab = bc.bcDB.labT01DB.insertLabT01(labT01);
             }
             //new LogWriter("d", "PharmacyT02 insertPharmacyT01 re " + re);
             int chk = 0;
@@ -6440,7 +6440,7 @@ namespace bangna_hospital.gui
                         labT02.MNC_USR_UPD = "";
                         labT02.MNC_SND_OUT_STS = "";
                         labT02.MNC_LB_STS = "";
-                        bc.bcDB.labT02DB.in(labT02,"");
+                        bc.bcDB.labT02DB.insertLabT02(labT02,"");
                     }
                     else if (itmflag.Equals("X"))
                     {
@@ -6468,7 +6468,7 @@ namespace bangna_hospital.gui
                         xrayt02.MNC_SND_OUT_STS = "";
                         xrayt02.MNC_XR_STS = "";
                         xrayt02.status_pacs = "";
-                        bc.bcDB.xrayT02DB.in(xrayt02, "");
+                        bc.bcDB.xrayT02DB.insertXrayT02(xrayt02, "");
                     }
                 }
             }

@@ -138,7 +138,7 @@ namespace bangna_hospital.objdb
             try
             {
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
-                new LogWriter("d", "PharmacyT02 insertPharmacyT02 sql " + sql);
+                //new LogWriter("d", "PharmacyT02 insertPharmacyT02 sql " + sql);
             }
             catch (Exception ex)
             {

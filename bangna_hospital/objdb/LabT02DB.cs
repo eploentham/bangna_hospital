@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,77 +43,124 @@ namespace bangna_hospital.objdb
             labT02.MNC_USR_UPD = "MNC_USR_UPD";
             labT02.MNC_SND_OUT_STS = "MNC_SND_OUT_STS";
             labT02.MNC_LB_STS = "MNC_LB_STS";
-
-
-
         }
-
-
-    }
-
-    public LabT02 setLabT02(DataTable dt)
-    {
-        LabT02 labT02 = new LabT02();
-        if (dt.Rows.Count > 0)
+        private void chkNull(LabT02 p)
         {
-            labT02.MNC_REQ_YR = dt.Rows[0]["MNC_REQ_YR"].ToString();
-            labT02.MNC_REQ_NO = dt.Rows[0]["MNC_REQ_NO"].ToString();
-            labT02.MNC_REQ_DAT = dt.Rows[0]["MNC_REQ_DAT"].ToString();
-            labT02.MNC_LB_CD = dt.Rows[0]["MNC_LB_CD"].ToString();
-            labT02.MNC_REQ_STS = dt.Rows[0]["MNC_REQ_STS"].ToString();
-            labT02.MNC_LB_RMK = dt.Rows[0]["MNC_LB_RMK"].ToString();
-            labT02.MNC_LB_COS = dt.Rows[0]["MNC_LB_COS"].ToString();
-            labT02.MNC_LB_PRI = dt.Rows[0]["MNC_LB_PRI"].ToString();
-            labT02.MNC_LB_RFN = dt.Rows[0]["MNC_LB_RFN"].ToString();
-            labT02.MNC_SPC_SEND_DAT = dt.Rows[0]["MNC_SPC_SEND_DAT"].ToString();
-            labT02.MNC_SPC_SEND_TM = dt.Rows[0]["MNC_SPC_SEND_TM"].ToString();
-            labT02.MNC_SPC_TYP = dt.Rows[0]["MNC_SPC_TYP"].ToString();
-            labT02.MNC_RESULT_DAT = dt.Rows[0]["MNC_RESULT_DAT"].ToString(); ;
-            labT02.MNC_RESULT_TIM = dt.Rows[0]["MNC_RESULT_TIM"].ToString();
-            labT02.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
-            labT02.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_TIM"].ToString();
-            labT02.MNC_USR_RESULT = dt.Rows[0]["MNC_USR_RESULT"].ToString();
-            labT02.MNC_USR_RESULT_REPORT = dt.Rows[0]["MNC_USR_RESULT_REPORT"].ToString(); 
-            labT02.MNC_USR_RESULT_APPROVE = dt.Rows[0]["MNC_USR_RESULT_APPROVE"].ToString();
-            labT02.MNC_CANCEL_STS = dt.Rows[0]["MNC_CANCEL_STS"].ToString();
-            labT02.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
-            labT02.MNC_SND_OUT_STS = dt.Rows[0]["MNC_SND_OUT_STS"].ToString();
-            labT02.MNC_LB_STS = dt.Rows[0]["MNC_LB_STS"].ToString();
+            long chk = 0;
+            int chk1 = 0;
+            decimal chk2 = 0;
 
         }
-        else
+        public String insertLabT02(LabT02 p, String userId)
         {
-            setLabT02(labT02);
+            String sql = "", re = "";
+
+            chkNull(p);
+            sql = "Insert Into lab_t02 " +
+                "(MNC_REQ_YR,MNC_REQ_NO,MNC_REQ_DAT,MNC_REQ_STS" +
+                ",MNC_LB_CD,MNC_LB_RMK,MNC_LB_COS,MNC_LB_PRI" +
+                ",MNC_LB_RFN, MNC_SPC_SEND_DAT, MNC_SPC_SEND_TM,MNC_STAMP_DAT" +
+                ",MNC_STAMP_TIM,MNC_SPC_TYP,MNC_RESULT_DAT,MNC_RESULT_TIM" +
+                ",MNC_USR_RESULT,MNC_USR_RESULT_REPORT,MNC_USR_RESULT_APPROVE,MNC_CANCEL_STS" +
+                ",MNC_USR_UPD,MNC_SND_OUT_STS,MNC_LB_STS" +
+                ")" +
+                "Values ('" + p.MNC_REQ_YR + "','" + p.MNC_REQ_NO + "','" + p.MNC_REQ_DAT + "','" + p.MNC_REQ_STS + "'" +
+                ",'" + p.MNC_LB_CD + "','" + p.MNC_LB_RMK + "','" + p.MNC_LB_COS + "','" + p.MNC_LB_PRI + "'" +
+                ",'" + p.MNC_LB_RFN + "','" + p.MNC_SPC_SEND_DAT + "','" + p.MNC_SPC_SEND_TM + "',convert(varchar(10), GETDATE(),23)" +
+                ",replace(left(convert(varchar(100),getdate(),108),5),':',''),'" + p.MNC_SPC_TYP + "','" + p.MNC_RESULT_DAT + "','" + p.MNC_RESULT_TIM + "'" +
+                ",'" + p.MNC_USR_RESULT + "','" + p.MNC_USR_RESULT_REPORT + "','" + p.MNC_USR_RESULT_APPROVE + "','" + p.MNC_CANCEL_STS + "'" +
+                ",'" + p.MNC_USR_UPD + "','" + p.MNC_SND_OUT_STS + "','" + p.MNC_LB_STS + "'" +
+                ")";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //new LogWriter("d", "PharmacyT02 insertPharmacyT02 sql " + sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "LabT02 insertLabT02 " + ex.InnerException);
+            }
+
+            return re;
         }
-        return labT02;
+        public String deleteReqNo(String reqyr, String reqno)
+        {
+            String sql = "", re = "";
+            sql = "Delete From lab_t02 Where mnc_doc_cd = 'ROS' and mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            return re;
+        }
+        public LabT02 setLabT02(DataTable dt)
+        {
+            LabT02 labT02 = new LabT02();
+            if (dt.Rows.Count > 0)
+            {
+                labT02.MNC_REQ_YR = dt.Rows[0]["MNC_REQ_YR"].ToString();
+                labT02.MNC_REQ_NO = dt.Rows[0]["MNC_REQ_NO"].ToString();
+                labT02.MNC_REQ_DAT = dt.Rows[0]["MNC_REQ_DAT"].ToString();
+                labT02.MNC_LB_CD = dt.Rows[0]["MNC_LB_CD"].ToString();
+                labT02.MNC_REQ_STS = dt.Rows[0]["MNC_REQ_STS"].ToString();
+                labT02.MNC_LB_RMK = dt.Rows[0]["MNC_LB_RMK"].ToString();
+                labT02.MNC_LB_COS = dt.Rows[0]["MNC_LB_COS"].ToString();
+                labT02.MNC_LB_PRI = dt.Rows[0]["MNC_LB_PRI"].ToString();
+                labT02.MNC_LB_RFN = dt.Rows[0]["MNC_LB_RFN"].ToString();
+                labT02.MNC_SPC_SEND_DAT = dt.Rows[0]["MNC_SPC_SEND_DAT"].ToString();
+                labT02.MNC_SPC_SEND_TM = dt.Rows[0]["MNC_SPC_SEND_TM"].ToString();
+                labT02.MNC_SPC_TYP = dt.Rows[0]["MNC_SPC_TYP"].ToString();
+                labT02.MNC_RESULT_DAT = dt.Rows[0]["MNC_RESULT_DAT"].ToString(); ;
+                labT02.MNC_RESULT_TIM = dt.Rows[0]["MNC_RESULT_TIM"].ToString();
+                labT02.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+                labT02.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_TIM"].ToString();
+                labT02.MNC_USR_RESULT = dt.Rows[0]["MNC_USR_RESULT"].ToString();
+                labT02.MNC_USR_RESULT_REPORT = dt.Rows[0]["MNC_USR_RESULT_REPORT"].ToString();
+                labT02.MNC_USR_RESULT_APPROVE = dt.Rows[0]["MNC_USR_RESULT_APPROVE"].ToString();
+                labT02.MNC_CANCEL_STS = dt.Rows[0]["MNC_CANCEL_STS"].ToString();
+                labT02.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
+                labT02.MNC_SND_OUT_STS = dt.Rows[0]["MNC_SND_OUT_STS"].ToString();
+                labT02.MNC_LB_STS = dt.Rows[0]["MNC_LB_STS"].ToString();
 
+            }
+            else
+            {
+                setLabT02(labT02);
+            }
+            return labT02;
+
+        }
+        public LabT02 setLabT02(LabT02 p)
+        {
+            p.MNC_REQ_YR = "";
+            p.MNC_REQ_NO = "";
+            p.MNC_REQ_DAT = "";
+            p.MNC_LB_CD = "";
+            p.MNC_REQ_STS = "";
+            p.MNC_LB_RMK = "";
+            p.MNC_LB_COS = "";
+            p.MNC_LB_PRI = "";
+            p.MNC_SPC_SEND_DAT = "";
+            p.MNC_SPC_SEND_TM = "";
+            p.MNC_SPC_TYP = "";
+            p.MNC_RESULT_DAT = "";
+            p.MNC_RESULT_TIM = "";
+            p.MNC_STAMP_DAT = "";
+            p.MNC_STAMP_TIM = "";
+            p.MNC_USR_RESULT = "";
+            p.MNC_USR_RESULT_REPORT = "";
+            p.MNC_USR_RESULT_APPROVE = "";
+            p.MNC_CANCEL_STS = "";
+            p.MNC_USR_UPD = "";
+            p.MNC_SND_OUT_STS = "";
+            p.MNC_LB_STS = "";
+
+            return p;
+        }
     }
-    public LabT02 setLabT02(LabT02 p)
-    {
-        p.MNC_REQ_YR = "";
-        p.MNC_REQ_NO = "";
-        p.MNC_REQ_DAT = "";
-        p.MNC_LB_CD = "";
-        p.MNC_REQ_STS = "";
-        p.MNC_LB_RMK = "";
-        p.MNC_LB_COS = "";
-        p.MNC_LB_PRI = "";
-        p.MNC_SPC_SEND_DAT = "";
-        p.MNC_SPC_SEND_TM = "";
-        p.MNC_SPC_TYP = "";
-        p.MNC_RESULT_DAT = "";
-        p.MNC_RESULT_TIM = "";
-        p.MNC_STAMP_DAT = "";
-        p.MNC_STAMP_TIM = "";
-        p.MNC_USR_RESULT = "";
-        p.MNC_USR_RESULT_REPORT = "";
-        p.MNC_USR_RESULT_APPROVE = "";
-        p.MNC_CANCEL_STS = "";
-        p.MNC_USR_UPD = "";
-        p.MNC_SND_OUT_STS = "";
-        p.MNC_LB_STS = "";
-
-        return p;
-    }
-
 }
