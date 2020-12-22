@@ -50,4 +50,69 @@ namespace bangna_hospital.objdb
 
     }
 
+    public LabT02 setLabT02(DataTable dt)
+    {
+        LabT02 labT02 = new LabT02();
+        if (dt.Rows.Count > 0)
+        {
+            labT02.MNC_REQ_YR = dt.Rows[0]["MNC_REQ_YR"].ToString();
+            labT02.MNC_REQ_NO = dt.Rows[0]["MNC_REQ_NO"].ToString();
+            labT02.MNC_REQ_DAT = dt.Rows[0]["MNC_REQ_DAT"].ToString();
+            labT02.MNC_LB_CD = dt.Rows[0]["MNC_LB_CD"].ToString();
+            labT02.MNC_REQ_STS = dt.Rows[0]["MNC_REQ_STS"].ToString();
+            labT02.MNC_LB_RMK = dt.Rows[0]["MNC_LB_RMK"].ToString();
+            labT02.MNC_LB_COS = dt.Rows[0]["MNC_LB_COS"].ToString();
+            labT02.MNC_LB_PRI = dt.Rows[0]["MNC_LB_PRI"].ToString();
+            labT02.MNC_LB_RFN = dt.Rows[0]["MNC_LB_RFN"].ToString();
+            labT02.MNC_SPC_SEND_DAT = dt.Rows[0]["MNC_SPC_SEND_DAT"].ToString();
+            labT02.MNC_SPC_SEND_TM = dt.Rows[0]["MNC_SPC_SEND_TM"].ToString();
+            labT02.MNC_SPC_TYP = dt.Rows[0]["MNC_SPC_TYP"].ToString();
+            labT02.MNC_RESULT_DAT = dt.Rows[0]["MNC_RESULT_DAT"].ToString(); ;
+            labT02.MNC_RESULT_TIM = dt.Rows[0]["MNC_RESULT_TIM"].ToString();
+            labT02.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+            labT02.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_TIM"].ToString();
+            labT02.MNC_USR_RESULT = dt.Rows[0]["MNC_USR_RESULT"].ToString();
+            labT02.MNC_USR_RESULT_REPORT = dt.Rows[0]["MNC_USR_RESULT_REPORT"].ToString(); 
+            labT02.MNC_USR_RESULT_APPROVE = dt.Rows[0]["MNC_USR_RESULT_APPROVE"].ToString();
+            labT02.MNC_CANCEL_STS = dt.Rows[0]["MNC_CANCEL_STS"].ToString();
+            labT02.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
+            labT02.MNC_SND_OUT_STS = dt.Rows[0]["MNC_SND_OUT_STS"].ToString();
+            labT02.MNC_LB_STS = dt.Rows[0]["MNC_LB_STS"].ToString();
+
+        }
+        else
+        {
+            setLabT02(labT02);
+        }
+        return labT02;
+
+    }
+    public LabT02 setLabT02(LabT02 p)
+    {
+        p.MNC_REQ_YR = "";
+        p.MNC_REQ_NO = "";
+        p.MNC_REQ_DAT = "";
+        p.MNC_LB_CD = "";
+        p.MNC_REQ_STS = "";
+        p.MNC_LB_RMK = "";
+        p.MNC_LB_COS = "";
+        p.MNC_LB_PRI = "";
+        p.MNC_SPC_SEND_DAT = "";
+        p.MNC_SPC_SEND_TM = "";
+        p.MNC_SPC_TYP = "";
+        p.MNC_RESULT_DAT = "";
+        p.MNC_RESULT_TIM = "";
+        p.MNC_STAMP_DAT = "";
+        p.MNC_STAMP_TIM = "";
+        p.MNC_USR_RESULT = "";
+        p.MNC_USR_RESULT_REPORT = "";
+        p.MNC_USR_RESULT_APPROVE = "";
+        p.MNC_CANCEL_STS = "";
+        p.MNC_USR_UPD = "";
+        p.MNC_SND_OUT_STS = "";
+        p.MNC_LB_STS = "";
+
+        return p;
+    }
+
 }

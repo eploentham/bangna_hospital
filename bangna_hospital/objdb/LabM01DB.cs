@@ -37,8 +37,67 @@ namespace bangna_hospital.objdb
             labM01.MNC_DEC_NO = "MNC_DOC_CD";
             labM01.MNC_LB_PRI = "MNC_DOC_CD";
             labM01.mnc_res_flg = "MNC_DOC_CD";
-            labM01.MNC_HL7_CODE = "MNC_DOC_CD"
+            labM01.MNC_HL7_CODE = "MNC_DOC_CD";
 
         }
+
+        public LabM01 setLabM01(DataTable dt)
+        {
+            LabM01 labM01 = new LabM01();
+            if (dt.Rows.Count > 0)
+            {
+                labM01.MNC_LB_CD = dt.Rows[0]["MNC_LB_CD"].ToString();
+                labM01.MNC_LB_DSC = dt.Rows[0]["MNC_LB_DSC"].ToString();
+                labM01.MNC_LB_TYP_CD = dt.Rows[0]["MNC_LB_TYP_CD"].ToString();
+                labM01.MNC_LB_GRP_CD = dt.Rows[0]["MNC_LB_GRP_CD"].ToString();
+                labM01.MNC_LB_DIS_STS = dt.Rows[0]["MNC_LB_DIS_STS"].ToString();
+                labM01.MNC_SCH_ACT = dt.Rows[0]["MNC_SCH_ACT"].ToString();
+                labM01.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+                labM01.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_TIM"].ToString();
+                labM01.MNC_SPC_CD = dt.Rows[0]["MNC_SPC_CD"].ToString();
+                labM01.MNC_LB_STS = dt.Rows[0]["MNC_LB_STS"].ToString();
+                labM01.MNC_USR_ADD = dt.Rows[0]["MNC_USR_ADD"].ToString();
+                labM01.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
+                labM01.MNC_LB_CTL_CD = dt.Rows[0]["MNC_LB_CTL_CD"].ToString();
+                labM01.MNC_LB_OLD_CD = dt.Rows[0]["MNC_LB_OLD_CD"].ToString();
+                labM01.MNC_DEC_CD = dt.Rows[0]["MNC_DEC_CD"].ToString();
+                labM01.MNC_DEC_NO = dt.Rows[0]["MNC_DEC_NO"].ToString();
+                labM01.MNC_LB_PRI = dt.Rows[0]["MNC_LB_PRI"].ToString();
+                labM01.mnc_res_flg = dt.Rows[0]["mnc_res_flg"].ToString();
+                labM01.MNC_HL7_CODE = dt.Rows[0]["mnc_res_flg"].ToString();
+
+
+            }
+            else
+            {
+                setLabM01(labM01);
+            }
+            return labM01;
+        }
+
+        public LabM01 setLabM01(LabM01 p)
+        {
+            p.MNC_LB_CD = "";
+            p.MNC_LB_DSC = "";
+            p.MNC_LB_TYP_CD = "";
+            p.MNC_LB_GRP_CD = "";
+            p.MNC_LB_DIS_STS = "";
+            p.MNC_SCH_ACT = "";
+            p.MNC_STAMP_DAT = "";
+            p.MNC_STAMP_TIM = "";
+            p.MNC_SPC_CD = "";
+            p.MNC_LB_STS = "";
+            p.MNC_USR_ADD = "";
+            p.MNC_USR_UPD = "";
+            p.MNC_LB_CTL_CD = "";
+            p.MNC_LB_OLD_CD = "";
+            p.MNC_DEC_CD = "";
+            p.MNC_DEC_NO = "";
+            p.MNC_LB_PRI = "";
+            p.mnc_res_flg = "";
+            p.MNC_HL7_CODE = "";
+            return p;
+        }
+
     }
 }
