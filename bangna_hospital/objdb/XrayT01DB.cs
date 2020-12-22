@@ -66,7 +66,7 @@ namespace bangna_hospital.objdb
             decimal chk2 = 0;
 
         }
-        public String insertPharmacyT01(XrayT01 p)
+        public String insertXrayT01(XrayT01 p)
         {
             String sql = "", chk = "", re = "";
 

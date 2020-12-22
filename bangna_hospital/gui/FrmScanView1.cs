@@ -6198,7 +6198,8 @@ namespace bangna_hospital.gui
         private void savePharT01()
         {
             PharmacyT01 phart01 = new PharmacyT01();
-            
+            XrayT01 xrayT01 = new XrayT01();
+            LabT01 labT01 = new LabT01();
             //new LogWriter("d", "PharmacyT02 insertPharmacyT01 hn " + phart01.MNC_HN_NO+" hnyr "+ phart01.MNC_HN_YR+" date "+ phart01.MNC_DATE+" preno "+ phart01.MNC_PRE_NO+ "select * from PHARMACY_T01 where MNC_HN_NO = '" + phart01.MNC_HN_NO + "' and mnc_req_dat = '"+ vsDate + "' and MNC_PRE_NO = '" + phart01.MNC_PRE_NO + "'");
             //หาก่อนว่า มี drug lab xray หรือไม่
             String itmflag1 = "", flagDrug="", flagLab="", flagXray="", reDrug="", reLab="", reXray="";
@@ -6270,7 +6271,97 @@ namespace bangna_hospital.gui
             }
             if (flagXray.Equals("1"))
             {
-                reXray = bc.bcDB.pharT01DB.insertPharmacyT01(phart01);
+                xrayT01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
+                xrayT01.MNC_REQ_NO = "";
+                xrayT01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+                xrayT01.MNC_REQ_DEP = "";
+                xrayT01.MNC_REQ_STS = "";
+                xrayT01.MNC_REQ_TIM = "";
+                xrayT01.MNC_HN_YR = ptt.hnyr;
+                xrayT01.MNC_HN_NO = ptt.Hn;
+                xrayT01.MNC_AN_YR = "";
+                xrayT01.MNC_AN_NO = "";
+                xrayT01.MNC_PRE_NO = preno;
+                xrayT01.MNC_DATE = vsDate;
+                xrayT01.MNC_TIME = "";
+                xrayT01.MNC_DOT_CD = "";
+                xrayT01.MNC_WD_NO = "";
+                xrayT01.MNC_RM_NAM = "";
+                xrayT01.MNC_BD_NO = "";
+                xrayT01.MNC_FN_TYP_CD = "";
+                xrayT01.MNC_COM_CD = "";
+                xrayT01.MNC_REM = "";
+                xrayT01.MNC_XR_STS = "";
+                xrayT01.MNC_CAL_NO = "";
+                xrayT01.MNC_EMPR_CD = bc.user.username;
+                xrayT01.MNC_EMPC_CD = bc.user.username;
+                xrayT01.MNC_ORD_DOT = "";
+                xrayT01.MNC_CFM_DOT = "";
+                xrayT01.MNC_DOC_YR = "";
+                xrayT01.MNC_DOC_NO = "";
+                xrayT01.MNC_DOC_DAT = "";
+                xrayT01.MNC_DOC_CD = "";
+                xrayT01.MNC_STAMP_DAT = "";
+                xrayT01.MNC_STAMP_TIM = "";
+                xrayT01.MNC_CANCEL_STS = "";
+                xrayT01.MNC_PAC_CD = "";
+                xrayT01.MNC_PAC_TYP = "";
+                xrayT01.status_pacs = "";
+                reXray = bc.bcDB.xrayT01DB.insertXrayT01(xrayT01);
+            }
+            if (flagLab.Equals("1"))
+            {
+                labT01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
+                labT01.MNC_REQ_NO = "";
+                labT01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+                labT01.MNC_REQ_DEP = "";
+                labT01.MNC_REQ_STS = "";
+                labT01.MNC_REQ_TIM = "";
+                labT01.MNC_HN_YR = ptt.hnyr;
+                labT01.MNC_HN_NO = ptt.Hn;
+                labT01.MNC_AN_YR = "";
+                labT01.MNC_AN_NO = "";
+                labT01.MNC_PRE_NO = preno;
+                labT01.MNC_DATE = vsDate;
+                labT01.MNC_TIME = "";
+                labT01.MNC_DOT_CD = bc.user.username;
+                labT01.MNC_WD_NO = "";
+                labT01.MNC_RM_NAM = "";
+                labT01.MNC_BD_NO = "";
+                labT01.MNC_FN_TYP_CD = "";
+                labT01.MNC_COM_CD = "";
+                labT01.MNC_REM = "";
+                labT01.MNC_LB_STS = "";
+                labT01.MNC_CAL_NO = "";
+                labT01.MNC_EMPR_CD = "";
+                labT01.MNC_EMPC_CD = "";
+                labT01.MNC_ORD_DOT = "";
+                labT01.MNC_CFM_DOT = "";
+                labT01.MNC_DOC_YR = "";
+                labT01.MNC_DOC_NO = "";
+                labT01.MNC_DOC_DAT = "";
+                labT01.MNC_DOC_CD = "";
+                labT01.MNC_SPC_SEND_DAT = "";
+                labT01.MNC_SPC_SEND_TM = "";
+                labT01.MNC_SPC_TYP = "";
+                labT01.MNC_REMARK = "";
+                labT01.MNC_STAMP_DAT = "";
+                labT01.MNC_STAMP_TIM = "";
+                labT01.MNC_CANCEL_STS = "";
+                labT01.MNC_PAC_CD = "";
+                labT01.MNC_PAC_TYP = "";
+                labT01.MNC_DANGER_FLG = "";
+                labT01.MNC_DIET_FLG = "";
+                labT01.MNC_MED_FLG = "";
+                labT01.MNC_LAB_FN_TYP_CD = "";
+                labT01.MNC_IP_ADD1 = "";
+                labT01.MNC_IP_ADD2 = "";
+                labT01.MNC_IP_ADD3 = "";
+                labT01.MNC_IP_ADD4 = "";
+                labT01.MNC_PATNAME = "";
+                labT01.MNC_LOAD_STS = "";
+                labT01.MNC_IP_REC = "";
+                reLab = bc.bcDB.labT01DB.in(xrayT01);
             }
             //new LogWriter("d", "PharmacyT02 insertPharmacyT01 re " + re);
             int chk = 0;
@@ -6325,11 +6416,59 @@ namespace bangna_hospital.gui
                     }
                     else if (itmflag.Equals("L"))
                     {
-
+                        LabT02 labT02 = new LabT02();
+                        labT02.MNC_REQ_YR = "";
+                        labT02.MNC_REQ_NO = "";
+                        labT02.MNC_REQ_DAT = "";
+                        labT02.MNC_LB_CD = "";
+                        labT02.MNC_REQ_STS = "";
+                        labT02.MNC_LB_RMK = "";
+                        labT02.MNC_LB_COS = "";
+                        labT02.MNC_LB_PRI = "";
+                        labT02.MNC_LB_RFN = "";
+                        labT02.MNC_SPC_SEND_DAT = "";
+                        labT02.MNC_SPC_SEND_TM = "";
+                        labT02.MNC_SPC_TYP = "";
+                        labT02.MNC_RESULT_DAT = "";
+                        labT02.MNC_RESULT_TIM = "";
+                        labT02.MNC_STAMP_DAT = "";
+                        labT02.MNC_STAMP_TIM = "";
+                        labT02.MNC_USR_RESULT = "";
+                        labT02.MNC_USR_RESULT_REPORT = "";
+                        labT02.MNC_USR_RESULT_APPROVE = "";
+                        labT02.MNC_CANCEL_STS = "";
+                        labT02.MNC_USR_UPD = "";
+                        labT02.MNC_SND_OUT_STS = "";
+                        labT02.MNC_LB_STS = "";
+                        bc.bcDB.labT02DB.in(labT02,"");
                     }
                     else if (itmflag.Equals("X"))
                     {
-
+                        XrayT02 xrayt02 = new XrayT02();
+                        xrayt02.MNC_REQ_YR = "";
+                        xrayt02.MNC_REQ_NO = "";
+                        xrayt02.MNC_REQ_DAT = "";
+                        xrayt02.MNC_REQ_STS = "";
+                        xrayt02.MNC_XR_CD = "";
+                        xrayt02.MNC_XR_RMK = "";
+                        xrayt02.MNC_XR_COS = "";
+                        xrayt02.MNC_XR_PRI = "";
+                        xrayt02.MNC_XR_RFN = "";
+                        xrayt02.MNC_XR_PRI_R = "";
+                        xrayt02.MNC_FLG_K = "";
+                        xrayt02.MNC_STAMP_DAT = "";
+                        xrayt02.MNC_STAMP_TIM = "";
+                        xrayt02.MNC_XR_COS_R = "";
+                        xrayt02.MNC_DOT_CD_DF = "";
+                        xrayt02.MNC_DOT_GRP_CD = "";
+                        xrayt02.MNC_ACT_DAT = "";
+                        xrayt02.MNC_ACT_TIM = "";
+                        xrayt02.MNC_CANCEL_STS = "";
+                        xrayt02.MNC_USR_UPD = "";
+                        xrayt02.MNC_SND_OUT_STS = "";
+                        xrayt02.MNC_XR_STS = "";
+                        xrayt02.status_pacs = "";
+                        bc.bcDB.xrayT02DB.in(xrayt02, "");
                     }
                 }
             }
