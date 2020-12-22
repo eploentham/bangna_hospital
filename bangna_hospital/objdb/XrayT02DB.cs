@@ -48,3 +48,72 @@ namespace bangna_hospital.objdb
         }
     }
 }
+
+    public XrayT02 setXrayT02(DataTable dt)
+{
+         XrayT02 xrayT02 = new XrayT02();
+         if (dt.Rows.Count > 0)
+     {
+        xrayT02.MNC_REQ_YR = dt.Rows[0]["MNC_REQ_YR"].ToString();
+        xrayT02.MNC_REQ_NO = dt.Rows[0]["MNC_REQ_NO"].ToString(); ;
+        xrayT02.MNC_REQ_DAT = dt.Rows[0]["MNC_REQ_DAT"].ToString();
+        xrayT02.MNC_REQ_STS = dt.Rows[0]["MNC_REQ_STS"].ToString(); ;
+        xrayT02.MNC_XR_CD = dt.Rows[0]["MNC_XR_CD"].ToString();
+        xrayT02.MNC_XR_RMK = dt.Rows[0]["MNC_XR_RMK"].ToString();
+        xrayT02.MNC_XR_COS = dt.Rows[0]["MNC_XR_COS"].ToString();
+        xrayT02.MNC_XR_PRI = dt.Rows[0]["MNC_XR_PRI"].ToString();
+        xrayT02.MNC_XR_RFN = dt.Rows[0]["MNC_XR_RFN"].ToString();
+        xrayT02.MNC_XR_PRI_R = dt.Rows[0]["MNC_XR_PRI_R"].ToString();
+        xrayT02.MNC_FLG_K = dt.Rows[0]["MNC_FLG_K"].ToString();
+        xrayT02.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+        xrayT02.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_TIM"].ToString();
+        xrayT02.MNC_XR_COS_R = dt.Rows[0]["MNC_XR_COS_R"].ToString();
+        xrayT02.MNC_DOT_CD_DF = dt.Rows[0]["MNC_DOT_CD_DF"].ToString();
+        xrayT02.MNC_DOT_GRP_CD = dt.Rows[0]["MNC_DOT_GRP_CD"].ToString();
+        xrayT02.MNC_ACT_DAT = dt.Rows[0]["MNC_ACT_DAT"].ToString();
+        xrayT02.MNC_ACT_TIM = dt.Rows[0]["MNC_ACT_TIM"].ToString();
+        xrayT02.MNC_CANCEL_STS = dt.Rows[0]["MNC_CANCEL_STS"].ToString();
+        xrayT02.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
+        xrayT02.MNC_SND_OUT_STS = dt.Rows[0]["MNC_SND_OUT_STS"].ToString();
+        xrayT02.MNC_XR_STS = dt.Rows[0]["MNC_XR_STS"].ToString();
+        xrayT02.status_pacs = dt.Rows[0]["status_pacs"].ToString();
+    }
+    else
+    {
+        setXrayT02(xrayT02);
+    }
+    return xrayT02;
+}
+
+
+    public XrayT02 setXrayT02(XrayT02 p)
+    {
+        
+        p.MNC_REQ_YR = "";
+        p.MNC_REQ_NO = "";
+        p.MNC_REQ_DAT = "";
+        p.MNC_REQ_STS = "";
+        p.MNC_XR_CD = "";
+        p.MNC_XR_RMK = "";
+        p.MNC_XR_COS = "";
+        p.MNC_XR_PRI = "";
+        p.MNC_XR_RFN = "";
+        p.MNC_XR_PRI_R = "";
+        p.MNC_FLG_K = "";
+        p.MNC_STAMP_DAT = "";
+        p.MNC_STAMP_TIM = "";
+        p.MNC_XR_COS_R = "";
+        p.MNC_DOT_CD_DF = "";
+        p.MNC_DOT_GRP_CD = "";
+        p.MNC_ACT_DAT = "";
+        p.MNC_ACT_TIM = "";
+        p.MNC_CANCEL_STS = "";
+        p.MNC_USR_UPD = "";
+        p.MNC_SND_OUT_STS = "";
+        p.MNC_XR_STS = "";
+        p.status_pacs = "";
+        return p;
+
+        
+    }
+    

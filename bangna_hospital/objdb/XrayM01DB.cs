@@ -46,3 +46,63 @@ namespace bangna_hospital.objdb
         }
     }
 }
+
+
+public XrayM01 setXrayM01(DataTable dt)
+{
+    XrayM01 xrayM01 = new XrayM01();
+    if (dt.Rows.Count > 0)
+    {
+        
+        xrayM01.MNC_XR_CD = dt.Rows[0]["MNC_XR_CD"].ToString();
+        xrayM01.MNC_XR_CTL_CD = dt.Rows[0]["MNC_XR_CTL_CD"].ToString();
+        xrayM01.MNC_XR_DSC = dt.Rows[0]["MNC_XR_DSC"].ToString();
+        xrayM01.MNC_XR_TYP_CD = dt.Rows[0]["MNC_XR_TYP_CD"].ToString();
+        xrayM01.MNC_XR_GRP_CD = dt.Rows[0]["MNC_XR_GRP_CD"].ToString();
+        xrayM01.MNC_XR_DIS_STS = dt.Rows[0]["MNC_XR_DIS_STS"].ToString();
+        xrayM01.MNC_XR_STS = dt.Rows[0]["MNC_XR_STS"].ToString();
+        xrayM01.MNC_DEC_CD = dt.Rows[0]["MNC_DEC_CD"].ToString();
+        xrayM01.MNC_DEC_NO = dt.Rows[0]["MNC_DEC_NO"].ToString();
+        xrayM01.MNC_STAMP_DAT = dt.Rows[0]["MNC_STAMP_DAT"].ToString();
+        xrayM01.MNC_STAMP_TIM = dt.Rows[0]["MNC_STAMP_TIM"].ToString();
+        xrayM01.MNC_USR_UPD = dt.Rows[0]["MNC_USR_UPD"].ToString();
+        xrayM01.MNC_USR_ADD = dt.Rows[0]["MNC_USR_ADD"].ToString();
+        xrayM01.MNC_OLD_CD = dt.Rows[0]["MNC_OLD_CD"].ToString();
+        xrayM01.MNC_SUP_STS = dt.Rows[0]["MNC_SUP_STS"].ToString();
+        xrayM01.MNC_XR_PRI = dt.Rows[0]["MNC_XR_PRI"].ToString();
+        xrayM01.MNC_XR_DSC_STS = dt.Rows[0]["MNC_XR_DSC_STS"].ToString();
+        xrayM01.MNC_XR_AUTO = dt.Rows[0]["MNC_XR_AUTO"].ToString();
+        xrayM01.pacs_infinitt_code = dt.Rows[0]["pacs_infinitt_code"].ToString();
+        xrayM01.modality_code = dt.Rows[0]["modality_code"].ToString();
+    }
+    else
+    {
+        setXrayM01(xrayM01);
+    }
+    return xrayM01;
+}
+public XrayM01 setXrayM01(XrayM01 p)
+    {
+        p.MNC_XR_CD = "";
+        p.MNC_XR_CTL_CD = "";
+        p.MNC_XR_DSC = "";
+        p.MNC_XR_TYP_CD = "";
+        p.MNC_XR_GRP_CD = "";
+        p.MNC_XR_DIS_STS = "";
+        p.MNC_XR_STS = "";
+        p.MNC_DEC_CD = "";
+        p.MNC_DEC_NO = "";
+        p.MNC_STAMP_DAT = "";
+        p.MNC_STAMP_TIM = "";
+        p.MNC_USR_UPD = "";
+        p.MNC_USR_ADD = "";
+        p.MNC_OLD_CD = "";
+        p.MNC_SUP_STS = "";
+        p.MNC_XR_PRI = "";
+        p.MNC_XR_DSC_STS = "";
+        p.MNC_XR_AUTO = "";
+        p.pacs_infinitt_code = "";
+        p.modality_code = "";
+        return p;
+    }
+
