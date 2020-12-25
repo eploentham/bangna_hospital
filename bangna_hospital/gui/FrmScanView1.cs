@@ -6194,7 +6194,153 @@ namespace bangna_hospital.gui
                 }
             }
         }
+        private PharmacyT01 setPharmacyT01(String hn, string hnyear,String vsDate, String preno)
+        {
+            PharmacyT01 phart01 = new PharmacyT01();
+            phart01.MNC_DOC_CD = "ROS";
+            phart01.MNC_REQ_NO = "";
+            phart01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
+            phart01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+            phart01.MNC_HN_NO = hn;
+            phart01.MNC_HN_YR = hnyear;
+            phart01.MNC_AN_NO = "";
+            phart01.MNC_AN_YR = "";
+            phart01.MNC_BD_NO = "";
+            phart01.MNC_CAL_NO = "";
+            phart01.MNC_CANCEL_STS = "";
+            phart01.MNC_CFM_DOT = "";
+            phart01.MNC_COM_CD = "";
+            phart01.MNC_DATE = vsDate;
+            phart01.MNC_DEPC_NO = "";
+            phart01.MNC_DEP_NO = "";
+            phart01.MNC_DOC_CD = "";
+            phart01.MNC_DOT_CD = bc.user.username;
+            phart01.MNC_EMPC_CD = "";
+            phart01.MNC_EMPR_CD = bc.user.username;
+            phart01.MNC_FN_TYP_CD = "";
+            phart01.MNC_ORD_DOT = "";
+            phart01.MNC_PAC_CD = "";
+            phart01.MNC_PAC_TYP = "";
+            phart01.MNC_PHA_STS = "";
+            phart01.MNC_PH_REM = "";
+            phart01.MNC_PRE_NO = preno;
+            phart01.MNC_PRE_SEQ = "";
+            phart01.MNC_REQ_COUNT = "0";
+            phart01.MNC_REQ_STS = "";
+            phart01.MNC_REQ_TIM = "";
+            phart01.MNC_REQ_TYP = "";
+            phart01.MNC_RM_NAM = "";
+            phart01.MNC_SECC_NO = "";
+            phart01.MNC_SEC_NO = "";
+            phart01.MNC_SUM_COS = "1";
+            phart01.MNC_SUM_PRI = "1";
+            phart01.MNC_STAMP_DAT = "";
+            phart01.MNC_STAMP_TIM = "";
+            phart01.MNC_TIME = "";
+            phart01.MNC_USE_LOG = "";
+            phart01.MNC_USR_ADD = bc.user.username;
+            phart01.MNC_USR_UPD = bc.user.username;
+            phart01.MNC_WD_NO = "";
 
+            return phart01;
+        }
+        private LabT01 setLabT01(String hn, string hnyear, String vsDate, String preno)
+        {
+            LabT01 labT01 = new LabT01();
+            labT01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
+            labT01.MNC_REQ_NO = "";
+            labT01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+            labT01.MNC_REQ_DEP = "";
+            labT01.MNC_REQ_STS = "";
+            labT01.MNC_REQ_TIM = "";
+            labT01.MNC_HN_YR = hnyear;
+            labT01.MNC_HN_NO = hn;
+            labT01.MNC_AN_YR = "";
+            labT01.MNC_AN_NO = "";
+            labT01.MNC_PRE_NO = preno;
+            labT01.MNC_DATE = vsDate;
+            labT01.MNC_TIME = "";
+            labT01.MNC_DOT_CD = bc.user.username;
+            labT01.MNC_WD_NO = "";
+            labT01.MNC_RM_NAM = "";
+            labT01.MNC_BD_NO = "";
+            labT01.MNC_FN_TYP_CD = "";
+            labT01.MNC_COM_CD = "";
+            labT01.MNC_REM = "";
+            labT01.MNC_LB_STS = "";
+            labT01.MNC_CAL_NO = "";
+            labT01.MNC_EMPR_CD = "";
+            labT01.MNC_EMPC_CD = "";
+            labT01.MNC_ORD_DOT = "";
+            labT01.MNC_CFM_DOT = "";
+            labT01.MNC_DOC_YR = "";
+            labT01.MNC_DOC_NO = "";
+            labT01.MNC_DOC_DAT = "";
+            labT01.MNC_DOC_CD = "";
+            labT01.MNC_SPC_SEND_DAT = "";
+            labT01.MNC_SPC_SEND_TM = "";
+            labT01.MNC_SPC_TYP = "";
+            labT01.MNC_REMARK = "";
+            labT01.MNC_STAMP_DAT = "";
+            labT01.MNC_STAMP_TIM = "";
+            labT01.MNC_CANCEL_STS = "";
+            labT01.MNC_PAC_CD = "";
+            labT01.MNC_PAC_TYP = "";
+            labT01.MNC_DANGER_FLG = "";
+            labT01.MNC_DIET_FLG = "";
+            labT01.MNC_MED_FLG = "";
+            labT01.MNC_LAB_FN_TYP_CD = "";
+            labT01.MNC_IP_ADD1 = "";
+            labT01.MNC_IP_ADD2 = "";
+            labT01.MNC_IP_ADD3 = "";
+            labT01.MNC_IP_ADD4 = "";
+            labT01.MNC_PATNAME = "";
+            labT01.MNC_LOAD_STS = "";
+            labT01.MNC_IP_REC = "";
+
+            return labT01;
+        }
+        private XrayT01 setXrayT01(String hn, string hnyear, String vsDate, String preno)
+        {
+            XrayT01 xrayT01 = new XrayT01();
+            xrayT01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
+            xrayT01.MNC_REQ_NO = "";
+            xrayT01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+            xrayT01.MNC_REQ_DEP = "";
+            xrayT01.MNC_REQ_STS = "";
+            xrayT01.MNC_REQ_TIM = "";
+            xrayT01.MNC_HN_YR = hnyear;
+            xrayT01.MNC_HN_NO = hn;
+            xrayT01.MNC_AN_YR = "";
+            xrayT01.MNC_AN_NO = "";
+            xrayT01.MNC_PRE_NO = preno;
+            xrayT01.MNC_DATE = vsDate;
+            xrayT01.MNC_TIME = "";
+            xrayT01.MNC_DOT_CD = "";
+            xrayT01.MNC_WD_NO = "";
+            xrayT01.MNC_RM_NAM = "";
+            xrayT01.MNC_BD_NO = "";
+            xrayT01.MNC_FN_TYP_CD = "";
+            xrayT01.MNC_COM_CD = "";
+            xrayT01.MNC_REM = "";
+            xrayT01.MNC_XR_STS = "";
+            xrayT01.MNC_CAL_NO = "";
+            xrayT01.MNC_EMPR_CD = bc.user.username;
+            xrayT01.MNC_EMPC_CD = bc.user.username;
+            xrayT01.MNC_ORD_DOT = "";
+            xrayT01.MNC_CFM_DOT = "";
+            xrayT01.MNC_DOC_YR = "";
+            xrayT01.MNC_DOC_NO = "";
+            xrayT01.MNC_DOC_DAT = "";
+            xrayT01.MNC_DOC_CD = "";
+            xrayT01.MNC_STAMP_DAT = "";
+            xrayT01.MNC_STAMP_TIM = "";
+            xrayT01.MNC_CANCEL_STS = "";
+            xrayT01.MNC_PAC_CD = "";
+            xrayT01.MNC_PAC_TYP = "";
+            xrayT01.status_pacs = "";
+            return xrayT01;
+        }
         private void savePharT01()
         {
             PharmacyT01 phart01 = new PharmacyT01();
@@ -6223,144 +6369,17 @@ namespace bangna_hospital.gui
             }
             if (flagDrug.Equals("1"))
             {
-                phart01.MNC_DOC_CD = "ROS";
-                phart01.MNC_REQ_NO = "";
-                phart01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
-                phart01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
-                phart01.MNC_HN_NO = ptt.Hn;
-                phart01.MNC_HN_YR = ptt.hnyr;
-                phart01.MNC_AN_NO = "";
-                phart01.MNC_AN_YR = "";
-                phart01.MNC_BD_NO = "";
-                phart01.MNC_CAL_NO = "";
-                phart01.MNC_CANCEL_STS = "";
-                phart01.MNC_CFM_DOT = "";
-                phart01.MNC_COM_CD = "";
-                phart01.MNC_DATE = vsDate;
-                phart01.MNC_DEPC_NO = "";
-                phart01.MNC_DEP_NO = "";
-                phart01.MNC_DOC_CD = "";
-                phart01.MNC_DOT_CD = bc.user.username;
-                phart01.MNC_EMPC_CD = "";
-                phart01.MNC_EMPR_CD = bc.user.username;
-                phart01.MNC_FN_TYP_CD = "";
-                phart01.MNC_ORD_DOT = "";
-                phart01.MNC_PAC_CD = "";
-                phart01.MNC_PAC_TYP = "";
-                phart01.MNC_PHA_STS = "";
-                phart01.MNC_PH_REM = "";
-                phart01.MNC_PRE_NO = preno;
-                phart01.MNC_PRE_SEQ = "";
-                phart01.MNC_REQ_COUNT = "0";
-                phart01.MNC_REQ_STS = "";
-                phart01.MNC_REQ_TIM = "";
-                phart01.MNC_REQ_TYP = "";
-                phart01.MNC_RM_NAM = "";
-                phart01.MNC_SECC_NO = "";
-                phart01.MNC_SEC_NO = "";
-                phart01.MNC_SUM_COS = "1";
-                phart01.MNC_SUM_PRI = "1";
-                phart01.MNC_STAMP_DAT = "";
-                phart01.MNC_STAMP_TIM = "";
-                phart01.MNC_TIME = "";
-                phart01.MNC_USE_LOG = "";
-                phart01.MNC_USR_ADD = bc.user.username;
-                phart01.MNC_USR_UPD = bc.user.username;
-                phart01.MNC_WD_NO = "";
+                phart01 = setPharmacyT01(ptt.Hn, ptt.hnyr, vsDate, preno);
                 reDrug = bc.bcDB.pharT01DB.insertPharmacyT01(phart01);
             }
             if (flagXray.Equals("1"))
             {
-                xrayT01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
-                xrayT01.MNC_REQ_NO = "";
-                xrayT01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
-                xrayT01.MNC_REQ_DEP = "";
-                xrayT01.MNC_REQ_STS = "";
-                xrayT01.MNC_REQ_TIM = "";
-                xrayT01.MNC_HN_YR = ptt.hnyr;
-                xrayT01.MNC_HN_NO = ptt.Hn;
-                xrayT01.MNC_AN_YR = "";
-                xrayT01.MNC_AN_NO = "";
-                xrayT01.MNC_PRE_NO = preno;
-                xrayT01.MNC_DATE = vsDate;
-                xrayT01.MNC_TIME = "";
-                xrayT01.MNC_DOT_CD = "";
-                xrayT01.MNC_WD_NO = "";
-                xrayT01.MNC_RM_NAM = "";
-                xrayT01.MNC_BD_NO = "";
-                xrayT01.MNC_FN_TYP_CD = "";
-                xrayT01.MNC_COM_CD = "";
-                xrayT01.MNC_REM = "";
-                xrayT01.MNC_XR_STS = "";
-                xrayT01.MNC_CAL_NO = "";
-                xrayT01.MNC_EMPR_CD = bc.user.username;
-                xrayT01.MNC_EMPC_CD = bc.user.username;
-                xrayT01.MNC_ORD_DOT = "";
-                xrayT01.MNC_CFM_DOT = "";
-                xrayT01.MNC_DOC_YR = "";
-                xrayT01.MNC_DOC_NO = "";
-                xrayT01.MNC_DOC_DAT = "";
-                xrayT01.MNC_DOC_CD = "";
-                xrayT01.MNC_STAMP_DAT = "";
-                xrayT01.MNC_STAMP_TIM = "";
-                xrayT01.MNC_CANCEL_STS = "";
-                xrayT01.MNC_PAC_CD = "";
-                xrayT01.MNC_PAC_TYP = "";
-                xrayT01.status_pacs = "";
+                xrayT01 = setXrayT01(ptt.Hn, ptt.hnyr, vsDate, preno);
                 reXray = bc.bcDB.xrayT01DB.insertXrayT01(xrayT01);
             }
             if (flagLab.Equals("1"))
             {
-                labT01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
-                labT01.MNC_REQ_NO = "";
-                labT01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
-                labT01.MNC_REQ_DEP = "";
-                labT01.MNC_REQ_STS = "";
-                labT01.MNC_REQ_TIM = "";
-                labT01.MNC_HN_YR = ptt.hnyr;
-                labT01.MNC_HN_NO = ptt.Hn;
-                labT01.MNC_AN_YR = "";
-                labT01.MNC_AN_NO = "";
-                labT01.MNC_PRE_NO = preno;
-                labT01.MNC_DATE = vsDate;
-                labT01.MNC_TIME = "";
-                labT01.MNC_DOT_CD = bc.user.username;
-                labT01.MNC_WD_NO = "";
-                labT01.MNC_RM_NAM = "";
-                labT01.MNC_BD_NO = "";
-                labT01.MNC_FN_TYP_CD = "";
-                labT01.MNC_COM_CD = "";
-                labT01.MNC_REM = "";
-                labT01.MNC_LB_STS = "";
-                labT01.MNC_CAL_NO = "";
-                labT01.MNC_EMPR_CD = "";
-                labT01.MNC_EMPC_CD = "";
-                labT01.MNC_ORD_DOT = "";
-                labT01.MNC_CFM_DOT = "";
-                labT01.MNC_DOC_YR = "";
-                labT01.MNC_DOC_NO = "";
-                labT01.MNC_DOC_DAT = "";
-                labT01.MNC_DOC_CD = "";
-                labT01.MNC_SPC_SEND_DAT = "";
-                labT01.MNC_SPC_SEND_TM = "";
-                labT01.MNC_SPC_TYP = "";
-                labT01.MNC_REMARK = "";
-                labT01.MNC_STAMP_DAT = "";
-                labT01.MNC_STAMP_TIM = "";
-                labT01.MNC_CANCEL_STS = "";
-                labT01.MNC_PAC_CD = "";
-                labT01.MNC_PAC_TYP = "";
-                labT01.MNC_DANGER_FLG = "";
-                labT01.MNC_DIET_FLG = "";
-                labT01.MNC_MED_FLG = "";
-                labT01.MNC_LAB_FN_TYP_CD = "";
-                labT01.MNC_IP_ADD1 = "";
-                labT01.MNC_IP_ADD2 = "";
-                labT01.MNC_IP_ADD3 = "";
-                labT01.MNC_IP_ADD4 = "";
-                labT01.MNC_PATNAME = "";
-                labT01.MNC_LOAD_STS = "";
-                labT01.MNC_IP_REC = "";
+                labT01 = setLabT01(ptt.Hn, ptt.hnyr, vsDate, preno);
                 reLab = bc.bcDB.labT01DB.insertLabT01(labT01);
             }
             //new LogWriter("d", "PharmacyT02 insertPharmacyT01 re " + re);
@@ -6368,6 +6387,8 @@ namespace bangna_hospital.gui
             if(int.TryParse(reDrug, out chk))
             {
                 bc.bcDB.pharT02DB.deleteReqNo(phart01.MNC_REQ_YR, reDrug);
+                bc.bcDB.xrayT02DB.deleteReqNo(xrayT01.MNC_REQ_YR, reXray);
+                bc.bcDB.labT02DB.deleteReqNo(labT01.MNC_REQ_YR, reLab);
                 foreach (Row rowdrug in grfOrdItem.Rows)
                 {
                     String itmcode = "", drugFr = "", drugIn = "", untcode = "", qty = "", itmflag="";
@@ -6375,7 +6396,7 @@ namespace bangna_hospital.gui
                     itmcode = rowdrug[colOrdAddId].ToString();
                     drugFr = rowdrug[colOrdAddDrugFr].ToString();
                     drugIn = rowdrug[colOrdAddDrugIn].ToString();
-                    untcode = rowdrug[colOrdAddUnit].ToString();
+                    untcode = rowdrug[colOrdAddUnit] !=null ? rowdrug[colOrdAddUnit].ToString() : "";
                     qty = rowdrug[colOrdAddQty].ToString();
                     itmflag = rowdrug[colOrdAddFlag].ToString();
                     if ((itmflag.Equals("P")) || (itmflag.Equals("O")))
@@ -6929,7 +6950,8 @@ namespace bangna_hospital.gui
             rowdrug[colOrdAddQty] = "";
             rowdrug[colOrdAddFlag] = dt.Rows[0]["mnc_ph_typ_flg"].ToString();       //drug=P,supp=O,lab=xray=
             rowdrug[0] = (grfOrdItem.Rows.Count-1);
-            rowdrug.StyleDisplay.BackColor = Color.FromArgb(143, 200, 127);
+            //rowdrug.StyleDisplay.BackColor = Color.FromArgb(143, 200, 127);
+            rowdrug.StyleNew.BackColor = Color.FromArgb(253, 233, 233);
 
             //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
             //C1TextBox lbItmName = (C1TextBox)this.Controls["lbItmName"];
@@ -7088,7 +7110,7 @@ namespace bangna_hospital.gui
             rowdrug[colOrdAddDrugIn] = "";
             rowdrug[colOrdAddQty] = "";
             rowdrug[0] = (grfOrdItem.Rows.Count - 1);
-            rowdrug.StyleDisplay.BackColor = Color.FromArgb(244, 222, 242);     //Color.FromArgb(244, 222, 242);        Color.FromArgb(253, 233, 233);      Color.FromArgb(244, 252, 232);      Color.FromArgb(218, 237, 255);      Color.FromArgb(255, 255, 231);      Color.FromArgb(224, 224, 224);
+            rowdrug.StyleNew.BackColor = Color.FromArgb(218, 237, 255);     //Color.FromArgb(244, 222, 242);        Color.FromArgb(253, 233, 233);      Color.FromArgb(244, 252, 232);      Color.FromArgb(218, 237, 255);      Color.FromArgb(255, 255, 231);      Color.FromArgb(224, 224, 224);
 
             txtItmRowNo.Value = grfOrdItem.Rows.Count;
             txtItmId.Value = dt.Rows[0]["MNC_ph_cd"].ToString();
@@ -7196,6 +7218,7 @@ namespace bangna_hospital.gui
             if (grfOrdLab == null) return;
             if (grfOrdLab.Row <= 1) return;
             if (grfOrdLab.Col <= 0) return;
+
             String code = "";
             DataTable dt = new DataTable();
             code = grfOrdLab[grfOrdLab.Row, colOrdDrugId].ToString();
@@ -7209,7 +7232,8 @@ namespace bangna_hospital.gui
             rowdrug[colOrdAddQty] = "";
 
             rowdrug[0] = (grfOrdItem.Rows.Count - 1);
-            rowdrug.StyleDisplay.BackColor = Color.FromArgb(253, 233, 233);
+            //rowdrug.StyleDisplay.BackColor = Color.FromArgb(253, 233, 233);
+            rowdrug.StyleNew.BackColor = Color.FromArgb(255, 255, 231);
             //rowdrug[colOrdDrugNameE] = dt.Rows[0]["MNC_ph_gn"].ToString();
             //rowdrug[colOrdDrugUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
             //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
@@ -7329,7 +7353,7 @@ namespace bangna_hospital.gui
             rowdrug[colOrdAddDrugIn] = "";
             rowdrug[colOrdAddQty] = "";
             rowdrug[0] = (grfOrdItem.Rows.Count - 1);
-            rowdrug.StyleDisplay.BackColor = Color.FromArgb(244, 252, 232);
+            rowdrug.StyleNew.BackColor = Color.FromArgb(240, 240, 240);
             //rowdrug[colOrdDrugNameE] = dt.Rows[0]["MNC_ph_gn"].ToString();
             //rowdrug[colOrdDrugUnit] = dt.Rows[0]["mnc_ph_unt_cd"].ToString();
             //C1TextBox txtItmId = (C1TextBox)this.Controls["txtItmId"];
