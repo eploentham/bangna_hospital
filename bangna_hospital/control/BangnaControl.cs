@@ -553,6 +553,179 @@ namespace bangna_hospital.control
             
             return re;
         }
+        public void setCboOPBKKINSCL(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+                        
+            item = new ComboBoxItem();
+            item.Value = "UCS";
+            item.Text = "สิทธิหลักประกันสุขภาพ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "WEL";
+            item.Text = "สิทธิหลักประกันสุขภาพ (ยกเว้นการร่วมจ่าย)";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "OFC";
+            item.Text = "สิทธิข้าราชการ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "SSS";
+            item.Text = "สิทธิประกันสังคม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "LGO";
+            item.Text = "สิทธิ อปท";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "SSI";
+            item.Text = "สิทธิประกันสังคมทุพพลภาพ";
+            c.Items.Add(item);
+        }
+        public void setCboOPBKKClinic(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "00";
+            item.Text = "หน่วยงานระดับสถานีอนามัย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "01";
+            item.Text = "อายุรกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "02";
+            item.Text = "ศัลยกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "03";
+            item.Text = "สูติกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "04";
+            item.Text = "นรีเวชกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "05";
+            item.Text = "กุมารเวชกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "06";
+            item.Text = "โสต ศอ นาสิก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "07";
+            item.Text = "จักษุวิทยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "08";
+            item.Text = "ศัลยกรรมออร์โธปิดิกส";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "09";
+            item.Text = "จิตเวช";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "10";
+            item.Text = "รังสีวิทยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "11";
+            item.Text = "ทันตกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "12";
+            item.Text = "เวชศาสตร์ฉุกเฉินและนิติเวช";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "13";
+            item.Text = "เวชกรรมฟื้นฟู";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "14";
+            item.Text = "แพทย์แผนไทย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "15";
+            item.Text = "PCU ใน รพ.";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "16";
+            item.Text = "เวชกรรมปฎิบัติทั่วไป";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "17";
+            item.Text = "เวชศาสสตร์ครอบครัวและชุมชน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "18";
+            item.Text = "อาชีวคลินิก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "19";
+            item.Text = "วิสัญญีวิทยา(คลินิกระงับปวด)";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "20";
+            item.Text = "ศัลยกรรมประสาท";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "21";
+            item.Text = "อาชีวเวชรกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "22";
+            item.Text = "เวชกรรมสังคม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "23";
+            item.Text = "พยาธิวิทยากายวิภาค";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "24";
+            item.Text = "พยาธิวิทยาคลินิค";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "25";
+            item.Text = "แพทย์ทางเลือก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "99";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+        }
         public String getMonth(String monthId)
         {
             if (monthId == "01")

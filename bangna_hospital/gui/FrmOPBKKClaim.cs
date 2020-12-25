@@ -27,7 +27,8 @@ namespace bangna_hospital.gui
 
         C1DockingTab tcMain, tcOPBKK;
         C1DockingTabPage tabOPBkk, tabOPBKKPtt, tabOPBKKINS, tabOPBKKPAT, tabOPBKKOPD, tabOPBKKODX, tabOPBKKOOP, tabOPBKKORF, tabOPBKKCHT, tabOPBKKCHA, tabOPBKKAER, tabOPBKKLABFU, tabOPBKKDRU, tabOPBKKCHAD, tabOrd;
-        C1FlexGrid grfSelect, grfINS, grfPAT, grfOPD, grfODX, grfOOP, grfORF, grfCHT, grfCHA, grfAER, grfLABFU, grfDRU, grfCHAD, grfOrd;
+        C1DockingTabPage tabMainPaidTyp, tabMainClinic;
+        C1FlexGrid grfSelect, grfINS, grfPAT, grfOPD, grfODX, grfOOP, grfORF, grfCHT, grfCHA, grfAER, grfLABFU, grfDRU, grfCHAD, grfOrd, grfPaidTyp, grfClinic;
         
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
@@ -55,6 +56,8 @@ namespace bangna_hospital.gui
 
         int colSelectHn = 1, colSelectName = 2, colSelectVsDate = 3, colSelectPaidType=4, colSelectSymptoms = 5, colSelectHnYear=6, colSelectPreno=7;
         int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty = 4, colOrdAddDrugFr = 5, colOrdAddDrugIn = 6, colOrdDrugIn1 = 7, colOrdAddItemType = 8, colOrdAddRowNo = 9, colOrdAddFlag = 10;        // order add
+        int colPaidTypId = 1, colPaidTypName = 2, colPaidTypIdOpBkkCode = 3, colPaidTypFNSYS=4, colPaidTypPTTYP=5, colPaidTypAccNo=6;
+        int colClinicmddepno = 1, colClinicsecno = 2, colClinicdivno = 3, colClinictyppt = 4, colClinicdepdsc = 5, colClinicdpno = 7, colClinicopbkkcode = 6;
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -166,6 +169,38 @@ namespace bangna_hospital.gui
             tabOPBkk.Text = "OPBkk Claim";
             tabOPBkk.Name = "tabStfNote";
             tcMain.Controls.Add(tabOPBkk);
+
+            tabMainPaidTyp = new C1DockingTabPage();
+            tabMainPaidTyp.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabMainPaidTyp.Size = new System.Drawing.Size(667, 175);
+            tabMainPaidTyp.TabIndex = 1;
+            tabMainPaidTyp.Text = "Paid Type สิทธิ";
+            tabMainPaidTyp.Name = "tabMainPaidTyp";
+            tcMain.Controls.Add(tabMainPaidTyp);
+            grfPaidTyp = new C1FlexGrid();
+            grfPaidTyp.Font = fEdit;
+            grfPaidTyp.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfPaidTyp.Location = new System.Drawing.Point(0, 0);
+            grfPaidTyp.Rows.Count = 1;
+            tabMainPaidTyp.Controls.Add(grfPaidTyp);
+            theme1.SetTheme(grfPaidTyp, "Office2010Red");
+
+            tabMainClinic = new C1DockingTabPage();
+            tabMainClinic.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabMainClinic.Size = new System.Drawing.Size(667, 175);
+            tabMainClinic.TabIndex = 1;
+            tabMainClinic.Text = "Clinic";
+            tabMainClinic.Name = "tabMainClinic";
+            tcMain.Controls.Add(tabMainClinic);
+            grfClinic = new C1FlexGrid();
+            grfClinic.Font = fEdit;
+            grfClinic.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfClinic.Location = new System.Drawing.Point(0, 0);
+            grfClinic.Rows.Count = 1;
+            tabMainClinic.Controls.Add(grfClinic);
+            theme1.SetTheme(grfClinic, "Office2010Red");
 
             tcOPBKK = new C1DockingTab();
             tcOPBKK.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -442,6 +477,8 @@ namespace bangna_hospital.gui
         {
             txtDateStart.Value = DateTime.Now;
             txtDateEnd.Value = DateTime.Now;
+            setGrfPaidType();
+            setGrfClinic();
         }
         private void initGrfSelect()
         {
@@ -581,7 +618,14 @@ namespace bangna_hospital.gui
         private void GrfSelect_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setGrfOrdItem();
+            try
+            {
+                setGrfOrdItem();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("error "+ex.Message, "");
+            }
         }
         private void setGrfOrdItem()
         {
@@ -595,7 +639,9 @@ namespace bangna_hospital.gui
 
             dt = bc.bcDB.pharT02DB.selectReq(hnyr, hn, vsdate, preno);
             grfOrd.Rows.Count = 1;
+            grfOrd.Cols.Count = 11;
             grfOrd.Rows.Count = dt.Rows.Count + 1;
+            
             int i = 0;
             foreach (DataRow row1 in dt.Rows)
             {
@@ -619,6 +665,105 @@ namespace bangna_hospital.gui
                     grfOrd.Rows[i].StyleDisplay.BackColor = Color.FromArgb(244, 222, 242);
                 }
             }
+            
+        }
+        private void setGrfPaidType()
+        {
+            DataTable dt = new DataTable();
+            C1ComboBox cboMethod = new C1ComboBox();
+            cboMethod.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboMethod.AutoCompleteSource = AutoCompleteSource.ListItems;
+            bc.setCboOPBKKINSCL(cboMethod, "");
+
+            dt = bc.bcDB.finM02DB.SelectAll();
+            grfPaidTyp.Rows.Count = 1;
+            grfPaidTyp.Cols.Count = 7;
+            grfPaidTyp.Rows.Count = dt.Rows.Count + 1;
+            grfPaidTyp.Cols[colPaidTypId].Caption = "ID";
+            grfPaidTyp.Cols[colPaidTypName].Caption = "Paid Name";
+            grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Caption = "OPBKK Code";
+            grfPaidTyp.Cols[colPaidTypFNSYS].Caption = "FN SYS";
+            grfPaidTyp.Cols[colPaidTypPTTYP].Caption = "PT TYP";
+            grfPaidTyp.Cols[colPaidTypAccNo].Caption = "ACC NO";
+            grfPaidTyp.Cols[colPaidTypId].Width = 80;
+            grfPaidTyp.Cols[colPaidTypName].Width = 300;
+            grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Width = 120;
+            grfPaidTyp.Cols[colPaidTypFNSYS].Width = 80;
+            grfPaidTyp.Cols[colPaidTypPTTYP].Width = 80;
+            grfPaidTyp.Cols[colPaidTypAccNo].Width = 80;
+            grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Editor = cboMethod;
+            int i = 0;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfPaidTyp[i, colPaidTypId] = row1["MNC_FN_TYP_CD"].ToString();
+                grfPaidTyp[i, colPaidTypName] = row1["MNC_FN_TYP_DSC"].ToString();
+                grfPaidTyp[i, colPaidTypIdOpBkkCode] = row1["opbkk_inscl"].ToString();
+                grfPaidTyp[i, colPaidTypFNSYS] = row1["MNC_FN_STS"].ToString();
+                grfPaidTyp[i, colPaidTypPTTYP] = row1["PTTYP"].ToString();
+                grfPaidTyp[i, colPaidTypAccNo] = row1["MNC_ACCOUNT_NO"].ToString();
+                grfPaidTyp[i, 0] = i;
+                if (i % 2 == 0)
+                    grfPaidTyp.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                
+            }
+            grfPaidTyp.Cols[colPaidTypId].AllowEditing = false;
+            grfPaidTyp.Cols[colPaidTypName].AllowEditing = false;
+            grfPaidTyp.Cols[colPaidTypFNSYS].AllowEditing = false;
+            grfPaidTyp.Cols[colPaidTypPTTYP].AllowEditing = false;
+            grfPaidTyp.Cols[colPaidTypAccNo].AllowEditing = false;
+        }
+        private void setGrfClinic()
+        {
+            DataTable dt = new DataTable();
+            C1ComboBox cboMethod = new C1ComboBox();
+            cboMethod.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboMethod.AutoCompleteSource = AutoCompleteSource.ListItems;
+            bc.setCboOPBKKClinic(cboMethod, "");
+
+            dt = bc.bcDB.pttM32DB.SelectAll();
+            grfClinic.Rows.Count = 1;
+            grfClinic.Cols.Count = 8;
+            grfClinic.Rows.Count = dt.Rows.Count + 1;
+            grfClinic.Cols[colClinicmddepno].Caption = "DEP NO";
+            grfClinic.Cols[colClinicsecno].Caption = "SEC NO";
+            grfClinic.Cols[colClinicdivno].Caption = "DIV NO";
+            grfClinic.Cols[colClinictyppt].Caption = "TYP PT";
+            grfClinic.Cols[colClinicdepdsc].Caption = "DEP DSC";
+            grfClinic.Cols[colClinicdpno].Caption = "DP NO";
+            grfClinic.Cols[colClinicopbkkcode].Caption = "OP BKK Clinic";
+            grfClinic.Cols[colClinicmddepno].Width = 80;
+            grfClinic.Cols[colClinicsecno].Width = 80;
+            grfClinic.Cols[colClinicdivno].Width = 80;
+            grfClinic.Cols[colClinictyppt].Width = 80;
+            grfClinic.Cols[colClinicdepdsc].Width = 300;
+            grfClinic.Cols[colClinicdpno].Width = 120;
+            grfClinic.Cols[colClinicopbkkcode].Width = 200;
+            grfClinic.Cols[colClinicopbkkcode].Editor = cboMethod;
+            int i = 0;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfClinic[i, colClinicmddepno] = row1["mnc_md_dep_no"].ToString();
+                grfClinic[i, colClinicsecno] = row1["mnc_sec_no"].ToString();
+                grfClinic[i, colClinicdivno] = row1["MNC_DIV_NO"].ToString();
+                grfClinic[i, colClinictyppt] = row1["MNC_TYP_PT"].ToString();
+                grfClinic[i, colClinicdepdsc] = row1["mnc_md_dep_dsc"].ToString();
+                grfClinic[i, colClinicdpno] = row1["MNC_DP_NO"].ToString();
+                grfClinic[i, colClinicopbkkcode] = row1["opbkk_clinic"].ToString();
+                grfClinic[i, 0] = i;
+                if (i % 2 == 0)
+                    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+
+            }
+            grfClinic.Cols[colClinicmddepno].AllowEditing = false;
+            grfClinic.Cols[colClinicsecno].AllowEditing = false;
+            grfClinic.Cols[colClinicdivno].AllowEditing = false;
+            grfClinic.Cols[colClinictyppt].AllowEditing = false;
+            grfClinic.Cols[colClinicdepdsc].AllowEditing = false;
+            grfClinic.Cols[colClinicdpno].AllowEditing = false;
         }
         private void setLbLoading(String txt)
         {
@@ -1179,6 +1324,8 @@ namespace bangna_hospital.gui
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
+
+            this.Text = "Last Update 2020-12-25";
         }
     }
 }

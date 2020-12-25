@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_doctor_view</AssemblyName>
+    <AssemblyName>bangna_hospital_opbkkclaim</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\signal-receiver.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -394,6 +394,7 @@
     <Compile Include="objdb\DocScanDB.cs" />
     <Compile Include="objdb\DrugDB.cs" />
     <Compile Include="objdb\DrugSetDB.cs" />
+    <Compile Include="objdb\FinanceM02DB.cs" />
     <Compile Include="objdb\LabDB.cs" />
     <Compile Include="objdb\LabExDB.cs" />
     <Compile Include="objdb\LabM01DB.cs" />
@@ -404,6 +405,7 @@
     <Compile Include="objdb\OperativeNoteDB.cs" />
     <Compile Include="objdb\OrDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
+    <Compile Include="objdb\PatientM32DB.cs" />
     <Compile Include="objdb\PharmacyM01DB.cs" />
     <Compile Include="objdb\PharmacyM02DB.cs" />
     <Compile Include="objdb\PharmacyT01DB.cs" />
@@ -427,6 +429,7 @@
     <Compile Include="objdb\XrayT01DB.cs" />
     <Compile Include="objdb\XrayT02DB.cs" />
     <Compile Include="object1\CellNoteManager1.cs" />
+    <Compile Include="object1\FinanceM02.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
     <Compile Include="object1\LabM01.cs" />
     <Compile Include="object1\LabM02.cs" />
