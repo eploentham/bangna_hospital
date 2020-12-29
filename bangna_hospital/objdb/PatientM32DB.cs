@@ -48,5 +48,22 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public String updateOPBKKCode(String dep_no, String sec_no, String div_no, String typ_pt, String opbkkcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update patient_m32 Set " +
+                    "opbkk_clinic ='" + opbkkcode + "' " +
+                    "Where mnc_md_dep_no ='" + dep_no + "' and mnc_sec_no ='"+sec_no+"' and mnc_div_no ='"+div_no+"' and mnc_typ_pt = '"+typ_pt+"'";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " FinanceM02DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
     }
 }

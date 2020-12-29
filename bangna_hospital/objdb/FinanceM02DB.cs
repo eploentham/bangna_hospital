@@ -64,10 +64,28 @@ namespace bangna_hospital.objdb
             
             String sql = "select * " +
                 "From finance_m02  " +
-                "Where MNC_FN_TYP_STS = 'Y'";
+                "Where MNC_FN_TYP_STS = 'Y' " +
+                "Order By mnc_fn_typ_cd";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
+        }
+        public String updateOPBKKCode(String paidtypeid, String opbkkcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update finance_m02 Set " +
+                    "opbkk_inscl ='" + opbkkcode + "' " +
+                    "Where mnc_fn_typ_cd ='" + paidtypeid + "'";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " FinanceM02DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
         }
     }
 }

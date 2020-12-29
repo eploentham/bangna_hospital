@@ -56,8 +56,23 @@ namespace bangna_hospital.gui
 
         int colSelectHn = 1, colSelectName = 2, colSelectVsDate = 3, colSelectPaidType=4, colSelectSymptoms = 5, colSelectHnYear=6, colSelectPreno=7;
         int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty = 4, colOrdAddDrugFr = 5, colOrdAddDrugIn = 6, colOrdDrugIn1 = 7, colOrdAddItemType = 8, colOrdAddRowNo = 9, colOrdAddFlag = 10;        // order add
-        int colPaidTypId = 1, colPaidTypName = 2, colPaidTypIdOpBkkCode = 3, colPaidTypFNSYS=4, colPaidTypPTTYP=5, colPaidTypAccNo=6;
-        int colClinicmddepno = 1, colClinicsecno = 2, colClinicdivno = 3, colClinictyppt = 4, colClinicdepdsc = 5, colClinicdpno = 7, colClinicopbkkcode = 6;
+        int colPaidTypId = 1, colPaidTypName = 2, colPaidTypIdOpBkkCode = 3, colPaidTypFNSYS=4, colPaidTypPTTYP=5, colPaidTypAccNo=6, colPaidTypflag=7;
+        int colClinicmddepno = 1, colClinicsecno = 2, colClinicdivno = 3, colClinictyppt = 4, colClinicdepdsc = 5, colClinicdpno = 7, colClinicopbkkcode = 6, colClinicopbkkFlag=7;
+        
+        int colINShn = 1, colINSinscl = 2, colINSsubtype = 3, colINScid = 4, colINSdatein = 5, colINSdateexp = 6, colINShospmain = 7, colINShospsub = 8, colINSgovcode = 8, colINSgovname = 9, colINSpermitno = 10, colINSdocno = 11, colINSownrpid = 12, colINSownname = 13, colINSflag=14;
+        int colPAThcode = 1, colPAThn = 2, colPATchangwat = 3, colPATamphur = 4, colPATdob = 5, colPATsex = 6, colPATmarriage = 7, colPAToccupa = 8, colPATnation = 9, colPATpersonid = 10, colPATnamepat = 11, colPATtitle = 12, colPATfname = 13, colPATlname = 14, colPATidtype = 15, colPATflag=16;
+        int colOPDpersonid = 1, colOPDhn = 2, colOPDdateopd = 3, colOPDtimeopd = 4, colOPDseq = 5, colOPDuuc = 6, colOPDdetail = 7, colOPDbtemp = 8, colOPDsbp = 9, colOPDdbp10, colOPDpr = 11, colOPDrr = 12, colOPDoptype = 13, colOPDtypein = 14, colOPDtypeout = 15, colOPDclaimcode = 16;
+        int colORFhn = 1, colORFdateopd = 2, colORFclinic = 3, colORFrefer = 4, colORFrefertype = 5, colORFreferdate = 6, colORFseq = 7;
+        int colODXhn = 1, colODXdatedx = 2, colODXclinic = 3, colODXdiag = 4, colODXdxtype = 5, colODXdrdx = 6, colODXpersonid = 7, colODXseq = 8;
+        int colOOPhn = 1, colOOPdateopd = 2, colOOPclinic = 3, colOOPoper = 4, colOOPservprice = 5, colOOPdropid = 6, colOOPpersonid = 7, colOOPseq;
+        int colCHThn=1,colCHTdateopd=2, colCHTactualcht=3, colCHTtotal=4, colCHTpaid=5, colCHTpttype=6, colCHTpersonid=7, colCHTseq=8, colCHTopd_memo=9, colCHTinvoiceno=10, colCHTinvoicelt;
+        int colCHAhn = 1, colCHAdateopd = 2, colCHAchrgitem = 3, colCHAamount = 4, colCHAamountext = 5, colCHApersonid = 6, colCHAseq = 8;
+        int colAERhn = 1, colAERdateopd = 2, colAERauthae = 3, colAERaedate = 4, colAERaetime = 5, colAERaetype = 6, colAERreferno = 7, colAERrefmaini = 8, colAERireftype=9, colAERrefaino=10, colAERrefmainno=11, colAERoreftype=11, colAERucae=12, colAERemtype=13, colAERseq=14;
+        int colDRUhcode = 1, colDRUhn = 2, colDRUclinic = 3, colDRUpersonid = 4, colDRUdateserv = 5, colDRUdid = 6, colDRUdidname = 7, colDRUdidstd = 8, colDRUtmtcode = 9, colDRUamount = 10, colDRUdrugprice = 11, colDRUpreceext = 12, colDRUdrugcost = 13, colDRUunit = 14, colDRUunitpack = 15, colDRUseq = 16, colDRUprovider = 17;
+        int colLABFUhcode = 1, colLABFUhn = 2, colLABFUpersonid = 3, colLABFUdateserv = 4, colLABFUseq = 5, colLABFUlabtest = 6, colLABFUlabresult = 7;
+        int colCHADhn = 1, colCHADdateopd = 2, colCHADactualcht = 3, colCHADtotal = 4, colCHADpaid = 5, colCHADptttype = 6, colCHADpersonid = 7, colCHADseq = 8, colCHADopdmemo = 9, colCHADinvoiceno = 10, colCHADinvoicelt = 11;
+
+        Boolean pageLoad = false;
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -183,8 +198,12 @@ namespace bangna_hospital.gui
             grfPaidTyp.Dock = System.Windows.Forms.DockStyle.Fill;
             grfPaidTyp.Location = new System.Drawing.Point(0, 0);
             grfPaidTyp.Rows.Count = 1;
+            grfPaidTyp.CellChanged += GrfPaidTyp_CellChanged;
             tabMainPaidTyp.Controls.Add(grfPaidTyp);
             theme1.SetTheme(grfPaidTyp, "Office2010Red");
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("save สิทธิ Paid Type", new EventHandler(ContextMenu_grfPaidTyp_save));
+            grfPaidTyp.ContextMenu = menuGw;
 
             tabMainClinic = new C1DockingTabPage();
             tabMainClinic.Location = new System.Drawing.Point(1, 24);
@@ -199,8 +218,12 @@ namespace bangna_hospital.gui
             grfClinic.Dock = System.Windows.Forms.DockStyle.Fill;
             grfClinic.Location = new System.Drawing.Point(0, 0);
             grfClinic.Rows.Count = 1;
+            grfClinic.CellChanged += GrfClinic_CellChanged;
             tabMainClinic.Controls.Add(grfClinic);
             theme1.SetTheme(grfClinic, "Office2010Red");
+            ContextMenu menuGwClinic = new ContextMenu();
+            menuGwClinic.MenuItems.Add("save Clinic code", new EventHandler(ContextMenu_grfClinic_save));
+            grfClinic.ContextMenu = menuGwClinic;
 
             tcOPBKK = new C1DockingTab();
             tcOPBKK.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -293,6 +316,63 @@ namespace bangna_hospital.gui
             theme1.SetTheme(txtHospMain, bc.iniC.themeApp);
             theme1.SetTheme(lbtxtHCode, bc.iniC.themeApp);
             theme1.SetTheme(txtHCode, bc.iniC.themeApp);
+        }
+
+        private void GrfClinic_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfClinic.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfClinic[e.Row, colClinicopbkkFlag] = "1";
+        }
+
+        private void GrfPaidTyp_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfPaidTyp.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfPaidTyp[e.Row, colPaidTypflag] = "1";
+        }
+        private void ContextMenu_grfClinic_save(object sender, System.EventArgs e)
+        {
+            foreach (Row row in grfClinic.Rows)
+            {
+                if (row[colClinicopbkkFlag] == null) continue;
+                if (row[colClinicopbkkFlag].ToString().Equals("1"))
+                {
+                    String depno = "", secno="", divno="", typpt="", opbkkcode = "";
+                    depno = row[colClinicmddepno].ToString();
+                    secno = row[colClinicsecno].ToString();
+                    divno = row[colClinicdivno].ToString();
+                    typpt = row[colClinictyppt].ToString();
+                    opbkkcode = row[colClinicopbkkcode].ToString();
+                    if (bc.opBKKClinic.ContainsValue(opbkkcode))
+                    {
+                        var myKey = bc.opBKKClinic.FirstOrDefault(x => x.Value == opbkkcode).Key;
+                        String re = bc.bcDB.pttM32DB.updateOPBKKCode(depno, secno, divno, typpt, myKey);
+                    }
+
+                }
+            }
+        }
+        private void ContextMenu_grfPaidTyp_save(object sender, System.EventArgs e)
+        {
+            foreach(Row row in grfPaidTyp.Rows)
+            {
+                if (row[colPaidTypflag] == null) continue;
+                if (row[colPaidTypflag].ToString().Equals("1"))
+                {
+                    String paidtypid = "", opbkkcode = "";
+                    paidtypid = row[colPaidTypId].ToString();
+                    opbkkcode = row[colPaidTypIdOpBkkCode].ToString();
+                    if (bc.opBKKINSCL.ContainsValue(opbkkcode))
+                    {
+                        var myKey = bc.opBKKINSCL.FirstOrDefault(x => x.Value == opbkkcode).Key;
+                        String re = bc.bcDB.finM02DB.updateOPBKKCode(paidtypid, myKey);
+                    }
+                    
+                }
+            }
         }
         private void initCompomentOPBKK()
         {
@@ -506,7 +586,7 @@ namespace bangna_hospital.gui
         }
         private void initGrfTabOPBKK()
         {
-            if (grfINS != null) grfINS.Dispose();
+            if (grfPAT != null) grfINS.Dispose();
             if (grfPAT != null) grfPAT.Dispose();
             if (grfOPD != null) grfOPD.Dispose();
             if (grfODX != null) grfODX.Dispose();
@@ -524,6 +604,7 @@ namespace bangna_hospital.gui
             grfINS.Dock = System.Windows.Forms.DockStyle.Fill;
             grfINS.Location = new System.Drawing.Point(0, 0);
             grfINS.Rows.Count = 1;
+            grfINS.CellChanged += GrfINS_CellChanged;
             tabOPBKKINS.Controls.Add(grfINS);
             theme1.SetTheme(grfINS, "Office2010Red");
 
@@ -615,6 +696,15 @@ namespace bangna_hospital.gui
             tabOPBKKCHAD.Controls.Add(grfCHAD);
             theme1.SetTheme(grfCHAD, "Office2010Red");
         }
+
+        private void GrfINS_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfINS.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfINS[e.Row, grfINS.Cols.Count] = "1";
+        }
+
         private void GrfSelect_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -669,6 +759,7 @@ namespace bangna_hospital.gui
         }
         private void setGrfPaidType()
         {
+            pageLoad = true;
             DataTable dt = new DataTable();
             C1ComboBox cboMethod = new C1ComboBox();
             cboMethod.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -677,7 +768,7 @@ namespace bangna_hospital.gui
 
             dt = bc.bcDB.finM02DB.SelectAll();
             grfPaidTyp.Rows.Count = 1;
-            grfPaidTyp.Cols.Count = 7;
+            grfPaidTyp.Cols.Count = 8;
             grfPaidTyp.Rows.Count = dt.Rows.Count + 1;
             grfPaidTyp.Cols[colPaidTypId].Caption = "ID";
             grfPaidTyp.Cols[colPaidTypName].Caption = "Paid Name";
@@ -685,9 +776,9 @@ namespace bangna_hospital.gui
             grfPaidTyp.Cols[colPaidTypFNSYS].Caption = "FN SYS";
             grfPaidTyp.Cols[colPaidTypPTTYP].Caption = "PT TYP";
             grfPaidTyp.Cols[colPaidTypAccNo].Caption = "ACC NO";
-            grfPaidTyp.Cols[colPaidTypId].Width = 80;
+            grfPaidTyp.Cols[colPaidTypId].Width = 60;
             grfPaidTyp.Cols[colPaidTypName].Width = 300;
-            grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Width = 120;
+            grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Width = 300;
             grfPaidTyp.Cols[colPaidTypFNSYS].Width = 80;
             grfPaidTyp.Cols[colPaidTypPTTYP].Width = 80;
             grfPaidTyp.Cols[colPaidTypAccNo].Width = 80;
@@ -697,25 +788,31 @@ namespace bangna_hospital.gui
             {
                 i++;
                 //if (i == 1) continue;
+                String inscl = "";
+                bc.opBKKINSCL.TryGetValue(row1["opbkk_inscl"].ToString(), out inscl);
                 grfPaidTyp[i, colPaidTypId] = row1["MNC_FN_TYP_CD"].ToString();
                 grfPaidTyp[i, colPaidTypName] = row1["MNC_FN_TYP_DSC"].ToString();
-                grfPaidTyp[i, colPaidTypIdOpBkkCode] = row1["opbkk_inscl"].ToString();
+                grfPaidTyp[i, colPaidTypIdOpBkkCode] = inscl;
                 grfPaidTyp[i, colPaidTypFNSYS] = row1["MNC_FN_STS"].ToString();
                 grfPaidTyp[i, colPaidTypPTTYP] = row1["PTTYP"].ToString();
                 grfPaidTyp[i, colPaidTypAccNo] = row1["MNC_ACCOUNT_NO"].ToString();
+                grfPaidTyp[i, colPaidTypflag] = "0";
                 grfPaidTyp[i, 0] = i;
                 if (i % 2 == 0)
                     grfPaidTyp.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
                 
             }
+            grfPaidTyp.Cols[colPaidTypflag].Visible = false;
             grfPaidTyp.Cols[colPaidTypId].AllowEditing = false;
             grfPaidTyp.Cols[colPaidTypName].AllowEditing = false;
             grfPaidTyp.Cols[colPaidTypFNSYS].AllowEditing = false;
             grfPaidTyp.Cols[colPaidTypPTTYP].AllowEditing = false;
             grfPaidTyp.Cols[colPaidTypAccNo].AllowEditing = false;
+            pageLoad = false;
         }
         private void setGrfClinic()
         {
+            pageLoad = true;
             DataTable dt = new DataTable();
             C1ComboBox cboMethod = new C1ComboBox();
             cboMethod.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -733,37 +830,170 @@ namespace bangna_hospital.gui
             grfClinic.Cols[colClinicdepdsc].Caption = "DEP DSC";
             grfClinic.Cols[colClinicdpno].Caption = "DP NO";
             grfClinic.Cols[colClinicopbkkcode].Caption = "OP BKK Clinic";
-            grfClinic.Cols[colClinicmddepno].Width = 80;
-            grfClinic.Cols[colClinicsecno].Width = 80;
-            grfClinic.Cols[colClinicdivno].Width = 80;
-            grfClinic.Cols[colClinictyppt].Width = 80;
+            grfClinic.Cols[colClinicmddepno].Width = 60;
+            grfClinic.Cols[colClinicsecno].Width = 60;
+            grfClinic.Cols[colClinicdivno].Width = 60;
+            grfClinic.Cols[colClinictyppt].Width = 60;
             grfClinic.Cols[colClinicdepdsc].Width = 300;
-            grfClinic.Cols[colClinicdpno].Width = 120;
-            grfClinic.Cols[colClinicopbkkcode].Width = 200;
+            grfClinic.Cols[colClinicdpno].Width = 80;
+            grfClinic.Cols[colClinicopbkkcode].Width = 300;
             grfClinic.Cols[colClinicopbkkcode].Editor = cboMethod;
             int i = 0;
             foreach (DataRow row1 in dt.Rows)
             {
                 i++;
                 //if (i == 1) continue;
+                String inscl = "";
+                bc.opBKKClinic.TryGetValue(row1["opbkk_clinic"].ToString(), out inscl);
                 grfClinic[i, colClinicmddepno] = row1["mnc_md_dep_no"].ToString();
                 grfClinic[i, colClinicsecno] = row1["mnc_sec_no"].ToString();
                 grfClinic[i, colClinicdivno] = row1["MNC_DIV_NO"].ToString();
                 grfClinic[i, colClinictyppt] = row1["MNC_TYP_PT"].ToString();
                 grfClinic[i, colClinicdepdsc] = row1["mnc_md_dep_dsc"].ToString();
                 grfClinic[i, colClinicdpno] = row1["MNC_DP_NO"].ToString();
-                grfClinic[i, colClinicopbkkcode] = row1["opbkk_clinic"].ToString();
+                grfClinic[i, colClinicopbkkcode] = inscl;
+                grfClinic[i, colClinicopbkkFlag] = "0";
                 grfClinic[i, 0] = i;
                 if (i % 2 == 0)
                     grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
-
             }
+            grfClinic.Cols[colClinicopbkkFlag].Visible = false;
             grfClinic.Cols[colClinicmddepno].AllowEditing = false;
             grfClinic.Cols[colClinicsecno].AllowEditing = false;
             grfClinic.Cols[colClinicdivno].AllowEditing = false;
             grfClinic.Cols[colClinictyppt].AllowEditing = false;
             grfClinic.Cols[colClinicdepdsc].AllowEditing = false;
             grfClinic.Cols[colClinicdpno].AllowEditing = false;
+            pageLoad = false;
+        }
+        private void setGrfINS()
+        {
+            pageLoad = true;
+            grfINS.DataSource = null;
+            grfINS.Rows.Count = 1;
+            grfINS.Cols.Count = 15;
+            grfINS.Rows.Count = lINS.Count+1;
+            grfINS.Cols[colINShn].Caption = "HN";
+            grfINS.Cols[colINSinscl].Caption = "INSCL";
+            grfINS.Cols[colINSsubtype].Caption = "sub type";
+            grfINS.Cols[colINScid].Caption = "CID";
+            grfINS.Cols[colINSdatein].Caption = "date in";
+            grfINS.Cols[colINSdateexp].Caption = "date exp";
+            grfINS.Cols[colINShospmain].Caption = "hosp main";
+            grfINS.Cols[colINShospsub].Caption = "hosp sub";
+            grfINS.Cols[colINSgovcode].Caption = "gov code";
+            grfINS.Cols[colINSgovname].Caption = "gov name";
+            grfINS.Cols[colINSpermitno].Caption = "permit no";
+            grfINS.Cols[colINSdocno].Caption = "doc no";
+            grfINS.Cols[colINSownrpid].Caption = "ownrpid";
+            grfINS.Cols[colINSownname].Caption = "ownname";
+
+            grfINS.Cols[colINShn].Width = 60;
+            grfINS.Cols[colINSinscl].Width = 60;
+            grfINS.Cols[colINSsubtype].Width = 60;
+            grfINS.Cols[colINScid].Width = 60;
+            grfINS.Cols[colINSdatein].Width = 300;
+            grfINS.Cols[colINSdateexp].Width = 80;
+            grfINS.Cols[colINShospmain].Width = 300;
+            grfINS.Cols[colINShospsub].Width = 300;
+            grfINS.Cols[colINSgovcode].Width = 300;
+            grfINS.Cols[colINSgovname].Width = 300;
+            grfINS.Cols[colINSpermitno].Width = 300;
+            grfINS.Cols[colINSdocno].Width = 300;
+            grfINS.Cols[colINSownrpid].Width = 300;
+            grfINS.Cols[colINSownname].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKINS ins in lINS)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfINS[i, colINShn] = ins.HN;
+                grfINS[i, colINSinscl] = ins.INSCL;
+                grfINS[i, colINSsubtype] = ins.SUBTYPE;
+                grfINS[i, colINScid] = ins.CID;
+                grfINS[i, colINSdatein] = ins.DATEIN;
+                grfINS[i, colINSdateexp] = ins.DATEEXP;
+                grfINS[i, colINShospmain] = ins.HOSPMAIN;
+                grfINS[i, colINShospsub] = ins.HOSPSUB;
+                grfINS[i, colINSgovcode] = ins.GOVCODE;
+                grfINS[i, colINSgovname] = ins.GOVNAME;
+                grfINS[i, colINSpermitno] = ins.PERMITNO;
+                grfINS[i, colINSdocno] = ins.DOCNO;
+                grfINS[i, colINSownrpid] = ins.OWNRPID;
+                grfINS[i, colINSownname] = ins.OWNNAME;
+                grfINS[i, colINSflag] = "0";
+                grfINS[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfPAT()
+        {
+            pageLoad = true;
+            grfPAT.DataSource = null;
+            grfPAT.Rows.Count = 1;
+            grfPAT.Cols.Count = 17;
+            grfPAT.Rows.Count = lPAT.Count + 1;
+            grfPAT.Cols[colPAThcode].Caption = "HCODE";
+            grfPAT.Cols[colPAThn].Caption = "HN";
+            grfPAT.Cols[colPATchangwat].Caption = "changwat";
+            grfPAT.Cols[colPATamphur].Caption = "amphur";
+            grfPAT.Cols[colPATdob].Caption = "DOB";
+            grfPAT.Cols[colPATsex].Caption = "SEX";
+            grfPAT.Cols[colPATmarriage].Caption = "marriage";
+            grfPAT.Cols[colPAToccupa].Caption = "occupa";
+            grfPAT.Cols[colPATnation].Caption = "nation";
+            grfPAT.Cols[colPATpersonid].Caption = "personid";
+            grfPAT.Cols[colPATnamepat].Caption = "namepat";
+            grfPAT.Cols[colPATtitle].Caption = "title";
+            grfPAT.Cols[colPATfname].Caption = "fname";
+            grfPAT.Cols[colPATlname].Caption = "lname";
+            grfPAT.Cols[colPATidtype].Caption = "idtype";
+
+            grfPAT.Cols[colPAThcode].Width = 60;
+            grfPAT.Cols[colPAThn].Width = 60;
+            grfPAT.Cols[colPATchangwat].Width = 60;
+            grfPAT.Cols[colPATamphur].Width = 60;
+            grfPAT.Cols[colPATdob].Width = 300;
+            grfPAT.Cols[colPATsex].Width = 80;
+            grfPAT.Cols[colPATmarriage].Width = 300;
+            grfPAT.Cols[colPAToccupa].Width = 300;
+            grfPAT.Cols[colPATnation].Width = 300;
+            grfPAT.Cols[colPATpersonid].Width = 300;
+            grfPAT.Cols[colPATnamepat].Width = 300;
+            grfPAT.Cols[colPATtitle].Width = 300;
+            grfPAT.Cols[colPATfname].Width = 300;
+            grfPAT.Cols[colPATlname].Width = 300;
+            grfPAT.Cols[colPATidtype].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKPAT ins in lPAT)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfPAT[i, colPAThcode] = ins.HCODE;
+                grfPAT[i, colPAThn] = ins.HN;
+                grfPAT[i, colPATchangwat] = ins.CHANGWAT;
+                grfPAT[i, colPATamphur] = ins.AMPHUR;
+                grfPAT[i, colPATdob] = ins.DOB;
+                grfPAT[i, colPATsex] = ins.SEX;
+                grfPAT[i, colPATmarriage] = ins.MARRIAGE;
+                grfPAT[i, colPAToccupa] = ins.OCCUPA;
+                grfPAT[i, colPATnation] = ins.NATION;
+                grfPAT[i, colPATpersonid] = ins.PERSON_ID;
+                grfPAT[i, colPATnamepat] = ins.NAMEPAT;
+                grfPAT[i, colPATtitle] = ins.TITLE;
+                grfPAT[i, colPATfname] = ins.FNAME;
+                grfPAT[i, colPATlname] = ins.LNAME;
+                grfPAT[i, colPATidtype] = ins.IDTYPE;
+                grfPAT[i, colINSflag] = "0";
+                grfPAT[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
         }
         private void setLbLoading(String txt)
         {
@@ -1118,7 +1348,7 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfINS.DataSource = lINS;
+            setGrfINS();
         }
         private void genTextPAT(String pathfile)
         {
@@ -1136,7 +1366,9 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
+            pageLoad = true;
             grfPAT.DataSource = lPAT;
+            pageLoad = false;
         }
         private void genTextOPD(String pathfile)
         {

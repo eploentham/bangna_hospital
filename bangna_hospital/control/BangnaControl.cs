@@ -43,7 +43,8 @@ namespace bangna_hospital.control
         public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0, imageCC_width = 0, imageME_width = 0, imageDiag_width = 0, imageCC_Height = 0, imageME_Height = 0, imageDiag_Height = 0;
         public String[] preoperation, postoperation, operation, fining, procidures;
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
-
+        public Dictionary<String, String> opBKKINSCL = new Dictionary<String, String>() { { "UCS", "สิทธิหลักประกันสุขภาพ" },{ "WEL", "สิทธิหลักประกันสุขภาพ (ยกเว้นการร่วมจ่าย)" }, { "OFC", "สิทธิข้าราชการ" }, { "SSS", "สิทธิประกันสังคม" }, { "LGO", "สิทธิ อปท" }, { "SSI", "สิทธิประกันสังคมทุพพลภาพ" } };
+        public Dictionary<String, String> opBKKClinic = new Dictionary<String, String>();
         public BangnaControl()
         {
             initConfig();
@@ -79,6 +80,7 @@ namespace bangna_hospital.control
                 GetConfig();
                 conn = new ConnectDB(iniC);
                 bcDB = new BangnaHospitalDB(conn);
+                initOPBKKClinic();
             }
             catch(Exception ex)
             {
@@ -553,10 +555,41 @@ namespace bangna_hospital.control
             
             return re;
         }
+        private void initOPBKKClinic()
+        {
+            opBKKClinic.Add("00", "หน่วยงานระดับสถานีอนามัย");
+            opBKKClinic.Add("01", "อายุรกรรม");
+            opBKKClinic.Add("02", "ศัลยกรรม");
+            opBKKClinic.Add("03", "สูติกรรม");
+            opBKKClinic.Add("04", "นรีเวชกรรม");
+            opBKKClinic.Add("05", "กุมารเวชกรรม");
+            opBKKClinic.Add("06", "โสต ศอ นาสิก");
+            opBKKClinic.Add("07", "จักษุวิทยา");
+            opBKKClinic.Add("08", "ศัลยกรรมออร์โธปิดิกส");
+            opBKKClinic.Add("09", "จิตเวช");
+            opBKKClinic.Add("10", "รังสีวิทยา");
+            opBKKClinic.Add("11", "ทันตกรรม");
+            opBKKClinic.Add("12", "เวชศาสตร์ฉุกเฉินและนิติเวช");
+            opBKKClinic.Add("13", "เวชกรรมฟื้นฟู");
+            opBKKClinic.Add("14", "แพทย์แผนไทย");
+            opBKKClinic.Add("15", "PCU ใน รพ.");
+            opBKKClinic.Add("16", "เวชกรรมปฎิบัติทั่วไป");
+            opBKKClinic.Add("17", "เวชศาสสตร์ครอบครัวและชุมชน");
+            opBKKClinic.Add("18", "อาชีวคลินิก");
+            opBKKClinic.Add("19", "วิสัญญีวิทยา(คลินิกระงับปวด)");
+            opBKKClinic.Add("20", "ศัลยกรรมประสาท");
+            opBKKClinic.Add("21", "อาชีวเวชรกรรม");
+            opBKKClinic.Add("22", "เวชกรรมสังคม");
+            opBKKClinic.Add("23", "พยาธิวิทยากายวิภาค");
+            opBKKClinic.Add("24", "พยาธิวิทยาคลินิค");
+            opBKKClinic.Add("25", "แพทย์ทางเลือก");
+            opBKKClinic.Add("99", "อื่นๆ");
+            //opBKKClinic.Add("00", "111111");
+        }
         public void setCboOPBKKINSCL(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
-                        
+            
             item = new ComboBoxItem();
             item.Value = "UCS";
             item.Text = "สิทธิหลักประกันสุขภาพ";
@@ -591,140 +624,148 @@ namespace bangna_hospital.control
         {
             ComboBoxItem item = new ComboBoxItem();
 
-            item = new ComboBoxItem();
-            item.Value = "00";
-            item.Text = "หน่วยงานระดับสถานีอนามัย";
-            c.Items.Add(item);
+            foreach (KeyValuePair<string, string> entry in opBKKClinic)
+            {
+                item = new ComboBoxItem();
+                item.Value = entry.Key;
+                item.Text = entry.Value;
+                c.Items.Add(item);
+            }
 
-            item = new ComboBoxItem();
-            item.Value = "01";
-            item.Text = "อายุรกรรม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "00";
+            //item.Text = "หน่วยงานระดับสถานีอนามัย";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "02";
-            item.Text = "ศัลยกรรม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "01";
+            //item.Text = "อายุรกรรม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "03";
-            item.Text = "สูติกรรม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "02";
+            //item.Text = "ศัลยกรรม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "04";
-            item.Text = "นรีเวชกรรม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "03";
+            //item.Text = "สูติกรรม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "05";
-            item.Text = "กุมารเวชกรรม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "04";
+            //item.Text = "นรีเวชกรรม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "06";
-            item.Text = "โสต ศอ นาสิก";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "05";
+            //item.Text = "กุมารเวชกรรม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "07";
-            item.Text = "จักษุวิทยา";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "06";
+            //item.Text = "โสต ศอ นาสิก";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "08";
-            item.Text = "ศัลยกรรมออร์โธปิดิกส";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "07";
+            //item.Text = "จักษุวิทยา";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "09";
-            item.Text = "จิตเวช";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "08";
+            //item.Text = "ศัลยกรรมออร์โธปิดิกส";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "10";
-            item.Text = "รังสีวิทยา";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "09";
+            //item.Text = "จิตเวช";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "11";
-            item.Text = "ทันตกรรม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "10";
+            //item.Text = "รังสีวิทยา";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "12";
-            item.Text = "เวชศาสตร์ฉุกเฉินและนิติเวช";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "11";
+            //item.Text = "ทันตกรรม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "13";
-            item.Text = "เวชกรรมฟื้นฟู";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "12";
+            //item.Text = "เวชศาสตร์ฉุกเฉินและนิติเวช";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "14";
-            item.Text = "แพทย์แผนไทย";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "13";
+            //item.Text = "เวชกรรมฟื้นฟู";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "15";
-            item.Text = "PCU ใน รพ.";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "14";
+            //item.Text = "แพทย์แผนไทย";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "16";
-            item.Text = "เวชกรรมปฎิบัติทั่วไป";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "15";
+            //item.Text = "PCU ใน รพ.";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "17";
-            item.Text = "เวชศาสสตร์ครอบครัวและชุมชน";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "16";
+            //item.Text = "เวชกรรมปฎิบัติทั่วไป";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "18";
-            item.Text = "อาชีวคลินิก";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "17";
+            //item.Text = "เวชศาสสตร์ครอบครัวและชุมชน";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "19";
-            item.Text = "วิสัญญีวิทยา(คลินิกระงับปวด)";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "18";
+            //item.Text = "อาชีวคลินิก";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "20";
-            item.Text = "ศัลยกรรมประสาท";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "19";
+            //item.Text = "วิสัญญีวิทยา(คลินิกระงับปวด)";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "21";
-            item.Text = "อาชีวเวชรกรรม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "20";
+            //item.Text = "ศัลยกรรมประสาท";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "22";
-            item.Text = "เวชกรรมสังคม";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "21";
+            //item.Text = "อาชีวเวชรกรรม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "23";
-            item.Text = "พยาธิวิทยากายวิภาค";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "22";
+            //item.Text = "เวชกรรมสังคม";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "24";
-            item.Text = "พยาธิวิทยาคลินิค";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "23";
+            //item.Text = "พยาธิวิทยากายวิภาค";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "25";
-            item.Text = "แพทย์ทางเลือก";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "24";
+            //item.Text = "พยาธิวิทยาคลินิค";
+            //c.Items.Add(item);
 
-            item = new ComboBoxItem();
-            item.Value = "99";
-            item.Text = "อื่นๆ";
-            c.Items.Add(item);
+            //item = new ComboBoxItem();
+            //item.Value = "25";
+            //item.Text = "แพทย์ทางเลือก";
+            //c.Items.Add(item);
+
+            //item = new ComboBoxItem();
+            //item.Value = "99";
+            //item.Text = "อื่นๆ";
+            //c.Items.Add(item);
         }
         public String getMonth(String monthId)
         {
