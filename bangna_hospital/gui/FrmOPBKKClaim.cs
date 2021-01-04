@@ -61,18 +61,20 @@ namespace bangna_hospital.gui
         
         int colINShn = 1, colINSinscl = 2, colINSsubtype = 3, colINScid = 4, colINSdatein = 5, colINSdateexp = 6, colINShospmain = 7, colINShospsub = 8, colINSgovcode = 8, colINSgovname = 9, colINSpermitno = 10, colINSdocno = 11, colINSownrpid = 12, colINSownname = 13, colINSflag=14;
         int colPAThcode = 1, colPAThn = 2, colPATchangwat = 3, colPATamphur = 4, colPATdob = 5, colPATsex = 6, colPATmarriage = 7, colPAToccupa = 8, colPATnation = 9, colPATpersonid = 10, colPATnamepat = 11, colPATtitle = 12, colPATfname = 13, colPATlname = 14, colPATidtype = 15, colPATflag=16;
-        int colOPDpersonid = 1, colOPDhn = 2, colOPDdateopd = 3, colOPDtimeopd = 4, colOPDseq = 5, colOPDuuc = 6, colOPDdetail = 7, colOPDbtemp = 8, colOPDsbp = 9, colOPDdbp10, colOPDpr = 11, colOPDrr = 12, colOPDoptype = 13, colOPDtypein = 14, colOPDtypeout = 15, colOPDclaimcode = 16;
-        int colORFhn = 1, colORFdateopd = 2, colORFclinic = 3, colORFrefer = 4, colORFrefertype = 5, colORFreferdate = 6, colORFseq = 7;
-        int colODXhn = 1, colODXdatedx = 2, colODXclinic = 3, colODXdiag = 4, colODXdxtype = 5, colODXdrdx = 6, colODXpersonid = 7, colODXseq = 8;
-        int colOOPhn = 1, colOOPdateopd = 2, colOOPclinic = 3, colOOPoper = 4, colOOPservprice = 5, colOOPdropid = 6, colOOPpersonid = 7, colOOPseq;
-        int colCHThn=1,colCHTdateopd=2, colCHTactualcht=3, colCHTtotal=4, colCHTpaid=5, colCHTpttype=6, colCHTpersonid=7, colCHTseq=8, colCHTopd_memo=9, colCHTinvoiceno=10, colCHTinvoicelt;
-        int colCHAhn = 1, colCHAdateopd = 2, colCHAchrgitem = 3, colCHAamount = 4, colCHAamountext = 5, colCHApersonid = 6, colCHAseq = 8;
-        int colAERhn = 1, colAERdateopd = 2, colAERauthae = 3, colAERaedate = 4, colAERaetime = 5, colAERaetype = 6, colAERreferno = 7, colAERrefmaini = 8, colAERireftype=9, colAERrefaino=10, colAERrefmainno=11, colAERoreftype=11, colAERucae=12, colAERemtype=13, colAERseq=14;
-        int colDRUhcode = 1, colDRUhn = 2, colDRUclinic = 3, colDRUpersonid = 4, colDRUdateserv = 5, colDRUdid = 6, colDRUdidname = 7, colDRUdidstd = 8, colDRUtmtcode = 9, colDRUamount = 10, colDRUdrugprice = 11, colDRUpreceext = 12, colDRUdrugcost = 13, colDRUunit = 14, colDRUunitpack = 15, colDRUseq = 16, colDRUprovider = 17;
-        int colLABFUhcode = 1, colLABFUhn = 2, colLABFUpersonid = 3, colLABFUdateserv = 4, colLABFUseq = 5, colLABFUlabtest = 6, colLABFUlabresult = 7;
-        int colCHADhn = 1, colCHADdateopd = 2, colCHADactualcht = 3, colCHADtotal = 4, colCHADpaid = 5, colCHADptttype = 6, colCHADpersonid = 7, colCHADseq = 8, colCHADopdmemo = 9, colCHADinvoiceno = 10, colCHADinvoicelt = 11;
+        int colOPDpersonid = 1, colOPDhn = 2, colOPDdateopd = 3, colOPDtimeopd = 4, colOPDseq = 5, colOPDuuc = 6, colOPDdetail = 7, colOPDbtemp = 8, colOPDsbp = 9, colOPDdbp = 10, colOPDpr = 11, colOPDrr = 12, colOPDoptype = 13, colOPDtypein = 14, colOPDtypeout = 15, colOPDclaimcode = 16, colOPDflag=17;
+        int colORFhn = 1, colORFdateopd = 2, colORFclinic = 3, colORFrefer = 4, colORFrefertype = 5, colORFreferdate = 6, colORFseq = 7, colORFflag=8;
+        int colODXhn = 1, colODXdatedx = 2, colODXclinic = 3, colODXdiag = 4, colODXdxtype = 5, colODXdrdx = 6, colODXpersonid = 7, colODXseq = 8, colODXflag=9;
+        int colOOPhn = 1, colOOPdateopd = 2, colOOPclinic = 3, colOOPoper = 4, colOOPservprice = 5, colOOPdropid = 6, colOOPpersonid = 7, colOOPseq=8, colOOPflag=9;
+        int colCHThn=1,colCHTdateopd=2, colCHTactualcht=3, colCHTtotal=4, colCHTpaid=5, colCHTpttype=6, colCHTpersonid=7, colCHTseq=8, colCHTopd_memo=9, colCHTinvoiceno=10, colCHTinvoicelt=11,colCHTflag=12;
+        int colCHAhn = 1, colCHAdateopd = 2, colCHAchrgitem = 3, colCHAamount = 4, colCHAamountext = 5, colCHApersonid = 6, colCHAseq = 7, colCHAflag=8;
+        int colAERhn = 1, colAERdateopd = 2, colAERauthae = 3, colAERaedate = 4, colAERaetime = 5, colAERaetype = 6, colAERreferno = 7, colAERrefmaini = 8, colAERireftype=9, colAERrefmainno=10, colAERoreftype=11, colAERucae=12, colAERemtype=13, colAERseq=14, colAERflag=15;
+        int colDRUhcode = 1, colDRUhn = 2, colDRUclinic = 3, colDRUpersonid = 4, colDRUdateserv = 5, colDRUdid = 6, colDRUdidname = 7, colDRUdidstd = 8, colDRUtmtcode = 9, colDRUamount = 10, colDRUdrugprice = 11, colDRUpriceext = 12, colDRUdrugcost = 13, colDRUunit = 14, colDRUunitpack = 15, colDRUseq = 16, colDRUprovider = 17, colDRUflag=8;
+        int colLABFUhcode = 1, colLABFUhn = 2, colLABFUpersonid = 3, colLABFUdateserv = 4, colLABFUseq = 5, colLABFUlabtest = 6, colLABFUlabresult = 7, colLABFUflag=8;
+        int colCHADhn = 1, colCHADdateserv = 2, colCHADseq = 3, colCHADclinic = 4, colCHADitemtype = 5, colCHADitemcode = 6, colCHADitemsrc = 7, colCHADqty = 8, colCHADamount = 9, colCHADamountext = 10, colCHADprovider=11, colCHADaddon_desc=12, colCHADflag=13;
 
         Boolean pageLoad = false;
+        String pathfile = "", fileNameINS = "INS", separate = "|", fileNamePAT = "PAT", fileNameOPD = "OPD", fileNameORF = "ORF", fileNameODX = "ODX", fileNameOOP = "OOP", fileNameCHT = "CHT";
+        String fileNameCHA = "CHA", fileNameAER = "AER", fileNameDRU = "DRU", fileNameLABFU = "LABFU", fileNameCHAD = "CHAD";
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -99,7 +101,7 @@ namespace bangna_hospital.gui
         private void BtnOPBkkGen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            String datetick = "", pathfile = "";
+            String datetick = "";
             pathfile = bc.iniC.medicalrecordexportpath;
             datetick = DateTime.Now.Ticks.ToString();
             pathfile = pathfile + "\\" + datetick + "\\";
@@ -109,29 +111,29 @@ namespace bangna_hospital.gui
                 Application.DoEvents();
             }
             setLbLoading("genINS");
-            genINS();
+            genINS("");
             setLbLoading("genPAT");
-            genPAT();
+            genPAT("");
             setLbLoading("genOPD");
-            genOPD();
+            genOPD("");
             setLbLoading("genORF");
-            genORF();
+            genORF("");
             setLbLoading("genODX");
-            genODX();
+            genODX("");
             setLbLoading("genOOP");
-            genOOP();
+            genOOP("");
             setLbLoading("genCHT");
-            genCHT();
+            genCHT("");
             setLbLoading("genCHA");
-            genCHA();
+            genCHA("");
             setLbLoading("genAER");
-            genAER();
+            genAER("");
             setLbLoading("genDRU");
-            genDRU();
+            genDRU("");
             setLbLoading("genLABFU");
-            genLABFU();
+            genLABFU("");
             setLbLoading("genCHAD");
-            genCHAD();
+            genCHAD("");
 
             setLbLoading("genTextINS");
             genTextINS(pathfile);
@@ -332,6 +334,199 @@ namespace bangna_hospital.gui
             if (pageLoad) return;
             grfPaidTyp.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
             grfPaidTyp[e.Row, colPaidTypflag] = "1";
+        }
+        private void ContextMenu_grfINS_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameINS))
+                {
+                    File.Delete(fileNameINS);
+                    genINS("txt");
+                    genTextINS(pathfile);
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            
+        }
+        private void ContextMenu_grfPAT_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNamePAT))
+                {
+                    File.Delete(fileNamePAT);
+                    genPAT("txt");
+                    genTextPAT(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfOPD_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameOPD))
+                {
+                    File.Delete(fileNameOPD);
+                    genOPD("txt");
+                    genTextOPD(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfODX_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameODX))
+                {
+                    File.Delete(fileNameODX);
+                    genODX("txt");
+                    genTextODX(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfOOP_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameOOP))
+                {
+                    File.Delete(fileNameOOP);
+                    genOOP("txt");
+                    genTextOOP(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfORF_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameORF))
+                {
+                    File.Delete(fileNameORF);
+                    genORF("txt");
+                    genTextORF(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfCHT_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameCHT))
+                {
+                    File.Delete(fileNameCHT);
+                    genCHT("txt");
+                    genTextCHT(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfCHA_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameCHA))
+                {
+                    File.Delete(fileNameCHA);
+                    genCHA("txt");
+                    genTextCHA(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfAER_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameAER))
+                {
+                    File.Delete(fileNameAER);
+                    genAER("txt");
+                    genTextAER(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfLABFU_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameLABFU))
+                {
+                    File.Delete(fileNameLABFU);
+                    genLABFU("txt");
+                    genTextLABFU(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfDRU_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameDRU))
+                {
+                    File.Delete(fileNameDRU);
+                    genDRU("txt");
+                    genTextDRU(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void ContextMenu_grfCHAD_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                if (File.Exists(fileNameCHAD))
+                {
+                    File.Delete(fileNameCHAD);
+                    genCHAD("txt");
+                    genTextCHAD(pathfile);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         private void ContextMenu_grfClinic_save(object sender, System.EventArgs e)
         {
@@ -607,6 +802,9 @@ namespace bangna_hospital.gui
             grfINS.CellChanged += GrfINS_CellChanged;
             tabOPBKKINS.Controls.Add(grfINS);
             theme1.SetTheme(grfINS, "Office2010Red");
+            ContextMenu menuGwINS = new ContextMenu();
+            menuGwINS.MenuItems.Add("save INS", new EventHandler(ContextMenu_grfINS_save));
+            grfINS.ContextMenu = menuGwINS;
 
             grfPAT = new C1FlexGrid();
             grfPAT.Font = fEdit;
@@ -615,6 +813,10 @@ namespace bangna_hospital.gui
             grfPAT.Rows.Count = 1;
             tabOPBKKPAT.Controls.Add(grfPAT);
             theme1.SetTheme(grfPAT, "Office2010Red");
+            grfPAT.CellChanged += GrfPAT_CellChanged;
+            ContextMenu menuGwPAT = new ContextMenu();
+            menuGwPAT.MenuItems.Add("save PAT", new EventHandler(ContextMenu_grfPAT_save));
+            grfPAT.ContextMenu = menuGwPAT;
 
             grfOPD = new C1FlexGrid();
             grfOPD.Font = fEdit;
@@ -623,6 +825,10 @@ namespace bangna_hospital.gui
             grfOPD.Rows.Count = 1;
             tabOPBKKOPD.Controls.Add(grfOPD);
             theme1.SetTheme(grfOPD, "Office2010Red");
+            grfOPD.CellChanged += GrfOPD_CellChanged;
+            ContextMenu menuGwOPD = new ContextMenu();
+            menuGwOPD.MenuItems.Add("save OPD", new EventHandler(ContextMenu_grfOPD_save));
+            grfOPD.ContextMenu = menuGwOPD;
 
             grfODX = new C1FlexGrid();
             grfODX.Font = fEdit;
@@ -631,6 +837,10 @@ namespace bangna_hospital.gui
             grfODX.Rows.Count = 1;
             tabOPBKKODX.Controls.Add(grfODX);
             theme1.SetTheme(grfODX, "Office2010Red");
+            grfODX.CellChanged += GrfODX_CellChanged;
+            ContextMenu menuGwODX = new ContextMenu();
+            menuGwODX.MenuItems.Add("save ODX", new EventHandler(ContextMenu_grfODX_save));
+            grfODX.ContextMenu = menuGwODX;
 
             grfOOP = new C1FlexGrid();
             grfOOP.Font = fEdit;
@@ -639,6 +849,10 @@ namespace bangna_hospital.gui
             grfOOP.Rows.Count = 1;
             tabOPBKKOOP.Controls.Add(grfOOP);
             theme1.SetTheme(grfOOP, "Office2010Red");
+            grfOOP.CellChanged += GrfOOP_CellChanged;
+            ContextMenu menuGwOOP = new ContextMenu();
+            menuGwOOP.MenuItems.Add("save ODX", new EventHandler(ContextMenu_grfOOP_save));
+            grfOOP.ContextMenu = menuGwOOP;
 
             grfORF = new C1FlexGrid();
             grfORF.Font = fEdit;
@@ -647,6 +861,10 @@ namespace bangna_hospital.gui
             grfORF.Rows.Count = 1;
             tabOPBKKORF.Controls.Add(grfORF);
             theme1.SetTheme(grfORF, "Office2010Red");
+            grfORF.CellChanged += GrfORF_CellChanged;
+            ContextMenu menuGwORF = new ContextMenu();
+            menuGwORF.MenuItems.Add("save ORF", new EventHandler(ContextMenu_grfORF_save));
+            grfORF.ContextMenu = menuGwORF;
 
             grfCHT = new C1FlexGrid();
             grfCHT.Font = fEdit;
@@ -655,6 +873,10 @@ namespace bangna_hospital.gui
             grfCHT.Rows.Count = 1;
             tabOPBKKCHT.Controls.Add(grfCHT);
             theme1.SetTheme(grfCHT, "Office2010Red");
+            grfCHT.CellChanged += GrfCHT_CellChanged;
+            ContextMenu menuGwCHT = new ContextMenu();
+            menuGwCHT.MenuItems.Add("save CHT", new EventHandler(ContextMenu_grfCHT_save));
+            grfCHT.ContextMenu = menuGwCHT;
 
             grfCHA = new C1FlexGrid();
             grfCHA.Font = fEdit;
@@ -663,6 +885,10 @@ namespace bangna_hospital.gui
             grfCHA.Rows.Count = 1;
             tabOPBKKCHA.Controls.Add(grfCHA);
             theme1.SetTheme(grfCHA, "Office2010Red");
+            grfCHA.CellChanged += GrfCHA_CellChanged;
+            ContextMenu menuGwCHA = new ContextMenu();
+            menuGwCHA.MenuItems.Add("save CHA", new EventHandler(ContextMenu_grfCHA_save));
+            grfCHA.ContextMenu = menuGwCHA;
 
             grfAER = new C1FlexGrid();
             grfAER.Font = fEdit;
@@ -671,6 +897,10 @@ namespace bangna_hospital.gui
             grfAER.Rows.Count = 1;
             tabOPBKKAER.Controls.Add(grfAER);
             theme1.SetTheme(grfAER, "Office2010Red");
+            grfAER.CellChanged += GrfAER_CellChanged;
+            ContextMenu menuGwAER = new ContextMenu();
+            menuGwAER.MenuItems.Add("save AER", new EventHandler(ContextMenu_grfAER_save));
+            grfAER.ContextMenu = menuGwAER;
 
             grfLABFU = new C1FlexGrid();
             grfLABFU.Font = fEdit;
@@ -679,6 +909,10 @@ namespace bangna_hospital.gui
             grfLABFU.Rows.Count = 1;
             tabOPBKKLABFU.Controls.Add(grfLABFU);
             theme1.SetTheme(grfLABFU, "Office2010Red");
+            grfLABFU.CellChanged += GrfLABFU_CellChanged;
+            ContextMenu menuGwLABFU = new ContextMenu();
+            menuGwLABFU.MenuItems.Add("save LABFU", new EventHandler(ContextMenu_grfLABFU_save));
+            grfLABFU.ContextMenu = menuGwLABFU;
 
             grfDRU = new C1FlexGrid();
             grfDRU.Font = fEdit;
@@ -687,6 +921,10 @@ namespace bangna_hospital.gui
             grfDRU.Rows.Count = 1;
             tabOPBKKDRU.Controls.Add(grfDRU);
             theme1.SetTheme(grfDRU, "Office2010Red");
+            grfDRU.CellChanged += GrfDRU_CellChanged;
+            ContextMenu menuGwDRU = new ContextMenu();
+            menuGwDRU.MenuItems.Add("save DRU", new EventHandler(ContextMenu_grfDRU_save));
+            grfDRU.ContextMenu = menuGwDRU;
 
             grfCHAD = new C1FlexGrid();
             grfCHAD.Font = fEdit;
@@ -695,6 +933,98 @@ namespace bangna_hospital.gui
             grfCHAD.Rows.Count = 1;
             tabOPBKKCHAD.Controls.Add(grfCHAD);
             theme1.SetTheme(grfCHAD, "Office2010Red");
+            grfCHAD.CellChanged += GrfCHAD_CellChanged;
+            ContextMenu menuGwCHAD = new ContextMenu();
+            menuGwCHAD.MenuItems.Add("save CHAD", new EventHandler(ContextMenu_grfCHAD_save));
+            grfCHAD.ContextMenu = menuGwCHAD;
+        }
+
+        private void GrfCHAD_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfCHAD.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfCHAD[e.Row, grfCHAD.Cols.Count - 1] = "1";
+        }
+
+        private void GrfDRU_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfDRU.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfDRU[e.Row, grfDRU.Cols.Count - 1] = "1";
+        }
+
+        private void GrfLABFU_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfLABFU.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfLABFU[e.Row, grfLABFU.Cols.Count - 1] = "1";
+        }
+
+        private void GrfAER_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfAER.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfAER[e.Row, grfAER.Cols.Count - 1] = "1";
+        }
+
+        private void GrfCHA_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfCHA.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfCHA[e.Row, grfCHA.Cols.Count - 1] = "1";
+        }
+
+        private void GrfCHT_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfCHT.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfCHT[e.Row, grfCHT.Cols.Count - 1] = "1";
+        }
+
+        private void GrfORF_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfORF.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfORF[e.Row, grfORF.Cols.Count - 1] = "1";
+        }
+
+        private void GrfOOP_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfOOP.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfOOP[e.Row, grfOOP.Cols.Count - 1] = "1";
+        }
+
+        private void GrfODX_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfODX.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfODX[e.Row, grfODX.Cols.Count - 1] = "1";
+        }
+
+        private void GrfOPD_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfOPD.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfOPD[e.Row, grfOPD.Cols.Count - 1] = "1";
+        }
+
+        private void GrfPAT_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            grfPAT.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            grfPAT[e.Row, grfPAT.Cols.Count - 1] = "1";
         }
 
         private void GrfINS_CellChanged(object sender, RowColEventArgs e)
@@ -702,7 +1032,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (pageLoad) return;
             grfINS.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
-            grfINS[e.Row, grfINS.Cols.Count] = "1";
+            grfINS[e.Row, grfINS.Cols.Count-1] = "1";
         }
 
         private void GrfSelect_DoubleClick(object sender, EventArgs e)
@@ -969,27 +1299,569 @@ namespace bangna_hospital.gui
             grfPAT.Cols[colPATidtype].Width = 300;
 
             int i = 0;
-            foreach (OPBKKPAT ins in lPAT)
+            foreach (OPBKKPAT pat in lPAT)
             {
                 i++;
                 //if (i == 1) continue;
-                grfPAT[i, colPAThcode] = ins.HCODE;
-                grfPAT[i, colPAThn] = ins.HN;
-                grfPAT[i, colPATchangwat] = ins.CHANGWAT;
-                grfPAT[i, colPATamphur] = ins.AMPHUR;
-                grfPAT[i, colPATdob] = ins.DOB;
-                grfPAT[i, colPATsex] = ins.SEX;
-                grfPAT[i, colPATmarriage] = ins.MARRIAGE;
-                grfPAT[i, colPAToccupa] = ins.OCCUPA;
-                grfPAT[i, colPATnation] = ins.NATION;
-                grfPAT[i, colPATpersonid] = ins.PERSON_ID;
-                grfPAT[i, colPATnamepat] = ins.NAMEPAT;
-                grfPAT[i, colPATtitle] = ins.TITLE;
-                grfPAT[i, colPATfname] = ins.FNAME;
-                grfPAT[i, colPATlname] = ins.LNAME;
-                grfPAT[i, colPATidtype] = ins.IDTYPE;
-                grfPAT[i, colINSflag] = "0";
+                grfPAT[i, colPAThcode] = pat.HCODE;
+                grfPAT[i, colPAThn] = pat.HN;
+                grfPAT[i, colPATchangwat] = pat.CHANGWAT;
+                grfPAT[i, colPATamphur] = pat.AMPHUR;
+                grfPAT[i, colPATdob] = pat.DOB;
+                grfPAT[i, colPATsex] = pat.SEX;
+                grfPAT[i, colPATmarriage] = pat.MARRIAGE;
+                grfPAT[i, colPAToccupa] = pat.OCCUPA;
+                grfPAT[i, colPATnation] = pat.NATION;
+                grfPAT[i, colPATpersonid] = pat.PERSON_ID;
+                grfPAT[i, colPATnamepat] = pat.NAMEPAT;
+                grfPAT[i, colPATtitle] = pat.TITLE;
+                grfPAT[i, colPATfname] = pat.FNAME;
+                grfPAT[i, colPATlname] = pat.LNAME;
+                grfPAT[i, colPATidtype] = pat.IDTYPE;
+                grfPAT[i, colPATflag] = "0";
                 grfPAT[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfOPD()
+        {
+            pageLoad = true;
+            grfOPD.DataSource = null;
+            grfOPD.Rows.Count = 1;
+            grfOPD.Cols.Count = 18;
+            grfOPD.Rows.Count = lOPD.Count + 1;
+            grfOPD.Cols[colOPDpersonid].Caption = "ID";
+            grfOPD.Cols[colOPDhn].Caption = "HN";
+            grfOPD.Cols[colOPDdateopd].Caption = "date";
+            grfOPD.Cols[colOPDtimeopd].Caption = "time";
+            grfOPD.Cols[colOPDseq].Caption = "seq";
+            grfOPD.Cols[colOPDuuc].Caption = "UUC";
+            grfOPD.Cols[colOPDdetail].Caption = "detail";
+            grfOPD.Cols[colOPDbtemp].Caption = "temp";
+            grfOPD.Cols[colOPDsbp].Caption = "SBP";
+            grfOPD.Cols[colOPDdbp].Caption = "DBP";
+            grfOPD.Cols[colOPDpr].Caption = "PR";
+            grfOPD.Cols[colOPDrr].Caption = "RR";
+            grfOPD.Cols[colOPDoptype].Caption = "OPTYPE";
+            grfOPD.Cols[colOPDtypein].Caption = "TYPEIN";
+            grfOPD.Cols[colOPDtypeout].Caption = "TYPEOUT";
+            grfOPD.Cols[colOPDclaimcode].Caption = "claimcode";
+
+            grfOPD.Cols[colOPDpersonid].Width = 60;
+            grfOPD.Cols[colOPDhn].Width = 60;
+            grfOPD.Cols[colOPDdateopd].Width = 60;
+            grfOPD.Cols[colOPDtimeopd].Width = 60;
+            grfOPD.Cols[colOPDseq].Width = 300;
+            grfOPD.Cols[colOPDuuc].Width = 80;
+            grfOPD.Cols[colOPDdetail].Width = 300;
+            grfOPD.Cols[colOPDbtemp].Width = 300;
+            grfOPD.Cols[colOPDsbp].Width = 300;
+            grfOPD.Cols[colOPDdbp].Width = 300;
+            grfOPD.Cols[colOPDpr].Width = 300;
+            grfOPD.Cols[colOPDrr].Width = 300;
+            grfOPD.Cols[colOPDoptype].Width = 300;
+            grfOPD.Cols[colOPDtypein].Width = 300;
+            grfOPD.Cols[colOPDtypeout].Width = 300;
+            grfOPD.Cols[colOPDclaimcode].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKOPD ins in lOPD)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfOPD[i, colOPDpersonid] = ins.PERSON_ID;
+                grfOPD[i, colOPDhn] = ins.HN;
+                grfOPD[i, colOPDdateopd] = ins.DATEOPD;
+                grfOPD[i, colOPDtimeopd] = ins.TIMEOPD;
+                grfOPD[i, colOPDseq] = ins.SEQ;
+                grfOPD[i, colOPDuuc] = ins.UUC;
+                grfOPD[i, colOPDdetail] = ins.DETAIL;
+                grfOPD[i, colOPDbtemp] = ins.BTEMP;
+                grfOPD[i, colOPDsbp] = ins.SBP;
+                grfOPD[i, colOPDdbp] = ins.DBP;
+                grfOPD[i, colOPDpr] = ins.PR;
+                grfOPD[i, colOPDrr] = ins.RR;
+                grfOPD[i, colOPDoptype] = ins.OPTYPE;
+                grfOPD[i, colOPDtypein] = ins.TYPEIN;
+                grfOPD[i, colOPDtypeout] = ins.TYPEOUT;
+                grfOPD[i, colOPDclaimcode] = ins.CLAIM_CODE;
+                grfOPD[i, colOPDflag] = "0";
+                grfOPD[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfORF()
+        {
+            pageLoad = true;
+            grfORF.DataSource = null;
+            grfORF.Rows.Count = 1;
+            grfORF.Cols.Count = 9;
+            grfORF.Rows.Count = lORF.Count + 1;
+            grfORF.Cols[colORFhn].Caption = "ID";
+            grfORF.Cols[colORFdateopd].Caption = "HN";
+            grfORF.Cols[colORFclinic].Caption = "date";
+            grfORF.Cols[colORFrefer].Caption = "time";
+            grfORF.Cols[colORFrefertype].Caption = "seq";
+            grfORF.Cols[colORFreferdate].Caption = "UUC";
+            grfORF.Cols[colORFseq].Caption = "detail";
+
+            grfORF.Cols[colORFhn].Width = 60;
+            grfORF.Cols[colORFdateopd].Width = 60;
+            grfORF.Cols[colORFclinic].Width = 60;
+            grfORF.Cols[colORFrefer].Width = 60;
+            grfORF.Cols[colORFrefertype].Width = 300;
+            grfORF.Cols[colORFreferdate].Width = 80;
+            grfORF.Cols[colORFseq].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKORF ins in lORF)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfORF[i, colORFhn] = ins.HN;
+                grfORF[i, colORFdateopd] = ins.DATEOPD;
+                grfORF[i, colORFclinic] = ins.CLINIC;
+                grfORF[i, colORFrefer] = ins.REFER;
+                grfORF[i, colORFrefertype] = ins.REFERTYPE;
+                grfORF[i, colORFreferdate] = ins.REFERDATE;
+                grfORF[i, colORFseq] = ins.SEQ;
+                
+                grfORF[i, colORFflag] = "0";
+                grfORF[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfODX()
+        {
+            pageLoad = true;
+            grfODX.DataSource = null;
+            grfODX.Rows.Count = 1;
+            grfODX.Cols.Count = 10;
+            grfODX.Rows.Count = lODX.Count + 1;
+            grfODX.Cols[colODXhn].Caption = "HN";
+            grfODX.Cols[colODXdatedx].Caption = "date";
+            grfODX.Cols[colODXclinic].Caption = "clinic";
+            grfODX.Cols[colODXdiag].Caption = "diag";
+            grfODX.Cols[colODXdxtype].Caption = "dxtype";
+            grfODX.Cols[colODXdrdx].Caption = "drdx";
+            grfODX.Cols[colODXpersonid].Caption = "PID";
+            grfODX.Cols[colODXseq].Caption = "SEQ";
+
+            grfODX.Cols[colODXhn].Width = 60;
+            grfODX.Cols[colODXdatedx].Width = 60;
+            grfODX.Cols[colODXclinic].Width = 60;
+            grfODX.Cols[colODXdiag].Width = 60;
+            grfODX.Cols[colODXdxtype].Width = 300;
+            grfODX.Cols[colODXdrdx].Width = 80;
+            grfODX.Cols[colODXpersonid].Width = 300;
+            grfODX.Cols[colODXseq].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKODX ins in lODX)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfODX[i, colODXhn] = ins.HN;
+                grfODX[i, colODXdatedx] = ins.DATEDX;
+                grfODX[i, colODXclinic] = ins.CLINIC;
+                grfODX[i, colODXdiag] = ins.DIAG;
+                grfODX[i, colODXdxtype] = ins.DXTYPE;
+                grfODX[i, colODXdrdx] = ins.DRDX;
+                grfODX[i, colODXpersonid] = ins.PERSON_ID;
+                grfODX[i, colODXseq] = ins.SEQ;
+
+                grfODX[i, colODXflag] = "0";
+                grfODX[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfOOP()
+        {
+            pageLoad = true;
+            grfOOP.DataSource = null;
+            grfOOP.Rows.Count = 1;
+            grfOOP.Cols.Count = 10;
+            grfOOP.Rows.Count = lOOP.Count + 1;
+            grfOOP.Cols[colOOPhn].Caption = "HN";
+            grfOOP.Cols[colOOPdateopd].Caption = "date";
+            grfOOP.Cols[colOOPclinic].Caption = "clinic";
+            grfOOP.Cols[colOOPoper].Caption = "oper";
+            grfOOP.Cols[colOOPservprice].Caption = "servprice";
+            grfOOP.Cols[colOOPdropid].Caption = "dropid";
+            grfOOP.Cols[colOOPpersonid].Caption = "pid";
+            grfOOP.Cols[colOOPseq].Caption = "SEQ";
+
+            grfOOP.Cols[colOOPhn].Width = 60;
+            grfOOP.Cols[colOOPdateopd].Width = 60;
+            grfOOP.Cols[colOOPclinic].Width = 60;
+            grfOOP.Cols[colOOPoper].Width = 60;
+            grfOOP.Cols[colOOPservprice].Width = 300;
+            grfOOP.Cols[colOOPdropid].Width = 80;
+            grfOOP.Cols[colOOPpersonid].Width = 300;
+            grfOOP.Cols[colOOPseq].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKOOP ins in lOOP)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfOOP[i, colOOPhn] = ins.HN;
+                grfOOP[i, colOOPdateopd] = ins.DATEOPD;
+                grfOOP[i, colOOPclinic] = ins.CLINIC;
+                grfOOP[i, colOOPoper] = ins.OPER;
+                grfOOP[i, colOOPservprice] = ins.SERVPRICE;
+                grfOOP[i, colOOPdropid] = ins.DROPID;
+                grfOOP[i, colOOPpersonid] = ins.PERSON_ID;
+                grfOOP[i, colOOPseq] = ins.SEQ;
+
+                grfOOP[i, colOOPflag] = "0";
+                grfOOP[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfCHT()
+        {
+            pageLoad = true;
+            grfCHT.DataSource = null;
+            grfCHT.Rows.Count = 1;
+            grfCHT.Cols.Count = 13;
+            grfCHT.Rows.Count = lCHT.Count + 1;
+            grfCHT.Cols[colCHThn].Caption = "HN";
+            grfCHT.Cols[colCHTdateopd].Caption = "date";
+            grfCHT.Cols[colCHTactualcht].Caption = "actualcht";
+            grfCHT.Cols[colCHTtotal].Caption = "total";
+            grfCHT.Cols[colCHTpaid].Caption = "paid";
+            grfCHT.Cols[colCHTpttype].Caption = "pttype";
+            grfCHT.Cols[colCHTpersonid].Caption = "pid";
+            grfCHT.Cols[colCHTseq].Caption = "SEQ";
+            grfCHT.Cols[colCHTopd_memo].Caption = "MEMO";
+            grfCHT.Cols[colCHTinvoiceno].Caption = "invoiceno";
+            grfCHT.Cols[colCHTinvoicelt].Caption = "invoicelt";
+
+            grfCHT.Cols[colCHThn].Width = 60;
+            grfCHT.Cols[colCHTdateopd].Width = 60;
+            grfCHT.Cols[colCHTactualcht].Width = 60;
+            grfCHT.Cols[colCHTtotal].Width = 60;
+            grfCHT.Cols[colCHTpaid].Width = 300;
+            grfCHT.Cols[colCHTpttype].Width = 80;
+            grfCHT.Cols[colOOPpersonid].Width = 300;
+            grfCHT.Cols[colCHTpersonid].Width = 300;
+            grfCHT.Cols[colCHTseq].Width = 300;
+            grfCHT.Cols[colCHTopd_memo].Width = 300;
+            grfCHT.Cols[colCHTinvoiceno].Width = 300;
+            grfCHT.Cols[colCHTinvoicelt].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKCHT ins in lCHT)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfCHT[i, colCHThn] = ins.HN;
+                grfCHT[i, colCHTdateopd] = ins.DATEOPD;
+                grfCHT[i, colCHTactualcht] = ins.ACTUALCHT;
+                grfCHT[i, colCHTtotal] = ins.TOTAL;
+                grfCHT[i, colCHTpaid] = ins.PAID;
+                grfCHT[i, colCHTpttype] = ins.PTTYPE;
+                grfCHT[i, colCHTpersonid] = ins.PERSON_ID;
+                grfCHT[i, colCHTseq] = ins.SEQ;
+                grfCHT[i, colCHTopd_memo] = ins.OPD_MEMO;
+                grfCHT[i, colCHTinvoiceno] = ins.INVOICE_NO;
+                grfCHT[i, colCHTinvoicelt] = ins.INVOICE_LT;
+
+                grfCHT[i, colCHTflag] = "0";
+                grfCHT[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfCHA()
+        {
+            pageLoad = true;
+            grfCHA.DataSource = null;
+            grfCHA.Rows.Count = 1;
+            grfCHA.Cols.Count = 9;
+            grfCHA.Rows.Count = lCHA.Count + 1;
+            grfCHA.Cols[colCHAhn].Caption = "HN";
+            grfCHA.Cols[colCHAdateopd].Caption = "date";
+            grfCHA.Cols[colCHAchrgitem].Caption = "chrgitem";
+            grfCHA.Cols[colCHAamount].Caption = "amount";
+            grfCHA.Cols[colCHAamountext].Caption = "amountext";
+            grfCHA.Cols[colCHApersonid].Caption = "PID";
+            grfCHA.Cols[colCHAseq].Caption = "SEQ";
+
+            grfCHA.Cols[colCHAhn].Width = 60;
+            grfCHA.Cols[colCHAdateopd].Width = 60;
+            grfCHA.Cols[colCHAchrgitem].Width = 60;
+            grfCHA.Cols[colCHAamount].Width = 60;
+            grfCHA.Cols[colCHAamountext].Width = 300;
+            grfCHA.Cols[colCHApersonid].Width = 80;
+            grfCHA.Cols[colCHAseq].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKCHA ins in lCHA)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfCHA[i, colCHAhn] = ins.HN;
+                grfCHA[i, colCHAdateopd] = ins.DATEOPD;
+                grfCHA[i, colCHAchrgitem] = ins.CHRGITEM;
+                grfCHA[i, colCHAamount] = ins.AMOUNT;
+                grfCHA[i, colCHAamountext] = ins.AMOUNT_EXT;
+                grfCHA[i, colCHApersonid] = ins.PERSON_ID;
+                grfCHA[i, colCHAseq] = ins.SEQ;
+
+                grfCHA[i, colCHAflag] = "0";
+                grfCHA[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfAER()
+        {
+            pageLoad = true;
+            grfAER.DataSource = null;
+            grfAER.Rows.Count = 1;
+            grfAER.Cols.Count = 16;
+            grfAER.Rows.Count = lAER.Count + 1;
+            grfAER.Cols[colAERhn].Caption = "HN";
+            grfAER.Cols[colAERdateopd].Caption = "date";
+            grfAER.Cols[colAERauthae].Caption = "authae";
+            grfAER.Cols[colAERaedate].Caption = "aedate";
+            grfAER.Cols[colAERaetime].Caption = "aetime";
+            grfAER.Cols[colAERaetype].Caption = "aetype";
+            grfAER.Cols[colAERreferno].Caption = "referno";
+            grfAER.Cols[colAERrefmaini].Caption = "refmaini";
+            grfAER.Cols[colAERireftype].Caption = "ireftype";
+            grfAER.Cols[colAERrefmainno].Caption = "refmainno";
+            grfAER.Cols[colAERoreftype].Caption = "reftype";
+            grfAER.Cols[colAERucae].Caption = "ucase";
+            grfAER.Cols[colAERemtype].Caption = "emtype";
+            grfAER.Cols[colAERseq].Caption = "SEQ";
+
+            grfAER.Cols[colAERhn].Width = 60;
+            grfAER.Cols[colAERdateopd].Width = 60;
+            grfAER.Cols[colAERauthae].Width = 60;
+            grfAER.Cols[colAERaedate].Width = 60;
+            grfAER.Cols[colAERaetime].Width = 300;
+            grfAER.Cols[colAERaetype].Width = 80;
+            grfAER.Cols[colAERreferno].Width = 300;
+            grfAER.Cols[colAERrefmaini].Width = 300;
+            grfAER.Cols[colAERireftype].Width = 300;
+            grfAER.Cols[colAERrefmainno].Width = 300;
+            grfAER.Cols[colAERoreftype].Width = 300;
+            grfAER.Cols[colAERucae].Width = 300;
+            grfAER.Cols[colAERemtype].Width = 300;
+            grfAER.Cols[colAERseq].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKAER ins in lAER)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfAER[i, colAERhn] = ins.HN;
+                grfAER[i, colAERdateopd] = ins.DATEOPD;
+                grfAER[i, colAERauthae] = ins.AUTHAE;
+                grfAER[i, colAERaedate] = ins.AEDATE;
+                grfAER[i, colAERaetime] = ins.AETIME;
+                grfAER[i, colAERaetype] = ins.AETYPE;
+                grfAER[i, colAERreferno] = ins.REFER_NO;
+                grfAER[i, colAERrefmaini] = ins.REFMAINI;
+                grfAER[i, colAERireftype] = ins.IREFTYPE;
+                grfAER[i, colAERrefmainno] = ins.REFMAINO;
+                grfAER[i, colAERoreftype] = ins.OREFTYPE;
+                grfAER[i, colAERucae] = ins.UCAE;
+                grfAER[i, colAERemtype] = ins.EMTYPE;
+                grfAER[i, colAERseq] = ins.SEQ;
+                
+                grfAER[i, colAERflag] = "0";
+                grfAER[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfDRU()
+        {
+            pageLoad = true;
+            grfDRU.DataSource = null;
+            grfDRU.Rows.Count = 1;
+            grfDRU.Cols.Count = 19;
+            grfDRU.Rows.Count = lDRU.Count + 1;
+            grfDRU.Cols[colDRUhcode].Caption = "hcode";
+            grfDRU.Cols[colDRUhn].Caption = "HN";
+            grfDRU.Cols[colDRUclinic].Caption = "clinic";
+            grfDRU.Cols[colDRUpersonid].Caption = "pid";
+            grfDRU.Cols[colDRUdateserv].Caption = "date";
+            grfDRU.Cols[colDRUdid].Caption = "did";
+            grfDRU.Cols[colDRUdidname].Caption = "didname";
+            grfDRU.Cols[colDRUdidstd].Caption = "didstd";
+            grfDRU.Cols[colDRUtmtcode].Caption = "tmtcode";
+            grfDRU.Cols[colDRUamount].Caption = "amount";
+            grfDRU.Cols[colDRUdrugprice].Caption = "price";
+            grfDRU.Cols[colDRUpriceext].Caption = "price ext";
+            grfDRU.Cols[colDRUdrugcost].Caption = "cost";
+            grfDRU.Cols[colDRUunit].Caption = "unit";
+            grfDRU.Cols[colDRUunitpack].Caption = "pack";
+            grfDRU.Cols[colDRUseq].Caption = "SEQ";
+            grfDRU.Cols[colDRUprovider].Caption = "provider";
+
+            grfDRU.Cols[colDRUhcode].Width = 60;
+            grfDRU.Cols[colDRUhn].Width = 60;
+            grfDRU.Cols[colDRUclinic].Width = 60;
+            grfDRU.Cols[colDRUpersonid].Width = 60;
+            grfDRU.Cols[colDRUdateserv].Width = 300;
+            grfDRU.Cols[colDRUdid].Width = 80;
+            grfDRU.Cols[colDRUdidname].Width = 300;
+            grfDRU.Cols[colDRUdidstd].Width = 300;
+            grfDRU.Cols[colDRUtmtcode].Width = 300;
+            grfDRU.Cols[colDRUamount].Width = 300;
+            grfDRU.Cols[colDRUdrugprice].Width = 300;
+            grfDRU.Cols[colDRUpriceext].Width = 300;
+            grfDRU.Cols[colDRUdrugcost].Width = 300;
+            grfDRU.Cols[colDRUunit].Width = 300;
+            grfDRU.Cols[colDRUunitpack].Width = 300;
+            grfDRU.Cols[colDRUseq].Width = 300;
+            grfDRU.Cols[colDRUprovider].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKDRU ins in lDRU)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfDRU[i, colDRUhcode] = ins.HCODE;
+                grfDRU[i, colDRUhn] = ins.HN;
+                grfDRU[i, colDRUclinic] = ins.CLINIC;
+                grfDRU[i, colDRUpersonid] = ins.PERSON_ID;
+                grfDRU[i, colDRUdateserv] = ins.DATESERV;
+                grfDRU[i, colDRUdid] = ins.DID;
+                grfDRU[i, colDRUdidname] = ins.DIDNAME;
+                grfDRU[i, colDRUdidstd] = ins.DIDSTD;
+                grfDRU[i, colDRUtmtcode] = ins.TMTCODE;
+                grfDRU[i, colDRUamount] = ins.AMOUNT;
+                grfDRU[i, colDRUdrugprice] = ins.DRUGPRICE;
+                grfDRU[i, colDRUpriceext] = ins.PRICE_EXT;
+                grfDRU[i, colDRUdrugcost] = ins.DRUGCOST;
+                grfDRU[i, colDRUunit] = ins.UNIT;
+                grfDRU[i, colDRUunitpack] = ins.UNIT_PACK;
+                grfDRU[i, colDRUseq] = ins.SEQ;
+                grfDRU[i, colDRUprovider] = ins.PROVIDER;
+
+                grfDRU[i, colDRUflag] = "0";
+                grfDRU[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfLABFU()
+        {
+            pageLoad = true;
+            grfLABFU.DataSource = null;
+            grfLABFU.Rows.Count = 1;
+            grfLABFU.Cols.Count = 9;
+            grfLABFU.Rows.Count = lLABFU.Count + 1;
+            grfLABFU.Cols[colLABFUhcode].Caption = "hcode";
+            grfLABFU.Cols[colLABFUhn].Caption = "HN";
+            grfLABFU.Cols[colLABFUpersonid].Caption = "PID";
+            grfLABFU.Cols[colLABFUdateserv].Caption = "date";
+            grfLABFU.Cols[colLABFUseq].Caption = "SEQ";
+            grfLABFU.Cols[colLABFUlabtest].Caption = "labtest";
+            grfLABFU.Cols[colLABFUlabresult].Caption = "result";
+
+            grfLABFU.Cols[colLABFUhcode].Width = 60;
+            grfLABFU.Cols[colLABFUhn].Width = 60;
+            grfLABFU.Cols[colLABFUpersonid].Width = 60;
+            grfLABFU.Cols[colLABFUdateserv].Width = 60;
+            grfLABFU.Cols[colLABFUseq].Width = 300;
+            grfLABFU.Cols[colLABFUlabtest].Width = 80;
+            grfLABFU.Cols[colLABFUlabresult].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKLABFU ins in lLABFU)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfLABFU[i, colLABFUhcode] = ins.HCODE;
+                grfLABFU[i, colLABFUhn] = ins.HN;
+                grfLABFU[i, colLABFUpersonid] = ins.PERSON_ID;
+                grfLABFU[i, colLABFUdateserv] = ins.DATESERV;
+                grfLABFU[i, colLABFUseq] = ins.SEQ;
+                grfLABFU[i, colLABFUlabtest] = ins.LABTEST;
+                grfLABFU[i, colLABFUlabresult] = ins.LABRESULT;
+
+                grfLABFU[i, colLABFUflag] = "0";
+                grfLABFU[i, 0] = i;
+                //if (i % 2 == 0)
+                //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            }
+            pageLoad = false;
+        }
+        private void setGrfCHAD()
+        {
+            pageLoad = true;
+            grfCHAD.DataSource = null;
+            grfCHAD.Rows.Count = 1;
+            grfCHAD.Cols.Count = 14;
+            grfCHAD.Rows.Count = lCHAD.Count + 1;
+            grfCHAD.Cols[colCHADhn].Caption = "HN";
+            grfCHAD.Cols[colCHADdateserv].Caption = "date";
+            grfCHAD.Cols[colCHADseq].Caption = "seq";
+            grfCHAD.Cols[colCHADclinic].Caption = "clinic";
+            grfCHAD.Cols[colCHADitemtype].Caption = "itm type";
+            grfCHAD.Cols[colCHADitemcode].Caption = "itm code";
+            grfCHAD.Cols[colCHADitemsrc].Caption = "itm src";
+            grfCHAD.Cols[colCHADprovider].Caption = "provider";
+            grfCHAD.Cols[colCHADqty].Caption = "qty";
+            grfCHAD.Cols[colCHADamount].Caption = "amount";
+            grfCHAD.Cols[colCHADamountext].Caption = "amt text";
+            grfCHAD.Cols[colCHADaddon_desc].Caption = "addon";
+
+            grfCHAD.Cols[colCHADhn].Width = 60;
+            grfCHAD.Cols[colCHADdateserv].Width = 60;
+            grfCHAD.Cols[colCHADseq].Width = 60;
+            grfCHAD.Cols[colCHADclinic].Width = 60;
+            grfCHAD.Cols[colCHADitemtype].Width = 300;
+            grfCHAD.Cols[colCHADitemcode].Width = 80;
+            grfCHAD.Cols[colCHADitemsrc].Width = 300;
+            grfCHAD.Cols[colCHADprovider].Width = 300;
+            grfCHAD.Cols[colCHADqty].Width = 300;
+            grfCHAD.Cols[colCHADamount].Width = 300;
+            grfCHAD.Cols[colCHADamountext].Width = 300;
+            grfCHAD.Cols[colCHADaddon_desc].Width = 300;
+
+            int i = 0;
+            foreach (OPBKKCHAD ins in lCHAD)
+            {
+                i++;
+                //if (i == 1) continue;
+                grfCHAD[i, colCHADhn] = ins.HN;
+                grfCHAD[i, colCHADdateserv] = ins.DATESERV;
+                grfCHAD[i, colCHADseq] = ins.SEQ;
+                grfCHAD[i, colCHADclinic] = ins.CLINIC;
+                grfCHAD[i, colCHADitemtype] = ins.ITEMTYPE;
+                grfCHAD[i, colCHADitemcode] = ins.ITEMCODE;
+                grfCHAD[i, colCHADitemsrc] = ins.ITEMSRC;
+                grfCHAD[i, colCHADqty] = ins.QTY;
+                grfCHAD[i, colCHADamount] = ins.AMOUNT;
+                grfCHAD[i, colCHADamountext] = ins.AMOUNT_EXT;
+                grfCHAD[i, colCHADprovider] = ins.PROVIDER;
+                grfCHAD[i, colCHADaddon_desc] = ins.ADDON_DESC;
+
+
+                grfCHAD[i, colCHADflag] = "0";
+                grfCHAD[i, 0] = i;
                 //if (i % 2 == 0)
                 //    grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
             }
@@ -1011,332 +1883,668 @@ namespace bangna_hospital.gui
             lbLoading.Hide();
             Application.DoEvents();
         }
-        private void genINS()
+        private void genINS(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lINS.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfINS.Rows)
                 {
-                    OPBKKINS ins = new OPBKKINS();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.INSCL = drow["mnc_fn_typ_cd"].ToString();
-                    ins.SUBTYPE = bc.datetoDB(drow["mnc_date"].ToString());
-                    ins.CID = "";
-                    ins.DATEIN = "";                                                //  วันเดือนปีที่มีสิทธิ ปีมีค่าเป็น ค.ศ
-                    ins.DATEEXP = "";                                               //  วันเดือนปีที่หมดสิทธิ ปีมีค่าเป็น ค.ศ.
-                    ins.HOSPMAIN = txtHospMain.Text.Trim();
-                    ins.HOSPSUB = "";
-                    ins.GOVCODE = "";
-                    ins.GOVNAME = "";
-                    ins.PERMITNO = "";
-                    ins.DOCNO = "";
-                    ins.OWNRPID = "";
-                    ins.OWNNAME = "";
-                    lINS.Add(ins);
+                    if (row[colINSflag] == null) continue;
+                    if (row[colINSflag].ToString().Equals("1"))
+                    {
+                        OPBKKINS ins = new OPBKKINS();
+                        ins.HN = row[colINShn].ToString();
+                        ins.INSCL = row[colINSinscl].ToString();
+                        ins.SUBTYPE = row[colINSsubtype].ToString();
+                        ins.CID = row[colINScid].ToString();
+                        ins.DATEIN = row[colINSdatein].ToString();                                                //  วันเดือนปีที่มีสิทธิ ปีมีค่าเป็น ค.ศ
+                        ins.DATEEXP = row[colINSdateexp].ToString();                                               //  วันเดือนปีที่หมดสิทธิ ปีมีค่าเป็น ค.ศ.
+                        ins.HOSPMAIN = txtHospMain.Text.Trim();
+                        ins.HOSPSUB = row[colINShospsub].ToString();
+                        ins.GOVCODE = row[colINSgovcode].ToString();
+                        ins.GOVNAME = row[colINSgovname].ToString();
+                        ins.PERMITNO = row[colINSpermitno].ToString();
+                        ins.DOCNO = row[colINSdocno].ToString();
+                        ins.OWNRPID = row[colINSownrpid].ToString();
+                        ins.OWNNAME = row[colINSownname].ToString();
+                        lINS.RemoveAt(i);
+                        lINS.Insert(i,ins);
+                    }
+                    i++;
                 }
-                
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lINS.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKINS ins = new OPBKKINS();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.INSCL = drow["mnc_fn_typ_cd"].ToString();
+                        ins.SUBTYPE = bc.datetoDB(drow["mnc_date"].ToString());
+                        ins.CID = "";
+                        ins.DATEIN = "";                                                //  วันเดือนปีที่มีสิทธิ ปีมีค่าเป็น ค.ศ
+                        ins.DATEEXP = "";                                               //  วันเดือนปีที่หมดสิทธิ ปีมีค่าเป็น ค.ศ.
+                        ins.HOSPMAIN = txtHospMain.Text.Trim();
+                        ins.HOSPSUB = "";
+                        ins.GOVCODE = "";
+                        ins.GOVNAME = "";
+                        ins.PERMITNO = "";
+                        ins.DOCNO = "";
+                        ins.OWNRPID = "";
+                        ins.OWNNAME = "";
+                        lINS.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genPAT()
+        private void genPAT(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lPAT.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfPAT.Rows)
                 {
-                    String prov = "", amphu = "";
-                    prov = drow["MNC_CUR_CHW"] != null ? drow["MNC_CUR_CHW"].ToString().Substring(0, 2) : "";
-                    amphu = drow["MNC_CUR_AMP"] != null ? drow["MNC_CUR_AMP"].ToString().Substring(0, 2) : "";
-                    OPBKKPAT pat = new OPBKKPAT();
-                    pat.HCODE = txtHCode.Text.Trim();
-                    pat.HN = drow["mnc_hn_no"].ToString();
-                    pat.CHANGWAT = prov;
-                    pat.AMPHUR = amphu;
-                    pat.DOB = bc.datetoDB(drow["MNC_BDAY"].ToString());
-                    pat.SEX = drow["MNC_SEX"] != null ? drow["MNC_SEX"].ToString().Equals("M") ? "1" : "2":"";
-                    pat.MARRIAGE = "";
-                    pat.OCCUPA = "";
-                    pat.NATION = drow["MNC_NAT_CD"] != null ? drow["MNC_NAT_CD"].ToString() : "";
-                    pat.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    pat.NAMEPAT = drow["prefix"].ToString()+" "+ drow["MNC_FNAME_T"].ToString()+" "+ drow["MNC_LNAME_T"].ToString();
-                    pat.TITLE = drow["mnc_pfix_cdt"] != null ? drow["mnc_pfix_cdt"].ToString() : "";
-                    pat.FNAME = drow["MNC_FNAME_T"].ToString();
-                    pat.LNAME = drow["MNC_LNAME_T"].ToString();
-                    pat.IDTYPE = "1";                       //  ประเภทบัตร   1 = บัตรประชาชน  2 = หนังสือเดินทาง 3 = หนังสือต่างด้าว 4 = หนังสือ / เอกสารอื่นๆ
-                    lPAT.Add(pat);
+                    if (row[colPATflag] == null) continue;
+                    if (row[colPATflag].ToString().Equals("1"))
+                    {
+                        OPBKKPAT pat = new OPBKKPAT();
+                        pat.HCODE = txtHCode.Text.Trim();
+                        pat.HN = row[colPAThn].ToString();
+                        pat.CHANGWAT = row[colPATchangwat].ToString();
+                        pat.AMPHUR = row[colPATamphur].ToString();
+                        pat.DOB = row[colPATdob].ToString();
+                        pat.SEX = row[colPATsex].ToString();
+                        pat.MARRIAGE = row[colPATmarriage].ToString();
+                        pat.OCCUPA = row[colPAToccupa].ToString();
+                        pat.NATION = row[colPATnation].ToString();
+                        pat.PERSON_ID = row[colPATpersonid].ToString();
+                        pat.NAMEPAT = row[colPATnamepat].ToString();
+                        pat.TITLE = row[colPATtitle].ToString();
+                        pat.FNAME = row[colPATfname].ToString();
+                        pat.LNAME = row[colPATlname].ToString();
+                        pat.IDTYPE = "1";                       //  ประเภทบัตร   1 = บัตรประชาชน  2 = หนังสือเดินทาง 3 = หนังสือต่างด้าว 4 = หนังสือ / เอกสารอื่นๆ
+                        lINS.RemoveAt(i);
+                        lPAT.Add(pat);
+                    }
+                    i++;
                 }
-
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lPAT.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        String prov = "", amphu = "";
+                        prov = drow["MNC_CUR_CHW"] != null ? drow["MNC_CUR_CHW"].ToString().Substring(0, 2) : "";
+                        amphu = drow["MNC_CUR_AMP"] != null ? drow["MNC_CUR_AMP"].ToString().Substring(0, 2) : "";
+                        OPBKKPAT pat = new OPBKKPAT();
+                        pat.HCODE = txtHCode.Text.Trim();
+                        pat.HN = drow["mnc_hn_no"].ToString();
+                        pat.CHANGWAT = prov;
+                        pat.AMPHUR = amphu;
+                        pat.DOB = bc.datetoDB(drow["MNC_BDAY"].ToString());
+                        pat.SEX = drow["MNC_SEX"] != null ? drow["MNC_SEX"].ToString().Equals("M") ? "1" : "2" : "";
+                        pat.MARRIAGE = "";
+                        pat.OCCUPA = "";
+                        pat.NATION = drow["MNC_NAT_CD"] != null ? drow["MNC_NAT_CD"].ToString() : "";
+                        pat.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        pat.NAMEPAT = drow["prefix"].ToString() + " " + drow["MNC_FNAME_T"].ToString() + " " + drow["MNC_LNAME_T"].ToString();
+                        pat.TITLE = drow["mnc_pfix_cdt"] != null ? drow["mnc_pfix_cdt"].ToString() : "";
+                        pat.FNAME = drow["MNC_FNAME_T"].ToString();
+                        pat.LNAME = drow["MNC_LNAME_T"].ToString();
+                        pat.IDTYPE = "1";                       //  ประเภทบัตร   1 = บัตรประชาชน  2 = หนังสือเดินทาง 3 = หนังสือต่างด้าว 4 = หนังสือ / เอกสารอื่นๆ
+                        lPAT.Add(pat);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genOPD()
+        private void genOPD(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lOPD.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfOPD.Rows)
                 {
-                    OPBKKOPD opd = new OPBKKOPD();
-                    opd.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    opd.HN = drow["mnc_hn_no"].ToString();
-                    opd.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
-                    opd.TIMEOPD = ("0000"+drow["MNC_time"].ToString()).Substring(4);
-                    opd.SEQ = drow["mnc_pre_no"].ToString();
-                    opd.UUC = "1";                                                       //      การใช้สิทธิ (เพิ่มเติม) 1 = ใช้สิทธิ 2 = ไมใช้สิทธ
-                    opd.DETAIL = drow["MNC_SHIF_MEMO"].ToString();
-                    opd.BTEMP = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";
-                    opd.SBP = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                //      ความดันโลหิตค่าตัวบน
-                    opd.DBP = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                //      ความดันโลหิตค่าตัวล่าง
-                    opd.PR = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                 //      อัตราการเต้นหัวใจ
-                    opd.RR = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                 //      อัตราการหายใจ
-                    opd.OPTYPE = "AE";          // ประเภทการให้บริการ 0 = Refer ในบัญชีเครือข่ายเดียวกัน 1 = Refer นอกบัญชีเครือข่าย 2 = AE ในบัญชีเครือข่าย 3 = AE นอกบัญชีเครือข่าย 4 = OP พิการ 5 = OP บัตรตัวเอง 6 = Clearing House ศบส 7 = OP อื่นๆ(Individual data) 8 = ผู้ป่วยกึ่ง OP / IP(NONI) 9 = บริการแพทย์แผนไทย
-                    opd.TYPEIN = "";                    //ประเภทการมารับบริการ   1 = มารับบริการเอง 2 = มารับบริการตามนัดหมาย 3 = ได้รับการส่งต่อจากสถานพยาบาลอื่น 4 = ได้รับการส่งตัวจากบริการ EMS
-                    opd.TYPEOUT = "";                   //สถานะผู้ป่วยเมื่อเสร็จสิ้นบริการ 1 = จำหน่ายกลับบ้าน 2 = รับไว้รักษาต่อIP 3 = Refer ต่อ 4 = เสียชีวิต 5 = เสียชีวิตก่อนมาถึง 6 = เสียชีวิตระหว่างส่งต่อไปยังที่อื่น 7 = ปฏิเสธการรักษา 8 = หนีกลับ
-                    opd.CLAIM_CODE = "";                //รหัส ClaimCode เข้ารับการบริการ ที่ออกโดย สปสช.       *ถ้ามีการขอเบิกชดเชยค่าบริการต้องส่งแนบมาด้วย
-                    lOPD.Add(opd);
+                    if (row[colOPDflag] == null) continue;
+                    if (row[colOPDflag].ToString().Equals("1"))
+                    {
+                        OPBKKOPD opd = new OPBKKOPD();
+                        opd.PERSON_ID = row[colOPDpersonid].ToString();
+                        opd.HN = row[colOPDhn].ToString();
+                        opd.DATEOPD = row[colOPDdateopd].ToString();
+                        opd.TIMEOPD = row[colOPDtimeopd].ToString();
+                        opd.SEQ = row[colOPDseq].ToString();
+                        opd.UUC = "1";                                                       //      การใช้สิทธิ (เพิ่มเติม) 1 = ใช้สิทธิ 2 = ไมใช้สิทธ
+                        opd.DETAIL = row[colOPDdetail].ToString();
+                        opd.BTEMP = row[colOPDbtemp].ToString();
+                        opd.SBP = row[colOPDsbp].ToString();                //      ความดันโลหิตค่าตัวบน
+                        opd.DBP = row[colOPDdbp].ToString();                //      ความดันโลหิตค่าตัวล่าง
+                        opd.PR = row[colOPDpr].ToString();                 //      อัตราการเต้นหัวใจ
+                        opd.RR = row[colOPDrr].ToString();                 //      อัตราการหายใจ
+                        opd.OPTYPE = "AE";          // ประเภทการให้บริการ 0 = Refer ในบัญชีเครือข่ายเดียวกัน 1 = Refer นอกบัญชีเครือข่าย 2 = AE ในบัญชีเครือข่าย 3 = AE นอกบัญชีเครือข่าย 4 = OP พิการ 5 = OP บัตรตัวเอง 6 = Clearing House ศบส 7 = OP อื่นๆ(Individual data) 8 = ผู้ป่วยกึ่ง OP / IP(NONI) 9 = บริการแพทย์แผนไทย
+                        opd.TYPEIN = "";                    //ประเภทการมารับบริการ   1 = มารับบริการเอง 2 = มารับบริการตามนัดหมาย 3 = ได้รับการส่งต่อจากสถานพยาบาลอื่น 4 = ได้รับการส่งตัวจากบริการ EMS
+                        opd.TYPEOUT = "";                   //สถานะผู้ป่วยเมื่อเสร็จสิ้นบริการ 1 = จำหน่ายกลับบ้าน 2 = รับไว้รักษาต่อIP 3 = Refer ต่อ 4 = เสียชีวิต 5 = เสียชีวิตก่อนมาถึง 6 = เสียชีวิตระหว่างส่งต่อไปยังที่อื่น 7 = ปฏิเสธการรักษา 8 = หนีกลับ
+                        opd.CLAIM_CODE = "";                //รหัส ClaimCode เข้ารับการบริการ ที่ออกโดย สปสช.       *ถ้ามีการขอเบิกชดเชยค่าบริการต้องส่งแนบมาด้วย
+                        lOPD.RemoveAt(i);
+                        lOPD.Add(opd);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lOPD.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKOPD opd = new OPBKKOPD();
+                        opd.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        opd.HN = drow["mnc_hn_no"].ToString();
+                        opd.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
+                        opd.TIMEOPD = ("0000" + drow["MNC_time"].ToString()).Substring(4);
+                        opd.SEQ = drow["mnc_pre_no"].ToString();
+                        opd.UUC = "1";                                                       //      การใช้สิทธิ (เพิ่มเติม) 1 = ใช้สิทธิ 2 = ไมใช้สิทธ
+                        opd.DETAIL = drow["MNC_SHIF_MEMO"].ToString();
+                        opd.BTEMP = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";
+                        opd.SBP = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                //      ความดันโลหิตค่าตัวบน
+                        opd.DBP = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                //      ความดันโลหิตค่าตัวล่าง
+                        opd.PR = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                 //      อัตราการเต้นหัวใจ
+                        opd.RR = drow["mnc_temp"] != null ? drow["mnc_temp"].ToString() : "";                 //      อัตราการหายใจ
+                        opd.OPTYPE = "AE";          // ประเภทการให้บริการ 0 = Refer ในบัญชีเครือข่ายเดียวกัน 1 = Refer นอกบัญชีเครือข่าย 2 = AE ในบัญชีเครือข่าย 3 = AE นอกบัญชีเครือข่าย 4 = OP พิการ 5 = OP บัตรตัวเอง 6 = Clearing House ศบส 7 = OP อื่นๆ(Individual data) 8 = ผู้ป่วยกึ่ง OP / IP(NONI) 9 = บริการแพทย์แผนไทย
+                        opd.TYPEIN = "";                    //ประเภทการมารับบริการ   1 = มารับบริการเอง 2 = มารับบริการตามนัดหมาย 3 = ได้รับการส่งต่อจากสถานพยาบาลอื่น 4 = ได้รับการส่งตัวจากบริการ EMS
+                        opd.TYPEOUT = "";                   //สถานะผู้ป่วยเมื่อเสร็จสิ้นบริการ 1 = จำหน่ายกลับบ้าน 2 = รับไว้รักษาต่อIP 3 = Refer ต่อ 4 = เสียชีวิต 5 = เสียชีวิตก่อนมาถึง 6 = เสียชีวิตระหว่างส่งต่อไปยังที่อื่น 7 = ปฏิเสธการรักษา 8 = หนีกลับ
+                        opd.CLAIM_CODE = "";                //รหัส ClaimCode เข้ารับการบริการ ที่ออกโดย สปสช.       *ถ้ามีการขอเบิกชดเชยค่าบริการต้องส่งแนบมาด้วย
+                        lOPD.Add(opd);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genORF()
+        private void genORF(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lORF.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfORF.Rows)
                 {
-                    OPBKKORF orf = new OPBKKORF();
-                    orf.HN = drow["mnc_hn_no"].ToString();
-                    orf.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
-                    orf.CLINIC = "";        //รหัสคลินิกที่รับบริการ
-                    orf.REFER = "";
-                    orf.REFERTYPE = "";
-                    orf.REFERDATE = "";
-                    orf.SEQ = drow["mnc_pre_no"].ToString();
-
-                    lORF.Add(orf);
+                    if (row[colORFflag] == null) continue;
+                    if (row[colORFflag].ToString().Equals("1"))
+                    {
+                        OPBKKORF orf = new OPBKKORF();
+                        orf.HN = row[colORFhn].ToString();
+                        orf.DATEOPD = row[colORFdateopd].ToString();
+                        orf.CLINIC = row[colORFclinic].ToString();        //รหัสคลินิกที่รับบริการ
+                        orf.REFER = row[colORFrefer].ToString();
+                        orf.REFERTYPE = row[colORFrefertype].ToString();
+                        orf.REFERDATE = row[colORFreferdate].ToString();
+                        orf.SEQ = row[colORFseq].ToString();
+                        lORF.RemoveAt(i);
+                        lORF.Add(orf);
+                    }
+                    i++;
                 }
-
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lORF.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKORF orf = new OPBKKORF();
+                        orf.HN = drow["mnc_hn_no"].ToString();
+                        orf.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
+                        orf.CLINIC = "";        //รหัสคลินิกที่รับบริการ
+                        orf.REFER = "";
+                        orf.REFERTYPE = "";
+                        orf.REFERDATE = "";
+                        orf.SEQ = drow["mnc_pre_no"].ToString();
+                        lORF.Add(orf);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genODX()
+        private void genODX(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lODX.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfODX.Rows)
                 {
-                    OPBKKODX ins = new OPBKKODX();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.DATEDX = "";
-                    ins.CLINIC = "";
-                    ins.DIAG = "";
-                    ins.DXTYPE = "";
-                    ins.DRDX = "";
-                    ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    lODX.Add(ins);
+                    if (row[colODXflag] == null) continue;
+                    if (row[colODXflag].ToString().Equals("1"))
+                    {
+                        OPBKKODX ins = new OPBKKODX();
+                        ins.HN = row[colODXhn].ToString();
+                        ins.DATEDX = row[colODXdatedx].ToString();
+                        ins.CLINIC = row[colODXclinic].ToString();
+                        ins.DIAG = row[colODXdiag].ToString();
+                        ins.DXTYPE = row[colODXdxtype].ToString();
+                        ins.DRDX = row[colODXdrdx].ToString();
+                        ins.PERSON_ID = row[colODXpersonid].ToString();
+                        ins.SEQ = row[colODXseq].ToString();
+                        lODX.RemoveAt(i);
+                        lODX.Add(ins);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lODX.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKODX ins = new OPBKKODX();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.DATEDX = "";
+                        ins.CLINIC = "";
+                        ins.DIAG = "";
+                        ins.DXTYPE = "";
+                        ins.DRDX = "";
+                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        lODX.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genOOP()
+        private void genOOP(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lOOP.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfOOP.Rows)
                 {
-                    OPBKKOOP ins = new OPBKKOOP();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
-                    ins.CLINIC = "";
-                    ins.OPER = "";
-                    ins.SERVPRICE = "";
-                    ins.DROPID = "";
-                    ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    lOOP.Add(ins);
+                    if (row[colOOPflag] == null) continue;
+                    if (row[colOOPflag].ToString().Equals("1"))
+                    {
+                        OPBKKOOP ins = new OPBKKOOP();
+                        ins.HN = row[colOOPhn].ToString();
+                        ins.DATEOPD = row[colOOPdateopd].ToString();
+                        ins.CLINIC = row[colOOPclinic].ToString();
+                        ins.OPER = row[colOOPoper].ToString();
+                        ins.SERVPRICE = row[colOOPservprice].ToString();
+                        ins.DROPID = row[colOOPdropid].ToString();
+                        ins.PERSON_ID = row[colOOPpersonid].ToString();
+                        ins.SEQ = row[colOOPseq].ToString();
+                        lOOP.RemoveAt(i);
+                        lOOP.Add(ins);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lOOP.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKOOP ins = new OPBKKOOP();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
+                        ins.CLINIC = "";
+                        ins.OPER = "";
+                        ins.SERVPRICE = "";
+                        ins.DROPID = "";
+                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        lOOP.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genCHT()
+        private void genCHT(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lCHT.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfCHT.Rows)
                 {
-                    OPBKKCHT ins = new OPBKKCHT();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
-                    ins.ACTUALCHT = "";
-                    ins.TOTAL = "";
-                    ins.PAID = "";
-                    ins.PTTYPE = "";
-                    ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    ins.OPD_MEMO = "";
-                    ins.INVOICE_NO = "";
-                    ins.INVOICE_LT = "";
-                    lCHT.Add(ins);
+                    if (row[colCHTflag] == null) continue;
+                    if (row[colCHTflag].ToString().Equals("1"))
+                    {
+                        OPBKKCHT ins = new OPBKKCHT();
+                        ins.HN = row[colCHThn].ToString();
+                        ins.DATEOPD = row[colCHTdateopd].ToString();
+                        ins.ACTUALCHT = row[colCHTactualcht].ToString();
+                        ins.TOTAL = row[colCHTtotal].ToString();
+                        ins.PAID = row[colCHTpaid].ToString();
+                        ins.PTTYPE = row[colCHTpttype].ToString();
+                        ins.PERSON_ID = row[colCHTpersonid].ToString();
+                        ins.SEQ = row[colCHTseq].ToString();
+                        ins.OPD_MEMO = row[colCHTopd_memo].ToString();
+                        ins.INVOICE_NO = row[colCHTinvoiceno].ToString();
+                        ins.INVOICE_LT = row[colCHTinvoicelt].ToString();
+                        lCHT.RemoveAt(i);
+                        lCHT.Add(ins);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lCHT.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKCHT ins = new OPBKKCHT();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
+                        ins.ACTUALCHT = "";
+                        ins.TOTAL = "";
+                        ins.PAID = "";
+                        ins.PTTYPE = "";
+                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        ins.OPD_MEMO = "";
+                        ins.INVOICE_NO = "";
+                        ins.INVOICE_LT = "";
+                        lCHT.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genCHA()
+        private void genCHA(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lCHA.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfCHA.Rows)
                 {
-                    OPBKKCHA ins = new OPBKKCHA();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
-                    ins.CHRGITEM = "";
-                    ins.AMOUNT = "";
-                    ins.AMOUNT_EXT = "";
-                    ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    lCHA.Add(ins);
+                    if (row[colCHAflag] == null) continue;
+                    if (row[colCHAflag].ToString().Equals("1"))
+                    {
+                        OPBKKCHA ins = new OPBKKCHA();
+                        ins.HN = row[colCHAhn].ToString();
+                        ins.DATEOPD = row[colCHAdateopd].ToString());
+                        ins.CHRGITEM = row[colCHAchrgitem].ToString();
+                        ins.AMOUNT = row[colCHAamount].ToString();
+                        ins.AMOUNT_EXT = row[colCHAamountext].ToString();
+                        ins.PERSON_ID = row[colCHApersonid].ToString();
+                        ins.SEQ = row[colCHAseq].ToString();
+                        lCHA.RemoveAt(i);
+                        lCHA.Add(ins);
+                    }
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lCHA.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKCHA ins = new OPBKKCHA();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
+                        ins.CHRGITEM = "";
+                        ins.AMOUNT = "";
+                        ins.AMOUNT_EXT = "";
+                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        lCHA.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genAER()
+        private void genAER(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lAER.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfAER.Rows)
                 {
-                    OPBKKAER ins = new OPBKKAER();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
-                    ins.AUTHAE = "";
-                    ins.AEDATE = "";
-                    ins.AETIME = "";
-                    ins.AETYPE = "";
-                    ins.REFER_NO = "";
-                    ins.REFMAINI = "";
-                    ins.IREFTYPE = "";
-                    ins.REFMAINO = "";
-                    ins.OREFTYPE = "";
-                    ins.UCAE = "";
-                    ins.EMTYPE = "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    lAER.Add(ins);
+                    if (row[colAERflag] == null) continue;
+                    if (row[colAERflag].ToString().Equals("1"))
+                    {
+                        OPBKKAER ins = new OPBKKAER();
+                        ins.HN = row[colAERhn].ToString();
+                        ins.DATEOPD = row[colAERdateopd].ToString();
+                        ins.AUTHAE = row[colAERauthae].ToString();
+                        ins.AEDATE = row[colAERaedate].ToString();
+                        ins.AETIME = row[colAERaetime].ToString();
+                        ins.AETYPE = row[colAERaetype].ToString();
+                        ins.REFER_NO = row[colAERreferno].ToString();
+                        ins.REFMAINI = row[colAERrefmaini].ToString();
+                        ins.IREFTYPE = row[colAERireftype].ToString();
+                        ins.REFMAINO = row[colAERrefmainno].ToString();
+                        ins.OREFTYPE = row[colAERoreftype].ToString();
+                        ins.UCAE = row[colAERucae].ToString();
+                        ins.EMTYPE = row[colAERemtype].ToString();
+                        ins.SEQ = row[colAERseq].ToString();
+                        lAER.RemoveAt(i);
+                        lAER.Add(ins);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lAER.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKAER ins = new OPBKKAER();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.DATEOPD = bc.datetoDB(drow["MNC_date"].ToString());
+                        ins.AUTHAE = "";
+                        ins.AEDATE = "";
+                        ins.AETIME = "";
+                        ins.AETYPE = "";
+                        ins.REFER_NO = "";
+                        ins.REFMAINI = "";
+                        ins.IREFTYPE = "";
+                        ins.REFMAINO = "";
+                        ins.OREFTYPE = "";
+                        ins.UCAE = "";
+                        ins.EMTYPE = "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        lAER.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genDRU()
+        private void genDRU(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lDRU.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfDRU.Rows)
                 {
-                    OPBKKDRU ins = new OPBKKDRU();
-                    ins.HCODE = txtHCode.Text.Trim();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.CLINIC = "";
-                    ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    ins.DATESERV = "";
-                    ins.DID = "";
-                    ins.DIDNAME = "";
-                    ins.DIDSTD = "";
-                    ins.TMTCODE = "";
-                    ins.AMOUNT = "";
-                    ins.DRUGPRICE = "";
-                    ins.PRICE_EXT = "";
-                    ins.DRUGCOST = "";
-                    ins.UNIT = "";
-                    ins.UNIT_PACK = "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    ins.PROVIDER = "";
-                    lDRU.Add(ins);
+                    if (row[colDRUflag] == null) continue;
+                    if (row[colDRUflag].ToString().Equals("1"))
+                    {
+                        OPBKKDRU ins = new OPBKKDRU();
+                        ins.HCODE = txtHCode.Text.Trim();
+                        ins.HN = row[colDRUhn].ToString();
+                        ins.CLINIC = row[colDRUclinic].ToString();
+                        ins.PERSON_ID = row[colDRUpersonid].ToString();
+                        ins.DATESERV = row[colDRUdateserv].ToString();
+                        ins.DID = row[colDRUdid].ToString();
+                        ins.DIDNAME = row[colDRUdidname].ToString();
+                        ins.DIDSTD = row[colDRUdidstd].ToString();
+                        ins.TMTCODE = row[colDRUtmtcode].ToString();
+                        ins.AMOUNT = row[colDRUamount].ToString();
+                        ins.DRUGPRICE = row[colDRUdrugprice].ToString();
+                        ins.PRICE_EXT = row[colDRUpriceext].ToString();
+                        ins.DRUGCOST = row[colDRUdrugcost].ToString();
+                        ins.UNIT = row[colDRUunit].ToString();
+                        ins.UNIT_PACK = row[colDRUunitpack].ToString();
+                        ins.SEQ = row[colDRUseq].ToString();
+                        ins.PROVIDER = row[colDRUprovider].ToString();
+                        lDRU.RemoveAt(i);
+                        lDRU.Add(ins);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lDRU.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKDRU ins = new OPBKKDRU();
+                        ins.HCODE = txtHCode.Text.Trim();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.CLINIC = "";
+                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        ins.DATESERV = "";
+                        ins.DID = "";
+                        ins.DIDNAME = "";
+                        ins.DIDSTD = "";
+                        ins.TMTCODE = "";
+                        ins.AMOUNT = "";
+                        ins.DRUGPRICE = "";
+                        ins.PRICE_EXT = "";
+                        ins.DRUGCOST = "";
+                        ins.UNIT = "";
+                        ins.UNIT_PACK = "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        ins.PROVIDER = "";
+                        lDRU.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genLABFU()
+        private void genLABFU(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lLABFU.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfLABFU.Rows)
                 {
-                    OPBKKLABFU ins = new OPBKKLABFU();
-                    ins.HCODE = txtHCode.Text.Trim();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                    ins.DATESERV = "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    lLABFU.Add(ins);
+                    if (row[colLABFUflag] == null) continue;
+                    if (row[colLABFUflag].ToString().Equals("1"))
+                    {
+                        OPBKKLABFU ins = new OPBKKLABFU();
+                        ins.HCODE = txtHCode.Text.Trim();
+                        ins.HN = row[colLABFUhn].ToString();
+                        ins.PERSON_ID = row[colLABFUpersonid].ToString();
+                        ins.DATESERV = row[colLABFUdateserv].ToString();
+                        ins.SEQ = row[colLABFUseq].ToString();
+                        ins.LABTEST = row[colLABFUlabtest].ToString();
+                        ins.LABRESULT = row[colLABFUlabresult].ToString();
+                        lLABFU.RemoveAt(i);
+                        lLABFU.Add(ins);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lLABFU.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKLABFU ins = new OPBKKLABFU();
+                        ins.HCODE = txtHCode.Text.Trim();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                        ins.DATESERV = "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        ins.LABTEST = "";
+                        ins.LABRESULT = "";
+                        lLABFU.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
-        private void genCHAD()
+        private void genCHAD(String flag)
         {
-            String year = "", mm = "";
-            if (dtPtt.Rows.Count > 0)
+            showLbLoading();
+            if (flag.Equals("txt"))
             {
-                showLbLoading();
-                lCHAD.Clear();
-                foreach (DataRow drow in dtPtt.Rows)
+                int i = 0;
+                foreach (Row row in grfCHAD.Rows)
                 {
-                    OPBKKCHAD ins = new OPBKKCHAD();
-                    ins.HN = drow["mnc_hn_no"].ToString();
-                    ins.DATESERV = "";
-                    ins.SEQ = drow["mnc_pre_no"].ToString();
-                    ins.CLINIC = "";
-                    ins.ITEMTYPE = "";
-                    ins.ITEMCODE = "";
-                    ins.ITEMSRC = "";
-                    ins.QTY = "";
-                    ins.AMOUNT = "";
-                    ins.AMOUNT_EXT = "";
-                    ins.PROVIDER = "";
-                    ins.ADDON_DESC = "";
-                    lCHAD.Add(ins);
+                    if (row[colCHADflag] == null) continue;
+                    if (row[colCHADflag].ToString().Equals("1"))
+                    {
+                        OPBKKCHAD ins = new OPBKKCHAD();
+                        ins.HN = row[colCHADhn].ToString();
+                        ins.DATESERV = row[colCHADdateserv].ToString();
+                        ins.SEQ = row[colCHADseq].ToString();
+                        ins.CLINIC = row[colCHADclinic].ToString();
+                        ins.ITEMTYPE = row[colCHADitemtype].ToString();
+                        ins.ITEMCODE = row[colCHADitemcode].ToString();
+                        ins.ITEMSRC = row[colCHADitemsrc].ToString();
+                        ins.QTY = row[colCHADqty].ToString();
+                        ins.AMOUNT = row[colCHADamount].ToString();
+                        ins.AMOUNT_EXT = row[colCHADamountext].ToString();
+                        ins.PROVIDER = row[colCHADprovider].ToString();
+                        ins.ADDON_DESC = row[colCHADaddon_desc].ToString();
+                        lCHAD.RemoveAt(i);
+                        lCHAD.Add(ins);
+                    }
+                    i++;
                 }
-                hideLbLoading();
             }
+            else
+            {
+                if (dtPtt.Rows.Count > 0)
+                {
+                    lCHAD.Clear();
+                    foreach (DataRow drow in dtPtt.Rows)
+                    {
+                        OPBKKCHAD ins = new OPBKKCHAD();
+                        ins.HN = drow["mnc_hn_no"].ToString();
+                        ins.DATESERV = "";
+                        ins.SEQ = drow["mnc_pre_no"].ToString();
+                        ins.CLINIC = "";
+                        ins.ITEMTYPE = "";
+                        ins.ITEMCODE = "";
+                        ins.ITEMSRC = "";
+                        ins.QTY = "";
+                        ins.AMOUNT = "";
+                        ins.AMOUNT_EXT = "";
+                        ins.PROVIDER = "";
+                        ins.ADDON_DESC = "";
+                        lCHAD.Add(ins);
+                    }
+                }
+            }
+            hideLbLoading();
         }
         private void genTextINS(String pathfile)
         {
-            string fileName = "INS", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameINS = pathfile + fileNameINS + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameINS))
             {
                 foreach (OPBKKINS ins in lINS)
                 {
@@ -1352,9 +2560,8 @@ namespace bangna_hospital.gui
         }
         private void genTextPAT(String pathfile)
         {
-            string fileName = "PAT", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNamePAT = pathfile + fileNamePAT + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNamePAT))
             {
                 foreach (OPBKKPAT ins in lPAT)
                 {
@@ -1366,15 +2573,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            pageLoad = true;
-            grfPAT.DataSource = lPAT;
-            pageLoad = false;
+            setGrfPAT();
         }
         private void genTextOPD(String pathfile)
         {
-            string fileName = "OPD", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameOPD = pathfile + fileNameOPD + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameOPD))
             {
                 foreach (OPBKKOPD ins in lOPD)
                 {
@@ -1386,13 +2590,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfOPD.DataSource = lOPD;
+            setGrfOPD();
         }
         private void genTextORF(String pathfile)
         {
-            string fileName = "ORF", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameORF = pathfile + fileNameORF + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameORF))
             {
                 foreach (OPBKKORF ins in lORF)
                 {
@@ -1402,13 +2605,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfORF.DataSource = lORF;
+            setGrfORF();
         }
         private void genTextODX(String pathfile)
         {
-            string fileName = "ODX", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameODX = pathfile + fileNameODX + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameODX))
             {
                 foreach (OPBKKODX ins in lODX)
                 {
@@ -1418,13 +2620,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfODX.DataSource = lODX;
+            setGrfODX();
         }
         private void genTextOOP(String pathfile)
         {
-            string fileName = "OOP", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameOOP = pathfile + fileNameOOP + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameOOP))
             {
                 foreach (OPBKKOOP ins in lOOP)
                 {
@@ -1434,13 +2635,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfOOP.DataSource = lOOP;
+            setGrfOOP();
         }
         private void genTextCHT(String pathfile)
         {
-            string fileName = "CHT", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameCHT = pathfile + fileNameCHT + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameCHT))
             {
                 foreach (OPBKKCHT ins in lCHT)
                 {
@@ -1451,13 +2651,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfCHT.DataSource = lCHT;
+            setGrfCHT();
         }
         private void genTextCHA(String pathfile)
         {
-            string fileName = "CHA", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameCHA = pathfile + fileNameCHA + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameCHA))
             {
                 foreach (OPBKKCHA ins in lCHA)
                 {
@@ -1467,13 +2666,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfCHA.DataSource = lCHA;
+            setGrfCHA();
         }
         private void genTextAER(String pathfile)
         {
-            string fileName = "AER", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameAER = pathfile + fileNameAER + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameAER))
             {
                 foreach (OPBKKAER ins in lAER)
                 {
@@ -1485,13 +2683,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfAER.DataSource = lAER;
+            setGrfAER();
         }
         private void genTextDRU(String pathfile)
         {
-            string fileName = "DRU", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameDRU = pathfile + fileNameDRU + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameDRU))
             {
                 foreach (OPBKKDRU ins in lDRU)
                 {
@@ -1504,13 +2701,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfDRU.DataSource = lDRU;
+            setGrfDRU();
         }
         private void genTextLABFU(String pathfile)
         {
-            string fileName = "LABFU", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameLABFU = pathfile + fileNameLABFU + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameLABFU))
             {
                 foreach (OPBKKLABFU ins in lLABFU)
                 {
@@ -1520,12 +2716,12 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
+            setGrfLABFU();
         }
         private void genTextCHAD(String pathfile)
         {
-            string fileName = "CHAD", separate = "|";
-            fileName = pathfile + fileName + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileName))
+            fileNameCHAD = pathfile + fileNameCHAD + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameCHAD))
             {
                 foreach (OPBKKCHAD ins in lCHAD)
                 {
@@ -1536,7 +2732,7 @@ namespace bangna_hospital.gui
                     writetext.WriteLine(txt);
                 }
             }
-            grfCHAD.DataSource = lCHAD;
+            setGrfCHAD();
         }
         private void FrmOPBKKClaim_Load(object sender, EventArgs e)
         {
