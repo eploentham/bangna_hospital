@@ -648,7 +648,7 @@ namespace bangna_hospital.gui
             tabOPBKKDRU.TabIndex = 0;
             tabOPBKKDRU.Text = "DRU";
             tabOPBKKDRU.Name = "tabOPBKKDRU";
-            tcOPBKK.Controls.Add(tabOPBKKLABFU);
+            tcOPBKK.Controls.Add(tabOPBKKDRU);
 
             tabOPBKKCHAD = new C1DockingTabPage();
             tabOPBKKCHAD.TabIndex = 0;
@@ -1718,22 +1718,22 @@ namespace bangna_hospital.gui
             grfDRU.Cols[colDRUprovider].Caption = "provider";
 
             grfDRU.Cols[colDRUhcode].Width = 60;
-            grfDRU.Cols[colDRUhn].Width = 60;
+            grfDRU.Cols[colDRUhn].Width = 80;
             grfDRU.Cols[colDRUclinic].Width = 60;
-            grfDRU.Cols[colDRUpersonid].Width = 60;
-            grfDRU.Cols[colDRUdateserv].Width = 300;
+            grfDRU.Cols[colDRUpersonid].Width = 130;
+            grfDRU.Cols[colDRUdateserv].Width = 100;
             grfDRU.Cols[colDRUdid].Width = 80;
             grfDRU.Cols[colDRUdidname].Width = 300;
-            grfDRU.Cols[colDRUdidstd].Width = 300;
-            grfDRU.Cols[colDRUtmtcode].Width = 300;
-            grfDRU.Cols[colDRUamount].Width = 300;
-            grfDRU.Cols[colDRUdrugprice].Width = 300;
-            grfDRU.Cols[colDRUpriceext].Width = 300;
-            grfDRU.Cols[colDRUdrugcost].Width = 300;
-            grfDRU.Cols[colDRUunit].Width = 300;
-            grfDRU.Cols[colDRUunitpack].Width = 300;
-            grfDRU.Cols[colDRUseq].Width = 300;
-            grfDRU.Cols[colDRUprovider].Width = 300;
+            grfDRU.Cols[colDRUdidstd].Width = 100;
+            grfDRU.Cols[colDRUtmtcode].Width = 100;
+            grfDRU.Cols[colDRUamount].Width = 100;
+            grfDRU.Cols[colDRUdrugprice].Width = 100;
+            grfDRU.Cols[colDRUpriceext].Width = 100;
+            grfDRU.Cols[colDRUdrugcost].Width = 100;
+            grfDRU.Cols[colDRUunit].Width = 100;
+            grfDRU.Cols[colDRUunitpack].Width = 100;
+            grfDRU.Cols[colDRUseq].Width = 80;
+            grfDRU.Cols[colDRUprovider].Width = 100;
 
             int i = 0;
             foreach (OPBKKDRU ins in lDRU)
@@ -1781,10 +1781,10 @@ namespace bangna_hospital.gui
             grfLABFU.Cols[colLABFUlabresult].Caption = "result";
 
             grfLABFU.Cols[colLABFUhcode].Width = 60;
-            grfLABFU.Cols[colLABFUhn].Width = 60;
-            grfLABFU.Cols[colLABFUpersonid].Width = 60;
-            grfLABFU.Cols[colLABFUdateserv].Width = 60;
-            grfLABFU.Cols[colLABFUseq].Width = 300;
+            grfLABFU.Cols[colLABFUhn].Width = 80;
+            grfLABFU.Cols[colLABFUpersonid].Width = 120;
+            grfLABFU.Cols[colLABFUdateserv].Width = 100;
+            grfLABFU.Cols[colLABFUseq].Width = 60;
             grfLABFU.Cols[colLABFUlabtest].Width = 80;
             grfLABFU.Cols[colLABFUlabresult].Width = 300;
 
@@ -1983,26 +1983,36 @@ namespace bangna_hospital.gui
                     lPAT.Clear();
                     foreach (DataRow drow in dtPtt.Rows)
                     {
-                        String prov = "", amphu = "";
-                        prov = drow["MNC_CUR_CHW"] != null ? drow["MNC_CUR_CHW"].ToString().Substring(0, 2) : "";
-                        amphu = drow["MNC_CUR_AMP"] != null ? drow["MNC_CUR_AMP"].ToString().Substring(0, 2) : "";
-                        OPBKKPAT pat = new OPBKKPAT();
-                        pat.HCODE = txtHCode.Text.Trim();
-                        pat.HN = drow["mnc_hn_no"].ToString();
-                        pat.CHANGWAT = prov;
-                        pat.AMPHUR = amphu;
-                        pat.DOB = bc.datetoDB(drow["MNC_BDAY"].ToString());
-                        pat.SEX = drow["MNC_SEX"] != null ? drow["MNC_SEX"].ToString().Equals("M") ? "1" : "2" : "";
-                        pat.MARRIAGE = "";
-                        pat.OCCUPA = "";
-                        pat.NATION = drow["MNC_NAT_CD"] != null ? drow["MNC_NAT_CD"].ToString() : "";
-                        pat.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                        pat.NAMEPAT = drow["prefix"].ToString() + " " + drow["MNC_FNAME_T"].ToString() + " " + drow["MNC_LNAME_T"].ToString();
-                        pat.TITLE = drow["mnc_pfix_cdt"] != null ? drow["mnc_pfix_cdt"].ToString() : "";
-                        pat.FNAME = drow["MNC_FNAME_T"].ToString();
-                        pat.LNAME = drow["MNC_LNAME_T"].ToString();
-                        pat.IDTYPE = "1";                       //  ประเภทบัตร   1 = บัตรประชาชน  2 = หนังสือเดินทาง 3 = หนังสือต่างด้าว 4 = หนังสือ / เอกสารอื่นๆ
-                        lPAT.Add(pat);
+                        try
+                        {
+                            String prov = "", amphu = "";
+                            prov = drow["MNC_CUR_CHW"] != null ? drow["MNC_CUR_CHW"].ToString() : "";
+                            amphu = drow["MNC_CUR_AMP"] != null ? drow["MNC_CUR_AMP"].ToString() : "";
+                            prov = prov.Length >= 2 ? prov.Substring(0, 2) : "";
+                            amphu = amphu.Length >= 2 ? amphu.Substring(0, 2) : "";
+                            OPBKKPAT pat = new OPBKKPAT();
+                            pat.HCODE = txtHCode.Text.Trim();
+                            pat.HN = drow["mnc_hn_no"].ToString();
+                            pat.CHANGWAT = prov;
+                            pat.AMPHUR = amphu;
+                            pat.DOB = bc.datetoDB(drow["MNC_BDAY"].ToString());
+                            pat.SEX = drow["MNC_SEX"] != null ? drow["MNC_SEX"].ToString().Equals("M") ? "1" : "2" : "";
+                            pat.MARRIAGE = "";
+                            pat.OCCUPA = "";
+                            pat.NATION = drow["MNC_NAT_CD"] != null ? drow["MNC_NAT_CD"].ToString() : "";
+                            pat.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
+                            pat.NAMEPAT = drow["prefix"].ToString() + " " + drow["MNC_FNAME_T"].ToString() + " " + drow["MNC_LNAME_T"].ToString();
+                            pat.TITLE = drow["mnc_pfix_cdt"] != null ? drow["mnc_pfix_cdt"].ToString() : "";
+                            pat.FNAME = drow["MNC_FNAME_T"].ToString();
+                            pat.LNAME = drow["MNC_LNAME_T"].ToString();
+                            pat.IDTYPE = "1";                       //  ประเภทบัตร   1 = บัตรประชาชน  2 = หนังสือเดินทาง 3 = หนังสือต่างด้าว 4 = หนังสือ / เอกสารอื่นๆ
+                            lPAT.Add(pat);
+                        }
+                        catch(Exception ex)
+                        {
+                            String aaa = "";
+                        }
+                        
                     }
                 }
             }
@@ -2281,7 +2291,7 @@ namespace bangna_hospital.gui
                     {
                         OPBKKCHA ins = new OPBKKCHA();
                         ins.HN = row[colCHAhn].ToString();
-                        ins.DATEOPD = row[colCHAdateopd].ToString());
+                        ins.DATEOPD = row[colCHAdateopd].ToString();
                         ins.CHRGITEM = row[colCHAchrgitem].ToString();
                         ins.AMOUNT = row[colCHAamount].ToString();
                         ins.AMOUNT_EXT = row[colCHAamountext].ToString();
@@ -2410,29 +2420,49 @@ namespace bangna_hospital.gui
             }
             else
             {
-                if (dtPtt.Rows.Count > 0)
+                String datestart = "", dateend = "", paidtype = "";
+                datestart = bc.datetoDB(txtDateStart.Text);
+                dateend = bc.datetoDB(txtDateEnd.Text);
+                String[] paid = txtPaidType.Text.Trim().Split(',');
+                if (paid.Length > 0)
+                {
+                    foreach (String txt in paid)
+                    {
+                        paidtype += "'" + txt + "',";
+                    }
+                    if (paidtype.Length > 1)
+                    {
+                        paidtype = paidtype.Substring(0, paidtype.Length - 1);
+                    }
+                }
+                else
+                {
+                    paidtype = txtPaidType.Text.Trim();
+                }
+                DataTable dtdru = bc.bcDB.vsDB.selectDrugOPBKK(paidtype, datestart, dateend);
+                if (dtdru.Rows.Count > 0)
                 {
                     lDRU.Clear();
-                    foreach (DataRow drow in dtPtt.Rows)
+                    foreach (DataRow drow in dtdru.Rows)
                     {
                         OPBKKDRU ins = new OPBKKDRU();
                         ins.HCODE = txtHCode.Text.Trim();
                         ins.HN = drow["mnc_hn_no"].ToString();
                         ins.CLINIC = "";
-                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                        ins.DATESERV = "";
-                        ins.DID = "";
-                        ins.DIDNAME = "";
+                        ins.PERSON_ID = drow["MNC_ID_Nam"] != null ? drow["MNC_ID_Nam"].ToString() : "";
+                        ins.DATESERV = drow["mnc_req_dat"].ToString();
+                        ins.DID = drow["MNC_PH_CD"].ToString();
+                        ins.DIDNAME = drow["MNC_PH_TN"].ToString();
                         ins.DIDSTD = "";
                         ins.TMTCODE = "";
-                        ins.AMOUNT = "";
-                        ins.DRUGPRICE = "";
-                        ins.PRICE_EXT = "";
+                        ins.AMOUNT = drow["qty"].ToString();        //จำนวนยาที่จ่าย
+                        ins.DRUGPRICE = "";         // ราคายาที่ขอเบิก (ไม่ใช่ราคาต่อหน่วย)
+                        ins.PRICE_EXT = "";         // ราคายาส่วนที่เบิกไม่ได้  (ไม่ใช่ราคาต่อหน่วย)
                         ins.DRUGCOST = "";
                         ins.UNIT = "";
                         ins.UNIT_PACK = "";
                         ins.SEQ = drow["mnc_pre_no"].ToString();
-                        ins.PROVIDER = "";
+                        ins.PROVIDER = "";      //เภสัชกรที่จ่ายยา ตามเลขที่ใบประกอบวิชาชีพเวชกรรม
                         lDRU.Add(ins);
                     }
                 }
@@ -2466,19 +2496,39 @@ namespace bangna_hospital.gui
             }
             else
             {
-                if (dtPtt.Rows.Count > 0)
+                String datestart = "", dateend = "", paidtype = "";
+                datestart = bc.datetoDB(txtDateStart.Text);
+                dateend = bc.datetoDB(txtDateEnd.Text);
+                String[] paid = txtPaidType.Text.Trim().Split(',');
+                if (paid.Length > 0)
+                {
+                    foreach (String txt in paid)
+                    {
+                        paidtype += "'" + txt + "',";
+                    }
+                    if (paidtype.Length > 1)
+                    {
+                        paidtype = paidtype.Substring(0, paidtype.Length - 1);
+                    }
+                }
+                else
+                {
+                    paidtype = txtPaidType.Text.Trim();
+                }
+                DataTable dtlab = bc.bcDB.vsDB.selectResultLabByDate(paidtype, datestart, dateend);
+                if (dtlab.Rows.Count > 0)
                 {
                     lLABFU.Clear();
-                    foreach (DataRow drow in dtPtt.Rows)
+                    foreach (DataRow drow in dtlab.Rows)
                     {
                         OPBKKLABFU ins = new OPBKKLABFU();
                         ins.HCODE = txtHCode.Text.Trim();
                         ins.HN = drow["mnc_hn_no"].ToString();
-                        ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
-                        ins.DATESERV = "";
+                        ins.PERSON_ID = drow["MNC_ID_nam"] != null ? drow["MNC_ID_nam"].ToString() : "";
+                        ins.DATESERV = drow["mnc_req_dat"].ToString();
                         ins.SEQ = drow["mnc_pre_no"].ToString();
-                        ins.LABTEST = "";
-                        ins.LABRESULT = "";
+                        ins.LABTEST = drow["MNC_RES"].ToString();
+                        ins.LABRESULT = drow["MNC_RES_VALUE"].ToString();
                         lLABFU.Add(ins);
                     }
                 }
@@ -2543,8 +2593,8 @@ namespace bangna_hospital.gui
         }
         private void genTextINS(String pathfile)
         {
-            fileNameINS = pathfile + fileNameINS + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameINS))
+            String fileNameINS1 = pathfile + fileNameINS + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameINS1))
             {
                 foreach (OPBKKINS ins in lINS)
                 {
@@ -2560,8 +2610,8 @@ namespace bangna_hospital.gui
         }
         private void genTextPAT(String pathfile)
         {
-            fileNamePAT = pathfile + fileNamePAT + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNamePAT))
+            String fileNamePAT1 = pathfile + fileNamePAT + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNamePAT1))
             {
                 foreach (OPBKKPAT ins in lPAT)
                 {
@@ -2577,8 +2627,8 @@ namespace bangna_hospital.gui
         }
         private void genTextOPD(String pathfile)
         {
-            fileNameOPD = pathfile + fileNameOPD + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameOPD))
+            String fileNameOPD1 = pathfile + fileNameOPD + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameOPD1))
             {
                 foreach (OPBKKOPD ins in lOPD)
                 {
@@ -2594,8 +2644,8 @@ namespace bangna_hospital.gui
         }
         private void genTextORF(String pathfile)
         {
-            fileNameORF = pathfile + fileNameORF + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameORF))
+            String fileNameORF1 = pathfile + fileNameORF + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameORF1))
             {
                 foreach (OPBKKORF ins in lORF)
                 {
@@ -2609,8 +2659,8 @@ namespace bangna_hospital.gui
         }
         private void genTextODX(String pathfile)
         {
-            fileNameODX = pathfile + fileNameODX + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameODX))
+            String fileNameODX1 = pathfile + fileNameODX + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameODX1))
             {
                 foreach (OPBKKODX ins in lODX)
                 {
@@ -2624,8 +2674,8 @@ namespace bangna_hospital.gui
         }
         private void genTextOOP(String pathfile)
         {
-            fileNameOOP = pathfile + fileNameOOP + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameOOP))
+            String fileNameOOP1 = pathfile + fileNameOOP + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameOOP1))
             {
                 foreach (OPBKKOOP ins in lOOP)
                 {
@@ -2639,8 +2689,8 @@ namespace bangna_hospital.gui
         }
         private void genTextCHT(String pathfile)
         {
-            fileNameCHT = pathfile + fileNameCHT + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameCHT))
+            String fileNameCHT1 = pathfile + fileNameCHT + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameCHT1))
             {
                 foreach (OPBKKCHT ins in lCHT)
                 {
@@ -2655,8 +2705,8 @@ namespace bangna_hospital.gui
         }
         private void genTextCHA(String pathfile)
         {
-            fileNameCHA = pathfile + fileNameCHA + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameCHA))
+            String fileNameCHA1 = pathfile + fileNameCHA + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameCHA1))
             {
                 foreach (OPBKKCHA ins in lCHA)
                 {
@@ -2670,8 +2720,8 @@ namespace bangna_hospital.gui
         }
         private void genTextAER(String pathfile)
         {
-            fileNameAER = pathfile + fileNameAER + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameAER))
+            String fileNameAER1 = pathfile + fileNameAER + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameAER1))
             {
                 foreach (OPBKKAER ins in lAER)
                 {
@@ -2687,8 +2737,8 @@ namespace bangna_hospital.gui
         }
         private void genTextDRU(String pathfile)
         {
-            fileNameDRU = pathfile + fileNameDRU + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameDRU))
+            String fileNameDRU1 = pathfile + fileNameDRU + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameDRU1))
             {
                 foreach (OPBKKDRU ins in lDRU)
                 {
@@ -2705,8 +2755,8 @@ namespace bangna_hospital.gui
         }
         private void genTextLABFU(String pathfile)
         {
-            fileNameLABFU = pathfile + fileNameLABFU + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameLABFU))
+            String fileNameLABFU1 = pathfile + fileNameLABFU + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameLABFU1))
             {
                 foreach (OPBKKLABFU ins in lLABFU)
                 {
@@ -2720,8 +2770,8 @@ namespace bangna_hospital.gui
         }
         private void genTextCHAD(String pathfile)
         {
-            fileNameCHAD = pathfile + fileNameCHAD + ".txt";
-            using (StreamWriter writetext = new StreamWriter(fileNameCHAD))
+            String fileNameCHAD1 = pathfile + fileNameCHAD + ".txt";
+            using (StreamWriter writetext = new StreamWriter(fileNameCHAD1))
             {
                 foreach (OPBKKCHAD ins in lCHAD)
                 {
@@ -2753,7 +2803,7 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
 
-            this.Text = "Last Update 2020-12-25";
+            this.Text = "Last Update 2020-01-08";
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Windows.Forms;
+//using CrystalDecisions.CrystalReports.Engine;
+//using CrystalDecisions.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,8 +16,8 @@ namespace bangna_hospital.gui
     {
         Form frmRpt;
         BangnaControl bc;
-        ReportDocument rpt;
-        CrystalReportViewer crv;
+        //ReportDocument rpt;
+        //CrystalReportViewer crv;
         String reportname = "";
         Form frmParent;
         DataTable dt;
@@ -58,15 +58,15 @@ namespace bangna_hospital.gui
         }
         private void initCompoment()
         {
-            crv = new CrystalReportViewer();
-            this.crv.ActiveViewIndex = -1;
-            this.crv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crv.Cursor = System.Windows.Forms.Cursors.Default;
-            this.crv.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.crv.Location = new System.Drawing.Point(0, 0);
-            this.crv.Name = "crv";
-            this.crv.Size = new System.Drawing.Size(800, 450);
-            this.crv.TabIndex = 0;
+            //crv = new CrystalReportViewer();
+            //this.crv.ActiveViewIndex = -1;
+            //this.crv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            //this.crv.Cursor = System.Windows.Forms.Cursors.Default;
+            //this.crv.Dock = System.Windows.Forms.DockStyle.Fill;
+            //this.crv.Location = new System.Drawing.Point(0, 0);
+            //this.crv.Name = "crv";
+            //this.crv.Size = new System.Drawing.Size(800, 450);
+            //this.crv.TabIndex = 0;
         }
         private void setRptXrayResult()
         {
@@ -77,19 +77,19 @@ namespace bangna_hospital.gui
             try
             {
                 //DataTable dt = new DataTable();
-                rpt = new ReportDocument();
-                if (!File.Exists(reportname+".rpt"))
-                {
-                    MessageBox.Show("File not Found " + reportname + ".rpt", "");
-                }
-                rpt.Load(reportname + ".rpt");
-                rpt.SetDataSource(dt);
-                rpt.SetParameterValue("line1", bc.iniC.hostname);
-                //rpt.SetParameterValue("line2", "");
-                //rpt.SetParameterValue("line3", "");
-                crv.ReportSource = rpt;
-                crv.Refresh();
-                this.Controls.Add(crv);
+                //rpt = new ReportDocument();
+                //if (!File.Exists(reportname+".rpt"))
+                //{
+                //    MessageBox.Show("File not Found " + reportname + ".rpt", "");
+                //}
+                //rpt.Load(reportname + ".rpt");
+                //rpt.SetDataSource(dt);
+                //rpt.SetParameterValue("line1", bc.iniC.hostname);
+                ////rpt.SetParameterValue("line2", "");
+                ////rpt.SetParameterValue("line3", "");
+                //crv.ReportSource = rpt;
+                //crv.Refresh();
+                //this.Controls.Add(crv);
                 this.ShowDialog(frmParent);
             }
             catch(Exception ex)
@@ -97,7 +97,6 @@ namespace bangna_hospital.gui
                 String chk = ex.Message.ToString();
                 MessageBox.Show("error " + ex.Message, "");
             }
-            
         }
         private void setRptLabResult()
         {
@@ -108,19 +107,19 @@ namespace bangna_hospital.gui
             try
             {
                 //DataTable dt = new DataTable();
-                rpt = new ReportDocument();
-                if (!File.Exists(reportname + ".rpt"))
-                {
-                    MessageBox.Show("File not Found " + reportname + ".rpt", "");
-                }
-                rpt.Load(reportname + ".rpt");
-                rpt.SetDataSource(dt);
-                rpt.SetParameterValue("line1", bc.iniC.hostname);
-                //rpt.SetParameterValue("line2", "");
-                //rpt.SetParameterValue("line3", "");
-                crv.ReportSource = rpt;
-                crv.Refresh();
-                this.Controls.Add(crv);
+                //rpt = new ReportDocument();
+                //if (!File.Exists(reportname + ".rpt"))
+                //{
+                //    MessageBox.Show("File not Found " + reportname + ".rpt", "");
+                //}
+                //rpt.Load(reportname + ".rpt");
+                //rpt.SetDataSource(dt);
+                //rpt.SetParameterValue("line1", bc.iniC.hostname);
+                ////rpt.SetParameterValue("line2", "");
+                ////rpt.SetParameterValue("line3", "");
+                //crv.ReportSource = rpt;
+                //crv.Refresh();
+                //this.Controls.Add(crv);
                 this.ShowDialog(frmParent);
             }
             catch (Exception ex)
@@ -128,7 +127,6 @@ namespace bangna_hospital.gui
                 String chk = ex.Message.ToString();
                 MessageBox.Show("error " + ex.Message, "");
             }
-
         }
         private void setRptPharmacyResult()
         {
@@ -139,19 +137,19 @@ namespace bangna_hospital.gui
             try
             {
                 //DataTable dt = new DataTable();
-                rpt = new ReportDocument();
-                if (!File.Exists(reportname + ".rpt"))
-                {
-                    MessageBox.Show("File not Found " + reportname + ".rpt", "");
-                }
-                rpt.Load(reportname + ".rpt");
-                rpt.SetDataSource(dt);
-                //rpt.SetParameterValue("line1", "");
-                //rpt.SetParameterValue("line2", "");
-                //rpt.SetParameterValue("line3", "");
-                crv.ReportSource = rpt;
-                crv.Refresh();
-                this.Controls.Add(crv);
+                //rpt = new ReportDocument();
+                //if (!File.Exists(reportname + ".rpt"))
+                //{
+                //    MessageBox.Show("File not Found " + reportname + ".rpt", "");
+                //}
+                //rpt.Load(reportname + ".rpt");
+                //rpt.SetDataSource(dt);
+                ////rpt.SetParameterValue("line1", "");
+                ////rpt.SetParameterValue("line2", "");
+                ////rpt.SetParameterValue("line3", "");
+                //crv.ReportSource = rpt;
+                //crv.Refresh();
+                //this.Controls.Add(crv);
                 this.ShowDialog(frmParent);
             }
             catch (Exception ex)
@@ -159,7 +157,6 @@ namespace bangna_hospital.gui
                 String chk = ex.Message.ToString();
                 MessageBox.Show("error " + ex.Message, "");
             }
-
         }
     }
 }

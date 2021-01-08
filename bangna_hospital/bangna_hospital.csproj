@@ -8,14 +8,13 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
     <AssemblyName>bangna_hospital_opbkkclaim</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -82,17 +81,15 @@
     <Reference Include="C1.Win.FlexReport.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.FlexViewer.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.ImportServices.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Data.AdoDotNetInterop, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="DotNetZip, Version=1.13.5.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.5\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
+    <Reference Include="GrapeCity.ActiveReports.Document.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Export.Excel.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Export.Image.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Export.Pdf.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Word.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Viewer.Win.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
@@ -236,6 +233,30 @@
     <Compile Include="gui\FrmOPBKKClaim.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmOPD21CheckUP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmOPD21CheckUP.designer.cs">
+      <DependentUpon>FrmOPD21CheckUP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmOPD2CheckUP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmOPD2CheckUP.designer.cs">
+      <DependentUpon>FrmOPD2CheckUP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmOPD2CheckUPMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmOPD2CheckUPMain.designer.cs">
+      <DependentUpon>FrmOPD2CheckUPMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmOPDLicenseDriver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmOPDLicenseDriver.designer.cs">
+      <DependentUpon>FrmOPDLicenseDriver.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmOperativeNoteView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +264,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmReportARV.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmScanAddView.cs">
@@ -406,6 +430,7 @@
     <Compile Include="objdb\LabOutDB.cs" />
     <Compile Include="objdb\LabT01DB.cs" />
     <Compile Include="objdb\LabT02DB.cs" />
+    <Compile Include="objdb\OPDCheckUPDB.cs" />
     <Compile Include="objdb\OperativeNoteDB.cs" />
     <Compile Include="objdb\OrDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
@@ -451,6 +476,7 @@
     <Compile Include="object1\OPBKKOPD.cs" />
     <Compile Include="object1\OPBKKORF.cs" />
     <Compile Include="object1\OPBKKPAT.cs" />
+    <Compile Include="object1\OPDCheckUP.cs" />
     <Compile Include="object1\OperativeNote.cs" />
     <Compile Include="object1\PatientM22.cs" />
     <Compile Include="object1\PatientM29.cs" />
@@ -595,6 +621,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmNurseScanView.resx">
       <DependentUpon>FrmNurseScanView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmOPD21CheckUP.resx">
+      <DependentUpon>FrmOPD21CheckUP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmOPD2CheckUP.resx">
+      <DependentUpon>FrmOPD2CheckUP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmOPD2CheckUPMain.resx">
+      <DependentUpon>FrmOPD2CheckUPMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmOPDLicenseDriver.resx">
+      <DependentUpon>FrmOPDLicenseDriver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmPrintCri.resx">
       <DependentUpon>FrmPrintCri.cs</DependentUpon>

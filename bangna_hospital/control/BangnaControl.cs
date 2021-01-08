@@ -3,9 +3,9 @@ using bangna_hospital.object1;
 using C1.Win.C1Document;
 using C1.Win.C1Input;
 using C1.Win.FlexViewer;
-using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
-using CrystalDecisions.Windows.Forms;
+//using CrystalDecisions.CrystalReports.Engine;
+//using CrystalDecisions.Shared;
+//using CrystalDecisions.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -1957,189 +1957,189 @@ namespace bangna_hospital.control
         }
         public String exportResultXray(DataTable dt, String hn, String vn, String flagOpenFile, String pathFolder)
         {
-            ReportDocument rpt;
-            CrystalReportViewer crv = new CrystalReportViewer();
-            rpt = new ReportDocument();
-            rpt.Load("xray_result.rpt");
-            
-            crv.ReportSource = rpt;
+            //ReportDocument rpt;
+            //CrystalReportViewer crv = new CrystalReportViewer();
+            //rpt = new ReportDocument();
+            //rpt.Load("xray_result.rpt");
 
-            crv.Refresh();
-            //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
-            //rd.Load("StudentReg.rpt");
-            rpt.SetDataSource(dt);
-            rpt.SetParameterValue("line1", iniC.hostname);
-            //crv.ReportSource = rd;
+            //crv.ReportSource = rpt;
+
             //crv.Refresh();
-            //if (!Directory.Exists(iniC.medicalrecordexportpath))
-            //{
-            //    Directory.CreateDirectory(iniC.medicalrecordexportpath);
-            //}
-            //if (!Directory.Exists(iniC.medicalrecordexportpath + "\\" + hn))
-            //{
-            //    Directory.CreateDirectory(pathFolder);
-            //}
-            string filePath = pathFolder + "\\result_xray_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
-            if (File.Exists(filePath))
-                File.Delete(filePath);
+            ////rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
+            ////rd.Load("StudentReg.rpt");
+            //rpt.SetDataSource(dt);
+            //rpt.SetParameterValue("line1", iniC.hostname);
+            ////crv.ReportSource = rd;
+            ////crv.Refresh();
+            ////if (!Directory.Exists(iniC.medicalrecordexportpath))
+            ////{
+            ////    Directory.CreateDirectory(iniC.medicalrecordexportpath);
+            ////}
+            ////if (!Directory.Exists(iniC.medicalrecordexportpath + "\\" + hn))
+            ////{
+            ////    Directory.CreateDirectory(pathFolder);
+            ////}
+            //string filePath = pathFolder + "\\result_xray_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            //if (File.Exists(filePath))
+            //    File.Delete(filePath);
 
-            ExportOptions CrExportOptions;
-            DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
-            PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
-            CrDiskFileDestinationOptions.DiskFileName = filePath;
-            CrExportOptions = rpt.ExportOptions;
-            {
-                CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
-                CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
-                CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
-                CrExportOptions.FormatOptions = CrFormatTypeOptions;
-            }
-            rpt.Export();
-            
-            if (!File.Exists(filePath))
-            {
-                return "";
-            }
+            //ExportOptions CrExportOptions;
+            //DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+            //PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+            //CrDiskFileDestinationOptions.DiskFileName = filePath;
+            //CrExportOptions = rpt.ExportOptions;
+            //{
+            //    CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+            //    CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+            //    CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+            //    CrExportOptions.FormatOptions = CrFormatTypeOptions;
+            //}
+            //rpt.Export();
 
-            C1PdfDocumentSource pdf = new C1PdfDocumentSource();
+            //if (!File.Exists(filePath))
+            //{
+            //    return "";
+            //}
+
+            //C1PdfDocumentSource pdf = new C1PdfDocumentSource();
             String filename = "", ext = "";
 
-            filename = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + ".jpg";
-            var exporter = pdf.SupportedExportProviders[4].NewExporter();
-            exporter.ShowOptions = false;
-            exporter.FileName = filename;
+            //filename = Path.GetDirectoryName(filePath) + "\\" + Path.GetFileNameWithoutExtension(filePath) + ".jpg";
+            //var exporter = pdf.SupportedExportProviders[4].NewExporter();
+            //exporter.ShowOptions = false;
+            //exporter.FileName = filename;
 
-            pdf.LoadFromFile(filePath);
-            pdf.Export(exporter);
+            //pdf.LoadFromFile(filePath);
+            //pdf.Export(exporter);
 
-            if (flagOpenFile.Equals("open"))
-            {
-                // combine the arguments together
-                // it doesn't matter if there is a space after ','
-                string argument = "/select, \"" + filePath + "\"";
+            //if (flagOpenFile.Equals("open"))
+            //{
+            //    // combine the arguments together
+            //    // it doesn't matter if there is a space after ','
+            //    string argument = "/select, \"" + filePath + "\"";
 
-                System.Diagnostics.Process.Start("explorer.exe", argument);
-            }
+            //    System.Diagnostics.Process.Start("explorer.exe", argument);
+            //}
             return filename;
         }
         public String exportResultLab(DataTable dt, String hn, String vn, String flagOpenFile, String pathFolder)
         {
-            ReportDocument rpt;
-            CrystalReportViewer crv = new CrystalReportViewer();
-            rpt = new ReportDocument();
-            rpt.Load("lab_result.rpt");
-            crv.ReportSource = rpt;
+            //ReportDocument rpt;
+            //CrystalReportViewer crv = new CrystalReportViewer();
+            //rpt = new ReportDocument();
+            //rpt.Load("lab_result.rpt");
+            //crv.ReportSource = rpt;
 
-            crv.Refresh();
-            //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
-            //rd.Load("StudentReg.rpt");
-            rpt.SetDataSource(dt);
-            rpt.SetParameterValue("line1", iniC.hostname);
-            //crv.ReportSource = rd;
             //crv.Refresh();
-            if (!Directory.Exists(pathFolder))
-            {
-                Directory.CreateDirectory(pathFolder);
-            }
-            //if (!Directory.Exists(iniC.medicalrecordexportpath+"\\"+hn))
+            ////rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
+            ////rd.Load("StudentReg.rpt");
+            //rpt.SetDataSource(dt);
+            //rpt.SetParameterValue("line1", iniC.hostname);
+            ////crv.ReportSource = rd;
+            ////crv.Refresh();
+            //if (!Directory.Exists(pathFolder))
             //{
-            //    Directory.CreateDirectory(iniC.medicalrecordexportpath + "\\" + hn);
+            //    Directory.CreateDirectory(pathFolder);
             //}
-            string filePath = pathFolder + "\\result_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
-            if (File.Exists(filePath))
-                File.Delete(filePath);
+            ////if (!Directory.Exists(iniC.medicalrecordexportpath+"\\"+hn))
+            ////{
+            ////    Directory.CreateDirectory(iniC.medicalrecordexportpath + "\\" + hn);
+            ////}
+            //string filePath = pathFolder + "\\result_lab_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            //if (File.Exists(filePath))
+            //    File.Delete(filePath);
 
-            ExportOptions CrExportOptions;
-            DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
-            PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
-            CrDiskFileDestinationOptions.DiskFileName = filePath;
-            CrExportOptions = rpt.ExportOptions;
-            {
-                CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
-                CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
-                CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
-                CrExportOptions.FormatOptions = CrFormatTypeOptions;
-            }
-            rpt.Export();
-            //frmW.Dispose();
-            
-            if (!File.Exists(filePath))
-            {
-                return "";
-            }
+            //ExportOptions CrExportOptions;
+            //DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+            //PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+            //CrDiskFileDestinationOptions.DiskFileName = filePath;
+            //CrExportOptions = rpt.ExportOptions;
+            //{
+            //    CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+            //    CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+            //    CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+            //    CrExportOptions.FormatOptions = CrFormatTypeOptions;
+            //}
+            //rpt.Export();
+            ////frmW.Dispose();
 
-            C1PdfDocumentSource pdf = new C1PdfDocumentSource();
-            String filename = "",ext="";
-            
-            filename = Path.GetDirectoryName(filePath)+"\\"+ Path.GetFileNameWithoutExtension(filePath)+".jpg";
-            var exporter = pdf.SupportedExportProviders[4].NewExporter();
-            exporter.ShowOptions = false;
-            exporter.FileName = filename;
+            //if (!File.Exists(filePath))
+            //{
+            //    return "";
+            //}
 
-            pdf.LoadFromFile(filePath);
-            pdf.Export(exporter);
+            //C1PdfDocumentSource pdf = new C1PdfDocumentSource();
+            String filename = "", ext = "";
 
-            if (flagOpenFile.Equals("open"))
-            {
-                // combine the arguments together
-                // it doesn't matter if there is a space after ','
-                string argument = "/select, \"" + filePath + "\"";
+            //filename = Path.GetDirectoryName(filePath)+"\\"+ Path.GetFileNameWithoutExtension(filePath)+".jpg";
+            //var exporter = pdf.SupportedExportProviders[4].NewExporter();
+            //exporter.ShowOptions = false;
+            //exporter.FileName = filename;
 
-                System.Diagnostics.Process.Start("explorer.exe", argument);
-            }
+            //pdf.LoadFromFile(filePath);
+            //pdf.Export(exporter);
+
+            //if (flagOpenFile.Equals("open"))
+            //{
+            //    // combine the arguments together
+            //    // it doesn't matter if there is a space after ','
+            //    string argument = "/select, \"" + filePath + "\"";
+
+            //    System.Diagnostics.Process.Start("explorer.exe", argument);
+            //}
             return filename;
         }
         public String exportResultPharmacy(DataTable dt, String hn, String vn, String flagExpoler)
         {
-            ReportDocument rpt;
-            CrystalReportViewer crv = new CrystalReportViewer();
-            rpt = new ReportDocument();
-            rpt.Load("pharmacy_result.rpt");
-            crv.ReportSource = rpt;
+            //ReportDocument rpt;
+            //CrystalReportViewer crv = new CrystalReportViewer();
+            //rpt = new ReportDocument();
+            //rpt.Load("pharmacy_result.rpt");
+            //crv.ReportSource = rpt;
 
-            crv.Refresh();
-            //rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
-            //rd.Load("StudentReg.rpt");
-            rpt.SetDataSource(dt);
-            rpt.SetParameterValue("line1", iniC.hostname);
-            //crv.ReportSource = rd;
             //crv.Refresh();
+            ////rpt.Load(Application.StartupPath + "\\lab_opu_embryo_dev.rpt");
+            ////rd.Load("StudentReg.rpt");
+            //rpt.SetDataSource(dt);
+            //rpt.SetParameterValue("line1", iniC.hostname);
+            ////crv.ReportSource = rd;
+            ////crv.Refresh();
             String filename = "";
-            filename = iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
-            if (!Directory.Exists(iniC.medicalrecordexportpath))
-            {
-                Directory.CreateDirectory(iniC.medicalrecordexportpath);
-            }
-            if (File.Exists(filename))
-                File.Delete(filename);
+            //filename = iniC.medicalrecordexportpath + "\\result_pharmacy_" + hn + "_" + vn.Replace("/", "_") + ".pdf";
+            //if (!Directory.Exists(iniC.medicalrecordexportpath))
+            //{
+            //    Directory.CreateDirectory(iniC.medicalrecordexportpath);
+            //}
+            //if (File.Exists(filename))
+            //    File.Delete(filename);
 
-            ExportOptions CrExportOptions;
-            DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
-            PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
-            CrDiskFileDestinationOptions.DiskFileName = filename;
-            CrExportOptions = rpt.ExportOptions;
-            {
-                CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
-                CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
-                CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
-                CrExportOptions.FormatOptions = CrFormatTypeOptions;
-            }
-            rpt.Export();
-            //frmW.Dispose();
+            //ExportOptions CrExportOptions;
+            //DiskFileDestinationOptions CrDiskFileDestinationOptions = new DiskFileDestinationOptions();
+            //PdfRtfWordFormatOptions CrFormatTypeOptions = new PdfRtfWordFormatOptions();
+            //CrDiskFileDestinationOptions.DiskFileName = filename;
+            //CrExportOptions = rpt.ExportOptions;
+            //{
+            //    CrExportOptions.ExportDestinationType = ExportDestinationType.DiskFile;
+            //    CrExportOptions.ExportFormatType = ExportFormatType.PortableDocFormat;
+            //    CrExportOptions.DestinationOptions = CrDiskFileDestinationOptions;
+            //    CrExportOptions.FormatOptions = CrFormatTypeOptions;
+            //}
+            //rpt.Export();
+            ////frmW.Dispose();
 
             string filePath = filename;
-            if (!File.Exists(filePath))
-            {
-                return "";
-            }
+            //if (!File.Exists(filePath))
+            //{
+            //    return "";
+            //}
 
-            // combine the arguments together
-            // it doesn't matter if there is a space after ','
-            if (flagExpoler.Equals("open"))
-            {
-                string argument = "/select, \"" + filePath + "\"";
-                System.Diagnostics.Process.Start("explorer.exe", argument);
-            }
+            //// combine the arguments together
+            //// it doesn't matter if there is a space after ','
+            //if (flagExpoler.Equals("open"))
+            //{
+            //    string argument = "/select, \"" + filePath + "\"";
+            //    System.Diagnostics.Process.Start("explorer.exe", argument);
+            //}
             return filePath;
         }
         public string NumberToText(long number)
@@ -2326,6 +2326,41 @@ namespace bangna_hospital.control
             }
 
             return BahtText;
+        }
+        public String selectDoctorName(String doctorId)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", chk = "-";
+            sql = "Select  patient_m02.MNC_PFIX_DSC as prefix,patient_m26.MNC_DOT_FNAME as Fname,patient_m26.MNC_DOT_LNAME as Lname " +
+                "From  patient_m26  " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                "where patient_m26.MNC_DOT_CD = '" + doctorId + "' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                chk = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["Fname"].ToString() + " " + dt.Rows[0]["Lname"].ToString();
+            }
+            return chk;
+        }
+        public String datetoShow2(String date)
+        {
+            String dd = "", mm = "", yyyy = "", re = "";
+            int dd1 = 0, mm1 = 0, yyyy1 = 0;
+            re = date;
+            if (date.Length >= 12)
+            {
+                dd = date.Substring(0, 2);
+                mm = date.Substring(4, 2);
+                yyyy = date.Substring(yyyy.Length - 4);
+                int.TryParse(dd, out dd1);
+                int.TryParse(mm, out mm1);
+                int.TryParse(yyyy, out yyyy1);
+                if (yyyy1 > 2500) yyyy1 = yyyy1 - 543;
+                DateTime date1 = new DateTime(yyyy1, mm1, dd1);
+                re = date1.ToString("dd") + "/" + date1.ToString("MMM") + "/" + date1.ToString("yyyy");
+            }
+
+            return re;
         }
     }
 }

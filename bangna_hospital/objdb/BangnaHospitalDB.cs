@@ -38,6 +38,7 @@ namespace bangna_hospital.objdb
         public LabT02DB labT02DB;
         public FinanceM02DB finM02DB;
         public PatientM32DB pttM32DB;
+        public OPDCheckUPDB opdcDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -73,6 +74,7 @@ namespace bangna_hospital.objdb
             labT02DB = new LabT02DB(conn);
             finM02DB = new FinanceM02DB(conn);
             pttM32DB = new PatientM32DB(conn);
+            opdcDB = new OPDCheckUPDB(conn);
         }
     }
 }
