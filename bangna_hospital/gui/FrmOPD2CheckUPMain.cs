@@ -23,6 +23,13 @@ namespace bangna_hospital.gui
             bc = new BangnaControl();
             btnPrintOPD21TrueStar.Click += BtnPrintOPD21TrueStar_Click;
             btnPrintLicenseDriver.Click += BtnPrintLicenseDriver_Click;
+            btnPrnCovid.Click += BtnPrnCovid_Click;
+        }
+
+        private void BtnPrnCovid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void BtnPrintLicenseDriver_Click(object sender, EventArgs e)

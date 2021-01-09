@@ -251,6 +251,7 @@
     <Compile Include="gui\FrmOPD2CheckUPMain.designer.cs">
       <DependentUpon>FrmOPD2CheckUPMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmOPDCovid.cs" />
     <Compile Include="gui\FrmOPDLicenseDriver.cs">
       <SubType>Form</SubType>
     </Compile>

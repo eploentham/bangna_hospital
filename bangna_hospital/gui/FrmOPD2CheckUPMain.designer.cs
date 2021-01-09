@@ -32,6 +32,7 @@
             this.btnPrintOPD21 = new System.Windows.Forms.Button();
             this.btnPrintOPD21TrueStar = new System.Windows.Forms.Button();
             this.btnPrintLicenseDriver = new System.Windows.Forms.Button();
+            this.btnPrnCovid = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPrintOPD2
@@ -76,11 +77,22 @@
             this.btnPrintLicenseDriver.Text = "Print ใบรับรองแพทย์ ใบขับขี่";
             this.btnPrintLicenseDriver.UseVisualStyleBackColor = true;
             // 
+            // btnPrnCovid
+            // 
+            this.btnPrnCovid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPrnCovid.Location = new System.Drawing.Point(117, 333);
+            this.btnPrnCovid.Name = "btnPrnCovid";
+            this.btnPrnCovid.Size = new System.Drawing.Size(284, 41);
+            this.btnPrnCovid.TabIndex = 134;
+            this.btnPrnCovid.Text = "Print COVID";
+            this.btnPrnCovid.UseVisualStyleBackColor = true;
+            // 
             // FrmOPD2CheckUPMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 465);
+            this.Controls.Add(this.btnPrnCovid);
             this.Controls.Add(this.btnPrintLicenseDriver);
             this.Controls.Add(this.btnPrintOPD21TrueStar);
             this.Controls.Add(this.btnPrintOPD21);
@@ -99,5 +111,6 @@
         private System.Windows.Forms.Button btnPrintOPD21;
         private System.Windows.Forms.Button btnPrintOPD21TrueStar;
         private System.Windows.Forms.Button btnPrintLicenseDriver;
+        private System.Windows.Forms.Button btnPrnCovid;
     }
 }
