@@ -34,7 +34,7 @@ namespace bangna_hospital.control
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
-        public int grdViewFontSize = 0, imggridscanwidth=0, pdfFontSize=0;
+        public int grdViewFontSize = 0, imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0;
 
         public BangnaHospitalDB bcDB;
 
@@ -149,6 +149,10 @@ namespace bangna_hospital.control
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
             iniC.pdfFontSize = iniF.getIni("app", "pdfFontSize");
             iniC.pdfFontName = iniF.getIni("app", "pdfFontName");
+            iniC.pdfFontSizetitleFont = iniF.getIni("app", "pdfFontSizetitleFont");
+            iniC.pdfFontSizetxtFont = iniF.getIni("app", "pdfFontSizetxtFont");
+            iniC.pdfFontSizehdrFont = iniF.getIni("app", "pdfFontSizehdrFont");
+            iniC.pdfFontSizetxtFontB = iniF.getIni("app", "pdfFontSizetxtFontB");
 
             iniC.txtFocus = iniF.getIni("app", "txtFocus");
             iniC.grfRowColor = iniF.getIni("app", "grfRowColor");
@@ -235,6 +239,11 @@ namespace bangna_hospital.control
             iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
             iniC.pdfFontName = iniC.pdfFontName.Equals("") ? iniC.grdViewFontName : iniC.pdfFontName;
             iniC.pdfFontSize = iniC.pdfFontSize.Equals("") ? iniC.grdViewFontSize : iniC.pdfFontSize;
+            iniC.pdfFontSizetitleFont = iniC.pdfFontSizetitleFont.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizetitleFont;
+            iniC.pdfFontSizetxtFont = iniC.pdfFontSizetxtFont.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizetxtFont;
+            iniC.pdfFontSizehdrFont = iniC.pdfFontSizehdrFont.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizehdrFont;
+            iniC.pdfFontSizetxtFontB = iniC.pdfFontSizetxtFontB.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizetxtFontB;
+
             iniC.hostname = iniC.hostname == null ? "โรงพยาบาล" : iniC.hostname.Equals("") ? "โรงพยาบาล" : iniC.hostname;
             iniC.usePassiveFTP = iniC.usePassiveFTP == null ? "false" : iniC.usePassiveFTP.Equals("") ? "false" : iniC.usePassiveFTP;
             iniC.usePassiveFTPLabOut = iniC.usePassiveFTPLabOut == null ? "false" : iniC.usePassiveFTPLabOut.Equals("") ? "false" : iniC.usePassiveFTPLabOut;
@@ -285,6 +294,11 @@ namespace bangna_hospital.control
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
+            int.TryParse(iniC.pdfFontSizehdrFont, out pdfFontSizehdrFont);
+            int.TryParse(iniC.pdfFontSizetitleFont, out pdfFontSizetitleFont);
+            int.TryParse(iniC.pdfFontSizetxtFont, out pdfFontSizetxtFont);
+            int.TryParse(iniC.pdfFontSizetxtFontB, out pdfFontSizetxtFontB);
+
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
             Boolean.TryParse(iniC.usePassiveFTPLabOut, out ftpUsePassiveLabOut);
@@ -2321,17 +2335,15 @@ namespace bangna_hospital.control
                         BahtText += strThaiPos[(strLength - i) - 1];
                     }
                 }
-
                 BahtText += "สตางค์";
             }
-
             return BahtText;
         }
         public String selectDoctorName(String doctorId)
         {
             DataTable dt = new DataTable();
             String sql = "", chk = "-";
-            sql = "Select  patient_m02.MNC_PFIX_DSC as prefix,patient_m26.MNC_DOT_FNAME as Fname,patient_m26.MNC_DOT_LNAME as Lname " +
+            sql = "Select  patient_m02.MNC_PFIX_DSC as prefix,patient_m26.MNC_DOT_FNAME as Fname,patient_m26.MNC_DOT_LNAME as Lname,patient_m26.MNC_DOT_FNAME_e,patient_m26.MNC_DOT_LNAME_e  " +
                 "From  patient_m26  " +
                 " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
                 "where patient_m26.MNC_DOT_CD = '" + doctorId + "' ";
@@ -2339,6 +2351,21 @@ namespace bangna_hospital.control
             if (dt.Rows.Count > 0)
             {
                 chk = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["Fname"].ToString() + " " + dt.Rows[0]["Lname"].ToString();
+            }
+            return chk;
+        }
+        public String selectDoctorNameE(String doctorId)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", chk = "-";
+            sql = "Select  patient_m02.MNC_PFIX_DSC as prefix,patient_m26.MNC_DOT_FNAME as Fname,patient_m26.MNC_DOT_LNAME as Lname,patient_m26.MNC_DOT_FNAME_e,patient_m26.MNC_DOT_LNAME_e  " +
+                "From  patient_m26  " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                "where patient_m26.MNC_DOT_CD = '" + doctorId + "' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                chk = "DR. " + dt.Rows[0]["MNC_DOT_FNAME_e"].ToString() + " " + dt.Rows[0]["MNC_DOT_LNAME_e"].ToString();
             }
             return chk;
         }

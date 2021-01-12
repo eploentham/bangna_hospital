@@ -121,18 +121,18 @@ namespace bangna_hospital
                 }
                 else if (bc.iniC.programLoad.Equals("createPDF"))
                 {
-                    new LogWriter("d", "args " + args.Length);
+                    //new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmDocCreatePDF(bc, "",""));
                 }
                 else if (bc.iniC.programLoad.Equals("OPBKKClaim"))
                 {
-                    new LogWriter("d", "args " + args.Length);
+                    //new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmOPBKKClaim(bc));
                 }
                 else if (bc.iniC.programLoad.Equals("OPDCovid"))
                 {
-                    new LogWriter("d", "args " + args.Length);
-                    Application.Run(new gui.FrmOPBKKClaim(bc));
+                    //new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.FrmOPD2CheckUPMain());
                 }
                 else
                 {

@@ -29,7 +29,8 @@ namespace bangna_hospital.gui
         private void BtnPrnCovid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            FrmOPDCovid frm = new FrmOPDCovid(bc);
+            frm.ShowDialog();
         }
 
         private void BtnPrintLicenseDriver_Click(object sender, EventArgs e)
