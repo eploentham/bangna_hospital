@@ -75,6 +75,33 @@ namespace bangna_hospital.objdb
             pharM01.MNC_PH_NEW_SS = "MNC_PH_NEW_SS";
             pharM01.tmt_code = "tmt_code";
         }
+        public DataTable SelectAll()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select * " +
+                "From pharmacy_m01  " +
+                //"Where MNC_FN_TYP_STS = 'Y' " +
+                "Order By MNC_PH_CD";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public String UpdateTMTCode(String drugcode, String tmtcode)
+        {
+            String sql = "", chk = "";
+            sql = "Update pharmacy_m01 Set tmt_code = '" + tmtcode + "' " +
+                "Where mnc_ph_cd ='" + drugcode + "'";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return chk;
+        }
         public PharmacyM01 setPharmacyM01(DataTable dt)
         {
             PharmacyM01 pharM01 = new PharmacyM01();

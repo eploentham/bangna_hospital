@@ -22,6 +22,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -1486,17 +1487,23 @@ namespace bangna_hospital.gui
                     initTabPrn();
                 }
                 
-                if (!chkIPD.Checked)
+                if (!chkIPD.Checked )
                 {
-                    preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
-                    vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
-                    vsDate = bc.datetoDB(vsDate);
+                    if (grfOPD.Row > 1)
+                    {
+                        preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                        vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                        vsDate = bc.datetoDB(vsDate);
+                    }
                 }
                 else
                 {
-                    preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
-                    vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
-                    vsDate = bc.datetoDB(vsDate);
+                    if (grfOPD.Row > 1)
+                    {
+                        preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+                        vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                        vsDate = bc.datetoDB(vsDate);
+                    }
                 }
                 ChkPrnEmail_CheckedChanged(null, null);
                 flagTabPrn = true;
@@ -3823,6 +3830,7 @@ namespace bangna_hospital.gui
             btnDocOk.Visible = true;
             btnDocExport.Visible = true;
             lbDocAn.Visible = true;
+            btnPrn.Visible = true;
 
             lbtxtPrnEmailTo.Visible = false;
             lbtxtPrnEmailSubject.Visible = false;
@@ -3832,7 +3840,7 @@ namespace bangna_hospital.gui
             txtPrnEmailBody.Visible = false;
             lbtxtPrnEmailBody.Visible = false;
             chkPrnSSOall.Visible = false;
-            btnPrn.Visible = false;
+            //btnPrn.Visible = false;
             btnSearch.Visible = false;
         }
 
@@ -5795,8 +5803,21 @@ namespace bangna_hospital.gui
                     lbcode = lbcode.Substring(0, lbcode.Length - 1);
                 }
             }
+            DateTime dtstart = new DateTime();
+            DateTime dtend = new DateTime();
+            DateTime.TryParse(txtPrnDateStart.Text, out dtstart);
+            DateTime.TryParse(txtPrnDateEnd.Text, out dtend);
+            
+            //txtPrnDateEnd.CultureInfo = new CultureInfo("en-US");
+            //txtPrnDateEnd.Culture = new CultureInfo("en-US");
+            datestart = dtstart.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            dateend = dtend.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            new LogWriter("d", "FrmScanView1 setPrnLabCri  datestart "+ datestart + " txtPrnDateStart " + txtPrnDateStart.Text + " dateend "+ dateend+ " txtPrnDateEnd "+ txtPrnDateEnd.Text);
             datestart = bc.datetoDB(txtPrnDateStart.Text);
             dateend = bc.datetoDB(txtPrnDateEnd.Text);
+            datestart = txtPrnDateStart.Text.Substring(txtPrnDateStart.Text.Length - 4) +"-"+ txtPrnDateStart.Text.Substring(3, 2) + "-" + txtPrnDateStart.Text.Substring(0, 2);
+            dateend = txtPrnDateEnd.Text.Substring(txtPrnDateEnd.Text.Length - 4) + "-" + txtPrnDateEnd.Text.Substring(3, 2) + "-" + txtPrnDateEnd.Text.Substring(0, 2);
+            new LogWriter("d", "FrmScanView1 setPrnLabCri 33  datestart " + datestart + " txtPrnDateStart " + txtPrnDateStart.Text + " dateend " + dateend + " txtPrnDateEnd " + txtPrnDateEnd.Text);
             dt = bc.bcDB.labDB.SelectHnLabOut(datestart, dateend, lbcode);
             
             grfPrn.Cols.Count = 7;

@@ -655,7 +655,8 @@ namespace bangna_hospital.objdb
                 "'' as mnc_an_no, '' as MNC_PAT_FLAG, '' as mnc_an_yr, '' as mnc_ad_date, ''as mnc_an_yr" +
                 ", isnull(t01.mnc_high,'') as mnc_high, isnull(t01.mnc_weight,'') as mnc_weight, isnull(t01.mnc_temp,'') as mnc_temp, isnull(t01.mnc_cc,'') as mnc_cc, isnull(t01.mnc_cc_in,'') as mnc_cc_in" +
                 ", isnull(t01.mnc_cc_ex,'') as mnc_cc_ex, isnull(t01.mnc_abc,'') as mnc_abc, isnull(t01.mnc_hc,'') as mnc_hc, isnull(t01.mnc_bp1_r,'') as mnc_bp1_r, isnull(t01.mnc_bp1_l,'') as mnc_bp1_l " +
-                ", isnull(t01.mnc_bp2_r,'') as mnc_bp2_r, isnull(t01.mnc_bp2_l,'') as mnc_bp2_l, isnull(t01.mnc_breath,'') as mnc_breath, isnull(t01.mnc_cir_head,'') as mnc_cir_head, isnull(t01.mnc_ratios,'') as mnc_ratios, isnull(t01.mnc_bld_l,'') as mnc_bld_l, isnull(t01.mnc_bld_h,'') as mnc_bld_h " +
+                ", isnull(t01.mnc_bp2_r,'') as mnc_bp2_r, isnull(t01.mnc_bp2_l,'') as mnc_bp2_l, isnull(t01.mnc_breath,'') as mnc_breath, isnull(t01.mnc_cir_head,'') as mnc_cir_head, isnull(t01.mnc_ratios,'') as mnc_ratios" +
+                ", isnull(t01.mnc_bld_l,'') as mnc_bld_l, isnull(t01.mnc_bld_h,'') as mnc_bld_h, t01.MNC_ID_nam " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -740,6 +741,11 @@ namespace bangna_hospital.objdb
                 " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.mnc_ref_dsc," +
                 "t01_2.mnc_an_no, t01_2.MNC_PAT_FLAG, t01_2.mnc_an_yr, convert(VARCHAR(20),t01_2.mnc_ad_date,23) as mnc_ad_date, t01_2.mnc_an_yr,convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday, t01.mnc_time,m01.mnc_sex " +
                 ",t01.mnc_pre_no,t01.MNC_HN_YR,m01.MNC_CUR_CHW,m01.MNC_CUR_TUM,m01.MNC_CUR_AMP,m01.mnc_pfix_cdt, m01.mnc_nat_cd, m01.mnc_id_no, t01.mnc_temp " +
+                ", isnull(t01.mnc_high,'') as mnc_high, isnull(t01.mnc_weight,'') as mnc_weight, isnull(t01.mnc_temp,'') as mnc_temp, isnull(t01.mnc_cc,'') as mnc_cc, isnull(t01.mnc_cc_in,'') as mnc_cc_in" +
+                ", isnull(t01.mnc_cc_ex,'') as mnc_cc_ex, isnull(t01.mnc_abc,'') as mnc_abc, isnull(t01.mnc_hc,'') as mnc_hc, isnull(t01.mnc_bp1_r,'') as mnc_bp1_r, isnull(t01.mnc_bp1_l,'') as mnc_bp1_l " +
+                ", isnull(t01.mnc_bp2_r,'') as mnc_bp2_r, isnull(t01.mnc_bp2_l,'') as mnc_bp2_l, isnull(t01.mnc_breath,'') as mnc_breath, isnull(t01.mnc_cir_head,'') as mnc_cir_head, isnull(t01.mnc_ratios,'') as mnc_ratios" +
+                ", isnull(t01.mnc_bld_l,'') as mnc_bld_l, isnull(t01.mnc_bld_h,'') as mnc_bld_h, t01.MNC_ID_nam,t01.mnc_dot_cd, f02.opbkk_inscl, m01.MNC_STATUS,t01_2.MNC_PAT_FLAG " +
+
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO and t01.mnc_hn_yr = m01.mnc_hn_yr " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -755,7 +761,7 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public DataTable selectVisitByHn5(String hn, String visitDate)
+        public DataTable selectVisitByHn5(String hn)
         {
             DataTable dt = new DataTable();
             String sql = "";
@@ -780,7 +786,8 @@ namespace bangna_hospital.objdb
                     "Else MNC_FN_TYP_DSC " +
                     "End as MNC_FN_TYP_DSC, " +
                 " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, t01.mnc_breath, t01.mnc_high,t01.mnc_bp1_l,t01.mnc_temp,t01.mnc_weight,m01.*, m07.mnc_tum_dsc, m08.mnc_amp_dsc, m09.mnc_chw_dsc, t01.mnc_ratios" +
-                ", convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday, m01.MNC_NAT_CD,m04.MNC_NAT_DSC,m04.MNC_NAT_DSC_e, convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.mnc_time " +
+                ", convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday, m01.MNC_NAT_CD,m04.MNC_NAT_DSC,m04.MNC_NAT_DSC_e, convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.mnc_time" +
+                ", t01.MNC_DOT_CD as doctor_id " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -985,6 +992,119 @@ namespace bangna_hospital.objdb
 
             dt = conn.selectData(sql);
 
+            return dt;
+        }
+        public DataTable selectDrugUcepByHn(String hn, String hnyr, String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select phart06.MNC_PH_CD, pharmacy_m01.MNC_PH_TN ,sum(phart06.MNC_PH_QTY) as qty    " +
+                ", convert(VARCHAR(20),phart05.mnc_req_dat,23) as mnc_req_dat,phart06.MNC_PH_DIR_DSC,pm11.MNC_PH_CAU_dsc,PHARMACY_M01.mnc_ph_unt_cd " +
+                ", phart05.mnc_hn_no, t01.MNC_ID_Nam, phart05.mnc_pre_no,pharmacy_m01.tmt_code, phart06.mnc_usr_add, fnm01.mnc_grp_ss1,phart05.MNC_REQ_TIM " +
+                "From PHARMACY_T06 phart06  " +
+                "left join PHARMACY_T05 phart05 on phart05.MNC_CFR_NO = phart06.MNC_CFR_NO and phart05.MNC_CFG_DAT = phart06.MNC_CFR_dat  " +
+                "left join PHARMACY_M01 on phart06.MNC_PH_CD = pharmacy_m01.MNC_PH_CD  " +
+                "Left join PHARMACY_M11 pm11 on PHARMACY_M01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD  " +
+                "inner join patient_t01 t01 on phart05.MNC_hn_no = t01.mnc_hn_no and phart05.mnc_hn_yr = t01.mnc_hn_yr and phart05.mnc_pre_no = t01.mnc_pre_no and phart05.mnc_date = t01.mnc_date " +
+                "Left join finance_m01 fnm01 on PHARMACY_M01.MNC_fn_CD = fnm01.MNC_fn_CD " +
+                "where  " +
+                " phart05.mnc_hn_no = '" + hn + "'  " +
+                ////" and t01.mnc_vn_no = '" + vn + "' " +
+                //"and phart05.MNC_PRE_NO = '" + preno + "' " +
+                //"and phart05.MNC_DATE = '" + vsdate + "' " +
+                " and phart05.MNC_CFR_STS = 'a' " +
+                " and phart05.MNC_DATE = '" + vsdate + "' " +
+                " and phart05.mnc_pre_no = " + preno + " " +
+                //"and phart06.MNC_DOC_CD <> 'RIP' " +
+                "Group By phart05.mnc_hn_no, t01.MNC_ID_Nam, phart05.mnc_pre_no, phart05.mnc_req_dat, phart06.MNC_PH_CD, pharmacy_m01.MNC_PH_TN ,phart06.MNC_PH_DIR_DSC" +
+                ", pm11.MNC_PH_CAU_dsc,PHARMACY_M01.mnc_ph_unt_cd,pharmacy_m01.tmt_code, phart06.mnc_usr_add, fnm01.mnc_grp_ss1,phart05.MNC_REQ_TIM " +
+                "Order By phart05.mnc_hn_no, phart05.mnc_req_dat, phart06.MNC_PH_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectOrderDrugUcepIPDByHn(String hn, String hnyr, String anno, String anyear)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select phart06.MNC_PH_CD, pharmacy_m01.MNC_PH_TN ,sum(phart06.MNC_PH_QTY) as qty    " +
+                ", convert(VARCHAR(20),phart05.mnc_req_dat,23) as mnc_req_dat,phart06.MNC_PH_DIR_DSC,pm11.MNC_PH_CAU_dsc,PHARMACY_M01.mnc_ph_unt_cd " +
+                ", phart05.mnc_hn_no, t01.MNC_ID_Nam, phart05.mnc_pre_no,pharmacy_m01.tmt_code, phart06.mnc_usr_add, fnm01.mnc_grp_ss1,phart05.MNC_REQ_TIM " +
+                "From PHARMACY_T06 phart06  " +
+                "left join PHARMACY_T05 phart05 on phart05.MNC_CFR_NO = phart06.MNC_CFR_NO and phart05.MNC_CFG_DAT = phart06.MNC_CFR_dat  " +
+                "left join PHARMACY_M01 on phart06.MNC_PH_CD = pharmacy_m01.MNC_PH_CD  " +
+                "Left join PHARMACY_M11 pm11 on PHARMACY_M01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD  " +
+                "inner join patient_t01 t01 on phart05.MNC_hn_no = t01.mnc_hn_no and phart05.mnc_hn_yr = t01.mnc_hn_yr and phart05.mnc_pre_no = t01.mnc_pre_no and phart05.mnc_date = t01.mnc_date " +
+                "Left join finance_m01 fnm01 on PHARMACY_M01.MNC_fn_CD = fnm01.MNC_fn_CD " +
+                "where  " +
+                " phart05.mnc_hn_no = '" + hn + "'  " +
+                ////" and t01.mnc_vn_no = '" + vn + "' " +
+                //"and phart05.MNC_PRE_NO = '" + preno + "' " +
+                //"and phart05.MNC_DATE = '" + vsdate + "' " +
+                " and phart05.MNC_CFR_STS = 'a' " +
+                //" and phart05.MNC_DATE = '" + andate + "' " +
+                " and phart05.mnc_an_no = " + anno + " " +
+                " and phart05.mnc_an_yr = " + anyear + " " +
+                "Group By phart05.mnc_hn_no, t01.MNC_ID_Nam, phart05.mnc_pre_no, phart05.mnc_req_dat, phart06.MNC_PH_CD, pharmacy_m01.MNC_PH_TN ,phart06.MNC_PH_DIR_DSC" +
+                ", pm11.MNC_PH_CAU_dsc,PHARMACY_M01.mnc_ph_unt_cd,pharmacy_m01.tmt_code, phart06.mnc_usr_add, fnm01.mnc_grp_ss1,phart05.MNC_REQ_TIM " +
+                "Order By phart05.mnc_hn_no, phart05.mnc_req_dat, phart06.MNC_PH_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectOrderHotChargeUcepIPDByHn(String hn, String hnyr, String andate, String anno, String anyear)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select pm30.MNC_SR_DSC, pt16.mnc_sr_cd, sum(pt16.mnc_sr_qty) as qty     " +
+                ", convert(VARCHAR(20),pt16.mnc_req_dat,23) as mnc_req_dat,pt16.mnc_stamp_tim " +
+                
+                "from FINANCE_T03_1 ft031 " +
+                "inner join patient_t16  pt16 on pt16.MNC_REQ_YR = ft031.MNC_REQ_YR and pt16.MNC_REQ_DAT = ft031.MNC_REQ_DAT and pt16.MNC_REQ_NO = ft031.MNC_REQ_NO  " +
+                "inner join PATIENT_M30 pm30 on pt16.MNC_SR_CD = pm30.MNC_SR_CD  " +
+                
+                "where  " +
+                " ft031.MNC_HN_NO = '" + hn + "'  " +
+                ////" and t01.mnc_vn_no = '" + vn + "' " +
+                //"and phart05.MNC_PRE_NO = '" + preno + "' " +
+                //"and phart05.MNC_DATE = '" + vsdate + "' " +
+                " and pt16.MNC_req_STS = 'a' " +
+                " and ft031.MNC_ad_DAT = '" + andate + "' " +
+                " and ft031.MNC_AN_NO = '" + anno + "' " +
+                " and ft031.MNC_AN_yr ='" +anyear+"' " +
+                "Group By pm30.MNC_SR_DSC, pt16.mnc_sr_cd,pt16.mnc_req_dat,pt16.mnc_stamp_tim " +
+                "Order By pt16.mnc_req_dat,pt16.mnc_stamp_tim, pt16.mnc_sr_cd ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectDrugOPBKKByHn(String hn, String hnyr,String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select phart06.MNC_PH_CD, pharmacy_m01.MNC_PH_TN ,sum(phart06.MNC_PH_QTY) as qty    " +
+                ", convert(VARCHAR(20),phart05.mnc_req_dat,23) as mnc_req_dat,phart06.MNC_PH_DIR_DSC,pm11.MNC_PH_CAU_dsc,PHARMACY_M01.mnc_ph_unt_cd " +
+                ", phart05.mnc_hn_no, t01.MNC_ID_Nam, phart05.mnc_pre_no,pharmacy_m01.tmt_code, phart06.mnc_usr_add " +
+                "From PHARMACY_T06 phart06  " +
+                "left join PHARMACY_T05 phart05 on phart05.MNC_CFR_NO = phart06.MNC_CFR_NO and phart05.MNC_CFG_DAT = phart06.MNC_CFR_dat  " +
+                "left join PHARMACY_M01 on phart06.MNC_PH_CD = pharmacy_m01.MNC_PH_CD  " +
+                "Left join PHARMACY_M11 pm11 on PHARMACY_M01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD  " +
+                "inner join patient_t01 t01 on phart05.MNC_hn_no = t01.mnc_hn_no and phart05.mnc_hn_yr = t01.mnc_hn_yr and phart05.mnc_pre_no = t01.mnc_pre_no and phart05.mnc_date = t01.mnc_date " +
+                //"Left join PHARMACY_M11 pm11 on PHARMACY_M01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
+                "where  " +
+                " phart05.mnc_hn_no = '" + hn + "'  " +
+                ////" and t01.mnc_vn_no = '" + vn + "' " +
+                //"and phart05.MNC_PRE_NO = '" + preno + "' " +
+                //"and phart05.MNC_DATE = '" + vsdate + "' " +
+                " and phart05.MNC_CFR_STS = 'a' " +
+                " and phart05.MNC_DATE = '" + vsdate + "' " +
+                " and phart05.mnc_pre_no = " + preno + " " +
+                //"and phart06.MNC_DOC_CD <> 'RIP' " +
+                "Group By phart05.mnc_hn_no, t01.MNC_ID_Nam, phart05.mnc_pre_no, phart05.mnc_req_dat, phart06.MNC_PH_CD, pharmacy_m01.MNC_PH_TN ,phart06.MNC_PH_DIR_DSC" +
+                ", pm11.MNC_PH_CAU_dsc,PHARMACY_M01.mnc_ph_unt_cd,pharmacy_m01.tmt_code, phart06.mnc_usr_add " +
+                "Order By phart05.mnc_hn_no, phart05.mnc_req_dat, phart06.MNC_PH_CD ";
+
+            dt = conn.selectData(sql);
             return dt;
         }
         public DataTable selectDrugOPBKK(String paidtype, String dateStart, String dateEnd)
@@ -1258,6 +1378,106 @@ namespace bangna_hospital.objdb
                 //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
                 //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
                 "Order By t01.mnc_hn_no,lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectPaidByHnOPBKKCHA(String hn, String hnyear, String date, String preno)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+
+            sql = "SELECT fnt01.mnc_sum_pri, fnt01.MNC_date, fnt01.MNC_doc_no, fnt01.MNC_doc_yr,convert(VARCHAR(20),fnt01.mnc_doc_dat,23) as mnc_doc_dat" +
+                ", t01.mnc_hn_no, t01.MNC_ID_Nam, t01.mnc_pre_no,fnm01.chrgitem, fnt03.mnc_fn_cd " +
+                "FROM     PATIENT_T01 t01 " +
+                "inner join finance_t01 fnt01 ON t01.MNC_PRE_NO = fnt01.MNC_PRE_NO AND t01.MNC_DATE = fnt01.MNC_DATE and t01.mnc_hn_no = fnt01.mnc_hn_no  and t01.mnc_hn_yr = fnt01.mnc_hn_yr " +
+                "inner join finance_t03 fnt03 ON t01.MNC_PRE_NO = fnt03.MNC_PRE_NO AND t01.MNC_DATE = fnt03.MNC_DATE and t01.mnc_hn_no = fnt03.mnc_hn_no  and t01.mnc_hn_yr = fnt03.mnc_hn_yr " +
+                "inner join finance_m01 fnm01 on fnt03.mnc_fn_no = fnm01.mnc_fn_cd " +
+                "inner join finance_m06 fnm06 on fnm01.MNC_FN_GRP = fnm06.mnc_fn_grp_cd " +
+                "where t01.MNC_DATE = '" + date + "' " +
+                " and t01.mnc_hn_no = '" + hn + "' and t01.mnc_hn_yr = '" + hnyear + "' " +
+                " and t01.mnc_pre_no = '" + preno + "' " +
+                //"and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                "Order By t01.mnc_hn_no,fnt01.MNC_doc_DAT,fnt01.MNC_doc_no ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectPaidByHnOPBKK(String hn, String hnyear, String date, String preno)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+
+            sql = "SELECT fnt01.mnc_sum_pri, fnt01.MNC_date, fnt01.MNC_doc_no, fnt01.MNC_doc_yr,convert(VARCHAR(20),fnt01.mnc_doc_dat,23) as mnc_doc_dat" +
+                ", t01.mnc_hn_no, t01.MNC_ID_Nam, t01.mnc_pre_no " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join finance_t01 fnt01 ON t01.MNC_PRE_NO = fnt01.MNC_PRE_NO AND t01.MNC_DATE = fnt01.MNC_DATE and t01.mnc_hn_no = fnt01.mnc_hn_no  and t01.mnc_hn_yr = fnt01.mnc_hn_yr " +
+                "where t01.MNC_DATE = '" + date + "' " +
+                " and t01.mnc_hn_no = '" + hn + "' and t01.mnc_hn_yr = '" + hnyear + "' " +
+                " and t01.mnc_pre_no = '" + preno + "' " +
+                //"and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                "Order By t01.mnc_hn_no,fnt01.MNC_doc_DAT,fnt01.MNC_doc_no ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectResultLabByHnOPBKK(String hn, String hnyear, String date, String preno)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no, lab_t05.MNC_RES_MIN, lab_t05.MNC_RES_MAX,usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check" +
+                ", lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD,usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve" +
+                ", t01.mnc_hn_no, t01.MNC_ID_Nam, t01.mnc_pre_no " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no  and t01.mnc_hn_yr = LAB_T01.mnc_hn_yr " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+                "where t01.MNC_DATE = '" + date + "' " +
+                " and t01.mnc_hn_no = '" + hn + "' and t01.mnc_hn_yr = '" + hnyear+"' " +
+                " and t01.mnc_pre_no = '" + preno + "' " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                "Order By t01.mnc_hn_no,lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectICD10ByHn(String hn, String hnyear, String date, String preno)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+
+            sql = "SELECT t09.MNC_dia_cd, t09.MNC_dot_cd,convert(VARCHAR(20),t09.mnc_act_dat,23) as mnc_act_dat,t09.MNC_dia_flg " +
+                ", t01.mnc_hn_no, t01.MNC_ID_Nam, t01.mnc_pre_no " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join patient_t09 t09 ON t01.MNC_PRE_NO = t09.MNC_PRE_NO AND t01.MNC_DATE = t09.MNC_DATE and t01.mnc_hn_no = t09.mnc_hn_no and t01.mnc_hn_yr = t09.mnc_hn_yr " +
+                "where t01.MNC_DATE = '" + date + "' " +
+                " and t01.mnc_hn_no = '" + hn + "' and t01.mnc_hn_yr = '" + hnyear + "' " +
+                " and t01.mnc_pre_no = '" + preno + "' " +
+                "Order By t01.mnc_hn_no,t09.mnc_act_dat,t09.MNC_dot_cd ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectICD9ByHn(String hn, String hnyear, String date, String preno)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+
+            sql = "SELECT t19.MNC_diaor_cd, t19.MNC_dot_cd,convert(VARCHAR(20),t19.mnc_act_dat,23) as mnc_act_dat,t19.MNC_diaor_flg " +
+                ", t01.mnc_hn_no, t01.MNC_ID_Nam, t01.mnc_pre_no " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join patient_t19 t19 ON t01.MNC_PRE_NO = t19.MNC_PRE_NO AND t01.MNC_DATE = t19.MNC_DATE and t01.mnc_hn_no = t19.mnc_hn_no and t01.mnc_hn_yr = t19.mnc_hn_yr " +
+                "where t01.MNC_DATE = '" + date + "' " +
+                " and t01.mnc_hn_no = '" + hn + "' and t01.mnc_hn_yr = '" + hnyear + "' " +
+                " and t01.mnc_pre_no = '" + preno + "' " +
+                "Order By t01.mnc_hn_no,t19.mnc_act_dat,t19.MNC_dot_cd ";
 
             dt = conn.selectData(sql);
             return dt;

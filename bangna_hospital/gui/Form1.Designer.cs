@@ -109,6 +109,7 @@
             this.c1CommandDock1 = new C1.Win.C1Command.C1CommandDock();
             this.c1List1 = new C1.Win.C1List.C1List();
             this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
+            this.c1DateEdit3 = new C1.Win.C1Input.C1DateEdit();
             this.c1DockingManager1 = new C1.Win.C1Command.C1DockingManager(this.components);
             this.c1PdfDocument1 = new C1.C1Pdf.C1PdfDocument();
             this.c1FlexReport1 = new C1.Win.FlexReport.C1FlexReport();
@@ -116,6 +117,7 @@
             this.c1PdfDocumentSource1 = new C1.Win.C1Document.C1PdfDocumentSource(this.components);
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.autocompleteMenu1 = new AutocompleteMenuNS.AutocompleteMenu();
+            this.c1XLBook1 = new C1.C1Excel.C1XLBook();
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -145,6 +147,7 @@
             this.c1CommandDock1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -963,6 +966,39 @@
             this.c1ThemeController1.SetTheme(this.c1TextBox2, "(default)");
             this.c1TextBox2.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
+            // c1DateEdit3
+            // 
+            this.c1DateEdit3.AllowSpinLoop = false;
+            this.autocompleteMenu1.SetAutocompleteMenu(this.c1DateEdit3, null);
+            this.c1DateEdit3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // 
+            // 
+            this.c1DateEdit3.Calendar.ArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1DateEdit3.Calendar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1DateEdit3.Calendar.DayNamesColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1DateEdit3.Calendar.DayNamesFont = new System.Drawing.Font("Tahoma", 8F);
+            this.c1DateEdit3.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.c1DateEdit3.Calendar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1DateEdit3.Calendar.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(162)))), ((int)(((byte)(162)))), ((int)(((byte)(162)))));
+            this.c1DateEdit3.Calendar.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.c1DateEdit3.Calendar.TitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1DateEdit3.Calendar.TitleFont = new System.Drawing.Font("Tahoma", 8F);
+            this.c1DateEdit3.Calendar.TitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1DateEdit3.Calendar.TodayBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1DateEdit3.Calendar.TrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
+            this.c1DateEdit3.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.c1DateEdit3.Culture = 1033;
+            this.c1DateEdit3.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
+            this.c1DateEdit3.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.c1DateEdit3.Location = new System.Drawing.Point(401, 406);
+            this.c1DateEdit3.Name = "c1DateEdit3";
+            this.c1DateEdit3.Size = new System.Drawing.Size(200, 18);
+            this.c1DateEdit3.TabIndex = 10;
+            this.c1DateEdit3.Tag = null;
+            this.c1ThemeController1.SetTheme(this.c1DateEdit3, "(default)");
+            this.c1DateEdit3.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // c1DockingManager1
             // 
             this.c1DockingManager1.ParentContainer = this;
@@ -1026,6 +1062,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.c1DateEdit3);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.c1TextBox2);
             this.Controls.Add(this.c1List1);
@@ -1068,6 +1105,7 @@
             this.c1CommandDock1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
             this.ResumeLayout(false);
 
@@ -1161,6 +1199,8 @@
         private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer2;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel3;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel4;
+        private C1.Win.C1Input.C1DateEdit c1DateEdit3;
+        private C1.C1Excel.C1XLBook c1XLBook1;
     }
 }
 

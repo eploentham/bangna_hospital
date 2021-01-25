@@ -14,6 +14,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace bangna_hospital.gui
@@ -28,14 +29,14 @@ namespace bangna_hospital.gui
         C1DockingTabPage tabAdd, tabView;
         Label lbtxtHospName, lbtxtHn, lbtxtPttNameT, lbtxtPttNameE, lbtxtVsDate, lbtxtSex, lbtxtAge, lbtxtDOB, lbtxtPID, lbtxtPassport, lbtxtAddr1, lbtxtAddr2, lbtxtDtrId, lbtxtLabCode, lbtxtLabResult;
         C1TextBox txtHospName, txtHn, txtPttNameT, txtPttNameE, txtSex, txtAge, txtDOB, txtPID, txtPassport, txtAddr1, txtAddr2, txtDtrId, txtDtrNameT, txtDtrNameE, txtLabCode, txtLabName, txtLabResult;
-        C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate, txtLabReportDate;
+        C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate;
         C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult;
         Label lbtxtLabName1, lbtxtLabName2, lbtxtLabName3, lbtxtLabUnit, lbtxtLabNormal, lbtxtLabReport, lbtxtLabApprove, lbtxtDate, lbtxtSympbtom, lbtxtCountry;
-        C1TextBox txtLabName1, txtLabName2, txtLabName3, txtLabResult1, txtLabResult2, txtLabResult3, txtLabUnit, txtLabNormal, txtLabReport, txtLabApprove, txtLabApproveDate;
+        C1TextBox txtLabName1, txtLabName2, txtLabName3, txtLabResult1, txtLabResult2, txtLabResult3, txtLabUnit, txtLabNormal, txtLabReport, txtLabApprove, txtLabApproveDate, txtLabReportDate;
         C1TextBox txtVsTime, txtSympbtom, txtCountry, txtThaiOther, txtStop,txtTrue, txtNation, txtLabCodeSe184, txtLabNameSe184, txtLabResultSe184, txtLabUnitSe184, txtlab184IgG;
         RadioButton chkEng, chkThai;
         C1CheckBox chkThai1, chkThai2, chkThai3, chkThai4, chkThai5, chkThaiOther, chkDraw, chkHosp, chkStop, chkTrue, chktxtLabCodeSe184, chkLab184Nas, chkLab184Saliva, chkLab184Nucl, chkLab184Lamp, chkLab184Antigen, chklab184IgG, chklab184IgM;
-        Label lbtxtHospEndDate, lbtxtStopEndDate, lbtxtNation, lbtxtLabCodeSe184, lbtxtLabResultSe184, lbtxtLabReportDate;
+        Label lbtxtHospEndDate, lbtxtStopEndDate, lbtxtNation, lbtxtLabCodeSe184, lbtxtLabResultSe184, lbtxtLabReportDate, lbLoading;
         String vn, preno, vsdate, paidtypecode="";
 
         Patient ptt;
@@ -99,11 +100,14 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                txtDtrNameT.Text = bc.selectDoctorName(txtDtrId.Text.Trim());
-                txtDtrNameE.Text = bc.selectDoctorNameE(txtDtrId.Text.Trim());
+                setTxtDoctor();
             }
         }
-
+        private void setTxtDoctor()
+        {
+            txtDtrNameT.Text = bc.selectDoctorName(txtDtrId.Text.Trim());
+            txtDtrNameE.Text = bc.selectDoctorNameE(txtDtrId.Text.Trim());
+        }
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -148,8 +152,13 @@ namespace bangna_hospital.gui
             String date = "";
             DateTime vsdate = new DateTime();
             DateTime.TryParse(txtVsDate.Text, out vsdate);
+            //MessageBox.Show("2121212 vsdate.Year " + vsdate.Year, "");
+            if (vsdate.Year < 2000)
+            {
+                vsdate = vsdate.AddYears(543);
+            }
             date = vsdate.Year + "-" + vsdate.ToString("MM-dd");
-            System.Data.DataTable dt = bc.bcDB.vsDB.selectVisitByHn5(hn, date);
+            System.Data.DataTable dt = bc.bcDB.vsDB.selectVisitByHn5(hn);
             
             //DataTable dtor = bc.selectOPDViewOR(hn);
             if (dt.Rows.Count <= 0)
@@ -164,9 +173,11 @@ namespace bangna_hospital.gui
 
             txtPttNameT.Value = ptt.Name;
             txtPID.Value = dt.Rows[0]["mnc_id_no"].ToString();
-            txtAddr1.Value = dt.Rows[0]["mnc_full_add"].ToString() != "" ? dt.Rows[0]["mnc_full_add"].ToString() : dt.Rows[0]["mnc_dom_add"].ToString() + " ต." + dt.Rows[0]["mnc_tum_dsc"].ToString() + " อ." + dt.Rows[0]["mnc_amp_dsc"].ToString() + " จ." + dt.Rows[0]["mnc_chw_dsc"].ToString() + " " + dt.Rows[0]["mnc_cur_poc"].ToString();
+            //txtAddr1.Value = dt.Rows[0]["mnc_full_add"].ToString() != "" ? dt.Rows[0]["mnc_full_add"].ToString() : dt.Rows[0]["mnc_dom_add"].ToString() + " ต." + dt.Rows[0]["mnc_tum_dsc"].ToString() + " อ." + dt.Rows[0]["mnc_amp_dsc"].ToString() + " จ." + dt.Rows[0]["mnc_chw_dsc"].ToString() + " " + dt.Rows[0]["mnc_cur_poc"].ToString();
             txtAddr2.Value = "";
             txtAge.Value = ptt.AgeStringShort();
+            txtDtrId.Value = dt.Rows[0]["doctor_id"].ToString();
+            //MessageBox.Show("1111 " , "");
             DateTime dob = new DateTime();
             DateTime.TryParse(dt.Rows[0]["mnc_bday"].ToString(), out dob);
             txtDOB.Value = dob.ToString("dd-MM-yyyy");
@@ -178,16 +189,17 @@ namespace bangna_hospital.gui
                 dtvs = dtvs.AddYears(543);
                 //MessageBox.Show("11111 ", "");
             }
+            //MessageBox.Show("2222 ", "");
             //txtVsDate.Value = dtvs.ToString("dd-MM-yyyy");
             //txtLabReportDate.Value = dtvs.ToString("dd-MM-yyyy");
             txtVsDate.Value = dtvs.ToString("yyyy-MM-dd");
-            txtLabReportDate.Value = dtvs.ToString("yyyy-MM-dd");
+            txtLabReportDate.Value = dtvs.ToString("dd-MM-yyyy", new CultureInfo("en-US"));
             String time = "";
             time = "0000" + dt.Rows[0]["mnc_time"].ToString();
             time = time.Substring(time.Length - 4, 4);
             time = time.Substring(0, 2) + ":" + time.Substring(time.Length - 2, 2);
             txtVsTime.Value = time;
-
+            //MessageBox.Show("2121212 date"+ date, "");
             txtHn.Value = dt.Rows[0]["MNC_HN_NO"].ToString();
             //txtOROther.Text = dt.Rows[0]["MNC_HN_NO"].ToString();
             txtSex.Value = dt.Rows[0]["mnc_sex"].ToString();
@@ -203,9 +215,11 @@ namespace bangna_hospital.gui
             txtLabName.Value = "SARS-CoV-2 (Covid-19) (Real-Time PCR Method)";
             txtLabResult.Value = "Undetectable";
             txtLabUnit.Value = "Undetectable";
-            if (dtcovid.Rows.Count > 0)
+            //MessageBox.Show("3333 ", "");
+            if (dtcovid.Rows.Count > 2)
             {
                 //txtLabName1.Value = dtcovid.Rows[3]["mnc_res"].ToString();     //Detection Method :    mnc_lb_res_cd = 04
+                
                 txtLabName2.Value = dtcovid.Rows[1]["mnc_res"].ToString();     //Gene Detection :      mnc_lb_res_cd = 02
                 txtLabName3.Value = dtcovid.Rows[2]["mnc_res"].ToString();     //Reagent :             mnc_lb_res_cd = 03
                 txtLabCode.Value = dtcovid.Rows[2]["mnc_lb_cd"].ToString();
@@ -229,6 +243,7 @@ namespace bangna_hospital.gui
                 }
                 txtTrue.Value = time;
             }
+            //MessageBox.Show("4444 ", "");
             dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHN(date, date, hn);
             if (dtcovidSE184.Rows.Count > 0)
             {
@@ -246,12 +261,14 @@ namespace bangna_hospital.gui
                     }
                 }
             }
+
             //DateTime dt1 = new DateTime();
             //int year = 0;
             //dt1 = DateTime.Parse(dt.Rows[0]["mnc_bday"].ToString());
             //year = dt1.Year;
             //txtAge.Text = String.Concat(System.DateTime.Now.Year - year);
             //}
+            setTxtDoctor();
         }
         private void clearControl()
         {
@@ -273,8 +290,8 @@ namespace bangna_hospital.gui
         }
         private void printCOVIDlabresultEng()
         {
-            String pathFolder = "", filename = "", datetick = "", vsdate="", reqno="", reportdate="", paidname="";
-            int gapLine = 20, gapLine1 = 15, gapX = 40, gapY = 20, xCol1 = 100, xCol15 = 150, xCol2 = 200, xCol25 = 250, xCol3 = 300, xCol4 = 400, xCol41 = 450, xCol5 = 500;
+            String pathFolder = "", filename = "", datetick = "", vsdate="", reqno="", reportdate="", paidname="", chkyear="";
+            int gapLine = 20, gapLine1 = 15, gapX = 40, gapY = 20, xCol1 = 100,xCol13=130, xCol15 = 150, xCol2 = 200, xCol25 = 250, xCol3 = 300, xCol4 = 400, xCol41 = 450, xCol47 = 470, xCol5 = 500;
             Size size = new Size();
             DataTable dtcovid = new DataTable();
             DataTable dtcovidSE184 = new DataTable();
@@ -307,19 +324,55 @@ namespace bangna_hospital.gui
             rcPage.Width = 110;
 
             DateTime.TryParse(txtVsDate.Text, out vsdate1);
-            if (vsdate1.Year > 2500)
+            //if (vsdate1.Year > 2500)
+            //{
+            vsdate = vsdate1.Year + "-" + vsdate1.ToString("MM-dd");
+            //MessageBox.Show("111  vsdate " + vsdate + " preno " + preno, "");
+            if (vsdate.Length > 4)
             {
-                vsdate = vsdate1.Year + "-" + vsdate1.ToString("MM-dd");
+                chkyear = vsdate.Substring(0, 4);
+                if (int.Parse(chkyear) > 2500)
+                {
+                    vsdate1 = vsdate1.AddYears(-543);
+                    vsdate = vsdate1.Year + "-" + vsdate1.ToString("MM-dd");
+                }
+                else
+                {
+
+                }
             }
-            else
-            {
-                vsdate = vsdate1.ToString("yyyy-MM-dd");
-            }
+            //}
+            //else
+            //{
+            //    vsdate = vsdate1.ToString("yyyy-MM-dd");
+            //}
+            //MessageBox.Show("222  vsdate " + vsdate + " preno " + preno, "");
+            //if (bc.iniC.windows.Equals("windowsxp"))
+            //{
+            //    vsdate1 = vsdate1.AddYears(-543);
+            //    vsdate = vsdate1.Year + "-" + vsdate1.ToString("MM-dd");
+            //}
+            //MessageBox.Show("222  vsdate " + vsdate + " preno " + preno, "");
             dtcovid = bc.bcDB.vsDB.selectLabCOVIDbyHNpreno(txtHn.Text.Trim(), vsdate, preno);
+            if (dtcovid.Rows.Count <= 2)
+            {
+                MessageBox.Show("ผลยังไม่ออก ", "");
+                return;
+            }
             if (dtcovid.Rows.Count > 0)
             {
                 reqno = dtcovid.Rows[0]["MNC_REQ_NO"].ToString();
                 reportdate= dtcovid.Rows[0]["MNC_RESULT_DAT"].ToString();
+            }
+            else
+            {
+                if (dtcovid.Rows.Count < 3)
+                {
+                    MessageBox.Show("No Result  vsdate " + vsdate + " preno " + preno, "");
+                    setLbLoading("No Result");
+                    Thread.Sleep(2000);
+                    return;
+                }
             }
             reqno += vsdate1.ToString("dd-MM-yy");
             paidname = paidtypecode.Equals("02") ? "Cash" : paidtypecode;
@@ -335,14 +388,28 @@ namespace bangna_hospital.gui
             pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
 
             txt = "Patient Name : "+txtPttNameT.Text.Trim();
-            rcPage.X = xCol3;
+            rcPage.X = xCol25;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            //MessageBox.Show("333  vsdate " + vsdate + " preno " + preno, "");
 
-            txt = "Age : " + ptt.AgeStringShortEng();
-            rcPage.X = xCol5;
+            String[] age = txtAge.Text.Split('.');
+            String age1 = "";
+            if (age.Length > 2)
+            {
+                age1 = age[0] + "Years" + age[1] + "Months" + age[2] + "Days";
+            }
+            else if (age.Length > 1)
+            {
+                age1 = age[0] + "Years" + age[1] + "Months";
+            }
+            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            //MessageBox.Show("ptt  AgeStringShort " + ptt.AgeStringShort(), "");
+            txt = "Age : " + age1;
+            //txt = "Age : " + age1;
+            rcPage.X = xCol47;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
@@ -350,14 +417,14 @@ namespace bangna_hospital.gui
 
             gapY += gapLine;
             txt = "HN : " + txtHn.Text;
-            rcPage.X = xCol3;
+            rcPage.X = xCol25;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
             txt = "VN : " + vn;
-            rcPage.X = xCol5;
+            rcPage.X = xCol47;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
@@ -365,21 +432,21 @@ namespace bangna_hospital.gui
             
             gapY += gapLine;
             txt = "Req NO : " + reqno;
-            rcPage.X = xCol3;
+            rcPage.X = xCol25;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-
+            //MessageBox.Show("444  vsdate " + vsdate + " preno " + preno, "");
             txt = "Date : " + vsdate1.ToString("dd-MM")+"-"+ vsdate1.Year;
-            rcPage.X = xCol5;
+            rcPage.X = xCol47;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
             gapY += gapLine;
-            txt = "Department : " + vn;
+            txt = "Department : OPD-COVID";
             rcPage.X = gapX;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
@@ -387,14 +454,14 @@ namespace bangna_hospital.gui
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
             txt = "Doctor : " + txtDtrNameE.Text.Trim() +" "+txtDtrId.Text;
-            rcPage.X = xCol3;
+            rcPage.X = xCol25;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
             
-            txt = "Date Result : " + reportdate;
-            rcPage.X = xCol5;
+            txt = "Date Result : " + bc.datetoShow(reportdate);
+            rcPage.X = xCol47;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
@@ -407,15 +474,15 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-
+            //MessageBox.Show("555  vsdate " + vsdate + " preno " + preno, "");
             txt = "Company : ";
-            rcPage.X = xCol3;
+            rcPage.X = xCol25;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
-            txt = "page : " + vn;
+            txt = "page : 1/1";
             rcPage.X = xCol5;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
@@ -431,22 +498,25 @@ namespace bangna_hospital.gui
             pdf.DrawString(txt, hdrFontB, Brushes.Black, rcPage);
 
             gapY += gapLine;
-            pdf.DrawLine(Pens.Black, gapX,100,xCol5+ 90, 100);
-            pdf.DrawLine(Pens.Black, gapX, 100 + 20, xCol5 + 90, 100 + 20);
-            pdf.DrawLine(Pens.Black, gapX, 200+140, xCol5 + 90, 200 + 140);
-            pdf.DrawLine(Pens.Black, gapX, 200 + 140 + 20, xCol5 + 90, 200 + 140 + 20);
+            pdf.DrawLine(Pens.Black, gapX,100,xCol5 + 80, 100);
+            pdf.DrawLine(Pens.Black, gapX, 100 + 20, xCol5 + 80, 100 + 20);
+            float tempy3=0, tempy4=0;
+            tempy3 = 200 + 140;
+            tempy4 = 200 + 140 + 20;
+            pdf.DrawLine(Pens.Black, gapX, tempy3, xCol5 + 80, tempy3);
+            pdf.DrawLine(Pens.Black, gapX, tempy4, xCol5 + 80, tempy4);
 
             gapY += gapLine;
             txt = "DESCRIPTION ";
             rcPage.X = xCol1;
-            rcPage.Y = gapY-10;
+            rcPage.Y = gapY-13;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
             txt = "RESULT ";
             rcPage.X = xCol3;
-            rcPage.Y = gapY-10;
+            rcPage.Y = gapY-13;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
@@ -458,10 +528,10 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-
+            //MessageBox.Show("666  vsdate " + vsdate + " preno " + preno, "");
             gapY += gapLine;
             txt = dtcovid.Rows[0]["MNC_RES"].ToString();
-            rcPage.X = xCol15;
+            rcPage.X = xCol13;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
@@ -474,7 +544,7 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-            txt = "..................................................................................";
+            txt = "...................................................................";
             rcPage.X = xCol3 - 10;
             rcPage.Y = gapY + 2;
             size = bc.MeasureString(txt, txtFont);
@@ -487,10 +557,10 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-
+            //MessageBox.Show("777  vsdate " + vsdate + " preno " + preno, "");
             gapY += gapLine;
             txt = dtcovid.Rows[1]["MNC_RES"].ToString();
-            rcPage.X = xCol15;
+            rcPage.X = xCol13;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
@@ -502,7 +572,7 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-            txt = "..................................................................................";
+            txt = "...................................................................";
             rcPage.X = xCol3-10;
             rcPage.Y = gapY + 2;
             size = bc.MeasureString(txt, txtFont);
@@ -515,15 +585,15 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-
+            //MessageBox.Show("888  vsdate " + vsdate + " preno " + preno, "");
             gapY += gapLine;
             txt = dtcovid.Rows[2]["MNC_RES"].ToString();
-            rcPage.X = xCol15;
+            rcPage.X = xCol13;
             rcPage.Y = gapY;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-            txt = "..................................................................................";
+            txt = "...................................................................";
             rcPage.X = xCol3 - 10;
             rcPage.Y = gapY + 2;
             size = bc.MeasureString(txt, txtFont);
@@ -544,26 +614,26 @@ namespace bangna_hospital.gui
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
-
+            //MessageBox.Show("999  vsdate " + vsdate + " preno " + preno, "");
             gapY = 400;
             gapY += gapLine;
-            txt = "Key by : ";
+            txt = "Key by : "+dtcovid.Rows[2]["user_lab"].ToString();
             rcPage.X = gapX;
-            rcPage.Y = gapY;
+            rcPage.Y = tempy3;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
-            txt = "Report by : ";
+            txt = "Report by : " + dtcovid.Rows[2]["user_report"].ToString();
             rcPage.X = xCol25;
-            rcPage.Y = gapY;
+            rcPage.Y = tempy3;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
-            txt = "Approve by : ";
-            rcPage.X = xCol41;
-            rcPage.Y = gapY;
+            txt = "Approve by : " + dtcovid.Rows[2]["user_check"].ToString();
+            rcPage.X = xCol4;
+            rcPage.Y = tempy3;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
@@ -571,7 +641,7 @@ namespace bangna_hospital.gui
             gapY += gapLine;
             txt = "FM-LAB-096 00-17/07/55) ";
             rcPage.X = gapX;
-            rcPage.Y = gapY;
+            rcPage.Y = tempy4;
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
@@ -688,6 +758,15 @@ namespace bangna_hospital.gui
 
             gapY += gapLine + 5;
             gapY += gapLine1;
+
+            txt = "HN : " + txtHn.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            //rcPage.X = gapX+10;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
             rcPage.X = xCol41-20;
             rcPage.Y = gapY;
             DateTime dttime = new DateTime();
@@ -697,6 +776,8 @@ namespace bangna_hospital.gui
             //    dttime.AddYears(543);
             //    //MessageBox.Show("11111 ", "");
             //}
+            
+
             txt = "Date of issue : " + dttime.ToString("MMM-dd-yyyy", new CultureInfo("en-US"));
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
@@ -897,7 +978,7 @@ namespace bangna_hospital.gui
             rcPage.X = xCol3 + 12;
             rcPage.Y = gapY+20;
             rcPage.Width = size.Width;
-            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
             txt = "(1) Sampling Date and Time";
             size = bc.MeasureString(txt, txtFont);
@@ -928,10 +1009,10 @@ namespace bangna_hospital.gui
 
             gapY += gapLine1;
             DateTime.TryParse(txtLabReportDate.Text, out dttime);
-            //if (bc.iniC.windows.Equals("windowsxp"))
-            //{
-            //    dttime.AddYears(543);
-            //}
+            if (bc.iniC.windows.Equals("windowsxp"))
+            {
+                dttime = dttime.AddYears(543);
+            }
             txt = "Result Date : "+ dttime.ToString("MMM-dd-yyyy", new CultureInfo("en-US"));
             size = bc.MeasureString(txt, txtFont);
             rcPage.X = xCol4 + 12;
@@ -1021,7 +1102,7 @@ namespace bangna_hospital.gui
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
-            
+
 
             txt = "COVID-19 IgM";
             size = bc.MeasureString(txt, txtFont);
@@ -2202,6 +2283,22 @@ namespace bangna_hospital.gui
                 p.Start();
             }
         }
+        private void setLbLoading(String txt)
+        {
+            lbLoading.Text = txt;
+            Application.DoEvents();
+        }
+        private void showLbLoading()
+        {
+            lbLoading.Show();
+            lbLoading.BringToFront();
+            Application.DoEvents();
+        }
+        private void hideLbLoading()
+        {
+            lbLoading.Hide();
+            Application.DoEvents();
+        }
         private void initCompoment()
         {
             int gapLine = 30, gapX = 20, gapY = 20, col1 = 165, col2 = 330, col3 = 630, col4=750, col5=850, col6=1050;
@@ -2433,8 +2530,10 @@ namespace bangna_hospital.gui
             bc.setControlLabel(ref lbtxtLabReport, fEdit, "Report by :", "lbtxtLabReport", gapX, gapY);
             txtLabReport = new C1TextBox();
             bc.setControlC1TextBox(ref txtLabReport, fEdit, "txtLabReport", 300, col1, gapY);
-            txtLabReportDate = new C1DateEdit();
-            bc.setControlC1DateTimeEdit(ref txtLabReportDate, "txtLabReportDate", txtLabReport.Location.X+ txtLabReport.Width+5, gapY);
+            //txtLabReportDate = new C1DateEdit();
+            //bc.setControlC1DateTimeEdit(ref txtLabReportDate, "txtLabReportDate", txtLabReport.Location.X+ txtLabReport.Width+5, gapY);
+            txtLabReportDate = new C1TextBox();
+            bc.setControlC1TextBox(ref txtLabReportDate, fEdit, "txtLabReportDate", 120, txtLabReport.Location.X + txtLabReport.Width + 5, gapY);
 
             gapY += gapLine;
             lbtxtLabApprove = new Label();
@@ -2627,12 +2726,25 @@ namespace bangna_hospital.gui
             tabAdd.Controls.Add(chkLab184Lamp);
             tabAdd.Controls.Add(chkLab184Antigen);
             this.Controls.Add(tcMain);
+
+            lbLoading = new Label();
+            lbLoading.Font = fEdit5B;
+            lbLoading.BackColor = Color.WhiteSmoke;
+            lbLoading.ForeColor = Color.Black;
+            lbLoading.AutoSize = false;
+            lbLoading.Size = new Size(300, 60);
+            this.Controls.Add(lbLoading);
         }
         private void FrmOPDCovid_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             this.WindowState = FormWindowState.Maximized;
-            this.Text = bc.iniC.pdfFontName +" Last Update 2021-01-12-6";
+            this.Text = bc.iniC.pdfFontName +" Last Update 2021-01-13";
+
+            Rectangle screenRect = Screen.GetBounds(Bounds);
+            lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
+            lbLoading.Text = "กรุณารอซักครู่ ...";
+            lbLoading.Hide();
         }
     }
 }

@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_opdcovid</AssemblyName>
+    <AssemblyName>bangna_hospital_opbkk</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -53,11 +53,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\signal-receiver.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="C1.C1Excel.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.C1Pdf.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
     <Reference Include="C1.C1Zip.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
     <Reference Include="C1.Win.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
@@ -425,6 +426,7 @@
     <Compile Include="objdb\DocScanDB.cs" />
     <Compile Include="objdb\DrugDB.cs" />
     <Compile Include="objdb\DrugSetDB.cs" />
+    <Compile Include="objdb\FinanceM01DB.cs" />
     <Compile Include="objdb\FinanceM02DB.cs" />
     <Compile Include="objdb\LabDB.cs" />
     <Compile Include="objdb\LabExDB.cs" />
@@ -461,6 +463,7 @@
     <Compile Include="objdb\XrayT01DB.cs" />
     <Compile Include="objdb\XrayT02DB.cs" />
     <Compile Include="object1\CellNoteManager1.cs" />
+    <Compile Include="object1\FinanceM01.cs" />
     <Compile Include="object1\FinanceM02.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
     <Compile Include="object1\LabM01.cs" />

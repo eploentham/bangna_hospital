@@ -30,5 +30,7 @@ namespace bangna_hospital.object1
         public String statusShowLabOutFrmLabOutReceiveView = "", pathLabOutReceiveMedica="", pathLabOutBackupMedica="", statusLabOutReceiveOnline="", laboutMedicahosp_code="", statusLabOutAutoPrint="", printerLabOut="";
         public String statusLabOutReceiveTabShow = "", branchId="", pathline_bot_labout_urgent_bangna="", grfImgWidth = "", scVssizeradio="", laboutdateMedica="", medicalrecordexportpath="", themegrfOpd="", themegrfIpd = "", statusoutlabMedica="";
         public String imageCC_width = "", imageME_width = "", imageDiag_width = "", imageCC_Height = "", imageME_Height = "", imageDiag_Height = "";
+
+        public String OPD_BTEMP = "", OPD_SBP = "", OPD_DBP = "", OPD_PR = "", OPD_RR = "";
     }
 }

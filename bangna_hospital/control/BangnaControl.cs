@@ -45,6 +45,7 @@ namespace bangna_hospital.control
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
         public Dictionary<String, String> opBKKINSCL = new Dictionary<String, String>() { { "UCS", "สิทธิหลักประกันสุขภาพ" },{ "WEL", "สิทธิหลักประกันสุขภาพ (ยกเว้นการร่วมจ่าย)" }, { "OFC", "สิทธิข้าราชการ" }, { "SSS", "สิทธิประกันสังคม" }, { "LGO", "สิทธิ อปท" }, { "SSI", "สิทธิประกันสังคมทุพพลภาพ" } };
         public Dictionary<String, String> opBKKClinic = new Dictionary<String, String>();
+        public Dictionary<String, String> opBKKCHRGITEM_CODEA = new Dictionary<String, String>();
         public BangnaControl()
         {
             initConfig();
@@ -81,6 +82,7 @@ namespace bangna_hospital.control
                 conn = new ConnectDB(iniC);
                 bcDB = new BangnaHospitalDB(conn);
                 initOPBKKClinic();
+                initOPBKKCHRGITEM();
             }
             catch(Exception ex)
             {
@@ -226,6 +228,18 @@ namespace bangna_hospital.control
             iniC.email_auth_pass = iniF.getIni("email", "email_auth_pass");
             iniC.email_port = iniF.getIni("email", "email_port");
             iniC.email_ssl = iniF.getIni("email", "email_ssl");
+
+            iniC.OPD_BTEMP = iniF.getIni("OPBKKClaim", "OPD_BTEMP");
+            iniC.OPD_SBP = iniF.getIni("OPBKKClaim", "OPD_SBP");//      ความดันโลหิตค่าตัวบน
+            iniC.OPD_DBP = iniF.getIni("OPBKKClaim", "OPD_DBP");//      ความดันโลหิตค่าตัวล่าง
+            iniC.OPD_PR = iniF.getIni("OPBKKClaim", "OPD_PR");//      อัตราการเต้นหัวใจ
+            iniC.OPD_RR = iniF.getIni("OPBKKClaim", "OPD_RR");//      อัตราการหายใจ
+
+            iniC.OPD_BTEMP = iniC.OPD_BTEMP == null ? "mnc_temp" : iniC.OPD_BTEMP.Equals("") ? "mnc_temp" : iniC.OPD_BTEMP;
+            iniC.OPD_SBP = iniC.OPD_SBP == null ? "mnc_temp" : iniC.OPD_SBP.Equals("") ? "mnc_temp" : iniC.OPD_SBP;
+            iniC.OPD_DBP = iniC.OPD_DBP == null ? "mnc_temp" : iniC.OPD_DBP.Equals("") ? "mnc_temp" : iniC.OPD_DBP;
+            iniC.OPD_PR = iniC.OPD_PR == null ? "mnc_temp" : iniC.OPD_PR.Equals("") ? "mnc_temp" : iniC.OPD_PR;
+            iniC.OPD_RR = iniC.OPD_RR == null ? "mnc_temp" : iniC.OPD_RR.Equals("") ? "mnc_temp" : iniC.OPD_RR;
 
             iniC.themeApplication = iniC.themeApplication == null ? "Office2007Blue" : iniC.themeApplication.Equals("") ? "Office2007Blue" : iniC.themeApplication;
             iniC.timerImgScanNew = iniC.timerImgScanNew == null ? "2" : iniC.timerImgScanNew.Equals("") ? "0" : iniC.timerImgScanNew;
@@ -600,6 +614,37 @@ namespace bangna_hospital.control
             opBKKClinic.Add("99", "อื่นๆ");
             //opBKKClinic.Add("00", "111111");
         }
+        private void initOPBKKCHRGITEM()
+        {
+            opBKKCHRGITEM_CODEA.Add("21", "ค่าอวัยวะเทียมและเครื่องช่วยผู้พิการ");
+            opBKKCHRGITEM_CODEA.Add("31", "ค่ายาและสารอาหารทางเส้นเลือด");
+            opBKKCHRGITEM_CODEA.Add("51", "เวชภัณฑ์ที่ไม่ใช่ยา");
+            opBKKCHRGITEM_CODEA.Add("61", "บริการโลหิตและส่วนประกอบของโลหิต");
+            opBKKCHRGITEM_CODEA.Add("71", "ตรวจวินิจฉัยทางเทคนิคการแพทย์และพยาธิวิทยา");
+            opBKKCHRGITEM_CODEA.Add("81", "ตรวจวินิจฉัยและรักษาทางรังสีวิทยา");
+            opBKKCHRGITEM_CODEA.Add("91", "ตรวจวินิจฉัยโดยวิธีพิเศษอื่น ๆ");
+            opBKKCHRGITEM_CODEA.Add("A1", "อุปกรณ์ของใช้และเครื่องมือทางการแพทย");
+            opBKKCHRGITEM_CODEA.Add("B1", "ทำหัตถการ และบริการวิสัญญ");
+            opBKKCHRGITEM_CODEA.Add("C1", "ค่าบริการทางการพยาบาล");
+            opBKKCHRGITEM_CODEA.Add("D1", "บริการทางทันตกรรม");
+            opBKKCHRGITEM_CODEA.Add("E1", "บริการทางกายภาพบำบัด และเวชกรรมฟื้นฟู");
+            opBKKCHRGITEM_CODEA.Add("J1", "ค่าบริการอื่นๆที่ไม่เกี่ยวกับการรักษาพยาบาลโดยตรง");
+            opBKKCHRGITEM_CODEA.Add("H1", "ค่าธรรมเนียมบุคลากรทางการแพทย");
+            //opBKKClinic.Add("14", "แพทย์แผนไทย");
+            //opBKKClinic.Add("15", "PCU ใน รพ.");
+            //opBKKClinic.Add("16", "เวชกรรมปฎิบัติทั่วไป");
+            //opBKKClinic.Add("17", "เวชศาสสตร์ครอบครัวและชุมชน");
+            //opBKKClinic.Add("18", "อาชีวคลินิก");
+            //opBKKClinic.Add("19", "วิสัญญีวิทยา(คลินิกระงับปวด)");
+            //opBKKClinic.Add("20", "ศัลยกรรมประสาท");
+            //opBKKClinic.Add("21", "อาชีวเวชรกรรม");
+            //opBKKClinic.Add("22", "เวชกรรมสังคม");
+            //opBKKClinic.Add("23", "พยาธิวิทยากายวิภาค");
+            //opBKKClinic.Add("24", "พยาธิวิทยาคลินิค");
+            //opBKKClinic.Add("25", "แพทย์ทางเลือก");
+            //opBKKClinic.Add("99", "อื่นๆ");
+            //opBKKClinic.Add("00", "111111");
+        }
         public void setCboOPBKKINSCL(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -633,6 +678,18 @@ namespace bangna_hospital.control
             item.Value = "SSI";
             item.Text = "สิทธิประกันสังคมทุพพลภาพ";
             c.Items.Add(item);
+        }
+        public void setCboOPBKKCHRGITEM_CODEA(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+
+            foreach (KeyValuePair<string, string> entry in opBKKCHRGITEM_CODEA)
+            {
+                item = new ComboBoxItem();
+                item.Value = entry.Key;
+                item.Text = entry.Value;
+                c.Items.Add(item);
+            }
         }
         public void setCboOPBKKClinic(C1ComboBox c, String selected)
         {
@@ -1809,7 +1866,8 @@ namespace bangna_hospital.control
             txt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             txt.GMTOffset = System.TimeSpan.Parse("00:00:00");
             txt.ImagePadding = new System.Windows.Forms.Padding(0);
-            
+            //txt.Culture = 1033;     // English US
+
             txt.Location = new System.Drawing.Point(x, y);
             txt.Name = name;
             txt.Size = new System.Drawing.Size(111, 20);
