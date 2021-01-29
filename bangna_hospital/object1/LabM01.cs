@@ -27,7 +27,7 @@ namespace bangna_hospital.object1
         public String MNC_LB_PRI { get; set; }
         public String mnc_res_flg { get; set; }
         public String MNC_HL7_CODE { get; set; }
-
+        public String ucep_code { get; set; }
 
 
 

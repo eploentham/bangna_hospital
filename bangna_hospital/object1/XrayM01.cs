@@ -28,6 +28,7 @@ namespace bangna_hospital.object1
         public String MNC_XR_AUTO { get; set; }
         public String pacs_infinitt_code { get; set; }
         public String modality_code { get; set; }
+        public String ucep_code { get; set; }
 
     }
 }

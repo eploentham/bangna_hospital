@@ -37,6 +37,7 @@ namespace bangna_hospital.objdb
             pttM32.MNC_USR_UPD = "MNC_USR_UPD";
             pttM32.MNC_SUB_DP_NO = "MNC_SUB_DP_NO";
             pttM32.opbkk_clinic = "opbkk_clinic";
+
         }
         public DataTable SelectAll()
         {
@@ -61,7 +62,7 @@ namespace bangna_hospital.objdb
             }
             catch (Exception ex)
             {
-                new LogWriter("e", " FinanceM02DB updateOPBKKCode error " + ex.InnerException);
+                new LogWriter("e", " PatientM30DB updateOPBKKCode error " + ex.InnerException);
             }
             return chk;
         }

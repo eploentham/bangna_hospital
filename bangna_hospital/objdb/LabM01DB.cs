@@ -39,9 +39,35 @@ namespace bangna_hospital.objdb
             labM01.MNC_LB_PRI = "MNC_DOC_CD";
             labM01.mnc_res_flg = "MNC_DOC_CD";
             labM01.MNC_HL7_CODE = "MNC_DOC_CD";
-
+            labM01.ucep_code = "ucep_code";
         }
+        public DataTable SelectAll()
+        {
+            DataTable dt = new DataTable();
 
+            String sql = "select * " +
+                "From lab_m01  ";
+            dt = conn.selectData(sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public String updateOPBKKCode(String labcode, String opbkkcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update lab_m01 Set " +
+                    "ucep_code = '" + opbkkcode + "' " +
+                    "Where mnc_lb_cd = '" + labcode + "'";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " LabM01DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
         public LabM01 setLabM01(DataTable dt)
         {
             LabM01 labM01 = new LabM01();
@@ -66,7 +92,7 @@ namespace bangna_hospital.objdb
                 labM01.MNC_LB_PRI = dt.Rows[0]["MNC_LB_PRI"].ToString();
                 labM01.mnc_res_flg = dt.Rows[0]["mnc_res_flg"].ToString();
                 labM01.MNC_HL7_CODE = dt.Rows[0]["mnc_res_flg"].ToString();
-
+                labM01.ucep_code = dt.Rows[0]["ucep_code"].ToString();
 
             }
             else
@@ -97,6 +123,7 @@ namespace bangna_hospital.objdb
             p.MNC_LB_PRI = "";
             p.mnc_res_flg = "";
             p.MNC_HL7_CODE = "";
+            p.ucep_code = "";
             return p;
         }
 

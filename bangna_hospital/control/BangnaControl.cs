@@ -838,6 +838,15 @@ namespace bangna_hospital.control
             //item.Text = "อื่นๆ";
             //c.Items.Add(item);
         }
+        public String convertExcelColName(String col)
+        {
+            int ret = 0;
+
+            ret = Convert.ToChar(col);
+            ret = ((int)ret) - 64;
+
+            return ret.ToString();
+        }
         public String getMonth(String monthId)
         {
             if (monthId == "01")

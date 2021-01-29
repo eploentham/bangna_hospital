@@ -42,6 +42,34 @@ namespace bangna_hospital.objdb
             XrayM01.MNC_XR_AUTO = "MNC_XR_AUTO";
             XrayM01.pacs_infinitt_code = "pacs_infinitt_code";
             XrayM01.modality_code = "modality_code";
+            XrayM01.ucep_code = "ucep_code";
+        }
+        public DataTable SelectAll()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select * " +
+                "From xray_m01  ";
+            dt = conn.selectData(sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public String updateOPBKKCode(String xraycode, String opbkkcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update xray_m01 Set " +
+                    "ucep_code ='" + opbkkcode + "' " +
+                    "Where mnc_xr_cd ='" + xraycode + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " XrayM01DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
         }
         public XrayM01 setXrayM01(DataTable dt)
         {
@@ -69,6 +97,7 @@ namespace bangna_hospital.objdb
                 xrayM01.MNC_XR_AUTO = dt.Rows[0]["MNC_XR_AUTO"].ToString();
                 xrayM01.pacs_infinitt_code = dt.Rows[0]["pacs_infinitt_code"].ToString();
                 xrayM01.modality_code = dt.Rows[0]["modality_code"].ToString();
+                xrayM01.ucep_code = dt.Rows[0]["ucep_code"].ToString();
             }
             else
             {
@@ -98,6 +127,7 @@ namespace bangna_hospital.objdb
             p.MNC_XR_AUTO = "";
             p.pacs_infinitt_code = "";
             p.modality_code = "";
+            p.ucep_code = "";
             return p;
         }
     }

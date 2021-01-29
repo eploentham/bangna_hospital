@@ -439,6 +439,7 @@
     <Compile Include="objdb\OperativeNoteDB.cs" />
     <Compile Include="objdb\OrDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
+    <Compile Include="objdb\PatientM30DB.cs" />
     <Compile Include="objdb\PatientM32DB.cs" />
     <Compile Include="objdb\PharmacyM01DB.cs" />
     <Compile Include="objdb\PharmacyM02DB.cs" />
@@ -486,6 +487,7 @@
     <Compile Include="object1\OperativeNote.cs" />
     <Compile Include="object1\PatientM22.cs" />
     <Compile Include="object1\PatientM29.cs" />
+    <Compile Include="object1\PatientM30.cs" />
     <Compile Include="object1\PatientM32.cs" />
     <Compile Include="object1\PharmacyT01.cs" />
     <Compile Include="object1\PharmacyM01.cs" />
