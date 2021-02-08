@@ -53,8 +53,10 @@ namespace bangna_hospital.control
         private void initConfig()
         {
             //MessageBox.Show("h1111n ", "");
+            String err = "";
             try
             {
+                err = "00";
                 appName = System.AppDomain.CurrentDomain.FriendlyName;
                 appName = appName.ToLower().Replace(".exe", "");
                 if (System.IO.File.Exists(Environment.CurrentDirectory + "\\" + appName + ".ini"))
@@ -70,6 +72,7 @@ namespace bangna_hospital.control
                     appName = "c:\\bangna_hospital.ini";
                 }
                 //MessageBox.Show("h1111n ", "");
+                err = "01";
                 iniF = new IniFile(appName);
                 iniC = new InitConfig();
                 cTxtFocus = ColorTranslator.FromHtml(iniC.txtFocus);
@@ -77,17 +80,27 @@ namespace bangna_hospital.control
                 sPtt = new Patient();
                 sStf = new Staff();
                 cStf = new Staff();
-
+                err = "02";
+                new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
                 GetConfig();
+                new LogWriter("d", "BangnaControl initConfig GetConfig out " + err);
+                err = "03";
                 conn = new ConnectDB(iniC);
+                new LogWriter("d", "BangnaControl initConfig new ConnectDB(iniC); out " + err);
+                err = "04";
                 bcDB = new BangnaHospitalDB(conn);
+                new LogWriter("d", "BangnaControl initConfig new BangnaHospitalDB(conn); out " + err);
+                err = "05";
                 initOPBKKClinic();
+                new LogWriter("d", "BangnaControl initConfig initOPBKKClinic(); out " + err);
+                err = "06";
                 initOPBKKCHRGITEM();
+                new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
             }
             catch(Exception ex)
             {
-                new LogWriter("e", "BangnaControl initConfig ");
-                MessageBox.Show("error "+ex.Message, "");
+                new LogWriter("e", "BangnaControl initConfig err "+ err);
+                MessageBox.Show("error "+ex.Message+" err "+err, "");
             }
             
         }
@@ -99,6 +112,7 @@ namespace bangna_hospital.control
         public void GetConfig()
         {
             //MessageBox.Show("hn " , "");
+            new LogWriter("d", "BangnaControl initConfig connection  ");
             iniC.hostDB = iniF.getIni("connection", "hostDB");
             iniC.nameDB = iniF.getIni("connection", "nameDB");
             iniC.userDB = iniF.getIni("connection", "userDB");
@@ -122,7 +136,13 @@ namespace bangna_hospital.control
             iniC.userDBLabOut = iniF.getIni("connection", "userDBLabOut");
             iniC.passDBLabOut = iniF.getIni("connection", "passDBLabOut");
             iniC.portDBLabOut = iniF.getIni("connection", "portDBLabOut");
-
+            new LogWriter("d", "BangnaControl initConfig connection hostDBOPBKK ");
+            iniC.hostDBOPBKK = iniF.getIni("connection", "hostDBOPBKK");
+            iniC.nameDBOPBKK = iniF.getIni("connection", "nameDBOPBKK");
+            iniC.userDBOPBKK = iniF.getIni("connection", "userDBOPBKK");
+            iniC.passDBOPBKK = iniF.getIni("connection", "passDBOPBKK");
+            iniC.portDBOPBKK = iniF.getIni("connection", "portDBOPBKK");
+            new LogWriter("d", "BangnaControl initConfig ftp ");
             iniC.hostFTP = iniF.getIni("ftp", "hostFTP");
             iniC.userFTP = iniF.getIni("ftp", "userFTP");
             iniC.passFTP = iniF.getIni("ftp", "passFTP");
@@ -843,7 +863,7 @@ namespace bangna_hospital.control
             int ret = 0;
 
             ret = Convert.ToChar(col);
-            ret = ((int)ret) - 64;
+            ret = ((int)ret) - 65;
 
             return ret.ToString();
         }

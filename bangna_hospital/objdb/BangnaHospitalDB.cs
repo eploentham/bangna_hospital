@@ -47,6 +47,7 @@ namespace bangna_hospital.objdb
         public PharmacyM01DB pharM01DB;
         public PharmacyM02DB pharM02DB;
         public PatientM30DB pttM30DB;
+        public OPBKKdrugcatelogDB opbkkDrugCatDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -91,6 +92,7 @@ namespace bangna_hospital.objdb
             pttM30DB = new PatientM30DB(conn);
             labM01DB = new LabM01DB(conn);
             labM02DB = new LabM02DB(conn);
+            opbkkDrugCatDB = new OPBKKdrugcatelogDB(conn);
         }
     }
 }

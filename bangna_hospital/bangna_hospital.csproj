@@ -70,6 +70,7 @@
     <Reference Include="C1.Win.C1Document.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
     <Reference Include="C1.Win.C1DX.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1FlexGrid.ImportExport.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Input.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1InputPanel.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
     <Reference Include="C1.Win.C1List.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL" />
@@ -102,8 +103,14 @@
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Mono.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -435,6 +442,7 @@
     <Compile Include="objdb\LabOutDB.cs" />
     <Compile Include="objdb\LabT01DB.cs" />
     <Compile Include="objdb\LabT02DB.cs" />
+    <Compile Include="objdb\OPBKKdrugcatelogDB.cs" />
     <Compile Include="objdb\OPDCheckUPDB.cs" />
     <Compile Include="objdb\OperativeNoteDB.cs" />
     <Compile Include="objdb\OrDB.cs" />
@@ -476,6 +484,7 @@
     <Compile Include="object1\OPBKKCHAD.cs" />
     <Compile Include="object1\OPBKKCHT.cs" />
     <Compile Include="object1\OPBKKDRU.cs" />
+    <Compile Include="object1\OPBKKdrugcatelog.cs" />
     <Compile Include="object1\OPBKKINS.cs" />
     <Compile Include="object1\OPBKKLABFU.cs" />
     <Compile Include="object1\OPBKKODX.cs" />

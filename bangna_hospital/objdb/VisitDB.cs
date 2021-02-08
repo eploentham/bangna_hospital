@@ -1052,7 +1052,33 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
-        public DataTable selectOrderHotChargeUcepIPDByHn(String hn, String hnyr, String andate, String anno, String anyear)
+        public DataTable selectOrderFinanceUcepIPDByHn(String hn, String hnyr, String anno, String anyear)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select convert(VARCHAR(20),ft031.MNC_FN_DAT,23) as MNC_FN_DAT, ft031.MNC_FN_TIME,ft031.MNC_FN_CD, ft031.MNC_FN_AMT,fm01.MNC_FN_DSCT,fm01.mnc_charge_cd, fm01.mnc_sub_charge_cd     " +
+                " " +
+
+                "from FINANCE_T03_1 ft031  " +
+                "inner join finance_m01 fm01 on ft031.mnc_fn_cd =  fm01.mnc_fn_cd and ft031.MNC_APP_CD2 = 'ADJ' " +
+                "  " +
+
+                "where  " +
+                " ft031.MNC_HN_NO = '" + hn + "'  " +
+                ////" and t01.mnc_vn_no = '" + vn + "' " +
+                //"and phart05.MNC_PRE_NO = '" + preno + "' " +
+                //"and phart05.MNC_DATE = '" + vsdate + "' " +
+                //" and pt16.MNC_req_STS = 'a' " +
+                //" and ft031.MNC_ad_DAT = '" + andate + "' " +
+                " and ft031.MNC_AN_NO = '" + anno + "' " +
+                " and ft031.MNC_AN_yr ='" + anyear + "' " +
+                //"Group By pm30.MNC_SR_DSC, pt16.mnc_sr_cd,pt16.mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code " +
+                "order by ft031.MNC_FN_DAT, ft031.MNC_FN_TIME, ft031.MNC_FN_NO ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectOrderHotChargeUcepIPDByHn(String hn, String hnyr, String anno, String anyear)
         {
             DataTable dt = new DataTable();
             String sql = "";
@@ -1069,7 +1095,7 @@ namespace bangna_hospital.objdb
                 //"and phart05.MNC_PRE_NO = '" + preno + "' " +
                 //"and phart05.MNC_DATE = '" + vsdate + "' " +
                 " and pt16.MNC_req_STS = 'a' " +
-                " and ft031.MNC_ad_DAT = '" + andate + "' " +
+                //" and ft031.MNC_ad_DAT = '" + andate + "' " +
                 " and ft031.MNC_AN_NO = '" + anno + "' " +
                 " and ft031.MNC_AN_yr ='" +anyear+"' " +
                 "Group By pm30.MNC_SR_DSC, pt16.mnc_sr_cd,pt16.mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code " +

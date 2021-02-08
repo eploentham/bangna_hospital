@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,16 +16,21 @@ namespace bangna_hospital.objdb
         public Staff user;
         public long _rowsAffected = 0;
         public SqlCommand comStore;
+        public NpgsqlConnection connOPBKK;
         public ConnectDB(InitConfig initc)
         {
             conn = new SqlConnection();
             connMainHIS = new SqlConnection();
             connPACs = new SqlConnection();
             connLabOut = new SqlConnection();
+            connOPBKK = new NpgsqlConnection();
+
             connMainHIS.ConnectionString = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
             conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB + ";";
             connLabOut.ConnectionString = "Server=" + initc.hostDBLabOut + ";Database=" + initc.nameDBLabOut + ";Uid=" + initc.userDBLabOut + ";Pwd=" + initc.passDBLabOut + ";";
             connPACs.ConnectionString = "Server=" + initc.hostDBPACs + ";Database=" + initc.nameDBPACs + ";Uid=" + initc.userDBPACs + ";Pwd=" + initc.passDBPACs + ";";
+
+            connOPBKK.ConnectionString = "Host=" + initc.hostDBOPBKK + ";Username=" + initc.userDBOPBKK + ";Password=" + initc.passDBOPBKK + ";Database=" + initc.nameDBOPBKK + ";Port=" + initc.portDBOPBKK + ";";
         }
         public String ExecuteNonQuery(String sql)
         {
@@ -169,6 +175,35 @@ namespace bangna_hospital.objdb
             comMainhis.CommandType = CommandType.Text;
             comMainhis.Connection = con;
             SqlDataAdapter adapMainhis = new SqlDataAdapter(comMainhis);
+            try
+            {
+                //new LogWriter("e", "ConnectDB selectData con.ConnectionString " + con.ConnectionString);
+
+                con.Open();
+                adapMainhis.Fill(toReturn);
+                //return toReturn;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            finally
+            {
+                con.Close();
+                comMainhis.Dispose();
+                adapMainhis.Dispose();
+            }
+            return toReturn;
+        }
+        public DataTable selectData(NpgsqlConnection con, String sql)
+        {
+            DataTable toReturn = new DataTable();
+
+            NpgsqlCommand comMainhis = new NpgsqlCommand();
+            comMainhis.CommandText = sql;
+            comMainhis.CommandType = CommandType.Text;
+            comMainhis.Connection = con;
+            NpgsqlDataAdapter adapMainhis = new NpgsqlDataAdapter(comMainhis);
             try
             {
                 //new LogWriter("e", "ConnectDB selectData con.ConnectionString " + con.ConnectionString);
