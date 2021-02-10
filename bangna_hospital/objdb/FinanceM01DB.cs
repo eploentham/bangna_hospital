@@ -102,5 +102,22 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public String updateUcepcode(String paidtypecode, String ucepcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update finance_m01 Set " +
+                    "ucep_code ='" + ucepcode + "' " +
+                    "Where MNC_FN_CD ='" + paidtypecode + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " finance_m01 updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
     }
 }

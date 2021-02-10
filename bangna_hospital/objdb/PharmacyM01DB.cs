@@ -79,10 +79,11 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
 
-            String sql = "select * " +
-                "From pharmacy_m01  " +
+            String sql = "select pm01.*, pm05.mnc_ph_pri01, pm05.mnc_ph_pri02, pm05.mnc_ph_pri03 " +
+                "From pharmacy_m01 pm01 " +
+                "inner join pharmacy_m05 pm05 on pm01.mnc_ph_cd = pm05.mnc_ph_cd " +
                 //"Where MNC_FN_TYP_STS = 'Y' " +
-                "Order By MNC_PH_CD";
+                "Order By pm01.MNC_PH_CD";
             dt = conn.selectData(conn.connMainHIS, sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
@@ -106,7 +107,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "", chk = "";
-            sql = "Select pm05.mnc_ph_pri01,pm05.mnc_ph_pri03,pm05.mnc_ph_cos, pm01.tmt_code, pm01.mnc_ph_cd " +
+            sql = "Select pm05.mnc_ph_pri01,pm05.mnc_ph_pri02,pm05.mnc_ph_cos, pm01.tmt_code, pm01.mnc_ph_cd " +
                 "From pharmacy_m01 pm01 " +
                 "inner join pharmacy_m05 pm05 on pm01.mnc_ph_cd = pm05.mnc_ph_cd " +
                 "Where tmt_code ='" + tmtcode + "'";
@@ -115,7 +116,7 @@ namespace bangna_hospital.objdb
                 dt = conn.selectData(conn.connMainHIS, sql);
                 if (dt.Rows.Count > 0)
                 {
-                    chk = dt.Rows[0]["mnc_ph_pri01"].ToString()+"#"+ dt.Rows[0]["mnc_ph_cos"].ToString();
+                    chk = dt.Rows[0]["mnc_ph_pri01"].ToString()+"#"+ dt.Rows[0]["mnc_ph_pri02"].ToString();
                 }
                 
             }

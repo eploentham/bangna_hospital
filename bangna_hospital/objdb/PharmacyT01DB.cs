@@ -113,6 +113,21 @@ namespace bangna_hospital.object1
             p.MNC_SUM_COS = decimal.TryParse(p.MNC_SUM_COS, out chk2) ? chk2.ToString() : "0";
             
         }
+        public DataTable selectTop200()
+        {
+            PharmacyT01 pharT01 = new PharmacyT01();
+            DataTable dt = new DataTable();
+            String reqno = "", sql = "";
+            sql = "Select top 200 sum(phart02.MNC_PH_QTY) as qty, phart02.MNC_PH_CD, pharm01.tmt_code " +
+                "from PHARMACY_T01 phart01 " +
+                "inner join pharmacy_t02 phart02 on phart01.MNC_REQ_YR = phart02.MNC_REQ_YR and phart01.MNC_REQ_NO = phart02.MNC_REQ_NO and phart01.MNC_DOC_CD = phart02.MNC_DOC_CD " +
+                "inner join PHARMACY_M01 pharm01 on phart02.MNC_PH_CD = pharm01.MNC_PH_CD " +
+                "where pharm01.tmt_code is not null and phart01.MNC_REQ_DAT >= '2020-01-01' and phart01.MNC_REQ_DAT <= '2020-12-31' " +
+                "group by phart02.MNC_PH_CD, pharm01.tmt_code ";
+            dt = conn.selectData(sql);
+            
+            return dt;
+        }
         public PharmacyT01 selectCheckReqNoFromPreNO(String hn, String hnyr, String preno)
         {
             PharmacyT01 pharT01 = new PharmacyT01();

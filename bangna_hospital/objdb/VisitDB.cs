@@ -1056,7 +1056,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select convert(VARCHAR(20),ft031.MNC_FN_DAT,23) as MNC_FN_DAT, ft031.MNC_FN_TIME,ft031.MNC_FN_CD, ft031.MNC_FN_AMT,fm01.MNC_FN_DSCT,fm01.mnc_charge_cd, fm01.mnc_sub_charge_cd     " +
+            sql = "Select convert(VARCHAR(20),ft031.MNC_FN_DAT,23) as MNC_FN_DAT, ft031.MNC_FN_TIME,ft031.MNC_FN_CD, ft031.MNC_FN_AMT,fm01.MNC_FN_DSCT,fm01.mnc_charge_cd, fm01.mnc_sub_charge_cd, fm01.ucep_code     " +
                 " " +
 
                 "from FINANCE_T03_1 ft031  " +
