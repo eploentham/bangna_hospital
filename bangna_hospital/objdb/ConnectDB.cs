@@ -146,6 +146,7 @@ namespace bangna_hospital.objdb
             comMainhis.CommandText = sql;
             comMainhis.CommandType = CommandType.Text;
             comMainhis.Connection = connMainHIS;
+            comMainhis.CommandTimeout = 60;
             SqlDataAdapter adapMainhis = new SqlDataAdapter(comMainhis);
             try
             {
@@ -174,6 +175,7 @@ namespace bangna_hospital.objdb
             comMainhis.CommandText = sql;
             comMainhis.CommandType = CommandType.Text;
             comMainhis.Connection = con;
+            comMainhis.CommandTimeout = 60;
             SqlDataAdapter adapMainhis = new SqlDataAdapter(comMainhis);
             try
             {

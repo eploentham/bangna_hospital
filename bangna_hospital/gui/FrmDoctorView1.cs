@@ -754,7 +754,7 @@ namespace bangna_hospital.gui
             //if (lDgss.Count <= 0) getlBsp();
             date = txtDate.Text;
             DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectVisitByDtr(bc.user.staff_id, bc.datetoDB(date), "finish");
+            dt = bc.bcDB.vsDB.selectVisitByDtr1(bc.user.staff_id, bc.datetoDB(date));
             int i = 1;
             grfFin.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)

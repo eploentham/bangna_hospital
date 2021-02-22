@@ -231,7 +231,8 @@ namespace bangna_hospital.control
             iniC.themegrfIpd = iniF.getIni("app", "themegrfIpd");
             iniC.statusoutlabMedica = iniF.getIni("app", "statusoutlabMedica");
             iniC.ssoid = iniF.getIni("app", "ssoid");
-            
+            iniC.opbkkhcode = iniF.getIni("app", "opbkkhcode");
+
             iniC.hostnamee = iniF.getIni("app", "hostnamee");
             iniC.hostaddresst = iniF.getIni("app", "hostaddresst");
             iniC.hostaddresse = iniF.getIni("app", "hostaddresse");
@@ -325,6 +326,8 @@ namespace bangna_hospital.control
             iniC.imageCC_Height = iniC.imageCC_Height == null ? "400" : iniC.imageCC_Height.Equals("") ? "400" : iniC.imageCC_Height;
             iniC.imageME_Height = iniC.imageME_Height == null ? "400" : iniC.imageME_Height.Equals("") ? "400" : iniC.imageME_Height;
             iniC.imageDiag_Height = iniC.imageDiag_Height == null ? "400" : iniC.imageDiag_Height.Equals("") ? "400" : iniC.imageDiag_Height;
+            iniC.ssoid = iniC.ssoid == null ? "0" : iniC.ssoid.Equals("") ? "0" : iniC.ssoid;
+            iniC.opbkkhcode = iniC.opbkkhcode == null ? "0" : iniC.opbkkhcode.Equals("") ? "0" : iniC.opbkkhcode;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);

@@ -106,10 +106,13 @@ namespace bangna_hospital.gui
             theme1 = new C1.Win.C1Themes.C1ThemeController();
 
             initCompoment();
+
             setControl();
 
             this.Load += FrmOPBKKClaim_Load;
             btnOPBkkGen.Click += BtnOPBkkGen_Click;
+
+            //hideLbLoading();
         }
 
         private void BtnOPBkkGen_Click(object sender, EventArgs e)
@@ -120,11 +123,11 @@ namespace bangna_hospital.gui
                 MessageBox.Show("รหัส HCODE ว่าง", "");
                 return;
             }
-            if (txtHospMain.Text.Length <= 0)
-            {
-                MessageBox.Show("รหัส HospMain ว่าง", "");
-                return;
-            }
+            //if (txtHospMain.Text.Length <= 0)
+            //{
+            //    MessageBox.Show("รหัส HospMain ว่าง", "");
+            //    return;
+            //}
             String datetick = "";
             pathfile = bc.iniC.medicalrecordexportpath;
             datetick = DateTime.Now.Ticks.ToString();
@@ -440,6 +443,14 @@ namespace bangna_hospital.gui
             txtHospMain = new C1TextBox();
             lbtxtHCode = new Label();
             txtHCode = new C1TextBox();
+            lbLoading = new Label();
+            lbLoading.Font = fEdit5B;
+            lbLoading.BackColor = Color.WhiteSmoke;
+            lbLoading.ForeColor = Color.Black;
+            lbLoading.AutoSize = false;
+            lbLoading.Size = new Size(300, 60);
+            this.Controls.Add(lbLoading);
+            //showLbLoading();
 
             initCompomentTabUcep();
             //gapY += gapLine;
@@ -467,13 +478,7 @@ namespace bangna_hospital.gui
             btnOPBkkGen.Width = 80;
             btnOPBKKSelect.Click += BtnOPBKKSelect_Click;
 
-            lbLoading = new Label();
-            lbLoading.Font = fEdit5B;
-            lbLoading.BackColor = Color.WhiteSmoke;
-            lbLoading.ForeColor = Color.Black;
-            lbLoading.AutoSize = false;
-            lbLoading.Size = new Size(300, 60);
-            this.Controls.Add(lbLoading);
+            
 
             tabOP.Controls.Add(lbDateStart);
             tabOP.Controls.Add(txtDateStart);
@@ -2385,6 +2390,8 @@ namespace bangna_hospital.gui
             txtDITserviceStartRow.Value = "18";
             txtDITserviceCostNew.Value = "D";
             txtDITservicePriceNew.Value = "E";
+
+            txtHCode.Value = bc.iniC.opbkkhcode;
 
         }
         private void initGrfUcepSelect()
@@ -4389,7 +4396,7 @@ namespace bangna_hospital.gui
                         OPBKKOPD opd = new OPBKKOPD();
                         opd.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
                         opd.HN = drow["mnc_hn_no"].ToString();
-                        opd.DATEOPD = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                        opd.DATEOPD = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                         opd.TIMEOPD = ("0000" + drow["MNC_time"].ToString()).Substring(4);
                         opd.SEQ = seq;
                         opd.UUC = "1";                                                       //      การใช้สิทธิ (เพิ่มเติม) 1 = ใช้สิทธิ 2 = ไมใช้สิทธ
@@ -4456,7 +4463,7 @@ namespace bangna_hospital.gui
                         seq = date.ToString("yyyyMMdd", new CultureInfo("en-US")) + drow["mnc_pre_no"].ToString();
                         OPBKKORF orf = new OPBKKORF();
                         orf.HN = drow["mnc_hn_no"].ToString();
-                        orf.DATEOPD = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                        orf.DATEOPD = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                         orf.CLINIC = "";        //รหัสคลินิกที่รับบริการ
                         orf.REFER = "";
                         orf.REFERTYPE = "";
@@ -4540,7 +4547,7 @@ namespace bangna_hospital.gui
                                     }
                                     OPBKKODX ins = new OPBKKODX();
                                     ins.HN = drow["mnc_hn_no"].ToString();
-                                    ins.DATEDX = actdate.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                                    ins.DATEDX = actdate.ToString("yyyyMMdd", new CultureInfo("en-US"));
                                     ins.CLINIC = "";
                                     ins.DIAG = drowodx["MNC_dia_cd"].ToString();
                                     ins.DXTYPE = drowodx["MNC_dia_flg"].ToString();
@@ -4722,11 +4729,12 @@ namespace bangna_hospital.gui
                                     }
                                     OPBKKCHT ins = new OPBKKCHT();
                                     ins.HN = drow["mnc_hn_no"].ToString();
-                                    ins.DATEOPD = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                                    ins.DATEOPD = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                                     ins.ACTUALCHT = drowlabfu["mnc_sum_pri"].ToString();
                                     ins.TOTAL = drowlabfu["mnc_sum_pri"].ToString();
-                                    ins.PAID = drowlabfu["mnc_sum_pri"].ToString();
-                                    ins.PTTYPE = "";
+                                    //ins.PAID = drowlabfu["mnc_sum_pri"].ToString();
+                                    ins.PAID = "0";
+                                    ins.PTTYPE = "UC";
                                     ins.PERSON_ID = drow["MNC_ID_NO"] != null ? drow["MNC_ID_NO"].ToString() : "";
                                     ins.SEQ = seq;
                                     ins.OPD_MEMO = "";
@@ -4815,7 +4823,7 @@ namespace bangna_hospital.gui
                                     }
                                     OPBKKCHA ins = new OPBKKCHA();
                                     ins.HN = drow["mnc_hn_no"].ToString();
-                                    ins.DATEOPD = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                                    ins.DATEOPD = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                                     ins.CHRGITEM = "";
                                     ins.AMOUNT = drowlabfu["mnc_sum_pri"].ToString();
                                     ins.AMOUNT_EXT = drowlabfu["mnc_sum_pri"].ToString();
@@ -4888,7 +4896,7 @@ namespace bangna_hospital.gui
                         seq = date.ToString("yyyyMMdd", new CultureInfo("en-US")) + drow["mnc_pre_no"].ToString();
                         OPBKKAER ins = new OPBKKAER();
                         ins.HN = drow["mnc_hn_no"].ToString();
-                        ins.DATEOPD = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                        ins.DATEOPD = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                         ins.AUTHAE = "";
                         ins.AEDATE = "";
                         ins.AETIME = "";
@@ -4993,7 +5001,7 @@ namespace bangna_hospital.gui
                                 ins.HN = drow["mnc_hn_no"].ToString();
                                 ins.CLINIC = "";
                                 ins.PERSON_ID = drow["MNC_ID_Nam"] != null ? drow["MNC_ID_Nam"].ToString() : "";
-                                ins.DATESERV = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                                ins.DATESERV = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                                 ins.DID = drowdrug["MNC_PH_CD"].ToString();
                                 ins.DIDNAME = drowdrug["MNC_PH_TN"].ToString();
                                 ins.DIDSTD = "";
@@ -5162,7 +5170,7 @@ namespace bangna_hospital.gui
                                 ins.HCODE = txtHCode.Text.Trim();
                                 ins.HN = drow["mnc_hn_no"].ToString();
                                 ins.PERSON_ID = drow["MNC_ID_nam"] != null ? drow["MNC_ID_nam"].ToString() : "";
-                                ins.DATESERV = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                                ins.DATESERV = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                                 ins.SEQ = seq;
                                 ins.LABTEST = drowlabfu["MNC_RES"].ToString();
                                 //ins.LABTEST = "01";     // fix for test
@@ -5255,7 +5263,7 @@ namespace bangna_hospital.gui
                                     }
                                     OPBKKCHAD ins = new OPBKKCHAD();
                                     ins.HN = drow["mnc_hn_no"].ToString();
-                                    ins.DATESERV = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                                    ins.DATESERV = date.ToString("yyyyMMdd", new CultureInfo("en-US"));
                                     ins.SEQ = drow["mnc_pre_no"].ToString();
                                     ins.CLINIC = "";
                                     ins.ITEMTYPE = drowlabfu["mnc_fn_cd"].ToString();
@@ -5270,13 +5278,6 @@ namespace bangna_hospital.gui
                                 }
                             }
                         }
-
-
-
-
-
-
-                        
                     }
                     pageLoad = false;
                 }
@@ -5520,7 +5521,7 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
 
-            this.Text = "Last Update 2020-02-10";
+            this.Text = "Last Update 2020-02-19";
         }
     }
 }
