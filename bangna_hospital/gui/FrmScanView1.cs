@@ -44,15 +44,18 @@ namespace bangna_hospital.gui
 
         Font fEdit, fEditB, fEdit3B, fEdit5B;
         C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac, tcPrnEmail;
-        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd, tabPrnEmailDrug, tabPrnEmailLab, tabPrnEmailXray, tabPrnEmailSummary,  tabPrnEmailOther;
+        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd, tabPrnEmailDrug, tabPrnEmailLab, tabPrnEmailXray, tabPrnEmailSummary,  tabPrnEmailOther, tabCerti;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic, grfIPD, grfOPD;
-        C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem, grfPrnEmailImg;
+        C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem, grfPrnEmailImg, grfCertiView;
         C1FlexViewer labOutView, fvPrnEmailSummary, fvPrnEmailDrug, fvPrnEmailLab, fvPrnEmailXray, fvPrnEmailOther;
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal, pnPrnEmail, pnPrnEmailGrfPrn;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
         Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
-        
+
+        Label lbtxtCertiName, lbtxtCertiDtrId, lbtxtCertiDocNo, lbtxtCertiPttHn, lbtxtCertiPttName, lbtxtCertiVsDate, lbtxtCertiVsTime, lbtxtCertiDiag;
+        C1TextBox txtCertiName, txtCertiDtrId, txtCertiDocNo, txtCertiPttHn, txtCertiPttName, txtCertiVsDate, txtCertiVsTime, txtCertiDiag;
+
         C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody, txtItmFlag;
         C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -125,7 +128,7 @@ namespace bangna_hospital.gui
         //    }));
         //}
         Boolean flagTabOutlabLoad = false, flagTabDtrOrdLoad=false, flagTabOrderLoad=false, flagTabPrn = false, flagTabPic = false, flagtabScan=false;
-        Boolean flagTabPrnEmailSummary = false, flagTabPrnEmailDrug = false, flagTabPrnEmailLab = false, flagTabPrnEmailXray = false, flagTabPrnEmailOther = false;
+        Boolean flagTabPrnEmailSummary = false, flagTabPrnEmailDrug = false, flagTabPrnEmailLab = false, flagTabPrnEmailXray = false, flagTabPrnEmailOther = false, flagTabCertiLoad=false;
         public FrmScanView1(BangnaControl bc,String flagShoSearch)
         {
             InitializeComponent();
@@ -419,6 +422,17 @@ namespace bangna_hospital.gui
             tabOrdAdd.Text = "สั่งยา & Diagnose";
             tabOrdAdd.Name = "tabOrdAdd";
             tcDtr.Controls.Add(tabOrdAdd);
+
+            tabCerti = new C1DockingTabPage();
+            tabCerti.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabCerti.Size = new System.Drawing.Size(667, 175);
+            tabCerti.TabIndex = 0;
+            tabCerti.Text = "Certifecate";
+            tabCerti.Name = "tabCerti";
+
+            tcDtr.Controls.Add(tabCerti);
+
             panel3.Controls.Add(tcDtr);
             theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
         }
@@ -486,6 +500,42 @@ namespace bangna_hospital.gui
             tabIPD.Name = "tabIPD";
             tcVs.Controls.Add(tabIPD);
 
+        }
+        private void initComponentTabCerti()
+        {
+            int gapLine = 25, gapX = 20, gapY = 20, xCol2 = 130, xCol1 = 80, xCol3 = 330, xCol4 = 640, xCol5 = 950;
+            Size size = new Size();
+
+            Panel pnTabCertiTop = new Panel();
+            Panel pnTabCertiBotton = new Panel();
+            lbtxtCertiDocNo = new Label();
+            txtCertiDocNo = new C1TextBox();
+
+            pnTabCertiTop.Dock = DockStyle.Top;
+            pnTabCertiBotton.Dock = DockStyle.Fill;
+            pnTabCertiTop.Height = 200;
+
+            grfCertiView = new C1FlexGrid();
+            grfCertiView.Font = fEdit;
+            grfCertiView.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfCertiView.Location = new System.Drawing.Point(0, 0);
+            grfCertiView.Rows.Count = 1;
+            grfCertiView.Cols.Count = 8;
+            grfCertiView.Cols[colOrderName].Caption = "ชื่อ";
+            grfCertiView.Cols[colOrderName].Width = 300;
+
+            bc.setControlLabel(ref lbtxtCertiDocNo, fEdit, "เลขที่ :", "lbtxtCertiDocNo", gapX, gapY);
+            size = bc.MeasureString(lbtxtCertiDocNo);
+            bc.setControlC1TextBox(ref txtCertiDocNo, fEdit, "txtCertiDocNo", 120, lbtxtCertiDocNo.Location.X + size.Width, lbtxtCertiDocNo.Location.Y);
+
+            pnTabCertiBotton.Controls.Add(lbtxtCertiDocNo);
+            pnTabCertiBotton.Controls.Add(txtCertiDocNo);
+
+            pnTabCertiTop.Controls.Add(grfCertiView);
+            tabCerti.Controls.Add(pnTabCertiBotton);
+            tabCerti.Controls.Add(pnTabCertiTop);
+
+            theme1.SetTheme(grfCertiView, bc.iniC.themeApp);
         }
         private void initGrfOrderLabXray()
         {
@@ -1423,6 +1473,17 @@ namespace bangna_hospital.gui
                 setGrfXray(grfOPD.Row);
                 
             }
+            else if (tcDtr.SelectedTab == tabCerti)
+            {
+                scVs.SizeRatio = sizeradio;
+                if (!flagTabCertiLoad)
+                {
+                    initComponentTabCerti();
+                }
+                flagTabCertiLoad = true;
+
+                //setGrfXray(grfOPD.Row);
+            }
             //else if (tcDtr.SelectedTab == tabScan)
             //{
             //    scVs.SizeRatio = sizeradio;
@@ -1432,7 +1493,7 @@ namespace bangna_hospital.gui
             //    }
             //    flagtabScan = true;
             //}
-            else if (tcDtr.SelectedTab == tabOrdAdd)
+                    else if (tcDtr.SelectedTab == tabOrdAdd)
             {
                 scVs.SizeRatio = 1;
                 if (!flagTabDtrOrdLoad)

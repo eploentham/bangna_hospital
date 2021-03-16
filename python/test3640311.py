@@ -3,8 +3,7 @@ import pytesseract
 import os
 import pyodbc
 from datetime import datetime
-#from ftplib import FTP
-import ftplib
+from ftplib import FTP
 #from pyzbar import pyzbar
 #import pymssql
 
@@ -178,14 +177,14 @@ dataDB="bn5_scan"
 #conn = pymssql.connect('Driver={SQL Server};Server='+serverName+';Database='+dataDB+';;UID='+userDB+';PWD='+passDB+';Trusted_Connection=yes;')
 conn = pyodbc.connect('Driver={SQL Server};Server=172.25.10.5;Database=bn5_scan;UID=sa;PWD=;Trusted_Connection=no;')
 cur = conn.cursor()
-sql = "Select top (6000) * From doc_scan where doc_scan_id > 1000162000 and status_ml is null and status_record = '1' and active = '1' Order By doc_scan_id"
+sql = "Select top (3000) * From doc_scan where doc_scan_id > 1000161817 and status_ml is null and status_record = '1' and active = '1' Order By doc_scan_id"
 cur.execute(sql)
 myresult = cur.fetchall()
 print('ok1')
 w=240
 h=50
 
-ftp = ftplib.FTP('172.25.10.3')
+ftp = FTP('172.25.10.3')
 ftp.login("imagescan", "imagescan")
 
 #success = ftp.connect()
@@ -215,20 +214,16 @@ for res in myresult:
 		#print('listres '+listres[0])
 		#print(listres[1])
 		print('listres[1] '+res[22]+'//'+res[5]+'//'+listres[1])
-		try:
-			ftp.cwd('//'+res[22]+'//'+res[5]+'//'+listres[1])
-			#ftp.cwd('//'+res[22]+'//'+listres[1])
-			nitems = ftp.nlst()
-			for item in nitems:
-				print('item '+str(item)+' listres[2] '+listres[2])
-				#print('listres[2] '+listres[2])
-				if item == listres[2]:
-					fileexit='OK'
-					print('found OK')
-					break
-		except ftplib.all_errors as e:
-			print('FTP error:', e)
-			continue
+		ftp.cwd('//'+res[22]+'//'+res[5]+'//'+listres[1])
+		#ftp.cwd('//'+res[22]+'//'+listres[1])
+		nitems = ftp.nlst()
+		for item in nitems:
+			print('item '+str(item)+' listres[2] '+listres[2])
+			#print('listres[2] '+listres[2])
+			if item == listres[2]:
+				fileexit='OK'
+				print('found OK')
+				break
 	#print('nitems '+str(nitems))
 	if fileexit != 'OK':
 		continue

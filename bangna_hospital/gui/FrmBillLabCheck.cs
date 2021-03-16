@@ -416,7 +416,6 @@ namespace bangna_hospital.gui
                 }
             }
             //pB1.Show();
-
         }
         public DataTable GroupBy(string i_sGroupByColumn, string i_sAggregateColumn, DataTable i_dSourceTable)
         {

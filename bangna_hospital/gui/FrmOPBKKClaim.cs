@@ -32,17 +32,17 @@ namespace bangna_hospital.gui
         C1DockingTabPage tabtcUcep, tabSSO, tabSSO1, tabUcepMain, tabUcepDrug, tabUcepCat, tabUcepLab, tabUcepXray, tabUcepHotCharge, tabUcepDIT, tabDITdc01, tabDITdc02, tabDITSupp, tabDITService;
         C1DockingTabPage tabOPBKKMainPaidTyp, tabOPBKKMainClinic, tabOPBKKMainCHRGITEM, tabOPBKKMainTmtCode;
         C1FlexGrid grfSelect, grfINS, grfPAT, grfOPD, grfODX, grfOOP, grfORF, grfCHT, grfCHA, grfAER, grfLABFU, grfDRU, grfCHAD, grfOrd, grfPaidTyp, grfClinic, grfOPBKKMainCHRGITEM, grfOPBKKMainTmtCode;
-        C1FlexGrid grfUcepCat, grfUcepDrug, grfUcepSelect, grfUcepLab, grfUcepXray, grfUcepHotcharge, grfDITdc01, grfDITdc02, grfDITsupp, grfDITservice;
+        C1FlexGrid grfUcepCat, grfUcepDrug, grfUcepSelect, grfUcepLab, grfUcepXray, grfUcepHotcharge, grfDITdc01, grfDITdc02, grfDITsupp, grfDITservice, grfUcepHnPaidType, grfUcepHnPaidTypeDetail;
 
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         C1PdfDocument pdfDoc;
         C1ThemeController theme1;
-        Label lbDateStart, lbDateEnd, lbtxtPaidType, lbLoading, lbtxtHospMain, lbtxtHCode, lbtxtUcepDateStart, lbtxtUcepDateEnd, lbtxtUcepPaidType;
+        Label lbDateStart, lbDateEnd, lbtxtPaidType, lbLoading, lbtxtHospMain, lbtxtHCode, lbtxtUcepDateStart, lbtxtUcepDateEnd, lbtxtUcepPaidType, lbtxtUcepHn;
         C1DateEdit txtDateStart, txtDateEnd, txtUcepDateStart, txtUcepDateEnd;
         C1Button btnOPBKKSelect, btnOPBkkGen, btnUcepSelect, btnUcepTMTImport, btnUcepExcel, btnUcepDITdc01Open, btnUcepDITdc02Open, btnUcepDITsuppOpen, btnUcepDITserviceOpen, btnUcepDITdc01Read, btnUcepDITdc02Read, btnUcepDITsuppRead, btnUcepDITserviceRead, btnUcepDITdc01Write, btnUcepDITdc02Write;
         C1ComboBox cboPaidType;
-        C1TextBox txtPaidType, txtHospMain, txtHCode, txtUcepPaidType, txtDITdc01StartRow, txtDITdc01CostNew, txtDITdc01PriceNew, txtDITdc01Filename, txtDITdc01Top200, txtDITdc02StartRow, txtDITdc02PriceNew, txtDITdc02Filename;
+        C1TextBox txtPaidType, txtHospMain, txtHCode, txtUcepHn, txtUcepPaidType, txtDITdc01StartRow, txtDITdc01CostNew, txtDITdc01PriceNew, txtDITdc01Filename, txtDITdc01Top200, txtDITdc02StartRow, txtDITdc02PriceNew, txtDITdc02Filename;
         Label lbtxtDITdc01StartRow, lbtxtDITdc01CostNew, lbtxtDITdc01PriceNew, lbtxtDITdc01Top200, lbtxtDITdc02StartRow, lbtxtDITdc02PriceNew, lbtxtDITsuppStartRow, lbtxtDITsuppCostNew, lbtxtDITsuppPriceNew, lbtxtDITserviceStartRow, lbtxtDITserviceCostNew, lbtxtDITservicePriceNew, lbtxtDITserviceFilename;
         C1TextBox txtDITsuppStartRow, txtDITsuppCostNew, txtDITsuppPriceNew, txtDITsuppFilename, txtDITserviceStartRow, txtDITserviceCostNew, txtDITservicePriceNew, txtDITserviceFilename;
         C1CheckBox chkUcepSelectAll;
@@ -88,7 +88,7 @@ namespace bangna_hospital.gui
 
         Boolean pageLoad = false;
         String pathfile = "", fileNameINS = "INS", separate = "|", fileNamePAT = "PAT", fileNameOPD = "OPD", fileNameORF = "ORF", fileNameODX = "ODX", fileNameOOP = "OOP", fileNameCHT = "CHT";
-        String fileNameCHA = "CHA", fileNameAER = "AER", fileNameDRU = "DRU", fileNameLABFU = "LABFU", fileNameCHAD = "CHAD";
+        String fileNameCHA = "CHA", fileNameAER = "AER", fileNameDRU = "DRU", fileNameLABFU = "LABFU", fileNameCHAD = "CHAD", flagpaidtype="";
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -647,16 +647,22 @@ namespace bangna_hospital.gui
             lbtxtDITservicePriceNew = new Label();
             txtDITservicePriceNew = new C1TextBox();
             txtDITserviceFilename = new C1TextBox();
+            lbtxtUcepHn = new Label();
+            txtUcepHn = new C1TextBox();
 
-            bc.setControlLabel(ref lbtxtUcepDateStart, fEdit, "วันที่เริ่มต้น :", "lbtxtUcepDateStart", gapX, gapY);
+            bc.setControlLabel(ref lbtxtUcepDateStart, fEdit, "วันที่visit เริ่มต้น :", "lbtxtUcepDateStart", gapX, gapY);
             size = bc.MeasureString(lbtxtUcepDateStart);
             bc.setControlC1DateTimeEdit(ref txtUcepDateStart, "txtUcepDateStart", lbtxtUcepDateStart.Location.X + size.Width + 5, gapY);
-            bc.setControlLabel(ref lbtxtUcepDateEnd, fEdit, "วันที่สิ้นสุด :", "lbtxtUcepDateEnd", txtUcepDateStart.Location.X + txtUcepDateStart.Width + 15, gapY);
+            bc.setControlLabel(ref lbtxtUcepDateEnd, fEdit, "วันที่visit สิ้นสุด :", "lbtxtUcepDateEnd", txtUcepDateStart.Location.X + txtUcepDateStart.Width + 15, gapY);
             size = bc.MeasureString(lbtxtUcepDateEnd);
             bc.setControlC1DateTimeEdit(ref txtUcepDateEnd, "txtUcepDateEnd", lbtxtUcepDateEnd.Location.X + size.Width + 5, gapY);
-            bc.setControlLabel(ref lbtxtUcepPaidType, fEdit, "สิทธิ :", "lbtxtUcepPaidType", txtUcepDateEnd.Location.X+ txtUcepDateEnd.Width + 20, gapY);
+            bc.setControlLabel(ref lbtxtUcepPaidType, fEdit, "สิทธิเข้า(ปชส) :", "lbtxtUcepPaidType", txtUcepDateEnd.Location.X+ txtUcepDateEnd.Width + 20, gapY);
             size = bc.MeasureString(lbtxtUcepPaidType);
             bc.setControlC1TextBox(ref txtUcepPaidType, fEdit, "txtUcepPaidType", 120, lbtxtUcepPaidType.Location.X + size.Width + 5, gapY);
+
+            bc.setControlLabel(ref lbtxtUcepHn, fEdit, "HN :", "lbtxtUcepHn", txtUcepDateEnd.Location.X + txtUcepDateEnd.Width + 20, gapY+30);
+            size = bc.MeasureString(lbtxtUcepHn);
+            bc.setControlC1TextBox(ref txtUcepHn, fEdit, "txtUcepHn", 120, txtUcepPaidType.Location.X , lbtxtUcepHn.Location.Y);
 
             //gapY += gapLine;
             bc.setControlC1Button(ref btnUcepSelect, fEdit, "ดึงข้อมูล", "btnUcepOk", txtUcepPaidType.Location.X+ txtUcepPaidType.Width+30, gapY);
@@ -764,6 +770,8 @@ namespace bangna_hospital.gui
             pnUcepMainTop.Controls.Add(chkUcepSelectAll);
             pnUcepMainTop.Controls.Add(btnUcepTMTImport);
             pnUcepMainTop.Controls.Add(btnUcepExcel);
+            pnUcepMainTop.Controls.Add(lbtxtUcepHn);
+            pnUcepMainTop.Controls.Add(txtUcepHn);
 
             pnDITdc01Top.Controls.Add(btnUcepDITdc01Open);
             pnDITdc01Top.Controls.Add(lbtxtDITdc01StartRow);
@@ -818,6 +826,8 @@ namespace bangna_hospital.gui
             theme1.SetTheme(chkUcepSelectAll, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepTMTImport, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepExcel, bc.iniC.themeApp);
+            theme1.SetTheme(lbtxtUcepHn, bc.iniC.themeApp);
+            theme1.SetTheme(txtUcepHn, bc.iniC.themeApp);
 
             theme1.SetTheme(lbtxtDITdc01StartRow, bc.iniC.themeApp);
             theme1.SetTheme(txtDITdc01StartRow, bc.iniC.themeApp);
@@ -1296,6 +1306,7 @@ namespace bangna_hospital.gui
         private void BtnUcepExcel_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            flagpaidtype = "";
             exportUcelExcel();
         }
         private void exportUcelImportTMTcode()
@@ -1393,7 +1404,7 @@ namespace bangna_hospital.gui
             grfUcepSelect.Cols[colGrfUcepSelectAnDate].Width = 100;
             grfUcepSelect.Cols[colGrfUcepSelectAnNoShow].Width = 100;
             showLbLoading();
-            dtUcepPtt = bc.bcDB.vsDB.selectVisitByDatePaidType(paidtype, datestart, dateend);
+            dtUcepPtt = bc.bcDB.vsDB.selectVisitByDatePaidType(txtUcepHn.Text.Trim(), paidtype, datestart, dateend);
 
             grfUcepSelect.Rows.Count = dtUcepPtt.Rows.Count + 1;
             int i = 1;
@@ -1785,7 +1796,6 @@ namespace bangna_hospital.gui
                         var myKey = bc.opBKKClinic.FirstOrDefault(x => x.Value == opbkkcode).Key;
                         String re = bc.bcDB.pttM32DB.updateOPBKKCode(depno, secno, divno, typpt, myKey);
                     }
-
                 }
             }
         }
@@ -2333,7 +2343,7 @@ namespace bangna_hospital.gui
             grfSelect.Cols[colSelectHnYear].Width = 60;
             grfSelect.Cols[colSelectPreno].Width = 60;
             showLbLoading();
-            dtPtt = bc.bcDB.vsDB.selectVisitByDatePaidType(paidtype, datestart, dateend);
+            dtPtt = bc.bcDB.vsDB.selectVisitByDatePaidType("",paidtype, datestart, dateend);
             grfSelect.Cols.Count = 8;
             grfSelect.Rows.Count = 1;
             grfSelect.Rows.Count = dtPtt.Rows.Count+1;
@@ -2409,6 +2419,7 @@ namespace bangna_hospital.gui
             //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
             ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("ดูข้อมูล รับชำระ", new EventHandler(ContextMenu_grfUcepSelect_viewPaidType));
             menuGw.MenuItems.Add("Export Excel", new EventHandler(ContextMenu_grfUcepSelect_ExportExcel));
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
@@ -2430,9 +2441,197 @@ namespace bangna_hospital.gui
         //        var filter = grfUcepSelect.Cols[col].ActiveFilter;
         //    }
         //}
+        private void ContextMenu_grfUcepSelect_viewPaidType(object sender, System.EventArgs e)
+        {
+            Form frm = new Form();
+            frm.Size = new Size(900, 800);
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            Panel pn = new Panel();
+            pn.Dock = DockStyle.Fill;
+            frm.Controls.Add(pn);
+            string currentDirectory = Directory.GetCurrentDirectory();      //grfUcepHnPaidType
+            grfUcepHnPaidType = new C1FlexGrid();
+            grfUcepHnPaidType.Font = fEdit;
+            grfUcepHnPaidType.Dock = System.Windows.Forms.DockStyle.Top;
+            grfUcepHnPaidType.Location = new System.Drawing.Point(0, 0);
+            grfUcepHnPaidType.Rows.Count = 1;
+            grfUcepHnPaidType.Height = 120;
+            grfUcepHnPaidType.Rows.Count = 6;
+            grfUcepHnPaidType.Cols.Count = 15;
+            grfUcepHnPaidType.Cols[1].Caption = "วันที่รับชำระ";
+            grfUcepHnPaidType.Cols[2].Caption = "เลขที่เอกสาร";
+            //grfDITdc02.Cols[3].Caption = "Vendor";
+            //grfDITdc02.Cols[4].Caption = "Price New";
+            grfUcepHnPaidType.Cols[1].Width = 120;
+            grfUcepHnPaidType.Cols[2].Width = 150;
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("Export Excel", new EventHandler(ContextMenu_grfUcepSelect_PaidType_ExportExcel));
+            grfUcepHnPaidType.ContextMenu = menuGw;
+            //grfDITdc02.Cols[3].Width = 300;
+            //grfDITdc02.Cols[4].Width = 80;
+
+            grfUcepHnPaidTypeDetail = new C1FlexGrid();
+            grfUcepHnPaidTypeDetail.Font = fEdit;
+            grfUcepHnPaidTypeDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfUcepHnPaidTypeDetail.Location = new System.Drawing.Point(0, 0);
+            grfUcepHnPaidTypeDetail.Rows.Count = 3;
+            //grfUcepHnPaidTypeDetail.Height = 200;
+            //grfDITdc02.Rows.Count = rowcnt - rowstart + 1;
+            grfUcepHnPaidTypeDetail.Cols.Count = 7;
+            grfUcepHnPaidTypeDetail.Cols[1].Caption = "รหัส";
+            grfUcepHnPaidTypeDetail.Cols[2].Caption = "รหัสย่อย";
+            grfUcepHnPaidTypeDetail.Cols[3].Caption = "รายการ";
+            grfUcepHnPaidTypeDetail.Cols[4].Caption = "จำนวนเงิน";
+            grfUcepHnPaidTypeDetail.Cols[4].Caption = "จำนวนเงิน";
+            //grfDITdc02.Cols[3].Caption = "Vendor";
+            //grfDITdc02.Cols[4].Caption = "Price New";
+            grfUcepHnPaidTypeDetail.Cols[1].Width = 150;
+            grfUcepHnPaidTypeDetail.Cols[2].Width = 150;
+            grfUcepHnPaidTypeDetail.Cols[3].Width = 100;
+
+            grfUcepHnPaidType.DoubleClick += GrfUcepHnPaidType_DoubleClick;
+
+            pn.Controls.Add(grfUcepHnPaidTypeDetail);
+            pn.Controls.Add(grfUcepHnPaidType);
+            String preno = "", vsdate = "", hnyear="", hn="";
+            hnyear = grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectHnYear] != null ? grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectHnYear].ToString():"";
+            preno = grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectPreno] != null ? grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectPreno].ToString():"";
+            vsdate = grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectVsDate] != null ? grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectVsDate].ToString():"";
+            hn = grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectHn] != null ? grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectHn].ToString() : "";
+
+            DateTime vsdate1 = new DateTime();
+            DateTime.TryParse(vsdate, out vsdate1);
+            if (vsdate1.Year > 2500)
+            {
+                vsdate1 = vsdate1.AddYears(-543);
+            }
+            else if (vsdate1.Year < 2000)
+            {
+                vsdate1 = vsdate1.AddYears(543);
+            }
+            vsdate = vsdate1.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            DataTable dtUcepPtt = new DataTable();
+            if(grfUcepSelect[grfUcepSelect.Row, colGrfUcepSelectStatusOPDIPD].ToString().Equals("OPD"))
+            {
+                dtUcepPtt = bc.bcDB.vsDB.selectPaidByHnGrpPaidTypeOPD(hn, hnyear, vsdate, preno);
+            }
+            else
+            {
+                dtUcepPtt = bc.bcDB.vsDB.selectPaidByHnGrpPaidTypeIPD(hn, hnyear, vsdate, preno);
+            }
+            grfUcepHnPaidType.Rows.Count = dtUcepPtt.Rows.Count +1;
+            int i = 1;
+            foreach (DataRow drow in dtUcepPtt.Rows)
+            {//finance_t01  mnc_doc_cd                  IN1 = BI; IN2 = PI; ON1 = BO; ON2 = PO; ON3 = PO;IN3 = BI
+                String doc = "", docno="";
+                decimal total = 0;
+                docno = "000000"+drow["MNC_doc_no"].ToString();
+                docno = docno.Substring(docno.Length - 6);
+                doc = drow["mnc_doc_cd"].ToString().Equals("IN1") ? "BI" : drow["mnc_doc_cd"].ToString().Equals("IN2") ? "PI" : drow["mnc_doc_cd"].ToString().Equals("ON1") ? "BO" : drow["mnc_doc_cd"].ToString().Equals("ON2") ? "PO" : drow["mnc_doc_cd"].ToString().Equals("ON3") ? "PO" : "";
+                decimal.TryParse(drow["mnc_sum_pri"].ToString(), out total);
+                grfUcepHnPaidType[i, 2] = doc + drow["MNC_doc_yr"].ToString()+""+ docno;
+                grfUcepHnPaidType[i, 1] = bc.datetoShow(drow["mnc_doc_dat"].ToString());
+                grfUcepHnPaidType[i, 3] = total.ToString("#,###.00");
+                grfUcepHnPaidType[i, 4] = drow["MNC_DOC_CD"].ToString();
+                grfUcepHnPaidType[i, 5] = drow["MNC_DOC_YR"].ToString();
+                grfUcepHnPaidType[i, 6] = drow["MNC_DOC_NO"].ToString();
+                grfUcepHnPaidType[i, 7] = drow["MNC_DOC_DAT"].ToString();
+                grfUcepHnPaidType[i, 8] = hn;
+                grfUcepHnPaidType[i, 9] = hnyear;
+                grfUcepHnPaidType[i, 10] = vsdate;
+                grfUcepHnPaidType[i, 11] = preno;
+                grfUcepHnPaidType[i, 12] = drow["MNC_an_no"] != null ? drow["MNC_an_no"].ToString() : "";
+                grfUcepHnPaidType[i, 13] = drow["MNC_an_yr"] != null ? drow["MNC_an_yr"].ToString() : "";
+                grfUcepHnPaidType[i, 14] = drow["MNC_ad_dat"] != null ? drow["MNC_ad_dat"].ToString() : "";
+                i++;
+            }
+
+            grfUcepHnPaidType.Cols[1].AllowEditing = false;
+            grfUcepHnPaidType.Cols[2].AllowEditing = false;
+            grfUcepHnPaidType.Cols[3].AllowEditing = false;
+            grfUcepHnPaidType.Cols[4].AllowEditing = false;
+            grfUcepHnPaidType.Cols[5].AllowEditing = false;
+            grfUcepHnPaidType.Cols[6].AllowEditing = false;
+            grfUcepHnPaidType.Cols[7].AllowEditing = false;
+            grfUcepHnPaidType.Cols[8].AllowEditing = false;
+            grfUcepHnPaidType.Cols[9].AllowEditing = false;
+            grfUcepHnPaidType.Cols[10].AllowEditing = false;
+            grfUcepHnPaidType.Cols[11].AllowEditing = false;
+            grfUcepHnPaidType.Cols[12].AllowEditing = false;
+            grfUcepHnPaidType.Cols[13].AllowEditing = false;
+            grfUcepHnPaidType.Cols[14].AllowEditing = false;
+            theme1.SetTheme(grfDITdc02, "Office2010Red");
+            theme1.SetTheme(grfUcepHnPaidTypeDetail, bc.iniC.themeApp);
+            frm.ShowDialog(this);
+        }
+        private void ContextMenu_grfUcepSelect_PaidType_ExportExcel(object sender, System.EventArgs e)
+        {
+            flagpaidtype = grfUcepHnPaidType[grfUcepHnPaidType.Row, 4].ToString() 
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 5].ToString() 
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 6].ToString()
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 7].ToString() 
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 8].ToString() 
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 9].ToString() 
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 10].ToString() 
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 11].ToString()
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 12].ToString()
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 13].ToString()
+                + "#" + grfUcepHnPaidType[grfUcepHnPaidType.Row, 14].ToString();
+            exportUcelExcel();
+        }
+        private void GrfUcepHnPaidType_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfUcepHnPaidType.Row < 0) return;
+            if (grfUcepHnPaidType.Col < 0) return;
+            pageLoad = true;
+            String preno = "", vsdate = "", hnyear = "", hn = "", doccd="", doc_year="", docno="", docdate="";
+            hnyear = grfUcepHnPaidType[grfUcepHnPaidType.Row, 9] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 9].ToString() : "";
+            preno = grfUcepHnPaidType[grfUcepHnPaidType.Row, 11] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 11].ToString() : "";
+            vsdate = grfUcepHnPaidType[grfUcepHnPaidType.Row, 10] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 10].ToString() : "";
+            hn = grfUcepHnPaidType[grfUcepHnPaidType.Row, 8] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 8].ToString() : "";
+            doccd = grfUcepHnPaidType[grfUcepHnPaidType.Row, 4] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 4].ToString() : "";
+            doc_year = grfUcepHnPaidType[grfUcepHnPaidType.Row, 5] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 5].ToString() : "";
+            docno = grfUcepHnPaidType[grfUcepHnPaidType.Row, 5] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 6].ToString() : "";
+            docdate = grfUcepHnPaidType[grfUcepHnPaidType.Row, 7] != null ? grfUcepHnPaidType[grfUcepHnPaidType.Row, 7].ToString() : "";
+
+            DataTable dtUcepPtt = new DataTable();
+            int i = 1;
+            grfUcepHnPaidTypeDetail.Cols.Count = 7;
+            dtUcepPtt = bc.bcDB.vsDB.selectPaidByHnGrpPaidTypeDetail(hn, hnyear, vsdate, preno, doccd, doc_year, docno, docdate);
+            grfUcepHnPaidTypeDetail.Rows.Count = 1;
+            grfUcepHnPaidTypeDetail.Rows.Count = dtUcepPtt.Rows.Count+1;
+            grfUcepHnPaidTypeDetail.Cols[1].Width = 50;
+            grfUcepHnPaidTypeDetail.Cols[2].Width = 50;
+            grfUcepHnPaidTypeDetail.Cols[3].Width = 300;
+            grfUcepHnPaidTypeDetail.Cols[4].Width = 80;
+            grfUcepHnPaidTypeDetail.Cols[5].Width = 80;
+            grfUcepHnPaidTypeDetail.Cols[6].Width = 100;
+            foreach (DataRow drow in dtUcepPtt.Rows)
+            {
+                decimal total = 0, dis=0;
+                //decimal.TryParse(drow["mnc_fn_amt"].ToString(), out total);
+                decimal.TryParse(drow["mnc_fn_pad"].ToString(), out total);
+                decimal.TryParse(drow["mnc_fn_dis"].ToString(), out dis);
+                grfUcepHnPaidTypeDetail[i, 1] = drow["MNC_CHARGE_CD"].ToString();
+                grfUcepHnPaidTypeDetail[i, 2] = drow["MNC_SUB_CHARGE_CD"].ToString();
+                grfUcepHnPaidTypeDetail[i, 3] = drow["MNC_FN_DSCT"].ToString();
+                grfUcepHnPaidTypeDetail[i, 4] = total.ToString("#,###.00");
+                grfUcepHnPaidTypeDetail[i, 5] = dis.ToString("#,##0.00");
+                grfUcepHnPaidTypeDetail[i, 6] = drow["MNC_SIMB_CD"].ToString();
+                i++;
+            }
+            grfUcepHnPaidTypeDetail.Cols[1].AllowEditing = false;
+            grfUcepHnPaidTypeDetail.Cols[2].AllowEditing = false;
+            grfUcepHnPaidTypeDetail.Cols[3].AllowEditing = false;
+            grfUcepHnPaidTypeDetail.Cols[4].AllowEditing = false;
+            grfUcepHnPaidTypeDetail.Cols[5].AllowEditing = false;
+            grfUcepHnPaidTypeDetail.Cols[6].AllowEditing = false;
+        }
 
         private void ContextMenu_grfUcepSelect_ExportExcel(object sender, System.EventArgs e)
         {
+            flagpaidtype = "";
             exportUcelExcel();
         }
         private void exportUcelExcel()
@@ -2447,59 +2646,181 @@ namespace bangna_hospital.gui
             dtUcepGen.Columns.Add("mean", typeof(String));
             dtUcepGen.Columns.Add("unit", typeof(String));
             dtUcepGen.Columns.Add("price_total", typeof(String));
+            dtUcepGen.Columns.Add("hosp_code1", typeof(String));
             int row1 = 0;
-            foreach (Row row in grfUcepSelect.Rows)
+
+            String[] wheresplit = flagpaidtype.Split('#');
+            if (wheresplit.Length > 9)
             {
-                row1++;
-                setLbLoading("Ucep gen  " + row1 + "/" + grfUcepSelect.Rows.Count);
-                if (row[colGrfUcepSelectHn] == null) continue;
-                if (row[colGrfUcepSelectSelect] == null) continue;
-                if ((Boolean)row[colGrfUcepSelectSelect])
+                //IPD
+                String hn = "", hnyear = "", preno = "", vsdate = "", an = "", anyear = "", andate = "", statusipd = "", doccd="", docyr="", docno="", docdate="";
+                doccd = wheresplit[0];
+                docyr = wheresplit[1];
+                docno = wheresplit[2];
+                docdate = wheresplit[3];
+                hn = wheresplit[4];
+                hnyear = wheresplit[5];
+                vsdate = wheresplit[6];
+                preno = wheresplit[7];
+                an = wheresplit[8];
+                anyear = wheresplit[9];
+                andate = wheresplit[10];
+
+                DataTable dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);     //drug
+                foreach (DataRow rowdrug in dtdrug.Rows)
                 {
-                    String hn = "", hnyear = "", preno = "", vsdate = "", an="", anyear="", andate="", statusipd="";
-                    hn = row[colGrfUcepSelectHn].ToString();
-                    hnyear = row[colGrfUcepSelectHnYear].ToString();
-                    preno = row[colGrfUcepSelectPreno].ToString();
-                    vsdate = row[colGrfUcepSelectVsDate].ToString();
-                    statusipd = row[colGrfUcepSelectStatusOPDIPD].ToString();
-                    an = row[colGrfUcepSelectAnNo].ToString();
-                    anyear = row[colGrfUcepSelectAnYear].ToString();
-                    andate = bc.datetoDB(row[colGrfUcepSelectAnDate].ToString());
-                    //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate0 " + andate);
-                    if (statusipd.Equals("OPD"))
+                    float qty = 0, price = 0;
+                    float.TryParse(rowdrug["qty"].ToString(), out qty);
+                    float.TryParse(rowdrug["MNC_PH_PRI"].ToString(), out price);
+                    String reqtime = "0000" + rowdrug["MNC_REQ_TIM"].ToString();
+                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                    DataRow rowucep = dtUcepGen.Rows.Add();
+                    rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
+                    rowucep["tmt_code"] = rowdrug["tmt_code"].ToString();
+                    rowucep["hosp_code"] = rowdrug["MNC_PH_CD"].ToString();
+                    rowucep["cat_1_16"] = rowdrug["mnc_grp_ss1"].ToString();
+                    rowucep["mean"] = rowdrug["MNC_PH_TN"].ToString();
+                    rowucep["unit"] = rowdrug["qty"].ToString();
+                    rowucep["price_total"] = (qty * price);
+                    rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();//mnc_grp_ss1
+                }
+                //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel anyear " + anyear+" an "+an+ " andate " + andate+ " hn " + hn + " hnyear " + hnyear);
+                DataTable dtorder = bc.bcDB.vsDB.selectOrderHotChargeUcepIPDByHn(hn, hnyear, an, anyear);       //hotcharge
+                //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel dtorder.Rows.Count " + dtorder.Rows.Count);
+                foreach (DataRow rowdrug in dtorder.Rows)
+                {
+                    float qty = 0, price = 0;
+                    float.TryParse(rowdrug["qty"].ToString(), out qty);
+                    float.TryParse(rowdrug["MNC_SR_PRI"].ToString(), out price);
+                    String reqtime = "0000" + rowdrug["mnc_stamp_tim"].ToString();
+                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                    DataRow rowucep = dtUcepGen.Rows.Add();
+                    rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
+                    rowucep["tmt_code"] = rowdrug["ucep_code"].ToString();
+                    rowucep["hosp_code"] = rowdrug["mnc_sr_cd"].ToString();
+                    rowucep["cat_1_16"] = "";
+                    rowucep["mean"] = rowdrug["MNC_SR_DSC"].ToString();
+                    rowucep["unit"] = rowdrug["qty"].ToString();
+                    rowucep["price_total"] = (qty * price);
+                    rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
+                    //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
+                }
+                DataTable dtfin = bc.bcDB.vsDB.selectOrderFinanceUcepIPDByHn(hn, hnyear, an, anyear);
+                //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel dtorder.Rows.Count " + dtorder.Rows.Count);
+                foreach (DataRow rowdrug in dtfin.Rows)
+                {
+                    float qty = 0, price = 0;
+                    //float.TryParse(rowdrug["qty"].ToString(), out qty);
+                    float.TryParse(rowdrug["MNC_FN_AMT"].ToString(), out price);
+                    String reqtime = "0000" + rowdrug["MNC_FN_TIME"].ToString();
+                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                    DataRow rowucep = dtUcepGen.Rows.Add();
+                    rowucep["use_date"] = rowdrug["MNC_FN_DAT"].ToString() + " " + reqtime;
+                    rowucep["tmt_code"] = rowdrug["ucep_code"].ToString();
+                    rowucep["hosp_code"] = rowdrug["mnc_charge_cd"].ToString() + rowdrug["mnc_sub_charge_cd"].ToString();
+                    rowucep["cat_1_16"] = "";
+                    rowucep["mean"] = rowdrug["MNC_FN_DSCT"].ToString();
+                    rowucep["unit"] = "1";
+                    rowucep["price_total"] = (1 * price);
+                    rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
+                    //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
+                }
+                DataTable dtlab = bc.bcDB.vsDB.selectResultLabUcepbyAN(hn, an, anyear);
+                foreach (DataRow rowlab in dtlab.Rows)
+                {
+                    String reqtime = "0000" + rowlab["mnc_stamp_tim"].ToString();
+                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                    DataRow rowucep = dtUcepGen.Rows.Add();
+                    rowucep["use_date"] = rowlab["mnc_req_dat"].ToString() + " " + reqtime;
+                    rowucep["tmt_code"] = rowlab["ucep_code"].ToString();
+                    rowucep["hosp_code"] = rowlab["mnc_lb_cd"].ToString();
+                    rowucep["cat_1_16"] = "";
+                    rowucep["mean"] = rowlab["MNC_LB_DSC"].ToString();
+                    rowucep["unit"] = "1";
+                    rowucep["price_total"] = rowlab["MNC_LB_PRI"].ToString();
+                    rowucep["hosp_code1"] = rowlab["MNC_fn_cd"].ToString();
+                }
+                DataTable dtxray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an, anyear);
+                foreach (DataRow rowxray in dtxray.Rows)
+                {
+                    String reqtime = "0000" + rowxray["mnc_stamp_tim"].ToString();
+                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                    DataRow rowucep = dtUcepGen.Rows.Add();
+                    rowucep["use_date"] = rowxray["mnc_req_dat"].ToString() + " " + reqtime;
+                    rowucep["tmt_code"] = rowxray["ucep_code"].ToString();
+                    rowucep["hosp_code"] = rowxray["MNC_XR_CD"].ToString();
+                    rowucep["cat_1_16"] = "";
+                    rowucep["mean"] = rowxray["MNC_XR_DSC"].ToString();
+                    rowucep["unit"] = "1";
+                    rowucep["price_total"] = rowxray["MNC_XR_PRI_R"].ToString();
+                    rowucep["hosp_code1"] = rowxray["MNC_fn_cd"].ToString();
+                }
+
+                //statusipd = row[colGrfUcepSelectStatusOPDIPD].ToString();
+                //an = row[colGrfUcepSelectAnNo].ToString();
+                //anyear = row[colGrfUcepSelectAnYear].ToString();
+                //andate = bc.datetoDB(row[colGrfUcepSelectAnDate].ToString());
+            }
+            else
+            {
+                foreach (Row row in grfUcepSelect.Rows)
+                {
+                    row1++;
+                    setLbLoading("Ucep gen  " + row1 + "/" + grfUcepSelect.Rows.Count);
+                    if (row[colGrfUcepSelectHn] == null) continue;
+                    if (row[colGrfUcepSelectSelect] == null) continue;
+                    if ((Boolean)row[colGrfUcepSelectSelect])
                     {
-                        DateTime vsdate1 = new DateTime();
-                        if (DateTime.TryParse(vsdate, out vsdate1))
+                        String hn = "", hnyear = "", preno = "", vsdate = "", an = "", anyear = "", andate = "", statusipd = "";
+                        hn = row[colGrfUcepSelectHn].ToString();
+                        hnyear = row[colGrfUcepSelectHnYear].ToString();
+                        preno = row[colGrfUcepSelectPreno].ToString();
+                        vsdate = row[colGrfUcepSelectVsDate].ToString();
+                        statusipd = row[colGrfUcepSelectStatusOPDIPD].ToString();
+                        an = row[colGrfUcepSelectAnNo].ToString();
+                        anyear = row[colGrfUcepSelectAnYear].ToString();
+                        andate = bc.datetoDB(row[colGrfUcepSelectAnDate].ToString());
+                        //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate0 " + andate);
+                        if (statusipd.Equals("OPD"))
                         {
-                            DataTable dtdrug = bc.bcDB.vsDB.selectDrugUcepByHn(hn, hnyear, vsdate, preno);
-                            foreach (DataRow rowdrug in dtdrug.Rows)
+                            DateTime vsdate1 = new DateTime();
+                            if (DateTime.TryParse(vsdate, out vsdate1))
                             {
-                                String reqtime = "0000" + rowdrug["MNC_REQ_TIM"].ToString();
-                                reqtime = reqtime.Substring(reqtime.Length - 4);
-                                reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
-                                DataRow rowucep = dtUcepGen.Rows.Add();
-                                rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
-                                rowucep["tmt_code"] = rowdrug["tmt_code"].ToString();
-                                rowucep["hosp_code"] = rowdrug["MNC_PH_CD"].ToString();
-                                rowucep["cat_1_16"] = rowdrug["mnc_grp_ss1"].ToString();
-                                rowucep["mean"] = rowdrug["MNC_PH_TN"].ToString();
-                                rowucep["unit"] = rowdrug["qty"].ToString();
-                                rowucep["price_total"] = "";
+                                DataTable dtdrug = bc.bcDB.vsDB.selectDrugUcepByHn(hn, hnyear, vsdate, preno);
+                                foreach (DataRow rowdrug in dtdrug.Rows)
+                                {
+                                    String reqtime = "0000" + rowdrug["MNC_REQ_TIM"].ToString();
+                                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                    DataRow rowucep = dtUcepGen.Rows.Add();
+                                    rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
+                                    rowucep["tmt_code"] = rowdrug["tmt_code"].ToString();
+                                    rowucep["hosp_code"] = rowdrug["MNC_PH_CD"].ToString();
+                                    rowucep["cat_1_16"] = rowdrug["mnc_grp_ss1"].ToString();
+                                    rowucep["mean"] = rowdrug["MNC_PH_TN"].ToString();
+                                    rowucep["unit"] = rowdrug["qty"].ToString();
+                                    rowucep["price_total"] = "";
+                                    rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
+                                }
                             }
                         }
-                    }
-                    else
-                    {       //IPD
-                        DateTime andate1 = new DateTime();
-                        DateTime date = new DateTime();
-                        //DateTime.TryParse(andate, out date);
-                        //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate " + andate);
-                        //andate1.AddYears(int.Parse(row[colGrfUcepSelectAnDate].ToString().Substring(row[colGrfUcepSelectAnDate].ToString().Length - 4)));
-                        //andate1.AddMonths(int.Parse(row[colGrfUcepSelectAnDate].ToString().Substring(3,2)));
-                        //andate1.AddDays(int.Parse(row[colGrfUcepSelectAnDate].ToString().Substring(0,2)));
-                        
-                        //if (DateTime.TryParse(andate, out andate1))
-                        //{
+                        else
+                        {       //IPD
+                            DateTime andate1 = new DateTime();
+                            DateTime date = new DateTime();
+                            //DateTime.TryParse(andate, out date);
+                            //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate " + andate);
+                            //andate1.AddYears(int.Parse(row[colGrfUcepSelectAnDate].ToString().Substring(row[colGrfUcepSelectAnDate].ToString().Length - 4)));
+                            //andate1.AddMonths(int.Parse(row[colGrfUcepSelectAnDate].ToString().Substring(3,2)));
+                            //andate1.AddDays(int.Parse(row[colGrfUcepSelectAnDate].ToString().Substring(0,2)));
+
+                            //if (DateTime.TryParse(andate, out andate1))
+                            //{
                             //if (andate1.Year > 2500)
                             //{
                             //    andate1 = andate1.AddYears(-543);
@@ -2510,99 +2831,106 @@ namespace bangna_hospital.gui
                             //}
                             //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate1 " + andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US")));
                             //andate = andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-                        DataTable dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);
-                        foreach (DataRow rowdrug in dtdrug.Rows)
-                        {
-                            float qty = 0, price = 0;
-                            float.TryParse(rowdrug["qty"].ToString(), out qty);
-                            float.TryParse(rowdrug["MNC_PH_PRI"].ToString(), out price);
-                            String reqtime = "0000" + rowdrug["MNC_REQ_TIM"].ToString();
-                            reqtime = reqtime.Substring(reqtime.Length - 4);
-                            reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
-                            DataRow rowucep = dtUcepGen.Rows.Add();
-                            rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
-                            rowucep["tmt_code"] = rowdrug["tmt_code"].ToString();
-                            rowucep["hosp_code"] = rowdrug["MNC_PH_CD"].ToString();
-                            rowucep["cat_1_16"] = rowdrug["mnc_grp_ss1"].ToString();
-                            rowucep["mean"] = rowdrug["MNC_PH_TN"].ToString();
-                            rowucep["unit"] = rowdrug["qty"].ToString();
-                            rowucep["price_total"] = (qty * price);
+                            DataTable dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);
+                            foreach (DataRow rowdrug in dtdrug.Rows)
+                            {
+                                float qty = 0, price = 0;
+                                float.TryParse(rowdrug["qty"].ToString(), out qty);
+                                float.TryParse(rowdrug["MNC_PH_PRI"].ToString(), out price);
+                                String reqtime = "0000" + rowdrug["MNC_REQ_TIM"].ToString();
+                                reqtime = reqtime.Substring(reqtime.Length - 4);
+                                reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                DataRow rowucep = dtUcepGen.Rows.Add();
+                                rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
+                                rowucep["tmt_code"] = rowdrug["tmt_code"].ToString();
+                                rowucep["hosp_code"] = rowdrug["MNC_PH_CD"].ToString();
+                                rowucep["cat_1_16"] = rowdrug["mnc_grp_ss1"].ToString();
+                                rowucep["mean"] = rowdrug["MNC_PH_TN"].ToString();
+                                rowucep["unit"] = rowdrug["qty"].ToString();
+                                rowucep["price_total"] = (qty * price);
+                                rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();//mnc_grp_ss1
+                            }
+                            //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel anyear " + anyear+" an "+an+ " andate " + andate+ " hn " + hn + " hnyear " + hnyear);
+                            DataTable dtorder = bc.bcDB.vsDB.selectOrderHotChargeUcepIPDByHn(hn, hnyear, an, anyear);
+                            //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel dtorder.Rows.Count " + dtorder.Rows.Count);
+                            foreach (DataRow rowdrug in dtorder.Rows)
+                            {
+                                float qty = 0, price = 0;
+                                float.TryParse(rowdrug["qty"].ToString(), out qty);
+                                float.TryParse(rowdrug["MNC_SR_PRI"].ToString(), out price);
+                                String reqtime = "0000" + rowdrug["mnc_stamp_tim"].ToString();
+                                reqtime = reqtime.Substring(reqtime.Length - 4);
+                                reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                DataRow rowucep = dtUcepGen.Rows.Add();
+                                rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
+                                rowucep["tmt_code"] = rowdrug["ucep_code"].ToString();
+                                rowucep["hosp_code"] = rowdrug["mnc_sr_cd"].ToString();
+                                rowucep["cat_1_16"] = "";
+                                rowucep["mean"] = rowdrug["MNC_SR_DSC"].ToString();
+                                rowucep["unit"] = rowdrug["qty"].ToString();
+                                rowucep["price_total"] = (qty * price);
+                                rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
+                                //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
+                            }
+                            DataTable dtfin = bc.bcDB.vsDB.selectOrderFinanceUcepIPDByHn(hn, hnyear, an, anyear);
+                            //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel dtorder.Rows.Count " + dtorder.Rows.Count);
+                            foreach (DataRow rowdrug in dtfin.Rows)
+                            {
+                                float qty = 0, price = 0;
+                                //float.TryParse(rowdrug["qty"].ToString(), out qty);
+                                float.TryParse(rowdrug["MNC_FN_AMT"].ToString(), out price);
+                                String reqtime = "0000" + rowdrug["MNC_FN_TIME"].ToString();
+                                reqtime = reqtime.Substring(reqtime.Length - 4);
+                                reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                DataRow rowucep = dtUcepGen.Rows.Add();
+                                rowucep["use_date"] = rowdrug["MNC_FN_DAT"].ToString() + " " + reqtime;
+                                rowucep["tmt_code"] = rowdrug["ucep_code"].ToString();
+                                rowucep["hosp_code"] = rowdrug["mnc_charge_cd"].ToString() + rowdrug["mnc_sub_charge_cd"].ToString();
+                                rowucep["cat_1_16"] = "";
+                                rowucep["mean"] = rowdrug["MNC_FN_DSCT"].ToString();
+                                rowucep["unit"] = "1";
+                                rowucep["price_total"] = (1 * price);
+                                rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
+                                //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
+                            }
+                            DataTable dtlab = bc.bcDB.vsDB.selectResultLabUcepbyAN(hn, an, anyear);
+                            foreach (DataRow rowlab in dtlab.Rows)
+                            {
+                                String reqtime = "0000" + rowlab["mnc_stamp_tim"].ToString();
+                                reqtime = reqtime.Substring(reqtime.Length - 4);
+                                reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                DataRow rowucep = dtUcepGen.Rows.Add();
+                                rowucep["use_date"] = rowlab["mnc_req_dat"].ToString() + " " + reqtime;
+                                rowucep["tmt_code"] = rowlab["ucep_code"].ToString();
+                                rowucep["hosp_code"] = rowlab["mnc_lb_cd"].ToString();
+                                rowucep["cat_1_16"] = "";
+                                rowucep["mean"] = rowlab["MNC_LB_DSC"].ToString();
+                                rowucep["unit"] = "1";
+                                rowucep["price_total"] = rowlab["MNC_LB_PRI"].ToString();
+                                rowucep["hosp_code1"] = rowlab["MNC_fn_cd"].ToString();
+                            }
+                            DataTable dtxray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an, anyear);
+                            foreach (DataRow rowxray in dtxray.Rows)
+                            {
+                                String reqtime = "0000" + rowxray["mnc_stamp_tim"].ToString();
+                                reqtime = reqtime.Substring(reqtime.Length - 4);
+                                reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                DataRow rowucep = dtUcepGen.Rows.Add();
+                                rowucep["use_date"] = rowxray["mnc_req_dat"].ToString() + " " + reqtime;
+                                rowucep["tmt_code"] = rowxray["ucep_code"].ToString();
+                                rowucep["hosp_code"] = rowxray["MNC_XR_CD"].ToString();
+                                rowucep["cat_1_16"] = "";
+                                rowucep["mean"] = rowxray["MNC_XR_DSC"].ToString();
+                                rowucep["unit"] = "1";
+                                rowucep["price_total"] = rowxray["MNC_XR_PRI_R"].ToString();
+                                rowucep["hosp_code1"] = rowxray["MNC_fn_cd"].ToString();
+                            }
+                            //}
                         }
-                        //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel anyear " + anyear+" an "+an+ " andate " + andate+ " hn " + hn + " hnyear " + hnyear);
-                        DataTable dtorder = bc.bcDB.vsDB.selectOrderHotChargeUcepIPDByHn(hn, hnyear, an, anyear);
-                        //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel dtorder.Rows.Count " + dtorder.Rows.Count);
-                        foreach (DataRow rowdrug in dtorder.Rows)
-                        {
-                            float qty = 0, price = 0;
-                            float.TryParse(rowdrug["qty"].ToString(), out qty);
-                            float.TryParse(rowdrug["MNC_SR_PRI"].ToString(), out price);
-                            String reqtime = "0000" + rowdrug["mnc_stamp_tim"].ToString();
-                            reqtime = reqtime.Substring(reqtime.Length - 4);
-                            reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
-                            DataRow rowucep = dtUcepGen.Rows.Add();
-                            rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
-                            rowucep["tmt_code"] = rowdrug["ucep_code"].ToString();
-                            rowucep["hosp_code"] = rowdrug["mnc_sr_cd"].ToString();
-                            rowucep["cat_1_16"] = "";
-                            rowucep["mean"] = rowdrug["MNC_SR_DSC"].ToString();
-                            rowucep["unit"] = rowdrug["qty"].ToString();
-                            rowucep["price_total"] = (qty*price);
-                            //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
-                        }
-                        DataTable dtfin = bc.bcDB.vsDB.selectOrderFinanceUcepIPDByHn(hn, hnyear, an, anyear);
-                        //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel dtorder.Rows.Count " + dtorder.Rows.Count);
-                        foreach (DataRow rowdrug in dtfin.Rows)
-                        {
-                            float qty = 0, price = 0;
-                            //float.TryParse(rowdrug["qty"].ToString(), out qty);
-                            float.TryParse(rowdrug["MNC_FN_AMT"].ToString(), out price);
-                            String reqtime = "0000" + rowdrug["MNC_FN_TIME"].ToString();
-                            reqtime = reqtime.Substring(reqtime.Length - 4);
-                            reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
-                            DataRow rowucep = dtUcepGen.Rows.Add();
-                            rowucep["use_date"] = rowdrug["MNC_FN_DAT"].ToString() + " " + reqtime;
-                            rowucep["tmt_code"] = rowdrug["ucep_code"].ToString();
-                            rowucep["hosp_code"] = rowdrug["mnc_charge_cd"].ToString()+ rowdrug["mnc_sub_charge_cd"].ToString();
-                            rowucep["cat_1_16"] = "";
-                            rowucep["mean"] = rowdrug["MNC_FN_DSCT"].ToString();
-                            rowucep["unit"] = "1";
-                            rowucep["price_total"] = (1 * price);
-                            //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
-                        }
-                        DataTable dtlab = bc.bcDB.vsDB.selectResultLabUcepbyAN(hn, an, anyear);
-                        foreach (DataRow rowlab in dtlab.Rows)
-                        {
-                            String reqtime = "0000" + rowlab["mnc_stamp_tim"].ToString();
-                            reqtime = reqtime.Substring(reqtime.Length - 4);
-                            reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
-                            DataRow rowucep = dtUcepGen.Rows.Add();
-                            rowucep["use_date"] = rowlab["mnc_req_dat"].ToString() + " " + reqtime;
-                            rowucep["tmt_code"] = rowlab["ucep_code"].ToString();
-                            rowucep["hosp_code"] = rowlab["mnc_lb_cd"].ToString();
-                            rowucep["cat_1_16"] = "";
-                            rowucep["mean"] = rowlab["MNC_LB_DSC"].ToString();
-                            rowucep["unit"] = "1";
-                            rowucep["price_total"] = rowlab["MNC_LB_PRI"].ToString();
-                        }
-                        DataTable dtxray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an, anyear);
-                        foreach (DataRow rowxray in dtxray.Rows)
-                        {
-                            String reqtime = "0000" + rowxray["mnc_stamp_tim"].ToString();
-                            reqtime = reqtime.Substring(reqtime.Length - 4);
-                            reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
-                            DataRow rowucep = dtUcepGen.Rows.Add();
-                            rowucep["use_date"] = rowxray["mnc_req_dat"].ToString() + " " + reqtime;
-                            rowucep["tmt_code"] = rowxray["ucep_code"].ToString();
-                            rowucep["hosp_code"] = rowxray["MNC_XR_CD"].ToString();
-                            rowucep["cat_1_16"] = "";
-                            rowucep["mean"] = rowxray["MNC_XR_DSC"].ToString();
-                            rowucep["unit"] = "1";
-                            rowucep["price_total"] = rowxray["MNC_XR_PRI_R"].ToString();
-                        }
-                        //}
                     }
                 }
             }
+            
             hideLbLoading();
             CreateExcelFile(dtUcepGen);
             pageLoad = false;
@@ -2653,7 +2981,7 @@ namespace bangna_hospital.gui
                 Application.DoEvents();
             }
 
-            string filename = pathfile+"\\ucep.xls";
+            string filename = pathfile+ "\\fs_template.xls";
             _c1xl.Save(filename);
             Process.Start("explorer.exe", pathfile);
             return filename;
@@ -2673,13 +3001,14 @@ namespace bangna_hospital.gui
             sheet.Rows[0].Style = _styTitle;
 
             // set column widths (in twips)
-            sheet.Columns[0].Width = 3000;
-            sheet.Columns[1].Width = 3000;
-            sheet.Columns[2].Width = 3000;
-            sheet.Columns[3].Width = 3000;
-            sheet.Columns[4].Width = 3000;
-            sheet.Columns[5].Width = 3000;
-            sheet.Columns[6].Width = 3000;
+            sheet.Columns[0].Width = 2000;
+            sheet.Columns[1].Width = 2000;
+            sheet.Columns[2].Width = 1500;
+            sheet.Columns[3].Width = 1500;
+            sheet.Columns[4].Width = 4000;
+            sheet.Columns[5].Width = 1000;
+            sheet.Columns[6].Width = 1000;
+            sheet.Columns[7].Width = 1500;
 
             //add column headers
             int row = 0;
@@ -2692,6 +3021,7 @@ namespace bangna_hospital.gui
             sheet[row, 4].Value = "mean";
             sheet[row, 5].Value = "unit";
             sheet[row, 6].Value = "price_total";
+            sheet[row, 7].Value = "hospital code1";
 
             //loop through products in this category
             //DataRow[] products = dr.GetChildRows("Categories_Products");
@@ -2705,6 +3035,7 @@ namespace bangna_hospital.gui
                 sheet[row, 4].Value = drow["mean"].ToString();
                 sheet[row, 5].Value = drow["unit"].ToString();
                 sheet[row, 6].Value = drow["price_total"].ToString();
+                sheet[row, 7].Value = drow["hosp_code1"].ToString();
             }
             //if (products.Length == 0)
             //{
@@ -5521,7 +5852,7 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
 
-            this.Text = "Last Update 2020-02-19";
+            this.Text = "Last Update 2020-03-13";
         }
     }
 }
