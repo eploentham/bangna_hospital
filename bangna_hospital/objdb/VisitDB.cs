@@ -2382,6 +2382,29 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
+        public DataTable selectFinancePatient(String startdate, String enddate, String paidtypecode)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            sql = "select finance_t01.mnc_doc_cd,finance_t01.mnc_doc_yr,finance_t01.mnc_doc_no,convert(VARCHAR(20),finance_t01.mnc_doc_dat,23) as mnc_doc_dat,convert(VARCHAR(20),finance_t01.MNC_DATE,23) as MNC_DATE,mnc_time,finance_t01.MNC_HN_NO,finance_t01.MNC_HN_YR,finance_t01.MNC_AN_NO, " +
+                "finance_t01.MNC_AN_YR, m02.MNC_PFIX_DSC,patient_m01.MNC_FNAME_T,patient_m01.MNC_LNAME_T,finance_t01.MNC_PRE_NO,finance_t01.MNC_FN_TYP_CD,PATIENT_T01.MNC_DOT_CD" +
+                ",m02dtr.MNC_PFIX_DSC as MNC_PFIX_DSCdtr,patient_m26.MNC_DOT_FNAME,patient_m26.MNC_DOT_LNAME " +
+                //" , ft02.MNC_FN_CD, ft02.MNC_NO, ft02.MNC_FN_AMT, fm01.MNC_FN_DSCT " +
+                "From finance_t01   " +
+                "left join  PATIENT_T01 on finance_t01.mnc_date = PATIENT_T01.mnc_date and finance_t01.mnc_pre_no = PATIENT_T01.MNC_PRE_NO and finance_t01.mnc_hn_no = PATIENT_T01.MNC_HN_NO " +
+                "left join  PATIENT_M01 on PATIENT_T01.mnc_hn_no = PATIENT_M01.MNC_HN_NO " +
+                "inner join patient_m26 on patient_t01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+                "inner join patient_m02  as m02dtr on patient_m26.MNC_DOT_PFIX =m02dtr.MNC_PFIX_CD " +
+                "left join PATIENT_M02 as m02 on PATIENT_M01.MNC_PFIX_CDT = M02.MNC_PFIX_CD " +
+                //"inner join FINANCE_T02 ft02 on finance_t01.MNC_DOC_CD = ft02.MNC_DOC_CD and finance_t01.MNC_DOC_YR = ft02.MNC_DOC_YR and finance_t01.MNC_DOC_DAT = ft02.MNC_DOC_DAT and finance_t01.MNC_DOC_NO = ft02.MNC_DOC_NO " +
+                //"inner join FINANCE_M01 fm01 on ft02.MNC_FN_CD = fm01.MNC_FN_CD " +
+                "where  finance_t01.MNC_DATE >= '" + startdate + "' and finance_t01.MNC_DATE <= '" + enddate + "'  " +
+                "and finance_t01.MNC_FN_TYP_CD  in (" + paidtypecode + ") " +
+                "Order By finance_t01.MNC_DATE,finance_t01.MNC_HN_NO,finance_t01.MNC_PRE_NO  ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public DataTable selectNHSOPrint(String startDate, String endDate, String fncd)
         {
             DataTable dt = new DataTable();

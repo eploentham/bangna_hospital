@@ -134,6 +134,11 @@ namespace bangna_hospital
                     //new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmOPD2CheckUPMain());
                 }
+                else if (bc.iniC.programLoad.Equals("DfDoctor"))
+                {
+                    //new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.FrmDfDoctor(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

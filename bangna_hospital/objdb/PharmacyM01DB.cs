@@ -88,10 +88,43 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public String UpdateTMTCodeOPBKK(String drugcode, String tmtcode)
+        {
+            String sql = "", chk = "";
+            sql = "Update pharmacy_m01 Set " +
+                " tmt_code_opbkk = '" + tmtcode + "' " +
+                "Where mnc_ph_cd ='" + drugcode + "'";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return chk;
+        }
         public String UpdateTMTCode(String drugcode, String tmtcode)
         {
             String sql = "", chk = "";
-            sql = "Update pharmacy_m01 Set tmt_code = '" + tmtcode + "' " +
+            sql = "Update pharmacy_m01 Set " +
+                " tmt_code = '" + tmtcode + "' " +
+                ", tmt_code_opbkk = '" + tmtcode + "' " +
+                "Where mnc_ph_cd ='" + drugcode + "'";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return chk;
+        }
+        public String UpdateOPBKKCode(String drugcode, String tmtcode)
+        {
+            String sql = "", chk = "";
+            sql = "Update pharmacy_m01 Set opbkk_code = '" + tmtcode + "' " +
                 "Where mnc_ph_cd ='" + drugcode + "'";
             try
             {
