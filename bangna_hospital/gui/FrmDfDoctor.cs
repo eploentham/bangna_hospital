@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.object1;
 using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
@@ -34,7 +35,7 @@ namespace bangna_hospital.gui
         C1DateEdit txtDateStart, txtDateEnd;
         C1TextBox txtPaidType;
         Boolean pageLoad = false;
-        int colchk = 1, colvsdate = 2, colhnno = 3, colpttname = 4, colpreno = 5, colpaidtype = 6, coldtrcode = 7, coldtrname = 8, coldoccd = 9, coldoc_yr = 10, coldocno = 11, colfncd = 12, colno = 13, colfnamt = 14, colfndesc = 15;
+        int colchk = 1, colvsdate = 2, colhnno = 3, colpttname = 4, colpreno = 5, colpaidtype = 6, coldtrcode = 7, coldtrname = 8, coldoccd = 9, coldoc_yr = 10, coldocno = 11, colfncd = 12, colno = 13, colfnamt = 14, colfndesc = 15, coldocdat=16, colvstime=17, colanno=18, colanyr=19, colhnyr=20;
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -62,6 +63,89 @@ namespace bangna_hospital.gui
         private void BtnImportDfGen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            String dfdate = "";
+            int i = 20000;
+            DateTime date = new DateTime();
+            DateTime.TryParse(DateTime.Now.ToString(), out date);
+            if (date.Year > 2500)
+            {
+                date = date.AddYears(-543);
+            }
+            else if (date.Year < 2000)
+            {
+                date = date.AddYears(543);
+            }
+            dfdate = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            foreach (Row row in grfSelect.Rows)
+            {
+                String doccd = "", docyr = "", docno = "", docdat = "", fncd = "", fnno = "", fndat = "", chk="", fndsc="", dfamt="", vsdate="", vstime="", hnno="", hnyr="",patname="", preno="", paidtypecode="", dtrid="", dtrname="";
+                String anno = "", anyr = "";
+                chk = row[colchk] != null ? row[colchk].ToString() : "";
+
+                if (!chk.ToLower().Equals("true")) continue;
+
+                doccd = row[coldoccd] != null ? row[coldoccd].ToString() : "";
+                docyr = row[coldoc_yr] != null ? row[coldoc_yr].ToString() : "";
+                docno = row[coldocno] != null ? row[coldocno].ToString() : "";
+                docdat = row[coldocdat] != null ? row[coldocdat].ToString() : "";
+
+                vsdate = row[colvsdate] != null ? row[colvsdate].ToString() : "";
+                vstime = row[colvstime] != null ? row[colvstime].ToString() : "";
+                hnno = row[colhnno] != null ? row[colhnno].ToString() : "";
+                hnyr = row[colhnyr] != null ? row[colhnyr].ToString() : "";
+                patname = row[colpttname] != null ? row[colpttname].ToString() : "";
+                preno = row[colpreno] != null ? row[colpreno].ToString() : "";
+                paidtypecode = row[colpaidtype] != null ? row[colpaidtype].ToString() : "";
+                dtrid = row[coldtrcode] != null ? row[coldtrcode].ToString() : "";
+                dtrname = row[coldtrname] != null ? row[coldtrname].ToString() : "";
+                anno = row[colanno] != null ? row[colanno].ToString() : "";
+                anyr = row[colanyr] != null ? row[colanyr].ToString() : "";
+
+                fncd = "470";
+                fndsc = "ค่าแพทย์ CHECKUP";
+                dfamt = "10";
+
+                DotDfDetail dotdfd = new DotDfDetail();
+                dotdfd.MNC_DOC_CD = doccd;              //pk
+                dotdfd.MNC_DOC_YR = docyr;              //pk
+                dotdfd.MNC_DOC_NO = docno;              //pk
+                dotdfd.MNC_DOC_DAT = docdat;            //pk
+                dotdfd.MNC_FN_CD = fncd;                //pk
+                dotdfd.MNC_FN_NO = i.ToString();        //pk
+                dotdfd.MNC_FN_DAT = docdat;             //pk
+                //dotdfd.MNC_DF_DATE = dfdate;
+                dotdfd.MNC_DF_DATE = bc.datetoDB(vsdate);       // ต้องเป็น vsdate จากการดู data ของ วันต่างๆ
+                dotdfd.MNC_FN_TYP_DESC = fndsc;
+                dotdfd.MNC_DF_AMT = dfamt;
+                dotdfd.MNC_FN_AMT = dfamt;
+                dotdfd.MNC_DATE = bc.datetoDB(vsdate);
+                dotdfd.MNC_TIME = vstime;
+                dotdfd.MNC_HN_NO = hnno;
+                dotdfd.MNC_HN_YR = hnyr;
+                dotdfd.MNC_AN_NO = anno;
+                dotdfd.MNC_AN_YR = anyr;
+                dotdfd.MNC_PAT_NAME = patname;
+                dotdfd.MNC_PRE_NO = preno;
+                dotdfd.MNC_FN_TYP_CD = paidtypecode;
+                dotdfd.MNC_DOT_CD_DF = dtrid;
+                dotdfd.MNC_DOT_GRP_CD = "0";
+                dotdfd.MNC_DOT_NAME = dtrid+"0" +dtrname;
+                dotdfd.MNC_PAY_FLAG = "Y";
+                dotdfd.MNC_PAY_DAT = "";            // null
+                dotdfd.MNC_PAY_NO = "";            // null
+                dotdfd.MNC_PAY_YR = "";            // null
+                dotdfd.MNC_REF_NO = "";            // null
+                dotdfd.MNC_REF_DAT = "";            // null
+                dotdfd.MNC_EMP_CD = "";            // null
+                dotdfd.MNC_DF_GROUP = "1";
+                dotdfd.MNC_PAY_TYP = "2";
+                dotdfd.MNC_PAY_RATE = dfamt;
+                dotdfd.MNC_DF_DET_TYPE = "";            // null
+                dotdfd.status_insert_manual = "1";
+
+                String re = bc.bcDB.dotdfdDB.insert(dotdfd);
+                i++;
+            }
             
         }
 
@@ -115,8 +199,8 @@ namespace bangna_hospital.gui
 
             Column colChk = grfSelect.Cols[colchk];
             colChk.DataType = typeof(Boolean);
-            grfSelect.Cols.Count = 16;
-            grfSelect.Cols.Count = 12;
+            grfSelect.Cols.Count = 21;
+            //grfSelect.Cols.Count = 12;
             grfSelect.Rows.Count = 1;
             grfSelect.Cols[colvsdate].Caption = "Date";
             grfSelect.Cols[colhnno].Caption = "HN";
@@ -124,6 +208,8 @@ namespace bangna_hospital.gui
             grfSelect.Cols[colpreno].Caption = "preno";
             grfSelect.Cols[colpaidtype].Caption = "สิทธิ";
             grfSelect.Cols[coldtrcode].Caption = "แพทย์";
+            grfSelect.Cols[colanno].Caption = "AN NO";
+            grfSelect.Cols[colanyr].Caption = "AN YR";
             //grfSelect.Cols[coldtrname].Caption = "HN";
             grfSelect.Cols[colchk].Width = 50;
             grfSelect.Cols[colvsdate].Width = 100;
@@ -151,10 +237,11 @@ namespace bangna_hospital.gui
                 grfSelect[i, coldoccd] = drow["MNC_DOC_CD"].ToString();
                 grfSelect[i, coldoc_yr] = drow["MNC_DOC_yr"].ToString();
                 grfSelect[i, coldocno] = drow["MNC_DOC_no"].ToString();
-                //grfSelect[i, colfncd] = drow["MNC_FN_CD"].ToString();
-                //grfSelect[i, colno] = drow["MNC_NO"].ToString();
-                //grfSelect[i, colfnamt] = drow["MNC_FN_AMT"].ToString();
-                //grfSelect[i, colfndesc] = drow["MNC_FN_DSCT"].ToString();
+                grfSelect[i, coldocdat] = drow["MNC_doc_dat"].ToString();
+                grfSelect[i, colvstime] = drow["MNC_time"].ToString();
+                grfSelect[i, colanno] = drow["MNC_AN_NO"].ToString();
+                grfSelect[i, colanyr] = drow["MNC_AN_YR"].ToString();
+                grfSelect[i, colhnyr] = drow["MNC_hn_YR"].ToString();
                 grfSelect[i, colchk] = true;
 
                 grfSelect[i, 0] = i;
@@ -163,6 +250,8 @@ namespace bangna_hospital.gui
             grfSelect.Cols[coldoccd].Visible = false;
             grfSelect.Cols[coldoc_yr].Visible = false;
             grfSelect.Cols[coldocno].Visible = false;
+            grfSelect.Cols[coldocdat].Visible = false;
+            grfSelect.Cols[colvstime].Visible = false;
 
             grfSelect.Cols[colvsdate].AllowEditing = false;
             grfSelect.Cols[colhnno].AllowEditing = false;

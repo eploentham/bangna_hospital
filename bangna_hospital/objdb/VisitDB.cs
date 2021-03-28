@@ -2386,7 +2386,8 @@ namespace bangna_hospital.objdb
         {
             String sql = "";
             DataTable dt = new DataTable();
-            sql = "select finance_t01.mnc_doc_cd,finance_t01.mnc_doc_yr,finance_t01.mnc_doc_no,convert(VARCHAR(20),finance_t01.mnc_doc_dat,23) as mnc_doc_dat,convert(VARCHAR(20),finance_t01.MNC_DATE,23) as MNC_DATE,mnc_time,finance_t01.MNC_HN_NO,finance_t01.MNC_HN_YR,finance_t01.MNC_AN_NO, " +
+            sql = "select finance_t01.mnc_doc_cd,finance_t01.mnc_doc_yr,finance_t01.mnc_doc_no,convert(VARCHAR(20),finance_t01.mnc_doc_dat,23) as mnc_doc_dat,convert(VARCHAR(20),finance_t01.MNC_DATE,23) as MNC_DATE" +
+                ",PATIENT_T01.mnc_time,finance_t01.MNC_HN_NO,finance_t01.MNC_HN_YR,finance_t01.MNC_AN_NO, " +
                 "finance_t01.MNC_AN_YR, m02.MNC_PFIX_DSC,patient_m01.MNC_FNAME_T,patient_m01.MNC_LNAME_T,finance_t01.MNC_PRE_NO,finance_t01.MNC_FN_TYP_CD,PATIENT_T01.MNC_DOT_CD" +
                 ",m02dtr.MNC_PFIX_DSC as MNC_PFIX_DSCdtr,patient_m26.MNC_DOT_FNAME,patient_m26.MNC_DOT_LNAME " +
                 //" , ft02.MNC_FN_CD, ft02.MNC_NO, ft02.MNC_FN_AMT, fm01.MNC_FN_DSCT " +

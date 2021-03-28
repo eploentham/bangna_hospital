@@ -47,6 +47,7 @@ namespace bangna_hospital.gui
         C1TextBox txtDITsuppStartRow, txtDITsuppCostNew, txtDITsuppPriceNew, txtDITsuppFilename, txtDITserviceStartRow, txtDITserviceCostNew, txtDITservicePriceNew, txtDITserviceFilename;
         C1CheckBox chkUcepSelectAll;
         Panel pnOPBKK, pnUcepMainTop, pnUcepMainBotton, pnDITdc01Top, pnDITdc02Top, pnDITsuppTop, pnDITserviceTop, pnDITdc01Botton, pnDITdc02Botton, pnDITsuppBotton, pnDITserviceBotton;
+        RadioButton chkOPBKKSelectVsDate, chkOPBKKSelectDiscDate;
         DataTable dtPtt = new DataTable();
         List<OPBKKINS> lINS = new List<OPBKKINS>();
         List<OPBKKPAT> lPAT = new List<OPBKKPAT>();
@@ -436,7 +437,9 @@ namespace bangna_hospital.gui
 
             pnOPBKK = new Panel();
             pnOPBKK.Controls.Add(tcOPBKK);
-            
+            Panel pnchkOPBKKSelectDiscDate = new Panel();
+            pnchkOPBKKSelectDiscDate.Size = new Size(180, 60);
+
             lbDateStart = new Label();
             txtDateStart = new C1DateEdit();
             lbDateEnd = new Label();
@@ -450,6 +453,12 @@ namespace bangna_hospital.gui
             lbtxtHCode = new Label();
             txtHCode = new C1TextBox();
             lbLoading = new Label();
+
+            chkOPBKKSelectDiscDate = new RadioButton();
+            chkOPBKKSelectVsDate = new RadioButton();
+            pnchkOPBKKSelectDiscDate.Controls.Add(chkOPBKKSelectVsDate);
+            pnchkOPBKKSelectDiscDate.Controls.Add(chkOPBKKSelectDiscDate);
+
             lbLoading.Font = fEdit5B;
             lbLoading.BackColor = Color.WhiteSmoke;
             lbLoading.ForeColor = Color.Black;
@@ -460,7 +469,10 @@ namespace bangna_hospital.gui
 
             initCompomentTabUcep();
             //gapY += gapLine;
-            bc.setControlLabel(ref lbDateStart, fEdit, "วันที่เริ่มต้น :", "lbDateStart", gapX , gapY);
+            bc.setControlRadioBox(ref chkOPBKKSelectVsDate, fEdit, "ตาม visit date", "chkOPBKKSelectVsDate", 10, 5);
+            bc.setControlRadioBox(ref chkOPBKKSelectDiscDate, fEdit, "ตาม discharge date", "chkOPBKKSelectDiscDate", 10, 25);
+
+            bc.setControlLabel(ref lbDateStart, fEdit, "วันที่เริ่มต้น :", "lbDateStart", pnchkOPBKKSelectDiscDate.Location.X + pnchkOPBKKSelectDiscDate.Width + 10, gapY);
             size = bc.MeasureString(lbDateStart);
             bc.setControlC1DateTimeEdit(ref txtDateStart, "txtDateStart", lbDateStart.Location.X + size.Width + 5, gapY);
             size = bc.MeasureString(lbDateStart);
@@ -471,10 +483,10 @@ namespace bangna_hospital.gui
             bc.setControlLabel(ref lbtxtPaidType, fEdit, "สิทธิ (xx,...) :", "lbtxtPaidType", txtDateEnd.Location.X + txtDateEnd.Width + 15, gapY);
             size = bc.MeasureString(lbtxtPaidType);
             bc.setControlC1TextBox(ref txtPaidType, fEdit, "txtPaidType",120, lbtxtPaidType.Location.X + size.Width + 5, gapY);
-            bc.setControlLabel(ref lbtxtHospMain, fEdit, "HospMain :", "lbtxtHospMain", txtPaidType.Location.X + txtPaidType.Width + 20, gapY);
-            size = bc.MeasureString(lbtxtHospMain);
-            bc.setControlC1TextBox(ref txtHospMain, fEdit, "txtHospMain", 80, lbtxtHospMain.Location.X + size.Width + 5, gapY);
-            bc.setControlLabel(ref lbtxtHCode, fEdit, "HCODE :", "lbtxtHCode", txtHospMain.Location.X + txtHospMain.Width + 15, gapY);
+            //bc.setControlLabel(ref lbtxtHospMain, fEdit, "HospMain :", "lbtxtHospMain", txtPaidType.Location.X + txtPaidType.Width + 20, gapY);
+            //size = bc.MeasureString(lbtxtHospMain);
+            //bc.setControlC1TextBox(ref txtHospMain, fEdit, "txtHospMain", 80, lbtxtHospMain.Location.X + size.Width + 5, gapY);
+            bc.setControlLabel(ref lbtxtHCode, fEdit, "HCODE :", "lbtxtHCode", txtPaidType.Location.X + txtPaidType.Width + 15, gapY);
             size = bc.MeasureString(lbtxtHCode);
             bc.setControlC1TextBox(ref txtHCode, fEdit, "txtHCode", 80, lbtxtHCode.Location.X + size.Width + 5, gapY);
 
@@ -484,8 +496,8 @@ namespace bangna_hospital.gui
             btnOPBkkGen.Width = 80;
             btnOPBKKSelect.Click += BtnOPBKKSelect_Click;
 
-            
 
+            tabOP.Controls.Add(pnchkOPBKKSelectDiscDate);
             tabOP.Controls.Add(lbDateStart);
             tabOP.Controls.Add(txtDateStart);
             tabOP.Controls.Add(lbDateEnd);
