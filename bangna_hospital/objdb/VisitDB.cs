@@ -1168,7 +1168,28 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select convert(VARCHAR(20),ft031.MNC_FN_DAT,23) as MNC_FN_DAT, ft031.MNC_FN_TIME,ft031.MNC_FN_CD, ft031.MNC_FN_AMT,fm01.MNC_FN_DSCT,fm01.mnc_charge_cd, fm01.mnc_sub_charge_cd, fm01.ucep_code,ft031.mnc_fn_cd    " +
+
+            //64-05-06  อ้วนแจ้งว่า ข้อมูล double ทำให้ ต้อง distinct
+            //sql = "Select convert(VARCHAR(20),ft031.MNC_FN_DAT,23) as MNC_FN_DAT, ft031.MNC_FN_TIME,ft031.MNC_FN_CD, ft031.MNC_FN_AMT,fm01.MNC_FN_DSCT,fm01.mnc_charge_cd, fm01.mnc_sub_charge_cd, fm01.ucep_code,ft031.mnc_fn_cd    " +
+            //    " " +
+
+            //    "from FINANCE_T03_1 ft031  " +
+            //    "inner join finance_m01 fm01 on ft031.mnc_fn_cd =  fm01.mnc_fn_cd and ft031.MNC_APP_CD2 = 'ADJ' " +
+            //    "  " +
+
+            //    "where  " +
+            //    " ft031.MNC_HN_NO = '" + hn + "'  " +
+            //    ////" and t01.mnc_vn_no = '" + vn + "' " +
+            //    //"and phart05.MNC_PRE_NO = '" + preno + "' " +
+            //    //"and phart05.MNC_DATE = '" + vsdate + "' " +
+            //    //" and pt16.MNC_req_STS = 'a' " +
+            //    //" and ft031.MNC_ad_DAT = '" + andate + "' " +
+            //    " and ft031.MNC_AN_NO = '" + anno + "' " +
+            //    " and ft031.MNC_AN_yr ='" + anyear + "' " +
+            //    //"Group By pm30.MNC_SR_DSC, pt16.mnc_sr_cd,pt16.mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code " +
+            //    "order by ft031.MNC_FN_DAT, ft031.MNC_FN_TIME, ft031.MNC_FN_NO ";
+
+            sql = "Select distinct convert(VARCHAR(20),ft031.MNC_FN_DAT,23) as MNC_FN_DAT, ft031.MNC_FN_TIME,ft031.MNC_FN_CD, ft031.MNC_FN_AMT,fm01.MNC_FN_DSCT,fm01.mnc_charge_cd, fm01.mnc_sub_charge_cd, fm01.ucep_code,ft031.mnc_fn_cd    " +
                 " " +
 
                 "from FINANCE_T03_1 ft031  " +
@@ -1185,7 +1206,7 @@ namespace bangna_hospital.objdb
                 " and ft031.MNC_AN_NO = '" + anno + "' " +
                 " and ft031.MNC_AN_yr ='" + anyear + "' " +
                 //"Group By pm30.MNC_SR_DSC, pt16.mnc_sr_cd,pt16.mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code " +
-                "order by ft031.MNC_FN_DAT, ft031.MNC_FN_TIME, ft031.MNC_FN_NO ";
+                "-- order by ft031.MNC_FN_DAT, ft031.MNC_FN_TIME, ft031.MNC_FN_NO ";
 
             dt = conn.selectData(sql);
             return dt;
@@ -1220,13 +1241,33 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select pm30.MNC_SR_DSC, pt16.mnc_sr_cd, sum(pt16.mnc_sr_qty) as qty     " +
-                ", convert(VARCHAR(20),pt16.mnc_req_dat,23) as mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code,ft031.mnc_fn_cd " +
+            //อ้วนแจ้ง  ข้อมูล double ทำให้ต้อง distinct
+            //sql = "Select pm30.MNC_SR_DSC, pt16.mnc_sr_cd, sum(pt16.mnc_sr_qty) as qty     " +
+            //    ", convert(VARCHAR(20),pt16.mnc_req_dat,23) as mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code,ft031.mnc_fn_cd " +
                 
+            //    "from FINANCE_T03_1 ft031 " +
+            //    "inner join patient_t16  pt16 on pt16.MNC_REQ_YR = ft031.MNC_REQ_YR and pt16.MNC_REQ_DAT = ft031.MNC_REQ_DAT and pt16.MNC_REQ_NO = ft031.MNC_REQ_NO  " +
+            //    "inner join PATIENT_M30 pm30 on pt16.MNC_SR_CD = pm30.MNC_SR_CD  " +
+                
+            //    "where  " +
+            //    " ft031.MNC_HN_NO = '" + hn + "'  " +
+            //    ////" and t01.mnc_vn_no = '" + vn + "' " +
+            //    //"and phart05.MNC_PRE_NO = '" + preno + "' " +
+            //    //"and phart05.MNC_DATE = '" + vsdate + "' " +
+            //    " and pt16.MNC_req_STS = 'a' " +
+            //    //" and ft031.MNC_ad_DAT = '" + andate + "' " +
+            //    " and ft031.MNC_AN_NO = '" + anno + "' " +
+            //    " and ft031.MNC_AN_yr ='" +anyear+"' " +
+            //    "Group By pm30.MNC_SR_DSC, pt16.mnc_sr_cd,pt16.mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code,ft031.mnc_fn_cd " +
+            //    "Order By pt16.mnc_req_dat,pt16.mnc_stamp_tim, pt16.mnc_sr_cd ";
+
+            sql = "Select distinct pm30.MNC_SR_DSC, pt16.mnc_sr_cd, sum(pt16.mnc_sr_qty) as qty     " +
+                ", convert(VARCHAR(20),pt16.mnc_req_dat,23) as mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code  " +
+
                 "from FINANCE_T03_1 ft031 " +
                 "inner join patient_t16  pt16 on pt16.MNC_REQ_YR = ft031.MNC_REQ_YR and pt16.MNC_REQ_DAT = ft031.MNC_REQ_DAT and pt16.MNC_REQ_NO = ft031.MNC_REQ_NO  " +
                 "inner join PATIENT_M30 pm30 on pt16.MNC_SR_CD = pm30.MNC_SR_CD  " +
-                
+
                 "where  " +
                 " ft031.MNC_HN_NO = '" + hn + "'  " +
                 ////" and t01.mnc_vn_no = '" + vn + "' " +
@@ -1235,9 +1276,9 @@ namespace bangna_hospital.objdb
                 " and pt16.MNC_req_STS = 'a' " +
                 //" and ft031.MNC_ad_DAT = '" + andate + "' " +
                 " and ft031.MNC_AN_NO = '" + anno + "' " +
-                " and ft031.MNC_AN_yr ='" +anyear+"' " +
+                " and ft031.MNC_AN_yr ='" + anyear + "' " +
                 "Group By pm30.MNC_SR_DSC, pt16.mnc_sr_cd,pt16.mnc_req_dat,pt16.mnc_stamp_tim,pt16.MNC_SR_PRI,pm30.ucep_code,ft031.mnc_fn_cd " +
-                "Order By pt16.mnc_req_dat,pt16.mnc_stamp_tim, pt16.mnc_sr_cd ";
+                "-- Order By pt16.mnc_req_dat,pt16.mnc_stamp_tim, pt16.mnc_sr_cd ";
 
             dt = conn.selectData(sql);
             return dt;
@@ -1853,14 +1894,18 @@ namespace bangna_hospital.objdb
         }
         public DataTable selectLabCOVIDSE184byHN(String dateStart, String dateEnd, String hn)
         {
-            String sql = "";
+            String sql = "", wherehn="";
             DataTable dt = new DataTable();
             //[MNC_LB_GRP_DSC]
+            if (hn.Length > 0)
+            {
+                wherehn = " and t01.mnc_hn_no = '" + hn + "' ";
+            }
             sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
                 ", lab_t05.mnc_res, lab_t05.mnc_req_no, lab_t05.MNC_RES_MIN, lab_t05.MNC_RES_MAX,usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check" +
                 ", lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD,usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve" +
                 ", convert(VARCHAR(20),lab_t02.MNC_STAMP_DAT,23) as MNC_STAMP_DAT, lab_t02.MNC_STAMP_TIM, convert(VARCHAR(20),lab_t02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT, lab_t02.MNC_RESULT_TIM " +
-                ",t01.mnc_time,lab_t05.MNC_LB_RES_CD " +
+                ",t01.mnc_time,lab_t05.MNC_LB_RES_CD,LAB_T01.mnc_patname ,LAB_T01.mnc_hn_no " +
                 "FROM     PATIENT_T01 t01 " +
                 "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
                 "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
@@ -1870,12 +1915,209 @@ namespace bangna_hospital.objdb
                 "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
                 "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
                 "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+                //"left join patient_m01 pm01 on t01.mnc_hn_no = pm01.mnc_hn_no and t01.mnc_hn_yr = pm01.mnc_hn_yr " +
                 "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
-                " and t01.mnc_hn_no = '" + hn + "' " +
+                wherehn +
                 //"and t01.mnc_vn_no = '" + vn + "'  " +
                 //"and t01.mnc_Pre_no = '" + preNo + "'  " +
                 "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
                 "and  LAB_T05.MNC_LB_CD IN ('SE184') " +
+                //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+                //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+                "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectLabCOVIDSE184byHNSE184(String dateStart, String dateEnd, String hn)
+        {
+            String sql = "", wherehn = "";
+            DataTable dt = new DataTable();
+            //[MNC_LB_GRP_DSC]
+            if (hn.Length > 0)
+            {
+                wherehn = " and t01.mnc_hn_no = '" + hn + "' ";
+            }
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no, lab_t05.MNC_RES_MIN, lab_t05.MNC_RES_MAX,usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check" +
+                ", lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD,usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve" +
+                ", convert(VARCHAR(20),lab_t02.MNC_STAMP_DAT,23) as MNC_STAMP_DAT, lab_t02.MNC_STAMP_TIM, convert(VARCHAR(20),lab_t02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT, lab_t02.MNC_RESULT_TIM " +
+                ",t01.mnc_time,lab_t05.MNC_LB_RES_CD,LAB_T01.mnc_patname ,LAB_T01.mnc_hn_no, pm01.mnc_cur_tel " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+                "left join patient_m01 pm01 on t01.mnc_hn_no = pm01.mnc_hn_no and t01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
+                wherehn +
+                " and LAB_T05.mnc_lb_res_cd = '02' " +
+                //"and t01.mnc_Pre_no = '" + preNo + "'  " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                "and  LAB_T02.MNC_LB_CD IN ('SE184') " +
+                //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+                //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+                "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectLabCOVIDSE184byHNSE184_1(String dateStart, String dateEnd, String hn)
+        {
+            String sql = "", wherehn = "";
+            DataTable dt = new DataTable();
+            //[MNC_LB_GRP_DSC]
+            if (hn.Length > 0)
+            {
+                wherehn = " and t01.mnc_hn_no = '" + hn + "' ";
+            }
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC " +
+                ",usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check" +
+                ", lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD,usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve" +
+                ", convert(VARCHAR(20),lab_t02.MNC_STAMP_DAT,23) as MNC_STAMP_DAT, lab_t02.MNC_STAMP_TIM, convert(VARCHAR(20),lab_t02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT, lab_t02.MNC_RESULT_TIM " +
+                ",t01.mnc_time,LAB_T01.mnc_patname ,LAB_T01.mnc_hn_no, pm01.mnc_cur_tel " +
+                ",LAB_T02.mnc_req_no,LAB_T02.mnc_req_yr,convert(VARCHAR(20),LAB_T02.mnc_req_dat,23) as mnc_req_date, convert(VARCHAR(20),t01.mnc_date,23) as mnc_date " +
+                "FROM PATIENT_T01 t01 " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                //"left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+                "left join patient_m01 pm01 on t01.mnc_hn_no = pm01.mnc_hn_no and t01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
+                wherehn +
+                //" and LAB_T05.mnc_lb_res_cd = '02' " +
+                //"and t01.mnc_Pre_no = '" + preNo + "'  " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                "and  LAB_T02.MNC_LB_CD IN ('SE184') " +
+                //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+                //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+                "Order By t01.mnc_date, t01.mnc_pre_no ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectLabCOVIDSE184byHNSE629(String dateStart, String dateEnd, String hn)
+        {
+            String sql = "", wherehn = "";
+            DataTable dt = new DataTable();
+            //[MNC_LB_GRP_DSC]
+            if (hn.Length > 0)
+            {
+                wherehn = " and t01.mnc_hn_no = '" + hn + "' ";
+            }
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no, lab_t05.MNC_RES_MIN, lab_t05.MNC_RES_MAX,usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check" +
+                ", lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD,usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve" +
+                ", convert(VARCHAR(20),lab_t02.MNC_STAMP_DAT,23) as MNC_STAMP_DAT, lab_t02.MNC_STAMP_TIM, convert(VARCHAR(20),lab_t02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT, lab_t02.MNC_RESULT_TIM " +
+                ",t01.mnc_time,lab_t05.MNC_LB_RES_CD,LAB_T01.mnc_patname ,LAB_T01.mnc_hn_no, pm01.mnc_cur_tel,LAB_T01.mnc_req_sts " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+                "left join patient_m01 pm01 on t01.mnc_hn_no = pm01.mnc_hn_no and t01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
+                wherehn +
+                " and LAB_T05.mnc_lb_res_cd = '01' " +
+                //"and t01.mnc_Pre_no = '" + preNo + "'  " +
+                //"and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                "and  LAB_T02.MNC_LB_CD IN ('SE629') " +
+                //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+                //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+                "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectLabCOVIDSE184byHNSE629_1(String dateStart, String dateEnd, String hn)
+        {
+            String sql = "", wherehn = "";
+            DataTable dt = new DataTable();
+            //[MNC_LB_GRP_DSC]
+            if (hn.Length > 0)
+            {
+                wherehn = " and t01.mnc_hn_no = '" + hn + "' ";
+            }
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC " +
+                ",usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check" +
+                ", lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD,usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve" +
+                ", convert(VARCHAR(20),lab_t02.MNC_STAMP_DAT,23) as MNC_STAMP_DAT, lab_t02.MNC_STAMP_TIM, convert(VARCHAR(20),lab_t02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT, lab_t02.MNC_RESULT_TIM " +
+                ",t01.mnc_time,LAB_T01.mnc_patname ,LAB_T01.mnc_hn_no, pm01.mnc_cur_tel" +
+                ",LAB_T02.mnc_req_no,LAB_T02.mnc_req_yr,convert(VARCHAR(20),LAB_T02.mnc_req_dat,23) as mnc_req_dat,LAB_T01.mnc_req_sts , convert(VARCHAR(20),t01.mnc_date,23) as mnc_date " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                //"left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+                "left join patient_m01 pm01 on t01.mnc_hn_no = pm01.mnc_hn_no and t01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "where t01.MNC_DATE BETWEEN '" + dateStart + "' AND '" + dateEnd + "' " +
+                wherehn +
+                //" and LAB_T05.mnc_lb_res_cd = '01' " +
+                //"and t01.mnc_Pre_no = '" + preNo + "'  " +
+                //"and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                "and  LAB_T02.MNC_LB_CD IN ('SE629') " +
+                //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+                //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+                "Order By  t01.mnc_date, t01.mnc_pre_no";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectLabCOVIDRequltbyHN(String reqdate, String reqno, String reqyr, String labcode, String hn)
+        {
+            String sql = "", wherehn = "", wherelabcode="";
+            DataTable dt = new DataTable();
+            //[MNC_LB_GRP_DSC]
+            if (hn.Length > 0)
+            {
+                wherehn = " and t01.mnc_hn_no = '" + hn + "' ";
+            }
+            if (labcode.Length > 0 && labcode.ToLower().Equals("se629"))
+            {
+                wherelabcode = " and LAB_T05.mnc_lb_cd = '" + labcode + "' and LAB_T05.mnc_lb_res_cd = '01' ";
+            }
+            else if (labcode.Length > 0 && labcode.ToLower().Equals("se184"))
+            {
+                wherelabcode = " and LAB_T05.mnc_lb_cd = '" + labcode + "' and LAB_T05.mnc_lb_res_cd = '02' ";
+            }
+            sql = "SELECT LAB_T02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, LAB_T05.MNC_RES_VALUE, LAB_T05.MNC_STS, LAB_T05.MNC_RES, LAB_T05.MNC_RES_UNT, LAB_T05.MNC_LB_RES,convert(VARCHAR(20),lab_t05.mnc_req_dat,23) as mnc_req_dat" +
+                ", lab_t05.mnc_res, lab_t05.mnc_req_no, lab_t05.MNC_RES_MIN, lab_t05.MNC_RES_MAX,usr_result.MNC_USR_FULL as user_lab,usr_report.MNC_USR_FULL as user_report,usr_approve.MNC_USR_FULL as user_check" +
+                ", lab_m06.MNC_LB_GRP_DSC,LAB_M01.MNC_LB_GRP_CD,usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve" +
+                ", convert(VARCHAR(20),lab_t02.MNC_STAMP_DAT,23) as MNC_STAMP_DAT, lab_t02.MNC_STAMP_TIM, convert(VARCHAR(20),lab_t02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT, lab_t02.MNC_RESULT_TIM " +
+                ",t01.mnc_time,lab_t05.MNC_LB_RES_CD,LAB_T01.mnc_patname ,LAB_T01.mnc_hn_no, pm01.mnc_cur_tel " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+                "left join patient_m01 pm01 on t01.mnc_hn_no = pm01.mnc_hn_no and t01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "where t01.MNC_DATE = '" + reqdate + "' " +
+                wherehn +
+                wherelabcode +
+                "and LAB_T05.mnc_req_no = '" + reqno + "'  " +
+                "and LAB_T05.mnc_req_yr = '" + reqyr + "'  " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
+                //"and  LAB_T02.MNC_LB_CD IN ('SE629') " +
                 //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
                 //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
                 "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";
@@ -1906,7 +2148,7 @@ namespace bangna_hospital.objdb
                 "and t01.mnc_vn_no = '" + vn + "'  " +
                 "and t01.mnc_Pre_no = '" + preNo + "'  " +
                 "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " +
-                //"and  (LAB_T05.MNC_LB_CD IN ('ch002', 'ch250', 'ch003', 'ch004', 'ch040', 'ch037', " +
+                //"and LAB_T05.mnc_lb_res_cd = '02' " +
                 //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
                 //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
                 "Order By lab_t05.MNC_REQ_DAT,lab_t05.MNC_REQ_NO,LAB_T05.MNC_LB_CD,lab_t05.MNC_LB_RES_CD ";

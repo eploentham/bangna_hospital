@@ -120,18 +120,32 @@ namespace bangna_hospital.objdb
             try
             {
                 chkNull(p);
+                sql = "select * from " + dotdfd.table
+                    + " Where " + dotdfd.MNC_DOC_CD + "= '" + p.MNC_DOC_CD + "'"
+                    + " and " + dotdfd.MNC_DOC_YR + "= '" + p.MNC_DOC_YR + "'"
+                    + " and " + dotdfd.MNC_DOC_NO + "= '" + p.MNC_DOC_NO + "'"
+                    + " and " + dotdfd.MNC_DOC_DAT + "= '" + p.MNC_DOC_DAT + "'"
+                    + " and  " + dotdfd.MNC_FN_CD + "= '" + p.MNC_FN_CD + "'"
+                    + " and " + dotdfd.MNC_FN_DAT + "= '" + p.MNC_FN_DAT + "'"
+                    + " and " + dotdfd.MNC_HN_NO + "= '" + p.MNC_HN_NO + "'"
+                    + " and " + dotdfd.MNC_HN_YR + "= '" + p.MNC_HN_YR + "'"
+                    + " and  " + dotdfd.MNC_PRE_NO + "= '" + p.MNC_PRE_NO + "'"
+                    + " and " + dotdfd.MNC_DATE + "= '" + p.MNC_DATE + "'";
+                DataTable dt = conn.selectData(conn.connMainHIS, sql);
+                if (dt.Rows.Count > 0) return "";
 
                 sql = "Delete from " + dotdfd.table 
                     +" Where " + dotdfd.MNC_DOC_CD + "= '" + p.MNC_DOC_CD + "'"
-                    + "," + dotdfd.MNC_DOC_YR + "= '" + p.MNC_DOC_YR + "'"
-                    + "," + dotdfd.MNC_DOC_NO + "= '" + p.MNC_DOC_NO + "'"
-                    + "," + dotdfd.MNC_DOC_DAT + "= '" + p.MNC_DOC_DAT + "'"
-                    + "," + dotdfd.MNC_FN_CD + "= '" + p.MNC_FN_CD + "'"
-                    + "," + dotdfd.MNC_FN_DAT + "= '" + p.MNC_FN_DAT + "'"
-                    + "," + dotdfd.MNC_HN_NO + "= '" + p.MNC_HN_NO + "'"
-                    + "," + dotdfd.MNC_HN_YR + "= '" + p.MNC_HN_YR + "'"
-                    + "," + dotdfd.MNC_PRE_NO + "= '" + p.MNC_PRE_NO + "'"
-                    + "," + dotdfd.MNC_DATE + "= '" + p.MNC_DATE + "'";
+                    + " and " + dotdfd.MNC_DOC_YR + "= '" + p.MNC_DOC_YR + "'"
+                    + " and " + dotdfd.MNC_DOC_NO + "= '" + p.MNC_DOC_NO + "'"
+                    + " and " + dotdfd.MNC_DOC_DAT + "= '" + p.MNC_DOC_DAT + "'"
+                    + " and  " + dotdfd.MNC_FN_CD + "= '" + p.MNC_FN_CD + "'"
+                    + " and " + dotdfd.MNC_FN_DAT + "= '" + p.MNC_FN_DAT + "'"
+                    + " and " + dotdfd.MNC_HN_NO + "= '" + p.MNC_HN_NO + "'"
+                    + " and " + dotdfd.MNC_HN_YR + "= '" + p.MNC_HN_YR + "'"
+                    + " and  " + dotdfd.MNC_PRE_NO + "= '" + p.MNC_PRE_NO + "'"
+                    + " and " + dotdfd.MNC_DATE + "= '" + p.MNC_DATE + "'"
+                    + " and " + dotdfd.status_insert_manual + "= '1' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
 
                 sql = "Insert Into " + dotdfd.table + "(" + dotdfd.MNC_DOC_CD + "," + dotdfd.MNC_DOC_YR + "," + dotdfd.MNC_DOC_NO + "," +

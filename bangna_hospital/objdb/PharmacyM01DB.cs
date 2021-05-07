@@ -104,12 +104,32 @@ namespace bangna_hospital.objdb
 
             return chk;
         }
+        /*
+         * for UCEP
+         */ 
         public String UpdateTMTCode(String drugcode, String tmtcode)
         {
             String sql = "", chk = "";
             sql = "Update pharmacy_m01 Set " +
                 " tmt_code = '" + tmtcode + "' " +
-                ", tmt_code_opbkk = '" + tmtcode + "' " +
+                //", tmt_code_opbkk = '" + tmtcode + "' " +
+                "Where mnc_ph_cd ='" + drugcode + "'";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return chk;
+        }
+        public String UpdateTMTCodeCIPN(String drugcode, String tmtcode)
+        {
+            String sql = "", chk = "";
+            sql = "Update pharmacy_m01 Set " +
+                " tmt_code_cipn = '" + tmtcode + "' " +
+                //", tmt_code_opbkk = '" + tmtcode + "' " +
                 "Where mnc_ph_cd ='" + drugcode + "'";
             try
             {

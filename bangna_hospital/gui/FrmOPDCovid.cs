@@ -4,12 +4,14 @@ using bangna_hospital.Properties;
 using C1.C1Pdf;
 using C1.Win.C1Command;
 using C1.Win.C1Document;
+using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -22,25 +24,30 @@ namespace bangna_hospital.gui
     public class FrmOPDCovid:Form
     {
         BangnaControl bc;
-        Font fEdit, fEditB, fEdit3B, fEdit5B;
+        Font fEdit, fEditB, fEdit3B, fEdit5B, fLetter;
         Panel pnPrint, pnThai, pnEng;
 
         C1DockingTab tcMain;
         C1DockingTabPage tabAdd, tabView;
         Label lbtxtHospName, lbtxtHn, lbtxtPttNameT, lbtxtPttNameE, lbtxtVsDate, lbtxtSex, lbtxtAge, lbtxtDOB, lbtxtPID, lbtxtPassport, lbtxtAddr1, lbtxtAddr2, lbtxtDtrId, lbtxtLabCode, lbtxtLabResult;
         C1TextBox txtHospName, txtHn, txtPttNameT, txtPttNameE, txtSex, txtAge, txtDOB, txtPID, txtPassport, txtAddr1, txtAddr2, txtDtrId, txtDtrNameT, txtDtrNameE, txtLabCode, txtLabName, txtLabResult;
-        C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate;
-        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult;
-        Label lbtxtLabName1, lbtxtLabName2, lbtxtLabName3, lbtxtLabUnit, lbtxtLabNormal, lbtxtLabReport, lbtxtLabApprove, lbtxtDate, lbtxtSympbtom, lbtxtCountry;
-        C1TextBox txtLabName1, txtLabName2, txtLabName3, txtLabResult1, txtLabResult2, txtLabResult3, txtLabUnit, txtLabNormal, txtLabReport, txtLabApprove, txtLabApproveDate, txtLabReportDate;
+        C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate, txtViewDateSearch;
+        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult, btnViewDateSearch, btnPrintLetter;
+        Label lbtxtLabName1, lbtxtLabName2, lbtxtLabName3, lbtxtLabUnit, lbtxtLabNormal, lbtxtLabReport, lbtxtLabApprove, lbtxtDate, lbtxtSympbtom, lbtxtCountry, lbtxtViewDateSearch, lbtxtViewHnSearch;
+        C1TextBox txtLabName1, txtLabName2, txtLabName3, txtLabResult1, txtLabResult2, txtLabResult3, txtLabUnit, txtLabNormal, txtLabReport, txtLabApprove, txtLabApproveDate, txtLabReportDate, txtViewHnSearch;
         C1TextBox txtVsTime, txtSympbtom, txtCountry, txtThaiOther, txtStop,txtTrue, txtNation, txtLabCodeSe184, txtLabNameSe184, txtLabResultSe184, txtLabUnitSe184, txtlab184IgG;
         RadioButton chkEng, chkThai;
         C1CheckBox chkThai1, chkThai2, chkThai3, chkThai4, chkThai5, chkThaiOther, chkDraw, chkHosp, chkStop, chkTrue, chktxtLabCodeSe184, chkLab184Nas, chkLab184Saliva, chkLab184Nucl, chkLab184Lamp, chkLab184Antigen, chklab184IgG, chklab184IgM;
         Label lbtxtHospEndDate, lbtxtStopEndDate, lbtxtNation, lbtxtLabCodeSe184, lbtxtLabResultSe184, lbtxtLabReportDate, lbLoading;
+        C1FlexGrid grfView;
+
+        int colHn = 1, colDateVs=2, colTimeVs=3, colFullName = 4, colDateResult = 5, collabCode=6, collabName = 7, colLabResult = 8, colPhone = 9,colReqNo=10, colReqDate=11, colReqYr=12, colStatus=13;
+
         String vn, preno, vsdate, paidtypecode="";
 
         Patient ptt;
         Staff dtr;
+        Boolean pageLoad = false;
         public FrmOPDCovid(BangnaControl bc)
         {
             this.bc = bc;
@@ -50,6 +57,7 @@ namespace bangna_hospital.gui
         {
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 3, FontStyle.Bold);
+            fLetter = new Font(bc.iniC.pdfFontName, bc.pdfFontSize, FontStyle.Regular);
             ptt = new Patient();
             dtr = new Staff();
 
@@ -62,8 +70,281 @@ namespace bangna_hospital.gui
             txtDtrId.KeyUp += TxtDtrId_KeyUp;
             txtStopStartDate.DropDownClosed += TxtStopStartDate_DropDownClosed;
             txtStopEndDate.DropDownClosed += TxtStopEndDate_DropDownClosed;
+            btnViewDateSearch.Click += BtnViewDateSearch_Click;
+            btnPrintLetter.Click += BtnPrintLetter_Click;
+            txtViewHnSearch.KeyUp += TxtViewHnSearch_KeyUp;
+
             txtVsDate.Value = DateTime.Now;
             txtHospName.Value = "โรงพยาบาล ทั่วไปขนาดใหญ่ บางนา5";
+        }
+
+        private void TxtViewHnSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                setGrfView();
+            }
+        }
+
+        private void printLetter()
+        {
+            PrintDocument document = new PrintDocument();
+            document.PrinterSettings.PrinterName = bc.iniC.printerSticker;
+            document.PrinterSettings.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Envelope", 5, 5);
+
+            document.PrintPage += Document_PrintPage;
+
+            PrintDialog printdlg = new PrintDialog();
+            PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
+            printPrvDlg.Document = document;
+            printPrvDlg.ShowDialog();
+        }
+        private void BtnPrintLetter_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //PrintDocument document = new PrintDocument();
+            //document.PrinterSettings.PrinterName = bc.iniC.printerSticker;
+            //document.PrinterSettings.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("Envelope", 5, 5);
+
+            //document.PrintPage += Document_PrintPage;
+
+            //PrintDialog printdlg = new PrintDialog();
+            //PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
+            //printPrvDlg.Document = document;
+            //printPrvDlg.ShowDialog();
+
+            printLetter();
+
+            //document.PrinterSettings.PrinterName = ord1.printer_name;
+            //document.pr
+            //printdlg.Document = document;
+
+            //if (printdlg.ShowDialog() == DialogResult.OK)
+            //{
+            //    document.Print();
+            //}
+            //document.Print();
+        }
+
+        private void Document_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            float leftMargin = e.MarginBounds.Left;
+            float topMargin = e.MarginBounds.Top;
+            float marginR = e.MarginBounds.Right;
+            int count = 0;
+            string line = null;
+            float yPos = 0, gap = 6;
+
+            Graphics g = e.Graphics;
+            SolidBrush Brush = new SolidBrush(Color.Black);
+
+            int newWidth = 200;
+            Size proposedSize = new Size(100, 100);
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            Size textSize = TextRenderer.MeasureText(line, fLetter, proposedSize, TextFormatFlags.RightToLeft);
+            Int32 xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            Int32 yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            float avg = marginR / 2;
+
+            count++;
+            yPos = topMargin + (count * fLetter.GetHeight(e.Graphics) + gap);
+            line = txtHn.Text;
+            textSize = TextRenderer.MeasureText(line, fLetter, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());leftMargin
+            e.Graphics.DrawString(line, fLetter, Brushes.Black, avg - (textSize.Width / 2), yPos, flags);
+
+            count++;
+            yPos = topMargin + (count * fLetter.GetHeight(e.Graphics) + gap);
+            line = ptt.Name;
+            textSize = TextRenderer.MeasureText(line, fLetter, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, xOffset, yPos, new StringFormat());
+            e.Graphics.DrawString(line, fLetter, Brushes.Black, avg - (textSize.Width / 2), yPos, flags);
+
+            //e.Graphics.DrawImage(resizedImage, avg - (resizedImage.Width / 2), topMargin);
+        }
+
+        private void setGrfView()
+        {
+            showLbLoading();
+            String date = "";
+            DateTime vsdate = new DateTime();
+            DateTime.TryParse(txtViewDateSearch.Text, out vsdate);
+            //MessageBox.Show("2121212 vsdate.Year " + vsdate.Year, "");
+            if (vsdate.Year < 2000)
+            {
+                vsdate = vsdate.AddYears(543);
+            }
+            date = vsdate.Year + "-" + vsdate.ToString("MM-dd");
+            DataTable dtcovidSE184 = new DataTable();
+            DataTable dtcovidSE629 = new DataTable();
+            pageLoad = true;
+            grfView.DataSource = null;
+            grfView.Rows.Count = 1;
+            grfView.Cols.Count = 14;
+            //grfView.Rows.Count = lAER.Count + 1;
+            grfView.Cols[colHn].Caption = "HN";
+            grfView.Cols[colDateVs].Caption = "Date Visit";
+            grfView.Cols[colTimeVs].Caption = "Time";
+            grfView.Cols[colFullName].Caption = "Full Name";
+            grfView.Cols[colDateResult].Caption = "Date lab result";
+            grfView.Cols[collabCode].Caption = "Lab code";
+            grfView.Cols[collabName].Caption = "Lab Name";
+            grfView.Cols[colLabResult].Caption = "Result ";
+            grfView.Cols[colPhone].Caption = "Phone";
+            grfView.Cols[colStatus].Caption = "status";
+            grfView.Cols[colReqDate].Caption = "reqdate";
+
+            grfView.Cols[colHn].Width = 80;
+            grfView.Cols[colFullName].Width = 300;
+            grfView.Cols[colDateVs].Width = 100;
+            grfView.Cols[colTimeVs].Width = 70;
+            grfView.Cols[colDateResult].Width = 100;
+            grfView.Cols[collabCode].Width = 100;
+            grfView.Cols[collabName].Width = 200;
+            grfView.Cols[colPhone].Width = 150;
+
+            grfView.Cols[colReqNo].Visible = false;
+            grfView.Cols[colReqDate].Visible = true;
+            grfView.Cols[colReqYr].Visible = false;
+
+            grfView.Cols[colHn].AllowEditing = false;
+            grfView.Cols[colFullName].AllowEditing = false;
+            grfView.Cols[colDateResult].AllowEditing = false;
+            grfView.Cols[collabCode].AllowEditing = false;
+            grfView.Cols[collabName].AllowEditing = false;
+            grfView.Cols[colPhone].AllowEditing = false;
+            grfView.Cols[colLabResult].AllowEditing = false;
+            grfView.Cols[colDateVs].AllowEditing = false;
+            grfView.Cols[colTimeVs].AllowEditing = false;
+
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("Print Envelope", new EventHandler(ContextMenu_grfView_PrintStricker));
+            grfView.ContextMenu = menuGw;
+
+            setLbLoading("กรุณารอซักครู่ SE184");
+            dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE184_1(date, date,"");
+            setLbLoading("กรุณารอซักครู่ SE629");
+            dtcovidSE629 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE629_1(date, date, "");
+            dtcovidSE184.Merge(dtcovidSE629);
+            grfView.Rows.Count = dtcovidSE184.Rows.Count + 1;
+            int i = 0;
+            setLbLoading("กรุณารอซักครู่ set grid");
+            foreach (DataRow ins in dtcovidSE184.Rows)
+            {
+                i++;
+                try
+                {
+                    //if (i == 1) continue;
+                    grfView[i, colHn] = ins["mnc_hn_no"].ToString();
+                    grfView[i, colFullName] = ins["mnc_patname"].ToString();
+                    grfView[i, colDateVs] = bc.datetoShow(ins["MNC_date"].ToString());
+                    grfView[i, colTimeVs] = ins["MNC_time"].ToString();
+                    grfView[i, colDateResult] = "";
+                    grfView[i, collabCode] = ins["MNC_LB_cd"].ToString();
+                    grfView[i, collabName] = ins["MNC_LB_DSC"].ToString();
+                    grfView[i, colPhone] = ins["mnc_cur_tel"].ToString();
+                    //grfView[i, colLabResult] = ins["MNC_RES_VALUE"].ToString();
+                    grfView[i, colLabResult] = "";
+
+                    grfView[i, colReqNo] = ins["mnc_req_no"] != null ? ins["mnc_req_no"].ToString() : "";
+                    grfView[i, colReqDate] = ins["mnc_req_dat"] != null ? ins["mnc_req_dat"].ToString() : "";
+                    grfView[i, colReqYr] = ins["mnc_req_yr"] != null ? ins["mnc_req_yr"].ToString() : "";
+                    grfView[i, colStatus] = ins["mnc_req_sts"].ToString();
+                    grfView[i, 0] = i;
+                    //if(ins["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected")==0)
+                    //    grfView.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmOPDCovid setGrfView SE184 i = " + i+" ex " + ex.Message);
+                }
+                
+            }
+
+            Application.DoEvents();
+            setLbLoading("กรุณารอซักครู่ set Result");
+            i = 0;
+            String err = "" ,reqdate2="";
+            foreach (Row row in grfView.Rows)
+            {
+                i++;
+                try
+                {
+                    if (row[colReqNo] == null) continue;
+                    String reqno = "", reqyr = "", reqdate = "", hn = "", labcode = "", reqdate1="";
+                    err = "00";
+                    reqdate1 = row[colReqDate] != null ? row[colReqDate].ToString() : row[colReqDate].ToString().Length > 0 ? row[colReqDate].ToString() : "";
+                    reqno = row[colReqNo].ToString();
+                    reqdate2 = row[colReqDate].ToString();
+                    if (bc.iniC.windows.Equals("windows10"))
+                    {
+                        reqdate = bc.datetoDB(row[colReqDate] != null ? row[colReqDate].ToString() : row[colReqDate].ToString().Length > 0 ? row[colReqDate].ToString() : "");
+                    }
+                    else
+                    {
+                        reqdate = row[colReqDate] != null ? row[colReqDate].ToString() : "";
+                    }
+                    
+                    reqyr = row[colReqYr].ToString();
+                    hn = row[colHn].ToString();
+                    labcode = row[collabCode].ToString();
+                    //reqdate2 = reqdate;
+                    err = "01 reqdate " + reqdate+ " reqdate2 " + reqdate2;
+                    
+                    if (hn.Equals("5223074"))
+                    {
+                        String chk = "";
+                    }
+                    DataTable dtres = new DataTable();
+                    dtres = bc.bcDB.vsDB.selectLabCOVIDRequltbyHN(reqdate, reqno, reqyr, labcode, hn);
+                    err = "02";
+                    if (dtres.Rows.Count > 0)
+                    {
+                        row[colLabResult] = dtres.Rows[0]["MNC_RES_VALUE"].ToString();
+                        err = "03";
+                        row[colDateResult] = bc.datetoShow(dtres.Rows[0]["MNC_RESULT_DAT"].ToString());
+                        err = "04";
+                        if (dtres.Rows[0]["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected") == 0)
+                            row.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+
+                    }
+                }
+                catch(Exception ex)
+                {
+                    new LogWriter("e", "FrmOPDCovid setGrfView SE629 i = " + i+" err "+err + " ex " + ex.Message);
+                }
+                
+            }
+            //grfView.Sort(SortFlags.Ascending, colDateVs, colTimeVs);
+            hideLbLoading();
+
+
+
+            pageLoad = false;
+        }
+        private void ContextMenu_grfView_PrintStricker(object sender, System.EventArgs e)
+        {
+            if (grfView == null) return;
+            if (grfView.Row <= 1) return;
+
+            String hn = "";
+            hn = grfView[grfView.Row, colHn].ToString();
+            ptt = bc.bcDB.pttDB.selectPatinet(hn.Trim());
+            txtHn.Value = hn.Trim();
+
+            printLetter();
+
+        }
+        private void BtnViewDateSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfView();
         }
 
         private void TxtStopEndDate_DropDownClosed(object sender, DropDownClosedEventArgs e)
@@ -209,12 +490,12 @@ namespace bangna_hospital.gui
             DataTable dtcovidSE184 = new DataTable();
             dtcovid = bc.bcDB.vsDB.selectLabCOVIDbyHN(date, date, hn);
             txtLabNameSe184.Value = "COVID-19 IgG/IgM (Venous Blood)";
-            txtLabResultSe184.Value = "Nagative";
-            txtLabUnitSe184.Value = "Nagative";
-            txtlab184IgG.Value = "Nagative";
+            txtLabResultSe184.Value = "Negative";
+            txtLabUnitSe184.Value = "Negative";
+            txtlab184IgG.Value = "Negative";
             txtLabName.Value = "SARS-CoV-2 (Covid-19) (Real-Time PCR Method)";
-            txtLabResult.Value = "Undetectable";
-            txtLabUnit.Value = "Undetectable";
+            txtLabResult.Value = "Not Dedetectable";
+            txtLabUnit.Value = "Not Detectable";
             //MessageBox.Show("3333 ", "");
             if (dtcovid.Rows.Count > 2)
             {
@@ -256,8 +537,8 @@ namespace bangna_hospital.gui
                     txtLabUnitSe184.Value = dtcovidSE184.Rows[1]["mnc_res_unt"].ToString();
                     if (txtLabResultSe184.Text.ToLower().Equals("undetectable"))
                     {
-                        txtLabResultSe184.Value = "Nagative";
-                        txtLabUnitSe184.Value = "Nagative";
+                        //txtLabResultSe184.Value = "Negative";
+                        //txtLabUnitSe184.Value = "Negative";
                     }
                 }
             }
@@ -2336,6 +2617,18 @@ namespace bangna_hospital.gui
             txtHospName = new C1TextBox();
             bc.setControlC1TextBox(ref txtHospName, fEdit, "txtHospName", 250, col1, gapY);
 
+            lbtxtViewDateSearch = new Label();
+            bc.setControlLabel(ref lbtxtViewDateSearch, fEdit, "วันที่", "lbtxtViewDateSearch", gapX, gapY);
+            txtViewDateSearch = new C1DateEdit();
+            bc.setControlC1DateTimeEdit(ref txtViewDateSearch, "txtViewDateSearch", col1, gapY);
+            btnViewDateSearch = new C1Button();
+            bc.setControlC1Button(ref btnViewDateSearch, fEdit, "...", "btnViewDateSearch", txtViewDateSearch.Location.X + txtViewDateSearch.Width + 5, gapY - 3);
+            btnViewDateSearch.Width = 30;
+            lbtxtViewHnSearch = new Label();
+            bc.setControlLabel(ref lbtxtViewHnSearch, fEdit, "HN", "lbtxtViewHnSearch", btnViewDateSearch.Location.X + btnViewDateSearch.Width +25, gapY);
+            txtViewHnSearch = new C1TextBox();
+            bc.setControlC1TextBox(ref txtViewHnSearch, fEdit, "txtViewHnSearch", 80, lbtxtViewHnSearch.Location.X + 35, gapY);
+
             gapY += gapLine;
             lbtxtHn = new Label();
             bc.setControlLabel(ref lbtxtHn, fEdit, "HN :", "lbTxtHn", gapX, gapY);
@@ -2415,7 +2708,7 @@ namespace bangna_hospital.gui
 
             pnPrint = new Panel();
             pnPrint.Location = new Point(txtDtrNameT.Location.X + txtDtrNameT.Width + 40, gapY);
-            pnPrint.Size = new Size(500, 50);
+            pnPrint.Size = new Size(650, 50);
             //pnPrint.BackColor = Color.Red;
             chkEng = new RadioButton();
             bc.setControlRadioBox(ref chkEng, fEdit, "English ", "chkEng", 10, 10);
@@ -2427,10 +2720,13 @@ namespace bangna_hospital.gui
             bc.setControlC1Button(ref btnPrnThai, fEdit, "Print Cert", "btnPrnThai", chkThai.Location.X + chkThai.Width + 40, chkEng.Location.Y);
             btnPrnEng = new C1Button();
             bc.setControlC1Button(ref btnPrnEng, fEdit, "Print Lab", "btnPrnEng", btnPrnThai.Location.X + btnPrnThai.Width + 20, chkEng.Location.Y);
+            btnPrintLetter = new C1Button();
+            bc.setControlC1Button(ref btnPrintLetter, fEdit, "Print Letter", "btnPrintLetter", btnPrnEng.Location.X + btnPrnEng.Width + 20, chkEng.Location.Y);
             pnPrint.Controls.Add(btnPrnThai);
             pnPrint.Controls.Add(btnPrnEng);
             pnPrint.Controls.Add(chkEng);
             pnPrint.Controls.Add(chkThai);
+            pnPrint.Controls.Add(btnPrintLetter);
 
             gapY += gapLine;
             txtDtrNameE = new C1TextBox();
@@ -2725,6 +3021,13 @@ namespace bangna_hospital.gui
             tabAdd.Controls.Add(chkLab184Nucl);
             tabAdd.Controls.Add(chkLab184Lamp);
             tabAdd.Controls.Add(chkLab184Antigen);
+
+            tabView.Controls.Add(lbtxtViewDateSearch);
+            tabView.Controls.Add(txtViewDateSearch);
+            tabView.Controls.Add(btnViewDateSearch);
+            tabView.Controls.Add(lbtxtViewHnSearch);
+            tabView.Controls.Add(txtViewHnSearch);
+
             this.Controls.Add(tcMain);
 
             lbLoading = new Label();
@@ -2734,17 +3037,52 @@ namespace bangna_hospital.gui
             lbLoading.AutoSize = false;
             lbLoading.Size = new Size(300, 60);
             this.Controls.Add(lbLoading);
+            initGrfView();
+        }
+        private void initGrfView()
+        {
+            grfView = new C1FlexGrid();
+            grfView.Font = fEdit;
+            grfView.Dock = System.Windows.Forms.DockStyle.Bottom;
+            grfView.Location = new System.Drawing.Point(0, 0);
+            grfView.Rows.Count = 1;
+            grfView.Name = "grfView";
+           // grfCipnCsv.CellChanged += GrfCipnCsv_CellChanged;
+            //grfCipnCsv.AfterFilter += GrfCipnCsv_AfterFilter;
+
+            ContextMenu menuGwPAT = new ContextMenu();
+            menuGwPAT.MenuItems.Add("save CVS code ", new EventHandler(ContextMenu_grfView_save));
+            grfView.ContextMenu = menuGwPAT;
+            grfView.AllowFiltering = true;
+            //FlexGrid.FilterRow fr = new FlexGrid.FilterRow(grfView);
+
+            tabView.Controls.Add(grfView);
+
+            //theme1.SetTheme(grfSelect, bc.theme);
+            //theme1.SetTheme(grfView, "Office2010Red");
+        }
+        private void ContextMenu_grfView_save(object sender, System.EventArgs e)
+        {
+
         }
         private void FrmOPDCovid_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            int scrW = Screen.PrimaryScreen.Bounds.Width;
+            int scrH = Screen.PrimaryScreen.Bounds.Height;
+
             this.WindowState = FormWindowState.Maximized;
-            this.Text = bc.iniC.pdfFontName +" Last Update 2021-01-13";
+            this.Text = bc.iniC.pdfFontName +" Last Update 2021-05-03";
+
+            grfView.Size = new Size(scrW - 20, scrH - btnViewDateSearch.Location.Y - 140);
+            grfView.Location = new Point(5, btnViewDateSearch.Location.Y + 40);
 
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
+
+            //Last Update 2021-04-12 tab history
         }
     }
 }

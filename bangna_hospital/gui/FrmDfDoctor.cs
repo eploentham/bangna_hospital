@@ -146,6 +146,7 @@ namespace bangna_hospital.gui
                 String re = bc.bcDB.dotdfdDB.insert(dotdfd);
                 i++;
             }
+            MessageBox.Show("gen ข้อมูล ค่าแพทย์ checkup เรียบร้อย", "");
             
         }
 
@@ -345,6 +346,7 @@ namespace bangna_hospital.gui
         {
             txtDateStart.Value = DateTime.Now;
             txtDateEnd.Value = DateTime.Now;
+            txtPaidType.Value = "15,18";
         }
         private void setLbLoading(String txt)
         {

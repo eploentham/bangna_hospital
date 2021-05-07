@@ -393,6 +393,7 @@ namespace bangna_hospital.control
         }
         public String datetoShow(Object dt)
         {
+            if (dt == null) return "";
             DateTime dt1 = new DateTime();
             //MySqlDateTime dtm = new MySqlDateTime();
             String re = "";

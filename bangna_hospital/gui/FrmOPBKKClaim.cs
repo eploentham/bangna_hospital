@@ -27,12 +27,14 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         Font fEdit, fEditB, fEdit3B, fEdit5B;
 
-        C1DockingTab tcMain, tcOP, tcOPBKK, tcUcep, tcSSO, tcDIT;
+        C1DockingTab tcMain, tcOP, tcOPBKK, tcUcep, tcSSO, tcDIT, tcCIPN;
         C1DockingTabPage tabOP,tabOPBkk, tabOPBKKPtt, tabOPBKKINS, tabOPBKKPAT, tabOPBKKOPD, tabOPBKKODX, tabOPBKKOOP, tabOPBKKORF, tabOPBKKCHT, tabOPBKKCHA, tabOPBKKAER, tabOPBKKLABFU, tabOPBKKDRU, tabOPBKKCHAD, tabOrd;
         C1DockingTabPage tabtcUcep, tabSSO, tabSSO1, tabUcepMain, tabUcepDrug, tabUcepCat, tabUcepLab, tabUcepXray, tabUcepHotCharge, tabUcepDIT, tabDITdc01, tabDITdc02, tabDITSupp, tabDITService;
         C1DockingTabPage tabOPBKKMainPaidTyp, tabOPBKKMainClinic, tabOPBKKMainCHRGITEM, tabOPBKKMainTmtCode;
+        C1DockingTabPage tabtcCIPN, tabCIPN, tabCIPNDrug, tabCIPNLab, tabCIPNItem, tabCIPNcsv;
         C1FlexGrid grfSelect, grfINS, grfPAT, grfOPD, grfODX, grfOOP, grfORF, grfCHT, grfCHA, grfAER, grfLABFU, grfDRU, grfCHAD, grfOrd, grfPaidTyp, grfClinic, grfOPBKKMainCHRGITEM, grfOPBKKMainTmtCode;
         C1FlexGrid grfUcepCat, grfUcepDrug, grfUcepSelect, grfUcepLab, grfUcepXray, grfUcepHotcharge, grfDITdc01, grfDITdc02, grfDITsupp, grfDITservice, grfUcepHnPaidType, grfUcepHnPaidTypeDetail;
+        C1FlexGrid grfCipnDrug, grfCipnCsv;
 
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
@@ -422,6 +424,48 @@ namespace bangna_hospital.gui
             tabDITService.Text = "Service";
             tabDITService.Name = "tabDITService";
 
+            tabtcCIPN = new C1DockingTabPage();
+            tabtcCIPN.TabIndex = 0;
+            tabtcCIPN.Text = "CIPN";
+            tabtcCIPN.Name = "tabtcCIPN";
+            tcMain.Controls.Add(tabtcCIPN);
+
+            tcCIPN = new C1DockingTab();
+            tcCIPN.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcCIPN.Name = "tcDtcCIPNIT";
+            tcCIPN.Text = "CIPN";
+            tabtcCIPN.Controls.Add(tcCIPN);
+
+            tabCIPN = new C1DockingTabPage();
+            tabCIPN.TabIndex = 0;
+            tabCIPN.Text = "CIPN";
+            tabCIPN.Name = "tabCIPN";
+            tcCIPN.Controls.Add(tabCIPN);
+
+            tabCIPNDrug = new C1DockingTabPage();
+            tabCIPNDrug.TabIndex = 0;
+            tabCIPNDrug.Text = "DRUG catalog";
+            tabCIPNDrug.Name = "tabCIPNDrug";
+            tcCIPN.Controls.Add(tabCIPNDrug);
+
+            tabCIPNLab = new C1DockingTabPage();
+            tabCIPNLab.TabIndex = 0;
+            tabCIPNLab.Text = "LAB catalog";
+            tabCIPNLab.Name = "tabCIPNLab";
+            tcCIPN.Controls.Add(tabCIPNLab);
+
+            tabCIPNItem = new C1DockingTabPage();
+            tabCIPNItem.TabIndex = 0;
+            tabCIPNItem.Text = "Item catalog";
+            tabCIPNItem.Name = "tabCIPNItem";
+            tcCIPN.Controls.Add(tabCIPNItem);
+
+            tabCIPNcsv = new C1DockingTabPage();
+            tabCIPNcsv.TabIndex = 0;
+            tabCIPNcsv.Text = "CSV";
+            tabCIPNcsv.Name = "tabCIPNcsv";
+            tcCIPN.Controls.Add(tabCIPNcsv);
+
             tcUcep.Controls.Add(tabUcepMain);
             tcUcep.Controls.Add(tabUcepDrug);
             tcUcep.Controls.Add(tabUcepCat);
@@ -496,7 +540,6 @@ namespace bangna_hospital.gui
             btnOPBkkGen.Width = 80;
             btnOPBKKSelect.Click += BtnOPBKKSelect_Click;
 
-
             tabOP.Controls.Add(pnchkOPBKKSelectDiscDate);
             tabOP.Controls.Add(lbDateStart);
             tabOP.Controls.Add(txtDateStart);
@@ -519,7 +562,9 @@ namespace bangna_hospital.gui
             initGrfUcepLab();
             initGrfUcepXray();
             initGrfUcepHotcharge();
-            
+
+            initGrfCipnDrug();
+            initGrfCipnCSV();
 
             this.Controls.Add(tcMain);
 
@@ -542,6 +587,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(tcSSO, bc.iniC.themeApp);
             theme1.SetTheme(tcUcep, bc.iniC.themeApp);
             theme1.SetTheme(tcDIT, bc.iniC.themeApp);
+            theme1.SetTheme(tcCIPN, bc.iniC.themeDonor);
         }
 
         private void GrfOPBKKMainTmtCode_CellChanged(object sender, RowColEventArgs e)
@@ -562,6 +608,13 @@ namespace bangna_hospital.gui
                 setGrfUcepHotCharge();
                 setGrfUcepLAB();
                 setGrfUcepXray();
+                hideLbLoading();
+            }
+            else if (tcMain.SelectedTab == tabtcCIPN)
+            {
+                showLbLoading();
+                setGrfUcepDrug(grfCipnDrug);
+                setGrfCVS();
                 hideLbLoading();
             }
         }
@@ -1528,7 +1581,7 @@ namespace bangna_hospital.gui
                     {
                         if (row[colGrfUcepHotChargeId] == null) continue;
                         String id = "", tmtcode = "", ditcode = "", typpt = "", opbkkcode = "";
-                        id = row[colGrfUcepHotChargeId].ToString();
+                        id = row[colGrfUcepHotChargeId] != null ? row[colGrfUcepHotChargeId].ToString():"";
                         if (id.Length <= 0) continue;
                         tmtcode = row[colGrfUcepHotChargeUcepCode] != null ? row[colGrfUcepHotChargeUcepCode].ToString() : "";
                         ditcode = row[colGrfUcepHotChargeDitCode] != null ? row[colGrfUcepHotChargeDitCode].ToString() : "";
@@ -1551,16 +1604,17 @@ namespace bangna_hospital.gui
                     if (row[colGrfUcepXrayFlag].ToString().Equals("1"))
                     {
                         String id = "", tmtcode = "", divno = "", typpt = "", opbkkcode = "";
-                        id = row[colGrfUcepXrayId].ToString();
+                        id = row[colGrfUcepXrayId] != null ? row[colGrfUcepXrayId].ToString():"";
                         if (id.Length <= 0) continue;
-                        tmtcode = row[colGrfUcepXrayUcepCode].ToString();
+                        tmtcode = row[colGrfUcepXrayUcepCode] != null ? row[colGrfUcepXrayUcepCode].ToString():"";
+                        if (tmtcode.Length <= 0) continue;       //64-04-07
                         String re = bc.bcDB.xrayM01DB.updateOPBKKCode(id, tmtcode);
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfUcepXray_save " + ex.Message);
             }
         }
         private void ContextMenu_grfUcepLab_save(object sender, System.EventArgs e)
@@ -1573,16 +1627,17 @@ namespace bangna_hospital.gui
                     if (row[colGrfUcepLabFlag].ToString().Equals("1"))
                     {
                         String id = "", tmtcode = "", divno = "", typpt = "", opbkkcode = "";
-                        id = row[colGrfUcepLabId].ToString();
+                        id = row[colGrfUcepLabId] != null ?  row[colGrfUcepLabId].ToString() : "";
                         if (id.Length <= 0) continue;
-                        tmtcode = row[colGrfUcepLabUcepCode].ToString();
+                        tmtcode = row[colGrfUcepLabUcepCode] != null ? row[colGrfUcepLabUcepCode].ToString():"";
+                        if (tmtcode.Length <= 0) continue;       //64-04-07
                         String re = bc.bcDB.labM01DB.updateOPBKKCode(id, tmtcode);
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfUcepLab_save " + ex.Message);
             }
         }
         private void ContextMenu_grfUcepDrug_save(object sender, System.EventArgs e)
@@ -1595,15 +1650,17 @@ namespace bangna_hospital.gui
                     if (row[colGrfUcepDrugFlag].ToString().Equals("1"))
                     {
                         String id = "", tmtcode = "", divno = "", typpt = "", opbkkcode = "";
-                        id = row[colGrfUcepDrugDrugId].ToString();
-                        tmtcode = row[colGrfUcepDrugTmtCode].ToString();
+                        id = row[colGrfUcepDrugDrugId] != null ? row[colGrfUcepDrugDrugId].ToString():"";
+                        tmtcode = row[colGrfUcepDrugTmtCode] != null ? row[colGrfUcepDrugTmtCode].ToString():"";
+                        if (id.Length <= 0) continue;       //64-04-07
+                        if (tmtcode.Length <= 0) continue;       //64-04-07
                         String re = bc.bcDB.pharM01DB.UpdateTMTCode(id, tmtcode);
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfUcepDrug_save " + ex.Message);
             }
         }
         private void ContextMenu_grfINS_save(object sender, System.EventArgs e)
@@ -1619,7 +1676,7 @@ namespace bangna_hospital.gui
             }
             catch(Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfINS_save " + ex.Message);
             }
         }
         private void ContextMenu_grfPAT_save(object sender, System.EventArgs e)
@@ -1635,7 +1692,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfPAT_save " + ex.Message);
             }
         }
         private void ContextMenu_grfOPD_save(object sender, System.EventArgs e)
@@ -1651,7 +1708,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfOPD_save " + ex.Message);
             }
         }
         private void ContextMenu_grfODX_save(object sender, System.EventArgs e)
@@ -1667,7 +1724,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfODX_save " + ex.Message);
             }
         }
         private void ContextMenu_grfOOP_save(object sender, System.EventArgs e)
@@ -1683,7 +1740,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfOOP_save " + ex.Message);
             }
         }
         private void ContextMenu_grfORF_save(object sender, System.EventArgs e)
@@ -1699,7 +1756,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfORF_save " + ex.Message);
             }
         }
         private void ContextMenu_grfCHT_save(object sender, System.EventArgs e)
@@ -1715,7 +1772,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfCHT_save " + ex.Message);
             }
         }
         private void ContextMenu_grfCHA_save(object sender, System.EventArgs e)
@@ -1731,7 +1788,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfCHA_save " + ex.Message);
             }
         }
         private void ContextMenu_grfAER_save(object sender, System.EventArgs e)
@@ -1747,7 +1804,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfAER_save " + ex.Message);
             }
         }
         private void ContextMenu_grfLABFU_save(object sender, System.EventArgs e)
@@ -1763,7 +1820,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfLABFU_save " + ex.Message);
             }
         }
         private void ContextMenu_grfDRU_save(object sender, System.EventArgs e)
@@ -1779,7 +1836,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfDRU_save " + ex.Message);
             }
         }
         private void ContextMenu_grfCHAD_save(object sender, System.EventArgs e)
@@ -1795,7 +1852,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfCHAD_save " + ex.Message);
             }
         }
         private void ContextMenu_grfOPBkkMain_save_tmtcode(object sender, System.EventArgs e)
@@ -2056,6 +2113,100 @@ namespace bangna_hospital.gui
             tabOrd.Controls.Add(grfOrd);
             theme1.SetTheme(grfOrd, "Office2010Red");
         }
+        private void initGrfCipnDrug()
+        {
+            grfCipnDrug = new C1FlexGrid();
+            grfCipnDrug.Font = fEdit;
+            grfCipnDrug.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfCipnDrug.Location = new System.Drawing.Point(0, 0);
+            grfCipnDrug.Rows.Count = 1;
+            grfCipnDrug.Name = "grfCipnDrug";
+            grfCipnDrug.CellChanged += GrfCipnDrug_CellChanged;
+            grfCipnDrug.AfterFilter += GrfCipnDrug_AfterFilter;
+
+            ContextMenu menuGwPAT = new ContextMenu();
+            menuGwPAT.MenuItems.Add("save TMT code ", new EventHandler(ContextMenu_grfCipnDrug_save));
+            grfCipnDrug.ContextMenu = menuGwPAT;
+
+            FlexGrid.FilterRow fr = new FlexGrid.FilterRow(grfUcepDrug);
+
+            tabCIPNDrug.Controls.Add(grfCipnDrug);
+
+            //theme1.SetTheme(grfSelect, bc.theme);
+            theme1.SetTheme(grfCipnDrug, "Office2010Red");
+        }
+        private void initGrfCipnCSV()
+        {
+            grfCipnCsv = new C1FlexGrid();
+            grfCipnCsv.Font = fEdit;
+            grfCipnCsv.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfCipnCsv.Location = new System.Drawing.Point(0, 0);
+            grfCipnCsv.Rows.Count = 1;
+            grfCipnCsv.Name = "grfCipnCsv";
+            grfCipnCsv.CellChanged += GrfCipnCsv_CellChanged;
+            grfCipnCsv.AfterFilter += GrfCipnCsv_AfterFilter;
+
+            ContextMenu menuGwPAT = new ContextMenu();
+            menuGwPAT.MenuItems.Add("save CVS code ", new EventHandler(ContextMenu_grfCipncsv_save));
+            grfCipnDrug.ContextMenu = menuGwPAT;
+
+            FlexGrid.FilterRow fr = new FlexGrid.FilterRow(grfCipnCsv);
+
+            tabCIPNcsv.Controls.Add(grfCipnCsv);
+
+            //theme1.SetTheme(grfSelect, bc.theme);
+            theme1.SetTheme(grfCipnCsv, "Office2010Red");
+        }
+
+        private void GrfCipnCsv_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+        }
+
+        private void GrfCipnCsv_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+
+        }
+        private void ContextMenu_grfCipncsv_save(object sender, System.EventArgs e)
+        {
+
+        }
+        private void ContextMenu_grfCipnDrug_save(object sender, System.EventArgs e)
+        {
+            try
+            {
+                foreach (Row row in grfUcepDrug.Rows)
+                {
+                    if (row[colGrfUcepDrugFlag] == null) continue;
+                    if (row[colGrfUcepDrugFlag].ToString().Equals("1"))
+                    {
+                        String id = "", tmtcode = "", divno = "", typpt = "", opbkkcode = "";
+                        id = row[colGrfUcepDrugDrugId]!= null ? row[colGrfUcepDrugDrugId].ToString():"";
+                        tmtcode = row[colGrfUcepDrugTmtCode] != null ? row[colGrfUcepDrugTmtCode].ToString():"";
+                        String re = bc.bcDB.pharM01DB.UpdateTMTCodeCIPN(id, tmtcode);       //64-04-07
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmOPBKKClaim ContextMenu_grfCipnDrug_save " + ex.Message);
+            }
+        }
+        private void GrfCipnDrug_CellChanged(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void GrfCipnDrug_AfterFilter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void GrfUcepDrug_CellChanged(object sender, RowColEventArgs e)
         {
             //throw new NotImplementedException();
@@ -2921,7 +3072,7 @@ namespace bangna_hospital.gui
                                 rowucep["mean"] = rowdrug["MNC_SR_DSC"].ToString();
                                 rowucep["unit"] = rowdrug["qty"].ToString();
                                 rowucep["price_total"] = (qty * price);
-                                rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
+                                //rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
                                 //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
                             }
                             DataTable dtfin = bc.bcDB.vsDB.selectOrderFinanceUcepIPDByHn(hn, hnyear, an, anyear);
@@ -3446,7 +3597,7 @@ namespace bangna_hospital.gui
             grfUcepXray.Cols[colGrfUcepLabId].Width = 80;
             grfUcepXray.Cols[colGrfUcepXrayName].Width = 500;
             grfUcepXray.Cols[colGrfUcepXrayUcepCode].Width = 120;
-
+            
             //grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Editor = cboMethod;
             int i = 1;
             foreach (DataRow row1 in dt.Rows)
@@ -3520,6 +3671,65 @@ namespace bangna_hospital.gui
             grfUcepLab.Cols[colGrfUcepLabName].AllowEditing = false;
             grfUcepLab.Cols[colGrfUcepLabUcepCode].AllowEditing = true;
             grfUcepLab.AllowFiltering = true;
+            //for (int col = 0; col < dt.Columns.Count; ++col)
+            //{
+            //grfUcepHotcharge.Cols[colGrfUcepPaidId].DataType = dt.Columns["MNC_FN_CD"].DataType;
+            ////grfOrdDrug.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+            //grfUcepHotcharge.Cols[colGrfUcepPaidId].Name = dt.Columns["MNC_FN_CD"].ColumnName;
+            //grfUcepHotcharge.Cols[colGrfUcepPaidName].DataType = dt.Columns["MNC_FN_DSCT"].DataType;
+            //grfUcepHotcharge.Cols[colGrfUcepPaidName].Name = dt.Columns["MNC_FN_DSCT"].ColumnName;
+            //}
+            pageLoad = false;
+        }
+        private void setGrfCVS()
+        {
+            pageLoad = true;
+            DataTable dt = new DataTable();
+            //C1ComboBox cboMethod = new C1ComboBox();
+            //cboMethod.AutoCompleteMode = AutoCompleteMode.Suggest;
+            //cboMethod.AutoCompleteSource = AutoCompleteSource.ListItems;
+            //bc.setCboOPBKKINSCL(cboMethod, "");
+
+            dt = bc.bcDB.pttM30DB.SelectAll();
+            grfCipnCsv.Rows.Count = 1;
+            grfCipnCsv.Cols.Count = 6;
+            grfCipnCsv.Rows.Count = dt.Rows.Count + 2;
+            grfCipnCsv.Cols[colGrfUcepHotChargeId].Caption = "ID";
+            grfCipnCsv.Cols[colGrfUcepHotChargeName].Caption = "Hot Charge Name";
+            grfCipnCsv.Cols[colGrfUcepHotChargeUcepCode].Caption = "Ucep code";
+            grfCipnCsv.Cols[colGrfUcepHotChargeDitCode].Caption = "CSV code";
+
+            grfCipnCsv.Cols[colGrfUcepHotChargeId].Width = 80;
+            grfCipnCsv.Cols[colGrfUcepHotChargeName].Width = 500;
+            grfCipnCsv.Cols[colGrfUcepHotChargeUcepCode].Width = 120;
+            grfCipnCsv.Cols[colGrfUcepHotChargeDitCode].Width = 120;
+
+            //grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Editor = cboMethod;
+            int i = 1;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                i++;
+                //if (i == 1) continue;
+                String inscl = "";
+                grfCipnCsv[i, colGrfUcepHotChargeId] = row1["mnc_sr_cd"].ToString();
+                grfCipnCsv[i, colGrfUcepHotChargeName] = row1["mnc_sr_dsc"].ToString();
+                grfCipnCsv[i, colGrfUcepHotChargeUcepCode] = row1["ucep_code"].ToString();
+                grfCipnCsv[i, colGrfUcepHotChargeDitCode] = row1["dit_code"].ToString();
+                grfCipnCsv[i, colGrfUcepHotChargeFlag] = "0";
+                grfCipnCsv[i, 0] = (i - 1);
+                if (i % 2 == 0)
+                    grfCipnCsv.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+
+            }
+            grfCipnCsv.Cols[colGrfUcepHotChargeFlag].Visible = false;
+            grfCipnCsv.Cols[colGrfUcepHotChargeUcepCode].Visible = false;
+            grfCipnCsv.Cols[colGrfUcepHotChargeDitCode].Visible = false;
+
+            grfCipnCsv.Cols[colGrfUcepHotChargeId].AllowEditing = false;
+            grfCipnCsv.Cols[colGrfUcepHotChargeName].AllowEditing = false;
+            grfCipnCsv.Cols[colGrfUcepHotChargeUcepCode].AllowEditing = true;
+            grfCipnCsv.Cols[colGrfUcepHotChargeDitCode].AllowEditing = true;
+            grfCipnCsv.AllowFiltering = true;
             //for (int col = 0; col < dt.Columns.Count; ++col)
             //{
             //grfUcepHotcharge.Cols[colGrfUcepPaidId].DataType = dt.Columns["MNC_FN_CD"].DataType;
@@ -3660,7 +3870,19 @@ namespace bangna_hospital.gui
             grf.Cols[colGrfUcepDrugOldCode].Caption = "OLD Code";
             grf.Cols[colGrfUcepDrugPrice1].Caption = "Price1";
             grf.Cols[colGrfUcepDrugPrice2].Caption = "Price2";
-            grf.Cols[colGrfUcepDrugOpbkkCode].Caption = "OPBKK Code";
+            if (grf.Name.Equals("grfOPBKKMainTmtCode"))
+            {
+                grf.Cols[colGrfUcepDrugOpbkkCode].Caption = "OPBKK tmt code";
+            }
+            else if (grf.Name.Equals("grfCipnDrug"))
+            {
+                grf.Cols[colGrfUcepDrugOpbkkCode].Caption = "CIPN tmt code";
+            }
+            else
+            {
+                grf.Cols[colGrfUcepDrugOpbkkCode].Caption = "UCEP tmt code";
+            }
+
             grf.Cols[0].Width = 50;
             grf.Cols[colGrfUcepDrugDrugId].Width = 90;
             grf.Cols[colGrfUcepDrugDrugName].Width = 500;
@@ -3682,6 +3904,10 @@ namespace bangna_hospital.gui
                 if (grf.Name.Equals("grfOPBKKMainTmtCode"))
                 {
                     grf[i, colGrfUcepDrugTmtCode] = row1["tmt_code_opbkk"].ToString(); ;
+                }
+                else if (grf.Name.Equals("grfCipnDrug"))
+                {
+                    grf[i, colGrfUcepDrugTmtCode] = row1["tmt_code_cipn"].ToString(); ;
                 }
                 else
                 {
@@ -5907,7 +6133,6 @@ namespace bangna_hospital.gui
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.WindowState = FormWindowState.Maximized;
             pnUcepMainTop.Size = new Size(scrW, 80);
-            
 
             grfSelect.Size = new Size(scrW -20, scrH - btnOPBKKSelect.Location.Y -140);
             grfSelect.Location = new Point(5, btnOPBKKSelect.Location.Y + 40);
@@ -5920,7 +6145,10 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
 
-            this.Text = "Last Update 2020-03-19";
+            //  แก้เรื่อง ข้อมูลที่ double
+
+            //this.Text = "Last Update 2020-04-09";
+            this.Text = "Last Update 2020-05-06";
         }
     }
 }
