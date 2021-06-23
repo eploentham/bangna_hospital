@@ -82,6 +82,28 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public Visit selectVisitCovid(String hn)
+        {
+            DataTable dt = new DataTable();
+            Visit vs = new Visit();
+            String sql = "", vsdate="";
+            vsdate = DateTime.Now.ToString("yyyy-MM-dd");
+            sql = "Select   m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, FINANCE_M02.MNC_FN_TYP_DSC,convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday,m01.mnc_sex" +
+                ",m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, t01.MNC_TIME" +
+                ", t01.mnc_weight, t01.mnc_high, t01.MNC_TEMP, t01.mnc_ratios, t01.mnc_breath, t01.mnc_bp1_l, t01.mnc_bp1_r, t01.mnc_bp2_l, t01.mnc_bp2_r,t01.MNC_pre_no, t01.mnc_ref_dsc" +
+                ", t01.mnc_id_nam, t01.mnc_shif_memo,t01.mnc_bld_l, t01.mnc_bld_h, t01.mnc_cir_head, t01.mnc_cc, t01.mnc_cc_in, t01.mnc_cc_ex " +
+                "From  patient_m01 m01 " +
+                " inner join patient_m02 m02 on m01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
+                " inner join patient_t01 t01 on m01.MNC_HN_NO =t01.MNC_HN_NO " +
+                "INNER JOIN	FINANCE_M02 ON t01.MNC_FN_TYP_CD = FINANCE_M02.MNC_FN_TYP_CD " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                " Where t01.MNC_hn_NO = '" + hn + "' and t01.MNC_date = convert(varchar(20),GETDATE(),23) " +
+                " ";
+
+
+            return vs;
+        }
         public Visit selectVisit(String hn, String vsdate, String preno)
         {
             DataTable dt = new DataTable();

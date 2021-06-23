@@ -70,6 +70,21 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public String SelectpaidTypeName(String code)
+        {
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select * " +
+                "From finance_m02  " +
+                "Where MNC_FN_TYP_CD = '" + code + "' " +
+                "Order By mnc_fn_typ_cd";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_FN_TYP_DSC"].ToString();
+            }
+            return re;
+        }
         public String updateOPBKKCode(String paidtypeid, String opbkkcode)
         {
             String sql = "", chk = "";

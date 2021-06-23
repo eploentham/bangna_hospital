@@ -12,11 +12,13 @@ namespace bangna_hospital.objdb
 {
     public class ConnectDB
     {
-        public SqlConnection connMainHIS, conn, connPACs, connLabOut;
+        public SqlConnection connMainHIS, conn, connPACs, connLabOut, connLog;
+        
         public Staff user;
         public long _rowsAffected = 0;
         public SqlCommand comStore;
         public NpgsqlConnection connOPBKK;
+        public String _IPAddress = "";
         public ConnectDB(InitConfig initc)
         {
             conn = new SqlConnection();
@@ -25,12 +27,15 @@ namespace bangna_hospital.objdb
             connLabOut = new SqlConnection();
             connOPBKK = new NpgsqlConnection();
 
+            connLog = new SqlConnection();
+
             connMainHIS.ConnectionString = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
             conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB + ";";
             connLabOut.ConnectionString = "Server=" + initc.hostDBLabOut + ";Database=" + initc.nameDBLabOut + ";Uid=" + initc.userDBLabOut + ";Pwd=" + initc.passDBLabOut + ";";
             connPACs.ConnectionString = "Server=" + initc.hostDBPACs + ";Database=" + initc.nameDBPACs + ";Uid=" + initc.userDBPACs + ";Pwd=" + initc.passDBPACs + ";";
 
             connOPBKK.ConnectionString = "Host=" + initc.hostDBOPBKK + ";Username=" + initc.userDBOPBKK + ";Password=" + initc.passDBOPBKK + ";Database=" + initc.nameDBOPBKK + ";Port=" + initc.portDBOPBKK + ";";
+            connLog.ConnectionString = "Server=" + initc.hostDBLogTask + ";Database=" + initc.nameDBLogTask + ";Uid=" + initc.userDBLogTask + ";Pwd=" + initc.passDBLogTask + ";";
         }
         public String ExecuteNonQuery(String sql)
         {
@@ -97,6 +102,94 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 throw new Exception("ExecuteNonQuery::Error occured.", ex);
+                toReturn = ex.Message;
+            }
+            finally
+            {
+                //_mainConnection.Close();
+                con.Close();
+                com.Dispose();
+            }
+
+            return toReturn;
+        }
+        public String ExecuteNonQueryImage(SqlConnection con, String sql, byte[] photo_aray)
+        {
+            String toReturn = "";
+
+            SqlCommand com = new SqlCommand();
+            com.CommandText = sql;
+            com.CommandType = CommandType.Text;
+            com.Connection = con;
+            com.Parameters.AddWithValue("@photo", photo_aray);
+            try
+            {
+                //ms.Position = 0;
+                con.Open();
+                //_rowsAffected = com.ExecuteNonQuery();
+                //if (sql.Substring(0,2).ToLower().IndexOf("in")>=0)
+                //{
+                //    _rowsAffected = (int)com.ExecuteScalar();
+                //    //var aaa = com.ExecuteScalar();
+
+                //}
+                //else
+                //{
+                _rowsAffected = com.ExecuteNonQuery();
+                //}
+                toReturn = _rowsAffected.ToString();
+                //toReturn = sql.Substring(0, 1).ToLower() == "i" ? com.LastInsertedId.ToString() : _rowsAffected.ToString();
+                //if (sql.IndexOf("Insert Into Visit") >= 0)        //old program
+                //{
+                //    toReturn = _rowsAffected.ToString();
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ExecuteNonQuery::Error occured.", ex);
+                toReturn = ex.Message;
+            }
+            finally
+            {
+                //_mainConnection.Close();
+                con.Close();
+                com.Dispose();
+            }
+
+            return toReturn;
+        }
+        public String ExecuteNonQueryLogPage(SqlConnection con, String sql)
+        {
+            String toReturn = "";
+
+            SqlCommand com = new SqlCommand();
+            com.CommandText = sql;
+            com.CommandType = CommandType.Text;
+            com.Connection = con;
+            try
+            {
+                con.Open();
+                //_rowsAffected = com.ExecuteNonQuery();
+                //if (sql.Substring(0,2).ToLower().IndexOf("in")>=0)
+                //{
+                //    _rowsAffected = (int)com.ExecuteScalar();
+                //    //var aaa = com.ExecuteScalar();
+
+                //}
+                //else
+                //{
+                _rowsAffected = com.ExecuteNonQuery();
+                //}
+                toReturn = _rowsAffected.ToString();
+                //toReturn = sql.Substring(0, 1).ToLower() == "i" ? com.LastInsertedId.ToString() : _rowsAffected.ToString();
+                //if (sql.IndexOf("Insert Into Visit") >= 0)        //old program
+                //{
+                //    toReturn = _rowsAffected.ToString();
+                //}
+            }
+            catch (Exception ex)
+            {
+                //throw new Exception("ExecuteNonQuery::Error occured.", ex);
                 toReturn = ex.Message;
             }
             finally

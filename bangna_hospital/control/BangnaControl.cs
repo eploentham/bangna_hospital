@@ -46,6 +46,7 @@ namespace bangna_hospital.control
         public Dictionary<String, String> opBKKINSCL = new Dictionary<String, String>() { { "UCS", "สิทธิหลักประกันสุขภาพ" },{ "WEL", "สิทธิหลักประกันสุขภาพ (ยกเว้นการร่วมจ่าย)" }, { "OFC", "สิทธิข้าราชการ" }, { "SSS", "สิทธิประกันสังคม" }, { "LGO", "สิทธิ อปท" }, { "SSI", "สิทธิประกันสังคมทุพพลภาพ" } };
         public Dictionary<String, String> opBKKClinic = new Dictionary<String, String>();
         public Dictionary<String, String> opBKKCHRGITEM_CODEA = new Dictionary<String, String>();
+        public String _IPAddress = "";
         public BangnaControl()
         {
             initConfig();
@@ -81,21 +82,22 @@ namespace bangna_hospital.control
                 sStf = new Staff();
                 cStf = new Staff();
                 err = "02";
-                new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
+                //new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
                 GetConfig();
-                new LogWriter("d", "BangnaControl initConfig GetConfig out " + err);
+                //new LogWriter("d", "BangnaControl initConfig GetConfig out " + err);
                 err = "03";
                 conn = new ConnectDB(iniC);
-                new LogWriter("d", "BangnaControl initConfig new ConnectDB(iniC); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig new ConnectDB(iniC); out " + err);
                 err = "04";
                 bcDB = new BangnaHospitalDB(conn);
-                new LogWriter("d", "BangnaControl initConfig new BangnaHospitalDB(conn); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig new BangnaHospitalDB(conn); out " + err);
                 err = "05";
                 initOPBKKClinic();
-                new LogWriter("d", "BangnaControl initConfig initOPBKKClinic(); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig initOPBKKClinic(); out " + err);
                 err = "06";
                 initOPBKKCHRGITEM();
-                new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
+                getInit();
             }
             catch(Exception ex)
             {
@@ -108,11 +110,25 @@ namespace bangna_hospital.control
         {
             //bcDB.sexDB.getlSex();
             //cop = ivfDB.copDB.selectByCode1("001");
+            _IPAddress = GetLocalIPAddress();
+            conn._IPAddress = _IPAddress;
+        }
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
         public void GetConfig()
         {
             //MessageBox.Show("hn " , "");
-            new LogWriter("d", "BangnaControl initConfig connection  ");
+            //new LogWriter("d", "BangnaControl initConfig connection  ");
             iniC.hostDB = iniF.getIni("connection", "hostDB");
             iniC.nameDB = iniF.getIni("connection", "nameDB");
             iniC.userDB = iniF.getIni("connection", "userDB");
@@ -136,13 +152,21 @@ namespace bangna_hospital.control
             iniC.userDBLabOut = iniF.getIni("connection", "userDBLabOut");
             iniC.passDBLabOut = iniF.getIni("connection", "passDBLabOut");
             iniC.portDBLabOut = iniF.getIni("connection", "portDBLabOut");
-            new LogWriter("d", "BangnaControl initConfig connection hostDBOPBKK ");
+            //new LogWriter("d", "BangnaControl initConfig connection hostDBOPBKK ");
             iniC.hostDBOPBKK = iniF.getIni("connection", "hostDBOPBKK");
             iniC.nameDBOPBKK = iniF.getIni("connection", "nameDBOPBKK");
             iniC.userDBOPBKK = iniF.getIni("connection", "userDBOPBKK");
             iniC.passDBOPBKK = iniF.getIni("connection", "passDBOPBKK");
             iniC.portDBOPBKK = iniF.getIni("connection", "portDBOPBKK");
-            new LogWriter("d", "BangnaControl initConfig ftp ");
+
+            iniC.hostDBLogTask = iniF.getIni("connection", "hostDBLogTask");
+            iniC.nameDBLogTask = iniF.getIni("connection", "nameDBLogTask");
+            iniC.userDBLogTask = iniF.getIni("connection", "userDBLogTask");
+            iniC.passDBLogTask = iniF.getIni("connection", "passDBLogTask");
+            iniC.portDBLogTask = iniF.getIni("connection", "portDBLogTask");
+
+
+            //new LogWriter("d", "BangnaControl initConfig ftp ");
             iniC.hostFTP = iniF.getIni("ftp", "hostFTP");
             iniC.userFTP = iniF.getIni("ftp", "userFTP");
             iniC.passFTP = iniF.getIni("ftp", "passFTP");
@@ -232,6 +256,7 @@ namespace bangna_hospital.control
             iniC.statusoutlabMedica = iniF.getIni("app", "statusoutlabMedica");
             iniC.ssoid = iniF.getIni("app", "ssoid");
             iniC.opbkkhcode = iniF.getIni("app", "opbkkhcode");
+            iniC.lab_code = iniF.getIni("app", "lab_code");
 
             iniC.hostnamee = iniF.getIni("app", "hostnamee");
             iniC.hostaddresst = iniF.getIni("app", "hostaddresst");
@@ -243,6 +268,8 @@ namespace bangna_hospital.control
             iniC.imageCC_Height = iniF.getIni("app", "imageCC_Height");
             iniC.imageME_Height = iniF.getIni("app", "imageME_Height");
             iniC.imageDiag_Height = iniF.getIni("app", "imageDiag_Height");
+
+            iniC.statusSmartCardNoDatabase = iniF.getIni("app", "statusSmartCardNoDatabase");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -328,6 +355,7 @@ namespace bangna_hospital.control
             iniC.imageDiag_Height = iniC.imageDiag_Height == null ? "400" : iniC.imageDiag_Height.Equals("") ? "400" : iniC.imageDiag_Height;
             iniC.ssoid = iniC.ssoid == null ? "0" : iniC.ssoid.Equals("") ? "0" : iniC.ssoid;
             iniC.opbkkhcode = iniC.opbkkhcode == null ? "0" : iniC.opbkkhcode.Equals("") ? "0" : iniC.opbkkhcode;
+            iniC.statusSmartCardNoDatabase = iniC.statusSmartCardNoDatabase == null ? "0" : iniC.statusSmartCardNoDatabase.Equals("") ? "0" : iniC.statusSmartCardNoDatabase;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -870,6 +898,78 @@ namespace bangna_hospital.control
             ret = ((int)ret) - 65;
 
             return ret.ToString();
+        }
+        public String getPrefix(String prefixname)
+        {
+            String re = "";
+            if (prefixname.Trim().Equals("นาย"))
+            {
+                re = "01";
+            }
+            else if (prefixname.Trim().Equals("นาง"))
+            {
+                re = "02";
+            }
+            else if (prefixname.Trim().Equals("น.ส."))
+            {
+                re = "02";
+            }
+            return re;
+        }
+        public String getMonth1(String month)
+        {
+            if (month == "ม.ค.")
+            {
+                return "01";
+            }
+            else if (month == "ก.พ.")
+            {
+                return "02";
+            }
+            else if (month == "มี.ค.")
+            {
+                return "03";
+            }
+            else if (month == "เม.ย.")
+            {
+                return "04";
+            }
+            else if (month == "พ.ค.")
+            {
+                return "05";
+            }
+            else if (month == "มิ.ย.")
+            {
+                return "06";
+            }
+            else if (month == "ก.ค.")
+            {
+                return "07";
+            }
+            else if (month == "ส.ค.")
+            {
+                return "08";
+            }
+            else if (month == "ก.ย.")
+            {
+                return "09";
+            }
+            else if (month == "ต.ค.")
+            {
+                return "10";
+            }
+            else if (month == "พ.ย.")
+            {
+                return "11";
+            }
+            else if (month == "ธ.ค.")
+            {
+                return "12";
+            }
+            else
+            {
+                return "";
+            }
         }
         public String getMonth(String monthId)
         {

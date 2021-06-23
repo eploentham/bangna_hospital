@@ -10,8 +10,66 @@ namespace bangna_hospital.object1
     public class Patient:Persistent
     {
         public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="", anCnt="", dob="", idcard="", fname="", lname="", title="", hnyr="";
-        public String patient_birthday = "";
+        public String patient_birthday = "", addr="";
         public Age age = new Age(DateTime.Now);
+
+        public String MNC_HN_NO { get; set; }
+        public String MNC_HN_YR { get; set; }
+        public String MNC_PFIX_CDT { get; set; }
+        public String MNC_PFIX_CDE { get; set; }
+        public String MNC_FNAME_T { get; set; }
+        public String MNC_LNAME_T { get; set; }
+        public String MNC_FNAME_E { get; set; }
+        public String MNC_LNAME_E { get; set; }
+        public String MNC_AGE { get; set; }
+        public String MNC_BDAY { get; set; }
+        public String MNC_ID_NO { get; set; }
+        public String MNC_SS_NO { get; set; }
+        public String MNC_SEX { get; set; }
+        public String MNC_FULL_ADD { get; set; }
+        public String MNC_STAMP_DAT { get; set; }
+        public String MNC_STAMP_TIM { get; set; }
+        public String MNC_NAT_CD { get; set; }
+        public String MNC_CUR_ADD { get; set; }
+        public String MNC_CUR_TUM { get; set; }
+        public String MNC_CUR_AMP { get; set; }
+        public String MNC_CUR_CHW { get; set; }
+        public String MNC_CUR_POC { get; set; }
+        public String MNC_CUR_TEL { get; set; }
+        public String MNC_DOM_ADD { get; set; }
+        public String MNC_DOM_TUM { get; set; }
+        public String MNC_DOM_AMP { get; set; }
+        public String MNC_DOM_CHW { get; set; }
+        public String MNC_DOM_POC { get; set; }
+        public String MNC_DOM_TEL { get; set; }
+        public String MNC_REF_NAME { get; set; }
+        public String MNC_REF_REL { get; set; }
+        public String MNC_REF_ADD { get; set; }
+        public String MNC_REF_TUM { get; set; }
+        public String MNC_REF_AMP { get; set; }
+        public String MNC_REF_CHW { get; set; }
+        public String MNC_REF_POC { get; set; }
+        public String MNC_REF_TEL { get; set; }
+        public String MNC_CUR_MOO { get; set; }
+        public String MNC_DOM_MOO { get; set; }
+        public String MNC_REF_MOO { get; set; }
+        public String MNC_REG_DAT { get; set; }
+        public String MNC_REG_TIM { get; set; }
+        public String MNC_CUR_SOI { get; set; }
+        public String MNC_DOM_SOI { get; set; }
+        public String MNC_REF_SOI { get; set; }
+        public String MNC_FN_TYP_CD { get; set; }
+        public String MNC_ATT_NOTE { get; set; }
+        public String MNC_OCC_CD { get; set; }
+        public String MNC_EDU_CD { get; set; }
+        //public String MNC_NAT_CD { get; set; }
+        public String MNC_REL_CD { get; set; }
+        public String MNC_NATI_CD { get; set; }
+        public String MNC_CAR_CD { get; set; }
+        public String MNC_CUR_ROAD { get; set; }
+        public String req_no { get; set; }
+        public String req_date { get; set; }
+
         public String AgeString()
         {
             String re = "";

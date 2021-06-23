@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_dfdoctor</AssemblyName>
+    <AssemblyName>bangna_hospital_smartcard</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,12 +32,13 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -53,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\signal-receiver.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\smartcard.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -235,6 +236,9 @@
     <Compile Include="gui\frmNHSOPrint.Designer.cs">
       <DependentUpon>frmNHSOPrint.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmNurseQuickOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmNurseScanView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +281,9 @@
     <Compile Include="gui\FrmOrOperativeNote.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmReceptionCovidSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,6 +304,12 @@
     </Compile>
     <Compile Include="gui\FrmSearchStaff.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSmartCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSmartCard.designer.cs">
+      <DependentUpon>FrmSmartCard.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmXrayPACsAdd.cs">
       <SubType>Form</SubType>
@@ -453,6 +466,7 @@
     <Compile Include="objdb\PatientDB.cs" />
     <Compile Include="objdb\PatientM30DB.cs" />
     <Compile Include="objdb\PatientM32DB.cs" />
+    <Compile Include="objdb\PatientSmartcardDB.cs" />
     <Compile Include="objdb\PharmacyM01DB.cs" />
     <Compile Include="objdb\PharmacyM02DB.cs" />
     <Compile Include="objdb\PharmacyT01DB.cs" />
@@ -503,6 +517,7 @@
     <Compile Include="object1\PatientM29.cs" />
     <Compile Include="object1\PatientM30.cs" />
     <Compile Include="object1\PatientM32.cs" />
+    <Compile Include="object1\PatientSmartcard.cs" />
     <Compile Include="object1\PharmacyT01.cs" />
     <Compile Include="object1\PharmacyM01.cs" />
     <Compile Include="object1\PharmacyM02.cs" />
@@ -511,6 +526,7 @@
     <Compile Include="object1\PharmacyT04.cs" />
     <Compile Include="object1\PharmacyT05.cs" />
     <Compile Include="object1\PharmacyT06.cs" />
+    <Compile Include="object1\RDNIDWRAPPER.cs" />
     <Compile Include="object1\TemporaryM01.cs" />
     <Compile Include="object1\TemporaryM02.cs" />
     <Compile Include="object1\XrayM01.cs" />
@@ -698,6 +714,9 @@
     <EmbeddedResource Include="gui\FrmSearchHn.resx">
       <DependentUpon>FrmSearchHn.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmSmartCard.resx">
+      <DependentUpon>FrmSmartCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSplash.resx">
       <DependentUpon>FrmSplash.cs</DependentUpon>
     </EmbeddedResource>
@@ -763,6 +782,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="RDNIDLib.DLD">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="report\pharmacy_result.xsc">
       <DependentUpon>pharmacy_result.xsd</DependentUpon>
     </None>
@@ -1446,6 +1468,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bangna_hospital_scan_add.ico" />
+    <Content Include="RDNIDlibD.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\smartcard.ico" />
+    <Content Include="SmartChipCSPlus_6.ico" />
     <None Include="Resources\webpage.ico" />
     <None Include="Resources\signal-receiver.ico" />
     <None Include="Resources\phone_red.ico" />

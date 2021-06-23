@@ -381,7 +381,7 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
 
-            this.Text = "Last Update 2020-03-23";
+            this.Text = "Last Update 2021-03-23";
         }
     }
 }

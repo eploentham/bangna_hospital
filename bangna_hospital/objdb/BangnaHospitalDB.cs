@@ -49,6 +49,7 @@ namespace bangna_hospital.objdb
         public PatientM30DB pttM30DB;
         public OPBKKdrugcatelogDB opbkkDrugCatDB;
         public DotDfDetailDB dotdfdDB;
+        public PatientSmartcardDB pttscDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -95,6 +96,27 @@ namespace bangna_hospital.objdb
             labM02DB = new LabM02DB(conn);
             opbkkDrugCatDB = new OPBKKdrugcatelogDB(conn);
             dotdfdDB = new DotDfDetailDB(conn);
+            pttscDB = new PatientSmartcardDB(conn);
+        }
+        public String insertLogPage(String userid, String form, String method, String desc)
+        {
+            String re = "", sql = "";
+            //sql = "Insert into log_page set " +
+            //    "log_page_user_id = '" + userid + "'" +
+            //    ",log_page_desc = '" + desc + "'" +
+            //    ",log_page_id_address = '" + conn._IPAddress + "'" +
+            //    ",page_form = '" + form + "'" +
+            //    ",page_form_method = '" + method + "'" +
+            //    ",date_create = now()" +
+            //    ",user_create = CURRENT_USER()" +
+            //    " " +
+            //    "";
+            sql = "Insert into t_log_page (" +
+                "log_page_user_id, log_page_desc,log_page_id_address,page_form,page_form_method,date_create,user_create) " +
+                "Values(" +
+                "'"+userid+"','"+desc+"','"+conn._IPAddress+"','"+form+"','"+method+ "',convert(varchar(20),getdate(),20),'')";
+            conn.ExecuteNonQueryLogPage(conn.connLog, sql);
+            return re;
         }
     }
 }

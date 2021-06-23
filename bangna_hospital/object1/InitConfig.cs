@@ -17,6 +17,7 @@ namespace bangna_hospital.object1
         public String hostFTPLabOut = "", userFTPLabOut = "", passFTPLabOut = "", portFTPLabOut = "", folderFTPLabOut = "", usePassiveFTPLabOut = "";
         public String hostFTPLabOutMedica = "", userFTPLabOutMedica = "", passFTPLabOutMedica = "", portFTPLabOutMedica = "", folderFTPLabOutMedica = "", usePassiveFTPLabOutMedica = "";
         public String hostDBOPBKK = "", userDBOPBKK = "", passDBOPBKK = "", nameDBOPBKK = "", portDBOPBKK = "";
+        public String hostDBLogTask = "", userDBLogTask = "", passDBLogTask = "", nameDBLogTask = "", portDBLogTask = "";
 
         public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "", pdfFontSize="", pdfFontName = "", pdfFontSizetitleFont = "", pdfFontSizetxtFont = "", pdfFontSizehdrFont = "", pdfFontSizetxtFontB="";
         public String email_form = "", email_auth_user = "", email_auth_pass = "", email_port = "", email_ssl = "";
@@ -33,5 +34,6 @@ namespace bangna_hospital.object1
         public String imageCC_width = "", imageME_width = "", imageDiag_width = "", imageCC_Height = "", imageME_Height = "", imageDiag_Height = "";
 
         public String OPD_BTEMP = "", OPD_SBP = "", OPD_DBP = "", OPD_PR = "", OPD_RR = "", opbkkhcode = "";
+        public String statusSmartCardNoDatabase = "", lab_code="";
     }
 }

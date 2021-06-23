@@ -139,6 +139,16 @@ namespace bangna_hospital
                     //new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmDfDoctor(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("PatientNewSmartCard"))
+                {
+                    //new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.FrmSmartCard(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("ReceiptionCovidSend"))
+                {
+                    //new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.FrmReceptionCovidSend(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
