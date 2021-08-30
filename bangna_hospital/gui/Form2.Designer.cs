@@ -39,6 +39,7 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.c1BarCode1 = new C1.Win.BarCode.C1BarCode();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,14 +130,36 @@
             this.toolStripButton6.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton6.Text = "toolStripButton6";
             // 
+            // c1BarCode1
+            // 
+            this.c1BarCode1.AdditionalNumber = null;
+            this.c1BarCode1.BackColor = System.Drawing.Color.White;
+            this.c1BarCode1.CodeType = C1.BarCode.CodeType.QRCode;
+            this.c1BarCode1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.c1BarCode1.ForeColor = System.Drawing.Color.Black;
+            this.c1BarCode1.Location = new System.Drawing.Point(331, 115);
+            this.c1BarCode1.MicroQRCodeOptions.EncodingCodePage = 65001;
+            this.c1BarCode1.Name = "c1BarCode1";
+            this.c1BarCode1.QuietZone.Bottom = 0D;
+            this.c1BarCode1.QuietZone.Left = 0D;
+            this.c1BarCode1.QuietZone.Right = 0D;
+            this.c1BarCode1.QuietZone.Top = 0D;
+            this.c1BarCode1.Size = new System.Drawing.Size(151, 150);
+            this.c1BarCode1.TabIndex = 1;
+            this.c1BarCode1.Text = "30100100#";
+            this.c1BarCode1.TextFixedLength = 0;
+            this.c1BarCode1.WideToNarrowRatio = 2F;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.c1BarCode1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -156,5 +179,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.ToolStripButton toolStripButton6;
+        private C1.Win.BarCode.C1BarCode c1BarCode1;
     }
 }

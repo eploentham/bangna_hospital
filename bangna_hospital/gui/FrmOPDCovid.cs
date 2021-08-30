@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
+using C1.C1Excel;
 using C1.C1Pdf;
 using C1.Win.C1Command;
 using C1.Win.C1Document;
@@ -15,6 +16,8 @@ using System.Drawing.Printing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -28,22 +31,24 @@ namespace bangna_hospital.gui
         Panel pnPrint, pnThai, pnEng;
 
         C1DockingTab tcMain;
-        C1DockingTabPage tabAdd, tabView;
+        C1DockingTabPage tabAdd, tabView, tabNovel;
         Label lbtxtHospName, lbtxtHn, lbtxtPttNameT, lbtxtPttNameE, lbtxtVsDate, lbtxtSex, lbtxtAge, lbtxtDOB, lbtxtPID, lbtxtPassport, lbtxtAddr1, lbtxtAddr2, lbtxtDtrId, lbtxtLabCode, lbtxtLabResult;
         C1TextBox txtHospName, txtHn, txtPttNameT, txtPttNameE, txtSex, txtAge, txtDOB, txtPID, txtPassport, txtAddr1, txtAddr2, txtDtrId, txtDtrNameT, txtDtrNameE, txtLabCode, txtLabName, txtLabResult;
-        C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate, txtViewDateSearch;
-        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult, btnViewDateSearch, btnPrintLetter;
-        Label lbtxtLabName1, lbtxtLabName2, lbtxtLabName3, lbtxtLabUnit, lbtxtLabNormal, lbtxtLabReport, lbtxtLabApprove, lbtxtDate, lbtxtSympbtom, lbtxtCountry, lbtxtViewDateSearch, lbtxtViewHnSearch;
+        C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate, txtViewDateSearch, txtNovelDateSearch;
+        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult, btnViewDateSearch, btnPrintLetter, btnNovelDateSearch, btnNovelSave, btnNovelUpdate;
+        Label lbtxtLabName1, lbtxtLabName2, lbtxtLabName3, lbtxtLabUnit, lbtxtLabNormal, lbtxtLabReport, lbtxtLabApprove, lbtxtDate, lbtxtSympbtom, lbtxtCountry, lbtxtViewDateSearch, lbtxtViewHnSearch, lbtxtNovelDateSearch;
         C1TextBox txtLabName1, txtLabName2, txtLabName3, txtLabResult1, txtLabResult2, txtLabResult3, txtLabUnit, txtLabNormal, txtLabReport, txtLabApprove, txtLabApproveDate, txtLabReportDate, txtViewHnSearch;
-        C1TextBox txtVsTime, txtSympbtom, txtCountry, txtThaiOther, txtStop,txtTrue, txtNation, txtLabCodeSe184, txtLabNameSe184, txtLabResultSe184, txtLabUnitSe184, txtlab184IgG;
+        C1TextBox txtVsTime, txtSympbtom, txtCountry, txtThaiOther, txtStop,txtTrue, txtNation, txtLabCodeSe184, txtLabNameSe184, txtLabResultSe184, txtLabUnitSe184, txtlab184IgG, txtSe640Name, txtSe640Result;
         RadioButton chkEng, chkThai;
         C1CheckBox chkThai1, chkThai2, chkThai3, chkThai4, chkThai5, chkThaiOther, chkDraw, chkHosp, chkStop, chkTrue, chktxtLabCodeSe184, chkLab184Nas, chkLab184Saliva, chkLab184Nucl, chkLab184Lamp, chkLab184Antigen, chklab184IgG, chklab184IgM;
+        C1CheckBox chkSe640;
         Label lbtxtHospEndDate, lbtxtStopEndDate, lbtxtNation, lbtxtLabCodeSe184, lbtxtLabResultSe184, lbtxtLabReportDate, lbLoading;
-        C1FlexGrid grfView;
+        C1FlexGrid grfView, grfNovel;
 
-        int colHn = 1, colDateVs=2, colTimeVs=3, colFullName = 4, colDateResult = 5, collabCode=6, collabName = 7, colLabResult = 8, colPhone = 9,colReqNo=10, colReqDate=11, colReqYr=12, colStatus=13;
+        int colHn = 1, colDateVs=2, colTimeVs=3, colFullName = 4, colDateResult = 5, collabCode=6, collabName = 7, colLabResult = 8, colPhone = 9,colReqNo=10, colReqDate=11, colReqYr=12, colStatus=13, colID=14;
+        int colNovelHn = 1, colNovelHos = 2, colNovelCat = 3, colNovelSatCode = 4, colNovelPID = 5, colNovelPassport = 6, colNovelPttName = 7, colNovelSex = 8, colNovelAge = 9, colNovelNat = 10, colNovelProv = 11, colNovelAmphur = 12, colNovelTumbun = 13, colNovelMoo = 14, colNovelAddr = 15, colNovelDisease = 16, colNovelMobile = 17, colNovelTypePtt = 18, colNovelCluster = 19, colNovelConfirm = 20, colNovelPlace = 21, colNovelLabDate = 22, colNovelLabPlace = 23, colNovelLabResult = 24, colNovelEgene = 25, colNovelRdRP = 26, colNovelNgene = 27, colNovelORFlab = 28, colNovelIC = 29, colNovelSgene = 30, colNovelRNP = 31, colNovelNSgene = 32, colNovelid=33;
 
-        String vn, preno, vsdate, paidtypecode="";
+        String vn, preno, vsdate, paidtypecode="", detectedid="";
 
         Patient ptt;
         Staff dtr;
@@ -73,9 +78,77 @@ namespace bangna_hospital.gui
             btnViewDateSearch.Click += BtnViewDateSearch_Click;
             btnPrintLetter.Click += BtnPrintLetter_Click;
             txtViewHnSearch.KeyUp += TxtViewHnSearch_KeyUp;
-
+            chkSe640.Click += ChkSe640_Click;
+            btnNovelDateSearch.Click += BtnNovelDateSearch_Click;
+            btnNovelSave.Click += BtnNovelSave_Click;
+            btnNovelUpdate.Click += BtnNovelUpdate_Click;
             txtVsDate.Value = DateTime.Now;
             txtHospName.Value = "โรงพยาบาล ทั่วไปขนาดใหญ่ บางนา5";
+            ChkSe640_Click(null, null);
+        }
+
+        private void BtnNovelUpdate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            foreach(Row row in grfNovel.Rows)
+            {
+                String lcovidd = "", mnchnno = "";
+                lcovidd = row[colNovelid].ToString();
+                mnchnno = row[colNovelHn].ToString();
+
+
+            }
+        }
+
+        private void BtnNovelSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.DefaultExt = "xls";
+            dlg.Filter = "Excel |*.xls";
+            dlg.InitialDirectory = bc.iniC.pathSaveExcelNovel;
+            dlg.FileName = "*.xls";
+            if (dlg.ShowDialog() != DialogResult.OK)
+                return;
+            // clear book
+            C1XLBook _book = new C1XLBook();
+            XLSheet sheet = _book.Sheets.Add("Novel" + DateTime.Now.ToString("dd-MM-") + DateTime.Now.Year.ToString());
+            bc.SaveSheet(grfNovel, sheet, _book, false);
+            //}
+
+            // save selected sheet index
+            _book.Sheets.SelectedIndex = 0;
+
+            // save the book
+            _book.Save(dlg.FileName);
+            _book.Dispose();
+            if (File.Exists(dlg.FileName))
+            {
+
+                string argument = "/select, \"" + dlg.FileName + "\"";
+                Process.Start("explorer.exe", argument);
+            }
+        }
+
+        private void BtnNovelDateSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfNovel();
+        }
+
+        private void ChkSe640_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkSe640.Checked)
+            {
+                txtSe640Name.Visible = true;
+                txtSe640Result.Visible = true;
+            }
+            else
+            {
+                txtSe640Name.Visible = false;
+                txtSe640Result.Visible = false;
+            }
         }
 
         private void TxtViewHnSearch_KeyUp(object sender, KeyEventArgs e)
@@ -86,7 +159,190 @@ namespace bangna_hospital.gui
                 setGrfView();
             }
         }
+        private void printResultLabATK1(String hn, String preno, String visitdate, String labcode)
+        {
+            byte[] bytes = new byte[1024];
 
+            // Connect to a remote device.  
+            int port = 5432;
+            try
+            {
+                // Establish the remote endpoint for the socket.  
+                // This example uses port 11000 on the local computer.
+                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+                //IPAddress ipAddress = ipHostInfo.AddressList[0];
+                IPAddress ipAddress = System.Net.IPAddress.Parse("172.25.10.14");
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+
+                // Create a TCP/IP  socket.  
+                Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+                // Connect the socket to the remote endpoint. Catch any errors.  
+                try
+                {
+                    sender.Connect(remoteEP);
+
+                    Console.WriteLine("Socket connected to {0}", sender.RemoteEndPoint.ToString());
+
+                    // Encode the data string into a byte array.  
+                    String date = "";
+                    date = bc.datetoDB(visitdate);
+                    byte[] msg = Encoding.ASCII.GetBytes(hn.Trim()+"#"+preno.Trim()+"#"+ date.Trim()+"#"+labcode.Trim());
+
+                    // Send the data through the socket.  
+                    int bytesSent = sender.Send(msg);
+
+                    // Receive the response from the remote device.  
+                    //int bytesRec = sender.Receive(bytes);
+                    //Console.WriteLine("Echoed test = {0}", Encoding.ASCII.GetString(bytes, 0, bytesRec));
+
+                    // Release the socket.  
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+
+                }
+                catch (ArgumentNullException ane)
+                {
+                    Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
+                }
+                catch (SocketException se)
+                {
+                    Console.WriteLine("SocketException : {0}", se.ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Unexpected exception : {0}", e.ToString());
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+        private void printResultLabATK()
+        {
+            //PrintDocument document = new PrintDocument();
+            //document.PrinterSettings.PrinterName = bc.iniC.printerA5;
+            //PrinterSettings ps = new PrinterSettings();
+            //document.PrinterSettings.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("A5", 5, 5);
+            ////PaperSize sizeA4 = paperSizes.First<PaperSize>(size => size.Kind == PaperKind.A5);
+            //document.PrinterSettings.DefaultPageSettings.Landscape = true;            
+            //document.PrintPage += Document_PrintPage;
+
+            //PrintDialog printdlg = new PrintDialog();
+            //PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
+            //printPrvDlg.Document = document;
+            //printPrvDlg.ShowDialog();
+            String pathFolder = "", filename = "", datetick = "";
+            int gapLine = 20, gapLine1 = 15, gapX = 40, gapY = 20, xCol2 = 200, xCol1 = 160, xCol3 = 300, xCol4 = 390, xCol41 = 450, xCol5 = 500;
+            int lineDot = 2;
+            Size size = new Size();
+            String txt = "";
+            float temp = 0;
+
+            C1PdfDocument pdf = new C1PdfDocument();
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            StringFormat _sfRight, _sfRightCenter;
+            //Font _fontTitle = new Font("Tahoma", 15, FontStyle.Bold);
+            _sfRight = new StringFormat();
+            _sfRight.Alignment = StringAlignment.Far;
+            _sfRightCenter = new StringFormat();
+            _sfRightCenter.Alignment = StringAlignment.Far;
+            _sfRightCenter.LineAlignment = StringAlignment.Center;
+
+            Font titleFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetitleFont, FontStyle.Bold);
+            Font hdrFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizehdrFont, FontStyle.Regular);
+            Font hdrFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizehdrFont, FontStyle.Bold);
+            Font ftrFont = new Font(bc.iniC.pdfFontName, 8);
+            Font txtFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFont, FontStyle.Regular);
+            //Font txtFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFontB, FontStyle.Bold);//
+            Font txtFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFontB, FontStyle.Regular);
+            pdf.FontType = FontTypeEnum.Embedded;
+            pdf.PaperKind = PaperKind.A5;
+            pdf.Landscape = true;
+
+            RectangleF rcPage = pdf.PageRectangle;
+            rcPage = RectangleF.Empty;
+            rcPage.Inflate(-72, -92);
+            rcPage.Location = new PointF(rcPage.X, rcPage.Y + titleFont.SizeInPoints + 10);
+            rcPage.Size = new SizeF(0, titleFont.SizeInPoints + 3);
+            rcPage.Width = 110;
+            //logo
+            Image loadedImage;
+            loadedImage = Resources.LOGO_BW_tran;
+            float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+            float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+            float widthFactor = 4.8F;
+            float heightFactor = 4.8F;
+            if (widthFactor > 1 | heightFactor > 1)
+            {
+                if (widthFactor > heightFactor)
+                {
+                    widthFactor = 1;
+                    newWidth = newWidth / widthFactor;
+                    newHeight = newHeight / widthFactor;
+                    //newWidth = newWidth / 1.2;
+                    //newHeight = newHeight / 1.2;
+                }
+                else
+                {
+                    newWidth = newWidth / heightFactor;
+                    newHeight = newHeight / heightFactor;
+                }
+            }
+
+            RectangleF recf = new RectangleF(15, 15, (int)newWidth, (int)newHeight);
+            pdf.DrawImage(loadedImage, recf);//logo
+
+            rcPage.X = gapX + recf.Width - 10;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(bc.iniC.hostname, titleFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(bc.iniC.hostname, titleFont, Brushes.Black, rcPage);
+            gapY += gapLine;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(bc.iniC.hostaddresst, hdrFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(bc.iniC.hostaddresst, hdrFont, Brushes.Black, rcPage);
+            gapY += gapLine;
+            gapY += gapLine;
+            gapY += gapLine;
+            //gapY += gapLine;
+
+            RectangleF rcHdr = new RectangleF();
+            rcHdr.Width = 542;
+            rcHdr.Height = 25;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY;
+            //rcHdr.Location
+            //pdf.DrawRectangle(Pens.Black, rcHdr);       // ตาราง
+            size = bc.MeasureString("ใบรับรองแพทย์", titleFont);
+            rcPage.Width = size.Width;
+            rcPage.Y = gapY - 2;
+            rcPage.X = (542 / 2) - (size.Width / 2) + 40;
+            pdf.DrawString("ใบรับรองแพทย์", titleFont, Brushes.Black, rcPage);
+
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\ATK\\";
+            if (!Directory.Exists(pathFolder))
+            {
+                Directory.CreateDirectory(pathFolder);
+            }
+            datetick = DateTime.Now.Ticks.ToString();
+            filename = pathFolder + "\\" + txtHn.Text.TrimEnd() + "_" + datetick + ".pdf";
+            pdf.Save(filename);
+            pdf.Clear();
+            pdf.Dispose();
+
+            if (File.Exists(filename))
+            {
+                Process p = new Process();
+                ProcessStartInfo s = new ProcessStartInfo(filename);
+                p.StartInfo = s;
+                p.Start();
+            }
+        }
         private void printLetter()
         {
             PrintDocument document = new PrintDocument();
@@ -168,7 +424,399 @@ namespace bangna_hospital.gui
 
             //e.Graphics.DrawImage(resizedImage, avg - (resizedImage.Width / 2), topMargin);
         }
+        private void setGrfNovel()
+        {
+            showLbLoading();
+            String date = "";
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectAll();
+            
+            C1ComboBox cboCat = new C1ComboBox();
+            C1ComboBox cboSex = new C1ComboBox();
+            C1ComboBox cboNat = new C1ComboBox();
+            C1ComboBox cboDisease = new C1ComboBox();
+            C1ComboBox cboTypePtt = new C1ComboBox();
+            cboCat.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboCat.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboSex.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboSex.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboNat.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboNat.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboDisease.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboDisease.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboTypePtt.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboTypePtt.AutoCompleteSource = AutoCompleteSource.ListItems;
 
+            item = new ComboBoxItem();
+            item.Value = "Hospital";
+            item.Text = "Hospital";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ACF&SS";
+            item.Text = "ACF&SS";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "Quarantine";
+            item.Text = "Quarantine";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "Foreigner";
+            item.Text = "Foreigner";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เรือนจำ";
+            item.Text = "เรือนจำ";
+            cboCat.Items.Add(item);
+            
+            item = new ComboBoxItem();
+            item.Value = "ชาย";
+            item.Text = "ชาย";
+            cboSex.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "หญิง";
+            item.Text = "หญิง";
+            cboSex.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไม่ระบุ";
+            item.Text = "ไม่ระบุ";
+            cboSex.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ไทย";
+            item.Text = "ไทย";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ลาว";
+            item.Text = "ลาว";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "จีน";
+            item.Text = "จีน";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เมียนมา";
+            item.Text = "เมียนมา";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "จีน";
+            item.Text = "จีน";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "กัมพูชา";
+            item.Text = "กัมพูชา";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไม่ระบุสัญชาติ";
+            item.Text = "ไม่ระบุสัญชาติ";
+            cboNat.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ไม่ระบุ";
+            item.Text = "ไม่ระบุ";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ปฏิเสธ";
+            item.Text = "ปฏิเสธ";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน";
+            item.Text = "เบาหวาน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ความดันโลหิตสูง";
+            item.Text = "ความดันโลหิตสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ภูมิแพ้";
+            item.Text = "ภูมิแพ้";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "แพ้ยา";
+            item.Text = "แพ้ยา";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "หอบหืด";
+            item.Text = "หอบหืด";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไมเกรน";
+            item.Text = "ไมเกรน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "โรคหลอดเลือดหัวใจ ความดัน";
+            item.Text = "โรคหลอดเลือดหัวใจ ความดัน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน ความดันโลหิตสูง";
+            item.Text = "เบาหวาน ความดันโลหิตสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน ความดันโลหิตสูง ไขมันสูง";
+            item.Text = "เบาหวาน ความดันโลหิตสูง ไขมันสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน ความดัน กล้ามเนื้ออ่อนแรง";
+            item.Text = "เบาหวาน ความดัน กล้ามเนื้ออ่อนแรง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "กล้ามเนื้ออ่อนแรง";
+            item.Text = "กล้ามเนื้ออ่อนแรง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "แพ้ภูมิตัวเอง ภูมิแพ้";
+            item.Text = "แพ้ภูมิตัวเอง ภูมิแพ้";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ธาลัสซีเมีย";
+            item.Text = "ธาลัสซีเมีย";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "รูมาตอยด์ ภูมิแพ้";
+            item.Text = "รูมาตอยด์ ภูมิแพ้";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไขมันในเส้นเลือดสูง";
+            item.Text = "ไขมันในเส้นเลือดสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "กรดไหลย้อน";
+            item.Text = "กรดไหลย้อน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไทรอยด์";
+            item.Text = "ไทรอยด์";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "โรคอ้วน";
+            item.Text = "โรคอ้วน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เก๊าท์";
+            item.Text = "เก๊าท์";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ความดัน";
+            item.Text = "ความดัน";
+            cboDisease.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "1.ผู้ป่วย PUI";
+            item.Text = "1.ผู้ป่วย PUI";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "2.สัมผัสผู้ติดเชื้อ";
+            item.Text = "2.สัมผัสผู้ติดเชื้อ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "3.ต่างชาติมาจากต่างประเทศ";
+            item.Text = "3.ต่างชาติมาจากต่างประเทศ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "4.คนไทยมาจากต่างประเทศ";
+            item.Text = "4.คนไทยมาจากต่างประเทศ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "5.ลักลอบเข้าประเทศ";
+            item.Text = "5.ลักลอบเข้าประเทศ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "6.คัดกรองจากด่าน";
+            item.Text = "6.คัดกรองจากด่าน";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "7.บุคลากรทางการแพทย์และสาธารณสุข";
+            item.Text = "7.บุคลากรทางการแพทย์และสาธารณสุข";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "8.เฝ้าระวัง ARI/ pneumonia";
+            item.Text = "8.เฝ้าระวัง ARI/ pneumonia";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "9.สำรวจกลุ่มเสี่ยง (survey) (ACF กรณีพบการระบาด)";
+            item.Text = "9.สำรวจกลุ่มเสี่ยง (survey) (ACF กรณีพบการระบาด)";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "10.เฝ้าระวังในกลุ่มเสี่ยง (sentinel) (กรณียังไม่มีการระบาด)";
+            item.Text = "10.เฝ้าระวังในกลุ่มเสี่ยง (sentinel) (กรณียังไม่มีการระบาด)";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "11.ขอตรวจหาเชื้อเอง";
+            item.Text = "11.ขอตรวจหาเชื้อเอง";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "12.ตรวจก่อนทำหัตถการ";
+            item.Text = "12.ตรวจก่อนทำหัตถการ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "13.อื่นๆ";
+            item.Text = "13.อื่นๆ";
+            cboTypePtt.Items.Add(item);
+
+            DateTime vsdate = new DateTime();
+            DateTime.TryParse(txtNovelDateSearch.Text, out vsdate);
+            //MessageBox.Show("2121212 vsdate.Year " + vsdate.Year, "");
+            if (vsdate.Year < 2000)
+            {
+                vsdate = vsdate.AddYears(543);
+            }
+            date = vsdate.Year + "-" + vsdate.ToString("MM-dd");
+            DataTable dtcovidd = new DataTable();
+            DataTable dtcovidSE629 = new DataTable();
+            pageLoad = true;
+            grfNovel.DataSource = null;
+            grfNovel.Rows.Count = 1;
+            grfNovel.Cols.Count = 34;
+            //grfNovel.Rows.Count = lAER.Count + 1;
+            grfNovel.Cols[colNovelHn].Caption = "HN";
+            grfNovel.Cols[colNovelHos].Caption = "สถานที่ส่งตรวจ";
+            grfNovel.Cols[colNovelCat].Caption = "category";
+            grfNovel.Cols[colNovelSatCode].Caption = "SAT CODE";
+            grfNovel.Cols[colNovelPID].Caption = "ID";
+            grfNovel.Cols[colNovelPassport].Caption = "Passport";
+            grfNovel.Cols[colNovelPttName].Caption = "ชื่อสกุล";
+            grfNovel.Cols[colNovelSex].Caption = "เพศ ";
+            grfNovel.Cols[colNovelAge].Caption = "อายุ ";
+            grfNovel.Cols[colNovelNat].Caption = "สัญชาติ";
+
+            grfNovel.Cols[colNovelProv].Caption = "จังหวัด";
+            grfNovel.Cols[colNovelAmphur].Caption = "อำเภอ";
+            grfNovel.Cols[colNovelTumbun].Caption = "ตำบล";
+            grfNovel.Cols[colNovelMoo].Caption = "หมู่ที่ ";
+            grfNovel.Cols[colNovelAddr].Caption = "บ้านเลขที่";
+            grfNovel.Cols[colNovelDisease].Caption = "โรคประจำตัว";
+            grfNovel.Cols[colNovelMobile].Caption = "เบอร์โทรศัพท์";
+            grfNovel.Cols[colNovelTypePtt].Caption = "ประเภทผู้ป่วย";
+            grfNovel.Cols[colNovelCluster].Caption = "cluster";
+            grfNovel.Cols[colNovelConfirm].Caption = "ระบุ เคส";
+
+            grfNovel.Cols[colNovelPlace].Caption = "ระบุ สถานที่";
+            grfNovel.Cols[colNovelLabDate].Caption = "วันที่ รายงาน ผล";
+            grfNovel.Cols[colNovelLabPlace].Caption = "สถานที่ตรวจ LAB";
+            grfNovel.Cols[colNovelLabResult].Caption = "ผลการตรวจ LAB";
+            grfNovel.Cols[colNovelEgene].Caption = "E gene";
+            grfNovel.Cols[colNovelRdRP].Caption = "RdRP";
+            grfNovel.Cols[colNovelNgene].Caption = "N gene";
+            grfNovel.Cols[colNovelORFlab].Caption = "ORF1ab";
+            grfNovel.Cols[colNovelIC].Caption = "IC";
+            grfNovel.Cols[colNovelSgene].Caption = "S gene";
+
+            grfNovel.Cols[colNovelRNP].Caption = "RNP";
+            grfNovel.Cols[colNovelNSgene].Caption = "NS gene";
+
+            grfNovel.Cols[colNovelHn].Width = 80;
+            grfNovel.Cols[colNovelHos].Width = 300;
+            grfNovel.Cols[colNovelCat].Width = 100;
+            grfNovel.Cols[colNovelSatCode].Width = 70;
+            grfNovel.Cols[colNovelPID].Width = 100;
+            grfNovel.Cols[colNovelPassport].Width = 100;
+            grfNovel.Cols[colNovelPttName].Width = 200;
+            grfNovel.Cols[colNovelSex].Width = 150;
+            grfNovel.Cols[colNovelAge].Width = 80;
+            grfNovel.Cols[colNovelNat].Width = 80;
+
+            grfNovel.Cols[colNovelProv].Width = 80;
+            grfNovel.Cols[colNovelAmphur].Width = 80;
+            grfNovel.Cols[colNovelTumbun].Width = 80;
+            grfNovel.Cols[colNovelMoo].Width = 80;
+            grfNovel.Cols[colNovelAddr].Width = 80;
+            grfNovel.Cols[colNovelDisease].Width = 80;
+            grfNovel.Cols[colNovelMobile].Width = 80;
+            grfNovel.Cols[colNovelTypePtt].Width = 80;
+            grfNovel.Cols[colNovelCluster].Width = 80;
+            grfNovel.Cols[colNovelConfirm].Width = 80;
+
+            grfNovel.Cols[colNovelPlace].Width = 80;
+            grfNovel.Cols[colNovelLabDate].Width = 80;
+            grfNovel.Cols[colNovelLabPlace].Width = 80;
+            grfNovel.Cols[colNovelLabResult].Width = 80;
+            grfNovel.Cols[colNovelEgene].Width = 80;
+            grfNovel.Cols[colNovelRdRP].Width = 80;
+            grfNovel.Cols[colNovelNgene].Width = 80;
+            grfNovel.Cols[colNovelORFlab].Width = 80;
+            grfNovel.Cols[colNovelIC].Width = 80;
+            grfNovel.Cols[colNovelSgene].Width = 80;
+
+            grfNovel.Cols[colNovelRNP].Width = 80;
+            grfNovel.Cols[colNovelNSgene].Width = 80;
+
+            grfNovel.Cols[colNovelCat].Editor = cboCat;
+            grfNovel.Cols[colNovelSex].Editor = cboSex;
+            grfNovel.Cols[colNovelNat].Editor = cboNat;
+            grfNovel.Cols[colNovelDisease].Editor = cboDisease;
+            grfNovel.Cols[colNovelTypePtt].Editor = cboTypePtt;
+
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("Print ซองจดหมาย", new EventHandler(ContextMenu_grfView_PrintStricker));
+            menuGw.MenuItems.Add("Print ผลLAB", new EventHandler(ContextMenu_grfView_PrintResultLab));
+            grfNovel.ContextMenu = menuGw;
+
+            setLbLoading("กรุณารอซักครู่ Novel");
+            //dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE184_1(date, date,"");
+            dtcovidd = bc.bcDB.lcoviddDB.SelectByDateDetected(date);
+            //setLbLoading("กรุณารอซักครู่ SE629");
+            //dtcovidSE629 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE629_1(date, date, "");
+            //dtcovidSE184.Merge(dtcovidSE629);
+            grfNovel.Rows.Count = dtcovidd.Rows.Count + 1;
+            int i = 0;
+            setLbLoading("กรุณารอซักครู่ set grid");
+            foreach (DataRow ins in dtcovidd.Rows)
+            {
+                i++;
+                try
+                {
+                    //if (i == 1) continue;
+                    grfNovel[i, colNovelid] = ins["lab_covid_detected_id"].ToString();
+                    grfNovel[i, colNovelHn] = ins["mnc_hn_no"].ToString();
+                    grfNovel[i, colNovelHos] = ins["hos_name"].ToString();
+                    grfNovel[i, colNovelCat] = ins["category"].ToString();
+                    grfNovel[i, colNovelSatCode] = ins["sat_code"].ToString();
+                    grfNovel[i, colNovelPID] = ins["pid"].ToString();
+                    grfNovel[i, colNovelPassport] = ins["passport"].ToString();
+                    grfNovel[i, colNovelPttName] = ins["patient_fullname"].ToString();
+                    grfNovel[i, colNovelSex] = ins["sex"].ToString();
+                    grfNovel[i, colNovelAge] = ins["age_years"].ToString();
+
+                    grfNovel[i, colNovelNat] = ins["nation_name"].ToString();
+                    grfNovel[i, colNovelProv] = ins["prov_name"].ToString();
+                    grfNovel[i, colNovelAmphur] = ins["amphur_name"].ToString();
+                    grfNovel[i, colNovelTumbun] = ins["tumbon_name"].ToString();
+                    grfNovel[i, colNovelMoo] = ins["addr_moo"].ToString();
+                    grfNovel[i, colNovelAddr] = ins["addr_home_no"].ToString();
+                    grfNovel[i, colNovelDisease] = ins["disease"].ToString();
+                    grfNovel[i, colNovelMobile] = ins["mobile"].ToString();
+                    grfNovel[i, colNovelTypePtt] = ins["type_ptt"].ToString();
+                    grfNovel[i, colNovelCluster] = ins["cluster"].ToString();
+                    //grfNovel[i, colLabResult] = "";
+
+                    grfNovel[i, colNovelConfirm] = ins["case_confirm"] != null ? ins["case_confirm"].ToString() : "";
+                    grfNovel[i, colNovelPlace] = ins["place_doubt"] != null ? ins["place_doubt"].ToString() : "";
+                    grfNovel[i, colNovelLabDate] = ins["lab_date"] != null ? ins["lab_date"].ToString() : "";
+                    grfNovel[i, colNovelLabPlace] = ins["lab_place"].ToString();
+                    grfNovel[i, colNovelLabResult] = ins["lab_result"].ToString();
+                    grfNovel[i, colNovelEgene] = ins["e_gene"].ToString();
+                    grfNovel[i, colNovelRdRP] = ins["rdrp"].ToString();
+                    grfNovel[i, colNovelNgene] = ins["n_gene"].ToString();
+                    grfNovel[i, colNovelORFlab] = ins["orf1ab"].ToString();
+                    grfNovel[i, colNovelIC] = ins["ic"].ToString();
+
+                    grfNovel[i, colNovelSgene] = ins["s_gene"].ToString();
+                    grfNovel[i, colNovelRNP] = ins["rnp"].ToString();
+                    grfNovel[i, colNovelNSgene] = ins["ns_gene"].ToString();
+                    
+                    grfNovel[i, 0] = i;
+                    //if(ins["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected")==0)
+                    //    grfNovel.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmOPDCovid setGrfView SE184 i = " + i + " ex " + ex.Message);
+                }
+            }
+            grfNovel.Cols[colNovelid].Visible = false;
+            hideLbLoading();
+
+            pageLoad = false;
+        }
         private void setGrfView()
         {
             showLbLoading();
@@ -186,7 +834,7 @@ namespace bangna_hospital.gui
             pageLoad = true;
             grfView.DataSource = null;
             grfView.Rows.Count = 1;
-            grfView.Cols.Count = 14;
+            grfView.Cols.Count = 15;
             //grfView.Rows.Count = lAER.Count + 1;
             grfView.Cols[colHn].Caption = "HN";
             grfView.Cols[colDateVs].Caption = "Date Visit";
@@ -224,14 +872,16 @@ namespace bangna_hospital.gui
             grfView.Cols[colTimeVs].AllowEditing = false;
 
             ContextMenu menuGw = new ContextMenu();
-            menuGw.MenuItems.Add("Print Envelope", new EventHandler(ContextMenu_grfView_PrintStricker));
+            menuGw.MenuItems.Add("Print ซองจดหมาย", new EventHandler(ContextMenu_grfView_PrintStricker));
+            menuGw.MenuItems.Add("Print ผลLAB", new EventHandler(ContextMenu_grfView_PrintResultLab));
             grfView.ContextMenu = menuGw;
 
             setLbLoading("กรุณารอซักครู่ SE184");
-            dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE184_1(date, date,"");
-            setLbLoading("กรุณารอซักครู่ SE629");
-            dtcovidSE629 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE629_1(date, date, "");
-            dtcovidSE184.Merge(dtcovidSE629);
+            //dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE184_1(date, date,"");
+            dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE184_2(date);
+            //setLbLoading("กรุณารอซักครู่ SE629");
+            //dtcovidSE629 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE629_1(date, date, "");
+            //dtcovidSE184.Merge(dtcovidSE629);
             grfView.Rows.Count = dtcovidSE184.Rows.Count + 1;
             int i = 0;
             setLbLoading("กรุณารอซักครู่ set grid");
@@ -241,21 +891,23 @@ namespace bangna_hospital.gui
                 try
                 {
                     //if (i == 1) continue;
+                    grfView[i, colID] = ins["lab_covid_request_id"].ToString();
                     grfView[i, colHn] = ins["mnc_hn_no"].ToString();
                     grfView[i, colFullName] = ins["mnc_patname"].ToString();
                     grfView[i, colDateVs] = bc.datetoShow(ins["MNC_date"].ToString());
                     grfView[i, colTimeVs] = ins["MNC_time"].ToString();
-                    grfView[i, colDateResult] = "";
+                    //grfView[i, colDateResult] = ins["result_value"].ToString();
                     grfView[i, collabCode] = ins["MNC_LB_cd"].ToString();
                     grfView[i, collabName] = ins["MNC_LB_DSC"].ToString();
                     grfView[i, colPhone] = ins["mnc_cur_tel"].ToString();
-                    //grfView[i, colLabResult] = ins["MNC_RES_VALUE"].ToString();
-                    grfView[i, colLabResult] = "";
+                    grfView[i, colLabResult] = ins["result_value"].ToString();
+                    //grfView[i, colLabResult] = "";
 
-                    grfView[i, colReqNo] = ins["mnc_req_no"] != null ? ins["mnc_req_no"].ToString() : "";
-                    grfView[i, colReqDate] = ins["mnc_req_dat"] != null ? ins["mnc_req_dat"].ToString() : "";
+                    grfView[i, colReqNo] = ins["req_no"] != null ? ins["req_no"].ToString() : "";
+                    grfView[i, colReqDate] = ins["req_date"] != null ? ins["req_date"].ToString() : "";
                     grfView[i, colReqYr] = ins["mnc_req_yr"] != null ? ins["mnc_req_yr"].ToString() : "";
                     grfView[i, colStatus] = ins["mnc_req_sts"].ToString();
+                    grfView[i, colDateResult] = ins["result_date"].ToString();
                     grfView[i, 0] = i;
                     //if(ins["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected")==0)
                     //    grfView.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
@@ -264,69 +916,78 @@ namespace bangna_hospital.gui
                 {
                     new LogWriter("e", "FrmOPDCovid setGrfView SE184 i = " + i+" ex " + ex.Message);
                 }
-                
             }
+            grfView.Cols[colID].Visible = false;
+            //Application.DoEvents();
+            //setLbLoading("กรุณารอซักครู่ set Result");
+            //i = 0;
+            //String err = "" ,reqdate2="";
+            //foreach (Row row in grfView.Rows)
+            //{
+            //    i++;
+            //    try
+            //    {
+            //        if (row[colReqNo] == null) continue;
+            //        String reqno = "", reqyr = "", reqdate = "", hn = "", labcode = "", reqdate1="";
+            //        err = "00";
+            //        reqdate1 = row[colReqDate] != null ? row[colReqDate].ToString() : row[colReqDate].ToString().Length > 0 ? row[colReqDate].ToString() : "";
+            //        reqno = row[colReqNo].ToString();
+            //        reqdate2 = row[colReqDate].ToString();
+            //        if (bc.iniC.windows.Equals("windows10"))
+            //        {
+            //            reqdate = bc.datetoDB(row[colReqDate] != null ? row[colReqDate].ToString() : row[colReqDate].ToString().Length > 0 ? row[colReqDate].ToString() : "");
+            //        }
+            //        else
+            //        {
+            //            reqdate = row[colReqDate] != null ? row[colReqDate].ToString() : "";
+            //        }
 
-            Application.DoEvents();
-            setLbLoading("กรุณารอซักครู่ set Result");
-            i = 0;
-            String err = "" ,reqdate2="";
-            foreach (Row row in grfView.Rows)
-            {
-                i++;
-                try
-                {
-                    if (row[colReqNo] == null) continue;
-                    String reqno = "", reqyr = "", reqdate = "", hn = "", labcode = "", reqdate1="";
-                    err = "00";
-                    reqdate1 = row[colReqDate] != null ? row[colReqDate].ToString() : row[colReqDate].ToString().Length > 0 ? row[colReqDate].ToString() : "";
-                    reqno = row[colReqNo].ToString();
-                    reqdate2 = row[colReqDate].ToString();
-                    if (bc.iniC.windows.Equals("windows10"))
-                    {
-                        reqdate = bc.datetoDB(row[colReqDate] != null ? row[colReqDate].ToString() : row[colReqDate].ToString().Length > 0 ? row[colReqDate].ToString() : "");
-                    }
-                    else
-                    {
-                        reqdate = row[colReqDate] != null ? row[colReqDate].ToString() : "";
-                    }
-                    
-                    reqyr = row[colReqYr].ToString();
-                    hn = row[colHn].ToString();
-                    labcode = row[collabCode].ToString();
-                    //reqdate2 = reqdate;
-                    err = "01 reqdate " + reqdate+ " reqdate2 " + reqdate2;
-                    
-                    if (hn.Equals("5223074"))
-                    {
-                        String chk = "";
-                    }
-                    DataTable dtres = new DataTable();
-                    dtres = bc.bcDB.vsDB.selectLabCOVIDRequltbyHN(reqdate, reqno, reqyr, labcode, hn);
-                    err = "02";
-                    if (dtres.Rows.Count > 0)
-                    {
-                        row[colLabResult] = dtres.Rows[0]["MNC_RES_VALUE"].ToString();
-                        err = "03";
-                        row[colDateResult] = bc.datetoShow(dtres.Rows[0]["MNC_RESULT_DAT"].ToString());
-                        err = "04";
-                        if (dtres.Rows[0]["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected") == 0)
-                            row.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+            //        reqyr = row[colReqYr].ToString();
+            //        hn = row[colHn].ToString();
+            //        labcode = row[collabCode].ToString();
+            //        //reqdate2 = reqdate;
+            //        err = "01 reqdate " + reqdate+ " reqdate2 " + reqdate2;
 
-                    }
-                }
-                catch(Exception ex)
-                {
-                    new LogWriter("e", "FrmOPDCovid setGrfView SE629 i = " + i+" err "+err + " ex " + ex.Message);
-                }
-                
-            }
+            //        if (hn.Equals("5223074"))
+            //        {
+            //            String chk = "";
+            //        }
+            //        DataTable dtres = new DataTable();
+            //        dtres = bc.bcDB.vsDB.selectLabCOVIDRequltbyHN(reqdate, reqno, reqyr, labcode, hn);
+            //        err = "02";
+            //        if (dtres.Rows.Count > 0)
+            //        {
+            //            row[colLabResult] = dtres.Rows[0]["MNC_RES_VALUE"].ToString();
+            //            err = "03";
+            //            row[colDateResult] = bc.datetoShow(dtres.Rows[0]["MNC_RESULT_DAT"].ToString());
+            //            err = "04";
+            //            if (dtres.Rows[0]["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected") == 0)
+            //                row.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+
+            //        }
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        new LogWriter("e", "FrmOPDCovid setGrfView SE629 i = " + i+" err "+err + " ex " + ex.Message);
+            //    }
+
+            //}
             //grfView.Sort(SortFlags.Ascending, colDateVs, colTimeVs);
             hideLbLoading();
 
-
-
             pageLoad = false;
+        }
+        private void ContextMenu_grfView_PrintResultLab(object sender, System.EventArgs e)
+        {
+            if (grfView == null) return;
+            if (grfView.Row <= 1) return;
+
+            String id = "";
+            detectedid = grfView[grfView.Row, colID].ToString();
+            //ptt = bc.bcDB.pttDB.selectPatinet(id.Trim());
+            txtHn.Value = id.Trim();
+
+            printResultLabATK();
         }
         private void ContextMenu_grfView_PrintStricker(object sender, System.EventArgs e)
         {
@@ -402,7 +1063,14 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             //printCOVID("english");
-            printCOVIDlabresultEng();
+            if (chkSe640.Checked)
+            {
+                printResultLabATK1(txtHn.Text,preno, txtVsDate.Text, txtLabCode.Text);
+            }
+            else
+            {
+                printResultLabATK1(txtHn.Text, preno, txtVsDate.Text, txtLabCode.Text);
+            }
         }
 
         private void BtnPrnThai_Click(object sender, EventArgs e)
@@ -415,7 +1083,14 @@ namespace bangna_hospital.gui
             }
             else if (chkEng.Checked)
             {
-                printCOVIDcertEng();
+                if (chkSe640.Checked)
+                {
+                    printCOVIDcertEngSe640();
+                }
+                else
+                {
+                    printCOVIDcertEng();
+                }
             }
         }
 
@@ -605,8 +1280,6 @@ namespace bangna_hospital.gui
             rcPage.Width = 110;
 
             DateTime.TryParse(txtVsDate.Text, out vsdate1);
-            //if (vsdate1.Year > 2500)
-            //{
             vsdate = vsdate1.Year + "-" + vsdate1.ToString("MM-dd");
             //MessageBox.Show("111  vsdate " + vsdate + " preno " + preno, "");
             if (vsdate.Length > 4)
@@ -818,7 +1491,6 @@ namespace bangna_hospital.gui
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
             
-
             txt = dtcovid.Rows[0]["MNC_RES_VALUE"].ToString();
             rcPage.X = xCol3;
             rcPage.Y = gapY;
@@ -924,6 +1596,596 @@ namespace bangna_hospital.gui
             rcPage.X = gapX;
             rcPage.Y = tempy4;
             size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\COVID\\";
+            if (!Directory.Exists(pathFolder))
+            {
+                Directory.CreateDirectory(pathFolder);
+            }
+            datetick = DateTime.Now.Ticks.ToString();
+            filename = pathFolder + "\\" + txtHn.Text.TrimEnd() + "_" + datetick + ".pdf";
+            pdf.Save(filename);
+            pdf.Clear();
+            pdf.Dispose();
+
+            if (File.Exists(filename))
+            {
+                Process p = new Process();
+                ProcessStartInfo s = new ProcessStartInfo(filename);
+                p.StartInfo = s;
+                p.Start();
+            }
+        }
+        private void printCOVIDcertEngSe640()
+        {
+            String pathFolder = "", filename = "", datetick = "";
+            int gapLine = 20, gapLine1 = 15, gapX = 40, gapY = 20, xCol2 = 200, xCol1 = 100, xCol3 = 350, xCol4 = 430, xCol41 = 450, xCol5 = 500;
+            int lineDot = 2;
+            Size size = new Size();
+            String txt = "";
+            float temp = 0;
+
+            C1PdfDocument pdf = new C1PdfDocument();
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            StringFormat _sfRight, _sfRightCenter;
+            //Font _fontTitle = new Font("Tahoma", 15, FontStyle.Bold);
+            _sfRight = new StringFormat();
+            _sfRight.Alignment = StringAlignment.Far;
+            _sfRightCenter = new StringFormat();
+            _sfRightCenter.Alignment = StringAlignment.Far;
+            _sfRightCenter.LineAlignment = StringAlignment.Center;
+
+            Font titleFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetitleFont, FontStyle.Bold);
+            Font hdrFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizehdrFont, FontStyle.Regular);
+            Font hdrFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizehdrFont, FontStyle.Bold);
+            Font ftrFont = new Font(bc.iniC.pdfFontName, 8);
+            Font txtFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFont, FontStyle.Regular);
+            //Font txtFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFontB, FontStyle.Bold);//
+            Font txtFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFontB, FontStyle.Regular);
+            pdf.FontType = FontTypeEnum.Embedded;
+
+            RectangleF rcPage = pdf.PageRectangle;
+            rcPage = RectangleF.Empty;
+            rcPage.Inflate(-72, -92);
+            rcPage.Location = new PointF(rcPage.X, rcPage.Y + titleFont.SizeInPoints + 10);
+            rcPage.Size = new SizeF(0, titleFont.SizeInPoints + 3);
+            rcPage.Width = 110;
+            //logo
+            Image loadedImage;
+            loadedImage = Resources.LOGO_BW_tran;
+            float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+            float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+            float widthFactor = 4.8F;
+            float heightFactor = 4.8F;
+
+            if (widthFactor > 1 | heightFactor > 1)
+            {
+                if (widthFactor > heightFactor)
+                {
+                    widthFactor = 1;
+                    newWidth = newWidth / widthFactor;
+                    newHeight = newHeight / widthFactor;
+                    //newWidth = newWidth / 1.2;
+                    //newHeight = newHeight / 1.2;
+                }
+                else
+                {
+                    newWidth = newWidth / heightFactor;
+                    newHeight = newHeight / heightFactor;
+                }
+            }
+
+            RectangleF recf = new RectangleF(15, 15, (int)newWidth, (int)newHeight);
+            pdf.DrawImage(loadedImage, recf);
+            //logo
+
+            rcPage.X = gapX + recf.Width - 10;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(bc.iniC.hostnamee, titleFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(bc.iniC.hostnamee, titleFont, Brushes.Black, rcPage);
+            gapY += gapLine;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(bc.iniC.hostaddresse, hdrFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(bc.iniC.hostaddresse, hdrFont, Brushes.Black, rcPage);
+            gapY += gapLine;
+            gapY += gapLine;
+            gapY += gapLine;
+
+            RectangleF rcHdr = new RectangleF();
+            rcHdr.Width = 542;
+            rcHdr.Height = 25;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY;
+            //rcHdr.Location
+            //pdf.DrawRectangle(Pens.Black, rcHdr);       // ตาราง
+            size = bc.MeasureString("Certificate of Testing for COVID-19", titleFont);
+            rcPage.Width = size.Width;
+            rcPage.Y = gapY - 2;
+            rcPage.X = (542 / 2) - (size.Width / 2) + 40;
+            pdf.DrawString("Certificate of Testing for COVID-19", titleFont, Brushes.Black, rcPage);
+
+            gapY += gapLine + 5;
+            gapY += gapLine1;
+
+            txt = "HN : " + txtHn.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            //rcPage.X = gapX+10;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            rcPage.X = xCol41 - 20;
+            rcPage.Y = gapY;
+            DateTime dttime = new DateTime();
+            DateTime.TryParse(txtVsDate.Text, out dttime);
+            //if (bc.iniC.windows.Equals("windowsxp"))
+            //{
+            //    dttime.AddYears(543);
+            //    //MessageBox.Show("11111 ", "");
+            //}
+
+
+            txt = "Date of issue : " + dttime.ToString("MMM-dd-yyyy", new CultureInfo("en-US"));
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "Name : " + txtPttNameT.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            //rcPage.X = gapX+10;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            if ((txtPID.Text.Trim().Length > 0) && (txtPassport.Text.Trim().Length > 0))
+            {
+                txt = "Passport No / ID No : " + txtPID.Text.Trim() + " / " + txtPassport.Text.Trim();
+            }
+            else if ((txtPID.Text.Trim().Length > 0) && (txtPassport.Text.Trim().Length <= 0))
+            {
+                txt = "ID No : " + txtPID.Text.Trim();
+            }
+            else if ((txtPID.Text.Trim().Length <= 0) && (txtPassport.Text.Trim().Length > 0))
+            {
+                txt = "Passport No : " + txtPassport.Text.Trim();
+            }
+            else if ((txtPID.Text.Trim().Length <= 0) && (txtPassport.Text.Trim().Length <= 0))
+            {
+                txt = "Passport No / ID No : ";
+            }
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = xCol41 - 20;
+            //rcPage.X = gapX+10;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "Nationality : " + txtNation.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);        //อินเดีย
+
+            DateTime.TryParse(txtDOB.Text, out dttime);
+            txt = "Date of Birth : " + dttime.ToString("MMM-dd-yyyy", new CultureInfo("en-US"));
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = xCol2;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            if (txtSex.Text.Trim().Equals("M"))
+            {
+                txt = "Sex : Male";
+            }
+            else if (txtSex.Text.Trim().Equals("F"))
+            {
+                txt = "Sex : Female";
+            }
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = xCol41 - 20;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "This is to certify the following results which have been confirmed by testing for COVID-19 conducted with";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = xCol1;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "the sample taken from the above-menthioned person.";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            float hei = 0;
+            gapY += gapLine1;
+            gapY += gapLine1;
+            rcHdr.Width = 530;
+            rcHdr.Height = 400;
+            hei = rcHdr.Height;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            pdf.DrawLine(Pens.Black, gapX, gapY + 33, 530 + gapX, gapY + 33);
+            pdf.DrawLine(Pens.Black, xCol2, gapY, xCol2, rcHdr.Height + gapY);
+            pdf.DrawLine(Pens.Black, xCol3, gapY, xCol3, rcHdr.Height + gapY);
+            pdf.DrawLine(Pens.Black, xCol4, gapY, xCol4, rcHdr.Height + gapY);
+
+            //gapY += gapLine1;
+            txt = "Sample";
+            size = bc.MeasureString(txt, hdrFont);
+            rcPage.X = gapX + 30;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, hdrFont, Brushes.Black, rcPage);
+
+            txt = "Testing for COVID-19";
+            size = bc.MeasureString(txt, hdrFont);
+            rcPage.X = xCol2 + 25;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, hdrFont, Brushes.Black, rcPage);
+
+            txt = "Result";
+            size = bc.MeasureString(txt, hdrFont);
+            rcPage.X = xCol3 + 30;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, hdrFont, Brushes.Black, rcPage);
+
+            txt = "Sampleing Date and Time /";
+            size = bc.MeasureString(txt, hdrFont);
+            rcPage.X = xCol4 + 8;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, hdrFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "(Check one of the boxes below)";
+            size = bc.MeasureString(txt, hdrFont);
+            rcPage.X = gapX + 10;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, hdrFont, Brushes.Black, rcPage);
+
+            txt = "(Check one of the boxes below)";
+            size = bc.MeasureString(txt, hdrFont);
+            rcPage.X = xCol2 + 10;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, hdrFont, Brushes.Black, rcPage);
+
+            txt = "Result Date";
+            size = bc.MeasureString(txt, hdrFont);
+            rcPage.X = xCol4 + 30;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, hdrFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            gapY += gapLine1;
+            rcHdr = new RectangleF();
+            rcHdr.Width = 8;
+            rcHdr.Height = 8;
+            rcHdr.X = gapX + 3;
+            rcHdr.Y = gapY + 5;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            if (chkLab184Nas.Checked)
+            {
+                rcPage.X = gapX + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            }
+            txt = "Nasopharyngeal";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            rcHdr.X = xCol2 + 3;
+            rcHdr.Y = gapY + 5;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            if (chkLab184Nucl.Checked)
+            {
+                rcPage.X = xCol2 + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            }
+            txt = "Nucleic acid amplification test";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol2 + 14;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = txtLabResult.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol3 + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            if (txtLabReport.Text.Trim().ToLower().Equals("undetectable"))
+            {
+                txt = "(ไม่พบเชื้อโควิด)";
+            }
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol3 + 12;
+            rcPage.Y = gapY + 20;
+            rcPage.Width = size.Width;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            txt = "(1) Sampling Date and Time";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol4 + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "(real time RT-PCR)";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol2 + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            DateTime.TryParse(txtVsDate.Text + " " + txtVsTime.Text, out dttime);
+            //if (bc.iniC.windows.Equals("windowsxp"))
+            //{
+            //    dttime.AddYears(543);
+            //}
+            txt = dttime.ToString("MMM-dd-yyyy HH:mm tt", new CultureInfo("en-US"));
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol4 + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            DateTime.TryParse(txtLabReportDate.Text, out dttime);
+            if (bc.iniC.windows.Equals("windowsxp"))
+            {
+                dttime = dttime.AddYears(543);
+            }
+            txt = "Result Date : " + dttime.ToString("MMM-dd-yyyy", new CultureInfo("en-US"));
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol4 + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            rcHdr.X = gapX + 3;
+            rcHdr.Y = gapY + 5;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            if (chkLab184Saliva.Checked)
+            {
+                rcPage.X = gapX + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            }
+            //txt = "Saliva ";
+            txt = "Nasopharyngeal ";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            rcHdr.X = xCol2 + 3;
+            rcHdr.Y = gapY + 5;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            if (chkSe640.Checked)
+            {
+                rcPage.X = gapX + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            }
+            txt = txtSe640Result.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol3 + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            //txt = "Nucleic acid amplification test ";
+            txt = txtSe640Name.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol2 + 14;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            if (chkSe640.Checked)
+            {
+                rcPage.X = xCol2 + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            }
+
+            //gapY += gapLine1;
+            //txt = "(LAMP)";
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = xCol2 + 12;
+            //rcPage.Y = gapY;
+            //rcPage.Width = size.Width;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            //gapY += gapLine1;
+            //rcHdr.X = xCol2 + 3;
+            //rcHdr.Y = gapY + 5;
+            //pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            //if (chkLab184Antigen.Checked)
+            //{
+            //    rcPage.X = xCol2 + 4;
+            //    rcPage.Y = gapY - 7;
+            //    txt = "/";
+            //    pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            //}
+            //txt = "Antigen test (CLEIA)";
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = xCol2 + 14;
+            //rcPage.Y = gapY;
+            //rcPage.Width = size.Width;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+
+            gapY += gapLine1;
+            gapY += gapLine1;
+            gapY += gapLine1;
+            rcHdr.X = gapX + 3;
+            rcHdr.Y = gapY + 5;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            if (chktxtLabCodeSe184.Checked)
+            {
+                rcPage.X = gapX + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            }
+            txt = txtLabNameSe184.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + 14;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            txt = "COVID-19 IgM";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol2 + 14;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            //gapY += gapLine1;
+            rcHdr.X = xCol2 + 3;
+            rcHdr.Y = gapY + 5;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            if (chklab184IgM.Checked)
+            {
+                rcPage.X = xCol2 + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+
+                txt = txtLabResultSe184.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X = xCol3 + 12;
+                rcPage.Y = gapY;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            }
+
+
+
+            gapY += gapLine1;
+            rcHdr.X = xCol2 + 3;
+            rcHdr.Y = gapY + 5;
+            pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            if (chklab184IgG.Checked)
+            {
+                rcPage.X = xCol2 + 4;
+                rcPage.Y = gapY - 7;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+
+                txt = txtlab184IgG.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X = xCol3 + 12;
+                rcPage.Y = gapY;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            }
+
+            txt = "COVID-19 IgG";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol2 + 14;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "Sensitivity 94.1%";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol2 + 14;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "Specitcity 98.1%";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol2 + 14;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY = 650;
+            txt = "Remarks";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + 12;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            gapY += gapLine1;
+            pdf.DrawLine(Pens.Black, gapX + 50, gapY, 530 + gapX, gapY);
+            gapY += gapLine1;
+            pdf.DrawLine(Pens.Black, gapX, gapY, 530 + gapX, gapY);
+            gapY += gapLine1;
+            pdf.DrawLine(Pens.Black, gapX, gapY, 530 + gapX, gapY);
+
+            gapY += gapLine1;
+            gapY += gapLine1;
+            txt = "Signature by doctor ";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol4 - 80;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            pdf.DrawLine(Pens.Black, xCol4 + size.Width - 120, gapY + 14, size.Width + xCol4 + 40, gapY + 14);
+
+            gapY += gapLine1;
+            txt = txtDtrNameE.Text;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol4 + 30;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "Attending Physican License NO. " + " " + txtDtrId.Text;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = xCol4 - 20;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "FM-MED-023(29-07-63)";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
@@ -1383,8 +2645,6 @@ namespace bangna_hospital.gui
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
 
-
-
             txt = "COVID-19 IgM";
             size = bc.MeasureString(txt, txtFont);
             rcPage.X = xCol2 + 14;
@@ -1585,7 +2845,6 @@ namespace bangna_hospital.gui
             RectangleF recf = new RectangleF(15, 15, (int)newWidth, (int)newHeight);
             pdf.DrawImage(loadedImage, recf);
             //logo
-
 
             rcPage.X = gapX + recf.Width - 10;
             rcPage.Y = gapY;
@@ -2612,6 +3871,15 @@ namespace bangna_hospital.gui
             tabView.Name = "tabView";
             tcMain.Controls.Add(tabView);
 
+            tabNovel = new C1DockingTabPage();
+            tabNovel.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabNovel.Size = new System.Drawing.Size(667, 175);
+            tabNovel.TabIndex = 0;
+            tabNovel.Text = "Novel Excel";
+            tabNovel.Name = "tabNovel";
+            tcMain.Controls.Add(tabNovel);
+
             lbtxtHospName = new Label();
             bc.setControlLabel(ref lbtxtHospName, fEdit, "โรงพยาบาล", "lbTxtHospName", gapX, gapY);
             txtHospName = new C1TextBox();
@@ -2628,6 +3896,21 @@ namespace bangna_hospital.gui
             bc.setControlLabel(ref lbtxtViewHnSearch, fEdit, "HN", "lbtxtViewHnSearch", btnViewDateSearch.Location.X + btnViewDateSearch.Width +25, gapY);
             txtViewHnSearch = new C1TextBox();
             bc.setControlC1TextBox(ref txtViewHnSearch, fEdit, "txtViewHnSearch", 80, lbtxtViewHnSearch.Location.X + 35, gapY);
+
+            lbtxtNovelDateSearch = new Label();
+            bc.setControlLabel(ref lbtxtNovelDateSearch, fEdit, "วันที่", "lbtxtNovelDateSearch", gapX, gapY);
+            txtNovelDateSearch = new C1DateEdit();
+            bc.setControlC1DateTimeEdit(ref txtNovelDateSearch, "txtNovelDateSearch", col1, gapY);
+            btnNovelDateSearch = new C1Button();
+            bc.setControlC1Button(ref btnNovelDateSearch, fEdit, "...", "btnNovelDateSearch", txtNovelDateSearch.Location.X + txtNovelDateSearch.Width + 5, gapY - 3);
+            btnNovelUpdate = new C1Button();
+            bc.setControlC1Button(ref btnNovelUpdate, fEdit, "Update Novel", "btnNovelUpdate", btnNovelDateSearch.Location.X + btnNovelDateSearch.Width + 85, gapY - 3);
+            btnNovelSave = new C1Button();
+            bc.setControlC1Button(ref btnNovelSave, fEdit, "save Excel", "btnNovelSave", btnNovelUpdate.Location.X + btnNovelUpdate.Width + 85, gapY - 3);
+            
+            btnNovelDateSearch.Width = 40;
+            btnNovelSave.Width = 120;
+            btnNovelUpdate.Width = 120;
 
             gapY += gapLine;
             lbtxtHn = new Label();
@@ -2745,6 +4028,7 @@ namespace bangna_hospital.gui
             bc.setControlLabel(ref lbtxtLabCode, fEdit, "Lab code :", "lbtxtLabCode", gapX, gapY);
             txtLabCode = new C1TextBox();
             bc.setControlC1TextBox(ref txtLabCode, fEdit, "txtLabCode", 80, col1, gapY);
+            txtLabCode.BackColor = Color.Bisque;
             txtLabName = new C1TextBox();
             bc.setControlC1TextBox(ref txtLabName, fEdit, "txtLabName", 450, txtLabCode.Location.X + txtLabCode.Width + 10, gapY);
             
@@ -2806,19 +4090,28 @@ namespace bangna_hospital.gui
             //size = bc.MeasureString(chkLab184Lamp);
             chklab184IgM = new C1CheckBox();
             bc.setControlC1CheckBox(ref chklab184IgM, fEdit, "COVID-19 IgM", "chklab184IgM", txtLabNameSe184.Location.X + txtLabNameSe184.Width + 25, gapY);
-
             txtLabResultSe184 = new C1TextBox();
             bc.setControlC1TextBox(ref txtLabResultSe184, fEdit, "txtLabResultSe184", 120, chklab184IgM.Location.X + chklab184IgM.Width + 20, gapY);
             txtLabUnitSe184 = new C1TextBox();
             bc.setControlC1TextBox(ref txtLabUnitSe184, fEdit, "txtLabUnitSe184", 160, txtLabResultSe184.Location.X+ txtLabResultSe184.Width+10, gapY);
-            
+
+            chkSe640 = new C1CheckBox();
+            bc.setControlC1CheckBox(ref chkSe640, fEdit, "Lab SE640 :", "chkSe640", gapX, gapY + 60);
+            txtSe640Name = new C1TextBox();
+            bc.setControlC1TextBox(ref txtSe640Name, fEdit, "txtSe640Name", 300, txtLabCodeSe184.Location.X + txtLabCodeSe184.Width + 20, gapY+60);
+            //txtSe640Name.BackColor = Color.Red;
+            txtSe640Name.Text = "COVID Antigen test";
+
+            txtSe640Result = new C1TextBox();
+            bc.setControlC1TextBox(ref txtSe640Result, fEdit, "txtSe640Result", 160, chklab184IgM.Location.X + chklab184IgM.Width + 20, gapY + 60);
+            //txtSe640Result.BackColor = Color.Yellow;
+            txtSe640Result.Text = "NEGATIVE";
 
             gapY += gapLine;
             chklab184IgG = new C1CheckBox();
             bc.setControlC1CheckBox(ref chklab184IgG, fEdit, "COVID-19 IgG", "chklab184IgG", chklab184IgM.Location.X, gapY);
             txtlab184IgG = new C1TextBox();
             bc.setControlC1TextBox(ref txtlab184IgG, fEdit, "txtlab184G", 120, txtLabResultSe184.Location.X, gapY);
-
 
             gapY += gapLine;
             gapY += gapLine;
@@ -3022,11 +4315,21 @@ namespace bangna_hospital.gui
             tabAdd.Controls.Add(chkLab184Lamp);
             tabAdd.Controls.Add(chkLab184Antigen);
 
+            tabAdd.Controls.Add(chkSe640);
+            tabAdd.Controls.Add(txtSe640Name);
+            tabAdd.Controls.Add(txtSe640Result);
+
             tabView.Controls.Add(lbtxtViewDateSearch);
             tabView.Controls.Add(txtViewDateSearch);
             tabView.Controls.Add(btnViewDateSearch);
             tabView.Controls.Add(lbtxtViewHnSearch);
             tabView.Controls.Add(txtViewHnSearch);
+
+            tabNovel.Controls.Add(lbtxtNovelDateSearch);
+            tabNovel.Controls.Add(txtNovelDateSearch);
+            tabNovel.Controls.Add(btnNovelDateSearch);
+            tabNovel.Controls.Add(btnNovelSave);
+            tabNovel.Controls.Add(btnNovelUpdate);
 
             this.Controls.Add(tcMain);
 
@@ -3038,6 +4341,7 @@ namespace bangna_hospital.gui
             lbLoading.Size = new Size(300, 60);
             this.Controls.Add(lbLoading);
             initGrfView();
+            initGrfNovel();
         }
         private void initGrfView()
         {
@@ -3065,6 +4369,28 @@ namespace bangna_hospital.gui
         {
 
         }
+        private void initGrfNovel()
+        {
+            grfNovel = new C1FlexGrid();
+            grfNovel.Font = fEdit;
+            grfNovel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            grfNovel.Location = new System.Drawing.Point(0, 0);
+            grfNovel.Rows.Count = 1;
+            grfNovel.Name = "grfNovel";
+            // grfCipnCsv.CellChanged += GrfCipnCsv_CellChanged;
+            //grfCipnCsv.AfterFilter += GrfCipnCsv_AfterFilter;
+
+            ContextMenu menuGwPAT = new ContextMenu();
+            menuGwPAT.MenuItems.Add("save CVS code ", new EventHandler(ContextMenu_grfView_save));
+            grfNovel.ContextMenu = menuGwPAT;
+            grfNovel.AllowFiltering = true;
+            //FlexGrid.FilterRow fr = new FlexGrid.FilterRow(grfView);
+
+            tabNovel.Controls.Add(grfNovel);
+
+            //theme1.SetTheme(grfSelect, bc.theme);
+            //theme1.SetTheme(grfView, "Office2010Red");
+        }
         private void FrmOPDCovid_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3072,10 +4398,13 @@ namespace bangna_hospital.gui
             int scrH = Screen.PrimaryScreen.Bounds.Height;
 
             this.WindowState = FormWindowState.Maximized;
-            this.Text = bc.iniC.pdfFontName +" Last Update 2021-05-03";
+            this.Text = bc.iniC.pdfFontName +" Last Update 2021-08-24";
 
             grfView.Size = new Size(scrW - 20, scrH - btnViewDateSearch.Location.Y - 140);
             grfView.Location = new Point(5, btnViewDateSearch.Location.Y + 40);
+
+            grfNovel.Size = grfView.Size;
+            grfNovel.Location = grfView.Location;
 
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);

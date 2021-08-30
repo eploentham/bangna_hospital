@@ -10,7 +10,6 @@ namespace bangna_hospital.objdb
 {
     public class XrayM01DB
     {
-
         public XrayM01 XrayM01;
         ConnectDB conn;
         public XrayM01DB(ConnectDB c)

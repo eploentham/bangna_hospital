@@ -50,6 +50,10 @@ namespace bangna_hospital.objdb
         public OPBKKdrugcatelogDB opbkkDrugCatDB;
         public DotDfDetailDB dotdfdDB;
         public PatientSmartcardDB pttscDB;
+        public VaccineDB vaccDB;
+        public QueueTypeDB queueTypeDB;
+        public QueueDB queueDB;
+        public LabCovidDetectedDB lcoviddDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -97,6 +101,10 @@ namespace bangna_hospital.objdb
             opbkkDrugCatDB = new OPBKKdrugcatelogDB(conn);
             dotdfdDB = new DotDfDetailDB(conn);
             pttscDB = new PatientSmartcardDB(conn);
+            vaccDB = new VaccineDB(conn);
+            queueTypeDB = new QueueTypeDB(conn);
+            queueDB = new QueueDB(conn);
+            lcoviddDB = new LabCovidDetectedDB(conn);
         }
         public String insertLogPage(String userid, String form, String method, String desc)
         {

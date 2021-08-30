@@ -1173,6 +1173,16 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LOGO_Green_Transparent {
+            get {
+                object obj = ResourceManager.GetObject("LOGO_Green_Transparent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap lorry_24x24 {
             get {
                 object obj = ResourceManager.GetObject("lorry_24x24", resourceCulture);
@@ -1796,6 +1806,16 @@ namespace bangna_hospital.Properties {
         internal static System.Drawing.Bitmap prohibit24 {
             get {
                 object obj = ResourceManager.GetObject("prohibit24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap qrcode_657bkkyq {
+            get {
+                object obj = ResourceManager.GetObject("qrcode_657bkkyq", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -163,7 +163,6 @@ namespace bangna_hospital.objdb
             {
                 sql = ex.Message + " " + ex.InnerException;
             }
-
             return re;
         }
         public String insertDocGroupScan(DocGroupScan p, String userId)

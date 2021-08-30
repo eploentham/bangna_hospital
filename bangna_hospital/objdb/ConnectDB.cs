@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using MySql.Data.MySqlClient;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,9 @@ namespace bangna_hospital.objdb
     public class ConnectDB
     {
         public SqlConnection connMainHIS, conn, connPACs, connLabOut, connLog;
-        
+        public MySqlConnection connMySQL;
         public Staff user;
-        public long _rowsAffected = 0;
+        public long _rowsAffected = 0, _rowsAffectedMySQL=0;
         public SqlCommand comStore;
         public NpgsqlConnection connOPBKK;
         public String _IPAddress = "";
@@ -29,6 +30,8 @@ namespace bangna_hospital.objdb
 
             connLog = new SqlConnection();
 
+            connMySQL = new MySqlConnection();
+
             connMainHIS.ConnectionString = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
             conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB + ";";
             connLabOut.ConnectionString = "Server=" + initc.hostDBLabOut + ";Database=" + initc.nameDBLabOut + ";Uid=" + initc.userDBLabOut + ";Pwd=" + initc.passDBLabOut + ";";
@@ -36,6 +39,43 @@ namespace bangna_hospital.objdb
 
             connOPBKK.ConnectionString = "Host=" + initc.hostDBOPBKK + ";Username=" + initc.userDBOPBKK + ";Password=" + initc.passDBOPBKK + ";Database=" + initc.nameDBOPBKK + ";Port=" + initc.portDBOPBKK + ";";
             connLog.ConnectionString = "Server=" + initc.hostDBLogTask + ";Database=" + initc.nameDBLogTask + ";Uid=" + initc.userDBLogTask + ";Pwd=" + initc.passDBLogTask + ";";
+
+            //ของ VaccineApprove ต้องใช้ MySQL เพราะ node js ยังไม่สามารถพืมพ์ FORM ได้
+            //connMySQL.ConnectionString = "Server=" + initc.hostDBMySQL + ";Database=" + initc.nameDBMySQL + ";Uid=" + initc.userDBMySQL + ";Pwd=" + initc.passDBMySQL +
+            //    ";port = " + initc.portDBMySQL + "; SslMode=None";
+        }
+        public String ExecuteNonQuery(MySqlConnection con, String sql)
+        {
+            String toReturn = "";
+
+            MySqlCommand com = new MySqlCommand();
+            com.CommandText = sql;
+            com.CommandType = CommandType.Text;
+            com.Connection = con;
+            try
+            {
+                con.Open();
+                _rowsAffected = com.ExecuteNonQuery();
+                //_rowsAffected = (int)com.ExecuteScalar();
+                toReturn = sql.Substring(0, 1).ToLower() == "i" ? com.LastInsertedId.ToString() : _rowsAffected.ToString();
+                if (sql.IndexOf("Insert Into Visit") >= 0)        //old program
+                {
+                    toReturn = _rowsAffected.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ExecuteNonQuery::Error occured.", ex);
+                toReturn = ex.Message;
+            }
+            finally
+            {
+                //_mainConnection.Close();
+                con.Close();
+                com.Dispose();
+            }
+
+            return toReturn;
         }
         public String ExecuteNonQuery(String sql)
         {
@@ -231,6 +271,38 @@ namespace bangna_hospital.objdb
 
             return toReturn;
         }
+        public DataTable selectDataMySQL(MySqlConnection con, String sql)
+        {
+            DataTable toReturn = new DataTable();
+
+            MySqlCommand comMainhis = new MySqlCommand();
+            comMainhis.CommandText = sql;
+            comMainhis.CommandType = CommandType.Text;
+            comMainhis.Connection = con;
+            MySqlDataAdapter adapMainhis = new MySqlDataAdapter(comMainhis);
+            try
+            {
+                con.Open();
+                adapMainhis.Fill(toReturn);
+                //return toReturn;
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("HResult " + ex.HResult + "\n" + "Message" + ex.Message + "\n" + sql, "Error");
+                if (con.State == ConnectionState.Open)
+                {
+                    //con.Close();
+                }
+                throw new Exception(ex.Message, ex);
+            }
+            finally
+            {
+                con.Close();
+                comMainhis.Dispose();
+                adapMainhis.Dispose();
+            }
+            return toReturn;
+        }
         public DataTable selectData(String sql)
         {
             DataTable toReturn = new DataTable();
@@ -243,6 +315,10 @@ namespace bangna_hospital.objdb
             SqlDataAdapter adapMainhis = new SqlDataAdapter(comMainhis);
             try
             {
+                if (connMainHIS.State == ConnectionState.Open)
+                {
+                    connMainHIS.Close();
+                }
                 connMainHIS.Open();
                 adapMainhis.Fill(toReturn);
                 //return toReturn;

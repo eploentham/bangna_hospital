@@ -57,6 +57,7 @@ namespace bangna_hospital.objdb
             labM02.MNC_USR_UPD = "MNC_USR_UPD";
             labM02.MNC_CHARGE_NO = "MNC_CHARGE_NO";
         }
+        
         public LabM02 setLabM02(DataTable dt)
         {
             LabM02 labM02 = new LabM02();

@@ -9,16 +9,11 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
-    public partial class Form2 : Form
+    public partial class FrmLabBill : Form
     {
-        public Form2()
+        public FrmLabBill()
         {
             InitializeComponent();
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

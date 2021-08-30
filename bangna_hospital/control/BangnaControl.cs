@@ -1,12 +1,15 @@
 ﻿using bangna_hospital.objdb;
 using bangna_hospital.object1;
+using C1.C1Excel;
 using C1.Win.C1Document;
+using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.FlexViewer;
 //using CrystalDecisions.CrystalReports.Engine;
 //using CrystalDecisions.Shared;
 //using CrystalDecisions.Windows.Forms;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -47,6 +50,11 @@ namespace bangna_hospital.control
         public Dictionary<String, String> opBKKClinic = new Dictionary<String, String>();
         public Dictionary<String, String> opBKKCHRGITEM_CODEA = new Dictionary<String, String>();
         public String _IPAddress = "";
+        public List<Nation> lNat;
+        public List<Province> lProv;
+        public List<District> lDistrict;
+        public List<SubDistrict> lSubDistrict;
+        Hashtable _styles;
         public BangnaControl()
         {
             initConfig();
@@ -81,6 +89,10 @@ namespace bangna_hospital.control
                 sPtt = new Patient();
                 sStf = new Staff();
                 cStf = new Staff();
+                lNat = new List<Nation>();
+                lProv = new List<Province>();
+                lDistrict = new List<District>();
+                lSubDistrict = new List<SubDistrict>();
                 err = "02";
                 //new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
                 GetConfig();
@@ -125,6 +137,227 @@ namespace bangna_hospital.control
             }
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
+        public C1ComboBox setCboSubDistrict(C1ComboBox c, String districtcode)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            //DataTable dt = selectC1();
+            //lSubDistrict.Clear();
+            getlSubDistrict(districtcode);
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "00";
+            c.Items.Clear();
+            c.Items.Add(item1);
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            int i = 0;
+            foreach (SubDistrict row in lSubDistrict)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.subdistrict_code;
+                item.Text = row.subdistrict_name;
+                c.Items.Add(item);
+                i++;
+            }
+            c.SelectedText = select;
+            c.SelectedIndex = row1;
+            return c;
+        }
+        public void getlSubDistrict(String provcode)
+        {
+            //lDept = new List<Position>();
+            lSubDistrict.Clear();
+            DataTable dt = new DataTable();
+            dt = selectSubDistrictByDistrictCode(provcode);
+            foreach (DataRow row in dt.Rows)
+            {
+                SubDistrict dept1 = new SubDistrict();
+                dept1.subdistrict_code = row["MNC_TUM_CD"].ToString();
+                dept1.district_code = row["MNC_AMP_CD"].ToString();
+                dept1.prov_code = row["MNC_CHW_CD"].ToString();
+                dept1.subdistrict_name = row["MNC_TUM_DSC"].ToString();
+                lSubDistrict.Add(dept1);
+            }
+        }
+        public DataTable selectSubDistrictByDistrictCode(String districtcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select dept.*  " +
+                "From patient_m07 dept " +
+                "Where MNC_AMP_CD  = '" + districtcode + "'";
+            //dt = conn.selectData(conn.conn, sql);
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+
+            }
+            return dt;
+        }
+        public C1ComboBox setCboDistrict(C1ComboBox c, String provcode)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            //DataTable dt = selectC1();
+            //lDistrict.Clear();
+            getlDistrict(provcode);
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "00";
+            c.Items.Clear();
+            c.Items.Add(item1);
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            int i = 0;
+            foreach (District row in lDistrict)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.district_code;
+                item.Text = row.district_name;
+                c.Items.Add(item);
+                i++;
+            }
+            c.SelectedText = select;
+            c.SelectedIndex = row1;
+            return c;
+        }
+        public void getlDistrict(String provcode)
+        {
+            //lDept = new List<Position>();
+            lDistrict.Clear();
+            DataTable dt = new DataTable();
+            dt = selectDistrictByProvCode(provcode);
+            foreach (DataRow row in dt.Rows)
+            {
+                District dept1 = new District();
+                dept1.district_code = row["MNC_AMP_CD"].ToString();
+                dept1.prov_code = row["MNC_CHW_CD"].ToString();
+                dept1.district_name = row["MNC_AMP_DSC"].ToString();
+                lDistrict.Add(dept1);
+            }
+        }
+        public DataTable selectDistrictByProvCode(String provcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select dept.*  " +
+                "From patient_m08 dept " +
+                "Where MNC_CHW_CD  = '"+ provcode + "'";
+            //dt = conn.selectData(conn.conn, sql);
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+
+            }
+            return dt;
+        }
+        public C1ComboBox setCboProvince(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            //DataTable dt = selectC1();
+            if (lProv.Count <= 0) getlProvince();
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "00";
+            c.Items.Clear();
+            c.Items.Add(item1);
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            int i = 0;
+            foreach (Province row in lProv)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.prov_code;
+                item.Text = row.prov_name;
+                c.Items.Add(item);
+                i++;
+            }
+            c.SelectedText = select;
+            c.SelectedIndex = row1;
+            return c;
+        }
+        public void getlProvince()
+        {
+            //lDept = new List<Position>();
+
+            lProv.Clear();
+            DataTable dt = new DataTable();
+            dt = selectProvinceAll();
+            foreach (DataRow row in dt.Rows)
+            {
+                Province dept1 = new Province();
+                dept1.prov_code = row["MNC_CHW_CD"].ToString();
+                dept1.prov_name = row["MNC_CHW_DSC"].ToString();
+                lProv.Add(dept1);
+            }
+        }
+        public DataTable selectProvinceAll()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select dept.*  " +
+                "From patient_m09 dept ";
+            //dt = conn.selectData(conn.conn, sql);
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+
+            }
+            return dt;
+        }
+        public C1ComboBox setCboNation(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            //DataTable dt = selectC1();
+            if (lNat.Count <= 0) getlNation();
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "00";
+            c.Items.Clear();
+            c.Items.Add(item1);
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            int i = 0;
+            foreach (Nation row in lNat)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.nat_id;
+                item.Text = row.nat_name;
+                c.Items.Add(item);
+                i++;
+            }
+            c.SelectedText = select;
+            c.SelectedIndex = row1;
+            return c;
+        }
+        public void getlNation()
+        {
+            //lDept = new List<Position>();
+
+            lNat.Clear();
+            DataTable dt = new DataTable();
+            dt = selectNationAll();
+            foreach (DataRow row in dt.Rows)
+            {
+                Nation dept1 = new Nation();
+                dept1.nat_id = row["mnc_nat_cd"].ToString();
+                dept1.nat_name = row["MNC_NAT_DSC"].ToString();
+                lNat.Add(dept1);
+            }
+        }
+        public DataTable selectNationAll()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select dept.*  " +
+                "From patient_m04 dept " ;
+            //dt = conn.selectData(conn.conn, sql);
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+
+            }
+            return dt;
+        }
         public void GetConfig()
         {
             //MessageBox.Show("hn " , "");
@@ -164,6 +397,12 @@ namespace bangna_hospital.control
             iniC.userDBLogTask = iniF.getIni("connection", "userDBLogTask");
             iniC.passDBLogTask = iniF.getIni("connection", "passDBLogTask");
             iniC.portDBLogTask = iniF.getIni("connection", "portDBLogTask");
+
+            iniC.hostDBMySQL = iniF.getIni("connection", "hostDBMySQL");
+            iniC.nameDBMySQL = iniF.getIni("connection", "nameDBMySQL");
+            iniC.userDBMySQL = iniF.getIni("connection", "userDBMySQL");
+            iniC.passDBMySQL = iniF.getIni("connection", "passDBMySQL");
+            iniC.portDBMySQL = iniF.getIni("connection", "portDBMySQL");
 
 
             //new LogWriter("d", "BangnaControl initConfig ftp ");
@@ -257,6 +496,7 @@ namespace bangna_hospital.control
             iniC.ssoid = iniF.getIni("app", "ssoid");
             iniC.opbkkhcode = iniF.getIni("app", "opbkkhcode");
             iniC.lab_code = iniF.getIni("app", "lab_code");
+            iniC.pathSaveExcelNovel = iniF.getIni("app", "pathSaveExcelNovel");
 
             iniC.hostnamee = iniF.getIni("app", "hostnamee");
             iniC.hostaddresst = iniF.getIni("app", "hostaddresst");
@@ -270,6 +510,10 @@ namespace bangna_hospital.control
             iniC.imageDiag_Height = iniF.getIni("app", "imageDiag_Height");
 
             iniC.statusSmartCardNoDatabase = iniF.getIni("app", "statusSmartCardNoDatabase");
+            iniC.printerStaffNote = iniF.getIni("app", "printerStaffNote");
+            iniC.printerLeter = iniF.getIni("app", "printerLeter");
+            iniC.printerA5 = iniF.getIni("app", "printerA5");
+            iniC.printerQueue = iniF.getIni("app", "printerQueue");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -2530,6 +2774,19 @@ namespace bangna_hospital.control
             }
             return BahtText;
         }
+        public String selectNationName()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", chk = "-";
+            sql = "Select  MNC_NAT_CD, MNC_NAT_DSC  " +
+                "From  patient_m04  ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                chk = dt.Rows[0]["MNC_NAT_CD"].ToString() + " " + dt.Rows[0]["FnameMNC_NAT_DSC"].ToString() ;
+            }
+            return chk;
+        }
         public String selectDoctorName(String doctorId)
         {
             DataTable dt = new DataTable();
@@ -2579,6 +2836,77 @@ namespace bangna_hospital.control
             }
 
             return re;
+        }
+        public void SaveSheet(C1FlexGrid flex, XLSheet sheet, C1XLBook _book, bool fixedCells)
+        {
+            // account for fixed cells
+            //int frows = flex.Rows.Fixed;
+            int frows = 0;// with header
+            int fcols = flex.Cols.Fixed;
+            if (fixedCells) frows = fcols = 0;
+
+            // copy dimensions
+            //int lastRow = flex.Rows.Count - frows - 1;
+            int lastRow = flex.Rows.Count;// with header
+            int lastCol = flex.Cols.Count - fcols - 1;
+            if (lastRow < 0 || lastCol < 0) return;
+            XLCell cell = sheet[lastRow, lastCol];
+
+            // set default properties
+            sheet.Book.DefaultFont = flex.Font;
+            sheet.DefaultRowHeight = C1XLBook.PixelsToTwips(flex.Rows.DefaultSize);
+            sheet.DefaultColumnWidth = C1XLBook.PixelsToTwips(flex.Cols.DefaultSize);
+
+            // prepare to convert styles
+            _styles = new Hashtable();
+
+            // set row/column properties
+            for (int r = frows; r < flex.Rows.Count; r++)
+            {
+                // size/visibility
+                Row fr = flex.Rows[r];
+                XLRow xr = sheet.Rows[r - frows];
+                if (fr.Height >= 0)
+                    xr.Height = C1XLBook.PixelsToTwips(fr.Height);
+                xr.Visible = fr.Visible;
+
+                // style
+                //XLStyle xs = StyleFromFlex(_book,fr.Style, _styles);
+                //if (xs != null)
+                //    xr.Style = xs;
+            }
+            for (int c = fcols; c < flex.Cols.Count; c++)
+            {
+                // size/visibility
+                Column fc = flex.Cols[c];
+                XLColumn xc = sheet.Columns[c - fcols];
+                if (fc.Width >= 0)
+                    xc.Width = C1XLBook.PixelsToTwips(fc.Width);
+                xc.Visible = fc.Visible;
+
+                // style
+                //XLStyle xs = StyleFromFlex(_book, fc.Style, _styles);
+                //if (xs != null)
+                //    xc.Style = xs;
+            }
+
+            // load cells
+            for (int r = frows; r < flex.Rows.Count; r++)
+            {
+                for (int c = fcols; c < flex.Cols.Count; c++)
+                {
+                    // get cell
+                    cell = sheet[r - frows, c - fcols];
+
+                    // apply content
+                    cell.Value = flex[r, c];
+
+                    // apply style
+                    //XLStyle xs = StyleFromFlex(_book,flex.GetCellStyle(r, c), _styles);
+                    //if (xs != null)
+                    //    cell.Style = xs;
+                }
+            }
         }
     }
 }

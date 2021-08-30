@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\smartcard.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -107,6 +107,10 @@
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Mono.Security.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -133,6 +137,15 @@
     </Compile>
     <Compile Include="FrmScanView2.Designer.cs">
       <DependentUpon>FrmScanView2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmLabBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmLabBill.Designer.cs">
+      <DependentUpon>FrmLabBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmVaccineApprove.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\CellNote.cs">
       <SubType>Form</SubType>
@@ -452,6 +465,7 @@
     <Compile Include="objdb\DrugSetDB.cs" />
     <Compile Include="objdb\FinanceM01DB.cs" />
     <Compile Include="objdb\FinanceM02DB.cs" />
+    <Compile Include="objdb\LabCovidDetectedDB.cs" />
     <Compile Include="objdb\LabDB.cs" />
     <Compile Include="objdb\LabExDB.cs" />
     <Compile Include="objdb\LabM01DB.cs" />
@@ -459,6 +473,7 @@
     <Compile Include="objdb\LabOutDB.cs" />
     <Compile Include="objdb\LabT01DB.cs" />
     <Compile Include="objdb\LabT02DB.cs" />
+    <Compile Include="objdb\NationDB.cs" />
     <Compile Include="objdb\OPBKKdrugcatelogDB.cs" />
     <Compile Include="objdb\OPDCheckUPDB.cs" />
     <Compile Include="objdb\OperativeNoteDB.cs" />
@@ -475,11 +490,13 @@
     <Compile Include="objdb\PharmacyT04DB.cs" />
     <Compile Include="objdb\PharmacyT05DB.cs" />
     <Compile Include="objdb\PharmacyT06DB.cs" />
+    <Compile Include="objdb\QueueTypeDB.cs" />
     <Compile Include="objdb\ReportTabContentsDB.cs" />
     <Compile Include="objdb\ResOrderTabDB.cs" />
     <Compile Include="objdb\StaffDB.cs" />
     <Compile Include="objdb\TemporaryM01DB.cs" />
     <Compile Include="objdb\TemporaryM02DB.cs" />
+    <Compile Include="objdb\VaccineDB.cs" />
     <Compile Include="objdb\VisitDB.cs" />
     <Compile Include="objdb\XrayDB.cs" />
     <Compile Include="gui\CellNote1.cs">
@@ -490,14 +507,17 @@
     <Compile Include="objdb\XrayT01DB.cs" />
     <Compile Include="objdb\XrayT02DB.cs" />
     <Compile Include="object1\CellNoteManager1.cs" />
+    <Compile Include="object1\District.cs" />
     <Compile Include="object1\DotDfDetail.cs" />
     <Compile Include="object1\FinanceM01.cs" />
     <Compile Include="object1\FinanceM02.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
+    <Compile Include="object1\LabCovidDetected.cs" />
     <Compile Include="object1\LabM01.cs" />
     <Compile Include="object1\LabM02.cs" />
     <Compile Include="object1\LabT01.cs" />
     <Compile Include="object1\LabT02.cs" />
+    <Compile Include="object1\Nation.cs" />
     <Compile Include="object1\OPBKKAER.cs" />
     <Compile Include="object1\OPBKKCHA.cs" />
     <Compile Include="object1\OPBKKCHAD.cs" />
@@ -526,9 +546,17 @@
     <Compile Include="object1\PharmacyT04.cs" />
     <Compile Include="object1\PharmacyT05.cs" />
     <Compile Include="object1\PharmacyT06.cs" />
+    <Compile Include="object1\Province.cs" />
+    <Compile Include="object1\Queue.cs" />
+    <Compile Include="objdb\QueueDB.cs" />
+    <Compile Include="object1\QueueType.cs" />
     <Compile Include="object1\RDNIDWRAPPER.cs" />
+    <Compile Include="object1\RestAPI.cs" />
+    <Compile Include="object1\SubDistrict.cs" />
     <Compile Include="object1\TemporaryM01.cs" />
     <Compile Include="object1\TemporaryM02.cs" />
+    <Compile Include="object1\TQueue.cs" />
+    <Compile Include="object1\Vaccine.cs" />
     <Compile Include="object1\XrayM01.cs" />
     <Compile Include="object1\XrayM02.cs" />
     <Compile Include="object1\XrayT01.cs" />
@@ -647,6 +675,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorView.resx">
       <DependentUpon>FrmDoctorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmLabBill.resx">
+      <DependentUpon>FrmLabBill.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmLabOutReceive.resx">
       <DependentUpon>FrmLabOutReceive.cs</DependentUpon>
@@ -1472,6 +1503,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\smartcard.ico" />
+    <None Include="Resources\qrcode-657bkkyq.png" />
+    <None Include="Resources\LOGO-Green-Transparent.png" />
     <Content Include="SmartChipCSPlus_6.ico" />
     <None Include="Resources\webpage.ico" />
     <None Include="Resources\signal-receiver.ico" />
@@ -1506,6 +1539,12 @@
     <None Include="Resources\filesave.png" />
     <None Include="Resources\start128.png" />
     <None Include="Resources\stop-red128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files %28x86%29\MySQL\MySQL Connector Net 8.0.25\Assemblies\v4.5.2\MySql.Data.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

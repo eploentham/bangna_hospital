@@ -28,7 +28,7 @@ namespace bangna_hospital.gui
         C1DockingTab tcMain;
         C1DockingTabPage tabImportDf;
         C1FlexGrid grfSelect;
-        C1Button btnPrint, btnDeleteAll;
+        C1Button btnPrint, btnDeleteAll, btnGet;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         C1ThemeController theme1;
@@ -37,7 +37,7 @@ namespace bangna_hospital.gui
         C1TextBox txtPaidType, txtHn;
         C1ComboBox cboDocGrp;
 
-        int colHn = 1, colFullName = 2, colMobile = 3, colDoc = 4, colattachnote = 5, colID=6;
+        int colHn = 1, colFullName = 2, colMobile = 3, colDoc = 4, colattachnote = 5, colID=6,colPID=7;
 
         Boolean pageLoad = false;
 
@@ -67,7 +67,62 @@ namespace bangna_hospital.gui
             txtHn.KeyUp += TxtHn_KeyUp;
             grfSelect.DoubleClick += GrfSelect_DoubleClick;
             btnDeleteAll.Click += BtnDeleteAll_Click;
+            btnGet.Click += BtnGet_Click;
+            
             pageLoad = false;
+        }
+
+        private void BtnGet_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            DateTime dtstart = new DateTime();
+            dtstart = DateTime.Now;
+            DateTime.TryParse(txtDateStart.Text, out dtstart);
+
+            String date = "";
+            date = dtstart.ToString("yyyy-MM-dd");
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.pttDB.selectPatientCovidByDate(date);
+            if (dt.Rows.Count > 0)
+            {
+                int chk = 0;
+                Patient ptt = new Patient();
+                PatientSmartcard pttsc = new PatientSmartcard();
+                foreach (DataRow drow in dt.Rows)
+                {
+                    ptt.Hn = drow["MNC_HN_NO"].ToString();
+                    ptt.Age = drow["MNC_AGE"].ToString();
+                    ptt.patient_birthday = drow["MNC_bday"].ToString();
+                    ptt.Name = drow["prefix"].ToString() + " " + drow["MNC_FNAME_T"].ToString() + " " + drow["MNC_LNAME_T"].ToString();
+                    ptt.idcard = drow["mnc_id_no"].ToString();
+                    ptt.hnyr = drow["mnc_hn_yr"].ToString();
+                    ptt.MNC_HN_NO = drow["MNC_HN_NO"].ToString();
+                    ptt.MNC_HN_YR = drow["mnc_hn_yr"].ToString();
+                    ptt.MNC_CUR_CHW = drow["MNC_CUR_CHW"].ToString();
+                    ptt.MNC_CUR_AMP = drow["MNC_CUR_AMP"].ToString();
+                    ptt.MNC_CUR_TUM = drow["MNC_CUR_TUM"].ToString();
+                    ptt.MNC_CUR_ADD = drow["MNC_CUR_ADD"].ToString();
+                    ptt.MNC_CUR_MOO = drow["MNC_CUR_MOO"].ToString();
+                    ptt.MNC_CUR_SOI = drow["MNC_CUR_SOI"].ToString();
+                    ptt.MNC_FNAME_T = drow["MNC_FNAME_T"].ToString();
+                    ptt.MNC_LNAME_T = drow["MNC_LNAME_T"].ToString();
+                    ptt.MNC_FNAME_E = drow["MNC_FNAME_E"].ToString();
+                    ptt.MNC_LNAME_E = drow["MNC_LNAME_E"].ToString();
+                    ptt.MNC_PFIX_CDT = drow["MNC_PFIX_CDT"].ToString();
+                    ptt.MNC_CUR_TEL = drow["MNC_CUR_TEL"].ToString();
+                    ptt.MNC_PFIX_CDE = drow["MNC_PFIX_CDE"].ToString();
+                    ptt.MNC_ATT_NOTE = drow["MNC_ATT_NOTE"].ToString();
+                    ptt.MNC_OCC_CD = drow["MNC_OCC_CD"].ToString();
+                    ptt.MNC_EDU_CD = drow["MNC_EDU_CD"].ToString();
+                    ptt.MNC_NAT_CD = drow["MNC_NAT_CD"].ToString();
+                    ptt.MNC_REL_CD = drow["MNC_REL_CD"].ToString();
+                    ptt.MNC_NATI_CD = drow["MNC_NATI_CD"].ToString();
+                    ptt.MNC_CUR_ROAD = drow["MNC_CUR_ROAD"].ToString();
+                    setPatientSmartcard(pttsc, ptt);
+                    String re = bc.bcDB.pttscDB.insertPatientSmartcard(pttsc, "");
+                }
+                setGrfOPBKKMainCHRGITEM();
+            }
         }
 
         private void BtnDeleteAll_Click(object sender, EventArgs e)
@@ -76,6 +131,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการ ลบข้อมุลทั้งหมด ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 bc.bcDB.pttscDB.deleteAll();
+                setGrfOPBKKMainCHRGITEM();
             }
         }
 
@@ -95,6 +151,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if(e.KeyCode == Keys.Enter)
             {
+                sep.Clear();
                 if (txtPaidType.Text.Length < 9)
                 {
                     sep.SetError(txtPaidType, "error");
@@ -103,7 +160,15 @@ namespace bangna_hospital.gui
                 try
                 {
                     Patient ptt = new Patient();
-                    ptt = bc.bcDB.pttDB.selectPatinetByHn(txtHn.Text.Trim());
+                    if (txtHn.Text.Length == 13)
+                    {
+                        ptt = bc.bcDB.pttDB.selectPatinetByID1(txtHn.Text.Trim());
+                    }
+                    else
+                    {
+                        ptt = bc.bcDB.pttDB.selectPatinetByHn(txtHn.Text.Trim());
+                    }
+                    
                     if (ptt.MNC_HN_NO.Length > 0)
                     {
                         int chk = 0;
@@ -139,7 +204,7 @@ namespace bangna_hospital.gui
         }
         private PatientSmartcard setPatientSmartcard(PatientSmartcard pttsc, Patient ptt)
         {
-            String doc = "", datestart = "";
+            String doc = "", datestart = "", pid1="";
             DateTime dtstart = new DateTime();
             DateTime.TryParse(txtDateStart.Text, out dtstart);
             if (dtstart.Year > 2500)
@@ -151,6 +216,8 @@ namespace bangna_hospital.gui
                 dtstart = dtstart.AddYears(543);
             }
             datestart = dtstart.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            pid1 = dtstart.ToString("yyMMdd", new CultureInfo("en-US"));
+            pid1 += ptt.MNC_HN_NO;
 
             pttsc.patient_smartcard_id = "";
             pttsc.prefixname = ptt.MNC_PFIX_CDT;
@@ -160,7 +227,7 @@ namespace bangna_hospital.gui
             pttsc.first_name_e = ptt.MNC_FNAME_E;
             pttsc.middle_name_e = "";
             pttsc.last_name_e = ptt.MNC_LNAME_E;
-            pttsc.pid = !ptt.idcard.Equals("") ? ptt.idcard : "9999999";
+            pttsc.pid = !ptt.idcard.Equals("") ? ptt.idcard : pid1;
             pttsc.dob = ptt.patient_birthday;
             pttsc.home_no = ptt.MNC_CUR_ADD;
             pttsc.moo = ptt.MNC_CUR_MOO;
@@ -251,6 +318,7 @@ namespace bangna_hospital.gui
             lbHn = new Label();
             txtHn = new C1TextBox();
             btnPrint = new C1Button();
+            btnGet = new C1Button();
 
             bc.setControlLabel(ref lbDateStart, fEdit, "วันที่เริ่มต้น :", "lbDateStart", gapX, gapY);
             size = bc.MeasureString(lbDateStart);
@@ -292,6 +360,10 @@ namespace bangna_hospital.gui
             btnPrint.Width = 140;
             btnPrint.Height = btnPrint.Height + 10;
 
+            bc.setControlC1Button(ref btnGet, fEdit, "get", "btnGet", btnPrint.Location.X + btnPrint.Width + 60, gapY);
+            btnGet.Width = 140;
+            btnGet.Height = btnGet.Height + 10;
+
             tabImportDf.Controls.Add(grfSelect);
             theme1.SetTheme(grfSelect, "Office2010Red");
 
@@ -303,6 +375,7 @@ namespace bangna_hospital.gui
             tabImportDf.Controls.Add(txtPaidType);
             tabImportDf.Controls.Add(lbHn);
             tabImportDf.Controls.Add(txtHn);
+            tabImportDf.Controls.Add(btnGet);
 
             tcMain.Controls.Add(tabImportDf);
             this.Controls.Add(tcMain);
@@ -318,7 +391,7 @@ namespace bangna_hospital.gui
 
             dt = bc.bcDB.pttscDB.SelectByDoc(txtPaidType.Text.Trim());
             grfSelect.Rows.Count = 1;
-            grfSelect.Cols.Count = 6+1;
+            grfSelect.Cols.Count = 8;
             grfSelect.Rows.Count = dt.Rows.Count + 1;
             grfSelect.Cols[colHn].Caption = "HN";
             grfSelect.Cols[colFullName].Caption = "Full Name";
@@ -329,7 +402,7 @@ namespace bangna_hospital.gui
             grfSelect.Cols[colHn].Width = 120;
             grfSelect.Cols[colFullName].Width = 350;
             grfSelect.Cols[colMobile].Width = 150;
-            grfSelect.Cols[colDoc].Width = 120;
+            grfSelect.Cols[colDoc].Width = 130;
             grfSelect.Cols[colattachnote].Width = 350;
             
             int i = 0;
@@ -344,7 +417,8 @@ namespace bangna_hospital.gui
                 grfSelect[i, colDoc] = row1["doc"].ToString();
                 grfSelect[i, colattachnote] = row1["attach_note"].ToString();
                 grfSelect[i, colID] = row1["patient_smartcard_id"].ToString();
-                
+                grfSelect[i, colPID] = row1["pid"].ToString();
+
                 grfSelect[i, 0] = i;
                 if (i % 2 == 0)
                     grfSelect.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
@@ -354,7 +428,7 @@ namespace bangna_hospital.gui
             grfSelect.Cols[colFullName].AllowEditing = false;
             grfSelect.Cols[colMobile].AllowEditing = false;
             grfSelect.Cols[colDoc].AllowEditing = false;
-            //grfOPBKKMainCHRGITEM.Cols[colCHRGITEMcode].AllowEditing = false;
+            grfSelect.Cols[colPID].AllowEditing = false;
             grfSelect.Cols[colattachnote].AllowEditing = false;
             
             pageLoad = false;
@@ -515,7 +589,7 @@ namespace bangna_hospital.gui
             grfSelect.Size = new Size(scrW - 20, scrH - btnDeleteAll.Location.Y - 140);
             grfSelect.Location = new Point(5, btnDeleteAll.Location.Y + 40);
 
-            this.Text = "Last Update 2021-06-22 delete table";
+            this.Text = "Last Update 2021-07-08 pid empty";
         }
     }
 }

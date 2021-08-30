@@ -69,6 +69,9 @@ namespace bangna_hospital.object1
         public String MNC_CUR_ROAD { get; set; }
         public String req_no { get; set; }
         public String req_date { get; set; }
+        public String MNC_COM_CD { get; set; }
+        public String MNC_COM_CD2 { get; set; }
+        public String passport { get; set; }
 
         public String AgeString()
         {

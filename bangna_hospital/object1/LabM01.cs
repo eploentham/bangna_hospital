@@ -29,7 +29,7 @@ namespace bangna_hospital.object1
         public String MNC_HL7_CODE { get; set; }
         public String ucep_code { get; set; }
 
-
+        public String price { get; set; }
 
 
     }
