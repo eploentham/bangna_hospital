@@ -98,7 +98,7 @@ namespace bangna_hospital.objdb
 
             String sql = "select * " +
                 "From t_lab_covid_detected  " +
-                "Where visit_date >= '" + dateresult+ "' and visit_date <= '" + dateresult+"'";
+                "Where visit_date >= '" + dateresult+ "' and visit_date <= '" + dateresult+"' Order By date_create ";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;

@@ -94,15 +94,56 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String insertCOVID1500(String hn, String vsdate, String preno, String labcode, String userid)
+        {
+            String sql = "", chk = "", re = "";
+            try
+            {
+                //new LogWriter("d", "insertCOVID 1");
+                //new LogWriter("e", "PharmacyT01 insert " );       covid_insert_lab_covid_hn
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+
+                conn.comStore.CommandText = "covid_insert_lab_covid_hn_new";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+
+                conn.comStore.Parameters.AddWithValue("hn", hn);
+                conn.comStore.Parameters.AddWithValue("vs_date", vsdate);
+                conn.comStore.Parameters.AddWithValue("pre_no", preno);
+                conn.comStore.Parameters.AddWithValue("lab_code", labcode);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_upd", userid);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_add", userid);
+                conn.comStore.Parameters.AddWithValue("status1500", "1");
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "LabT01 " + ex.Message + " " + sql);
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
         public String insertCOVID(String hn, String vsdate, String preno, String labcode, String userid)
         {
             String sql = "", chk = "", re = "";
             try
             {
-                new LogWriter("d", "insertCOVID 1");
+                //new LogWriter("d", "insertCOVID 1");
                 //new LogWriter("e", "PharmacyT01 insert " );       covid_insert_lab_covid_hn
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
+
                 conn.comStore.CommandText = "covid_insert_lab_covid_hn";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
 
@@ -123,7 +164,7 @@ namespace bangna_hospital.objdb
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "PharmacyT01DB.XrayT01 " + ex.Message + " " + sql);
+                new LogWriter("e", "LabT01 " + ex.Message + " " + sql);
             }
             finally
             {

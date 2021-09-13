@@ -192,6 +192,8 @@
             this.tabBn1Ptt = new C1.Win.C1Command.C1DockingTabPage();
             this.tabBn1Visit = new C1.Win.C1Command.C1DockingTabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkPCR1500 = new System.Windows.Forms.RadioButton();
+            this.chkCentralPark = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.m_picPhoto)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -572,19 +574,21 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.chkCentralPark);
+            this.panel2.Controls.Add(this.chkPCR1500);
             this.panel2.Controls.Add(this.ChkSE640);
             this.panel2.Controls.Add(this.chkSE629);
             this.panel2.Controls.Add(this.chkSE184);
-            this.panel2.Location = new System.Drawing.Point(687, 190);
+            this.panel2.Location = new System.Drawing.Point(390, 190);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(314, 41);
+            this.panel2.Size = new System.Drawing.Size(611, 41);
             this.panel2.TabIndex = 54;
             // 
             // ChkSE640
             // 
             this.ChkSE640.AutoSize = true;
             this.ChkSE640.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkSE640.Location = new System.Drawing.Point(187, 12);
+            this.ChkSE640.Location = new System.Drawing.Point(362, 13);
             this.ChkSE640.Name = "ChkSE640";
             this.ChkSE640.Size = new System.Drawing.Size(122, 20);
             this.ChkSE640.TabIndex = 2;
@@ -596,7 +600,7 @@
             this.chkSE629.AutoSize = true;
             this.chkSE629.Checked = true;
             this.chkSE629.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSE629.Location = new System.Drawing.Point(97, 14);
+            this.chkSE629.Location = new System.Drawing.Point(269, 13);
             this.chkSE629.Name = "chkSE629";
             this.chkSE629.Size = new System.Drawing.Size(65, 20);
             this.chkSE629.TabIndex = 1;
@@ -608,7 +612,7 @@
             // 
             this.chkSE184.AutoSize = true;
             this.chkSE184.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSE184.Location = new System.Drawing.Point(4, 13);
+            this.chkSE184.Location = new System.Drawing.Point(176, 13);
             this.chkSE184.Name = "chkSE184";
             this.chkSE184.Size = new System.Drawing.Size(89, 20);
             this.chkSE184.TabIndex = 0;
@@ -719,7 +723,7 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Location = new System.Drawing.Point(7, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(674, 193);
+            this.groupBox1.Size = new System.Drawing.Size(674, 183);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ข้อมูลในระบบ HIS";
@@ -728,7 +732,7 @@
             // 
             this.label52.AutoSize = true;
             this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label52.Location = new System.Drawing.Point(314, 161);
+            this.label52.Location = new System.Drawing.Point(314, 159);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(60, 20);
             this.label52.TabIndex = 52;
@@ -737,7 +741,7 @@
             // txtVsdate
             // 
             this.txtVsdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtVsdate.Location = new System.Drawing.Point(383, 158);
+            this.txtVsdate.Location = new System.Drawing.Point(383, 155);
             this.txtVsdate.Name = "txtVsdate";
             this.txtVsdate.Size = new System.Drawing.Size(90, 26);
             this.txtVsdate.TabIndex = 51;
@@ -746,7 +750,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label47.Location = new System.Drawing.Point(314, 133);
+            this.label47.Location = new System.Drawing.Point(314, 131);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(50, 20);
             this.label47.TabIndex = 50;
@@ -755,7 +759,7 @@
             // txtPreno
             // 
             this.txtPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPreno.Location = new System.Drawing.Point(383, 130);
+            this.txtPreno.Location = new System.Drawing.Point(383, 128);
             this.txtPreno.Name = "txtPreno";
             this.txtPreno.Size = new System.Drawing.Size(60, 26);
             this.txtPreno.TabIndex = 49;
@@ -1159,7 +1163,7 @@
             // txtPaidType
             // 
             this.txtPaidType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPaidType.Location = new System.Drawing.Point(88, 445);
+            this.txtPaidType.Location = new System.Drawing.Point(77, 445);
             this.txtPaidType.Name = "txtPaidType";
             this.txtPaidType.Size = new System.Drawing.Size(59, 26);
             this.txtPaidType.TabIndex = 61;
@@ -1170,7 +1174,7 @@
             // 
             this.lbPaidName.AutoSize = true;
             this.lbPaidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbPaidName.Location = new System.Drawing.Point(174, 448);
+            this.lbPaidName.Location = new System.Drawing.Point(141, 448);
             this.lbPaidName.Name = "lbPaidName";
             this.lbPaidName.Size = new System.Drawing.Size(21, 20);
             this.lbPaidName.TabIndex = 62;
@@ -1637,7 +1641,7 @@
             // 
             this.label56.AutoSize = true;
             this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(322, 472);
+            this.label56.Location = new System.Drawing.Point(324, 472);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(55, 20);
             this.label56.TabIndex = 109;
@@ -1655,7 +1659,7 @@
             // 
             this.label50.AutoSize = true;
             this.label50.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label50.Location = new System.Drawing.Point(322, 445);
+            this.label50.Location = new System.Drawing.Point(349, 445);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(61, 20);
             this.label50.TabIndex = 107;
@@ -1750,7 +1754,7 @@
             // txtRemark
             // 
             this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(88, 527);
+            this.txtRemark.Location = new System.Drawing.Point(78, 527);
             this.txtRemark.Name = "txtRemark";
             this.txtRemark.Size = new System.Drawing.Size(300, 26);
             this.txtRemark.TabIndex = 97;
@@ -1769,7 +1773,7 @@
             // 
             this.lbDeptName.AutoSize = true;
             this.lbDeptName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbDeptName.Location = new System.Drawing.Point(168, 502);
+            this.lbDeptName.Location = new System.Drawing.Point(136, 502);
             this.lbDeptName.Name = "lbDeptName";
             this.lbDeptName.Size = new System.Drawing.Size(20, 18);
             this.lbDeptName.TabIndex = 95;
@@ -1778,7 +1782,7 @@
             // txtDept
             // 
             this.txtDept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDept.Location = new System.Drawing.Point(88, 499);
+            this.txtDept.Location = new System.Drawing.Point(77, 499);
             this.txtDept.Name = "txtDept";
             this.txtDept.Size = new System.Drawing.Size(53, 26);
             this.txtDept.TabIndex = 94;
@@ -1797,9 +1801,9 @@
             // txtSymptom
             // 
             this.txtSymptom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSymptom.Location = new System.Drawing.Point(88, 472);
+            this.txtSymptom.Location = new System.Drawing.Point(77, 472);
             this.txtSymptom.Name = "txtSymptom";
-            this.txtSymptom.Size = new System.Drawing.Size(209, 26);
+            this.txtSymptom.Size = new System.Drawing.Size(239, 26);
             this.txtSymptom.TabIndex = 52;
             this.txtSymptom.Text = "ตรวจ COVID RT-PCR";
             // 
@@ -1991,6 +1995,28 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
+            // 
+            // chkPCR1500
+            // 
+            this.chkPCR1500.AutoSize = true;
+            this.chkPCR1500.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPCR1500.Location = new System.Drawing.Point(5, 13);
+            this.chkPCR1500.Name = "chkPCR1500";
+            this.chkPCR1500.Size = new System.Drawing.Size(150, 20);
+            this.chkPCR1500.TabIndex = 3;
+            this.chkPCR1500.Text = "หอการค้าไทย PCR 1500";
+            this.chkPCR1500.UseVisualStyleBackColor = true;
+            // 
+            // chkCentralPark
+            // 
+            this.chkCentralPark.AutoSize = true;
+            this.chkCentralPark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkCentralPark.Location = new System.Drawing.Point(497, 13);
+            this.chkCentralPark.Name = "chkCentralPark";
+            this.chkCentralPark.Size = new System.Drawing.Size(107, 20);
+            this.chkCentralPark.TabIndex = 4;
+            this.chkCentralPark.Text = "Central PARK";
+            this.chkCentralPark.UseVisualStyleBackColor = true;
             // 
             // FrmSmartCard
             // 
@@ -2196,6 +2222,8 @@
         private C1.Win.C1Input.C1ComboBox cboDistrict;
         private System.Windows.Forms.Label label44;
         private C1.Win.C1Input.C1ComboBox cboProv;
+        private System.Windows.Forms.RadioButton chkPCR1500;
+        private System.Windows.Forms.RadioButton chkCentralPark;
     }
 }
 

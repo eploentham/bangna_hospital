@@ -2551,7 +2551,7 @@ namespace bangna_hospital.objdb
                 "where xt01.mnc_pre_no = '" + preno + "'  " +
                 "and xt01.mnc_date = '" + vsdate + "'  " +
                 "and xt01.mnc_hn_no = '" + hn + "' " +
-                //"and xray_t02.mnc_xr_cd = '" + xraycode + "' " +
+                "and xray_t02.mnc_xr_cd <> 'CBR008' " +
                 "Order By xt01.MNC_REQ_NO  ";
 
             dt = conn.selectData(sql);

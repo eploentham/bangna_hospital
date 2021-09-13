@@ -123,6 +123,8 @@ namespace bangna_hospital.gui
             cboPPNat.SelectedItemChanged += CboPPNat_SelectedItemChanged;
             cboProv.SelectedItemChanged += CboProv_SelectedItemChanged;
             cboDistrict.SelectedItemChanged += CboDistrict_SelectedItemChanged;
+            chkPCR1500.Click += ChkPCR1500_Click;
+            chkCentralPark.Click += ChkCentralPark_Click;
 
             System.Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.Text = String.Format("R&D NID Card Plus C# {0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
@@ -151,6 +153,18 @@ namespace bangna_hospital.gui
             ListCardReader();
             setControl();
             pageLoad = false;
+        }
+
+        private void ChkCentralPark_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setSymptom();
+        }
+
+        private void ChkPCR1500_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setSymptom();
         }
 
         private void TxtCurRoad_KeyUp(object sender, KeyEventArgs e)
@@ -245,8 +259,18 @@ namespace bangna_hospital.gui
         }
         private void setSymptom()
         {
-            txtSymptom.Text = ChkSE640.Checked ? "ตรวจ COVID ATK Rapid Test" : chkSE629.Checked ? "ตรวจ COVID RT-PCR" : "ตรวจ COVID RT-PCR ไป จีน";
-            lab = chkSE184.Checked ? bc.bcDB.labM01DB.SelectByPk("SE184") : chkSE629.Checked ? bc.bcDB.labM01DB.SelectByPk("SE629") : bc.bcDB.labM01DB.SelectByPk("SE640");
+            txtSymptom.Text = ChkSE640.Checked ? "ตรวจ COVID ATK Rapid Test" : chkSE629.Checked ? "ตรวจ COVID RT-PCR" : chkPCR1500.Checked ? "ตรวจ COVID RT-PCR 1500" : chkCentralPark.Checked ? "ตรวจ COVID RT-PCR Central Park" : "ตรวจ COVID RT-PCR ไป จีน";
+            lab = chkSE184.Checked ? bc.bcDB.labM01DB.SelectByPk("SE184") : chkSE629.Checked ? bc.bcDB.labM01DB.SelectByPk("SE629") : chkPCR1500.Checked ? bc.bcDB.labM01DB.SelectByPk("SE629") : chkCentralPark.Checked ? bc.bcDB.labM01DB.SelectByPk("SE629") : bc.bcDB.labM01DB.SelectByPk("SE640");
+            if (chkCentralPark.Checked)
+            {
+                txtPaidType.Text = "57";
+                settxtPaid();
+            }
+            else
+            {
+                txtPaidType.Text = "02";
+                settxtPaid();
+            }
         }
         private void Label46_DoubleClick(object sender, EventArgs e)
         {
@@ -732,7 +756,7 @@ namespace bangna_hospital.gui
                 MessageBox.Show("กรุณาป้อน ว.แพทย์", "");
                 return;
             }
-            if (!chkSE184.Checked && !chkSE629.Checked && !ChkSE640.Checked)
+            if (!chkSE184.Checked && !chkSE629.Checked && !ChkSE640.Checked && !chkPCR1500.Checked)
             {
                 sep.SetError(panel2, "");
                 MessageBox.Show("กรุณาเลือก รายการ LAB", "");
@@ -740,15 +764,23 @@ namespace bangna_hospital.gui
             }
             else
             {
-                labcode = chkSE629.Checked ? "SE629" : chkSE184.Checked ? "SE184":"SE640";
+                labcode = chkSE629.Checked ? "SE629" : chkSE184.Checked ? "SE184": chkPCR1500.Checked ? "SE629" : "SE640";
             }
             //new LogWriter("d", "BtnReqLab_Click ");
             //MessageBox.Show("6666666", "");
             if (DateTime.TryParse(txtVsdate.Text.Trim(), out datechk))
             {
                 //MessageBox.Show("7777777", "");
-                new LogWriter("d", "BtnReqLab_Click 1");
-                re = bc.bcDB.labT01DB.insertCOVID(ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), labcode, "1618");
+                //new LogWriter("d", "BtnReqLab_Click 1");
+                if (chkPCR1500.Checked)
+                {
+                    re = bc.bcDB.labT01DB.insertCOVID1500(ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), labcode, "1618");
+                }
+                else
+                {
+                    re = bc.bcDB.labT01DB.insertCOVID(ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), labcode, "1618");
+                }
+                
                 if (long.TryParse(re, out chk))
                 {
                     stt.SetToolTip(btnReqLab, "ออก ORder Lab เรียบร้อย");
@@ -1743,13 +1775,17 @@ namespace bangna_hospital.gui
             sep.Clear();
             if (e.KeyCode== Keys.Enter)
             {
-                lbPaidName.Text = "";
-                String paidname = "";
-                paidname = bc.bcDB.finM02DB.SelectpaidTypeName(txtPaidType.Text.Trim());
-                lbPaidName.Text = paidname;
-                txtPaidType.SelectAll();
-                txtSymptom.Focus();
+                settxtPaid();
             }
+        }
+        private void settxtPaid()
+        {
+            lbPaidName.Text = "";
+            String paidname = "";
+            paidname = bc.bcDB.finM02DB.SelectpaidTypeName(txtPaidType.Text.Trim());
+            lbPaidName.Text = paidname;
+            txtPaidType.SelectAll();
+            txtSymptom.Focus();
         }
         private void BtnPatientNew_Click(object sender, EventArgs e)
         {
@@ -2692,7 +2728,15 @@ namespace bangna_hospital.gui
                 gfx.DrawRectangle(blackPen, new Rectangle(col4 + 300 - recx , yPos+10, recx, recy));
                 line = txtSymptom.Text.Trim();
                 gfx.DrawString(line, fEdit, Brushes.Black, 110+100, yPos +50, flags);
-                line = "RT-PCR COVID-19  2700.00";
+                if (chkPCR1500.Checked)
+                {
+                    line = "RT-PCR COVID-19  1500.00";
+                }
+                else
+                {
+                    line = "RT-PCR COVID-19  2700.00";
+                }
+                
                 gfx.DrawString(line, fEdit, Brushes.Black, col4+100, yPos + 50, flags);
 
                 line = "อาการ";
@@ -2843,7 +2887,7 @@ namespace bangna_hospital.gui
             {
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmSmartCard_Load", "FrmSmartCard_Load");
             }
-            this.Text += " Update 2021-08-21";
+            this.Text += " Update 2021-09-06";
             btnPatientNew.Enabled = false;
             tC1.SelectedTab = tabPttNew;
             tCBn1.SelectedTab = tabBn1Ptt;

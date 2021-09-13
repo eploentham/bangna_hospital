@@ -222,7 +222,6 @@ namespace bangna_hospital.gui
             //lbAge.Text = "อายุ "+ptt.AgeStringShort();
             btnHn.Click += BtnHn_Click;
 
-            
             //btnRefresh.Click += BtnRefresh_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
             //picExit.Click += PicExit_Click;
@@ -975,7 +974,10 @@ namespace bangna_hospital.gui
                             txt += row["interpretation"].ToString();
                         }
                         dt.Rows.Add(dt.NewRow());
-                        txt1 = txt;
+                        if (txt.Length > 0)
+                        {
+                            txt1 = txt;
+                        }
                     }
                     else
                     {
@@ -5454,7 +5456,7 @@ namespace bangna_hospital.gui
             else if (this.chkPrnSSO.Checked)
             {
                 showLbLoading();
-                MessageBox.Show("11", "");
+                //MessageBox.Show("11", "");
                 String pathFolder = setExportSSOtoFolder();
 
                 Process.Start("explorer.exe", pathFolder);
