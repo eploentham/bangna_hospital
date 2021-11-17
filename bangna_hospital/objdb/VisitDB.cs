@@ -752,8 +752,9 @@ namespace bangna_hospital.objdb
                 " inner join FINANCE_M02 f02 ON t01.MNC_FN_TYP_CD = f02.MNC_FN_TYP_CD " +
                 //"Left Join patient_t01_2 t01_2 on t01.mnc_hn_no = t01_2.mnc_hn_no and t01.mnc_hn_yr = t01_2.mnc_hn_yr " +
                 //"and t01.mnc_date = t01_2.mnc_date and t01.mnc_pre_no = t01_2.mnc_pre_no " +
-                " Where t01.MNC_HN_NO = '" + hn + "' " +
-                "and t01.MNC_STS <> 'C'  " + whereflag +
+                " Where t01.MNC_HN_NO = '" + hn + "' " 
+                //+"and t01.MNC_STS <> 'C'  " 
+                + whereflag +
                 " Order by t01.MNC_HN_NO, t01.mnc_date desc ";
             //new LogWriter("e", "VisitDB selectVisitByHn6  " + sql );
             dt = conn.selectData(sql);

@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_smartcard</AssemblyName>
+    <AssemblyName>bangna_hospital_scan_view</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -104,10 +104,7 @@
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data, Version=8.0.25.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+    <Reference Include="MySql.Data, Version=5.0.8.1, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll</HintPath>
     </Reference>
@@ -143,6 +140,24 @@
     </Compile>
     <Compile Include="gui\FrmLabBill.Designer.cs">
       <DependentUpon>FrmLabBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmReportNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmReportNew.Designer.cs">
+      <DependentUpon>FrmReportNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmSmartCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSmartCard.designer.cs">
+      <DependentUpon>FrmSmartCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmSmartCardNoteBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSmartCardNoteBook.designer.cs">
+      <DependentUpon>FrmSmartCardNoteBook.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmVaccineApprove.cs">
       <SubType>Form</SubType>
@@ -317,12 +332,6 @@
     </Compile>
     <Compile Include="gui\FrmSearchStaff.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="gui\FrmSmartCard.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="gui\FrmSmartCard.designer.cs">
-      <DependentUpon>FrmSmartCard.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmXrayPACsAdd.cs">
       <SubType>Form</SubType>
@@ -712,6 +721,12 @@
     <EmbeddedResource Include="gui\FrmQueueNext.resx">
       <DependentUpon>FrmQueueNext.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmReportARV.resx">
+      <DependentUpon>FrmReportARV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmReportNew.resx">
+      <DependentUpon>FrmReportNew.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanAdd.resx">
       <DependentUpon>FrmScanAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -747,6 +762,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSmartCard.resx">
       <DependentUpon>FrmSmartCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmSmartCardNoteBook.resx">
+      <DependentUpon>FrmSmartCardNoteBook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSplash.resx">
       <DependentUpon>FrmSplash.cs</DependentUpon>

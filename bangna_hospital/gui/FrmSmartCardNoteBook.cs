@@ -26,7 +26,7 @@ namespace bangna_hospital.gui
 //V1.0.0.2091 Code clearing
 //V1.0.0.2092 Correct program name
 {
-    public partial class FrmSmartCard : Form
+    public partial class FrmSmartCardNoteBook : Form
     {
         BangnaControl bc;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1;
@@ -44,7 +44,7 @@ namespace bangna_hospital.gui
         Queue queue;
         LabM01 lab;
         Boolean statusStickerIPD = false, pageLoad = false;
-        public FrmSmartCard(BangnaControl bc)
+        public FrmSmartCardNoteBook(BangnaControl bc)
         {
             InitializeComponent();
             this.bc = bc;
@@ -789,7 +789,7 @@ namespace bangna_hospital.gui
                 MessageBox.Show("กรุณาป้อน ว.แพทย์", "");
                 return;
             }
-            if (!chkSE184.Checked && !chkSE629.Checked && !ChkSE640.Checked && !chkPCR1500.Checked)
+            if (!chkSE184.Checked && !chkSE629.Checked && !ChkSE640.Checked && !chkPCR1500.Checked && !chkATKFree.Checked)
             {
                 sep.SetError(panel2, "");
                 MessageBox.Show("กรุณาเลือก รายการ LAB", "");
@@ -1236,6 +1236,13 @@ namespace bangna_hospital.gui
 
             document.Print();
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            FrmReportNew frm = new FrmReportNew("C:\\Users\\Ekapop\\Documents\\GrapeCity Samples\\ActiveReports 11\\Section Reports\\Preview\\RDFViewer\\C#\\RDFViewer\\RDFs\\Invoice.rdf");
+            frm.ShowDialog(this);
+        }
+
         private void Document_PrintPage_LabReqNo(object sender, PrintPageEventArgs e){
             String amt = "", line = null, date = "", price = "", qty = "", price1 = "";
             Decimal amt1 = 0, voucamt = 0, discount = 0, total = 0, cash = 0;
@@ -2193,6 +2200,8 @@ namespace bangna_hospital.gui
             cboAttactNote.Text = "";
             txtPaidType.Text = "02";
             lbPaidName.Text = "...";
+            txtreqno.Text = "";
+            
             ptt = new Patient();
             queue = new Queue();
             btnPatientNew.Enabled = false;
@@ -2926,10 +2935,13 @@ namespace bangna_hospital.gui
             {
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmSmartCard_Load", "FrmSmartCard_Load");
             }
-            this.Text += " Update 2021-10-22";
+            this.Text += " Update 2021-11-02";
             btnPatientNew.Enabled = false;
             tC1.SelectedTab = tabPttNew;
             tCBn1.SelectedTab = tabBn1Ptt;
+            this.WindowState = FormWindowState.Maximized;
+            chkATKFree.Checked = true;
+            setSymptom();
         }
     }
 }

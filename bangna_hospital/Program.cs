@@ -154,6 +154,11 @@ namespace bangna_hospital
                     //new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmVaccineApprove(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("PatientNewSmartCardNoteBook"))
+                {
+                    //new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.FrmSmartCardNoteBook(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

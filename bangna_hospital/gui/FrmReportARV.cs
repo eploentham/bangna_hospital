@@ -39,5 +39,23 @@ namespace bangna_hospital.gui
             arvMain.Dock = DockStyle.Fill;
             this.Controls.Add(this.arvMain);
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // FrmReportARV
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "FrmReportARV";
+            this.Load += new System.EventHandler(this.FrmReportARV_Load);
+            this.ResumeLayout(false);
+
+        }
+
+        private void FrmReportARV_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

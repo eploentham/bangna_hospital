@@ -1433,9 +1433,9 @@ namespace bangna_hospital.gui
                         int.TryParse(yy, out chkyy);
                         chkyy = (chkyy > 60) ? chkyy += 2500 : chkyy += 2000;
                         //new LogWriter("d", "FrmScanView setActive chkyy " + chkyy);
-                        vsDate = vsDate.Substring(0,vsDate.Length - 2) + chkyy;
+                        //vsDate = vsDate.Substring(0,vsDate.Length - 2) + chkyy;
                         //new LogWriter("d", "FrmScanView setActive vsDate " + vsDate);
-                        vsDate = bc.datetoDB(vsDate);
+                        vsDate = bc.datetoDBWin10(vsDate.Substring(0, vsDate.Length - 2), chkyy.ToString());
                     }
                     else
                     {
@@ -1446,7 +1446,13 @@ namespace bangna_hospital.gui
                 {
                     preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
                     vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
-                    vsDate = bc.datetoDB(vsDate);
+                    String yy = "";
+                    yy = vsDate.Substring(vsDate.Length - 2);
+                    int chkyy = 0;
+                    int.TryParse(yy, out chkyy);
+                    chkyy = (chkyy > 60) ? chkyy += 2500 : chkyy += 2000;
+                    //vsDate = bc.datetoDB(vsDate);
+                    vsDate = bc.datetoDBWin10(vsDate.Substring(0, vsDate.Length - 2), chkyy.ToString());
                 }
                 //new LogWriter("d", "FrmScanView setActive colVsVsDate " + grfOPD[grfOPD.Row, colVsVsDate].ToString()+" "+);
                 setStaffNote(vsDate, preno);
@@ -5416,8 +5422,21 @@ namespace bangna_hospital.gui
                         }
                         Thread.Sleep(200);
                         Application.DoEvents();
-
-                        pdfdoc.Save(pathFolder + "\\" +txtHn.Text+".pdf");
+                        //64-11-16  อ้วนให้แก้ bn2 folder เป้น hn
+                        //if (bc.iniC.branchId.Equals("005"))
+                        //{
+                            pdfdoc.Save(pathFolder + "\\" + txtHn.Text + ".pdf");
+                        //}
+                        //else if (bc.iniC.branchId.Equals("002"))
+                        //{
+                        //    Patient ptt = new Patient();
+                        //    ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+                        //    pdfdoc.Save(pathFolder + "\\" + ptt.idcard + ".pdf");
+                        //}
+                        //else
+                        //{
+                        //    pdfdoc.Save(pathFolder + "\\" + txtHn.Text + ".pdf");
+                        //}
                         //MessageBox.Show("1111", "");
                         Process.Start("explorer.exe", pathFolder);
                     }
@@ -5436,7 +5455,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
 
         }
-
         private void BtnPrn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -5466,9 +5484,14 @@ namespace bangna_hospital.gui
         private String setExportSSOtoFolder()
         {
             String pathFolder = "", datetick = "";
+            Patient ptt = new Patient();
+            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            //64-11-16  อ้วนให้แก้ Folder เป็น PID
 
-            datetick = DateTime.Now.Ticks.ToString();
-            pathFolder = bc.iniC.medicalrecordexportpath + "\\" + datetick;
+            //datetick = DateTime.Now.Ticks.ToString();
+            //pathFolder = bc.iniC.medicalrecordexportpath + "\\" + datetick;
+            //MessageBox.Show("111111", "");
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\" + ptt.idcard;
             if (Directory.Exists(pathFolder))
             {
                 Directory.Delete(pathFolder, true);
@@ -5583,6 +5606,7 @@ namespace bangna_hospital.gui
                         dtLab = setPrintLabPrnSSO(vn, preno, chk+"-"+mm+"-"+dd);
                         if (dtLab.Rows.Count > 0)
                         {
+                            new LogWriter("d", "FrmScanView1 setExportSSOtoFolder have data " + txtHn.Text.Trim() + " vsdate " + yy + mm + dd + " preno " + preno1 + " rowi " + rowi + " rowcnt " + dtLab.Rows.Count);
                             filename = bc.exportResultLab(dtLab, txtHn.Text.Trim(), vn, "", pathFolder);
                             Application.DoEvents();
                             for (int i = 1; i <= 30; i++)
@@ -9483,7 +9507,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2020-12-16 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year;
+            this.Text = "Last Update 2021-11-16 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year;
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

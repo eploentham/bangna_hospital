@@ -46,7 +46,7 @@ namespace bangna_hospital.gui
         C1FlexGrid grfView, grfNovel;
 
         int colHn = 1, colDateVs=2, colTimeVs=3, colFullName = 4, colDateResult = 5, collabCode=6, collabName = 7, colLabResult = 8, colPhone = 9,colReqNo=10, colReqDate=11, colReqYr=12, colStatus=13, colID=14;
-        int colNovelHn = 1, colNovelHos = 2, colNovelCat = 3, colNovelSatCode = 4, colNovelPID = 5, colNovelPassport = 6, colNovelPttName = 7, colNovelSex = 8, colNovelAge = 9, colNovelNat = 10, colNovelProv = 11, colNovelAmphur = 12, colNovelTumbun = 13, colNovelMoo = 14, colNovelAddr = 15, colNovelDisease = 16, colNovelMobile = 17, colNovelTypePtt = 18, colNovelCluster = 19, colNovelConfirm = 20, colNovelPlace = 21, colNovelLabDate = 22, colNovelLabPlace = 23, colNovelLabResult = 24, colNovelEgene = 25, colNovelRdRP = 26, colNovelNgene = 27, colNovelORFlab = 28, colNovelIC = 29, colNovelSgene = 30, colNovelRNP = 31, colNovelNSgene = 32, colNovelid=33, colDateCreate=34;
+        int colNovellabCode=1,colNovelHn = 2, colNovelHos = 3, colNovelCat = 4, colNovelSatCode = 5, colNovelPID = 6, colNovelPassport = 7, colNovelPttName = 8, colNovelSex = 9, colNovelAge = 10, colNovelNat = 11, colNovelProv = 12, colNovelAmphur = 13, colNovelTumbun = 14, colNovelMoo = 15, colNovelAddr = 16, colNovelDisease = 17, colNovelMobile = 18, colNovelTypePtt = 19, colNovelCluster = 20, colNovelConfirm = 21, colNovelPlace = 22, colNovelLabDate = 23, colNovelLabPlace = 24, colNovelLabResult = 25, colNovelEgene = 26, colNovelRdRP = 27, colNovelNgene = 28, colNovelORFlab = 29, colNovelIC = 30, colNovelSgene = 31, colNovelRNP = 32, colNovelNSgene = 33, colNovelid=34, colDateCreate=35;
 
         String vn, preno, vsdate, paidtypecode="", detectedid="";
 
@@ -666,7 +666,7 @@ namespace bangna_hospital.gui
             pageLoad = true;
             grfNovel.DataSource = null;
             grfNovel.Rows.Count = 1;
-            grfNovel.Cols.Count = 35;
+            grfNovel.Cols.Count = 36;
             //grfNovel.Rows.Count = lAER.Count + 1;
             grfNovel.Cols[colNovelHn].Caption = "HN";
             grfNovel.Cols[colNovelHos].Caption = "สถานที่ส่งตรวจ";
@@ -803,7 +803,8 @@ namespace bangna_hospital.gui
                     grfNovel[i, colNovelSgene] = ins["s_gene"].ToString();
                     grfNovel[i, colNovelRNP] = ins["rnp"].ToString();
                     grfNovel[i, colNovelNSgene] = ins["ns_gene"].ToString();
-                    grfNovel[i, colDateCreate] = ins["date_create"].ToString();
+                    grfNovel[i, colDateCreate] = ins["date_create"].ToString();     //colNovellabCode
+                    grfNovel[i, colNovellabCode] = ins["lab_code"].ToString().Equals("SE640") ? "ATK": "RT-PCR";
 
                     grfNovel[i, 0] = i;
                     //if(ins["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected")==0)
@@ -4400,7 +4401,7 @@ namespace bangna_hospital.gui
             int scrH = Screen.PrimaryScreen.Bounds.Height;
 
             this.WindowState = FormWindowState.Maximized;
-            this.Text = bc.iniC.pdfFontName +" Last Update 2021-09-06";
+            this.Text = bc.iniC.pdfFontName +" Last Update 2021-10-26";
 
             grfView.Size = new Size(scrW - 20, scrH - btnViewDateSearch.Location.Y - 140);
             grfView.Location = new Point(5, btnViewDateSearch.Location.Y + 40);

@@ -41,8 +41,8 @@ namespace bangna_hospital.objdb
             connLog.ConnectionString = "Server=" + initc.hostDBLogTask + ";Database=" + initc.nameDBLogTask + ";Uid=" + initc.userDBLogTask + ";Pwd=" + initc.passDBLogTask + ";";
 
             //ของ VaccineApprove ต้องใช้ MySQL เพราะ node js ยังไม่สามารถพืมพ์ FORM ได้
-            //connMySQL.ConnectionString = "Server=" + initc.hostDBMySQL + ";Database=" + initc.nameDBMySQL + ";Uid=" + initc.userDBMySQL + ";Pwd=" + initc.passDBMySQL +
-            //    ";port = " + initc.portDBMySQL + "; SslMode=None";
+            connMySQL.ConnectionString = "Server=" + initc.hostDBMySQL + ";Database=" + initc.nameDBMySQL + ";Uid=" + initc.userDBMySQL + ";Pwd=" + initc.passDBMySQL +
+                ";port = " + initc.portDBMySQL + ";";
         }
         public String ExecuteNonQuery(MySqlConnection con, String sql)
         {

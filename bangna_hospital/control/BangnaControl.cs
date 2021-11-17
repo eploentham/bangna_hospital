@@ -879,6 +879,23 @@ namespace bangna_hospital.control
             
             return re;
         }
+        public String datetoDBWin10(String ddMM, String year1)
+        {
+            DateTime dt1 = new DateTime();
+            String re = "", mm = "", dd = "";
+            int year = 0, mon = 0, day = 0;
+            //new LogWriter("d", "datetoDB 01" );
+            //new LogWriter("d", "datetoDB 03 iniC.windows 10 ");
+
+            dd = ddMM.Substring(0, 2);
+            mm = ddMM.Substring(3, 2);
+            dt1.AddDays(int.Parse(dd)).AddMonths(int.Parse(mm)).AddYears(int.Parse(year1));
+            dt1 = new DateTime(int.Parse(year1), int.Parse(mm), int.Parse(dd));
+            re = dt1.ToString("yyyy-MM-dd");
+
+            //dt1 = DateTime.Parse(dt.ToString());
+            return re;
+        }
         private void initOPBKKClinic()
         {
             opBKKClinic.Add("00", "หน่วยงานระดับสถานีอนามัย");

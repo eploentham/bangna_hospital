@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ActiveReportsLayout Version="3.2" PrintWidth="11568" DocumentName="lab_result" ScriptLang="C#" MasterReport="0">
+  <StyleSheet>
+    <Style Name="Normal" Value="font-family: Arial; font-style: normal; text-decoration: none; font-weight: normal; font-size: 10pt; color: Black; text-align: left; vertical-align: top; ddo-char-set: 1" />
+    <Style Name="Heading1" Value="font-family: Arial; font-size: 16pt; font-style: normal; font-weight: bold" />
+    <Style Name="Heading2" Value="font-family: Times New Roman; font-size: 14pt; font-style: italic; font-weight: bold" />
+    <Style Name="Heading3" Value="font-family: Arial; font-size: 13pt; font-style: normal; font-weight: bold" />
+  </StyleSheet>
+  <Sections>
+    <Section Type="ReportHeader" Name="ReportHeaderSection1" Height="50" BackStyle="1" />
+    <Section Type="PageHeader" Name="PageHeaderSection2" Height="2690" BackStyle="1">
+      <Control Type="AR.Field" Name="patientdep1" DataField="patient_dep" Left="480" Top="840" Width="1680" Height="341" Text="patient_dep" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="patienttype1" DataField="patient_type" Left="1680" Top="1200" Width="2127" Height="341" Text="patient_type" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text8" Left="480" Top="1200" Width="1200" Height="360" Caption="ประเภทผู้ป่วย :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text9" Left="480" Top="1560" Width="1800" Height="480" Caption="ใบรายงานผล LAB" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 16pt; text-align: left" />
+      <Control Type="AR.Field" Name="patientname1" DataField="patient_name" Left="5040" Top="120" Width="3360" Height="360" Text="patient_name" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="requestno1" DataField="request_no" Left="5040" Top="840" Width="2040" Height="360" Text="request_no" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="patienthn1" DataField="patient_hn" Left="5040" Top="489" Width="2160" Height="360" Text="patient_hn" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="doctor1" DataField="doctor" Left="4680" Top="1200" Width="3600" Height="360" Text="doctor" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="patientcompany1" DataField="patient_company" Left="4680" Top="1560" Width="3600" Height="360" Text="patient_company" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text7" Left="3840" Top="1560" Width="600" Height="360" Caption="บริษัท :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text6" Left="3840" Top="1200" Width="600" Height="360" Caption="แพทย์ :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text5" Left="3840" Top="840" Width="960" Height="360" Caption="เลขที่ใบสั่ง :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text2" Left="3840" Top="120" Width="1200" Height="360" Caption="ชื่อ-สกุลผู้ป่วย :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text11" Left="8400" Top="489" Width="480" Height="360" Caption="VN :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text13" Left="8280" Top="1200" Width="1080" Height="360" Caption="  วันที่ออกผล :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="printdate1" DataField="print_date" Left="9480" Top="1200" Width="1800" Height="341" Text="print_date" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="resultdate1" DataField="result_date" Left="9000" Top="840" Width="2280" Height="360" Text="result_date" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text12" Left="8400" Top="840" Width="600" Height="360" Caption="วันที่ :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="patientvn1" DataField="patient_vn" Left="9000" Top="489" Width="2280" Height="360" Text="patient_vn" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="patientage1" DataField="patient_age" Left="9000" Top="127" Width="2280" Height="360" Text="patient_age" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text10" Left="8400" Top="127" Width="480" Height="360" Caption="อายุ :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text27" Left="3840" Top="480" Width="960" Height="360" Caption="HN :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Label" Name="Text15" Left="2827" Top="2160" Width="1440" Height="360" Caption="DESCRRIPTION" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; font-weight: bold; text-align: left" />
+      <Control Type="AR.Label" Name="Text16" Left="7320" Top="2160" Width="840" Height="360" Caption="RESULT" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; font-weight: bold; text-align: left" />
+      <Control Type="AR.Field" Name="line11" DataField="'= rpt.mpline1" Left="480" Top="120" Width="3360" Height="360" Text="'= rpt.mpline1" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 18pt; font-weight: bold; text-align: left" />
+      <Control Type="AR.Line" Name="Line1" X1="120" Y1="2150" X2="11160" Y2="2150" LineStyle="2" LineWeight="0" />
+      <Control Type="AR.Line" Name="Line2" X1="120" Y1="2630" X2="11160" Y2="2630" LineStyle="2" LineWeight="0" />
+    </Section>
+    <Section Type="GroupHeader" Name="GroupHeaderSection3" Height="221" DataField="request_no" BackStyle="1" KeepTogether="1">
+      <Control Type="AR.Field" Name="GroupNamerequestno1" DataField="request_no" Left="0" Top="0" Width="2554" Height="221" Text="GroupName request_no" CanGrow="0" Style="background-color: White; color: Black; font-weight: bold; text-align: left" />
+    </Section>
+    <Section Type="GroupHeader" Name="GroupHeaderSection1" Height="360" DataField="mnc_lb_grp_dsc" BackStyle="1" KeepTogether="1">
+      <Control Type="AR.Label" Name="Text1" Left="960" Top="0" Width="1200" Height="360" Caption="กลุ่มทำการ :" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 16pt; text-align: left" />
+      <Control Type="AR.Field" Name="GroupNamemnclbgrpdsc1" DataField="mnc_lb_grp_dsc" Left="2160" Top="0" Width="4800" Height="360" Text="GroupName mnc_lb_grp_dsc" CanGrow="0" Style="background-color: White; color: Black; font-family: Angsana New; font-size: 16pt; font-weight: bold; text-align: left" />
+    </Section>
+    <Section Type="GroupHeader" Name="GroupHeaderSection2" Height="259" DataField="mnc_lb_dsc" BackStyle="1" KeepTogether="1">
+      <Control Type="AR.Field" Name="GroupNamemnclbdsc1" DataField="mnc_lb_dsc" Left="600" Top="0" Width="7200" Height="221" Text="GroupName mnc_lb_dsc" CanGrow="0" Style="background-color: White; color: Black; font-weight: bold; text-align: left" />
+    </Section>
+    <Section Type="Detail" Name="DetailSection2" Height="390" BackStyle="1" KeepTogether="1">
+      <Control Type="AR.Field" Name="mncres1" DataField="mnc_res" Left="2520" Top="0" Width="2760" Height="221" Text="mnc_res" CanGrow="0" Style="background-color: White; color: Black; text-align: left" />
+      <Control Type="AR.Field" Name="mncresvalue1" DataField="mnc_res_value" Left="6034" Top="0" Width="1853" Height="360" Text="mnc_res_value" CanGrow="0" Style="background-color: White; color: Black; font-family: AngsanaUPC; font-size: 16pt; font-weight: bold; text-align: center" />
+      <Control Type="AR.Field" Name="mncresunt1" DataField="mnc_res_unt" Visible="0" Left="9120" Top="0" Width="2040" Height="221" Text="mnc_res_unt" CanGrow="0" Style="background-color: White; color: Black; text-align: left" />
+      <Control Type="AR.Field" Name="mncresmin1" DataField="mnc_res_min" Visible="0" Left="6480" Top="0" Width="1080" Height="221" Text="mnc_res_min" CanGrow="0" Style="background-color: White; color: Black; text-align: left" />
+      <Control Type="AR.Field" Name="mncresmax1" DataField="mnc_res_max" Visible="0" Left="7920" Top="0" Width="1200" Height="221" Text="mnc_res_max" CanGrow="0" Style="background-color: White; color: Black; text-align: left" />
+      <Control Type="AR.Label" Name="Text14" Visible="0" Left="7560" Top="0" Width="360" Height="210" Caption="-" Style="background-color: White; color: Black; text-align: center" />
+      <Control Type="AR.Field" Name="mnclbdsc1" DataField="mnc_lb_dsc" Visible="0" Left="840" Top="0" Width="3000" Height="221" Text="mnc_lb_dsc" CanGrow="0" Style="background-color: White; color: Black; text-align: left" />
+      <Control Type="AR.Field" Name="Field1" DataField="'= [@444]" Left="8520" Top="0" Width="2880" Height="360" Text="'= [@444]" CanGrow="0" Style="background-color: White; color: Black; font-family: AngsanaUPC; font-size: 16pt; text-align: left" />
+      <Control Type="AR.Line" Name="Line5" X1="5280" Y1="360" X2="8400" Y2="360" LineStyle="2" LineWeight="0" />
+    </Section>
+    <Section Type="GroupFooter" Name="GroupFooterSection2" Height="220" BackStyle="1" KeepTogether="1" />
+    <Section Type="GroupFooter" Name="GroupFooterSection1" Height="220" BackStyle="1" KeepTogether="1" />
+    <Section Type="GroupFooter" Name="GroupFooterSection3" Height="220" BackStyle="1" KeepTogether="1" />
+    <Section Type="PageFooter" Name="PageFooterSection1" Height="645" BackStyle="1">
+      <Control Type="AR.Label" Name="Text17" Left="240" Top="240" Width="840" Height="360" Caption="ผู้บันทึก" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; font-weight: bold; text-align: left" />
+      <Control Type="AR.Label" Name="Text18" Left="3727" Top="240" Width="1080" Height="360" Caption="ผู้รายงานผล" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; font-weight: bold; text-align: left" />
+      <Control Type="AR.Label" Name="Text19" Left="7440" Top="240" Width="1200" Height="360" Caption="ผู้ตรวจสอบผล" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; font-weight: bold; text-align: left" />
+      <Control Type="AR.Field" Name="userlab1" DataField="user_lab" Left="960" Top="240" Width="2760" Height="380" Text="user_lab" CanGrow="0" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="userreport1" DataField="user_report" Left="4800" Top="240" Width="2760" Height="380" Text="user_report" CanGrow="0" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Field" Name="usercheck1" DataField="user_check" Left="8760" Top="240" Width="2640" Height="380" Text="user_check" CanGrow="0" Style="background-color: White; color: Black; font-family: Cordia New; font-size: 14pt; text-align: left" />
+      <Control Type="AR.Line" Name="Line3" X1="0" Y1="70" X2="11280" Y2="70" LineStyle="2" LineWeight="0" />
+      <Control Type="AR.Line" Name="Line4" X1="0" Y1="620" X2="11280" Y2="620" LineStyle="2" LineWeight="0" />
+    </Section>
+    <Section Type="ReportFooter" Name="ReportFooterSection1" Height="0" BackStyle="1" KeepTogether="1" />
+  </Sections>
+  <DataSources>
+    <XmlDataSource FileURL="C:\source\bangna\bangna_hospital\bangna_hospital\report\result_lab.xsd" Pattern="//result_lab" />
+  </DataSources>
+  <PageSettings LeftMargin="168" RightMargin="168" TopMargin="168" BottomMargin="168" PaperSize="9" PaperWidth="11906" PaperHeight="16838" PaperName="" Orientation="1" />
+  <Parameters />
+</ActiveReportsLayout>

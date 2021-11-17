@@ -1426,8 +1426,9 @@ namespace bangna_hospital.gui
             String datestart = "", dateend = "", paidtype = "";
             DateTime dtstart = new DateTime();
             DateTime dtend = new DateTime();
-            DateTime.TryParse(txtUcepDateStart.Text, out dtstart);
-            DateTime.TryParse(txtUcepDateEnd.Text, out dtend);
+            
+            DateTime.TryParse(txtUcepDateStart.Value.ToString(), out dtstart);
+            DateTime.TryParse(txtUcepDateEnd.Value.ToString(), out dtend);
 
             datestart = dtstart.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
             dateend = dtend.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
@@ -2506,8 +2507,8 @@ namespace bangna_hospital.gui
             String datestart = "", dateend = "", paidtype="";
             DateTime dtstart = new DateTime();
             DateTime dtend = new DateTime();
-            DateTime.TryParse(txtDateStart.Text, out dtstart);
-            DateTime.TryParse(txtDateEnd.Text, out dtend);
+            DateTime.TryParse(txtDateStart.Value.ToString(), out dtstart);
+            DateTime.TryParse(txtDateEnd.Value.ToString(), out dtend);
 
             datestart = dtstart.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
             dateend = dtend.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
@@ -2851,12 +2852,11 @@ namespace bangna_hospital.gui
             dtUcepGen.Columns.Add("price_total", typeof(String));
             dtUcepGen.Columns.Add("hosp_code1", typeof(String));
             int row1 = 0;
-
+            String hn = "", hnyear = "", preno = "", vsdate = "", an = "", anyear = "", andate = "", statusipd = "", doccd = "", docyr = "", docno = "", docdate = "";
             String[] wheresplit = flagpaidtype.Split('#');
             if (wheresplit.Length > 9)
             {
                 //IPD
-                String hn = "", hnyear = "", preno = "", vsdate = "", an = "", anyear = "", andate = "", statusipd = "", doccd="", docyr="", docno="", docdate="";
                 doccd = wheresplit[0];
                 docyr = wheresplit[1];
                 docno = wheresplit[2];
@@ -2979,7 +2979,7 @@ namespace bangna_hospital.gui
                     if (row[colGrfUcepSelectSelect] == null) continue;
                     if ((Boolean)row[colGrfUcepSelectSelect])
                     {
-                        String hn = "", hnyear = "", preno = "", vsdate = "", an = "", anyear = "", andate = "", statusipd = "";
+                        //String hn = "", hnyear = "", preno = "", vsdate = "", an = "", anyear = "", andate = "", statusipd = "";
                         hn = row[colGrfUcepSelectHn].ToString();
                         hnyear = row[colGrfUcepSelectHnYear].ToString();
                         preno = row[colGrfUcepSelectPreno].ToString();
@@ -3135,10 +3135,10 @@ namespace bangna_hospital.gui
             }
             
             hideLbLoading();
-            CreateExcelFile(dtUcepGen);
+            CreateExcelFile(dtUcepGen, hn);
             pageLoad = false;
         }
-        private string CreateExcelFile(DataTable dt)
+        private string CreateExcelFile(DataTable dt, String hn)
         {
             //clear Excel book, remove the single blank sheet
             C1.C1Excel.C1XLBook _c1xl = new C1.C1Excel.C1XLBook();
@@ -3176,12 +3176,25 @@ namespace bangna_hospital.gui
             //save xls file
             String datetick = "";
             pathfile = bc.iniC.medicalrecordexportpath;
-            datetick = DateTime.Now.Ticks.ToString();
-            pathfile = pathfile + "\\" + datetick + "\\";
             if (!Directory.Exists(pathfile))
             {
                 Directory.CreateDirectory(pathfile);
                 Application.DoEvents();
+            }
+            datetick = DateTime.Now.Ticks.ToString();
+            if (hn.Length > 0)
+            {
+                pathfile = pathfile + "\\" + hn + "\\";
+                if (!Directory.Exists(pathfile))
+                {
+                    Directory.CreateDirectory(pathfile);
+                    Application.DoEvents();
+                }
+                System.IO.DirectoryInfo di = new DirectoryInfo(pathfile);
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
             }
 
             string filename = pathfile+ "\\fs_template.xls";
@@ -6148,7 +6161,7 @@ namespace bangna_hospital.gui
             //  แก้เรื่อง ข้อมูลที่ double
 
             //this.Text = "Last Update 2020-04-09";
-            this.Text = "Last Update 2020-05-06";
+            this.Text = "Last Update 2020-10-27";
         }
     }
 }
