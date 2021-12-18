@@ -60,6 +60,19 @@
             this.txtHn = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.chkInfluenza9 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza8 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza7 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza6 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza5 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza4 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza3 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza2 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza1 = new System.Windows.Forms.RadioButton();
+            this.chkInfluenza = new System.Windows.Forms.RadioButton();
+            this.chkModorna = new System.Windows.Forms.RadioButton();
             this.btnPrnQue = new System.Windows.Forms.Button();
             this.label59 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -195,8 +208,16 @@
             this.tabBn1Ptt = new C1.Win.C1Command.C1DockingTabPage();
             this.tabBn1Visit = new C1.Win.C1Command.C1DockingTabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.txtVisitDate = new C1.Win.C1Input.C1DateEdit();
             ((System.ComponentModel.ISupportInitialize)(this.m_picPhoto)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPtt)).BeginInit();
             this.panel2.SuspendLayout();
@@ -215,6 +236,8 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tCBn1)).BeginInit();
             this.tCBn1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).BeginInit();
             this.SuspendLayout();
             // 
             // m_txtIssueDate
@@ -505,6 +528,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.btnPrnQue);
             this.panel1.Controls.Add(this.label59);
             this.panel1.Controls.Add(this.textBox1);
@@ -518,8 +542,165 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 559);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1182, 235);
+            this.panel1.Size = new System.Drawing.Size(1456, 235);
             this.panel1.TabIndex = 30;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.txtVisitDate);
+            this.groupBox4.Controls.Add(this.label66);
+            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.checkBox1);
+            this.groupBox4.Controls.Add(this.groupBox5);
+            this.groupBox4.Controls.Add(this.chkInfluenza);
+            this.groupBox4.Controls.Add(this.chkModorna);
+            this.groupBox4.Location = new System.Drawing.Point(692, 6);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(677, 192);
+            this.groupBox4.TabIndex = 58;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Vaccine";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.chkInfluenza9);
+            this.groupBox5.Controls.Add(this.chkInfluenza8);
+            this.groupBox5.Controls.Add(this.chkInfluenza7);
+            this.groupBox5.Controls.Add(this.chkInfluenza6);
+            this.groupBox5.Controls.Add(this.chkInfluenza5);
+            this.groupBox5.Controls.Add(this.chkInfluenza4);
+            this.groupBox5.Controls.Add(this.chkInfluenza3);
+            this.groupBox5.Controls.Add(this.chkInfluenza2);
+            this.groupBox5.Controls.Add(this.chkInfluenza1);
+            this.groupBox5.Location = new System.Drawing.Point(13, 42);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(576, 167);
+            this.groupBox5.TabIndex = 6;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "vaccine ไข้หวัดใหญ่";
+            // 
+            // chkInfluenza9
+            // 
+            this.chkInfluenza9.AutoSize = true;
+            this.chkInfluenza9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza9.Location = new System.Drawing.Point(362, 144);
+            this.chkInfluenza9.Name = "chkInfluenza9";
+            this.chkInfluenza9.Size = new System.Drawing.Size(59, 20);
+            this.chkInfluenza9.TabIndex = 14;
+            this.chkInfluenza9.Text = "9. อื่นๆ";
+            this.chkInfluenza9.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza8
+            // 
+            this.chkInfluenza8.AutoSize = true;
+            this.chkInfluenza8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza8.Location = new System.Drawing.Point(358, 72);
+            this.chkInfluenza8.Name = "chkInfluenza8";
+            this.chkInfluenza8.Size = new System.Drawing.Size(212, 20);
+            this.chkInfluenza8.TabIndex = 13;
+            this.chkInfluenza8.Text = "8. กลุ่มอื่นๆ (ที่ไม่เข้าเงื่อนไข 7 กลุ่มเสี่ยง)";
+            this.chkInfluenza8.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza7
+            // 
+            this.chkInfluenza7.AutoSize = true;
+            this.chkInfluenza7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza7.Location = new System.Drawing.Point(358, 45);
+            this.chkInfluenza7.Name = "chkInfluenza7";
+            this.chkInfluenza7.Size = new System.Drawing.Size(143, 20);
+            this.chkInfluenza7.TabIndex = 12;
+            this.chkInfluenza7.Text = "7. เด็กอายุ 6 เดือน ถึง 2 ปี";
+            this.chkInfluenza7.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza6
+            // 
+            this.chkInfluenza6.AutoSize = true;
+            this.chkInfluenza6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza6.Location = new System.Drawing.Point(358, 19);
+            this.chkInfluenza6.Name = "chkInfluenza6";
+            this.chkInfluenza6.Size = new System.Drawing.Size(163, 20);
+            this.chkInfluenza6.TabIndex = 11;
+            this.chkInfluenza6.Text = "6. หญิงตั้งครรภ์ 4 เดือนขึ้นไป";
+            this.chkInfluenza6.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza5
+            // 
+            this.chkInfluenza5.AutoSize = true;
+            this.chkInfluenza5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza5.Location = new System.Drawing.Point(7, 123);
+            this.chkInfluenza5.Name = "chkInfluenza5";
+            this.chkInfluenza5.Size = new System.Drawing.Size(284, 20);
+            this.chkInfluenza5.TabIndex = 10;
+            this.chkInfluenza5.Text = "5. โรคอ้วน (น้ำหนัก>100 กก. หรือ BMI >35 กก./ตรม.)";
+            this.chkInfluenza5.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza4
+            // 
+            this.chkInfluenza4.AutoSize = true;
+            this.chkInfluenza4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza4.Location = new System.Drawing.Point(7, 97);
+            this.chkInfluenza4.Name = "chkInfluenza4";
+            this.chkInfluenza4.Size = new System.Drawing.Size(365, 20);
+            this.chkInfluenza4.TabIndex = 9;
+            this.chkInfluenza4.Text = "4. โรคธาลัสซีเมีย และผู้ที่มีภูมิคุ้มกันบกพร่อง (รวมผู้ติดเชื้อ HIV ที่มีอาการ)";
+            this.chkInfluenza4.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza3
+            // 
+            this.chkInfluenza3.AutoSize = true;
+            this.chkInfluenza3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza3.Location = new System.Drawing.Point(6, 71);
+            this.chkInfluenza3.Name = "chkInfluenza3";
+            this.chkInfluenza3.Size = new System.Drawing.Size(219, 20);
+            this.chkInfluenza3.TabIndex = 8;
+            this.chkInfluenza3.Text = "3. ผู้พิการทางสมองที่ช่วยเหลือตนเองไม่ได้";
+            this.chkInfluenza3.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza2
+            // 
+            this.chkInfluenza2.AutoSize = true;
+            this.chkInfluenza2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza2.Location = new System.Drawing.Point(7, 45);
+            this.chkInfluenza2.Name = "chkInfluenza2";
+            this.chkInfluenza2.Size = new System.Drawing.Size(141, 20);
+            this.chkInfluenza2.TabIndex = 7;
+            this.chkInfluenza2.Text = "2. ผู้ป่วยโรคเรื้อรัง 7 โรค";
+            this.chkInfluenza2.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza1
+            // 
+            this.chkInfluenza1.AutoSize = true;
+            this.chkInfluenza1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza1.Location = new System.Drawing.Point(6, 19);
+            this.chkInfluenza1.Name = "chkInfluenza1";
+            this.chkInfluenza1.Size = new System.Drawing.Size(129, 20);
+            this.chkInfluenza1.TabIndex = 6;
+            this.chkInfluenza1.Text = "1. ผู้สูงอายุ 65 ปีขึ้นไป";
+            this.chkInfluenza1.UseVisualStyleBackColor = true;
+            // 
+            // chkInfluenza
+            // 
+            this.chkInfluenza.AutoSize = true;
+            this.chkInfluenza.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkInfluenza.Location = new System.Drawing.Point(507, 15);
+            this.chkInfluenza.Name = "chkInfluenza";
+            this.chkInfluenza.Size = new System.Drawing.Size(153, 24);
+            this.chkInfluenza.TabIndex = 5;
+            this.chkInfluenza.Text = "vaccine ไข้หวัดใหญ่";
+            this.chkInfluenza.UseVisualStyleBackColor = true;
+            // 
+            // chkModorna
+            // 
+            this.chkModorna.AutoSize = true;
+            this.chkModorna.Checked = true;
+            this.chkModorna.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkModorna.Location = new System.Drawing.Point(13, 15);
+            this.chkModorna.Name = "chkModorna";
+            this.chkModorna.Size = new System.Drawing.Size(147, 24);
+            this.chkModorna.TabIndex = 4;
+            this.chkModorna.TabStop = true;
+            this.chkModorna.Text = "vaccine Modorna";
+            this.chkModorna.UseVisualStyleBackColor = true;
             // 
             // btnPrnQue
             // 
@@ -1279,7 +1460,7 @@
             this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC1.Location = new System.Drawing.Point(0, 0);
             this.tC1.Name = "tC1";
-            this.tC1.Size = new System.Drawing.Size(1184, 819);
+            this.tC1.Size = new System.Drawing.Size(1458, 819);
             this.tC1.TabIndex = 64;
             this.tC1.TabsSpacing = 5;
             // 
@@ -1402,7 +1583,7 @@
             this.tabPttNew.Controls.Add(this.btnPatientNew);
             this.tabPttNew.Location = new System.Drawing.Point(1, 24);
             this.tabPttNew.Name = "tabPttNew";
-            this.tabPttNew.Size = new System.Drawing.Size(1182, 794);
+            this.tabPttNew.Size = new System.Drawing.Size(1456, 794);
             this.tabPttNew.TabIndex = 0;
             this.tabPttNew.Text = "New Patient";
             // 
@@ -1979,7 +2160,7 @@
             this.tabPttBn1.Controls.Add(this.groupBox2);
             this.tabPttBn1.Location = new System.Drawing.Point(1, 24);
             this.tabPttBn1.Name = "tabPttBn1";
-            this.tabPttBn1.Size = new System.Drawing.Size(1182, 794);
+            this.tabPttBn1.Size = new System.Drawing.Size(1456, 794);
             this.tabPttBn1.TabIndex = 1;
             this.tabPttBn1.Text = "Bangna1 Patient";
             // 
@@ -1989,7 +2170,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 555);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1182, 239);
+            this.groupBox3.Size = new System.Drawing.Size(1456, 239);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "groupBox3";
@@ -2002,7 +2183,7 @@
             this.tCBn1.Location = new System.Drawing.Point(3, 16);
             this.tCBn1.Name = "tCBn1";
             this.tCBn1.SelectedIndex = 1;
-            this.tCBn1.Size = new System.Drawing.Size(1176, 220);
+            this.tCBn1.Size = new System.Drawing.Size(1450, 220);
             this.tCBn1.TabIndex = 0;
             this.tCBn1.TabsSpacing = 5;
             // 
@@ -2010,7 +2191,7 @@
             // 
             this.tabBn1Ptt.Location = new System.Drawing.Point(1, 24);
             this.tabBn1Ptt.Name = "tabBn1Ptt";
-            this.tabBn1Ptt.Size = new System.Drawing.Size(1174, 195);
+            this.tabBn1Ptt.Size = new System.Drawing.Size(1448, 195);
             this.tabBn1Ptt.TabIndex = 0;
             this.tabBn1Ptt.Text = "patient";
             // 
@@ -2018,25 +2199,105 @@
             // 
             this.tabBn1Visit.Location = new System.Drawing.Point(1, 24);
             this.tabBn1Visit.Name = "tabBn1Visit";
-            this.tabBn1Visit.Size = new System.Drawing.Size(1174, 195);
+            this.tabBn1Visit.Size = new System.Drawing.Size(1448, 195);
             this.tabBn1Visit.TabIndex = 1;
             this.tabBn1Visit.Text = "Visit";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.panel3);
+            this.groupBox2.Controls.Add(this.panel4);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1182, 555);
+            this.groupBox2.Size = new System.Drawing.Size(1456, 555);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
+            // 
+            // panel3
+            // 
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 61);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1450, 491);
+            this.panel3.TabIndex = 2;
+            // 
+            // panel4
+            // 
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(3, 16);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1450, 45);
+            this.panel4.TabIndex = 1;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(166, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(119, 17);
+            this.checkBox1.TabIndex = 7;
+            this.checkBox1.Text = "ทำนัด  เลขที่ใบเสร็จ";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.textBox2.Location = new System.Drawing.Point(291, 12);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(60, 26);
+            this.textBox2.TabIndex = 50;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label66.Location = new System.Drawing.Point(357, 18);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(43, 16);
+            this.label66.TabIndex = 51;
+            this.label66.Text = "วันที่นัด";
+            // 
+            // txtVisitDate
+            // 
+            this.txtVisitDate.AllowSpinLoop = false;
+            this.txtVisitDate.BorderColor = System.Drawing.SystemColors.WindowFrame;
+            this.txtVisitDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // 
+            // 
+            this.txtVisitDate.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
+            this.txtVisitDate.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtVisitDate.Culture = 1054;
+            this.txtVisitDate.CurrentTimeZone = false;
+            this.txtVisitDate.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtVisitDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtVisitDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtVisitDate.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtVisitDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtVisitDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtVisitDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtVisitDate.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtVisitDate.Location = new System.Drawing.Point(403, 18);
+            this.txtVisitDate.Name = "txtVisitDate";
+            this.txtVisitDate.Size = new System.Drawing.Size(98, 18);
+            this.txtVisitDate.TabIndex = 549;
+            this.txtVisitDate.Tag = null;
+            this.txtVisitDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // FrmSmartCardNoteBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1184, 819);
+            this.ClientSize = new System.Drawing.Size(1458, 819);
             this.Controls.Add(this.tC1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmSmartCardNoteBook";
@@ -2046,6 +2307,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_picPhoto)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picPtt)).EndInit();
@@ -2067,6 +2332,8 @@
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tCBn1)).EndInit();
             this.tCBn1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtVisitDate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2239,6 +2506,25 @@
         private System.Windows.Forms.RadioButton chkPCR1500;
         private System.Windows.Forms.RadioButton chkCentralPark;
         private System.Windows.Forms.RadioButton chkATKFree;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.RadioButton chkInfluenza;
+        private System.Windows.Forms.RadioButton chkModorna;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RadioButton chkInfluenza9;
+        private System.Windows.Forms.RadioButton chkInfluenza8;
+        private System.Windows.Forms.RadioButton chkInfluenza7;
+        private System.Windows.Forms.RadioButton chkInfluenza6;
+        private System.Windows.Forms.RadioButton chkInfluenza5;
+        private System.Windows.Forms.RadioButton chkInfluenza4;
+        private System.Windows.Forms.RadioButton chkInfluenza3;
+        private System.Windows.Forms.RadioButton chkInfluenza2;
+        private System.Windows.Forms.RadioButton chkInfluenza1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label66;
+        private C1.Win.C1Input.C1DateEdit txtVisitDate;
     }
 }
 

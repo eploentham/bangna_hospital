@@ -914,7 +914,7 @@ namespace bangna_hospital.gui
         private void setSearch()
         {
             Patient ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(txtPttHn.Text.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(txtPttHn.Text.Trim());
             //showFormWaiting();
             String allergy = "";
             if (ptt.Name.Length <= 0)

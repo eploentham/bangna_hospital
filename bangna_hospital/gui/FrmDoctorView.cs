@@ -104,7 +104,7 @@ namespace bangna_hospital.gui
         {
             String hn = "", pttname = "";
             Patient ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
             hn = txtHn.Text;
             openNewForm(hn, ptt.Name);
         }

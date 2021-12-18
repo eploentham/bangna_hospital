@@ -33,7 +33,6 @@ namespace bangna_hospital.gui
         List<int> lPaidCntErr, lPaidCnt;
         C1FlexGrid grf2, grf11;
         DataTable dtChk, dtChkGrp;
-
         public FrmBillLabCheck(BangnaControl x)
         {
             InitializeComponent();
@@ -96,7 +95,6 @@ namespace bangna_hospital.gui
                 }
                 PrinterSettings settings1 = new PrinterSettings();
                 //settings1.PrinterName = ;
-
             }
             catch (Exception ex)
             {
@@ -477,96 +475,109 @@ namespace bangna_hospital.gui
             {
                 lItm.Clear();
                 String line;
-                while ((line = streamReader.ReadLine()) != null)
+                try
                 {
-                    findPaid = false;
-                    String[] line1 = line.Split('|');
-                    String hn = "", date = "", year = "", month = "", date1 = "", paidtype = "", labcode = "", name = "", fntype = "", price = "", labname = "", netprice="",col1="";
-                    if (i == 0)
+                    while ((line = streamReader.ReadLine()) != null)
                     {
-                        int day = 0;
+                        findPaid = false;
+                        String[] line1 = line.Split('|');
+                        if (line1.Length <= 1) continue;
+                        if (i == 17939)
+                        {
+                            String sql = "";
+                        }
+                        String hn = "", date = "", year = "", month = "", date1 = "", paidtype = "", labcode = "", name = "", fntype = "", price = "", labname = "", netprice = "", col1 = "";
+                        if (i == 0)
+                        {
+                            int day = 0;
+                            hn = line1[2];
+                            date = line1[1];
+                            year = date.Substring(date.Length - 4);
+                            month = date.Substring(3, 2);
+                            date1 = date.Substring(0, 2);
+                            int.TryParse(date1, out day);
+                            if (hn.Substring(0, 1).Equals("1"))
+                            {
+                                chkBn1.Checked = true;
+                                chkBn2.Checked = false;
+                                chkBn5.Checked = false;
+                            }
+                            else if (hn.Substring(0, 1).Equals("2"))
+                            {
+                                chkBn1.Checked = false;
+                                chkBn2.Checked = true;
+                                chkBn5.Checked = false;
+                            }
+                            else if (hn.Substring(0, 1).Equals("5"))
+                            {
+                                chkBn1.Checked = false;
+                                chkBn2.Checked = false;
+                                chkBn5.Checked = true;
+                            }
+                            cboYear.Text = year;
+                            cboMonth.Text = bc.getMonth(month);
+                            if (day <= 15)
+                            {
+                                cboPeriod.Text = "1";
+                            }
+                            else
+                            {
+                                cboPeriod.Text = "2";
+                            }
+                        }
+                        col1 = line1[0];
                         hn = line1[2];
-                        date = line1[1];                        
-                        year = date.Substring(date.Length - 4);
-                        month = date.Substring(3,2);
-                        date1 = date.Substring(0, 2);
-                        int.TryParse(date1, out day);
-                        if (hn.Substring(0, 1).Equals("1"))
+                        date = line1[1];
+                        name = line1[3];
+                        paidtype = line1[4];
+                        price = line1[5];
+                        labcode = line1[7];
+                        labname = line1[8];
+                        netprice = line1[6];
+                        foreach (String paid in lPaid)
                         {
-                            chkBn1.Checked = true;
-                            chkBn2.Checked = false;
-                            chkBn5.Checked = false;
+                            if (paid.Equals(paidtype))
+                            {
+                                findPaid = true;
+                            }
                         }
-                        else if (hn.Substring(0, 1).Equals("2"))
+                        if (!findPaid)
                         {
-                            chkBn1.Checked = false;
-                            chkBn2.Checked = true;
-                            chkBn5.Checked = false;
+                            lPaid.Add(paidtype);
+                            lPaidCntErr.Add(0);
+                            lPaidCnt.Add(0);
                         }
-                        else if (hn.Substring(0, 1).Equals("5"))
-                        {
-                            chkBn1.Checked = false;
-                            chkBn2.Checked = false;
-                            chkBn5.Checked = true;
-                        }
-                        cboYear.Text = year;
-                        cboMonth.Text = bc.getMonth(month);
-                        if (day <= 15)
-                        {
-                            cboPeriod.Text = "1";
-                        }
-                        else
-                        {
-                            cboPeriod.Text = "2";
-                        }
+                        DataRow row1 = dtChk.NewRow();
+                        row1["row1"] = i;
+                        row1["lab_code"] = labcode;
+                        row1["lab_name"] = labname;
+                        row1["qty"] = 1;
+                        row1["price"] = price;
+                        row1["net_price"] = netprice;
+                        row1["amount"] = labcode;
+                        row1["paidtype"] = paidtype;
+                        row1["status_chk"] = "0";
+                        row1["ptt_name"] = name;
+                        row1["date"] = date;
+                        row1["hn"] = hn;
+                        row1["col1"] = col1;
+                        //dtChk.Columns.Add("lab_name", typeof(String));
+                        //dtChk.Columns.Add("qty", typeof(int));
+                        //dtChk.Columns.Add("price", typeof(String));
+                        //dtChk.Columns.Add("net_price", typeof(String));
+                        //dtChk.Columns.Add("amount", typeof(String));
+                        //dtChk.Rows.InsertAt(row1, i);
+                        dtChk.Rows.Add(row1);
+                        listBox1.Items.Add(line + "|0|0");
+                        lItm.Add(line + "|0|0");
+                        i++;
                     }
-                    col1 = line1[0];
-                    hn = line1[2];
-                    date = line1[1];
-                    name = line1[3];
-                    paidtype = line1[4];
-                    price = line1[5];
-                    labcode = line1[7];
-                    labname = line1[8];
-                    netprice = line1[6];
-                    foreach (String paid in lPaid)
-                    {
-                        if (paid.Equals(paidtype))
-                        {
-                            findPaid = true;
-                        }
-                    }
-                    if (!findPaid)
-                    {
-                        lPaid.Add(paidtype);
-                        lPaidCntErr.Add(0);
-                        lPaidCnt.Add(0);
-                    }
-                    DataRow row1 = dtChk.NewRow();
-                    row1["row1"] = i;
-                    row1["lab_code"] = labcode;
-                    row1["lab_name"] = labname;
-                    row1["qty"] = 1;
-                    row1["price"] = price;
-                    row1["net_price"] = netprice;
-                    row1["amount"] = labcode;
-                    row1["paidtype"] = paidtype;
-                    row1["status_chk"] = "0";
-                    row1["ptt_name"] = name;
-                    row1["date"] = date;
-                    row1["hn"] = hn;
-                    row1["col1"] = col1;
-                    //dtChk.Columns.Add("lab_name", typeof(String));
-                    //dtChk.Columns.Add("qty", typeof(int));
-                    //dtChk.Columns.Add("price", typeof(String));
-                    //dtChk.Columns.Add("net_price", typeof(String));
-                    //dtChk.Columns.Add("amount", typeof(String));
-                    //dtChk.Rows.InsertAt(row1, i);
-                    dtChk.Rows.Add(row1);
-                    listBox1.Items.Add(line+"|0|0");
-                    lItm.Add(line + "|0|0");
-                    i++;
                 }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("error i = "+i+" "+ex.Message, "");
+                }
+                
                 btnCheck.Enabled = true;
                 label6.Text = "จำนวนข้อมูล "+i;
             }
@@ -912,9 +923,7 @@ namespace bangna_hospital.gui
                 else
                     e.HasMorePages = false;
             }
-
             //line = null;
-            
         }
 
         private void FrmBillLabCheck_Load(object sender, EventArgs e)
@@ -922,7 +931,7 @@ namespace bangna_hospital.gui
             tC.SelectedTab = tab1;
             tC.ShowTabs = false;
 
-            this.Text = "13-09-19 " + bc.iniC.hostDB + " " + bc.iniC.nameDB;
+            this.Text = "07-12-21 " + bc.iniC.hostDB + " " + bc.iniC.nameDB;
         }
     }
 }

@@ -35,6 +35,6 @@ namespace bangna_hospital.object1
         public String imageCC_width = "", imageME_width = "", imageDiag_width = "", imageCC_Height = "", imageME_Height = "", imageDiag_Height = "";
 
         public String OPD_BTEMP = "", OPD_SBP = "", OPD_DBP = "", OPD_PR = "", OPD_RR = "", opbkkhcode = "";
-        public String statusSmartCardNoDatabase = "", lab_code="", printerStaffNote="", printerLeter="", printerA5 = "", printerQueue = "", pathSaveExcelNovel="";
+        public String statusSmartCardNoDatabase = "", lab_code="", printerStaffNote="", printerLeter="", printerA5 = "", printerQueue = "", pathSaveExcelNovel="", statusSmartCardvaccine="";
     }
 }

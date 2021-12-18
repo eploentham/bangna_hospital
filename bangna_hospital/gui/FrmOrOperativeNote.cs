@@ -754,7 +754,7 @@ namespace bangna_hospital.gui
                 return;
             }
 
-            ptt = bc.bcDB.pttDB.selectPatinet(operNote.patient_hn);
+            ptt = bc.bcDB.pttDB.selectPatient(operNote.patient_hn);
             bc.operative_note_precidures_1 = operNote.procidures_1;     // ต้องใส่ เพราะเวลา save รูปเมื่อแก้ไข จะได้ไหมหาย
             bc.operative_note_finding_1 = operNote.finding_1;     // ต้องใส่ เพราะเวลา save รูปเมื่อแก้ไข จะได้ไหมหาย
             bc.hn = operNote.patient_hn;

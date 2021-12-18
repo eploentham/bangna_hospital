@@ -1736,7 +1736,7 @@ namespace bangna_hospital.gui
                 }
                 else
                 {
-                    ptt = bc.bcDB.pttDB.selectPatinet(m_txtID.Text.Trim());
+                    ptt = bc.bcDB.pttDB.selectPatient(m_txtID.Text.Trim());
                     if (ptt.Hn.Length > 0)
                     {
                         DateTime dob = new DateTime();

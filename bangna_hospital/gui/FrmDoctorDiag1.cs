@@ -88,7 +88,7 @@ namespace bangna_hospital.gui
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
             ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ptt = bc.bcDB.pttDB.selectPatient(hn);
 
             InitComponent();
             bc.readFinding();
@@ -111,7 +111,7 @@ namespace bangna_hospital.gui
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
             ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ptt = bc.bcDB.pttDB.selectPatient(hn);
 
             initConfig();
             BuildAutocompleteMenu();

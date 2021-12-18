@@ -1,0 +1,1348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+    <dd:Name xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">lab_result</dd:Name>
+    <PageHeader>
+        <Height>1.868056in</Height>
+        <PrintOnFirstPage>true</PrintOnFirstPage>
+        <PrintOnLastPage>true</PrintOnLastPage>
+        <ReportItems>
+            <Textbox Name="patientdep1">
+                <Height>0.2368056in</Height>
+                <Left>0.3333333in</Left>
+                <Value>=Fields!patient_dep.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.5833333in</Top>
+                <Width>1.166667in</Width>
+            </Textbox>
+            <Textbox Name="patienttype1">
+                <Height>0.2368056in</Height>
+                <Left>1.166667in</Left>
+                <Value>=Fields!patient_type.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.8333333in</Top>
+                <Width>1.477083in</Width>
+            </Textbox>
+            <Textbox Name="Text8">
+                <Height>0.25in</Height>
+                <Left>0.3333333in</Left>
+                <Value>ประเภทผู้ป่วย :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.8333333in</Top>
+                <Width>0.8333333in</Width>
+            </Textbox>
+            <Textbox Name="Text9">
+                <Height>0.3333333in</Height>
+                <Left>0.3333333in</Left>
+                <Value>ใบรายงานผล LAB</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>16pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>1.083333in</Top>
+                <Width>1.25in</Width>
+            </Textbox>
+            <Textbox Name="patientname1">
+                <Height>0.25in</Height>
+                <Left>3.5in</Left>
+                <Value>=Fields!patient_name.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.08333334in</Top>
+                <Width>2.333333in</Width>
+            </Textbox>
+            <Textbox Name="requestno1">
+                <Height>0.25in</Height>
+                <Left>3.5in</Left>
+                <Value>=Fields!request_no.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.5833333in</Top>
+                <Width>1.416667in</Width>
+            </Textbox>
+            <Textbox Name="patienthn1">
+                <Height>0.25in</Height>
+                <Left>3.5in</Left>
+                <Value>=Fields!patient_hn.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.3395833in</Top>
+                <Width>1.5in</Width>
+            </Textbox>
+            <Textbox Name="doctor1">
+                <Height>0.25in</Height>
+                <Left>3.25in</Left>
+                <Value>=Fields!doctor.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.8333333in</Top>
+                <Width>2.5in</Width>
+            </Textbox>
+            <Textbox Name="patientcompany1">
+                <Height>0.25in</Height>
+                <Left>3.25in</Left>
+                <Value>=Fields!patient_company.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>1.083333in</Top>
+                <Width>2.5in</Width>
+            </Textbox>
+            <Textbox Name="Text7">
+                <Height>0.25in</Height>
+                <Left>2.666667in</Left>
+                <Value>บริษัท :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>1.083333in</Top>
+                <Width>0.4166667in</Width>
+            </Textbox>
+            <Textbox Name="Text6">
+                <Height>0.25in</Height>
+                <Left>2.666667in</Left>
+                <Value>แพทย์ :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.8333333in</Top>
+                <Width>0.4166667in</Width>
+            </Textbox>
+            <Textbox Name="Text5">
+                <Height>0.25in</Height>
+                <Left>2.666667in</Left>
+                <Value>เลขที่ใบสั่ง :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.5833333in</Top>
+                <Width>0.6666667in</Width>
+            </Textbox>
+            <Textbox Name="Text2">
+                <Height>0.25in</Height>
+                <Left>2.666667in</Left>
+                <Value>ชื่อ-สกุลผู้ป่วย :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.08333334in</Top>
+                <Width>0.8333333in</Width>
+            </Textbox>
+            <Textbox Name="Text11">
+                <Height>0.25in</Height>
+                <Left>5.833333in</Left>
+                <Value>VN :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.3395833in</Top>
+                <Width>0.3333333in</Width>
+            </Textbox>
+            <Textbox Name="Text13">
+                <Height>0.25in</Height>
+                <Left>5.75in</Left>
+                <Value>  วันที่ออกผล :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.8333333in</Top>
+                <Width>0.75in</Width>
+            </Textbox>
+            <Textbox Name="printdate1">
+                <Height>0.2368056in</Height>
+                <Left>6.583333in</Left>
+                <Value>=Fields!print_date.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.8333333in</Top>
+                <Width>1.25in</Width>
+            </Textbox>
+            <Textbox Name="resultdate1">
+                <Height>0.25in</Height>
+                <Left>6.25in</Left>
+                <Value>=Fields!result_date.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.5833333in</Top>
+                <Width>1.583333in</Width>
+            </Textbox>
+            <Textbox Name="Text12">
+                <Height>0.25in</Height>
+                <Left>5.833333in</Left>
+                <Value>วันที่ :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.5833333in</Top>
+                <Width>0.4166667in</Width>
+            </Textbox>
+            <Textbox Name="patientvn1">
+                <Height>0.25in</Height>
+                <Left>6.25in</Left>
+                <Value>=Fields!patient_vn.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.3395833in</Top>
+                <Width>1.583333in</Width>
+            </Textbox>
+            <Textbox Name="patientage1">
+                <Height>0.25in</Height>
+                <Left>6.25in</Left>
+                <Value>=Fields!patient_age.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.08819444in</Top>
+                <Width>1.583333in</Width>
+            </Textbox>
+            <Textbox Name="Text10">
+                <Height>0.25in</Height>
+                <Left>5.833333in</Left>
+                <Value>อายุ :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.08819444in</Top>
+                <Width>0.3333333in</Width>
+            </Textbox>
+            <Textbox Name="Text27">
+                <Height>0.25in</Height>
+                <Left>2.666667in</Left>
+                <Value>HN :</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.3333333in</Top>
+                <Width>0.6666667in</Width>
+            </Textbox>
+            <Line Name="Line1">
+                <Height>0in</Height>
+                <Left>0.08333334in</Left>
+                <Style>
+                    <Color>Black</Color>
+                    <BorderStyle>
+                        <Default>Dashed</Default>
+                    </BorderStyle>
+                    <BorderWidth>
+                        <Default>0.25pt</Default>
+                    </BorderWidth>
+                </Style>
+                <Top>1.493056in</Top>
+                <Width>7.666667in</Width>
+            </Line>
+            <Textbox Name="Text15">
+                <Height>0.25in</Height>
+                <Left>1.963194in</Left>
+                <Value>DESCRRIPTION</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>1.5in</Top>
+                <Width>1in</Width>
+            </Textbox>
+            <Textbox Name="Text16">
+                <Height>0.25in</Height>
+                <Left>5.083333in</Left>
+                <Value>RESULT</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>1.5in</Top>
+                <Width>0.5833333in</Width>
+            </Textbox>
+            <Line Name="Line2">
+                <Height>0in</Height>
+                <Left>0.08333334in</Left>
+                <Style>
+                    <Color>Black</Color>
+                    <BorderStyle>
+                        <Default>Dashed</Default>
+                    </BorderStyle>
+                    <BorderWidth>
+                        <Default>0.25pt</Default>
+                    </BorderWidth>
+                </Style>
+                <Top>1.826389in</Top>
+                <Width>7.666667in</Width>
+            </Line>
+            <Textbox Name="line11">
+                <Height>0.25in</Height>
+                <Left>0.3333333in</Left>
+                <Value>=Fields!line1.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Angsana New</FontFamily>
+                    <FontSize>18pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.08333334in</Top>
+                <Width>2.333333in</Width>
+            </Textbox>
+        </ReportItems>
+        <Style />
+    </PageHeader>
+    <Body>
+        <Height>1.347222in</Height>
+        <ReportItems>
+            <CustomReportItem Name="ParentBandedList">
+                <Type>BandedList</Type>
+                <Width>8.033334in</Width>
+                <Height>1.347222in</Height>
+                <CustomData>
+                    <DataSetName>DataSet1</DataSetName>
+                    <DataRowGroupings>
+                        <DataGroupings>
+                            <DataGrouping>
+                                <Grouping Name="Group1">
+                                    <GroupExpressions>
+                                        <GroupExpression>=Fields!result_lab_request_no.Value</GroupExpression>
+                                    </GroupExpressions>
+                                </Grouping>
+                                <Sorting>
+                                    <SortBy>
+                                        <Direction>Ascending</Direction>
+                                        <SortExpression>=Fields!result_lab_request_no.Value</SortExpression>
+                                    </SortBy>
+                                </Sorting>
+                                <dd:Container xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">
+                                    <ReportItems>
+                                        <Textbox Name="GroupNamerequestno1">
+                                            <Height>0.1534722in</Height>
+                                            <Value>=Fields!result_lab_request_no.Value</Value>
+                                            <Style>
+                                                <BackgroundColor>White</BackgroundColor>
+                                                <Color>Black</Color>
+                                                <FontFamily>Arial</FontFamily>
+                                                <FontSize>10pt</FontSize>
+                                                <FontWeight>700</FontWeight>
+                                                <Format>=""</Format>
+                                                <TextAlign>General</TextAlign>
+                                                <BorderColor>
+                                                    <Default>Black</Default>
+                                                </BorderColor>
+                                                <BorderStyle>
+                                                    <Bottom>=""</Bottom>
+                                                    <Left>=""</Left>
+                                                    <Right>=""</Right>
+                                                    <Top>=""</Top>
+                                                </BorderStyle>
+                                            </Style>
+                                            <Width>1.773611in</Width>
+                                        </Textbox>
+                                    </ReportItems>
+                                </dd:Container>
+                                <DataGroupings>
+                                    <DataGrouping>
+                                        <Grouping Name="Group2">
+                                            <GroupExpressions>
+                                                <GroupExpression>=Fields!result_lab_mnc_lb_grp_dsc.Value</GroupExpression>
+                                            </GroupExpressions>
+                                        </Grouping>
+                                        <Sorting>
+                                            <SortBy>
+                                                <Direction>Ascending</Direction>
+                                                <SortExpression>=Fields!result_lab_mnc_lb_grp_dsc.Value</SortExpression>
+                                            </SortBy>
+                                        </Sorting>
+                                        <dd:Container xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">
+                                            <ReportItems>
+                                                <Textbox Name="Text1">
+                                                    <Height>0.25in</Height>
+                                                    <Left>0.6666667in</Left>
+                                                    <Value>กลุ่มทำการ :</Value>
+                                                    <Style>
+                                                        <BackgroundColor>White</BackgroundColor>
+                                                        <Color>Black</Color>
+                                                        <FontFamily>Angsana New</FontFamily>
+                                                        <FontSize>16pt</FontSize>
+                                                        <TextAlign>Left</TextAlign>
+                                                        <BorderColor>
+                                                            <Default>Black</Default>
+                                                        </BorderColor>
+                                                        <BorderStyle>
+                                                            <Bottom>=""</Bottom>
+                                                            <Left>=""</Left>
+                                                            <Right>=""</Right>
+                                                            <Top>=""</Top>
+                                                        </BorderStyle>
+                                                    </Style>
+                                                    <Width>0.8333333in</Width>
+                                                </Textbox>
+                                                <Textbox Name="GroupNamemnclbgrpdsc1">
+                                                    <Height>0.25in</Height>
+                                                    <Left>1.5in</Left>
+                                                    <Value>=Fields!result_lab_mnc_lb_grp_dsc.Value</Value>
+                                                    <Style>
+                                                        <BackgroundColor>White</BackgroundColor>
+                                                        <Color>Black</Color>
+                                                        <FontFamily>Angsana New</FontFamily>
+                                                        <FontSize>16pt</FontSize>
+                                                        <FontWeight>700</FontWeight>
+                                                        <Format>=""</Format>
+                                                        <TextAlign>General</TextAlign>
+                                                        <BorderColor>
+                                                            <Default>Black</Default>
+                                                        </BorderColor>
+                                                        <BorderStyle>
+                                                            <Bottom>=""</Bottom>
+                                                            <Left>=""</Left>
+                                                            <Right>=""</Right>
+                                                            <Top>=""</Top>
+                                                        </BorderStyle>
+                                                    </Style>
+                                                    <Width>3.333333in</Width>
+                                                </Textbox>
+                                            </ReportItems>
+                                        </dd:Container>
+                                        <DataGroupings>
+                                            <DataGrouping>
+                                                <Grouping Name="Group3">
+                                                    <GroupExpressions>
+                                                        <GroupExpression>=Fields!result_lab_mnc_lb_dsc.Value</GroupExpression>
+                                                    </GroupExpressions>
+                                                </Grouping>
+                                                <Sorting>
+                                                    <SortBy>
+                                                        <Direction>Ascending</Direction>
+                                                        <SortExpression>=Fields!result_lab_mnc_lb_dsc.Value</SortExpression>
+                                                    </SortBy>
+                                                </Sorting>
+                                                <dd:Container xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">
+                                                    <ReportItems>
+                                                        <Textbox Name="GroupNamemnclbdsc1">
+                                                            <Height>0.1534722in</Height>
+                                                            <Left>0.4166667in</Left>
+                                                            <Value>=Fields!result_lab_mnc_lb_dsc.Value</Value>
+                                                            <Style>
+                                                                <BackgroundColor>White</BackgroundColor>
+                                                                <Color>Black</Color>
+                                                                <FontFamily>Arial</FontFamily>
+                                                                <FontSize>10pt</FontSize>
+                                                                <FontWeight>700</FontWeight>
+                                                                <Format>=""</Format>
+                                                                <TextAlign>General</TextAlign>
+                                                                <BorderColor>
+                                                                    <Default>Black</Default>
+                                                                </BorderColor>
+                                                                <BorderStyle>
+                                                                    <Bottom>=""</Bottom>
+                                                                    <Left>=""</Left>
+                                                                    <Right>=""</Right>
+                                                                    <Top>=""</Top>
+                                                                </BorderStyle>
+                                                            </Style>
+                                                            <Width>5in</Width>
+                                                        </Textbox>
+                                                    </ReportItems>
+                                                </dd:Container>
+                                                <DataGroupings>
+                                                    <DataGrouping>
+                                                        <dd:Container xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">
+                                                            <ReportItems>
+                                                                <Textbox Name="mncres1">
+                                                                    <Height>0.1534722in</Height>
+                                                                    <Left>1.75in</Left>
+                                                                    <Value>=Fields!mnc_res.Value</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>Arial</FontFamily>
+                                                                        <FontSize>10pt</FontSize>
+                                                                        <Format>=""</Format>
+                                                                        <TextAlign>General</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Width>1.916667in</Width>
+                                                                </Textbox>
+                                                                <Textbox Name="mncresvalue1">
+                                                                    <Height>0.25in</Height>
+                                                                    <Left>4.190278in</Left>
+                                                                    <Value>=Fields!mnc_res_value.Value</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>AngsanaUPC</FontFamily>
+                                                                        <FontSize>16pt</FontSize>
+                                                                        <FontWeight>700</FontWeight>
+                                                                        <Format>=""</Format>
+                                                                        <TextAlign>Center</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Width>1.286806in</Width>
+                                                                </Textbox>
+                                                                <Textbox Name="mncresunt1">
+                                                                    <Height>0.1534722in</Height>
+                                                                    <Left>6.333333in</Left>
+                                                                    <Value>=Fields!mnc_res_unt.Value</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>Arial</FontFamily>
+                                                                        <FontSize>10pt</FontSize>
+                                                                        <Format>=""</Format>
+                                                                        <TextAlign>General</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Visibility>
+                                                                        <Hidden>true</Hidden>
+                                                                    </Visibility>
+                                                                    <Width>1.416667in</Width>
+                                                                </Textbox>
+                                                                <Textbox Name="mncresmin1">
+                                                                    <Height>0.1534722in</Height>
+                                                                    <Left>4.5in</Left>
+                                                                    <Value>=Fields!mnc_res_min.Value</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>Arial</FontFamily>
+                                                                        <FontSize>10pt</FontSize>
+                                                                        <Format>=""</Format>
+                                                                        <TextAlign>General</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Visibility>
+                                                                        <Hidden>true</Hidden>
+                                                                    </Visibility>
+                                                                    <Width>0.75in</Width>
+                                                                </Textbox>
+                                                                <Textbox Name="mncresmax1">
+                                                                    <Height>0.1534722in</Height>
+                                                                    <Left>5.5in</Left>
+                                                                    <Value>=Fields!mnc_res_max.Value</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>Arial</FontFamily>
+                                                                        <FontSize>10pt</FontSize>
+                                                                        <Format>=""</Format>
+                                                                        <TextAlign>General</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Visibility>
+                                                                        <Hidden>true</Hidden>
+                                                                    </Visibility>
+                                                                    <Width>0.8333333in</Width>
+                                                                </Textbox>
+                                                                <Textbox Name="Text14">
+                                                                    <Height>0.1458333in</Height>
+                                                                    <Left>5.25in</Left>
+                                                                    <Value>-</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>Arial</FontFamily>
+                                                                        <FontSize>10pt</FontSize>
+                                                                        <TextAlign>Center</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Visibility>
+                                                                        <Hidden>true</Hidden>
+                                                                    </Visibility>
+                                                                    <Width>0.25in</Width>
+                                                                </Textbox>
+                                                                <Textbox Name="mnclbdsc1">
+                                                                    <Height>0.1534722in</Height>
+                                                                    <Left>0.5833333in</Left>
+                                                                    <Value>=Fields!mnc_lb_dsc.Value</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>Arial</FontFamily>
+                                                                        <FontSize>10pt</FontSize>
+                                                                        <Format>=""</Format>
+                                                                        <TextAlign>General</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Visibility>
+                                                                        <Hidden>true</Hidden>
+                                                                    </Visibility>
+                                                                    <Width>2.083333in</Width>
+                                                                </Textbox>
+                                                                <Textbox Name="Field1">
+                                                                    <Height>0.25in</Height>
+                                                                    <Left>5.916667in</Left>
+                                                                    <Value>if ToText ({result_lab.mnc_res_min})="0.00" then {result_lab.mnc_res_unt} else ToText ({result_lab.mnc_res_min})+" - "+ToText ({result_lab.mnc_res_max})+" "+{result_lab.mnc_res_unt}</Value>
+                                                                    <Style>
+                                                                        <BackgroundColor>White</BackgroundColor>
+                                                                        <Color>Black</Color>
+                                                                        <FontFamily>AngsanaUPC</FontFamily>
+                                                                        <FontSize>16pt</FontSize>
+                                                                        <Format>=""</Format>
+                                                                        <TextAlign>General</TextAlign>
+                                                                        <BorderColor>
+                                                                            <Default>Black</Default>
+                                                                        </BorderColor>
+                                                                        <BorderStyle>
+                                                                            <Bottom>=""</Bottom>
+                                                                            <Left>=""</Left>
+                                                                            <Right>=""</Right>
+                                                                            <Top>=""</Top>
+                                                                        </BorderStyle>
+                                                                    </Style>
+                                                                    <Width>2in</Width>
+                                                                </Textbox>
+                                                                <Line Name="Line5">
+                                                                    <Height>0in</Height>
+                                                                    <Left>3.666667in</Left>
+                                                                    <Style>
+                                                                        <Color>Black</Color>
+                                                                        <BorderStyle>
+                                                                            <Default>Dashed</Default>
+                                                                        </BorderStyle>
+                                                                        <BorderWidth>
+                                                                            <Default>0.25pt</Default>
+                                                                        </BorderWidth>
+                                                                    </Style>
+                                                                    <Top>0.25in</Top>
+                                                                    <Width>2.166667in</Width>
+                                                                </Line>
+                                                            </ReportItems>
+                                                        </dd:Container>
+                                                    </DataGrouping>
+                                                </DataGroupings>
+                                            </DataGrouping>
+                                        </DataGroupings>
+                                    </DataGrouping>
+                                </DataGroupings>
+                            </DataGrouping>
+                        </DataGroupings>
+                    </DataRowGroupings>
+                </CustomData>
+                <BandedListConfig xmlns="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition/">
+  <HeaderBand>
+    <Height>0.03472222in</Height>
+  </HeaderBand>
+  <FooterBand>
+    <Height>0in</Height>
+  </FooterBand>
+  <Groups>
+    <Group Name="Group1">
+      <HeaderBand>
+        <Height>0.1534722in</Height>
+        <ReportItems>
+          <ReportItemReference Name="GroupNamerequestno1" />
+        </ReportItems>
+      </HeaderBand>
+      <FooterBand>
+        <Height>0.1527778in</Height>
+      </FooterBand>
+    </Group>
+    <Group Name="Group2">
+      <HeaderBand>
+        <Height>0.25in</Height>
+        <ReportItems>
+          <ReportItemReference Name="Text1" />
+          <ReportItemReference Name="GroupNamemnclbgrpdsc1" />
+        </ReportItems>
+      </HeaderBand>
+      <FooterBand>
+        <Height>0.1527778in</Height>
+      </FooterBand>
+    </Group>
+    <Group Name="Group3">
+      <HeaderBand>
+        <Height>0.1798611in</Height>
+        <ReportItems>
+          <ReportItemReference Name="GroupNamemnclbdsc1" />
+        </ReportItems>
+      </HeaderBand>
+      <FooterBand>
+        <Height>0.1527778in</Height>
+      </FooterBand>
+    </Group>
+  </Groups>
+  <Details>
+    <Height>0.2708333in</Height>
+    <ReportItems>
+      <ReportItemReference Name="mncres1" />
+      <ReportItemReference Name="mncresvalue1" />
+      <ReportItemReference Name="mncresunt1" />
+      <ReportItemReference Name="mncresmin1" />
+      <ReportItemReference Name="mncresmax1" />
+      <ReportItemReference Name="Text14" />
+      <ReportItemReference Name="mnclbdsc1" />
+      <ReportItemReference Name="Field1" />
+      <ReportItemReference Name="Line5" />
+    </ReportItems>
+  </Details>
+</BandedListConfig>
+            </CustomReportItem>
+        </ReportItems>
+        <Style />
+    </Body>
+    <PageFooter>
+        <Height>0.4479167in</Height>
+        <PrintOnFirstPage>true</PrintOnFirstPage>
+        <PrintOnLastPage>true</PrintOnLastPage>
+        <ReportItems>
+            <Line Name="Line3">
+                <Height>0in</Height>
+                <Style>
+                    <Color>Black</Color>
+                    <BorderStyle>
+                        <Default>Dashed</Default>
+                    </BorderStyle>
+                    <BorderWidth>
+                        <Default>0.25pt</Default>
+                    </BorderWidth>
+                </Style>
+                <Top>0.04861111in</Top>
+                <Width>7.833333in</Width>
+            </Line>
+            <Line Name="Line4">
+                <Height>0in</Height>
+                <Style>
+                    <Color>Black</Color>
+                    <BorderStyle>
+                        <Default>Dashed</Default>
+                    </BorderStyle>
+                    <BorderWidth>
+                        <Default>0.25pt</Default>
+                    </BorderWidth>
+                </Style>
+                <Top>0.4305556in</Top>
+                <Width>7.833333in</Width>
+            </Line>
+            <Textbox Name="Text17">
+                <Height>0.25in</Height>
+                <Left>0.1666667in</Left>
+                <Value>ผู้บันทึก</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.1666667in</Top>
+                <Width>0.5833333in</Width>
+            </Textbox>
+            <Textbox Name="Text18">
+                <Height>0.25in</Height>
+                <Left>2.588194in</Left>
+                <Value>ผู้รายงานผล</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.1666667in</Top>
+                <Width>0.75in</Width>
+            </Textbox>
+            <Textbox Name="Text19">
+                <Height>0.25in</Height>
+                <Left>5.166667in</Left>
+                <Value>ผู้ตรวจสอบผล</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Left</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.1666667in</Top>
+                <Width>0.8333333in</Width>
+            </Textbox>
+            <Textbox Name="userlab1">
+                <Height>0.2638889in</Height>
+                <Left>0.6666667in</Left>
+                <Value>=Fields!user_lab.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.1666667in</Top>
+                <Width>1.916667in</Width>
+            </Textbox>
+            <Textbox Name="userreport1">
+                <Height>0.2638889in</Height>
+                <Left>3.333333in</Left>
+                <Value>=Fields!user_report.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.1666667in</Top>
+                <Width>1.916667in</Width>
+            </Textbox>
+            <Textbox Name="usercheck1">
+                <Height>0.2638889in</Height>
+                <Left>6.083333in</Left>
+                <Value>=Fields!user_check.Value</Value>
+                <Style>
+                    <BackgroundColor>White</BackgroundColor>
+                    <Color>Black</Color>
+                    <FontFamily>Cordia New</FontFamily>
+                    <FontSize>14pt</FontSize>
+                    <Format>=""</Format>
+                    <TextAlign>General</TextAlign>
+                    <BorderColor>
+                        <Default>Black</Default>
+                    </BorderColor>
+                    <BorderStyle>
+                        <Bottom>=""</Bottom>
+                        <Left>=""</Left>
+                        <Right>=""</Right>
+                        <Top>=""</Top>
+                    </BorderStyle>
+                </Style>
+                <Top>0.1666667in</Top>
+                <Width>1.833333in</Width>
+            </Textbox>
+        </ReportItems>
+        <Style />
+    </PageFooter>
+    <Width>8.033334in</Width>
+    <ReportParameters>
+        <ReportParameter Name="line1">
+            <DataType>String</DataType>
+            <Nullable>true</Nullable>
+            <Prompt>Enter line1:</Prompt>
+        </ReportParameter>
+    </ReportParameters>
+    <DataSources>
+        <DataSource Name="DataSource1" />
+    </DataSources>
+    <DataSets>
+        <DataSet Name="DataSet1">
+            <Fields>
+                <Field Name="mnc_lb_grp_cd">
+                    <DataField>mnc_lb_grp_cd</DataField>
+                </Field>
+                <Field Name="mnc_lb_dsc">
+                    <DataField>mnc_lb_dsc</DataField>
+                </Field>
+                <Field Name="mnc_res">
+                    <DataField>mnc_res</DataField>
+                </Field>
+                <Field Name="mnc_res_value">
+                    <DataField>mnc_res_value</DataField>
+                </Field>
+                <Field Name="mnc_lb_res">
+                    <DataField>mnc_lb_res</DataField>
+                </Field>
+                <Field Name="mnc_res_unt">
+                    <DataField>mnc_res_unt</DataField>
+                </Field>
+                <Field Name="patient_name">
+                    <DataField>patient_name</DataField>
+                </Field>
+                <Field Name="patient_hn">
+                    <DataField>patient_hn</DataField>
+                </Field>
+                <Field Name="request_no">
+                    <DataField>request_no</DataField>
+                </Field>
+                <Field Name="doctor">
+                    <DataField>doctor</DataField>
+                </Field>
+                <Field Name="patient_company">
+                    <DataField>patient_company</DataField>
+                </Field>
+                <Field Name="patient_age">
+                    <DataField>patient_age</DataField>
+                </Field>
+                <Field Name="patient_vn">
+                    <DataField>patient_vn</DataField>
+                </Field>
+                <Field Name="result_date">
+                    <DataField>result_date</DataField>
+                </Field>
+                <Field Name="print_date">
+                    <DataField>print_date</DataField>
+                </Field>
+                <Field Name="patient_dep">
+                    <DataField>patient_dep</DataField>
+                </Field>
+                <Field Name="patient_type">
+                    <DataField>patient_type</DataField>
+                </Field>
+                <Field Name="user_lab">
+                    <DataField>user_lab</DataField>
+                </Field>
+                <Field Name="user_report">
+                    <DataField>user_report</DataField>
+                </Field>
+                <Field Name="user_check">
+                    <DataField>user_check</DataField>
+                </Field>
+                <Field Name="mnc_res_min">
+                    <DataField>mnc_res_min</DataField>
+                </Field>
+                <Field Name="mnc_res_max">
+                    <DataField>mnc_res_max</DataField>
+                </Field>
+                <Field Name="mnc_lb_grp_dsc">
+                    <DataField>mnc_lb_grp_dsc</DataField>
+                </Field>
+            </Fields>
+            <Query>
+                <CommandText />
+                <DataSourceName>DataSource1</DataSourceName>
+            </Query>
+        </DataSet>
+    </DataSets>
+</Report>

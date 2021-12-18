@@ -1048,9 +1048,6 @@ namespace bangna_hospital.gui
                         }
                     }
 
-
-
-
                     //    if (sheet[row, 0].Value == null) continue;
                     //tmtcode = sheet[row, 0].Value != null ? sheet[row, 0].Value.ToString() : "";
                     //sheet[row, colcost].Value = cost[1];

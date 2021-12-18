@@ -63,6 +63,38 @@ namespace bangna_hospital.objdb
             vacc = setVaccine(dt);
             return vacc;
         }
+        public DataTable SelectDoseByPID(String pid)
+        {
+            DataTable dt = new DataTable();
+            Vaccine vacc = new Vaccine();
+            String sql = "select * " +
+                "From t_reserve_vaccine_dose " +
+                "Where pid ='" + pid + "' Order By reserve_vaccine_dose_id desc";
+            dt = conn.selectDataMySQL(conn.connMySQL, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            //vacc = setVaccine(dt);
+            return dt;
+        }
+        public String updateDoseDOBAddress1(String id, String address, String dob, String dateInjected)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update t_reserve_vaccine_dose Set " +
+                    "address1 = '"+ address.Replace("'","''") + "' "+
+                    ",dob = '" + dob + "' " +
+                    ",status_inject = '1' " +
+                     ",date_injected = '"+ dateInjected + "' " +
+                    "Where reserve_vaccine_dose_id = '" + id + "'";
+                chk = conn.ExecuteNonQuery(conn.connMySQL, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " LabM01DB updateDoseDOB error " + ex.InnerException);
+            }
+            return chk;
+        }
         public String updateStatusPayment(String labcode)
         {
             String sql = "", chk = "";

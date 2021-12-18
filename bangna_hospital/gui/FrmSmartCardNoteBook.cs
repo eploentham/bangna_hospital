@@ -416,6 +416,7 @@ namespace bangna_hospital.gui
             ptt.MNC_FN_TYP_CD = txtPaidType.Text.Trim();
             String chkdate = "";
             DateTime chkdate1 = new DateTime();
+            ptt.MNC_SEX = ptt.MNC_SEX.Equals("ชาย") ? ptt.MNC_SEX = "M" : ptt.MNC_SEX.Equals("หญิง") ? "F": ptt.MNC_SEX.ToLower().Equals("male") ? "M": ptt.MNC_SEX.ToLower().Equals("memale") ? "F": "";
 
             chkdate = ptt.patient_birthday.Length <= 0 ? m_txtBrithDate.Text.Trim() : ptt.patient_birthday;
             DateTime chkdate2 = new DateTime();
@@ -551,7 +552,7 @@ namespace bangna_hospital.gui
                 PID = txtPPID.Text.Trim();
                 ptt = bc.bcDB.pttDB.selectPatinetByPID(PID, "pid");
                 setPatientPP(ptt);
-
+                
                 txtPPPassport.SelectAll();
                 txtPPPassport.Focus();
             }
@@ -848,7 +849,7 @@ namespace bangna_hospital.gui
             quetype = cboQueue.SelectedItem == null ? "" : ((ComboBoxItem)cboQueue.SelectedItem).Value;
             queue = bc.bcDB.queueDB.selectQueueNext(txtVsdate.Text, quetype);
             txtQue.Text = queue.queue_seq;
-
+            txtPPFirstnameT.Text = "";
             lab = chkSE184.Checked ? bc.bcDB.labM01DB.SelectByPk("SE184") : chkSE629.Checked ? bc.bcDB.labM01DB.SelectByPk("SE629") : bc.bcDB.labM01DB.SelectByPk("SE640");
             
         }
@@ -1239,8 +1240,8 @@ namespace bangna_hospital.gui
 
         private void label1_Click(object sender, EventArgs e)
         {
-            FrmReportNew frm = new FrmReportNew("C:\\Users\\Ekapop\\Documents\\GrapeCity Samples\\ActiveReports 11\\Section Reports\\Preview\\RDFViewer\\C#\\RDFViewer\\RDFs\\Invoice.rdf");
-            frm.ShowDialog(this);
+            //FrmReportNew frm = new FrmReportNew("C:\\Users\\Ekapop\\Documents\\GrapeCity Samples\\ActiveReports 11\\Section Reports\\Preview\\RDFViewer\\C#\\RDFViewer\\RDFs\\Invoice.rdf");
+            //frm.ShowDialog(this);
         }
 
         private void Document_PrintPage_LabReqNo(object sender, PrintPageEventArgs e){
@@ -1743,7 +1744,7 @@ namespace bangna_hospital.gui
                 }
                 else
                 {
-                    ptt = bc.bcDB.pttDB.selectPatinet(m_txtID.Text.Trim());
+                    ptt = bc.bcDB.pttDB.selectPatient(m_txtID.Text.Trim());
                     if (ptt.Hn.Length > 0)
                     {
                         DateTime dob = new DateTime();
@@ -1858,7 +1859,7 @@ namespace bangna_hospital.gui
             ptt.MNC_REF_ADD = txtRefAddrNo.Text.Trim();
             ptt.MNC_REF_MOO = txtRefMoo.Text.Trim();
             ptt.MNC_REF_SOI = txtRefSoi.Text.Trim();
-
+            
             String chkdate = "";
             DateTime chkdate1 = new DateTime();
 
@@ -1887,6 +1888,39 @@ namespace bangna_hospital.gui
             //ptt.mnc_ref
 
             //String re = bc.bcDB.pttDB.insert(ptt);
+            if (bc.iniC.statusSmartCardvaccine.Equals("1"))
+            {
+                if (chkInfluenza.Checked)
+                {
+                    if (!chkInfluenza1.Checked && !chkInfluenza2.Checked && !chkInfluenza3.Checked && !chkInfluenza4.Checked && !chkInfluenza5.Checked
+                    && !chkInfluenza6.Checked && !chkInfluenza7.Checked && !chkInfluenza8.Checked && !chkInfluenza9.Checked)
+                    {
+                        MessageBox.Show("vaccine ไข้หวัดใหญ๋  กรุณาเลือกกลุ่ม ", "");
+                        return;
+                    }
+                }
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnPatientNew_Click", "insert patient_temp "+ ptt.MNC_ID_NO);
+                txtPPFirstnameT.Text = "";
+                ptt.MNC_ID_NO = m_txtID.Text.Trim();
+                ptt.MNC_FULL_ADD = m_txtAddress.Text.Trim();
+
+                ptt.MNC_FNAME_T = m_txtFullNameT.Text.Trim();
+                ptt.MNC_FNAME_E = m_txtFullNameE.Text.Trim();
+                ptt.MNC_BDAY = m_txtBrithDate.Text.Trim();
+                ptt.passport = txtPPPassport.Text.Trim();
+                long chk1 = 0;
+                String re1 = bc.bcDB.pttDB.insertPatientTemp(ptt, chkModorna.Checked ? "1":"0",chkInfluenza1.Checked?"1": chkInfluenza2.Checked?"2": chkInfluenza3.Checked?"3": chkInfluenza4.Checked?"4": chkInfluenza5.Checked?"5"
+                    : chkInfluenza6.Checked?"6": chkInfluenza7.Checked?"7": chkInfluenza8.Checked?"8": chkInfluenza9.Checked?"9":"0");
+                if (long.TryParse(re1, out chk1))
+                {
+                    txtPPFirstnameT.Text = m_txtFullNameT.Text;
+                }
+                else
+                {
+                    MessageBox.Show("error " + re1, "");
+                }
+                return;
+            }
             String re = bc.bcDB.pttDB.insertPatient(ptt);
             long chk = 0;
             if(long.TryParse(re, out chk))
@@ -2574,6 +2608,18 @@ namespace bangna_hospital.gui
             m_txtReaderID.Text = "";
             m_picPhoto.Image = null;
             button2.Image = null;
+            m_txtGender.Text = "";
+            txtPPID.Text = "";
+            txtPPPassport.Text = "";
+            txtPPFirstnameT.Text = "";
+            txtPPMiddlenameT.Text = "";
+            txtPPLastnameT.Text = "";
+            txtPPFirstnameE.Text = "";
+            txtPPMiddlenameE.Text = "";
+            txtPPLastnameE.Text = "";
+            txtHn.Text = "";
+
+
         }
 
         private void m_ListReaderCard_Click(object sender, EventArgs e)
@@ -2935,13 +2981,27 @@ namespace bangna_hospital.gui
             {
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmSmartCard_Load", "FrmSmartCard_Load");
             }
-            this.Text += " Update 2021-11-02";
+            this.Text += " Update 2021-12-13";
             btnPatientNew.Enabled = false;
             tC1.SelectedTab = tabPttNew;
             tCBn1.SelectedTab = tabBn1Ptt;
             this.WindowState = FormWindowState.Maximized;
             chkATKFree.Checked = true;
             setSymptom();
+            if (bc.iniC.statusSmartCardvaccine.Equals("1"))
+            {
+                groupBox1.Hide();
+                groupBox4.Show();
+            }
+            else
+            {
+                groupBox1.Show();
+                groupBox4.Hide();
+            }
+            groupBox4.Width = groupBox1.Width;
+            groupBox4.Height = groupBox1.Height;
+            groupBox4.Location = groupBox1.Location;
+            //groupBox4.Top = txtRemark.Top + 30;
         }
     }
 }

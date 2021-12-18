@@ -30,6 +30,7 @@ namespace bangna_hospital.gui
         private void InitializeComponent()
         {
             this.arvMain = new GrapeCity.ActiveReports.Viewer.Win.Viewer();
+            this.pdfExport1 = new GrapeCity.ActiveReports.Export.Pdf.Section.PdfExport();
             this.SuspendLayout();
             // 
             // arvMain
@@ -72,6 +73,10 @@ namespace bangna_hospital.gui
             this.arvMain.Size = new System.Drawing.Size(1013, 761);
             this.arvMain.TabIndex = 0;
             // 
+            // pdfExport1
+            // 
+            this.pdfExport1.Pagination = true;
+            // 
             // FrmReportNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -88,5 +93,6 @@ namespace bangna_hospital.gui
         #endregion
 
         private GrapeCity.ActiveReports.Viewer.Win.Viewer arvMain;
+        private GrapeCity.ActiveReports.Export.Pdf.Section.PdfExport pdfExport1;
     }
 }

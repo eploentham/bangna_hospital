@@ -219,7 +219,7 @@ namespace bangna_hospital.gui
             {
                 String allergy = "";
                 Patient ptt = new Patient();
-                ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+                ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
                 
                 if (ptt.Name.Length <= 0)
                 {
@@ -559,7 +559,7 @@ namespace bangna_hospital.gui
             //tab.Text = "HN ";
             //tC1.Controls.Add(tab);
             Patient ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ptt = bc.bcDB.pttDB.selectPatient(hn);
             //hn = txtHn.Text;
             if (ptt.Name.Length <= 0)
             {

@@ -79,6 +79,7 @@
     <Reference Include="C1.Win.C1SplitContainer.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1SuperTooltip.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Themes.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=594a0605db190bb9, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1TileControl.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.Calendar.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.FlexChart.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=3aa2920c09e0aefd" />
     <Reference Include="C1.Win.FlexReport.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
@@ -88,10 +89,12 @@
       <HintPath>..\packages\DotNetZip.1.13.5\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
     <Reference Include="GrapeCity.ActiveReports.Document.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Export.Document.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Export.Excel.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Export.Image.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Export.Pdf.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Export.Word.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
+    <Reference Include="GrapeCity.ActiveReports.Extensibility.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="GrapeCity.ActiveReports.Viewer.Win.v11, Version=11.3.13058.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff, processorArchitecture=MSIL" />
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
@@ -134,6 +137,12 @@
     </Compile>
     <Compile Include="FrmScanView2.Designer.cs">
       <DependentUpon>FrmScanView2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmCheckup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmCheckup.Designer.cs">
+      <DependentUpon>FrmCheckup.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmLabBill.cs">
       <SubType>Form</SubType>
@@ -333,6 +342,12 @@
     <Compile Include="gui\FrmSearchStaff.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="gui\FrmVaccineInsurExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmVaccineInsurExcel.Designer.cs">
+      <DependentUpon>FrmVaccineInsurExcel.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmXrayPACsAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -518,6 +533,7 @@
     <Compile Include="object1\CellNoteManager1.cs" />
     <Compile Include="object1\District.cs" />
     <Compile Include="object1\DotDfDetail.cs" />
+    <Compile Include="object1\ExportHelper.cs" />
     <Compile Include="object1\FinanceM01.cs" />
     <Compile Include="object1\FinanceM02.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
@@ -664,6 +680,9 @@
     <EmbeddedResource Include="gui\FrmBillLabCheck.resx">
       <DependentUpon>FrmBillLabCheck.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmCheckup.resx">
+      <DependentUpon>FrmCheckup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDocGroupFm.resx">
       <DependentUpon>FrmDocGroupFm.cs</DependentUpon>
     </EmbeddedResource>
@@ -768,6 +787,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSplash.resx">
       <DependentUpon>FrmSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmVaccineInsurExcel.resx">
+      <DependentUpon>FrmVaccineInsurExcel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmWaiting.resx">
       <DependentUpon>FrmWaiting.cs</DependentUpon>

@@ -82,6 +82,7 @@ namespace bangna_hospital.objdb
             ptt.MNC_CUR_ROAD = "MNC_CUR_ROAD";
             ptt.MNC_COM_CD = "MNC_COM_CD";
             ptt.MNC_COM_CD2 = "MNC_COM_CD2";
+            ptt.passport = "passport";
 
             ptt.pkField = "";
             ptt.table = "patient_m01";
@@ -134,7 +135,7 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
-        public Patient selectPatinet(String hn)
+        public Patient selectPatient(String hn)
         {
             DataTable dt = new DataTable();
             String sql = "";
@@ -625,6 +626,21 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
+        public String insertPatientTemp(Patient p, String statusInflue, String InflueGroup)
+        {
+            String sql = "", chk = "", hn = "";
+            long hn1 = 0;
+            //new LogWriter("d", "insert Patient p.MNC_HN_NO.Length " + p.MNC_ID_NO.Length);
+            //if (p.MNC_ID_NO.Length <= 0)
+            //{
+                chk = insertTemp(p, statusInflue, InflueGroup);
+            //}
+            //else
+            //{
+            //    chk = updateTemp(p);
+            //}
+            return chk;
+        }
         public String insert(Patient p)
         {
             String sql = "", chk = "", hn="";
@@ -746,7 +762,99 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 chk = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "update Patient sql " + sql + " ex " + chk);
+            }
+            return chk;
+        }
+        public String insertTemp(Patient p, String statusInflue, String InflueGroup)
+        {
+            String sql = "", chk = "", hn = "";
+            long hn1 = 0;
+            try
+            {
+                chkNull(p);
+                //hn = selectHnMax();
+                //long.TryParse(hn, out hn1);
+                //hn1++;
+                //hn = hn1.ToString();
+                sql = "Insert Into patient_vaccine(" + ptt.MNC_PFIX_CDT + "," +
+                    ptt.MNC_PFIX_CDE + "," + ptt.MNC_FNAME_T + "," + ptt.MNC_LNAME_T + "," +
+                    ptt.MNC_FNAME_E + "," + ptt.MNC_LNAME_E + "," + ptt.MNC_AGE + "," +
+                    ptt.MNC_BDAY + "," + ptt.MNC_ID_NO + "," + ptt.MNC_SS_NO + "," +
+
+                    ptt.MNC_CUR_ADD + "," + ptt.MNC_CUR_TUM + "," + ptt.MNC_CUR_AMP + "," +
+                    ptt.MNC_CUR_CHW + "," + ptt.MNC_CUR_POC + "," + ptt.MNC_CUR_TEL + "," +
+                    ptt.MNC_DOM_ADD + "," + ptt.MNC_DOM_TUM + "," + ptt.MNC_DOM_AMP + "," +
+                    ptt.MNC_DOM_CHW + "," + ptt.MNC_DOM_POC + "," + ptt.MNC_DOM_TEL + "," +
+                    ptt.MNC_REF_NAME + "," + ptt.MNC_REF_ADD + "," + ptt.MNC_REF_TUM + "," +
+                    ptt.MNC_REF_AMP + "," + ptt.MNC_REF_CHW + "," + ptt.MNC_REF_POC + "," +
+                    ptt.MNC_REF_TEL + "," + ptt.MNC_CUR_MOO + "," + ptt.MNC_DOM_MOO + "," +
+                    ptt.MNC_REF_MOO + "," + ptt.MNC_CUR_SOI + "," + ptt.MNC_DOM_SOI + "," +
+                    ptt.MNC_REF_SOI + "," + ptt.MNC_FN_TYP_CD + "," + ptt.MNC_ATT_NOTE + "," +
+
+                    ptt.MNC_SEX + "," + ptt.MNC_FULL_ADD + "," + ptt.MNC_STAMP_DAT + "," +
+                    ptt.MNC_STAMP_TIM + "," + ptt.MNC_COM_CD + "," + ptt.MNC_COM_CD2 + "," + ptt.passport + ",status_vaccine_influenza_group,status_vaccine_influenza " +
+                    ") " +
+                    "Values('" + p.MNC_PFIX_CDT + "','" +
+                    p.MNC_PFIX_CDE + "','" + p.MNC_FNAME_T.Replace("'", "''") + "','" + p.MNC_LNAME_T.Replace("'", "''") + "','" +
+                    p.MNC_FNAME_E.Replace("'", "''") + "','" + p.MNC_LNAME_E.Replace("'", "''") + "','" + p.MNC_AGE + "','" +
+                    p.MNC_BDAY + "','" + p.MNC_ID_NO + "','" + p.MNC_SS_NO + "','" +
+
+                    p.MNC_CUR_ADD.Replace("'", "''") + "','" + p.MNC_CUR_TUM + "','" + p.MNC_CUR_AMP + "','" +
+                    p.MNC_CUR_CHW + "','" + p.MNC_CUR_POC + "','" + p.MNC_CUR_TEL.Replace("'", "''") + "','" +
+                    p.MNC_DOM_ADD.Replace("'", "''") + "','" + p.MNC_DOM_TUM + "','" + p.MNC_DOM_AMP + "','" +
+                    p.MNC_DOM_CHW + "','" + p.MNC_DOM_POC + "','" + p.MNC_DOM_TEL + "','" +
+                    p.MNC_REF_NAME.Replace("'", "''") + "','" + p.MNC_REF_ADD.Replace("'", "''") + "','" + p.MNC_REF_TUM + "','" +
+                    p.MNC_REF_AMP + "','" + p.MNC_REF_CHW + "','" + p.MNC_REF_POC + "','" +
+                    p.MNC_REF_TEL.Trim().Replace("'", "''") + "','" + p.MNC_CUR_MOO.Replace("หมู่ที่", "").Trim().Replace("'", "''") + "','" + p.MNC_DOM_MOO.Replace("หมู่ที่", "").Trim().Replace("'", "''") + "','" +
+                    p.MNC_REF_MOO.Replace("หมู่ที่", "").Trim().Replace("'", "''") + "','" + p.MNC_CUR_SOI.Trim().Replace("'", "''") + "','" + p.MNC_DOM_SOI.Trim().Replace("'", "''") + "','" +
+                    p.MNC_REF_SOI.Trim().Replace("'", "''") + "','" + p.MNC_FN_TYP_CD + "','" + p.MNC_ATT_NOTE.Replace("'", "''") + "','" +
+
+                    p.MNC_SEX + "','" + p.MNC_FULL_ADD.Replace("'", "''") + "',convert(varchar(20), getdate(),23)," +
+                    "REPLACE(convert(varchar(5),getdate(),108),':',''),'17352','17352','" +p.passport+"','"+ InflueGroup + "','" + statusInflue + "' " +
+                    ") ";
+                new LogWriter("e", "insert Patient sql " + sql );
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                new LogWriter("d", "insert Patient chk " + chk);
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "insert Patient sql " + sql + " ex " + chk);
+            }
+            return chk;
+        }
+        public String updateTemp(Patient p)
+        {
+            String sql = "", chk = "", hn = "";
+            long hn1 = 0;
+            try
+            {
+                chkNull(p);
+                sql = "Update patient_vaccine Set "
+                    + " " + ptt.MNC_PFIX_CDT + " = '" + p.MNC_PFIX_CDT + "' "
+                    + "," + ptt.MNC_PFIX_CDE + " = '" + p.MNC_PFIX_CDE + "' "
+                    + "," + ptt.MNC_FNAME_T + " = '" + p.MNC_FNAME_T.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_LNAME_T + " = '" + p.MNC_LNAME_T.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_FNAME_E + " = '" + p.MNC_FNAME_E.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_LNAME_E + " = '" + p.MNC_LNAME_E.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_BDAY + " = '" + p.MNC_BDAY + "' "
+                    + "," + ptt.MNC_SS_NO + " = '" + p.MNC_SS_NO + "' "
+                    + "," + ptt.MNC_CUR_TEL + " = '" + p.MNC_CUR_TEL + "' "
+                    + "," + ptt.MNC_DOM_TEL + " = '" + p.MNC_DOM_TEL + "' "
+                    + "," + ptt.MNC_REF_NAME + " = '" + p.MNC_REF_NAME.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_REF_TEL + " = '" + p.MNC_REF_TEL + "' "
+                    + "," + ptt.MNC_STAMP_DAT + " = convert(varchar(20), getdate(),23) "
+                    + "," + ptt.MNC_STAMP_TIM + " = REPLACE(convert(varchar(5),getdate(),108),':','') "
+                    + " "
+                    + "Where MNC_ID_NO = '" + p.MNC_ID_NO + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                new LogWriter("d", "update Temp chk " + chk + " MNC_FNAME_T " + p.MNC_FNAME_T + " MNC_LNAME_T " + p.MNC_LNAME_T+ " MNC_ID_NO " + p.MNC_ID_NO);
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateTemp sql " + sql + " ex " + chk);
             }
             return chk;
         }

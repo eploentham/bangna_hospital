@@ -37,7 +37,7 @@ namespace bangna_hospital.gui
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEditBig = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
             ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ptt = bc.bcDB.pttDB.selectPatient(hn);
 
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("Template 1", new EventHandler(ContextMenu_Template1));

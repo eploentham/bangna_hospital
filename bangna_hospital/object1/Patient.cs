@@ -72,7 +72,7 @@ namespace bangna_hospital.object1
         public String MNC_COM_CD { get; set; }
         public String MNC_COM_CD2 { get; set; }
         public String passport { get; set; }
-
+        public String filename { get; set; }
         public String AgeString()
         {
             String re = "";

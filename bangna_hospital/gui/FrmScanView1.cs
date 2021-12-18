@@ -12,7 +12,7 @@ using C1.Win.C1Input;
 using C1.Win.C1Ribbon;
 using C1.Win.C1SplitContainer;
 using C1.Win.FlexViewer;
-
+using GrapeCity.ActiveReports.Viewer.Win.Internal.Export;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -2014,7 +2014,7 @@ namespace bangna_hospital.gui
         }
         private void setControlHN()
         {
-            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
             txtName.Value = ptt.Name;
             tcDtr.SelectedTab = tabStfNote;
             //lbAge.Text = "อายุ " + ptt.AgeStringShort();
@@ -5475,6 +5475,7 @@ namespace bangna_hospital.gui
             {
                 showLbLoading();
                 //MessageBox.Show("11", "");
+
                 String pathFolder = setExportSSOtoFolder();
 
                 Process.Start("explorer.exe", pathFolder);
@@ -5483,9 +5484,10 @@ namespace bangna_hospital.gui
         }
         private String setExportSSOtoFolder()
         {
-            String pathFolder = "", datetick = "";
+            String pathFolder = "", datetick = "", errline="";
+            errline = "0";
             Patient ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
             //64-11-16  อ้วนให้แก้ Folder เป็น PID
 
             //datetick = DateTime.Now.Ticks.ToString();
@@ -5503,9 +5505,11 @@ namespace bangna_hospital.gui
             C1PdfDocument pdfdocS = new C1PdfDocument();
             C1PdfDocument pdfdocL = new C1PdfDocument();
             C1PdfDocument pdfdocX = new C1PdfDocument();
+            List<DataTable> dtLabList = new List<DataTable>();
             int rowi = 0,rowcnt=0;
             foreach (Row row in grfPrn.Rows)
             {
+                if (row[colPrnSSOchk] == null) continue;
                 if (row[colPrnSSOchk].ToString().Equals("True"))
                 {
                     rowcnt++;
@@ -5513,11 +5517,13 @@ namespace bangna_hospital.gui
             }
             foreach (Row row in grfPrn.Rows)
             {
+                if (row[colPrnSSOchk] == null) continue;
                 if (row[colPrnSSOchk].ToString().Equals("True"))
                 {
                     rowi++;
                     try
                     {
+                        errline = "";
                         Image stffnoteR, stffnoteS;
                         String preno1 = "", file = "", dd = "", mm = "", yy = "", filename = "", vsdate = "",vn = "", preno = "";
                         int chk = 0;
@@ -5540,7 +5546,7 @@ namespace bangna_hospital.gui
                         stffnoteR.Save(pathFolder + filename + "_R.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                         stffnoteS.Save(pathFolder + filename + "_S.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                         new LogWriter("d", "FrmScanView1 setExportSSOtoFolder hn "+txtHn.Text.Trim()+" vsdate "+yy+mm+dd+" preno "+preno1+ " rowi " + rowi+" rowcnt "+ rowcnt);
-
+                        errline = "01";
                         Image loadedImage, resizedImage = null;
                         loadedImage = stffnoteR;
                         float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
@@ -5600,55 +5606,59 @@ namespace bangna_hospital.gui
                         {
                             pdfdocS.NewPage();
                         }
-
+                        errline = "02";
                         //LAB
-                        DataTable dtLab = new DataTable();                        
+                        DataTable dtLab = new DataTable();
                         dtLab = setPrintLabPrnSSO(vn, preno, chk+"-"+mm+"-"+dd);
                         if (dtLab.Rows.Count > 0)
                         {
-                            new LogWriter("d", "FrmScanView1 setExportSSOtoFolder have data " + txtHn.Text.Trim() + " vsdate " + yy + mm + dd + " preno " + preno1 + " rowi " + rowi + " rowcnt " + dtLab.Rows.Count);
-                            filename = bc.exportResultLab(dtLab, txtHn.Text.Trim(), vn, "", pathFolder);
-                            Application.DoEvents();
-                            for (int i = 1; i <= 30; i++)
-                            {
-                                if (File.Exists(filename.Replace(".jpg", "") + "_page" + i + ".jpg"))
-                                {
-                                    loadedImage = null;
-                                    resizedImage = null;
-                                    loadedImage = Image.FromFile(filename.Replace(".jpg", "") + "_page" + i + ".jpg");
-                                    newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
-                                    newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
-
-                                    widthFactor = 1.5F;
-                                    heightFactor = 1.5F;
-
-                                    if (widthFactor > 1 | heightFactor > 1)
-                                    {
-                                        if (widthFactor > heightFactor)
-                                        {
-                                            widthFactor = 1;
-                                            newWidth = newWidth / widthFactor;
-                                            newHeight = newHeight / widthFactor;
-                                            //newWidth = newWidth / 1.2;
-                                            //newHeight = newHeight / 1.2;
-                                        }
-                                        else
-                                        {
-                                            newWidth = newWidth / heightFactor;
-                                            newHeight = newHeight / heightFactor;
-                                        }
-                                    }
-
-                                    recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
-                                    pdfdocL.DrawImage(loadedImage, recf);
-                                    pdfdocL.NewPage();
-                                }
-                            }
-                            //Thread.Sleep(200);
-                            //Application.DoEvents();
-                            //pdfdocL.Save(pathFolder + "\\" + txtHn.Text + "_L.pdf");
+                            dtLabList.Add(dtLab);
                         }
+                        //if (dtLab.Rows.Count > 0)
+                        //{
+                        //    new LogWriter("d", "FrmScanView1 setExportSSOtoFolder have data " + txtHn.Text.Trim() + " vsdate " + yy + mm + dd + " preno " + preno1 + " rowi " + rowi + " rowcnt " + dtLab.Rows.Count);
+                        //    filename = bc.exportResultLab(dtLab, txtHn.Text.Trim(), vn, "", pathFolder);
+                        //    Application.DoEvents();
+                        //    for (int i = 1; i <= 30; i++)
+                        //    {
+                        //        if (File.Exists(filename.Replace(".jpg", "") + "_page" + i + ".jpg"))
+                        //        {
+                        //            loadedImage = null;
+                        //            resizedImage = null;
+                        //            loadedImage = Image.FromFile(filename.Replace(".jpg", "") + "_page" + i + ".jpg");
+                        //            newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+                        //            newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
 
+                        //            widthFactor = 1.5F;
+                        //            heightFactor = 1.5F;
+
+                        //            if (widthFactor > 1 | heightFactor > 1)
+                        //            {
+                        //                if (widthFactor > heightFactor)
+                        //                {
+                        //                    widthFactor = 1;
+                        //                    newWidth = newWidth / widthFactor;
+                        //                    newHeight = newHeight / widthFactor;
+                        //                    //newWidth = newWidth / 1.2;
+                        //                    //newHeight = newHeight / 1.2;
+                        //                }
+                        //                else
+                        //                {
+                        //                    newWidth = newWidth / heightFactor;
+                        //                    newHeight = newHeight / heightFactor;
+                        //                }
+                        //            }
+
+                        //            recf = new RectangleF(5, 5, (int)newWidth, (int)newHeight);
+                        //            pdfdocL.DrawImage(loadedImage, recf);
+                        //            pdfdocL.NewPage();
+                        //        }
+                        //    }
+                        //    //Thread.Sleep(200);
+                        //    //Application.DoEvents();
+                        //    //pdfdocL.Save(pathFolder + "\\" + txtHn.Text + "_L.pdf");
+                        //}
+                        errline = "03";
                         //Xray
                         DataTable dtXray = new DataTable();
                         dtXray = setPrintXraySSO(vn, preno, chk + "-" + mm + "-" + dd);
@@ -5697,23 +5707,41 @@ namespace bangna_hospital.gui
                     }
                     catch(Exception ex)
                     {
-                        new LogWriter("e", "FrmScanView1 setExportSSOtoFolder error "+ex.Message);
-                    }                    
+                        new LogWriter("e", "FrmScanView1 setExportSSOtoFolder errline error " + errline +" "+ ex.Message);
+                    }
                 }
             }
+            if (dtLabList.Count > 0)
+            {
+                DataTable dtlab1 = new DataTable();
+                foreach(DataTable dt in dtLabList)
+                {
+                    if(dtlab1.Rows.Count<=0)
+                        dtlab1 = dt.Clone();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        dtlab1.ImportRow(row);
+                    }
+                }
+                FrmReportNew frm = new FrmReportNew(bc, "lab_result_1");
+                frm.DT = dtlab1;
+                //frm.ShowDialog(this);
+                frm.ExportReport(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_LAB.pdf");
+            }
+
             Thread.Sleep(200);
             Application.DoEvents();
             pdfdocR.Save(pathFolder + "\\" + bc.iniC.ssoid+"_" +ptt.idcard + "_MED.pdf");
             pdfdocS.Save(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_MAIN.pdf");
-            pdfdocL.Save(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_LAB.pdf");
+            //pdfdocL.Save(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_LAB.pdf");
             pdfdocX.Save(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_XRAY.pdf");
 
             return pathFolder;
         }
+        
         private String setExportOutLabtoFolder()
         {
             String pathFolder = "", datetick = "";
-
             datetick = DateTime.Now.Ticks.ToString();
             pathFolder = bc.iniC.medicalrecordexportpath + "\\" + datetick;
             if (Directory.Exists(pathFolder))
@@ -8381,7 +8409,17 @@ namespace bangna_hospital.gui
                 preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
                 vsdate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
                 an = grfOPD[grfOPD.Row, colVsAn] != null ? grfOPD[grfOPD.Row, colVsAn].ToString() : "";
-                vsdate = bc.datetoDB(vsdate);
+                String[] aaa1 = vsdate.Split('-');
+                if (aaa1.Length == 3)
+                {
+                    vsdate = bc.datetoDBWin10EN(aaa1[0]+"-"+ aaa1[1], "20"+aaa1[2]);
+                }
+                else
+                {
+                    vsdate = bc.datetoDB(vsdate);
+                }
+                //vsdate = bc.datetoDB(vsdate);
+                
                 //if (DateTime.TryParse(vsdate, out dtt))
                 //{
                 //    vsdate = dtt.Year.ToString() + "-" + dtt.ToString("MM-dd");
@@ -8554,6 +8592,7 @@ namespace bangna_hospital.gui
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_grfscan_print));
             menuGw.MenuItems.Add("ต้องการ Print ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_print_all));
             menuGw.MenuItems.Add("ต้องการ Download ภาพนี้", new EventHandler(ContextMenu_grfscan_Download));
+            menuGw.MenuItems.Add("ต้องการ Download ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_DownloadAll));
             menuGw.MenuItems.Add("ต้องการ แก้ไข ภาพนี้", new EventHandler(ContextMenu_grfscan_Edit));
             grfScan.ContextMenu = menuGw;
             //new LogWriter("e", "FrmScanView1 setGrfScan 6 ");
@@ -8741,6 +8780,90 @@ namespace bangna_hospital.gui
             //setControlGbPtt();
             grfScan.AutoSizeCols();
             grfScan.AutoSizeRows();
+            hideLbLoading();
+        }
+        private void ContextMenu_grfscan_DownloadAll(object sender, System.EventArgs e)
+        {
+            String id = "", datetick = "", folderName="";
+            if (grfScan.Col <= 0) return;
+            if (grfScan.Row < 0) return;
+            if (grfScan.Col == 1)
+            {
+                id = grfScan[grfScan.Row, colPic2].ToString();
+            }
+            else
+            {
+                id = grfScan[grfScan.Row, colPic4].ToString();
+            }
+            dsc_id = id;
+            showLbLoading();
+            lbLoading.BringToFront();
+            try
+            {
+                if (!Directory.Exists(bc.iniC.pathDownloadFile))
+                {
+                    Directory.CreateDirectory(bc.iniC.pathDownloadFile);
+                }
+                folderName = txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-");
+                if (!Directory.Exists(bc.iniC.pathDownloadFile + "\\" + folderName))
+                {
+                    Directory.CreateDirectory(bc.iniC.pathDownloadFile + "\\" + folderName);
+                }
+                else
+                {
+                    string[] files = Directory.GetFiles(bc.iniC.pathDownloadFile + "\\" + folderName);
+                    foreach (string file in files)
+                    {
+                        File.Delete(file);
+                    }
+                }
+                Application.DoEvents();
+                //Stream streamDownload = null;
+                //MemoryStream strm = null;
+                C1PdfDocument _c1pdf = new C1.C1Pdf.C1PdfDocument();
+                _c1pdf.DocumentInfo.Producer = "C1Pdf";
+                _c1pdf.Security.AllowCopyContent = true;
+                _c1pdf.Security.AllowEditAnnotations = true;
+                _c1pdf.Security.AllowEditContent = true;
+                _c1pdf.Security.AllowPrint = true;
+                _c1pdf.SaveAllImagesAsJpeg = true;
+                _c1pdf.DocumentInfo.Title = "bangna5";
+                int i = 1, newWidth1=210;
+                foreach (listStream lstrmm in lStream)
+                {
+                    MemoryStream strm = lstrmm.stream;
+                    //strm.Seek(0, SeekOrigin.Begin);
+                    //Application.DoEvents();
+
+                    //Thread.Sleep(100);
+                    //streamDownload = lstrmm.stream;
+                    RectangleF rc;
+                    Image img = Image.FromStream(strm);
+                    Image img1 = bc.ResizeImagetoA41(img,900);
+
+                    rc = new RectangleF(10, 10, 590, 770);
+                    _c1pdf.DrawImage(img1, rc);
+                    _c1pdf.NewPage();
+                    img.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-")+"_"+i + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //img1.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //resizedImage.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                    strm.Dispose();
+                    img.Dispose();
+                    //img1.Dispose();
+                    i++;
+                    lbLoading.Text = "กรุณารอซักครู่ ... "+i+"/"+lStream.Count;
+                    Application.DoEvents();
+                }
+                _c1pdf.DocumentInfo.Title = "bangna5";
+                _c1pdf.ImageQuality = ImageQualityEnum.High;
+                _c1pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\"+txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + ".pdf");
+                Process.Start("explorer.exe", bc.iniC.pathDownloadFile + "\\" + folderName);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("error "+ex.Message, "");
+            }
             hideLbLoading();
         }
         private void ContextMenu_grfscan_Download(object sender, System.EventArgs e)
@@ -8942,7 +9065,7 @@ namespace bangna_hospital.gui
         private DataTable setPrintLabPrnSSO(String vn,String preno, String vsdate)
         {
             DataTable dt = new DataTable();
-            DataTable dtreq = new DataTable();
+            //DataTable dtreq = new DataTable();
             String an = "", xraycode = "", txt1 = "", reqdate = "", reqno = "", dtrname = "", ordname = "", orddetail = "", dtrxrname = "", resdate = "", pttcompname = "", paidname = "", depname = "";
                         
             if (vsdate.Length <= 0)
@@ -8958,8 +9081,8 @@ namespace bangna_hospital.gui
                 vn = vn.Substring(0, vn.IndexOf("/"));
             }
             dt = bc.bcDB.vsDB.selectLabbyVN1(vsdate, vsdate, txtHn.Text.Trim(), vn, preno);
-            dtreq = bc.bcDB.vsDB.selectLabRequestbyVN1(vsdate, vsdate, txtHn.Text.Trim(), preno);
-            new LogWriter("d", "FrmScanView1 setPrintLabPrnSSO preno " + preno+ " vsdate "+ vsdate +" hn "+txtHn.Text.Trim()+" vn "+vn);
+            //dtreq = bc.bcDB.vsDB.selectLabRequestbyVN1(vsdate, vsdate, txtHn.Text.Trim(), preno);
+            new LogWriter("d", "*********** FrmScanView1 setPrintLabPrnSSO preno " + preno+ " vsdate "+ vsdate +" hn "+txtHn.Text.Trim()+" vn "+vn);
 
             dt.Columns.Add("patient_name", typeof(String));
             dt.Columns.Add("patient_hn", typeof(String));
@@ -8981,6 +9104,8 @@ namespace bangna_hospital.gui
             dt.Columns.Add("sort1", typeof(String));
             foreach (DataRow drow in dt.Rows)
             {
+                //if (dtreq.Rows[0]["mnc_req_dat"] == null) continue;
+                //if (dtreq.Rows[0]["mnc_req_dat"].ToString().Equals("")) continue;
                 Boolean chkname = false;
                 chkname = txtName.Text.Any(c => !Char.IsLetterOrDigit(c));
                 if (chkname)
@@ -8991,41 +9116,50 @@ namespace bangna_hospital.gui
                 {
                     drow["patient_age"] = ptt.AgeString();
                 }
-                drow["patient_name"] = ptt.Name;
-                drow["patient_hn"] = ptt.Hn;
-                drow["patient_company"] = dtreq.Rows[0]["MNC_COM_DSC"].ToString();
+                
+                drow["patient_name"] = txtName.Text.Trim();
+                drow["patient_hn"] = txtHn.Text.Trim();
+                //drow["patient_company"] = dtreq.Rows[0]["MNC_COM_DSC"].ToString();
                 //drow["patient_age"] = ptt.Name;
-                drow["patient_vn"] = txtVN.Text;
+                //drow["patient_vn"] = txtVN.Text;
+                drow["patient_vn"] = vn;
                 //drow["patient_dep"] = ptt.Name;
-                drow["patient_type"] = dtreq.Rows[0]["MNC_FN_TYP_DSC"].ToString();
+                new LogWriter("d", "FrmScanView1 setPrintLabPrnSSO result_date " + drow["MNC_RESULT_DAT"].ToString());
+                //new LogWriter("d", "FrmScanView1 setPrintLabPrnSSO MNC_STAMP_DAT " + dtreq.Rows[0]["MNC_STAMP_DAT"].ToString());
+                //new LogWriter("d", "FrmScanView1 setPrintLabPrnSSO MNC_STAMP_DAT " + dtreq.Rows[0]["MNC_STAMP_DAT"].ToString());
+                //new LogWriter("d", "FrmScanView1 setPrintLabPrnSSO MNC_FN_TYP_DSC " + dtreq.Rows[0]["MNC_FN_TYP_DSC"].ToString());
+                drow["patient_type"] = drow["MNC_FN_TYP_DSC"].ToString();
                 drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(drow["mnc_req_dat"].ToString());
-                drow["doctor"] = dtreq.Rows[0]["dtr_name"].ToString() + "[" + dtreq.Rows[0]["mnc_dot_cd"].ToString() + "]";
-                drow["result_date"] = bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
-                drow["print_date"] = bc.datetoShow(dtreq.Rows[0]["MNC_STAMP_DAT"].ToString());
+                drow["doctor"] = drow["dtr_name"].ToString() + "[" + drow["mnc_dot_cd"].ToString() + "]";
+                //drow["result_date"] = bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
+                drow["result_date"] = bc.datetoShow(drow["MNC_RESULT_DAT"].ToString())+" "+ drow["MNC_RESULT_TIM"].ToString();
+                drow["print_date"] = bc.datetoShow(drow["MNC_STAMP_DAT"].ToString());
                 drow["user_lab"] = drow["user_lab"].ToString() + " [ทน." + drow["MNC_USR_NAME_result"].ToString() + "]";
                 drow["user_report"] = drow["user_report"].ToString() + " [ทน." + drow["MNC_USR_NAME_report"].ToString() + "]";
                 drow["user_check"] = drow["user_check"].ToString() + " [ทน." + drow["MNC_USR_NAME_approve"].ToString() + "]";
                 if (bc.iniC.branchId.Equals("005"))
                 {
-                    drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                    drow["patient_dep"] = drow["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
                     depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
                     depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
                 }
                 else if (bc.iniC.branchId.Equals("002"))
                 {
-                    drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
-                    depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
-                    depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                    //drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                    //depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
+                    //depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                    drow["patient_dep"] = drow["MNC_REQ_DEP"].ToString();
                 }
                 else if (bc.iniC.branchId.Equals("001"))
                 {
-                    drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
-                    depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
-                    depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                    //drow["patient_dep"] = dtreq.Rows[0]["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                    //depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
+                    //depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                    drow["patient_dep"] = drow["MNC_REQ_DEP"].ToString();
                 }
 
-                drow["mnc_lb_dsc"] = dtreq.Rows[0]["MNC_LB_DSC"].ToString();
-                drow["mnc_lb_grp_cd"] = dtreq.Rows[0]["MNC_LB_TYP_DSC"].ToString();
+                //drow["mnc_lb_dsc"] = dtreq.Rows[0]["MNC_LB_DSC"].ToString();
+                drow["mnc_lb_grp_cd"] = drow["MNC_LB_TYP_DSC"].ToString();
                 if (drow["MNC_RES_VALUE"].ToString().Equals("-"))
                 {
                     drow["MNC_RES_UNT"] = "";
@@ -9235,6 +9369,7 @@ namespace bangna_hospital.gui
             DataTable dt = new DataTable();
             //MessageBox.Show("hn "+hn, "");
             // query นี้ ไปดึงข้อมูล จาก patient_t01_2 ซึ่งมีข้อมูลเยอะมาก  ตัดออกได้ไหม เพราะเป็น IPD       แก้แล้ว
+            
             dt = bc.bcDB.vsDB.selectVisitByHn6(txtHn.Text,"O");
             //MessageBox.Show("01 ", "");
             int i = 1, j = 1, row = grfOPD.Rows.Count;
@@ -9507,7 +9642,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2021-11-16 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year;
+            this.Text = "Last Update 2021-11-29 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year;
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

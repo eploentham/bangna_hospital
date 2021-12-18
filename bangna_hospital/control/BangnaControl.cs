@@ -514,6 +514,7 @@ namespace bangna_hospital.control
             iniC.printerLeter = iniF.getIni("app", "printerLeter");
             iniC.printerA5 = iniF.getIni("app", "printerA5");
             iniC.printerQueue = iniF.getIni("app", "printerQueue");
+            iniC.statusSmartCardvaccine = iniF.getIni("app", "statusSmartCardvaccine");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -600,6 +601,7 @@ namespace bangna_hospital.control
             iniC.ssoid = iniC.ssoid == null ? "0" : iniC.ssoid.Equals("") ? "0" : iniC.ssoid;
             iniC.opbkkhcode = iniC.opbkkhcode == null ? "0" : iniC.opbkkhcode.Equals("") ? "0" : iniC.opbkkhcode;
             iniC.statusSmartCardNoDatabase = iniC.statusSmartCardNoDatabase == null ? "0" : iniC.statusSmartCardNoDatabase.Equals("") ? "0" : iniC.statusSmartCardNoDatabase;
+            iniC.statusSmartCardvaccine = iniC.statusSmartCardvaccine == null ? "0" : iniC.statusSmartCardvaccine.Equals("") ? "0" : iniC.statusSmartCardvaccine;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -892,6 +894,23 @@ namespace bangna_hospital.control
             dt1.AddDays(int.Parse(dd)).AddMonths(int.Parse(mm)).AddYears(int.Parse(year1));
             dt1 = new DateTime(int.Parse(year1), int.Parse(mm), int.Parse(dd));
             re = dt1.ToString("yyyy-MM-dd");
+
+            //dt1 = DateTime.Parse(dt.ToString());
+            return re;
+        }
+        public String datetoDBWin10EN(String ddMM, String year1)
+        {
+            DateTime dt1 = new DateTime();
+            String re = "", mm = "", dd = "";
+            int year = 0, mon = 0, day = 0;
+            //new LogWriter("d", "datetoDB 01" );
+            //new LogWriter("d", "datetoDB 03 iniC.windows 10 ");
+
+            dd = ddMM.Substring(0, 2);
+            mm = ddMM.Substring(3, 2);
+            dt1.AddDays(int.Parse(dd)).AddMonths(int.Parse(mm)).AddYears(int.Parse(year1));
+            dt1 = new DateTime(int.Parse(year1), int.Parse(mm), int.Parse(dd));
+            re = dt1.Year+"-"+ dt1.ToString("MM-dd");
 
             //dt1 = DateTime.Parse(dt.ToString());
             return re;
@@ -1635,6 +1654,105 @@ namespace bangna_hospital.control
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
+        }
+        private ImageCodecInfo GetEncoderInfo(ImageFormat format)
+        {
+            return ImageCodecInfo.GetImageDecoders().SingleOrDefault(c => c.FormatID == format.Guid);
+        }
+        public Bitmap ResizeImagetoA42(Bitmap image, int maxWidth, int maxHeight)
+        {
+
+            int quality = 100;
+            // Get the image's original width and height
+            int originalWidth = image.Width;
+            int originalHeight = image.Height;
+
+            // To preserve the aspect ratio
+            float ratioX = (float)maxWidth / (float)originalWidth;
+            float ratioY = (float)maxHeight / (float)originalHeight;
+            float ratio = Math.Min(ratioX, ratioY);
+
+            // New width and height based on aspect ratio
+            int newWidth = (int)(originalWidth * ratio);
+            int newHeight = (int)(originalHeight * ratio);
+
+
+            // Convert other formats (including CMYK) to RGB.
+            Bitmap newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format24bppRgb);
+
+
+            // Draws the image in the specified size with quality mode set to HighQuality
+            using (Graphics graphics = Graphics.FromImage(newImage))
+            {
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+            }
+
+            // Get an ImageCodecInfo object that represents the JPEG codec.
+            ImageCodecInfo imageCodecInfo = this.GetEncoderInfo(ImageFormat.Jpeg);
+
+            // Create an Encoder object for the Quality parameter.
+            System.Drawing.Imaging.Encoder encoder = System.Drawing.Imaging.Encoder.Quality;
+
+            // Create an EncoderParameters object. 
+            EncoderParameters encoderParameters = new EncoderParameters(1);
+
+
+            // Save the image as a JPEG file with quality level.
+            EncoderParameter encoderParameter = new EncoderParameter(encoder, quality);
+            encoderParameters.Param[0] = encoderParameter;
+            //newImage.Save(filePath, imageCodecInfo, encoderParameters);
+
+            return newImage;
+        }
+        public Bitmap ResizeImagetoA41(Image image, int width)
+        {
+            /*
+             * 
+             */
+            float plus = 3.8f;
+            float plush = 1.4f;
+            float tgtWidthMM = 210;  //A4 paper size
+            float tgtHeightMM = 297;
+            float tgtWidthInches = tgtWidthMM / 25.4f;
+            float tgtHeightInches = tgtHeightMM / 25.4f;
+            float srcWidthPx = image.Width;
+            float srcHeightPx = image.Height;
+            float dpiX = srcWidthPx / tgtWidthInches;
+            float dpiY = srcHeightPx / tgtHeightInches;
+            //int width = 900;
+            double ratio = (double)image.Width / (double)image.Height;
+            int height = Convert.ToInt32(width / ratio);
+
+            if (height > width)
+            {
+                ratio = (double)image.Height / (double)image.Width;
+                height = width;
+                width = Convert.ToInt32(height / ratio);
+            }
+
+            var destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
             destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
 
             using (var graphics = Graphics.FromImage(destImage))

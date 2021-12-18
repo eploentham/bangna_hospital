@@ -31,6 +31,8 @@
             this.pnImg = new System.Windows.Forms.Panel();
             this.pic1 = new System.Windows.Forms.PictureBox();
             this.pn = new System.Windows.Forms.Panel();
+            this.c1Button1 = new C1.Win.C1Input.C1Button();
+            this.btnSaveRotate = new C1.Win.C1Input.C1Button();
             this.btnGenSort = new C1.Win.C1Input.C1Button();
             this.txtSortMax = new C1.Win.C1Input.C1TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -63,11 +65,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.theme = new C1.Win.C1Themes.C1ThemeController();
-            this.btnSaveRotate = new C1.Win.C1Input.C1Button();
-            this.c1Button1 = new C1.Win.C1Input.C1Button();
             this.pnImg.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
             this.pn.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSaveRotate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGenSort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSort1)).BeginInit();
@@ -89,14 +91,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSaveRotate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
             this.SuspendLayout();
             // 
             // pnImg
             // 
+            this.pnImg.BackColor = System.Drawing.Color.White;
             this.pnImg.Controls.Add(this.pic1);
             this.pnImg.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnImg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.pnImg.Location = new System.Drawing.Point(0, 0);
             this.pnImg.Name = "pnImg";
             this.pnImg.Size = new System.Drawing.Size(715, 723);
@@ -114,6 +116,7 @@
             // 
             // pn
             // 
+            this.pn.BackColor = System.Drawing.Color.White;
             this.pn.Controls.Add(this.c1Button1);
             this.pn.Controls.Add(this.btnSaveRotate);
             this.pn.Controls.Add(this.btnGenSort);
@@ -148,11 +151,34 @@
             this.pn.Controls.Add(this.label4);
             this.pn.Controls.Add(this.label6);
             this.pn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.pn.Location = new System.Drawing.Point(715, 0);
             this.pn.Name = "pn";
             this.pn.Size = new System.Drawing.Size(399, 723);
             this.pn.TabIndex = 1;
             this.theme.SetTheme(this.pn, "(default)");
+            // 
+            // c1Button1
+            // 
+            this.c1Button1.Location = new System.Drawing.Point(106, 605);
+            this.c1Button1.Name = "c1Button1";
+            this.c1Button1.Size = new System.Drawing.Size(103, 49);
+            this.c1Button1.TabIndex = 565;
+            this.c1Button1.Text = "Print";
+            this.theme.SetTheme(this.c1Button1, "(default)");
+            this.c1Button1.UseVisualStyleBackColor = true;
+            this.c1Button1.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // btnSaveRotate
+            // 
+            this.btnSaveRotate.Location = new System.Drawing.Point(223, 500);
+            this.btnSaveRotate.Name = "btnSaveRotate";
+            this.btnSaveRotate.Size = new System.Drawing.Size(103, 22);
+            this.btnSaveRotate.TabIndex = 564;
+            this.btnSaveRotate.Text = "save Rotate";
+            this.theme.SetTheme(this.btnSaveRotate, "(default)");
+            this.btnSaveRotate.UseVisualStyleBackColor = true;
+            this.btnSaveRotate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnGenSort
             // 
@@ -163,22 +189,26 @@
             this.btnGenSort.Text = "gen";
             this.theme.SetTheme(this.btnGenSort, "(default)");
             this.btnGenSort.UseVisualStyleBackColor = true;
+            this.btnGenSort.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtSortMax
             // 
+            this.txtSortMax.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtSortMax.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSortMax.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtSortMax.Location = new System.Drawing.Point(106, 380);
             this.txtSortMax.Name = "txtSortMax";
             this.txtSortMax.Size = new System.Drawing.Size(136, 18);
             this.txtSortMax.TabIndex = 562;
             this.txtSortMax.Tag = null;
             this.theme.SetTheme(this.txtSortMax, "(default)");
-            this.txtSortMax.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtSortMax.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSortMax.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.White;
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label11.Location = new System.Drawing.Point(6, 380);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(66, 13);
@@ -192,9 +222,9 @@
             // 
             // 
             // 
-            this.txtSort1.Calculator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(239)))), ((int)(((byte)(255)))));
-            this.txtSort1.Calculator.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtSort1.Calculator.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort1.Calculator.BackColor = System.Drawing.Color.White;
+            this.txtSort1.Calculator.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtSort1.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtSort1.ImagePadding = new System.Windows.Forms.Padding(0);
             this.txtSort1.Location = new System.Drawing.Point(106, 404);
             this.txtSort1.Name = "txtSort1";
@@ -202,12 +232,13 @@
             this.txtSort1.TabIndex = 560;
             this.txtSort1.Tag = null;
             this.theme.SetTheme(this.txtSort1, "(default)");
-            this.txtSort1.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtSort1.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort1.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.White;
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label10.Location = new System.Drawing.Point(9, 404);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(38, 13);
@@ -224,23 +255,24 @@
             this.btnVoid.Text = "Void";
             this.theme.SetTheme(this.btnVoid, "(default)");
             this.btnVoid.UseVisualStyleBackColor = true;
+            this.btnVoid.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // chkVoid
             // 
             this.chkVoid.BackColor = System.Drawing.Color.Transparent;
-            this.chkVoid.BorderColor = System.Drawing.Color.Transparent;
+            this.chkVoid.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.chkVoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkVoid.ForeColor = System.Drawing.Color.Black;
+            this.chkVoid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkVoid.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.chkVoid.Location = new System.Drawing.Point(106, 439);
             this.chkVoid.Name = "chkVoid";
-            this.chkVoid.Padding = new System.Windows.Forms.Padding(1);
+            this.chkVoid.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
             this.chkVoid.Size = new System.Drawing.Size(134, 24);
             this.chkVoid.TabIndex = 557;
             this.chkVoid.Text = "ต้องการยกเลิกรายการ";
             this.theme.SetTheme(this.chkVoid, "(default)");
             this.chkVoid.UseVisualStyleBackColor = true;
             this.chkVoid.Value = null;
-            this.chkVoid.VisualStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             this.chkVoid.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnSaveFmCode
@@ -252,10 +284,13 @@
             this.btnSaveFmCode.Text = "save FM code";
             this.theme.SetTheme(this.btnSaveFmCode, "(default)");
             this.btnSaveFmCode.UseVisualStyleBackColor = true;
+            this.btnSaveFmCode.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtID
             // 
+            this.txtID.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtID.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtID.Location = new System.Drawing.Point(106, 23);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(41, 18);
@@ -263,8 +298,7 @@
             this.txtID.Tag = null;
             this.theme.SetTheme(this.txtID, "(default)");
             this.txtID.Visible = false;
-            this.txtID.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnSaveImg
             // 
@@ -275,6 +309,7 @@
             this.btnSaveImg.Text = "save";
             this.theme.SetTheme(this.btnSaveImg, "(default)");
             this.btnSaveImg.UseVisualStyleBackColor = true;
+            this.btnSaveImg.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnSave
             // 
@@ -285,6 +320,7 @@
             this.btnSave.Text = "Save ลำดับ";
             this.theme.SetTheme(this.btnSave, "(default)");
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnRotate
             // 
@@ -295,6 +331,7 @@
             this.btnRotate.Text = "Rotate";
             this.theme.SetTheme(this.btnRotate, "(default)");
             this.btnRotate.UseVisualStyleBackColor = true;
+            this.btnRotate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnAnalyze
             // 
@@ -305,10 +342,13 @@
             this.btnAnalyze.Text = "btnAnalyze";
             this.theme.SetTheme(this.btnAnalyze, "(default)");
             this.btnAnalyze.UseVisualStyleBackColor = true;
+            this.btnAnalyze.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.White;
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label9.Location = new System.Drawing.Point(6, 291);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 13);
@@ -319,7 +359,9 @@
             // cboDgs
             // 
             this.cboDgs.AllowSpinLoop = false;
+            this.cboDgs.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.cboDgs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cboDgs.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.cboDgs.GapHeight = 0;
             this.cboDgs.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboDgs.ItemsDisplayMember = "";
@@ -327,16 +369,20 @@
             this.cboDgs.Location = new System.Drawing.Point(106, 261);
             this.cboDgs.Name = "cboDgs";
             this.cboDgs.Size = new System.Drawing.Size(200, 18);
+            this.cboDgs.Style.DropDownBackColor = System.Drawing.Color.White;
+            this.cboDgs.Style.DropDownBorderColor = System.Drawing.Color.Gainsboro;
+            this.cboDgs.Style.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboDgs.TabIndex = 18;
             this.cboDgs.Tag = null;
             this.theme.SetTheme(this.cboDgs, "(default)");
-            this.cboDgs.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.cboDgs.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // cboDgss
             // 
             this.cboDgss.AllowSpinLoop = false;
+            this.cboDgss.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.cboDgss.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cboDgss.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.cboDgss.GapHeight = 0;
             this.cboDgss.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboDgss.ItemsDisplayMember = "";
@@ -344,11 +390,13 @@
             this.cboDgss.Location = new System.Drawing.Point(106, 286);
             this.cboDgss.Name = "cboDgss";
             this.cboDgss.Size = new System.Drawing.Size(200, 18);
+            this.cboDgss.Style.DropDownBackColor = System.Drawing.Color.White;
+            this.cboDgss.Style.DropDownBorderColor = System.Drawing.Color.Gainsboro;
+            this.cboDgss.Style.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboDgss.TabIndex = 17;
             this.cboDgss.Tag = null;
             this.theme.SetTheme(this.cboDgss, "(default)");
-            this.cboDgss.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.cboDgss.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.cboDgss.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtVisitDate
             // 
@@ -357,9 +405,21 @@
             // 
             // 
             // 
+            this.txtVisitDate.Calendar.ArrowColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtVisitDate.Calendar.BackColor = System.Drawing.Color.White;
+            this.txtVisitDate.Calendar.DayNamesColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtVisitDate.Calendar.DayNamesFont = new System.Drawing.Font("Tahoma", 8F);
             this.txtVisitDate.Calendar.Font = new System.Drawing.Font("Tahoma", 8F);
-            this.txtVisitDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtVisitDate.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtVisitDate.Calendar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.txtVisitDate.Calendar.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtVisitDate.Calendar.SelectionForeColor = System.Drawing.Color.White;
+            this.txtVisitDate.Calendar.TitleBackColor = System.Drawing.Color.White;
+            this.txtVisitDate.Calendar.TitleFont = new System.Drawing.Font("Tahoma", 8F);
+            this.txtVisitDate.Calendar.TitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtVisitDate.Calendar.TodayBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.txtVisitDate.Calendar.TrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtVisitDate.Calendar.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.txtVisitDate.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtVisitDate.ImagePadding = new System.Windows.Forms.Padding(0);
             this.txtVisitDate.Location = new System.Drawing.Point(106, 182);
             this.txtVisitDate.Name = "txtVisitDate";
@@ -367,84 +427,91 @@
             this.txtVisitDate.TabIndex = 16;
             this.txtVisitDate.Tag = null;
             this.theme.SetTheme(this.txtVisitDate, "(default)");
-            this.txtVisitDate.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtVisitDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtVisitDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtHn
             // 
+            this.txtHn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtHn.Location = new System.Drawing.Point(106, 47);
             this.txtHn.Name = "txtHn";
             this.txtHn.Size = new System.Drawing.Size(100, 18);
             this.txtHn.TabIndex = 15;
             this.txtHn.Tag = null;
             this.theme.SetTheme(this.txtHn, "(default)");
-            this.txtHn.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtAn
             // 
+            this.txtAn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtAn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtAn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtAn.Location = new System.Drawing.Point(106, 226);
             this.txtAn.Name = "txtAn";
             this.txtAn.Size = new System.Drawing.Size(100, 18);
             this.txtAn.TabIndex = 14;
             this.txtAn.Tag = null;
             this.theme.SetTheme(this.txtAn, "(default)");
-            this.txtAn.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtAn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtAn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtSort
             // 
+            this.txtSort.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtSort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSort.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtSort.Location = new System.Drawing.Point(106, 356);
             this.txtSort.Name = "txtSort";
             this.txtSort.Size = new System.Drawing.Size(136, 18);
             this.txtSort.TabIndex = 13;
             this.txtSort.Tag = null;
             this.theme.SetTheme(this.txtSort, "(default)");
-            this.txtSort.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtSort.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSort.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtFmCode
             // 
+            this.txtFmCode.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtFmCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFmCode.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtFmCode.Location = new System.Drawing.Point(106, 311);
             this.txtFmCode.Name = "txtFmCode";
             this.txtFmCode.Size = new System.Drawing.Size(136, 18);
             this.txtFmCode.TabIndex = 12;
             this.txtFmCode.Tag = null;
             this.theme.SetTheme(this.txtFmCode, "(default)");
-            this.txtFmCode.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtFmCode.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtFmCode.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtVN
             // 
+            this.txtVN.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtVN.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtVN.Location = new System.Drawing.Point(106, 135);
             this.txtVN.Name = "txtVN";
             this.txtVN.Size = new System.Drawing.Size(100, 18);
             this.txtVN.TabIndex = 11;
             this.txtVN.Tag = null;
             this.theme.SetTheme(this.txtVN, "(default)");
-            this.txtVN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtPttName
             // 
+            this.txtPttName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtPttName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPttName.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtPttName.Location = new System.Drawing.Point(106, 90);
             this.txtPttName.Name = "txtPttName";
             this.txtPttName.Size = new System.Drawing.Size(260, 18);
             this.txtPttName.TabIndex = 10;
             this.txtPttName.Tag = null;
             this.theme.SetTheme(this.txtPttName, "(default)");
-            this.txtPttName.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtPttName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtPttName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label3.Location = new System.Drawing.Point(6, 266);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
@@ -455,6 +522,8 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.Color.White;
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label8.Location = new System.Drawing.Point(6, 183);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(58, 13);
@@ -465,6 +534,8 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.White;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label7.Location = new System.Drawing.Point(6, 50);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(27, 13);
@@ -475,6 +546,8 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label5.Location = new System.Drawing.Point(6, 228);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(28, 13);
@@ -485,6 +558,8 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label2.Location = new System.Drawing.Point(6, 356);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 13);
@@ -495,6 +570,8 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label1.Location = new System.Drawing.Point(6, 311);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
@@ -505,6 +582,8 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label4.Location = new System.Drawing.Point(6, 135);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
@@ -515,6 +594,8 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label6.Location = new System.Drawing.Point(6, 90);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
@@ -522,31 +603,12 @@
             this.label6.Text = "Name :";
             this.theme.SetTheme(this.label6, "(default)");
             // 
-            // btnSaveRotate
-            // 
-            this.btnSaveRotate.Location = new System.Drawing.Point(223, 500);
-            this.btnSaveRotate.Name = "btnSaveRotate";
-            this.btnSaveRotate.Size = new System.Drawing.Size(103, 22);
-            this.btnSaveRotate.TabIndex = 564;
-            this.btnSaveRotate.Text = "save Rotate";
-            this.theme.SetTheme(this.btnSaveRotate, "(default)");
-            this.btnSaveRotate.UseVisualStyleBackColor = true;
-            // 
-            // c1Button1
-            // 
-            this.c1Button1.Location = new System.Drawing.Point(106, 605);
-            this.c1Button1.Name = "c1Button1";
-            this.c1Button1.Size = new System.Drawing.Size(103, 49);
-            this.c1Button1.TabIndex = 565;
-            this.c1Button1.Text = "Print";
-            this.theme.SetTheme(this.c1Button1, "(default)");
-            this.c1Button1.UseVisualStyleBackColor = true;
-            // 
             // FrmScanViewEdit
             // 
             this.ClientSize = new System.Drawing.Size(1114, 723);
             this.Controls.Add(this.pn);
             this.Controls.Add(this.pnImg);
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.Name = "FrmScanViewEdit";
             this.theme.SetTheme(this, "(default)");
             this.Load += new System.EventHandler(this.FrmScanViewEdit_Load);
@@ -554,6 +616,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pic1)).EndInit();
             this.pn.ResumeLayout(false);
             this.pn.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSaveRotate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGenSort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSortMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSort1)).EndInit();
@@ -575,8 +639,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.theme)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSaveRotate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
             this.ResumeLayout(false);
 
         }

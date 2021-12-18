@@ -427,12 +427,12 @@ namespace bangna_hospital.gui
         }
         private void setControlHN()
         {
-            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
             lbPttNmae.Text = ptt.Name +" Age "+ptt.AgeStringShort();
         }
         private void setControlHNMed()
         {
-            ptt = bc.bcDB.pttDB.selectPatinet(txtMedHn.Text.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(txtMedHn.Text.Trim());
             lbMedPttNmae.Text = ptt.Name + " Age " + ptt.AgeStringShort();
         }
         private void initCompoment()

@@ -112,7 +112,7 @@ namespace bangna_hospital.gui
             {
                 String hn = "", pttname = "";
                 Patient ptt = new Patient();
-                ptt = bc.bcDB.pttDB.selectPatinet(txtLabOutViewHn.Text.Trim());
+                ptt = bc.bcDB.pttDB.selectPatient(txtLabOutViewHn.Text.Trim());
                 openNewForm(txtLabOutViewHn.Text.Trim(), ptt.Name);
             }
         }
@@ -367,7 +367,7 @@ namespace bangna_hospital.gui
             String hn = "";
             hn = grfLabOutView[grfLabOutView.Row, colHISHN].ToString();
             Patient ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ptt = bc.bcDB.pttDB.selectPatient(hn);
             if (ptt.Name.Length <= 0)
             {
                 frmFlash.Dispose();
@@ -446,7 +446,7 @@ namespace bangna_hospital.gui
                 hn = grfHn[grfHn.Row, colHN].ToString();
                 showFormWaiting();
                 Patient ptt = new Patient();
-                ptt = bc.bcDB.pttDB.selectPatinet(hn);
+                ptt = bc.bcDB.pttDB.selectPatient(hn);
 
                 if (ptt.Name.Length <= 0)
                 {

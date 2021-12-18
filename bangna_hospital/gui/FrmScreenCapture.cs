@@ -188,7 +188,7 @@ namespace bangna_hospital.gui
             if(e.KeyCode == Keys.Enter)
             {
                 ptt = new Patient();
-                ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+                ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
                 lbName.Text = ptt.Name;
             }
         }

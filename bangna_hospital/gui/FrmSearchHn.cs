@@ -147,7 +147,7 @@ namespace bangna_hospital.gui
             hn = grfVn[grfVn.Row, colVsHn] != null ? grfVn[grfVn.Row, colVsHn].ToString() : "";
             txtVn.Value = vn;
             Patient ptt = new Patient();
-            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ptt = bc.bcDB.pttDB.selectPatient(hn);
             txtHn.Value = ptt.Hn;
             txtName.Value = ptt.Name;
             txtVisitDate.Value = grfVn[grfVn.Row, colVsDate] != null ? grfVn[grfVn.Row, colVsDate].ToString() : "";

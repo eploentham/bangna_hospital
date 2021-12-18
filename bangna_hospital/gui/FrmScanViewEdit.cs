@@ -210,7 +210,6 @@ namespace bangna_hospital.gui
                 MessageBox.Show("แก้ไขข้อมูล FM-CODE เรียบร้อย", "");
             }
         }
-
         private void TxtFmCode_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -233,7 +232,6 @@ namespace bangna_hospital.gui
                 btnSaveFmCode.Hide();
             }
         }
-
         private void FrmScanNewView_FormClosing(object sender, FormClosingEventArgs e)
         {
             //throw new NotImplementedException();
@@ -245,7 +243,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             //Startup();
         }
-
         private void BtnRotate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -269,14 +266,12 @@ namespace bangna_hospital.gui
                 //Image img2 = Image.FromFile(filename);
                 pic1.Image = img1;
                 //pnImg.Width = img1.
-                
             }
             catch (Exception ex)
             {
                 dgs = ex.Message;
             }
         }
-
         private void BtnSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

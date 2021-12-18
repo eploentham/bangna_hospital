@@ -86,7 +86,6 @@ namespace bangna_hospital.gui
             txtHospName.Value = "โรงพยาบาล ทั่วไปขนาดใหญ่ บางนา5";
             ChkSe640_Click(null, null);
         }
-
         private void BtnNovelUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -999,7 +998,7 @@ namespace bangna_hospital.gui
 
             String hn = "";
             hn = grfView[grfView.Row, colHn].ToString();
-            ptt = bc.bcDB.pttDB.selectPatinet(hn.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(hn.Trim());
             txtHn.Value = hn.Trim();
 
             printLetter();
@@ -1125,7 +1124,7 @@ namespace bangna_hospital.gui
                 clearControl();
                 return;
             }
-            ptt = bc.bcDB.pttDB.selectPatinet(hn);
+            ptt = bc.bcDB.pttDB.selectPatient(hn);
             vn = dt.Rows[0]["MNC_VN_NO"].ToString() + "." + dt.Rows[0]["MNC_VN_SEQ"].ToString();
             preno = dt.Rows[0]["MNC_pre_NO"].ToString();
             paidtypecode = dt.Rows[0]["MNC_FN_TYP_CD"].ToString();
@@ -1362,7 +1361,7 @@ namespace bangna_hospital.gui
             {
                 age1 = age[0] + "Years" + age[1] + "Months";
             }
-            ptt = bc.bcDB.pttDB.selectPatinet(txtHn.Text.Trim());
+            ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
             //MessageBox.Show("ptt  AgeStringShort " + ptt.AgeStringShort(), "");
             txt = "Age : " + age1;
             //txt = "Age : " + age1;
@@ -2322,7 +2321,10 @@ namespace bangna_hospital.gui
             //    dttime.AddYears(543);
             //    //MessageBox.Show("11111 ", "");
             //}
-            
+            if (dttime.Year < 2000)
+            {
+                dttime = dttime.AddYears(543);
+            }
 
             txt = "Date of issue : " + dttime.ToString("MMM-dd-yyyy", new CultureInfo("en-US"));
             size = bc.MeasureString(txt, txtFont);
@@ -2370,6 +2372,10 @@ namespace bangna_hospital.gui
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);        //อินเดีย
 
             DateTime.TryParse(txtDOB.Text, out dttime);
+            if (dttime.Year < 2000)
+            {
+                dttime = dttime.AddYears(543);
+            }
             txt = "Date of Birth : " + dttime.ToString("MMM-dd-yyyy", new CultureInfo("en-US"));
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
@@ -2546,6 +2552,10 @@ namespace bangna_hospital.gui
             //{
             //    dttime.AddYears(543);
             //}
+            if (dttime.Year < 2000)
+            {
+                dttime = dttime.AddYears(543);
+            }
             txt = dttime.ToString("MMM-dd-yyyy HH:mm tt", new CultureInfo("en-US"));
             size = bc.MeasureString(txt, txtFont);
             rcPage.X = xCol4 + 12;
@@ -2556,6 +2566,14 @@ namespace bangna_hospital.gui
             gapY += gapLine1;
             DateTime.TryParse(txtLabReportDate.Text, out dttime);
             if (bc.iniC.windows.Equals("windowsxp"))
+            {
+                dttime = dttime.AddYears(543);
+            }
+            if (dttime.Year < 2000)
+            {
+                dttime = dttime.AddYears(543);
+            }
+            if (dttime.Year < 2000)
             {
                 dttime = dttime.AddYears(543);
             }
