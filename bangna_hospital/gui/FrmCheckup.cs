@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
+using C1.Win.C1FlexGrid;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
 using C1.Win.C1Tile;
@@ -18,7 +19,7 @@ namespace bangna_hospital.gui
     public partial class FrmCheckup : Form
     {
         BangnaControl bc;
-        Font fEdit, fEditB;
+        Font fEdit, fEditB, fEdit5B;
 
         Color bg, fc;
         Font ff, ffB;
@@ -27,6 +28,7 @@ namespace bangna_hospital.gui
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         C1ThemeController theme1;
+        C1FlexGrid grfCheck;
 
         C1TileControl TileCat;
         Group grRec;
@@ -34,6 +36,9 @@ namespace bangna_hospital.gui
         ImageElement imageElementRec, ieOrd;
         PanelElement peCat;
         TextElement teCat, teOrd;
+        Label lbLoading;
+
+        int colCheckupRow = 1, colCheckupTilNum = 2, colCheckupTilImgNum = 3, colCheckupPID = 4, colCheckupPassport = 5, colCheckupNameE = 6, colCheckupNameT=7, colCheckupDOB = 8, colCheckupNat=9, colCheckupPrefix=10, colCheckupFname=11, colCheckupLname12;
 
         public FrmCheckup(BangnaControl bc)
         {
@@ -45,11 +50,33 @@ namespace bangna_hospital.gui
         {
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
+            fEdit5B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 5, FontStyle.Bold);
 
             theme1 = new C1ThemeController();
             theme1.Theme = C1ThemeController.ApplicationTheme;
 
             btnLoad.Click += BtnLoad_Click;
+            btnClear.Click += BtnClear_Click;
+
+            lbLoading = new Label();
+            lbLoading.Font = fEdit5B;
+            lbLoading.BackColor = Color.WhiteSmoke;
+            lbLoading.ForeColor = Color.Black;
+            lbLoading.AutoSize = false;
+            lbLoading.Size = new Size(300, 60);
+            lbLoading.Text = "กรุณารอซักครู่...";
+            this.Controls.Add(lbLoading);
+
+            initGrfCheckup();
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            pnTilImage.Controls.Clear();
+            grfCheck.Rows.Count = 1;
+            pnImage.Controls.Clear();
+            //initTileCategory();
         }
 
         private void BtnLoad_Click(object sender, EventArgs e)
@@ -170,112 +197,193 @@ namespace bangna_hospital.gui
         private void Tile_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            Patient ptt = new Patient();
-            ptt = (Patient)((Tile)sender).Tag;
-            pnImage.Controls.Clear();
-
-            PictureBox pic = new PictureBox();
-            pic.Image = Image.FromFile(ptt.filename);
-            pic.Dock = DockStyle.Fill;
-            pic.SizeMode = PictureBoxSizeMode.StretchImage;
-            pnImage.Controls.Add(pic);
-            //pnImage.
-
-
-            String filename = "";
-            filename = DateTime.Now.Ticks.ToString();
-            var process = new System.Diagnostics.Process();
-            process.StartInfo.FileName = "c:\\Program Files\\Tesseract-OCR\\tesseract.exe";
-            process.StartInfo.Arguments = ptt.filename + " e:\\ocr\\" + filename;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-            process.Start();
-            process.WaitForExit();
-
-            if (File.Exists("e:\\ocr\\" + filename + ".txt"))
+            showLbLoading();
+            try
             {
-                String txt = "";
-                //txt = File.ReadAllText("e:\\ocr\\" + filename + ".txt");
-                //int indexmiss = txt.IndexOf("MISS");
-                //int indexmrs = txt.IndexOf("MRS");
-                //int indexmr = txt.IndexOf("MR");
-                using (StreamReader file = new StreamReader("e:\\ocr\\" + filename + ".txt"))
-                {
-                    int counter = 0;
-                    string ln;
+                Patient ptt = new Patient();
+                ptt = (Patient)((Tile)sender).Tag;
+                pnImage.Controls.Clear();
 
-                    while ((ln = file.ReadLine()) != null)
+                PictureBox pic = new PictureBox();
+                pic.Image = Image.FromFile(ptt.filename);
+                pic.Dock = DockStyle.Fill;
+                pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                pnImage.Controls.Add(pic);
+                //pnImage.
+                String filename = "";
+                filename = DateTime.Now.Ticks.ToString();
+                var process = new System.Diagnostics.Process();
+                process.StartInfo.FileName = "c:\\Program Files\\Tesseract-OCR\\tesseract.exe";
+                process.StartInfo.Arguments = ptt.filename + " e:\\ocr\\" + filename;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                process.Start();
+                process.WaitForExit();
+
+                if (File.Exists("e:\\ocr\\" + filename + ".txt"))
+                {
+                    String txt = "";
+                    //txt = File.ReadAllText("e:\\ocr\\" + filename + ".txt");
+                    //int indexmiss = txt.IndexOf("MISS");
+                    //int indexmrs = txt.IndexOf("MRS");
+                    //int indexmr = txt.IndexOf("MR");
+                    using (StreamReader file = new StreamReader("e:\\ocr\\" + filename + ".txt"))
                     {
-                        if (!ln.Equals("\n"))
+                        int counter = 0, cntCheckName=0;
+                        string ln;
+
+                        while ((ln = file.ReadLine()) != null)
                         {
-                            int indexmiss = ln.IndexOf("MISS");
-                            int indexmrs = ln.IndexOf("MRS");
-                            int indexmr = ln.IndexOf("MR");
-                            if (indexmiss > 0)
+                            if (!ln.Equals("\n"))
                             {
-                                String[] aaaa = ln.Split(' ');
-                                if (aaaa.Length > 0)
+                                int indexmiss = ln.IndexOf("MISS");
+                                int indexmrs = ln.IndexOf("MRS");
+                                int indexmr = ln.IndexOf("MR");
+                                if (indexmiss > 0)
                                 {
-                                    Boolean chkname = false;
-                                    String prefix = "", dob = "", name = "", surname = "";
-                                    DateTime dt1 = new DateTime();
-                                    int i = 0;
-                                    foreach (string ttt in aaaa)
+                                    String[] aaaa = ln.Split(' ');
+                                    if (aaaa.Length > 0)
                                     {
-                                        if (ttt.IndexOf("MISS") >= 0)
+                                        Boolean chkname = false;
+                                        String prefix = "", dob = "", name = "", surname = "";
+                                        DateTime dt1 = new DateTime();
+                                        int i = 0;
+                                        foreach (string ttt in aaaa)
                                         {
-                                            prefix = ttt;
-                                            name = aaaa[i + 1];
-                                            surname = aaaa[i + 2];
-                                            chkname = true;
+                                            if (ttt.IndexOf("MISS") >= 0)
+                                            {
+                                                prefix = ttt;
+                                                name = aaaa[i + 1];
+                                                surname = aaaa[i + 2];
+                                                chkname = true;
+                                            }
+                                            if (ttt.IndexOf("MRS") >= 0)
+                                            {
+                                                prefix = ttt;
+                                                name = aaaa[i + 1];
+                                                surname = aaaa[i + 2];
+                                                chkname = true;
+                                            }
+                                            if (ttt.IndexOf("MR") >= 0)
+                                            {
+                                                prefix = ttt;
+                                                name = aaaa[i + 1];
+                                                surname = aaaa[i + 2];
+                                                chkname = true;
+                                            }
+                                            if (DateTime.TryParse(ttt, out dt1))
+                                            {
+                                                dob = ttt;
+                                            }
+                                            i++;
                                         }
-                                        if (ttt.IndexOf("MRS") >= 0)
+                                        if (chkname)
                                         {
-                                            prefix = ttt;
-                                            name = aaaa[i + 1];
-                                            surname = aaaa[i + 2];
-                                            chkname = true;
+                                            cntCheckName++;
+                                            Row row = grfCheck.Rows.Add();
+                                            row[colCheckupNameE] = prefix + " " + name + " " + surname;
+                                            row[colCheckupDOB] = dob;
+                                            row[colCheckupTilImgNum] = cntCheckName;
+                                            row[colCheckupTilNum] = ((Tile)sender).Text;
+                                            row[colCheckupRow] = grfCheck.Rows.Count-1;
+                                            //row[3] = surname;
+                                            //row[4] = dob;
                                         }
-                                        if (ttt.IndexOf("MR") >= 0)
-                                        {
-                                            prefix = ttt;
-                                            name = aaaa[i + 1];
-                                            surname = aaaa[i + 2];
-                                            chkname = true;
-                                        }
-                                        if (DateTime.TryParse(ttt, out dt1))
-                                        {
-                                            dob = ttt;
-                                        }
-                                        i++;
-                                    }
-                                    if (chkname)
-                                    {
-                                        //Row row = grfOCR.Rows.Add();
-                                        //row[1] = prefix;
-                                        //row[2] = name;
-                                        //row[3] = surname;
-                                        //row[4] = dob;
                                     }
                                 }
                             }
+                            //Console.WriteLine(ln);
+                            counter++;
                         }
-                        //Console.WriteLine(ln);
-                        counter++;
+                        file.Close();
+                        //Console.WriteLine($ "File has {counter} lines.");
                     }
-                    file.Close();
-                    //Console.WriteLine($ "File has {counter} lines.");
+                    //int indexmiss = txt.IndexOf("Miss");
+                    //String aaa = "";
                 }
-                //int indexmiss = txt.IndexOf("Miss");
-                //String aaa = "";
             }
+            catch(Exception ex)
+            {
+
+            }
+            
+            hideLbLoading();
+        }
+        private void initGrfCheckup()
+        {
+            grfCheck = new C1FlexGrid();
+            grfCheck.Font = fEdit;
+            grfCheck.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfCheck.Location = new System.Drawing.Point(0, 0);
+            grfCheck.Rows.Count = 1;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnGrd.Controls.Add(grfCheck);
+
+            grfCheck.Rows.Count = 1;
+            grfCheck.Cols.Count = 13;
+            grfCheck.Cols[colCheckupRow].Caption = "ลำดับ";
+            grfCheck.Cols[colCheckupTilNum].Caption = "รูป";
+            grfCheck.Cols[colCheckupTilImgNum].Caption = "num";
+            grfCheck.Cols[colCheckupPID].Caption = "PID";
+            grfCheck.Cols[colCheckupPassport].Caption = "passport";
+            grfCheck.Cols[colCheckupNameE].Caption = "Name E";
+            grfCheck.Cols[colCheckupNameT].Caption = "Name T";
+            grfCheck.Cols[colCheckupDOB].Caption = "DOB";
+            grfCheck.Cols[colCheckupNat].Caption = "Nation";
+
+            grfCheck.Cols[colCheckupRow].Width = 50;
+            grfCheck.Cols[colCheckupTilNum].Width = 50;
+            grfCheck.Cols[colCheckupTilImgNum].Width = 50;
+            grfCheck.Cols[colCheckupPID].Width = 100;
+            grfCheck.Cols[colCheckupPassport].Width = 100;
+            grfCheck.Cols[colCheckupNameE].Width = 200;
+            grfCheck.Cols[colCheckupNameT].Width = 200;
+            grfCheck.Cols[colCheckupDOB].Width = 120;
+            grfCheck.Cols[colCheckupNat].Width = 200;
+
+            grfCheck.Click += GrfCheck_Click;
+
+            theme1.SetTheme(grfCheck, bc.iniC.themeApp);
+
         }
 
+        private void GrfCheck_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void showLbLoading()
+        {
+            lbLoading.Show();
+            lbLoading.BringToFront();
+            Application.DoEvents();
+        }
+        private void hideLbLoading()
+        {
+            lbLoading.Hide();
+            Application.DoEvents();
+        }
         private void FrmCheckup_Load(object sender, EventArgs e)
         {
             sC.HeaderHeight = 0;
             tC.SelectedTab = tabImage;
+
+            Rectangle screenRect = Screen.GetBounds(Bounds);
+            lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
+            lbLoading.Text = "กรุณารอซักครู่ ...";
+            lbLoading.Hide();
         }
     }
 }
