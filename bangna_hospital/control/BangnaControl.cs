@@ -515,6 +515,7 @@ namespace bangna_hospital.control
             iniC.printerA5 = iniF.getIni("app", "printerA5");
             iniC.printerQueue = iniF.getIni("app", "printerQueue");
             iniC.statusSmartCardvaccine = iniF.getIni("app", "statusSmartCardvaccine");
+            iniC.statusPrintSticker = iniF.getIni("app", "statusPrintSticker");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -3042,6 +3043,65 @@ namespace bangna_hospital.control
                     //    cell.Style = xs;
                 }
             }
+        }
+        public byte[] Encode(string text)
+        {
+            return Encoding.GetEncoding(1252).GetBytes(text);
+        }
+        public byte[] ToUTF8(byte[] tis620Bytes)
+        {
+            List<byte> buffer = new List<byte>();
+            byte safeAscii = 126;
+            for (var i = 0; i < tis620Bytes.Length; i++)
+            {
+                if (tis620Bytes[i] > safeAscii)
+                {
+                    if (((0xa1 <= tis620Bytes[i]) && (tis620Bytes[i] <= 0xda))
+                        || ((0xdf <= tis620Bytes[i]) && (tis620Bytes[i] <= 0xfb)))
+                    {
+                        var utf8Char = 0x0e00 + tis620Bytes[i] - 0xa0;
+                        byte utf8Byte1 = (byte)(0xe0 | (utf8Char >> 12));
+                        buffer.Add(utf8Byte1);
+                        byte utf8Byte2 = (byte)(0x80 | ((utf8Char >> 6) & 0x3f));
+                        buffer.Add(utf8Byte2);
+                        byte utf8Byte3 = (byte)(0x80 | (utf8Char & 0x3f));
+                        buffer.Add(utf8Byte3);
+                    }
+                }
+                else
+                {
+                    buffer.Add(tis620Bytes[i]);
+                }
+            }
+            return buffer.ToArray();
+        }
+        public byte[] ToUTF8_1(byte[] tis620Bytes)
+        {
+            List<byte> buffer = new List<byte>();
+            byte safeAscii = 126;
+            for (var i = 0; i < tis620Bytes.Length; i++)
+            {
+                if (tis620Bytes[i] > safeAscii)
+                {
+                    if (((0xa1 <= tis620Bytes[i]) && (tis620Bytes[i] <= 0xda))
+                        || ((0xdf <= tis620Bytes[i]) && (tis620Bytes[i] <= 0xfb)))
+                    {
+                        var utf8Char = 0x0e00 + tis620Bytes[i] - 0xa0;
+
+                        byte utf8Byte1 = (byte)(0xe0 | (utf8Char >> 12));
+                        buffer.Add(utf8Byte1);
+                        byte utf8Byte2 = (byte)(0x80 | ((utf8Char >> 6) & 0x3f));
+                        buffer.Add(utf8Byte2);
+                        byte utf8Byte3 = (byte)(0x80 | (utf8Char & 0x3f));
+                        buffer.Add(utf8Byte3);
+                    }
+                }
+                else
+                {
+                    buffer.Add(tis620Bytes[i]);
+                }
+            }
+            return buffer.ToArray();
         }
     }
 }

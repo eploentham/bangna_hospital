@@ -36,6 +36,11 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkStatusDocOffice = new C1.Win.C1Input.C1CheckBox();
+            this.ChkStatusDocAdmision = new C1.Win.C1Input.C1CheckBox();
+            this.ChkStatusDocNurse = new C1.Win.C1Input.C1CheckBox();
+            this.chkStatusDocMedical = new C1.Win.C1Input.C1CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cboDocGroupName = new C1.Win.C1Input.C1ComboBox();
             this.txtFmName = new C1.Win.C1Input.C1TextBox();
@@ -51,11 +56,6 @@
             this.txtFmCode = new C1.Win.C1Input.C1TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtID = new C1.Win.C1Input.C1TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkStatusDocMedical = new C1.Win.C1Input.C1CheckBox();
-            this.ChkStatusDocNurse = new C1.Win.C1Input.C1CheckBox();
-            this.ChkStatusDocAdmision = new C1.Win.C1Input.C1CheckBox();
-            this.chkStatusDocOffice = new C1.Win.C1Input.C1CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sB)).BeginInit();
             this.panel1.SuspendLayout();
@@ -64,6 +64,11 @@
             this.c1SplitterPanel1.SuspendLayout();
             this.c1SplitterPanel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocOffice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocAdmision)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocNurse)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocMedical)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDocGroupName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFmName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDocGroupSubName)).BeginInit();
@@ -75,11 +80,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFmCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtID)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocMedical)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocNurse)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocAdmision)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocOffice)).BeginInit();
             this.SuspendLayout();
             // 
             // theme1
@@ -189,6 +189,94 @@
             this.panel3.Size = new System.Drawing.Size(722, 617);
             this.panel3.TabIndex = 0;
             this.theme1.SetTheme(this.panel3, "(default)");
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.groupBox1.Controls.Add(this.chkStatusDocOffice);
+            this.groupBox1.Controls.Add(this.ChkStatusDocAdmision);
+            this.groupBox1.Controls.Add(this.ChkStatusDocNurse);
+            this.groupBox1.Controls.Add(this.chkStatusDocMedical);
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.groupBox1.Location = new System.Drawing.Point(130, 127);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(268, 147);
+            this.groupBox1.TabIndex = 565;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ประเภทเอกสาร";
+            this.theme1.SetTheme(this.groupBox1, "(default)");
+            // 
+            // chkStatusDocOffice
+            // 
+            this.chkStatusDocOffice.BackColor = System.Drawing.Color.Transparent;
+            this.chkStatusDocOffice.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.chkStatusDocOffice.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkStatusDocOffice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkStatusDocOffice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.chkStatusDocOffice.Location = new System.Drawing.Point(6, 109);
+            this.chkStatusDocOffice.Name = "chkStatusDocOffice";
+            this.chkStatusDocOffice.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.chkStatusDocOffice.Size = new System.Drawing.Size(155, 24);
+            this.chkStatusDocOffice.TabIndex = 560;
+            this.chkStatusDocOffice.Text = "เอกสารทางการ ธุรการ";
+            this.theme1.SetTheme(this.chkStatusDocOffice, "(default)");
+            this.chkStatusDocOffice.UseVisualStyleBackColor = true;
+            this.chkStatusDocOffice.Value = null;
+            this.chkStatusDocOffice.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // ChkStatusDocAdmision
+            // 
+            this.ChkStatusDocAdmision.BackColor = System.Drawing.Color.Transparent;
+            this.ChkStatusDocAdmision.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.ChkStatusDocAdmision.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ChkStatusDocAdmision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChkStatusDocAdmision.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.ChkStatusDocAdmision.Location = new System.Drawing.Point(6, 79);
+            this.ChkStatusDocAdmision.Name = "ChkStatusDocAdmision";
+            this.ChkStatusDocAdmision.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.ChkStatusDocAdmision.Size = new System.Drawing.Size(155, 24);
+            this.ChkStatusDocAdmision.TabIndex = 559;
+            this.ChkStatusDocAdmision.Text = "เอกสาร adminsion";
+            this.theme1.SetTheme(this.ChkStatusDocAdmision, "(default)");
+            this.ChkStatusDocAdmision.UseVisualStyleBackColor = true;
+            this.ChkStatusDocAdmision.Value = null;
+            this.ChkStatusDocAdmision.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // ChkStatusDocNurse
+            // 
+            this.ChkStatusDocNurse.BackColor = System.Drawing.Color.Transparent;
+            this.ChkStatusDocNurse.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.ChkStatusDocNurse.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ChkStatusDocNurse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChkStatusDocNurse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.ChkStatusDocNurse.Location = new System.Drawing.Point(6, 49);
+            this.ChkStatusDocNurse.Name = "ChkStatusDocNurse";
+            this.ChkStatusDocNurse.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.ChkStatusDocNurse.Size = new System.Drawing.Size(155, 24);
+            this.ChkStatusDocNurse.TabIndex = 558;
+            this.ChkStatusDocNurse.Text = "เอกสารทางการ พยาบาล";
+            this.theme1.SetTheme(this.ChkStatusDocNurse, "(default)");
+            this.ChkStatusDocNurse.UseVisualStyleBackColor = true;
+            this.ChkStatusDocNurse.Value = null;
+            this.ChkStatusDocNurse.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // chkStatusDocMedical
+            // 
+            this.chkStatusDocMedical.BackColor = System.Drawing.Color.Transparent;
+            this.chkStatusDocMedical.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.chkStatusDocMedical.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkStatusDocMedical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkStatusDocMedical.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.chkStatusDocMedical.Location = new System.Drawing.Point(6, 19);
+            this.chkStatusDocMedical.Name = "chkStatusDocMedical";
+            this.chkStatusDocMedical.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
+            this.chkStatusDocMedical.Size = new System.Drawing.Size(155, 24);
+            this.chkStatusDocMedical.TabIndex = 557;
+            this.chkStatusDocMedical.Text = "เอกสารทางการ แพทย์ ";
+            this.theme1.SetTheme(this.chkStatusDocMedical, "(default)");
+            this.chkStatusDocMedical.UseVisualStyleBackColor = true;
+            this.chkStatusDocMedical.Value = null;
+            this.chkStatusDocMedical.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label4
             // 
@@ -307,7 +395,7 @@
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNew.Location = new System.Drawing.Point(432, 21);
             this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(83, 39);
+            this.btnNew.Size = new System.Drawing.Size(123, 39);
             this.btnNew.TabIndex = 557;
             this.btnNew.Text = "เพิ่มช้อมูล";
             this.btnNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -339,7 +427,7 @@
             this.btnVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVoid.Location = new System.Drawing.Point(432, 340);
             this.btnVoid.Name = "btnVoid";
-            this.btnVoid.Size = new System.Drawing.Size(83, 39);
+            this.btnVoid.Size = new System.Drawing.Size(123, 39);
             this.btnVoid.TabIndex = 555;
             this.btnVoid.Text = "ยกเลิกช้อมูล";
             this.btnVoid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -353,7 +441,7 @@
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEdit.Location = new System.Drawing.Point(432, 66);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(83, 39);
+            this.btnEdit.Size = new System.Drawing.Size(123, 39);
             this.btnEdit.TabIndex = 554;
             this.btnEdit.Text = "แก้ไขช้อมูล";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -367,7 +455,7 @@
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSave.Location = new System.Drawing.Point(432, 384);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(83, 39);
+            this.btnSave.Size = new System.Drawing.Size(123, 39);
             this.btnSave.TabIndex = 553;
             this.btnSave.Text = "บันทึกช้อมูล";
             this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -415,94 +503,6 @@
             this.txtID.Visible = false;
             this.txtID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.groupBox1.Controls.Add(this.chkStatusDocOffice);
-            this.groupBox1.Controls.Add(this.ChkStatusDocAdmision);
-            this.groupBox1.Controls.Add(this.ChkStatusDocNurse);
-            this.groupBox1.Controls.Add(this.chkStatusDocMedical);
-            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.groupBox1.Location = new System.Drawing.Point(130, 127);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(268, 147);
-            this.groupBox1.TabIndex = 565;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ประเภทเอกสาร";
-            this.theme1.SetTheme(this.groupBox1, "(default)");
-            // 
-            // chkStatusDocMedical
-            // 
-            this.chkStatusDocMedical.BackColor = System.Drawing.Color.Transparent;
-            this.chkStatusDocMedical.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.chkStatusDocMedical.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkStatusDocMedical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkStatusDocMedical.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.chkStatusDocMedical.Location = new System.Drawing.Point(6, 19);
-            this.chkStatusDocMedical.Name = "chkStatusDocMedical";
-            this.chkStatusDocMedical.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkStatusDocMedical.Size = new System.Drawing.Size(155, 24);
-            this.chkStatusDocMedical.TabIndex = 557;
-            this.chkStatusDocMedical.Text = "เอกสารทางการ แพทย์ ";
-            this.theme1.SetTheme(this.chkStatusDocMedical, "(default)");
-            this.chkStatusDocMedical.UseVisualStyleBackColor = true;
-            this.chkStatusDocMedical.Value = null;
-            this.chkStatusDocMedical.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // ChkStatusDocNurse
-            // 
-            this.ChkStatusDocNurse.BackColor = System.Drawing.Color.Transparent;
-            this.ChkStatusDocNurse.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.ChkStatusDocNurse.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ChkStatusDocNurse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChkStatusDocNurse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.ChkStatusDocNurse.Location = new System.Drawing.Point(6, 49);
-            this.ChkStatusDocNurse.Name = "ChkStatusDocNurse";
-            this.ChkStatusDocNurse.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.ChkStatusDocNurse.Size = new System.Drawing.Size(155, 24);
-            this.ChkStatusDocNurse.TabIndex = 558;
-            this.ChkStatusDocNurse.Text = "เอกสารทางการ พยาบาล";
-            this.theme1.SetTheme(this.ChkStatusDocNurse, "(default)");
-            this.ChkStatusDocNurse.UseVisualStyleBackColor = true;
-            this.ChkStatusDocNurse.Value = null;
-            this.ChkStatusDocNurse.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // ChkStatusDocAdmision
-            // 
-            this.ChkStatusDocAdmision.BackColor = System.Drawing.Color.Transparent;
-            this.ChkStatusDocAdmision.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.ChkStatusDocAdmision.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ChkStatusDocAdmision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChkStatusDocAdmision.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.ChkStatusDocAdmision.Location = new System.Drawing.Point(6, 79);
-            this.ChkStatusDocAdmision.Name = "ChkStatusDocAdmision";
-            this.ChkStatusDocAdmision.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.ChkStatusDocAdmision.Size = new System.Drawing.Size(155, 24);
-            this.ChkStatusDocAdmision.TabIndex = 559;
-            this.ChkStatusDocAdmision.Text = "เอกสาร adminsion";
-            this.theme1.SetTheme(this.ChkStatusDocAdmision, "(default)");
-            this.ChkStatusDocAdmision.UseVisualStyleBackColor = true;
-            this.ChkStatusDocAdmision.Value = null;
-            this.ChkStatusDocAdmision.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
-            // chkStatusDocOffice
-            // 
-            this.chkStatusDocOffice.BackColor = System.Drawing.Color.Transparent;
-            this.chkStatusDocOffice.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.chkStatusDocOffice.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkStatusDocOffice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkStatusDocOffice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.chkStatusDocOffice.Location = new System.Drawing.Point(6, 109);
-            this.chkStatusDocOffice.Name = "chkStatusDocOffice";
-            this.chkStatusDocOffice.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
-            this.chkStatusDocOffice.Size = new System.Drawing.Size(155, 24);
-            this.chkStatusDocOffice.TabIndex = 560;
-            this.chkStatusDocOffice.Text = "เอกสารทางการ ธุรการ";
-            this.theme1.SetTheme(this.chkStatusDocOffice, "(default)");
-            this.chkStatusDocOffice.UseVisualStyleBackColor = true;
-            this.chkStatusDocOffice.Value = null;
-            this.chkStatusDocOffice.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
             // FrmDocGroupFm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,6 +522,11 @@
             this.c1SplitterPanel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocOffice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocAdmision)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocNurse)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocMedical)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDocGroupName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFmName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDocGroupSubName)).EndInit();
@@ -533,11 +538,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFmCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtID)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocMedical)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocNurse)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ChkStatusDocAdmision)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkStatusDocOffice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

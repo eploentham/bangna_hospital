@@ -1,6 +1,8 @@
 ﻿using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -125,6 +127,68 @@ namespace bangna_hospital.objdb
                 "'"+userid+"','"+desc+"','"+conn._IPAddress+"','"+form+"','"+method+ "',convert(varchar(20),getdate(),20),'')";
             conn.ExecuteNonQueryLogPage(conn.connLog, sql);
             return re;
+        }
+        public String InsertPrakunM01()
+        {
+            String sql = "", cnt="";
+            DataTable dt = new DataTable();
+            sql = "Delete from prakun_m01_pop_temp;";
+            conn.ExecuteNonQueryLogPage(conn.connMainHIS, sql);
+            sql = "insert into prakun_m01_pop_temp (SocialID, Social_Card_no,TitleName,FirstName, LastName,FullName, PrakanCode, Prangnant, StartDate,EndDate,BirthDay,UploadDate,FLAG   ) " +
+                "Select SocialID, Social_Card_no,TitleName,FirstName, LastName,FullName, PrakanCode, Prangnant, StartDate,EndDate,BirthDay,UploadDate,FLAG From prakun_m01_pop ";
+            conn.ExecuteNonQueryLogPage(conn.connMainHIS, sql);
+            sql = "Select count(1) as cnt from prakun_m01_pop_temp";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                cnt = dt.Rows[0]["cnt"].ToString();
+            }
+            return cnt;
+        }
+        public void BulkInsert(DataTable dt, String flag)
+        {
+            String sql = "";
+            if (dt == null) return;
+            if (dt.Rows.Count <= 0) return;
+            using (SqlConnection connection = new SqlConnection(conn.connMainHIS.ConnectionString))
+            {
+                // make sure to enable triggers
+                // more on triggers in next post
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = string.Format("SET DATEFORMAT YMD; {0}", cmd.CommandText);
+                SqlBulkCopy bulkCopy =
+                    new SqlBulkCopy
+                    (
+                    connection,
+                    SqlBulkCopyOptions.TableLock |
+                    SqlBulkCopyOptions.FireTriggers |
+                    SqlBulkCopyOptions.UseInternalTransaction,
+                    null
+                    );
+                // set the destination table name
+                if (flag.Equals("1"))
+                {
+                    //sql = "Delete from b_ssn_data_1";
+                    sql = "Delete from prakun_m01_pop";
+                    conn.ExecuteNonQueryLogPage(conn.connMainHIS, sql);
+                    //bulkCopy.DestinationTableName = "b_ssn_data_1";
+                    bulkCopy.DestinationTableName = "prakun_m01_pop";
+                }
+                else if (flag.Equals("2"))
+                {
+                    bulkCopy.DestinationTableName = "prakun_m01_pop";
+                }
+                else if (flag.Equals("5"))
+                {
+                    bulkCopy.DestinationTableName = "prakun_m01_pop";
+                }
+                connection.Open();
+                // write the data in the "dataTable"
+                bulkCopy.WriteToServer(dt);
+                connection.Close();
+            }
+            // reset
+            //this.dataTable.Clear();
         }
     }
 }

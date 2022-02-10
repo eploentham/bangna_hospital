@@ -98,6 +98,12 @@
             this.c1SplitContainer2 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1SplitterPanel4 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1DockingTabPage7 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1TileControl1 = new C1.Win.C1Tile.C1TileControl();
+            this.group1 = new C1.Win.C1Tile.Group();
+            this.tile1 = new C1.Win.C1Tile.Tile();
+            this.tile2 = new C1.Win.C1Tile.Tile();
+            this.tile3 = new C1.Win.C1Tile.Tile();
             this.c1ThemeController1 = new C1.Win.C1Themes.C1ThemeController();
             this.c1SuperTooltip1 = new C1.Win.C1SuperTooltip.C1SuperTooltip(this.components);
             this.c1FlexGrid1 = new C1.Win.C1FlexGrid.C1FlexGrid();
@@ -121,12 +127,7 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.autocompleteMenu1 = new AutocompleteMenuNS.AutocompleteMenu();
             this.c1XLBook1 = new C1.C1Excel.C1XLBook();
-            this.c1DockingTabPage7 = new C1.Win.C1Command.C1DockingTabPage();
-            this.c1TileControl1 = new C1.Win.C1Tile.C1TileControl();
-            this.group1 = new C1.Win.C1Tile.Group();
-            this.tile1 = new C1.Win.C1Tile.Tile();
-            this.tile2 = new C1.Win.C1Tile.Tile();
-            this.tile3 = new C1.Win.C1Tile.Tile();
+            this.c1TextBox3 = new C1.Win.C1Input.C1TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -142,6 +143,7 @@
             this.c1DockingTabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).BeginInit();
             this.c1SplitContainer2.SuspendLayout();
+            this.c1DockingTabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1ThemeController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SuperErrorProvider1)).BeginInit();
@@ -158,7 +160,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
-            this.c1DockingTabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // c1Combo1
@@ -758,10 +760,10 @@
             // 
             // c1SplitterPanel3
             // 
-            this.c1SplitterPanel3.Height = 315;
+            this.c1SplitterPanel3.Height = 313;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
-            this.c1SplitterPanel3.Size = new System.Drawing.Size(352, 294);
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(352, 292);
             this.c1SplitterPanel3.SizeRatio = 79.023D;
             this.c1SplitterPanel3.TabIndex = 0;
             this.c1SplitterPanel3.Text = "Panel 1";
@@ -770,11 +772,75 @@
             // c1SplitterPanel4
             // 
             this.c1SplitterPanel4.Height = 84;
-            this.c1SplitterPanel4.Location = new System.Drawing.Point(0, 340);
+            this.c1SplitterPanel4.Location = new System.Drawing.Point(0, 338);
             this.c1SplitterPanel4.Name = "c1SplitterPanel4";
             this.c1SplitterPanel4.Size = new System.Drawing.Size(352, 63);
             this.c1SplitterPanel4.TabIndex = 1;
             this.c1SplitterPanel4.Text = "Panel 2";
+            // 
+            // c1DockingTabPage7
+            // 
+            this.c1DockingTabPage7.CaptionVisible = true;
+            this.c1DockingTabPage7.Controls.Add(this.c1TileControl1);
+            this.c1DockingTabPage7.Location = new System.Drawing.Point(1, 1);
+            this.c1DockingTabPage7.Name = "c1DockingTabPage7";
+            this.c1DockingTabPage7.Size = new System.Drawing.Size(352, 425);
+            this.c1DockingTabPage7.TabIndex = 4;
+            this.c1DockingTabPage7.Text = "Page7";
+            // 
+            // c1TileControl1
+            // 
+            this.c1TileControl1.AllowChecking = true;
+            this.c1TileControl1.BackColor = System.Drawing.Color.Gray;
+            this.c1TileControl1.CheckBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            // 
+            // 
+            // 
+            panelElement1.Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            panelElement1.Children.Add(imageElement1);
+            panelElement1.Children.Add(textElement1);
+            panelElement1.Margin = new System.Windows.Forms.Padding(10, 6, 10, 6);
+            this.c1TileControl1.DefaultTemplate.Elements.Add(panelElement1);
+            this.c1TileControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.c1TileControl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1TileControl1.GroupForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.c1TileControl1.Groups.Add(this.group1);
+            this.c1TileControl1.HotBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.c1TileControl1.Location = new System.Drawing.Point(0, 22);
+            this.c1TileControl1.Name = "c1TileControl1";
+            this.c1TileControl1.Size = new System.Drawing.Size(352, 250);
+            this.c1TileControl1.TabIndex = 0;
+            this.c1TileControl1.Text = "c1TileControl1";
+            this.c1ThemeController1.SetTheme(this.c1TileControl1, "(default)");
+            this.c1TileControl1.TileBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.c1TileControl1.TileBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.c1TileControl1.TileForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            // 
+            // group1
+            // 
+            this.group1.Name = "group1";
+            this.group1.Text = "Group 1";
+            this.group1.Tiles.Add(this.tile1);
+            this.group1.Tiles.Add(this.tile2);
+            this.group1.Tiles.Add(this.tile3);
+            // 
+            // tile1
+            // 
+            this.tile1.BackColor = System.Drawing.Color.LightCoral;
+            this.tile1.Name = "tile1";
+            this.tile1.Text = "Tile 1";
+            // 
+            // tile2
+            // 
+            this.tile2.BackColor = System.Drawing.Color.Teal;
+            this.tile2.Name = "tile2";
+            this.tile2.Text = "Tile 2";
+            // 
+            // tile3
+            // 
+            this.tile3.BackColor = System.Drawing.Color.SteelBlue;
+            this.tile3.Name = "tile3";
+            this.tile3.Text = "Tile 3";
             // 
             // c1ThemeController1
             // 
@@ -1068,75 +1134,26 @@
             this.autocompleteMenu1.Items = new string[0];
             this.autocompleteMenu1.TargetControlWrapper = null;
             // 
-            // c1DockingTabPage7
+            // c1TextBox3
             // 
-            this.c1DockingTabPage7.CaptionVisible = true;
-            this.c1DockingTabPage7.Controls.Add(this.c1TileControl1);
-            this.c1DockingTabPage7.Location = new System.Drawing.Point(1, 1);
-            this.c1DockingTabPage7.Name = "c1DockingTabPage7";
-            this.c1DockingTabPage7.Size = new System.Drawing.Size(352, 425);
-            this.c1DockingTabPage7.TabIndex = 4;
-            this.c1DockingTabPage7.Text = "Page7";
-            // 
-            // c1TileControl1
-            // 
-            this.c1TileControl1.AllowChecking = true;
-            this.c1TileControl1.BackColor = System.Drawing.Color.Gray;
-            this.c1TileControl1.CheckBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            // 
-            // 
-            // 
-            panelElement1.Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            panelElement1.Children.Add(imageElement1);
-            panelElement1.Children.Add(textElement1);
-            panelElement1.Margin = new System.Windows.Forms.Padding(10, 6, 10, 6);
-            this.c1TileControl1.DefaultTemplate.Elements.Add(panelElement1);
-            this.c1TileControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.c1TileControl1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1TileControl1.GroupForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.c1TileControl1.Groups.Add(this.group1);
-            this.c1TileControl1.HotBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
-            this.c1TileControl1.Location = new System.Drawing.Point(0, 22);
-            this.c1TileControl1.Name = "c1TileControl1";
-            this.c1TileControl1.Size = new System.Drawing.Size(352, 250);
-            this.c1TileControl1.TabIndex = 0;
-            this.c1TileControl1.Text = "c1TileControl1";
-            this.c1ThemeController1.SetTheme(this.c1TileControl1, "(default)");
-            this.c1TileControl1.TileBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(87)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
-            this.c1TileControl1.TileBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.c1TileControl1.TileForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            // 
-            // group1
-            // 
-            this.group1.Name = "group1";
-            this.group1.Text = "Group 1";
-            this.group1.Tiles.Add(this.tile1);
-            this.group1.Tiles.Add(this.tile2);
-            this.group1.Tiles.Add(this.tile3);
-            // 
-            // tile1
-            // 
-            this.tile1.BackColor = System.Drawing.Color.LightCoral;
-            this.tile1.Name = "tile1";
-            this.tile1.Text = "Tile 1";
-            // 
-            // tile2
-            // 
-            this.tile2.BackColor = System.Drawing.Color.Teal;
-            this.tile2.Name = "tile2";
-            this.tile2.Text = "Tile 2";
-            // 
-            // tile3
-            // 
-            this.tile3.BackColor = System.Drawing.Color.SteelBlue;
-            this.tile3.Name = "tile3";
-            this.tile3.Text = "Tile 3";
+            this.autocompleteMenu1.SetAutocompleteMenu(this.c1TextBox3, null);
+            this.c1TextBox3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.c1TextBox3.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
+            this.c1TextBox3.Location = new System.Drawing.Point(376, 347);
+            this.c1TextBox3.Name = "c1TextBox3";
+            this.c1TextBox3.Size = new System.Drawing.Size(100, 18);
+            this.c1TextBox3.TabIndex = 12;
+            this.c1TextBox3.Tag = null;
+            this.c1ThemeController1.SetTheme(this.c1TextBox3, "(default)");
+            this.c1TextBox3.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.c1TextBox3);
             this.Controls.Add(this.c1DateEdit3);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.c1TextBox2);
@@ -1166,6 +1183,7 @@
             this.c1DockingTabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).EndInit();
             this.c1SplitContainer2.ResumeLayout(false);
+            this.c1DockingTabPage7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1ThemeController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SuperErrorProvider1)).EndInit();
@@ -1182,7 +1200,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
-            this.c1DockingTabPage7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1283,6 +1301,7 @@
         private C1.Win.C1Tile.Tile tile1;
         private C1.Win.C1Tile.Tile tile2;
         private C1.Win.C1Tile.Tile tile3;
+        private C1.Win.C1Input.C1TextBox c1TextBox3;
     }
 }
 

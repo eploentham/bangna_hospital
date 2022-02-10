@@ -47,6 +47,7 @@ namespace bangna_hospital.gui
         ListBox lboxServer, lboxClient;
 
         int colReqId = 1, colReqHn = 2, colReqName = 3, colReqVn = 4, colReqXn = 5, colReqDtr = 6, colReqDpt = 7, colReqreqyr = 8, colReqreqno = 9, colreqhnyr = 10, colreqpreno = 11, colreqsex = 12, colreqdob = 13, colreqsickness = 14, colxrdesc = 15, colxrcode = 16, colxrstfcode = 17, colxrstfname = 18, colxrdepno = 19, colxrdepname = 20, colpttstatus = 21, colxrgrpcd = 22, colxrgrpdsc = 23, colxrdate=24;
+
         int colMasId = 1, colMasCode = 2, colMasDsc = 3, colMasTyp = 4, colMasGrp = 5, colMasDis = 6, colMasDeccode = 7, colMasDecNo = 8, colMasInfinittCode=9, colMasModalityCode=10;
         Timer timer1;
 
@@ -667,12 +668,17 @@ namespace bangna_hospital.gui
                 String date = "";
                 date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
                 re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear, xrcode, reqdate);
+                lboxClient.Items.Add("send success " + hn + "  " + System.DateTime.Now.ToString());
                 //re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear, xrcode, date);
                 //MessageBox.Show("re1 " + re1, "");
                 if (long.TryParse(re1, out chk1))
                 {
                     setGrfReq();
                 }
+            }
+            else
+            {
+                lboxClient.Items.Add("error " + re);
             }
             //if (tcpClient == null || !tcpClient.Connected)
             //{
@@ -687,195 +693,199 @@ namespace bangna_hospital.gui
             //}
             //if (tcpClient.Connected)
             //{
-            String txtADT = "", txtORM = "", resp = "";
-            try
+            if (bc.iniC.pacsServerIP.Length>0)
             {
-                //send message to server
-                //txt = reso.KPatientName + " " + reso.PatientID;
-                String[] aaa = name.Split(' ');
-                if (aaa.Length > 2)
+                String txtADT = "", txtORM = "", resp = "";
+                try
                 {
-                    String grp = "";
-                    if (xrgrpcd.Equals("C"))
+                    //send message to server
+                    //txt = reso.KPatientName + " " + reso.PatientID;
+                    String[] aaa = name.Split(' ');
+                    if (aaa.Length > 2)
                     {
-                        grp = "CT";
-                    }
-                    else if (xrgrpcd.Equals("U"))
-                    {
-                        grp = "US";
-                    }
-                    else if (xrgrpcd.Equals("G"))
-                    {
-                        grp = "MG";
-                    }
-                    else if (xrgrpcd.Equals("M"))
-                    {
-                        grp = "MR";
-                    }
-                    else
-                    {
-                        grp = "CR";
-                    }
-                    txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
-                    //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                    //    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
-                    txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                        , reqdate.Replace("-",""), reqno, xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
-                    //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
-                    //Test process
-
-                    //StreamWriter clientStreamWriter = new StreamWriter(;
-                    TcpClient tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-                    
-                    Console.WriteLine("Connected to Server");
-                    lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                    Application.DoEvents();
-                        //get a network stream from server
-                    NetworkStream clientSockStream = tcpClient.GetStream();
-                    StreamReader clientStreamReader = new StreamReader(clientSockStream);
-                    StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
-
-                    //byte[] byteArrayADT = Encoding.UTF8.GetBytes(txtADT);
-                    //MemoryStream streamADT = new MemoryStream(byteArrayADT);
-                    //streamADT.Position = 0;
-                    //using (StreamWriter writetext = new StreamWriter(streamADT, Encoding.UTF8))
-                    //{
-                    //    writetext.WriteLine(txtADT);
-                    //    //writetext.Flush();
-                    //    //writetext.Close();
-                    //}
-
-                    clientStreamWriter.Write(txtADT);
-                    clientStreamWriter.Flush();
-                    //clientStreamWriter.Close();
-                    Application.DoEvents();
-                    
-                    resp = clientStreamReader.ReadToEnd();
-
-                    //clientStreamReader.Close();
-                    //clientSockStream.Close();
-
-                    //tcpClient.Close();
-                    lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
-                    Application.DoEvents();
-
-                    TcpClient tcpClientORM = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-                    Console.WriteLine("Connected to Server");
-                    //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                    Application.DoEvents();
-                    //get a network stream from server
-                    NetworkStream clientSockStreamORM = tcpClientORM.GetStream();
-                    StreamReader clientStreamReaderORM = new StreamReader(clientSockStreamORM);
-                    StreamWriter clientStreamWriterORM = new StreamWriter(clientSockStreamORM);
-
-                    //byte[] byteArrayORM = Encoding.UTF8.GetBytes(txtORM);
-                    //MemoryStream streamORM = new MemoryStream(byteArrayORM);
-                    //streamORM.Position = 0;
-                    //using (StreamWriter writetext = new StreamWriter(streamORM, Encoding.UTF8))
-                    //{
-                    //    writetext.WriteLine(txtORM);
-                    //    //writetext.Close();
-                    //}
-                    //Application.DoEvents();
-                    //Thread.Sleep(500);
-                    resp = "";
-                    //resp = clientStreamReaderORM.ReadLine();
-                    clientStreamWriterORM.Write(txtORM);
-                    clientStreamWriterORM.Flush();
-                    Application.DoEvents();
-                    resp = "";
-                    resp = clientStreamReaderORM.ReadToEnd();
-                    clientStreamWriterORM.Close();
-                    clientStreamReaderORM.Close();
-                    clientSockStreamORM.Close();
-                    tcpClientORM.Close();
-                    Console.WriteLine("SERVER: " + resp);
-                    lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
-                    Application.DoEvents();
-                    if (xrcode.ToUpper().Equals("SMM005"))
-                    {
-                        try
+                        String grp = "";
+                        if (xrgrpcd.Equals("C"))
                         {
-                            //grp = "US";
-                            //txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
-                            ////txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                            ////    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
-                            //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
-                            //    , reqdate.Replace("-", ""), reqno+"1", xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
-
-                            //TcpClient tcpClient1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-
-                            //Console.WriteLine("Connected to Server");
-                            //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                            //Application.DoEvents();
-                            ////get a network stream from server
-                            //NetworkStream clientSockStream1 = tcpClient1.GetStream();
-                            //StreamReader clientStreamReader1 = new StreamReader(clientSockStream1);
-                            //StreamWriter clientStreamWriter1 = new StreamWriter(clientSockStream1);
-
-                            //clientStreamWriter1.Write(txtADT);
-                            //clientStreamWriter1.Flush();
-                            ////clientStreamWriter.Close();
-                            //Application.DoEvents();
-
-                            //resp = clientStreamReader1.ReadToEnd();
-
-                            ////clientStreamReader.Close();
-                            ////clientSockStream.Close();
-
-                            ////tcpClient.Close();
-                            //lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
-                            //Application.DoEvents();
-
-                            //TcpClient tcpClientORM1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
-                            //Console.WriteLine("Connected to Server");
-                            ////lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
-                            //Application.DoEvents();
-                            ////get a network stream from server
-                            //NetworkStream clientSockStreamORM1 = tcpClientORM1.GetStream();
-                            //StreamReader clientStreamReaderORM1 = new StreamReader(clientSockStreamORM1);
-                            //StreamWriter clientStreamWriterORM1 = new StreamWriter(clientSockStreamORM1);
-
-                            //resp = "";
-                            ////resp = clientStreamReaderORM.ReadLine();
-                            //clientStreamWriterORM1.Write(txtORM);
-                            //clientStreamWriterORM1.Flush();
-                            //Application.DoEvents();
-                            //resp = "";
-                            //resp = clientStreamReaderORM1.ReadToEnd();
-                            ////clientSockStream1.Close();
-                            //clientStreamWriterORM1.Close();
-                            //clientStreamReaderORM1.Close();
-                            //clientSockStreamORM1.Close();
-                            //tcpClientORM1.Close();
-                            //Console.WriteLine("SERVER: " + resp);
-                            //lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
-                            //Application.DoEvents();
+                            grp = "CT";
                         }
-                        catch (Exception ex)
+                        else if (xrgrpcd.Equals("U"))
                         {
+                            grp = "US";
+                        }
+                        else if (xrgrpcd.Equals("G"))
+                        {
+                            grp = "MG";
+                        }
+                        else if (xrgrpcd.Equals("M"))
+                        {
+                            grp = "MR";
+                        }
+                        else
+                        {
+                            grp = "CR";
+                        }
+                        txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
+                        //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                        //    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
+                        txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                            , reqdate.Replace("-", ""), reqno, xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
+                        //clientStreamWriter.WriteLine(hn+" "+ aaa[0] + " " + aaa[1] + " " + aaa[2]);
+                        //Test process
 
+                        //StreamWriter clientStreamWriter = new StreamWriter(;
+                        TcpClient tcpClient = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+
+                        Console.WriteLine("Connected to Server");
+                        lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                        Application.DoEvents();
+                        //get a network stream from server
+                        NetworkStream clientSockStream = tcpClient.GetStream();
+                        StreamReader clientStreamReader = new StreamReader(clientSockStream);
+                        StreamWriter clientStreamWriter = new StreamWriter(clientSockStream);
+
+                        //byte[] byteArrayADT = Encoding.UTF8.GetBytes(txtADT);
+                        //MemoryStream streamADT = new MemoryStream(byteArrayADT);
+                        //streamADT.Position = 0;
+                        //using (StreamWriter writetext = new StreamWriter(streamADT, Encoding.UTF8))
+                        //{
+                        //    writetext.WriteLine(txtADT);
+                        //    //writetext.Flush();
+                        //    //writetext.Close();
+                        //}
+
+                        clientStreamWriter.Write(txtADT);
+                        clientStreamWriter.Flush();
+                        //clientStreamWriter.Close();
+                        Application.DoEvents();
+
+                        resp = clientStreamReader.ReadToEnd();
+
+                        //clientStreamReader.Close();
+                        //clientSockStream.Close();
+
+                        //tcpClient.Close();
+                        lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                        Application.DoEvents();
+
+                        TcpClient tcpClientORM = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                        Console.WriteLine("Connected to Server");
+                        //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                        Application.DoEvents();
+                        //get a network stream from server
+                        NetworkStream clientSockStreamORM = tcpClientORM.GetStream();
+                        StreamReader clientStreamReaderORM = new StreamReader(clientSockStreamORM);
+                        StreamWriter clientStreamWriterORM = new StreamWriter(clientSockStreamORM);
+
+                        //byte[] byteArrayORM = Encoding.UTF8.GetBytes(txtORM);
+                        //MemoryStream streamORM = new MemoryStream(byteArrayORM);
+                        //streamORM.Position = 0;
+                        //using (StreamWriter writetext = new StreamWriter(streamORM, Encoding.UTF8))
+                        //{
+                        //    writetext.WriteLine(txtORM);
+                        //    //writetext.Close();
+                        //}
+                        //Application.DoEvents();
+                        //Thread.Sleep(500);
+                        resp = "";
+                        //resp = clientStreamReaderORM.ReadLine();
+                        clientStreamWriterORM.Write(txtORM);
+                        clientStreamWriterORM.Flush();
+                        Application.DoEvents();
+                        resp = "";
+                        resp = clientStreamReaderORM.ReadToEnd();
+                        clientStreamWriterORM.Close();
+                        clientStreamReaderORM.Close();
+                        clientSockStreamORM.Close();
+                        tcpClientORM.Close();
+                        Console.WriteLine("SERVER: " + resp);
+                        lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                        Application.DoEvents();
+                        if (xrcode.ToUpper().Equals("SMM005"))
+                        {
+                            try
+                            {
+                                //grp = "US";
+                                //txtADT = bc.genADT("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI", opdtype, depcode, depname);
+                                ////txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                                ////    , hnreqyear, reqno, xrcode, xray, grp, "333","Ekapop", grp, opdtype, depcode, depname, sickness);
+                                //txtORM = bc.genORM("xray", hn, aaa[0], aaa[1], aaa[2], dob, sex, "THAI"
+                                //    , reqdate.Replace("-", ""), reqno+"1", xrcode, xray, grp, stfcode, stfname, grp, opdtype, depcode, depname, sickness);
+
+                                //TcpClient tcpClient1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+
+                                //Console.WriteLine("Connected to Server");
+                                //lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                                //Application.DoEvents();
+                                ////get a network stream from server
+                                //NetworkStream clientSockStream1 = tcpClient1.GetStream();
+                                //StreamReader clientStreamReader1 = new StreamReader(clientSockStream1);
+                                //StreamWriter clientStreamWriter1 = new StreamWriter(clientSockStream1);
+
+                                //clientStreamWriter1.Write(txtADT);
+                                //clientStreamWriter1.Flush();
+                                ////clientStreamWriter.Close();
+                                //Application.DoEvents();
+
+                                //resp = clientStreamReader1.ReadToEnd();
+
+                                ////clientStreamReader.Close();
+                                ////clientSockStream.Close();
+
+                                ////tcpClient.Close();
+                                //lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                                //Application.DoEvents();
+
+                                //TcpClient tcpClientORM1 = new TcpClient(bc.iniC.pacsServerIP, int.Parse(bc.iniC.pacsServerPort));
+                                //Console.WriteLine("Connected to Server");
+                                ////lboxServer.Items.Add("Connected to Server " + bc.iniC.pacsServerIP + " " + bc.iniC.pacsServerPort + " " + System.DateTime.Now.ToString());
+                                //Application.DoEvents();
+                                ////get a network stream from server
+                                //NetworkStream clientSockStreamORM1 = tcpClientORM1.GetStream();
+                                //StreamReader clientStreamReaderORM1 = new StreamReader(clientSockStreamORM1);
+                                //StreamWriter clientStreamWriterORM1 = new StreamWriter(clientSockStreamORM1);
+
+                                //resp = "";
+                                ////resp = clientStreamReaderORM.ReadLine();
+                                //clientStreamWriterORM1.Write(txtORM);
+                                //clientStreamWriterORM1.Flush();
+                                //Application.DoEvents();
+                                //resp = "";
+                                //resp = clientStreamReaderORM1.ReadToEnd();
+                                ////clientSockStream1.Close();
+                                //clientStreamWriterORM1.Close();
+                                //clientStreamReaderORM1.Close();
+                                //clientSockStreamORM1.Close();
+                                //tcpClientORM1.Close();
+                                //Console.WriteLine("SERVER: " + resp);
+                                //lboxClient.Items.Add("SERVER " + resp + "  " + System.DateTime.Now.ToString());
+                                //Application.DoEvents();
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception se)
-            {
-                Console.WriteLine(se.StackTrace);
-                lboxClient.Items.Add("Error " + se.StackTrace + "  " + System.DateTime.Now.ToString());
-                Application.DoEvents();
-            }
-            finally
-            {
-                //tcpClient.Close();
-                //clientStreamWriter.Close();
-                //clientStreamReader.Close();
-                Application.DoEvents();
-                //tcpClient = null;
-                //clientStreamWriter.Dispose();
-                //clientStreamReader.Dispose();
+                catch (Exception se)
+                {
+                    Console.WriteLine(se.StackTrace);
+                    lboxClient.Items.Add("Error " + se.StackTrace + "  " + System.DateTime.Now.ToString());
+                    Application.DoEvents();
+                }
+                finally
+                {
+                    //tcpClient.Close();
+                    //clientStreamWriter.Close();
+                    //clientStreamReader.Close();
+                    Application.DoEvents();
+                    //tcpClient = null;
+                    //clientStreamWriter.Dispose();
+                    //clientStreamReader.Dispose();
 
+                }
             }
+            
             //}
         }        
         private void setGrfReq()

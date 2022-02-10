@@ -1187,18 +1187,27 @@ namespace bangna_hospital.gui
                 yPosint = int.Parse(yPos.ToString());
                 col40int = int.Parse(col40.ToString());
             }
-            if (statusStickerIPD)
+            //if (statusStickerIPD)
+            if (bc.iniC.statusPrintSticker.Equals("1"))
             {
                 DataTable dt = new DataTable();
-                dt = bc.bcDB.vsDB.selectPttinWard1(txtHn.Text.Trim());
+                dt = bc.bcDB.vsDB.selectPttinWard2(txtHn.Text.Trim());
                 if (dt.Rows.Count > 0)
                 {
+                    ptt = bc.bcDB.pttDB.selectPatinetByHn(txtHn.Text.Trim());
                     line = "H.N. " + ptt.MNC_HN_NO + " " + dt.Rows[0]["MNC_AN_NO"].ToString() + "." + dt.Rows[0]["MNC_AN_yr"].ToString();
                     e.Graphics.DrawString(line, fEdit, Brushes.Black, 15, yPos + 5, flags);
                     line = ptt.Name;
                     e.Graphics.DrawString(line, fEditS, Brushes.Black, 15, yPos + 25, flags);
                     //line = dt.Rows[0]["MNC_MD_DEP_DSC"].ToString() + " " + dt.Rows[0]["MNC_RM_NAM"].ToString() + " " + dt.Rows[0]["MNC_BD_NO"].ToString();//MNC_AN_NO
-                    line = ptt.AgeString();
+                    new LogWriter("d", "Document_PrintPage_Sticker1 " + ptt.AgeStringShortEngWindowsXP()+ " patient_birthday " + ptt.patient_birthday+ " dob " + ptt.dob);
+                    line = bc.iniC.windows.Equals("windowsxp") ? ptt.AgeStringShortEngWindowsXP() : ptt.AgeString();
+                    line = line.Replace("Years", "ปี");
+                    line = line.Replace("Year", "ปี");
+                    line = line.Replace("Months", "เดือน");
+                    line = line.Replace("Month", "เดือน");
+                    line = line.Replace("Days", "วัน");
+                    line = line.Replace("Day", "วัน");
                     e.Graphics.DrawString(line, fEditS, Brushes.Black, 15, yPos + 45, flags);
 
                     line = "H.N. " + ptt.MNC_HN_NO + " " + dt.Rows[0]["MNC_AN_NO"].ToString() + "." + dt.Rows[0]["MNC_AN_yr"].ToString();
@@ -1206,7 +1215,14 @@ namespace bangna_hospital.gui
                     line = ptt.Name;
                     e.Graphics.DrawString(line, fEditS, Brushes.Black, 15, yPos + 85, flags);
                     //line = dt.Rows[0]["MNC_MD_DEP_DSC"].ToString() + " " + dt.Rows[0]["MNC_RM_NAM"].ToString() + " " + dt.Rows[0]["MNC_BD_NO"].ToString();
-                    line = ptt.AgeString();
+                    //line = ptt.AgeString();
+                    line = bc.iniC.windows.Equals("windowsxp") ? ptt.AgeStringShortEngWindowsXP() : ptt.AgeString();
+                    line = line.Replace("Years", "ปี");
+                    line = line.Replace("Year", "ปี");
+                    line = line.Replace("Months", "เดือน");
+                    line = line.Replace("Month", "เดือน");
+                    line = line.Replace("Days", "วัน");
+                    line = line.Replace("Day", "วัน");
                     e.Graphics.DrawString(line, fEditS, Brushes.Black, 15, yPos + 105, flags);
                 }
             }
@@ -2981,7 +2997,7 @@ namespace bangna_hospital.gui
             {
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmSmartCard_Load", "FrmSmartCard_Load");
             }
-            this.Text += " Update 2021-12-13";
+            this.Text += " Update 2021-12-17";
             btnPatientNew.Enabled = false;
             tC1.SelectedTab = tabPttNew;
             tCBn1.SelectedTab = tabBn1Ptt;

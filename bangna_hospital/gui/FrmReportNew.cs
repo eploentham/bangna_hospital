@@ -61,7 +61,7 @@ namespace bangna_hospital.gui
             }
             else
             {
-                args.Data = dt;
+                args.Data = DT;
             }
         }
         private void LabReportExportDocument()

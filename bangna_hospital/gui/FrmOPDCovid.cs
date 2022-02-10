@@ -115,7 +115,6 @@ namespace bangna_hospital.gui
             XLSheet sheet = _book.Sheets.Add("Novel " + dt.ToString("dd-MM-yyyy"));
             bc.SaveSheet(grfNovel, sheet, _book, false);
             //}
-
             // save selected sheet index
             _book.Sheets.SelectedIndex = 0;
 

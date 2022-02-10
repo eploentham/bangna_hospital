@@ -169,6 +169,11 @@ namespace bangna_hospital
                     //new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmCheckup(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("ssndata"))
+                {
+                    //new LogWriter("d", "args " + args.Length);
+                    Application.Run(new gui.frmSsnData(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

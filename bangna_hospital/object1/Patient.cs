@@ -147,18 +147,23 @@ namespace bangna_hospital.object1
             //dob = years + patient_birthday.Substring(5);
             if (DateTime.TryParse(patient_birthday, out dtB))
             {
-                MessageBox.Show("444  AgeStringShortEng ", "");
-                dtB = dtB.AddYears(-543);
+
+                //MessageBox.Show("444  AgeStringShortEng ", "");
+                //dtB = dtB.AddYears(-543);
+                if (dtB.Year < 2000)
+                {
+                    dtB = dtB.AddYears(543);
+                }
                 DateTime dtm = new DateTime();
                 DateTime.TryParse(System.DateTime.Now.ToString("yyyy-MM-dd"), out dtm);
-                MessageBox.Show("888 dtB  " + dtB.ToString() + "  dtm " + dtm.ToString(), "");
+                //MessageBox.Show("888 dtB  " + dtB.ToString() + "  dtm " + dtm.ToString(), "");
                 //return "";
 
-
+                new LogWriter("d", "AgeStringShortEngWindowsXP patient_birthday " + patient_birthday + " dob " + dtB.ToString());
                 //age = new Age(dtB, dtm);
                 age = new Age(dtB);
                 //re = age.AgeString.Replace("Years", "Y").Replace("Year", "Y").Replace("Months", "M").Replace("Month", "M").Replace("Days", "D").Replace("Day", "D");
-
+                //new LogWriter("d", "AgeStringShortEngWindowsXP patient_birthday " + patient_birthday + " dob " + dtm.ToString()+"  "+);
                 //days = age.Days.Equals("1") ? "Day" : "Days";
                 //months = age.Months.Equals("1") ? "Month" : "Months";
                 //years = age.Years.Equals("1") ? "Year" : "Years";
