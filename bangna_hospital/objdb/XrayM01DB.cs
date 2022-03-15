@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,39 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 new LogWriter("e", " XrayM01DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
+        public String insertXrayAccessNumber(String hn, String reqdate, String reqno,String xraycode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                //new LogWriter("d", " XrayM01DB insertXrayAccessNumber hn " + hn + " reqdate " + reqdate+ " reqno " + reqno + " xraycode " + xraycode);
+                //using (SqlCommand cmd = new SqlCommand("INSERT INTO xray_accessnumber(hn,req_date, req_no, xray_code) output INSERTED.accessnumber_id VALUES(@hn,@reqdate,@req_no,@xray_code)", conn.connMainHIS))
+                //{
+                //    new LogWriter("d", " XrayM01DB insertXrayAccessNumber sql " + cmd.CommandText);
+                //    cmd.Parameters.AddWithValue("@hn", hn);
+                //    cmd.Parameters.AddWithValue("@reqdate", reqdate);
+                //    cmd.Parameters.AddWithValue("@req_no", reqno);
+                //    cmd.Parameters.AddWithValue("@xray_code", xraycode);
+                //    conn.connMainHIS.Open();
+
+                //    int modified = (int)cmd.ExecuteScalar();
+
+                //    if (conn.connMainHIS.State == System.Data.ConnectionState.Open)
+                //        conn.connMainHIS.Close();
+
+                //    return modified.ToString();
+                //}
+                sql = "INSERT INTO xray_accessnumber(hn,req_date, req_no, xray_code) Values('"+hn+"','"+reqdate+"','"+reqno+"','"+xraycode+ "');Select Scope_Identity();";
+                chk = conn.ExecuteScalarNonQuery(conn.connMainHIS, sql);
+                //new LogWriter("d", " XrayM01DB insertXrayAccessNumber chk " + chk);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " XrayM01DB insertXrayAccessNumber error " + ex.InnerException +" "+ex.Message);
             }
             return chk;
         }

@@ -31,9 +31,16 @@ namespace bangna_hospital.object1
 
         public Age Count(DateTime Bday)
         {
+            //int yeardob = 0, year = 0;
+            //DateTime dt = DateTime.Today;
+            //yeardob = Bday.Year;
+            //year = DateTime.Today.Year;
+            //if (yeardob < 1500)
+            //{
+            //    Bday.AddYears(543);
+            //}
             return this.Count(Bday, DateTime.Today);
         }
-
         public Age Count(DateTime Bday, DateTime Cday)
         {
             if ((Cday.Year - Bday.Year) > 0 ||

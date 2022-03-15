@@ -38,7 +38,7 @@ namespace bangna_hospital.gui
         TextElement teCat, teOrd;
         Label lbLoading;
 
-        int colCheckupRow = 1, colCheckupTilNum = 2, colCheckupTilImgNum = 3, colCheckupPID = 4, colCheckupPassport = 5, colCheckupNameE = 6, colCheckupNameT=7, colCheckupDOB = 8, colCheckupNat=9, colCheckupPrefix=10, colCheckupFname=11, colCheckupLname12;
+        int colCheckupRow = 1, colCheckupTilNum = 2, colCheckupTilImgNum = 3, colCheckupPID = 4, colCheckupPassport = 5, colCheckupNameE = 6, colCheckupNameT=7, colCheckupDOB = 8, colCheckupNat=9, colCheckupPrefix=10, colCheckupFname=11, colCheckupLname=12;
 
         public FrmCheckup(BangnaControl bc)
         {
@@ -91,7 +91,7 @@ namespace bangna_hospital.gui
             TileCat.Dock = DockStyle.Fill;
             TileCat.Font = fEdit;
             
-            TileCat.Orientation = LayoutOrientation.Horizontal;
+            TileCat.Orientation = LayoutOrientation.Vertical;
             
             grRec = new Group();
             TileCat.Groups.Add(this.grRec);
@@ -120,7 +120,7 @@ namespace bangna_hospital.gui
             //peCat.BackColor = tileFoodsNameColor;
             peCat.Children.Add(teCat);
             peCat.Dock = System.Windows.Forms.DockStyle.Top;
-            peCat.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            peCat.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
 
             //TileCat.DefaultTemplate.Elements.Add(peOrd);
             TileCat.Templates.Add(this.tempRec);
@@ -133,7 +133,7 @@ namespace bangna_hospital.gui
             TileCat.ScrollOffset = 0;
             TileCat.SurfaceContentAlignment = System.Drawing.ContentAlignment.TopLeft;
             TileCat.Padding = new System.Windows.Forms.Padding(0);
-            TileCat.GroupPadding = new System.Windows.Forms.Padding(20);
+            TileCat.GroupPadding = new System.Windows.Forms.Padding(0);
             //TileCat.BackColor = tileCatColor;       // tab recommend color
             //TileCat.Templates.Add(this.tempRec);
 
@@ -213,22 +213,23 @@ namespace bangna_hospital.gui
                 String filename = "";
                 filename = DateTime.Now.Ticks.ToString();
                 var process = new System.Diagnostics.Process();
-                process.StartInfo.FileName = "c:\\Program Files\\Tesseract-OCR\\tesseract.exe";
-                process.StartInfo.Arguments = ptt.filename + " e:\\ocr\\" + filename;
+                process.StartInfo.FileName = "C:\\Tesseract-OCR\\tesseract.exe";
+                process.StartInfo.Arguments = ptt.filename + " d:\\ocr\\" + filename+" -l eng+tha";
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
                 process.Start();
                 process.WaitForExit();
-
-                if (File.Exists("e:\\ocr\\" + filename + ".txt"))
+                //grfCheck.Rows.Count = 0;
+                grfCheck.Rows.Count = 1;
+                if (File.Exists("d:\\ocr\\" + filename + ".txt"))
                 {
                     String txt = "";
                     //txt = File.ReadAllText("e:\\ocr\\" + filename + ".txt");
                     //int indexmiss = txt.IndexOf("MISS");
                     //int indexmrs = txt.IndexOf("MRS");
                     //int indexmr = txt.IndexOf("MR");
-                    using (StreamReader file = new StreamReader("e:\\ocr\\" + filename + ".txt"))
+                    using (StreamReader file = new StreamReader("d:\\ocr\\" + filename + ".txt"))
                     {
                         int counter = 0, cntCheckName=0;
                         string ln;
@@ -240,7 +241,7 @@ namespace bangna_hospital.gui
                                 int indexmiss = ln.IndexOf("MISS");
                                 int indexmrs = ln.IndexOf("MRS");
                                 int indexmr = ln.IndexOf("MR");
-                                if (indexmiss > 0)
+                                if ((indexmiss > 0) || (indexmrs > 0) || (indexmr > 0))
                                 {
                                     String[] aaaa = ln.Split(' ');
                                     if (aaaa.Length > 0)
@@ -287,6 +288,9 @@ namespace bangna_hospital.gui
                                             row[colCheckupTilImgNum] = cntCheckName;
                                             row[colCheckupTilNum] = ((Tile)sender).Text;
                                             row[colCheckupRow] = grfCheck.Rows.Count-1;
+                                            row[colCheckupPrefix] = prefix;
+                                            row[colCheckupFname] = name;
+                                            row[colCheckupLname] = surname;
                                             //row[3] = surname;
                                             //row[4] = dob;
                                         }
@@ -305,7 +309,7 @@ namespace bangna_hospital.gui
             }
             catch(Exception ex)
             {
-
+                new LogWriter("e", "FrmCheckup  Tile_Click " + ex.Message);
             }
             
             hideLbLoading();
@@ -352,16 +356,33 @@ namespace bangna_hospital.gui
             grfCheck.Cols[colCheckupDOB].Width = 120;
             grfCheck.Cols[colCheckupNat].Width = 200;
 
+            grfCheck.Cols[colCheckupRow].AllowEditing = false;
+            grfCheck.Cols[colCheckupTilNum].AllowEditing = false;
+            grfCheck.Cols[colCheckupTilImgNum].AllowEditing = false;
+            grfCheck.Cols[colCheckupPID].AllowEditing = false;
+            grfCheck.Cols[colCheckupPassport].AllowEditing = false;
+            grfCheck.Cols[colCheckupNameE].AllowEditing = false;
+            grfCheck.Cols[colCheckupNameT].AllowEditing = false;
+            grfCheck.Cols[colCheckupDOB].AllowEditing = false;
+            grfCheck.Cols[colCheckupNat].AllowEditing = false;
+
             grfCheck.Click += GrfCheck_Click;
 
             theme1.SetTheme(grfCheck, bc.iniC.themeApp);
-
+            
         }
 
         private void GrfCheck_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (grfCheck.Row <=0) return;
+            if (grfCheck.Col <= 0) return;
 
+            txtPrefix.Value = grfCheck[grfCheck.Row, colCheckupPrefix] != null ? grfCheck[grfCheck.Row, colCheckupPrefix].ToString():"";
+            txtFname.Value = grfCheck[grfCheck.Row, colCheckupFname] != null ? grfCheck[grfCheck.Row, colCheckupFname].ToString() : "";
+            txtLname.Value = grfCheck[grfCheck.Row, colCheckupLname] != null ? grfCheck[grfCheck.Row, colCheckupLname].ToString() : "";
+            txtDOB.Value = grfCheck[grfCheck.Row, colCheckupDOB] != null ? grfCheck[grfCheck.Row, colCheckupDOB].ToString() : "";
+            txtFullname.Value = txtPrefix.Text + " " + txtFname.Text + " " + txtLname.Text;
         }
 
         private void showLbLoading()

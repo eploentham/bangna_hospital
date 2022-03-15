@@ -27,7 +27,6 @@ namespace bangna_hospital.object1
 
     public class  RDNID
     {
-       
         const string _RDNIDLib_DLL_ = "RDNIDLibD.DLL";
 
         [DllImport(_RDNIDLib_DLL_,

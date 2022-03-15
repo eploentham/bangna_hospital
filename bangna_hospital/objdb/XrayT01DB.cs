@@ -73,7 +73,22 @@ namespace bangna_hospital.objdb
             chkNull(p);
             if (p.MNC_REQ_NO.Equals("0"))
             {
-                re = insertOPD(p, "");
+                re = insertOPD(p,"");
+            }
+            else
+            {
+
+            }
+            return re;
+        }
+        public String insertXrayT01(XrayT01 p, String userid)
+        {
+            String sql = "", chk = "", re = "";
+
+            chkNull(p);
+            if (p.MNC_REQ_NO.Equals("0"))
+            {
+                re = insertOPD(p, userid);
             }
             else
             {
@@ -89,12 +104,12 @@ namespace bangna_hospital.objdb
                 //new LogWriter("e", "PharmacyT01 insert " );
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
-                conn.comStore.CommandText = "insert_xray_t01_opd";
+                conn.comStore.CommandText = "insert_xray_t01_t02_opd";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
-                //conn.comStore.Parameters.AddWithValue("mnc_req_yr", p.MNC_REQ_YR);
-                //conn.comStore.Parameters.AddWithValue("mnc_req_dat", p.MNC_REQ_DAT);
-                //conn.comStore.Parameters.AddWithValue("mnc_req_tim", p.MNC_REQ_TIM);
-                //conn.comStore.Parameters.AddWithValue("mnc_sum_pri", p.MNC_SUM_PRI);
+                //conn.comStore.Parameters.AddWithValue("xraycode1", xraycode1);
+                //conn.comStore.Parameters.AddWithValue("xraycode2", xraycode2);
+                //conn.comStore.Parameters.AddWithValue("xraycode3", xraycode3);
+                //conn.comStore.Parameters.AddWithValue("xraycode4", xraycode4);
                 //conn.comStore.Parameters.AddWithValue("mnc_sum_cos", p.MNC_SUM_COS);
                 //conn.comStore.Parameters.AddWithValue("mnc_dep_no", p.MNC_DEP_NO);
                 conn.comStore.Parameters.AddWithValue("mnc_hn_yr", p.MNC_HN_YR);
@@ -111,9 +126,8 @@ namespace bangna_hospital.objdb
                 //conn.comStore.Parameters.AddWithValue("mnc_depc_no", p.MNC_DEPC_NO);
                 //conn.comStore.Parameters.AddWithValue("mnc_secc_no", p.MNC_SECC_NO);
                 //conn.comStore.Parameters.AddWithValue("mnc_cancel_sts", p.MNC_CANCEL_STS);
-                //conn.comStore.Parameters.AddWithValue("mnc_usr_add", p.MNC_USR_ADD);
-
-                //conn.comStore.Parameters.AddWithValue("mnc_usr_upd", p.MNC_USR_UPD);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_add", p.MNC_EMPR_CD);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_upd", p.MNC_EMPC_CD);
 
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";

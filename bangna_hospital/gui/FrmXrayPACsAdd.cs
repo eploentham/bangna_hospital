@@ -625,7 +625,7 @@ namespace bangna_hospital.gui
             if (grfReq.Row <= 0) return;
             if (grfReq.Col <= 0) return;
             String hn = "", name = "", sex = "", dob = "", sickness = "", vn = "", hnreqyear = "", preno = "", reqno = "", xray = "", xrcode="", stfcode="", stfname="", dtrid="";
-            String opdtype = "", depcode = "", depname = "", xrgrpcd="", reqdate="";
+            String opdtype = "", depcode = "", depname = "", xrgrpcd="", reqdate="", re = "0", re2 = "", reqyr="", modality = "";
             hn = grfReq[grfReq.Row, colReqHn] != null ? grfReq[grfReq.Row, colReqHn].ToString() : "";
             name = grfReq[grfReq.Row, colReqName] != null ? grfReq[grfReq.Row, colReqName].ToString() : "";
             sex = grfReq[grfReq.Row, colreqsex] != null ? grfReq[grfReq.Row, colreqsex].ToString() : "";
@@ -645,20 +645,38 @@ namespace bangna_hospital.gui
             opdtype = grfReq[grfReq.Row, colpttstatus] != null ? grfReq[grfReq.Row, colpttstatus].ToString() : "";
             xrgrpcd = grfReq[grfReq.Row, colxrgrpcd] != null ? grfReq[grfReq.Row, colxrgrpcd].ToString() : "";
             reqdate = grfReq[grfReq.Row, colxrdate] != null ? grfReq[grfReq.Row, colxrdate].ToString() : "";
+            //reqyr = grfReq[grfReq.Row, colReqreqyr] != null ? grfReq[grfReq.Row, colReqreqyr].ToString() : "";
             opdtype = opdtype.Trim().Equals("I") ? "I" : "O";
             //reqdate = bc.datetoDB(reqdate);
-            String re = "0";
             ResOrderTab reso = new ResOrderTab();
             //MessageBox.Show("reqno " + reqno+ "\n hnreqyear "+ hnreqyear, "");
             if (!xrgrpcd.Equals("U") || !xrgrpcd.Equals("C") || !xrgrpcd.Equals("G") || !xrgrpcd.Equals("M"))
             {
-                reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, preno, hnreqyear, reqno, dob, sex, sickness, xray, xrcode, depname, dtrid, stfname);
-                //MessageBox.Show("InsertDate " + reso.InsertDate , "");
+                String accessnumber="";
+                if (xrgrpcd.Equals("U"))
+                {
+                    modality = "US";
+                }
+                else if (xrgrpcd.Equals("C"))
+                {
+                    modality = "CT";
+                }
+                else
+                {
+                    modality = "CR";
+                    modality = "DX";  // ทาง ติ๊ก แจ้งให้เปลี่ยนเป็น DX
+                }
+                accessnumber = bc.bcDB.xrayM01DB.insertXrayAccessNumber(hn, reqdate, reqno, xrcode);
+                reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, preno, hnreqyear, reqno, dob, sex, sickness, xray, xrcode, depname, dtrid, stfname, modality, accessnumber);
+                //re = "";
+                ////MessageBox.Show("InsertDate " + reso.InsertDate , "");
+                //new LogWriter("d", "FrmXrayPACsAdd  reso.AccessNumber " + reso.AccessNumber);
+                ////ใช้งานจริงๆ เอา comment ออก
 
-                //ใช้งานจริงๆ เอา comment ออก
                 re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
+                re2 = bc.bcDB.xrayT02DB.updateAccessNumber(hnreqyear, reqno, reqdate, xrcode, accessnumber);
             }
-            
+
             ////MessageBox.Show("re " + re, "");
             long chk = 0, chk1 = 0;
             if (long.TryParse(re, out chk))
@@ -668,7 +686,7 @@ namespace bangna_hospital.gui
                 String date = "";
                 date = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
                 re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear, xrcode, reqdate);
-                lboxClient.Items.Add("send success " + hn + "  " + System.DateTime.Now.ToString());
+                lboxClient.Items.Add("send success " + hn + "  " + System.DateTime.Now.ToString()+ " reso.AccessNumber " + reso.AccessNumber+ " modality "+ modality);
                 //re1 = bc.bcDB.xrDB.updateStatusPACs(reqno, hnreqyear, xrcode, date);
                 //MessageBox.Show("re1 " + re1, "");
                 if (long.TryParse(re1, out chk1))
@@ -974,6 +992,7 @@ namespace bangna_hospital.gui
                     grfReq[i, colxrgrpcd] = row["MNC_XR_GRP_CD"].ToString();
                     grfReq[i, colxrgrpdsc] = row["MNC_XR_GRP_dsc"].ToString();
                     grfReq[i, colxrdate] = row["mnc_req_dat1"].ToString();
+                    grfReq[i, colReqreqyr] = row["mnc_req_yr"].ToString();
                     i++;
                 }
                 catch (Exception ex)
@@ -1221,7 +1240,6 @@ namespace bangna_hospital.gui
                 n_server.Start();
                 //ServerListen();
                 //listBox1.Items.Add("Start Listening "+ System.DateTime.Now.ToString());
-
             }
             else
             {
@@ -1631,7 +1649,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2020-08-24 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2021-02-24 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

@@ -361,7 +361,7 @@ namespace bangna_hospital.gui
         }
         private void frmSsnData_Load(object sender, EventArgs e)
         {
-            this.Text = "2022-02-07";
+            this.Text = "2022-02-17";
             CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
             lB1.Text = currentCulture.Name;
         }

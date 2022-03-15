@@ -56,6 +56,16 @@ namespace bangna_hospital.objdb
         public QueueTypeDB queueTypeDB;
         public QueueDB queueDB;
         public LabCovidDetectedDB lcoviddDB;
+        public PatientM09DB pm09DB;
+        public PatientM08DB pm08DB;
+        public PatientM07DB pm07DB;
+        public PatientM05DB pm05DB;
+        public PatientM04DB pm04DB;
+        public PatientM03DB pm03DB;
+        public PatientM02DB pm02DB;
+        public PatientM24DB pm24DB;
+        public PatientM32DB pm32DB;
+        public PatientM30DB pm30DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -107,6 +117,17 @@ namespace bangna_hospital.objdb
             queueTypeDB = new QueueTypeDB(conn);
             queueDB = new QueueDB(conn);
             lcoviddDB = new LabCovidDetectedDB(conn);
+            pm09DB = new PatientM09DB(conn);
+            pm08DB = new PatientM08DB(conn);
+            pm07DB = new PatientM07DB(conn);
+            pm07DB = new PatientM07DB(conn);
+            pm05DB = new PatientM05DB(conn);
+            pm04DB = new PatientM04DB(conn);
+            pm03DB = new PatientM03DB(conn);
+            pm02DB = new PatientM02DB(conn);
+            pm24DB = new PatientM24DB(conn);
+            pm30DB = new PatientM30DB(conn);
+            pm32DB = new PatientM32DB(conn);
         }
         public String insertLogPage(String userid, String form, String method, String desc)
         {
@@ -132,12 +153,16 @@ namespace bangna_hospital.objdb
         {
             String sql = "", cnt="";
             DataTable dt = new DataTable();
-            sql = "Delete from prakun_m01_pop_temp;";
+            //sql = "Delete from prakun_m01_pop_temp;";
+            sql = "Delete from prakun_m01;";
             conn.ExecuteNonQueryLogPage(conn.connMainHIS, sql);
-            sql = "insert into prakun_m01_pop_temp (SocialID, Social_Card_no,TitleName,FirstName, LastName,FullName, PrakanCode, Prangnant, StartDate,EndDate,BirthDay,UploadDate,FLAG   ) " +
+            //sql = "insert into prakun_m01_pop_temp (SocialID, Social_Card_no,TitleName,FirstName, LastName,FullName, PrakanCode, Prangnant, StartDate,EndDate,BirthDay,UploadDate,FLAG   ) " +
+            //    "Select SocialID, Social_Card_no,TitleName,FirstName, LastName,FullName, PrakanCode, Prangnant, StartDate,EndDate,BirthDay,UploadDate,FLAG From prakun_m01_pop ";
+            sql = "insert into prakun_m01 (SocialID, Social_Card_no,TitleName,FirstName, LastName,FullName, PrakanCode, Prangnant, StartDate,EndDate,BirthDay,UploadDate,FLAG   ) " +
                 "Select SocialID, Social_Card_no,TitleName,FirstName, LastName,FullName, PrakanCode, Prangnant, StartDate,EndDate,BirthDay,UploadDate,FLAG From prakun_m01_pop ";
             conn.ExecuteNonQueryLogPage(conn.connMainHIS, sql);
-            sql = "Select count(1) as cnt from prakun_m01_pop_temp";
+            //sql = "Select count(1) as cnt from prakun_m01_pop_temp";
+            sql = "Select count(1) as cnt from prakun_m01";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {

@@ -133,7 +133,7 @@ namespace bangna_hospital.objdb
             //p.pre_no = int.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";
             //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
         }
-        public ResOrderTab setResOrderTab(String hn, String name, String vn, String preno, String hnyear, String reqno, String dob, String sex, String sickness, String xraydesc, String xraycode,String deptname, String dtrid, String dtrname)
+        public ResOrderTab setResOrderTab(String hn, String name, String vn, String preno, String hnyear, String reqno, String dob, String sex, String sickness, String xraydesc, String xraycode,String deptname, String dtrid, String dtrname, String modality, string accessnumber)
         {
             String date = "";
             date = System.DateTime.Now.Year + System.DateTime.Now.ToString("MMddHHmmss");
@@ -141,13 +141,21 @@ namespace bangna_hospital.objdb
             reso1.ResOrderKey = "";
             reso1.OrderClass = "NEW";
             reso1.PatientID = hn;
-            reso1.AccessNumber = vn + "@" + preno + "@" + hnyear + "@" + reqno+"@"+ xraycode;
+            if (accessnumber.Length > 0)
+            {
+                reso1.AccessNumber = accessnumber;
+            }
+            else
+            {
+                reso1.AccessNumber = vn + "@" + preno + "@" + hnyear + "@" + reqno + "@" + xraycode;
+            }
+            
             reso1.KPatientName = name;
             reso1.EPatientName = name;
             reso1.DateOfBirth = dob.Replace("-","");
             reso1.PatientSex = sex;
             reso1.PatientClass = "CR";
-            reso1.Modality = "CR";
+            reso1.Modality = modality;
             reso1.StudyDate = date;
             reso1.SicknessName = sickness;
             reso1.SicknessCode = "100";
@@ -178,7 +186,7 @@ namespace bangna_hospital.objdb
             String re = "";
             String sql = "";
             DataTable dt = new DataTable();
-            p.Modality = "CR";      //fix code
+            //p.Modality = "CR";      //fix code
             p.OrderClass = "NEW";      //fix code
             p.ResStatus = "U";      //fix code
             //p.ssdata_id = "";

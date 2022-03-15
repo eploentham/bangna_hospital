@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ namespace bangna_hospital.objdb
     {
         public PatientM32 pttM32;
         ConnectDB conn;
+        public List<PatientM32> lPm08;
         public PatientM32DB(ConnectDB c)
         {
             conn = c;
@@ -38,6 +40,10 @@ namespace bangna_hospital.objdb
             pttM32.MNC_SUB_DP_NO = "MNC_SUB_DP_NO";
             pttM32.opbkk_clinic = "opbkk_clinic";
 
+            pttM32.table = "patient_M32";
+
+            lPm08 = new List<PatientM32>();
+
         }
         public DataTable SelectAll()
         {
@@ -48,6 +54,58 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
+        }
+        public void getlCus()
+        {
+            //lDept = new List<Position>();
+
+            lPm08.Clear();
+            DataTable dt = new DataTable();
+            dt = SelectAll();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                PatientM32 cus1 = new PatientM32();
+                cus1.mnc_sec_no = row[pttM32.mnc_sec_no].ToString();
+                cus1.mnc_md_dep_no = row[pttM32.mnc_md_dep_no].ToString();
+                cus1.mnc_md_dep_dsc = row[pttM32.mnc_md_dep_dsc].ToString();
+                cus1.MNC_DP_NO = row[pttM32.MNC_DP_NO].ToString();
+                cus1.MNC_TYP_PT = row[pttM32.MNC_TYP_PT].ToString();
+                cus1.opbkk_clinic = row[pttM32.opbkk_clinic].ToString();
+                lPm08.Add(cus1);
+            }
+        }
+        public void setCboAmphur(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectDeptIPD();
+            int i = 0;
+            if (lPm08.Count <= 0) getlCus();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (PatientM32 row in lPm08)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.mnc_md_dep_no;
+                item.Text = row.mnc_md_dep_dsc;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
         }
         public String updateOPBKKCode(String dep_no, String sec_no, String div_no, String typ_pt, String opbkkcode)
         {
@@ -65,6 +123,36 @@ namespace bangna_hospital.objdb
                 new LogWriter("e", " PatientM30DB updateOPBKKCode error " + ex.InnerException);
             }
             return chk;
+        }
+        public PatientM32 setPatientM08(DataTable dt)
+        {
+            PatientM32 pm08 = new PatientM32();
+            if (dt.Rows.Count > 0)
+            {
+                pm08.mnc_sec_no = dt.Rows[0]["mnc_sec_no"].ToString();
+                pm08.mnc_md_dep_no = dt.Rows[0]["mnc_md_dep_no"].ToString();
+                pm08.mnc_md_dep_dsc = dt.Rows[0]["mnc_md_dep_dsc"].ToString();
+                pm08.MNC_DIV_NO = dt.Rows[0]["MNC_DIV_NO"].ToString();
+                pm08.MNC_TYP_PT = dt.Rows[0]["MNC_TYP_PT"].ToString();
+                pm08.MNC_DP_NO = dt.Rows[0]["MNC_DP_NO"].ToString();
+                pm08.opbkk_clinic = dt.Rows[0]["opbkk_clinic"].ToString();
+            }
+            else
+            {
+                setPatientM08(pm08);
+            }
+            return pm08;
+        }
+        public PatientM32 setPatientM08(PatientM32 p)
+        {
+            p.mnc_sec_no = "";
+            p.mnc_md_dep_no = "";
+            p.mnc_md_dep_dsc = "";
+            p.MNC_DIV_NO = "";
+            p.MNC_TYP_PT = "";
+            p.MNC_DP_NO = "";
+            p.opbkk_clinic = "";
+            return p;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using bangna_hospital.objdb;
+﻿using AForge.Video.DirectShow;
+using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using C1.C1Excel;
 using C1.Win.C1Document;
@@ -55,6 +56,7 @@ namespace bangna_hospital.control
         public List<District> lDistrict;
         public List<SubDistrict> lSubDistrict;
         Hashtable _styles;
+        public VideoCaptureDevice video;
         public BangnaControl()
         {
             initConfig();
@@ -113,7 +115,7 @@ namespace bangna_hospital.control
             }
             catch(Exception ex)
             {
-                new LogWriter("e", "BangnaControl initConfig err "+ err);
+                new LogWriter("e", "BangnaControl initConfig err "+ err+" "+ ex.Message);
                 MessageBox.Show("error "+ex.Message+" err "+err, "");
             }
             
@@ -516,6 +518,9 @@ namespace bangna_hospital.control
             iniC.printerQueue = iniF.getIni("app", "printerQueue");
             iniC.statusSmartCardvaccine = iniF.getIni("app", "statusSmartCardvaccine");
             iniC.statusPrintSticker = iniF.getIni("app", "statusPrintSticker");
+            iniC.FrmSmartCardTabDefault = iniF.getIni("app", "FrmSmartCardTabDefault");
+            iniC.stickerPrintNumber = iniF.getIni("app", "stickerPrintNumber");
+            iniC.statusStation = iniF.getIni("app", "statusStation");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -603,6 +608,9 @@ namespace bangna_hospital.control
             iniC.opbkkhcode = iniC.opbkkhcode == null ? "0" : iniC.opbkkhcode.Equals("") ? "0" : iniC.opbkkhcode;
             iniC.statusSmartCardNoDatabase = iniC.statusSmartCardNoDatabase == null ? "0" : iniC.statusSmartCardNoDatabase.Equals("") ? "0" : iniC.statusSmartCardNoDatabase;
             iniC.statusSmartCardvaccine = iniC.statusSmartCardvaccine == null ? "0" : iniC.statusSmartCardvaccine.Equals("") ? "0" : iniC.statusSmartCardvaccine;
+            iniC.FrmSmartCardTabDefault = iniC.FrmSmartCardTabDefault == null ? "1" : iniC.FrmSmartCardTabDefault.Equals("") ? "1" : iniC.FrmSmartCardTabDefault;
+            iniC.stickerPrintNumber = iniC.stickerPrintNumber == null ? "1" : iniC.stickerPrintNumber.Equals("") ? "1" : iniC.stickerPrintNumber;
+            iniC.statusStation = iniC.statusStation == null ? "OPD" : iniC.statusStation.Equals("") ? "OPD" : iniC.statusStation;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -2356,6 +2364,16 @@ namespace bangna_hospital.control
             cbo.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             cbo.Size = new Size(width, 30);
         }
+        public void setControlComboBox(ref ComboBox cbo, String name, int width, int x, int y)
+        {
+            cbo = new System.Windows.Forms.ComboBox();
+            cbo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            cbo.FormattingEnabled = true;
+            cbo.Location = new System.Drawing.Point(x, y);
+            cbo.Name = name;
+            cbo.TabIndex = 9;
+            cbo.Size = new Size(width, 30);
+        }
         public void setControlC1DateTimeEdit(ref C1DateEdit txt, String name, int x, int y)
         {
             txt.AllowSpinLoop = false;
@@ -3102,6 +3120,49 @@ namespace bangna_hospital.control
                 }
             }
             return buffer.ToArray();
+        }
+        public void SaveSheetDataTable(DataTable flex, XLSheet sheet, C1XLBook _book, bool fixedCells)
+        {
+            // account for fixed cells
+            //int frows = flex.Rows.Fixed;
+            int frows = 0;// with header
+            //int fcols = flex.Cols.Fixed;
+            //if (fixedCells) frows = fcols = 0;
+
+            // copy dimensions
+            //int lastRow = flex.Rows.Count - frows - 1;
+            int lastRow = flex.Rows.Count;// with header
+            int lastCol = flex.Columns.Count - 1;
+            if (lastRow < 0 || lastCol < 0) return;
+            XLCell cell = sheet[lastRow, lastCol];
+
+            // set default properties
+            sheet.Book.DefaultFont = new Font(iniC.grdViewFontName, grdViewFontSize, FontStyle.Regular);
+            //sheet.DefaultRowHeight = C1XLBook.PixelsToTwips(flex.Rows.DefaultSize);
+            //sheet.DefaultColumnWidth = C1XLBook.PixelsToTwips(flex.Cols.DefaultSize);
+
+            // prepare to convert styles
+            _styles = new Hashtable();
+
+            // set row/column properties
+
+            // load cells
+            for (int r = frows; r < flex.Rows.Count; r++)
+            {
+                for (int c = 0; c < flex.Columns.Count; c++)
+                {
+                    // get cell
+                    cell = sheet[r - frows, c];
+
+                    // apply content
+                    cell.Value = flex.Rows[r][c];
+
+                    // apply style
+                    //XLStyle xs = StyleFromFlex(_book,flex.GetCellStyle(r, c), _styles);
+                    //if (xs != null)
+                    //    cell.Style = xs;
+                }
+            }
         }
     }
 }

@@ -34,6 +34,7 @@ namespace bangna_hospital.objdb
 
             lDgs.Clear();
             DataTable dt = new DataTable();
+            //new LogWriter("d", "QueueTypeDB getlDgs  00");
             dt = selectAll();
             foreach (DataRow row in dt.Rows)
             {
@@ -63,7 +64,8 @@ namespace bangna_hospital.objdb
                 "From " + queueType.table + " labB " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 //"Where labB." + queueType.active + "='1'  " +
-                "Order By labB. " + queueType.queue_type_name;
+                "Order By labB." + queueType.queue_type_name;
+            //new LogWriter("d", "QueueTypeDB selectAll  "+sql+ " conn.conn.ConnectionString " + conn.conn.ConnectionString);
             dt = conn.selectData(conn.conn, sql);
 
             return dt;

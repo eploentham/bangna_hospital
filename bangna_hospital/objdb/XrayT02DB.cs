@@ -85,6 +85,22 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+        public String updateAccessNumber(String reqyr, String reqno, String req_date, String xray_code, String accessnumber)
+        {
+            String sql = "", re = "";
+            sql = "Update xray_t02 " +
+                "Set access_number ='"+ accessnumber+"' " +
+                "Where MNC_REQ_YR = '"+ reqyr + "' and MNC_REQ_NO = '" + reqno + "' and MNC_REQ_DAT = '" + req_date + "' and MNC_XR_CD = '" + xray_code + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            return re;
+        }
         public String deleteReqNo(String reqyr, String reqno)
         {
             String sql = "", re = "";

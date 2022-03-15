@@ -47,8 +47,16 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel5 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1SplitContainer5 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel9 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1Button1 = new C1.Win.C1Input.C1Button();
+            this.btnHn = new C1.Win.C1Input.C1Button();
             this.pnItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtFullname = new C1.Win.C1Input.C1TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.chk1 = new System.Windows.Forms.RadioButton();
+            this.txtPassport = new C1.Win.C1Input.C1TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtDOB = new C1.Win.C1Input.C1TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtLname = new C1.Win.C1Input.C1TextBox();
@@ -60,14 +68,18 @@ namespace bangna_hospital.gui
             this.pnGrd = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tabProcess = new C1.Win.C1Command.C1DockingTabPage();
             this.tabPatient = new C1.Win.C1Command.C1DockingTabPage();
-            this.txtPassport = new C1.Win.C1Input.C1TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.txtFullname = new C1.Win.C1Input.C1TextBox();
+            this.lbPaidName = new System.Windows.Forms.Label();
+            this.txtPaidType = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtSymptom = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.lbDeptName = new System.Windows.Forms.Label();
+            this.txtDept = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.txtRemark = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.btnVisit = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
             this.tabImage.SuspendLayout();
@@ -90,15 +102,16 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer5)).BeginInit();
             this.c1SplitContainer5.SuspendLayout();
             this.c1SplitterPanel9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnHn)).BeginInit();
             this.pnItem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFullname)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDOB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLname)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFname)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrefix)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPassport)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFullname)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnVisit)).BeginInit();
             this.SuspendLayout();
             // 
             // tC
@@ -168,13 +181,15 @@ namespace bangna_hospital.gui
             // 
             this.c1SplitterPanel3.Collapsible = true;
             this.c1SplitterPanel3.Controls.Add(this.c1SplitContainer4);
-            this.c1SplitterPanel3.Height = 176;
+            this.c1SplitterPanel3.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.c1SplitterPanel3.Height = 728;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
-            this.c1SplitterPanel3.Size = new System.Drawing.Size(796, 148);
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(186, 707);
             this.c1SplitterPanel3.SizeRatio = 24.309D;
             this.c1SplitterPanel3.TabIndex = 0;
             this.c1SplitterPanel3.Text = "Panel Tile Image";
+            this.c1SplitterPanel3.Width = 193;
             // 
             // c1SplitContainer4
             // 
@@ -186,7 +201,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer4.Name = "c1SplitContainer4";
             this.c1SplitContainer4.Panels.Add(this.c1SplitterPanel7);
             this.c1SplitContainer4.Panels.Add(this.pnTilImage);
-            this.c1SplitContainer4.Size = new System.Drawing.Size(796, 148);
+            this.c1SplitContainer4.Size = new System.Drawing.Size(186, 707);
             this.c1SplitContainer4.TabIndex = 0;
             // 
             // c1SplitterPanel7
@@ -195,14 +210,15 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel7.Controls.Add(this.btnClear);
             this.c1SplitterPanel7.Controls.Add(this.c1Button2);
             this.c1SplitterPanel7.Controls.Add(this.btnLoad);
-            this.c1SplitterPanel7.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel7.Location = new System.Drawing.Point(693, 0);
+            this.c1SplitterPanel7.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            this.c1SplitterPanel7.Height = 98;
+            this.c1SplitterPanel7.Location = new System.Drawing.Point(0, 616);
             this.c1SplitterPanel7.Name = "c1SplitterPanel7";
-            this.c1SplitterPanel7.Size = new System.Drawing.Size(103, 148);
+            this.c1SplitterPanel7.Size = new System.Drawing.Size(186, 91);
             this.c1SplitterPanel7.SizeRatio = 13.889D;
             this.c1SplitterPanel7.TabIndex = 0;
             this.c1SplitterPanel7.Text = "Panel 1";
-            this.c1SplitterPanel7.Width = 110;
+            this.c1SplitterPanel7.Width = 186;
             // 
             // btnClear
             // 
@@ -245,19 +261,19 @@ namespace bangna_hospital.gui
             // 
             // pnTilImage
             // 
-            this.pnTilImage.Height = 148;
+            this.pnTilImage.Height = 605;
             this.pnTilImage.Location = new System.Drawing.Point(0, 0);
             this.pnTilImage.Name = "pnTilImage";
-            this.pnTilImage.Size = new System.Drawing.Size(682, 148);
+            this.pnTilImage.Size = new System.Drawing.Size(186, 605);
             this.pnTilImage.TabIndex = 1;
             this.pnTilImage.Text = "Panel 2";
             // 
             // pnImage
             // 
-            this.pnImage.Height = 548;
-            this.pnImage.Location = new System.Drawing.Point(0, 201);
+            this.pnImage.Height = 728;
+            this.pnImage.Location = new System.Drawing.Point(197, 21);
             this.pnImage.Name = "pnImage";
-            this.pnImage.Size = new System.Drawing.Size(796, 527);
+            this.pnImage.Size = new System.Drawing.Size(599, 707);
             this.pnImage.TabIndex = 1;
             this.pnImage.Text = "Panel View Image";
             // 
@@ -311,7 +327,8 @@ namespace bangna_hospital.gui
             // c1SplitterPanel9
             // 
             this.c1SplitterPanel9.Collapsible = true;
-            this.c1SplitterPanel9.Controls.Add(this.c1Button1);
+            this.c1SplitterPanel9.Controls.Add(this.btnVisit);
+            this.c1SplitterPanel9.Controls.Add(this.btnHn);
             this.c1SplitterPanel9.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
             this.c1SplitterPanel9.Location = new System.Drawing.Point(716, 0);
             this.c1SplitterPanel9.Name = "c1SplitterPanel9";
@@ -321,21 +338,31 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel9.Text = "Panel 1";
             this.c1SplitterPanel9.Width = 93;
             // 
-            // c1Button1
+            // btnHn
             // 
-            this.c1Button1.Image = global::bangna_hospital.Properties.Resources.download_database24;
-            this.c1Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.c1Button1.Location = new System.Drawing.Point(3, 3);
-            this.c1Button1.Name = "c1Button1";
-            this.c1Button1.Size = new System.Drawing.Size(71, 30);
-            this.c1Button1.TabIndex = 557;
-            this.c1Button1.Text = "ดึงรูป";
-            this.c1Button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.c1Button1.UseVisualStyleBackColor = true;
-            this.c1Button1.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            this.btnHn.Image = global::bangna_hospital.Properties.Resources.filesave;
+            this.btnHn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHn.Location = new System.Drawing.Point(3, 3);
+            this.btnHn.Name = "btnHn";
+            this.btnHn.Size = new System.Drawing.Size(71, 30);
+            this.btnHn.TabIndex = 557;
+            this.btnHn.Text = "ออกHN";
+            this.btnHn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnHn.UseVisualStyleBackColor = true;
+            this.btnHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // pnItem
             // 
+            this.pnItem.Controls.Add(this.txtRemark);
+            this.pnItem.Controls.Add(this.label51);
+            this.pnItem.Controls.Add(this.lbDeptName);
+            this.pnItem.Controls.Add(this.txtDept);
+            this.pnItem.Controls.Add(this.label49);
+            this.pnItem.Controls.Add(this.txtSymptom);
+            this.pnItem.Controls.Add(this.label48);
+            this.pnItem.Controls.Add(this.lbPaidName);
+            this.pnItem.Controls.Add(this.txtPaidType);
+            this.pnItem.Controls.Add(this.label30);
             this.pnItem.Controls.Add(this.txtFullname);
             this.pnItem.Controls.Add(this.groupBox1);
             this.pnItem.Controls.Add(this.txtPassport);
@@ -355,12 +382,112 @@ namespace bangna_hospital.gui
             this.pnItem.TabIndex = 1;
             this.pnItem.Text = "Panel 2";
             // 
+            // txtFullname
+            // 
+            this.txtFullname.AutoSize = false;
+            this.txtFullname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFullname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtFullname.Location = new System.Drawing.Point(109, 157);
+            this.txtFullname.Name = "txtFullname";
+            this.txtFullname.Size = new System.Drawing.Size(287, 27);
+            this.txtFullname.TabIndex = 554;
+            this.txtFullname.Tag = null;
+            this.txtFullname.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtFullname.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.radioButton4);
+            this.groupBox1.Controls.Add(this.radioButton3);
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.chk1);
+            this.groupBox1.Location = new System.Drawing.Point(402, 1);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(300, 47);
+            this.groupBox1.TabIndex = 552;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "สัญชาติ";
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.radioButton4.Location = new System.Drawing.Point(66, 19);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(67, 20);
+            this.radioButton4.TabIndex = 3;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "เวียดนาม";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.radioButton3.Location = new System.Drawing.Point(135, 19);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(43, 20);
+            this.radioButton3.TabIndex = 2;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "ลาว";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.radioButton2.Location = new System.Drawing.Point(184, 19);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(59, 20);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "กัมพูชา";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // chk1
+            // 
+            this.chk1.AutoSize = true;
+            this.chk1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chk1.Location = new System.Drawing.Point(4, 19);
+            this.chk1.Name = "chk1";
+            this.chk1.Size = new System.Drawing.Size(61, 20);
+            this.chk1.TabIndex = 0;
+            this.chk1.TabStop = true;
+            this.chk1.Text = "เมียนม่า";
+            this.chk1.UseVisualStyleBackColor = true;
+            // 
+            // txtPassport
+            // 
+            this.txtPassport.AutoSize = false;
+            this.txtPassport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPassport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPassport.Location = new System.Drawing.Point(109, 124);
+            this.txtPassport.Name = "txtPassport";
+            this.txtPassport.Size = new System.Drawing.Size(287, 27);
+            this.txtPassport.TabIndex = 551;
+            this.txtPassport.Tag = null;
+            this.txtPassport.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtPassport.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label5.Location = new System.Drawing.Point(6, 129);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 20);
+            this.label5.TabIndex = 550;
+            this.label5.Text = "passport  :";
+            // 
             // txtDOB
             // 
             this.txtDOB.AutoSize = false;
             this.txtDOB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDOB.Location = new System.Drawing.Point(94, 103);
+            this.txtDOB.Location = new System.Drawing.Point(109, 94);
             this.txtDOB.Name = "txtDOB";
             this.txtDOB.Size = new System.Drawing.Size(287, 27);
             this.txtDOB.TabIndex = 549;
@@ -372,20 +499,20 @@ namespace bangna_hospital.gui
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label3.Location = new System.Drawing.Point(20, 108);
+            this.label3.Location = new System.Drawing.Point(6, 99);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 16);
+            this.label3.Size = new System.Drawing.Size(56, 20);
             this.label3.TabIndex = 548;
-            this.label3.Text = "HN  :";
+            this.label3.Text = "DOB  :";
             // 
             // txtLname
             // 
             this.txtLname.AutoSize = false;
             this.txtLname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtLname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtLname.Location = new System.Drawing.Point(94, 70);
+            this.txtLname.Location = new System.Drawing.Point(109, 64);
             this.txtLname.Name = "txtLname";
             this.txtLname.Size = new System.Drawing.Size(287, 27);
             this.txtLname.TabIndex = 547;
@@ -397,20 +524,20 @@ namespace bangna_hospital.gui
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.White;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label2.Location = new System.Drawing.Point(20, 75);
+            this.label2.Location = new System.Drawing.Point(6, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 16);
+            this.label2.Size = new System.Drawing.Size(72, 20);
             this.label2.TabIndex = 546;
-            this.label2.Text = "HN  :";
+            this.label2.Text = "นามสกุล  :";
             // 
             // txtFname
             // 
             this.txtFname.AutoSize = false;
             this.txtFname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtFname.Location = new System.Drawing.Point(94, 37);
+            this.txtFname.Location = new System.Drawing.Point(109, 34);
             this.txtFname.Name = "txtFname";
             this.txtFname.Size = new System.Drawing.Size(287, 27);
             this.txtFname.TabIndex = 545;
@@ -422,20 +549,20 @@ namespace bangna_hospital.gui
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label1.Location = new System.Drawing.Point(20, 46);
+            this.label1.Location = new System.Drawing.Point(6, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 16);
+            this.label1.Size = new System.Drawing.Size(38, 20);
             this.label1.TabIndex = 544;
-            this.label1.Text = "HN  :";
+            this.label1.Text = "ชื่อ  :";
             // 
             // txtPrefix
             // 
             this.txtPrefix.AutoSize = false;
             this.txtPrefix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPrefix.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPrefix.Location = new System.Drawing.Point(94, 5);
+            this.txtPrefix.Location = new System.Drawing.Point(109, 5);
             this.txtPrefix.Name = "txtPrefix";
             this.txtPrefix.Size = new System.Drawing.Size(287, 27);
             this.txtPrefix.TabIndex = 543;
@@ -447,13 +574,13 @@ namespace bangna_hospital.gui
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label4.Location = new System.Drawing.Point(20, 10);
+            this.label4.Location = new System.Drawing.Point(6, 10);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 16);
+            this.label4.Size = new System.Drawing.Size(95, 20);
             this.label4.TabIndex = 542;
-            this.label4.Text = "HN  :";
+            this.label4.Text = "คำนำหน้าชื่อ  :";
             // 
             // pnGrd
             // 
@@ -480,100 +607,126 @@ namespace bangna_hospital.gui
             this.tabPatient.TabIndex = 2;
             this.tabPatient.Text = "Page Patient";
             // 
-            // txtPassport
-            // 
-            this.txtPassport.AutoSize = false;
-            this.txtPassport.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPassport.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPassport.Location = new System.Drawing.Point(94, 136);
-            this.txtPassport.Name = "txtPassport";
-            this.txtPassport.Size = new System.Drawing.Size(287, 27);
-            this.txtPassport.TabIndex = 551;
-            this.txtPassport.Tag = null;
-            this.txtPassport.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtPassport.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label5.Location = new System.Drawing.Point(20, 141);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 16);
-            this.label5.TabIndex = 550;
-            this.label5.Text = "HN  :";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.radioButton4);
-            this.groupBox1.Controls.Add(this.radioButton3);
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(426, 10);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 100);
-            this.groupBox1.TabIndex = 552;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "สัญชาติ";
-            // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(16, 19);
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.radioButton1.Location = new System.Drawing.Point(249, 20);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 0;
+            this.radioButton1.Size = new System.Drawing.Size(46, 20);
+            this.radioButton1.TabIndex = 4;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.Text = "อื่นๆ";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // lbPaidName
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(16, 42);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.lbPaidName.AutoSize = true;
+            this.lbPaidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPaidName.Location = new System.Drawing.Point(535, 51);
+            this.lbPaidName.Name = "lbPaidName";
+            this.lbPaidName.Size = new System.Drawing.Size(21, 20);
+            this.lbPaidName.TabIndex = 557;
+            this.lbPaidName.Text = "...";
             // 
-            // radioButton3
+            // txtPaidType
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(16, 64);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(85, 17);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "radioButton3";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.txtPaidType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPaidType.Location = new System.Drawing.Point(468, 48);
+            this.txtPaidType.Name = "txtPaidType";
+            this.txtPaidType.Size = new System.Drawing.Size(59, 26);
+            this.txtPaidType.TabIndex = 556;
+            this.txtPaidType.Text = "02";
+            this.txtPaidType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // radioButton4
+            // label30
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(107, 19);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(85, 17);
-            this.radioButton4.TabIndex = 3;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "radioButton4";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(400, 51);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(62, 20);
+            this.label30.TabIndex = 555;
+            this.label30.Text = "การชำระ";
             // 
-            // txtFullname
+            // txtSymptom
             // 
-            this.txtFullname.AutoSize = false;
-            this.txtFullname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFullname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtFullname.Location = new System.Drawing.Point(415, 136);
-            this.txtFullname.Name = "txtFullname";
-            this.txtFullname.Size = new System.Drawing.Size(287, 27);
-            this.txtFullname.TabIndex = 554;
-            this.txtFullname.Tag = null;
-            this.txtFullname.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtFullname.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtSymptom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSymptom.Location = new System.Drawing.Point(468, 77);
+            this.txtSymptom.Name = "txtSymptom";
+            this.txtSymptom.Size = new System.Drawing.Size(201, 26);
+            this.txtSymptom.TabIndex = 559;
+            this.txtSymptom.Text = "ตรวจ COVID RT-PCR";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(400, 80);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(47, 20);
+            this.label48.TabIndex = 558;
+            this.label48.Text = "อาการ";
+            // 
+            // lbDeptName
+            // 
+            this.lbDeptName.AutoSize = true;
+            this.lbDeptName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbDeptName.Location = new System.Drawing.Point(527, 112);
+            this.lbDeptName.Name = "lbDeptName";
+            this.lbDeptName.Size = new System.Drawing.Size(20, 18);
+            this.lbDeptName.TabIndex = 562;
+            this.lbDeptName.Text = "...";
+            // 
+            // txtDept
+            // 
+            this.txtDept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDept.Location = new System.Drawing.Point(468, 106);
+            this.txtDept.Name = "txtDept";
+            this.txtDept.Size = new System.Drawing.Size(53, 26);
+            this.txtDept.TabIndex = 561;
+            this.txtDept.Text = "199";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(400, 109);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(40, 20);
+            this.label49.TabIndex = 560;
+            this.label49.Text = "ส่งไป";
+            // 
+            // txtRemark
+            // 
+            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(468, 135);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(229, 26);
+            this.txtRemark.TabIndex = 564;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Location = new System.Drawing.Point(400, 140);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(67, 20);
+            this.label51.TabIndex = 563;
+            this.label51.Text = "หมายเหตุ";
+            // 
+            // btnVisit
+            // 
+            this.btnVisit.Image = global::bangna_hospital.Properties.Resources.rules24;
+            this.btnVisit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVisit.Location = new System.Drawing.Point(3, 44);
+            this.btnVisit.Name = "btnVisit";
+            this.btnVisit.Size = new System.Drawing.Size(71, 30);
+            this.btnVisit.TabIndex = 558;
+            this.btnVisit.Text = "ออกVisit";
+            this.btnVisit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnVisit.UseVisualStyleBackColor = true;
+            this.btnVisit.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // FrmCheckup
             // 
@@ -607,17 +760,18 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer5)).EndInit();
             this.c1SplitContainer5.ResumeLayout(false);
             this.c1SplitterPanel9.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnHn)).EndInit();
             this.pnItem.ResumeLayout(false);
             this.pnItem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFullname)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDOB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLname)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFname)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrefix)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPassport)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFullname)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnVisit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -643,7 +797,7 @@ namespace bangna_hospital.gui
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel9;
         private C1.Win.C1SplitContainer.C1SplitterPanel pnItem;
         private C1.Win.C1Input.C1Button btnLoad;
-        private C1.Win.C1Input.C1Button c1Button1;
+        private C1.Win.C1Input.C1Button btnHn;
         private C1.Win.C1Input.C1Button c1Button2;
         private C1.Win.C1Command.C1DockingTabPage tabPatient;
         private C1.Win.C1Input.C1Button btnClear;
@@ -661,7 +815,19 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton chk1;
         private C1.Win.C1Input.C1TextBox txtFullname;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label lbPaidName;
+        private System.Windows.Forms.TextBox txtPaidType;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TextBox txtSymptom;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label lbDeptName;
+        private System.Windows.Forms.TextBox txtDept;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.TextBox txtRemark;
+        private System.Windows.Forms.Label label51;
+        private C1.Win.C1Input.C1Button btnVisit;
     }
 }

@@ -3,6 +3,7 @@ using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.C1Excel;
 using C1.C1Pdf;
+using C1.Win.BarCode;
 using C1.Win.C1Command;
 using C1.Win.C1Document;
 using C1.Win.C1FlexGrid;
@@ -35,7 +36,7 @@ namespace bangna_hospital.gui
         Label lbtxtHospName, lbtxtHn, lbtxtPttNameT, lbtxtPttNameE, lbtxtVsDate, lbtxtSex, lbtxtAge, lbtxtDOB, lbtxtPID, lbtxtPassport, lbtxtAddr1, lbtxtAddr2, lbtxtDtrId, lbtxtLabCode, lbtxtLabResult;
         C1TextBox txtHospName, txtHn, txtPttNameT, txtPttNameE, txtSex, txtAge, txtDOB, txtPID, txtPassport, txtAddr1, txtAddr2, txtDtrId, txtDtrNameT, txtDtrNameE, txtLabCode, txtLabName, txtLabResult;
         C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate, txtViewDateSearch, txtNovelDateSearch;
-        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult, btnViewDateSearch, btnPrintLetter, btnNovelDateSearch, btnNovelSave, btnNovelUpdate;
+        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult, btnViewDateSearch, btnPrintLetter, btnNovelDateSearch, btnNovelSave, btnNovelUpdate, btnCertDtr;
         Label lbtxtLabName1, lbtxtLabName2, lbtxtLabName3, lbtxtLabUnit, lbtxtLabNormal, lbtxtLabReport, lbtxtLabApprove, lbtxtDate, lbtxtSympbtom, lbtxtCountry, lbtxtViewDateSearch, lbtxtViewHnSearch, lbtxtNovelDateSearch;
         C1TextBox txtLabName1, txtLabName2, txtLabName3, txtLabResult1, txtLabResult2, txtLabResult3, txtLabUnit, txtLabNormal, txtLabReport, txtLabApprove, txtLabApproveDate, txtLabReportDate, txtViewHnSearch;
         C1TextBox txtVsTime, txtSympbtom, txtCountry, txtThaiOther, txtStop,txtTrue, txtNation, txtLabCodeSe184, txtLabNameSe184, txtLabResultSe184, txtLabUnitSe184, txtlab184IgG, txtSe640Name, txtSe640Result;
@@ -44,7 +45,7 @@ namespace bangna_hospital.gui
         C1CheckBox chkSe640;
         Label lbtxtHospEndDate, lbtxtStopEndDate, lbtxtNation, lbtxtLabCodeSe184, lbtxtLabResultSe184, lbtxtLabReportDate, lbLoading;
         C1FlexGrid grfView, grfNovel;
-
+        ComboBox cboDiag1, cboDiag2, cboDiag3;
         int colHn = 1, colDateVs=2, colTimeVs=3, colFullName = 4, colDateResult = 5, collabCode=6, collabName = 7, colLabResult = 8, colPhone = 9,colReqNo=10, colReqDate=11, colReqYr=12, colStatus=13, colID=14;
         int colNovellabCode=1,colNovelHn = 2, colNovelHos = 3, colNovelCat = 4, colNovelSatCode = 5, colNovelPID = 6, colNovelPassport = 7, colNovelPttName = 8, colNovelSex = 9, colNovelAge = 10, colNovelNat = 11, colNovelProv = 12, colNovelAmphur = 13, colNovelTumbun = 14, colNovelMoo = 15, colNovelAddr = 16, colNovelDisease = 17, colNovelMobile = 18, colNovelTypePtt = 19, colNovelCluster = 20, colNovelConfirm = 21, colNovelPlace = 22, colNovelLabDate = 23, colNovelLabPlace = 24, colNovelLabResult = 25, colNovelEgene = 26, colNovelRdRP = 27, colNovelNgene = 28, colNovelORFlab = 29, colNovelIC = 30, colNovelSgene = 31, colNovelRNP = 32, colNovelNSgene = 33, colNovelid=34, colDateCreate=35;
 
@@ -82,10 +83,19 @@ namespace bangna_hospital.gui
             btnNovelDateSearch.Click += BtnNovelDateSearch_Click;
             btnNovelSave.Click += BtnNovelSave_Click;
             btnNovelUpdate.Click += BtnNovelUpdate_Click;
+            btnCertDtr.Click += BtnCertDtr_Click;
+
             txtVsDate.Value = DateTime.Now;
             txtHospName.Value = "โรงพยาบาล ทั่วไปขนาดใหญ่ บางนา5";
             ChkSe640_Click(null, null);
         }
+
+        private void BtnCertDtr_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            printCertDtrThai();
+        }
+
         private void BtnNovelUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -94,7 +104,6 @@ namespace bangna_hospital.gui
                 String lcovidd = "", mnchnno = "";
                 lcovidd = row[colNovelid].ToString();
                 mnchnno = row[colNovelHn].ToString();
-
             }
         }
 
@@ -123,7 +132,6 @@ namespace bangna_hospital.gui
             _book.Dispose();
             if (File.Exists(dlg.FileName))
             {
-
                 string argument = "/select, \"" + dlg.FileName + "\"";
                 Process.Start("explorer.exe", argument);
             }
@@ -134,7 +142,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             setGrfNovel();
         }
-
         private void ChkSe640_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -149,7 +156,6 @@ namespace bangna_hospital.gui
                 txtSe640Result.Visible = false;
             }
         }
-
         private void TxtViewHnSearch_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3485,6 +3491,616 @@ namespace bangna_hospital.gui
                 p.Start();
             }
         }
+        private void printCertDtrThai()
+        {
+            String pathFolder = "", filename = "", datetick = "";
+            int gapLine = 30, gapLine1 = 15, gapX = 40, gapY = 20, xCol2 = 200, xCol1 = 160, xCol3 = 300, xCol4 = 390, xCol41 = 450, xCol5 = 500;
+            int lineDot = 2;
+            Size size = new Size();
+            String txt = "";
+            float temp = 0;
+            C1BarCode qrcode = new C1BarCode();
+
+            C1PdfDocument pdf = new C1PdfDocument();
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            StringFormat _sfRight, _sfRightCenter;
+            //Font _fontTitle = new Font("Tahoma", 15, FontStyle.Bold);
+            _sfRight = new StringFormat();
+            _sfRight.Alignment = StringAlignment.Far;
+            _sfRightCenter = new StringFormat();
+            _sfRightCenter.Alignment = StringAlignment.Far;
+            _sfRightCenter.LineAlignment = StringAlignment.Center;
+
+            Font titleFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetitleFont, FontStyle.Bold);
+            Font titleFont1 = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetitleFont-1, FontStyle.Bold);
+            Font hdrFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizehdrFont, FontStyle.Regular);
+            Font hdrFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizehdrFont, FontStyle.Bold);
+            Font ftrFont = new Font(bc.iniC.pdfFontName, 8);
+            Font txtFont = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFont + 1, FontStyle.Regular);
+            Font txtFont5B = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFontB + 1, FontStyle.Bold);
+            Font txtFontB = new Font(bc.iniC.pdfFontName, bc.pdfFontSizetxtFontB, FontStyle.Regular);
+            pdf.FontType = FontTypeEnum.Embedded;
+
+            RectangleF rcPage = pdf.PageRectangle;
+            rcPage = RectangleF.Empty;
+            rcPage.Inflate(-72, -92);
+            rcPage.Location = new PointF(rcPage.X, rcPage.Y + titleFont.SizeInPoints + 10);
+            rcPage.Size = new SizeF(0, titleFont.SizeInPoints + 3);
+            rcPage.Width = 110;
+            
+            //logo
+            Image loadedImage;
+            loadedImage = Resources.LOGO_BW_tran;
+            float newWidth = loadedImage.Width * 100 / loadedImage.HorizontalResolution;
+            float newHeight = loadedImage.Height * 100 / loadedImage.VerticalResolution;
+
+            float widthFactor = 5.8F;
+            float heightFactor = 5.8F;
+
+            qrcode.AdditionalNumber = null;
+            qrcode.BackColor = System.Drawing.Color.White;
+            qrcode.CodeType = C1.BarCode.CodeType.QRCode;
+            qrcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            qrcode.ForeColor = System.Drawing.Color.Black;
+            qrcode.Location = new System.Drawing.Point(331, 115);
+            qrcode.MicroQRCodeOptions.EncodingCodePage = 65001;
+            qrcode.Name = "qrcode";
+            qrcode.QuietZone.Bottom = 0D;
+            qrcode.QuietZone.Left = 0D;
+            qrcode.QuietZone.Right = 0D;
+            qrcode.QuietZone.Top = 0D;
+            qrcode.Size = new System.Drawing.Size(151, 150);
+            qrcode.TabIndex = 1;
+            qrcode.Text = "hn "+txtHn.Text.Trim()+" name "+ txtPttNameT.Text+" date "+ txtVsDate.Text;
+            qrcode.TextFixedLength = 0;
+            qrcode.WideToNarrowRatio = 2F;
+            qrcode.Width = 60;
+            qrcode.Height = 60;
+
+            //Image imgqrcode = qrcode.Image;
+
+            if (widthFactor > 1 | heightFactor > 1)
+            {
+                if (widthFactor > heightFactor)
+                {
+                    widthFactor = 1;
+                    newWidth = newWidth / widthFactor;
+                    newHeight = newHeight / widthFactor;
+                    //newWidth = newWidth / 1.2;
+                    //newHeight = newHeight / 1.2;
+                }
+                else
+                {
+                    newWidth = newWidth / heightFactor;
+                    newHeight = newHeight / heightFactor;
+                }
+            }
+
+            RectangleF recf = new RectangleF(15, 0, (int)newWidth, (int)newHeight);
+            pdf.DrawImage(loadedImage, recf);
+            //logo
+
+            rcPage.X = gapX + recf.Width - 10;
+            rcPage.Y = gapY-20;
+            size = bc.MeasureString(bc.iniC.hostname, titleFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(bc.iniC.hostname, titleFont, Brushes.Black, rcPage);
+
+            //gapY += gapLine;
+            rcPage.Y = gapY-5;
+            size = bc.MeasureString(bc.iniC.hostnamee, titleFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(bc.iniC.hostnamee, titleFont1, Brushes.Black, rcPage);
+
+            gapY += gapLine;
+            rcPage.Y = gapY-15;
+            size = bc.MeasureString(bc.iniC.hostaddresst, hdrFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(bc.iniC.hostaddresst, hdrFont, Brushes.Black, rcPage);
+            //gapY += gapLine;
+            //gapY += gapLine;
+            //gapY += gapLine;
+            gapY += gapLine;
+
+            RectangleF rcHdr = new RectangleF();
+            rcHdr.Width = 542;
+            rcHdr.Height = 25;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY;
+            //rcHdr.Location
+            //pdf.DrawRectangle(Pens.Black, rcHdr);       // ตาราง
+            size = bc.MeasureString("ใบรับรองแพทย์", titleFont);
+            rcPage.Width = size.Width;
+            rcPage.Y = gapY - 2;
+            rcPage.X = (542 / 2) - (size.Width / 2) + 40;
+            pdf.DrawString("ใบรับรองแพทย์", titleFont, Brushes.Black, rcPage);
+
+            gapY += gapLine + 5;
+            //gapY += gapLine1;
+            rcPage.X = xCol41;
+            rcPage.Y = gapY;
+            txt = "เลขที่ผู้ป่วย HN : ";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            rcPage.Y = gapY + lineDot;
+            rcPage.X = xCol41 + 65;
+            //rcPage.X = xCol41 + 25;
+            rcPage.Width = size.Width + 10;
+            size = bc.MeasureString("......................", txtFont);
+            pdf.DrawString("......................", txtFont, Brushes.Black, rcPage);
+            txt = txtHn.Text.Trim();
+            size = bc.MeasureString(txt, txtFontB);
+            rcPage.Width = size.Width;
+            rcPage.X = xCol41 + 45 + 25;
+            //rcPage.X = xCol41 + 25 + 5;
+            rcPage.Y = gapY - lineDot;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "ข้าพเจ้า";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            //rcPage.X = gapX+10;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = txtDtrNameT.Text.Trim();
+            size = bc.MeasureString(txt, txtFontB);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX + 35;
+            rcPage.Y = gapY - lineDot;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            txt = "................................................................................................................... ";
+            rcPage.X = gapX + 22;
+            rcPage.X = gapX + 32;
+            rcPage.Y = gapY + lineDot;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = gapX + size.Width - 20;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            temp = size.Width;
+
+            txt = "แพทย์แผนปัจจุบันชั้นหนึ่งสาขาเวชกรรมเลขที่ ";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            //rcPage.X = temp+25;
+            rcPage.X = temp -10;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            temp = rcPage.X + size.Width - 70;
+            txt = "...................";
+            size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = temp + 5;
+            rcPage.X = temp-10;
+            rcPage.Y = gapY + lineDot;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = txtDtrId.Text.Trim();
+            size = bc.MeasureString(txt, txtFontB);
+            rcPage.Width = size.Width;
+            //rcPage.X = temp + 7;
+            rcPage.X = temp + 10;
+            rcPage.Y = gapY - lineDot;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "ขอรับรองว่า ";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = ".................................................................................................................................................................................................................. ";
+            rcPage.X = gapX + 33;
+            rcPage.X = gapX + 50;
+            rcPage.Y = gapY + lineDot;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = gapX + size.Width - 20;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = txtPttNameT.Text.Trim();
+            size = bc.MeasureString(txt, txtFontB);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX + 33 + 5;
+            rcPage.X = gapX + 60;
+            rcPage.Y = gapY - lineDot;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "ได้รับการตรวจร่างกาย / ทำการซักประวัติเมื่อวันที่ - เวลามาตรวจ ";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            temp = size.Width;
+            txt = ".............................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = temp - 62;
+            rcPage.X = temp - 40;
+            rcPage.Y = gapY + lineDot;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = txtVsDate.Text + "  " + txtVsTime.Text;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = rcPage.X + 5;
+            rcPage.X = rcPage.X + 5 + 10;
+            rcPage.Y = gapY - lineDot;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            float size111 = 0;
+            gapY += gapLine1;
+            txt = "ปรากฏว่าเป็น";
+            size = bc.MeasureString(txt, txtFont);
+            size111 = size.Width;
+            rcPage.Width = size.Width;
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = "..............................................................................................................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + size111-20;
+            rcPage.Y = gapY + lineDot;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = txtSympbtom.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + size111 + 5;
+            rcPage.Y = gapY - lineDot;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+            float aaa = 0;
+            gapY += gapLine1;
+            txt = "...........................................................................................................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            aaa = rcPage.X + 5;
+            rcPage.X = gapX;
+            
+            rcPage.Y = gapY ;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+            txt = cboDiag1.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + 5;
+            rcPage.Y = gapY - lineDot;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "...........................................................................................................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+            txt = cboDiag2.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + 5;
+            rcPage.Y = gapY - lineDot;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "...........................................................................................................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+            txt = cboDiag3.Text.Trim();
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX + 5;
+            rcPage.Y = gapY - lineDot;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "...........................................................................................................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "...........................................................................................................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            txt = "...........................................................................................................................................................................................................";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            //gapY += gapLine1;
+            //txt = "พบว่า หรือคนในครอบครัวเดินทางกลับจากประเทศ ";
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.Width = size.Width;
+            //rcPage.X = gapX;
+            //rcPage.Y = gapY;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            //temp = size.Width;
+            //txt = "......................................................................................................";
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = temp - 30;
+            //rcPage.Y = gapY + lineDot;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            //temp = size.Width + 70;
+            //txt = txtCountry.Text.Trim();
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = rcPage.X + 5;
+            //rcPage.Y = gapY - lineDot;
+            //rcPage.Width = size.Width;
+            //pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+            //txt = "ในวันที่";
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.Width = size.Width;
+            //rcPage.X = temp + 90;
+            //rcPage.Y = gapY;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            //temp = size.Width;
+            //txt = "............................";
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = rcPage.X + 25;
+            //rcPage.Y = gapY + lineDot;
+            //rcPage.Width = size.Width;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            //if (txtCountry.Text.Length > 0)
+            //{
+            //    txt = txtDate.Text;
+            //}
+            //else
+            //{
+            //    txt = "";
+            //}
+
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.X = temp + 360 + 95;
+            //rcPage.Y = gapY - lineDot;
+            //rcPage.Width = size.Width;
+            //pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+
+
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            gapY += gapLine1;
+            gapY += gapLine1;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY + 5;
+            //pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            pdf.DrawRectangle(Pens.Black, gapX, gapY + 5, 10, 10);
+            txt = "1.  ประกอบเบิก";
+            rcPage.X = gapX + 15;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            if (chkDraw.Checked)
+            {
+                rcPage.X = gapX + 3;
+                rcPage.Y = gapY - 6;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+            }
+
+            gapY += gapLine1;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY + 5;
+            //pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            pdf.DrawRectangle(Pens.Black, gapX, gapY + 5, 10, 10);
+            txt = "2.  เข้าพักรักษาตัวในโรงพยาบาล  ตั้งแต่วันที่ ............................... ถึง ...............................";
+            rcPage.X = gapX + 15;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            if (chkHosp.Checked)
+            {
+                rcPage.X = gapX + 3;
+                rcPage.Y = gapY - 6;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+                txt = txtHospStartDate.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X += 185;
+                rcPage.Y = gapY - lineDot - 4;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+
+                txt = txtHospEndDate.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X += 85;
+                rcPage.Y = gapY - lineDot - 4;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+            }
+
+            gapY += gapLine1;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY + 5;
+            //pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            pdf.DrawRectangle(Pens.Black, gapX, gapY + 5, 10, 10);
+            txt = "3.  หยุดพักรักษาตัว  (หยุดงาน)  มีกำหนด ............... วัน   ตั้งแต่วันที่ ............................... ถึง ............................... ";
+            rcPage.X = gapX + 15;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            if (chkStop.Checked)
+            {
+                rcPage.X = gapX + 3;
+                rcPage.Y = gapY - 6;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+                txt = txtStopStartDate.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X += 270;
+                rcPage.Y = gapY - lineDot - 4;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+                txt = txtStopEndDate.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X += 80;
+                rcPage.Y = gapY - lineDot - 4;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+                txt = txtStop.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X = 220;
+                rcPage.Y = gapY - lineDot - 4;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+            }
+
+            gapY += gapLine1;
+            rcHdr.X = gapX;
+            rcHdr.Y = gapY + 5;
+            //pdf.DrawRectangle(Pens.Black, rcHdr, new SizeF(1, 1));       // ตาราง
+            pdf.DrawRectangle(Pens.Black, gapX, gapY + 5, 10, 10);
+            txt = "4.  มารับการตรวจจริงเมื่อเวลา ..................... น.";
+            rcPage.X = gapX + 15;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            if (chkTrue.Checked)
+            {
+                rcPage.X = gapX + 3;
+                rcPage.Y = gapY - 6;
+                txt = "/";
+                pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
+                txt = txtTrue.Text.Trim();
+                size = bc.MeasureString(txt, txtFont);
+                rcPage.X = rcPage.X + 130;
+                rcPage.Y = gapY - lineDot - 4;
+                rcPage.Width = size.Width;
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+            }
+
+            gapY += gapLine1;
+            gapY += gapLine1;
+
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            txt = "(กรณีที่4  ใช้รับรองว่ามารับการตรวจรักษาจริงเท่านั้น  มิใช่เป็นใบรับรองแพทย์ลาป่วย)";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width+100;
+            pdf.DrawString(txt, txtFont5B, Brushes.Black, rcPage);
+
+            gapY += gapLine1+5;
+            txt = "** เอกสารนี้ไม่สามารถใช้ประกอบการดำเนินคดีได้ ";
+            rcPage.X = gapX + 15;
+            rcPage.Y = gapY;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width+60;
+            pdf.DrawString(txt, txtFont5B, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            gapY += gapLine1;
+            gapY += gapLine1;
+            gapY += gapLine1;
+
+            
+
+            rcPage.X = xCol41 - 40;
+            rcPage.Y = gapY - 30;
+            //txt = "ลงชื่อ ...........................................................";
+            //size = bc.MeasureString(txt, txtFont);
+            //rcPage.Width = size.Width;
+            //pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+            txt = ".........................................................";
+            rcPage.X = gapX + 30;
+            rcPage.Y = gapY ;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            rcPage.X = xCol41 - 40;
+            txt = "ลงชื่อ ...........................................................";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            txt = "ผู้รับเอกสารใบรับรองแพทย์";
+            rcPage.X = gapX + 30 + 10;
+            rcPage.Y = gapY + 13;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            rcPage.X = xCol41 - 20;
+            rcPage.Y = gapY ;
+            txt = txtDtrNameT.Text.Trim() + " " + txtDtrId.Text;
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            rcPage.X = xCol41 - 20;
+            rcPage.Y = gapY ;
+            txt = "แพทย์ผู้ตรวจรักษา ";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            gapY += gapLine1;
+            gapY += gapLine1;
+            RectangleF rcPage1 = new RectangleF();
+            rcPage1.Height = qrcode.Height;
+            rcPage1.Width = qrcode.Width;
+            rcPage1.X = xCol41 - 20;
+            rcPage1.Y = gapY;
+            pdf.DrawImage(qrcode.Image, rcPage1);
+
+            //gapY += gapLine1;
+            //gapY += gapLine1;
+            gapY += gapLine1;
+            //gapY += gapLine1;
+            rcPage.X = gapX;
+            rcPage.Y = gapY;
+            txt = "FM-MED-001 (01-05/02/59)(1/1)";
+            size = bc.MeasureString(txt, txtFont);
+            rcPage.Width = size.Width;
+            pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
+
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\COVID\\";
+            if (!Directory.Exists(pathFolder))
+            {
+                Directory.CreateDirectory(pathFolder);
+            }
+            datetick = DateTime.Now.Ticks.ToString();
+            filename = pathFolder + "\\" + txtHn.Text.TrimEnd() + "_" + datetick + ".pdf";
+            pdf.Save(filename);
+            pdf.Clear();
+            pdf.Dispose();
+
+            if (File.Exists(filename))
+            {
+                Process p = new Process();
+                ProcessStartInfo s = new ProcessStartInfo(filename);
+                p.StartInfo = s;
+                p.Start();
+            }
+        }
         private void printCOVID(String flag)
         {
             String pathFolder = "", filename="", datetick="";
@@ -4031,6 +4647,11 @@ namespace bangna_hospital.gui
             pnPrint.Controls.Add(chkThai);
             pnPrint.Controls.Add(btnPrintLetter);
 
+            //btnCertDtr
+            btnCertDtr = new C1Button();
+            bc.setControlC1Button(ref btnCertDtr, fEdit, "ใบรับรองแพทย์", "btnCertDtr", btnPrnEng.Location.X +440, gapY-30);
+            tabAdd.Controls.Add(btnCertDtr);
+
             gapY += gapLine;
             txtDtrNameE = new C1TextBox();
             bc.setControlC1TextBox(ref txtDtrNameE, fEdit, "txtDtrNameE", 300, txtDtrNameT.Location.X, gapY);
@@ -4155,7 +4776,7 @@ namespace bangna_hospital.gui
             gapY += gapLine;
             pnThai = new Panel();
             pnThai.Location = new Point(gapX, gapY);
-            pnThai.Size = new Size(1200, 130);
+            pnThai.Size = new Size(1200, 230);
             pnThai.BackColor = Color.Yellow;
             lbtxtSympbtom = new Label();
             bc.setControlLabel(ref lbtxtSympbtom, fEdit, "ปรากฏว่าเป็น :", "lbtxtSympbtom", gapX-20, 5);
@@ -4163,6 +4784,7 @@ namespace bangna_hospital.gui
             txtSympbtom = new C1TextBox();
             bc.setControlC1TextBox(ref txtSympbtom, fEdit, "txtSympbtom", 200, gapX -20 + size.Width +5, lbtxtSympbtom.Location.Y);
             txtSympbtom.Value = "ไม่พบเชื้อโควิด-19";
+            
 
             lbtxtCountry = new Label();
             bc.setControlLabel(ref lbtxtCountry, fEdit, "เดินทางกลับจากต่างประเทศ :", "lbtxtCountry", txtSympbtom.Location.X+txtSympbtom.Width+15, lbtxtSympbtom.Location.Y);
@@ -4228,6 +4850,17 @@ namespace bangna_hospital.gui
             chkTrue.Width = chkTrue.Width - 10;
             txtTrue = new C1TextBox();
             bc.setControlC1TextBox(ref txtTrue, fEdit, "txtTrue", 50, chkTrue.Location.X + chkTrue.Width + 5, gapY);
+            gapY += gapLine;
+            cboDiag1 = new ComboBox();
+            bc.setControlComboBox(ref cboDiag1, "cboDiag1", 300, gapX - 20 + size.Width + 5, gapY);
+            cboDiag1.Items.Add("aaaaaaaaaaa");
+            cboDiag1.Items.Add("bbbbbbbbbbb");
+            gapY += gapLine;
+            cboDiag2 = new ComboBox();
+            bc.setControlComboBox(ref cboDiag2, "cboDiag2", 300, gapX - 20 + size.Width + 5, gapY);
+            gapY += gapLine;
+            cboDiag3 = new ComboBox();
+            bc.setControlComboBox(ref cboDiag3, "cboDiag3", 300, gapX - 20 + size.Width + 5, gapY);
 
             gapY += gapLine;
             pnEng = new Panel();
@@ -4322,6 +4955,11 @@ namespace bangna_hospital.gui
             pnThai.Controls.Add(txtStopStartDate);
             pnThai.Controls.Add(txtStopEndDate);
             pnThai.Controls.Add(lbtxtStopEndDate);
+
+            pnThai.Controls.Add(cboDiag1);
+            pnThai.Controls.Add(cboDiag2);
+            pnThai.Controls.Add(cboDiag3);
+
             tabAdd.Controls.Add(txtNation);
             tabAdd.Controls.Add(lbtxtNation);
             tabAdd.Controls.Add(txtLabCodeSe184);
@@ -4418,7 +5056,7 @@ namespace bangna_hospital.gui
             int scrH = Screen.PrimaryScreen.Bounds.Height;
 
             this.WindowState = FormWindowState.Maximized;
-            this.Text = bc.iniC.pdfFontName +" Last Update 2021-10-26";
+            this.Text = bc.iniC.pdfFontName +" Last Update 2022-03-15-2";
 
             grfView.Size = new Size(scrW - 20, scrH - btnViewDateSearch.Location.Y - 140);
             grfView.Location = new Point(5, btnViewDateSearch.Location.Y + 40);

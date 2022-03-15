@@ -147,7 +147,7 @@ namespace bangna_hospital.object1
             chkNull(p);
             if (p.MNC_REQ_NO.Equals("0"))
             {
-                re = insert(p, "");
+                //re = insert(p, "");
             }
             else
             {
@@ -155,7 +155,7 @@ namespace bangna_hospital.object1
             }
             return re;
         }
-        public String insert(PharmacyT01 p, String userid)
+        public String insertPharmacyOPDDrugB(String hnyear, String hn, String vsdate, String preno, String dtrcode, String userid)
         {
             String sql = "", chk = "", re = "";
             try
@@ -163,31 +163,15 @@ namespace bangna_hospital.object1
                 //new LogWriter("e", "PharmacyT01 insert " );
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
-                conn.comStore.CommandText = "insert_pharmacy_t01_ros";
+                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_b";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
-                //conn.comStore.Parameters.AddWithValue("mnc_req_yr", p.MNC_REQ_YR);
-                //conn.comStore.Parameters.AddWithValue("mnc_req_dat", p.MNC_REQ_DAT);
-                //conn.comStore.Parameters.AddWithValue("mnc_req_tim", p.MNC_REQ_TIM);
-                conn.comStore.Parameters.AddWithValue("mnc_sum_pri", p.MNC_SUM_PRI);
-                conn.comStore.Parameters.AddWithValue("mnc_sum_cos", p.MNC_SUM_COS);
-                //conn.comStore.Parameters.AddWithValue("mnc_dep_no", p.MNC_DEP_NO);
-                conn.comStore.Parameters.AddWithValue("mnc_hn_yr", p.MNC_HN_YR);
-                conn.comStore.Parameters.AddWithValue("mnc_hn_no", p.MNC_HN_NO);
-                conn.comStore.Parameters.AddWithValue("mnc_date", p.MNC_DATE);
-                conn.comStore.Parameters.AddWithValue("mnc_pre_no", p.MNC_PRE_NO);
-
-                //conn.comStore.Parameters.AddWithValue("mnc_pre_seq", p.MNC_PRE_SEQ);
-                //conn.comStore.Parameters.AddWithValue("mnc_time", p.MNC_TIME);
-                conn.comStore.Parameters.AddWithValue("mnc_dot_cd", p.MNC_DOT_CD);
-                //conn.comStore.Parameters.AddWithValue("mnc_fn_typ_cd", p.MNC_FN_TYP_CD);
-                //conn.comStore.Parameters.AddWithValue("mnc_com_cd", p.MNC_COM_CD);
-                //conn.comStore.Parameters.AddWithValue("mnc_sec_no", p.MNC_SEC_NO);
-                //conn.comStore.Parameters.AddWithValue("mnc_depc_no", p.MNC_DEPC_NO);
-                //conn.comStore.Parameters.AddWithValue("mnc_secc_no", p.MNC_SECC_NO);
-                //conn.comStore.Parameters.AddWithValue("mnc_cancel_sts", p.MNC_CANCEL_STS);
-                conn.comStore.Parameters.AddWithValue("mnc_usr_add", p.MNC_USR_ADD);
-
-                conn.comStore.Parameters.AddWithValue("mnc_usr_upd", p.MNC_USR_UPD);
+                conn.comStore.Parameters.AddWithValue("mnc_hn_yr", hnyear);
+                conn.comStore.Parameters.AddWithValue("mnc_hn_no", hn);
+                conn.comStore.Parameters.AddWithValue("mnc_date", vsdate);
+                conn.comStore.Parameters.AddWithValue("mnc_pre_no", preno);
+                conn.comStore.Parameters.AddWithValue("mnc_dot_cd", dtrcode);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_add", userid);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_upd", userid);
 
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
@@ -199,7 +183,81 @@ namespace bangna_hospital.object1
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "PharmacyT01DB.insertPharmacyT01 " + ex.Message + " " + sql);
+                new LogWriter("e", "PharmacyT01DB.insertPharmacyOPDDrugB " + ex.Message + " " + sql);
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insertPharmacyOPDDrugK(String hnyear, String hn, String vsdate, String preno, String dtrcode, String userid)
+        {
+            String sql = "", chk = "", re = "";
+            try
+            {
+                //new LogWriter("e", "PharmacyT01 insert " );
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_k";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("mnc_hn_yr", hnyear);
+                conn.comStore.Parameters.AddWithValue("mnc_hn_no", hn);
+                conn.comStore.Parameters.AddWithValue("mnc_date", vsdate);
+                conn.comStore.Parameters.AddWithValue("mnc_pre_no", preno);
+                conn.comStore.Parameters.AddWithValue("mnc_dot_cd", dtrcode);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_add", userid);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_upd", userid);
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "PharmacyT01DB.insertPharmacyOPDDrugB " + ex.Message + " " + sql);
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insertPharmacyOPDDrugD(String hnyear, String hn, String vsdate, String preno, String dtrcode, String userid)
+        {
+            String sql = "", chk = "", re = "";
+            try
+            {
+                //new LogWriter("e", "PharmacyT01 insert " );
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_d";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("mnc_hn_yr", hnyear);
+                conn.comStore.Parameters.AddWithValue("mnc_hn_no", hn);
+                conn.comStore.Parameters.AddWithValue("mnc_date", vsdate);
+                conn.comStore.Parameters.AddWithValue("mnc_pre_no", preno);
+                conn.comStore.Parameters.AddWithValue("mnc_dot_cd", dtrcode);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_add", userid);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_upd", userid);
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "PharmacyT01DB.insertPharmacyOPDDrugB " + ex.Message + " " + sql);
             }
             finally
             {

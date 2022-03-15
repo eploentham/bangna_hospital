@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,8 @@ namespace bangna_hospital.objdb
     {
         public ConnectDB conn;
         Patient ptt;
+        public List<PatientM32> lDeptOPD;
+        public List<PatientM32> lDeptIPD;
         public PatientDB(ConnectDB c)
         {
             conn = c;
@@ -86,6 +89,43 @@ namespace bangna_hospital.objdb
 
             ptt.pkField = "";
             ptt.table = "patient_m01";
+
+            lDeptOPD = new List<PatientM32>();
+            lDeptIPD = new List<PatientM32>();
+        }
+        public void getlDeptOPD()
+        {
+            //lDept = new List<Position>();
+
+            lDeptOPD.Clear();
+            DataTable dt = new DataTable();
+            dt = selectDeptOPD();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                PatientM32 cus1 = new PatientM32();
+                cus1.mnc_sec_no = row["mnc_sec_no"].ToString();
+                cus1.mnc_md_dep_no = row["mnc_md_dep_no"].ToString();
+                cus1.mnc_md_dep_dsc = row["mnc_md_dep_dsc"].ToString();
+                lDeptOPD.Add(cus1);
+            }
+        }
+        public void getlDeptIPD()
+        {
+            //lDept = new List<Position>();
+
+            lDeptIPD.Clear();
+            DataTable dt = new DataTable();
+            dt = selectDeptIPD();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                PatientM32 cus1 = new PatientM32();
+                cus1.mnc_sec_no = row["mnc_sec_no"].ToString();
+                cus1.mnc_md_dep_no = row["mnc_md_dep_no"].ToString();
+                cus1.mnc_md_dep_dsc = row["mnc_md_dep_dsc"].ToString();
+                lDeptIPD.Add(cus1);
+            }
         }
         public String selectHnMax()
         {
@@ -155,6 +195,21 @@ namespace bangna_hospital.objdb
                 ptt.hnyr = dt.Rows[0]["mnc_hn_yr"].ToString();
             }
             return ptt;
+        }
+        public DataTable selectPatinetBySearch(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            Patient ptt = new Patient();
+            sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_FNAME_E,m01.MNC_LNAME_E " +
+                ",MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr" +
+                ",m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,  m02.MNC_PFIX_DSC +' '+m01.MNC_FNAME_T+' '+m01.MNC_LNAME_T as pttfullname " +
+                "From  patient_m01 m01 " +
+                " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                " Where m01.MNC_hn_NO like '" + hn + "%' or (m01.MNC_FNAME_T like '"+hn+ "%') or (m01.MNC_LNAME_T like '" + hn + "%') or (m01.mnc_id_no like '" + hn + "%') " +
+                "Order By m01.mnc_hn_no desc";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
         }
         public Patient selectPatinetByHn(String hn)
         {
@@ -540,6 +595,22 @@ namespace bangna_hospital.objdb
             }
             return ptt;
         }
+        public DataTable selectPatientinWardIPD(String wardid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pt08.MNC_HN_NO,pm02.MNC_PFIX_DSC,pm01.MNC_FNAME_T, DATEDIFF(day,pt08.MNC_AD_DATE,getdate()) as day1, " +
+                "pm01.MNC_LNAME_T,convert(varchar(20),pt08.MNC_AD_DATE,23) as MNC_AD_DATE,pt08.MNC_RM_NAM,pt08.MNC_BD_NO, '' as status_selected, pm02.MNC_PFIX_DSC +' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as patient_fullname " +
+                "from PATIENT_T08 pt08 " +
+                "inner join PATIENT_T01 pt01 on pt01.MNC_PRE_NO =pt08.MNC_PRE_NO and pt01.MNC_date = pt08.MNC_date " +
+                "INNER JOIN dbo.PATIENT_M01 pm01 ON pt08.MNC_HN_NO = pm01.MNC_HN_NO " +
+                "INNER JOIN dbo.PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "WHERE   pt08.MNC_AD_STS = 'A' and mnc_ds_lev = '1' and pt08.mnc_wd_no = '" + wardid + "' " +
+                " Order By pt08.mnc_ad_date, pt08.mnc_ad_time ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
         public String selectDeptOPD(String deptid)
         {
             DataTable dt = new DataTable();
@@ -553,6 +624,105 @@ namespace bangna_hospital.objdb
                 re = dt.Rows[0]["MNC_MD_DEP_DSC"].ToString();
             }
             return re;
+        }
+        public String selectDeptIdOPDBySecId(String secid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_no " +
+                "From  patient_m32 m32 " +
+                " Where m32.MNC_sec_no = '" + secid + "' and m32.MNC_TYP_PT = 'O' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_MD_DEP_no"].ToString();
+            }
+            return re;
+        }
+        public DataTable selectDeptOPD()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC,m32.mnc_sec_no,m32.mnc_md_dep_no " +
+                "From  patient_m32 m32 " +
+                " Where  m32.MNC_TYP_PT = 'O' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            
+            return dt;
+        }
+        public DataTable selectDeptIPD()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC,m32.mnc_sec_no,m32.MNC_MD_DEP_NO " +
+                "From  patient_m32 m32 " +
+                " Where m32.MNC_TYP_PT = 'I' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            
+            return dt;
+        }
+        public void setCboDeptIPD(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            if (lDeptIPD.Count <= 0) getlDeptIPD();
+            int i = 0;
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (PatientM32 row in lDeptIPD)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.mnc_sec_no;
+                item.Text = row.mnc_md_dep_dsc;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
+        }
+        public void setCboDeptOPD(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            if (lDeptOPD.Count <= 0) getlDeptOPD();
+            int i = 0;
+
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (PatientM32 row in lDeptOPD)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.mnc_sec_no;
+                item.Text = row.mnc_md_dep_dsc;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
         }
         private void chkNull(Patient p)
         {
