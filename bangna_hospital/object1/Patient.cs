@@ -103,6 +103,24 @@ namespace bangna_hospital.object1
             }
             return re;
         }
+        public String AgeStringOK1()
+        {
+            String re = "";
+            DateTime dtB;
+            if (DateTime.TryParse(patient_birthday, out dtB))
+            {
+                //age = new Age(dtB);
+                if (dtB.Year < 1900)        //  แต่เป็น  ค.ศ. และปีเป็นน้อยกว่า 1900
+                {
+                    dtB.AddYears(543);
+                    DateTime dt = new DateTime(dtB.Year + 543, dtB.Month, dtB.Day);
+                    dtB = dt;
+                }
+                age = new Age(dtB);
+                re = age.AgeString1;
+            }
+            return re;
+        }
         public String AgeStringShort()
         {
             String re = "";

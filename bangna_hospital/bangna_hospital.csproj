@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_covid</AssemblyName>
+    <AssemblyName>bangna_hospital_sticker_jjj</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\signal-receiver.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -70,6 +70,7 @@
     </Reference>
     <Reference Include="C1.C1Excel.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.C1Pdf.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
+    <Reference Include="C1.C1Report.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=594a0605db190bb9" />
     <Reference Include="C1.C1Zip.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
     <Reference Include="C1.Win.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.BarCode.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
@@ -84,6 +85,7 @@
     <Reference Include="C1.Win.C1Input.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1InputPanel.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
     <Reference Include="C1.Win.C1List.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Report.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=41780e2fc605e636, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Ribbon.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1SplitContainer.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1SuperTooltip.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
@@ -177,6 +179,12 @@
     </Compile>
     <Compile Include="gui\FrmSmartCard.designer.cs">
       <DependentUpon>FrmSmartCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmSmartCardJJJ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSmartCardJJJ.Designer.cs">
+      <DependentUpon>FrmSmartCardJJJ.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmSmartCardNoteBook.cs">
       <SubType>Form</SubType>
@@ -525,6 +533,7 @@
     <Compile Include="objdb\OperativeNoteDB.cs" />
     <Compile Include="objdb\OrDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
+    <Compile Include="objdb\PatientHIDB.cs" />
     <Compile Include="objdb\PatientM02DB.cs" />
     <Compile Include="objdb\PatientM03DB.cs" />
     <Compile Include="objdb\PatientM04DB.cs" />
@@ -544,6 +553,7 @@
     <Compile Include="objdb\PharmacyT04DB.cs" />
     <Compile Include="objdb\PharmacyT05DB.cs" />
     <Compile Include="objdb\PharmacyT06DB.cs" />
+    <Compile Include="objdb\PrakunM01DB.cs" />
     <Compile Include="objdb\QueueTypeDB.cs" />
     <Compile Include="objdb\ReportTabContentsDB.cs" />
     <Compile Include="objdb\ResOrderTabDB.cs" />
@@ -588,6 +598,7 @@
     <Compile Include="object1\OPBKKPAT.cs" />
     <Compile Include="object1\OPDCheckUP.cs" />
     <Compile Include="object1\OperativeNote.cs" />
+    <Compile Include="object1\PatientHI.cs" />
     <Compile Include="object1\PatientM02.cs" />
     <Compile Include="object1\PatientM03.cs" />
     <Compile Include="object1\PatientM04.cs" />
@@ -609,6 +620,7 @@
     <Compile Include="object1\PharmacyT04.cs" />
     <Compile Include="object1\PharmacyT05.cs" />
     <Compile Include="object1\PharmacyT06.cs" />
+    <Compile Include="object1\PrakunM01.cs" />
     <Compile Include="object1\Province.cs" />
     <Compile Include="object1\Queue.cs" />
     <Compile Include="objdb\QueueDB.cs" />
@@ -823,6 +835,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSmartCard.resx">
       <DependentUpon>FrmSmartCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmSmartCardJJJ.resx">
+      <DependentUpon>FrmSmartCardJJJ.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSmartCardNoteBook.resx">
       <DependentUpon>FrmSmartCardNoteBook.cs</DependentUpon>

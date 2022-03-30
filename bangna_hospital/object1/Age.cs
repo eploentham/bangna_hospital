@@ -128,6 +128,50 @@ namespace bangna_hospital.object1
                 return ageString;
             }
         }
+        public string AgeString1
+        {
+            get
+            {
+                string ageString = string.Empty;
+
+                if (Years >= 1)
+                {
+                    if (Years == 1)
+                    {
+                        ageString = string.Format("{0}Y", Years);
+                    }
+                    else
+                    {
+                        ageString = string.Format("{0}Y", Years);
+                    }
+
+                    if (Months >= 1)
+                    {
+                        if (Months == 1)
+                        {
+                            ageString += string.Format(" {0}M", Months);
+                        }
+                        else
+                        {
+                            ageString += string.Format(" {0}M", Months);
+                        }
+
+                        if (Days >= 1)
+                        {
+                            if (Days == 1)
+                            {
+                                ageString += string.Format(" {0}D", Days);
+                            }
+                            else
+                            {
+                                ageString += string.Format(" {0}D", Days);
+                            }
+                        }
+                    }
+                }
+                return ageString;
+            }
+        }
     }
 
 }

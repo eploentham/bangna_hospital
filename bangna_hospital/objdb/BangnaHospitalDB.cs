@@ -34,6 +34,8 @@ namespace bangna_hospital.objdb
         public TemporaryM02DB tem02DB;
         public PharmacyT01DB pharT01DB;
         public PharmacyT02DB pharT02DB;
+        public PharmacyT05DB pharT05DB;
+        public PharmacyT06DB pharT06DB;
         public XrayM01DB xrayM01DB;
         public XrayM02DB xrayM02DB;
         public XrayT01DB xrayT01DB;
@@ -66,6 +68,8 @@ namespace bangna_hospital.objdb
         public PatientM24DB pm24DB;
         public PatientM32DB pm32DB;
         public PatientM30DB pm30DB;
+        public PatientHIDB ptthiDB;
+        public PrakunM01DB prakM01DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -95,6 +99,8 @@ namespace bangna_hospital.objdb
             tem02DB = new TemporaryM02DB(conn);
             pharT01DB = new PharmacyT01DB(conn);
             pharT02DB = new PharmacyT02DB(conn);
+            pharT05DB = new PharmacyT05DB(conn);
+            pharT06DB = new PharmacyT06DB(conn);
             xrayM01DB = new XrayM01DB(conn);
             xrayM02DB = new XrayM02DB(conn);
             xrayT01DB = new XrayT01DB(conn);
@@ -128,6 +134,8 @@ namespace bangna_hospital.objdb
             pm24DB = new PatientM24DB(conn);
             pm30DB = new PatientM30DB(conn);
             pm32DB = new PatientM32DB(conn);
+            ptthiDB = new PatientHIDB(conn);
+            prakM01DB = new PrakunM01DB(conn);
         }
         public String insertLogPage(String userid, String form, String method, String desc)
         {

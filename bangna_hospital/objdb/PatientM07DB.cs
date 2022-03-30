@@ -180,6 +180,46 @@ namespace bangna_hospital.objdb
                 }
             }
         }
+        public void setCboTumbonName(C1ComboBox c, String tambonname, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+
+            DataTable dt = new DataTable();
+            if (tambonname.Length < 3) return;
+            String sql = "", re = "";
+            sql = "Select pm07.*,pm08.MNC_AMP_DSC,pm09.MNC_CHW_DSC " +
+                "From  patient_M07 pm07 " +
+                "inner join patient_M08 pm08 on pm08.MNC_AMP_CD = pm07.MNC_AMP_CD " +
+                "inner join patient_m09 pm09 on pm09.MNC_CHW_CD = pm07.MNC_CHW_CD " +
+                " Where pm07.MNC_TUM_DSC like '" + tambonname + "%' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                int i = 0;
+                c.Items.Clear();
+                foreach (DataRow row in dt.Rows)
+                {
+                    item = new ComboBoxItem();
+                    item.Value = row["MNC_TUM_CD"].ToString();
+                    item.Text = row["MNC_TUM_DSC"].ToString() + " " + row["MNC_AMP_DSC"].ToString() + " " + row["MNC_CHW_DSC"].ToString();
+                    c.Items.Add(item);
+                    if (item.Value.Equals(selected))
+                    {
+                        //c.SelectedItem = item.Value;
+                        c.SelectedText = item.Text;
+                        c.SelectedIndex = i;
+                    }
+                    i++;
+                }
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
+        }
         public void setCboTumbon(C1ComboBox c, String amphurcode, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();

@@ -75,6 +75,11 @@ namespace bangna_hospital.gui
             this.label35 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cboTheme = new C1.Win.C1Input.C1ComboBox();
+            this.btnPttLIC = new C1.Win.C1Input.C1Button();
+            this.btnPttVisit = new C1.Win.C1Input.C1Button();
+            this.btnPttSave = new C1.Win.C1Input.C1Button();
+            this.btnPttInsurSearch = new C1.Win.C1Input.C1Button();
             this.btnPttCompSearch = new C1.Win.C1Input.C1Button();
             this.btnPttCardRead = new C1.Win.C1Input.C1Button();
             this.label54 = new System.Windows.Forms.Label();
@@ -195,10 +200,7 @@ namespace bangna_hospital.gui
             this.pnRptReport = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tabToday = new C1.Win.C1Command.C1DockingTabPage();
             this.tabApm = new C1.Win.C1Command.C1DockingTabPage();
-            this.btnPttInsurSearch = new C1.Win.C1Input.C1Button();
-            this.btnPttSave = new C1.Win.C1Input.C1Button();
-            this.btnPttVisit = new C1.Win.C1Input.C1Button();
-            this.btnPttLIC = new C1.Win.C1Input.C1Button();
+            this.tabDoc = new C1.Win.C1Command.C1DockingTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -229,6 +231,11 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtPttRemark1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttAttchNote)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboTheme)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttLIC)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttVisit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttCompSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttCardRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttInsur)).BeginInit();
@@ -291,10 +298,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtRptDateEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptDateStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRptOk)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurSearch)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttSave)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttVisit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttLIC)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -303,7 +306,7 @@ namespace bangna_hospital.gui
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbStatus);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbMessage);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbLastUpdate);
-            this.c1StatusBar1.Location = new System.Drawing.Point(0, 802);
+            this.c1StatusBar1.Location = new System.Drawing.Point(0, 855);
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbUser);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
@@ -352,11 +355,12 @@ namespace bangna_hospital.gui
             this.tC.Controls.Add(this.tabRpt);
             this.tC.Controls.Add(this.tabToday);
             this.tC.Controls.Add(this.tabApm);
+            this.tC.Controls.Add(this.tabDoc);
             this.tC.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC.Location = new System.Drawing.Point(0, 0);
             this.tC.Name = "tC";
             this.tC.SelectedIndex = 4;
-            this.tC.Size = new System.Drawing.Size(1145, 802);
+            this.tC.Size = new System.Drawing.Size(1145, 855);
             this.tC.TabIndex = 1;
             this.tC.TabsSpacing = 5;
             // 
@@ -365,7 +369,7 @@ namespace bangna_hospital.gui
             this.tabSrc.Controls.Add(this.c1SplitContainer1);
             this.tabSrc.Location = new System.Drawing.Point(1, 24);
             this.tabSrc.Name = "tabSrc";
-            this.tabSrc.Size = new System.Drawing.Size(1143, 777);
+            this.tabSrc.Size = new System.Drawing.Size(1143, 830);
             this.tabSrc.TabIndex = 0;
             this.tabSrc.Text = "Search";
             // 
@@ -381,7 +385,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer1.Name = "c1SplitContainer1";
             this.c1SplitContainer1.Panels.Add(this.pnSrcTop);
             this.c1SplitContainer1.Panels.Add(this.pnSrcGrf);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(1143, 777);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1143, 830);
             this.c1SplitContainer1.TabIndex = 0;
             // 
             // pnSrcTop
@@ -391,10 +395,10 @@ namespace bangna_hospital.gui
             this.pnSrcTop.Controls.Add(this.btnSrcOk);
             this.pnSrcTop.Controls.Add(this.txtSrcHn);
             this.pnSrcTop.Controls.Add(this.c1Label1);
-            this.pnSrcTop.Height = 54;
+            this.pnSrcTop.Height = 65;
             this.pnSrcTop.Location = new System.Drawing.Point(0, 0);
             this.pnSrcTop.Name = "pnSrcTop";
-            this.pnSrcTop.Size = new System.Drawing.Size(1143, 54);
+            this.pnSrcTop.Size = new System.Drawing.Size(1143, 58);
             this.pnSrcTop.SizeRatio = 7.891D;
             this.pnSrcTop.TabIndex = 0;
             this.pnSrcTop.Text = "Panel 1";
@@ -442,10 +446,10 @@ namespace bangna_hospital.gui
             // 
             // pnSrcGrf
             // 
-            this.pnSrcGrf.Height = 712;
-            this.pnSrcGrf.Location = new System.Drawing.Point(0, 65);
+            this.pnSrcGrf.Height = 761;
+            this.pnSrcGrf.Location = new System.Drawing.Point(0, 69);
             this.pnSrcGrf.Name = "pnSrcGrf";
-            this.pnSrcGrf.Size = new System.Drawing.Size(1143, 712);
+            this.pnSrcGrf.Size = new System.Drawing.Size(1143, 761);
             this.pnSrcGrf.TabIndex = 1;
             this.pnSrcGrf.Text = "Panel 2";
             // 
@@ -454,7 +458,7 @@ namespace bangna_hospital.gui
             this.tabPtt.Controls.Add(this.c1SplitContainer2);
             this.tabPtt.Location = new System.Drawing.Point(1, 24);
             this.tabPtt.Name = "tabPtt";
-            this.tabPtt.Size = new System.Drawing.Size(1143, 777);
+            this.tabPtt.Size = new System.Drawing.Size(1143, 830);
             this.tabPtt.TabIndex = 1;
             this.tabPtt.Text = "Patient";
             // 
@@ -470,7 +474,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer2.Panels.Add(this.c1SplitterPanel3);
             this.c1SplitContainer2.Panels.Add(this.pnPttVs);
             this.c1SplitContainer2.Panels.Add(this.pnPttApm);
-            this.c1SplitContainer2.Size = new System.Drawing.Size(1143, 777);
+            this.c1SplitContainer2.Size = new System.Drawing.Size(1143, 830);
             this.c1SplitContainer2.TabIndex = 0;
             // 
             // c1SplitterPanel3
@@ -517,7 +521,7 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel3.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
-            this.c1SplitterPanel3.Size = new System.Drawing.Size(896, 756);
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(896, 809);
             this.c1SplitterPanel3.SizeRatio = 79.28D;
             this.c1SplitterPanel3.TabIndex = 0;
             this.c1SplitterPanel3.Text = "Panel 1";
@@ -608,7 +612,7 @@ namespace bangna_hospital.gui
             this.groupBox6.Controls.Add(this.label35);
             this.groupBox6.Controls.Add(this.label15);
             this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox6.Location = new System.Drawing.Point(412, 522);
+            this.groupBox6.Location = new System.Drawing.Point(409, 575);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(481, 229);
             this.groupBox6.TabIndex = 100;
@@ -810,6 +814,7 @@ namespace bangna_hospital.gui
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.cboTheme);
             this.groupBox5.Controls.Add(this.btnPttLIC);
             this.groupBox5.Controls.Add(this.btnPttVisit);
             this.groupBox5.Controls.Add(this.btnPttSave);
@@ -824,18 +829,72 @@ namespace bangna_hospital.gui
             this.groupBox5.Controls.Add(this.pnPttComp);
             this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox5.Location = new System.Drawing.Point(11, 522);
+            this.groupBox5.Location = new System.Drawing.Point(3, 573);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(393, 231);
             this.groupBox5.TabIndex = 96;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ที่ทำงาน";
             // 
+            // cboTheme
+            // 
+            this.cboTheme.AllowSpinLoop = false;
+            this.cboTheme.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboTheme.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboTheme.GapHeight = 0;
+            this.cboTheme.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboTheme.ItemsDisplayMember = "";
+            this.cboTheme.ItemsValueMember = "";
+            this.cboTheme.Location = new System.Drawing.Point(9, 130);
+            this.cboTheme.Name = "cboTheme";
+            this.cboTheme.Size = new System.Drawing.Size(185, 24);
+            this.cboTheme.TabIndex = 114;
+            this.cboTheme.Tag = null;
+            // 
+            // btnPttLIC
+            // 
+            this.btnPttLIC.Location = new System.Drawing.Point(100, 93);
+            this.btnPttLIC.Name = "btnPttLIC";
+            this.btnPttLIC.Size = new System.Drawing.Size(35, 34);
+            this.btnPttLIC.TabIndex = 113;
+            this.btnPttLIC.Text = "lic";
+            this.btnPttLIC.UseVisualStyleBackColor = true;
+            // 
+            // btnPttVisit
+            // 
+            this.btnPttVisit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPttVisit.Location = new System.Drawing.Point(303, 82);
+            this.btnPttVisit.Name = "btnPttVisit";
+            this.btnPttVisit.Size = new System.Drawing.Size(84, 45);
+            this.btnPttVisit.TabIndex = 112;
+            this.btnPttVisit.Text = "ออกvisit";
+            this.btnPttVisit.UseVisualStyleBackColor = true;
+            // 
+            // btnPttSave
+            // 
+            this.btnPttSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPttSave.Location = new System.Drawing.Point(195, 82);
+            this.btnPttSave.Name = "btnPttSave";
+            this.btnPttSave.Size = new System.Drawing.Size(84, 45);
+            this.btnPttSave.TabIndex = 111;
+            this.btnPttSave.Text = "บันทึก";
+            this.btnPttSave.UseVisualStyleBackColor = true;
+            // 
+            // btnPttInsurSearch
+            // 
+            this.btnPttInsurSearch.Location = new System.Drawing.Point(136, 47);
+            this.btnPttInsurSearch.Name = "btnPttInsurSearch";
+            this.btnPttInsurSearch.Size = new System.Drawing.Size(30, 24);
+            this.btnPttInsurSearch.TabIndex = 110;
+            this.btnPttInsurSearch.Text = "...";
+            this.btnPttInsurSearch.UseVisualStyleBackColor = true;
+            // 
             // btnPttCompSearch
             // 
             this.btnPttCompSearch.Location = new System.Drawing.Point(136, 20);
             this.btnPttCompSearch.Name = "btnPttCompSearch";
-            this.btnPttCompSearch.Size = new System.Drawing.Size(28, 24);
+            this.btnPttCompSearch.Size = new System.Drawing.Size(30, 24);
             this.btnPttCompSearch.TabIndex = 109;
             this.btnPttCompSearch.Text = "...";
             this.btnPttCompSearch.UseVisualStyleBackColor = true;
@@ -855,9 +914,9 @@ namespace bangna_hospital.gui
             this.label54.AutoSize = true;
             this.label54.Location = new System.Drawing.Point(167, 48);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(52, 20);
+            this.label54.Size = new System.Drawing.Size(21, 20);
             this.label54.TabIndex = 102;
-            this.label54.Text = "ปัจจุบัน";
+            this.label54.Text = "...";
             // 
             // txtPttInsur
             // 
@@ -881,9 +940,9 @@ namespace bangna_hospital.gui
             this.lbPttCompNameT.AutoSize = true;
             this.lbPttCompNameT.Location = new System.Drawing.Point(167, 21);
             this.lbPttCompNameT.Name = "lbPttCompNameT";
-            this.lbPttCompNameT.Size = new System.Drawing.Size(52, 20);
+            this.lbPttCompNameT.Size = new System.Drawing.Size(21, 20);
             this.lbPttCompNameT.TabIndex = 98;
-            this.lbPttCompNameT.Text = "ปัจจุบัน";
+            this.lbPttCompNameT.Text = "...";
             // 
             // txtPttCompCode
             // 
@@ -924,7 +983,7 @@ namespace bangna_hospital.gui
             this.groupBox4.Controls.Add(this.txtPttRefContact1Name);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox4.Location = new System.Drawing.Point(11, 437);
+            this.groupBox4.Location = new System.Drawing.Point(11, 465);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(882, 79);
             this.groupBox4.TabIndex = 95;
@@ -1080,7 +1139,7 @@ namespace bangna_hospital.gui
             this.groupBox3.Controls.Add(this.label43);
             this.groupBox3.Controls.Add(this.label44);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox3.Location = new System.Drawing.Point(11, 345);
+            this.groupBox3.Location = new System.Drawing.Point(11, 373);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(881, 87);
             this.groupBox3.TabIndex = 90;
@@ -1267,7 +1326,7 @@ namespace bangna_hospital.gui
             this.groupBox2.Controls.Add(this.label32);
             this.groupBox2.Controls.Add(this.label33);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox2.Location = new System.Drawing.Point(11, 250);
+            this.groupBox2.Location = new System.Drawing.Point(11, 278);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(882, 92);
             this.groupBox2.TabIndex = 89;
@@ -1469,7 +1528,7 @@ namespace bangna_hospital.gui
             this.groupBox1.Controls.Add(this.label27);
             this.groupBox1.Controls.Add(this.label29);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.groupBox1.Location = new System.Drawing.Point(11, 153);
+            this.groupBox1.Location = new System.Drawing.Point(11, 181);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(882, 91);
             this.groupBox1.TabIndex = 88;
@@ -1795,10 +1854,10 @@ namespace bangna_hospital.gui
             // 
             // txtPttHn
             // 
-            this.txtPttHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtPttHn.Location = new System.Drawing.Point(78, 3);
             this.txtPttHn.Name = "txtPttHn";
-            this.txtPttHn.Size = new System.Drawing.Size(186, 24);
+            this.txtPttHn.Size = new System.Drawing.Size(186, 27);
             this.txtPttHn.TabIndex = 74;
             this.txtPttHn.Tag = null;
             // 
@@ -1905,20 +1964,20 @@ namespace bangna_hospital.gui
             // 
             // pnPttVs
             // 
-            this.pnPttVs.Height = 386;
+            this.pnPttVs.Height = 412;
             this.pnPttVs.Location = new System.Drawing.Point(907, 21);
             this.pnPttVs.Name = "pnPttVs";
-            this.pnPttVs.Size = new System.Drawing.Size(236, 365);
+            this.pnPttVs.Size = new System.Drawing.Size(236, 391);
             this.pnPttVs.SizeRatio = 49.935D;
             this.pnPttVs.TabIndex = 1;
             this.pnPttVs.Text = "Visit";
             // 
             // pnPttApm
             // 
-            this.pnPttApm.Height = 387;
-            this.pnPttApm.Location = new System.Drawing.Point(907, 411);
+            this.pnPttApm.Height = 414;
+            this.pnPttApm.Location = new System.Drawing.Point(907, 437);
             this.pnPttApm.Name = "pnPttApm";
-            this.pnPttApm.Size = new System.Drawing.Size(236, 366);
+            this.pnPttApm.Size = new System.Drawing.Size(236, 393);
             this.pnPttApm.TabIndex = 2;
             this.pnPttApm.Text = "Appointment";
             // 
@@ -1926,7 +1985,7 @@ namespace bangna_hospital.gui
             // 
             this.tabVs.Location = new System.Drawing.Point(1, 24);
             this.tabVs.Name = "tabVs";
-            this.tabVs.Size = new System.Drawing.Size(1143, 777);
+            this.tabVs.Size = new System.Drawing.Size(1143, 830);
             this.tabVs.TabIndex = 2;
             this.tabVs.Text = "Visit";
             // 
@@ -1935,7 +1994,7 @@ namespace bangna_hospital.gui
             this.tabRpt.Controls.Add(this.c1SplitContainer3);
             this.tabRpt.Location = new System.Drawing.Point(1, 24);
             this.tabRpt.Name = "tabRpt";
-            this.tabRpt.Size = new System.Drawing.Size(1143, 777);
+            this.tabRpt.Size = new System.Drawing.Size(1143, 830);
             this.tabRpt.TabIndex = 3;
             this.tabRpt.Text = "Report";
             // 
@@ -1951,7 +2010,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer3.Panels.Add(this.pnRptData);
             this.c1SplitContainer3.Panels.Add(this.pnRptCri);
             this.c1SplitContainer3.Panels.Add(this.pnRptReport);
-            this.c1SplitContainer3.Size = new System.Drawing.Size(1143, 777);
+            this.c1SplitContainer3.Size = new System.Drawing.Size(1143, 830);
             this.c1SplitContainer3.TabIndex = 0;
             // 
             // pnRptData
@@ -2156,7 +2215,7 @@ namespace bangna_hospital.gui
             // 
             this.tabToday.Location = new System.Drawing.Point(1, 24);
             this.tabToday.Name = "tabToday";
-            this.tabToday.Size = new System.Drawing.Size(1143, 777);
+            this.tabToday.Size = new System.Drawing.Size(1143, 830);
             this.tabToday.TabIndex = 4;
             this.tabToday.Text = "Today";
             // 
@@ -2164,53 +2223,23 @@ namespace bangna_hospital.gui
             // 
             this.tabApm.Location = new System.Drawing.Point(1, 24);
             this.tabApm.Name = "tabApm";
-            this.tabApm.Size = new System.Drawing.Size(1143, 777);
+            this.tabApm.Size = new System.Drawing.Size(1143, 830);
             this.tabApm.TabIndex = 5;
             this.tabApm.Text = "Appointment";
             // 
-            // btnPttInsurSearch
+            // tabDoc
             // 
-            this.btnPttInsurSearch.Location = new System.Drawing.Point(136, 47);
-            this.btnPttInsurSearch.Name = "btnPttInsurSearch";
-            this.btnPttInsurSearch.Size = new System.Drawing.Size(28, 24);
-            this.btnPttInsurSearch.TabIndex = 110;
-            this.btnPttInsurSearch.Text = "...";
-            this.btnPttInsurSearch.UseVisualStyleBackColor = true;
-            // 
-            // btnPttSave
-            // 
-            this.btnPttSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPttSave.Location = new System.Drawing.Point(195, 82);
-            this.btnPttSave.Name = "btnPttSave";
-            this.btnPttSave.Size = new System.Drawing.Size(84, 45);
-            this.btnPttSave.TabIndex = 111;
-            this.btnPttSave.Text = "บันทึก";
-            this.btnPttSave.UseVisualStyleBackColor = true;
-            // 
-            // btnPttVisit
-            // 
-            this.btnPttVisit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPttVisit.Location = new System.Drawing.Point(303, 82);
-            this.btnPttVisit.Name = "btnPttVisit";
-            this.btnPttVisit.Size = new System.Drawing.Size(84, 45);
-            this.btnPttVisit.TabIndex = 112;
-            this.btnPttVisit.Text = "ออกvisit";
-            this.btnPttVisit.UseVisualStyleBackColor = true;
-            // 
-            // btnPttLIC
-            // 
-            this.btnPttLIC.Location = new System.Drawing.Point(100, 93);
-            this.btnPttLIC.Name = "btnPttLIC";
-            this.btnPttLIC.Size = new System.Drawing.Size(35, 34);
-            this.btnPttLIC.TabIndex = 113;
-            this.btnPttLIC.Text = "lic";
-            this.btnPttLIC.UseVisualStyleBackColor = true;
+            this.tabDoc.Location = new System.Drawing.Point(1, 24);
+            this.tabDoc.Name = "tabDoc";
+            this.tabDoc.Size = new System.Drawing.Size(1143, 830);
+            this.tabDoc.TabIndex = 6;
+            this.tabDoc.Text = "Document Image";
             // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1145, 824);
+            this.ClientSize = new System.Drawing.Size(1145, 877);
             this.Controls.Add(this.tC);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmReception";
@@ -2250,6 +2279,11 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtPttAttchNote)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboTheme)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttLIC)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttVisit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttCompSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttCardRead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttInsur)).EndInit();
@@ -2318,10 +2352,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtRptDateEnd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptDateStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRptOk)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurSearch)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttSave)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttVisit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttLIC)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2499,5 +2529,7 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1Button btnPttSave;
         private C1.Win.C1Input.C1Button btnPttVisit;
         private C1.Win.C1Input.C1Button btnPttLIC;
+        private C1.Win.C1Input.C1ComboBox cboTheme;
+        private C1.Win.C1Command.C1DockingTabPage tabDoc;
     }
 }

@@ -356,6 +356,44 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectPttHiinDept(String deptid, string secid, String datestart, String dateend)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "select PATIENT_T01.mnc_hn_no,patient_m02.MNC_PFIX_DSC as prefix,patient_m01.MNC_FNAME_T, " +
+                "patient_m01.MNC_LNAME_T, convert(VARCHAR(20),PATIENT_T01.MNC_DATE,23) as MNC_DATE, " +
+                " " +
+                "patient_t01.MNC_SHIF_MEMO, " +
+                "PATIENT_T01.mnc_pre_no,PATIENT_M01.mnc_cur_tel, MNC_time, " +
+                "Case FINANCE_M02.MNC_FN_TYP_DSC " +
+                    "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
+                    "When 'ประกันสังคม (บ.2)' Then 'ปกส(บ.2)' " +
+                    "When 'ประกันสังคม (บ.5)' Then 'ปกส(บ.5)' " +
+                    "When 'ประกันสังคมอิสระ (บ.1)' Then 'ปกต(บ.1)' " +
+                    "When 'ประกันสังคมอิสระ (บ.5)' Then 'ปกต(บ.5)' " +
+                    "When 'ตรวจสุขภาพ (เงินสด)' Then 'ตส(เงินสด)' " +
+                    "When 'ตรวจสุขภาพ (บริษัท)' Then 'ตส(บริษัท)' " +
+                    "When 'ตรวจสุขภาพ (PACKAGE)' Then 'ตส(PACKAGE)' " +
+                    "When 'ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปากน้ำ' Then 'ลูกหนี้(ปากน้ำ)' " +
+                    "When 'ลูกหนี้บางนา 1' Then 'ลูกหนี้(บ.1)' " +
+                    "When 'บริษัทประกัน' Then 'บ.ประกัน' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "Else MNC_FN_TYP_DSC " +
+                    "End as MNC_FN_TYP_DSC,PATIENT_T01.MNC_FN_TYP_CD , ptthi.status_drug,ptthi.status_xray,ptthi.status_authen,ptthi.status_pic_kyc,ptthi.queue_seq " +
+                "from  PATIENT_T01  " +
+                " INNER JOIN dbo.PATIENT_M01 ON dbo.PATIENT_T01.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO and dbo.PATIENT_T01.MNC_HN_yr = dbo.PATIENT_M01.MNC_HN_yr  " +
+                " INNER JOIN dbo.PATIENT_M02 ON dbo.PATIENT_M01.MNC_PFIX_CDT = dbo.PATIENT_M02.MNC_PFIX_CD " +
+                "left join dbo.finance_m02 on finance_m02.MNC_FN_TYP_cd = patient_t01.MNC_FN_TYP_cd " +
+                "inner join bn5_scan.dbo.t_patient_hi ptthi on PATIENT_T01.MNC_HN_NO = ptthi.hn and convert(VARCHAR(20),PATIENT_T01.mnc_date,23) = ptthi.visit_date and PATIENT_T01.mnc_pre_no = ptthi.pre_no " +
+                " WHERE   PATIENT_T01.MNC_STS <> 'C'  and patient_t01.MNC_SEC_NO ='" + secid + "' and patient_t01.MNC_DEP_NO = '" + deptid + "' " +
+                " and patient_t01.mnc_date >= '" + datestart + "' and patient_t01.mnc_date <= '" + dateend + "' " +
+                " Order By PATIENT_T01.mnc_date, PATIENT_T01.mnc_time ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectPttinWard2(String hn)
         {
             DataTable dt = new DataTable();
@@ -399,6 +437,43 @@ namespace bangna_hospital.objdb
                 "INNER JOIN	dbo.PATIENT_M02 as aa ON dbo.PATIENT_M26.MNC_DOT_PFIX = aa.MNC_PFIX_CD " +
                 "inner join	PATIENT_M32 as bb ON bb.MNC_SEC_NO = PATIENT_M26.MNC_SEC_NO " +
                 " WHERE   PATIENT_T08.MNC_AD_STS = 'A' and mnc_ds_lev = '1' and PATIENT_T08.mnc_wd_no = '" + wdno + "' " + 
+                " Order By PATIENT_T08.mnc_ad_date, PATIENT_T08.mnc_ad_time ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable selectPttinWardByDate(String dateadmit)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "select convert(VARCHAR(20),MNC_AD_DATE,23) as MNC_AD_DATE,PATIENT_T08.MNC_HN_NO ,patient_m02.MNC_PFIX_DSC,patient_m01.MNC_FNAME_T, " +
+                "patient_m01.MNC_LNAME_T,PATIENT_T08.MNC_AN_NO,MNC_AN_YR,PATIENT_M32.MNC_MD_DEP_DSC,MNC_RM_NAM ,MNC_BD_NO,MNC_SHIF_MEMO" +
+                ",Case FINANCE_M02.MNC_FN_TYP_DSC " +
+                    "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
+                    "When 'ประกันสังคม (บ.2)' Then 'ปกส(บ.2)' " +
+                    "When 'ประกันสังคม (บ.5)' Then 'ปกส(บ.5)' " +
+                    "When 'ประกันสังคมอิสระ (บ.1)' Then 'ปกต(บ.1)' " +
+                    "When 'ประกันสังคมอิสระ (บ.5)' Then 'ปกต(บ.5)' " +
+                    "When 'ตรวจสุขภาพ (เงินสด)' Then 'ตส(เงินสด)' " +
+                    "When 'ตรวจสุขภาพ (บริษัท)' Then 'ตส(บริษัท)' " +
+                    "When 'ตรวจสุขภาพ (PACKAGE)' Then 'ตส(PACKAGE)' " +
+                    "When 'ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปากน้ำ' Then 'ลูกหนี้(ปากน้ำ)' " +
+                    "When 'ลูกหนี้บางนา 1' Then 'ลูกหนี้(บ.1)' " +
+                    "When 'บริษัทประกัน' Then 'บ.ประกัน' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "Else MNC_FN_TYP_DSC " +
+                    "End as MNC_FN_TYP_DSC " +
+                "from PATIENT_T08 " +
+                " INNER JOIN dbo.PATIENT_M01 ON dbo.PATIENT_T08.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO " +
+                " inner join PATIENT_M02 on patient_m01.MNC_PFIX_CDT = patient_m02.MNC_PFIX_CD  " +
+                " INNER JOIN dbo.FINANCE_M02 ON dbo.PATIENT_T08.MNC_FN_TYP_CD= FINANCE_M02.MNC_FN_TYP_CD " +
+                " INNER JOIN dbo.PATIENT_M32 ON dbo.PATIENT_T08.MNC_WD_NO= PATIENT_M32.MNC_MD_DEP_NO " +
+                " left JOIN dbo.PATIENT_M24 on dbo.PATIENT_T08.MNC_COM_CD = dbo.PATIENT_M24.MNC_COM_CD " +
+                " INNER JOIN dbo.PATIENT_T01 ON dbo.PATIENT_T08.MNC_HN_NO = dbo.PATIENT_T01.MNC_HN_NO and PATIENT_T08.MNC_PRE_NO = dbo.PATIENT_T01.MNC_PRE_NO and PATIENT_T08.MNC_DATE = dbo.PATIENT_T01.MNC_DATE " +
+
+                "where PATIENT_T08.MNC_AD_STS  = 'A' and mnc_ds_lev = '1' and MNC_AD_DATE = '"+dateadmit+"' " +
                 " Order By PATIENT_T08.mnc_ad_date, PATIENT_T08.mnc_ad_time ";
             dt = conn.selectData(sql);
 
@@ -579,13 +654,14 @@ namespace bangna_hospital.objdb
                     "Else MNC_FN_TYP_DSC " +
                     "End as MNC_FN_TYP_DSC, " +
                 " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD " +
+                ", convert(VARCHAR(20),t01.mnc_date,23) as mnc_date,t01.mnc_pre_no, t01.mnc_sts_flg " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " inner join FINANCE_M02 f02 ON t01.MNC_FN_TYP_CD = f02.MNC_FN_TYP_CD " +
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
                 "and t01.MNC_STS <> 'C' " +
-                " Order by t01.MNC_HN_NO ";
+                " Order by t01.MNC_HN_NO,t01.mnc_date ";
             dt = conn.selectData(sql);
 
             return dt;
@@ -3153,7 +3229,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String insertVisitHI(String hn, String paid_id, String symptoms, String dept, String remark, String dtrid, String userId)
+        public String insertVisitHI(String hn, String paid_id, String symptoms, String dept, String remark, String dtrid, String userI)
         {
             String re = "";
             String sql = "";
@@ -3162,6 +3238,42 @@ namespace bangna_hospital.objdb
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
                 conn.comStore.CommandText = "covid_gen_patient_t01_by_hn_hi";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("hn_where", hn);
+                conn.comStore.Parameters.AddWithValue("paid_id", paid_id);
+                conn.comStore.Parameters.AddWithValue("symptoms", symptoms);
+                conn.comStore.Parameters.AddWithValue("dept", dept);
+                conn.comStore.Parameters.AddWithValue("remark", remark);
+                conn.comStore.Parameters.AddWithValue("doctor_id", dtrid);
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertVisit sql " + sql + " hn " + hn + " paid_id " + paid_id + " symptoms " + symptoms + " dept " + dept + " remark " + remark + " dtrid " + dtrid);
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insertVisitOPSI(String hn, String paid_id, String symptoms, String dept, String remark, String dtrid, String userI)
+        {
+            String re = "";
+            String sql = "";
+            try
+            {
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+                conn.comStore.CommandText = "covid_gen_patient_t01_by_hn_opsi";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("hn_where", hn);
                 conn.comStore.Parameters.AddWithValue("paid_id", paid_id);
@@ -3207,6 +3319,27 @@ namespace bangna_hospital.objdb
             {
                 sql = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "updateStatusCloseVisit sql " + sql + " hn " + hn );
+            }
+            return re;
+        }
+        public String updateStatusCloseVisitNoLAB(String hn, String hnyr, String preno, String vsdate)
+        {
+            String sql = "", re = "";
+            sql = "update patient_t01 set " +
+                //"mnc_act_no = '610'" +
+                "mnc_act_no = '131'" +
+                //", mnc_sts = 'F' " +
+                ", mnc_sts = 'O' " +
+                ", mnc_lab_flg = '' " +
+                "Where mnc_hn_no = '" + hn + "' and mnc_hn_yr = '" + hnyr + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateStatusCloseVisit sql " + sql + " hn " + hn);
             }
             return re;
         }

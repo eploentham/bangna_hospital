@@ -64,7 +64,12 @@ namespace bangna_hospital.objdb
             long chk = 0;
             int chk1 = 0;
             decimal chk2 = 0;
+            p.MNC_EMPR_CD = p.MNC_EMPR_CD == null ? "" : p.MNC_EMPR_CD;
+            p.MNC_EMPC_CD = p.MNC_EMPC_CD == null ? "" : p.MNC_EMPC_CD;
 
+
+            p.MNC_REQ_NO = long.TryParse(p.MNC_REQ_NO, out chk) ? chk.ToString() : "0";
+            //p.MNC_SUM_PRI = decimal.TryParse(p.MNC_SUM_PRI, out chk2) ? chk2.ToString() : "0";
         }
         public String insertXrayT01(XrayT01 p)
         {
@@ -73,7 +78,7 @@ namespace bangna_hospital.objdb
             chkNull(p);
             if (p.MNC_REQ_NO.Equals("0"))
             {
-                re = insertOPD(p,"");
+                re = insertOPD(p,"1618");
             }
             else
             {
@@ -102,6 +107,8 @@ namespace bangna_hospital.objdb
             try
             {
                 //new LogWriter("e", "PharmacyT01 insert " );
+                if (p.MNC_EMPR_CD == null) p.MNC_EMPR_CD = "";
+                if (p.MNC_EMPC_CD == null) p.MNC_EMPC_CD = "";
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
                 conn.comStore.CommandText = "insert_xray_t01_t02_opd";

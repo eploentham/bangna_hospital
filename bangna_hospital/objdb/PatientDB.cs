@@ -219,7 +219,7 @@ namespace bangna_hospital.objdb
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E" +
                 ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE " +
-                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD " +
+                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD, m01.passport,m01.MNC_SS_NO " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " Where m01.MNC_hn_NO = '" + hn + "' " +
@@ -257,6 +257,8 @@ namespace bangna_hospital.objdb
                 ptt.MNC_CUR_ROAD = dt.Rows[0]["MNC_CUR_ROAD"].ToString();
                 ptt.MNC_BDAY = dt.Rows[0]["MNC_BDAY"].ToString();
                 ptt.MNC_ID_NO = dt.Rows[0]["mnc_id_no"].ToString();
+                ptt.passport = dt.Rows[0]["passport"].ToString();
+                ptt.MNC_SS_NO = dt.Rows[0]["MNC_SS_NO"].ToString();
 
             }
             else
@@ -290,6 +292,7 @@ namespace bangna_hospital.objdb
                 ptt.MNC_NATI_CD = "";
                 ptt.MNC_CAR_CD = "";
                 ptt.MNC_CUR_ROAD = "";
+                ptt.passport = "";
             }
             return ptt;
         }
@@ -384,12 +387,16 @@ namespace bangna_hospital.objdb
             {
                 wherepid = " m01.mnc_id_no = '" + pid + "' ";
             }
+            else if (flag.Equals("passport"))
+            {
+                wherepid = " m01.passport = '" + pid + "' ";
+            }
             else
             {
                 wherepid = " m01.passport = '" + pid + "' ";
             }
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E,m01.MNC_LNAME_E, m01.MNC_PFIX_CDT, m01.MNC_PFIX_CDE, m01.passport " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E,m01.MNC_LNAME_E, m01.MNC_PFIX_CDT, m01.MNC_PFIX_CDE, m01.passport,m01.MNC_CUR_TEL,m01.MNC_ATT_NOTE " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " Where "+ wherepid + " Order By m01.mnc_hn_no desc";
@@ -419,6 +426,7 @@ namespace bangna_hospital.objdb
                 ptt.MNC_PFIX_CDT = dt.Rows[0]["MNC_PFIX_CDT"].ToString();
                 ptt.MNC_PFIX_CDE = dt.Rows[0]["MNC_PFIX_CDE"].ToString();
                 ptt.passport = dt.Rows[0]["passport"].ToString();
+                ptt.MNC_CUR_TEL = dt.Rows[0]["MNC_CUR_TEL"].ToString();
             }
             else
             {
@@ -692,6 +700,37 @@ namespace bangna_hospital.objdb
                 }
             }
         }
+        public void setCboDeptIPDWdNo(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            if (lDeptIPD.Count <= 0) getlDeptIPD();
+            int i = 0;
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (PatientM32 row in lDeptIPD)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.mnc_md_dep_no;
+                item.Text = row.mnc_md_dep_dsc;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
+        }
         public void setCboDeptOPD(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -796,6 +835,20 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
+        public String insertPatientStep1(Patient p)
+        {
+            String sql = "", chk = "", hn = "";
+            long hn1 = 0;
+            if (p.MNC_HN_NO.Length <= 0)
+            {
+                chk = insert(p);
+            }
+            else
+            {
+                chk = updateStept1(p);
+            }
+            return chk;
+        }
         public String insertPatientTemp(Patient p, String statusInflue, String InflueGroup)
         {
             String sql = "", chk = "", hn = "";
@@ -822,6 +875,10 @@ namespace bangna_hospital.objdb
                 //long.TryParse(hn, out hn1);
                 //hn1++;
                 //hn = hn1.ToString();
+                if (p.MNC_HN_YR.Length <= 0)
+                {
+                    p.MNC_HN_YR = (DateTime.Now.Year + 543).ToString();
+                }
                 sql = "Insert Into " + ptt.table + "(" + ptt.MNC_HN_NO + "," + ptt.MNC_HN_YR + "," + ptt.MNC_PFIX_CDT + "," +
                     ptt.MNC_PFIX_CDE + "," + ptt.MNC_FNAME_T + "," + ptt.MNC_LNAME_T + "," +
                     ptt.MNC_FNAME_E + "," + ptt.MNC_LNAME_E + "," + ptt.MNC_AGE + "," +
@@ -928,6 +985,74 @@ namespace bangna_hospital.objdb
                     +"Where mnc_hn_no = '"+p.MNC_HN_NO+"' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 new LogWriter("d", "update Patient chk " + chk+ " MNC_FNAME_T " + p.MNC_FNAME_T + " MNC_LNAME_T " + p.MNC_LNAME_T);
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "update Patient sql " + sql + " ex " + chk);
+            }
+            return chk;
+        }
+        public String updateStept1(Patient p)
+        {
+            String sql = "", chk = "", hn = "";
+            long hn1 = 0;
+            try
+            {
+                chkNull(p);
+                //hn = selectHnMax();
+                //long.TryParse(hn, out hn1);
+                //hn1++;
+                //hn = hn1.ToString();
+                sql = "Update " + ptt.table + " Set "
+                    //+ ptt.MNC_HN_YR + " = '" + p.MNC_HN_YR + "' "
+                    + " " + ptt.MNC_PFIX_CDT + " = '" + p.MNC_PFIX_CDT + "' "
+                    + "," + ptt.MNC_PFIX_CDE + " = '" + p.MNC_PFIX_CDE + "' "
+                    + "," + ptt.MNC_FNAME_T + " = '" + p.MNC_FNAME_T.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_LNAME_T + " = '" + p.MNC_LNAME_T.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_FNAME_E + " = '" + p.MNC_FNAME_E.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_LNAME_E + " = '" + p.MNC_LNAME_E.Replace("'", "''") + "' "
+                    + "," + ptt.passport + " = '" + p.passport + "' "
+                    + "," + ptt.MNC_BDAY + " = '" + p.MNC_BDAY + "' "
+                    + "," + ptt.MNC_ID_NO + " = '" + p.MNC_ID_NO + "' "
+                    + "," + ptt.MNC_SS_NO + " = '" + p.MNC_SS_NO + "' "
+                    //+ ptt.MNC_CUR_ADD + " = '" + p.MNC_CUR_ADD + "' "
+                    //+ ptt.MNC_CUR_TUM + " = '" + p.MNC_CUR_TUM + "' "
+                    //+ ptt.MNC_CUR_AMP + " = '" + p.MNC_CUR_AMP + "' "
+                    //+ ptt.MNC_CUR_CHW + " = '" + p.MNC_CUR_CHW + "' "
+                    //+ ptt.MNC_CUR_POC + " = '" + p.MNC_CUR_POC + "' "
+                    + "," + ptt.MNC_CUR_TEL + " = '" + p.MNC_CUR_TEL + "' "
+                    //+ ptt.MNC_DOM_ADD + " = '" + p.MNC_DOM_ADD + "' "
+                    //+ ptt.MNC_DOM_TUM + " = '" + p.MNC_DOM_TUM + "' "
+                    //+ ptt.MNC_DOM_AMP + " = '" + p.MNC_DOM_AMP + "' "
+                    //+ ptt.MNC_DOM_CHW + " = '" + p.MNC_DOM_CHW + "' "
+                    //+ ptt.MNC_DOM_POC + " = '" + p.MNC_DOM_POC + "' "
+                    + "," + ptt.MNC_DOM_TEL + " = '" + p.MNC_DOM_TEL + "' "
+                    //+ "," + ptt.MNC_REF_NAME + " = '" + p.MNC_REF_NAME.Replace("'", "''") + "' "
+                    //+ ptt.MNC_REF_ADD + " = '" + p.MNC_REF_ADD + "' "
+                    //+ ptt.MNC_REF_TUM + " = '" + p.MNC_REF_TUM + "' "
+                    //+ ptt.MNC_REF_AMP + " = '" + p.MNC_REF_AMP + "' "
+                    //+ ptt.MNC_REF_CHW + " = '" + p.MNC_REF_CHW + "' "
+                    //+ ptt.MNC_REF_POC + " = '" + p.MNC_REF_POC + "' "
+                    //+ "," + ptt.MNC_REF_TEL + " = '" + p.MNC_REF_TEL + "' "
+                    //+ ptt.MNC_CUR_MOO + " = '" + p.MNC_CUR_MOO.Replace("หมู่ที่", "").Replace("'", "''") + "' "
+                    //+ ptt.MNC_DOM_MOO + " = '" + p.MNC_DOM_MOO.Replace("หมู่ที่", "").Replace("'", "''") + "' "
+                    //+ ptt.MNC_REF_MOO + " = '" + p.MNC_REF_MOO.Replace("หมู่ที่", "").Replace("'", "''") + "' "
+                    //+ ptt.MNC_CUR_SOI + " = '" + p.MNC_CUR_SOI.Replace("'", "''") + "' "
+                    //+ ptt.MNC_DOM_SOI + " = '" + p.MNC_DOM_SOI.Replace("'", "''") + "' "
+                    //+ ptt.MNC_REF_SOI + " = '" + p.MNC_REF_SOI.Replace("'", "''") + "' "
+                    //+ ptt.MNC_FN_TYP_CD + " = '" + p.MNC_FN_TYP_CD + "' "
+                    //+ ptt.MNC_ATT_NOTE + " = '" + p.MNC_ATT_NOTE.Replace("'", "''") + "' "
+                    //+ ptt.MNC_SEX + " = '" + p.MNC_SEX + "' "
+                    //+ ptt.MNC_FULL_ADD + " = '" + p.MNC_FULL_ADD.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_STAMP_DAT + " = convert(varchar(20), getdate(),23) "
+                    + "," + ptt.MNC_STAMP_TIM + " = REPLACE(convert(varchar(5),getdate(),108),':','') "
+                    //+ ptt.MNC_COM_CD + " = '17352' "
+                    //+ ptt.MNC_COM_CD2 + " = '17352 "
+                    + " "
+                    + "Where mnc_hn_no = '" + p.MNC_HN_NO + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                new LogWriter("d", "update Patient chk " + chk + " MNC_FNAME_T " + p.MNC_FNAME_T + " MNC_LNAME_T " + p.MNC_LNAME_T);
             }
             catch (Exception ex)
             {

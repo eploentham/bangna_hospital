@@ -18,6 +18,36 @@ namespace bangna_hospital.objdb
         {
 
         }
+        public DataTable selectReqCovid(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", wheredate="";
+            DateTime dtreq = new DateTime();
+            dtreq = DateTime.Now.AddDays(-5);
+            wheredate = " and lcovidr.req_date >= '"+ dtreq.Year.ToString()+"-"+ dtreq.ToString("MM-dd")+ "' and lcovidr.req_date <= '"+ DateTime.Now.Year.ToString()+"-"+ DateTime.Now.ToString("MM-dd")+"' ";
+            sql = "Select  lcovidr.mnc_hn_no,convert(VARCHAR(20),lcovidr.visit_date,23) visit_date,lcovidr.lab_code,convert(VARCHAR(20),lcovidr.req_date,23) as req_date,lcovidr.pre_no " +
+                "From  t_lab_covid_request lcovidr  " +
+                " Where lcovidr.mnc_hn_no = '"+ hn + "'  " + wheredate+" "+
+                "Order By lcovidr.visit_date ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable selectResCovid(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", wheredate = "";
+            DateTime dtreq = new DateTime();
+            dtreq = DateTime.Now.AddDays(-5);
+            wheredate = " and lcovidd.req_date >= '" + dtreq.Year.ToString() + "-" + dtreq.ToString("MM-dd") + "' and lcovidd.req_date <= '" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd") + "' ";
+            sql = "Select  lcovidd.* " +
+                "From  t_lab_covid_detected lcovidd  " +
+                " Where lcovidd.mnc_hn_no = '" + hn + "'  " + wheredate + " " +
+                "Order By lcovidd.visit_date ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectLabAll()
         {
             DataTable dt = new DataTable();

@@ -38,7 +38,7 @@ namespace bangna_hospital.control
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
-        public int grdViewFontSize = 0, imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0;
+        public int grdViewFontSize = 0, imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0, queFontSize=0;
 
         public BangnaHospitalDB bcDB;
 
@@ -119,6 +119,24 @@ namespace bangna_hospital.control
                 MessageBox.Show("error "+ex.Message+" err "+err, "");
             }
             
+        }
+        public void cloneComboBox(C1ComboBox c, ref C1ComboBox d)
+        {
+            d.Items.Clear();
+            foreach (ComboBoxItem item in c.Items)
+            {
+                d.Items.Add(item);
+            }
+            d.SelectedIndex = c.SelectedIndex;
+        }
+        public void cloneComboBox(ComboBox c, ref ComboBox d)
+        {
+            d.Items.Clear();
+            foreach (var item in c.Items)
+            {
+                d.Items.Add(item);
+            }
+            d.SelectedIndex = c.SelectedIndex;
         }
         public void getInit()
         {
@@ -441,6 +459,9 @@ namespace bangna_hospital.control
             iniC.pdfFontSizehdrFont = iniF.getIni("app", "pdfFontSizehdrFont");
             iniC.pdfFontSizetxtFontB = iniF.getIni("app", "pdfFontSizetxtFontB");
 
+            iniC.queFontName = iniF.getIni("app", "queFontName");
+            iniC.queFontSize = iniF.getIni("app", "queFontSize");
+
             iniC.txtFocus = iniF.getIni("app", "txtFocus");
             iniC.grfRowColor = iniF.getIni("app", "grfRowColor");
             iniC.statusAppDonor = iniF.getIni("app", "statusAppDonor");
@@ -521,6 +542,11 @@ namespace bangna_hospital.control
             iniC.FrmSmartCardTabDefault = iniF.getIni("app", "FrmSmartCardTabDefault");
             iniC.stickerPrintNumber = iniF.getIni("app", "stickerPrintNumber");
             iniC.statusStation = iniF.getIni("app", "statusStation");
+            iniC.paidcode = iniF.getIni("app", "paidcode");
+            iniC.dtrcode = iniF.getIni("app", "dtrcode");
+            iniC.hosttel = iniF.getIni("app", "hosttel");
+            iniC.printerStickerDrug = iniF.getIni("app", "printerStickerDrug");
+            iniC.printadjust = iniF.getIni("app", "printadjust");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -618,6 +644,7 @@ namespace bangna_hospital.control
             int.TryParse(iniC.pdfFontSizetitleFont, out pdfFontSizetitleFont);
             int.TryParse(iniC.pdfFontSizetxtFont, out pdfFontSizetxtFont);
             int.TryParse(iniC.pdfFontSizetxtFontB, out pdfFontSizetxtFontB);
+            int.TryParse(iniC.queFontSize, out queFontSize);
 
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);

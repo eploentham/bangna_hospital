@@ -3628,7 +3628,7 @@ namespace bangna_hospital.gui
             //rcPage.X = xCol41 + 25;
             rcPage.Width = size.Width + 10;
             size = bc.MeasureString("......................", txtFont);
-            pdf.DrawString("......................", txtFont, Brushes.Black, rcPage);
+            pdf.DrawString(".....................", txtFont, Brushes.Black, rcPage);
             txt = txtHn.Text.Trim();
             size = bc.MeasureString(txt, txtFontB);
             rcPage.Width = size.Width;
@@ -3652,7 +3652,7 @@ namespace bangna_hospital.gui
             rcPage.Y = gapY - lineDot;
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
 
-            txt = "................................................................................................................... ";
+            txt = "......................................................................................................... ";
             rcPage.X = gapX + 22;
             rcPage.X = gapX + 32;
             rcPage.Y = gapY + lineDot;
@@ -3665,21 +3665,21 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(txt, txtFont);
             rcPage.Width = size.Width;
             //rcPage.X = temp+25;
-            rcPage.X = temp -10;
+            rcPage.X = temp -2;
             rcPage.Y = gapY;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
             temp = rcPage.X + size.Width - 70;
-            txt = "...................";
+            txt = ".....................";
             size = bc.MeasureString(txt, txtFont);
             //rcPage.X = temp + 5;
-            rcPage.X = temp-10;
+            rcPage.X = temp-9;
             rcPage.Y = gapY + lineDot;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
             txt = txtDtrId.Text.Trim();
             size = bc.MeasureString(txt, txtFontB);
             rcPage.Width = size.Width;
             //rcPage.X = temp + 7;
-            rcPage.X = temp + 10;
+            rcPage.X = temp -4;
             rcPage.Y = gapY - lineDot;
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
 
@@ -3690,7 +3690,7 @@ namespace bangna_hospital.gui
             rcPage.X = gapX;
             rcPage.Y = gapY;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-            txt = ".................................................................................................................................................................................................................. ";
+            txt = ".................................................................................................................................................................................................... ";
             rcPage.X = gapX + 33;
             rcPage.X = gapX + 50;
             rcPage.Y = gapY + lineDot;
@@ -3713,16 +3713,16 @@ namespace bangna_hospital.gui
             rcPage.Y = gapY;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
             temp = size.Width;
-            txt = ".............................................................................................................................";
+            txt = "..............................................................................................................";
             size = bc.MeasureString(txt, txtFont);
             //rcPage.X = temp - 62;
-            rcPage.X = temp - 40;
+            rcPage.X = temp - 70;
             rcPage.Y = gapY + lineDot;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
             txt = txtVsDate.Text + "  " + txtVsTime.Text;
             size = bc.MeasureString(txt, txtFont);
             rcPage.X = rcPage.X + 5;
-            rcPage.X = rcPage.X + 5 + 10;
+            rcPage.X = rcPage.X + 5 + 10 - 5;
             rcPage.Y = gapY - lineDot;
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
@@ -3736,15 +3736,17 @@ namespace bangna_hospital.gui
             rcPage.X = gapX;
             rcPage.Y = gapY;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
-            txt = "..............................................................................................................................................................................................................";
+            txt = "...............................................................................................................................................................................................";
             size = bc.MeasureString(txt, txtFont);
-            rcPage.X = gapX + size111-20;
+            rcPage.X = gapX + size111-20-5;
             rcPage.Y = gapY + lineDot;
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFont, Brushes.Black, rcPage);
             txt = txtSympbtom.Text.Trim();
             size = bc.MeasureString(txt, txtFont);
-            rcPage.X = gapX + size111 + 5;
+            float xxxx = 0;
+            xxxx = gapX + size111 + 5;
+            rcPage.X = xxxx;
             rcPage.Y = gapY - lineDot;
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
@@ -3760,7 +3762,8 @@ namespace bangna_hospital.gui
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
             txt = cboDiag1.Text.Trim();
             size = bc.MeasureString(txt, txtFont);
-            rcPage.X = gapX + 5;
+            //rcPage.X = gapX + 5;
+            rcPage.X = xxxx;
             rcPage.Y = gapY - lineDot;
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
@@ -3774,7 +3777,8 @@ namespace bangna_hospital.gui
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
             txt = cboDiag2.Text.Trim();
             size = bc.MeasureString(txt, txtFont);
-            rcPage.X = gapX + 5;
+            //rcPage.X = gapX + 5;
+            rcPage.X = xxxx;
             rcPage.Y = gapY - lineDot;
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
@@ -3788,7 +3792,8 @@ namespace bangna_hospital.gui
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
             txt = cboDiag3.Text.Trim();
             size = bc.MeasureString(txt, txtFont);
-            rcPage.X = gapX + 5;
+            //rcPage.X = gapX + 5;
+            rcPage.X = xxxx;
             rcPage.Y = gapY - lineDot;
             rcPage.Width = size.Width;
             pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
@@ -3946,23 +3951,23 @@ namespace bangna_hospital.gui
                 txt = "/";
                 pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
                 txt = txtStopStartDate.Text.Trim();
-                size = bc.MeasureString(txt, txtFont);
-                rcPage.X += 270;
-                rcPage.Y = gapY - lineDot - 4;
+                size = bc.MeasureString(txt, txtFont);      //  วันที่เริ่มต้น
+                rcPage.X += 280;
+                rcPage.Y = gapY - lineDot - 1;
                 rcPage.Width = size.Width;
-                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);//  วันที่เริ่มต้น
                 txt = txtStopEndDate.Text.Trim();
                 size = bc.MeasureString(txt, txtFont);
-                rcPage.X += 80;
-                rcPage.Y = gapY - lineDot - 4;
+                rcPage.X += 115;
+                rcPage.Y = gapY - lineDot - 1;
                 rcPage.Width = size.Width;
-                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);//  วันที่สิ้นสุด
                 txt = txtStop.Text.Trim();
                 size = bc.MeasureString(txt, txtFont);
-                rcPage.X = 220;
-                rcPage.Y = gapY - lineDot - 4;
+                rcPage.X = 225;
+                rcPage.Y = gapY - lineDot - 1;
                 rcPage.Width = size.Width;
-                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
+                pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);       //จำนวนวัน
             }
 
             gapY += gapLine1;
@@ -3984,8 +3989,8 @@ namespace bangna_hospital.gui
                 pdf.DrawString(txt, titleFont, Brushes.Black, rcPage);
                 txt = txtTrue.Text.Trim();
                 size = bc.MeasureString(txt, txtFont);
-                rcPage.X = rcPage.X + 130;
-                rcPage.Y = gapY - lineDot - 4;
+                rcPage.X = rcPage.X + 140;
+                rcPage.Y = gapY - lineDot - 1;
                 rcPage.Width = size.Width;
                 pdf.DrawString(txt, txtFontB, Brushes.Black, rcPage);
             }
@@ -4852,15 +4857,17 @@ namespace bangna_hospital.gui
             bc.setControlC1TextBox(ref txtTrue, fEdit, "txtTrue", 50, chkTrue.Location.X + chkTrue.Width + 5, gapY);
             gapY += gapLine;
             cboDiag1 = new ComboBox();
-            bc.setControlComboBox(ref cboDiag1, "cboDiag1", 300, gapX - 20 + size.Width + 5, gapY);
-            cboDiag1.Items.Add("aaaaaaaaaaa");
-            cboDiag1.Items.Add("bbbbbbbbbbb");
+            bc.setControlComboBox(ref cboDiag1, "cboDiag1", 400, gapX - 20 + size.Width + 5, gapY);
+            cboDiag1.Items.Add("(SARS-Cov2 (Real-time PCR) = Not Detected)");
+            cboDiag1.Items.Add("(SARS-Cov2 (Real-time PCR) = Detected)");
+            cboDiag1.Items.Add("(COVID-19 Antigen test = NEGATIVE)");
+            cboDiag1.Items.Add("(COVID-19 Antigen test = POSITIVE)");
             gapY += gapLine;
             cboDiag2 = new ComboBox();
-            bc.setControlComboBox(ref cboDiag2, "cboDiag2", 300, gapX - 20 + size.Width + 5, gapY);
+            bc.setControlComboBox(ref cboDiag2, "cboDiag2", 400, gapX - 20 + size.Width + 5, gapY);
             gapY += gapLine;
             cboDiag3 = new ComboBox();
-            bc.setControlComboBox(ref cboDiag3, "cboDiag3", 300, gapX - 20 + size.Width + 5, gapY);
+            bc.setControlComboBox(ref cboDiag3, "cboDiag3", 400, gapX - 20 + size.Width + 5, gapY);
 
             gapY += gapLine;
             pnEng = new Panel();
@@ -5056,7 +5063,7 @@ namespace bangna_hospital.gui
             int scrH = Screen.PrimaryScreen.Bounds.Height;
 
             this.WindowState = FormWindowState.Maximized;
-            this.Text = bc.iniC.pdfFontName +" Last Update 2022-03-15-2";
+            this.Text = bc.iniC.pdfFontName +" Last Update 2022-03-29";
 
             grfView.Size = new Size(scrW - 20, scrH - btnViewDateSearch.Location.Y - 140);
             grfView.Location = new Point(5, btnViewDateSearch.Location.Y + 40);
