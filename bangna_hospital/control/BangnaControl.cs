@@ -547,6 +547,7 @@ namespace bangna_hospital.control
             iniC.hosttel = iniF.getIni("app", "hosttel");
             iniC.printerStickerDrug = iniF.getIni("app", "printerStickerDrug");
             iniC.printadjust = iniF.getIni("app", "printadjust");
+            iniC.importMDBpaidcode = iniF.getIni("app", "importMDBpaidcode");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");

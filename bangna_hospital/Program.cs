@@ -176,8 +176,11 @@ namespace bangna_hospital
                 }
                 else if (bc.iniC.programLoad.Equals("Reception"))
                 {
-                    //new LogWriter("d", "args " + args.Length);
                     Application.Run(new gui.FrmReception(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("importMDB"))
+                {
+                    Application.Run(new gui.FrmImportMDB(bc));
                 }
                 else
                 {

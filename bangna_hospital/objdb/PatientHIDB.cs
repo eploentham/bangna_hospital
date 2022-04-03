@@ -116,7 +116,8 @@ namespace bangna_hospital.objdb
                 "From " + ptthi.table + " ptthi " +
                 " inner join bng5_dbms_front.dbo.patient_m01 pm01 on ptthi.hn = pm01.MNC_HN_NO " +
                 " inner join bng5_dbms_front.dbo.patient_m02 pm02 on pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
-                "Where ptthi.date_order_drug = '" + datereq + "' and  status_order = '1' ";
+                "Where ptthi.date_order_drug = '" + datereq + "' and  ptthi.status_order = '1' and ptthi.active = '1' " +
+                "Order By ptthi.hi_id ";
             dt = conn.selectData(conn.conn, sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
@@ -208,9 +209,9 @@ namespace bangna_hospital.objdb
             //chkNull(p);
             sql = "Update " + ptthi.table + " Set " +
                 " " + ptthi.status_drug + " = '1' " +
-                ", " + ptthi.date_order_drug + " = '" + datedrug + "' " +
-                ", " + ptthi.drug_set + " =' " + statusdrug + "' " +
-                ", " + ptthi.req_no_drug + " =' " + reqnodrug + "' " +
+                ", " + ptthi.date_order_drug + " = '" + datedrug.Trim() + "' " +
+                ", " + ptthi.drug_set + " ='" + statusdrug.Trim() + "' " +
+                ", " + ptthi.req_no_drug + " ='" + reqnodrug + "' " +
                 "Where " + ptthi.pkField + "='" + ptthiid + "'"
                 ;
             try
@@ -325,7 +326,6 @@ namespace bangna_hospital.objdb
                 conn.connMainHIS.Open();
                 conn.comStore.ExecuteNonQuery();
                 re = (String)conn.comStore.Parameters["row_no1"].Value;
-
             }
             catch (Exception ex)
             {

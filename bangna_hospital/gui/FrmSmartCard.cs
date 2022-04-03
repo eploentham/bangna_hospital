@@ -75,7 +75,7 @@ namespace bangna_hospital.gui
 
         int colRptHiId = 1, colRptHiHn = 2, colRptHiName = 3, colRptHiStatusDrug = 4, colRptHiDateOrdDrug = 5, colRptHiStatusXray = 6, colRptHiDateOrdXray=7, colRptHiLab = 8, colRptStatusKyc=9, colRptStatusAuthen=10, colRptdocscanidkyc=11, colRptdocscanidauthen=12;
         int colHiId = 1, colHiHn = 2, colHiName = 3, colHiDrugSet = 4, colHiStatusDrug = 5, colHiDateOrdDrg = 6, colHiStatusXray = 7, colHiDateOrdXray = 8, colHiQue = 9, colHiVN=10;
-        int colPharHn = 1, colPharName = 2, colpharAdDate = 3, colPharAnNo = 4, colPharAnYear=5, colPharDept=6, colPharRoom=7, colPharBed=8, colPharSymptom=9, colPharPaidType=10;
+        int colPharHn = 1, colPharName = 2, colpharAdDate = 3, colPharAnNo = 4, colPharAnYear=5, colPharDept=6, colPharRoom=7, colPharBed=8, colPharSymptom=9, colPharPaidType=10, colPharHnyr = 11, colPharpreno=12, colpharstatus=13, colPharAddate1=14;
         public FrmSmartCard(BangnaControl bc)
         {
             InitializeComponent();
@@ -86,7 +86,7 @@ namespace bangna_hospital.gui
         private void initConfig()
         {
             pageLoad = true;
-            fEditS = new Font(bc.iniC.pdfFontName, bc.pdfFontSize-2, FontStyle.Regular);
+            fEditS = new Font(bc.iniC.pdfFontName, bc.pdfFontSize - 2, FontStyle.Regular);
             fEditS1 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize - 1, FontStyle.Regular);
             fEdit = new Font(bc.iniC.pdfFontName,bc.pdfFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 3, FontStyle.Bold);
@@ -258,6 +258,7 @@ namespace bangna_hospital.gui
             btnAdmitOrd.Click += BtnAdmitOrd_Click;
             btnAdmitClose.Click += BtnAdmitClose_Click;
             btnPharAdmitOk.Click += BtnPharAdmitOk_Click;
+            cboHiNat.SelectedItemChanged += CboHiNat_SelectedItemChanged;
 
             //new LogWriter("d", "FrmSmartCard initConfig  02");
             System.Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
@@ -344,6 +345,14 @@ namespace bangna_hospital.gui
             pageLoad = false;
         }
 
+        private void CboHiNat_SelectedItemChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!pageLoad)
+            {
+                txtHiNatCode.Text = cboHiNat.SelectedItem == null ? "" : ((ComboBoxItem)cboHiNat.SelectedItem).Value;
+            }
+        }
         private void BtnPharAdmitOk_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -359,6 +368,7 @@ namespace bangna_hospital.gui
             grfPharAdmit.Rows.Count = 1;
             grfPharAdmit.Rows.Count = dt.Rows.Count + 1;
             int i = 0;
+            String chk = "";
             foreach (DataRow row1 in dt.Rows)
             {
                 i++;
@@ -373,8 +383,13 @@ namespace bangna_hospital.gui
                 grfPharAdmit[i, colPharBed] = row1["MNC_BD_NO"].ToString();
                 grfPharAdmit[i, colPharSymptom] = row1["MNC_SHIF_MEMO"].ToString();
                 grfPharAdmit[i, colPharPaidType] = row1["MNC_FN_TYP_DSC"].ToString();
+                grfPharAdmit[i, colPharHnyr] = row1["MNC_HN_yr"].ToString();
+                grfPharAdmit[i, colPharpreno] = row1["mnc_pre_no"].ToString();
+                grfPharAdmit[i, colpharstatus] = row1["status_insert_pop"].ToString();
+                grfPharAdmit[i, colPharAddate1] = row1["MNC_AD_DATE"].ToString();
+                chk = row1["status_insert_pop"] != null ? row1["status_insert_pop"].ToString() : "";
                 grfPharAdmit[i, 0] = i;
-                if (i % 2 == 0)
+                if (chk.Equals("2"))
                 {
                     grfPharAdmit.Rows[i].StyleDisplay.BackColor = Color.FromArgb(143, 200, 127);
                 }
@@ -470,6 +485,10 @@ namespace bangna_hospital.gui
                 ribbonLabel5.Text = "dtorder " + dtord.ToString("yyyy-MM-dd");
                 return;
             }
+            PrintDocument document = new PrintDocument();
+            document.PrintPage += Document_PrintPage_StaffNote_Reserve;
+            document.DefaultPageSettings.Landscape = true;
+            document.Print();
         }
 
         private void TxtHiDateOrd_DropDownClosed(object sender, C1.Win.C1Input.DropDownClosedEventArgs e)
@@ -883,7 +902,6 @@ namespace bangna_hospital.gui
                 pds.LoadFromFile(files.First());
                 c1FlexViewer1.DocumentSource = pds;
             }
-            
         }
 
         private void BtnHiOrd_Click(object sender, EventArgs e)
@@ -917,13 +935,17 @@ namespace bangna_hospital.gui
             ribbonLabel2.Text = "date order " + dtord.ToString("yyyy-MM-dd");
             ribbonLabel5.Text = "date input " + dtinput.ToString("yyyy-MM-dd");
             long chk = 0, chk1 = 0;
-            String reptthi = bc.bcDB.ptthiDB.insertPatientHI(ptthi, "1618");
+            String reptthi = bc.bcDB.ptthiDB.insertPatientHI(ptthi, "1618");        // insert table
             if(long.TryParse(reptthi, out chk))
             {
-                String reserve = bc.bcDB.ptthiDB.reserveHI(reptthi, "1618");
+                String reserve = bc.bcDB.ptthiDB.reserveHI(reptthi, "1618");        // call store procedure  ออกเลขที่เอกสาร vn, preno
                 if (long.TryParse(reserve, out chk1))
                 {
                     txtHiVn.Text = reserve;
+                    queueHi.queue_seq = txtHiQue.Text.Trim();
+                    new LogWriter("d", "BtnVisit_Click queue.queue_id " + queueHi.queue_id);
+                    bc.bcDB.queueDB.insertQueue(queueHi, "");
+                    printQueueHi();
                 }
             }
             setGrfHi(dtord.ToString("yyyy-MM-dd"));
@@ -954,10 +976,15 @@ namespace bangna_hospital.gui
             ptt.MNC_CUR_TEL = txtHiMobile.Text.Trim();
             ptt.MNC_CUR_SOI = txtHiSoi.Text.Trim();
 
+            ptt.MNC_DOM_ADD = txtHiHomeNo.Text.Trim();
+            ptt.MNC_DOM_MOO = txtHiMoo.Text.Trim();
+            ptt.MNC_DOM_TEL = txtHiMobile.Text.Trim();
+            ptt.MNC_DOM_SOI = txtHiSoi.Text.Trim();
+
             ptt.MNC_DOM_TEL = txtHiMobile.Text.Trim();
 
             ptt.MNC_FN_TYP_CD = txtHiPaidType.Text.Trim();
-            ptt.MNC_SEX = txtHiGender.Text.Trim();
+            ptt.MNC_SEX = txtHiGender.Text.Trim().Equals("ชาย") ? "M":"";
 
             String re = bc.bcDB.pttDB.insertPatient(ptt);
             long chk = 0;
@@ -1117,6 +1144,7 @@ namespace bangna_hospital.gui
             bc.bcDB.pm07DB.setCboTumbonName(cboHiTambon, districtname.Replace("ตำบล", ""), districtid);
             bc.bcDB.pm08DB.setCboAmphurByAmphurCode(cboHiAmphur, amprid, amprid);
             bc.bcDB.pm09DB.setCboProvByProvCode(cboHiProv, provid, provid);
+            txtHiNatCode.Text = "01";
 
             ptt = bc.bcDB.pttDB.selectPatinetByPID(txtHiPID.Text.Trim(), "pid");
             if (ptt.Hn.Length > 0)
@@ -2768,7 +2796,7 @@ namespace bangna_hospital.gui
             pnPharAdmitView.Controls.Add(grfPharAdmit);
 
             grfPharAdmit.Rows.Count = 1;
-            grfPharAdmit.Cols.Count = 11;
+            grfPharAdmit.Cols.Count = 15;
             grfPharAdmit.Cols[colPharHn].Caption = "Hn";
             grfPharAdmit.Cols[colPharName].Caption = "Name";
             grfPharAdmit.Cols[colpharAdDate].Caption = "admit date";
@@ -2805,7 +2833,24 @@ namespace bangna_hospital.gui
         private void GrfPharAdmit_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (grfPharAdmit.Row <= 0) return;
+            if (grfPharAdmit.Col <= 0) return;
 
+            string vn = "", preno = "", hn = "", anno = "", anyear = "", hnyear="", vsdate="", status="";
+            preno = grfPharAdmit[grfPharAdmit.Row, colPharpreno] != null ? grfPharAdmit[grfPharAdmit.Row, colPharpreno].ToString() : "";
+            anno = grfPharAdmit[grfPharAdmit.Row, colPharAnNo] != null ? grfPharAdmit[grfPharAdmit.Row, colPharAnNo].ToString() : "";
+            anyear = grfPharAdmit[grfPharAdmit.Row, colPharAnYear] != null ? grfPharAdmit[grfPharAdmit.Row, colPharAnYear].ToString() : "";
+            hn = grfPharAdmit[grfPharAdmit.Row, colPharHn] != null ? grfPharAdmit[grfPharAdmit.Row, colPharHn].ToString() : "";
+            hnyear = grfPharAdmit[grfPharAdmit.Row, colPharHnyr] != null ? grfPharAdmit[grfPharAdmit.Row, colPharHnyr].ToString() : "";
+            vsdate = grfPharAdmit[grfPharAdmit.Row, colPharAddate1] != null ? grfPharAdmit[grfPharAdmit.Row, colPharAddate1].ToString() : "";
+            status = grfPharAdmit[grfPharAdmit.Row, colpharstatus] != null ? grfPharAdmit[grfPharAdmit.Row, colpharstatus].ToString() : "";
+
+            String re = bc.bcDB.pharT01DB.insertPharmacyFixAdmit(hnyear, hn, vsdate, preno, txtHiDtrCode.Text.Trim(), "1618", anno, anyear);
+            long chk = 0;
+            if(long.TryParse(re, out chk))
+            {
+
+            }
         }
 
         private void initGrfAdmit()
@@ -3790,6 +3835,7 @@ namespace bangna_hospital.gui
             txtDtrId.Text = bc.iniC.dtrcode;
             txtHiDtrCode.Text = bc.iniC.dtrcode;
             lbHiDtrName.Text = bc.selectDoctorName(txtHiDtrCode.Text.Trim());
+            bc.setC1Combo(cboHiNat, txtHiNatCode.Text.Trim());
 
             lbsbPttStatus.Text = "";
             lbsbPttMessage.Text = "";
@@ -4014,6 +4060,120 @@ namespace bangna_hospital.gui
             line = line.Replace("เดือน", "ด");
             line = line.Replace("วัน", "ว");
             e.Graphics.DrawString(line, fEditB, Brushes.Black, avg, yPos + 85, flags);
+        }
+        private void printQueueHi()
+        {
+            PrintDocument document = new PrintDocument();
+            document.PrinterSettings.PrinterName = bc.iniC.printerQueue;
+            document.PrintPage += Document_PrintPage_Queue_HI;
+            document.DefaultPageSettings.Landscape = false;
+
+            document.Print();
+        }
+        private void Document_PrintPage_Queue_HI(object sender, PrintPageEventArgs e)
+        {
+            String amt = "", line = null, date = "", price = "", qty = "", price1 = "";
+            Decimal amt1 = 0, voucamt = 0, discount = 0, total = 0, cash = 0;
+            float yPos = 10, gap = 6, colName = 0, col2 = 5, col3 = 250, colPrice = 150, colPriceR2L = 180, colqty = 200, colqtyRtoL = 225, colamt = 230, colamtRtoL = 285, col4 = 820, col40 = 620;
+            int count = 0, recx = 15, recy = 15, col2int = 0, yPosint = 0, col40int = 0;
+
+            Graphics g = e.Graphics;
+            SolidBrush Brush = new SolidBrush(Color.Black);
+
+            date = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            Pen blackPen = new Pen(Color.Black, 1);
+            Size proposedSize = new Size(100, 100);
+
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            Size textSize = TextRenderer.MeasureText(line, fPrnBil, proposedSize, TextFormatFlags.RightToLeft);
+            StringFormat sfR2L = new StringFormat();
+            sfR2L.FormatFlags = StringFormatFlags.DirectionRightToLeft;
+            Int32 xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            Int32 yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            float marginR = e.MarginBounds.Right;
+            float avg = marginR / 2;
+            Rectangle rec = new Rectangle(0, 0, 20, 20);
+            col2int = int.Parse(col2.ToString());
+            yPosint = int.Parse(yPos.ToString());
+            col40int = int.Parse(col40.ToString());
+            if (bc.iniC.windows.Equals("windowsxp"))
+            {
+                col2 = 65;
+                col3 = 300;
+                col4 = 870;
+                col40 = 650;
+                yPos = 15;
+                col2int = int.Parse(col2.ToString());
+                yPosint = int.Parse(yPos.ToString());
+                col40int = int.Parse(col40.ToString());
+            }
+            String quetype = cboQueue.SelectedItem == null ? "" : ((ComboBoxItem)cboQueue.SelectedItem).Text;
+            line = quetype;
+            e.Graphics.DrawString(line, fque, Brushes.Black, 15, yPos + 5, flags);
+
+            line = "H.N. " + ptt.MNC_HN_NO;
+            e.Graphics.DrawString(line, fqueB, Brushes.Black, 15, yPos + 25, flags);        //bc.pdfFontSize + 7        pdfFontName     FontStyle.Bold
+
+            //line = "Name " + ptt.Name;
+            line = ptt.Name;
+            //e.Graphics.DrawString(line, fque, Brushes.Black, 5, yPos + 65, flags);
+            e.Graphics.DrawString(line, fqueB, Brushes.Black, 5, yPos + 65, flags);
+
+            e.Graphics.DrawString(ptt.MNC_FNAME_T, fqueB, Brushes.Black, 5, yPos + 85, flags);
+
+            line = txtQue.Text.Trim();
+            e.Graphics.DrawString(line, ftotal, Brushes.Black, 5, yPos + 85, flags);
+
+            line = "  ";
+            e.Graphics.DrawString(line, ftotal, Brushes.Black, 15, yPos + 105, flags);
+
+            line = "  ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.Left);
+            e.Graphics.DrawString(line, ftotal, Brushes.Black, 15, yPos + 125, flags);
+
+            line = "print time  " + date;
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.Left);
+            //e.Graphics.DrawString(line, famtB, Brushes.Black, 15, yPos + 185, flags);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, 10, yPos + 205, flags);
+
+            Image qrcodeLineBng5 = Resources.qrcode_657bkkyq;
+            float newWidth = qrcodeLineBng5.Width * 100 / qrcodeLineBng5.HorizontalResolution;
+            float newHeight = qrcodeLineBng5.Height * 100 / qrcodeLineBng5.VerticalResolution;
+
+            float widthFactor = newWidth / e.MarginBounds.Width;
+            float heightFactor = newHeight / e.MarginBounds.Height;
+
+            if (widthFactor > 1 | heightFactor > 1)
+            {
+                if (widthFactor > heightFactor)
+                {
+                    widthFactor = 1;
+                    newWidth = newWidth / widthFactor;
+                    newHeight = newHeight / widthFactor;
+                    newWidth = newWidth / float.Parse("4.2");
+                    newHeight = newHeight / float.Parse("4.2");
+                }
+                else
+                {
+                    newWidth = newWidth / heightFactor;
+                    newHeight = newHeight / heightFactor;
+                }
+            }
+            //e.Graphics.DrawImage(img, 10, 20, (int)newWidth, (int)newHeight);@657bkkyq
+
+            line = "add line @bangna5 โรงพยาบาล บางนา5";
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, 2, yPos + 220, flags);
+            line = "สอบถามผลตรวจ covid";
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, 10, yPos + 240, flags);
+            line = "พิมพ์ covid เว้นวรรค เลขที่บัตรประชาชน";
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, 10, yPos + 260, flags);
+            line = "ตัวอย่าง   covid  123456789012";
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, 10, yPos + 280, flags);
+
+            e.Graphics.DrawImage(qrcodeLineBng5, 15, 310, (int)newWidth, (int)newHeight);
+            //line = "Mobile " + txtMobile.Text.Trim();
+            //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, col3 + 25, yPos + 65, flags);
         }
         private void printQueue()
         {
@@ -5135,7 +5295,275 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 , yPos + 770, flags);
             e.Graphics.DrawString(line, fEditS, Brushes.Black, col40, yPos + 770, flags);
         }
+        private void Document_PrintPage_StaffNote_Reserve(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            String amt = "", line = null, date = "", price = "", qty = "", price1 = "";
+            Decimal amt1 = 0, voucamt = 0, discount = 0, total = 0, cash = 0;
+            float yPos = 10, gap = 6, colName = 0, col2 = 5, col3 = 250, colPrice = 150, colPriceR2L = 180, colqty = 200, colqtyRtoL = 225, colamt = 230, colamtRtoL = 285, col4 = 820, col40 = 620;
+            int count = 0, recx = 15, recy = 15, col2int = 0, yPosint = 0, col40int = 0;
 
+            Graphics g = e.Graphics;
+            SolidBrush Brush = new SolidBrush(Color.Black);
+
+            date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            Pen blackPen = new Pen(Color.Black, 1);
+            Size proposedSize = new Size(100, 100);
+
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            Size textSize = TextRenderer.MeasureText(line, fPrnBil, proposedSize, TextFormatFlags.RightToLeft);
+            StringFormat sfR2L = new StringFormat();
+            sfR2L.FormatFlags = StringFormatFlags.DirectionRightToLeft;
+            Int32 xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            Int32 yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            float marginR = e.MarginBounds.Right;
+            float avg = marginR / 2;
+            Rectangle rec = new Rectangle(0, 0, 20, 20);
+            col2int = int.Parse(col2.ToString());
+            yPosint = int.Parse(yPos.ToString());
+            col40int = int.Parse(col40.ToString());
+            if (bc.iniC.windows.Equals("windowsxp"))
+            {
+                col2 = 65;
+                col3 = 300;
+                col4 = 870;
+                col40 = 650;
+                yPos = 15;
+                col2int = int.Parse(col2.ToString());
+                yPosint = int.Parse(yPos.ToString());
+                col40int = int.Parse(col40.ToString());
+            }
+
+            line = "5";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fPrn, Brushes.Black, xOffset, yPos, new StringFormat());leftMargin
+            e.Graphics.DrawString(line, famtB, Brushes.Black, col3, yPos, flags);
+            e.Graphics.DrawString(line, famtB, Brushes.Black, col4, yPos, flags);
+            line = "H.N. " + ptt.MNC_HN_NO + "     " + txtVN.Text.Trim();
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3 + 25, yPos + 5, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col4 + 30, yPos + 5, flags);
+
+            line = "ชื่อ " + ptt.Name;
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3 + 20, yPos + 20, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col4 + 10, yPos + 20, flags);
+            line = "เลขที่บัตร " + ptt.MNC_ID_NO;
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3, yPos + 40, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col4, yPos + 40, flags);
+            line = lbPaidName.Text;
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 40, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40, yPos + 40, flags);
+
+            line = txtCompName.Text.Trim();
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40, yPos + 40, flags);
+
+            line = "โรคประจำตัว        ไม่มี";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 60, flags);
+            rec = new Rectangle(col2int + 75, 72, recx, recy);
+            e.Graphics.DrawRectangle(blackPen, rec);
+
+            line = "อายุ " + ptt.AgeStringShort1() + " [" + bc.datetoShow(ptt.MNC_BDAY) + "]";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3, yPos + 60, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col4, yPos + 60, flags);
+            //line = lbPaidName.Text.Trim();
+            //textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
+
+            line = "มีโรค ระบุ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2 + 70, yPos + 80, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 67 - recx, 92, recx, recy));
+
+            line = "วันที่เวลา " + date;
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3, yPos + 80, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col4, yPos + 80, flags);
+
+            line = "โรคเรื้อรัง";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 100, flags);
+            line = "ชื่อแพทย์ " + txtDtrId.Text.Trim() + " " + lbDtrName.Text;
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3, yPos + 100, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col4 - 50, yPos + 120, flags);
+
+            line = "DR Time.                               ปิดใบยา";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3, yPos + 120, flags);
+
+            line = "อาการเบื้องต้น " + txtSymptom.Text.Trim();
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 120, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40, yPos + 100, flags);
+
+            line = "Temp";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2, yPos + 140, flags);
+
+            line = "H.Rate";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 80, yPos + 140, flags);
+            line = "R.Rate";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 160, yPos + 140, flags);
+            line = "BP1";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 240, yPos + 140, flags);
+            line = "Time :";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 300, yPos + 140, flags);
+            line = "BP2 ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 380, yPos + 140, flags);
+            line = "Time :";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 440, yPos + 140, flags);
+
+            line = "Wt.";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2, yPos + 160, flags);
+            line = "Ht.";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 80, yPos + 160, flags);
+            line = "BMI.";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 100, yPos + 160, flags);
+            line = "CC.";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 180, yPos + 160, flags);
+            line = "CC.IN";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 240, yPos + 160, flags);
+            line = "CC.EX";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 300, yPos + 160, flags);
+            line = "Ab.C";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 400, yPos + 160, flags);
+            line = "H.C.";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2 + 460, yPos + 160, flags);
+
+            line = "Precaution (Med) _________________________________________ ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40 + 10, yPos + 220, flags);
+
+            line = "แพ้ยา/อาหาร/อื่นๆ         ไม่มี";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 180, flags);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40, yPos + 180, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 123 - recx, yPosint + 180, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 120 - recx, yPosint + 180, recx, recy));
+            line = "มี ระบุอาการ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2 + 20, yPos + 200, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 20 - recx, yPosint + 200, recx, recy));
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40 + 15, yPos + 200, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 15 - recx, yPosint + 200, recx, recy));
+
+            //line = "อาการเบื้อต้น  "+ txtSymptom.Text;
+            //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, col2 + 10, yPos + 220, flags);
+            //e.Graphics.DrawString(line, fEdit, Brushes.Black, col40 + 10, yPos + 220, flags);
+
+            line = "O2 Sat __________        Pain Score __________";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col3, yPos + 220, flags);
+
+            line = txtRemark.Text + " " + lbDeptName.Text.Trim();
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40 + 40, yPos + 260, flags);
+
+            line = "Medication                       No Medication";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col40 + 50, yPos + 280, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 30 - recx - 5, yPosint + 280, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 120 - recx + 60, yPosint + 280, recx, recy));
+
+            line = txtSymptom.Text.Trim();
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditB, Brushes.Black, col3 + 40, yPos + 315, flags);
+
+            if (chkSE629.Checked)
+            {
+                //line = "RT-PCR COVID-19  2700.00";
+                line = lab.MNC_LB_DSC + " " + lab.price;
+            }
+            else if (chkSE184.Checked)
+            {
+                //line = "RT-PCR COVID-19  2700.00";
+                line = lab.MNC_LB_DSC + " จีน " + lab.price;
+            }
+            else if (chkPCR1500.Checked)
+            {
+                //line = "RT-PCR COVID-19  2700.00";
+                line = lab.MNC_LB_DSC + " 1500 ";
+            }
+            else
+            {
+                line = lab.MNC_LB_DSC + " " + lab.price;
+            }
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditB, Brushes.Black, col40 + 40, yPos + 330, flags);
+
+            line = "อาการ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 360, flags);
+
+            line = "สัมผัสผู้ป่วย ชื่อ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 430, flags);
+
+            line = "สัมผัสล่าสุด";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 475, flags);
+
+
+            line = "คำแนะนำ       การออกกำลังกาย               การรับประทานอาหารที่ถูกสัดส่วน";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 620, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 75 - recx, yPosint + 620, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 210 - recx, yPosint + 620, recx, recy));
+
+            line = "การตรวจสุขภาพประจำปี          การพบแพทย์เฉพาะทาง       อื่นๆ";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2 + 40, yPos + 640, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 35 - recx, yPosint + 640, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 190 - recx, yPosint + 640, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 3350 - recx, yPosint + 640, recx, recy));
+
+            line = "ใบรับรองแพทย์             ไม่มี      มี             Consult      ไม่มี      มี __________________";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2 + 40, yPos + 660, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 170 - recx, yPosint + 660, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 215 - recx, yPosint + 660, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 345 - recx, yPosint + 660, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 385 - recx, yPosint + 660, recx, recy));
+
+            line = "ชื่อผู้รับ _____________________________";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 680, flags);
+
+            line = "Health Education :";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 730, flags);
+
+            line = "ลงชื่อพยาบาล: _____________________________________";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 750, flags);
+
+            line = "FM-REC-002 (00 10/09/53)(1/1)";
+            textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col2, yPos + 770, flags);
+            e.Graphics.DrawString(line, fEditS, Brushes.Black, col40, yPos + 770, flags);
+        }
         private void M_txtID_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -6838,7 +7266,7 @@ namespace bangna_hospital.gui
             {
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmSmartCard_Load", "FrmSmartCard_Load");
             }
-            this.Text += " Update 2022-03-30";
+            this.Text += " Update 2022-04-01";
             btnPatientNew.Enabled = false;
             if (bc.iniC.FrmSmartCardTabDefault.Equals("1"))
             {

@@ -37,5 +37,6 @@ namespace bangna_hospital.object1
         public String OPD_BTEMP = "", OPD_SBP = "", OPD_DBP = "", OPD_PR = "", OPD_RR = "", opbkkhcode = "";
         public String statusSmartCardNoDatabase = "", lab_code="", printerStaffNote="", printerLeter="", printerA5 = "", printerQueue = "", pathSaveExcelNovel="", statusSmartCardvaccine="", statusPrintSticker="";
         public String FrmSmartCardTabDefault = "", stickerPrintNumber="", statusStation="", paidcode="", dtrcode="", queFontName="", queFontSize="", hosttel="", printerStickerDrug="", printadjust="";
+        public String importMDBpaidcode = "";
     }
 }

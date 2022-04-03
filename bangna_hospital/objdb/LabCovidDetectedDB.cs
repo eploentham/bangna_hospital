@@ -81,7 +81,6 @@ namespace bangna_hospital.objdb
             lcovidd.table = "t_lab_covid_detected";
             lcovidd.pkField = "lab_covid_detected_id";
         }
-
         public DataTable SelectAll()
         {
             DataTable dt = new DataTable();
@@ -92,13 +91,29 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
-        public DataTable SelectByDateDetected(String dateresult)
+        public DataTable SelectByDateDetected(String dateresult, String hosname)
+        {
+            DataTable dt = new DataTable();
+            String wherehosname = "";
+            if (hosname.Length > 0)
+            {
+                hosname = " and hos_name = '" + hosname + "' ";
+            }
+
+            String sql = "select * " +
+                "From t_lab_covid_detected  " +
+                "Where visit_date >= '" + dateresult+ "' and visit_date <= '" + dateresult+ "'"+ hosname + " Order By date_create ";
+            dt = conn.selectData(sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectByDateDetectedResultBangna5(String dateresult)
         {
             DataTable dt = new DataTable();
 
             String sql = "select * " +
                 "From t_lab_covid_detected  " +
-                "Where visit_date >= '" + dateresult+ "' and visit_date <= '" + dateresult+"' Order By date_create ";
+                "Where visit_date = dateadd(day,-1,'" + dateresult + "') and date_result = '" + dateresult + "' and hos_name = 'bangna5' Order By date_create ";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;

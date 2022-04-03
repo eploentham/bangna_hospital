@@ -69,8 +69,15 @@ namespace bangna_hospital.gui
             chkJJJDrugSetB.Click += ChkJJJDrugSetB_Click;
             lbJJJname.DoubleClick += LbJJJname_DoubleClick;
             chkJJJDrugSetC.Click += ChkJJJDrugSetC_Click;
+            chkJJJDrugSetD.Click += ChkJJJDrugSetD_Click;
 
             setControl();
+        }
+
+        private void ChkJJJDrugSetD_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setDrugDClick();
         }
 
         private void ChkJJJDrugSetC_Click(object sender, EventArgs e)
@@ -141,18 +148,23 @@ namespace bangna_hospital.gui
                 //new LogWriter("d", "BtnReqLab_Click 1");
                 if (chkJJJDrugSetA.Checked)
                 {
-                    drugset = "A";
+                    drugset = "OSPI_A";
                     re = bc.bcDB.pharT01DB.insertPharmacyOPDDrugJJJa(ptt.MNC_HN_YR, txtJJJhn.Text.Trim(), txtVsdate.Text.Trim(), txtPreno.Text.Trim(), dtrcode, "1618");
                 }
                 else if (chkJJJDrugSetB.Checked)
                 {
-                    drugset = "B";
-                    re = bc.bcDB.pharT01DB.insertPharmacyOPDDrugJJJb(ptt.MNC_HN_YR, ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), labcode, "1618", "50");
+                    drugset = "OSPI_B";
+                    re = bc.bcDB.pharT01DB.insertPharmacyOPDDrugJJJb(ptt.MNC_HN_YR, ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), dtrcode, "1618", txtJJJsetbFA01450qty.Text.Trim());
                 }
                 else if (chkJJJDrugSetC.Checked)
                 {
-                    drugset = "C";
-                    re = bc.bcDB.pharT01DB.insertPharmacyOPDDrugJJJc(ptt.MNC_HN_YR, ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), labcode, "1618", "64");
+                    drugset = "OSPI_C";
+                    re = bc.bcDB.pharT01DB.insertPharmacyOPDDrugJJJc(ptt.MNC_HN_YR, ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), dtrcode, "1618");
+                }
+                else if (chkJJJDrugSetD.Checked)
+                {
+                    drugset = "OSPI_D";
+                    re = bc.bcDB.pharT01DB.insertPharmacyOPDDrugJJJd(ptt.MNC_HN_YR, ptt.MNC_HN_NO, txtVsdate.Text.Trim(), txtPreno.Text.Trim(), dtrcode, "1618",txtJJJsetdFA01464qty.Text.Trim());
                 }
                 String reupdatehidrug = bc.bcDB.ptthiDB.updateStatusDrugOrder(txtJJJhiid.Text.Trim(), drugset, txtVsdate.Text.Trim(), re, "1618");
                 //ribbonLabel3.Text = "hi drug " + reupdatehidrug;
@@ -446,7 +458,7 @@ namespace bangna_hospital.gui
                 //gfx.DrawString("aaaa "+symptom.Trim(), fEditB, Brushes.Black, col40 + 70, yPos + 330, flags);
 
                 String drugset = "";
-                drugset = chkJJJDrugSetB.Checked ? "B" : chkJJJDrugSetC.Checked ? "C" : "A";
+                drugset = chkJJJDrugSetB.Checked ? "B" : chkJJJDrugSetC.Checked ? "C" : chkJJJDrugSetD.Checked ? "D" : "A";
                 line = "Set " + drugset.ToUpper();
                 gfx.DrawString(line, famtB14, Brushes.Black, col40 + 70, 465, flags);
                 if (chkJJJDrugSetA.Checked)
@@ -490,7 +502,7 @@ namespace bangna_hospital.gui
                         gfx.DrawString(txtJJJsetcBI005qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 610, flags);
                     }
                 }
-                else
+                else if (chkJJJDrugSetB.Checked)
                 {
                     if (chkJJJsetbPA007.Checked)
                     {
@@ -507,16 +519,34 @@ namespace bangna_hospital.gui
                         gfx.DrawString("biSOLVON( BROMHEXINE ) 8 MG. (3J2)", fEditB, Brushes.Black, col40, 610, flags);
                         gfx.DrawString(txtJJJsetbBI005qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 610, flags);
                     }
-
                     if (chkJJJsetbFA01450.Checked)
                     {
                         gfx.DrawString("FAVIPIRAVIR 200 MG.", fEditB, Brushes.Black, col40, 653, flags);
                         gfx.DrawString(txtJJJsetbFA01450qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 653, flags);
                     }
-                    else
+                }
+                else if (chkJJJDrugSetD.Checked)
+                {
+                    if (chkJJJsetdPA007.Checked)
+                    {
+                        gfx.DrawString("PARAcetamol 500 MG. (3K2)", fEditB, Brushes.Black, col40, 523, flags);
+                        gfx.DrawString(txtJJJsetdPA007qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 523, flags);
+                    }
+                    if (chkJJJsetdCP001.Checked)
+                    {
+                        gfx.DrawString("C.P.M. 4 MG. (3J2)", fEditB, Brushes.Black, col40, 568, flags);
+                        gfx.DrawString(txtJJJsetdCP001qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 568, flags);
+                    }
+                    if (chkJJJsetdBI005.Checked)
+                    {
+                        gfx.DrawString("biSOLVON( BROMHEXINE ) 8 MG. (3J2)", fEditB, Brushes.Black, col40, 610, flags);
+                        gfx.DrawString(txtJJJsetdBI005qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 610, flags);
+                    }
+
+                    if (chkJJJsetdFA01464.Checked)
                     {
                         gfx.DrawString("FAVIPIRAVIR 200 MG.", fEditB, Brushes.Black, col40, 653, flags);
-                        gfx.DrawString(txtJJJsetbFA01464qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 653, flags);
+                        gfx.DrawString(txtJJJsetdFA01464qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 653, flags);
                     }
                 }
 
@@ -703,11 +733,11 @@ namespace bangna_hospital.gui
                 err = "07";
                 new LogWriter("e", "genImgStaffNote path filenameS " + path + filenameS);
                 imgL.Save(path + filenameS + "S.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
-                imgL.Save(filenameS + "R.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
+                //imgL.Save(filenameS + "R.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
                 err = "08";
                 new LogWriter("e", "genImgStaffNote path filenameS " + path + filenameR);
                 imgR.Save(path + filenameR + "R.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
-                imgR.Save(filenameR + "S.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
+                //imgR.Save(filenameR + "S.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
             }
             catch (Exception ex)
             {
@@ -934,23 +964,32 @@ namespace bangna_hospital.gui
             chkJJJsetbCP001.Checked = false;
             chkJJJsetbBI005.Checked = false;
             chkJJJsetbFA01450.Checked = false;
-            chkJJJsetbFA01464.Checked = false;
 
             chkJJJsetcPA007.Checked = false;
             chkJJJsetcCP001.Checked = false;
             chkJJJsetcBI005.Checked = false;
 
+            chkJJJsetdPA007.Checked = false;
+            chkJJJsetdCP001.Checked = false;
+            chkJJJsetdBI005.Checked = false;
+            chkJJJsetdFA01464.Checked = false;
+
             txtJJJsetbPA007qty.Value = "0";
             txtJJJsetbCP001qty.Value = "0";
             txtJJJsetbBI005qty.Value = "0";
             txtJJJsetbFA01450qty.Value = "0";
-            txtJJJsetbFA01464qty.Value = "0";
 
             txtJJJsetcPA007qty.Value = "0";
             txtJJJsetcCP001qty.Value = "0";
             txtJJJsetcBI005qty.Value = "0";
 
+            txtJJJsetdPA007qty.Value = "0";
+            txtJJJsetdCP001qty.Value = "0";
+            txtJJJsetdBI005qty.Value = "0";
+            txtJJJsetdFA01464qty.Value = "0";
+
             btnJJJDrugSet.Text = "สั่งยา Set A";
+            btnJJJDrugSet.BackColor = Color.DarkGoldenrod;
         }
         private void setDrugBClick()
         {
@@ -965,7 +1004,7 @@ namespace bangna_hospital.gui
             txtJJJsetbCP001qty.Value = "20";
             txtJJJsetbBI005qty.Value = "20";
             txtJJJsetbFA01450qty.Value = "50";
-            txtJJJsetbFA01464qty.Value = "64";
+            
             //txtJJJsetaPA007qty.Value = "20";
             chkJJJsetaPA007.Checked = false;
             chkJJJsetaCP001.Checked = false;
@@ -976,6 +1015,11 @@ namespace bangna_hospital.gui
             chkJJJsetcCP001.Checked = false;
             chkJJJsetcBI005.Checked = false;
 
+            chkJJJsetdPA007.Checked = false;
+            chkJJJsetdCP001.Checked = false;
+            chkJJJsetdBI005.Checked = false;
+            chkJJJsetdFA01464.Checked = false;
+
             txtJJJsetaPA007qty.Value = "0";
             txtJJJsetaCP001qty.Value = "0";
             txtJJJsetaBI005qty.Value = "0";
@@ -985,7 +1029,13 @@ namespace bangna_hospital.gui
             txtJJJsetcCP001qty.Value = "0";
             txtJJJsetcBI005qty.Value = "0";
 
+            txtJJJsetdPA007qty.Value = "0";
+            txtJJJsetdCP001qty.Value = "0";
+            txtJJJsetdBI005qty.Value = "0";
+            txtJJJsetdFA01464qty.Value = "0";
+
             btnJJJDrugSet.Text = "สั่งยา Set B";
+            btnJJJDrugSet.BackColor = Color.DarkKhaki;
         }
         private void setDrugCClick()
         {
@@ -1008,6 +1058,11 @@ namespace bangna_hospital.gui
             chkJJJsetbBI005.Checked = false;
             chkJJJsetbFA01450.Checked = false;
 
+            chkJJJsetdPA007.Checked = false;
+            chkJJJsetdCP001.Checked = false;
+            chkJJJsetdBI005.Checked = false;
+            chkJJJsetdFA01464.Checked = false;
+
             txtJJJsetaPA007qty.Value = "0";
             txtJJJsetaCP001qty.Value = "0";
             txtJJJsetaBI005qty.Value = "0";
@@ -1017,10 +1072,59 @@ namespace bangna_hospital.gui
             txtJJJsetbCP001qty.Value = "0";
             txtJJJsetbBI005qty.Value = "0";
             txtJJJsetbFA01450qty.Value = "0";
-            txtJJJsetbFA01464qty.Value = "0";
+
+            txtJJJsetdPA007qty.Value = "0";
+            txtJJJsetdCP001qty.Value = "0";
+            txtJJJsetdBI005qty.Value = "0";
+            txtJJJsetdFA01464qty.Value = "0";
+
 
             btnJJJDrugSet.Text = "สั่งยา Set C";
+            btnJJJDrugSet.BackColor = Color.DarkSalmon;
+        }
+        private void setDrugDClick()
+        {
+            chkJJJsetdPA007.Checked = true;
+            chkJJJsetdCP001.Checked = true;
+            chkJJJsetdBI005.Checked = true;
+            chkJJJsetdFA01464.Checked = true;
 
+            chkJJJsetcPA007.Checked = false;
+            chkJJJsetcCP001.Checked = false;
+            chkJJJsetcBI005.Checked = false;
+
+            txtJJJsetdPA007qty.Value = "20";
+            txtJJJsetdCP001qty.Value = "20";
+            txtJJJsetdBI005qty.Value = "20";
+            txtJJJsetdFA01464qty.Value = "64";
+
+            //txtJJJsetaPA007qty.Value = "20";
+            chkJJJsetaPA007.Checked = false;
+            chkJJJsetaCP001.Checked = false;
+            chkJJJsetaBI005.Checked = false;
+            chkJJJsetaMI047.Checked = false;
+
+            chkJJJsetbPA007.Checked = false;
+            chkJJJsetbCP001.Checked = false;
+            chkJJJsetbBI005.Checked = false;
+            chkJJJsetbFA01450.Checked = false;
+
+            txtJJJsetaPA007qty.Value = "0";
+            txtJJJsetaCP001qty.Value = "0";
+            txtJJJsetaBI005qty.Value = "0";
+            txtJJJsetaMI047qty.Value = "0";
+
+            txtJJJsetbPA007qty.Value = "0";
+            txtJJJsetbCP001qty.Value = "0";
+            txtJJJsetbBI005qty.Value = "0";
+            txtJJJsetbFA01450qty.Value = "0";
+
+            txtJJJsetcPA007qty.Value = "0";
+            txtJJJsetcCP001qty.Value = "0";
+            txtJJJsetcBI005qty.Value = "0";
+
+            btnJJJDrugSet.Text = "สั่งยา Set D";
+            btnJJJDrugSet.BackColor = Color.LightSteelBlue;
         }
         private void BtnJJJPrnStaffNote_Click(object sender, EventArgs e)
         {
@@ -1310,7 +1414,7 @@ namespace bangna_hospital.gui
             //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
             //e.Graphics.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 430, flags);
             String drugset = "";
-            drugset = chkJJJDrugSetB.Checked ? "B" : chkJJJDrugSetC.Checked ? "C": "A";
+            drugset = chkJJJDrugSetB.Checked ? "B" : chkJJJDrugSetC.Checked ? "C": chkJJJDrugSetD.Checked ? "D" : "A";
             line = "Set " + drugset.ToUpper();
             e.Graphics.DrawString(line, famtB14, Brushes.Black, col40 + 70, 335, flags);
             if (chkJJJDrugSetA.Checked)
@@ -1354,7 +1458,7 @@ namespace bangna_hospital.gui
                     e.Graphics.DrawString(txtJJJsetcBI005qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 520, flags);
                 }
             }
-            else
+            else if (chkJJJDrugSetB.Checked)
             {
                 if (chkJJJsetbPA007.Checked)
                 {
@@ -1377,14 +1481,31 @@ namespace bangna_hospital.gui
                     e.Graphics.DrawString("FAVIPIRAVIR 200 MG.", fEditB, Brushes.Black, col40, 580, flags);
                     e.Graphics.DrawString(txtJJJsetbFA01450qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 580, flags);
                 }
-                else
+            }
+            else if (chkJJJDrugSetD.Checked)
+            {
+                if (chkJJJsetdPA007.Checked)
+                {
+                    e.Graphics.DrawString("PARAcetamol 500 MG. (3K2)", fEditB, Brushes.Black, col40, 403, flags);
+                    e.Graphics.DrawString(txtJJJsetdPA007qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 403, flags);
+                }
+                if (chkJJJsetdCP001.Checked)
+                {
+                    e.Graphics.DrawString("C.P.M. 4 MG. (3J2)", fEditB, Brushes.Black, col40, 463, flags);
+                    e.Graphics.DrawString(txtJJJsetdCP001qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 463, flags);
+                }
+                if (chkJJJsetdBI005.Checked)
+                {
+                    e.Graphics.DrawString("biSOLVON( BROMHEXINE ) 8 MG. (3J2)", fEditB, Brushes.Black, col40, 520, flags);
+                    e.Graphics.DrawString(txtJJJsetdBI005qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 520, flags);
+                }
+
+                if (chkJJJsetdFA01464.Checked)
                 {
                     e.Graphics.DrawString("FAVIPIRAVIR 200 MG.", fEditB, Brushes.Black, col40, 580, flags);
-                    e.Graphics.DrawString(txtJJJsetbFA01464qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 580, flags);
+                    e.Graphics.DrawString(txtJJJsetdFA01464qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 580, flags);
                 }
-                
             }
-
 
 
 
@@ -1486,6 +1607,14 @@ namespace bangna_hospital.gui
             //        theme1.SetTheme(c, bc.iniC.themeApp);
             //    }
             //}
+            panel3.BackColor = Color.DarkGoldenrod;
+            chkJJJDrugSetA.BackColor = Color.DarkGoldenrod;
+            panel4.BackColor = Color.DarkKhaki;
+            chkJJJDrugSetB.BackColor = Color.DarkKhaki;
+            panel5.BackColor = Color.DarkSalmon;
+            chkJJJDrugSetC.BackColor = Color.DarkSalmon;
+            panel6.BackColor = Color.LightSteelBlue;
+            chkJJJDrugSetD.BackColor = Color.LightSteelBlue;
         }
         private void FrmSmartCardJJJ_Load(object sender, EventArgs e)
         {

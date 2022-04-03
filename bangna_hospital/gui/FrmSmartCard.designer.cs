@@ -402,41 +402,41 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.c1FlexViewer1 = new C1.Win.FlexViewer.C1FlexViewer();
             this.tabAdmit = new C1.Win.C1Command.C1DockingTabPage();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.txtAdmitHn = new System.Windows.Forms.TextBox();
-            this.label119 = new System.Windows.Forms.Label();
-            this.lbAdmitName = new System.Windows.Forms.Label();
-            this.btnAdmitVisit = new System.Windows.Forms.Button();
-            this.btnAdmitOrd = new System.Windows.Forms.Button();
-            this.btnAdmitClose = new System.Windows.Forms.Button();
-            this.picAdmitLeft = new System.Windows.Forms.PictureBox();
             this.picadmitRight = new System.Windows.Forms.PictureBox();
-            this.label120 = new System.Windows.Forms.Label();
-            this.txtAdmitVn = new System.Windows.Forms.TextBox();
-            this.label121 = new System.Windows.Forms.Label();
-            this.txtAdmitPreno = new System.Windows.Forms.TextBox();
-            this.label122 = new System.Windows.Forms.Label();
-            this.txtAdmitVsdate = new System.Windows.Forms.TextBox();
-            this.label123 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label124 = new System.Windows.Forms.Label();
-            this.label125 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label126 = new System.Windows.Forms.Label();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.picAdmitLeft = new System.Windows.Forms.PictureBox();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.label127 = new System.Windows.Forms.Label();
             this.label128 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label125 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label126 = new System.Windows.Forms.Label();
+            this.label123 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label124 = new System.Windows.Forms.Label();
+            this.label122 = new System.Windows.Forms.Label();
+            this.txtAdmitVsdate = new System.Windows.Forms.TextBox();
+            this.label121 = new System.Windows.Forms.Label();
+            this.txtAdmitPreno = new System.Windows.Forms.TextBox();
+            this.label120 = new System.Windows.Forms.Label();
+            this.txtAdmitVn = new System.Windows.Forms.TextBox();
+            this.btnAdmitClose = new System.Windows.Forms.Button();
+            this.btnAdmitOrd = new System.Windows.Forms.Button();
+            this.btnAdmitVisit = new System.Windows.Forms.Button();
+            this.txtAdmitHn = new System.Windows.Forms.TextBox();
+            this.label119 = new System.Windows.Forms.Label();
+            this.lbAdmitName = new System.Windows.Forms.Label();
             this.tabPharAdmit = new C1.Win.C1Command.C1DockingTabPage();
-            this.pnPharAdmitTop = new System.Windows.Forms.Panel();
             this.pnPharAdmitView = new System.Windows.Forms.Panel();
+            this.pnPharAdmitTop = new System.Windows.Forms.Panel();
+            this.txtPharAdmitDate1 = new System.Windows.Forms.TextBox();
             this.btnPharAdmitOk = new System.Windows.Forms.Button();
             this.label129 = new System.Windows.Forms.Label();
             this.txtPharAdmitDate = new C1.Win.C1Input.C1DateEdit();
-            this.txtPharAdmitDate1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_picPhoto)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateOrder)).BeginInit();
@@ -506,11 +506,11 @@
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).BeginInit();
             this.tabAdmit.SuspendLayout();
-            this.panel11.SuspendLayout();
-            this.panel12.SuspendLayout();
             this.panel13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAdmitLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picadmitRight)).BeginInit();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAdmitLeft)).BeginInit();
+            this.panel11.SuspendLayout();
             this.tabPharAdmit.SuspendLayout();
             this.pnPharAdmitTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPharAdmitDate)).BeginInit();
@@ -4229,7 +4229,7 @@
             this.cboHiTambon.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboHiTambon.ItemsDisplayMember = "";
             this.cboHiTambon.ItemsValueMember = "";
-            this.cboHiTambon.Location = new System.Drawing.Point(114, 445);
+            this.cboHiTambon.Location = new System.Drawing.Point(114, 446);
             this.cboHiTambon.Name = "cboHiTambon";
             this.cboHiTambon.Size = new System.Drawing.Size(267, 24);
             this.cboHiTambon.TabIndex = 127;
@@ -4597,6 +4597,44 @@
             this.tabAdmit.TabIndex = 6;
             this.tabAdmit.Text = "Er Admit COVID";
             // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.picadmitRight);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel13.Location = new System.Drawing.Point(570, 68);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(458, 758);
+            this.panel13.TabIndex = 2;
+            // 
+            // picadmitRight
+            // 
+            this.picadmitRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picadmitRight.Location = new System.Drawing.Point(0, 0);
+            this.picadmitRight.Name = "picadmitRight";
+            this.picadmitRight.Size = new System.Drawing.Size(458, 758);
+            this.picadmitRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picadmitRight.TabIndex = 0;
+            this.picadmitRight.TabStop = false;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.picAdmitLeft);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel12.Location = new System.Drawing.Point(0, 68);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(570, 758);
+            this.panel12.TabIndex = 1;
+            // 
+            // picAdmitLeft
+            // 
+            this.picAdmitLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picAdmitLeft.Location = new System.Drawing.Point(0, 0);
+            this.picAdmitLeft.Name = "picAdmitLeft";
+            this.picAdmitLeft.Size = new System.Drawing.Size(570, 758);
+            this.picAdmitLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picAdmitLeft.TabIndex = 0;
+            this.picAdmitLeft.TabStop = false;
+            // 
             // panel11
             // 
             this.panel11.Controls.Add(this.textBox5);
@@ -4628,164 +4666,83 @@
             this.panel11.Size = new System.Drawing.Size(1028, 68);
             this.panel11.TabIndex = 0;
             // 
-            // panel12
+            // textBox5
             // 
-            this.panel12.Controls.Add(this.picAdmitLeft);
-            this.panel12.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel12.Location = new System.Drawing.Point(0, 68);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(570, 758);
-            this.panel12.TabIndex = 1;
+            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.textBox5.Location = new System.Drawing.Point(984, 41);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(32, 24);
+            this.textBox5.TabIndex = 111;
+            this.textBox5.Text = "2";
             // 
-            // panel13
+            // button3
             // 
-            this.panel13.Controls.Add(this.picadmitRight);
-            this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel13.Location = new System.Drawing.Point(570, 68);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(458, 758);
-            this.panel13.TabIndex = 2;
+            this.button3.BackColor = System.Drawing.Color.PaleGreen;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(907, 38);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(71, 29);
+            this.button3.TabIndex = 110;
+            this.button3.Text = "sticker";
+            this.button3.UseVisualStyleBackColor = false;
             // 
-            // txtAdmitHn
+            // label127
             // 
-            this.txtAdmitHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAdmitHn.Location = new System.Drawing.Point(44, 3);
-            this.txtAdmitHn.Name = "txtAdmitHn";
-            this.txtAdmitHn.Size = new System.Drawing.Size(110, 26);
-            this.txtAdmitHn.TabIndex = 32;
+            this.label127.AutoSize = true;
+            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label127.Location = new System.Drawing.Point(618, 45);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(46, 20);
+            this.label127.TabIndex = 109;
+            this.label127.Text = "แพทย์";
             // 
-            // label119
+            // label128
             // 
-            this.label119.AutoSize = true;
-            this.label119.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label119.Location = new System.Drawing.Point(6, 6);
-            this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(32, 20);
-            this.label119.TabIndex = 31;
-            this.label119.Text = "HN";
+            this.label128.AutoSize = true;
+            this.label128.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label128.Location = new System.Drawing.Point(728, 43);
+            this.label128.Name = "label128";
+            this.label128.Size = new System.Drawing.Size(20, 18);
+            this.label128.TabIndex = 108;
+            this.label128.Text = "...";
             // 
-            // lbAdmitName
+            // textBox4
             // 
-            this.lbAdmitName.AutoSize = true;
-            this.lbAdmitName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbAdmitName.Location = new System.Drawing.Point(158, 5);
-            this.lbAdmitName.Name = "lbAdmitName";
-            this.lbAdmitName.Size = new System.Drawing.Size(38, 31);
-            this.lbAdmitName.TabIndex = 33;
-            this.lbAdmitName.Text = "...";
+            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.textBox4.Location = new System.Drawing.Point(669, 39);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(53, 26);
+            this.textBox4.TabIndex = 107;
             // 
-            // btnAdmitVisit
+            // label125
             // 
-            this.btnAdmitVisit.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnAdmitVisit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAdmitVisit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdmitVisit.Location = new System.Drawing.Point(766, 6);
-            this.btnAdmitVisit.Name = "btnAdmitVisit";
-            this.btnAdmitVisit.Size = new System.Drawing.Size(79, 32);
-            this.btnAdmitVisit.TabIndex = 47;
-            this.btnAdmitVisit.Text = "ออก Visit";
-            this.btnAdmitVisit.UseVisualStyleBackColor = false;
+            this.label125.AutoSize = true;
+            this.label125.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label125.Location = new System.Drawing.Point(435, 39);
+            this.label125.Name = "label125";
+            this.label125.Size = new System.Drawing.Size(20, 18);
+            this.label125.TabIndex = 98;
+            this.label125.Text = "...";
             // 
-            // btnAdmitOrd
+            // textBox3
             // 
-            this.btnAdmitOrd.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnAdmitOrd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAdmitOrd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdmitOrd.Location = new System.Drawing.Point(849, 6);
-            this.btnAdmitOrd.Name = "btnAdmitOrd";
-            this.btnAdmitOrd.Size = new System.Drawing.Size(76, 32);
-            this.btnAdmitOrd.TabIndex = 48;
-            this.btnAdmitOrd.Text = "สั่ง admit";
-            this.btnAdmitOrd.UseVisualStyleBackColor = false;
+            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.textBox3.Location = new System.Drawing.Point(376, 36);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(53, 26);
+            this.textBox3.TabIndex = 97;
+            this.textBox3.Text = "199";
             // 
-            // btnAdmitClose
+            // label126
             // 
-            this.btnAdmitClose.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnAdmitClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnAdmitClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdmitClose.Location = new System.Drawing.Point(928, 6);
-            this.btnAdmitClose.Name = "btnAdmitClose";
-            this.btnAdmitClose.Size = new System.Drawing.Size(92, 32);
-            this.btnAdmitClose.TabIndex = 49;
-            this.btnAdmitClose.Text = "ปิดการรักษา";
-            this.btnAdmitClose.UseVisualStyleBackColor = false;
-            // 
-            // picAdmitLeft
-            // 
-            this.picAdmitLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picAdmitLeft.Location = new System.Drawing.Point(0, 0);
-            this.picAdmitLeft.Name = "picAdmitLeft";
-            this.picAdmitLeft.Size = new System.Drawing.Size(570, 758);
-            this.picAdmitLeft.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picAdmitLeft.TabIndex = 0;
-            this.picAdmitLeft.TabStop = false;
-            // 
-            // picadmitRight
-            // 
-            this.picadmitRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picadmitRight.Location = new System.Drawing.Point(0, 0);
-            this.picadmitRight.Name = "picadmitRight";
-            this.picadmitRight.Size = new System.Drawing.Size(458, 758);
-            this.picadmitRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picadmitRight.TabIndex = 0;
-            this.picadmitRight.TabStop = false;
-            // 
-            // label120
-            // 
-            this.label120.AutoSize = true;
-            this.label120.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label120.Location = new System.Drawing.Point(565, 13);
-            this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(31, 20);
-            this.label120.TabIndex = 51;
-            this.label120.Text = "VN";
-            // 
-            // txtAdmitVn
-            // 
-            this.txtAdmitVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAdmitVn.Location = new System.Drawing.Point(599, 10);
-            this.txtAdmitVn.Name = "txtAdmitVn";
-            this.txtAdmitVn.Size = new System.Drawing.Size(61, 26);
-            this.txtAdmitVn.TabIndex = 50;
-            this.txtAdmitVn.Text = "999.9.9";
-            // 
-            // label121
-            // 
-            this.label121.AutoSize = true;
-            this.label121.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label121.Location = new System.Drawing.Point(666, 13);
-            this.label121.Name = "label121";
-            this.label121.Size = new System.Drawing.Size(50, 20);
-            this.label121.TabIndex = 53;
-            this.label121.Text = "preno";
-            // 
-            // txtAdmitPreno
-            // 
-            this.txtAdmitPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAdmitPreno.Location = new System.Drawing.Point(719, 10);
-            this.txtAdmitPreno.Name = "txtAdmitPreno";
-            this.txtAdmitPreno.Size = new System.Drawing.Size(45, 26);
-            this.txtAdmitPreno.TabIndex = 52;
-            this.txtAdmitPreno.Text = "9999";
-            // 
-            // label122
-            // 
-            this.label122.AutoSize = true;
-            this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label122.Location = new System.Drawing.Point(404, 13);
-            this.label122.Name = "label122";
-            this.label122.Size = new System.Drawing.Size(60, 20);
-            this.label122.TabIndex = 55;
-            this.label122.Text = "vs date";
-            // 
-            // txtAdmitVsdate
-            // 
-            this.txtAdmitVsdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAdmitVsdate.Location = new System.Drawing.Point(468, 9);
-            this.txtAdmitVsdate.Name = "txtAdmitVsdate";
-            this.txtAdmitVsdate.Size = new System.Drawing.Size(90, 26);
-            this.txtAdmitVsdate.TabIndex = 54;
-            this.txtAdmitVsdate.Text = "2022-03-99";
+            this.label126.AutoSize = true;
+            this.label126.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label126.Location = new System.Drawing.Point(327, 39);
+            this.label126.Name = "label126";
+            this.label126.Size = new System.Drawing.Size(40, 20);
+            this.label126.TabIndex = 96;
+            this.label126.Text = "ส่งไป";
             // 
             // label123
             // 
@@ -4817,83 +4774,126 @@
             this.label124.TabIndex = 63;
             this.label124.Text = "การชำระ";
             // 
-            // label125
+            // label122
             // 
-            this.label125.AutoSize = true;
-            this.label125.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label125.Location = new System.Drawing.Point(435, 39);
-            this.label125.Name = "label125";
-            this.label125.Size = new System.Drawing.Size(20, 18);
-            this.label125.TabIndex = 98;
-            this.label125.Text = "...";
+            this.label122.AutoSize = true;
+            this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label122.Location = new System.Drawing.Point(404, 13);
+            this.label122.Name = "label122";
+            this.label122.Size = new System.Drawing.Size(60, 20);
+            this.label122.TabIndex = 55;
+            this.label122.Text = "vs date";
             // 
-            // textBox3
+            // txtAdmitVsdate
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.textBox3.Location = new System.Drawing.Point(376, 36);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(53, 26);
-            this.textBox3.TabIndex = 97;
-            this.textBox3.Text = "199";
+            this.txtAdmitVsdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAdmitVsdate.Location = new System.Drawing.Point(468, 9);
+            this.txtAdmitVsdate.Name = "txtAdmitVsdate";
+            this.txtAdmitVsdate.Size = new System.Drawing.Size(90, 26);
+            this.txtAdmitVsdate.TabIndex = 54;
+            this.txtAdmitVsdate.Text = "2022-03-99";
             // 
-            // label126
+            // label121
             // 
-            this.label126.AutoSize = true;
-            this.label126.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label126.Location = new System.Drawing.Point(327, 39);
-            this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(40, 20);
-            this.label126.TabIndex = 96;
-            this.label126.Text = "ส่งไป";
+            this.label121.AutoSize = true;
+            this.label121.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label121.Location = new System.Drawing.Point(666, 13);
+            this.label121.Name = "label121";
+            this.label121.Size = new System.Drawing.Size(50, 20);
+            this.label121.TabIndex = 53;
+            this.label121.Text = "preno";
             // 
-            // label127
+            // txtAdmitPreno
             // 
-            this.label127.AutoSize = true;
-            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label127.Location = new System.Drawing.Point(618, 45);
-            this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(46, 20);
-            this.label127.TabIndex = 109;
-            this.label127.Text = "แพทย์";
+            this.txtAdmitPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAdmitPreno.Location = new System.Drawing.Point(719, 10);
+            this.txtAdmitPreno.Name = "txtAdmitPreno";
+            this.txtAdmitPreno.Size = new System.Drawing.Size(45, 26);
+            this.txtAdmitPreno.TabIndex = 52;
+            this.txtAdmitPreno.Text = "9999";
             // 
-            // label128
+            // label120
             // 
-            this.label128.AutoSize = true;
-            this.label128.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label128.Location = new System.Drawing.Point(728, 43);
-            this.label128.Name = "label128";
-            this.label128.Size = new System.Drawing.Size(20, 18);
-            this.label128.TabIndex = 108;
-            this.label128.Text = "...";
+            this.label120.AutoSize = true;
+            this.label120.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label120.Location = new System.Drawing.Point(565, 13);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(31, 20);
+            this.label120.TabIndex = 51;
+            this.label120.Text = "VN";
             // 
-            // textBox4
+            // txtAdmitVn
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.textBox4.Location = new System.Drawing.Point(669, 39);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(53, 26);
-            this.textBox4.TabIndex = 107;
+            this.txtAdmitVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAdmitVn.Location = new System.Drawing.Point(599, 10);
+            this.txtAdmitVn.Name = "txtAdmitVn";
+            this.txtAdmitVn.Size = new System.Drawing.Size(61, 26);
+            this.txtAdmitVn.TabIndex = 50;
+            this.txtAdmitVn.Text = "999.9.9";
             // 
-            // button3
+            // btnAdmitClose
             // 
-            this.button3.BackColor = System.Drawing.Color.PaleGreen;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(907, 38);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(71, 29);
-            this.button3.TabIndex = 110;
-            this.button3.Text = "sticker";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnAdmitClose.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnAdmitClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAdmitClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdmitClose.Location = new System.Drawing.Point(928, 6);
+            this.btnAdmitClose.Name = "btnAdmitClose";
+            this.btnAdmitClose.Size = new System.Drawing.Size(92, 32);
+            this.btnAdmitClose.TabIndex = 49;
+            this.btnAdmitClose.Text = "ปิดการรักษา";
+            this.btnAdmitClose.UseVisualStyleBackColor = false;
             // 
-            // textBox5
+            // btnAdmitOrd
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.textBox5.Location = new System.Drawing.Point(984, 41);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(32, 24);
-            this.textBox5.TabIndex = 111;
-            this.textBox5.Text = "2";
+            this.btnAdmitOrd.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnAdmitOrd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAdmitOrd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdmitOrd.Location = new System.Drawing.Point(849, 6);
+            this.btnAdmitOrd.Name = "btnAdmitOrd";
+            this.btnAdmitOrd.Size = new System.Drawing.Size(76, 32);
+            this.btnAdmitOrd.TabIndex = 48;
+            this.btnAdmitOrd.Text = "สั่ง admit";
+            this.btnAdmitOrd.UseVisualStyleBackColor = false;
+            // 
+            // btnAdmitVisit
+            // 
+            this.btnAdmitVisit.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnAdmitVisit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAdmitVisit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdmitVisit.Location = new System.Drawing.Point(766, 6);
+            this.btnAdmitVisit.Name = "btnAdmitVisit";
+            this.btnAdmitVisit.Size = new System.Drawing.Size(79, 32);
+            this.btnAdmitVisit.TabIndex = 47;
+            this.btnAdmitVisit.Text = "ออก Visit";
+            this.btnAdmitVisit.UseVisualStyleBackColor = false;
+            // 
+            // txtAdmitHn
+            // 
+            this.txtAdmitHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAdmitHn.Location = new System.Drawing.Point(44, 3);
+            this.txtAdmitHn.Name = "txtAdmitHn";
+            this.txtAdmitHn.Size = new System.Drawing.Size(110, 26);
+            this.txtAdmitHn.TabIndex = 32;
+            // 
+            // label119
+            // 
+            this.label119.AutoSize = true;
+            this.label119.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label119.Location = new System.Drawing.Point(6, 6);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(32, 20);
+            this.label119.TabIndex = 31;
+            this.label119.Text = "HN";
+            // 
+            // lbAdmitName
+            // 
+            this.lbAdmitName.AutoSize = true;
+            this.lbAdmitName.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAdmitName.Location = new System.Drawing.Point(158, 5);
+            this.lbAdmitName.Name = "lbAdmitName";
+            this.lbAdmitName.Size = new System.Drawing.Size(38, 31);
+            this.lbAdmitName.TabIndex = 33;
+            this.lbAdmitName.Text = "...";
             // 
             // tabPharAdmit
             // 
@@ -4904,6 +4904,15 @@
             this.tabPharAdmit.Size = new System.Drawing.Size(1028, 826);
             this.tabPharAdmit.TabIndex = 7;
             this.tabPharAdmit.Text = "ห้องยา ชุดAdmit";
+            // 
+            // pnPharAdmitView
+            // 
+            this.pnPharAdmitView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPharAdmitView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.pnPharAdmitView.Location = new System.Drawing.Point(0, 55);
+            this.pnPharAdmitView.Name = "pnPharAdmitView";
+            this.pnPharAdmitView.Size = new System.Drawing.Size(1028, 771);
+            this.pnPharAdmitView.TabIndex = 1;
             // 
             // pnPharAdmitTop
             // 
@@ -4918,14 +4927,13 @@
             this.pnPharAdmitTop.Size = new System.Drawing.Size(1028, 55);
             this.pnPharAdmitTop.TabIndex = 0;
             // 
-            // pnPharAdmitView
+            // txtPharAdmitDate1
             // 
-            this.pnPharAdmitView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnPharAdmitView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.pnPharAdmitView.Location = new System.Drawing.Point(0, 55);
-            this.pnPharAdmitView.Name = "pnPharAdmitView";
-            this.pnPharAdmitView.Size = new System.Drawing.Size(1028, 771);
-            this.pnPharAdmitView.TabIndex = 1;
+            this.txtPharAdmitDate1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPharAdmitDate1.Location = new System.Drawing.Point(464, 14);
+            this.txtPharAdmitDate1.Name = "txtPharAdmitDate1";
+            this.txtPharAdmitDate1.Size = new System.Drawing.Size(90, 26);
+            this.txtPharAdmitDate1.TabIndex = 160;
             // 
             // btnPharAdmitOk
             // 
@@ -4973,14 +4981,6 @@
             this.txtPharAdmitDate.Size = new System.Drawing.Size(128, 24);
             this.txtPharAdmitDate.TabIndex = 157;
             this.txtPharAdmitDate.Tag = null;
-            // 
-            // txtPharAdmitDate1
-            // 
-            this.txtPharAdmitDate1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPharAdmitDate1.Location = new System.Drawing.Point(464, 14);
-            this.txtPharAdmitDate1.Name = "txtPharAdmitDate1";
-            this.txtPharAdmitDate1.Size = new System.Drawing.Size(90, 26);
-            this.txtPharAdmitDate1.TabIndex = 160;
             // 
             // FrmSmartCard
             // 
@@ -5073,12 +5073,12 @@
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer1)).EndInit();
             this.tabAdmit.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picadmitRight)).EndInit();
+            this.panel12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picAdmitLeft)).EndInit();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
-            this.panel12.ResumeLayout(false);
-            this.panel13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picAdmitLeft)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picadmitRight)).EndInit();
             this.tabPharAdmit.ResumeLayout(false);
             this.pnPharAdmitTop.ResumeLayout(false);
             this.pnPharAdmitTop.PerformLayout();

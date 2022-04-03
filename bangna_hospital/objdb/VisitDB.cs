@@ -446,7 +446,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "select convert(VARCHAR(20),MNC_AD_DATE,23) as MNC_AD_DATE,PATIENT_T08.MNC_HN_NO ,patient_m02.MNC_PFIX_DSC,patient_m01.MNC_FNAME_T, " +
+            sql = "select convert(VARCHAR(20),MNC_AD_DATE,23) as MNC_AD_DATE,PATIENT_T08.MNC_HN_NO ,patient_m02.MNC_PFIX_DSC,patient_m01.MNC_FNAME_T,PATIENT_T08.MNC_HN_yr, PATIENT_T08.mnc_pre_no ,PATIENT_T01.status_insert_pop, " +
                 "patient_m01.MNC_LNAME_T,PATIENT_T08.MNC_AN_NO,MNC_AN_YR,PATIENT_M32.MNC_MD_DEP_DSC,MNC_RM_NAM ,MNC_BD_NO,MNC_SHIF_MEMO" +
                 ",Case FINANCE_M02.MNC_FN_TYP_DSC " +
                     "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
@@ -3071,6 +3071,30 @@ namespace bangna_hospital.objdb
             " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
             "inner join PATIENT_T08 t08 on t01.MNC_PRE_NO = t08.MNC_PRE_NO and t01.MNC_date = t08.MNC_date " +
             "where t08.mnc_an_no = '" + an + "'";
+            //}
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectImportMDB(String datestart, String dateend, String paidcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereAn = "";
+
+            sql = "Select t01.MNC_HN_NO,t01.MNC_PRE_NO,t01.MNC_TIME, " +
+            "m01.mnc_fname_t, m01.mnc_lname_t, m02.mnc_Pfix_dsc, t01.mnc_vn_no, t01.mnc_vn_seq, t01.mnc_vn_sum,convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday " +
+            ", m01.mnc_sex ,convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, fnt01.MNC_SUM_PRI, m01.mnc_id_no " +
+            
+            "From PATIENT_T01 t01 "
+            + "inner JOIN PATIENT_M01 AS m01 ON t01.MNC_HN_NO = m01.MNC_HN_NO " +
+            "inner JOIN  PATIENT_M02 AS m02 ON m02.MNC_PFIX_CD = m01.MNC_PFIX_CDT  " +
+            " inner join FINANCE_M02 f02 ON t01.MNC_FN_TYP_CD = f02.MNC_FN_TYP_CD " +
+            "left join finance_t01 fnt01 on t01.mnc_hn_no = fnt01.mnc_hn_no and t01.mnc_pre_no = fnt01.mnc_pre_no and t01.mnc_date = fnt01.mnc_date and t01.mnc_fn_typ_cd = fnt01.mnc_fn_typ_cd " +
+            //" inner join patient_m26 on t01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+            //" inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+            //"inner join PATIENT_T08 t08 on t01.MNC_PRE_NO = t08.MNC_PRE_NO and t01.MNC_date = t08.MNC_date " +
+            "where t01.MNC_DATE >= '" + datestart + "' and t01.MNC_DATE <= '" + dateend + "' and t01.mnc_sts <> 'C' " +
+            " and t01.mnc_fn_typ_cd in ("+paidcode +") " +
+            "Order By t01.mnc_date, t01.mnc_pre_no ";
             //}
             dt = conn.selectData(sql);
             return dt;

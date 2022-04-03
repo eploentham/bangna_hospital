@@ -36,7 +36,7 @@ namespace bangna_hospital.gui
         Label lbtxtHospName, lbtxtHn, lbtxtPttNameT, lbtxtPttNameE, lbtxtVsDate, lbtxtSex, lbtxtAge, lbtxtDOB, lbtxtPID, lbtxtPassport, lbtxtAddr1, lbtxtAddr2, lbtxtDtrId, lbtxtLabCode, lbtxtLabResult;
         C1TextBox txtHospName, txtHn, txtPttNameT, txtPttNameE, txtSex, txtAge, txtDOB, txtPID, txtPassport, txtAddr1, txtAddr2, txtDtrId, txtDtrNameT, txtDtrNameE, txtLabCode, txtLabName, txtLabResult;
         C1DateEdit txtVsDate, txtDate, txtHospStartDate, txtHospEndDate, txtStopStartDate, txtStopEndDate, txtViewDateSearch, txtNovelDateSearch;
-        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult, btnViewDateSearch, btnPrintLetter, btnNovelDateSearch, btnNovelSave, btnNovelUpdate, btnCertDtr;
+        C1Button btnHn, btnPrnThai, btnPrnEng, btnLabResult, btnViewDateSearch, btnPrintLetter, btnNovelDateSearch, btnNovelSave, btnNovelUpdate, btnCertDtr, btnNovelBn5;
         Label lbtxtLabName1, lbtxtLabName2, lbtxtLabName3, lbtxtLabUnit, lbtxtLabNormal, lbtxtLabReport, lbtxtLabApprove, lbtxtDate, lbtxtSympbtom, lbtxtCountry, lbtxtViewDateSearch, lbtxtViewHnSearch, lbtxtNovelDateSearch;
         C1TextBox txtLabName1, txtLabName2, txtLabName3, txtLabResult1, txtLabResult2, txtLabResult3, txtLabUnit, txtLabNormal, txtLabReport, txtLabApprove, txtLabApproveDate, txtLabReportDate, txtViewHnSearch;
         C1TextBox txtVsTime, txtSympbtom, txtCountry, txtThaiOther, txtStop,txtTrue, txtNation, txtLabCodeSe184, txtLabNameSe184, txtLabResultSe184, txtLabUnitSe184, txtlab184IgG, txtSe640Name, txtSe640Result;
@@ -45,9 +45,10 @@ namespace bangna_hospital.gui
         C1CheckBox chkSe640;
         Label lbtxtHospEndDate, lbtxtStopEndDate, lbtxtNation, lbtxtLabCodeSe184, lbtxtLabResultSe184, lbtxtLabReportDate, lbLoading;
         C1FlexGrid grfView, grfNovel;
-        ComboBox cboDiag1, cboDiag2, cboDiag3;
+        ComboBox cboDiag1, cboDiag2, cboDiag3, cboBangna;
         int colHn = 1, colDateVs=2, colTimeVs=3, colFullName = 4, colDateResult = 5, collabCode=6, collabName = 7, colLabResult = 8, colPhone = 9,colReqNo=10, colReqDate=11, colReqYr=12, colStatus=13, colID=14;
         int colNovellabCode=1,colNovelHn = 2, colNovelHos = 3, colNovelCat = 4, colNovelSatCode = 5, colNovelPID = 6, colNovelPassport = 7, colNovelPttName = 8, colNovelSex = 9, colNovelAge = 10, colNovelNat = 11, colNovelProv = 12, colNovelAmphur = 13, colNovelTumbun = 14, colNovelMoo = 15, colNovelAddr = 16, colNovelDisease = 17, colNovelMobile = 18, colNovelTypePtt = 19, colNovelCluster = 20, colNovelConfirm = 21, colNovelPlace = 22, colNovelLabDate = 23, colNovelLabPlace = 24, colNovelLabResult = 25, colNovelEgene = 26, colNovelRdRP = 27, colNovelNgene = 28, colNovelORFlab = 29, colNovelIC = 30, colNovelSgene = 31, colNovelRNP = 32, colNovelNSgene = 33, colNovelid=34, colDateCreate=35;
+        int colNovelbn1labCode = 1, colNovelbn1Hn = 2, colNovelbn1Hos = 3, colNovelbn1Cat = 4, colNovelSatbn1Code = 5, colNovelbn1PID = 6, colNovelbn1Passport = 7, colNovelbn1PttName = 8, colbn1NovelSex = 9, colNovelbn1Age = 10, colNovelbn1Nat = 11, colNovelbn1Prov = 12, colNovelbn1Amphur = 13, colNovelbn1Tumbun = 14, colNovelbn1Moo = 15, colNovelbn1Addr = 16, colNovelbn1Disease = 17, colNovelbn1Mobile = 18, colNovelbn1TypePtt = 19, colNovelbn1Cluster = 20, colNovelbn1Confirm = 21, colNovelbn1Place = 22, colNovelbn1LabDate = 23, colNovelbn1LabPlace = 24, colNovelbn1LabResult = 25, colNovelbn1Egene = 26, colNovelbn1RdRP = 27, colNovelbn1Ngene = 28, colNovelbn1ORFlab = 29, colNovelbn1IC = 30, colNovelbn1Sgene = 31, colNovelbn1RNP = 32, colNovelbn1NSgene = 33, colNovelbn1id = 34, colbn1DateCreate = 35;
 
         String vn, preno, vsdate, paidtypecode="", detectedid="";
 
@@ -84,10 +85,17 @@ namespace bangna_hospital.gui
             btnNovelSave.Click += BtnNovelSave_Click;
             btnNovelUpdate.Click += BtnNovelUpdate_Click;
             btnCertDtr.Click += BtnCertDtr_Click;
+            btnNovelBn5.Click += BtnNovelBn5_Click;
 
             txtVsDate.Value = DateTime.Now;
             txtHospName.Value = "โรงพยาบาล ทั่วไปขนาดใหญ่ บางนา5";
             ChkSe640_Click(null, null);
+        }
+
+        private void BtnNovelBn5_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfNovelBn5("nosameday-bn5");
         }
 
         private void BtnCertDtr_Click(object sender, EventArgs e)
@@ -140,7 +148,21 @@ namespace bangna_hospital.gui
         private void BtnNovelDateSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setGrfNovel();
+            if (cboBangna.Text.Length > 0)
+            {
+                if (cboBangna.Text.ToLower().Equals("bangna5"))
+                {
+                    setGrfNovelBn5("");
+                }
+                else if (cboBangna.Text.ToLower().Equals("bangna1"))
+                {
+                    setGrfNovel();
+                }
+            }
+            else
+            {
+                setGrfNovel();
+            }
         }
         private void ChkSe640_Click(object sender, EventArgs e)
         {
@@ -672,6 +694,490 @@ namespace bangna_hospital.gui
             grfNovel.Rows.Count = 1;
             grfNovel.Cols.Count = 36;
             //grfNovel.Rows.Count = lAER.Count + 1;
+            if (cboBangna.Text.Trim().ToLower().Equals("bangna1"))
+            {
+                grfNovel.Cols[colNovelHn].Caption = "HN";
+                grfNovel.Cols[colNovelHos].Caption = "สถานที่ส่งตรวจ";
+                grfNovel.Cols[colNovelCat].Caption = "category";
+                grfNovel.Cols[colNovelSatCode].Caption = "SAT CODE";
+                grfNovel.Cols[colNovelPID].Caption = "ID";
+                grfNovel.Cols[colNovelPassport].Caption = "Passport";
+                grfNovel.Cols[colNovelPttName].Caption = "ชื่อสกุล";
+                grfNovel.Cols[colNovelSex].Caption = "เพศ ";
+                grfNovel.Cols[colNovelAge].Caption = "อายุ ";
+                grfNovel.Cols[colNovelNat].Caption = "สัญชาติ";
+
+                grfNovel.Cols[colNovelProv].Caption = "จังหวัด";
+                grfNovel.Cols[colNovelAmphur].Caption = "อำเภอ";
+                grfNovel.Cols[colNovelTumbun].Caption = "ตำบล";
+                grfNovel.Cols[colNovelMoo].Caption = "หมู่ที่ ";
+                grfNovel.Cols[colNovelAddr].Caption = "บ้านเลขที่";
+                grfNovel.Cols[colNovelDisease].Caption = "โรคประจำตัว";
+                grfNovel.Cols[colNovelMobile].Caption = "เบอร์โทรศัพท์";
+                grfNovel.Cols[colNovelTypePtt].Caption = "ประเภทผู้ป่วย";
+                grfNovel.Cols[colNovelCluster].Caption = "cluster";
+                grfNovel.Cols[colNovelConfirm].Caption = "ระบุ เคส";
+
+                grfNovel.Cols[colNovelPlace].Caption = "ระบุ สถานที่";
+                grfNovel.Cols[colNovelLabDate].Caption = "วันที่ รายงาน ผล";
+                grfNovel.Cols[colNovelLabPlace].Caption = "สถานที่ตรวจ LAB";
+                grfNovel.Cols[colNovelLabResult].Caption = "ผลการตรวจ LAB";
+                grfNovel.Cols[colNovelEgene].Caption = "E gene";
+                grfNovel.Cols[colNovelRdRP].Caption = "RdRP";
+                grfNovel.Cols[colNovelNgene].Caption = "N gene";
+                grfNovel.Cols[colNovelORFlab].Caption = "ORF1ab";
+                grfNovel.Cols[colNovelIC].Caption = "IC";
+                grfNovel.Cols[colNovelSgene].Caption = "S gene";
+
+                grfNovel.Cols[colNovelRNP].Caption = "RNP";
+                grfNovel.Cols[colNovelNSgene].Caption = "NS gene";
+
+                grfNovel.Cols[colNovelHn].Width = 80;
+                grfNovel.Cols[colNovelHos].Width = 100;
+                grfNovel.Cols[colNovelCat].Width = 100;
+                grfNovel.Cols[colNovelSatCode].Width = 70;
+                grfNovel.Cols[colNovelPID].Width = 100;
+                grfNovel.Cols[colNovelPassport].Width = 100;
+                grfNovel.Cols[colNovelPttName].Width = 200;
+                grfNovel.Cols[colNovelSex].Width = 80;
+                grfNovel.Cols[colNovelAge].Width = 80;
+                grfNovel.Cols[colNovelNat].Width = 80;
+
+                grfNovel.Cols[colNovelProv].Width = 80;
+                grfNovel.Cols[colNovelAmphur].Width = 80;
+                grfNovel.Cols[colNovelTumbun].Width = 80;
+                grfNovel.Cols[colNovelMoo].Width = 80;
+                grfNovel.Cols[colNovelAddr].Width = 80;
+                grfNovel.Cols[colNovelDisease].Width = 80;
+                grfNovel.Cols[colNovelMobile].Width = 80;
+                grfNovel.Cols[colNovelTypePtt].Width = 80;
+                grfNovel.Cols[colNovelCluster].Width = 80;
+                grfNovel.Cols[colNovelConfirm].Width = 80;
+
+                grfNovel.Cols[colNovelPlace].Width = 80;
+                grfNovel.Cols[colNovelLabDate].Width = 80;
+                grfNovel.Cols[colNovelLabPlace].Width = 80;
+                grfNovel.Cols[colNovelLabResult].Width = 80;
+                grfNovel.Cols[colNovelEgene].Width = 80;
+                grfNovel.Cols[colNovelRdRP].Width = 80;
+                grfNovel.Cols[colNovelNgene].Width = 80;
+                grfNovel.Cols[colNovelORFlab].Width = 80;
+                grfNovel.Cols[colNovelIC].Width = 80;
+                grfNovel.Cols[colNovelSgene].Width = 80;
+
+                grfNovel.Cols[colNovelRNP].Width = 80;
+                grfNovel.Cols[colNovelNSgene].Width = 80;
+
+                grfNovel.Cols[colNovelCat].Editor = cboCat;
+                grfNovel.Cols[colNovelSex].Editor = cboSex;
+                grfNovel.Cols[colNovelNat].Editor = cboNat;
+                grfNovel.Cols[colNovelDisease].Editor = cboDisease;
+                grfNovel.Cols[colNovelTypePtt].Editor = cboTypePtt;
+            }
+            else
+            {
+                grfNovel.Cols[colNovelHn].Caption = "HN";
+                grfNovel.Cols[colNovelHos].Caption = "สถานที่ส่งตรวจ";
+                grfNovel.Cols[colNovelCat].Caption = "category";
+                grfNovel.Cols[colNovelSatCode].Caption = "SAT CODE";
+                grfNovel.Cols[colNovelPID].Caption = "ID";
+                grfNovel.Cols[colNovelPassport].Caption = "Passport";
+                grfNovel.Cols[colNovelPttName].Caption = "ชื่อสกุล";
+                grfNovel.Cols[colNovelSex].Caption = "เพศ ";
+                grfNovel.Cols[colNovelAge].Caption = "อายุ ";
+                grfNovel.Cols[colNovelNat].Caption = "สัญชาติ";
+
+                grfNovel.Cols[colNovelProv].Caption = "จังหวัด";
+                grfNovel.Cols[colNovelAmphur].Caption = "อำเภอ";
+                grfNovel.Cols[colNovelTumbun].Caption = "ตำบล";
+                grfNovel.Cols[colNovelMoo].Caption = "หมู่ที่ ";
+                grfNovel.Cols[colNovelAddr].Caption = "บ้านเลขที่";
+                grfNovel.Cols[colNovelDisease].Caption = "โรคประจำตัว";
+                grfNovel.Cols[colNovelMobile].Caption = "เบอร์โทรศัพท์";
+                grfNovel.Cols[colNovelTypePtt].Caption = "ประเภทผู้ป่วย";
+                grfNovel.Cols[colNovelCluster].Caption = "cluster";
+                grfNovel.Cols[colNovelConfirm].Caption = "ระบุ เคส";
+
+                grfNovel.Cols[colNovelPlace].Caption = "ระบุ สถานที่";
+                grfNovel.Cols[colNovelLabDate].Caption = "วันที่ รายงาน ผล";
+                grfNovel.Cols[colNovelLabPlace].Caption = "สถานที่ตรวจ LAB";
+                grfNovel.Cols[colNovelLabResult].Caption = "ผลการตรวจ LAB";
+                grfNovel.Cols[colNovelEgene].Caption = "E gene";
+                grfNovel.Cols[colNovelRdRP].Caption = "RdRP";
+                grfNovel.Cols[colNovelNgene].Caption = "N gene";
+                grfNovel.Cols[colNovelORFlab].Caption = "ORF1ab";
+                grfNovel.Cols[colNovelIC].Caption = "IC";
+                grfNovel.Cols[colNovelSgene].Caption = "S gene";
+
+                grfNovel.Cols[colNovelRNP].Caption = "RNP";
+                grfNovel.Cols[colNovelNSgene].Caption = "NS gene";
+
+                grfNovel.Cols[colNovelHn].Width = 80;
+                grfNovel.Cols[colNovelHos].Width = 100;
+                grfNovel.Cols[colNovelCat].Width = 100;
+                grfNovel.Cols[colNovelSatCode].Width = 70;
+                grfNovel.Cols[colNovelPID].Width = 100;
+                grfNovel.Cols[colNovelPassport].Width = 100;
+                grfNovel.Cols[colNovelPttName].Width = 200;
+                grfNovel.Cols[colNovelSex].Width = 80;
+                grfNovel.Cols[colNovelAge].Width = 80;
+                grfNovel.Cols[colNovelNat].Width = 80;
+
+                grfNovel.Cols[colNovelProv].Width = 80;
+                grfNovel.Cols[colNovelAmphur].Width = 80;
+                grfNovel.Cols[colNovelTumbun].Width = 80;
+                grfNovel.Cols[colNovelMoo].Width = 80;
+                grfNovel.Cols[colNovelAddr].Width = 80;
+                grfNovel.Cols[colNovelDisease].Width = 80;
+                grfNovel.Cols[colNovelMobile].Width = 80;
+                grfNovel.Cols[colNovelTypePtt].Width = 80;
+                grfNovel.Cols[colNovelCluster].Width = 80;
+                grfNovel.Cols[colNovelConfirm].Width = 80;
+
+                grfNovel.Cols[colNovelPlace].Width = 80;
+                grfNovel.Cols[colNovelLabDate].Width = 80;
+                grfNovel.Cols[colNovelLabPlace].Width = 80;
+                grfNovel.Cols[colNovelLabResult].Width = 80;
+                grfNovel.Cols[colNovelEgene].Width = 80;
+                grfNovel.Cols[colNovelRdRP].Width = 80;
+                grfNovel.Cols[colNovelNgene].Width = 80;
+                grfNovel.Cols[colNovelORFlab].Width = 80;
+                grfNovel.Cols[colNovelIC].Width = 80;
+                grfNovel.Cols[colNovelSgene].Width = 80;
+
+                grfNovel.Cols[colNovelRNP].Width = 80;
+                grfNovel.Cols[colNovelNSgene].Width = 80;
+
+                grfNovel.Cols[colNovelCat].Editor = cboCat;
+                grfNovel.Cols[colNovelSex].Editor = cboSex;
+                grfNovel.Cols[colNovelNat].Editor = cboNat;
+                grfNovel.Cols[colNovelDisease].Editor = cboDisease;
+                grfNovel.Cols[colNovelTypePtt].Editor = cboTypePtt;
+            }
+            
+
+            
+
+            
+
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("Print ซองจดหมาย", new EventHandler(ContextMenu_grfView_PrintStricker));
+            menuGw.MenuItems.Add("Print ผลLAB", new EventHandler(ContextMenu_grfView_PrintResultLab));
+            grfNovel.ContextMenu = menuGw;
+
+            setLbLoading("กรุณารอซักครู่ Novel");
+            //dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE184_1(date, date,"");
+            dtcovidd = bc.bcDB.lcoviddDB.SelectByDateDetected(date, cboBangna.Text.Trim().ToLower());
+            //setLbLoading("กรุณารอซักครู่ SE629");
+            //dtcovidSE629 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE629_1(date, date, "");
+            //dtcovidSE184.Merge(dtcovidSE629);
+            grfNovel.Rows.Count = dtcovidd.Rows.Count + 1;
+            int i = 0;
+            setLbLoading("กรุณารอซักครู่ set grid");
+            foreach (DataRow ins in dtcovidd.Rows)
+            {
+                i++;
+                try
+                {
+                    //if (i == 1) continue;
+                    grfNovel[i, colNovelid] = ins["lab_covid_detected_id"].ToString();
+                    grfNovel[i, colNovelHn] = ins["mnc_hn_no"].ToString();
+                    grfNovel[i, colNovelHos] = ins["hos_name"].ToString();
+                    grfNovel[i, colNovelCat] = ins["category"].ToString();
+                    grfNovel[i, colNovelSatCode] = ins["sat_code"].ToString();
+                    grfNovel[i, colNovelPID] = ins["pid"].ToString();
+                    grfNovel[i, colNovelPassport] = ins["passport"].ToString().Equals("None")?"": ins["passport"].ToString();
+                    grfNovel[i, colNovelPttName] = ins["patient_fullname"].ToString();
+                    grfNovel[i, colNovelSex] = ins["sex"].ToString().Equals("M") ? "ชาย" : ins["sex"].ToString().Equals("F") ? "หญิง" : "ไม่ระบุ";
+                    grfNovel[i, colNovelAge] = ins["age_years"].ToString();
+
+                    grfNovel[i, colNovelNat] = ins["nation_name"].ToString().Equals("01") ? "ไทย" : ins["nation_name"].ToString().Equals("48") ? "เมียนมา": ins["nation_name"].ToString().Equals("56") ? "ลาว" : ins["nation_name"].ToString().Equals("57") ? "กัมพูชา": ins["nation_name"].ToString().Equals("000") ? "ไม่ระบุสัญชาติ" : "ไม่ระบุสัญชาติ";
+                    grfNovel[i, colNovelProv] = ins["prov_name"].ToString();
+                    grfNovel[i, colNovelAmphur] = ins["amphur_name"].ToString();
+                    grfNovel[i, colNovelTumbun] = ins["tumbon_name"].ToString();
+                    grfNovel[i, colNovelMoo] = ins["addr_moo"].ToString();
+                    grfNovel[i, colNovelAddr] = ins["addr_home_no"].ToString();
+                    grfNovel[i, colNovelDisease] = ins["disease"].ToString();
+                    grfNovel[i, colNovelMobile] = ins["mobile"].ToString();
+                    grfNovel[i, colNovelTypePtt] = ins["type_ptt"].ToString();
+                    grfNovel[i, colNovelCluster] = ins["cluster"].ToString();
+                    //grfNovel[i, colLabResult] = "";
+
+                    grfNovel[i, colNovelConfirm] = ins["case_confirm"] != null ? ins["case_confirm"].ToString() : "";
+                    grfNovel[i, colNovelPlace] = ins["place_doubt"] != null ? ins["place_doubt"].ToString() : "";
+                    grfNovel[i, colNovelLabDate] = ins["lab_date"] != null ? ins["lab_date"].ToString() : "";
+                    grfNovel[i, colNovelLabPlace] = ins["lab_place"].ToString();
+                    grfNovel[i, colNovelLabResult] = !ins["lab_result"].ToString().Equals("") ? ins["lab_result"].ToString() : ins["result_value"].ToString();      //result_value
+                    grfNovel[i, colNovelEgene] = ins["e_gene"].ToString();
+                    grfNovel[i, colNovelRdRP] = ins["rdrp"].ToString();
+                    grfNovel[i, colNovelNgene] = ins["n_gene"].ToString();
+                    grfNovel[i, colNovelORFlab] = ins["orf1ab"].ToString();
+                    grfNovel[i, colNovelIC] = ins["ic"].ToString();
+
+                    grfNovel[i, colNovelSgene] = ins["s_gene"].ToString();
+                    grfNovel[i, colNovelRNP] = ins["rnp"].ToString();
+                    grfNovel[i, colNovelNSgene] = ins["ns_gene"].ToString();
+                    grfNovel[i, colDateCreate] = ins["date_create"].ToString();     //colNovellabCode
+                    grfNovel[i, colNovellabCode] = ins["lab_code"].ToString().Equals("SE640") ? "ATK": "RT-PCR";
+
+                    grfNovel[i, 0] = i;
+                    //if(ins["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected")==0)
+                    //    grfNovel.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmOPDCovid setGrfView SE184 i = " + i + " ex " + ex.Message);
+                }
+            }
+            grfNovel.Cols[colNovelid].Visible = false;
+            hideLbLoading();
+
+            pageLoad = false;
+        }
+        private void setGrfNovelBn5(String flagnosameday)
+        {
+            showLbLoading();
+            String date = "";
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectAll();
+
+            C1ComboBox cboCat = new C1ComboBox();
+            C1ComboBox cboSex = new C1ComboBox();
+            C1ComboBox cboNat = new C1ComboBox();
+            C1ComboBox cboDisease = new C1ComboBox();
+            C1ComboBox cboTypePtt = new C1ComboBox();
+            cboCat.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboCat.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboSex.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboSex.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboNat.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboNat.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboDisease.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboDisease.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cboTypePtt.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboTypePtt.AutoCompleteSource = AutoCompleteSource.ListItems;
+
+            item = new ComboBoxItem();
+            item.Value = "Hospital";
+            item.Text = "Hospital";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ACF&SS";
+            item.Text = "ACF&SS";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "Quarantine";
+            item.Text = "Quarantine";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "Foreigner";
+            item.Text = "Foreigner";
+            cboCat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เรือนจำ";
+            item.Text = "เรือนจำ";
+            cboCat.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ชาย";
+            item.Text = "ชาย";
+            cboSex.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "หญิง";
+            item.Text = "หญิง";
+            cboSex.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไม่ระบุ";
+            item.Text = "ไม่ระบุ";
+            cboSex.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ไทย";
+            item.Text = "ไทย";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ลาว";
+            item.Text = "ลาว";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "จีน";
+            item.Text = "จีน";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เมียนมา";
+            item.Text = "เมียนมา";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "จีน";
+            item.Text = "จีน";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "กัมพูชา";
+            item.Text = "กัมพูชา";
+            cboNat.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไม่ระบุสัญชาติ";
+            item.Text = "ไม่ระบุสัญชาติ";
+            cboNat.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ไม่ระบุ";
+            item.Text = "ไม่ระบุ";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ปฏิเสธ";
+            item.Text = "ปฏิเสธ";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน";
+            item.Text = "เบาหวาน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ความดันโลหิตสูง";
+            item.Text = "ความดันโลหิตสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ภูมิแพ้";
+            item.Text = "ภูมิแพ้";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "แพ้ยา";
+            item.Text = "แพ้ยา";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "หอบหืด";
+            item.Text = "หอบหืด";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไมเกรน";
+            item.Text = "ไมเกรน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "โรคหลอดเลือดหัวใจ ความดัน";
+            item.Text = "โรคหลอดเลือดหัวใจ ความดัน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน ความดันโลหิตสูง";
+            item.Text = "เบาหวาน ความดันโลหิตสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน ความดันโลหิตสูง ไขมันสูง";
+            item.Text = "เบาหวาน ความดันโลหิตสูง ไขมันสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เบาหวาน ความดัน กล้ามเนื้ออ่อนแรง";
+            item.Text = "เบาหวาน ความดัน กล้ามเนื้ออ่อนแรง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "กล้ามเนื้ออ่อนแรง";
+            item.Text = "กล้ามเนื้ออ่อนแรง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "แพ้ภูมิตัวเอง ภูมิแพ้";
+            item.Text = "แพ้ภูมิตัวเอง ภูมิแพ้";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ธาลัสซีเมีย";
+            item.Text = "ธาลัสซีเมีย";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "รูมาตอยด์ ภูมิแพ้";
+            item.Text = "รูมาตอยด์ ภูมิแพ้";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไขมันในเส้นเลือดสูง";
+            item.Text = "ไขมันในเส้นเลือดสูง";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "กรดไหลย้อน";
+            item.Text = "กรดไหลย้อน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ไทรอยด์";
+            item.Text = "ไทรอยด์";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "โรคอ้วน";
+            item.Text = "โรคอ้วน";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "เก๊าท์";
+            item.Text = "เก๊าท์";
+            cboDisease.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "ความดัน";
+            item.Text = "ความดัน";
+            cboDisease.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "1.ผู้ป่วย PUI";
+            item.Text = "1.ผู้ป่วย PUI";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "2.สัมผัสผู้ติดเชื้อ";
+            item.Text = "2.สัมผัสผู้ติดเชื้อ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "3.ต่างชาติมาจากต่างประเทศ";
+            item.Text = "3.ต่างชาติมาจากต่างประเทศ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "4.คนไทยมาจากต่างประเทศ";
+            item.Text = "4.คนไทยมาจากต่างประเทศ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "5.ลักลอบเข้าประเทศ";
+            item.Text = "5.ลักลอบเข้าประเทศ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "6.คัดกรองจากด่าน";
+            item.Text = "6.คัดกรองจากด่าน";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "7.บุคลากรทางการแพทย์และสาธารณสุข";
+            item.Text = "7.บุคลากรทางการแพทย์และสาธารณสุข";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "8.เฝ้าระวัง ARI/ pneumonia";
+            item.Text = "8.เฝ้าระวัง ARI/ pneumonia";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "9.สำรวจกลุ่มเสี่ยง (survey) (ACF กรณีพบการระบาด)";
+            item.Text = "9.สำรวจกลุ่มเสี่ยง (survey) (ACF กรณีพบการระบาด)";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "10.เฝ้าระวังในกลุ่มเสี่ยง (sentinel) (กรณียังไม่มีการระบาด)";
+            item.Text = "10.เฝ้าระวังในกลุ่มเสี่ยง (sentinel) (กรณียังไม่มีการระบาด)";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "11.ขอตรวจหาเชื้อเอง";
+            item.Text = "11.ขอตรวจหาเชื้อเอง";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "12.ตรวจก่อนทำหัตถการ";
+            item.Text = "12.ตรวจก่อนทำหัตถการ";
+            cboTypePtt.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "13.อื่นๆ";
+            item.Text = "13.อื่นๆ";
+            cboTypePtt.Items.Add(item);
+
+            DateTime vsdate = new DateTime();
+            DateTime.TryParse(txtNovelDateSearch.Text, out vsdate);
+            //MessageBox.Show("2121212 vsdate.Year " + vsdate.Year, "");
+            if (vsdate.Year < 2000)
+            {
+                vsdate = vsdate.AddYears(543);
+            }
+            date = vsdate.Year + "-" + vsdate.ToString("MM-dd");
+            DataTable dtcovidd = new DataTable();
+            DataTable dtcoviddResultOld = new DataTable();
+            DataTable dtcovidSE629 = new DataTable();
+            pageLoad = true;
+            grfNovel.DataSource = null;
+            grfNovel.Rows.Count = 1;
+            grfNovel.Cols.Count = 36;
+            //grfNovel.Rows.Count = lAER.Count + 1;
             grfNovel.Cols[colNovelHn].Caption = "HN";
             grfNovel.Cols[colNovelHos].Caption = "สถานที่ส่งตรวจ";
             grfNovel.Cols[colNovelCat].Caption = "category";
@@ -757,7 +1263,17 @@ namespace bangna_hospital.gui
 
             setLbLoading("กรุณารอซักครู่ Novel");
             //dtcovidSE184 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE184_1(date, date,"");
-            dtcovidd = bc.bcDB.lcoviddDB.SelectByDateDetected(date);
+            if (flagnosameday.Equals("nosameday-bn5"))
+            {
+                dtcovidd = bc.bcDB.lcoviddDB.SelectByDateDetectedResultBangna5(date);
+            }
+            else
+            {
+                dtcovidd = bc.bcDB.lcoviddDB.SelectByDateDetected(date, cboBangna.Text.Trim().ToLower());
+            }
+            
+            //dtcoviddResultOld = bc.bcDB.lcoviddDB.SelectByDateDetectedResultBangna5(date);
+            //dtcovidd.Merge(dtcoviddResultOld);
             //setLbLoading("กรุณารอซักครู่ SE629");
             //dtcovidSE629 = bc.bcDB.vsDB.selectLabCOVIDSE184byHNSE629_1(date, date, "");
             //dtcovidSE184.Merge(dtcovidSE629);
@@ -776,12 +1292,12 @@ namespace bangna_hospital.gui
                     grfNovel[i, colNovelCat] = ins["category"].ToString();
                     grfNovel[i, colNovelSatCode] = ins["sat_code"].ToString();
                     grfNovel[i, colNovelPID] = ins["pid"].ToString();
-                    grfNovel[i, colNovelPassport] = ins["passport"].ToString().Equals("None")?"": ins["passport"].ToString();
+                    grfNovel[i, colNovelPassport] = ins["passport"].ToString().Equals("None") ? "" : ins["passport"].ToString();
                     grfNovel[i, colNovelPttName] = ins["patient_fullname"].ToString();
                     grfNovel[i, colNovelSex] = ins["sex"].ToString().Equals("M") ? "ชาย" : ins["sex"].ToString().Equals("F") ? "หญิง" : "ไม่ระบุ";
                     grfNovel[i, colNovelAge] = ins["age_years"].ToString();
 
-                    grfNovel[i, colNovelNat] = ins["nation_name"].ToString().Equals("01") ? "ไทย" : ins["nation_name"].ToString().Equals("48") ? "เมียนมา": ins["nation_name"].ToString().Equals("56") ? "ลาว" : ins["nation_name"].ToString().Equals("57") ? "กัมพูชา": ins["nation_name"].ToString().Equals("000") ? "ไม่ระบุสัญชาติ" : "ไม่ระบุสัญชาติ";
+                    grfNovel[i, colNovelNat] = ins["nation_name"].ToString().Equals("01") ? "ไทย" : ins["nation_name"].ToString().Equals("48") ? "เมียนมา" : ins["nation_name"].ToString().Equals("56") ? "ลาว" : ins["nation_name"].ToString().Equals("57") ? "กัมพูชา" : ins["nation_name"].ToString().Equals("000") ? "ไม่ระบุสัญชาติ" : "ไม่ระบุสัญชาติ";
                     grfNovel[i, colNovelProv] = ins["prov_name"].ToString();
                     grfNovel[i, colNovelAmphur] = ins["amphur_name"].ToString();
                     grfNovel[i, colNovelTumbun] = ins["tumbon_name"].ToString();
@@ -808,7 +1324,7 @@ namespace bangna_hospital.gui
                     grfNovel[i, colNovelRNP] = ins["rnp"].ToString();
                     grfNovel[i, colNovelNSgene] = ins["ns_gene"].ToString();
                     grfNovel[i, colDateCreate] = ins["date_create"].ToString();     //colNovellabCode
-                    grfNovel[i, colNovellabCode] = ins["lab_code"].ToString().Equals("SE640") ? "ATK": "RT-PCR";
+                    grfNovel[i, colNovellabCode] = ins["lab_code"].ToString().Equals("SE640") ? "ATK" : "RT-PCR";
 
                     grfNovel[i, 0] = i;
                     //if(ins["MNC_RES_VALUE"].ToString().ToLower().IndexOf("detected")==0)
@@ -4539,19 +5055,30 @@ namespace bangna_hospital.gui
             bc.setControlC1TextBox(ref txtViewHnSearch, fEdit, "txtViewHnSearch", 80, lbtxtViewHnSearch.Location.X + 35, gapY);
 
             lbtxtNovelDateSearch = new Label();
-            bc.setControlLabel(ref lbtxtNovelDateSearch, fEdit, "วันที่", "lbtxtNovelDateSearch", gapX, gapY);
+            bc.setControlLabel(ref lbtxtNovelDateSearch, fEdit, "วันที่ (แก้ผลlabออกช้า1วัน)", "lbtxtNovelDateSearch", gapX-10, gapY);
             txtNovelDateSearch = new C1DateEdit();
-            bc.setControlC1DateTimeEdit(ref txtNovelDateSearch, "txtNovelDateSearch", col1, gapY);
+            bc.setControlC1DateTimeEdit(ref txtNovelDateSearch, "txtNovelDateSearch", col1+30, gapY);
             btnNovelDateSearch = new C1Button();
             bc.setControlC1Button(ref btnNovelDateSearch, fEdit, "...", "btnNovelDateSearch", txtNovelDateSearch.Location.X + txtNovelDateSearch.Width + 5, gapY - 3);
             btnNovelUpdate = new C1Button();
-            bc.setControlC1Button(ref btnNovelUpdate, fEdit, "Update Novel", "btnNovelUpdate", btnNovelDateSearch.Location.X + btnNovelDateSearch.Width + 85, gapY - 3);
+            bc.setControlC1Button(ref btnNovelUpdate, fEdit, "Update Novel", "btnNovelUpdate", btnNovelDateSearch.Location.X + btnNovelDateSearch.Width + 105, gapY - 3);
             btnNovelSave = new C1Button();
-            bc.setControlC1Button(ref btnNovelSave, fEdit, "save Excel", "btnNovelSave", btnNovelUpdate.Location.X + btnNovelUpdate.Width + 85, gapY - 3);
+            bc.setControlC1Button(ref btnNovelSave, fEdit, "save Excel", "btnNovelSave", btnNovelUpdate.Location.X + btnNovelUpdate.Width + 25, gapY - 3);
             
             btnNovelDateSearch.Width = 40;
             btnNovelSave.Width = 120;
             btnNovelUpdate.Width = 120;
+
+            cboBangna = new ComboBox();
+            bc.setControlComboBox(ref cboBangna, "cboBangna", 100, btnNovelSave.Location.X + btnNovelSave.Width + 85, gapY);
+            cboBangna.Items.Add("");
+            cboBangna.Items.Add("bangna1");
+            cboBangna.Items.Add("bangna2");
+            cboBangna.Items.Add("bangna5");
+
+            //btnNovelBn5
+            btnNovelBn5 = new C1Button();
+            bc.setControlC1Button(ref btnNovelBn5, fEdit, "bn5 ผลช้า 1 วัน", "btnNovelBn5", cboBangna.Location.X + cboBangna.Width + 25, gapY - 3);
 
             gapY += gapLine;
             lbtxtHn = new Label();
@@ -4995,6 +5522,8 @@ namespace bangna_hospital.gui
             tabNovel.Controls.Add(btnNovelDateSearch);
             tabNovel.Controls.Add(btnNovelSave);
             tabNovel.Controls.Add(btnNovelUpdate);
+            tabNovel.Controls.Add(cboBangna);
+            tabNovel.Controls.Add(btnNovelBn5);
 
             this.Controls.Add(tcMain);
 
@@ -5063,7 +5592,7 @@ namespace bangna_hospital.gui
             int scrH = Screen.PrimaryScreen.Bounds.Height;
 
             this.WindowState = FormWindowState.Maximized;
-            this.Text = bc.iniC.pdfFontName +" Last Update 2022-03-29";
+            this.Text = bc.iniC.pdfFontName +" Last Update 2022-03-31";
 
             grfView.Size = new Size(scrW - 20, scrH - btnViewDateSearch.Location.Y - 140);
             grfView.Location = new Point(5, btnViewDateSearch.Location.Y + 40);

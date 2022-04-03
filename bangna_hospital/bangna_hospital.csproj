@@ -156,6 +156,12 @@
     <Compile Include="gui\FrmCheckup.Designer.cs">
       <DependentUpon>FrmCheckup.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmImportMDB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmImportMDB.Designer.cs">
+      <DependentUpon>FrmImportMDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmLabBill.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -532,6 +538,7 @@
     <Compile Include="objdb\OPDCheckUPDB.cs" />
     <Compile Include="objdb\OperativeNoteDB.cs" />
     <Compile Include="objdb\OrDB.cs" />
+    <Compile Include="objdb\OutPatientDB.cs" />
     <Compile Include="objdb\PatientDB.cs" />
     <Compile Include="objdb\PatientHIDB.cs" />
     <Compile Include="objdb\PatientM02DB.cs" />
@@ -598,6 +605,7 @@
     <Compile Include="object1\OPBKKPAT.cs" />
     <Compile Include="object1\OPDCheckUP.cs" />
     <Compile Include="object1\OperativeNote.cs" />
+    <Compile Include="object1\OutPatient.cs" />
     <Compile Include="object1\PatientHI.cs" />
     <Compile Include="object1\PatientM02.cs" />
     <Compile Include="object1\PatientM03.cs" />
@@ -754,6 +762,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorView.resx">
       <DependentUpon>FrmDoctorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmImportMDB.resx">
+      <DependentUpon>FrmImportMDB.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmLabBill.resx">
       <DependentUpon>FrmLabBill.cs</DependentUpon>
