@@ -19,6 +19,7 @@ namespace bangna_hospital.object1
         public String TotalSocialPaid { get; set; }
         public String TotalPatientPaid { get; set; }
         public String TotalOthersPaid { get; set; }
+
         public String GrandTotal { get; set; }
         public String DiagnosisCode1 { get; set; }
         public String CauseCode1 { get; set; }
@@ -81,6 +82,7 @@ namespace bangna_hospital.object1
         public String ICD9Code10 { get; set; }
         public String OperatingDate10 { get; set; }
         public String OperatingDoctorCode10 { get; set; }
+
         public String SocialPaid1 { get; set; }
         public String PatientPaid1 { get; set; }
         public String OthersPaid1 { get; set; }
@@ -90,5 +92,57 @@ namespace bangna_hospital.object1
         public String SocialPaid3 { get; set; }
         public String PatientPaid3 { get; set; }
         public String OthersPaid3 { get; set; }
+
+        public String SocialPaid4 { get; set; }
+        public String PatientPaid4 { get; set; }
+        public String OthersPaid4 { get; set; }
+        public String SocialPaid5 { get; set; }
+        public String PatientPaid5 { get; set; }
+        public String OthersPaid5 { get; set; }
+        public String SocialPaid6 { get; set; }
+        public String PatientPaid6 { get; set; }
+        public String OthersPaid6 { get; set; }
+        public String SocialPaid7 { get; set; }
+        public String PatientPaid7 { get; set; }
+        public String OthersPaid7 { get; set; }
+        public String SocialPaid8 { get; set; }
+        public String PatientPaid8 { get; set; }
+        public String OthersPaid8 { get; set; }
+        public String SocialPaid9 { get; set; }
+        public String PatientPaid9 { get; set; }
+        public String OthersPaid9 { get; set; }
+        public String SocialPaid10 { get; set; }
+        public String PatientPaid10 { get; set; }
+        public String OthersPaid10 { get; set; }
+
+        public String SocialPaid11 { get; set; }
+        public String PatientPaid11 { get; set; }
+        public String OthersPaid11 { get; set; }
+        public String SocialPaid12 { get; set; }
+        public String PatientPaid12 { get; set; }
+        public String OthersPaid12 { get; set; }
+        public String SocialPaid13 { get; set; }
+        public String PatientPaid13 { get; set; }
+        public String OthersPaid13 { get; set; }
+        public String SocialPaid14 { get; set; }
+        public String PatientPaid14 { get; set; }
+        public String OthersPaid14 { get; set; }
+        public String SocialPaid15 { get; set; }
+        public String PatientPaid15 { get; set; }
+        public String OthersPaid15 { get; set; }
+        public String SocialPaid16 { get; set; }
+        public String PatientPaid16 { get; set; }
+        public String OthersPaid16 { get; set; }
+        public String SocialPaid17 { get; set; }
+        public String PatientPaid17 { get; set; }
+        public String OthersPaid17 { get; set; }
+        public String SocialPaid18 { get; set; }
+        public String PatientPaid18 { get; set; }
+        public String OthersPaid18 { get; set; }
+
+        public String preno { get; set; }
+        public String visit_date { get; set; }
+        public String visit_time { get; set; }
+        public String aa { get; set; }
     }
 }

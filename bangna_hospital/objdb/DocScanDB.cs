@@ -154,6 +154,19 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectStatus4ByHn(String hn)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.active + "='1' and dsc.status_record = '4' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectPicByHn(string hn)
         {
             DocScan docScan = new DocScan();

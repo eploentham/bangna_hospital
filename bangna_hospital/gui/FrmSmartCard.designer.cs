@@ -60,6 +60,13 @@
             this.txtHn = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.chk64 = new System.Windows.Forms.RadioButton();
+            this.chk50 = new System.Windows.Forms.RadioButton();
+            this.label144 = new System.Windows.Forms.Label();
+            this.txtWeight = new System.Windows.Forms.TextBox();
+            this.btnPrnFavi = new System.Windows.Forms.Button();
+            this.btnPrnOsat = new System.Windows.Forms.Button();
             this.txtDrugSet = new System.Windows.Forms.TextBox();
             this.txtDrugNo = new System.Windows.Forms.TextBox();
             this.txtPttHiId = new System.Windows.Forms.TextBox();
@@ -79,6 +86,7 @@
             this.label59 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkAtkSkin = new System.Windows.Forms.RadioButton();
             this.chkJJJ = new System.Windows.Forms.RadioButton();
             this.chkHI = new System.Windows.Forms.RadioButton();
             this.chkATKFree = new System.Windows.Forms.RadioButton();
@@ -144,6 +152,11 @@
             this.cboRefType = new System.Windows.Forms.ComboBox();
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
             this.tabPttNew = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnVisitClose = new System.Windows.Forms.Button();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.chkATKNet = new System.Windows.Forms.RadioButton();
+            this.chkATKPosi = new System.Windows.Forms.RadioButton();
+            this.btnPrnATK = new System.Windows.Forms.Button();
             this.label108 = new System.Windows.Forms.Label();
             this.txtPttAge = new System.Windows.Forms.TextBox();
             this.label65 = new System.Windows.Forms.Label();
@@ -219,6 +232,8 @@
             this.label107 = new System.Windows.Forms.Label();
             this.txtRptVsDate = new C1.Win.C1Input.C1DateEdit();
             this.tabSticker = new C1.Win.C1Command.C1DockingTabPage();
+            this.chkStkIPD = new System.Windows.Forms.RadioButton();
+            this.chkStkOPD = new System.Windows.Forms.RadioButton();
             this.txtStkOther2Name = new System.Windows.Forms.TextBox();
             this.txtStkOther2Qty = new System.Windows.Forms.TextBox();
             this.chkStkOther2 = new C1.Win.C1Input.C1CheckBox();
@@ -247,6 +262,7 @@
             this.txtStkFontSize = new System.Windows.Forms.TextBox();
             this.txtStkFontName = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.chkStkOsat = new System.Windows.Forms.RadioButton();
             this.chkStkNurseNote = new System.Windows.Forms.RadioButton();
             this.chkStkKodon = new System.Windows.Forms.RadioButton();
             this.chkStkFoodsOrder = new System.Windows.Forms.RadioButton();
@@ -271,6 +287,15 @@
             this.txtStkHn = new System.Windows.Forms.TextBox();
             this.label66 = new System.Windows.Forms.Label();
             this.tabCapture = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnCapZoom = new C1.Win.C1Input.C1Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.lbCapFolder = new System.Windows.Forms.Label();
+            this.label145 = new System.Windows.Forms.Label();
+            this.btnCapOCR = new C1.Win.C1Input.C1Button();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.chkCapFoodsDaily = new System.Windows.Forms.RadioButton();
+            this.chkCapFoods = new System.Windows.Forms.RadioButton();
+            this.chkCapKYC = new System.Windows.Forms.RadioButton();
             this.txtCapPttHiId = new System.Windows.Forms.TextBox();
             this.btnCapPID = new C1.Win.C1Input.C1Button();
             this.txtCapPID = new System.Windows.Forms.TextBox();
@@ -286,6 +311,8 @@
             this.lblfMessage = new C1.Win.C1Ribbon.RibbonLabel();
             this.lblfscreen1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.lblfscreen2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lblMessage1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lblMessage2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScr2 = new C1.Win.C1Input.C1Button();
             this.btnCapScreen = new C1.Win.C1Input.C1Button();
             this.btnSavePic = new C1.Win.C1Input.C1Button();
@@ -433,12 +460,59 @@
             this.tabPharAdmit = new C1.Win.C1Command.C1DockingTabPage();
             this.pnPharAdmitView = new System.Windows.Forms.Panel();
             this.pnPharAdmitTop = new System.Windows.Forms.Panel();
+            this.label142 = new System.Windows.Forms.Label();
             this.txtPharAdmitDate1 = new System.Windows.Forms.TextBox();
             this.btnPharAdmitOk = new System.Windows.Forms.Button();
             this.label129 = new System.Windows.Forms.Label();
             this.txtPharAdmitDate = new C1.Win.C1Input.C1DateEdit();
+            this.tabDtrCert = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.label146 = new System.Windows.Forms.Label();
+            this.txtDtrCounter = new System.Windows.Forms.TextBox();
+            this.gbDtrCert = new System.Windows.Forms.GroupBox();
+            this.gbDtrVisit = new System.Windows.Forms.GroupBox();
+            this.label143 = new System.Windows.Forms.Label();
+            this.txtDtrDtrCode = new System.Windows.Forms.TextBox();
+            this.txtDtrCertId = new System.Windows.Forms.TextBox();
+            this.label132 = new System.Windows.Forms.Label();
+            this.label140 = new System.Windows.Forms.Label();
+            this.label133 = new System.Windows.Forms.Label();
+            this.txtDtrPreno = new System.Windows.Forms.TextBox();
+            this.txtDtrHn = new System.Windows.Forms.TextBox();
+            this.label141 = new System.Windows.Forms.Label();
+            this.label130 = new System.Windows.Forms.Label();
+            this.txtDtrVn = new System.Windows.Forms.TextBox();
+            this.txtDtrVsdate = new System.Windows.Forms.TextBox();
+            this.btnDtrPrn = new System.Windows.Forms.Button();
+            this.label131 = new System.Windows.Forms.Label();
+            this.label139 = new System.Windows.Forms.Label();
+            this.label134 = new System.Windows.Forms.Label();
+            this.label138 = new System.Windows.Forms.Label();
+            this.label135 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.cboDtrCert1 = new System.Windows.Forms.ComboBox();
+            this.txtDtr3Period = new System.Windows.Forms.TextBox();
+            this.cboDtrCert2 = new System.Windows.Forms.ComboBox();
+            this.label137 = new System.Windows.Forms.Label();
+            this.cboDtrCert3 = new System.Windows.Forms.ComboBox();
+            this.txtDtr3DateEnd = new C1.Win.C1Input.C1DateEdit();
+            this.cboDtrCert4 = new System.Windows.Forms.ComboBox();
+            this.txtDtr3DateStart = new C1.Win.C1Input.C1DateEdit();
+            this.chkDtr1 = new C1.Win.C1Input.C1CheckBox();
+            this.label136 = new System.Windows.Forms.Label();
+            this.chkDtr2 = new C1.Win.C1Input.C1CheckBox();
+            this.txtDtr2DateEnd = new C1.Win.C1Input.C1DateEdit();
+            this.chkDtr3 = new C1.Win.C1Input.C1CheckBox();
+            this.txtDtr2DateStart = new C1.Win.C1Input.C1DateEdit();
+            this.chkDtr4 = new C1.Win.C1Input.C1CheckBox();
+            this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1FlexViewer2 = new C1.Win.FlexViewer.C1FlexViewer();
+            this.ribbonLabel9 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbStatusPrint = new C1.Win.C1Ribbon.RibbonButton();
             ((System.ComponentModel.ISupportInitialize)(this.m_picPhoto)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateOrder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitButton1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -450,6 +524,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabPttNew.SuspendLayout();
+            this.panel16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboSubDistrict)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDistrict)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboProv)).BeginInit();
@@ -467,6 +542,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboStkWard)).BeginInit();
             this.panel4.SuspendLayout();
             this.tabCapture.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCapZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCapOCR)).BeginInit();
+            this.panel14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCapPID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCapSavePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCapBrow)).BeginInit();
@@ -514,6 +593,20 @@
             this.tabPharAdmit.SuspendLayout();
             this.pnPharAdmitTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPharAdmitDate)).BeginInit();
+            this.tabDtrCert.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
+            this.c1SplitContainer1.SuspendLayout();
+            this.c1SplitterPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr3DateEnd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr3DateStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr2DateEnd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr2DateStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr4)).BeginInit();
+            this.c1SplitterPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer2)).BeginInit();
             this.SuspendLayout();
             // 
             // m_txtIssueDate
@@ -652,7 +745,7 @@
             // 
             this.m_ListReaderCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.m_ListReaderCard.FormattingEnabled = true;
-            this.m_ListReaderCard.Location = new System.Drawing.Point(310, 2);
+            this.m_ListReaderCard.Location = new System.Drawing.Point(309, 2);
             this.m_ListReaderCard.Name = "m_ListReaderCard";
             this.m_ListReaderCard.Size = new System.Drawing.Size(371, 26);
             this.m_ListReaderCard.TabIndex = 9;
@@ -803,6 +896,11 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel15);
+            this.panel1.Controls.Add(this.label144);
+            this.panel1.Controls.Add(this.txtWeight);
+            this.panel1.Controls.Add(this.btnPrnFavi);
+            this.panel1.Controls.Add(this.btnPrnOsat);
             this.panel1.Controls.Add(this.txtDrugSet);
             this.panel1.Controls.Add(this.txtDrugNo);
             this.panel1.Controls.Add(this.txtPttHiId);
@@ -828,13 +926,88 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 569);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1028, 235);
+            this.panel1.Size = new System.Drawing.Size(1146, 235);
             this.panel1.TabIndex = 30;
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.chk64);
+            this.panel15.Controls.Add(this.chk50);
+            this.panel15.Location = new System.Drawing.Point(1012, 125);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(99, 37);
+            this.panel15.TabIndex = 70;
+            // 
+            // chk64
+            // 
+            this.chk64.AutoSize = true;
+            this.chk64.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk64.Location = new System.Drawing.Point(53, 8);
+            this.chk64.Name = "chk64";
+            this.chk64.Size = new System.Drawing.Size(40, 20);
+            this.chk64.TabIndex = 8;
+            this.chk64.Text = "64";
+            this.chk64.UseVisualStyleBackColor = true;
+            // 
+            // chk50
+            // 
+            this.chk50.AutoSize = true;
+            this.chk50.Checked = true;
+            this.chk50.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk50.Location = new System.Drawing.Point(6, 8);
+            this.chk50.Name = "chk50";
+            this.chk50.Size = new System.Drawing.Size(40, 20);
+            this.chk50.TabIndex = 7;
+            this.chk50.TabStop = true;
+            this.chk50.Text = "50";
+            this.chk50.UseVisualStyleBackColor = true;
+            // 
+            // label144
+            // 
+            this.label144.AutoSize = true;
+            this.label144.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label144.Location = new System.Drawing.Point(1011, 100);
+            this.label144.Name = "label144";
+            this.label144.Size = new System.Drawing.Size(50, 18);
+            this.label144.TabIndex = 69;
+            this.label144.Text = "weight";
+            // 
+            // txtWeight
+            // 
+            this.txtWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtWeight.Location = new System.Drawing.Point(1065, 96);
+            this.txtWeight.Name = "txtWeight";
+            this.txtWeight.Size = new System.Drawing.Size(46, 24);
+            this.txtWeight.TabIndex = 68;
+            // 
+            // btnPrnFavi
+            // 
+            this.btnPrnFavi.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnPrnFavi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPrnFavi.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrnFavi.Location = new System.Drawing.Point(1012, 50);
+            this.btnPrnFavi.Name = "btnPrnFavi";
+            this.btnPrnFavi.Size = new System.Drawing.Size(101, 45);
+            this.btnPrnFavi.TabIndex = 67;
+            this.btnPrnFavi.Text = "Prn เบิกFavi";
+            this.btnPrnFavi.UseVisualStyleBackColor = false;
+            // 
+            // btnPrnOsat
+            // 
+            this.btnPrnOsat.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnPrnOsat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPrnOsat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrnOsat.Location = new System.Drawing.Point(958, 5);
+            this.btnPrnOsat.Name = "btnPrnOsat";
+            this.btnPrnOsat.Size = new System.Drawing.Size(89, 45);
+            this.btnPrnOsat.TabIndex = 66;
+            this.btnPrnOsat.Text = "Prn OSAT";
+            this.btnPrnOsat.UseVisualStyleBackColor = false;
             // 
             // txtDrugSet
             // 
             this.txtDrugSet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDrugSet.Location = new System.Drawing.Point(986, 24);
+            this.txtDrugSet.Location = new System.Drawing.Point(977, 60);
             this.txtDrugSet.Name = "txtDrugSet";
             this.txtDrugSet.ReadOnly = true;
             this.txtDrugSet.Size = new System.Drawing.Size(28, 26);
@@ -843,7 +1016,7 @@
             // txtDrugNo
             // 
             this.txtDrugNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDrugNo.Location = new System.Drawing.Point(894, 125);
+            this.txtDrugNo.Location = new System.Drawing.Point(866, 118);
             this.txtDrugNo.Name = "txtDrugNo";
             this.txtDrugNo.ReadOnly = true;
             this.txtDrugNo.Size = new System.Drawing.Size(120, 26);
@@ -852,7 +1025,7 @@
             // txtPttHiId
             // 
             this.txtPttHiId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPttHiId.Location = new System.Drawing.Point(894, 96);
+            this.txtPttHiId.Location = new System.Drawing.Point(866, 90);
             this.txtPttHiId.Name = "txtPttHiId";
             this.txtPttHiId.ReadOnly = true;
             this.txtPttHiId.Size = new System.Drawing.Size(120, 26);
@@ -862,7 +1035,7 @@
             // 
             this.label82.AutoSize = true;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label82.Location = new System.Drawing.Point(810, 204);
+            this.label82.Location = new System.Drawing.Point(936, 204);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(50, 20);
             this.label82.TabIndex = 62;
@@ -885,7 +1058,7 @@
             this.txtDateOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtDateOrder.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtDateOrder.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtDateOrder.Location = new System.Drawing.Point(867, 200);
+            this.txtDateOrder.Location = new System.Drawing.Point(990, 200);
             this.txtDateOrder.Name = "txtDateOrder";
             this.txtDateOrder.Size = new System.Drawing.Size(128, 24);
             this.txtDateOrder.TabIndex = 61;
@@ -894,7 +1067,7 @@
             // txtReqNoXray
             // 
             this.txtReqNoXray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtReqNoXray.Location = new System.Drawing.Point(830, 163);
+            this.txtReqNoXray.Location = new System.Drawing.Point(802, 163);
             this.txtReqNoXray.Name = "txtReqNoXray";
             this.txtReqNoXray.Size = new System.Drawing.Size(60, 26);
             this.txtReqNoXray.TabIndex = 60;
@@ -907,7 +1080,7 @@
             this.c1SplitButton1.Items.Add(this.btnReqDrug3);
             this.c1SplitButton1.Items.Add(this.dropDownItem1);
             this.c1SplitButton1.Items.Add(this.btnReqDrug4);
-            this.c1SplitButton1.Location = new System.Drawing.Point(889, 53);
+            this.c1SplitButton1.Location = new System.Drawing.Point(865, 50);
             this.c1SplitButton1.Name = "c1SplitButton1";
             this.c1SplitButton1.Size = new System.Drawing.Size(106, 39);
             this.c1SplitButton1.TabIndex = 59;
@@ -939,7 +1112,7 @@
             this.btnReqXray.BackColor = System.Drawing.Color.PaleGreen;
             this.btnReqXray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnReqXray.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReqXray.Location = new System.Drawing.Point(898, 153);
+            this.btnReqXray.Location = new System.Drawing.Point(870, 144);
             this.btnReqXray.Name = "btnReqXray";
             this.btnReqXray.Size = new System.Drawing.Size(82, 45);
             this.btnReqXray.TabIndex = 58;
@@ -949,7 +1122,7 @@
             // txtreqno
             // 
             this.txtreqno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtreqno.Location = new System.Drawing.Point(830, 136);
+            this.txtreqno.Location = new System.Drawing.Point(802, 136);
             this.txtreqno.Name = "txtreqno";
             this.txtreqno.Size = new System.Drawing.Size(60, 26);
             this.txtreqno.TabIndex = 53;
@@ -958,7 +1131,7 @@
             // 
             this.label60.AutoSize = true;
             this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label60.Location = new System.Drawing.Point(773, 150);
+            this.label60.Location = new System.Drawing.Point(745, 150);
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(50, 20);
             this.label60.TabIndex = 54;
@@ -969,7 +1142,7 @@
             this.btnPrnQue.BackColor = System.Drawing.Color.PaleGreen;
             this.btnPrnQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPrnQue.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrnQue.Location = new System.Drawing.Point(783, 5);
+            this.btnPrnQue.Location = new System.Drawing.Point(755, 5);
             this.btnPrnQue.Name = "btnPrnQue";
             this.btnPrnQue.Size = new System.Drawing.Size(105, 45);
             this.btnPrnQue.TabIndex = 57;
@@ -980,7 +1153,7 @@
             // 
             this.label59.AutoSize = true;
             this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label59.Location = new System.Drawing.Point(859, 67);
+            this.label59.Location = new System.Drawing.Point(831, 67);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(31, 18);
             this.label59.TabIndex = 56;
@@ -989,7 +1162,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.textBox1.Location = new System.Drawing.Point(807, 63);
+            this.textBox1.Location = new System.Drawing.Point(779, 63);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(46, 24);
             this.textBox1.TabIndex = 55;
@@ -997,6 +1170,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.chkAtkSkin);
             this.panel2.Controls.Add(this.chkJJJ);
             this.panel2.Controls.Add(this.chkHI);
             this.panel2.Controls.Add(this.chkATKFree);
@@ -1007,30 +1181,41 @@
             this.panel2.Controls.Add(this.chkSE184);
             this.panel2.Location = new System.Drawing.Point(4, 190);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(800, 41);
+            this.panel2.Size = new System.Drawing.Size(926, 41);
             this.panel2.TabIndex = 54;
+            // 
+            // chkAtkSkin
+            // 
+            this.chkAtkSkin.AutoSize = true;
+            this.chkAtkSkin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAtkSkin.Location = new System.Drawing.Point(792, 11);
+            this.chkAtkSkin.Name = "chkAtkSkin";
+            this.chkAtkSkin.Size = new System.Drawing.Size(131, 24);
+            this.chkAtkSkin.TabIndex = 8;
+            this.chkAtkSkin.Text = "ATK skining HI";
+            this.chkAtkSkin.UseVisualStyleBackColor = true;
             // 
             // chkJJJ
             // 
             this.chkJJJ.AutoSize = true;
-            this.chkJJJ.Checked = true;
             this.chkJJJ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkJJJ.Location = new System.Drawing.Point(694, 13);
+            this.chkJJJ.Location = new System.Drawing.Point(681, 11);
             this.chkJJJ.Name = "chkJJJ";
             this.chkJJJ.Size = new System.Drawing.Size(100, 24);
             this.chkJJJ.TabIndex = 7;
-            this.chkJJJ.TabStop = true;
             this.chkJJJ.Text = "เจอ แจก จบ";
             this.chkJJJ.UseVisualStyleBackColor = true;
             // 
             // chkHI
             // 
             this.chkHI.AutoSize = true;
+            this.chkHI.Checked = true;
             this.chkHI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkHI.Location = new System.Drawing.Point(610, 13);
+            this.chkHI.Location = new System.Drawing.Point(602, 13);
             this.chkHI.Name = "chkHI";
             this.chkHI.Size = new System.Drawing.Size(69, 20);
             this.chkHI.TabIndex = 6;
+            this.chkHI.TabStop = true;
             this.chkHI.Text = "Home I";
             this.chkHI.UseVisualStyleBackColor = true;
             // 
@@ -1038,7 +1223,7 @@
             // 
             this.chkATKFree.AutoSize = true;
             this.chkATKFree.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkATKFree.Location = new System.Drawing.Point(533, 13);
+            this.chkATKFree.Location = new System.Drawing.Point(521, 13);
             this.chkATKFree.Name = "chkATKFree";
             this.chkATKFree.Size = new System.Drawing.Size(69, 20);
             this.chkATKFree.TabIndex = 5;
@@ -1049,7 +1234,7 @@
             // 
             this.chkCentralPark.AutoSize = true;
             this.chkCentralPark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCentralPark.Location = new System.Drawing.Point(413, 13);
+            this.chkCentralPark.Location = new System.Drawing.Point(405, 13);
             this.chkCentralPark.Name = "chkCentralPark";
             this.chkCentralPark.Size = new System.Drawing.Size(107, 20);
             this.chkCentralPark.TabIndex = 4;
@@ -1071,7 +1256,7 @@
             // 
             this.ChkSE640.AutoSize = true;
             this.ChkSE640.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ChkSE640.Location = new System.Drawing.Point(315, 13);
+            this.ChkSE640.Location = new System.Drawing.Point(303, 13);
             this.ChkSE640.Name = "ChkSE640";
             this.ChkSE640.Size = new System.Drawing.Size(92, 20);
             this.ChkSE640.TabIndex = 2;
@@ -1082,7 +1267,7 @@
             // 
             this.chkSE629.AutoSize = true;
             this.chkSE629.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSE629.Location = new System.Drawing.Point(235, 13);
+            this.chkSE629.Location = new System.Drawing.Point(226, 13);
             this.chkSE629.Name = "chkSE629";
             this.chkSE629.Size = new System.Drawing.Size(65, 20);
             this.chkSE629.TabIndex = 1;
@@ -1093,7 +1278,7 @@
             // 
             this.chkSE184.AutoSize = true;
             this.chkSE184.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkSE184.Location = new System.Drawing.Point(129, 13);
+            this.chkSE184.Location = new System.Drawing.Point(124, 13);
             this.chkSE184.Name = "chkSE184";
             this.chkSE184.Size = new System.Drawing.Size(89, 20);
             this.chkSE184.TabIndex = 0;
@@ -1105,7 +1290,7 @@
             this.btnPrnReqLab.BackColor = System.Drawing.Color.PaleGreen;
             this.btnPrnReqLab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPrnReqLab.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrnReqLab.Location = new System.Drawing.Point(895, 5);
+            this.btnPrnReqLab.Location = new System.Drawing.Point(867, 5);
             this.btnPrnReqLab.Name = "btnPrnReqLab";
             this.btnPrnReqLab.Size = new System.Drawing.Size(85, 45);
             this.btnPrnReqLab.TabIndex = 53;
@@ -1117,7 +1302,7 @@
             this.btnReqLab.BackColor = System.Drawing.Color.PaleGreen;
             this.btnReqLab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnReqLab.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReqLab.Location = new System.Drawing.Point(689, 143);
+            this.btnReqLab.Location = new System.Drawing.Point(661, 143);
             this.btnReqLab.Name = "btnReqLab";
             this.btnReqLab.Size = new System.Drawing.Size(82, 45);
             this.btnReqLab.TabIndex = 52;
@@ -1128,7 +1313,7 @@
             // 
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label45.Location = new System.Drawing.Point(859, 115);
+            this.label45.Location = new System.Drawing.Point(831, 115);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(29, 18);
             this.label45.TabIndex = 51;
@@ -1137,7 +1322,7 @@
             // txtStickerNum
             // 
             this.txtStickerNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtStickerNum.Location = new System.Drawing.Point(807, 111);
+            this.txtStickerNum.Location = new System.Drawing.Point(779, 111);
             this.txtStickerNum.Name = "txtStickerNum";
             this.txtStickerNum.Size = new System.Drawing.Size(46, 24);
             this.txtStickerNum.TabIndex = 50;
@@ -1148,7 +1333,7 @@
             this.btnPrnSticker.BackColor = System.Drawing.Color.PaleGreen;
             this.btnPrnSticker.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPrnSticker.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrnSticker.Location = new System.Drawing.Point(689, 97);
+            this.btnPrnSticker.Location = new System.Drawing.Point(661, 97);
             this.btnPrnSticker.Name = "btnPrnSticker";
             this.btnPrnSticker.Size = new System.Drawing.Size(115, 45);
             this.btnPrnSticker.TabIndex = 49;
@@ -1160,7 +1345,7 @@
             this.btnPrnLetter.BackColor = System.Drawing.Color.PaleGreen;
             this.btnPrnLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPrnLetter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrnLetter.Location = new System.Drawing.Point(689, 51);
+            this.btnPrnLetter.Location = new System.Drawing.Point(661, 51);
             this.btnPrnLetter.Name = "btnPrnLetter";
             this.btnPrnLetter.Size = new System.Drawing.Size(82, 45);
             this.btnPrnLetter.TabIndex = 48;
@@ -1172,7 +1357,7 @@
             this.btnPrnStaffNote.BackColor = System.Drawing.Color.PaleGreen;
             this.btnPrnStaffNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPrnStaffNote.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrnStaffNote.Location = new System.Drawing.Point(689, 5);
+            this.btnPrnStaffNote.Location = new System.Drawing.Point(661, 5);
             this.btnPrnStaffNote.Name = "btnPrnStaffNote";
             this.btnPrnStaffNote.Size = new System.Drawing.Size(93, 45);
             this.btnPrnStaffNote.TabIndex = 47;
@@ -1204,7 +1389,7 @@
             this.groupBox1.Controls.Add(this.label15);
             this.groupBox1.Location = new System.Drawing.Point(7, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(674, 183);
+            this.groupBox1.Size = new System.Drawing.Size(648, 183);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ข้อมูลในระบบ HIS";
@@ -1268,7 +1453,7 @@
             this.btnVisit.BackColor = System.Drawing.Color.PaleGreen;
             this.btnVisit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnVisit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVisit.Location = new System.Drawing.Point(449, 16);
+            this.btnVisit.Location = new System.Drawing.Point(420, 16);
             this.btnVisit.Name = "btnVisit";
             this.btnVisit.Size = new System.Drawing.Size(70, 54);
             this.btnVisit.TabIndex = 46;
@@ -1286,7 +1471,7 @@
             // picPtt
             // 
             this.picPtt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picPtt.Location = new System.Drawing.Point(525, 8);
+            this.picPtt.Location = new System.Drawing.Point(495, 8);
             this.picPtt.Name = "picPtt";
             this.picPtt.Size = new System.Drawing.Size(143, 172);
             this.picPtt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1689,6 +1874,7 @@
             // 
             // tC1
             // 
+            this.tC1.AllowDrop = true;
             this.tC1.Controls.Add(this.tabPttNew);
             this.tC1.Controls.Add(this.tabPttBn1);
             this.tC1.Controls.Add(this.tabSticker);
@@ -1697,15 +1883,19 @@
             this.tC1.Controls.Add(this.tabAuthen);
             this.tC1.Controls.Add(this.tabAdmit);
             this.tC1.Controls.Add(this.tabPharAdmit);
+            this.tC1.Controls.Add(this.tabDtrCert);
             this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC1.Location = new System.Drawing.Point(0, 0);
             this.tC1.Name = "tC1";
-            this.tC1.Size = new System.Drawing.Size(1030, 851);
+            this.tC1.Size = new System.Drawing.Size(1148, 851);
             this.tC1.TabIndex = 64;
             this.tC1.TabsSpacing = 5;
             // 
             // tabPttNew
             // 
+            this.tabPttNew.Controls.Add(this.btnVisitClose);
+            this.tabPttNew.Controls.Add(this.panel16);
+            this.tabPttNew.Controls.Add(this.btnPrnATK);
             this.tabPttNew.Controls.Add(this.label108);
             this.tabPttNew.Controls.Add(this.txtPttAge);
             this.tabPttNew.Controls.Add(this.label65);
@@ -1828,9 +2018,67 @@
             this.tabPttNew.Controls.Add(this.btnPatientNew);
             this.tabPttNew.Location = new System.Drawing.Point(1, 24);
             this.tabPttNew.Name = "tabPttNew";
-            this.tabPttNew.Size = new System.Drawing.Size(1028, 826);
+            this.tabPttNew.Size = new System.Drawing.Size(1146, 826);
             this.tabPttNew.TabIndex = 0;
             this.tabPttNew.Text = "New Patient";
+            // 
+            // btnVisitClose
+            // 
+            this.btnVisitClose.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnVisitClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnVisitClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVisitClose.Location = new System.Drawing.Point(1002, 436);
+            this.btnVisitClose.Name = "btnVisitClose";
+            this.btnVisitClose.Size = new System.Drawing.Size(91, 45);
+            this.btnVisitClose.TabIndex = 143;
+            this.btnVisitClose.Text = "close visit";
+            this.btnVisitClose.UseVisualStyleBackColor = false;
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.chkATKNet);
+            this.panel16.Controls.Add(this.chkATKPosi);
+            this.panel16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.panel16.Location = new System.Drawing.Point(998, 527);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(145, 37);
+            this.panel16.TabIndex = 142;
+            // 
+            // chkATKNet
+            // 
+            this.chkATKNet.AutoSize = true;
+            this.chkATKNet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkATKNet.Location = new System.Drawing.Point(80, 8);
+            this.chkATKNet.Name = "chkATKNet";
+            this.chkATKNet.Size = new System.Drawing.Size(61, 24);
+            this.chkATKNet.TabIndex = 10;
+            this.chkATKNet.Text = "ผลลบ";
+            this.chkATKNet.UseVisualStyleBackColor = true;
+            // 
+            // chkATKPosi
+            // 
+            this.chkATKPosi.AutoSize = true;
+            this.chkATKPosi.Checked = true;
+            this.chkATKPosi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkATKPosi.Location = new System.Drawing.Point(5, 9);
+            this.chkATKPosi.Name = "chkATKPosi";
+            this.chkATKPosi.Size = new System.Drawing.Size(69, 24);
+            this.chkATKPosi.TabIndex = 9;
+            this.chkATKPosi.TabStop = true;
+            this.chkATKPosi.Text = "ผลบวก";
+            this.chkATKPosi.UseVisualStyleBackColor = true;
+            // 
+            // btnPrnATK
+            // 
+            this.btnPrnATK.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnPrnATK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPrnATK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrnATK.Location = new System.Drawing.Point(1002, 481);
+            this.btnPrnATK.Name = "btnPrnATK";
+            this.btnPrnATK.Size = new System.Drawing.Size(91, 45);
+            this.btnPrnATK.TabIndex = 71;
+            this.btnPrnATK.Text = "Prn  ATK";
+            this.btnPrnATK.UseVisualStyleBackColor = false;
             // 
             // label108
             // 
@@ -2007,7 +2255,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label39.Location = new System.Drawing.Point(648, 378);
+            this.label39.Location = new System.Drawing.Point(650, 378);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(43, 20);
             this.label39.TabIndex = 123;
@@ -2341,7 +2589,7 @@
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label34.Location = new System.Drawing.Point(648, 324);
+            this.label34.Location = new System.Drawing.Point(650, 324);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(55, 20);
             this.label34.TabIndex = 75;
@@ -2359,7 +2607,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label35.Location = new System.Drawing.Point(648, 351);
+            this.label35.Location = new System.Drawing.Point(650, 351);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(74, 20);
             this.label35.TabIndex = 73;
@@ -2377,7 +2625,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label36.Location = new System.Drawing.Point(648, 297);
+            this.label36.Location = new System.Drawing.Point(650, 297);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(51, 20);
             this.label36.TabIndex = 71;
@@ -2395,7 +2643,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label33.Location = new System.Drawing.Point(648, 243);
+            this.label33.Location = new System.Drawing.Point(650, 243);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(57, 20);
             this.label33.TabIndex = 69;
@@ -2413,7 +2661,7 @@
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label32.Location = new System.Drawing.Point(648, 269);
+            this.label32.Location = new System.Drawing.Point(650, 269);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(60, 20);
             this.label32.TabIndex = 67;
@@ -2431,7 +2679,7 @@
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label31.Location = new System.Drawing.Point(648, 216);
+            this.label31.Location = new System.Drawing.Point(650, 216);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(30, 20);
             this.label31.TabIndex = 65;
@@ -2455,7 +2703,9 @@
             this.c1StatusBar2.Location = new System.Drawing.Point(0, 804);
             this.c1StatusBar2.Name = "c1StatusBar2";
             this.c1StatusBar2.RightPaneItems.Add(this.ribbonLabel1);
-            this.c1StatusBar2.Size = new System.Drawing.Size(1028, 22);
+            this.c1StatusBar2.RightPaneItems.Add(this.ribbonLabel9);
+            this.c1StatusBar2.RightPaneItems.Add(this.rbStatusPrint);
+            this.c1StatusBar2.Size = new System.Drawing.Size(1146, 22);
             // 
             // lbsbPttStatus
             // 
@@ -2488,7 +2738,7 @@
             this.tabPttBn1.Controls.Add(this.pnRptTop);
             this.tabPttBn1.Location = new System.Drawing.Point(1, 24);
             this.tabPttBn1.Name = "tabPttBn1";
-            this.tabPttBn1.Size = new System.Drawing.Size(1028, 826);
+            this.tabPttBn1.Size = new System.Drawing.Size(1146, 826);
             this.tabPttBn1.TabIndex = 1;
             this.tabPttBn1.Text = "Report";
             // 
@@ -2497,7 +2747,7 @@
             this.pnRpt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnRpt.Location = new System.Drawing.Point(0, 44);
             this.pnRpt.Name = "pnRpt";
-            this.pnRpt.Size = new System.Drawing.Size(1028, 782);
+            this.pnRpt.Size = new System.Drawing.Size(1146, 782);
             this.pnRpt.TabIndex = 1;
             // 
             // pnRptTop
@@ -2508,7 +2758,7 @@
             this.pnRptTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnRptTop.Location = new System.Drawing.Point(0, 0);
             this.pnRptTop.Name = "pnRptTop";
-            this.pnRptTop.Size = new System.Drawing.Size(1028, 44);
+            this.pnRptTop.Size = new System.Drawing.Size(1146, 44);
             this.pnRptTop.TabIndex = 0;
             // 
             // btnRptOk
@@ -2560,6 +2810,8 @@
             // 
             // tabSticker
             // 
+            this.tabSticker.Controls.Add(this.chkStkIPD);
+            this.tabSticker.Controls.Add(this.chkStkOPD);
             this.tabSticker.Controls.Add(this.txtStkOther2Name);
             this.tabSticker.Controls.Add(this.txtStkOther2Qty);
             this.tabSticker.Controls.Add(this.chkStkOther2);
@@ -2606,9 +2858,33 @@
             this.tabSticker.Controls.Add(this.label66);
             this.tabSticker.Location = new System.Drawing.Point(1, 24);
             this.tabSticker.Name = "tabSticker";
-            this.tabSticker.Size = new System.Drawing.Size(1028, 826);
+            this.tabSticker.Size = new System.Drawing.Size(1146, 826);
             this.tabSticker.TabIndex = 2;
             this.tabSticker.Text = "Sticker";
+            // 
+            // chkStkIPD
+            // 
+            this.chkStkIPD.AutoSize = true;
+            this.chkStkIPD.Checked = true;
+            this.chkStkIPD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkStkIPD.Location = new System.Drawing.Point(733, 9);
+            this.chkStkIPD.Name = "chkStkIPD";
+            this.chkStkIPD.Size = new System.Drawing.Size(54, 24);
+            this.chkStkIPD.TabIndex = 137;
+            this.chkStkIPD.TabStop = true;
+            this.chkStkIPD.Text = "IPD";
+            this.chkStkIPD.UseVisualStyleBackColor = true;
+            // 
+            // chkStkOPD
+            // 
+            this.chkStkOPD.AutoSize = true;
+            this.chkStkOPD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkStkOPD.Location = new System.Drawing.Point(662, 9);
+            this.chkStkOPD.Name = "chkStkOPD";
+            this.chkStkOPD.Size = new System.Drawing.Size(61, 24);
+            this.chkStkOPD.TabIndex = 136;
+            this.chkStkOPD.Text = "OPD";
+            this.chkStkOPD.UseVisualStyleBackColor = true;
             // 
             // txtStkOther2Name
             // 
@@ -2673,7 +2949,7 @@
             // 
             this.label81.AutoSize = true;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label81.Location = new System.Drawing.Point(498, 11);
+            this.label81.Location = new System.Drawing.Point(422, 11);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(35, 20);
             this.label81.TabIndex = 128;
@@ -2682,7 +2958,7 @@
             // txtStkPaidName
             // 
             this.txtStkPaidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtStkPaidName.Location = new System.Drawing.Point(548, 10);
+            this.txtStkPaidName.Location = new System.Drawing.Point(472, 10);
             this.txtStkPaidName.Name = "txtStkPaidName";
             this.txtStkPaidName.Size = new System.Drawing.Size(163, 26);
             this.txtStkPaidName.TabIndex = 129;
@@ -2836,7 +3112,7 @@
             // 
             this.label76.AutoSize = true;
             this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label76.Location = new System.Drawing.Point(767, 10);
+            this.label76.Location = new System.Drawing.Point(793, 10);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(40, 18);
             this.label76.TabIndex = 116;
@@ -2851,7 +3127,7 @@
             this.cboStkWard.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboStkWard.ItemsDisplayMember = "";
             this.cboStkWard.ItemsValueMember = "";
-            this.cboStkWard.Location = new System.Drawing.Point(813, 10);
+            this.cboStkWard.Location = new System.Drawing.Point(839, 10);
             this.cboStkWard.Name = "cboStkWard";
             this.cboStkWard.Size = new System.Drawing.Size(182, 24);
             this.cboStkWard.TabIndex = 115;
@@ -2913,6 +3189,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.chkStkOsat);
             this.panel4.Controls.Add(this.chkStkNurseNote);
             this.panel4.Controls.Add(this.chkStkKodon);
             this.panel4.Controls.Add(this.chkStkFoodsOrder);
@@ -2924,6 +3201,17 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(330, 140);
             this.panel4.TabIndex = 68;
+            // 
+            // chkStkOsat
+            // 
+            this.chkStkOsat.AutoSize = true;
+            this.chkStkOsat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkStkOsat.Location = new System.Drawing.Point(184, 57);
+            this.chkStkOsat.Name = "chkStkOsat";
+            this.chkStkOsat.Size = new System.Drawing.Size(138, 24);
+            this.chkStkOsat.TabIndex = 10;
+            this.chkStkOsat.Text = "แบบบันทึก OSAT";
+            this.chkStkOsat.UseVisualStyleBackColor = true;
             // 
             // chkStkNurseNote
             // 
@@ -3154,6 +3442,13 @@
             // 
             // tabCapture
             // 
+            this.tabCapture.AllowDrop = true;
+            this.tabCapture.Controls.Add(this.btnCapZoom);
+            this.tabCapture.Controls.Add(this.trackBar1);
+            this.tabCapture.Controls.Add(this.lbCapFolder);
+            this.tabCapture.Controls.Add(this.label145);
+            this.tabCapture.Controls.Add(this.btnCapOCR);
+            this.tabCapture.Controls.Add(this.panel14);
             this.tabCapture.Controls.Add(this.txtCapPttHiId);
             this.tabCapture.Controls.Add(this.btnCapPID);
             this.tabCapture.Controls.Add(this.txtCapPID);
@@ -3173,9 +3468,104 @@
             this.tabCapture.Controls.Add(this.panel6);
             this.tabCapture.Location = new System.Drawing.Point(1, 24);
             this.tabCapture.Name = "tabCapture";
-            this.tabCapture.Size = new System.Drawing.Size(1028, 826);
+            this.tabCapture.Size = new System.Drawing.Size(1146, 826);
             this.tabCapture.TabIndex = 3;
             this.tabCapture.Text = "Capture";
+            // 
+            // btnCapZoom
+            // 
+            this.btnCapZoom.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCapZoom.Location = new System.Drawing.Point(1071, 86);
+            this.btnCapZoom.Name = "btnCapZoom";
+            this.btnCapZoom.Size = new System.Drawing.Size(40, 33);
+            this.btnCapZoom.TabIndex = 620;
+            this.btnCapZoom.Text = "zoom";
+            this.btnCapZoom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCapZoom.UseVisualStyleBackColor = true;
+            this.btnCapZoom.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(910, 722);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(183, 45);
+            this.trackBar1.TabIndex = 618;
+            // 
+            // lbCapFolder
+            // 
+            this.lbCapFolder.AutoSize = true;
+            this.lbCapFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbCapFolder.Location = new System.Drawing.Point(911, 666);
+            this.lbCapFolder.Name = "lbCapFolder";
+            this.lbCapFolder.Size = new System.Drawing.Size(21, 20);
+            this.lbCapFolder.TabIndex = 617;
+            this.lbCapFolder.Text = "...";
+            // 
+            // label145
+            // 
+            this.label145.AutoSize = true;
+            this.label145.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label145.Location = new System.Drawing.Point(911, 646);
+            this.label145.Name = "label145";
+            this.label145.Size = new System.Drawing.Size(138, 20);
+            this.label145.TabIndex = 616;
+            this.label145.Text = "1. เอกรูปไว้ที่ Folder";
+            // 
+            // btnCapOCR
+            // 
+            this.btnCapOCR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCapOCR.Location = new System.Drawing.Point(1023, 86);
+            this.btnCapOCR.Name = "btnCapOCR";
+            this.btnCapOCR.Size = new System.Drawing.Size(42, 33);
+            this.btnCapOCR.TabIndex = 614;
+            this.btnCapOCR.Text = "OCR";
+            this.btnCapOCR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCapOCR.UseVisualStyleBackColor = true;
+            this.btnCapOCR.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.chkCapFoodsDaily);
+            this.panel14.Controls.Add(this.chkCapFoods);
+            this.panel14.Controls.Add(this.chkCapKYC);
+            this.panel14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.panel14.Location = new System.Drawing.Point(911, 279);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(174, 55);
+            this.panel14.TabIndex = 612;
+            // 
+            // chkCapFoodsDaily
+            // 
+            this.chkCapFoodsDaily.AutoSize = true;
+            this.chkCapFoodsDaily.Location = new System.Drawing.Point(4, 28);
+            this.chkCapFoodsDaily.Name = "chkCapFoodsDaily";
+            this.chkCapFoodsDaily.Size = new System.Drawing.Size(114, 24);
+            this.chkCapFoodsDaily.TabIndex = 2;
+            this.chkCapFoodsDaily.TabStop = true;
+            this.chkCapFoodsDaily.Text = "อาหารแต่ละวัน";
+            this.chkCapFoodsDaily.UseVisualStyleBackColor = true;
+            // 
+            // chkCapFoods
+            // 
+            this.chkCapFoods.AutoSize = true;
+            this.chkCapFoods.Location = new System.Drawing.Point(85, 3);
+            this.chkCapFoods.Name = "chkCapFoods";
+            this.chkCapFoods.Size = new System.Drawing.Size(81, 24);
+            this.chkCapFoods.TabIndex = 1;
+            this.chkCapFoods.TabStop = true;
+            this.chkCapFoods.Text = "รับอาหาร";
+            this.chkCapFoods.UseVisualStyleBackColor = true;
+            // 
+            // chkCapKYC
+            // 
+            this.chkCapKYC.AutoSize = true;
+            this.chkCapKYC.Location = new System.Drawing.Point(4, 3);
+            this.chkCapKYC.Name = "chkCapKYC";
+            this.chkCapKYC.Size = new System.Drawing.Size(59, 24);
+            this.chkCapKYC.TabIndex = 0;
+            this.chkCapKYC.TabStop = true;
+            this.chkCapKYC.Text = "KYC";
+            this.chkCapKYC.UseVisualStyleBackColor = true;
             // 
             // txtCapPttHiId
             // 
@@ -3189,9 +3579,9 @@
             // btnCapPID
             // 
             this.btnCapPID.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCapPID.Location = new System.Drawing.Point(997, 195);
+            this.btnCapPID.Location = new System.Drawing.Point(1047, 184);
             this.btnCapPID.Name = "btnCapPID";
-            this.btnCapPID.Size = new System.Drawing.Size(28, 33);
+            this.btnCapPID.Size = new System.Drawing.Size(38, 33);
             this.btnCapPID.TabIndex = 609;
             this.btnCapPID.Text = "pid";
             this.btnCapPID.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -3201,25 +3591,25 @@
             // txtCapPID
             // 
             this.txtCapPID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtCapPID.Location = new System.Drawing.Point(910, 197);
+            this.txtCapPID.Location = new System.Drawing.Point(910, 186);
             this.txtCapPID.Name = "txtCapPID";
-            this.txtCapPID.Size = new System.Drawing.Size(84, 26);
+            this.txtCapPID.Size = new System.Drawing.Size(131, 26);
             this.txtCapPID.TabIndex = 608;
             // 
             // lbCapName
             // 
             this.lbCapName.AutoSize = true;
-            this.lbCapName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbCapName.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lbCapName.Location = new System.Drawing.Point(911, 230);
             this.lbCapName.Name = "lbCapName";
-            this.lbCapName.Size = new System.Drawing.Size(32, 20);
+            this.lbCapName.Size = new System.Drawing.Size(48, 29);
             this.lbCapName.TabIndex = 607;
             this.lbCapName.Text = "HN";
             // 
             // txtCapPathFilename
             // 
             this.txtCapPathFilename.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtCapPathFilename.Location = new System.Drawing.Point(910, 354);
+            this.txtCapPathFilename.Location = new System.Drawing.Point(910, 379);
             this.txtCapPathFilename.Name = "txtCapPathFilename";
             this.txtCapPathFilename.Size = new System.Drawing.Size(84, 26);
             this.txtCapPathFilename.TabIndex = 606;
@@ -3227,7 +3617,7 @@
             // btnCapSavePic
             // 
             this.btnCapSavePic.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCapSavePic.Location = new System.Drawing.Point(912, 315);
+            this.btnCapSavePic.Location = new System.Drawing.Point(912, 340);
             this.btnCapSavePic.Name = "btnCapSavePic";
             this.btnCapSavePic.Size = new System.Drawing.Size(83, 33);
             this.btnCapSavePic.TabIndex = 605;
@@ -3239,7 +3629,7 @@
             // btnCapBrow
             // 
             this.btnCapBrow.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCapBrow.Location = new System.Drawing.Point(911, 97);
+            this.btnCapBrow.Location = new System.Drawing.Point(911, 86);
             this.btnCapBrow.Name = "btnCapBrow";
             this.btnCapBrow.Size = new System.Drawing.Size(83, 33);
             this.btnCapBrow.TabIndex = 604;
@@ -3251,7 +3641,7 @@
             // txtCapHn
             // 
             this.txtCapHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtCapHn.Location = new System.Drawing.Point(911, 165);
+            this.txtCapHn.Location = new System.Drawing.Point(911, 154);
             this.txtCapHn.Name = "txtCapHn";
             this.txtCapHn.Size = new System.Drawing.Size(84, 26);
             this.txtCapHn.TabIndex = 598;
@@ -3260,7 +3650,7 @@
             // 
             this.label88.AutoSize = true;
             this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label88.Location = new System.Drawing.Point(911, 142);
+            this.label88.Location = new System.Drawing.Point(911, 129);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(32, 20);
             this.label88.TabIndex = 597;
@@ -3269,9 +3659,9 @@
             // btnCapHn
             // 
             this.btnCapHn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCapHn.Location = new System.Drawing.Point(997, 161);
+            this.btnCapHn.Location = new System.Drawing.Point(1047, 150);
             this.btnCapHn.Name = "btnCapHn";
-            this.btnCapHn.Size = new System.Drawing.Size(28, 33);
+            this.btnCapHn.Size = new System.Drawing.Size(38, 33);
             this.btnCapHn.TabIndex = 596;
             this.btnCapHn.Text = "hn";
             this.btnCapHn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -3285,9 +3675,11 @@
             this.c1StatusBar1.LeftPaneItems.Add(this.lblfMessage);
             this.c1StatusBar1.LeftPaneItems.Add(this.lblfscreen1);
             this.c1StatusBar1.LeftPaneItems.Add(this.lblfscreen2);
+            this.c1StatusBar1.LeftPaneItems.Add(this.lblMessage1);
+            this.c1StatusBar1.LeftPaneItems.Add(this.lblMessage2);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 804);
             this.c1StatusBar1.Name = "c1StatusBar1";
-            this.c1StatusBar1.Size = new System.Drawing.Size(1028, 22);
+            this.c1StatusBar1.Size = new System.Drawing.Size(1146, 22);
             // 
             // lblfStatus
             // 
@@ -3308,6 +3700,16 @@
             // 
             this.lblfscreen2.Name = "lblfscreen2";
             this.lblfscreen2.Text = "Label";
+            // 
+            // lblMessage1
+            // 
+            this.lblMessage1.Name = "lblMessage1";
+            this.lblMessage1.Text = "Label";
+            // 
+            // lblMessage2
+            // 
+            this.lblMessage2.Name = "lblMessage2";
+            this.lblMessage2.Text = "Label";
             // 
             // btnScr2
             // 
@@ -3384,6 +3786,7 @@
             this.picPttCap.Location = new System.Drawing.Point(0, 0);
             this.picPttCap.Name = "picPttCap";
             this.picPttCap.Size = new System.Drawing.Size(894, 764);
+            this.picPttCap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picPttCap.TabIndex = 1;
             this.picPttCap.TabStop = false;
             // 
@@ -3475,7 +3878,7 @@
             this.tabHi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tabHi.Location = new System.Drawing.Point(1, 24);
             this.tabHi.Name = "tabHi";
-            this.tabHi.Size = new System.Drawing.Size(1028, 826);
+            this.tabHi.Size = new System.Drawing.Size(1146, 826);
             this.tabHi.TabIndex = 4;
             this.tabHi.Text = "Home Isulate";
             // 
@@ -3783,7 +4186,7 @@
             this.c1StatusBar3.Location = new System.Drawing.Point(0, 804);
             this.c1StatusBar3.Name = "c1StatusBar3";
             this.c1StatusBar3.RightPaneItems.Add(this.ribbonLabel8);
-            this.c1StatusBar3.Size = new System.Drawing.Size(1028, 22);
+            this.c1StatusBar3.Size = new System.Drawing.Size(1146, 22);
             // 
             // ribbonLabel2
             // 
@@ -4443,7 +4846,7 @@
             this.tabAuthen.Controls.Add(this.panel7);
             this.tabAuthen.Location = new System.Drawing.Point(1, 24);
             this.tabAuthen.Name = "tabAuthen";
-            this.tabAuthen.Size = new System.Drawing.Size(1028, 826);
+            this.tabAuthen.Size = new System.Drawing.Size(1146, 826);
             this.tabAuthen.TabIndex = 5;
             this.tabAuthen.Text = "Authen";
             // 
@@ -4462,7 +4865,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel9.Location = new System.Drawing.Point(898, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(130, 826);
+            this.panel9.Size = new System.Drawing.Size(248, 826);
             this.panel9.TabIndex = 1;
             // 
             // txtAuthenPathFilename
@@ -4593,7 +4996,7 @@
             this.tabAdmit.Controls.Add(this.panel11);
             this.tabAdmit.Location = new System.Drawing.Point(1, 24);
             this.tabAdmit.Name = "tabAdmit";
-            this.tabAdmit.Size = new System.Drawing.Size(1028, 826);
+            this.tabAdmit.Size = new System.Drawing.Size(1146, 826);
             this.tabAdmit.TabIndex = 6;
             this.tabAdmit.Text = "Er Admit COVID";
             // 
@@ -4603,7 +5006,7 @@
             this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel13.Location = new System.Drawing.Point(570, 68);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(458, 758);
+            this.panel13.Size = new System.Drawing.Size(576, 758);
             this.panel13.TabIndex = 2;
             // 
             // picadmitRight
@@ -4611,7 +5014,7 @@
             this.picadmitRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.picadmitRight.Location = new System.Drawing.Point(0, 0);
             this.picadmitRight.Name = "picadmitRight";
-            this.picadmitRight.Size = new System.Drawing.Size(458, 758);
+            this.picadmitRight.Size = new System.Drawing.Size(576, 758);
             this.picadmitRight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picadmitRight.TabIndex = 0;
             this.picadmitRight.TabStop = false;
@@ -4663,7 +5066,7 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel11.Location = new System.Drawing.Point(0, 0);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1028, 68);
+            this.panel11.Size = new System.Drawing.Size(1146, 68);
             this.panel11.TabIndex = 0;
             // 
             // textBox5
@@ -4901,7 +5304,7 @@
             this.tabPharAdmit.Controls.Add(this.pnPharAdmitTop);
             this.tabPharAdmit.Location = new System.Drawing.Point(1, 24);
             this.tabPharAdmit.Name = "tabPharAdmit";
-            this.tabPharAdmit.Size = new System.Drawing.Size(1028, 826);
+            this.tabPharAdmit.Size = new System.Drawing.Size(1146, 826);
             this.tabPharAdmit.TabIndex = 7;
             this.tabPharAdmit.Text = "ห้องยา ชุดAdmit";
             // 
@@ -4909,13 +5312,14 @@
             // 
             this.pnPharAdmitView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnPharAdmitView.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.pnPharAdmitView.Location = new System.Drawing.Point(0, 55);
+            this.pnPharAdmitView.Location = new System.Drawing.Point(0, 40);
             this.pnPharAdmitView.Name = "pnPharAdmitView";
-            this.pnPharAdmitView.Size = new System.Drawing.Size(1028, 771);
+            this.pnPharAdmitView.Size = new System.Drawing.Size(1146, 786);
             this.pnPharAdmitView.TabIndex = 1;
             // 
             // pnPharAdmitTop
             // 
+            this.pnPharAdmitTop.Controls.Add(this.label142);
             this.pnPharAdmitTop.Controls.Add(this.txtPharAdmitDate1);
             this.pnPharAdmitTop.Controls.Add(this.btnPharAdmitOk);
             this.pnPharAdmitTop.Controls.Add(this.label129);
@@ -4924,13 +5328,25 @@
             this.pnPharAdmitTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.pnPharAdmitTop.Location = new System.Drawing.Point(0, 0);
             this.pnPharAdmitTop.Name = "pnPharAdmitTop";
-            this.pnPharAdmitTop.Size = new System.Drawing.Size(1028, 55);
+            this.pnPharAdmitTop.Size = new System.Drawing.Size(1146, 40);
             this.pnPharAdmitTop.TabIndex = 0;
+            // 
+            // label142
+            // 
+            this.label142.AutoSize = true;
+            this.label142.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label142.ForeColor = System.Drawing.Color.Red;
+            this.label142.Location = new System.Drawing.Point(315, 8);
+            this.label142.Name = "label142";
+            this.label142.Size = new System.Drawing.Size(513, 20);
+            this.label142.TabIndex = 161;
+            this.label142.Text = "ดึงข้อมูลตาม โควิค-19 ถ้าข้อมูลไม่มา ให้แจ้ง ประชาสัมพันธ์ แก้ อาการเป็น โควิค-19" +
+    "";
             // 
             // txtPharAdmitDate1
             // 
             this.txtPharAdmitDate1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPharAdmitDate1.Location = new System.Drawing.Point(464, 14);
+            this.txtPharAdmitDate1.Location = new System.Drawing.Point(849, 6);
             this.txtPharAdmitDate1.Name = "txtPharAdmitDate1";
             this.txtPharAdmitDate1.Size = new System.Drawing.Size(90, 26);
             this.txtPharAdmitDate1.TabIndex = 160;
@@ -4940,7 +5356,7 @@
             this.btnPharAdmitOk.BackColor = System.Drawing.Color.PaleGreen;
             this.btnPharAdmitOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPharAdmitOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPharAdmitOk.Location = new System.Drawing.Point(232, 13);
+            this.btnPharAdmitOk.Location = new System.Drawing.Point(232, 5);
             this.btnPharAdmitOk.Name = "btnPharAdmitOk";
             this.btnPharAdmitOk.Size = new System.Drawing.Size(41, 29);
             this.btnPharAdmitOk.TabIndex = 159;
@@ -4951,7 +5367,7 @@
             // 
             this.label129.AutoSize = true;
             this.label129.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label129.Location = new System.Drawing.Point(22, 14);
+            this.label129.Location = new System.Drawing.Point(22, 6);
             this.label129.Name = "label129";
             this.label129.Size = new System.Drawing.Size(71, 20);
             this.label129.TabIndex = 158;
@@ -4976,17 +5392,588 @@
             this.txtPharAdmitDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtPharAdmitDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
             this.txtPharAdmitDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtPharAdmitDate.Location = new System.Drawing.Point(98, 14);
+            this.txtPharAdmitDate.Location = new System.Drawing.Point(98, 6);
             this.txtPharAdmitDate.Name = "txtPharAdmitDate";
             this.txtPharAdmitDate.Size = new System.Drawing.Size(128, 24);
             this.txtPharAdmitDate.TabIndex = 157;
             this.txtPharAdmitDate.Tag = null;
             // 
+            // tabDtrCert
+            // 
+            this.tabDtrCert.Controls.Add(this.c1SplitContainer1);
+            this.tabDtrCert.Location = new System.Drawing.Point(1, 24);
+            this.tabDtrCert.Name = "tabDtrCert";
+            this.tabDtrCert.Size = new System.Drawing.Size(1146, 826);
+            this.tabDtrCert.TabIndex = 8;
+            this.tabDtrCert.Text = "ใบรับรองแพทย์";
+            // 
+            // c1SplitContainer1
+            // 
+            this.c1SplitContainer1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer1.Name = "c1SplitContainer1";
+            this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel1);
+            this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel2);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1146, 826);
+            this.c1SplitContainer1.TabIndex = 115;
+            // 
+            // c1SplitterPanel1
+            // 
+            this.c1SplitterPanel1.Collapsible = true;
+            this.c1SplitterPanel1.Controls.Add(this.label146);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtrCounter);
+            this.c1SplitterPanel1.Controls.Add(this.gbDtrCert);
+            this.c1SplitterPanel1.Controls.Add(this.gbDtrVisit);
+            this.c1SplitterPanel1.Controls.Add(this.label143);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtrDtrCode);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtrCertId);
+            this.c1SplitterPanel1.Controls.Add(this.label132);
+            this.c1SplitterPanel1.Controls.Add(this.label140);
+            this.c1SplitterPanel1.Controls.Add(this.label133);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtrPreno);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtrHn);
+            this.c1SplitterPanel1.Controls.Add(this.label141);
+            this.c1SplitterPanel1.Controls.Add(this.label130);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtrVn);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtrVsdate);
+            this.c1SplitterPanel1.Controls.Add(this.btnDtrPrn);
+            this.c1SplitterPanel1.Controls.Add(this.label131);
+            this.c1SplitterPanel1.Controls.Add(this.label139);
+            this.c1SplitterPanel1.Controls.Add(this.label134);
+            this.c1SplitterPanel1.Controls.Add(this.label138);
+            this.c1SplitterPanel1.Controls.Add(this.label135);
+            this.c1SplitterPanel1.Controls.Add(this.textBox11);
+            this.c1SplitterPanel1.Controls.Add(this.cboDtrCert1);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtr3Period);
+            this.c1SplitterPanel1.Controls.Add(this.cboDtrCert2);
+            this.c1SplitterPanel1.Controls.Add(this.label137);
+            this.c1SplitterPanel1.Controls.Add(this.cboDtrCert3);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtr3DateEnd);
+            this.c1SplitterPanel1.Controls.Add(this.cboDtrCert4);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtr3DateStart);
+            this.c1SplitterPanel1.Controls.Add(this.chkDtr1);
+            this.c1SplitterPanel1.Controls.Add(this.label136);
+            this.c1SplitterPanel1.Controls.Add(this.chkDtr2);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtr2DateEnd);
+            this.c1SplitterPanel1.Controls.Add(this.chkDtr3);
+            this.c1SplitterPanel1.Controls.Add(this.txtDtr2DateStart);
+            this.c1SplitterPanel1.Controls.Add(this.chkDtr4);
+            this.c1SplitterPanel1.Height = 358;
+            this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel1.Name = "c1SplitterPanel1";
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(1146, 337);
+            this.c1SplitterPanel1.SizeRatio = 44.404D;
+            this.c1SplitterPanel1.TabIndex = 0;
+            this.c1SplitterPanel1.Text = "Panel 1";
+            this.c1SplitterPanel1.Width = 1146;
+            // 
+            // label146
+            // 
+            this.label146.AutoSize = true;
+            this.label146.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label146.Location = new System.Drawing.Point(305, 285);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(56, 20);
+            this.label146.TabIndex = 194;
+            this.label146.Text = "คงเหลือ";
+            // 
+            // txtDtrCounter
+            // 
+            this.txtDtrCounter.Enabled = false;
+            this.txtDtrCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrCounter.Location = new System.Drawing.Point(365, 282);
+            this.txtDtrCounter.Name = "txtDtrCounter";
+            this.txtDtrCounter.Size = new System.Drawing.Size(110, 26);
+            this.txtDtrCounter.TabIndex = 193;
+            // 
+            // gbDtrCert
+            // 
+            this.gbDtrCert.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.gbDtrCert.Location = new System.Drawing.Point(635, 172);
+            this.gbDtrCert.Name = "gbDtrCert";
+            this.gbDtrCert.Size = new System.Drawing.Size(382, 162);
+            this.gbDtrCert.TabIndex = 192;
+            this.gbDtrCert.TabStop = false;
+            this.gbDtrCert.Text = "ใบรับรองแพทย์";
+            // 
+            // gbDtrVisit
+            // 
+            this.gbDtrVisit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.gbDtrVisit.Location = new System.Drawing.Point(632, 1);
+            this.gbDtrVisit.Name = "gbDtrVisit";
+            this.gbDtrVisit.Size = new System.Drawing.Size(385, 169);
+            this.gbDtrVisit.TabIndex = 191;
+            this.gbDtrVisit.TabStop = false;
+            this.gbDtrVisit.Text = "visit";
+            // 
+            // label143
+            // 
+            this.label143.AutoSize = true;
+            this.label143.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label143.Location = new System.Drawing.Point(301, 312);
+            this.label143.Name = "label143";
+            this.label143.Size = new System.Drawing.Size(58, 20);
+            this.label143.TabIndex = 190;
+            this.label143.Text = "cert no";
+            // 
+            // txtDtrDtrCode
+            // 
+            this.txtDtrDtrCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrDtrCode.Location = new System.Drawing.Point(79, 3);
+            this.txtDtrDtrCode.Name = "txtDtrDtrCode";
+            this.txtDtrDtrCode.Size = new System.Drawing.Size(53, 26);
+            this.txtDtrDtrCode.TabIndex = 107;
+            // 
+            // txtDtrCertId
+            // 
+            this.txtDtrCertId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrCertId.Location = new System.Drawing.Point(365, 309);
+            this.txtDtrCertId.Name = "txtDtrCertId";
+            this.txtDtrCertId.Size = new System.Drawing.Size(110, 26);
+            this.txtDtrCertId.TabIndex = 189;
+            // 
+            // label132
+            // 
+            this.label132.AutoSize = true;
+            this.label132.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label132.Location = new System.Drawing.Point(7, 34);
+            this.label132.Name = "label132";
+            this.label132.Size = new System.Drawing.Size(32, 20);
+            this.label132.TabIndex = 110;
+            this.label132.Text = "HN";
+            // 
+            // label140
+            // 
+            this.label140.AutoSize = true;
+            this.label140.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label140.Location = new System.Drawing.Point(166, 311);
+            this.label140.Name = "label140";
+            this.label140.Size = new System.Drawing.Size(50, 20);
+            this.label140.TabIndex = 188;
+            this.label140.Text = "preno";
+            // 
+            // label133
+            // 
+            this.label133.AutoSize = true;
+            this.label133.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label133.Location = new System.Drawing.Point(204, 26);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(38, 31);
+            this.label133.TabIndex = 112;
+            this.label133.Text = "...";
+            // 
+            // txtDtrPreno
+            // 
+            this.txtDtrPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrPreno.Location = new System.Drawing.Point(235, 308);
+            this.txtDtrPreno.Name = "txtDtrPreno";
+            this.txtDtrPreno.Size = new System.Drawing.Size(60, 26);
+            this.txtDtrPreno.TabIndex = 187;
+            // 
+            // txtDtrHn
+            // 
+            this.txtDtrHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrHn.Location = new System.Drawing.Point(79, 31);
+            this.txtDtrHn.Name = "txtDtrHn";
+            this.txtDtrHn.Size = new System.Drawing.Size(110, 26);
+            this.txtDtrHn.TabIndex = 111;
+            // 
+            // label141
+            // 
+            this.label141.AutoSize = true;
+            this.label141.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label141.Location = new System.Drawing.Point(10, 311);
+            this.label141.Name = "label141";
+            this.label141.Size = new System.Drawing.Size(31, 20);
+            this.label141.TabIndex = 186;
+            this.label141.Text = "VN";
+            // 
+            // label130
+            // 
+            this.label130.AutoSize = true;
+            this.label130.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label130.Location = new System.Drawing.Point(7, 6);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(46, 20);
+            this.label130.TabIndex = 109;
+            this.label130.Text = "แพทย์";
+            // 
+            // txtDtrVn
+            // 
+            this.txtDtrVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrVn.Location = new System.Drawing.Point(48, 308);
+            this.txtDtrVn.Name = "txtDtrVn";
+            this.txtDtrVn.Size = new System.Drawing.Size(110, 26);
+            this.txtDtrVn.TabIndex = 185;
+            // 
+            // txtDtrVsdate
+            // 
+            this.txtDtrVsdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrVsdate.Location = new System.Drawing.Point(79, 58);
+            this.txtDtrVsdate.Name = "txtDtrVsdate";
+            this.txtDtrVsdate.Size = new System.Drawing.Size(90, 26);
+            this.txtDtrVsdate.TabIndex = 113;
+            // 
+            // btnDtrPrn
+            // 
+            this.btnDtrPrn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnDtrPrn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDtrPrn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDtrPrn.Location = new System.Drawing.Point(506, 290);
+            this.btnDtrPrn.Name = "btnDtrPrn";
+            this.btnDtrPrn.Size = new System.Drawing.Size(122, 43);
+            this.btnDtrPrn.TabIndex = 184;
+            this.btnDtrPrn.Text = "Prn ใบรับรองแพทย์";
+            this.btnDtrPrn.UseVisualStyleBackColor = false;
+            // 
+            // label131
+            // 
+            this.label131.AutoSize = true;
+            this.label131.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label131.Location = new System.Drawing.Point(138, 7);
+            this.label131.Name = "label131";
+            this.label131.Size = new System.Drawing.Size(20, 18);
+            this.label131.TabIndex = 108;
+            this.label131.Text = "...";
+            // 
+            // label139
+            // 
+            this.label139.AutoSize = true;
+            this.label139.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label139.Location = new System.Drawing.Point(276, 283);
+            this.label139.Name = "label139";
+            this.label139.Size = new System.Drawing.Size(22, 20);
+            this.label139.TabIndex = 144;
+            this.label139.Text = "น.";
+            // 
+            // label134
+            // 
+            this.label134.AutoSize = true;
+            this.label134.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label134.Location = new System.Drawing.Point(7, 60);
+            this.label134.Name = "label134";
+            this.label134.Size = new System.Drawing.Size(60, 20);
+            this.label134.TabIndex = 114;
+            this.label134.Text = "vs date";
+            // 
+            // label138
+            // 
+            this.label138.AutoSize = true;
+            this.label138.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label138.Location = new System.Drawing.Point(330, 256);
+            this.label138.Name = "label138";
+            this.label138.Size = new System.Drawing.Size(25, 20);
+            this.label138.TabIndex = 143;
+            this.label138.Text = "วัน";
+            // 
+            // label135
+            // 
+            this.label135.AutoSize = true;
+            this.label135.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label135.Location = new System.Drawing.Point(7, 89);
+            this.label135.Name = "label135";
+            this.label135.Size = new System.Drawing.Size(88, 20);
+            this.label135.TabIndex = 116;
+            this.label135.Text = "ปรากฏว่าเป็น";
+            // 
+            // textBox11
+            // 
+            this.textBox11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.textBox11.Location = new System.Drawing.Point(219, 280);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(53, 26);
+            this.textBox11.TabIndex = 142;
+            // 
+            // cboDtrCert1
+            // 
+            this.cboDtrCert1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDtrCert1.FormattingEnabled = true;
+            this.cboDtrCert1.Location = new System.Drawing.Point(104, 87);
+            this.cboDtrCert1.Name = "cboDtrCert1";
+            this.cboDtrCert1.Size = new System.Drawing.Size(371, 26);
+            this.cboDtrCert1.TabIndex = 117;
+            // 
+            // txtDtr3Period
+            // 
+            this.txtDtr3Period.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtr3Period.Location = new System.Drawing.Point(273, 253);
+            this.txtDtr3Period.Name = "txtDtr3Period";
+            this.txtDtr3Period.Size = new System.Drawing.Size(53, 26);
+            this.txtDtr3Period.TabIndex = 141;
+            // 
+            // cboDtrCert2
+            // 
+            this.cboDtrCert2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDtrCert2.FormattingEnabled = true;
+            this.cboDtrCert2.Location = new System.Drawing.Point(104, 116);
+            this.cboDtrCert2.Name = "cboDtrCert2";
+            this.cboDtrCert2.Size = new System.Drawing.Size(515, 26);
+            this.cboDtrCert2.TabIndex = 118;
+            // 
+            // label137
+            // 
+            this.label137.AutoSize = true;
+            this.label137.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label137.Location = new System.Drawing.Point(469, 257);
+            this.label137.Name = "label137";
+            this.label137.Size = new System.Drawing.Size(51, 20);
+            this.label137.TabIndex = 140;
+            this.label137.Text = "ถึงวันที่";
+            // 
+            // cboDtrCert3
+            // 
+            this.cboDtrCert3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDtrCert3.FormattingEnabled = true;
+            this.cboDtrCert3.Location = new System.Drawing.Point(104, 144);
+            this.cboDtrCert3.Name = "cboDtrCert3";
+            this.cboDtrCert3.Size = new System.Drawing.Size(515, 26);
+            this.cboDtrCert3.TabIndex = 119;
+            // 
+            // txtDtr3DateEnd
+            // 
+            this.txtDtr3DateEnd.AllowSpinLoop = false;
+            // 
+            // 
+            // 
+            this.txtDtr3DateEnd.Calendar.DayNameLength = 1;
+            this.txtDtr3DateEnd.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtDtr3DateEnd.Culture = 1054;
+            this.txtDtr3DateEnd.CurrentTimeZone = false;
+            this.txtDtr3DateEnd.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr3DateEnd.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr3DateEnd.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr3DateEnd.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr3DateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtr3DateEnd.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr3DateEnd.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtDtr3DateEnd.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtDtr3DateEnd.Location = new System.Drawing.Point(524, 255);
+            this.txtDtr3DateEnd.Name = "txtDtr3DateEnd";
+            this.txtDtr3DateEnd.Size = new System.Drawing.Size(108, 22);
+            this.txtDtr3DateEnd.TabIndex = 139;
+            this.txtDtr3DateEnd.Tag = null;
+            // 
+            // cboDtrCert4
+            // 
+            this.cboDtrCert4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDtrCert4.FormattingEnabled = true;
+            this.cboDtrCert4.Location = new System.Drawing.Point(104, 172);
+            this.cboDtrCert4.Name = "cboDtrCert4";
+            this.cboDtrCert4.Size = new System.Drawing.Size(515, 26);
+            this.cboDtrCert4.TabIndex = 120;
+            // 
+            // txtDtr3DateStart
+            // 
+            this.txtDtr3DateStart.AllowSpinLoop = false;
+            // 
+            // 
+            // 
+            this.txtDtr3DateStart.Calendar.DayNameLength = 1;
+            this.txtDtr3DateStart.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtDtr3DateStart.Culture = 1054;
+            this.txtDtr3DateStart.CurrentTimeZone = false;
+            this.txtDtr3DateStart.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr3DateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr3DateStart.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr3DateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr3DateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtr3DateStart.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr3DateStart.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtDtr3DateStart.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtDtr3DateStart.Location = new System.Drawing.Point(360, 255);
+            this.txtDtr3DateStart.Name = "txtDtr3DateStart";
+            this.txtDtr3DateStart.Size = new System.Drawing.Size(108, 22);
+            this.txtDtr3DateStart.TabIndex = 138;
+            this.txtDtr3DateStart.Tag = null;
+            // 
+            // chkDtr1
+            // 
+            this.chkDtr1.BackColor = System.Drawing.SystemColors.Control;
+            this.chkDtr1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkDtr1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDtr1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkDtr1.Location = new System.Drawing.Point(9, 202);
+            this.chkDtr1.Name = "chkDtr1";
+            this.chkDtr1.Size = new System.Drawing.Size(123, 24);
+            this.chkDtr1.TabIndex = 131;
+            this.chkDtr1.Text = "1.  ประกอบเบิก";
+            this.chkDtr1.UseVisualStyleBackColor = true;
+            this.chkDtr1.Value = null;
+            // 
+            // label136
+            // 
+            this.label136.AutoSize = true;
+            this.label136.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label136.Location = new System.Drawing.Point(420, 230);
+            this.label136.Name = "label136";
+            this.label136.Size = new System.Drawing.Size(51, 20);
+            this.label136.TabIndex = 137;
+            this.label136.Text = "ถึงวันที่";
+            // 
+            // chkDtr2
+            // 
+            this.chkDtr2.BackColor = System.Drawing.SystemColors.Control;
+            this.chkDtr2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkDtr2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDtr2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkDtr2.Location = new System.Drawing.Point(9, 228);
+            this.chkDtr2.Name = "chkDtr2";
+            this.chkDtr2.Size = new System.Drawing.Size(298, 24);
+            this.chkDtr2.TabIndex = 132;
+            this.chkDtr2.Text = "2.  เข้าพักรักษาตัวในโรงพยาบาล  ตั้งแต่วันที่ ";
+            this.chkDtr2.UseVisualStyleBackColor = true;
+            this.chkDtr2.Value = null;
+            // 
+            // txtDtr2DateEnd
+            // 
+            this.txtDtr2DateEnd.AllowSpinLoop = false;
+            // 
+            // 
+            // 
+            this.txtDtr2DateEnd.Calendar.DayNameLength = 1;
+            this.txtDtr2DateEnd.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtDtr2DateEnd.Culture = 1054;
+            this.txtDtr2DateEnd.CurrentTimeZone = false;
+            this.txtDtr2DateEnd.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr2DateEnd.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr2DateEnd.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr2DateEnd.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr2DateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtr2DateEnd.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr2DateEnd.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtDtr2DateEnd.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtDtr2DateEnd.Location = new System.Drawing.Point(477, 228);
+            this.txtDtr2DateEnd.Name = "txtDtr2DateEnd";
+            this.txtDtr2DateEnd.Size = new System.Drawing.Size(108, 22);
+            this.txtDtr2DateEnd.TabIndex = 136;
+            this.txtDtr2DateEnd.Tag = null;
+            // 
+            // chkDtr3
+            // 
+            this.chkDtr3.BackColor = System.Drawing.SystemColors.Control;
+            this.chkDtr3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkDtr3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDtr3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkDtr3.Location = new System.Drawing.Point(9, 255);
+            this.chkDtr3.Name = "chkDtr3";
+            this.chkDtr3.Size = new System.Drawing.Size(263, 24);
+            this.chkDtr3.TabIndex = 133;
+            this.chkDtr3.Text = "3.  หยุดพักรักษาตัว (หยุดงาน) มีกำหนด";
+            this.chkDtr3.UseVisualStyleBackColor = true;
+            this.chkDtr3.Value = null;
+            // 
+            // txtDtr2DateStart
+            // 
+            this.txtDtr2DateStart.AllowSpinLoop = false;
+            // 
+            // 
+            // 
+            this.txtDtr2DateStart.Calendar.DayNameLength = 1;
+            this.txtDtr2DateStart.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtDtr2DateStart.Culture = 1054;
+            this.txtDtr2DateStart.CurrentTimeZone = false;
+            this.txtDtr2DateStart.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr2DateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr2DateStart.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr2DateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtDtr2DateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtr2DateStart.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtDtr2DateStart.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtDtr2DateStart.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtDtr2DateStart.Location = new System.Drawing.Point(309, 228);
+            this.txtDtr2DateStart.Name = "txtDtr2DateStart";
+            this.txtDtr2DateStart.Size = new System.Drawing.Size(108, 22);
+            this.txtDtr2DateStart.TabIndex = 135;
+            this.txtDtr2DateStart.Tag = null;
+            // 
+            // chkDtr4
+            // 
+            this.chkDtr4.BackColor = System.Drawing.SystemColors.Control;
+            this.chkDtr4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkDtr4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDtr4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkDtr4.Location = new System.Drawing.Point(9, 282);
+            this.chkDtr4.Name = "chkDtr4";
+            this.chkDtr4.Size = new System.Drawing.Size(216, 24);
+            this.chkDtr4.TabIndex = 134;
+            this.chkDtr4.Text = "4.  มารับการตรวจจริงเมื่อเวลา";
+            this.chkDtr4.UseVisualStyleBackColor = true;
+            this.chkDtr4.Value = null;
+            // 
+            // c1SplitterPanel2
+            // 
+            this.c1SplitterPanel2.Controls.Add(this.c1FlexViewer2);
+            this.c1SplitterPanel2.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            this.c1SplitterPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1SplitterPanel2.Height = 457;
+            this.c1SplitterPanel2.Location = new System.Drawing.Point(0, 390);
+            this.c1SplitterPanel2.Name = "c1SplitterPanel2";
+            this.c1SplitterPanel2.Size = new System.Drawing.Size(1146, 436);
+            this.c1SplitterPanel2.TabIndex = 1;
+            this.c1SplitterPanel2.Text = "Panel 2";
+            // 
+            // c1FlexViewer2
+            // 
+            this.c1FlexViewer2.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.c1FlexViewer2.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.c1FlexViewer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1FlexViewer2.Location = new System.Drawing.Point(0, 0);
+            this.c1FlexViewer2.Name = "c1FlexViewer2";
+            this.c1FlexViewer2.Size = new System.Drawing.Size(1146, 436);
+            this.c1FlexViewer2.TabIndex = 0;
+            // 
+            // ribbonLabel9
+            // 
+            this.ribbonLabel9.Name = "ribbonLabel9";
+            this.ribbonLabel9.Text = "สถานะพิมพ์";
+            // 
+            // rbStatusPrint
+            // 
+            this.rbStatusPrint.Name = "rbStatusPrint";
+            this.rbStatusPrint.SmallImage = global::bangna_hospital.Properties.Resources.printer_green48;
+            // 
             // FrmSmartCard
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1030, 851);
+            this.ClientSize = new System.Drawing.Size(1148, 851);
             this.Controls.Add(this.tC1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmSmartCard";
@@ -4996,6 +5983,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.m_picPhoto)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtDateOrder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitButton1)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -5010,6 +5999,8 @@
             this.tC1.ResumeLayout(false);
             this.tabPttNew.ResumeLayout(false);
             this.tabPttNew.PerformLayout();
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboSubDistrict)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDistrict)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboProv)).EndInit();
@@ -5031,6 +6022,11 @@
             this.panel4.PerformLayout();
             this.tabCapture.ResumeLayout(false);
             this.tabCapture.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCapZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCapOCR)).EndInit();
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCapPID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCapSavePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCapBrow)).EndInit();
@@ -5083,6 +6079,21 @@
             this.pnPharAdmitTop.ResumeLayout(false);
             this.pnPharAdmitTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPharAdmitDate)).EndInit();
+            this.tabDtrCert.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
+            this.c1SplitContainer1.ResumeLayout(false);
+            this.c1SplitterPanel1.ResumeLayout(false);
+            this.c1SplitterPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr3DateEnd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr3DateStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr2DateEnd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtr2DateStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkDtr4)).EndInit();
+            this.c1SplitterPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1FlexViewer2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5497,6 +6508,79 @@
         private System.Windows.Forms.Label label129;
         private C1.Win.C1Input.C1DateEdit txtPharAdmitDate;
         private System.Windows.Forms.TextBox txtPharAdmitDate1;
+        private C1.Win.C1Command.C1DockingTabPage tabDtrCert;
+        private System.Windows.Forms.Label label134;
+        private System.Windows.Forms.TextBox txtDtrVsdate;
+        private System.Windows.Forms.TextBox txtDtrHn;
+        private System.Windows.Forms.Label label132;
+        private System.Windows.Forms.Label label133;
+        private System.Windows.Forms.Label label130;
+        private System.Windows.Forms.Label label131;
+        private System.Windows.Forms.TextBox txtDtrDtrCode;
+        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel2;
+        private System.Windows.Forms.Label label135;
+        private System.Windows.Forms.ComboBox cboDtrCert4;
+        private System.Windows.Forms.ComboBox cboDtrCert3;
+        private System.Windows.Forms.ComboBox cboDtrCert2;
+        private System.Windows.Forms.ComboBox cboDtrCert1;
+        private C1.Win.C1Input.C1CheckBox chkDtr4;
+        private C1.Win.C1Input.C1CheckBox chkDtr3;
+        private C1.Win.C1Input.C1CheckBox chkDtr2;
+        private C1.Win.C1Input.C1CheckBox chkDtr1;
+        private System.Windows.Forms.Label label136;
+        private C1.Win.C1Input.C1DateEdit txtDtr2DateEnd;
+        private C1.Win.C1Input.C1DateEdit txtDtr2DateStart;
+        private System.Windows.Forms.Label label137;
+        private C1.Win.C1Input.C1DateEdit txtDtr3DateEnd;
+        private C1.Win.C1Input.C1DateEdit txtDtr3DateStart;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox txtDtr3Period;
+        private System.Windows.Forms.Label label139;
+        private System.Windows.Forms.Label label138;
+        private System.Windows.Forms.Button btnDtrPrn;
+        private System.Windows.Forms.Label label143;
+        private System.Windows.Forms.TextBox txtDtrCertId;
+        private System.Windows.Forms.Label label140;
+        private System.Windows.Forms.TextBox txtDtrPreno;
+        private System.Windows.Forms.Label label141;
+        private System.Windows.Forms.TextBox txtDtrVn;
+        private System.Windows.Forms.GroupBox gbDtrCert;
+        private System.Windows.Forms.GroupBox gbDtrVisit;
+        private C1.Win.FlexViewer.C1FlexViewer c1FlexViewer2;
+        private System.Windows.Forms.Label label142;
+        private System.Windows.Forms.RadioButton chkStkOsat;
+        private System.Windows.Forms.RadioButton chkStkIPD;
+        private System.Windows.Forms.RadioButton chkStkOPD;
+        private System.Windows.Forms.Button btnPrnOsat;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.RadioButton chkCapFoods;
+        private System.Windows.Forms.RadioButton chkCapKYC;
+        private System.Windows.Forms.Button btnPrnFavi;
+        private System.Windows.Forms.Label label144;
+        private System.Windows.Forms.TextBox txtWeight;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.RadioButton chk64;
+        private System.Windows.Forms.RadioButton chk50;
+        private System.Windows.Forms.RadioButton chkCapFoodsDaily;
+        private C1.Win.C1Input.C1Button btnCapOCR;
+        private C1.Win.C1Ribbon.RibbonLabel lblMessage1;
+        private C1.Win.C1Ribbon.RibbonLabel lblMessage2;
+        private System.Windows.Forms.Label lbCapFolder;
+        private System.Windows.Forms.Label label145;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private C1.Win.C1Input.C1Button btnCapZoom;
+        private System.Windows.Forms.TextBox txtDtrCounter;
+        private System.Windows.Forms.Label label146;
+        private System.Windows.Forms.RadioButton chkAtkSkin;
+        private System.Windows.Forms.Button btnPrnATK;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.RadioButton chkATKNet;
+        private System.Windows.Forms.RadioButton chkATKPosi;
+        private System.Windows.Forms.Button btnVisitClose;
+        private C1.Win.C1Ribbon.RibbonLabel ribbonLabel9;
+        private C1.Win.C1Ribbon.RibbonButton rbStatusPrint;
     }
 }
 

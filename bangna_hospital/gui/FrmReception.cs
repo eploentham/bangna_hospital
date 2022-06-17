@@ -6,6 +6,7 @@ using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
+using C1.Win.C1Tile;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,10 +36,15 @@ namespace bangna_hospital.gui
         int colgrfPttVsVsDate = 1, colgrfPttVsHn=2, colgrfPttVsPaid=3, colgrfPttVsPreno=4, colgrfPttVsDept=5, colgrfPttVsStatusOPD=6, colgrfPttVsSymptom=7;
         int colgrfPttApmVsDate = 1, colgrfPttApmApmDate = 2, colgrfPttApmDept = 3, colgrfPttApmNote = 4;
         int colgrfRptReportCode = 1, colgrfRptReportName = 2;
-        int colgrfRptDatadailydeptDate = 1,colgrfRptDatadailydeptTime = 2, colgrfRptQueno=3,colgrfRptDatadailydeptHn = 4, colgrfRptDatadailydeptName = 5, colgrfRptDatadailydeptMobile = 6, colgrfRptDatadailyDrugSet=7, colgrfRptDatadailyAuthen = 8, colgrfRptDatadailyPic = 9;
+        int colgrfRptDatadailydeptDate = 1,colgrfRptDatadailydeptTime = 2, colgrfRptQueno=3,colgrfRptDatadailydeptHn = 4, colgrfRptDatadailydeptName = 5, colgrfRptDatadailydeptMobile = 6, colgrfRptDatadailyDrugSet=7, colgrfRptDatadailyXray = 8, colgrfRptDatadailyAuthen = 9, colgrfRptDatadailyPicKYC = 10, colgrfRptDatadailyPicFoodsdaily = 11;
         String rptCode = "";
         Boolean pageLoad = false;
         Image imgCorr, imgTran;
+        C1TileControl TileFoods;
+        PanelElement peOrd;
+        ImageElement ieOrd;
+        TextElement teOrd;
+        
         public FrmReception(BangnaControl bc)
         {
             this.bc = bc;
@@ -55,7 +61,7 @@ namespace bangna_hospital.gui
             fEdit5B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 5, FontStyle.Bold);
             theme1 = new C1ThemeController();
             imgCorr = Resources.red_checkmark_png_16;
-            imgTran = Resources.red_checkmark_png_51;
+            imgTran = Resources.DeleteTable_small;
 
             lbLoading = new Label();
             lbLoading.Font = fEdit5B;
@@ -107,6 +113,7 @@ namespace bangna_hospital.gui
             initGrfPttApm();
             initGrfRptReport();
             initGrfRptData();
+            initTileImg();
 
             int nres = 0;
             byte[] _lic = String2Byte(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\RDNIDLib.DLD");
@@ -125,7 +132,7 @@ namespace bangna_hospital.gui
             byte[] Softinfo = new byte[1024];
             RDNID.getSoftwareInfoRD(Softinfo);
             ListCardReader();
-
+            
             pageLoad = false;
         }
         private void setEvent()
@@ -189,8 +196,17 @@ namespace bangna_hospital.gui
             cboTheme.SelectedIndexChanged += CboTheme_SelectedIndexChanged;
 
             btnPttSave.Click += BtnPttSave_Click;
-            
+            btnDocSearch.Click += BtnDocSearch_Click;
+
+
         }
+
+        private void BtnDocSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setTiltImg(txtDocHn.Text.Trim());
+        }
+
         private void setPattient()
         {
             DateTime dob = new DateTime();
@@ -248,6 +264,80 @@ namespace bangna_hospital.gui
             ptt.MNC_FULL_ADD = "";
             ptt.MNC_COM_CD = "";
             ptt.MNC_COM_CD2 = "";
+        }
+        private void initTileImg()
+        {
+            TileFoods = new C1TileControl();
+            TileFoods.Orientation = LayoutOrientation.Vertical;
+
+            peOrd = new C1.Win.C1Tile.PanelElement();
+            ieOrd = new C1.Win.C1Tile.ImageElement();
+            peOrd.Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            peOrd.Children.Add(ieOrd);
+            TileFoods.DefaultTemplate.Elements.Add(peOrd);
+            TileFoods.Dock = DockStyle.Fill;
+
+            //TileFoods[i].Templates.Add(this.tempFlickr);
+            //TileFoods = new C1TileControl();
+            //TileFoods[i].Name = "tile" + i;
+            //TileFoods[i].Dock = DockStyle.Fill;
+            //TileFoods[i].BackColor = tilecolor;     // tile color
+                                                    //pnOrder.Controls.Add(TileFoods);                    
+            TileFoods.ScrollOffset = 0;
+            TileFoods.SurfaceContentAlignment = System.Drawing.ContentAlignment.TopLeft;
+            TileFoods.Padding = new System.Windows.Forms.Padding(0);
+            TileFoods.GroupPadding = new System.Windows.Forms.Padding(10);
+
+            pnDocView.Controls.Add(TileFoods);
+        }
+        private void setTiltImg(String hn)
+        {
+            DataTable dtrow = new DataTable();
+            //lFoot = new List<FoodsTopping>();
+            TileFoods.BeginUpdate();
+            dtrow = bc.bcDB.dscDB.selectStatus4ByHn(hn);
+            //lFoot = mposC.mposDB.footpDB.getlFooSpecByFooId(fooId);
+            //lFoos = lfooC1;
+            Group gr1 = new Group();
+            TileFoods.Groups.Add(gr1);
+            TileCollection tiles = TileFoods.Groups[0].Tiles;
+            tiles.Clear(true);
+            FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+            //foreach (DataRow drow in dt.Rows)
+            foreach (DataRow foos in dtrow.Rows)
+            {
+                var tile = new Tile();
+                tile.HorizontalSize = 5;
+                tile.VerticalSize = 4;
+                //tile.Template = tempSpec;
+                tile.Text = foos["row_no"].ToString();
+                //tile.Text1 = "ราคา " + foo1.foods_price;
+                tile.Tag = foos;
+                tile.Name = foos["doc_scan_id"].ToString();
+                //tile.Click += TileTopping_Click;
+                tile.Image = null;
+                try
+                {
+                    //tile.Image = null;
+                    MemoryStream stream = new MemoryStream();
+                    Image loadedImage = null, resizedImage;
+                    if (foos["image_path"].ToString().Equals("")) continue;
+                    stream = ftp.download(foos[bc.bcDB.dscDB.dsc.folder_ftp].ToString() + "//" + foos["image_path"].ToString());
+                    if (stream.Length == 0) continue;
+                    loadedImage = new Bitmap(stream);
+                    int newWidth = 540;
+                    resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / loadedImage.Width, null, IntPtr.Zero);
+                    tile.Image = resizedImage;
+                    
+                    tiles.Add(tile);
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("" + ex.Message, "showImg");
+                }
+                //foos.statusUs = "";
+            }
+            TileFoods.EndUpdate();
         }
         private void BtnPttSave_Click(object sender, EventArgs e)
         {
@@ -792,6 +882,14 @@ namespace bangna_hospital.gui
             {
                 setGrfRptReportDailyDept();
             }
+            else if (rptCode.Equals("reportdailydeptHI"))
+            {
+                setGrfRptReportDailyDeptHi();
+            }
+            else if (rptCode.Equals("reportdailydeptHIATK"))
+            {
+                setGrfRptReportDailyDeptHiATK();
+            }
         }
         private void setGrfRptReportDailyDept()
         {
@@ -808,7 +906,7 @@ namespace bangna_hospital.gui
                 lfSbMessage.Text = datestart.ToString("yyyy-MM-dd") + " " + dateend.ToString("yyyy-MM-dd") + " " + ((ComboBoxItem)cboRptDept.SelectedItem).Value;
                 dt = bc.bcDB.vsDB.selectPttHiinDept(deptid, ((ComboBoxItem)cboRptDept.SelectedItem).Value, datestart.ToString("yyyy-MM-dd"), dateend.ToString("yyyy-MM-dd"));
                 int i = 1, j = 1;
-                grfRptData.Cols.Count = 10;
+                grfRptData.Cols.Count = 12;
                 grfRptData.Rows.Count = 1;
                 grfRptData.Cols[colgrfRptDatadailydeptDate].Width = 110;
                 grfRptData.Cols[colgrfRptDatadailydeptTime].Width = 50;
@@ -817,15 +915,23 @@ namespace bangna_hospital.gui
                 grfRptData.Cols[colgrfRptDatadailydeptMobile].Width = 120;
                 grfRptData.Cols[colgrfRptDatadailyDrugSet].Width = 50;
                 grfRptData.Cols[colgrfRptDatadailyAuthen].Width = 50;
-                grfRptData.Cols[colgrfRptDatadailyPic].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Width = 50;
                 grfRptData.Cols[colgrfRptQueno].Width = 50;
+                
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyPicFoodsdaily].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyXray].Width = 50;
 
                 grfRptData.Cols[colgrfRptDatadailydeptDate].Caption = "date";
                 grfRptData.Cols[colgrfRptDatadailydeptTime].Caption = "time";
                 grfRptData.Cols[colgrfRptDatadailydeptHn].Caption = "hn";
                 grfRptData.Cols[colgrfRptDatadailydeptName].Caption = "name";
                 grfRptData.Cols[colgrfRptDatadailydeptMobile].Caption = "mobile";
-                grfRptData.Cols[colgrfRptQueno].Caption = "คิว";
+                //grfRptData.Cols[colgrfRptDatadailyDrugSet].Caption = "set";
+                //grfRptData.Cols[colgrfRptDatadailyAuthen].Caption = "authen";
+                //grfRptData.Cols[colgrfRptDatadailyPicFoods].Caption = "Foods";
+                //grfRptData.Cols[colgrfRptDatadailyPicFoodsdaily].Caption = "Foods1";
+                //grfRptData.Cols[colgrfRptDatadailyXray].Caption = "xray";
 
                 grfRptData.Rows.Count = dt.Rows.Count + 1;
                 //Column colAuthen = grfRptData.Cols[colgrfRptDatadailyAuthen];
@@ -853,6 +959,169 @@ namespace bangna_hospital.gui
                 }
             }
             catch(Exception ex)
+            {
+                lfSbMessage.Text = ex.Message;
+                new LogWriter("e", "FrmReception setGrfRptReportDailyDept ");
+            }
+            finally
+            {
+                hideLbLoading();
+            }
+        }
+        private void setGrfRptReportDailyDeptHi()
+        {
+            DateTime datestart = new DateTime();
+            DateTime dateend = new DateTime();
+            DataTable dt = new DataTable();
+            String deptid = "";
+            try
+            {
+                showLbLoading();
+                deptid = bc.bcDB.pttDB.selectDeptIdOPDBySecId(((ComboBoxItem)cboRptDept.SelectedItem).Value);
+                DateTime.TryParse(txtRptDateStart.Text, out datestart);
+                DateTime.TryParse(txtRptDateEnd.Text, out dateend);
+                lfSbMessage.Text = datestart.ToString("yyyy-MM-dd") + " " + dateend.ToString("yyyy-MM-dd") + " " + ((ComboBoxItem)cboRptDept.SelectedItem).Value;
+                dt = bc.bcDB.vsDB.selectPttHiinDept(deptid, ((ComboBoxItem)cboRptDept.SelectedItem).Value, datestart.ToString("yyyy-MM-dd"), dateend.ToString("yyyy-MM-dd"));
+                int i = 1, j = 1;
+                long chkxray = 0;
+                grfRptData.Cols.Count = 12;
+                grfRptData.Rows.Count = 1;
+                grfRptData.Cols[colgrfRptDatadailydeptDate].Width = 110;
+                grfRptData.Cols[colgrfRptDatadailydeptTime].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailydeptHn].Width = 90;
+                grfRptData.Cols[colgrfRptDatadailydeptName].Width = 280;
+                grfRptData.Cols[colgrfRptDatadailydeptMobile].Width = 120;
+                grfRptData.Cols[colgrfRptDatadailyDrugSet].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyAuthen].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Width = 50;
+                grfRptData.Cols[colgrfRptQueno].Width = 50;
+
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyPicFoodsdaily].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyXray].Width = 50;
+
+                grfRptData.Cols[colgrfRptDatadailydeptDate].Caption = "date";
+                grfRptData.Cols[colgrfRptDatadailydeptTime].Caption = "time";
+                grfRptData.Cols[colgrfRptDatadailydeptHn].Caption = "hn";
+                grfRptData.Cols[colgrfRptDatadailydeptName].Caption = "name";
+                grfRptData.Cols[colgrfRptDatadailydeptMobile].Caption = "mobile";
+                grfRptData.Cols[colgrfRptDatadailyDrugSet].Caption = "set";
+                grfRptData.Cols[colgrfRptDatadailyAuthen].Caption = "Foods";
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Caption = "KYC";
+                grfRptData.Cols[colgrfRptDatadailyPicFoodsdaily].Caption = "Foods1";
+                grfRptData.Cols[colgrfRptDatadailyXray].Caption = "xray";
+
+                grfRptData.Rows.Count = dt.Rows.Count + 1;
+                Column colAuthen = grfRptData.Cols[colgrfRptDatadailyAuthen];
+                colAuthen.DataType = typeof(Image);
+                Column colPic = grfRptData.Cols[colgrfRptDatadailyPicKYC];
+                colPic.DataType = typeof(Image);
+                Column colPic1 = grfRptData.Cols[colgrfRptDatadailyXray];
+                colPic1.DataType = typeof(Image);
+                //pB1.Maximum = dt.Rows.Count;
+                foreach (DataRow row1 in dt.Rows)
+                {
+                    //pB1.Value++;
+                    Row rowa = grfRptData.Rows[i];
+                    rowa[colgrfRptDatadailydeptDate] = row1["MNC_date"].ToString();
+                    rowa[colgrfRptDatadailydeptTime] = row1["MNC_time"].ToString();
+                    rowa[colgrfRptDatadailydeptHn] = row1["mnc_hn_no"].ToString();
+                    rowa[colgrfRptDatadailydeptName] = row1["prefix"].ToString() + " " + row1["MNC_FNAME_T"].ToString() + " " + row1["MNC_LNAME_T"].ToString();
+                    rowa[colgrfRptDatadailydeptMobile] = row1["mnc_cur_tel"].ToString();
+                    //rowa[colgrfSrcPttid] = "";
+                    rowa[colgrfRptDatadailyAuthen] = row1["status_authen"] != null ? row1["status_authen"].ToString().Equals("1") ? imgCorr : imgTran : imgTran;        //รูปถ่ายอาหาร รับอาหาร
+                    rowa[colgrfRptDatadailyPicKYC] = row1["status_pic_kyc"] != null ? row1["status_pic_kyc"].ToString().Equals("1") ? imgCorr : imgTran : imgTran;         //รูปถ่ายคนไข้ KYC
+                    //long.TryParse(row1["req_no_xray"].ToString(), out chkxray);
+                    rowa[colgrfRptDatadailyXray] = long.TryParse(row1["req_no_xray"].ToString(), out chkxray) ? imgCorr : imgTran;
+                    rowa[colgrfRptDatadailyDrugSet] = row1["drug_set"].ToString();
+                    rowa[colgrfRptQueno] = row1["queue_seq"].ToString();
+                    rowa[0] = i.ToString();
+                    i++;
+                }
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = ex.Message;
+                new LogWriter("e", "FrmReception setGrfRptReportDailyDept ");
+            }
+            finally
+            {
+                hideLbLoading();
+            }
+        }
+        private void setGrfRptReportDailyDeptHiATK()
+        {
+            DateTime datestart = new DateTime();
+            DateTime dateend = new DateTime();
+            DataTable dt = new DataTable();
+            String deptid = "";
+            try
+            {
+                showLbLoading();
+                deptid = bc.bcDB.pttDB.selectDeptIdOPDBySecId(((ComboBoxItem)cboRptDept.SelectedItem).Value);
+                DateTime.TryParse(txtRptDateStart.Text, out datestart);
+                DateTime.TryParse(txtRptDateEnd.Text, out dateend);
+                lfSbMessage.Text = datestart.ToString("yyyy-MM-dd") + " " + dateend.ToString("yyyy-MM-dd") + " " + ((ComboBoxItem)cboRptDept.SelectedItem).Value;
+                dt = bc.bcDB.vsDB.selectPttHiinDeptPaidCode(deptid, ((ComboBoxItem)cboRptDept.SelectedItem).Value, datestart.ToString("yyyy-MM-dd"), dateend.ToString("yyyy-MM-dd"), txtPaidCode.Text.Trim());
+                int i = 1, j = 1;
+                long chkxray = 0;
+                grfRptData.Cols.Count = 12;
+                grfRptData.Rows.Count = 1;
+                grfRptData.Cols[colgrfRptDatadailydeptDate].Width = 110;
+                grfRptData.Cols[colgrfRptDatadailydeptTime].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailydeptHn].Width = 90;
+                grfRptData.Cols[colgrfRptDatadailydeptName].Width = 280;
+                grfRptData.Cols[colgrfRptDatadailydeptMobile].Width = 120;
+                grfRptData.Cols[colgrfRptDatadailyDrugSet].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyAuthen].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Width = 50;
+                grfRptData.Cols[colgrfRptQueno].Width = 50;
+
+
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyPicFoodsdaily].Width = 50;
+                grfRptData.Cols[colgrfRptDatadailyXray].Width = 50;
+
+                grfRptData.Cols[colgrfRptDatadailydeptDate].Caption = "date";
+                grfRptData.Cols[colgrfRptDatadailydeptTime].Caption = "time";
+                grfRptData.Cols[colgrfRptDatadailydeptHn].Caption = "hn";
+                grfRptData.Cols[colgrfRptDatadailydeptName].Caption = "name";
+                grfRptData.Cols[colgrfRptDatadailydeptMobile].Caption = "mobile";
+                grfRptData.Cols[colgrfRptDatadailyDrugSet].Caption = "set";
+                grfRptData.Cols[colgrfRptDatadailyAuthen].Caption = "Foods";
+                grfRptData.Cols[colgrfRptDatadailyPicKYC].Caption = "KYC";
+                grfRptData.Cols[colgrfRptDatadailyPicFoodsdaily].Caption = "Foods1";
+                grfRptData.Cols[colgrfRptDatadailyXray].Caption = "xray";
+
+                grfRptData.Rows.Count = dt.Rows.Count + 1;
+                Column colAuthen = grfRptData.Cols[colgrfRptDatadailyAuthen];
+                colAuthen.DataType = typeof(Image);
+                Column colPic = grfRptData.Cols[colgrfRptDatadailyPicKYC];
+                colPic.DataType = typeof(Image);
+                Column colPic1 = grfRptData.Cols[colgrfRptDatadailyXray];
+                colPic1.DataType = typeof(Image);
+                //pB1.Maximum = dt.Rows.Count;
+                foreach (DataRow row1 in dt.Rows)
+                {
+                    //pB1.Value++;
+                    Row rowa = grfRptData.Rows[i];
+                    rowa[colgrfRptDatadailydeptDate] = row1["MNC_date"].ToString();
+                    rowa[colgrfRptDatadailydeptTime] = row1["MNC_time"].ToString();
+                    rowa[colgrfRptDatadailydeptHn] = row1["mnc_hn_no"].ToString();
+                    rowa[colgrfRptDatadailydeptName] = row1["prefix"].ToString() + " " + row1["MNC_FNAME_T"].ToString() + " " + row1["MNC_LNAME_T"].ToString();
+                    rowa[colgrfRptDatadailydeptMobile] = row1["mnc_cur_tel"].ToString();
+                    //rowa[colgrfSrcPttid] = "";
+                    //rowa[colgrfRptDatadailyAuthen] = row1["status_authen"] != null ? row1["status_authen"].ToString().Equals("1") ? imgCorr : imgTran : imgTran;        //รูปถ่ายอาหาร รับอาหาร
+                    //rowa[colgrfRptDatadailyPicKYC] = row1["status_pic_kyc"] != null ? row1["status_pic_kyc"].ToString().Equals("1") ? imgCorr : imgTran : imgTran;         //รูปถ่ายคนไข้ KYC
+                    //long.TryParse(row1["req_no_xray"].ToString(), out chkxray);
+                    //rowa[colgrfRptDatadailyXray] = long.TryParse(row1["req_no_xray"].ToString(), out chkxray) ? imgCorr : imgTran;
+                    //rowa[colgrfRptDatadailyDrugSet] = row1["drug_set"].ToString();
+                    //rowa[colgrfRptQueno] = row1["queue_seq"].ToString();
+                    rowa[0] = i.ToString();
+                    i++;
+                }
+            }
+            catch (Exception ex)
             {
                 lfSbMessage.Text = ex.Message;
                 new LogWriter("e", "FrmReception setGrfRptReportDailyDept ");
@@ -1500,10 +1769,10 @@ namespace bangna_hospital.gui
             grfRptReport.Font = fEdit;
             grfRptReport.Dock = System.Windows.Forms.DockStyle.Fill;
             grfRptReport.Location = new System.Drawing.Point(0, 0);
-            grfRptReport.Rows.Count = 3;
+            grfRptReport.Rows.Count = 4;
             grfRptReport.Cols.Count = 3;
             grfRptReport.Cols[colgrfRptReportCode].Width = 100;
-            grfRptReport.Cols[colgrfRptReportName].Width = 300;
+            grfRptReport.Cols[colgrfRptReportName].Width = 400;
             //grfRptReport.Cols[colgrfPttCompid].Width = 150;
             grfRptReport.ShowCursor = true;
             grfRptReport.Cols[colgrfRptReportCode].Caption = "code";
@@ -1520,6 +1789,12 @@ namespace bangna_hospital.gui
 
             grfRptReport.Rows[1][colgrfRptReportCode] = "reportdailydept";
             grfRptReport.Rows[1][colgrfPttCompNameT] = "รายงานยอดคนไข้ ตามแผนก";
+
+            grfRptReport.Rows[2][colgrfRptReportCode] = "reportdailydeptHI";
+            grfRptReport.Rows[2][colgrfPttCompNameT] = "รายงานยอดคนไข้ ตามแผนก Home Isolate";
+
+            grfRptReport.Rows[3][colgrfRptReportCode] = "reportdailydeptHIATK";
+            grfRptReport.Rows[3][colgrfPttCompNameT] = "รายงานยอดคนไข้ ตามแผนก Home Isolate ATK Screening";
 
             grfRptReport.Click += GrfRptReport_Click;
 
@@ -1626,6 +1901,10 @@ namespace bangna_hospital.gui
             txtPttMobile1.Value = ptt.MNC_CUR_TEL;
             txtPttEmail.Value = ptt.MNC_DOM_TEL;
             txtPttAge.Value = ptt.AgeStringOK1();
+            
+            txtDocHn.Value = ptt.MNC_HN_NO;
+            lbDocFullname.Text = ptt.Name;
+
             setGrfPttVs();
             hideLbLoading();
         }
@@ -1655,6 +1934,7 @@ namespace bangna_hospital.gui
             showLbLoading();
             DataTable dt = new DataTable();
             dt = bc.bcDB.pttDB.selectPatinetBySearch(txtSrcHn.Text.Trim());
+            
             int i = 1, j = 1, row = grfSrc.Rows.Count;
             
             grfSrc.Rows.Count = 1;

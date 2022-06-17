@@ -49,6 +49,7 @@ namespace bangna_hospital.gui
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.sB1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lB1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.picPtt = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnBrow1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBrow2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBrow5)).BeginInit();
@@ -61,6 +62,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnInsert)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnM01)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sB1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPtt)).BeginInit();
             this.SuspendLayout();
             // 
             // btnBrow1
@@ -237,11 +239,22 @@ namespace bangna_hospital.gui
             this.lB1.Name = "lB1";
             this.lB1.Text = "Label";
             // 
+            // picPtt
+            // 
+            this.picPtt.Location = new System.Drawing.Point(510, 263);
+            this.picPtt.Name = "picPtt";
+            this.picPtt.Size = new System.Drawing.Size(207, 161);
+            this.picPtt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPtt.TabIndex = 19;
+            this.picPtt.TabStop = false;
+            // 
             // frmSsnData
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.picPtt);
             this.Controls.Add(this.sB1);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btnM01);
@@ -276,6 +289,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnInsert)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnM01)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sB1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPtt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -303,5 +317,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.ListBox listBox1;
         private C1.Win.C1Ribbon.C1StatusBar sB1;
         private C1.Win.C1Ribbon.RibbonLabel lB1;
+        private System.Windows.Forms.PictureBox picPtt;
     }
 }

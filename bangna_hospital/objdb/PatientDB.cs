@@ -217,9 +217,10 @@ namespace bangna_hospital.objdb
             String sql = "";
             Patient ptt = new Patient();
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E" +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E " +
                 ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE " +
                 ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD, m01.passport,m01.MNC_SS_NO " +
+                ", m01.MNC_dom_CHW, m01.MNC_dom_AMP, m01.MNC_dom_TUM, m01.MNC_dom_ADD, m01.MNC_dom_MOO, m01.MNC_dom_SOI,MNC_DOM_TEL " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " Where m01.MNC_hn_NO = '" + hn + "' " +
@@ -259,6 +260,14 @@ namespace bangna_hospital.objdb
                 ptt.MNC_ID_NO = dt.Rows[0]["mnc_id_no"].ToString();
                 ptt.passport = dt.Rows[0]["passport"].ToString();
                 ptt.MNC_SS_NO = dt.Rows[0]["MNC_SS_NO"].ToString();
+
+                ptt.MNC_DOM_CHW = dt.Rows[0]["MNC_DOM_CHW"].ToString();
+                ptt.MNC_DOM_AMP = dt.Rows[0]["MNC_DOM_AMP"].ToString();
+                ptt.MNC_DOM_TUM = dt.Rows[0]["MNC_DOM_TUM"].ToString();
+                ptt.MNC_DOM_ADD = dt.Rows[0]["MNC_DOM_ADD"].ToString();
+                ptt.MNC_DOM_MOO = dt.Rows[0]["MNC_DOM_MOO"].ToString();
+                ptt.MNC_DOM_SOI = dt.Rows[0]["MNC_DOM_SOI"].ToString();
+                ptt.MNC_DOM_TEL = dt.Rows[0]["MNC_DOM_TEL"].ToString();
 
             }
             else

@@ -353,15 +353,15 @@ namespace bangna_hospital.gui
 
 
             bc.setControlC1Button(ref btnDeleteAll, fEdit, "Clear Data", "btnDeleteAll", txtHn.Location.X + txtHn.Width + 20, gapY);
-            btnDeleteAll.Width = 120;
+            btnDeleteAll.Width = 100;
             btnDeleteAll.Height = btnDeleteAll.Height + 10;
 
-            bc.setControlC1Button(ref btnPrint, fEdit, "Print", "btnPrint", btnDeleteAll.Location.X + btnDeleteAll.Width + 60, gapY);
-            btnPrint.Width = 140;
+            bc.setControlC1Button(ref btnPrint, fEdit, "Print", "btnPrint", btnDeleteAll.Location.X + btnDeleteAll.Width + 20, gapY);
+            btnPrint.Width = 90;
             btnPrint.Height = btnPrint.Height + 10;
 
-            bc.setControlC1Button(ref btnGet, fEdit, "get", "btnGet", btnPrint.Location.X + btnPrint.Width + 60, gapY);
-            btnGet.Width = 140;
+            bc.setControlC1Button(ref btnGet, fEdit, "get", "btnGet", btnPrint.Location.X + btnPrint.Width + 20, gapY);
+            btnGet.Width = 90;
             btnGet.Height = btnGet.Height + 10;
 
             tabImportDf.Controls.Add(grfSelect);

@@ -110,8 +110,8 @@ namespace bangna_hospital.gui
             foreach(Row row in grfNovel.Rows)
             {
                 String lcovidd = "", mnchnno = "";
-                lcovidd = row[colNovelid].ToString();
-                mnchnno = row[colNovelHn].ToString();
+                lcovidd = row[colNovelid] != null ? row[colNovelid].ToString():"";
+                mnchnno = row[colNovelHn] != null ? row[colNovelHn].ToString() : "";
             }
         }
 

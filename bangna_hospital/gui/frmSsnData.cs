@@ -19,6 +19,11 @@ namespace bangna_hospital.gui
         DataTable dtBr1 = new DataTable();
         DataTable dtBr2 = new DataTable();
         DataTable dtBr5 = new DataTable();
+
+        Boolean vdata;
+        String path;
+        Image imgDrag;
+        Thread threadimgDrag;
         public frmSsnData(BangnaControl bc)
         {
             InitializeComponent();
@@ -35,8 +40,72 @@ namespace bangna_hospital.gui
             btnImp5.Click += BtnImp5_Click;
             btnInsert.Click += BtnInsert_Click;
             btnM01.Click += BtnM01_Click;
+
+            this.DragEnter += FrmSsnData_DragEnter;
+            this.DragDrop += FrmSsnData_DragDrop;
         }
 
+        private void FrmSsnData_DragDrop(object sender, DragEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (vdata)
+            {
+                while (threadimgDrag.IsAlive)
+                {
+                    Application.DoEvents();
+                    Thread.Sleep(0);
+                }
+                picPtt.Image = imgDrag;
+            }
+        }
+
+        private void FrmSsnData_DragEnter(object sender, DragEventArgs e)
+        {
+            //throw new NotImplementedException();
+            String filename = "";
+            vdata = GetImage(out filename, e);
+            if (vdata)
+            {
+                path = filename;
+                threadimgDrag = new Thread(new ThreadStart(saveImage));
+                threadimgDrag.Start();
+                e.Effect = DragDropEffects.Copy;
+
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+        }
+        private void saveImage()
+        {
+            //throw new NotImplementedException();
+            imgDrag = new Bitmap(path);
+        }
+
+        private bool GetImage(out string filename, DragEventArgs e)
+        {
+            //throw new NotImplementedException();
+            Boolean rturn = false;
+            filename = string.Empty;
+            if ((e.AllowedEffect & DragDropEffects.Copy) == DragDropEffects.Copy)
+            {
+                Array data = ((IDataObject)e.Data).GetData("FileDrop") as Array;
+                if (data != null)
+                {
+                    if ((data.Length == 1) && (data.GetValue(0) is String))
+                    {
+                        filename = ((String[])data)[0];
+                        String ext = Path.GetExtension(filename).ToLower();
+                        if ((ext == ".jpg") || (ext == ".png") || (ext == ".git"))
+                        {
+                            rturn = true;
+                        }
+                    }
+                }
+            }
+            return rturn;
+        }
         private void BtnM01_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

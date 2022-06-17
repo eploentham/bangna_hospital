@@ -226,9 +226,14 @@ namespace bangna_hospital.object1
                     new LogWriter("e", "upload localFile " + localFile + ex.ToString() + " Error ftp upload write file  ");      //+0002
                     Console.WriteLine(ex.ToString()); 
                 }
+                finally
+                {
+                    localFileStream.Close();
+                    localFileStream.Dispose();
+                    ftpStream.Close();
+                    ftpStream.Dispose();
+                }
                 /* Resource Cleanup */
-                localFileStream.Close();
-                ftpStream.Close();
                 ftpRequest = null;
                 chk = true;
             }

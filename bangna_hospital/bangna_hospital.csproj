@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_sticker_jjj</AssemblyName>
+    <AssemblyName>bangna_hospital_scan_add</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -54,7 +54,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
+    <ApplicationIcon>bangna_hospital_scan_add.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -91,6 +91,7 @@
     <Reference Include="C1.Win.C1SuperTooltip.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Themes.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=594a0605db190bb9, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1TileControl.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1TouchToolKit.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=5e531fc0479701e7, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.Calendar.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.FlexChart.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=3aa2920c09e0aefd" />
     <Reference Include="C1.Win.FlexReport.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
@@ -155,6 +156,12 @@
     </Compile>
     <Compile Include="gui\FrmCheckup.Designer.cs">
       <DependentUpon>FrmCheckup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmColposcopyReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmColposcopyReport.Designer.cs">
+      <DependentUpon>FrmColposcopyReport.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmImportMDB.cs">
       <SubType>Form</SubType>
@@ -486,6 +493,12 @@
     <Compile Include="gui\FrmXrayViewDaily.Designer.cs">
       <DependentUpon>FrmXrayViewDaily.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\ImagePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\ImagePanel.designer.cs">
+      <DependentUpon>ImagePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -742,6 +755,9 @@
     <EmbeddedResource Include="gui\FrmCheckup.resx">
       <DependentUpon>FrmCheckup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmColposcopyReport.resx">
+      <DependentUpon>FrmColposcopyReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDocGroupFm.resx">
       <DependentUpon>FrmDocGroupFm.cs</DependentUpon>
     </EmbeddedResource>
@@ -873,6 +889,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmXrayViewDaily.resx">
       <DependentUpon>FrmXrayViewDaily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\ImagePanel.resx">
+      <DependentUpon>ImagePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -1617,6 +1636,9 @@
     <None Include="Resources\qrcode-657bkkyq.png" />
     <None Include="Resources\LOGO-Green-Transparent.png" />
     <None Include="Resources\kyc.png" />
+    <None Include="Resources\811lnpoa.png" />
+    <None Include="Resources\download.jpg" />
+    <None Include="Resources\spd_20140318222915_b.jpg" />
     <Content Include="SmartChipCSPlus_6.ico" />
     <None Include="Resources\webpage.ico" />
     <None Include="Resources\signal-receiver.ico" />

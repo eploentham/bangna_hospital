@@ -182,6 +182,10 @@ namespace bangna_hospital
                 {
                     Application.Run(new gui.FrmImportMDB(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("colposcopy"))
+                {
+                    Application.Run(new gui.FrmColposcopyReport(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

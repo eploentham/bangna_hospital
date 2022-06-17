@@ -234,7 +234,7 @@ namespace bangna_hospital.objdb
             sql = "Update " + ptthi.table + " Set " +
                 " " + ptthi.status_xray + " = '1' " +
                 ", " + ptthi.date_order_xray + " = '" + datexray + "' " +
-                ", " + ptthi.req_no_xray + " = " + reqnoxray + " " +
+                ", " + ptthi.req_no_xray + " = '" + reqnoxray + "' " +
                 "Where " + ptthi.pkField + "='" + ptthiid + "'"
                 ;
             try

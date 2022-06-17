@@ -1155,6 +1155,16 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap line_811lnpoa {
+            get {
+                object obj = ResourceManager.GetObject("line_811lnpoa", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap LineSpacing_small {
             get {
                 object obj = ResourceManager.GetObject("LineSpacing_small", resourceCulture);
@@ -2288,6 +2298,26 @@ namespace bangna_hospital.Properties {
         internal static System.Drawing.Bitmap SortAscending_small {
             get {
                 object obj = ResourceManager.GetObject("SortAscending_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spd_1 {
+            get {
+                object obj = ResourceManager.GetObject("spd_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap spd_2 {
+            get {
+                object obj = ResourceManager.GetObject("spd_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

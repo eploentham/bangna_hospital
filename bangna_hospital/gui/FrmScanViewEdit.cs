@@ -60,6 +60,7 @@ namespace bangna_hospital.gui
             btnGenSort.Click += BtnGenSort_Click;
             btnRotate.Click += BtnRotate_Click;
             btnSaveRotate.Click += BtnSaveRotate_Click;
+            
             //theme1.SetTheme(sb1, "BeigeOne");
 
             //sb1.Text = "aaaaaaaaaa";
@@ -167,7 +168,7 @@ namespace bangna_hospital.gui
                 str = "00";
                 dgs = bc.bcDB.dscDB.selectByPk(dscid);
                 bc.bcDB.dgssDB.setCboDGSS(cboDgss, "");
-                bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
+                //bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
                 str = "01";
                 txtID.Value = dgs.doc_scan_id;
                 txtHn.Value = hn;
@@ -185,12 +186,12 @@ namespace bangna_hospital.gui
                 if (docGroupFm2.fm_id.Length > 0)
                 {
                     bc.setC1Combo(cboDgs, docGroupFm2.doc_group_id);
-                    bc.bcDB.dgssDB.setCboDGSS(cboDgs, docGroupFm2.doc_group_id, "");
+                    bc.bcDB.dgssDB.setCboDGSS(cboDgss, docGroupFm2.doc_group_id, "");
                     bc.setC1Combo(cboDgss, docGroupFm2.doc_group_sub_id);
                 }
                 str = "02";
                 pic1.Image = img1;
-                btnSaveFmCode.Hide();
+                //btnSaveFmCode.Hide();
                 btnVoid.Hide();
             }
             catch (Exception ex)
@@ -221,9 +222,14 @@ namespace bangna_hospital.gui
                 if ((dfm.doc_group_id != null) && (dfm.doc_group_id.Length > 0))
                 {
                     bc.setC1Combo(cboDgs, dfm.doc_group_id);
-                    bc.bcDB.dgssDB.setCboDGSS(cboDgs, dfm.doc_group_id, "");
+                    bc.bcDB.dgssDB.setCboDGSS(cboDgss, dfm.doc_group_id, "");
                     bc.setC1Combo(cboDgss, dfm.doc_group_sub_id);
                     btnSaveFmCode.Show();
+                }
+                else
+                {
+                    bc.setC1Combo(cboDgs, "");
+                    bc.setC1Combo(cboDgss, "");
                 }
                 pageLoad = true;
             }

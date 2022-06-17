@@ -670,6 +670,7 @@ namespace bangna_hospital.control
         public void setC1Combo(C1ComboBox c, String data)
         {
             if (c.Items.Count == 0) return;
+            //if (c.SelectedIndex < 0) return;
             c.SelectedIndex = c.SelectedItem == null ? 0 : c.SelectedIndex;
             c.SelectedIndex = 0;
             foreach (ComboBoxItem item in c.Items)
