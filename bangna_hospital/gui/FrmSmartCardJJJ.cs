@@ -478,10 +478,10 @@ namespace bangna_hospital.gui
                         gfx.DrawString("biSOLVON( BROMHEXINE ) 8 MG. (3J2)", fEditB, Brushes.Black, col40, 610, flags);
                         gfx.DrawString(txtJJJsetaBI005qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 540, 610, flags);
                     }
-                    if (chkJJJsetaMI047.Checked)
+                    if (chkJJJsetaAN023.Checked)
                     {
                         gfx.DrawString("ANDROGRAPHOLIDE 20MG (ฟ้าทะลายโจร)", fEditB, Brushes.Black, col40, 653, flags);
-                        gfx.DrawString(txtJJJsetaMI047qty.Text.Trim() + " CAP", fEditB, Brushes.Black, col40 + 540, 653, flags);
+                        gfx.DrawString(txtJJJsetaAN023qty.Text.Trim() + " CAP", fEditB, Brushes.Black, col40 + 540, 653, flags);
                     }
                 }
                 else if (chkJJJDrugSetC.Checked)
@@ -952,27 +952,38 @@ namespace bangna_hospital.gui
             chkJJJsetaPA007.Checked = true;
             chkJJJsetaCP001.Checked = true;
             chkJJJsetaBI005.Checked = true;
+            chkJJJsetaAN023.Checked = true;
             chkJJJsetaMI047.Checked = true;
+            chkJJJsetaAN023.Checked = true;
+            chkJJJsetaEL021.Checked = true;
 
             txtJJJsetaPA007qty.Value = "20";
             txtJJJsetaCP001qty.Value = "20";
             txtJJJsetaBI005qty.Value = "20";
-            txtJJJsetaMI047qty.Value = "45";
+            txtJJJsetaAN023qty.Value = "45";
             //txtJJJsetaPA007qty.Value = "20";
+            txtJJJsetaMI047qty.Value = "1";
+            txtJJJsetaEL021qty.Value = "3";
 
             chkJJJsetbPA007.Checked = false;
             chkJJJsetbCP001.Checked = false;
             chkJJJsetbBI005.Checked = false;
             chkJJJsetbFA01450.Checked = false;
+            chkJJJsetbMI047.Checked = false;
+            chkJJJsetbEL021.Checked = false;
 
             chkJJJsetcPA007.Checked = false;
             chkJJJsetcCP001.Checked = false;
             chkJJJsetcBI005.Checked = false;
+            chkJJJsetcMI047.Checked = false;
+            chkJJJsetcEL021.Checked = false;
 
             chkJJJsetdPA007.Checked = false;
             chkJJJsetdCP001.Checked = false;
             chkJJJsetdBI005.Checked = false;
             chkJJJsetdFA01464.Checked = false;
+            chkJJJsetdMI047.Checked = false;
+            chkJJJsetdEL021.Checked = false;
 
             txtJJJsetbPA007qty.Value = "0";
             txtJJJsetbCP001qty.Value = "0";
@@ -997,33 +1008,41 @@ namespace bangna_hospital.gui
             chkJJJsetbCP001.Checked = true;
             chkJJJsetbBI005.Checked = true;
             chkJJJsetbFA01450.Checked = true;
-
-            
+            chkJJJsetbMI047.Checked = true;
+            chkJJJsetbEL021.Checked = true;
 
             txtJJJsetbPA007qty.Value = "20";
             txtJJJsetbCP001qty.Value = "20";
             txtJJJsetbBI005qty.Value = "20";
             txtJJJsetbFA01450qty.Value = "50";
-            
+            txtJJJsetbMI047qty.Value = "1";
+            txtJJJsetbEL021qty.Value = "3";
+
             //txtJJJsetaPA007qty.Value = "20";
             chkJJJsetaPA007.Checked = false;
             chkJJJsetaCP001.Checked = false;
             chkJJJsetaBI005.Checked = false;
+            chkJJJsetaAN023.Checked = false;
             chkJJJsetaMI047.Checked = false;
+            chkJJJsetaEL021.Checked = false;
 
             chkJJJsetcPA007.Checked = false;
             chkJJJsetcCP001.Checked = false;
             chkJJJsetcBI005.Checked = false;
+            chkJJJsetcMI047.Checked = false;
+            chkJJJsetcEL021.Checked = false;
 
             chkJJJsetdPA007.Checked = false;
             chkJJJsetdCP001.Checked = false;
             chkJJJsetdBI005.Checked = false;
             chkJJJsetdFA01464.Checked = false;
+            chkJJJsetdMI047.Checked = false;
+            chkJJJsetdEL021.Checked = false;
 
             txtJJJsetaPA007qty.Value = "0";
             txtJJJsetaCP001qty.Value = "0";
             txtJJJsetaBI005qty.Value = "0";
-            txtJJJsetaMI047qty.Value = "0";
+            txtJJJsetaAN023qty.Value = "0";
 
             txtJJJsetcPA007qty.Value = "0";
             txtJJJsetcCP001qty.Value = "0";
@@ -1042,31 +1061,41 @@ namespace bangna_hospital.gui
             chkJJJsetcPA007.Checked = true;
             chkJJJsetcCP001.Checked = true;
             chkJJJsetcBI005.Checked = true;
+            chkJJJsetcMI047.Checked = true;
+            chkJJJsetcEL021.Checked = true;
 
             txtJJJsetcPA007qty.Value = "20";
             txtJJJsetcCP001qty.Value = "20";
             txtJJJsetcBI005qty.Value = "20";
-            
+            txtJJJsetcMI047qty.Value = "1";
+            txtJJJsetcEL021qty.Value = "3";
+
             //txtJJJsetaPA007qty.Value = "20";
             chkJJJsetaPA007.Checked = false;
             chkJJJsetaCP001.Checked = false;
             chkJJJsetaBI005.Checked = false;
+            chkJJJsetaAN023.Checked = false;
             chkJJJsetaMI047.Checked = false;
+            chkJJJsetaEL021.Checked = false;
 
             chkJJJsetbPA007.Checked = false;
             chkJJJsetbCP001.Checked = false;
             chkJJJsetbBI005.Checked = false;
             chkJJJsetbFA01450.Checked = false;
+            chkJJJsetbMI047.Checked = false;
+            chkJJJsetbEL021.Checked = false;
 
             chkJJJsetdPA007.Checked = false;
             chkJJJsetdCP001.Checked = false;
             chkJJJsetdBI005.Checked = false;
             chkJJJsetdFA01464.Checked = false;
+            chkJJJsetdMI047.Checked = false;
+            chkJJJsetdEL021.Checked = false;
 
             txtJJJsetaPA007qty.Value = "0";
             txtJJJsetaCP001qty.Value = "0";
             txtJJJsetaBI005qty.Value = "0";
-            txtJJJsetaMI047qty.Value = "0";
+            txtJJJsetaAN023qty.Value = "0";
 
             txtJJJsetbPA007qty.Value = "0";
             txtJJJsetbCP001qty.Value = "0";
@@ -1088,31 +1117,41 @@ namespace bangna_hospital.gui
             chkJJJsetdCP001.Checked = true;
             chkJJJsetdBI005.Checked = true;
             chkJJJsetdFA01464.Checked = true;
+            chkJJJsetdMI047.Checked = true;
+            chkJJJsetdEL021.Checked = true;
 
             chkJJJsetcPA007.Checked = false;
             chkJJJsetcCP001.Checked = false;
             chkJJJsetcBI005.Checked = false;
+            chkJJJsetcMI047.Checked = false;
+            chkJJJsetcEL021.Checked = false;
 
             txtJJJsetdPA007qty.Value = "20";
             txtJJJsetdCP001qty.Value = "20";
             txtJJJsetdBI005qty.Value = "20";
             txtJJJsetdFA01464qty.Value = "64";
+            txtJJJsetdMI047qty.Value = "1";
+            txtJJJsetdEL021qty.Value = "3";
 
             //txtJJJsetaPA007qty.Value = "20";
             chkJJJsetaPA007.Checked = false;
             chkJJJsetaCP001.Checked = false;
             chkJJJsetaBI005.Checked = false;
+            chkJJJsetaAN023.Checked = false;
             chkJJJsetaMI047.Checked = false;
+            chkJJJsetaEL021.Checked = false;
 
             chkJJJsetbPA007.Checked = false;
             chkJJJsetbCP001.Checked = false;
             chkJJJsetbBI005.Checked = false;
             chkJJJsetbFA01450.Checked = false;
+            chkJJJsetbMI047.Checked = false;
+            chkJJJsetbEL021.Checked = false;
 
             txtJJJsetaPA007qty.Value = "0";
             txtJJJsetaCP001qty.Value = "0";
             txtJJJsetaBI005qty.Value = "0";
-            txtJJJsetaMI047qty.Value = "0";
+            txtJJJsetaAN023qty.Value = "0";
 
             txtJJJsetbPA007qty.Value = "0";
             txtJJJsetbCP001qty.Value = "0";
@@ -1395,7 +1434,7 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString(chkJJJ32.Checked ? "/" : "", famtB, Brushes.Black, int.Parse(col22.ToString()) +85 - recx - 2, 392, flags);
 
 
-            line = symptom.Trim().Replace("โครงการ เจอ แจก จบ", "โครงการ OPSI"); ;
+            line = symptom.Trim().Replace("โครงการ เจอ แจก จบ", "โครงการ OPSI");
             textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fEditB, Brushes.Black, col3 -30, 280, flags);
 
@@ -1434,10 +1473,10 @@ namespace bangna_hospital.gui
                     e.Graphics.DrawString("biSOLVON( BROMHEXINE ) 8 MG. (3J2)", fEditB, Brushes.Black, col40, 520, flags);
                     e.Graphics.DrawString(txtJJJsetaBI005qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 520, flags);
                 }
-                if (chkJJJsetaMI047.Checked)
+                if (chkJJJsetaAN023.Checked)
                 {
                     e.Graphics.DrawString("ANDROGRAPHOLIDE 20MG (ฟ้าทะลายโจร)", fEditB, Brushes.Black, col40, 580, flags);
-                    e.Graphics.DrawString(txtJJJsetaMI047qty.Text.Trim() + " BOT", fEditB, Brushes.Black, col40 + 340, 580, flags);
+                    e.Graphics.DrawString(txtJJJsetaAN023qty.Text.Trim() + " BOT", fEditB, Brushes.Black, col40 + 340, 580, flags);
                 }
             }
             else if (chkJJJDrugSetC.Checked)
@@ -1506,8 +1545,10 @@ namespace bangna_hospital.gui
                     e.Graphics.DrawString(txtJJJsetdFA01464qty.Text.Trim() + " TAB", fEditB, Brushes.Black, col40 + 340, 580, flags);
                 }
             }
-
-
+            e.Graphics.DrawString(chkJJJsetcMI047.Text.Trim(), fEditB, Brushes.Black, col40, 640, flags);
+            e.Graphics.DrawString(txtJJJsetcMI047qty.Text.Trim() + " BOT", fEditB, Brushes.Black, col40 + 340, 640, flags);
+            e.Graphics.DrawString(chkJJJsetaEL021.Text.Trim(), fEditB, Brushes.Black, col40, 700, flags);
+            e.Graphics.DrawString(txtJJJsetaEL021qty.Text.Trim() + " PIE", fEditB, Brushes.Black, col40 + 340, 700, flags);
 
             //line = "สัมผัสล่าสุด";
             //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);

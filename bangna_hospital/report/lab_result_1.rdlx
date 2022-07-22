@@ -1,669 +1,18 @@
 ﻿<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
 	<dd:Name xmlns:dd="http://schemas.datadynamics.com/reporting/2005/02/reportdefinition">lab_result</dd:Name>
 	<PageHeader>
-		<Height>4.4cm</Height>
+		<Height>0.2cm</Height>
 		<PrintOnFirstPage>true</PrintOnFirstPage>
 		<PrintOnLastPage>true</PrintOnLastPage>
-		<ReportItems>
-			<Textbox Name="line11">
-				<Height>0.25in</Height>
-				<Left>0.393701in</Left>
-				<Value>=Fields!line1.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>18pt</FontSize>
-					<FontWeight>700</FontWeight>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.07874in</Top>
-				<Width>2.333333in</Width>
-			</Textbox>
-			<Textbox Name="Text5">
-				<Height>0.25in</Height>
-				<Left>2.755905in</Left>
-				<Value>เลขที่ใบสั่ง :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.551181in</Top>
-				<Width>0.6666667in</Width>
-			</Textbox>
-			<Textbox Name="patientname1">
-				<Height>0.25in</Height>
-				<Left>3.543307in</Left>
-				<Value>=Fields!patient_name.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.07874in</Top>
-				<Width>2.333333in</Width>
-			</Textbox>
-			<Textbox Name="Text2">
-				<Height>0.25in</Height>
-				<Left>2.755905in</Left>
-				<Value>ชื่อ-สกุลผู้ป่วย :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.07874in</Top>
-				<Width>0.8333333in</Width>
-			</Textbox>
-			<Textbox Name="patienthn1">
-				<Height>0.25in</Height>
-				<Left>3.543307in</Left>
-				<Value>=Fields!patient_hn.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.314961in</Top>
-				<Width>1.5in</Width>
-			</Textbox>
-			<Textbox Name="Text12">
-				<Height>0.25in</Height>
-				<Left>5.905511in</Left>
-				<Value>วันที่ :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.551181in</Top>
-				<Width>0.4166667in</Width>
-			</Textbox>
-			<Textbox Name="resultdate1">
-				<Height>0.25in</Height>
-				<Left>6.299213in</Left>
-				<Value>=Fields!result_date.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.551181in</Top>
-				<Width>1.583333in</Width>
-			</Textbox>
-			<Textbox Name="requestno1">
-				<Height>0.25in</Height>
-				<Left>3.543307in</Left>
-				<Value>=Fields!request_no.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.551181in</Top>
-				<Width>1.416667in</Width>
-			</Textbox>
-			<Textbox Name="Text11">
-				<Height>0.25in</Height>
-				<Left>5.905511in</Left>
-				<Value>VN :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.314961in</Top>
-				<Width>0.3333333in</Width>
-			</Textbox>
-			<Textbox Name="patientvn1">
-				<Height>0.25in</Height>
-				<Left>6.299213in</Left>
-				<Value>=Fields!patient_vn.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.314961in</Top>
-				<Width>1.583333in</Width>
-			</Textbox>
-			<Textbox Name="Text10">
-				<Height>0.25in</Height>
-				<Left>5.905511in</Left>
-				<Value>อายุ :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.07874in</Top>
-				<Width>0.3333333in</Width>
-			</Textbox>
-			<Textbox Name="patientage1">
-				<Height>0.25in</Height>
-				<Left>6.299213in</Left>
-				<Value>=Fields!patient_age.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.07874in</Top>
-				<Width>1.583333in</Width>
-			</Textbox>
-			<Textbox Name="Text27">
-				<Height>0.25in</Height>
-				<Left>2.755905in</Left>
-				<Value>HN :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.314961in</Top>
-				<Width>0.6666667in</Width>
-			</Textbox>
-			<Line Name="Line2">
-				<Height>0cm</Height>
-				<Left>0.2cm</Left>
-				<Style>
-					<BorderStyle>
-						<Default>Dotted</Default>
-					</BorderStyle>
-				</Style>
-				<Top>4.2cm</Top>
-				<Width>20cm</Width>
-				<ZIndex>2</ZIndex>
-			</Line>
-			<Textbox Name="TextBox12">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>2.755905in</Left>
-				<Value>แพทย์ :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>2.035cm</Top>
-				<Width>0.6666667in</Width>
-			</Textbox>
-			<Textbox Name="TextBox13">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>2.755905in</Left>
-				<Value>บริษัท :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>1.051181in</Top>
-				<Width>0.6666667in</Width>
-			</Textbox>
-			<Textbox Name="TextBox14">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>5.905511in</Left>
-				<Value>วันที่ออกผล :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.866142in</Top>
-				<Width>0.8661in</Width>
-			</Textbox>
-			<Textbox Name="TextBox15">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>0.393701in</Left>
-				<Value>ประเภทผู้ป่วย :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.3937007in</Top>
-				<Width>0.8661in</Width>
-			</Textbox>
-			<Textbox Name="TextBox16">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.315in</Height>
-				<Left>0.393701in</Left>
-				<Value>ใบรายงานผล LAB </Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>18pt</FontSize>
-					<FontStyle>Normal</FontStyle>
-					<FontWeight>400</FontWeight>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.866142in</Top>
-				<Width>1.7323in</Width>
-			</Textbox>
-			<Line Name="Line3">
-				<Height>0cm</Height>
-				<Left>0.2cm</Left>
-				<Style>
-					<BorderStyle>
-						<Default>Dotted</Default>
-					</BorderStyle>
-				</Style>
-				<Top>3.4cm</Top>
-				<Width>20cm</Width>
-				<ZIndex>2</ZIndex>
-			</Line>
-			<Textbox Name="TextBox17">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>0.3958333in</Left>
-				<Value>DESCRIPTION</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Center</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>1.333333in</Top>
-				<Width>3.7396in</Width>
-			</Textbox>
-			<Textbox Name="TextBox18">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>10.50391cm</Left>
-				<Value>RESULT</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Center</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>1.338583in</Top>
-				<Width>1.2977in</Width>
-			</Textbox>
-			<Textbox Name="TextBox20">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>13.99646cm</Left>
-				<Value>UNIT</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Center</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>3.386667cm</Top>
-				<Width>1.2604in</Width>
-			</Textbox>
-			<Textbox Name="TextBox21">
-				<DataElementName>Text5</DataElementName>
-				<Height>0.25in</Height>
-				<Left>17.2cm</Left>
-				<Value />
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<TextAlign>Center</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>3.386667cm</Top>
-				<Width>1.1033in</Width>
-			</Textbox>
-			<Textbox Name="TextBox22">
-				<DataElementName>requestno1</DataElementName>
-				<Height>0.25in</Height>
-				<Left>3.541667in</Left>
-				<Value>=First(Fields!doctor.Value, "DataSet1")</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.8011811in</Top>
-				<Width>2.2851in</Width>
-			</Textbox>
-			<Textbox Name="TextBox23">
-				<DataElementName>requestno1</DataElementName>
-				<Height>0.25in</Height>
-				<Left>3.541667in</Left>
-				<Value>=First(Fields!patient_company.Value, "DataSet1")</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>1.052083in</Top>
-				<Width>2.2851in</Width>
-			</Textbox>
-			<Textbox Name="TextBox24">
-				<DataElementName>requestno1</DataElementName>
-				<Height>0.25in</Height>
-				<Left>1.260417in</Left>
-				<Value>=Fields!patient_dep.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.4270833in</Top>
-				<Width>1.4583in</Width>
-			</Textbox>
-			<Textbox Name="TextBox25">
-				<DataElementName>requestno1</DataElementName>
-				<Height>0.25in</Height>
-				<Left>6.770833in</Left>
-				<Value>=Fields!print_date.Value</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>14pt</FontSize>
-					<Format>=""</Format>
-					<TextAlign>General</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.8645833in</Top>
-				<Width>1.1146in</Width>
-			</Textbox>
-		</ReportItems>
 		<Style />
 	</PageHeader>
 	<Body>
-		<Height>5.4cm</Height>
+		<Height>10.8cm</Height>
 		<ReportItems>
 			<CustomReportItem Name="BandedList1">
 				<Type>BandedList</Type>
 				<Width>20.4cm</Width>
-				<Height>5.4cm</Height>
+				<Height>9.7896cm</Height>
 				<Style />
 				<CustomData>
 					<DataSetName>DataSet1</DataSetName>
@@ -687,7 +36,7 @@
 												<Textbox Name="TextBox4">
 													<CanGrow>true</CanGrow>
 													<Height>0.75cm</Height>
-													<Left>0.551181in</Left>
+													<Left>0.2395833in</Left>
 													<Value>=Fields!mnc_lb_grp_dsc.Value</Value>
 													<Style>
 														<FontFamily>Angsana New</FontFamily>
@@ -699,8 +48,807 @@
 														<PaddingRight>2pt</PaddingRight>
 														<PaddingTop>2pt</PaddingTop>
 													</Style>
+													<Top>4.4cm</Top>
 													<Width>11.5548cm</Width>
 													<ZIndex>1</ZIndex>
+												</Textbox>
+												<Line Name="Line3">
+													<Height>0cm</Height>
+													<Left>0.2cm</Left>
+													<Style>
+														<BorderStyle>
+															<Default>Dotted</Default>
+														</BorderStyle>
+													</Style>
+													<Top>3.4cm</Top>
+													<Width>20cm</Width>
+													<ZIndex>2</ZIndex>
+												</Line>
+												<Line Name="Line2">
+													<Height>0cm</Height>
+													<Left>0.2cm</Left>
+													<Style>
+														<BorderStyle>
+															<Default>Dotted</Default>
+														</BorderStyle>
+													</Style>
+													<Top>4.2cm</Top>
+													<Width>20cm</Width>
+													<ZIndex>2</ZIndex>
+												</Line>
+												<Textbox Name="TextBox21">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>17cm</Left>
+													<Value />
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Center</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>3.4cm</Top>
+													<Width>1.1033in</Width>
+												</Textbox>
+												<Textbox Name="TextBox20">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>13.8cm</Left>
+													<Value>UNIT</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Center</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>3.4cm</Top>
+													<Width>1.2604in</Width>
+												</Textbox>
+												<Textbox Name="TextBox18">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>10.4cm</Left>
+													<Value>RESULT</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Center</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>3.4cm</Top>
+													<Width>1.2977in</Width>
+												</Textbox>
+												<Textbox Name="TextBox17">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>0.8cm</Left>
+													<Value>DESCRIPTION</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Center</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>3.4cm</Top>
+													<Width>3.7396in</Width>
+												</Textbox>
+												<Textbox Name="resultdate1">
+													<Height>0.25in</Height>
+													<Left>15.6cm</Left>
+													<Value>=Fields!result_date.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>1.4cm</Top>
+													<Width>1.583333in</Width>
+												</Textbox>
+												<Textbox Name="Text12">
+													<Height>0.25in</Height>
+													<Left>14.6cm</Left>
+													<Value>วันที่ :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>1.4cm</Top>
+													<Width>0.4166667in</Width>
+												</Textbox>
+												<Textbox Name="TextBox25">
+													<DataElementName>requestno1</DataElementName>
+													<Height>0.25in</Height>
+													<Left>16.8cm</Left>
+													<Value>=Fields!print_date.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>2cm</Top>
+													<Width>1.1146in</Width>
+												</Textbox>
+												<Textbox Name="TextBox14">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>14.6cm</Left>
+													<Value>วันที่ออกผล :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>2cm</Top>
+													<Width>0.8661in</Width>
+												</Textbox>
+												<Textbox Name="patientage1">
+													<Height>0.25in</Height>
+													<Left>15.6cm</Left>
+													<Value>=Fields!patient_age.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.2cm</Top>
+													<Width>1.583333in</Width>
+												</Textbox>
+												<Textbox Name="Text10">
+													<Height>0.25in</Height>
+													<Left>14.6cm</Left>
+													<Value>อายุ :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.2cm</Top>
+													<Width>0.3333333in</Width>
+												</Textbox>
+												<Textbox Name="patientvn1">
+													<Height>0.25in</Height>
+													<Left>15.6cm</Left>
+													<Value>=Fields!patient_vn.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.8cm</Top>
+													<Width>1.583333in</Width>
+												</Textbox>
+												<Textbox Name="Text11">
+													<Height>0.25in</Height>
+													<Left>14.6cm</Left>
+													<Value>VN :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.8cm</Top>
+													<Width>0.3333333in</Width>
+												</Textbox>
+												<Textbox Name="TextBox23">
+													<DataElementName>requestno1</DataElementName>
+													<Height>0.25in</Height>
+													<Left>8.599999cm</Left>
+													<Value>=First(Fields!patient_company.Value, "DataSet1")</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>2.6cm</Top>
+													<Width>2.2851in</Width>
+												</Textbox>
+												<Textbox Name="TextBox22">
+													<DataElementName>requestno1</DataElementName>
+													<Height>0.25in</Height>
+													<Left>8.599999cm</Left>
+													<Value>=First(Fields!doctor.Value, "DataSet1")</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>2cm</Top>
+													<Width>2.2851in</Width>
+												</Textbox>
+												<Textbox Name="TextBox13">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>6.6cm</Left>
+													<Value>บริษัท :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>2.6cm</Top>
+													<Width>0.6666667in</Width>
+												</Textbox>
+												<Textbox Name="TextBox12">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>6.6cm</Left>
+													<Value>แพทย์ :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>2cm</Top>
+													<Width>0.6666667in</Width>
+												</Textbox>
+												<Textbox Name="Text27">
+													<Height>0.25in</Height>
+													<Left>6.6cm</Left>
+													<Value>HN :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.8cm</Top>
+													<Width>0.6666667in</Width>
+												</Textbox>
+												<Textbox Name="requestno1">
+													<Height>0.25in</Height>
+													<Left>8.599999cm</Left>
+													<Value>=Fields!request_no.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>1.4cm</Top>
+													<Width>1.416667in</Width>
+												</Textbox>
+												<Textbox Name="patienthn1">
+													<Height>0.25in</Height>
+													<Left>8.599999cm</Left>
+													<Value>=Fields!patient_hn.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.8cm</Top>
+													<Width>1.5in</Width>
+												</Textbox>
+												<Textbox Name="Text2">
+													<Height>0.25in</Height>
+													<Left>6.6cm</Left>
+													<Value>ชื่อ-สกุลผู้ป่วย :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.2cm</Top>
+													<Width>0.8333333in</Width>
+												</Textbox>
+												<Textbox Name="patientname1">
+													<Height>0.25in</Height>
+													<Left>8.599999cm</Left>
+													<Value>=Fields!patient_name.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.2cm</Top>
+													<Width>2.333333in</Width>
+												</Textbox>
+												<Textbox Name="Text5">
+													<Height>0.25in</Height>
+													<Left>6.6cm</Left>
+													<Value>เลขที่ใบสั่ง :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>1.4cm</Top>
+													<Width>0.6666667in</Width>
+												</Textbox>
+												<Textbox Name="TextBox24">
+													<DataElementName>requestno1</DataElementName>
+													<Height>0.25in</Height>
+													<Left>2.4cm</Left>
+													<Value>=Fields!patient_dep.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>1cm</Top>
+													<Width>1.4583in</Width>
+												</Textbox>
+												<Textbox Name="TextBox16">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.315in</Height>
+													<Left>0.2cm</Left>
+													<Value>ใบรายงานผล LAB </Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>18pt</FontSize>
+														<FontStyle>Normal</FontStyle>
+														<FontWeight>400</FontWeight>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>2.2cm</Top>
+													<Width>1.7323in</Width>
+												</Textbox>
+												<Textbox Name="TextBox15">
+													<DataElementName>Text5</DataElementName>
+													<Height>0.25in</Height>
+													<Left>0.2cm</Left>
+													<Value>ประเภทผู้ป่วย :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>14pt</FontSize>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>1cm</Top>
+													<Width>0.8661in</Width>
+												</Textbox>
+												<Textbox Name="line11">
+													<Height>0.25in</Height>
+													<Left>0.2cm</Left>
+													<Value>=Fields!line1.Value</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>18pt</FontSize>
+														<FontWeight>700</FontWeight>
+														<Format>=""</Format>
+														<TextAlign>General</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.2cm</Top>
+													<Width>2.333333in</Width>
+												</Textbox>
+												<Line Name="Line1">
+													<Height>0cm</Height>
+													<Left>0.07874in</Left>
+													<Style>
+														<BorderStyle>
+															<Default>DashDot</Default>
+														</BorderStyle>
+													</Style>
+													<Width>7.874016in</Width>
+													<ZIndex>2</ZIndex>
+												</Line>
+												<Textbox Name="TextBox9">
+													<CanGrow>true</CanGrow>
+													<Height>0.6325cm</Height>
+													<Left>0.7395833in</Left>
+													<Value>=First(Fields!user_lab.Value, "DataSet1")</Value>
+													<Style>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>12pt</FontSize>
+														<FontStyle>Normal</FontStyle>
+														<FontWeight>400</FontWeight>
+														<PaddingBottom>2pt</PaddingBottom>
+														<PaddingLeft>2pt</PaddingLeft>
+														<PaddingRight>2pt</PaddingRight>
+														<PaddingTop>2pt</PaddingTop>
+														<TextAlign>Left</TextAlign>
+													</Style>
+													<Top>0.005001cm</Top>
+													<Width>4.6055cm</Width>
+													<ZIndex>1</ZIndex>
+												</Textbox>
+												<Textbox Name="TextBox10">
+													<CanGrow>true</CanGrow>
+													<DataElementName>TextBox9</DataElementName>
+													<Height>0.6325cm</Height>
+													<Left>3.385417in</Left>
+													<Value>=First(Fields!user_report.Value, "DataSet1")</Value>
+													<Style>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>12pt</FontSize>
+														<FontStyle>Normal</FontStyle>
+														<FontWeight>400</FontWeight>
+														<PaddingBottom>2pt</PaddingBottom>
+														<PaddingLeft>2pt</PaddingLeft>
+														<PaddingRight>2pt</PaddingRight>
+														<PaddingTop>2pt</PaddingTop>
+														<TextAlign>Left</TextAlign>
+													</Style>
+													<Top>0.0025cm</Top>
+													<Width>4.6cm</Width>
+													<ZIndex>1</ZIndex>
+												</Textbox>
+												<Textbox Name="TextBox11">
+													<CanGrow>true</CanGrow>
+													<DataElementName>TextBox9</DataElementName>
+													<Height>0.6325cm</Height>
+													<Left>6.104167in</Left>
+													<Value>=First(Fields!user_lab.Value, "DataSet1")</Value>
+													<Style>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>12pt</FontSize>
+														<FontStyle>Normal</FontStyle>
+														<FontWeight>400</FontWeight>
+														<PaddingBottom>2pt</PaddingBottom>
+														<PaddingLeft>2pt</PaddingLeft>
+														<PaddingRight>2pt</PaddingRight>
+														<PaddingTop>2pt</PaddingTop>
+														<TextAlign>Left</TextAlign>
+													</Style>
+													<Width>4.6cm</Width>
+													<ZIndex>1</ZIndex>
+												</Textbox>
+												<Textbox Name="TextBox6">
+													<DataElementName>Text2</DataElementName>
+													<Height>0.25in</Height>
+													<Left>0.1979167in</Left>
+													<Value>ผู้บันทึก :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>12pt</FontSize>
+														<FontStyle>Normal</FontStyle>
+														<FontWeight>400</FontWeight>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.005002cm</Top>
+													<Width>0.549in</Width>
+												</Textbox>
+												<Textbox Name="TextBox7">
+													<DataElementName>Text2</DataElementName>
+													<Height>0.25in</Height>
+													<Left>2.572917in</Left>
+													<Value>ผู้รายงานผล :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>12pt</FontSize>
+														<FontStyle>Normal</FontStyle>
+														<FontWeight>400</FontWeight>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Top>0.0025cm</Top>
+													<Width>0.809in</Width>
+												</Textbox>
+												<Textbox Name="TextBox8">
+													<DataElementName>Text2</DataElementName>
+													<Height>0.25in</Height>
+													<Left>5.229167in</Left>
+													<Value>ผู้ตรวจสอบผล :</Value>
+													<Style>
+														<BackgroundColor>White</BackgroundColor>
+														<Color>Black</Color>
+														<FontFamily>Angsana New</FontFamily>
+														<FontSize>12pt</FontSize>
+														<FontStyle>Normal</FontStyle>
+														<FontWeight>400</FontWeight>
+														<TextAlign>Left</TextAlign>
+														<BorderColor>
+															<Default>Black</Default>
+														</BorderColor>
+														<BorderStyle>
+															<Bottom>=""</Bottom>
+															<Left>=""</Left>
+															<Right>=""</Right>
+															<Top>=""</Top>
+														</BorderStyle>
+													</Style>
+													<Width>0.8877in</Width>
 												</Textbox>
 											</ReportItems>
 										</dd:Container>
@@ -827,7 +975,7 @@
 	<Groups>
 		<Group Name="BandedList1_Group1">
 			<HeaderBand>
-				<Height>0.75cm</Height>
+				<Height>0.786912cm</Height>
 				<CanShrink>true</CanShrink>
 				<Style>
 					<BackgroundColor>Inherit</BackgroundColor>
@@ -837,7 +985,7 @@
 				</Visibility>
 			</HeaderBand>
 			<FooterBand>
-				<Height>0.75cm</Height>
+				<Height>0.797106cm</Height>
 				<Style>
 					<BackgroundColor>Inherit</BackgroundColor>
 				</Style>
@@ -851,25 +999,61 @@
 		</Group>
 		<Group Name="BandedList1_Group2">
 			<HeaderBand>
-				<Height>0.8cm</Height>
+				<Height>5.129675cm</Height>
 				<PageBreakAtStart>true</PageBreakAtStart>
-				<KeepTogether>false</KeepTogether>
 				<CanShrink>true</CanShrink>
 				<ReportItems>
 					<ReportItemReference Name="TextBox4" />
+					<ReportItemReference Name="Line3" />
+					<ReportItemReference Name="Line2" />
+					<ReportItemReference Name="TextBox21" />
+					<ReportItemReference Name="TextBox20" />
+					<ReportItemReference Name="TextBox18" />
+					<ReportItemReference Name="TextBox17" />
+					<ReportItemReference Name="resultdate1" />
+					<ReportItemReference Name="Text12" />
+					<ReportItemReference Name="TextBox25" />
+					<ReportItemReference Name="TextBox14" />
+					<ReportItemReference Name="patientage1" />
+					<ReportItemReference Name="Text10" />
+					<ReportItemReference Name="patientvn1" />
+					<ReportItemReference Name="Text11" />
+					<ReportItemReference Name="TextBox23" />
+					<ReportItemReference Name="TextBox22" />
+					<ReportItemReference Name="TextBox13" />
+					<ReportItemReference Name="TextBox12" />
+					<ReportItemReference Name="Text27" />
+					<ReportItemReference Name="requestno1" />
+					<ReportItemReference Name="patienthn1" />
+					<ReportItemReference Name="Text2" />
+					<ReportItemReference Name="patientname1" />
+					<ReportItemReference Name="Text5" />
+					<ReportItemReference Name="TextBox24" />
+					<ReportItemReference Name="TextBox16" />
+					<ReportItemReference Name="TextBox15" />
+					<ReportItemReference Name="line11" />
 				</ReportItems>
 				<Style>
 					<BackgroundColor>Inherit</BackgroundColor>
 				</Style>
+				<RepeatOnNewPage>true</RepeatOnNewPage>
 			</HeaderBand>
 			<FooterBand>
-				<Height>0.75cm</Height>
+				<Height>0.792853cm</Height>
+				<ReportItems>
+					<ReportItemReference Name="Line1" />
+					<ReportItemReference Name="TextBox9" />
+					<ReportItemReference Name="TextBox10" />
+					<ReportItemReference Name="TextBox11" />
+					<ReportItemReference Name="TextBox6" />
+					<ReportItemReference Name="TextBox7" />
+					<ReportItemReference Name="TextBox8" />
+				</ReportItems>
 				<Style>
 					<BackgroundColor>Inherit</BackgroundColor>
 				</Style>
-				<Visibility>
-					<Hidden>True</Hidden>
-				</Visibility>
+				<RepeatOnNewPage>true</RepeatOnNewPage>
+				<PrintAtBottom>true</PrintAtBottom>
 			</FooterBand>
 			<Visibility>
 				<Hidden>False</Hidden>
@@ -877,7 +1061,7 @@
 		</Group>
 		<Group Name="BandedList1_Group3">
 			<HeaderBand>
-				<Height>0.8cm</Height>
+				<Height>0.777203cm</Height>
 				<ReportItems>
 					<ReportItemReference Name="TextBox5" />
 				</ReportItems>
@@ -889,7 +1073,7 @@
 				</Visibility>
 			</HeaderBand>
 			<FooterBand>
-				<Height>0.75cm</Height>
+				<Height>0.72863cm</Height>
 				<Style>
 					<BackgroundColor>Inherit</BackgroundColor>
 				</Style>
@@ -903,7 +1087,7 @@
 		</Group>
 	</Groups>
 	<Details>
-		<Height>0.8cm</Height>
+		<Height>0.777203cm</Height>
 		<KeepTogether>false</KeepTogether>
 		<CanShrink>true</CanShrink>
 		<ReportItems>
@@ -922,163 +1106,9 @@
 		<Style />
 	</Body>
 	<PageFooter>
-		<Height>1.2cm</Height>
+		<Height>0cm</Height>
 		<PrintOnFirstPage>true</PrintOnFirstPage>
 		<PrintOnLastPage>true</PrintOnLastPage>
-		<ReportItems>
-			<Textbox Name="TextBox6">
-				<DataElementName>Text2</DataElementName>
-				<Height>0.25in</Height>
-				<Left>0.2362207in</Left>
-				<Value>ผู้บันทึก :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>12pt</FontSize>
-					<FontStyle>Normal</FontStyle>
-					<FontWeight>400</FontWeight>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.125in</Top>
-				<Width>0.549in</Width>
-			</Textbox>
-			<Textbox Name="TextBox7">
-				<DataElementName>Text2</DataElementName>
-				<Height>0.25in</Height>
-				<Left>6.638472cm</Left>
-				<Value>ผู้รายงานผล :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>12pt</FontSize>
-					<FontStyle>Normal</FontStyle>
-					<FontWeight>400</FontWeight>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.125in</Top>
-				<Width>0.809in</Width>
-			</Textbox>
-			<Textbox Name="TextBox8">
-				<DataElementName>Text2</DataElementName>
-				<Height>0.25in</Height>
-				<Left>13.4cm</Left>
-				<Value>ผู้ตรวจสอบผล :</Value>
-				<Style>
-					<BackgroundColor>White</BackgroundColor>
-					<Color>Black</Color>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>12pt</FontSize>
-					<FontStyle>Normal</FontStyle>
-					<FontWeight>400</FontWeight>
-					<TextAlign>Left</TextAlign>
-					<BorderColor>
-						<Default>Black</Default>
-					</BorderColor>
-					<BorderStyle>
-						<Bottom>=""</Bottom>
-						<Left>=""</Left>
-						<Right>=""</Right>
-						<Top>=""</Top>
-					</BorderStyle>
-				</Style>
-				<Top>0.125in</Top>
-				<Width>0.8877in</Width>
-			</Textbox>
-			<Textbox Name="TextBox9">
-				<CanGrow>true</CanGrow>
-				<Height>0.6325cm</Height>
-				<Left>1.99446cm</Left>
-				<Value>=First(Fields!user_lab.Value, "DataSet1")</Value>
-				<Style>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>12pt</FontSize>
-					<FontStyle>Normal</FontStyle>
-					<FontWeight>400</FontWeight>
-					<PaddingBottom>2pt</PaddingBottom>
-					<PaddingLeft>2pt</PaddingLeft>
-					<PaddingRight>2pt</PaddingRight>
-					<PaddingTop>2pt</PaddingTop>
-					<TextAlign>Left</TextAlign>
-				</Style>
-				<Top>0.3175cm</Top>
-				<Width>4.6055cm</Width>
-				<ZIndex>1</ZIndex>
-			</Textbox>
-			<Textbox Name="TextBox10">
-				<CanGrow>true</CanGrow>
-				<DataElementName>TextBox9</DataElementName>
-				<Height>0.6325cm</Height>
-				<Left>8.693332cm</Left>
-				<Value>=First(Fields!user_report.Value, "DataSet1")</Value>
-				<Style>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>12pt</FontSize>
-					<FontStyle>Normal</FontStyle>
-					<FontWeight>400</FontWeight>
-					<PaddingBottom>2pt</PaddingBottom>
-					<PaddingLeft>2pt</PaddingLeft>
-					<PaddingRight>2pt</PaddingRight>
-					<PaddingTop>2pt</PaddingTop>
-					<TextAlign>Left</TextAlign>
-				</Style>
-				<Top>0.320001cm</Top>
-				<Width>4.6cm</Width>
-				<ZIndex>1</ZIndex>
-			</Textbox>
-			<Textbox Name="TextBox11">
-				<CanGrow>true</CanGrow>
-				<DataElementName>TextBox9</DataElementName>
-				<Height>0.6325cm</Height>
-				<Left>15.6cm</Left>
-				<Value>=First(Fields!user_lab.Value, "DataSet1")</Value>
-				<Style>
-					<FontFamily>Angsana New</FontFamily>
-					<FontSize>12pt</FontSize>
-					<FontStyle>Normal</FontStyle>
-					<FontWeight>400</FontWeight>
-					<PaddingBottom>2pt</PaddingBottom>
-					<PaddingLeft>2pt</PaddingLeft>
-					<PaddingRight>2pt</PaddingRight>
-					<PaddingTop>2pt</PaddingTop>
-					<TextAlign>Left</TextAlign>
-				</Style>
-				<Top>0.320001cm</Top>
-				<Width>4.6cm</Width>
-				<ZIndex>1</ZIndex>
-			</Textbox>
-			<Line Name="Line1">
-				<Height>0cm</Height>
-				<Left>0.2cm</Left>
-				<Style>
-					<BorderStyle>
-						<Default>DashDot</Default>
-					</BorderStyle>
-				</Style>
-				<Top>0.2cm</Top>
-				<Width>20cm</Width>
-				<ZIndex>2</ZIndex>
-			</Line>
-		</ReportItems>
 		<Style />
 	</PageFooter>
 	<PageHeight>14.8cm</PageHeight>

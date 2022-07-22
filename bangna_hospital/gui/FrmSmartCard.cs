@@ -193,7 +193,7 @@ namespace bangna_hospital.gui
             this.Text = String.Format("R&D NID Card Plus C# {0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
 
             setControlCardReader();
-
+            chkJJJ.Checked = true;
             setControl();
             c1FlexViewer2.Ribbon.Minimized = true;
             pageLoad = false;
@@ -5232,13 +5232,26 @@ namespace bangna_hospital.gui
             {
                 drugset = "";
                 rbStatusPrint.Visible = false;
-                if (System.AppDomain.CurrentDomain.FriendlyName.Equals("bangna_hospital_sticker_jjj.exe"))
+                if (bc.iniC.statusVisitBack.Equals("1"))
                 {
-                    re = bc.bcDB.vsDB.insertVisitOPSI(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618");
+                    String visitDate = txtVsdate.Text.Trim();
+                    DateTime dtvsdate = new DateTime();
+                    if(DateTime.TryParse(visitDate, out dtvsdate))
+                    {
+                        //visitDate = dtvsdate.Year+"-"+ dtvsdate.ToString("MM-dd");
+                        re = bc.bcDB.vsDB.insertVisitBack(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618", visitDate);
+                    }
                 }
                 else
                 {
-                    re = bc.bcDB.vsDB.insertVisitHI(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618");
+                    if (System.AppDomain.CurrentDomain.FriendlyName.Equals("bangna_hospital_sticker_jjj.exe"))
+                    {
+                        re = bc.bcDB.vsDB.insertVisitOPSI(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618");
+                    }
+                    else
+                    {
+                        re = bc.bcDB.vsDB.insertVisitHI(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618");
+                    }
                 }
                 PatientHI ptthi = new PatientHI();
                 ptthi.hi_id = "";
@@ -5261,7 +5274,20 @@ namespace bangna_hospital.gui
             }
             else
             {
-                re = bc.bcDB.vsDB.insertVisit(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618");
+                if (bc.iniC.statusVisitBack.Equals("1"))
+                {
+                    String visitDate = txtVsdate.Text.Trim();
+                    DateTime dtvsdate = new DateTime();
+                    if (DateTime.TryParse(visitDate, out dtvsdate))
+                    {
+                        //visitDate = dtvsdate.Year+"-"+ dtvsdate.ToString("MM-dd");
+                        re = bc.bcDB.vsDB.insertVisitBack(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618", visitDate);
+                    }
+                }
+                else
+                {
+                    re = bc.bcDB.vsDB.insertVisit(ptt.MNC_HN_NO, txtPaidType.Text.Trim(), txtSymptom.Text.Trim(), txtDept.Text.Trim(), txtRemark.Text.Trim(), txtDtrId.Text.Trim(), "1618");
+                }
             }
             
             if(long.TryParse(re, out chk))
@@ -6086,8 +6112,23 @@ namespace bangna_hospital.gui
 
             Graphics g = e.Graphics;
             SolidBrush Brush = new SolidBrush(Color.Black);
-
-            date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            if (bc.iniC.statusVisitBack.Equals("1"))
+            {
+                String visitDate = txtVsdate.Text.Trim();
+                DateTime dtvsdate = new DateTime();
+                if (DateTime.TryParse(visitDate, out dtvsdate))
+                {
+                    if (dtvsdate.Year < 1900)
+                    {
+                        dtvsdate = dtvsdate.AddYears(543);
+                    }
+                    date = dtvsdate.ToString("dd-MM-yyyy") + " " + DateTime.Now.ToString("HH:mm:ss");
+                }
+            }
+            else
+            {
+                date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+            }
             Pen blackPen = new Pen(Color.Black, 1);
             Size proposedSize = new Size(100, 100);
 
@@ -9259,7 +9300,7 @@ namespace bangna_hospital.gui
             {
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmSmartCard_Load", "FrmSmartCard_Load");
             }
-            this.Text += " Update 2022-04-21";
+            this.Text += " Update 2022-07-21";
             btnPatientNew.Enabled = false;
             if (bc.iniC.FrmSmartCardTabDefault.Equals("1"))
             {

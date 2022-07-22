@@ -225,6 +225,8 @@
             this.ribbonLabel3 = new C1.Win.C1Ribbon.RibbonLabel();
             this.ribbonLabel4 = new C1.Win.C1Ribbon.RibbonLabel();
             this.ribbonLabel1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.ribbonLabel9 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbStatusPrint = new C1.Win.C1Ribbon.RibbonButton();
             this.tabPttBn1 = new C1.Win.C1Command.C1DockingTabPage();
             this.pnRpt = new System.Windows.Forms.Panel();
             this.pnRptTop = new System.Windows.Forms.Panel();
@@ -508,8 +510,6 @@
             this.chkDtr4 = new C1.Win.C1Input.C1CheckBox();
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1FlexViewer2 = new C1.Win.FlexViewer.C1FlexViewer();
-            this.ribbonLabel9 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.rbStatusPrint = new C1.Win.C1Ribbon.RibbonButton();
             ((System.ComponentModel.ISupportInitialize)(this.m_picPhoto)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel15.SuspendLayout();
@@ -1187,11 +1187,13 @@
             // chkAtkSkin
             // 
             this.chkAtkSkin.AutoSize = true;
+            this.chkAtkSkin.Checked = true;
             this.chkAtkSkin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkAtkSkin.Location = new System.Drawing.Point(792, 11);
             this.chkAtkSkin.Name = "chkAtkSkin";
             this.chkAtkSkin.Size = new System.Drawing.Size(131, 24);
             this.chkAtkSkin.TabIndex = 8;
+            this.chkAtkSkin.TabStop = true;
             this.chkAtkSkin.Text = "ATK skining HI";
             this.chkAtkSkin.UseVisualStyleBackColor = true;
             // 
@@ -1209,13 +1211,11 @@
             // chkHI
             // 
             this.chkHI.AutoSize = true;
-            this.chkHI.Checked = true;
             this.chkHI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkHI.Location = new System.Drawing.Point(602, 13);
             this.chkHI.Name = "chkHI";
             this.chkHI.Size = new System.Drawing.Size(69, 20);
             this.chkHI.TabIndex = 6;
-            this.chkHI.TabStop = true;
             this.chkHI.Text = "Home I";
             this.chkHI.UseVisualStyleBackColor = true;
             // 
@@ -2731,6 +2731,16 @@
             // 
             this.ribbonLabel1.Name = "ribbonLabel1";
             this.ribbonLabel1.Text = "Label";
+            // 
+            // ribbonLabel9
+            // 
+            this.ribbonLabel9.Name = "ribbonLabel9";
+            this.ribbonLabel9.Text = "สถานะพิมพ์";
+            // 
+            // rbStatusPrint
+            // 
+            this.rbStatusPrint.Name = "rbStatusPrint";
+            this.rbStatusPrint.SmallImage = global::bangna_hospital.Properties.Resources.printer_green48;
             // 
             // tabPttBn1
             // 
@@ -5957,16 +5967,6 @@
             this.c1FlexViewer2.Name = "c1FlexViewer2";
             this.c1FlexViewer2.Size = new System.Drawing.Size(1146, 436);
             this.c1FlexViewer2.TabIndex = 0;
-            // 
-            // ribbonLabel9
-            // 
-            this.ribbonLabel9.Name = "ribbonLabel9";
-            this.ribbonLabel9.Text = "สถานะพิมพ์";
-            // 
-            // rbStatusPrint
-            // 
-            this.rbStatusPrint.Name = "rbStatusPrint";
-            this.rbStatusPrint.SmallImage = global::bangna_hospital.Properties.Resources.printer_green48;
             // 
             // FrmSmartCard
             // 

@@ -186,6 +186,10 @@ namespace bangna_hospital
                 {
                     Application.Run(new gui.FrmColposcopyReport(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("epidemCovid"))
+                {
+                    Application.Run(new gui.FrmEpidem(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

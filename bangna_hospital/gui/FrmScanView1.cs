@@ -9116,7 +9116,7 @@ namespace bangna_hospital.gui
                     dt = setPrintLabPrnSSO(an1[0], an1[1], "", "an");
                 }
             }
-            FrmReportNew frm = new FrmReportNew(bc, "lab_result_2");
+            FrmReportNew frm = new FrmReportNew(bc, "lab_result_3");
             frm.DT = dt;
             frm.ShowDialog(this);
         }
@@ -9189,7 +9189,8 @@ namespace bangna_hospital.gui
                 chkname = txtName.Text.Any(c => !Char.IsLetterOrDigit(c));
                 if (chkname)
                 {
-                    drow["patient_age"] = ptt.AgeString().Replace("Year", "ปี").Replace("Month", "เดือน").Replace("Days", "วัน").Replace("s", "");
+                    //drow["patient_age"] = ptt.AgeString().Replace("Year", "ปี").Replace("Month", "เดือน").Replace("Days", "วัน").Replace("s", "");
+                    drow["patient_age"] = ptt.AgeStringShort().Replace("Year", "ปี").Replace("Month", "เดือน").Replace("Days", "วัน").Replace("s", "");
                 }
                 else
                 {

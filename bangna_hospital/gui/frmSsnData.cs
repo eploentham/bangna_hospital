@@ -20,6 +20,10 @@ namespace bangna_hospital.gui
         DataTable dtBr2 = new DataTable();
         DataTable dtBr5 = new DataTable();
 
+        DataTable dtSsnBr1 = new DataTable();
+        DataTable dtSsnBr2 = new DataTable();
+        DataTable dtSsnBr5 = new DataTable();
+
         Boolean vdata;
         String path;
         Image imgDrag;
@@ -32,6 +36,10 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            bc.setCboMonth(cboMonth);
+            bc.setCboYear(cboYear);
+            bc.setCboPeriod(cboPeriod);
+
             btnBrow1.Click += BtnBrow1_Click;
             btnBrow2.Click += BtnBrow2_Click;
             btnBrow5.Click += BtnBrow5_Click;
@@ -41,8 +49,122 @@ namespace bangna_hospital.gui
             btnInsert.Click += BtnInsert_Click;
             btnM01.Click += BtnM01_Click;
 
+            btnSsnBrow1.Click += BtnSsnBrow1_Click;
+            btnSsnBrow2.Click += BtnSsnBrow2_Click;
+            btnSsnBrow5.Click += BtnSsnBrow5_Click;
+            btnSsnImp1.Click += BtnSsnImp1_Click;
+            btnSsnImp2.Click += BtnSsnImp2_Click;
+            btnSsnImp5.Click += BtnSsnImp5_Click;
+            btnSsnInsert.Click += BtnSsnInsert_Click;
+            btnSsnUpdate.Click += BtnSsnUpdate_Click;
+
             this.DragEnter += FrmSsnData_DragEnter;
             this.DragDrop += FrmSsnData_DragDrop;
+            this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        private void BtnSsnUpdate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void BtnSsnInsert_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (dtSsnBr1.Rows.Count > 0)
+            {
+                bc.bcDB.BulkInsertSsnData(dtSsnBr1, "1", cboYear.Text, cboMonth.SelectedValue.ToString(), cboPeriod.Text);
+                listBox2.Items.Add("BulkInsert 1 ok");
+                Application.DoEvents();
+            }
+            if (dtSsnBr2.Rows.Count > 0)
+            {
+                bc.bcDB.BulkInsertSsnData(dtSsnBr2, "2", cboYear.Text, cboMonth.SelectedValue.ToString(), cboPeriod.Text);
+                listBox2.Items.Add("BulkInsert 2 ok");
+                Application.DoEvents();
+            }
+            if (dtSsnBr5.Rows.Count > 0)
+            {
+                bc.bcDB.BulkInsertSsnData(dtSsnBr5, "5", cboYear.Text, cboMonth.SelectedValue.ToString(), cboPeriod.Text);
+                listBox2.Items.Add("BulkInsert 5 ok");
+                Application.DoEvents();
+            }
+        }
+
+        private void BtnSsnImp5_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            btnSsnImp5.Enabled = false;
+            DataTable dt = setDataTable("5", "ssndata");
+            dtSsnBr5 = new DataTable();
+            dtSsnBr5= dt.Copy();
+            
+            btnSsnImp5.Enabled = true;
+        }
+
+        private void BtnSsnImp2_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            btnSsnImp2.Enabled = false;
+            DataTable dt = setDataTable("2", "ssndata");
+            dtSsnBr2 = new DataTable();
+            dtSsnBr2 = dt.Copy();
+            
+            btnSsnImp2.Enabled = true;
+        }
+
+        private void BtnSsnImp1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            btnSsnImp1.Enabled = false;
+            DataTable dt = setDataTable("1","ssndata");
+            dtSsnBr1 = new DataTable();
+            dtSsnBr1 = dt.Copy();
+            
+            btnSsnImp1.Enabled = true;
+        }
+
+        private void BtnSsnBrow5_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog res = new OpenFileDialog();
+            res.Filter = "Text Files|*.txt;";
+            res.Filter = "All Files|*.*;";
+            if (res.ShowDialog() == DialogResult.OK)
+            {
+                txtSsnPath5.Text = res.FileName;
+            }
+            btnSsnImp5.Enabled = true;
+            res.Dispose();
+        }
+
+        private void BtnSsnBrow2_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog res = new OpenFileDialog();
+            res.Filter = "Text Files|*.txt;";
+            res.Filter = "All Files|*.*;";
+            if (res.ShowDialog() == DialogResult.OK)
+            {
+                txtSsnPath2.Text = res.FileName;
+            }
+            btnSsnImp2.Enabled = true;
+            res.Dispose();
+        }
+
+        private void BtnSsnBrow1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog res = new OpenFileDialog();
+            res.Filter = "Text Files|*.txt;";
+            res.Filter = "All Files|*.*;";
+            if (res.ShowDialog() == DialogResult.OK)
+            {
+                txtSsnPath1.Text = res.FileName;
+            }
+            btnSsnImp1.Enabled = true;
+            res.Dispose();
         }
 
         private void FrmSsnData_DragDrop(object sender, DragEventArgs e)
@@ -120,9 +242,10 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             btnImp5.Enabled = false;
-            DataTable dt = setDataTable("5");
+            DataTable dt = setDataTable("5","");
             dtBr5 = new DataTable();
             dtBr5 = dt.Copy();
+            dtSsnBr5 = dt.Copy();
             btnImp5.Enabled = true;
         }
 
@@ -130,9 +253,10 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             btnImp2.Enabled = false;
-            DataTable dt = setDataTable("2");
+            DataTable dt = setDataTable("2","");
             dtBr2 = new DataTable();
             dtBr2 = dt.Copy();
+            dtSsnBr2 = dt.Copy();
             btnImp2.Enabled = true;
         }
 
@@ -146,7 +270,7 @@ namespace bangna_hospital.gui
             {
                 //Get the file's path
                 txtPath5.Text = res.FileName;
-                //Do something
+                txtSsnPath5.Text = res.FileName;
             }
             btnImp5.Enabled = true;
             res.Dispose();
@@ -162,6 +286,7 @@ namespace bangna_hospital.gui
             {
                 //Get the file's path
                 txtPath2.Text = res.FileName;
+                txtSsnPath2.Text = res.FileName;
                 //Do something
             }
             btnImp2.Enabled = true;
@@ -177,6 +302,7 @@ namespace bangna_hospital.gui
             {
                 //Get the file's path
                 txtPath1.Text = res.FileName;
+                txtSsnPath1.Text = res.FileName;
                 //Do something
             }
             btnImp1.Enabled = true;
@@ -209,16 +335,18 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             btnImp1.Enabled = false;
-            DataTable dt = setDataTable("1");
+            DataTable dt = setDataTable("1","");
             dtBr1 = new DataTable();
             dtBr1 = dt.Copy();
+            dtSsnBr1 = dt.Copy();
             btnImp1.Enabled = true;
         }
 
-        private DataTable setDataTable(String flag)
+        private DataTable setDataTable(String flag, String flagTabPage)
         {
             String path = "", err="";
             DataTable dt = new DataTable();
+            dt.Columns.Add("ssn_data_period_id", typeof(System.Int64));
             dt.Columns.Add("SocialID", typeof(System.String));
             dt.Columns.Add("Social_Card_no", typeof(System.String));
             dt.Columns.Add("TitleName", typeof(System.String));
@@ -227,32 +355,46 @@ namespace bangna_hospital.gui
             dt.Columns.Add("FullName", typeof(System.String));
             dt.Columns.Add("PrakanCode", typeof(System.String));
             dt.Columns.Add("Prangnant", typeof(System.String));
-            dt.Columns.Add("StartDate", typeof(DateTime));
-            dt.Columns.Add("EndDate", typeof(DateTime));
-            dt.Columns.Add("BirthDay", typeof(DateTime));
-            dt.Columns.Add("UploadDate", typeof(DateTime));
+            if (flagTabPage.Equals(""))
+            {
+                dt.Columns.Add("StartDate", typeof(DateTime));
+                dt.Columns.Add("EndDate", typeof(DateTime));
+                dt.Columns.Add("BirthDay", typeof(DateTime));
+                dt.Columns.Add("UploadDate", typeof(DateTime));
+            }
+            else
+            {
+                dt.Columns.Add("StartDate", typeof(System.String));
+                dt.Columns.Add("EndDate", typeof(System.String));
+                dt.Columns.Add("BirthDay", typeof(System.String));
+                dt.Columns.Add("UploadDate", typeof(System.String));
+                dt.Columns.Add("status_ssn_data", typeof(System.String));
+            }
             dt.Columns.Add("FLAG", typeof(System.String));
             listBox1.Items.Add("ssn_data1 add");
             try
             {
                 if (flag.Equals("1"))
                 {
-                    path = txtPath1.Text;
+                    path = flagTabPage.Equals("") ? txtPath1.Text: txtSsnPath1.Text.Trim();
                     label4.Text = "";
+                    label9.Text = "";
                     //dtBr1.Clear();
                     //dtBr1.Columns.Add("ssn_data", typeof(System.String));
                 }
                 else if (flag.Equals("2"))
                 {
-                    path = txtPath2.Text;
+                    path = flagTabPage.Equals("") ? txtPath2.Text : txtSsnPath2.Text.Trim();
                     label5.Text = "";
+                    label8.Text = "";
                     //dtBr2.Clear();
                     //dtBr2.Columns.Add("ssn_data", typeof(System.String));
                 }
                 else if (flag.Equals("5"))
                 {
-                    path = txtPath5.Text;
+                    path = flagTabPage.Equals("") ? txtPath5.Text : txtSsnPath5.Text.Trim();
                     label6.Text = "";
+                    label7.Text = "";
                     //dtBr5.Clear();
                     //dtBr5.Columns.Add("ssn_data", typeof(System.String));
                 }
@@ -362,6 +504,10 @@ namespace bangna_hospital.gui
                                     dob = year + "-" + month + "-" + day;
                                     //dob = year + month + day;
                                     DateTime.TryParse(dob, out datechk3);
+                                    if (datechk3.Year < 1900)
+                                    {
+                                        datechk3 = datechk3.AddYears(543);
+                                    }
                                     if (!DateTime.TryParse(dob, out datechk))
                                     {
                                         listBox1.Items.Add("dob " + dob);
@@ -379,6 +525,11 @@ namespace bangna_hospital.gui
                                     //uploadate = DateTime.Now.Year+"-"+DateTime.Now.ToString("MM-dd");
                                     err = "023";
                                     DataRow drow = dt.Rows.Add();
+                                    if (flagTabPage.Length > 0)
+                                    {
+                                        drow["ssn_data_period_id"] = cnt;
+                                        drow["status_ssn_data"] = "0";
+                                    }
                                     drow["SocialID"] = socid;
                                     drow["Social_Card_no"] = cardno;
                                     drow["TitleName"] = titlename;
@@ -403,14 +554,17 @@ namespace bangna_hospital.gui
                         if (flag.Equals("1"))
                         {
                             label4.Text = counter.ToString() + " " + cnt.ToString();
+                            label9.Text = counter.ToString() + " " + cnt.ToString();
                         }
                         else if (flag.Equals("2"))
                         {
                             label5.Text = counter.ToString() + " " + cnt.ToString();
+                            label8.Text = counter.ToString() + " " + cnt.ToString();
                         }
                         else if (flag.Equals("5"))
                         {
                             label6.Text = counter.ToString() + " " + cnt.ToString();
+                            label7.Text = counter.ToString() + " " + cnt.ToString();
                         }
                     }
                     catch(Exception ex)
@@ -433,6 +587,8 @@ namespace bangna_hospital.gui
             this.Text = "2022-02-17";
             CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
             lB1.Text = currentCulture.Name;
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
     }
 }

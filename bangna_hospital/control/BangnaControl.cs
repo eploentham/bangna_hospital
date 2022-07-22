@@ -55,6 +55,26 @@ namespace bangna_hospital.control
         public List<Province> lProv;
         public List<District> lDistrict;
         public List<SubDistrict> lSubDistrict;
+
+        public EpidemPersonStatus epiPersS;
+        public EpidemPersonType epiPersT;
+        public EpidemMarital epiMari;
+        public EpidemProvince epiProv;
+        public EpidemNationality epiNati;
+        public EpidemPrefixType epiPref;
+        public EpidemTmlt epiTmlt;
+        public EpidemVaccManu epiVaccManu;
+        public EpidemGender epiGender;
+        public EpidemSymptomType epiSympT;
+        public EpidemAccommodation epiAccomT;
+        public EpidemPersonRick epiPersR;
+        public EpidemLabComfirmType epiLabConT;
+
+        public EpidemCovidReasonType epiReasT;
+        public EpidemCovidSpcmPlace epiSpcmP;
+        public EpidemCovidIsolatePlace epiIsoP;
+        public EpidemCluster epiClus;
+
         Hashtable _styles;
         public VideoCaptureDevice video;
         public BangnaControl()
@@ -112,6 +132,24 @@ namespace bangna_hospital.control
                 initOPBKKCHRGITEM();
                 //new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
                 getInit();
+
+                epiPersS = new EpidemPersonStatus();
+                epiPersT = new EpidemPersonType();
+                epiMari = new EpidemMarital();
+                epiProv = new EpidemProvince();
+                epiNati = new EpidemNationality();
+                epiPref = new EpidemPrefixType();
+                epiTmlt = new EpidemTmlt();
+                epiVaccManu = new EpidemVaccManu();
+                epiGender = new EpidemGender();
+                epiSympT = new EpidemSymptomType();
+                epiAccomT = new EpidemAccommodation();
+                epiPersR = new EpidemPersonRick();
+                epiLabConT = new EpidemLabComfirmType();
+                epiReasT = new EpidemCovidReasonType();
+                epiSpcmP = new EpidemCovidSpcmPlace();
+                epiIsoP = new EpidemCovidIsolatePlace();
+                epiClus = new EpidemCluster();
             }
             catch(Exception ex)
             {
@@ -424,6 +462,11 @@ namespace bangna_hospital.control
             iniC.passDBMySQL = iniF.getIni("connection", "passDBMySQL");
             iniC.portDBMySQL = iniF.getIni("connection", "portDBMySQL");
 
+            iniC.hostDBSsnData = iniF.getIni("connection", "hostDBSsnData");
+            iniC.nameDBSsnData = iniF.getIni("connection", "nameDBSsnData");
+            iniC.userDBSsnData = iniF.getIni("connection", "userDBSsnData");
+            iniC.passDBSsnData = iniF.getIni("connection", "passDBSsnData");
+            iniC.portDBSsnData = iniF.getIni("connection", "portDBSsnData");
 
             //new LogWriter("d", "BangnaControl initConfig ftp ");
             iniC.hostFTP = iniF.getIni("ftp", "hostFTP");
@@ -548,6 +591,7 @@ namespace bangna_hospital.control
             iniC.printerStickerDrug = iniF.getIni("app", "printerStickerDrug");
             iniC.printadjust = iniF.getIni("app", "printadjust");
             iniC.importMDBpaidcode = iniF.getIni("app", "importMDBpaidcode");
+            iniC.statusVisitBack = iniF.getIni("app", "statusVisitBack");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -638,6 +682,7 @@ namespace bangna_hospital.control
             iniC.FrmSmartCardTabDefault = iniC.FrmSmartCardTabDefault == null ? "1" : iniC.FrmSmartCardTabDefault.Equals("") ? "1" : iniC.FrmSmartCardTabDefault;
             iniC.stickerPrintNumber = iniC.stickerPrintNumber == null ? "1" : iniC.stickerPrintNumber.Equals("") ? "1" : iniC.stickerPrintNumber;
             iniC.statusStation = iniC.statusStation == null ? "OPD" : iniC.statusStation.Equals("") ? "OPD" : iniC.statusStation;
+            iniC.statusVisitBack = iniC.statusVisitBack == null ? "0" : iniC.statusVisitBack.Equals("") ? "0" : iniC.statusVisitBack;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -667,15 +712,33 @@ namespace bangna_hospital.control
             int.TryParse(iniC.imageME_Height, out imageME_Height);
             int.TryParse(iniC.imageDiag_Height, out imageDiag_Height);
         }
-        public void setC1Combo(C1ComboBox c, String data)
+        public String setC1Combo(C1ComboBox c, String data)
         {
-            if (c.Items.Count == 0) return;
+            String chk = "";
+            if (c.Items.Count == 0) return "";
             //if (c.SelectedIndex < 0) return;
             c.SelectedIndex = c.SelectedItem == null ? 0 : c.SelectedIndex;
             c.SelectedIndex = 0;
             foreach (ComboBoxItem item in c.Items)
             {
                 if (item.Value.Equals(data))
+                {
+                    c.SelectedItem = item;
+                    chk = "ok";
+                    break;
+                }
+            }
+            return chk;
+        }
+        public void setC1ComboByName(C1ComboBox c, String data)
+        {
+            if (c.Items.Count == 0) return;
+            if (data.Length == 0) c.SelectedIndex = 0;
+            c.SelectedIndex = c.SelectedItem == null ? 0 : c.SelectedIndex;
+            c.SelectedIndex = 0;
+            foreach (ComboBoxItem item in c.Items)
+            {
+                if (item.Text.Equals(data))
                 {
                     c.SelectedItem = item;
                     break;
@@ -1014,6 +1077,196 @@ namespace bangna_hospital.control
             //opBKKClinic.Add("25", "แพทย์ทางเลือก");
             //opBKKClinic.Add("99", "อื่นๆ");
             //opBKKClinic.Add("00", "111111");
+        }
+        public void setCboPersonType(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "1 หาย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "2 ตาย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "3 ยังรักษา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "4 ไม่ทราบ";
+            c.Items.Add(item);
+        }
+        public void setCboLabResult(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "negative";
+            item.Text = "negative";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "positive";
+            item.Text = "positive";
+            c.Items.Add(item);
+        }
+        public void setCboPregnant(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "ตั้งครรภ์";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "ไม่ตั้งครรภ์";
+            c.Items.Add(item);
+        }
+        public void setCboRespirator(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "ใส่";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "ไม่ใส่";
+            c.Items.Add(item);
+        }
+        public void setCboPatientType(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "OPD";
+            item.Text = "OPD";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "IPD";
+            item.Text = "IPD";
+            c.Items.Add(item);
+        }
+        public void setCboOccupation(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "Y";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "N";
+            c.Items.Add(item);
+        }
+        public void setCboRick(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "Y";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "N";
+            c.Items.Add(item);
+        }
+        public void setCboTravel(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "Y";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "N";
+            c.Items.Add(item);
+        }
+        public void setCboClosed(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "Y";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "N";
+            c.Items.Add(item);
+        }
+        public void setCboArea(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "Y";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "N";
+            c.Items.Add(item);
+        }
+        public void setCboWorker(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "Y";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "N";
+            c.Items.Add(item);
+        }
+        public void setCboVacine(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "Y";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "N";
+            c.Items.Add(item);
         }
         public void setCboOPBKKINSCL(C1ComboBox c, String selected)
         {

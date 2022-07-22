@@ -7,14 +7,15 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_scan_add</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AssemblyName>bangna_hospital_sticker_jjj</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -54,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>bangna_hospital_scan_add.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\signal-receiver.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -132,6 +133,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -162,6 +164,12 @@
     </Compile>
     <Compile Include="gui\FrmColposcopyReport.Designer.cs">
       <DependentUpon>FrmColposcopyReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmEpidem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmEpidem.Designer.cs">
+      <DependentUpon>FrmEpidem.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmImportMDB.cs">
       <SubType>Form</SubType>
@@ -536,6 +544,15 @@
     <Compile Include="objdb\DotDfDetailDB.cs" />
     <Compile Include="objdb\DrugDB.cs" />
     <Compile Include="objdb\DrugSetDB.cs" />
+    <Compile Include="objdb\EpidemAPIDB.cs" />
+    <Compile Include="object1\EpidemAPI.cs" />
+    <Compile Include="object1\EpidemCluster.cs" />
+    <Compile Include="object1\EpidemCovidIsolatePlace.cs" />
+    <Compile Include="object1\EpidemCovidReasonType.cs" />
+    <Compile Include="object1\EpidemCovidSpcmPlace.cs" />
+    <Compile Include="object1\EpidemHospital.cs" />
+    <Compile Include="object1\EpidemLabComfirmType.cs" />
+    <Compile Include="object1\EpidemPersonRick.cs" />
     <Compile Include="objdb\FinanceM01DB.cs" />
     <Compile Include="objdb\FinanceM02DB.cs" />
     <Compile Include="objdb\LabCovidDetectedDB.cs" />
@@ -593,6 +610,22 @@
     <Compile Include="object1\CellNoteManager1.cs" />
     <Compile Include="object1\District.cs" />
     <Compile Include="object1\DotDfDetail.cs" />
+    <Compile Include="object1\EpidemAccommodation.cs" />
+    <Compile Include="object1\EpidemGender.cs" />
+    <Compile Include="object1\EpidemLabReport.cs" />
+    <Compile Include="object1\EpidemMarital.cs" />
+    <Compile Include="object1\EpidemNationality.cs" />
+    <Compile Include="object1\EpidemPerson.cs" />
+    <Compile Include="object1\EpidemPersonStatus.cs" />
+    <Compile Include="object1\EpidemPersonType.cs" />
+    <Compile Include="object1\EpidemPrefixType.cs" />
+    <Compile Include="object1\EpidemProvince.cs" />
+    <Compile Include="object1\EpidemReport.cs" />
+    <Compile Include="object1\EpidemRiskHistoryType.cs" />
+    <Compile Include="object1\EpidemSymptomType.cs" />
+    <Compile Include="object1\EpidemTmlt.cs" />
+    <Compile Include="object1\EpidemVaccination.cs" />
+    <Compile Include="object1\EpidemVaccManu.cs" />
     <Compile Include="object1\ExportHelper.cs" />
     <Compile Include="object1\FinanceM01.cs" />
     <Compile Include="object1\FinanceM02.cs" />
@@ -778,6 +811,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorView.resx">
       <DependentUpon>FrmDoctorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmEpidem.resx">
+      <DependentUpon>FrmEpidem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmImportMDB.resx">
       <DependentUpon>FrmImportMDB.cs</DependentUpon>

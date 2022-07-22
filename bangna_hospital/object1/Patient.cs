@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -103,6 +104,24 @@ namespace bangna_hospital.object1
             }
             return re;
         }
+        public String AgeStringOK1DOT()
+        {
+            String re = "";
+            DateTime dtB;
+            if (DateTime.TryParse(patient_birthday, out dtB))
+            {
+                //age = new Age(dtB);
+                if (dtB.Year < 1900)        //  แต่เป็น  ค.ศ. และปีเป็นน้อยกว่า 1900
+                {
+                    dtB.AddYears(543);
+                    DateTime dt = new DateTime(dtB.Year + 543, dtB.Month, dtB.Day);
+                    dtB = dt;
+                }
+                age = new Age(dtB);
+                re = age.AgeStringDOT;
+            }
+            return re;
+        }
         public String AgeStringOK1()
         {
             String re = "";
@@ -125,8 +144,13 @@ namespace bangna_hospital.object1
         {
             String re = "";
             DateTime dtB;
-            if (DateTime.TryParse(patient_birthday, out dtB))
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+            if (DateTime.TryParse(patient_birthday, culture, DateTimeStyles.None, out dtB))
             {
+                if (dtB.Year > 2500)
+                {
+                    dtB = dtB.AddYears(-543);
+                }
                 age = new Age(dtB);
                 //re = age.AgeString.Replace("Years", "Y").Replace("Year", "Y").Replace("Months", "M").Replace("Month", "M").Replace("Days", "D").Replace("Day", "D");
                 re = age.Years + "." + age.Months + "." + age.Days;

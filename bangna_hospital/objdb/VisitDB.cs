@@ -3369,6 +3369,43 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String insertVisitBack(String hn, String paid_id, String symptoms, String dept, String remark, String dtrid, String userI, String visitdate)
+        {
+            String re = "";
+            String sql = "";
+            try
+            {
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+                conn.comStore.CommandText = "covid_gen_patient_t01_by_hn_hi_back";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("hn_where", hn);
+                conn.comStore.Parameters.AddWithValue("paid_id", paid_id);
+                conn.comStore.Parameters.AddWithValue("symptoms", symptoms);
+                conn.comStore.Parameters.AddWithValue("dept", dept);
+                conn.comStore.Parameters.AddWithValue("remark", remark);
+                conn.comStore.Parameters.AddWithValue("doctor_id", dtrid);
+                conn.comStore.Parameters.AddWithValue("visit_date", visitdate);
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertVisit sql " + sql + " hn " + hn + " paid_id " + paid_id + " symptoms " + symptoms + " dept " + dept + " remark " + remark + " dtrid " + dtrid);
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
         public String insertVisitHI(String hn, String paid_id, String symptoms, String dept, String remark, String dtrid, String userI)
         {
             String re = "";

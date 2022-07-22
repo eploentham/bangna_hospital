@@ -223,5 +223,61 @@ namespace bangna_hospital.objdb
             // reset
             //this.dataTable.Clear();
         }
+        public void BulkInsertSsnData(DataTable dt, String flag, String yearid, String monthid, String periodid)
+        {
+            String sql = "";
+            if (dt == null) return;
+            if (dt.Rows.Count <= 0) return;
+            dt.Columns.Add("year_id", typeof(System.String));
+            dt.Columns.Add("month_id", typeof(System.String));
+            dt.Columns.Add("period_id", typeof(System.String));
+            dt.Columns.Add("status_ssn_data", typeof(System.String));
+            foreach (DataRow drow in dt.Rows)
+            {
+                drow["year_id"] = yearid;
+                drow["month_id"] = monthid;
+                drow["period_id"] = periodid;
+                drow["status_ssn_data"] = "0";
+            }
+            using (SqlConnection connection = new SqlConnection(conn.connSsnData.ConnectionString))
+            {
+                // make sure to enable triggers
+                // more on triggers in next post
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = string.Format("SET DATEFORMAT YMD; {0}", cmd.CommandText);
+                SqlBulkCopy bulkCopy =
+                    new SqlBulkCopy
+                    (
+                    connection,
+                    SqlBulkCopyOptions.TableLock |
+                    SqlBulkCopyOptions.FireTriggers |
+                    SqlBulkCopyOptions.UseInternalTransaction,
+                    null
+                    );
+                // set the destination table name
+                if (flag.Equals("1"))
+                {
+                    //sql = "Delete from b_ssn_data_1";
+                    sql = "Delete from ssn_data_period Where year_id = '"+yearid+"' and month_id = '"+monthid+"' and period_id = '"+periodid+"' ";
+                    conn.ExecuteNonQueryLogPage(conn.connSsnData, sql);
+                    //bulkCopy.DestinationTableName = "b_ssn_data_1";
+                    bulkCopy.DestinationTableName = "ssn_data_period";
+                }
+                else if (flag.Equals("2"))
+                {
+                    bulkCopy.DestinationTableName = "ssn_data_period";
+                }
+                else if (flag.Equals("5"))
+                {
+                    bulkCopy.DestinationTableName = "ssn_data_period";
+                }
+                connection.Open();
+                // write the data in the "dataTable"
+                bulkCopy.WriteToServer(dt);
+                connection.Close();
+            }
+            // reset
+            //this.dataTable.Clear();
+        }
     }
 }

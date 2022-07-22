@@ -28,5 +28,9 @@ namespace bangna_hospital.object1
             //return r.Next().ToString();
             return DateTime.Now.Ticks.ToString();
         }
+        public String getGUIDID()
+        {
+            return Guid.NewGuid().ToString();
+        }
     }
 }

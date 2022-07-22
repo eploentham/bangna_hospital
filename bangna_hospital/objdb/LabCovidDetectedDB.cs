@@ -118,6 +118,36 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public DataTable SelectBystatusDEPIDEM()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "Select lab_covid_detected_id, mnc_hn_no, hn, visit_date, pre_no, mnc_req_yr, req_date, lab_code, pid, passport, mobile "
+                + ", hos_name, category, sat_code, patient_fullname, lab_date, lab_place, lab_result, e_gene, rdrp, n_gene, sex, nation_name, dob " +
+                ", addr_home_no +' '+addr_moo as addr1 , tumbon_name, amphur_name, prov_name, first_name, last_name, prefix "
+                + "From t_lab_covid_detected "
+                + "Where active = '1' and status_epidem <> '1' ";
+            dt = conn.selectData(sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public String updateStatusEpidemImported(String id)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update t_lab_covid_detected Set " +
+                    "status_epidem ='1' " +
+                    "Where lab_covid_detected_id ='" + id + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " XrayM01DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
         public String updateOPBKKCode(String xraycode, String opbkkcode)
         {
             String sql = "", chk = "";

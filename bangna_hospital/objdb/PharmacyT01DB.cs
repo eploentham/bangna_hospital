@@ -203,7 +203,8 @@ namespace bangna_hospital.object1
                 //new LogWriter("e", "PharmacyT01 insert " );
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
-                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_b";
+                //conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_b";
+                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_b_new";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("mnc_hn_yr", hnyear);
                 conn.comStore.Parameters.AddWithValue("mnc_hn_no", hn);
@@ -241,7 +242,8 @@ namespace bangna_hospital.object1
                 //new LogWriter("e", "PharmacyT01 insert " );
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
-                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_c";
+                //conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_c";
+                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_c_new";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("mnc_hn_yr", hnyear);
                 conn.comStore.Parameters.AddWithValue("mnc_hn_no", hn);
@@ -279,7 +281,8 @@ namespace bangna_hospital.object1
                 //new LogWriter("e", "PharmacyT01 insert " );
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
-                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_b";   //call store procedure b แต่ลง qty 64
+                //conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_b";   //call store procedure b แต่ลง qty 64
+                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_b_new";   //call store procedure b แต่ลง qty 64
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("mnc_hn_yr", hnyear);
                 conn.comStore.Parameters.AddWithValue("mnc_hn_no", hn);
@@ -317,7 +320,8 @@ namespace bangna_hospital.object1
                 //new LogWriter("e", "PharmacyT01 insert " );
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
-                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_a";
+                //conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_a";
+                conn.comStore.CommandText = "insert_pharmacy_t01_t02_ros_drug_jjj_a_new";
                 conn.comStore.CommandType = CommandType.StoredProcedure;
                 conn.comStore.Parameters.AddWithValue("mnc_hn_yr", hnyear);
                 conn.comStore.Parameters.AddWithValue("mnc_hn_no", hn);

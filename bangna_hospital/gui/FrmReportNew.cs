@@ -35,6 +35,8 @@ namespace bangna_hospital.gui
                 //AnnualReport rpt = new AnnualReport();
                 //Run the report, and set it to the viewer control on the Form.
                 //String filename = "";
+                //Parameter myParam1 = new Parameter();
+
                 System.IO.FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory()+"\\report\\" +reportfilename+ ".rdlx");
                 PageReport definition = new PageReport(rptPath);
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);

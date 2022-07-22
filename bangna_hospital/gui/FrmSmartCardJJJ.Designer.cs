@@ -63,6 +63,16 @@ namespace bangna_hospital.gui
             this.chkJJJ23 = new C1.Win.C1Input.C1CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.txtJJJsetdFA01464qty = new C1.Win.C1Input.C1TextBox();
+            this.txtJJJsetdBI005qty = new C1.Win.C1Input.C1TextBox();
+            this.txtJJJsetdCP001qty = new C1.Win.C1Input.C1TextBox();
+            this.txtJJJsetdPA007qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetdFA01464 = new System.Windows.Forms.RadioButton();
+            this.chkJJJsetdBI005 = new C1.Win.C1Input.C1CheckBox();
+            this.chkJJJsetdCP001 = new C1.Win.C1Input.C1CheckBox();
+            this.chkJJJsetdPA007 = new C1.Win.C1Input.C1CheckBox();
+            this.chkJJJDrugSetD = new System.Windows.Forms.RadioButton();
             this.panel5 = new System.Windows.Forms.Panel();
             this.txtJJJsetcBI005qty = new C1.Win.C1Input.C1TextBox();
             this.txtJJJsetcCP001qty = new C1.Win.C1Input.C1TextBox();
@@ -81,11 +91,11 @@ namespace bangna_hospital.gui
             this.chkJJJsetbCP001 = new C1.Win.C1Input.C1CheckBox();
             this.chkJJJsetbPA007 = new C1.Win.C1Input.C1CheckBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txtJJJsetaMI047qty = new C1.Win.C1Input.C1TextBox();
+            this.txtJJJsetaAN023qty = new C1.Win.C1Input.C1TextBox();
             this.txtJJJsetaBI005qty = new C1.Win.C1Input.C1TextBox();
             this.txtJJJsetaCP001qty = new C1.Win.C1Input.C1TextBox();
             this.txtJJJsetaPA007qty = new C1.Win.C1Input.C1TextBox();
-            this.chkJJJsetaMI047 = new C1.Win.C1Input.C1CheckBox();
+            this.chkJJJsetaAN023 = new C1.Win.C1Input.C1CheckBox();
             this.chkJJJsetaBI005 = new C1.Win.C1Input.C1CheckBox();
             this.chkJJJsetaCP001 = new C1.Win.C1Input.C1CheckBox();
             this.chkJJJsetaPA007 = new C1.Win.C1Input.C1CheckBox();
@@ -101,16 +111,22 @@ namespace bangna_hospital.gui
             this.ribbonLabel1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.ribbonLabel2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.ribbonLabel3 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.txtJJJsetdFA01464qty = new C1.Win.C1Input.C1TextBox();
-            this.txtJJJsetdBI005qty = new C1.Win.C1Input.C1TextBox();
-            this.txtJJJsetdCP001qty = new C1.Win.C1Input.C1TextBox();
-            this.txtJJJsetdPA007qty = new C1.Win.C1Input.C1TextBox();
-            this.chkJJJsetdFA01464 = new System.Windows.Forms.RadioButton();
-            this.chkJJJsetdBI005 = new C1.Win.C1Input.C1CheckBox();
-            this.chkJJJsetdCP001 = new C1.Win.C1Input.C1CheckBox();
-            this.chkJJJsetdPA007 = new C1.Win.C1Input.C1CheckBox();
-            this.chkJJJDrugSetD = new System.Windows.Forms.RadioButton();
+            this.txtJJJsetdMI047qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetdMI047 = new C1.Win.C1Input.C1CheckBox();
+            this.txtJJJsetdEL021qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetdEL021 = new C1.Win.C1Input.C1CheckBox();
+            this.txtJJJsetcEL021qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetcEL021 = new C1.Win.C1Input.C1CheckBox();
+            this.txtJJJsetcMI047qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetcMI047 = new C1.Win.C1Input.C1CheckBox();
+            this.txtJJJsetbEL021qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetbEL021 = new C1.Win.C1Input.C1CheckBox();
+            this.txtJJJsetbMI047qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetbMI047 = new C1.Win.C1Input.C1CheckBox();
+            this.txtJJJsetaEL021qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetaEL021 = new C1.Win.C1Input.C1CheckBox();
+            this.txtJJJsetaMI047qty = new C1.Win.C1Input.C1TextBox();
+            this.chkJJJsetaMI047 = new C1.Win.C1Input.C1CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJreqnoDrug)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJpreno)).BeginInit();
@@ -140,6 +156,14 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJ23)).BeginInit();
             this.panel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdFA01464qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdBI005qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdCP001qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdPA007qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdBI005)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdCP001)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdPA007)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcBI005qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcCP001qty)).BeginInit();
@@ -156,24 +180,32 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbCP001)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbPA007)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaMI047qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaAN023qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaBI005qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaCP001qty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaPA007qty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaMI047)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaAN023)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaBI005)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaCP001)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaPA007)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJhn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdFA01464qty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdBI005qty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdCP001qty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdPA007qty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdBI005)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdCP001)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdPA007)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdMI047qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdMI047)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdEL021qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdEL021)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcEL021qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetcEL021)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcMI047qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetcMI047)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetbEL021qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbEL021)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetbMI047qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbMI047)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaEL021qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaEL021)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaMI047qty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaMI047)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -551,7 +583,7 @@ namespace bangna_hospital.gui
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.panel2.Location = new System.Drawing.Point(456, 49);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(342, 545);
+            this.panel2.Size = new System.Drawing.Size(342, 750);
             this.panel2.TabIndex = 1;
             // 
             // groupBox3
@@ -564,25 +596,139 @@ namespace bangna_hospital.gui
             this.groupBox3.Controls.Add(this.panel3);
             this.groupBox3.Controls.Add(this.chkJJJDrugSetB);
             this.groupBox3.Controls.Add(this.chkJJJDrugSetA);
-            this.groupBox3.Location = new System.Drawing.Point(3, 7);
+            this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(329, 532);
+            this.groupBox3.Size = new System.Drawing.Size(329, 744);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Drug";
             // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.panel6.Controls.Add(this.txtJJJsetdEL021qty);
+            this.panel6.Controls.Add(this.chkJJJsetdEL021);
+            this.panel6.Controls.Add(this.txtJJJsetdMI047qty);
+            this.panel6.Controls.Add(this.chkJJJsetdMI047);
+            this.panel6.Controls.Add(this.txtJJJsetdFA01464qty);
+            this.panel6.Controls.Add(this.txtJJJsetdBI005qty);
+            this.panel6.Controls.Add(this.txtJJJsetdCP001qty);
+            this.panel6.Controls.Add(this.txtJJJsetdPA007qty);
+            this.panel6.Controls.Add(this.chkJJJsetdFA01464);
+            this.panel6.Controls.Add(this.chkJJJsetdBI005);
+            this.panel6.Controls.Add(this.chkJJJsetdCP001);
+            this.panel6.Controls.Add(this.chkJJJsetdPA007);
+            this.panel6.Location = new System.Drawing.Point(4, 577);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(318, 162);
+            this.panel6.TabIndex = 7;
+            // 
+            // txtJJJsetdFA01464qty
+            // 
+            this.txtJJJsetdFA01464qty.Location = new System.Drawing.Point(234, 81);
+            this.txtJJJsetdFA01464qty.Name = "txtJJJsetdFA01464qty";
+            this.txtJJJsetdFA01464qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetdFA01464qty.TabIndex = 22;
+            this.txtJJJsetdFA01464qty.Tag = null;
+            this.txtJJJsetdFA01464qty.Value = "50";
+            // 
+            // txtJJJsetdBI005qty
+            // 
+            this.txtJJJsetdBI005qty.Location = new System.Drawing.Point(234, 55);
+            this.txtJJJsetdBI005qty.Name = "txtJJJsetdBI005qty";
+            this.txtJJJsetdBI005qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetdBI005qty.TabIndex = 20;
+            this.txtJJJsetdBI005qty.Tag = null;
+            this.txtJJJsetdBI005qty.Value = "20";
+            // 
+            // txtJJJsetdCP001qty
+            // 
+            this.txtJJJsetdCP001qty.Location = new System.Drawing.Point(234, 29);
+            this.txtJJJsetdCP001qty.Name = "txtJJJsetdCP001qty";
+            this.txtJJJsetdCP001qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetdCP001qty.TabIndex = 19;
+            this.txtJJJsetdCP001qty.Tag = null;
+            this.txtJJJsetdCP001qty.Value = "20";
+            // 
+            // txtJJJsetdPA007qty
+            // 
+            this.txtJJJsetdPA007qty.Location = new System.Drawing.Point(234, 3);
+            this.txtJJJsetdPA007qty.Name = "txtJJJsetdPA007qty";
+            this.txtJJJsetdPA007qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetdPA007qty.TabIndex = 18;
+            this.txtJJJsetdPA007qty.Tag = null;
+            this.txtJJJsetdPA007qty.Value = "20";
+            // 
+            // chkJJJsetdFA01464
+            // 
+            this.chkJJJsetdFA01464.AutoSize = true;
+            this.chkJJJsetdFA01464.Location = new System.Drawing.Point(3, 81);
+            this.chkJJJsetdFA01464.Name = "chkJJJsetdFA01464";
+            this.chkJJJsetdFA01464.Size = new System.Drawing.Size(56, 24);
+            this.chkJJJsetdFA01464.TabIndex = 14;
+            this.chkJJJsetdFA01464.TabStop = true;
+            this.chkJJJsetdFA01464.Text = "Favi";
+            this.chkJJJsetdFA01464.UseVisualStyleBackColor = true;
+            // 
+            // chkJJJsetdBI005
+            // 
+            this.chkJJJsetdBI005.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetdBI005.Location = new System.Drawing.Point(3, 55);
+            this.chkJJJsetdBI005.Name = "chkJJJsetdBI005";
+            this.chkJJJsetdBI005.Size = new System.Drawing.Size(186, 24);
+            this.chkJJJsetdBI005.TabIndex = 12;
+            this.chkJJJsetdBI005.Text = "Brom";
+            this.chkJJJsetdBI005.UseVisualStyleBackColor = false;
+            this.chkJJJsetdBI005.Value = null;
+            // 
+            // chkJJJsetdCP001
+            // 
+            this.chkJJJsetdCP001.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetdCP001.Location = new System.Drawing.Point(3, 29);
+            this.chkJJJsetdCP001.Name = "chkJJJsetdCP001";
+            this.chkJJJsetdCP001.Size = new System.Drawing.Size(186, 24);
+            this.chkJJJsetdCP001.TabIndex = 11;
+            this.chkJJJsetdCP001.Text = "CPM";
+            this.chkJJJsetdCP001.UseVisualStyleBackColor = false;
+            this.chkJJJsetdCP001.Value = null;
+            // 
+            // chkJJJsetdPA007
+            // 
+            this.chkJJJsetdPA007.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetdPA007.Location = new System.Drawing.Point(3, 3);
+            this.chkJJJsetdPA007.Name = "chkJJJsetdPA007";
+            this.chkJJJsetdPA007.Size = new System.Drawing.Size(186, 24);
+            this.chkJJJsetdPA007.TabIndex = 10;
+            this.chkJJJsetdPA007.Text = "Para";
+            this.chkJJJsetdPA007.UseVisualStyleBackColor = false;
+            this.chkJJJsetdPA007.Value = null;
+            // 
+            // chkJJJDrugSetD
+            // 
+            this.chkJJJDrugSetD.AutoSize = true;
+            this.chkJJJDrugSetD.Location = new System.Drawing.Point(17, 553);
+            this.chkJJJDrugSetD.Name = "chkJJJDrugSetD";
+            this.chkJJJDrugSetD.Size = new System.Drawing.Size(82, 24);
+            this.chkJJJDrugSetD.TabIndex = 6;
+            this.chkJJJDrugSetD.Text = "  SET D";
+            this.chkJJJDrugSetD.UseVisualStyleBackColor = true;
+            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.DarkSalmon;
+            this.panel5.Controls.Add(this.txtJJJsetcEL021qty);
+            this.panel5.Controls.Add(this.chkJJJsetcEL021);
+            this.panel5.Controls.Add(this.txtJJJsetcMI047qty);
+            this.panel5.Controls.Add(this.chkJJJsetcMI047);
             this.panel5.Controls.Add(this.txtJJJsetcBI005qty);
             this.panel5.Controls.Add(this.txtJJJsetcCP001qty);
             this.panel5.Controls.Add(this.txtJJJsetcPA007qty);
             this.panel5.Controls.Add(this.chkJJJsetcBI005);
             this.panel5.Controls.Add(this.chkJJJsetcCP001);
             this.panel5.Controls.Add(this.chkJJJsetcPA007);
-            this.panel5.Location = new System.Drawing.Point(5, 324);
+            this.panel5.Location = new System.Drawing.Point(5, 428);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(318, 60);
+            this.panel5.Size = new System.Drawing.Size(318, 119);
             this.panel5.TabIndex = 5;
             // 
             // txtJJJsetcBI005qty
@@ -648,16 +794,20 @@ namespace bangna_hospital.gui
             // chkJJJDrugSetC
             // 
             this.chkJJJDrugSetC.AutoSize = true;
-            this.chkJJJDrugSetC.Location = new System.Drawing.Point(18, 300);
+            this.chkJJJDrugSetC.Location = new System.Drawing.Point(18, 404);
             this.chkJJJDrugSetC.Name = "chkJJJDrugSetC";
-            this.chkJJJDrugSetC.Size = new System.Drawing.Size(73, 24);
+            this.chkJJJDrugSetC.Size = new System.Drawing.Size(81, 24);
             this.chkJJJDrugSetC.TabIndex = 4;
-            this.chkJJJDrugSetC.Text = "SET C";
+            this.chkJJJDrugSetC.Text = "  SET C";
             this.chkJJJDrugSetC.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.DarkKhaki;
+            this.panel4.Controls.Add(this.txtJJJsetbEL021qty);
+            this.panel4.Controls.Add(this.chkJJJsetbEL021);
+            this.panel4.Controls.Add(this.txtJJJsetbMI047qty);
+            this.panel4.Controls.Add(this.chkJJJsetbMI047);
             this.panel4.Controls.Add(this.txtJJJsetbFA01450qty);
             this.panel4.Controls.Add(this.txtJJJsetbBI005qty);
             this.panel4.Controls.Add(this.txtJJJsetbCP001qty);
@@ -666,9 +816,9 @@ namespace bangna_hospital.gui
             this.panel4.Controls.Add(this.chkJJJsetbBI005);
             this.panel4.Controls.Add(this.chkJJJsetbCP001);
             this.panel4.Controls.Add(this.chkJJJsetbPA007);
-            this.panel4.Location = new System.Drawing.Point(5, 185);
+            this.panel4.Location = new System.Drawing.Point(5, 239);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(318, 108);
+            this.panel4.Size = new System.Drawing.Size(318, 160);
             this.panel4.TabIndex = 3;
             // 
             // txtJJJsetbFA01450qty
@@ -755,26 +905,30 @@ namespace bangna_hospital.gui
             // 
             this.panel3.BackColor = System.Drawing.Color.DarkGoldenrod;
             this.panel3.Controls.Add(this.txtJJJsetaMI047qty);
+            this.panel3.Controls.Add(this.chkJJJsetaMI047);
+            this.panel3.Controls.Add(this.txtJJJsetaEL021qty);
+            this.panel3.Controls.Add(this.chkJJJsetaEL021);
+            this.panel3.Controls.Add(this.txtJJJsetaAN023qty);
             this.panel3.Controls.Add(this.txtJJJsetaBI005qty);
             this.panel3.Controls.Add(this.txtJJJsetaCP001qty);
             this.panel3.Controls.Add(this.txtJJJsetaPA007qty);
-            this.panel3.Controls.Add(this.chkJJJsetaMI047);
+            this.panel3.Controls.Add(this.chkJJJsetaAN023);
             this.panel3.Controls.Add(this.chkJJJsetaBI005);
             this.panel3.Controls.Add(this.chkJJJsetaCP001);
             this.panel3.Controls.Add(this.chkJJJsetaPA007);
             this.panel3.Location = new System.Drawing.Point(5, 45);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(318, 110);
+            this.panel3.Size = new System.Drawing.Size(318, 165);
             this.panel3.TabIndex = 2;
             // 
-            // txtJJJsetaMI047qty
+            // txtJJJsetaAN023qty
             // 
-            this.txtJJJsetaMI047qty.Location = new System.Drawing.Point(234, 81);
-            this.txtJJJsetaMI047qty.Name = "txtJJJsetaMI047qty";
-            this.txtJJJsetaMI047qty.Size = new System.Drawing.Size(50, 24);
-            this.txtJJJsetaMI047qty.TabIndex = 17;
-            this.txtJJJsetaMI047qty.Tag = null;
-            this.txtJJJsetaMI047qty.Value = "45";
+            this.txtJJJsetaAN023qty.Location = new System.Drawing.Point(234, 81);
+            this.txtJJJsetaAN023qty.Name = "txtJJJsetaAN023qty";
+            this.txtJJJsetaAN023qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetaAN023qty.TabIndex = 17;
+            this.txtJJJsetaAN023qty.Tag = null;
+            this.txtJJJsetaAN023qty.Value = "45";
             // 
             // txtJJJsetaBI005qty
             // 
@@ -803,16 +957,16 @@ namespace bangna_hospital.gui
             this.txtJJJsetaPA007qty.Tag = null;
             this.txtJJJsetaPA007qty.Value = "20";
             // 
-            // chkJJJsetaMI047
+            // chkJJJsetaAN023
             // 
-            this.chkJJJsetaMI047.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkJJJsetaMI047.Location = new System.Drawing.Point(3, 81);
-            this.chkJJJsetaMI047.Name = "chkJJJsetaMI047";
-            this.chkJJJsetaMI047.Size = new System.Drawing.Size(174, 24);
-            this.chkJJJsetaMI047.TabIndex = 13;
-            this.chkJJJsetaMI047.Text = "ฟ้าทะลายโจร";
-            this.chkJJJsetaMI047.UseVisualStyleBackColor = false;
-            this.chkJJJsetaMI047.Value = null;
+            this.chkJJJsetaAN023.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetaAN023.Location = new System.Drawing.Point(3, 81);
+            this.chkJJJsetaAN023.Name = "chkJJJsetaAN023";
+            this.chkJJJsetaAN023.Size = new System.Drawing.Size(174, 24);
+            this.chkJJJsetaAN023.TabIndex = 13;
+            this.chkJJJsetaAN023.Text = "ฟ้าทะลายโจร";
+            this.chkJJJsetaAN023.UseVisualStyleBackColor = false;
+            this.chkJJJsetaAN023.Value = null;
             // 
             // chkJJJsetaBI005
             // 
@@ -850,11 +1004,11 @@ namespace bangna_hospital.gui
             // chkJJJDrugSetB
             // 
             this.chkJJJDrugSetB.AutoSize = true;
-            this.chkJJJDrugSetB.Location = new System.Drawing.Point(18, 161);
+            this.chkJJJDrugSetB.Location = new System.Drawing.Point(18, 215);
             this.chkJJJDrugSetB.Name = "chkJJJDrugSetB";
-            this.chkJJJDrugSetB.Size = new System.Drawing.Size(73, 24);
+            this.chkJJJDrugSetB.Size = new System.Drawing.Size(81, 24);
             this.chkJJJDrugSetB.TabIndex = 1;
-            this.chkJJJDrugSetB.Text = "SET B";
+            this.chkJJJDrugSetB.Text = "  SET B";
             this.chkJJJDrugSetB.UseVisualStyleBackColor = true;
             // 
             // chkJJJDrugSetA
@@ -864,10 +1018,10 @@ namespace bangna_hospital.gui
             this.chkJJJDrugSetA.Checked = true;
             this.chkJJJDrugSetA.Location = new System.Drawing.Point(20, 21);
             this.chkJJJDrugSetA.Name = "chkJJJDrugSetA";
-            this.chkJJJDrugSetA.Size = new System.Drawing.Size(73, 24);
+            this.chkJJJDrugSetA.Size = new System.Drawing.Size(81, 24);
             this.chkJJJDrugSetA.TabIndex = 0;
             this.chkJJJDrugSetA.TabStop = true;
-            this.chkJJJDrugSetA.Text = "SET A";
+            this.chkJJJDrugSetA.Text = "  SET A";
             this.chkJJJDrugSetA.UseVisualStyleBackColor = false;
             // 
             // lbJJJname
@@ -914,7 +1068,7 @@ namespace bangna_hospital.gui
             this.c1StatusBar1.LeftPaneItems.Add(this.ribbonLabel1);
             this.c1StatusBar1.LeftPaneItems.Add(this.ribbonLabel2);
             this.c1StatusBar1.LeftPaneItems.Add(this.ribbonLabel3);
-            this.c1StatusBar1.Location = new System.Drawing.Point(0, 597);
+            this.c1StatusBar1.Location = new System.Drawing.Point(0, 805);
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.Size = new System.Drawing.Size(800, 22);
             // 
@@ -943,117 +1097,171 @@ namespace bangna_hospital.gui
             this.ribbonLabel3.Name = "ribbonLabel3";
             this.ribbonLabel3.Text = "Label";
             // 
-            // panel6
+            // txtJJJsetdMI047qty
             // 
-            this.panel6.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel6.Controls.Add(this.txtJJJsetdFA01464qty);
-            this.panel6.Controls.Add(this.txtJJJsetdBI005qty);
-            this.panel6.Controls.Add(this.txtJJJsetdCP001qty);
-            this.panel6.Controls.Add(this.txtJJJsetdPA007qty);
-            this.panel6.Controls.Add(this.chkJJJsetdFA01464);
-            this.panel6.Controls.Add(this.chkJJJsetdBI005);
-            this.panel6.Controls.Add(this.chkJJJsetdCP001);
-            this.panel6.Controls.Add(this.chkJJJsetdPA007);
-            this.panel6.Location = new System.Drawing.Point(4, 415);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(318, 108);
-            this.panel6.TabIndex = 7;
+            this.txtJJJsetdMI047qty.Location = new System.Drawing.Point(235, 107);
+            this.txtJJJsetdMI047qty.Name = "txtJJJsetdMI047qty";
+            this.txtJJJsetdMI047qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetdMI047qty.TabIndex = 24;
+            this.txtJJJsetdMI047qty.Tag = null;
+            this.txtJJJsetdMI047qty.Value = "20";
             // 
-            // txtJJJsetdFA01464qty
+            // chkJJJsetdMI047
             // 
-            this.txtJJJsetdFA01464qty.Location = new System.Drawing.Point(234, 81);
-            this.txtJJJsetdFA01464qty.Name = "txtJJJsetdFA01464qty";
-            this.txtJJJsetdFA01464qty.Size = new System.Drawing.Size(50, 24);
-            this.txtJJJsetdFA01464qty.TabIndex = 22;
-            this.txtJJJsetdFA01464qty.Tag = null;
-            this.txtJJJsetdFA01464qty.Value = "50";
+            this.chkJJJsetdMI047.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetdMI047.Location = new System.Drawing.Point(4, 107);
+            this.chkJJJsetdMI047.Name = "chkJJJsetdMI047";
+            this.chkJJJsetdMI047.Size = new System.Drawing.Size(225, 24);
+            this.chkJJJsetdMI047.TabIndex = 23;
+            this.chkJJJsetdMI047.Text = "MIST TUSSIS 60 ML SYR";
+            this.chkJJJsetdMI047.UseVisualStyleBackColor = false;
+            this.chkJJJsetdMI047.Value = null;
             // 
-            // txtJJJsetdBI005qty
+            // txtJJJsetdEL021qty
             // 
-            this.txtJJJsetdBI005qty.Location = new System.Drawing.Point(234, 55);
-            this.txtJJJsetdBI005qty.Name = "txtJJJsetdBI005qty";
-            this.txtJJJsetdBI005qty.Size = new System.Drawing.Size(50, 24);
-            this.txtJJJsetdBI005qty.TabIndex = 20;
-            this.txtJJJsetdBI005qty.Tag = null;
-            this.txtJJJsetdBI005qty.Value = "20";
+            this.txtJJJsetdEL021qty.Location = new System.Drawing.Point(234, 133);
+            this.txtJJJsetdEL021qty.Name = "txtJJJsetdEL021qty";
+            this.txtJJJsetdEL021qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetdEL021qty.TabIndex = 26;
+            this.txtJJJsetdEL021qty.Tag = null;
+            this.txtJJJsetdEL021qty.Value = "20";
             // 
-            // txtJJJsetdCP001qty
+            // chkJJJsetdEL021
             // 
-            this.txtJJJsetdCP001qty.Location = new System.Drawing.Point(234, 29);
-            this.txtJJJsetdCP001qty.Name = "txtJJJsetdCP001qty";
-            this.txtJJJsetdCP001qty.Size = new System.Drawing.Size(50, 24);
-            this.txtJJJsetdCP001qty.TabIndex = 19;
-            this.txtJJJsetdCP001qty.Tag = null;
-            this.txtJJJsetdCP001qty.Value = "20";
+            this.chkJJJsetdEL021.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetdEL021.Location = new System.Drawing.Point(3, 133);
+            this.chkJJJsetdEL021.Name = "chkJJJsetdEL021";
+            this.chkJJJsetdEL021.Size = new System.Drawing.Size(204, 24);
+            this.chkJJJsetdEL021.TabIndex = 25;
+            this.chkJJJsetdEL021.Text = "ELECTROLYTE 15 GM.";
+            this.chkJJJsetdEL021.UseVisualStyleBackColor = false;
+            this.chkJJJsetdEL021.Value = null;
             // 
-            // txtJJJsetdPA007qty
+            // txtJJJsetcEL021qty
             // 
-            this.txtJJJsetdPA007qty.Location = new System.Drawing.Point(234, 3);
-            this.txtJJJsetdPA007qty.Name = "txtJJJsetdPA007qty";
-            this.txtJJJsetdPA007qty.Size = new System.Drawing.Size(50, 24);
-            this.txtJJJsetdPA007qty.TabIndex = 18;
-            this.txtJJJsetdPA007qty.Tag = null;
-            this.txtJJJsetdPA007qty.Value = "20";
+            this.txtJJJsetcEL021qty.Location = new System.Drawing.Point(233, 82);
+            this.txtJJJsetcEL021qty.Name = "txtJJJsetcEL021qty";
+            this.txtJJJsetcEL021qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetcEL021qty.TabIndex = 30;
+            this.txtJJJsetcEL021qty.Tag = null;
+            this.txtJJJsetcEL021qty.Value = "20";
             // 
-            // chkJJJsetdFA01464
+            // chkJJJsetcEL021
             // 
-            this.chkJJJsetdFA01464.AutoSize = true;
-            this.chkJJJsetdFA01464.Location = new System.Drawing.Point(3, 81);
-            this.chkJJJsetdFA01464.Name = "chkJJJsetdFA01464";
-            this.chkJJJsetdFA01464.Size = new System.Drawing.Size(56, 24);
-            this.chkJJJsetdFA01464.TabIndex = 14;
-            this.chkJJJsetdFA01464.TabStop = true;
-            this.chkJJJsetdFA01464.Text = "Favi";
-            this.chkJJJsetdFA01464.UseVisualStyleBackColor = true;
+            this.chkJJJsetcEL021.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetcEL021.Location = new System.Drawing.Point(2, 82);
+            this.chkJJJsetcEL021.Name = "chkJJJsetcEL021";
+            this.chkJJJsetcEL021.Size = new System.Drawing.Size(214, 24);
+            this.chkJJJsetcEL021.TabIndex = 29;
+            this.chkJJJsetcEL021.Text = "ELECTROLYTE 15 GM.";
+            this.chkJJJsetcEL021.UseVisualStyleBackColor = false;
+            this.chkJJJsetcEL021.Value = null;
             // 
-            // chkJJJsetdBI005
+            // txtJJJsetcMI047qty
             // 
-            this.chkJJJsetdBI005.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkJJJsetdBI005.Location = new System.Drawing.Point(3, 55);
-            this.chkJJJsetdBI005.Name = "chkJJJsetdBI005";
-            this.chkJJJsetdBI005.Size = new System.Drawing.Size(186, 24);
-            this.chkJJJsetdBI005.TabIndex = 12;
-            this.chkJJJsetdBI005.Text = "Brom";
-            this.chkJJJsetdBI005.UseVisualStyleBackColor = false;
-            this.chkJJJsetdBI005.Value = null;
+            this.txtJJJsetcMI047qty.Location = new System.Drawing.Point(234, 56);
+            this.txtJJJsetcMI047qty.Name = "txtJJJsetcMI047qty";
+            this.txtJJJsetcMI047qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetcMI047qty.TabIndex = 28;
+            this.txtJJJsetcMI047qty.Tag = null;
+            this.txtJJJsetcMI047qty.Value = "20";
             // 
-            // chkJJJsetdCP001
+            // chkJJJsetcMI047
             // 
-            this.chkJJJsetdCP001.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkJJJsetdCP001.Location = new System.Drawing.Point(3, 29);
-            this.chkJJJsetdCP001.Name = "chkJJJsetdCP001";
-            this.chkJJJsetdCP001.Size = new System.Drawing.Size(186, 24);
-            this.chkJJJsetdCP001.TabIndex = 11;
-            this.chkJJJsetdCP001.Text = "CPM";
-            this.chkJJJsetdCP001.UseVisualStyleBackColor = false;
-            this.chkJJJsetdCP001.Value = null;
+            this.chkJJJsetcMI047.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetcMI047.Location = new System.Drawing.Point(3, 56);
+            this.chkJJJsetcMI047.Name = "chkJJJsetcMI047";
+            this.chkJJJsetcMI047.Size = new System.Drawing.Size(225, 24);
+            this.chkJJJsetcMI047.TabIndex = 27;
+            this.chkJJJsetcMI047.Text = "MIST TUSSIS 60 ML SYR";
+            this.chkJJJsetcMI047.UseVisualStyleBackColor = false;
+            this.chkJJJsetcMI047.Value = null;
             // 
-            // chkJJJsetdPA007
+            // txtJJJsetbEL021qty
             // 
-            this.chkJJJsetdPA007.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkJJJsetdPA007.Location = new System.Drawing.Point(3, 3);
-            this.chkJJJsetdPA007.Name = "chkJJJsetdPA007";
-            this.chkJJJsetdPA007.Size = new System.Drawing.Size(186, 24);
-            this.chkJJJsetdPA007.TabIndex = 10;
-            this.chkJJJsetdPA007.Text = "Para";
-            this.chkJJJsetdPA007.UseVisualStyleBackColor = false;
-            this.chkJJJsetdPA007.Value = null;
+            this.txtJJJsetbEL021qty.Location = new System.Drawing.Point(233, 132);
+            this.txtJJJsetbEL021qty.Name = "txtJJJsetbEL021qty";
+            this.txtJJJsetbEL021qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetbEL021qty.TabIndex = 30;
+            this.txtJJJsetbEL021qty.Tag = null;
+            this.txtJJJsetbEL021qty.Value = "20";
             // 
-            // chkJJJDrugSetD
+            // chkJJJsetbEL021
             // 
-            this.chkJJJDrugSetD.AutoSize = true;
-            this.chkJJJDrugSetD.Location = new System.Drawing.Point(17, 391);
-            this.chkJJJDrugSetD.Name = "chkJJJDrugSetD";
-            this.chkJJJDrugSetD.Size = new System.Drawing.Size(74, 24);
-            this.chkJJJDrugSetD.TabIndex = 6;
-            this.chkJJJDrugSetD.Text = "SET D";
-            this.chkJJJDrugSetD.UseVisualStyleBackColor = true;
+            this.chkJJJsetbEL021.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetbEL021.Location = new System.Drawing.Point(2, 132);
+            this.chkJJJsetbEL021.Name = "chkJJJsetbEL021";
+            this.chkJJJsetbEL021.Size = new System.Drawing.Size(214, 24);
+            this.chkJJJsetbEL021.TabIndex = 29;
+            this.chkJJJsetbEL021.Text = "ELECTROLYTE 15 GM.";
+            this.chkJJJsetbEL021.UseVisualStyleBackColor = false;
+            this.chkJJJsetbEL021.Value = null;
+            // 
+            // txtJJJsetbMI047qty
+            // 
+            this.txtJJJsetbMI047qty.Location = new System.Drawing.Point(234, 106);
+            this.txtJJJsetbMI047qty.Name = "txtJJJsetbMI047qty";
+            this.txtJJJsetbMI047qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetbMI047qty.TabIndex = 28;
+            this.txtJJJsetbMI047qty.Tag = null;
+            this.txtJJJsetbMI047qty.Value = "20";
+            // 
+            // chkJJJsetbMI047
+            // 
+            this.chkJJJsetbMI047.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetbMI047.Location = new System.Drawing.Point(3, 106);
+            this.chkJJJsetbMI047.Name = "chkJJJsetbMI047";
+            this.chkJJJsetbMI047.Size = new System.Drawing.Size(225, 24);
+            this.chkJJJsetbMI047.TabIndex = 27;
+            this.chkJJJsetbMI047.Text = "MIST TUSSIS 60 ML SYR";
+            this.chkJJJsetbMI047.UseVisualStyleBackColor = false;
+            this.chkJJJsetbMI047.Value = null;
+            // 
+            // txtJJJsetaEL021qty
+            // 
+            this.txtJJJsetaEL021qty.Location = new System.Drawing.Point(234, 133);
+            this.txtJJJsetaEL021qty.Name = "txtJJJsetaEL021qty";
+            this.txtJJJsetaEL021qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetaEL021qty.TabIndex = 28;
+            this.txtJJJsetaEL021qty.Tag = null;
+            this.txtJJJsetaEL021qty.Value = "20";
+            // 
+            // chkJJJsetaEL021
+            // 
+            this.chkJJJsetaEL021.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetaEL021.Location = new System.Drawing.Point(3, 130);
+            this.chkJJJsetaEL021.Name = "chkJJJsetaEL021";
+            this.chkJJJsetaEL021.Size = new System.Drawing.Size(225, 24);
+            this.chkJJJsetaEL021.TabIndex = 27;
+            this.chkJJJsetaEL021.Text = "ELECTROLYTE 15 GM.";
+            this.chkJJJsetaEL021.UseVisualStyleBackColor = false;
+            this.chkJJJsetaEL021.Value = null;
+            // 
+            // txtJJJsetaMI047qty
+            // 
+            this.txtJJJsetaMI047qty.Location = new System.Drawing.Point(234, 107);
+            this.txtJJJsetaMI047qty.Name = "txtJJJsetaMI047qty";
+            this.txtJJJsetaMI047qty.Size = new System.Drawing.Size(50, 24);
+            this.txtJJJsetaMI047qty.TabIndex = 30;
+            this.txtJJJsetaMI047qty.Tag = null;
+            this.txtJJJsetaMI047qty.Value = "20";
+            // 
+            // chkJJJsetaMI047
+            // 
+            this.chkJJJsetaMI047.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkJJJsetaMI047.Location = new System.Drawing.Point(4, 106);
+            this.chkJJJsetaMI047.Name = "chkJJJsetaMI047";
+            this.chkJJJsetaMI047.Size = new System.Drawing.Size(225, 24);
+            this.chkJJJsetaMI047.TabIndex = 29;
+            this.chkJJJsetaMI047.Text = "MIST TUSSIS 60 ML SYR";
+            this.chkJJJsetaMI047.UseVisualStyleBackColor = false;
+            this.chkJJJsetaMI047.Value = null;
             // 
             // FrmSmartCardJJJ
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 619);
+            this.ClientSize = new System.Drawing.Size(800, 827);
             this.Controls.Add(this.txtPreno);
             this.Controls.Add(this.txtVsdate);
             this.Controls.Add(this.txtJJJhn);
@@ -1096,6 +1304,15 @@ namespace bangna_hospital.gui
             this.panel2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdFA01464qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdBI005qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdCP001qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdPA007qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdBI005)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdCP001)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdPA007)).EndInit();
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcBI005qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcCP001qty)).EndInit();
@@ -1113,25 +1330,32 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbCP001)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbPA007)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaMI047qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaAN023qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaBI005qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaCP001qty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaPA007qty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaMI047)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaAN023)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaBI005)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaCP001)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaPA007)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJJJhn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdFA01464qty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdBI005qty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdCP001qty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdPA007qty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdBI005)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdCP001)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdPA007)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdMI047qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdMI047)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetdEL021qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetdEL021)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcEL021qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetcEL021)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetcMI047qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetcMI047)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetbEL021qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbEL021)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetbMI047qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetbMI047)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaEL021qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaEL021)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtJJJsetaMI047qty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkJJJsetaMI047)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1166,13 +1390,13 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1CheckBox chkJJJsetbCP001;
         private C1.Win.C1Input.C1CheckBox chkJJJsetbPA007;
         private System.Windows.Forms.Panel panel3;
-        private C1.Win.C1Input.C1CheckBox chkJJJsetaMI047;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetaAN023;
         private C1.Win.C1Input.C1CheckBox chkJJJsetaBI005;
         private C1.Win.C1Input.C1CheckBox chkJJJsetaCP001;
         private C1.Win.C1Input.C1CheckBox chkJJJsetaPA007;
         private System.Windows.Forms.RadioButton chkJJJDrugSetB;
         private System.Windows.Forms.RadioButton chkJJJDrugSetA;
-        private C1.Win.C1Input.C1TextBox txtJJJsetaMI047qty;
+        private C1.Win.C1Input.C1TextBox txtJJJsetaAN023qty;
         private C1.Win.C1Input.C1TextBox txtJJJsetaBI005qty;
         private C1.Win.C1Input.C1TextBox txtJJJsetaCP001qty;
         private C1.Win.C1Input.C1TextBox txtJJJsetaPA007qty;
@@ -1221,5 +1445,21 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1CheckBox chkJJJsetdCP001;
         private C1.Win.C1Input.C1CheckBox chkJJJsetdPA007;
         private System.Windows.Forms.RadioButton chkJJJDrugSetD;
+        private C1.Win.C1Input.C1TextBox txtJJJsetdEL021qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetdEL021;
+        private C1.Win.C1Input.C1TextBox txtJJJsetdMI047qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetdMI047;
+        private C1.Win.C1Input.C1TextBox txtJJJsetcEL021qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetcEL021;
+        private C1.Win.C1Input.C1TextBox txtJJJsetcMI047qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetcMI047;
+        private C1.Win.C1Input.C1TextBox txtJJJsetbEL021qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetbEL021;
+        private C1.Win.C1Input.C1TextBox txtJJJsetbMI047qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetbMI047;
+        private C1.Win.C1Input.C1TextBox txtJJJsetaEL021qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetaEL021;
+        private C1.Win.C1Input.C1TextBox txtJJJsetaMI047qty;
+        private C1.Win.C1Input.C1CheckBox chkJJJsetaMI047;
     }
 }

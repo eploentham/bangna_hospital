@@ -19,6 +19,7 @@ namespace bangna_hospital.object1
         public String hostDBOPBKK = "", userDBOPBKK = "", passDBOPBKK = "", nameDBOPBKK = "", portDBOPBKK = "";
         public String hostDBLogTask = "", userDBLogTask = "", passDBLogTask = "", nameDBLogTask = "", portDBLogTask = "";
         public String hostDBMySQL = "", userDBMySQL = "", passDBMySQL = "", nameDBMySQL = "", portDBMySQL = "";
+        public String hostDBSsnData = "", userDBSsnData = "", passDBSsnData = "", nameDBSsnData = "", portDBSsnData = "";
 
         public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "", pdfFontSize="", pdfFontName = "", pdfFontSizetitleFont = "", pdfFontSizetxtFont = "", pdfFontSizehdrFont = "", pdfFontSizetxtFontB="";
         public String email_form = "", email_auth_user = "", email_auth_pass = "", email_port = "", email_ssl = "";
@@ -37,6 +38,6 @@ namespace bangna_hospital.object1
         public String OPD_BTEMP = "", OPD_SBP = "", OPD_DBP = "", OPD_PR = "", OPD_RR = "", opbkkhcode = "";
         public String statusSmartCardNoDatabase = "", lab_code="", printerStaffNote="", printerLeter="", printerA5 = "", printerQueue = "", pathSaveExcelNovel="", statusSmartCardvaccine="", statusPrintSticker="";
         public String FrmSmartCardTabDefault = "", stickerPrintNumber="", statusStation="", paidcode="", dtrcode="", queFontName="", queFontSize="", hosttel="", printerStickerDrug="", printadjust="";
-        public String importMDBpaidcode = "";
+        public String importMDBpaidcode = "", statusVisitBack="";
     }
 }
