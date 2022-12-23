@@ -41,7 +41,7 @@ namespace bangna_hospital.gui
 
         private void initConfig()
         {
-            pageLoad = false;
+            pageLoad = true;
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
 
@@ -66,7 +66,7 @@ namespace bangna_hospital.gui
             //sb1.Text = "aaaaaaaaaa";
 
             setControl();
-            pageLoad = true;
+            pageLoad = false;
         }
         private void BtnSaveRotate_Click(object sender, EventArgs e)
         {
@@ -110,8 +110,7 @@ namespace bangna_hospital.gui
                 {
                     ++num;
                     int result2 = 0;
-                    if (!int.TryParse(this.bc.bcDB.dscDB.updateSort(row[this.bc.bcDB.dscDB.dsc.doc_scan_id].ToString(), num.ToString()), out result2))
-                        ;
+                    if (!int.TryParse(this.bc.bcDB.dscDB.updateSort(row[this.bc.bcDB.dscDB.dsc.doc_scan_id].ToString(), num.ToString()), out result2));
                 }
                 DocScan docScan1 = new DocScan();
                 DocScan docScan2 = this.bc.bcDB.dscDB.selectByPk(((Control)this.txtID).Text);
@@ -156,6 +155,7 @@ namespace bangna_hospital.gui
             dgsid = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
             if (dgsid.Length > 0)
             {
+                cboDgss.Text = "";
                 bc.bcDB.dgssDB.setCboDGSS(cboDgss, dgsid, "");
             }
         }
@@ -181,14 +181,15 @@ namespace bangna_hospital.gui
                 //bc.setC1Combo(cboDgs, dgs);
                 txtSortMax.Value = dgs.row_cnt;
                 //txtSortMax.Value = dgs.row_cnt;
-                DocGroupFM docGroupFm1 = new DocGroupFM();
-                DocGroupFM docGroupFm2 = bc.bcDB.dfmDB.selectByFMCode(this.dgs.ml_fm);
-                if (docGroupFm2.fm_id.Length > 0)
-                {
-                    bc.setC1Combo(cboDgs, docGroupFm2.doc_group_id);
-                    bc.bcDB.dgssDB.setCboDGSS(cboDgss, docGroupFm2.doc_group_id, "");
-                    bc.setC1Combo(cboDgss, docGroupFm2.doc_group_sub_id);
-                }
+                //DocGroupFM docGroupFm1 = new DocGroupFM();
+                //DocGroupFM docGroupFm2 = bc.bcDB.dfmDB.selectByFMCode(this.dgs.ml_fm);
+                //if (docGroupFm2.fm_id.Length > 0)
+                //{
+
+                //}
+                bc.setC1Combo(cboDgs, dgs.doc_group_id);
+                bc.bcDB.dgssDB.setCboDGSS(cboDgss, dgs.doc_group_id, "");
+                bc.setC1Combo(cboDgss, dgs.doc_group_sub_id);
                 str = "02";
                 pic1.Image = img1;
                 //btnSaveFmCode.Hide();
@@ -205,9 +206,12 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             String re = "";
             int chk = 0;
-            re = bc.bcDB.dscDB.updateFMCode(txtID.Text, txtFmCode.Text.Trim());
+            re = bc.bcDB.dscDB.updateFMCode(txtID.Text.Trim(), txtFmCode.Text.Trim());
             if (int.TryParse(re, out chk))
             {
+                String dgsid = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
+                String dgssid = cboDgss.SelectedItem == null ? "" : ((ComboBoxItem)cboDgss.SelectedItem).Value;
+                re = bc.bcDB.dscDB.updateGrpSubGrp(txtID.Text.Trim(), dgsid, dgssid);
                 MessageBox.Show("แก้ไขข้อมูล FM-CODE เรียบร้อย", "");
             }
         }

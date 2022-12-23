@@ -7,10 +7,10 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_sticker_jjj</AssemblyName>
+    <AssemblyName>bangna_hospital_ssn_data</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -55,10 +55,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\signal-receiver.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon-sqr-01.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup>
+    <StartupObject>bangna_hospital.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
       <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
@@ -130,6 +133,9 @@
     <Reference Include="Npgsql, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="SecuGen.FDxSDKPro.Windows">
+      <HintPath>FDx-SDK\SecuGen\i386\SecuGen.FDxSDKPro.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -147,10 +153,16 @@
   <ItemGroup>
     <Compile Include="control\BangnaControl.cs" />
     <Compile Include="control\PdfControl.cs" />
-    <Compile Include="FrmScanView2.cs">
+    <Compile Include="gui\FrmFingerScanCheck.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmScanView2.Designer.cs">
+    <Compile Include="gui\FrmFingerScanCheck.Designer.cs">
+      <DependentUpon>FrmFingerScanCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmScanView2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmScanView2.Designer.cs">
       <DependentUpon>FrmScanView2.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmCheckup.cs">
@@ -170,6 +182,18 @@
     </Compile>
     <Compile Include="gui\FrmEpidem.Designer.cs">
       <DependentUpon>FrmEpidem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmExcel.Designer.cs">
+      <DependentUpon>FrmExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmFingerScanAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmFingerScanAdd.Designer.cs">
+      <DependentUpon>FrmFingerScanAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmImportMDB.cs">
       <SubType>Form</SubType>
@@ -200,6 +224,12 @@
     </Compile>
     <Compile Include="gui\FrmSmartCard.designer.cs">
       <DependentUpon>FrmSmartCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmSmartCardB1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSmartCardB1.Designer.cs">
+      <DependentUpon>FrmSmartCardB1.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmSmartCardJJJ.cs">
       <SubType>Form</SubType>
@@ -545,6 +575,8 @@
     <Compile Include="objdb\DrugDB.cs" />
     <Compile Include="objdb\DrugSetDB.cs" />
     <Compile Include="objdb\EpidemAPIDB.cs" />
+    <Compile Include="objdb\FLocationDB.cs" />
+    <Compile Include="objdb\TFingerScanDB.cs" />
     <Compile Include="object1\EpidemAPI.cs" />
     <Compile Include="object1\EpidemCluster.cs" />
     <Compile Include="object1\EpidemCovidIsolatePlace.cs" />
@@ -622,6 +654,7 @@
     <Compile Include="object1\EpidemProvince.cs" />
     <Compile Include="object1\EpidemReport.cs" />
     <Compile Include="object1\EpidemRiskHistoryType.cs" />
+    <Compile Include="object1\EpidemSendEPIDEM.cs" />
     <Compile Include="object1\EpidemSymptomType.cs" />
     <Compile Include="object1\EpidemTmlt.cs" />
     <Compile Include="object1\EpidemVaccination.cs" />
@@ -629,6 +662,7 @@
     <Compile Include="object1\ExportHelper.cs" />
     <Compile Include="object1\FinanceM01.cs" />
     <Compile Include="object1\FinanceM02.cs" />
+    <Compile Include="object1\FLocation.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
     <Compile Include="object1\LabCovidDetected.cs" />
     <Compile Include="object1\LabM01.cs" />
@@ -684,6 +718,7 @@
     <Compile Include="object1\SubDistrict.cs" />
     <Compile Include="object1\TemporaryM01.cs" />
     <Compile Include="object1\TemporaryM02.cs" />
+    <Compile Include="object1\TFingerScan.cs" />
     <Compile Include="object1\TQueue.cs" />
     <Compile Include="object1\Vaccine.cs" />
     <Compile Include="object1\XrayM01.cs" />
@@ -766,7 +801,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>xray_result.xsd</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FrmScanView2.resx">
+    <EmbeddedResource Include="gui\FrmFingerScanCheck.resx">
+      <DependentUpon>FrmFingerScanCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmScanView2.resx">
       <DependentUpon>FrmScanView2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\CellNote.resx">
@@ -791,6 +829,9 @@
     <EmbeddedResource Include="gui\FrmColposcopyReport.resx">
       <DependentUpon>FrmColposcopyReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDfDoctor.resx">
+      <DependentUpon>FrmDfDoctor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDocGroupFm.resx">
       <DependentUpon>FrmDocGroupFm.cs</DependentUpon>
     </EmbeddedResource>
@@ -814,6 +855,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmEpidem.resx">
       <DependentUpon>FrmEpidem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmExcel.resx">
+      <DependentUpon>FrmExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmFingerScanAdd.resx">
+      <DependentUpon>FrmFingerScanAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmImportMDB.resx">
       <DependentUpon>FrmImportMDB.cs</DependentUpon>
@@ -857,6 +904,9 @@
     <EmbeddedResource Include="gui\FrmReception.resx">
       <DependentUpon>FrmReception.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmReceptionCovidSend.resx">
+      <DependentUpon>FrmReceptionCovidSend.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmReportARV.resx">
       <DependentUpon>FrmReportARV.cs</DependentUpon>
     </EmbeddedResource>
@@ -898,6 +948,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSmartCard.resx">
       <DependentUpon>FrmSmartCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmSmartCardB1.resx">
+      <DependentUpon>FrmSmartCardB1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmSmartCardJJJ.resx">
       <DependentUpon>FrmSmartCardJJJ.cs</DependentUpon>
@@ -1675,6 +1728,21 @@
     <None Include="Resources\811lnpoa.png" />
     <None Include="Resources\download.jpg" />
     <None Include="Resources\spd_20140318222915_b.jpg" />
+    <Content Include="sgbledev.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sgfdusdax64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sgfpamx.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sgfplib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="sgwsqlib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SmartChipCSPlus_6.ico" />
     <None Include="Resources\webpage.ico" />
     <None Include="Resources\signal-receiver.ico" />

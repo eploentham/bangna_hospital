@@ -54,6 +54,11 @@ namespace bangna_hospital.gui
             this.tcEpidem = new C1.Win.C1Command.C1DockingTab();
             this.tabBn5Person = new C1.Win.C1Command.C1DockingTabPage();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.label90 = new System.Windows.Forms.Label();
+            this.label89 = new System.Windows.Forms.Label();
+            this.label88 = new System.Windows.Forms.Label();
+            this.btnBn5Search = new C1.Win.C1Input.C1Button();
+            this.txtID = new C1.Win.C1Input.C1TextBox();
             this.cboBn5Tmb = new C1.Win.C1Input.C1ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.cboBn5Amp = new C1.Win.C1Input.C1ComboBox();
@@ -149,7 +154,7 @@ namespace bangna_hospital.gui
             this.label48 = new System.Windows.Forms.Label();
             this.cboBn5Symptom = new C1.Win.C1Input.C1ComboBox();
             this.label47 = new System.Windows.Forms.Label();
-            this.cboBn5Status = new C1.Win.C1Input.C1ComboBox();
+            this.cboBn5PersonStatus = new C1.Win.C1Input.C1ComboBox();
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
@@ -178,6 +183,7 @@ namespace bangna_hospital.gui
             this.label29 = new System.Windows.Forms.Label();
             this.tabBn5Lab = new C1.Win.C1Command.C1DockingTabPage();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label91 = new System.Windows.Forms.Label();
             this.cboBn5LabTmlt = new C1.Win.C1Input.C1ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cboBn5VaccManu = new C1.Win.C1Input.C1ComboBox();
@@ -256,6 +262,8 @@ namespace bangna_hospital.gui
             this.tcEpidem.SuspendLayout();
             this.tabBn5Person.SuspendLayout();
             this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnBn5Search)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Tmb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Amp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5BranchId)).BeginInit();
@@ -307,7 +315,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Respi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Pregnant)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Symptom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBn5Status)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBn5PersonStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5Informer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5DiagDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5TreatDate)).BeginInit();
@@ -644,6 +652,11 @@ namespace bangna_hospital.gui
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.label90);
+            this.panel9.Controls.Add(this.label89);
+            this.panel9.Controls.Add(this.label88);
+            this.panel9.Controls.Add(this.btnBn5Search);
+            this.panel9.Controls.Add(this.txtID);
             this.panel9.Controls.Add(this.cboBn5Tmb);
             this.panel9.Controls.Add(this.label26);
             this.panel9.Controls.Add(this.cboBn5Amp);
@@ -693,6 +706,66 @@ namespace bangna_hospital.gui
             this.panel9.Size = new System.Drawing.Size(708, 610);
             this.panel9.TabIndex = 67;
             // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.BackColor = System.Drawing.Color.White;
+            this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label90.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label90.Location = new System.Drawing.Point(361, 411);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(21, 20);
+            this.label90.TabIndex = 575;
+            this.label90.Text = "...";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.BackColor = System.Drawing.Color.White;
+            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label89.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label89.Location = new System.Drawing.Point(361, 381);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(21, 20);
+            this.label89.TabIndex = 574;
+            this.label89.Text = "...";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.BackColor = System.Drawing.Color.White;
+            this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label88.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label88.Location = new System.Drawing.Point(361, 351);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(21, 20);
+            this.label88.TabIndex = 573;
+            this.label88.Text = "...";
+            // 
+            // btnBn5Search
+            // 
+            this.btnBn5Search.Location = new System.Drawing.Point(472, 3);
+            this.btnBn5Search.Name = "btnBn5Search";
+            this.btnBn5Search.Size = new System.Drawing.Size(31, 27);
+            this.btnBn5Search.TabIndex = 572;
+            this.btnBn5Search.Text = "...";
+            this.btnBn5Search.UseVisualStyleBackColor = true;
+            this.btnBn5Search.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // txtID
+            // 
+            this.txtID.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.txtID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtID.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
+            this.txtID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtID.Location = new System.Drawing.Point(294, 5);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(172, 24);
+            this.txtID.TabIndex = 97;
+            this.txtID.Tag = null;
+            this.txtID.Value = "24036";
+            this.txtID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // cboBn5Tmb
             // 
             this.cboBn5Tmb.AllowSpinLoop = false;
@@ -716,11 +789,11 @@ namespace bangna_hospital.gui
             this.label26.BackColor = System.Drawing.Color.White;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label26.Location = new System.Drawing.Point(13, 409);
+            this.label26.Location = new System.Drawing.Point(9, 409);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(50, 20);
+            this.label26.Size = new System.Drawing.Size(56, 20);
             this.label26.TabIndex = 95;
-            this.label26.Text = "ตำบล :";
+            this.label26.Text = "ตำบล* :";
             // 
             // cboBn5Amp
             // 
@@ -745,11 +818,11 @@ namespace bangna_hospital.gui
             this.label25.BackColor = System.Drawing.Color.White;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label25.Location = new System.Drawing.Point(13, 379);
+            this.label25.Location = new System.Drawing.Point(9, 379);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(55, 20);
+            this.label25.Size = new System.Drawing.Size(61, 20);
             this.label25.TabIndex = 93;
-            this.label25.Text = "อำเภอ :";
+            this.label25.Text = "อำเภอ* :";
             // 
             // txtBn5BranchId
             // 
@@ -771,7 +844,7 @@ namespace bangna_hospital.gui
             this.label87.BackColor = System.Drawing.Color.White;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label87.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label87.Location = new System.Drawing.Point(13, 535);
+            this.label87.Location = new System.Drawing.Point(9, 535);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(66, 20);
             this.label87.TabIndex = 91;
@@ -797,7 +870,7 @@ namespace bangna_hospital.gui
             this.label86.BackColor = System.Drawing.Color.White;
             this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label86.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label86.Location = new System.Drawing.Point(13, 505);
+            this.label86.Location = new System.Drawing.Point(9, 505);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(100, 20);
             this.label86.TabIndex = 89;
@@ -844,7 +917,7 @@ namespace bangna_hospital.gui
             this.label28.BackColor = System.Drawing.Color.White;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label28.Location = new System.Drawing.Point(13, 473);
+            this.label28.Location = new System.Drawing.Point(9, 473);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(95, 20);
             this.label28.TabIndex = 86;
@@ -870,7 +943,7 @@ namespace bangna_hospital.gui
             this.label27.BackColor = System.Drawing.Color.White;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label27.Location = new System.Drawing.Point(13, 443);
+            this.label27.Location = new System.Drawing.Point(9, 443);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(82, 20);
             this.label27.TabIndex = 84;
@@ -879,6 +952,9 @@ namespace bangna_hospital.gui
             // cboBn5Chw
             // 
             this.cboBn5Chw.AllowSpinLoop = false;
+            this.cboBn5Chw.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboBn5Chw.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboBn5Chw.AutoOpen = true;
             this.cboBn5Chw.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.cboBn5Chw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboBn5Chw.GapHeight = 0;
@@ -899,11 +975,11 @@ namespace bangna_hospital.gui
             this.label24.BackColor = System.Drawing.Color.White;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label24.Location = new System.Drawing.Point(13, 349);
+            this.label24.Location = new System.Drawing.Point(9, 349);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(57, 20);
+            this.label24.Size = new System.Drawing.Size(63, 20);
             this.label24.TabIndex = 78;
-            this.label24.Text = "จังหวัด :";
+            this.label24.Text = "จังหวัด* :";
             // 
             // txtBn5Road
             // 
@@ -977,11 +1053,11 @@ namespace bangna_hospital.gui
             this.label21.BackColor = System.Drawing.Color.White;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label21.Location = new System.Drawing.Point(13, 323);
+            this.label21.Location = new System.Drawing.Point(9, 323);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(75, 20);
+            this.label21.Size = new System.Drawing.Size(81, 20);
             this.label21.TabIndex = 72;
-            this.label21.Text = "บ้านเลขที่ :";
+            this.label21.Text = "บ้านเลขที่* :";
             // 
             // cboBn5Mari
             // 
@@ -1006,7 +1082,7 @@ namespace bangna_hospital.gui
             this.label20.BackColor = System.Drawing.Color.White;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label20.Location = new System.Drawing.Point(13, 289);
+            this.label20.Location = new System.Drawing.Point(9, 289);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(76, 20);
             this.label20.TabIndex = 70;
@@ -1060,11 +1136,11 @@ namespace bangna_hospital.gui
             this.label19.BackColor = System.Drawing.Color.White;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label19.Location = new System.Drawing.Point(13, 251);
+            this.label19.Location = new System.Drawing.Point(9, 251);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(44, 20);
+            this.label19.Size = new System.Drawing.Size(50, 20);
             this.label19.TabIndex = 66;
-            this.label19.Text = "age :";
+            this.label19.Text = "age* :";
             // 
             // label18
             // 
@@ -1098,11 +1174,11 @@ namespace bangna_hospital.gui
             this.label17.BackColor = System.Drawing.Color.White;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label17.Location = new System.Drawing.Point(13, 221);
+            this.label17.Location = new System.Drawing.Point(9, 221);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(89, 20);
+            this.label17.Size = new System.Drawing.Size(95, 20);
             this.label17.TabIndex = 63;
-            this.label17.Text = "birth_date :";
+            this.label17.Text = "birth_date* :";
             // 
             // cboBn5Gender
             // 
@@ -1127,11 +1203,11 @@ namespace bangna_hospital.gui
             this.label16.BackColor = System.Drawing.Color.White;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label16.Location = new System.Drawing.Point(13, 187);
+            this.label16.Location = new System.Drawing.Point(9, 187);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(42, 20);
+            this.label16.Size = new System.Drawing.Size(48, 20);
             this.label16.TabIndex = 61;
-            this.label16.Text = "เพศ :";
+            this.label16.Text = "เพศ* :";
             // 
             // cboBn5Nat
             // 
@@ -1156,7 +1232,7 @@ namespace bangna_hospital.gui
             this.label15.BackColor = System.Drawing.Color.White;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label15.Location = new System.Drawing.Point(13, 157);
+            this.label15.Location = new System.Drawing.Point(9, 157);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(62, 20);
             this.label15.TabIndex = 59;
@@ -1182,11 +1258,11 @@ namespace bangna_hospital.gui
             this.label14.BackColor = System.Drawing.Color.White;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label14.Location = new System.Drawing.Point(13, 127);
+            this.label14.Location = new System.Drawing.Point(9, 127);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(46, 20);
+            this.label14.Size = new System.Drawing.Size(48, 20);
             this.label14.TabIndex = 57;
-            this.label14.Text = "สกุล  :";
+            this.label14.Text = "สกุล* :";
             // 
             // txtbn5Firstname
             // 
@@ -1208,11 +1284,11 @@ namespace bangna_hospital.gui
             this.label13.BackColor = System.Drawing.Color.White;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label13.Location = new System.Drawing.Point(13, 97);
+            this.label13.Location = new System.Drawing.Point(9, 97);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(34, 20);
+            this.label13.Size = new System.Drawing.Size(40, 20);
             this.label13.TabIndex = 55;
-            this.label13.Text = "ชื่อ :";
+            this.label13.Text = "ชื่อ* :";
             // 
             // label12
             // 
@@ -1220,11 +1296,11 @@ namespace bangna_hospital.gui
             this.label12.BackColor = System.Drawing.Color.White;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label12.Location = new System.Drawing.Point(13, 67);
+            this.label12.Location = new System.Drawing.Point(9, 67);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(55, 20);
+            this.label12.Size = new System.Drawing.Size(61, 20);
             this.label12.TabIndex = 53;
-            this.label12.Text = "prefix :";
+            this.label12.Text = "prefix* :";
             // 
             // txtBn5Passport
             // 
@@ -1246,11 +1322,11 @@ namespace bangna_hospital.gui
             this.label11.BackColor = System.Drawing.Color.White;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label11.Location = new System.Drawing.Point(13, 37);
+            this.label11.Location = new System.Drawing.Point(9, 37);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(79, 20);
+            this.label11.Size = new System.Drawing.Size(85, 20);
             this.label11.TabIndex = 51;
-            this.label11.Text = "passport :";
+            this.label11.Text = "passport* :";
             // 
             // txtBn5CID
             // 
@@ -1272,11 +1348,11 @@ namespace bangna_hospital.gui
             this.label10.BackColor = System.Drawing.Color.White;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label10.Location = new System.Drawing.Point(13, 7);
+            this.label10.Location = new System.Drawing.Point(9, 7);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 20);
+            this.label10.Size = new System.Drawing.Size(43, 20);
             this.label10.TabIndex = 49;
-            this.label10.Text = "cid :";
+            this.label10.Text = "cid* :";
             // 
             // tabBn5Report
             // 
@@ -1340,7 +1416,7 @@ namespace bangna_hospital.gui
             this.panel7.Controls.Add(this.label48);
             this.panel7.Controls.Add(this.cboBn5Symptom);
             this.panel7.Controls.Add(this.label47);
-            this.panel7.Controls.Add(this.cboBn5Status);
+            this.panel7.Controls.Add(this.cboBn5PersonStatus);
             this.panel7.Controls.Add(this.label46);
             this.panel7.Controls.Add(this.label45);
             this.panel7.Controls.Add(this.label44);
@@ -1506,9 +1582,9 @@ namespace bangna_hospital.gui
             this.label65.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label65.Location = new System.Drawing.Point(353, 243);
             this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(79, 20);
+            this.label65.Size = new System.Drawing.Size(85, 20);
             this.label65.TabIndex = 158;
-            this.label65.Text = "iso place :";
+            this.label65.Text = "iso place* :";
             // 
             // cboBn5IsoChw
             // 
@@ -1534,9 +1610,9 @@ namespace bangna_hospital.gui
             this.label64.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label64.Location = new System.Drawing.Point(349, 217);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(69, 20);
+            this.label64.Size = new System.Drawing.Size(75, 20);
             this.label64.TabIndex = 156;
-            this.label64.Text = "iso chw :";
+            this.label64.Text = "iso chw* :";
             // 
             // txtBn5Lon
             // 
@@ -1610,7 +1686,7 @@ namespace bangna_hospital.gui
             this.label56.AutoSize = true;
             this.label56.BackColor = System.Drawing.Color.White;
             this.label56.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label56.Location = new System.Drawing.Point(5, 581);
+            this.label56.Location = new System.Drawing.Point(8, 581);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(88, 20);
             this.label56.TabIndex = 150;
@@ -1638,7 +1714,7 @@ namespace bangna_hospital.gui
             this.label57.AutoSize = true;
             this.label57.BackColor = System.Drawing.Color.White;
             this.label57.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label57.Location = new System.Drawing.Point(5, 554);
+            this.label57.Location = new System.Drawing.Point(8, 554);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(92, 20);
             this.label57.TabIndex = 148;
@@ -1666,11 +1742,11 @@ namespace bangna_hospital.gui
             this.label58.AutoSize = true;
             this.label58.BackColor = System.Drawing.Color.White;
             this.label58.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label58.Location = new System.Drawing.Point(5, 527);
+            this.label58.Location = new System.Drawing.Point(3, 527);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(89, 20);
+            this.label58.Size = new System.Drawing.Size(95, 20);
             this.label58.TabIndex = 146;
-            this.label58.Text = "chw_code :";
+            this.label58.Text = "chw_code* :";
             // 
             // txtBn5EpidemRoad
             // 
@@ -1678,12 +1754,12 @@ namespace bangna_hospital.gui
             this.txtBn5EpidemRoad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBn5EpidemRoad.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtBn5EpidemRoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtBn5EpidemRoad.Location = new System.Drawing.Point(449, 498);
+            this.txtBn5EpidemRoad.Location = new System.Drawing.Point(449, 500);
             this.txtBn5EpidemRoad.Name = "txtBn5EpidemRoad";
             this.txtBn5EpidemRoad.Size = new System.Drawing.Size(146, 24);
             this.txtBn5EpidemRoad.TabIndex = 145;
             this.txtBn5EpidemRoad.Tag = null;
-            this.txtBn5EpidemRoad.Value = "24036";
+            this.txtBn5EpidemRoad.Value = "";
             this.txtBn5EpidemRoad.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label59
@@ -1708,7 +1784,7 @@ namespace bangna_hospital.gui
             this.txtBn5EpidemMoo.Size = new System.Drawing.Size(58, 24);
             this.txtBn5EpidemMoo.TabIndex = 143;
             this.txtBn5EpidemMoo.Tag = null;
-            this.txtBn5EpidemMoo.Value = "24036";
+            this.txtBn5EpidemMoo.Value = "";
             this.txtBn5EpidemMoo.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label60
@@ -1733,7 +1809,7 @@ namespace bangna_hospital.gui
             this.txtBn5EpidemAddr.Size = new System.Drawing.Size(172, 24);
             this.txtBn5EpidemAddr.TabIndex = 141;
             this.txtBn5EpidemAddr.Tag = null;
-            this.txtBn5EpidemAddr.Value = "24036";
+            this.txtBn5EpidemAddr.Value = "";
             this.txtBn5EpidemAddr.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label61
@@ -1741,7 +1817,7 @@ namespace bangna_hospital.gui
             this.label61.AutoSize = true;
             this.label61.BackColor = System.Drawing.Color.White;
             this.label61.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label61.Location = new System.Drawing.Point(5, 504);
+            this.label61.Location = new System.Drawing.Point(8, 504);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(74, 20);
             this.label61.TabIndex = 140;
@@ -1758,9 +1834,9 @@ namespace bangna_hospital.gui
             this.cboBn5RptRickHistoryType.Items.Add("N");
             this.cboBn5RptRickHistoryType.ItemsDisplayMember = "";
             this.cboBn5RptRickHistoryType.ItemsValueMember = "";
-            this.cboBn5RptRickHistoryType.Location = new System.Drawing.Point(551, 475);
+            this.cboBn5RptRickHistoryType.Location = new System.Drawing.Point(396, 421);
             this.cboBn5RptRickHistoryType.Name = "cboBn5RptRickHistoryType";
-            this.cboBn5RptRickHistoryType.Size = new System.Drawing.Size(64, 24);
+            this.cboBn5RptRickHistoryType.Size = new System.Drawing.Size(302, 24);
             this.cboBn5RptRickHistoryType.TabIndex = 139;
             this.cboBn5RptRickHistoryType.Tag = null;
             this.cboBn5RptRickHistoryType.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
@@ -1771,11 +1847,11 @@ namespace bangna_hospital.gui
             this.label55.AutoSize = true;
             this.label55.BackColor = System.Drawing.Color.White;
             this.label55.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label55.Location = new System.Drawing.Point(500, 477);
+            this.label55.Location = new System.Drawing.Point(345, 423);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(41, 20);
+            this.label55.Size = new System.Drawing.Size(47, 20);
             this.label55.TabIndex = 138;
-            this.label55.Text = "risk :";
+            this.label55.Text = "risk* :";
             // 
             // cboBn5RptTravel
             // 
@@ -1899,9 +1975,9 @@ namespace bangna_hospital.gui
             this.label53.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label53.Location = new System.Drawing.Point(212, 449);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(64, 20);
+            this.label53.Size = new System.Drawing.Size(70, 20);
             this.label53.TabIndex = 130;
-            this.label53.Text = "worker :";
+            this.label53.Text = "worker* :";
             // 
             // cboBn5RptArea
             // 
@@ -1940,8 +2016,6 @@ namespace bangna_hospital.gui
             this.cboBn5Vacc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboBn5Vacc.GapHeight = 0;
             this.cboBn5Vacc.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboBn5Vacc.Items.Add("Y");
-            this.cboBn5Vacc.Items.Add("N");
             this.cboBn5Vacc.ItemsDisplayMember = "";
             this.cboBn5Vacc.ItemsValueMember = "";
             this.cboBn5Vacc.Location = new System.Drawing.Point(314, 351);
@@ -1959,9 +2033,9 @@ namespace bangna_hospital.gui
             this.label51.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label51.Location = new System.Drawing.Point(215, 353);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(93, 20);
+            this.label51.Size = new System.Drawing.Size(99, 20);
             this.label51.TabIndex = 126;
-            this.label51.Text = "vaccinated :";
+            this.label51.Text = "vaccinated* :";
             // 
             // cboBn5Accom
             // 
@@ -1990,7 +2064,7 @@ namespace bangna_hospital.gui
             this.label50.AutoSize = true;
             this.label50.BackColor = System.Drawing.Color.White;
             this.label50.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label50.Location = new System.Drawing.Point(5, 420);
+            this.label50.Location = new System.Drawing.Point(8, 420);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(77, 20);
             this.label50.TabIndex = 124;
@@ -2020,11 +2094,11 @@ namespace bangna_hospital.gui
             this.label49.AutoSize = true;
             this.label49.BackColor = System.Drawing.Color.White;
             this.label49.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label49.Location = new System.Drawing.Point(4, 447);
+            this.label49.Location = new System.Drawing.Point(8, 447);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(84, 20);
+            this.label49.Size = new System.Drawing.Size(90, 20);
             this.label49.TabIndex = 122;
-            this.label49.Text = "respirator :";
+            this.label49.Text = "respirator* :";
             // 
             // cboBn5Pregnant
             // 
@@ -2050,7 +2124,7 @@ namespace bangna_hospital.gui
             this.label48.AutoSize = true;
             this.label48.BackColor = System.Drawing.Color.White;
             this.label48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label48.Location = new System.Drawing.Point(4, 351);
+            this.label48.Location = new System.Drawing.Point(8, 351);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(81, 20);
             this.label48.TabIndex = 120;
@@ -2081,32 +2155,32 @@ namespace bangna_hospital.gui
             this.label47.AutoSize = true;
             this.label47.BackColor = System.Drawing.Color.White;
             this.label47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label47.Location = new System.Drawing.Point(5, 312);
+            this.label47.Location = new System.Drawing.Point(8, 312);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(59, 20);
             this.label47.TabIndex = 118;
             this.label47.Text = "อาการ  :";
             // 
-            // cboBn5Status
+            // cboBn5PersonStatus
             // 
-            this.cboBn5Status.AllowSpinLoop = false;
-            this.cboBn5Status.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cboBn5Status.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboBn5Status.GapHeight = 0;
-            this.cboBn5Status.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboBn5Status.Items.Add("1 หาย");
-            this.cboBn5Status.Items.Add("2 ตาย");
-            this.cboBn5Status.Items.Add("3 ยังรักษา");
-            this.cboBn5Status.Items.Add("4 ไม่ทราบ");
-            this.cboBn5Status.ItemsDisplayMember = "";
-            this.cboBn5Status.ItemsValueMember = "";
-            this.cboBn5Status.Location = new System.Drawing.Point(127, 269);
-            this.cboBn5Status.Name = "cboBn5Status";
-            this.cboBn5Status.Size = new System.Drawing.Size(106, 24);
-            this.cboBn5Status.TabIndex = 117;
-            this.cboBn5Status.Tag = null;
-            this.cboBn5Status.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.cboBn5Status.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.cboBn5PersonStatus.AllowSpinLoop = false;
+            this.cboBn5PersonStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cboBn5PersonStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboBn5PersonStatus.GapHeight = 0;
+            this.cboBn5PersonStatus.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboBn5PersonStatus.Items.Add("1 หาย");
+            this.cboBn5PersonStatus.Items.Add("2 ตาย");
+            this.cboBn5PersonStatus.Items.Add("3 ยังรักษา");
+            this.cboBn5PersonStatus.Items.Add("4 ไม่ทราบ");
+            this.cboBn5PersonStatus.ItemsDisplayMember = "";
+            this.cboBn5PersonStatus.ItemsValueMember = "";
+            this.cboBn5PersonStatus.Location = new System.Drawing.Point(127, 269);
+            this.cboBn5PersonStatus.Name = "cboBn5PersonStatus";
+            this.cboBn5PersonStatus.Size = new System.Drawing.Size(106, 24);
+            this.cboBn5PersonStatus.TabIndex = 117;
+            this.cboBn5PersonStatus.Tag = null;
+            this.cboBn5PersonStatus.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.cboBn5PersonStatus.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // label46
             // 
@@ -2126,9 +2200,9 @@ namespace bangna_hospital.gui
             this.label45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label45.Location = new System.Drawing.Point(5, 245);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(78, 20);
+            this.label45.Size = new System.Drawing.Size(84, 20);
             this.label45.TabIndex = 115;
-            this.label45.Text = "icd10 list :";
+            this.label45.Text = "icd10 list* :";
             // 
             // label44
             // 
@@ -2137,9 +2211,9 @@ namespace bangna_hospital.gui
             this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label44.Location = new System.Drawing.Point(5, 218);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(55, 20);
+            this.label44.Size = new System.Drawing.Size(61, 20);
             this.label44.TabIndex = 114;
-            this.label44.Text = "icd10 :";
+            this.label44.Text = "icd10* :";
             // 
             // label43
             // 
@@ -2157,7 +2231,7 @@ namespace bangna_hospital.gui
             this.label41.AutoSize = true;
             this.label41.BackColor = System.Drawing.Color.White;
             this.label41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label41.Location = new System.Drawing.Point(4, 476);
+            this.label41.Location = new System.Drawing.Point(8, 476);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(63, 20);
             this.label41.TabIndex = 112;
@@ -2182,7 +2256,7 @@ namespace bangna_hospital.gui
             this.label42.AutoSize = true;
             this.label42.BackColor = System.Drawing.Color.White;
             this.label42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label42.Location = new System.Drawing.Point(4, 190);
+            this.label42.Location = new System.Drawing.Point(5, 190);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(75, 20);
             this.label42.TabIndex = 110;
@@ -2218,7 +2292,7 @@ namespace bangna_hospital.gui
             this.label40.AutoSize = true;
             this.label40.BackColor = System.Drawing.Color.White;
             this.label40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label40.Location = new System.Drawing.Point(4, 164);
+            this.label40.Location = new System.Drawing.Point(5, 164);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(83, 20);
             this.label40.TabIndex = 107;
@@ -2278,7 +2352,7 @@ namespace bangna_hospital.gui
             this.txtBn5TreatDate.Size = new System.Drawing.Size(172, 24);
             this.txtBn5TreatDate.TabIndex = 102;
             this.txtBn5TreatDate.Tag = null;
-            this.txtBn5TreatDate.Value = "24036";
+            this.txtBn5TreatDate.Value = "";
             this.txtBn5TreatDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label34
@@ -2286,11 +2360,11 @@ namespace bangna_hospital.gui
             this.label34.AutoSize = true;
             this.label34.BackColor = System.Drawing.Color.White;
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label34.Location = new System.Drawing.Point(4, 139);
+            this.label34.Location = new System.Drawing.Point(5, 139);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(108, 20);
+            this.label34.Size = new System.Drawing.Size(114, 20);
             this.label34.TabIndex = 101;
-            this.label34.Text = "วัน รับการรักษา :";
+            this.label34.Text = "วัน รับการรักษา* :";
             // 
             // txtBn5OnsetDate
             // 
@@ -2303,7 +2377,7 @@ namespace bangna_hospital.gui
             this.txtBn5OnsetDate.Size = new System.Drawing.Size(172, 24);
             this.txtBn5OnsetDate.TabIndex = 100;
             this.txtBn5OnsetDate.Tag = null;
-            this.txtBn5OnsetDate.Value = "24036";
+            this.txtBn5OnsetDate.Value = "";
             this.txtBn5OnsetDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label33
@@ -2311,7 +2385,7 @@ namespace bangna_hospital.gui
             this.label33.AutoSize = true;
             this.label33.BackColor = System.Drawing.Color.White;
             this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label33.Location = new System.Drawing.Point(4, 113);
+            this.label33.Location = new System.Drawing.Point(5, 113);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(93, 20);
             this.label33.TabIndex = 99;
@@ -2328,7 +2402,7 @@ namespace bangna_hospital.gui
             this.txtBn5RptDate.Size = new System.Drawing.Size(239, 24);
             this.txtBn5RptDate.TabIndex = 98;
             this.txtBn5RptDate.Tag = null;
-            this.txtBn5RptDate.Value = "2022-01-20T09:00:00.000";
+            this.txtBn5RptDate.Value = "";
             this.txtBn5RptDate.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label32
@@ -2336,11 +2410,11 @@ namespace bangna_hospital.gui
             this.label32.AutoSize = true;
             this.label32.BackColor = System.Drawing.Color.White;
             this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label32.Location = new System.Drawing.Point(4, 87);
+            this.label32.Location = new System.Drawing.Point(5, 87);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(88, 20);
+            this.label32.Size = new System.Drawing.Size(94, 20);
             this.label32.TabIndex = 97;
-            this.label32.Text = "วันที่รายงาน :";
+            this.label32.Text = "วันที่รายงาน* :";
             // 
             // txtBn5HospCode
             // 
@@ -2361,7 +2435,7 @@ namespace bangna_hospital.gui
             this.label31.AutoSize = true;
             this.label31.BackColor = System.Drawing.Color.White;
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label31.Location = new System.Drawing.Point(4, 61);
+            this.label31.Location = new System.Drawing.Point(5, 61);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(125, 20);
             this.label31.TabIndex = 95;
@@ -2390,11 +2464,11 @@ namespace bangna_hospital.gui
             this.label30.AutoSize = true;
             this.label30.BackColor = System.Drawing.Color.White;
             this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label30.Location = new System.Drawing.Point(4, 30);
+            this.label30.Location = new System.Drawing.Point(5, 30);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(74, 20);
+            this.label30.Size = new System.Drawing.Size(80, 20);
             this.label30.TabIndex = 93;
-            this.label30.Text = "group id :";
+            this.label30.Text = "group id* :";
             // 
             // txtBn5Guid
             // 
@@ -2407,7 +2481,7 @@ namespace bangna_hospital.gui
             this.txtBn5Guid.Size = new System.Drawing.Size(314, 24);
             this.txtBn5Guid.TabIndex = 92;
             this.txtBn5Guid.Tag = null;
-            this.txtBn5Guid.Value = "24036";
+            this.txtBn5Guid.Value = "";
             this.txtBn5Guid.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label29
@@ -2415,11 +2489,11 @@ namespace bangna_hospital.gui
             this.label29.AutoSize = true;
             this.label29.BackColor = System.Drawing.Color.White;
             this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label29.Location = new System.Drawing.Point(4, 7);
+            this.label29.Location = new System.Drawing.Point(5, 7);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(43, 20);
+            this.label29.Size = new System.Drawing.Size(49, 20);
             this.label29.TabIndex = 91;
-            this.label29.Text = "guid:";
+            this.label29.Text = "guid*:";
             // 
             // tabBn5Lab
             // 
@@ -2432,6 +2506,8 @@ namespace bangna_hospital.gui
             // 
             // panel8
             // 
+            this.panel8.Controls.Add(this.cboBn5LabReas);
+            this.panel8.Controls.Add(this.label91);
             this.panel8.Controls.Add(this.cboBn5LabTmlt);
             this.panel8.Controls.Add(this.groupBox1);
             this.panel8.Controls.Add(this.label80);
@@ -2439,7 +2515,6 @@ namespace bangna_hospital.gui
             this.panel8.Controls.Add(this.label79);
             this.panel8.Controls.Add(this.txtBn5LabCode);
             this.panel8.Controls.Add(this.label78);
-            this.panel8.Controls.Add(this.cboBn5LabReas);
             this.panel8.Controls.Add(this.label77);
             this.panel8.Controls.Add(this.cboBn5LabPlace);
             this.panel8.Controls.Add(this.label76);
@@ -2459,6 +2534,17 @@ namespace bangna_hospital.gui
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(708, 610);
             this.panel8.TabIndex = 0;
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.BackColor = System.Drawing.Color.White;
+            this.label91.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label91.Location = new System.Drawing.Point(253, 10);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(21, 20);
+            this.label91.TabIndex = 140;
+            this.label91.Text = "...";
             // 
             // cboBn5LabTmlt
             // 
@@ -2633,7 +2719,7 @@ namespace bangna_hospital.gui
             this.txtBn5LabName.Size = new System.Drawing.Size(470, 24);
             this.txtBn5LabName.TabIndex = 135;
             this.txtBn5LabName.Tag = null;
-            this.txtBn5LabName.Value = "2022-01-20T09:00:00.000";
+            this.txtBn5LabName.Value = "";
             this.txtBn5LabName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label79
@@ -2658,7 +2744,7 @@ namespace bangna_hospital.gui
             this.txtBn5LabCode.Size = new System.Drawing.Size(135, 24);
             this.txtBn5LabCode.TabIndex = 133;
             this.txtBn5LabCode.Tag = null;
-            this.txtBn5LabCode.Value = "2022-01-20T09:00:00.000";
+            this.txtBn5LabCode.Value = "";
             this.txtBn5LabCode.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label78
@@ -2696,9 +2782,9 @@ namespace bangna_hospital.gui
             this.label77.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label77.Location = new System.Drawing.Point(7, 160);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(66, 20);
+            this.label77.Size = new System.Drawing.Size(96, 20);
             this.label77.TabIndex = 130;
-            this.label77.Text = "reason :";
+            this.label77.Text = "สาเหตุที่ป่วย* :";
             // 
             // cboBn5LabPlace
             // 
@@ -2750,7 +2836,7 @@ namespace bangna_hospital.gui
             this.txtBn5LabSpeciDt.Size = new System.Drawing.Size(135, 24);
             this.txtBn5LabSpeciDt.TabIndex = 126;
             this.txtBn5LabSpeciDt.Tag = null;
-            this.txtBn5LabSpeciDt.Value = "2022-01-20T09:00:00.000";
+            this.txtBn5LabSpeciDt.Value = "";
             this.txtBn5LabSpeciDt.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label74
@@ -2816,7 +2902,7 @@ namespace bangna_hospital.gui
             this.txtBn5LabRptDt.Size = new System.Drawing.Size(135, 24);
             this.txtBn5LabRptDt.TabIndex = 121;
             this.txtBn5LabRptDt.Tag = null;
-            this.txtBn5LabRptDt.Value = "2022-01-20T09:00:00.000";
+            this.txtBn5LabRptDt.Value = "";
             this.txtBn5LabRptDt.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label71
@@ -2837,9 +2923,6 @@ namespace bangna_hospital.gui
             this.cboBn5LabConf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboBn5LabConf.GapHeight = 0;
             this.cboBn5LabConf.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboBn5LabConf.Items.Add("1 RT-PCR");
-            this.cboBn5LabConf.Items.Add("2 Antigen");
-            this.cboBn5LabConf.Items.Add("3 Antibody");
             this.cboBn5LabConf.ItemsDisplayMember = "";
             this.cboBn5LabConf.ItemsValueMember = "";
             this.cboBn5LabConf.Location = new System.Drawing.Point(141, 10);
@@ -3005,11 +3088,11 @@ namespace bangna_hospital.gui
             this.pnBn2View.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.pnBn2View.Location = new System.Drawing.Point(0, 21);
             this.pnBn2View.Name = "pnBn2View";
-            this.pnBn2View.Size = new System.Drawing.Size(909, 683);
+            this.pnBn2View.Size = new System.Drawing.Size(990, 713);
             this.pnBn2View.SizeRatio = 59.393D;
             this.pnBn2View.TabIndex = 0;
             this.pnBn2View.Text = "Panel 1";
-            this.pnBn2View.Width = 909;
+            this.pnBn2View.Width = 990;
             // 
             // pnBn2Edit
             // 
@@ -3017,12 +3100,12 @@ namespace bangna_hospital.gui
             this.pnBn2Edit.Controls.Add(this.panel4);
             this.pnBn2Edit.Controls.Add(this.panel3);
             this.pnBn2Edit.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.pnBn2Edit.Location = new System.Drawing.Point(920, 21);
+            this.pnBn2Edit.Location = new System.Drawing.Point(1001, 21);
             this.pnBn2Edit.Name = "pnBn2Edit";
-            this.pnBn2Edit.Size = new System.Drawing.Size(627, 683);
+            this.pnBn2Edit.Size = new System.Drawing.Size(682, 713);
             this.pnBn2Edit.TabIndex = 1;
             this.pnBn2Edit.Text = "Panel 2";
-            this.pnBn2Edit.Width = 627;
+            this.pnBn2Edit.Width = 682;
             // 
             // panel4
             // 
@@ -3030,7 +3113,7 @@ namespace bangna_hospital.gui
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 78);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(627, 605);
+            this.panel4.Size = new System.Drawing.Size(682, 635);
             this.panel4.TabIndex = 2;
             // 
             // c1DockingTab2
@@ -3042,7 +3125,7 @@ namespace bangna_hospital.gui
             this.c1DockingTab2.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab2.Name = "c1DockingTab2";
             this.c1DockingTab2.SelectedIndex = 2;
-            this.c1DockingTab2.Size = new System.Drawing.Size(627, 605);
+            this.c1DockingTab2.Size = new System.Drawing.Size(682, 635);
             this.c1DockingTab2.TabIndex = 0;
             this.c1DockingTab2.TabsSpacing = 5;
             this.c1DockingTab2.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -3051,7 +3134,7 @@ namespace bangna_hospital.gui
             // 
             this.tabBn2Person.Location = new System.Drawing.Point(1, 24);
             this.tabBn2Person.Name = "tabBn2Person";
-            this.tabBn2Person.Size = new System.Drawing.Size(625, 580);
+            this.tabBn2Person.Size = new System.Drawing.Size(680, 610);
             this.tabBn2Person.TabIndex = 0;
             this.tabBn2Person.Text = "Person";
             // 
@@ -3059,7 +3142,7 @@ namespace bangna_hospital.gui
             // 
             this.tabBn2Report.Location = new System.Drawing.Point(1, 24);
             this.tabBn2Report.Name = "tabBn2Report";
-            this.tabBn2Report.Size = new System.Drawing.Size(625, 580);
+            this.tabBn2Report.Size = new System.Drawing.Size(680, 610);
             this.tabBn2Report.TabIndex = 1;
             this.tabBn2Report.Text = "Report";
             // 
@@ -3067,7 +3150,7 @@ namespace bangna_hospital.gui
             // 
             this.tabBn2Lab.Location = new System.Drawing.Point(1, 24);
             this.tabBn2Lab.Name = "tabBn2Lab";
-            this.tabBn2Lab.Size = new System.Drawing.Size(625, 580);
+            this.tabBn2Lab.Size = new System.Drawing.Size(680, 610);
             this.tabBn2Lab.TabIndex = 2;
             this.tabBn2Lab.Text = "Lab Vaccine";
             // 
@@ -3082,7 +3165,7 @@ namespace bangna_hospital.gui
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(627, 78);
+            this.panel3.Size = new System.Drawing.Size(682, 78);
             this.panel3.TabIndex = 1;
             // 
             // btn2Save
@@ -3210,6 +3293,8 @@ namespace bangna_hospital.gui
             this.tabBn5Person.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnBn5Search)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Tmb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Amp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5BranchId)).EndInit();
@@ -3262,7 +3347,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Respi)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Pregnant)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5Symptom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBn5Status)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBn5PersonStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5Informer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5DiagDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5TreatDate)).EndInit();
@@ -3389,7 +3474,7 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Label label48;
         private C1.Win.C1Input.C1ComboBox cboBn5Symptom;
         private System.Windows.Forms.Label label47;
-        private C1.Win.C1Input.C1ComboBox cboBn5Status;
+        private C1.Win.C1Input.C1ComboBox cboBn5PersonStatus;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label44;
@@ -3480,7 +3565,6 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1TextBox txtBn5Mobile;
         private System.Windows.Forms.Label label27;
         private C1.Win.C1Input.C1ComboBox cboBn5Chw;
-        private System.Windows.Forms.Label label24;
         private C1.Win.C1Input.C1TextBox txtBn5Road;
         private System.Windows.Forms.Label label23;
         private C1.Win.C1Input.C1TextBox txtBn5Moo;
@@ -3523,5 +3607,12 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1ComboBox cboBn5Amp;
         private System.Windows.Forms.Label label25;
         private C1.Win.C1Input.C1Button btnBn5SendAPI;
+        private C1.Win.C1Input.C1TextBox txtID;
+        private C1.Win.C1Input.C1Button btnBn5Search;
+        private System.Windows.Forms.Label label90;
+        private System.Windows.Forms.Label label89;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label91;
     }
 }

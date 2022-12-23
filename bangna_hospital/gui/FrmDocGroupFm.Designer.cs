@@ -56,6 +56,7 @@
             this.txtFmCode = new C1.Win.C1Input.C1TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtID = new C1.Win.C1Input.C1TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sB)).BeginInit();
             this.panel1.SuspendLayout();
@@ -166,6 +167,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.groupBox1);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.cboDocGroupName);
@@ -393,7 +395,7 @@
             // 
             this.btnNew.Image = global::bangna_hospital.Properties.Resources.custom_reports24;
             this.btnNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNew.Location = new System.Drawing.Point(432, 21);
+            this.btnNew.Location = new System.Drawing.Point(467, 21);
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(123, 39);
             this.btnNew.TabIndex = 557;
@@ -439,7 +441,7 @@
             // 
             this.btnEdit.Image = global::bangna_hospital.Properties.Resources.lock24;
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEdit.Location = new System.Drawing.Point(432, 66);
+            this.btnEdit.Location = new System.Drawing.Point(467, 115);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(123, 39);
             this.btnEdit.TabIndex = 554;
@@ -502,6 +504,19 @@
             this.theme1.SetTheme(this.txtID, "(default)");
             this.txtID.Visible = false;
             this.txtID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.label5.Location = new System.Drawing.Point(398, 77);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(118, 16);
+            this.label5.TabIndex = 566;
+            this.label5.Text = "enter เพื่อcheck รหัส";
+            this.theme1.SetTheme(this.label5, "(default)");
             // 
             // FrmDocGroupFm
             // 
@@ -573,5 +588,6 @@
         private C1.Win.C1Input.C1CheckBox ChkStatusDocAdmision;
         private C1.Win.C1Input.C1CheckBox ChkStatusDocNurse;
         private C1.Win.C1Input.C1CheckBox chkStatusDocMedical;
+        private System.Windows.Forms.Label label5;
     }
 }

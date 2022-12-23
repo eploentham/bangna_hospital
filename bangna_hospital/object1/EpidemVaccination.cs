@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bangna_hospital.object1
 {
-    public class EpidemVaccination:Persistent
+    public class EpidemVaccination
     {
         public String vaccine_hospital_code { get; set; }
         public String vaccine_date { get; set; }

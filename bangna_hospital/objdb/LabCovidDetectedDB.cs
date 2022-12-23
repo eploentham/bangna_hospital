@@ -124,8 +124,9 @@ namespace bangna_hospital.objdb
 
             String sql = "Select lab_covid_detected_id, mnc_hn_no, hn, visit_date, pre_no, mnc_req_yr, req_date, lab_code, pid, passport, mobile "
                 + ", hos_name, category, sat_code, patient_fullname, lab_date, lab_place, lab_result, e_gene, rdrp, n_gene, sex, nation_name, dob " +
-                ", addr_home_no +' '+addr_moo as addr1 , tumbon_name, amphur_name, prov_name, first_name, last_name, prefix "
-                + "From t_lab_covid_detected "
+                ", addr_home_no +' '+addr_moo as addr1 , tumbon_name, amphur_name, prov_name, first_name, last_name, prefix,MNC_LB_DSC "
+                + "From t_lab_covid_detected " +
+                "Left Join lab_m01 labm01 on t_lab_covid_detected.lab_code = labm01.MNC_LB_CD "
                 + "Where active = '1' and status_epidem <> '1' ";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);

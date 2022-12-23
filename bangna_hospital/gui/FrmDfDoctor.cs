@@ -37,6 +37,24 @@ namespace bangna_hospital.gui
         Boolean pageLoad = false;
         int colchk = 1, colvsdate = 2, colhnno = 3, colpttname = 4, colpreno = 5, colpaidtype = 6, coldtrcode = 7, coldtrname = 8, coldoccd = 9, coldoc_yr = 10, coldocno = 11, colfncd = 12, colno = 13, colfnamt = 14, colfndesc = 15, coldocdat=16, colvstime=17, colanno=18, colanyr=19, colhnyr=20;
 
+        private void FrmDfDoctor_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // FrmDfDoctor
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "FrmDfDoctor";
+            this.Load += new System.EventHandler(this.FrmDfDoctor_Load_1);
+            this.ResumeLayout(false);
+
+        }
+
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmDfDoctor(BangnaControl bc)
@@ -321,10 +339,10 @@ namespace bangna_hospital.gui
             size = bc.MeasureString(lbtxtPaidType);
             bc.setControlC1TextBox(ref txtPaidType, fEdit, "txtPaidType", 120, lbtxtPaidType.Location.X + size.Width + 5, gapY);
 
-            bc.setControlC1Button(ref btnImportDfSelect, fEdit, "ดึงข้อมูล", "btnSelect", txtPaidType.Location.X + txtPaidType.Width + 20, gapY);
-            btnImportDfSelect.Width = 70;
-            bc.setControlC1Button(ref btnImportDfGen, fEdit, "gen Text", "btnGen", btnImportDfSelect.Location.X + btnImportDfSelect.Width + 20, gapY);
-            btnImportDfGen.Width = 80;
+            bc.setControlC1Button(ref btnImportDfSelect, fEdit, "1. ดึงข้อมูล", "btnSelect", txtPaidType.Location.X + txtPaidType.Width + 20, gapY);
+            btnImportDfSelect.Width = 80;
+            bc.setControlC1Button(ref btnImportDfGen, fEdit, "2. gen Text", "btnGen", btnImportDfSelect.Location.X + btnImportDfSelect.Width + 20, gapY);
+            btnImportDfGen.Width = 90;
 
             tabImportDf.Controls.Add(grfSelect);
             theme1.SetTheme(grfSelect, "Office2010Red");

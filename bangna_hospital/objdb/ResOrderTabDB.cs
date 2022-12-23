@@ -133,7 +133,8 @@ namespace bangna_hospital.objdb
             //p.pre_no = int.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";
             //p.doctor_id = int.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
         }
-        public ResOrderTab setResOrderTab(String hn, String name, String vn, String preno, String hnyear, String reqno, String dob, String sex, String sickness, String xraydesc, String xraycode,String deptname, String dtrid, String dtrname, String modality, string accessnumber)
+        public ResOrderTab setResOrderTab(String hn, String name, String vn, String preno, String hnyear, String reqno, String dob, String sex, String sickness, String xraydesc
+            , String xraycode,String deptname, String dtrid, String dtrname, String modality, string accessnumber, String reqdate, String reqyear)
         {
             String date = "";
             date = System.DateTime.Now.Year + System.DateTime.Now.ToString("MMddHHmmss");
@@ -147,7 +148,9 @@ namespace bangna_hospital.objdb
             }
             else
             {
-                reso1.AccessNumber = vn + "@" + preno + "@" + hnyear + "@" + reqno + "@" + xraycode;
+                //reso1.AccessNumber = vn + "@" + preno + "@" + hnyear + "@" + reqno + "@" + xraycode;
+                //reso1.AccessNumber = reqdate.Replace("-","").Replace("-", "") + "@" + reqyear + "@" + reqno + "@" + xraycode;
+                reso1.AccessNumber = reqyear + "@" +  reqno + "@" + xraycode;
             }
             
             reso1.KPatientName = name;

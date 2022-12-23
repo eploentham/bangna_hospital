@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace bangna_hospital.object1
 {
-    public class EpidemLabReport:Persistent
+    public class EpidemLabReport
     {
-        public String epidem_lab_confirm_type_id { get; set; }
+        public int epidem_lab_confirm_type_id { get; set; }
         public String lab_report_date { get; set; }
         public String lab_report_result { get; set; }
         public String specimen_date { get; set; }
-        public String specimen_place_id { get; set; }
-        public String tests_reason_type_id { get; set; }
+        public int specimen_place_id { get; set; }
+        public int tests_reason_type_id { get; set; }
         public String lab_his_ref_code { get; set; }
         public String lab_his_ref_name { get; set; }
         public String tmlt_code { get; set; }

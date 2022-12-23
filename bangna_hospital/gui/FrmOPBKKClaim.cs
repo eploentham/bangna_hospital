@@ -2994,6 +2994,9 @@ namespace bangna_hospital.gui
                                 DataTable dtdrug = bc.bcDB.vsDB.selectDrugUcepByHn(hn, hnyear, vsdate, preno);
                                 foreach (DataRow rowdrug in dtdrug.Rows)
                                 {
+                                    float qty = 0, price = 0;
+                                    float.TryParse(rowdrug["qty"].ToString(), out qty);
+                                    float.TryParse(rowdrug["MNC_PH_PRI"].ToString(), out price);
                                     String reqtime = "0000" + rowdrug["MNC_REQ_TIM"].ToString();
                                     reqtime = reqtime.Substring(reqtime.Length - 4);
                                     reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
@@ -3004,8 +3007,59 @@ namespace bangna_hospital.gui
                                     rowucep["cat_1_16"] = rowdrug["mnc_grp_ss1"].ToString();
                                     rowucep["mean"] = rowdrug["MNC_PH_TN"].ToString();
                                     rowucep["unit"] = rowdrug["qty"].ToString();
-                                    rowucep["price_total"] = "";
+                                    rowucep["price_total"] = qty * price;
                                     rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
+                                }
+                                //DataTable dtorder = bc.bcDB.vsDB.selectOrderHotChargeUcepIPDByHn(hn, hnyear, an, anyear);
+                                DataTable dtorder = bc.bcDB.vsDB.selectOrderHotChargeUcepOPDByHn(hn, hnyear, vsdate, preno);
+                                foreach (DataRow rowdrug in dtorder.Rows)
+                                {
+                                    float qty = 0, price = 0;
+                                    float.TryParse(rowdrug["qty"].ToString(), out qty);
+                                    float.TryParse(rowdrug["MNC_SR_PRI"].ToString(), out price);
+                                    String reqtime = "0000" + rowdrug["mnc_stamp_tim"].ToString();
+                                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                    DataRow rowucep = dtUcepGen.Rows.Add();
+                                    rowucep["use_date"] = rowdrug["mnc_req_dat"].ToString() + " " + reqtime;
+                                    rowucep["tmt_code"] = rowdrug["ucep_code"].ToString();
+                                    rowucep["hosp_code"] = rowdrug["mnc_sr_cd"].ToString();
+                                    rowucep["cat_1_16"] = "";
+                                    rowucep["mean"] = rowdrug["MNC_SR_DSC"].ToString();
+                                    rowucep["unit"] = rowdrug["qty"].ToString();
+                                    rowucep["price_total"] = (qty * price);
+                                }
+                                DataTable dtlab = bc.bcDB.vsDB.selectResultLabUcepbyPreno(hn, vsdate, preno);
+                                foreach (DataRow rowlab in dtlab.Rows)
+                                {
+                                    String reqtime = "0000" + rowlab["mnc_stamp_tim"].ToString();
+                                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                    DataRow rowucep = dtUcepGen.Rows.Add();
+                                    rowucep["use_date"] = rowlab["mnc_req_dat"].ToString() + " " + reqtime;
+                                    rowucep["tmt_code"] = rowlab["ucep_code"].ToString();
+                                    rowucep["hosp_code"] = rowlab["mnc_lb_cd"].ToString();
+                                    rowucep["cat_1_16"] = "";
+                                    rowucep["mean"] = rowlab["MNC_LB_DSC"].ToString();
+                                    rowucep["unit"] = "1";
+                                    rowucep["price_total"] = rowlab["MNC_LB_PRI"].ToString();
+                                    rowucep["hosp_code1"] = rowlab["MNC_fn_cd"].ToString();
+                                }
+                                DataTable dtxray = bc.bcDB.vsDB.selectResultXraybyPreno(hn, vsdate, preno);
+                                foreach (DataRow rowxray in dtxray.Rows)
+                                {
+                                    String reqtime = "0000" + rowxray["mnc_stamp_tim"].ToString();
+                                    reqtime = reqtime.Substring(reqtime.Length - 4);
+                                    reqtime = reqtime.Substring(0, 2) + ":" + reqtime.Substring(reqtime.Length - 2);
+                                    DataRow rowucep = dtUcepGen.Rows.Add();
+                                    rowucep["use_date"] = rowxray["mnc_req_dat"].ToString() + " " + reqtime;
+                                    rowucep["tmt_code"] = rowxray["ucep_code"].ToString();
+                                    rowucep["hosp_code"] = rowxray["MNC_XR_CD"].ToString();
+                                    rowucep["cat_1_16"] = "";
+                                    rowucep["mean"] = rowxray["MNC_XR_DSC"].ToString();
+                                    rowucep["unit"] = "1";
+                                    rowucep["price_total"] = rowxray["MNC_XR_PRI"].ToString();
+                                    rowucep["hosp_code1"] = rowxray["MNC_fn_cd"].ToString();
                                 }
                             }
                         }
@@ -6158,7 +6212,7 @@ namespace bangna_hospital.gui
             //  แก้เรื่อง ข้อมูลที่ double
 
             //this.Text = "Last Update 2020-04-09";
-            this.Text = "Last Update 2020-10-27";
+            this.Text = "Last Update 2022-09-28";
         }
     }
 }

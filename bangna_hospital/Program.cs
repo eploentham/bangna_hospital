@@ -47,8 +47,10 @@ namespace bangna_hospital
             //Application.Run(new gui.FrmBillLabCheck(bc));
             //MessageBox.Show("error Main " , "");
             //Application.Run(new gui.FrmXrayViewDaily(bc));
+            String err = "";
             try
             {
+                //MessageBox.Show("error Main try{} "+ bc.iniC.programLoad, "");
                 if (bc.iniC.programLoad.Equals("ScanView"))
                 {
                     FrmScanView1 frm = new FrmScanView1(bc, bc.hn,"show");
@@ -190,6 +192,20 @@ namespace bangna_hospital
                 {
                     Application.Run(new gui.FrmEpidem(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("excel"))
+                {
+                    Application.Run(new gui.FrmExcel(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("PatientNewSmartCardB1"))
+                {
+                    err = "PatientNewSmartCardB1";
+                    Application.Run(new gui.FrmSmartCardB1(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("PatientNewSmartCardB1Check"))
+                {
+                    err = "PatientNewSmartCardB1Check";
+                    Application.Run(new gui.FrmFingerScanCheck(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
@@ -201,7 +217,7 @@ namespace bangna_hospital
             }
             catch(Exception ex)
             {
-                new LogWriter("e", "Program doctorView Start Form");
+                new LogWriter("e", "Program Start Form "+ bc.iniC.programLoad+" "+ ex.Message+" err "+err);
                 MessageBox.Show("error Main " + ex.Message, "");
             }
             

@@ -269,8 +269,8 @@ namespace bangna_hospital.gui
             if (res.ShowDialog() == DialogResult.OK)
             {
                 //Get the file's path
-                txtPath5.Text = res.FileName;
-                txtSsnPath5.Text = res.FileName;
+                txtPath5.Value = res.FileName;
+                txtSsnPath5.Value = res.FileName;
             }
             btnImp5.Enabled = true;
             res.Dispose();
@@ -285,8 +285,8 @@ namespace bangna_hospital.gui
             if (res.ShowDialog() == DialogResult.OK)
             {
                 //Get the file's path
-                txtPath2.Text = res.FileName;
-                txtSsnPath2.Text = res.FileName;
+                txtPath2.Value = res.FileName;
+                txtSsnPath2.Value = res.FileName;
                 //Do something
             }
             btnImp2.Enabled = true;
@@ -301,8 +301,8 @@ namespace bangna_hospital.gui
             if (res.ShowDialog() == DialogResult.OK)
             {
                 //Get the file's path
-                txtPath1.Text = res.FileName;
-                txtSsnPath1.Text = res.FileName;
+                txtPath1.Value = res.FileName;
+                txtSsnPath1.Value = res.FileName;
                 //Do something
             }
             btnImp1.Enabled = true;

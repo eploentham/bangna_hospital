@@ -645,7 +645,7 @@ namespace bangna_hospital.gui
             opdtype = grfReq[grfReq.Row, colpttstatus] != null ? grfReq[grfReq.Row, colpttstatus].ToString() : "";
             xrgrpcd = grfReq[grfReq.Row, colxrgrpcd] != null ? grfReq[grfReq.Row, colxrgrpcd].ToString() : "";
             reqdate = grfReq[grfReq.Row, colxrdate] != null ? grfReq[grfReq.Row, colxrdate].ToString() : "";
-            //reqyr = grfReq[grfReq.Row, colReqreqyr] != null ? grfReq[grfReq.Row, colReqreqyr].ToString() : "";
+            reqyr = grfReq[grfReq.Row, colReqreqyr] != null ? grfReq[grfReq.Row, colReqreqyr].ToString() : "";
             opdtype = opdtype.Trim().Equals("I") ? "I" : "O";
             //reqdate = bc.datetoDB(reqdate);
             ResOrderTab reso = new ResOrderTab();
@@ -667,10 +667,11 @@ namespace bangna_hospital.gui
                     modality = "DX";  // ทาง ติ๊ก แจ้งให้เปลี่ยนเป็น DX
                 }
                 accessnumber = bc.bcDB.xrayM01DB.insertXrayAccessNumber(hn, reqdate, reqno, xrcode);
-                reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, preno, hnreqyear, reqno, dob, sex, sickness, xray, xrcode, depname, dtrid, stfname, modality, accessnumber);
+                reso = bc.bcDB.resoDB.setResOrderTab(hn, name, vn, preno, hnreqyear, reqno, dob, sex, sickness, xray, xrcode, depname, dtrid, stfname, modality, accessnumber, reqdate, reqyr);
                 //re = "";
                 ////MessageBox.Show("InsertDate " + reso.InsertDate , "");
                 //new LogWriter("d", "FrmXrayPACsAdd  reso.AccessNumber " + reso.AccessNumber);
+
                 ////ใช้งานจริงๆ เอา comment ออก
 
                 re = bc.bcDB.resoDB.insertResOrderTab(reso, "");
@@ -1649,7 +1650,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2021-02-24 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2022-11-23 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

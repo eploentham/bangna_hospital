@@ -25,7 +25,7 @@ namespace bangna_hospital.gui
 
         Color bg, fc;
         Font ff, ffB;
-        int colID = 1, colCode = 2, colSubName = 3;
+        int colID = 1, colCode = 2, colGrpName = 3, colSubName = 4;
 
         C1FlexGrid grfFMCode;
         Boolean flagEdit = false;
@@ -67,13 +67,66 @@ namespace bangna_hospital.gui
             btnEdit.Click += BtnEdit_Click;
             btnSave.Click += BtnSave_Click;
             txtPasswordVoid.KeyUp += TxtPasswordVoid_KeyUp;
+            txtFmCode.KeyUp += TxtFmCode_KeyUp;
             cboDocGroupName.SelectedIndexChanged += CboDocGroupName_SelectedIndexChanged;
+            btnVoid.Click += BtnVoid_Click;
+            chkVoid.Click += ChkVoid_Click;
 
             initGrfFMCode();
             setGrfFMCode();
             setControlEnable(false);
             setFocusColor();
             pageLoad = false;
+        }
+
+        private void ChkVoid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkVoid.Checked)
+            {
+                btnVoid.Show();
+            }
+            else
+            {
+                btnVoid.Hide();
+            }
+        }
+        private void BtnVoid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (MessageBox.Show("ต้องการ ยกเลิกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            {
+                setDocFMCode();
+
+                String re = bc.bcDB.dfmDB.Void(txtID.Text.Trim());
+                int chk = 0;
+                if (int.TryParse(re, out chk))
+                {
+                    btnVoid.Hide();
+                }
+                else
+                {
+                    btnSave.Image = Resources.accept_database24;
+                }
+                setGrfFMCode();
+                //setGrdView();
+                //this.Dispose();
+            }
+        }
+
+        private void TxtFmCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode== Keys.Enter)
+            {
+                DocGroupFM fm = new DocGroupFM();
+                fm = bc.bcDB.dfmDB.selectByFMCode(dfm.fm_code);
+                if (fm.fm_code.Equals(dfm.fm_code))
+                {
+                    MessageBox.Show("พบรหัส FM CODE ซ้ำ", "");
+                    return;
+                }
+            }
         }
 
         private void CboDocGroupName_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,9 +165,17 @@ namespace bangna_hospital.gui
             if (e.NewRange.Data == null) return;
 
             String deptId = "";
-            deptId = grfFMCode[e.NewRange.r1, colID] != null ? grfFMCode[e.NewRange.r1, colID].ToString() : "";
-            setControl(deptId);
-            setControlEnable(false);
+            try
+            {
+                deptId = grfFMCode[e.NewRange.r1, colID] != null ? grfFMCode[e.NewRange.r1, colID].ToString() : "";
+                setControl(deptId);
+                setControlEnable(false);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "");
+            }
+            
             //setControlAddr(addrId);
             //setControlAddrEnable(false);
         }
@@ -157,29 +218,45 @@ namespace bangna_hospital.gui
         private void BtnSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (MessageBox.Show("ต้องการ บันทึกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            //DocGroupFM fm = new DocGroupFM();
+            //fm = bc.bcDB.dfmDB.selectByFMCode(dfm.fm_code);
+            //if (fm.fm_code.Equals(dfm.fm_code))
+            //{
+            //    MessageBox.Show("พบรหัส FM CODE ซ้ำ", "");
+            //    //return;
+            //}
+            //if (MessageBox.Show("ต้องการ บันทึกช้อมูล ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            //{
+            String grpid =cboDocGroupName.SelectedItem == null ? "" : ((ComboBoxItem)cboDocGroupName.SelectedItem).Value;
+            if (grpid.Length <= 0)
             {
-                setDocFMCode();
-                String re = bc.bcDB.dfmDB.insertDocGroupFM(dfm, bc.user.staff_id);
-                int chk = 0;
-                if (int.TryParse(re, out chk))
-                {
-                    btnSave.Image = Resources.accept_database24;
-                }
-                else
-                {
-                    btnSave.Image = Resources.accept_database24;
-                }
-                setGrfFMCode();
-                //setGrdView();
-                //this.Dispose();
+                MessageBox.Show("ไม่พบ กลุ่มเอกสารหลัก", "");
+                return;
             }
+            setDocFMCode();
+            String re = bc.bcDB.dfmDB.insertDocGroupFM(dfm, bc.user.staff_id);
+            int chk = 0;
+            if (int.TryParse(re, out chk))
+            {
+                btnSave.Image = Resources.accept_database24;
+                this.Enabled = false;
+                re = bc.bcDB.dscDB.updateGrpChange(grpid, dfm.doc_group_sub_id, dfm.fm_code);
+                this.Enabled = true;
+            }
+            else
+            {
+                btnSave.Image = Resources.accept_database24;
+            }
+            setGrfFMCode();
+            //setGrdView();
+            //this.Dispose();
+            //}
         }
         private void setDocFMCode()
         {
             dfm.fm_id = txtID.Text;
-            dfm.fm_code = txtFmCode.Text;
-            dfm.fm_name = txtFmName.Text;
+            dfm.fm_code = txtFmCode.Text.Trim();
+            dfm.fm_name = txtFmName.Text.Trim();
             dfm.doc_group_sub_id = cboDocGroupSubName.SelectedItem == null ? "" : ((ComboBoxItem)cboDocGroupSubName.SelectedItem).Value;
             dfm.status_doc_adminsion = ChkStatusDocAdmision.Checked ? "1" : "0";
             dfm.status_doc_medical = chkStatusDocMedical.Checked ? "1" : "0";
@@ -208,6 +285,7 @@ namespace bangna_hospital.gui
         {
             dfm = bc.bcDB.dfmDB.selectByPk(posiId);
             bc.setC1Combo(cboDocGroupName, dfm.doc_group_id);
+            bc.bcDB.dgssDB.setCboDGSS(cboDocGroupSubName, dfm.doc_group_id, "");
             bc.setC1Combo(cboDocGroupSubName, dfm.doc_group_sub_id);
             txtID.Value = dfm.fm_id;
             txtFmCode.Value = dfm.fm_code;
@@ -232,7 +310,7 @@ namespace bangna_hospital.gui
             DataTable dt = new DataTable();
             dt = bc.bcDB.dfmDB.selectAll();
             grfFMCode.DataSource = null;
-            grfFMCode.Cols.Count = 4;
+            grfFMCode.Cols.Count = 5;
             grfFMCode.Rows.Count = 1;
 
             C1TextBox txt = new C1TextBox();
@@ -259,6 +337,7 @@ namespace bangna_hospital.gui
                 row[colID] = dt.Rows[i]["fm_id"].ToString();
                 row[colCode] = dt.Rows[i]["fm_code"].ToString();
                 row[colSubName] = dt.Rows[i]["doc_group_sub_name"].ToString();
+                row[colGrpName] = dt.Rows[i]["doc_group_name"].ToString();
                 row[0] = (i + 1);
                 if (i % 2 == 0)
                     grfFMCode.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);

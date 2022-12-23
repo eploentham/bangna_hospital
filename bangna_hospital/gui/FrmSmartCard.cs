@@ -6675,15 +6675,26 @@ namespace bangna_hospital.gui
         private void Document_PrintPage_StaffNote(object sender, PrintPageEventArgs e)
         {
             //throw new NotImplementedException();
-            String amt = "", line = null, date = "", price = "", qty = "", price1 = "";
+            String amt = "", line = null, date = "", price = "", qty = "", price1 = "", prndob="";
             Decimal amt1 = 0, voucamt = 0, discount = 0, total = 0, cash = 0;
             float yPos = 10, gap = 6, colName = 0, col2 = 5, col3=250, colPrice = 150, colPriceR2L = 180, colqty = 200, colqtyRtoL = 225, colamt = 230, colamtRtoL = 285, col4=820, col40=620;
             int count = 0, recx=15, recy=15, col2int=0, yPosint=0, col40int=0;
 
             Graphics g = e.Graphics;
             SolidBrush Brush = new SolidBrush(Color.Black);
+            DateTime dtvs = new DateTime();
+            if (DateTime.TryParse(txtVsdate.Text.Trim(), out dtvs))
+            {
+                date = dtvs.ToString("dd/MM/yyyy")+" "+ DateTime.Now.ToString("HH:mm:ss");
+                prndob = "อายุ " + ptt.AgeStringShort1(dtvs.ToString("dd/MM/yyyy")) + " [" + bc.datetoShow(ptt.MNC_BDAY) + "]";
+                prndob = "อายุ " + txtPttAge.Text.Trim() + " [" + bc.datetoShow(ptt.MNC_BDAY) + "]";
+            }
+            else
+            {
+                date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                prndob = "อายุ " + ptt.AgeStringShort1() + " [" + bc.datetoShow(ptt.MNC_BDAY) + "]";
+            }
 
-            date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             Pen blackPen = new Pen(Color.Black, 1);
             Size proposedSize = new Size(100, 100);
 
@@ -6710,7 +6721,17 @@ namespace bangna_hospital.gui
                 yPosint = int.Parse(yPos.ToString());
                 col40int = int.Parse(col40.ToString());
             }
-
+            else
+            {
+                col2 = 65;
+                col3 = 300;
+                col4 = 870;
+                col40 = 650;
+                yPos = 15;
+                col2int = int.Parse(col2.ToString());
+                yPosint = int.Parse(yPos.ToString());
+                col40int = int.Parse(col40.ToString());
+            }
             line = "5";
             textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
             xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
@@ -6746,7 +6767,7 @@ namespace bangna_hospital.gui
             rec = new Rectangle(col2int + 75, 72, recx, recy);
             e.Graphics.DrawRectangle(blackPen, rec);
 
-            line = "อายุ " + ptt.AgeStringShort1() +" ["+bc.datetoShow(ptt.MNC_BDAY)+"]";
+            line = prndob;
             textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fEdit, Brushes.Black, col3 , yPos + 60, flags);
             e.Graphics.DrawString(line, fEdit, Brushes.Black, col4, yPos + 60, flags);

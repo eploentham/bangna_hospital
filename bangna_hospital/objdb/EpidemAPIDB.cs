@@ -97,6 +97,10 @@ namespace bangna_hospital.objdb
             epid.status_send = "status_send";
             epid.branch_id = "branch_id";
             epid.active = "active";
+            epid.visit_date = "visit_date";
+            epid.pre_no = "pre_no";
+            epid.an_no = "an_no";
+            epid.an_cnt = "an_cnt";
 
             epid.table = "t_epidem";
             epid.pkField = "epidem_id";
@@ -130,7 +134,18 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "select stf.* " +
                 "From " + epid.table + " stf " +
-                "Where stf.branch_id = '" + branchid + "' and status_send <> '1' " +
+                "Where stf.branch_id = '" + branchid + "' and status_send <> '2' and active = '1'  " +
+                "Order By stf.epidem_id ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
+        public DataTable selectSendedByBranchId(String branchid)
+        {
+            EpidemAPI cop1 = new EpidemAPI();
+            DataTable dt = new DataTable();
+            String sql = "select stf.* " +
+                "From " + epid.table + " stf " +
+                "Where stf.branch_id = '" + branchid + "' and status_send = '2'  and active = '1' " +
                 "Order By stf.epidem_id ";
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
@@ -210,6 +225,10 @@ namespace bangna_hospital.objdb
             p.vaccine_date = p.vaccine_date == null ? "" : p.vaccine_date;
             p.dose = p.dose == null ? "" : p.dose;
             p.vaccine_manufacturer = p.vaccine_manufacturer == null ? "" : p.vaccine_manufacturer;
+            p.visit_date = p.visit_date == null ? "" : p.visit_date;
+            p.pre_no = p.pre_no == null ? "" : p.pre_no;
+            p.an_no = p.an_no == null ? "" : p.an_no;
+            p.an_cnt = p.an_cnt == null ? "" : p.an_cnt;
         }
         public String insertEpidem(EpidemAPI p)
         {
@@ -265,7 +284,8 @@ namespace bangna_hospital.objdb
                     epid.lab_report_result + "," + epid.specimen_date + "," + epid.specimen_place_id + "," +
                     epid.tests_reason_type_id + "," + epid.lab_his_ref_code + "," + epid.lab_his_ref_name + "," +
                     epid.tmlt_code + "," + epid.vaccine_hospital_code + "," + epid.vaccine_date + "," +
-                    epid.dose + "," + epid.vaccine_manufacturer + "," + epid.status_send + "," + epid.branch_id + ") " +
+                    epid.dose + "," + epid.vaccine_manufacturer + "," + epid.status_send + "," + epid.branch_id + ", " +
+                    epid.visit_date + "," + epid.pre_no + "," + epid.an_no + "," + epid.an_cnt + ") " +
                     "Values('" + p.hospital_code + "','" + p.active + "','" +
                     p.hospital_name + "','" + p.his_identifier + "','" + p.first_name + "','" +
                     p.passport_no + "','" + p.prefix + "','" + p.cid + "','" +
@@ -294,7 +314,8 @@ namespace bangna_hospital.objdb
                     p.lab_report_result + "','" + p.specimen_date + "','" + p.specimen_place_id + "','" +
                     p.tests_reason_type_id + "','" + p.lab_his_ref_code + "','" + p.lab_his_ref_name + "','" +
                     p.tmlt_code + "','" + p.vaccine_hospital_code + "','" + p.vaccine_date + "','" +
-                    p.dose + "','" + p.vaccine_manufacturer + "','0','"+ p.branch_id + "') ";
+                    p.dose + "','" + p.vaccine_manufacturer + "','0','"+ p.branch_id + "',' "+
+                    p.visit_date + "','" + p.pre_no + "','"+p.an_no+"','" + p.an_cnt + "') ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 //chk = p.RowNumber;
                 chk = p.epidem_report_guid;
@@ -309,6 +330,7 @@ namespace bangna_hospital.objdb
         public String updatePerson(EpidemAPI p)
         {
             String sql = "", chk = "";
+            long chk1 = 0;
             try
             {
                 //p.dateModi = " CAST(year(GETDATE()) AS NVARCHAR)+'-'+ RIGHT('00' + CAST(month(GETDATE()) AS NVARCHAR), 2)+'-'+ RIGHT('00' + CAST(day(GETDATE()) AS NVARCHAR), 2)";
@@ -332,11 +354,15 @@ namespace bangna_hospital.objdb
                     epid.amp_code + "='" + p.amp_code + "'," +
                     epid.tmb_code + "='" + p.tmb_code + "'," +
                     epid.mobile_phone + "='" + p.mobile_phone + "'," +
-                    epid.occupation + "='" + p.occupation + "' " +
-                    
+                    epid.occupation + "='" + p.occupation + "', " +
+                    epid.status_send + "='1' " +
 
                 "Where " + epid.epidem_report_guid + "='" + p.epidem_report_guid + "'";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                if(long.TryParse(chk,out chk1))
+                {
+                    chk = p.epidem_report_guid;
+                }
                 //chk = p.Id;
             }
             catch (Exception ex)
@@ -348,6 +374,7 @@ namespace bangna_hospital.objdb
         public String updateReport(EpidemAPI p)
         {
             String sql = "", chk = "";
+            long chk1 = 0;
             try
             {
                 //p.dateModi = " CAST(year(GETDATE()) AS NVARCHAR)+'-'+ RIGHT('00' + CAST(month(GETDATE()) AS NVARCHAR), 2)+'-'+ RIGHT('00' + CAST(day(GETDATE()) AS NVARCHAR), 2)";
@@ -390,7 +417,10 @@ namespace bangna_hospital.objdb
 
                 "Where " + epid.epidem_report_guid + "='" + p.epidem_report_guid + "'";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
-                //chk = p.Id;
+                if (long.TryParse(chk, out chk1))
+                {
+                    chk = p.epidem_report_guid;
+                }
             }
             catch (Exception ex)
             {
@@ -401,6 +431,7 @@ namespace bangna_hospital.objdb
         public String updateLabVaccine(EpidemAPI p)
         {
             String sql = "", chk = "";
+            long chk1 = 0;
             try
             {
                 //p.dateModi = " CAST(year(GETDATE()) AS NVARCHAR)+'-'+ RIGHT('00' + CAST(month(GETDATE()) AS NVARCHAR), 2)+'-'+ RIGHT('00' + CAST(day(GETDATE()) AS NVARCHAR), 2)";
@@ -420,6 +451,29 @@ namespace bangna_hospital.objdb
                     epid.vaccine_manufacturer + "='" + p.vaccine_manufacturer + "' " +
 
                 "Where " + epid.epidem_report_guid + "='" + p.epidem_report_guid + "'";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.Id;
+                if (long.TryParse(chk, out chk1))
+                {
+                    chk = p.epidem_report_guid;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error " + ex.ToString(), "update OPDCheckUP");
+            }
+            return chk;
+        }
+        public String updateStatusSendSucess(String epidem_id)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                //p.dateModi = " CAST(year(GETDATE()) AS NVARCHAR)+'-'+ RIGHT('00' + CAST(month(GETDATE()) AS NVARCHAR), 2)+'-'+ RIGHT('00' + CAST(day(GETDATE()) AS NVARCHAR), 2)";
+                sql = "Update " + epid.table + " Set " +// epid.AddrE + "='" + p.AddrE + "'," +
+                    epid.status_send + "='2' " +
+
+                "Where " + epid.epidem_id + "='" + epidem_id + "'";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 //chk = p.Id;
             }
@@ -509,6 +563,10 @@ namespace bangna_hospital.objdb
                 dgs1.vaccine_manufacturer = dt.Rows[0][epid.vaccine_manufacturer].ToString();
                 dgs1.status_send = dt.Rows[0][epid.status_send].ToString();
                 dgs1.branch_id = dt.Rows[0][epid.branch_id].ToString();
+                dgs1.visit_date = dt.Rows[0][epid.visit_date].ToString();
+                dgs1.pre_no = dt.Rows[0][epid.pre_no].ToString();
+                dgs1.an_no = dt.Rows[0][epid.an_no].ToString();
+                dgs1.an_cnt = dt.Rows[0][epid.an_cnt].ToString();
             }
             else
             {
@@ -593,6 +651,10 @@ namespace bangna_hospital.objdb
             dgs1.vaccine_manufacturer = "";
             dgs1.status_send = "";
             dgs1.branch_id = "";
+            dgs1.visit_date = "";
+            dgs1.pre_no = "";
+            dgs1.an_no = "";
+            dgs1.an_cnt = "";
             return dgs1;
         }
     }

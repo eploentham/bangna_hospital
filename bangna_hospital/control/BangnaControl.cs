@@ -717,6 +717,10 @@ namespace bangna_hospital.control
             String chk = "";
             if (c.Items.Count == 0) return "";
             //if (c.SelectedIndex < 0) return;
+            if(c.SelectedIndex > c.Items.Count)
+            {
+                c.SelectedIndex = 0;
+            }
             c.SelectedIndex = c.SelectedItem == null ? 0 : c.SelectedIndex;
             c.SelectedIndex = 0;
             foreach (ComboBoxItem item in c.Items)
@@ -1078,6 +1082,44 @@ namespace bangna_hospital.control
             //opBKKClinic.Add("99", "อื่นๆ");
             //opBKKClinic.Add("00", "111111");
         }
+        public void setCboEpidemGrp(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "92";
+            item.Text = "92 = กลุ่มโรค Covid-19";
+            c.Items.Add(item);
+            c.SelectedIndex = 0;
+        }
+        public void setCboPersonStatus(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item1 = new ComboBoxItem();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item1 = new ComboBoxItem();
+            item1.Value = "1";
+            item1.Text = "1 หาย";
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "2 ตาย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "3 ยังรักษา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "4 ไม่ทราบ";
+            c.Items.Add(item);
+            c.SelectedItem = item1;
+        }
         public void setCboPersonType(C1ComboBox c, String selected)
         {
             c.Items.Clear();
@@ -1117,6 +1159,7 @@ namespace bangna_hospital.control
             item.Value = "positive";
             item.Text = "positive";
             c.Items.Add(item);
+            c.SelectedItem = item;
         }
         public void setCboPregnant(C1ComboBox c, String selected)
         {
@@ -1147,6 +1190,7 @@ namespace bangna_hospital.control
             item.Value = "N";
             item.Text = "ไม่ใส่";
             c.Items.Add(item);
+            c.SelectedItem = item;
         }
         public void setCboPatientType(C1ComboBox c, String selected)
         {
@@ -1162,6 +1206,7 @@ namespace bangna_hospital.control
             item.Value = "IPD";
             item.Text = "IPD";
             c.Items.Add(item);
+            c.SelectedItem = item;
         }
         public void setCboOccupation(C1ComboBox c, String selected)
         {
@@ -1252,6 +1297,7 @@ namespace bangna_hospital.control
             item.Value = "N";
             item.Text = "N";
             c.Items.Add(item);
+            c.SelectedItem = item;
         }
         public void setCboVacine(C1ComboBox c, String selected)
         {
@@ -1267,6 +1313,7 @@ namespace bangna_hospital.control
             item.Value = "N";
             item.Text = "N";
             c.Items.Add(item);
+            c.SelectedItem = item;
         }
         public void setCboOPBKKINSCL(C1ComboBox c, String selected)
         {

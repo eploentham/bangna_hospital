@@ -186,6 +186,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer3 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnRptData = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnRptCri = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtPaidCode = new C1.Win.C1Input.C1TextBox();
             this.label61 = new System.Windows.Forms.Label();
             this.btnRptExcel = new C1.Win.C1Input.C1Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -210,7 +211,6 @@ namespace bangna_hospital.gui
             this.lbDocFullname = new System.Windows.Forms.Label();
             this.txtDocHn = new C1.Win.C1Input.C1TextBox();
             this.label60 = new System.Windows.Forms.Label();
-            this.txtPaidCode = new C1.Win.C1Input.C1TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -302,6 +302,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer3)).BeginInit();
             this.c1SplitContainer3.SuspendLayout();
             this.pnRptCri.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaidCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRptExcel)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboRptDept)).BeginInit();
@@ -313,7 +314,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnDocSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDocHn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaidCode)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -2062,6 +2062,16 @@ namespace bangna_hospital.gui
             this.pnRptCri.TabIndex = 0;
             this.pnRptCri.Text = "Panel 1";
             // 
+            // txtPaidCode
+            // 
+            this.txtPaidCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPaidCode.Location = new System.Drawing.Point(88, 126);
+            this.txtPaidCode.Name = "txtPaidCode";
+            this.txtPaidCode.Size = new System.Drawing.Size(186, 24);
+            this.txtPaidCode.TabIndex = 68;
+            this.txtPaidCode.Tag = null;
+            this.txtPaidCode.Value = "59";
+            // 
             // label61
             // 
             this.label61.AutoSize = true;
@@ -2352,16 +2362,6 @@ namespace bangna_hospital.gui
             this.label60.TabIndex = 75;
             this.label60.Text = "HN";
             // 
-            // txtPaidCode
-            // 
-            this.txtPaidCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPaidCode.Location = new System.Drawing.Point(88, 126);
-            this.txtPaidCode.Name = "txtPaidCode";
-            this.txtPaidCode.Size = new System.Drawing.Size(186, 24);
-            this.txtPaidCode.TabIndex = 68;
-            this.txtPaidCode.Tag = null;
-            this.txtPaidCode.Value = "59";
-            // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2472,6 +2472,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer3.ResumeLayout(false);
             this.pnRptCri.ResumeLayout(false);
             this.pnRptCri.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPaidCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRptExcel)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -2485,7 +2486,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnDocSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDocHn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPaidCode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

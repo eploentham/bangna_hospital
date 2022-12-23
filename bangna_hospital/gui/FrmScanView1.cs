@@ -1502,7 +1502,7 @@ namespace bangna_hospital.gui
             //    }
             //    flagtabScan = true;
             //}
-                    else if (tcDtr.SelectedTab == tabOrdAdd)
+            else if (tcDtr.SelectedTab == tabOrdAdd)
             {
                 scVs.SizeRatio = 1;
                 if (!flagTabDtrOrdLoad)
@@ -2405,7 +2405,6 @@ namespace bangna_hospital.gui
                             labOutView.Ribbon.Minimized = true;
                             tabHnLabOut.Controls.Add(labOutView);
 
-
                             C1PdfDocumentSource pds = new C1PdfDocumentSource();
 
                             pds.LoadFromStream(stream);
@@ -2548,6 +2547,7 @@ namespace bangna_hospital.gui
                             {
                                 C1PictureBox labOutView = new C1PictureBox();
                                 Image img = Image.FromStream(stream);
+                                //streamPrint = (Stream)stream;
                                 //Image resizedImage = null;
                                 //int originalWidth = 0;
                                 //int newHeight = 300;
@@ -2562,6 +2562,10 @@ namespace bangna_hospital.gui
                                 labOutView.Image = img;
                                 labOutView.Size = new Size(bc.tabLabOutImageWidth, bc.tabLabOutImageHeight);
 
+                                EventHandler myEvent = (sender, e) => ContextMenu_labOutView_print(stream);//my delegate
+                                ContextMenu menuGw = new ContextMenu();
+                                menuGw.MenuItems.Add("ต้องการ Print ภาพนี้",  myEvent);
+                                labOutView.ContextMenu = menuGw;
                                 tabHnLabOut.Controls.Add(labOutView);
                             }
                             else
@@ -2598,6 +2602,71 @@ namespace bangna_hospital.gui
                 }
             }
             setHeaderEnable();
+        }
+        private void ContextMenu_labOutView_print(MemoryStream stream)
+        {
+            setlabOutViewPrint(stream);
+        }
+        private void setlabOutViewPrint(MemoryStream stream)
+        {
+            SetDefaultPrinter(bc.iniC.printerA4);
+            System.Threading.Thread.Sleep(500);
+            streamPrint = stream;
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += Pd_labOutViewPrintPageA4;
+            //here to select the printer attached to user PC
+            if (bc.iniC.statusShowPrintDialog.Equals("1"))
+            {
+                PrintDialog printDialog1 = new PrintDialog();
+                printDialog1.Document = pd;
+                DialogResult result = printDialog1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    pd.Print();     //this will trigger the Print Event handeler PrintPage
+                }
+            }
+            else
+            {
+                pd.Print();
+            }
+        }
+        private void Pd_labOutViewPrintPageA4(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+
+                System.Drawing.Image img = Image.FromStream(streamPrint);
+
+                float newWidth = img.Width * 100 / img.HorizontalResolution;
+                float newHeight = img.Height * 100 / img.VerticalResolution;
+
+                float widthFactor = newWidth / e.MarginBounds.Width;
+                float heightFactor = newHeight / e.MarginBounds.Height;
+
+                if (widthFactor > 1 | heightFactor > 1)
+                {
+                    if (widthFactor > heightFactor)
+                    {
+                        widthFactor = 1;
+                        newWidth = newWidth / widthFactor;
+                        newHeight = newHeight / widthFactor;
+                        //newWidth = newWidth / 1.2;
+                        //newHeight = newHeight / 1.2;
+                    }
+                    else
+                    {
+                        newWidth = newWidth / heightFactor;
+                        newHeight = newHeight / heightFactor;
+                    }
+                }
+                e.Graphics.DrawImage(img, 0, 0, (int)newWidth, (int)newHeight);
+                //}
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmScanView1 Pd_labOutViewPrintPageA4 error " + ex.Message);
+            }
         }
         private void ContextMenu_LabOut_export_outlab(object sender, System.EventArgs e)
         {
@@ -2853,7 +2922,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการลบข้อมูล ทั้งหมดของ VN "+ vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 int chk = 0;
-                String re = bc.bcDB.dscDB.voidDocScanVN(vn, "");
+                String re = bc.bcDB.dscDB.voidDocScanVNByScan(vn, "");
                 if (int.TryParse(re, out chk))
                 {
                     setGrfLab();
@@ -3535,7 +3604,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการลบข้อมูล ทั้งหมดของ AN " + vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 int chk = 0;
-                String re = bc.bcDB.dscDB.voidDocScanAN(vn, "");
+                String re = bc.bcDB.dscDB.voidDocScanANByScan(vn, "");
                 if (int.TryParse(re, out chk))
                 {
                     setGrfLab();

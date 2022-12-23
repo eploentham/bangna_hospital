@@ -200,7 +200,7 @@ namespace bangna_hospital.objdb
         }
         public DataTable selectDistByDateCrate(String datestart, String dateend)
         {
-            //DocScan cop1 = new DocScan();
+            //DocScan cop1 = new DocScan();2022-10-12 11:00:47.050
             DataTable dt = new DataTable();
             String sql = "select dsc.hn, dsc.vn, dsc.an, dsc.visit_date, dsc.date_create, dsc.row_cnt, dsc.pic_before_scan_cnt" +
                 ",pm02.MNC_PFIX_DSC as prefix, pm01.mnc_fname_t, pm01.mnc_lname_t, count(1) as cnt " +
@@ -209,7 +209,7 @@ namespace bangna_hospital.objdb
                 "Left Join BNG5_DBMS_FRONT.dbo.patient_m01 pm01 on pm01.mnc_hn_no = dsc.hn " +
                 " inner join BNG5_DBMS_FRONT.dbo.patient_m02 pm02 on pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
                 "Where dsc." + dsc.date_create + " >='" + datestart + "' and dsc." + dsc.date_create + " <='" + dateend + "' " +
-                "and dsc." + dsc.active + "='1'   " +
+                "and dsc." + dsc.active + "='1' and dsc.status_record = '1'  " +
                 "Group By dsc.hn, dsc.vn, dsc.an, dsc.visit_date, dsc.date_create, dsc.row_cnt, dsc.pic_before_scan_cnt, pm02.MNC_PFIX_DSC , pm01.mnc_fname_t, pm01.mnc_lname_t " +
                 "Order By dsc.date_create ";
             dt = conn.selectData(conn.conn, sql);
@@ -704,6 +704,11 @@ namespace bangna_hospital.objdb
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' " +
                 "Order By sort1 ";
+            sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1'and dsc." + dsc.status_record + "='1' " +
+                "Order By sort1 ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -714,9 +719,9 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "select dsc.* " +
                 "From " + dsc.table + " dsc " +
-                "inner Join doc_group_fm fmcode On dsc.ml_fm = fmcode.fm_code " +
-                "inner join doc_group_sub_scan dgss on fmcode.doc_group_sub_id = dgss.doc_group_sub_id " +
-                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' and dgss.doc_group_id ='"+ docgrpid + "' " +
+                "left Join doc_group_fm fmcode On dsc.ml_fm = fmcode.fm_code " +
+                "left join doc_group_sub_scan dgss on fmcode.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' and dsc.doc_group_id ='" + docgrpid + "' " +
                 "Order By sort1 ";
             dt = conn.selectData(conn.conn, sql);
 
@@ -1284,7 +1289,7 @@ namespace bangna_hospital.objdb
 
             return re;
         }
-        public String voidDocScanVN(String id, String userId)
+        public String voidDocScanVNByScan(String id, String userId)
         {
             String re = "";
             String sql = "";
@@ -1294,7 +1299,7 @@ namespace bangna_hospital.objdb
                 " " + dsc.active + " = '3'" +
                 "," + dsc.date_cancel + " = getdate()" +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
-                "Where " + dsc.vn + "='" + id + "'"
+                "Where " + dsc.vn + "='" + id + "' and status_record = '1' "
                 ;
             try
             {
@@ -1308,7 +1313,7 @@ namespace bangna_hospital.objdb
 
             return re;
         }
-        public String voidDocScanAN(String id, String userId)
+        public String voidDocScanANByScan(String id, String userId)
         {
             String re = "";
             String sql = "";
@@ -1318,7 +1323,7 @@ namespace bangna_hospital.objdb
                 " " + dsc.active + " = '3'" +
                 "," + dsc.date_cancel + " = getdate()" +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
-                "Where " + dsc.an + "='" + id + "'"
+                "Where " + dsc.an + "='" + id + "' and status_record = '1'"
                 ;
             try
             {
@@ -1329,7 +1334,50 @@ namespace bangna_hospital.objdb
                 sql = ex.Message + " " + ex.InnerException;
                 //new LogWriter("e", "voidDocScanAN " + sql);
             }
+            return re;
+        }
+        public String updateGrpChange(String doc_group_id, String doc_group_sub_id, String fm_code)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
 
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.doc_group_id + " = '" + doc_group_id + "' " +
+                "," + dsc.doc_group_sub_id + " = '" + doc_group_sub_id + "' " +
+                "Where " + dsc.ml_fm + "='" + fm_code + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "updateSort " + sql);
+            }
+            return re;
+        }
+        public String updateGrpSubGrp(String id, String doc_group_id, String doc_group_sub_id)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.doc_group_id + " = '" + doc_group_id + "' " +
+                "," + dsc.doc_group_sub_id + " = '" + doc_group_sub_id + "' " +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "updateSort " + sql);
+            }
             return re;
         }
         public String updateFMCode(String id, String fmcode)
@@ -1351,7 +1399,6 @@ namespace bangna_hospital.objdb
                 sql = ex.Message + " " + ex.InnerException;
                 //new LogWriter("e", "updateSort " + sql);
             }
-
             return re;
         }
         public String updateSort(String id, String sort1)
@@ -1373,7 +1420,6 @@ namespace bangna_hospital.objdb
                 sql = ex.Message + " " + ex.InnerException;
                 //new LogWriter("e", "updateSort " + sql);
             }
-
             return re;
         }
         public DocScan setDocScan(DataTable dt)

@@ -81,7 +81,11 @@ namespace bangna_hospital.object1
         public String vaccine_date { get; set; }
         public String dose { get; set; }
         public String vaccine_manufacturer { get; set; }
-        public String status_send { get; set; }//0=default;1=send
+        public String status_send { get; set; }//0=default;2=send
         public String branch_id { get; set; }
+        public String visit_date { get; set; }
+        public String pre_no { get; set; }
+        public String an_no { get; set; }
+        public String an_cnt { get; set; }
     }
 }

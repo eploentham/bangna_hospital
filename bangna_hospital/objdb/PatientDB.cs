@@ -313,9 +313,12 @@ namespace bangna_hospital.objdb
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E" +
                 ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE " +
-                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD " +
+                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD,m09.MNC_CHW_DSC,m08.MNC_AMP_DSC,m07.MNC_TUM_DSC " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                " left join PATIENT_M09 m09 on m01.MNC_CUR_CHW =m09.MNC_CHW_CD " +
+                " left join PATIENT_M08 m08 on m01.MNC_CUR_AMP =m08.MNC_AMP_CD " +
+                " left join PATIENT_M07 m07 on m01.MNC_CUR_TUM =m07.MNC_TUM_CD " +
                 " Where m01.MNC_ID_NO = '" + pid + "' " +
                 "Order By m01.mnc_hn_no desc";
             dt = conn.selectData(conn.connMainHIS, sql);
@@ -351,6 +354,9 @@ namespace bangna_hospital.objdb
                 ptt.MNC_CUR_ROAD = dt.Rows[0]["MNC_CUR_ROAD"].ToString();
                 ptt.MNC_BDAY = dt.Rows[0]["MNC_BDAY"].ToString();
                 ptt.MNC_ID_NO = dt.Rows[0]["mnc_id_no"].ToString();
+                ptt.TUMName = dt.Rows[0]["MNC_TUM_DSC"].ToString();
+                ptt.AMPName = dt.Rows[0]["MNC_AMP_DSC"].ToString();
+                ptt.CHWName = dt.Rows[0]["MNC_CHW_DSC"].ToString();
 
             }
             else
@@ -384,6 +390,9 @@ namespace bangna_hospital.objdb
                 ptt.MNC_NATI_CD = "";
                 ptt.MNC_CAR_CD = "";
                 ptt.MNC_CUR_ROAD = "";
+                ptt.TUMName = "";
+                ptt.AMPName = "";
+                ptt.CHWName = "";
             }
             return ptt;
         }

@@ -79,7 +79,7 @@ namespace bangna_hospital.gui
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            setGrfCu();
         }
 
         private void BtnOk_Click(object sender, EventArgs e)

@@ -362,7 +362,7 @@ namespace bangna_hospital.gui
             grfAdmit.Cols[colNetTotal].AllowEditing = false;
             grfAdmit.Cols[colPID].AllowEditing = false;
             grfAdmit.Cols[colTime].AllowEditing = false;
-            //grfPttComp.AllowFiltering = true;            
+            //grfPttComp.AllowFiltering = true;
             //grfSrc.AutoSizeCols();
             //FilterRow fr = new FilterRow(grfExpn);
 

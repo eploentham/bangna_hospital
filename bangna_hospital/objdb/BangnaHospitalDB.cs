@@ -70,6 +70,7 @@ namespace bangna_hospital.objdb
         public PatientM30DB pm30DB;
         public PatientHIDB ptthiDB;
         public PrakunM01DB prakM01DB;
+        public FLocationDB flocaDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -77,65 +78,94 @@ namespace bangna_hospital.objdb
         }
         private void initConfig()
         {
-            stfDB = new StaffDB(conn);
-            dgsDB = new DocGroupScanDB(conn);
-            pttDB = new PatientDB(conn);
-            dscDB = new DocScanDB(conn);
-            dgssDB = new DocGroupSubScanDB(conn);
-            vsDB = new VisitDB(conn);
-            xrDB = new XrayDB(conn);
-            resoDB = new ResOrderTabDB(conn);
-            labexDB = new LabExDB(conn);
-            rpttcDB = new ReportTabContentsDB(conn);
-            laboDB = new LabOutDB(conn);
-            labbDB = new BLabOutDB(conn);
-            dfmDB = new DocGroupFMDB(conn);
-            drugDB = new DrugDB(conn);
-            labDB = new LabDB(conn);
-            xrt04DB = new XrayT04DB(conn);
-            orDB = new OrDB(conn);
-            operNoteDB = new OperativeNoteDB(conn);
-            tem01DB = new TemporaryM01DB(conn);
-            tem02DB = new TemporaryM02DB(conn);
-            pharT01DB = new PharmacyT01DB(conn);
-            pharT02DB = new PharmacyT02DB(conn);
-            pharT05DB = new PharmacyT05DB(conn);
-            pharT06DB = new PharmacyT06DB(conn);
-            xrayM01DB = new XrayM01DB(conn);
-            xrayM02DB = new XrayM02DB(conn);
-            xrayT01DB = new XrayT01DB(conn);
-            xrayT02DB = new XrayT02DB(conn);
-            labT01DB = new LabT01DB(conn);
-            labT02DB = new LabT02DB(conn);
-            finM01DB = new FinanceM01DB(conn);
-            finM02DB = new FinanceM02DB(conn);
-            pttM32DB = new PatientM32DB(conn);
-            opdcDB = new OPDCheckUPDB(conn);
-            pharM01DB = new PharmacyM01DB(conn);
-            pharM02DB = new PharmacyM02DB(conn);
-            pttM30DB = new PatientM30DB(conn);
-            labM01DB = new LabM01DB(conn);
-            labM02DB = new LabM02DB(conn);
-            opbkkDrugCatDB = new OPBKKdrugcatelogDB(conn);
-            dotdfdDB = new DotDfDetailDB(conn);
-            pttscDB = new PatientSmartcardDB(conn);
-            vaccDB = new VaccineDB(conn);
-            queueTypeDB = new QueueTypeDB(conn);
-            queueDB = new QueueDB(conn);
-            lcoviddDB = new LabCovidDetectedDB(conn);
-            pm09DB = new PatientM09DB(conn);
-            pm08DB = new PatientM08DB(conn);
-            pm07DB = new PatientM07DB(conn);
-            pm07DB = new PatientM07DB(conn);
-            pm05DB = new PatientM05DB(conn);
-            pm04DB = new PatientM04DB(conn);
-            pm03DB = new PatientM03DB(conn);
-            pm02DB = new PatientM02DB(conn);
-            pm24DB = new PatientM24DB(conn);
-            pm30DB = new PatientM30DB(conn);
-            pm32DB = new PatientM32DB(conn);
-            ptthiDB = new PatientHIDB(conn);
-            prakM01DB = new PrakunM01DB(conn);
+            String err = "00";
+            try
+            {
+                err = "00";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err " + err);
+                stfDB = new StaffDB(conn);
+                dgsDB = new DocGroupScanDB(conn);
+                pttDB = new PatientDB(conn);
+                dscDB = new DocScanDB(conn);
+                dgssDB = new DocGroupSubScanDB(conn);
+                vsDB = new VisitDB(conn);
+                xrDB = new XrayDB(conn);
+                resoDB = new ResOrderTabDB(conn);
+                labexDB = new LabExDB(conn);
+                rpttcDB = new ReportTabContentsDB(conn);
+                laboDB = new LabOutDB(conn);
+                labbDB = new BLabOutDB(conn);
+                dfmDB = new DocGroupFMDB(conn);
+                drugDB = new DrugDB(conn);
+                labDB = new LabDB(conn);
+                xrt04DB = new XrayT04DB(conn);
+                orDB = new OrDB(conn);
+                err = "01";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 01");
+                operNoteDB = new OperativeNoteDB(conn);
+                tem01DB = new TemporaryM01DB(conn);
+                tem02DB = new TemporaryM02DB(conn);
+                pharT01DB = new PharmacyT01DB(conn);
+                pharT02DB = new PharmacyT02DB(conn);
+                pharT05DB = new PharmacyT05DB(conn);
+                pharT06DB = new PharmacyT06DB(conn);
+                xrayM01DB = new XrayM01DB(conn);
+                xrayM02DB = new XrayM02DB(conn);
+                xrayT01DB = new XrayT01DB(conn);
+                xrayT02DB = new XrayT02DB(conn);
+                labT01DB = new LabT01DB(conn);
+                labT02DB = new LabT02DB(conn);
+                finM01DB = new FinanceM01DB(conn);
+                finM02DB = new FinanceM02DB(conn);
+                pttM32DB = new PatientM32DB(conn);
+                opdcDB = new OPDCheckUPDB(conn);
+                pharM01DB = new PharmacyM01DB(conn);
+                pharM02DB = new PharmacyM02DB(conn);
+                pttM30DB = new PatientM30DB(conn);
+                labM01DB = new LabM01DB(conn);
+                labM02DB = new LabM02DB(conn);
+                opbkkDrugCatDB = new OPBKKdrugcatelogDB(conn);
+                dotdfdDB = new DotDfDetailDB(conn);
+                err = "02";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 02");
+                pttscDB = new PatientSmartcardDB(conn);
+                vaccDB = new VaccineDB(conn);
+                queueTypeDB = new QueueTypeDB(conn);
+                queueDB = new QueueDB(conn);
+                err = "03";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 03");
+                lcoviddDB = new LabCovidDetectedDB(conn);
+                pm09DB = new PatientM09DB(conn);
+                pm08DB = new PatientM08DB(conn);
+                pm07DB = new PatientM07DB(conn);
+                pm07DB = new PatientM07DB(conn);
+                pm05DB = new PatientM05DB(conn);
+                pm04DB = new PatientM04DB(conn);
+                err = "04";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 04");
+                pm03DB = new PatientM03DB(conn);
+                pm02DB = new PatientM02DB(conn);
+                err = "041";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 041");
+                pm24DB = new PatientM24DB(conn);
+                pm30DB = new PatientM30DB(conn);
+                err = "042";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 042");
+                pm32DB = new PatientM32DB(conn);
+                ptthiDB = new PatientHIDB(conn);
+                err = "043";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 043");
+                prakM01DB = new PrakunM01DB(conn);
+                err = "044";
+                flocaDB = new FLocationDB(conn);
+                err = "05";
+                //new LogWriter("e", "BangnaHospitalDB initConfig err 05");
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("e", "BangnaHospitalDB initConfig err "+err+" "+ex.Message);
+            }
+            
         }
         public String insertLogPage(String userid, String form, String method, String desc)
         {

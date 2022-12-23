@@ -276,7 +276,6 @@
             this.chkVoid.BackColor = System.Drawing.Color.Transparent;
             this.chkVoid.BorderColor = System.Drawing.Color.Transparent;
             this.chkVoid.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkVoid.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkVoid.ForeColor = System.Drawing.Color.Black;
             this.chkVoid.Location = new System.Drawing.Point(106, 473);
             this.chkVoid.Name = "chkVoid";
@@ -292,9 +291,9 @@
             // 
             // btnSaveFmCode
             // 
-            this.btnSaveFmCode.Location = new System.Drawing.Point(248, 314);
+            this.btnSaveFmCode.Location = new System.Drawing.Point(227, 215);
             this.btnSaveFmCode.Name = "btnSaveFmCode";
-            this.btnSaveFmCode.Size = new System.Drawing.Size(99, 22);
+            this.btnSaveFmCode.Size = new System.Drawing.Size(99, 38);
             this.btnSaveFmCode.TabIndex = 25;
             this.btnSaveFmCode.Text = "save FM code";
             this.theme.SetTheme(this.btnSaveFmCode, "(default)");
@@ -316,7 +315,7 @@
             // 
             // btnSaveImg
             // 
-            this.btnSaveImg.Location = new System.Drawing.Point(315, 454);
+            this.btnSaveImg.Location = new System.Drawing.Point(248, 572);
             this.btnSaveImg.Name = "btnSaveImg";
             this.btnSaveImg.Size = new System.Drawing.Size(51, 22);
             this.btnSaveImg.TabIndex = 23;

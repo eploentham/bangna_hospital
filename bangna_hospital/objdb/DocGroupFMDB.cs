@@ -105,9 +105,10 @@ namespace bangna_hospital.objdb
         public DataTable selectAll()
         {
             DataTable dt = new DataTable();
-            String sql = "select dfm.*, dgss.doc_group_sub_name " +
+            String sql = "select dfm.*, dgss.doc_group_sub_name, dgs.doc_group_name " +
                 "From " + dfm.table + " dfm " +
                 "Left Join doc_group_sub_scan dgss On dfm.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Left Join doc_group_scan dgs On dgs.doc_group_id = dgss.doc_group_id " +
                 " Where dfm." + dfm.active + " ='1' " +
                 "Order By dfm.fm_code ";
             dt = conn.selectData(conn.conn, sql);
@@ -134,7 +135,7 @@ namespace bangna_hospital.objdb
             String sql = "select dfm.*, dgss.doc_group_id " +
                 "From " + dfm.table + " dfm " +
                 "Left Join doc_group_sub_scan dgss On dfm.doc_group_sub_id = dgss.doc_group_sub_id " +
-                "Where dfm." + dfm.fm_code + " ='" + id + "' " +
+                "Where dfm." + dfm.fm_code + " ='" + id + "' and dfm.active = '1' " +
                 "Order By dfm.fm_id ";
             dt = conn.selectData(conn.conn, sql);
             cop1 = setDocFM(dt);
@@ -308,6 +309,27 @@ namespace bangna_hospital.objdb
             else
             {
                 re = updateCode(p, "");
+            }
+
+            return re;
+        }
+        public String Void(String id)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            sql = "Update " + dfm.table + " Set " +
+                " " + dfm.active + " = '3'" +
+                "Where " + dfm.pkField + "='" + id + "'"
+                ;
+
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
             }
 
             return re;
