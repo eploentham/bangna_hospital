@@ -31,6 +31,7 @@ namespace bangna_hospital.object1
         public String MNC_USR_UPD { get; set; }
         public String MNC_SND_OUT_STS { get; set; }
         public String MNC_LB_STS { get; set; }
+        public String status_lis { get; set; }
 
     }
 }

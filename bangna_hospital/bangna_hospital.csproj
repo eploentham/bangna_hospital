@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_ssn_data</AssemblyName>
+    <AssemblyName>bangna_hospital_linklis</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -55,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icon-sqr-01.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Graphicloads-100-Flat-Laboratory.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -133,9 +133,6 @@
     <Reference Include="Npgsql, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="SecuGen.FDxSDKPro.Windows">
-      <HintPath>FDx-SDK\SecuGen\i386\SecuGen.FDxSDKPro.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -153,11 +150,23 @@
   <ItemGroup>
     <Compile Include="control\BangnaControl.cs" />
     <Compile Include="control\PdfControl.cs" />
+    <Compile Include="gui\FrmAipn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmAipn.Designer.cs">
+      <DependentUpon>FrmAipn.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmFingerScanCheck.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmFingerScanCheck.Designer.cs">
       <DependentUpon>FrmFingerScanCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmLisLink.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmLisLink.Designer.cs">
+      <DependentUpon>FrmLisLink.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmScanView2.cs">
       <SubType>Form</SubType>
@@ -564,6 +573,7 @@
     <Compile Include="gui\RicherTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="objdb\AipnDB.cs" />
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\BLabOutDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
@@ -576,7 +586,11 @@
     <Compile Include="objdb\DrugSetDB.cs" />
     <Compile Include="objdb\EpidemAPIDB.cs" />
     <Compile Include="objdb\FLocationDB.cs" />
+    <Compile Include="objdb\LabT05DB.cs" />
+    <Compile Include="objdb\LisLabRequestDB.cs" />
+    <Compile Include="objdb\LisLabResultDB.cs" />
     <Compile Include="objdb\TFingerScanDB.cs" />
+    <Compile Include="object1\AipnXmlFile.cs" />
     <Compile Include="object1\EpidemAPI.cs" />
     <Compile Include="object1\EpidemCluster.cs" />
     <Compile Include="object1\EpidemCovidIsolatePlace.cs" />
@@ -669,6 +683,11 @@
     <Compile Include="object1\LabM02.cs" />
     <Compile Include="object1\LabT01.cs" />
     <Compile Include="object1\LabT02.cs" />
+    <Compile Include="object1\LabT05.cs" />
+    <Compile Include="object1\LinkLabOBR.cs" />
+    <Compile Include="object1\LinkLabOBX.cs" />
+    <Compile Include="object1\LisLabRequest.cs" />
+    <Compile Include="object1\LisLabResult.cs" />
     <Compile Include="object1\Nation.cs" />
     <Compile Include="object1\OPBKKAER.cs" />
     <Compile Include="object1\OPBKKCHA.cs" />
@@ -801,8 +820,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>xray_result.xsd</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="gui\FrmAipn.resx">
+      <DependentUpon>FrmAipn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmFingerScanCheck.resx">
       <DependentUpon>FrmFingerScanCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmLisLink.resx">
+      <DependentUpon>FrmLisLink.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanView2.resx">
       <DependentUpon>FrmScanView2.cs</DependentUpon>

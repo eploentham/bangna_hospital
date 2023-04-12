@@ -91,7 +91,7 @@ namespace bangna_hospital.gui
             txtPort.Value = bc.iniC.pacsServerPort;
 
             this.Load += FrmXrayPACsAdd_Load;
-            btnLisStart.Click += BtnLisStart_Click;
+            btnLisStart.Click += BtnLinkPACsStart_Click;
             btnModality.Click += BtnModality_Click;
             cboModality.SelectedItemChanged += CboModality_SelectedItemChanged;
             this.Disposed += FrmXrayPACsAdd_Disposed;
@@ -1093,7 +1093,7 @@ namespace bangna_hospital.gui
             TcpClient tcpClient = (TcpClient)tcpclient;
             //serverStreamWriter = new StreamWriter(serverSockStream);
             Application.DoEvents();
-            byte[] messsage = new byte[4096];
+            byte[] messsage = new byte[16384];
             int byteread = 0;
             String ackmsg = "";
 
@@ -1215,8 +1215,17 @@ namespace bangna_hospital.gui
                 else
                 {
                     err = "04";
+                    long chk11 = 0;
                     re = bc.bcDB.xrt04DB.update(xrt04);
-                    lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Update success "); });
+                    if (long.TryParse(re, out chk11))
+                    {
+                        lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("Update success "); });
+                    }
+                    else
+                    {
+                        lboxServer.Invoke((MethodInvoker)delegate { lboxServer.Items.Add("no update error " + re); });
+                        new LogWriter("e", "getMessageClient update  err " + re);
+                    }
                     Application.DoEvents();
                 }
             }
@@ -1227,7 +1236,7 @@ namespace bangna_hospital.gui
                 Application.DoEvents();
             }
         }
-        private void BtnLisStart_Click(object sender, EventArgs e)
+        private void BtnLinkPACsStart_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             if(btnLisStart.Image.GetHashCode() == imgStart.GetHashCode())
@@ -1650,7 +1659,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2022-11-23 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2023-01-09 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

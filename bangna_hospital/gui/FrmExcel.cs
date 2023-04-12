@@ -25,6 +25,65 @@ namespace bangna_hospital.gui
         {
             btnOpenExcel.Click += BtnOpenExcel_Click;
             btnReadExcel.Click += BtnReadExcel_Click;
+            btnDrugCOpenExcel.Click += BtnDrugCOpenExcel_Click;
+            btnDrugCRead.Click += BtnDrugCRead_Click;
+        }
+
+        private void BtnDrugCRead_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            C1.C1Excel.C1XLBook _c1xl = new C1.C1Excel.C1XLBook();
+            _c1xl.Load(txtDrugCPathExcel.Text);
+            XLSheet sheet = _c1xl.Sheets[0];
+
+            for (int i = 0; i < sheet.Rows.Count; i++)
+            {
+                int chk = 0;
+                String hosdrugcode = "", tmtcode = "", name = "", cid = "", sql = "", datestart = "", dateend = "";
+                DateTime datestart1, dateend1;
+                hosdrugcode = sheet[i, 0].Text;
+                tmtcode = sheet[i, 2].Text;
+                if ((hosdrugcode.Length > 0) && (tmtcode.Length>0))
+                {
+                    sql = "update pharmacy_m01 set tmt_code_opbkk = '"+tmtcode+"' Where mnc_ph_cd = '"+hosdrugcode+"' ";
+                    String re = bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, sql);
+                    if(int.TryParse(re, out chk))
+                    {
+                        label1.Text = (int.Parse(label1.Text)+ chk).ToString();
+                    }
+                    else
+                    {
+                        label2.Text += (int.Parse(label2.Text)).ToString();
+                    }
+                }
+                Application.DoEvents();
+            }
+        }
+
+        private void BtnDrugCOpenExcel_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = @"D:\",
+                Title = "Browse Text Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "xlsx",
+                Filter = "excel files (*.xls)|*.xls",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtDrugCPathExcel.Text = openFileDialog1.FileName;
+            }
         }
 
         private void BtnReadExcel_Click(object sender, EventArgs e)

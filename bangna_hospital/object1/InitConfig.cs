@@ -20,9 +20,11 @@ namespace bangna_hospital.object1
         public String hostDBLogTask = "", userDBLogTask = "", passDBLogTask = "", nameDBLogTask = "", portDBLogTask = "";
         public String hostDBMySQL = "", userDBMySQL = "", passDBMySQL = "", nameDBMySQL = "", portDBMySQL = "";
         public String hostDBSsnData = "", userDBSsnData = "", passDBSsnData = "", nameDBSsnData = "", portDBSsnData = "";
+        public String hostDBLinkLIS = "", nameDBLinkLIS = "", userDBLinkLIS = "", passDBLinkLIS = "", portDBLinkLIS = "";
 
         public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "", pdfFontSize="", pdfFontName = "", pdfFontSizetitleFont = "", pdfFontSizetxtFont = "", pdfFontSizehdrFont = "", pdfFontSizetxtFontB="";
         public String email_form = "", email_auth_user = "", email_auth_pass = "", email_port = "", email_ssl = "";
+        public String EmailFromAIPN = "", EmailToAIPN = "", EmailSubjectAIPN = "", EmailPortAIPN = "", EmailAuthUserAIPN = "", EmailAuthPassAIPN = "";
 
         public String sticker_donor_width = "", sticker_donor_height = "", sticker_donor_start_x = "", sticker_donor_start_y = "", sticker_donor_barcode_height = "", sticker_donor_barcode_gap_x = "", sticker_donor_barcode_gap_y = "", sticker_donor_gap="";
         public String statusAppDonor = "", patientaddpanel1weight="", barcode_width_minus="", status_show_border="";
@@ -38,6 +40,6 @@ namespace bangna_hospital.object1
         public String OPD_BTEMP = "", OPD_SBP = "", OPD_DBP = "", OPD_PR = "", OPD_RR = "", opbkkhcode = "";
         public String statusSmartCardNoDatabase = "", lab_code="", printerStaffNote="", printerLeter="", printerA5 = "", printerQueue = "", pathSaveExcelNovel="", statusSmartCardvaccine="", statusPrintSticker="";
         public String FrmSmartCardTabDefault = "", stickerPrintNumber="", statusStation="", paidcode="", dtrcode="", queFontName="", queFontSize="", hosttel="", printerStickerDrug="", printadjust="";
-        public String importMDBpaidcode = "", statusVisitBack="";
+        public String importMDBpaidcode = "", statusVisitBack="", aipnXmlPath = "", aipnAuthorName="";
     }
 }

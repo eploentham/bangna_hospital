@@ -105,7 +105,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 chk = ex.Message+" "+ex.InnerException;
-                new LogWriter("e", "insert Insert  sql " + sql +" ex "+chk);
+                new LogWriter("e", "XrayT04DB Insert  sql " + sql +" ex "+ ex.Message);
             }
             return chk;
         }
@@ -116,14 +116,15 @@ namespace bangna_hospital.objdb
             {
                 //p.dateModi = " CAST(year(GETDATE()) AS NVARCHAR)+'-'+ RIGHT('00' + CAST(month(GETDATE()) AS NVARCHAR), 2)+'-'+ RIGHT('00' + CAST(day(GETDATE()) AS NVARCHAR), 2)";
                 sql = "Update " + xrt04.table + " Set " +
-                    xrt04.MNC_XR_DSC + "= '" + p.MNC_XR_DSC + "'," +
-                    xrt04.MNC_STAMP_DAT + "= convert(VARCHAR(20),getdate(),20)," +
+                    xrt04.MNC_XR_DSC + "= '" + p.MNC_XR_DSC.Replace("'", "''") + "'," +
+                    xrt04.MNC_STAMP_DAT + "= convert(VARCHAR(20),getdate(),20) " +
                     "Where " + xrt04.MNC_REQ_YR + "='" + p.MNC_REQ_YR + "' and " + xrt04.MNC_REQ_NO + "='" + p.MNC_REQ_NO + "' and " + xrt04.MNC_REQ_DAT + "='" + p.MNC_REQ_DAT + "' and " + xrt04.MNC_XR_CD + "='" + p.MNC_XR_CD + "' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)
             {
                 //MessageBox.Show("Error " + ex.ToString(), "update LabEx");
+                new LogWriter("e", "XrayT04DB update  sql " + sql + " ex " + ex.Message);
             }
             return chk;
         }

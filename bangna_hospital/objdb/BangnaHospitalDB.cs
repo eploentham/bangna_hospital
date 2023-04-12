@@ -71,6 +71,10 @@ namespace bangna_hospital.objdb
         public PatientHIDB ptthiDB;
         public PrakunM01DB prakM01DB;
         public FLocationDB flocaDB;
+        public AipnDB aipnDB;
+        public LisLabResultDB labresDB;
+        public LisLabRequestDB labreqDB;
+        public LabT05DB labT05DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -159,7 +163,11 @@ namespace bangna_hospital.objdb
                 err = "044";
                 flocaDB = new FLocationDB(conn);
                 err = "05";
+                aipnDB = new AipnDB(conn);
                 //new LogWriter("e", "BangnaHospitalDB initConfig err 05");
+                labresDB = new LisLabResultDB(conn);
+                labreqDB = new LisLabRequestDB(conn);
+                labT05DB = new LabT05DB(conn);
             }
             catch(Exception ex)
             {

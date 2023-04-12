@@ -58,5 +58,6 @@ namespace bangna_hospital.object1
         public String MNC_PATNAME { get; set; }
         public String MNC_LOAD_STS { get; set; }
         public String MNC_IP_REC { get; set; }
+        public String status_lis { get; set; }
     }
 }

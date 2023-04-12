@@ -13,7 +13,7 @@ namespace bangna_hospital.objdb
 {
     public class ConnectDB
     {
-        public SqlConnection connMainHIS, conn, connPACs, connLabOut, connLog, connSsnData;
+        public SqlConnection connMainHIS, conn, connPACs, connLabOut, connLog, connSsnData, connLinkLIS;
         public MySqlConnection connMySQL;
         public Staff user;
         public long _rowsAffected = 0, _rowsAffectedMySQL=0;
@@ -29,6 +29,7 @@ namespace bangna_hospital.objdb
             connLabOut = new SqlConnection();
             connOPBKK = new NpgsqlConnection();
             connSsnData = new SqlConnection();
+            connLinkLIS = new SqlConnection();
 
             connLog = new SqlConnection();
             //new LogWriter("d", "ConnectDB ConnectDB  01" );
@@ -42,6 +43,7 @@ namespace bangna_hospital.objdb
             connOPBKK.ConnectionString = "Host=" + initc.hostDBOPBKK + ";Username=" + initc.userDBOPBKK + ";Password=" + initc.passDBOPBKK + ";Database=" + initc.nameDBOPBKK + ";Port=" + initc.portDBOPBKK + ";";
             connLog.ConnectionString = "Server=" + initc.hostDBLogTask + ";Database=" + initc.nameDBLogTask + ";Uid=" + initc.userDBLogTask + ";Pwd=" + initc.passDBLogTask + ";";
             connSsnData.ConnectionString = "Server=" + initc.hostDBSsnData + ";Database=" + initc.nameDBSsnData + ";Uid=" + initc.userDBSsnData + ";Pwd=" + initc.passDBSsnData + ";";
+            connLinkLIS.ConnectionString = "Server=" + initc.hostDBLinkLIS + ";Database=" + initc.nameDBLinkLIS + ";Uid=" + initc.userDBLinkLIS + ";Pwd=" + initc.passDBLinkLIS + ";";
 
             //ของ VaccineApprove ต้องใช้ MySQL เพราะ node js ยังไม่สามารถพืมพ์ FORM ได้
             connMySQL.ConnectionString = "Server=" + initc.hostDBMySQL + ";Database=" + initc.nameDBMySQL + ";Uid=" + initc.userDBMySQL + ";Pwd=" + initc.passDBMySQL +

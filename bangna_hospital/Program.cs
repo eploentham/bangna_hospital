@@ -19,8 +19,10 @@ namespace bangna_hospital
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //MessageBox.Show("error Main try{} ", "");
             //new LogWriter("d", "Program Start Form "+ args.Length);
             BangnaControl bc = new BangnaControl();
+            //MessageBox.Show("error Main try{} " + bc.iniC.programLoad, "");
             if (args.Length == 1)
             {
                 //MessageBox.Show("hn "+ args[0], "");
@@ -205,6 +207,16 @@ namespace bangna_hospital
                 {
                     err = "PatientNewSmartCardB1Check";
                     Application.Run(new gui.FrmFingerScanCheck(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("aipn"))
+                {
+                    err = "aipn";
+                    Application.Run(new gui.FrmAipn(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("LisLink"))
+                {
+                    err = "LisLink";
+                    Application.Run(new gui.FrmLisLink(bc));
                 }
                 else
                 {

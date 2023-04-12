@@ -8839,6 +8839,7 @@ namespace bangna_hospital.gui
                     //pB1.Value++;
                         //Application.DoEvents();
                     }
+                    ftp = null;
                 }
                 catch (Exception ex)
                 {

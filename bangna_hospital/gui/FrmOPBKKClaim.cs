@@ -614,7 +614,7 @@ namespace bangna_hospital.gui
             {
                 showLbLoading();
                 setGrfUcepDrug(grfCipnDrug);
-                setGrfCVS();
+                setGrfCipnCVS();
                 hideLbLoading();
             }
         }
@@ -2269,7 +2269,7 @@ namespace bangna_hospital.gui
 
             FlexGrid.FilterRow fr = new FlexGrid.FilterRow(grfUcepLab);
 
-            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfUcepLab.AfterRowColChange += GrfUcepLab_AfterFilter;
             //grfVs.row
             //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
@@ -2287,7 +2287,10 @@ namespace bangna_hospital.gui
         private void GrfUcepLab_AfterFilter(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            for (int col = grfUcepLab.Cols.Fixed; col < grfUcepLab.Cols.Count; ++col)
+            {
+                var filter = grfUcepLab.Cols[col].ActiveFilter;
+            }
         }
 
         private void GrfUcepLab_CellChanged(object sender, RowColEventArgs e)
@@ -2435,7 +2438,10 @@ namespace bangna_hospital.gui
         private void GrfUcepHotcharge_AfterFilter(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            for (int col = grfUcepHotcharge.Cols.Fixed; col < grfUcepHotcharge.Cols.Count; ++col)
+            {
+                var filter = grfUcepHotcharge.Cols[col].ActiveFilter;
+            }
         }
 
         private void GrfUcepHotcharge_CellChanged(object sender, RowColEventArgs e)
@@ -3735,17 +3741,17 @@ namespace bangna_hospital.gui
             grfUcepLab.Cols[colGrfUcepLabName].AllowEditing = false;
             grfUcepLab.Cols[colGrfUcepLabUcepCode].AllowEditing = true;
             grfUcepLab.AllowFiltering = true;
-            //for (int col = 0; col < dt.Columns.Count; ++col)
-            //{
-            //grfUcepHotcharge.Cols[colGrfUcepPaidId].DataType = dt.Columns["MNC_FN_CD"].DataType;
-            ////grfOrdDrug.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
-            //grfUcepHotcharge.Cols[colGrfUcepPaidId].Name = dt.Columns["MNC_FN_CD"].ColumnName;
-            //grfUcepHotcharge.Cols[colGrfUcepPaidName].DataType = dt.Columns["MNC_FN_DSCT"].DataType;
-            //grfUcepHotcharge.Cols[colGrfUcepPaidName].Name = dt.Columns["MNC_FN_DSCT"].ColumnName;
-            //}
+            for (int col = 0; col < dt.Columns.Count; ++col)
+            {
+                grfUcepLab.Cols[colGrfUcepLabId].DataType = dt.Columns["MNC_LB_CD"].DataType;
+                //grfOrdDrug.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfUcepLab.Cols[colGrfUcepLabId].Name = dt.Columns["MNC_LB_CD"].ColumnName;
+                grfUcepLab.Cols[colGrfUcepLabName].DataType = dt.Columns["MNC_LB_DSC"].DataType;
+                grfUcepLab.Cols[colGrfUcepLabName].Name = dt.Columns["MNC_LB_DSC"].ColumnName;
+            }
             pageLoad = false;
         }
-        private void setGrfCVS()
+        private void setGrfCipnCVS()
         {
             pageLoad = true;
             DataTable dt = new DataTable();
@@ -3756,7 +3762,7 @@ namespace bangna_hospital.gui
 
             dt = bc.bcDB.pttM30DB.SelectAll();
             grfCipnCsv.Rows.Count = 1;
-            grfCipnCsv.Cols.Count = 6;
+            grfCipnCsv.Cols.Count = 7;
             grfCipnCsv.Rows.Count = dt.Rows.Count + 2;
             grfCipnCsv.Cols[colGrfUcepHotChargeId].Caption = "ID";
             grfCipnCsv.Cols[colGrfUcepHotChargeName].Caption = "Hot Charge Name";
@@ -3852,11 +3858,13 @@ namespace bangna_hospital.gui
             grfUcepHotcharge.AllowFiltering = true;
             //for (int col = 0; col < dt.Columns.Count; ++col)
             //{
-            //grfUcepHotcharge.Cols[colGrfUcepPaidId].DataType = dt.Columns["MNC_FN_CD"].DataType;
-            ////grfOrdDrug.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
-            //grfUcepHotcharge.Cols[colGrfUcepPaidId].Name = dt.Columns["MNC_FN_CD"].ColumnName;
-            //grfUcepHotcharge.Cols[colGrfUcepPaidName].DataType = dt.Columns["MNC_FN_DSCT"].DataType;
-            //grfUcepHotcharge.Cols[colGrfUcepPaidName].Name = dt.Columns["MNC_FN_DSCT"].ColumnName;
+                grfUcepHotcharge.Cols[colGrfUcepHotChargeId].DataType = dt.Columns["MNC_SR_CD"].DataType;
+                grfUcepHotcharge.Cols[colGrfUcepHotChargeId].Name = dt.Columns["MNC_SR_CD"].ColumnName;
+                //grfOrdDrug.Cols[col + 1].Caption = dt.Columns[col].ColumnName;
+                grfUcepHotcharge.Cols[colGrfUcepHotChargeName].DataType = dt.Columns["MNC_SR_DSC"].DataType;
+                grfUcepHotcharge.Cols[colGrfUcepHotChargeName].Name = dt.Columns["MNC_SR_DSC"].ColumnName;
+                //grfUcepHotcharge.Cols[colGrfUcepHotChargeUcepCode].DataType = dt.Columns["ucep_code"].DataType;
+                //grfUcepHotcharge.Cols[colGrfUcepHotChargeDitCode].Name = dt.Columns["dit_code"].ColumnName;
             //}
             pageLoad = false;
         }
@@ -6212,7 +6220,7 @@ namespace bangna_hospital.gui
             //  แก้เรื่อง ข้อมูลที่ double
 
             //this.Text = "Last Update 2020-04-09";
-            this.Text = "Last Update 2022-09-28";
+            this.Text = "Last Update 2023-01-25";
         }
     }
 }

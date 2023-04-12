@@ -2,6 +2,7 @@
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using C1.C1Excel;
+using C1.C1Zip;
 using C1.Win.C1Document;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
@@ -13,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -21,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -116,21 +119,21 @@ namespace bangna_hospital.control
                 lDistrict = new List<District>();
                 lSubDistrict = new List<SubDistrict>();
                 err = "02";
-                //new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
+                new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
                 GetConfig();
-                //new LogWriter("d", "BangnaControl initConfig GetConfig out " + err);
+                new LogWriter("d", "BangnaControl initConfig GetConfig out " + err);
                 err = "03";
                 conn = new ConnectDB(iniC);
-                //new LogWriter("d", "BangnaControl initConfig new ConnectDB(iniC); out " + err);
+                new LogWriter("d", "BangnaControl initConfig new ConnectDB(iniC); out " + err);
                 err = "04";
                 bcDB = new BangnaHospitalDB(conn);
-                //new LogWriter("d", "BangnaControl initConfig new BangnaHospitalDB(conn); out " + err);
+                new LogWriter("d", "BangnaControl initConfig new BangnaHospitalDB(conn); out " + err);
                 err = "05";
                 initOPBKKClinic();
-                //new LogWriter("d", "BangnaControl initConfig initOPBKKClinic(); out " + err);
+                new LogWriter("d", "BangnaControl initConfig initOPBKKClinic(); out " + err);
                 err = "06";
                 initOPBKKCHRGITEM();
-                //new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
+                new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
                 getInit();
 
                 epiPersS = new EpidemPersonStatus();
@@ -468,6 +471,12 @@ namespace bangna_hospital.control
             iniC.passDBSsnData = iniF.getIni("connection", "passDBSsnData");
             iniC.portDBSsnData = iniF.getIni("connection", "portDBSsnData");
 
+            iniC.hostDBLinkLIS = iniF.getIni("connection", "hostDBLinkLIS");
+            iniC.nameDBLinkLIS = iniF.getIni("connection", "nameDBLinkLIS");
+            iniC.userDBLinkLIS = iniF.getIni("connection", "userDBLinkLIS");
+            iniC.passDBLinkLIS = iniF.getIni("connection", "passDBLinkLIS");
+            iniC.portDBLinkLIS = iniF.getIni("connection", "portDBLinkLIS");
+
             //new LogWriter("d", "BangnaControl initConfig ftp ");
             iniC.hostFTP = iniF.getIni("ftp", "hostFTP");
             iniC.userFTP = iniF.getIni("ftp", "userFTP");
@@ -592,12 +601,20 @@ namespace bangna_hospital.control
             iniC.printadjust = iniF.getIni("app", "printadjust");
             iniC.importMDBpaidcode = iniF.getIni("app", "importMDBpaidcode");
             iniC.statusVisitBack = iniF.getIni("app", "statusVisitBack");
+            iniC.aipnXmlPath = iniF.getIni("app", "aipnXmlPath");
+            iniC.aipnAuthorName = iniF.getIni("app", "aipnAuthorName");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
             iniC.email_auth_pass = iniF.getIni("email", "email_auth_pass");
             iniC.email_port = iniF.getIni("email", "email_port");
             iniC.email_ssl = iniF.getIni("email", "email_ssl");
+            iniC.EmailFromAIPN = iniF.getIni("email", "EmailFromAIPN");
+            iniC.EmailToAIPN = iniF.getIni("email", "EmailToAIPN");
+            iniC.EmailSubjectAIPN = iniF.getIni("email", "EmailSubjectAIPN");
+            iniC.EmailPortAIPN = iniF.getIni("email", "EmailPortAIPN");
+            iniC.EmailAuthUserAIPN = iniF.getIni("email", "EmailAuthUserAIPN");
+            iniC.EmailAuthPassAIPN = iniF.getIni("email", "EmailAuthPassAIPN");
 
             iniC.OPD_BTEMP = iniF.getIni("OPBKKClaim", "OPD_BTEMP");
             iniC.OPD_SBP = iniF.getIni("OPBKKClaim", "OPD_SBP");//      ความดันโลหิตค่าตัวบน
@@ -3491,6 +3508,279 @@ namespace bangna_hospital.control
                     //if (xs != null)
                     //    cell.Style = xs;
                 }
+            }
+        }
+        public String genAipnFile(String authorName, String anno1, String submtype, Boolean statusSendMulti, Boolean statusNoAdd)
+        {
+            DataTable dtaipn = new DataTable();
+            DataTable dtclaimAuth = new DataTable();
+            DataTable dtIPADT = new DataTable();
+            DataTable dtIPOp = new DataTable();
+            DataTable dtIPDx = new DataTable();
+            DataTable dtBillItms = new DataTable();
+            DataTable dtInv = new DataTable();
+            DataTable dtCoin = new DataTable();
+            DataTable dtAipn = new DataTable();
+
+            String Hmain = "", sessionNo = "",pathFile = "", HeaderXML = "<?xml version=\"1.0\" encoding=\"windows-874\"?>", FooterXML="";
+            //aipnid = bcDB.aipnDB.selectAipnIdByStatusMakeText();
+            
+            dtAipn = bcDB.aipnDB.selectAipnIdByStatusMakeText(anno1, statusSendMulti, statusNoAdd);
+            
+            if (dtAipn.Rows.Count <= 0)
+            {
+                MessageBox.Show("ไม่พบข้อมูล ", "");
+                return "";
+            }
+            Hmain = iniC.ssoid;
+            sessionNo = bcDB.aipnDB.insertClaimZip(Hmain);
+            pathFile = iniC.aipnXmlPath + "\\" + sessionNo;
+            if (!Directory.Exists(pathFile))
+            {
+                Directory.CreateDirectory(pathFile);
+            }
+            foreach(DataRow rowAipn in dtAipn.Rows)
+            {
+                String aipnXML = "",aipnid = "", anno="", ancnt="";
+                aipnid = rowAipn["aipn_id"].ToString();
+                anno = rowAipn["an_no"].ToString();
+                ancnt = rowAipn["an_cnt"].ToString();
+                dtaipn = bcDB.aipnDB.selectAipn(aipnid);
+                dtclaimAuth = bcDB.aipnDB.selectClaimAuth(aipnid);
+                dtIPADT = bcDB.aipnDB.selectIPADT(aipnid);
+                dtIPOp = bcDB.aipnDB.selectIPOp(aipnid);
+                dtIPDx = bcDB.aipnDB.selectIPDx(aipnid);
+                dtInv = bcDB.aipnDB.selectInvoice(aipnid);
+                //dtBillItms = bcDB.aipnDB.selectBillItems(anno, ancnt);
+                dtBillItms = bcDB.aipnDB.selectBillItemsByAipn(aipnid);
+                dtCoin = bcDB.aipnDB.selectCoinsurance(aipnid);
+                if (dtInv.Rows.Count <= 0)
+                {
+                    MessageBox.Show("invoice บิล ไม่พบข้อมูล ", "");
+                    return "";
+                }
+                AipnXmlFile aipnxmlF = new AipnXmlFile();
+                String aipnHeader = "", aipnClaimAuth = "", aipnIPADT = "", aipnIPOp = "", aipnIPDx = "", aipnBillItms = "", aipnInv = "", aionCoin = "";
+                String prefixAn = "", Hcare = "", hn = "", dtEffTime = "", SubmDT = "";
+                dtEffTime = DateTime.Now.Year.ToString() + DateTime.Now.ToString("-MM-ddThh:mm:ss");
+
+                foreach (DataRow drow in dtclaimAuth.Rows)
+                {
+                    Hcare = drow["hcare"].ToString();
+                    Hmain = drow["hmain"].ToString();
+                    aipnHeader = aipnxmlF.genHeader(iniC.ssoid, dtEffTime, authorName);
+                    aipnClaimAuth = aipnxmlF.genClaimAuth(drow["upayplan"].ToString(), drow["servicetype"].ToString(), drow["projectcode"].ToString()
+                        , drow["eventcode"].ToString(), drow["hmain"].ToString(), Hcare, drow["careas"].ToString(), drow["servicesubtype"].ToString());
+                }
+                if (dtaipn.Rows.Count > 0)
+                {
+                    prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_no"].ToString().ToString(), dtaipn.Rows[0]["an_cnt"].ToString().ToString());
+                    hn = dtaipn.Rows[0]["hn"].ToString();
+                }
+                aipnIPADT = aipnxmlF.genIPADT(prefixAn, dtIPADT);
+                aipnIPOp = aipnxmlF.genIPOp(dtIPOp);
+                aipnIPDx = aipnxmlF.genIPDx(dtIPDx);
+
+                aipnInv = aipnxmlF.genInvoice(dtInv.Rows[0]["invnumber"].ToString(), dtInv.Rows[0]["invdt"].ToString(), dtInv.Rows[0]["invadddiscount"].ToString()
+                        , dtInv.Rows[0]["drgcharge"].ToString(), dtInv.Rows[0]["xdrgclaim"].ToString(), dtBillItms);
+                
+                if (dtCoin.Rows.Count > 0)
+                {
+                    aionCoin = aipnxmlF.genCoinsurance(dtCoin.Rows[0]["instypecode"].ToString(), dtCoin.Rows[0]["instotal"].ToString(), dtCoin.Rows[0]["insroomboard"].ToString(), dtCoin.Rows[0]["insproffee"].ToString(), dtCoin.Rows[0]["insother"].ToString());
+                }
+                else
+                {
+                    aionCoin = aipnxmlF.genCoinsurance("", "", "", "", "");
+                }
+                HeaderXML = "<?xml version=\"1.0\" encoding=\"windows-874\"?>" + Environment.NewLine;
+                aipnXML += "<CIPN>" + Environment.NewLine;
+                aipnXML += aipnHeader;
+                aipnXML += aipnClaimAuth;
+                aipnXML += aipnIPADT;
+                aipnXML += aipnIPDx;
+                aipnXML += aipnIPOp;
+                aipnXML += aipnInv;
+                aipnXML += aionCoin;
+                aipnXML += "</CIPN>" + Environment.NewLine;
+
+                String md5aipn = ComputeMD5(aipnXML);
+                byte[] md5aipnBytes = Encoding.UTF8.GetBytes(md5aipn);
+
+                byte[] wind874Bytes = Encoding.UTF8.GetBytes(aipnXML);
+
+                String aaa = wind874Bytes.ToString();
+                byte[] win874BytesAipn = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), wind874Bytes);
+                String md5win874 = ComputeMD5Bytes(win874BytesAipn);
+                byte[] md5aipnWin874Bytes = Encoding.GetEncoding(874).GetBytes(md5win874);
+                byte[] win874BytesHeader = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), Encoding.UTF8.GetBytes(HeaderXML));
+
+                //byte[] byteMD5 = MD5.Create().ComputeHash(win874BytesAipn);
+                //String hex = BitConverter.ToString(byteMD5).Replace("-",String.Empty);
+                //byte[] win874HexMD5 = Encoding.GetEncoding(874).GetBytes(hex);
+
+                //string result = Encoding.UTF8.GetString(byteMD5);
+                //StringBuilder sb = new StringBuilder();
+                //for (int i = 0; i < byteMD5.Length; i++)
+                //{
+                //    sb.Append(byteMD5[i].ToString("X2"));
+                //}
+
+                //FooterXML = "<?EndNote HMAC=\""+ Encoding.Default.GetString(hash) + "\" ?>";
+                md5aipnBytes = md5aipnWin874Bytes.ToArray();
+                byte[] win874BytesFooter1 = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), Encoding.UTF8.GetBytes("<?EndNote HMAC=\""));
+                byte[] win874BytesFooter2 = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), Encoding.UTF8.GetBytes("\" ?>"));
+                byte[] win874BytesFooter = new byte[win874BytesFooter1.Length + md5aipnBytes.Length + win874BytesFooter2.Length];
+                Buffer.BlockCopy(win874BytesFooter1, 0, win874BytesFooter, 0, win874BytesFooter1.Length);
+                Buffer.BlockCopy(md5aipnBytes, 0, win874BytesFooter, win874BytesFooter1.Length, md5aipnBytes.Length);
+                Buffer.BlockCopy(win874BytesFooter2, 0, win874BytesFooter, win874BytesFooter1.Length + md5aipnBytes.Length, win874BytesFooter2.Length);
+
+                byte[] rv1 = new byte[win874BytesHeader.Length + win874BytesAipn.Length + win874BytesFooter.Length];
+                Buffer.BlockCopy(win874BytesHeader, 0, rv1, 0, win874BytesHeader.Length);
+                Buffer.BlockCopy(win874BytesAipn, 0, rv1, win874BytesHeader.Length, win874BytesAipn.Length);
+                Buffer.BlockCopy(win874BytesFooter, 0, rv1, win874BytesHeader.Length + win874BytesAipn.Length, win874BytesFooter.Length);
+
+                if (!Directory.Exists(iniC.aipnXmlPath))
+                {
+                    Directory.CreateDirectory(iniC.aipnXmlPath);
+                }
+                SubmDT = dtEffTime.Replace("-", "").Replace("-", "").Replace("T", "").Replace(":", "").Replace(":", "");
+                String fileName = Hcare + "-AIPN-" + prefixAn + "-" + SubmDT;
+                //แก้ไขส่งข้อมูลใหม่  กำหนดให้ ชื่อ file ต้องมี add, aud, adj
+                if (anno.Length > 0)
+                {
+                    //fileName += "-"+submtype;
+                }
+                if ((fileName.Length > 0) && (fileName.Substring(fileName.Length-1)=="-"))
+                {
+                    fileName = fileName.Substring(0,fileName.Length - 1);
+                }
+                Boolean chk = ByteArrayToFile(pathFile + "\\" + fileName + "-data.xml", win874BytesAipn);
+                Boolean chk2 = ByteArrayToFile(pathFile + "\\" + fileName + "-utf8.xml", Encoding.UTF8.GetBytes(aipnXML));
+                Boolean chk1 = ByteArrayToFile(pathFile + "\\" + fileName + ".xml", rv1);
+                bcDB.aipnDB.updateSessionNoStatusMakeText(sessionNo, aipnid);
+            }
+            
+            try
+            {
+                String fileZipName = "";
+                C1ZipFile zip = new C1ZipFile(); //iniC.ssoid
+                //fileZipName = Hmain+"AIPN"+ sessionNo;
+                fileZipName = iniC.ssoid + "AIPN" + sessionNo;
+                zip.Create(pathFile + "\\"+fileZipName +".zip");
+                foreach(String filename in Directory.GetFiles(pathFile))
+                {
+                    if (filename.IndexOf("-data")>0)
+                    {
+                        continue;
+                    }
+                    if (filename.IndexOf("-utf8") > 0)
+                    {
+                        continue;
+                    }
+                    if (filename.IndexOf(".zip") > 0)
+                    {
+                        continue;
+                    }
+                    zip.Entries.Add(filename);
+                }
+                zip.Close();
+                Process.Start("explorer.exe", pathFile);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in process: {0}", ex);
+                    
+            }
+            
+            return sessionNo;
+        }
+        public string CreateMD5Hash(string input)
+        {
+            // Step 1, calculate MD5 hash from input
+            MD5 md5 = MD5.Create();
+            byte[] inputBytes = Encoding.GetEncoding(874).GetBytes(input);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+            // Step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
+        public String CreateMD5Hash(byte[] inputBytes)
+        {
+            // Step 1, calculate MD5 hash from input
+            MD5 md5 = MD5.Create();
+            //byte[] inputBytes = Encoding.GetEncoding(874).GetBytes(input);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+            // Step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
+        //public String CreateMD5(string input)
+        //{
+        //    // Use input string to calculate MD5 hash
+        //    using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+        //    {
+        //        byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+        //        byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+        //        return Convert.ToHexString(hashBytes); // .NET 5 +
+        //    }
+        //}
+        public String ComputeMD5Bytes(byte[] input)
+        {
+            StringBuilder sb = new StringBuilder();
+            // Initialize a MD5 hash object
+            using (MD5 md5 = MD5.Create())
+            {
+                // Compute the hash of the given string
+                byte[] hashValue = md5.ComputeHash(input);
+                // Convert the byte array to string format
+                foreach (byte b in hashValue)
+                {
+                    sb.Append($"{b:X2}");
+                }
+            }
+            return sb.ToString();
+        }
+        public String ComputeMD5(String input)
+        {
+            StringBuilder sb = new StringBuilder();
+            // Initialize a MD5 hash object
+            using (MD5 md5 = MD5.Create())
+            {
+                // Compute the hash of the given string
+                byte[] hashValue = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+                // Convert the byte array to string format
+                foreach (byte b in hashValue)
+                {
+                    sb.Append($"{b:X2}");
+                }
+            }
+            return sb.ToString();
+        }
+        public bool ByteArrayToFile(string fileName, byte[] byteArray)
+        {
+            try
+            {
+                using (var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(byteArray, 0, byteArray.Length);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception caught in process: {0}", ex);
+                return false;
             }
         }
     }

@@ -55,6 +55,34 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public String selectDeptOPD(String deptid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC " +
+                "From  patient_m32 m32 " +
+                " Where m32.MNC_md_dep_no = '" + deptid + "' and m32.MNC_TYP_PT = 'O' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_MD_DEP_DSC"].ToString();
+            }
+            return re;
+        }
+        public String selectDeptIPD(String deptid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC " +
+                "From  patient_m32 m32 " +
+                " Where m32.MNC_sec_no = '" + deptid + "' and m32.MNC_TYP_PT = 'I' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_MD_DEP_DSC"].ToString();
+            }
+            return re;
+        }
         public void getlCus()
         {
             //lDept = new List<Position>();
