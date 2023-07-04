@@ -366,7 +366,13 @@ namespace bangna_hospital.gui
             using (HttpClient httpClient = new HttpClient())
             {
                 //var result = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
-                HttpResponseMessage response = await httpClient.GetAsync(url);
+                var content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("user", user),
+                    new KeyValuePair<string, string>("password_hash", password),
+                    new KeyValuePair<string, string>("hospital_code", hospital_code)
+                });
+                HttpResponseMessage response = await httpClient.PostAsync(url, content);
                 authen = response.Content.ReadAsStringAsync().Result;
             }
             url = "https://epidemcenter.moph.go.th/epidem/api/SendEPIDEM";
@@ -1345,11 +1351,20 @@ namespace bangna_hospital.gui
             String password = "5921CC2BDEDF43080011E8FE75CFEFA72BB8121D5E54058C0E19DE08658FFA0D";
             password = HmacSHA256(API_SECRET, api_key);
             password = password.ToUpper();
-            var url = "https://cvp1.moph.go.th/token?Action=get_moph_access_token&user=" + user + "&password_hash=" + password + "&hospital_code=" + hospital_code;
+            //var url = "https://cvp1.moph.go.th/token?Action=get_moph_access_token&user=" + user + "&password_hash=" + password + "&hospital_code=" + hospital_code;
+            var url = "https://cvp1.moph.go.th/token";
             using (HttpClient httpClient = new HttpClient())
             {
                 //var result = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
-                HttpResponseMessage response = await httpClient.GetAsync(url);
+                var content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("Action", "post_moph_access_token"),
+                    new KeyValuePair<string, string>("user", user),
+                    new KeyValuePair<string, string>("password_hash", password),
+                    new KeyValuePair<string, string>("hospital_code", hospital_code)
+                });
+                HttpResponseMessage response = await httpClient.PostAsync(url, content);
+                //HttpResponseMessage response = await httpClient.GetAsync(url);
                 authen = response.Content.ReadAsStringAsync().Result;
                 
             }

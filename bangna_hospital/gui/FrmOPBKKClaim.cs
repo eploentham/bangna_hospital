@@ -47,7 +47,7 @@ namespace bangna_hospital.gui
         C1TextBox txtPaidType, txtHospMain, txtHCode, txtUcepHn, txtUcepPaidType, txtDITdc01StartRow, txtDITdc01CostNew, txtDITdc01PriceNew, txtDITdc01Filename, txtDITdc01Top200, txtDITdc02StartRow, txtDITdc02PriceNew, txtDITdc02Filename;
         Label lbtxtDITdc01StartRow, lbtxtDITdc01CostNew, lbtxtDITdc01PriceNew, lbtxtDITdc01Top200, lbtxtDITdc02StartRow, lbtxtDITdc02PriceNew, lbtxtDITsuppStartRow, lbtxtDITsuppCostNew, lbtxtDITsuppPriceNew, lbtxtDITserviceStartRow, lbtxtDITserviceCostNew, lbtxtDITservicePriceNew, lbtxtDITserviceFilename;
         C1TextBox txtDITsuppStartRow, txtDITsuppCostNew, txtDITsuppPriceNew, txtDITsuppFilename, txtDITserviceStartRow, txtDITserviceCostNew, txtDITservicePriceNew, txtDITserviceFilename;
-        C1CheckBox chkUcepSelectAll;
+        C1CheckBox chkUcepSelectAll, chkUcepAllVisit;
         Panel pnOPBKK, pnUcepMainTop, pnUcepMainBotton, pnDITdc01Top, pnDITdc02Top, pnDITsuppTop, pnDITserviceTop, pnDITdc01Botton, pnDITdc02Botton, pnDITsuppBotton, pnDITserviceBotton;
         RadioButton chkOPBKKSelectVsDate, chkOPBKKSelectDiscDate;
         DataTable dtPtt = new DataTable();
@@ -689,6 +689,7 @@ namespace bangna_hospital.gui
             lbtxtUcepPaidType = new Label();
             txtUcepPaidType = new C1TextBox();
             chkUcepSelectAll = new C1CheckBox();
+            chkUcepAllVisit = new C1CheckBox();
             lbtxtDITdc01StartRow = new Label();
             txtDITdc01StartRow = new C1TextBox();
             lbtxtDITdc01CostNew = new Label();
@@ -735,8 +736,10 @@ namespace bangna_hospital.gui
             bc.setControlLabel(ref lbtxtUcepHn, fEdit, "HN :", "lbtxtUcepHn", txtUcepDateEnd.Location.X + txtUcepDateEnd.Width + 20, gapY+30);
             size = bc.MeasureString(lbtxtUcepHn);
             bc.setControlC1TextBox(ref txtUcepHn, fEdit, "txtUcepHn", 120, txtUcepPaidType.Location.X , lbtxtUcepHn.Location.Y);
+            bc.setControlC1CheckBox(ref chkUcepAllVisit, fEdit, "ทุกใบยา", "chkUcepAllVisit", txtUcepPaidType.Location.X  + 120, lbtxtUcepHn.Location.Y);
+            chkUcepAllVisit.Height = 30;
 
-            //gapY += gapLine;
+            //gapY += gapLine;chkUcepAllVisit
             bc.setControlC1Button(ref btnUcepSelect, fEdit, "ดึงข้อมูล", "btnUcepOk", txtUcepPaidType.Location.X+ txtUcepPaidType.Width+30, gapY);
             btnUcepSelect.Width = 70;
             bc.setControlC1CheckBox(ref chkUcepSelectAll, fEdit, "select All", "chkUcepSelectAll", btnUcepSelect.Location.X + btnUcepSelect.Width + 30, gapY);
@@ -839,7 +842,8 @@ namespace bangna_hospital.gui
             pnUcepMainTop.Controls.Add(lbtxtUcepDateEnd);
             pnUcepMainTop.Controls.Add(txtUcepDateEnd);
             pnUcepMainTop.Controls.Add(btnUcepSelect);
-            pnUcepMainTop.Controls.Add(chkUcepSelectAll);
+            pnUcepMainTop.Controls.Add(chkUcepSelectAll); //chkUcepAllVisit
+            pnUcepMainTop.Controls.Add(chkUcepAllVisit);
             pnUcepMainTop.Controls.Add(btnUcepTMTImport);
             pnUcepMainTop.Controls.Add(btnUcepExcel);
             pnUcepMainTop.Controls.Add(lbtxtUcepHn);
@@ -896,6 +900,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(txtUcepDateEnd, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepSelect, bc.iniC.themeApp);
             theme1.SetTheme(chkUcepSelectAll, bc.iniC.themeApp);
+            theme1.SetTheme(chkUcepAllVisit, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepTMTImport, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepExcel, bc.iniC.themeApp);
             theme1.SetTheme(lbtxtUcepHn, bc.iniC.themeApp);
@@ -943,6 +948,8 @@ namespace bangna_hospital.gui
             theme1.SetTheme(btnUcepDITdc02Read, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepDITsuppRead, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepDITserviceRead, bc.iniC.themeApp);
+
+            chkUcepAllVisit.Checked = true;
         }
 
         private void BtnUcepDITdc02Write_Click(object sender, EventArgs e)
@@ -1427,8 +1434,17 @@ namespace bangna_hospital.gui
             DateTime.TryParse(txtUcepDateStart.Value.ToString(), out dtstart);
             DateTime.TryParse(txtUcepDateEnd.Value.ToString(), out dtend);
 
-            datestart = dtstart.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-            dateend = dtend.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            if(dtstart.Year < 2000)
+            {
+                datestart = (dtstart.Year+543) + dtstart.ToString("-MM-dd", new CultureInfo("en-US"));
+                dateend = (dtend.Year+543) + dtend.ToString("-MM-dd", new CultureInfo("en-US"));
+            }
+            else
+            {
+                datestart = dtstart.Year + dtstart.ToString("-MM-dd", new CultureInfo("en-US"));
+                dateend = dtend.Year + dtend.ToString("-MM-dd", new CultureInfo("en-US"));
+            }
+            
             new LogWriter("d", "FrmOPBKKClaim BtnUcepOk_Click datestart " + datestart + " datestart " + datestart);
 
             String[] paid = txtUcepPaidType.Text.Trim().Split(',');
@@ -3091,7 +3107,15 @@ namespace bangna_hospital.gui
                             //}
                             //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate1 " + andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US")));
                             //andate = andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-                            DataTable dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);
+                            DataTable dtdrug = new DataTable();
+                            if (chkUcepAllVisit.Checked)
+                            {
+                                dtdrug = bc.bcDB.vsDB.selectDrugUcepByHn(hn, hnyear, vsdate, preno);
+                            }
+                            else
+                            {
+                                dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);
+                            }
                             foreach (DataRow rowdrug in dtdrug.Rows)
                             {
                                 float qty = 0, price = 0;
@@ -3153,8 +3177,16 @@ namespace bangna_hospital.gui
                                 rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
                                 //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
                             }
-                            DataTable dtlab = bc.bcDB.vsDB.selectResultLabUcepbyAN(hn, an, anyear);
-                            foreach (DataRow rowlab in dtlab.Rows)
+                            DataTable dtlabipd = new DataTable();
+                            if (chkUcepAllVisit.Checked)
+                            {
+                                dtlabipd = bc.bcDB.vsDB.selectResultLabUcepbyPreno(hn, vsdate, preno);
+                            }
+                            else
+                            {
+                                dtlabipd = bc.bcDB.vsDB.selectResultLabUcepbyAN(hn, an, anyear);
+                            }
+                            foreach (DataRow rowlab in dtlabipd.Rows)
                             {
                                 String reqtime = "0000" + rowlab["mnc_stamp_tim"].ToString();
                                 reqtime = reqtime.Substring(reqtime.Length - 4);
@@ -3169,7 +3201,15 @@ namespace bangna_hospital.gui
                                 rowucep["price_total"] = rowlab["MNC_LB_PRI"].ToString();
                                 rowucep["hosp_code1"] = rowlab["MNC_fn_cd"].ToString();
                             }
-                            DataTable dtxray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an, anyear);
+                            DataTable dtxray = new DataTable();
+                            if (chkUcepAllVisit.Checked)
+                            {
+                                dtxray = bc.bcDB.vsDB.selectResultXraybyPreno(hn, vsdate, preno);
+                            }
+                            else
+                            {
+                                dtxray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an, anyear);
+                            }
                             foreach (DataRow rowxray in dtxray.Rows)
                             {
                                 String reqtime = "0000" + rowxray["mnc_stamp_tim"].ToString();
@@ -6220,7 +6260,7 @@ namespace bangna_hospital.gui
             //  แก้เรื่อง ข้อมูลที่ double
 
             //this.Text = "Last Update 2020-04-09";
-            this.Text = "Last Update 2023-01-25";
+            this.Text = "Last Update 2023-04-12 ucep lab xray drug IPD ให้ดึงตามใบยา";
         }
     }
 }

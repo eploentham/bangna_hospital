@@ -170,7 +170,7 @@ namespace bangna_hospital.gui
         }
         private void FrmAipn_Load(object sender, EventArgs e)
         {
-            this.Text = "last Update 2023-03-31 update session on";
+            this.Text = "last Update 2023-04-12 update session on";
             txtFrom.Text = bc.iniC.EmailFromAIPN;
             txtTO.Text = bc.iniC.EmailToAIPN;
             txtSubject.Text = bc.iniC.EmailSubjectAIPN;
