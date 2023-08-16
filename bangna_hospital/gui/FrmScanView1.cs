@@ -47,17 +47,17 @@ namespace bangna_hospital.gui
         C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd, tabPrnEmailDrug, tabPrnEmailLab, tabPrnEmailXray, tabPrnEmailSummary,  tabPrnEmailOther, tabCerti;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic, grfIPD, grfOPD;
         C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem, grfPrnEmailImg, grfCertiView;
-        C1FlexViewer labOutView, fvPrnEmailSummary, fvPrnEmailDrug, fvPrnEmailLab, fvPrnEmailXray, fvPrnEmailOther;
+        C1FlexViewer labOutView, fvPrnEmailSummary, fvPrnEmailDrug, fvPrnEmailLab, fvPrnEmailXray, fvPrnEmailOther, fvCerti;
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal, pnPrnEmail, pnPrnEmailGrfPrn;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
-        Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8;
+        Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8, lbDocGrp9;
 
         Label lbtxtCertiName, lbtxtCertiDtrId, lbtxtCertiDocNo, lbtxtCertiPttHn, lbtxtCertiPttName, lbtxtCertiVsDate, lbtxtCertiVsTime, lbtxtCertiDiag;
         C1TextBox txtCertiName, txtCertiDtrId, txtCertiDocNo, txtCertiPttHn, txtCertiPttName, txtCertiVsDate, txtCertiVsTime, txtCertiDiag;
 
         C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody, txtItmFlag;
-        C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch;
+        C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch, btnCertiNew;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
@@ -115,6 +115,7 @@ namespace bangna_hospital.gui
         Color colorLbDoc;
         Boolean pageLoadGrfPrn = false;
         AutocompleteMenu acmEmailCsh;
+        C1PdfDocumentSource pdsMedCerti;
 
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
@@ -502,40 +503,71 @@ namespace bangna_hospital.gui
         }
         private void initComponentTabCerti()
         {
-            int gapLine = 25, gapX = 20, gapY = 20, xCol2 = 130, xCol1 = 80, xCol3 = 330, xCol4 = 640, xCol5 = 950;
+            int gapLine = 25, gapX = 20, gapY = 10, xCol2 = 130, xCol1 = 80, xCol3 = 330, xCol4 = 640, xCol5 = 950;
             Size size = new Size();
 
             Panel pnTabCertiTop = new Panel();
             Panel pnTabCertiBotton = new Panel();
-            lbtxtCertiDocNo = new Label();
-            txtCertiDocNo = new C1TextBox();
+            //lbtxtCertiDocNo = new Label();
+            //txtCertiDocNo = new C1TextBox();
+            btnCertiNew = new C1Button();
 
             pnTabCertiTop.Dock = DockStyle.Top;
             pnTabCertiBotton.Dock = DockStyle.Fill;
-            pnTabCertiTop.Height = 200;
+            pnTabCertiTop.Height = 40;
 
-            grfCertiView = new C1FlexGrid();
-            grfCertiView.Font = fEdit;
-            grfCertiView.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfCertiView.Location = new System.Drawing.Point(0, 0);
-            grfCertiView.Rows.Count = 1;
-            grfCertiView.Cols.Count = 8;
-            grfCertiView.Cols[colOrderName].Caption = "ชื่อ";
-            grfCertiView.Cols[colOrderName].Width = 300;
+            //grfCertiView = new C1FlexGrid();
+            //grfCertiView.Font = fEdit;
+            //grfCertiView.Dock = System.Windows.Forms.DockStyle.Fill;
+            //grfCertiView.Location = new System.Drawing.Point(0, 0);
+            //grfCertiView.Rows.Count = 1;
+            //grfCertiView.Cols.Count = 8;
+            //grfCertiView.Cols[colOrderName].Caption = "ชื่อ";
+            //grfCertiView.Cols[colOrderName].Width = 300;
+            fvCerti = new C1FlexViewer();
+            fvCerti.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            fvCerti.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            fvCerti.Dock = System.Windows.Forms.DockStyle.Fill;
+            fvCerti.Location = new System.Drawing.Point(0, 0);
+            fvCerti.Name = "fvCerti";
+            fvCerti.Size = new System.Drawing.Size(1065, 790);
+            fvCerti.TabIndex = 0;
+            fvCerti.Ribbon.Minimized = true;
 
-            bc.setControlLabel(ref lbtxtCertiDocNo, fEdit, "เลขที่ :", "lbtxtCertiDocNo", gapX, gapY);
-            size = bc.MeasureString(lbtxtCertiDocNo);
-            bc.setControlC1TextBox(ref txtCertiDocNo, fEdit, "txtCertiDocNo", 120, lbtxtCertiDocNo.Location.X + size.Width, lbtxtCertiDocNo.Location.Y);
+            //C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            //pds.LoadFromStream(stream);
+            //pds.LoadFromFile(filename1);
+            //fvCerti.DocumentSource = pds;
 
-            pnTabCertiBotton.Controls.Add(lbtxtCertiDocNo);
-            pnTabCertiBotton.Controls.Add(txtCertiDocNo);
+            //bc.setControlLabel(ref lbtxtCertiDocNo, fEdit, "เลขที่ :", "lbtxtCertiDocNo", gapX, gapY);
+            //size = bc.MeasureString(lbtxtCertiDocNo);
+            //bc.setControlC1TextBox(ref txtCertiDocNo, fEdit, "txtCertiDocNo", 120, lbtxtCertiDocNo.Location.X + size.Width, lbtxtCertiDocNo.Location.Y);
+            bc.setControlC1Button(ref btnCertiNew, fEdit, "พิมพ์ใบรับรองแพทย์ใหม่", "btnCertiNew", gapX, gapY);
+            btnCertiNew.Click += BtnCertiNew_Click;
 
-            pnTabCertiTop.Controls.Add(grfCertiView);
+            pnTabCertiBotton.Controls.Add(fvCerti);
+            //pnTabCertiBotton.Controls.Add(txtCertiDocNo);
+
+            pnTabCertiTop.Controls.Add(btnCertiNew);
             tabCerti.Controls.Add(pnTabCertiBotton);
             tabCerti.Controls.Add(pnTabCertiTop);
 
-            theme1.SetTheme(grfCertiView, bc.iniC.themeApp);
+            theme1.SetTheme(fvCerti, bc.iniC.themeApp);
         }
+
+        private void BtnCertiNew_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmCertDoctor frm = new FrmCertDoctor(bc, hn, vsDate,preno);
+            frm.ShowDialog(this);
+            if(frm.streamCertiDtr != null)
+            {
+                C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                pds.LoadFromStream(frm.streamCertiDtr);
+                fvCerti.DocumentSource = pds;
+            }
+        }
+
         private void initGrfOrderLabXray()
         {
             grfOrder = new C1FlexGrid();
@@ -567,8 +599,10 @@ namespace bangna_hospital.gui
             //grfLab.Cols[0].Visible = false;
             grfLab.Name = "grfLab";
             ContextMenu menuGw = new ContextMenu();
-            menuGw.MenuItems.Add("ต้องการ Print ", new EventHandler(ContextMenu_print_lab));
+            menuGw.MenuItems.Add("ต้องการ Print AN ", new EventHandler(ContextMenu_print_lab));
             menuGw.MenuItems.Add("ต้องการ Export PDF ", new EventHandler(ContextMenu_print_lab_export));
+            menuGw.MenuItems.Add("ต้องการ Print ทุกใบยา ", new EventHandler(ContextMenu_print_lab_allvisit));
+            menuGw.MenuItems.Add("ต้องการ Export PDF ทุกใบยา", new EventHandler(ContextMenu_print_lab_export_allvisit));
             grfLab.ContextMenu = menuGw;
             grfLab.Rows.Count = 1;
 
@@ -645,34 +679,197 @@ namespace bangna_hospital.gui
             grfScan.Cols[colPic1].AllowEditing = false;
             grfScan.Cols[colPic3].AllowEditing = false;
             grfScan.DoubleClick += Grf_DoubleClick;
-
             lbDocAll = new Label();
             bc.setControlLabel(ref lbDocAll, fEditB, "All", "lbDocAll", 20, 5);
-            lbDocGrp1 = new Label();
-            bc.setControlLabel(ref lbDocGrp1, fEditB, "DISCHARGE", "lbDocGrp1", lbDocAll.Width + 20, 5);
-            lbDocGrp2 = new Label();
-            bc.setControlLabel(ref lbDocGrp2, fEditB, "ADMISSION", "lbDocGrp2", lbDocGrp1.Location.X + lbDocGrp1.Width + 20, 5);
-            lbDocGrp3 = new Label();
-            bc.setControlLabel(ref lbDocGrp3, fEditB, "ORDER", "lbDocGrp3", lbDocGrp2.Location.X + lbDocGrp2.Width + 20, 5);
-            lbDocGrp4 = new Label();
-            bc.setControlLabel(ref lbDocGrp4, fEditB, "OPERATIVE", "lbDocGrp4", lbDocGrp3.Location.X + lbDocGrp3.Width + 50, 5);
-            lbDocGrp5 = new Label();
-            bc.setControlLabel(ref lbDocGrp5, fEditB, "INVESTIGATION", "lbDocGrp5", lbDocGrp4.Location.X + lbDocGrp4.Width + 40, 5);
-            lbDocGrp6 = new Label();
-            bc.setControlLabel(ref lbDocGrp6, fEditB, "NURSE", "lbDocGrp6", lbDocGrp5.Location.X + lbDocGrp5.Width + 60, 5);
-            lbDocGrp7 = new Label();
-            bc.setControlLabel(ref lbDocGrp7, fEditB, "MEDICATION", "lbDocGrp7", lbDocGrp6.Location.X + lbDocGrp6.Width + 40, 5);
-            lbDocGrp8 = new Label();
-            bc.setControlLabel(ref lbDocGrp8, fEditB, "OTHER", "lbDocGrp8", lbDocGrp7.Location.X + lbDocGrp7.Width + 40, 5);
+            lbDocAll.ForeColor = Color.Red;
             lbDocAll.Click += LbDocAll_Click;
-            lbDocGrp1.Click += LbDocAll_Click;
-            lbDocGrp2.Click += LbDocAll_Click;
-            lbDocGrp3.Click += LbDocAll_Click;
-            lbDocGrp4.Click += LbDocAll_Click;
-            lbDocGrp5.Click += LbDocAll_Click;
-            lbDocGrp6.Click += LbDocAll_Click;
-            lbDocGrp7.Click += LbDocAll_Click;
-            lbDocGrp8.Click += LbDocAll_Click;
+            pnScanTop.Controls.Add(lbDocAll);
+            int i = 0, width1=0;
+            colorLbDoc = lbDocAll.ForeColor;
+            if (bc.bcDB.dgsDB.lDgs.Count <= 0) bc.bcDB.dgsDB.getlDgs();
+            foreach (DocGroupScan dgs in bc.bcDB.dgsDB.lDgs)
+            {
+                i++;
+                if (i == 1)
+                {
+                    lbDocGrp1 = new Label();
+                    bc.setControlLabel(ref lbDocGrp1, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp1.Click += LbDocAll_Click;
+                    lbDocGrp1.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp1);
+                }
+                else if (i == 2)
+                {
+                    lbDocGrp2 = new Label();
+                    bc.setControlLabel(ref lbDocGrp2, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp2.Click += LbDocAll_Click;
+                    lbDocGrp2.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp2);
+                }
+                else if (i == 3)
+                {
+                    lbDocGrp3 = new Label();
+                    bc.setControlLabel(ref lbDocGrp3, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp3.Click += LbDocAll_Click;
+                    lbDocGrp3.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp3);
+                }
+                else if (i == 4)
+                {
+                    lbDocGrp4 = new Label();
+                    bc.setControlLabel(ref lbDocGrp4, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp4.Click += LbDocAll_Click;
+                    lbDocGrp4.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp4);
+                }
+                else if (i == 5)
+                {
+                    lbDocGrp5 = new Label();
+                    bc.setControlLabel(ref lbDocGrp5, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp5.Click += LbDocAll_Click;
+                    lbDocGrp5.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp5);
+                }
+                else if (i == 6)
+                {
+                    lbDocGrp6 = new Label();
+                    bc.setControlLabel(ref lbDocGrp6, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp6.Click += LbDocAll_Click;
+                    lbDocGrp6.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp6);
+                }
+                else if (i == 7)
+                {
+                    lbDocGrp7 = new Label();
+                    bc.setControlLabel(ref lbDocGrp7, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp7.Click += LbDocAll_Click;
+                    lbDocGrp7.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp7);
+                }
+                else if (i == 8)
+                {
+                    lbDocGrp8 = new Label();
+                    bc.setControlLabel(ref lbDocGrp8, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp8.Click += LbDocAll_Click;
+                    lbDocGrp8.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp8);
+                }
+                else if (i == 9)
+                {
+                    lbDocGrp9 = new Label();
+                    bc.setControlLabel(ref lbDocGrp9, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp9.Click += LbDocAll_Click;
+                    lbDocGrp9.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp9);
+                }
+            }
+            
+            //lbDocGrp1 = new Label();
+            //bc.setControlLabel(ref lbDocGrp1, fEditB, "DISCHARGE", "lbDocGrp1", lbDocAll.Width + 20, 5);
+            //lbDocGrp2 = new Label();
+            //bc.setControlLabel(ref lbDocGrp2, fEditB, "ADMISSION", "lbDocGrp2", lbDocGrp1.Location.X + lbDocGrp1.Width + 20, 5);
+            //lbDocGrp3 = new Label();
+            //bc.setControlLabel(ref lbDocGrp3, fEditB, "ORDER", "lbDocGrp3", lbDocGrp2.Location.X + lbDocGrp2.Width + 20, 5);
+            //lbDocGrp4 = new Label();
+            //bc.setControlLabel(ref lbDocGrp4, fEditB, "OPERATIVE", "lbDocGrp4", lbDocGrp3.Location.X + lbDocGrp3.Width + 50, 5);
+            //lbDocGrp5 = new Label();
+            //bc.setControlLabel(ref lbDocGrp5, fEditB, "INVESTIGATION", "lbDocGrp5", lbDocGrp4.Location.X + lbDocGrp4.Width + 40, 5);
+            //lbDocGrp6 = new Label();
+            //bc.setControlLabel(ref lbDocGrp6, fEditB, "NURSE", "lbDocGrp6", lbDocGrp5.Location.X + lbDocGrp5.Width + 60, 5);
+            //lbDocGrp7 = new Label();
+            //bc.setControlLabel(ref lbDocGrp7, fEditB, "MEDICATION", "lbDocGrp7", lbDocGrp6.Location.X + lbDocGrp6.Width + 40, 5);
+            //lbDocGrp8 = new Label();
+            //bc.setControlLabel(ref lbDocGrp8, fEditB, "OTHER", "lbDocGrp8", lbDocGrp7.Location.X + lbDocGrp7.Width + 40, 5);
+            //lbDocAll.Click += LbDocAll_Click;
+            //lbDocGrp1.Click += LbDocAll_Click;
+            //lbDocGrp2.Click += LbDocAll_Click;
+            //lbDocGrp3.Click += LbDocAll_Click;
+            //lbDocGrp4.Click += LbDocAll_Click;
+            //lbDocGrp5.Click += LbDocAll_Click;
+            //lbDocGrp6.Click += LbDocAll_Click;
+            //lbDocGrp7.Click += LbDocAll_Click;
+            //lbDocGrp8.Click += LbDocAll_Click;
             //grfScan.AutoSizeRows();
             //grfScan.AutoSizeCols();
             //tabScan.Controls.Add(grfScan);
@@ -681,41 +878,45 @@ namespace bangna_hospital.gui
 
             //theme1.SetTheme(grfLab, "Office2016Black");
             //theme1.SetTheme(grfXray, "Office2016Black");
-            colorLbDoc = lbDocAll.ForeColor;
+            
             docgrpid = "1100000099";
-            setForColorLbDocGrp();
-            lbDocAll.ForeColor = Color.Red;
-            pnScanTop.Controls.Add(lbDocAll);
-            pnScanTop.Controls.Add(lbDocGrp1);
-            pnScanTop.Controls.Add(lbDocGrp2);
-            pnScanTop.Controls.Add(lbDocGrp3);
-            pnScanTop.Controls.Add(lbDocGrp4);
-            pnScanTop.Controls.Add(lbDocGrp5);
-            pnScanTop.Controls.Add(lbDocGrp6);
-            pnScanTop.Controls.Add(lbDocGrp7);
-            pnScanTop.Controls.Add(lbDocGrp8);
+            //setForColorLbDocGrp();
+            
+            
+            //pnScanTop.Controls.Add(lbDocGrp1);
+            //pnScanTop.Controls.Add(lbDocGrp2);
+            //pnScanTop.Controls.Add(lbDocGrp3);
+            //pnScanTop.Controls.Add(lbDocGrp4);
+            //pnScanTop.Controls.Add(lbDocGrp5);
+            //pnScanTop.Controls.Add(lbDocGrp6);
+            //pnScanTop.Controls.Add(lbDocGrp7);
+            //pnScanTop.Controls.Add(lbDocGrp8);
             tabScan.Controls.Add(pnScan);
             tabScan.Controls.Add(pnScanTop);
             pnScan.Controls.Add(grfScan);
             //initGrfPrn();
             //initGrfHn();
         }
-        private void setForColorLbDocGrp()
+        private void setForColorLbDocGrp(object sender)
         {
-            lbDocAll.ForeColor = colorLbDoc;
-            lbDocGrp1.ForeColor = colorLbDoc;
-            lbDocGrp2.ForeColor = colorLbDoc;
-            lbDocGrp3.ForeColor = colorLbDoc;
-            lbDocGrp4.ForeColor = colorLbDoc;
-            lbDocGrp5.ForeColor = colorLbDoc;
-            lbDocGrp6.ForeColor = colorLbDoc;
-            lbDocGrp7.ForeColor = colorLbDoc;
-            lbDocGrp8.ForeColor = colorLbDoc;
+            lbDocAll.ForeColor = Color.Black;
+
+            lbDocGrp1.ForeColor = Color.Black;
+            lbDocGrp2.ForeColor = Color.Black;
+            lbDocGrp3.ForeColor = Color.Black;
+            lbDocGrp4.ForeColor = Color.Black;
+            lbDocGrp5.ForeColor = Color.Black;
+            lbDocGrp6.ForeColor = Color.Black;
+            lbDocGrp7.ForeColor = Color.Black;
+            lbDocGrp8.ForeColor = Color.Black;
+            lbDocGrp9.ForeColor = Color.Black;
         }
         private void LbDocAll_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setForColorLbDocGrp();
+            grfScan.ContextMenu.MenuItems.Clear();
+
+            setForColorLbDocGrp(sender);
             ((Label)sender).ForeColor = Color.Red;
             if (((Label)sender).Name.Equals("lbDocAll"))
             {
@@ -723,35 +924,39 @@ namespace bangna_hospital.gui
             }
             else if (((Label)sender).Name.Equals("lbDocGrp1"))
             {
-                docgrpid = "1100000000";
+                docgrpid = "1100000000";//DISCHARGE
             }
             else if (((Label)sender).Name.Equals("lbDocGrp2"))
             {
-                docgrpid = "1100000001";
+                docgrpid = "1100000001";//ADMISSION
             }
             else if (((Label)sender).Name.Equals("lbDocGrp3"))
             {
-                docgrpid = "1100000002";
+                docgrpid = "1100000002";//ORDER
             }
             else if (((Label)sender).Name.Equals("lbDocGrp4"))
             {
-                docgrpid = "1100000003";
+                docgrpid = "1100000003";//OPERATIVE
             }
             else if (((Label)sender).Name.Equals("lbDocGrp5"))
             {
-                docgrpid = "1100000004";
+                docgrpid = "1100000004";//INVESTIGATION
             }
             else if (((Label)sender).Name.Equals("lbDocGrp6"))
             {
-                docgrpid = "1100000005";
+                docgrpid = "1100000005";//NURSE
             }
             else if (((Label)sender).Name.Equals("lbDocGrp7"))
             {
-                docgrpid = "1100000006";
+                docgrpid = "1100000006";//MEDICATION
             }
             else if (((Label)sender).Name.Equals("lbDocGrp8"))
             {
-                docgrpid = "1100000007";
+                docgrpid = "1100000007";//OTHER
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp9"))
+            {
+                docgrpid = "1100000008";//GRAPHIC SHEET
             }
             setGrfScan();
         }
@@ -1490,6 +1695,28 @@ namespace bangna_hospital.gui
                     initComponentTabCerti();
                 }
                 flagTabCertiLoad = true;
+                if (!chkIPD.Checked)        //OPD
+                {
+                    preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
+                    vsDate = grfOPD[grfOPD.Row, colVsVsDate1] != null ? grfOPD[grfOPD.Row, colVsVsDate1].ToString() : "";
+                    vsDate = bc.datetoDB(vsDate);
+                }
+                else
+                {
+                    preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+                    vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+                    vsDate = bc.datetoDB(vsDate);
+                }
+                String docscanid = "";
+                docscanid = bc.bcDB.mcertiDB.selectDocScanIDByHn(txtHn.Text.Trim(), preno, vsDate);
+                DocScan dsc = new DocScan();
+                dsc = bc.bcDB.dscDB.selectByPk(docscanid);
+                FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+
+                pdsMedCerti = new C1PdfDocumentSource();
+                pdsMedCerti.LoadFromStream(streamCertiDtr);
+                fvCerti.DocumentSource = pdsMedCerti;
 
                 //setGrfXray(grfOPD.Row);
             }
@@ -1556,13 +1783,12 @@ namespace bangna_hospital.gui
                 {
                     initTabPrn();
                 }
-                
                 if (!chkIPD.Checked )
                 {
                     if (grfOPD.Row > 1)
                     {
                         preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
-                        vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                        vsDate = grfOPD[grfOPD.Row, colVsVsDate1] != null ? grfOPD[grfOPD.Row, colVsVsDate1].ToString() : "";
                         vsDate = bc.datetoDB(vsDate);
                     }
                 }
@@ -1792,9 +2018,10 @@ namespace bangna_hospital.gui
             }
             else
             {
-                id = grfScan[grfScan.Row, colPic4].ToString();
+                id = grfScan[grfScan.Row, colPic4] != null ? grfScan[grfScan.Row, colPic4].ToString(): "";
             }
             //id = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colPic2].ToString();
+            if (id.Equals("")) return;
             dsc_id = id;
             MemoryStream strm = null;
             foreach (listStream lstrmm in lStream)
@@ -2057,7 +2284,8 @@ namespace bangna_hospital.gui
                 //setGrfScan(grfOPD.Row, "OPD");
                 String symptom = "", paidtype="", high="", weight="", cc="", ccin="", ccex="", abc="", hc="", bp1l="", bp1r="", bp2l="",bp2r="", temp="", vitalsign="", pres="", breath="", radios="";
                 preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
-                vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                //vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";  //-1  แก้ bug เรื่อง date
+                vsDate = grfOPD[grfOPD.Row, colVsVsDate1] != null ? grfOPD[grfOPD.Row, colVsVsDate1].ToString() : "";  //+1  แก้ bug เรื่อง date
                 symptom = grfOPD[grfOPD.Row, colVsDept] != null ? grfOPD[grfOPD.Row, colVsDept].ToString() : "";
                 paidtype = grfOPD[grfOPD.Row, colVsPaidType] != null ? grfOPD[grfOPD.Row, colVsPaidType].ToString() : "";
 
@@ -8520,13 +8748,15 @@ namespace bangna_hospital.gui
                     String[] an1 = an.Split('/');
                     if (an1.Length > 0)
                     {
-                        dt = bc.bcDB.vsDB.selectResultLabbyAN(txtHn.Text, an1[0], an1[1]);
+                        vsdate = bc.datetoDB(vsdate);
+                        //dt = bc.bcDB.vsDB.selectResultLabbyAN(txtHn.Text, an1[0], an1[1]);        // แก้ให้ดึงข้อมูล จากทุก preno
+                        dt = bc.bcDB.vsDB.selectResultLabbyANAllVisit(txtHn.Text, vsdate);
                     }
                 }
             }
             
             //Application.DoEvents();
-                
+
             grfLab.Rows.Count = 1;
             //grfLab.Cols[colOrderId].Visible = false;
             grfLab.Rows.Count = dt.Rows.Count + 1;
@@ -8611,6 +8841,13 @@ namespace bangna_hospital.gui
             
             //new LogWriter("e", "FrmScanView1 setGrfScan 5 ");
             GC.Collect();
+            if(grfScan.ContextMenu != null) grfScan.ContextMenu.MenuItems.Clear();
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_grfscan_print));
+            menuGw.MenuItems.Add("ต้องการ Print ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_print_all));
+            menuGw.MenuItems.Add("ต้องการ Download ภาพนี้", new EventHandler(ContextMenu_grfscan_Download));
+            menuGw.MenuItems.Add("ต้องการ Download ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_DownloadAll));
+            menuGw.MenuItems.Add("ต้องการ แก้ไข ภาพนี้", new EventHandler(ContextMenu_grfscan_Edit));
             //Application.DoEvents();
             DataTable dt = new DataTable();
             if (!chkIPD.Checked)
@@ -8645,6 +8882,7 @@ namespace bangna_hospital.gui
                 if (docgrpid.Equals("1100000099"))
                 {
                     dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
+                    menuGw.MenuItems.Add("ต้องการ Download ตามกลุ่มเอกสาร", new EventHandler(ContextMenu_grfscan_Download_byGroup));
                 }
                 else
                 {
@@ -8658,13 +8896,7 @@ namespace bangna_hospital.gui
             }
             vsDate = bc.datetoDB(vsDate);
             //setStaffNote(vsDate, preno);
-
-            ContextMenu menuGw = new ContextMenu();
-            menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_grfscan_print));
-            menuGw.MenuItems.Add("ต้องการ Print ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_print_all));
-            menuGw.MenuItems.Add("ต้องการ Download ภาพนี้", new EventHandler(ContextMenu_grfscan_Download));
-            menuGw.MenuItems.Add("ต้องการ Download ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_DownloadAll));
-            menuGw.MenuItems.Add("ต้องการ แก้ไข ภาพนี้", new EventHandler(ContextMenu_grfscan_Edit));
+            
             grfScan.ContextMenu = menuGw;
             //new LogWriter("e", "FrmScanView1 setGrfScan 6 ");
             grfScan.Rows.Count = 0;
@@ -8809,6 +9041,7 @@ namespace bangna_hospital.gui
 
                             strm = new listStream();
                             strm.id = id;
+                            strm.dgsid = row1[bc.bcDB.dscDB.dsc.doc_group_id].ToString();
                             err = "08";
                             strm.stream = stream;
                             err = "09";
@@ -8852,6 +9085,146 @@ namespace bangna_hospital.gui
             //setControlGbPtt();
             grfScan.AutoSizeCols();
             grfScan.AutoSizeRows();
+            hideLbLoading();
+        }
+        private void ContextMenu_grfscan_Download_byGroup(object sender, System.EventArgs e)
+        {
+            showLbLoading();
+            lbLoading.BringToFront();
+            try
+            {
+                String id = "", datetick = "", folderName = "", filename="";
+                folderName = txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "_");
+                if (!Directory.Exists(bc.iniC.pathDownloadFile + "\\" + folderName))
+                {
+                    Directory.CreateDirectory(bc.iniC.pathDownloadFile + "\\" + folderName);
+                }
+                else
+                {
+                    string[] files = Directory.GetFiles(bc.iniC.pathDownloadFile + "\\" + folderName);
+                    foreach (string file in files)
+                    {
+                        File.Delete(file);
+                    }
+                }
+                Application.DoEvents();
+                //Stream streamDownload = null;
+                //MemoryStream strm = null;
+                int i1 = 0;
+                DataTable dt = bc.bcDB.dgsDB.selectAll();
+                C1PdfDocument[] _c1pdf = new C1PdfDocument[dt.Rows.Count];
+                foreach (DataRow drow in dt.Rows)
+                {
+                    _c1pdf[i1] = new C1PdfDocument();
+                    _c1pdf[i1].DocumentInfo.Producer = "C1Pdf";
+                    _c1pdf[i1].Security.AllowCopyContent = true;
+                    _c1pdf[i1].Security.AllowEditAnnotations = true;
+                    _c1pdf[i1].Security.AllowEditContent = true;
+                    _c1pdf[i1].Security.AllowPrint = true;
+                    _c1pdf[i1].SaveAllImagesAsJpeg = true;
+                    _c1pdf[i1].DocumentInfo.Title = drow["doc_group_id"].ToString();
+                    i1++;
+                }
+                
+                int i = 1, newWidth1 = 210;
+                foreach (listStream lstrmm in lStream)
+                {
+                    RectangleF rc;
+                    Image img = Image.FromStream(lstrmm.stream);
+                    Image img1 = bc.ResizeImagetoA41(img, 900);
+                    foreach(C1PdfDocument pdf in _c1pdf)
+                    {
+                        if (pdf == null) continue;
+                        if (lstrmm.dgsid.Equals(pdf.DocumentInfo.Title))
+                        {
+                            rc = new RectangleF(10, 10, 590, 770);
+                            pdf.DrawImage(img, rc);
+                            if (i < lStream.Count)
+                                pdf.NewPage();
+                        }
+                    }
+                }
+                //LAB
+                DataTable dtLab = new DataTable();
+                if (chkIPD.Checked)
+                {
+                    String[] an1 = txtVN.Text.Trim().Split('/');
+                    if (an1.Length >= 2)
+                    {
+                        dtLab = setPrintLabPrnSSO(an1[0], an1[1], "", "an");
+                    }
+                }
+                else
+                {
+
+                }
+                //filename = txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-");
+                filename = bc.iniC.ssoid.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-");
+                if (dtLab.Rows.Count > 0)
+                {
+                    lbLoading.Text = "กรุณารอซักครู่ มี lab ... ";
+                    Application.DoEvents();
+                    FrmReportNew frm = new FrmReportNew(bc, "lab_result_3");
+                    frm.DT = dtLab;
+                    frm.ExportReport(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_lab.pdf");
+                }
+                foreach (C1PdfDocument pdf in _c1pdf)
+                {
+                    if (pdf.DocumentInfo.Title.Equals("1100000000"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_DISCHARGE.pdf");
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000001"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_ADMISSION.pdf");
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000002"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_ORDER.pdf");
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000003"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_OPERATIVE.pdf");
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000004"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_INVESTIGATION.pdf");
+                        if (File.Exists(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_lab.pdf"))
+                        {
+                            String[] files;
+                            files = new string[2];
+                            files[0] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_INVESTIGATION.pdf";
+                            files[1] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_lab.pdf";
+                            PdfControl pdfc = new PdfControl();
+                            pdfc.MergeFileslab(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_INVESTIGATION_all.pdf", files);
+                        }
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000005"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_NURSE.pdf");
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000006"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_MEDICATION.pdf");
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000007"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_OTHER.pdf");
+                    }
+                    else if (pdf.DocumentInfo.Title.Equals("1100000008"))
+                    {
+                        pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + filename + "_GRAPHSHEET.pdf");
+                    }
+                }
+                Application.DoEvents();
+                Application.DoEvents();
+                //MessageBox.Show(bc.iniC.pathDownloadFile + "\\" + folderName,"");
+                Process.Start("explorer.exe", bc.iniC.pathDownloadFile + "\\" + folderName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error " + ex.Message, "");
+            }
             hideLbLoading();
         }
         private void ContextMenu_grfscan_DownloadAll(object sender, System.EventArgs e)
@@ -9155,6 +9528,66 @@ namespace bangna_hospital.gui
                 fvPrnEmailLab.DocumentSource = pds;
             }
         }
+        private void ContextMenu_print_lab_allvisit(object sender, System.EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            String vn = "";
+            //dt = setPrintLab();
+            //FrmReport frm = new FrmReport(bc, this, "lab_result", dt);
+            //vsDate = DateTime.Now.ToString("MMdd");
+            if (!chkIPD.Checked)
+            {
+                if (txtVN.Text.Trim().Length <= 0)
+                {
+                    return;
+                }
+                if (txtVN.Text.Trim().IndexOf("(") > 0)
+                {
+                    vn = txtVN.Text.Trim().Substring(0, txtVN.Text.Trim().IndexOf("("));
+                }
+                if (txtVN.Text.Trim().IndexOf("/") > 0)
+                {
+                    vn = txtVN.Text.Trim().Substring(0, vn.IndexOf("/"));
+                }
+                dt = setPrintLabPrnSSO(vn, preno, vsDate, "vn");
+            }
+            else
+            {
+                String[] an1 = txtVN.Text.Trim().Split('/');
+                if (an1.Length >= 2)
+                {
+                    dt = setPrintLabPrnSSO(an1[0], an1[1], vsDate, "an_all");
+                }
+            }
+            FrmReportNew frm = new FrmReportNew(bc, "lab_result_3");
+            frm.DT = dt;
+            frm.ShowDialog(this);
+        }
+        private void ContextMenu_print_lab_export_allvisit(object sender, System.EventArgs e)
+        {
+            showLbLoading();
+            String datetick = "", pathFolder = "";
+            datetick = DateTime.Now.Ticks.ToString();
+            pathFolder = bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim() + "\\" + datetick;
+            if (Directory.Exists(pathFolder))
+            {
+                Directory.Delete(pathFolder, true);
+                Thread.Sleep(100);
+                Application.DoEvents();
+            }
+            Directory.CreateDirectory(pathFolder);
+
+            DataTable dt = new DataTable();
+            dt = setPrintLab();
+
+            FrmReportNew frm = new FrmReportNew(bc, "lab_result_3");
+            frm.DT = dt;
+            //frm.ShowDialog(this);
+            frm.ExportReport(pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_LAB.pdf");
+            string argument = "/select, \"" + pathFolder + "\\" + bc.iniC.ssoid + "_" + ptt.idcard + "_LAB.pdf" + "\"";
+            Process.Start("explorer.exe", argument);
+            hideLbLoading();
+        }
         private void ContextMenu_print_lab(object sender, System.EventArgs e)
         {
             DataTable dt = new DataTable();
@@ -9224,6 +9657,10 @@ namespace bangna_hospital.gui
                 }
                 dt = bc.bcDB.vsDB.selectLabbyVN1(vsdate, vsdate, txtHn.Text.Trim(), vn, preno);
                 new LogWriter("d", "*********** FrmScanView1 setPrintLabPrnSSO preno " + preno + " vsdate " + vsdate + " hn " + txtHn.Text.Trim() + " vn " + vn);
+            }
+            else if (flagVN.Equals("an_all"))
+            {
+                dt = bc.bcDB.vsDB.selectLabbyAN_ALL(txtHn.Text.Trim(), vsdate);
             }
             else
             {
@@ -9352,8 +9789,11 @@ namespace bangna_hospital.gui
                     String[] an1 = an.Split('/');
                     if (an1.Length > 0)
                     {
-                        dt = bc.bcDB.vsDB.selectResultLabbyAN(txtHn.Text, an1[0], an1[1]);
-                        dtreq = bc.bcDB.vsDB.selectRequestLabbyAN(txtHn.Text, an1[0], an1[1]);
+                        //dt = bc.bcDB.vsDB.selectResultLabbyAN(txtHn.Text, an1[0], an1[1]);
+                        //dtreq = bc.bcDB.vsDB.selectRequestLabbyAN(txtHn.Text, an1[0], an1[1]);
+                        vsdate = bc.datetoDB(vsdate);
+                        dt = bc.bcDB.vsDB.selectResultLabbyANAllVisit(txtHn.Text, vsdate);
+                        dtreq = bc.bcDB.vsDB.selectRequestLabbyANAllVisit(txtHn.Text, vsdate);
                     }
                 }
             }
@@ -9733,7 +10173,7 @@ namespace bangna_hospital.gui
         }
         class listStream
         {
-            public String id = "";
+            public String id = "", dgsid="";
             public MemoryStream stream;
         }
         private void setControlGbPtt()
@@ -9794,7 +10234,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2022-06-09 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ vsdate ";
+            this.Text = "Last Update 2023-08-16-1 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ vsdate +1 ";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

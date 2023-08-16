@@ -33,12 +33,13 @@
             this.btnPrintOPD21TrueStar = new System.Windows.Forms.Button();
             this.btnPrintLicenseDriver = new System.Windows.Forms.Button();
             this.btnPrnCovid = new System.Windows.Forms.Button();
+            this.bntPrnCertDtr = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPrintOPD2
             // 
             this.btnPrintOPD2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPrintOPD2.Location = new System.Drawing.Point(117, 60);
+            this.btnPrintOPD2.Location = new System.Drawing.Point(117, 12);
             this.btnPrintOPD2.Name = "btnPrintOPD2";
             this.btnPrintOPD2.Size = new System.Drawing.Size(284, 41);
             this.btnPrintOPD2.TabIndex = 130;
@@ -49,7 +50,7 @@
             // btnPrintOPD21
             // 
             this.btnPrintOPD21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPrintOPD21.Location = new System.Drawing.Point(117, 126);
+            this.btnPrintOPD21.Location = new System.Drawing.Point(117, 70);
             this.btnPrintOPD21.Name = "btnPrintOPD21";
             this.btnPrintOPD21.Size = new System.Drawing.Size(284, 41);
             this.btnPrintOPD21.TabIndex = 131;
@@ -60,7 +61,7 @@
             // btnPrintOPD21TrueStar
             // 
             this.btnPrintOPD21TrueStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPrintOPD21TrueStar.Location = new System.Drawing.Point(117, 199);
+            this.btnPrintOPD21TrueStar.Location = new System.Drawing.Point(117, 129);
             this.btnPrintOPD21TrueStar.Name = "btnPrintOPD21TrueStar";
             this.btnPrintOPD21TrueStar.Size = new System.Drawing.Size(284, 54);
             this.btnPrintOPD21TrueStar.TabIndex = 132;
@@ -70,7 +71,7 @@
             // btnPrintLicenseDriver
             // 
             this.btnPrintLicenseDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPrintLicenseDriver.Location = new System.Drawing.Point(117, 275);
+            this.btnPrintLicenseDriver.Location = new System.Drawing.Point(117, 202);
             this.btnPrintLicenseDriver.Name = "btnPrintLicenseDriver";
             this.btnPrintLicenseDriver.Size = new System.Drawing.Size(284, 41);
             this.btnPrintLicenseDriver.TabIndex = 133;
@@ -80,18 +81,29 @@
             // btnPrnCovid
             // 
             this.btnPrnCovid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPrnCovid.Location = new System.Drawing.Point(117, 333);
+            this.btnPrnCovid.Location = new System.Drawing.Point(117, 263);
             this.btnPrnCovid.Name = "btnPrnCovid";
             this.btnPrnCovid.Size = new System.Drawing.Size(284, 41);
             this.btnPrnCovid.TabIndex = 134;
             this.btnPrnCovid.Text = "Print COVID";
             this.btnPrnCovid.UseVisualStyleBackColor = true;
             // 
+            // bntPrnCertDtr
+            // 
+            this.bntPrnCertDtr.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.bntPrnCertDtr.Location = new System.Drawing.Point(117, 380);
+            this.bntPrnCertDtr.Name = "bntPrnCertDtr";
+            this.bntPrnCertDtr.Size = new System.Drawing.Size(284, 41);
+            this.bntPrnCertDtr.TabIndex = 135;
+            this.bntPrnCertDtr.Text = "Print ใบรับรองแพทย์";
+            this.bntPrnCertDtr.UseVisualStyleBackColor = true;
+            // 
             // FrmOPD2CheckUPMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 465);
+            this.Controls.Add(this.bntPrnCertDtr);
             this.Controls.Add(this.btnPrnCovid);
             this.Controls.Add(this.btnPrintLicenseDriver);
             this.Controls.Add(this.btnPrintOPD21TrueStar);
@@ -112,5 +124,6 @@
         private System.Windows.Forms.Button btnPrintOPD21TrueStar;
         private System.Windows.Forms.Button btnPrintLicenseDriver;
         private System.Windows.Forms.Button btnPrnCovid;
+        private System.Windows.Forms.Button bntPrnCertDtr;
     }
 }

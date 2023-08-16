@@ -183,6 +183,7 @@ namespace bangna_hospital.gui
             this.label29 = new System.Windows.Forms.Label();
             this.tabBn5Lab = new C1.Win.C1Command.C1DockingTabPage();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.cboBn5LabReas = new C1.Win.C1Input.C1ComboBox();
             this.label91 = new System.Windows.Forms.Label();
             this.cboBn5LabTmlt = new C1.Win.C1Input.C1ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -200,7 +201,6 @@ namespace bangna_hospital.gui
             this.label79 = new System.Windows.Forms.Label();
             this.txtBn5LabCode = new C1.Win.C1Input.C1TextBox();
             this.label78 = new System.Windows.Forms.Label();
-            this.cboBn5LabReas = new C1.Win.C1Input.C1ComboBox();
             this.label77 = new System.Windows.Forms.Label();
             this.cboBn5LabPlace = new C1.Win.C1Input.C1ComboBox();
             this.label76 = new System.Windows.Forms.Label();
@@ -326,6 +326,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5Guid)).BeginInit();
             this.tabBn5Lab.SuspendLayout();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabReas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabTmlt)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5VaccManu)).BeginInit();
@@ -334,7 +335,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5VaccHospCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5LabName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5LabCode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabReas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabPlace)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5LabSpeciDt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabRes)).BeginInit();
@@ -2535,6 +2535,23 @@ namespace bangna_hospital.gui
             this.panel8.Size = new System.Drawing.Size(708, 610);
             this.panel8.TabIndex = 0;
             // 
+            // cboBn5LabReas
+            // 
+            this.cboBn5LabReas.AllowSpinLoop = false;
+            this.cboBn5LabReas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cboBn5LabReas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboBn5LabReas.GapHeight = 0;
+            this.cboBn5LabReas.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboBn5LabReas.ItemsDisplayMember = "";
+            this.cboBn5LabReas.ItemsValueMember = "";
+            this.cboBn5LabReas.Location = new System.Drawing.Point(95, 160);
+            this.cboBn5LabReas.Name = "cboBn5LabReas";
+            this.cboBn5LabReas.Size = new System.Drawing.Size(603, 24);
+            this.cboBn5LabReas.TabIndex = 131;
+            this.cboBn5LabReas.Tag = null;
+            this.cboBn5LabReas.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.cboBn5LabReas.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
             // label91
             // 
             this.label91.AutoSize = true;
@@ -2757,23 +2774,6 @@ namespace bangna_hospital.gui
             this.label78.Size = new System.Drawing.Size(77, 20);
             this.label78.TabIndex = 132;
             this.label78.Text = "lab code :";
-            // 
-            // cboBn5LabReas
-            // 
-            this.cboBn5LabReas.AllowSpinLoop = false;
-            this.cboBn5LabReas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cboBn5LabReas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboBn5LabReas.GapHeight = 0;
-            this.cboBn5LabReas.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboBn5LabReas.ItemsDisplayMember = "";
-            this.cboBn5LabReas.ItemsValueMember = "";
-            this.cboBn5LabReas.Location = new System.Drawing.Point(95, 160);
-            this.cboBn5LabReas.Name = "cboBn5LabReas";
-            this.cboBn5LabReas.Size = new System.Drawing.Size(603, 24);
-            this.cboBn5LabReas.TabIndex = 131;
-            this.cboBn5LabReas.Tag = null;
-            this.cboBn5LabReas.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.cboBn5LabReas.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
             // 
             // label77
             // 
@@ -3359,6 +3359,7 @@ namespace bangna_hospital.gui
             this.tabBn5Lab.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabReas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabTmlt)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -3368,7 +3369,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5VaccHospCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5LabName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5LabCode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabReas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabPlace)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBn5LabSpeciDt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboBn5LabRes)).EndInit();

@@ -27,28 +27,30 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         Font fEdit, fEditB, fEdit3B, fEdit5B;
 
-        C1DockingTab tcMain, tcOP, tcOPBKK, tcUcep, tcSSO, tcDIT, tcCIPN;
-        C1DockingTabPage tabOP,tabOPBkk, tabOPBKKPtt, tabOPBKKINS, tabOPBKKPAT, tabOPBKKOPD, tabOPBKKODX, tabOPBKKOOP, tabOPBKKORF, tabOPBKKCHT, tabOPBKKCHA, tabOPBKKAER, tabOPBKKLABFU, tabOPBKKDRU, tabOPBKKCHAD, tabOrd;
-        C1DockingTabPage tabtcUcep, tabSSO, tabSSO1, tabUcepMain, tabUcepDrug, tabUcepCat, tabUcepLab, tabUcepXray, tabUcepHotCharge, tabUcepDIT, tabDITdc01, tabDITdc02, tabDITSupp, tabDITService;
+        C1DockingTab tcMain, tcOP, tcOPBKK, tcUcep, tcSSO, tcDIT, tcCIPN, tcSSOP;
+        C1DockingTabPage tabtcUcep, tabOPBkk, tabSSO, tabtcCIPN, tabtcSSOP;
+        C1DockingTabPage tabOP,tabOPBKKPtt, tabOPBKKINS, tabOPBKKPAT, tabOPBKKOPD, tabOPBKKODX, tabOPBKKOOP, tabOPBKKORF, tabOPBKKCHT, tabOPBKKCHA, tabOPBKKAER, tabOPBKKLABFU, tabOPBKKDRU, tabOPBKKCHAD, tabOrd;
+        C1DockingTabPage tabSSO1, tabUcepMain, tabUcepDrug, tabUcepCat, tabUcepLab, tabUcepXray, tabUcepHotCharge, tabUcepDIT, tabDITdc01, tabDITdc02, tabDITSupp, tabDITService;
         C1DockingTabPage tabOPBKKMainPaidTyp, tabOPBKKMainClinic, tabOPBKKMainCHRGITEM, tabOPBKKMainTmtCode;
-        C1DockingTabPage tabtcCIPN, tabCIPN, tabCIPNDrug, tabCIPNLab, tabCIPNItem, tabCIPNcsv;
+        C1DockingTabPage tabCIPN, tabCIPNDrug, tabCIPNLab, tabCIPNItem, tabCIPNcsv;
         C1FlexGrid grfSelect, grfINS, grfPAT, grfOPD, grfODX, grfOOP, grfORF, grfCHT, grfCHA, grfAER, grfLABFU, grfDRU, grfCHAD, grfOrd, grfPaidTyp, grfClinic, grfOPBKKMainCHRGITEM, grfOPBKKMainTmtCode;
         C1FlexGrid grfUcepCat, grfUcepDrug, grfUcepSelect, grfUcepLab, grfUcepXray, grfUcepHotcharge, grfDITdc01, grfDITdc02, grfDITsupp, grfDITservice, grfUcepHnPaidType, grfUcepHnPaidTypeDetail;
-        C1FlexGrid grfCipnDrug, grfCipnCsv;
+        C1FlexGrid grfCipnDrug, grfCipnCsv, grfSSOP;
 
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         C1PdfDocument pdfDoc;
         C1ThemeController theme1;
-        Label lbDateStart, lbDateEnd, lbtxtPaidType, lbLoading, lbtxtHospMain, lbtxtHCode, lbtxtUcepDateStart, lbtxtUcepDateEnd, lbtxtUcepPaidType, lbtxtUcepHn;
+        Label lbDateStart, lbDateEnd, lbtxtPaidType, lbLoading, lbtxtHospMain, lbtxtHCode, lbtxtUcepDateStart, lbtxtUcepDateEnd, lbtxtUcepPaidType, lbtxtUcepHn, lbSSOPYear, lbSSOPMonth;
         C1DateEdit txtDateStart, txtDateEnd, txtUcepDateStart, txtUcepDateEnd;
         C1Button btnOPBKKSelect, btnOPBkkGen, btnUcepSelect, btnUcepTMTImport, btnUcepExcel, btnUcepDITdc01Open, btnUcepDITdc02Open, btnUcepDITsuppOpen, btnUcepDITserviceOpen, btnUcepDITdc01Read, btnUcepDITdc02Read, btnUcepDITsuppRead, btnUcepDITserviceRead, btnUcepDITdc01Write, btnUcepDITdc02Write;
-        C1ComboBox cboPaidType;
+        C1Button btnSSOPSearch, btnSSOPGen;
+        C1ComboBox cboPaidType, cboSSOPMonth, cboSSOPYear;
         C1TextBox txtPaidType, txtHospMain, txtHCode, txtUcepHn, txtUcepPaidType, txtDITdc01StartRow, txtDITdc01CostNew, txtDITdc01PriceNew, txtDITdc01Filename, txtDITdc01Top200, txtDITdc02StartRow, txtDITdc02PriceNew, txtDITdc02Filename;
         Label lbtxtDITdc01StartRow, lbtxtDITdc01CostNew, lbtxtDITdc01PriceNew, lbtxtDITdc01Top200, lbtxtDITdc02StartRow, lbtxtDITdc02PriceNew, lbtxtDITsuppStartRow, lbtxtDITsuppCostNew, lbtxtDITsuppPriceNew, lbtxtDITserviceStartRow, lbtxtDITserviceCostNew, lbtxtDITservicePriceNew, lbtxtDITserviceFilename;
         C1TextBox txtDITsuppStartRow, txtDITsuppCostNew, txtDITsuppPriceNew, txtDITsuppFilename, txtDITserviceStartRow, txtDITserviceCostNew, txtDITservicePriceNew, txtDITserviceFilename;
-        C1CheckBox chkUcepSelectAll;
-        Panel pnOPBKK, pnUcepMainTop, pnUcepMainBotton, pnDITdc01Top, pnDITdc02Top, pnDITsuppTop, pnDITserviceTop, pnDITdc01Botton, pnDITdc02Botton, pnDITsuppBotton, pnDITserviceBotton;
+        C1CheckBox chkUcepSelectAll, chkUcepAllVisit;
+        Panel pnOPBKK, pnUcepMainTop, pnUcepMainBotton, pnDITdc01Top, pnDITdc02Top, pnDITsuppTop, pnDITserviceTop, pnDITdc01Botton, pnDITdc02Botton, pnDITsuppBotton, pnDITserviceBotton, pnSSOPTop, pnSSOPBotton;
         RadioButton chkOPBKKSelectVsDate, chkOPBKKSelectDiscDate;
         DataTable dtPtt = new DataTable();
         List<OPBKKINS> lINS = new List<OPBKKINS>();
@@ -66,8 +68,8 @@ namespace bangna_hospital.gui
 
         int colSelectHn = 1, colSelectName = 2, colSelectVsDate = 3, colSelectPaidType=4, colSelectSymptoms = 5, colSelectHnYear=6, colSelectPreno=7;
         int colOrdAddId = 1, colOrdAddNameT = 2, colOrdAddUnit = 3, colOrdAddQty = 4, colOrdAddDrugFr = 5, colOrdAddDrugIn = 6, colOrdDrugIn1 = 7, colOrdAddItemType = 8, colOrdAddRowNo = 9, colOrdAddFlag = 10;        // order add
-        int colPaidTypId = 1, colPaidTypName = 2, colPaidTypIdOpBkkCode = 3, colPaidTypFNSYS=4, colPaidTypPTTYP=5, colPaidTypAccNo=6, colPaidTypflag=7;
-        int colClinicmddepno = 1, colClinicsecno = 2, colClinicdivno = 3, colClinictyppt = 4, colClinicdepdsc = 5, colClinicdpno = 7, colClinicopbkkcode = 6, colClinicopbkkFlag=7;
+        int colPaidTypId = 1, colPaidTypName = 2, colPaidTypIdOpBkkCode = 3, colPaidTypFNSYS=4, colPaidTypPTTYP=5, colPaidTypAccNo=6, colPaidTypflag=7, colPaidTypSSOPclaimCat = 8;
+        int colClinicmddepno = 1, colClinicsecno = 2, colClinicdivno = 3, colClinictyppt = 4, colClinicdepdsc = 5, colClinicdpno = 7, colClinicopbkkcode = 6, colClinicopbkkFlag=7, colClinicopbkkSSOP = 8;
         int colCHRGITEMFNcode = 1, colCHRGITEMFNname = 2, colCHRGITEMFNGRPcode = 3, colCHRGITEMFNDEFcode = 4, colCHRGITEMsimbcode=5, colCHRGITEMchrcode=6, colCHRGITEMchrsubcode=7, colCHRGITEMcode = 8, colClinicCHRGITEMFlag = 9;
 
         int colINShn = 1, colINSinscl = 2, colINSsubtype = 3, colINScid = 4, colINSdatein = 5, colINSdateexp = 6, colINShospmain = 7, colINShospsub = 8, colINSgovcode = 8, colINSgovname = 9, colINSpermitno = 10, colINSdocno = 11, colINSownrpid = 12, colINSownname = 13, colINSflag=14;
@@ -83,7 +85,7 @@ namespace bangna_hospital.gui
         int colLABFUhcode = 1, colLABFUhn = 2, colLABFUpersonid = 3, colLABFUdateserv = 4, colLABFUseq = 5, colLABFUlabtest = 6, colLABFUlabresult = 7, colLABFUflag=8;
         int colCHADhn = 1, colCHADdateserv = 2, colCHADseq = 3, colCHADclinic = 4, colCHADitemtype = 5, colCHADitemcode = 6, colCHADitemsrc = 7, colCHADqty = 8, colCHADamount = 9, colCHADamountext = 10, colCHADprovider=11, colCHADaddon_desc=12, colCHADflag=13;
         int colGrfUcepDrugDrugId = 1, colGrfUcepDrugDrugName = 2, colGrfUcepDrugOldCode=3, colGrfUcepDrugTmtCode = 4, colGrfUcepDrugPrice1=5, colGrfUcepDrugPrice2=6, colGrfUcepDrugFlag=7, colGrfUcepDrugOpbkkCode = 8, colGrfUcepDrugStatusDrug=9;
-        int colGrfUcepPaidId = 1, colGrfUcepPaidName = 2, colGrfUcepPaidCatCode = 3, colGrfUcepPaiducepcode=4, colGrfUcepPaidFlag = 5;
+        int colGrfUcepPaidId = 1, colGrfUcepPaidName = 2, colGrfUcepPaidCatCode = 3, colGrfUcepPaiducepcode=4, colGrfUcepPaidFlag = 5, colGrfUcepPaidSSOP = 6;
         int colGrfUcepLabId = 1, colGrfUcepLabName = 2, colGrfUcepLabUcepCode = 3, colGrfUcepLabFlag = 4;
         int colGrfUcepXrayId = 1, colGrfUcepXrayName = 2, colGrfUcepXrayUcepCode = 3, colGrfUcepXrayFlag = 4;
         int colGrfUcepHotChargeId = 1, colGrfUcepHotChargeName = 2, colGrfUcepHotChargeUcepCode = 3, colGrfUcepHotChargeDitCode = 4, colGrfUcepHotChargeFlag = 5;
@@ -261,6 +263,7 @@ namespace bangna_hospital.gui
             grfPaidTyp.Rows.Count = 1;
             grfPaidTyp.Name = "grfPaidTyp";
             grfPaidTyp.CellChanged += GrfPaidTyp_CellChanged;
+            grfPaidTyp.AfterEdit += GrfPaidTyp_AfterEdit;
             tabOPBKKMainPaidTyp.Controls.Add(grfPaidTyp);
             theme1.SetTheme(grfPaidTyp, "Office2010Red");
             ContextMenu menuGw = new ContextMenu();
@@ -282,6 +285,7 @@ namespace bangna_hospital.gui
             grfClinic.Rows.Count = 1;
             grfClinic.Name = "grfClinic";
             grfClinic.CellChanged += GrfClinic_CellChanged;
+            grfClinic.AfterEdit += GrfClinic_AfterEdit;
             tabOPBKKMainClinic.Controls.Add(grfClinic);
             theme1.SetTheme(grfClinic, "Office2010Red");
             ContextMenu menuGwClinic = new ContextMenu();
@@ -466,6 +470,12 @@ namespace bangna_hospital.gui
             tabCIPNcsv.Name = "tabCIPNcsv";
             tcCIPN.Controls.Add(tabCIPNcsv);
 
+            tabtcSSOP = new C1DockingTabPage();
+            tabtcSSOP.TabIndex = 0;
+            tabtcSSOP.Text = "SSOP";
+            tabtcSSOP.Name = "tabtcSSOP";
+            tcMain.Controls.Add(tabtcSSOP);
+
             tcUcep.Controls.Add(tabUcepMain);
             tcUcep.Controls.Add(tabUcepDrug);
             tcUcep.Controls.Add(tabUcepCat);
@@ -483,6 +493,40 @@ namespace bangna_hospital.gui
             pnOPBKK.Controls.Add(tcOPBKK);
             Panel pnchkOPBKKSelectDiscDate = new Panel();
             pnchkOPBKKSelectDiscDate.Size = new Size(180, 60);
+
+            pnSSOPTop = new Panel();
+            
+            pnSSOPTop.Dock = DockStyle.Top;
+            pnSSOPTop.Height = 80;
+            pnSSOPBotton = new Panel();
+            tabtcSSOP.Controls.Add(pnSSOPBotton);
+            tabtcSSOP.Controls.Add(pnSSOPTop);
+            pnSSOPBotton.Dock = DockStyle.Fill;
+            pnSSOPBotton.Height = 80;
+            
+            bc.setControlC1Button(ref btnSSOPSearch, fEdit, "ดึงข้อมูล", "btnSSOPSearch", 270, gapY);
+            btnSSOPSearch.Width = 70;
+            bc.setControlC1Button(ref btnSSOPGen, fEdit, "gen Text", "btnSSOPGen", 400, gapY);
+            btnSSOPGen.Width = 70;
+            pnSSOPTop.Controls.Add(btnSSOPSearch);
+            pnSSOPTop.Controls.Add(btnSSOPGen);
+            cboSSOPYear = new C1ComboBox();
+            cboSSOPMonth = new C1ComboBox();
+            lbSSOPYear = new Label();
+            lbSSOPMonth = new Label();
+            bc.setControlC1ComboBox(ref cboSSOPYear, "cboSSOPYear", 70, 40, gapY);
+            bc.setControlC1ComboBox(ref cboSSOPMonth, "cboSSOPMonth", 90, 170, gapY);
+            cboSSOPMonth.Font = fEdit;
+            bc.setControlLabel(ref lbSSOPYear, fEdit,"ปี :", "lbSSOPYear", 10, gapY);
+            bc.setControlLabel(ref lbSSOPMonth, fEdit,"เดือน :", "lbSSOPMonth", 120, gapY);
+            pnSSOPTop.Controls.Add(cboSSOPYear);
+            pnSSOPTop.Controls.Add(cboSSOPMonth);
+            pnSSOPTop.Controls.Add(lbSSOPYear);
+            pnSSOPTop.Controls.Add(lbSSOPMonth);
+            bc.setCboYear(cboSSOPYear);
+            bc.setCboMonth(cboSSOPMonth);
+            btnSSOPSearch.Click += BtnSSOPSearch_Click;
+            btnSSOPGen.Click += BtnSSOPGen_Click;
 
             lbDateStart = new Label();
             txtDateStart = new C1DateEdit();
@@ -565,6 +609,7 @@ namespace bangna_hospital.gui
 
             initGrfCipnDrug();
             initGrfCipnCSV();
+            initGrfSSOP();
 
             this.Controls.Add(tcMain);
 
@@ -588,6 +633,227 @@ namespace bangna_hospital.gui
             theme1.SetTheme(tcUcep, bc.iniC.themeApp);
             theme1.SetTheme(tcDIT, bc.iniC.themeApp);
             theme1.SetTheme(tcCIPN, bc.iniC.themeDonor);
+        }
+
+        private void BtnSSOPGen_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                String HCODE = "", sessionNo = "", pathFile = "", XMLHeader = "<?xml version=\"1.0\" encoding=\"windows-874\"?>", FooterXML = "";
+                String genDT = "", SPLIT = "|";
+                StringBuilder XMLBillTran = new StringBuilder();
+                StringBuilder XMLBillItem = new StringBuilder();
+
+                DataTable dtssop = new DataTable();
+                DataTable dtitem = new DataTable();
+                DataTable dtdrug = new DataTable();
+                DateTime dtstart = new DateTime();
+                DateTime dtend = new DateTime();
+                dtstart = DateTime.Parse((int.Parse(cboSSOPYear.Text) - 543).ToString() + "-" + ((ComboBoxItem)cboSSOPMonth.SelectedItem).Value + "-" + "01");
+                dtstart = dtstart.Year < 2000 ? dtstart.AddYears(543) : dtstart;
+
+                dtend = DateTime.Parse((int.Parse(cboSSOPYear.Text) - 543).ToString() + "-" + ((ComboBoxItem)cboSSOPMonth.SelectedItem).Value + "-" + "01");
+                dtend = dtend.Year < 2000 ? dtend.AddYears(543) : dtend;
+                dtend = dtend.AddMonths(1);
+                dtend = dtend.AddDays(-1);
+
+                dtssop = bc.bcDB.vsDB.selectSSOPBillTran(dtstart.Year.ToString() + "-" + dtstart.ToString("MM-dd"), dtend.Year.ToString() + "-" + dtend.ToString("MM-dd"));
+                if (dtssop.Rows.Count <= 0)
+                {
+                    MessageBox.Show("ไม่พบข้อมูล ", "");
+                    return ;
+                }
+                HCODE = bc.iniC.ssoid;
+                sessionNo = "";
+                
+                XMLHeader = "<?xml version=\"1.0\" encoding=\"windows-874\"?>" + Environment.NewLine;
+                XMLHeader += "<ClaimRec System=\"OP\" PayPlan=\"SS\" Version=\"0.93\">" + Environment.NewLine;
+                XMLHeader += "<HCODE>"+ HCODE+"</HCODE>" + Environment.NewLine;
+                XMLHeader += "<HNAME>" + bc.iniC.hostname + "</HNAME>" + Environment.NewLine;
+                XMLHeader += "<DATETIME>" + genDT + "</DATETIME>" + Environment.NewLine;
+                XMLHeader += "<SESSNO>" + sessionNo + "</SESSNO>" + Environment.NewLine;
+                XMLHeader += "<RECCOUNT>" + dtssop.Rows.Count + "</RECCOUNT>" + Environment.NewLine;
+                dtssop.Columns.Add("invno", typeof(String));
+                XMLBillTran.Append("<BILLTRAN>" + Environment.NewLine);
+                String authcode = "", memberno = "", paid = "0.00", payplan = "80", otherpay = "0.00", vercode = "", tflag = "A";
+                foreach (DataRow rowSSOP in dtssop.Rows)
+                {
+                    String station = "", dttran = "", hcode = "", invno = "", billno = "", hn = "", amount = "", pid = "", name = "", hmain = "", claimamt = "", otherpayplan = "", docno="";
+                    float amt1 = 0;
+                    docno = "000000000"+rowSSOP["mnc_doc_no"].ToString();
+                    docno = docno.Substring(docno.Length - 9);
+                    //station = rowSSOP["mnc_sec_no"].ToString();
+                    //authcode = "";
+                    //dttran = rowSSOP["mnc_date"].ToString();
+                    invno = rowSSOP["mnc_doc_yr"].ToString() + docno;
+                    rowSSOP["invno"] = invno;
+                    billno = "";
+                    //hn = rowSSOP["MNC_HN_NO"].ToString();
+                    //memberno = "";
+                    float.TryParse(rowSSOP["mnc_sum_pri"].ToString(), out amt1);
+                    amount = amt1.ToString("0.00");
+                    //paid = "0.00";
+                    //vercode = "";
+                    //tflag = "A";
+                    //pid = rowSSOP["mnc_id_no"].ToString();
+                    name = rowSSOP["MNC_PFIX_DSC"].ToString()+" "+ rowSSOP["MNC_FNAME_T"].ToString()+" "+ rowSSOP["MNC_LNAME_T"].ToString();
+                    hmain = rowSSOP["MNC_FN_TYP_CD"].ToString().Equals("46") ? "24638" : rowSSOP["MNC_FN_TYP_CD"].ToString().Equals("45") ? "11772" : rowSSOP["MNC_FN_TYP_CD"].ToString().Equals("44") ? "1506" : "";
+                    //payplan = "80";
+                    claimamt = amt1.ToString("0.00");
+                    otherpayplan = "";
+                    //otherpay = "0.00";
+
+                    //dtitem = bc.bcDB.vsDB.selectFinT03(rowSSOP["MNC_HN_NO"].ToString(), rowSSOP["MNC_PRE_NO"].ToString(), rowSSOP["mnc_date"].ToString(), rowSSOP["mnc_doc_no"].ToString());
+
+                    XMLBillTran.Append(rowSSOP["mnc_sec_no"].ToString() + SPLIT + authcode + SPLIT + rowSSOP["mnc_date"].ToString() + SPLIT + HCODE + SPLIT + invno + SPLIT + billno + SPLIT + rowSSOP["MNC_HN_NO"].ToString() + SPLIT + memberno
+                        + SPLIT + amount + SPLIT + paid + SPLIT + vercode + SPLIT + tflag + SPLIT + rowSSOP["mnc_id_no"].ToString() + SPLIT + name + SPLIT + hmain
+                        + SPLIT + payplan + SPLIT + claimamt + SPLIT + otherpayplan + SPLIT + otherpay + Environment.NewLine);
+                }
+                XMLBillTran.Append("</BILLTRAN>" + Environment.NewLine);
+                XMLBillTran.Append("<BillItems>" + Environment.NewLine);
+                
+                dtitem = bc.bcDB.vsDB.selectSSOPFinT03(dtstart.Year.ToString() + "-" + dtstart.ToString("MM-dd"), dtend.Year.ToString() + "-" + dtend.ToString("MM-dd"));
+                foreach (DataRow rowSSOP in dtssop.Rows)
+                {
+                    DataRow[] results = dtitem.Select("MNC_HN_NO = "+ rowSSOP["MNC_HN_NO"].ToString()+ " and mnc_doc_no = " + rowSSOP["mnc_doc_no"].ToString());
+                    String svrefID = "";
+                    foreach (DataRow items in results)
+                    {
+                        svrefID = items["MNC_FN_DAT"].ToString().Replace("-","").Replace("-", "") + items["MNC_FN_NO"].ToString();
+                        XMLBillTran.Append(rowSSOP["invno"].ToString() + SPLIT + items["mnc_doc_dat"].ToString() + SPLIT + items["ssop_billmuad"].ToString()
+                            + SPLIT + items["mnc_fn_cd"].ToString() + SPLIT + items["ucep_code"].ToString() + SPLIT + items["MNC_FN_DSCT"].ToString()
+                            + SPLIT + items["MNC_QTY"].ToString() + SPLIT + items["MNC_FN_AMT"].ToString() + SPLIT + items["MNC_FN_AMT"].ToString()
+                            + SPLIT + items["MNC_FN_AMT"].ToString() + SPLIT + svrefID + SPLIT + items["ssop_claimcat"].ToString() + Environment.NewLine);
+                    }
+                }
+                XMLBillTran.Append("</BillItems>" + Environment.NewLine);
+
+                String fileNameBillTran = "BILLTRAN", yyyymmdd="", foldername="", ext=".TXT";
+                foldername = (int.Parse(cboSSOPYear.Text) - 543).ToString()+ ((ComboBoxItem)cboSSOPMonth.SelectedItem).Value;
+                yyyymmdd = DateTime.Now.Year>2500 ? (DateTime.Now.Year - 543).ToString() : DateTime.Now.Year.ToString();
+                yyyymmdd += DateTime.Now.ToString("MMdd");
+                fileNameBillTran += yyyymmdd + ext;
+                pathFile = bc.iniC.ssopXmlPath + "\\" + foldername;
+
+                String md5aipn = bc.ComputeMD5(XMLBillTran.ToString());
+
+                byte[] wind874Bytes = Encoding.UTF8.GetBytes(XMLBillTran.ToString());
+                byte[] win874BytesAipn = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), wind874Bytes);
+
+                String md5win874 = bc.ComputeMD5Bytes(win874BytesAipn);
+                byte[] md5aipnWin874Bytes = Encoding.GetEncoding(874).GetBytes(md5win874);
+                byte[] win874BytesHeader = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), Encoding.UTF8.GetBytes(XMLHeader));
+
+                byte[] md5aipnBytes = md5aipnWin874Bytes.ToArray();
+                byte[] win874BytesFooter1 = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), Encoding.UTF8.GetBytes("<?EndNote HMAC=\""));
+                byte[] win874BytesFooter2 = Encoding.Convert(Encoding.UTF8, Encoding.GetEncoding(874), Encoding.UTF8.GetBytes("\" ?>"));
+                byte[] win874BytesFooter = new byte[win874BytesFooter1.Length + md5aipnBytes.Length + win874BytesFooter2.Length];
+
+                Buffer.BlockCopy(win874BytesFooter1, 0, win874BytesFooter, 0, win874BytesFooter1.Length);
+                Buffer.BlockCopy(md5aipnBytes, 0, win874BytesFooter, win874BytesFooter1.Length, md5aipnBytes.Length);
+                Buffer.BlockCopy(win874BytesFooter2, 0, win874BytesFooter, win874BytesFooter1.Length + md5aipnBytes.Length, win874BytesFooter2.Length);
+
+                byte[] rv1 = new byte[win874BytesHeader.Length + win874BytesAipn.Length + win874BytesFooter.Length];
+                Buffer.BlockCopy(win874BytesHeader, 0, rv1, 0, win874BytesHeader.Length);
+                Buffer.BlockCopy(win874BytesAipn, 0, rv1, win874BytesHeader.Length, win874BytesAipn.Length);
+                Buffer.BlockCopy(win874BytesFooter, 0, rv1, win874BytesHeader.Length + win874BytesAipn.Length, win874BytesFooter.Length);
+
+                if (!Directory.Exists(pathFile))
+                {
+                    Directory.CreateDirectory(pathFile);
+                }
+                else
+                {
+                    Directory.Delete(pathFile, true);
+                }
+                Boolean chk = bc.ByteArrayToFile(pathFile + "\\" + fileNameBillTran, rv1);
+
+
+                dtdrug = bc.bcDB.vsDB.selectSSOPPharT06(dtstart.Year.ToString() + "-" + dtstart.ToString("MM-dd"), dtend.Year.ToString() + "-" + dtend.ToString("MM-dd"));
+                foreach (DataRow rowSSOP in dtssop.Rows)
+                {
+                    DataRow[] results = dtitem.Select("MNC_HN_NO = " + rowSSOP["MNC_HN_NO"].ToString() + " and mnc_doc_no = " + rowSSOP["mnc_doc_no"].ToString());
+                    String svID = "";
+                    foreach (DataRow drug in results)
+                    {
+
+                    }
+                }
+
+
+                Process.Start("explorer.exe", pathFile);
+            }
+            catch(Exception ex)
+            {
+                String err = "";
+            }
+            
+        }
+
+        private void BtnSSOPSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                DataTable dt = new DataTable();
+                DateTime dtstart = new DateTime();
+                DateTime dtend = new DateTime();
+                dtstart = DateTime.Parse((int.Parse(cboSSOPYear.Text) - 543).ToString() + "-" + ((ComboBoxItem)cboSSOPMonth.SelectedItem).Value + "-" + "01");
+                dtstart = dtstart.Year < 2000 ? dtstart.AddYears(543) : dtstart;
+
+                dtend = DateTime.Parse((int.Parse(cboSSOPYear.Text) - 543).ToString() + "-" + ((ComboBoxItem)cboSSOPMonth.SelectedItem).Value + "-" + "01");
+                dtend = dtend.Year < 2000 ? dtend.AddYears(543) : dtend;
+                dtend = dtend.AddMonths(1);
+                dtend = dtend.AddDays(-1);
+
+                dt = bc.bcDB.vsDB.selectSSOPBillTran(dtstart.Year.ToString() + "-" + dtstart.ToString("MM-dd"), dtend.Year.ToString() + "-" + dtend.ToString("MM-dd"));
+                grfSSOP.DataSource = dt;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void GrfPaidTyp_AfterEdit(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            if (grfPaidTyp[e.Row, e.Col] == null) return;
+            if (e.Col == colPaidTypSSOPclaimCat)
+            {
+                String paidid = "", ssopclaimcat = "";
+                paidid = grfPaidTyp[e.Row, colPaidTypId].ToString();
+                ssopclaimcat = grfPaidTyp[e.Row, colPaidTypSSOPclaimCat].ToString();
+                if (!ssopclaimcat.Equals(""))
+                {
+                    if (bc.ssopClaimCat.ContainsValue(ssopclaimcat))
+                    {
+                        var myKey = bc.ssopClaimCat.FirstOrDefault(x => x.Value == ssopclaimcat).Key;
+                        String re1 = bc.bcDB.finM02DB.updateSSOPClaimCatCode(paidid, myKey);
+                    }
+                }
+            }
+        }
+
+        private void GrfClinic_AfterEdit(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            if (grfClinic[e.Row, e.Col] == null) return;
+            grfClinic.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            if (e.Col == colClinicopbkkSSOP)
+            {
+                String depno = "", secno = "", divno = "", typpt = "", ssopcode = "";
+                depno = grfClinic[e.Row, colClinicmddepno].ToString();
+                secno = grfClinic[e.Row, colClinicsecno].ToString();
+                divno = grfClinic[e.Row, colClinicdivno].ToString();
+                typpt = grfClinic[e.Row, colClinictyppt].ToString();
+                ssopcode = grfClinic[e.Row, e.Col].ToString();
+                String re = bc.bcDB.pttM32DB.updateSSOPCode(depno, secno, divno, typpt, ssopcode);
+            }
         }
 
         private void GrfOPBKKMainTmtCode_CellChanged(object sender, RowColEventArgs e)
@@ -689,6 +955,7 @@ namespace bangna_hospital.gui
             lbtxtUcepPaidType = new Label();
             txtUcepPaidType = new C1TextBox();
             chkUcepSelectAll = new C1CheckBox();
+            chkUcepAllVisit = new C1CheckBox();
             lbtxtDITdc01StartRow = new Label();
             txtDITdc01StartRow = new C1TextBox();
             lbtxtDITdc01CostNew = new Label();
@@ -735,8 +1002,10 @@ namespace bangna_hospital.gui
             bc.setControlLabel(ref lbtxtUcepHn, fEdit, "HN :", "lbtxtUcepHn", txtUcepDateEnd.Location.X + txtUcepDateEnd.Width + 20, gapY+30);
             size = bc.MeasureString(lbtxtUcepHn);
             bc.setControlC1TextBox(ref txtUcepHn, fEdit, "txtUcepHn", 120, txtUcepPaidType.Location.X , lbtxtUcepHn.Location.Y);
+            bc.setControlC1CheckBox(ref chkUcepAllVisit, fEdit, "ทุกใบยา", "chkUcepAllVisit", txtUcepPaidType.Location.X  + 120, lbtxtUcepHn.Location.Y);
+            chkUcepAllVisit.Height = 30;
 
-            //gapY += gapLine;
+            //gapY += gapLine;chkUcepAllVisit
             bc.setControlC1Button(ref btnUcepSelect, fEdit, "ดึงข้อมูล", "btnUcepOk", txtUcepPaidType.Location.X+ txtUcepPaidType.Width+30, gapY);
             btnUcepSelect.Width = 70;
             bc.setControlC1CheckBox(ref chkUcepSelectAll, fEdit, "select All", "chkUcepSelectAll", btnUcepSelect.Location.X + btnUcepSelect.Width + 30, gapY);
@@ -839,7 +1108,8 @@ namespace bangna_hospital.gui
             pnUcepMainTop.Controls.Add(lbtxtUcepDateEnd);
             pnUcepMainTop.Controls.Add(txtUcepDateEnd);
             pnUcepMainTop.Controls.Add(btnUcepSelect);
-            pnUcepMainTop.Controls.Add(chkUcepSelectAll);
+            pnUcepMainTop.Controls.Add(chkUcepSelectAll); //chkUcepAllVisit
+            pnUcepMainTop.Controls.Add(chkUcepAllVisit);
             pnUcepMainTop.Controls.Add(btnUcepTMTImport);
             pnUcepMainTop.Controls.Add(btnUcepExcel);
             pnUcepMainTop.Controls.Add(lbtxtUcepHn);
@@ -896,6 +1166,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(txtUcepDateEnd, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepSelect, bc.iniC.themeApp);
             theme1.SetTheme(chkUcepSelectAll, bc.iniC.themeApp);
+            theme1.SetTheme(chkUcepAllVisit, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepTMTImport, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepExcel, bc.iniC.themeApp);
             theme1.SetTheme(lbtxtUcepHn, bc.iniC.themeApp);
@@ -943,6 +1214,8 @@ namespace bangna_hospital.gui
             theme1.SetTheme(btnUcepDITdc02Read, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepDITsuppRead, bc.iniC.themeApp);
             theme1.SetTheme(btnUcepDITserviceRead, bc.iniC.themeApp);
+
+            chkUcepAllVisit.Checked = true;
         }
 
         private void BtnUcepDITdc02Write_Click(object sender, EventArgs e)
@@ -1427,8 +1700,17 @@ namespace bangna_hospital.gui
             DateTime.TryParse(txtUcepDateStart.Value.ToString(), out dtstart);
             DateTime.TryParse(txtUcepDateEnd.Value.ToString(), out dtend);
 
-            datestart = dtstart.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-            dateend = dtend.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            if(dtstart.Year < 2000)
+            {
+                datestart = (dtstart.Year+543) + dtstart.ToString("-MM-dd", new CultureInfo("en-US"));
+                dateend = (dtend.Year+543) + dtend.ToString("-MM-dd", new CultureInfo("en-US"));
+            }
+            else
+            {
+                datestart = dtstart.Year + dtstart.ToString("-MM-dd", new CultureInfo("en-US"));
+                dateend = dtend.Year + dtend.ToString("-MM-dd", new CultureInfo("en-US"));
+            }
+            
             new LogWriter("d", "FrmOPBKKClaim BtnUcepOk_Click datestart " + datestart + " datestart " + datestart);
 
             String[] paid = txtUcepPaidType.Text.Trim().Split(',');
@@ -1961,7 +2243,6 @@ namespace bangna_hospital.gui
                         var myKey = bc.opBKKINSCL.FirstOrDefault(x => x.Value == opbkkcode).Key;
                         String re = bc.bcDB.finM02DB.updateOPBKKCode(paidtypid, myKey);
                     }
-                    
                 }
             }
         }
@@ -2088,8 +2369,43 @@ namespace bangna_hospital.gui
             tabOPBKKCHAD.Name = "tabOPBKKCHAD";
             tcOPBKK.Controls.Add(tabOPBKKCHAD);
 
-
         }
+        private void initGrfSSOP()
+        {
+            grfSSOP = new C1FlexGrid();
+            grfSSOP.Font = fEdit;
+            grfSSOP.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfSSOP.Location = new System.Drawing.Point(0, 0);
+            grfSSOP.Rows.Count = 1;
+            grfSSOP.Name = "grfSSOP";
+            //grfUcepCat.CellChanged += GrfUcepCat_CellChanged;
+
+            ContextMenu menuGwPAT = new ContextMenu();
+            menuGwPAT.MenuItems.Add("save Category 1-16", new EventHandler(ContextMenu_grfUcepCat_save));
+            grfSSOP.ContextMenu = menuGwPAT;
+
+            FlexGrid.FilterRow fr = new FlexGrid.FilterRow(grfSSOP);
+
+            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+
+            pnSSOPBotton.Controls.Add(grfSSOP);
+
+            //theme1.SetTheme(grfSelect, bc.theme);
+            theme1.SetTheme(grfSSOP, "Office2010Red");
+        }
+
+        private void GrfSSOP_CellChanged(object sender, RowColEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void initGrfOrd()
         {
             if (tabOrd != null) tabOrd.Dispose();
@@ -2467,10 +2783,10 @@ namespace bangna_hospital.gui
             grfUcepCat.ContextMenu = menuGwPAT;
             grfUcepCat.CellChanged += GrfUcepCat_CellChanged;
             grfUcepCat.AfterFilter += GrfUcepCat_AfterFilter;
+            grfUcepCat.AfterEdit += GrfUcepCat_AfterEdit;
 
             FlexGrid.FilterRow fr = new FlexGrid.FilterRow(grfUcepCat);
             
-
             //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
             //grfVs.row
             //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
@@ -2484,6 +2800,22 @@ namespace bangna_hospital.gui
 
             //theme1.SetTheme(grfSelect, bc.theme);
             theme1.SetTheme(grfUcepCat, "Office2010Red");
+        }
+
+        private void GrfUcepCat_AfterEdit(object sender, RowColEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            if (grfUcepCat[e.Row, e.Col] == null) return;
+            grfUcepCat.Rows[e.Row].StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+            if(e.Col== colGrfUcepPaidSSOP)
+            {
+                String id = "", tmtcode = "", divno = "", typpt = "", ssopid = "";
+                id = grfUcepCat[e.Row, colGrfUcepPaidId].ToString();
+                if (id.Length <= 0) return;
+                ssopid = grfUcepCat[e.Row, e.Col].ToString();
+                String re = bc.bcDB.finM01DB.updateSSOPcode(id, ssopid);
+            }
         }
 
         private void GrfUcepCat_AfterFilter(object sender, EventArgs e)
@@ -3091,7 +3423,15 @@ namespace bangna_hospital.gui
                             //}
                             //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate1 " + andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US")));
                             //andate = andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-                            DataTable dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);
+                            DataTable dtdrug = new DataTable();
+                            if (chkUcepAllVisit.Checked)
+                            {
+                                dtdrug = bc.bcDB.vsDB.selectDrugUcepByHn(hn, hnyear, vsdate, preno);
+                            }
+                            else
+                            {
+                                dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);
+                            }
                             foreach (DataRow rowdrug in dtdrug.Rows)
                             {
                                 float qty = 0, price = 0;
@@ -3153,8 +3493,16 @@ namespace bangna_hospital.gui
                                 rowucep["hosp_code1"] = rowdrug["MNC_fn_CD"].ToString();
                                 //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel rowucep['tmt_code'] " + rowucep["tmt_code"].ToString());
                             }
-                            DataTable dtlab = bc.bcDB.vsDB.selectResultLabUcepbyAN(hn, an, anyear);
-                            foreach (DataRow rowlab in dtlab.Rows)
+                            DataTable dtlabipd = new DataTable();
+                            if (chkUcepAllVisit.Checked)
+                            {
+                                dtlabipd = bc.bcDB.vsDB.selectResultLabUcepbyPreno(hn, vsdate, preno);
+                            }
+                            else
+                            {
+                                dtlabipd = bc.bcDB.vsDB.selectResultLabUcepbyAN(hn, an, anyear);
+                            }
+                            foreach (DataRow rowlab in dtlabipd.Rows)
                             {
                                 String reqtime = "0000" + rowlab["mnc_stamp_tim"].ToString();
                                 reqtime = reqtime.Substring(reqtime.Length - 4);
@@ -3169,7 +3517,15 @@ namespace bangna_hospital.gui
                                 rowucep["price_total"] = rowlab["MNC_LB_PRI"].ToString();
                                 rowucep["hosp_code1"] = rowlab["MNC_fn_cd"].ToString();
                             }
-                            DataTable dtxray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an, anyear);
+                            DataTable dtxray = new DataTable();
+                            if (chkUcepAllVisit.Checked)
+                            {
+                                dtxray = bc.bcDB.vsDB.selectResultXraybyPreno(hn, vsdate, preno);
+                            }
+                            else
+                            {
+                                dtxray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an, anyear);
+                            }
                             foreach (DataRow rowxray in dtxray.Rows)
                             {
                                 String reqtime = "0000" + rowxray["mnc_stamp_tim"].ToString();
@@ -3879,16 +4235,18 @@ namespace bangna_hospital.gui
 
             dt = bc.bcDB.finM01DB.SelectAll();
             grfUcepCat.Rows.Count = 1;
-            grfUcepCat.Cols.Count = 6;
+            grfUcepCat.Cols.Count = 7;
             grfUcepCat.Rows.Count = dt.Rows.Count + 2;
             grfUcepCat.Cols[colGrfUcepPaidId].Caption = "ID";
             grfUcepCat.Cols[colGrfUcepPaidName].Caption = "Paid Name";
             grfUcepCat.Cols[colGrfUcepPaidCatCode].Caption = "CAT 1-16";
             grfUcepCat.Cols[colGrfUcepPaiducepcode].Caption = "ucep code";
+            grfUcepCat.Cols[colGrfUcepPaidSSOP].Caption = "SSOP";
 
             grfUcepCat.Cols[colGrfUcepPaidId].Width = 80;
             grfUcepCat.Cols[colGrfUcepPaidName].Width = 500;
             grfUcepCat.Cols[colGrfUcepPaidCatCode].Width = 120;
+            grfUcepCat.Cols[colGrfUcepPaidSSOP].Width = 80;
 
             //grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Editor = cboMethod;
             int i = 1;
@@ -3901,6 +4259,7 @@ namespace bangna_hospital.gui
                 grfUcepCat[i, colGrfUcepPaidName] = row1["MNC_FN_DSCT"].ToString();
                 grfUcepCat[i, colGrfUcepPaidCatCode] = row1["mnc_grp_ss1"].ToString();
                 grfUcepCat[i, colGrfUcepPaiducepcode] = row1["ucep_code"].ToString();
+                grfUcepCat[i, colGrfUcepPaidSSOP] = row1["ssop_billmuad"].ToString();
                 grfUcepCat[i, colGrfUcepPaidFlag] = "0";
                 grfUcepCat[i, 0] = (i-1);
                 if (i % 2 == 0)
@@ -3912,6 +4271,7 @@ namespace bangna_hospital.gui
             grfUcepCat.Cols[colGrfUcepPaidId].AllowEditing = false;
             grfUcepCat.Cols[colGrfUcepPaidName].AllowEditing = false;
             grfUcepCat.Cols[colGrfUcepDrugOldCode].AllowEditing = false;
+            grfUcepCat.Cols[colGrfUcepPaidSSOP].AllowEditing = true;
             grfUcepCat.AllowFiltering = true;
             //for (int col = 0; col < dt.Columns.Count; ++col)
             //{
@@ -3920,6 +4280,7 @@ namespace bangna_hospital.gui
             grfUcepCat.Cols[colGrfUcepPaidId].Name = dt.Columns["MNC_FN_CD"].ColumnName;
             grfUcepCat.Cols[colGrfUcepPaidName].DataType = dt.Columns["MNC_FN_DSCT"].DataType;
             grfUcepCat.Cols[colGrfUcepPaidName].Name = dt.Columns["MNC_FN_DSCT"].ColumnName;
+            grfUcepCat.Cols[colGrfUcepPaidSSOP].Name = dt.Columns["ssop_billmuad"].ColumnName;
             //}
             pageLoad = false;
         }
@@ -4023,14 +4384,19 @@ namespace bangna_hospital.gui
         {
             pageLoad = true;
             DataTable dt = new DataTable();
-            C1ComboBox cboMethod = new C1ComboBox();
-            cboMethod.AutoCompleteMode = AutoCompleteMode.Suggest;
-            cboMethod.AutoCompleteSource = AutoCompleteSource.ListItems;
-            bc.setCboOPBKKINSCL(cboMethod, "");
+            C1ComboBox cboOPBKK = new C1ComboBox();
+            cboOPBKK.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboOPBKK.AutoCompleteSource = AutoCompleteSource.ListItems;
+            bc.setCboOPBKKINSCL(cboOPBKK, "");
+
+            C1ComboBox cboSSOP = new C1ComboBox();
+            cboSSOP.AutoCompleteMode = AutoCompleteMode.Suggest;
+            cboSSOP.AutoCompleteSource = AutoCompleteSource.ListItems;
+            bc.setCboSSOPClaimCat(cboSSOP, "");
 
             dt = bc.bcDB.finM02DB.SelectAll();
             grfPaidTyp.Rows.Count = 1;
-            grfPaidTyp.Cols.Count = 8;
+            grfPaidTyp.Cols.Count = 9;
             grfPaidTyp.Rows.Count = dt.Rows.Count + 1;
             grfPaidTyp.Cols[colPaidTypId].Caption = "ID";
             grfPaidTyp.Cols[colPaidTypName].Caption = "Paid Name";
@@ -4038,26 +4404,31 @@ namespace bangna_hospital.gui
             grfPaidTyp.Cols[colPaidTypFNSYS].Caption = "FN SYS";
             grfPaidTyp.Cols[colPaidTypPTTYP].Caption = "PT TYP";
             grfPaidTyp.Cols[colPaidTypAccNo].Caption = "ACC NO";
+            grfPaidTyp.Cols[colPaidTypSSOPclaimCat].Caption = "SSOP ClaimCat";
             grfPaidTyp.Cols[colPaidTypId].Width = 60;
             grfPaidTyp.Cols[colPaidTypName].Width = 300;
             grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Width = 300;
             grfPaidTyp.Cols[colPaidTypFNSYS].Width = 80;
             grfPaidTyp.Cols[colPaidTypPTTYP].Width = 80;
             grfPaidTyp.Cols[colPaidTypAccNo].Width = 80;
-            grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Editor = cboMethod;
+            grfPaidTyp.Cols[colPaidTypSSOPclaimCat].Width = 150;
+            grfPaidTyp.Cols[colPaidTypIdOpBkkCode].Editor = cboOPBKK;
+            grfPaidTyp.Cols[colPaidTypSSOPclaimCat].Editor = cboSSOP;
             int i = 0;
             foreach (DataRow row1 in dt.Rows)
             {
                 i++;
                 //if (i == 1) continue;
-                String inscl = "";
+                String inscl = "", ssopclaimcat="";
                 bc.opBKKINSCL.TryGetValue(row1["opbkk_inscl"].ToString(), out inscl);
+                bc.ssopClaimCat.TryGetValue(row1["ssop_claimcat"].ToString(), out ssopclaimcat);
                 grfPaidTyp[i, colPaidTypId] = row1["MNC_FN_TYP_CD"].ToString();
                 grfPaidTyp[i, colPaidTypName] = row1["MNC_FN_TYP_DSC"].ToString();
                 grfPaidTyp[i, colPaidTypIdOpBkkCode] = inscl;
                 grfPaidTyp[i, colPaidTypFNSYS] = row1["MNC_FN_STS"].ToString();
                 grfPaidTyp[i, colPaidTypPTTYP] = row1["PTTYP"].ToString();
                 grfPaidTyp[i, colPaidTypAccNo] = row1["MNC_ACCOUNT_NO"].ToString();
+                grfPaidTyp[i, colPaidTypSSOPclaimCat] = ssopclaimcat;
                 grfPaidTyp[i, colPaidTypflag] = "0";
                 grfPaidTyp[i, 0] = i;
                 if (i % 2 == 0)
@@ -4083,7 +4454,7 @@ namespace bangna_hospital.gui
 
             dt = bc.bcDB.pttM32DB.SelectAll();
             grfClinic.Rows.Count = 1;
-            grfClinic.Cols.Count = 8;
+            grfClinic.Cols.Count = 9;
             grfClinic.Rows.Count = dt.Rows.Count + 1;
             grfClinic.Cols[colClinicmddepno].Caption = "DEP NO";
             grfClinic.Cols[colClinicsecno].Caption = "SEC NO";
@@ -4092,6 +4463,7 @@ namespace bangna_hospital.gui
             grfClinic.Cols[colClinicdepdsc].Caption = "DEP DSC";
             grfClinic.Cols[colClinicdpno].Caption = "DP NO";
             grfClinic.Cols[colClinicopbkkcode].Caption = "OP BKK Clinic";
+            grfClinic.Cols[colClinicopbkkSSOP].Caption = "SSOP Clinic";
             grfClinic.Cols[colClinicmddepno].Width = 60;
             grfClinic.Cols[colClinicsecno].Width = 60;
             grfClinic.Cols[colClinicdivno].Width = 60;
@@ -4100,6 +4472,7 @@ namespace bangna_hospital.gui
             grfClinic.Cols[colClinicdpno].Width = 80;
             grfClinic.Cols[colClinicopbkkcode].Width = 300;
             grfClinic.Cols[colClinicopbkkcode].Editor = cboMethod;
+            grfClinic.Cols[colClinicopbkkSSOP].Width = 150;
             int i = 0;
             foreach (DataRow row1 in dt.Rows)
             {
@@ -4115,6 +4488,7 @@ namespace bangna_hospital.gui
                 grfClinic[i, colClinicdpno] = row1["MNC_DP_NO"].ToString();
                 grfClinic[i, colClinicopbkkcode] = inscl;
                 grfClinic[i, colClinicopbkkFlag] = "0";
+                grfClinic[i, colClinicopbkkSSOP] = row1["ssop_clinic"].ToString();
                 grfClinic[i, 0] = i;
                 if (i % 2 == 0)
                     grfClinic.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
@@ -4126,6 +4500,7 @@ namespace bangna_hospital.gui
             grfClinic.Cols[colClinictyppt].AllowEditing = false;
             grfClinic.Cols[colClinicdepdsc].AllowEditing = false;
             grfClinic.Cols[colClinicdpno].AllowEditing = false;
+            grfClinic.Cols[colClinicopbkkSSOP].AllowEditing = true;
             pageLoad = false;
         }
         private void setGrfOPBKKMainCHRGITEM()
@@ -6220,7 +6595,7 @@ namespace bangna_hospital.gui
             //  แก้เรื่อง ข้อมูลที่ double
 
             //this.Text = "Last Update 2020-04-09";
-            this.Text = "Last Update 2023-01-25";
+            this.Text = "Last Update 2023-04-12 ucep lab xray drug IPD ให้ดึงตามใบยา";
         }
     }
 }

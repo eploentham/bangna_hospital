@@ -708,7 +708,7 @@ namespace bangna_hospital.objdb
                 "From " + dsc.table + " dsc " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1'and dsc." + dsc.status_record + "='1' " +
-                "Order By sort1 ";
+                "Order By dsc.doc_scan_id,dsc.row_no ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;

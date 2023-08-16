@@ -97,6 +97,10 @@ namespace bangna_hospital.gui
             {
                 getListFile();
             }
+            else
+            {
+                getListFile();
+            }
             //MessageBox.Show("args "+bc.hn, "");
             //pnMain.Hide();
             //this.Width = this.Width - int.Parse(bc.iniC.imggridscanwidth);
@@ -178,8 +182,8 @@ namespace bangna_hospital.gui
         private void ChkView_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            initGrfDownload();
-            setGrfUpload();
+            //initGrfDownload();
+            //setGrfUpload();
         }
 
         private void TxtHn_KeyUp(object sender, KeyEventArgs e)
@@ -660,6 +664,10 @@ namespace bangna_hospital.gui
             {
                 grfDownload.Dispose();
             }
+            if (grfView != null)
+            {
+                grfView.Dispose();
+            }
             grfView = new C1FlexGrid();
             grfView.Font = fEdit;
             grfView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -669,7 +677,7 @@ namespace bangna_hospital.gui
             grfView.Cols[0].Visible = false;
             pnView.Controls.Add(grfView);
 
-            grfView.Rows.Count = 1;
+            grfView.Rows.Count = 2;
             grfView.Cols.Count = 5;
             grfView.Cols[colUploadImg].Width = this.Width-50;
 
@@ -760,32 +768,40 @@ namespace bangna_hospital.gui
         {
             if (grfView.IsDisposed) return;
             if (grfView.Rows == null) return;
-            grfView.Rows.Count = 0;
+            grfView.Rows.Count = lFile.Count+1;
             Column colpic1 = grfView.Cols[colUploadImg];
             colpic1.DataType = typeof(Image);
-            
+            int i = 0;
             foreach (String file in lFile)
             {
                 try
                 {
-                    Row row = grfView.Rows.Add();
-                    row[colUploadPath] = file;
+                    i++;
+                    //Row row = grfView.Rows.Add();
+                    //row[colUploadPath] = file;
+                    grfView.SetData(i, colUploadPath, file);
                     string ext = Path.GetExtension(file);
                     Image loadedImage, resizedImage;
                     if (ext.ToLower().IndexOf("pdf") < 0)
                     {
-                        loadedImage = Image.FromFile(file);
-                        int originalWidth = 0;
-                        originalWidth = loadedImage.Width;
-                        int newWidth = 280;
-                        newWidth = bc.imggridscanwidth;
-                        resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
-                        row[colUploadImg] = resizedImage;
-                        loadedImage.Dispose();
+                        //row[colUploadImg] = Resources.pdf_symbol_300;
+                        
+                        if (File.Exists(file))
+                        {
+                            loadedImage = Image.FromFile(file);
+                            int originalWidth = 0;
+                            originalWidth = loadedImage.Width;
+                            int newWidth = 280;
+                            newWidth = bc.imggridscanwidth;
+                            resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                            //row[colUploadImg] = resizedImage;
+                            grfView.SetCellImage(i, colUploadImg, resizedImage);
+                            //loadedImage.Dispose();
+                        }
                     }
                     else
                     {
-                        row[colUploadImg] = Resources.pdf_symbol_300;
+                        //row[colUploadImg] = Resources.pdf_symbol_300;
                     }
                 }
                 catch (Exception ex)
@@ -793,8 +809,8 @@ namespace bangna_hospital.gui
                     new LogWriter("e", file + " " + ex.Message);
                     MessageBox.Show("err "+ file +" "+ ex.Message,"");
                 }
-                
             }
+            grfView.Refresh();
             grfView.AutoSizeCols();
             grfView.AutoSizeRows();
         }

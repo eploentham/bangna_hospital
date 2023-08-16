@@ -31,18 +31,18 @@
             this.pnPic = new System.Windows.Forms.Panel();
             this.pnView = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbVn = new System.Windows.Forms.Label();
+            this.txtVN = new C1.Win.C1Input.C1TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.chkView = new System.Windows.Forms.RadioButton();
             this.chkUpload = new System.Windows.Forms.RadioButton();
             this.lbName = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.lbVn = new System.Windows.Forms.Label();
-            this.txtVN = new C1.Win.C1Input.C1TextBox();
             this.pnPic.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             this.SuspendLayout();
             // 
             // pnPic
@@ -78,6 +78,39 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(618, 35);
             this.panel2.TabIndex = 0;
+            // 
+            // lbVn
+            // 
+            this.lbVn.AutoSize = true;
+            this.lbVn.BackColor = System.Drawing.Color.White;
+            this.lbVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbVn.Location = new System.Drawing.Point(363, 8);
+            this.lbVn.Name = "lbVn";
+            this.lbVn.Size = new System.Drawing.Size(36, 16);
+            this.lbVn.TabIndex = 546;
+            this.lbVn.Text = "VN  :";
+            // 
+            // txtVN
+            // 
+            this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtVN.Location = new System.Drawing.Point(402, 6);
+            this.txtVN.Name = "txtVN";
+            this.txtVN.Size = new System.Drawing.Size(94, 20);
+            this.txtVN.TabIndex = 545;
+            this.txtVN.Tag = null;
+            this.txtVN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(120, 7);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(24, 23);
+            this.btnSearch.TabIndex = 5;
+            this.btnSearch.Text = "...";
+            this.btnSearch.UseVisualStyleBackColor = true;
             // 
             // chkView
             // 
@@ -130,39 +163,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "HN :";
             // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(120, 7);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(24, 23);
-            this.btnSearch.TabIndex = 5;
-            this.btnSearch.Text = "...";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // lbVn
-            // 
-            this.lbVn.AutoSize = true;
-            this.lbVn.BackColor = System.Drawing.Color.White;
-            this.lbVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbVn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbVn.Location = new System.Drawing.Point(363, 8);
-            this.lbVn.Name = "lbVn";
-            this.lbVn.Size = new System.Drawing.Size(36, 16);
-            this.lbVn.TabIndex = 546;
-            this.lbVn.Text = "VN  :";
-            // 
-            // txtVN
-            // 
-            this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtVN.Location = new System.Drawing.Point(402, 6);
-            this.txtVN.Name = "txtVN";
-            this.txtVN.Size = new System.Drawing.Size(94, 20);
-            this.txtVN.TabIndex = 545;
-            this.txtVN.Tag = null;
-            this.txtVN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            // 
             // FrmScreenCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,13 +170,14 @@
             this.ClientSize = new System.Drawing.Size(618, 567);
             this.Controls.Add(this.pnPic);
             this.Name = "FrmScreenCapture";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmScreenCapture";
             this.Load += new System.EventHandler(this.FrmScreenCapture_Load);
             this.pnPic.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             this.ResumeLayout(false);
 
         }

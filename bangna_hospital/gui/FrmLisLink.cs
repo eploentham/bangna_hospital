@@ -190,6 +190,7 @@ namespace bangna_hospital.gui
             dtres = bc.bcDB.labresDB.selectNoSendByStatusLis();
             try
             {
+                new LogWriter("d", "FrmLisLink setLinkLIS result  " + dtres.Rows.Count.ToString());
                 rb2.Text = "result = " + dtres.Rows.Count.ToString();
                 foreach (DataRow drow in dtres.Rows)
                 {
@@ -197,7 +198,7 @@ namespace bangna_hospital.gui
                     List<LinkLabOBX> lOBX;
                     lOBX = bc.bcDB.labresDB.labres.genResult(drow);
                     err = "01";
-                    //new LogWriter("e", "FrmLisLink setLinkLIS lOBX   " + lOBX.Count);
+                    new LogWriter("e", "FrmLisLink setLinkLIS lOBX   " + lOBX.Count);
                     if (lOBX.Count > 0)
                     {
                         DataTable dtreq = new DataTable();

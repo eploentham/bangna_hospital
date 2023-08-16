@@ -108,10 +108,12 @@ namespace bangna_hospital.gui
                 ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
                 //MessageBox.Show("333", "");
 
-                ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename);
-                File.Delete(filename);
-                System.Threading.Thread.Sleep(1000);
-                this.Dispose();
+                if(ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
+                {
+                    File.Delete(filename);
+                    System.Threading.Thread.Sleep(1000);
+                    //this.Dispose();
+                }
             }
         }
 

@@ -383,7 +383,6 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
         private void BtnHn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

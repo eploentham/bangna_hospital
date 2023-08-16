@@ -11,7 +11,7 @@ namespace bangna_hospital.object1
     public class Patient:Persistent
     {
         public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="", anCnt="", dob="", idcard="", fname="", lname="", title="", hnyr="";
-        public String patient_birthday = "", addr="";
+        public String patient_birthday = "", addr="", visitTime="", dtrcode="";
         public Age age = new Age(DateTime.Now);
 
         public String MNC_HN_NO { get; set; }

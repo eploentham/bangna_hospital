@@ -119,5 +119,22 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
+        public String updateSSOPcode(String paidtypecode, String ssopcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update finance_m01 Set " +
+                    "ssop_billmuad ='" + ssopcode + "' " +
+                    "Where MNC_FN_CD ='" + paidtypecode + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " finance_m01 updateSSOPcode error " + ex.InnerException);
+            }
+            return chk;
+        }
     }
 }

@@ -308,6 +308,7 @@ namespace bangna_hospital.gui
             tab.Refresh();
             tab.Text = label;
             tab.Closing += Tab_Closing;
+
             
             theme1.SetTheme(tC1, bc.iniC.themeApplication);
             
@@ -475,6 +476,7 @@ namespace bangna_hospital.gui
             tC1.SelectedTab = tabQue;
             timer1.Start();
             this.Text = "Last Update 2020-02-07 Format Date "+ System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            txtHn.Focus();
         }
     }
 }

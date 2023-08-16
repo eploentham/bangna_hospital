@@ -102,9 +102,9 @@
             this.lbDrugAllergy.BackColor = System.Drawing.Color.White;
             this.lbDrugAllergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDrugAllergy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbDrugAllergy.Location = new System.Drawing.Point(1109, 13);
+            this.lbDrugAllergy.Location = new System.Drawing.Point(1109, 8);
             this.lbDrugAllergy.Name = "lbDrugAllergy";
-            this.lbDrugAllergy.Size = new System.Drawing.Size(380, 20);
+            this.lbDrugAllergy.Size = new System.Drawing.Size(380, 32);
             this.lbDrugAllergy.TabIndex = 557;
             this.lbDrugAllergy.Text = "...";
             this.theme1.SetTheme(this.lbDrugAllergy, "(default)");

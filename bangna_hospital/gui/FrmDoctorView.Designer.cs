@@ -293,7 +293,7 @@
             this.txtHn.Location = new System.Drawing.Point(67, 8);
             this.txtHn.Name = "txtHn";
             this.txtHn.Size = new System.Drawing.Size(100, 20);
-            this.txtHn.TabIndex = 3;
+            this.txtHn.TabIndex = 0;
             this.txtHn.Tag = null;
             this.theme1.SetTheme(this.txtHn, "(default)");
             this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;

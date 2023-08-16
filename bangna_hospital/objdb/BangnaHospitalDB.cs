@@ -75,6 +75,7 @@ namespace bangna_hospital.objdb
         public LisLabResultDB labresDB;
         public LisLabRequestDB labreqDB;
         public LabT05DB labT05DB;
+        public MedicalCertificateDB mcertiDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -168,6 +169,7 @@ namespace bangna_hospital.objdb
                 labresDB = new LisLabResultDB(conn);
                 labreqDB = new LisLabRequestDB(conn);
                 labT05DB = new LabT05DB(conn);
+                mcertiDB = new MedicalCertificateDB(conn);
             }
             catch(Exception ex)
             {

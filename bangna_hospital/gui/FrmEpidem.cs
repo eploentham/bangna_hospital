@@ -362,11 +362,17 @@ namespace bangna_hospital.gui
             String password = "";
             password = HmacSHA256(API_SECRET, api_key);
             password = password.ToUpper();
-            var url = "https://cvp1.moph.go.th/token?Action=get_moph_access_token&user=" + user + "&password_hash=" + password + "&hospital_code=" + hospital_code;
+            var url = "https://cvp1.moph.go.th/token?action=get_moph_access_token&user=" + user + "&password_hash=" + password + "&hospital_code=" + hospital_code;
             using (HttpClient httpClient = new HttpClient())
             {
                 //var result = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
-                HttpResponseMessage response = await httpClient.GetAsync(url);
+                var content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("user", user),
+                    new KeyValuePair<string, string>("password_hash", password),
+                    new KeyValuePair<string, string>("hospital_code", hospital_code)
+                });
+                HttpResponseMessage response = await httpClient.PostAsync(url, content);
                 authen = response.Content.ReadAsStringAsync().Result;
             }
             url = "https://epidemcenter.moph.go.th/epidem/api/SendEPIDEM";
@@ -1334,6 +1340,36 @@ namespace bangna_hospital.gui
             getAuten();
             btnAuthen.Enabled = true;
         }
+        async void GetToken()
+        {
+            string url = "https://cvp1.moph.go.th/token?action=get_moph_access_token";
+            //string url = "https://cvp1.moph.go.th/token";
+            string result = "";
+            try
+            {
+                String API_SECRET = txtAPISecret.Text.Trim();
+                String api_key = txtPassword.Text.Trim();
+                String user = txtUser.Text.Trim();
+                String hospital_code = txtHospCode.Text.Trim();
+                String password = "";
+                password = HmacSHA256(API_SECRET, api_key);
+                password = password.ToUpper();
+                TokenLogin tokenlogin = new TokenLogin
+                {
+                    //action = "get_moph_access_token",
+                    user = user,
+                    password_hash = password,
+                    hospital_code = hospital_code
+                };
+                string jsonData = JsonConvert.SerializeObject(tokenlogin);
+                HttpClient tRequest = new HttpClient();
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await tRequest.PostAsync(url, content);
+                result = await response.Content.ReadAsStringAsync();
+                //APICovidlist.Hospital.GetInstances().his_token = result.ToString();
+            }
+            catch { }
+        }
         private async void getAuten()
         {
             pageLoad = true;
@@ -1345,13 +1381,23 @@ namespace bangna_hospital.gui
             String password = "5921CC2BDEDF43080011E8FE75CFEFA72BB8121D5E54058C0E19DE08658FFA0D";
             password = HmacSHA256(API_SECRET, api_key);
             password = password.ToUpper();
-            var url = "https://cvp1.moph.go.th/token?Action=get_moph_access_token&user=" + user + "&password_hash=" + password + "&hospital_code=" + hospital_code;
+            GetToken();
+            //var url = "https://cvp1.moph.go.th/token?Action=get_moph_access_token&user=" + user + "&password_hash=" + password + "&hospital_code=" + hospital_code;
+            //var url = "https://cvp1.moph.go.th/token?Action=get_moph_access_token";
+            var url = "https://cvp1.moph.go.th/token";
             using (HttpClient httpClient = new HttpClient())
             {
                 //var result = await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, url));
-                HttpResponseMessage response = await httpClient.GetAsync(url);
+                var content = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("Action", "get_moph_access_token"),
+                    new KeyValuePair<string, string>("user", user),
+                    new KeyValuePair<string, string>("password_hash", password),
+                    new KeyValuePair<string, string>("hospital_code", hospital_code)
+                });
+                HttpResponseMessage response = await httpClient.PostAsync(url, content);
+                //HttpResponseMessage response = await httpClient.GetAsync(url);
                 authen = response.Content.ReadAsStringAsync().Result;
-                
             }
             lSympT.Clear();
             lPersS.Clear();

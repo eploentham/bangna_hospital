@@ -78,6 +78,25 @@ namespace bangna_hospital.gui
         Patient ptt;
 
         ContextMenu menuAnesTech, menuOrDeptOpeNote, menuDept;
+
+        private void FrmOrOperativeNote_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // FrmOrOperativeNote
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "FrmOrOperativeNote";
+            this.Load += new System.EventHandler(this.FrmOrOperativeNote_Load_1);
+            this.ResumeLayout(false);
+
+        }
+
         OperativeNote operNote;
 
         C1SuperTooltip stt;

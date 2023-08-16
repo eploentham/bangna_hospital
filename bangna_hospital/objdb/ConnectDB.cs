@@ -155,7 +155,6 @@ namespace bangna_hospital.objdb
                 con.Close();
                 com.Dispose();
             }
-
             return toReturn;
         }
         public String ExecuteScalarNonQuery(SqlConnection con, String sql)

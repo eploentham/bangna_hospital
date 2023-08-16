@@ -1,10 +1,21 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.object1;
 using C1.C1Excel;
+using C1.C1Pdf;
+using C1.Win.C1Document;
+using C1.Win.C1FlexGrid;
+using C1.Win.C1Tile;
+using C1.Win.FlexViewer;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +26,14 @@ namespace bangna_hospital.gui
     public partial class FrmExcel : Form
     {
         BangnaControl bc;
+
+        System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B;
+        C1FlexGrid grfOutlab;
+        C1TileControl TileRec;
+        Group grRec;
+        Template tempFlickr;
+        ImageElement imageElement8;
+        MemoryStream streamOutLab;
         public FrmExcel(BangnaControl bc)
         {
             InitializeComponent();
@@ -23,10 +42,353 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            fEdit = new System.Drawing.Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
+            fEditB = new System.Drawing.Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
+            fEdit3B = new System.Drawing.Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 3, FontStyle.Bold);
+            fEdit5B = new System.Drawing.Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 5, FontStyle.Bold);
+
             btnOpenExcel.Click += BtnOpenExcel_Click;
             btnReadExcel.Click += BtnReadExcel_Click;
             btnDrugCOpenExcel.Click += BtnDrugCOpenExcel_Click;
             btnDrugCRead.Click += BtnDrugCRead_Click;
+
+            btnPdfBrow.Click += BtnPdfBrow_Click;
+            btnPdfRead.Click += BtnPdfRead_Click;
+            btnPdfAddImg.Click += BtnPdfAddImg_Click;
+            btnPdfDelImg.Click += BtnPdfDelImg_Click;
+            btnPdfMergeImg.Click += BtnPdfMergeImg_Click;
+            btnPdfMergePdf.Click += BtnPdfMergePdf_Click;
+            btnOpenFolder.Click += BtnOpenFolder_Click;
+            btnPdfMorgeBrow.Click += BtnPdfMorgeBrow_Click;
+            btnOutlabBrow.Click += BtnOutlabBrow_Click;
+
+            imageElement8 = new C1.Win.C1Tile.ImageElement();
+            imageElement8.ImageLayout = C1.Win.C1Tile.ForeImageLayout.ScaleOuter;
+            tempFlickr = new C1.Win.C1Tile.Template();
+            tempFlickr.Elements.Add(imageElement8);
+
+            TileRec = new C1TileControl();
+            TileRec.Dock = DockStyle.Fill;
+            TileRec.Orientation = LayoutOrientation.Vertical;
+            TileRec.Templates.Add(tempFlickr);
+            grRec = new Group();
+            TileRec.Groups.Add(this.grRec);
+            panel4.Controls.Add(TileRec);
+        }
+
+        private void BtnOutlabBrow_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (txtOutlabHN.Text.Length <= 0) return;
+            Form frm = new Form();
+            frm.Size = new Size(600, 300);
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            grfOutlab = new C1FlexGrid();
+            grfOutlab = new C1FlexGrid();
+            grfOutlab.Font = fEdit;
+            grfOutlab.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfOutlab.Location = new System.Drawing.Point(0, 0);
+            //grfOrder.Rows[0].Visible = false;
+            //grfOrder.Cols[0].Visible = false;
+            grfOutlab.Cols[0].Visible = false;
+            grfOutlab.Cols[5].Visible = false;
+            grfOutlab.Cols[6].Visible = false;
+            grfOutlab.Rows.Count = 1;
+            grfOutlab.Cols.Count = 7;
+            grfOutlab.Cols[1].Caption = "ชื่อ";
+            grfOutlab.Cols[2].Caption = "req date";
+            grfOutlab.Cols[3].Caption = "VN";
+            grfOutlab.Cols[4].Caption = "AN";
+            
+            grfOutlab.Cols[1].Width = 300;
+            grfOutlab.Cols[2].Width = 120;
+            grfOutlab.Cols[3].Width = 80;
+            grfOutlab.Cols[4].Width = 80;
+            grfOutlab.SelectionMode = SelectionModeEnum.Row;
+            grfOutlab.Name = "grfOutlab";
+            grfOutlab.Cols[0].AllowEditing = false;
+            grfOutlab.Cols[1].AllowEditing = false;
+            grfOutlab.Cols[2].AllowEditing = false;
+            grfOutlab.Cols[3].AllowEditing = false;
+            grfOutlab.DoubleClick += GrfOutlab_DoubleClick;
+            ContextMenu menuGwOrder = new ContextMenu();
+            menuGwOrder.MenuItems.Add("ต้องการ Merge OutLab ", new EventHandler(ContextMenu_Outlab_Merge));
+            grfOutlab.ContextMenu = menuGwOrder;
+            frm.Controls.Add(grfOutlab);
+
+            DataTable dtoutlab = new DataTable();
+            dtoutlab = bc.bcDB.dscDB.selectLabOutByHn(txtOutlabHN.Text.Trim());
+            int i = 0;
+            decimal aaa = 0;
+            //pB1.Maximum = dt.Rows.Count;
+            try
+            {
+                String labname = "", labnameold = "", reqno = "", reqnoold = "";
+                grfOutlab.Rows.Count = dtoutlab.Rows.Count+1;
+                foreach (DataRow row1 in dtoutlab.Rows)
+                {
+                    i++;
+                    grfOutlab[i, 0] = row1["doc_scan_id"].ToString();
+                    grfOutlab[i, 1] = row1["patient_fullname"].ToString();
+                    grfOutlab[i, 2] = row1["date_req"].ToString();
+                    grfOutlab[i, 3] = row1["vn"].ToString();
+                    grfOutlab[i, 4] = row1["an"].ToString();
+                    grfOutlab[i, 5] = row1["folder_ftp"].ToString();
+                    grfOutlab[i, 6] = row1["image_path"].ToString();
+
+                    //row1[0] = (i - 2);
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmExcel BtnOutlabBrow_Click grfOutlab " + ex.Message);
+            }
+            frm.ShowDialog(this);
+        }
+        private void GrfOutlab_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfOutlab == null) return;
+            if (grfOutlab.Rows.Count <=0) return;
+            if (grfOutlab[grfOutlab.Row, 0].ToString().Length<=0) return;
+
+            String folderftp = "", imagepath = "";
+            folderftp = grfOutlab[grfOutlab.Row, 5].ToString();
+            imagepath = grfOutlab[grfOutlab.Row, 6].ToString();
+
+            Form frm = new Form();
+            frm.Size = new Size(1000, 800);
+            frm.StartPosition = FormStartPosition.CenterScreen;
+
+            C1FlexViewer fview = new C1FlexViewer();
+            bc.setControlC1FlexViewer(ref fview, "fviewoutlab");
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            streamOutLab = null;
+
+            if (!Directory.Exists("report"))
+            {
+                Directory.CreateDirectory("report");
+            }
+            FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+            streamOutLab = ftpc.download(folderftp + "/" + imagepath);
+            if ((streamOutLab != null) && (streamOutLab.Length > 0))
+            {
+                streamOutLab.Seek(0, SeekOrigin.Begin);
+                pds.LoadFromStream(streamOutLab);
+                fview.DocumentSource = pds;
+            }
+            frm.Controls.Add(fview);
+            frm.ShowDialog(this);
+        }
+        private void ContextMenu_Outlab_Merge(object sender, System.EventArgs e)
+        {
+            if (streamOutLab == null) return;
+            try
+            {
+                FileInfo file = new FileInfo(txtPdfPath.Text);
+                String filenamenew = "";
+                filenamenew = file.Directory.FullName + "\\" + file.Name.Replace(file.Extension, "") + "_1" + file.Extension;
+                if (File.Exists(filenamenew)) File.Delete(filenamenew);
+                PdfControl pdfc = new PdfControl();
+                pdfc.MergeFileslab(filenamenew, txtPdfPath.Text.Trim(), streamOutLab);
+                string argument = "/select, \"" + filenamenew + "\"";
+
+                System.Diagnostics.Process.Start("explorer.exe", argument);
+            }
+            catch (Exception ex)
+            {
+                //Response.Write(e.Message);
+            }
+        }
+        private void BtnPdfMorgeBrow_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "pdf",
+                Filter = "pdf files (*.pdf)|*.pdf",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtPdfMergePath.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void BtnOpenFolder_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            Process.Start("explorer.exe", bc.iniC.pathDownloadFile);
+        }
+
+        private void BtnPdfMergePdf_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (txtPdfPath.Text.Length <= 0) return;
+            if (txtPdfMergePath.Text.Length <= 0) return;
+
+            FileInfo file = new FileInfo(txtPdfPath.Text);
+
+            PdfControl pdfc = new PdfControl();
+            String[] files;
+            files = new string[2];
+            files[0] = txtPdfPath.Text;
+            files[1] = txtPdfMergePath.Text;
+            String filenamenew = "";
+            filenamenew = file.Directory.FullName + "\\" + file.Name.Replace(file.Extension, "") + "_1" + file.Extension;
+            if (File.Exists(filenamenew)) File.Delete(filenamenew);
+            pdfc.MergeFileslab1(file.Directory.FullName + "\\" + file.Name.Replace(file.Extension, "") + "_1" + file.Extension, files);
+
+            Process.Start("explorer.exe", file.FullName + "_1" + file.Extension);
+        }
+
+        private void BtnPdfMergeImg_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (txtPdfPath.Text.Length <= 0) return;
+
+            //C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            //pds.LoadFromFile(txtPdfPath.Text);
+            //C1PdfDocument aaa = new C1PdfDocument();
+
+
+
+            //using (Stream inputPdfStream = new FileStream(txtPdfPath.Text, FileMode.Open, FileAccess.Read, FileShare.Read))
+            //using (Stream outputPdfStream = new FileStream(file.FullName + "_1" + file.Extension, FileMode.Create, FileAccess.Write, FileShare.None))
+            //{
+            //    var reader = new PdfReader(inputPdfStream);
+            //    var stamper = new PdfStamper(reader, outputPdfStream);
+            //    var pdfContentByte = stamper.GetOverContent(1);
+            //foreach (Tile tile in TileRec.Groups[0].Tiles)
+            //{
+            //    iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(tile.Image, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //    pic.SetAbsolutePosition(100, 100);
+
+            //}
+            //    stamper.Close();
+            //}
+            
+            FileInfo file = new FileInfo(txtPdfPath.Text);
+            String filenamenew = "";
+            filenamenew = file.Directory.FullName + "\\" + file.Name.Replace(file.Extension, "")+"_1"+file.Extension;
+            if (File.Exists(filenamenew)) File.Delete(filenamenew);
+            using (Stream inputPdfStream = new FileStream(txtPdfPath.Text, FileMode.Open, FileAccess.Read, FileShare.Read))
+            //using (Stream inputImageStream = new FileStream("some_image.jpg", FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (Stream outputPdfStream = new FileStream(filenamenew, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                var reader = new PdfReader(inputPdfStream);
+                var stamper = new PdfStamper(reader, outputPdfStream);
+                int pagenumber=0;
+                pagenumber = reader.NumberOfPages;
+                foreach (Tile tile in TileRec.Groups[0].Tiles)
+                {
+                    pagenumber++;
+                    iTextSharp.text.Rectangle rectangle = reader.GetPageSize(1);
+
+
+                    iTextSharp.text.Rectangle pageSize = null;
+                    
+                    using (var srcImage = new Bitmap(tile.Image))
+                    {
+                        pageSize = new iTextSharp.text.Rectangle(0, 0, PageSize.A4.Width, PageSize.A4.Height);
+                    }
+
+                    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(bc.ResizeImage(tile.Image, int.Parse(pageSize.Width.ToString()), int.Parse(pageSize.Height.ToString())), ImageFormat.Jpeg);
+                    //iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(tile.Image, ImageFormat.Jpeg);
+                    image.SetAbsolutePosition(0, 0);
+                    
+                    stamper.InsertPage(pagenumber, pageSize);
+                    var pdfContentByte = stamper.GetOverContent(pagenumber);
+                    pdfContentByte.AddImage(image);
+                }
+                stamper.Close();
+            }
+            txtPdfPath.Text = filenamenew;
+            BtnPdfRead_Click(null, null);
+        }
+
+        private void BtnPdfDelImg_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TileRec.Groups[0].Tiles.Clear();
+        }
+
+        private void BtnPdfAddImg_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                 FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+            var codecs = ImageCodecInfo.GetImageEncoders();
+            var codecFilter = "Image Files|";
+            foreach (var codec in codecs)
+            {
+                codecFilter += codec.FilenameExtension + ";";
+            }
+            openFileDialog1.Filter = codecFilter;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                TileRec.BeginUpdate();
+                var tile = new Tile();
+                tile.HorizontalSize = 3;
+                tile.VerticalSize = 4;
+                tile.Template = tempFlickr;
+                tile.Image = System.Drawing.Image.FromFile(openFileDialog1.FileName);
+                tile.Text1 = openFileDialog1.FileName;
+                TileCollection tiles1 = TileRec.Groups[0].Tiles;
+                //tiles1.Clear(true);
+                tiles1.Add(tile);
+                TileRec.EndUpdate();
+            }
+        }
+
+        private void BtnPdfRead_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            C1PdfDocumentSource pds = new C1PdfDocumentSource();
+            pds.LoadFromFile(txtPdfPath.Text);
+            c1FlexViewer1.DocumentSource = pds;
+            
+        }
+
+        private void BtnPdfBrow_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = bc.iniC.pathDownloadFile,
+                Title = "Browse Text Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "pdf",
+                Filter = "pdf files (*.pdf)|*.pdf",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                txtPdfPath.Text = openFileDialog1.FileName;
+                BtnPdfRead_Click(null, null);
+            }
         }
 
         private void BtnDrugCRead_Click(object sender, EventArgs e)
@@ -214,7 +576,9 @@ namespace bangna_hospital.gui
 
         private void FrmExcel_Load(object sender, EventArgs e)
         {
-
+            c1SplitContainer1.HeaderHeight = 0;
+            c1FlexViewer1.Ribbon.Minimized = true;
+            this.Text = "Last Update 2023-05-22";
         }
     }
 }

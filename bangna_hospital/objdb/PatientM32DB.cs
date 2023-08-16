@@ -135,6 +135,23 @@ namespace bangna_hospital.objdb
                 }
             }
         }
+        public String updateSSOPCode(String dep_no, String sec_no, String div_no, String typ_pt, String ssopcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update patient_m32 Set " +
+                    "ssop_clinic ='" + ssopcode + "' " +
+                    "Where mnc_md_dep_no ='" + dep_no + "' and mnc_sec_no ='" + sec_no + "' and mnc_div_no ='" + div_no + "' and mnc_typ_pt = '" + typ_pt + "'";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " PatientM30DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
         public String updateOPBKKCode(String dep_no, String sec_no, String div_no, String typ_pt, String opbkkcode)
         {
             String sql = "", chk = "";

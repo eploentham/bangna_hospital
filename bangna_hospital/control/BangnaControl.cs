@@ -53,6 +53,7 @@ namespace bangna_hospital.control
         public Dictionary<String, String> opBKKINSCL = new Dictionary<String, String>() { { "UCS", "สิทธิหลักประกันสุขภาพ" },{ "WEL", "สิทธิหลักประกันสุขภาพ (ยกเว้นการร่วมจ่าย)" }, { "OFC", "สิทธิข้าราชการ" }, { "SSS", "สิทธิประกันสังคม" }, { "LGO", "สิทธิ อปท" }, { "SSI", "สิทธิประกันสังคมทุพพลภาพ" } };
         public Dictionary<String, String> opBKKClinic = new Dictionary<String, String>();
         public Dictionary<String, String> opBKKCHRGITEM_CODEA = new Dictionary<String, String>();
+        public Dictionary<String, String> ssopClaimCat = new Dictionary<String, String>() { { "OP1", "OPD ปกติ" }, { "OP...", "OPD อื่นๆ" }, { "RPT", "ไตวายเรื้อรัง" }, { "P01", "OCPA" }, { "P02", "RDPA" }, { "P03", "DDPA" }, { "REF", "ส่งต่อ" }, { "EM1", "ฉุกเฉิน" }, { "EM2", "ฉุกเฉินระยะทาง" }, { "OPF", "เบิกเพิ่มแบบเหมาจ่าย" }, { "OPR", "เบิกเพิ่มตามอัตรา" }, { "XX...", "บัญชี...ต่างๆ" } };
         public String _IPAddress = "";
         public List<Nation> lNat;
         public List<Province> lProv;
@@ -119,21 +120,21 @@ namespace bangna_hospital.control
                 lDistrict = new List<District>();
                 lSubDistrict = new List<SubDistrict>();
                 err = "02";
-                new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
+                //new LogWriter("d", "BangnaControl initConfig GetConfig in " + err);
                 GetConfig();
-                new LogWriter("d", "BangnaControl initConfig GetConfig out " + err);
+                //new LogWriter("d", "BangnaControl initConfig GetConfig out " + err);
                 err = "03";
                 conn = new ConnectDB(iniC);
-                new LogWriter("d", "BangnaControl initConfig new ConnectDB(iniC); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig new ConnectDB(iniC); out " + err);
                 err = "04";
                 bcDB = new BangnaHospitalDB(conn);
-                new LogWriter("d", "BangnaControl initConfig new BangnaHospitalDB(conn); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig new BangnaHospitalDB(conn); out " + err);
                 err = "05";
                 initOPBKKClinic();
-                new LogWriter("d", "BangnaControl initConfig initOPBKKClinic(); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig initOPBKKClinic(); out " + err);
                 err = "06";
                 initOPBKKCHRGITEM();
-                new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
+                //new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
                 getInit();
 
                 epiPersS = new EpidemPersonStatus();
@@ -603,6 +604,11 @@ namespace bangna_hospital.control
             iniC.statusVisitBack = iniF.getIni("app", "statusVisitBack");
             iniC.aipnXmlPath = iniF.getIni("app", "aipnXmlPath");
             iniC.aipnAuthorName = iniF.getIni("app", "aipnAuthorName");
+
+            iniC.ssopXmlPath = iniF.getIni("app", "ssopXmlPath");
+
+            iniC.pathLabOutReceiveATTA = iniF.getIni("app", "pathLabOutReceiveATTA");
+            iniC.pathLabOutBackupATTA = iniF.getIni("app", "pathLabOutBackupATTA");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1366,6 +1372,70 @@ namespace bangna_hospital.control
             item.Text = "สิทธิประกันสังคมทุพพลภาพ";
             c.Items.Add(item);
         }
+        public void setCboSSOPClaimCat(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "OP1";
+            item.Text = "OPD ปกติ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "OP...";
+            item.Text = "OPD อื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "RPT";
+            item.Text = "ไตวายเรื้อรัง";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "P01";
+            item.Text = "OCPA";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "P02";
+            item.Text = "RDPA";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "P03";
+            item.Text = "DDPA";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "REF";
+            item.Text = "ส่งต่อ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "EM1";
+            item.Text = "ฉุกเฉิน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "EM2";
+            item.Text = "ฉุกเฉินระยะทาง";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "OPF";
+            item.Text = "เบิกเพิ่มแบบเหมาจ่าย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "OPR";
+            item.Text = "เบิกเพิ่มตามอัตรา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "XX...";
+            item.Text = "บัญชี...ต่างๆ";
+            c.Items.Add(item);
+        }
         public void setCboOPBKKCHRGITEM_CODEA(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -1389,141 +1459,6 @@ namespace bangna_hospital.control
                 item.Text = entry.Value;
                 c.Items.Add(item);
             }
-
-            //item = new ComboBoxItem();
-            //item.Value = "00";
-            //item.Text = "หน่วยงานระดับสถานีอนามัย";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "01";
-            //item.Text = "อายุรกรรม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "02";
-            //item.Text = "ศัลยกรรม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "03";
-            //item.Text = "สูติกรรม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "04";
-            //item.Text = "นรีเวชกรรม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "05";
-            //item.Text = "กุมารเวชกรรม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "06";
-            //item.Text = "โสต ศอ นาสิก";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "07";
-            //item.Text = "จักษุวิทยา";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "08";
-            //item.Text = "ศัลยกรรมออร์โธปิดิกส";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "09";
-            //item.Text = "จิตเวช";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "10";
-            //item.Text = "รังสีวิทยา";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "11";
-            //item.Text = "ทันตกรรม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "12";
-            //item.Text = "เวชศาสตร์ฉุกเฉินและนิติเวช";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "13";
-            //item.Text = "เวชกรรมฟื้นฟู";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "14";
-            //item.Text = "แพทย์แผนไทย";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "15";
-            //item.Text = "PCU ใน รพ.";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "16";
-            //item.Text = "เวชกรรมปฎิบัติทั่วไป";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "17";
-            //item.Text = "เวชศาสสตร์ครอบครัวและชุมชน";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "18";
-            //item.Text = "อาชีวคลินิก";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "19";
-            //item.Text = "วิสัญญีวิทยา(คลินิกระงับปวด)";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "20";
-            //item.Text = "ศัลยกรรมประสาท";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "21";
-            //item.Text = "อาชีวเวชรกรรม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "22";
-            //item.Text = "เวชกรรมสังคม";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "23";
-            //item.Text = "พยาธิวิทยากายวิภาค";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "24";
-            //item.Text = "พยาธิวิทยาคลินิค";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "25";
-            //item.Text = "แพทย์ทางเลือก";
-            //c.Items.Add(item);
-
-            //item = new ComboBoxItem();
-            //item.Value = "99";
-            //item.Text = "อื่นๆ";
-            //c.Items.Add(item);
         }
         public String convertExcelColName(String col)
         {
@@ -1660,6 +1595,77 @@ namespace bangna_hospital.control
             {
                 return "";
             }
+        }
+        public C1ComboBox setCboMonth(C1ComboBox c)
+        {
+            c.Items.Clear();
+            var items = new[]{
+                new{Text = "มกราคม", Value="01"},
+                new{Text = "กุมภาพันธ์", Value="02"},
+                new{Text = "มีนาคม", Value="03"},
+                new{Text = "เมษายน", Value="04"},
+                new{Text = "พฤษภาคม", Value="05"},
+                new{Text = "มิถุนายน", Value="06"},
+                new{Text = "กรกฎาคม", Value="07"},
+                new{Text = "สิงหาคม", Value="08"},
+                new{Text = "กันยายน", Value="09"},
+                new{Text = "ตุลาคม", Value="10"},
+                new{Text = "พฤศจิกายน", Value="11"},
+                new{Text = "ธันวาคม", Value="12"}
+            };
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "01";
+            item.Text = "มกราคม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "02";
+            item.Text = "กุมภาพันธ์";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "03";
+            item.Text = "มีนาคม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "04";
+            item.Text = "เมษายน";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "05";
+            item.Text = "พฤษภาคม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "06";
+            item.Text = "มิถุนายน";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "07";
+            item.Text = "กรกฎาคม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "08";
+            item.Text = "สิงหาคม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "09";
+            item.Text = "กันยายน";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "10";
+            item.Text = "ตุลาคม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "11";
+            item.Text = "พฤศจิกายน";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "12";
+            item.Text = "ธันวาคม";
+            c.Items.Add(item);
+
+            c.SelectedItem = System.DateTime.Now.Month.ToString("00");
+            return c;
         }
         public ComboBox setCboMonth(ComboBox c)
         {
@@ -1874,6 +1880,15 @@ namespace bangna_hospital.control
             item.Value = "SD";
             item.Text = "Scanned Document";
             c.Items.Add(item);
+        }
+        public C1ComboBox setCboYear(C1ComboBox c)
+        {
+            c.Items.Clear();
+            c.Items.Add(System.DateTime.Now.Year + 543);
+            c.Items.Add(System.DateTime.Now.Year + 543 - 1);
+            c.Items.Add(System.DateTime.Now.Year + 543 - 2);
+            c.SelectedIndex = 0;
+            return c;
         }
         public ComboBox setCboYear(ComboBox c)
         {

@@ -191,8 +191,8 @@ namespace bangna_hospital.gui
             iTextSharp.text.pdf.BaseFont bfR, bfR1, bfRB;
             iTextSharp.text.BaseColor clrBlack = new iTextSharp.text.BaseColor(0, 0, 0);
             //MemoryStream ms = new MemoryStream();
-            string myFont = Environment.CurrentDirectory + "\\THSarabun.ttf";
-            string myFontB = Environment.CurrentDirectory + "\\THSarabun Bold.ttf";
+            string myFont = Environment.CurrentDirectory + "\\THSarabunNew.ttf";
+            string myFontB = Environment.CurrentDirectory + "\\THSarabunNew Bold.ttf";
             String hn = "", name = "", doctor = "", fncd = "", birthday = "", dsDate = "", dsTime = "", an = "";
 
             decimal total = 0;

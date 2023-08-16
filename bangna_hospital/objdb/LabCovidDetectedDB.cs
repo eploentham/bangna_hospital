@@ -127,7 +127,7 @@ namespace bangna_hospital.objdb
                 ", addr_home_no +' '+addr_moo as addr1 , tumbon_name, amphur_name, prov_name, first_name, last_name, prefix,MNC_LB_DSC "
                 + "From t_lab_covid_detected " +
                 "Left Join lab_m01 labm01 on t_lab_covid_detected.lab_code = labm01.MNC_LB_CD "
-                + "Where active = '1' and status_epidem <> '1' ";
+                + "Where t_lab_covid_detected.active = '1' and t_lab_covid_detected.status_epidem <> '1' ";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;

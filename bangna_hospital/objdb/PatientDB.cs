@@ -305,6 +305,109 @@ namespace bangna_hospital.objdb
             }
             return ptt;
         }
+        public Patient selectPatinetVisitOPDByHn(String hn, String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            Patient ptt = new Patient();
+            sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E " +
+                ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE " +
+                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD, m01.passport,m01.MNC_SS_NO " +
+                ", m01.MNC_dom_CHW, m01.MNC_dom_AMP, m01.MNC_dom_TUM, m01.MNC_dom_ADD, m01.MNC_dom_MOO, m01.MNC_dom_SOI,MNC_DOM_TEL " +
+                ",convert(VARCHAR(20),pt01.MNC_DATE,23) as MNC_DATE, pt01.mnc_time, pt01.MNC_DOT_CD, pt01.MNC_VN_NO, pt01.MNC_VN_SEQ, pt01.MNC_VN_SUM " +
+                "From  patient_m01 m01 " +
+                " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                " inner join patient_t01 pt01 on m01.mnc_hn_no = pt01.mnc_hn_no  " +
+                " Where m01.MNC_hn_NO = '" + hn + "' and pt01.mnc_date = '"+vsdate+"' and pt01.mnc_pre_no = '"+preno+"' " +
+                "Order By pt01.mnc_date desc";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                ptt.Hn = dt.Rows[0]["MNC_HN_NO"].ToString();
+                ptt.Age = dt.Rows[0]["MNC_AGE"].ToString();
+                ptt.patient_birthday = dt.Rows[0]["MNC_bday"].ToString();
+                ptt.Name = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
+                ptt.idcard = dt.Rows[0]["mnc_id_no"].ToString();
+                ptt.hnyr = dt.Rows[0]["mnc_hn_yr"].ToString();
+                ptt.MNC_HN_NO = dt.Rows[0]["MNC_HN_NO"].ToString();
+                ptt.MNC_HN_YR = dt.Rows[0]["mnc_hn_yr"].ToString();
+                ptt.MNC_CUR_CHW = dt.Rows[0]["MNC_CUR_CHW"].ToString();
+                ptt.MNC_CUR_AMP = dt.Rows[0]["MNC_CUR_AMP"].ToString();
+                ptt.MNC_CUR_TUM = dt.Rows[0]["MNC_CUR_TUM"].ToString();
+                ptt.MNC_CUR_ADD = dt.Rows[0]["MNC_CUR_ADD"].ToString();
+                ptt.MNC_CUR_MOO = dt.Rows[0]["MNC_CUR_MOO"].ToString();
+                ptt.MNC_CUR_SOI = dt.Rows[0]["MNC_CUR_SOI"].ToString();
+                ptt.MNC_FNAME_T = dt.Rows[0]["MNC_FNAME_T"].ToString();
+                ptt.MNC_LNAME_T = dt.Rows[0]["MNC_LNAME_T"].ToString();
+                ptt.MNC_FNAME_E = dt.Rows[0]["MNC_FNAME_E"].ToString();
+                ptt.MNC_LNAME_E = dt.Rows[0]["MNC_LNAME_E"].ToString();
+                ptt.MNC_PFIX_CDT = dt.Rows[0]["MNC_PFIX_CDT"].ToString();
+                ptt.MNC_CUR_TEL = dt.Rows[0]["MNC_CUR_TEL"].ToString();
+                ptt.MNC_PFIX_CDE = dt.Rows[0]["MNC_PFIX_CDE"].ToString();
+                ptt.MNC_ATT_NOTE = dt.Rows[0]["MNC_ATT_NOTE"].ToString();
+                ptt.MNC_OCC_CD = dt.Rows[0]["MNC_OCC_CD"].ToString();
+                ptt.MNC_EDU_CD = dt.Rows[0]["MNC_EDU_CD"].ToString();
+                ptt.MNC_NAT_CD = dt.Rows[0]["MNC_NAT_CD"].ToString();
+                ptt.MNC_REL_CD = dt.Rows[0]["MNC_REL_CD"].ToString();
+                ptt.MNC_NATI_CD = dt.Rows[0]["MNC_NATI_CD"].ToString();
+                ptt.MNC_CUR_ROAD = dt.Rows[0]["MNC_CUR_ROAD"].ToString();
+                ptt.MNC_BDAY = dt.Rows[0]["MNC_BDAY"].ToString();
+                ptt.MNC_ID_NO = dt.Rows[0]["mnc_id_no"].ToString();
+                ptt.passport = dt.Rows[0]["passport"].ToString();
+                ptt.MNC_SS_NO = dt.Rows[0]["MNC_SS_NO"].ToString();
+
+                ptt.MNC_DOM_CHW = dt.Rows[0]["MNC_DOM_CHW"].ToString();
+                ptt.MNC_DOM_AMP = dt.Rows[0]["MNC_DOM_AMP"].ToString();
+                ptt.MNC_DOM_TUM = dt.Rows[0]["MNC_DOM_TUM"].ToString();
+                ptt.MNC_DOM_ADD = dt.Rows[0]["MNC_DOM_ADD"].ToString();
+                ptt.MNC_DOM_MOO = dt.Rows[0]["MNC_DOM_MOO"].ToString();
+                ptt.MNC_DOM_SOI = dt.Rows[0]["MNC_DOM_SOI"].ToString();
+                ptt.MNC_DOM_TEL = dt.Rows[0]["MNC_DOM_TEL"].ToString();
+                ptt.visitDate = dt.Rows[0]["MNC_DATE"].ToString();
+                ptt.visitTime = dt.Rows[0]["mnc_time"].ToString();
+                ptt.dtrcode = dt.Rows[0]["MNC_DOT_CD"].ToString();
+                ptt.vn = dt.Rows[0]["MNC_VN_NO"].ToString()+"/"+ dt.Rows[0]["MNC_VN_SEQ"].ToString()+"("+ dt.Rows[0]["MNC_VN_SUM"].ToString()+")";//  1/1(1)
+            }
+            else
+            {
+                ptt.MNC_HN_NO = "";
+                ptt.MNC_HN_YR = "";
+                ptt.MNC_PFIX_CDT = "";
+                ptt.MNC_PFIX_CDE = "";
+                ptt.MNC_FNAME_T = "";
+                ptt.MNC_LNAME_T = "";
+                ptt.MNC_FNAME_E = "";
+                ptt.MNC_LNAME_E = "";
+                ptt.MNC_AGE = "";
+                ptt.MNC_BDAY = "";
+                ptt.MNC_ID_NO = "";
+                ptt.MNC_SS_NO = "";
+                ptt.MNC_SEX = "";
+                ptt.MNC_FULL_ADD = "";
+                ptt.MNC_STAMP_DAT = "";
+                ptt.MNC_STAMP_TIM = "";
+                ptt.MNC_FNAME_T = "";
+                ptt.MNC_LNAME_T = "";
+                ptt.MNC_FNAME_E = "";
+                ptt.MNC_LNAME_E = "";
+                ptt.MNC_CUR_TEL = "";
+                ptt.MNC_ATT_NOTE = "";
+                ptt.MNC_OCC_CD = "";
+                ptt.MNC_EDU_CD = "";
+                ptt.MNC_NAT_CD = "";
+                ptt.MNC_REL_CD = "";
+                ptt.MNC_NATI_CD = "";
+                ptt.MNC_CAR_CD = "";
+                ptt.MNC_CUR_ROAD = "";
+                ptt.passport = "";
+                ptt.visitDate = "";
+                ptt.visitTime = "";
+                ptt.dtrcode = "";
+                ptt.vn = "";
+            }
+            return ptt;
+        }
         public Patient selectPatinetByID1(String pid)
         {
             DataTable dt = new DataTable();

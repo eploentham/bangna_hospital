@@ -97,6 +97,7 @@ namespace bangna_hospital.gui
             theme1.Theme = bc.iniC.themeApplication;
             txtDate.Value = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
             lbDtrName.Text = bc.user.fullname;
+            this.Activated += FrmDoctorView1_Activated;
             //new LogWriter("e", "FrmDoctorView initConfig 02 ");
             initGrfQue();
             setGrfQue();
@@ -108,6 +109,19 @@ namespace bangna_hospital.gui
             //lbDtrName.Font = fEditBig;
             //lbTxtPttHn.Font = fEditBig;
             //txtPttHn.Font = fEditBig;
+        }
+
+        private void FrmDoctorView1_Activated(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                txtPttHn.Focus();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private void BtnHnSearch_Click(object sender, EventArgs e)
@@ -1030,6 +1044,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(pnHead, bc.iniC.themeApp);
             theme1.SetTheme(pnBotton, bc.iniC.themeApp);
             timer1.Start();
+            txtPttHn.Focus();
         }
     }
 }

@@ -541,7 +541,7 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel3.SizeRatio = 79.28D;
             this.c1SplitterPanel3.TabIndex = 0;
             this.c1SplitterPanel3.Text = "Panel 1";
-            this.c1SplitterPanel3.Width = 896;
+            this.c1SplitterPanel3.Width = 903;
             // 
             // m_picPhoto
             // 
@@ -2055,7 +2055,7 @@ namespace bangna_hospital.gui
             this.pnRptCri.Controls.Add(this.txtRptDateStart);
             this.pnRptCri.Controls.Add(this.btnRptOk);
             this.pnRptCri.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
-            this.pnRptCri.Height = 413;
+            this.pnRptCri.Height = 406;
             this.pnRptCri.Location = new System.Drawing.Point(0, 445);
             this.pnRptCri.Name = "pnRptCri";
             this.pnRptCri.Size = new System.Drawing.Size(373, 385);

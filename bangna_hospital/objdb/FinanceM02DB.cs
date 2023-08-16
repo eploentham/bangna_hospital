@@ -102,5 +102,22 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
+        public String updateSSOPClaimCatCode(String paidtypeid, String opbkkcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update finance_m02 Set " +
+                    "ssop_claimcat ='" + opbkkcode + "' " +
+                    "Where mnc_fn_typ_cd ='" + paidtypeid + "'";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " FinanceM02DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
     }
 }

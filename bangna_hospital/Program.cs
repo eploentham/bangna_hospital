@@ -218,6 +218,11 @@ namespace bangna_hospital
                     err = "LisLink";
                     Application.Run(new gui.FrmLisLink(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("certdoctor"))
+                {
+                    err = "LisLink";
+                    Application.Run(new gui.FrmCertDoctor(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
