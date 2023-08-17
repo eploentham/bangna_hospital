@@ -36,6 +36,7 @@ namespace bangna_hospital.gui
 
             //bc.bcDB.dgsDB.setCboBsp(cboDgs, "");
             bc.bcDB.dgssDB.setCboBspDeptUS(cboDgs, "");
+            bc.setC1Combo(cboDgs, bc.iniC.statusScreenCaptureUploadDoc);
             txtHn.Value = hn;
             lbName.Text = pttname;
             lbVn.Text = flagVn;

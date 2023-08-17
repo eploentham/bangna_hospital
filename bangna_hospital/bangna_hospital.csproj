@@ -55,13 +55,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icons8-doctor-64.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
     <StartupObject>bangna_hospital.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
       <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
@@ -1791,6 +1792,9 @@
     <None Include="Resources\spd_20140318222915_b.jpg" />
     <None Include="Resources\pdf.png" />
     <None Include="Resources\pdf-64.ico" />
+    <None Include="Resources\icons8-doctor-64.png" />
+    <None Include="Resources\icons8-doctor-64.ico" />
+    <None Include="Resources\icons8-doctor-64-_1_.ico" />
     <Content Include="sgbledev.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

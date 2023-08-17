@@ -42,6 +42,6 @@ namespace bangna_hospital.object1
         public String FrmSmartCardTabDefault = "", stickerPrintNumber="", statusStation="", paidcode="", dtrcode="", queFontName="", queFontSize="", hosttel="", printerStickerDrug="", printadjust="";
         public String importMDBpaidcode = "", statusVisitBack="", aipnXmlPath = "", aipnAuthorName="", ssopXmlPath = "";
 
-        public String pathLabOutReceiveATTA = "", pathLabOutBackupATTA = "";
+        public String pathLabOutReceiveATTA = "", pathLabOutBackupATTA = "", statusScreenCaptureUploadDoc="";
     }
 }

@@ -609,6 +609,7 @@ namespace bangna_hospital.control
 
             iniC.pathLabOutReceiveATTA = iniF.getIni("app", "pathLabOutReceiveATTA");
             iniC.pathLabOutBackupATTA = iniF.getIni("app", "pathLabOutBackupATTA");
+            iniC.statusScreenCaptureUploadDoc = iniF.getIni("app", "statusScreenCaptureUploadDoc");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -706,6 +707,7 @@ namespace bangna_hospital.control
             iniC.stickerPrintNumber = iniC.stickerPrintNumber == null ? "1" : iniC.stickerPrintNumber.Equals("") ? "1" : iniC.stickerPrintNumber;
             iniC.statusStation = iniC.statusStation == null ? "OPD" : iniC.statusStation.Equals("") ? "OPD" : iniC.statusStation;
             iniC.statusVisitBack = iniC.statusVisitBack == null ? "0" : iniC.statusVisitBack.Equals("") ? "0" : iniC.statusVisitBack;
+            iniC.statusScreenCaptureUploadDoc = iniC.statusScreenCaptureUploadDoc == null ? "0" : iniC.statusScreenCaptureUploadDoc.Equals("") ? "0" : iniC.statusScreenCaptureUploadDoc;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
