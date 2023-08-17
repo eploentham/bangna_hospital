@@ -1236,7 +1236,34 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+        public String voidDocScanByStatusCertMedical(String hn, String mlfm, String vsdate, String preno, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
 
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "' " +
+                "Where " + dsc.hn + " ='" + hn + "' " +
+                "and status_record = '4' " +
+                "and ml_fm = '" + mlfm + "' " +
+                "and visit_date = '" + vsdate + "' " +
+                "and pre_no = '" + preno + "' "
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+
+            return re;
+        }
         public String voidDocScanByStatusMedicalExamination(String hn, String mlfm, String vsdate, String preno, String userId)
         {
             String re = "";

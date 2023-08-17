@@ -39,10 +39,13 @@
             this.lbName = new System.Windows.Forms.Label();
             this.txtHn = new C1.Win.C1Input.C1TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtCertID = new C1.Win.C1Input.C1TextBox();
             this.pnPic.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCertID)).BeginInit();
             this.SuspendLayout();
             // 
             // pnPic
@@ -65,6 +68,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.txtCertID);
             this.panel2.Controls.Add(this.lbVn);
             this.panel2.Controls.Add(this.txtVN);
             this.panel2.Controls.Add(this.btnSearch);
@@ -82,10 +87,10 @@
             // lbVn
             // 
             this.lbVn.AutoSize = true;
-            this.lbVn.BackColor = System.Drawing.Color.White;
+            this.lbVn.BackColor = System.Drawing.SystemColors.Control;
             this.lbVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbVn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbVn.Location = new System.Drawing.Point(363, 8);
+            this.lbVn.Location = new System.Drawing.Point(390, 8);
             this.lbVn.Name = "lbVn";
             this.lbVn.Size = new System.Drawing.Size(36, 16);
             this.lbVn.TabIndex = 546;
@@ -95,9 +100,9 @@
             // 
             this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtVN.Location = new System.Drawing.Point(402, 6);
+            this.txtVN.Location = new System.Drawing.Point(428, 6);
             this.txtVN.Name = "txtVN";
-            this.txtVN.Size = new System.Drawing.Size(94, 20);
+            this.txtVN.Size = new System.Drawing.Size(68, 20);
             this.txtVN.TabIndex = 545;
             this.txtVN.Tag = null;
             this.txtVN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
@@ -163,6 +168,30 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "HN :";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.SystemColors.Control;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label2.Location = new System.Drawing.Point(277, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 16);
+            this.label2.TabIndex = 548;
+            this.label2.Text = "cert  :";
+            // 
+            // txtCertID
+            // 
+            this.txtCertID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtCertID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtCertID.Location = new System.Drawing.Point(318, 7);
+            this.txtCertID.Name = "txtCertID";
+            this.txtCertID.Size = new System.Drawing.Size(69, 20);
+            this.txtCertID.TabIndex = 547;
+            this.txtCertID.Tag = null;
+            this.txtCertID.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtCertID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
             // FrmScreenCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,6 +207,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCertID)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -195,5 +225,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lbVn;
         private C1.Win.C1Input.C1TextBox txtVN;
+        private System.Windows.Forms.Label label2;
+        private C1.Win.C1Input.C1TextBox txtCertID;
     }
 }

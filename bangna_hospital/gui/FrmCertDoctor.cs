@@ -38,7 +38,7 @@ namespace bangna_hospital.gui
         String HN = "", PRENO="", VSDATE="";
         public MemoryStream streamCertiDtr;
         AutocompleteMenu acmLine1, acmLine2, acmLine3, acmLine4;
-        string[] keywords = { "abstract", "as", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "explore", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "wound", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
+        string[] keywords = { "ไข้หวัด", "คออักเสบ", "base", "bool", "break", "byte", "case", "catch", "char", "checked", "class", "const", "continue", "decimal", "default", "delegate", "do", "double", "explore", "enum", "event", "explicit", "extern", "false", "finally", "fixed", "float", "for", "foreach", "goto", "if", "implicit", "in", "int", "interface", "internal", "is", "lock", "long", "namespace", "new", "null", "object", "operator", "out", "override", "params", "private", "protected", "public", "readonly", "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc", "static", "string", "struct", "switch", "this", "throw", "true", "try", "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using", "virtual", "void", "volatile", "while", "wound", "add", "alias", "ascending", "descending", "dynamic", "from", "get", "global", "group", "into", "join", "let", "orderby", "partial", "remove", "select", "set", "value", "var", "where", "yield" };
         string[] methods = { "Equals()", "GetHashCode()", "GetType()", "ToString()" };
         string[] snippets = { "if(^)\n{\n}", "if(^)\n{\n}\nelse\n{\n}", "for(^;;)\n{\n}", "while(^)\n{\n}", "do${\n^}while();", "switch(^)\n{\n\tcase : break;\n}" };
         string[] declarationSnippets = {
@@ -571,13 +571,15 @@ namespace bangna_hospital.gui
                 canvas.SetFontAndSize(bfR, 12);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "FM-MED-001 (01-05/02/59)(1/1)", 50, linenumber+2, 0);
 
-                logo.SetAbsolutePosition(310, linenumber+3);
+                //logo.SetAbsolutePosition(310, linenumber+3);
+                logo.SetAbsolutePosition(240, linenumber + 3);
                 logo.ScaleAbsoluteHeight(60);
                 logo.ScaleAbsoluteWidth(60);
                 doc.Add(logo);
-                imgqrcode1.SetAbsolutePosition(240, linenumber+3);
-                imgqrcode1.ScaleAbsoluteHeight(50);
-                imgqrcode1.ScaleAbsoluteWidth(50);
+                //imgqrcode1.SetAbsolutePosition(240, linenumber+3);
+                imgqrcode1.SetAbsolutePosition(305, linenumber + 3);
+                imgqrcode1.ScaleAbsoluteHeight(70);
+                imgqrcode1.ScaleAbsoluteWidth(70);
                 doc.Add(imgqrcode1);
 
                 canvas.EndText();
@@ -619,6 +621,7 @@ namespace bangna_hospital.gui
                 dsc.row_cnt = "1";
                 dsc.status_ml = "2";
                 dsc.ml_fm = "FM-MED-001";
+                bc.bcDB.dscDB.voidDocScanByStatusCertMedical(txtHn.Text, "FM-MED-001", VSDATE, PRENO, "");
                 String reDocScanId = bc.bcDB.dscDB.insertScreenCapture(dsc, bc.userId);
                 long chk = 0;
                 if (long.TryParse(reDocScanId, out chk))

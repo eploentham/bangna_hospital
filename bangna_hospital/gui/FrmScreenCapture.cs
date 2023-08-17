@@ -18,6 +18,8 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using ZXing;
+using ZXing.Common;
 
 namespace bangna_hospital.gui
 {
@@ -46,6 +48,8 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Panel pnLeft;
         int screenWidth = 0;
         int screenHeight = 0;
+        MedicalCertificate mcerti;
+        DocScan dsc;
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -86,6 +90,7 @@ namespace bangna_hospital.gui
             chkView.Click += ChkView_Click;
             chkUpload.Click += ChkUpload_Click;
             btnSearch.Click += BtnSearch_Click;
+            txtCertID.KeyUp += TxtCertID_KeyUp;
 
             chkUpload.Checked = true;
             initGrfView();
@@ -105,6 +110,23 @@ namespace bangna_hospital.gui
             //pnMain.Hide();
             //this.Width = this.Width - int.Parse(bc.iniC.imggridscanwidth);
             //this.Width = formwidth + int.Parse(bc.iniC.imggridscanwidth);
+        }
+
+        private void TxtCertID_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                mcerti = new MedicalCertificate();
+                mcerti = bc.bcDB.mcertiDB.selectByPk("555" + txtCertID.Text.Trim());
+                if (mcerti.certi_id.Length > 0)
+                {
+                    lbName.Text = mcerti.ptt_name_t;
+                    dsc = new DocScan();
+                    dsc = bc.bcDB.dscDB.selectByPk(mcerti.doc_scan_id);
+                    txtVN.Value = dsc.vn;
+                }
+            }
         }
 
         private void BtnSearch_Click(object sender, EventArgs e)
@@ -708,10 +730,19 @@ namespace bangna_hospital.gui
             filename = grfView[grfView.Row, colUploadPath].ToString();
             if (File.Exists(filename))
             {
-                FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim());
-                frm.ShowDialog(this);
+                if (dsc.doc_scan_id.Length > 0)
+                {
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc);
+                    frm.ShowDialog(this);
+                }
+                else
+                {
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim());
+                    frm.ShowDialog(this);
+                }
+                
                 Application.Exit();
-                getListFile();
+                //getListFile();
             }
             else
             {
@@ -761,8 +792,30 @@ namespace bangna_hospital.gui
                 {
                     lFile.Add(file.FullName);
                 }
+                if (Files.Length == 1 || ext.ToLower().Equals(".jpg"))
+                {
+                    String textqrcode = FindQrCodeInImage((Bitmap)Image.FromFile(file.FullName));
+                    if (textqrcode != null && textqrcode.Length > 0)
+                    {
+                        String[] txtqrcode = textqrcode.Split(' ');
+                        if (txtqrcode.Length > 0)
+                        {
+                            txtHn.Value = txtqrcode[0];
+                            String certid = "";
+                            certid = txtqrcode[txtqrcode.Length-1];
+                            mcerti = new MedicalCertificate();
+                            mcerti = bc.bcDB.mcertiDB.selectByPk("555"+certid);
+                            lbName.Text = mcerti.ptt_name_t;
+                            dsc = new DocScan();
+                            dsc = bc.bcDB.dscDB.selectByPk(mcerti.doc_scan_id);
+                            txtVN.Value = dsc.vn;
+                            txtCertID.Value = certid;
+                        }
+                    }
+                }
             }
             setListView();
+            
         }
         private void setListView()
         {
@@ -814,7 +867,59 @@ namespace bangna_hospital.gui
             grfView.AutoSizeCols();
             grfView.AutoSizeRows();
         }
+        private string FindQrCodeInImage(Bitmap bmp)
+        {
+            //decode the bitmap and try to find a qr code
+            var source = new BitmapLuminanceSource(bmp);
+            var bitmap = new BinaryBitmap(new HybridBinarizer(source));
+            var result = new MultiFormatReader().decode(bitmap);
 
+            //no qr code found in bitmap
+            if (result == null)
+            {
+                MessageBox.Show("No QR Code found!");
+
+                return null;
+            }
+
+            //create a new qr code image
+            var writer = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new EncodingOptions
+                {
+                    Height = 300,
+                    Width = 300
+                }
+            };
+
+            //write the result to the new qr code bmp image
+            var qrcode = writer.Write(result.Text);
+
+            //make the bmp transparent
+            qrcode.MakeTransparent();
+
+            //show the found qr code in the app
+            var stream = new MemoryStream();
+            qrcode.Save(stream, ImageFormat.Png);
+
+            //display the new qr code in the ui
+            //Image1.Source = BitmapFrame.Create(stream);
+            //Image1.Visibility = Visibility.Visible;
+
+            //and/or save the new qr code image to disk if needed
+            try
+            {
+                //qrcode.Save($"qr_code_{DateTime.Now.ToString("yyyyMMddHHmmss")}.gif", ImageFormat.Gif);
+            }
+            catch
+            {
+                //handle disk write errors here
+            }
+
+            //return the found qr code text
+            return result.Text;
+        }
         private void BtnCapture_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

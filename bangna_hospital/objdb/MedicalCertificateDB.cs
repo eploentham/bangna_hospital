@@ -85,7 +85,7 @@ namespace bangna_hospital.objdb
                 "From " + mcerti.table + " dgs " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dgs." + mcerti.pkField + " ='" + id + "' " +
-                "Order By doc_group_id ";
+                " ";
             dt = conn.selectData(conn.conn, sql);
             cop1 = setDocGroupScan(dt);
             return cop1;
