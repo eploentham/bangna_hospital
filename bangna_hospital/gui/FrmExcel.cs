@@ -51,6 +51,7 @@ namespace bangna_hospital.gui
             btnReadExcel.Click += BtnReadExcel_Click;
             btnDrugCOpenExcel.Click += BtnDrugCOpenExcel_Click;
             btnDrugCRead.Click += BtnDrugCRead_Click;
+            btnDrugThai.Click += BtnDrugThai_Click;
 
             btnPdfBrow.Click += BtnPdfBrow_Click;
             btnPdfRead.Click += BtnPdfRead_Click;
@@ -74,6 +75,38 @@ namespace bangna_hospital.gui
             grRec = new Group();
             TileRec.Groups.Add(this.grRec);
             panel4.Controls.Add(TileRec);
+        }
+
+        private void BtnDrugThai_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            C1.C1Excel.C1XLBook _c1xl = new C1.C1Excel.C1XLBook();
+            _c1xl.Load(txtDrugCPathExcel.Text);
+            XLSheet sheet = _c1xl.Sheets[1];
+
+            for (int i = 0; i < sheet.Rows.Count; i++)
+            {
+                int chk = 0;
+                String id_old = "", drug_thai = "", name = "", cid = "", sql = "", datestart = "", dateend = "";
+                DateTime datestart1, dateend1;
+                id_old = sheet[i, 2].Text;
+                drug_thai = sheet[i, 3].Text;
+                if ((id_old.Length > 0) && (drug_thai.Length > 0))
+                {
+                    drug_thai = drug_thai.Equals("NULL") ? "" : drug_thai;
+                    sql = "update pharmacy_m01 set MNC_PH_THAI = '" + drug_thai + "' Where MNC_OLD_CD = '" + id_old + "' ";
+                    String re = bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, sql);
+                    if (int.TryParse(re, out chk))
+                    {
+                        label1.Text = (int.Parse(label1.Text) + chk).ToString();
+                    }
+                    else
+                    {
+                        label2.Text += (int.Parse(label2.Text)).ToString();
+                    }
+                }
+                Application.DoEvents();
+            }
         }
 
         private void BtnOutlabBrow_Click(object sender, EventArgs e)

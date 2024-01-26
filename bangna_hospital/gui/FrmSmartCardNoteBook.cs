@@ -824,7 +824,7 @@ namespace bangna_hospital.gui
                     btnReqLab.BackColor = Color.Yellow;
                     printLabReqNo();
                     genImgStaffNote();
-                    bc.bcDB.vsDB.updateStatusCloseVisit(txtHn.Text.Trim(), ptt.MNC_HN_YR, txtPreno.Text.Trim(), txtVsdate.Text.Trim());
+                    bc.bcDB.vsDB.updateStatusCloseVisitLab(txtHn.Text.Trim(), ptt.MNC_HN_YR, txtPreno.Text.Trim(), txtVsdate.Text.Trim());
                 }
             }
             else

@@ -51,24 +51,27 @@ namespace bangna_hospital.gui
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal, pnPrnEmail, pnPrnEmailGrfPrn;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
-        Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8, lbDocGrp9;
+        Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8, lbDocGrp9, lbItmNum, lbItmPerDay, lbItmNumDay;
 
         Label lbtxtCertiName, lbtxtCertiDtrId, lbtxtCertiDocNo, lbtxtCertiPttHn, lbtxtCertiPttName, lbtxtCertiVsDate, lbtxtCertiVsTime, lbtxtCertiDiag;
         C1TextBox txtCertiName, txtCertiDtrId, txtCertiDocNo, txtCertiPttHn, txtCertiPttName, txtCertiVsDate, txtCertiVsTime, txtCertiDiag;
 
-        C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody, txtItmFlag;
-        C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch, btnCertiNew;
+        C1TextBox txtItmRowNo, txtItmId, txtItmName, txtItmQty, txtItmFre, txtItmIn1, txtItmIn2, txtPrnEmailTo, txtPrnEmailSubject, txtPrnEmailBody, txtItmFlag,txtItmNum, txtItmPerDay, txtItmNumDay;
+        C1Button btnItmSend, btnItmDrugSet, btnItmSave, btnPrnFile, btnPrn, btnSearch, btnCertiNew, btnCertiNew1,btnCerti1View;
         C1SplitterPanel scOrdItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitterPanel scOrdItemGrf = new C1.Win.C1SplitContainer.C1SplitterPanel();
         C1SplitContainer sCOrdItem = new C1.Win.C1SplitContainer.C1SplitContainer();
         C1DateEdit txtPrnDateStart, txtPrnDateEnd;
 
+        Panel pnTabCertiTop = new Panel();
+        Panel pnTabCertiBotton = new Panel();
+
         C1Button btnDocOk, btnDocExport, btnPrnEmailImgBrow, btnPrnEmailImgOpen, btnPrnEmailImgSend;
         Label lbDocGrp, lbDocSubGrp, lbDocAn, lbPrnDateStart, lbPrnDateEnd, label11, labe2, lbtxtPrnEmailTo, lbtxtPrnEmailSubject, lbtxtPrnEmailBody;
         C1ComboBox cboDocGrp, cboDocSubGrp;
 
-        int colVsVsDate = 1, colVsDept = 2, colVsVn = 3, colVsStatus = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16=16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24, colVsVsDate1=25;
-        int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9;
+        int colVsVsDate = 1, colVsDept = 2, colVsVn = 3, colVsStatus = 4, colVsPreno = 5, colVsAn = 6, colVsAndate = 7, colVsPaidType=8, colVsHigh=9, colVsWeight=10, colVsTemp=11, colVscc=12, colVsccin=13, colVsccex=14, colVsabc=15, colVshc16=16, colVsbp1r=17, colVsbp1l=18, colVsbp2r=19, colVsbp2l=20, colVsVital=21, colVsPres=22, colVsRadios=23, colVsBreath=24, colVsVsDate1=25, colVsDtrName=26;
+        int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9, colIPDDtrName=10;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         int colOrderId = 1, colOrderDate = 2, colOrderName = 3, colOrderQty = 4, colOrderFre=5, colOrderIn1=6, colOrderMed = 7;
         int colLabDate = 1, colLabName = 2, colLabNameSub = 3, colLabResult = 4, colInterpret = 5, colNormal = 6, colUnit = 7;
@@ -113,9 +116,10 @@ namespace bangna_hospital.gui
         String grfActive = "", txtChronic = "";
         DataTable dtchronic = new DataTable();
         Color colorLbDoc;
-        Boolean pageLoadGrfPrn = false;
+        Boolean pageLoadGrfPrn = false, fromDoctor=false;
         AutocompleteMenu acmEmailCsh;
-        C1PdfDocumentSource pdsMedCerti;
+        C1PdfDocumentSource pdsMedCerti, pdsMedCerti2;
+        String DTRCODE = "", CERTI2NDLEAF="";
 
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
@@ -146,7 +150,21 @@ namespace bangna_hospital.gui
             this.bc = bc;
             this.hn = hn;
             this.flagShowBtnSearch = flagShowBtnSearch;
+            fromDoctor = false;
             //new LogWriter("d", "FrmScanView1 initConfig start");
+            initConfig();
+            //new LogWriter("d", "FrmScanView1 initConfig end");
+        }
+        public FrmScanView1(BangnaControl bc, String dtrcode, String hn, String flagShowBtnSearch)
+        {
+            //new LogWriter("d", "FrmScanView1 InitializeComponent start");
+            InitializeComponent();
+            this.bc = bc;
+            this.hn = hn;
+            this.flagShowBtnSearch = flagShowBtnSearch;
+            this.DTRCODE = dtrcode;
+            //มาจากหน้าจอ DoctorView และเป็น OPD ให้ update act_no
+            fromDoctor = true;
             initConfig();
             //new LogWriter("d", "FrmScanView1 initConfig end");
         }
@@ -506,11 +524,13 @@ namespace bangna_hospital.gui
             int gapLine = 25, gapX = 20, gapY = 10, xCol2 = 130, xCol1 = 80, xCol3 = 330, xCol4 = 640, xCol5 = 950;
             Size size = new Size();
 
-            Panel pnTabCertiTop = new Panel();
-            Panel pnTabCertiBotton = new Panel();
+            pnTabCertiTop = new Panel();
+            pnTabCertiBotton = new Panel();
             //lbtxtCertiDocNo = new Label();
             //txtCertiDocNo = new C1TextBox();
             btnCertiNew = new C1Button();
+            btnCertiNew1 = new C1Button();
+            btnCerti1View = new C1Button();
 
             pnTabCertiTop.Dock = DockStyle.Top;
             pnTabCertiBotton.Dock = DockStyle.Fill;
@@ -543,31 +563,107 @@ namespace bangna_hospital.gui
             //size = bc.MeasureString(lbtxtCertiDocNo);
             //bc.setControlC1TextBox(ref txtCertiDocNo, fEdit, "txtCertiDocNo", 120, lbtxtCertiDocNo.Location.X + size.Width, lbtxtCertiDocNo.Location.Y);
             bc.setControlC1Button(ref btnCertiNew, fEdit, "พิมพ์ใบรับรองแพทย์ใหม่", "btnCertiNew", gapX, gapY);
+            bc.setControlC1Button(ref btnCertiNew1, fEdit, "พิมพ์ใบรับรองแพทย์ ใบที่2", "btnCertiNew", gapX+ btnCertiNew.Width+60, gapY);
+            bc.setControlC1Button(ref btnCerti1View, fEdit, "view ใบรับรองแพทย์ ใบที่2", "btnCerti1View", gapX + btnCertiNew.Width + btnCertiNew1.Width + 60, gapY);
             btnCertiNew.Click += BtnCertiNew_Click;
+            btnCertiNew1.Click += BtnCertiNew1_Click;
+            btnCerti1View.Click += BtnCerti1View_Click;
 
             pnTabCertiBotton.Controls.Add(fvCerti);
             //pnTabCertiBotton.Controls.Add(txtCertiDocNo);
 
             pnTabCertiTop.Controls.Add(btnCertiNew);
+            pnTabCertiTop.Controls.Add(btnCertiNew1);
+            pnTabCertiTop.Controls.Add(btnCerti1View);
             tabCerti.Controls.Add(pnTabCertiBotton);
             tabCerti.Controls.Add(pnTabCertiTop);
+            btnCertiNew1.Enabled = false;
+            btnCerti1View.Enabled = false;
 
             theme1.SetTheme(fvCerti, bc.iniC.themeApp);
         }
 
-        private void BtnCertiNew_Click(object sender, EventArgs e)
+        private void BtnCerti1View_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            FrmCertDoctor frm = new FrmCertDoctor(bc, hn, vsDate,preno);
+            Form frm2ndleaf = new Form();
+            MedicalCertificate certi = new MedicalCertificate();
+            certi = bc.bcDB.mcertiDB.selectByPk(CERTI2NDLEAF);
+            DocScan dsc = new DocScan();
+            dsc = bc.bcDB.dscDB.selectByPk(certi.doc_scan_id);
+            FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+            MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+            pdsMedCerti2 = new C1PdfDocumentSource();
+            pdsMedCerti2.LoadFromStream(streamCertiDtr);
+            C1FlexViewer fvCerti2 = new C1FlexViewer();
+            fvCerti2.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            fvCerti2.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            fvCerti2.Dock = System.Windows.Forms.DockStyle.Fill;
+            fvCerti2.Location = new System.Drawing.Point(0, 0);
+            fvCerti2.Name = "fvCerti2";
+            
+            fvCerti2.TabIndex = 0;
+            fvCerti2.Ribbon.Minimized = true;
+            fvCerti2.DocumentSource = pdsMedCerti2;
+            pnTabCertiBotton.Controls.Add(fvCerti2);
+            frm2ndleaf.Controls.Add(fvCerti2);
+            frm2ndleaf.StartPosition = FormStartPosition.CenterScreen;
+            frm2ndleaf.Size = new Size(850, 700);
+            frm2ndleaf.ShowDialog(this);
+        }
+        private void BtnCertiNew1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            new LogWriter("d", "FrmScanView1 BtnCertiNew1_Click DTRCODE " + DTRCODE + " hn " + hn + " vsDate " + vsDate + " preno " + preno+ " 2NFLEAF");
+            FrmCertDoctor frm = new FrmCertDoctor(bc, DTRCODE, hn, vsDate, preno,"2NFLEAF");
             frm.ShowDialog(this);
-            if(frm.streamCertiDtr != null)
+
+            if (frm.streamCertiDtr != null)
             {
+                pnTabCertiBotton.Controls.Clear();
+                pnTabCertiBotton.Controls.Add(fvCerti);
                 C1PdfDocumentSource pds = new C1PdfDocumentSource();
                 pds.LoadFromStream(frm.streamCertiDtr);
                 fvCerti.DocumentSource = pds;
+
+                if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+                frm.streamCertiDtr.Position = 0;
+                setLbLoading("กำลังสั่งพิมพ์ ...");
+                showLbLoading();
+                SetDefaultPrinter(bc.iniC.printerLabOut);
+                pds.LoadFromStream(frm.streamCertiDtr);
+                pds.Print();
+                hideLbLoading();
+                new LogWriter("d", "FrmScanView1 BtnCertiNew1_Click Print Done ");
             }
         }
+        private void BtnCertiNew_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            new LogWriter("d", "FrmScanView1 BtnCertiNew_Click DTRCODE "+ DTRCODE+ " hn " + hn+ " vsDate " + vsDate+ " preno " + preno);
+            FrmCertDoctor frm = new FrmCertDoctor(bc, DTRCODE, hn, vsDate,preno);
+            frm.ShowDialog(this);
 
+            if(frm.streamCertiDtr != null)
+            {
+                pnTabCertiBotton.Controls.Clear();
+                pnTabCertiBotton.Controls.Add(fvCerti);
+                C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                pds.LoadFromStream(frm.streamCertiDtr);
+                fvCerti.DocumentSource = pds;
+                btnCertiNew1.Enabled = true;
+
+                if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+                frm.streamCertiDtr.Position = 0;
+                setLbLoading("กำลังสั่งพิมพ์ ...");
+                showLbLoading();
+                SetDefaultPrinter(bc.iniC.printerLabOut);
+                pds.LoadFromStream(frm.streamCertiDtr);
+                pds.Print();
+                hideLbLoading();
+                new LogWriter("d", "FrmScanView1 BtnCertiNew_Click Print Done " );
+            }
+        }
         private void initGrfOrderLabXray()
         {
             grfOrder = new C1FlexGrid();
@@ -585,6 +681,8 @@ namespace bangna_hospital.gui
             grfOrder.Cols[colOrderName].Width = 300;
             grfOrder.Cols[colOrderMed].Width = 200;
             grfOrder.Cols[colOrderQty].Width = 60;
+            //grfOrder.Cols[colOrderQty].DataType = typeof(int);
+            //grfOrder.Cols[colOrderQty].DataType = typeof(int);
             grfOrder.Name = "grfOrder";
             ContextMenu menuGwOrder = new ContextMenu();
             menuGwOrder.MenuItems.Add("ต้องการ Print ", new EventHandler(ContextMenu_print_Order));
@@ -599,10 +697,11 @@ namespace bangna_hospital.gui
             //grfLab.Cols[0].Visible = false;
             grfLab.Name = "grfLab";
             ContextMenu menuGw = new ContextMenu();
-            menuGw.MenuItems.Add("ต้องการ Print AN ", new EventHandler(ContextMenu_print_lab));
-            menuGw.MenuItems.Add("ต้องการ Export PDF ", new EventHandler(ContextMenu_print_lab_export));
-            menuGw.MenuItems.Add("ต้องการ Print ทุกใบยา ", new EventHandler(ContextMenu_print_lab_allvisit));
-            menuGw.MenuItems.Add("ต้องการ Export PDF ทุกใบยา", new EventHandler(ContextMenu_print_lab_export_allvisit));
+            menuGw.MenuItems.Add("Print LAB ", new EventHandler(ContextMenu_print_lab));
+            menuGw.MenuItems.Add("Export LAB ", new EventHandler(ContextMenu_print_lab_export));
+            menuGw.MenuItems.Add("Print LAB ทุกใบยา ", new EventHandler(ContextMenu_print_lab_allvisit));
+            menuGw.MenuItems.Add("Export PDF ทุกใบยา", new EventHandler(ContextMenu_print_lab_export_allvisit));
+            menuGw.MenuItems.Add("Compare LAB", new EventHandler(ContextMenu_Compare_Lab));
             grfLab.ContextMenu = menuGw;
             grfLab.Rows.Count = 1;
 
@@ -1707,16 +1806,47 @@ namespace bangna_hospital.gui
                     vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
                     vsDate = bc.datetoDB(vsDate);
                 }
-                String docscanid = "";
+                String docscanid = "", cert2ndleaf="";
                 docscanid = bc.bcDB.mcertiDB.selectDocScanIDByHn(txtHn.Text.Trim(), preno, vsDate);
                 DocScan dsc = new DocScan();
                 dsc = bc.bcDB.dscDB.selectByPk(docscanid);
+                btnCerti1View.Enabled = false;
+                cert2ndleaf = bc.bcDB.mcertiDB.selectCertIDByHn2ndLeaf(txtHn.Text.Trim(), preno, vsDate);
+                CERTI2NDLEAF = cert2ndleaf;
+                btnCertiNew1.Enabled = dsc.doc_scan_id.Length > 0 ? true : false;
+                btnCerti1View.Enabled = cert2ndleaf.Length>0 ? true:false;
                 FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
                 MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
-
-                pdsMedCerti = new C1PdfDocumentSource();
-                pdsMedCerti.LoadFromStream(streamCertiDtr);
-                fvCerti.DocumentSource = pdsMedCerti;
+                pnTabCertiBotton.Controls.Clear();
+                if (dsc.image_path.ToLower().IndexOf("pdf")>0)
+                {
+                    pdsMedCerti = new C1PdfDocumentSource();
+                    pdsMedCerti.LoadFromStream(streamCertiDtr);
+                    fvCerti.DocumentSource = pdsMedCerti;
+                    pnTabCertiBotton.Controls.Add(fvCerti);
+                }
+                else
+                {
+                    C1PictureBox certiView = new C1PictureBox();
+                    if ((streamCertiDtr == null) || (streamCertiDtr.Length==0))
+                    {
+                        return;
+                    }
+                    streamCertiDtr.Position = 0;
+                    Image img = Image.FromStream(streamCertiDtr);
+                    certiView.Dock = DockStyle.None;
+                    certiView.SizeMode = PictureBoxSizeMode.StretchImage;
+                    certiView.Image = img;
+                    certiView.Size = new Size(1000, 850);
+                    certiView.Location = new System.Drawing.Point(10, btnCertiNew.Top+btnCertiNew.Height-25);
+                    ContextMenu menuGw = new ContextMenu();
+                    menuGw.MenuItems.Add("Print Certificate Medical", new EventHandler(ContextMenu_CertiMedical_Print));
+                    menuGw.MenuItems.Add("Download Certificate Medical", new EventHandler(ContextMenu_CertiMedical_Download));
+                    certiView.ContextMenu = menuGw;
+                    streamPrint = streamCertiDtr;
+                    pnTabCertiBotton.Controls.Add(certiView);
+                }
+                
 
                 //setGrfXray(grfOPD.Row);
             }
@@ -1814,6 +1944,29 @@ namespace bangna_hospital.gui
                 setTabGrfPicPatient();
             }
         }
+        private void ContextMenu_CertiMedical_Print(object sender, System.EventArgs e)
+        {
+            SetDefaultPrinter(bc.iniC.printerA4);
+            setGrfScanToPrint();
+        }
+        private void ContextMenu_CertiMedical_Download(object sender, System.EventArgs e)
+        {
+            Image img = Image.FromStream(streamPrint);
+            String patheName = Environment.CurrentDirectory + "\\cert_med\\";
+            if (!Directory.Exists(patheName))
+            {
+                Directory.CreateDirectory(patheName);
+            }
+            streamPrint.Position = 0;
+            string str2 = DateTime.Now.Ticks.ToString();
+            Image.FromStream(streamPrint).Save(patheName + ((Control)this.txtHn).Text.Trim() + "_" + str2 + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            this.bc.ExploreFile(patheName + ((Control)this.txtHn).Text.Trim() + "_" + str2 + ".jpg");
+        }
+        private void setLbLoading(String txt)
+        {
+            lbLoading.Text = txt;
+            Application.DoEvents();
+        }
         private void showLbLoading()
         {
             lbLoading.Show();
@@ -1854,7 +2007,7 @@ namespace bangna_hospital.gui
             {
                 statusOPD = grfOPD[grfOPD.Row, colVsStatus] != null ? grfOPD[grfOPD.Row, colVsStatus].ToString() : "";
                 preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
-                vsDate = grfOPD[grfOPD.Row, colVsVsDate] != null ? grfOPD[grfOPD.Row, colVsVsDate].ToString() : "";
+                vsDate = grfOPD[grfOPD.Row, colVsVsDate1] != null ? grfOPD[grfOPD.Row, colVsVsDate1].ToString() : "";
                 //vsDate = bc.datetoDB(vsDate);
 
                 //chkIPD.Checked = false;
@@ -1869,7 +2022,7 @@ namespace bangna_hospital.gui
                 {
                     vn1 = vn.Substring(0, vn.IndexOf("/"));
                 }
-                vsDate = bc.datetoDB(vsDate);
+                //vsDate = bc.datetoDB(vsDate);
                 if (flag.Equals("print"))
                 {
                     dtOrder = bc.bcDB.vsDB.selectDrugOPDPrint(txtHn.Text, vn1, preno, vsDate);
@@ -2177,7 +2330,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการ ลบข้อมูลนี้ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 int chk = 0;
-                String re = bc.bcDB.dscDB.voidDocScan(dsc_id, "");
+                String re = bc.bcDB.dscDB.voidDocScan1(dsc_id, "medrecord");
                 if (int.TryParse(re, out chk))
                 {
                     frmImg.Dispose();
@@ -2242,6 +2395,7 @@ namespace bangna_hospital.gui
         }
         private void setControlHN()
         {
+            hn = txtHn.Text.Trim();
             ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
             txtName.Value = ptt.Name;
             tcDtr.SelectedTab = tabStfNote;
@@ -3150,7 +3304,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการลบข้อมูล ทั้งหมดของ VN "+ vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 int chk = 0;
-                String re = bc.bcDB.dscDB.voidDocScanVNByScan(vn, "");
+                String re = bc.bcDB.dscDB.voidDocScanVNByScan(vn, "medrecord");
                 if (int.TryParse(re, out chk))
                 {
                     setGrfLab();
@@ -3183,6 +3337,13 @@ namespace bangna_hospital.gui
                 txtVN.Value = grfOPD[grfOPD.Row, colVsVn] != null ? grfOPD[grfOPD.Row, colVsVn].ToString() : "";
                 this.preno = grfOPD[grfOPD.Row, colVsPreno] != null ? grfOPD[grfOPD.Row, colVsPreno].ToString() : "";
                 vsDate = grfOPD[grfOPD.Row, colVsVsDate1] != null ? grfOPD[grfOPD.Row, colVsVsDate1].ToString() : "";
+                //มาจากหน้าจอ DoctorView และเป็น OPD ให้ update act_no
+                if (fromDoctor)
+                {
+                    //ต้องแก้ ให้ใช้ store procedure  สำคัญมาก que_doctor_opd  แก้ store procedure เรียบร้อย 2024-01-25
+                    //bc.bcDB.vsDB.updateActNoDoctor114(this.hn, this.preno, vsDate);
+                    //bc.bcDB.sumt03DB.updateSumVnAdd(this.DTRCODE, txtHn.Text, this.preno, vsDate);
+                }
                 setActive();
                 
             }
@@ -3832,7 +3993,7 @@ namespace bangna_hospital.gui
             if (MessageBox.Show("ต้องการลบข้อมูล ทั้งหมดของ AN " + vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 int chk = 0;
-                String re = bc.bcDB.dscDB.voidDocScanANByScan(vn, "");
+                String re = bc.bcDB.dscDB.voidDocScanANByScan(vn, "medrecord");
                 if (int.TryParse(re, out chk))
                 {
                     setGrfLab();
@@ -5814,6 +5975,7 @@ namespace bangna_hospital.gui
                     rowcnt++;
                 }
             }
+            DataTable dtLab2 = new DataTable();
             foreach (Row row in grfPrn.Rows)
             {
                 if (row[colPrnSSOchk] == null) continue;
@@ -5909,6 +6071,7 @@ namespace bangna_hospital.gui
                         //LAB
                         DataTable dtLab = new DataTable();
                         dtLab = setPrintLabPrnSSO(vn, preno, chk+"-"+mm+"-"+dd,"vn");
+                        //dtLab2 = setPrintLabPrnSSO(vn, preno, chk + "-" + mm + "-" + dd, "vn");
                         if (dtLab.Rows.Count > 0)
                         {
                             dtLabList.Add(dtLab);
@@ -6313,9 +6476,10 @@ namespace bangna_hospital.gui
         }
         private void initGrfOrdItem()
         {
-            int gapY = 30, gapX = 20, gapLine=0, gapColName=120;
+            int gapY = 30, gapX = 20, gapLine=0, gapColName=120, lentxtName=340;
             Size size = new Size();
-            
+            gapX = 5;
+            gapColName = 100;
             Label lbItmId, lbItmName, lbItmQty, lbItmFre, lbItmIn1, lbItmIn2;
             pnscOrdItem = new Panel();
             pnscOrdItem.Dock = DockStyle.Fill;
@@ -6332,12 +6496,14 @@ namespace bangna_hospital.gui
             grfOrdItem.Cols.Count = 11;
             grfOrdItem.Name = "grfOrdItem";
             grfOrdItem.MouseClick += GrfOrdItem_MouseClick;
+            grfOrdItem.Cols[colOrdAddId].Caption = "code";
             grfOrdItem.Cols[colOrdAddNameT].Caption = "ชื่อ";
             grfOrdItem.Cols[colOrdAddQty].Caption = "QTY";
             grfOrdItem.Cols[colOrdAddItemType].Caption = "หน่วย";
             grfOrdItem.Cols[colOrdAddUnit].Caption = "หน่วย";
             grfOrdItem.Cols[colOrdAddDrugFr].Caption = "ความถี่";
             grfOrdItem.Cols[colOrdAddDrugIn].Caption = "ข้อความระวัง";
+            grfOrdItem.Cols[colOrdAddId].Width = 70;
             grfOrdItem.Cols[colOrdAddNameT].Width = 300;
             grfOrdItem.Cols[colOrdAddQty].Width = 50;
             grfOrdItem.Cols[colOrdAddItemType].Width = 80;
@@ -6347,7 +6513,9 @@ namespace bangna_hospital.gui
 
             grfOrdItem.Cols[colOrdAddUnit].Visible = false;
             grfOrdItem.Cols[colOrdAddFlag].Visible = false;
-            //grfOrdItem.Cols[colOrdDrugId].Visible = false;
+            grfOrdItem.Cols[colOrdDrugIn1].Visible = false;
+            grfOrdItem.Cols[colOrdAddRowNo].Visible = false;
+            grfOrdItem.Cols[colOrdAddId].AllowEditing = false;
             grfOrdItem.Cols[colOrdAddNameT].AllowEditing = false;
             grfOrdItem.Cols[colOrdAddQty].AllowEditing = false;
             grfOrdItem.Cols[colOrdAddItemType].AllowEditing = false;
@@ -6412,7 +6580,7 @@ namespace bangna_hospital.gui
             txtItmName.Font = fEdit;
             txtItmName.Name = "txtItmName";
             txtItmName.Location = new System.Drawing.Point(gapColName, lbItmName.Location.Y);
-            txtItmName.Size = new Size(300, 20);
+            txtItmName.Size = new Size(lentxtName, 20);
             txtItmName.LostFocus += TxtItmName_LostFocus;
 
             gapLine += gapY;
@@ -6426,8 +6594,57 @@ namespace bangna_hospital.gui
             txtItmQty.Font = fEdit;
             txtItmQty.Name = "txtItmQty";
             txtItmQty.Location = new System.Drawing.Point(gapColName, lbItmQty.Location.Y);
-            txtItmQty.Size = new Size(120, 20);
+            txtItmQty.Size = new Size(40, 20);
             txtItmQty.LostFocus += TxtItmQty_LostFocus;
+
+            gapLine += gapY;
+            lbItmNum = new Label();
+            lbItmNum.Text = "เม็ด";
+            lbItmNum.Font = fEdit;
+            lbItmNum.Location = new System.Drawing.Point(gapColName, gapLine);
+            lbItmNum.AutoSize = true;
+            lbItmNum.Name = "lbItmNum";
+            txtItmNum = new C1TextBox();
+            txtItmNum.Font = fEdit;
+            txtItmNum.Name = "txtItmNum";
+            txtItmNum.Location = new System.Drawing.Point(lbItmNum.Location.X + 45, lbItmNum.Location.Y);
+            txtItmNum.Size = new Size(40, 20);
+            txtItmNum.LostFocus += TxtItmNum_LostFocus;
+            txtItmNum.Enter += TxtItmNum_Enter;
+            txtItmNum.KeyUp += TxtItmNum_KeyUp;
+            txtItmNum.KeyPress += TxtItmNum_KeyPress;
+
+            lbItmPerDay = new Label();
+            lbItmPerDay.Text = "วันละ/ครั้ง";
+            lbItmPerDay.Font = fEdit;
+            lbItmPerDay.Location = new System.Drawing.Point(txtItmNum.Location.X + txtItmNum.Width+15, gapLine);
+            lbItmPerDay.AutoSize = true;
+            lbItmPerDay.Name = "lbItmDay";
+            txtItmPerDay = new C1TextBox();
+            txtItmPerDay.Font = fEdit;
+            txtItmPerDay.Name = "txtItmDay";
+            txtItmPerDay.Location = new System.Drawing.Point(lbItmPerDay.Location.X + 75, lbItmNum.Location.Y);
+            txtItmPerDay.Size = new Size(40, 20);
+            txtItmPerDay.LostFocus += TxtItmDay_LostFocus;
+            txtItmPerDay.Enter += TxtItmPerDay_Enter;
+            txtItmPerDay.KeyUp += TxtItmPerDay_KeyUp;
+            txtItmPerDay.KeyPress += TxtItmPerDay_KeyPress;
+
+            lbItmNumDay = new Label();
+            lbItmNumDay.Text = "จน.วัน";
+            lbItmNumDay.Font = fEdit;
+            lbItmNumDay.Location = new System.Drawing.Point(txtItmPerDay.Location.X + txtItmPerDay.Width + 15, gapLine);
+            lbItmNumDay.AutoSize = true;
+            lbItmNumDay.Name = "lbItmNumPer";
+            txtItmNumDay = new C1TextBox();
+            txtItmNumDay.Font = fEdit;
+            txtItmNumDay.Name = "txtItmNumPer";
+            txtItmNumDay.Location = new System.Drawing.Point(lbItmNumDay.Location.X + 45, lbItmNum.Location.Y);
+            txtItmNumDay.Size = new Size(40, 20);
+            txtItmNumDay.LostFocus += TxtItmNumPer_LostFocus;
+            txtItmNumDay.Enter += TxtItmNumDay_Enter;
+            txtItmNumDay.KeyUp += TxtItmNumDay_KeyUp;
+            txtItmNumDay.KeyPress += TxtItmNumDay_KeyPress;
 
             gapLine += gapY;
             lbItmFre = new Label();
@@ -6440,7 +6657,7 @@ namespace bangna_hospital.gui
             txtItmFre.Font = fEdit;
             txtItmFre.Name = "txtItmFre";
             txtItmFre.Location = new System.Drawing.Point(gapColName, lbItmFre.Location.Y);
-            txtItmFre.Size = new Size(300, 20);
+            txtItmFre.Size = new Size(lentxtName, 20);
             txtItmFre.LostFocus += TxtItmFre_LostFocus;
 
             gapLine += gapY;
@@ -6454,7 +6671,7 @@ namespace bangna_hospital.gui
             txtItmIn1.Font = fEdit;
             txtItmIn1.Name = "txtItmIn1";
             txtItmIn1.Location = new System.Drawing.Point(gapColName, lbItmIn1.Location.Y);
-            txtItmIn1.Size = new Size(300, 20);
+            txtItmIn1.Size = new Size(lentxtName, 20);
             txtItmIn1.LostFocus += TxtItmIn1_LostFocus;
 
             gapLine += gapY;
@@ -6468,7 +6685,7 @@ namespace bangna_hospital.gui
             txtItmIn2.Font = fEdit;
             txtItmIn2.Name = "txtItmIn2";
             txtItmIn2.Location = new System.Drawing.Point(gapColName, lbItmIn2.Location.Y);
-            txtItmIn2.Size = new Size(300, 20);
+            txtItmIn2.Size = new Size(lentxtName, 20);
             btnItmSend = new C1Button();
             btnItmSend.Text = "ส่งไปห้องยา";
             btnItmSend.Name = "btnItmSend";
@@ -6507,6 +6724,12 @@ namespace bangna_hospital.gui
             pnscOrdItem.Controls.Add(btnItmDrugSet);
             pnscOrdItem.Controls.Add(btnItmSave);
             pnscOrdItem.Controls.Add(txtItmFlag);
+            pnscOrdItem.Controls.Add(lbItmPerDay);
+            pnscOrdItem.Controls.Add(txtItmPerDay);
+            pnscOrdItem.Controls.Add(lbItmNumDay);
+            pnscOrdItem.Controls.Add(txtItmNumDay);
+            pnscOrdItem.Controls.Add(lbItmNum);
+            pnscOrdItem.Controls.Add(txtItmNum);
             scOrdItem.SizeRatio = 30;
             //FilterRow fr = new FilterRow(grfExpn);
 
@@ -6531,6 +6754,124 @@ namespace bangna_hospital.gui
             theme1.SetTheme(grfOrdItem, bc.iniC.themeApp);
             //theme1.SetTheme(pnscOrdItem, "Office2016Colorful");
             theme1.SetTheme(pnscOrdItem, "VS2013Purple");
+        }
+
+        private void TxtItmNumDay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtItmNumDay_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            setQty();
+        }
+
+        private void TxtItmPerDay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtItmPerDay_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            setQty();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtItmNumDay.Focus();
+            }
+        }
+
+        private void TxtItmNum_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtItmNum_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            setQty();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtItmPerDay.Focus();
+            }
+        }
+        private void setQty()
+        {
+            try
+            {
+                int num = 0, perday = 0, numday = 0, qty = 0;
+                int.TryParse(txtItmNum.Text, out num);
+                int.TryParse(txtItmPerDay.Text, out perday);
+                int.TryParse(txtItmNumDay.Text, out numday);
+
+                qty = num * perday * numday;
+                txtItmQty.Value = qty;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void TxtItmNumDay_Enter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void TxtItmPerDay_Enter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void TxtItmNum_Enter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void TxtItmNum_LostFocus(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void TxtItmNumPer_LostFocus(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void TxtItmDay_LostFocus(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void BtnItmSend_Click(object sender, EventArgs e)
@@ -7334,7 +7675,7 @@ namespace bangna_hospital.gui
         private void BtnItmSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            MessageBox.Show("BtnItmSave_Click  preno "+preno +" hnyr " + ptt.hnyr, "");
+            //MessageBox.Show("BtnItmSave_Click  preno "+preno +" hnyr " + ptt.hnyr, "");
 
             savePharT01();
         }
@@ -7984,10 +8325,10 @@ namespace bangna_hospital.gui
 
             grfOrder.Cols[colOrderName].Width = 400;
             grfOrder.Cols[colOrderMed].Width = 200;
-            grfOrder.Cols[colOrderQty].Width = 80;
+            grfOrder.Cols[colOrderQty].Width = 60;
             grfOrder.Cols[colOrderDate].Width = 90;
-            grfOrder.Cols[colOrderFre].Width = 300;
-            grfOrder.Cols[colOrderIn1].Width = 300;
+            grfOrder.Cols[colOrderFre].Width = 500;
+            grfOrder.Cols[colOrderIn1].Width = 350;
 
             int i = 0;
             decimal aaa = 0;
@@ -8103,26 +8444,31 @@ namespace bangna_hospital.gui
         }
         private void setStaffNote(String vsDate, String preno)
         {
-            String file = "", dd = "", mm = "", yy = "";
+            String file = "", dd = "", mm = "", yy = "", err="";
             Image stffnoteR, stffnoteS;
             if (vsDate.Length > 8)
             {
                 String preno1 = preno;
                 try
                 {
+                    err = "00";
                     imgLR = null;
                     picL.Image = null;
                     picR.Image = null;
                     int chk = 0;
+                    err = "01";
                     dd = vsDate.Substring(vsDate.Length - 2);
                     mm = vsDate.Substring(5, 2);
                     yy = vsDate.Substring(0,4);
+                    err = "02";
                     int.TryParse(yy, out chk);
                     if (chk > 2500)
                         chk -= 543;
                     file = "\\\\"+bc.iniC.pathScanStaffNote + chk + "\\" + mm + "\\" + dd + "\\";
                     preno1 = "000000" + preno1;
+                    err = "03";
                     preno1 = preno1.Substring(preno1.Length - 6);
+                    err = "04";
                     //new LogWriter("e", "FrmScanView1 setStaffNote file  " + file + preno1+" hn "+txtHn.Text+" yy "+yy);
                     stffnoteR = Image.FromFile(file + preno1 + "R.JPG");
                     stffnoteS = Image.FromFile(file + preno1 + "S.JPG");
@@ -9563,6 +9909,22 @@ namespace bangna_hospital.gui
             frm.DT = dt;
             frm.ShowDialog(this);
         }
+        private void ContextMenu_Compare_Lab(object sender, System.EventArgs e)
+        {
+            FrmLabCompare frm;
+            if (!chkIPD.Checked)
+            {
+                frm = new FrmLabCompare(bc, txtHn.Text, vsDate, preno,"");
+            }
+            else
+            {
+                String an = "";
+                an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+                frm = new FrmLabCompare(bc, txtHn.Text, "", "", an);
+            }
+            frm.ShowDialog(this);
+            //frm.Show(this);
+        }
         private void ContextMenu_print_lab_export_allvisit(object sender, System.EventArgs e)
         {
             showLbLoading();
@@ -9629,6 +9991,13 @@ namespace bangna_hospital.gui
             String  datetick = "", pathFolder = "";
             datetick = DateTime.Now.Ticks.ToString();
             pathFolder = bc.iniC.medicalrecordexportpath + "\\" + txtHn.Text.Trim() + "\\" + datetick;
+            if (Directory.Exists(pathFolder))
+            {
+                Directory.Delete(pathFolder, true);
+                Thread.Sleep(100);
+                Application.DoEvents();
+            }
+            Directory.CreateDirectory(pathFolder);
 
             DataTable dt = new DataTable();
             dt = setPrintLab();
@@ -9656,7 +10025,7 @@ namespace bangna_hospital.gui
                     vn = vn.Substring(0, vn.IndexOf("/"));
                 }
                 dt = bc.bcDB.vsDB.selectLabbyVN1(vsdate, vsdate, txtHn.Text.Trim(), vn, preno);
-                new LogWriter("d", "*********** FrmScanView1 setPrintLabPrnSSO preno " + preno + " vsdate " + vsdate + " hn " + txtHn.Text.Trim() + " vn " + vn);
+                //new LogWriter("d", "*********** FrmScanView1 setPrintLabPrnSSO preno " + preno + " vsdate " + vsdate + " hn " + txtHn.Text.Trim() + " vn " + vn);
             }
             else if (flagVN.Equals("an_all"))
             {
@@ -9665,29 +10034,28 @@ namespace bangna_hospital.gui
             else
             {
                 dt = bc.bcDB.vsDB.selectLabbyAN(txtHn.Text.Trim(), vn, preno);
-                new LogWriter("d", "*********** FrmScanView1 setPrintLabPrnSSO anyear " + preno + " hn " + txtHn.Text.Trim() + " an " + vn);
+                //new LogWriter("d", "*********** FrmScanView1 setPrintLabPrnSSO anyear " + preno + " hn " + txtHn.Text.Trim() + " an " + vn);
             }
             //dtreq = bc.bcDB.vsDB.selectLabRequestbyVN1(vsdate, vsdate, txtHn.Text.Trim(), preno);
-            
 
-            dt.Columns.Add("patient_name", typeof(String));
-            dt.Columns.Add("patient_hn", typeof(String));
-            dt.Columns.Add("patient_age", typeof(String));
-            dt.Columns.Add("request_no", typeof(String));
-            dt.Columns.Add("patient_vn", typeof(String));
-            dt.Columns.Add("doctor", typeof(String));
-            dt.Columns.Add("result_date", typeof(String));
-            dt.Columns.Add("print_date", typeof(String));
-            //dt.Columns.Add("user_lab", typeof(String));
-            //dt.Columns.Add("user_check", typeof(String));
-            //dt.Columns.Add("user_report", typeof(String));
-            dt.Columns.Add("patient_dep", typeof(String));
-            dt.Columns.Add("patient_company", typeof(String));
-            //dt.Columns.Add("ptt_department", typeof(String));
-            dt.Columns.Add("patient_type", typeof(String));
-            dt.Columns.Add("mnc_lb_dsc", typeof(String));
-            dt.Columns.Add("mnc_lb_grp_cd", typeof(String));
-            dt.Columns.Add("sort1", typeof(String));
+            //dt.Columns.Add("patient_name", typeof(String));
+            //dt.Columns.Add("patient_hn", typeof(String));
+            //dt.Columns.Add("patient_age", typeof(String));
+            //dt.Columns.Add("request_no", typeof(String));
+            //dt.Columns.Add("patient_vn", typeof(String));
+            //dt.Columns.Add("doctor", typeof(String));
+            //dt.Columns.Add("result_date", typeof(String));
+            //dt.Columns.Add("print_date", typeof(String));
+            ////dt.Columns.Add("user_lab", typeof(String));
+            ////dt.Columns.Add("user_check", typeof(String));
+            ////dt.Columns.Add("user_report", typeof(String));
+            //dt.Columns.Add("patient_dep", typeof(String));
+            //dt.Columns.Add("patient_company", typeof(String));
+            ////dt.Columns.Add("ptt_department", typeof(String));
+            //dt.Columns.Add("patient_type", typeof(String));
+            //dt.Columns.Add("mnc_lb_dsc", typeof(String));
+            //dt.Columns.Add("mnc_lb_grp_cd", typeof(String));
+            //dt.Columns.Add("sort1", typeof(String));
             foreach (DataRow drow in dt.Rows)
             {
                 //if (dtreq.Rows[0]["mnc_req_dat"] == null) continue;
@@ -9926,7 +10294,7 @@ namespace bangna_hospital.gui
 
             //grfOPD.Clear();
             grfOPD.Rows.Count = 1;
-            grfOPD.Cols.Count = 26;
+            grfOPD.Cols.Count = 27;
 
             //C1TextBox text = new C1TextBox();
             //grfVs.Cols[colVsVsDate].Editor = text;
@@ -9934,11 +10302,12 @@ namespace bangna_hospital.gui
             //grfVs.Cols[colVsDept].Editor = text;
             //grfVs.Cols[colVsPreno].Editor = text;
 
-            grfOPD.Cols[colVsVsDate].Width = 80;
+            grfOPD.Cols[colVsVsDate].Width = 72;
             grfOPD.Cols[colVsVn].Width = 80;
-            grfOPD.Cols[colVsDept].Width = 240;
+            grfOPD.Cols[colVsDept].Width = 170;
             grfOPD.Cols[colVsPreno].Width = 100;
             grfOPD.Cols[colVsStatus].Width = 60;
+            grfOPD.Cols[colVsDtrName].Width = 180;
             grfOPD.ShowCursor = true;
             //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
             grfOPD.Cols[colVsVsDate].Caption = "Visit Date";
@@ -9998,6 +10367,7 @@ namespace bangna_hospital.gui
                 rowa[colVsVital] = row1["MNC_BREATH"].ToString();
                 rowa[colVsPres] = row1["MNC_CIR_HEAD"].ToString();
                 rowa[colVsVsDate1] = row1["mnc_date"].ToString();
+                rowa[colVsDtrName] = row1["dtr_name"].ToString();
             }
             //ContextMenu menuGw = new ContextMenu();
             //menuGw.MenuItems.Add("&ยกเลิก รูปภาพนี้", new EventHandler(ContextMenu_Void));
@@ -10007,6 +10377,7 @@ namespace bangna_hospital.gui
             //    menuGw.MenuItems.Add("&เลือกประเภทเอกสาร และUpload Image [" + dgs.doc_group_name + "]", new EventHandler(ContextMenu_upload));
             //}
             //grfVs.ContextMenu = menuGw;
+            grfOPD.Cols[colVsDtrName].AllowEditing = false;
             grfOPD.Cols[colVsPreno].Visible = false;
             grfOPD.Cols[colVsAn].Visible = false;
             grfOPD.Cols[colVsAndate].Visible = false;
@@ -10051,7 +10422,7 @@ namespace bangna_hospital.gui
 
             //grfIPD.Clear();
             grfIPD.Rows.Count = 1;
-            grfIPD.Cols.Count = 10;
+            grfIPD.Cols.Count = 11;
             
             //C1TextBox text = new C1TextBox();
             //grfVs.Cols[colVsVsDate].Editor = text;
@@ -10059,11 +10430,12 @@ namespace bangna_hospital.gui
             //grfVs.Cols[colVsDept].Editor = text;
             //grfVs.Cols[colVsPreno].Editor = text;
 
-            grfIPD.Cols[colIPDDate].Width = 100;
+            grfIPD.Cols[colIPDDate].Width = 72;
             grfIPD.Cols[colIPDVn].Width = 80;
-            grfIPD.Cols[colIPDDept].Width = 240;
+            grfIPD.Cols[colIPDDept].Width = 170;
             grfIPD.Cols[colIPDPreno].Width = 100;
             grfIPD.Cols[colIPDStatus].Width = 60;
+            grfIPD.Cols[colIPDDtrName].Width = 180;
             grfIPD.ShowCursor = true;
             //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
             grfIPD.Cols[colIPDDate].Caption = "Visit Date";
@@ -10080,6 +10452,7 @@ namespace bangna_hospital.gui
             grfIPD.Cols[colIPDVn].AllowEditing = false;
             grfIPD.Cols[colIPDDept].AllowEditing = false;
             grfIPD.Cols[colIPDPreno].AllowEditing = false;
+            grfIPD.Cols[colIPDDtrName].AllowEditing = false;
 
             DataTable dt = new DataTable();
             //MessageBox.Show("hn "+hn, "");
@@ -10109,6 +10482,7 @@ namespace bangna_hospital.gui
                 rowa[colIPDAndate] = bc.datetoShow1(row1["mnc_ad_date"].ToString());
                 rowa[colIPDAnYr] = row1["mnc_an_yr"].ToString();
                 rowa[colIPDAn] = row1["mnc_an_no"].ToString();
+                rowa[colIPDDtrName] = row1["dtr_name"].ToString();
                 i++;
             }
             //ContextMenu menuGw = new ContextMenu();
@@ -10234,7 +10608,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2023-08-17 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ vsdate +1 ";
+            this.Text = "Last Update 2024-01-26 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

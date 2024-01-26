@@ -26,5 +26,7 @@ namespace bangna_hospital.object1
         public String status_ipd { get; set; }
         public String an { get; set; }
         public String doc_scan_id { get; set; }
+        public String status_2nd_leaf { get; set; }
+        public String counter_name { get; set; }
     }
 }

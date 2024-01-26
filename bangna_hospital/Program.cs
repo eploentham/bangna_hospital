@@ -223,6 +223,21 @@ namespace bangna_hospital
                     err = "LisLink";
                     Application.Run(new gui.FrmCertDoctor(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("EditJobNo"))
+                {
+                    err = "EditJobNo";
+                    Application.Run(new gui.FrmEditJobNo(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("OPD"))
+                {
+                    err = "OPD";
+                    Application.Run(new gui.FrmOPD(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("QUEOPD"))
+                {
+                    err = "QUEOPD";
+                    Application.Run(new gui.FrmQueueShow(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

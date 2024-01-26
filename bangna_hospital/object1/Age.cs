@@ -73,14 +73,20 @@ namespace bangna_hospital.object1
                 }
                 else if (Cday.Month < Bday.Month)
                 {
-                    this.Years = Cday.Year - Bday.Year;
-                    this.Months = Bday.Month - (Cday.Month + 1) + Math.Abs(DaysRemain / DaysInBdayMonth);
+                    this.Years = (Cday.Year - 1) - Bday.Year;
+                    this.Months = Cday.Month + (11 - Bday.Month) + Math.Abs(DaysRemain / DaysInBdayMonth);
                     this.Days = (DaysRemain % DaysInBdayMonth + DaysInBdayMonth) % DaysInBdayMonth;
+                    //this.Years = Cday.Year - Bday.Year;
+                    //this.Months = Bday.Month - (Cday.Month + 1) + Math.Abs(DaysRemain / DaysInBdayMonth);
+                    //this.Days = (DaysRemain % DaysInBdayMonth + DaysInBdayMonth) % DaysInBdayMonth;
                 }
                 else
                 {
-                    this.Years = (Cday.Year - 1) - Bday.Year;
-                    this.Months = Cday.Month + (11 - Bday.Month) + Math.Abs(DaysRemain / DaysInBdayMonth);
+                    //this.Years = (Cday.Year - 1) - Bday.Year;
+                    //this.Months = Cday.Month + (11 - Bday.Month) + Math.Abs(DaysRemain / DaysInBdayMonth);
+                    //this.Days = (DaysRemain % DaysInBdayMonth + DaysInBdayMonth) % DaysInBdayMonth;
+                    this.Years = Cday.Year - Bday.Year;
+                    this.Months = Bday.Month - (Cday.Month + 1) + Math.Abs(DaysRemain / DaysInBdayMonth);
                     this.Days = (DaysRemain % DaysInBdayMonth + DaysInBdayMonth) % DaysInBdayMonth;
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.object1;
 using C1.Win.C1Input;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,6 +16,7 @@ namespace bangna_hospital.objdb
         Patient ptt;
         public List<PatientM32> lDeptOPD;
         public List<PatientM32> lDeptIPD;
+        public List<PatientM32> lDeptOPDNew;
         public PatientDB(ConnectDB c)
         {
             conn = c;
@@ -76,7 +78,7 @@ namespace bangna_hospital.objdb
             ptt.MNC_REF_SOI = "MNC_REF_SOI";
             ptt.MNC_FN_TYP_CD = "MNC_FN_TYP_CD";
             ptt.MNC_ATT_NOTE = "MNC_ATT_NOTE";
-            //ptt.MNC_FULL_ADD = "MNC_FULL_SOI";
+            ptt.MNC_STATUS = "MNC_STATUS";
             ptt.MNC_OCC_CD = "MNC_OCC_CD";
             ptt.MNC_EDU_CD = "MNC_EDU_CD";
             ptt.MNC_REL_CD = "MNC_REL_CD";
@@ -86,12 +88,39 @@ namespace bangna_hospital.objdb
             ptt.MNC_COM_CD = "MNC_COM_CD";
             ptt.MNC_COM_CD2 = "MNC_COM_CD2";
             ptt.passport = "passport";
+            ptt.MNC_DOM_ROAD = "MNC_DOM_ROAD";
+            ptt.MNC_REF_ROAD = "MNC_REF_ROAD";
+            ptt.MNC_ID_NAM = "MNC_ID_NAM";
+            ptt.WorkPermit1 = "work_permit1";
+            ptt.WorkPermit2 = "work_permit2";
+            ptt.WorkPermit3 = "work_permit3";
+            ptt.MNC_FIN_NOTE = "MNC_FIN_NOTE";
+            ptt.remark1 = "remark1";
+            ptt.remark2 = "remark2";
 
             ptt.pkField = "";
             ptt.table = "patient_m01";
 
             lDeptOPD = new List<PatientM32>();
             lDeptIPD = new List<PatientM32>();
+            lDeptOPDNew = new List<PatientM32>();
+        }
+        public void getlDeptOPDNew()
+        {
+            //lDept = new List<Position>();
+
+            lDeptOPD.Clear();
+            DataTable dt = new DataTable();
+            dt = selectDeptOPDNew();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                PatientM32 cus1 = new PatientM32();
+                cus1.mnc_sec_no = row["mnc_sec_no"].ToString();
+                cus1.mnc_md_dep_no = row["mnc_md_dep_no"].ToString();
+                cus1.mnc_md_dep_dsc = row["mnc_md_dep_dsc"].ToString();
+                lDeptOPDNew.Add(cus1);
+            }
         }
         public void getlDeptOPD()
         {
@@ -199,15 +228,51 @@ namespace bangna_hospital.objdb
         public DataTable selectPatinetBySearch(String hn)
         {
             DataTable dt = new DataTable();
-            String sql = "";
+            String sql = "", wherehn="";
             Patient ptt = new Patient();
-            sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_FNAME_E,m01.MNC_LNAME_E " +
-                ",MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr" +
-                ",m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,  m02.MNC_PFIX_DSC +' '+m01.MNC_FNAME_T+' '+m01.MNC_LNAME_T as pttfullname " +
-                "From  patient_m01 m01 " +
-                " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
-                " Where m01.MNC_hn_NO like '" + hn + "%' or (m01.MNC_FNAME_T like '"+hn+ "%') or (m01.MNC_LNAME_T like '" + hn + "%') or (m01.mnc_id_no like '" + hn + "%') " +
-                "Order By m01.mnc_hn_no desc";
+            String[] txt = hn.Split(' ');
+            //update patient_m01 set passport = '' where passport is null;
+            //update patient_m01 set work_permit1 = '' where work_permit1 is null;
+            //update patient_m01 set work_permit2 = '' where work_permit2 is null;
+            //update patient_m01 set work_permit3 = '' where work_permit3 is null;
+            if (txt.Length > 0)
+            {
+                if ((txt.Length > 1) && ((txt[1].Trim().Length > 0)))
+                {
+                    wherehn = " (pm01.MNC_FNAME_T like '" + txt[0].Trim() + "%') and (pm01.MNC_LNAME_T like '" + txt[1].Trim() + "%')  ";
+                }
+                else if ((txt.Length == 1))
+                {
+                    if (long.TryParse(txt[0].Trim(), out long chk))//work_permit1
+                    {
+                        wherehn = " (pm01.MNC_HN_NO like '" + txt[0].Trim() + "%') or (pm01.MNC_ID_NO like '"+ txt[0].Trim() + "%')  " +
+                            "or (pm01.work_permit1 like '"+ txt[0].Trim() + "%') or (pm01.work_permit2 like '"+ txt[0].Trim() + "%') " +
+                            "or (pm01.work_permit3 like '"+ txt[0].Trim() + "%')";
+                    }
+                    else
+                    {
+                        wherehn = " (pm01.MNC_FNAME_T like '" + txt[0].Trim() + "%') or (pm01.MNC_LNAME_T like '" + txt[0].Trim() + "%') " +
+                            "or (pm01.passport like '"+ txt[0].Trim() + "%') or (pm01.work_permit1 like '"+ txt[0].Trim() + "%') or (pm01.work_permit2 like '"+ txt[0].Trim() + "%') " +
+                            "or (pm01.work_permit3 like '"+ txt[0].Trim() + "%') or (pm01.passport like '"+ txt[0].Trim() + "%')";
+                    }
+                }
+                else
+                {
+                    wherehn = " (pm01.MNC_FNAME_T like '" + txt[0].Trim() + "%') or (pm01.MNC_LNAME_T like '" + txt[1].Trim() + "%')  " +
+                        "or (pm01.MNC_FNAME_E like '" + txt[0].Trim() + "%') or (pm01.MNC_LNAME_E like '" + txt[1].Trim() + "%')";
+                }
+            }
+            else
+            {
+                wherehn = " pm01.MNC_hn_NO like '" + hn + "%' or (pm01.MNC_FNAME_T like '" + hn + "%') or (pm01.MNC_LNAME_T like '" + hn + "%') or (pm01.mnc_id_no like '" + hn + "%' ";
+            }
+            sql = "Select pm01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,pm01.MNC_FNAME_T,pm01.MNC_LNAME_T,pm01.MNC_FNAME_E,pm01.MNC_LNAME_E,convert(VARCHAR(20),isnull(pm01.MNC_LAST_CONT,''),23) as MNC_LAST_CONT,convert(VARCHAR(20),isnull(pm01.MNC_LAST_CONT_I,''),23) as MNC_LAST_CONT_I " +
+                ",pm01.MNC_AGE,convert(VARCHAR(20),isnull(pm01.MNC_bday,''),23) as MNC_bday, pm01.mnc_id_no, pm01.mnc_hn_yr, isnull(pm01.ipd_discharge_release,'') as ipd_discharge_release " +
+                ",pm01.MNC_PFIX_CDT,pm01.MNC_CUR_TEL,pm01.MNC_PFIX_CDE,  isnull(m02.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname " +
+                "From  patient_m01 pm01 " +
+                " left join patient_m02 m02 on pm01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
+                " Where " + wherehn+" " +
+                "Order By pm01.mnc_hn_no desc";
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
@@ -216,15 +281,21 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             Patient ptt = new Patient();
-            sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E " +
-                ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE " +
-                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD, m01.passport,m01.MNC_SS_NO " +
-                ", m01.MNC_dom_CHW, m01.MNC_dom_AMP, m01.MNC_dom_TUM, m01.MNC_dom_ADD, m01.MNC_dom_MOO, m01.MNC_dom_SOI,MNC_DOM_TEL " +
+            sql = "Select TOP 1 m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.MNC_HN_YR,m01.MNC_FNAME_E " +
+                ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE,m01.MNC_SEX " +
+                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD, m01.passport,m01.MNC_SS_NO " +
+                ", m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI,m01.MNC_CUR_ROAD, m01.MNC_CUR_TUM, m01.MNC_CUR_AMP, m01.MNC_CUR_CHW,m01.MNC_CUR_POC,m01.MNC_CUR_TEL" +
+                ", m01.MNC_DOM_ADD, m01.MNC_DOM_MOO, m01.MNC_DOM_SOI,m01.MNC_DOM_ROAD, m01.MNC_DOM_TUM, m01.MNC_DOM_AMP, m01.MNC_DOM_CHW,m01.MNC_DOM_POC,m01.MNC_DOM_TEL" +
+                ", m01.MNC_REF_ADD, m01.MNC_REF_MOO, m01.MNC_REF_SOI,m01.MNC_REF_ROAD, m01.MNC_REF_TUM, m01.MNC_REF_AMP, m01.MNC_REF_CHW,m01.MNC_REF_POC,m01.MNC_REF_TEL, m01.MNC_REF_NAME  " +
+                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,pm24.MNC_COM_DSC,pm24i.MNC_COM_DSC as MNC_COM_DSCi,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
+                ", m01.remark1, m01.remark2, m01.MNC_STATUS, m01.MNC_REF_REL " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                " left join PATIENT_M24 pm24 on m01.MNC_COM_CD = pm24.MNC_COM_CD " +
+                " left join PATIENT_M24 pm24i on m01.MNC_COM_CD2 = pm24i.MNC_COM_CD " +
                 " Where m01.MNC_hn_NO = '" + hn + "' " +
-                "Order By m01.mnc_hn_no desc";
+                " ";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {
@@ -235,19 +306,13 @@ namespace bangna_hospital.objdb
                 ptt.idcard = dt.Rows[0]["mnc_id_no"].ToString();
                 ptt.hnyr = dt.Rows[0]["mnc_hn_yr"].ToString();
                 ptt.MNC_HN_NO = dt.Rows[0]["MNC_HN_NO"].ToString();
-                ptt.MNC_HN_YR = dt.Rows[0]["mnc_hn_yr"].ToString();
-                ptt.MNC_CUR_CHW = dt.Rows[0]["MNC_CUR_CHW"].ToString();
-                ptt.MNC_CUR_AMP = dt.Rows[0]["MNC_CUR_AMP"].ToString();
-                ptt.MNC_CUR_TUM = dt.Rows[0]["MNC_CUR_TUM"].ToString();
-                ptt.MNC_CUR_ADD = dt.Rows[0]["MNC_CUR_ADD"].ToString();
-                ptt.MNC_CUR_MOO = dt.Rows[0]["MNC_CUR_MOO"].ToString();
-                ptt.MNC_CUR_SOI = dt.Rows[0]["MNC_CUR_SOI"].ToString();
+                ptt.MNC_HN_YR = dt.Rows[0]["MNC_HN_YR"].ToString();
                 ptt.MNC_FNAME_T = dt.Rows[0]["MNC_FNAME_T"].ToString();
                 ptt.MNC_LNAME_T = dt.Rows[0]["MNC_LNAME_T"].ToString();
                 ptt.MNC_FNAME_E = dt.Rows[0]["MNC_FNAME_E"].ToString();
                 ptt.MNC_LNAME_E = dt.Rows[0]["MNC_LNAME_E"].ToString();
                 ptt.MNC_PFIX_CDT = dt.Rows[0]["MNC_PFIX_CDT"].ToString();
-                ptt.MNC_CUR_TEL = dt.Rows[0]["MNC_CUR_TEL"].ToString();
+                
                 ptt.MNC_PFIX_CDE = dt.Rows[0]["MNC_PFIX_CDE"].ToString();
                 ptt.MNC_ATT_NOTE = dt.Rows[0]["MNC_ATT_NOTE"].ToString();
                 ptt.MNC_OCC_CD = dt.Rows[0]["MNC_OCC_CD"].ToString();
@@ -255,53 +320,132 @@ namespace bangna_hospital.objdb
                 ptt.MNC_NAT_CD = dt.Rows[0]["MNC_NAT_CD"].ToString();
                 ptt.MNC_REL_CD = dt.Rows[0]["MNC_REL_CD"].ToString();
                 ptt.MNC_NATI_CD = dt.Rows[0]["MNC_NATI_CD"].ToString();
-                ptt.MNC_CUR_ROAD = dt.Rows[0]["MNC_CUR_ROAD"].ToString();
                 ptt.MNC_BDAY = dt.Rows[0]["MNC_BDAY"].ToString();
                 ptt.MNC_ID_NO = dt.Rows[0]["mnc_id_no"].ToString();
                 ptt.passport = dt.Rows[0]["passport"].ToString();
                 ptt.MNC_SS_NO = dt.Rows[0]["MNC_SS_NO"].ToString();
+                ptt.MNC_SEX = dt.Rows[0]["MNC_SEX"].ToString();
+                ptt.MNC_NICKNAME = dt.Rows[0]["MNC_NICKNAME"].ToString();
 
-                ptt.MNC_DOM_CHW = dt.Rows[0]["MNC_DOM_CHW"].ToString();
-                ptt.MNC_DOM_AMP = dt.Rows[0]["MNC_DOM_AMP"].ToString();
-                ptt.MNC_DOM_TUM = dt.Rows[0]["MNC_DOM_TUM"].ToString();
                 ptt.MNC_DOM_ADD = dt.Rows[0]["MNC_DOM_ADD"].ToString();
                 ptt.MNC_DOM_MOO = dt.Rows[0]["MNC_DOM_MOO"].ToString();
                 ptt.MNC_DOM_SOI = dt.Rows[0]["MNC_DOM_SOI"].ToString();
+                ptt.MNC_DOM_ROAD = dt.Rows[0]["MNC_DOM_ROAD"].ToString();
+                ptt.MNC_DOM_TUM = dt.Rows[0]["MNC_DOM_TUM"].ToString();
+                ptt.MNC_DOM_AMP = dt.Rows[0]["MNC_DOM_AMP"].ToString();
+                ptt.MNC_DOM_CHW = dt.Rows[0]["MNC_DOM_CHW"].ToString();
+                ptt.MNC_DOM_POC = dt.Rows[0]["MNC_DOM_POC"].ToString();
                 ptt.MNC_DOM_TEL = dt.Rows[0]["MNC_DOM_TEL"].ToString();
+                
+                ptt.MNC_CUR_ADD = dt.Rows[0]["MNC_CUR_ADD"].ToString();
+                ptt.MNC_CUR_MOO = dt.Rows[0]["MNC_CUR_MOO"].ToString();
+                ptt.MNC_CUR_SOI = dt.Rows[0]["MNC_CUR_SOI"].ToString();
+                ptt.MNC_CUR_ROAD = dt.Rows[0]["MNC_CUR_ROAD"].ToString();
+                ptt.MNC_CUR_TUM = dt.Rows[0]["MNC_CUR_TUM"].ToString();
+                ptt.MNC_CUR_AMP = dt.Rows[0]["MNC_CUR_AMP"].ToString();
+                ptt.MNC_CUR_CHW = dt.Rows[0]["MNC_CUR_CHW"].ToString();
+                ptt.MNC_CUR_POC = dt.Rows[0]["MNC_CUR_POC"].ToString();
+                ptt.MNC_CUR_TEL = dt.Rows[0]["MNC_CUR_TEL"].ToString();
 
+                ptt.MNC_REF_NAME = dt.Rows[0]["MNC_REF_NAME"].ToString();
+                ptt.MNC_REF_ADD = dt.Rows[0]["MNC_REF_ADD"].ToString();
+                ptt.MNC_REF_MOO = dt.Rows[0]["MNC_REF_MOO"].ToString();
+                ptt.MNC_REF_SOI = dt.Rows[0]["MNC_REF_SOI"].ToString();
+                ptt.MNC_REF_ROAD = dt.Rows[0]["MNC_REF_ROAD"].ToString();
+                ptt.MNC_REF_TUM = dt.Rows[0]["MNC_REF_TUM"].ToString();
+                ptt.MNC_REF_AMP = dt.Rows[0]["MNC_REF_AMP"].ToString();
+                ptt.MNC_REF_CHW = dt.Rows[0]["MNC_REF_CHW"].ToString();
+                ptt.MNC_REF_POC = dt.Rows[0]["MNC_REF_POC"].ToString();
+                ptt.MNC_REF_TEL = dt.Rows[0]["MNC_REF_TEL"].ToString();
+
+                ptt.MNC_COM_CD = dt.Rows[0]["MNC_COM_CD"].ToString();
+                ptt.MNC_COM_CD2 = dt.Rows[0]["MNC_COM_CD2"].ToString();
+                ptt.WorkPermit1 = dt.Rows[0]["work_permit1"].ToString();
+                ptt.WorkPermit2 = dt.Rows[0]["work_permit2"].ToString();
+                ptt.WorkPermit3 = dt.Rows[0]["work_permit3"].ToString();
+                ptt.MNC_FN_TYP_CD = dt.Rows[0]["MNC_FN_TYP_CD"].ToString();
+                ptt.comNameT = dt.Rows[0]["MNC_COM_DSC"].ToString();
+                ptt.insurNameT = dt.Rows[0]["MNC_COM_DSCi"].ToString();
+                ptt.remark1 = dt.Rows[0]["remark1"].ToString();
+                ptt.remark2 = dt.Rows[0]["remark2"].ToString();
+
+                ptt.MNC_STATUS = dt.Rows[0]["MNC_STATUS"].ToString();
+                ptt.MNC_REF_REL = dt.Rows[0]["MNC_REF_REL"].ToString();
+                //ptt.MNC_HN_YR = dt.Rows[0]["MNC_HN_YR"].ToString();
             }
             else
             {
+                ptt.Hn = "";
+                ptt.Age = "";
+                ptt.patient_birthday = "";
+                ptt.Name = "";
+                ptt.idcard = "";
+                ptt.hnyr = "";
                 ptt.MNC_HN_NO = "";
                 ptt.MNC_HN_YR = "";
+                ptt.MNC_FNAME_T = "";
+                ptt.MNC_LNAME_T = "";
+                ptt.MNC_FNAME_E = "";
+                ptt.MNC_LNAME_E = "";
                 ptt.MNC_PFIX_CDT = "";
+
                 ptt.MNC_PFIX_CDE = "";
-                ptt.MNC_FNAME_T = "";
-                ptt.MNC_LNAME_T = "";
-                ptt.MNC_FNAME_E = "";
-                ptt.MNC_LNAME_E = "";
-                ptt.MNC_AGE = "";
-                ptt.MNC_BDAY = "";
-                ptt.MNC_ID_NO = "";
-                ptt.MNC_SS_NO = "";
-                ptt.MNC_SEX = "";
-                ptt.MNC_FULL_ADD = "";
-                ptt.MNC_STAMP_DAT = "";
-                ptt.MNC_STAMP_TIM = "";
-                ptt.MNC_FNAME_T = "";
-                ptt.MNC_LNAME_T = "";
-                ptt.MNC_FNAME_E = "";
-                ptt.MNC_LNAME_E = "";
-                ptt.MNC_CUR_TEL = "";
                 ptt.MNC_ATT_NOTE = "";
                 ptt.MNC_OCC_CD = "";
                 ptt.MNC_EDU_CD = "";
                 ptt.MNC_NAT_CD = "";
                 ptt.MNC_REL_CD = "";
                 ptt.MNC_NATI_CD = "";
-                ptt.MNC_CAR_CD = "";
-                ptt.MNC_CUR_ROAD = "";
+                ptt.MNC_BDAY = "";
+                ptt.MNC_ID_NO = "";
                 ptt.passport = "";
+                ptt.MNC_SS_NO = "";
+                ptt.MNC_SEX = "";
+                ptt.MNC_NICKNAME = "";
+
+                ptt.MNC_DOM_ADD = "";
+                ptt.MNC_DOM_MOO = "";
+                ptt.MNC_DOM_SOI = "";
+                ptt.MNC_DOM_ROAD = "";
+                ptt.MNC_DOM_TUM = "";
+                ptt.MNC_DOM_AMP = "";
+                ptt.MNC_DOM_CHW = "";
+                ptt.MNC_DOM_POC = "";
+                ptt.MNC_DOM_TEL = "";
+
+                ptt.MNC_CUR_ADD = "";
+                ptt.MNC_CUR_MOO = "";
+                ptt.MNC_CUR_SOI = "";
+                ptt.MNC_CUR_ROAD = "";
+                ptt.MNC_CUR_TUM = "";
+                ptt.MNC_CUR_AMP = "";
+                ptt.MNC_CUR_CHW = "";
+                ptt.MNC_CUR_POC = "";
+                ptt.MNC_CUR_TEL = "";
+
+                ptt.MNC_REF_NAME = "";
+                ptt.MNC_REF_ADD = "";
+                ptt.MNC_REF_MOO = "";
+                ptt.MNC_REF_SOI = "";
+                ptt.MNC_REF_ROAD = "";
+                ptt.MNC_REF_TUM = "";
+                ptt.MNC_REF_AMP = "";
+                ptt.MNC_REF_CHW = "";
+                ptt.MNC_REF_POC = "";
+                ptt.MNC_REF_TEL = "";
+
+                ptt.MNC_COM_CD = "";
+                ptt.MNC_COM_CD2 = "";
+                ptt.WorkPermit1 = "";
+                ptt.WorkPermit2 = "";
+                ptt.WorkPermit3 = "";
+                ptt.MNC_FN_TYP_CD = "";
+                ptt.comNameT = "";
+                ptt.insurNameT = "";
+                ptt.remark1 = "";
+                ptt.remark2 = "";
+                ptt.MNC_STATUS = "";
+                ptt.MNC_REF_REL = "";
             }
             return ptt;
         }
@@ -315,7 +459,8 @@ namespace bangna_hospital.objdb
                 ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE " +
                 ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD, m01.passport,m01.MNC_SS_NO " +
                 ", m01.MNC_dom_CHW, m01.MNC_dom_AMP, m01.MNC_dom_TUM, m01.MNC_dom_ADD, m01.MNC_dom_MOO, m01.MNC_dom_SOI,MNC_DOM_TEL " +
-                ",convert(VARCHAR(20),pt01.MNC_DATE,23) as MNC_DATE, pt01.mnc_time, pt01.MNC_DOT_CD, pt01.MNC_VN_NO, pt01.MNC_VN_SEQ, pt01.MNC_VN_SUM " +
+                ",convert(VARCHAR(20),pt01.MNC_DATE,23) as MNC_DATE, pt01.mnc_time, pt01.MNC_DOT_CD, pt01.MNC_VN_NO, pt01.MNC_VN_SEQ, pt01.MNC_VN_SUM,m01.MNC_FNAME_E,m01.MNC_LNAME_E,m01.MNC_FN_TYP_CD " +
+                ", m01.remark1, m01.remark2, m01.MNC_STATUS " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " inner join patient_t01 pt01 on m01.mnc_hn_no = pt01.mnc_hn_no  " +
@@ -367,7 +512,13 @@ namespace bangna_hospital.objdb
                 ptt.visitDate = dt.Rows[0]["MNC_DATE"].ToString();
                 ptt.visitTime = dt.Rows[0]["mnc_time"].ToString();
                 ptt.dtrcode = dt.Rows[0]["MNC_DOT_CD"].ToString();
+                ptt.MNC_FNAME_E = dt.Rows[0]["MNC_FNAME_E"].ToString();
+                ptt.MNC_LNAME_E = dt.Rows[0]["MNC_LNAME_E"].ToString();
                 ptt.vn = dt.Rows[0]["MNC_VN_NO"].ToString()+"/"+ dt.Rows[0]["MNC_VN_SEQ"].ToString()+"("+ dt.Rows[0]["MNC_VN_SUM"].ToString()+")";//  1/1(1)
+                ptt.MNC_FN_TYP_CD = dt.Rows[0]["MNC_FN_TYP_CD"].ToString();
+                ptt.remark1 = dt.Rows[0]["remark1"].ToString();
+                ptt.remark2 = dt.Rows[0]["remark2"].ToString();
+                ptt.MNC_STATUS = dt.Rows[0]["MNC_STATUS"].ToString();
             }
             else
             {
@@ -405,6 +556,10 @@ namespace bangna_hospital.objdb
                 ptt.visitTime = "";
                 ptt.dtrcode = "";
                 ptt.vn = "";
+                ptt.MNC_FN_TYP_CD = "";
+                ptt.remark1 = "";
+                ptt.remark2 = "";
+                ptt.MNC_STATUS = "";
             }
             return ptt;
         }
@@ -416,7 +571,8 @@ namespace bangna_hospital.objdb
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E" +
                 ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE " +
-                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD,m09.MNC_CHW_DSC,m08.MNC_AMP_DSC,m07.MNC_TUM_DSC " +
+                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD,m01.MNC_CUR_ROAD,m09.MNC_CHW_DSC,m08.MNC_AMP_DSC,m07.MNC_TUM_DSC,m01.MNC_FN_TYP_CD " +
+                ", m01.remark1, m01.remark2, m01.MNC_STATUS " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " left join PATIENT_M09 m09 on m01.MNC_CUR_CHW =m09.MNC_CHW_CD " +
@@ -460,7 +616,10 @@ namespace bangna_hospital.objdb
                 ptt.TUMName = dt.Rows[0]["MNC_TUM_DSC"].ToString();
                 ptt.AMPName = dt.Rows[0]["MNC_AMP_DSC"].ToString();
                 ptt.CHWName = dt.Rows[0]["MNC_CHW_DSC"].ToString();
-
+                ptt.MNC_FN_TYP_CD = dt.Rows[0]["MNC_FN_TYP_CD"].ToString();
+                ptt.remark1 = dt.Rows[0]["remark1"].ToString();
+                ptt.remark2 = dt.Rows[0]["remark2"].ToString();
+                ptt.MNC_STATUS = dt.Rows[0]["MNC_STATUS"].ToString();
             }
             else
             {
@@ -496,6 +655,10 @@ namespace bangna_hospital.objdb
                 ptt.TUMName = "";
                 ptt.AMPName = "";
                 ptt.CHWName = "";
+                ptt.MNC_FN_TYP_CD = "";
+                ptt.remark1 = "";
+                ptt.remark2 = "";
+                ptt.MNC_STATUS = "";
             }
             return ptt;
         }
@@ -503,7 +666,8 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "", wherepid="";
-            Patient ptt = new Patient();
+            Patient ptt1 = new Patient();
+            if (pid.Length <= 0) return setPatient(new Patient());
             if (flag.Equals("pid"))
             {
                 wherepid = " m01.mnc_id_no = '" + pid + "' ";
@@ -516,64 +680,176 @@ namespace bangna_hospital.objdb
             {
                 wherepid = " m01.passport = '" + pid + "' ";
             }
-            sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E,m01.MNC_LNAME_E, m01.MNC_PFIX_CDT, m01.MNC_PFIX_CDE, m01.passport,m01.MNC_CUR_TEL,m01.MNC_ATT_NOTE " +
+            //sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, m01.MNC_CUR_CHW, m01.MNC_CUR_AMP, m01.MNC_CUR_TUM, m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI, " +
+            //    "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E,m01.MNC_LNAME_E, m01.MNC_PFIX_CDT, m01.MNC_PFIX_CDE, m01.passport,m01.MNC_CUR_TEL,m01.MNC_ATT_NOTE " +
+            //    "From  patient_m01 m01 " +
+            //    " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+            //    " Where "+ wherepid + " Order By m01.mnc_hn_no desc";
+            sql = "Select TOP 1 m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E " +
+                ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE,m01.MNC_SEX " +
+                ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD, m01.passport,m01.MNC_SS_NO " +
+                ", m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI,m01.MNC_CUR_ROAD, m01.MNC_CUR_TUM, m01.MNC_CUR_AMP, m01.MNC_CUR_CHW,m01.MNC_CUR_POC,m01.MNC_CUR_TEL" +
+                ", m01.MNC_DOM_ADD, m01.MNC_DOM_MOO, m01.MNC_DOM_SOI,m01.MNC_DOM_ROAD, m01.MNC_DOM_TUM, m01.MNC_DOM_AMP, m01.MNC_DOM_CHW,m01.MNC_DOM_POC,m01.MNC_DOM_TEL" +
+                ", m01.MNC_REF_ADD, m01.MNC_REF_MOO, m01.MNC_REF_SOI,m01.MNC_REF_ROAD, m01.MNC_REF_TUM, m01.MNC_REF_AMP, m01.MNC_REF_CHW,m01.MNC_REF_POC,m01.MNC_REF_TEL, m01.MNC_REF_NAME  " +
+                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,pm24.MNC_COM_DSC,pm24i.MNC_COM_DSC as MNC_COM_DSCi ,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
+                ", m01.remark1, m01.remark2, m01.MNC_STATUS " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
-                " Where "+ wherepid + " Order By m01.mnc_hn_no desc";
+                " left join PATIENT_M24 pm24 on m01.MNC_COM_CD = pm24.MNC_COM_CD " +
+                " left join PATIENT_M24 pm24i on m01.MNC_COM_CD2 = pm24i.MNC_COM_CD " +
+                " Where " + wherepid + " " +
+                " ";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {
-                ptt.Hn = dt.Rows[0]["MNC_HN_NO"].ToString();
-                ptt.Age = dt.Rows[0]["MNC_AGE"].ToString();
-                ptt.patient_birthday = dt.Rows[0]["MNC_bday"].ToString();
-                ptt.Name = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
-                ptt.idcard = dt.Rows[0]["mnc_id_no"].ToString();
-                ptt.hnyr = dt.Rows[0]["mnc_hn_yr"].ToString();
-                ptt.MNC_HN_NO = dt.Rows[0]["MNC_HN_NO"].ToString();
-                ptt.MNC_HN_YR = dt.Rows[0]["mnc_hn_yr"].ToString();
-                ptt.MNC_CUR_CHW = dt.Rows[0]["MNC_CUR_CHW"].ToString();
-                ptt.MNC_CUR_AMP = dt.Rows[0]["MNC_CUR_AMP"].ToString();
-                ptt.MNC_CUR_TUM = dt.Rows[0]["MNC_CUR_TUM"].ToString();
-                ptt.MNC_CUR_ADD = dt.Rows[0]["MNC_CUR_ADD"].ToString();
-                ptt.MNC_CUR_MOO = dt.Rows[0]["MNC_CUR_MOO"].ToString();
-                ptt.MNC_CUR_SOI = dt.Rows[0]["MNC_CUR_SOI"].ToString();
-                ptt.MNC_ID_NO = dt.Rows[0]["mnc_id_no"].ToString();
-                ptt.MNC_BDAY = dt.Rows[0]["MNC_BDAY"].ToString();
-                ptt.MNC_FNAME_T = dt.Rows[0]["MNC_FNAME_T"].ToString();
-                ptt.MNC_LNAME_T = dt.Rows[0]["MNC_LNAME_T"].ToString();
-                ptt.MNC_FNAME_E = dt.Rows[0]["MNC_FNAME_E"].ToString();
-                ptt.MNC_LNAME_E = dt.Rows[0]["MNC_LNAME_E"].ToString();
-                ptt.MNC_PFIX_CDT = dt.Rows[0]["MNC_PFIX_CDT"].ToString();
-                ptt.MNC_PFIX_CDE = dt.Rows[0]["MNC_PFIX_CDE"].ToString();
-                ptt.passport = dt.Rows[0]["passport"].ToString();
-                ptt.MNC_CUR_TEL = dt.Rows[0]["MNC_CUR_TEL"].ToString();
+                ptt1.Hn = dt.Rows[0]["MNC_HN_NO"].ToString();
+                ptt1.Age = dt.Rows[0]["MNC_AGE"].ToString();
+                ptt1.patient_birthday = dt.Rows[0]["MNC_bday"].ToString();
+                ptt1.Name = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
+                ptt1.idcard = dt.Rows[0]["mnc_id_no"].ToString();
+                ptt1.hnyr = dt.Rows[0]["mnc_hn_yr"].ToString();
+                ptt1.MNC_HN_NO = dt.Rows[0]["MNC_HN_NO"].ToString();
+                ptt1.MNC_HN_YR = dt.Rows[0]["mnc_hn_yr"].ToString();
+                ptt1.MNC_FNAME_T = dt.Rows[0]["MNC_FNAME_T"].ToString();
+                ptt1.MNC_LNAME_T = dt.Rows[0]["MNC_LNAME_T"].ToString();
+                ptt1.MNC_FNAME_E = dt.Rows[0]["MNC_FNAME_E"].ToString();
+                ptt1.MNC_LNAME_E = dt.Rows[0]["MNC_LNAME_E"].ToString();
+                ptt1.MNC_PFIX_CDT = dt.Rows[0]["MNC_PFIX_CDT"].ToString();
+
+                ptt1.MNC_PFIX_CDE = dt.Rows[0]["MNC_PFIX_CDE"].ToString();
+                ptt1.MNC_ATT_NOTE = dt.Rows[0]["MNC_ATT_NOTE"].ToString();
+                ptt1.MNC_OCC_CD = dt.Rows[0]["MNC_OCC_CD"].ToString();
+                ptt1.MNC_EDU_CD = dt.Rows[0]["MNC_EDU_CD"].ToString();
+                ptt1.MNC_NAT_CD = dt.Rows[0]["MNC_NAT_CD"].ToString();
+                ptt1.MNC_REL_CD = dt.Rows[0]["MNC_REL_CD"].ToString();
+                ptt1.MNC_NATI_CD = dt.Rows[0]["MNC_NATI_CD"].ToString();
+                ptt1.MNC_BDAY = dt.Rows[0]["MNC_BDAY"].ToString();
+                ptt1.MNC_ID_NO = dt.Rows[0]["mnc_id_no"].ToString();
+                ptt1.passport = dt.Rows[0]["passport"].ToString();
+                ptt1.MNC_SS_NO = dt.Rows[0]["MNC_SS_NO"].ToString();
+                ptt1.MNC_SEX = dt.Rows[0]["MNC_SEX"].ToString();
+                ptt1.MNC_NICKNAME = dt.Rows[0]["MNC_NICKNAME"].ToString();
+
+                ptt1.MNC_DOM_ADD = dt.Rows[0]["MNC_DOM_ADD"].ToString();
+                ptt1.MNC_DOM_MOO = dt.Rows[0]["MNC_DOM_MOO"].ToString();
+                ptt1.MNC_DOM_SOI = dt.Rows[0]["MNC_DOM_SOI"].ToString();
+                ptt1.MNC_DOM_ROAD = dt.Rows[0]["MNC_DOM_ROAD"].ToString();
+                ptt1.MNC_DOM_TUM = dt.Rows[0]["MNC_DOM_TUM"].ToString();
+                ptt1.MNC_DOM_AMP = dt.Rows[0]["MNC_DOM_AMP"].ToString();
+                ptt1.MNC_DOM_CHW = dt.Rows[0]["MNC_DOM_CHW"].ToString();
+                ptt1.MNC_DOM_POC = dt.Rows[0]["MNC_DOM_POC"].ToString();
+                ptt1.MNC_DOM_TEL = dt.Rows[0]["MNC_DOM_TEL"].ToString();
+
+                ptt1.MNC_CUR_ADD = dt.Rows[0]["MNC_CUR_ADD"].ToString();
+                ptt1.MNC_CUR_MOO = dt.Rows[0]["MNC_CUR_MOO"].ToString();
+                ptt1.MNC_CUR_SOI = dt.Rows[0]["MNC_CUR_SOI"].ToString();
+                ptt1.MNC_CUR_ROAD = dt.Rows[0]["MNC_CUR_ROAD"].ToString();
+                ptt1.MNC_CUR_TUM = dt.Rows[0]["MNC_CUR_TUM"].ToString();
+                ptt1.MNC_CUR_AMP = dt.Rows[0]["MNC_CUR_AMP"].ToString();
+                ptt1.MNC_CUR_CHW = dt.Rows[0]["MNC_CUR_CHW"].ToString();
+                ptt1.MNC_CUR_POC = dt.Rows[0]["MNC_CUR_POC"].ToString();
+                ptt1.MNC_CUR_TEL = dt.Rows[0]["MNC_CUR_TEL"].ToString();
+
+                ptt1.MNC_REF_NAME = dt.Rows[0]["MNC_REF_NAME"].ToString();
+                ptt1.MNC_REF_ADD = dt.Rows[0]["MNC_REF_ADD"].ToString();
+                ptt1.MNC_REF_MOO = dt.Rows[0]["MNC_REF_MOO"].ToString();
+                ptt1.MNC_REF_SOI = dt.Rows[0]["MNC_REF_SOI"].ToString();
+                ptt1.MNC_REF_ROAD = dt.Rows[0]["MNC_REF_ROAD"].ToString();
+                ptt1.MNC_REF_TUM = dt.Rows[0]["MNC_REF_TUM"].ToString();
+                ptt1.MNC_REF_AMP = dt.Rows[0]["MNC_REF_AMP"].ToString();
+                ptt1.MNC_REF_CHW = dt.Rows[0]["MNC_REF_CHW"].ToString();
+                ptt1.MNC_REF_POC = dt.Rows[0]["MNC_REF_POC"].ToString();
+                ptt1.MNC_REF_TEL = dt.Rows[0]["MNC_REF_TEL"].ToString();
+
+                ptt1.MNC_COM_CD = dt.Rows[0]["MNC_COM_CD"].ToString();
+                ptt1.MNC_COM_CD2 = dt.Rows[0]["MNC_COM_CD2"].ToString();
+                ptt1.WorkPermit1 = dt.Rows[0]["work_permit1"].ToString();
+                ptt1.WorkPermit2 = dt.Rows[0]["work_permit2"].ToString();
+                ptt1.WorkPermit3 = dt.Rows[0]["work_permit3"].ToString();
+                ptt1.MNC_FN_TYP_CD = dt.Rows[0]["MNC_FN_TYP_CD"].ToString();
+                ptt1.comNameT = dt.Rows[0]["MNC_COM_DSC"].ToString();
+                ptt1.insurNameT = dt.Rows[0]["MNC_COM_DSCi"].ToString();
+                ptt1.remark1 = dt.Rows[0]["remark1"].ToString();
+                ptt1.remark2 = dt.Rows[0]["remark2"].ToString();
+                ptt1.MNC_STATUS = dt.Rows[0]["MNC_STATUS"].ToString();
+                ptt1.MNC_REF_REL = dt.Rows[0]["MNC_REF_REL"].ToString();
             }
             else
             {
-                ptt.MNC_HN_NO = "";
-                ptt.MNC_HN_YR = "";
-                ptt.MNC_PFIX_CDT = "";
-                ptt.MNC_PFIX_CDE = "";
-                ptt.MNC_FNAME_T = "";
-                ptt.MNC_LNAME_T = "";
-                ptt.MNC_FNAME_E = "";
-                ptt.MNC_LNAME_E = "";
-                ptt.MNC_AGE = "";
-                ptt.MNC_BDAY = "";
-                ptt.MNC_ID_NO = "";
-                ptt.MNC_SS_NO = "";
-                ptt.MNC_SEX = "";
-                ptt.MNC_FULL_ADD = "";
-                ptt.MNC_STAMP_DAT = "";
-                ptt.MNC_STAMP_TIM = "";
-                ptt.passport = "";
-                ptt.hnyr = "";
-                ptt.idcard = "";
-                ptt.Name = "";
-                ptt.patient_birthday = "";
+                ptt1.Hn = "";
+                ptt1.Age = "";
+                ptt1.patient_birthday = "";
+                ptt1.Name = "";
+                ptt1.idcard = "";
+                ptt1.hnyr = "";
+                ptt1.MNC_HN_NO = "";
+                ptt1.MNC_HN_YR = "";
+                ptt1.MNC_FNAME_T = "";
+                ptt1.MNC_LNAME_T = "";
+                ptt1.MNC_FNAME_E = "";
+                ptt1.MNC_LNAME_E = "";
+                ptt1.MNC_PFIX_CDT = "";
+
+                ptt1.MNC_PFIX_CDE = "";
+                ptt1.MNC_ATT_NOTE = "";
+                ptt1.MNC_OCC_CD = "";
+                ptt1.MNC_EDU_CD = "";
+                ptt1.MNC_NAT_CD = "";
+                ptt1.MNC_REL_CD = "";
+                ptt1.MNC_NATI_CD = "";
+                ptt1.MNC_BDAY = "";
+                ptt1.MNC_ID_NO = "";
+                ptt1.passport = "";
+                ptt1.MNC_SS_NO = "";
+                ptt1.MNC_SEX = "";
+                ptt1.MNC_NICKNAME = "";
+
+                ptt1.MNC_DOM_ADD = "";
+                ptt1.MNC_DOM_MOO = "";
+                ptt1.MNC_DOM_SOI = "";
+                ptt1.MNC_DOM_ROAD = "";
+                ptt1.MNC_DOM_TUM = "";
+                ptt1.MNC_DOM_AMP = "";
+                ptt1.MNC_DOM_CHW = "";
+                ptt1.MNC_DOM_POC = "";
+                ptt1.MNC_DOM_TEL = "";
+
+                ptt1.MNC_CUR_ADD = "";
+                ptt1.MNC_CUR_MOO = "";
+                ptt1.MNC_CUR_SOI = "";
+                ptt1.MNC_CUR_ROAD = "";
+                ptt1.MNC_CUR_TUM = "";
+                ptt1.MNC_CUR_AMP = "";
+                ptt1.MNC_CUR_CHW = "";
+                ptt1.MNC_CUR_POC = "";
+                ptt1.MNC_CUR_TEL = "";
+
+                ptt1.MNC_REF_NAME = "";
+                ptt1.MNC_REF_ADD = "";
+                ptt1.MNC_REF_MOO = "";
+                ptt1.MNC_REF_SOI = "";
+                ptt1.MNC_REF_ROAD = "";
+                ptt1.MNC_REF_TUM = "";
+                ptt1.MNC_REF_AMP = "";
+                ptt1.MNC_REF_CHW = "";
+                ptt1.MNC_REF_POC = "";
+                ptt1.MNC_REF_TEL = "";
+
+                ptt1.MNC_COM_CD = "";
+                ptt1.MNC_COM_CD2 = "";
+                ptt1.WorkPermit1 = "";
+                ptt1.WorkPermit2 = "";
+                ptt1.WorkPermit3 = "";
+                ptt1.MNC_FN_TYP_CD = "";
+                ptt1.comNameT = "";
+                ptt1.insurNameT = "";
+                ptt1.remark1 = "";
+                ptt1.remark2 = "";
+                ptt1.MNC_STATUS = "";
+                ptt1.MNC_REF_REL = "";
             }
-            return ptt;
+            return ptt1;
         }
         public DataTable selectPatientCovidByDate(String date)
         {
@@ -728,7 +1004,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "", re = "";
-            sql = "Select pt08.MNC_HN_NO,pm02.MNC_PFIX_DSC,pm01.MNC_FNAME_T, DATEDIFF(day,pt08.MNC_AD_DATE,getdate()) as day1, " +
+            sql = "Select pt08.MNC_HN_NO,pm02.MNC_PFIX_DSC,pm01.MNC_FNAME_T, DATEDIFF(day,pt08.MNC_AD_DATE,getdate()) as day1,pm02.MNC_PFIX_DSC as prefix,convert(varchar(20),pt08.MNC_AN_NO)+'.'+convert(varchar(20),pt08.MNC_AN_YR) as an_no,pt08.MNC_PRE_NO, " +
                 "pm01.MNC_LNAME_T,convert(varchar(20),pt08.MNC_AD_DATE,23) as MNC_AD_DATE,pt08.MNC_RM_NAM,pt08.MNC_BD_NO, '' as status_selected, pm02.MNC_PFIX_DSC +' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as patient_fullname " +
                 "from PATIENT_T08 pt08 " +
                 "inner join PATIENT_T01 pt01 on pt01.MNC_PRE_NO =pt08.MNC_PRE_NO and pt01.MNC_date = pt08.MNC_date " +
@@ -767,6 +1043,17 @@ namespace bangna_hospital.objdb
                 re = dt.Rows[0]["MNC_MD_DEP_no"].ToString();
             }
             return re;
+        }
+        public DataTable selectDeptOPDNew()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC,m32.mnc_sec_no,m32.mnc_md_dep_no " +
+                "From  patient_m32 m32 " +
+                " Where  m32.MNC_TYP_PT = 'O' and dept_opd = '1' and active = '1' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
         }
         public DataTable selectDeptOPD()
         {
@@ -852,6 +1139,38 @@ namespace bangna_hospital.objdb
                 }
             }
         }
+        public void setCboDeptOPDNew(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            if (lDeptOPDNew.Count <= 0) getlDeptOPDNew();
+            int i = 0;
+
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (PatientM32 row in lDeptOPDNew)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.mnc_sec_no;
+                item.Text = row.mnc_md_dep_dsc;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
+        }
         public void setCboDeptOPD(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -883,6 +1202,46 @@ namespace bangna_hospital.objdb
                     c.SelectedIndex = 0;
                 }
             }
+        }
+        public String selectDeptIPDName(String secid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "", wheresecid = "";
+            String[] secid1 = secid.Split(',');
+            if (secid1.Length > 1)
+            {
+                String aaa = "";
+                foreach (String txt in secid1)
+                {
+                    aaa += "'" + txt + "',";
+                }
+                aaa = aaa.Substring(0, aaa.Length - 1);
+                wheresecid = " and m32.mnc_sec_no in (" + aaa + ")";
+            }
+            else
+            {
+                wheresecid = " and m32.mnc_sec_no = '" + secid + "'";
+            }
+            sql = "Select m32.MNC_MD_DEP_DSC,m32.mnc_sec_no,m32.mnc_md_dep_no " +
+                "From  patient_m32 m32 " +
+                " Where  m32.MNC_TYP_PT = 'I' " + wheresecid + " ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                if (dt.Rows.Count > 1)
+                {
+                    foreach (DataRow drow in dt.Rows)
+                    {
+                        re += drow["MNC_MD_DEP_DSC"].ToString() + ", ";
+                    }
+                    re = re.Substring(0, re.Length - 1);
+                }
+                else
+                {
+                    re = dt.Rows[0]["MNC_MD_DEP_DSC"].ToString();
+                }
+            }
+            return re;
         }
         private void chkNull(Patient p)
         {
@@ -936,6 +1295,26 @@ namespace bangna_hospital.objdb
             p.MNC_FULL_ADD = p.MNC_FULL_ADD == null ? "" : p.MNC_FULL_ADD;
             p.MNC_COM_CD = p.MNC_COM_CD == null ? "" : p.MNC_COM_CD;
             p.MNC_COM_CD2 = p.MNC_COM_CD2 == null ? "" : p.MNC_COM_CD2;
+
+            p.MNC_REL_CD = p.MNC_REL_CD == null ? "" : p.MNC_REL_CD;
+            p.MNC_NATI_CD = p.MNC_NATI_CD == null ? "" : p.MNC_NATI_CD;
+            p.MNC_EDU_CD = p.MNC_EDU_CD == null ? "" : p.MNC_EDU_CD;
+            p.MNC_NAT_CD = p.MNC_NAT_CD == null ? "" : p.MNC_NAT_CD;
+            p.MNC_FIN_NOTE = p.MNC_FIN_NOTE == null ? "" : p.MNC_FIN_NOTE;
+            p.WorkPermit1 = p.WorkPermit1 == null ? "" : p.WorkPermit1;
+            p.WorkPermit2 = p.WorkPermit2 == null ? "" : p.WorkPermit2;
+            p.WorkPermit3 = p.WorkPermit3 == null ? "" : p.WorkPermit3;
+            p.MNC_FN_TYP_CD = p.MNC_FN_TYP_CD == null ? "" : p.MNC_FN_TYP_CD;
+            p.MNC_ATT_NOTE = p.MNC_ATT_NOTE == null ? "" : p.MNC_ATT_NOTE;
+            p.MNC_CUR_ROAD = p.MNC_CUR_ROAD == null ? "" : p.MNC_CUR_ROAD;
+            p.MNC_DOM_ROAD = p.MNC_DOM_ROAD == null ? "" : p.MNC_DOM_ROAD;
+            p.MNC_REF_ROAD = p.MNC_REF_ROAD == null ? "" : p.MNC_REF_ROAD;
+
+            p.MNC_OCC_CD = p.MNC_OCC_CD == null ? "" : p.MNC_OCC_CD;
+            p.remark1 = p.remark1 == null ? "" : p.remark1;
+            p.remark2 = p.remark2 == null ? "" : p.remark2;
+            p.MNC_STATUS = p.MNC_STATUS == null ? "" : p.MNC_STATUS;
+            p.MNC_NATI_CD = p.MNC_NATI_CD == null ? "" : p.MNC_NATI_CD;
 
             //p.MNC_DOC_YR = long.TryParse(p.MNC_DOC_YR, out chk) ? chk.ToString() : "0";
 
@@ -1000,6 +1379,7 @@ namespace bangna_hospital.objdb
                 {
                     p.MNC_HN_YR = (DateTime.Now.Year + 543).ToString();
                 }
+                //ptt.MNC_FIN_NOTE = "MNC_FIN_NOTE";
                 sql = "Insert Into " + ptt.table + "(" + ptt.MNC_HN_NO + "," + ptt.MNC_HN_YR + "," + ptt.MNC_PFIX_CDT + "," +
                     ptt.MNC_PFIX_CDE + "," + ptt.MNC_FNAME_T + "," + ptt.MNC_LNAME_T + "," +
                     ptt.MNC_FNAME_E + "," + ptt.MNC_LNAME_E + "," + ptt.MNC_AGE + "," +
@@ -1016,7 +1396,12 @@ namespace bangna_hospital.objdb
                     ptt.MNC_REF_SOI + "," + ptt.MNC_FN_TYP_CD + "," + ptt.MNC_ATT_NOTE + "," +
 
                     ptt.MNC_SEX + "," + ptt.MNC_FULL_ADD + "," + ptt.MNC_STAMP_DAT + "," +
-                    ptt.MNC_STAMP_TIM + "," + ptt.MNC_COM_CD + "," + ptt.MNC_COM_CD2+
+                    ptt.MNC_STAMP_TIM + "," + ptt.MNC_COM_CD + "," + ptt.MNC_COM_CD2+ "," +
+                    ptt.WorkPermit1 + "," + ptt.WorkPermit2 + "," + ptt.WorkPermit3 + "," +
+                    ptt.MNC_CUR_ROAD + "," + ptt.MNC_DOM_ROAD + "," + ptt.MNC_REF_ROAD + "," +
+                    ptt.MNC_OCC_CD + "," + ptt.MNC_EDU_CD + "," + ptt.MNC_NAT_CD + "," +
+                    ptt.MNC_REL_CD + "," + ptt.MNC_NATI_CD + "," + ptt.MNC_FIN_NOTE + "," +
+                    ptt.remark1 + "," + ptt.remark2 + "," + ptt.MNC_STATUS + "," + ptt.MNC_REF_REL + " " +
                     ") " +
                     "Values((select max(mnc_hn_no) from patient_m01)+1,year(getdate())+543,'" + p.MNC_PFIX_CDT + "','" +
                     p.MNC_PFIX_CDE + "','" + p.MNC_FNAME_T.Replace("'", "''") + "','" + p.MNC_LNAME_T.Replace("'", "''") + "','" +
@@ -1034,10 +1419,15 @@ namespace bangna_hospital.objdb
                     p.MNC_REF_SOI.Trim().Replace("'", "''") + "','" + p.MNC_FN_TYP_CD + "','" + p.MNC_ATT_NOTE.Replace("'", "''") + "','" +
 
                     p.MNC_SEX + "','" + p.MNC_FULL_ADD.Replace("'", "''") + "',convert(varchar(20), getdate(),23)," +
-                    "REPLACE(convert(varchar(5),getdate(),108),':',''),'17352','17352'" +
+                    "REPLACE(convert(varchar(5),getdate(),108),':',''),'" + p.MNC_COM_CD + "','" + p.MNC_COM_CD2 + "','" +
+                    p.WorkPermit1 + "','" + p.WorkPermit2 + "','" + p.WorkPermit3 + "','" +
+                    p.MNC_CUR_ROAD + "','" + p.MNC_DOM_ROAD + "','" + p.MNC_REF_ROAD + "','" +
+                    p.MNC_OCC_CD + "','" + p.MNC_EDU_CD + "','" + p.MNC_NAT_CD + "','" +
+                    p.MNC_REL_CD + "','" + p.MNC_NATI_CD + "','" + p.MNC_FIN_NOTE.Replace("'", "''") + "','" +
+                    p.remark1 + "','" + p.remark2 + "','" + p.MNC_STATUS + "','" + p.MNC_REF_REL + "' " +
                     ") ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
-                new LogWriter("d", "insert Patient chk " + chk);
+                //new LogWriter("d", "insert Patient chk " + chk);
             }
             catch (Exception ex)
             {
@@ -1075,7 +1465,7 @@ namespace bangna_hospital.objdb
                     //+ ptt.MNC_CUR_CHW + " = '" + p.MNC_CUR_CHW + "' "
                     //+ ptt.MNC_CUR_POC + " = '" + p.MNC_CUR_POC + "' "
                     + "," + ptt.MNC_CUR_TEL + " = '" + p.MNC_CUR_TEL + "' "
-                    //+ ptt.MNC_DOM_ADD + " = '" + p.MNC_DOM_ADD + "' "
+                    + "," + ptt.MNC_STATUS + " = '" + p.MNC_STATUS + "' "
                     //+ ptt.MNC_DOM_TUM + " = '" + p.MNC_DOM_TUM + "' "
                     //+ ptt.MNC_DOM_AMP + " = '" + p.MNC_DOM_AMP + "' "
                     //+ ptt.MNC_DOM_CHW + " = '" + p.MNC_DOM_CHW + "' "
@@ -1100,9 +1490,9 @@ namespace bangna_hospital.objdb
                     //+ ptt.MNC_FULL_ADD + " = '" + p.MNC_FULL_ADD.Replace("'", "''") + "' "
                     + "," + ptt.MNC_STAMP_DAT + " = convert(varchar(20), getdate(),23) "
                     + "," + ptt.MNC_STAMP_TIM + " = REPLACE(convert(varchar(5),getdate(),108),':','') "
-                    //+ ptt.MNC_COM_CD + " = '17352' "
-                    //+ ptt.MNC_COM_CD2 + " = '17352 "
-                    +" " 
+                    + ptt.remark1 + " = '" + p.remark1.Replace("'", "''") + "' "
+                    + ptt.remark2 + " = '" + p.remark2.Replace("'", "''") + " "
+                    + " " 
                     +"Where mnc_hn_no = '"+p.MNC_HN_NO+"' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 new LogWriter("d", "update Patient chk " + chk+ " MNC_FNAME_T " + p.MNC_FNAME_T + " MNC_LNAME_T " + p.MNC_LNAME_T);
@@ -1136,44 +1526,58 @@ namespace bangna_hospital.objdb
                     + "," + ptt.passport + " = '" + p.passport + "' "
                     + "," + ptt.MNC_BDAY + " = '" + p.MNC_BDAY + "' "
                     + "," + ptt.MNC_ID_NO + " = '" + p.MNC_ID_NO + "' "
+                    + "," + ptt.MNC_ID_NAM + " = '" + p.MNC_ID_NAM + "' "
                     + "," + ptt.MNC_SS_NO + " = '" + p.MNC_SS_NO + "' "
-                    //+ ptt.MNC_CUR_ADD + " = '" + p.MNC_CUR_ADD + "' "
-                    //+ ptt.MNC_CUR_TUM + " = '" + p.MNC_CUR_TUM + "' "
-                    //+ ptt.MNC_CUR_AMP + " = '" + p.MNC_CUR_AMP + "' "
-                    //+ ptt.MNC_CUR_CHW + " = '" + p.MNC_CUR_CHW + "' "
-                    //+ ptt.MNC_CUR_POC + " = '" + p.MNC_CUR_POC + "' "
+                    + "," + ptt.MNC_CUR_ADD + " = '" + p.MNC_CUR_ADD.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_CUR_MOO + " = '" + p.MNC_CUR_MOO + "' "
+                    + "," + ptt.MNC_CUR_SOI + " = '" + p.MNC_CUR_SOI + "' "
+                    + "," + ptt.MNC_CUR_ROAD + " = '" + p.MNC_CUR_ROAD + "' "
+                    + "," + ptt.MNC_CUR_TUM + " = '" + p.MNC_CUR_TUM + "' "
+                    + "," + ptt.MNC_CUR_AMP + " = '" + p.MNC_CUR_AMP + "' "
+                    + "," + ptt.MNC_CUR_CHW + " = '" + p.MNC_CUR_CHW + "' "
+                    + "," + ptt.MNC_CUR_POC + " = '" + p.MNC_CUR_POC + "' "
                     + "," + ptt.MNC_CUR_TEL + " = '" + p.MNC_CUR_TEL + "' "
-                    //+ ptt.MNC_DOM_ADD + " = '" + p.MNC_DOM_ADD + "' "
-                    //+ ptt.MNC_DOM_TUM + " = '" + p.MNC_DOM_TUM + "' "
-                    //+ ptt.MNC_DOM_AMP + " = '" + p.MNC_DOM_AMP + "' "
-                    //+ ptt.MNC_DOM_CHW + " = '" + p.MNC_DOM_CHW + "' "
-                    //+ ptt.MNC_DOM_POC + " = '" + p.MNC_DOM_POC + "' "
+                    + "," + ptt.MNC_DOM_ADD + " = '" + p.MNC_DOM_ADD.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_DOM_MOO + " = '" + p.MNC_DOM_MOO + "' "
+                    + "," + ptt.MNC_DOM_SOI + " = '" + p.MNC_DOM_SOI + "' "
+                    + "," + ptt.MNC_DOM_ROAD + " = '" + p.MNC_DOM_ROAD + "' "
+                    + "," + ptt.MNC_DOM_TUM + " = '" + p.MNC_DOM_TUM + "' "
+                    + "," + ptt.MNC_DOM_AMP + " = '" + p.MNC_DOM_AMP + "' "
+                    + "," + ptt.MNC_DOM_CHW + " = '" + p.MNC_DOM_CHW + "' "
+                    + "," + ptt.MNC_DOM_POC + " = '" + p.MNC_DOM_POC + "' "
                     + "," + ptt.MNC_DOM_TEL + " = '" + p.MNC_DOM_TEL + "' "
-                    //+ "," + ptt.MNC_REF_NAME + " = '" + p.MNC_REF_NAME.Replace("'", "''") + "' "
-                    //+ ptt.MNC_REF_ADD + " = '" + p.MNC_REF_ADD + "' "
-                    //+ ptt.MNC_REF_TUM + " = '" + p.MNC_REF_TUM + "' "
-                    //+ ptt.MNC_REF_AMP + " = '" + p.MNC_REF_AMP + "' "
-                    //+ ptt.MNC_REF_CHW + " = '" + p.MNC_REF_CHW + "' "
-                    //+ ptt.MNC_REF_POC + " = '" + p.MNC_REF_POC + "' "
-                    //+ "," + ptt.MNC_REF_TEL + " = '" + p.MNC_REF_TEL + "' "
-                    //+ ptt.MNC_CUR_MOO + " = '" + p.MNC_CUR_MOO.Replace("หมู่ที่", "").Replace("'", "''") + "' "
-                    //+ ptt.MNC_DOM_MOO + " = '" + p.MNC_DOM_MOO.Replace("หมู่ที่", "").Replace("'", "''") + "' "
-                    //+ ptt.MNC_REF_MOO + " = '" + p.MNC_REF_MOO.Replace("หมู่ที่", "").Replace("'", "''") + "' "
-                    //+ ptt.MNC_CUR_SOI + " = '" + p.MNC_CUR_SOI.Replace("'", "''") + "' "
-                    //+ ptt.MNC_DOM_SOI + " = '" + p.MNC_DOM_SOI.Replace("'", "''") + "' "
-                    //+ ptt.MNC_REF_SOI + " = '" + p.MNC_REF_SOI.Replace("'", "''") + "' "
-                    //+ ptt.MNC_FN_TYP_CD + " = '" + p.MNC_FN_TYP_CD + "' "
-                    //+ ptt.MNC_ATT_NOTE + " = '" + p.MNC_ATT_NOTE.Replace("'", "''") + "' "
-                    //+ ptt.MNC_SEX + " = '" + p.MNC_SEX + "' "
-                    //+ ptt.MNC_FULL_ADD + " = '" + p.MNC_FULL_ADD.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_REF_NAME + " = '" + p.MNC_REF_NAME.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_REF_ADD + " = '" + p.MNC_REF_ADD.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_REF_MOO + " = '" + p.MNC_REF_MOO + "' "
+                    + "," + ptt.MNC_REF_SOI + " = '" + p.MNC_REF_SOI + "' "
+                    + "," + ptt.MNC_REF_ROAD + " = '" + p.MNC_REF_ROAD + "' "
+                    + "," + ptt.MNC_REF_TUM + " = '" + p.MNC_REF_TUM + "' "
+                    + "," + ptt.MNC_REF_AMP + " = '" + p.MNC_REF_AMP + "' "
+                    + "," + ptt.MNC_REF_CHW + " = '" + p.MNC_REF_CHW + "' "
+                    + "," + ptt.MNC_REF_POC + " = '" + p.MNC_REF_POC + "' "
+                    + "," + ptt.MNC_REF_TEL + " = '" + p.MNC_REF_TEL + "' "
+                    + "," + ptt.WorkPermit1 + " = '" + p.WorkPermit1 + "' "
+                    + "," + ptt.WorkPermit2 + " = '" + p.WorkPermit2 + "' "
+                    + "," + ptt.WorkPermit3 + " = '" + p.WorkPermit3 + "' "
+                    + "," + ptt.MNC_ATT_NOTE + " = '" + p.MNC_ATT_NOTE.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_FN_TYP_CD + " = '" + p.MNC_FN_TYP_CD + "' "
+                    + "," + ptt.MNC_OCC_CD + " = '" + p.MNC_OCC_CD + "' "
+                    + "," + ptt.MNC_EDU_CD + " = '" + p.MNC_EDU_CD + "' "
+                    + "," + ptt.MNC_NAT_CD + " = '" + p.MNC_NAT_CD + "' "
+                    + "," + ptt.MNC_REL_CD + " = '" + p.MNC_REL_CD + "' "
+                    + "," + ptt.MNC_SEX + " = '" + p.MNC_SEX + "' "
+                    + "," + ptt.MNC_NATI_CD + " = '" + p.MNC_NATI_CD + "' "
                     + "," + ptt.MNC_STAMP_DAT + " = convert(varchar(20), getdate(),23) "
                     + "," + ptt.MNC_STAMP_TIM + " = REPLACE(convert(varchar(5),getdate(),108),':','') "
-                    //+ ptt.MNC_COM_CD + " = '17352' "
-                    //+ ptt.MNC_COM_CD2 + " = '17352 "
+                    + "," + ptt.remark1 + " = '" + p.remark1.Replace("'", "''") + "' "
+                    + "," + ptt.remark2 + " = '" + p.remark2.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_STATUS + " = '" + p.MNC_STATUS + "' "
+                    + "," + ptt.MNC_REF_REL + " = '" + p.MNC_REF_REL.Replace("'", "''") + "' "
+                    + "," + ptt.MNC_COM_CD2 + " = '" + p.MNC_COM_CD2 + "' "
                     + " "
                     + "Where mnc_hn_no = '" + p.MNC_HN_NO + "' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
-                new LogWriter("d", "update Patient chk " + chk + " MNC_FNAME_T " + p.MNC_FNAME_T + " MNC_LNAME_T " + p.MNC_LNAME_T);
+                //new LogWriter("d", "update Patient chk " + chk + " MNC_FNAME_T " + p.MNC_FNAME_T + " MNC_LNAME_T " + p.MNC_LNAME_T);
             }
             catch (Exception ex)
             {
@@ -1229,9 +1633,9 @@ namespace bangna_hospital.objdb
                     p.MNC_SEX + "','" + p.MNC_FULL_ADD.Replace("'", "''") + "',convert(varchar(20), getdate(),23)," +
                     "REPLACE(convert(varchar(5),getdate(),108),':',''),'17352','17352','" +p.passport+"','"+ InflueGroup + "','" + statusInflue + "' " +
                     ") ";
-                new LogWriter("e", "insert Patient sql " + sql );
+                //new LogWriter("e", "insert Patient sql " + sql );
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
-                new LogWriter("d", "insert Patient chk " + chk);
+                //new LogWriter("d", "insert Patient chk " + chk);
             }
             catch (Exception ex)
             {
@@ -1294,6 +1698,81 @@ namespace bangna_hospital.objdb
                 new LogWriter("e", "insert Patient sql " + sql + " ex " + re);
             }
             return re;
+        }
+        public Patient setPatient(Patient ptt1)
+        {
+            ptt1.Hn = "";
+            ptt1.Age = "";
+            ptt1.patient_birthday = "";
+            ptt1.Name = "";
+            ptt1.idcard = "";
+            ptt1.hnyr = "";
+            ptt1.MNC_HN_NO = "";
+            ptt1.MNC_HN_YR = "";
+            ptt1.MNC_FNAME_T = "";
+            ptt1.MNC_LNAME_T = "";
+            ptt1.MNC_FNAME_E = "";
+            ptt1.MNC_LNAME_E = "";
+            ptt1.MNC_PFIX_CDT = "";
+
+            ptt1.MNC_PFIX_CDE = "";
+            ptt1.MNC_ATT_NOTE = "";
+            ptt1.MNC_OCC_CD = "";
+            ptt1.MNC_EDU_CD = "";
+            ptt1.MNC_NAT_CD = "";
+            ptt1.MNC_REL_CD = "";
+            ptt1.MNC_NATI_CD = "";
+            ptt1.MNC_BDAY = "";
+            ptt1.MNC_ID_NO = "";
+            ptt1.passport = "";
+            ptt1.MNC_SS_NO = "";
+            ptt1.MNC_SEX = "";
+            ptt1.MNC_NICKNAME = "";
+
+            ptt1.MNC_DOM_ADD = "";
+            ptt1.MNC_DOM_MOO = "";
+            ptt1.MNC_DOM_SOI = "";
+            ptt1.MNC_DOM_ROAD = "";
+            ptt1.MNC_DOM_TUM = "";
+            ptt1.MNC_DOM_AMP = "";
+            ptt1.MNC_DOM_CHW = "";
+            ptt1.MNC_DOM_POC = "";
+            ptt1.MNC_DOM_TEL = "";
+
+            ptt1.MNC_CUR_ADD = "";
+            ptt1.MNC_CUR_MOO = "";
+            ptt1.MNC_CUR_SOI = "";
+            ptt1.MNC_CUR_ROAD = "";
+            ptt1.MNC_CUR_TUM = "";
+            ptt1.MNC_CUR_AMP = "";
+            ptt1.MNC_CUR_CHW = "";
+            ptt1.MNC_CUR_POC = "";
+            ptt1.MNC_CUR_TEL = "";
+
+            ptt1.MNC_REF_NAME = "";
+            ptt1.MNC_REF_ADD = "";
+            ptt1.MNC_REF_MOO = "";
+            ptt1.MNC_REF_SOI = "";
+            ptt1.MNC_REF_ROAD = "";
+            ptt1.MNC_REF_TUM = "";
+            ptt1.MNC_REF_AMP = "";
+            ptt1.MNC_REF_CHW = "";
+            ptt1.MNC_REF_POC = "";
+            ptt1.MNC_REF_TEL = "";
+
+            ptt1.MNC_COM_CD = "";
+            ptt1.MNC_COM_CD2 = "";
+            ptt1.WorkPermit1 = "";
+            ptt1.WorkPermit2 = "";
+            ptt1.WorkPermit3 = "";
+            ptt1.MNC_FN_TYP_CD = "";
+            ptt1.comNameT = "";
+            ptt1.insurNameT = "";
+            ptt1.remark1 = "";
+            ptt1.remark2 = "";
+            ptt1.MNC_STATUS = "";
+
+            return ptt1;
         }
     }
 }

@@ -55,6 +55,17 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public DataTable selectDeptOPDAll()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC, m32.SEC_NO " +
+                "From  patient_m32 m32 " +
+                " Where m32.MNC_TYP_PT = 'O' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            
+            return dt;
+        }
         public String selectDeptOPD(String deptid)
         {
             DataTable dt = new DataTable();
@@ -68,6 +79,31 @@ namespace bangna_hospital.objdb
                 re = dt.Rows[0]["MNC_MD_DEP_DSC"].ToString();
             }
             return re;
+        }
+        public String selectDeptOPDBySecNO(String secno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_NO " +
+                "From  patient_m32 m32 " +
+                " Where m32.MNC_SEC_NO = '" + secno + "' and m32.MNC_TYP_PT = 'O' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_MD_DEP_NO"].ToString();
+            }
+            return re;
+        }
+        public DataTable selectDeptIPDAll()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC, m32.SEC_NO " +
+                "From  patient_m32 m32 " +
+                " Where  m32.MNC_TYP_PT = 'I' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            
+            return dt;
         }
         public String selectDeptIPD(String deptid)
         {
@@ -102,6 +138,54 @@ namespace bangna_hospital.objdb
                 cus1.opbkk_clinic = row[pttM32.opbkk_clinic].ToString();
                 lPm08.Add(cus1);
             }
+        }
+        public String getDeptNoOPD(String seccode)
+        {
+            String re = "";
+            if (lPm08.Count <= 0) getlCus();
+            foreach (PatientM32 row in lPm08)
+            {
+                if (row.MNC_TYP_PT.Equals("O"))
+                {
+                    if (row.mnc_sec_no.Equals(seccode))
+                    {
+                        re = row.mnc_md_dep_no;
+                        break;
+                    }
+                }
+            }
+            return re;
+        }
+        public String getDeptName(String seccode)
+        {
+            String re = "";
+            if (lPm08.Count <= 0) getlCus();
+            foreach (PatientM32 row in lPm08)
+            {
+                if (row.mnc_sec_no.Equals(seccode))
+                {
+                    re = row.mnc_md_dep_dsc;
+                    break;
+                }
+            }
+            return re;
+        }
+        public String getDeptNameOPD(String seccode)
+        {
+            String re = "";
+            if (lPm08.Count <= 0) getlCus();
+            foreach (PatientM32 row in lPm08)
+            {
+                if (row.MNC_TYP_PT.Equals("O"))
+                {
+                    if (row.mnc_sec_no.Equals(seccode))
+                    {
+                        re = row.mnc_md_dep_dsc;
+                        break;
+                    }
+                }
+            }
+            return re;
         }
         public void setCboAmphur(C1ComboBox c, String selected)
         {

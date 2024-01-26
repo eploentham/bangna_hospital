@@ -3,6 +3,7 @@ using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
+using Org.BouncyCastle.Asn1;
 using System;
 using System.Collections;
 using System.Drawing;
@@ -316,6 +317,11 @@ namespace bangna_hospital.gui
                             DateTime dt = new DateTime();
 
                             dsc.an_date = (DateTime.TryParse(txtAnDate.Text, out dt)) ? bc.datetoDB(txtAnDate.Text) : "";
+                            if (dt.Year < 2000)
+                            {
+                                dt = dt.AddYears(543);
+                            }
+                            dsc.an_date = dt.Year.ToString() + "-" + dt.ToString("MM-dd");
                             if (dsc.an_date.Equals("1-01-01"))
                             {
                                 dsc.an_date = "";

@@ -332,17 +332,17 @@ namespace bangna_hospital.gui
         }
         private void ContextMenu_Delete(object sender, System.EventArgs e)
         {
-            if (MessageBox.Show("ต้องการ ลบข้อมูลนี้ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-            {
-                int chk = 0;
-                String re = bc.bcDB.dscDB.voidDocScan(dsc_id,"");
-                if(int.TryParse(re, out chk))
-                {
-                    frmImg.Dispose();
-                    setGrf();
-                    clearGrf();
-                }
-            }
+            //if (MessageBox.Show("ต้องการ ลบข้อมูลนี้ ", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            //{
+            //    int chk = 0;
+            //    String re = bc.bcDB.dscDB.voidDocScan(dsc_id,"");
+            //    if(int.TryParse(re, out chk))
+            //    {
+            //        frmImg.Dispose();
+            //        setGrf();
+            //        clearGrf();
+            //    }
+            //}
         }
         //private void Pic_Paint(object sender, PaintEventArgs e)
         //{

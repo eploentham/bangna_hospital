@@ -191,6 +191,7 @@ namespace bangna_hospital.objdb
                 " " + labo.active + " = '3'" +
                 "," + labo.date_cancel + " = convert(varchar, getdate(), 23)" +
                 "," + labo.user_cancel + " = '" + userId + "'" +
+                "," + labo.remark + " = 'voidByDate'" +
                 "Where " + labo.visit_date + "='" + req_date + "'"
                 ;
             try

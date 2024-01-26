@@ -17,5 +17,7 @@ namespace bangna_hospital.object1
         public String Prangnant { get; set; }
         public String StartDate { get; set; }
         public String EndDate { get; set; }
+        public String FLAG { get; set; }
+        public String UploadDate { get; set; }
     }
 }

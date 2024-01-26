@@ -96,11 +96,11 @@ namespace bangna_hospital.gui
             dsc.visit_date = "";
             dsc.pre_no = "";
             dsc.ml_fm = txtFM.Text.Trim();
-            if (dsc!=null && dsc.doc_scan_id.Length > 0)
+            if (this.dsc!=null && this.dsc.doc_scan_id.Length > 0)
             {
-                dsc.visit_date = dsc.visit_date;
-                dsc.pre_no = dsc.pre_no;
-                bc.bcDB.dscDB.voidDocScan(dsc.doc_scan_id, "");
+                dsc.visit_date = this.dsc.visit_date;
+                dsc.pre_no = this.dsc.pre_no;
+                bc.bcDB.dscDB.voidDocScanCertMed(this.dsc.doc_scan_id, "");
             }
             
             dsc.host_ftp = bc.iniC.hostFTP;

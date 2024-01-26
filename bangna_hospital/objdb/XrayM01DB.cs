@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
@@ -53,6 +54,38 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
+        }
+        public AutoCompleteStringCollection getlLabAll()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            DataTable dt = new DataTable();
+            dt = SelectAll();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_XR_DSC"].ToString() + "#" + row["MNC_XR_CD"].ToString());
+                //PatientM13 cus1 = new PatientM13();
+                //cus1.MNC_APP_CD = row["MNC_APP_CD"].ToString();
+                //cus1.MNC_APP_DSC = row["MNC_APP_DSC"].ToString();
+
+                //labM01.Add(cus1);
+            }
+            return autoSymptom;
+        }
+        public XrayM01 SelectByPk(String xraycode)
+        {
+            DataTable dt = new DataTable();
+            XrayM01 xrayM01 = new XrayM01();
+            String sql = "select xray_m01.*, xray_m02.mnc_xr_pri01 " +
+                "From xray_m01  " +
+                "Left join xray_m02 on xray_m01.mnc_xr_cd = xray_m02.mnc_xr_cd " +
+                "Where xray_m01.mnc_xr_cd = '" + xraycode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+            xrayM01 = setXrayM01(dt);
+            return xrayM01;
         }
         public String updateOPBKKCode(String xraycode, String opbkkcode)
         {

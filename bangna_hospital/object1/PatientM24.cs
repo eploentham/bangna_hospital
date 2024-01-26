@@ -24,5 +24,10 @@ namespace bangna_hospital.object1
         public String MNC_COM_OWN { get; set; }
         public String MNC_COM_OPD { get; set; }
         public String MNC_COM_IPD { get; set; }
+        public String MNC_COM_START { get; set; }
+        public String MNC_COM_DSC_E { get; set; }
+        public String status_insur { get; set; }
+        public String insur1_code { get; set; }
+        public String insur2_code { get; set; }
     }
 }

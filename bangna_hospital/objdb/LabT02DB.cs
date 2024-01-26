@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -71,6 +72,169 @@ namespace bangna_hospital.objdb
 
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
+        }
+        public DataTable selectLabNamebyHN(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "select  labm01.MNC_LB_DSC, labt02.MNC_LB_CD " +
+                "From lab_t01 labt01 " +
+                "inner join lab_t02 labt02 on labt01.MNC_REQ_YR = labt02.MNC_REQ_YR and labt01.MNC_REQ_NO = labt02.MNC_REQ_NO and labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
+                "inner join lab_m01 labm01 on labt02.MNC_LB_CD = labm01.MNC_LB_CD  " +
+                //"inner join patient_t01 pt01 on pt01.mnc_hn_no = labt01.mnc_hn_no and pt01.mnc_hn_yr = labt01.mnc_hn_yr and pt01.MNC_PRE_NO = labt01.MNC_PRE_NO and pt01.MNC_DATE = labt01.MNC_DATE " +
+                //"Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Where labt01.MNC_HN_NO='" + hn + "' and labt02.mnc_req_sts <> 'C'  and labt01.mnc_req_sts <> 'C' " +
+                "group by labm01.MNC_LB_DSC, labt02.MNC_LB_CD  " +
+                "Order By labm01.MNC_LB_DSC ";
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
+        public DataTable selectLabSubNamebyHN(String hn, List<String> llcode, String datestart, String dateend)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode="", wherelccode="";
+            foreach(String txt in llcode)
+            {
+                if (!txt.Equals("00"))
+                {
+                    lccode += "'" + txt + "',";
+                }
+                //lccode += "'"+txt+"',";
+            }
+            lccode = lccode.Length>0 ? lccode.Substring(0,lccode.Length - 1) : "";
+            if (lccode.Length>0)
+            {
+                wherelccode = " and LAB_T02.MNC_LB_CD in (" + lccode + ")";
+            }
+            sql = "SELECT  LAB_M01.MNC_LB_CD, LAB_M01.MNC_LB_DSC, isnull(labm24.MNC_RES_UNT, '') as MNC_RES_UNT " +
+                ", isnull(labm24.MNC_LB_RES_MIN,'') as MNC_LB_RES_MIN, isnull(labm24.MNC_LB_RES_MAX,'') as MNC_LB_RES_MAX " +
+                ", labm24.MNC_LB_RES_CD, labm24.MNC_LB_RES  " +
+                "FROM     PATIENT_T01 t01 " +
+                "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                //"left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                //"left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = LAB_T02.mnc_usr_result " +
+                //"left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = LAB_T02.mnc_usr_result_report " +
+                //"left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = LAB_T02.mnc_usr_result_approve " +
+                //"left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
+
+                "inner join lab_m04 labm24  on LAB_T02.MNC_LB_CD = labm24.MNC_LB_CD and labm24.MNC_ORD_NO = '0'  " +
+                //"inner join lab_m07 on lab_m01.MNC_LB_GRP_CD =lab_m07.MNC_LB_GRP_CD  AND lab_m01.MNC_LB_TYP_CD = lab_m07.MNC_LB_TYP_CD   " +
+
+                //" inner join patient_m26 on LAB_T01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
+                //" inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
+                 //"Left Join finance_m02 fn02 on LAB_T01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
+
+                "where LAB_T01.MNC_REQ_DAT >= '" + datestart + "' and LAB_T01.MNC_REQ_DAT <= '" + dateend + "'  " +
+
+                "and LAB_T01.mnc_hn_no = '" + hn + "' " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " + wherelccode + " "+
+                //" and (LAB_T05.MNC_RES_VALUE <> null or LAB_T05.MNC_RES_VALUE <> 'NULL') " +
+                //"and LAB_T05.mnc_lb_res_cd = '02' " +
+                //"'ch039', 'ch036', 'ch038', 'se005', 'se038', 'se047', 'ch006', 'ch007', 'ch008', 'ch009', 'se165')) " +
+                //"and lab_t05.mnc_res <> '' and LAB_T05.MNC_LAB_PRN = '1' " +
+                "Group By LAB_M01.MNC_LB_CD, LAB_M01.MNC_LB_DSC,labm24.MNC_RES_UNT,labm24.MNC_LB_RES_MIN,labm24.MNC_LB_RES_MAX, labm24.MNC_LB_RES_CD, labm24.MNC_LB_RES " +
+                "Order By LAB_M01.MNC_LB_CD,labm24.MNC_LB_RES_CD ";
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
+        public DataTable selectLabSubNameDatebyHN(String hn, List<String> llcode, String datestart, String dateend)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            foreach (String txt in llcode)
+            {
+                if (!txt.Equals("00"))
+                {
+                    lccode += "'" + txt + "',";
+                }
+            }
+            lccode = lccode.Length>0 ? lccode.Substring(0,lccode.Length - 1) : "";
+            if (lccode.Length > 0)
+            {
+                wherelccode = " and LAB_T02.MNC_LB_CD in (" + lccode + ")";
+                sql = "SELECT LAB_T02.MNC_REQ_NO, convert(varchar(20),LAB_T02.MNC_REQ_DAT,23) as MNC_REQ_DAT  " +
+                    "FROM     PATIENT_T01 t01 " +
+                    "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                    "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                    "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                    "inner join lab_m04 labm24  on LAB_T02.MNC_LB_CD = labm24.MNC_LB_CD and labm24.MNC_ORD_NO = '0'  " +
+                    "where LAB_T01.MNC_REQ_DAT >= '" + datestart + "' and LAB_T01.MNC_REQ_DAT <= '" + dateend + "'  " +
+
+                    "and LAB_T01.mnc_hn_no = '" + hn + "' " +
+                    "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " + wherelccode + " " +
+                    "Group By LAB_T02.MNC_REQ_DAT,LAB_T02.MNC_REQ_NO  " +
+                    "Order By LAB_T02.MNC_REQ_DAT desc,LAB_T02.MNC_REQ_NO  desc ";
+
+                dt = conn.selectData(conn.connMainHIS, sql);
+            }
+            
+            return dt;
+        }
+        public DataTable selectLabResultbyHNReqNo(String hn, List<String> llcode, String date, String reqno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            foreach (String txt in llcode)
+            {
+                if (!txt.Equals("00"))
+                {
+                    lccode += "'" + txt + "',";
+                }
+                //lccode += "'" + txt + "',";
+            }
+            lccode = lccode.Length >0? lccode.Substring(0, lccode.Length - 1):"";
+            if (lccode.Length > 0)
+            {
+                wherelccode = " and LAB_T02.MNC_LB_CD in (" + lccode + ")";
+                sql = "SELECT  LAB_M01.MNC_LB_CD, LAB_M01.MNC_LB_DSC, isnull(LAB_T05.MNC_RES_UNT, '') as MNC_RES_UNT " +
+                    ", isnull(LAB_T05.MNC_RES_MIN,'') as MNC_RES_MIN, isnull(LAB_T05.MNC_RES_MAX,'') as MNC_RES_MAX " +
+                    ", LAB_T05.MNC_LB_RES_CD, LAB_T05.MNC_RES,isnull(LAB_T05.MNC_RES_VALUE,'') as MNC_RES_VALUE ,LAB_T05.MNC_LB_RES,LAB_T01.MNC_REQ_NO,LAB_T05.MNC_STS " +
+                    "FROM     PATIENT_T01 t01 " +
+                    "left join LAB_T01 ON t01.MNC_PRE_NO = LAB_T01.MNC_PRE_NO AND t01.MNC_DATE = LAB_T01.MNC_DATE and t01.mnc_hn_no = LAB_T01.mnc_hn_no " +
+                    "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                    "left join LAB_T05 ON LAB_T01.MNC_REQ_NO = LAB_T05.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T05.MNC_REQ_DAT and LAB_T02.MNC_REQ_NO = LAB_T05.MNC_REQ_NO and LAB_T02.MNC_LB_CD = LAB_T05.MNC_LB_CD " +
+                    "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                    "where LAB_T01.MNC_REQ_DAT = '" + date + "' and LAB_T01.MNC_REQ_NO = '" + reqno + "'  " +
+                    "and LAB_T01.mnc_hn_no = '" + hn + "' " +
+                    "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C' " + wherelccode + " " +
+                    "and (LAB_T05.MNC_RES_VALUE <> null or LAB_T05.MNC_RES_VALUE <> 'NULL') " +
+                    "   " +
+                    "Order By LAB_M01.MNC_LB_CD,LAB_T05.MNC_LB_RES_CD ";
+
+                dt = conn.selectData(conn.connMainHIS, sql);
+            }
+            return dt;
+        }
+        public C1ComboBox setCboLabNamebyHN(C1ComboBox c, String hn)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            //DataTable dt = selectC1();
+            //lDistrict.Clear();
+            DataTable dtamp = selectLabNamebyHN(hn);
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "00";
+            c.Items.Clear();
+            c.Items.Add(item1);
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            int i = 0;
+            foreach (DataRow drow in dtamp.Rows)
+            {
+                item = new ComboBoxItem();
+                item.Value = drow["MNC_LB_CD"].ToString();
+                item.Text = drow["MNC_LB_DSC"].ToString();
+                c.Items.Add(item);
+                i++;
+            }
+            c.SelectedText = select;
+            c.SelectedIndex = row1;
+            return c;
         }
         private void chkNull(LabT02 p)
         {

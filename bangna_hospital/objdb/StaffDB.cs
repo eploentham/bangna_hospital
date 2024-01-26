@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,6 +77,22 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             cop1 = setStaff(dt);
             return cop1;
+        }
+        public String selectByPassword(String username)
+        {
+            Staff cop1 = new Staff();
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev " +
+                "From userlog_m01 stf " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where stf." + stf.password1 + " ='" + username + "'";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["mnc_usr_full"].ToString();
+            }
+            return re;
         }
         public DataTable selectByLevel(String username)
         {

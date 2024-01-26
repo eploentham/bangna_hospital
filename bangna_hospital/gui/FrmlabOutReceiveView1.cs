@@ -168,7 +168,6 @@ namespace bangna_hospital.gui
             timerStt.Stop();
             //timerStt.Enabled = false;
         }
-
         private void BtnImport_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -178,7 +177,7 @@ namespace bangna_hospital.gui
             }
             else
             {
-                setVoid();
+                //setVoid();
             }
         }
         private void setVoid()
@@ -628,7 +627,9 @@ namespace bangna_hospital.gui
                     grfHn[i, colReqNo] = row["req_id"].ToString();
                     grfHn[i, colVN] = row["vn"].ToString();
                     grfHn[i, colId] = row["doc_scan_id"].ToString();
-                    grfHn[i, colComp] = row["ml_fm"].ToString().Equals("FM-LAB-998") ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-997") ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-996") ? "RIA" : row["ml_fm"].ToString().Equals("FM-LAB-995") ? "Medica" : row["ml_fm"].ToString().Equals("FM-LAB-994") ? "GM" : "";
+                    grfHn[i, colComp] = row["ml_fm"].ToString().Equals("FM-LAB-998") ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-997") 
+                        ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-996") ? "RIA" : row["ml_fm"].ToString().Equals("FM-LAB-995") 
+                        ? "Medica" : row["ml_fm"].ToString().Equals("FM-LAB-994") ? "GM" : row["ml_fm"].ToString().Equals("FM-LAB-993") ? "Bangna5":"";
                 }
                 catch (Exception ex)
                 {
@@ -1321,7 +1322,7 @@ namespace bangna_hospital.gui
         private void FrmlabOutReceiveView1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2020-07-27 ";
+            this.Text = "Last Update 2023-12-07 ";
             tC1.Font = fEdit;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel3, bc.iniC.themeApp);

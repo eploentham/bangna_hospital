@@ -90,7 +90,7 @@ namespace bangna_hospital.gui
                 //MessageBox.Show(bc.iniC.folderFTP + "//" + dsc.image_path, "");
                 Boolean chk1 = ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, stream);
 
-                bc.bcDB.dscDB.voidDocScan(dgs.doc_scan_id, "");
+                bc.bcDB.dscDB.voidDocScan2(dgs.doc_scan_id, "");
                 MessageBox.Show("save file Rotate to seerver success", "");
             }
         }
@@ -126,7 +126,7 @@ namespace bangna_hospital.gui
             {
                 String re = "";
                 int chk = 0;
-                re = bc.bcDB.dscDB.voidDocScan(txtID.Text, txtFmCode.Text.Trim());
+                re = bc.bcDB.dscDB.voidDocScan2(txtID.Text, txtFmCode.Text.Trim());
                 if (int.TryParse(re, out chk))
                 {
                     MessageBox.Show("ยกเลิกรายการ เรียบร้อย", "");

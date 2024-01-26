@@ -94,7 +94,7 @@ namespace bangna_hospital.objdb
                 }
                 i++;
             }
-            if (selected.Equals(""))
+            if (selected == null || selected.Equals(""))
             {
                 if (c.Items.Count > 0)
                 {

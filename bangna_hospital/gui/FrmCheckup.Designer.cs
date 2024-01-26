@@ -47,10 +47,22 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel5 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1SplitContainer5 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel9 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.btnVisit = new C1.Win.C1Input.C1Button();
             this.btnHn = new C1.Win.C1Input.C1Button();
             this.pnItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtRemark = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.lbDeptName = new System.Windows.Forms.Label();
+            this.txtDept = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.txtSymptom = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.lbPaidName = new System.Windows.Forms.Label();
+            this.txtPaidType = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.txtFullname = new C1.Win.C1Input.C1TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -68,18 +80,6 @@ namespace bangna_hospital.gui
             this.pnGrd = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tabProcess = new C1.Win.C1Command.C1DockingTabPage();
             this.tabPatient = new C1.Win.C1Command.C1DockingTabPage();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.lbPaidName = new System.Windows.Forms.Label();
-            this.txtPaidType = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtSymptom = new System.Windows.Forms.TextBox();
-            this.label48 = new System.Windows.Forms.Label();
-            this.lbDeptName = new System.Windows.Forms.Label();
-            this.txtDept = new System.Windows.Forms.TextBox();
-            this.label49 = new System.Windows.Forms.Label();
-            this.txtRemark = new System.Windows.Forms.TextBox();
-            this.label51 = new System.Windows.Forms.Label();
-            this.btnVisit = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
             this.tabImage.SuspendLayout();
@@ -102,6 +102,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer5)).BeginInit();
             this.c1SplitContainer5.SuspendLayout();
             this.c1SplitterPanel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnVisit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).BeginInit();
             this.pnItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFullname)).BeginInit();
@@ -111,7 +112,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtLname)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFname)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrefix)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnVisit)).BeginInit();
             this.SuspendLayout();
             // 
             // tC
@@ -338,6 +338,19 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel9.Text = "Panel 1";
             this.c1SplitterPanel9.Width = 93;
             // 
+            // btnVisit
+            // 
+            this.btnVisit.Image = global::bangna_hospital.Properties.Resources.rules24;
+            this.btnVisit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVisit.Location = new System.Drawing.Point(3, 44);
+            this.btnVisit.Name = "btnVisit";
+            this.btnVisit.Size = new System.Drawing.Size(71, 30);
+            this.btnVisit.TabIndex = 558;
+            this.btnVisit.Text = "ออกVisit";
+            this.btnVisit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnVisit.UseVisualStyleBackColor = true;
+            this.btnVisit.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // btnHn
             // 
             this.btnHn.Image = global::bangna_hospital.Properties.Resources.filesave;
@@ -382,6 +395,102 @@ namespace bangna_hospital.gui
             this.pnItem.TabIndex = 1;
             this.pnItem.Text = "Panel 2";
             // 
+            // txtRemark
+            // 
+            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(468, 135);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(229, 26);
+            this.txtRemark.TabIndex = 564;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Location = new System.Drawing.Point(400, 140);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(67, 20);
+            this.label51.TabIndex = 563;
+            this.label51.Text = "หมายเหตุ";
+            // 
+            // lbDeptName
+            // 
+            this.lbDeptName.AutoSize = true;
+            this.lbDeptName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbDeptName.Location = new System.Drawing.Point(527, 112);
+            this.lbDeptName.Name = "lbDeptName";
+            this.lbDeptName.Size = new System.Drawing.Size(20, 18);
+            this.lbDeptName.TabIndex = 562;
+            this.lbDeptName.Text = "...";
+            // 
+            // txtDept
+            // 
+            this.txtDept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDept.Location = new System.Drawing.Point(468, 106);
+            this.txtDept.Name = "txtDept";
+            this.txtDept.Size = new System.Drawing.Size(53, 26);
+            this.txtDept.TabIndex = 561;
+            this.txtDept.Text = "199";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(400, 109);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(40, 20);
+            this.label49.TabIndex = 560;
+            this.label49.Text = "ส่งไป";
+            // 
+            // txtSymptom
+            // 
+            this.txtSymptom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSymptom.Location = new System.Drawing.Point(468, 77);
+            this.txtSymptom.Name = "txtSymptom";
+            this.txtSymptom.Size = new System.Drawing.Size(201, 26);
+            this.txtSymptom.TabIndex = 559;
+            this.txtSymptom.Text = "ตรวจ COVID RT-PCR";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(400, 80);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(47, 20);
+            this.label48.TabIndex = 558;
+            this.label48.Text = "อาการ";
+            // 
+            // lbPaidName
+            // 
+            this.lbPaidName.AutoSize = true;
+            this.lbPaidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPaidName.Location = new System.Drawing.Point(535, 51);
+            this.lbPaidName.Name = "lbPaidName";
+            this.lbPaidName.Size = new System.Drawing.Size(21, 20);
+            this.lbPaidName.TabIndex = 557;
+            this.lbPaidName.Text = "...";
+            // 
+            // txtPaidType
+            // 
+            this.txtPaidType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPaidType.Location = new System.Drawing.Point(468, 48);
+            this.txtPaidType.Name = "txtPaidType";
+            this.txtPaidType.Size = new System.Drawing.Size(59, 26);
+            this.txtPaidType.TabIndex = 556;
+            this.txtPaidType.Text = "02";
+            this.txtPaidType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(400, 51);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(62, 20);
+            this.label30.TabIndex = 555;
+            this.label30.Text = "การชำระ";
+            // 
             // txtFullname
             // 
             this.txtFullname.AutoSize = false;
@@ -408,6 +517,18 @@ namespace bangna_hospital.gui
             this.groupBox1.TabIndex = 552;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "สัญชาติ";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.radioButton1.Location = new System.Drawing.Point(249, 20);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(46, 20);
+            this.radioButton1.TabIndex = 4;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "อื่นๆ";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // radioButton4
             // 
@@ -607,127 +728,6 @@ namespace bangna_hospital.gui
             this.tabPatient.TabIndex = 2;
             this.tabPatient.Text = "Page Patient";
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.radioButton1.Location = new System.Drawing.Point(249, 20);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(46, 20);
-            this.radioButton1.TabIndex = 4;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "อื่นๆ";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // lbPaidName
-            // 
-            this.lbPaidName.AutoSize = true;
-            this.lbPaidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbPaidName.Location = new System.Drawing.Point(535, 51);
-            this.lbPaidName.Name = "lbPaidName";
-            this.lbPaidName.Size = new System.Drawing.Size(21, 20);
-            this.lbPaidName.TabIndex = 557;
-            this.lbPaidName.Text = "...";
-            // 
-            // txtPaidType
-            // 
-            this.txtPaidType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPaidType.Location = new System.Drawing.Point(468, 48);
-            this.txtPaidType.Name = "txtPaidType";
-            this.txtPaidType.Size = new System.Drawing.Size(59, 26);
-            this.txtPaidType.TabIndex = 556;
-            this.txtPaidType.Text = "02";
-            this.txtPaidType.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(400, 51);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(62, 20);
-            this.label30.TabIndex = 555;
-            this.label30.Text = "การชำระ";
-            // 
-            // txtSymptom
-            // 
-            this.txtSymptom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSymptom.Location = new System.Drawing.Point(468, 77);
-            this.txtSymptom.Name = "txtSymptom";
-            this.txtSymptom.Size = new System.Drawing.Size(201, 26);
-            this.txtSymptom.TabIndex = 559;
-            this.txtSymptom.Text = "ตรวจ COVID RT-PCR";
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label48.Location = new System.Drawing.Point(400, 80);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(47, 20);
-            this.label48.TabIndex = 558;
-            this.label48.Text = "อาการ";
-            // 
-            // lbDeptName
-            // 
-            this.lbDeptName.AutoSize = true;
-            this.lbDeptName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbDeptName.Location = new System.Drawing.Point(527, 112);
-            this.lbDeptName.Name = "lbDeptName";
-            this.lbDeptName.Size = new System.Drawing.Size(20, 18);
-            this.lbDeptName.TabIndex = 562;
-            this.lbDeptName.Text = "...";
-            // 
-            // txtDept
-            // 
-            this.txtDept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDept.Location = new System.Drawing.Point(468, 106);
-            this.txtDept.Name = "txtDept";
-            this.txtDept.Size = new System.Drawing.Size(53, 26);
-            this.txtDept.TabIndex = 561;
-            this.txtDept.Text = "199";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(400, 109);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(40, 20);
-            this.label49.TabIndex = 560;
-            this.label49.Text = "ส่งไป";
-            // 
-            // txtRemark
-            // 
-            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(468, 135);
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(229, 26);
-            this.txtRemark.TabIndex = 564;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(400, 140);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(67, 20);
-            this.label51.TabIndex = 563;
-            this.label51.Text = "หมายเหตุ";
-            // 
-            // btnVisit
-            // 
-            this.btnVisit.Image = global::bangna_hospital.Properties.Resources.rules24;
-            this.btnVisit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVisit.Location = new System.Drawing.Point(3, 44);
-            this.btnVisit.Name = "btnVisit";
-            this.btnVisit.Size = new System.Drawing.Size(71, 30);
-            this.btnVisit.TabIndex = 558;
-            this.btnVisit.Text = "ออกVisit";
-            this.btnVisit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnVisit.UseVisualStyleBackColor = true;
-            this.btnVisit.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            // 
             // FrmCheckup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -760,6 +760,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer5)).EndInit();
             this.c1SplitContainer5.ResumeLayout(false);
             this.c1SplitterPanel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnVisit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnHn)).EndInit();
             this.pnItem.ResumeLayout(false);
             this.pnItem.PerformLayout();
@@ -771,7 +772,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtLname)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFname)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrefix)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnVisit)).EndInit();
             this.ResumeLayout(false);
 
         }

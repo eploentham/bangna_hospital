@@ -34,10 +34,12 @@ namespace bangna_hospital.gui
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pnPttinDept = new System.Windows.Forms.Panel();
-            this.chkStkIPD = new System.Windows.Forms.RadioButton();
-            this.chkStkOPD = new System.Windows.Forms.RadioButton();
+            this.chkIPD = new System.Windows.Forms.RadioButton();
+            this.chkOPD = new System.Windows.Forms.RadioButton();
             this.cboDept = new C1.Win.C1Input.C1ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lb2nfleaf = new System.Windows.Forms.Label();
+            this.btnAppoinment = new System.Windows.Forms.Button();
             this.btnPrintCertE = new System.Windows.Forms.Button();
             this.pnCertOld = new System.Windows.Forms.Panel();
             this.txtVsTime = new System.Windows.Forms.TextBox();
@@ -45,6 +47,10 @@ namespace bangna_hospital.gui
             this.txtVsDate = new C1.Win.C1Input.C1DateEdit();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.chk4 = new System.Windows.Forms.CheckBox();
+            this.chk3 = new System.Windows.Forms.CheckBox();
+            this.chk2 = new System.Windows.Forms.CheckBox();
+            this.chk1 = new System.Windows.Forms.CheckBox();
             this.txtChk4Time = new System.Windows.Forms.TextBox();
             this.txtChk4Date = new C1.Win.C1Input.C1DateEdit();
             this.txtChk3DateEnd = new C1.Win.C1Input.C1DateEdit();
@@ -56,10 +62,6 @@ namespace bangna_hospital.gui
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.chk4 = new System.Windows.Forms.RadioButton();
-            this.chk3 = new System.Windows.Forms.RadioButton();
-            this.chk2 = new System.Windows.Forms.RadioButton();
-            this.chk1 = new System.Windows.Forms.RadioButton();
             this.txtLine4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtLine3 = new System.Windows.Forms.TextBox();
@@ -136,8 +138,8 @@ namespace bangna_hospital.gui
             // panel4
             // 
             this.panel4.Controls.Add(this.pnPttinDept);
-            this.panel4.Controls.Add(this.chkStkIPD);
-            this.panel4.Controls.Add(this.chkStkOPD);
+            this.panel4.Controls.Add(this.chkIPD);
+            this.panel4.Controls.Add(this.chkOPD);
             this.panel4.Controls.Add(this.cboDept);
             this.panel4.Location = new System.Drawing.Point(635, 3);
             this.panel4.Name = "panel4";
@@ -151,29 +153,29 @@ namespace bangna_hospital.gui
             this.pnPttinDept.Size = new System.Drawing.Size(520, 688);
             this.pnPttinDept.TabIndex = 145;
             // 
-            // chkStkIPD
+            // chkIPD
             // 
-            this.chkStkIPD.AutoSize = true;
-            this.chkStkIPD.Checked = true;
-            this.chkStkIPD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkStkIPD.Location = new System.Drawing.Point(147, 1);
-            this.chkStkIPD.Name = "chkStkIPD";
-            this.chkStkIPD.Size = new System.Drawing.Size(54, 24);
-            this.chkStkIPD.TabIndex = 144;
-            this.chkStkIPD.TabStop = true;
-            this.chkStkIPD.Text = "IPD";
-            this.chkStkIPD.UseVisualStyleBackColor = true;
+            this.chkIPD.AutoSize = true;
+            this.chkIPD.Checked = true;
+            this.chkIPD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkIPD.Location = new System.Drawing.Point(147, 1);
+            this.chkIPD.Name = "chkIPD";
+            this.chkIPD.Size = new System.Drawing.Size(54, 24);
+            this.chkIPD.TabIndex = 144;
+            this.chkIPD.TabStop = true;
+            this.chkIPD.Text = "IPD";
+            this.chkIPD.UseVisualStyleBackColor = true;
             // 
-            // chkStkOPD
+            // chkOPD
             // 
-            this.chkStkOPD.AutoSize = true;
-            this.chkStkOPD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkStkOPD.Location = new System.Drawing.Point(76, 1);
-            this.chkStkOPD.Name = "chkStkOPD";
-            this.chkStkOPD.Size = new System.Drawing.Size(61, 24);
-            this.chkStkOPD.TabIndex = 143;
-            this.chkStkOPD.Text = "OPD";
-            this.chkStkOPD.UseVisualStyleBackColor = true;
+            this.chkOPD.AutoSize = true;
+            this.chkOPD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkOPD.Location = new System.Drawing.Point(76, 1);
+            this.chkOPD.Name = "chkOPD";
+            this.chkOPD.Size = new System.Drawing.Size(61, 24);
+            this.chkOPD.TabIndex = 143;
+            this.chkOPD.Text = "OPD";
+            this.chkOPD.UseVisualStyleBackColor = true;
             // 
             // cboDept
             // 
@@ -192,6 +194,8 @@ namespace bangna_hospital.gui
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lb2nfleaf);
+            this.panel2.Controls.Add(this.btnAppoinment);
             this.panel2.Controls.Add(this.btnPrintCertE);
             this.panel2.Controls.Add(this.pnCertOld);
             this.panel2.Controls.Add(this.txtVsTime);
@@ -223,6 +227,29 @@ namespace bangna_hospital.gui
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(626, 717);
             this.panel2.TabIndex = 142;
+            // 
+            // lb2nfleaf
+            // 
+            this.lb2nfleaf.AutoSize = true;
+            this.lb2nfleaf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lb2nfleaf.ForeColor = System.Drawing.Color.Red;
+            this.lb2nfleaf.Location = new System.Drawing.Point(476, 6);
+            this.lb2nfleaf.Name = "lb2nfleaf";
+            this.lb2nfleaf.Size = new System.Drawing.Size(39, 20);
+            this.lb2nfleaf.TabIndex = 154;
+            this.lb2nfleaf.Text = "2NF";
+            // 
+            // btnAppoinment
+            // 
+            this.btnAppoinment.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnAppoinment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAppoinment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAppoinment.Location = new System.Drawing.Point(570, 472);
+            this.btnAppoinment.Name = "btnAppoinment";
+            this.btnAppoinment.Size = new System.Drawing.Size(53, 45);
+            this.btnAppoinment.TabIndex = 153;
+            this.btnAppoinment.Text = "ทำนัด";
+            this.btnAppoinment.UseVisualStyleBackColor = false;
             // 
             // btnPrintCertE
             // 
@@ -305,6 +332,10 @@ namespace bangna_hospital.gui
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.chk4);
+            this.panel3.Controls.Add(this.chk3);
+            this.panel3.Controls.Add(this.chk2);
+            this.panel3.Controls.Add(this.chk1);
             this.panel3.Controls.Add(this.txtChk4Time);
             this.panel3.Controls.Add(this.txtChk4Date);
             this.panel3.Controls.Add(this.txtChk3DateEnd);
@@ -316,14 +347,50 @@ namespace bangna_hospital.gui
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.chk4);
-            this.panel3.Controls.Add(this.chk3);
-            this.panel3.Controls.Add(this.chk2);
-            this.panel3.Controls.Add(this.chk1);
-            this.panel3.Location = new System.Drawing.Point(12, 250);
+            this.panel3.Location = new System.Drawing.Point(3, 250);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(611, 215);
+            this.panel3.Size = new System.Drawing.Size(620, 215);
             this.panel3.TabIndex = 142;
+            // 
+            // chk4
+            // 
+            this.chk4.AutoSize = true;
+            this.chk4.Location = new System.Drawing.Point(6, 176);
+            this.chk4.Name = "chk4";
+            this.chk4.Size = new System.Drawing.Size(182, 24);
+            this.chk4.TabIndex = 143;
+            this.chk4.Text = "4. มารักษาตัวจริงเมื่อวันที่";
+            this.chk4.UseVisualStyleBackColor = true;
+            // 
+            // chk3
+            // 
+            this.chk3.AutoSize = true;
+            this.chk3.Location = new System.Drawing.Point(6, 101);
+            this.chk3.Name = "chk3";
+            this.chk3.Size = new System.Drawing.Size(254, 24);
+            this.chk3.TabIndex = 142;
+            this.chk3.Text = "3. หยุดพักรักษาตัว(หยุดงาน) มีกำหนด";
+            this.chk3.UseVisualStyleBackColor = true;
+            // 
+            // chk2
+            // 
+            this.chk2.AutoSize = true;
+            this.chk2.Location = new System.Drawing.Point(6, 51);
+            this.chk2.Name = "chk2";
+            this.chk2.Size = new System.Drawing.Size(265, 24);
+            this.chk2.TabIndex = 141;
+            this.chk2.Text = "2. เข้ารักษาตัวในโรงพยาบาล ตั้งแต่วันที่";
+            this.chk2.UseVisualStyleBackColor = true;
+            // 
+            // chk1
+            // 
+            this.chk1.AutoSize = true;
+            this.chk1.Location = new System.Drawing.Point(6, 16);
+            this.chk1.Name = "chk1";
+            this.chk1.Size = new System.Drawing.Size(118, 24);
+            this.chk1.TabIndex = 140;
+            this.chk1.Text = "1. ประกอบเบิก";
+            this.chk1.UseVisualStyleBackColor = true;
             // 
             // txtChk4Time
             // 
@@ -408,21 +475,21 @@ namespace bangna_hospital.gui
             this.txtChk3DateStart.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
             this.txtChk3DateStart.Culture = 1054;
             this.txtChk3DateStart.CurrentTimeZone = false;
+            this.txtChk3DateStart.DisplayFormat.CalendarType = C1.Win.C1Input.CalendarType.ThaiBuddhistCalendar;
+            this.txtChk3DateStart.DisplayFormat.CustomFormat = "dd/MM/yyyy";
             this.txtChk3DateStart.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtChk3DateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            this.txtChk3DateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)));
+            this.txtChk3DateStart.EditFormat.CalendarType = C1.Win.C1Input.CalendarType.ThaiBuddhistCalendar;
+            this.txtChk3DateStart.EditFormat.CustomFormat = "dd/MM/yyyy";
             this.txtChk3DateStart.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtChk3DateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            this.txtChk3DateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)));
             this.txtChk3DateStart.EmptyAsNull = true;
             this.txtChk3DateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtChk3DateStart.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtChk3DateStart.GMTOffset = System.TimeSpan.Parse("07:00:00");
             this.txtChk3DateStart.ImagePadding = new System.Windows.Forms.Padding(0);
             this.txtChk3DateStart.Location = new System.Drawing.Point(398, 97);
             this.txtChk3DateStart.Name = "txtChk3DateStart";
@@ -440,21 +507,21 @@ namespace bangna_hospital.gui
             this.txtChk2DateEnd.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
             this.txtChk2DateEnd.Culture = 1054;
             this.txtChk2DateEnd.CurrentTimeZone = false;
+            this.txtChk2DateEnd.DisplayFormat.CalendarType = C1.Win.C1Input.CalendarType.ThaiBuddhistCalendar;
             this.txtChk2DateEnd.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtChk2DateEnd.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            this.txtChk2DateEnd.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
             | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)));
+            this.txtChk2DateEnd.EditFormat.CalendarType = C1.Win.C1Input.CalendarType.ThaiBuddhistCalendar;
             this.txtChk2DateEnd.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtChk2DateEnd.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            this.txtChk2DateEnd.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
             | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)));
             this.txtChk2DateEnd.EmptyAsNull = true;
             this.txtChk2DateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtChk2DateEnd.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtChk2DateEnd.GMTOffset = System.TimeSpan.Parse("07:00:00");
             this.txtChk2DateEnd.ImagePadding = new System.Windows.Forms.Padding(0);
             this.txtChk2DateEnd.Location = new System.Drawing.Point(468, 53);
             this.txtChk2DateEnd.Name = "txtChk2DateEnd";
@@ -472,21 +539,21 @@ namespace bangna_hospital.gui
             this.txtChk2DateStart.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
             this.txtChk2DateStart.Culture = 1054;
             this.txtChk2DateStart.CurrentTimeZone = false;
+            this.txtChk2DateStart.DisplayFormat.CalendarType = C1.Win.C1Input.CalendarType.ThaiBuddhistCalendar;
             this.txtChk2DateStart.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtChk2DateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            this.txtChk2DateStart.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
             | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)));
+            this.txtChk2DateStart.EditFormat.CalendarType = C1.Win.C1Input.CalendarType.ThaiBuddhistCalendar;
             this.txtChk2DateStart.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtChk2DateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
+            this.txtChk2DateStart.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
             | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd)));
             this.txtChk2DateStart.EmptyAsNull = true;
             this.txtChk2DateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtChk2DateStart.GMTOffset = System.TimeSpan.Parse("00:00:00");
+            this.txtChk2DateStart.GMTOffset = System.TimeSpan.Parse("07:00:00");
             this.txtChk2DateStart.ImagePadding = new System.Windows.Forms.Padding(0);
             this.txtChk2DateStart.Location = new System.Drawing.Point(276, 53);
             this.txtChk2DateStart.Name = "txtChk2DateStart";
@@ -542,52 +609,6 @@ namespace bangna_hospital.gui
             this.label5.Size = new System.Drawing.Size(51, 20);
             this.label5.TabIndex = 42;
             this.label5.Text = "ถึงวันที่";
-            // 
-            // chk4
-            // 
-            this.chk4.AutoSize = true;
-            this.chk4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk4.Location = new System.Drawing.Point(6, 173);
-            this.chk4.Name = "chk4";
-            this.chk4.Size = new System.Drawing.Size(181, 24);
-            this.chk4.TabIndex = 8;
-            this.chk4.Text = "4. มารักษาตัวจริงเมื่อวันที่";
-            this.chk4.UseVisualStyleBackColor = true;
-            // 
-            // chk3
-            // 
-            this.chk3.AutoSize = true;
-            this.chk3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk3.Location = new System.Drawing.Point(6, 97);
-            this.chk3.Name = "chk3";
-            this.chk3.Size = new System.Drawing.Size(253, 24);
-            this.chk3.TabIndex = 7;
-            this.chk3.Text = "3. หยุดพักรักษาตัว(หยุดงาน) มีกำหนด";
-            this.chk3.UseVisualStyleBackColor = true;
-            // 
-            // chk2
-            // 
-            this.chk2.AutoSize = true;
-            this.chk2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk2.Location = new System.Drawing.Point(6, 53);
-            this.chk2.Name = "chk2";
-            this.chk2.Size = new System.Drawing.Size(264, 24);
-            this.chk2.TabIndex = 6;
-            this.chk2.Text = "2. เข้ารักษาตัวในโรงพยาบาล ตั้งแต่วันที่";
-            this.chk2.UseVisualStyleBackColor = true;
-            // 
-            // chk1
-            // 
-            this.chk1.AutoSize = true;
-            this.chk1.Checked = true;
-            this.chk1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chk1.Location = new System.Drawing.Point(6, 16);
-            this.chk1.Name = "chk1";
-            this.chk1.Size = new System.Drawing.Size(117, 24);
-            this.chk1.TabIndex = 5;
-            this.chk1.TabStop = true;
-            this.chk1.Text = "1. ประกอบเบิก";
-            this.chk1.UseVisualStyleBackColor = true;
             // 
             // txtLine4
             // 
@@ -865,10 +886,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.TextBox txtLine1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RadioButton chk4;
-        private System.Windows.Forms.RadioButton chk3;
-        private System.Windows.Forms.RadioButton chk2;
-        private System.Windows.Forms.RadioButton chk1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -889,12 +906,18 @@ namespace bangna_hospital.gui
         private C1.Win.C1Ribbon.C1StatusBar c1StatusBar1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel pnPttinDept;
-        private System.Windows.Forms.RadioButton chkStkIPD;
-        private System.Windows.Forms.RadioButton chkStkOPD;
+        private System.Windows.Forms.RadioButton chkIPD;
+        private System.Windows.Forms.RadioButton chkOPD;
         private C1.Win.C1Input.C1ComboBox cboDept;
         private C1.Win.C1Ribbon.RibbonLabel rb1;
         private C1.Win.C1Ribbon.RibbonLabel rb2;
         private C1.Win.C1Ribbon.RibbonLabel rb3;
         private C1.Win.C1Ribbon.RibbonLabel lb1;
+        private System.Windows.Forms.Button btnAppoinment;
+        private System.Windows.Forms.Label lb2nfleaf;
+        private System.Windows.Forms.CheckBox chk1;
+        private System.Windows.Forms.CheckBox chk2;
+        private System.Windows.Forms.CheckBox chk3;
+        private System.Windows.Forms.CheckBox chk4;
     }
 }

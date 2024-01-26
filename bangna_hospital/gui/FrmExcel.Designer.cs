@@ -52,6 +52,9 @@ namespace bangna_hospital.gui
             this.btnPdfDelImg = new System.Windows.Forms.Button();
             this.btnPdfAddImg = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtOutlabHN = new System.Windows.Forms.TextBox();
+            this.btnOutlabBrow = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
             this.btnPdfMergePdf = new System.Windows.Forms.Button();
             this.txtPdfMergePath = new System.Windows.Forms.TextBox();
@@ -59,9 +62,7 @@ namespace bangna_hospital.gui
             this.btnPdfBrow = new System.Windows.Forms.Button();
             this.txtPdfPath = new System.Windows.Forms.TextBox();
             this.btnPdfRead = new System.Windows.Forms.Button();
-            this.btnOutlabBrow = new System.Windows.Forms.Button();
-            this.txtOutlabHN = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.btnDrugThai = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
             this.c1DockingTabPage1.SuspendLayout();
@@ -128,6 +129,7 @@ namespace bangna_hospital.gui
             // 
             // tabDrugCat
             // 
+            this.tabDrugCat.Controls.Add(this.btnDrugThai);
             this.tabDrugCat.Controls.Add(this.label2);
             this.tabDrugCat.Controls.Add(this.label1);
             this.tabDrugCat.Controls.Add(this.btnDrugCOpenExcel);
@@ -225,7 +227,7 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel1.Size = new System.Drawing.Size(781, 537);
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
-            this.c1SplitterPanel1.Width = 788;
+            this.c1SplitterPanel1.Width = 781;
             // 
             // c1FlexViewer1
             // 
@@ -312,6 +314,33 @@ namespace bangna_hospital.gui
             this.panel1.Size = new System.Drawing.Size(1580, 34);
             this.panel1.TabIndex = 0;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label3.Location = new System.Drawing.Point(1315, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 20);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "HN :";
+            // 
+            // txtOutlabHN
+            // 
+            this.txtOutlabHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOutlabHN.Location = new System.Drawing.Point(1360, 4);
+            this.txtOutlabHN.Name = "txtOutlabHN";
+            this.txtOutlabHN.Size = new System.Drawing.Size(104, 26);
+            this.txtOutlabHN.TabIndex = 16;
+            // 
+            // btnOutlabBrow
+            // 
+            this.btnOutlabBrow.Location = new System.Drawing.Point(1470, 4);
+            this.btnOutlabBrow.Name = "btnOutlabBrow";
+            this.btnOutlabBrow.Size = new System.Drawing.Size(62, 23);
+            this.btnOutlabBrow.TabIndex = 15;
+            this.btnOutlabBrow.Text = "outlab ...";
+            this.btnOutlabBrow.UseVisualStyleBackColor = true;
+            // 
             // btnOpenFolder
             // 
             this.btnOpenFolder.Location = new System.Drawing.Point(720, 3);
@@ -371,32 +400,14 @@ namespace bangna_hospital.gui
             this.btnPdfRead.Text = "Read";
             this.btnPdfRead.UseVisualStyleBackColor = true;
             // 
-            // btnOutlabBrow
+            // btnDrugThai
             // 
-            this.btnOutlabBrow.Location = new System.Drawing.Point(1470, 4);
-            this.btnOutlabBrow.Name = "btnOutlabBrow";
-            this.btnOutlabBrow.Size = new System.Drawing.Size(62, 23);
-            this.btnOutlabBrow.TabIndex = 15;
-            this.btnOutlabBrow.Text = "outlab ...";
-            this.btnOutlabBrow.UseVisualStyleBackColor = true;
-            // 
-            // txtOutlabHN
-            // 
-            this.txtOutlabHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtOutlabHN.Location = new System.Drawing.Point(1360, 4);
-            this.txtOutlabHN.Name = "txtOutlabHN";
-            this.txtOutlabHN.Size = new System.Drawing.Size(104, 26);
-            this.txtOutlabHN.TabIndex = 16;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(1315, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 20);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "HN :";
+            this.btnDrugThai.Location = new System.Drawing.Point(725, 14);
+            this.btnDrugThai.Name = "btnDrugThai";
+            this.btnDrugThai.Size = new System.Drawing.Size(75, 23);
+            this.btnDrugThai.TabIndex = 8;
+            this.btnDrugThai.Text = "Upate Drug Thai";
+            this.btnDrugThai.UseVisualStyleBackColor = true;
             // 
             // FrmExcel
             // 
@@ -464,5 +475,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Button btnOutlabBrow;
         private System.Windows.Forms.TextBox txtOutlabHN;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnDrugThai;
     }
 }

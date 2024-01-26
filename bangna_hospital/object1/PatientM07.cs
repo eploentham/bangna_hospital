@@ -12,5 +12,8 @@ namespace bangna_hospital.object1
         public String MNC_AMP_CD { get; set; }
         public String MNC_TUM_CD { get; set; }
         public String MNC_TUM_DSC { get; set; }
+        public String postcode { get; set; }
+        public String chwname { get; set; }
+        public String ampname { get; set; }
     }
 }

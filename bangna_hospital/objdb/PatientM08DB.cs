@@ -173,13 +173,13 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public void setCboAmphurByAmphurCode(C1ComboBox c, String provcode, String selected)
+        public void setCboAmphurByAmphurCode(C1ComboBox c, String ampcode, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
             //DataTable dt = selectDeptIPD();
             c.Items.Clear();
             int i = 0;
-            getlAmpurinAmphurCode(provcode);
+            getlAmpurinAmphurCode(ampcode);
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";
@@ -198,7 +198,7 @@ namespace bangna_hospital.objdb
                 }
                 i++;
             }
-            if (selected.Equals(""))
+            if (selected == null || selected.Equals(""))
             {
                 if (c.Items.Count > 0)
                 {

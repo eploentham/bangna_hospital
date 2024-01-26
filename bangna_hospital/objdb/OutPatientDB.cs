@@ -563,12 +563,6 @@ namespace bangna_hospital.objdb
                 //conn.comStore.ExecuteNonQuery();
                 //re = (String)conn.comStore.Parameters["row_no1"].Value;
 
-
-
-
-
-
-
                 conn.comStore = new System.Data.SqlClient.SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
                 conn.comStore.CommandText = "importMDB_new1";

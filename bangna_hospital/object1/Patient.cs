@@ -11,7 +11,8 @@ namespace bangna_hospital.object1
     public class Patient:Persistent
     {
         public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="", anCnt="", dob="", idcard="", fname="", lname="", title="", hnyr="";
-        public String patient_birthday = "", addr="", visitTime="", dtrcode="";
+        public String patient_birthday = "", addr="", visitTime="", dtrcode="", comNameT = "", insurNameT = "", WorkPermit1="", WorkPermit2 = "", WorkPermit3 = "", MNC_ID_NAM="";
+        public String MNC_FIN_NOTE  = "";
         public Age age = new Age(DateTime.Now);
 
         public String MNC_HN_NO { get; set; }
@@ -63,11 +64,13 @@ namespace bangna_hospital.object1
         public String MNC_ATT_NOTE { get; set; }
         public String MNC_OCC_CD { get; set; }
         public String MNC_EDU_CD { get; set; }
-        //public String MNC_NAT_CD { get; set; }
+        public String MNC_STATUS { get; set; }//สถานะภาพการสมรส,โสด,หย่า,หม้าย
         public String MNC_REL_CD { get; set; }
         public String MNC_NATI_CD { get; set; }
         public String MNC_CAR_CD { get; set; }
         public String MNC_CUR_ROAD { get; set; }
+        public String MNC_DOM_ROAD { get; set; }
+        public String MNC_REF_ROAD { get; set; }
         public String req_no { get; set; }
         public String req_date { get; set; }
         public String MNC_COM_CD { get; set; }
@@ -77,6 +80,9 @@ namespace bangna_hospital.object1
         public String TUMName { get; set; }
         public String AMPName { get; set; }
         public String CHWName { get; set; }
+        public String MNC_NICKNAME { get; set; }
+        public String remark1 { get; set; }
+        public String remark2 { get; set; }
         public String AgeString()
         {
             String re = "";

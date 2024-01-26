@@ -5075,7 +5075,7 @@ namespace bangna_hospital.gui
                     btnReqLab.BackColor = Color.Yellow;
                     printLabReqNo();
                     genImgStaffNote();
-                    bc.bcDB.vsDB.updateStatusCloseVisit(txtHn.Text.Trim(), ptt.MNC_HN_YR, txtPreno.Text.Trim(), txtVsdate.Text.Trim());
+                    bc.bcDB.vsDB.updateStatusCloseVisitLab(txtHn.Text.Trim(), ptt.MNC_HN_YR, txtPreno.Text.Trim(), txtVsdate.Text.Trim());
                 }
             }
             else
@@ -6100,7 +6100,6 @@ namespace bangna_hospital.gui
                 document.DefaultPageSettings.Landscape = true;
             }
             
-
             document.Print();
         }
         private void Document_PrintPage_StaffNote_ATK_screening_M200(object sender, PrintPageEventArgs e)

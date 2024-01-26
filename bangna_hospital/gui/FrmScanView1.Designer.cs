@@ -140,6 +140,7 @@
             this.chkIPD.BackColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIPD.ForeColor = System.Drawing.Color.Black;
             this.chkIPD.Location = new System.Drawing.Point(957, 11);
             this.chkIPD.Name = "chkIPD";

@@ -62,6 +62,7 @@ namespace bangna_hospital.objdb
         public PatientM08DB pm08DB;
         public PatientM07DB pm07DB;
         public PatientM05DB pm05DB;
+        public PatientM06DB pm06DB;
         public PatientM04DB pm04DB;
         public PatientM03DB pm03DB;
         public PatientM02DB pm02DB;
@@ -76,6 +77,11 @@ namespace bangna_hospital.objdb
         public LisLabRequestDB labreqDB;
         public LabT05DB labT05DB;
         public MedicalCertificateDB mcertiDB;
+        public FinanceT01DB fint01DB;
+        public PatientT07DB pt07DB;
+        public PatientT03DB pt03DB;
+        public PatientM13DB pm13DB;
+        public SummaryT03DB sumt03DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -145,6 +151,7 @@ namespace bangna_hospital.objdb
                 pm07DB = new PatientM07DB(conn);
                 pm07DB = new PatientM07DB(conn);
                 pm05DB = new PatientM05DB(conn);
+                pm06DB = new PatientM06DB(conn);
                 pm04DB = new PatientM04DB(conn);
                 err = "04";
                 //new LogWriter("e", "BangnaHospitalDB initConfig err 04");
@@ -170,16 +177,20 @@ namespace bangna_hospital.objdb
                 labreqDB = new LisLabRequestDB(conn);
                 labT05DB = new LabT05DB(conn);
                 mcertiDB = new MedicalCertificateDB(conn);
+                fint01DB = new FinanceT01DB(conn);
+                pt07DB = new PatientT07DB(conn);
+                pt03DB = new PatientT03DB(conn);
+                pm13DB = new PatientM13DB(conn);
+                sumt03DB = new SummaryT03DB(conn);
             }
             catch(Exception ex)
             {
                 new LogWriter("e", "BangnaHospitalDB initConfig err "+err+" "+ex.Message);
             }
-            
         }
         public String insertLogPage(String userid, String form, String method, String desc)
         {
-            String re = "", sql = "";
+            String re = "", sql = "", desc1="";
             //sql = "Insert into log_page set " +
             //    "log_page_user_id = '" + userid + "'" +
             //    ",log_page_desc = '" + desc + "'" +
@@ -190,11 +201,12 @@ namespace bangna_hospital.objdb
             //    ",user_create = CURRENT_USER()" +
             //    " " +
             //    "";
+            desc1 = desc.Length>500 ? desc1 = desc.Substring(0,500):desc;
             sql = "Insert into t_log_page (" +
                 "log_page_user_id, log_page_desc,log_page_id_address,page_form,page_form_method,date_create,user_create) " +
                 "Values(" +
-                "'"+userid+"','"+desc+"','"+conn._IPAddress+"','"+form+"','"+method+ "',convert(varchar(20),getdate(),20),'')";
-            conn.ExecuteNonQueryLogPage(conn.connLog, sql);
+                "'"+userid+"','"+desc1.Replace("'","''")+"','"+conn._IPAddress+"','"+form+"','"+method+ "',convert(varchar(20),getdate(),20),'')";
+            re = conn.ExecuteNonQueryLogPage(conn.connLog, sql);
             return re;
         }
         public String InsertPrakunM01()

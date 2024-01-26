@@ -154,6 +154,19 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectOutLabByHn(String id)
+        {
+            //DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + id + "' and dsc." + dsc.active + "='1' and dsc." + dsc.status_record + "='2' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         public DataTable selectStatus4ByHn(String hn)
         {
             //DocScan cop1 = new DocScan();
@@ -867,6 +880,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertScreenCapture sql " + sql );
             }
             finally
             {
@@ -1250,7 +1264,35 @@ namespace bangna_hospital.objdb
                 "and status_record = '4' " +
                 "and ml_fm = '" + mlfm + "' " +
                 "and visit_date = '" + vsdate + "' " +
-                "and pre_no = '" + preno + "' "
+                "and pre_no = '" + preno + "' and sort1 = '1' "
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+
+            return re;
+        }
+        public String voidDocScanByStatusCertMedical2NFLEAF(String hn, String mlfm, String vsdate, String preno, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "' " +
+                "Where " + dsc.hn + " ='" + hn + "' " +
+                "and status_record = '4' " +
+                "and ml_fm = '" + mlfm + "' " +
+                "and visit_date = '" + vsdate + "' " +
+                "and pre_no = '" + preno + "' and sort1 = '2' "
                 ;
             try
             {
@@ -1279,6 +1321,81 @@ namespace bangna_hospital.objdb
                 "and ml_fm = '" + mlfm + "' " +
                 "and visit_date = '" + vsdate + "' " +
                 "and pre_no = '" + preno + "' "
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+
+            return re;
+        }
+        public String voidDocScanCertMed(String id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                ", status_conv1 = 'cert_med'" +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+
+            return re;
+        }
+        public String voidDocScan1(String id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                ", status_conv1 = 'frmscanview1'" +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+
+            return re;
+        }
+        public String voidDocScan2(String id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                ", status_conv1 = 'frmscanviewedit'" +
+                "Where " + dsc.pkField + "='" + id + "'"
                 ;
             try
             {
@@ -1579,6 +1696,27 @@ namespace bangna_hospital.objdb
             dsc2.comp_labout_id = dsc1.comp_labout_id;
 
             return dsc2;
+        }
+        public String voidDocScanPID(String hn, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                "Where " + dsc.hn + "='" + hn + "' and " + dsc.status_record + "='4' and remark = 'บัตรปชช' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+            return re;
         }
         //public void setCboBsp(C1ComboBox c, String selected)
         //{

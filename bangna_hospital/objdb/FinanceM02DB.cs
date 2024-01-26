@@ -1,10 +1,12 @@
 ﻿using bangna_hospital.object1;
+using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
@@ -12,6 +14,7 @@ namespace bangna_hospital.objdb
     {
         public FinanceM02 finM02;
         ConnectDB conn;
+        public List<FinanceM02> lPm02;
         public FinanceM02DB(ConnectDB c)
         {
             conn = c;
@@ -57,6 +60,8 @@ namespace bangna_hospital.objdb
             finM02.MNC_USR_UPD = "MNC_USR_UPD";
             finM02.MNC_ACCOUNT_NO = "MNC_ACCOUNT_NO";
             finM02.opbkk_inscl = "opbkk_inscl";
+
+            lPm02 = new List<FinanceM02>();
         }
         public DataTable SelectAll()
         {
@@ -84,6 +89,83 @@ namespace bangna_hospital.objdb
                 re = dt.Rows[0]["MNC_FN_TYP_DSC"].ToString();
             }
             return re;
+        }
+        public AutoCompleteStringCollection getlPaid()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            lPm02.Clear();
+            DataTable dt = new DataTable();
+            dt = SelectAll();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row[finM02.MNC_FN_TYP_DSC].ToString());
+                FinanceM02 cus1 = new FinanceM02();
+                cus1.MNC_FN_TYP_CD = row[finM02.MNC_FN_TYP_CD].ToString();
+                cus1.MNC_FN_TYP_DSC = row[finM02.MNC_FN_TYP_DSC].ToString();
+
+                lPm02.Add(cus1);
+            }
+            return autoSymptom;
+        }
+        public String getPaidName(String paidcode)
+        {
+            String re = "";
+            foreach (FinanceM02 row in lPm02)
+            {
+                if (row.MNC_FN_TYP_CD.Equals(paidcode))
+                {
+                    re = row.MNC_FN_TYP_DSC;
+                    break;
+                }
+            }
+            return re;
+        }
+        public String getPaidCode(String paidname)
+        {
+            String re = "";
+            foreach (FinanceM02 row in lPm02)
+            {
+                if (row.MNC_FN_TYP_DSC.Equals(paidname))
+                {
+                    re = row.MNC_FN_TYP_CD;
+                    break;
+                }
+            }
+            return re;
+        }
+        public void setCboPaidName(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            //DataTable dt = selectDeptIPD();
+            int i = 0;
+            if (lPm02.Count <= 0) getlPaid();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            foreach (FinanceM02 row in lPm02)
+            {
+                item = new ComboBoxItem();
+                item.Value = row.MNC_FN_TYP_CD;
+                item.Text = row.MNC_FN_TYP_DSC;
+                c.Items.Add(item);
+                if (item.Value.Equals(selected))
+                {
+                    //c.SelectedItem = item.Value;
+                    c.SelectedText = item.Text;
+                    c.SelectedIndex = i + 1;
+                }
+                i++;
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
         }
         public String updateOPBKKCode(String paidtypeid, String opbkkcode)
         {

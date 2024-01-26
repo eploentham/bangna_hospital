@@ -45,6 +45,7 @@ namespace bangna_hospital.gui
         Font fEdit, fEditB, fEditBig;
         System.Windows.Forms.Timer timer1;
         Form frmFlash;
+        String DTRCODE = "";
 
         public FrmDoctorView1(BangnaControl bc, FrmSplash splash)
         {
@@ -96,6 +97,7 @@ namespace bangna_hospital.gui
 
             theme1.Theme = bc.iniC.themeApplication;
             txtDate.Value = System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd");
+            DTRCODE = bc.user.username;
             lbDtrName.Text = bc.user.fullname;
             this.Activated += FrmDoctorView1_Activated;
             //new LogWriter("e", "FrmDoctorView initConfig 02 ");
@@ -946,7 +948,7 @@ namespace bangna_hospital.gui
         {
             showFormWaiting();
             //MessageBox.Show("11", "");
-            FrmScanView1 frm = new FrmScanView1(bc, hn,"hide");
+            FrmScanView1 frm = new FrmScanView1(bc, DTRCODE, hn,"hide");
             //frm.FormBorderStyle = FormBorderStyle.None;
             //AddNewTab(frm, txt);
             

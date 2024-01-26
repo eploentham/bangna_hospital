@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
@@ -64,6 +65,38 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             labM01 = setLabM01(dt);
             return labM01;
+        }
+        public LabM01 SelectAll(String labcode)
+        {
+            DataTable dt = new DataTable();
+            LabM01 labM01 = new LabM01();
+            String sql = "select lab_m01.*, lab_m02.mnc_lb_pri01 " +
+                "From lab_m01  " +
+                "Left join lab_m02 on lab_m01.mnc_lb_cd = lab_m02.mnc_lb_cd " +
+                "Where lab_m01.mnc_lb_cd = '" + labcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+            
+            return labM01;
+        }
+        public AutoCompleteStringCollection getlLabAll()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            DataTable dt = new DataTable();
+            dt = SelectAll();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_LB_DSC"].ToString()+"#"+ row["MNC_LB_CD"].ToString());
+                //PatientM13 cus1 = new PatientM13();
+                //cus1.MNC_APP_CD = row["MNC_APP_CD"].ToString();
+                //cus1.MNC_APP_DSC = row["MNC_APP_DSC"].ToString();
+
+                //labM01.Add(cus1);
+            }
+            return autoSymptom;
         }
         public String updateOPBKKCode(String labcode, String opbkkcode)
         {

@@ -45,6 +45,8 @@ namespace bangna_hospital.objdb
             mcerti.visit_date = "visit_date";
             mcerti.visit_time = "visit_time";
             mcerti.doc_scan_id = "doc_scan_id";
+            mcerti.status_2nd_leaf = "status_2nd_leaf";
+            mcerti.counter_name = "counter_name";
 
             mcerti.table = "t_medical_certificate";
             mcerti.pkField = "certi_id";
@@ -55,7 +57,49 @@ namespace bangna_hospital.objdb
             String re = "";
             String sql = "select certi_id " +
                 "From " + mcerti.table + " dgs " +
-                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "' and active = '1' ";
+                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "' and active = '1'  and status_2nd_leaf = '1'";
+            dt = conn.selectData(conn.conn, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["certi_id"].ToString();
+            }
+            return re;
+        }
+        public String selectCertIDByAn(String an)
+        {
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select certi_id " +
+                "From " + mcerti.table + " dgs " +
+                "Where an = '" + an + "'and active = '1'  and status_2nd_leaf = '1'";
+            dt = conn.selectData(conn.conn, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["certi_id"].ToString();
+            }
+            return re;
+        }
+        public String selectCertIDByHn2ndLeaf(String hn, String preno, String vsdate)
+        {
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select certi_id " +
+                "From " + mcerti.table + " dgs " +
+                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "' and active = '1' and status_2nd_leaf = '2' ";
+            dt = conn.selectData(conn.conn, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["certi_id"].ToString();
+            }
+            return re;
+        }
+        public String selectCertIDByHn2ndLeafAN(String an)
+        {
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select certi_id " +
+                "From " + mcerti.table + " dgs " +
+                "Where an = '" + an + "' and active = '1' and status_2nd_leaf = '2' ";
             dt = conn.selectData(conn.conn, sql);
             if (dt.Rows.Count > 0)
             {
@@ -69,7 +113,7 @@ namespace bangna_hospital.objdb
             String re = "";
             String sql = "select doc_scan_id " +
                 "From " + mcerti.table + " dgs " +
-                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "' and active = '1' ";
+                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "' and active = '1' and status_2nd_leaf != '2' ";
             dt = conn.selectData(conn.conn, sql);
             if (dt.Rows.Count > 0)
             {
@@ -107,12 +151,22 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String voidCertByHn(String hn, String preno, String vsdate)
+        public String voidCertByHn(String hn, String preno, String vsdate, String status_2nd_leaf)
         {
             String sql = "", re = "";
-            sql = "update " + mcerti.table + " set " +
+            if (status_2nd_leaf.Equals("1"))
+            {
+                sql = "update " + mcerti.table + " set " +
                 "active = '3' " +
-                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "'";
+                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "' and status_2nd_leaf = '1' ";
+            }
+            else
+            {
+                sql = "update " + mcerti.table + " set " +
+                "active = '3' " +
+                "Where hn = '" + hn + "' and visit_date = '" + vsdate + "' and pre_no ='" + preno + "' and status_2nd_leaf = '2' ";
+            }
+            
             try
             {
                 re = conn.ExecuteNonQuery(conn.conn, sql);
@@ -151,6 +205,8 @@ namespace bangna_hospital.objdb
             p.status_ipd = p.status_ipd == null ? "" : p.status_ipd;
             p.visit_date = p.visit_date == null ? "" : p.visit_date;
             p.visit_time = p.visit_time == null ? "" : p.visit_time;
+            p.status_2nd_leaf = p.status_2nd_leaf == null ? "" : p.status_2nd_leaf;
+            p.counter_name = p.counter_name == null ? "" : p.counter_name;
 
             p.doc_scan_id = long.TryParse(p.doc_scan_id, out chk) ? chk.ToString() : "0";
             p.pre_no = long.TryParse(p.pre_no, out chk) ? chk.ToString() : "0";
@@ -161,7 +217,7 @@ namespace bangna_hospital.objdb
             String re = "";
             if (p.certi_id.Equals(""))
             {
-                voidCertByHn(p.hn, p.pre_no, p.visit_date);
+                voidCertByHn(p.hn, p.pre_no, p.visit_date, p.status_2nd_leaf);
                 re = insert(p, "");
             }
             else
@@ -182,16 +238,16 @@ namespace bangna_hospital.objdb
                 " ," + mcerti.line2 + "," + mcerti.line3 + "," + mcerti.line4 + "" +
                 " ," + mcerti.ptt_name_e + "," + mcerti.ptt_name_t + "," + mcerti.dtr_code + "" +
                 " ," + mcerti.dtr_name_e + "," + mcerti.dtr_name_t + "," + mcerti.status_ipd + "" +
-                " ," + mcerti.user_create + "," + mcerti.visit_date + "," + mcerti.visit_time + "" +
+                " ," + mcerti.date_create + "," + mcerti.visit_date + "," + mcerti.visit_time + "" +
                 " ," + mcerti.pre_no + "," + mcerti.certi_code + "," + mcerti.doc_scan_id + " " +
-               ") " +
+                " ," + mcerti.user_create + ","+ mcerti.status_2nd_leaf + "," + mcerti.an + "," + mcerti.counter_name + ") " +
                 "Values ('" + p.hn.Replace("'", "''") + "','1','" + p.line1 + "'" +
                 ",'" + p.line2.Replace("'", "''") + "','" + p.line3.Replace("'", "''") + "','" + p.line4 + "'" +
                 ",'" + p.ptt_name_e.Replace("'", "''") + "','" + p.ptt_name_t.Replace("'", "''") + "','" + p.dtr_code + "'" +
                 ",'" + p.dtr_name_e.Replace("'", "''") + "','" + p.dtr_name_t.Replace("'", "''") + "','" + p.status_ipd + "'" +
-                ",GETDATE(),'" + p.visit_date.Replace("'", "''") + "','" + p.visit_time + "'" +
+                ",convert(varchar(20),GETDATE(),23),'" + p.visit_date.Replace("'", "''") + "','" + p.visit_time + "'" +
                 ",'" + p.pre_no + "','" + p.certi_code + "','" + p.doc_scan_id + "'" +
-                ")";
+                ",'" + userId + "','"+p.status_2nd_leaf + "','" + p.an + "','" + p.counter_name + "')";
             try
             {
                 re = conn.ExecuteNonQuery(conn.conn, sql);
@@ -199,6 +255,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertScreenCapture sql " + sql);
             }
             return re;
         }
@@ -229,6 +286,8 @@ namespace bangna_hospital.objdb
                 dgs1.visit_date = dt.Rows[0][mcerti.visit_date].ToString();
                 dgs1.visit_time = dt.Rows[0][mcerti.visit_time].ToString();
                 dgs1.doc_scan_id = dt.Rows[0][mcerti.doc_scan_id].ToString();
+                dgs1.status_2nd_leaf = dt.Rows[0][mcerti.status_2nd_leaf].ToString();
+                dgs1.counter_name = dt.Rows[0][mcerti.counter_name].ToString();
             }
             else
             {
@@ -260,7 +319,27 @@ namespace bangna_hospital.objdb
             dgs1.visit_date = "";
             dgs1.visit_time = "";
             dgs1.doc_scan_id = "";
+            dgs1.status_2nd_leaf = "";
+            dgs1.counter_name = "";
             return dgs1;
+        }
+        public String updateDocScanIdRemarkScreencaptureByPk(String id, String dscid)
+        {
+            String sql = "", re = "";
+            sql = "update " + mcerti.table + " set " +
+                "doc_scan_id = '" + dscid + "' "
+                + ", remark = 'from screen capture', status_scan_upload = '1' "
+                + "Where certi_id = '" + id + "' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateDocScanIdRemarkScreencaptureByPk sql " + sql + " id " + id);
+            }
+            return re;
         }
     }
 }

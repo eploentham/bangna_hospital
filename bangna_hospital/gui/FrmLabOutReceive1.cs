@@ -89,7 +89,7 @@ namespace bangna_hospital.gui
                 timer.Stop();
                 //tabLabAuto.Hide();
             }
-
+            new LogWriter("d", "FrmLabOutReceive1 initConfig 01");
             this.Load += FrmLabOutReceive1_Load;
             btnUpload.Click += BtnUpload_Click;
             btnBrow.Click += BtnBrow_Click;
@@ -97,7 +97,7 @@ namespace bangna_hospital.gui
             grfVisit.RowColChange += GrfVisit_RowColChange;
             chkOPD.Click += ChkOPD_Click;
             chkIPD.Click += ChkIPD_Click;
-
+            new LogWriter("d", "FrmLabOutReceive1 initConfig 02");
             btnMedBrow.Click += BtnMedBrow_Click;
             btnMedUpload.Click += BtnMedUpload_Click;
             txtMedHn.KeyUp += TxtMedHn_KeyUp;
@@ -1249,8 +1249,7 @@ namespace bangna_hospital.gui
             }
             DirectoryInfo d = new DirectoryInfo(bc.iniC.pathLabOutReceiveATTA);
             FileInfo[] Files = d.GetFiles("*.pdf"); //Getting Text files
-            string str = "";
-            //new LogWriter("d", "Timer_Tick 03");
+            new LogWriter("d", "Found File ATTA "+ Files.Length +" "+ bc.iniC.pathLabOutReceiveATTA);
             foreach (FileInfo file in Files)
             {
                 //str = str + ", " + file.Name;
@@ -1317,7 +1316,7 @@ namespace bangna_hospital.gui
                     {
                         File.Move(filename, bc.iniC.pathLabOutBackupATTA + "\\err_" + filename2 + "_" + datetick + ext);
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                     continue;
                 }
                 if (filename2.Length <= 10)
@@ -1335,7 +1334,7 @@ namespace bangna_hospital.gui
                     {
                         File.Move(filename, bc.iniC.pathLabOutBackupATTA + "\\err_" + filename2 + "_" + datetick + ext);
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                     continue;
                 }
                 if (filename2.IndexOf("(") > 0)
@@ -1348,7 +1347,19 @@ namespace bangna_hospital.gui
                 else
                 {
                     String[] split1 = filename2.Split('_');
+                    if(split1 == null || split1.Length == 0)
+                    {
+                        new LogWriter("e", "Filename ไม่ถูก FORMAT -> date req ไม่ถูกต้อง");
+                        listBox2.Items.Add("Filename ไม่ถูก FORMAT -> split1.Length == 0  filename2 " + filename2);
+                        continue;
+                    }
                     reqid = split1[1];
+                    if (reqid.Length <= 10)
+                    {
+                        new LogWriter("e", "Filename ไม่ถูก FORMAT -> date req ไม่ถูกต้อง");
+                        listBox2.Items.Add("Filename ไม่ถูก FORMAT -> reqid.Length <= 10  filename2 " + filename2);
+                        continue;
+                    }
                     reqdate = reqid.Substring(0,8);
                     reqdate = reqdate.Substring(0, 4)+"-"+ reqdate.Substring(4, 2) + "-" + reqdate.Substring(6, 2);
                     reqid = reqid.Substring(8);
@@ -1445,15 +1456,7 @@ namespace bangna_hospital.gui
                 {
                     dsc.status_ipd = "0";
                 }
-                //dsc.ml_fm = "FM-LAB-999";
-                if (pathname.Equals("ClinicalReport"))
-                {
-                    dsc.ml_fm = "FM-LAB-998";
-                }
-                else
-                {
-                    dsc.ml_fm = "FM-LAB-997";       //PathoReport
-                }
+                dsc.ml_fm = "FM-LAB-993";       //ATTA
                 dsc.patient_fullname = dtReq.Rows[0]["mnc_patname"].ToString();
                 dsc.status_record = "2";
                 dsc.comp_labout_id = "1040000000";
@@ -1487,7 +1490,7 @@ namespace bangna_hospital.gui
                     {
                         File.Move(filename, bc.iniC.pathLabOutBackupATTA + "\\err_" + filename2 + "_" + datetick + ext);
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(200);
                     continue;
                 }
                 listBox2.Items.Add("ได้เลขที่ " + re);
@@ -1556,10 +1559,13 @@ namespace bangna_hospital.gui
                     listBox1.EndUpdate();     //listBox2
                     bc.bcDB.laboDB.updateStatusResult(dsc.hn, dsc.date_req, dsc.req_id, "");        //630223
                     Application.DoEvents();
-                    streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
-                    chkAttendUrgent(dsc, streamPrint);
-                    printLabOut();
-                    Thread.Sleep(500);
+                    if (bc.iniC.statusLabOutAutoPrint.Equals("1"))
+                    {
+                        streamPrint = ftp.download(bc.iniC.folderFTP + "//" + dsc.image_path);
+                        chkAttendUrgent(dsc, streamPrint);
+                        printLabOut();
+                        Thread.Sleep(200);
+                    }
                 }
                 else
                 {
@@ -3847,7 +3853,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2023-08-03 แก้ online ATTA  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutmedicacode "+bc.iniC.laboutMedicahosp_code;
+            this.Text = "Last Update 2024-01-25 ย้ายtable doc_scan_outlab  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutmedicacode "+bc.iniC.laboutMedicahosp_code;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;

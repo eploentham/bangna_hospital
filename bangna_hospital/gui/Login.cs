@@ -103,7 +103,6 @@ namespace bangna_hospital.gui
                 LogonSuccessful = "0";
             }
         }
-
         private void TxtUserName_LostFocus(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -113,7 +112,6 @@ namespace bangna_hospital.gui
             //a.Font = new Font(ff, FontStyle.Regular);
             chkLogin();
         }
-
         private void TxtPassword_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -122,7 +120,6 @@ namespace bangna_hospital.gui
                 btnOk.Focus();
             }
         }
-
         private void TxtUserName_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();

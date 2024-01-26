@@ -1,4 +1,5 @@
 ﻿using AForge.Video.DirectShow;
+using bangna_hospital.gui;
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using C1.C1Excel;
@@ -41,7 +42,8 @@ namespace bangna_hospital.control
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
-        public int grdViewFontSize = 0, imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0, queFontSize=0;
+        public int imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0, queFontSize=0, padYCertMed=0;
+        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew = 0, printerQueueFontSize = 0;
 
         public BangnaHospitalDB bcDB;
 
@@ -186,6 +188,31 @@ namespace bangna_hospital.control
             //cop = ivfDB.copDB.selectByCode1("001");
             _IPAddress = GetLocalIPAddress();
             conn._IPAddress = _IPAddress;
+        }
+        public String calBMI(String weight, String high)
+        {
+            String re = "";
+            try
+            {
+                float bmi = 0;
+                float.TryParse(weight, out float wei);
+                float.TryParse(high, out float high1);
+                if (high1 > 0)
+                {
+                    bmi = wei / (high1 * high1);
+                }
+                else
+                {
+                    bmi = 0;
+                }
+                
+                re = bmi.ToString();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return re;
         }
         public static string GetLocalIPAddress()
         {
@@ -365,6 +392,78 @@ namespace bangna_hospital.control
 
             }
             return dt;
+        }
+        public C1ComboBox setCboVisitType(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "ตรวจปกติ Normal";
+            c.Items.Add(item);
+            c.SelectedItem = item;
+
+            item = new ComboBoxItem();
+            item.Value = "F";
+            item.Text = "ตรวจต่อเนื่อง Follow Up";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "S";
+            item.Text = "มารับบริการ General";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "R";
+            item.Text = "รับรักษาต่อ Refer";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "P";
+            item.Text = "ตรวจเหมาจ่ายต่างๆ Package";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "U";
+            item.Text = "ตรวจสุขภาพบริษัท Check-Up";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "A";
+            item.Text = "แพทย์นัด Appoint";
+            c.Items.Add(item);
+
+            return c;
+        }
+        public C1ComboBox setCboSex(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "M";
+            item.Text = "M";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "F";
+            item.Text = "F";
+            c.Items.Add(item);
+
+            return c;
         }
         public C1ComboBox setCboNation(C1ComboBox c)
         {
@@ -606,10 +705,21 @@ namespace bangna_hospital.control
             iniC.aipnAuthorName = iniF.getIni("app", "aipnAuthorName");
 
             iniC.ssopXmlPath = iniF.getIni("app", "ssopXmlPath");
+            iniC.padYCertMed = iniF.getIni("app", "padYCertMed");
+
+            iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
+            iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
+
+            iniC.grdQueFontSize = iniF.getIni("app", "grdQueFontSize");
+            iniC.grdQueFontName = iniF.getIni("app", "grdQueFontName");
+
+            iniC.grdQueTodayFontSize = iniF.getIni("app", "grdQueTodayFontSize");
+            iniC.grdQueTodayFontName = iniF.getIni("app", "grdQueTodayFontName");
 
             iniC.pathLabOutReceiveATTA = iniF.getIni("app", "pathLabOutReceiveATTA");
             iniC.pathLabOutBackupATTA = iniF.getIni("app", "pathLabOutBackupATTA");
             iniC.statusScreenCaptureUploadDoc = iniF.getIni("app", "statusScreenCaptureUploadDoc");
+            iniC.statusScreenCaptureAutoSend = iniF.getIni("app", "statusScreenCaptureAutoSend");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -644,13 +754,13 @@ namespace bangna_hospital.control
 
             //iniC.pathImgScanNew = iniC.pathImgScanNew == null ? "d:\\images" : iniC.pathImgScanNew.Equals("") ? "d:\\images" : iniC.pathImgScanNew;
             iniC.folderFTP = iniC.folderFTP == null ? "images_medical_record" : iniC.folderFTP.Equals("") ? "images_medical_record" : iniC.folderFTP;
-            iniC.grdViewFontName = iniC.grdViewFontName.Equals("") ? "Microsoft Sans Serif" : iniC.grdViewFontName;
-            iniC.pdfFontName = iniC.pdfFontName.Equals("") ? iniC.grdViewFontName : iniC.pdfFontName;
-            iniC.pdfFontSize = iniC.pdfFontSize.Equals("") ? iniC.grdViewFontSize : iniC.pdfFontSize;
-            iniC.pdfFontSizetitleFont = iniC.pdfFontSizetitleFont.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizetitleFont;
-            iniC.pdfFontSizetxtFont = iniC.pdfFontSizetxtFont.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizetxtFont;
-            iniC.pdfFontSizehdrFont = iniC.pdfFontSizehdrFont.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizehdrFont;
-            iniC.pdfFontSizetxtFontB = iniC.pdfFontSizetxtFontB.Equals("") ? iniC.pdfFontSize : iniC.pdfFontSizetxtFontB;
+            iniC.grdViewFontName = iniC.grdViewFontName == null ? "Microsoft Sans Serif" : iniC.grdViewFontName;
+            iniC.pdfFontName = iniC.pdfFontName == null ? iniC.grdViewFontName : iniC.pdfFontName;
+            iniC.pdfFontSize = iniC.pdfFontSize == null ? iniC.grdViewFontSize : iniC.pdfFontSize;
+            iniC.pdfFontSizetitleFont = iniC.pdfFontSizetitleFont == null ? iniC.pdfFontSize : iniC.pdfFontSizetitleFont;
+            iniC.pdfFontSizetxtFont = iniC.pdfFontSizetxtFont== null ? iniC.pdfFontSize : iniC.pdfFontSizetxtFont;
+            iniC.pdfFontSizehdrFont = iniC.pdfFontSizehdrFont == null ? iniC.pdfFontSize : iniC.pdfFontSizehdrFont;
+            iniC.pdfFontSizetxtFontB = iniC.pdfFontSizetxtFontB == null ? iniC.pdfFontSize : iniC.pdfFontSizetxtFontB;
 
             iniC.hostname = iniC.hostname == null ? "โรงพยาบาล" : iniC.hostname.Equals("") ? "โรงพยาบาล" : iniC.hostname;
             iniC.usePassiveFTP = iniC.usePassiveFTP == null ? "false" : iniC.usePassiveFTP.Equals("") ? "false" : iniC.usePassiveFTP;
@@ -708,6 +818,8 @@ namespace bangna_hospital.control
             iniC.statusStation = iniC.statusStation == null ? "OPD" : iniC.statusStation.Equals("") ? "OPD" : iniC.statusStation;
             iniC.statusVisitBack = iniC.statusVisitBack == null ? "0" : iniC.statusVisitBack.Equals("") ? "0" : iniC.statusVisitBack;
             iniC.statusScreenCaptureUploadDoc = iniC.statusScreenCaptureUploadDoc == null ? "0" : iniC.statusScreenCaptureUploadDoc.Equals("") ? "0" : iniC.statusScreenCaptureUploadDoc;
+            iniC.padYCertMed = iniC.padYCertMed == null ? "820" : iniC.padYCertMed.Equals("") ? "820" : iniC.padYCertMed;
+            iniC.statusScreenCaptureAutoSend = iniC.statusScreenCaptureAutoSend == null ? "0" : iniC.statusScreenCaptureAutoSend.Equals("") ? "0" : iniC.statusScreenCaptureAutoSend;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -736,6 +848,8 @@ namespace bangna_hospital.control
             int.TryParse(iniC.imageCC_Height, out imageCC_Height);
             int.TryParse(iniC.imageME_Height, out imageME_Height);
             int.TryParse(iniC.imageDiag_Height, out imageDiag_Height);
+            int.TryParse(iniC.padYCertMed, out padYCertMed);
+            int.TryParse(iniC.grdQueFontSize, out grdQueFontSize);
         }
         public String setC1Combo(C1ComboBox c, String data)
         {
@@ -758,6 +872,76 @@ namespace bangna_hospital.control
                 }
             }
             return chk;
+        }
+        public String adjustACTNO(String secno)
+        {
+            String re = "";
+            if (secno.Equals("101"))
+            {
+                re = "ส่งตัว";
+            }
+            else if (secno.Equals("110"))
+            {
+                re = "พบแพทย์";
+            }
+            else if (secno.Equals("114"))
+            {
+                re = "เข้าห้องตรวจ";
+            }
+            else if (secno.Equals("131"))
+            {
+                re = "จ่ายยา";
+            }
+            else if (secno.Equals("500"))
+            {
+                re = "ปิดทำการ";
+            }
+            else if (secno.Equals("600"))
+            {
+                re = "คิดคชจ";
+            }
+            else if (secno.Equals("610"))
+            {
+                re = "รับชำระ";
+            }
+            return re;
+        }
+        public String adjustSecNoOPD(String secno)
+        {
+            String re = "";
+            if (secno.Equals("181"))
+            {
+                re = "302";
+            }
+            else if (secno.Equals("182"))
+            {
+                re = "144";
+            }
+            else if (secno.Equals("115"))
+            {
+                re = "147";
+            }
+            else if (secno.Equals("183"))
+            {
+                re = "302";
+            }
+            else if (secno.Equals("135"))
+            {
+                re = "131";
+            }
+            else if (secno.Equals("161"))
+            {
+                re = "302";//OPD3
+            }
+            else if (secno.Equals("171"))
+            {
+                re = "147";//OPD1
+            }
+            else
+            {
+                re = secno;
+            }
+            return re;
         }
         public void setC1ComboByName(C1ComboBox c, String data)
         {
@@ -1118,16 +1302,61 @@ namespace bangna_hospital.control
             c.Items.Add(item);
             c.SelectedIndex = 0;
         }
+        public void setCboMarri(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+            //สถานะภาพการสมรส,โสด,หย่า,หม้าย
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "1 โสด";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "2 สมรส";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "3 แยกกันอยู่";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "4 หม้าย";
+            c.Items.Add(item);
+            c.SelectedItem = item;
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "5 หย่า";
+            c.Items.Add(item);
+            c.SelectedItem = item;
+
+            item = new ComboBoxItem();
+            item.Value = "6";
+            item.Text = "6 สมณะ";
+            c.Items.Add(item);
+            c.SelectedItem = item;
+
+            item = new ComboBoxItem();
+            item.Value = "7";
+            item.Text = "7 ร้าง";
+            c.Items.Add(item);
+            c.SelectedItem = item;
+
+            c.SelectedIndex = 0;
+        }
         public void setCboPersonStatus(C1ComboBox c, String selected)
         {
             c.Items.Clear();
-            ComboBoxItem item1 = new ComboBoxItem();
             ComboBoxItem item = new ComboBoxItem();
 
-            item1 = new ComboBoxItem();
-            item1.Value = "1";
-            item1.Text = "1 หาย";
-            c.Items.Add(item1);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "1 หาย";
+            c.Items.Add(item);
 
             item = new ComboBoxItem();
             item.Value = "2";
@@ -1143,7 +1372,7 @@ namespace bangna_hospital.control
             item.Value = "4";
             item.Text = "4 ไม่ทราบ";
             c.Items.Add(item);
-            c.SelectedItem = item1;
+            c.SelectedItem = item;
         }
         public void setCboPersonType(C1ComboBox c, String selected)
         {
@@ -3053,6 +3282,12 @@ namespace bangna_hospital.control
 
             //    System.Diagnostics.Process.Start("explorer.exe", argument);
             //}
+            FrmReportNew frm = new FrmReportNew(this, "lab_result_3");
+            frm.DT = dt;
+            //frm.ShowDialog(this);
+            frm.ExportReport(pathFolder + "_LAB.pdf");
+            string argument = "/select, \"" + pathFolder + "_LAB.pdf" + "\"";
+            Process.Start("explorer.exe", argument);
             return filename;
         }
         public String exportResultPharmacy(DataTable dt, String hn, String vn, String flagExpoler)
@@ -3799,6 +4034,14 @@ namespace bangna_hospital.control
                 Console.WriteLine("Exception caught in process: {0}", ex);
                 return false;
             }
+        }
+        public String showTime(String time)
+        {
+            String txt = "";
+            txt = "0000" + time;
+            txt = txt.Substring(txt.Length - 4);
+            txt = txt.Substring(0, 2) + ":" + txt.Substring(txt.Length - 2);
+            return txt;
         }
     }
 }

@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
@@ -12,6 +14,7 @@ namespace bangna_hospital.objdb
         public PatientM24 pm24;
         ConnectDB conn;
         public List<PatientM24> lPm24;
+        public List<PatientM24> lPm24Search;
         public PatientM24DB(ConnectDB c)
         {
             conn = c;
@@ -30,10 +33,16 @@ namespace bangna_hospital.objdb
             pm24.MNC_COM_TEL = "MNC_COM_TEL";
             pm24.MNC_COM_TYP_CD = "MNC_COM_TYP_CD";
             pm24.MNC_COM_STS = "MNC_COM_STS";
+            pm24.MNC_COM_START = "MNC_COM_START";
+            pm24.MNC_COM_DSC_E = "MNC_COM_DSC_E";
+            pm24.status_insur = "status_insur";
+            pm24.insur1_code = "insur1_code";
+            pm24.insur2_code = "insur2_code";
 
             pm24.table = "patient_M24";
 
             lPm24 = new List<PatientM24>();
+            lPm24Search = new List<PatientM24>();
         }
         public void getlCus()
         {
@@ -69,7 +78,167 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public PatientM24 setPatientM08(DataTable dt)
+        public String selectCustByName1(String name)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pm24.MNC_COM_CD,pm24.MNC_COM_DSC " +
+                "From  patient_M24 pm24 " +
+            " Where pm24." + pm24.MNC_COM_DSC + " = '" + name + "' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_COM_CD"].ToString();
+            }
+            return re;
+        }
+        public DataTable selectCustByName(String name)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pm24.MNC_COM_CD,pm24.MNC_COM_DSC " +
+                "From  patient_M24 pm24 "+
+            " Where (pm24."+ pm24.MNC_COM_DSC + " like '"+ name + "%') or (pm24."+ pm24.MNC_COM_CD + " like '"+ name + "%') or (pm24."+ pm24.MNC_COM_DSC_E + " like '"+ name + "%') ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
+        public AutoCompleteStringCollection setAutoComp()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pm24.MNC_COM_CD,pm24.MNC_COM_DSC " +
+                "From  patient_M24 pm24 "
+            ;
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if(dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    autoSymptom.Add(row["MNC_COM_DSC"].ToString());
+                }
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection setAutoInsur()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pm24.MNC_COM_CD,pm24.MNC_COM_DSC " +
+                "From  patient_M24 pm24 Where status_insur = '1' "
+            ;
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    autoSymptom.Add(row["MNC_COM_DSC"].ToString());
+                }
+            }
+            return autoSymptom;
+        }
+        private void chkNull(PatientM24 p)
+        {
+            long chk = 0;
+            int chk1 = 0;
+            decimal chk2 = 0;
+
+            p.MNC_COM_CD = p.MNC_COM_CD == null ? "" : p.MNC_COM_CD;
+            p.MNC_COM_PRF_CD = p.MNC_COM_PRF_CD == null ? "" : p.MNC_COM_PRF_CD;
+            p.MNC_COM_DSC = p.MNC_COM_DSC == null ? "" : p.MNC_COM_DSC;
+            p.MNC_COM_TUM_CD = p.MNC_COM_TUM_CD == null ? "" : p.MNC_COM_TUM_CD;
+            p.MNC_COM_AMP_CD = p.MNC_COM_AMP_CD == null ? "" : p.MNC_COM_AMP_CD;
+            p.MNC_COM_CHW_CD = p.MNC_COM_CHW_CD == null ? "" : p.MNC_COM_CHW_CD;
+            p.MNC_COM_POC = p.MNC_COM_POC == null ? "" : p.MNC_COM_POC;
+            p.MNC_COM_TEL = p.MNC_COM_TEL == null ? "" : p.MNC_COM_TEL;
+            p.MNC_COM_TYP_CD = p.MNC_COM_TYP_CD == null ? "" : p.MNC_COM_TYP_CD;
+            p.MNC_COM_STS = p.MNC_COM_STS == null ? "" : p.MNC_COM_STS;
+            p.MNC_COM_START = p.MNC_COM_START == null ? "" : p.MNC_COM_START;
+            p.MNC_COM_DSC_E = p.MNC_COM_DSC_E == null ? "" : p.MNC_COM_DSC_E;
+            p.status_insur = p.status_insur == null ? "" : p.status_insur;
+            p.insur1_code = p.insur1_code == null ? "" : p.insur1_code;
+            p.insur2_code = p.insur2_code == null ? "" : p.insur2_code;
+        }
+        public String insertCompany(PatientM24 p, String userId)
+        {
+            String re = "";
+
+            if (p.MNC_COM_CD.Equals(""))
+            {
+                re = insert(p, "");
+            }
+            else
+            {
+                re = update(p, "");
+            }
+
+            return re;
+        }
+        public String insert(PatientM24 p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            chkNull(p);
+            sql = "Insert Into " + pm24.table + " (" + pm24.MNC_COM_CD + "," + pm24.MNC_COM_PRF_CD + "," + pm24.MNC_COM_DSC + "," +
+                "" + pm24.MNC_COM_TUM_CD + "," + pm24.MNC_COM_AMP_CD + "," + pm24.MNC_COM_CHW_CD + "," +
+                "" + pm24.MNC_COM_POC + "," + pm24.MNC_COM_TEL + "," + pm24.MNC_COM_TYP_CD + "," +
+                "" + pm24.MNC_COM_STS + "," + pm24.MNC_COM_START + "," + pm24.MNC_COM_DSC_E + ", " +
+                "" + pm24.status_insur + "," + pm24.insur1_code + "," + pm24.insur2_code + " " +
+               ") " +
+                "Values ((select max(MNC_COM_CD) from "+ pm24.table + " Where mnc_com_cd not in ('DUMMY','SA001','SA002','SA003'))+1,'" + p.MNC_COM_PRF_CD + "','" + p.MNC_COM_DSC + "'," +
+                "'" + p.MNC_COM_TUM_CD + "','" + p.MNC_COM_AMP_CD + "','" + p.MNC_COM_CHW_CD + "'," +
+                "'" + p.MNC_COM_POC + "','" + p.MNC_COM_TEL + "','" + p.MNC_COM_TYP_CD + "'," +
+                "'" + p.MNC_COM_STS + "',convert(varchar(20), getdate(),20),'" + p.MNC_COM_DSC_E + "'," +
+                "'" + p.status_insur + "','" + p.insur1_code + "','" + p.insur2_code + "'," +
+                ")";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                re = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "PatientM24DB insert error  " + ex.Message + " " + ex.InnerException);
+                //bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnPttSave_Click save image ", ex.Message);
+            }
+
+            return re;
+        }
+        public String update(PatientM24 p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            chkNull(p);
+            sql = "Update " + pm24.table + " Set " + pm24.MNC_COM_PRF_CD + " = '" + pm24.MNC_COM_PRF_CD + "' " +
+                "," + pm24.MNC_COM_DSC + " = '" + pm24.MNC_COM_DSC + " " +
+                "," + pm24.MNC_COM_TUM_CD + " = '" + pm24.MNC_COM_TUM_CD + " " +
+                "," + pm24.MNC_COM_AMP_CD + " = '" + pm24.MNC_COM_AMP_CD + " " +
+                "," + pm24.MNC_COM_CHW_CD + " = '" + pm24.MNC_COM_CHW_CD + " " +
+                "," + pm24.MNC_COM_POC + " = '" + pm24.MNC_COM_POC + " " +
+                "," + pm24.MNC_COM_TEL + " = '" + pm24.MNC_COM_TEL + " " +
+                "," + pm24.MNC_COM_TYP_CD + " = '" + pm24.MNC_COM_TYP_CD + " " +
+                "," + pm24.MNC_COM_STS + " = '" + pm24.MNC_COM_STS + " " +
+               " " +
+                "Where " + p.MNC_COM_CD + " = '" + p.MNC_COM_CD + "' " +
+                " ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "PatientM24DB update error  " + ex.Message + " " + ex.InnerException);
+            }
+
+            return re;
+        }
+        public PatientM24 setPatientM24(DataTable dt)
         {
             PatientM24 pm08 = new PatientM24();
             if (dt.Rows.Count > 0)
@@ -84,14 +253,16 @@ namespace bangna_hospital.objdb
                 pm08.MNC_COM_CHW_CD = dt.Rows[0]["MNC_COM_CHW_CD"].ToString();
                 pm08.MNC_COM_GRP_CD = dt.Rows[0]["MNC_COM_GRP_CD"].ToString();
                 pm08.MNC_COM_TYP_CD = dt.Rows[0]["MNC_COM_TYP_CD"].ToString();
+                pm08.MNC_COM_START = dt.Rows[0]["MNC_COM_START"].ToString();
+                pm08.MNC_COM_DSC_E = dt.Rows[0]["MNC_COM_DSC_E"].ToString();
             }
             else
             {
-                setPatientM08(pm08);
+                setPatientM24(pm08);
             }
             return pm08;
         }
-        public PatientM24 setPatientM08(PatientM24 p)
+        public PatientM24 setPatientM24(PatientM24 p)
         {
             p.MNC_COM_CD = "";
             p.MNC_COM_DSC = "";
@@ -103,6 +274,8 @@ namespace bangna_hospital.objdb
             p.MNC_COM_CHW_CD = "";
             p.MNC_COM_GRP_CD = "";
             p.MNC_COM_TYP_CD = "";
+            p.MNC_COM_START = "";
+            p.MNC_COM_DSC_E = "";
             return p;
         }
     }

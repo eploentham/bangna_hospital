@@ -93,7 +93,7 @@ namespace bangna_hospital.objdb
                 }
             }
         }
-        public PatientM05 setPatientM08(DataTable dt)
+        public PatientM05 setPatientM05(DataTable dt)
         {
             PatientM05 pm08 = new PatientM05();
             if (dt.Rows.Count > 0)
@@ -105,11 +105,11 @@ namespace bangna_hospital.objdb
             }
             else
             {
-                setPatientM08(pm08);
+                setPatientM05(pm08);
             }
             return pm08;
         }
-        public PatientM05 setPatientM08(PatientM05 p)
+        public PatientM05 setPatientM05(PatientM05 p)
         {
             p.MNC_REL_CD = "";
             p.MNC_REL_DSC = "";

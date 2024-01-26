@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bangna_hospital.object1;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -159,6 +160,7 @@ namespace bangna_hospital.objdb
                 " Where aipn.status_send = '1' " +wheresessionno+" "
                 +"Order By aipn.aipn_id ";
             //dt = conn.selectData( sql);
+            new LogWriter("d", "AipnDB selectAipnIdByStatusMakeText " + sql);
             dt = conn.selectData(conn.connSsnData, sql);
             return dt;
         }
