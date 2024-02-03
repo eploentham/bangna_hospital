@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_opd</AssemblyName>
+    <AssemblyName>bangna_hospital_reception</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -102,6 +102,8 @@
     <Reference Include="C1.Win.FlexReport.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.FlexViewer.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.ImportServices.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
+    <Reference Include="C1.Win.Input.MultiSelect.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.TreeView.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da" />
     <Reference Include="DotNetZip, Version=1.13.5.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.13.5\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
@@ -228,6 +230,12 @@
     </Compile>
     <Compile Include="gui\FrmQueueShow.Designer.cs">
       <DependentUpon>FrmQueueShow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmReceptionStatusVisit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmReceptionStatusVisit.Designer.cs">
+      <DependentUpon>FrmReceptionStatusVisit.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmScanView2.cs">
       <SubType>Form</SubType>
@@ -656,8 +664,10 @@
     <Compile Include="objdb\MedicalCertificateDB.cs" />
     <Compile Include="objdb\PatientM06DB.cs" />
     <Compile Include="objdb\PatientM13DB.cs" />
+    <Compile Include="objdb\PatientT013DB.cs" />
     <Compile Include="objdb\PatientT03DB.cs" />
     <Compile Include="objdb\PatientT07DB.cs" />
+    <Compile Include="objdb\PatientT16DB.cs" />
     <Compile Include="objdb\SummaryT03DB.cs" />
     <Compile Include="objdb\TFingerScanDB.cs" />
     <Compile Include="object1\AipnXmlFile.cs" />
@@ -793,8 +803,11 @@
     <Compile Include="object1\PatientM32.cs" />
     <Compile Include="object1\PatientSmartcard.cs" />
     <Compile Include="object1\PatientM06.cs" />
+    <Compile Include="object1\PatientT013.cs" />
+    <Compile Include="object1\PatientT014.cs" />
     <Compile Include="object1\PatientT03.cs" />
     <Compile Include="object1\PatientT07.cs" />
+    <Compile Include="object1\PatientT16.cs" />
     <Compile Include="object1\PharmacyT01.cs" />
     <Compile Include="object1\PharmacyM01.cs" />
     <Compile Include="object1\PharmacyM02.cs" />
@@ -954,6 +967,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueShow.resx">
       <DependentUpon>FrmQueueShow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmReceptionStatusVisit.resx">
+      <DependentUpon>FrmReceptionStatusVisit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmScanView2.resx">
       <DependentUpon>FrmScanView2.cs</DependentUpon>

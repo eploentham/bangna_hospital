@@ -850,6 +850,7 @@ namespace bangna_hospital.control
             int.TryParse(iniC.imageDiag_Height, out imageDiag_Height);
             int.TryParse(iniC.padYCertMed, out padYCertMed);
             int.TryParse(iniC.grdQueFontSize, out grdQueFontSize);
+            int.TryParse(iniC.grdQueTodayFontSize, out grdQueTodayFontSize);
         }
         public String setC1Combo(C1ComboBox c, String data)
         {
@@ -4038,6 +4039,7 @@ namespace bangna_hospital.control
         public String showTime(String time)
         {
             String txt = "";
+            if(time==null) return txt;
             txt = "0000" + time;
             txt = txt.Substring(txt.Length - 4);
             txt = txt.Substring(0, 2) + ":" + txt.Substring(txt.Length - 2);

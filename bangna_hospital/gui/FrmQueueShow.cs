@@ -19,7 +19,7 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         Timer timeQueImg, timeQueQue;
         C1FlexGrid grfQue, grfQueToday;
-        Font fEdit, fEditB;
+        Font fEdit, fEditB, fqueToday;
         C1ThemeController theme1;
         ImageList imglist;
 
@@ -38,6 +38,7 @@ namespace bangna_hospital.gui
             pageLoad = true;
             fEdit = new Font(bc.iniC.grdQueFontName, bc.grdQueFontSize, FontStyle.Regular);
             fEditB = new Font(bc.iniC.grdQueFontName, bc.grdQueFontSize, FontStyle.Bold);
+            fqueToday = new Font(bc.iniC.grdQueTodayFontName, bc.grdQueTodayFontSize, FontStyle.Regular);
             theme1 = new C1ThemeController();
 
             timeQueQue = new Timer();
@@ -62,7 +63,7 @@ namespace bangna_hospital.gui
         private void initGrfQueToday()
         {
             grfQueToday = new C1FlexGrid();
-            grfQueToday.Font = fEdit;
+            grfQueToday.Font = fqueToday;
             grfQueToday.Dock = System.Windows.Forms.DockStyle.Fill;
             grfQueToday.Location = new System.Drawing.Point(0, 0);
 

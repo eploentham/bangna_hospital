@@ -44,6 +44,7 @@ namespace bangna_hospital.objdb
         public AutoCompleteStringCollection getlApm()
         {
             //lDept = new List<Position>();
+            
             AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
             lDeptOPD.Clear();
             DataTable dt = new DataTable();

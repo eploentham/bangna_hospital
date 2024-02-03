@@ -90,6 +90,22 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public void getlCus()
+        {
+            //lDept = new List<Position>();
+
+            lPm02.Clear();
+            DataTable dt = new DataTable();
+            dt = SelectAll();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                FinanceM02 cus1 = new FinanceM02();
+                cus1.MNC_FN_TYP_CD = row[finM02.MNC_FN_TYP_CD].ToString();
+                cus1.MNC_FN_TYP_DSC = row[finM02.MNC_FN_TYP_DSC].ToString();
+                lPm02.Add(cus1);
+            }
+        }
         public AutoCompleteStringCollection getlPaid()
         {
             //lDept = new List<Position>();
@@ -109,6 +125,16 @@ namespace bangna_hospital.objdb
             }
             return autoSymptom;
         }
+        public AutoCompleteStringCollection getlPaid1()
+        {
+            if (lPm02.Count <= 0) getlCus();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            foreach (FinanceM02 rowa in lPm02)
+            {
+                autoSymptom.Add(rowa.MNC_FN_TYP_DSC);
+            }
+            return autoSymptom;
+        }
         public String getPaidName(String paidcode)
         {
             String re = "";
@@ -125,6 +151,21 @@ namespace bangna_hospital.objdb
         public String getPaidCode(String paidname)
         {
             String re = "";
+            if (paidname.Equals("บ.ประกัน"))
+            {
+                paidname = "บริษัทประกัน";
+                //return re;
+            }
+            else if (paidname.Equals("ปกส(บ.5)"))
+            {
+                paidname = "ประกันสังคม (บ.5)";
+                //return re;
+            }
+            else if (paidname.Equals("ปกต(บ.5)"))
+            {
+                paidname = "ประกันสังคมอิสระ (บ.5)";
+                //return re;
+            }
             foreach (FinanceM02 row in lPm02)
             {
                 if (row.MNC_FN_TYP_DSC.Equals(paidname))

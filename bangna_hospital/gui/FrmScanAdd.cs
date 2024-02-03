@@ -224,18 +224,17 @@ namespace bangna_hospital.gui
                 try
                 {
                     String datetick = "", ext="";
-                    ext = Path.GetExtension(fi.Name);
-                    datetick = DateTime.Now.Ticks.ToString();
-                    //fi.Delete();
-                    fi.MoveTo(bc.iniC.pathTempScanAdd + "\\" + datetick1 + "\\" + datetick+ext);
+                    //ext = Path.GetExtension(fi.Name);
+                    //datetick = DateTime.Now.Ticks.ToString();
+                    fi.Delete();
+                    //fi.MoveTo(bc.iniC.pathTempScanAdd + "\\" + datetick1 + "\\" + datetick+ext);
                     Application.DoEvents();
-                    System.Threading.Thread.Sleep(50);
+                    System.Threading.Thread.Sleep(5);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("error delFile -> " + ex.Message, "");
                 }
-
             }
         }
         private void BtnUploadl_Click(object sender, EventArgs e)
@@ -1071,7 +1070,7 @@ namespace bangna_hospital.gui
         private void FrmScanNew_Load(object sender, EventArgs e)
         {
             timer1.Start();
-            this.Text = "Last Update 2020-04-28 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
+            this.Text = "Last Update 2024-02-01 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
             sb1.Text = "Last Update 2020-04-28 " + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP;
         }
     }

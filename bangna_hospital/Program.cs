@@ -73,7 +73,8 @@ namespace bangna_hospital
                 }
                 else if (bc.iniC.programLoad.Equals("LabOut"))
                 {
-                    Application.Run(new gui.FrmScanAddLabOut(bc));
+                    //Application.Run(new gui.FrmScanAddLabOut(bc));
+                    Application.Run(new gui.FrmOPD(bc,"outlab"));
                 }
                 else if (bc.iniC.programLoad.Equals("nhsoPrint"))
                 {

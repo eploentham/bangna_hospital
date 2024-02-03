@@ -274,6 +274,38 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "selectLabOutByHnReqDateReqNo sql " + sql);
             return dt;
         }
+        public DocScan selectLabOutByHnReqDateReqNo1(String hn, String datereq, String reqno)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "";
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                "and dsc." + dsc.active + "='1'  and dsc." + dsc.status_record + "='2' and dsc." + dsc.req_id + " = '" + reqno + "' and dsc." + dsc.date_req + " = '" + datereq + "' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+            cop1 = setDocScan(dt);
+            //new LogWriter("d", "selectLabOutByHnReqDateReqNo sql " + sql);
+            return cop1;
+        }
+        public DocScan selectLabOutByHnReqDateReqNoUnActive(String hn, String datereq, String reqno)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String wherehn = "";
+            String sql = "select dsc.* " +
+                "From " + dsc.table + " dsc " +
+                "Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                "and dsc." + dsc.active + "='3'  and dsc." + dsc.status_record + "='2' and dsc." + dsc.req_id + " = '" + reqno + "' and dsc." + dsc.date_req + " = '" + datereq + "' " +
+                "Order By dsc.doc_scan_id ";
+            dt = conn.selectData(conn.conn, sql);
+            cop1 = setDocScan(dt);
+            //new LogWriter("d", "selectLabOutByHnReqDateReqNo sql " + sql);
+            return cop1;
+        }
         public DataTable selectLabOutByAn( String hn, String an)
         {
             //DocScan cop1 = new DocScan();
@@ -1258,7 +1290,7 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "' " +
                 "Where " + dsc.hn + " ='" + hn + "' " +
                 "and status_record = '4' " +
@@ -1286,7 +1318,7 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "' " +
                 "Where " + dsc.hn + " ='" + hn + "' " +
                 "and status_record = '4' " +
@@ -1314,7 +1346,7 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "' " +
                 "Where " + dsc.hn + " ='" + hn + "' " +
                 "and status_record = '5' " +
@@ -1342,7 +1374,7 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
                 ", status_conv1 = 'cert_med'" +
                 "Where " + dsc.pkField + "='" + id + "'"
@@ -1367,7 +1399,7 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
                 ", status_conv1 = 'frmscanview1'" +
                 "Where " + dsc.pkField + "='" + id + "'"
@@ -1392,7 +1424,7 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
                 ", status_conv1 = 'frmscanviewedit'" +
                 "Where " + dsc.pkField + "='" + id + "'"
@@ -1409,7 +1441,7 @@ namespace bangna_hospital.objdb
 
             return re;
         }
-        public String voidDocScan(String id, String userId)
+        public String voidDocScan(String dscid, String userId)
         {
             String re = "";
             String sql = "";
@@ -1417,9 +1449,9 @@ namespace bangna_hospital.objdb
             
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
-                "Where " + dsc.pkField + "='" + id + "'"
+                "Where " + dsc.pkField + "='" + dscid + "'"
                 ;
             try
             {
@@ -1433,7 +1465,7 @@ namespace bangna_hospital.objdb
 
             return re;
         }
-        public String voidDocScanVNByScan(String id, String userId)
+        public String voidDocScanVNByScan(String vn, String userId)
         {
             String re = "";
             String sql = "";
@@ -1441,9 +1473,9 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
-                "Where " + dsc.vn + "='" + id + "' and status_record = '1' "
+                "Where " + dsc.vn + "='" + vn + "' and status_record = '1' "
                 ;
             try
             {
@@ -1457,7 +1489,7 @@ namespace bangna_hospital.objdb
 
             return re;
         }
-        public String voidDocScanANByScan(String id, String userId)
+        public String voidDocScanANByScan(String an, String userId)
         {
             String re = "";
             String sql = "";
@@ -1465,9 +1497,9 @@ namespace bangna_hospital.objdb
 
             sql = "Update " + dsc.table + " Set " +
                 " " + dsc.active + " = '3'" +
-                "," + dsc.date_cancel + " = getdate()" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
                 "," + dsc.user_cancel + " = '" + userId + "'" +
-                "Where " + dsc.an + "='" + id + "' and status_record = '1'"
+                "Where " + dsc.an + "='" + an + "' and status_record = '1'"
                 ;
             try
             {

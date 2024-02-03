@@ -38,6 +38,7 @@ namespace bangna_hospital.objdb
             pm24.status_insur = "status_insur";
             pm24.insur1_code = "insur1_code";
             pm24.insur2_code = "insur2_code";
+            pm24.MNC_COM_ADD = "MNC_COM_ADD";
 
             pm24.table = "patient_M24";
 
@@ -118,6 +119,16 @@ namespace bangna_hospital.objdb
                 {
                     autoSymptom.Add(row["MNC_COM_DSC"].ToString());
                 }
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection getlPaid1()
+        {
+            if (lPm24.Count <= 0) getlCus();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            foreach (PatientM24 rowa in lPm24)
+            {
+                autoSymptom.Add(rowa.MNC_COM_DSC);
             }
             return autoSymptom;
         }

@@ -288,12 +288,12 @@ namespace bangna_hospital.objdb
                 ", m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI,m01.MNC_CUR_ROAD, m01.MNC_CUR_TUM, m01.MNC_CUR_AMP, m01.MNC_CUR_CHW,m01.MNC_CUR_POC,m01.MNC_CUR_TEL" +
                 ", m01.MNC_DOM_ADD, m01.MNC_DOM_MOO, m01.MNC_DOM_SOI,m01.MNC_DOM_ROAD, m01.MNC_DOM_TUM, m01.MNC_DOM_AMP, m01.MNC_DOM_CHW,m01.MNC_DOM_POC,m01.MNC_DOM_TEL" +
                 ", m01.MNC_REF_ADD, m01.MNC_REF_MOO, m01.MNC_REF_SOI,m01.MNC_REF_ROAD, m01.MNC_REF_TUM, m01.MNC_REF_AMP, m01.MNC_REF_CHW,m01.MNC_REF_POC,m01.MNC_REF_TEL, m01.MNC_REF_NAME  " +
-                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,pm24.MNC_COM_DSC,pm24i.MNC_COM_DSC as MNC_COM_DSCi,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
+                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,comp.MNC_COM_DSC,insur.MNC_COM_DSC as MNC_COM_DSCi,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
                 ", m01.remark1, m01.remark2, m01.MNC_STATUS, m01.MNC_REF_REL " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
-                " left join PATIENT_M24 pm24 on m01.MNC_COM_CD = pm24.MNC_COM_CD " +
-                " left join PATIENT_M24 pm24i on m01.MNC_COM_CD2 = pm24i.MNC_COM_CD " +
+                " left join PATIENT_M24 insur on m01.MNC_COM_CD = insur.MNC_COM_CD " +
+                " left join PATIENT_M24 comp on m01.MNC_COM_CD2 = comp.MNC_COM_CD " +
                 " Where m01.MNC_hn_NO = '" + hn + "' " +
                 " ";
             dt = conn.selectData(conn.connMainHIS, sql);
@@ -692,12 +692,12 @@ namespace bangna_hospital.objdb
                 ", m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI,m01.MNC_CUR_ROAD, m01.MNC_CUR_TUM, m01.MNC_CUR_AMP, m01.MNC_CUR_CHW,m01.MNC_CUR_POC,m01.MNC_CUR_TEL" +
                 ", m01.MNC_DOM_ADD, m01.MNC_DOM_MOO, m01.MNC_DOM_SOI,m01.MNC_DOM_ROAD, m01.MNC_DOM_TUM, m01.MNC_DOM_AMP, m01.MNC_DOM_CHW,m01.MNC_DOM_POC,m01.MNC_DOM_TEL" +
                 ", m01.MNC_REF_ADD, m01.MNC_REF_MOO, m01.MNC_REF_SOI,m01.MNC_REF_ROAD, m01.MNC_REF_TUM, m01.MNC_REF_AMP, m01.MNC_REF_CHW,m01.MNC_REF_POC,m01.MNC_REF_TEL, m01.MNC_REF_NAME  " +
-                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,pm24.MNC_COM_DSC,pm24i.MNC_COM_DSC as MNC_COM_DSCi ,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
-                ", m01.remark1, m01.remark2, m01.MNC_STATUS " +
+                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,insur.MNC_COM_DSC,pm24i.MNC_COM_DSC as MNC_COM_DSCi ,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
+                ", m01.remark1, m01.remark2, m01.MNC_STATUS,m01.MNC_REF_REL " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
-                " left join PATIENT_M24 pm24 on m01.MNC_COM_CD = pm24.MNC_COM_CD " +
-                " left join PATIENT_M24 pm24i on m01.MNC_COM_CD2 = pm24i.MNC_COM_CD " +
+                " left join PATIENT_M24 insur on m01.MNC_COM_CD = insur.MNC_COM_CD " +
+                " left join PATIENT_M24 comp on m01.MNC_COM_CD2 = comp.MNC_COM_CD " +
                 " Where " + wherepid + " " +
                 " ";
             dt = conn.selectData(conn.connMainHIS, sql);

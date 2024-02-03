@@ -3286,7 +3286,7 @@ namespace bangna_hospital.gui
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
 
             ContextMenu menuGw = new ContextMenu();
-            menuGw.MenuItems.Add("ต้องการลบข้อมูลมั้งหมด ของ รายการนี้", new EventHandler(ContextMenu_delete_opd_all));
+            menuGw.MenuItems.Add("ต้องการลบข้อมูลScanทั้งหมด ของ VNนี้", new EventHandler(ContextMenu_delete_opd_all));
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
             grfOPD.ContextMenu = menuGw;
@@ -3301,7 +3301,7 @@ namespace bangna_hospital.gui
         {
             String id = "", vn="";
             vn = grfOPD[grfOPD.Row, colVsVn].ToString();
-            if (MessageBox.Show("ต้องการลบข้อมูล ทั้งหมดของ VN "+ vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            if (MessageBox.Show("ต้องการลบข้อมูลScan ทั้งหมดของ VN "+ vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 int chk = 0;
                 String re = bc.bcDB.dscDB.voidDocScanVNByScan(vn, "medrecord");
@@ -3976,7 +3976,7 @@ namespace bangna_hospital.gui
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
 
             ContextMenu menuGw = new ContextMenu();
-            menuGw.MenuItems.Add("&ต้องการลบข้อมูลมั้งหมด ของ รายการนี้", new EventHandler(ContextMenu_delete_ipd_all));
+            menuGw.MenuItems.Add("ต้องการลบข้อมูลscanทั้งหมด ของ ANนี้", new EventHandler(ContextMenu_delete_ipd_all));
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
             grfIPD.ContextMenu = menuGw;
@@ -3990,14 +3990,14 @@ namespace bangna_hospital.gui
         {
             String id = "", vn = "";
             vn = grfIPD[grfIPD.Row, colIPDAnShow].ToString();
-            if (MessageBox.Show("ต้องการลบข้อมูล ทั้งหมดของ AN " + vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+            if (MessageBox.Show("ต้องการลบข้อมูลscan ทั้งหมดของ AN " + vn, "", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
                 int chk = 0;
                 String re = bc.bcDB.dscDB.voidDocScanANByScan(vn, "medrecord");
                 if (int.TryParse(re, out chk))
                 {
-                    setGrfLab();
-                    setGrfXrayIPD(grfIPD.Row);
+                    //setGrfLab();
+                    //setGrfXrayIPD(grfIPD.Row);
                     setGrfScan();
                     //setTabLabOut(grfIPD.Row, "IPD", bc.iniC.windows);
                 }
@@ -10430,7 +10430,7 @@ namespace bangna_hospital.gui
             //grfVs.Cols[colVsDept].Editor = text;
             //grfVs.Cols[colVsPreno].Editor = text;
 
-            grfIPD.Cols[colIPDDate].Width = 72;
+            grfIPD.Cols[colIPDDate].Width = 78;
             grfIPD.Cols[colIPDVn].Width = 80;
             grfIPD.Cols[colIPDDept].Width = 170;
             grfIPD.Cols[colIPDPreno].Width = 100;
@@ -10608,7 +10608,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2024-01-26 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
+            this.Text = "Last Update 2024-02-01 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

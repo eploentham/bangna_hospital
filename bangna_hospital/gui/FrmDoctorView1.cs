@@ -36,7 +36,7 @@ namespace bangna_hospital.gui
 
         Panel panel1, pnHead, pnBotton, pnQue, pnApm, pnFinish, pnIPD;
 
-        int colQueId = 1, colQueVnShow = 2, colQueHn = 3, colQuePttName = 4, colQueVsDate = 5, colQueVsTime = 6, colQueSex = 7, colQueAge = 8, colQuePaid = 9, colQueSymptom = 10, colQueHeight = 11, coolQueBw = 12, colQueBp = 13, colQuePulse = 14, colQyeTemp = 15, colQuePreNo = 16, colQueDsc = 17;
+        int colQueId = 1, colQueVnShow = 2, colQueHn = 3, colQuePttName = 4, colQueVsDate = 5, colQueVsTime = 6, colQueSex = 7, colQueAge = 8, colQuePaid = 9, colQueSymptom = 10, colQueHeight = 11, coolQueBw = 12, colQueBp = 13, colQuePulse = 14, colQyeTemp = 15, colQuePreNo = 16, colQueDsc = 17, colQueVsDate1 = 18;
         int colApmId = 1, colApmVnShow = 2, colApmHn = 3, colApmPttName = 4, colApmDate = 5, colApmTime = 6, colApmSex = 7, colApmAge = 8, colApmDsc = 9, colApmRemark = 10, colApmDept = 11;
         int colFinId = 1, colFinVnShow = 2, colFinHn = 3, colFinPttName = 4, colFinDate = 5, colFinTime = 6, colFinSex = 7, colFinAge = 8, colFinDsc = 9, colFinRemark = 10, colFinDept = 11, colFinWrd=12, colFinAn=13;
         int colIPDId = 1, colIPDVnShow = 2, colIPDHn = 3, colIPDAn = 4, colIPDPttName = 5, colIPDDate = 6, colIPDTime = 7, colIPDSex = 8, colIPDAge = 9, colIPDDsc = 10, colIPDRemark = 11, colIPDDept = 12, colIPDWrd = 13;
@@ -436,10 +436,14 @@ namespace bangna_hospital.gui
             if (grfQue.Row <= 0) return;
             if (grfQue.Col <= 0) return;
 
-            String vn = "", hn = "", vsdate = "", txt = "";
+            String vn = "", hn = "", vsdate = "", txt = "", preno="";
             vn = grfQue[grfQue.Row, colQueVnShow] != null ? grfQue[grfQue.Row, colQueVnShow].ToString() : "";
             hn = grfQue[grfQue.Row, colQueHn] != null ? grfQue[grfQue.Row, colQueHn].ToString() : "";
             txt = grfQue[grfQue.Row, colQuePttName] != null ? grfQue[grfQue.Row, colQuePttName].ToString() : "";
+            preno = grfQue[grfQue.Row, colQuePreNo] != null ? grfQue[grfQue.Row, colQuePreNo].ToString() : "";
+            vsdate = grfQue[grfQue.Row, colQueVsDate1] != null ? grfQue[grfQue.Row, colQueVsDate1].ToString() : "";
+            //bc.bcDB.vsDB.updateActNoDoctor114(hn, preno, vsdate); ไม่ต้อง เพราะทำใน store procedure que_doctor_opd
+            bc.bcDB.sumt03DB.updateSumVnAdd(DTRCODE, hn, preno, vsdate);
             openNewForm(hn, txt);
         }
 
@@ -448,7 +452,7 @@ namespace bangna_hospital.gui
             //grfQue.Clear();
             grfQue.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
-            grfQue.Cols.Count = 18;
+            grfQue.Cols.Count = 19;
             //Column colpic1 = grf.Cols[colPic1];
             //colpic1.DataType = typeof(Image);
             //Column colpic2 = grf.Cols[colPic2];
@@ -488,6 +492,7 @@ namespace bangna_hospital.gui
             grfQue.Cols[colQuePulse].Width = 60;
             grfQue.Cols[colQyeTemp].Width = 60;
             grfQue.Cols[colQueDsc].Width = 300;
+            grfQue.Cols[colQueVsDate1].Visible = false;
             grfQue.ShowCursor = true;
             //grf.Cols[colPic1].ImageAndText = true;
             //grf.Cols[colPic2].ImageAndText = true;
@@ -550,6 +555,7 @@ namespace bangna_hospital.gui
                     grfQue[i, colQyeTemp] = row["MNC_temp"].ToString();
                     grfQue[i, colQuePreNo] = row["MNC_pre_no"].ToString();
                     grfQue[i, colQueDsc] = row["MNC_ref_dsc"].ToString();
+                    grfQue[i, colQueVsDate1] = row["mnc_date"].ToString();
                     if ((i % 2) == 0)
                         grfQue.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
 
@@ -1040,7 +1046,7 @@ namespace bangna_hospital.gui
             theme1.SetTheme(tC1, bc.iniC.themeDonor);
             txtPttHn.Location = new System.Drawing.Point(lbTxtPttHn.Location.X + size.Width + 5, lbTxtPttHn.Location.Y);
             sb1.Text = "Text";
-            this.Text = "Last Update 2020-09-11 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP + " timer1 "+timer1.Interval;
+            this.Text = "Last Update 2024-01-30 Format Date " + System.DateTime.Now.ToString("dd-MM-yyyy") + "hostFTP " + bc.iniC.hostFTP + " folderFTP " + bc.iniC.folderFTP + " timer1 "+timer1.Interval;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel1, bc.iniC.themeApp);
             theme1.SetTheme(pnHead, bc.iniC.themeApp);

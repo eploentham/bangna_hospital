@@ -1,6 +1,7 @@
 ﻿using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,21 @@ namespace bangna_hospital.objdb
             pt03.MNC_STAMP_TIM = "MNC_STAMP_TIM";
             pt03.pkField = "";
             pt03.table = "patient_T03";
+        }
+        public DataTable SelectByVsDate(String hn, String preno, String vsdate)
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select pt03.MNC_ACT_NO,pt03.MNC_STP_TIME,pt03.MNC_STP_DATE,pt03.MNC_SEC_NO,pt03.MNC_DEP_NO, am01.MNC_ACT_DSC " +
+                ",um01.MNC_USR_FULL " +
+                "From patient_T03 pt03 " +
+                "Inner join ACTION_M01 am01 on pt03.MNC_ACT_NO = am01.MNC_ACT_NO " +
+                "Left Join USERLOG_M01 um01 on pt03.MNC_EMP_CD = um01.MNC_USR_NAME " +
+                "Where pt03.MNC_HN_NO = '" + hn + "' and pt03.MNC_PRE_NO = '" + preno + "' and pt03.MNC_DATE = '" + vsdate + "'" +
+                "Order By pt03.MNC_STP_TIME ";
+            dt = conn.selectData(sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
         }
         private void chkNull(PatientT03 p)
         {

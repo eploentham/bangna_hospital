@@ -878,8 +878,8 @@ namespace bangna_hospital.objdb
                     "When '' Then '' " +
                     "Else MNC_FN_TYP_DSC " +
                     "End as MNC_FN_TYP_DSC, " +
-                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD " +
-                ", convert(VARCHAR(20),t01.MNC_DATE,23) as MNC_DATE, t01.MNC_TIME,t01.mnc_pre_no, t01.mnc_sts_flg " +
+                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD,isnull(t01.MNC_ACT_NO,'') as MNC_ACT_NO,t01.MNC_REF_DSC " +
+                ", convert(VARCHAR(20),t01.MNC_DATE,23) as MNC_DATE, t01.MNC_TIME,t01.mnc_pre_no, t01.mnc_sts_flg,isnull(t01.limit_credit_no,'') as limit_credit_no " +
                 ", t01.MNC_SEC_NO, t01.MNC_DEP_NO, pm32d.MNC_MD_DEP_DSC as dept_opd, pt08.MNC_SEC_NO, pt08.MNC_DEP_NO, isnull(pt08.MNC_AN_NO,'0') as MNC_AN_NO, isnull(pt08.MNC_AN_YR,'') as MNC_AN_YR,pm32an.MNC_MD_DEP_DSC as dept_ipd  " +
                 ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet " +
                 "From patient_t01 t01 " +
@@ -948,10 +948,11 @@ namespace bangna_hospital.objdb
                     "When '' Then '' " +
                     "Else MNC_FN_TYP_DSC " +
                     "End as MNC_FN_TYP_DSC, " +
-                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD,isnull(t01.MNC_ACT_NO,'') as MNC_ACT_NO " +
+                " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD,isnull(t01.MNC_ACT_NO,'') as MNC_ACT_NO,t01.MNC_REF_DSC " +
                 ", convert(VARCHAR(20),t01.MNC_DATE,23) as MNC_DATE, t01.MNC_TIME,t01.mnc_pre_no, t01.mnc_sts_flg " +
                 ", t01.MNC_SEC_NO, t01.MNC_DEP_NO, pm32d.MNC_MD_DEP_DSC as dept_opd, pt08.MNC_SEC_NO, pt08.MNC_DEP_NO, isnull(pt08.MNC_AN_NO,'0') as MNC_AN_NO, isnull(pt08.MNC_AN_YR,'') as MNC_AN_YR,pm32an.MNC_MD_DEP_DSC as dept_ipd  " +
                 ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet " +
+                ", pt011.act_no_110,pt011.act_no_131, pt011.act_no_500, pt011.act_no_600, pt011.act_no_610, pt011.act_no_111, pt011.act_no_113 " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -959,6 +960,7 @@ namespace bangna_hospital.objdb
                 "left join PATIENT_M32 pm32d on t01.MNC_SEC_NO = pm32d.MNC_SEC_NO and t01.MNC_DEP_NO = pm32d.MNC_MD_DEP_NO " +
                 "left join PATIENT_T08 pt08 on t01.MNC_HN_NO = pt08.MNC_HN_NO and t01.MNC_DATE = pt08.MNC_DATE and t01.MNC_PRE_NO = pt08.MNC_PRE_NO " +
                 "left join PATIENT_M32 pm32an on pt08.MNC_SEC_NO = pm32an.MNC_SEC_NO and pt08.MNC_DEP_NO = pm32an.MNC_MD_DEP_NO " +
+                " left join patient_t01_1 pt011 on t01.MNC_HN_NO = pt011.MNC_HN_NO and t01.MNC_PRE_NO = pt011.MNC_PRE_NO and t01.MNC_DATE = pt011.MNC_DATE " +
                 " Where " + where +
                 "and t01.MNC_STS <> 'C' " +
                 " Order By t01.MNC_DATE, t01.MNC_TIME ";
@@ -3885,11 +3887,12 @@ namespace bangna_hospital.objdb
             {
                 sql = "Update Patient_t01 Set " +
                     "MNC_FN_TYP_CD = '"+ paid_id + "' "+
-                    ",MNC_SHIF_MEMO = '" + symptoms + "' "+
+                    ",MNC_SHIF_MEMO = '" + symptoms.Replace("'", "''") + "' "+
                     ",MNC_PT_FLG = '" + vstype + "' " +
                     ",MNC_SEC_NO = '" + secno + "' " +
                     ",MNC_DEP_NO = '" + deptno + "' "+
-                    " Where MNC_HN_NO = '"+ hn +"' and MNC_DATE = '"+vsdate+"' and MNC_PRE_NO = '"+preno+"' "
+                    ",MNC_REF_DSC = '" + remark.Replace("'","''") + "' " +
+                    " Where MNC_HN_NO = '" + hn +"' and MNC_DATE = '"+vsdate+"' and MNC_PRE_NO = '"+preno+"' "
                     ;
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
@@ -4074,6 +4077,9 @@ namespace bangna_hospital.objdb
             try
             {
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                sql = "update patient_t01_1 set act_no_131 = replace(left(convert(varchar(100),getdate(),108),5),':','') " +
+                       "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)
             {
@@ -4226,7 +4232,10 @@ namespace bangna_hospital.objdb
                 {
                     if (dt.Rows[0]["MNC_ACT_NO"].ToString().Equals("101"))
                     {
-                        sql = "update patient_t01 set MNC_ACT_NO = '110'" +
+                        sql = "update patient_t01 set MNC_ACT_NO = '110' " +
+                        "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+                        re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                        sql = "update patient_t01_1 set act_no_110 = replace(left(convert(varchar(100),getdate(),108),5),':','') " +
                         "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
                         re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                     }
@@ -4236,6 +4245,40 @@ namespace bangna_hospital.objdb
             {
                 sql = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "updateActNoSendToDoctor110 sql " + sql + " hn " + hn);
+            }
+            return re;
+        }
+        public String updateActNo111(String hn, String preno, String vsdate)
+        {//scan ใบยา
+            String sql = "", re = "";
+            sql = "update patient_t01_1 set " +
+                "act_no_111 = replace(left(convert(varchar(100),getdate(),108),5),':','') " +
+                "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateDoctor sql " + sql + " hn " + hn);
+            }
+            return re;
+        }
+        public String updateActNo113(String hn, String preno, String vsdate)
+        {
+            String sql = "", re = "";
+            sql = "update patient_t01_1 set " +
+                "act_no_113 = replace(left(convert(varchar(100),getdate(),108),5),':','') " +
+                "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateDoctor sql " + sql + " hn " + hn);
             }
             return re;
         }

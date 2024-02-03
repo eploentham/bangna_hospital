@@ -515,7 +515,7 @@ namespace bangna_hospital.gui
             this.pnSrcTop.Controls.Add(this.btnSrcOk);
             this.pnSrcTop.Controls.Add(this.txtSrcHn);
             this.pnSrcTop.Controls.Add(this.c1Label1);
-            this.pnSrcTop.Height = 56;
+            this.pnSrcTop.Height = 49;
             this.pnSrcTop.Location = new System.Drawing.Point(0, 0);
             this.pnSrcTop.Name = "pnSrcTop";
             this.pnSrcTop.Size = new System.Drawing.Size(1143, 49);
@@ -759,7 +759,7 @@ namespace bangna_hospital.gui
             // txtPttNickName
             // 
             this.txtPttNickName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPttNickName.Location = new System.Drawing.Point(500, 34);
+            this.txtPttNickName.Location = new System.Drawing.Point(500, 33);
             this.txtPttNickName.Name = "txtPttNickName";
             this.txtPttNickName.Size = new System.Drawing.Size(80, 24);
             this.txtPttNickName.TabIndex = 115;
@@ -2064,11 +2064,12 @@ namespace bangna_hospital.gui
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
             this.label2.Location = new System.Drawing.Point(8, 66);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 20);
+            this.label2.Size = new System.Drawing.Size(57, 20);
             this.label2.TabIndex = 75;
-            this.label2.Text = "prefix";
+            this.label2.Text = "prefix *";
             // 
             // txtPttHn
             // 
@@ -2264,7 +2265,7 @@ namespace bangna_hospital.gui
             this.pnVsVisit.SizeRatio = 50.044D;
             this.pnVsVisit.TabIndex = 0;
             this.pnVsVisit.Text = "Panel 1";
-            this.pnVsVisit.Width = 563;
+            this.pnVsVisit.Width = 570;
             // 
             // chkPrnQue
             // 

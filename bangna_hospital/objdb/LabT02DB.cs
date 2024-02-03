@@ -56,6 +56,28 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
+        public DataTable selectByTodayOutLab(String reqDate)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "select convert(varchar(20), labt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,labt01.MNC_REQ_TIM, labt01.MNC_REQ_NO, labt01.status_lis " +
+                ", labt01.mnc_req_yr,labt02.MNC_LB_CD,labm01.MNC_LB_DSC,labt01.MNC_HN_NO,convert(varchar(20), pt07.MNC_APP_DAT, 23) as MNC_APP_DAT, pt07.MNC_APP_DSC " +
+                ",  isnull(pm02.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname " +
+                ",pt07.MNC_DOT_CD, pm02dtr.MNC_PFIX_DSC + ' ' +pm26.MNC_DOT_FNAME+' '+pm26.MNC_DOT_LNAME as dtr_name " +
+                "From PATIENT_T07 pt07 " +
+                "inner join lab_t01 labt01 on labt01.MNC_HN_NO = pt07.MNC_HN_NO and labt01.MNC_DATE = pt07.MNC_DATE and labt01.MNC_PRE_NO = pt07.MNC_PRE_NO " +
+                "inner join lab_t02 labt02 on labt01.MNC_REQ_YR = labt02.MNC_REQ_YR and labt01.MNC_REQ_NO = labt02.MNC_REQ_NO and labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
+                "inner join LAB_M01 labm01 on labt02.MNC_LB_CD = labm01.MNC_LB_CD  " +
+                "inner join patient_m01 pm01 on labt01.mnc_hn_no = pm01.mnc_hn_no and labt01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "left join patient_m26 pm26 on pt07.MNC_DOT_CD = pm26.MNC_DOT_CD " +
+                "left join patient_m02 pm02dtr on pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                "Where pt07.MNC_APP_DAT='" + reqDate + "' and labt02.mnc_req_sts <> 'C' and labm01.status_outlab = '1' " +
+                "Order By labt02." + labT02.MNC_REQ_DAT + ",labt02." + labT02.MNC_REQ_NO;
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public DataTable selectItemNoSendByStatusLis(String reqDate, String reqNo)
         {
             DataTable dt = new DataTable();
