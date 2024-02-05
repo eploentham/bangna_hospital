@@ -1,4 +1,4 @@
-﻿namespace clinic_ivf.gui
+﻿namespace bangna_hospital.gui
 {
     partial class PasswordForm
     {
@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.lbName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,9 +53,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(66, 12);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(341, 13);
+            this.label2.Size = new System.Drawing.Size(173, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "\'FileName.png\' is protected. Please enter a Document Open Password.";
+            this.label2.Text = "กรุณาป้อนPasswordเพื่อยืนยัน ครับ";
             // 
             // tbPassword
             // 
@@ -76,7 +77,7 @@
             // btnOk
             // 
             this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOk.Location = new System.Drawing.Point(299, 116);
+            this.btnOk.Location = new System.Drawing.Point(12, 62);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 3;
@@ -86,12 +87,23 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(380, 116);
+            this.btnCancel.Location = new System.Drawing.Point(93, 62);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // lbName
+            // 
+            this.lbName.AutoSize = true;
+            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbName.ForeColor = System.Drawing.Color.Red;
+            this.lbName.Location = new System.Drawing.Point(174, 66);
+            this.lbName.Name = "lbName";
+            this.lbName.Size = new System.Drawing.Size(16, 16);
+            this.lbName.TabIndex = 5;
+            this.lbName.Text = "...";
             // 
             // PasswordForm
             // 
@@ -99,7 +111,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(467, 151);
+            this.ClientSize = new System.Drawing.Size(468, 93);
+            this.Controls.Add(this.lbName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.label1);
@@ -112,6 +125,7 @@
             this.Name = "PasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Password";
+            this.Load += new System.EventHandler(this.PasswordForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -126,5 +140,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label lbName;
     }
 }

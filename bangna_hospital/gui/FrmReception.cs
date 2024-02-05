@@ -1423,7 +1423,8 @@ namespace bangna_hospital.gui
                 txtPttUser.Focus();
                 return;
             }
-            if (!setPattient()) return;            
+            
+            if (!setPattient()) return;
             String re = bc.bcDB.pttDB.insertPatientStep1(ptt);
             if(long.TryParse(re, out long chk))
             {//save รูปบัตรประชาชน    m_picPhoto
@@ -3302,6 +3303,12 @@ namespace bangna_hospital.gui
                 rowa[colgrfPttVsVsDate1] = row1["mnc_date"].ToString();
                 rowa[0] = i.ToString();
                 if (!row1["MNC_AN_NO"].ToString().Equals("0")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);}
+                else if (row1["MNC_ACT_NO"].ToString().Equals("101")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#FFC5C5"); }//ส่งตัว
+                else if (row1["MNC_ACT_NO"].ToString().Equals("110")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#61A3BA"); }//พบแพทย์
+                else if (row1["MNC_ACT_NO"].ToString().Equals("111")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#ADBC9F"); }//Scan ใบยา
+                else if (row1["MNC_ACT_NO"].ToString().Equals("310")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#FFBB64"); }//รับทำการ ห้องยา
+                else if (row1["MNC_ACT_NO"].ToString().Equals("500")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#FFB996"); }//รอรับยา
+                else if (row1["MNC_ACT_NO"].ToString().Equals("610")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EEE7DA"); }//รับชำระเงินแล้ว
                 i++;
             }
         }
@@ -4247,7 +4254,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-02-02-5";
+            lfSbLastUpdate.Text = "Update 2567-02-05-4";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

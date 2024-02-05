@@ -85,6 +85,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lbLimitCreditOld = new System.Windows.Forms.Label();
+            this.rbDocNoOld = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbDocDateOld = new C1.Win.C1Ribbon.RibbonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -126,6 +130,9 @@
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 592);
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.rbSbMessage);
+            this.c1StatusBar1.RightPaneItems.Add(this.rb1);
+            this.c1StatusBar1.RightPaneItems.Add(this.rbDocNoOld);
+            this.c1StatusBar1.RightPaneItems.Add(this.rbDocDateOld);
             this.c1StatusBar1.Size = new System.Drawing.Size(890, 22);
             // 
             // lfSbMessage
@@ -225,6 +232,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.lbLimitCreditOld);
             this.panel6.Controls.Add(this.txtName);
             this.panel6.Controls.Add(this.cboLimitCredit);
             this.panel6.Controls.Add(this.label11);
@@ -724,6 +732,32 @@
             this.panel2.Size = new System.Drawing.Size(890, 496);
             this.panel2.TabIndex = 81;
             // 
+            // rb1
+            // 
+            this.rb1.Name = "rb1";
+            this.rb1.Text = "Label";
+            // 
+            // lbLimitCreditOld
+            // 
+            this.lbLimitCreditOld.AutoSize = true;
+            this.lbLimitCreditOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbLimitCreditOld.ForeColor = System.Drawing.Color.Red;
+            this.lbLimitCreditOld.Location = new System.Drawing.Point(367, 201);
+            this.lbLimitCreditOld.Name = "lbLimitCreditOld";
+            this.lbLimitCreditOld.Size = new System.Drawing.Size(21, 20);
+            this.lbLimitCreditOld.TabIndex = 157;
+            this.lbLimitCreditOld.Text = "...";
+            // 
+            // rbDocNoOld
+            // 
+            this.rbDocNoOld.Name = "rbDocNoOld";
+            this.rbDocNoOld.Text = "Label";
+            // 
+            // rbDocDateOld
+            // 
+            this.rbDocDateOld.Name = "rbDocDateOld";
+            this.rbDocDateOld.Text = "Label";
+            // 
             // FrmReceptionStatusVisit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -834,5 +868,9 @@
         private C1.Win.C1Input.C1ComboBox cboLimitCredit;
         private C1.Win.C1Ribbon.RibbonLabel rbSbMessage;
         private System.Windows.Forms.Panel panel6;
+        private C1.Win.C1Ribbon.RibbonLabel rb1;
+        private System.Windows.Forms.Label lbLimitCreditOld;
+        private C1.Win.C1Ribbon.RibbonLabel rbDocNoOld;
+        private C1.Win.C1Ribbon.RibbonLabel rbDocDateOld;
     }
 }

@@ -197,11 +197,12 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (getPatientT013())
             {
-                String re = bc.bcDB.pt013DB.insertLimitCredit(pt013);
+                String re = bc.bcDB.pt013DB.insertLimitCredit(pt013, rbDocNoOld.Text, rbDocDateOld.Text);
                 if (int.TryParse(re, out int chk))
                 {
                     flagNew = false;
                     lfSbMessage.Text = "บันทึกข้อมูลเรียบร้อย";
+                    PatientT013 pt013 = bc.bcDB.pt013DB.selectByPreno(HN, VSDATE, PRENO);
                     setGrfLimit(pt013.MNC_DOC_NO, pt013.MNC_DOC_DAT);
                 }
                 else
@@ -236,7 +237,6 @@ namespace bangna_hospital.gui
             {
                 chk = false;
             }
-            
             return chk;
         }
         private void BtnNew_Click(object sender, EventArgs e)
@@ -267,6 +267,9 @@ namespace bangna_hospital.gui
         private void setControlRew()
         {
             pt013 = bc.bcDB.pt013DB.selectByPreno(HN, VSDATE, PRENO);
+            lbLimitCreditOld.Text = "";
+            rbDocDateOld.Text = pt013.MNC_DOC_DAT;
+            rbDocNoOld.Text = pt013.MNC_DOC_NO;
             Double.TryParse(pt013.MNC_REW_PRI, out Double limitcredit);
             Double.TryParse(pt013.MNC_SUM_PAD, out Double limituse);
             txtAmt.Value = limitcredit - limituse;
@@ -288,6 +291,12 @@ namespace bangna_hospital.gui
             txtCurPaid.Value = paid;
             txtAmt.Value = (credit - paid1).ToString("#,###.00");
             bc.setC1Combo(cboLimitCredit, "");
+            rb1.Text = pt013.MNC_DOC_NO;
+            rbSbMessage.Text = pt013.MNC_DOC_DAT;
+            if (pt013.MNC_DOC_NO.Length > 0)
+            {
+                lbLimitCreditOld.Text = "มีวงเงิน "+ pt013.DIA_DSC+" "+ pt013.MNC_REW_PRI;
+            }
         }
         private void clearControlLimitCredit()
         {
@@ -352,9 +361,10 @@ namespace bangna_hospital.gui
         {
             //if (pageLoad) return;
             DataTable dtvs = new DataTable();
-
+            rb1.Text = docno;
+            rbSbMessage.Text = docdate;
             dtvs = bc.bcDB.pt013DB.SelectByLimitNo(txtHN.Text.Trim(), docno, docdate);
-
+            double total = 0;
             grfLimit.Rows.Count = 1; grfLimit.Rows.Count = dtvs.Rows.Count + 1;
             int i = 1, j = 1;
             foreach (DataRow row1 in dtvs.Rows)
@@ -370,6 +380,7 @@ namespace bangna_hospital.gui
                 rowa[colGrfLimitRunDate] = row1["MNC_RUN_DAT"].ToString();
                 rowa[colGrfLimitDocNo] = row1["MNC_DOC_NO"].ToString();
                 rowa[colGrfLimitDocDate] = row1["MNC_DOC_DAT"].ToString();
+                total += paid1;
                 rowa[0] = i.ToString();
                 i++;
             }

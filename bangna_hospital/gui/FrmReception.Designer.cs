@@ -670,7 +670,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.28D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 896;
+            this.pnPttPatient.Width = 903;
             // 
             // btnPttClearData
             // 
@@ -1219,7 +1219,7 @@ namespace bangna_hospital.gui
             // lbPttInsurNameT
             // 
             this.lbPttInsurNameT.AutoSize = true;
-            this.lbPttInsurNameT.Location = new System.Drawing.Point(138, 48);
+            this.lbPttInsurNameT.Location = new System.Drawing.Point(138, 20);
             this.lbPttInsurNameT.Name = "lbPttInsurNameT";
             this.lbPttInsurNameT.Size = new System.Drawing.Size(21, 20);
             this.lbPttInsurNameT.TabIndex = 102;
@@ -1227,7 +1227,7 @@ namespace bangna_hospital.gui
             // 
             // txtPttInsur
             // 
-            this.txtPttInsur.Location = new System.Drawing.Point(63, 47);
+            this.txtPttInsur.Location = new System.Drawing.Point(63, 19);
             this.txtPttInsur.Name = "txtPttInsur";
             this.txtPttInsur.Size = new System.Drawing.Size(72, 24);
             this.txtPttInsur.TabIndex = 100;
@@ -1236,7 +1236,7 @@ namespace bangna_hospital.gui
             // lbInsur
             // 
             this.lbInsur.AutoSize = true;
-            this.lbInsur.Location = new System.Drawing.Point(5, 51);
+            this.lbInsur.Location = new System.Drawing.Point(5, 23);
             this.lbInsur.Name = "lbInsur";
             this.lbInsur.Size = new System.Drawing.Size(50, 20);
             this.lbInsur.TabIndex = 99;
@@ -1245,7 +1245,7 @@ namespace bangna_hospital.gui
             // lbPttCompNameT
             // 
             this.lbPttCompNameT.AutoSize = true;
-            this.lbPttCompNameT.Location = new System.Drawing.Point(138, 21);
+            this.lbPttCompNameT.Location = new System.Drawing.Point(138, 47);
             this.lbPttCompNameT.Name = "lbPttCompNameT";
             this.lbPttCompNameT.Size = new System.Drawing.Size(21, 20);
             this.lbPttCompNameT.TabIndex = 98;
@@ -1253,7 +1253,7 @@ namespace bangna_hospital.gui
             // 
             // txtPttCompCode
             // 
-            this.txtPttCompCode.Location = new System.Drawing.Point(63, 20);
+            this.txtPttCompCode.Location = new System.Drawing.Point(63, 46);
             this.txtPttCompCode.Name = "txtPttCompCode";
             this.txtPttCompCode.Size = new System.Drawing.Size(72, 24);
             this.txtPttCompCode.TabIndex = 96;
@@ -1269,7 +1269,7 @@ namespace bangna_hospital.gui
             // lbComp
             // 
             this.lbComp.AutoSize = true;
-            this.lbComp.Location = new System.Drawing.Point(5, 24);
+            this.lbComp.Location = new System.Drawing.Point(5, 48);
             this.lbComp.Name = "lbComp";
             this.lbComp.Size = new System.Drawing.Size(59, 20);
             this.lbComp.TabIndex = 93;
@@ -2265,7 +2265,7 @@ namespace bangna_hospital.gui
             this.pnVsVisit.SizeRatio = 50.044D;
             this.pnVsVisit.TabIndex = 0;
             this.pnVsVisit.Text = "Panel 1";
-            this.pnVsVisit.Width = 570;
+            this.pnVsVisit.Width = 563;
             // 
             // chkPrnQue
             // 

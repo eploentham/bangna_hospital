@@ -7,29 +7,54 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using bangna_hospital.control;
+using bangna_hospital.objdb;
+using bangna_hospital.object1;
+using bangna_hospital.Properties;
+using static CSJ2K.j2k.codestream.HeaderInfo;
 
-namespace clinic_ivf.gui
+namespace bangna_hospital.gui
 {
     public partial class PasswordForm : Form
     {
-        public PasswordForm()
+        BangnaControl bc;
+        public PasswordForm(BangnaControl bc)
         {
+            this.bc = bc;
             InitializeComponent();
+            initConfig();
+        }
+        private void initConfig()
+        {
+            tbPassword.KeyUp += TbPassword_KeyUp;
         }
 
-        public string EnterPassword(string fileName)
+        private void TbPassword_KeyUp(object sender, KeyEventArgs e)
         {
-            label2.Text = string.Format("'{0}' is protected. Please enter a Document Open Password.", Path.GetFileName(fileName));
-            ActiveControl = tbPassword;
-            if (ShowDialog() == DialogResult.OK)
-                return tbPassword.Text;
-            return null;
+            //throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                chkLogin();
+                this.Dispose();
+            }
         }
-
-        public static string DoEnterPassword(string fileName)
+        private Boolean chkLogin()
         {
-            using (PasswordForm f = new PasswordForm())
-                return f.EnterPassword(fileName);
+            Staff stf1 = new Staff();
+            if (tbPassword.Text.Length <= 0) return false;
+            stf1 = bc.bcDB.stfDB.selectByPasswordConfirm1(tbPassword.Text.Trim());
+            if (stf1.fullname.Length > 0)
+            {
+                btnOk.Image = Resources.Accept_Male_User24;
+                lbName.Text = "คุณ " + stf1.fullname;
+                bc.USERCONFIRMID = stf1.username;
+                return true;
+            }
+            return false;
+        }
+        private void PasswordForm_Load(object sender, EventArgs e)
+        {
+            tbPassword.Focus();
         }
     }
 }

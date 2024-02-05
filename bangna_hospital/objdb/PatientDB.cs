@@ -685,14 +685,14 @@ namespace bangna_hospital.objdb
             //    "From  patient_m01 m01 " +
             //    " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
             //    " Where "+ wherepid + " Order By m01.mnc_hn_no desc";
-            sql = "Select TOP 1 m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
+            sql = "Select TOP 1 m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,m02.MNC_PFIX_DSC, " +
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,MNC_AGE,convert(VARCHAR(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr,m01.MNC_FNAME_E " +
                 ",m01.MNC_LNAME_E,m01.MNC_PFIX_CDT,m01.MNC_CUR_TEL,m01.MNC_CUR_TEL,m01.MNC_PFIX_CDE,m01.MNC_ATT_NOTE,m01.MNC_SEX " +
                 ",m01.MNC_OCC_CD,m01.MNC_EDU_CD,m01.MNC_NAT_CD,m01.MNC_REL_CD,m01.MNC_NATI_CD,m01.MNC_OCC_CD, m01.passport,m01.MNC_SS_NO " +
                 ", m01.MNC_CUR_ADD, m01.MNC_CUR_MOO, m01.MNC_CUR_SOI,m01.MNC_CUR_ROAD, m01.MNC_CUR_TUM, m01.MNC_CUR_AMP, m01.MNC_CUR_CHW,m01.MNC_CUR_POC,m01.MNC_CUR_TEL" +
                 ", m01.MNC_DOM_ADD, m01.MNC_DOM_MOO, m01.MNC_DOM_SOI,m01.MNC_DOM_ROAD, m01.MNC_DOM_TUM, m01.MNC_DOM_AMP, m01.MNC_DOM_CHW,m01.MNC_DOM_POC,m01.MNC_DOM_TEL" +
                 ", m01.MNC_REF_ADD, m01.MNC_REF_MOO, m01.MNC_REF_SOI,m01.MNC_REF_ROAD, m01.MNC_REF_TUM, m01.MNC_REF_AMP, m01.MNC_REF_CHW,m01.MNC_REF_POC,m01.MNC_REF_TEL, m01.MNC_REF_NAME  " +
-                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,insur.MNC_COM_DSC,pm24i.MNC_COM_DSC as MNC_COM_DSCi ,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
+                ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,insur.MNC_COM_DSC,insur.MNC_COM_DSC as MNC_COM_DSCi ,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
                 ", m01.remark1, m01.remark2, m01.MNC_STATUS,m01.MNC_REF_REL " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +

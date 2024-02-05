@@ -213,7 +213,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String insertLimitCredit(PatientT013 p)
+        public String insertLimitCredit(PatientT013 p, String docnoold, String docdateold)
         {
             String re = "";
             if (p.MNC_RUN_NO.Length <= 0)
@@ -222,21 +222,24 @@ namespace bangna_hospital.objdb
             }
             else
             {
-                re = update(p);
+                re = update(p, docnoold, docdateold);
             }
             return re;
         }
-        public String update(PatientT013 p)
+        public String update(PatientT013 p, String docnoold, String docdateold)
         {
             String re = "";
             String sql = "";
             try
             {
                 sql = "Update PATIENT_T01_3 Set " +
-                    ""+pt013.MNC_CUR_PAD+"="+p.MNC_CUR_PAD+""+
-                    ","+pt013.MNC_SUM_PAD + "="+p.MNC_CUR_PAD + ""+
-                    " Where MNC_HN_NO = '"+ p.MNC_HN_NO+ "' and MNC_RUN_NO = '"+p.MNC_RUN_NO+ "' and MNC_DATE = '"+p.MNC_DATE+ "' and MNC_PRE_NO = '"+p.MNC_PRE_NO+ "' and MNC_DOC_NO = '"+p.MNC_DOC_NO + "' "
-                    ;
+                "" + pt013.MNC_CUR_PAD + "=" + p.MNC_CUR_PAD + "" +
+                "," + pt013.MNC_SUM_PAD + "=" + p.MNC_CUR_PAD + "" +
+                "," + pt013.MNC_DOC_NO + "='" + p.MNC_DOC_NO + "'" +  // ถ้ามีการย้ายวงเงิน ก็ให้ update doc_no ด้วย ถึงแม้ไม่มีการย้ายวงเงิน ก็ให้ update ค่าเดิม ก็ไม่น่าจะมีปัญหา
+                "," + pt013.MNC_DOC_DAT + "='" + p.MNC_DOC_DAT + "' " +
+                " Where MNC_HN_NO = '" + p.MNC_HN_NO + "' and MNC_RUN_NO = '" + p.MNC_RUN_NO + "' and MNC_DATE = '" + p.MNC_DATE + "' and MNC_PRE_NO = '" + p.MNC_PRE_NO + "' and MNC_DOC_NO = '" + docnoold + "' and MNC_DOC_DAT = '" + docdateold + "'"
+                ;
+                
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 sql = "Update PATIENT_T01_4 Set " +
                     " MNC_DIA_DSC ='" + p.DIA_DSC + "' " +
@@ -245,15 +248,24 @@ namespace bangna_hospital.objdb
                     " Where MNC_HN_NO = '" + p.MNC_HN_NO + "' and MNC_DOC_DAT = '" + p.MNC_DOC_DAT + "' and MNC_DOC_NO = '" + p.MNC_DOC_NO + "' "
                     ;
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                
+                //limit_credit_no = @descinsur+'@'+@limitcredit+'@'+@mnc_doc_no+'@'+@mnc_doc_no_m02
+                sql = "Update PATIENT_T01 Set " +
+                    " limit_credit_no ='" + p.DIA_DSC+"@"+p.MNC_REW_PRI+"@"+p.MNC_DOC_NO+"@"+p.MNC_RUN_NO + "' " +
+                    " Where MNC_HN_NO = '" + p.MNC_HN_NO + "' and MNC_PRE_NO = '" + p.MNC_PRE_NO + "' and MNC_DATE = '" + p.MNC_DATE + "' "
+                    ;
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)
             {
-
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertLimitCredit sql " + sql);
+                re = sql;
             }
             finally
             {
                 conn.connMainHIS.Close();
-                conn.comStore.Dispose();
+                //conn.comStore.Dispose();
             }
             return re;
         }

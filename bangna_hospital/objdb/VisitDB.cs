@@ -427,15 +427,15 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public DataTable selectPttinDept(String deptid, string secid, String datestart, String dateend)
+        public DataTable selectPttinDeptActNo101(String deptid, string secid, String datestart, String dateend)
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "select PATIENT_T01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,m01.MNC_FNAME_T, " +
-                "m01.MNC_LNAME_T, convert(VARCHAR(20),PATIENT_T01.MNC_DATE,23) as MNC_DATE,PATIENT_T01.MNC_SHIF_MEMO,PATIENT_T01.MNC_PRE_NO,PATIENT_T01.MNC_ACT_NO,  " +
+            sql = "select pt01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,m01.MNC_FNAME_T, " +
+                "m01.MNC_LNAME_T, convert(VARCHAR(20),pt01.MNC_DATE,23) as MNC_DATE,pt01.MNC_SHIF_MEMO,pt01.MNC_PRE_NO,pt01.MNC_ACT_NO,  " +
                 " " +
-                "patient_t01.MNC_SHIF_MEMO, " +
-                "PATIENT_T01.mnc_pre_no,m01.mnc_cur_tel, PATIENT_T01.MNC_TIME, " +
+                "pt01.MNC_SHIF_MEMO, " +
+                "pt01.mnc_pre_no,m01.mnc_cur_tel, pt01.MNC_TIME, " +
                 "Case FINANCE_M02.MNC_FN_TYP_DSC " +
                     "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
                     "When 'ประกันสังคม (บ.2)' Then 'ปกส(บ.2)' " +
@@ -452,18 +452,59 @@ namespace bangna_hospital.objdb
                     "When '' Then '' " +
                     "When '' Then '' " +
                     "Else MNC_FN_TYP_DSC " +
-                    "End as MNC_FN_TYP_DSC,PATIENT_T01.MNC_FN_TYP_CD " +
+                    "End as MNC_FN_TYP_DSC,pt01.MNC_FN_TYP_CD " +
                 ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet " +
                 ", isnull(pm02dtr.MNC_PFIX_DSC,'') +' '+ isnull(pm26.MNC_DOT_FNAME,'')+' ' + isnull(pm26.MNC_DOT_LNAME,'') as dtr_name " +
-                "from  PATIENT_T01  " +
-                " INNER JOIN PATIENT_M01 m01 ON PATIENT_T01.MNC_HN_NO = m01.MNC_HN_NO and PATIENT_T01.MNC_HN_yr = m01.MNC_HN_yr  " +
+                "from  PATIENT_T01 pt01  " +
+                " INNER JOIN PATIENT_M01 m01 ON pt01.MNC_HN_NO = m01.MNC_HN_NO and pt01.MNC_HN_yr = m01.MNC_HN_yr  " +
                 " INNER JOIN PATIENT_M02 m02 ON m01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
-                "left join finance_m02 on finance_m02.MNC_FN_TYP_cd = patient_t01.MNC_FN_TYP_cd " +
-                "left join	patient_m26 pm26 on PATIENT_T01.MNC_DOT_CD = pm26.MNC_DOT_CD " +
+                "left join finance_m02 on finance_m02.MNC_FN_TYP_cd = pt01.MNC_FN_TYP_cd " +
+                "left join	patient_m26 pm26 on pt01.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "left JOIN	dbo.PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
-                " WHERE   PATIENT_T01.MNC_STS <> 'C'  and patient_t01.MNC_SEC_NO ='" + secid + "' and patient_t01.MNC_DEP_NO = '"+ deptid + "' " +
-                " and patient_t01.mnc_date >= '"+datestart+ "' and patient_t01.mnc_date <= '" + dateend + "' " +
-                " Order By PATIENT_T01.mnc_date, PATIENT_T01.mnc_time ";
+                " WHERE   pt01.MNC_STS <> 'C'  and pt01.MNC_SEC_NO ='" + secid + "' and pt01.MNC_DEP_NO = '" + deptid + "' " +
+                " and pt01.mnc_date >= '" + datestart+ "' and pt01.mnc_date <= '" + dateend + "' and pt01.MNC_ACT_NO >= '101' and pt01.MNC_ACT_NO < '131' " +
+                " Order By pt01.mnc_date, pt01.mnc_time ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable selectPttinDeptActNo110(String deptid, string secid, String datestart, String dateend)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "select pt01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,m01.MNC_FNAME_T, " +
+                "m01.MNC_LNAME_T, convert(VARCHAR(20),pt01.MNC_DATE,23) as MNC_DATE,pt01.MNC_SHIF_MEMO,pt01.MNC_PRE_NO,pt01.MNC_ACT_NO,  " +
+                " " +
+                "pt01.MNC_SHIF_MEMO, " +
+                "pt01.mnc_pre_no,m01.mnc_cur_tel, pt01.MNC_TIME, " +
+                "Case FINANCE_M02.MNC_FN_TYP_DSC " +
+                    "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
+                    "When 'ประกันสังคม (บ.2)' Then 'ปกส(บ.2)' " +
+                    "When 'ประกันสังคม (บ.5)' Then 'ปกส(บ.5)' " +
+                    "When 'ประกันสังคมอิสระ (บ.1)' Then 'ปกต(บ.1)' " +
+                    "When 'ประกันสังคมอิสระ (บ.5)' Then 'ปกต(บ.5)' " +
+                    "When 'ตรวจสุขภาพ (เงินสด)' Then 'ตส(เงินสด)' " +
+                    "When 'ตรวจสุขภาพ (บริษัท)' Then 'ตส(บริษัท)' " +
+                    "When 'ตรวจสุขภาพ (PACKAGE)' Then 'ตส(PACKAGE)' " +
+                    "When 'ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปากน้ำ' Then 'ลูกหนี้(ปากน้ำ)' " +
+                    "When 'ลูกหนี้บางนา 1' Then 'ลูกหนี้(บ.1)' " +
+                    "When 'บริษัทประกัน' Then 'บ.ประกัน' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "Else MNC_FN_TYP_DSC " +
+                    "End as MNC_FN_TYP_DSC,pt01.MNC_FN_TYP_CD " +
+                ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet " +
+                ", isnull(pm02dtr.MNC_PFIX_DSC,'') +' '+ isnull(pm26.MNC_DOT_FNAME,'')+' ' + isnull(pm26.MNC_DOT_LNAME,'') as dtr_name " +
+                "from  PATIENT_T01 pt01  " +
+                " INNER JOIN PATIENT_M01 m01 ON pt01.MNC_HN_NO = m01.MNC_HN_NO and pt01.MNC_HN_yr = m01.MNC_HN_yr  " +
+                " INNER JOIN PATIENT_M02 m02 ON m01.MNC_PFIX_CDT = m02.MNC_PFIX_CD " +
+                "left join finance_m02 on finance_m02.MNC_FN_TYP_cd = pt01.MNC_FN_TYP_cd " +
+                "left join	patient_m26 pm26 on pt01.MNC_DOT_CD = pm26.MNC_DOT_CD " +
+                "left JOIN	dbo.PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                " WHERE   pt01.MNC_STS <> 'C'  and pt01.MNC_SEC_NO ='" + secid + "' and pt01.MNC_DEP_NO = '" + deptid + "' " +
+                " and pt01.mnc_date >= '" + datestart + "' and pt01.mnc_date <= '" + dateend + "' and pt01.MNC_ACT_NO >= '131'  " +
+                " Order By pt01.mnc_date desc, pt01.mnc_time desc ";
             dt = conn.selectData(sql);
 
             return dt;
@@ -963,7 +1004,7 @@ namespace bangna_hospital.objdb
                 " left join patient_t01_1 pt011 on t01.MNC_HN_NO = pt011.MNC_HN_NO and t01.MNC_PRE_NO = pt011.MNC_PRE_NO and t01.MNC_DATE = pt011.MNC_DATE " +
                 " Where " + where +
                 "and t01.MNC_STS <> 'C' " +
-                " Order By t01.MNC_DATE, t01.MNC_TIME ";
+                " Order By t01.MNC_DATE desc, t01.MNC_TIME desc ";
             dt = conn.selectData(sql);
 
             return dt;
@@ -4064,7 +4105,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String updateStatusCloseVisit(String hn, String preno, String vsdate)
+        public String updateStatusCloseVisit(String hn, String preno, String vsdate, String userid)
         {
             String sql = "", re = "";
             sql = "update patient_t01 set " +
@@ -4164,7 +4205,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String updateVitalSign(Visit vs)
+        public String updateVitalSign(Visit vs, String userid)
         {
             String sql = "", re = "";
             sql = "update patient_t01 set " +
@@ -4282,7 +4323,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String updateDoctor(String hn, String preno, String vsdate, String dtrcode)
+        public String updateDoctor(String hn, String preno, String vsdate, String dtrcode, String userid)
         {
             String sql = "", re = "";
             sql = "update patient_t01 set " +
