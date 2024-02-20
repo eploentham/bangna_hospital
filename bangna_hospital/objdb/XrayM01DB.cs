@@ -12,7 +12,7 @@ namespace bangna_hospital.objdb
 {
     public class XrayM01DB
     {
-        public XrayM01 XrayM01;
+        public XrayM01 xrayM01;
         ConnectDB conn;
         public XrayM01DB(ConnectDB c)
         {
@@ -22,28 +22,28 @@ namespace bangna_hospital.objdb
         private void initConfig()
         {
 
-            XrayM01 = new XrayM01();
-            XrayM01.MNC_XR_CD = "MNC_XR_CD";
-            XrayM01.MNC_XR_CTL_CD = "MNC_XR_CTL_CD";
-            XrayM01.MNC_XR_DSC = "MNC_XR_DSC";
-            XrayM01.MNC_XR_TYP_CD = "MNC_XR_TYP_CD";
-            XrayM01.MNC_XR_GRP_CD = "MNC_XR_GRP_CD";
-            XrayM01.MNC_XR_DIS_STS = "MNC_XR_DIS_STS";
-            XrayM01.MNC_XR_STS = "MNC_XR_STS";
-            XrayM01.MNC_DEC_CD = "MNC_DEC_CD";
-            XrayM01.MNC_DEC_NO = "MNC_DEC_NO";
-            XrayM01.MNC_STAMP_DAT = "MNC_STAMP_DAT";
-            XrayM01.MNC_STAMP_TIM = "MNC_STAMP_TIM";
-            XrayM01.MNC_USR_UPD = "MNC_USR_UPD";
-            XrayM01.MNC_USR_ADD = "MNC_USR_ADD";
-            XrayM01.MNC_OLD_CD = "MNC_OLD_CD";
-            XrayM01.MNC_SUP_STS = "MNC_SUP_STS";
-            XrayM01.MNC_XR_PRI = "MNC_XR_PRI";
-            XrayM01.MNC_XR_DSC_STS = "MNC_XR_DSC_STS";
-            XrayM01.MNC_XR_AUTO = "MNC_XR_AUTO";
-            XrayM01.pacs_infinitt_code = "pacs_infinitt_code";
-            XrayM01.modality_code = "modality_code";
-            XrayM01.ucep_code = "ucep_code";
+            xrayM01 = new XrayM01();
+            xrayM01.MNC_XR_CD = "MNC_XR_CD";
+            xrayM01.MNC_XR_CTL_CD = "MNC_XR_CTL_CD";
+            xrayM01.MNC_XR_DSC = "MNC_XR_DSC";
+            xrayM01.MNC_XR_TYP_CD = "MNC_XR_TYP_CD";
+            xrayM01.MNC_XR_GRP_CD = "MNC_XR_GRP_CD";
+            xrayM01.MNC_XR_DIS_STS = "MNC_XR_DIS_STS";
+            xrayM01.MNC_XR_STS = "MNC_XR_STS";
+            xrayM01.MNC_DEC_CD = "MNC_DEC_CD";
+            xrayM01.MNC_DEC_NO = "MNC_DEC_NO";
+            xrayM01.MNC_STAMP_DAT = "MNC_STAMP_DAT";
+            xrayM01.MNC_STAMP_TIM = "MNC_STAMP_TIM";
+            xrayM01.MNC_USR_UPD = "MNC_USR_UPD";
+            xrayM01.MNC_USR_ADD = "MNC_USR_ADD";
+            xrayM01.MNC_OLD_CD = "MNC_OLD_CD";
+            xrayM01.MNC_SUP_STS = "MNC_SUP_STS";
+            xrayM01.MNC_XR_PRI = "MNC_XR_PRI";
+            xrayM01.MNC_XR_DSC_STS = "MNC_XR_DSC_STS";
+            xrayM01.MNC_XR_AUTO = "MNC_XR_AUTO";
+            xrayM01.pacs_infinitt_code = "pacs_infinitt_code";
+            xrayM01.modality_code = "modality_code";
+            xrayM01.ucep_code = "ucep_code";
         }
         public DataTable SelectAll()
         {
@@ -53,6 +53,18 @@ namespace bangna_hospital.objdb
                 "From xray_m01  ";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectAllByGroup(String labgrpcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select xray_m01.*, xray_m02.mnc_xr_pri01 " +
+                "From xray_m01  " +
+                "Left join xray_m02 on xray_m01.mnc_xr_cd = xray_m02.mnc_xr_cd " +
+                "Where xray_m01.MNC_XR_GRP_CD = '" + labgrpcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+
             return dt;
         }
         public AutoCompleteStringCollection getlLabAll()

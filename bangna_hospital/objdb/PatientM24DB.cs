@@ -15,6 +15,8 @@ namespace bangna_hospital.objdb
         ConnectDB conn;
         public List<PatientM24> lPm24;
         public List<PatientM24> lPm24Search;
+        DataTable dtInsur ;
+        DataTable dtComp ;
         public PatientM24DB(ConnectDB c)
         {
             conn = c;
@@ -44,6 +46,8 @@ namespace bangna_hospital.objdb
 
             lPm24 = new List<PatientM24>();
             lPm24Search = new List<PatientM24>();
+            dtInsur = new DataTable();
+            dtComp = new DataTable();
         }
         public void getlCus()
         {
@@ -122,6 +126,32 @@ namespace bangna_hospital.objdb
             }
             return autoSymptom;
         }
+        public String getPaidCode(String paidname)
+        {
+            String re = "";
+            foreach (PatientM24 row in lPm24)
+            {
+                if (row.MNC_COM_DSC.Equals(paidname))
+                {
+                    re = row.MNC_COM_CD;
+                    break;
+                }
+            }
+            return re;
+        }
+        public String getPaidName(String paidcode)
+        {
+            String re = "";
+            foreach (PatientM24 row in lPm24)
+            {
+                if (row.MNC_COM_CD.Equals(paidcode))
+                {
+                    re = row.MNC_COM_DSC;
+                    break;
+                }
+            }
+            return re;
+        }
         public AutoCompleteStringCollection getlPaid1()
         {
             if (lPm24.Count <= 0) getlCus();
@@ -135,16 +165,17 @@ namespace bangna_hospital.objdb
         public AutoCompleteStringCollection setAutoInsur()
         {
             AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
-
             DataTable dt = new DataTable();
             String sql = "", re = "";
-            sql = "Select pm24.MNC_COM_CD,pm24.MNC_COM_DSC " +
-                "From  patient_M24 pm24 Where status_insur = '1' "
-            ;
-            dt = conn.selectData(conn.connMainHIS, sql);
-            if (dt.Rows.Count > 0)
+            if (dtInsur.Rows.Count <= 0)
+            {//check เพื่อจะได้ไม่ต้อง select ใหม่
+                sql = "Select pm24.MNC_COM_CD,pm24.MNC_COM_DSC " +
+                "From  patient_M24 pm24 Where status_insur = '1' ";
+                dtInsur = conn.selectData(conn.connMainHIS, sql);
+            }
+            if (dtInsur.Rows.Count > 0)
             {
-                foreach (DataRow row in dt.Rows)
+                foreach (DataRow row in dtInsur.Rows)
                 {
                     autoSymptom.Add(row["MNC_COM_DSC"].ToString());
                 }

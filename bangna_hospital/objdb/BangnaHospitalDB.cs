@@ -84,6 +84,10 @@ namespace bangna_hospital.objdb
         public SummaryT03DB sumt03DB;
         public PatientT16DB pt16DB;
         public PatientT013DB pt013DB;
+        public LabM06DB labm06DB;
+        public XrayM05DB xraym05DB;
+        public PatientM44DB pm44DB;
+        public PharmacyM14DB pharm14DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -186,6 +190,10 @@ namespace bangna_hospital.objdb
                 sumt03DB = new SummaryT03DB(conn);
                 pt16DB = new PatientT16DB(conn);
                 pt013DB = new PatientT013DB(conn);
+                labm06DB = new LabM06DB(conn);
+                xraym05DB = new XrayM05DB(conn);
+                pm44DB = new PatientM44DB(conn);
+                pharm14DB = new PharmacyM14DB(conn);
             }
             catch(Exception ex)
             {

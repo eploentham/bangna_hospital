@@ -1,5 +1,6 @@
 ﻿using AutocompleteMenuNS;
 using bangna_hospital.control;
+using bangna_hospital.FlexGrid;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.C1Excel;
@@ -39,19 +40,20 @@ namespace bangna_hospital.gui
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         Patient ptt;
-        C1FlexGrid grfSrc, grfPttComp, grfPttVs, grfPttApm, grfRptReport, grfRptData, grfCust, grfVsPttVisit, grfToday, grfApm, grfWard;
+        C1FlexGrid grfSrc, grfPttComp, grfPttVs, grfPttApm, grfRptReport, grfRptData, grfCust1, grfVsPttVisit, grfToday, grfApm, grfWard, grfSSO;
         C1ThemeController theme1;
 
         Label lbLoading;
 
         int colgrfSrcHn = 1, colgrfSrcFullNameT = 2, colgrfSrcPID = 3, colgrfSrcDOB = 4, colgrfSrcPttid=5, colgrfSrcAge=6, colgrfSrcVisitReleaseOPD=7, colgrfSrcVisitReleaseIPD = 8,colgrfSrcVisitReleaseIPDDischarge=9;
         int celgrfPttCompCode = 1, colgrfPttCompNameT = 2, colgrfPttCompid = 3;
-        int colgrfPttVsVsDateShow = 1, colgrfPttVsVsTime=2, colgrfPttVsHn=3, colgrfPttVsFullNameT=4, colgrfPttVsPaid=5, colgrfPttVsPreno=6, colgrfPttVsDept=7, colgrfPttVsStatusOPD=8, colgrfPttVsSymptom=9, colgrfPttVsVN=10, colgrfPttVsAN=11, colgrfPttVsQue=12, colgrfPttVsRemark = 13, colgrfPttVsActno=14, colgrfPttVsActno101 = 15, colgrfPttVsActno110 = 16, colgrfPttVsActno111 = 17, colgrfPttVsActno113 = 18, colgrfPttVsActno131 = 19, colgrfPttVsActno500 = 20, colgrfPttVsActno610 = 21, colgrfPttVsVsDate1=22, colgrfPttVsLimitCreditNo = 23;
-        int colgrfPttApmVsDate = 1, colgrfPttApmApmDateShow = 2, colgrfPttApmApmTime = 3, colgrfPttApmHN=4, colgrfPttApmPttName=5, colgrfPttApmDeptR = 6, colgrfPttApmDeptMake=7, colgrfPttApmNote = 8, colgrfPttApmOrder=9, colgrfPttApmDocYear=10, colgrfPttApmDocNo=11, colgrfPttApmDtrname=12, colgrfPttApmPhone=13, colgrfPttApmPaidName=14, colgrfPttApmRemarkCall=15, colgrfPttApmStatusRemarkCall=16, colgrfPttApmRemarkCallDate=17, colgrfPttApmApmDate=18;
+        int colgrfPttVsVsDateShow = 1, colgrfPttVsVsTime=2,colgrfPttVsDiscDateShow = 3, colgrfPttVsDiscTime=4, colgrfPttVsHn=5, colgrfPttVsFullNameT=6, colgrfPttVsPaid=7, colgrfPttVsPreno=8, colgrfPttVsDept=9, colgrfPttVsStatusOPD=10, colgrfPttVsSymptom=11, colgrfPttVsVN=12, colgrfPttVsAN=13, colgrfPttVsQue=14, colgrfPttVsRemark = 15, colgrfPttVsActno=16, colgrfPttVsActno101 = 17, colgrfPttVsActno110 = 18, colgrfPttVsActno111 = 19, colgrfPttVsActno113 = 20, colgrfPttVsActno131 = 21, colgrfPttVsActno500 = 22, colgrfPttVsActno610 = 23, colgrfPttVsVsDate1=24, colgrfPttVsLimitCreditNo = 25;
+        int colgrfPttApmVsDate = 1, colgrfPttApmApmDateShow = 2, colgrfPttApmApmTime = 3, colgrfPttApmHN=4, colgrfPttApmPttName=5, colgrfPttApmDeptR = 6, colgrfPttApmDeptMake=7, colgrfPttApmNote = 8, colgrfPttApmDtrname=9, colgrfPttApmOrder=10, colgrfPttApmDocYear=11, colgrfPttApmDocNo=12, colgrfPttApmPhone=13, colgrfPttApmPaidName=14, colgrfPttApmRemarkCall=15, colgrfPttApmStatusRemarkCall=16, colgrfPttApmRemarkCallDate=17, colgrfPttApmApmDate=18;
         int colgrfRptReportCode = 1, colgrfRptReportName = 2;
         int colgrfRptDatadailydeptDate = 1,colgrfRptDatadailydeptTime = 2, colgrfRptQueno=3,colgrfRptDatadailydeptHn = 4, colgrfRptDatadailydeptName = 5, colgrfRptDatadailydeptMobile = 6, colgrfRptDatadailyDrugSet=7, colgrfRptDatadailyXray = 8, colgrfRptDatadailyAuthen = 9, colgrfRptDatadailyPicKYC = 10, colgrfRptDatadailyPicFoodsdaily = 11;
         int colgrfCustCode=1, colgrfCustName=2;
         int colgrfWardName = 1, colgrfWardRoom = 2, colgrfWardBed = 3, colgrfWardHn = 4, colgrfWardPttName = 5, colgrfWardSymptoms = 6, colgrfWardDays=7, colgrfWardDtrName=8;
+        int colgrfSSOSocialNo=1, colgrfSSOCard=2, colgrfSSOTitle=3, colgrfSSOFirstName=4, colgrfSSOLastName=5, colgrfSSOFullName=6, colgrfSSOPrakan=7, colgrfSSOPrang=8, colgrfSSOStartDate=9, colgrfSSOEndDate=10, colgrfSSOdob=11, colgrfSSOUploadDate=12;
         String rptCode = "", PRENO="", VSDATE="", CHWCODE="", AMPCODE="", TAMBONCODE="", QUENO="", QUEFullname="", QUEHN="", QUESymptoms="", QUEDEPT="";
         Boolean pageLoad = false, findCust=false, findInsur=false, wanttoSave = false, wanttoVisit = false, wantEditVisit = false, haveEditPtt=false, flagTamboxOK = false;
         Image imgCorr, imgTran;
@@ -60,8 +62,8 @@ namespace bangna_hospital.gui
         ImageElement ieOrd;
         TextElement teOrd;
         DataTable dtDeptOPD = null;
-        DataTable dtDeptIPD = null;
-        
+        DataTable dtDeptIPD = null;//cboPttPaid
+
         AutocompleteMenu acmSymptom, acmLine2, acmLine3, acmLine4;
         string[] AUTOSymptom = { "ไข้หวัด", "ล้างแผล", "ล้างแผล(อุบัติเหตุจราจร)"
                 , "นัดติดตามดูอาการ", "นัดติดตามดูอาการ(อุบัติเหตุจราจร)", "นัดแพทย์นิติเวช","นัดทำMammogram","นัดล้างแผล ถูกทำร้ายร้างกาย","นัดยิงเลเซอร์ตา","ซื้อยา","ถอนฟัน","ปัสสาวะขัด","ผื่นที่หน้า","ตาบวม","ตกหลังคา"
@@ -132,7 +134,7 @@ namespace bangna_hospital.gui
             bc.setCboVisitType(cboVsType);                  //ประเภทการตรวจ
             bc.bcDB.pttDB.setCboDeptOPDNew(cboVsDept, "");     //ส่งตัวไป
             //bc.bcDB.finM02DB.setCboPaidName(cboVsPaid, "'"); //รักษาด้วยสิทธิ
-            bc.bcDB.finM02DB.setCboPaidName(cboPttPaid, "'"); //สิทธิประจำตัว
+            //bc.bcDB.finM02DB.setCboPaidName(cboPttPaid, "'"); //สิทธิประจำตัว
             bc.bcDB.finM02DB.setCboPaidName(cboApmPaid, "'"); //สิทธิ
             txtRptDateStart.Value = DateTime.Now;
             txtRptDateEnd.Value = DateTime.Now;
@@ -157,6 +159,7 @@ namespace bangna_hospital.gui
             initGrfToday();
             initGrfApm();
             initGrfWard();
+            initGrfSSO();
 
             chkApmDate.Checked = true;
             txtApmDate.Value = DateTime.Now;
@@ -241,11 +244,6 @@ namespace bangna_hospital.gui
             txtSrcHn.KeyUp += TxtSrcHn_KeyUp;
             btnSrcCardRead.Click += BtnSrcCardRead_Click;
 
-            
-            txtPttCompCode.KeyUp += TxtPttCompCode_KeyUp;
-            txtPttCompCode.Enter += TxtPttCompCode_Enter;
-            txtPttInsur.Enter += TxtPttInsur_Enter;
-
             cboPttPrefixT.DropDownClosed += CboPttPrefixT_DropDownClosed;
             txtPttNameT.KeyUp += TxtPttNameT_KeyUp;
             txtPttSurNameT.KeyUp += TxtPttSurNameT_KeyUp;
@@ -277,7 +275,7 @@ namespace bangna_hospital.gui
             txtPttRefContact1Mobile.KeyUp += TxtPttRefContact1Mobile_KeyUp;
             txtPttRefContact2Name.KeyUp += TxtPttRefContact2Name_KeyUp;
             txtPttRefContact2Mobile.KeyUp += TxtPttRefContact2Mobile_KeyUp;
-            txtPttInsur.KeyUp += TxtPttInsur_KeyUp;
+            
             cboPttNat.DropDownClosed += CboPttNat_DropDownClosed;
             cboPttRel.DropDownClosed += CboPttRel_DropDownClosed;
             cboPttEdu.DropDownClosed += CboPttEdu_DropDownClosed;
@@ -339,8 +337,211 @@ namespace bangna_hospital.gui
             cboApmPaid.DropDownClosed += CboApmPaid_DropDownClosed;
 
             tC.TabClick += TC_TabClick;
+            txtSSOsearch.KeyUp += TxtSSOsearch_KeyUp;
+            txtVsInsur.KeyUp += TxtVsInsur_KeyUp;
+            txtVsComp.KeyUp += TxtVsComp_KeyUp;
+            txtPttCompCode.KeyUp += TxtPttCompCode_KeyUp;
+            txtPttCompCode.Enter += TxtPttCompCode_Enter;
+            txtPttInsur.KeyUp += TxtPttInsur_KeyUp;
+            txtPttInsur.Enter += TxtPttInsur_Enter;
+            
+            txtApmHn.KeyUp += TxtApmHn_KeyUp;
+            txtApmSrc.KeyPress += TxtApmSrc_KeyPress;
+            txtWardSrc.KeyPress += TxtWardSrc_KeyPress;
+            txtPttPaid.KeyUp += TxtPttPaid_KeyUp;
+            lbPttPaid.DoubleClick += LbPttPaid_DoubleClick;
+            lbPttPaid.MouseHover += LbPttPaid_MouseHover;
+            btnApmExcel.Click += BtnApmExcel_Click;
         }
 
+        private void BtnApmExcel_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String filenam = "";
+            filenam = "app_" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd") + ".xls";
+            if (File.Exists(bc.iniC.pathDownloadFile + "\\" + filenam))
+            {
+                lfSbMessage.Text = "พบ File " + filenam + " กรุณาลบ File นี้ก่อน";
+                //return;
+            }
+
+            C1XLBook _book = new C1XLBook();
+
+            _book.Sheets.Remove("Sheet1");
+            XLSheet sheet = _book.Sheets.Add("Sheet1");
+            bc.SaveSheet(grfApm, sheet, _book, false);
+
+            _book.Sheets.SelectedIndex = 0;
+
+            // save the book
+            _book.Save(bc.iniC.pathDownloadFile + "\\" + filenam);
+            System.Diagnostics.Process.Start(bc.iniC.pathDownloadFile + "\\" + filenam);
+        }
+
+        private void LbPttPaid_MouseHover(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            stt.Show("<p> Double Click เพื่อดู สิทธิประจำตัว ทั้งหมด </p>", lbPttPaid, 1000);
+        }
+        private void LbPttPaid_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            int i = 1;
+            C1FlexGrid grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
+            grf.Cols.Count = 4;
+            grf.Cols[1].Width = 40;
+            grf.Cols[2].Width = 320;
+            grf.Cols[3].Width = 320;
+            grf.Cols[1].DataType = typeof(String);
+            grf.Cols[2].DataType = typeof(String);
+            grf.Cols[1].TextAlign = TextAlignEnum.CenterCenter;
+            grf.Cols[2].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[1].AllowEditing = false;
+            grf.Cols[2].AllowEditing = false;
+            grf.Rows[0].Visible = false;
+            grf.DoubleClick += GrfPttPaid_DoubleClick;
+            theme1.SetTheme(grf, "Office2010Blue");
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.finM02DB.SelectAll();
+            grf.Rows.Count = 1; grf.Rows.Count = dt.Rows.Count + 1;
+            if (dt.Rows.Count > 0)
+            {
+                foreach(DataRow drow in dt.Rows)
+                {
+                    Row rowa = grf.Rows[i];
+                    rowa[1] = drow["MNC_FN_TYP_CD"].ToString();
+                    rowa[2] = drow["MNC_FN_TYP_DSC"].ToString();
+                    rowa[0] = i.ToString();
+                    i++;
+                }
+            }
+            Form frm = new Form();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.Size = new Size(700, 400);
+            frm.Controls.Add(grf);
+            frm.ShowDialog();
+        }
+
+        private void GrfPttPaid_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (((C1FlexGrid)sender).Row <= 0) return;
+            txtPttPaid.Value = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, 2].ToString();
+        }
+
+        private void TxtPttPaid_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode== Keys.Enter)
+            {
+                if (int.TryParse(txtPttPaid.Text, out _))//ป้อนเป็น ตัวเลข
+                {
+                    txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName(txtPttPaid.Text.Trim());
+                }
+            }
+        }
+
+        private void TxtWardSrc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            grfWard.ApplySearch(txtWardSrc.Text.Trim(), true, true, false);
+        }
+
+        private void TxtApmSrc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            grfApm.ApplySearch(txtApmSrc.Text.Trim(), true, true, false);
+        }
+
+        private void TxtApmHn_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode== Keys.Enter)
+            {
+                setGrfApm();
+            }
+        }
+
+        private void TxtVsComp_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (int.TryParse(txtVsComp.Text.Trim(), out _))//ป้อนเป็น ตัวเลข
+                {
+                    txtVsComp.Value = bc.bcDB.pm24DB.getPaidName(txtVsComp.Text.Trim());
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void TxtVsInsur_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (int.TryParse(txtVsInsur.Text, out _))//ป้อนเป็น ตัวเลข
+                {
+                    txtVsInsur.Value = bc.bcDB.pm24DB.getPaidName(txtVsInsur.Text.Trim());
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void TxtSSOsearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if ((e.KeyCode == Keys.Enter) || (txtSSOsearch.Text.Length > 4))
+            {
+                setGrfSSO();
+            }
+            else
+            {
+
+            }
+        }
+        private void setGrfSSO()
+        {
+            showLbLoading();
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.prakM01DB.selectSSOBySearch(txtSSOsearch.Text.Trim());
+            int i = 1, j = 1;
+            grfSSO.Rows.Count = 1; grfSSO.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                //pB1.Value++;
+                try
+                {
+                    Row rowa = grfSSO.Rows[i];
+                    rowa[colgrfSSOSocialNo] = row1["SocialID"].ToString();
+                    rowa[colgrfSSOCard] = row1["Social_Card_no"].ToString();
+                    //rowa[colgrfSSOTitle] = row1["mnc_id_no"].ToString();
+                    rowa[colgrfSSOFullName] = row1["FullName"].ToString();
+                    rowa[colgrfSSOStartDate] = row1["StartDate"].ToString();
+                    rowa[colgrfSSOEndDate] = row1["EndDate"].ToString();
+                    rowa[colgrfSSOUploadDate] = row1["UploadDate"].ToString();
+                    rowa[colgrfSrcPttid] = "";
+                    rowa[0] = i.ToString();
+                    i++;
+                }
+                catch (Exception ex)
+                {
+                    lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmReception setGrfSrc " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfSrc ", ex.Message);
+                }
+            }
+            hideLbLoading();
+        }
         private void BtnPrnQue_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -612,6 +813,10 @@ namespace bangna_hospital.gui
                 PRENO = "";
                 setGrfWard();
             }
+            else if (tC.SelectedTab == tabSSO)
+            {
+                txtSSOsearch.Focus();
+            }
         }
         private void TC_TabClick(object sender, EventArgs e)
         {
@@ -804,7 +1009,7 @@ namespace bangna_hospital.gui
             txtVsHN.Value = txtPttHn.Text.Trim();
             lbVsPttNameT.Text = cboPttPrefixT.Text + " " + txtPttNameT.Text.Trim() + " " + txtPttSurNameT.Text.Trim();
             lbVsPttNameE.Text = cboPttPrefixE.Text.Trim() + " " + txtPttNameE.Text.Trim() + " " + txtPttSurNameE.Text.Trim();
-            lbVsPaidNameT.Text = cboPttPaid.SelectedItem != null ? "สิทธิประจำตัว: " + cboPttPaid.Text.Trim():"";
+            lbVsPaidNameT.Text = txtPttPaid.Text.Trim();
             picVsPtt.Image = m_picPhoto.Image != null ? m_picPhoto.Image: null;
             txtVsPttAttchNote.Value = txtPttAttchNote.Text;
             txtVsPttRemark1.Value = txtPttRemark1.Text;
@@ -815,7 +1020,9 @@ namespace bangna_hospital.gui
             //    item = (ComboBoxItem)cboPttPaid.SelectedItem;
 
             //}
-            txtVsPaidCode.Value = cboPttPaid.Text;
+            txtVsPaidCode.Value = txtPttPaid.Text;
+            txtVsComp.Value = txtPttCompCode.Text;
+            txtVsInsur.Value = txtPttInsur.Text;
             setCboVsType();
             setGrfVsPttVisit();
         }
@@ -1100,6 +1307,7 @@ namespace bangna_hospital.gui
                 if (txtVsUser.Text.Length == 0)
                 {
                     wanttoVisit = true;
+                    lfSbStatus.Text = "กรุณาป้อน รหัสผู้ส่งตัว";
                     txtVsUser.Focus();
                     return;
                 }
@@ -1111,7 +1319,7 @@ namespace bangna_hospital.gui
                 }
                 else
                 {
-                    re = bc.bcDB.vsDB.insertVisit1(vs.HN, vs.PaidCode, vs.symptom, vs.DeptCode, vs.remark, vs.DoctorId, vs.VisitType, txtVsUser.Text.Trim());
+                    re = bc.bcDB.vsDB.insertVisit1(vs.HN, vs.PaidCode, vs.symptom, vs.DeptCode, vs.remark, vs.DoctorId, vs.VisitType, vs.compcode, vs.insurcode, txtVsUser.Text.Trim());
                 }
                 
                 err = "04";
@@ -1126,7 +1334,7 @@ namespace bangna_hospital.gui
                     {
                         printQueue();
                     }
-                    lfSbMessage.Text = "ส่ง visit เรียบร้อย";
+                    lfSbMessage.Text = wantEditVisit ? "แก้ไข visit เรียบร้อย" : "ส่ง visit เรียบร้อย";
                     lfSbStatus.Text = "OK";
                     setGrfVsPttVisit();
                     clearControlTabVisit();
@@ -1189,6 +1397,8 @@ namespace bangna_hospital.gui
                 vs.DoctorId = cboVsDtr.SelectedItem == null ? "" : cboVsDtr.SelectedItem == "" ? "" : ((ComboBoxItem)cboVsDtr.SelectedItem).Value;
                 vs.DoctorId = vs.DoctorId.Length == 0 ? "00000" : vs.DoctorId;      //IF CboDotCD.TEXT = '' THEN MNC_DOT_CD:= '00000'
                 vs.VisitNote = txtVsNote.Text.Trim();
+                vs.compcode = bc.bcDB.pm24DB.getPaidCode(txtVsComp.Text.Trim());
+                vs.insurcode = bc.bcDB.pm24DB.getPaidCode(txtVsInsur.Text.Trim());
                 err = "03";
                 //MNC_FIX_DOT_CD := edtDotcd2.TEXT  แพทย์เจ้าของไข้
                 vs.DoctorOwn = "";
@@ -1309,12 +1519,12 @@ namespace bangna_hospital.gui
                 ptt.MNC_REF_TEL = txtPttRefContact1Mobile.Text.Trim();
                 ptt.MNC_REF_REL = txtPttRefContact1Rel.Text.Trim();
                 err = "06";
-                ptt.MNC_COM_CD = txtPttInsur.Text.Trim();
-                ptt.MNC_COM_CD2 = txtPttCompCode.Text.Trim();
+                ptt.MNC_COM_CD = bc.bcDB.pm24DB.getPaidCode(txtPttInsur.Text.Trim());
+                ptt.MNC_COM_CD2 = bc.bcDB.pm24DB.getPaidCode(txtPttCompCode.Text.Trim());
                 ptt.WorkPermit1 = txtPttwp1.Text.Trim();
                 ptt.WorkPermit2 = txtPttwp2.Text.Trim();
                 ptt.WorkPermit3 = txtPttwp3.Text.Trim();
-                ptt.MNC_FN_TYP_CD = cboPttPaid.SelectedItem == null ? "" : ((ComboBoxItem)cboPttPaid.SelectedItem).Value;
+                ptt.MNC_FN_TYP_CD =bc.bcDB.finM02DB.getPaidCode( txtPttPaid.Text.Trim());
                 ptt.MNC_ATT_NOTE = txtPttAttchNote.Text.Trim();
                 ptt.remark1 = txtPttRemark1.Text.Trim();
                 ptt.remark2 = txtPttRemark1.Text.Trim();
@@ -1352,7 +1562,7 @@ namespace bangna_hospital.gui
             //TileFoods[i].Name = "tile" + i;
             //TileFoods[i].Dock = DockStyle.Fill;
             //TileFoods[i].BackColor = tilecolor;     // tile color
-                                                    //pnOrder.Controls.Add(TileFoods);                    
+            //pnOrder.Controls.Add(TileFoods);                    
             TileFoods.ScrollOffset = 0;
             TileFoods.SurfaceContentAlignment = System.Drawing.ContentAlignment.TopLeft;
             TileFoods.Padding = new System.Windows.Forms.Padding(0);
@@ -1535,6 +1745,24 @@ namespace bangna_hospital.gui
                 MessageBox.Show(s);
             }
         }
+        private void checkPttInWard()
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = bc.bcDB.vsDB.selectPttinWard1(txtPttHn.Text.Trim());
+                if(dt.Rows.Count > 0)
+                {
+                    lbPttinWard.Text = "คนไข้นอนอยู่ "+dt.Rows[0]["MNC_MD_DEP_DSC"].ToString()+" admit วันที่ "+ dt.Rows[0]["MNC_AD_DATE"].ToString();//MNC_AD_DATE
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmReception checkPaidSSO " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "checkPaidSSO ", ex.Message);
+                lfSbMessage.Text = ex.Message;
+            }
+        }
         private void checkPaidSSO(String pid)
         {
             try
@@ -1544,8 +1772,22 @@ namespace bangna_hospital.gui
                 pkunM01 = bc.bcDB.prakM01DB.selectByPID(pid);
                 if(pkunM01.Social_Card_no.Equals(""))
                 {
-                    pkunM01 = bc.bcDB.prakM01DB.selectOne();
-                    lbFindPaidSSO.Text = "ไม่พบ สิทธิ จาก database HIS->" + pkunM01.UploadDate;
+                    pkunM01 = bc.bcDB.prakM01DB.selectByCardNo(pid);
+                    if (pkunM01.Social_Card_no.Equals(""))
+                    {
+                        pkunM01 = bc.bcDB.prakM01DB.selectOne();
+                        lbFindPaidSSO.Text = "ไม่พบ สิทธิ จาก database HIS->" + pkunM01.UploadDate;
+                    }
+                    else
+                    {
+                        String txt = pkunM01.PrakanCode.Equals("2210028") ? "สิทธิ บางนา 1" : pkunM01.PrakanCode.Equals("2211006") ? "สิทธิ บางนา 2" : pkunM01.PrakanCode.Equals("2211041") ? "สิทธิ บางนา 5" : "สิทธิ  ที่อื่น";
+                        lbFindPaidSSO.Text = "พบ " + txt + " เริ่ม[" + pkunM01.StartDate + "] สิ้นสุด[" + pkunM01.EndDate + "] จาก database HIS->" + pkunM01.UploadDate;
+
+                        if (pkunM01.PrakanCode.Equals("2211041")) txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName("46");
+                        else if (pkunM01.PrakanCode.Equals("2211006")) txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName("45");
+                        else if (pkunM01.PrakanCode.Equals("2210028")) txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName("44");
+                    }
+                        
                 }
                 else
                 {
@@ -1553,9 +1795,9 @@ namespace bangna_hospital.gui
                     String txt = pkunM01.PrakanCode.Equals("2210028") ? "สิทธิ บางนา 1" : pkunM01.PrakanCode.Equals("2211006") ? "สิทธิ บางนา 2" : pkunM01.PrakanCode.Equals("2211041") ? "สิทธิ บางนา 5" : "สิทธิ  ที่อื่น";
                     lbFindPaidSSO.Text = "พบ "+txt + " เริ่ม["+ pkunM01.StartDate+"] สิ้นสุด["+ pkunM01.EndDate+"] จาก database HIS->"+ pkunM01.UploadDate;
 
-                    if (pkunM01.PrakanCode.Equals("2211041")) bc.setC1Combo(cboPttPaid, "46");
-                    else if (pkunM01.PrakanCode.Equals("2211006")) bc.setC1Combo(cboPttPaid, "45");
-                    else if (pkunM01.PrakanCode.Equals("2210028")) bc.setC1Combo(cboPttPaid, "44");
+                    if (pkunM01.PrakanCode.Equals("2211041")) txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName("46");
+                    else if (pkunM01.PrakanCode.Equals("2211006")) txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName("45");
+                    else if (pkunM01.PrakanCode.Equals("2210028")) txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName("44");
                     
                     //cboPttPaid.SelectedItem = item;
                 }
@@ -1588,6 +1830,8 @@ namespace bangna_hospital.gui
             try
             {
                 showLbLoading();
+                lbPttinWard.Text = "";
+                lbFindPaidSSO.Text = "";
                 QUENO = "";
                 txtPttHn.Value = ptt.MNC_HN_NO;
                 setLbLoading("patient 01");
@@ -1619,10 +1863,10 @@ namespace bangna_hospital.gui
                 txtPttwp2.Value = ptt.WorkPermit2;
                 txtPttwp3.Value = ptt.WorkPermit3;
                 txtPttAttchNote.Value = ptt.MNC_ATT_NOTE;
-                txtPttCompCode.Value = ptt.MNC_COM_CD;
-                txtPttInsur.Value = ptt.MNC_COM_CD2;
-                lbPttCompNameT.Text = ptt.comNameT;
-                lbPttInsurNameT.Text = ptt.insurNameT;
+                //txtPttCompCode.Value = ptt.MNC_COM_CD;
+                //txtPttInsur.Value = ptt.MNC_COM_CD2;
+                txtPttCompCode.Value = ptt.comNameT;
+                txtPttInsur.Text = ptt.insurNameT;
                 txtPttRefContact1Mobile.Value = ptt.MNC_REF_TEL;
                 txtPttMobile1.Value = ptt.MNC_CUR_TEL;
                 txtPttwp1.Value = ptt.WorkPermit1;
@@ -1631,7 +1875,7 @@ namespace bangna_hospital.gui
                 txtPttRemark1.Value = ptt.remark1;
                 txtPttRemark2.Value = ptt.remark2;
                 txtPttAttchNote.Value = ptt.MNC_ATT_NOTE;
-                bc.setC1Combo(cboPttPaid, ptt.MNC_FN_TYP_CD);
+                txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName(ptt.MNC_FN_TYP_CD);
 
                 txtPttCurHomeNo.Value = ptt.MNC_CUR_ADD;
                 txtPttCurMoo.Value = ptt.MNC_CUR_MOO;
@@ -1652,6 +1896,8 @@ namespace bangna_hospital.gui
                 txtPttRefChw.Value = bc.bcDB.pm07DB.getChwName(ptt.MNC_REF_CHW);
                 txtPttRefContact1Mobile.Value = ptt.MNC_REF_TEL;
                 txtPttRefContact1Rel.Value = ptt.MNC_REF_REL;
+                txtPttRefContact2Name.Value = "";
+                txtPttRefContact1Name.Value = "";
                 setLbLoading("patient 03");
                 err = "04";
                 setGrfPttVs();
@@ -1659,6 +1905,7 @@ namespace bangna_hospital.gui
                 setGrfPttApm();
                 err = "06";
                 checkPaidSSO(ptt.MNC_ID_NO);
+                checkPttInWard();
             }
             catch(Exception ex)
             {
@@ -1981,6 +2228,10 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 //cboPttNat.Focus();
+                if (int.TryParse(txtPttInsur.Text.Trim(), out _))//ป้อนเป็น ตัวเลข
+                {
+                    txtPttInsur.Value = bc.bcDB.pm24DB.getPaidName(txtPttInsur.Text.Trim());
+                }
                 txtPttAttchNote.SelectAll();
                 txtPttAttchNote.Focus();
             }
@@ -1988,7 +2239,7 @@ namespace bangna_hospital.gui
             {
                 findCust = false;
                 findInsur = true;
-                setGrfCust(txtPttInsur.Text.Trim());
+                //setGrfCust(txtPttInsur.Text.Trim());
             }
             else
             {
@@ -2567,6 +2818,10 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
+                if (int.TryParse(txtPttCompCode.Text.Trim(), out _))//ป้อนเป็น ตัวเลข
+                {
+                    txtPttCompCode.Value = bc.bcDB.pm24DB.getPaidName(txtPttCompCode.Text.Trim());
+                }
                 txtPttInsur.SelectAll();
                 txtPttInsur.Focus();
             }
@@ -2574,7 +2829,7 @@ namespace bangna_hospital.gui
             {
                 findCust = true;
                 findInsur = false;
-                setGrfCust(txtPttCompCode.Text.Trim());
+                //setGrfCust(txtPttCompCode.Text.Trim());
             }
             else
             {
@@ -2604,13 +2859,17 @@ namespace bangna_hospital.gui
                 if (grfSrc == null) return;
                 if (grfSrc.Row <= 0) return;
                 if (grfSrc.Col <= 0) return;
-                setControlPatientByGrf(grfSrc.Row);
+                //setControlPatientByGrf(grfSrc.Row);  //comment เพราะถ้า search ไม่เจอ น่าจะ ค้าง แสดงว่า เจออะไร หรือไม่พบ เพราะ ตอน key key ไป8ตัวอักษร เจอของคนอื่น แล้วเอามาแสดง ในcase ที่ค้นไม่เจอ
             }
         }
         private void BtnSrcNew_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            setControlPatientNew();
 
+        }
+        private void setControlPatientNew()
+        {
             clearControl();
             tC.SelectedTab = tabPtt;
             txtPttPID.SelectAll();
@@ -2731,7 +2990,7 @@ namespace bangna_hospital.gui
                 txtPttRefContact1Rel.Value = "";
                 txtPttRefContact2Rel.Value = "";
                 txtPttCompCode.Value = "";
-                lbPttCompNameT.Text = "";
+                //lbPttCompNameT.Text = "";
                 cboPttNat.SelectedIndex = 0;
                 cboPttRace.SelectedIndex = 0;   //เชื้อชาติ
                 cboPttEdu.SelectedIndex = 0;
@@ -2751,7 +3010,7 @@ namespace bangna_hospital.gui
                 txtPttwp2.Value = "";
                 txtPttwp3.Value = "";
                 txtPttInsur.Value = "";
-                lbPttInsurNameT.Text = "";
+                //lbPttInsurNameT.Text = "";
                 m_picPhoto.Image = null;
 
                 txtVsHN.Value = "";
@@ -2778,6 +3037,7 @@ namespace bangna_hospital.gui
                 txtVsPttRemark2.Value = "";
                 lbVsPaidNameT.Text = "...";
                 lbVsStatus.Text = "";
+                lbPttinWard.Text = "";
                 clearTxtUser();
             }
             catch(Exception ex)
@@ -2807,8 +3067,98 @@ namespace bangna_hospital.gui
             txtVsPttRemark2.Value = "";
             lbVsPaidNameT.Text = "...";
             lbVsStatus.Text = "";
+            txtVsInsur.Value = "";
+            txtVsComp.Value = "";
             
             clearTxtUser();
+        }
+        private void initGrfSSO()
+        {
+            grfSSO = new C1FlexGrid();
+            grfSSO.Font = fEdit;
+            grfSSO.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfSSO.Location = new System.Drawing.Point(0, 0);
+            grfSSO.Rows.Count = 1;
+            grfSSO.Cols.Count = 14;
+
+            grfSSO.Cols[colgrfSSOSocialNo].Width = 130;
+            grfSSO.Cols[colgrfSSOCard].Width = 100;
+            grfSSO.Cols[colgrfSSOTitle].Width = 80;
+            grfSSO.Cols[colgrfSSOFirstName].Width = 200;
+            grfSSO.Cols[colgrfSSOLastName].Width = 200;
+            grfSSO.Cols[colgrfSSOFullName].Width = 200;
+            grfSSO.Cols[colgrfSSOPrakan].Width = 80;
+            grfSSO.Cols[colgrfSSOPrang].Width = 50;
+            grfSSO.Cols[colgrfSSOStartDate].Width = 100;
+            grfSSO.Cols[colgrfSSOEndDate].Width = 100;
+            grfSSO.Cols[colgrfSSOdob].Width = 100;
+            grfSSO.Cols[colgrfSSOUploadDate].Width = 100;
+
+            grfSSO.ShowCursor = true;
+            grfSSO.Cols[colgrfSSOSocialNo].Caption = "ID";
+            grfSSO.Cols[colgrfSSOCard].Caption = "card";
+            grfSSO.Cols[colgrfSSOTitle].Caption = "Title";
+            grfSSO.Cols[colgrfSSOFirstName].Caption = "Firstname";
+            grfSSO.Cols[colgrfSSOLastName].Caption = "Lastname";
+            grfSSO.Cols[colgrfSSOFullName].Caption = "Fullname";
+            grfSSO.Cols[colgrfSSOPrakan].Caption = "prakan";
+            grfSSO.Cols[colgrfSSOPrang].Caption = "prang";
+            grfSSO.Cols[colgrfSSOStartDate].Caption = "startdate";
+            grfSSO.Cols[colgrfSSOEndDate].Caption = "endate";
+            grfSSO.Cols[colgrfSSOdob].Caption = "DOB";
+            grfSSO.Cols[colgrfSSOUploadDate].Caption = "uploaddate";
+
+            grfSSO.Cols[colgrfSSOSocialNo].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOCard].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOTitle].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOFirstName].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOLastName].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOFullName].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOPrakan].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOPrang].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOStartDate].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOEndDate].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOdob].DataType = typeof(String);
+            grfSSO.Cols[colgrfSSOUploadDate].DataType = typeof(String);
+
+            grfSSO.Cols[colgrfSSOSocialNo].TextAlign = TextAlignEnum.LeftCenter;
+            grfSSO.Cols[colgrfSSOCard].TextAlign = TextAlignEnum.LeftCenter;
+            grfSSO.Cols[colgrfSSOTitle].TextAlign = TextAlignEnum.LeftCenter;
+            grfSSO.Cols[colgrfSSOFirstName].TextAlign = TextAlignEnum.LeftCenter;
+            grfSSO.Cols[colgrfSSOLastName].TextAlign = TextAlignEnum.LeftCenter;
+            grfSSO.Cols[colgrfSSOFullName].TextAlign = TextAlignEnum.LeftCenter;
+            grfSSO.Cols[colgrfSSOPrakan].TextAlign = TextAlignEnum.CenterCenter;
+            grfSSO.Cols[colgrfSSOPrang].TextAlign = TextAlignEnum.CenterCenter;
+            grfSSO.Cols[colgrfSSOStartDate].TextAlign = TextAlignEnum.CenterCenter;
+            grfSSO.Cols[colgrfSSOEndDate].TextAlign = TextAlignEnum.CenterCenter;
+            grfSSO.Cols[colgrfSSOdob].TextAlign = TextAlignEnum.CenterCenter;
+            grfSSO.Cols[colgrfSSOUploadDate].TextAlign = TextAlignEnum.CenterCenter;
+
+            grfSSO.Cols[colgrfSSOdob].Visible = false;
+            grfSSO.Cols[colgrfSSOPrang].Visible = false;
+            grfSSO.Cols[colgrfSSOPrakan].Visible = false;
+            grfSSO.Cols[colgrfSSOLastName].Visible = false;
+            grfSSO.Cols[colgrfSSOFirstName].Visible = false;
+            grfSSO.Cols[colgrfSSOTitle].Visible = false;
+
+            grfSSO.Cols[colgrfSSOSocialNo].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOCard].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOTitle].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOFirstName].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOLastName].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOFullName].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOPrakan].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOPrang].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOStartDate].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOEndDate].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOdob].AllowEditing = false;
+            grfSSO.Cols[colgrfSSOUploadDate].AllowEditing = false;
+
+            //grfApm.Cols[colgrfPttApmStatusRemarkCall].AllowFiltering = AllowFiltering.ByValue;
+            grfSSO.AllowFiltering = true;
+
+            pnSSO.Controls.Add(grfSSO);
+            theme1.SetTheme(grfSSO, "Office2010Blue");
         }
         private void initGrfWard()
         {
@@ -2869,10 +3219,23 @@ namespace bangna_hospital.gui
 
             //grfApm.Cols[colgrfPttApmStatusRemarkCall].AllowFiltering = AllowFiltering.ByValue;
             grfWard.AllowFiltering = true;
-
+            grfWard.KeyDown += GrfWard_KeyDown;
             pnWard.Controls.Add(grfWard);
             theme1.SetTheme(grfWard, "Office2010Blue");
         }
+
+        private void GrfWard_KeyDown(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (((C1FlexGrid)sender).Row <= 0) return;
+            if (((C1FlexGrid)sender).Col <= 0) return;
+            if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
+            {
+                String txt = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, ((C1FlexGrid)sender).Col].ToString();
+                Clipboard.SetText(txt);
+            }
+        }
+
         private void setGrfWard()
         {
             DataTable dtvs = new DataTable();
@@ -2899,75 +3262,40 @@ namespace bangna_hospital.gui
         }
         private void initGrfCust()
         {
-            grfCust = new C1FlexGrid();
-            grfCust.Font = fEdit;
-            grfCust.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfCust.Location = new System.Drawing.Point(0, 0);
-            grfCust.Rows.Count = 1;
-            grfCust.Cols.Count = 3;
+            //grfCust = new C1FlexGrid();
+            //grfCust.Font = fEdit;
+            //grfCust.Dock = System.Windows.Forms.DockStyle.Fill;
+            //grfCust.Location = new System.Drawing.Point(0, 0);
+            //grfCust.Rows.Count = 1;
+            //grfCust.Cols.Count = 3;
 
-            grfCust.Cols[colgrfCustCode].Width = 100;
-            grfCust.Cols[colgrfCustName].Width = 300;
-            grfCust.ShowCursor = true;
-            grfCust.Cols[colgrfCustCode].Caption = "code1";
-            grfCust.Cols[colgrfCustName].Caption = "name1";
+            //grfCust.Cols[colgrfCustCode].Width = 100;
+            //grfCust.Cols[colgrfCustName].Width = 300;
+            //grfCust.ShowCursor = true;
+            //grfCust.Cols[colgrfCustCode].Caption = "code1";
+            //grfCust.Cols[colgrfCustName].Caption = "name1";
 
-            grfCust.Cols[colgrfCustCode].Visible = false;
-            grfCust.Cols[colgrfCustName].Visible = true;
-            grfCust.Rows[0].Visible = false;
+            //grfCust.Cols[colgrfCustCode].Visible = false;
+            //grfCust.Cols[colgrfCustName].Visible = true;
+            //grfCust.Rows[0].Visible = false;
 
-            grfCust.Cols[colgrfCustName].AllowEditing = false;
-            grfCust.Click += GrfCust_Click;
-            //grfPttComp.AllowFiltering = true;            
-            //grfSrc.AutoSizeCols();
-            //FilterRow fr = new FilterRow(grfExpn);
+            //grfCust.Cols[colgrfCustName].AllowEditing = false;
+            //grfCust.Click += GrfCust_Click;
+            ////grfPttComp.AllowFiltering = true;            
+            ////grfSrc.AutoSizeCols();
+            ////FilterRow fr = new FilterRow(grfExpn);
 
-            //grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
-            //grfVs.row
-            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
-            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+            ////grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
+            ////grfVs.row
+            ////grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            ////grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
 
-            //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
-            //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
-            //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
+            ////menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
+            ////menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
+            ////menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
 
-            pnPttComp.Controls.Add(grfCust);
-            theme1.SetTheme(grfCust, bc.iniC.themeApp);
-        }
-
-        private void GrfCust_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            if(grfCust==null) { return; }
-            if(grfCust.Row<=0) { return; }
-            if(grfCust.Col<=0) { return; }
-            if (findCust)
-            {
-                txtPttCompCode.Value = grfCust[grfCust.Row, colgrfCustCode].ToString();
-                lbPttCompNameT.Text = grfCust[grfCust.Row, colgrfCustName].ToString();
-            }
-            else if (findInsur)
-            {
-                txtPttInsur.Value = grfCust[grfCust.Row, colgrfCustCode].ToString();
-                lbPttInsurNameT.Text = grfCust[grfCust.Row, colgrfCustName].ToString();
-            }
-        }
-
-        private void setGrfCust(String src)
-        {
-            DataTable dtvs = new DataTable();
-            dtvs = bc.bcDB.pm24DB.selectCustByName(src);
-            grfCust.Rows.Count = 1;
-            grfCust.Rows.Count = dtvs.Rows.Count + 1;
-            int i = 1, j = 1, row = grfCust.Rows.Count;
-            foreach (DataRow row1 in dtvs.Rows)
-            {
-                Row rowa = grfCust.Rows[i];
-                rowa[colgrfCustCode] = row1["MNC_COM_CD"].ToString();
-                rowa[colgrfCustName] = row1["MNC_COM_DSC"].ToString();
-                rowa[0] = i.ToString();
-                i++;
-            }
+            //pnPttComp.Controls.Add(grfCust);
+            //theme1.SetTheme(grfCust, bc.iniC.themeApp);
         }
         private void initGrfVsPttVisit()
         {
@@ -2976,8 +3304,8 @@ namespace bangna_hospital.gui
             grfVsPttVisit.Dock = System.Windows.Forms.DockStyle.Fill;
             grfVsPttVisit.Location = new System.Drawing.Point(0, 0);
             grfVsPttVisit.Rows.Count = 1;
-            grfVsPttVisit.Cols.Count = 23;
-
+            grfVsPttVisit.Cols.Count = 26;
+            
             grfVsPttVisit.Cols[colgrfPttVsVsDateShow].Width = 100;
             grfVsPttVisit.Cols[colgrfPttVsVsTime].Width = 60;
             grfVsPttVisit.Cols[colgrfPttVsHn].Width = 100;
@@ -3013,6 +3341,8 @@ namespace bangna_hospital.gui
 
             grfVsPttVisit.Cols[colgrfPttVsVsDateShow].Visible = true;
             grfVsPttVisit.Cols[colgrfPttVsVsTime].Visible = false;
+            grfVsPttVisit.Cols[colgrfPttVsDiscDateShow].Visible = false;
+            grfVsPttVisit.Cols[colgrfPttVsDiscTime].Visible = false;
             grfVsPttVisit.Cols[colgrfPttVsHn].Visible = false;
             grfVsPttVisit.Cols[colgrfPttVsPreno].Visible = false;
             grfVsPttVisit.Cols[colgrfPttVsDept].Visible = true;
@@ -3072,14 +3402,14 @@ namespace bangna_hospital.gui
             String hn = "";
             wantEditVisit = true;
             hn = grfVsPttVisit[grfVsPttVisit.Row, colgrfPttVsHn].ToString();
-            VSDATE = bc.datetoDB(grfVsPttVisit[grfVsPttVisit.Row, colgrfPttVsVsDateShow].ToString());
+            VSDATE = bc.datetoDB(grfVsPttVisit[grfVsPttVisit.Row, colgrfPttVsVsDate1].ToString());
             PRENO = grfVsPttVisit[grfVsPttVisit.Row, colgrfPttVsPreno].ToString();
             setControlTabVs(hn, VSDATE, PRENO);
             btnVsSave.Text = "แก้ไข visit";
         }
-
         private void setGrfVsPttVisit()
         {
+            if (txtPttHn.Text.Length <= 0) return;
             DateTime datestart = DateTime.Now;
             
             DataTable dtvs = new DataTable();
@@ -3113,7 +3443,7 @@ namespace bangna_hospital.gui
             grfToday.Dock = System.Windows.Forms.DockStyle.Fill;
             grfToday.Location = new System.Drawing.Point(0, 0);
             grfToday.Rows.Count = 1;
-            grfToday.Cols.Count = 23;
+            grfToday.Cols.Count = 26;
 
             grfToday.Cols[colgrfPttVsVsDateShow].Width = 100;
             grfToday.Cols[colgrfPttVsVsTime].Width = 60;
@@ -3188,6 +3518,8 @@ namespace bangna_hospital.gui
             grfToday.Cols[colgrfPttVsActno610].TextAlign = TextAlignEnum.CenterCenter;
 
             grfToday.Cols[colgrfPttVsVsDateShow].Visible = true;
+            grfToday.Cols[colgrfPttVsDiscDateShow].Visible = false;
+            grfToday.Cols[colgrfPttVsDiscTime].Visible = false;
             grfToday.Cols[colgrfPttVsHn].Visible = true;
             grfToday.Cols[colgrfPttVsPreno].Visible = false;
             grfToday.Cols[colgrfPttVsDept].Visible = true;
@@ -3381,16 +3713,16 @@ namespace bangna_hospital.gui
             grfApm.Cols[colgrfPttApmStatusRemarkCall].AllowEditing = false;
             grfApm.Cols[colgrfPttApmRemarkCallDate].AllowEditing = false;
             grfApm.Cols[colgrfPttApmDeptMake].AllowEditing = false;
+            grfApm.Cols[colgrfPttApmPttName].AllowEditing = false;
 
             //grfApm.Cols[colgrfPttApmStatusRemarkCall].AllowFiltering = AllowFiltering.ByValue;
             grfApm.AllowFiltering = true;
             grfApm.DoubleClick += GrfApm_DoubleClick;
             grfApm.KeyDown += GrfApm_KeyDown;
-
+            
             pnApm.Controls.Add(grfApm);
             theme1.SetTheme(grfApm, bc.iniC.themeApp);
         }
-
         private void GrfApm_KeyDown(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3455,7 +3787,7 @@ namespace bangna_hospital.gui
             grfPttApm.Cols[colgrfPttApmDocYear].Visible = false;
             grfPttApm.Cols[colgrfPttApmVsDate].Visible = false;
             grfPttApm.Cols[colgrfPttApmHN].Visible = false;
-            grfPttApm.Cols[colgrfPttApmPttName].Visible = false;
+            grfPttApm.Cols[colgrfPttApmPttName].Visible = true;
             grfPttApm.Cols[colgrfPttApmApmDate].Visible = false;
 
             grfPttApm.Cols[colgrfPttApmDocNo].Visible = false;
@@ -3496,10 +3828,12 @@ namespace bangna_hospital.gui
             grfPttVs.Dock = System.Windows.Forms.DockStyle.Fill;
             grfPttVs.Location = new System.Drawing.Point(0, 0);
             grfPttVs.Rows.Count = 1;
-            grfPttVs.Cols.Count = 24;
+            grfPttVs.Cols.Count = 26;
             
             grfPttVs.Cols[colgrfPttVsVsDateShow].Width = 90;
             grfPttVs.Cols[colgrfPttVsVsTime].Width = 50;
+            grfPttVs.Cols[colgrfPttVsDiscDateShow].Width = 90;
+            grfPttVs.Cols[colgrfPttVsDiscTime].Width = 50;
             grfPttVs.Cols[colgrfPttVsHn].Width = 100;
             grfPttVs.Cols[colgrfPttVsFullNameT].Width = 250;
             grfPttVs.Cols[colgrfPttVsPreno].Width = 150;
@@ -3510,8 +3844,10 @@ namespace bangna_hospital.gui
             grfPttVs.Cols[colgrfPttVsActno].Width = 80;
             grfPttVs.Cols[colgrfPttVsRemark].Width = 300;
             grfPttVs.ShowCursor = true;
-            grfPttVs.Cols[colgrfPttVsVsDateShow].Caption = "date";
-            grfPttVs.Cols[colgrfPttVsVsTime].Caption = "time";
+            grfPttVs.Cols[colgrfPttVsVsDateShow].Caption = "date(เข้า)";
+            grfPttVs.Cols[colgrfPttVsVsTime].Caption = "time(เข้า)";
+            grfPttVs.Cols[colgrfPttVsDiscDateShow].Caption = "date(ออก)";
+            grfPttVs.Cols[colgrfPttVsDiscTime].Caption = "time(ออก)";
             grfPttVs.Cols[colgrfPttVsHn].Caption = "hn";
             grfPttVs.Cols[colgrfPttVsFullNameT].Caption = "ชื่อ-นามสกุล";
             grfPttVs.Cols[colgrfPttVsPreno].Caption = "preno";
@@ -3564,6 +3900,8 @@ namespace bangna_hospital.gui
             grfPttVs.Cols[colgrfPttVsActno].AllowEditing = false;
             grfPttVs.Cols[colgrfPttVsPaid].AllowEditing = false;
             grfPttVs.Cols[colgrfPttVsRemark].AllowEditing = false;
+            grfPttVs.Cols[colgrfPttVsDiscDateShow].AllowEditing = false;
+            grfPttVs.Cols[colgrfPttVsDiscTime].AllowEditing = false;
             //FilterRow fr = new FilterRow(grfExpn);
 
             ContextMenu menuGw = new ContextMenu();
@@ -3612,7 +3950,7 @@ namespace bangna_hospital.gui
             String remark = grfPttVs[grfPttVs.Row, colgrfPttVsRemark].ToString();
             String padname = grfPttVs[grfPttVs.Row, colgrfPttVsPaid].ToString();
             String vn = grfPttVs[grfPttVs.Row, colgrfPttVsAN].ToString();
-            FrmReceptionStatusVisit frm = new FrmReceptionStatusVisit(bc, "visit", hn, name, preno, bc.datetoDB(vsdate), symptoms.Replace("\r\n",""), lbPttCompNameT.Text, lbPttInsurNameT.Text, remark, padname,vn);
+            FrmReceptionStatusVisit frm = new FrmReceptionStatusVisit(bc, "visit", hn, name, preno, bc.datetoDB(vsdate), symptoms.Replace("\r\n",""), txtPttCompCode.Text, txtPttInsur.Text, remark, padname,vn);
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.ShowDialog(this);
             setGrfPttVs();
@@ -3639,6 +3977,8 @@ namespace bangna_hospital.gui
                 rowa[colgrfPttVsRemark] = row1["MNC_REF_DSC"].ToString();
                 rowa[colgrfPttVsVsTime] = bc.showTime(row1["MNC_TIME"].ToString());
                 rowa[colgrfPttVsVsDate1] = row1["mnc_date"].ToString();
+                rowa[colgrfPttVsDiscDateShow] = bc.datetoShowShort(row1["MNC_DS_DATE"].ToString());
+                rowa[colgrfPttVsDiscTime] = bc.showTime(row1["MNC_DS_TIME"].ToString());
                 rowa[colgrfPttVsLimitCreditNo] = row1["limit_credit_no"].ToString();
                 if (!row1["MNC_AN_NO"].ToString().Equals("0")) {rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);}
                 if (row1["limit_credit_no"].ToString().Length > 0)
@@ -3671,6 +4011,8 @@ namespace bangna_hospital.gui
                 txtVsHN.Value = dt.Rows[0]["MNC_HN_NO"].ToString();
                 txtVsSymptom.Value = dt.Rows[0]["MNC_SHIF_MEMO"].ToString();
                 lbVsStatus.Text = "VN "+ dt.Rows[0]["MNC_VN_NO"].ToString()+"."+ dt.Rows[0]["MNC_VN_SEQ"].ToString() + "." + dt.Rows[0]["MNC_VN_SUM"].ToString() + bc.adjustACTNO(dt.Rows[0]["MNC_ACT_NO"].ToString());
+                txtVsComp.Value = txtPttCompCode.Text;
+                txtVsInsur.Value = txtPttInsur.Text;
                 clearTxtUser();
             }
         }
@@ -3846,6 +4188,8 @@ namespace bangna_hospital.gui
             wanttoSave = false;
             lfSbStatus.Text = "";
             lfSbMessage.Text = "";
+            lbPttinWard.Text = "";
+            lbFindPaidSSO.Text = "";
             QUENO = "";
             try
             {
@@ -3866,7 +4210,7 @@ namespace bangna_hospital.gui
                 txtPttSsn.Value = ptt.MNC_SS_NO;
                 txtPttPassport.Value = ptt.passport;
                 txtPttMobile1.Value = ptt.MNC_CUR_TEL;
-                txtPttEmail.Value = ptt.MNC_DOM_TEL;
+                txtPttEmail.Value = "";
                 txtPttAge.Value = ptt.AgeStringShort1();
 
                 txtDocHn.Value = ptt.MNC_HN_NO;
@@ -3908,11 +4252,12 @@ namespace bangna_hospital.gui
                 txtPttRefContact1Mobile.Value = ptt.MNC_REF_TEL;
                 txtPttRefContact1Rel.Value = ptt.MNC_REF_REL;
 
-                txtPttCompCode.Value = ptt.MNC_COM_CD2;
-                txtPttInsur.Value = ptt.MNC_COM_CD;
-                lbPttCompNameT.Text = ptt.comNameT;
-                lbPttInsurNameT.Text = ptt.insurNameT;
+                txtPttCompCode.Value = bc.bcDB.pm24DB.getPaidName(ptt.MNC_COM_CD2);
+                txtPttInsur.Value = bc.bcDB.pm24DB.getPaidName(ptt.MNC_COM_CD);
+                //lbPttCompNameT.Text = ptt.comNameT;
+                //lbPttInsurNameT.Text = ptt.insurNameT;
                 txtPttRefContact1Name.Value = ptt.MNC_REF_NAME;
+                txtPttRefContact2Name.Value = "";
                 txtPttwp1.Value = ptt.WorkPermit1;
                 txtPttwp2.Value = ptt.WorkPermit2;
                 txtPttwp3.Value = ptt.WorkPermit3;
@@ -3923,7 +4268,7 @@ namespace bangna_hospital.gui
                 //bc.bcDB.pm09DB.setCboProvByProvCode(cboPttIDProv, code, code);
                 setLbLoading("patient tab03");
                 txtPttAttchNote.Value = ptt.MNC_ATT_NOTE;
-                bc.setC1Combo(cboPttPaid, ptt.MNC_FN_TYP_CD);
+                txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName(ptt.MNC_FN_TYP_CD);
                 setLbLoading("patient tab04");
                 setPttnameTabVs("");
                 setLbLoading("patient tab05");
@@ -3941,6 +4286,7 @@ namespace bangna_hospital.gui
             setGrfPttApm();
             setLbLoading("patient tab08");
             checkPaidSSO(ptt.MNC_ID_NO);
+            checkPttInWard();
             setLbLoading("patient tab09");
             hideLbLoading();
         }
@@ -3996,7 +4342,7 @@ namespace bangna_hospital.gui
             }
             else if (chkApmHn.Checked)
             {
-                dtvs = bc.bcDB.pt07DB.selectByHnAll(txtApmHn.Text.Trim(),"");
+                dtvs = bc.bcDB.pt07DB.selectByHnAll(txtApmHn.Text.Trim(),"desc");
             }
             grfApm.Rows.Count = 1; grfApm.Rows.Count = dtvs.Rows.Count + 1;
             int i = 1, j = 1;
@@ -4031,6 +4377,7 @@ namespace bangna_hospital.gui
                 rowa[0] = i.ToString();
                 i++;
             }
+            lfSbMessage.Text = "พบ " + dtvs.Rows.Count+"รายการ";
         }
         private void setGrfPttApm()
         {
@@ -4156,7 +4503,7 @@ namespace bangna_hospital.gui
             txtPttRefContact2Mobile.TabIndex = 40;
             txtPttRefContact1Rel.TabIndex = 41;
             txtPttRefContact2Rel.TabIndex=42;
-            cboPttPaid.TabIndex = 43;
+            txtPttPaid.TabIndex = 43;
             txtPttCompCode.TabIndex = 44;
             txtPttInsur.TabIndex = 45;
             cboPttNat.TabIndex = 46;
@@ -4252,9 +4599,53 @@ namespace bangna_hospital.gui
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "Document_PrintPageQue", ex.Message);
             }
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // ...
+            if (keyData == (Keys.Escape))
+            {
+                //appExit();
+                if (MessageBox.Show("ต้องการออกจากโปรแกรม1", "ออกจากโปรแกรม", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
+                {
+                    
+                    Close();
+                    return true;
+                }
+            }
+            else if (keyData == (Keys.F1))
+            {//ค้นหา
+                tC.SelectedTab = tabSrc;
+            }
+            else if (keyData == (Keys.F3))
+            {//คนไข้ใหม่
+                tC.SelectedTab = tabPtt;
+                setControlPatientNew();
+            }
+            else if (keyData == (Keys.F7))
+            {//ดูนัด
+                tC.SelectedTab = tabApm;
+            }
+            else if (keyData == (Keys.F8))
+            {//ส่งตัว ออกvisit
+                tC.SelectedTab = tabVs;
+            }
+            else
+            {
+                switch (keyData)
+                {
+                    case Keys.K | Keys.Control:
+                        
+                        return true;
+                    case Keys.X | Keys.Control:
+                        
+                        return true;
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-02-05-4";
+            lfSbLastUpdate.Text = "Update 2567-02-09";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -4266,10 +4657,12 @@ namespace bangna_hospital.gui
             CboTheme_SelectedIndexChanged(null, null);
             sCPtt.HeaderHeight = 0;
             scVs.HeaderHeight = 0;
+            spSSO.HeaderHeight = 0;
             txtSrcHn.Focus();
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             rbSbPb.Visible = false;
             //groupBox5.Top = this.Height - groupBox5.Height;
+
             AutoCompleteStringCollection autoTambon = new AutoCompleteStringCollection();
             autoTambon = bc.bcDB.pm07DB.setAutoCompTumbonName_getlTambonAll();
             txtPttIdSearchTambon.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
@@ -4287,6 +4680,28 @@ namespace bangna_hospital.gui
             txtVsPaidCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtVsPaidCode.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtVsPaidCode.AutoCompleteCustomSource = autoPaid;
+            txtPttPaid.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtPttPaid.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtPttPaid.AutoCompleteCustomSource = autoPaid;
+
+            AutoCompleteStringCollection autoInsur = new AutoCompleteStringCollection();
+            autoInsur = bc.bcDB.pm24DB.setAutoInsur();
+            txtVsInsur.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtVsInsur.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtVsInsur.AutoCompleteCustomSource = autoInsur;
+
+            txtPttInsur.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtPttInsur.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtPttInsur.AutoCompleteCustomSource = autoInsur;
+
+            AutoCompleteStringCollection autoComp = new AutoCompleteStringCollection();
+            autoComp = bc.bcDB.pm24DB.getlPaid1();
+            txtVsComp.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtVsComp.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtVsComp.AutoCompleteCustomSource = autoComp;
+            txtPttCompCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtPttCompCode.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtPttCompCode.AutoCompleteCustomSource = autoComp;
 
             groupBox5.Height = 390;
             pnPttComp.Height = 220;

@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
+using C1.C1Rdl.Rdl2008;
 using GrapeCity.ActiveReports;
 using GrapeCity.ActiveReports.Data;
 
@@ -40,7 +41,12 @@ namespace bangna_hospital.gui
                 System.IO.FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory()+"\\report\\" +reportfilename+ ".rdlx");
                 PageReport definition = new PageReport(rptPath);
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
-                
+                Parameter line1 = new Parameter();
+                Parameter line2 = new Parameter();
+                Parameter line3 = new Parameter();
+                //runtime.Parameters.Add(line1);
+                //runtime.Parameters.Add(line1);
+                //runtime.Parameters.Add(line1);
                 runtime.LocateDataSource += Runtime_LocateDataSource;
 
                 //arvMain.LoadDocument(filename);

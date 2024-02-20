@@ -80,6 +80,7 @@ namespace bangna_hospital.control
         public EpidemCovidSpcmPlace epiSpcmP;
         public EpidemCovidIsolatePlace epiIsoP;
         public EpidemCluster epiClus;
+        public List<Item> items;
 
         Hashtable _styles;
         public VideoCaptureDevice video;

@@ -35,6 +35,45 @@ namespace bangna_hospital.objdb
             prakM01.table = "PRAKUN_M01";
             prakM01.pkField = "SocialID";
         }
+        public DataTable selectSSOBySearch(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", wherehn = "";
+            Patient ptt = new Patient();
+            String[] txt = hn.Split(' ');
+            if (txt.Length > 0)
+            {
+                if ((txt.Length > 1) && ((txt[1].Trim().Length > 0)))
+                {
+                    wherehn = " (prak01.FirstName like '" + txt[0].Trim() + "%') and (prak01.LastName like '" + txt[1].Trim() + "%')  ";
+                }
+                else if ((txt.Length == 1))
+                {
+                    if (long.TryParse(txt[0].Trim(), out long chk))//work_permit1
+                    {
+                        wherehn = " (prak01.SocialID like '" + txt[0].Trim() + "%') or (prak01.Social_Card_no like '" + txt[0].Trim() + "%')  ";
+                    }
+                    else
+                    {
+                        wherehn = " (prak01.FirstName like '" + txt[0].Trim() + "%') or (prak01.LastName like '" + txt[0].Trim() + "%') or (prak01.Social_Card_no like '" + txt[0].Trim() + "%') ";
+                    }
+                }
+                else
+                {
+                    wherehn = " (prak01.FirstName like '" + txt[0].Trim() + "%') or (prak01.LastName like '" + txt[1].Trim() + "%')  ";
+                }
+            }
+            else
+            {
+                wherehn = " prak01.SocialID like '" + hn + "%' or (prak01.Social_Card_no like '" + hn + "%') or (prak01.FirstName like '" + hn + "%') or (prak01.LastName like '" + hn + "%' ";
+            }
+            sql = "Select prak01.SocialID,prak01.Social_Card_no,prak01.FullName,prak01.PrakanCode,convert(VARCHAR(20),prak01.StartDate,23) as StartDate,convert(VARCHAR(20),prak01.EndDate,23) as EndDate,convert(VARCHAR(20),isnull(prak01.UploadDate,''),23) as UploadDate " +
+                "From  PRAKUN_M01 prak01 " +
+                " Where " + wherehn + " " +
+                "Order By prak01.SocialID ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public PrakunM01 selectOne()
         {
             PrakunM01 pkunM01 = new PrakunM01();
@@ -56,6 +95,18 @@ namespace bangna_hospital.objdb
             String reqno = "", sql = "";
             sql = "Select SocialID, Social_Card_no, TitleName, FirstName, LastName, FullName, PrakanCode, Prangnant, convert(varchar(20),StartDate,23) as StartDate, convert(varchar(20),EndDate,23) as EndDate, BirthDay, convert(varchar(20),UploadDate,20) as UploadDate, FLAG " +
                 "From "+ prakM01.table + " " +
+                "Where SocialID = '" + pid + "' ";
+            dt = conn.selectData(sql);
+            pkunM01 = setPrakunM01(dt);
+            return pkunM01;
+        }
+        public PrakunM01 selectByCardNo(String pid)
+        {
+            PrakunM01 pkunM01 = new PrakunM01();
+            DataTable dt = new DataTable();
+            String reqno = "", sql = "";
+            sql = "Select SocialID, Social_Card_no, TitleName, FirstName, LastName, FullName, PrakanCode, Prangnant, convert(varchar(20),StartDate,23) as StartDate, convert(varchar(20),EndDate,23) as EndDate, BirthDay, convert(varchar(20),UploadDate,20) as UploadDate, FLAG " +
+                "From " + prakM01.table + " " +
                 "Where Social_Card_no = '" + pid + "' ";
             dt = conn.selectData(sql);
             pkunM01 = setPrakunM01(dt);

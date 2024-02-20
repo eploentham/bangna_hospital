@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
     public class PatientM30DB
-    {
+    {//Table HotCharge  ค่าหัตถการ
         public PatientM30 pttM32;
         ConnectDB conn;
         public PatientM30DB(ConnectDB c)
@@ -52,6 +53,52 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
+        }
+        public String SelectNameByPk(String labgrpcode)
+        {
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select pm30.* " +
+                "From patient_m30 pm30 " +
+                "Where pm30.MNC_SR_CD = '" + labgrpcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_SR_DSC"].ToString();
+            }
+            return re;
+        }
+        public DataTable SelectAllByGroup(String labgrpcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select pm30.*, pm301.MNC_RESULT01 " +
+                "From patient_m30 pm30 " +
+                "Left join PATIENT_M301 pm301 on pm30.mnc_sr_cd = pm301.mnc_sr_cd " +
+                "Where pm30.MNC_SR_GRP_CD = '" + labgrpcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public AutoCompleteStringCollection getlProcedureAll()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            DataTable dt = new DataTable();
+            dt = SelectAll();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_SR_DSC"].ToString() + "#" + row["MNC_SR_CD"].ToString());
+                //PatientM13 cus1 = new PatientM13();
+                //cus1.MNC_APP_CD = row["MNC_APP_CD"].ToString();
+                //cus1.MNC_APP_DSC = row["MNC_APP_DSC"].ToString();
+
+                //labM01.Add(cus1);
+            }
+            return autoSymptom;
         }
         public String updateOPBKKCode(String srcode, String opbkkcode, String ditcode)
         {

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using bangna_hospital.control;
 using C1.Win.C1SuperTooltip;
 using bangna_hospital.object1;
+using bangna_hospital.Properties;
 
 namespace bangna_hospital.gui
 {
@@ -99,6 +100,7 @@ namespace bangna_hospital.gui
                 {
                     label2.Text = stf.staff_fname_t + " " + stf.staff_lname_t;
                     bc.cStf = stf;
+                    bc.USERCONFIRMID = stf.username;
                     //label2.Refresh();
                     //System.Threading.Thread.Sleep(2000);
                     Close();

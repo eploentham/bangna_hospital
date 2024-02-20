@@ -72,7 +72,7 @@ namespace bangna_hospital.objdb
                 "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
                 "left join patient_m26 pm26 on pt07.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "left join patient_m02 pm02dtr on pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
-                "Where pt07.MNC_APP_DAT='" + reqDate + "' and labt02.mnc_req_sts <> 'C' and labm01.status_outlab = '1' " +
+                "Where pt07.MNC_APP_DAT='" + reqDate + "' and labt02.mnc_req_sts <> 'C' and labt01.mnc_req_sts <> 'C' and labm01.status_outlab = '1' " +
                 "Order By labt02." + labT02.MNC_REQ_DAT + ",labt02." + labT02.MNC_REQ_NO;
 
             dt = conn.selectData(conn.connMainHIS, sql);
@@ -229,6 +229,24 @@ namespace bangna_hospital.objdb
 
                 dt = conn.selectData(conn.connMainHIS, sql);
             }
+            return dt;
+        }
+        public DataTable selectbyHNReqNo(String hn,String reqdate, String reqno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            sql = "SELECT  LAB_T02.MNC_LB_CD as order_code, LAB_M01.MNC_LB_DSC as order_name, convert(varchar(20),LAB_T02.MNC_REQ_DAT, 23) as req_date " +
+                ", LAB_T02.MNC_REQ_NO as req_no, 'lab' as flag, '1' as qty " +
+                "FROM    LAB_T01  " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "where LAB_T01.MNC_REQ_DAT = '" + reqdate + "' and LAB_T01.MNC_REQ_NO = '" + reqno + "'  " +
+                "and LAB_T01.mnc_hn_no = '" + hn + "' " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'  " +
+                "Order By LAB_T02.MNC_LB_CD ";
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+            
             return dt;
         }
         public C1ComboBox setCboLabNamebyHN(C1ComboBox c, String hn)

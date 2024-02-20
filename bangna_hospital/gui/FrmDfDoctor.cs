@@ -24,7 +24,7 @@ namespace bangna_hospital.gui
 
         C1DockingTab tcMain;
         C1DockingTabPage tabImportDf;
-        C1FlexGrid grfSelect;
+        C1FlexGrid grfImpSelect;
         C1Button btnImportDfSelect, btnImportDfGen;
 
         C1SuperTooltip stt;
@@ -37,11 +37,6 @@ namespace bangna_hospital.gui
         Boolean pageLoad = false;
         int colchk = 1, colvsdate = 2, colhnno = 3, colpttname = 4, colpreno = 5, colpaidtype = 6, coldtrcode = 7, coldtrname = 8, coldoccd = 9, coldoc_yr = 10, coldocno = 11, colfncd = 12, colno = 13, colfnamt = 14, colfndesc = 15, coldocdat=16, colvstime=17, colanno=18, colanyr=19, colhnyr=20;
 
-        private void FrmDfDoctor_Load_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -50,9 +45,7 @@ namespace bangna_hospital.gui
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "FrmDfDoctor";
-            this.Load += new System.EventHandler(this.FrmDfDoctor_Load_1);
             this.ResumeLayout(false);
-
         }
 
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
@@ -94,7 +87,7 @@ namespace bangna_hospital.gui
                 date = date.AddYears(543);
             }
             dfdate = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-            foreach (Row row in grfSelect.Rows)
+            foreach (Row row in grfImpSelect.Rows)
             {
                 String doccd = "", docyr = "", docno = "", docdat = "", fncd = "", fnno = "", fndat = "", chk="", fndsc="", dfamt="", vsdate="", vstime="", hnno="", hnyr="",patname="", preno="", paidtypecode="", dtrid="", dtrname="";
                 String anno = "", anyr = "";
@@ -165,9 +158,7 @@ namespace bangna_hospital.gui
                 i++;
             }
             MessageBox.Show("gen ข้อมูล ค่าแพทย์ checkup เรียบร้อย", "");
-            
         }
-
         private void BtnImportDfSelect_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -216,76 +207,73 @@ namespace bangna_hospital.gui
             }
             dt = bc.bcDB.vsDB.selectFinancePatient(startdate, enddate, paidtype);
 
-            Column colChk = grfSelect.Cols[colchk];
+            Column colChk = grfImpSelect.Cols[colchk];
             colChk.DataType = typeof(Boolean);
-            grfSelect.Cols.Count = 21;
+            grfImpSelect.Cols.Count = 21;
             //grfSelect.Cols.Count = 12;
-            grfSelect.Rows.Count = 1;
-            grfSelect.Cols[colvsdate].Caption = "Date";
-            grfSelect.Cols[colhnno].Caption = "HN";
-            grfSelect.Cols[colpttname].Caption = "Patient Name";
-            grfSelect.Cols[colpreno].Caption = "preno";
-            grfSelect.Cols[colpaidtype].Caption = "สิทธิ";
-            grfSelect.Cols[coldtrcode].Caption = "แพทย์";
-            grfSelect.Cols[colanno].Caption = "AN NO";
-            grfSelect.Cols[colanyr].Caption = "AN YR";
+            grfImpSelect.Rows.Count = 1;
+            grfImpSelect.Cols[colvsdate].Caption = "Date";
+            grfImpSelect.Cols[colhnno].Caption = "HN";
+            grfImpSelect.Cols[colpttname].Caption = "Patient Name";
+            grfImpSelect.Cols[colpreno].Caption = "preno";
+            grfImpSelect.Cols[colpaidtype].Caption = "สิทธิ";
+            grfImpSelect.Cols[coldtrcode].Caption = "แพทย์";
+            grfImpSelect.Cols[colanno].Caption = "AN NO";
+            grfImpSelect.Cols[colanyr].Caption = "AN YR";
             //grfSelect.Cols[coldtrname].Caption = "HN";
-            grfSelect.Cols[colchk].Width = 50;
-            grfSelect.Cols[colvsdate].Width = 100;
-            grfSelect.Cols[colhnno].Width = 80;
-            grfSelect.Cols[colpttname].Width = 250;
-            grfSelect.Cols[colpreno].Width = 60;
-            grfSelect.Cols[colpaidtype].Width = 60;
-            grfSelect.Cols[coldtrname].Width = 250;
+            grfImpSelect.Cols[colchk].Width = 50;
+            grfImpSelect.Cols[colvsdate].Width = 100;
+            grfImpSelect.Cols[colhnno].Width = 80;
+            grfImpSelect.Cols[colpttname].Width = 250;
+            grfImpSelect.Cols[colpreno].Width = 60;
+            grfImpSelect.Cols[colpaidtype].Width = 60;
+            grfImpSelect.Cols[coldtrname].Width = 250;
             //grfSelect.Cols[colfndesc].Width = 250;
             //grfSelect.Cols[colfncd].Width = 50;
             //grfSelect.Cols[colno].Width = 50;
             //grfSelect.Cols[colfnamt].Width = 50;
             //grfSelect.Cols[coldtrname].Width = 60;
-            grfSelect.Rows.Count = dt.Rows.Count + 1;
+            grfImpSelect.Rows.Count = dt.Rows.Count + 1;
             int i = 1;
             foreach (DataRow drow in dt.Rows)
             {
-                grfSelect[i, colvsdate] = bc.datetoShow(drow["MNC_DATE"].ToString());
-                grfSelect[i, colhnno] = drow["MNC_HN_NO"].ToString();
-                grfSelect[i, colpttname] = drow["MNC_PFIX_DSC"].ToString() + " " + drow["MNC_FNAME_T"].ToString() + " " + drow["MNC_LNAME_T"].ToString();
-                grfSelect[i, colpreno] = drow["MNC_PRE_NO"].ToString();
-                grfSelect[i, colpaidtype] = drow["MNC_FN_TYP_CD"].ToString();
-                grfSelect[i, coldtrcode] = drow["MNC_DOT_CD"].ToString();
-                grfSelect[i, coldtrname] = drow["MNC_PFIX_DSCdtr"].ToString() + " " + drow["MNC_DOT_FNAME"].ToString() + " " + drow["MNC_DOT_LNAME"].ToString();
-                grfSelect[i, coldoccd] = drow["MNC_DOC_CD"].ToString();
-                grfSelect[i, coldoc_yr] = drow["MNC_DOC_yr"].ToString();
-                grfSelect[i, coldocno] = drow["MNC_DOC_no"].ToString();
-                grfSelect[i, coldocdat] = drow["MNC_doc_dat"].ToString();
-                grfSelect[i, colvstime] = drow["MNC_time"].ToString();
-                grfSelect[i, colanno] = drow["MNC_AN_NO"].ToString();
-                grfSelect[i, colanyr] = drow["MNC_AN_YR"].ToString();
-                grfSelect[i, colhnyr] = drow["MNC_hn_YR"].ToString();
-                grfSelect[i, colchk] = true;
+                grfImpSelect[i, colvsdate] = bc.datetoShow(drow["MNC_DATE"].ToString());
+                grfImpSelect[i, colhnno] = drow["MNC_HN_NO"].ToString();
+                grfImpSelect[i, colpttname] = drow["MNC_PFIX_DSC"].ToString() + " " + drow["MNC_FNAME_T"].ToString() + " " + drow["MNC_LNAME_T"].ToString();
+                grfImpSelect[i, colpreno] = drow["MNC_PRE_NO"].ToString();
+                grfImpSelect[i, colpaidtype] = drow["MNC_FN_TYP_CD"].ToString();
+                grfImpSelect[i, coldtrcode] = drow["MNC_DOT_CD"].ToString();
+                grfImpSelect[i, coldtrname] = drow["MNC_PFIX_DSCdtr"].ToString() + " " + drow["MNC_DOT_FNAME"].ToString() + " " + drow["MNC_DOT_LNAME"].ToString();
+                grfImpSelect[i, coldoccd] = drow["MNC_DOC_CD"].ToString();
+                grfImpSelect[i, coldoc_yr] = drow["MNC_DOC_yr"].ToString();
+                grfImpSelect[i, coldocno] = drow["MNC_DOC_no"].ToString();
+                grfImpSelect[i, coldocdat] = drow["MNC_doc_dat"].ToString();
+                grfImpSelect[i, colvstime] = drow["MNC_time"].ToString();
+                grfImpSelect[i, colanno] = drow["MNC_AN_NO"].ToString();
+                grfImpSelect[i, colanyr] = drow["MNC_AN_YR"].ToString();
+                grfImpSelect[i, colhnyr] = drow["MNC_hn_YR"].ToString();
+                grfImpSelect[i, colchk] = true;
 
-                grfSelect[i, 0] = i;
+                grfImpSelect[i, 0] = i;
                 i++;
             }
-            grfSelect.Cols[coldoccd].Visible = false;
-            grfSelect.Cols[coldoc_yr].Visible = false;
-            grfSelect.Cols[coldocno].Visible = false;
-            grfSelect.Cols[coldocdat].Visible = false;
-            grfSelect.Cols[colvstime].Visible = false;
+            grfImpSelect.Cols[coldoccd].Visible = false;
+            grfImpSelect.Cols[coldoc_yr].Visible = false;
+            grfImpSelect.Cols[coldocno].Visible = false;
+            grfImpSelect.Cols[coldocdat].Visible = false;
+            grfImpSelect.Cols[colvstime].Visible = false;
 
-            grfSelect.Cols[colvsdate].AllowEditing = false;
-            grfSelect.Cols[colhnno].AllowEditing = false;
-            grfSelect.Cols[colpttname].AllowEditing = false;
-            grfSelect.Cols[colpreno].AllowEditing = false;
-            grfSelect.Cols[colpaidtype].AllowEditing = false;
-            grfSelect.Cols[coldtrname].AllowEditing = false;
+            grfImpSelect.Cols[colvsdate].AllowEditing = false;
+            grfImpSelect.Cols[colhnno].AllowEditing = false;
+            grfImpSelect.Cols[colpttname].AllowEditing = false;
+            grfImpSelect.Cols[colpreno].AllowEditing = false;
+            grfImpSelect.Cols[colpaidtype].AllowEditing = false;
+            grfImpSelect.Cols[coldtrname].AllowEditing = false;
             //grfSelect.Cols[colGrfUcepSelectHn].AllowEditing = false;
             //grfSelect.Cols[colGrfUcepSelectHn].AllowEditing = false;
             hideLbLoading();
             pageLoad = false;
         }
-
-        
-
         private void initCompoment()
         {
             int gapLine = 25, gapX = 20, gapY = 20, xCol2 = 130, xCol1 = 80, xCol3 = 330, xCol4 = 640, xCol5 = 950;
@@ -304,11 +292,11 @@ namespace bangna_hospital.gui
             tabImportDf.Name = "tabImportDf";
             tabImportDf.Text = "Import Item DF";
 
-            grfSelect = new C1FlexGrid();
-            grfSelect.Font = fEdit;
-            grfSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
-            grfSelect.Location = new System.Drawing.Point(0, 0);
-            grfSelect.Rows.Count = 1;
+            grfImpSelect = new C1FlexGrid();
+            grfImpSelect.Font = fEdit;
+            grfImpSelect.Dock = System.Windows.Forms.DockStyle.Bottom;
+            grfImpSelect.Location = new System.Drawing.Point(0, 0);
+            grfImpSelect.Rows.Count = 1;
 
             lbDateStart = new Label();
             txtDateStart = new C1DateEdit();
@@ -344,8 +332,8 @@ namespace bangna_hospital.gui
             bc.setControlC1Button(ref btnImportDfGen, fEdit, "2. gen Text", "btnGen", btnImportDfSelect.Location.X + btnImportDfSelect.Width + 20, gapY);
             btnImportDfGen.Width = 90;
 
-            tabImportDf.Controls.Add(grfSelect);
-            theme1.SetTheme(grfSelect, "Office2010Red");
+            tabImportDf.Controls.Add(grfImpSelect);
+            theme1.SetTheme(grfImpSelect, "Office2010Red");
 
             tabImportDf.Controls.Add(lbDateStart);
             tabImportDf.Controls.Add(txtDateStart);
@@ -390,9 +378,8 @@ namespace bangna_hospital.gui
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.WindowState = FormWindowState.Maximized;
 
-
-            grfSelect.Size = new Size(scrW - 20, scrH - btnImportDfSelect.Location.Y - 140);
-            grfSelect.Location = new Point(5, btnImportDfSelect.Location.Y + 40);
+            grfImpSelect.Size = new Size(scrW - 20, scrH - btnImportDfSelect.Location.Y - 140);
+            grfImpSelect.Location = new Point(5, btnImportDfSelect.Location.Y + 40);
 
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);

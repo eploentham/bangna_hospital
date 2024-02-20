@@ -13,6 +13,8 @@ using C1.Win.C1Ribbon;
 using C1.Win.C1SplitContainer;
 using C1.Win.FlexViewer;
 using GrapeCity.ActiveReports.Viewer.Win.Internal.Export;
+using NpgsqlTypes;
+using Org.BouncyCastle.Asn1.Cms;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9192,7 +9194,8 @@ namespace bangna_hospital.gui
             menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_grfscan_print));
             menuGw.MenuItems.Add("ต้องการ Print ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_print_all));
             menuGw.MenuItems.Add("ต้องการ Download ภาพนี้", new EventHandler(ContextMenu_grfscan_Download));
-            menuGw.MenuItems.Add("ต้องการ Download ภาพทั้งหมด", new EventHandler(ContextMenu_grfscan_DownloadAll));
+            menuGw.MenuItems.Add("ต้องการ Download ภาพทั้งหมด แบบแยกFile", new EventHandler(ContextMenu_grfscan_DownloadAll));
+            menuGw.MenuItems.Add("ต้องการ Download ภาพทั้งหมด แบบรวม1File", new EventHandler(ContextMenu_grfscan_DownloadAllOneFile));
             menuGw.MenuItems.Add("ต้องการ แก้ไข ภาพนี้", new EventHandler(ContextMenu_grfscan_Edit));
             //Application.DoEvents();
             DataTable dt = new DataTable();
@@ -9573,9 +9576,9 @@ namespace bangna_hospital.gui
             }
             hideLbLoading();
         }
-        private void ContextMenu_grfscan_DownloadAll(object sender, System.EventArgs e)
+        private void ContextMenu_grfscan_DownloadAllOneFile(object sender, System.EventArgs e)
         {
-            String id = "", datetick = "", folderName="";
+            String id = "", datetick = "", folderName = "";
             if (grfScan.Col <= 0) return;
             if (grfScan.Row < 0) return;
             if (grfScan.Col == 1)
@@ -9620,7 +9623,7 @@ namespace bangna_hospital.gui
                 _c1pdf.Security.AllowPrint = true;
                 _c1pdf.SaveAllImagesAsJpeg = true;
                 _c1pdf.DocumentInfo.Title = "bangna5";
-                int i = 1, newWidth1=210;
+                int i = 1, newWidth1 = 210;
                 foreach (listStream lstrmm in lStream)
                 {
                     //MemoryStream strm = lstrmm.stream.CopyTo(strm);
@@ -9632,18 +9635,150 @@ namespace bangna_hospital.gui
                     //streamDownload = lstrmm.stream;
                     RectangleF rc;
                     Image img = Image.FromStream(lstrmm.stream);
-                    Image img1 = bc.ResizeImagetoA41(img,900);
+                    Image img1 = bc.ResizeImagetoA41(img, 900);
 
                     rc = new RectangleF(10, 10, 590, 770);
                     _c1pdf.DrawImage(img1, rc);
-                    if(i<lStream.Count)
+                    if (i < lStream.Count)
                         _c1pdf.NewPage();
-                    img.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-")+"_"+i + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //img.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                     //img1.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
                     //resizedImage.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
                     //strm.Dispose();
                     img.Dispose();
+                    //img1.Dispose();
+                    i++;
+                    lbLoading.Text = "กรุณารอซักครู่ ... " + i + "/" + lStream.Count;
+                    Application.DoEvents();
+                }
+                //LAB
+                DataTable dtLab = new DataTable();
+                if (chkIPD.Checked)
+                {
+                    String[] an1 = txtVN.Text.Trim().Split('/');
+                    if (an1.Length >= 2)
+                    {
+                        dtLab = setPrintLabPrnSSO(an1[0], an1[1], "", "an");
+                    }
+                }
+                else
+                {
+                    dtLab = setPrintLabPrnSSO("", preno, vsDate, "vn");
+                }
+                if (dtLab.Rows.Count > 0)
+                {
+                    lbLoading.Text = "กรุณารอซักครู่ มี lab ... ";
+                    Application.DoEvents();
+                    FrmReportNew frm = new FrmReportNew(bc, "lab_result_3");
+                    frm.DT = dtLab;
+                    //frm.ShowDialog(this);
+                    //return;
+                    frm.ExportReport(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_lab.pdf");
+                }
+
+                _c1pdf.DocumentInfo.Title = "bangna5";
+                _c1pdf.ImageQuality = ImageQualityEnum.High;
+                _c1pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + ".pdf");
+                _c1pdf.Dispose();
+
+                if (File.Exists(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_lab.pdf"))
+                {
+                    String[] files;
+                    files = new string[2];
+                    files[0] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + ".pdf";
+                    files[1] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_lab.pdf";
+                    PdfControl pdfc = new PdfControl();
+                    pdfc.MergeFileslab(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_all.pdf", files);
+                }
+                Process.Start("explorer.exe", bc.iniC.pathDownloadFile + "\\" + folderName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error " + ex.Message, "");
+            }
+            hideLbLoading();
+        }
+        private void ContextMenu_grfscan_DownloadAll(object sender, System.EventArgs e)
+        {
+            String id = "", datetick = "", folderName="",err="";
+            if (grfScan.Col <= 0) return;
+            if (grfScan.Row < 0) return;
+            if (grfScan.Col == 1)
+            {
+                id = grfScan[grfScan.Row, colPic2].ToString();
+            }
+            else
+            {
+                id = grfScan[grfScan.Row, colPic4].ToString();
+            }
+            dsc_id = id;
+            showLbLoading();
+            lbLoading.BringToFront();
+            try
+            {
+                err = "00";
+                ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
+                if (!Directory.Exists(bc.iniC.pathDownloadFile))
+                {
+                    Directory.CreateDirectory(bc.iniC.pathDownloadFile);
+                }
+                folderName = txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-")+"_"+DateTime.Now.Ticks.ToString();
+                if (!Directory.Exists(bc.iniC.pathDownloadFile + "\\" + folderName))
+                {
+                    Directory.CreateDirectory(bc.iniC.pathDownloadFile + "\\" + folderName);
+                }
+                else
+                {
+                    string[] files = Directory.GetFiles(bc.iniC.pathDownloadFile + "\\" + folderName);
+                    foreach (string file in files)
+                    {
+                        File.Delete(file);
+                    }
+                }
+                Application.DoEvents();
+                //Stream streamDownload = null;
+                //MemoryStream strm = null;
+                C1PdfDocument _c1pdf = new C1.C1Pdf.C1PdfDocument();
+                _c1pdf.DocumentInfo.Producer = "C1Pdf";
+                _c1pdf.Security.AllowCopyContent = true;
+                _c1pdf.Security.AllowEditAnnotations = true;
+                _c1pdf.Security.AllowEditContent = true;
+                _c1pdf.Security.AllowPrint = true;
+                _c1pdf.SaveAllImagesAsJpeg = true;
+                _c1pdf.DocumentInfo.Title = "bangna5";
+                int i = 1, newWidth1=210;
+                err = "01";
+                foreach (listStream lstrmm in lStream)
+                {
+                    //MemoryStream strm = lstrmm.stream.CopyTo(strm);
+                    //strm.
+                    //strm.Seek(0, SeekOrigin.Begin);
+                    //Application.DoEvents();
+                    err = "02";
+                    //Thread.Sleep(100);
+                    //streamDownload = lstrmm.stream;
+                    RectangleF rc;
+                    //Image img = Image.FromStream(lstrmm.stream);
+                    err = "03";
+                    Image img1 = bc.ResizeImagetoA41(Image.FromStream(lstrmm.stream), 900);
+                    err = "04";
+                    rc = new RectangleF(10, 10, 590, 770);
+                    _c1pdf.DrawImage(img1, rc);
+                    err = "05";
+                    if (i<lStream.Count)
+                        _c1pdf.NewPage();
+                    //img.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-")+"_"+i + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //img1.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    //resizedImage.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                    using (var fileStream = new FileStream(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + ".jpg", FileMode.Create, FileAccess.Write))
+                    {
+                        lstrmm.stream.Position = 0;
+                        lstrmm.stream.CopyTo(fileStream);
+                    }
+                    //strm.Dispose();
+                    err = "06";
+                    //img.Dispose();
                     //img1.Dispose();
                     i++;
                     lbLoading.Text = "กรุณารอซักครู่ ... "+i+"/"+lStream.Count;
@@ -9661,7 +9796,7 @@ namespace bangna_hospital.gui
                 }
                 else
                 {
-
+                    dtLab = setPrintLabPrnSSO("", preno, vsDate, "vn");
                 }
                 if (dtLab.Rows.Count > 0)
                 {
@@ -9669,16 +9804,19 @@ namespace bangna_hospital.gui
                     Application.DoEvents();
                     FrmReportNew frm = new FrmReportNew(bc, "lab_result_3");
                     frm.DT = dtLab;
-                    frm.ShowDialog(this);
-                    return;
+                    //frm.ShowDialog(this);
+                    //return;
                     frm.ExportReport(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_lab.pdf");
                 }
-                
+
                 _c1pdf.DocumentInfo.Title = "bangna5";
                 _c1pdf.ImageQuality = ImageQualityEnum.High;
                 _c1pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\"+txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + ".pdf");
-                _c1pdf.Dispose();
-
+                //_c1pdf.Dispose();
+                lbLoading.Text = "กำลัง export รวม File ... ";
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(1000);
+                
                 if (File.Exists(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_lab.pdf"))
                 {
                     String[] files;
@@ -9686,14 +9824,15 @@ namespace bangna_hospital.gui
                     files[0] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + ".pdf";
                     files[1] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_lab.pdf";
                     PdfControl pdfc = new PdfControl();
-                    pdfc.MergeFileslab(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_all.pdf",files);
+                    //pdfc.MergeFileslab(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_all.pdf",files);
+                    pdfc.MergeFileslab2(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_all.pdf", files);
+                    pdfc = null;
                 }
-
                 Process.Start("explorer.exe", bc.iniC.pathDownloadFile + "\\" + folderName);
             }
             catch(Exception ex)
             {
-                MessageBox.Show("error "+ex.Message, "");
+                MessageBox.Show("error "+ex.Message, "err " + err);
             }
             hideLbLoading();
         }
@@ -10608,7 +10747,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2024-02-01 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
+            this.Text = "Last Update 2024-02-19 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

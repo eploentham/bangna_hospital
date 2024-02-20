@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
@@ -75,6 +76,25 @@ namespace bangna_hospital.objdb
             pharM01.MNC_PH_NEW_SS = "MNC_PH_NEW_SS";
             pharM01.tmt_code = "tmt_code";
         }
+        public AutoCompleteStringCollection getlDrugAll()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            DataTable dt = new DataTable();
+            dt = SelectAll();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                //PatientM13 cus1 = new PatientM13();
+                //cus1.MNC_APP_CD = row["MNC_APP_CD"].ToString();
+                //cus1.MNC_APP_DSC = row["MNC_APP_DSC"].ToString();
+
+                //labM01.Add(cus1);
+            }
+            return autoSymptom;
+        }
         public DataTable SelectAll()
         {
             DataTable dt = new DataTable();
@@ -87,6 +107,35 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
+        }
+        public DataTable SelectAllByGroup(String labgrpcode)
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select pm01.*, pm05.mnc_ph_pri01, pm05.mnc_ph_pri02, pm05.mnc_ph_pri03,pm14.MNC_PH_GRP_DSC " +
+                "From pharmacy_m01 pm01 " +
+                "inner join pharmacy_m05 pm05 on pm01.mnc_ph_cd = pm05.mnc_ph_cd " +
+                "left join pharmacy_m14 pm14 on pm01.MNC_PH_GRP_CD = pm14.MNC_PH_GRP_CD " +
+                "Where pm01.MNC_PH_GRP_CD = '" + labgrpcode + "' " +
+                "Order By pm01.MNC_PH_CD";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public String SelectNameByPk(String labgrpcode)
+        {
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select pm01.* " +
+                "From pharmacy_m01 pm01 " +
+                "Where pm01.mnc_ph_cd = '" + labgrpcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_PH_TN"].ToString();
+            }
+            return re;
         }
         public String UpdateTMTCodeOPBKK(String drugcode, String tmtcode)
         {

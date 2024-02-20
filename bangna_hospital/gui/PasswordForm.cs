@@ -27,12 +27,23 @@ namespace bangna_hospital.gui
         private void initConfig()
         {
             tbPassword.KeyUp += TbPassword_KeyUp;
+            txtPttNameT.KeyUp += TxtPttNameT_KeyUp;
+        }
+
+        private void TxtPttNameT_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                chkLogin();
+                this.Dispose();
+            }
         }
 
         private void TbPassword_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if(e.KeyCode == Keys.Enter)
+            if(e.KeyData == Keys.Enter)
             {
                 chkLogin();
                 this.Dispose();

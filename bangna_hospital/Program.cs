@@ -239,6 +239,11 @@ namespace bangna_hospital
                     err = "QUEOPD";
                     Application.Run(new gui.FrmQueueShow(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("drugin"))
+                {
+                    err = "drugin";
+                    Application.Run(new gui.FrmPharmacy(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

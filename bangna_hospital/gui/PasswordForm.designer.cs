@@ -36,7 +36,9 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lbName = new System.Windows.Forms.Label();
+            this.txtPttNameT = new C1.Win.C1Input.C1TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttNameT)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -105,6 +107,15 @@
             this.lbName.TabIndex = 5;
             this.lbName.Text = "...";
             // 
+            // txtPttNameT
+            // 
+            this.txtPttNameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttNameT.Location = new System.Drawing.Point(283, 36);
+            this.txtPttNameT.Name = "txtPttNameT";
+            this.txtPttNameT.Size = new System.Drawing.Size(173, 24);
+            this.txtPttNameT.TabIndex = 68;
+            this.txtPttNameT.Tag = null;
+            // 
             // PasswordForm
             // 
             this.AcceptButton = this.btnOk;
@@ -112,6 +123,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(468, 93);
+            this.Controls.Add(this.txtPttNameT);
             this.Controls.Add(this.lbName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -127,6 +139,7 @@
             this.Text = "Password";
             this.Load += new System.EventHandler(this.PasswordForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttNameT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,5 +154,6 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lbName;
+        private C1.Win.C1Input.C1TextBox txtPttNameT;
     }
 }

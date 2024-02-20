@@ -45,6 +45,24 @@ namespace bangna_hospital.objdb
             XrayT02.status_pacs = "status_pacs";
 
         }
+        public DataTable selectbyHNReqNo(String hn, String reqdate, String reqno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            sql = "SELECT  XRAY_T02.MNC_XR_CD as order_code, XRAY_M01.MNC_XR_DSC as order_name, convert(varchar(20),XRAY_T02.MNC_REQ_DAT, 23) as req_date " +
+                ", XRAY_T02.MNC_REQ_NO as req_no, 'xray' as flag, '1' as qty " +
+                "FROM    XRAY_T01  " +
+                "left join XRAY_T02 ON XRAY_T01.MNC_REQ_NO = XRAY_T02.MNC_REQ_NO AND XRAY_T01.MNC_REQ_DAT = XRAY_T02.MNC_REQ_DAT " +
+                "left join XRAY_M01 ON XRAY_T02.MNC_XR_CD = XRAY_M01.MNC_XR_CD " +
+                "where XRAY_T01.MNC_REQ_DAT = '" + reqdate + "' and XRAY_T01.MNC_REQ_NO = '" + reqno + "'  " +
+                "and XRAY_T01.mnc_hn_no = '" + hn + "' " +
+                "and XRAY_T02.mnc_req_sts <> 'C'  and XRAY_T01.mnc_req_sts <> 'C'  " +
+                "Order By XRAY_T02.MNC_XR_CD ";
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
         private void chkNull(XrayT02 p)
         {
             long chk = 0;

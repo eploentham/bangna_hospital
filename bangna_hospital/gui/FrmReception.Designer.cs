@@ -49,13 +49,13 @@ namespace bangna_hospital.gui
             this.tabPtt = new C1.Win.C1Command.C1DockingTabPage();
             this.sCPtt = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnPttPatient = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtPttPaid = new C1.Win.C1Input.C1TextBox();
             this.btnPttClearData = new C1.Win.C1Input.C1Button();
             this.lbFindPaidSSO = new System.Windows.Forms.Label();
             this.txtPttDOBYear = new C1.Win.C1Input.C1TextBox();
             this.txtPttDOBMM = new C1.Win.C1Input.C1TextBox();
             this.txtPttDOBDD = new C1.Win.C1Input.C1TextBox();
-            this.label69 = new System.Windows.Forms.Label();
-            this.cboPttPaid = new C1.Win.C1Input.C1ComboBox();
+            this.lbPttPaid = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.txtPttNickName = new C1.Win.C1Input.C1TextBox();
             this.cboPttSex = new C1.Win.C1Input.C1ComboBox();
@@ -99,12 +99,11 @@ namespace bangna_hospital.gui
             this.btnPttVisit = new C1.Win.C1Input.C1Button();
             this.btnPttSave = new C1.Win.C1Input.C1Button();
             this.btnPttCardRead = new C1.Win.C1Input.C1Button();
-            this.lbPttInsurNameT = new System.Windows.Forms.Label();
             this.txtPttInsur = new C1.Win.C1Input.C1TextBox();
             this.lbInsur = new System.Windows.Forms.Label();
-            this.lbPttCompNameT = new System.Windows.Forms.Label();
             this.txtPttCompCode = new C1.Win.C1Input.C1TextBox();
             this.pnPttComp = new System.Windows.Forms.Panel();
+            this.lbPttinWard = new System.Windows.Forms.Label();
             this.lbComp = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -200,6 +199,10 @@ namespace bangna_hospital.gui
             this.tabVs = new C1.Win.C1Command.C1DockingTabPage();
             this.scVs = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnVsVisit = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtVsComp = new C1.Win.C1Input.C1TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtVsInsur = new C1.Win.C1Input.C1TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.chkPrnQue = new C1.Win.C1Input.C1CheckBox();
             this.btnPrnQue = new C1.Win.C1Input.C1Button();
             this.txtVsPaidCode = new C1.Win.C1Input.C1TextBox();
@@ -240,6 +243,7 @@ namespace bangna_hospital.gui
             this.tabApm = new C1.Win.C1Command.C1DockingTabPage();
             this.pnApm = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtApmSrc = new C1.Win.C1Input.C1TextBox();
             this.cboApmPaid = new C1.Win.C1Input.C1ComboBox();
             this.btnApmSearch = new C1.Win.C1Input.C1Button();
             this.txtApmHn = new C1.Win.C1Input.C1TextBox();
@@ -275,6 +279,17 @@ namespace bangna_hospital.gui
             this.label60 = new System.Windows.Forms.Label();
             this.tabWard = new C1.Win.C1Command.C1DockingTabPage();
             this.pnWard = new System.Windows.Forms.Panel();
+            this.pnwardTop = new System.Windows.Forms.Panel();
+            this.txtWardSrc = new C1.Win.C1Input.C1TextBox();
+            this.c1Label3 = new C1.Win.C1Input.C1Label();
+            this.tabSSO = new C1.Win.C1Command.C1DockingTabPage();
+            this.spSSO = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtSSOsearch = new C1.Win.C1Input.C1TextBox();
+            this.c1Label2 = new C1.Win.C1Input.C1Label();
+            this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnSSO = new System.Windows.Forms.Panel();
+            this.btnApmExcel = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -291,11 +306,11 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.sCPtt)).BeginInit();
             this.sCPtt.SuspendLayout();
             this.pnPttPatient.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttPaid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttClearData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttDOBYear)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttDOBMM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttDOBDD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboPttPaid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttNickName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboPttSex)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttwp3)).BeginInit();
@@ -323,6 +338,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnPttCardRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttInsur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttCompCode)).BeginInit();
+            this.pnPttComp.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttRefChw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttRefAmp)).BeginInit();
@@ -374,6 +390,8 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.scVs)).BeginInit();
             this.scVs.SuspendLayout();
             this.pnVsVisit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVsComp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVsInsur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkPrnQue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrnQue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVsPaidCode)).BeginInit();
@@ -394,6 +412,7 @@ namespace bangna_hospital.gui
             this.tabToday.SuspendLayout();
             this.tabApm.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmSrc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboApmPaid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApmSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmHn)).BeginInit();
@@ -415,6 +434,17 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDocHn)).BeginInit();
             this.tabWard.SuspendLayout();
+            this.pnwardTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtWardSrc)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).BeginInit();
+            this.tabSSO.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spSSO)).BeginInit();
+            this.spSSO.SuspendLayout();
+            this.c1SplitterPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).BeginInit();
+            this.c1SplitterPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnApmExcel)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -428,7 +458,7 @@ namespace bangna_hospital.gui
             this.c1StatusBar1.RightPaneItems.Add(this.rbSbPb);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbUser);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
-            this.c1StatusBar1.Size = new System.Drawing.Size(1145, 22);
+            this.c1StatusBar1.Size = new System.Drawing.Size(1254, 22);
             // 
             // lfSbLastUpdate
             // 
@@ -474,12 +504,13 @@ namespace bangna_hospital.gui
             this.tC.Controls.Add(this.tabRpt);
             this.tC.Controls.Add(this.tabDoc);
             this.tC.Controls.Add(this.tabWard);
+            this.tC.Controls.Add(this.tabSSO);
             this.tC.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tC.Location = new System.Drawing.Point(0, 0);
             this.tC.Name = "tC";
             this.tC.SelectedIndex = 4;
-            this.tC.Size = new System.Drawing.Size(1145, 875);
+            this.tC.Size = new System.Drawing.Size(1254, 875);
             this.tC.TabIndex = 1;
             this.tC.TabsSpacing = 5;
             // 
@@ -488,9 +519,9 @@ namespace bangna_hospital.gui
             this.tabSrc.Controls.Add(this.c1SplitContainer1);
             this.tabSrc.Location = new System.Drawing.Point(1, 24);
             this.tabSrc.Name = "tabSrc";
-            this.tabSrc.Size = new System.Drawing.Size(1143, 850);
+            this.tabSrc.Size = new System.Drawing.Size(1252, 850);
             this.tabSrc.TabIndex = 0;
-            this.tabSrc.Text = "Search";
+            this.tabSrc.Text = "Search(F1)";
             // 
             // c1SplitContainer1
             // 
@@ -504,7 +535,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer1.Name = "c1SplitContainer1";
             this.c1SplitContainer1.Panels.Add(this.pnSrcTop);
             this.c1SplitContainer1.Panels.Add(this.pnSrcGrf);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(1143, 850);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1252, 850);
             this.c1SplitContainer1.TabIndex = 0;
             // 
             // pnSrcTop
@@ -519,7 +550,7 @@ namespace bangna_hospital.gui
             this.pnSrcTop.Location = new System.Drawing.Point(0, 0);
             this.pnSrcTop.Name = "pnSrcTop";
             this.pnSrcTop.Size = new System.Drawing.Size(1143, 49);
-            this.pnSrcTop.SizeRatio = 6.659D;
+            this.pnSrcTop.SizeRatio = 6.619D;
             this.pnSrcTop.TabIndex = 0;
             this.pnSrcTop.Text = "Panel 1";
             // 
@@ -588,9 +619,9 @@ namespace bangna_hospital.gui
             this.tabPtt.Controls.Add(this.sCPtt);
             this.tabPtt.Location = new System.Drawing.Point(1, 24);
             this.tabPtt.Name = "tabPtt";
-            this.tabPtt.Size = new System.Drawing.Size(1143, 850);
+            this.tabPtt.Size = new System.Drawing.Size(1252, 850);
             this.tabPtt.TabIndex = 1;
-            this.tabPtt.Text = " Patient ";
+            this.tabPtt.Text = " Patient (F3)";
             // 
             // sCPtt
             // 
@@ -604,19 +635,19 @@ namespace bangna_hospital.gui
             this.sCPtt.Panels.Add(this.pnPttPatient);
             this.sCPtt.Panels.Add(this.pnPttVs);
             this.sCPtt.Panels.Add(this.pnPttApm);
-            this.sCPtt.Size = new System.Drawing.Size(1143, 850);
+            this.sCPtt.Size = new System.Drawing.Size(1252, 850);
             this.sCPtt.TabIndex = 0;
             // 
             // pnPttPatient
             // 
             this.pnPttPatient.Collapsible = true;
+            this.pnPttPatient.Controls.Add(this.txtPttPaid);
             this.pnPttPatient.Controls.Add(this.btnPttClearData);
             this.pnPttPatient.Controls.Add(this.lbFindPaidSSO);
             this.pnPttPatient.Controls.Add(this.txtPttDOBYear);
             this.pnPttPatient.Controls.Add(this.txtPttDOBMM);
             this.pnPttPatient.Controls.Add(this.txtPttDOBDD);
-            this.pnPttPatient.Controls.Add(this.label69);
-            this.pnPttPatient.Controls.Add(this.cboPttPaid);
+            this.pnPttPatient.Controls.Add(this.lbPttPaid);
             this.pnPttPatient.Controls.Add(this.label59);
             this.pnPttPatient.Controls.Add(this.txtPttNickName);
             this.pnPttPatient.Controls.Add(this.cboPttSex);
@@ -670,7 +701,16 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.28D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 903;
+            this.pnPttPatient.Width = 896;
+            // 
+            // txtPttPaid
+            // 
+            this.txtPttPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPttPaid.Location = new System.Drawing.Point(105, 573);
+            this.txtPttPaid.Name = "txtPttPaid";
+            this.txtPttPaid.Size = new System.Drawing.Size(298, 24);
+            this.txtPttPaid.TabIndex = 133;
+            this.txtPttPaid.Tag = null;
             // 
             // btnPttClearData
             // 
@@ -720,31 +760,15 @@ namespace bangna_hospital.gui
             this.txtPttDOBDD.TabIndex = 118;
             this.txtPttDOBDD.Tag = null;
             // 
-            // label69
+            // lbPttPaid
             // 
-            this.label69.AutoSize = true;
-            this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label69.Location = new System.Drawing.Point(10, 572);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(89, 20);
-            this.label69.TabIndex = 117;
-            this.label69.Text = "สิทธิประจำตัว";
-            // 
-            // cboPttPaid
-            // 
-            this.cboPttPaid.AllowSpinLoop = false;
-            this.cboPttPaid.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cboPttPaid.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboPttPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboPttPaid.GapHeight = 0;
-            this.cboPttPaid.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboPttPaid.ItemsDisplayMember = "";
-            this.cboPttPaid.ItemsValueMember = "";
-            this.cboPttPaid.Location = new System.Drawing.Point(105, 570);
-            this.cboPttPaid.Name = "cboPttPaid";
-            this.cboPttPaid.Size = new System.Drawing.Size(248, 24);
-            this.cboPttPaid.TabIndex = 116;
-            this.cboPttPaid.Tag = null;
+            this.lbPttPaid.AutoSize = true;
+            this.lbPttPaid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPttPaid.Location = new System.Drawing.Point(10, 572);
+            this.lbPttPaid.Name = "lbPttPaid";
+            this.lbPttPaid.Size = new System.Drawing.Size(89, 20);
+            this.lbPttPaid.TabIndex = 117;
+            this.lbPttPaid.Text = "สิทธิประจำตัว";
             // 
             // label59
             // 
@@ -796,26 +820,26 @@ namespace bangna_hospital.gui
             // txtPttwp3
             // 
             this.txtPttwp3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPttwp3.Location = new System.Drawing.Point(617, 162);
+            this.txtPttwp3.Location = new System.Drawing.Point(639, 162);
             this.txtPttwp3.Name = "txtPttwp3";
-            this.txtPttwp3.Size = new System.Drawing.Size(186, 24);
+            this.txtPttwp3.Size = new System.Drawing.Size(164, 24);
             this.txtPttwp3.TabIndex = 113;
             this.txtPttwp3.Tag = null;
             // 
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label65.Location = new System.Drawing.Point(543, 164);
+            this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label65.Location = new System.Drawing.Point(537, 164);
             this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(64, 20);
+            this.label65.Size = new System.Drawing.Size(100, 16);
             this.label65.TabIndex = 112;
-            this.label65.Text = "ต่างดาว3";
+            this.label65.Text = "เลขใบอนุญาติทำงาน";
             // 
             // txtPttwp2
             // 
             this.txtPttwp2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPttwp2.Location = new System.Drawing.Point(334, 153);
+            this.txtPttwp2.Location = new System.Drawing.Point(347, 153);
             this.txtPttwp2.Name = "txtPttwp2";
             this.txtPttwp2.Size = new System.Drawing.Size(186, 24);
             this.txtPttwp2.TabIndex = 111;
@@ -824,12 +848,12 @@ namespace bangna_hospital.gui
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label64.Location = new System.Drawing.Point(267, 154);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(64, 20);
+            this.label64.Size = new System.Drawing.Size(79, 16);
             this.label64.TabIndex = 110;
-            this.label64.Text = "ต่างดาว2";
+            this.label64.Text = "เลขบัตรต่างด้าว";
             // 
             // txtPttwp1
             // 
@@ -843,12 +867,12 @@ namespace bangna_hospital.gui
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label63.Location = new System.Drawing.Point(11, 154);
+            this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label63.Location = new System.Drawing.Point(4, 154);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(64, 20);
+            this.label63.Size = new System.Drawing.Size(65, 16);
             this.label63.TabIndex = 108;
-            this.label63.Text = "ต่างดาว1";
+            this.label63.Text = "เลขบัตรชมพู";
             // 
             // m_picPhoto
             // 
@@ -1117,17 +1141,15 @@ namespace bangna_hospital.gui
             this.groupBox5.Controls.Add(this.btnPttVisit);
             this.groupBox5.Controls.Add(this.btnPttSave);
             this.groupBox5.Controls.Add(this.btnPttCardRead);
-            this.groupBox5.Controls.Add(this.lbPttInsurNameT);
             this.groupBox5.Controls.Add(this.txtPttInsur);
             this.groupBox5.Controls.Add(this.lbInsur);
-            this.groupBox5.Controls.Add(this.lbPttCompNameT);
             this.groupBox5.Controls.Add(this.txtPttCompCode);
             this.groupBox5.Controls.Add(this.pnPttComp);
             this.groupBox5.Controls.Add(this.lbComp);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.groupBox5.Location = new System.Drawing.Point(3, 594);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(393, 231);
+            this.groupBox5.Size = new System.Drawing.Size(400, 231);
             this.groupBox5.TabIndex = 96;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ที่ทำงาน";
@@ -1216,20 +1238,11 @@ namespace bangna_hospital.gui
             this.btnPttCardRead.Text = "อ่านบัตร";
             this.btnPttCardRead.UseVisualStyleBackColor = true;
             // 
-            // lbPttInsurNameT
-            // 
-            this.lbPttInsurNameT.AutoSize = true;
-            this.lbPttInsurNameT.Location = new System.Drawing.Point(138, 20);
-            this.lbPttInsurNameT.Name = "lbPttInsurNameT";
-            this.lbPttInsurNameT.Size = new System.Drawing.Size(21, 20);
-            this.lbPttInsurNameT.TabIndex = 102;
-            this.lbPttInsurNameT.Text = "...";
-            // 
             // txtPttInsur
             // 
             this.txtPttInsur.Location = new System.Drawing.Point(63, 19);
             this.txtPttInsur.Name = "txtPttInsur";
-            this.txtPttInsur.Size = new System.Drawing.Size(72, 24);
+            this.txtPttInsur.Size = new System.Drawing.Size(331, 24);
             this.txtPttInsur.TabIndex = 100;
             this.txtPttInsur.Tag = null;
             // 
@@ -1242,29 +1255,32 @@ namespace bangna_hospital.gui
             this.lbInsur.TabIndex = 99;
             this.lbInsur.Text = "ประกัน";
             // 
-            // lbPttCompNameT
-            // 
-            this.lbPttCompNameT.AutoSize = true;
-            this.lbPttCompNameT.Location = new System.Drawing.Point(138, 47);
-            this.lbPttCompNameT.Name = "lbPttCompNameT";
-            this.lbPttCompNameT.Size = new System.Drawing.Size(21, 20);
-            this.lbPttCompNameT.TabIndex = 98;
-            this.lbPttCompNameT.Text = "...";
-            // 
             // txtPttCompCode
             // 
             this.txtPttCompCode.Location = new System.Drawing.Point(63, 46);
             this.txtPttCompCode.Name = "txtPttCompCode";
-            this.txtPttCompCode.Size = new System.Drawing.Size(72, 24);
+            this.txtPttCompCode.Size = new System.Drawing.Size(331, 24);
             this.txtPttCompCode.TabIndex = 96;
             this.txtPttCompCode.Tag = null;
             // 
             // pnPttComp
             // 
+            this.pnPttComp.Controls.Add(this.lbPttinWard);
             this.pnPttComp.Location = new System.Drawing.Point(6, 158);
             this.pnPttComp.Name = "pnPttComp";
             this.pnPttComp.Size = new System.Drawing.Size(381, 67);
             this.pnPttComp.TabIndex = 95;
+            // 
+            // lbPttinWard
+            // 
+            this.lbPttinWard.AutoSize = true;
+            this.lbPttinWard.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPttinWard.ForeColor = System.Drawing.Color.Red;
+            this.lbPttinWard.Location = new System.Drawing.Point(4, 4);
+            this.lbPttinWard.Name = "lbPttinWard";
+            this.lbPttinWard.Size = new System.Drawing.Size(30, 25);
+            this.lbPttinWard.TabIndex = 122;
+            this.lbPttinWard.Text = "...";
             // 
             // lbComp
             // 
@@ -2208,9 +2224,9 @@ namespace bangna_hospital.gui
             this.tabVs.Controls.Add(this.scVs);
             this.tabVs.Location = new System.Drawing.Point(1, 24);
             this.tabVs.Name = "tabVs";
-            this.tabVs.Size = new System.Drawing.Size(1143, 850);
+            this.tabVs.Size = new System.Drawing.Size(1252, 850);
             this.tabVs.TabIndex = 2;
-            this.tabVs.Text = " Visit ";
+            this.tabVs.Text = " Visit (F8)";
             // 
             // scVs
             // 
@@ -2223,12 +2239,16 @@ namespace bangna_hospital.gui
             this.scVs.Name = "scVs";
             this.scVs.Panels.Add(this.pnVsVisit);
             this.scVs.Panels.Add(this.c1SplitterPanel2);
-            this.scVs.Size = new System.Drawing.Size(1143, 850);
+            this.scVs.Size = new System.Drawing.Size(1252, 850);
             this.scVs.TabIndex = 0;
             // 
             // pnVsVisit
             // 
             this.pnVsVisit.Collapsible = true;
+            this.pnVsVisit.Controls.Add(this.txtVsComp);
+            this.pnVsVisit.Controls.Add(this.label14);
+            this.pnVsVisit.Controls.Add(this.txtVsInsur);
+            this.pnVsVisit.Controls.Add(this.label4);
             this.pnVsVisit.Controls.Add(this.chkPrnQue);
             this.pnVsVisit.Controls.Add(this.btnPrnQue);
             this.pnVsVisit.Controls.Add(this.txtVsPaidCode);
@@ -2266,6 +2286,44 @@ namespace bangna_hospital.gui
             this.pnVsVisit.TabIndex = 0;
             this.pnVsVisit.Text = "Panel 1";
             this.pnVsVisit.Width = 563;
+            // 
+            // txtVsComp
+            // 
+            this.txtVsComp.Location = new System.Drawing.Point(111, 448);
+            this.txtVsComp.Name = "txtVsComp";
+            this.txtVsComp.Size = new System.Drawing.Size(349, 24);
+            this.txtVsComp.TabIndex = 138;
+            this.txtVsComp.Tag = null;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label14.ForeColor = System.Drawing.Color.Red;
+            this.label14.Location = new System.Drawing.Point(4, 448);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(59, 20);
+            this.label14.TabIndex = 137;
+            this.label14.Text = "ที่ทำงาน";
+            // 
+            // txtVsInsur
+            // 
+            this.txtVsInsur.Location = new System.Drawing.Point(111, 418);
+            this.txtVsInsur.Name = "txtVsInsur";
+            this.txtVsInsur.Size = new System.Drawing.Size(349, 24);
+            this.txtVsInsur.TabIndex = 136;
+            this.txtVsInsur.Tag = null;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(4, 421);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 20);
+            this.label4.TabIndex = 135;
+            this.label4.Text = "บริษัทประกัน";
             // 
             // chkPrnQue
             // 
@@ -2305,7 +2363,7 @@ namespace bangna_hospital.gui
             this.lbVsStatus.AutoSize = true;
             this.lbVsStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lbVsStatus.ForeColor = System.Drawing.Color.Red;
-            this.lbVsStatus.Location = new System.Drawing.Point(11, 424);
+            this.lbVsStatus.Location = new System.Drawing.Point(11, 475);
             this.lbVsStatus.Name = "lbVsStatus";
             this.lbVsStatus.Size = new System.Drawing.Size(25, 24);
             this.lbVsStatus.TabIndex = 131;
@@ -2644,7 +2702,7 @@ namespace bangna_hospital.gui
             this.tabToday.Controls.Add(this.pnTabTotay);
             this.tabToday.Location = new System.Drawing.Point(1, 24);
             this.tabToday.Name = "tabToday";
-            this.tabToday.Size = new System.Drawing.Size(1143, 850);
+            this.tabToday.Size = new System.Drawing.Size(1252, 850);
             this.tabToday.TabIndex = 4;
             this.tabToday.Text = " คนไข้ วันนี้ ";
             // 
@@ -2653,7 +2711,7 @@ namespace bangna_hospital.gui
             this.pnTabTotay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnTabTotay.Location = new System.Drawing.Point(0, 0);
             this.pnTabTotay.Name = "pnTabTotay";
-            this.pnTabTotay.Size = new System.Drawing.Size(1143, 850);
+            this.pnTabTotay.Size = new System.Drawing.Size(1252, 850);
             this.pnTabTotay.TabIndex = 0;
             // 
             // tabApm
@@ -2662,20 +2720,22 @@ namespace bangna_hospital.gui
             this.tabApm.Controls.Add(this.panel2);
             this.tabApm.Location = new System.Drawing.Point(1, 24);
             this.tabApm.Name = "tabApm";
-            this.tabApm.Size = new System.Drawing.Size(1143, 850);
+            this.tabApm.Size = new System.Drawing.Size(1252, 850);
             this.tabApm.TabIndex = 5;
-            this.tabApm.Text = "Appointment";
+            this.tabApm.Text = "Appointment(F7)";
             // 
             // pnApm
             // 
             this.pnApm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnApm.Location = new System.Drawing.Point(0, 47);
+            this.pnApm.Location = new System.Drawing.Point(0, 41);
             this.pnApm.Name = "pnApm";
-            this.pnApm.Size = new System.Drawing.Size(1143, 803);
+            this.pnApm.Size = new System.Drawing.Size(1252, 809);
             this.pnApm.TabIndex = 0;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnApmExcel);
+            this.panel2.Controls.Add(this.txtApmSrc);
             this.panel2.Controls.Add(this.cboApmPaid);
             this.panel2.Controls.Add(this.btnApmSearch);
             this.panel2.Controls.Add(this.txtApmHn);
@@ -2685,8 +2745,17 @@ namespace bangna_hospital.gui
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1143, 47);
+            this.panel2.Size = new System.Drawing.Size(1252, 41);
             this.panel2.TabIndex = 1;
+            // 
+            // txtApmSrc
+            // 
+            this.txtApmSrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtApmSrc.Location = new System.Drawing.Point(955, 6);
+            this.txtApmSrc.Name = "txtApmSrc";
+            this.txtApmSrc.Size = new System.Drawing.Size(177, 27);
+            this.txtApmSrc.TabIndex = 114;
+            this.txtApmSrc.Tag = null;
             // 
             // cboApmPaid
             // 
@@ -2780,7 +2849,7 @@ namespace bangna_hospital.gui
             this.tabRpt.Controls.Add(this.c1SplitContainer3);
             this.tabRpt.Location = new System.Drawing.Point(1, 24);
             this.tabRpt.Name = "tabRpt";
-            this.tabRpt.Size = new System.Drawing.Size(1143, 850);
+            this.tabRpt.Size = new System.Drawing.Size(1252, 850);
             this.tabRpt.TabIndex = 3;
             this.tabRpt.Text = "Report";
             // 
@@ -2796,7 +2865,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer3.Panels.Add(this.pnRptData);
             this.c1SplitContainer3.Panels.Add(this.pnRptCri);
             this.c1SplitContainer3.Panels.Add(this.pnRptReport);
-            this.c1SplitContainer3.Size = new System.Drawing.Size(1143, 850);
+            this.c1SplitContainer3.Size = new System.Drawing.Size(1252, 850);
             this.c1SplitContainer3.TabIndex = 0;
             // 
             // pnRptData
@@ -3025,7 +3094,7 @@ namespace bangna_hospital.gui
             this.tabDoc.Controls.Add(this.pnDocTop);
             this.tabDoc.Location = new System.Drawing.Point(1, 24);
             this.tabDoc.Name = "tabDoc";
-            this.tabDoc.Size = new System.Drawing.Size(1143, 850);
+            this.tabDoc.Size = new System.Drawing.Size(1252, 850);
             this.tabDoc.TabIndex = 6;
             this.tabDoc.Text = "Document Image";
             // 
@@ -3034,7 +3103,7 @@ namespace bangna_hospital.gui
             this.pnDocView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDocView.Location = new System.Drawing.Point(0, 62);
             this.pnDocView.Name = "pnDocView";
-            this.pnDocView.Size = new System.Drawing.Size(1143, 788);
+            this.pnDocView.Size = new System.Drawing.Size(1252, 788);
             this.pnDocView.TabIndex = 1;
             // 
             // pnDocTop
@@ -3049,7 +3118,7 @@ namespace bangna_hospital.gui
             this.pnDocTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.pnDocTop.Location = new System.Drawing.Point(0, 0);
             this.pnDocTop.Name = "pnDocTop";
-            this.pnDocTop.Size = new System.Drawing.Size(1143, 62);
+            this.pnDocTop.Size = new System.Drawing.Size(1252, 62);
             this.pnDocTop.TabIndex = 0;
             // 
             // btnDocSearch
@@ -3119,25 +3188,143 @@ namespace bangna_hospital.gui
             // tabWard
             // 
             this.tabWard.Controls.Add(this.pnWard);
+            this.tabWard.Controls.Add(this.pnwardTop);
             this.tabWard.Location = new System.Drawing.Point(1, 24);
             this.tabWard.Name = "tabWard";
-            this.tabWard.Size = new System.Drawing.Size(1143, 850);
+            this.tabWard.Size = new System.Drawing.Size(1252, 850);
             this.tabWard.TabIndex = 7;
             this.tabWard.Text = "คนไข้นอน";
             // 
             // pnWard
             // 
             this.pnWard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnWard.Location = new System.Drawing.Point(0, 0);
+            this.pnWard.Location = new System.Drawing.Point(0, 37);
             this.pnWard.Name = "pnWard";
-            this.pnWard.Size = new System.Drawing.Size(1143, 850);
+            this.pnWard.Size = new System.Drawing.Size(1252, 813);
             this.pnWard.TabIndex = 0;
+            // 
+            // pnwardTop
+            // 
+            this.pnwardTop.Controls.Add(this.txtWardSrc);
+            this.pnwardTop.Controls.Add(this.c1Label3);
+            this.pnwardTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnwardTop.Location = new System.Drawing.Point(0, 0);
+            this.pnwardTop.Name = "pnwardTop";
+            this.pnwardTop.Size = new System.Drawing.Size(1252, 37);
+            this.pnwardTop.TabIndex = 1;
+            // 
+            // txtWardSrc
+            // 
+            this.txtWardSrc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtWardSrc.Location = new System.Drawing.Point(90, 3);
+            this.txtWardSrc.Name = "txtWardSrc";
+            this.txtWardSrc.Size = new System.Drawing.Size(274, 24);
+            this.txtWardSrc.TabIndex = 5;
+            this.txtWardSrc.Tag = null;
+            this.txtWardSrc.Value = "";
+            // 
+            // c1Label3
+            // 
+            this.c1Label3.AutoSize = true;
+            this.c1Label3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.c1Label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Label3.Location = new System.Drawing.Point(8, 6);
+            this.c1Label3.Name = "c1Label3";
+            this.c1Label3.Size = new System.Drawing.Size(74, 20);
+            this.c1Label3.TabIndex = 4;
+            this.c1Label3.Tag = null;
+            this.c1Label3.Value = "ค้นหา";
+            // 
+            // tabSSO
+            // 
+            this.tabSSO.Controls.Add(this.spSSO);
+            this.tabSSO.Location = new System.Drawing.Point(1, 24);
+            this.tabSSO.Name = "tabSSO";
+            this.tabSSO.Size = new System.Drawing.Size(1252, 850);
+            this.tabSSO.TabIndex = 8;
+            this.tabSSO.Text = "ค้นหา ปกส";
+            // 
+            // spSSO
+            // 
+            this.spSSO.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.spSSO.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.spSSO.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.spSSO.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spSSO.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.spSSO.Location = new System.Drawing.Point(0, 0);
+            this.spSSO.Name = "spSSO";
+            this.spSSO.Panels.Add(this.c1SplitterPanel1);
+            this.spSSO.Panels.Add(this.c1SplitterPanel3);
+            this.spSSO.Size = new System.Drawing.Size(1252, 850);
+            this.spSSO.TabIndex = 0;
+            // 
+            // c1SplitterPanel1
+            // 
+            this.c1SplitterPanel1.Controls.Add(this.txtSSOsearch);
+            this.c1SplitterPanel1.Controls.Add(this.c1Label2);
+            this.c1SplitterPanel1.Height = 65;
+            this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel1.Name = "c1SplitterPanel1";
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(1143, 44);
+            this.c1SplitterPanel1.SizeRatio = 7.683D;
+            this.c1SplitterPanel1.TabIndex = 0;
+            this.c1SplitterPanel1.Text = "Panel 1";
+            // 
+            // txtSSOsearch
+            // 
+            this.txtSSOsearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSSOsearch.Location = new System.Drawing.Point(90, 3);
+            this.txtSSOsearch.Name = "txtSSOsearch";
+            this.txtSSOsearch.Size = new System.Drawing.Size(274, 24);
+            this.txtSSOsearch.TabIndex = 3;
+            this.txtSSOsearch.Tag = null;
+            this.txtSSOsearch.Value = "";
+            // 
+            // c1Label2
+            // 
+            this.c1Label2.AutoSize = true;
+            this.c1Label2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.c1Label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Label2.Location = new System.Drawing.Point(8, 6);
+            this.c1Label2.Name = "c1Label2";
+            this.c1Label2.Size = new System.Drawing.Size(74, 20);
+            this.c1Label2.TabIndex = 2;
+            this.c1Label2.Tag = null;
+            this.c1Label2.Value = "ค้นหา";
+            // 
+            // c1SplitterPanel3
+            // 
+            this.c1SplitterPanel3.Controls.Add(this.pnSSO);
+            this.c1SplitterPanel3.Height = 781;
+            this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 90);
+            this.c1SplitterPanel3.Name = "c1SplitterPanel3";
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(1143, 760);
+            this.c1SplitterPanel3.TabIndex = 1;
+            this.c1SplitterPanel3.Text = "Panel 2";
+            // 
+            // pnSSO
+            // 
+            this.pnSSO.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnSSO.Location = new System.Drawing.Point(0, 0);
+            this.pnSSO.Name = "pnSSO";
+            this.pnSSO.Size = new System.Drawing.Size(1143, 760);
+            this.pnSSO.TabIndex = 0;
+            // 
+            // btmApmExcel
+            // 
+            this.btnApmExcel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnApmExcel.Location = new System.Drawing.Point(1161, 5);
+            this.btnApmExcel.Name = "btmApmExcel";
+            this.btnApmExcel.Size = new System.Drawing.Size(80, 31);
+            this.btnApmExcel.TabIndex = 117;
+            this.btnApmExcel.Text = "Excel";
+            this.btnApmExcel.UseVisualStyleBackColor = true;
             // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1145, 897);
+            this.ClientSize = new System.Drawing.Size(1254, 897);
             this.Controls.Add(this.tC);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmReception";
@@ -3161,11 +3348,11 @@ namespace bangna_hospital.gui
             this.sCPtt.ResumeLayout(false);
             this.pnPttPatient.ResumeLayout(false);
             this.pnPttPatient.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttPaid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttClearData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttDOBYear)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttDOBMM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttDOBDD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboPttPaid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttNickName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboPttSex)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttwp3)).EndInit();
@@ -3195,6 +3382,8 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnPttCardRead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttInsur)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttCompCode)).EndInit();
+            this.pnPttComp.ResumeLayout(false);
+            this.pnPttComp.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttRefChw)).EndInit();
@@ -3250,6 +3439,8 @@ namespace bangna_hospital.gui
             this.scVs.ResumeLayout(false);
             this.pnVsVisit.ResumeLayout(false);
             this.pnVsVisit.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVsComp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVsInsur)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkPrnQue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrnQue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVsPaidCode)).EndInit();
@@ -3272,6 +3463,7 @@ namespace bangna_hospital.gui
             this.tabApm.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmSrc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboApmPaid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApmSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmHn)).EndInit();
@@ -3296,6 +3488,19 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDocHn)).EndInit();
             this.tabWard.ResumeLayout(false);
+            this.pnwardTop.ResumeLayout(false);
+            this.pnwardTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtWardSrc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Label3)).EndInit();
+            this.tabSSO.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spSSO)).EndInit();
+            this.spSSO.ResumeLayout(false);
+            this.c1SplitterPanel1.ResumeLayout(false);
+            this.c1SplitterPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).EndInit();
+            this.c1SplitterPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnApmExcel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3419,9 +3624,7 @@ namespace bangna_hospital.gui
         private C1.Win.C1Command.C1DockingTabPage tabApm;
         private C1.Win.C1Input.C1ComboBox cboPttRel;
         private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.Label lbPttCompNameT;
         private C1.Win.C1Input.C1TextBox txtPttCompCode;
-        private System.Windows.Forms.Label lbPttInsurNameT;
         private C1.Win.C1Input.C1TextBox txtPttInsur;
         private System.Windows.Forms.Label lbInsur;
         private C1.Win.C1Input.C1Button btnPttCurCopyto;
@@ -3475,8 +3678,7 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1TextBox txtVsHN;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label lbVsPttNameT;
-        private System.Windows.Forms.Label label69;
-        private C1.Win.C1Input.C1ComboBox cboPttPaid;
+        private System.Windows.Forms.Label lbPttPaid;
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Label label70;
         private C1.Win.C1Input.C1ComboBox cboVsDept;
@@ -3549,5 +3751,23 @@ namespace bangna_hospital.gui
         private C1.Win.C1Command.C1DockingTabPage tabWard;
         private System.Windows.Forms.Panel pnWard;
         private C1.Win.C1Input.C1CheckBox chkPrnQue;
+        private C1.Win.C1Command.C1DockingTabPage tabSSO;
+        private C1.Win.C1SplitContainer.C1SplitContainer spSSO;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel3;
+        private C1.Win.C1Input.C1TextBox txtSSOsearch;
+        private C1.Win.C1Input.C1Label c1Label2;
+        private System.Windows.Forms.Panel pnSSO;
+        private C1.Win.C1Input.C1TextBox txtVsInsur;
+        private System.Windows.Forms.Label label4;
+        private C1.Win.C1Input.C1TextBox txtVsComp;
+        private System.Windows.Forms.Label label14;
+        private C1.Win.C1Input.C1TextBox txtApmSrc;
+        private System.Windows.Forms.Label lbPttinWard;
+        private System.Windows.Forms.Panel pnwardTop;
+        private C1.Win.C1Input.C1TextBox txtWardSrc;
+        private C1.Win.C1Input.C1Label c1Label3;
+        private C1.Win.C1Input.C1TextBox txtPttPaid;
+        private C1.Win.C1Input.C1Button btnApmExcel;
     }
 }

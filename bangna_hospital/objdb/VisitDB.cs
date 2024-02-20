@@ -921,15 +921,15 @@ namespace bangna_hospital.objdb
                     "End as MNC_FN_TYP_DSC, " +
                 " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD,isnull(t01.MNC_ACT_NO,'') as MNC_ACT_NO,t01.MNC_REF_DSC " +
                 ", convert(VARCHAR(20),t01.MNC_DATE,23) as MNC_DATE, t01.MNC_TIME,t01.mnc_pre_no, t01.mnc_sts_flg,isnull(t01.limit_credit_no,'') as limit_credit_no " +
-                ", t01.MNC_SEC_NO, t01.MNC_DEP_NO, pm32d.MNC_MD_DEP_DSC as dept_opd, pt08.MNC_SEC_NO, pt08.MNC_DEP_NO, isnull(pt08.MNC_AN_NO,'0') as MNC_AN_NO, isnull(pt08.MNC_AN_YR,'') as MNC_AN_YR,pm32an.MNC_MD_DEP_DSC as dept_ipd  " +
-                ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet " +
+                ", t01.MNC_SEC_NO, t01.MNC_DEP_NO, pm32d.MNC_MD_DEP_DSC as dept_opd, pt08.MNC_SEC_NO as MNC_SEC_NO_ipd, pt08.MNC_DEP_NO as MNC_DEP_NO_ipd, isnull(pt08.MNC_AN_NO,'0') as MNC_AN_NO, isnull(pt08.MNC_AN_YR,'') as MNC_AN_YR,pm32an.MNC_MD_DEP_DSC as dept_ipd  " +
+                ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet,pt08.MNC_DS_TIME,convert(varchar(20),pt08.MNC_DS_DATE,23) as MNC_DS_DATE " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " LEFT join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " inner join FINANCE_M02 f02 ON t01.MNC_FN_TYP_CD = f02.MNC_FN_TYP_CD " +
                 "left join PATIENT_M32 pm32d on t01.MNC_SEC_NO = pm32d.MNC_SEC_NO and t01.MNC_DEP_NO = pm32d.MNC_MD_DEP_NO " +
                 "left join PATIENT_T08 pt08 on t01.MNC_HN_NO = pt08.MNC_HN_NO and t01.MNC_DATE = pt08.MNC_DATE and t01.MNC_PRE_NO = pt08.MNC_PRE_NO " +
-                "left join PATIENT_M32 pm32an on pt08.MNC_SEC_NO = pm32an.MNC_SEC_NO and pt08.MNC_DEP_NO = pm32an.MNC_MD_DEP_NO " +
+                "left join PATIENT_M32 pm32an on pt08.MNC_SEC_NO = pm32an.MNC_SEC_NO and pt08.MNC_WD_NO = pm32an.MNC_MD_DEP_NO " +
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
                 "and t01.MNC_STS <> 'C' " +
                 " Order by t01.MNC_HN_NO,t01.MNC_DATE desc,t01.MNC_TIME desc ";
@@ -3949,7 +3949,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String insertVisit1(String hn, String paid_id, String symptoms, String secno, String remark, String dtrid, String vstype, String userId)
+        public String insertVisit1(String hn, String paid_id, String symptoms, String secno, String remark, String dtrid, String vstype, String compcode, String isnurcode, String userId)
         {
             String re = "";
             String sql = "", vsdate="";
@@ -3969,6 +3969,9 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("secno", secno);
                 conn.comStore.Parameters.AddWithValue("remark", remark);
                 conn.comStore.Parameters.AddWithValue("doctor_id", dtrid);
+                conn.comStore.Parameters.AddWithValue("comp_code", compcode);
+                conn.comStore.Parameters.AddWithValue("insur_code", isnurcode);
+                conn.comStore.Parameters.AddWithValue("user_id", userId);
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
                 retval.Direction = ParameterDirection.Output;
@@ -4102,6 +4105,107 @@ namespace bangna_hospital.objdb
             {
                 conn.connMainHIS.Close();
                 conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insertOrder(String hn, String vsdate, String preno, String dtrcode, String userId)
+        {
+            String re = "", reL = "", reX = "", reP = "", reC = "";
+            String sql = "";
+            try
+            {
+                conn.comStore = new SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+                conn.comStore.CommandText = "gen_order_opd_by_hn";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("hn_where", hn);
+                conn.comStore.Parameters.AddWithValue("vsdate", vsdate);
+                conn.comStore.Parameters.AddWithValue("preno", preno);
+                conn.comStore.Parameters.AddWithValue("dtr_code", dtrcode);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_add", userId);
+
+                SqlParameter retvalL = conn.comStore.Parameters.Add("row_labno", SqlDbType.VarChar, 50);
+                retvalL.Value = "";
+                retvalL.Direction = ParameterDirection.Output;
+                SqlParameter retvalX = conn.comStore.Parameters.Add("row_xrayno", SqlDbType.VarChar, 50);
+                retvalX.Value = "";
+                retvalX.Direction = ParameterDirection.Output;
+                SqlParameter retvalP = conn.comStore.Parameters.Add("row_procedureno", SqlDbType.VarChar, 50);
+                retvalP.Value = "";
+                retvalP.Direction = ParameterDirection.Output;
+                SqlParameter retvalC = conn.comStore.Parameters.Add("row_curdate", SqlDbType.VarChar, 50);
+                retvalC.Value = "";
+                retvalC.Direction = ParameterDirection.Output;
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                reL = (String)conn.comStore.Parameters["row_labno"].Value;
+                reX = (String)conn.comStore.Parameters["row_xrayno"].Value;
+                reP = (String)conn.comStore.Parameters["row_procedureno"].Value;
+                reC = (String)conn.comStore.Parameters["row_curdate"].Value;
+                re = reL + "#" + reX + "#" + reP + "#" + reC;
+                if (int.TryParse(re, out int chk))
+                {
+                    //vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("MM") + "-" + DateTime.Now.Day.ToString("dd");
+                    //sql = "SELECT MNC_VN_NO, MNC_VN_SEQ FROM PATIENT_T01 " +
+                    //    "WHERE (MNC_HN_NO ='"+ hn + "') AND (MNC_DATE =@'"+ vsdate + "') AND (MNC_ACT_NO <= 600) ORDER BY MNC_VN_NO, MNC_VN_SEQ;";
+
+                }
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertOrder sql " + sql + " hn " + hn);
+                re = sql;
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public DataTable selectOrderTempByHN(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereAn = "";
+
+            sql = "Select ordt.order_code, ordt.order_name, ordt.qty, ordt.flag, ordt.qty, ordt.paid_code,ordt.id " +
+            "From t_order_temp ordt " +
+
+            "where ordt.hn = '" + hn + "'  " +
+            "Order By ordt.id  ";
+            //}
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public String insertOrderTemp(String order_code, String name, String qty, String flag, String order_id, String hn)
+        {
+            String sql = "", re = "";
+            try
+            {
+                sql = "Insert Into t_order_temp (order_code, flag, order_id, hn,order_name,qty) Values('" + order_code + "','" + flag + "','" + order_id + "','" + hn + "','" + name.Replace("'","''") + "','" + qty + "')";
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertOrderTemp sql " + sql);
+                re = sql;
+            }
+            return re;
+        }
+        public String deleteOrderTemp(String id)
+        {
+            String sql = "", re = "";
+            sql = "Delete From t_order_temp  where id = '" + id + "' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "deleteOrderTemp sql " + sql + " id " + id);
             }
             return re;
         }

@@ -46,5 +46,23 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
+        public DataTable selectbyHNReqNo(String hn, String reqdate, String reqno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            sql = "SELECT  pt16.MNC_SR_CD as order_code, pm30.MNC_SR_DSC as order_name, convert(varchar(20),pt16.MNC_REQ_DAT, 23) as req_date " +
+                ", pt16.MNC_REQ_NO as req_no, 'xray' as flag, '1' as qty " +
+                "FROM    Patient_t15 pt15  " +
+                "left join Patient_T16 pt16 ON pt15.MNC_REQ_NO = pt16.MNC_REQ_NO AND pt15.MNC_REQ_DAT = pt16.MNC_REQ_DAT " +
+                "left join PATIENT_M30 pm30 ON pt16.MNC_SR_CD = pm30.MNC_SR_CD " +
+                "where pt15.MNC_REQ_DAT = '" + reqdate + "' and pt15.MNC_REQ_NO = '" + reqno + "'  " +
+                "and pt15.mnc_hn_no = '" + hn + "' " +
+                "and pt15.mnc_req_sts <> 'C'  and pt15.mnc_req_sts <> 'C'  " +
+                "Order By pt16.MNC_SR_CD ";
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
     }
 }

@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_reception</AssemblyName>
+    <AssemblyName>bangna_hospital_opd</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -183,6 +183,12 @@
     <Compile Include="gui\FrmCompAdd.Designer.cs">
       <DependentUpon>FrmCompAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmDfDoctor1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDfDoctor1.Designer.cs">
+      <DependentUpon>FrmDfDoctor1.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmDrugOrderSplit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -207,6 +213,12 @@
     <Compile Include="gui\FrmFingerScanCheck.Designer.cs">
       <DependentUpon>FrmFingerScanCheck.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmItemSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmItemSearch.Designer.cs">
+      <DependentUpon>FrmItemSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmLabCompare.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +236,12 @@
     </Compile>
     <Compile Include="gui\FrmOPD.Designer.cs">
       <DependentUpon>FrmOPD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmPharmacy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmPharmacy.Designer.cs">
+      <DependentUpon>FrmPharmacy.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmQueueShow.cs">
       <SubType>Form</SubType>
@@ -658,18 +676,22 @@
     <Compile Include="objdb\EpidemAPIDB.cs" />
     <Compile Include="objdb\FinanceT01DB.cs" />
     <Compile Include="objdb\FLocationDB.cs" />
+    <Compile Include="objdb\LabM06DB.cs" />
     <Compile Include="objdb\LabT05DB.cs" />
     <Compile Include="objdb\LisLabRequestDB.cs" />
     <Compile Include="objdb\LisLabResultDB.cs" />
     <Compile Include="objdb\MedicalCertificateDB.cs" />
     <Compile Include="objdb\PatientM06DB.cs" />
     <Compile Include="objdb\PatientM13DB.cs" />
+    <Compile Include="objdb\PatientM44DB.cs" />
     <Compile Include="objdb\PatientT013DB.cs" />
     <Compile Include="objdb\PatientT03DB.cs" />
     <Compile Include="objdb\PatientT07DB.cs" />
     <Compile Include="objdb\PatientT16DB.cs" />
+    <Compile Include="objdb\PharmacyM14DB.cs" />
     <Compile Include="objdb\SummaryT03DB.cs" />
     <Compile Include="objdb\TFingerScanDB.cs" />
+    <Compile Include="objdb\XrayM05DB.cs" />
     <Compile Include="object1\AipnXmlFile.cs" />
     <Compile Include="object1\DocScanOutLab.cs" />
     <Compile Include="object1\DocumentM01.cs" />
@@ -760,9 +782,11 @@
     <Compile Include="object1\FinanceM02.cs" />
     <Compile Include="object1\FLocation.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
+    <Compile Include="object1\Item.cs" />
     <Compile Include="object1\LabCovidDetected.cs" />
     <Compile Include="object1\LabM01.cs" />
     <Compile Include="object1\LabM02.cs" />
+    <Compile Include="object1\LabM06.cs" />
     <Compile Include="object1\LabT01.cs" />
     <Compile Include="object1\LabT02.cs" />
     <Compile Include="object1\LabT05.cs" />
@@ -801,6 +825,7 @@
     <Compile Include="object1\PatientM29.cs" />
     <Compile Include="object1\PatientM30.cs" />
     <Compile Include="object1\PatientM32.cs" />
+    <Compile Include="object1\PatientM44.cs" />
     <Compile Include="object1\PatientSmartcard.cs" />
     <Compile Include="object1\PatientM06.cs" />
     <Compile Include="object1\PatientT013.cs" />
@@ -808,6 +833,7 @@
     <Compile Include="object1\PatientT03.cs" />
     <Compile Include="object1\PatientT07.cs" />
     <Compile Include="object1\PatientT16.cs" />
+    <Compile Include="object1\PharmacyM14.cs" />
     <Compile Include="object1\PharmacyT01.cs" />
     <Compile Include="object1\PharmacyM01.cs" />
     <Compile Include="object1\PharmacyM02.cs" />
@@ -833,6 +859,7 @@
     <Compile Include="object1\Vaccine.cs" />
     <Compile Include="object1\XrayM01.cs" />
     <Compile Include="object1\XrayM02.cs" />
+    <Compile Include="object1\XrayM05.cs" />
     <Compile Include="object1\XrayT01.cs" />
     <Compile Include="object1\XrayT02.cs" />
     <Compile Include="object1\XrayT04.cs" />
@@ -926,6 +953,9 @@
     <EmbeddedResource Include="gui\FrmCompAdd.resx">
       <DependentUpon>FrmCompAdd.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDfDoctor1.resx">
+      <DependentUpon>FrmDfDoctor1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorDiag1.resx">
       <DependentUpon>FrmDoctorDiag1.cs</DependentUpon>
     </EmbeddedResource>
@@ -940,6 +970,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmFingerScanCheck.resx">
       <DependentUpon>FrmFingerScanCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmItemSearch.resx">
+      <DependentUpon>FrmItemSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmLabCompare.resx">
       <DependentUpon>FrmLabCompare.cs</DependentUpon>
@@ -964,6 +997,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmOrOperativeNote.resx">
       <DependentUpon>FrmOrOperativeNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmPasswordConfirm.resx">
+      <DependentUpon>FrmPasswordConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmPharmacy.resx">
+      <DependentUpon>FrmPharmacy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmQueueShow.resx">
       <DependentUpon>FrmQueueShow.cs</DependentUpon>

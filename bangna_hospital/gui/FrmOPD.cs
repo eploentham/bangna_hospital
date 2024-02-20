@@ -2,6 +2,7 @@
 using bangna_hospital.control;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
+using C1.C1Excel;
 using C1.Win.C1Document;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
@@ -9,9 +10,10 @@ using C1.Win.C1List;
 using C1.Win.C1SplitContainer;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
+using C1.Win.FlexReport;
 using C1.Win.FlexViewer;
-using C1.Win.ImportServices.ReportingService4;
-using CSJ2K.j2k.roi.encoder;
+using GrapeCity.ActiveReports;
+using GrapeCity.ActiveReports.Document;
 using GrapeCity.ActiveReports.Document.Section;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ using System.Windows.Forms;
 using static bangna_hospital.object1.LabOutRIAaiJson;
 using static C1.Win.C1Preview.Strings;
 using Column = C1.Win.C1FlexGrid.Column;
+using Image = System.Drawing.Image;
 using Patient = bangna_hospital.object1.Patient;
 using Row = C1.Win.C1FlexGrid.Row;
 
@@ -45,7 +48,9 @@ namespace bangna_hospital.gui
         Visit VS;
         PatientT07 APM;
         C1ThemeController theme1;
-        C1FlexGrid grfOperList, grfOperFinish, grfOperFinishDrug, grfOperFinishLab, grfOperFinishXray, grfOperFinishProcedure, grfCheckUPList, grfPttApm, grfOrder, grfIPD, grfIPDScan, grfOPD, grfOutLab, grfHisOrder, grfLab, grfXray, grfHisProcedure, grfSrc, grfSrcVs, grfSrcOrder, grfSrcLab, grfSrcXray, grfSrcProcedure, grfTodayOutLab;
+        C1FlexGrid grfOperList, grfOperFinish, grfOperFinishDrug, grfOperFinishLab, grfOperFinishXray, grfOperFinishProcedure, grfCheckUPList, grfPttApm, grfOrder, grfIPD, grfIPDScan, grfOPD, grfOutLab, grfHisOrder, grfLab, grfXray, grfHisProcedure, grfSrc, grfSrcVs, grfSrcOrder, grfSrcLab, grfSrcXray, grfSrcProcedure, grfTodayOutLab, grfApmOrder;
+        C1FlexGrid grfApm, grfRpt;
+        C1FlexReport rptView;
         Boolean pageLoad = false, tabMedScanActiveNOtabOutLabActive=true;
         Image imgCorr, imgTran;
         Timer timeOperList;
@@ -55,11 +60,11 @@ namespace bangna_hospital.gui
         Form frmImg;
         C1PictureBox pic;
         C1FlexViewer fvCerti, fvTodayOutLab;
-
+        DataTable DTRPT;
         int originalHeight = 0, newHeight = 720, mouseWheel = 0;
         int colgrfSrcHn = 1, colgrfSrcFullNameT = 2, colgrfSrcPID = 3, colgrfSrcDOB = 4, colgrfSrcPttid = 5, colgrfSrcAge = 6, colgrfSrcVisitReleaseOPD = 7, colgrfSrcVisitReleaseIPD = 8, colgrfSrcVisitReleaseIPDDischarge = 9;
-        int colgrfPttApmVsDate = 1, colgrfPttApmApmDate = 2, colgrfPttApmApmTime = 3, colgrfPttApmHN = 4, colgrfPttApmPttName = 5, colgrfPttApmDeptR = 6, colgrfPttApmDeptMake = 7, colgrfPttApmNote = 8, colgrfPttApmOrder = 9, colgrfPttApmDocYear = 10, colgrfPttApmDocNo = 11, colgrfPttApmDtrname = 12, colgrfPttApmPhone = 13, colgrfPttApmPaidName = 14, colgrfPttApmRemarkCall = 15, colgrfPttApmStatusRemarkCall = 16, colgrfPttApmRemarkCallDate = 17;
-        int colGrfOrderCode = 1, colGrfOrderName = 2, colGrfOrderItemStatus=3;
+        int colgrfPttApmVsDate = 1, colgrfPttApmApmDateShow = 2, colgrfPttApmApmTime = 3, colgrfPttApmHN = 4, colgrfPttApmPttName = 5, colgrfPttApmDeptR = 6, colgrfPttApmDeptMake = 7, colgrfPttApmNote = 8, colgrfPttApmOrder = 9, colgrfPttApmDocYear = 10, colgrfPttApmDocNo = 11, colgrfPttApmDtrname = 12, colgrfPttApmPhone = 13, colgrfPttApmPaidName = 14, colgrfPttApmRemarkCall = 15, colgrfPttApmStatusRemarkCall = 16, colgrfPttApmRemarkCallDate = 17, colgrfPttApmApmDate1 = 18;
+        int colgrfOrderCode = 1, colgrfOrderName = 2, colgrfOrderStatus=3, colgrfOrderQty=4, colgrfOrderID=5, colgrfOrderReqNO=6, colgrfOrdFlagSave=7;
         int colgrfCheckUPHn = 1, colgrfCheckUPFullNameT = 2, colgrfCheckUPSymtom = 3, colgrfCheckUPEmployer = 4, colgrfCheckUPVsDate = 5, colgrfCheckUPPreno = 6;
         int colgrfOperListHn = 1, colgrfOperListFullNameT = 2, colgrfOperListSymptoms = 3, colgrfOperListPaidName = 4, colgrfOperListPreno = 5, colgrfOperListVsDate = 6, colgrfOperListVsTime = 7, colgrfOperListActNo = 8, colgrfOperListDtrName=9, colgrfOperListLab=10, colgrfOperListXray=11;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9, colIPDDtrName = 10;
@@ -70,6 +75,7 @@ namespace bangna_hospital.gui
         int colLabDate = 1, colLabName = 2, colLabNameSub = 3, colLabResult = 4, colInterpret = 5, colNormal = 6, colUnit = 7;
         int colXrayDate = 1, colXrayCode = 2, colXrayName = 3, colXrayResult = 4;
         int colHisProcCode = 1, colHisProcName = 2, colHisProcReqDate=3, colHisProcReqTime=4;
+        
         int ROWGrfOper = 0;
 
         Label lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8, lbDocGrp9;
@@ -77,8 +83,8 @@ namespace bangna_hospital.gui
         listStream strm;
         List<listStream> lStream, lStreamPic;
         List<String> lApm;
-        AutoCompleteStringCollection acmApmTime, autoLab, autoXray, autoHotC, autoPhy, autoApm;
-        string[] AUTOSymptom = { "07:00-08:00","08:00-09:00","09:00-10:00","10:00-11:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00"
+        AutoCompleteStringCollection acmApmTime, autoLab, autoXray, autoProcedure, autoPhy, autoApm, autoDrug;
+        string[] AUTOSymptom = { "07:00-08:00","08:00-09:00","08:00-15:00","09:00-10:00","09:00-15:00","10:00-11:00","10:00-15:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00"
                 ,"18:00-19:00","19:00-20:00","20:00-21:00"
         };
         Label lbLoading;
@@ -114,7 +120,8 @@ namespace bangna_hospital.gui
             acmApmTime.AddRange(AUTOSymptom);
             autoLab = new AutoCompleteStringCollection();
             autoXray = new AutoCompleteStringCollection();
-            autoHotC = new AutoCompleteStringCollection();
+            autoProcedure = new AutoCompleteStringCollection();
+            autoDrug = new AutoCompleteStringCollection();
             autoApm = new AutoCompleteStringCollection();
             autoApm = bc.bcDB.pm13DB.getlApm();
 
@@ -128,6 +135,8 @@ namespace bangna_hospital.gui
             bc.setCboSex(cboCheckUPSex);
             bc.bcDB.pm04DB.setCboNation(cboCheckUPNat, "");
             bc.bcDB.pttDB.setCboDeptOPDNew(cboApmDept, "");
+            bc.bcDB.pttDB.setCboDeptOPDNew(cboApmDept1, "");
+            bc.bcDB.pttDB.setCboDeptOPDNew(cboRpt2, "");
 
             initControl();
             
@@ -140,7 +149,7 @@ namespace bangna_hospital.gui
             {
                 chlApmList.Items.Add(txt);
             }
-            txtTodayOutLabStartDate.Value = DateTime.Now;
+            txtSBSearchDate.Value = DateTime.Now;
             setEvent();
             setTheme();
             tabMedScan.Hide();
@@ -155,6 +164,10 @@ namespace bangna_hospital.gui
                 tabCheckUP.TabVisible = false;
                 tabSearch.TabVisible = false;
             }
+            txtApmDate.Value = DateTime.Now;
+            txtRptStartDate.Value = DateTime.Now;
+            txtRptEndDate.Value = DateTime.Now;
+            chkApmDate.Checked = true;
             pageLoad = false;
         }
         private void initFont()
@@ -227,15 +240,16 @@ namespace bangna_hospital.gui
 
             initGrfCheckUPList();
             initGrfOperList();
-            initGrfPttApm();
-            initGrfOrder();
+            initGrfPttApm(ref grfPttApm,ref pnPttApm, "grfPttApm");
+            initGrfPttApm(ref grfApm, ref pnApm, "grfApm");
+            initGrfOrder(ref grfOrder,ref pnOrder, "grfOrder");
             initGrfIPD();
             initGrfIPDScan();
             initGrfOPD();
             initGrfOutLab();
-            initGrfLab();
+            initGrfLab(ref grfLab,ref pnHistoryLab);
             initGrfHisOrder();
-            initGrfXray();
+            initGrfXray(ref grfXray, ref pnHistoryXray);
             initGrfSrc();
             initGrfSrcVs();
             initGrfSrcLab();
@@ -245,10 +259,15 @@ namespace bangna_hospital.gui
             initGrfSrcProcedure();
             initGrfTodayOutLab();
             initGrfOperFinish();
-            initGrfOperFinishLab();
-            initGrfOperFinishXray();
+            initGrfLab(ref grfOperFinishLab,ref pnFinishLab);
+            initGrfXray(ref grfOperFinishXray, ref pnFinishXray);
             initGrfOperFinishDrug();
             initGrfOperFinishProcedure();
+            initGrfOrder(ref grfApmOrder, ref pnApmOrder, "grfApmOrder");
+            initGrfRpt();
+            initRptView();
+
+            pnApmOrder.Hide();
         }
         private void setTheme()
         {
@@ -329,6 +348,7 @@ namespace bangna_hospital.gui
             txtPttApmDate.DropDownClosed += TxtPttApmDate_DropDownClosed;
             txtApmTime.KeyUp += TxtApmTime_KeyUp;
             cboApmDept.DropDownClosed += CboApmDept_DropDownClosed;
+            cboApmDept1.DropDownClosed += CboApmDept1_DropDownClosed;
             txtApmDsc.KeyUp += TxtApmDsc_KeyUp;
             txtApmTel.KeyUp += TxtApmTel_KeyUp;
             txtApmRemark.KeyUp += TxtApmRemark_KeyUp;
@@ -337,8 +357,8 @@ namespace bangna_hospital.gui
 
             chkItemLab.Click += ChkItemLab_Click;
             chkItemXray.Click += ChkItemXray_Click;
-            chkItemPhy.Click += ChkItemPhy_Click;
-            chkItemHotC.Click += ChkItemHotC_Click;
+            chkItemProcedure.Click += ChkItemHotC_Click;
+            chkItemDrug.Click += ChkItemDrug_Click;
 
             txtItemCode.KeyUp += TxtItemCode_KeyUp;
             txtSearchItem.KeyUp += TxtSearchItem_KeyUp;
@@ -349,23 +369,390 @@ namespace bangna_hospital.gui
 
             txtSrcHn.KeyUp += TxtSrcHn_KeyUp;
             lbApmList.DoubleClick += LbApmList_DoubleClick;
-            txtTodayOutLabStartDate.DropDownClosed += TxtTodayOutLabStartDate_DropDownClosed;
+            //txtTodayOutLabStartDate.DropDownClosed += TxtTodayOutLabStartDate_DropDownClosed;
 
             txtSBSearchDate.DropDownClosed += TxtDateSearch_DropDownClosed;
+
+            btnOperItemSearch.Click += BtnOperItemSearch_Click;
+            btnApmOrder.Click += BtnApmOrder_Click;
+            txtApmPlusDay.KeyPress += TxtApmPlusDay_KeyPress;
+            txtApmPlusDay.KeyUp += TxtApmPlusDay_KeyUp;
+            lbApm7Week.Click += LbApm7Week_Click;
+            lbApm14Week.Click += LbApm14Week_Click;
+            lbApm1Month.Click += LbApm1Month_Click;
+            btnOrderSave.Click += BtnOrderSave_Click;
+            btnOrderSubmit.Click += BtnOrderSubmit_Click;
+            txtApmDate.DropDownClosed += TxtApmDate_DropDownClosed;
+
+            txtApmSrc.KeyPress += TxtApmSrc_KeyPress;
+            btnApmSearch.Click += BtnApmSearch_Click;
+            btnApmExcel.Click += BtnApmExcel_Click;
+            btnRptPrint.Click += BtnRptPrint_Click;
+            btnRpt1.Click += BtnRpt1_Click;
         }
 
+        private void BtnRpt1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
+            if (dtapmstart.Year < 1900)
+            {
+                dtapmstart.AddYears(543);
+            }
+            DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
+            if (dtapmend.Year < 1900)
+            {
+                dtapmend.AddYears(543);
+            }
+            bc.bcDB.pt07DB.setCboTumbonName(cboRpt1, dtapmstart.Year.ToString() + "-" + dtapmstart.ToString("MM-dd"), dtapmend.Year.ToString() + "-" + dtapmend.ToString("MM-dd"), "");
+        }
+        private void BtnRptPrint_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            
+            DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
+            if (dtapmstart.Year < 1900)
+            {
+                dtapmstart.AddYears(543);
+            }
+            DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
+            if (dtapmend.Year < 1900)
+            {
+                dtapmend.AddYears(543);
+            }
+            String seccode = "",dtrcode="", deptcode="";
+            seccode = cboRpt2.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt2.SelectedItem).Value.ToString();
+            deptcode = bc.bcDB.pm32DB.selectDeptOPDBySecNO(seccode);
+            dtrcode = cboRpt1.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt1.SelectedItem).Value.ToString();
+            DTRPT = bc.bcDB.pt07DB.selectByDate1(dtapmstart.Year.ToString() + "-" + dtapmstart.ToString("MM-dd"), dtapmend.Year.ToString() + "-" + dtapmend.ToString("MM-dd"), dtrcode, deptcode, seccode, "");
+            int i = 1;
+            foreach(DataRow drow in DTRPT.Rows)
+            {
+                drow["row_number"] = i++;
+                drow["apm_time"] = bc.showTime(drow["apm_time"].ToString());
+                drow["apm_date"] = bc.datetoShow1(drow["apm_date"].ToString());
+                drow["apmdept"] = drow["apmdept"].ToString().Replace("กุมารเวช", "");//นพ. พิพัฒน์ชัย อรุณธรรมคุณ
+                drow["dtrname"] = drow["dtrname"].ToString().Replace("นพ. พิพัฒน์ชัย อรุณธรรมคุณ", "นพ. พิพัฒน์ชัย อรุณธรรม.");
+                drow["desc1"] = drow["desc1"].ToString().Replace("\r\n", ",");
+            }
+            FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date.rdlx");
+            if (dtrcode.Length > 0)
+            {
+                rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date_doctor.rdlx");
+            }
+            if (!File.Exists(rptPath.FullName))
+            {
+                lfSbMessage.Text = "File report not found";
+                return;
+            }
+            PageReport definition = new PageReport(rptPath);
+            PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
+            
+            runtime.Parameters["line1"].CurrentValue = bc.iniC.hostname;
+            runtime.Parameters["line2"].CurrentValue = "รายงานแพทย์นัด ประจำวันที่ " + dtapmstart.ToString("dd-MM-yyyy") +" ถึงวันที่ "+ dtapmend.ToString("dd-MM-yyyy");
+            runtime.Parameters["line3"].CurrentValue = (dtrcode.Length > 0) ? "แพทย์ " + cboRpt1.Text: "";
+            
+            runtime.LocateDataSource += Runtime_LocateDataSource;
+            arvMain.LoadDocument(runtime);
+        }
+
+        private void Runtime_LocateDataSource(object sender, LocateDataSourceEventArgs args)
+        {
+            //throw new NotImplementedException();
+            args.Data = DTRPT;
+        }
+
+        private void BtnApmExcel_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //grfApm.SaveExcel("appointment.xlsx", "appointment", FileFlags.None);
+            //System.Diagnostics.Process.Start("appointment.xlsx");
+            String filenam = "";
+            filenam = "app_"+DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd")+".xls";
+            if (File.Exists(bc.iniC.pathDownloadFile + "\\" + filenam))
+            {
+                lfSbMessage.Text = "พบ File "+ filenam + " กรุณาลบ File นี้ก่อน";
+                //return;
+            }
+            //SaveFileDialog dlg = new SaveFileDialog();
+            //dlg.DefaultExt = "xls";
+            //dlg.Filter = "Excel |*.xls";
+            //dlg.InitialDirectory = bc.iniC.pathDownloadFile;
+            //dlg.FileName = "*.xls";
+            //if (dlg.ShowDialog() != DialogResult.OK)
+            //    return;
+
+            // clear book
+            C1XLBook _book = new C1XLBook();
+            //_book.Clear();
+            //_book.Sheets.Clear();
+
+            // copy grids to book sheets
+            //foreach (TabPage pg in _tab.TabPages)
+            //{
+            //    C1FlexGrid grid = pg.Controls[0] as C1FlexGrid;
+            _book.Sheets.Remove("Sheet1");
+            XLSheet sheet = _book.Sheets.Add("Sheet1");
+            bc.SaveSheet(grfApm, sheet, _book, false);
+            //}
+
+            // save selected sheet index
+            _book.Sheets.SelectedIndex = 0;
+
+            // save the book
+            _book.Save(bc.iniC.pathDownloadFile+"\\"+ filenam);
+            System.Diagnostics.Process.Start(bc.iniC.pathDownloadFile + "\\" + filenam);
+        }
+
+        private void BtnApmSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            
+
+        }
+
+        private void TxtApmSrc_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            grfApm.ApplySearch(txtApmSrc.Text.Trim(), true, true, false);
+        }
+
+        private void TxtApmDate_DropDownClosed(object sender, DropDownClosedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfApm();
+        }
+
+        private void CboApmDept1_DropDownClosed(object sender, DropDownClosedEventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfApm();
+        }
+        private void setGrfApm()
+        {
+            if (pageLoad) return;
+            DataTable dtvs = new DataTable();
+            if (chkApmDate.Checked)
+            {
+                DateTime.TryParse(txtApmDate.Value.ToString(), out DateTime dtapm);//txtApmDate
+                if (dtapm.Year < 1900)
+                {
+                    dtapm.AddYears(543);
+                }
+                String deptcode = "";
+                deptcode = cboApmDept1.SelectedItem == null ? "" : ((ComboBoxItem)cboApmDept1.SelectedItem).Value.ToString();
+                dtvs = bc.bcDB.pt07DB.selectByDateDept(dtapm.Year.ToString() + "-" + dtapm.ToString("MM-dd"), deptcode, "");
+            }
+            else if (chkApmHn.Checked)
+            {
+                dtvs = bc.bcDB.pt07DB.selectByHnAll(txtApmHn.Text.Trim(), "desc");
+            }
+            grfApm.Rows.Count = 1; grfApm.Rows.Count = dtvs.Rows.Count + 1;
+            int i = 1, j = 1;
+            foreach (DataRow row1 in dtvs.Rows)
+            {
+                Row rowa = grfApm.Rows[i];
+                rowa[colgrfPttApmApmDateShow] = bc.datetoShowShort(row1["MNC_APP_DAT"].ToString());
+                rowa[colgrfPttApmApmDateShow] = row1["MNC_APP_DAT"].ToString();
+                rowa[colgrfPttApmApmTime] = bc.showTime(row1["MNC_APP_TIM"].ToString());
+                rowa[colgrfPttApmDeptR] = row1["mnc_md_dep_dsc"].ToString();
+                rowa[colgrfPttApmDeptMake] = bc.bcDB.pm32DB.getDeptNameOPD(row1["mnc_sec_no"].ToString());
+                rowa[colgrfPttApmNote] = row1["MNC_APP_DSC"].ToString();
+                rowa[colgrfPttApmOrder] = row1["MNC_REM_MEMO"].ToString();
+
+                rowa[colgrfPttApmDocNo] = row1["MNC_DOC_NO"].ToString();
+                rowa[colgrfPttApmDocYear] = row1["MNC_DOC_YR"].ToString();
+                rowa[colgrfPttApmHN] = row1["MNC_HN_NO"].ToString();
+                rowa[colgrfPttApmPttName] = row1["ptt_fullnamet"].ToString();
+                rowa[colgrfPttApmDtrname] = row1["dtr_name"].ToString();
+                rowa[colgrfPttApmPhone] = row1["MNC_CUR_TEL"].ToString();
+                rowa[colgrfPttApmPaidName] = row1["MNC_FN_TYP_DSC"].ToString();
+
+                rowa[colgrfPttApmRemarkCall] = row1["remark_call"].ToString();
+                rowa[colgrfPttApmRemarkCallDate] = row1["remark_call_date"].ToString();
+                if (row1["status_remark_call"].ToString().Equals("1")) { rowa[colgrfPttApmStatusRemarkCall] = "โทรเรียบร้อย รับสาย บุคคลอื่นเป็นคนรับ"; rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor); }
+                else if (row1["status_remark_call"].ToString().Equals("2")) { rowa[colgrfPttApmStatusRemarkCall] = "โทรเรียบร้อย ไม่รับสาย"; rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); }//#EBBDB6
+                else if (row1["status_remark_call"].ToString().Equals("3")) { rowa[colgrfPttApmStatusRemarkCall] = "โทรไม่ติด สายไม่ว่าง"; rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#CCCCFF"); }
+                else if (row1["status_remark_call"].ToString().Equals("4")) { rowa[colgrfPttApmStatusRemarkCall] = "โทรเรียบร้อย รับสาย แจ้งคนไข้ ครบถ้วน"; rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#9FE2BF"); }
+                else if (row1["status_remark_call"].ToString().Equals("5")) { rowa[colgrfPttApmStatusRemarkCall] = "ไม่สามารถโทรได้ ไม่มีเบอร์โทร"; rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#FF7F50"); }
+                else rowa[colgrfPttApmStatusRemarkCall] = "";
+
+                rowa[0] = i.ToString();
+                i++;
+            }
+            lfSbMessage.Text = "พบ " + dtvs.Rows.Count + "รายการ";
+        }
+        private void BtnOrderSubmit_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
+            frm.ShowDialog();
+            if (bc.USERCONFIRMID.Length <= 0)
+            {
+                lfSbMessage.Text = "Password ไม่ถูกต้อง";
+                return;
+            }
+            String re = "";
+            re = bc.bcDB.vsDB.insertOrder(HN, VSDATE, PRENO, txtOperDtr.Text.Trim(), bc.USERCONFIRMID);
+            if (re.Length>0)
+            {
+                String[] reqno = re.Split('#');
+                if(reqno.Length > 2)
+                {
+                    DataTable dtlab = new DataTable();
+                    DataTable dtxray = new DataTable();
+                    DataTable dtprocedure = new DataTable();
+                    dtlab = bc.bcDB.labT02DB.selectbyHNReqNo(HN, reqno[3], reqno[0]);
+                    dtxray = bc.bcDB.xrayT02DB.selectbyHNReqNo(HN, reqno[3], reqno[1]);
+                    dtprocedure = bc.bcDB.pt16DB.selectbyHNReqNo(HN, reqno[3], reqno[2]);
+                    dtlab.Merge(dtxray);
+                    dtlab.Merge(dtprocedure);
+
+                    int i = 1, j = 1;
+                    grfOrder.Rows.Count = 1;
+                    grfOrder.Rows.Count = dtlab.Rows.Count + 1;
+                    //pB1.Maximum = dt.Rows.Count;
+                    foreach (DataRow row1 in dtlab.Rows)
+                    {
+                        try
+                        {
+                            Row rowa = grfOrder.Rows[i];
+                            rowa[colgrfOrderCode] = row1["order_code"].ToString();
+                            rowa[colgrfOrderName] = row1["order_name"].ToString();
+                            rowa[colgrfOrderQty] = row1["qty"].ToString();
+                            rowa[colgrfOrderStatus] = row1["flag"].ToString();
+                            rowa[colgrfOrderID] = "";
+                            rowa[colgrfOrderReqNO] = row1["req_no"].ToString();
+                            rowa[colgrfOrdFlagSave] = "1";
+                            rowa[0] = i.ToString();
+                            if (row1["flag"].ToString().Equals("drug")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#9FE2BF"); }
+                            else if (row1["flag"].ToString().Equals("lab")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); }
+                            else if (row1["flag"].ToString().Equals("xray")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#CCCCFF"); }
+                            else if (row1["flag"].ToString().Equals("procedure")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#FF7F50"); }
+                            i++;
+                        }
+                        catch (Exception ex)
+                        {
+                            lfSbMessage.Text = ex.Message;
+                            new LogWriter("e", "FrmOPD setGrfOrder " + ex.Message);
+                            bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfOrder ", ex.Message);
+                        }
+                    }
+                }
+            }
+        }
+        private void BtnOrderSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String txt = "", tick="";
+            tick = DateTime.Now.Ticks.ToString();
+            foreach(Row rowa in grfOrder.Rows)
+            {
+                String code = "", flag = "", name="", qty="", chk="";
+                code = rowa[colgrfOrderCode].ToString();
+                if (code.Equals("code")) continue;
+                chk = rowa[colgrfOrdFlagSave].ToString();
+                if (chk.Equals("1")) continue;// มี ข้อมูลใน table temp_order แล้วไม่ต้อง save เดียวจะ มี2record และในกรณีที่ submit ออก reqno เรียบร้อยแล้วจะได้ ไม่ซ้ำ
+                name = rowa[colgrfOrderName].ToString();
+                qty = rowa[colgrfOrderQty].ToString();
+                flag = rowa[colgrfOrderStatus].ToString();
+                String re = bc.bcDB.vsDB.insertOrderTemp(code, name, qty, flag, txtOperHN.Text.Trim()+tick,txtOperHN.Text.Trim());
+                if (int.TryParse(re, out int _))
+                {
+
+                }
+            }
+            setGrfOrder();
+        }
+        private void LbApm1Month_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtApmPlusDay.Value = "28";
+            calApmDate();
+        }
+
+        private void LbApm14Week_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtApmPlusDay.Value = "14";
+            calApmDate();
+        }
+
+        private void LbApm7Week_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtApmPlusDay.Value = "7";
+            calApmDate();
+        }
+
+        private void TxtApmPlusDay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TxtApmPlusDay_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            calApmDate();
+        }
+        private void calApmDate()
+        {
+            if(txtApmPlusDay.Text.Length<=0) return;
+            DateTime dtcal = DateTime.Now;
+            if (dtcal.Year > 2500)
+            {
+                dtcal.AddYears(-543);
+            }
+            dtcal = dtcal.AddDays(int.Parse(txtApmPlusDay.Text));
+            txtPttApmDate.Value = dtcal.Year.ToString() + "-" + dtcal.ToString("MM-dd");
+        }
+        private void BtnApmOrder_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmItemSearch frm = new FrmItemSearch(bc);
+            frm.ShowDialog();
+            if ((bc.items != null) && (bc.items.Count > 0))
+            {
+                pnApmOrder.Show();
+                foreach(Item item in bc.items)
+                {
+                    Row rowa = grfApmOrder.Rows.Add();
+                    rowa[colgrfOrderCode] = item.code;
+                    rowa[colgrfOrderName] = item.name;
+                    rowa[colgrfOrderStatus] = item.flag;
+                    rowa[colgrfOrderQty] = "1";
+                    rowa[0] = grfApmOrder.Rows.Count-1;
+                }
+            }
+        }
+
+        private void BtnOperItemSearch_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmItemSearch frm = new FrmItemSearch(bc);
+            frm.ShowDialog();
+            if (bc.items.Count > 0)
+            {
+                foreach(Item item in bc.items)
+                {
+                    setGrfOrderItem(item.code, item.name, item.qty, item.flag);
+                }
+            }
+        }
         private void TxtDateSearch_DropDownClosed(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setGrfTodayOutLab();
         }
-
-        private void TxtTodayOutLabStartDate_DropDownClosed(object sender, DropDownClosedEventArgs e)
-        {
-            //throw new NotImplementedException();
-            setGrfTodayOutLab();
-        }
-
         private void LbApmList_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -385,6 +772,8 @@ namespace bangna_hospital.gui
             }
             else if (chlApmList.Visible == false)
             {
+                chlApmList.Top = cboApmDept.Top;
+                chlApmList.Left = cboApmDept.Left;
                 chlApmList.Show();
                 foreach (var chk in chlApmList.Items)
                 {
@@ -462,10 +851,14 @@ namespace bangna_hospital.gui
                 else
                 {
                     tC1.SelectedTab = tabOutlab;
+                    fvCerti.DocumentSource = null;
                     setGrfOutLab();
                 }
             }
-            
+            else if (tC1Active.Equals(tabOutlab.Name))
+            {
+                setGrfOutLab();
+            }
         }
         private void TxtMedScanHN_KeyUp(object sender, KeyEventArgs e)
         {
@@ -493,7 +886,7 @@ namespace bangna_hospital.gui
         private void BtnOperClose_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            PasswordForm frm = new PasswordForm(bc);
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
             frm.ShowDialog();
             if (bc.USERCONFIRMID.Length <= 0)
             {
@@ -594,11 +987,28 @@ namespace bangna_hospital.gui
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             e.Graphics.DrawString("สิ่งที่ต้องเตรียม:", famt5, Brushes.Black, col2, yPos, flags);
             e.Graphics.DrawString(APM.MNC_REM_MEMO, famt5, Brushes.Black, col21, yPos, flags);
+            e.Graphics.DrawString("รายการตรวจ: ", famt5, Brushes.Black, col4, yPos, flags);
+            String txt = "";
+            if (grfApmOrder.Rows.Count > 1)
+            {
+                foreach (Row rowa in grfApmOrder.Rows)
+                {
+                    String name = "";
+                    name = rowa[colgrfOrderName].ToString();
+                    if (name.Equals("name")) continue;
+                    txt += name + "\r\n";
+                }
+                if (txt.Length > 1)
+                {
+                    txt = txt.Substring(0, txt.Length - 1);
+                }
+                e.Graphics.DrawString(txt, famt1, Brushes.Black, col41, yPos, flags);
+            }
 
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             e.Graphics.DrawString("เพื่อ:", famt5, Brushes.Black, col2, yPos, flags);
             e.Graphics.DrawString(APM.MNC_APP_DSC, famt5, Brushes.Black, col21, yPos, flags);
-
+            
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             yPos = yPos + line;//ขึ้นบันทัดใหม่
@@ -606,10 +1016,11 @@ namespace bangna_hospital.gui
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             yPos = yPos + line;//ขึ้นบันทัดใหม่
+            
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             yPos = yPos + line;//ขึ้นบันทัดใหม่
-            //yPos = yPos + line;//ขึ้นบันทัดใหม่
-            //yPos = yPos + line;//ขึ้นบันทัดใหม่
+            
+            
             e.Graphics.DrawString("เบอร์โทรติดต่อ:", famt5, Brushes.Black, col2, yPos, flags);
             e.Graphics.DrawString("02-1381155-60", famt5, Brushes.Black, col21, yPos, flags);
             e.Graphics.DrawString("ผู้บันทึก:", famt5, Brushes.Black, col4, yPos, flags);
@@ -699,15 +1110,59 @@ namespace bangna_hospital.gui
         }
         private void setGrfOrderItem()
         {
-            if(grfOrder==null) { return; }
-            if(grfOrder.Row==null) { return; }
-            Row rowitem = grfOrder.Rows.Add();
-            rowitem[colGrfOrderCode] = txtItemCode.Text.Trim();
-            rowitem[colGrfOrderName] = lbItemName.Text;
-            rowitem[colGrfOrderItemStatus] = chkItemLab.Checked ? "lab" : chkItemXray.Checked ? "xray" : chkItemHotC.Checked ? "hotc" : chkItemPhy.Checked ? "phy" : "";
+            setGrfOrderItem(txtItemCode.Text.Trim(), lbItemName.Text, txtItemQTY.Text.Trim()
+                , chkItemLab.Checked ? "lab" : chkItemXray.Checked ? "xray" : chkItemProcedure.Checked ? "procedure" : chkItemDrug.Checked ? "drug" : "");
             txtSearchItem.Value = "";
             txtSearchItem.Focus();
             //grfOrder.Rows.Add(rowitem);
+        }
+        private void setGrfOrderItem(String code, String name, String qty, String flag)
+        {
+            if (grfOrder == null) { return; }
+            //if(grfOrder.Row<=0) { return; }
+            Row rowitem = grfOrder.Rows.Add();
+            rowitem[colgrfOrderCode] = code;
+            rowitem[colgrfOrderName] = name;
+            rowitem[colgrfOrderQty] = qty;
+            rowitem[colgrfOrderStatus] = flag;
+            rowitem[colgrfOrderID] = "";
+            rowitem[colgrfOrderReqNO] = "";
+            rowitem[colgrfOrdFlagSave] = "0";//ต้องการ save ลง table temp_order
+            txtSearchItem.Value = "";
+            txtSearchItem.Focus();
+            //grfOrder.Rows.Add(rowitem);
+        }
+        private void setGrfOrder()
+        {//ดึงจาก table temp_order
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.vsDB.selectOrderTempByHN(txtOperHN.Text.Trim());
+            int i = 1, j = 1;
+            grfOrder.Rows.Count = 1;
+            grfOrder.Rows.Count = dt.Rows.Count + 1;
+            //pB1.Maximum = dt.Rows.Count;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                try
+                {
+                    Row rowa = grfOrder.Rows[i];
+                    rowa[colgrfOrderCode] = row1["order_code"].ToString();
+                    rowa[colgrfOrderName] = row1["order_name"].ToString();
+                    rowa[colgrfOrderQty] = row1["qty"].ToString();
+                    rowa[colgrfOrderStatus] = row1["flag"].ToString();
+                    rowa[colgrfOrderID] = row1["id"].ToString();
+                    rowa[colgrfOrderReqNO] = "";
+                    rowa[colgrfOrdFlagSave] = "1";//ดึงข้อมูลจาก table temp_order 
+                    rowa[0] = i.ToString();
+                    rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    i++;
+                }
+                catch (Exception ex)
+                {
+                    lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmOPD setGrfOrder " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfOrder ", ex.Message);
+                }
+            }
         }
         private void TxtSearchItem_KeyUp(object sender, KeyEventArgs e)
         {
@@ -727,23 +1182,22 @@ namespace bangna_hospital.gui
                 setGrfOrderItem();
             }
         }
-
+        private void ChkItemDrug_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtSearchItem.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtSearchItem.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtSearchItem.AutoCompleteCustomSource = autoDrug;
+            clearControlOrder();
+        }
         private void ChkItemHotC_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             txtSearchItem.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtSearchItem.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtSearchItem.AutoCompleteCustomSource = autoHotC;
+            txtSearchItem.AutoCompleteCustomSource = autoProcedure;
             clearControlOrder();
-        }
-
-        private void ChkItemPhy_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            txtSearchItem.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            txtSearchItem.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtSearchItem.AutoCompleteCustomSource = autoPhy;
-            clearControlOrder();
+            txtSearchItem.Focus();
         }
         private void ChkItemXray_Click(object sender, EventArgs e)
         {
@@ -752,6 +1206,7 @@ namespace bangna_hospital.gui
             txtSearchItem.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtSearchItem.AutoCompleteCustomSource = autoXray;
             clearControlOrder();
+            txtSearchItem.Focus();
         }
         private void ChkItemLab_Click(object sender, EventArgs e)
         {
@@ -760,16 +1215,43 @@ namespace bangna_hospital.gui
             txtSearchItem.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtSearchItem.AutoCompleteCustomSource = autoLab;
             clearControlOrder();
+            txtSearchItem.Focus();
         }
         private void BtnApmSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
+            frm.ShowDialog();
+            if (bc.USERCONFIRMID.Length <= 0)
+            {
+                lfSbMessage.Text = "Password ไม่ถูกต้อง";
+                return;
+            }
             PatientT07 apm = getApm();
             if(apm != null)
             {
                 string re = bc.bcDB.pt07DB.insertPatientT07(apm);
                 if (long.TryParse(re, out long chk))
                 {
+                    txtApmNO.Value = re;
+                    txtApmDocYear.Value = (DateTime.Now.Year+543).ToString();
+                    if (grfApmOrder.Rows.Count > 1)
+                    {
+                        foreach(Row rowa in grfApmOrder.Rows)
+                        {
+                            String ordercode = rowa[colgrfOrderCode].ToString(); if (ordercode.Equals("code")) continue;
+                            String ordername = rowa[colgrfOrderName].ToString();
+                            String flag = rowa[colgrfOrderStatus].ToString();//O hotcharge, X xray, L lab
+                            flag = flag.Equals("lab") ? "L" : flag.Equals("xray") ? "X" : flag.Equals("procedure") ? "O" : "";
+                            String re1 = bc.bcDB.pt07DB.insertPatientT073(re, txtApmDocYear.Text.Trim(), ordercode, "", flag);
+                            if (!long.TryParse(re1, out long chk1))
+                            {
+                                new LogWriter("e", "FrmOPD BtnApmSave_Click " + re1);
+                                bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnApmSave_Click save  ", re1);
+                                lfSbMessage.Text = re1;
+                            }
+                        }
+                    }
                     lfSbStatus.Text = txtApmNO.Text.Length>0 ? "update appointment OK" : "insert appointment OK";
                     setGrfPttApm();
                     if (txtApmNO.Text.Length <= 0)
@@ -808,7 +1290,7 @@ namespace bangna_hospital.gui
         private void BtnScanSaveImg_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            PasswordForm frm = new PasswordForm(bc);
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
             frm.ShowDialog();
             if (bc.USERCONFIRMID.Length <= 0)
             {
@@ -1330,7 +1812,7 @@ namespace bangna_hospital.gui
         private void BtnOperSaveVital_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            PasswordForm frm = new PasswordForm(bc);
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
             frm.ShowDialog();
             if (bc.USERCONFIRMID.Length <= 0)
             {
@@ -1352,7 +1834,7 @@ namespace bangna_hospital.gui
         private void BtnOperSaveDtr_Click(object sender, EventArgs e)     
         {
             //throw new NotImplementedException();
-            PasswordForm frm = new PasswordForm(bc);
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
             frm.ShowDialog();
             if (bc.USERCONFIRMID.Length <= 0)
             {
@@ -1728,8 +2210,8 @@ namespace bangna_hospital.gui
             grfSrcProcedure.Cols[colHisProcReqDate].TextAlign = TextAlignEnum.CenterCenter;
             grfSrcProcedure.Cols[colHisProcReqTime].TextAlign = TextAlignEnum.CenterCenter;
 
-            grfSrcProcedure.Cols[colGrfOrderCode].Visible = true;
-            grfSrcProcedure.Cols[colGrfOrderName].Visible = true;
+            grfSrcProcedure.Cols[colgrfOrderCode].Visible = true;
+            grfSrcProcedure.Cols[colgrfOrderName].Visible = true;
             grfSrcProcedure.Cols[colHisProcReqTime].Visible = false;
 
             grfSrcProcedure.Cols[colHisProcCode].AllowEditing = false;
@@ -1799,8 +2281,8 @@ namespace bangna_hospital.gui
             grfHisProcedure.Cols[colHisProcReqDate].TextAlign = TextAlignEnum.CenterCenter;
             grfHisProcedure.Cols[colHisProcReqTime].TextAlign = TextAlignEnum.CenterCenter;
 
-            grfHisProcedure.Cols[colGrfOrderCode].Visible = true;
-            grfHisProcedure.Cols[colGrfOrderName].Visible = true;
+            grfHisProcedure.Cols[colgrfOrderCode].Visible = true;
+            grfHisProcedure.Cols[colgrfOrderName].Visible = true;
             grfHisProcedure.Cols[colHisProcReqTime].Visible = false;
 
             grfHisProcedure.Cols[colHisProcCode].AllowEditing = false;
@@ -1995,7 +2477,7 @@ namespace bangna_hospital.gui
             //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
             //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
 
-            pnSrcVs.Controls.Add(grfSrcVs);
+            spSrcVs.Controls.Add(grfSrcVs);
 
             //theme1.SetTheme(grfOPD, "ExpressionDark");
             theme1.SetTheme(grfSrcVs, bc.iniC.themegrfOpd);
@@ -2063,25 +2545,25 @@ namespace bangna_hospital.gui
             grfSrcOrder.Location = new System.Drawing.Point(0, 0);
             grfSrcOrder.Rows.Count = 1;
             grfSrcOrder.Cols.Count = 9;
-            grfSrcOrder.Cols[colGrfOrderCode].Width = 100;
-            grfSrcOrder.Cols[colGrfOrderName].Width = 200;
+            grfSrcOrder.Cols[colgrfOrderCode].Width = 100;
+            grfSrcOrder.Cols[colgrfOrderName].Width = 200;
 
             grfSrcOrder.ShowCursor = true;
-            grfSrcOrder.Cols[colGrfOrderCode].Caption = "HN";
-            grfSrcOrder.Cols[colGrfOrderName].Caption = "full name";
+            grfSrcOrder.Cols[colgrfOrderCode].Caption = "code";
+            grfSrcOrder.Cols[colgrfOrderName].Caption = "name";
 
             //grfOperList.Cols[colgrfOperListPaidName].Caption = "นายจ้าง";
-            grfSrcOrder.Cols[colGrfOrderCode].DataType = typeof(String);
-            grfSrcOrder.Cols[colGrfOrderName].DataType = typeof(String);
+            grfSrcOrder.Cols[colgrfOrderCode].DataType = typeof(String);
+            grfSrcOrder.Cols[colgrfOrderName].DataType = typeof(String);
 
-            grfSrcOrder.Cols[colGrfOrderCode].TextAlign = TextAlignEnum.CenterCenter;
-            grfSrcOrder.Cols[colGrfOrderName].TextAlign = TextAlignEnum.LeftCenter;
+            grfSrcOrder.Cols[colgrfOrderCode].TextAlign = TextAlignEnum.CenterCenter;
+            grfSrcOrder.Cols[colgrfOrderName].TextAlign = TextAlignEnum.LeftCenter;
 
-            grfSrcOrder.Cols[colGrfOrderCode].Visible = true;
-            grfSrcOrder.Cols[colGrfOrderName].Visible = true;
+            grfSrcOrder.Cols[colgrfOrderCode].Visible = true;
+            grfSrcOrder.Cols[colgrfOrderName].Visible = true;
 
-            grfSrcOrder.Cols[colGrfOrderCode].AllowEditing = false;
-            grfSrcOrder.Cols[colGrfOrderName].AllowEditing = false;
+            grfSrcOrder.Cols[colgrfOrderCode].AllowEditing = false;
+            grfSrcOrder.Cols[colgrfOrderName].AllowEditing = false;
 
             pnSrcDrug.Controls.Add(grfSrcOrder);
             theme1.SetTheme(grfSrcOrder, bc.iniC.themeApp);
@@ -2600,7 +3082,7 @@ namespace bangna_hospital.gui
                 //row1[0] = (i - 2);
             }
         }
-        private void initGrfXray()
+        private void initGrfXray(ref C1FlexGrid grf,ref Panel pn)
         {
             grfXray = new C1FlexGrid();
             grfXray.Font = fEdit;
@@ -2656,7 +3138,7 @@ namespace bangna_hospital.gui
                 new LogWriter("e", "FrmScanView1 setGrfXrayOPD " + ex.Message);
             }
         }
-        private void initGrfLab()
+        private void initGrfLab(ref C1FlexGrid grf,ref Panel pn)
         {
             grfLab = new C1FlexGrid();
             grfLab.Font = fEdit;
@@ -2762,9 +3244,10 @@ namespace bangna_hospital.gui
 
             grfTodayOutLab.Cols[colgrfOutLabDscId].Visible = false;
             grfTodayOutLab.Cols[colgrfOutLabDscVN].Visible = false;
-            grfTodayOutLab.Cols[colgrfOutLabApmReqNo].Visible = false;
+            grfTodayOutLab.Cols[colgrfOutLabApmReqNo].Visible = true;
             grfTodayOutLab.Cols[colgrfOutLabApmReqDate].Visible = false;
 
+            grfTodayOutLab.Cols[colgrfOutLabApmReqNo].AllowEditing = false;
             grfTodayOutLab.Cols[colgrfOutLabDscHN].AllowEditing = false;
             grfTodayOutLab.Cols[colgrfOutLabDscPttName].AllowEditing = false;
             grfTodayOutLab.Cols[colgrfOutLabDscVsDate].AllowEditing = false;
@@ -2821,7 +3304,7 @@ namespace bangna_hospital.gui
         }
         private void setGrfTodayOutLab()
         {
-            DateTime.TryParse(txtTodayOutLabStartDate.Text, out DateTime datestart);
+            DateTime.TryParse(txtSBSearchDate.Text, out DateTime datestart);
             grfTodayOutLab.Rows.Count = 1;
             DataTable dt = new DataTable();
             dt = bc.bcDB.labT02DB.selectByTodayOutLab(datestart.Year.ToString() + "-" + datestart.ToString("MM-dd"));
@@ -2891,6 +3374,7 @@ namespace bangna_hospital.gui
             String dscid = "";
             try
             {
+                fvCerti.DocumentSource = null;
                 dscid = grfOutLab[grfOutLab.Row, colVsPreno] != null ? grfOutLab[grfOutLab.Row, colgrfOutLabDscId].ToString() : "";
                 C1PdfDocumentSource pds = new C1PdfDocumentSource();
                 DocScan dsc = new DocScan();
@@ -2906,11 +3390,11 @@ namespace bangna_hospital.gui
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnApmSave_Click save  ", ex.Message);
                 lfSbMessage.Text = ex.Message;
             }
-            
         }
         private void setGrfOutLab()
         {
             grfOutLab.Rows.Count = 1;
+            fvCerti.DocumentSource = null;
             DataTable dt = new DataTable();
             dt = bc.bcDB.dscDB.selectOutLabByHn(txtSBSearchHN.Text.Trim());
             //MessageBox.Show("01 ", "");
@@ -3540,121 +4024,193 @@ namespace bangna_hospital.gui
             lbLoading.Hide();
             Application.DoEvents();
         }
-        private void initGrfOrder()
+        private void initRptView()
         {
-            grfOrder = new C1FlexGrid();
-            grfOrder.Font = fEdit;
-            grfOrder.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfOrder.Location = new System.Drawing.Point(0, 0);
-            grfOrder.Rows.Count = 1;
-            grfOrder.Cols.Count = 9;
-            grfOrder.Cols[colGrfOrderCode].Width = 100;
-            grfOrder.Cols[colGrfOrderName].Width = 200;
             
-            grfOrder.ShowCursor = true;
-            grfOrder.Cols[colGrfOrderCode].Caption = "HN";
-            grfOrder.Cols[colGrfOrderName].Caption = "full name";
+        }
+        private void initGrfRpt()
+        {
+            grfRpt = new C1FlexGrid();
+            grfRpt.Font = fEdit;
+            grfRpt.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfRpt.Location = new System.Drawing.Point(0, 0);
+            grfRpt.Rows.Count = 1;
+            grfRpt.Cols.Count = 2;
+            grfRpt.Cols[1].Width = 300;
             
-            //grfOperList.Cols[colgrfOperListPaidName].Caption = "นายจ้าง";
-            grfOrder.Cols[colGrfOrderCode].DataType = typeof(String);
-            grfOrder.Cols[colGrfOrderName].DataType = typeof(String);
+            grfRpt.ShowCursor = true;
+            grfRpt.Cols[1].Caption = "HN";
 
-            grfOrder.Cols[colGrfOrderCode].TextAlign = TextAlignEnum.CenterCenter;
-            grfOrder.Cols[colGrfOrderName].TextAlign = TextAlignEnum.LeftCenter;
-
-            grfOrder.Cols[colGrfOrderCode].Visible = true;
-            grfOrder.Cols[colGrfOrderName].Visible = true;
-
-            grfOrder.Cols[colGrfOrderCode].AllowEditing = false;
-            grfOrder.Cols[colGrfOrderName].AllowEditing = false;
-
-            grfOrder.RowColChange += GrfOrder_RowColChange;
+            grfRpt.Cols[1].DataType = typeof(String);
+            grfRpt.Cols[1].TextAlign = TextAlignEnum.LeftCenter;
+            grfRpt.Cols[1].Visible = true;
+            grfRpt.Cols[1].AllowEditing = false;
+            grfRpt.DoubleClick += GrfRpt_DoubleClick;
             //grfCheckUPList.AllowFiltering = true;
+            grfRpt.Rows.Count = 2;
+            Row rowa = grfRpt.Rows[1];
+            rowa[1] ="รายงาน แพทย์นัด";
 
-            pnOrder.Controls.Add(grfOrder);
-            theme1.SetTheme(grfOrder, bc.iniC.themeApp);
+            pnRptName.Controls.Add(grfRpt);
+            theme1.SetTheme(grfRpt, bc.iniC.themeApp);
         }
-        private void GrfOrder_RowColChange(object sender, EventArgs e)
+        private void GrfRpt_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
 
         }
-        private void initGrfPttApm()
+        private void initGrfOrder(ref C1FlexGrid grf, ref Panel pn, String grfname)
         {
-            grfPttApm = new C1FlexGrid();
-            grfPttApm.Font = fEdit;
-            grfPttApm.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfPttApm.Location = new System.Drawing.Point(0, 0);
-            grfPttApm.Rows.Count = 1;
-            grfPttApm.Cols.Count = 18;
+            grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
+            grf.Rows.Count = 1;
+            grf.Cols.Count = 8;
+            grf.Cols[colgrfOrderCode].Width = 100;
+            grf.Cols[colgrfOrderName].Width = 400;
+            grf.Cols[colgrfOrderQty].Width = 70;
+            grf.Name = grfname;
+            grf.ShowCursor = true;
+            grf.Cols[colgrfOrderCode].Caption = "code";
+            grf.Cols[colgrfOrderName].Caption = "name";
+            grf.Cols[colgrfOrderQty].Caption = "qty";
+            grf.Cols[colgrfOrderReqNO].Caption = "reqno";
 
-            grfPttApm.Cols[colgrfPttApmVsDate].Width = 100;
-            grfPttApm.Cols[colgrfPttApmApmDate].Width = 100;
-            grfPttApm.Cols[colgrfPttApmApmTime].Width = 60;
-            grfPttApm.Cols[colgrfPttApmNote].Width = 500;
-            grfPttApm.Cols[colgrfPttApmOrder].Width = 500;
-            grfPttApm.Cols[colgrfPttApmHN].Width = 80;
-            grfPttApm.Cols[colgrfPttApmPttName].Width = 250;
-            grfPttApm.Cols[colgrfPttApmDeptR].Width = 120;
-            grfPttApm.Cols[colgrfPttApmDeptMake].Width = 150;
+            //grfOperList.Cols[colgrfOperListPaidName].Caption = "นายจ้าง";
+            grf.Cols[colgrfOrderCode].DataType = typeof(String);
+            grf.Cols[colgrfOrderName].DataType = typeof(String);
+            grf.Cols[colgrfOrderQty].DataType = typeof(String);
 
-            grfPttApm.ShowCursor = true;
-            grfPttApm.Cols[colgrfPttApmVsDate].Caption = "date";
-            grfPttApm.Cols[colgrfPttApmApmDate].Caption = "นัดวันที่";
-            grfPttApm.Cols[colgrfPttApmApmTime].Caption = "นัดเวลา";
-            grfPttApm.Cols[colgrfPttApmDeptR].Caption = "นัดตรวจที่แผนก";
-            grfPttApm.Cols[colgrfPttApmDeptMake].Caption = "แผนกทำนัด";
-            grfPttApm.Cols[colgrfPttApmNote].Caption = "รายละเอียด";
-            grfPttApm.Cols[colgrfPttApmOrder].Caption = "Order";
+            grf.Cols[colgrfOrderCode].TextAlign = TextAlignEnum.CenterCenter;
+            grf.Cols[colgrfOrderName].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[colgrfOrderQty].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[colgrfOrderReqNO].TextAlign = TextAlignEnum.CenterCenter;
 
-            grfPttApm.Cols[colgrfPttApmApmDate].DataType = typeof(String);
-            grfPttApm.Cols[colgrfPttApmApmTime].DataType = typeof(String);
-            grfPttApm.Cols[colgrfPttApmDeptR].DataType = typeof(String);
-            grfPttApm.Cols[colgrfPttApmNote].DataType = typeof(String);
-            grfPttApm.Cols[colgrfPttApmOrder].DataType = typeof(String);
-            grfPttApm.Cols[colgrfPttApmHN].DataType = typeof(String);
-            grfPttApm.Cols[colgrfPttApmPttName].DataType = typeof(String);
-            grfPttApm.Cols[colgrfPttApmDeptMake].DataType = typeof(String);
+            grf.Cols[colgrfOrderCode].Visible = true;
+            grf.Cols[colgrfOrderName].Visible = true;
+            grf.Cols[colgrfOrderStatus].Visible = false;
+            grf.Cols[colgrfOrderID].Visible = false;
+            grf.Cols[colgrfOrdFlagSave].Visible = false;
+            if (grfname.Equals("grfOrder"))
+            {
+                grf.Cols[colgrfOrderQty].Visible = true;
+            }
+            else
+            {
+                grf.Cols[colgrfOrderQty].Visible = false;
+            }
+            
 
-            grfPttApm.Cols[colgrfPttApmApmDate].TextAlign = TextAlignEnum.CenterCenter;
-            grfPttApm.Cols[colgrfPttApmApmTime].TextAlign = TextAlignEnum.CenterCenter;
-            grfPttApm.Cols[colgrfPttApmDeptR].TextAlign = TextAlignEnum.CenterCenter;
-            grfPttApm.Cols[colgrfPttApmDeptMake].TextAlign = TextAlignEnum.CenterCenter;
-            grfPttApm.Cols[colgrfPttApmNote].TextAlign = TextAlignEnum.LeftCenter;
-            grfPttApm.Cols[colgrfPttApmOrder].TextAlign = TextAlignEnum.LeftCenter;
-
-            grfPttApm.Cols[colgrfPttApmVsDate].Visible = true;
-            grfPttApm.Cols[colgrfPttApmApmDate].Visible = true;
-            grfPttApm.Cols[colgrfPttApmDeptR].Visible = true;
-            grfPttApm.Cols[colgrfPttApmNote].Visible = true;
-            grfPttApm.Cols[colgrfPttApmDocNo].Visible = false;
-            grfPttApm.Cols[colgrfPttApmDocYear].Visible = false;
-            grfPttApm.Cols[colgrfPttApmVsDate].Visible = false;
-            grfPttApm.Cols[colgrfPttApmHN].Visible = false;
-            grfPttApm.Cols[colgrfPttApmPttName].Visible = false;
-
-            grfPttApm.Cols[colgrfPttApmVsDate].AllowEditing = false;
-            grfPttApm.Cols[colgrfPttApmApmDate].AllowEditing = false;
-            grfPttApm.Cols[colgrfPttApmDeptR].AllowEditing = false;
-            grfPttApm.Cols[colgrfPttApmNote].AllowEditing = false;
-            grfPttApm.Cols[colgrfPttApmApmTime].AllowEditing = false;
-            grfPttApm.Cols[colgrfPttApmOrder].AllowEditing = false;
-            grfPttApm.Cols[colgrfPttApmDeptMake].AllowEditing = false;
-            grfPttApm.DoubleClick += GrfPttApm_DoubleClick;
-
-            pnPttApm.Controls.Add(grfPttApm);
-            theme1.SetTheme(grfPttApm, bc.iniC.themeApp);
+            grf.Cols[colgrfOrderCode].AllowEditing = false;
+            grf.Cols[colgrfOrderName].AllowEditing = false;
+            grf.Cols[colgrfOrderReqNO].AllowEditing = false;
+            grf.DoubleClick += GrfOrder_DoubleClick;
+            grf.AllowSorting = AllowSortingEnum.None;
+            pn.Controls.Add(grf);
+            theme1.SetTheme(grf, bc.iniC.themeApp);
         }
 
-        private void GrfPttApm_DoubleClick(object sender, EventArgs e)
+        private void GrfOrder_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (grfPttApm.Row <= 0) return;
-            if (grfPttApm.Col <= 0) return;
-            String apmno = "", apmyear = "";
-            apmno = grfPttApm[grfPttApm.Row, colgrfPttApmDocNo].ToString();
-            apmyear = grfPttApm[grfPttApm.Row, colgrfPttApmDocYear].ToString();
-            setControlApm(apmyear, apmno);
+            if (((C1FlexGrid)sender).Row<=0) return;
+            if (((C1FlexGrid)sender).Col <= 0) return;
+
+            if (((C1FlexGrid)sender).Name.Equals("grfApmOrder"))
+            {
+                ((C1FlexGrid)sender).Rows.Remove(((C1FlexGrid)sender).Row);
+            }else if (((C1FlexGrid)sender).Name.Equals("grfOrder"))
+            {
+                String id = "";
+                id = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colgrfOrderID].ToString();
+                String re = bc.bcDB.vsDB.deleteOrderTemp(id);
+                setGrfOrder();
+            }
+        }
+        private void initGrfPttApm(ref C1FlexGrid grf, ref Panel pn, String grfname)
+        {
+            grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
+            grf.Rows.Count = 1;
+            grf.Cols.Count = 19;
+
+            grf.Cols[colgrfPttApmVsDate].Width = 100;
+            grf.Cols[colgrfPttApmApmDateShow].Width = 100;
+            grf.Cols[colgrfPttApmApmTime].Width = 60;
+            grf.Cols[colgrfPttApmNote].Width = 500;
+            grf.Cols[colgrfPttApmOrder].Width = 500;
+            grf.Cols[colgrfPttApmHN].Width = 80;
+            grf.Cols[colgrfPttApmPttName].Width = 250;
+            grf.Cols[colgrfPttApmDeptR].Width = 120;
+            grf.Cols[colgrfPttApmDeptMake].Width = 150;
+
+            grf.ShowCursor = true;
+            grf.Cols[colgrfPttApmVsDate].Caption = "date";
+            grf.Cols[colgrfPttApmApmDateShow].Caption = "นัดวันที่";
+            grf.Cols[colgrfPttApmApmTime].Caption = "นัดเวลา";
+            grf.Cols[colgrfPttApmDeptR].Caption = "นัดตรวจที่แผนก";
+            grf.Cols[colgrfPttApmDeptMake].Caption = "แผนกทำนัด";
+            grf.Cols[colgrfPttApmNote].Caption = "รายละเอียด";
+            grf.Cols[colgrfPttApmOrder].Caption = "Order";
+
+            grf.Cols[colgrfPttApmApmDateShow].DataType = typeof(String);
+            grf.Cols[colgrfPttApmApmTime].DataType = typeof(String);
+            grf.Cols[colgrfPttApmDeptR].DataType = typeof(String);
+            grf.Cols[colgrfPttApmNote].DataType = typeof(String);
+            grf.Cols[colgrfPttApmOrder].DataType = typeof(String);
+            grf.Cols[colgrfPttApmHN].DataType = typeof(String);
+            grf.Cols[colgrfPttApmPttName].DataType = typeof(String);
+            grf.Cols[colgrfPttApmDeptMake].DataType = typeof(String);
+
+            grf.Cols[colgrfPttApmApmDateShow].TextAlign = TextAlignEnum.CenterCenter;
+            grf.Cols[colgrfPttApmApmTime].TextAlign = TextAlignEnum.CenterCenter;
+            grf.Cols[colgrfPttApmDeptR].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[colgrfPttApmDeptMake].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[colgrfPttApmNote].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[colgrfPttApmOrder].TextAlign = TextAlignEnum.LeftCenter;
+
+            grf.Cols[colgrfPttApmVsDate].Visible = true;
+            grf.Cols[colgrfPttApmApmDateShow].Visible = true;
+            grf.Cols[colgrfPttApmDeptR].Visible = true;
+            grf.Cols[colgrfPttApmNote].Visible = true;
+            grf.Cols[colgrfPttApmDocNo].Visible = false;
+            grf.Cols[colgrfPttApmDocYear].Visible = false;
+            grf.Cols[colgrfPttApmVsDate].Visible = false;
+            grf.Cols[colgrfPttApmHN].Visible = false;
+            grf.Cols[colgrfPttApmPttName].Visible = true;
+            grf.Cols[colgrfPttApmApmDate1].Visible = false;
+
+            grf.Cols[colgrfPttApmVsDate].AllowEditing = false;
+            grf.Cols[colgrfPttApmApmDateShow].AllowEditing = false;
+            grf.Cols[colgrfPttApmDeptR].AllowEditing = false;
+            grf.Cols[colgrfPttApmNote].AllowEditing = false;
+            grf.Cols[colgrfPttApmApmTime].AllowEditing = false;
+            grf.Cols[colgrfPttApmOrder].AllowEditing = false;
+            grf.Cols[colgrfPttApmDeptMake].AllowEditing = false;
+            
+            grfPttApm.Click += GrfPttApm_Click;
+
+            pn.Controls.Add(grf);
+            theme1.SetTheme(grf, bc.iniC.themeApp);
+        }
+        private void GrfPttApm_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (((C1FlexGrid)sender).Row <= 0) return;
+            if (((C1FlexGrid)sender).Col <= 0) return;
+            if (((C1FlexGrid)sender).Name.Equals("grfPttApm"))
+            {
+                String apmno = "", apmyear = "";
+                apmno = grfPttApm[grfPttApm.Row, colgrfPttApmDocNo].ToString();
+                apmyear = grfPttApm[grfPttApm.Row, colgrfPttApmDocYear].ToString();
+                setControlApm(apmyear, apmno);
+            }else if (((C1FlexGrid)sender).Name.Equals("grfApm"))
+            {
+
+            }
         }
         private void setControlApm(String apmyear, String apmno)
         {
@@ -3673,6 +4229,40 @@ namespace bangna_hospital.gui
             txtApmTel.Value = apm.MNC_APP_TEL;
             txtApmRemark.Value = apm.MNC_DOT_CD;
             lbApmDtrName.Text = bc.selectDoctorName(apm.MNC_DOT_CD);
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.pt07DB.selectAppointmentOrder(txtApmDocYear.Text, txtApmNO.Text);
+            grfApmOrder.Rows.Count = 1;
+            foreach (DataRow item in dt.Rows)
+            {
+                Row rowa = grfApmOrder.Rows.Add();
+                String flag = "", name="", code="";
+                code = item["MNC_OPR_CD"].ToString();
+                flag = item["MNC_OPR_FLAG"].ToString();
+                if (flag.Equals("O"))
+                {
+                    String chk = "";
+                    chk = bc.bcDB.pm30DB.SelectNameByPk(code);
+                    name = chk;
+                }
+                else if (flag.Equals("L"))
+                {
+                    LabM01 lab = new LabM01();
+                    lab = bc.bcDB.labM01DB.SelectByPk(code);
+                    name = lab.MNC_LB_DSC;
+                }
+                else if (flag.Equals("X"))
+                {
+                    XrayM01 xray = new XrayM01();
+                    xray = bc.bcDB.xrayM01DB.SelectByPk(code);
+                    name = xray.MNC_XR_DSC;
+                }
+                rowa[colgrfOrderCode] = item["MNC_OPR_CD"].ToString();
+                rowa[colgrfOrderName] = name;
+                rowa[colgrfOrderStatus] = flag;
+                rowa[colgrfOrderQty] = "1";
+                rowa[0] = grfApmOrder.Rows.Count - 1;
+            }
+            pnApmOrder.Visible = (grfApmOrder.Rows.Count > 1) ? true : false;
         }
         private void setGrfPttApm()
         {
@@ -3685,7 +4275,7 @@ namespace bangna_hospital.gui
             foreach (DataRow row1 in dtvs.Rows)
             {
                 Row rowa = grfPttApm.Rows[i];
-                rowa[colgrfPttApmApmDate] = bc.datetoShow1(row1["MNC_APP_DAT"].ToString());
+                rowa[colgrfPttApmApmDateShow] = bc.datetoShow1(row1["MNC_APP_DAT"].ToString());
                 rowa[colgrfPttApmApmTime] = bc.showTime(row1["MNC_APP_TIM"].ToString());
                 rowa[colgrfPttApmDeptR] = row1["mnc_md_dep_dsc"].ToString();//นัดตรวจที่แผนก
                 rowa[colgrfPttApmDeptMake] = bc.bcDB.pm32DB.getDeptNameOPD(row1["mnc_sec_no"].ToString());
@@ -3767,7 +4357,6 @@ namespace bangna_hospital.gui
             pnOperFinish.Controls.Add(grfOperFinish);
             theme1.SetTheme(grfOperFinish, bc.iniC.themeApp);
         }
-
         private void GrfOperFinish_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3864,88 +4453,6 @@ namespace bangna_hospital.gui
             grfOperFinishDrug.Name = "grfOperFinishDrug";
             pnFinishDrug.Controls.Add(grfOperFinishDrug);
         }
-        private void setGrfOperFinishDrug(String vsDate, String preno)
-        {
-            DataTable dtOrder = new DataTable();
-            dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtOperHN.Text.Trim(), preno, vsDate);
-            grfOperFinishDrug.Rows.Count = 1;
-            int i = 0;
-            decimal aaa = 0;
-            foreach (DataRow row1 in dtOrder.Rows)
-            {
-                i++;
-                Row rowa = grfOperFinishDrug.Rows.Add();
-                rowa[colOrderName] = row1["MNC_PH_TN"].ToString();
-                rowa[colOrderMed] = "";
-                rowa[colOrderQty] = row1["qty"].ToString();
-                rowa[colOrderDate] = bc.datetoShow(row1["mnc_req_dat"]);
-                rowa[colOrderFre] = row1["MNC_PH_DIR_DSC"].ToString();
-                rowa[colOrderIn1] = row1["MNC_PH_CAU_dsc"].ToString();
-                //row1[0] = (i - 2);
-            }
-        }
-        private void initGrfOperFinishXray()
-        {
-            grfOperFinishXray = new C1FlexGrid();
-            grfOperFinishXray.Font = fEdit;
-            grfOperFinishXray.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfOperFinishXray.Location = new System.Drawing.Point(0, 0);
-            grfOperFinishXray.Cols.Count = 5;
-            grfOperFinishXray.Cols[colXrayDate].Caption = "วันที่สั่ง";
-            grfOperFinishXray.Cols[colXrayName].Caption = "ชื่อX-Ray";
-            grfOperFinishXray.Cols[colXrayCode].Caption = "Code X-Ray";
-            //grfXray.Cols[colXrayResult].Caption = "ผล X-Ray";
-
-            grfOperFinishXray.Cols[colXrayDate].Width = 100;
-            grfOperFinishXray.Cols[colXrayName].Width = 250;
-            grfOperFinishXray.Cols[colXrayCode].Width = 100;
-            grfOperFinishXray.Cols[colXrayResult].Width = 200;
-
-            grfOperFinishXray.Cols[colXrayDate].AllowEditing = false;
-            grfOperFinishXray.Cols[colXrayName].AllowEditing = false;
-            grfOperFinishXray.Cols[colXrayCode].AllowEditing = false;
-            grfOperFinishXray.Cols[colXrayResult].AllowEditing = false;
-
-            grfOperFinishXray.Name = "grfOperFinishXray";
-            grfOperFinishXray.Rows.Count = 1;
-            pnFinishXray.Controls.Add(grfOperFinishXray);
-
-            theme1.SetTheme(grfOperFinishXray, bc.iniC.themeApp);
-        }
-        private void initGrfOperFinishLab()
-        {
-            grfOperFinishLab = new C1FlexGrid();
-            grfOperFinishLab.Font = fEdit;
-            grfOperFinishLab.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfOperFinishLab.Location = new System.Drawing.Point(0, 0);
-            grfOperFinishLab.Rows.Count = 1;
-            grfOperFinishLab.Cols.Count = 6;
-
-            grfOperFinishLab.Cols.Count = 8;
-            grfOperFinishLab.Cols[colLabDate].Caption = "วันที่สั่ง";
-            grfOperFinishLab.Cols[colLabName].Caption = "ชื่อLAB";
-            grfOperFinishLab.Cols[colLabNameSub].Caption = "ชื่อLABย่อย";
-            grfOperFinishLab.Cols[colLabResult].Caption = "ผลLAB";
-            grfOperFinishLab.Cols[colInterpret].Caption = "แปรผล";
-            grfOperFinishLab.Cols[colNormal].Caption = "Normal";
-            grfOperFinishLab.Cols[colUnit].Caption = "Unit";
-            grfOperFinishLab.Cols[colLabDate].Width = 100;
-            grfOperFinishLab.Cols[colLabName].Width = 250;
-            grfOperFinishLab.Cols[colLabNameSub].Width = 200;
-            grfOperFinishLab.Cols[colInterpret].Width = 200;
-            grfOperFinishLab.Cols[colNormal].Width = 200;
-            grfOperFinishLab.Cols[colUnit].Width = 150;
-            grfOperFinishLab.Cols[colLabResult].Width = 150;
-
-            grfOperFinishLab.Cols[colLabName].AllowEditing = false;
-            grfOperFinishLab.Cols[colInterpret].AllowEditing = false;
-            grfOperFinishLab.Cols[colNormal].AllowEditing = false;
-
-            pnFinishLab.Controls.Add(grfOperFinishLab);
-
-            //theme1.SetTheme(grfOPD, "ExpressionDark");
-            theme1.SetTheme(grfOperFinishLab, bc.iniC.themegrfOpd);
-        }
         private void initGrfOperFinishProcedure()
         {
             grfOperFinishProcedure = new C1FlexGrid();
@@ -3976,8 +4483,8 @@ namespace bangna_hospital.gui
             grfOperFinishProcedure.Cols[colHisProcReqDate].TextAlign = TextAlignEnum.CenterCenter;
             grfOperFinishProcedure.Cols[colHisProcReqTime].TextAlign = TextAlignEnum.CenterCenter;
 
-            grfOperFinishProcedure.Cols[colGrfOrderCode].Visible = true;
-            grfOperFinishProcedure.Cols[colGrfOrderName].Visible = true;
+            grfOperFinishProcedure.Cols[colgrfOrderCode].Visible = true;
+            grfOperFinishProcedure.Cols[colgrfOrderName].Visible = true;
             grfOperFinishProcedure.Cols[colHisProcReqTime].Visible = false;
 
             grfOperFinishProcedure.Cols[colHisProcCode].AllowEditing = false;
@@ -4067,7 +4574,6 @@ namespace bangna_hospital.gui
         private void setControlOper()
         {
             if (pageLoad) return;
-            showLbLoading();
             lfSbMessage.Text = grfOperList.Row.ToString();
             picHisL.Image = null;
             picHisR.Image = null;
@@ -4076,6 +4582,7 @@ namespace bangna_hospital.gui
             if(grfOperList[grfOperList.Row, colgrfOperListPreno]==null) return;
 
             if (grfOperList.Row == ROWGrfOper) return;
+            showLbLoading();
             lfSbStatus.Text = "";
             lfSbMessage.Text = "";
             ROWGrfOper = grfOperList.Row;
@@ -4091,8 +4598,10 @@ namespace bangna_hospital.gui
             setGrfPttApm();
             setGrfOPD();
             setGrfOutLab();
-            if (grfOrder != null) grfOrder.Rows.Count = 1;
+            setGrfOrder();
+            //if (grfOrder != null) grfOrder.Rows.Count = 1;
             chkItemLab.Checked = true;
+            ChkItemLab_Click(null, null);
             HNmedscan = HN;
             rb1.Text = VS.PatientName;
             txtSBSearchHN.Text = HNmedscan;
@@ -4370,7 +4879,8 @@ namespace bangna_hospital.gui
             txtApmTel.Value = "";
             txtApmNO.Value = "";
             txtApmList.Value = "";
-            if(!new1)
+            grfApmOrder.Rows.Count = 1;
+            if (!new1)
             {
                 grfPttApm.Rows.Count = 1;
             }
@@ -4378,12 +4888,12 @@ namespace bangna_hospital.gui
         private void setOrderItem()
         {
             String[] txt = txtSearchItem.Text.Split('#');
-            if (txt.Length < 1)
+            if (txt.Length <= 1)
             {
                 lfSbMessage.Text = "no item";
                 txtItemCode.Value = "";
                 lbItemName.Text = "";
-                txtItemQTY.Text = "1";
+                txtItemQTY.Value = "1";
                 return;
             }
             String name = txt[0].Trim();
@@ -4395,6 +4905,7 @@ namespace bangna_hospital.gui
                 txtItemCode.Value = lab.MNC_LB_CD;
                 lbItemName.Text = lab.MNC_LB_DSC;
                 txtItemQTY.Visible = false;
+                txtItemQTY.Value = "1";
             }
             else if (chkItemXray.Checked)
             {
@@ -4403,14 +4914,25 @@ namespace bangna_hospital.gui
                 txtItemCode.Value = xray.MNC_XR_CD;
                 lbItemName.Text = xray.MNC_XR_DSC;
                 txtItemQTY.Visible = false;
+                txtItemQTY.Value = "1";
             }
-            else if (chkItemHotC.Checked)
+            else if (chkItemProcedure.Checked)
             {
-
+                PatientM30 pm30 = new PatientM30();
+                String name1 = bc.bcDB.pm30DB.SelectNameByPk(code);
+                txtItemCode.Value = code;
+                lbItemName.Text = name1;
+                txtItemQTY.Visible = false;
+                txtItemQTY.Value = "1";
             }
-            else if (chkItemPhy.Checked)
+            else if (chkItemDrug.Checked)
             {
-
+                PharmacyM01 drug = new PharmacyM01();
+                String name1 = bc.bcDB.pharM01DB.SelectNameByPk(code);
+                txtItemCode.Value = code;
+                lbItemName.Text = name1;
+                txtItemQTY.Visible = false;
+                txtItemQTY.Value = "1";
             }
         }
         private void setHeaderHeight0()
@@ -4432,7 +4954,9 @@ namespace bangna_hospital.gui
             spSearch.HeaderHeight = 0;
             spSrcStaffNote.HeaderHeight = 0;
             spTodayOutLab.HeaderHeight = 0;
-            spTodayOutLabList.SizeRatio = 60;
+            spTodayOutLabList.SizeRatio = 50;
+            spOutLabList.SizeRatio = 50;
+            spRpt.HeaderHeight = 0;
         }
         private void FrmOPD_Load(object sender, EventArgs e)
         {
@@ -4460,10 +4984,15 @@ namespace bangna_hospital.gui
             
             autoLab = bc.bcDB.labM01DB.getlLabAll();
             autoXray = bc.bcDB.xrayM01DB.getlLabAll();
+            autoProcedure = bc.bcDB.pm30DB.getlProcedureAll();
+            autoDrug = bc.bcDB.pharM01DB.getlDrugAll();
+
+            chkItemLab.Checked = true;
+            ChkItemLab_Click(null, null);
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-01-31";
+            this.Text = "Last Update 2024-02-15";
         }
     }
 }

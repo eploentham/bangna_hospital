@@ -162,7 +162,7 @@ namespace bangna_hospital.objdb
                 "From " + dsc.table + " dsc " +
                 //"Left Join doc_group_sub_scan dgss On dsc.doc_group_sub_id = dgss.doc_group_sub_id " +
                 "Where dsc." + dsc.hn + " ='" + id + "' and dsc." + dsc.active + "='1' and dsc." + dsc.status_record + "='2' " +
-                "Order By dsc.doc_scan_id ";
+                "Order By dsc.doc_scan_id desc ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;

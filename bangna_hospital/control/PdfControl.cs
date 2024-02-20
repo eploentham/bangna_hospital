@@ -85,14 +85,46 @@ namespace bangna_hospital.control
                     }
                 }
                 //Response.Write("Success");
+                reader.Close();
+                writer.Close();
                 document.Close();
             }
             catch (Exception e)
             {
                 //Response.Write(e.Message);
             }
-
-
+        }
+        public void MergeFileslab2(string destinationFile, string[] sourceFiles)
+        {
+            if (System.IO.File.Exists(destinationFile))
+                System.IO.File.Delete(destinationFile);
+            try
+            {
+                Document doc = new Document();
+                PdfCopy writer = new PdfCopy(doc, new FileStream(destinationFile, FileMode.Create));
+                if (writer == null)
+                {
+                    return;
+                }
+                doc.Open();
+                foreach (string filename in sourceFiles)
+                {
+                    PdfReader reader = new PdfReader(filename);
+                    reader.ConsolidateNamedDestinations();
+                    for (int i = 1; i <= reader.NumberOfPages; i++)
+                    {
+                        PdfImportedPage page = writer.GetImportedPage(reader, i);
+                        writer.AddPage(page);
+                    }
+                    reader.Close();
+                }
+                writer.Close();
+                doc.Close();
+            }
+            catch (Exception e)
+            {
+                //Response.Write(e.Message);
+            }
         }
         public void MergeFileslab(string destinationFile, string[] sourceFiles)
         {
@@ -147,7 +179,7 @@ namespace bangna_hospital.control
                             document.SetPageSize(PageSize.A4);
                         else if (f == 1)
                             document.SetPageSize(PageSize.A5.Rotate());
-                        
+
                         document.NewPage();
                         page = writer.GetImportedPage(reader, i);
 
@@ -166,12 +198,16 @@ namespace bangna_hospital.control
                     f++;
                     if (f < sSrcFile.Length)
                     {
+                        reader.Close();
                         reader = new PdfReader(sSrcFile[f]);
                         n = reader.NumberOfPages;
                         //Response.Write("There are " + n + " pages in the original file.");
                     }
                 }
                 //Response.Write("Success");
+                
+                reader.Close();
+                writer.Close();
                 document.Close();
             }
             catch (Exception e)
@@ -259,6 +295,8 @@ namespace bangna_hospital.control
                     }
                 }
                 //Response.Write("Success");
+                reader.Close();
+                writer.Close();
                 document.Close();
             }
             catch (Exception e)
@@ -314,7 +352,8 @@ namespace bangna_hospital.control
                     cb.AddTemplate(page, 1f, 0, 0, 1f, 0, 0);
                     //Response.Write("\n Processed page " + i);
                 }
-
+                reader.Close();
+                writer.Close();
                 document.Close();
             }
             catch (Exception e)
