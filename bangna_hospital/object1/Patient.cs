@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace bangna_hospital.object1
         public String patient_birthday = "", addr="", visitTime="", dtrcode="", comNameT = "", insurNameT = "", WorkPermit1="", WorkPermit2 = "", WorkPermit3 = "", MNC_ID_NAM="";
         public String MNC_FIN_NOTE  = "";
         public Age age = new Age(DateTime.Now);
-
+        public DataTable DRUGALLERGY, CHRONIC;
         public String MNC_HN_NO { get; set; }
         public String MNC_HN_YR { get; set; }
         public String MNC_PFIX_CDT { get; set; }
@@ -83,6 +84,15 @@ namespace bangna_hospital.object1
         public String MNC_NICKNAME { get; set; }
         public String remark1 { get; set; }
         public String remark2 { get; set; }
+        public String statusHIV { get; set; }
+        public String statusAFB { get; set; }
+        public String ref1 { get; set; }
+        public String passportold { get; set; }// เป็น passport เล่มเก่าที่ยังใช้งานอยู่
+        public Patient()
+        {
+            DRUGALLERGY = new DataTable();
+            CHRONIC = new DataTable();
+        }
         public String AgeString()
         {
             String re = "";

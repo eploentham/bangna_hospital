@@ -32,12 +32,20 @@ namespace bangna_hospital.gui
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         StaffDB stfDB;
-
+        Boolean chkOK=false;
         public Login(BangnaControl bc, FrmSplash splash)
         {
             InitializeComponent();
             this.bc = bc;
             this.splash = splash;
+            initConfig();
+            //new LogWriter("e", "Login InitializeComponent Start Form");
+        }
+        public Login(ref BangnaControl bc)
+        {
+            InitializeComponent();
+            this.bc = bc;
+            //this.splash = splash;
             initConfig();
             //new LogWriter("e", "Login InitializeComponent Start Form");
         }
@@ -110,7 +118,7 @@ namespace bangna_hospital.gui
             a.BackColor = bg;
             //a.ForeColor = fc;
             //a.Font = new Font(ff, FontStyle.Regular);
-            chkLogin();
+            if(!chkOK) chkLogin();
         }
         private void TxtPassword_KeyUp(object sender, KeyEventArgs e)
         {
@@ -137,7 +145,7 @@ namespace bangna_hospital.gui
             {
                 btnOk.Image = Resources.Accept_Male_User24;
                 stt.Show("<p><b>สวัสดี</b></p>คุณ " + stf1.fullname + "<br> กรุณา ป้อนรหัสผ่าน", txtUserName);
-
+                chkOK = true;
                 //stt.SetToolTip(txtUserName, "<p><b>สวัสดี</b></p>คุณ " + stf1.staff_fname_t + " " + stf1.staff_lname_t + "<br> กรุณา ป้อนรหัสผ่าน");
                 sep.Clear();
                 txtPassword.Focus();

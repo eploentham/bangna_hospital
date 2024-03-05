@@ -952,4 +952,22 @@
   <data name="icons8_doctor_641" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-doctor-64.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pngtree-pharmacy-logo-icon-vector-illustration-design-template-png-image_5655290.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="doctor256_24904" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doctor256_24904.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="doctor_asian_male_coronavirus_people_avatar_mask_icon_141385" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doctor_asian_male_coronavirus_people_avatar_mask_icon_141385.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="medical_29_icon_icons_com_73943" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\medical-29_icon-icons.com_73943.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="doctor_asian_female_people_avatar_icon_141428" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doctor_asian_female_people_avatar_icon_141428.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GoToDown_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GoToDown_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

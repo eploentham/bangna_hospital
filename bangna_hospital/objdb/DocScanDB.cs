@@ -758,6 +758,23 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectOutLabByAn(String hn, String an)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' " +
+                "Order By sort1 ";
+            sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1'and dsc." + dsc.status_record + "='2' " +
+                "Order By dsc.doc_scan_id,dsc.row_no ";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
         public DataTable selectByAnDocGrp(String hn, String an, String docgrpid)
         {
             DocScan cop1 = new DocScan();

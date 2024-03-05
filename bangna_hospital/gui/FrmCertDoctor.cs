@@ -828,7 +828,7 @@ namespace bangna_hospital.gui
                 logo.SetAbsolutePosition(315, linenumber + 12);
                 logo.ScaleAbsoluteHeight(60);
                 logo.ScaleAbsoluteWidth(60);
-                doc.Add(logo);
+                //doc.Add(logo);  //เอาออก มีแจ้งว่า ประกันไม่จ่าย
 
                 canvas.EndText();
                 canvas.Stroke();

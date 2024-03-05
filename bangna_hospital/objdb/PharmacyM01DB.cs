@@ -82,7 +82,7 @@ namespace bangna_hospital.objdb
             AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
             //labM01.Clear();
             DataTable dt = new DataTable();
-            dt = SelectAll();
+            dt = SelectDrugAll();
             //dtCus = dt;
             foreach (DataRow row in dt.Rows)
             {
@@ -95,6 +95,19 @@ namespace bangna_hospital.objdb
             }
             return autoSymptom;
         }
+        public DataTable SelectDrugAll()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select pm01.*, pm05.mnc_ph_pri01, pm05.mnc_ph_pri02, pm05.mnc_ph_pri03 " +
+                "From pharmacy_m01 pm01 " +
+                "inner join pharmacy_m05 pm05 on pm01.mnc_ph_cd = pm05.mnc_ph_cd " +
+                "Where mnc_ph_typ_flg = 'P' " + 
+                "Order By pm01.MNC_PH_CD";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public DataTable SelectAll()
         {
             DataTable dt = new DataTable();
@@ -102,7 +115,7 @@ namespace bangna_hospital.objdb
             String sql = "select pm01.*, pm05.mnc_ph_pri01, pm05.mnc_ph_pri02, pm05.mnc_ph_pri03 " +
                 "From pharmacy_m01 pm01 " +
                 "inner join pharmacy_m05 pm05 on pm01.mnc_ph_cd = pm05.mnc_ph_cd " +
-                //"Where MNC_FN_TYP_STS = 'Y' " +
+                //"Where MNC_FN_TYP_STS = 'Y' " +and pm01.mnc_ph_typ_flg = 'P'
                 "Order By pm01.MNC_PH_CD";
             dt = conn.selectData(conn.connMainHIS, sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
@@ -136,6 +149,24 @@ namespace bangna_hospital.objdb
                 re = dt.Rows[0]["MNC_PH_TN"].ToString();
             }
             return re;
+        }
+        public PharmacyM01 SelectNameByPk1(String labgrpcode)
+        {
+            PharmacyM01 pharm01 = new PharmacyM01();
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select pm01.*,pm04.mnc_ph_dir_dsc,pm11.MNC_PH_CAU_dsc " +
+                "From pharmacy_m01 pm01 " +
+                "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +
+                "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
+                "Where pm01.mnc_ph_cd = '" + labgrpcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                pharm01 = setPharmacyM01(dt);
+            }
+            return pharm01;
         }
         public String UpdateTMTCodeOPBKK(String drugcode, String tmtcode)
         {
@@ -311,6 +342,10 @@ namespace bangna_hospital.objdb
                 pharM01.MNC_PRINT_FLG = dt.Rows[0]["MNC_PRINT_FLG"].ToString();
                 pharM01.MNC_PH_NEW_SS = dt.Rows[0]["MNC_PH_NEW_SS"].ToString();
                 pharM01.tmt_code = dt.Rows[0]["tmt_code"].ToString();
+                pharM01.MNC_PH_THAI = dt.Rows[0]["MNC_PH_THAI"].ToString();
+                pharM01.frequency = dt.Rows[0]["MNC_ph_dir_dsc"].ToString().Replace("/", "").Trim();
+                pharM01.precautions = dt.Rows[0]["MNC_ph_cau_dsc"].ToString().Replace("/","").Trim();
+                pharM01.interaction = "";
             }
             else
             {
@@ -375,6 +410,10 @@ namespace bangna_hospital.objdb
             p.MNC_PRINT_FLG = "";
             p.MNC_PH_NEW_SS = "";
             p.tmt_code = "";
+            p.MNC_PH_THAI = "";
+            pharM01.frequency = "";
+            pharM01.precautions = "";
+            pharM01.interaction = "";
             return p;
         }
     }

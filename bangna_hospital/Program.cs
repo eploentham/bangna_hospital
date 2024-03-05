@@ -87,9 +87,9 @@ namespace bangna_hospital
                 else if (bc.iniC.programLoad.Equals("doctorView"))
                 {
                     //new LogWriter("e", "Program doctorView Start Form");
-                    FrmSplash spl = new FrmSplash();
-                    spl.Show();
-                    Application.Run(new gui.FrmDoctorView1(bc, spl));
+                    //FrmSplash spl = new FrmSplash();
+                    //spl.Show();
+                    Application.Run(new gui.FrmDoctor(ref bc));
                 }
                 else if (bc.iniC.programLoad.Equals("PrintCri"))
                 {
@@ -142,7 +142,7 @@ namespace bangna_hospital
                 else if (bc.iniC.programLoad.Equals("DfDoctor"))
                 {
                     //new LogWriter("d", "args " + args.Length);
-                    Application.Run(new gui.FrmDfDoctor(bc));
+                    Application.Run(new gui.FrmDfDoctor1(bc));
                 }
                 else if (bc.iniC.programLoad.Equals("PatientNewSmartCard"))
                 {
@@ -239,10 +239,15 @@ namespace bangna_hospital
                     err = "QUEOPD";
                     Application.Run(new gui.FrmQueueShow(bc));
                 }
-                else if (bc.iniC.programLoad.Equals("drugin"))
+                else if (bc.iniC.programLoad.Equals("pharmacyOPD"))
                 {
-                    err = "drugin";
+                    err = "pharmacyOPD";
                     Application.Run(new gui.FrmPharmacy(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("medscan"))
+                {
+                    err = "medscan";
+                    Application.Run(new gui.FrmMedScanExport(bc));
                 }
                 else
                 {

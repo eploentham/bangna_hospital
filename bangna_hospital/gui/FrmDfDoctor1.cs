@@ -5,12 +5,15 @@ using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
+using GrapeCity.ActiveReports.Document;
+using GrapeCity.ActiveReports;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -24,16 +27,17 @@ namespace bangna_hospital.gui
         BangnaControl bc;
         Font fEdit, fEditB, fEdit3B, fEdit5B;
 
-        C1FlexGrid grfImp;
+        C1FlexGrid grfImp, grfRpt;
 
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         //C1PdfDocument pdfDoc;
         C1ThemeController theme1;
         Label lbLoading;
-        
+        DataTable DTRPT;
+        String RPTNAME = "";
         Boolean pageLoad = false;
-        int colImpchk = 1, colImpvsdate = 2, colImphnno = 3, colImppttname = 4, colImppreno = 5, colImppaidtype = 6, colImpdtrcode = 7, colImpdtrname = 8, colImpdoccd = 9, colImpdoc_yr = 10, colImpdocno = 11, colImpfncd = 12, colImpno = 13, colImpfnamt = 14, colImpfndesc = 15, colImpdocdat = 16, colImpvstime = 17, colImpanno = 18, colImpanyr = 19, colImphnyr = 20;
+        int colImpchk = 1, colImpvsdateShow = 2, colImphnno = 3, colImppttname = 4, colImppreno = 5, colImppaidtype = 6, colImpdtrcode = 7, colImpdtrname = 8, colImpdoccd = 9, colImpdoc_yr = 10, colImpdocno = 11, colImpfncd = 12, colImpno = 13, colImpfnamt = 14, colImpfndesc = 15, colImpdocdat = 16, colImpvstime = 17, colImpanno = 18, colImpanyr = 19, colImphnyr = 20, colImpvsdate=21;
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmDfDoctor1(BangnaControl bc)
@@ -55,13 +59,164 @@ namespace bangna_hospital.gui
             lbLoading.ForeColor = Color.Black;
             lbLoading.AutoSize = false;
             lbLoading.Size = new Size(300, 60);
+            initGrfImp();
+            initGrfRpt();
+            bc.bcDB.pttDB.setCboDeptOPDNew(cboRpt2, "");
 
             btnImportDfSelect.Click += BtnImportDfSelect_Click;
             btnImportDfGen.Click += BtnImportDfGen_Click;
+            btnRpt1.Click += BtnRpt1_Click;
+            btnRptPrint.Click += BtnRptPrint_Click;
+            setControlTabImp();
+            setControlRpt5();
+            RPTNAME = "05";
+        }
+        private void setControlRpt5()
+        {
+            lbRptStartDate.Visible = true;
+            lbRptEndDate.Visible = true;
+            txtImpDateStart.Visible = true;
+            txtImpDateEnd.Visible = true;
+            btnRpt1.Visible = true;
+            cboRpt1.Visible = true;
+            lbRpt2.Visible = false;
+            cboRpt2.Visible = false;
+        }
+        private void setControlTabImp()
+        {
+            txtImpDateStart.Value = DateTime.Now;
+            txtImpDateEnd.Value = DateTime.Now;
+            txtImpPaidType.Value = "15,18";
+        }
+        private void initGrfImp()
+        {
+            grfImp = new C1FlexGrid();
+            grfImp.Font = fEdit;
+            grfImp.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfImp.Location = new System.Drawing.Point(0, 0);
+            grfImp.Rows.Count = 1;
+            panel2.Controls.Add(grfImp);
+            theme1.SetTheme(grfImp, "Office2010Red");
+        }
+        private void initGrfRpt()
+        {
+            grfRpt = new C1FlexGrid();
+            grfRpt.Font = fEdit;
+            grfRpt.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfRpt.Location = new System.Drawing.Point(0, 0);
+            grfRpt.Rows.Count = 1;
+            grfRpt.Cols.Count = 2;
+            grfRpt.Cols[1].Width = 300;
 
-            setControlImp();
+            grfRpt.ShowCursor = true;
+            grfRpt.Cols[1].Caption = "HN";
+
+            grfRpt.Cols[1].DataType = typeof(String);
+            grfRpt.Cols[1].TextAlign = TextAlignEnum.LeftCenter;
+            grfRpt.Cols[1].Visible = true;
+            grfRpt.Cols[1].AllowEditing = false;
+            grfRpt.Click += GrfRpt_Click;
+            //grfCheckUPList.AllowFiltering = true;
+            grfRpt.Rows.Count = 2;
+            Row rowa = grfRpt.Rows[1];
+            rowa[1] = "รายงาน รายได้แพทย์ แบบรายละเอียด";
+
+            pnRptName.Controls.Add(grfRpt);
+            theme1.SetTheme(grfRpt, bc.iniC.themeApp);
         }
 
+        private void GrfRpt_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(grfRpt.Rows.Count == 0) return;
+            if (grfRpt.Col==1)//ให้เป็น รายงานตัวที่ 5 ไปก่อน  เพราะทำรายงานตัวนี้ก่อน
+            {
+                RPTNAME = "05";
+            }
+            setControlRpt5();
+        }
+        private void BtnRpt1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (RPTNAME.Equals("05"))
+            {
+                setControlReport05();
+            }
+        }
+        private void setControlReport05()
+        {
+            DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
+            if (dtapmstart.Year < 1900)
+            {
+                dtapmstart.AddYears(543);
+            }
+            DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
+            if (dtapmend.Year < 1900)
+            {
+                dtapmend.AddYears(543);
+            }
+            bc.bcDB.dfdDB.setCboTumbonName(cboRpt1, dtapmstart.Year.ToString() + "-" + dtapmstart.ToString("MM-dd"), dtapmend.Year.ToString() + "-" + dtapmend.ToString("MM-dd"), "");
+        }
+        private void BtnRptPrint_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (RPTNAME.Equals("05"))
+            {
+                setReport05();
+            }
+        }
+        private void setReport05()
+        {
+            DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
+            if (dtapmstart.Year < 1900)
+            {
+                dtapmstart.AddYears(543);
+            }
+            DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
+            if (dtapmend.Year < 1900)
+            {
+                dtapmend.AddYears(543);
+            }
+            String dtrcode = "";
+            dtrcode = Chk1All.Checked ? "" : cboRpt1.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt1.SelectedItem).Value.ToString();
+            DTRPT = bc.bcDB.dfdDB.SelectByDFdate(dtapmstart.Year.ToString() + "-" + dtapmstart.ToString("MM-dd"), dtapmend.Year.ToString() + "-" + dtapmend.ToString("MM-dd"), dtrcode);
+            int i = 1;
+            foreach (DataRow drow in DTRPT.Rows)
+            {
+                drow["row_number"] = i++;
+                drow["paid_name"] = drow["paid_name"].ToString().Replace("ประกันสังคม (บ.5)", "ปกส5").Replace("บริษัทประกัน", "ประกัน").Replace("ประกันสังคมอิสระ (บ.5)", "ปกต5").Replace("ประกันสังคม (บ.2)", "ปกส2")
+                    .Replace("ประกันสังคมอิสระ (บ.1)", "ปกต1").Replace("ประกันสังคม (บ.1)", "ปกส1").Replace("ประกันสังคมอิสระ (บ.2)", "ปกต2").Replace("ตรวจสุขภาพ (เงินสด)", "ตส.เงินสด").Replace("ตรวจสุขภาพ (บริษัท)", "ตส.บริษัท")
+                    .Replace("ลูกหนี้ตรวจสุขภาพประกันสังคม", "ลห.ตส.ปกส").Replace("ลูกหนี้ฝากครรภ์", "ลห.ฝากครรภ์");//
+                drow["PAY_TYPE"] = drow["PAY_TYPE"].ToString().Replace("2", "บาท").Replace("1", "%");
+                drow["DF_DATE_show"] = bc.datetoShow1(drow["DF_DATE"].ToString());
+                drow["FN_DATE_show"] = bc.datetoShow1(drow["FN_DAT"].ToString());
+            }
+            FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\df_detail_doctor.rdlx");
+            if (dtrcode.Length > 0)
+            {
+                //rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date_doctor.rdlx");
+                rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\df_detail_doctor.rdlx");
+            }
+            if (!File.Exists(rptPath.FullName))
+            {
+                lfSbMessage.Text = "File report not found";
+                return;
+            }
+            PageReport definition = new PageReport(rptPath);
+            PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
+
+            runtime.Parameters["line1"].CurrentValue = bc.iniC.hostname;
+            runtime.Parameters["line2"].CurrentValue = "รายงานรายได้แพทย์ ประจำวันที่ " + dtapmstart.ToString("dd-MM-yyyy") + " ถึงวันที่ " + dtapmend.ToString("dd-MM-yyyy");
+            runtime.Parameters["line3"].CurrentValue = (dtrcode.Length > 0) ? "แพทย์ " + cboRpt1.Text : "";
+
+            runtime.LocateDataSource += Runtime_LocateDataSource;
+            arvMain.LoadDocument(runtime);
+        }
+        private void Runtime_LocateDataSource(object sender, LocateDataSourceEventArgs args)
+        {
+            //throw new NotImplementedException();
+            args.Data = DTRPT;
+        }
         private void BtnImportDfGen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -116,11 +271,11 @@ namespace bangna_hospital.gui
                 dotdfd.MNC_FN_NO = i.ToString();        //pk
                 dotdfd.MNC_FN_DAT = docdat;             //pk
                 //dotdfd.MNC_DF_DATE = dfdate;
-                dotdfd.MNC_DF_DATE = bc.datetoDB(vsdate);       // ต้องเป็น vsdate จากการดู data ของ วันต่างๆ
+                dotdfd.MNC_DF_DATE = vsdate;       // ต้องเป็น vsdate จากการดู data ของ วันต่างๆ
                 dotdfd.MNC_FN_TYP_DESC = fndsc;
                 dotdfd.MNC_DF_AMT = dfamt;
                 dotdfd.MNC_FN_AMT = dfamt;
-                dotdfd.MNC_DATE = bc.datetoDB(vsdate);
+                dotdfd.MNC_DATE = vsdate;
                 dotdfd.MNC_TIME = vstime;
                 dotdfd.MNC_HN_NO = hnno;
                 dotdfd.MNC_HN_YR = hnyr;
@@ -145,7 +300,7 @@ namespace bangna_hospital.gui
                 dotdfd.MNC_DF_DET_TYPE = "";            // null
                 dotdfd.status_insert_manual = "1";
 
-                String re = bc.bcDB.dotdfdDB.insert(dotdfd);
+                String re = bc.bcDB.dfdDB.insert(dotdfd);
                 i++;
             }
             MessageBox.Show("gen ข้อมูล ค่าแพทย์ checkup เรียบร้อย", "");
@@ -201,10 +356,10 @@ namespace bangna_hospital.gui
 
             Column colChk = grfImp.Cols[colImpchk];
             colChk.DataType = typeof(Boolean);
-            grfImp.Cols.Count = 21;
+            grfImp.Cols.Count = 22;
             //grfSelect.Cols.Count = 12;
             grfImp.Rows.Count = 1;
-            grfImp.Cols[colImpvsdate].Caption = "Date";
+            grfImp.Cols[colImpvsdateShow].Caption = "Date";
             grfImp.Cols[colImphnno].Caption = "HN";
             grfImp.Cols[colImppttname].Caption = "Patient Name";
             grfImp.Cols[colImppreno].Caption = "preno";
@@ -214,12 +369,15 @@ namespace bangna_hospital.gui
             grfImp.Cols[colImpanyr].Caption = "AN YR";
             //grfSelect.Cols[coldtrname].Caption = "HN";
             grfImp.Cols[colImpchk].Width = 50;
-            grfImp.Cols[colImpvsdate].Width = 100;
+            grfImp.Cols[colImpvsdateShow].Width = 100;
             grfImp.Cols[colImphnno].Width = 80;
             grfImp.Cols[colImppttname].Width = 250;
             grfImp.Cols[colImppreno].Width = 60;
             grfImp.Cols[colImppaidtype].Width = 60;
             grfImp.Cols[colImpdtrname].Width = 250;
+            grfImp.Cols[colImpvsdateShow].DataType = typeof(String);
+            grfImp.Cols[colImpvsdate].DataType = typeof(String);
+            grfImp.Cols[colImpvsdate].Visible = false;
             //grfSelect.Cols[colfndesc].Width = 250;
             //grfSelect.Cols[colfncd].Width = 50;
             //grfSelect.Cols[colno].Width = 50;
@@ -229,7 +387,8 @@ namespace bangna_hospital.gui
             int i = 1;
             foreach (DataRow drow in dt.Rows)
             {
-                grfImp[i, colImpvsdate] = bc.datetoShow(drow["MNC_DATE"].ToString());
+                grfImp[i, colImpvsdateShow] = bc.datetoShow1(drow["MNC_DATE"].ToString());
+                grfImp[i, colImpvsdate] = drow["MNC_DATE"].ToString();
                 grfImp[i, colImphnno] = drow["MNC_HN_NO"].ToString();
                 grfImp[i, colImppttname] = drow["MNC_PFIX_DSC"].ToString() + " " + drow["MNC_FNAME_T"].ToString() + " " + drow["MNC_LNAME_T"].ToString();
                 grfImp[i, colImppreno] = drow["MNC_PRE_NO"].ToString();
@@ -255,7 +414,7 @@ namespace bangna_hospital.gui
             grfImp.Cols[colImpdocdat].Visible = false;
             grfImp.Cols[colImpvstime].Visible = false;
 
-            grfImp.Cols[colImpvsdate].AllowEditing = false;
+            grfImp.Cols[colImpvsdateShow].AllowEditing = false;
             grfImp.Cols[colImphnno].AllowEditing = false;
             grfImp.Cols[colImppttname].AllowEditing = false;
             grfImp.Cols[colImppreno].AllowEditing = false;
@@ -265,13 +424,6 @@ namespace bangna_hospital.gui
             //grfSelect.Cols[colGrfUcepSelectHn].AllowEditing = false;
             hideLbLoading();
             pageLoad = false;
-        }
-
-        private void setControlImp()
-        {
-            txtImpDateStart.Value = DateTime.Now;
-            txtImpDateEnd.Value = DateTime.Now;
-            txtImpPaidType.Value = "15,18";
         }
         private void setLbLoading(String txt)
         {
@@ -295,7 +447,8 @@ namespace bangna_hospital.gui
             int scrH = Screen.PrimaryScreen.Bounds.Height;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.WindowState = FormWindowState.Maximized;
-
+            txtRptStartDate.Value = DateTime.Now;
+            txtRptEndDate.Value = DateTime.Now;
             grfImp.Size = new Size(scrW - 20, scrH - btnImportDfSelect.Location.Y - 140);
             grfImp.Location = new Point(5, btnImportDfSelect.Location.Y + 40);
 
@@ -303,8 +456,8 @@ namespace bangna_hospital.gui
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
-
-            this.Text = "Last Update 2024-02-17";
+            rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
+            this.Text = "Last Update 2024-02-28-1";
         }
     }
 }

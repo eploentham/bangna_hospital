@@ -34,7 +34,7 @@ namespace bangna_hospital.objdb
             floca.pkField = "location_code";
             lChw = new List<FLocation>();
 
-            getlChw();
+            //getlChw();
         }
         public DataTable selectProvince()
         {

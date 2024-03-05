@@ -92,7 +92,41 @@ namespace bangna_hospital.object1
             catch (Exception ex) { Console.WriteLine(ex.ToString()); }
             return stream;
         }
-
+        public MemoryStream download4K(String remoteFile)
+        {
+            MemoryStream stream = new MemoryStream();
+            try
+            {
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = ftpUsePassive;
+                ftpRequest.KeepAlive = true;
+                ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                ftpStream = ftpResponse.GetResponseStream();
+                byte[] byteBuffer = new byte[1024000];
+                int bytesRead = ftpStream.Read(byteBuffer, 0, 1024000);
+                try
+                {
+                    while (bytesRead > 0)
+                    {
+                        //localFileStream.Write(byteBuffer, 0, bytesRead);
+                        stream.Write(byteBuffer, 0, bytesRead);
+                        bytesRead = ftpStream.Read(byteBuffer, 0, 1024000);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                ftpStream.Close();
+                ftpResponse.Close();
+                ftpRequest = null;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            return stream;
+        }
         /* Upload File */
         public Boolean upload(string remoteFile, Stream localFile)
         {

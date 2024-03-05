@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using C1.Win.C1Input;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -70,6 +71,78 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
+        }
+        public DataTable SelectByDFdate(String startdate, String enddate, String dtrcode)
+        {
+            DataTable dt = new DataTable();
+            String wheredtrcode = "";
+            if (dtrcode.Length > 0)
+            {
+                wheredtrcode = " and dfd.MNC_DOT_CD_DF = '" + dtrcode + "'";
+            }
+            String sql = "SELECT '' as DF_DATE_show,'' as FN_DATE_show,'' as row_number, dfd.MNC_DOC_CD, dfd.MNC_DOC_YR, dfd.MNC_DOC_NO  " +
+                ", convert(varchar(20),dfd.MNC_DOC_DAT,23) as MNC_DOC_DAT, convert(varchar(20),dfd.MNC_DF_DATE,23) as DF_DATE,dfd.MNC_FN_CD, dfd.MNC_FN_NO, convert(varchar(20),dfd.MNC_FN_DAT,23) as FN_DAT " +
+                ", dfd.MNC_FN_TYP_DESC as item_name, dfd.MNC_DF_AMT as DF_AMT, dfd.MNC_FN_AMT as FN_AMT, convert(varchar(20),dfd.MNC_DATE,23) as vsdate " +
+                ", dfd.MNC_HN_NO as hn, dfd.MNC_HN_YR, dfd.MNC_AN_NO, dfd.MNC_AN_YR " +
+                ", dfd.MNC_PAT_NAME as PAT_NAME, dfd.MNC_PRE_NO as preno, dfd.MNC_FN_TYP_CD " +
+                ", dfd.MNC_DOT_CD_DF, dfd.MNC_DOT_GRP_CD, dfd.MNC_DOT_NAME as dtr_name " +
+                ", dfd.MNC_PAY_FLAG, dfd.MNC_DF_DET_TYPE, convert(varchar(20),dfd.MNC_PAY_DAT,23) as MNC_PAY_DAT, dfd.MNC_REF_NO, convert(varchar(20),dfd.MNC_REF_DAT,23) as MNC_REF_DAT " +
+                ", finm02.MNC_FN_TYP_DSC as paid_name, finm02.MNC_FN_STS, pt01.MNC_VN_NO, pt01.MNC_VN_SEQ,convert(varchar(20),pt01.MNC_VN_NO) + '.'+ convert(varchar(20),pt01.MNC_VN_SEQ)+'.'+convert(varchar(20),pt01.MNC_VN_SUM) as vn " +
+                ", pt01.MNC_VN_SUM, isnull(dfdg.MNC_DF_GRP,'') as DF_GRP, isnull(dfdg.MNC_DF_GRP_DSC,'') as DF_GRP_DSC,convert(varchar(20),dfd.MNC_PAY_TYP) as PAY_TYPE,dfd.MNC_PAY_RATE as PAY_RATE " +
+                "From DOTDF_DETAIL dfd " +
+                "Left JOIN  FINANCE_M02 finm02 ON dfd.MNC_FN_TYP_CD = finm02.MNC_FN_TYP_CD " +
+                "INNER JOIN PATIENT_T01 pt01 ON dfd.MNC_HN_YR = pt01.MNC_HN_YR AND dfd.MNC_HN_NO = pt01.MNC_HN_NO AND dfd.MNC_DATE = pt01.MNC_DATE AND dfd.MNC_PRE_NO = pt01.MNC_PRE_NO " +
+                "Left JOIN DOTDF_GROUP dfdg ON dfd.MNC_DF_GROUP = dfdg.MNC_DF_GRP " +
+                "Where dfd.MNC_DF_DATE >= '"+ startdate+ "' and dfd.MNC_DF_DATE <= '" + enddate + "'  and dfd.MNC_DF_AMT <> '0' " + wheredtrcode+
+                "Order By dfd.MNC_DOT_CD_DF, dfd.MNC_DOT_GRP_CD, dfd.MNC_FN_DAT, dfd.MNC_DATE, dfd.MNC_PRE_NO, dfd.MNC_DF_GROUP ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public void setCboTumbonName(C1ComboBox c, String datestart, String dateend, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+
+            DataTable dt = new DataTable();
+
+            String sql = "", re = "";
+            sql = "Select distinct isnull(dfd.MNC_DOT_CD_DF,'') as MNC_DOT_CD_DF ,(isnull(pm02dtr.MNC_PFIX_DSC,'') +' ' +isnull(pm26.MNC_DOT_FNAME,'') + ' ' + isnull(pm26.MNC_DOT_LNAME,'')) as dtr_name " +
+                "From  DOTDF_DETAIL dfd " +
+                "Left join PATIENT_M26 pm26 on dfd.MNC_DOT_CD_DF = pm26.MNC_DOT_CD " +
+                "left JOIN PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                " Where dfd.MNC_DF_DATE >= '" + datestart + "' and dfd.MNC_DF_DATE <= '" + dateend + "' Order By dtr_name ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                int i = 0;
+                c.Items.Clear();
+                //item = new ComboBoxItem();
+                //item.Value = "";
+                //item.Text = "";
+                //c.Items.Add(item);
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["MNC_DOT_CD_DF"].ToString().Equals("")) continue;
+                    item = new ComboBoxItem();
+                    item.Value = row["MNC_DOT_CD_DF"].ToString();
+                    item.Text = row["dtr_name"].ToString();
+                    c.Items.Add(item);
+                    if (item.Value.Equals(selected))
+                    {
+                        //c.SelectedItem = item.Value;
+                        c.SelectedText = item.Text;
+                        c.SelectedIndex = i;
+                    }
+                    i++;
+                }
+            }
+            if (selected.Equals(""))
+            {
+                if (c.Items.Count > 0)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
         }
         private void chkNull(DotDfDetail p)
         {

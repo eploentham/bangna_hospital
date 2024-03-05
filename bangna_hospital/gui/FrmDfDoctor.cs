@@ -154,7 +154,7 @@ namespace bangna_hospital.gui
                 dotdfd.MNC_DF_DET_TYPE = "";            // null
                 dotdfd.status_insert_manual = "1";
 
-                String re = bc.bcDB.dotdfdDB.insert(dotdfd);
+                String re = bc.bcDB.dfdDB.insert(dotdfd);
                 i++;
             }
             MessageBox.Show("gen ข้อมูล ค่าแพทย์ checkup เรียบร้อย", "");

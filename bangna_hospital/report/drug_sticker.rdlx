@@ -1,0 +1,213 @@
+﻿<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition">
+	<Body>
+		<Height>2in</Height>
+		<ReportItems>
+			<Textbox Name="TextBox1">
+				<CanGrow>true</CanGrow>
+				<Height>0.3333in</Height>
+				<Left>0.4791667in</Left>
+				<Value>=Fields!hostname.Value</Value>
+				<Style>
+					<FontFamily>TH Sarabun New</FontFamily>
+					<FontSize>14pt</FontSize>
+					<FontStyle>Normal</FontStyle>
+					<FontWeight>400</FontWeight>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+				</Style>
+				<Width>1.875in</Width>
+			</Textbox>
+			<Textbox Name="TextBox2">
+				<CanGrow>true</CanGrow>
+				<Height>0.3333in</Height>
+				<Left>2.125in</Left>
+				<Value>=Fields!tel.Value</Value>
+				<Style>
+					<FontFamily>TH Sarabun New</FontFamily>
+					<FontSize>14pt</FontSize>
+					<FontStyle>Normal</FontStyle>
+					<FontWeight>400</FontWeight>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+					<TextAlign>Right</TextAlign>
+				</Style>
+				<Width>1in</Width>
+				<ZIndex>1</ZIndex>
+			</Textbox>
+			<Textbox Name="TextBox3">
+				<CanGrow>true</CanGrow>
+				<Height>0.25in</Height>
+				<Left>0.5in</Left>
+				<Value>=Globals!ExecutionTime</Value>
+				<Style>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+				</Style>
+				<Top>0.3333in</Top>
+				<Width>1.625in</Width>
+				<ZIndex>2</ZIndex>
+			</Textbox>
+			<Textbox Name="TextBox4">
+				<CanGrow>true</CanGrow>
+				<Height>0.25in</Height>
+				<Left>2.125in</Left>
+				<Value>=Fields!hn.Value</Value>
+				<Style>
+					<FontFamily>TH Sarabun New</FontFamily>
+					<FontSize>14pt</FontSize>
+					<FontStyle>Normal</FontStyle>
+					<FontWeight>400</FontWeight>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+					<TextAlign>Left</TextAlign>
+				</Style>
+				<Top>0.3333in</Top>
+				<Width>1in</Width>
+				<ZIndex>3</ZIndex>
+			</Textbox>
+			<Textbox Name="TextBox5">
+				<CanGrow>true</CanGrow>
+				<Height>0.375in</Height>
+				<Value>=Fields!pttname.Value</Value>
+				<Style>
+					<FontFamily>TH Sarabun New</FontFamily>
+					<FontSize>16pt</FontSize>
+					<FontStyle>Normal</FontStyle>
+					<FontWeight>400</FontWeight>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+				</Style>
+				<Top>0.5in</Top>
+				<Width>2.75in</Width>
+				<ZIndex>4</ZIndex>
+			</Textbox>
+			<Textbox Name="TextBox6">
+				<CanGrow>true</CanGrow>
+				<Height>0.375in</Height>
+				<Value>=Fields!drug_using.Value</Value>
+				<Style>
+					<FontFamily>TH Sarabun New</FontFamily>
+					<FontSize>14pt</FontSize>
+					<FontStyle>Normal</FontStyle>
+					<FontWeight>400</FontWeight>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+				</Style>
+				<Top>0.875in</Top>
+				<Width>3.125in</Width>
+				<ZIndex>5</ZIndex>
+			</Textbox>
+			<Textbox Name="TextBox7">
+				<CanGrow>true</CanGrow>
+				<Height>0.375in</Height>
+				<Value>=Fields!drugname_e.Value</Value>
+				<Style>
+					<FontFamily>TH Sarabun New</FontFamily>
+					<FontSize>14pt</FontSize>
+					<FontStyle>Normal</FontStyle>
+					<FontWeight>400</FontWeight>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+				</Style>
+				<Top>1.25in</Top>
+				<Width>3.125in</Width>
+				<ZIndex>6</ZIndex>
+			</Textbox>
+			<Textbox Name="TextBox8">
+				<CanGrow>true</CanGrow>
+				<Height>0.375in</Height>
+				<Value>=Fields!drugname_t.Value</Value>
+				<Style>
+					<FontFamily>TH Sarabun New</FontFamily>
+					<FontSize>14pt</FontSize>
+					<FontStyle>Normal</FontStyle>
+					<FontWeight>400</FontWeight>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+				</Style>
+				<Top>1.625in</Top>
+				<Width>3.125in</Width>
+				<ZIndex>7</ZIndex>
+			</Textbox>
+			<Textbox Name="TextBox9">
+				<CanGrow>true</CanGrow>
+				<Height>0.375in</Height>
+				<Value>=Fields!drug_cust.Value</Value>
+				<Style>
+					<PaddingBottom>2pt</PaddingBottom>
+					<PaddingLeft>2pt</PaddingLeft>
+					<PaddingRight>2pt</PaddingRight>
+					<PaddingTop>2pt</PaddingTop>
+				</Style>
+				<Top>1.25in</Top>
+				<Width>3.125in</Width>
+				<ZIndex>8</ZIndex>
+			</Textbox>
+		</ReportItems>
+		<Style />
+	</Body>
+	<BottomMargin>1in</BottomMargin>
+	<LeftMargin>1in</LeftMargin>
+	<PageHeight>11.69in</PageHeight>
+	<PageWidth>8.27in</PageWidth>
+	<RightMargin>1in</RightMargin>
+	<TopMargin>1in</TopMargin>
+	<Width>3.125in</Width>
+	<DataSources>
+		<DataSource Name="DataSource1">
+			<ConnectionProperties>
+				<DataProvider>DATASET</DataProvider>
+			</ConnectionProperties>
+		</DataSource>
+	</DataSources>
+	<DataSets>
+		<DataSet Name="DataSet1">
+			<Fields>
+				<Field Name="hostname">
+					<DataField>hostname</DataField>
+				</Field>
+				<Field Name="tel">
+					<DataField>tel</DataField>
+				</Field>
+				<Field Name="hn">
+					<DataField>hn</DataField>
+				</Field>
+				<Field Name="pttname">
+					<DataField>pttname</DataField>
+				</Field>
+				<Field Name="drugname_e">
+					<DataField>drugname_e</DataField>
+				</Field>
+				<Field Name="drugname_t">
+					<DataField>drugname_t</DataField>
+				</Field>
+				<Field Name="drug_using">
+					<DataField>drug_using</DataField>
+				</Field>
+				<Field Name="drug_cust">
+					<DataField>drug_cust</DataField>
+				</Field>
+			</Fields>
+			<Query>
+				<CommandText />
+				<DataSourceName>DataSource1</DataSourceName>
+			</Query>
+		</DataSet>
+	</DataSets>
+</Report>

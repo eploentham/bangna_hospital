@@ -179,6 +179,7 @@ namespace bangna_hospital.gui
             grfLab.Cols[colLabRange].AllowSorting = false;
             grfLab.Cols[colLabSubName].AllowSorting = false;
             //grfLab.Click += GrfHn_Click;
+            theme1.SetTheme(grfLab, "MacBlue");
         }
         private void setGrfLab(DateTime datedisc)
         {
@@ -251,12 +252,37 @@ namespace bangna_hospital.gui
                 grfResult.Cols[icol].Width = 125;
                 grfResult.Cols[icol].AllowSorting = false;
                 grfResult.Cols[icol].TextAlign = TextAlignEnum.RightCenter;
+                CellStyle cells = grfResult.Cols[icol].StyleNew;
+                if(icol==1) cells.BackColor = ColorTranslator.FromHtml("#88AB8E");
+                else if (icol == 2) cells.BackColor = ColorTranslator.FromHtml("#AFC8AD");
+                else if (icol == 3) cells.BackColor = ColorTranslator.FromHtml("#EEE7DA");
+                else if (icol == 4) cells.BackColor = ColorTranslator.FromHtml("#F2F1EB");
+                else if (icol == 5) cells.BackColor = ColorTranslator.FromHtml("#C3E2C2");
+                else if (icol == 6) cells.BackColor = ColorTranslator.FromHtml("#EAECCC");
+                else if (icol == 7) cells.BackColor = ColorTranslator.FromHtml("#DBCC95");
+                else if (icol == 8) cells.BackColor = ColorTranslator.FromHtml("#CD8D7A");
+
+                else if (icol == 9) cells.BackColor = ColorTranslator.FromHtml("#FFC5C5");
+                else if (icol == 10) cells.BackColor = ColorTranslator.FromHtml("#FFEBD8");
+                else if (icol == 11) cells.BackColor = ColorTranslator.FromHtml("#C7DCA7");
+                else if (icol == 12) cells.BackColor = ColorTranslator.FromHtml("#89B9AD");
+
+                else if (icol == 13) cells.BackColor = ColorTranslator.FromHtml("#DADDB1");
+                else if (icol == 14) cells.BackColor = ColorTranslator.FromHtml("#B3A492");
+                else if (icol == 15) cells.BackColor = ColorTranslator.FromHtml("#BFB29E");
+                else if (icol == 16) cells.BackColor = ColorTranslator.FromHtml("#D6C7AE");
+
+                else if (icol == 17) cells.BackColor = ColorTranslator.FromHtml("#FAF3F0");
+                else if (icol == 18) cells.BackColor = ColorTranslator.FromHtml("#D4E2D4");
+                else if (icol == 19) cells.BackColor = ColorTranslator.FromHtml("#FFCACC");
+                else if (icol == 20) cells.BackColor = ColorTranslator.FromHtml("#DBC4F0");
+
                 icol++;
             }
             ////grfLab.Redraw;
             //grfLab.Refresh();
             //foreach (DataRow drow in dtlab.Rows)
-            //{
+            //{else if (row1["status_remark_call"].ToString().Equals("2")) { rowa[colgrfPttApmStatusRemarkCall] = "โทรเรียบร้อย ไม่รับสาย"; rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); }//#EBBDB6
             //    i++;
             //    grfLab[i, colLabHn] = txtHn.Text.Trim();
             //    grfLab[i, colLablccode] = drow["MNC_LB_CD"].ToString();

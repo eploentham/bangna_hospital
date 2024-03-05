@@ -64,6 +64,82 @@ namespace bangna_hospital.objdb
             pharT05.pkField = "";
 
         }
+        public DataTable SelectByCFGCurrentDate()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "SELECT pht05.MNC_DOC_CD, pht05.MNC_CFR_YR, pht05.MNC_CFR_NO, convert(varchar(20),pht05.MNC_CFG_DAT,23) as MNC_CFG_DAT, pht05.MNC_ORD_DOT  " +
+                ", pht05.MNC_CFR_STS, pht05.MNC_DEPC_NO, pht05.MNC_SECC_NO, pht05.MNC_REQ_YR, pht05.MNC_REQ_NO, convert(varchar(20),pht05.MNC_REQ_DAT,23) as MNC_REQ_DAT, pht05.MNC_REQ_TIM, pht05.MNC_DEPR_NO  " +
+                ", pht05.MNC_SECR_NO, pht05.MNC_SUM_PRI, pht05.MNC_SUM_COS, pht05.MNC_HN_YR,  pht05.MNC_HN_NO, pht05.MNC_AN_YR, pht05.MNC_AN_NO, pht05.MNC_PRE_NO, convert(varchar(20),pht05.MNC_DATE,23) as MNC_DATE  " +
+                ", pht05.MNC_TIME, pht05.MNC_USE_LOG, pht05.MNC_FN_TYP_CD, pht05.MNC_COM_CD, pht05.MNC_FLAGAR, pht05.MNC_REQ_REF, pht05.MNC_CFR_TIME, pht05.MNC_EMPR_CD " +
+                ", pht05.MNC_EMPC_CD, pht05.MNC_ORD_DOT, pht05.MNC_QUE_NO, pht05.MNC_STAMP_DAT, pt01.MNC_DOT_CD, pht05.MNC_STAMP_TIM, pht05.MNC_PAC_CD, pht05.MNC_PAC_TYP  " +
+                ", pm02.MNC_PFIX_DSC + ' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T AS PATIENTNAME " +
+                ", pm01.MNC_BDAY, pm01.MNC_SEX, finm02.MNC_FN_TYP_DSC, pm24.MNC_COM_DSC, finm02.MNC_COD_PRI_PH, finm02.MNC_COD_PRI_PHI, finm02.MNC_FN_STS, pm01.MNC_ATT_NOTE, pm01.MNC_FIN_NOTE " +
+                ", pht05.MNC_REQ_COUNT, pht05.MNC_REQ_TYP, pht05.MNC_PHA_STS, pt01.MNC_VN_NO, pt01.MNC_VN_SEQ, pt01.MNC_VN_SUM, pt01.MNC_DEP_NO, pt01.MNC_SEC_NO  " +
+                ", pm02dtr.MNC_PFIX_DSC + ' ' + pm26dtr.MNC_DOT_FNAME + ' ' + pm26dtr.MNC_DOT_LNAME AS ORDDOTNAME " +
+                ", userm01.MNC_USR_FULL AS MNC_USR_FULL_C, userm01.MNC_USR_FULL, pm16.MNC_SEC_DSC " +
+                "From PATIENT_T01 pt01 " +
+                "Left join PHARMACY_M16 pm16 on pm16.MNC_DEP_NO = pt01.MNC_DEP_NO AND pm16.MNC_SEC_NO = pt01.MNC_SEC_NO " +
+                "inner join PATIENT_M01 pm01 ON pt01.MNC_HN_YR = pm01.MNC_HN_YR AND pt01.MNC_HN_NO = pm01.MNC_HN_NO " +
+                "Left join PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Inner join PHARMACY_T05 pht05 on pt01.MNC_HN_YR = pht05.MNC_HN_YR AND pt01.MNC_HN_NO = pht05.MNC_HN_NO AND pt01.MNC_PRE_NO = pht05.MNC_PRE_NO AND pt01.MNC_DATE = pht05.MNC_DATE " +
+                "Left join PATIENT_M26 pm26dtr ON  pm26dtr.MNC_DOT_CD = pt01.MNC_DOT_CD   " +
+                "Left JOIN  PATIENT_M02 pm02dtr ON pm26dtr.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                "Left join FINANCE_M02 finm02 ON pt01.MNC_FN_TYP_CD = finm02.MNC_FN_TYP_CD " +
+                "Left join USERLOG_M01 userm01 ON pht05.MNC_EMPR_CD = userm01.MNC_USR_NAME " +
+                "Left join PATIENT_M24 pm24 ON pt01.MNC_COM_CD = pm24.MNC_COM_CD " +
+                "Where pht05.MNC_CFG_DAT = convert(varchar(20),getdate(),23)   " +
+                "Order By pht05.MNC_REQ_DAT, pht05.MNC_REQ_TIM desc, pht05.MNC_CFR_NO desc ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectByCFGdate(String startdate, String enddate)
+        {
+            DataTable dt = new DataTable();
+            
+            String sql = "SELECT pht05.MNC_DOC_CD, pht05.MNC_CFR_YR, pht05.MNC_CFR_NO, pht05.MNC_CFG_DAT, pht05.MNC_ORD_DOT  " +
+                ", pht05.MNC_CFR_STS, pht05.MNC_DEPC_NO, pht05.MNC_SECC_NO, pht05.MNC_REQ_YR, pht05.MNC_REQ_NO, pht05.MNC_REQ_DAT, pht05.MNC_REQ_TIM, pht05.MNC_DEPR_NO  " +
+                ", pht05.MNC_SECR_NO, pht05.MNC_SUM_PRI, pht05.MNC_SUM_COS, pht05.MNC_HN_YR,  pht05.MNC_HN_NO, pht05.MNC_AN_YR, pht05.MNC_AN_NO, pht05.MNC_PRE_NO, pht05.MNC_DATE  " +
+                ", pht05.MNC_TIME, pht05.MNC_USE_LOG, pht05.MNC_FN_TYP_CD, pht05.MNC_COM_CD, pht05.MNC_FLAGAR, pht05.MNC_REQ_REF, pht05.MNC_CFR_TIME, pht05.MNC_EMPR_CD " +
+                ", pht05.MNC_EMPC_CD, pht05.MNC_ORD_DOT, pht05.MNC_QUE_NO, pht05.MNC_STAMP_DAT, pt01.MNC_DOT_CD, pht05.MNC_STAMP_TIM, pht05.MNC_PAC_CD, pht05.MNC_PAC_TYP  " +
+                ", pm02.MNC_PFIX_DSC + ' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T AS PATIENTNAME " +
+                ", pm01.MNC_BDAY, pm01.MNC_SEX, finm02.MNC_FN_TYP_DSC, pm24.MNC_COM_DSC, finm02.MNC_COD_PRI_PH, finm02.MNC_COD_PRI_PHI, finm02.MNC_FN_STS, pm01.MNC_ATT_NOTE, pm01.MNC_FIN_NOTE " +
+                ", pht05.MNC_REQ_COUNT, pht05.MNC_REQ_TYP, pht05.MNC_PHA_STS, pt01.MNC_VN_NO, pt01.MNC_VN_SEQ, pt01.MNC_VN_SUM, pt01.MNC_DEP_NO, pt01.MNC_SEC_NO  " +
+                ", pm02dtr.MNC_PFIX_DSC + ' ' + pm26dtr.MNC_DOT_FNAME + ' ' + pm26dtr.MNC_DOT_LNAME AS ORDDOTNAME " +
+                ", userm01.MNC_USR_FULL AS MNC_USR_FULL_C, userm01.MNC_USR_FULL, pm16.MNC_SEC_DSC " +
+                "From PATIENT_T01 pt01 " +
+                "Left join PHARMACY_M16 pm16 on pm16.MNC_DEP_NO = pt01.MNC_DEP_NO AND pm16.MNC_SEC_NO = pt01.MNC_SEC_NO " +
+                "Left join PATIENT_M26 pm26dtr ON  pm26dtr.MNC_DOT_CD = pt01.MNC_DOT_CD   " +
+                "Left JOIN  PATIENT_M02 pm02dtr ON pm26dtr.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                "inner join PATIENT_M01 pm01 ON pt01.MNC_HN_YR = pm01.MNC_HN_YR AND pt01.MNC_HN_NO = pm01.MNC_HN_NO " +
+                "Left join PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Inner join PHARMACY_T05 pht05 on pt01.MNC_HN_YR = pht05.MNC_HN_YR AND pt01.MNC_HN_NO = pht05.MNC_HN_NO AND pt01.MNC_PRE_NO = pht05.MNC_PRE_NO AND pt01.MNC_DATE = pht05.MNC_DATE " +
+                "Left join FINANCE_M02 finm02 ON pt01.MNC_FN_TYP_CD = finm02.MNC_FN_TYP_CD " +
+                "Left join USERLOG_M01 userm01 ON pht05.MNC_EMPR_CD = userm01.MNC_USR_NAME " +
+                "Left join PATIENT_M24 pm24 ON pt01.MNC_COM_CD = pm24.MNC_COM_CD " +
+                "Where pht05.MNC_CFG_DAT >= '" + startdate + "' and pht05.MNC_CFG_DAT <= '" + enddate + "'   " +
+                "Order By dfd.MNC_DOT_CD_DF, dfd.MNC_DOT_GRP_CD, dfd.MNC_FN_DAT, dfd.MNC_DATE, dfd.MNC_PRE_NO, dfd.MNC_DF_GROUP ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public String updateStatusPrintStrickered(String doccd, String cfryear, String cfrno, String cfrdate)
+        {
+            String sql = "", re = "";
+            try
+            {
+                sql = "Update PHARMACY_T05 Set status_print_stricker_new = '1' where MNC_DOC_CD = '" + doccd + "' and MNC_CFR_YR = '" + cfryear + "' and MNC_CFR_NO = '"+ cfrno+ "' and MNC_CFG_DAT = '"+ cfrdate+"' ";
+                conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                re = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateStatusPrintStrickered sql " + sql + " ex " + re);
+            }
+            return re;
+        }
         public String insertPharmacyT0506jjj(String hnyear, String hn, String visit_date, String pre_no, String req_year, String req_no, String req_date, String drug_set, String userI)
         {
             String re = "";

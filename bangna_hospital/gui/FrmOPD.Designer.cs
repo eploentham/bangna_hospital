@@ -192,6 +192,13 @@
             this.pnFinishXray = new System.Windows.Forms.Panel();
             this.c1SplitterPanel17 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnFinishProcedure = new System.Windows.Forms.Panel();
+            this.tabAdmit = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer6 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel19 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel20 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel22 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel21 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel23 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tabAppioment = new C1.Win.C1Command.C1DockingTabPage();
             this.pnApm = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -406,11 +413,21 @@
             this.spRpt = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel8 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnRpt = new System.Windows.Forms.Panel();
+            this.arvMain = new GrapeCity.ActiveReports.Viewer.Win.Viewer();
             this.c1SplitterPanel5 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnRptName = new System.Windows.Forms.Panel();
             this.c1SplitterPanel18 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.pnRptCri1 = new System.Windows.Forms.Panel();
             this.pnRptCriDate = new System.Windows.Forms.Panel();
+            this.label85 = new System.Windows.Forms.Label();
+            this.cboRpt2 = new C1.Win.C1Input.C1ComboBox();
+            this.pnRptCri1 = new System.Windows.Forms.Panel();
+            this.cboRpt1 = new C1.Win.C1Input.C1ComboBox();
+            this.btnRpt1 = new C1.Win.C1Input.C1Button();
+            this.btnRptPrint = new C1.Win.C1Input.C1Button();
+            this.txtRptEndDate = new C1.Win.Calendar.C1DateEdit();
+            this.label84 = new System.Windows.Forms.Label();
+            this.txtRptStartDate = new C1.Win.Calendar.C1DateEdit();
+            this.label78 = new System.Windows.Forms.Label();
             this.Sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfsbLastUpdate = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
@@ -426,23 +443,6 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
-            this.txtRptStartDate = new C1.Win.Calendar.C1DateEdit();
-            this.label78 = new System.Windows.Forms.Label();
-            this.txtRptEndDate = new C1.Win.Calendar.C1DateEdit();
-            this.label84 = new System.Windows.Forms.Label();
-            this.btnRptPrint = new C1.Win.C1Input.C1Button();
-            this.arvMain = new GrapeCity.ActiveReports.Viewer.Win.Viewer();
-            this.btnRpt1 = new C1.Win.C1Input.C1Button();
-            this.cboRpt1 = new C1.Win.C1Input.C1ComboBox();
-            this.cboRpt2 = new C1.Win.C1Input.C1ComboBox();
-            this.label85 = new System.Windows.Forms.Label();
-            this.tabAdmit = new C1.Win.C1Command.C1DockingTabPage();
-            this.c1SplitContainer6 = new C1.Win.C1SplitContainer.C1SplitContainer();
-            this.c1SplitterPanel19 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel20 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel21 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel22 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel23 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -555,6 +555,9 @@
             this.c1SplitterPanel15.SuspendLayout();
             this.c1SplitterPanel16.SuspendLayout();
             this.c1SplitterPanel17.SuspendLayout();
+            this.tabAdmit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer6)).BeginInit();
+            this.c1SplitContainer6.SuspendLayout();
             this.tabAppioment.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnApmExcel)).BeginInit();
@@ -646,16 +649,13 @@
             this.c1SplitterPanel5.SuspendLayout();
             this.c1SplitterPanel18.SuspendLayout();
             this.pnRptCriDate.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRpt1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboRpt1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboRpt2)).BeginInit();
-            this.tabAdmit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer6)).BeginInit();
-            this.c1SplitContainer6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboRpt1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRpt1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
             this.SuspendLayout();
             // 
             // tC1
@@ -712,13 +712,13 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 722;
+            this.spOperList.Width = 729;
             // 
             // spOperVisit
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 298;
+            this.spOperVisit.Height = 305;
             this.spOperVisit.Location = new System.Drawing.Point(733, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(730, 277);
@@ -1338,7 +1338,7 @@
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
             this.c1SplitterPanel3.Size = new System.Drawing.Size(728, 126);
-            this.c1SplitterPanel3.SizeRatio = 21.23D;
+            this.c1SplitterPanel3.SizeRatio = 21.183D;
             this.c1SplitterPanel3.TabIndex = 0;
             this.c1SplitterPanel3.Text = "Panel 1";
             this.c1SplitterPanel3.Width = 728;
@@ -1653,7 +1653,7 @@
             this.c1SplitterPanel1.Controls.Add(this.txtPttApmDate);
             this.c1SplitterPanel1.Controls.Add(this.label69);
             this.c1SplitterPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel1.Height = 314;
+            this.c1SplitterPanel1.Height = 321;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
             this.c1SplitterPanel1.Size = new System.Drawing.Size(728, 293);
@@ -2420,6 +2420,84 @@
             this.pnFinishProcedure.Name = "pnFinishProcedure";
             this.pnFinishProcedure.Size = new System.Drawing.Size(727, 280);
             this.pnFinishProcedure.TabIndex = 0;
+            // 
+            // tabAdmit
+            // 
+            this.tabAdmit.Controls.Add(this.c1SplitContainer6);
+            this.tabAdmit.Location = new System.Drawing.Point(1, 26);
+            this.tabAdmit.Name = "tabAdmit";
+            this.tabAdmit.Size = new System.Drawing.Size(1463, 1088);
+            this.tabAdmit.TabIndex = 9;
+            this.tabAdmit.Text = "Admit/Observ";
+            // 
+            // c1SplitContainer6
+            // 
+            this.c1SplitContainer6.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer6.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer6.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer6.Name = "c1SplitContainer6";
+            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel19);
+            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel20);
+            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel22);
+            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel21);
+            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel23);
+            this.c1SplitContainer6.Size = new System.Drawing.Size(1463, 1088);
+            this.c1SplitContainer6.TabIndex = 2;
+            // 
+            // c1SplitterPanel19
+            // 
+            this.c1SplitterPanel19.Collapsible = true;
+            this.c1SplitterPanel19.Height = 157;
+            this.c1SplitterPanel19.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel19.Name = "c1SplitterPanel19";
+            this.c1SplitterPanel19.Size = new System.Drawing.Size(1463, 136);
+            this.c1SplitterPanel19.SizeRatio = 15.129D;
+            this.c1SplitterPanel19.TabIndex = 0;
+            this.c1SplitterPanel19.Text = "รอ Admit";
+            // 
+            // c1SplitterPanel20
+            // 
+            this.c1SplitterPanel20.Height = 458;
+            this.c1SplitterPanel20.Location = new System.Drawing.Point(0, 189);
+            this.c1SplitterPanel20.Name = "c1SplitterPanel20";
+            this.c1SplitterPanel20.Size = new System.Drawing.Size(1463, 437);
+            this.c1SplitterPanel20.TabIndex = 1;
+            this.c1SplitterPanel20.Text = "Observ";
+            // 
+            // c1SplitterPanel22
+            // 
+            this.c1SplitterPanel22.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            this.c1SplitterPanel22.Location = new System.Drawing.Point(618, 651);
+            this.c1SplitterPanel22.Name = "c1SplitterPanel22";
+            this.c1SplitterPanel22.Size = new System.Drawing.Size(845, 437);
+            this.c1SplitterPanel22.SizeRatio = 57.916D;
+            this.c1SplitterPanel22.TabIndex = 3;
+            this.c1SplitterPanel22.Text = "ประวัติการ Admit/Observ";
+            this.c1SplitterPanel22.Width = 845;
+            // 
+            // c1SplitterPanel21
+            // 
+            this.c1SplitterPanel21.Height = 227;
+            this.c1SplitterPanel21.Location = new System.Drawing.Point(0, 651);
+            this.c1SplitterPanel21.Name = "c1SplitterPanel21";
+            this.c1SplitterPanel21.Size = new System.Drawing.Size(614, 206);
+            this.c1SplitterPanel21.SizeRatio = 50.034D;
+            this.c1SplitterPanel21.TabIndex = 2;
+            this.c1SplitterPanel21.Text = "ค้นหา HN";
+            this.c1SplitterPanel21.Width = 614;
+            // 
+            // c1SplitterPanel23
+            // 
+            this.c1SplitterPanel23.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            this.c1SplitterPanel23.Height = 227;
+            this.c1SplitterPanel23.Location = new System.Drawing.Point(0, 882);
+            this.c1SplitterPanel23.Name = "c1SplitterPanel23";
+            this.c1SplitterPanel23.Size = new System.Drawing.Size(614, 206);
+            this.c1SplitterPanel23.TabIndex = 4;
+            this.c1SplitterPanel23.Text = "Panel 5";
             // 
             // tabAppioment
             // 
@@ -4211,7 +4289,7 @@
             this.tabMedScan.Name = "tabMedScan";
             this.tabMedScan.Size = new System.Drawing.Size(1463, 1088);
             this.tabMedScan.TabIndex = 4;
-            this.tabMedScan.Text = "Medical Scan";
+            this.tabMedScan.Text = "Scan เวชระเบียน";
             // 
             // spMedScan
             // 
@@ -4753,6 +4831,46 @@
             this.pnRpt.Size = new System.Drawing.Size(1033, 1067);
             this.pnRpt.TabIndex = 0;
             // 
+            // arvMain
+            // 
+            this.arvMain.CurrentPage = 0;
+            this.arvMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.arvMain.Location = new System.Drawing.Point(0, 0);
+            this.arvMain.Name = "arvMain";
+            this.arvMain.PreviewPages = 0;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.arvMain.Sidebar.ParametersPanel.ContextMenu = null;
+            this.arvMain.Sidebar.ParametersPanel.Text = "Parameters";
+            this.arvMain.Sidebar.ParametersPanel.Width = 200;
+            // 
+            // 
+            // 
+            this.arvMain.Sidebar.SearchPanel.ContextMenu = null;
+            this.arvMain.Sidebar.SearchPanel.Text = "Search results";
+            this.arvMain.Sidebar.SearchPanel.Width = 200;
+            // 
+            // 
+            // 
+            this.arvMain.Sidebar.ThumbnailsPanel.ContextMenu = null;
+            this.arvMain.Sidebar.ThumbnailsPanel.Text = "Page thumbnails";
+            this.arvMain.Sidebar.ThumbnailsPanel.Width = 200;
+            this.arvMain.Sidebar.ThumbnailsPanel.Zoom = 0.1D;
+            // 
+            // 
+            // 
+            this.arvMain.Sidebar.TocPanel.ContextMenu = null;
+            this.arvMain.Sidebar.TocPanel.Expanded = true;
+            this.arvMain.Sidebar.TocPanel.Text = "Document map";
+            this.arvMain.Sidebar.TocPanel.Width = 200;
+            this.arvMain.Sidebar.Width = 200;
+            this.arvMain.Size = new System.Drawing.Size(1033, 1067);
+            this.arvMain.TabIndex = 1;
+            // 
             // c1SplitterPanel5
             // 
             this.c1SplitterPanel5.Collapsible = true;
@@ -4786,13 +4904,6 @@
             this.c1SplitterPanel18.TabIndex = 2;
             this.c1SplitterPanel18.Text = "Panel 3";
             // 
-            // pnRptCri1
-            // 
-            this.pnRptCri1.Location = new System.Drawing.Point(62, 162);
-            this.pnRptCri1.Name = "pnRptCri1";
-            this.pnRptCri1.Size = new System.Drawing.Size(200, 100);
-            this.pnRptCri1.TabIndex = 1;
-            // 
             // pnRptCriDate
             // 
             this.pnRptCriDate.Controls.Add(this.label85);
@@ -4809,6 +4920,151 @@
             this.pnRptCriDate.Name = "pnRptCriDate";
             this.pnRptCriDate.Size = new System.Drawing.Size(420, 191);
             this.pnRptCriDate.TabIndex = 0;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label85.Location = new System.Drawing.Point(8, 106);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(45, 20);
+            this.label85.TabIndex = 265;
+            this.label85.Text = "แผนก";
+            // 
+            // cboRpt2
+            // 
+            this.cboRpt2.AllowSpinLoop = false;
+            this.cboRpt2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboRpt2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboRpt2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboRpt2.GapHeight = 0;
+            this.cboRpt2.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboRpt2.ItemsDisplayMember = "";
+            this.cboRpt2.ItemsValueMember = "";
+            this.cboRpt2.Location = new System.Drawing.Point(77, 102);
+            this.cboRpt2.Name = "cboRpt2";
+            this.cboRpt2.Size = new System.Drawing.Size(220, 24);
+            this.cboRpt2.TabIndex = 264;
+            this.cboRpt2.Tag = null;
+            // 
+            // pnRptCri1
+            // 
+            this.pnRptCri1.Location = new System.Drawing.Point(62, 162);
+            this.pnRptCri1.Name = "pnRptCri1";
+            this.pnRptCri1.Size = new System.Drawing.Size(200, 100);
+            this.pnRptCri1.TabIndex = 1;
+            // 
+            // cboRpt1
+            // 
+            this.cboRpt1.AllowSpinLoop = false;
+            this.cboRpt1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboRpt1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboRpt1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboRpt1.GapHeight = 0;
+            this.cboRpt1.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboRpt1.ItemsDisplayMember = "";
+            this.cboRpt1.ItemsValueMember = "";
+            this.cboRpt1.Location = new System.Drawing.Point(77, 72);
+            this.cboRpt1.Name = "cboRpt1";
+            this.cboRpt1.Size = new System.Drawing.Size(220, 24);
+            this.cboRpt1.TabIndex = 263;
+            this.cboRpt1.Tag = null;
+            // 
+            // btnRpt1
+            // 
+            this.btnRpt1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnRpt1.Location = new System.Drawing.Point(8, 71);
+            this.btnRpt1.Name = "btnRpt1";
+            this.btnRpt1.Size = new System.Drawing.Size(62, 28);
+            this.btnRpt1.TabIndex = 262;
+            this.btnRpt1.Text = "แพทย์:";
+            this.btnRpt1.UseVisualStyleBackColor = true;
+            // 
+            // btnRptPrint
+            // 
+            this.btnRptPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnRptPrint.Location = new System.Drawing.Point(337, 65);
+            this.btnRptPrint.Name = "btnRptPrint";
+            this.btnRptPrint.Size = new System.Drawing.Size(80, 31);
+            this.btnRptPrint.TabIndex = 113;
+            this.btnRptPrint.Text = "ดึงข้อมูล";
+            this.btnRptPrint.UseVisualStyleBackColor = true;
+            // 
+            // txtRptEndDate
+            // 
+            this.txtRptEndDate.AllowSpinLoop = false;
+            this.txtRptEndDate.Calendar.RightToLeft = System.Windows.Forms.RightToLeft.Inherit;
+            this.txtRptEndDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtRptEndDate.CurrentTimeZone = false;
+            this.txtRptEndDate.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtRptEndDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtRptEndDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtRptEndDate.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtRptEndDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtRptEndDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtRptEndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRptEndDate.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtRptEndDate.GMTOffset = System.TimeSpan.Parse("07:00:00");
+            this.txtRptEndDate.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtRptEndDate.Location = new System.Drawing.Point(77, 42);
+            this.txtRptEndDate.Name = "txtRptEndDate";
+            this.txtRptEndDate.Size = new System.Drawing.Size(128, 27);
+            this.txtRptEndDate.TabIndex = 90;
+            this.txtRptEndDate.Tag = null;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label84.Location = new System.Drawing.Point(8, 48);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(51, 20);
+            this.label84.TabIndex = 89;
+            this.label84.Text = "ถึงวันที่";
+            // 
+            // txtRptStartDate
+            // 
+            this.txtRptStartDate.AllowSpinLoop = false;
+            this.txtRptStartDate.Calendar.RightToLeft = System.Windows.Forms.RightToLeft.Inherit;
+            this.txtRptStartDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtRptStartDate.CurrentTimeZone = false;
+            this.txtRptStartDate.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtRptStartDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtRptStartDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtRptStartDate.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtRptStartDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtRptStartDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtRptStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRptStartDate.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtRptStartDate.GMTOffset = System.TimeSpan.Parse("07:00:00");
+            this.txtRptStartDate.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtRptStartDate.Location = new System.Drawing.Point(77, 9);
+            this.txtRptStartDate.Name = "txtRptStartDate";
+            this.txtRptStartDate.Size = new System.Drawing.Size(128, 27);
+            this.txtRptStartDate.TabIndex = 88;
+            this.txtRptStartDate.Tag = null;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label78.Location = new System.Drawing.Point(8, 15);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(35, 20);
+            this.label78.TabIndex = 87;
+            this.label78.Text = "วันที่";
             // 
             // Sb1
             // 
@@ -4906,262 +5162,6 @@
             this.btnOperClose.Name = "btnOperClose";
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
-            // 
-            // txtRptStartDate
-            // 
-            this.txtRptStartDate.AllowSpinLoop = false;
-            this.txtRptStartDate.Calendar.RightToLeft = System.Windows.Forms.RightToLeft.Inherit;
-            this.txtRptStartDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
-            this.txtRptStartDate.CurrentTimeZone = false;
-            this.txtRptStartDate.DisplayFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtRptStartDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtRptStartDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtRptStartDate.EditFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtRptStartDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtRptStartDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtRptStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRptStartDate.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtRptStartDate.GMTOffset = System.TimeSpan.Parse("07:00:00");
-            this.txtRptStartDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtRptStartDate.Location = new System.Drawing.Point(77, 9);
-            this.txtRptStartDate.Name = "txtRptStartDate";
-            this.txtRptStartDate.Size = new System.Drawing.Size(128, 27);
-            this.txtRptStartDate.TabIndex = 88;
-            this.txtRptStartDate.Tag = null;
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label78.Location = new System.Drawing.Point(8, 15);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(35, 20);
-            this.label78.TabIndex = 87;
-            this.label78.Text = "วันที่";
-            // 
-            // txtRptEndDate
-            // 
-            this.txtRptEndDate.AllowSpinLoop = false;
-            this.txtRptEndDate.Calendar.RightToLeft = System.Windows.Forms.RightToLeft.Inherit;
-            this.txtRptEndDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
-            this.txtRptEndDate.CurrentTimeZone = false;
-            this.txtRptEndDate.DisplayFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtRptEndDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtRptEndDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtRptEndDate.EditFormat.CustomFormat = "dd/MM/yyyy";
-            this.txtRptEndDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtRptEndDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtRptEndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRptEndDate.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtRptEndDate.GMTOffset = System.TimeSpan.Parse("07:00:00");
-            this.txtRptEndDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtRptEndDate.Location = new System.Drawing.Point(77, 42);
-            this.txtRptEndDate.Name = "txtRptEndDate";
-            this.txtRptEndDate.Size = new System.Drawing.Size(128, 27);
-            this.txtRptEndDate.TabIndex = 90;
-            this.txtRptEndDate.Tag = null;
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label84.Location = new System.Drawing.Point(8, 48);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(51, 20);
-            this.label84.TabIndex = 89;
-            this.label84.Text = "ถึงวันที่";
-            // 
-            // btnRptPrint
-            // 
-            this.btnRptPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnRptPrint.Location = new System.Drawing.Point(337, 65);
-            this.btnRptPrint.Name = "btnRptPrint";
-            this.btnRptPrint.Size = new System.Drawing.Size(80, 31);
-            this.btnRptPrint.TabIndex = 113;
-            this.btnRptPrint.Text = "ดึงช้อมูล";
-            this.btnRptPrint.UseVisualStyleBackColor = true;
-            // 
-            // arvMain
-            // 
-            this.arvMain.CurrentPage = 0;
-            this.arvMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.arvMain.Location = new System.Drawing.Point(0, 0);
-            this.arvMain.Name = "arvMain";
-            this.arvMain.PreviewPages = 0;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.arvMain.Sidebar.ParametersPanel.ContextMenu = null;
-            this.arvMain.Sidebar.ParametersPanel.Text = "Parameters";
-            this.arvMain.Sidebar.ParametersPanel.Width = 200;
-            // 
-            // 
-            // 
-            this.arvMain.Sidebar.SearchPanel.ContextMenu = null;
-            this.arvMain.Sidebar.SearchPanel.Text = "Search results";
-            this.arvMain.Sidebar.SearchPanel.Width = 200;
-            // 
-            // 
-            // 
-            this.arvMain.Sidebar.ThumbnailsPanel.ContextMenu = null;
-            this.arvMain.Sidebar.ThumbnailsPanel.Text = "Page thumbnails";
-            this.arvMain.Sidebar.ThumbnailsPanel.Width = 200;
-            this.arvMain.Sidebar.ThumbnailsPanel.Zoom = 0.1D;
-            // 
-            // 
-            // 
-            this.arvMain.Sidebar.TocPanel.ContextMenu = null;
-            this.arvMain.Sidebar.TocPanel.Expanded = true;
-            this.arvMain.Sidebar.TocPanel.Text = "Document map";
-            this.arvMain.Sidebar.TocPanel.Width = 200;
-            this.arvMain.Sidebar.Width = 200;
-            this.arvMain.Size = new System.Drawing.Size(1033, 1067);
-            this.arvMain.TabIndex = 1;
-            // 
-            // btnRpt1
-            // 
-            this.btnRpt1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnRpt1.Location = new System.Drawing.Point(8, 71);
-            this.btnRpt1.Name = "btnRpt1";
-            this.btnRpt1.Size = new System.Drawing.Size(62, 28);
-            this.btnRpt1.TabIndex = 262;
-            this.btnRpt1.Text = "แพทย์:";
-            this.btnRpt1.UseVisualStyleBackColor = true;
-            // 
-            // cboRpt1
-            // 
-            this.cboRpt1.AllowSpinLoop = false;
-            this.cboRpt1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cboRpt1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboRpt1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboRpt1.GapHeight = 0;
-            this.cboRpt1.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboRpt1.ItemsDisplayMember = "";
-            this.cboRpt1.ItemsValueMember = "";
-            this.cboRpt1.Location = new System.Drawing.Point(77, 72);
-            this.cboRpt1.Name = "cboRpt1";
-            this.cboRpt1.Size = new System.Drawing.Size(220, 24);
-            this.cboRpt1.TabIndex = 263;
-            this.cboRpt1.Tag = null;
-            // 
-            // cboRpt2
-            // 
-            this.cboRpt2.AllowSpinLoop = false;
-            this.cboRpt2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cboRpt2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboRpt2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboRpt2.GapHeight = 0;
-            this.cboRpt2.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboRpt2.ItemsDisplayMember = "";
-            this.cboRpt2.ItemsValueMember = "";
-            this.cboRpt2.Location = new System.Drawing.Point(77, 102);
-            this.cboRpt2.Name = "cboRpt2";
-            this.cboRpt2.Size = new System.Drawing.Size(220, 24);
-            this.cboRpt2.TabIndex = 264;
-            this.cboRpt2.Tag = null;
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label85.Location = new System.Drawing.Point(8, 106);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(45, 20);
-            this.label85.TabIndex = 265;
-            this.label85.Text = "แผนก";
-            // 
-            // tabAdmit
-            // 
-            this.tabAdmit.Controls.Add(this.c1SplitContainer6);
-            this.tabAdmit.Location = new System.Drawing.Point(1, 26);
-            this.tabAdmit.Name = "tabAdmit";
-            this.tabAdmit.Size = new System.Drawing.Size(1463, 1088);
-            this.tabAdmit.TabIndex = 9;
-            this.tabAdmit.Text = "Admit/Observ";
-            // 
-            // c1SplitContainer6
-            // 
-            this.c1SplitContainer6.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.c1SplitContainer6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.c1SplitContainer6.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
-            this.c1SplitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1SplitContainer6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.c1SplitContainer6.Location = new System.Drawing.Point(0, 0);
-            this.c1SplitContainer6.Name = "c1SplitContainer6";
-            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel19);
-            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel20);
-            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel22);
-            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel21);
-            this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel23);
-            this.c1SplitContainer6.Size = new System.Drawing.Size(1463, 1088);
-            this.c1SplitContainer6.TabIndex = 2;
-            // 
-            // c1SplitterPanel19
-            // 
-            this.c1SplitterPanel19.Collapsible = true;
-            this.c1SplitterPanel19.Height = 164;
-            this.c1SplitterPanel19.Location = new System.Drawing.Point(0, 21);
-            this.c1SplitterPanel19.Name = "c1SplitterPanel19";
-            this.c1SplitterPanel19.Size = new System.Drawing.Size(1463, 136);
-            this.c1SplitterPanel19.SizeRatio = 15.129D;
-            this.c1SplitterPanel19.TabIndex = 0;
-            this.c1SplitterPanel19.Text = "รอ Admit";
-            // 
-            // c1SplitterPanel20
-            // 
-            this.c1SplitterPanel20.Height = 458;
-            this.c1SplitterPanel20.Location = new System.Drawing.Point(0, 189);
-            this.c1SplitterPanel20.Name = "c1SplitterPanel20";
-            this.c1SplitterPanel20.Size = new System.Drawing.Size(1463, 437);
-            this.c1SplitterPanel20.TabIndex = 1;
-            this.c1SplitterPanel20.Text = "Observ";
-            // 
-            // c1SplitterPanel21
-            // 
-            this.c1SplitterPanel21.Height = 227;
-            this.c1SplitterPanel21.Location = new System.Drawing.Point(0, 651);
-            this.c1SplitterPanel21.Name = "c1SplitterPanel21";
-            this.c1SplitterPanel21.Size = new System.Drawing.Size(614, 206);
-            this.c1SplitterPanel21.SizeRatio = 50.034D;
-            this.c1SplitterPanel21.TabIndex = 2;
-            this.c1SplitterPanel21.Text = "ค้นหา HN";
-            this.c1SplitterPanel21.Width = 614;
-            // 
-            // c1SplitterPanel22
-            // 
-            this.c1SplitterPanel22.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel22.Location = new System.Drawing.Point(618, 651);
-            this.c1SplitterPanel22.Name = "c1SplitterPanel22";
-            this.c1SplitterPanel22.Size = new System.Drawing.Size(845, 437);
-            this.c1SplitterPanel22.SizeRatio = 57.916D;
-            this.c1SplitterPanel22.TabIndex = 3;
-            this.c1SplitterPanel22.Text = "ประวัติการ Admit/Observ";
-            this.c1SplitterPanel22.Width = 845;
-            // 
-            // c1SplitterPanel23
-            // 
-            this.c1SplitterPanel23.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
-            this.c1SplitterPanel23.Height = 227;
-            this.c1SplitterPanel23.Location = new System.Drawing.Point(0, 882);
-            this.c1SplitterPanel23.Name = "c1SplitterPanel23";
-            this.c1SplitterPanel23.Size = new System.Drawing.Size(614, 206);
-            this.c1SplitterPanel23.TabIndex = 4;
-            this.c1SplitterPanel23.Text = "Panel 5";
             // 
             // FrmOPD
             // 
@@ -5289,6 +5289,9 @@
             this.c1SplitterPanel15.ResumeLayout(false);
             this.c1SplitterPanel16.ResumeLayout(false);
             this.c1SplitterPanel17.ResumeLayout(false);
+            this.tabAdmit.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer6)).EndInit();
+            this.c1SplitContainer6.ResumeLayout(false);
             this.tabAppioment.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
@@ -5394,16 +5397,13 @@
             this.c1SplitterPanel18.ResumeLayout(false);
             this.pnRptCriDate.ResumeLayout(false);
             this.pnRptCriDate.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRpt1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboRpt1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboRpt2)).EndInit();
-            this.tabAdmit.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer6)).EndInit();
-            this.c1SplitContainer6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cboRpt1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRpt1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5650,7 +5650,6 @@
         private System.Windows.Forms.Label lbApmList;
         private C1.Win.C1Input.C1TextBox txtApmTime;
         private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.Label lbAttachNote;
         private C1.Win.C1Input.C1TextBox txtApmDtr;
         private System.Windows.Forms.Label lbApmDtrName;
         private System.Windows.Forms.Label label73;
@@ -5825,5 +5824,6 @@
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel21;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel23;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel22;
+        private System.Windows.Forms.Label lbAttachNote;
     }
 }

@@ -253,6 +253,7 @@ namespace bangna_hospital.gui
             txtPttPID.LostFocus += TxtPttPID_LostFocus;
             txtPttSsn.KeyUp += TxtPttSsn_KeyUp;
             txtPttPassport.KeyUp += TxtPttPassport_KeyUp;
+            txtPttPassportOld.KeyUp += TxtPttPassportOld_KeyUp;
             txtPttMobile1.KeyUp += TxtPttMobile1_KeyUp;
             txtPttMobile2.KeyUp += TxtPttMobile2_KeyUp;
             txtPttEmail.KeyUp += TxtPttEmail_KeyUp;
@@ -296,6 +297,8 @@ namespace bangna_hospital.gui
             txtPttIDPostcode.KeyUp += TxtPttIDPostcode_KeyUp;
             txtPttCurPostcode.KeyUp += TxtPttCurPostcode_KeyUp;
             txtPttRefPostcode.KeyUp += TxtPttRefPostcode_KeyUp;
+            txtPttRef1.KeyUp += TxtPttRef1_KeyUp;
+            
 
             txtPttNickName.KeyUp += TxtPttNickName_KeyUp;
 
@@ -352,6 +355,26 @@ namespace bangna_hospital.gui
             lbPttPaid.DoubleClick += LbPttPaid_DoubleClick;
             lbPttPaid.MouseHover += LbPttPaid_MouseHover;
             btnApmExcel.Click += BtnApmExcel_Click;
+        }
+
+        private void TxtPttRef1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPttwp3.SelectAll();
+                txtPttwp3.Focus();
+            }
+        }
+
+        private void TxtPttPassportOld_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPttMobile1.SelectAll();
+                txtPttMobile1.Focus();
+            }
         }
 
         private void BtnApmExcel_Click(object sender, EventArgs e)
@@ -1149,7 +1172,8 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if(e.KeyCode == Keys.Enter)
             {
-                cboVsDtr.Focus();
+                txtVsUser.SelectAll();
+                txtVsUser.Focus();
             }
         }
 
@@ -1219,8 +1243,8 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                txtPttIDHomeNo.SelectAll();
-                txtPttIDHomeNo.Focus();
+                txtPttEmail.SelectAll();
+                txtPttEmail.Focus();
             }
         }
 
@@ -1229,8 +1253,8 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                txtPttwp3.SelectAll();
-                txtPttwp3.Focus();
+                txtPttMobile2.SelectAll();
+                txtPttMobile2.Focus();
             }
         }
 
@@ -1534,6 +1558,9 @@ namespace bangna_hospital.gui
                 ptt.MNC_REL_CD = cboPttRel.SelectedItem == null ? "" : ((ComboBoxItem)cboPttRel.SelectedItem).Value;
                 ptt.MNC_STATUS = cboPttMarri.SelectedItem == null ? "" : ((ComboBoxItem)cboPttMarri.SelectedItem).Value;//สถานะการสมรส
                 ptt.MNC_EDU_CD = cboPttEdu.SelectedItem == null ? "" : ((ComboBoxItem)cboPttEdu.SelectedItem).Value;
+
+                ptt.ref1 = txtPttRef1.Text.Trim();
+                ptt.passportold = txtPttPassportOld.Text.Trim();
             }
             catch(Exception  ex)
             {
@@ -1898,6 +1925,8 @@ namespace bangna_hospital.gui
                 txtPttRefContact1Rel.Value = ptt.MNC_REF_REL;
                 txtPttRefContact2Name.Value = "";
                 txtPttRefContact1Name.Value = "";
+                txtPttRef1.Value = ptt.ref1;
+                txtPttPassportOld.Value = ptt.passportold;
                 setLbLoading("patient 03");
                 err = "04";
                 setGrfPttVs();
@@ -2727,8 +2756,8 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                txtPttwp1.SelectAll();
-                txtPttwp1.Focus();
+                txtPttIDHomeNo.SelectAll();
+                txtPttIDHomeNo.Focus();
             }
         }
 
@@ -2737,8 +2766,8 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                txtPttEmail.SelectAll();
-                txtPttEmail.Focus();
+                txtPttRef1.SelectAll();
+                txtPttRef1.Focus();
             }
         }
 
@@ -2757,8 +2786,8 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                txtPttMobile1.SelectAll();
-                txtPttMobile1.Focus();
+                txtPttPassportOld.SelectAll();
+                txtPttPassportOld.Focus();
             }
         }
 
@@ -4263,7 +4292,8 @@ namespace bangna_hospital.gui
                 txtPttwp3.Value = ptt.WorkPermit3;
                 txtPttRemark1.Value = ptt.remark1;
                 txtPttRemark2.Value = ptt.remark2;
-
+                txtPttRef1.Value = ptt.ref1;
+                txtPttPassportOld.Value = ptt.passportold;
                 //bc.bcDB.pm08DB.setCboAmphurByAmphurCode(cboPttIDAmphur, code, code);
                 //bc.bcDB.pm09DB.setCboProvByProvCode(cboPttIDProv, code, code);
                 setLbLoading("patient tab03");
@@ -4645,7 +4675,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-02-09";
+            lfSbLastUpdate.Text = "Update 2567-03-05-2";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

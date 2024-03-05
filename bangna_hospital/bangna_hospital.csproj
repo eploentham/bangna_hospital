@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_opd</AssemblyName>
+    <AssemblyName>bangna_hospital_pharmacy</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -140,6 +140,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -189,6 +190,18 @@
     <Compile Include="gui\FrmDfDoctor1.Designer.cs">
       <DependentUpon>FrmDfDoctor1.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmDoctor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDoctor.Designer.cs">
+      <DependentUpon>FrmDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmDoctorDrugSet1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDoctorDrugSet1.Designer.cs">
+      <DependentUpon>FrmDoctorDrugSet1.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmDrugOrderSplit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,11 +244,29 @@
     <Compile Include="gui\FrmLisLink.Designer.cs">
       <DependentUpon>FrmLisLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmMedScanExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmMedScanExport.Designer.cs">
+      <DependentUpon>FrmMedScanExport.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmOPD.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="gui\FrmOPD.Designer.cs">
       <DependentUpon>FrmOPD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmOrder.Designer.cs">
+      <DependentUpon>FrmOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmPatient.Designer.cs">
+      <DependentUpon>FrmPatient.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmPharmacy.cs">
       <SubType>Form</SubType>
@@ -525,6 +556,12 @@
     <Compile Include="gui\FrmVaccineInsurExcel.Designer.cs">
       <DependentUpon>FrmVaccineInsurExcel.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmWard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmWard.Designer.cs">
+      <DependentUpon>FrmWard.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmXrayPACsAdd.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -687,6 +724,7 @@
     <Compile Include="objdb\PatientT013DB.cs" />
     <Compile Include="objdb\PatientT03DB.cs" />
     <Compile Include="objdb\PatientT07DB.cs" />
+    <Compile Include="objdb\PatientT10DB.cs" />
     <Compile Include="objdb\PatientT16DB.cs" />
     <Compile Include="objdb\PharmacyM14DB.cs" />
     <Compile Include="objdb\SummaryT03DB.cs" />
@@ -832,6 +870,7 @@
     <Compile Include="object1\PatientT014.cs" />
     <Compile Include="object1\PatientT03.cs" />
     <Compile Include="object1\PatientT07.cs" />
+    <Compile Include="object1\PatientT10.cs" />
     <Compile Include="object1\PatientT16.cs" />
     <Compile Include="object1\PharmacyM14.cs" />
     <Compile Include="object1\PharmacyT01.cs" />
@@ -956,8 +995,20 @@
     <EmbeddedResource Include="gui\FrmDfDoctor1.resx">
       <DependentUpon>FrmDfDoctor1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDoctor.resx">
+      <DependentUpon>FrmDoctor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorDiag1.resx">
       <DependentUpon>FrmDoctorDiag1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDoctorDrugSet.resx">
+      <DependentUpon>FrmDoctorDrugSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDoctorDrugSet1.resx">
+      <DependentUpon>FrmDoctorDrugSet1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDoctorView1.resx">
+      <DependentUpon>FrmDoctorView1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDrugOrderSplit.resx">
       <DependentUpon>FrmDrugOrderSplit.cs</DependentUpon>
@@ -986,6 +1037,9 @@
     <EmbeddedResource Include="gui\FrmLisLink.resx">
       <DependentUpon>FrmLisLink.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmMedScanExport.resx">
+      <DependentUpon>FrmMedScanExport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmOPBKKClaim.resx">
       <DependentUpon>FrmOPBKKClaim.cs</DependentUpon>
     </EmbeddedResource>
@@ -995,11 +1049,17 @@
     <EmbeddedResource Include="gui\FrmOperativeNoteView.resx">
       <DependentUpon>FrmOperativeNoteView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmOrder.resx">
+      <DependentUpon>FrmOrder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmOrOperativeNote.resx">
       <DependentUpon>FrmOrOperativeNote.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmPasswordConfirm.resx">
       <DependentUpon>FrmPasswordConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmPatient.resx">
+      <DependentUpon>FrmPatient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmPharmacy.resx">
       <DependentUpon>FrmPharmacy.cs</DependentUpon>
@@ -1179,6 +1239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmWaiting1.resx">
       <DependentUpon>FrmWaiting1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmWard.resx">
+      <DependentUpon>FrmWard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmXrayPACsAdd.resx">
       <DependentUpon>FrmXrayPACsAdd.cs</DependentUpon>
@@ -1941,6 +2004,12 @@
     <None Include="Resources\icons8-doctor-64.png" />
     <None Include="Resources\icons8-doctor-64.ico" />
     <None Include="Resources\icons8-doctor-64-_1_.ico" />
+    <None Include="Resources\pngtree-pharmacy-logo-icon-vector-illustration-design-template-png-image_5655290.png" />
+    <None Include="Resources\medical-29_icon-icons.com_73943.ico" />
+    <None Include="Resources\doctor256_24904.ico" />
+    <None Include="Resources\doctor_asian_male_coronavirus_people_avatar_mask_icon_141385.ico" />
+    <None Include="Resources\doctor_asian_female_people_avatar_icon_141428.ico" />
+    <None Include="Resources\GoToDown_small.png" />
     <Content Include="sgbledev.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

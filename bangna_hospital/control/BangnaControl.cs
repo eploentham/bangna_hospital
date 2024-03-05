@@ -29,6 +29,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace bangna_hospital.control
 {
@@ -4045,6 +4046,80 @@ namespace bangna_hospital.control
             txt = txt.Substring(txt.Length - 4);
             txt = txt.Substring(0, 2) + ":" + txt.Substring(txt.Length - 2);
             return txt;
+        }
+        private DataTable setPrintLabAN(Patient ptt,String an)
+        {
+            DataTable dt = new DataTable();
+            String anno = "", xraycode = "", txt1 = "", reqdate = "", reqno = "", dtrname = "", ordname = "", orddetail = "", dtrxrname = "", resdate = "", pttcompname = "", paidname = "", depname = "";
+            
+            dt = bcDB.vsDB.selectLabbyAN_ALL(ptt.MNC_HN_NO, vsdate);
+            
+            foreach (DataRow drow in dt.Rows)
+            {
+                Boolean chkname = false;
+                chkname = hn.Any(c => !Char.IsLetterOrDigit(c));
+                if (chkname)
+                {
+                    //drow["patient_age"] = ptt.AgeString().Replace("Year", "ปี").Replace("Month", "เดือน").Replace("Days", "วัน").Replace("s", "");
+                    drow["patient_age"] = ptt.AgeStringShort().Replace("Year", "ปี").Replace("Month", "เดือน").Replace("Days", "วัน").Replace("s", "");
+                }
+                else
+                {
+                    drow["patient_age"] = ptt.AgeString();
+                }
+
+                drow["patient_name"] = ptt.Name;
+                drow["patient_hn"] = hn;
+                
+                drow["patient_vn"] = vn;
+                
+                drow["patient_type"] = drow["MNC_FN_TYP_DSC"].ToString();
+                drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + datetoShow(drow["mnc_req_dat"].ToString());
+                drow["doctor"] = drow["dtr_name"].ToString() + "[" + drow["mnc_dot_cd"].ToString() + "]";
+                //drow["result_date"] = bc.datetoShow(dtreq.Rows[0]["mnc_req_dat"].ToString());
+                drow["result_date"] = datetoShow(drow["MNC_RESULT_DAT"].ToString()) + " " + drow["MNC_RESULT_TIM"].ToString();
+                drow["print_date"] = datetoShow(drow["MNC_STAMP_DAT"].ToString());
+                drow["user_lab"] = drow["user_lab"].ToString() + " [ทน." + drow["MNC_USR_NAME_result"].ToString() + "]";
+                drow["user_report"] = drow["user_report"].ToString() + " [ทน." + drow["MNC_USR_NAME_report"].ToString() + "]";
+                drow["user_check"] = drow["user_check"].ToString() + " [ทน." + drow["MNC_USR_NAME_approve"].ToString() + "]";
+                if (iniC.branchId.Equals("005"))
+                {
+                    drow["patient_dep"] = drow["MNC_REQ_DEP"].ToString().Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                    depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
+                    depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                }
+                else if (iniC.branchId.Equals("002"))
+                {
+                    drow["patient_dep"] = drow["MNC_REQ_DEP"].ToString();
+                }
+                else if (iniC.branchId.Equals("001"))
+                {
+                    drow["patient_dep"] = drow["MNC_REQ_DEP"].ToString();
+                }
+
+                //drow["mnc_lb_dsc"] = dtreq.Rows[0]["MNC_LB_DSC"].ToString();
+                drow["mnc_lb_grp_cd"] = drow["MNC_LB_TYP_DSC"].ToString();
+                if (drow["MNC_RES_VALUE"].ToString().Equals("-"))
+                {
+                    drow["MNC_RES_UNT"] = "";
+                }
+                drow["MNC_RES_UNT"] = drow["MNC_RES_UNT"].ToString().Replace("0.00-0.00", "").Replace("0.00 - 0.00", "").Replace("0.00", "");
+                drow["sort1"] = drow["mnc_req_dat"].ToString().Replace("-", "").Replace("-", "") + drow["MNC_REQ_NO"].ToString();
+            }
+            foreach (DataRow drow in dt.Rows)
+            {
+                //MessageBox.Show(drow["sort1"].ToString(), "");
+                if (drow["sort1"] == null)
+                {
+                    //MessageBox.Show("11", "");
+                }
+
+                if (drow["sort1"].ToString().Equals(""))
+                {
+                    //MessageBox.Show("22", "");
+                }
+            }
+            return dt;
         }
     }
 }

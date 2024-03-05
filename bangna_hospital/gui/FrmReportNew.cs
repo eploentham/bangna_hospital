@@ -48,7 +48,6 @@ namespace bangna_hospital.gui
                 //runtime.Parameters.Add(line1);
                 //runtime.Parameters.Add(line1);
                 runtime.LocateDataSource += Runtime_LocateDataSource;
-
                 //arvMain.LoadDocument(filename);
                 arvMain.LoadDocument(runtime);
             }
@@ -76,6 +75,24 @@ namespace bangna_hospital.gui
         {
             //ExportForm exportForm = new ExportForm(arvMain.Document);
             //exportForm.ShowDialog(this);
+        }
+        public Boolean PrintReport()
+        {
+            Boolean chk=false;
+            try
+            {
+                System.IO.FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\" + reportfilename + ".rdlx");
+                PageReport definition = new PageReport(rptPath);
+                GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
+                runtime.LocateDataSource += Runtime_LocateDataSource1;
+                runtime.Print(false);
+                chk = true;
+            }
+            catch (Exception ex)
+            {
+                chk=false;
+            }
+            return chk;
         }
         public void ExportReport(String filename)
         {

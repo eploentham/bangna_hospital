@@ -29,7 +29,18 @@
         private void InitializeComponent()
         {
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
-            this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
+            this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lfSbStatus = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbPttName = new C1.Win.C1Ribbon.RibbonLabel();
+            this.btnPrint = new C1.Win.C1Ribbon.RibbonButton();
+            this.rbItemName = new C1.Win.C1Ribbon.RibbonLabel();
+            this.btnPrintItem = new C1.Win.C1Ribbon.RibbonButton();
+            this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbTimerStart = new C1.Win.C1Ribbon.RibbonButton();
+            this.tC1 = new C1.Win.C1Command.C1DockingTab();
             this.tabDrugWard = new C1.Win.C1Command.C1DockingTabPage();
             this.scDrugIN = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spDrugInImg = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -66,12 +77,37 @@
             this.txtSearchItem = new C1.Win.C1Input.C1TextBox();
             this.c1SplitterPanel4 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnOrder = new System.Windows.Forms.Panel();
-            this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
-            this.lfSbStatus = new C1.Win.C1Ribbon.RibbonLabel();
-            this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
+            this.tabIPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabOPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.tcOPD = new C1.Win.C1Command.C1DockingTab();
+            this.tabOPDQue = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.tabOPDList = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.tabOPDPtt = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.tabOPDItems = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.tabOPDOrders = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.tabOPDFinish = new C1.Win.C1Command.C1DockingTabPage();
+            this.spOPDFinish = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel6 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnOPDFinishReq = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel5 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnOPDFinishList = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel7 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnOPDFinishItem = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.c1TextBox3 = new C1.Win.C1Input.C1TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.c1TextBox4 = new C1.Win.C1Input.C1TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.c1TextBox5 = new C1.Win.C1Input.C1TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tabOPDDispensing = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabDispensingOPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
-            this.c1DockingTab1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
+            this.tC1.SuspendLayout();
             this.tabDrugWard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scDrugIN)).BeginInit();
             this.scDrugIN.SuspendLayout();
@@ -100,34 +136,121 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnOperItemSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).BeginInit();
             this.c1SplitterPanel4.SuspendLayout();
+            this.tabOPD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tcOPD)).BeginInit();
+            this.tcOPD.SuspendLayout();
+            this.tabOPDQue.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
+            this.c1SplitContainer1.SuspendLayout();
+            this.tabOPDFinish.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spOPDFinish)).BeginInit();
+            this.spOPDFinish.SuspendLayout();
+            this.c1SplitterPanel6.SuspendLayout();
+            this.c1SplitterPanel5.SuspendLayout();
+            this.c1SplitterPanel7.SuspendLayout();
+            this.pnOPDFinishItem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox5)).BeginInit();
+            this.tabDispensingOPD.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1StatusBar1
             // 
             this.c1StatusBar1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
+            this.c1StatusBar1.LeftPaneItems.Add(this.lfSbStation);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbStatus);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbMessage);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 794);
             this.c1StatusBar1.Name = "c1StatusBar1";
+            this.c1StatusBar1.RightPaneItems.Add(this.rbPttName);
+            this.c1StatusBar1.RightPaneItems.Add(this.btnPrint);
+            this.c1StatusBar1.RightPaneItems.Add(this.rbItemName);
+            this.c1StatusBar1.RightPaneItems.Add(this.btnPrintItem);
+            this.c1StatusBar1.RightPaneItems.Add(this.rb1);
+            this.c1StatusBar1.RightPaneItems.Add(this.rb2);
+            this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
+            this.c1StatusBar1.RightPaneItems.Add(this.rbTimerStart);
             this.c1StatusBar1.Size = new System.Drawing.Size(1578, 22);
             // 
-            // c1DockingTab1
+            // lfSbStation
             // 
-            this.c1DockingTab1.Controls.Add(this.tabDrugWard);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
-            this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
-            this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.Size = new System.Drawing.Size(1578, 794);
-            this.c1DockingTab1.TabIndex = 1;
-            this.c1DockingTab1.TabsSpacing = 5;
+            this.lfSbStation.Name = "lfSbStation";
+            this.lfSbStation.Text = "Label";
+            // 
+            // lfSbStatus
+            // 
+            this.lfSbStatus.Name = "lfSbStatus";
+            this.lfSbStatus.Text = "Label";
+            // 
+            // lfSbMessage
+            // 
+            this.lfSbMessage.Name = "lfSbMessage";
+            this.lfSbMessage.Text = "Label";
+            // 
+            // rbPttName
+            // 
+            this.rbPttName.Name = "rbPttName";
+            this.rbPttName.Text = "Label";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.SmallImage = global::bangna_hospital.Properties.Resources.printer_blue24;
+            this.btnPrint.Text = "พิมพ์ Stickerทุกรายการ";
+            // 
+            // rbItemName
+            // 
+            this.rbItemName.Name = "rbItemName";
+            this.rbItemName.Text = "Label";
+            // 
+            // btnPrintItem
+            // 
+            this.btnPrintItem.Name = "btnPrintItem";
+            this.btnPrintItem.SmallImage = global::bangna_hospital.Properties.Resources.printer_orange24;
+            this.btnPrintItem.Text = "พิมพ์ Sticker ยา";
+            // 
+            // rb1
+            // 
+            this.rb1.Name = "rb1";
+            this.rb1.Text = "Label";
+            // 
+            // rb2
+            // 
+            this.rb2.Name = "rb2";
+            this.rb2.Text = "Label";
+            // 
+            // rgSbModule
+            // 
+            this.rgSbModule.Name = "rgSbModule";
+            this.rgSbModule.Text = "Label";
+            // 
+            // rbTimerStart
+            // 
+            this.rbTimerStart.Name = "rbTimerStart";
+            this.rbTimerStart.SmallImage = global::bangna_hospital.Properties.Resources.stop_red48;
+            this.rbTimerStart.Text = "Start";
+            // 
+            // tC1
+            // 
+            this.tC1.Controls.Add(this.tabDrugWard);
+            this.tC1.Controls.Add(this.tabIPD);
+            this.tC1.Controls.Add(this.tabOPD);
+            this.tC1.Controls.Add(this.tabDispensingOPD);
+            this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tC1.Location = new System.Drawing.Point(0, 0);
+            this.tC1.Name = "tC1";
+            this.tC1.Size = new System.Drawing.Size(1578, 794);
+            this.tC1.TabIndex = 1;
+            this.tC1.TabsSpacing = 5;
             // 
             // tabDrugWard
             // 
             this.tabDrugWard.Controls.Add(this.scDrugIN);
-            this.tabDrugWard.Location = new System.Drawing.Point(1, 24);
+            this.tabDrugWard.Location = new System.Drawing.Point(1, 26);
             this.tabDrugWard.Name = "tabDrugWard";
-            this.tabDrugWard.Size = new System.Drawing.Size(1576, 769);
+            this.tabDrugWard.Size = new System.Drawing.Size(1576, 767);
             this.tabDrugWard.TabIndex = 0;
             this.tabDrugWard.Text = "Image Drug in Ward ";
             // 
@@ -143,7 +266,7 @@
             this.scDrugIN.Panels.Add(this.spDrugInImg);
             this.scDrugIN.Panels.Add(this.c1SplitterPanel1);
             this.scDrugIN.Panels.Add(this.c1SplitterPanel2);
-            this.scDrugIN.Size = new System.Drawing.Size(1576, 769);
+            this.scDrugIN.Size = new System.Drawing.Size(1576, 767);
             this.scDrugIN.TabIndex = 0;
             // 
             // spDrugInImg
@@ -151,13 +274,13 @@
             this.spDrugInImg.Collapsible = true;
             this.spDrugInImg.Controls.Add(this.pnDrugINimg);
             this.spDrugInImg.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.spDrugInImg.Height = 769;
+            this.spDrugInImg.Height = 767;
             this.spDrugInImg.Location = new System.Drawing.Point(0, 21);
             this.spDrugInImg.Name = "spDrugInImg";
-            this.spDrugInImg.Size = new System.Drawing.Size(779, 748);
+            this.spDrugInImg.Size = new System.Drawing.Size(779, 746);
             this.spDrugInImg.TabIndex = 0;
             this.spDrugInImg.Text = "Panel 1";
-            this.spDrugInImg.Width = 786;
+            this.spDrugInImg.Width = 779;
             // 
             // pnDrugINimg
             // 
@@ -166,7 +289,7 @@
             this.pnDrugINimg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDrugINimg.Location = new System.Drawing.Point(0, 0);
             this.pnDrugINimg.Name = "pnDrugINimg";
-            this.pnDrugINimg.Size = new System.Drawing.Size(779, 748);
+            this.pnDrugINimg.Size = new System.Drawing.Size(779, 746);
             this.pnDrugINimg.TabIndex = 0;
             // 
             // picDrugIN
@@ -181,10 +304,10 @@
             // c1SplitterPanel1
             // 
             this.c1SplitterPanel1.Controls.Add(this.pnDrugINimgList);
-            this.c1SplitterPanel1.Height = 303;
+            this.c1SplitterPanel1.Height = 302;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(790, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
-            this.c1SplitterPanel1.Size = new System.Drawing.Size(786, 282);
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(786, 281);
             this.c1SplitterPanel1.SizeRatio = 39.617D;
             this.c1SplitterPanel1.TabIndex = 1;
             this.c1SplitterPanel1.Text = "Panel 2";
@@ -194,16 +317,16 @@
             this.pnDrugINimgList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDrugINimgList.Location = new System.Drawing.Point(0, 0);
             this.pnDrugINimgList.Name = "pnDrugINimgList";
-            this.pnDrugINimgList.Size = new System.Drawing.Size(786, 282);
+            this.pnDrugINimgList.Size = new System.Drawing.Size(786, 281);
             this.pnDrugINimgList.TabIndex = 0;
             // 
             // c1SplitterPanel2
             // 
             this.c1SplitterPanel2.Controls.Add(this.pnDrugINOrder);
-            this.c1SplitterPanel2.Height = 462;
-            this.c1SplitterPanel2.Location = new System.Drawing.Point(790, 328);
+            this.c1SplitterPanel2.Height = 461;
+            this.c1SplitterPanel2.Location = new System.Drawing.Point(790, 327);
             this.c1SplitterPanel2.Name = "c1SplitterPanel2";
-            this.c1SplitterPanel2.Size = new System.Drawing.Size(786, 441);
+            this.c1SplitterPanel2.Size = new System.Drawing.Size(786, 440);
             this.c1SplitterPanel2.TabIndex = 2;
             this.c1SplitterPanel2.Text = "Panel 3";
             // 
@@ -213,7 +336,7 @@
             this.pnDrugINOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDrugINOrder.Location = new System.Drawing.Point(0, 0);
             this.pnDrugINOrder.Name = "pnDrugINOrder";
-            this.pnDrugINOrder.Size = new System.Drawing.Size(786, 441);
+            this.pnDrugINOrder.Size = new System.Drawing.Size(786, 440);
             this.pnDrugINOrder.TabIndex = 0;
             // 
             // spOrder
@@ -227,7 +350,7 @@
             this.spOrder.Name = "spOrder";
             this.spOrder.Panels.Add(this.c1SplitterPanel3);
             this.spOrder.Panels.Add(this.c1SplitterPanel4);
-            this.spOrder.Size = new System.Drawing.Size(786, 441);
+            this.spOrder.Size = new System.Drawing.Size(786, 440);
             this.spOrder.TabIndex = 1;
             // 
             // c1SplitterPanel3
@@ -256,10 +379,10 @@
             this.c1SplitterPanel3.Controls.Add(this.label79);
             this.c1SplitterPanel3.Controls.Add(this.btnOperItemSearch);
             this.c1SplitterPanel3.Controls.Add(this.txtSearchItem);
-            this.c1SplitterPanel3.Height = 226;
+            this.c1SplitterPanel3.Height = 218;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
-            this.c1SplitterPanel3.Size = new System.Drawing.Size(786, 198);
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(786, 197);
             this.c1SplitterPanel3.SizeRatio = 51.716D;
             this.c1SplitterPanel3.TabIndex = 0;
             this.c1SplitterPanel3.Text = "Panel 1";
@@ -492,7 +615,7 @@
             // 
             this.c1SplitterPanel4.Controls.Add(this.pnOrder);
             this.c1SplitterPanel4.Height = 211;
-            this.c1SplitterPanel4.Location = new System.Drawing.Point(0, 251);
+            this.c1SplitterPanel4.Location = new System.Drawing.Point(0, 250);
             this.c1SplitterPanel4.Name = "c1SplitterPanel4";
             this.c1SplitterPanel4.Size = new System.Drawing.Size(786, 190);
             this.c1SplitterPanel4.TabIndex = 1;
@@ -506,37 +629,304 @@
             this.pnOrder.Size = new System.Drawing.Size(786, 190);
             this.pnOrder.TabIndex = 0;
             // 
-            // c1DockingTabPage2
+            // tabIPD
             // 
-            this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(1576, 769);
-            this.c1DockingTabPage2.TabIndex = 1;
-            this.c1DockingTabPage2.Text = "Patient in Ward";
+            this.tabIPD.Location = new System.Drawing.Point(1, 26);
+            this.tabIPD.Name = "tabIPD";
+            this.tabIPD.Size = new System.Drawing.Size(1576, 767);
+            this.tabIPD.TabIndex = 1;
+            this.tabIPD.Text = "Patient in Ward";
             // 
-            // lfSbStatus
+            // tabOPD
             // 
-            this.lfSbStatus.Name = "lfSbStatus";
-            this.lfSbStatus.Text = "Label";
+            this.tabOPD.Controls.Add(this.tcOPD);
+            this.tabOPD.Location = new System.Drawing.Point(1, 26);
+            this.tabOPD.Name = "tabOPD";
+            this.tabOPD.Size = new System.Drawing.Size(1576, 767);
+            this.tabOPD.TabIndex = 2;
+            this.tabOPD.Text = "Patient OPD";
             // 
-            // lfSbMessage
+            // tcOPD
             // 
-            this.lfSbMessage.Name = "lfSbMessage";
-            this.lfSbMessage.Text = "Label";
+            this.tcOPD.Controls.Add(this.tabOPDQue);
+            this.tcOPD.Controls.Add(this.tabOPDFinish);
+            this.tcOPD.Controls.Add(this.tabOPDDispensing);
+            this.tcOPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcOPD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tcOPD.Location = new System.Drawing.Point(0, 0);
+            this.tcOPD.Name = "tcOPD";
+            this.tcOPD.Size = new System.Drawing.Size(1576, 767);
+            this.tcOPD.TabIndex = 4;
+            this.tcOPD.TabsSpacing = 5;
+            // 
+            // tabOPDQue
+            // 
+            this.tabOPDQue.Controls.Add(this.c1SplitContainer1);
+            this.tabOPDQue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tabOPDQue.Location = new System.Drawing.Point(1, 26);
+            this.tabOPDQue.Name = "tabOPDQue";
+            this.tabOPDQue.Size = new System.Drawing.Size(1574, 740);
+            this.tabOPDQue.TabIndex = 0;
+            this.tabOPDQue.Text = "ใบยามาใหม่";
+            // 
+            // c1SplitContainer1
+            // 
+            this.c1SplitContainer1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer1.Name = "c1SplitContainer1";
+            this.c1SplitContainer1.Panels.Add(this.tabOPDList);
+            this.c1SplitContainer1.Panels.Add(this.tabOPDPtt);
+            this.c1SplitContainer1.Panels.Add(this.tabOPDItems);
+            this.c1SplitContainer1.Panels.Add(this.tabOPDOrders);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1574, 740);
+            this.c1SplitContainer1.TabIndex = 3;
+            // 
+            // tabOPDList
+            // 
+            this.tabOPDList.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.tabOPDList.Location = new System.Drawing.Point(0, 21);
+            this.tabOPDList.Name = "tabOPDList";
+            this.tabOPDList.Size = new System.Drawing.Size(497, 719);
+            this.tabOPDList.SizeRatio = 31.679D;
+            this.tabOPDList.TabIndex = 0;
+            this.tabOPDList.Text = "List";
+            this.tabOPDList.Width = 497;
+            // 
+            // tabOPDPtt
+            // 
+            this.tabOPDPtt.Height = 145;
+            this.tabOPDPtt.Location = new System.Drawing.Point(501, 21);
+            this.tabOPDPtt.Name = "tabOPDPtt";
+            this.tabOPDPtt.Size = new System.Drawing.Size(1073, 124);
+            this.tabOPDPtt.SizeRatio = 19.659D;
+            this.tabOPDPtt.TabIndex = 1;
+            this.tabOPDPtt.Text = "Patient/Visit";
+            // 
+            // tabOPDItems
+            // 
+            this.tabOPDItems.Height = 294;
+            this.tabOPDItems.Location = new System.Drawing.Point(501, 170);
+            this.tabOPDItems.Name = "tabOPDItems";
+            this.tabOPDItems.Size = new System.Drawing.Size(1073, 273);
+            this.tabOPDItems.TabIndex = 3;
+            this.tabOPDItems.Text = "Items";
+            // 
+            // tabOPDOrders
+            // 
+            this.tabOPDOrders.Height = 293;
+            this.tabOPDOrders.Location = new System.Drawing.Point(501, 468);
+            this.tabOPDOrders.Name = "tabOPDOrders";
+            this.tabOPDOrders.Size = new System.Drawing.Size(1073, 272);
+            this.tabOPDOrders.TabIndex = 2;
+            this.tabOPDOrders.Text = "Orders";
+            // 
+            // tabOPDFinish
+            // 
+            this.tabOPDFinish.Controls.Add(this.spOPDFinish);
+            this.tabOPDFinish.Location = new System.Drawing.Point(1, 26);
+            this.tabOPDFinish.Name = "tabOPDFinish";
+            this.tabOPDFinish.Size = new System.Drawing.Size(1574, 740);
+            this.tabOPDFinish.TabIndex = 1;
+            this.tabOPDFinish.Text = "จัดยาเรียบร้อย/รอจ่าย";
+            // 
+            // spOPDFinish
+            // 
+            this.spOPDFinish.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.spOPDFinish.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.spOPDFinish.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.spOPDFinish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spOPDFinish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.spOPDFinish.Location = new System.Drawing.Point(0, 0);
+            this.spOPDFinish.Name = "spOPDFinish";
+            this.spOPDFinish.Panels.Add(this.c1SplitterPanel6);
+            this.spOPDFinish.Panels.Add(this.c1SplitterPanel5);
+            this.spOPDFinish.Panels.Add(this.c1SplitterPanel7);
+            this.spOPDFinish.Size = new System.Drawing.Size(1574, 740);
+            this.spOPDFinish.TabIndex = 3;
+            // 
+            // c1SplitterPanel6
+            // 
+            this.c1SplitterPanel6.Controls.Add(this.pnOPDFinishReq);
+            this.c1SplitterPanel6.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            this.c1SplitterPanel6.Height = 368;
+            this.c1SplitterPanel6.Location = new System.Drawing.Point(0, 393);
+            this.c1SplitterPanel6.Name = "c1SplitterPanel6";
+            this.c1SplitterPanel6.Size = new System.Drawing.Size(1574, 347);
+            this.c1SplitterPanel6.TabIndex = 1;
+            this.c1SplitterPanel6.Text = "Order";
+            // 
+            // pnOPDFinishReq
+            // 
+            this.pnOPDFinishReq.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnOPDFinishReq.Location = new System.Drawing.Point(0, 0);
+            this.pnOPDFinishReq.Name = "pnOPDFinishReq";
+            this.pnOPDFinishReq.Size = new System.Drawing.Size(1574, 347);
+            this.pnOPDFinishReq.TabIndex = 0;
+            // 
+            // c1SplitterPanel5
+            // 
+            this.c1SplitterPanel5.Controls.Add(this.pnOPDFinishList);
+            this.c1SplitterPanel5.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.c1SplitterPanel5.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel5.Name = "c1SplitterPanel5";
+            this.c1SplitterPanel5.Size = new System.Drawing.Size(785, 347);
+            this.c1SplitterPanel5.TabIndex = 0;
+            this.c1SplitterPanel5.Text = "Patient";
+            this.c1SplitterPanel5.Width = 785;
+            // 
+            // pnOPDFinishList
+            // 
+            this.pnOPDFinishList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnOPDFinishList.Location = new System.Drawing.Point(0, 0);
+            this.pnOPDFinishList.Name = "pnOPDFinishList";
+            this.pnOPDFinishList.Size = new System.Drawing.Size(785, 347);
+            this.pnOPDFinishList.TabIndex = 0;
+            // 
+            // c1SplitterPanel7
+            // 
+            this.c1SplitterPanel7.Controls.Add(this.pnOPDFinishItem);
+            this.c1SplitterPanel7.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            this.c1SplitterPanel7.Location = new System.Drawing.Point(789, 21);
+            this.c1SplitterPanel7.Name = "c1SplitterPanel7";
+            this.c1SplitterPanel7.Size = new System.Drawing.Size(785, 347);
+            this.c1SplitterPanel7.TabIndex = 2;
+            this.c1SplitterPanel7.Text = "Items";
+            this.c1SplitterPanel7.Width = 785;
+            // 
+            // pnOPDFinishItem
+            // 
+            this.pnOPDFinishItem.Controls.Add(this.label7);
+            this.pnOPDFinishItem.Controls.Add(this.c1TextBox3);
+            this.pnOPDFinishItem.Controls.Add(this.label3);
+            this.pnOPDFinishItem.Controls.Add(this.c1TextBox4);
+            this.pnOPDFinishItem.Controls.Add(this.label4);
+            this.pnOPDFinishItem.Controls.Add(this.label5);
+            this.pnOPDFinishItem.Controls.Add(this.c1TextBox5);
+            this.pnOPDFinishItem.Controls.Add(this.label6);
+            this.pnOPDFinishItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnOPDFinishItem.Location = new System.Drawing.Point(0, 0);
+            this.pnOPDFinishItem.Name = "pnOPDFinishItem";
+            this.pnOPDFinishItem.Size = new System.Drawing.Size(785, 347);
+            this.pnOPDFinishItem.TabIndex = 0;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label7.Location = new System.Drawing.Point(152, 42);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 25);
+            this.label7.TabIndex = 289;
+            this.label7.Text = "...";
+            // 
+            // c1TextBox3
+            // 
+            this.c1TextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox3.Location = new System.Drawing.Point(65, 100);
+            this.c1TextBox3.Name = "c1TextBox3";
+            this.c1TextBox3.Size = new System.Drawing.Size(522, 24);
+            this.c1TextBox3.TabIndex = 288;
+            this.c1TextBox3.Tag = null;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label3.Location = new System.Drawing.Point(8, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 20);
+            this.label3.TabIndex = 287;
+            this.label3.Text = "ข้อบ่งชี้";
+            // 
+            // c1TextBox4
+            // 
+            this.c1TextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox4.Location = new System.Drawing.Point(65, 70);
+            this.c1TextBox4.Name = "c1TextBox4";
+            this.c1TextBox4.Size = new System.Drawing.Size(522, 24);
+            this.c1TextBox4.TabIndex = 286;
+            this.c1TextBox4.Tag = null;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.Location = new System.Drawing.Point(8, 70);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 20);
+            this.label4.TabIndex = 285;
+            this.label4.Text = "วิธีใช้";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label5.Location = new System.Drawing.Point(152, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 25);
+            this.label5.TabIndex = 284;
+            this.label5.Text = "...";
+            // 
+            // c1TextBox5
+            // 
+            this.c1TextBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox5.Location = new System.Drawing.Point(65, 7);
+            this.c1TextBox5.Name = "c1TextBox5";
+            this.c1TextBox5.Size = new System.Drawing.Size(83, 24);
+            this.c1TextBox5.TabIndex = 283;
+            this.c1TextBox5.Tag = null;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label6.Location = new System.Drawing.Point(8, 8);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 20);
+            this.label6.TabIndex = 282;
+            this.label6.Text = "item :";
+            // 
+            // tabOPDDispensing
+            // 
+            this.tabOPDDispensing.Location = new System.Drawing.Point(1, 26);
+            this.tabOPDDispensing.Name = "tabOPDDispensing";
+            this.tabOPDDispensing.Size = new System.Drawing.Size(1574, 740);
+            this.tabOPDDispensing.TabIndex = 2;
+            this.tabOPDDispensing.Text = "จ่ายยาเรียบร้อย";
+            // 
+            // tabDispensingOPD
+            // 
+            this.tabDispensingOPD.Controls.Add(this.panel1);
+            this.tabDispensingOPD.Location = new System.Drawing.Point(1, 26);
+            this.tabDispensingOPD.Name = "tabDispensingOPD";
+            this.tabDispensingOPD.Size = new System.Drawing.Size(1576, 767);
+            this.tabDispensingOPD.TabIndex = 3;
+            this.tabDispensingOPD.Text = "จ่ายยา OPD";
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(57, 30);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.TabIndex = 0;
             // 
             // FrmPharmacy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1578, 816);
-            this.Controls.Add(this.c1DockingTab1);
+            this.Controls.Add(this.tC1);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmPharmacy";
             this.Text = "FrmPharmacy";
             this.Load += new System.EventHandler(this.FrmPharmacy_Load);
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
-            this.c1DockingTab1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tC1)).EndInit();
+            this.tC1.ResumeLayout(false);
             this.tabDrugWard.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scDrugIN)).EndInit();
             this.scDrugIN.ResumeLayout(false);
@@ -566,6 +956,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnOperItemSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).EndInit();
             this.c1SplitterPanel4.ResumeLayout(false);
+            this.tabOPD.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tcOPD)).EndInit();
+            this.tcOPD.ResumeLayout(false);
+            this.tabOPDQue.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
+            this.c1SplitContainer1.ResumeLayout(false);
+            this.tabOPDFinish.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spOPDFinish)).EndInit();
+            this.spOPDFinish.ResumeLayout(false);
+            this.c1SplitterPanel6.ResumeLayout(false);
+            this.c1SplitterPanel5.ResumeLayout(false);
+            this.c1SplitterPanel7.ResumeLayout(false);
+            this.pnOPDFinishItem.ResumeLayout(false);
+            this.pnOPDFinishItem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox5)).EndInit();
+            this.tabDispensingOPD.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -574,11 +982,11 @@
         #endregion
 
         private C1.Win.C1Ribbon.C1StatusBar c1StatusBar1;
-        private C1.Win.C1Command.C1DockingTab c1DockingTab1;
+        private C1.Win.C1Command.C1DockingTab tC1;
         private C1.Win.C1Command.C1DockingTabPage tabDrugWard;
         private C1.Win.C1SplitContainer.C1SplitContainer scDrugIN;
         private C1.Win.C1SplitContainer.C1SplitterPanel spDrugInImg;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage2;
+        private C1.Win.C1Command.C1DockingTabPage tabIPD;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel1;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel2;
         private System.Windows.Forms.Panel pnDrugINimg;
@@ -614,5 +1022,41 @@
         private C1.Win.C1Input.C1PictureBox picDrugIN;
         private C1.Win.C1Ribbon.RibbonLabel lfSbStatus;
         private C1.Win.C1Ribbon.RibbonLabel lfSbMessage;
+        private C1.Win.C1Command.C1DockingTabPage tabOPD;
+        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel tabOPDList;
+        private C1.Win.C1SplitContainer.C1SplitterPanel tabOPDPtt;
+        private C1.Win.C1SplitContainer.C1SplitterPanel tabOPDOrders;
+        private C1.Win.C1Command.C1DockingTab tcOPD;
+        private C1.Win.C1Command.C1DockingTabPage tabOPDQue;
+        private C1.Win.C1Command.C1DockingTabPage tabOPDFinish;
+        private C1.Win.C1SplitContainer.C1SplitterPanel tabOPDItems;
+        private C1.Win.C1Command.C1DockingTabPage tabOPDDispensing;
+        private C1.Win.C1SplitContainer.C1SplitContainer spOPDFinish;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel5;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel6;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel7;
+        private System.Windows.Forms.Panel pnOPDFinishReq;
+        private System.Windows.Forms.Panel pnOPDFinishList;
+        private System.Windows.Forms.Panel pnOPDFinishItem;
+        private C1.Win.C1Command.C1DockingTabPage tabDispensingOPD;
+        private System.Windows.Forms.Panel panel1;
+        private C1.Win.C1Ribbon.RibbonButton btnPrint;
+        private C1.Win.C1Ribbon.RibbonLabel rb1;
+        private C1.Win.C1Ribbon.RibbonLabel rb2;
+        private C1.Win.C1Ribbon.RibbonLabel lfSbStation;
+        private C1.Win.C1Ribbon.RibbonLabel rgSbModule;
+        private C1.Win.C1Ribbon.RibbonLabel rbPttName;
+        private C1.Win.C1Ribbon.RibbonLabel rbItemName;
+        private C1.Win.C1Ribbon.RibbonButton btnPrintItem;
+        private System.Windows.Forms.Label label7;
+        private C1.Win.C1Input.C1TextBox c1TextBox3;
+        private System.Windows.Forms.Label label3;
+        private C1.Win.C1Input.C1TextBox c1TextBox4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private C1.Win.C1Input.C1TextBox c1TextBox5;
+        private System.Windows.Forms.Label label6;
+        private C1.Win.C1Ribbon.RibbonButton rbTimerStart;
     }
 }

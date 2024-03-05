@@ -63,5 +63,9 @@ namespace bangna_hospital.object1
 		public String MNC_PRINT_FLG { get; set; }
 		public String MNC_PH_NEW_SS { get; set; }
 		public String tmt_code { get; set; }
-	}
+        public String MNC_PH_THAI { get; set; }
+        public String frequency { get; set; }//ความถี่ในการใช้ยา วิธีการใช้ยา
+        public String precautions { get; set; }//ข้อควรระวัง
+        public String interaction { get; set; }//ปฎิกิริยาต่อยาอื่น
+    }
 }

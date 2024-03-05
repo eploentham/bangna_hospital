@@ -139,22 +139,23 @@ namespace bangna_hospital.objdb
             }
             if (secno.Length > 0)
             {
-                wheredept = " and pt07.MNC_SECR_NO = '" + secno + "' and pt07.MNC_DEPR_NO = '"+ deptcode+"' ";
+                //wheredept = " and pt07.MNC_SECR_NO = '" + secno + "' and pt07.MNC_DEPR_NO = '"+ deptcode+"' ";
+                wheredept = " and pt07.MNC_NAME = '" + secno + "'  ";
             }
-            sql = "Select ''  AS row_number, pt07.MNC_DOC_YR, pt07.MNC_DOC_NO, pt07.MNC_HN_YR, pt07.MNC_HN_NO as hn, pt07.MNC_DATE, pt07.MNC_TIME,m01.MNC_CUR_TEL as phone,fm02.MNC_FN_TYP_DSC, " +
+            sql = "Select ''  AS row_number, pt07.MNC_DOC_YR, pt07.MNC_DOC_NO, pt07.MNC_HN_YR, pt07.MNC_HN_NO as hn, pt07.MNC_DATE, pt07.MNC_TIME,m01.MNC_CUR_TEL as phone,fm02.MNC_FN_TYP_DSC as paidname, " +
                 "pt07.MNC_PRE_NO, pt07.MNC_DEP_NO, pt07.MNC_SEC_NO, pt07.MNC_DEPR_NO, pt07.MNC_SECR_NO,isnull(pt07.remark_call,'') as remark_call,isnull(pt07.status_remark_call,'') as status_remark_call, pt07.remark_call_date, " +
                 "convert(varchar(20), pt07.MNC_APP_DAT, 23) as apm_date, convert(varchar(20),pt07.MNC_APP_TIM) as apm_time, pt07.MNC_APP_DSC as desc1, pt07.MNC_APP_STS, pt07.MNC_APP_ADD, " +
                 "pt07.MNC_APP_TEL, pt07.MNC_APP_OR_FLG, pt07.MNC_APP_ADM_FLG, pt07.MNC_APP_NO, pt07.MNC_DOT_CD, " +
-                "pt07.MNC_SEX, pt07.MNC_NAME, pt07.MNC_AGE, pt07.MNC_APP_BY, pt07.MNC_AN_YR, " +
+                "pt07.MNC_SEX, pt07.MNC_NAME as apmdept, pt07.MNC_AGE, pt07.MNC_APP_BY, pt07.MNC_AN_YR, " +
                 "pt07.MNC_AN_NO, pt07.MNC_STS, pt07.MNC_REM_MEMO, pt07.MNC_FN_TYP_CD, pt07.MNC_EMPR_CD, pt07.MNC_SEND_CARD,  " +
                 " convert(varchar(20), pt07.MNC_STAMP_DAT, 20) as MNC_STAMP_DAT, pt07.MNC_STAMP_TIM, convert(varchar(20), pt07.MNC_SEND_DAT,23) as MNC_SEND_DAT, pt07.MNC_SEND_TIM, pt07.MNC_SEND_VN, pt07.MNC_VN_SEQ,  " +
-                "pt07.MNC_VN_SUM, pt07.MNC_APP_TIM_E, pt07.MNC_APP_TYP, pm32.mnc_md_dep_dsc as apmdept, pm32make.mnc_md_dep_dsc as apmmake  " +
+                "pt07.MNC_VN_SUM, pt07.MNC_APP_TIM_E, pt07.MNC_APP_TYP, pm32make.mnc_md_dep_dsc as apmmake  " +
                 ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as pttname " +
                 ",(isnull(pm02dtr.MNC_PFIX_DSC,'') +' ' +isnull(pm26.MNC_DOT_FNAME,'') + ' ' + isnull(pm26.MNC_DOT_LNAME,'')) as dtrname " +
                 "From  " + pt07.table + " pt07 " +
                 " inner join patient_m01 m01 on pt07.MNC_HN_NO = m01.MNC_HN_NO " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
-                "left join patient_m32 pm32 on pt07.MNC_SECR_NO = pm32.mnc_sec_no and pt07.MNC_DEPR_NO = pm32.mnc_md_dep_no  " +
+                //"left join patient_m32 pm32 on pt07.MNC_SECR_NO = pm32.mnc_sec_no and pt07.MNC_DEPR_NO = pm32.mnc_md_dep_no  " +
                 "left join patient_m32 pm32make on pt07.MNC_SEC_NO = pm32make.mnc_sec_no and pt07.mnc_dep_no = pm32make.mnc_md_dep_no  " +
                 "left join	patient_m26 pm26 on pt07.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "left JOIN	dbo.PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
@@ -336,7 +337,8 @@ namespace bangna_hospital.objdb
                 "From  " + pt07.table + " pt07 " +
                 "left join patient_m26 pm26 on pt07.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "left JOIN	PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
-                " Where pt07.MNC_APP_DAT >= '" + datestart + "' and pt07.MNC_APP_DAT <= '" + dateend + "'  ";
+                " Where pt07.MNC_APP_DAT >= '" + datestart + "' and pt07.MNC_APP_DAT <= '" + dateend + "' " +
+                "Order By dtr_name ";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {

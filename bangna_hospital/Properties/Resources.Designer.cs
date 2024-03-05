@@ -19,7 +19,7 @@ namespace bangna_hospital.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -540,6 +540,36 @@ namespace bangna_hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon doctor_asian_female_people_avatar_icon_141428 {
+            get {
+                object obj = ResourceManager.GetObject("doctor_asian_female_people_avatar_icon_141428", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon doctor_asian_male_coronavirus_people_avatar_mask_icon_141385 {
+            get {
+                object obj = ResourceManager.GetObject("doctor_asian_male_coronavirus_people_avatar_mask_icon_141385", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon doctor256_24904 {
+            get {
+                object obj = ResourceManager.GetObject("doctor256_24904", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap download_database16 {
@@ -911,6 +941,16 @@ namespace bangna_hospital.Properties {
             get {
                 object obj = ResourceManager.GetObject("front_desk_icon_127279", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap GoToDown_small {
+            get {
+                object obj = ResourceManager.GetObject("GoToDown_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1425,6 +1465,16 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon medical_29_icon_icons_com_73943 {
+            get {
+                object obj = ResourceManager.GetObject("medical_29_icon_icons_com_73943", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon Message_already_read {
             get {
                 object obj = ResourceManager.GetObject("Message_already_read", resourceCulture);
@@ -1816,6 +1866,16 @@ namespace bangna_hospital.Properties {
         internal static System.Drawing.Bitmap Pinnned_small {
             get {
                 object obj = ResourceManager.GetObject("Pinnned_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290 {
+            get {
+                object obj = ResourceManager.GetObject("pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
