@@ -30,6 +30,7 @@ namespace bangna_hospital.objdb
             drugs.item_name = "item_name";
             drugs.status_item = "status_item";
             drugs.qty = "qty";
+            drugs.using1 = "using1";
             drugs.frequency = "frequency";
             drugs.precautions = "precautions";
             drugs.interaction = "interaction";
@@ -101,11 +102,11 @@ namespace bangna_hospital.objdb
             chkNull(p);
             sql = "Insert Into " + drugs.table + " (" + drugs.drug_set_name + "," + drugs.item_code + "," + drugs.item_name + "" +
                 ", " + drugs.status_item + "," + drugs.qty + "," + drugs.frequency + "," + drugs.precautions + "" +
-                ", " + drugs.interaction + "," + drugs.indication + ","+drugs.doctor_id+", "+ drugs .active+ ", date_create "+ 
+                ", " + drugs.interaction + "," + drugs.indication + ","+drugs.doctor_id+", "+ drugs .active+ ", date_create, using1 "+ 
                ") " +
                 "Values ('" + p.drug_set_name.Replace("'", "''") + "','" + p.item_code + "','" + p.item_name.Replace("'", "''") + "'" +
                 ",'" + p.status_item + "','" + p.qty + "','" + p.frequency.Replace("'", "''") + "','"+ p.precautions.Replace("'", "''") + "'" +
-                ",'" + p.interaction.Replace("'", "''") + "','" + p.indication.Replace("'", "''") + "','" + p.doctor_id + "','1', getdate()  "+
+                ",'" + p.interaction.Replace("'", "''") + "','" + p.indication.Replace("'", "''") + "','" + p.doctor_id + "','1', convert(varchar(20),getdate(),121) ,'"+ p.indication.Replace("'", "''")+"' "+
                 ")";
             try
             {

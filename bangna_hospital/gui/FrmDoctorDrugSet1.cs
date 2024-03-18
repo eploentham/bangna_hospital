@@ -30,7 +30,7 @@ namespace bangna_hospital.gui
         String DTRCODE = "";
         AutoCompleteStringCollection autoDrug;
 
-        int colgrfDrugSetItemCode = 1, colgrfDrugSetItemName = 2, colgrfDrugSetFreq = 3, colgrfDrugSetPrecau = 4, colgrfDrugSetInterac = 5, colgrfDrugSetItemStatus = 6, colgrfDrugSetItemQty = 7, colgrfDrugSetID = 8, colgrfDrugSetFlagSave = 9;
+        int colgrfDrugSetItemCode = 1, colgrfDrugSetItemName = 2, colgrfDrugSetUsing1=3, colgrfDrugSetFreq = 4, colgrfDrugSetPrecau = 5, colgrfDrugSetindica = 6, colgrfDrugSetInterac = 7, colgrfDrugSetItemStatus = 8, colgrfDrugSetItemQty = 9, colgrfDrugSetID = 10, colgrfDrugSetFlagSave = 11;
         Boolean pageLoad = false;
         public FrmDoctorDrugSet1(BangnaControl bc, String dtrcode)
         {
@@ -77,8 +77,8 @@ namespace bangna_hospital.gui
             txtDrugSetId.Value = grfDrugSet[indexrow, colgrfDrugSetID].ToString();
             txtItemCode.Value = grfDrugSet[indexrow, colgrfDrugSetItemCode].ToString();
             lbItemEng.Text = grfDrugSet[indexrow, colgrfDrugSetItemName].ToString();
-            txtFrequency.Value = grfDrugSet[indexrow, colgrfDrugSetFreq].ToString();
-            txtPrecautions.Value = grfDrugSet[indexrow, colgrfDrugSetPrecau].ToString();
+            txtFrequency1.Value = grfDrugSet[indexrow, colgrfDrugSetFreq] != null ? grfDrugSet[indexrow, colgrfDrugSetFreq].ToString():"";
+            txtIndication.Value = grfDrugSet[indexrow, colgrfDrugSetPrecau]!=null ? grfDrugSet[indexrow, colgrfDrugSetPrecau].ToString():"";
             txtInteraction.Value = grfDrugSet[indexrow, colgrfDrugSetInterac] != null ?grfDrugSet[indexrow, colgrfDrugSetInterac].ToString():"";
             txtItemQTY.Value = grfDrugSet[indexrow, colgrfDrugSetItemQty].ToString();
         }
@@ -120,7 +120,7 @@ namespace bangna_hospital.gui
             if (txtDrugSetId.Text.Trim().Length == 0) 
             {
                 Row arow = grfDrugSet.Rows.Add();
-                setGrdDrugSetRow(arow,"",txtItemCode.Text.Trim(), lbItemEng.Text, txtFrequency.Text.Trim(), txtPrecautions.Text.Trim(), txtInteraction.Text.Trim(), txtItemQTY.Text.Trim());
+                setGrdDrugSetRow(arow,"",txtItemCode.Text.Trim(), lbItemEng.Text, txtFrequency1.Text.Trim(), txtIndication.Text.Trim(), txtInteraction.Text.Trim(), txtItemQTY.Text.Trim());
                 clearControl();
             }
             else
@@ -130,7 +130,7 @@ namespace bangna_hospital.gui
                     if (arow[colgrfDrugSetItemCode].ToString().Equals("code")) continue;
                     if (txtDrugSetId.Text.Equals(arow[colgrfDrugSetID].ToString()))
                     {
-                        setGrdDrugSetRow(arow, arow[colgrfDrugSetID].ToString(), txtItemCode.Text.Trim(), lbItemEng.Text, txtFrequency.Text.Trim(), txtPrecautions.Text.Trim(), txtInteraction.Text.Trim(), txtItemQTY.Text.Trim());
+                        setGrdDrugSetRow(arow, arow[colgrfDrugSetID].ToString(), txtItemCode.Text.Trim(), lbItemEng.Text, txtFrequency1.Text.Trim(), txtIndication.Text.Trim(), txtInteraction.Text.Trim(), txtItemQTY.Text.Trim());
                         clearControl();
                         break;
                     }
@@ -156,10 +156,12 @@ namespace bangna_hospital.gui
             lbTradeName.Text = drug1.MNC_PH_GN;
             lbItemNameThai.Text = drug1.MNC_PH_THAI;
             lbStrength.Text = drug1.MNC_PH_STRENGTH;
-            txtFrequency.Value = drug1.frequency;
-            txtPrecautions.Value = drug1.precautions;
+            txtFrequency.Value = drug1.using1;
+            txtFrequency1.Value = drug1.frequency;
+            txtIndication.Value = drug1.indication;
             txtInteraction.Value = drug1.interaction;
             lbUnitName.Text = drug1.MNC_DOSAGE_FORM;
+            txtPrecautions.Value = drug1.precautions;
             txtItemQTY.Visible = true;
             txtItemQTY.Value = "1";
             
@@ -201,7 +203,7 @@ namespace bangna_hospital.gui
             rowitem[colgrfDrugSetItemStatus] = "drug";
             rowitem[colgrfDrugSetID] = cboDrugSetName.SelectedItem;
             //rowitem[colgrfOrderReqNO] = "";
-            rowitem[colgrfDrugSetFlagSave] = "0";//ต้องการ save ลง table temp_order
+            rowitem[colgrfDrugSetFlagSave] = "1";//ต้องการ save ลง table temp_order
             txtSearchItem.Value = "";
             txtSearchItem.Focus();
             //grfOrder.Rows.Add(rowitem);
@@ -246,7 +248,7 @@ namespace bangna_hospital.gui
             grfDrugSet.Font = fEdit;
             grfDrugSet.Dock = System.Windows.Forms.DockStyle.Fill;
             grfDrugSet.Location = new System.Drawing.Point(0, 0);
-            grfDrugSet.Cols.Count = 10;
+            grfDrugSet.Cols.Count = 12;
             grfDrugSet.Rows.Count = 1;
             //FilterRow fr = new FilterRow(grfExpn);
             grfDrugSet.Cols[colgrfDrugSetItemCode].Width = 70;
@@ -257,8 +259,10 @@ namespace bangna_hospital.gui
 
             grfDrugSet.Cols[colgrfDrugSetItemCode].Caption = "code";
             grfDrugSet.Cols[colgrfDrugSetItemName].Caption = "Name";
-            grfDrugSet.Cols[colgrfDrugSetFreq].Caption = "วิธีใช้ /ความถี่ในการใช้ยา";
-            grfDrugSet.Cols[colgrfDrugSetPrecau].Caption = "ข้อบ่งชี้ /ข้อควรระวัง";
+            grfDrugSet.Cols[colgrfDrugSetUsing1].Caption = "วิธีใช้ ";
+            grfDrugSet.Cols[colgrfDrugSetFreq].Caption = "วความถี่ในการใช้ยา";
+            grfDrugSet.Cols[colgrfDrugSetPrecau].Caption = "ข้อบ่งชี้ ";
+            grfDrugSet.Cols[colgrfDrugSetindica].Caption = "ข้อควรระวัง";
             grfDrugSet.Cols[colgrfDrugSetInterac].Caption = "ปฎิกิริยาต่อยาอื่น";
             grfDrugSet.Cols[colgrfDrugSetID].Visible = false;
             grfDrugSet.Cols[colgrfDrugSetFlagSave].Visible = false;
@@ -303,8 +307,11 @@ namespace bangna_hospital.gui
                 rowa[colgrfDrugSetItemName] = row1["item_name"].ToString();
                 rowa[colgrfDrugSetItemQty] = row1["qty"].ToString();
                 rowa[colgrfDrugSetItemStatus] = row1["status_item"].ToString();
+                rowa[colgrfDrugSetUsing1] = row1["using"].ToString();
                 rowa[colgrfDrugSetFreq] = row1["frequency"].ToString();
                 rowa[colgrfDrugSetPrecau] = row1["precautions"].ToString();
+                rowa[colgrfDrugSetindica] = row1["indication"].ToString();
+                rowa[colgrfDrugSetInterac] = row1["interaction"].ToString();
                 rowa[colgrfDrugSetFlagSave] = "0";
                 i++;
             }
@@ -318,8 +325,8 @@ namespace bangna_hospital.gui
             lbItemEng.Text = "";
             lbTradeName.Text = "";
             lbStrength.Text = "";
-            txtFrequency.Value = "";
-            txtPrecautions.Value = "";
+            txtFrequency1.Value = "";
+            txtIndication.Value = "";
             txtInteraction.Value = "";
 
             txtItemQTY.Visible = true;
@@ -339,21 +346,17 @@ namespace bangna_hospital.gui
                 if (flagsave.Equals("0")) continue;
                 id = arow[colgrfDrugSetID].ToString();
                 if (flagsave.Equals("3")){String re1 = bc.bcDB.drugSetDB.updateVoid(id, DTRCODE); }
-                itemcode = arow[colgrfDrugSetItemCode].ToString();
-                itemname = arow[colgrfDrugSetItemName].ToString();
-                qty = arow[colgrfDrugSetItemQty].ToString();
-                freq = arow[colgrfDrugSetFreq].ToString();
-                precau = arow[colgrfDrugSetPrecau].ToString();
                 
                 DrugSet drugSet = new DrugSet();
                 drugSet.doctor_id = DTRCODE;
                 drugSet.drug_set_name = cboDrugSetName.Text.Trim();
                 drugSet.drug_set_id = id;
-                drugSet.item_code = itemcode;
-                drugSet.item_name = itemname;
-                drugSet.frequency = freq;
-                drugSet.precautions = precau;
-                drugSet.qty = qty;
+                drugSet.item_code = arow[colgrfDrugSetItemCode].ToString();
+                drugSet.item_name = arow[colgrfDrugSetItemName].ToString();
+                drugSet.frequency = arow[colgrfDrugSetFreq].ToString();
+                drugSet.precautions = arow[colgrfDrugSetPrecau].ToString();
+                drugSet.using1 = arow[colgrfDrugSetUsing1].ToString();
+                drugSet.qty = arow[colgrfDrugSetItemQty].ToString();
                 String re = bc.bcDB.drugSetDB.insertDrugSet(drugSet, "");
                 if(!int.TryParse(re, out int chk))
                 {
@@ -383,7 +386,8 @@ namespace bangna_hospital.gui
             spMain.HeaderHeight = 0;
             spDrugSet.HeaderHeight = 0;
 
-            this.Text = "Last Update 2024-03-02";
+            this.Text = "Last Update 2024-03-08";
+            bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctorDrugSet1", "Application DrugSet Start");
         }
     }
 }

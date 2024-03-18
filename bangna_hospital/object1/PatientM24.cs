@@ -29,5 +29,8 @@ namespace bangna_hospital.object1
         public String status_insur { get; set; }
         public String insur1_code { get; set; }
         public String insur2_code { get; set; }
+        public String phone2 { get; set; }
+        public String email { get; set; }
+        public String name_old { get; set; }
     }
 }

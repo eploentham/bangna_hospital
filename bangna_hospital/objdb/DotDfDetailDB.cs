@@ -72,6 +72,19 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public DataTable SelectDtrDFByPreno(String hn, String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select convert(varchar(20),dfd.MNC_DF_DATE,23) as DF_DATE, convert(varchar(20),dfd.MNC_FN_DAT,23) as FN_DAT,dfd.MNC_DOT_CD_DF " +
+                "From DOTDF_DETAIL dfd " +
+                " " +
+                "Where dfd.MNC_HN_NO = '" + hn + "' and dfd.MNC_PRE_NO = '" + preno + "' and dfd.MNC_DATE = '" + vsdate + "' and dfd.MNC_DOT_CD_DF != '20799' " +
+                "Order By dfd.MNC_DOC_NO ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public DataTable SelectByDFdate(String startdate, String enddate, String dtrcode)
         {
             DataTable dt = new DataTable();
@@ -80,7 +93,9 @@ namespace bangna_hospital.objdb
             {
                 wheredtrcode = " and dfd.MNC_DOT_CD_DF = '" + dtrcode + "'";
             }
-            String sql = "SELECT '' as DF_DATE_show,'' as FN_DATE_show,'' as row_number, dfd.MNC_DOC_CD, dfd.MNC_DOC_YR, dfd.MNC_DOC_NO  " +
+            String sql = "SELECT '' as cnt_grp_dtr_02,'' as cnt_grp_dtr_44,'' as cnt_grp_dtr_credit,'' as sum_grp_dtr_02,'' as sum_grp_dtr_44,'' as sum_grp_dtr_credit " +
+                ",'' as cnt_grp_dtr_02_out,'' as cnt_grp_dtr_44_out,'' as cnt_grp_dtr_credit_out,'' as sum_grp_dtr_02_out,'' as sum_grp_dtr_44_out,'' as sum_grp_dtr_credit_out " +
+                ",'' as DF_DATE_show,'' as FN_DATE_show,'' as row_number, dfd.MNC_DOC_CD, dfd.MNC_DOC_YR, dfd.MNC_DOC_NO  " +
                 ", convert(varchar(20),dfd.MNC_DOC_DAT,23) as MNC_DOC_DAT, convert(varchar(20),dfd.MNC_DF_DATE,23) as DF_DATE,dfd.MNC_FN_CD, dfd.MNC_FN_NO, convert(varchar(20),dfd.MNC_FN_DAT,23) as FN_DAT " +
                 ", dfd.MNC_FN_TYP_DESC as item_name, dfd.MNC_DF_AMT as DF_AMT, dfd.MNC_FN_AMT as FN_AMT, convert(varchar(20),dfd.MNC_DATE,23) as vsdate " +
                 ", dfd.MNC_HN_NO as hn, dfd.MNC_HN_YR, dfd.MNC_AN_NO, dfd.MNC_AN_YR " +
@@ -93,7 +108,7 @@ namespace bangna_hospital.objdb
                 "Left JOIN  FINANCE_M02 finm02 ON dfd.MNC_FN_TYP_CD = finm02.MNC_FN_TYP_CD " +
                 "INNER JOIN PATIENT_T01 pt01 ON dfd.MNC_HN_YR = pt01.MNC_HN_YR AND dfd.MNC_HN_NO = pt01.MNC_HN_NO AND dfd.MNC_DATE = pt01.MNC_DATE AND dfd.MNC_PRE_NO = pt01.MNC_PRE_NO " +
                 "Left JOIN DOTDF_GROUP dfdg ON dfd.MNC_DF_GROUP = dfdg.MNC_DF_GRP " +
-                "Where dfd.MNC_DF_DATE >= '"+ startdate+ "' and dfd.MNC_DF_DATE <= '" + enddate + "'  and dfd.MNC_DF_AMT <> '0' " + wheredtrcode+
+                "Where dfd.MNC_DF_DATE >= '" + startdate + "' and dfd.MNC_DF_DATE <= '" + enddate + "'  and dfd.MNC_DF_AMT <> '0' " + wheredtrcode +
                 "Order By dfd.MNC_DOT_CD_DF, dfd.MNC_DOT_GRP_CD, dfd.MNC_FN_DAT, dfd.MNC_DATE, dfd.MNC_PRE_NO, dfd.MNC_DF_GROUP ";
             dt = conn.selectData(conn.connMainHIS, sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);

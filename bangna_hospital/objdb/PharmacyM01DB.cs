@@ -155,10 +155,13 @@ namespace bangna_hospital.objdb
             PharmacyM01 pharm01 = new PharmacyM01();
             DataTable dt = new DataTable();
             String re = "";
-            String sql = "select pm01.*,pm04.mnc_ph_dir_dsc,pm11.MNC_PH_CAU_dsc " +
-                "From pharmacy_m01 pm01 " +
-                "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +
-                "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
+            String sql = "select pm01.*,pm04.mnc_ph_dir_dsc,pm11.MNC_PH_CAU_dsc,pm22.MNC_PH_TIM_DSC,pm24.MNC_PH_IND_DSC, pm21.MNC_PH_FRE_DSC " +
+                "From pharmacy_m01 pm01 " +//PHARMACY_M21
+                "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +//Frequency
+                "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +//Precautions
+                "Left join PHARMACY_M22 pm22 on pm01.MNC_PH_TIM_CD = pm22.MNC_PH_TIM_CD " +//Indication คำเตือน
+                "Left join PHARMACY_M24 pm24 on pm01.MNC_PH_IND_CD = pm24.MNC_PH_IND_CD " +//
+                "Left join PHARMACY_M21 pm21 on pm01.MNC_PH_FRE_CD = pm21.MNC_PH_FRE_CD " +//
                 "Where pm01.mnc_ph_cd = '" + labgrpcode + "' " +
                 " ";
             dt = conn.selectData(sql);
@@ -343,9 +346,11 @@ namespace bangna_hospital.objdb
                 pharM01.MNC_PH_NEW_SS = dt.Rows[0]["MNC_PH_NEW_SS"].ToString();
                 pharM01.tmt_code = dt.Rows[0]["tmt_code"].ToString();
                 pharM01.MNC_PH_THAI = dt.Rows[0]["MNC_PH_THAI"].ToString();
-                pharM01.frequency = dt.Rows[0]["MNC_ph_dir_dsc"].ToString().Replace("/", "").Trim();
-                pharM01.precautions = dt.Rows[0]["MNC_ph_cau_dsc"].ToString().Replace("/","").Trim();
+                pharM01.frequency = dt.Rows[0]["MNC_ph_dir_dsc"].ToString().Replace("/", "").Trim();//Frequency  ข้อบ่งชี้ Indication
+                pharM01.precautions = dt.Rows[0]["MNC_ph_cau_dsc"].ToString().Replace("/","").Trim();//Precautions
+                pharM01.indication = dt.Rows[0]["MNC_PH_TIM_DSC"].ToString().Replace("/", "").Trim();//Indication คำเตือน
                 pharM01.interaction = "";
+                pharM01.using1 = dt.Rows[0]["MNC_PH_FRE_DSC"].ToString().Replace("/", "").Trim();
             }
             else
             {
@@ -411,9 +416,11 @@ namespace bangna_hospital.objdb
             p.MNC_PH_NEW_SS = "";
             p.tmt_code = "";
             p.MNC_PH_THAI = "";
-            pharM01.frequency = "";
-            pharM01.precautions = "";
+            pharM01.frequency = "";//Frequency
+            pharM01.precautions = "";//Precautions
+            pharM01.indication = "";//Indication คำเตือน
             pharM01.interaction = "";
+            pharM01.using1 = "";
             return p;
         }
     }

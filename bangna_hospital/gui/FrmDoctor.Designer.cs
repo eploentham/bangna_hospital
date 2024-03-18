@@ -35,13 +35,14 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.ribbonLabel4 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rbSbDrugSet = new C1.Win.C1Ribbon.RibbonButton();
+            this.rpDrugSetNew = new C1.Win.C1Ribbon.RibbonButton();
             this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnTop = new System.Windows.Forms.Panel();
+            this.btnDfDate = new C1.Win.C1Input.C1Button();
             this.txtHN = new C1.Win.C1Input.C1TextBox();
             this.txtDate = new C1.Win.Calendar.C1DateEdit();
             this.lbDtrName = new System.Windows.Forms.Label();
-            this.label69 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.spMain = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
@@ -70,12 +71,14 @@
             this.txtRptStartDate = new C1.Win.Calendar.C1DateEdit();
             this.label78 = new System.Windows.Forms.Label();
             this.pnRptCri1 = new System.Windows.Forms.Panel();
-            this.rpDrugSetNew = new C1.Win.C1Ribbon.RibbonButton();
+            this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnFinish = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
             this.spTop.SuspendLayout();
             this.pnTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDfDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).BeginInit();
             this.spMain.SuspendLayout();
@@ -98,6 +101,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).BeginInit();
+            this.tabFinish.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -111,7 +115,7 @@
             this.c1StatusBar1.RightPaneItems.Add(this.ribbonLabel4);
             this.c1StatusBar1.RightPaneItems.Add(this.rbSbDrugSet);
             this.c1StatusBar1.RightPaneItems.Add(this.rpDrugSetNew);
-            this.c1StatusBar1.Size = new System.Drawing.Size(1069, 22);
+            this.c1StatusBar1.Size = new System.Drawing.Size(1194, 22);
             // 
             // lfSbMessage
             // 
@@ -139,6 +143,12 @@
             this.rbSbDrugSet.SmallImage = global::bangna_hospital.Properties.Resources.TableRowProperties_small;
             this.rbSbDrugSet.Text = "drug set";
             // 
+            // rpDrugSetNew
+            // 
+            this.rpDrugSetNew.Name = "rpDrugSetNew";
+            this.rpDrugSetNew.SmallImage = ((System.Drawing.Image)(resources.GetObject("rpDrugSetNew.SmallImage")));
+            this.rpDrugSetNew.Text = "Drug Set New";
+            // 
             // c1SplitContainer1
             // 
             this.c1SplitContainer1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
@@ -150,7 +160,7 @@
             this.c1SplitContainer1.Name = "c1SplitContainer1";
             this.c1SplitContainer1.Panels.Add(this.spTop);
             this.c1SplitContainer1.Panels.Add(this.spMain);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(1069, 758);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1194, 758);
             this.c1SplitContainer1.TabIndex = 2;
             // 
             // spTop
@@ -161,23 +171,36 @@
             this.spTop.Height = 71;
             this.spTop.Location = new System.Drawing.Point(0, 21);
             this.spTop.Name = "spTop";
-            this.spTop.Size = new System.Drawing.Size(1069, 43);
+            this.spTop.Size = new System.Drawing.Size(1194, 43);
             this.spTop.SizeRatio = 9.416D;
             this.spTop.TabIndex = 0;
             this.spTop.Text = "Panel 1";
             // 
             // pnTop
             // 
+            this.pnTop.Controls.Add(this.btnDfDate);
             this.pnTop.Controls.Add(this.txtHN);
             this.pnTop.Controls.Add(this.txtDate);
             this.pnTop.Controls.Add(this.lbDtrName);
-            this.pnTop.Controls.Add(this.label69);
             this.pnTop.Controls.Add(this.label1);
             this.pnTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnTop.Location = new System.Drawing.Point(0, 0);
             this.pnTop.Name = "pnTop";
-            this.pnTop.Size = new System.Drawing.Size(1069, 43);
+            this.pnTop.Size = new System.Drawing.Size(1194, 43);
             this.pnTop.TabIndex = 272;
+            // 
+            // btnDfDate
+            // 
+            this.btnDfDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDfDate.Image = global::bangna_hospital.Properties.Resources.Female_user_edit_24;
+            this.btnDfDate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDfDate.Location = new System.Drawing.Point(955, 3);
+            this.btnDfDate.Name = "btnDfDate";
+            this.btnDfDate.Size = new System.Drawing.Size(86, 33);
+            this.btnDfDate.TabIndex = 272;
+            this.btnDfDate.Text = "วันที่:";
+            this.btnDfDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDfDate.UseVisualStyleBackColor = true;
             // 
             // txtHN
             // 
@@ -226,16 +249,6 @@
             this.lbDtrName.TabIndex = 267;
             this.lbDtrName.Text = "HN";
             // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label69.Location = new System.Drawing.Point(993, 9);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(35, 20);
-            this.label69.TabIndex = 270;
-            this.label69.Text = "วันที่";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -252,7 +265,7 @@
             this.spMain.Height = 683;
             this.spMain.Location = new System.Drawing.Point(0, 96);
             this.spMain.Name = "spMain";
-            this.spMain.Size = new System.Drawing.Size(1069, 662);
+            this.spMain.Size = new System.Drawing.Size(1194, 662);
             this.spMain.TabIndex = 1;
             this.spMain.Text = "Panel 2";
             // 
@@ -262,11 +275,13 @@
             this.tC1.Controls.Add(this.tabApm);
             this.tC1.Controls.Add(this.tabIPD);
             this.tC1.Controls.Add(this.tabRpt);
+            this.tC1.Controls.Add(this.tabFinish);
             this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
             this.tC1.Name = "tC1";
-            this.tC1.Size = new System.Drawing.Size(1069, 662);
+            this.tC1.SelectedIndex = 5;
+            this.tC1.Size = new System.Drawing.Size(1194, 662);
             this.tC1.TabIndex = 0;
             this.tC1.TabsSpacing = 5;
             this.tC1.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -276,7 +291,7 @@
             this.tabQue.Controls.Add(this.pnQue);
             this.tabQue.Location = new System.Drawing.Point(1, 26);
             this.tabQue.Name = "tabQue";
-            this.tabQue.Size = new System.Drawing.Size(1067, 635);
+            this.tabQue.Size = new System.Drawing.Size(1192, 635);
             this.tabQue.TabIndex = 0;
             this.tabQue.Text = "Queue";
             // 
@@ -285,7 +300,7 @@
             this.pnQue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnQue.Location = new System.Drawing.Point(0, 0);
             this.pnQue.Name = "pnQue";
-            this.pnQue.Size = new System.Drawing.Size(1067, 635);
+            this.pnQue.Size = new System.Drawing.Size(1192, 635);
             this.pnQue.TabIndex = 0;
             // 
             // tabApm
@@ -293,7 +308,7 @@
             this.tabApm.Controls.Add(this.pnApm);
             this.tabApm.Location = new System.Drawing.Point(1, 26);
             this.tabApm.Name = "tabApm";
-            this.tabApm.Size = new System.Drawing.Size(1067, 635);
+            this.tabApm.Size = new System.Drawing.Size(1192, 635);
             this.tabApm.TabIndex = 1;
             this.tabApm.Text = "Appointment";
             // 
@@ -302,7 +317,7 @@
             this.pnApm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnApm.Location = new System.Drawing.Point(0, 0);
             this.pnApm.Name = "pnApm";
-            this.pnApm.Size = new System.Drawing.Size(1067, 635);
+            this.pnApm.Size = new System.Drawing.Size(1192, 635);
             this.pnApm.TabIndex = 0;
             // 
             // tabIPD
@@ -310,7 +325,7 @@
             this.tabIPD.Controls.Add(this.pnIPD);
             this.tabIPD.Location = new System.Drawing.Point(1, 26);
             this.tabIPD.Name = "tabIPD";
-            this.tabIPD.Size = new System.Drawing.Size(1067, 635);
+            this.tabIPD.Size = new System.Drawing.Size(1192, 635);
             this.tabIPD.TabIndex = 2;
             this.tabIPD.Text = "IPD";
             // 
@@ -319,7 +334,7 @@
             this.pnIPD.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnIPD.Location = new System.Drawing.Point(0, 0);
             this.pnIPD.Name = "pnIPD";
-            this.pnIPD.Size = new System.Drawing.Size(1067, 635);
+            this.pnIPD.Size = new System.Drawing.Size(1192, 635);
             this.pnIPD.TabIndex = 0;
             // 
             // tabRpt
@@ -327,7 +342,7 @@
             this.tabRpt.Controls.Add(this.spRpt);
             this.tabRpt.Location = new System.Drawing.Point(1, 26);
             this.tabRpt.Name = "tabRpt";
-            this.tabRpt.Size = new System.Drawing.Size(1067, 635);
+            this.tabRpt.Size = new System.Drawing.Size(1192, 635);
             this.tabRpt.TabIndex = 3;
             this.tabRpt.Text = "Report";
             // 
@@ -343,7 +358,7 @@
             this.spRpt.Panels.Add(this.c1SplitterPanel8);
             this.spRpt.Panels.Add(this.c1SplitterPanel5);
             this.spRpt.Panels.Add(this.c1SplitterPanel18);
-            this.spRpt.Size = new System.Drawing.Size(1067, 635);
+            this.spRpt.Size = new System.Drawing.Size(1192, 635);
             this.spRpt.TabIndex = 1;
             // 
             // c1SplitterPanel8
@@ -602,17 +617,29 @@
             this.pnRptCri1.Size = new System.Drawing.Size(200, 100);
             this.pnRptCri1.TabIndex = 1;
             // 
-            // rpDrugSetNew
+            // tabFinish
             // 
-            this.rpDrugSetNew.Name = "rpDrugSetNew";
-            this.rpDrugSetNew.SmallImage = ((System.Drawing.Image)(resources.GetObject("rpDrugSetNew.SmallImage")));
-            this.rpDrugSetNew.Text = "Drug Set New";
+            this.tabFinish.Controls.Add(this.pnFinish);
+            this.tabFinish.Location = new System.Drawing.Point(1, 26);
+            this.tabFinish.Name = "tabFinish";
+            this.tabFinish.Size = new System.Drawing.Size(1192, 635);
+            this.tabFinish.TabIndex = 4;
+            this.tabFinish.Text = "Finish";
+            this.tabFinish.ToolTipText = "ดึงข้อมูลตาม ว.แพทย์ของวันนี้??";
+            // 
+            // pnFinish
+            // 
+            this.pnFinish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnFinish.Location = new System.Drawing.Point(0, 0);
+            this.pnFinish.Name = "pnFinish";
+            this.pnFinish.Size = new System.Drawing.Size(1192, 635);
+            this.pnFinish.TabIndex = 0;
             // 
             // FrmDoctor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1069, 780);
+            this.ClientSize = new System.Drawing.Size(1194, 780);
             this.Controls.Add(this.c1SplitContainer1);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmDoctor";
@@ -625,6 +652,7 @@
             this.spTop.ResumeLayout(false);
             this.pnTop.ResumeLayout(false);
             this.pnTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDfDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDate)).EndInit();
             this.spMain.ResumeLayout(false);
@@ -648,6 +676,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).EndInit();
+            this.tabFinish.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -666,7 +695,6 @@
         private C1.Win.C1Input.C1TextBox txtHN;
         private C1.Win.Calendar.C1DateEdit txtDate;
         private System.Windows.Forms.Label lbDtrName;
-        private System.Windows.Forms.Label label69;
         private System.Windows.Forms.Label label1;
         private C1.Win.C1SplitContainer.C1SplitterPanel spMain;
         private C1.Win.C1Command.C1DockingTab tC1;
@@ -697,5 +725,8 @@
         private System.Windows.Forms.Panel pnRptCri1;
         private C1.Win.C1Ribbon.RibbonButton rbSbDrugSet;
         private C1.Win.C1Ribbon.RibbonButton rpDrugSetNew;
+        private C1.Win.C1Command.C1DockingTabPage tabFinish;
+        private System.Windows.Forms.Panel pnFinish;
+        private C1.Win.C1Input.C1Button btnDfDate;
     }
 }

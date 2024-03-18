@@ -52,8 +52,9 @@ namespace bangna_hospital.gui
         int colProcCode = 1, colProcName = 2, colProcReqDate = 3, colProcReqTime = 4;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         int colgrfOutLabDscHN = 1, colgrfOutLabDscPttName = 2, colgrfOutLabDscVsDate = 3, colgrfOutLabDscVN = 4, colgrfOutLabDscId = 5, colgrfOutLablabcode = 6, colgrfOutLablabname = 7, colgrfOutLabApmDate = 8, colgrfOutLabApmDesc = 9, colgrfOutLabApmDtr = 10, colgrfOutLabApmReqNo = 11, colgrfOutLabApmReqDate = 12;
-        int colgrfOrderCode = 1, colgrfOrderName = 2, colgrfOrderStatus = 3, colgrfOrderQty = 4, colgrfOrderDrugFre = 5, colgrfOrderDrugPrecau = 6, colgrfOrderDrugInterac = 7, colgrfOrderID = 8, colgrfOrderReqNO = 9, colgrfOrdFlagSave = 10;
+        int colgrfOrderCode = 1, colgrfOrderName = 2, colgrfOrderStatus = 3, colgrfOrderQty = 4, colgrfOrderDrugFre = 5, colgrfOrderDrugPrecau = 6, colgrfOrderDrugIndica = 7, colgrfOrderDrugInterac = 8, colgrfOrderID = 9, colgrfOrderReqNO = 10, colgrfOrderReqDate=11, colgrfOrdFlagSave = 12;
         int colgrfPttApmVsDate = 1, colgrfPttApmApmDateShow = 2, colgrfPttApmApmTime = 3, colgrfPttApmHN = 4, colgrfPttApmPttName = 5, colgrfPttApmDeptR = 6, colgrfPttApmDeptMake = 7, colgrfPttApmNote = 8, colgrfPttApmOrder = 9, colgrfPttApmDocYear = 10, colgrfPttApmDocNo = 11, colgrfPttApmDtrname = 12, colgrfPttApmPhone = 13, colgrfPttApmPaidName = 14, colgrfPttApmRemarkCall = 15, colgrfPttApmStatusRemarkCall = 16, colgrfPttApmRemarkCallDate = 17, colgrfPttApmApmDate1 = 18;
+
         int colgrfDrugSetItemCode = 1, colgrfDrugSetItemName = 2, colgrfDrugSetFreq = 3, colgrfDrugSetPrecau = 4, colgrfDrugSetInterac = 5, colgrfDrugSetItemStatus = 6, colgrfDrugSetItemQty = 7, colgrfDrugSetID = 8, colgrfDrugSetFlagSave = 9;
 
         int rowindexgrfVs = 0, rowindexgrfOutLab=0;
@@ -66,47 +67,31 @@ namespace bangna_hospital.gui
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmPatient(BangnaControl bc, String dtrcode,ref Patient ptt)
         {
-            this.bc = bc;
-            this.PTT = ptt;
-            this.DTRCODE = dtrcode;
-            InitializeComponent();
+            this.bc = bc;            this.PTT = ptt;            this.DTRCODE = dtrcode;            InitializeComponent();
             initConfig();
         }
         public FrmPatient(BangnaControl bc, String hn)
         {
-            this.bc = bc;
-            this.HN = hn;
-            InitializeComponent();
-            initConfig();
+            this.bc = bc;            this.HN = hn;
+            InitializeComponent();            initConfig();
         }
         public FrmPatient(BangnaControl bc, String hn, String vsdate, String preno)
         {
-            this.bc = bc;
-            this.HN = hn;
-            this.VSDATE = vsdate;
-            this.PRENO = preno;
-            InitializeComponent();
-            initConfig();
+            this.bc = bc;            this.HN = hn;            this.VSDATE = vsdate;            this.PRENO = preno;
+            InitializeComponent();            initConfig();
         }
         public FrmPatient(BangnaControl bc, String hn, String vsdate, String preno, String dtrcode)
         {
-            this.bc = bc;
-            this.HN = hn;
-            this.VSDATE = vsdate;
-            this.PRENO = preno;
-            InitializeComponent();
-            initConfig();
+            this.bc = bc;            this.HN = hn;            this.VSDATE = vsdate;            this.PRENO = preno;
+            InitializeComponent();            initConfig();
         }
         private void initConfig()
         {
             pageLoad = true;
-            theme1 = new C1ThemeController();
-            lStream = new List<listStream>();
-            initFont();
-            initControl();
+            theme1 = new C1ThemeController();            lStream = new List<listStream>();
+            initFont();            initControl();
             
-            setEvent();
-            setTheme();
+            setEvent();            setTheme();
 
             setControlPnPateint();
             pageLoad = false;
@@ -131,12 +116,8 @@ namespace bangna_hospital.gui
             initGrfVS();
             initGrfLab(ref grfLab,ref pnLab);
             initGrfXray(ref grfXray,ref pnXray);
-            initGrfProcedure();
-            initGrfOrder();
-            initGrfDrugAllergy();
-            initGrfChronic();
-            initGrfIPDScan();
-            initGrfOutLab();
+            initGrfProcedure();            initGrfOrder();            initGrfDrugAllergy();            initGrfChronic();
+            initGrfIPDScan();            initGrfOutLab();
             initGrfOrder(ref grfOrder, ref pnOrder, "grfOrder");
             initGrfPttApm(ref grfPttApm, ref pnPttApm, "grfPttApm");
             initGrfOrder(ref grfApmOrder, ref pnApmOrder, "grfApmOrder");
@@ -180,11 +161,7 @@ namespace bangna_hospital.gui
             fvCerti.TabIndex = 0;
             fvCerti.Ribbon.Minimized = true;
             pnCertiMed.Controls.Add(fvCerti);
-            rgSb1.Text = "";
-            lfSbComp.Text = "";
-            lfSbInsur.Text = "";
-            lfSbStation.Text = "";
-            lfSbMessage.Text = "";
+            rgSb1.Text = "";            lfSbComp.Text = "";            lfSbInsur.Text = "";            lfSbStation.Text = "";            lfSbMessage.Text = "";
             bc.bcDB.drugSetDB.setCboDgs(cboDrugSetName, DTRCODE, "");
             pnDrugSet.Hide();
             bc.bcDB.pttDB.setCboDeptOPDNew(cboApmDept, "");
@@ -224,6 +201,7 @@ namespace bangna_hospital.gui
             txtSearchItem.KeyUp += TxtSearchItem_KeyUp;
             txtSearchItem.Enter += TxtSearchItem_Enter;
             txtItemCode.KeyUp += TxtItemCode_KeyUp;
+            txtItemQTY.KeyUp += TxtItemQTY_KeyUp;
 
             chkItemLab.Click += ChkItemLab_Click;
             chkItemXray.Click += ChkItemXray_Click;
@@ -260,37 +238,223 @@ namespace bangna_hospital.gui
             txtDrugPerDay.KeyPress += TxtPerDay_KeyPress;
             txtDrugNumDay.KeyUp += TxtNumDay_KeyUp;
             txtDrugNumDay.KeyPress += TxtNumDay_KeyPress;
+
+            txtFrequency.KeyUp += TxtFrequency_KeyUp;
+            txtPrecautions.KeyUp += TxtPrecautions_KeyUp;
+            txtIndication.KeyUp += TxtIndication_KeyUp;
+            txtInteraction.KeyUp += TxtInteraction_KeyUp;
+            btnPrnStaffNote.Click += BtnPrnStaffNote_Click;
         }
+
+        private void BtnPrnStaffNote_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            printStaffNote();
+        }
+        private void printStaffNote()
+        {
+            PrintDocument documentStaffNote = new PrintDocument();
+            documentStaffNote.PrinterSettings.PrinterName = bc.iniC.printerStaffNote;
+            documentStaffNote.DefaultPageSettings.Landscape = true;
+            documentStaffNote.PrintPage += Document_PrintPageStaffNote;
+
+            documentStaffNote.Print();
+        }
+        private void Document_PrintPageStaffNote(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            String amt = "", line = null, date = "", price = "", qty = "", price1 = "", prndob = "";
+            Decimal amt1 = 0, voucamt = 0, discount = 0, total = 0, cash = 0;
+            float yPos = 10, gap = 6, colName = 0, col2 = 5, col3 = 250, colPrice = 150, colPriceR2L = 180, colqty = 200, colqtyRtoL = 225, colamt = 230, colamtRtoL = 285, col4 = 820, col40 = 620;
+            int count = 0, recx = 15, recy = 15, col2int = 0, yPosint = 0, col40int = 0;
+
+            Graphics g = e.Graphics;
+            SolidBrush Brush = new SolidBrush(Color.Black);
+            prndob = "อายุ " + PTT.AgeStringShort1();
+
+            Pen blackPen = new Pen(Color.Black, 1);
+            Size proposedSize = new Size(100, 100);
+
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+            Size textSize = TextRenderer.MeasureText(line, fPrnBil, proposedSize, TextFormatFlags.RightToLeft);
+            StringFormat sfR2L = new StringFormat();
+            sfR2L.FormatFlags = StringFormatFlags.DirectionRightToLeft;
+            Int32 xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            Int32 yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            float marginR = e.MarginBounds.Right, avg = marginR / 2;
+            
+            Rectangle rec = new Rectangle(0, 0, 20, 20);
+            col2int = int.Parse(col2.ToString());
+            yPosint = int.Parse(yPos.ToString());
+            col40int = int.Parse(col40.ToString());
+
+            col2 = 65;            col3 = 300;            col4 = 870;            col40 = 650;
+            yPos = 15;
+            col2int = int.Parse(col2.ToString());
+            yPosint = int.Parse(yPos.ToString());
+            col40int = int.Parse(col40.ToString());
+
+            line = "5";
+            textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
+            xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
+            yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
+            //e.Graphics.DrawString(line, fPrn, Brushes.Black, xOffset, yPos, new StringFormat());leftMargin
+            e.Graphics.DrawString(line, famt7B, Brushes.Black, col3, yPos, flags);
+            e.Graphics.DrawString(line, famt7B, Brushes.Black, col4, yPos, flags);
+            
+            //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
+            e.Graphics.DrawString("H.N. " + PTT.MNC_HN_NO + "     " + VS.VN, fEdit, Brushes.Black, col3 + 25, yPos + 5, flags);
+            e.Graphics.DrawString("H.N. " + PTT.MNC_HN_NO + "     " + VS.VN, fEdit, Brushes.Black, col4 + 30, yPos + 5, flags);
+
+            e.Graphics.DrawString("ชื่อ " + PTT.Name, fEdit, Brushes.Black, col3 + 20, yPos + 20, flags);
+            e.Graphics.DrawString("ชื่อ " + PTT.Name, fEdit, Brushes.Black, col4 + 10, yPos + 20, flags);
+            e.Graphics.DrawString("เลขที่บัตร " + PTT.MNC_ID_NO, fEdit, Brushes.Black, col3, yPos + 40, flags);
+            e.Graphics.DrawString("เลขที่บัตร " + PTT.MNC_ID_NO, fEdit, Brushes.Black, col4, yPos + 40, flags);
+            
+            e.Graphics.DrawString(VS.PaidName, fEdit, Brushes.Black, col2, yPos + 40, flags);
+            e.Graphics.DrawString(VS.PaidName, fEdit, Brushes.Black, col40, yPos + 40, flags);
+            e.Graphics.DrawString(VS.CompName, fEdit, Brushes.Black, col40, yPos + 40, flags);
+
+            e.Graphics.DrawString("โรคประจำตัว        ไม่มี", fEdit, Brushes.Black, col2, yPos + 60, flags);
+            rec = new Rectangle(col2int + 75, 72, recx, recy);
+            e.Graphics.DrawRectangle(blackPen, rec);
+
+            e.Graphics.DrawString(prndob, fEdit, Brushes.Black, col3, yPos + 60, flags);
+            e.Graphics.DrawString(prndob, fEdit, Brushes.Black, col4, yPos + 60, flags);
+
+            e.Graphics.DrawString("มีโรค ระบุ", fEdit, Brushes.Black, col2 + 70, yPos + 80, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 67 - recx, 92, recx, recy));
+
+            e.Graphics.DrawString("วันที่เวลา " + date, fEdit, Brushes.Black, col3, yPos + 80, flags);
+            e.Graphics.DrawString("วันที่เวลา " + date, fEdit, Brushes.Black, col4, yPos + 80, flags);
+            e.Graphics.DrawString("โรคเรื้อรัง", fEdit, Brushes.Black, col2, yPos + 100, flags);
+            
+            e.Graphics.DrawString("ชื่อแพทย์ " + VS.DoctorId + " " + VS.DoctorName, fEdit, Brushes.Black, col3, yPos + 100, flags);
+            e.Graphics.DrawString("ชื่อแพทย์ " + VS.DoctorId + " " + VS.DoctorName, fEdit, Brushes.Black, col4 - 50, yPos + 120, flags);
+            e.Graphics.DrawString("DR Time.                               ปิดใบยา", fEdit, Brushes.Black, col3, yPos + 120, flags);
+
+            e.Graphics.DrawString("อาการเบื้องต้น " + VS.symptom.Replace("\r\n", ""), fEdit, Brushes.Black, col2, yPos + 120, flags);
+            e.Graphics.DrawString("อาการเบื้องต้น " + VS.symptom.Replace("\r\n", ""), fEdit, Brushes.Black, col40, yPos + 100, flags);
+
+            e.Graphics.DrawString("Temp" + VS.temp, fEditS, Brushes.Black, col2, yPos + 140, flags);
+            e.Graphics.DrawString("H.Rate" + VS.ratios, fEditS, Brushes.Black, col2 + 80, yPos + 140, flags);
+            e.Graphics.DrawString("R.Rate" + VS.breath, fEditS, Brushes.Black, col2 + 160, yPos + 140, flags);
+            
+            e.Graphics.DrawString("BP1" + VS.bp1l, fEditS, Brushes.Black, col2 + 240, yPos + 140, flags);
+            e.Graphics.DrawString("Time :", fEditS, Brushes.Black, col2 + 300, yPos + 140, flags);
+            e.Graphics.DrawString("BP2 " + VS.bp1r, fEditS, Brushes.Black, col2 + 380, yPos + 140, flags);
+            e.Graphics.DrawString("Time :", fEditS, Brushes.Black, col2 + 440, yPos + 140, flags);
+            e.Graphics.DrawString("Wt." + VS.weight, fEditS, Brushes.Black, col2, yPos + 160, flags);
+            
+            e.Graphics.DrawString("Ht." + VS.high, fEditS, Brushes.Black, col2 + 80, yPos + 160, flags);
+            e.Graphics.DrawString("BMI.", fEditS, Brushes.Black, col2 + 100, yPos + 160, flags);
+            e.Graphics.DrawString("CC." + VS.cc, fEditS, Brushes.Black, col2 + 180, yPos + 160, flags);
+            e.Graphics.DrawString("CC.IN" + VS.ccin, fEditS, Brushes.Black, col2 + 240, yPos + 160, flags);
+            
+            e.Graphics.DrawString("CC.EX" + VS.ccex, fEditS, Brushes.Black, col2 + 300, yPos + 160, flags);
+            e.Graphics.DrawString("Ab.C" + VS.abc, fEditS, Brushes.Black, col2 + 400, yPos + 160, flags);
+            
+            e.Graphics.DrawString("H.C." + VS.hc, fEditS, Brushes.Black, col2 + 460, yPos + 160, flags);
+            e.Graphics.DrawString("Precaution (Med) _________________________________________ ", fEdit, Brushes.Black, col40 + 10, yPos + 220, flags);
+            
+            e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ         ไม่มี", fEdit, Brushes.Black, col2, yPos + 180, flags);
+            e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ         ไม่มี", fEdit, Brushes.Black, col40, yPos + 180, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 123 - recx, yPosint + 180, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 120 - recx, yPosint + 180, recx, recy));
+            
+            e.Graphics.DrawString("มี ระบุอาการ", fEdit, Brushes.Black, col2 + 20, yPos + 200, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 20 - recx, yPosint + 200, recx, recy));
+            e.Graphics.DrawString("มี ระบุอาการ", fEdit, Brushes.Black, col40 + 15, yPos + 200, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 15 - recx, yPosint + 200, recx, recy));
+
+            e.Graphics.DrawString(bc.bcDB.pm32DB.getDeptNameOPD(VS.DeptCode), fEdit, Brushes.Black, col40 + 40, yPos + 260, flags);
+
+            e.Graphics.DrawString("Medication                       No Medication", fEdit, Brushes.Black, col40 + 50, yPos + 280, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 30 - recx - 5, yPosint + 280, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col40int + 120 - recx + 60, yPosint + 280, recx, recy));
+
+            e.Graphics.DrawString("อาการ" + VS.symptom, fEditB, Brushes.Black, col3 + 40, yPos + 315, flags);
+            e.Graphics.DrawString("อาการ" + VS.symptom, fEditB, Brushes.Black, col2 + 20, yPos + 360, flags);
+
+            e.Graphics.DrawString("ใบรับรองแพทย์             ไม่มี      มี             Consult      ไม่มี      มี __________________", fEdit, Brushes.Black, col2 + 40, yPos + 660, flags);
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 170 - recx, yPosint + 660, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 215 - recx, yPosint + 660, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 345 - recx, yPosint + 660, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 385 - recx, yPosint + 660, recx, recy));
+
+            e.Graphics.DrawString("ชื่อผู้รับ _____________________________", fEdit, Brushes.Black, col2, yPos + 680, flags);
+            e.Graphics.DrawString("Health Education :", fEdit, Brushes.Black, col2, yPos + 730, flags);
+            e.Graphics.DrawString("ลงชื่อพยาบาล: _____________________________________", fEdit, Brushes.Black, col2, yPos + 750, flags);
+            e.Graphics.DrawString("FM-REC-002 (00 10/09/53)(1/1)", fEditS, Brushes.Black, col2, yPos + 770, flags);
+            e.Graphics.DrawString("FM-REC-002 (00 10/09/53)(1/1)", fEditS, Brushes.Black, col40, yPos + 770, flags);
+        }
+        private void TxtItemQTY_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode== Keys.Right)
+            {
+                txtDrugNum.SelectAll();
+                txtDrugNum.Focus();
+            }else if (e.KeyCode == Keys.Enter)
+            {
+                setGrfOrderItem();
+                clearControlOrder();
+                txtSearchItem.SelectAll();
+                txtSearchItem.Focus();
+            }
+        }
+
+        private void TxtInteraction_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)            {                txtSearchItem.SelectAll();                txtSearchItem.Focus();            }
+        }
+
+        private void TxtIndication_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)            {                txtInteraction.SelectAll();                txtInteraction.Focus();            }
+        }
+
+        private void TxtPrecautions_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)            {                txtIndication.SelectAll();                txtIndication.Focus();            }
+        }
+
+        private void TxtFrequency_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)            {                txtPrecautions.SelectAll();                txtPrecautions.Focus();            }
+        }
+
         private void TxtNumDay_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
         private void TxtNumDay_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             setQty();
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtItemQTY.SelectAll();
+                txtItemQTY.Focus();
+            }else if (e.KeyCode == Keys.Left)
+            {
+                txtDrugPerDay.SelectAll();
+                txtDrugPerDay.Focus();
+            }
         }
         private void TxtPerDay_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
         private void TxtPerDay_KeyUp(object sender, KeyEventArgs e)
         {
@@ -299,29 +463,25 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 txtDrugNumDay.Focus();
+            }else if (e.KeyCode == Keys.Left)
+            {
+                txtDrugNum.SelectAll();
+                txtDrugNum.Focus();
             }
         }
         private void TxtNum_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
         private void TxtNum_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             setQty();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtDrugPerDay.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtDrugPerDay.Focus();            }
+            else if (e.KeyCode == Keys.Left)            {                txtItemQTY.SelectAll();                txtItemQTY.Focus();            }
         }
         private void setQty()
         {
@@ -370,15 +530,9 @@ namespace bangna_hospital.gui
         private void TxtApmPlusDay_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as C1TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as C1TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
 
         private void TxtApmPlusDay_KeyUp(object sender, KeyEventArgs e)
@@ -390,32 +544,26 @@ namespace bangna_hospital.gui
         {
             if (txtApmPlusDay.Text.Length <= 0) return;
             DateTime dtcal = DateTime.Now;
-            if (dtcal.Year > 2500)
-            {
-                dtcal.AddYears(-543);
-            }
+            if (dtcal.Year > 2500)            {                dtcal.AddYears(-543);            }
             dtcal = dtcal.AddDays(int.Parse(txtApmPlusDay.Text));
             txtPttApmDate.Value = dtcal.Year.ToString() + "-" + dtcal.ToString("MM-dd");
         }
         private void LbApm1Month_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            txtApmPlusDay.Value = "28";
-            calApmDate();
+            txtApmPlusDay.Value = "28";            calApmDate();
         }
 
         private void LbApm14Week_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            txtApmPlusDay.Value = "14";
-            calApmDate();
+            txtApmPlusDay.Value = "14";            calApmDate();
         }
 
         private void LbApm7Week_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            txtApmPlusDay.Value = "7";
-            calApmDate();
+            txtApmPlusDay.Value = "7";            calApmDate();
         }
         private void TxtPttApmDate_DropDownClosed(object sender, DropDownClosedEventArgs e)
         {
@@ -426,10 +574,7 @@ namespace bangna_hospital.gui
         private void TxtApmTime_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                cboApmDept.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                cboApmDept.Focus();            }
         }
 
         private void CboApmDept_DropDownClosed(object sender, DropDownClosedEventArgs e)
@@ -458,19 +603,13 @@ namespace bangna_hospital.gui
         private void TxtApmTel_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtApmRemark.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtApmRemark.Focus();            }
         }
 
         private void TxtApmRemark_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtApmDtr.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtApmDtr.Focus();            }
         }
 
         private void BtnApmPrint_Click(object sender, EventArgs e)
@@ -610,28 +749,18 @@ namespace bangna_hospital.gui
         }
         private void clearControlOrder()
         {
-            txtItemCode.Value = "";
-            txtSearchItem.Value = "";
-            lbItemName.Text = "";
-            txtTimDsc.Value = "";
+            txtItemCode.Value = "";            txtSearchItem.Value = "";            lbItemName.Text = "";            txtIndication.Value = "";
+            lbItemNameThai.Text = "";            lbTradeName.Text = "";            txtFrequency.Value = "";            txtPrecautions.Value = "";
+            txtIndication.Value = "";            txtInteraction.Value = "";            lbStrength.Text = "";            txtItemQTY.Value = "";
+            txtDrugNum.Value = "";            txtDrugPerDay.Value = "";            txtDrugNumDay.Value = "";
         }
         private void clearControlTabApm(Boolean new1)
         {
             txtPttApmDate.Value = DateTime.Now;
-            txtApmTime.Value = "";
-            bc.setC1Combo(cboApmDept, "");
-            txtApmDsc.Value = "";
-            txtApmRemark.Value = "";
-            txtApmDtr.Value = "";
-            lbApmDtrName.Text = "";
-            txtApmTel.Value = "";
-            txtApmNO.Value = "";
-            txtApmList.Value = "";
-            grfApmOrder.Rows.Count = 1;
-            if (!new1)
-            {
-                grfPttApm.Rows.Count = 1;
-            }
+            txtApmTime.Value = "";            bc.setC1Combo(cboApmDept, "");            txtApmDsc.Value = "";            txtApmRemark.Value = "";
+            txtApmDtr.Value = "";            lbApmDtrName.Text = "";            txtApmTel.Value = "";            txtApmNO.Value = "";
+            txtApmList.Value = "";            grfApmOrder.Rows.Count = 1;
+            if (!new1)            {                grfPttApm.Rows.Count = 1;            }
         }
         private PatientT07 getApm()
         {
@@ -851,64 +980,47 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             txtSearchItem.AutoCompleteCustomSource = autoDrug;
-            cboDrugSetName.Show();
-            lbDrugSet.Show();
-            pnDrugSet.Show();
-            btnDrugSetAll.Show();
-            txtDrugNum.Show();
-            txtDrugNumDay.Show();
-            txtDrugPerDay.Show();
-            clearControlOrder();
+            cboDrugSetName.Show();            lbDrugSet.Show();            pnDrugSet.Show();            btnDrugSetAll.Show();
+            txtDrugNum.Show();            txtDrugNumDay.Show();            txtDrugPerDay.Show();            clearControlOrder();
             txtSearchItem.Focus();
         }
         private void ChkItemHotC_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             txtSearchItem.AutoCompleteCustomSource = autoProcedure;
-            cboDrugSetName.Hide();
-            lbDrugSet.Hide();
-            pnDrugSet.Hide();
-            btnDrugSetAll.Hide();
-            txtDrugNum.Hide();
-            txtDrugNumDay.Hide();
-            txtDrugPerDay.Hide();
-            clearControlOrder();
+            cboDrugSetName.Hide();            lbDrugSet.Hide();            pnDrugSet.Hide();            btnDrugSetAll.Hide();
+            txtDrugNum.Hide();            txtDrugNumDay.Hide();            txtDrugPerDay.Hide();            clearControlOrder();
             txtSearchItem.Focus();
         }
         private void ChkItemXray_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             txtSearchItem.AutoCompleteCustomSource = autoXray;
-            cboDrugSetName.Hide();
-            lbDrugSet.Hide();
-            pnDrugSet.Hide();
-            btnDrugSetAll.Hide();
-            txtDrugNum.Hide();
-            txtDrugNumDay.Hide();
-            txtDrugPerDay.Hide();
-            clearControlOrder();
+            cboDrugSetName.Hide();            lbDrugSet.Hide();            pnDrugSet.Hide();            btnDrugSetAll.Hide();
+            txtDrugNum.Hide();            txtDrugNumDay.Hide();            txtDrugPerDay.Hide();            clearControlOrder();
             txtSearchItem.Focus();
         }
         private void ChkItemLab_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            txtSearchItem.AutoCompleteCustomSource = autoLab;
-            cboDrugSetName.Hide();
-            lbDrugSet.Hide();
-            pnDrugSet.Hide();
-            btnDrugSetAll.Hide();
-            txtDrugNum.Hide();
-            txtDrugNumDay.Hide();
-            txtDrugPerDay.Hide();
-            clearControlOrder();
-            txtSearchItem.Focus();
+            txtSearchItem.AutoCompleteCustomSource = autoLab;            cboDrugSetName.Hide();            lbDrugSet.Hide();            pnDrugSet.Hide();
+            btnDrugSetAll.Hide();            txtDrugNum.Hide();            txtDrugNumDay.Hide();            txtDrugPerDay.Hide();
+            clearControlOrder();            txtSearchItem.Focus();
         }
         private void TxtItemCode_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                setGrfOrderItem();
+                if (chkItemDrug.Checked)
+                {
+                    txtItemQTY.SelectAll();
+                    txtItemQTY.Focus();
+                }
+                else
+                {
+                    setGrfOrderItem();
+                }
             }
         }
         private void TxtSearchItem_Enter(object sender, EventArgs e)
@@ -937,9 +1049,16 @@ namespace bangna_hospital.gui
                 setGrfOrderItem(txtItemCode.Text.Trim(), lbItemName.Text, txtItemQTY.Text.Trim()
                 , chkItemLab.Checked ? "lab" : chkItemXray.Checked ? "xray" : chkItemProcedure.Checked ? "procedure" : chkItemDrug.Checked ? "drug" : "");
             }
-            
-            txtSearchItem.Value = "";
-            txtSearchItem.Focus();
+            if (!chkItemDrug.Checked)
+            {
+                txtSearchItem.Value = "";
+                txtSearchItem.Focus();
+            }
+            else
+            {
+                txtItemQTY.SelectAll();
+                txtItemQTY.Focus();
+            }
             //grfOrder.Rows.Add(rowitem);
         }
         private void setGrfOrderItem(String code, String name, String qty, String flag)
@@ -1021,10 +1140,15 @@ namespace bangna_hospital.gui
             else if (chkItemDrug.Checked)
             {
                 PharmacyM01 drug = new PharmacyM01();
-                String name1 = bc.bcDB.pharM01DB.SelectNameByPk(code);
+                drug = bc.bcDB.pharM01DB.SelectNameByPk1(code);
                 txtItemCode.Value = code;
-                lbItemName.Text = name1;
-                //txtItemQTY.Visible = false;
+                lbItemName.Text = drug.MNC_PH_TN;
+                lbItemNameThai.Text = drug.MNC_PH_THAI;
+                lbTradeName.Text = drug.MNC_PH_GN;
+                txtFrequency.Value = drug.frequency;
+                txtPrecautions.Value = drug.precautions;
+                txtIndication.Value = drug.indication;
+                lbStrength.Text = drug.MNC_PH_STRENGTH;
                 txtItemQTY.Value = "1";
             }
         }
@@ -1170,9 +1294,7 @@ namespace bangna_hospital.gui
 
             pnDrugSet.Controls.Add(grfDrugSet);
             theme1.SetTheme(grfDrugSet, "VS2013Purple");
-
         }
-
         private void GrfDrugSet_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -1418,7 +1540,7 @@ namespace bangna_hospital.gui
             grf.Dock = System.Windows.Forms.DockStyle.Fill;
             grf.Location = new System.Drawing.Point(0, 0);
             grf.Rows.Count = 1;
-            grf.Cols.Count = 11;
+            grf.Cols.Count = 13;
             grf.Cols[colgrfOrderCode].Width = 100;
             grf.Cols[colgrfOrderName].Width = 400;
             grf.Cols[colgrfOrderQty].Width = 70;
@@ -1430,9 +1552,10 @@ namespace bangna_hospital.gui
             grf.Cols[colgrfOrderName].Caption = "name";
             grf.Cols[colgrfOrderQty].Caption = "qty";
             grf.Cols[colgrfOrderReqNO].Caption = "reqno";
-            grf.Cols[colgrfOrderDrugFre].Caption = "";
-            grf.Cols[colgrfOrderDrugPrecau].Caption = "";
-
+            grf.Cols[colgrfOrderDrugFre].Caption = "Frequency";
+            grf.Cols[colgrfOrderDrugPrecau].Caption = "Precautions";
+            grf.Cols[colgrfOrderDrugIndica].Caption = "indication";
+            grf.Cols[colgrfOrderDrugInterac].Caption = "interaction";
 
             //grfOperList.Cols[colgrfOperListPaidName].Caption = "นายจ้าง";
             grf.Cols[colgrfOrderCode].DataType = typeof(String);
@@ -1462,11 +1585,14 @@ namespace bangna_hospital.gui
             grf.Cols[colgrfOrderCode].AllowEditing = false;
             grf.Cols[colgrfOrderName].AllowEditing = false;
             grf.Cols[colgrfOrderReqNO].AllowEditing = false;
+            grf.Cols[colgrfOrderDrugFre].AllowEditing = false;
+            grf.Cols[colgrfOrderDrugPrecau].AllowEditing = false;
+            grf.Cols[colgrfOrderDrugIndica].AllowEditing = false;
+            grf.Cols[colgrfOrderDrugInterac].AllowEditing = false;
             grf.DoubleClick += GrfOrder_DoubleClick;
             grf.Click += Grf_Click;
             grf.AllowSorting = AllowSortingEnum.None;
             pn.Controls.Add(grf);
-            
         }
         private void Grf_Click(object sender, EventArgs e)
         {
@@ -2547,15 +2673,10 @@ namespace bangna_hospital.gui
         private void setControlPnPateint()
         {
             //PTT = bc.bcDB.pttDB.selectPatinetByHn(this.HN);
-            txtPttHN.Value = PTT.Hn;
-            lbPttNameT.Text = PTT.Name;
-            HN = PTT.Hn;
-            setGrfVS();
-            setGrfDrugAllergy();
-            setGrfChronic();
-            setGrfOutLab();
-            setGrfPttApm();
-            if (grfVS.Rows.Count>1) grfVS.RowSel = 2;
+            txtPttHN.Value = PTT.Hn;            lbPttNameT.Text = PTT.Name;            HN = PTT.Hn;
+            setGrfVS();            setGrfDrugAllergy();            setGrfChronic();            setGrfOutLab();            setGrfPttApm();
+            if (grfVS.Rows.Count>2) grfVS.Select(1, 1);
+
             TABVSACTIVE = tabStaffNote.Name;
             tabVS.SelectedTab = tabStaffNote;
             TabVS_SelectedTabChanged(null, null);
@@ -2600,12 +2721,66 @@ namespace bangna_hospital.gui
             lbLoading.Hide();
             Application.DoEvents();
         }
+        private void setControlTabOrderNew(String flag)
+        {
+            clearControlOrder();
+            if(flag.Equals("drug")) chkItemDrug.Checked = true;
+            else if (flag.Equals("lab")) chkItemLab.Checked = true;
+            else if (flag.Equals("xray")) chkItemXray.Checked = true;
+            else if (flag.Equals("procedure")) chkItemProcedure.Checked = true;
+            txtSearchItem.SelectAll();
+            txtSearchItem.Focus();
+        }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // ...
             if (keyData == (Keys.Escape))
             {
                 if (chlApmList.Visible) { chlApmList.Hide(); }
+            }
+            else if (keyData == (Keys.Home))
+            {
+                pnVs.Focus();
+                grfVS.Focus();
+            }
+            else if (keyData == (Keys.F1)) {tabVS.SelectedTab = tabOrderNew; }
+            else if (keyData == (Keys.F2))
+            {
+                tabVS.SelectedTab = tabOrderNew;
+                setControlTabOrderNew("lab");
+            }
+            else if (keyData == (Keys.F3))
+            {
+                tabVS.SelectedTab = tabOrderNew;
+                setControlTabOrderNew("xray");
+            }
+            else if (keyData == (Keys.F4))
+            {
+                tabVS.SelectedTab = tabOrderNew;
+                setControlTabOrderNew("procedure");
+            }
+            else if (keyData == (Keys.F5))
+            {
+                tabVS.SelectedTab = tabOrderNew;
+                setControlTabOrderNew("drug");
+            }
+            else if (keyData == (Keys.F6))
+            {
+                tabVS.SelectedTab = tabOrderNew;
+                clearControlOrder();
+                chkItemDrug.Checked = true;
+                cboDrugSetName.SelectAll();
+                cboDrugSetName.Focus();
+            }
+            else if (keyData == (Keys.F7)){tabVS.SelectedTab = tabStaffNote;}
+            else if (keyData == (Keys.F8)) {tabVS.SelectedTab = tabOrder; }
+            else if (keyData == (Keys.F9)) {tabVS.SelectedTab = tabApm;   }
+            else if (keyData == (Keys.F10)){tabVS.SelectedTab = tabMedScan;}
+            else if (keyData == (Keys.F11)){tabVS.SelectedTab = tabOutLab;}
+            else if (keyData == (Keys.F12)){tabVS.SelectedTab = tabCerti;}
+            else if (keyData == (Keys.End))
+            {
+
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }

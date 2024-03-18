@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_pharmacy</AssemblyName>
+    <AssemblyName>bangna_hospital_reception</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -561,6 +561,12 @@
     </Compile>
     <Compile Include="gui\FrmWard.Designer.cs">
       <DependentUpon>FrmWard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmXray.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmXray.Designer.cs">
+      <DependentUpon>FrmXray.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmXrayPACsAdd.cs">
       <SubType>Form</SubType>
@@ -1242,6 +1248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmWard.resx">
       <DependentUpon>FrmWard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmXray.resx">
+      <DependentUpon>FrmXray.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmXrayPACsAdd.resx">
       <DependentUpon>FrmXrayPACsAdd.cs</DependentUpon>

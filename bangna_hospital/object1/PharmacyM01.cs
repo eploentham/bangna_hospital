@@ -67,5 +67,7 @@ namespace bangna_hospital.object1
         public String frequency { get; set; }//ความถี่ในการใช้ยา วิธีการใช้ยา
         public String precautions { get; set; }//ข้อควรระวัง
         public String interaction { get; set; }//ปฎิกิริยาต่อยาอื่น
+        public String indication { get; set; }//ปฎิกิริยาต่อยาอื่น
+        public String using1 { get; set; }
     }
 }

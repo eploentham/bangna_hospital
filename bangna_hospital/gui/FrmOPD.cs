@@ -52,11 +52,11 @@ namespace bangna_hospital.gui
         C1FlexGrid grfApm, grfRpt;
         C1FlexReport rptView;
         Boolean pageLoad = false, tabMedScanActiveNOtabOutLabActive=true;
-        Image imgCorr, imgTran;
+        Image imgCorr, imgTran, resizedImage, IMG;
         Timer timeOperList;
-        String PRENO = "", VSDATE = "", HN="", DEPTNO="", HNmedscan="", DOCGRPID = "", DSCID = "", OUTLAB="", tC1Active="";
+        String PRENO = "", VSDATE = "", HN="", DEPTNO="", HNmedscan="", DOCGRPID = "", DSCID = "", OUTLAB="", TC1Active="";
         Stream streamPrint, streamPrintL, streamPrintR, streamDownload;
-        Image resizedImage, IMG;
+        
         Form frmImg;
         C1PictureBox pic;
         C1FlexViewer fvCerti, fvTodayOutLab;
@@ -194,7 +194,6 @@ namespace bangna_hospital.gui
         private void initControl()
         {
             initLoading();
-
             picL.Dock = DockStyle.Fill;
             picL.SizeMode = PictureBoxSizeMode.StretchImage;
             picR.Dock = DockStyle.Fill;
@@ -836,7 +835,7 @@ namespace bangna_hospital.gui
         private void BtnSBSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (tC1Active.Equals(tabMedScan.Name))
+            if (TC1Active.Equals(tabMedScan.Name))
             {
                 HNmedscan = txtSBSearchHN.Text.Trim();
                 Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(txtSBSearchHN.Text);
@@ -853,7 +852,7 @@ namespace bangna_hospital.gui
                     setGrfOutLab();
                 }
             }
-            else if (tC1Active.Equals(tabOutlab.Name))
+            else if (TC1Active.Equals(tabOutlab.Name))
             {
                 setGrfOutLab();
             }
@@ -1546,7 +1545,6 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString(line, fEditS, Brushes.Black, col2, yPos + 770, flags);
             e.Graphics.DrawString(line, fEditS, Brushes.Black, col40, yPos + 770, flags);
         }
-
         private void TCOrder_SelectedTabChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -2040,7 +2038,7 @@ namespace bangna_hospital.gui
             if (tC1.SelectedTab == tabCheckUP)
             {
                 tabMedScanActiveNOtabOutLabActive = false;
-                tC1Active = tabCheckUP.Name;
+                TC1Active = tabCheckUP.Name;
                 setGrfCheckUPList();
                 txtSBSearchHN.Visible = false;
                 txtSBSearchDate.Visible = false;
@@ -2057,7 +2055,7 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabOper)
             {
                 tabMedScanActiveNOtabOutLabActive = false;
-                tC1Active = tabOper.Name;
+                TC1Active = tabOper.Name;
                 txtSBSearchHN.Visible = false;
                 txtSBSearchDate.Visible = false;
                 btnSBSearch.Visible = false;
@@ -2074,7 +2072,7 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabFinish)
             {
                 tabMedScanActiveNOtabOutLabActive = false;
-                tC1Active = tabFinish.Name;
+                TC1Active = tabFinish.Name;
                 txtSBSearchHN.Visible = false;
                 txtSBSearchDate.Visible = false;
                 btnSBSearch.Visible = false;
@@ -2091,7 +2089,7 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabApm)
             {
                 tabMedScanActiveNOtabOutLabActive = false;
-                tC1Active = tabApm.Name;
+                TC1Active = tabApm.Name;
                 txtSBSearchHN.Visible = false;
                 txtSBSearchDate.Visible = false;
                 btnSBSearch.Visible = false;
@@ -2107,7 +2105,7 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabMedScan)
             {
                 tabMedScanActiveNOtabOutLabActive = true;
-                tC1Active = tabMedScan.Name;
+                TC1Active = tabMedScan.Name;
                 txtSBSearchHN.Visible = true;
                 txtSBSearchDate.Visible = false;
                 btnSBSearch.Visible = true;
@@ -2123,7 +2121,7 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabSearch)
             {
                 tabMedScanActiveNOtabOutLabActive = false;
-                tC1Active = tabSearch.Name;
+                TC1Active = tabSearch.Name;
                 txtSrcHn.Focus();
                 txtSBSearchHN.Visible = false;
                 txtSBSearchDate.Visible = false;
@@ -2140,7 +2138,7 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabOutLabDate)//date search
             {
                 tabMedScanActiveNOtabOutLabActive = false;
-                tC1Active = tabOutLabDate.Name;
+                TC1Active = tabOutLabDate.Name;
                 txtSBSearchHN.Visible = false;
                 txtSBSearchDate.Visible = true;
                 btnSBSearch.Visible = true;
@@ -2157,7 +2155,7 @@ namespace bangna_hospital.gui
             {
                 setGrfTodayOutLab();
                 tabMedScanActiveNOtabOutLabActive = false;
-                tC1Active = tabOutlab.Name;
+                TC1Active = tabOutlab.Name;
                 txtSBSearchHN.Visible = true;
                 txtSBSearchDate.Visible = false;
                 btnSBSearch.Visible = true;
@@ -2485,26 +2483,26 @@ namespace bangna_hospital.gui
             grfSrcVs.Rows.Count = 1;
             DataTable dt = new DataTable();
             dt = bc.bcDB.vsDB.selectVisitByHn6(hn, "O");
-            int i = 1, j = 1, row = grfSrcVs.Rows.Count;
+            int i = 1, j = 1; grfSrcVs.Rows.Count = dt.Rows.Count;
             foreach (DataRow row1 in dt.Rows)
             {
                 //pB1.Value++;
-                Row rowa = grfSrcVs.Rows.Add();
+                Row rowa = grfSrcVs.Rows[i];
                 String status = "", vn = "";
-
                 status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
-                vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")";
+                vn = row1["MNC_VN_NO"].ToString() + "." + row1["MNC_VN_SEQ"].ToString() + "." + row1["MNC_VN_SUM"].ToString();
                 rowa[colVsVsDate] = bc.datetoShowShort(row1["mnc_date"].ToString());
                 rowa[colVsVn] = vn;
                 rowa[colVsStatus] = status;
                 rowa[colVsPreno] = row1["mnc_pre_no"].ToString();
                 rowa[colVsDept] = row1["MNC_SHIF_MEMO"].ToString();
-                rowa[colVsAn] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
+                rowa[colVsAn] = row1["mnc_an_no"].ToString() + "." + row1["mnc_an_yr"].ToString();
                 rowa[colVsAndate] = bc.datetoShow1(row1["mnc_ad_date"].ToString());
                 rowa[colVsPaidType] = row1["MNC_FN_TYP_DSC"].ToString();
                 
                 rowa[colVsVsDate1] = row1["mnc_date"].ToString();
                 rowa[colVsDtrName] = row1["dtr_name"].ToString();
+                i++;
             }
         }
         private void GrfSrcVs_AfterRowColChange(object sender, RangeEventArgs e)
@@ -2838,13 +2836,13 @@ namespace bangna_hospital.gui
 
                 //status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
                 status = "IPD";
-                vn = row1["MNC_VN_NO"].ToString() + "/" + row1["MNC_VN_SEQ"].ToString() + "(" + row1["MNC_VN_SUM"].ToString() + ")";
+                vn = row1["MNC_VN_NO"].ToString() + "." + row1["MNC_VN_SEQ"].ToString() + "." + row1["MNC_VN_SUM"].ToString();
                 rowa[colIPDDate] = bc.datetoShow1(row1["mnc_date"].ToString());
                 rowa[colIPDVn] = vn;
                 rowa[colIPDStatus] = status;
                 rowa[colIPDPreno] = row1["mnc_pre_no"].ToString();
                 rowa[colIPDDept] = row1["MNC_SHIF_MEMO"].ToString();
-                rowa[colIPDAnShow] = row1["mnc_an_no"].ToString() + "/" + row1["mnc_an_yr"].ToString();
+                rowa[colIPDAnShow] = row1["mnc_an_no"].ToString() + "." + row1["mnc_an_yr"].ToString();
                 rowa[colIPDAndate] = bc.datetoShow1(row1["mnc_ad_date"].ToString());
                 rowa[colIPDAnYr] = row1["mnc_an_yr"].ToString();
                 rowa[colIPDAn] = row1["mnc_an_no"].ToString();

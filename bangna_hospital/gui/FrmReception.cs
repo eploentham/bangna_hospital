@@ -4,6 +4,7 @@ using bangna_hospital.FlexGrid;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.C1Excel;
+using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
@@ -47,15 +48,17 @@ namespace bangna_hospital.gui
 
         int colgrfSrcHn = 1, colgrfSrcFullNameT = 2, colgrfSrcPID = 3, colgrfSrcDOB = 4, colgrfSrcPttid=5, colgrfSrcAge=6, colgrfSrcVisitReleaseOPD=7, colgrfSrcVisitReleaseIPD = 8,colgrfSrcVisitReleaseIPDDischarge=9;
         int celgrfPttCompCode = 1, colgrfPttCompNameT = 2, colgrfPttCompid = 3;
-        int colgrfPttVsVsDateShow = 1, colgrfPttVsVsTime=2,colgrfPttVsDiscDateShow = 3, colgrfPttVsDiscTime=4, colgrfPttVsHn=5, colgrfPttVsFullNameT=6, colgrfPttVsPaid=7, colgrfPttVsPreno=8, colgrfPttVsDept=9, colgrfPttVsStatusOPD=10, colgrfPttVsSymptom=11, colgrfPttVsVN=12, colgrfPttVsAN=13, colgrfPttVsQue=14, colgrfPttVsRemark = 15, colgrfPttVsActno=16, colgrfPttVsActno101 = 17, colgrfPttVsActno110 = 18, colgrfPttVsActno111 = 19, colgrfPttVsActno113 = 20, colgrfPttVsActno131 = 21, colgrfPttVsActno500 = 22, colgrfPttVsActno610 = 23, colgrfPttVsVsDate1=24, colgrfPttVsLimitCreditNo = 25;
+        int colgrfPttVsStatusVisit=1 ,colgrfPttVsVsDateShow = 2, colgrfPttVsVsTime=3,colgrfPttVsDiscDateShow = 4, colgrfPttVsDiscTime=5, colgrfPttVsHn=6, colgrfPttVsFullNameT=7, colgrfPttVsPaid=8, colgrfPttVsPreno=9, colgrfPttVsDept=10, colgrfPttVsStatusOPD=11, colgrfPttVsSymptom=12, colgrfPttVsVN=13, colgrfPttVsAN=14, colgrfPttVsQue=15, colgrfPttVsRemark = 16, colgrfPttVsActno=17, colgrfPttVsActno101 = 18, colgrfPttVsActno110 = 19, colgrfPttVsActno111 = 20, colgrfPttVsActno113 = 21, colgrfPttVsActno131 = 22, colgrfPttVsActno500 = 23, colgrfPttVsActno610 = 24, colgrfPttVsVsDate1=25, colgrfPttVsLimitCreditNo = 26, colgrfPttVsdtrName=27;
         int colgrfPttApmVsDate = 1, colgrfPttApmApmDateShow = 2, colgrfPttApmApmTime = 3, colgrfPttApmHN=4, colgrfPttApmPttName=5, colgrfPttApmDeptR = 6, colgrfPttApmDeptMake=7, colgrfPttApmNote = 8, colgrfPttApmDtrname=9, colgrfPttApmOrder=10, colgrfPttApmDocYear=11, colgrfPttApmDocNo=12, colgrfPttApmPhone=13, colgrfPttApmPaidName=14, colgrfPttApmRemarkCall=15, colgrfPttApmStatusRemarkCall=16, colgrfPttApmRemarkCallDate=17, colgrfPttApmApmDate=18;
         int colgrfRptReportCode = 1, colgrfRptReportName = 2;
         int colgrfRptDatadailydeptDate = 1,colgrfRptDatadailydeptTime = 2, colgrfRptQueno=3,colgrfRptDatadailydeptHn = 4, colgrfRptDatadailydeptName = 5, colgrfRptDatadailydeptMobile = 6, colgrfRptDatadailyDrugSet=7, colgrfRptDatadailyXray = 8, colgrfRptDatadailyAuthen = 9, colgrfRptDatadailyPicKYC = 10, colgrfRptDatadailyPicFoodsdaily = 11;
         int colgrfCustCode=1, colgrfCustName=2;
         int colgrfWardName = 1, colgrfWardRoom = 2, colgrfWardBed = 3, colgrfWardHn = 4, colgrfWardPttName = 5, colgrfWardSymptoms = 6, colgrfWardDays=7, colgrfWardDtrName=8;
         int colgrfSSOSocialNo=1, colgrfSSOCard=2, colgrfSSOTitle=3, colgrfSSOFirstName=4, colgrfSSOLastName=5, colgrfSSOFullName=6, colgrfSSOPrakan=7, colgrfSSOPrang=8, colgrfSSOStartDate=9, colgrfSSOEndDate=10, colgrfSSOdob=11, colgrfSSOUploadDate=12;
-        String rptCode = "", PRENO="", VSDATE="", CHWCODE="", AMPCODE="", TAMBONCODE="", QUENO="", QUEFullname="", QUEHN="", QUESymptoms="", QUEDEPT="";
-        Boolean pageLoad = false, findCust=false, findInsur=false, wanttoSave = false, wanttoVisit = false, wantEditVisit = false, haveEditPtt=false, flagTamboxOK = false;
+        int colgrfSearchPttHN = 1, colgrfSearchPttName = 2, colgrfSearchPttVNShow = 3, colgrfSearchPttSymptom = 4, colgrfSearchPttpreno = 5, colgrfSearchPttVsDate = 6;
+        int rowindexgrfsearchptt = 0;
+        String rptCode = "", PRENO="", VSDATE="", CHWCODE="", AMPCODE="", TAMBONCODE="", QUENO="", QUEFullname="", QUEHN="", QUESymptoms="", QUEDEPT="", TABTCACTIVE="";
+        Boolean pageLoad = false, findCust=false, findInsur=false, wanttoSave = false, wanttoVisit = false, wantEditVisit = false, haveEditPtt=false, flagTamboxOK = false, FLAGPTTNEW=false;
         Image imgCorr, imgTran;
         C1TileControl TileFoods;
         PanelElement peOrd;
@@ -77,6 +80,7 @@ namespace bangna_hospital.gui
         ,"ปรึกษาแก้จมูก"
         };
         ComboBoxItem itemVsType;
+        AutoCompleteStringCollection autoInsur, autoComp;
         public FrmReception(BangnaControl bc)
         {
             this.bc = bc;
@@ -154,7 +158,7 @@ namespace bangna_hospital.gui
             initGrfRptReport();
             initGrfRptData();
             initTileImg();
-            initGrfCust();
+            //initGrfCust();
             initGrfVsPttVisit();
             initGrfToday();
             initGrfApm();
@@ -278,6 +282,7 @@ namespace bangna_hospital.gui
             txtPttRefContact2Mobile.KeyUp += TxtPttRefContact2Mobile_KeyUp;
             
             cboPttNat.DropDownClosed += CboPttNat_DropDownClosed;
+            cboPttNat.KeyUp += CboPttNat_KeyUp;
             cboPttRel.DropDownClosed += CboPttRel_DropDownClosed;
             cboPttEdu.DropDownClosed += CboPttEdu_DropDownClosed;
             cboPttMarri.DropDownClosed += CboPttMarri_DropDownClosed;
@@ -299,7 +304,6 @@ namespace bangna_hospital.gui
             txtPttRefPostcode.KeyUp += TxtPttRefPostcode_KeyUp;
             txtPttRef1.KeyUp += TxtPttRef1_KeyUp;
             
-
             txtPttNickName.KeyUp += TxtPttNickName_KeyUp;
 
             btnPttSave.Click += BtnPttSave_Click;
@@ -329,17 +333,13 @@ namespace bangna_hospital.gui
             btnPttClearData.Click += BtnPttClearData_Click;
             txtVsPaidCode.KeyUp += TxtVsPaidCode_KeyUp;
 
-            lbComp.DoubleClick += LbComp_DoubleClick;
-            lbInsur.DoubleClick += LbInsur_DoubleClick;
-            lbComp.MouseHover += LbComp_MouseHover;
-
             chkApmDate.Click += ChkApmDate_Click;
             chkApmHn.Click += ChkApmHn_Click;
             btnApmSearch.Click += BtnApmSearch_Click;
             txtApmHn.KeyPress += TxtApmHn_KeyPress;
             cboApmPaid.DropDownClosed += CboApmPaid_DropDownClosed;
-
-            tC.TabClick += TC_TabClick;
+            
+            tC.SelectedTabChanged += TC_SelectedTabChanged;
             txtSSOsearch.KeyUp += TxtSSOsearch_KeyUp;
             txtVsInsur.KeyUp += TxtVsInsur_KeyUp;
             txtVsComp.KeyUp += TxtVsComp_KeyUp;
@@ -352,29 +352,145 @@ namespace bangna_hospital.gui
             txtApmSrc.KeyPress += TxtApmSrc_KeyPress;
             txtWardSrc.KeyPress += TxtWardSrc_KeyPress;
             txtPttPaid.KeyUp += TxtPttPaid_KeyUp;
-            lbPttPaid.DoubleClick += LbPttPaid_DoubleClick;
-            lbPttPaid.MouseHover += LbPttPaid_MouseHover;
+            btnPttPaid.Click += BtnPttPaid_Click;
+            btnPttPaid.MouseHover += BtnPttPaid_MouseHover;
             btnApmExcel.Click += BtnApmExcel_Click;
+            btnPttInsur.Click += BtnPttInsur_Click;
+            btnPttInsur.MouseHover += BtnPttInsur_MouseHover;
+            btnPttComp.Click += BtnPttComp_Click;
+            btnPttComp.MouseHover += BtnPttComp_MouseHover;
+
+            rbDateSearch.DropDownClosed += RbDateSearch_DropDownClosed;
+            rbDateSearch.ValueChanged += RbDateSearch_ValueChanged;
+            btnPttInsurCopyto.Click += BtnPttInsurCopyto_Click;
         }
 
+        private void CboPttNat_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            //lfSbMessage.Text = e.KeyData.ToString();
+            if (e.KeyCode == Keys.Enter)
+            {
+                pageLoad = true;
+                bc.setC1Combo(cboPttNat, cboPttNat.Text);
+                pageLoad = false;
+                cboPttRel.Focus();
+            }
+        }
+
+        private void BtnPttInsurCopyto_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtPttCompCode.Value = txtPttInsur.Text.Trim();
+        }
+
+        private void RbDateSearch_ValueChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setGrfToday();
+        }
+        private void RbDateSearch_DropDownClosed(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //setGrfToday();
+        }
+        private void TC_SelectedTabChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            rbTxtHnSearch.Visible = false;
+            rbDateSearch.Visible = false;
+            //TABTCACTIVE = ((C1DockingTabPage)sender).Name;
+            if (tC.SelectedTab == tabSrc)
+            {
+                TABTCACTIVE = tabSrc.Name;
+                txtSrcHn.SelectAll();
+                txtSrcHn.Focus();
+            }
+            else if (tC.SelectedTab == tabPtt)
+            {
+                TABTCACTIVE = tabSrc.Name;
+            }
+            else if (tC.SelectedTab == tabVs)
+            {
+                TABTCACTIVE = tabSrc.Name;
+            }
+            else if (tC.SelectedTab == tabToday)
+            {
+                TABTCACTIVE = tabSrc.Name;
+                rbTxtHnSearch.Visible = true;
+                rbDateSearch.Visible = true;
+            }
+            else if (tC.SelectedTab == tabApm)
+            {
+                TABTCACTIVE = tabSrc.Name;
+            }
+            else if (tC.SelectedTab == tabRpt)
+            {
+                TABTCACTIVE = tabSrc.Name;
+            }
+            else if (tC.SelectedTab == tabDoc)
+            {
+                TABTCACTIVE = tabSrc.Name;
+            }
+            else if (tC.SelectedTab == tabWard)
+            {
+                TABTCACTIVE = tabSrc.Name;
+            }
+            else if (tC.SelectedTab == tabSSO)
+            {
+                TABTCACTIVE = tabSrc.Name;
+            }
+            
+            setTabActive();
+        }
+        private void setTabActive()
+        {
+            wantEditVisit = false;
+            VSDATE = "";
+            PRENO = "";
+            lfSbStatus.Text = "";
+            lfSbMessage.Text = "";
+            if (tC.SelectedTab == tabToday)
+            {
+                setGrfToday();
+            }
+            else if (tC.SelectedTab == tabApm)
+            {
+                setGrfApm();
+            }
+            else if (tC.SelectedTab == tabSrc)
+            {
+                txtSrcHn.Focus();
+            }
+            else if (tC.SelectedTab == tabVs)
+            {
+                VSDATE = "";
+                PRENO = "";
+                btnVsSave.Text = "ส่งตัว";
+                setCboVsType();
+            }
+            else if (tC.SelectedTab == tabWard)
+            {
+                VSDATE = "";
+                PRENO = "";
+                setGrfWard();
+            }
+            else if (tC.SelectedTab == tabSSO)
+            {
+                txtSSOsearch.Focus();
+            }
+        }
         private void TxtPttRef1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttwp3.SelectAll();
-                txtPttwp3.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) {                txtPttwp3.SelectAll();                txtPttwp3.Focus();            }
         }
-
         private void TxtPttPassportOld_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttMobile1.SelectAll();
-                txtPttMobile1.Focus();
-            }
+            if (e.KeyCode == Keys.Enter){                txtPttMobile1.SelectAll();                txtPttMobile1.Focus();            }
         }
 
         private void BtnApmExcel_Click(object sender, EventArgs e)
@@ -387,9 +503,7 @@ namespace bangna_hospital.gui
                 lfSbMessage.Text = "พบ File " + filenam + " กรุณาลบ File นี้ก่อน";
                 //return;
             }
-
             C1XLBook _book = new C1XLBook();
-
             _book.Sheets.Remove("Sheet1");
             XLSheet sheet = _book.Sheets.Add("Sheet1");
             bc.SaveSheet(grfApm, sheet, _book, false);
@@ -400,13 +514,12 @@ namespace bangna_hospital.gui
             _book.Save(bc.iniC.pathDownloadFile + "\\" + filenam);
             System.Diagnostics.Process.Start(bc.iniC.pathDownloadFile + "\\" + filenam);
         }
-
-        private void LbPttPaid_MouseHover(object sender, EventArgs e)
+        private void BtnPttPaid_MouseHover(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            stt.Show("<p> Double Click เพื่อดู สิทธิประจำตัว ทั้งหมด </p>", lbPttPaid, 1000);
+            stt.Show("<p> Double Click เพื่อดู สิทธิประจำตัว ทั้งหมด </p>", btnPttPaid, 1000);
         }
-        private void LbPttPaid_DoubleClick(object sender, EventArgs e)
+        private void BtnPttPaid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             int i = 1;
@@ -417,13 +530,14 @@ namespace bangna_hospital.gui
             grf.Cols.Count = 4;
             grf.Cols[1].Width = 40;
             grf.Cols[2].Width = 320;
-            grf.Cols[3].Width = 320;
+            grf.Cols[3].Width = 80;
             grf.Cols[1].DataType = typeof(String);
             grf.Cols[2].DataType = typeof(String);
             grf.Cols[1].TextAlign = TextAlignEnum.CenterCenter;
             grf.Cols[2].TextAlign = TextAlignEnum.LeftCenter;
             grf.Cols[1].AllowEditing = false;
             grf.Cols[2].AllowEditing = false;
+            grf.Cols[3].AllowEditing = false;
             grf.Rows[0].Visible = false;
             grf.DoubleClick += GrfPttPaid_DoubleClick;
             theme1.SetTheme(grf, "Office2010Blue");
@@ -432,11 +546,12 @@ namespace bangna_hospital.gui
             grf.Rows.Count = 1; grf.Rows.Count = dt.Rows.Count + 1;
             if (dt.Rows.Count > 0)
             {
-                foreach(DataRow drow in dt.Rows)
+                foreach (DataRow drow in dt.Rows)
                 {
                     Row rowa = grf.Rows[i];
                     rowa[1] = drow["MNC_FN_TYP_CD"].ToString();
                     rowa[2] = drow["MNC_FN_TYP_DSC"].ToString();
+                    rowa[3] = drow["MNC_FN_STS"].ToString();
                     rowa[0] = i.ToString();
                     i++;
                 }
@@ -447,7 +562,6 @@ namespace bangna_hospital.gui
             frm.Controls.Add(grf);
             frm.ShowDialog();
         }
-
         private void GrfPttPaid_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -464,6 +578,8 @@ namespace bangna_hospital.gui
                 {
                     txtPttPaid.Value = bc.bcDB.finM02DB.getPaidName(txtPttPaid.Text.Trim());
                 }
+                txtPttInsur.SelectAll();
+                txtPttInsur.Focus();
             }
         }
 
@@ -482,10 +598,7 @@ namespace bangna_hospital.gui
         private void TxtApmHn_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if(e.KeyCode== Keys.Enter)
-            {
-                setGrfApm();
-            }
+            if(e.KeyCode== Keys.Enter)            {                setGrfApm();            }
         }
 
         private void TxtVsComp_KeyUp(object sender, KeyEventArgs e)
@@ -570,13 +683,6 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             printQueue();
         }
-
-        private void LbComp_MouseHover(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            stt.Show("<p> Double Click เพื่อ เพิ่มข้อมูลบริษัท </p>", txtPttCompCode, 1000);
-        }
-
         private void LbPID_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -677,7 +783,6 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
         private void CboApmPaid_DropDownClosed(object sender, DropDownClosedEventArgs e)
         {
             //throw new NotImplementedException();
@@ -703,218 +808,126 @@ namespace bangna_hospital.gui
         private void BtnPttClearData_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            clearControl();
-            clearControlTabVisit();
-            clearTxtUser();
+            clearControl();            clearControlTabVisit();            clearTxtUser();
         }
         private void TxtApmHn_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
-
         private void TxtPttDOBYear_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
-
         private void TxtPttDOBMM_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
             lfSbMessage.Text = "";
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
-
         private void TxtPttDOBDD_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
             lfSbMessage.Text = "";
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))            {                e.Handled = true;            }
             // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))            {                e.Handled = true;            }
         }
-
         private void BtnApmSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setGrfApm();
         }
-
         private void ChkApmHn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setTabApmCheck();
         }
-
         private void ChkApmDate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setTabApmCheck();
         }
-
         private void BtnSrcCardRead_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (ReadCard() != 0)
-            {
-                txtSrcHn.Focus();
-                return;
-            }
+            clearControl();
+            if (ReadCard() != 0) { txtSrcHn.Focus(); return; }
             Patient ptt = new Patient();
             try
             {
                 ptt = bc.bcDB.pttDB.selectPatinetByPID(txtPttPID.Text.Trim(), "pid");
+                if (ptt.MNC_HN_NO.Length <= 0) FLAGPTTNEW = true; else FLAGPTTNEW=false;
             }
-            catch(Exception ex)
-            {
-                lfSbMessage.Text = ex.Message;
-                new LogWriter("e", "FrmReception BtnSrcCardRead_Click " + ex.Message);
-                bc.bcDB.insertLogPage(bc.userId, this.Name, "setPttAge", ex.Message);
-            }
+            catch(Exception ex){lfSbMessage.Text = ex.Message; new LogWriter("e", "FrmReception BtnSrcCardRead_Click " + ex.Message); bc.bcDB.insertLogPage(bc.userId, this.Name, "setPttAge", ex.Message); }
             if(setControl(ptt, "smartcard")) tC.SelectedTab = tabPtt;
         }
-        private void setTabActive()
-        {
-            wantEditVisit = false;
-            VSDATE = "";
-            PRENO = "";
-            lfSbStatus.Text = "";
-            lfSbMessage.Text = "";
-            if (tC.SelectedTab == tabToday)
-            {
-                setGrfToday();
-            }
-            else if(tC.SelectedTab == tabApm)
-            {
-                setGrfApm();
-            }
-            else if(tC.SelectedTab == tabSrc)
-            {
-                txtSrcHn.Focus();
-            }
-            else if (tC.SelectedTab == tabVs)
-            {
-                VSDATE = "";
-                PRENO = "";
-                btnVsSave.Text = "ส่งตัว";
-                setCboVsType();
-            }
-            else if (tC.SelectedTab == tabWard)
-            {
-                VSDATE = "";
-                PRENO = "";
-                setGrfWard();
-            }
-            else if (tC.SelectedTab == tabSSO)
-            {
-                txtSSOsearch.Focus();
-            }
-        }
-        private void TC_TabClick(object sender, EventArgs e)
+        private void BtnPttInsur_MouseHover(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setTabActive();
+            stt.Show("<p> Double Click เพื่อ เพิ่มข้อมูลประกัน </p>", btnPttInsur, 1000);
         }
-
-        private void LbInsur_DoubleClick(object sender, EventArgs e)
+        private void BtnPttInsur_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            FrmCompAdd frm = new FrmCompAdd(bc);
+            FrmCompAdd frm = new FrmCompAdd(bc, txtPttInsur.Text.Trim());
             frm.ShowDialog(this);
+            autoInsur = bc.bcDB.pm24DB.setAutoInsur(true);
+            autoComp = bc.bcDB.pm24DB.getlPaid1(true);
+            txtVsInsur.AutoCompleteCustomSource = autoInsur;
+            txtVsComp.AutoCompleteCustomSource = autoComp;
+            txtPttInsur.AutoCompleteCustomSource = autoInsur;
+            txtPttCompCode.AutoCompleteCustomSource = autoComp;
         }
-
-        private void LbComp_DoubleClick(object sender, EventArgs e)
+        private void BtnPttComp_MouseHover(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            FrmCompAdd frm = new FrmCompAdd(bc);
-            frm.ShowDialog(this);
+            stt.Show("<p> Double Click เพื่อ เพิ่มข้อมูลบริษัท </p>", btnPttInsur, 1000);
         }
-
+        private void BtnPttComp_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmCompAdd frm = new FrmCompAdd(bc, txtPttCompCode.Text.Trim());
+            frm.ShowDialog(this);
+            autoInsur = bc.bcDB.pm24DB.setAutoInsur(true);
+            autoComp = bc.bcDB.pm24DB.getlPaid1(true);
+            txtVsInsur.AutoCompleteCustomSource = autoInsur;
+            txtVsComp.AutoCompleteCustomSource = autoComp;
+            txtPttInsur.AutoCompleteCustomSource = autoInsur;
+            txtPttCompCode.AutoCompleteCustomSource = autoComp;
+        }
         private void TxtPttNickName_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                cboPttPrefixT.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                cboPttPrefixT.Focus();            }
         }
-
         private void TxtPttInsur_Enter(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            findCust = false;
-            findInsur = true;
+            findCust = false;            findInsur = true;
         }
-
         private void TxtPttCompCode_Enter(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            findCust = true;
-            findInsur = false;
+            findCust = true;            findInsur = false;
         }
-
         private void TxtPttDOBYear_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                //if (int.TryParse(txtPttDOBYear.Text.Trim(), out int chk))
-                //{
-                //    if (chk > DateTime.Now.Year)
-                //    {
-                //        lfSbMessage.Text = "ปีเกิด ไม่ถูกต้อง";
-                //        txtPttDOBYear.Focus();
-                //        return;
-                //    }
-                //}
-                setPttAge();
-                txtPttAge.Focus();
+                setPttAge();                txtPttAge.Focus();
             }
             else if (txtPttDOBYear.Text.Trim().Length >= 4)
             {
-                //if (int.TryParse(txtPttDOBYear.Text.Trim(), out int chk))
-                //{
-                //    if (chk > DateTime.Now.Year)
-                //    {
-                //        lfSbMessage.Text = "ปีเกิด ไม่ถูกต้อง";
-                //        txtPttDOBYear.Focus();
-                //        return;
-                //    }
-                //}
-                setPttAge();
-                txtPttNickName.SelectAll();
-                txtPttNickName.Focus();
+                setPttAge();                txtPttNickName.SelectAll();                txtPttNickName.Focus();
             }
         }
         private void setPttAge()
@@ -927,13 +940,13 @@ namespace bangna_hospital.gui
                 DateTime dtdob = new DateTime();
                 String dob = "";
                 int.TryParse(txtPttDOBYear.Text.Trim(), out int year);
-                if(year>DateTime.Now.Year)
+                if ((year <2500) && (year>DateTime.Now.Year))
                 {
                     lfSbMessage.Text = "ปีเกิด มากกว่าปีปัจจุบัน";
                     txtPttDOBYear.Focus();
                     return;
                 }
-                if ((DateTime.Now.Year - year) <120)
+                if ((DateTime.Now.Year - year) >120)
                 {
                     lfSbMessage.Text = "อายุมากกว่า 120 ปี";
                     txtPttDOBYear.Focus();
@@ -1095,23 +1108,28 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 //ถ้าเป็นคนไข้ใหม่ ต้องค้น PID อีกครั้ง
-                Patient ptt = bc.bcDB.pttDB.selectPatinetByPID(txtPttPID.Text.Trim(), "pid");
-                if (ptt.Hn.Length > 0)
-                {
-                    if (MessageBox.Show("PID มีข้อมูลแล้ว\nHN " + ptt.Hn + " " + ptt.Name + "\n ต้องการดึงข้อมูลไหม?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                    {
-                        setControlTabPateint(ptt);
-                    }
-                    else
-                    {
-                        txtPttPID.Focus();
-                    }
-                }
-                else
-                {
-                    lfSbMessage.Text = "ไม่พบ PID";
-                    txtPttDOBDD.Focus();
-                }
+                //2567-03-14  ไม่ต้อง check PID PID สามารถ ว่างได้ เพราะ ถ้าเป็นคนไข้ ต่างด้าว จะไม่มี PID
+                //if (FLAGPTTNEW)
+                //{
+                //    Patient ptt = bc.bcDB.pttDB.selectPatinetByPID(txtPttPID.Text.Trim(), "pid");
+                //    if (ptt.Hn.Length > 0)
+                //    {
+                //        if (MessageBox.Show("PID มีข้อมูลแล้ว\nHN " + ptt.Hn + " " + ptt.Name + "\n ต้องการดึงข้อมูลไหม?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                //        {
+                //            setControlTabPateint(ptt);
+                //        }
+                //        else
+                //        {
+                //            txtPttPID.Focus();
+                //        }
+                //    }
+                //    else
+                //    {
+                //        lfSbMessage.Text = "ไม่พบ PID";
+                //        txtPttSsn.Focus();
+                //    }
+                //}
+                txtPttSsn.Value = txtPttPID.Text; txtPttSsn.Focus();
                 
             }
         }
@@ -1857,6 +1875,7 @@ namespace bangna_hospital.gui
             try
             {
                 showLbLoading();
+                //clearControl();
                 lbPttinWard.Text = "";
                 lbFindPaidSSO.Text = "";
                 QUENO = "";
@@ -1893,7 +1912,7 @@ namespace bangna_hospital.gui
                 //txtPttCompCode.Value = ptt.MNC_COM_CD;
                 //txtPttInsur.Value = ptt.MNC_COM_CD2;
                 txtPttCompCode.Value = ptt.comNameT;
-                txtPttInsur.Text = ptt.insurNameT;
+                txtPttInsur.Value = ptt.insurNameT;
                 txtPttRefContact1Mobile.Value = ptt.MNC_REF_TEL;
                 txtPttMobile1.Value = ptt.MNC_CUR_TEL;
                 txtPttwp1.Value = ptt.WorkPermit1;
@@ -2210,22 +2229,12 @@ namespace bangna_hospital.gui
         private void TxtPttRemark1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                //cboPttNat.Focus();
-                txtPttRemark2.SelectAll();
-                txtPttRemark2.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttRemark2.SelectAll();                txtPttRemark2.Focus();            }
         }
         private void TxtPttAttchNote_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                //cboPttNat.Focus();
-                //txtPttRemark1.SelectAll();
-                //txtPttRemark1.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttRemark1.SelectAll();                txtPttRemark1.Focus();            }
         }
         private void CboPttMarri_DropDownClosed(object sender, DropDownClosedEventArgs e)
         {
@@ -2261,116 +2270,70 @@ namespace bangna_hospital.gui
                 {
                     txtPttInsur.Value = bc.bcDB.pm24DB.getPaidName(txtPttInsur.Text.Trim());
                 }
-                txtPttAttchNote.SelectAll();
-                txtPttAttchNote.Focus();
+                txtPttCompCode.SelectAll();
+                txtPttCompCode.Focus();
             }
-            else if (txtPttInsur.Text.Trim().Length > 3)
-            {
-                findCust = false;
-                findInsur = true;
-                //setGrfCust(txtPttInsur.Text.Trim());
-            }
-            else
-            {
-                findCust = false;
-                findInsur = true;
-            }
+            else if (txtPttInsur.Text.Trim().Length > 3) { findCust = false; findInsur = true; }
+            else { findCust = false; findInsur = true;}
         }
         private void TxtPttRefContact2Mobile_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttCompCode.SelectAll();
-                txtPttCompCode.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) { txtPttInsur.SelectAll(); txtPttInsur.Focus(); }
         }
 
         private void TxtPttRefContact2Name_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRefContact2Mobile.SelectAll();
-                txtPttRefContact2Mobile.Focus();
-            }
+            if (e.KeyCode == Keys.Enter){ txtPttRefContact2Mobile.SelectAll(); txtPttRefContact2Mobile.Focus(); }
         }
 
         private void TxtPttRefContact1Mobile_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRefContact2Name.SelectAll();
-                txtPttRefContact2Name.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) { txtPttRefContact2Name.SelectAll(); txtPttRefContact2Name.Focus();}
         }
 
         private void TxtPttRefContact1Name_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRefContact1Mobile.SelectAll();
-                txtPttRefContact1Mobile.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) { txtPttRefContact1Mobile.SelectAll(); txtPttRefContact1Mobile.Focus(); }
         }
 
         private void CboPttRefTambon_DropDownClosed(object sender, DropDownClosedEventArgs e)
         {
-            //throw new NotImplementedException();
-            //String tamboncode = cboPttIDTambon.SelectedItem == null ? "" : ((ComboBoxItem)cboPttIDTambon.SelectedItem).Value;
-            //txtPttRefPostcode.Value = bc.bcDB.pm07DB.selectPostcodeByTambon(tamboncode);
-            txtPttRefContact1Name.SelectAll();
-            txtPttRefContact1Name.Focus();
+            //throw new NotImplementedException();            
+            txtPttRefContact1Name.SelectAll();            txtPttRefContact1Name.Focus();
         }
 
         private void TxtPttRefRoad_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRefSearchTambon.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) { txtPttRefSearchTambon.Focus(); }
         }
 
         private void TxtPttRefSoi_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRefRoad.SelectAll();
-                txtPttRefRoad.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) { txtPttRefRoad.SelectAll(); txtPttRefRoad.Focus(); }
         }
 
         private void TxtPttRefMoo_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRefSoi.SelectAll();
-                txtPttRefSoi.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) { txtPttRefSoi.SelectAll(); txtPttRefSoi.Focus();}
         }
 
         private void TxtPttRefHomeNo_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRefMoo.SelectAll();
-                txtPttRefMoo.Focus();
-            }
+            if (e.KeyCode == Keys.Enter){ txtPttRefMoo.SelectAll(); txtPttRefMoo.Focus();}
         }
 
         private void CboPttCurTambon_DropDownClosed(object sender, DropDownClosedEventArgs e)
         {
             //throw new NotImplementedException();
-            //String tamboncode = cboPttIDTambon.SelectedItem == null ? "" : ((ComboBoxItem)cboPttIDTambon.SelectedItem).Value;
-            //txtPttCurPostcode.Value = bc.bcDB.pm07DB.selectPostcodeByTambon(tamboncode);
-            txtPttRefHomeNo.SelectAll();
-            txtPttRefHomeNo.Focus();
+            txtPttRefHomeNo.SelectAll();            txtPttRefHomeNo.Focus();
         }
 
         private void BtnRptExcel_Click(object sender, EventArgs e)
@@ -2680,40 +2643,25 @@ namespace bangna_hospital.gui
         private void TxtPttCurRoad_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttCurSearchTambon.Focus();
-            }
+            if (e.KeyCode == Keys.Enter){ txtPttCurSearchTambon.Focus(); }
         }
 
         private void TxtPttCurSoi_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttCurRoad.SelectAll();
-                txtPttCurRoad.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) { txtPttCurRoad.SelectAll(); txtPttCurRoad.Focus(); }
         }
 
         private void TxtPttCurMoo_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttCurSoi.SelectAll();
-                txtPttCurSoi.Focus();
-            }
+            if (e.KeyCode == Keys.Enter) {                txtPttCurSoi.SelectAll();                txtPttCurSoi.Focus();            }
         }
 
         private void TxtPttCurHomeNo_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttCurMoo.SelectAll();
-                txtPttCurMoo.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttCurMoo.SelectAll();                txtPttCurMoo.Focus();            }
         }
         private void TxtPttIDRoad_KeyUp(object sender, KeyEventArgs e)
         {
@@ -2724,123 +2672,74 @@ namespace bangna_hospital.gui
         private void TxtPttIDSoi_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttIDRoad.SelectAll();
-                txtPttIDRoad.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttIDRoad.SelectAll();                txtPttIDRoad.Focus();            }
         }
 
         private void TxtPttIDMoo_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttIDSoi.SelectAll();
-                txtPttIDSoi.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttIDSoi.SelectAll();                txtPttIDSoi.Focus();            }
         }
 
         private void TxtPttIDHomeNo_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttIDMoo.SelectAll();
-                txtPttIDMoo.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttIDMoo.SelectAll();                txtPttIDMoo.Focus();            }
         }
 
         private void TxtPttEmail_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttIDHomeNo.SelectAll();
-                txtPttIDHomeNo.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttIDHomeNo.SelectAll();                txtPttIDHomeNo.Focus();            }
         }
 
         private void TxtPttMobile2_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttRef1.SelectAll();
-                txtPttRef1.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttRef1.SelectAll();                txtPttRef1.Focus();            }
         }
 
         private void TxtPttMobile1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttMobile2.SelectAll();
-                txtPttMobile2.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttMobile2.SelectAll();                txtPttMobile2.Focus();            }
         }
 
         private void TxtPttPassport_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttPassportOld.SelectAll();
-                txtPttPassportOld.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttPassportOld.SelectAll();                txtPttPassportOld.Focus();            }
         }
 
         private void TxtPttSsn_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttPassport.SelectAll();
-                txtPttPassport.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttPassport.SelectAll();                txtPttPassport.Focus();            }
         }
         private void TxtPttSurNameE_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttPID.SelectAll();
-                txtPttPID.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttPID.SelectAll();                txtPttPID.Focus();            }
         }
         private void TxtPttNameE_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttSurNameE.SelectAll();
-                txtPttSurNameE.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttSurNameE.SelectAll();                txtPttSurNameE.Focus();            }
         }
         private void TxtPttSurNameT_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttNameE.SelectAll();
-                txtPttNameE.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttNameE.SelectAll();                txtPttNameE.Focus();            }
         }
         private void CboPttPrefixT_DropDownClosed(object sender, C1.Win.C1Input.DropDownClosedEventArgs e)
         {
             //throw new NotImplementedException();
-            txtPttNameT.SelectAll();
-            txtPttNameT.Focus();
+            txtPttNameT.SelectAll();            txtPttNameT.Focus();
         }
         private void TxtPttNameT_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtPttSurNameT.SelectAll();
-                txtPttSurNameT.Focus();
-            }
+            if (e.KeyCode == Keys.Enter)            {                txtPttSurNameT.SelectAll();                txtPttSurNameT.Focus();            }
         }
         private void TxtPttCompCode_KeyUp(object sender, KeyEventArgs e)
         {
@@ -2851,8 +2750,8 @@ namespace bangna_hospital.gui
                 {
                     txtPttCompCode.Value = bc.bcDB.pm24DB.getPaidName(txtPttCompCode.Text.Trim());
                 }
-                txtPttInsur.SelectAll();
-                txtPttInsur.Focus();
+                txtPttAttchNote.SelectAll();
+                txtPttAttchNote.Focus();
             }
             else if (txtPttCompCode.Text.Trim().Length > 3)
             {
@@ -2894,180 +2793,92 @@ namespace bangna_hospital.gui
         private void BtnSrcNew_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            FLAGPTTNEW = true;
             setControlPatientNew();
 
         }
         private void setControlPatientNew()
         {
-            clearControl();
-            tC.SelectedTab = tabPtt;
-            txtPttPID.SelectAll();
-            txtPttPID.Focus();
+            clearControl();            tC.SelectedTab = tabPtt;            txtPttPID.SelectAll();            txtPttPID.Focus();
         }
         private void setCboTheme()
         {
             cboTheme.Items.Clear();
             String[] themes = C1ThemeController.GetThemes();
-            foreach (String txt in themes)
-            {
-                cboTheme.Items.Add(txt);
-            }
+            foreach (String txt in themes)            {                cboTheme.Items.Add(txt);            }
             cboTheme.SelectedText = "Office2010Red";
             
         }
         private void setTheme(String theme)
         {
-            theme1.SetTheme(this,theme);//pnSrcTop
-            theme1.SetTheme(groupBox1, "Office2010Green");
-            theme1.SetTheme(groupBox2, "BeigeOne");
-            theme1.SetTheme(groupBox3, "Office2010Barbie");
+            theme1.SetTheme(this,theme);/*pnSrcTop*/            theme1.SetTheme(groupBox1, "Office2010Green");            theme1.SetTheme(groupBox2, "BeigeOne");            theme1.SetTheme(groupBox3, "Office2010Barbie");
             //theme1.SetTheme(groupBox5, bc.iniC.themeApp);Office2007Blue
             //theme1.SetTheme(groupBox6, bc.iniC.themeApp);Office2010Green
             //theme1.SetTheme(groupBox4, "Office2010Barbie");//RainerOrange
             //theme1.SetTheme(pnPttComp, bc.iniC.themeApp);Office2010Silver
             //theme1.SetTheme(groupBox6, bc.iniC.themeApp);c1StatusBar1
-            theme1.SetTheme(sCPtt, theme);
-            theme1.SetTheme(c1StatusBar1, bc.iniC.themeApp);
-            foreach (Control c in pnPttPatient.Controls) if (c is C1TextBox) theme1.SetTheme(c, bc.iniC.themeApp);
-            foreach (Control c in groupBox1.Controls)
-            {
-                if (c is C1TextBox) theme1.SetTheme(c, "Office2010Green");
-                else if(c is Label) theme1.SetTheme(c, "Office2010Green");
-            }
-            foreach (Control c in groupBox2.Controls)
-            {
-                if (c is C1TextBox) theme1.SetTheme(c, "BeigeOne");
-                else if (c is Label) theme1.SetTheme(c, "BeigeOne");
-            }
-            foreach (Control c in groupBox3.Controls)
-            {
-                if (c is C1TextBox) theme1.SetTheme(c, "Office2010Barbie");
-                else if (c is Label) theme1.SetTheme(c, "Office2010Barbie");
-            }
-            foreach (Control c in groupBox5.Controls)
-            {
-                if (c is C1TextBox)theme1.SetTheme(c, bc.iniC.themeApp);
-            }
-            foreach (Control c in groupBox6.Controls)
-            {
-                if (c is C1TextBox) theme1.SetTheme(c, bc.iniC.themeApp);
-            }
-            theme1.SetTheme(btnPttSave, bc.iniC.themeApp);
-            theme1.SetTheme(btnPttVisit, bc.iniC.themeApp);
-            theme1.SetTheme(btnPttCardRead, bc.iniC.themeApp);
-            theme1.SetTheme(btnPttIdCopyto, bc.iniC.themeApp);
-            theme1.SetTheme(btnPttCurCopyto, bc.iniC.themeApp);
+            theme1.SetTheme(sCPtt, theme);            theme1.SetTheme(c1StatusBar1, bc.iniC.themeApp);
+            foreach (Control c in pnPttPatient.Controls) if (c is C1TextBox) { theme1.SetTheme(c, bc.iniC.themeApp); } else if (c is C1Button) { theme1.SetTheme(c, bc.iniC.themeApp); }
+            foreach (Control c in groupBox1.Controls){                if (c is C1TextBox) theme1.SetTheme(c, "Office2010Green");                else if(c is Label) theme1.SetTheme(c, "Office2010Green");}
+            foreach (Control c in groupBox2.Controls){                if (c is C1TextBox) theme1.SetTheme(c, "BeigeOne");                else if (c is Label) theme1.SetTheme(c, "BeigeOne");}
+            foreach (Control c in groupBox3.Controls){                if (c is C1TextBox) theme1.SetTheme(c, "Office2010Barbie");                else if (c is Label) theme1.SetTheme(c, "Office2010Barbie");}
+            foreach (Control c in groupBox5.Controls){                if (c is C1TextBox)theme1.SetTheme(c, bc.iniC.themeApp);}
+            foreach (Control c in groupBox6.Controls){                if (c is C1TextBox) theme1.SetTheme(c, bc.iniC.themeApp);            }
+            theme1.SetTheme(btnPttSave, bc.iniC.themeApp);            theme1.SetTheme(btnPttVisit, bc.iniC.themeApp);            theme1.SetTheme(btnPttCardRead, bc.iniC.themeApp);
+            theme1.SetTheme(btnPttIdCopyto, bc.iniC.themeApp);            theme1.SetTheme(btnPttCurCopyto, bc.iniC.themeApp);
 
-            foreach (Control c in pnVsVisit.Controls)
-            {
-                if (c is C1TextBox)
-                {
-                    theme1.SetTheme(c, "RainerOrange");
-                }
-            }
+            foreach (Control c in pnVsVisit.Controls){                if (c is C1TextBox)                {                    theme1.SetTheme(c, "RainerOrange");                }}
             theme1.SetTheme(btnVsSave, "RainerOrange");
+            //theme1.SetTheme(btnPttPaid, bc.iniC.themeApp);
         }
         private void clearControl()
         {
             String err = "";
             try
             {
-                txtPttHn.Value = "";
-                txtPttDOB.Value = "";
-                cboPttPrefixT.SelectedIndex = 0;
-                txtPttNameT.Value = "";
-                txtPttSurNameT.Value = "";
-                txtPttAge.Value = "";
-                cboPttPrefixE.SelectedIndex = 0;
-                txtPttNameE.Value = "";
-                txtPttSurNameE.Value = "";
-                txtPttPID.Value = "";
-                txtPttSsn.Value = "";
-                txtPttPassport.Value = "";
-                txtPttMobile1.Value = "";
-                txtPttMobile2.Value = "";
-                txtPttEmail.Value = "";
-                txtPttIDHomeNo.Value = "";
-                txtPttIDMoo.Value = "";
-                txtPttIDSoi.Value = "";
-                txtPttIDRoad.Value = "";
-                txtPttIDPostcode.Value = "";
+                txtPttHn.Value = "";                txtPttDOB.Value = "";                cboPttPrefixT.SelectedIndex = 0;                txtPttNameT.Value = "";
+                txtPttSurNameT.Value = "";                txtPttAge.Value = "";                cboPttPrefixE.SelectedIndex = 0;                txtPttNameE.Value = "";
+                txtPttSurNameE.Value = "";                txtPttPID.Value = "";                txtPttSsn.Value = "";                txtPttPassport.Value = "";
+                txtPttMobile1.Value = "";                txtPttMobile2.Value = "";                txtPttEmail.Value = "";                txtPttIDHomeNo.Value = "";
+                txtPttIDMoo.Value = "";                txtPttIDSoi.Value = "";                txtPttIDRoad.Value = "";                txtPttIDPostcode.Value = "";
 
-                txtPttIdSearchTambon.Value = "";
-                txtPttIdAmp.Value = "";
-                txtPttIdChw.Value = "";
-                txtPttCurHomeNo.Value = "";
-                txtPttCurMoo.Value = "";
-                txtPttCurSoi.Value = "";
-                txtPttCurRoad.Value = "";
-                txtPttCurSearchTambon.Value = "";
-                txtPttCurAmp.Value = "";
-                txtPttCurChw.Value = "";
-                txtPttCurPostcode.Value = "";
-                txtPttRefHomeNo.Value = "";
-                txtPttRefMoo.Value = "";
-                txtPttRefSoi.Value = "";
-                txtPttRefRoad.Value = "";
-                txtPttRefSearchTambon.Value = "";
-                txtPttRefAmp.Value = "";
-                txtPttRefChw.Value = "";
-                txtPttRefPostcode.Value = "";
-                txtPttRefContact1Name.Value = "";
-                txtPttRefContact2Name.Value = "";
-                txtPttRefContact1Mobile.Value = "";
-                txtPttRefContact2Mobile.Value = "";
-                txtPttRefContact1Rel.Value = "";
-                txtPttRefContact2Rel.Value = "";
-                txtPttCompCode.Value = "";
+                txtPttIdSearchTambon.Value = "";                txtPttIdAmp.Value = "";                txtPttIdChw.Value = "";                txtPttCurHomeNo.Value = "";
+                txtPttCurMoo.Value = "";                txtPttCurSoi.Value = "";                txtPttCurRoad.Value = "";                txtPttCurSearchTambon.Value = "";
+                txtPttCurAmp.Value = "";                txtPttCurChw.Value = "";                txtPttCurPostcode.Value = "";                txtPttRefHomeNo.Value = "";
+                txtPttRefMoo.Value = "";                txtPttRefSoi.Value = "";                txtPttRefRoad.Value = "";                txtPttRefSearchTambon.Value = "";
+                txtPttRefAmp.Value = "";                txtPttRefChw.Value = "";                txtPttRefPostcode.Value = "";                txtPttRefContact1Name.Value = "";
+                txtPttRefContact2Name.Value = "";                txtPttRefContact1Mobile.Value = "";                txtPttRefContact2Mobile.Value = "";                txtPttRefContact1Rel.Value = "";
+                txtPttRefContact2Rel.Value = "";                txtPttCompCode.Value = "";
+                txtPttDOBDD.Value = ""; txtPttDOBMM.Value = ""; txtPttDOBYear.Value = "";
                 //lbPttCompNameT.Text = "";
                 cboPttNat.SelectedIndex = 0;
                 cboPttRace.SelectedIndex = 0;   //เชื้อชาติ
                 cboPttEdu.SelectedIndex = 0;
                 cboPttRel.SelectedIndex = 0;    //ศาสนา
-                cboPttMarri.SelectedIndex = 0;
-                txtPttAttchNote.Value = "";
-                txtPttRemark1.Value = "";
-                txtPttRemark2.Value = "";
-                lbFindPaidSSO.Text = "";
-                txtPttIdSearchTambon.Value = "";
+                cboPttMarri.SelectedIndex = 0;                txtPttAttchNote.Value = "";                txtPttRemark1.Value = "";                txtPttRemark2.Value = "";
+                lbFindPaidSSO.Text = "";                txtPttIdSearchTambon.Value = "";
+
                 if (grfPttComp != null) grfPttComp.Rows.Count = 1;
                 if (grfPttVs != null) grfPttVs.Rows.Count = 1;
                 if (grfPttApm != null) grfPttApm.Rows.Count = 1;
                 if (grfVsPttVisit != null) grfVsPttVisit.Rows.Count = 1;
 
-                txtPttwp1.Value = "";
-                txtPttwp2.Value = "";
-                txtPttwp3.Value = "";
-                txtPttInsur.Value = "";
+                txtPttwp1.Value = "";                txtPttwp2.Value = "";                txtPttwp3.Value = "";                txtPttInsur.Value = "";
                 //lbPttInsurNameT.Text = "";
                 m_picPhoto.Image = null;
 
-                txtVsHN.Value = "";
-                lbVsPttNameT.Text = "";
-                lbVsPttNameE.Text = "";
-                txtVsPaidCode.Value = "";
-                cboVsDept.SelectedIndex = 0;
-                txtVsRemark.Value = "";
-                txtVsNote.Value = "";
-                cboVsDtr.SelectedIndex = 0;
+                txtVsHN.Value = "";                lbVsPttNameT.Text = "";                lbVsPttNameE.Text = "";                txtVsPaidCode.Value = "";
+                cboVsDept.SelectedIndex = 0;                txtVsRemark.Value = "";                txtVsNote.Value = "";                cboVsDtr.SelectedIndex = 0;
                 
-                cboVsType.SelectedItem = itemVsType;
-                picVsPtt.Image = null;
+                cboVsType.SelectedItem = itemVsType;                picVsPtt.Image = null;
                 //cboVsType.Text = "";
                 CHWCODE = ""; AMPCODE = ""; TAMBONCODE = ""; VSDATE = ""; PRENO = ""; QUENO = "";
                 
-                
-                lfSbStatus.Text = "";
-                lfSbMessage.Text = "";
+                lfSbStatus.Text = "";                lfSbMessage.Text = "";
 
-                picVsPtt.Image = null;
-                txtVsPttAttchNote.Value = "";
-                txtVsPttRemark1.Value = "";
-                txtVsPttRemark2.Value = "";
-                lbVsPaidNameT.Text = "...";
-                lbVsStatus.Text = "";
-                lbPttinWard.Text = "";
-                clearTxtUser();
+                picVsPtt.Image = null;                txtVsPttAttchNote.Value = "";                txtVsPttRemark1.Value = "";                txtVsPttRemark2.Value = "";
+                lbVsPaidNameT.Text = "...";                lbVsStatus.Text = "";                lbPttinWard.Text = "";                clearTxtUser();
+                txtPttRef1.Value = ""; txtPttPassportOld.Value = "";
             }
             catch(Exception ex)
             {
@@ -3252,7 +3063,6 @@ namespace bangna_hospital.gui
             pnWard.Controls.Add(grfWard);
             theme1.SetTheme(grfWard, "Office2010Blue");
         }
-
         private void GrfWard_KeyDown(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3264,7 +3074,6 @@ namespace bangna_hospital.gui
                 Clipboard.SetText(txt);
             }
         }
-
         private void setGrfWard()
         {
             DataTable dtvs = new DataTable();
@@ -3288,43 +3097,6 @@ namespace bangna_hospital.gui
                 rowa[0] = i.ToString();
                 i++;
             }
-        }
-        private void initGrfCust()
-        {
-            //grfCust = new C1FlexGrid();
-            //grfCust.Font = fEdit;
-            //grfCust.Dock = System.Windows.Forms.DockStyle.Fill;
-            //grfCust.Location = new System.Drawing.Point(0, 0);
-            //grfCust.Rows.Count = 1;
-            //grfCust.Cols.Count = 3;
-
-            //grfCust.Cols[colgrfCustCode].Width = 100;
-            //grfCust.Cols[colgrfCustName].Width = 300;
-            //grfCust.ShowCursor = true;
-            //grfCust.Cols[colgrfCustCode].Caption = "code1";
-            //grfCust.Cols[colgrfCustName].Caption = "name1";
-
-            //grfCust.Cols[colgrfCustCode].Visible = false;
-            //grfCust.Cols[colgrfCustName].Visible = true;
-            //grfCust.Rows[0].Visible = false;
-
-            //grfCust.Cols[colgrfCustName].AllowEditing = false;
-            //grfCust.Click += GrfCust_Click;
-            ////grfPttComp.AllowFiltering = true;            
-            ////grfSrc.AutoSizeCols();
-            ////FilterRow fr = new FilterRow(grfExpn);
-
-            ////grfHn.AfterRowColChange += GrfHn_AfterRowColChange;
-            ////grfVs.row
-            ////grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
-            ////grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
-
-            ////menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
-            ////menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
-            ////menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
-
-            //pnPttComp.Controls.Add(grfCust);
-            //theme1.SetTheme(grfCust, bc.iniC.themeApp);
         }
         private void initGrfVsPttVisit()
         {
@@ -3412,17 +3184,6 @@ namespace bangna_hospital.gui
                 Clipboard.SetText(txt);
             }
         }
-        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        //{
-        //    switch (keyData)
-        //    {
-        //        case Keys.C | Keys.Control:
-        //            ctl = GetFocusedControl();
-        //            txt = ctl.Text;
-        //            Clipboard.SetText(txt);
-        //    }
-        //    return base.ProcessCmdKey(ref msg, keyData);
-        //}
         private void GrfVsPttVisit_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3583,11 +3344,19 @@ namespace bangna_hospital.gui
             grfToday.AllowFiltering = true;
             grfToday.DoubleClick += GrfToday_DoubleClick;
             grfToday.KeyDown += GrfToday_KeyDown;
-
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("ดูประวัติ Patient", new EventHandler(ContextMenu_PatientHistory));
+            grfToday.ContextMenu = menuGw;
             pnTabTotay.Controls.Add(grfToday);
             theme1.SetTheme(grfToday, bc.iniC.themeApp);
         }
-
+        private void ContextMenu_PatientHistory(object sender, System.EventArgs e)
+        {
+            if (grfToday.Row <= 0) return;
+            if (grfToday.Col <= 0) return;
+            Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(grfToday[grfToday.Row, colgrfPttVsHn].ToString());
+            openNewForm(grfToday[grfToday.Row, colgrfPttVsHn].ToString(), grfToday[grfToday.Row, colgrfPttVsFullNameT].ToString(), ref ptt);
+        }
         private void GrfToday_KeyDown(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3632,7 +3401,8 @@ namespace bangna_hospital.gui
         }
         private void setGrfToday()
         {
-            DateTime datestart = DateTime.Now;
+            
+            DateTime datestart = rbDateSearch.Value;
             String time="";
             DataTable dtvs = new DataTable();
             dtvs = bc.bcDB.vsDB.selectVisitByHn("", datestart.Year.ToString() + datestart.ToString("-MM-dd"), datestart.Year.ToString() + datestart.ToString("-MM-dd"));
@@ -3671,6 +3441,18 @@ namespace bangna_hospital.gui
                 else if (row1["MNC_ACT_NO"].ToString().Equals("500")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#FFB996"); }//รอรับยา
                 else if (row1["MNC_ACT_NO"].ToString().Equals("610")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EEE7DA"); }//รับชำระเงินแล้ว
                 i++;
+            }
+        }
+        private void openNewForm(String hn, String txt, ref Patient ptt)
+        {
+            //showFormWaiting();
+            FrmPatient frm;
+            if (ptt != null)
+            {
+                frm = new FrmPatient(bc, "", ref ptt);
+                frm.FormBorderStyle = FormBorderStyle.FixedSingle;
+                frm.WindowState = FormWindowState.Maximized;
+                frm.ShowDialog(this);
             }
         }
         private void initGrfApm()
@@ -3857,8 +3639,8 @@ namespace bangna_hospital.gui
             grfPttVs.Dock = System.Windows.Forms.DockStyle.Fill;
             grfPttVs.Location = new System.Drawing.Point(0, 0);
             grfPttVs.Rows.Count = 1;
-            grfPttVs.Cols.Count = 26;
-            
+            grfPttVs.Cols.Count = 28;
+            grfPttVs.Cols[colgrfPttVsStatusVisit].Width = 25;
             grfPttVs.Cols[colgrfPttVsVsDateShow].Width = 90;
             grfPttVs.Cols[colgrfPttVsVsTime].Width = 50;
             grfPttVs.Cols[colgrfPttVsDiscDateShow].Width = 90;
@@ -3872,6 +3654,7 @@ namespace bangna_hospital.gui
             grfPttVs.Cols[colgrfPttVsAN].Width = 80;
             grfPttVs.Cols[colgrfPttVsActno].Width = 80;
             grfPttVs.Cols[colgrfPttVsRemark].Width = 300;
+            grfPttVs.Cols[colgrfPttVsdtrName].Width = 300;
             grfPttVs.ShowCursor = true;
             grfPttVs.Cols[colgrfPttVsVsDateShow].Caption = "date(เข้า)";
             grfPttVs.Cols[colgrfPttVsVsTime].Caption = "time(เข้า)";
@@ -3888,6 +3671,7 @@ namespace bangna_hospital.gui
             grfPttVs.Cols[colgrfPttVsPaid].Caption = "รักษาด้วยสิทธิ";
             grfPttVs.Cols[colgrfPttVsActno].Caption = "";
             grfPttVs.Cols[colgrfPttVsRemark].Caption = "หมายเหตุ";
+            grfPttVs.Cols[colgrfPttVsdtrName].Caption = "แพทย์";
             grfPttVs.Cols[colgrfPttVsRemark].DataType = typeof(String);
             grfPttVs.Cols[colgrfPttVsVsTime].TextAlign = TextAlignEnum.CenterCenter;
             grfPttVs.Cols[colgrfPttVsPaid].TextAlign = TextAlignEnum.CenterCenter;
@@ -3931,7 +3715,8 @@ namespace bangna_hospital.gui
             grfPttVs.Cols[colgrfPttVsRemark].AllowEditing = false;
             grfPttVs.Cols[colgrfPttVsDiscDateShow].AllowEditing = false;
             grfPttVs.Cols[colgrfPttVsDiscTime].AllowEditing = false;
-            //FilterRow fr = new FilterRow(grfExpn);
+            grfPttVs.Cols[colgrfPttVsStatusVisit].AllowEditing = false;
+            grfPttVs.Cols[colgrfPttVsdtrName].AllowEditing = false;
 
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("ตรวจสถานะ visit", new EventHandler(ContextMenu_GrfPttVsStatusVisit));
@@ -3993,6 +3778,7 @@ namespace bangna_hospital.gui
             foreach (DataRow row1 in dtvs.Rows)
             {
                 Row rowa = grfPttVs.Rows[i];
+                rowa[colgrfPttVsStatusVisit] = row1["MNC_PAT_FLAG"].ToString().Equals("I")?"A":"";//ปชส ต้องการ ให้ admit แสดงเป็น A ถ้า OPD ไม่ต้องแสดง
                 rowa[colgrfPttVsVsDateShow] = bc.datetoShowShort(row1["mnc_date"].ToString());
                 rowa[colgrfPttVsHn] = row1["MNC_HN_NO"].ToString();
                 rowa[colgrfPttVsFullNameT] = row1["ptt_fullnamet"].ToString();
@@ -4006,9 +3792,10 @@ namespace bangna_hospital.gui
                 rowa[colgrfPttVsRemark] = row1["MNC_REF_DSC"].ToString();
                 rowa[colgrfPttVsVsTime] = bc.showTime(row1["MNC_TIME"].ToString());
                 rowa[colgrfPttVsVsDate1] = row1["mnc_date"].ToString();
-                rowa[colgrfPttVsDiscDateShow] = bc.datetoShowShort(row1["MNC_DS_DATE"].ToString());
-                rowa[colgrfPttVsDiscTime] = bc.showTime(row1["MNC_DS_TIME"].ToString());
+                rowa[colgrfPttVsDiscDateShow] = row1["MNC_AN_NO"].ToString().Equals("0") ? bc.datetoShowShort(row1["MNC_DOC_DAT"].ToString()) : bc.datetoShowShort(row1["MNC_DS_DATE"].ToString());
+                rowa[colgrfPttVsDiscTime] = row1["MNC_AN_NO"].ToString().Equals("0") ? bc.showTime(row1["MNC_DOC_TIM"].ToString()) : bc.showTime(row1["MNC_DS_TIME"].ToString());
                 rowa[colgrfPttVsLimitCreditNo] = row1["limit_credit_no"].ToString();
+                rowa[colgrfPttVsdtrName] = row1["MNC_AN_NO"].ToString().Equals("0") ? row1["dtr_name"].ToString() : row1["dtr_nameipd"].ToString();
                 if (!row1["MNC_AN_NO"].ToString().Equals("0")) {rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);}
                 if (row1["limit_credit_no"].ToString().Length > 0)
                 {
@@ -4215,20 +4002,20 @@ namespace bangna_hospital.gui
         {
             showLbLoading();
             wanttoSave = false;
-            lfSbStatus.Text = "";
-            lfSbMessage.Text = "";
-            lbPttinWard.Text = "";
-            lbFindPaidSSO.Text = "";
-            QUENO = "";
+            lfSbStatus.Text = "";            lfSbMessage.Text = "";            lbPttinWard.Text = "";            lbFindPaidSSO.Text = "";            QUENO = "";
             try
             {
                 setLbLoading("patient tab01");
+                clearControl();
                 m_picPhoto.Image = null;
                 DateTime dob = new DateTime();
                 DateTime.TryParse(ptt.MNC_BDAY, out dob);
                 dob = dob.AddYears(543);
                 txtPttHn.Value = ptt.Hn;
                 txtPttDOB.Value = dob;
+                txtPttDOBDD.Value = dob.ToString("dd");
+                txtPttDOBMM.Value = dob.ToString("MM");
+                txtPttDOBYear.Value = (dob.Year+543).ToString();
                 bc.setC1Combo(cboPttPrefixT, ptt.MNC_PFIX_CDT);
                 txtPttNameT.Value = ptt.MNC_FNAME_T;
                 txtPttSurNameT.Value = ptt.MNC_LNAME_T;
@@ -4322,10 +4109,7 @@ namespace bangna_hospital.gui
         }
         private void clearTxtUser()
         {
-            txtVsUser.Value = "";
-            lbVsUser.Text = "";
-            lbPttUser.Text = "";
-            txtPttUser.Value = "";
+            txtVsUser.Value = "";            lbVsUser.Text = "";            lbPttUser.Text = "";            txtPttUser.Value = "";
         }
         private void GrfApm_DoubleClick(object sender, EventArgs e)
         {
@@ -4474,19 +4258,15 @@ namespace bangna_hospital.gui
         }
         private void setLbLoading(String txt)
         {
-            lbLoading.Text = txt;
-            Application.DoEvents();
+            lbLoading.Text = txt;            Application.DoEvents();
         }
         private void showLbLoading()
         {
-            lbLoading.Show();
-            lbLoading.BringToFront();
-            Application.DoEvents();
+            lbLoading.Show();            lbLoading.BringToFront();            Application.DoEvents();
         }
         private void hideLbLoading()
         {
-            lbLoading.Hide();
-            Application.DoEvents();
+            lbLoading.Hide();            Application.DoEvents();
         }
         private void setTabIndex()
         {
@@ -4637,9 +4417,7 @@ namespace bangna_hospital.gui
                 //appExit();
                 if (MessageBox.Show("ต้องการออกจากโปรแกรม1", "ออกจากโปรแกรม", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
-                    
-                    Close();
-                    return true;
+                    Close();                    return true;
                 }
             }
             else if (keyData == (Keys.F1))
@@ -4675,7 +4453,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-03-05-2";
+            lfSbLastUpdate.Text = "Update 2567-03-15-4";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -4688,6 +4466,7 @@ namespace bangna_hospital.gui
             sCPtt.HeaderHeight = 0;
             scVs.HeaderHeight = 0;
             spSSO.HeaderHeight = 0;
+            
             txtSrcHn.Focus();
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             rbSbPb.Visible = false;
@@ -4714,8 +4493,8 @@ namespace bangna_hospital.gui
             txtPttPaid.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtPttPaid.AutoCompleteCustomSource = autoPaid;
 
-            AutoCompleteStringCollection autoInsur = new AutoCompleteStringCollection();
-            autoInsur = bc.bcDB.pm24DB.setAutoInsur();
+            autoInsur = new AutoCompleteStringCollection();
+            autoInsur = bc.bcDB.pm24DB.setAutoInsur(false);
             txtVsInsur.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtVsInsur.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtVsInsur.AutoCompleteCustomSource = autoInsur;
@@ -4724,18 +4503,20 @@ namespace bangna_hospital.gui
             txtPttInsur.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtPttInsur.AutoCompleteCustomSource = autoInsur;
 
-            AutoCompleteStringCollection autoComp = new AutoCompleteStringCollection();
-            autoComp = bc.bcDB.pm24DB.getlPaid1();
+            autoComp = new AutoCompleteStringCollection();
+            autoComp = bc.bcDB.pm24DB.getlPaid1(false);
             txtVsComp.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtVsComp.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtVsComp.AutoCompleteCustomSource = autoComp;
             txtPttCompCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtPttCompCode.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtPttCompCode.AutoCompleteCustomSource = autoComp;
+            txtPttCompCode.AutoCompleteCustomSource = autoComp; //txtPttInsur 
 
             groupBox5.Height = 390;
             pnPttComp.Height = 220;
-            pnPttPatient.SizeRatio = 60;
+            pnPttPatient.SizeRatio = 50;
+            rgSbUser.Text = bc.user.fullname;
+            rbDateSearch.Value = DateTime.Now;
         }
     }
 }

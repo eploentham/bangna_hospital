@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static C1.Win.C1Preview.Strings;
 
 namespace bangna_hospital.gui
 {
@@ -67,9 +68,18 @@ namespace bangna_hospital.gui
             btnImportDfGen.Click += BtnImportDfGen_Click;
             btnRpt1.Click += BtnRpt1_Click;
             btnRptPrint.Click += BtnRptPrint_Click;
+            txtSearch.KeyUp += TxtSearch_KeyUp;
             setControlTabImp();
             setControlRpt5();
             RPTNAME = "05";
+        }
+        private void TxtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                grfImp.ApplySearch(txtSearch.Text.Trim(), true, true, false);
+            }
         }
         private void setControlRpt5()
         {
@@ -165,24 +175,33 @@ namespace bangna_hospital.gui
                 setReport05();
             }
         }
+        class DTRgrp
+        {
+            public String dtrcode = "";
+            public float amtIN02 = 0, amtIN45 = 0, amtINcredit = 0, cntIN02 = 0, cntIN45 = 0, cntINcredit = 0, amtOUT02 = 0, amtOUT45 = 0, amtOUTcredit = 0, cntOUT02 = 0, cntOUT45 = 0, cntOUTcredit = 0;
+        }
         private void setReport05()
         {
             DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
-            if (dtapmstart.Year < 1900)
-            {
-                dtapmstart.AddYears(543);
-            }
+            if (dtapmstart.Year < 1900)            {                dtapmstart.AddYears(543);            }
             DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
-            if (dtapmend.Year < 1900)
-            {
-                dtapmend.AddYears(543);
-            }
+            if (dtapmend.Year < 1900)            {                dtapmend.AddYears(543);            }
             String dtrcode = "";
             dtrcode = Chk1All.Checked ? "" : cboRpt1.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt1.SelectedItem).Value.ToString();
             DTRPT = bc.bcDB.dfdDB.SelectByDFdate(dtapmstart.Year.ToString() + "-" + dtapmstart.ToString("MM-dd"), dtapmend.Year.ToString() + "-" + dtapmend.ToString("MM-dd"), dtrcode);
-            int i = 1;
+            int i = 0;
+            float amtIN02 = 0, amtIN45 = 0, amtINcredit = 0, cntIN02 = 0, cntIN45 = 0, cntINcredit = 0,amtOUT02 = 0, amtOUT45 = 0, amtOUTcredit = 0, cntOUT02 = 0, cntOUT45 = 0, cntOUTcredit = 0;
+            List<DTRgrp> ldtrgrp;
+            StringBuilder sbdtrcode = new StringBuilder();
+            ldtrgrp = new List<DTRgrp>();
+            Boolean flagNewGrp=false;
             foreach (DataRow drow in DTRPT.Rows)
             {
+                if (i == 0)
+                {
+                    sbdtrcode.Append(drow["MNC_DOT_CD_DF"].ToString());
+                }
+                String paidcode = "";
                 drow["row_number"] = i++;
                 drow["paid_name"] = drow["paid_name"].ToString().Replace("ประกันสังคม (บ.5)", "ปกส5").Replace("บริษัทประกัน", "ประกัน").Replace("ประกันสังคมอิสระ (บ.5)", "ปกต5").Replace("ประกันสังคม (บ.2)", "ปกส2")
                     .Replace("ประกันสังคมอิสระ (บ.1)", "ปกต1").Replace("ประกันสังคม (บ.1)", "ปกส1").Replace("ประกันสังคมอิสระ (บ.2)", "ปกต2").Replace("ตรวจสุขภาพ (เงินสด)", "ตส.เงินสด").Replace("ตรวจสุขภาพ (บริษัท)", "ตส.บริษัท")
@@ -190,6 +209,98 @@ namespace bangna_hospital.gui
                 drow["PAY_TYPE"] = drow["PAY_TYPE"].ToString().Replace("2", "บาท").Replace("1", "%");
                 drow["DF_DATE_show"] = bc.datetoShow1(drow["DF_DATE"].ToString());
                 drow["FN_DATE_show"] = bc.datetoShow1(drow["FN_DAT"].ToString());
+                paidcode = drow["MNC_FN_TYP_CD"].ToString();
+                if (drow["MNC_DOT_CD_DF"].ToString().Equals(sbdtrcode.ToString()))
+                {
+                    flagNewGrp = false;
+                    if (drow["DF_GRP"].ToString().Equals("1"))//ในเวลา
+                    {
+                        if (drow["MNC_FN_TYP_CD"].ToString().Equals("02")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN02 += dfamt; cntIN02++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("44")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("45")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("46")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("47")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("48")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("49")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("72")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtINcredit += dfamt; cntINcredit++; }
+                    }
+                    else
+                    {
+                        if (drow["MNC_FN_TYP_CD"].ToString().Equals("02")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT02 += dfamt; cntOUT02++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("44")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("45")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("46")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("47")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("48")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("49")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("72")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUTcredit += dfamt; cntOUTcredit++; }
+                    }
+                    flagNewGrp = false;
+                }
+                else
+                {
+                    DTRgrp dtrgrp = new DTRgrp();
+                    dtrgrp.dtrcode = sbdtrcode.ToString();
+                    dtrgrp.amtIN02 = amtIN02;                    dtrgrp.amtIN45 = cntIN45;                    dtrgrp.amtINcredit = amtINcredit;
+                    dtrgrp.cntIN02 = cntIN02;                    dtrgrp.cntIN45 = cntIN45;                    dtrgrp.cntINcredit = cntINcredit;
+
+                    dtrgrp.amtOUT02 = amtOUT02; dtrgrp.amtOUT45 = amtOUT45; dtrgrp.amtOUTcredit = amtOUTcredit;
+                    dtrgrp.cntOUT02 = cntOUT02; dtrgrp.cntOUT45 = cntOUT45; dtrgrp.cntOUTcredit = cntOUTcredit;
+                    ldtrgrp.Add(dtrgrp);
+                    amtIN02 = 0; amtIN45 = 0; amtINcredit = 0; cntIN02 = 0; cntIN45 = 0; cntINcredit = 0;                    amtOUT02 = 0; amtOUT45 = 0; amtOUTcredit = 0; cntOUT02 = 0; cntOUT45 = 0; cntOUTcredit = 0;
+                    sbdtrcode.Clear();                    sbdtrcode.Append(drow["MNC_DOT_CD_DF"].ToString());
+                    flagNewGrp = true;
+                    if (drow["DF_GRP"].ToString().Equals("1"))//ในเวลา
+                    {
+                        if (drow["MNC_FN_TYP_CD"].ToString().Equals("02")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN02 += dfamt; cntIN02++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("44")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("45")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("46")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("47")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("48")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("49")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("72")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtIN45 += dfamt; cntIN45++; }
+                        else { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtINcredit += dfamt; cntINcredit++; }
+                    }
+                    else
+                    {
+                        if (drow["MNC_FN_TYP_CD"].ToString().Equals("02")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT02 += dfamt; cntOUT02++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("44")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("45")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("46")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("47")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("48")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("49")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else if (drow["MNC_FN_TYP_CD"].ToString().Equals("72")) { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUT45 += dfamt; cntOUT45++; }
+                        else { float.TryParse(drow["DF_AMT"].ToString(), out float dfamt); amtOUTcredit += dfamt; cntOUTcredit++; }
+                    }
+                }
+            }
+            i = 0;
+            foreach (DataRow drow in DTRPT.Rows)
+            {
+                sbdtrcode.Clear();                sbdtrcode.Append(drow["MNC_DOT_CD_DF"].ToString());
+                foreach(DTRgrp dtrg in ldtrgrp)
+                {
+                    if (dtrg.dtrcode.Equals(sbdtrcode.ToString()))
+                    {
+                        drow["sum_grp_dtr_02"] = dtrg.amtIN02;
+                        drow["sum_grp_dtr_44"] = dtrg.amtIN45;
+                        drow["sum_grp_dtr_credit"] = dtrg.amtINcredit;
+                        drow["cnt_grp_dtr_02"] = dtrg.cntIN02;
+                        drow["cnt_grp_dtr_44"] = dtrg.cntIN45;
+                        drow["cnt_grp_dtr_credit"] = dtrg.cntINcredit;
+
+                        drow["sum_grp_dtr_02_out"] = dtrg.amtOUT02;
+                        drow["sum_grp_dtr_44_out"] = dtrg.amtOUT45;
+                        drow["sum_grp_dtr_credit_out"] = dtrg.amtOUTcredit;
+                        drow["cnt_grp_dtr_02_out"] = dtrg.cntOUT02;
+                        drow["cnt_grp_dtr_44_out"] = dtrg.cntOUT45;
+                        drow["cnt_grp_dtr_credit_out"] = dtrg.cntOUTcredit;
+                    }
+                }
             }
             FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\df_detail_doctor.rdlx");
             if (dtrcode.Length > 0)
@@ -204,7 +315,7 @@ namespace bangna_hospital.gui
             }
             PageReport definition = new PageReport(rptPath);
             PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
-
+            
             runtime.Parameters["line1"].CurrentValue = bc.iniC.hostname;
             runtime.Parameters["line2"].CurrentValue = "รายงานรายได้แพทย์ ประจำวันที่ " + dtapmstart.ToString("dd-MM-yyyy") + " ถึงวันที่ " + dtapmend.ToString("dd-MM-yyyy");
             runtime.Parameters["line3"].CurrentValue = (dtrcode.Length > 0) ? "แพทย์ " + cboRpt1.Text : "";
@@ -314,8 +425,8 @@ namespace bangna_hospital.gui
             DataTable dt = new DataTable();
             DateTime startdate1 = new DateTime();
             DateTime enddate1 = new DateTime();
-            DateTime.TryParse(txtImpDateStart.Text, out startdate1);
-            DateTime.TryParse(txtImpDateEnd.Text, out enddate1);
+            DateTime.TryParse(txtImpDateStart.Value.ToString(), out startdate1);
+            DateTime.TryParse(txtImpDateEnd.Value.ToString(), out enddate1);
             String paidtype = "", startdate = "", enddate = "";
 
             if (startdate1.Year > 2500)
@@ -457,7 +568,7 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-02-28-1";
+            this.Text = "Last Update 2024-03-08";
         }
     }
 }

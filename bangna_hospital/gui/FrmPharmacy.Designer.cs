@@ -32,6 +32,7 @@
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStatus = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
+            this.txtSBSearchHN = new C1.Win.C1Ribbon.RibbonTextBox();
             this.rbPttName = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnPrint = new C1.Win.C1Ribbon.RibbonButton();
             this.rbItemName = new C1.Win.C1Ribbon.RibbonLabel();
@@ -105,6 +106,11 @@
             this.tabOPDDispensing = new C1.Win.C1Command.C1DockingTabPage();
             this.tabDispensingOPD = new C1.Win.C1Command.C1DockingTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabMedScan = new C1.Win.C1Command.C1DockingTabPage();
+            this.spMedScan = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.spMedScanIPD = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.spMedScanImg = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnMedScan = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
@@ -153,6 +159,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox5)).BeginInit();
             this.tabDispensingOPD.SuspendLayout();
+            this.tabMedScan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).BeginInit();
+            this.spMedScan.SuspendLayout();
+            this.spMedScanImg.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -163,6 +173,7 @@
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbMessage);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 794);
             this.c1StatusBar1.Name = "c1StatusBar1";
+            this.c1StatusBar1.RightPaneItems.Add(this.txtSBSearchHN);
             this.c1StatusBar1.RightPaneItems.Add(this.rbPttName);
             this.c1StatusBar1.RightPaneItems.Add(this.btnPrint);
             this.c1StatusBar1.RightPaneItems.Add(this.rbItemName);
@@ -188,10 +199,15 @@
             this.lfSbMessage.Name = "lfSbMessage";
             this.lfSbMessage.Text = "Label";
             // 
+            // txtSBSearchHN
+            // 
+            this.txtSBSearchHN.Label = "HN:";
+            this.txtSBSearchHN.Name = "txtSBSearchHN";
+            // 
             // rbPttName
             // 
             this.rbPttName.Name = "rbPttName";
-            this.rbPttName.Text = "Label";
+            this.rbPttName.Text = "ptt";
             // 
             // btnPrint
             // 
@@ -237,6 +253,7 @@
             this.tC1.Controls.Add(this.tabIPD);
             this.tC1.Controls.Add(this.tabOPD);
             this.tC1.Controls.Add(this.tabDispensingOPD);
+            this.tC1.Controls.Add(this.tabMedScan);
             this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
@@ -280,7 +297,7 @@
             this.spDrugInImg.Size = new System.Drawing.Size(779, 746);
             this.spDrugInImg.TabIndex = 0;
             this.spDrugInImg.Text = "Panel 1";
-            this.spDrugInImg.Width = 779;
+            this.spDrugInImg.Width = 786;
             // 
             // pnDrugINimg
             // 
@@ -379,7 +396,7 @@
             this.c1SplitterPanel3.Controls.Add(this.label79);
             this.c1SplitterPanel3.Controls.Add(this.btnOperItemSearch);
             this.c1SplitterPanel3.Controls.Add(this.txtSearchItem);
-            this.c1SplitterPanel3.Height = 218;
+            this.c1SplitterPanel3.Height = 225;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
             this.c1SplitterPanel3.Size = new System.Drawing.Size(786, 197);
@@ -488,7 +505,7 @@
             // c1Button1
             // 
             this.c1Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button1.Location = new System.Drawing.Point(349, 148);
+            this.c1Button1.Location = new System.Drawing.Point(349, 150);
             this.c1Button1.Name = "c1Button1";
             this.c1Button1.Size = new System.Drawing.Size(72, 33);
             this.c1Button1.TabIndex = 277;
@@ -498,7 +515,7 @@
             // btnOrderSubmit
             // 
             this.btnOrderSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnOrderSubmit.Location = new System.Drawing.Point(191, 148);
+            this.btnOrderSubmit.Location = new System.Drawing.Point(191, 150);
             this.btnOrderSubmit.Name = "btnOrderSubmit";
             this.btnOrderSubmit.Size = new System.Drawing.Size(72, 33);
             this.btnOrderSubmit.TabIndex = 276;
@@ -508,7 +525,7 @@
             // btnOrderSave
             // 
             this.btnOrderSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnOrderSave.Location = new System.Drawing.Point(62, 148);
+            this.btnOrderSave.Location = new System.Drawing.Point(62, 150);
             this.btnOrderSave.Name = "btnOrderSave";
             this.btnOrderSave.Size = new System.Drawing.Size(72, 33);
             this.btnOrderSave.TabIndex = 275;
@@ -914,6 +931,59 @@
             this.panel1.Size = new System.Drawing.Size(200, 100);
             this.panel1.TabIndex = 0;
             // 
+            // tabMedScan
+            // 
+            this.tabMedScan.Controls.Add(this.spMedScan);
+            this.tabMedScan.Location = new System.Drawing.Point(1, 26);
+            this.tabMedScan.Name = "tabMedScan";
+            this.tabMedScan.Size = new System.Drawing.Size(1576, 767);
+            this.tabMedScan.TabIndex = 4;
+            this.tabMedScan.Text = "Medical Scan";
+            // 
+            // spMedScan
+            // 
+            this.spMedScan.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.spMedScan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.spMedScan.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.spMedScan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spMedScan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.spMedScan.Location = new System.Drawing.Point(0, 0);
+            this.spMedScan.Name = "spMedScan";
+            this.spMedScan.Panels.Add(this.spMedScanIPD);
+            this.spMedScan.Panels.Add(this.spMedScanImg);
+            this.spMedScan.Size = new System.Drawing.Size(1576, 767);
+            this.spMedScan.TabIndex = 1;
+            // 
+            // spMedScanIPD
+            // 
+            this.spMedScanIPD.Collapsible = true;
+            this.spMedScanIPD.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.spMedScanIPD.Location = new System.Drawing.Point(0, 21);
+            this.spMedScanIPD.Name = "spMedScanIPD";
+            this.spMedScanIPD.Size = new System.Drawing.Size(327, 746);
+            this.spMedScanIPD.SizeRatio = 21.247D;
+            this.spMedScanIPD.TabIndex = 0;
+            this.spMedScanIPD.Text = "Panel 1";
+            this.spMedScanIPD.Width = 327;
+            // 
+            // spMedScanImg
+            // 
+            this.spMedScanImg.Controls.Add(this.pnMedScan);
+            this.spMedScanImg.Height = 767;
+            this.spMedScanImg.Location = new System.Drawing.Point(338, 21);
+            this.spMedScanImg.Name = "spMedScanImg";
+            this.spMedScanImg.Size = new System.Drawing.Size(1238, 746);
+            this.spMedScanImg.TabIndex = 1;
+            this.spMedScanImg.Text = "Panel 2";
+            // 
+            // pnMedScan
+            // 
+            this.pnMedScan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnMedScan.Location = new System.Drawing.Point(0, 0);
+            this.pnMedScan.Name = "pnMedScan";
+            this.pnMedScan.Size = new System.Drawing.Size(1238, 746);
+            this.pnMedScan.TabIndex = 0;
+            // 
             // FrmPharmacy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -974,6 +1044,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox5)).EndInit();
             this.tabDispensingOPD.ResumeLayout(false);
+            this.tabMedScan.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).EndInit();
+            this.spMedScan.ResumeLayout(false);
+            this.spMedScanImg.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1058,5 +1132,11 @@
         private C1.Win.C1Input.C1TextBox c1TextBox5;
         private System.Windows.Forms.Label label6;
         private C1.Win.C1Ribbon.RibbonButton rbTimerStart;
+        private C1.Win.C1Command.C1DockingTabPage tabMedScan;
+        private C1.Win.C1SplitContainer.C1SplitContainer spMedScan;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spMedScanIPD;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spMedScanImg;
+        private System.Windows.Forms.Panel pnMedScan;
+        private C1.Win.C1Ribbon.RibbonTextBox txtSBSearchHN;
     }
 }

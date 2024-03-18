@@ -465,7 +465,7 @@ namespace bangna_hospital.gui
             txtCurPaid.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtCurPaid.AutoCompleteCustomSource = autoPaid;
 
-            autoComp = bc.bcDB.pm24DB.getlPaid1();
+            autoComp = bc.bcDB.pm24DB.getlPaid1(false);
             txtInsur.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtInsur.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtInsur.AutoCompleteCustomSource = autoComp;

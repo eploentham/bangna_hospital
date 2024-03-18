@@ -25,6 +25,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Runtime.InteropServices;
 using System.Printing;
 using GrapeCity.Viewer.Common.Model;
+using System.Net;
+using C1.Win.C1Input;
+using Column = C1.Win.C1FlexGrid.Column;
+using Row = C1.Win.C1FlexGrid.Row;
 
 namespace bangna_hospital.gui
 {
@@ -40,22 +44,31 @@ namespace bangna_hospital.gui
         Timer timeImgDrugINward;
         C1TileControl TileDrugINimg;
         PanelElement pnTopTilesLab;
-        C1FlexGrid grfReport, grfOrder, grfOPDFinishList, grfOPDFinishReq;
+        C1FlexGrid grfReport, grfOrder, grfOPDFinishList, grfOPDFinishReq, grfIPD, grfIPDScan;
         
         ImageElement imgTopTilesLab, imgFolder;
         TextElement txtTopTilesLab;
         Template tempFolder;
         Group grpDrug;
         Boolean pageLoad = false;
-        Image imgCorr, imgTran;
+        Image imgCorr, imgTran, imgDrug, resizedImage, IMG;
         Color backColor, checkBackColor, hotBackColor, hotCheckBackColor, subgroupLineColor, subgroupTitleColor;
         AutoCompleteStringCollection autoLab, autoXray, autoProcedure, autoWard, autoDrug;
-        Image imgDrug;
-        int newHeight = 0,rowindexgrfOPDFinishList = 0, rowindexgrfOPDFinishReq= 0,TIMERCNT=0;
-        String TC1ACTIVE = "", TCOPDACTIVE="", PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", ITEMCODE="";
+        Label lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8, lbDocGrp9;
+        Color colorLbDoc;
+        C1PictureBox pic;
+
+        int originalHeight = 0, newHeight = 720, mouseWheel = 0;
+        int rowindexgrfOPDFinishList = 0, rowindexgrfOPDFinishReq= 0,TIMERCNT=0;
+        String TC1ACTIVE = "", TCOPDACTIVE="", PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", ITEMCODE="", DSCID="";
         float ImageScale = 1.0f;
         int colOPDFinishListHN = 1,colOPDFinishListPttName = 2, colOPDFinishListQueNo = 3, colOPDFinishListReqTime = 4, colOPDFinishListCFRTime = 5, colOPDFinishListVnno = 6, colOPDFinishListDeptName = 7, colOPDFinishListDocCD = 8, colOPDFinishListCFRYr = 9, colOPDFinishListCFRNo = 10, colOPDFinishListCFRDATE = 11, colOPDFinishListCFRSTS = 12, colOPDFinishListReqYr = 13, colOPDFinishListReqNo = 14, colOPDFinishListReqDate = 15, colOPDFinishListVsDate = 16, colOPDFinishListPreNo = 17, colOPDFinishListDtrcode = 18, colOPDFinishListDtrName = 19, colOPDFinishListUsrReq = 20, colOPDFinishListUsrPhar = 21, colOPDFinishListPttDOB = 22, colOPDFinishListPttSex = 23, colOPDFinishListPaidName = 24, colOPDFinishListCompName = 25, colOPDFinishListPttAttachNote = 26, colOPDFinishListFinNote = 27, colOPDFinishListDeptNo = 28, colOPDFinishListSecNo = 29;
         int colOPDFinishReqItemCode = 1, colOPDFinishReqItemName = 2, colOPDFinishReqDocCD = 3, colOPDFinishReqCFRYr = 4, colOPDFinishReqCFRNo = 5, colOPDFinishReqCFRDate = 6, colOPDFinishReqQty = 7, colOPDFinishReqDirDesc = 8, colOPDFinishReqPttName=9;
+        int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9, colIPDDtrName = 10;
+        int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
+        listStream strm;
+        List<listStream> lStream, lStreamPic;
+
         Point pDown = Point.Empty;
         Rectangle rect = Rectangle.Empty;
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
@@ -63,6 +76,9 @@ namespace bangna_hospital.gui
         DataTable DTSTCDRUG;
         DataRow DROWDRUG;
         FrmReportNew frmDrugStricker;
+        Stream streamPrint;
+        Form frmImg;
+
         public FrmPharmacy(BangnaControl bc)
         {
             InitializeComponent();
@@ -113,9 +129,712 @@ namespace bangna_hospital.gui
             autoProcedure = new AutoCompleteStringCollection();
             autoDrug = new AutoCompleteStringCollection();
             frmDrugStricker = new FrmReportNew(bc, "drug_stricker");
+            lStream = new List<listStream>();
+
             initTileImg();
             initGrfOPDFinishList();
             initGrfOPDFinishItem();
+            initGrfIPD();
+            initGrfIPDScan();
+            initLoading();
+        }
+        private void initGrfIPDScan()
+        {
+            Panel pnScanTop = new Panel();
+            Panel pnScan = new Panel();
+
+            pnScanTop.Dock = DockStyle.Top;
+            pnScanTop.Height = 30;
+            pnScan.Dock = DockStyle.Fill;
+
+            grfIPDScan = new C1FlexGrid();
+            grfIPDScan.Font = fEdit;
+            grfIPDScan.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfIPDScan.Location = new System.Drawing.Point(0, 0);
+            grfIPDScan.Rows[0].Visible = false;
+            grfIPDScan.Cols[0].Visible = false;
+            grfIPDScan.Rows.Count = 1;
+            grfIPDScan.Name = "grfIPDScan";
+            grfIPDScan.Cols.Count = 5;
+            Column colpic1 = grfIPDScan.Cols[colPic1];
+            colpic1.DataType = typeof(Image);
+            Column colpic2 = grfIPDScan.Cols[colPic2];
+            colpic2.DataType = typeof(String);
+            Column colpic3 = grfIPDScan.Cols[colPic3];
+            colpic3.DataType = typeof(Image);
+            Column colpic4 = grfIPDScan.Cols[colPic4];
+            colpic4.DataType = typeof(String);
+            grfIPDScan.Cols[colPic1].Width = bc.grfScanWidth;
+            grfIPDScan.Cols[colPic2].Width = bc.grfScanWidth;
+            grfIPDScan.Cols[colPic3].Width = bc.grfScanWidth;
+            grfIPDScan.Cols[colPic4].Width = bc.grfScanWidth;
+            grfIPDScan.ShowCursor = true;
+            grfIPDScan.Cols[colPic2].Visible = false;
+            grfIPDScan.Cols[colPic3].Visible = true;
+            grfIPDScan.Cols[colPic4].Visible = false;
+            grfIPDScan.Cols[colPic1].AllowEditing = false;
+            grfIPDScan.Cols[colPic3].AllowEditing = false;
+            grfIPDScan.DoubleClick += GrfIPDScan_DoubleClick;
+            lbDocAll = new Label();
+            bc.setControlLabel(ref lbDocAll, fEditB, "All", "lbDocAll", 20, 5);
+            lbDocAll.ForeColor = Color.Red;
+            lbDocAll.Click += LbDocAll_Click;
+            pnScanTop.Controls.Add(lbDocAll);
+            int i = 0, width1 = 0;
+            colorLbDoc = lbDocAll.ForeColor;
+            if (bc.bcDB.dgsDB.lDgs.Count <= 0) bc.bcDB.dgsDB.getlDgs();
+            foreach (DocGroupScan dgs in bc.bcDB.dgsDB.lDgs)
+            {
+                i++;
+                if (i == 1)
+                {
+                    lbDocGrp1 = new Label();
+                    bc.setControlLabel(ref lbDocGrp1, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp1.Click += LbDocAll_Click;
+                    lbDocGrp1.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp1);
+                }
+                else if (i == 2)
+                {
+                    lbDocGrp2 = new Label();
+                    bc.setControlLabel(ref lbDocGrp2, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp2.Click += LbDocAll_Click;
+                    lbDocGrp2.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp2);
+                }
+                else if (i == 3)
+                {
+                    lbDocGrp3 = new Label();
+                    bc.setControlLabel(ref lbDocGrp3, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp3.Click += LbDocAll_Click;
+                    lbDocGrp3.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp3);
+                }
+                else if (i == 4)
+                {
+                    lbDocGrp4 = new Label();
+                    bc.setControlLabel(ref lbDocGrp4, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp4.Click += LbDocAll_Click;
+                    lbDocGrp4.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp4);
+                }
+                else if (i == 5)
+                {
+                    lbDocGrp5 = new Label();
+                    bc.setControlLabel(ref lbDocGrp5, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp5.Click += LbDocAll_Click;
+                    lbDocGrp5.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp5);
+                }
+                else if (i == 6)
+                {
+                    lbDocGrp6 = new Label();
+                    bc.setControlLabel(ref lbDocGrp6, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp6.Click += LbDocAll_Click;
+                    lbDocGrp6.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp6);
+                }
+                else if (i == 7)
+                {
+                    lbDocGrp7 = new Label();
+                    bc.setControlLabel(ref lbDocGrp7, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp7.Click += LbDocAll_Click;
+                    lbDocGrp7.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp7);
+                }
+                else if (i == 8)
+                {
+                    lbDocGrp8 = new Label();
+                    bc.setControlLabel(ref lbDocGrp8, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp8.Click += LbDocAll_Click;
+                    lbDocGrp8.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp8);
+                }
+                else if (i == 9)
+                {
+                    lbDocGrp9 = new Label();
+                    bc.setControlLabel(ref lbDocGrp9, fEditB, dgs.doc_group_name, "lbDocGrp" + i.ToString(), lbDocAll.Width + width1 + 60, 5);
+                    width1 += bc.MeasureString(dgs.doc_group_name, fEditB).Width;
+                    if ((i == 1) || (i == 2) || (i == 7))
+                    {
+                        width1 += 40;
+                    }
+                    if ((i == 3) || (i == 4) || (i == 8) || (i == 6) || (i == 5))
+                    {
+                        width1 += 20;
+                    }
+                    lbDocGrp9.Click += LbDocAll_Click;
+                    lbDocGrp9.ForeColor = Color.Black;
+                    pnScanTop.Controls.Add(lbDocGrp9);
+                }
+            }
+            pnMedScan.Controls.Add(pnScan);
+            pnMedScan.Controls.Add(pnScanTop);
+            pnScan.Controls.Add(grfIPDScan);
+            //initGrfPrn();
+            //initGrfHn();
+        }
+        private void setForColorLbDocGrp(object sender)
+        {
+            lbDocAll.ForeColor = Color.Black;
+
+            lbDocGrp1.ForeColor = Color.Black;
+            lbDocGrp2.ForeColor = Color.Black;
+            lbDocGrp3.ForeColor = Color.Black;
+            lbDocGrp4.ForeColor = Color.Black;
+            lbDocGrp5.ForeColor = Color.Black;
+            lbDocGrp6.ForeColor = Color.Black;
+            lbDocGrp7.ForeColor = Color.Black;
+            lbDocGrp8.ForeColor = Color.Black;
+            lbDocGrp9.ForeColor = Color.Black;
+        }
+        private void LbDocAll_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //grfIPDScan.ContextMenu.MenuItems.Clear();
+
+            setForColorLbDocGrp(sender);
+            ((Label)sender).ForeColor = Color.Red;
+            if (((Label)sender).Name.Equals("lbDocAll"))
+            {
+                DOCGRPID = "1100000099";
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp1"))
+            {
+                DOCGRPID = "1100000000";//DISCHARGE
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp2"))
+            {
+                DOCGRPID = "1100000001";//ADMISSION
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp3"))
+            {
+                DOCGRPID = "1100000002";//ORDER
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp4"))
+            {
+                DOCGRPID = "1100000003";//OPERATIVE
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp5"))
+            {
+                DOCGRPID = "1100000004";//INVESTIGATION
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp6"))
+            {
+                DOCGRPID = "1100000005";//NURSE
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp7"))
+            {
+                DOCGRPID = "1100000006";//MEDICATION
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp8"))
+            {
+                DOCGRPID = "1100000007";//OTHER
+            }
+            else if (((Label)sender).Name.Equals("lbDocGrp9"))
+            {
+                DOCGRPID = "1100000008";//GRAPHIC SHEET
+            }
+            setGrfIPDScan();
+        }
+        private void GrfIPDScan_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colPic2] == null) return;
+            if (((C1FlexGrid)sender).Row < 0) return;
+            String id = "";
+            ((C1FlexGrid)sender).AutoSizeCols();
+            ((C1FlexGrid)sender).AutoSizeRows();
+            if (((C1FlexGrid)sender).Col == 1)
+            {
+                id = grfIPDScan[grfIPDScan.Row, colPic2].ToString();
+            }
+            else
+            {
+                id = grfIPDScan[grfIPDScan.Row, colPic4] != null ? grfIPDScan[grfIPDScan.Row, colPic4].ToString() : "";
+            }
+            //id = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colPic2].ToString();
+            if (id.Equals("")) return;
+            DSCID = id;
+            MemoryStream strm = null;
+            foreach (listStream lstrmm in lStream)
+            {
+                if (lstrmm.id.Equals(id))
+                {
+                    strm = lstrmm.stream;
+                    break;
+                }
+            }
+            if (strm != null)
+            {
+                streamPrint = strm;
+                IMG = Image.FromStream(strm);
+                frmImg = new Form();
+                FlowLayoutPanel pn = new FlowLayoutPanel();
+                //vScroller = new VScrollBar();
+                //vScroller.Height = frmImg.Height;
+                //vScroller.Width = 15;
+                //vScroller.Dock = DockStyle.Right;
+                frmImg.WindowState = FormWindowState.Normal;
+                frmImg.StartPosition = FormStartPosition.CenterScreen;
+                frmImg.Size = new Size(1024, 764);
+                frmImg.AutoScroll = true;
+                pn.Dock = DockStyle.Fill;
+                pn.AutoScroll = true;
+                pic = new C1PictureBox();
+                pic.Dock = DockStyle.Fill;
+                pic.SizeMode = PictureBoxSizeMode.AutoSize;
+                //int newWidth = 440;
+                int originalWidth = 0;
+
+                originalHeight = 0;
+                originalWidth = IMG.Width;
+                originalHeight = IMG.Height;
+                //resizedImage = img.GetThumbnailImage(newWidth, (newWidth * img.Height) / originalWidth, null, IntPtr.Zero);
+                resizedImage = IMG.GetThumbnailImage((newHeight * IMG.Width) / originalHeight, newHeight, null, IntPtr.Zero);
+                pic.Image = resizedImage;
+                frmImg.Controls.Add(pn);
+                pn.Controls.Add(pic);
+                //pn.Controls.Add(vScroller);
+                ContextMenu menuGw = new ContextMenu();
+                menuGw.MenuItems.Add("ต้องการ Print ภาพนี้", new EventHandler(ContextMenu_print));
+
+                mouseWheel = 0;
+                pic.MouseWheel += Pic_MouseWheel;
+                pic.ContextMenu = menuGw;
+                //vScroller.Scroll += VScroller_Scroll;
+                //pic.Paint += Pic_Paint;
+                //vScroller.Hide();
+                frmImg.ShowDialog(this);
+            }
+        }
+        private void Pic_MouseWheel(object sender, MouseEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+            int numberOfTextLinesToMove = e.Delta * SystemInformation.MouseWheelScrollLines / 120;
+            if (e.Delta < 0)
+            {
+                newHeight += SystemInformation.MouseWheelScrollLines * 10;
+                this.Text = e.Y.ToString();
+            }
+            else
+            {
+                newHeight -= SystemInformation.MouseWheelScrollLines * 10;
+            }
+            resizedImage = IMG.GetThumbnailImage((newHeight * IMG.Width) / originalHeight, newHeight, null, IntPtr.Zero);
+            pic.Image = resizedImage;
+        }
+        private void ContextMenu_print(object sender, System.EventArgs e)
+        {
+            setGrfScanToPrint();
+        }
+        private void setGrfScanToPrint()
+        {
+            SetDefaultPrinter(bc.iniC.printerA4);
+            System.Threading.Thread.Sleep(500);
+
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += Pd_PrintPageA4;
+            //here to select the printer attached to user PC
+            if (bc.iniC.statusShowPrintDialog.Equals("1"))
+            {
+                PrintDialog printDialog1 = new PrintDialog();
+                printDialog1.Document = pd;
+                DialogResult result = printDialog1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    pd.Print();     //this will trigger the Print Event handeler PrintPage
+                }
+            }
+            else
+            {
+                pd.Print();
+            }
+        }
+        private void Pd_PrintPageA4(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                System.Drawing.Image img = Image.FromStream(streamPrint);
+
+                float newWidth = img.Width * 100 / img.HorizontalResolution;
+                float newHeight = img.Height * 100 / img.VerticalResolution;
+
+                float widthFactor = newWidth / e.MarginBounds.Width;
+                float heightFactor = newHeight / e.MarginBounds.Height;
+
+                if (widthFactor > 1 | heightFactor > 1)
+                {
+                    if (widthFactor > heightFactor)
+                    {
+                        widthFactor = 1;
+                        newWidth = newWidth / widthFactor;
+                        newHeight = newHeight / widthFactor;
+                        //newWidth = newWidth / 1.2;
+                        //newHeight = newHeight / 1.2;
+                    }
+                    else
+                    {
+                        newWidth = newWidth / heightFactor;
+                        newHeight = newHeight / heightFactor;
+                    }
+                }
+                e.Graphics.DrawImage(img, 0, 0, (int)newWidth, (int)newHeight);
+                //}
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmScanView1 Pd_PrintPageA4 error " + ex.Message);
+            }
+        }
+        private void initGrfIPD()
+        {
+            grfIPD = new C1FlexGrid();
+            grfIPD.Font = fEdit;
+            grfIPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfIPD.Location = new System.Drawing.Point(0, 0);
+            grfIPD.Rows.Count = 1;
+            grfIPD.Cols.Count = 11;
+
+            grfIPD.Cols[colIPDDate].Width = 90;
+            grfIPD.Cols[colIPDVn].Width = 80;
+            grfIPD.Cols[colIPDDept].Width = 170;
+            grfIPD.Cols[colIPDPreno].Width = 100;
+            grfIPD.Cols[colIPDStatus].Width = 60;
+            grfIPD.Cols[colIPDDtrName].Width = 180;
+            grfIPD.ShowCursor = true;
+            //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
+            grfIPD.Cols[colIPDDate].Caption = "Visit Date";
+            grfIPD.Cols[colIPDVn].Caption = "VN";
+            grfIPD.Cols[colIPDDept].Caption = "อาการ";
+            grfIPD.Cols[colIPDAnShow].Caption = "AN";
+
+            grfIPD.Cols[colIPDPreno].Visible = false;
+            grfIPD.Cols[colIPDVn].Visible = true;
+            grfIPD.Cols[colIPDAnShow].Visible = true;
+            grfIPD.Cols[colIPDAndate].Visible = false;
+            grfIPD.Cols[colIPDPreno].Visible = false;
+            grfIPD.Cols[colIPDVn].Visible = false;
+            grfIPD.Cols[colIPDStatus].Visible = false;
+            grfIPD.Cols[colIPDAnYr].Visible = false;
+            grfIPD.Cols[colIPDAn].Visible = false;
+            //grfIPD.Rows[0].Visible = false;
+            //grfIPD.Cols[0].Visible = false;
+            grfIPD.Cols[colIPDDate].AllowEditing = false;
+            grfIPD.Cols[colIPDVn].AllowEditing = false;
+            grfIPD.Cols[colIPDDept].AllowEditing = false;
+            grfIPD.Cols[colIPDPreno].AllowEditing = false;
+            grfIPD.Cols[colIPDDtrName].AllowEditing = false;
+            //FilterRow fr = new FilterRow(grfExpn);
+
+            grfIPD.AfterRowColChange += GrfIPD_AfterRowColChange;
+            //grfVs.row
+            //grfExpnC.CellButtonClick += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellButtonClick);
+            //grfExpnC.CellChanged += new C1.Win.C1FlexGrid.RowColEventHandler(this.grfDept_CellChanged);
+
+            spMedScanIPD.Controls.Add(grfIPD);
+
+            //theme1.SetTheme(grfIPD, "ExpressionDark");
+            theme1.SetTheme(grfIPD, bc.iniC.themegrfIpd);
+        }
+        private void GrfIPD_AfterRowColChange(object sender, RangeEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.NewRange.r1 < 0) return;
+            if (e.NewRange.Data == null) return;
+
+            String an = "", vsDate = "", preno = "";
+
+            an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+            vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+            preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+
+            setGrfIPDScan();
+            lfSbMessage.Text = an;
+        }
+        private void setGrfIPD()
+        {
+            DataTable dt = new DataTable();
+            //MessageBox.Show("hn "+hn, "");
+            dt = bc.bcDB.vsDB.selectVisitIPDByHn5(txtSBSearchHN.Text);
+            int i = 1, j = 1, row = grfIPD.Rows.Count;
+            //txtVN.Value = dt.Rows.Count;
+            //txtName.Value = "";
+            //txt.Value = "";
+            grfIPD.Rows.Count = 1;
+            grfIPD.Rows.Count = dt.Rows.Count + 1;
+            //pB1.Maximum = dt.Rows.Count;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                //pB1.Value++;
+                Row rowa = grfIPD.Rows[i];
+                String status = "", vn = "";
+
+                //status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
+                status = "IPD";
+                vn = row1["MNC_VN_NO"].ToString() + "." + row1["MNC_VN_SEQ"].ToString() + "." + row1["MNC_VN_SUM"].ToString();
+                rowa[colIPDDate] = bc.datetoShow1(row1["mnc_date"].ToString());
+                rowa[colIPDVn] = vn;
+                rowa[colIPDStatus] = status;
+                rowa[colIPDPreno] = row1["mnc_pre_no"].ToString();
+                rowa[colIPDDept] = row1["MNC_SHIF_MEMO"].ToString();
+                rowa[colIPDAnShow] = row1["mnc_an_no"].ToString() + "." + row1["mnc_an_yr"].ToString();
+                rowa[colIPDAndate] = bc.datetoShow1(row1["mnc_ad_date"].ToString());
+                rowa[colIPDAnYr] = row1["mnc_an_yr"].ToString();
+                rowa[colIPDAn] = row1["mnc_an_no"].ToString();
+                rowa[colIPDDtrName] = row1["dtr_name"].ToString();
+                i++;
+            }
+        }
+        private void setGrfIPDScan()
+        {
+            //Application.DoEvents();
+            //ProgressBar pB1 = new ProgressBar();
+            //pB1.Location = new System.Drawing.Point(20, 16);
+            //pB1.Name = "pB1";
+            //pB1.Size = new System.Drawing.Size(862, 23);
+            //gbPtt.Controls.Add(pB1);
+            //pB1.Left = txtHn.Left;
+            //pB1.Show();
+            showLbLoading();
+            lStream.Clear();
+            //clearGrf();
+            String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "";
+            DataTable dtOrder = new DataTable();
+
+            //new LogWriter("e", "FrmScanView1 setGrfScan 5 ");
+            GC.Collect();
+
+
+            DataTable dt = new DataTable();
+            statusOPD = grfIPD[grfIPD.Row, colIPDStatus] != null ? grfIPD[grfIPD.Row, colIPDStatus].ToString() : "";
+            preno = grfIPD[grfIPD.Row, colIPDPreno] != null ? grfIPD[grfIPD.Row, colIPDPreno].ToString() : "";
+            vsDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+
+            an = grfIPD[grfIPD.Row, colIPDAn] != null ? grfIPD[grfIPD.Row, colIPDAn].ToString() : "";
+            anDate = grfIPD[grfIPD.Row, colIPDDate] != null ? grfIPD[grfIPD.Row, colIPDDate].ToString() : "";
+            anyr = grfIPD[grfIPD.Row, colIPDAnYr] != null ? grfIPD[grfIPD.Row, colIPDAnYr].ToString() : "";
+            //label2.Text = "AN :";
+            an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+
+            vsDate = bc.datetoDB(vsDate);
+            //setStaffNote(vsDate, preno);
+            dt = bc.bcDB.dscDB.selectByAn(txtSBSearchHN.Text, an.Replace(".","/"));
+            grfIPDScan.Rows.Count = 0;
+            if (dt.Rows.Count > 0)
+            {
+                try
+                {
+                    int cnt = 0;
+                    cnt = dt.Rows.Count / 2;
+
+                    grfIPDScan.Rows.Count = cnt + 1;
+
+                    FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                    Boolean findTrue = false;
+                    int colcnt = 0, rowrun = -1;
+                    foreach (DataRow row1 in dt.Rows)
+                    {
+                        if (findTrue) break;
+                        colcnt++;
+                        String dgssid = "", filename = "", ftphost = "", id = "", folderftp = "";
+                        id = row1[bc.bcDB.dscDB.dsc.doc_scan_id].ToString();
+                        dgssid = row1[bc.bcDB.dscDB.dsc.doc_group_sub_id].ToString();
+                        filename = row1[bc.bcDB.dscDB.dsc.image_path].ToString();
+                        ftphost = row1[bc.bcDB.dscDB.dsc.host_ftp].ToString();
+                        folderftp = row1[bc.bcDB.dscDB.dsc.folder_ftp].ToString();
+
+                        //new Thread(() =>
+                        //{
+                        String err = "";
+                        try
+                        {
+                            FtpWebRequest ftpRequest = null;
+                            FtpWebResponse ftpResponse = null;
+                            Stream ftpStream = null;
+                            int bufferSize = 2048;
+                            err = "00";
+                            Row rowd;
+                            if ((colcnt % 2) == 0)
+                            {
+                                rowd = grfIPDScan.Rows[rowrun];
+                            }
+                            else
+                            {
+                                rowrun++;
+                                rowd = grfIPDScan.Rows[rowrun];
+                                Application.DoEvents();
+                            }
+                            MemoryStream stream;
+                            Image loadedImage, resizedImage;
+                            stream = new MemoryStream();
+                            //stream = ftp.download(folderftp + "//" + filename);
+
+                            //loadedImage = Image.FromFile(filename);
+                            err = "01";
+
+                            ftpRequest = (FtpWebRequest)FtpWebRequest.Create(ftphost + "/" + folderftp + "/" + filename);
+                            ftpRequest.Credentials = new NetworkCredential(bc.iniC.userFTP, bc.iniC.passFTP);
+                            ftpRequest.UseBinary = true;
+                            ftpRequest.UsePassive = bc.ftpUsePassive;
+                            ftpRequest.KeepAlive = true;
+                            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+                            ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                            ftpStream = ftpResponse.GetResponseStream();
+                            err = "02";
+                            byte[] byteBuffer = new byte[bufferSize];
+                            int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
+                            try
+                            {
+                                while (bytesRead > 0)
+                                {
+                                    stream.Write(byteBuffer, 0, bytesRead);
+                                    bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
+                                new LogWriter("e", "FrmScanView1 SetGrfScan try int bytesRead = ftpStream.Read(byteBuffer, 0, bufferSize); ex " + ex.Message + " " + err);
+                            }
+                            err = "03";
+
+                            loadedImage = new Bitmap(stream);
+                            err = "04";
+                            int originalWidth = 0;
+                            originalWidth = loadedImage.Width;
+                            int newWidth = bc.imgScanWidth;
+                            resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                            //
+                            err = "05";
+                            if ((colcnt % 2) == 0)
+                            {
+
+                                rowd[colPic3] = resizedImage;       // + 0001
+                                err = "061";       // + 0001
+                                rowd[colPic4] = id;       // + 0001
+                                err = "071";       // + 0001
+                            }
+                            else
+                            {
+
+                                err = "051";       // + 0001
+                                rowd[colPic1] = resizedImage;       // + 0001
+                                err = "06";       // + 0001
+                                rowd[colPic2] = id;       // + 0001
+                                err = "07";       // + 0001
+                            }
+
+                            strm = new listStream();
+                            strm.id = id;
+                            strm.dgsid = row1[bc.bcDB.dscDB.dsc.doc_group_id].ToString();
+                            err = "08";
+                            strm.stream = stream;
+                            err = "09";
+                            lStream.Add(strm);
+
+                            err = "12";
+
+                            if (colcnt == 50) GC.Collect();
+                            if (colcnt == 100) GC.Collect();
+                        }
+                        catch (Exception ex)
+                        {
+                            String aaa = ex.Message + " " + err;
+                            new LogWriter("e", "FrmScanView1 SetGrfScan ex " + ex.Message + " " + err + " colcnt " + colcnt + " doc_scan_id " + id);
+                        }
+
+                    }
+                    ftp = null;
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("" + ex.Message, "");
+                    new LogWriter("e", "FrmScanView1 SetGrfScan if (dt.Rows.Count > 0) ex " + ex.Message);
+                }
+            }
+            grfIPDScan.AutoSizeCols();
+            grfIPDScan.AutoSizeRows();
+            hideLbLoading();
+        }
+        class listStream
+        {
+            public String id = "", dgsid = "";
+            public MemoryStream stream;
         }
         private void initGrfOPDFinishItem()
         {
@@ -472,7 +1191,32 @@ namespace bangna_hospital.gui
             btnPrint.Click += BtnPrint_Click;
             btnPrintItem.Click += BtnPrintItem_Click;
             rbTimerStart.Click += RbTimerStart_Click;
+            txtSBSearchHN.KeyDown += TxtSBSearchHN_KeyDown;
+            
         }
+        private void TxtSBSearchHN_KeyDown(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                lfSbMessage.Text = txtSBSearchHN.Text;
+                if (TC1ACTIVE.Equals(tabMedScan.Name))
+                {
+                    
+                    Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(txtSBSearchHN.Text);
+                    rb1.Text = ptt.Name;
+                    tC1.SelectedTab = tabMedScan;
+                    setGrfIPD();
+                }
+            }
+        }
+
+        private void TxtSBSearchHN_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            
+        }
+
         private void RbTimerStart_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -489,7 +1233,6 @@ namespace bangna_hospital.gui
                 timeImgDrugINward.Stop();
             }
         }
-
         private void BtnPrintItem_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -500,7 +1243,7 @@ namespace bangna_hospital.gui
                 lfSbMessage.Text = "change Printer " + LocalPrintServer.GetDefaultPrintQueue().FullName+" to "+ bc.iniC.printerStickerDrug;
                 SetDefaultPrinter(bc.iniC.printerStickerDrug);
             }
-            setReportStricker(ref DTSTCDRUG);
+            setReportStricker(ref DTSTCDRUG, bc.iniC.statusPrintPreview.Equals("1") ? true: false) ;
         }
         private void BtnPrint_Click(object sender, EventArgs e)
         {
@@ -600,7 +1343,7 @@ namespace bangna_hospital.gui
             }
             //string chk1 = "";
         }
-        private void setReportStricker(ref DataTable dtdrug)
+        private void setReportStricker(ref DataTable dtdrug, Boolean preview)
         {
             Boolean chk = false;
             FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\drug_stricker.rdlx");
@@ -620,13 +1363,13 @@ namespace bangna_hospital.gui
             foreach (DataRow drow in dtdrug.Rows)
             {
                 drow["hostname"] = bc.iniC.hostname;
-                drow["tel"] = "โทร 02 138 1155-64";
+                drow["tel"] = bc.iniC.hosttel;
                 drow["drug_using"] = drow["drug_using"].ToString().Replace("/", "").Trim();
                 drow["printdatetime"] = datetime;
                 //drow["drugname_t"] = drow["drugname_t"].ToString().Trim()+" "+ drow["unitqty"].ToString().Trim();
             }
             frmDrugStricker.DT = dtdrug;
-            if (bc.iniC.statusPrintSticker.Equals("0"))
+            if (preview)
             {
                 frmDrugStricker.ShowDialog(this);
             }
@@ -651,7 +1394,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             if (tC1.SelectedTab == tabDrugWard) {TC1ACTIVE = tabDrugWard.Name;}
-
+            else if (tC1.SelectedTab == tabMedScan) { TC1ACTIVE = tabMedScan.Name; }
         }
 
         private void BtnDrugINWard_Click(object sender, EventArgs e)
@@ -779,7 +1522,7 @@ namespace bangna_hospital.gui
                 if (DTSTCDRUG.Rows.Count > 0)
                 {
                     DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug1(DTSTCDRUG.Rows[0]["MNC_CFR_YR"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFR_NO"].ToString(), DTSTCDRUG.Rows[0]["MNC_DOC_CD"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFG_DAT"].ToString());
-                    setReportStricker(ref DTSTCDRUG);
+                    setReportStricker(ref DTSTCDRUG, false);
                 }
             }
         }
@@ -896,6 +1639,16 @@ namespace bangna_hospital.gui
 
             pnDrugINimgList.Controls.Add(TileDrugINimg);
         }
+        private void initLoading()
+        {
+            lbLoading = new Label();
+            lbLoading.Font = fEdit5B;
+            lbLoading.BackColor = Color.WhiteSmoke;
+            lbLoading.ForeColor = Color.Black;
+            lbLoading.AutoSize = false;
+            lbLoading.Size = new Size(300, 60);
+            this.Controls.Add(lbLoading);
+        }
         private void setLbLoading(String txt)
         {
             lbLoading.Text = txt;
@@ -940,7 +1693,7 @@ namespace bangna_hospital.gui
             String stationname = bc.bcDB.pm32DB.getDeptName(bc.iniC.station);
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-03-04-5";
+            this.Text = "Last Update 2024-03-07";
         }
     }
 }

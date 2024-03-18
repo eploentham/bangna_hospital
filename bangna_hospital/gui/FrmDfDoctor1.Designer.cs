@@ -31,10 +31,14 @@
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfSbStatus = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.tCMain = new C1.Win.C1Command.C1DockingTab();
             this.tabImportDf = new C1.Win.C1Command.C1DockingTabPage();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtSearch = new C1.Win.C1Input.C1TextBox();
             this.btnImportDfGen = new C1.Win.C1Input.C1Button();
             this.txtImpPaidType = new C1.Win.C1Input.C1TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,6 +54,7 @@
             this.arvMain = new GrapeCity.ActiveReports.Viewer.Win.Viewer();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnRptCriDate = new System.Windows.Forms.Panel();
+            this.Chk1All = new C1.Win.C1Input.C1CheckBox();
             this.lbRpt2 = new System.Windows.Forms.Label();
             this.cboRpt2 = new C1.Win.C1Input.C1ComboBox();
             this.pnRptCri1 = new System.Windows.Forms.Panel();
@@ -62,14 +67,13 @@
             this.lbRptStartDate = new System.Windows.Forms.Label();
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnRptName = new System.Windows.Forms.Panel();
-            this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
-            this.Chk1All = new C1.Win.C1Input.C1CheckBox();
+            this.tab = new C1.Win.C1Command.C1DockingTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tCMain)).BeginInit();
             this.tCMain.SuspendLayout();
             this.tabImportDf.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnImportDfGen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtImpPaidType)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnImportDfSelect)).BeginInit();
@@ -82,6 +86,7 @@
             this.panel4.SuspendLayout();
             this.c1SplitterPanel3.SuspendLayout();
             this.pnRptCriDate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Chk1All)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboRpt2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboRpt1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRpt1)).BeginInit();
@@ -89,7 +94,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).BeginInit();
             this.c1SplitterPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Chk1All)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -101,7 +105,7 @@
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.rb1);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
-            this.c1StatusBar1.Size = new System.Drawing.Size(1035, 22);
+            this.c1StatusBar1.Size = new System.Drawing.Size(1173, 22);
             // 
             // lfSbStatus
             // 
@@ -113,15 +117,26 @@
             this.lfSbMessage.Name = "lfSbMessage";
             this.lfSbMessage.Text = "Label";
             // 
+            // rb1
+            // 
+            this.rb1.Name = "rb1";
+            this.rb1.Text = "Label";
+            // 
+            // rgSbModule
+            // 
+            this.rgSbModule.Name = "rgSbModule";
+            this.rgSbModule.Text = "Label";
+            // 
             // tCMain
             // 
             this.tCMain.Controls.Add(this.tabImportDf);
             this.tCMain.Controls.Add(this.tabReport);
+            this.tCMain.Controls.Add(this.tab);
             this.tCMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tCMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tCMain.Location = new System.Drawing.Point(0, 0);
             this.tCMain.Name = "tCMain";
-            this.tCMain.Size = new System.Drawing.Size(1035, 608);
+            this.tCMain.Size = new System.Drawing.Size(1173, 608);
             this.tCMain.TabIndex = 1;
             this.tCMain.TabsSpacing = 5;
             // 
@@ -131,7 +146,7 @@
             this.tabImportDf.Controls.Add(this.panel1);
             this.tabImportDf.Location = new System.Drawing.Point(1, 26);
             this.tabImportDf.Name = "tabImportDf";
-            this.tabImportDf.Size = new System.Drawing.Size(1033, 581);
+            this.tabImportDf.Size = new System.Drawing.Size(1171, 581);
             this.tabImportDf.TabIndex = 0;
             this.tabImportDf.Text = "Import Item DF";
             // 
@@ -140,11 +155,13 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 47);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1033, 534);
+            this.panel2.Size = new System.Drawing.Size(1171, 534);
             this.panel2.TabIndex = 1;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.btnImportDfGen);
             this.panel1.Controls.Add(this.txtImpPaidType);
             this.panel1.Controls.Add(this.label3);
@@ -157,8 +174,25 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1033, 47);
+            this.panel1.Size = new System.Drawing.Size(1171, 47);
             this.panel1.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(913, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(51, 20);
+            this.label4.TabIndex = 278;
+            this.label4.Text = "ค้นหา :";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(970, 5);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(190, 24);
+            this.txtSearch.TabIndex = 277;
+            this.txtSearch.Tag = null;
             // 
             // btnImportDfGen
             // 
@@ -276,7 +310,7 @@
             this.tabReport.Controls.Add(this.spReport);
             this.tabReport.Location = new System.Drawing.Point(1, 26);
             this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(1033, 581);
+            this.tabReport.Size = new System.Drawing.Size(1171, 581);
             this.tabReport.TabIndex = 1;
             this.tabReport.Text = "Report";
             // 
@@ -292,7 +326,7 @@
             this.spReport.Panels.Add(this.c1SplitterPanel2);
             this.spReport.Panels.Add(this.c1SplitterPanel3);
             this.spReport.Panels.Add(this.c1SplitterPanel1);
-            this.spReport.Size = new System.Drawing.Size(1033, 581);
+            this.spReport.Size = new System.Drawing.Size(1171, 581);
             this.spReport.TabIndex = 0;
             // 
             // c1SplitterPanel2
@@ -300,13 +334,13 @@
             this.c1SplitterPanel2.Controls.Add(this.panel4);
             this.c1SplitterPanel2.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
             this.c1SplitterPanel2.Height = 581;
-            this.c1SplitterPanel2.Location = new System.Drawing.Point(328, 21);
+            this.c1SplitterPanel2.Location = new System.Drawing.Point(371, 21);
             this.c1SplitterPanel2.Name = "c1SplitterPanel2";
-            this.c1SplitterPanel2.Size = new System.Drawing.Size(705, 560);
+            this.c1SplitterPanel2.Size = new System.Drawing.Size(800, 560);
             this.c1SplitterPanel2.SizeRatio = 68.513D;
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
-            this.c1SplitterPanel2.Width = 705;
+            this.c1SplitterPanel2.Width = 800;
             // 
             // panel4
             // 
@@ -314,7 +348,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(705, 560);
+            this.panel4.Size = new System.Drawing.Size(800, 560);
             this.panel4.TabIndex = 0;
             // 
             // arvMain
@@ -354,7 +388,7 @@
             this.arvMain.Sidebar.TocPanel.Text = "Document map";
             this.arvMain.Sidebar.TocPanel.Width = 200;
             this.arvMain.Sidebar.Width = 200;
-            this.arvMain.Size = new System.Drawing.Size(705, 560);
+            this.arvMain.Size = new System.Drawing.Size(800, 560);
             this.arvMain.TabIndex = 2;
             // 
             // c1SplitterPanel3
@@ -364,7 +398,7 @@
             this.c1SplitterPanel3.Height = 288;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 314);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
-            this.c1SplitterPanel3.Size = new System.Drawing.Size(324, 267);
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(367, 267);
             this.c1SplitterPanel3.TabIndex = 2;
             this.c1SplitterPanel3.Text = "Panel 3";
             // 
@@ -385,6 +419,19 @@
             this.pnRptCriDate.Name = "pnRptCriDate";
             this.pnRptCriDate.Size = new System.Drawing.Size(420, 191);
             this.pnRptCriDate.TabIndex = 1;
+            // 
+            // Chk1All
+            // 
+            this.Chk1All.BackColor = System.Drawing.SystemColors.Control;
+            this.Chk1All.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Chk1All.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Chk1All.Location = new System.Drawing.Point(77, 132);
+            this.Chk1All.Name = "Chk1All";
+            this.Chk1All.Size = new System.Drawing.Size(104, 24);
+            this.Chk1All.TabIndex = 266;
+            this.Chk1All.Text = "ทั้งหมด";
+            this.Chk1All.UseVisualStyleBackColor = true;
+            this.Chk1All.Value = null;
             // 
             // lbRpt2
             // 
@@ -539,48 +586,33 @@
             this.c1SplitterPanel1.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
-            this.c1SplitterPanel1.Size = new System.Drawing.Size(324, 268);
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(367, 268);
             this.c1SplitterPanel1.SizeRatio = 36.735D;
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
-            this.c1SplitterPanel1.Width = 324;
+            this.c1SplitterPanel1.Width = 367;
             // 
             // pnRptName
             // 
             this.pnRptName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnRptName.Location = new System.Drawing.Point(0, 0);
             this.pnRptName.Name = "pnRptName";
-            this.pnRptName.Size = new System.Drawing.Size(324, 268);
+            this.pnRptName.Size = new System.Drawing.Size(367, 268);
             this.pnRptName.TabIndex = 0;
             // 
-            // rb1
+            // tab
             // 
-            this.rb1.Name = "rb1";
-            this.rb1.Text = "Label";
-            // 
-            // rgSbModule
-            // 
-            this.rgSbModule.Name = "rgSbModule";
-            this.rgSbModule.Text = "Label";
-            // 
-            // Chk1All
-            // 
-            this.Chk1All.BackColor = System.Drawing.SystemColors.Control;
-            this.Chk1All.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.Chk1All.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.Chk1All.Location = new System.Drawing.Point(77, 132);
-            this.Chk1All.Name = "Chk1All";
-            this.Chk1All.Size = new System.Drawing.Size(104, 24);
-            this.Chk1All.TabIndex = 266;
-            this.Chk1All.Text = "ทั้งหมด";
-            this.Chk1All.UseVisualStyleBackColor = true;
-            this.Chk1All.Value = null;
+            this.tab.Location = new System.Drawing.Point(1, 26);
+            this.tab.Name = "tab";
+            this.tab.Size = new System.Drawing.Size(1171, 581);
+            this.tab.TabIndex = 2;
+            this.tab.Text = "Page1";
             // 
             // FrmDfDoctor1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 630);
+            this.ClientSize = new System.Drawing.Size(1173, 630);
             this.Controls.Add(this.tCMain);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmDfDoctor1";
@@ -593,6 +625,7 @@
             this.tabImportDf.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnImportDfGen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtImpPaidType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnImportDfSelect)).EndInit();
@@ -606,6 +639,7 @@
             this.c1SplitterPanel3.ResumeLayout(false);
             this.pnRptCriDate.ResumeLayout(false);
             this.pnRptCriDate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Chk1All)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboRpt2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboRpt1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnRpt1)).EndInit();
@@ -613,7 +647,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).EndInit();
             this.c1SplitterPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Chk1All)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -658,5 +691,8 @@
         private C1.Win.C1Ribbon.RibbonLabel rb1;
         private C1.Win.C1Ribbon.RibbonLabel rgSbModule;
         private C1.Win.C1Input.C1CheckBox Chk1All;
+        private C1.Win.C1Command.C1DockingTabPage tab;
+        private System.Windows.Forms.Label label4;
+        private C1.Win.C1Input.C1TextBox txtSearch;
     }
 }

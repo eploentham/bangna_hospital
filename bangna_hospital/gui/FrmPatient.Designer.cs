@@ -133,6 +133,15 @@
             this.spOrderOrders = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnOrder = new System.Windows.Forms.Panel();
             this.spOrderItem = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.btnPrnStaffNote = new C1.Win.C1Input.C1Button();
+            this.txtInteraction = new C1.Win.C1Input.C1TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtDrugNumDay = new C1.Win.C1Input.C1TextBox();
+            this.txtDrugPerDay = new C1.Win.C1Input.C1TextBox();
+            this.txtDrugNum = new C1.Win.C1Input.C1TextBox();
             this.txtOrderId = new C1.Win.C1Input.C1TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lbStrength = new System.Windows.Forms.Label();
@@ -152,7 +161,7 @@
             this.btnOrderSubmit = new C1.Win.C1Input.C1Button();
             this.btnOrderSave = new C1.Win.C1Input.C1Button();
             this.btnItemAdd = new C1.Win.C1Input.C1Button();
-            this.txtTimDsc = new C1.Win.C1Input.C1TextBox();
+            this.txtIndication = new C1.Win.C1Input.C1TextBox();
             this.label82 = new System.Windows.Forms.Label();
             this.label81 = new System.Windows.Forms.Label();
             this.txtItemQTY = new C1.Win.C1Input.C1TextBox();
@@ -167,12 +176,10 @@
             this.lbDrugSet = new System.Windows.Forms.Label();
             this.btnDrugSetAll = new C1.Win.C1Input.C1Button();
             this.cboDrugSetName = new C1.Win.C1Input.C1ComboBox();
-            this.txtDrugNumDay = new C1.Win.C1Input.C1TextBox();
-            this.txtDrugPerDay = new C1.Win.C1Input.C1TextBox();
-            this.txtDrugNum = new C1.Win.C1Input.C1TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.tabHolter = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabEST = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabScope = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabEKG = new C1.Win.C1Command.C1DockingTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spMain)).BeginInit();
             this.spMain.SuspendLayout();
@@ -243,6 +250,11 @@
             this.spOrder.SuspendLayout();
             this.spOrderOrders.SuspendLayout();
             this.spOrderItem.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrnStaffNote)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtInteraction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNumDay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugPerDay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOrderId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrecautions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFrequency)).BeginInit();
@@ -250,7 +262,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSubmit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTimDsc)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtIndication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemQTY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOperItemSearch)).BeginInit();
@@ -259,9 +271,6 @@
             this.pnDrugSetTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDrugSetName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNumDay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDrugPerDay)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNum)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -510,7 +519,7 @@
             this.spVs.Size = new System.Drawing.Size(454, 615);
             this.spVs.SizeRatio = 26.735D;
             this.spVs.TabIndex = 1;
-            this.spVs.Text = "Visit";
+            this.spVs.Text = "Visit(Home)";
             this.spVs.Width = 461;
             // 
             // pnVs
@@ -541,6 +550,10 @@
             this.tabVS.Controls.Add(this.tabOutLab);
             this.tabVS.Controls.Add(this.tabCerti);
             this.tabVS.Controls.Add(this.tabOrderNew);
+            this.tabVS.Controls.Add(this.tabHolter);
+            this.tabVS.Controls.Add(this.tabEST);
+            this.tabVS.Controls.Add(this.tabScope);
+            this.tabVS.Controls.Add(this.tabEKG);
             this.tabVS.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabVS.Location = new System.Drawing.Point(0, 0);
             this.tabVS.Name = "tabVS";
@@ -556,7 +569,7 @@
             this.tabStaffNote.Name = "tabStaffNote";
             this.tabStaffNote.Size = new System.Drawing.Size(1260, 590);
             this.tabStaffNote.TabIndex = 0;
-            this.tabStaffNote.Text = "StaffNote";
+            this.tabStaffNote.Text = "StaffNote(F7)";
             // 
             // spScan
             // 
@@ -582,7 +595,7 @@
             this.tabScanL.Size = new System.Drawing.Size(621, 569);
             this.tabScanL.TabIndex = 0;
             this.tabScanL.Text = "Panel 1";
-            this.tabScanL.Width = 621;
+            this.tabScanL.Width = 628;
             // 
             // picL
             // 
@@ -617,7 +630,7 @@
             this.tabOrder.Name = "tabOrder";
             this.tabOrder.Size = new System.Drawing.Size(1260, 590);
             this.tabOrder.TabIndex = 1;
-            this.tabOrder.Text = "Drug/Lab/Xray/Procedure";
+            this.tabOrder.Text = "Drug/Lab/Xray/Procedure(F8)";
             // 
             // c1SplitContainer2
             // 
@@ -717,7 +730,7 @@
             this.tabApm.Name = "tabApm";
             this.tabApm.Size = new System.Drawing.Size(1260, 590);
             this.tabApm.TabIndex = 2;
-            this.tabApm.Text = "Appointment";
+            this.tabApm.Text = "Appointment(F9)";
             // 
             // scApm
             // 
@@ -1117,7 +1130,7 @@
             this.tabMedScan.Name = "tabMedScan";
             this.tabMedScan.Size = new System.Drawing.Size(1260, 590);
             this.tabMedScan.TabIndex = 3;
-            this.tabMedScan.Text = "Medical Scan IPD";
+            this.tabMedScan.Text = "Medical Scan (F10)";
             // 
             // pnMedScan
             // 
@@ -1134,7 +1147,7 @@
             this.tabOutLab.Name = "tabOutLab";
             this.tabOutLab.Size = new System.Drawing.Size(1260, 590);
             this.tabOutLab.TabIndex = 4;
-            this.tabOutLab.Text = "OutLab";
+            this.tabOutLab.Text = "OutLab(F11)";
             // 
             // spOutLab
             // 
@@ -1157,27 +1170,27 @@
             this.spOutLabList.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.spOutLabList.Location = new System.Drawing.Point(0, 21);
             this.spOutLabList.Name = "spOutLabList";
-            this.spOutLabList.Size = new System.Drawing.Size(359, 569);
+            this.spOutLabList.Size = new System.Drawing.Size(462, 569);
             this.spOutLabList.SizeRatio = 37.338D;
             this.spOutLabList.TabIndex = 0;
             this.spOutLabList.Text = "Panel 1";
-            this.spOutLabList.Width = 359;
+            this.spOutLabList.Width = 462;
             // 
             // pnOutLabList
             // 
             this.pnOutLabList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOutLabList.Location = new System.Drawing.Point(0, 0);
             this.pnOutLabList.Name = "pnOutLabList";
-            this.pnOutLabList.Size = new System.Drawing.Size(359, 569);
+            this.pnOutLabList.Size = new System.Drawing.Size(462, 569);
             this.pnOutLabList.TabIndex = 0;
             // 
             // c1SplitterPanel6
             // 
             this.c1SplitterPanel6.Controls.Add(this.pnOutLab);
             this.c1SplitterPanel6.Height = 590;
-            this.c1SplitterPanel6.Location = new System.Drawing.Point(370, 21);
+            this.c1SplitterPanel6.Location = new System.Drawing.Point(473, 21);
             this.c1SplitterPanel6.Name = "c1SplitterPanel6";
-            this.c1SplitterPanel6.Size = new System.Drawing.Size(613, 569);
+            this.c1SplitterPanel6.Size = new System.Drawing.Size(787, 569);
             this.c1SplitterPanel6.TabIndex = 1;
             this.c1SplitterPanel6.Text = "Panel 2";
             // 
@@ -1186,7 +1199,7 @@
             this.pnOutLab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOutLab.Location = new System.Drawing.Point(0, 0);
             this.pnOutLab.Name = "pnOutLab";
-            this.pnOutLab.Size = new System.Drawing.Size(613, 569);
+            this.pnOutLab.Size = new System.Drawing.Size(787, 569);
             this.pnOutLab.TabIndex = 0;
             // 
             // tabCerti
@@ -1197,7 +1210,7 @@
             this.tabCerti.Name = "tabCerti";
             this.tabCerti.Size = new System.Drawing.Size(1260, 590);
             this.tabCerti.TabIndex = 5;
-            this.tabCerti.Text = "Certificate";
+            this.tabCerti.Text = "Certificate(F12)";
             // 
             // pnCertiMed
             // 
@@ -1327,7 +1340,7 @@
             this.tabOrderNew.Name = "tabOrderNew";
             this.tabOrderNew.Size = new System.Drawing.Size(1260, 590);
             this.tabOrderNew.TabIndex = 6;
-            this.tabOrderNew.Text = "Order";
+            this.tabOrderNew.Text = "Order(F1)";
             // 
             // spOrder
             // 
@@ -1348,10 +1361,11 @@
             // 
             this.spOrderOrders.Controls.Add(this.pnOrder);
             this.spOrderOrders.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
-            this.spOrderOrders.Height = 293;
-            this.spOrderOrders.Location = new System.Drawing.Point(0, 318);
+            this.spOrderOrders.Height = 256;
+            this.spOrderOrders.Location = new System.Drawing.Point(0, 355);
             this.spOrderOrders.Name = "spOrderOrders";
-            this.spOrderOrders.Size = new System.Drawing.Size(1260, 272);
+            this.spOrderOrders.Size = new System.Drawing.Size(1260, 235);
+            this.spOrderOrders.SizeRatio = 43.686D;
             this.spOrderOrders.TabIndex = 1;
             this.spOrderOrders.Text = "Panel 2";
             // 
@@ -1360,12 +1374,15 @@
             this.pnOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOrder.Location = new System.Drawing.Point(0, 0);
             this.pnOrder.Name = "pnOrder";
-            this.pnOrder.Size = new System.Drawing.Size(1260, 272);
+            this.pnOrder.Size = new System.Drawing.Size(1260, 235);
             this.pnOrder.TabIndex = 0;
             // 
             // spOrderItem
             // 
             this.spOrderItem.Collapsible = true;
+            this.spOrderItem.Controls.Add(this.btnPrnStaffNote);
+            this.spOrderItem.Controls.Add(this.txtInteraction);
+            this.spOrderItem.Controls.Add(this.label1);
             this.spOrderItem.Controls.Add(this.label12);
             this.spOrderItem.Controls.Add(this.label11);
             this.spOrderItem.Controls.Add(this.label10);
@@ -1391,7 +1408,7 @@
             this.spOrderItem.Controls.Add(this.btnOrderSubmit);
             this.spOrderItem.Controls.Add(this.btnOrderSave);
             this.spOrderItem.Controls.Add(this.btnItemAdd);
-            this.spOrderItem.Controls.Add(this.txtTimDsc);
+            this.spOrderItem.Controls.Add(this.txtIndication);
             this.spOrderItem.Controls.Add(this.label82);
             this.spOrderItem.Controls.Add(this.label81);
             this.spOrderItem.Controls.Add(this.txtItemQTY);
@@ -1401,19 +1418,108 @@
             this.spOrderItem.Controls.Add(this.btnOperItemSearch);
             this.spOrderItem.Controls.Add(this.txtSearchItem);
             this.spOrderItem.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.spOrderItem.Height = 293;
+            this.spOrderItem.Height = 330;
             this.spOrderItem.Location = new System.Drawing.Point(0, 21);
             this.spOrderItem.Name = "spOrderItem";
-            this.spOrderItem.Size = new System.Drawing.Size(583, 272);
-            this.spOrderItem.SizeRatio = 46.975D;
+            this.spOrderItem.Size = new System.Drawing.Size(581, 309);
+            this.spOrderItem.SizeRatio = 46.815D;
             this.spOrderItem.TabIndex = 0;
             this.spOrderItem.Text = "Panel 1";
-            this.spOrderItem.Width = 590;
+            this.spOrderItem.Width = 581;
+            // 
+            // btnPrnStaffNote
+            // 
+            this.btnPrnStaffNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPrnStaffNote.Image = global::bangna_hospital.Properties.Resources.printer_orange24;
+            this.btnPrnStaffNote.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrnStaffNote.Location = new System.Drawing.Point(503, 287);
+            this.btnPrnStaffNote.Name = "btnPrnStaffNote";
+            this.btnPrnStaffNote.Size = new System.Drawing.Size(69, 33);
+            this.btnPrnStaffNote.TabIndex = 318;
+            this.btnPrnStaffNote.Text = "Print";
+            this.btnPrnStaffNote.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrnStaffNote.UseVisualStyleBackColor = true;
+            // 
+            // txtInteraction
+            // 
+            this.txtInteraction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtInteraction.Location = new System.Drawing.Point(99, 259);
+            this.txtInteraction.Name = "txtInteraction";
+            this.txtInteraction.Size = new System.Drawing.Size(480, 24);
+            this.txtInteraction.TabIndex = 317;
+            this.txtInteraction.Tag = null;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label1.Location = new System.Drawing.Point(3, 260);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 20);
+            this.label1.TabIndex = 316;
+            this.label1.Text = "interaction :";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label12.Location = new System.Drawing.Point(220, 84);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(46, 20);
+            this.label12.TabIndex = 315;
+            this.label12.Text = "จน.วัน";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label11.Location = new System.Drawing.Point(155, 84);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(67, 20);
+            this.label11.TabIndex = 314;
+            this.label11.Text = "วันละ/ครั้ง";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label10.Location = new System.Drawing.Point(122, 84);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(34, 20);
+            this.label10.TabIndex = 313;
+            this.label10.Text = "เม็ด";
+            // 
+            // txtDrugNumDay
+            // 
+            this.txtDrugNumDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDrugNumDay.Location = new System.Drawing.Point(216, 105);
+            this.txtDrugNumDay.Name = "txtDrugNumDay";
+            this.txtDrugNumDay.Size = new System.Drawing.Size(47, 24);
+            this.txtDrugNumDay.TabIndex = 312;
+            this.txtDrugNumDay.Tag = null;
+            // 
+            // txtDrugPerDay
+            // 
+            this.txtDrugPerDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDrugPerDay.Location = new System.Drawing.Point(167, 105);
+            this.txtDrugPerDay.Name = "txtDrugPerDay";
+            this.txtDrugPerDay.Size = new System.Drawing.Size(47, 24);
+            this.txtDrugPerDay.TabIndex = 311;
+            this.txtDrugPerDay.Tag = null;
+            // 
+            // txtDrugNum
+            // 
+            this.txtDrugNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDrugNum.Location = new System.Drawing.Point(118, 105);
+            this.txtDrugNum.Name = "txtDrugNum";
+            this.txtDrugNum.Size = new System.Drawing.Size(47, 24);
+            this.txtDrugNum.TabIndex = 310;
+            this.txtDrugNum.Tag = null;
             // 
             // txtOrderId
             // 
             this.txtOrderId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtOrderId.Location = new System.Drawing.Point(504, 3);
+            this.txtOrderId.Location = new System.Drawing.Point(6, 79);
             this.txtOrderId.Name = "txtOrderId";
             this.txtOrderId.Size = new System.Drawing.Size(33, 24);
             this.txtOrderId.TabIndex = 309;
@@ -1423,22 +1529,22 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label7.ForeColor = System.Drawing.Color.Firebrick;
-            this.label7.Location = new System.Drawing.Point(375, 201);
+            this.label7.Location = new System.Drawing.Point(489, 86);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(97, 20);
+            this.label7.Size = new System.Drawing.Size(83, 16);
             this.label7.TabIndex = 308;
             this.label7.Text = "STRENGTH";
             // 
             // lbStrength
             // 
             this.lbStrength.AutoSize = true;
-            this.lbStrength.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbStrength.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lbStrength.ForeColor = System.Drawing.Color.Firebrick;
-            this.lbStrength.Location = new System.Drawing.Point(482, 201);
+            this.lbStrength.Location = new System.Drawing.Point(580, 86);
             this.lbStrength.Name = "lbStrength";
-            this.lbStrength.Size = new System.Drawing.Size(21, 20);
+            this.lbStrength.Size = new System.Drawing.Size(16, 16);
             this.lbStrength.TabIndex = 307;
             this.lbStrength.Text = "...";
             // 
@@ -1446,7 +1552,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(3, 92);
+            this.label5.Location = new System.Drawing.Point(3, 135);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 20);
             this.label5.TabIndex = 306;
@@ -1456,7 +1562,7 @@
             // 
             this.lbItemNameThai.AutoSize = true;
             this.lbItemNameThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbItemNameThai.Location = new System.Drawing.Point(62, 90);
+            this.lbItemNameThai.Location = new System.Drawing.Point(62, 133);
             this.lbItemNameThai.Name = "lbItemNameThai";
             this.lbItemNameThai.Size = new System.Drawing.Size(21, 20);
             this.lbItemNameThai.TabIndex = 305;
@@ -1467,7 +1573,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label6.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.label6.Location = new System.Drawing.Point(3, 117);
+            this.label6.Location = new System.Drawing.Point(3, 160);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 20);
             this.label6.TabIndex = 303;
@@ -1478,7 +1584,7 @@
             this.lbTradeName.AutoSize = true;
             this.lbTradeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lbTradeName.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.lbTradeName.Location = new System.Drawing.Point(62, 116);
+            this.lbTradeName.Location = new System.Drawing.Point(62, 159);
             this.lbTradeName.Name = "lbTradeName";
             this.lbTradeName.Size = new System.Drawing.Size(21, 20);
             this.lbTradeName.TabIndex = 302;
@@ -1488,36 +1594,36 @@
             // 
             this.chkItemProcedure.AutoSize = true;
             this.chkItemProcedure.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkItemProcedure.Location = new System.Drawing.Point(267, 3);
+            this.chkItemProcedure.Location = new System.Drawing.Point(251, 3);
             this.chkItemProcedure.Name = "chkItemProcedure";
-            this.chkItemProcedure.Size = new System.Drawing.Size(100, 24);
+            this.chkItemProcedure.Size = new System.Drawing.Size(129, 24);
             this.chkItemProcedure.TabIndex = 285;
             this.chkItemProcedure.TabStop = true;
-            this.chkItemProcedure.Text = "Procedure";
+            this.chkItemProcedure.Text = "Procedure(F4)";
             this.chkItemProcedure.UseVisualStyleBackColor = true;
             // 
             // chkItemDrug
             // 
             this.chkItemDrug.AutoSize = true;
             this.chkItemDrug.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkItemDrug.Location = new System.Drawing.Point(422, 3);
+            this.chkItemDrug.Location = new System.Drawing.Point(393, 3);
             this.chkItemDrug.Name = "chkItemDrug";
-            this.chkItemDrug.Size = new System.Drawing.Size(76, 24);
+            this.chkItemDrug.Size = new System.Drawing.Size(105, 24);
             this.chkItemDrug.TabIndex = 284;
             this.chkItemDrug.TabStop = true;
-            this.chkItemDrug.Text = "DRUG";
+            this.chkItemDrug.Text = "DRUG(F5)";
             this.chkItemDrug.UseVisualStyleBackColor = true;
             // 
             // chkItemXray
             // 
             this.chkItemXray.AutoSize = true;
             this.chkItemXray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkItemXray.Location = new System.Drawing.Point(129, 3);
+            this.chkItemXray.Location = new System.Drawing.Point(133, 3);
             this.chkItemXray.Name = "chkItemXray";
-            this.chkItemXray.Size = new System.Drawing.Size(72, 24);
+            this.chkItemXray.Size = new System.Drawing.Size(101, 24);
             this.chkItemXray.TabIndex = 283;
             this.chkItemXray.TabStop = true;
-            this.chkItemXray.Text = "XRAY";
+            this.chkItemXray.Text = "XRAY(F3)";
             this.chkItemXray.UseVisualStyleBackColor = true;
             // 
             // chkItemLab
@@ -1526,16 +1632,16 @@
             this.chkItemLab.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.chkItemLab.Location = new System.Drawing.Point(6, 3);
             this.chkItemLab.Name = "chkItemLab";
-            this.chkItemLab.Size = new System.Drawing.Size(58, 24);
+            this.chkItemLab.Size = new System.Drawing.Size(87, 24);
             this.chkItemLab.TabIndex = 282;
             this.chkItemLab.TabStop = true;
-            this.chkItemLab.Text = "LAB";
+            this.chkItemLab.Text = "LAB(F2)";
             this.chkItemLab.UseVisualStyleBackColor = true;
             // 
             // txtPrecautions
             // 
             this.txtPrecautions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPrecautions.Location = new System.Drawing.Point(62, 169);
+            this.txtPrecautions.Location = new System.Drawing.Point(62, 209);
             this.txtPrecautions.Name = "txtPrecautions";
             this.txtPrecautions.Size = new System.Drawing.Size(522, 24);
             this.txtPrecautions.TabIndex = 281;
@@ -1545,7 +1651,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label2.Location = new System.Drawing.Point(3, 169);
+            this.label2.Location = new System.Drawing.Point(3, 209);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(51, 20);
             this.label2.TabIndex = 280;
@@ -1554,7 +1660,7 @@
             // txtFrequency
             // 
             this.txtFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtFrequency.Location = new System.Drawing.Point(62, 144);
+            this.txtFrequency.Location = new System.Drawing.Point(62, 184);
             this.txtFrequency.Name = "txtFrequency";
             this.txtFrequency.Size = new System.Drawing.Size(522, 24);
             this.txtFrequency.TabIndex = 279;
@@ -1564,7 +1670,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(3, 146);
+            this.label3.Location = new System.Drawing.Point(3, 186);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 20);
             this.label3.TabIndex = 278;
@@ -1573,7 +1679,7 @@
             // c1Button1
             // 
             this.c1Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button1.Location = new System.Drawing.Point(349, 225);
+            this.c1Button1.Location = new System.Drawing.Point(349, 286);
             this.c1Button1.Name = "c1Button1";
             this.c1Button1.Size = new System.Drawing.Size(72, 33);
             this.c1Button1.TabIndex = 277;
@@ -1583,7 +1689,7 @@
             // btnOrderSubmit
             // 
             this.btnOrderSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnOrderSubmit.Location = new System.Drawing.Point(191, 225);
+            this.btnOrderSubmit.Location = new System.Drawing.Point(191, 286);
             this.btnOrderSubmit.Name = "btnOrderSubmit";
             this.btnOrderSubmit.Size = new System.Drawing.Size(72, 33);
             this.btnOrderSubmit.TabIndex = 276;
@@ -1593,37 +1699,37 @@
             // btnOrderSave
             // 
             this.btnOrderSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnOrderSave.Location = new System.Drawing.Point(62, 225);
+            this.btnOrderSave.Location = new System.Drawing.Point(62, 286);
             this.btnOrderSave.Name = "btnOrderSave";
-            this.btnOrderSave.Size = new System.Drawing.Size(72, 33);
+            this.btnOrderSave.Size = new System.Drawing.Size(117, 33);
             this.btnOrderSave.TabIndex = 275;
-            this.btnOrderSave.Text = "save";
+            this.btnOrderSave.Text = "save(P Down)";
             this.btnOrderSave.UseVisualStyleBackColor = true;
             // 
             // btnItemAdd
             // 
             this.btnItemAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnItemAdd.Location = new System.Drawing.Point(454, 230);
+            this.btnItemAdd.Location = new System.Drawing.Point(454, 289);
             this.btnItemAdd.Name = "btnItemAdd";
             this.btnItemAdd.Size = new System.Drawing.Size(30, 28);
             this.btnItemAdd.TabIndex = 274;
             this.btnItemAdd.Text = "+";
             this.btnItemAdd.UseVisualStyleBackColor = true;
             // 
-            // txtTimDsc
+            // txtIndication
             // 
-            this.txtTimDsc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtTimDsc.Location = new System.Drawing.Point(71, 194);
-            this.txtTimDsc.Name = "txtTimDsc";
-            this.txtTimDsc.Size = new System.Drawing.Size(300, 24);
-            this.txtTimDsc.TabIndex = 273;
-            this.txtTimDsc.Tag = null;
+            this.txtIndication.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtIndication.Location = new System.Drawing.Point(71, 234);
+            this.txtIndication.Name = "txtIndication";
+            this.txtIndication.Size = new System.Drawing.Size(508, 24);
+            this.txtIndication.TabIndex = 273;
+            this.txtIndication.Tag = null;
             // 
             // label82
             // 
             this.label82.AutoSize = true;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label82.Location = new System.Drawing.Point(3, 195);
+            this.label82.Location = new System.Drawing.Point(3, 235);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(65, 20);
             this.label82.TabIndex = 272;
@@ -1633,7 +1739,7 @@
             // 
             this.label81.AutoSize = true;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label81.Location = new System.Drawing.Point(347, 35);
+            this.label81.Location = new System.Drawing.Point(30, 108);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(30, 20);
             this.label81.TabIndex = 271;
@@ -1642,7 +1748,7 @@
             // txtItemQTY
             // 
             this.txtItemQTY.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtItemQTY.Location = new System.Drawing.Point(379, 32);
+            this.txtItemQTY.Location = new System.Drawing.Point(62, 105);
             this.txtItemQTY.Name = "txtItemQTY";
             this.txtItemQTY.Size = new System.Drawing.Size(47, 24);
             this.txtItemQTY.TabIndex = 270;
@@ -1652,7 +1758,7 @@
             // 
             this.lbItemName.AutoSize = true;
             this.lbItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbItemName.Location = new System.Drawing.Point(149, 62);
+            this.lbItemName.Location = new System.Drawing.Point(149, 57);
             this.lbItemName.Name = "lbItemName";
             this.lbItemName.Size = new System.Drawing.Size(30, 25);
             this.lbItemName.TabIndex = 269;
@@ -1661,7 +1767,7 @@
             // txtItemCode
             // 
             this.txtItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtItemCode.Location = new System.Drawing.Point(62, 62);
+            this.txtItemCode.Location = new System.Drawing.Point(62, 57);
             this.txtItemCode.Name = "txtItemCode";
             this.txtItemCode.Size = new System.Drawing.Size(83, 24);
             this.txtItemCode.TabIndex = 263;
@@ -1671,7 +1777,7 @@
             // 
             this.label79.AutoSize = true;
             this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label79.Location = new System.Drawing.Point(5, 63);
+            this.label79.Location = new System.Drawing.Point(5, 61);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(47, 20);
             this.label79.TabIndex = 262;
@@ -1680,7 +1786,7 @@
             // btnOperItemSearch
             // 
             this.btnOperItemSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnOperItemSearch.Location = new System.Drawing.Point(3, 31);
+            this.btnOperItemSearch.Location = new System.Drawing.Point(3, 29);
             this.btnOperItemSearch.Name = "btnOperItemSearch";
             this.btnOperItemSearch.Size = new System.Drawing.Size(55, 28);
             this.btnOperItemSearch.TabIndex = 261;
@@ -1690,9 +1796,9 @@
             // txtSearchItem
             // 
             this.txtSearchItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSearchItem.Location = new System.Drawing.Point(62, 33);
+            this.txtSearchItem.Location = new System.Drawing.Point(62, 31);
             this.txtSearchItem.Name = "txtSearchItem";
-            this.txtSearchItem.Size = new System.Drawing.Size(282, 24);
+            this.txtSearchItem.Size = new System.Drawing.Size(517, 24);
             this.txtSearchItem.TabIndex = 255;
             this.txtSearchItem.Tag = null;
             // 
@@ -1701,19 +1807,19 @@
             this.spOrderDrugSet.Controls.Add(this.pnDrugSet);
             this.spOrderDrugSet.Controls.Add(this.pnDrugSetTop);
             this.spOrderDrugSet.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.spOrderDrugSet.Location = new System.Drawing.Point(594, 21);
+            this.spOrderDrugSet.Location = new System.Drawing.Point(592, 21);
             this.spOrderDrugSet.Name = "spOrderDrugSet";
-            this.spOrderDrugSet.Size = new System.Drawing.Size(666, 272);
+            this.spOrderDrugSet.Size = new System.Drawing.Size(668, 309);
             this.spOrderDrugSet.TabIndex = 2;
             this.spOrderDrugSet.Text = "Panel 3";
-            this.spOrderDrugSet.Width = 666;
+            this.spOrderDrugSet.Width = 668;
             // 
             // pnDrugSet
             // 
             this.pnDrugSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDrugSet.Location = new System.Drawing.Point(0, 41);
             this.pnDrugSet.Name = "pnDrugSet";
-            this.pnDrugSet.Size = new System.Drawing.Size(666, 231);
+            this.pnDrugSet.Size = new System.Drawing.Size(668, 268);
             this.pnDrugSet.TabIndex = 304;
             // 
             // pnDrugSetTop
@@ -1724,7 +1830,7 @@
             this.pnDrugSetTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnDrugSetTop.Location = new System.Drawing.Point(0, 0);
             this.pnDrugSetTop.Name = "pnDrugSetTop";
-            this.pnDrugSetTop.Size = new System.Drawing.Size(666, 41);
+            this.pnDrugSetTop.Size = new System.Drawing.Size(668, 41);
             this.pnDrugSetTop.TabIndex = 310;
             // 
             // lbDrugSet
@@ -1734,20 +1840,20 @@
             this.lbDrugSet.ForeColor = System.Drawing.Color.Red;
             this.lbDrugSet.Location = new System.Drawing.Point(3, 9);
             this.lbDrugSet.Name = "lbDrugSet";
-            this.lbDrugSet.Size = new System.Drawing.Size(67, 20);
+            this.lbDrugSet.Size = new System.Drawing.Size(96, 20);
             this.lbDrugSet.TabIndex = 287;
-            this.lbDrugSet.Text = "ชื่อยาชุด :";
+            this.lbDrugSet.Text = "ชื่อยาชุด :(F6)";
             // 
             // btnDrugSetAll
             // 
             this.btnDrugSetAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnDrugSetAll.Image = global::bangna_hospital.Properties.Resources.IncreaseIndent_small;
             this.btnDrugSetAll.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDrugSetAll.Location = new System.Drawing.Point(366, 8);
+            this.btnDrugSetAll.Location = new System.Drawing.Point(401, 8);
             this.btnDrugSetAll.Name = "btnDrugSetAll";
-            this.btnDrugSetAll.Size = new System.Drawing.Size(80, 28);
+            this.btnDrugSetAll.Size = new System.Drawing.Size(119, 28);
             this.btnDrugSetAll.TabIndex = 309;
-            this.btnDrugSetAll.Text = "+ALL";
+            this.btnDrugSetAll.Text = "+ALL(End)";
             this.btnDrugSetAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDrugSetAll.UseVisualStyleBackColor = true;
             // 
@@ -1761,68 +1867,43 @@
             this.cboDrugSetName.ImagePadding = new System.Windows.Forms.Padding(0);
             this.cboDrugSetName.ItemsDisplayMember = "";
             this.cboDrugSetName.ItemsValueMember = "";
-            this.cboDrugSetName.Location = new System.Drawing.Point(76, 9);
+            this.cboDrugSetName.Location = new System.Drawing.Point(111, 9);
             this.cboDrugSetName.Name = "cboDrugSetName";
             this.cboDrugSetName.Size = new System.Drawing.Size(284, 24);
             this.cboDrugSetName.TabIndex = 286;
             this.cboDrugSetName.Tag = null;
             // 
-            // txtDrugNumDay
+            // tabHolter
             // 
-            this.txtDrugNumDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDrugNumDay.Location = new System.Drawing.Point(533, 32);
-            this.txtDrugNumDay.Name = "txtDrugNumDay";
-            this.txtDrugNumDay.Size = new System.Drawing.Size(47, 24);
-            this.txtDrugNumDay.TabIndex = 312;
-            this.txtDrugNumDay.Tag = null;
+            this.tabHolter.Location = new System.Drawing.Point(1, 24);
+            this.tabHolter.Name = "tabHolter";
+            this.tabHolter.Size = new System.Drawing.Size(1260, 590);
+            this.tabHolter.TabIndex = 7;
+            this.tabHolter.Text = "Holter";
             // 
-            // txtDrugPerDay
+            // tabEST
             // 
-            this.txtDrugPerDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDrugPerDay.Location = new System.Drawing.Point(484, 32);
-            this.txtDrugPerDay.Name = "txtDrugPerDay";
-            this.txtDrugPerDay.Size = new System.Drawing.Size(47, 24);
-            this.txtDrugPerDay.TabIndex = 311;
-            this.txtDrugPerDay.Tag = null;
+            this.tabEST.Location = new System.Drawing.Point(1, 24);
+            this.tabEST.Name = "tabEST";
+            this.tabEST.Size = new System.Drawing.Size(1260, 590);
+            this.tabEST.TabIndex = 8;
+            this.tabEST.Text = "EST";
             // 
-            // txtDrugNum
+            // tabScope
             // 
-            this.txtDrugNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDrugNum.Location = new System.Drawing.Point(435, 32);
-            this.txtDrugNum.Name = "txtDrugNum";
-            this.txtDrugNum.Size = new System.Drawing.Size(47, 24);
-            this.txtDrugNum.TabIndex = 310;
-            this.txtDrugNum.Tag = null;
+            this.tabScope.Location = new System.Drawing.Point(1, 24);
+            this.tabScope.Name = "tabScope";
+            this.tabScope.Size = new System.Drawing.Size(1260, 590);
+            this.tabScope.TabIndex = 9;
+            this.tabScope.Text = "Endo Scope";
             // 
-            // label12
+            // tabEKG
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label12.Location = new System.Drawing.Point(534, 59);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(46, 20);
-            this.label12.TabIndex = 315;
-            this.label12.Text = "จน.วัน";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label11.Location = new System.Drawing.Point(469, 59);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(67, 20);
-            this.label11.TabIndex = 314;
-            this.label11.Text = "วันละ/ครั้ง";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label10.Location = new System.Drawing.Point(436, 59);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(34, 20);
-            this.label10.TabIndex = 313;
-            this.label10.Text = "เม็ด";
+            this.tabEKG.Location = new System.Drawing.Point(1, 24);
+            this.tabEKG.Name = "tabEKG";
+            this.tabEKG.Size = new System.Drawing.Size(1260, 590);
+            this.tabEKG.TabIndex = 10;
+            this.tabEKG.Text = "EKG";
             // 
             // FrmPatient
             // 
@@ -1909,6 +1990,11 @@
             this.spOrderOrders.ResumeLayout(false);
             this.spOrderItem.ResumeLayout(false);
             this.spOrderItem.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrnStaffNote)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtInteraction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNumDay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugPerDay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtOrderId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrecautions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFrequency)).EndInit();
@@ -1916,7 +2002,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSubmit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtTimDsc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtIndication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemQTY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOperItemSearch)).EndInit();
@@ -1926,9 +2012,6 @@
             this.pnDrugSetTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDrugSetName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNumDay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDrugPerDay)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtDrugNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2039,7 +2122,7 @@
         private C1.Win.C1Input.C1Button btnOrderSubmit;
         private C1.Win.C1Input.C1Button btnOrderSave;
         private C1.Win.C1Input.C1Button btnItemAdd;
-        private C1.Win.C1Input.C1TextBox txtTimDsc;
+        private C1.Win.C1Input.C1TextBox txtIndication;
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.Label label81;
         private C1.Win.C1Input.C1TextBox txtItemQTY;
@@ -2080,5 +2163,12 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
+        private C1.Win.C1Input.C1TextBox txtInteraction;
+        private System.Windows.Forms.Label label1;
+        private C1.Win.C1Input.C1Button btnPrnStaffNote;
+        private C1.Win.C1Command.C1DockingTabPage tabHolter;
+        private C1.Win.C1Command.C1DockingTabPage tabEST;
+        private C1.Win.C1Command.C1DockingTabPage tabScope;
+        private C1.Win.C1Command.C1DockingTabPage tabEKG;
     }
 }

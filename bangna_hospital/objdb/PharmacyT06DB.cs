@@ -131,7 +131,8 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select '' as printdatetime,'' as hostname, '' as tel, ('HN '+convert(varchar(20),phart05.MNC_HN_NO)) as hn, pharm01.MNC_PH_TN + ' ' +convert(varchar(20),phart06.MNC_PH_QTY_PAID)+' '+pharm03.MNC_PH_UNT_DSC as drugname_e , pharm01.MNC_PH_THAI as drugname_t, phart06.MNC_PH_DIR_DSC as drug_using, '' as drug_cust, phart06.MNC_PH_CD,phart06.MNC_PH_QTY_PAID,phart06.MNC_PH_UNT_CD,phart06.MNC_PH_PRI " +
+            sql = "Select '' as printdatetime,'' as hostname, '' as tel, ('HN '+convert(varchar(20),phart05.MNC_HN_NO)) as hn, pharm01.MNC_PH_TN + ' ' +convert(varchar(20),phart06.MNC_PH_QTY_PAID)+' '+pharm03.MNC_PH_UNT_DSC as drugname_e " +
+                ", pharm01.MNC_PH_THAI as drugname_t, phart06.MNC_PH_DIR_DSC as drug_using, '' as drug_cust, phart06.MNC_PH_CD,phart06.MNC_PH_QTY_PAID,phart06.MNC_PH_UNT_CD,phart06.MNC_PH_PRI " +
                 ",pharm01.MNC_PH_TN,phart05.MNC_DOC_CD,phart05.MNC_CFR_YR,phart05.MNC_CFR_NO,convert(varchar(20), phart05.MNC_CFG_DAT,23) as MNC_CFG_DAT, isnull(pm11.MNC_PH_CAU_dsc,'') as drug_cau " +
                 ", (isnull(pm02.MNC_PFIX_DSC,'') +' ' + isnull(pm01.MNC_FNAME_T,'') + ' ' + isnull(pm01.MNC_LNAME_T,'')) as pttname  " +
                 ",convert(varchar(20),phart06.MNC_PH_QTY_PAID)+' '+pharm03.MNC_PH_UNT_DSC unitqty  " +

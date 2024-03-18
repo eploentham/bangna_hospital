@@ -267,7 +267,7 @@
             this.spMedScanIPD.Size = new System.Drawing.Size(655, 1020);
             this.spMedScanIPD.TabIndex = 0;
             this.spMedScanIPD.Text = "Panel 1";
-            this.spMedScanIPD.Width = 655;
+            this.spMedScanIPD.Width = 662;
             // 
             // c1SplitterPanel4
             // 
@@ -319,7 +319,7 @@
             this.spOutLabList.Size = new System.Drawing.Size(655, 1020);
             this.spOutLabList.TabIndex = 0;
             this.spOutLabList.Text = "Panel 1";
-            this.spOutLabList.Width = 662;
+            this.spOutLabList.Width = 655;
             // 
             // c1SplitterPanel6
             // 

@@ -31,6 +31,9 @@
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
             this.rbSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbDocNoOld = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rbDocDateOld = new C1.Win.C1Ribbon.RibbonLabel();
             this.tC = new C1.Win.C1Command.C1DockingTab();
             this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -40,6 +43,7 @@
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.lbLimitCreditOld = new System.Windows.Forms.Label();
             this.txtName = new C1.Win.C1Input.C1TextBox();
             this.cboLimitCredit = new C1.Win.C1Input.C1ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -85,10 +89,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.lbLimitCreditOld = new System.Windows.Forms.Label();
-            this.rbDocNoOld = new C1.Win.C1Ribbon.RibbonLabel();
-            this.rbDocDateOld = new C1.Win.C1Ribbon.RibbonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -144,6 +144,21 @@
             // 
             this.rbSbMessage.Name = "rbSbMessage";
             this.rbSbMessage.Text = "Label";
+            // 
+            // rb1
+            // 
+            this.rb1.Name = "rb1";
+            this.rb1.Text = "Label";
+            // 
+            // rbDocNoOld
+            // 
+            this.rbDocNoOld.Name = "rbDocNoOld";
+            this.rbDocNoOld.Text = "Label";
+            // 
+            // rbDocDateOld
+            // 
+            this.rbDocDateOld.Name = "rbDocDateOld";
+            this.rbDocDateOld.Text = "Label";
             // 
             // tC
             // 
@@ -266,6 +281,17 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(641, 231);
             this.panel6.TabIndex = 0;
+            // 
+            // lbLimitCreditOld
+            // 
+            this.lbLimitCreditOld.AutoSize = true;
+            this.lbLimitCreditOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbLimitCreditOld.ForeColor = System.Drawing.Color.Red;
+            this.lbLimitCreditOld.Location = new System.Drawing.Point(367, 201);
+            this.lbLimitCreditOld.Name = "lbLimitCreditOld";
+            this.lbLimitCreditOld.Size = new System.Drawing.Size(21, 20);
+            this.lbLimitCreditOld.TabIndex = 157;
+            this.lbLimitCreditOld.Text = "...";
             // 
             // txtName
             // 
@@ -731,32 +757,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(890, 496);
             this.panel2.TabIndex = 81;
-            // 
-            // rb1
-            // 
-            this.rb1.Name = "rb1";
-            this.rb1.Text = "Label";
-            // 
-            // lbLimitCreditOld
-            // 
-            this.lbLimitCreditOld.AutoSize = true;
-            this.lbLimitCreditOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbLimitCreditOld.ForeColor = System.Drawing.Color.Red;
-            this.lbLimitCreditOld.Location = new System.Drawing.Point(367, 201);
-            this.lbLimitCreditOld.Name = "lbLimitCreditOld";
-            this.lbLimitCreditOld.Size = new System.Drawing.Size(21, 20);
-            this.lbLimitCreditOld.TabIndex = 157;
-            this.lbLimitCreditOld.Text = "...";
-            // 
-            // rbDocNoOld
-            // 
-            this.rbDocNoOld.Name = "rbDocNoOld";
-            this.rbDocNoOld.Text = "Label";
-            // 
-            // rbDocDateOld
-            // 
-            this.rbDocDateOld.Name = "rbDocDateOld";
-            this.rbDocDateOld.Text = "Label";
             // 
             // FrmReceptionStatusVisit
             // 

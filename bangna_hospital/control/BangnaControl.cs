@@ -722,6 +722,7 @@ namespace bangna_hospital.control
             iniC.pathLabOutBackupATTA = iniF.getIni("app", "pathLabOutBackupATTA");
             iniC.statusScreenCaptureUploadDoc = iniF.getIni("app", "statusScreenCaptureUploadDoc");
             iniC.statusScreenCaptureAutoSend = iniF.getIni("app", "statusScreenCaptureAutoSend");
+            iniC.statusPrintPreview = iniF.getIni("app", "statusPrintPreview");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -822,6 +823,7 @@ namespace bangna_hospital.control
             iniC.statusScreenCaptureUploadDoc = iniC.statusScreenCaptureUploadDoc == null ? "0" : iniC.statusScreenCaptureUploadDoc.Equals("") ? "0" : iniC.statusScreenCaptureUploadDoc;
             iniC.padYCertMed = iniC.padYCertMed == null ? "820" : iniC.padYCertMed.Equals("") ? "820" : iniC.padYCertMed;
             iniC.statusScreenCaptureAutoSend = iniC.statusScreenCaptureAutoSend == null ? "0" : iniC.statusScreenCaptureAutoSend.Equals("") ? "0" : iniC.statusScreenCaptureAutoSend;
+            iniC.statusPrintPreview = iniC.statusPrintPreview == null ? "0" : iniC.statusPrintPreview.Equals("") ? "0" : iniC.statusPrintPreview;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -1013,6 +1015,10 @@ namespace bangna_hospital.control
                 {
                     if (DateTime.TryParse(dt.ToString(), out dt1))
                     {
+                        if (dt1.Year < 2000)
+                        {
+                            dt1 = dt1.AddYears(543);
+                        }
                         re = dt1.ToString("dd-MM-yyyy");
                     }
                 }
@@ -1041,11 +1047,22 @@ namespace bangna_hospital.control
             }
             else
             {
-                if (dt != null)
+                if ((dt != null)&&(dt.Length>0))
                 {
-                    if (DateTime.TryParse(dt.ToString(), out dt1))
+                    if (DateTime.TryParse(dt, out dt1))
                     {
-                        re = dt1.ToString("dd-MM-yyyy");
+                        if (dt1.Year < 2000)
+                        {
+                            dt1 = dt1.AddYears(543);
+                        }
+                        re = dt1.ToString("dd-MM"+"-"+dt1.Year.ToString());
+                    }
+                    else
+                    {
+                        year1 = dt.Substring(0, 4);
+                        mm = dt.Substring(5, 2);
+                        dd = dt.Substring(8, 2);
+                        re = dd + "-" + mm + "-" + year1;
                     }
                 }
             }

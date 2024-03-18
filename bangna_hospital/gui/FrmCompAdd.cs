@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,11 +24,13 @@ namespace bangna_hospital.gui
         C1FlexGrid grfComp;
         AutoCompleteStringCollection autoComp, autoInsur;
         Boolean checkCompNameFound = false;
+        String COMPNAME = "";
 
         int colgrfCompName = 1;
-        public FrmCompAdd(BangnaControl bc)
+        public FrmCompAdd(BangnaControl bc, String compname)
         {
             this.bc = bc;
+            this.COMPNAME = compname;
             InitializeComponent();
             initConfig();
         }
@@ -42,18 +45,49 @@ namespace bangna_hospital.gui
 
             comp = new PatientM24();
             autoComp = new AutoCompleteStringCollection();
-            autoComp = bc.bcDB.pm24DB.setAutoComp();
+            autoComp = bc.bcDB.pm24DB.getlPaid1(false);
             autoInsur = new AutoCompleteStringCollection();
-            autoInsur = bc.bcDB.pm24DB.setAutoInsur();
+            autoInsur = bc.bcDB.pm24DB.setAutoInsur(false);
 
             initGrfComp();
 
             btnCompSave.Click += BtnCompSave_Click;
             txtCompNameT.KeyUp += TxtCompNameT_KeyUp;
             txtCompAddrT.KeyUp += TxtCompAddrT_KeyUp;
-
+            txtCompMobile1.KeyUp += TxtCompMobile1_KeyUp;
+            txtCompMobile2.KeyUp += TxtCompMobile2_KeyUp;
+            txtCompEmail.KeyUp += TxtCompEmail_KeyUp;
+            txtCompInsur1.KeyUp += TxtCompInsur1_KeyUp;
+            txtCompContractName.KeyUp += TxtCompContractName_KeyUp;
+            if (COMPNAME.Length > 0) { txtCompCode.Value = bc.bcDB.pm24DB.getPaidCode(COMPNAME); txtCompNameT.Value = COMPNAME; setControl(); }
+            if (txtCompCode.Text.Length > 0) lbMessage.Text = "ต้องการแก้ไข ข้อมูล"; else lbMessage.Text = "เพิ่มข้อมูล บริษัทใหม่";
             panel1.Hide();
             pageLoad = false;
+        }
+        private void TxtCompContractName_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter) { txtCompMobile1.SelectAll(); txtCompMobile1.Focus(); }
+        }
+        private void TxtCompInsur1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter) { txtCompInsur2.SelectAll(); txtCompInsur2.Focus(); }
+        }
+        private void TxtCompEmail_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter) { txtCompInsur1.SelectAll(); txtCompInsur1.Focus(); }
+        }
+        private void TxtCompMobile2_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter) { txtCompEmail.SelectAll(); txtCompEmail.Focus(); }
+        }
+        private void TxtCompMobile1_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter) { txtCompMobile2.SelectAll(); txtCompMobile2.Focus(); }
         }
         private void initGrfComp()
         {
@@ -67,10 +101,10 @@ namespace bangna_hospital.gui
 
             grfComp.Cols[colgrfCompName].TextAlign = TextAlignEnum.LeftCenter;
 
-            grfComp.Cols[colgrfCompName].Width = 200;
+            grfComp.Cols[colgrfCompName].Width = 400;
 
             grfComp.ShowCursor = true;
-            grfComp.Cols[colgrfCompName].Caption = "hn";
+            grfComp.Cols[colgrfCompName].Caption = "ชื่อบริษัท";
 
             grfComp.Cols[colgrfCompName].AllowEditing = false;
             
@@ -82,15 +116,26 @@ namespace bangna_hospital.gui
             DataTable dt = new DataTable();
             dt = bc.bcDB.pm24DB.selectCustByName(name);
             int i = 1, j = 1;
-            grfComp.Rows.Count = 1;
-            grfComp.Rows.Count = dt.Rows.Count + 1;
-            //pB1.Maximum = dt.Rows.Count;
+            grfComp.Rows.Count = 1;            grfComp.Rows.Count = dt.Rows.Count + 1;
             checkCompNameFound = false;
             foreach (DataRow row1 in dt.Rows)
             {
-                //pB1.Value++;
                 try
                 {
+                    if (i == 1)
+                    {
+                        //txtCompCode.Value = row1["MNC_COM_CD"].ToString();
+                        txtCompNameE.Value = "";
+                        txtCompAddrT.Value = row1["MNC_COM_ADD"].ToString();
+                        //txtCompAddrE.Value = row1[""].ToString();
+                        txtCompContractName.Value = row1["MNC_COM_NAM"].ToString();
+                        txtCompMobile1.Value = row1["MNC_COM_TEL"].ToString();
+                        txtCompMobile2.Value = row1["phone2"].ToString();
+                        txtCompEmail.Value = row1["email"].ToString();
+                        txtCompInsur1.Value = bc.bcDB.pm24DB.selectCust(row1["insur1_code"].ToString());
+                        txtCompInsur2.Value = bc.bcDB.pm24DB.selectCust(row1["insur2_code"].ToString());
+                        chkCompInsur.Value = row1["status_insur"].ToString().Equals("1") ? true : false;
+                    }
                     Row rowa = grfComp.Rows[i];
                     rowa[colgrfCompName] = row1["MNC_COM_DSC"].ToString();
                     rowa[0] = i.ToString();
@@ -109,29 +154,20 @@ namespace bangna_hospital.gui
         private void TxtCompAddrT_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if (e.KeyCode == Keys.Enter)
-            {
-                txtCompMobile1.SelectAll();
-                txtCompMobile1.Focus();
-            }
+            if (e.KeyCode == Keys.Enter){ txtCompContractName.SelectAll(); txtCompContractName.Focus(); }
         }
         private void TxtCompNameT_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            if(e.KeyCode == Keys.Enter)
-            {
-                setGrfComp(txtCompNameT.Text.Trim());
-                if (checkCompNameFound)
-                {
-                    lfsbMessage.Text = "พบ รายชื่อบริษัท";
-                }
-                else
-                {
-                    lfsbMessage.Text = "ไม่พบ รายชื่อบริษัท";
-                }
-                txtCompAddrT.SelectAll();
-                txtCompAddrT.Focus();
-            }
+            if(e.KeyCode == Keys.Enter)            {                setControl();            }
+        }
+        private void setControl()
+        {
+            setGrfComp(txtCompNameT.Text.Trim());
+            if (checkCompNameFound) { lfsbMessage.Text = "พบ รายชื่อบริษัท"; }
+            else { lfsbMessage.Text = "ไม่พบ รายชื่อบริษัท"; }
+            txtCompAddrT.SelectAll();
+            txtCompAddrT.Focus();
         }
         private void setCompany()
         {
@@ -139,7 +175,11 @@ namespace bangna_hospital.gui
             comp.MNC_COM_DSC = txtCompNameT.Text.Trim();
             comp.MNC_COM_TEL = txtCompMobile1.Text.Trim();
             comp.MNC_COM_ADD = txtCompAddrT.Text.Trim();
-            comp.status_insur = txtCompInsur1.Text.Length>0 ? "1": "0";
+            comp.MNC_COM_TEL = txtCompMobile1.Text.Trim();
+            comp.MNC_COM_NAM = txtCompContractName.Text.Trim();
+            comp.email = txtCompEmail.Text.Trim();
+            comp.phone2 = txtCompMobile2.Text.Trim();
+            comp.status_insur = chkCompInsur.Checked ? "1": "0";
             comp.insur1_code = bc.bcDB.pm24DB.selectCustByName1(txtCompInsur1.Text.Trim());
             comp.insur2_code = bc.bcDB.pm24DB.selectCustByName1(txtCompInsur2.Text.Trim());
             comp.MNC_COM_STS = "Y";
@@ -147,22 +187,25 @@ namespace bangna_hospital.gui
         private void BtnCompSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (txtCompNameT.Text.Length == 0)
-            {
-                txtCompNameT.Focus();
-                return;
-            }
+            if (txtCompNameT.Text.Length == 0){ txtCompNameT.Focus(); return; }
+            String re = "";
             setCompany();
-            String re = bc.bcDB.pm24DB.insertCompany(comp,"");
-            if (long.TryParse(re, out long chk))
-            {
-                //lfSbStatus.Text = "update OK";
-                this.Dispose();
+            if (txtCompCode.Text.Trim().Length > 0) {
+                if (MessageBox.Show("ต้องการแก้ไข ข้อมูลบริษัท", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    re = bc.bcDB.pm24DB.insertCompany(comp, "");
+                }
             }
             else
             {
-                bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnCompSave_Click ", re);
+                comp.MNC_COM_CD = "";
+                re = bc.bcDB.pm24DB.insertCompany(comp, "");
             }
+
+            
+            
+            if (long.TryParse(re, out long chk)){ lfsbMessage.Text = "update OK";                this.Dispose(); }
+            else{ bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnCompSave_Click ", re); }
         }
         private void FrmCompAdd_Load(object sender, EventArgs e)
         {

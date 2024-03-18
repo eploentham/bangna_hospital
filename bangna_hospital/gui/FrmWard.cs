@@ -66,7 +66,6 @@ namespace bangna_hospital.gui
             {
                 TabNew.TabVisible = false;
                 tabPttinWard.TabVisible = false;
-
             }
             btnSBSearch.Click += BtnSBSearch_Click;
             pageLoad = false;

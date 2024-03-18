@@ -712,13 +712,13 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 729;
+            this.spOperList.Width = 722;
             // 
             // spOperVisit
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 305;
+            this.spOperVisit.Height = 298;
             this.spOperVisit.Location = new System.Drawing.Point(733, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(730, 277);
@@ -1653,7 +1653,7 @@
             this.c1SplitterPanel1.Controls.Add(this.txtPttApmDate);
             this.c1SplitterPanel1.Controls.Add(this.label69);
             this.c1SplitterPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel1.Height = 321;
+            this.c1SplitterPanel1.Height = 314;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
             this.c1SplitterPanel1.Size = new System.Drawing.Size(728, 293);
@@ -4517,7 +4517,7 @@
             this.c1SplitterPanel7.Size = new System.Drawing.Size(372, 1019);
             this.c1SplitterPanel7.TabIndex = 0;
             this.c1SplitterPanel7.Text = "Panel 1";
-            this.c1SplitterPanel7.Width = 372;
+            this.c1SplitterPanel7.Width = 379;
             // 
             // picSrcL
             // 

@@ -14,6 +14,7 @@ namespace bangna_hospital.object1
         public String item_name { get; set; }
         public String status_item { get; set; }
         public String qty { get; set; }
+        public String using1 { get; set; }
         public String frequency { get; set; }
         public String precautions { get; set; }
         public String interaction { get; set; }

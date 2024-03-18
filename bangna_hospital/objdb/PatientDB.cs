@@ -1401,7 +1401,8 @@ namespace bangna_hospital.objdb
                 {
                     p.MNC_HN_YR = (DateTime.Now.Year + 543).ToString();
                 }
-                //ptt.MNC_FIN_NOTE = "MNC_FIN_NOTE";
+                ptt.MNC_FIN_NOTE = "MNC_FIN_NOTE";
+                ptt.MNC_NATI_CD = "MNC_NATI_CD";
                 sql = "Insert Into " + ptt.table + "(" + ptt.MNC_HN_NO + "," + ptt.MNC_HN_YR + "," + ptt.MNC_PFIX_CDT + "," +
                     ptt.MNC_PFIX_CDE + "," + ptt.MNC_FNAME_T + "," + ptt.MNC_LNAME_T + "," +
                     ptt.MNC_FNAME_E + "," + ptt.MNC_LNAME_E + "," + ptt.MNC_AGE + "," +
@@ -1596,6 +1597,7 @@ namespace bangna_hospital.objdb
                     + "," + ptt.MNC_STATUS + " = '" + p.MNC_STATUS + "' "
                     + "," + ptt.MNC_REF_REL + " = '" + p.MNC_REF_REL.Replace("'", "''") + "' "
                     + "," + ptt.MNC_COM_CD2 + " = '" + p.MNC_COM_CD2 + "' "
+                    + "," + ptt.MNC_COM_CD + " = '" + p.MNC_COM_CD + "' "
                     + "," + ptt.ref1 + " = '" + p.ref1 + "' "
                     + "," + ptt.passportold + " = '" + p.passportold + "' "
                     + " "

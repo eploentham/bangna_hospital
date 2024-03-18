@@ -34,12 +34,17 @@
             this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
             this.spDrugSet = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.btnDrugSetDel = new C1.Win.C1Input.C1Button();
             this.lbDtrName = new System.Windows.Forms.Label();
             this.btnNew = new C1.Win.C1Input.C1Button();
             this.btnDrugSetSave = new C1.Win.C1Input.C1Button();
             this.label70 = new System.Windows.Forms.Label();
             this.cboDrugSetName = new C1.Win.C1Input.C1ComboBox();
             this.c1SplitterPanel4 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtPrecautions = new C1.Win.C1Input.C1TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtFrequency = new C1.Win.C1Input.C1TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.btnItemDel = new C1.Win.C1Input.C1Button();
             this.txtDrugSetId = new C1.Win.C1Input.C1TextBox();
             this.lbUnitName = new System.Windows.Forms.Label();
@@ -52,9 +57,9 @@
             this.lbTradeName = new System.Windows.Forms.Label();
             this.txtInteraction = new C1.Win.C1Input.C1TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtPrecautions = new C1.Win.C1Input.C1TextBox();
+            this.txtIndication = new C1.Win.C1Input.C1TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtFrequency = new C1.Win.C1Input.C1TextBox();
+            this.txtFrequency1 = new C1.Win.C1Input.C1TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnItemAdd = new C1.Win.C1Input.C1Button();
             this.txtItemRemark = new C1.Win.C1Input.C1TextBox();
@@ -71,7 +76,6 @@
             this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
             this.spMain = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.btnDrugSetDel = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -79,15 +83,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.spDrugSet)).BeginInit();
             this.spDrugSet.SuspendLayout();
             this.c1SplitterPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetDel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDrugSetName)).BeginInit();
             this.c1SplitterPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrecautions)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemDel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugSetId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInteraction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPrecautions)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtIndication)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemRemark)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemQTY)).BeginInit();
@@ -98,7 +105,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.spMain)).BeginInit();
             this.spMain.SuspendLayout();
             this.c1SplitterPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetDel)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -168,6 +174,19 @@
             this.c1SplitterPanel3.TabIndex = 0;
             this.c1SplitterPanel3.Text = "Panel 1";
             // 
+            // btnDrugSetDel
+            // 
+            this.btnDrugSetDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDrugSetDel.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
+            this.btnDrugSetDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDrugSetDel.Location = new System.Drawing.Point(1211, 3);
+            this.btnDrugSetDel.Name = "btnDrugSetDel";
+            this.btnDrugSetDel.Size = new System.Drawing.Size(72, 33);
+            this.btnDrugSetDel.TabIndex = 309;
+            this.btnDrugSetDel.Text = "-all";
+            this.btnDrugSetDel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDrugSetDel.UseVisualStyleBackColor = true;
+            // 
             // lbDtrName
             // 
             this.lbDtrName.AutoSize = true;
@@ -227,6 +246,10 @@
             // 
             // c1SplitterPanel4
             // 
+            this.c1SplitterPanel4.Controls.Add(this.txtPrecautions);
+            this.c1SplitterPanel4.Controls.Add(this.label9);
+            this.c1SplitterPanel4.Controls.Add(this.txtFrequency);
+            this.c1SplitterPanel4.Controls.Add(this.label8);
             this.c1SplitterPanel4.Controls.Add(this.btnItemDel);
             this.c1SplitterPanel4.Controls.Add(this.txtDrugSetId);
             this.c1SplitterPanel4.Controls.Add(this.lbUnitName);
@@ -239,9 +262,9 @@
             this.c1SplitterPanel4.Controls.Add(this.lbTradeName);
             this.c1SplitterPanel4.Controls.Add(this.txtInteraction);
             this.c1SplitterPanel4.Controls.Add(this.label3);
-            this.c1SplitterPanel4.Controls.Add(this.txtPrecautions);
+            this.c1SplitterPanel4.Controls.Add(this.txtIndication);
             this.c1SplitterPanel4.Controls.Add(this.label2);
-            this.c1SplitterPanel4.Controls.Add(this.txtFrequency);
+            this.c1SplitterPanel4.Controls.Add(this.txtFrequency1);
             this.c1SplitterPanel4.Controls.Add(this.label1);
             this.c1SplitterPanel4.Controls.Add(this.btnItemAdd);
             this.c1SplitterPanel4.Controls.Add(this.txtItemRemark);
@@ -263,12 +286,52 @@
             this.c1SplitterPanel4.Text = "Panel 2";
             this.c1SplitterPanel4.Width = 556;
             // 
+            // txtPrecautions
+            // 
+            this.txtPrecautions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPrecautions.ForeColor = System.Drawing.Color.Red;
+            this.txtPrecautions.Location = new System.Drawing.Point(13, 317);
+            this.txtPrecautions.Name = "txtPrecautions";
+            this.txtPrecautions.Size = new System.Drawing.Size(543, 24);
+            this.txtPrecautions.TabIndex = 312;
+            this.txtPrecautions.Tag = null;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label9.ForeColor = System.Drawing.Color.Red;
+            this.label9.Location = new System.Drawing.Point(8, 294);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(206, 20);
+            this.label9.TabIndex = 311;
+            this.label9.Text = "ข้อควรระวัง Precautions(m11)";
+            // 
+            // txtFrequency
+            // 
+            this.txtFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtFrequency.Location = new System.Drawing.Point(283, 215);
+            this.txtFrequency.Name = "txtFrequency";
+            this.txtFrequency.Size = new System.Drawing.Size(273, 24);
+            this.txtFrequency.TabIndex = 310;
+            this.txtFrequency.Tag = null;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label8.Location = new System.Drawing.Point(288, 191);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(166, 20);
+            this.label8.TabIndex = 309;
+            this.label8.Text = "ความถี่ในการใช้ยา (m22)";
+            // 
             // btnItemDel
             // 
             this.btnItemDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnItemDel.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
             this.btnItemDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnItemDel.Location = new System.Drawing.Point(361, 391);
+            this.btnItemDel.Location = new System.Drawing.Point(361, 428);
             this.btnItemDel.Name = "btnItemDel";
             this.btnItemDel.Size = new System.Drawing.Size(72, 33);
             this.btnItemDel.TabIndex = 308;
@@ -374,7 +437,7 @@
             // 
             this.txtInteraction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtInteraction.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.txtInteraction.Location = new System.Drawing.Point(10, 331);
+            this.txtInteraction.Location = new System.Drawing.Point(10, 368);
             this.txtInteraction.Name = "txtInteraction";
             this.txtInteraction.Size = new System.Drawing.Size(573, 24);
             this.txtInteraction.TabIndex = 298;
@@ -385,41 +448,41 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label3.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.label3.Location = new System.Drawing.Point(5, 307);
+            this.label3.Location = new System.Drawing.Point(6, 344);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 20);
+            this.label3.Size = new System.Drawing.Size(187, 20);
             this.label3.TabIndex = 297;
-            this.label3.Text = "ปฎิกิริยาต่อยาอื่น";
+            this.label3.Text = "ปฎิกิริยาต่อยาอื่น Interaction";
             // 
-            // txtPrecautions
+            // txtIndication
             // 
-            this.txtPrecautions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtPrecautions.ForeColor = System.Drawing.Color.Red;
-            this.txtPrecautions.Location = new System.Drawing.Point(11, 274);
-            this.txtPrecautions.Name = "txtPrecautions";
-            this.txtPrecautions.Size = new System.Drawing.Size(573, 24);
-            this.txtPrecautions.TabIndex = 296;
-            this.txtPrecautions.Tag = null;
+            this.txtIndication.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtIndication.ForeColor = System.Drawing.Color.Red;
+            this.txtIndication.Location = new System.Drawing.Point(11, 268);
+            this.txtIndication.Name = "txtIndication";
+            this.txtIndication.Size = new System.Drawing.Size(545, 24);
+            this.txtIndication.TabIndex = 296;
+            this.txtIndication.Tag = null;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(5, 251);
+            this.label2.Location = new System.Drawing.Point(6, 245);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 20);
+            this.label2.Size = new System.Drawing.Size(165, 20);
             this.label2.TabIndex = 295;
-            this.label2.Text = "ข้อบ่งชี้ /ข้อควรระวัง";
+            this.label2.Text = "ข้อบ่งชี้ Indication(m24)";
             // 
-            // txtFrequency
+            // txtFrequency1
             // 
-            this.txtFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtFrequency.Location = new System.Drawing.Point(9, 215);
-            this.txtFrequency.Name = "txtFrequency";
-            this.txtFrequency.Size = new System.Drawing.Size(575, 24);
-            this.txtFrequency.TabIndex = 294;
-            this.txtFrequency.Tag = null;
+            this.txtFrequency1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtFrequency1.Location = new System.Drawing.Point(9, 215);
+            this.txtFrequency1.Name = "txtFrequency1";
+            this.txtFrequency1.Size = new System.Drawing.Size(268, 24);
+            this.txtFrequency1.TabIndex = 294;
+            this.txtFrequency1.Tag = null;
             // 
             // label1
             // 
@@ -427,16 +490,16 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label1.Location = new System.Drawing.Point(6, 191);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(164, 20);
+            this.label1.Size = new System.Drawing.Size(127, 20);
             this.label1.TabIndex = 293;
-            this.label1.Text = "วิธีใช้ /ความถี่ในการใช้ยา ";
+            this.label1.Text = "วิธีใช้  using(m04)";
             // 
             // btnItemAdd
             // 
             this.btnItemAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnItemAdd.Image = global::bangna_hospital.Properties.Resources.IncreaseIndent_small;
             this.btnItemAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnItemAdd.Location = new System.Drawing.Point(88, 391);
+            this.btnItemAdd.Location = new System.Drawing.Point(88, 428);
             this.btnItemAdd.Name = "btnItemAdd";
             this.btnItemAdd.Size = new System.Drawing.Size(72, 33);
             this.btnItemAdd.TabIndex = 291;
@@ -446,7 +509,7 @@
             // txtItemRemark
             // 
             this.txtItemRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtItemRemark.Location = new System.Drawing.Point(88, 361);
+            this.txtItemRemark.Location = new System.Drawing.Point(88, 398);
             this.txtItemRemark.Name = "txtItemRemark";
             this.txtItemRemark.Size = new System.Drawing.Size(467, 24);
             this.txtItemRemark.TabIndex = 290;
@@ -456,7 +519,7 @@
             // 
             this.label82.AutoSize = true;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label82.Location = new System.Drawing.Point(9, 362);
+            this.label82.Location = new System.Drawing.Point(9, 399);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(75, 20);
             this.label82.TabIndex = 289;
@@ -466,7 +529,7 @@
             // 
             this.label81.AutoSize = true;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label81.Location = new System.Drawing.Point(503, 399);
+            this.label81.Location = new System.Drawing.Point(467, 436);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(30, 20);
             this.label81.TabIndex = 288;
@@ -475,7 +538,7 @@
             // txtItemQTY
             // 
             this.txtItemQTY.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtItemQTY.Location = new System.Drawing.Point(537, 396);
+            this.txtItemQTY.Location = new System.Drawing.Point(501, 433);
             this.txtItemQTY.Name = "txtItemQTY";
             this.txtItemQTY.Size = new System.Drawing.Size(47, 24);
             this.txtItemQTY.TabIndex = 287;
@@ -579,19 +642,6 @@
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
             // 
-            // btnDrugSetDel
-            // 
-            this.btnDrugSetDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDrugSetDel.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
-            this.btnDrugSetDel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDrugSetDel.Location = new System.Drawing.Point(1211, 3);
-            this.btnDrugSetDel.Name = "btnDrugSetDel";
-            this.btnDrugSetDel.Size = new System.Drawing.Size(72, 33);
-            this.btnDrugSetDel.TabIndex = 309;
-            this.btnDrugSetDel.Text = "-all";
-            this.btnDrugSetDel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnDrugSetDel.UseVisualStyleBackColor = true;
-            // 
             // FrmDoctorDrugSet1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -610,16 +660,19 @@
             this.spDrugSet.ResumeLayout(false);
             this.c1SplitterPanel3.ResumeLayout(false);
             this.c1SplitterPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetDel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDrugSetName)).EndInit();
             this.c1SplitterPanel4.ResumeLayout(false);
             this.c1SplitterPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrecautions)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemDel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugSetId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInteraction)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtPrecautions)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtIndication)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemRemark)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemQTY)).EndInit();
@@ -630,7 +683,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.spMain)).EndInit();
             this.spMain.ResumeLayout(false);
             this.c1SplitterPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetDel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -653,9 +705,9 @@
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel5;
         private C1.Win.C1Input.C1Button btnDrugSetSave;
         private C1.Win.C1Input.C1Button btnNew;
-        private C1.Win.C1Input.C1TextBox txtPrecautions;
+        private C1.Win.C1Input.C1TextBox txtIndication;
         private System.Windows.Forms.Label label2;
-        private C1.Win.C1Input.C1TextBox txtFrequency;
+        private C1.Win.C1Input.C1TextBox txtFrequency1;
         private System.Windows.Forms.Label label1;
         private C1.Win.C1Input.C1Button btnItemAdd;
         private C1.Win.C1Input.C1TextBox txtItemRemark;
@@ -682,5 +734,9 @@
         private C1.Win.C1Input.C1TextBox txtDrugSetId;
         private C1.Win.C1Input.C1Button btnItemDel;
         private C1.Win.C1Input.C1Button btnDrugSetDel;
+        private C1.Win.C1Input.C1TextBox txtFrequency;
+        private System.Windows.Forms.Label label8;
+        private C1.Win.C1Input.C1TextBox txtPrecautions;
+        private System.Windows.Forms.Label label9;
     }
 }
