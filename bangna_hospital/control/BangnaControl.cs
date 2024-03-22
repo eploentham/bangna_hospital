@@ -44,7 +44,7 @@ namespace bangna_hospital.control
         public Staff user;
         public Staff sStf, cStf;
         public int imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0, queFontSize=0, padYCertMed=0;
-        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew = 0, printerQueueFontSize = 0;
+        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew = 0, printerQueueFontSize = 0, grfRowHeight=30;
 
         public BangnaHospitalDB bcDB;
 
@@ -723,6 +723,7 @@ namespace bangna_hospital.control
             iniC.statusScreenCaptureUploadDoc = iniF.getIni("app", "statusScreenCaptureUploadDoc");
             iniC.statusScreenCaptureAutoSend = iniF.getIni("app", "statusScreenCaptureAutoSend");
             iniC.statusPrintPreview = iniF.getIni("app", "statusPrintPreview");
+            iniC.grfRowHeight = iniF.getIni("app", "grfRowHeight");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -855,6 +856,7 @@ namespace bangna_hospital.control
             int.TryParse(iniC.padYCertMed, out padYCertMed);
             int.TryParse(iniC.grdQueFontSize, out grdQueFontSize);
             int.TryParse(iniC.grdQueTodayFontSize, out grdQueTodayFontSize);
+            int.TryParse(iniC.grfRowHeight, out grfRowHeight);
         }
         public String setC1Combo(C1ComboBox c, String data)
         {
@@ -974,6 +976,20 @@ namespace bangna_hospital.control
             }
 
             bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            //bmp.Dispose();
+            return bmp;
+        }
+        public Image RotateImage90(Image img)
+        {
+            var bmp = new Bitmap(img);
+
+            using (Graphics gfx = Graphics.FromImage(bmp))
+            {
+                gfx.Clear(Color.White);
+                gfx.DrawImage(img, 0, 0, img.Width, img.Height);
+            }
+
+            bmp.RotateFlip(RotateFlipType.Rotate90FlipNone);
             //bmp.Dispose();
             return bmp;
         }

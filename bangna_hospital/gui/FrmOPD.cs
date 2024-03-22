@@ -15,6 +15,7 @@ using C1.Win.FlexViewer;
 using GrapeCity.ActiveReports;
 using GrapeCity.ActiveReports.Document;
 using GrapeCity.ActiveReports.Document.Section;
+using org.jpedal.jbig2.segment;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,7 +42,7 @@ namespace bangna_hospital.gui
     public partial class FrmOPD : Form
     {
         BangnaControl bc;
-        Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB;
+        Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         Patient PTT;
@@ -52,7 +53,7 @@ namespace bangna_hospital.gui
         C1FlexGrid grfApm, grfRpt;
         C1FlexReport rptView;
         Boolean pageLoad = false, tabMedScanActiveNOtabOutLabActive=true;
-        Image imgCorr, imgTran, resizedImage, IMG;
+        Image imgCorr, imgTran, resizedImage, IMG, IMGSTAFFNOTE;
         Timer timeOperList;
         String PRENO = "", VSDATE = "", HN="", DEPTNO="", HNmedscan="", DOCGRPID = "", DSCID = "", OUTLAB="", TC1Active="";
         Stream streamPrint, streamPrintL, streamPrintR, streamDownload;
@@ -80,6 +81,7 @@ namespace bangna_hospital.gui
 
         Label lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8, lbDocGrp9;
         Color colorLbDoc;
+        SolidBrush brush ;
         listStream strm;
         List<listStream> lStream, lStreamPic;
         List<String> lApm;
@@ -124,6 +126,7 @@ namespace bangna_hospital.gui
             autoDrug = new AutoCompleteStringCollection();
             autoApm = new AutoCompleteStringCollection();
             autoApm = bc.bcDB.pm13DB.getlApm();
+            brush = new SolidBrush(Color.Black);
 
             txtPttApmDate.Value = DateTime.Now;
             lStream = new List<listStream>();
@@ -180,6 +183,7 @@ namespace bangna_hospital.gui
 
             famt1 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 1, FontStyle.Regular);
             famt5 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 5, FontStyle.Regular);
+            famt7 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 7, FontStyle.Regular);
             famt7B = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 7, FontStyle.Bold);
             famtB14 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 14, FontStyle.Bold);
             famtB30 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 30, FontStyle.Bold);
@@ -215,6 +219,9 @@ namespace bangna_hospital.gui
             picSrcL.SizeMode = PictureBoxSizeMode.StretchImage;
             picSrcR.Dock = DockStyle.Fill;
             picSrcR.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            picStaffNote.Dock = DockStyle.Fill;
+            picStaffNote.SizeMode = PictureBoxSizeMode.StretchImage;
 
             fvCerti = new C1FlexViewer();
             fvCerti.AutoScrollMargin = new System.Drawing.Size(0, 0);
@@ -388,21 +395,102 @@ namespace bangna_hospital.gui
             btnApmExcel.Click += BtnApmExcel_Click;
             btnRptPrint.Click += BtnRptPrint_Click;
             btnRpt1.Click += BtnRpt1_Click;
-        }
 
+            txtStaffNoteL.KeyUp += TxtStaffNoteL_KeyUp;
+            btnStaffNote.Click += BtnStaffNote_Click;
+            txtStaffNoteR.KeyUp += TxtStaffNoteR_KeyUp;
+        }
+        private void TxtStaffNoteR_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            paintStaffNote();
+        }
+        private void TxtStaffNoteL_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            paintStaffNote();
+        }
+        private void paintStaffNote()
+        {
+            String[] txt = txtStaffNoteR.Text.Trim().Split('\n');
+            Image aaa = (Image)IMGSTAFFNOTE.Clone();
+            int line = 0, y = 0, i = 0;
+            if (txt.Length > 0)
+            {
+                using (var gr = Graphics.FromImage(aaa))
+                {
+                    foreach (String txt1 in txt)
+                    {
+                        y = 440 + line;
+                        if (i == 4) y -= 6;
+                        else if (i == 6) y -= 6;
+                        else if (i == 7) y -= 2;
+                        else if (i == 8) y -= 2;
+                        else if (i == 8) y -= 2;
+                        else if (i == 9) y -= 8; else if (i == 10) y -= 10; else if (i == 11) y -= 10; else if (i == 12) y -= 12; else if (i == 13) y -= 14; else if (i == 14) y -= 14; else if (i == 15) y -= 16; else if (i == 16) y -= 16;
+                        gr.DrawString(txt1.Replace("\r", ""), famt7, brush, 980, y);
+                        line += 45; i++;
+                    }
+                }
+            }
+            line = 0; y = 0; i = 0;
+            txt = txtStaffNoteL.Text.Trim().Split('\n');
+            if (txt.Length > 0)
+            {
+                using (var gr = Graphics.FromImage(aaa))
+                {
+                    foreach (String txt1 in txt)
+                    {
+                        y = 570 + line;
+                        if (i == 4) y -= 6; if (i == 6) y -= 6; if (i == 7) y -= 2; if (i == 8) y -= 2;
+                        gr.DrawString(txt1.Replace("\r", ""), famt7, brush, 110, y);
+                        line += 45; i++;
+                    }
+                }
+            }
+            picStaffNote.Image = aaa;
+        }
+        private void BtnStaffNote_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            PrintDocument document = new PrintDocument();
+            document.PrinterSettings.PrinterName = bc.iniC.printerStaffNote;
+            document.DefaultPageSettings.PaperSize = new PaperSize("A4", 826, 1169);
+            document.PrintPage += Document_PrintPage_StaffNote_Reserve;
+            document.DefaultPageSettings.Landscape = true;            document.Print();            document.Dispose();
+        }
+        private void Document_PrintPage_StaffNote_Reserve(object sender, PrintPageEventArgs e)
+        {
+            String[] txtL = txtStaffNoteL.Text.Trim().Split('\n');
+            String[] txtR = txtStaffNoteR.Text.Trim().Split('\n');
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);
+            int line = 0, y = 0, i = 1, gapline=32;
+            foreach (String txt1 in txtL)
+            {
+                y = 350 + line;
+                if (i == 1) y = 350; else if(i == 2) y = 379; else if (i == 3) y = 408; else if (i == 4) y = 437;
+                else if (i == 5) y = 467; else if (i == 6) y = 497; else if (i == 7) y = 520; else if (i == 8) y = 550;
+                e.Graphics.DrawString(txt1.Replace("\r", ""), famt7, Brushes.Black, 50, y, flags);
+                line += gapline; i++;
+            }
+            line = 0;            i = 1;
+            foreach (String txt1 in txtR)
+            {
+                y = 270 + line;
+                if (i == 1) y = 269; else if (i == 2) y = 297;    else if (i == 3) y = 325; else if (i == 4) y = 350; else if (i == 5) y = 380;
+                else if (i == 6) y = 410; else if (i == 7) y = 438; else if (i == 8) y = 467; else if (i == 9) y = 495; else if (i == 10) y = 523; else if (i == 11) y = 550; 
+                else if (i == 12) y = 580; else if (i == 13) y = 608; else if (i == 14) y = 637; else if (i == 15) y = 667; else if (i == 16) y = 696; else if (i == 17) y = 725;
+                e.Graphics.DrawString(txt1.Replace("\r", ""), famt7, Brushes.Black, 620, y, flags);
+                line += gapline; i++;
+            }
+        }
         private void BtnRpt1_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
-            if (dtapmstart.Year < 1900)
-            {
-                dtapmstart.AddYears(543);
-            }
+            if (dtapmstart.Year < 1900)            {                dtapmstart.AddYears(543);            }
             DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
-            if (dtapmend.Year < 1900)
-            {
-                dtapmend.AddYears(543);
-            }
+            if (dtapmend.Year < 1900)            {                dtapmend.AddYears(543);            }
             bc.bcDB.pt07DB.setCboTumbonName(cboRpt1, dtapmstart.Year.ToString() + "-" + dtapmstart.ToString("MM-dd"), dtapmend.Year.ToString() + "-" + dtapmend.ToString("MM-dd"), "");
         }
         private void BtnRptPrint_Click(object sender, EventArgs e)
@@ -410,15 +498,9 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             
             DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
-            if (dtapmstart.Year < 1900)
-            {
-                dtapmstart.AddYears(543);
-            }
+            if (dtapmstart.Year < 1900)            {                dtapmstart.AddYears(543);            }
             DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
-            if (dtapmend.Year < 1900)
-            {
-                dtapmend.AddYears(543);
-            }
+            if (dtapmend.Year < 1900)            {                dtapmend.AddYears(543);            }
             String seccode = "",dtrcode="", deptcode="", deptname="";
             seccode = cboRpt2.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt2.SelectedItem).Value.ToString();
             deptcode = bc.bcDB.pm32DB.selectDeptOPDBySecNO(seccode);
@@ -442,11 +524,7 @@ namespace bangna_hospital.gui
                 //rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date_doctor.rdlx");
                 rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date.rdlx");
             }
-            if (!File.Exists(rptPath.FullName))
-            {
-                lfSbMessage.Text = "File report not found";
-                return;
-            }
+            if (!File.Exists(rptPath.FullName))            {                lfSbMessage.Text = "File report not found";                return;            }
             PageReport definition = new PageReport(rptPath);
             PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
             
@@ -508,7 +586,6 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             
-
         }
         private void TxtApmSrc_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1028,13 +1105,15 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString("เพื่อประโยชน์และความสะดวกของท่าน  กรุณามาให้ตรงตามวัน และเวลาที่แพทย์นัดทุกครั้ง", famt1, Brushes.Black, col21, yPos, flags);
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             e.Graphics.DrawString("กรณีที่ไม่สามารถมาตรวจตามนัดได้  กรุณาโทรเพื่อแจ้งยกเลิกหรือเลื่อนนัดกับทางโรงพยาบาลทุกครั้ง", famt1, Brushes.Black, col21, yPos, flags);
+            g.Dispose();
+            Brush.Dispose();
+            blackPen.Dispose();
         }
         private void BtnApmNew_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             clearControlTabApm(true);
         }
-
         private void TxtApmRemark_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1544,6 +1623,9 @@ namespace bangna_hospital.gui
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fEditS, Brushes.Black, col2, yPos + 770, flags);
             e.Graphics.DrawString(line, fEditS, Brushes.Black, col40, yPos + 770, flags);
+            g.Dispose();
+            Brush.Dispose();
+            blackPen.Dispose();
         }
         private void TCOrder_SelectedTabChanged(object sender, EventArgs e)
         {
@@ -2168,7 +2250,33 @@ namespace bangna_hospital.gui
                 rb2.Visible = true;
                 rgSbModule.Visible = true;
             }
-            
+            else if (tC1.SelectedTab == tabStaffNote)
+            {
+                tabMedScanActiveNOtabOutLabActive = false;
+                TC1Active = tabStaffNote.Name;
+                txtSBSearchHN.Visible = false;
+                txtSBSearchDate.Visible = true;
+                btnSBSearch.Visible = true;
+                btnScanSaveImg.Visible = false;
+                btnScanGetImg.Visible = false;
+                btnScanClearImg.Visible = false;
+                btnOperClose.Visible = false;
+
+                rb1.Visible = true;
+                rb2.Visible = true;
+                rgSbModule.Visible = true;
+                if(picStaffNote.Image!=null) picStaffNote.Image.Dispose();
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\temp_med\\medicalrecord.jpg"))
+                {
+                    IMGSTAFFNOTE = Image.FromFile(System.IO.Directory.GetCurrentDirectory() + "\\temp_med\\medicalrecord.jpg");
+                    
+                    if(IMGSTAFFNOTE.Width< IMGSTAFFNOTE.Height)
+                    {
+                        IMGSTAFFNOTE = bc.RotateImage90(IMGSTAFFNOTE);
+                        picStaffNote.Image = IMGSTAFFNOTE;
+                    }
+                }
+            }
             else
             {
                 txtSBSearchHN.Visible = false;
@@ -4951,6 +5059,8 @@ namespace bangna_hospital.gui
             spTodayOutLabList.SizeRatio = 50;
             spOutLabList.SizeRatio = 50;
             spRpt.HeaderHeight = 0;
+            spStaffNote.HeaderHeight = 0;
+            spStaffNoteLeft.SizeRatio = 40;
         }
         private void FrmOPD_Load(object sender, EventArgs e)
         {
@@ -4986,7 +5096,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-02-21";
+            this.Text = "Last Update 2024-02-21-1";
         }
     }
 }

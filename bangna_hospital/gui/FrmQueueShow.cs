@@ -1,6 +1,8 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.object1;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Themes;
+using GrapeCity.ActiveReports.SectionReportModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,10 +56,9 @@ namespace bangna_hospital.gui
             imglist = new ImageList();
 
             initGrfQueToday();
-            setGrfQueueToday();
-            getImageQue();
-            timeQueQue.Start();
-            timeQueImg.Start();
+            //MessageBox.Show("3333", "");
+            //getImageQue();
+            
             pageLoad = false;
         }
         private void initGrfQueToday()
@@ -71,14 +72,15 @@ namespace bangna_hospital.gui
             grfQueToday.Rows.Count = 1;
             //grfQue.Rows.Count = 200;
             grfQueToday.Cols.Count = 5;
-
+            //MessageBox.Show("grfImgWidth " + bc.grfImgWidth, "");
+            //MessageBox.Show("grfScanWidth " + bc.grfScanWidth, "");
             grfQueToday.Cols[colTodayrowno].Width = 70;
-            grfQueToday.Cols[colTodayQueName].Width = 340;
-            grfQueToday.Cols[colTodayQueCurr].Width = 100;
+            grfQueToday.Cols[colTodayQueName].Width = bc.grfImgWidth;//450
+            grfQueToday.Cols[colTodayQueCurr].Width = bc.grfScanWidth;//120
             grfQueToday.Cols[colTodayqueSum].Width = 150;
 
             grfQueToday.ShowCursor = true;
-
+            //MessageBox.Show("2222", "");
             grfQueToday.Cols[colTodayrowno].Caption = "no";
             grfQueToday.Cols[colTodayQueName].Caption = "";
             grfQueToday.Cols[colTodayQueCurr].Caption = "คิว";
@@ -103,23 +105,18 @@ namespace bangna_hospital.gui
             //grfImg.AutoSizeCols();
             grfQueToday.AutoSizeRows();
 
-            theme1.SetTheme(grfQueToday, "Office2007Blue");
+            theme1.SetTheme(grfQueToday, bc.iniC.themegrfOpd);
         }
         private void setGrfQueueToday()
         {
-            //grfQue.Clear();
             pageLoad = true;
-            //timeQueImg.Enabled = false;
-            //timeQueQue.Enabled = false;
+            timeQueQue.Stop();
             DataTable dt = new DataTable();
-            //DateTime dtToday = new DateTime();
-            //DateTime.TryParse(txtDate.Text, out dtToday);
-            String date = "";
-            date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
-            dt = bc.bcDB.sumt03DB.selectQueDoctorToday();
+            //String date = "";
+            //date = DateTime.Now.Year + DateTime.Now.ToString("-MM-dd");
+            //MessageBox.Show("66666", "");
+            dt = bc.bcDB.sumt03DB.selectQueDoctorToday(bc.iniC.station);
             grfQueToday.Rows.Count = dt.Rows.Count + 1;
-            //if (dt.Rows.Count == 0)
-            //    grfQueToday.Rows.Count++;
             int i = 1;
             foreach (DataRow drow in dt.Rows)
             {
@@ -128,29 +125,27 @@ namespace bangna_hospital.gui
                 grfQueToday[i, colTodayQueName] = drow["dtr_name"].ToString();
                 grfQueToday[i, colTodayQueCurr] = drow["queue_current"].ToString();
                 grfQueToday[i, colTodayqueSum] = drow["MNC_SUM_VN_ADD"].ToString();
-
+                grfQueToday.Rows[i].Height = bc.grfRowHeight;
                 i++;
             }
-            //grfQue.Rows[0].Visible = false;
-            
+            dt.Dispose();
             pageLoad = false;
-            //theme1.SetTheme(grfQue, "Office2016Colorful");
-            //timeQueImg.Enabled = true;
-            //timeQueQue.Enabled = true;
+            timeQueQue.Start();
         }
         private void TimeQueImg_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            indexQueImg++;
-            if (indexQueImg >= filesQueImg.Length)
+            //MessageBox.Show("88888", "");
+            indexQueImg++;            if (indexQueImg >= filesQueImg.Length) { indexQueImg = 0; }
+            //MessageBox.Show("777777", "");
+            if(File.Exists(System.IO.Directory.GetCurrentDirectory() +"\\"+ filesQueImg[indexQueImg]))
             {
-                indexQueImg = 0;
+                picQue.Image.Dispose();
+                picQue.Image = Image.FromFile(System.IO.Directory.GetCurrentDirectory() + "\\" + filesQueImg[indexQueImg]);
             }
-            picQue.Image = Image.FromFile(System.IO.Directory.GetCurrentDirectory() + "\\"+ filesQueImg[indexQueImg]);
-            //MessageBox.Show(System.IO.Directory.GetCurrentDirectory() + "\\" + filesQueImg[indexQueImg], "");
-            //Application.DoEvents();
+            else
+                new LogWriter("e", "FrmQueueShow TimeQueImg_Tick File not found " + System.IO.Directory.GetCurrentDirectory() + "\\" + filesQueImg[indexQueImg]);
         }
-
         private void TimeQueQue_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -159,13 +154,13 @@ namespace bangna_hospital.gui
         private void getImageQue()
         {
             filesQueImg = Directory.GetFiles("image_que_show");
-            foreach (string file in filesQueImg)
-            {
-                Console.WriteLine(Path.GetFileName(file));
-                //picQue.Image = Image.FromFile(file);
-                //imglist.Images.Add(Image.FromFile(file));
+            //foreach (string file in filesQueImg)
+            //{
+            //    Console.WriteLine(Path.GetFileName(file));
+            //    //picQue.Image = Image.FromFile(file);
+            //    //imglist.Images.Add(Image.FromFile(file));
                 
-            }
+            //}
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -195,16 +190,23 @@ namespace bangna_hospital.gui
         private void FrmQueueShow_Load(object sender, EventArgs e)
         {
             indexQueImg++;
+            getImageQue();
+            //MessageBox.Show("777777", "");
             if (indexQueImg > imglist.Images.Count)
             {
                 indexQueImg = 0;
             }
+            //MessageBox.Show("88888", "");
             picQue.Image = Image.FromFile(filesQueImg[indexQueImg]);
+            //MessageBox.Show("999999", "");
             picQue.Dock = DockStyle.Fill;
             //picQue.SizeMode = PictureBoxSizeMode.StretchImage;
             picQue.SizeMode = PictureBoxSizeMode.AutoSize;
             grfQueToday.Focus();
-            
+            timeQueQue.Start();
+            timeQueImg.Start();
+            //MessageBox.Show("44444", "");
+            //setGrfQueueToday();
         }
     }
 }

@@ -428,6 +428,18 @@
             this.label84 = new System.Windows.Forms.Label();
             this.txtRptStartDate = new C1.Win.Calendar.C1DateEdit();
             this.label78 = new System.Windows.Forms.Label();
+            this.tabStaffNote = new C1.Win.C1Command.C1DockingTabPage();
+            this.spStaffNote = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.spStaffNoteLeft = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.btnStaffNote = new C1.Win.C1Input.C1Button();
+            this.c1Button2 = new C1.Win.C1Input.C1Button();
+            this.c1Button1 = new C1.Win.C1Input.C1Button();
+            this.txtStaffNoteR = new C1.Win.C1Input.C1TextBox();
+            this.txtStaffNoteL = new C1.Win.C1Input.C1TextBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.c1ComboBox1 = new C1.Win.C1Input.C1ComboBox();
+            this.c1SplitterPanel25 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.picStaffNote = new C1.Win.C1Input.C1PictureBox();
             this.Sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfsbLastUpdate = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
@@ -655,6 +667,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).BeginInit();
+            this.tabStaffNote.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spStaffNote)).BeginInit();
+            this.spStaffNote.SuspendLayout();
+            this.spStaffNoteLeft.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnStaffNote)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStaffNoteR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStaffNoteL)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).BeginInit();
+            this.c1SplitterPanel25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picStaffNote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -670,6 +694,7 @@
             this.tC1.Controls.Add(this.tabOutlab);
             this.tC1.Controls.Add(this.tabSearch);
             this.tC1.Controls.Add(this.tabReport);
+            this.tC1.Controls.Add(this.tabStaffNote);
             this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
@@ -4517,7 +4542,7 @@
             this.c1SplitterPanel7.Size = new System.Drawing.Size(372, 1019);
             this.c1SplitterPanel7.TabIndex = 0;
             this.c1SplitterPanel7.Text = "Panel 1";
-            this.c1SplitterPanel7.Width = 379;
+            this.c1SplitterPanel7.Width = 372;
             // 
             // picSrcL
             // 
@@ -5066,6 +5091,138 @@
             this.label78.TabIndex = 87;
             this.label78.Text = "วันที่";
             // 
+            // tabStaffNote
+            // 
+            this.tabStaffNote.Controls.Add(this.spStaffNote);
+            this.tabStaffNote.Location = new System.Drawing.Point(1, 26);
+            this.tabStaffNote.Name = "tabStaffNote";
+            this.tabStaffNote.Size = new System.Drawing.Size(1463, 1088);
+            this.tabStaffNote.TabIndex = 10;
+            this.tabStaffNote.Text = "StaffNote";
+            // 
+            // spStaffNote
+            // 
+            this.spStaffNote.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.spStaffNote.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.spStaffNote.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.spStaffNote.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spStaffNote.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.spStaffNote.Location = new System.Drawing.Point(0, 0);
+            this.spStaffNote.Name = "spStaffNote";
+            this.spStaffNote.Panels.Add(this.spStaffNoteLeft);
+            this.spStaffNote.Panels.Add(this.c1SplitterPanel25);
+            this.spStaffNote.Size = new System.Drawing.Size(1463, 1088);
+            this.spStaffNote.TabIndex = 0;
+            // 
+            // spStaffNoteLeft
+            // 
+            this.spStaffNoteLeft.Collapsible = true;
+            this.spStaffNoteLeft.Controls.Add(this.btnStaffNote);
+            this.spStaffNoteLeft.Controls.Add(this.c1Button2);
+            this.spStaffNoteLeft.Controls.Add(this.c1Button1);
+            this.spStaffNoteLeft.Controls.Add(this.txtStaffNoteR);
+            this.spStaffNoteLeft.Controls.Add(this.txtStaffNoteL);
+            this.spStaffNoteLeft.Controls.Add(this.label86);
+            this.spStaffNoteLeft.Controls.Add(this.c1ComboBox1);
+            this.spStaffNoteLeft.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.spStaffNoteLeft.Location = new System.Drawing.Point(0, 21);
+            this.spStaffNoteLeft.Name = "spStaffNoteLeft";
+            this.spStaffNoteLeft.Size = new System.Drawing.Size(609, 1067);
+            this.spStaffNoteLeft.SizeRatio = 42.221D;
+            this.spStaffNoteLeft.TabIndex = 0;
+            this.spStaffNoteLeft.Text = "Panel 1";
+            this.spStaffNoteLeft.Width = 616;
+            // 
+            // btnStaffNote
+            // 
+            this.btnStaffNote.Image = global::bangna_hospital.Properties.Resources.print;
+            this.btnStaffNote.Location = new System.Drawing.Point(524, 611);
+            this.btnStaffNote.Name = "btnStaffNote";
+            this.btnStaffNote.Size = new System.Drawing.Size(70, 41);
+            this.btnStaffNote.TabIndex = 286;
+            this.btnStaffNote.UseVisualStyleBackColor = true;
+            // 
+            // c1Button2
+            // 
+            this.c1Button2.Location = new System.Drawing.Point(385, 7);
+            this.c1Button2.Name = "c1Button2";
+            this.c1Button2.Size = new System.Drawing.Size(50, 23);
+            this.c1Button2.TabIndex = 285;
+            this.c1Button2.Text = "save";
+            this.c1Button2.UseVisualStyleBackColor = true;
+            // 
+            // c1Button1
+            // 
+            this.c1Button1.Location = new System.Drawing.Point(330, 7);
+            this.c1Button1.Name = "c1Button1";
+            this.c1Button1.Size = new System.Drawing.Size(32, 23);
+            this.c1Button1.TabIndex = 284;
+            this.c1Button1.Text = "+";
+            this.c1Button1.UseVisualStyleBackColor = true;
+            // 
+            // txtStaffNoteR
+            // 
+            this.txtStaffNoteR.Location = new System.Drawing.Point(11, 290);
+            this.txtStaffNoteR.Multiline = true;
+            this.txtStaffNoteR.Name = "txtStaffNoteR";
+            this.txtStaffNoteR.Size = new System.Drawing.Size(424, 315);
+            this.txtStaffNoteR.TabIndex = 283;
+            this.txtStaffNoteR.Tag = null;
+            // 
+            // txtStaffNoteL
+            // 
+            this.txtStaffNoteL.Location = new System.Drawing.Point(11, 39);
+            this.txtStaffNoteL.Multiline = true;
+            this.txtStaffNoteL.Name = "txtStaffNoteL";
+            this.txtStaffNoteL.Size = new System.Drawing.Size(583, 220);
+            this.txtStaffNoteL.TabIndex = 282;
+            this.txtStaffNoteL.Tag = null;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label86.ForeColor = System.Drawing.Color.Red;
+            this.label86.Location = new System.Drawing.Point(7, 8);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(67, 20);
+            this.label86.TabIndex = 90;
+            this.label86.Text = "ข้อความ :";
+            // 
+            // c1ComboBox1
+            // 
+            this.c1ComboBox1.AllowSpinLoop = false;
+            this.c1ComboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.c1ComboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.c1ComboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1ComboBox1.GapHeight = 0;
+            this.c1ComboBox1.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.c1ComboBox1.ItemsDisplayMember = "";
+            this.c1ComboBox1.ItemsValueMember = "";
+            this.c1ComboBox1.Location = new System.Drawing.Point(78, 7);
+            this.c1ComboBox1.Name = "c1ComboBox1";
+            this.c1ComboBox1.Size = new System.Drawing.Size(248, 24);
+            this.c1ComboBox1.TabIndex = 89;
+            this.c1ComboBox1.Tag = null;
+            // 
+            // c1SplitterPanel25
+            // 
+            this.c1SplitterPanel25.Controls.Add(this.picStaffNote);
+            this.c1SplitterPanel25.Height = 1088;
+            this.c1SplitterPanel25.Location = new System.Drawing.Point(620, 21);
+            this.c1SplitterPanel25.Name = "c1SplitterPanel25";
+            this.c1SplitterPanel25.Size = new System.Drawing.Size(843, 1067);
+            this.c1SplitterPanel25.TabIndex = 1;
+            this.c1SplitterPanel25.Text = "Panel 2";
+            // 
+            // picStaffNote
+            // 
+            this.picStaffNote.Location = new System.Drawing.Point(3, 3);
+            this.picStaffNote.Name = "picStaffNote";
+            this.picStaffNote.Size = new System.Drawing.Size(100, 50);
+            this.picStaffNote.TabIndex = 1;
+            this.picStaffNote.TabStop = false;
+            // 
             // Sb1
             // 
             this.Sb1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
@@ -5403,6 +5560,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnRptPrint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptEndDate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtRptStartDate)).EndInit();
+            this.tabStaffNote.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spStaffNote)).EndInit();
+            this.spStaffNote.ResumeLayout(false);
+            this.spStaffNoteLeft.ResumeLayout(false);
+            this.spStaffNoteLeft.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnStaffNote)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStaffNoteR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtStaffNoteL)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).EndInit();
+            this.c1SplitterPanel25.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picStaffNote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -5825,5 +5995,17 @@
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel23;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel22;
         private System.Windows.Forms.Label lbAttachNote;
+        private C1.Win.C1Command.C1DockingTabPage tabStaffNote;
+        private C1.Win.C1SplitContainer.C1SplitContainer spStaffNote;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spStaffNoteLeft;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel25;
+        private C1.Win.C1Input.C1TextBox txtStaffNoteL;
+        private System.Windows.Forms.Label label86;
+        private C1.Win.C1Input.C1ComboBox c1ComboBox1;
+        private C1.Win.C1Input.C1TextBox txtStaffNoteR;
+        private C1.Win.C1Input.C1Button c1Button1;
+        private C1.Win.C1Input.C1PictureBox picStaffNote;
+        private C1.Win.C1Input.C1Button c1Button2;
+        private C1.Win.C1Input.C1Button btnStaffNote;
     }
 }

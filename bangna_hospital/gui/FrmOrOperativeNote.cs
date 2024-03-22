@@ -276,7 +276,6 @@ namespace bangna_hospital.gui
             acmStf.SetAutocompleteMenu(txtAnesthetistAssist1, acmStf);
             acmStf.SetAutocompleteMenu(txtAnesthetistAssist2, acmStf);
         }
-
         private void TxtDtrId_Leave(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

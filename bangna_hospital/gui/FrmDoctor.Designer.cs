@@ -36,7 +36,7 @@
             this.ribbonLabel4 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rbSbDrugSet = new C1.Win.C1Ribbon.RibbonButton();
             this.rpDrugSetNew = new C1.Win.C1Ribbon.RibbonButton();
-            this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.spDoctor = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnTop = new System.Windows.Forms.Panel();
             this.btnDfDate = new C1.Win.C1Input.C1Button();
@@ -73,9 +73,10 @@
             this.pnRptCri1 = new System.Windows.Forms.Panel();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
             this.pnFinish = new System.Windows.Forms.Panel();
+            this.lfSbLastUpdate = new C1.Win.C1Ribbon.RibbonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
-            this.c1SplitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spDoctor)).BeginInit();
+            this.spDoctor.SuspendLayout();
             this.spTop.SuspendLayout();
             this.pnTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDfDate)).BeginInit();
@@ -107,6 +108,7 @@
             // c1StatusBar1
             // 
             this.c1StatusBar1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
+            this.c1StatusBar1.LeftPaneItems.Add(this.lfSbLastUpdate);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbMessage);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbStation);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 758);
@@ -149,19 +151,19 @@
             this.rpDrugSetNew.SmallImage = ((System.Drawing.Image)(resources.GetObject("rpDrugSetNew.SmallImage")));
             this.rpDrugSetNew.Text = "Drug Set New";
             // 
-            // c1SplitContainer1
+            // spDoctor
             // 
-            this.c1SplitContainer1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.c1SplitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.c1SplitContainer1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
-            this.c1SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1SplitContainer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.c1SplitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.c1SplitContainer1.Name = "c1SplitContainer1";
-            this.c1SplitContainer1.Panels.Add(this.spTop);
-            this.c1SplitContainer1.Panels.Add(this.spMain);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(1194, 758);
-            this.c1SplitContainer1.TabIndex = 2;
+            this.spDoctor.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.spDoctor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.spDoctor.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.spDoctor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spDoctor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.spDoctor.Location = new System.Drawing.Point(0, 0);
+            this.spDoctor.Name = "spDoctor";
+            this.spDoctor.Panels.Add(this.spTop);
+            this.spDoctor.Panels.Add(this.spMain);
+            this.spDoctor.Size = new System.Drawing.Size(1194, 758);
+            this.spDoctor.TabIndex = 2;
             // 
             // spTop
             // 
@@ -365,13 +367,13 @@
             // 
             this.c1SplitterPanel8.Controls.Add(this.pnRpt);
             this.c1SplitterPanel8.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel8.Location = new System.Drawing.Point(326, 21);
+            this.c1SplitterPanel8.Location = new System.Drawing.Point(364, 21);
             this.c1SplitterPanel8.Name = "c1SplitterPanel8";
-            this.c1SplitterPanel8.Size = new System.Drawing.Size(741, 614);
+            this.c1SplitterPanel8.Size = new System.Drawing.Size(828, 614);
             this.c1SplitterPanel8.SizeRatio = 69.715D;
             this.c1SplitterPanel8.TabIndex = 1;
             this.c1SplitterPanel8.Text = "Panel 2";
-            this.c1SplitterPanel8.Width = 741;
+            this.c1SplitterPanel8.Width = 828;
             // 
             // pnRpt
             // 
@@ -379,7 +381,7 @@
             this.pnRpt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnRpt.Location = new System.Drawing.Point(0, 0);
             this.pnRpt.Name = "pnRpt";
-            this.pnRpt.Size = new System.Drawing.Size(741, 614);
+            this.pnRpt.Size = new System.Drawing.Size(828, 614);
             this.pnRpt.TabIndex = 0;
             // 
             // arvMain
@@ -419,7 +421,7 @@
             this.arvMain.Sidebar.TocPanel.Text = "Document map";
             this.arvMain.Sidebar.TocPanel.Width = 200;
             this.arvMain.Sidebar.Width = 200;
-            this.arvMain.Size = new System.Drawing.Size(741, 614);
+            this.arvMain.Size = new System.Drawing.Size(828, 614);
             this.arvMain.TabIndex = 1;
             // 
             // c1SplitterPanel5
@@ -430,18 +432,18 @@
             this.c1SplitterPanel5.Height = 230;
             this.c1SplitterPanel5.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel5.Name = "c1SplitterPanel5";
-            this.c1SplitterPanel5.Size = new System.Drawing.Size(322, 209);
+            this.c1SplitterPanel5.Size = new System.Drawing.Size(360, 209);
             this.c1SplitterPanel5.SizeRatio = 37.638D;
             this.c1SplitterPanel5.TabIndex = 0;
             this.c1SplitterPanel5.Text = "Panel 1";
-            this.c1SplitterPanel5.Width = 322;
+            this.c1SplitterPanel5.Width = 360;
             // 
             // pnRptName
             // 
             this.pnRptName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnRptName.Location = new System.Drawing.Point(0, 0);
             this.pnRptName.Name = "pnRptName";
-            this.pnRptName.Size = new System.Drawing.Size(322, 209);
+            this.pnRptName.Size = new System.Drawing.Size(360, 209);
             this.pnRptName.TabIndex = 0;
             // 
             // c1SplitterPanel18
@@ -452,7 +454,7 @@
             this.c1SplitterPanel18.Height = 394;
             this.c1SplitterPanel18.Location = new System.Drawing.Point(0, 262);
             this.c1SplitterPanel18.Name = "c1SplitterPanel18";
-            this.c1SplitterPanel18.Size = new System.Drawing.Size(322, 373);
+            this.c1SplitterPanel18.Size = new System.Drawing.Size(360, 373);
             this.c1SplitterPanel18.TabIndex = 2;
             this.c1SplitterPanel18.Text = "Panel 3";
             // 
@@ -635,20 +637,25 @@
             this.pnFinish.Size = new System.Drawing.Size(1192, 635);
             this.pnFinish.TabIndex = 0;
             // 
+            // lfSbLastUpdate
+            // 
+            this.lfSbLastUpdate.Name = "lfSbLastUpdate";
+            this.lfSbLastUpdate.Text = "Label";
+            // 
             // FrmDoctor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1194, 780);
-            this.Controls.Add(this.c1SplitContainer1);
+            this.Controls.Add(this.spDoctor);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmDoctor";
             this.Text = "FrmDoctor2";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmDoctor_Load);
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
-            this.c1SplitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spDoctor)).EndInit();
+            this.spDoctor.ResumeLayout(false);
             this.spTop.ResumeLayout(false);
             this.pnTop.ResumeLayout(false);
             this.pnTop.PerformLayout();
@@ -689,7 +696,7 @@
         private C1.Win.C1Ribbon.RibbonLabel lfSbStation;
         private C1.Win.C1Ribbon.RibbonLabel rgSbModule;
         private C1.Win.C1Ribbon.RibbonLabel ribbonLabel4;
-        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer1;
+        private C1.Win.C1SplitContainer.C1SplitContainer spDoctor;
         private C1.Win.C1SplitContainer.C1SplitterPanel spTop;
         private System.Windows.Forms.Panel pnTop;
         private C1.Win.C1Input.C1TextBox txtHN;
@@ -728,5 +735,6 @@
         private C1.Win.C1Command.C1DockingTabPage tabFinish;
         private System.Windows.Forms.Panel pnFinish;
         private C1.Win.C1Input.C1Button btnDfDate;
+        private C1.Win.C1Ribbon.RibbonLabel lfSbLastUpdate;
     }
 }

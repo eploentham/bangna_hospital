@@ -59,6 +59,31 @@ namespace bangna_hospital.objdb
             XrayT01.MNC_PAC_TYP = "MNC_PAC_TYP";
             XrayT01.status_pacs = "status_pacs";
         }
+        /*
+         * เอามาจาก query Xray ใน store procedure SELECT_REQ_XRYH
+         */
+        public DataTable selectReq()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "SELECT  finm02.MNC_COD_PRI_XR , finm02.MNC_COD_PRI_XRI ,finm02.MNC_FN_TYP_CD , finm02.MNC_FN_TYP_DSC , pm01.MNC_AGE  " +
+                ",pm01.MNC_BDAY , pm01.MNC_DIS_PT_I,pm01.MNC_FNAME_T , pm01.MNC_ID_NO,  pm01.MNC_LNAME_T , pm01.MNC_SEX , pm01.MNC_NICKNAME, pm01.MNC_SS_NO " +
+                ",pm01.MNC_STATUS,   pm01.MNC_VIS_IPD,pm01.MNC_VIS_OPD,  pm02.MNC_PFIX_DSC ,  pm01.MNC_XRY_NO ,  pm01.MNC_XRY_YR , pharm17.MNC_DEP_DSC ,xrayt01.MNC_AN_NO " +
+                ",xrayt01.MNC_AN_YR , xrayt01.MNC_BD_NO , xrayt01.MNC_CAL_NO ,xrayt01.MNC_COM_CD, xrayt01.MNC_DATE , xrayt01.MNC_DOT_CD ,xrayt01.MNC_HN_NO ,xrayt01.MNC_HN_YR " +
+                ",xrayt01.MNC_PRE_NO ,xrayt01.MNC_REM ,xrayt01.MNC_REQ_DAT ,xrayt01.MNC_REQ_DEP ,xrayt01.MNC_REQ_NO ,xrayt01.MNC_REQ_STS ,xrayt01.MNC_REQ_YR ,xrayt01.MNC_RM_NAM " +
+                ", xrayt01.MNC_TIME ,xrayt01.MNC_WD_NO, pm01.MNC_FIN_NOTE, pm01.MNC_ATT_NOTE, xrayt01.MNC_STAMP_DAT, xrayt01.MNC_STAMP_TIM, xrayt01.MNC_EMPR_CD, xrayt01.MNC_EMPC_CD " +
+                ", xrayt01.MNC_ORD_DOT, xrayt01.MNC_CFM_DOT, xrayt01.MNC_REQ_TIM, xrayt01.MNC_PAC_CD,  xrayt01.MNC_PAC_TYP " +
+                "FROM XRAY_T01 xrayt01 " +
+                "Left join FINANCE_M02 finm02 on xrayt01.MNC_FN_TYP_CD = finm02.MNC_FN_TYP_CD " +
+                "Left join PATIENT_M01 pm01 on xrayt01.MNC_HN_YR = pm01.MNC_HN_YR and xrayt01.MNC_HN_NO = pm01.MNC_HN_NO " +
+                "Left join PATIENT_M02 pm02 on pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Left join PHARMACY_M17 pharm17 on pharm17.MNC_DEP_NO = xrayt01.MNC_REQ_DEP " +
+                "WHERE  ( xrayt01.MNC_REQ_DAT ='2024-03-18') and(xrayt01.MNC_REQ_STS<> 'C') AND(xrayt01.MNC_REQ_STS<> 'A') AND(xrayt01.MNC_REQ_STS<> 'O') " +
+                "ORDER BY xrayt01.MNC_REQ_YR DESC, xrayt01.MNC_REQ_NO DESC; ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            
+            return dt;
+        }
         private void chkNull(XrayT01 p)
         {
             long chk = 0;

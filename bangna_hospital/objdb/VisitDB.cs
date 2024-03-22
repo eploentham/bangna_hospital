@@ -867,7 +867,7 @@ namespace bangna_hospital.objdb
                 " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_doc_sts,convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday,m01.mnc_sex " +
                 ", convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.mnc_time " +
                 ",t01.MNC_pre_no, t01.mnc_ref_dsc,pt012.MNC_PAT_FLAG, isnull(pt012.MNC_WD_NO,'') as MNC_WD_NO, t01.MNC_SEC_NO,t01.MNC_DEP_NO " +
-                ",isnull(m02.MNC_PFIX_DSC,'') +' ' + isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as pttfullname " +
+                ",isnull(m02.MNC_PFIX_DSC,'') +' ' + isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as pttfullname, isnull(pt012.MNC_AN_NO,'') as MNC_AN_NO, isnull(pt012.MNC_AN_YR,'') as MNC_AN_YR " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -890,7 +890,7 @@ namespace bangna_hospital.objdb
             String sql = "",wheredate="";
             wheredate = flagVisit.Equals("finish")?"'"+date+"'": " convert(varchar(20), getdate(),23) ";
             sql = "Select   t01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM, " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM,t01.MNC_QUE_NO, " +
                 "Case f02.MNC_FN_TYP_DSC " +
                     "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
                     "When 'ประกันสังคม (บ.2)' Then 'ปกส(บ.2)' " +
@@ -928,7 +928,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select   t01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,fint01.MNC_DOC_TIM,convert(varchar(20),fint01.MNC_DOC_DAT,23) as MNC_DOC_DAT,pt012.MNC_PAT_FLAG, " +
+            sql = "Select   t01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,t01.MNC_OUT_TIM,convert(varchar(20),t01.MNC_OUT_DAT,23) as MNC_OUT_DAT,pt012.MNC_PAT_FLAG, " +
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM,t01.MNC_QUE_NO, " +
                 "Case f02.MNC_FN_TYP_DSC " +
                     "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
@@ -960,14 +960,14 @@ namespace bangna_hospital.objdb
                 "left join PATIENT_M32 pm32d on t01.MNC_SEC_NO = pm32d.MNC_SEC_NO and t01.MNC_DEP_NO = pm32d.MNC_MD_DEP_NO " +
                 "left join PATIENT_T08 pt08 on t01.MNC_HN_NO = pt08.MNC_HN_NO and t01.MNC_DATE = pt08.MNC_DATE and t01.MNC_PRE_NO = pt08.MNC_PRE_NO " +
                 "left join PATIENT_M32 pm32an on pt08.MNC_SEC_NO = pm32an.MNC_SEC_NO and pt08.MNC_WD_NO = pm32an.MNC_MD_DEP_NO " +
-                "left join FINANCE_T01 fint01 on t01.MNC_HN_NO = fint01.MNC_HN_NO and t01.MNC_DATE = fint01.MNC_DATE and t01.MNC_PRE_NO = fint01.MNC_PRE_NO " +
+                //"left join FINANCE_T01 fint01 on t01.MNC_HN_NO = fint01.MNC_HN_NO and t01.MNC_DATE = fint01.MNC_DATE and t01.MNC_PRE_NO = fint01.MNC_PRE_NO " +
                 "left join PATIENT_T01_2 pt012 on t01.MNC_HN_NO = pt012.MNC_HN_NO and t01.MNC_DATE = pt012.MNC_DATE and t01.MNC_PRE_NO = pt012.MNC_PRE_NO " +
                 " left join patient_m26  pm26dtr on t01.mnc_dot_cd = pm26dtr.MNC_DOT_CD " +
                 " left join patient_m02 pm02dtr on pm26dtr.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
                 " left join patient_m26  pm26dtripd on pt08.MNC_DOT_CD_S = pm26dtripd.MNC_DOT_CD " +
                 " left join patient_m02 pm02dtripd on pm26dtripd.MNC_DOT_PFIX = pm02dtripd.MNC_PFIX_CD " +
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
-                "and t01.MNC_STS <> 'C' and fint01.MNC_DOC_TIM in (select max(MNC_DOC_TIM) from FINANCE_T01 where  MNC_HN_NO = '" + hn + "' and MNC_DOC_STS = 'F' group by MNC_HN_NO, MNC_DOC_NO ) " +
+                "and t01.MNC_STS <> 'C'  " +
                 " Order by t01.MNC_HN_NO,t01.MNC_DATE desc,t01.MNC_TIME desc ";
             dt = conn.selectData(sql);
             return dt;

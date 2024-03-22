@@ -677,7 +677,7 @@ namespace bangna_hospital.objdb
         public Patient selectPatinetByPID(String pid, String flag)
         {
             DataTable dt = new DataTable();
-            String sql = "", wherepid="";
+            String sql = "", wherepid="", orderby="";
             Patient ptt1 = new Patient();
             if (pid.Length <= 0) return setPatient(new Patient());
             if (flag.Equals("pid"))
@@ -687,6 +687,16 @@ namespace bangna_hospital.objdb
             else if (flag.Equals("passport"))
             {
                 wherepid = " m01.passport = '" + pid + "' ";
+            }
+            else if (flag.Equals("hn"))
+            {
+                wherepid = " m01.MNC_HN_NO = '" + pid + "' ";
+            }
+            else if (flag.Equals("nopid_newhn"))
+            {
+                String[] chk = pid.Split(new char[] { ',' });
+                wherepid = " m01.MNC_FNAME_T like '" + chk[0] + "%' and m01.MNC_STAMP_DAT = convert(varchar(20), getdate(),23) and m01.MNC_BDAY = '" + chk[1] +"' ";
+                orderby = " Order By m01.MNC_HN_NO desc ";
             }
             else
             {
@@ -711,7 +721,7 @@ namespace bangna_hospital.objdb
                 " left join PATIENT_M24 insur on m01.MNC_COM_CD = insur.MNC_COM_CD " +
                 " left join PATIENT_M24 comp on m01.MNC_COM_CD2 = comp.MNC_COM_CD " +
                 " Where " + wherepid + " " +
-                " ";
+                " "+ orderby;
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {
@@ -1072,7 +1082,7 @@ namespace bangna_hospital.objdb
             String sql = "", re = "";
             sql = "Select m32.MNC_MD_DEP_DSC,m32.mnc_sec_no,m32.mnc_md_dep_no " +
                 "From  patient_m32 m32 " +
-                " Where  m32.MNC_TYP_PT = 'O' and dept_opd = '1' and active = '1' ";
+                " Where  m32.MNC_TYP_PT = 'O' and dept_opd = '1' and active = '1' Order By sort1 ";
             dt = conn.selectData(conn.connMainHIS, sql);
 
             return dt;

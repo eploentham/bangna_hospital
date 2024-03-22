@@ -98,6 +98,7 @@ namespace bangna_hospital.gui
             this.label35 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnPttInsurCopyto = new C1.Win.C1Input.C1Button();
             this.btnPttComp = new C1.Win.C1Input.C1Button();
             this.btnPttInsur = new C1.Win.C1Input.C1Button();
             this.lbPttUser = new System.Windows.Forms.Label();
@@ -296,7 +297,6 @@ namespace bangna_hospital.gui
             this.c1Label2 = new C1.Win.C1Input.C1Label();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnSSO = new System.Windows.Forms.Panel();
-            this.btnPttInsurCopyto = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -341,6 +341,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtPttRemark1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttAttchNote)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurCopyto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttComp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttInsur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttUser)).BeginInit();
@@ -458,7 +459,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).BeginInit();
             this.c1SplitterPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurCopyto)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -1239,6 +1239,16 @@ namespace bangna_hospital.gui
             this.groupBox5.TabIndex = 96;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "ที่ทำงาน";
+            // 
+            // btnPttInsurCopyto
+            // 
+            this.btnPttInsurCopyto.Image = global::bangna_hospital.Properties.Resources.GoToDown_small;
+            this.btnPttInsurCopyto.Location = new System.Drawing.Point(415, 22);
+            this.btnPttInsurCopyto.Name = "btnPttInsurCopyto";
+            this.btnPttInsurCopyto.Size = new System.Drawing.Size(23, 23);
+            this.btnPttInsurCopyto.TabIndex = 141;
+            this.btnPttInsurCopyto.Text = "...";
+            this.btnPttInsurCopyto.UseVisualStyleBackColor = true;
             // 
             // btnPttComp
             // 
@@ -3405,16 +3415,6 @@ namespace bangna_hospital.gui
             this.pnSSO.Size = new System.Drawing.Size(1252, 760);
             this.pnSSO.TabIndex = 0;
             // 
-            // btnPttInsurCopyto
-            // 
-            this.btnPttInsurCopyto.Image = global::bangna_hospital.Properties.Resources.GoToDown_small;
-            this.btnPttInsurCopyto.Location = new System.Drawing.Point(415, 22);
-            this.btnPttInsurCopyto.Name = "btnPttInsurCopyto";
-            this.btnPttInsurCopyto.Size = new System.Drawing.Size(23, 23);
-            this.btnPttInsurCopyto.TabIndex = 141;
-            this.btnPttInsurCopyto.Text = "...";
-            this.btnPttInsurCopyto.UseVisualStyleBackColor = true;
-            // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3473,6 +3473,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtPttAttchNote)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurCopyto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttComp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttInsur)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttUser)).EndInit();
@@ -3602,7 +3603,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).EndInit();
             this.c1SplitterPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnPttInsurCopyto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -3,6 +3,7 @@ using bangna_hospital.object1;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
+using GrapeCity.ActiveReports.Document.Section;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,7 +40,8 @@ namespace bangna_hospital.gui
         int colFinId = 1, colFinVnShow = 2, colFinHn = 3, colFinPttName = 4, colFinDateShow = 5, colFinTime = 6, colFinSex = 7, colFinAge = 8, colDFdtrcode=9, colDFDate = 10, colDFFNDate = 11, colFinPaidName = 12, colFinRemark = 13, colFinDept = 14, colFinWrd = 15, colFinAn = 16, colFinVsDate = 17, colFinPreno = 18, colFinSecNo=19, colFinDeptNo=20, colFinPATFLAG=21, colFinWdno = 21;
         int colIPDId = 1, colIPDVnShow = 2, colIPDHn = 3, colIPDAn = 4, colIPDPttName = 5, colIPDDate = 6, colIPDTime = 7, colIPDSex = 8, colIPDAge = 9, colIPDDsc = 10, colIPDRemark = 11, colIPDDept = 12, colIPDWrd = 13;
 
-        String DTRCODE = "", DEPTNO = "", TC1ACTIVE = "";
+        int rowindexgrfRpt = 0;
+        String DTRCODE = "", DEPTNO = "", TC1ACTIVE = "", RPTSELECT="";
 
         Boolean flagExit = false;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB;
@@ -77,15 +79,9 @@ namespace bangna_hospital.gui
             DTRCODE = bc.user.username;//เปิดโปรแกรม login ด้วย แพทย์ ถือว่าเป็น แพทย์
             txtDate.Value = DateTime.Now;
 
-            tC1.SelectedTabChanged += TC1_SelectedTabChanged;
-            txtHN.KeyUp += TxtHN_KeyUp;
-            txtHN.KeyPress += TxtHN_KeyPress;
-            rbSbDrugSet.Click += RbSbDrugSet_Click;
-            rpDrugSetNew.Click += RpDrugSetNew_Click;
-            txtDate.DropDownClosed += TxtDate_DropDownClosed;
-            btnDfDate.Click += BtnDfDate_Click;
-            txtDate.ValueChanged += TxtDate_ValueChanged;
-            
+            setEvent();
+
+
             initFont();
             initLoading();
             initGrfApm();
@@ -100,6 +96,23 @@ namespace bangna_hospital.gui
             lbDtrName.Text = bc.user.fullname;
             DTRCODE = bc.user.username;//เปิดโปรแกรม login ด้วย แพทย์ ถือว่าเป็น แพทย์
             
+        }
+        private void setEvent()
+        {
+            tC1.SelectedTabChanged += TC1_SelectedTabChanged;
+            txtHN.KeyUp += TxtHN_KeyUp;
+            txtHN.KeyPress += TxtHN_KeyPress;
+            rbSbDrugSet.Click += RbSbDrugSet_Click;
+            rpDrugSetNew.Click += RpDrugSetNew_Click;
+            txtDate.DropDownClosed += TxtDate_DropDownClosed;
+            btnDfDate.Click += BtnDfDate_Click;
+            txtDate.ValueChanged += TxtDate_ValueChanged;
+            btnRptPrint.Click += BtnRptPrint_Click;
+        }
+        private void BtnRptPrint_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void TxtDate_ValueChanged(object sender, EventArgs e)
@@ -119,7 +132,7 @@ namespace bangna_hospital.gui
                 showLbLoading();
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor", "BtnDfDate_Click");
                 int cnt = 0;
-                foreach (Row arow in grfFin.Rows)
+                foreach (C1.Win.C1FlexGrid.Row arow in grfFin.Rows)
                 {
                     if (arow[colFinHn].ToString().Equals("HN")) continue;
                     DataTable dt = bc.bcDB.dfdDB.SelectDtrDFByPreno(arow[colFinHn].ToString(), arow[colFinVsDate].ToString(), arow[colFinPreno].ToString());
@@ -473,7 +486,8 @@ namespace bangna_hospital.gui
             vn = grfFin[grfFin.Row, colFinVnShow] != null ? grfFin[grfFin.Row, colFinVnShow].ToString() : "";
             hn = grfFin[grfFin.Row, colFinHn] != null ? grfFin[grfFin.Row, colFinHn].ToString() : "";
             txt = grfFin[grfFin.Row, colFinPttName] != null ? grfFin[grfFin.Row, colFinPttName].ToString() : "";
-            //openNewForm(hn, txt);
+            Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(hn);
+            openNewForm(hn, txt,ref ptt);
         }
         private void setGrfFinish()
         {
@@ -518,6 +532,21 @@ namespace bangna_hospital.gui
                     grfFin[i, colDFdtrcode] = row["MNC_WD_NO"].ToString();
                     grfFin[i, colDFDate] = row["MNC_WD_NO"].ToString();
                     grfFin[i, colDFFNDate] = row["MNC_WD_NO"].ToString();
+                    if (!row["MNC_VN_SEQ"].ToString().Equals("1"))
+                    {
+                        row.SetColumnError(colFinVnShow, row["MNC_VN_NO"].ToString() + "." + row["MNC_VN_SEQ"].ToString() + "." + row["MNC_VN_SUM"].ToString());
+
+                    }
+                    if (row["MNC_PAT_FLAG"].ToString().Equals("I")) 
+                    {
+                        grfFin.GetCellRange(i, colFinVnShow,i, colFinPttName).StyleNew.Font = fEditB; 
+                        grfFin[i, colFinVnShow] = row["MNC_AN_NO"].ToString() + "." + row["MNC_AN_YR"].ToString();
+                        grfFin[i, colFinPATFLAG] = "ADMIT";
+                        CellNote note = new CellNote(row["MNC_VN_NO"].ToString() + "." + row["MNC_VN_SEQ"].ToString() + "." + row["MNC_VN_SUM"].ToString());
+                        CellRange rg = grfFin.GetCellRange(i, colFinVnShow);
+                        rg.UserData = note;
+                    }
+                    else { }
                     i++;
                 }
                 catch (Exception ex)
@@ -527,6 +556,7 @@ namespace bangna_hospital.gui
                     bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfFinish", ex.Message);
                 }
             }
+            CellNoteManager mgr = new CellNoteManager(grfFin);
             hideLbLoading();
         }
         private void initGrfQue()
@@ -537,6 +567,7 @@ namespace bangna_hospital.gui
             grfQue.Dock = DockStyle.Fill;
             grfQue.Font = fEdit;
 
+            grfQue.Cols[colQueId].Caption = "que";
             grfQue.Cols[colQueVnShow].Caption = "VN";
             grfQue.Cols[colQueHn].Caption = "HN";
             grfQue.Cols[colQuePttName].Caption = "Patient Name";
@@ -553,6 +584,7 @@ namespace bangna_hospital.gui
             grfQue.Cols[colQyeTemp].Caption = "Temp";
             grfQue.Cols[colQueDsc].Caption = "Description";
 
+            grfQue.Cols[colQueId].Width = 50;
             grfQue.Cols[colQueVnShow].Width = 80;
             grfQue.Cols[colQueHn].Width = 80;
             grfQue.Cols[colQuePttName].Width = 310;
@@ -574,9 +606,10 @@ namespace bangna_hospital.gui
             grfQue.Cols[0].Visible = true;
             grfQue.Rows[0].Visible = true;
             //row1[colVSE2] = row[ic.ivfDB.pApmDB.pApm.e2].ToString().Equals("1") ? imgCorr : imgTran;
-            grfQue.Cols[colQueId].Visible = false;
+            grfQue.Cols[colQueId].Visible = true;//ต้องการแสดง que
             grfQue.Cols[colQuePreNo].Visible = false;
 
+            grfQue.Cols[colQueId].AllowEditing = false;
             grfQue.Cols[colQueVnShow].AllowEditing = false;
             grfQue.Cols[colQueHn].AllowEditing = false;
             grfQue.Cols[colQuePttName].AllowEditing = false;
@@ -609,6 +642,7 @@ namespace bangna_hospital.gui
             preno = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colQuePreNo] != null ? ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colQuePreNo].ToString() : "";
             name = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colQuePttName] != null ? ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, colQuePttName].ToString() : "";
             Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(hn);
+            bc.bcDB.sumt03DB.updateSumVnAdd(DTRCODE, hn, preno, vsdate);
             openNewForm(hn, name,ref ptt);
         }
         private void setGrfQue()
@@ -626,7 +660,7 @@ namespace bangna_hospital.gui
                     vn = row["MNC_VN_NO"].ToString() + "." + row["MNC_VN_SEQ"].ToString() + "." + row["MNC_VN_SUM"].ToString();
                     ptt.patient_birthday = row["mnc_bday"].ToString();
                     grfQue[i, 0] = (i);
-                    grfQue[i, colQueId] = vn;
+                    grfQue[i, colQueId] = row["MNC_QUE_NO"].ToString();
                     grfQue[i, colQueVnShow] = vn;
                     grfQue[i, colQueVsDateShow] = bc.datetoShow(row["mnc_date"].ToString());
                     grfQue[i, colQueHn] = row["MNC_HN_NO"].ToString();
@@ -775,21 +809,34 @@ namespace bangna_hospital.gui
             grfRpt.Cols[1].TextAlign = TextAlignEnum.LeftCenter;
             grfRpt.Cols[1].Visible = true;
             grfRpt.Cols[1].AllowEditing = false;
-            grfRpt.DoubleClick += GrfRpt_DoubleClick1;
-            //grfCheckUPList.AllowFiltering = true;
-            grfRpt.Rows.Count = 2;
-            Row rowa = grfRpt.Rows[1];
-            rowa[1] = "รายงาน แพทย์นัด";
-
+            grfRpt.AfterRowColChange += GrfRpt_AfterRowColChange;
+            grfRpt.Rows.Count = 3;
+            grfRpt.Rows[1][1] = "รายงาน แพทย์นัด";
+            grfRpt.Rows[2][1] = "รายงาน รายได้แพทย์";
             pnRptName.Controls.Add(grfRpt);
             theme1.SetTheme(grfRpt, bc.iniC.themeApp);
         }
 
-        private void GrfRpt_DoubleClick1(object sender, EventArgs e)
+        private void GrfRpt_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
-
+            if (e.NewRange.r1 < 0) return;
+            if (e.NewRange.Data == null) return;
+            try
+            {
+                if (rowindexgrfRpt != ((C1FlexGrid)(sender)).Row) { rowindexgrfRpt = ((C1FlexGrid)(sender)).Row; }
+                else { return; }
+                if (grfRpt.Row ==1) RPTSELECT = "01";
+                else if (grfRpt.Row == 2) RPTSELECT = "02";
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("e", "FrmDoctor GrfRpt_AfterRowColChange " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor GrfRpt_AfterRowColChange  ", ex.Message);
+                lfSbMessage.Text = ex.Message;
+            }
         }
+
         private void showLbLoading()
         {
             lbLoading.Show();
@@ -810,12 +857,15 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
             
-            c1SplitContainer1.HeaderHeight = 0;
+            spDoctor.HeaderHeight = 0;
             spTop.SizeRatio = 5;
+            spRpt.HeaderHeight = 0;
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             //theme1.SetTheme(this, "Office2010Blue");
-            this.Text = "Last Update 2024-03-07";
+            this.Text = "Last Update 2024-03-21";
+            lfSbLastUpdate.Text = "Update 2567-03-21-1";
+            lfSbMessage.Text = "";
             bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor_Load", "Application Doctor Start");
         }
     }

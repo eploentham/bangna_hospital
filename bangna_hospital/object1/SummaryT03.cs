@@ -27,5 +27,8 @@ namespace bangna_hospital.object1
         public String MNC_STAMP_TIM { get; set; }
         public String MNC_USR_ADD { get; set; }
         public String MNC_USR_UPD { get; set; }
+        public String queue_current { get; set; }
+        public String dept_no { get; set; }
+        public String sec_no { get; set; }
     }
 }

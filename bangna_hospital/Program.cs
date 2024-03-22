@@ -254,6 +254,11 @@ namespace bangna_hospital
                     err = "ward";
                     Application.Run(new gui.FrmWard(bc,"outlab"));
                 }
+                else if (bc.iniC.programLoad.Equals("xray"))
+                {
+                    err = "xray";
+                    Application.Run(new gui.FrmXray(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

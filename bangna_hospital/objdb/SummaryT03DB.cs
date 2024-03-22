@@ -40,18 +40,22 @@ namespace bangna_hospital.objdb
             sumt03.MNC_STAMP_TIM = "MNC_STAMP_TIM";
             sumt03.MNC_USR_ADD = "MNC_USR_ADD";
             sumt03.MNC_USR_UPD = "MNC_USR_UPD";
+            sumt03.queue_current = "queue_current";
+            sumt03.dept_no = "dept_no";
+            sumt03.sec_no = "sec_no";
+
             sumt03.table = "SUMMARY_T03";
         }
-        public DataTable selectQueDoctorToday()
+        public DataTable selectQueDoctorToday(String secno)
         {
             String sql = "";
             DataTable dt = new DataTable();
             sql = "Select sumt03.MNC_SUM_VN_ADD,sumt03.queue_current " +
                 ", isnull(pm02dtr.MNC_PFIX_DSC,'') +' '+isnull(pm26.MNC_DOT_FNAME,'') +' '+isnull(pm26.MNC_DOT_LNAME,'') as dtr_name " +
-                    "From SUMMARY_T03 sumt03 " +
-                    "Left join	patient_m26 pm26 on sumt03.MNC_DOT_CD = pm26.MNC_DOT_CD " +
-                    "Left JOIN	PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
-                    "Where sumt03.MNC_SUM_DAT = convert(varchar(20), getdate(),23)  " ;
+                "From SUMMARY_T03 sumt03 " +
+                "Left join	patient_m26 pm26 on sumt03.MNC_DOT_CD = pm26.MNC_DOT_CD " +
+                "Left JOIN	PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                "Where sumt03.MNC_SUM_DAT = convert(varchar(20), getdate(),23) and sec_no = '"+secno+ "' and pm26.active = '1' ";
             dt = conn.selectData(sql);
 
             return dt;
