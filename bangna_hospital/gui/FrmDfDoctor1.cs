@@ -322,8 +322,8 @@ namespace bangna_hospital.gui
             int i = 20000;
             DateTime date = new DateTime();
             DateTime.TryParse(DateTime.Now.ToString(), out date);
-            if (date.Year > 2500)            {                date = date.AddYears(-543);            }
-            else if (date.Year < 2000)            {                date = date.AddYears(543);            }
+            if (date.Year > 2500) {                date = date.AddYears(-543);            }
+            else if (date.Year < 2000) {                date = date.AddYears(543);            }
             dfdate = date.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
             foreach (Row row in grfImp.Rows)
             {

@@ -63,7 +63,7 @@ namespace bangna_hospital.gui
         String TC1ACTIVE = "", TCOPDACTIVE="", PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", ITEMCODE="", DSCID="";
         float ImageScale = 1.0f;
         int colOPDFinishListHN = 1,colOPDFinishListPttName = 2, colOPDFinishListQueNo = 3, colOPDFinishListReqTime = 4, colOPDFinishListCFRTime = 5, colOPDFinishListVnno = 6, colOPDFinishListDeptName = 7, colOPDFinishListDocCD = 8, colOPDFinishListCFRYr = 9, colOPDFinishListCFRNo = 10, colOPDFinishListCFRDATE = 11, colOPDFinishListCFRSTS = 12, colOPDFinishListReqYr = 13, colOPDFinishListReqNo = 14, colOPDFinishListReqDate = 15, colOPDFinishListVsDate = 16, colOPDFinishListPreNo = 17, colOPDFinishListDtrcode = 18, colOPDFinishListDtrName = 19, colOPDFinishListUsrReq = 20, colOPDFinishListUsrPhar = 21, colOPDFinishListPttDOB = 22, colOPDFinishListPttSex = 23, colOPDFinishListPaidName = 24, colOPDFinishListCompName = 25, colOPDFinishListPttAttachNote = 26, colOPDFinishListFinNote = 27, colOPDFinishListDeptNo = 28, colOPDFinishListSecNo = 29;
-        int colOPDFinishReqItemCode = 1, colOPDFinishReqItemName = 2, colOPDFinishReqDocCD = 3, colOPDFinishReqCFRYr = 4, colOPDFinishReqCFRNo = 5, colOPDFinishReqCFRDate = 6, colOPDFinishReqQty = 7, colOPDFinishReqDirDesc = 8, colOPDFinishReqPttName=9;
+        int colOPDFinishReqItemCode = 1, colOPDFinishReqItemName = 2, colOPDFinishReqDocCD = 3, colOPDFinishReqCFRYr = 4, colOPDFinishReqCFRNo = 5, colOPDFinishReqCFRDate = 6, colOPDFinishReqQty = 7, colOPDFinishReqDirDesc = 8, colOPDFinishReqPttName=9, colOPDFinishRedrugcau = 10;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9, colIPDDtrName = 10;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         listStream strm;
@@ -843,7 +843,7 @@ namespace bangna_hospital.gui
             grfOPDFinishReq.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOPDFinishReq.Location = new System.Drawing.Point(0, 0);
             grfOPDFinishReq.Rows.Count = 1;
-            grfOPDFinishReq.Cols.Count = 10;
+            grfOPDFinishReq.Cols.Count = 11;
 
             grfOPDFinishReq.Cols[colOPDFinishReqItemCode].Width = 80;
             grfOPDFinishReq.Cols[colOPDFinishReqItemName].Width = 300;
@@ -853,9 +853,14 @@ namespace bangna_hospital.gui
             grfOPDFinishReq.Cols[colOPDFinishReqCFRDate].Width = 80;
             grfOPDFinishReq.Cols[colOPDFinishReqQty].Width = 80;
             grfOPDFinishReq.Cols[colOPDFinishReqDirDesc].Width = 500;
-
+            grfOPDFinishReq.Cols[colOPDFinishRedrugcau].Width = 500;
             grfOPDFinishReq.ShowCursor = true;
             grfOPDFinishReq.Cols[1].Caption = "-";
+            grfOPDFinishReq.Cols[colOPDFinishReqItemCode].Caption = "code";
+            grfOPDFinishReq.Cols[colOPDFinishReqItemName].Caption = "name";
+            grfOPDFinishReq.Cols[colOPDFinishReqQty].Caption = "qty";
+            grfOPDFinishReq.Cols[colOPDFinishReqDirDesc].Caption = "dirdesc";
+            grfOPDFinishReq.Cols[colOPDFinishRedrugcau].Caption = "drug cau";
 
             grfOPDFinishReq.Cols[colOPDFinishReqDocCD].Visible = false;
             grfOPDFinishReq.Cols[colOPDFinishReqCFRYr].Visible = false;
@@ -867,7 +872,7 @@ namespace bangna_hospital.gui
             grfOPDFinishReq.Cols[colOPDFinishReqQty].AllowEditing = false;
             grfOPDFinishReq.Cols[colOPDFinishReqDirDesc].AllowEditing = false;
             grfOPDFinishReq.Cols[colOPDFinishListPttName].AllowEditing = false;
-
+            grfOPDFinishReq.Cols[colOPDFinishRedrugcau].AllowEditing = false;
             grfOPDFinishReq.AfterRowColChange += GrfOPDFinishReq_AfterRowColChange;
             pnOPDFinishReq.Controls.Add(grfOPDFinishReq);
 
@@ -918,6 +923,7 @@ namespace bangna_hospital.gui
                     rowa[colOPDFinishReqQty] = row1["MNC_PH_QTY_PAID"].ToString();
                     rowa[colOPDFinishReqPttName] = row1["pttname"].ToString();
                     rowa[colOPDFinishReqDirDesc] = row1["drug_using"].ToString().Replace("/","").Trim();
+                    rowa[colOPDFinishReqDirDesc] = row1["drug_cau"].ToString().Replace("/", "").Trim();
                     i++;
                 }
                 catch(Exception ex)

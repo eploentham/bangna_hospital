@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
+using C1.C1Excel;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -470,11 +472,33 @@ namespace bangna_hospital.gui
             grfFin.Cols[colFinPATFLAG].AllowEditing = false;
 
             ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("export Excel", new EventHandler(ContextMenu_FinExport));
             grfFin.ContextMenu = menuGw;
 
             theme1.SetTheme(grfFin, bc.iniC.themeApp);
         }
+        private void ContextMenu_FinExport(object sender, System.EventArgs e)
+        {
+            String filenam = "";
+            filenam = "app_" + DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd") + ".xls";
+            if (File.Exists(bc.iniC.pathDownloadFile + "\\" + filenam))
+            {
+                lfSbMessage.Text = "พบ File " + filenam + " กรุณาลบ File นี้ก่อน";
+                //return;
+            }
+            DateTime.TryParse(txtDate.Text, out DateTime curdate);
+            if (curdate.Year < 1900) { curdate = curdate.AddYears(543); }
+            C1XLBook _book = new C1XLBook();
+            
+            //_book.Sheets.Remove(DTRCODE+"_"+ curdate.Year.ToString()  + curdate.ToString("MMdd"));
+            XLSheet sheet = _book.Sheets.Add(DTRCODE + "_" + curdate.Year.ToString()  + curdate.ToString("MMdd"));
+            bc.SaveSheet(grfFin, sheet, _book, false);
+            
+            _book.Sheets.SelectedIndex = 1;
 
+            _book.Save(bc.iniC.pathDownloadFile + "\\" + filenam);
+            System.Diagnostics.Process.Start(bc.iniC.pathDownloadFile + "\\" + filenam);
+        }
         private void GrfFin_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -495,10 +519,7 @@ namespace bangna_hospital.gui
             showLbLoading();
             String date = "";
             DateTime.TryParse(txtDate.Text, out DateTime curdate);
-            if (curdate.Year < 1900)
-            {
-                curdate = curdate.AddYears(543);
-            }
+            if (curdate.Year < 1900)            {                curdate = curdate.AddYears(543);            }
             DataTable dt = new DataTable();
             dt = bc.bcDB.vsDB.selectVisitByDtr2(bc.user.staff_id, curdate.Year.ToString()+"-"+ curdate.ToString("MM-dd"));
             int i = 1, cnt=0;
@@ -816,7 +837,6 @@ namespace bangna_hospital.gui
             pnRptName.Controls.Add(grfRpt);
             theme1.SetTheme(grfRpt, bc.iniC.themeApp);
         }
-
         private void GrfRpt_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
@@ -836,7 +856,6 @@ namespace bangna_hospital.gui
                 lfSbMessage.Text = ex.Message;
             }
         }
-
         private void showLbLoading()
         {
             lbLoading.Show();
@@ -856,15 +875,16 @@ namespace bangna_hospital.gui
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
-            
+            tC1.TabPages[tabRpt.Name].TabVisible = false;
+
             spDoctor.HeaderHeight = 0;
             spTop.SizeRatio = 5;
             spRpt.HeaderHeight = 0;
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             //theme1.SetTheme(this, "Office2010Blue");
-            this.Text = "Last Update 2024-03-21";
-            lfSbLastUpdate.Text = "Update 2567-03-21-1";
+            this.Text = "Last Update 2024-03-22";
+            lfSbLastUpdate.Text = "Update 2567-03-22-1";
             lfSbMessage.Text = "";
             bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor_Load", "Application Doctor Start");
         }

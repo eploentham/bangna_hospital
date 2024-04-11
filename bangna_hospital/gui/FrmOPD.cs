@@ -4293,11 +4293,18 @@ namespace bangna_hospital.gui
             grf.Cols[colgrfPttApmOrder].AllowEditing = false;
             grf.Cols[colgrfPttApmDeptMake].AllowEditing = false;
             
-            grfPttApm.Click += GrfPttApm_Click;
-
+            if(grf.Name.Equals("grfPttApm")) grfPttApm.Click += GrfPttApm_Click;
+            if (grf.Name.Equals("grfApm")) grfApm.DoubleClick += GrfApm_DoubleClick;
             pn.Controls.Add(grf);
             theme1.SetTheme(grf, bc.iniC.themeApp);
         }
+
+        private void GrfApm_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void GrfPttApm_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

@@ -3801,8 +3801,8 @@ namespace bangna_hospital.gui
                 rowa[colgrfPttVsRemark] = row1["MNC_REF_DSC"].ToString();
                 rowa[colgrfPttVsVsTime] = bc.showTime(row1["MNC_TIME"].ToString());
                 rowa[colgrfPttVsVsDate1] = row1["mnc_date"].ToString();
-                rowa[colgrfPttVsDiscDateShow] = row1["MNC_AN_NO"].ToString().Equals("0") ? bc.datetoShowShort(row1["MNC_DOC_DAT"].ToString()) : bc.datetoShowShort(row1["MNC_DS_DATE"].ToString());
-                rowa[colgrfPttVsDiscTime] = row1["MNC_AN_NO"].ToString().Equals("0") ? bc.showTime(row1["MNC_DOC_TIM"].ToString()) : bc.showTime(row1["MNC_DS_TIME"].ToString());
+                rowa[colgrfPttVsDiscDateShow] = row1["MNC_AN_NO"].ToString().Equals("0") ? bc.datetoShowShort(row1["MNC_OUT_DAT"].ToString()) : bc.datetoShowShort(row1["MNC_DS_DATE"].ToString());
+                rowa[colgrfPttVsDiscTime] = row1["MNC_AN_NO"].ToString().Equals("0") ? bc.showTime(row1["MNC_OUT_TIM"].ToString()) : bc.showTime(row1["MNC_DS_TIME"].ToString());
                 rowa[colgrfPttVsLimitCreditNo] = row1["limit_credit_no"].ToString();
                 rowa[colgrfPttVsdtrName] = row1["MNC_AN_NO"].ToString().Equals("0") ? row1["dtr_name"].ToString() : row1["dtr_nameipd"].ToString();
                 if (!row1["MNC_AN_NO"].ToString().Equals("0")) {rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);}
@@ -4462,7 +4462,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-03-21";
+            lfSbLastUpdate.Text = "Update 2567-03-29";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

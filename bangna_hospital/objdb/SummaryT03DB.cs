@@ -55,7 +55,7 @@ namespace bangna_hospital.objdb
                 "From SUMMARY_T03 sumt03 " +
                 "Left join	patient_m26 pm26 on sumt03.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "Left JOIN	PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
-                "Where sumt03.MNC_SUM_DAT = convert(varchar(20), getdate(),23) and sec_no = '"+secno+ "' and pm26.active = '1' ";
+                "Where sumt03.MNC_SUM_DAT = convert(varchar(20), getdate(),23) and sec_no = '"+secno+ "' and pm26.active = '1' and sumt03.queue_current is not null ";
             dt = conn.selectData(sql);
 
             return dt;
