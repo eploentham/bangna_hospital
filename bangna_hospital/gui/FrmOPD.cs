@@ -814,7 +814,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             FrmItemSearch frm = new FrmItemSearch(bc);
             frm.ShowDialog();
-            if (bc.items.Count > 0)
+            if ((bc.items != null)  && (bc.items.Count > 0))
             {
                 foreach(Item item in bc.items)
                 {

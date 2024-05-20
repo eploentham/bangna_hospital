@@ -17,7 +17,7 @@ namespace bangna_hospital.gui
 {
     public partial class FrmReportNew : Form
     {
-        String reportfilename = "";
+        public String reportfilename = "";
         public String HN="", VN="", preno="", reqDate="";
         public DataTable DT = new DataTable();
         BangnaControl bc;
@@ -85,8 +85,11 @@ namespace bangna_hospital.gui
                 PageReport definition = new PageReport(rptPath);
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
                 runtime.LocateDataSource += Runtime_LocateDataSource1;
+                
                 runtime.Print(false);
                 chk = true;
+                definition.Dispose();
+                runtime.Dispose();
             }
             catch (Exception ex)
             {

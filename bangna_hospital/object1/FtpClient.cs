@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -565,6 +566,7 @@ namespace bangna_hospital.object1
         /* List Directory Contents File/Folder Name Only */
         public string[] directoryListSimple(string directory)
         {
+            string[] directoryList;
             try
             {
                 /* Create an FTP Request */
@@ -593,15 +595,63 @@ namespace bangna_hospital.object1
                 ftpStream.Close();
                 ftpResponse.Close();
                 ftpRequest = null;
+                Application.DoEvents();
                 /* Return the Directory Listing as a string Array by Parsing 'directoryRaw' with the Delimiter you Append (I use | in This Example) */
-                try { string[] directoryList = directoryRaw.Split("|".ToCharArray()); return directoryList; }
-                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+                directoryList = directoryRaw.Split('|');
+                if(directoryList.Length > 0) { return  directoryList; }
             }
             catch (Exception ex) { Console.WriteLine(ex.ToString()); }
             /* Return an Empty string Array if an Exception Occurs */
             return new string[] { "" };
         }
-
+        public List<String> directoryListSimple1(string directory)
+        {
+            List<String> directoryList = new List<string>();
+            try
+            {
+                ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + directory);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = ftpUsePassive;
+                ftpRequest.KeepAlive = true;
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+                ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                ftpStream = ftpResponse.GetResponseStream();
+                StreamReader ftpReader = new StreamReader(ftpStream);
+                string directoryRaw = null;
+                try { while (ftpReader.Peek() != -1) {directoryList.Add(ftpReader.ReadLine()); Application.DoEvents(); } }
+                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+                ftpReader.Close();                ftpStream.Close();                ftpResponse.Close();                ftpRequest = null;
+                Application.DoEvents();
+                //foreach(String txt in directoryRaw.Split('|'))  directoryList.Add(txt);                
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            /* Return an Empty string Array if an Exception Occurs */
+            return directoryList;
+        }
+        public List<String> directoryList(string directory)
+        {
+            List<String> directoryList = new List<string>();
+            try
+            {
+                FtpWebRequest ftpRequest = (FtpWebRequest)WebRequest.Create(host + "/" + directory);
+                ftpRequest.Credentials = new NetworkCredential(user, pass);
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                StreamReader streamReader = new StreamReader(response.GetResponseStream());
+                //List<string> directories = new List<string>();
+                string line = streamReader.ReadLine();
+                while (!string.IsNullOrEmpty(line))
+                {
+                    directoryList.Add(line);
+                    line = streamReader.ReadLine();
+                }
+                streamReader.Close();
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            /* Return an Empty string Array if an Exception Occurs */
+            return directoryList;
+        }
         /* List Directory Contents in Detail (Name, Size, Created, etc.) */
         public string[] directoryListDetailed(string directory)
         {

@@ -723,21 +723,25 @@ namespace bangna_hospital.gui
                     if (aaa.Length > 2)
                     {
                         String grp = "";
-                        if (xrgrpcd.Equals("C"))
+                        if (xrgrpcd.Equals("C")) //CT.SCAN
                         {
                             grp = "CT";
                         }
-                        else if (xrgrpcd.Equals("U"))
+                        else if (xrgrpcd.Equals("U"))//ULTRASONGRAPHY
                         {
                             grp = "US";
                         }
-                        else if (xrgrpcd.Equals("G"))
+                        else if (xrgrpcd.Equals("G"))//MAMMOGRAM
                         {
                             grp = "MG";
                         }
-                        else if (xrgrpcd.Equals("M"))
+                        else if (xrgrpcd.Equals("M"))//MRI
                         {
                             grp = "MR";
+                        }
+                        else if (xrgrpcd.Equals("NM"))//NUCLEAR MEDICINE
+                        {
+                            grp = "NM";
                         }
                         else
                         {
@@ -1659,7 +1663,7 @@ namespace bangna_hospital.gui
             year = DateTime.Now.Year.ToString();
             mm = DateTime.Now.ToString("MM");
             dd = DateTime.Now.ToString("dd");
-            this.Text = "Lasst Update 2023-01-09 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
+            this.Text = "Lasst Update 2024-04-25 pacsServerIP " + bc.iniC.pacsServerIP + " pacsServerPort " + bc.iniC.pacsServerPort+ "bc.timerCheckLabOut " + bc.timerCheckLabOut + " status online " + bc.iniC.statusLabOutReceiveOnline+" Format date "+ year + " "+mm + " "+dd;
             frmFlash.Dispose();
             this.WindowState = FormWindowState.Maximized;
             c1SplitterPanel1.SizeRatio = 80;

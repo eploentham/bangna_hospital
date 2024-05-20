@@ -69,5 +69,6 @@ namespace bangna_hospital.object1
         public String interaction { get; set; }//ปฎิกิริยาต่อยาอื่น
         public String indication { get; set; }//ปฎิกิริยาต่อยาอื่น
         public String using1 { get; set; }
+        public String tmt_code_opbkk { get; set; }
     }
 }

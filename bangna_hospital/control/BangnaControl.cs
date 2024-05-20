@@ -604,6 +604,20 @@ namespace bangna_hospital.control
             iniC.folderFTPLabOutMedica = iniF.getIni("ftp", "folderFTPLabOut_MADICA");
             iniC.usePassiveFTPLabOutMedica = iniF.getIni("ftp", "usePassiveFTPLabOut_MADICA");
 
+            iniC.hostFTPCertMed = iniF.getIni("ftp", "hostFTPCertMed");
+            iniC.userFTPCertMed = iniF.getIni("ftp", "userFTPCertMed");
+            iniC.passFTPCertMed = iniF.getIni("ftp", "passFTPCertMed");
+            iniC.portFTPCertMed = iniF.getIni("ftp", "portFTPCertMed");
+            iniC.folderFTPCertMed = iniF.getIni("ftp", "folderFTPCertMed");
+            iniC.usePassiveFTPCertMed = iniF.getIni("ftp", "usePassiveFTPCertMed");
+
+            iniC.hostFTPDrugIn = iniF.getIni("ftp", "hostFTPDrugIn");
+            iniC.userFTPDrugIn = iniF.getIni("ftp", "userFTPDrugIn");
+            iniC.passFTPDrugIn = iniF.getIni("ftp", "passFTPDrugIn");
+            iniC.portFTPDrugIn = iniF.getIni("ftp", "portFTPDrugIn");
+            iniC.folderFTPDrugIn = iniF.getIni("ftp", "folderFTPDrugIn");
+            iniC.usePassiveFTPDrugIn = iniF.getIni("ftp", "usePassiveFTPDrugIn");
+
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
             iniC.pdfFontSize = iniF.getIni("app", "pdfFontSize");
@@ -724,6 +738,8 @@ namespace bangna_hospital.control
             iniC.statusScreenCaptureAutoSend = iniF.getIni("app", "statusScreenCaptureAutoSend");
             iniC.statusPrintPreview = iniF.getIni("app", "statusPrintPreview");
             iniC.grfRowHeight = iniF.getIni("app", "grfRowHeight");
+            iniC.nightTime = iniF.getIni("app", "nightTime");
+            iniC.nightTimeOn = iniF.getIni("app", "nightTimeOn");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -735,7 +751,7 @@ namespace bangna_hospital.control
             iniC.EmailSubjectAIPN = iniF.getIni("email", "EmailSubjectAIPN");
             iniC.EmailPortAIPN = iniF.getIni("email", "EmailPortAIPN");
             iniC.EmailAuthUserAIPN = iniF.getIni("email", "EmailAuthUserAIPN");
-            iniC.EmailAuthPassAIPN = iniF.getIni("email", "EmailAuthPassAIPN");
+            //iniC.EmailAuthPassAIPN = iniF.getIni("email", "EmailAuthPassAIPN");
 
             iniC.OPD_BTEMP = iniF.getIni("OPBKKClaim", "OPD_BTEMP");
             iniC.OPD_SBP = iniF.getIni("OPBKKClaim", "OPD_SBP");//      ความดันโลหิตค่าตัวบน
@@ -825,6 +841,8 @@ namespace bangna_hospital.control
             iniC.padYCertMed = iniC.padYCertMed == null ? "820" : iniC.padYCertMed.Equals("") ? "820" : iniC.padYCertMed;
             iniC.statusScreenCaptureAutoSend = iniC.statusScreenCaptureAutoSend == null ? "0" : iniC.statusScreenCaptureAutoSend.Equals("") ? "0" : iniC.statusScreenCaptureAutoSend;
             iniC.statusPrintPreview = iniC.statusPrintPreview == null ? "0" : iniC.statusPrintPreview.Equals("") ? "0" : iniC.statusPrintPreview;
+            iniC.nightTime = iniC.nightTime == null ? "1900:0600" : iniC.nightTime.Equals("") ? "1900:0600" : iniC.nightTime;
+            iniC.nightTimeOn = iniC.nightTimeOn == null ? "0" : iniC.nightTimeOn.Equals("") ? "0" : iniC.nightTimeOn;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -857,6 +875,7 @@ namespace bangna_hospital.control
             int.TryParse(iniC.grdQueFontSize, out grdQueFontSize);
             int.TryParse(iniC.grdQueTodayFontSize, out grdQueTodayFontSize);
             int.TryParse(iniC.grfRowHeight, out grfRowHeight);
+            int.TryParse(iniC.timerImgScanNew, out timerImgScanNew);
         }
         public String setC1Combo(C1ComboBox c, String data)
         {

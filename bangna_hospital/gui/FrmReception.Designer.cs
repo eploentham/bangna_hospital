@@ -234,7 +234,6 @@ namespace bangna_hospital.gui
             this.label74 = new System.Windows.Forms.Label();
             this.label70 = new System.Windows.Forms.Label();
             this.cboVsDept = new C1.Win.C1Input.C1ComboBox();
-            this.label68 = new System.Windows.Forms.Label();
             this.lbVsPttNameT = new System.Windows.Forms.Label();
             this.txtVsHN = new C1.Win.C1Input.C1TextBox();
             this.label54 = new System.Windows.Forms.Label();
@@ -297,6 +296,7 @@ namespace bangna_hospital.gui
             this.c1Label2 = new C1.Win.C1Input.C1Label();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnSSO = new System.Windows.Forms.Panel();
+            this.btnVsPaid = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -459,6 +459,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).BeginInit();
             this.c1SplitterPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnVsPaid)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -732,7 +733,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.247D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 989;
+            this.pnPttPatient.Width = 982;
             // 
             // btnPttPaid
             // 
@@ -2340,6 +2341,7 @@ namespace bangna_hospital.gui
             // pnVsVisit
             // 
             this.pnVsVisit.Collapsible = true;
+            this.pnVsVisit.Controls.Add(this.btnVsPaid);
             this.pnVsVisit.Controls.Add(this.txtVsComp);
             this.pnVsVisit.Controls.Add(this.label14);
             this.pnVsVisit.Controls.Add(this.txtVsInsur);
@@ -2368,7 +2370,6 @@ namespace bangna_hospital.gui
             this.pnVsVisit.Controls.Add(this.label74);
             this.pnVsVisit.Controls.Add(this.label70);
             this.pnVsVisit.Controls.Add(this.cboVsDept);
-            this.pnVsVisit.Controls.Add(this.label68);
             this.pnVsVisit.Controls.Add(this.lbVsPttNameT);
             this.pnVsVisit.Controls.Add(this.txtVsHN);
             this.pnVsVisit.Controls.Add(this.label54);
@@ -2380,7 +2381,7 @@ namespace bangna_hospital.gui
             this.pnVsVisit.SizeRatio = 58.173D;
             this.pnVsVisit.TabIndex = 0;
             this.pnVsVisit.Text = "Panel 1";
-            this.pnVsVisit.Width = 719;
+            this.pnVsVisit.Width = 726;
             // 
             // txtVsComp
             // 
@@ -2447,9 +2448,9 @@ namespace bangna_hospital.gui
             // 
             // txtVsPaidCode
             // 
-            this.txtVsPaidCode.Location = new System.Drawing.Point(111, 149);
+            this.txtVsPaidCode.Location = new System.Drawing.Point(127, 149);
             this.txtVsPaidCode.Name = "txtVsPaidCode";
-            this.txtVsPaidCode.Size = new System.Drawing.Size(300, 24);
+            this.txtVsPaidCode.Size = new System.Drawing.Size(284, 24);
             this.txtVsPaidCode.TabIndex = 132;
             this.txtVsPaidCode.Tag = null;
             // 
@@ -2675,17 +2676,6 @@ namespace bangna_hospital.gui
             this.cboVsDept.Size = new System.Drawing.Size(248, 24);
             this.cboVsDept.TabIndex = 80;
             this.cboVsDept.Tag = null;
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label68.ForeColor = System.Drawing.Color.Red;
-            this.label68.Location = new System.Drawing.Point(4, 149);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(97, 20);
-            this.label68.TabIndex = 79;
-            this.label68.Text = "รักษาด้วยสิทธิ*";
             // 
             // lbVsPttNameT
             // 
@@ -3415,6 +3405,18 @@ namespace bangna_hospital.gui
             this.pnSSO.Size = new System.Drawing.Size(1252, 760);
             this.pnSSO.TabIndex = 0;
             // 
+            // btnVsPaid
+            // 
+            this.btnVsPaid.Image = global::bangna_hospital.Properties.Resources.Search_globe16;
+            this.btnVsPaid.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnVsPaid.Location = new System.Drawing.Point(3, 145);
+            this.btnVsPaid.Name = "btnVsPaid";
+            this.btnVsPaid.Size = new System.Drawing.Size(123, 28);
+            this.btnVsPaid.TabIndex = 139;
+            this.btnVsPaid.Text = "รักษาด้วยสิทธิ*";
+            this.btnVsPaid.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVsPaid.UseVisualStyleBackColor = true;
+            // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3603,6 +3605,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).EndInit();
             this.c1SplitterPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnVsPaid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3777,7 +3780,6 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1TextBox txtVsHN;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label lbVsPttNameT;
-        private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Label label70;
         private C1.Win.C1Input.C1ComboBox cboVsDept;
         private C1.Win.C1Input.C1TextBox txtVsPttAttchNote;
@@ -3878,5 +3880,6 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1Button btnPttInsur;
         private C1.Win.C1Input.C1Button btnPttComp;
         private C1.Win.C1Input.C1Button btnPttInsurCopyto;
+        private C1.Win.C1Input.C1Button btnVsPaid;
     }
 }

@@ -36,7 +36,7 @@
             this.rbPttName = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnPrint = new C1.Win.C1Ribbon.RibbonButton();
             this.rbItemName = new C1.Win.C1Ribbon.RibbonLabel();
-            this.btnPrintItem = new C1.Win.C1Ribbon.RibbonButton();
+            this.btnPrintStricker = new C1.Win.C1Ribbon.RibbonButton();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
@@ -111,6 +111,7 @@
             this.spMedScanIPD = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.spMedScanImg = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnMedScan = new System.Windows.Forms.Panel();
+            this.btnPrintStrickerEng = new C1.Win.C1Ribbon.RibbonButton();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
@@ -177,7 +178,8 @@
             this.c1StatusBar1.RightPaneItems.Add(this.rbPttName);
             this.c1StatusBar1.RightPaneItems.Add(this.btnPrint);
             this.c1StatusBar1.RightPaneItems.Add(this.rbItemName);
-            this.c1StatusBar1.RightPaneItems.Add(this.btnPrintItem);
+            this.c1StatusBar1.RightPaneItems.Add(this.btnPrintStricker);
+            this.c1StatusBar1.RightPaneItems.Add(this.btnPrintStrickerEng);
             this.c1StatusBar1.RightPaneItems.Add(this.rb1);
             this.c1StatusBar1.RightPaneItems.Add(this.rb2);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
@@ -187,17 +189,17 @@
             // lfSbStation
             // 
             this.lfSbStation.Name = "lfSbStation";
-            this.lfSbStation.Text = "Label";
+            this.lfSbStation.Text = "lfSbStation";
             // 
             // lfSbStatus
             // 
             this.lfSbStatus.Name = "lfSbStatus";
-            this.lfSbStatus.Text = "Label";
+            this.lfSbStatus.Text = "lfSbStatus";
             // 
             // lfSbMessage
             // 
             this.lfSbMessage.Name = "lfSbMessage";
-            this.lfSbMessage.Text = "Label";
+            this.lfSbMessage.Text = "lfSbMessage";
             // 
             // txtSBSearchHN
             // 
@@ -220,26 +222,26 @@
             this.rbItemName.Name = "rbItemName";
             this.rbItemName.Text = "Label";
             // 
-            // btnPrintItem
+            // btnPrintStricker
             // 
-            this.btnPrintItem.Name = "btnPrintItem";
-            this.btnPrintItem.SmallImage = global::bangna_hospital.Properties.Resources.printer_orange24;
-            this.btnPrintItem.Text = "พิมพ์ Sticker ยา";
+            this.btnPrintStricker.Name = "btnPrintStricker";
+            this.btnPrintStricker.SmallImage = global::bangna_hospital.Properties.Resources.printer_orange24;
+            this.btnPrintStricker.Text = "พิมพ์ Sticker ยา";
             // 
             // rb1
             // 
             this.rb1.Name = "rb1";
-            this.rb1.Text = "Label";
+            this.rb1.Text = "rb1";
             // 
             // rb2
             // 
             this.rb2.Name = "rb2";
-            this.rb2.Text = "Label";
+            this.rb2.Text = "rb2";
             // 
             // rgSbModule
             // 
             this.rgSbModule.Name = "rgSbModule";
-            this.rgSbModule.Text = "Label";
+            this.rgSbModule.Text = "rgSbModule";
             // 
             // rbTimerStart
             // 
@@ -297,7 +299,7 @@
             this.spDrugInImg.Size = new System.Drawing.Size(779, 746);
             this.spDrugInImg.TabIndex = 0;
             this.spDrugInImg.Text = "Panel 1";
-            this.spDrugInImg.Width = 786;
+            this.spDrugInImg.Width = 779;
             // 
             // pnDrugINimg
             // 
@@ -396,7 +398,7 @@
             this.c1SplitterPanel3.Controls.Add(this.label79);
             this.c1SplitterPanel3.Controls.Add(this.btnOperItemSearch);
             this.c1SplitterPanel3.Controls.Add(this.txtSearchItem);
-            this.c1SplitterPanel3.Height = 225;
+            this.c1SplitterPanel3.Height = 218;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
             this.c1SplitterPanel3.Size = new System.Drawing.Size(786, 197);
@@ -984,6 +986,12 @@
             this.pnMedScan.Size = new System.Drawing.Size(1238, 746);
             this.pnMedScan.TabIndex = 0;
             // 
+            // btnPrintStrickerEng
+            // 
+            this.btnPrintStrickerEng.Name = "btnPrintStrickerEng";
+            this.btnPrintStrickerEng.SmallImage = global::bangna_hospital.Properties.Resources.printer_green16;
+            this.btnPrintStrickerEng.Text = "พิมพ์ Stricker Eng";
+            // 
             // FrmPharmacy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1122,7 +1130,7 @@
         private C1.Win.C1Ribbon.RibbonLabel rgSbModule;
         private C1.Win.C1Ribbon.RibbonLabel rbPttName;
         private C1.Win.C1Ribbon.RibbonLabel rbItemName;
-        private C1.Win.C1Ribbon.RibbonButton btnPrintItem;
+        private C1.Win.C1Ribbon.RibbonButton btnPrintStricker;
         private System.Windows.Forms.Label label7;
         private C1.Win.C1Input.C1TextBox c1TextBox3;
         private System.Windows.Forms.Label label3;
@@ -1138,5 +1146,6 @@
         private C1.Win.C1SplitContainer.C1SplitterPanel spMedScanImg;
         private System.Windows.Forms.Panel pnMedScan;
         private C1.Win.C1Ribbon.RibbonTextBox txtSBSearchHN;
+        private C1.Win.C1Ribbon.RibbonButton btnPrintStrickerEng;
     }
 }

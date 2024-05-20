@@ -142,22 +142,11 @@ namespace bangna_hospital.gui
             qrcode = new C1BarCode();
             qrcode.ForeColor = System.Drawing.Color.Black;
             qrcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            if (bc.iniC.statusStation.Equals("IPD"))
-            {
-                chkIPD.Checked = true;
-            }
-            else
-            {
-                chkOPD.Checked = true;
-            }
-            if (chkIPD.Checked)
-            {
-                bc.bcDB.pttDB.setCboDeptIPDWdNo(cboDept, bc.iniC.station);
-            }
-            else
-            {
-                bc.bcDB.pttDB.setCboDeptOPD(cboDept, bc.iniC.station);
-            }
+            if (bc.iniC.statusStation.Equals("IPD")) chkIPD.Checked = true;
+            else chkOPD.Checked = true;
+            if (chkIPD.Checked) bc.bcDB.pttDB.setCboDeptIPDWdNo(cboDept, bc.iniC.station);
+            else bc.bcDB.pttDB.setCboDeptOPD(cboDept, bc.iniC.station);
+            
             ptt = new Patient();
 
             btnPrintCert.Click += BtnPrintStk_Click;

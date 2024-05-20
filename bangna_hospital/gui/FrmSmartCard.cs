@@ -3186,7 +3186,6 @@ namespace bangna_hospital.gui
             e.Graphics.DrawLine(blackPen, 90, 180, 1050, 180);
             e.Graphics.DrawLine(blackPen, 0, 225, 1050, 225);       //เส้นนอน
             e.Graphics.DrawLine(blackPen, 0, 335, 1050, 335);
-            
 
             e.Graphics.DrawLine(blackPen, 90, 140, 95, 460);       //เส้นตั้ง
             e.Graphics.DrawLine(blackPen, 160, 180, 160, 460);      //เส้นตั้ง ครึ่ง

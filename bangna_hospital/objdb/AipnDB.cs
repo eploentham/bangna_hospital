@@ -32,6 +32,29 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectAipnByErr1(String invid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select billi.* " +
+                "From aipn_t_invoice_billitems billi  " +
+                " Where billi.invoice_id = '"+ invid + "' and billi.codesys = 'TMT' " +
+                "Order By billi.invoice_billitems_id ";
+            dt = conn.selectData(conn.connSsnData, sql);
+
+            return dt;
+        }
+        public DataTable selectAipnByErr()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select inv.* " +
+                "From aipn_t_aipn  aipn " +
+                "inner join aipn_t_invoice inv on aipn.aipn_id = inv.aipn_id " +
+                " Where aipn.date_create >= '2024-04-11' and inv.active = '1' " +
+                "Order By aipn.aipn_id ";
+            dt = conn.selectData(conn.connSsnData, sql);
+
+            return dt;
+        }
         public DataTable selectAipnByAnno(String anno)
         {
             DataTable dt = new DataTable();
@@ -232,6 +255,25 @@ namespace bangna_hospital.objdb
                 chk = conn.ExecuteNonQuery(conn.connSsnData, sql);
                 re = selectMaxSessionNo();
                 //sql = "Update ssn_data.dbo.aipn_t_aipn set sessionno = '"+ re+"' Where ";
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                re = ex.Message;
+            }
+            finally
+            {
+
+            }
+            return re;
+        }
+        public String updateInvBillItemsStdCode(String itemsid, String stdcode)
+        {
+            String sql = "", re = "", chk = "";
+            try
+            {
+                sql = "Update ssn_data.dbo.aipn_t_invoice_billitems set  stdcode = '"+ stdcode + "' Where invoice_billitems_id = '" + itemsid + "' ";
+                chk = conn.ExecuteNonQuery(conn.connSsnData, sql);
             }
             catch (Exception ex)
             {

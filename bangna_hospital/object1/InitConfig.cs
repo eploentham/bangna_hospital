@@ -21,6 +21,8 @@ namespace bangna_hospital.object1
         public String hostDBMySQL = "", userDBMySQL = "", passDBMySQL = "", nameDBMySQL = "", portDBMySQL = "";
         public String hostDBSsnData = "", userDBSsnData = "", passDBSsnData = "", nameDBSsnData = "", portDBSsnData = "";
         public String hostDBLinkLIS = "", nameDBLinkLIS = "", userDBLinkLIS = "", passDBLinkLIS = "", portDBLinkLIS = "";
+        public String hostFTPCertMed = "", userFTPCertMed = "", passFTPCertMed = "", portFTPCertMed = "", folderFTPCertMed = "", usePassiveFTPCertMed = "";
+        public String hostFTPDrugIn = "", userFTPDrugIn = "", passFTPDrugIn = "", portFTPDrugIn = "", folderFTPDrugIn = "", usePassiveFTPDrugIn = "";
 
         public String grdViewFontSize = "", grdViewFontName = "", themeApplication = "", txtFocus = "", grfRowColor = "", pdfFontSize="", pdfFontName = "", pdfFontSizetitleFont = "", pdfFontSizetxtFont = "", pdfFontSizehdrFont = "", pdfFontSizetxtFontB="";
         public String email_form = "", email_auth_user = "", email_auth_pass = "", email_port = "", email_ssl = "";
@@ -42,6 +44,6 @@ namespace bangna_hospital.object1
         public String FrmSmartCardTabDefault = "", stickerPrintNumber="", statusStation="", paidcode="", dtrcode="", queFontName="", queFontSize="", hosttel="", printerStickerDrug="", printadjust="";
         public String importMDBpaidcode = "", statusVisitBack="", aipnXmlPath = "", aipnAuthorName="", ssopXmlPath = "";
         public String grdQueFontSize = "", grdQueFontName = "", grdQueTodayFontSize = "", grdQueTodayFontName = "", grfRowHeight="";
-        public String pathLabOutReceiveATTA = "", pathLabOutBackupATTA = "", statusScreenCaptureUploadDoc="", padYCertMed="", statusScreenCaptureAutoSend = "", statusPrintPreview="";
+        public String pathLabOutReceiveATTA = "", pathLabOutBackupATTA = "", statusScreenCaptureUploadDoc="", padYCertMed="", statusScreenCaptureAutoSend = "", statusPrintPreview="", nightTime="", nightTimeOn="";
     }
 }

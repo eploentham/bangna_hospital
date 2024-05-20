@@ -68,6 +68,7 @@
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnRptName = new System.Windows.Forms.Panel();
             this.tab = new C1.Win.C1Command.C1DockingTabPage();
+            this.chkDriverLicense = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tCMain)).BeginInit();
             this.tCMain.SuspendLayout();
@@ -105,7 +106,7 @@
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.rb1);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
-            this.c1StatusBar1.Size = new System.Drawing.Size(1173, 22);
+            this.c1StatusBar1.Size = new System.Drawing.Size(1285, 22);
             // 
             // lfSbStatus
             // 
@@ -136,7 +137,7 @@
             this.tCMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tCMain.Location = new System.Drawing.Point(0, 0);
             this.tCMain.Name = "tCMain";
-            this.tCMain.Size = new System.Drawing.Size(1173, 608);
+            this.tCMain.Size = new System.Drawing.Size(1285, 608);
             this.tCMain.TabIndex = 1;
             this.tCMain.TabsSpacing = 5;
             // 
@@ -146,7 +147,7 @@
             this.tabImportDf.Controls.Add(this.panel1);
             this.tabImportDf.Location = new System.Drawing.Point(1, 26);
             this.tabImportDf.Name = "tabImportDf";
-            this.tabImportDf.Size = new System.Drawing.Size(1171, 581);
+            this.tabImportDf.Size = new System.Drawing.Size(1283, 581);
             this.tabImportDf.TabIndex = 0;
             this.tabImportDf.Text = "Import Item DF";
             // 
@@ -155,11 +156,12 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 47);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1171, 534);
+            this.panel2.Size = new System.Drawing.Size(1283, 534);
             this.panel2.TabIndex = 1;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.chkDriverLicense);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.txtSearch);
             this.panel1.Controls.Add(this.btnImportDfGen);
@@ -174,13 +176,13 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1171, 47);
+            this.panel1.Size = new System.Drawing.Size(1283, 47);
             this.panel1.TabIndex = 0;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(913, 9);
+            this.label4.Location = new System.Drawing.Point(1007, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 20);
             this.label4.TabIndex = 278;
@@ -188,7 +190,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(970, 5);
+            this.txtSearch.Location = new System.Drawing.Point(1064, 5);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(190, 24);
             this.txtSearch.TabIndex = 277;
@@ -197,7 +199,7 @@
             // btnImportDfGen
             // 
             this.btnImportDfGen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnImportDfGen.Location = new System.Drawing.Point(795, 3);
+            this.btnImportDfGen.Location = new System.Drawing.Point(889, 3);
             this.btnImportDfGen.Name = "btnImportDfGen";
             this.btnImportDfGen.Size = new System.Drawing.Size(89, 33);
             this.btnImportDfGen.TabIndex = 276;
@@ -224,7 +226,7 @@
             // btnImportDfSelect
             // 
             this.btnImportDfSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnImportDfSelect.Location = new System.Drawing.Point(700, 3);
+            this.btnImportDfSelect.Location = new System.Drawing.Point(794, 3);
             this.btnImportDfSelect.Name = "btnImportDfSelect";
             this.btnImportDfSelect.Size = new System.Drawing.Size(89, 33);
             this.btnImportDfSelect.TabIndex = 273;
@@ -310,7 +312,7 @@
             this.tabReport.Controls.Add(this.spReport);
             this.tabReport.Location = new System.Drawing.Point(1, 26);
             this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(1171, 581);
+            this.tabReport.Size = new System.Drawing.Size(1283, 581);
             this.tabReport.TabIndex = 1;
             this.tabReport.Text = "Report";
             // 
@@ -326,7 +328,7 @@
             this.spReport.Panels.Add(this.c1SplitterPanel2);
             this.spReport.Panels.Add(this.c1SplitterPanel3);
             this.spReport.Panels.Add(this.c1SplitterPanel1);
-            this.spReport.Size = new System.Drawing.Size(1171, 581);
+            this.spReport.Size = new System.Drawing.Size(1283, 581);
             this.spReport.TabIndex = 0;
             // 
             // c1SplitterPanel2
@@ -604,15 +606,27 @@
             // 
             this.tab.Location = new System.Drawing.Point(1, 26);
             this.tab.Name = "tab";
-            this.tab.Size = new System.Drawing.Size(1171, 581);
+            this.tab.Size = new System.Drawing.Size(1283, 581);
             this.tab.TabIndex = 2;
             this.tab.Text = "Page1";
+            // 
+            // chkDriverLicense
+            // 
+            this.chkDriverLicense.AutoSize = true;
+            this.chkDriverLicense.Checked = true;
+            this.chkDriverLicense.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDriverLicense.Location = new System.Drawing.Point(693, 9);
+            this.chkDriverLicense.Name = "chkDriverLicense";
+            this.chkDriverLicense.Size = new System.Drawing.Size(93, 24);
+            this.chkDriverLicense.TabIndex = 279;
+            this.chkDriverLicense.Text = "02 ใบขับขี่";
+            this.chkDriverLicense.UseVisualStyleBackColor = true;
             // 
             // FrmDfDoctor1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1173, 630);
+            this.ClientSize = new System.Drawing.Size(1285, 630);
             this.Controls.Add(this.tCMain);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmDfDoctor1";
@@ -694,5 +708,6 @@
         private C1.Win.C1Command.C1DockingTabPage tab;
         private System.Windows.Forms.Label label4;
         private C1.Win.C1Input.C1TextBox txtSearch;
+        private System.Windows.Forms.CheckBox chkDriverLicense;
     }
 }

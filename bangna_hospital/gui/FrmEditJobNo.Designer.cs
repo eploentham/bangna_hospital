@@ -265,7 +265,7 @@
             this.c1DockingTabPage2.Name = "c1DockingTabPage2";
             this.c1DockingTabPage2.Size = new System.Drawing.Size(1072, 459);
             this.c1DockingTabPage2.TabIndex = 1;
-            this.c1DockingTabPage2.Text = "Page2";
+            this.c1DockingTabPage2.Text = "แก้ สถานะ A";
             // 
             // c1Button1
             // 

@@ -154,7 +154,12 @@ namespace bangna_hospital.objdb
             String re = "";
             foreach (PatientM24 row in lPm24)
             {
-                if (row.MNC_COM_DSC.Equals(paidname))
+                //if (row.MNC_COM_DSC.Equals("AIA"))        //เอาไว้ test debug
+                //{
+                //    String aaa = "";
+                //}
+                //bool areEqual = row.MNC_COM_DSC.Equals(paidname, StringComparison.OrdinalIgnoreCase);     //มีแจ้ง error ว่า save แล้ว บริษัทหาย ได้ลอง debug เช่น aIa ค้นไม่เจอ
+                if (row.MNC_COM_DSC.Equals(paidname, StringComparison.OrdinalIgnoreCase))
                 {
                     re = row.MNC_COM_CD;
                     break;

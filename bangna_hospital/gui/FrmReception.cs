@@ -365,6 +365,13 @@ namespace bangna_hospital.gui
             rbDateSearch.DropDownClosed += RbDateSearch_DropDownClosed;
             rbDateSearch.ValueChanged += RbDateSearch_ValueChanged;
             btnPttInsurCopyto.Click += BtnPttInsurCopyto_Click;
+            btnVsPaid.Click += BtnVsPaid_Click;
+        }
+
+        private void BtnVsPaid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void CboPttNat_KeyUp(object sender, KeyEventArgs e)
@@ -413,6 +420,8 @@ namespace bangna_hospital.gui
             else if (tC.SelectedTab == tabPtt)
             {
                 TABTCACTIVE = tabSrc.Name;
+                setGrfPttVs();
+                setGrfPttApm();
             }
             else if (tC.SelectedTab == tabVs)
             {
@@ -524,6 +533,10 @@ namespace bangna_hospital.gui
         private void BtnPttPaid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            setFormPaidList();
+        }
+        private void setFormPaidList()
+        {
             int i = 1;
             C1FlexGrid grf = new C1FlexGrid();
             grf.Font = fEdit;
@@ -568,7 +581,14 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             if (((C1FlexGrid)sender).Row <= 0) return;
-            txtPttPaid.Value = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, 2].ToString();
+            if (((C1FlexGrid)sender).Name.Equals("btnPttPaid"))
+            {
+                txtPttPaid.Value = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, 2].ToString();
+            }
+            else
+            {
+                txtVsPaidCode.Value = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, 2].ToString();
+            }
         }
 
         private void TxtPttPaid_KeyUp(object sender, KeyEventArgs e)
@@ -1067,6 +1087,10 @@ namespace bangna_hospital.gui
         private void BtnPttVisit_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            setTabVisit();
+        }
+        private void setTabVisit()
+        {
             String err = "";
             try
             {
@@ -1076,15 +1100,15 @@ namespace bangna_hospital.gui
                 err = "01";
                 PatientT07 pt07 = new PatientT07();
                 String symptoms = "";
-                pt07 = bc.bcDB.pt07DB.selectAppointmentDate(txtPttHn.Text.Trim(), DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd"));
-                if(pt07 != null )
+                pt07 = bc.bcDB.pt07DB.selectAppointmentDate(txtPttHn.Text.Trim(), DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd"));
+                if (pt07 != null)
                 {
-                    if(pt07.MNC_DOC_NO.Length>0)
+                    if (pt07.MNC_DOC_NO.Length > 0)
                     {
-                        lbVsStatus.Text = "วันนี้ คนไข้มีนัด "+pt07.MNC_APP_DSC.Replace("\r\n", "") + " ["+bc.bcDB.pm32DB.getDeptName(pt07.MNC_SEC_NO)+"]";
+                        lbVsStatus.Text = "วันนี้ คนไข้มีนัด " + pt07.MNC_APP_DSC.Replace("\r\n", "") + " [" + bc.bcDB.pm32DB.getDeptName(pt07.MNC_SEC_NO) + "]";
                         //txtVsPaidCode.Value = bc.bcDB.pm32DB.getDeptName(pt07.MNC_SEC_NO);
                         bc.setC1Combo(cboVsDept, bc.adjustSecNoOPD(pt07.MNC_SECR_NO));
-                        symptoms = pt07.MNC_APP_DSC.Replace("\r\n","");
+                        symptoms = pt07.MNC_APP_DSC.Replace("\r\n", "");
                     }
                 }
                 else
@@ -1096,13 +1120,12 @@ namespace bangna_hospital.gui
                 btnVsSave.Text = "ส่งตัว";
                 tC.SelectedTab = tabVs;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 lfSbMessage.Text = "err " + err + " " + ex.Message;
                 new LogWriter("e", "FrmReception BtnPttVisit_Click err " + err + " " + ex.Message);
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnPttVisit_Click ", "err " + err + " " + ex.Message);
             }
-            
         }
         private void TxtPttPID_KeyUp(object sender, KeyEventArgs e)
         {
@@ -1438,11 +1461,19 @@ namespace bangna_hospital.gui
                 vs.remark = txtVsRemark.Text.Trim();
                 err = "02";
                 vs.VisitType = cboVsType.SelectedItem == null ? "" : ((ComboBoxItem)cboVsType.SelectedItem).Value;//ใน source  Fieldนี้ MNC_PT_FLG
-                vs.DoctorId = cboVsDtr.SelectedItem == null ? "" : cboVsDtr.SelectedItem == "" ? "" : ((ComboBoxItem)cboVsDtr.SelectedItem).Value;
+                vs.DoctorId = cboVsDtr.SelectedItem == null ? "" : cboVsDtr.SelectedItem.Equals("") ? "" : ((ComboBoxItem)cboVsDtr.SelectedItem).Value;
                 vs.DoctorId = vs.DoctorId.Length == 0 ? "00000" : vs.DoctorId;      //IF CboDotCD.TEXT = '' THEN MNC_DOT_CD:= '00000'
                 vs.VisitNote = txtVsNote.Text.Trim();
-                vs.compcode = bc.bcDB.pm24DB.getPaidCode(txtVsComp.Text.Trim());
-                vs.insurcode = bc.bcDB.pm24DB.getPaidCode(txtVsInsur.Text.Trim());
+                if (vs.PaidCode.Equals("02"))
+                {//สิทธิ เงินสด ให้เอาชื่อบริษัทออก
+                    vs.compcode = "";
+                    vs.insurcode = "";
+                }
+                else
+                {
+                    vs.compcode = bc.bcDB.pm24DB.getPaidCode(txtVsComp.Text.Trim());
+                    vs.insurcode = bc.bcDB.pm24DB.getPaidCode(txtVsInsur.Text.Trim());
+                }
                 err = "03";
                 //MNC_FIX_DOT_CD := edtDotcd2.TEXT  แพทย์เจ้าของไข้
                 vs.DoctorOwn = "";
@@ -1563,7 +1594,7 @@ namespace bangna_hospital.gui
                 ptt.MNC_REF_TEL = txtPttRefContact1Mobile.Text.Trim();
                 ptt.MNC_REF_REL = txtPttRefContact1Rel.Text.Trim();
                 err = "06";
-                ptt.MNC_COM_CD = bc.bcDB.pm24DB.getPaidCode(txtPttInsur.Text.Trim());
+                ptt.MNC_COM_CD = bc.bcDB.pm24DB.getPaidCode(txtPttInsur.Text.Trim());           //มีแจ้ง error ว่า save แล้ว บริษัทหาย ได้ลอง debug เช่น aIa ค้นไม่เจอ
                 ptt.MNC_COM_CD2 = bc.bcDB.pm24DB.getPaidCode(txtPttCompCode.Text.Trim());
                 ptt.WorkPermit1 = txtPttwp1.Text.Trim();
                 ptt.WorkPermit2 = txtPttwp2.Text.Trim();
@@ -3115,7 +3146,7 @@ namespace bangna_hospital.gui
             grfVsPttVisit.Location = new System.Drawing.Point(0, 0);
             grfVsPttVisit.Rows.Count = 1;
             grfVsPttVisit.Cols.Count = 26;
-            
+            grfVsPttVisit.Cols[colgrfPttVsStatusVisit].Width = 50;
             grfVsPttVisit.Cols[colgrfPttVsVsDateShow].Width = 100;
             grfVsPttVisit.Cols[colgrfPttVsVsTime].Width = 60;
             grfVsPttVisit.Cols[colgrfPttVsHn].Width = 100;
@@ -3129,6 +3160,7 @@ namespace bangna_hospital.gui
             grfVsPttVisit.Cols[colgrfPttVsQue].Width = 40;
             grfVsPttVisit.Cols[colgrfPttVsActno].Width = 40;
             grfVsPttVisit.ShowCursor = true;
+            grfVsPttVisit.Cols[colgrfPttVsStatusVisit].Caption = "statusvs";
             grfVsPttVisit.Cols[colgrfPttVsVsDateShow].Caption = "date";
             grfVsPttVisit.Cols[colgrfPttVsVsTime].Caption = "time";
             grfVsPttVisit.Cols[colgrfPttVsHn].Caption = "hn";
@@ -3773,7 +3805,8 @@ namespace bangna_hospital.gui
             String remark = grfPttVs[grfPttVs.Row, colgrfPttVsRemark].ToString();
             String padname = grfPttVs[grfPttVs.Row, colgrfPttVsPaid].ToString();
             String vn = grfPttVs[grfPttVs.Row, colgrfPttVsAN].ToString();
-            FrmReceptionStatusVisit frm = new FrmReceptionStatusVisit(bc, "visit", hn, name, preno, bc.datetoDB(vsdate), symptoms.Replace("\r\n",""), txtPttCompCode.Text, txtPttInsur.Text, remark, padname,vn);
+            String deptname = grfPttVs[grfPttVs.Row, colgrfPttVsDept].ToString();
+            FrmReceptionStatusVisit frm = new FrmReceptionStatusVisit(bc, "visit", hn, name, preno, bc.datetoDB(vsdate), symptoms.Replace("\r\n",""), txtPttCompCode.Text, txtPttInsur.Text, remark, padname,vn, deptname);
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.ShowDialog(this);
             setGrfPttVs();
@@ -3787,7 +3820,8 @@ namespace bangna_hospital.gui
             foreach (DataRow row1 in dtvs.Rows)
             {
                 Row rowa = grfPttVs.Rows[i];
-                rowa[colgrfPttVsStatusVisit] = row1["MNC_PAT_FLAG"].ToString().Equals("I")?"A":"";//ปชส ต้องการ ให้ admit แสดงเป็น A ถ้า OPD ไม่ต้องแสดง
+                //rowa[colgrfPttVsStatusVisit] = row1["MNC_PAT_FLAG"].ToString().Equals("I")?"A":"";//ปชส ต้องการ ให้ admit แสดงเป็น A ถ้า OPD ไม่ต้องแสดง
+                rowa[colgrfPttVsStatusVisit] = row1["MNC_ADM_FLG"].ToString().Equals("Y") ? "A" : row1["MNC_ADM_FLG"].ToString().Equals("O")?"O": "";//patient_t01 Y = admin O = observe
                 rowa[colgrfPttVsVsDateShow] = bc.datetoShowShort(row1["mnc_date"].ToString());
                 rowa[colgrfPttVsHn] = row1["MNC_HN_NO"].ToString();
                 rowa[colgrfPttVsFullNameT] = row1["ptt_fullnamet"].ToString();
@@ -3980,7 +4014,7 @@ namespace bangna_hospital.gui
         {
             if (grfSrc.Row <= 0) return;
             if (grfSrc.Col <= 0) return;
-            FrmReceptionStatusVisit frm = new FrmReceptionStatusVisit(bc, "rew", "", "", "", "","","","","","","");
+            FrmReceptionStatusVisit frm = new FrmReceptionStatusVisit(bc, "rew", "", "", "", "","","","","","","","'");
         }
         private void GrfSrc_DoubleClick(object sender, EventArgs e)
         {
@@ -4444,6 +4478,7 @@ namespace bangna_hospital.gui
             }
             else if (keyData == (Keys.F8))
             {//ส่งตัว ออกvisit
+                setTabVisit();
                 tC.SelectedTab = tabVs;
             }
             else
@@ -4462,7 +4497,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-03-29";
+            lfSbLastUpdate.Text = "Update 2567-05-17";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

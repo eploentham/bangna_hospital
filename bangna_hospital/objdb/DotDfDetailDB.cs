@@ -202,39 +202,54 @@ namespace bangna_hospital.objdb
             p.MNC_FN_AMT = decimal.TryParse(p.MNC_FN_AMT, out chk1) ? chk1.ToString() : "0";
             p.MNC_PAY_RATE = decimal.TryParse(p.MNC_PAY_RATE, out chk1) ? chk1.ToString() : "0";
         }
+        public String delete(String startdate, String enddate,String docyear)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Delete From  dotdf_detail Where MNC_DOC_DAT >= '"+startdate+ "' and MNC_DOC_DAT <= '"+ enddate + "' status_insert_manual = '1' and MNC_DOC_YR = '"+ docyear+"' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insert Insert  sql " + sql + " ex " + chk);
+            }
+            return chk;
+        }
         public String insert(DotDfDetail p)
         {
             String sql = "", chk = "";
             try
             {
                 chkNull(p);
-                sql = "select * from " + dotdfd.table
-                    + " Where " + dotdfd.MNC_DOC_CD + "= '" + p.MNC_DOC_CD + "'"
-                    + " and " + dotdfd.MNC_DOC_YR + "= '" + p.MNC_DOC_YR + "'"
-                    + " and " + dotdfd.MNC_DOC_NO + "= '" + p.MNC_DOC_NO + "'"
-                    + " and " + dotdfd.MNC_DOC_DAT + "= '" + p.MNC_DOC_DAT + "'"
-                    + " and  " + dotdfd.MNC_FN_CD + "= '" + p.MNC_FN_CD + "'"
-                    + " and " + dotdfd.MNC_FN_DAT + "= '" + p.MNC_FN_DAT + "'"
-                    + " and " + dotdfd.MNC_HN_NO + "= '" + p.MNC_HN_NO + "'"
-                    + " and " + dotdfd.MNC_HN_YR + "= '" + p.MNC_HN_YR + "'"
-                    + " and  " + dotdfd.MNC_PRE_NO + "= '" + p.MNC_PRE_NO + "'"
-                    + " and " + dotdfd.MNC_DATE + "= '" + p.MNC_DATE + "'";
-                DataTable dt = conn.selectData(conn.connMainHIS, sql);
-                if (dt.Rows.Count > 0) return "";
+                //sql = "select * from " + dotdfd.table
+                //    + " Where " + dotdfd.MNC_DOC_CD + "= '" + p.MNC_DOC_CD + "'"
+                //    + " and " + dotdfd.MNC_DOC_YR + "= '" + p.MNC_DOC_YR + "'"
+                //    + " and " + dotdfd.MNC_DOC_NO + "= '" + p.MNC_DOC_NO + "'"
+                //    + " and " + dotdfd.MNC_DOC_DAT + "= '" + p.MNC_DOC_DAT + "'"
+                //    + " and  " + dotdfd.MNC_FN_CD + "= '" + p.MNC_FN_CD + "'"
+                //    + " and " + dotdfd.MNC_FN_DAT + "= '" + p.MNC_FN_DAT + "'"
+                //    + " and " + dotdfd.MNC_HN_NO + "= '" + p.MNC_HN_NO + "'"
+                //    + " and " + dotdfd.MNC_HN_YR + "= '" + p.MNC_HN_YR + "'"
+                //    + " and  " + dotdfd.MNC_PRE_NO + "= '" + p.MNC_PRE_NO + "'"
+                //    + " and " + dotdfd.MNC_DATE + "= '" + p.MNC_DATE + "'";
+                //DataTable dt = conn.selectData(conn.connMainHIS, sql);
+                //if (dt.Rows.Count > 0) return "";
 
-                sql = "Delete from " + dotdfd.table 
-                    +" Where " + dotdfd.MNC_DOC_CD + "= '" + p.MNC_DOC_CD + "'"
-                    + " and " + dotdfd.MNC_DOC_YR + "= '" + p.MNC_DOC_YR + "'"
-                    + " and " + dotdfd.MNC_DOC_NO + "= '" + p.MNC_DOC_NO + "'"
-                    + " and " + dotdfd.MNC_DOC_DAT + "= '" + p.MNC_DOC_DAT + "'"
-                    + " and  " + dotdfd.MNC_FN_CD + "= '" + p.MNC_FN_CD + "'"
-                    + " and " + dotdfd.MNC_FN_DAT + "= '" + p.MNC_FN_DAT + "'"
-                    + " and " + dotdfd.MNC_HN_NO + "= '" + p.MNC_HN_NO + "'"
-                    + " and " + dotdfd.MNC_HN_YR + "= '" + p.MNC_HN_YR + "'"
-                    + " and  " + dotdfd.MNC_PRE_NO + "= '" + p.MNC_PRE_NO + "'"
-                    + " and " + dotdfd.MNC_DATE + "= '" + p.MNC_DATE + "'"
-                    + " and " + dotdfd.status_insert_manual + "= '1' ";
-                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //sql = "Delete from " + dotdfd.table 
+                //    +" Where " + dotdfd.MNC_DOC_CD + "= '" + p.MNC_DOC_CD + "'"
+                //    + " and " + dotdfd.MNC_DOC_YR + "= '" + p.MNC_DOC_YR + "'"
+                //    + " and " + dotdfd.MNC_DOC_NO + "= '" + p.MNC_DOC_NO + "'"
+                //    + " and " + dotdfd.MNC_DOC_DAT + "= '" + p.MNC_DOC_DAT + "'"
+                //    + " and  " + dotdfd.MNC_FN_CD + "= '" + p.MNC_FN_CD + "'"
+                //    + " and " + dotdfd.MNC_FN_DAT + "= '" + p.MNC_FN_DAT + "'"
+                //    + " and " + dotdfd.MNC_HN_NO + "= '" + p.MNC_HN_NO + "'"
+                //    + " and " + dotdfd.MNC_HN_YR + "= '" + p.MNC_HN_YR + "'"
+                //    + " and  " + dotdfd.MNC_PRE_NO + "= '" + p.MNC_PRE_NO + "'"
+                //    + " and " + dotdfd.MNC_DATE + "= '" + p.MNC_DATE + "'"
+                //    + " and " + dotdfd.status_insert_manual + "= '1' ";
+                //chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
 
                 sql = "Insert Into " + dotdfd.table + "(" + dotdfd.MNC_DOC_CD + "," + dotdfd.MNC_DOC_YR + "," + dotdfd.MNC_DOC_NO + "," +
                     dotdfd.MNC_DOC_DAT + "," + dotdfd.MNC_FN_CD + "," + dotdfd.MNC_FN_NO + "," +
@@ -246,7 +261,7 @@ namespace bangna_hospital.objdb
                     dotdfd.MNC_DOT_GRP_CD + "," + dotdfd.MNC_DOT_NAME + "," + dotdfd.MNC_PAY_FLAG + "," +
                     dotdfd.MNC_DF_GROUP + "," + dotdfd.MNC_PAY_TYP + "," + dotdfd.MNC_PAY_RATE + "," +
                     dotdfd.status_insert_manual +
-                    ") " +
+                    ", date_create) " +
                     "Values('" + p.MNC_DOC_CD + "','" + p.MNC_DOC_YR + "','" + p.MNC_DOC_NO + "','" +
                     p.MNC_DOC_DAT + "','" + p.MNC_FN_CD + "','" + p.MNC_FN_NO + "','" +
                     p.MNC_FN_DAT + "','" + p.MNC_DF_DATE.Replace("'", "''") + "','" + p.MNC_FN_TYP_DESC.Replace("'", "''") + "','" +
@@ -256,7 +271,7 @@ namespace bangna_hospital.objdb
                     p.MNC_PRE_NO + "','" + p.MNC_FN_TYP_CD + "','" + p.MNC_DOT_CD_DF + "','" +
                     p.MNC_DOT_GRP_CD + "','" + p.MNC_DOT_NAME + "','" + p.MNC_PAY_FLAG + "','" +
                     p.MNC_DF_GROUP + "','" + p.MNC_PAY_TYP + "','" + p.MNC_PAY_RATE + "','1'" +
-                    ") ";
+                    ",convert(varchar(20),getdate(),121)) ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)

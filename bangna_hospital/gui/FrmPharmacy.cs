@@ -19,7 +19,6 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Runtime.InteropServices;
@@ -50,7 +49,7 @@ namespace bangna_hospital.gui
         TextElement txtTopTilesLab;
         Template tempFolder;
         Group grpDrug;
-        Boolean pageLoad = false;
+        Boolean pageLoad = false, firstHight=false;
         Image imgCorr, imgTran, imgDrug, resizedImage, IMG;
         Color backColor, checkBackColor, hotBackColor, hotCheckBackColor, subgroupLineColor, subgroupTitleColor;
         AutoCompleteStringCollection autoLab, autoXray, autoProcedure, autoWard, autoDrug;
@@ -60,14 +59,15 @@ namespace bangna_hospital.gui
 
         int originalHeight = 0, newHeight = 720, mouseWheel = 0;
         int rowindexgrfOPDFinishList = 0, rowindexgrfOPDFinishReq= 0,TIMERCNT=0;
-        String TC1ACTIVE = "", TCOPDACTIVE="", PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", ITEMCODE="", DSCID="";
+        String TC1ACTIVE = "", TCOPDACTIVE="", PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", ITEMCODE="", DSCID="", DOCCD="", CFRYEAR="", CFRNO="", STRATTIME="", ENDTIME="";
         float ImageScale = 1.0f;
         int colOPDFinishListHN = 1,colOPDFinishListPttName = 2, colOPDFinishListQueNo = 3, colOPDFinishListReqTime = 4, colOPDFinishListCFRTime = 5, colOPDFinishListVnno = 6, colOPDFinishListDeptName = 7, colOPDFinishListDocCD = 8, colOPDFinishListCFRYr = 9, colOPDFinishListCFRNo = 10, colOPDFinishListCFRDATE = 11, colOPDFinishListCFRSTS = 12, colOPDFinishListReqYr = 13, colOPDFinishListReqNo = 14, colOPDFinishListReqDate = 15, colOPDFinishListVsDate = 16, colOPDFinishListPreNo = 17, colOPDFinishListDtrcode = 18, colOPDFinishListDtrName = 19, colOPDFinishListUsrReq = 20, colOPDFinishListUsrPhar = 21, colOPDFinishListPttDOB = 22, colOPDFinishListPttSex = 23, colOPDFinishListPaidName = 24, colOPDFinishListCompName = 25, colOPDFinishListPttAttachNote = 26, colOPDFinishListFinNote = 27, colOPDFinishListDeptNo = 28, colOPDFinishListSecNo = 29;
-        int colOPDFinishReqItemCode = 1, colOPDFinishReqItemName = 2, colOPDFinishReqDocCD = 3, colOPDFinishReqCFRYr = 4, colOPDFinishReqCFRNo = 5, colOPDFinishReqCFRDate = 6, colOPDFinishReqQty = 7, colOPDFinishReqDirDesc = 8, colOPDFinishReqPttName=9, colOPDFinishRedrugcau = 10;
+        int colOPDFinishReqItemCode = 1, colOPDFinishReqItemName = 2, colOPDFinishReqDocCD = 3, colOPDFinishReqCFRYr = 4, colOPDFinishReqCFRNo = 5, colOPDFinishReqCFRDate = 6, colOPDFinishReqQty = 7, colOPDFinishReqDirDesc = 8, colOPDFinishReqPttName=9, colOPDFinishRedrugcau = 10, colOPDFinishRedrugIND=11;
         int colIPDDate = 1, colIPDDept = 2, colIPDAnShow = 4, colIPDStatus = 3, colIPDPreno = 5, colIPDVn = 6, colIPDAndate = 7, colIPDAnYr = 8, colIPDAn = 9, colIPDDtrName = 10;
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         listStream strm;
         List<listStream> lStream, lStreamPic;
+        FileInfo rptStrickerPath, rptStrickerSumPath;
 
         Point pDown = Point.Empty;
         Rectangle rect = Rectangle.Empty;
@@ -78,6 +78,7 @@ namespace bangna_hospital.gui
         FrmReportNew frmDrugStricker;
         Stream streamPrint;
         Form frmImg;
+        DateTime NightTimeStart, NightTimeEnd;
 
         public FrmPharmacy(BangnaControl bc)
         {
@@ -112,7 +113,8 @@ namespace bangna_hospital.gui
             lbLoading.AutoSize = false;
             lbLoading.Size = new Size(300, 60);
             timeImgDrugINward = new Timer();
-            timeImgDrugINward.Interval = 1000;
+
+            timeImgDrugINward.Interval = bc.timerImgScanNew*1000;
             timeImgDrugINward.Enabled = false;
             imgCorr = Resources.red_checkmark_png_16;
             imgTran = Resources.DeleteTable_small;
@@ -130,6 +132,11 @@ namespace bangna_hospital.gui
             autoDrug = new AutoCompleteStringCollection();
             frmDrugStricker = new FrmReportNew(bc, "drug_stricker");
             lStream = new List<listStream>();
+            String[] chktime = bc.iniC.nightTime.Split(':');
+            STRATTIME = chktime[0];
+            ENDTIME = chktime[1];
+            STRATTIME = STRATTIME.Substring(0, 2);
+            ENDTIME = ENDTIME.Substring(0, 2);
 
             initTileImg();
             initGrfOPDFinishList();
@@ -659,6 +666,7 @@ namespace bangna_hospital.gui
                 rowa[colIPDDtrName] = row1["dtr_name"].ToString();
                 i++;
             }
+            dt.Dispose();
         }
         private void setGrfIPDScan()
         {
@@ -678,7 +686,6 @@ namespace bangna_hospital.gui
 
             //new LogWriter("e", "FrmScanView1 setGrfScan 5 ");
             GC.Collect();
-
 
             DataTable dt = new DataTable();
             statusOPD = grfIPD[grfIPD.Row, colIPDStatus] != null ? grfIPD[grfIPD.Row, colIPDStatus].ToString() : "";
@@ -843,7 +850,7 @@ namespace bangna_hospital.gui
             grfOPDFinishReq.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOPDFinishReq.Location = new System.Drawing.Point(0, 0);
             grfOPDFinishReq.Rows.Count = 1;
-            grfOPDFinishReq.Cols.Count = 11;
+            grfOPDFinishReq.Cols.Count = 12;
 
             grfOPDFinishReq.Cols[colOPDFinishReqItemCode].Width = 80;
             grfOPDFinishReq.Cols[colOPDFinishReqItemName].Width = 300;
@@ -854,6 +861,7 @@ namespace bangna_hospital.gui
             grfOPDFinishReq.Cols[colOPDFinishReqQty].Width = 80;
             grfOPDFinishReq.Cols[colOPDFinishReqDirDesc].Width = 500;
             grfOPDFinishReq.Cols[colOPDFinishRedrugcau].Width = 500;
+            grfOPDFinishReq.Cols[colOPDFinishRedrugIND].Width = 500;
             grfOPDFinishReq.ShowCursor = true;
             grfOPDFinishReq.Cols[1].Caption = "-";
             grfOPDFinishReq.Cols[colOPDFinishReqItemCode].Caption = "code";
@@ -861,6 +869,7 @@ namespace bangna_hospital.gui
             grfOPDFinishReq.Cols[colOPDFinishReqQty].Caption = "qty";
             grfOPDFinishReq.Cols[colOPDFinishReqDirDesc].Caption = "dirdesc";
             grfOPDFinishReq.Cols[colOPDFinishRedrugcau].Caption = "drug cau";
+            grfOPDFinishReq.Cols[colOPDFinishRedrugIND].Caption = "drug ind";
 
             grfOPDFinishReq.Cols[colOPDFinishReqDocCD].Visible = false;
             grfOPDFinishReq.Cols[colOPDFinishReqCFRYr].Visible = false;
@@ -873,7 +882,11 @@ namespace bangna_hospital.gui
             grfOPDFinishReq.Cols[colOPDFinishReqDirDesc].AllowEditing = false;
             grfOPDFinishReq.Cols[colOPDFinishListPttName].AllowEditing = false;
             grfOPDFinishReq.Cols[colOPDFinishRedrugcau].AllowEditing = false;
+            grfOPDFinishReq.Cols[colOPDFinishRedrugIND].AllowEditing = false;
             grfOPDFinishReq.AfterRowColChange += GrfOPDFinishReq_AfterRowColChange;
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("พิมพ์Sticker", new EventHandler(ContextMenu_PrintItem));
+            grfOPDFinishReq.ContextMenu = menuGw;
             pnOPDFinishReq.Controls.Add(grfOPDFinishReq);
 
             //theme1.SetTheme(grfOPD, "ExpressionDark");
@@ -894,8 +907,43 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "FrmPatient GrfOPD_AfterRowColChange " + ex.Message);
-                bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmPatient GrfOPD_AfterRowColChange  ", ex.Message);
+                new LogWriter("e", "FrmPharmacy GrfOPDFinishReq_AfterRowColChange " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmPharmacy GrfOPDFinishReq_AfterRowColChange  ", ex.Message);
+                lfSbMessage.Text = ex.Message;
+            }
+            finally
+            {
+                //frmFlash.Dispose();
+                hideLbLoading();
+            }
+        }
+        private void ContextMenu_PrintItem(object sender, System.EventArgs e)
+        {
+            if (grfOPDFinishReq.Row <= 0) return;
+            if (grfOPDFinishReq.Col <= 0) return;
+            try
+            {
+                ITEMCODE = grfOPDFinishReq[grfOPDFinishReq.Row, colOPDFinishReqItemCode].ToString();
+                String doccd = "", cfryear = "", cfrdate = "", cfrno = "";
+                doccd = grfOPDFinishReq[grfOPDFinishReq.Row,colOPDFinishReqDocCD].ToString();
+                cfryear = grfOPDFinishReq[grfOPDFinishReq.Row, colOPDFinishReqCFRYr].ToString();
+                cfrno = grfOPDFinishReq[grfOPDFinishReq.Row, colOPDFinishReqCFRNo].ToString();
+                String printer = LocalPrintServer.GetDefaultPrintQueue().FullName;
+                lfSbStatus.Text = bc.iniC.printerStickerDrug;
+                if (!printer.Equals(bc.iniC.printerStickerDrug))
+                {
+                    lfSbMessage.Text = "change Printer " + LocalPrintServer.GetDefaultPrintQueue().FullName + " to " + bc.iniC.printerStickerDrug;
+                    SetDefaultPrinter(bc.iniC.printerStickerDrug);
+                }
+                DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug2(cfryear, cfrno, doccd, ITEMCODE);
+                setReportStricker(ref DTSTCDRUG, bc.iniC.statusPrintPreview.Equals("1") ? true : false, "thai", "stricker");
+                rbItemName.Text = grfOPDFinishReq[grfOPDFinishReq.Row, colOPDFinishReqItemName].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmPharmacy GrfOPDFinishReq_AfterRowColChange " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmPharmacy GrfOPDFinishReq_AfterRowColChange  ", ex.Message);
                 lfSbMessage.Text = ex.Message;
             }
             finally
@@ -906,7 +954,8 @@ namespace bangna_hospital.gui
         }
         private void setGrfOPDFinishReq(String doccd, String cfryear, String cfrdate, String cfrno)
         {
-            DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug1(cfryear, cfrno, doccd, cfrdate);
+            //DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug1(cfryear, cfrno, doccd, cfrdate);
+            DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug2(cfryear, cfrno, doccd,"");   //ไม่จำเป็นต้องใช้ date เพราะในtable cfrno เป็น running แบบปี
             int i = 1, j = 1;
             grfOPDFinishReq.Rows.Count = 1; grfOPDFinishReq.Rows.Count = DTSTCDRUG.Rows.Count + 1;
             foreach (DataRow row1 in DTSTCDRUG.Rows)
@@ -922,15 +971,17 @@ namespace bangna_hospital.gui
                     rowa[colOPDFinishReqCFRDate] = row1["MNC_CFG_DAT"].ToString();
                     rowa[colOPDFinishReqQty] = row1["MNC_PH_QTY_PAID"].ToString();
                     rowa[colOPDFinishReqPttName] = row1["pttname"].ToString();
+
                     rowa[colOPDFinishReqDirDesc] = row1["drug_using"].ToString().Replace("/","").Trim();
-                    rowa[colOPDFinishReqDirDesc] = row1["drug_cau"].ToString().Replace("/", "").Trim();
+                    rowa[colOPDFinishRedrugcau] = row1["drug_cau"].ToString().Replace("/", "").Trim();
+                    rowa[colOPDFinishRedrugIND] = row1["drug_ind"].ToString().Replace("/", "").Trim();
                     i++;
                 }
                 catch(Exception ex)
                 {
                     lfSbMessage.Text = ex.Message;
-                    new LogWriter("e", "FrmOPD setGrfOrder " + ex.Message);
-                    bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfOrder ", ex.Message);
+                    new LogWriter("e", "FrmPharmacy setGrfOPDFinishReq " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfOPDFinishReq ", ex.Message);
                 }
             }
         }
@@ -943,7 +994,7 @@ namespace bangna_hospital.gui
             grfOPDFinishList.Rows.Count = 1;
             grfOPDFinishList.Cols.Count = 30;
             grfOPDFinishList.Cols[colOPDFinishListHN].Width = 80;
-            grfOPDFinishList.Cols[colOPDFinishListPttName].Width = 300;
+            grfOPDFinishList.Cols[colOPDFinishListPttName].Width = 250;
             grfOPDFinishList.Cols[colOPDFinishListQueNo].Width = 60;
             grfOPDFinishList.Cols[colOPDFinishListReqTime].Width = 70;
             grfOPDFinishList.Cols[colOPDFinishListCFRTime].Width = 70;
@@ -954,6 +1005,7 @@ namespace bangna_hospital.gui
             //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
             grfOPDFinishList.Cols[1].Caption = "-";
 
+            grfOPDFinishList.Cols[colOPDFinishListQueNo].Visible = false;
             grfOPDFinishList.Cols[colOPDFinishListDocCD].Visible = false;
             grfOPDFinishList.Cols[colOPDFinishListCFRYr].Visible = false;
             grfOPDFinishList.Cols[colOPDFinishListCFRNo].Visible = false;
@@ -968,6 +1020,11 @@ namespace bangna_hospital.gui
             grfOPDFinishList.Cols[colOPDFinishListPttDOB].Visible = false;
             grfOPDFinishList.Cols[colOPDFinishListPttSex].Visible = false;
             grfOPDFinishList.Cols[colOPDFinishListDeptNo].Visible = false;
+            grfOPDFinishList.Cols[colOPDFinishListUsrReq].Visible = false;
+            grfOPDFinishList.Cols[colOPDFinishListUsrPhar].Visible = false;
+            grfOPDFinishList.Cols[colOPDFinishListSecNo].Visible = false;
+            grfOPDFinishList.Cols[colOPDFinishListPttAttachNote].Visible = false;
+            grfOPDFinishList.Cols[colOPDFinishListFinNote].Visible = false;
 
             grfOPDFinishList.Cols[colOPDFinishListHN].AllowEditing = false;
             grfOPDFinishList.Cols[colOPDFinishListPttName].AllowEditing = false;
@@ -983,6 +1040,10 @@ namespace bangna_hospital.gui
             grfOPDFinishList.Cols[colOPDFinishListPttAttachNote].AllowEditing = false;
             grfOPDFinishList.Cols[colOPDFinishListFinNote].AllowEditing = false;
             grfOPDFinishList.Cols[colOPDFinishListSecNo].AllowEditing = false;
+
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("พิมพ์สรุป", new EventHandler(ContextMenu_PrintSummary));
+            grfOPDFinishList.ContextMenu = menuGw;
 
             grfOPDFinishList.AfterRowColChange += GrfOPDFinishList_AfterRowColChange;
             pnOPDFinishList.Controls.Add(grfOPDFinishList);
@@ -1000,11 +1061,11 @@ namespace bangna_hospital.gui
             {
                 if (rowindexgrfOPDFinishList != ((C1FlexGrid)(sender)).Row) { rowindexgrfOPDFinishList = ((C1FlexGrid)(sender)).Row; }
                 else { return; }
-                String doccd = "", cfryear = "", cfrdate = "", cfrno = "";
-                doccd = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListDocCD].ToString();
-                cfryear = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListCFRYr].ToString();
+                String cfrdate = "";
+                DOCCD = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListDocCD].ToString();       //ใช้ตอน พิมพ์ English
+                CFRYEAR = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListCFRYr].ToString();     //ใช้ตอน พิมพ์ English
                 cfrdate = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListCFRDATE].ToString();
-                cfrno = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListCFRNo].ToString();
+                CFRNO = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListCFRNo].ToString();       //ใช้ตอน พิมพ์ English
                 HN = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListHN].ToString();
                 VSDATE = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListVsDate].ToString();
                 PRENO = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListPreNo].ToString();
@@ -1012,7 +1073,7 @@ namespace bangna_hospital.gui
 
                 clearControlReq();
 
-                setGrfOPDFinishReq(doccd, cfryear, cfrdate, cfrno);
+                setGrfOPDFinishReq(DOCCD, CFRYEAR, cfrdate, CFRNO);
             }
             catch(Exception ex)
             {
@@ -1072,9 +1133,43 @@ namespace bangna_hospital.gui
                 catch (Exception ex)
                 {
                     lfSbMessage.Text = ex.Message;
-                    new LogWriter("e", "FrmOPD setGrfOrder " + ex.Message);
-                    bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfOrder ", ex.Message);
+                    new LogWriter("e", "FrmPharmacy setGrfOPDFinishList " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfOPDFinishList ", ex.Message);
                 }
+            }
+            dt.Dispose();
+        }
+        private void ContextMenu_PrintSummary(object sender, System.EventArgs e)
+        {
+            if (grfOPDFinishList.Row <= 0) return;
+            if (grfOPDFinishList.Col <= 0) return;
+            try
+            {
+                String doccd = "", cfryear = "", cfrdate = "", cfrno = "";
+                doccd = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListDocCD].ToString();
+                cfryear = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListCFRYr].ToString();
+                cfrno = grfOPDFinishList[grfOPDFinishList.Row, colOPDFinishListCFRNo].ToString();
+                String printer = LocalPrintServer.GetDefaultPrintQueue().FullName;
+                lfSbStatus.Text = bc.iniC.printerStickerDrug;
+                if (!printer.Equals(bc.iniC.printerStickerDrug))
+                {
+                    lfSbMessage.Text = "change Printer " + LocalPrintServer.GetDefaultPrintQueue().FullName + " to " + bc.iniC.printerStickerDrug;
+                    SetDefaultPrinter(bc.iniC.printerStickerDrug);
+                }
+                DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug2(cfryear, cfrno, doccd,"");
+                setReportStricker(ref DTSTCDRUG, bc.iniC.statusPrintPreview.Equals("1") ? true : false, "thai", "summary");
+                rbItemName.Text = grfOPDFinishReq[grfOPDFinishReq.Row, colOPDFinishReqItemName].ToString();
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmPharmacy GrfOPDFinishReq_AfterRowColChange " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmPharmacy GrfOPDFinishReq_AfterRowColChange  ", ex.Message);
+                lfSbMessage.Text = ex.Message;
+            }
+            finally
+            {
+                //frmFlash.Dispose();
+                hideLbLoading();
             }
         }
         private void clearControlReq()
@@ -1195,11 +1290,12 @@ namespace bangna_hospital.gui
             picDrugIN.MouseUp += PicDrugIN_MouseUp;
 
             btnPrint.Click += BtnPrint_Click;
-            btnPrintItem.Click += BtnPrintItem_Click;
+            btnPrintStricker.Click += BtnPrintStricker_Click;
             rbTimerStart.Click += RbTimerStart_Click;
             txtSBSearchHN.KeyDown += TxtSBSearchHN_KeyDown;
-            
+            btnPrintStrickerEng.Click += BtnPrintStrickerEng_Click;
         }
+
         private void TxtSBSearchHN_KeyDown(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1239,7 +1335,22 @@ namespace bangna_hospital.gui
                 timeImgDrugINward.Stop();
             }
         }
-        private void BtnPrintItem_Click(object sender, EventArgs e)
+        private void BtnPrintStrickerEng_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String printer = LocalPrintServer.GetDefaultPrintQueue().FullName;
+            lfSbStatus.Text = bc.iniC.printerStickerDrug;
+            if (!printer.Equals(bc.iniC.printerStickerDrug))
+            {
+                lfSbMessage.Text = "change Printer " + LocalPrintServer.GetDefaultPrintQueue().FullName + " to " + bc.iniC.printerStickerDrug;
+                SetDefaultPrinter(bc.iniC.printerStickerDrug);
+            }
+            //new LogWriter("e", "FrmPharmacy BtnPrintItemEng_Click DTSTCDRUG.Rows.Count " + DTSTCDRUG.Rows.Count);
+            DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug2(CFRYEAR, CFRNO, DOCCD,"");
+            lfSbStatus.Text = DTSTCDRUG.Rows.Count.ToString();
+            setReportStricker(ref DTSTCDRUG, bc.iniC.statusPrintPreview.Equals("1") ? true : false,"eng", "stricker");
+        }
+        private void BtnPrintStricker_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             String printer = LocalPrintServer.GetDefaultPrintQueue().FullName;
@@ -1249,7 +1360,7 @@ namespace bangna_hospital.gui
                 lfSbMessage.Text = "change Printer " + LocalPrintServer.GetDefaultPrintQueue().FullName+" to "+ bc.iniC.printerStickerDrug;
                 SetDefaultPrinter(bc.iniC.printerStickerDrug);
             }
-            setReportStricker(ref DTSTCDRUG, bc.iniC.statusPrintPreview.Equals("1") ? true: false) ;
+            setReportStricker(ref DTSTCDRUG, bc.iniC.statusPrintPreview.Equals("1") ? true: false,"thai", "stricker");
         }
         private void BtnPrint_Click(object sender, EventArgs e)
         {
@@ -1348,45 +1459,6 @@ namespace bangna_hospital.gui
                 e.Graphics.DrawString("รวม. " + sum.ToString("#,00"), fEditB, Brushes.Black, col4 + 25, 48, flags);
             }
             //string chk1 = "";
-        }
-        private void setReportStricker(ref DataTable dtdrug, Boolean preview)
-        {
-            Boolean chk = false;
-            FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\drug_stricker.rdlx");
-            if (!File.Exists(rptPath.FullName))
-            {
-                lfSbMessage.Text = "File report not found";
-                return;
-            }
-            int i = 1;
-            DateTime dt = DateTime.Now;
-            if (dt.Year < 1900)
-            {
-                dt = dt.AddYears(543);
-            }
-            String datetime = "";
-            datetime = dt.ToString("dd-MM")+"-"+ (dt.Year+543)+" "+ dt.ToString("HH:mm:ss");
-            foreach (DataRow drow in dtdrug.Rows)
-            {
-                drow["hostname"] = bc.iniC.hostname;
-                drow["tel"] = bc.iniC.hosttel;
-                drow["drug_using"] = drow["drug_using"].ToString().Replace("/", "").Trim();
-                drow["printdatetime"] = datetime;
-                //drow["drugname_t"] = drow["drugname_t"].ToString().Trim()+" "+ drow["unitqty"].ToString().Trim();
-            }
-            frmDrugStricker.DT = dtdrug;
-            if (preview)
-            {
-                frmDrugStricker.ShowDialog(this);
-            }
-            else
-            {
-                if (frmDrugStricker.PrintReport())
-                {
-                    if(dtdrug.Rows.Count>0)
-                        bc.bcDB.pharT05DB.updateStatusPrintStrickered(dtdrug.Rows[0]["MNC_DOC_CD"].ToString(), dtdrug.Rows[0]["MNC_CFR_YR"].ToString(), dtdrug.Rows[0]["MNC_CFR_NO"].ToString(), dtdrug.Rows[0]["MNC_CFG_DAT"].ToString());
-                }
-            }
         }
         private void TcOPD_SelectedTabChanged(object sender, EventArgs e)
         {
@@ -1511,6 +1583,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             TIMERCNT++;
+            timeImgDrugINward.Stop();
             if (TIMERCNT % 9==0)
             {
                 if (TC1ACTIVE.Equals(tabDrugWard.Name)) { /*setDrugINimgList();*/ }
@@ -1524,11 +1597,123 @@ namespace bangna_hospital.gui
             }
             else if (TIMERCNT % 2 == 0)
             {
-                DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug();
+                NightTimeStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(STRATTIME), 0, 0);
+                NightTimeEnd = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);//ต้องแบบนี้ เพราะมี case bug สิ้นเดือน
+                NightTimeEnd = NightTimeEnd.AddDays(1);//ต้องแบบนี้ เพราะมี case bug สิ้นเดือน
+                NightTimeEnd = new DateTime(NightTimeEnd.Year, NightTimeEnd.Month, NightTimeEnd.Day, int.Parse(ENDTIME), 0, 0);//ต้องแบบนี้ เพราะมี case bug สิ้นเดือน
+                //MessageBox.Show("bc.iniC.nightTimeOn " + bc.iniC.nightTimeOn, "STRATTIME "+ STRATTIME);
+                if ((bc.iniC.nightTimeOn.Equals("1")) &&(DateTime.Now > NightTimeStart) && (DateTime.Now < NightTimeEnd))//อยู่ช่วงเวลา กลางคืน
+                {
+                    //MessageBox.Show("11 " , "");
+                    rb1.Text = NightTimeStart.ToString("dd/MM/yyyy HH:mm");
+                    rb2.Text = NightTimeEnd.ToString("dd/MM/yyyy HH:mm");
+                    btnPrintStrickerEng.SmallImage = Resources.print;
+                    DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug("");
+                    //if (!firstHight) bc.bcDB.pharT05DB.clearStatusPrintStrickered();//ต้อง clear sticker ของคนไข้ในออกก่อน
+                    //firstHight = true;
+                }
+                else
+                {
+                    firstHight = false;
+                    rb1.Text = "timer " + bc.timerImgScanNew.ToString();
+                    rb2.Text = bc.iniC.printerStickerDrug;
+                    btnPrintStrickerEng.SmallImage = Resources.printer_green16;
+                    if (STRATTIME.Equals("00"))
+                    {
+                        DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug("");
+                    }
+                    else
+                    {
+                        DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug(bc.iniC.programLoad);
+                    }
+                }
                 if (DTSTCDRUG.Rows.Count > 0)
                 {
-                    DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug1(DTSTCDRUG.Rows[0]["MNC_CFR_YR"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFR_NO"].ToString(), DTSTCDRUG.Rows[0]["MNC_DOC_CD"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFG_DAT"].ToString());
-                    setReportStricker(ref DTSTCDRUG, false);
+                    //DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug1(DTSTCDRUG.Rows[0]["MNC_CFR_YR"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFR_NO"].ToString(), DTSTCDRUG.Rows[0]["MNC_DOC_CD"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFG_DAT"].ToString());
+                    DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug2(DTSTCDRUG.Rows[0]["MNC_CFR_YR"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFR_NO"].ToString(), DTSTCDRUG.Rows[0]["MNC_DOC_CD"].ToString(),"");   //ไม่จำเป็นต้องใช้ date เพราะในtable cfrno เป็น running แบบปี
+                    setReportStricker(ref DTSTCDRUG, false,"thai", "stricker");     //ทำแบบนี้เพราะ ต้องการให้พิมพ์ต่อกัน  ถ้าพิมพ์ธรรมดา มันมีโอกาส สลับกัน
+                    System.Threading.Thread.Sleep(1000);                             //ทำแบบนี้เพราะ ต้องการให้พิมพ์ต่อกัน  ถ้าพิมพ์ธรรมดา มันมีโอกาส สลับกัน
+                    Application.DoEvents();                                         //ทำแบบนี้เพราะ ต้องการให้พิมพ์ต่อกัน  ถ้าพิมพ์ธรรมดา มันมีโอกาส สลับกัน
+                    DataTable drugsum = bc.bcDB.pharT06DB.selectByCFRNoDrugSum(DTSTCDRUG.Rows[0]["MNC_CFR_YR"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFR_NO"].ToString(), DTSTCDRUG.Rows[0]["MNC_DOC_CD"].ToString(), "");   //ไม่จำเป็นต้องใช้ date เพราะในtable cfrno เป็น running แบบปี
+                    setReportStricker(ref drugsum, false, "thai", "summary");     //ทำแบบนี้เพราะ ต้องการให้พิมพ์ต่อกัน  ถ้าพิมพ์ธรรมดา มันมีโอกาส สลับกัน
+                    System.Threading.Thread.Sleep(2000);                            //ทำแบบนี้เพราะ ต้องการให้พิมพ์ต่อกัน  ถ้าพิมพ์ธรรมดา มันมีโอกาส สลับกัน
+                    Application.DoEvents();
+                    drugsum.Dispose();
+                }
+            }
+            timeImgDrugINward.Start();
+        }
+        private void setReportStricker(ref DataTable dtdrug, Boolean preview, String language, String stricker)
+        {
+            Boolean chk = false;
+            if (stricker.Equals("summary")) frmDrugStricker.reportfilename = "drug_stricker_sum";            //check แค่นี้ เพราะตอน formload check file ว่ามีไหม จะได้ ไม่ต้อง read IO บ่อยๆ
+            else frmDrugStricker.reportfilename = "drug_stricker";
+
+            int i = 1;
+            DateTime dt = DateTime.Now;
+            if (dt.Year < 1900) dt = dt.AddYears(543);
+            if (stricker.Equals("stricker"))
+            {
+                List<DataRow> rowadd = new List<DataRow>();
+                foreach (DataRow drow in dtdrug.Rows)//check ยาน้ำ pharm01.MNC_PH_TYP_CD = 021 ให้พิมพ์ stricker หลายดวง ตามจำนวน qty  MNC_PH_QTY_PAID
+                {
+                    if (drow["MNC_PH_TYP_CD"].ToString().Equals("021"))
+                    {// check ยาน้ำ pharm01.MNC_PH_TYP_CD = 021 ให้พิมพ์ stricker หลายดวง ตามจำนวน qty MNC_PH_QTY_PAID
+                        if (drow["MNC_PH_UNT_CD"].ToString().Equals("ML")) continue;//ถ้าอยูเป็นยาน้ำ แต่หน่วยเป็น ML ไม่ต้อง ให้ผ่านไป
+                        if (drow["MNC_PH_CD"].ToString().Equals("KA003")) continue;//รหัสนี้ ให้ผ่าน
+                        if (int.Parse(drow["MNC_PH_QTY_PAID"].ToString()) > 1) rowadd.Add(drow);
+                    }
+                }
+                int rowindex = 0;
+                DataTable drugclone = dtdrug.Copy();
+                foreach (DataRow drow in rowadd)//insert row เพื่อให้ stricker อยู่ ติดกัน
+                {
+                    foreach (DataRow rowdrug in drugclone.Rows)
+                    {
+                        if (rowdrug["MNC_PH_CD"].ToString().Equals(drow["MNC_PH_CD"].ToString()))
+                        {
+                            int qty = int.Parse(rowdrug["MNC_PH_QTY_PAID"].ToString());
+                            //DataRow dr = dtdrug.NewRow();
+                            for (int ii = 0; ii < qty - 1; ii++) dtdrug.ImportRow(drow);
+                        }
+                        rowindex++;
+                    }
+                    rowindex = 0;
+                }
+                drugclone.Dispose();
+            }
+            foreach (DataRow drow in dtdrug.Rows)
+            {
+                drow["hostname"] = bc.iniC.hostname;
+                drow["tel"] = bc.iniC.hosttel;
+                drow["drugname_t"] = drow["drugname_t"].ToString().Replace("\t", "").Trim();
+                if (language.Equals("thai"))
+                    drow["drug_using"] = drow["drug_using"].ToString().Replace("/", "").Trim();
+                else
+                {
+                    drow["drug_using"] = drow["MNC_PH_DIR_DSC_E"].ToString().Replace("/", "").Trim() + " "
+                        + drow["MNC_PH_FRE_DSC_E"].ToString().Replace("/", "").Trim() + " " + drow["MNC_PH_TIM_DSC_E"].ToString().Replace("/", "").Trim();    //ลอง comment เพราะดึงจาก master จะไม่ได้จากการป้อน
+                    //drow["drug_using"] = drow["drug_using"].ToString().Replace("/", "").Trim();
+                    drow["drug_ind"] = drow["drug_ind_e"].ToString().Trim();
+                    drow["drug_cau"] = drow["drug_cau_e"].ToString().Trim();
+                    drow["hostname"] = bc.iniC.hostnamee;
+                    drow["tel"] = drow["tel"].ToString().Replace("โทร", " tel");
+                }
+                drow["printdatetime"] = dt.ToString("dd-MM") + "-" + (dt.Year + 543) + " " + dt.ToString("HH:mm:ss");
+                drow["drug_using"] = drow["drug_using"].ToString().Trim();
+                //drow["drugname_t"] = drow["drugname_t"].ToString().Trim()+" "+ drow["unitqty"].ToString().Trim();
+            }
+            frmDrugStricker.DT = dtdrug;
+            if (preview)
+            {
+                frmDrugStricker.ShowDialog(this);
+            }
+            else
+            {
+                if (frmDrugStricker.PrintReport())
+                {
+                    if (dtdrug.Rows.Count > 0)
+                        bc.bcDB.pharT05DB.updateStatusPrintStrickered(dtdrug.Rows[0]["MNC_DOC_CD"].ToString(), dtdrug.Rows[0]["MNC_CFR_YR"].ToString(), dtdrug.Rows[0]["MNC_CFR_NO"].ToString(), dtdrug.Rows[0]["MNC_CFG_DAT"].ToString());
                 }
             }
         }
@@ -1539,10 +1724,11 @@ namespace bangna_hospital.gui
                 timeImgDrugINward.Stop();
                 lfSbMessage.Text = "setDrugINimgList";
                 showLbLoading();
-                FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, "u_drugin", "u_drugin");
-                String[] listFile = ftpc.directoryListSimple("drugin");
+                FtpClient ftpc = new FtpClient(bc.iniC.hostFTPDrugIn, bc.iniC.userFTPDrugIn, bc.iniC.passFTPDrugIn);
+                List<String> directoryList = new List<string>();
+                directoryList = ftpc.directoryList(bc.iniC.folderFTPDrugIn);
                 grpDrug.Tiles.Clear();
-                foreach (String filename in listFile)
+                foreach (String filename in directoryList)
                 {
                     MemoryStream streamCertiDtr = ftpc.download(filename);
                     streamCertiDtr.Position = 0;
@@ -1697,9 +1883,25 @@ namespace bangna_hospital.gui
             picDrugIN.SizeMode = PictureBoxSizeMode.StretchImage;
             DEPTNO = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
             String stationname = bc.bcDB.pm32DB.getDeptName(bc.iniC.station);
-            lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
-            rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-03-07";
+            lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname+" drugin "+bc.iniC.hostFTPDrugIn;
+            rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS+" "+ bc.iniC.programLoad;
+            this.Text = "Last Update 2024-05-16-2 sticker sum ดึง เวชภัณฑ์ เพิ่ม timer แก้ bug กลางคืนพิมพ์ IPD เป็นพิมพ์หมดทั้ง OPD IPD";
+            lfSbStatus.Text = "";
+            rb1.Text = "timer "+bc.timerImgScanNew.ToString();
+            rb2.Text = bc.iniC.printerStickerDrug;
+            
+            rptStrickerSumPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\drug_stricker_sum.rdlx");
+            rptStrickerPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\drug_stricker.rdlx");
+            if (!File.Exists(rptStrickerPath.FullName))
+            {
+                lfSbMessage.Text = "File report stricker not found";
+                //return;
+            }
+            if (!File.Exists(rptStrickerSumPath.FullName))
+            {
+                lfSbMessage.Text += "File report stricker sum not found";
+                //return;
+            }
         }
     }
 }

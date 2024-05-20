@@ -94,6 +94,20 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String selectSECNOOPDBySecName(String secno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_NO,MNC_SEC_NO " +
+                "From  patient_m32 m32 " +
+                " Where m32.MNC_MD_DEP_DSC = '" + secno + "' and m32.MNC_TYP_PT = 'O' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["MNC_SEC_NO"].ToString();
+            }
+            return re;
+        }
         public DataTable selectDeptIPDAll()
         {
             DataTable dt = new DataTable();

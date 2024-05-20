@@ -140,6 +140,22 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String clearStatusPrintStrickered()
+        {
+            String sql = "", re = "";
+            try
+            {
+                sql = "Update PHARMACY_T05 Set status_print_stricker_new = '1' where status_print_stricker_new is null   ";
+                conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                re = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateStatusPrintStrickered sql " + sql + " ex " + re);
+            }
+            return re;
+        }
         public String insertPharmacyT0506jjj(String hnyear, String hn, String visit_date, String pre_no, String req_year, String req_no, String req_date, String drug_set, String userI)
         {
             String re = "";

@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -22,7 +23,7 @@ namespace bangna_hospital.gui
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, fque, fqueB;
         C1FlexGrid grfStatus, grfLimit;
         C1ThemeController theme1;
-        String HN = "", PRENO = "", VSDATE = "", FORMNAME="", PTTNAME="", SYMPTOMS="", COMPNAME="", INSURNAME="", VSREMARK="", PAD="'", VN="";
+        String HN = "", PRENO = "", VSDATE = "", FORMNAME="", PTTNAME="", SYMPTOMS="", COMPNAME="", INSURNAME="", VSREMARK="", PAD="'", VN="", DEPTNAME="";
         Patient ptt;
         PatientT013 pt013;
         AutoCompleteStringCollection autoPaid, autoComp;
@@ -31,7 +32,7 @@ namespace bangna_hospital.gui
         int colGrfActNo = 1, colGrfActDesc = 2, colGrfActNoDate = 3, colGrfActTime = 4, colGrfActNoDeptName = 5, colGrfActUserName=6;
         int colGrfLimitDesc = 1, colGrfLimitCredit = 2, colGrfLimitVsDate = 3, colGrfLimitpad = 4, colGrfLimitRunNo = 5, colGrfLimitRunDate = 6, colGrfLimitDocNo = 7, colGrfLimitDocDate = 8;
         Boolean pageLoad = false;
-        public FrmReceptionStatusVisit(BangnaControl bc, String FormName, String hn, String pttname, String preno,String vsdate, String symptoms, String compname, String insurname, String remark, String pad, String vn)
+        public FrmReceptionStatusVisit(BangnaControl bc, String FormName, String hn, String pttname, String preno,String vsdate, String symptoms, String compname, String insurname, String remark, String pad, String vn, String deptname)
         {
             this.bc = bc;
             this.HN = hn;
@@ -45,6 +46,7 @@ namespace bangna_hospital.gui
             this.VSREMARK = remark;
             this.PAD = pad;
             this.VN = vn;
+            this.DEPTNAME = deptname;
             InitializeComponent();
             initConfig();
         }
@@ -76,7 +78,13 @@ namespace bangna_hospital.gui
             txtName.KeyUp += TxtName_KeyUp;
             txtPaidCode.KeyUp += TxtPaidCode_KeyUp;
             cboLimitCredit.SelectedItemChanged += CboLimitCredit_SelectedItemChanged;
+            txtVsPaid.KeyUp += TxtVsPaid_KeyUp;
+            btnVsSave.Click += BtnVsSave_Click;
+            txtVsUser.KeyUp += TxtVsUser_KeyUp;
+
             bc.bcDB.pt013DB.setCboPaidName(cboLimitCredit, "", HN);
+            bc.bcDB.pttDB.setCboDeptOPDNew(cboVsDept, "");     //ส่งตัวไป
+            cboVsDept.DropDownClosed += CboVsDept_DropDownClosed;
             initGrfStatus();
             initGrfLimit();
             setControl();
@@ -88,6 +96,60 @@ namespace bangna_hospital.gui
                 theme1.SetTheme(c, "Office2010Blue");
             }
             pageLoad = false;
+        }
+
+        private void CboVsDept_DropDownClosed(object sender, C1.Win.C1Input.DropDownClosedEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void TxtVsUser_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                lbPttUser.Text = bc.bcDB.stfDB.selectByPassword(txtVsUser.Text.Trim());
+                if (lbPttUser.Text.Length > 0)
+                {
+                    BtnVsSave_Click(null, null);
+                    Thread.Sleep(500);
+                    this.Dispose();
+                }
+            }
+        }
+
+        private void BtnVsSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (lbPttUser.Text.Length <= 0)
+            {
+                lfSbMessage.Text = "user ผู้แก้ไข";
+                txtVsUser.Select();
+                return;
+            }
+            String paidcode = bc.bcDB.finM02DB.getPaidCode(txtVsPaid.Text.Trim());
+            String secno = cboVsDept.SelectedItem == null ? "" : ((ComboBoxItem)cboVsDept.SelectedItem).Value;
+            String deptCode = bc.bcDB.pm32DB.selectDeptOPDBySecNO(secno);
+            String insurcode = bc.bcDB.pm24DB.getPaidCode(txtPttInsur.Text.Trim());
+            String compcode = bc.bcDB.pm24DB.getPaidCode(txtPttComp.Text.Trim());
+            String re = bc.bcDB.vsDB.updateVisit(txtHN.Text, VSDATE, PRENO, paidcode, txtVsSymptom.Text.Trim(), deptCode, secno, txtVsUser.Text.Trim());
+            String re1 = bc.bcDB.vsDB.updateVisitInsurComp(txtHN.Text, VSDATE, PRENO, insurcode, compcode, txtVsUser.Text.Trim());
+            lfSbMessage.Text = re;
+        }
+
+        private void TxtVsPaid_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (int.TryParse(txtVsPaid.Text, out _))//ป้อนเป็น ตัวเลข
+                {
+                    txtVsPaid.Value = bc.bcDB.finM02DB.getPaidName(txtVsPaid.Text.Trim());
+                }
+                txtVsUser.SelectAll();
+                txtVsUser.Select();
+            }
         }
 
         private void CboLimitCredit_SelectedItemChanged(object sender, EventArgs e)
@@ -260,6 +322,9 @@ namespace bangna_hospital.gui
             txtPttRemark.Value = "";
             txtCurPaid.Value = "";
             txtPaidCode.Value = PAD;
+            txtVsPaid.Value = PAD;//แก้ไขสิทธิ
+            txtVN.Value = VN;
+            bc.setC1Combo(cboVsDept,bc.bcDB.pm32DB.selectSECNOOPDBySecName( DEPTNAME));
             lbVN.Text = VN;
             lbVsDate.Text = bc.datetoShow(VSDATE);
             txtInsur.Value = INSURNAME;
@@ -469,6 +534,25 @@ namespace bangna_hospital.gui
             txtInsur.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtInsur.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtInsur.AutoCompleteCustomSource = autoComp;
+
+            AutoCompleteStringCollection autoInsur = new AutoCompleteStringCollection();
+            autoInsur = bc.bcDB.pm24DB.setAutoInsur(false);
+            txtPttInsur.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtPttInsur.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtPttInsur.AutoCompleteCustomSource = autoInsur;
+
+            
+            
+            txtPttComp.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtPttComp.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtPttComp.AutoCompleteCustomSource = autoComp;
+
+            AutoCompleteStringCollection autoPaid1 = new AutoCompleteStringCollection();
+            autoPaid1 = bc.bcDB.finM02DB.getlPaid();
+            txtVsPaid.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtVsPaid.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtVsPaid.AutoCompleteCustomSource = autoPaid1;
+
             setGrfStatus(PRENO, VSDATE);
         }
     }

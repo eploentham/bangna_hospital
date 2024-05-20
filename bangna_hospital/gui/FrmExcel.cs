@@ -62,6 +62,9 @@ namespace bangna_hospital.gui
             btnOpenFolder.Click += BtnOpenFolder_Click;
             btnPdfMorgeBrow.Click += BtnPdfMorgeBrow_Click;
             btnOutlabBrow.Click += BtnOutlabBrow_Click;
+            btnUpdateTmt.Click += BtnUpdateTmt_Click;
+            btnUpdateTmtCode.Click += BtnUpdateTmtCode_Click;
+            btnUpdateTmtCode2.Click += BtnUpdateTmtCode2_Click;
 
             imageElement8 = new C1.Win.C1Tile.ImageElement();
             imageElement8.ImageLayout = C1.Win.C1Tile.ForeImageLayout.ScaleOuter;
@@ -77,24 +80,69 @@ namespace bangna_hospital.gui
             panel4.Controls.Add(TileRec);
         }
 
-        private void BtnDrugThai_Click(object sender, EventArgs e)
+        private void BtnUpdateTmtCode2_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.aipnDB.selectAipnByErr();
+            label5.Text = dt.Rows.Count.ToString();
+            int i = 0;
+            foreach(DataRow arow in dt.Rows)
+            {
+                String invid = arow["invoice_id"].ToString();
+                DataTable dtitems = new DataTable();
+                dtitems = bc.bcDB.aipnDB.selectAipnByErr1(invid);
+                if(dtitems.Rows.Count > 0)
+                {
+                    label6.Text = dtitems.Rows.Count.ToString();
+                    foreach (DataRow dr in dtitems.Rows)
+                    {
+                        String billitemid = dr["invoice_billitems_id"].ToString();
+                        String lccode = dr["lccode"].ToString();
+                        PharmacyM01 pharm01 = new PharmacyM01();
+                        pharm01 = bc.bcDB.pharM01DB.SelectNameByPk1(lccode);
+                        label7.Text = pharm01.tmt_code_opbkk;
+                        String re = "1";
+                        //String re = bc.bcDB.aipnDB.updateInvBillItemsStdCode(billitemid, pharm01.tmt_code_opbkk);
+                        //if (int.TryParse(re, out int chk))
+                        //{
+                        //    i++;
+                        //    label8.Text = i.ToString();
+                        //    Application.DoEvents();
+                        //}
+                    }
+                }
+            }
+        }
+
+        private void BtnUpdateTmtCode_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.aipnDB.selectAipnByErr();
+            label5.Text = dt.Rows.Count.ToString();
+
+        }
+
+        private void BtnUpdateTmt_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             C1.C1Excel.C1XLBook _c1xl = new C1.C1Excel.C1XLBook();
             _c1xl.Load(txtDrugCPathExcel.Text);
-            XLSheet sheet = _c1xl.Sheets[1];
+            XLSheet sheet = _c1xl.Sheets[0];
 
             for (int i = 0; i < sheet.Rows.Count; i++)
             {
                 int chk = 0;
-                String id_old = "", drug_thai = "", name = "", cid = "", sql = "", datestart = "", dateend = "";
+                String hosdrugcode = "", tmtcode = "", name = "", cid = "", sql = "", datestart = "", dateend = "";
                 DateTime datestart1, dateend1;
-                id_old = sheet[i, 2].Text;
-                drug_thai = sheet[i, 3].Text;
-                if ((id_old.Length > 0) && (drug_thai.Length > 0))
+                hosdrugcode = sheet[i, 0].Text;
+                label4.Text = sheet[i, 0].Text;
+                if (hosdrugcode.Equals("hospdcode")) continue;
+                tmtcode = sheet[i, 2].Text;
+                if ((hosdrugcode.Length > 0) && (tmtcode.Length > 0))
                 {
-                    drug_thai = drug_thai.Equals("NULL") ? "" : drug_thai;
-                    sql = "update pharmacy_m01 set MNC_PH_THAI = '" + drug_thai + "' Where MNC_OLD_CD = '" + id_old + "' ";
+                    sql = "update pharmacy_m01 set tmt_code_opbkk = '" + tmtcode + "' Where mnc_ph_cd = '" + hosdrugcode + "' ";
                     String re = bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, sql);
                     if (int.TryParse(re, out chk))
                     {
@@ -103,6 +151,39 @@ namespace bangna_hospital.gui
                     else
                     {
                         label2.Text += (int.Parse(label2.Text)).ToString();
+                    }
+                }
+                Application.DoEvents();
+            }
+        }
+        private void BtnDrugThai_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            C1.C1Excel.C1XLBook _c1xl = new C1.C1Excel.C1XLBook();
+            _c1xl.Load(txtDrugCPathExcel.Text);
+            XLSheet sheet = _c1xl.Sheets[0];
+            label1.Text = "0";
+            for (int i = 0; i < sheet.Rows.Count; i++)
+            {
+                int chk = 0;
+                String id_old = "", drug_thai = "", name = "", cid = "", sql = "", datestart = "", dateend = "";
+                DateTime datestart1, dateend1;
+                id_old = sheet[i, 0].Text;
+                label4.Text = id_old;
+                drug_thai = sheet[i, 3].Text;
+                if ((id_old.Length > 0) && (drug_thai.Length > 0))
+                {
+                    drug_thai = drug_thai.Equals("NULL") ? "" : drug_thai;
+                    //sql = "update pharmacy_m01 set MNC_PH_THAI = '" + drug_thai + "' Where MNC_OLD_CD = '" + id_old + "' ";
+                    sql = "update pharmacy_m01 set MNC_PH_THAI = '" + drug_thai + "' Where MNC_PH_CD = '" + id_old + "' ";
+                    String re = bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, sql);
+                    if (int.TryParse(re, out chk))
+                    {
+                        label2.Text = (int.Parse(label2.Text) + chk).ToString();
+                    }
+                    else
+                    {
+                        label1.Text += (int.Parse(label1.Text)).ToString();
                     }
                 }
                 Application.DoEvents();
@@ -423,7 +504,6 @@ namespace bangna_hospital.gui
                 BtnPdfRead_Click(null, null);
             }
         }
-
         private void BtnDrugCRead_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -437,19 +517,20 @@ namespace bangna_hospital.gui
                 String hosdrugcode = "", tmtcode = "", name = "", cid = "", sql = "", datestart = "", dateend = "";
                 DateTime datestart1, dateend1;
                 hosdrugcode = sheet[i, 0].Text;
+                label4.Text = sheet[i, 0].Text;
                 tmtcode = sheet[i, 2].Text;
                 if ((hosdrugcode.Length > 0) && (tmtcode.Length>0))
                 {
                     sql = "update pharmacy_m01 set tmt_code_opbkk = '"+tmtcode+"' Where mnc_ph_cd = '"+hosdrugcode+"' ";
-                    String re = bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, sql);
-                    if(int.TryParse(re, out chk))
-                    {
-                        label1.Text = (int.Parse(label1.Text)+ chk).ToString();
-                    }
-                    else
-                    {
-                        label2.Text += (int.Parse(label2.Text)).ToString();
-                    }
+                    //String re = bc.conn.ExecuteNonQuery(bc.conn.connMainHIS, sql);
+                    //if(int.TryParse(re, out chk))
+                    //{
+                    //    label1.Text = (int.Parse(label1.Text)+ chk).ToString();
+                    //}
+                    //else
+                    //{
+                    //    label2.Text += (int.Parse(label2.Text)).ToString();
+                    //}
                 }
                 Application.DoEvents();
             }
@@ -480,7 +561,6 @@ namespace bangna_hospital.gui
                 txtDrugCPathExcel.Text = openFileDialog1.FileName;
             }
         }
-
         private void BtnReadExcel_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -611,7 +691,7 @@ namespace bangna_hospital.gui
         {
             c1SplitContainer1.HeaderHeight = 0;
             c1FlexViewer1.Ribbon.Minimized = true;
-            this.Text = "Last Update 2023-05-22";
+            this.Text = "Last Update 2024-04-18 MNC_PH_CD";
         }
     }
 }

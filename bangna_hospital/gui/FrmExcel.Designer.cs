@@ -35,6 +35,9 @@ namespace bangna_hospital.gui
             this.txtPath = new System.Windows.Forms.TextBox();
             this.btnReadExcel = new System.Windows.Forms.Button();
             this.tabDrugCat = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnUpdateTmt = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnDrugThai = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnDrugCOpenExcel = new System.Windows.Forms.Button();
@@ -62,7 +65,12 @@ namespace bangna_hospital.gui
             this.btnPdfBrow = new System.Windows.Forms.Button();
             this.txtPdfPath = new System.Windows.Forms.TextBox();
             this.btnPdfRead = new System.Windows.Forms.Button();
-            this.btnDrugThai = new System.Windows.Forms.Button();
+            this.btnUpdateTmtCode = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnUpdateTmtCode2 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
             this.c1DockingTabPage1.SuspendLayout();
@@ -93,6 +101,12 @@ namespace bangna_hospital.gui
             // 
             // c1DockingTabPage1
             // 
+            this.c1DockingTabPage1.Controls.Add(this.label8);
+            this.c1DockingTabPage1.Controls.Add(this.label7);
+            this.c1DockingTabPage1.Controls.Add(this.label6);
+            this.c1DockingTabPage1.Controls.Add(this.btnUpdateTmtCode2);
+            this.c1DockingTabPage1.Controls.Add(this.label5);
+            this.c1DockingTabPage1.Controls.Add(this.btnUpdateTmtCode);
             this.c1DockingTabPage1.Controls.Add(this.btnOpenExcel);
             this.c1DockingTabPage1.Controls.Add(this.txtPath);
             this.c1DockingTabPage1.Controls.Add(this.btnReadExcel);
@@ -129,6 +143,8 @@ namespace bangna_hospital.gui
             // 
             // tabDrugCat
             // 
+            this.tabDrugCat.Controls.Add(this.btnUpdateTmt);
+            this.tabDrugCat.Controls.Add(this.label4);
             this.tabDrugCat.Controls.Add(this.btnDrugThai);
             this.tabDrugCat.Controls.Add(this.label2);
             this.tabDrugCat.Controls.Add(this.label1);
@@ -140,6 +156,33 @@ namespace bangna_hospital.gui
             this.tabDrugCat.Size = new System.Drawing.Size(1580, 592);
             this.tabDrugCat.TabIndex = 1;
             this.tabDrugCat.Text = "Drug Cat";
+            // 
+            // btnUpdateTmt
+            // 
+            this.btnUpdateTmt.Location = new System.Drawing.Point(843, 13);
+            this.btnUpdateTmt.Name = "btnUpdateTmt";
+            this.btnUpdateTmt.Size = new System.Drawing.Size(138, 23);
+            this.btnUpdateTmt.TabIndex = 10;
+            this.btnUpdateTmt.Text = "Upate TMT CODE";
+            this.btnUpdateTmt.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(71, 127);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "0";
+            // 
+            // btnDrugThai
+            // 
+            this.btnDrugThai.Location = new System.Drawing.Point(725, 14);
+            this.btnDrugThai.Name = "btnDrugThai";
+            this.btnDrugThai.Size = new System.Drawing.Size(112, 23);
+            this.btnDrugThai.TabIndex = 8;
+            this.btnDrugThai.Text = "Upate Drug Thai";
+            this.btnDrugThai.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -153,7 +196,7 @@ namespace bangna_hospital.gui
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(70, 74);
+            this.label1.Location = new System.Drawing.Point(71, 74);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 6;
@@ -400,14 +443,59 @@ namespace bangna_hospital.gui
             this.btnPdfRead.Text = "Read";
             this.btnPdfRead.UseVisualStyleBackColor = true;
             // 
-            // btnDrugThai
+            // btnUpdateTmtCode
             // 
-            this.btnDrugThai.Location = new System.Drawing.Point(725, 14);
-            this.btnDrugThai.Name = "btnDrugThai";
-            this.btnDrugThai.Size = new System.Drawing.Size(75, 23);
-            this.btnDrugThai.TabIndex = 8;
-            this.btnDrugThai.Text = "Upate Drug Thai";
-            this.btnDrugThai.UseVisualStyleBackColor = true;
+            this.btnUpdateTmtCode.Location = new System.Drawing.Point(11, 75);
+            this.btnUpdateTmtCode.Name = "btnUpdateTmtCode";
+            this.btnUpdateTmtCode.Size = new System.Drawing.Size(191, 23);
+            this.btnUpdateTmtCode.TabIndex = 3;
+            this.btnUpdateTmtCode.Text = "1. update tmt code";
+            this.btnUpdateTmtCode.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(303, 80);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "0";
+            // 
+            // btnUpdateTmtCode2
+            // 
+            this.btnUpdateTmtCode2.Location = new System.Drawing.Point(11, 119);
+            this.btnUpdateTmtCode2.Name = "btnUpdateTmtCode2";
+            this.btnUpdateTmtCode2.Size = new System.Drawing.Size(191, 23);
+            this.btnUpdateTmtCode2.TabIndex = 8;
+            this.btnUpdateTmtCode2.Text = "2. update tmt code";
+            this.btnUpdateTmtCode2.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(303, 124);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "0";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(478, 124);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "0";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(735, 129);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(13, 13);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "0";
             // 
             // FrmExcel
             // 
@@ -476,5 +564,13 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.TextBox txtOutlabHN;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnDrugThai;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnUpdateTmt;
+        private System.Windows.Forms.Button btnUpdateTmtCode;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnUpdateTmtCode2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

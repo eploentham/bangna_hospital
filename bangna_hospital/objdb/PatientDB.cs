@@ -1037,7 +1037,8 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "", re = "";
             sql = "Select pt08.MNC_HN_NO,pm02.MNC_PFIX_DSC,pm01.MNC_FNAME_T, DATEDIFF(day,pt08.MNC_AD_DATE,getdate()) as day1,pm02.MNC_PFIX_DSC as prefix,convert(varchar(20),pt08.MNC_AN_NO)+'.'+convert(varchar(20),pt08.MNC_AN_YR) as an_no,pt08.MNC_PRE_NO, " +
-                "pm01.MNC_LNAME_T,convert(varchar(20),pt08.MNC_AD_DATE,23) as MNC_AD_DATE,pt08.MNC_RM_NAM,pt08.MNC_BD_NO, '' as status_selected, pm02.MNC_PFIX_DSC +' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as patient_fullname " +
+                "pm01.MNC_LNAME_T,convert(varchar(20),pt08.MNC_AD_DATE,23) as MNC_AD_DATE,pt08.MNC_RM_NAM,pt08.MNC_BD_NO, '' as status_selected, pm02.MNC_PFIX_DSC +' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as patient_fullname" +
+                ",pt08.MNC_WD_NO,pt08.MNC_RM_NAM,pt08.MNC_BD_NO,pt01.MNC_SHIF_MEMO " +
                 "from PATIENT_T08 pt08 " +
                 "inner join PATIENT_T01 pt01 on pt01.MNC_PRE_NO =pt08.MNC_PRE_NO and pt01.MNC_date = pt08.MNC_date " +
                 "INNER JOIN dbo.PATIENT_M01 pm01 ON pt08.MNC_HN_NO = pm01.MNC_HN_NO " +
