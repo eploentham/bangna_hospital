@@ -740,6 +740,7 @@ namespace bangna_hospital.control
             iniC.grfRowHeight = iniF.getIni("app", "grfRowHeight");
             iniC.nightTime = iniF.getIni("app", "nightTime");
             iniC.nightTimeOn = iniF.getIni("app", "nightTimeOn");
+            iniC.statusAutoPrintLabResult = iniF.getIni("app", "statusAutoPrintLabResult");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -843,6 +844,7 @@ namespace bangna_hospital.control
             iniC.statusPrintPreview = iniC.statusPrintPreview == null ? "0" : iniC.statusPrintPreview.Equals("") ? "0" : iniC.statusPrintPreview;
             iniC.nightTime = iniC.nightTime == null ? "1900:0600" : iniC.nightTime.Equals("") ? "1900:0600" : iniC.nightTime;
             iniC.nightTimeOn = iniC.nightTimeOn == null ? "0" : iniC.nightTimeOn.Equals("") ? "0" : iniC.nightTimeOn;
+            iniC.statusAutoPrintLabResult = iniC.statusAutoPrintLabResult == null ? "0" : iniC.statusAutoPrintLabResult.Equals("") ? "0" : iniC.statusAutoPrintLabResult;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);

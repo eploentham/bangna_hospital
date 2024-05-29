@@ -929,7 +929,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             sql = "Select   t01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix,t01.MNC_OUT_TIM,convert(varchar(20),t01.MNC_OUT_DAT,23) as MNC_OUT_DAT" +
-                //",pt012.MNC_PAT_FLAG " +
+                ",pt012.MNC_PAT_FLAG,isnull(pt10.MNC_ARV_TIME,'') as MNC_ARV_TIME " +
                 ",m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM,t01.MNC_QUE_NO, " +
                 "Case f02.MNC_FN_TYP_DSC " +
                     "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
@@ -963,7 +963,8 @@ namespace bangna_hospital.objdb
                 "left join PATIENT_T08 pt08 on t01.MNC_HN_NO = pt08.MNC_HN_NO and t01.MNC_DATE = pt08.MNC_DATE and t01.MNC_PRE_NO = pt08.MNC_PRE_NO " +
                 "left join PATIENT_M32 pm32an on pt08.MNC_SEC_NO = pm32an.MNC_SEC_NO and pt08.MNC_WD_NO = pm32an.MNC_MD_DEP_NO " +
                 //"left join FINANCE_T01 fint01 on t01.MNC_HN_NO = fint01.MNC_HN_NO and t01.MNC_DATE = fint01.MNC_DATE and t01.MNC_PRE_NO = fint01.MNC_PRE_NO " +
-                //"left join PATIENT_T01_2 pt012 on t01.MNC_HN_NO = pt012.MNC_HN_NO and t01.MNC_DATE = pt012.MNC_DATE and t01.MNC_PRE_NO = pt012.MNC_PRE_NO " +
+                "left join PATIENT_T01_2 pt012 on t01.MNC_HN_NO = pt012.MNC_HN_NO and t01.MNC_DATE = pt012.MNC_DATE and t01.MNC_PRE_NO = pt012.MNC_PRE_NO " +
+                "left join PATIENT_T10 pt10 on t01.MNC_HN_NO = pt10.MNC_HN_NO and t01.MNC_DATE = pt10.MNC_DATE and t01.MNC_PRE_NO = pt10.MNC_PRE_NO " +
                 " left join patient_m26  pm26dtr on t01.mnc_dot_cd = pm26dtr.MNC_DOT_CD " +
                 " left join patient_m02 pm02dtr on pm26dtr.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
                 " left join patient_m26  pm26dtripd on pt08.MNC_DOT_CD_S = pm26dtripd.MNC_DOT_CD " +

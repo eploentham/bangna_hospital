@@ -8,7 +8,9 @@ using C1.Win.C1List;
 using C1.Win.C1Ribbon;
 using C1.Win.C1Themes;
 using GrapeCity.ActiveReports.Document.Section;
+using GrapeCity.ActiveReports.Extensibility.Data.SchemaModel;
 using Org.BouncyCastle.Asn1.Cms;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,8 +43,9 @@ namespace bangna_hospital.gui
         List<String> lFile, lFilePrint;
         Patient ptt;
         MemoryStream streamPrint = null;
-
+        int TIMERCNT = 0;
         int colUploadId = 1, colUploadName = 2, colUploadImg = 3, colUploadPath = 4, screenWidth = 0, screenHeight = 0, cntPrint = 0, formwidth = 0;
+        int colHnHn = 1, colHnName = 2, colHnVn = 3, colHnVsDate = 4, colHnPreno = 5, colHnWrdNo = 6, colHnRoom = 7, colHnBed = 9, colHnSymptoms = 10;
         Panel pnMain;
         Panel pnTop = new Panel();
         Panel pnBotom = new Panel();
@@ -52,7 +55,7 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Panel pnBotton;
         private System.Windows.Forms.Panel pnRight;
         private System.Windows.Forms.Panel pnLeft;
-        int colHnHn = 1, colHnName = 2, colHnVn = 3, colHnVsDate = 4, colHnPreno = 5, colHnWrdNo=6, colHnRoom=7, colHnBed=9, colHnSymptoms=10;
+        
         MedicalCertificate mcerti;
         DocScan dsc;
         Timer timer1;
@@ -114,15 +117,26 @@ namespace bangna_hospital.gui
             btnPrint.Click += BtnPrint_Click;
 
             chkUpload.Checked = true;
-            if (bc.iniC.statusStation.Equals("IPD")) chkIPD.Checked = true;
-            else chkOPD.Checked = true;
-            if (chkIPD.Checked) bc.bcDB.pttDB.setCboDeptIPDWdNo(cboDept, bc.iniC.station);
-            else bc.bcDB.pttDB.setCboDeptOPD(cboDept, bc.iniC.station);
 
             initGrfView();
             initGrfHn();
             initGrfDrugAllergy();
-            setGrfHn(bc.iniC.station);
+            if (bc.iniC.statusStation.Equals("IPD")) chkIPD.Checked = true;
+            else chkOPD.Checked = true;
+            if (chkIPD.Checked)
+            {
+                String[] deptno = bc.iniC.station.Split(',');
+                foreach (String deptno1 in deptno)
+                {
+                    bc.bcDB.pttDB.setCboDeptIPDWdNo(cboDept, deptno1);
+                    setGrfHn(deptno1);
+                    break;
+                }
+            }
+            else bc.bcDB.pttDB.setCboDeptOPD(cboDept, bc.iniC.station);
+
+            
+            
             //FrmScreenCapturePrintMulti frm = new FrmScreenCapturePrintMulti();
             //frm.Show(this);
             //initPrintMulti();
@@ -187,6 +201,7 @@ namespace bangna_hospital.gui
         private void Timer1_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            TIMERCNT++;
             if (bc.iniC.statusScreenCaptureAutoSend.Equals("1") && chkAutoSend.Checked)
             {
                 timer1.Stop();
@@ -198,6 +213,105 @@ namespace bangna_hospital.gui
             {
                 getListFile();
             }
+            if (TIMERCNT % 2 == 0)
+            {
+                if (bc.iniC.statusAutoPrintLabResult.Equals("1"))
+                {
+                    timer1.Stop();
+                    try
+                    {
+                        printLabResult();
+                    }
+                    catch (Exception ex)
+                    {
+                        new LogWriter("e", "FrmScreenCapture Timer1_Tick printLabResult ex.Message " + ex.Message);
+                    }
+                    timer1.Start();
+                }
+                if (TIMERCNT >= 100000)
+                {
+                    TIMERCNT = 0;
+                }
+            }
+        }
+        private void printLabResult()
+        {
+            Patient ptt = new Patient();
+            DataTable dtRes = new DataTable();
+            DataTable dtReq = new DataTable();
+            String[] deptno = bc.iniC.station.Split(',');
+            foreach(String deptno1 in deptno)
+            {
+                dtReq = bc.bcDB.labT05DB.selectRequestLabNotPrnbyDeptNo(deptno1);
+                if (dtReq.Rows.Count > 0)
+                {
+                    String reqno = "", reqdate = "", hn = "", depname = "", anno = "", vnno = "";
+                    reqdate = dtReq.Rows[0]["MNC_REQ_DAT"].ToString();
+                    reqno = dtReq.Rows[0]["MNC_REQ_NO"].ToString();
+                    hn = dtReq.Rows[0]["MNC_HN_NO"].ToString();
+                    anno = dtReq.Rows[0]["MNC_AN_NO"].ToString() + "." + dtReq.Rows[0]["MNC_AN_YR"].ToString();
+                    vnno = dtReq.Rows[0]["MNC_VN_NO"].ToString() + "." + dtReq.Rows[0]["MNC_VN_SEQ"].ToString() + "." + dtReq.Rows[0]["MNC_VN_SUM"].ToString();
+                    dtRes = bc.bcDB.labT05DB.selectResultbyReqNo(reqdate, reqno);
+                    if (dtRes.Rows.Count > 0)
+                    {
+                        ptt = bc.bcDB.pttDB.selectPatinetByHn(hn);
+                        dtRes.Columns.Add("patient_name", typeof(String));
+                        dtRes.Columns.Add("patient_hn", typeof(String));
+                        dtRes.Columns.Add("patient_age", typeof(String));
+                        dtRes.Columns.Add("request_no", typeof(String));
+                        dtRes.Columns.Add("patient_vn", typeof(String));
+                        dtRes.Columns.Add("doctor", typeof(String));
+                        dtRes.Columns.Add("result_date", typeof(String));
+                        dtRes.Columns.Add("print_date", typeof(String));
+                        dtRes.Columns.Add("patient_dep", typeof(String));
+                        dtRes.Columns.Add("patient_company", typeof(String));
+                        //dt.Columns.Add("ptt_department", typeof(String));
+                        dtRes.Columns.Add("patient_type", typeof(String));
+                        dtRes.Columns.Add("mnc_lb_dsc", typeof(String));
+                        dtRes.Columns.Add("mnc_lb_grp_cd", typeof(String));
+                        dtRes.Columns.Add("sort1", typeof(String));
+                        //dtRes.Columns.Add("hostname", typeof(String));
+                        foreach (DataRow drow in dtRes.Rows)
+                        {
+                            drow["patient_age"] = ptt.AgeStringOK1DOT();
+                            depname = dtRes.Rows[0]["MNC_REQ_DEP"].ToString();
+                            drow["patient_name"] = ptt.Name;
+                            drow["patient_hn"] = ptt.Hn;
+                            drow["patient_company"] = "";           //ไม่ต้องพิมพ์ ชื่อบริษัท ลองดู
+                            drow["patient_vn"] = anno.Equals(".") ? vnno : anno;
+                            drow["MNC_LB_RES"] = drow["MNC_LB_RES"].ToString().Replace(drow["MNC_RES"].ToString(),"");      //lab ต้องการให้แสดงค่าตัวเลข
+                            drow["patient_type"] = dtRes.Rows[0]["MNC_FN_TYP_DSC"].ToString();
+                            drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(drow["mnc_req_dat"].ToString());
+                            drow["doctor"] = dtRes.Rows[0]["dtr_name"].ToString() + "[" + dtRes.Rows[0]["mnc_dot_cd"].ToString() + "]";
+                            drow["result_date"] = bc.datetoShow(dtRes.Rows[0]["mnc_req_dat"].ToString());
+                            drow["print_date"] = bc.datetoShow(dtRes.Rows[0]["MNC_STAMP_DAT"].ToString()) + " " + bc.FormatTime(dtRes.Rows[0]["MNC_RESULT_TIM"].ToString());
+                            drow["user_lab"] = drow["user_lab"].ToString() + " [ทน." + drow["MNC_USR_NAME_result"].ToString() + "]";
+                            drow["user_report"] = drow["user_report"].ToString() + " [ทน." + drow["MNC_USR_NAME_report"].ToString() + "]";
+                            drow["user_check"] = drow["user_check"].ToString() + " [ทน." + drow["MNC_USR_NAME_approve"].ToString() + "]";
+                            drow["patient_dep"] = depname.Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
+                            depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
+                                depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
+                            drow["mnc_lb_dsc"] = dtRes.Rows[0]["MNC_LB_DSC"].ToString();
+                            drow["mnc_lb_grp_cd"] = dtRes.Rows[0]["MNC_LB_TYP_DSC"].ToString();
+                            drow["hostname"] = bc.iniC.hostname;
+                            if (drow["MNC_RES_VALUE"].ToString().Equals("-"))                                drow["MNC_RES_UNT"] = "";
+                            drow["MNC_RES_UNT"] = drow["MNC_RES_UNT"].ToString().Replace("0.00-0.00", "").Replace("0.00 - 0.00", "").Replace("0.00", "");
+                            drow["sort1"] = drow["mnc_req_dat"].ToString().Replace("-", "").Replace("-", "") + drow["MNC_REQ_NO"].ToString();
+                        }
+                        //printerA5
+                        rr1.Text = bc.iniC.printerA5;
+                        SetDefaultPrinter(bc.iniC.printerA5);
+                        FrmReportNew frm = new FrmReportNew(bc, "lab_result_4");
+                        frm.DT = dtRes;
+                        if (bc.iniC.statusPrintPreview.Equals("1"))                            frm.ShowDialog(this);                        
+                        else                            frm.PrintReport();                       
+                        frm.Dispose();
+                        bc.bcDB.labT01DB.updateStatusPrintResult(reqno, reqdate);
+                    }
+                }
+            }
+            dtRes.Dispose();
+            dtReq.Dispose();
         }
         private void CboDept_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -243,7 +357,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-
+                new LogWriter("e", "FrmScreenCapture printOrderSheet ex.Message " + ex.Message);
             }
         }
 
@@ -1646,11 +1760,16 @@ namespace bangna_hospital.gui
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new System.Drawing.Point(5, screenHeight - this.Height - 40);
             //frmImg.Location = new System.Drawing.Point(this.Location.X + this.Width + 20, this.Top);
-            this.Text = "Last Update 2024-05-15 ProxyProxyType " + bc.iniC.ProxyProxyType;
+            this.Text = "Last Update 2024-05-29 Blood Bank ไม่ต้องพิมพ์ Auto Print Lab " ;
             //getListFile();
             txtCertID.Focus();
-            String stationname = bc.bcDB.pm32DB.getDeptName(bc.iniC.station);
-            DEPTNO = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
+            String stationname ="";
+            String[] deptno = bc.iniC.station.Split(',');
+            foreach(String deptno1 in deptno)
+            {
+                stationname += bc.bcDB.pm32DB.getDeptName(deptno1);
+                DEPTNO = bc.bcDB.pm32DB.getDeptNoOPD(deptno1);
+            }
             rl1.Text = "hostFTPDrugIn " + bc.iniC.hostFTPDrugIn+ " printerA4 " +bc.iniC.printerA4;
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;

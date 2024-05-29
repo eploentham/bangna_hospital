@@ -1641,6 +1641,10 @@ namespace bangna_hospital.gui
                     drugsum.Dispose();
                 }
             }
+            else if (TIMERCNT >=100000)
+            {
+                TIMERCNT = 0;
+            }
             timeImgDrugINward.Start();
         }
         private void setReportStricker(ref DataTable dtdrug, Boolean preview, String language, String stricker)

@@ -371,7 +371,7 @@ namespace bangna_hospital.gui
         private void BtnVsPaid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            setFormPaidList();
         }
 
         private void CboPttNat_KeyUp(object sender, KeyEventArgs e)
@@ -3820,8 +3820,8 @@ namespace bangna_hospital.gui
             foreach (DataRow row1 in dtvs.Rows)
             {
                 Row rowa = grfPttVs.Rows[i];
-                //rowa[colgrfPttVsStatusVisit] = row1["MNC_PAT_FLAG"].ToString().Equals("I")?"A":"";//ปชส ต้องการ ให้ admit แสดงเป็น A ถ้า OPD ไม่ต้องแสดง
-                rowa[colgrfPttVsStatusVisit] = row1["MNC_ADM_FLG"].ToString().Equals("Y") ? "A" : row1["MNC_ADM_FLG"].ToString().Equals("O")?"O": "";//patient_t01 Y = admin O = observe
+                //rowa[colgrfPttVsStatusVisit] = row1["MNC_PAT_FLAG"].ToString().Equals("I")?"A" : row1["MNC_ARV_TIME"].ToString().Equals("O") ? "O" : "";//ปชส ต้องการ ให้ admit แสดงเป็น A ถ้า OPD ไม่ต้องแสดงMNC_ARV_TIME
+                rowa[colgrfPttVsStatusVisit] = row1["MNC_ADM_FLG"].ToString().Equals("A") ? "A" : row1["MNC_ARV_TIME"].ToString().Length>1 ? "O": "";//patient_t01 A = admin O = observe
                 rowa[colgrfPttVsVsDateShow] = bc.datetoShowShort(row1["mnc_date"].ToString());
                 rowa[colgrfPttVsHn] = row1["MNC_HN_NO"].ToString();
                 rowa[colgrfPttVsFullNameT] = row1["ptt_fullnamet"].ToString();
@@ -4497,7 +4497,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-05-17";
+            lfSbLastUpdate.Text = "Update 2567-05-20";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

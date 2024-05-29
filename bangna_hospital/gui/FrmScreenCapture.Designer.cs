@@ -79,11 +79,11 @@
             this.chkOPD = new System.Windows.Forms.RadioButton();
             this.cboDept = new C1.Win.C1Input.C1ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkOrdSheet = new System.Windows.Forms.RadioButton();
-            this.chkOrdSheetPreOpDi = new System.Windows.Forms.RadioButton();
-            this.chkOrdSheetPostOpDi = new System.Windows.Forms.RadioButton();
-            this.chkOrdSheetPreOp = new System.Windows.Forms.RadioButton();
             this.chkOrdSheetPostOp = new System.Windows.Forms.RadioButton();
+            this.chkOrdSheetPreOp = new System.Windows.Forms.RadioButton();
+            this.chkOrdSheetPostOpDi = new System.Windows.Forms.RadioButton();
+            this.chkOrdSheetPreOpDi = new System.Windows.Forms.RadioButton();
+            this.chkOrdSheet = new System.Windows.Forms.RadioButton();
             this.pnPic.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCertID)).BeginInit();
@@ -615,36 +615,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // chkOrdSheet
+            // chkOrdSheetPostOp
             // 
-            this.chkOrdSheet.AutoSize = true;
-            this.chkOrdSheet.Checked = true;
-            this.chkOrdSheet.Location = new System.Drawing.Point(8, 16);
-            this.chkOrdSheet.Name = "chkOrdSheet";
-            this.chkOrdSheet.Size = new System.Drawing.Size(114, 24);
-            this.chkOrdSheet.TabIndex = 0;
-            this.chkOrdSheet.Text = "Order Sheet";
-            this.chkOrdSheet.UseVisualStyleBackColor = true;
-            // 
-            // chkOrdSheetPreOpDi
-            // 
-            this.chkOrdSheetPreOpDi.AutoSize = true;
-            this.chkOrdSheetPreOpDi.Location = new System.Drawing.Point(8, 71);
-            this.chkOrdSheetPreOpDi.Name = "chkOrdSheetPreOpDi";
-            this.chkOrdSheetPreOpDi.Size = new System.Drawing.Size(236, 24);
-            this.chkOrdSheetPreOpDi.TabIndex = 1;
-            this.chkOrdSheetPreOpDi.Text = "Order Sheet Pre-Op dilatation";
-            this.chkOrdSheetPreOpDi.UseVisualStyleBackColor = true;
-            // 
-            // chkOrdSheetPostOpDi
-            // 
-            this.chkOrdSheetPostOpDi.AutoSize = true;
-            this.chkOrdSheetPostOpDi.Location = new System.Drawing.Point(9, 131);
-            this.chkOrdSheetPostOpDi.Name = "chkOrdSheetPostOpDi";
-            this.chkOrdSheetPostOpDi.Size = new System.Drawing.Size(244, 24);
-            this.chkOrdSheetPostOpDi.TabIndex = 2;
-            this.chkOrdSheetPostOpDi.Text = "Order Sheet Post-Op dilatation";
-            this.chkOrdSheetPostOpDi.UseVisualStyleBackColor = true;
+            this.chkOrdSheetPostOp.AutoSize = true;
+            this.chkOrdSheetPostOp.Location = new System.Drawing.Point(9, 101);
+            this.chkOrdSheetPostOp.Name = "chkOrdSheetPostOp";
+            this.chkOrdSheetPostOp.Size = new System.Drawing.Size(176, 24);
+            this.chkOrdSheetPostOp.TabIndex = 4;
+            this.chkOrdSheetPostOp.Text = "Order Sheet Post-Op";
+            this.chkOrdSheetPostOp.UseVisualStyleBackColor = true;
             // 
             // chkOrdSheetPreOp
             // 
@@ -656,15 +635,37 @@
             this.chkOrdSheetPreOp.Text = "Order Sheet Pre-Op";
             this.chkOrdSheetPreOp.UseVisualStyleBackColor = true;
             // 
-            // chkOrdSheetPostOp
+            // chkOrdSheetPostOpDi
             // 
-            this.chkOrdSheetPostOp.AutoSize = true;
-            this.chkOrdSheetPostOp.Location = new System.Drawing.Point(9, 101);
-            this.chkOrdSheetPostOp.Name = "chkOrdSheetPostOp";
-            this.chkOrdSheetPostOp.Size = new System.Drawing.Size(176, 24);
-            this.chkOrdSheetPostOp.TabIndex = 4;
-            this.chkOrdSheetPostOp.Text = "Order Sheet Post-Op";
-            this.chkOrdSheetPostOp.UseVisualStyleBackColor = true;
+            this.chkOrdSheetPostOpDi.AutoSize = true;
+            this.chkOrdSheetPostOpDi.Location = new System.Drawing.Point(9, 131);
+            this.chkOrdSheetPostOpDi.Name = "chkOrdSheetPostOpDi";
+            this.chkOrdSheetPostOpDi.Size = new System.Drawing.Size(244, 24);
+            this.chkOrdSheetPostOpDi.TabIndex = 2;
+            this.chkOrdSheetPostOpDi.Text = "Order Sheet Post-Op dilatation";
+            this.chkOrdSheetPostOpDi.UseVisualStyleBackColor = true;
+            // 
+            // chkOrdSheetPreOpDi
+            // 
+            this.chkOrdSheetPreOpDi.AutoSize = true;
+            this.chkOrdSheetPreOpDi.Location = new System.Drawing.Point(8, 71);
+            this.chkOrdSheetPreOpDi.Name = "chkOrdSheetPreOpDi";
+            this.chkOrdSheetPreOpDi.Size = new System.Drawing.Size(236, 24);
+            this.chkOrdSheetPreOpDi.TabIndex = 1;
+            this.chkOrdSheetPreOpDi.Text = "Order Sheet Pre-Op dilatation";
+            this.chkOrdSheetPreOpDi.UseVisualStyleBackColor = true;
+            // 
+            // chkOrdSheet
+            // 
+            this.chkOrdSheet.AutoSize = true;
+            this.chkOrdSheet.Checked = true;
+            this.chkOrdSheet.Location = new System.Drawing.Point(8, 16);
+            this.chkOrdSheet.Name = "chkOrdSheet";
+            this.chkOrdSheet.Size = new System.Drawing.Size(114, 24);
+            this.chkOrdSheet.TabIndex = 0;
+            this.chkOrdSheet.TabStop = true;
+            this.chkOrdSheet.Text = "Order Sheet";
+            this.chkOrdSheet.UseVisualStyleBackColor = true;
             // 
             // FrmScreenCapture
             // 

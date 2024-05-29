@@ -138,6 +138,22 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String updateStatusPrintResult(String reqno, String reqdate)
+        {
+            String sql = "", re = "";
+            sql = "update lab_t01 " +
+                "Set status_print_result_no = '1' " +
+                "Where  mnc_req_no = '" + reqno + "' and MNC_REQ_DAT = '" + reqdate + "' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            return re;
+        }
         public String updateStatusLinkLIS(String reqyr, String reqno, String reqdate)
         {
             String sql = "", re = "";
