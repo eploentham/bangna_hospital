@@ -26,7 +26,7 @@ namespace bangna_hospital.gui
         Boolean checkCompNameFound = false;
         String COMPNAME = "";
 
-        int colgrfCompName = 1;
+        int colgrfCompName = 1, colgrfCompCode=2;
         public FrmCompAdd(BangnaControl bc, String compname)
         {
             this.bc = bc;
@@ -96,25 +96,34 @@ namespace bangna_hospital.gui
             grfComp.Dock = System.Windows.Forms.DockStyle.Fill;
             grfComp.Location = new System.Drawing.Point(0, 0);
             grfComp.Rows.Count = 1;
-            grfComp.Cols.Count = 2;
+            grfComp.Cols.Count = 3;
             grfComp.Cols[colgrfCompName].DataType = typeof(String);
-
             grfComp.Cols[colgrfCompName].TextAlign = TextAlignEnum.LeftCenter;
-
             grfComp.Cols[colgrfCompName].Width = 400;
-
             grfComp.ShowCursor = true;
             grfComp.Cols[colgrfCompName].Caption = "ชื่อบริษัท";
-
             grfComp.Cols[colgrfCompName].AllowEditing = false;
-            
+            grfComp.Cols[colgrfCompCode].Visible = false;
+            grfComp.Click += GrfComp_Click;
             panel1.Controls.Add(grfComp);
-            
         }
-        private void setGrfComp(String name)
+        private void GrfComp_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (((C1FlexGrid)sender).Row <= 0) return;
+            setGrfComp(grfComp[grfComp.Row, colgrfCompCode].ToString(), "code");
+        }
+        private void setGrfComp(String name, String flag)
         {
             DataTable dt = new DataTable();
-            dt = bc.bcDB.pm24DB.selectCustByName(name);
+            if (flag.Equals("code"))
+            {
+                dt = bc.bcDB.pm24DB.selectCustByCode(name);
+            }
+            else
+            {
+                dt = bc.bcDB.pm24DB.selectCustByName(name);
+            }
             int i = 1, j = 1;
             grfComp.Rows.Count = 1;            grfComp.Rows.Count = dt.Rows.Count + 1;
             checkCompNameFound = false;
@@ -124,7 +133,8 @@ namespace bangna_hospital.gui
                 {
                     if (i == 1)
                     {
-                        //txtCompCode.Value = row1["MNC_COM_CD"].ToString();
+                        txtCompCode.Value = row1["MNC_COM_CD"].ToString();
+                        txtCompNameT.Value = row1["MNC_COM_DSC"].ToString();
                         txtCompNameE.Value = "";
                         txtCompAddrT.Value = row1["MNC_COM_ADD"].ToString();
                         //txtCompAddrE.Value = row1[""].ToString();
@@ -138,6 +148,7 @@ namespace bangna_hospital.gui
                     }
                     Row rowa = grfComp.Rows[i];
                     rowa[colgrfCompName] = row1["MNC_COM_DSC"].ToString();
+                    rowa[colgrfCompCode] = row1["MNC_COM_CD"].ToString();
                     rowa[0] = i.ToString();
                     checkCompNameFound = true;
                     i++;
@@ -163,7 +174,7 @@ namespace bangna_hospital.gui
         }
         private void setControl()
         {
-            setGrfComp(txtCompNameT.Text.Trim());
+            setGrfComp(txtCompNameT.Text.Trim(),"name");
             if (checkCompNameFound) { lfsbMessage.Text = "พบ รายชื่อบริษัท"; }
             else { lfsbMessage.Text = "ไม่พบ รายชื่อบริษัท"; }
             txtCompAddrT.SelectAll();

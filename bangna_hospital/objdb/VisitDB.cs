@@ -311,7 +311,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             sql = "select pt08.MNC_HN_NO,patient_m02.MNC_PFIX_DSC as prefix,patient_m01.MNC_FNAME_T, " +
-                "patient_m01.MNC_LNAME_T,pt08.MNC_AD_DATE,pt08.MNC_DS_DATE,pt08.MNC_AN_NO, " +
+                "patient_m01.MNC_LNAME_T,convert(VARCHAR(20),pt08.MNC_AD_DATE, 23) as MNC_AD_DATE,pt08.MNC_DS_DATE,pt08.MNC_AN_NO,pt08.MNC_AN_YR, " +
                 "patient_m32.MNC_MD_DEP_DSC,pt08.MNC_RM_NAM,pt08.MNC_BD_NO , " +
                 "pt01.MNC_SHIF_MEMO,aa.MNC_PFIX_DSC,isnull(patient_m26.MNC_DOT_FNAME,'') as MNC_DOT_FNAME,isnull(patient_m26.MNC_DOT_LNAME,'') as MNC_DOT_LNAME, " +
                 "DATEDIFF(DAY,MNC_AD_DATE,getdate()) as days, convert(VARCHAR(20),pt01.mnc_date, 23) as mnc_date,pt01.mnc_pre_no " +
@@ -4056,7 +4056,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public String updateVisit(String hn, String vsdate, String preno, String paid_id, String symptoms, String deptno, String secno, String vstype, String remark)
+        public String updateVisit(String hn, String vsdate, String preno, String paid_id, String symptoms, String deptno, String secno, String vstype, String remark, String compcode, String isnurcode)
         {
             String re = "";
             String sql = "";
@@ -4068,6 +4068,8 @@ namespace bangna_hospital.objdb
                     ",MNC_PT_FLG = '" + vstype + "' " +
                     ",MNC_SEC_NO = '" + secno + "' " +
                     ",MNC_DEP_NO = '" + deptno + "' "+
+                    ",MNC_RES_MAS = '" + compcode + "' " +
+                    ",MNC_COM_CD = '" + isnurcode + "' " +
                     ",MNC_REF_DSC = '" + remark.Replace("'","''") + "' " +
                     " Where MNC_HN_NO = '" + hn +"' and MNC_DATE = '"+vsdate+"' and MNC_PRE_NO = '"+preno+"' ";
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);

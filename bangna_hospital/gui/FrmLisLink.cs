@@ -65,7 +65,6 @@ namespace bangna_hospital.gui
             
             setGrfLabReq();
         }
-        
         private void setLinkLIS()
         {
             time1.Enabled = false;
@@ -285,7 +284,7 @@ namespace bangna_hospital.gui
             }
             catch(Exception ex1)
             {
-                new LogWriter("e", "FrmLisLink setLinkLIS reqult  " + err + " " + ex1.Message);
+                new LogWriter("e", "FrmLisLink setLinkLIS result  " + err + " " + ex1.Message);
             }
             finally
             {

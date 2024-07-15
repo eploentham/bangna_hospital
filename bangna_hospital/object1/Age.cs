@@ -145,67 +145,26 @@ namespace bangna_hospital.object1
             get
             {
                 string ageString = string.Empty;
-
                 if (Years >= 1)
                 {
-                    if (Years == 1)
-                    {
-                        ageString = string.Format("{0}Y", Years);
-                    }
-                    else
-                    {
-                        ageString = string.Format("{0}Y", Years);
-                    }
-
+                    if (Years == 1) ageString = string.Format("{0}Y", Years);
+                    else ageString = string.Format("{0}Y", Years);
                     if (Months >= 1)
-                    {
-                        if (Months == 1)
-                        {
-                            ageString += string.Format(" {0}M", Months);
-                        }
-                        else
-                        {
-                            ageString += string.Format(" {0}M", Months);
-                        }
-
-                        if (Days >= 1)
-                        {
-                            if (Days == 1)
-                            {
-                                ageString += string.Format(" {0}D", Days);
-                            }
-                            else
-                            {
-                                ageString += string.Format(" {0}D", Days);
-                            }
-                        }
-                    }
+                        if (Months == 1) ageString += string.Format(" {0}M", Months);
+                        else ageString += string.Format(" {0}M", Months);
+                    else if (Months == 0) ageString += string.Format(" {0}M", Months);
+                    if (Days >= 1)
+                        if (Days == 1) ageString += string.Format(" {0}D", Days);
+                        else ageString += string.Format(" {0}D", Days);
                 }
                 else
                 {
                     if (Months >= 1)
-                    {
-                        if (Months == 1)
-                        {
-                            ageString += string.Format(" {0}M", Months);
-                        }
-                        else
-                        {
-                            ageString += string.Format(" {0}M", Months);
-                        }
-
+                        if (Months == 1) ageString += string.Format(" {0}M", Months);
+                        else ageString += string.Format(" {0}M", Months);
                         if (Days >= 1)
-                        {
-                            if (Days == 1)
-                            {
-                                ageString += string.Format(" {0}D", Days);
-                            }
-                            else
-                            {
-                                ageString += string.Format(" {0}D", Days);
-                            }
-                        }
-                    }
+                            if (Days == 1) ageString += string.Format(" {0}D", Days);
+                            else ageString += string.Format(" {0}D", Days);
                 }
                 return ageString;
             }
@@ -215,70 +174,27 @@ namespace bangna_hospital.object1
             get
             {
                 string ageString = string.Empty;
-
                 if (Years >= 1)
                 {
-                    if (Years == 1)
-                    {
-                        ageString = string.Format("{0}.", Years);
-                    }
-                    else
-                    {
-                        ageString = string.Format("{0}.", Years);
-                    }
-
+                    if (Years == 1)  ageString = string.Format("{0}.", Years);
+                    else  ageString = string.Format("{0}.", Years);
                     if (Months >= 1)
-                    {
-                        if (Months == 1)
-                        {
-                            ageString += string.Format(" {0}.", Months);
-                        }
-                        else
-                        {
-                            ageString += string.Format(" {0}.", Months);
-                        }
-                    }
-                    else if (Months == 0)
-                    {
-                        ageString += string.Format(" {0}.", Months);
-                    }
-                        if (Days >= 1)
-                    {
-                        if (Days == 1)
-                        {
-                            ageString += string.Format(" {0}", Days);
-                        }
-                        else
-                        {
-                            ageString += string.Format(" {0}", Days);
-                        }
-                    }
+                        if (Months == 1) ageString += string.Format(" {0}.", Months);
+                        else ageString += string.Format(" {0}.", Months);
+                    else if (Months == 0) ageString += string.Format(" {0}.", Months);
+                    if (Days >= 1)
+                        if (Days == 1) ageString += string.Format(" {0}", Days);
+                        else ageString += string.Format(" {0}", Days);
+                        
                 }
                 else
                 {
                     if (Months >= 1)
-                    {
-                        if (Months == 1)
-                        {
-                            ageString += string.Format(" {0}.", Months);
-                        }
-                        else
-                        {
-                            ageString += string.Format(" {0}.", Months);
-                        }
-
+                        if (Months == 1) ageString += string.Format(" {0}.", Months);
+                        else ageString += string.Format(" {0}.", Months);
                         if (Days >= 1)
-                        {
-                            if (Days == 1)
-                            {
-                                ageString += string.Format(" {0}", Days);
-                            }
-                            else
-                            {
-                                ageString += string.Format(" {0}", Days);
-                            }
-                        }
-                    }
+                            if (Days == 1) ageString += string.Format(" {0}", Days);
+                            else ageString += string.Format(" {0}", Days);
                 }
                 return ageString;
             }

@@ -11,6 +11,7 @@ using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
 using C1.Win.C1Tile;
 using C1.Win.ImportServices.ReportingService4;
+using GrapeCity.Viewer.Common.Model;
 using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,7 @@ namespace bangna_hospital.gui
         int rowindexgrfsearchptt = 0;
         String rptCode = "", PRENO="", VSDATE="", CHWCODE="", AMPCODE="", TAMBONCODE="", QUENO="", QUEFullname="", QUEHN="", QUESymptoms="", QUEDEPT="", TABTCACTIVE="";
         Boolean pageLoad = false, findCust=false, findInsur=false, wanttoSave = false, wanttoVisit = false, wantEditVisit = false, haveEditPtt=false, flagTamboxOK = false, FLAGPTTNEW=false;
+        Boolean FLAGPTTINPUT = false/* เป็น สถานะ กำลังป้อนข้อมูลคนไข้ อาจกด tab ptt, tab vs กลับไปกลับมาเพื่อดูข้อมูล ก่อนsave */;
         Image imgCorr, imgTran;
         C1TileControl TileFoods;
         PanelElement peOrd;
@@ -366,12 +368,19 @@ namespace bangna_hospital.gui
             rbDateSearch.ValueChanged += RbDateSearch_ValueChanged;
             btnPttInsurCopyto.Click += BtnPttInsurCopyto_Click;
             btnVsPaid.Click += BtnVsPaid_Click;
+            btnPttSsnCopy.Click += BtnPttSsnCopy_Click;
+        }
+
+        private void BtnPttSsnCopy_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtPttSsn.Value = txtPttPID.Text.Trim();
         }
 
         private void BtnVsPaid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setFormPaidList();
+            setFormPaidList(((C1Button)sender).Name);
         }
 
         private void CboPttNat_KeyUp(object sender, KeyEventArgs e)
@@ -533,16 +542,16 @@ namespace bangna_hospital.gui
         private void BtnPttPaid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setFormPaidList();
+            setFormPaidList(((C1Button)sender).Name);
         }
-        private void setFormPaidList()
+        private void setFormPaidList(String btnname)
         {
             int i = 1;
             C1FlexGrid grf = new C1FlexGrid();
             grf.Font = fEdit;
             grf.Dock = System.Windows.Forms.DockStyle.Fill;
             grf.Location = new System.Drawing.Point(0, 0);
-            grf.Cols.Count = 4;
+            grf.Cols.Count = 5;
             grf.Cols[1].Width = 40;
             grf.Cols[2].Width = 320;
             grf.Cols[3].Width = 80;
@@ -554,6 +563,7 @@ namespace bangna_hospital.gui
             grf.Cols[2].AllowEditing = false;
             grf.Cols[3].AllowEditing = false;
             grf.Rows[0].Visible = false;
+            grf.Rows[4].Visible = false;
             grf.DoubleClick += GrfPttPaid_DoubleClick;
             theme1.SetTheme(grf, "Office2010Blue");
             DataTable dt = new DataTable();
@@ -568,6 +578,7 @@ namespace bangna_hospital.gui
                     rowa[2] = drow["MNC_FN_TYP_DSC"].ToString();
                     rowa[3] = drow["MNC_FN_STS"].ToString();
                     rowa[0] = i.ToString();
+                    rowa[4] = btnname;
                     i++;
                 }
             }
@@ -581,7 +592,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             if (((C1FlexGrid)sender).Row <= 0) return;
-            if (((C1FlexGrid)sender).Name.Equals("btnPttPaid"))
+            if (((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, 4].ToString().Equals("btnPttPaid"))
             {
                 txtPttPaid.Value = ((C1FlexGrid)sender)[((C1FlexGrid)sender).Row, 2].ToString();
             }
@@ -1382,7 +1393,7 @@ namespace bangna_hospital.gui
                 if (wantEditVisit)
                 {
                     String deptno = bc.bcDB.pm32DB.selectDeptOPDBySecNO(vs.DeptCode);
-                    re = bc.bcDB.vsDB.updateVisit(vs.HN, VSDATE, PRENO, vs.PaidCode, vs.symptom, deptno, vs.DeptCode, vs.VisitType, vs.remark);
+                    re = bc.bcDB.vsDB.updateVisit(vs.HN, VSDATE, PRENO, vs.PaidCode, vs.symptom, deptno, vs.DeptCode, vs.VisitType, vs.remark, vs.compcode, vs.insurcode);
                 }
                 else
                 {
@@ -4470,7 +4481,7 @@ namespace bangna_hospital.gui
             else if (keyData == (Keys.F3))
             {//คนไข้ใหม่
                 tC.SelectedTab = tabPtt;
-                setControlPatientNew();
+                //setControlPatientNew();   //+1 comment ไปเพราะ F3 ต้องการให้กลับไปหน้า patient
             }
             else if (keyData == (Keys.F7))
             {//ดูนัด
@@ -4497,7 +4508,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-05-20";
+            lfSbLastUpdate.Text = "Update 2567-06-05";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -4561,6 +4572,8 @@ namespace bangna_hospital.gui
             pnPttPatient.SizeRatio = 50;
             rgSbUser.Text = bc.user.fullname;
             rbDateSearch.Value = DateTime.Now;
+            groupBox3.Height = 53;
+            cboTheme.Hide();
         }
     }
 }

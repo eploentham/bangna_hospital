@@ -440,6 +440,10 @@
             this.c1ComboBox1 = new C1.Win.C1Input.C1ComboBox();
             this.c1SplitterPanel25 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.picStaffNote = new C1.Win.C1Input.C1PictureBox();
+            this.tabApmNew = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer7 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel24 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel26 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.Sb1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfsbLastUpdate = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
@@ -455,10 +459,6 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
-            this.tabApmNew = new C1.Win.C1Command.C1DockingTabPage();
-            this.c1SplitContainer7 = new C1.Win.C1SplitContainer.C1SplitContainer();
-            this.c1SplitterPanel24 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel26 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -683,10 +683,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).BeginInit();
             this.c1SplitterPanel25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picStaffNote)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
             this.tabApmNew.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer7)).BeginInit();
             this.c1SplitContainer7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
             this.SuspendLayout();
             // 
             // tC1
@@ -745,13 +745,13 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 729;
+            this.spOperList.Width = 722;
             // 
             // spOperVisit
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 305;
+            this.spOperVisit.Height = 298;
             this.spOperVisit.Location = new System.Drawing.Point(733, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(730, 277);
@@ -1367,7 +1367,7 @@
             this.c1SplitterPanel3.Controls.Add(this.chkItemLab);
             this.c1SplitterPanel3.Controls.Add(this.txtSearchItem);
             this.c1SplitterPanel3.Controls.Add(this.label77);
-            this.c1SplitterPanel3.Height = 154;
+            this.c1SplitterPanel3.Height = 147;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
             this.c1SplitterPanel3.Size = new System.Drawing.Size(728, 126);
@@ -4909,7 +4909,7 @@
             this.c1SplitterPanel5.Collapsible = true;
             this.c1SplitterPanel5.Controls.Add(this.pnRptName);
             this.c1SplitterPanel5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.c1SplitterPanel5.Height = 401;
+            this.c1SplitterPanel5.Height = 408;
             this.c1SplitterPanel5.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel5.Name = "c1SplitterPanel5";
             this.c1SplitterPanel5.Size = new System.Drawing.Size(426, 380);
@@ -5231,6 +5231,48 @@
             this.picStaffNote.TabIndex = 1;
             this.picStaffNote.TabStop = false;
             // 
+            // tabApmNew
+            // 
+            this.tabApmNew.Controls.Add(this.c1SplitContainer7);
+            this.tabApmNew.Location = new System.Drawing.Point(1, 26);
+            this.tabApmNew.Name = "tabApmNew";
+            this.tabApmNew.Size = new System.Drawing.Size(1463, 1088);
+            this.tabApmNew.TabIndex = 11;
+            this.tabApmNew.Text = "ทำนัดใหม่";
+            // 
+            // c1SplitContainer7
+            // 
+            this.c1SplitContainer7.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer7.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer7.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer7.Name = "c1SplitContainer7";
+            this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel24);
+            this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel26);
+            this.c1SplitContainer7.Size = new System.Drawing.Size(1463, 1088);
+            this.c1SplitContainer7.TabIndex = 0;
+            // 
+            // c1SplitterPanel24
+            // 
+            this.c1SplitterPanel24.Height = 270;
+            this.c1SplitterPanel24.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel24.Name = "c1SplitterPanel24";
+            this.c1SplitterPanel24.Size = new System.Drawing.Size(1463, 249);
+            this.c1SplitterPanel24.SizeRatio = 24.908D;
+            this.c1SplitterPanel24.TabIndex = 0;
+            this.c1SplitterPanel24.Text = "Panel 1";
+            // 
+            // c1SplitterPanel26
+            // 
+            this.c1SplitterPanel26.Height = 814;
+            this.c1SplitterPanel26.Location = new System.Drawing.Point(0, 295);
+            this.c1SplitterPanel26.Name = "c1SplitterPanel26";
+            this.c1SplitterPanel26.Size = new System.Drawing.Size(1463, 793);
+            this.c1SplitterPanel26.TabIndex = 1;
+            this.c1SplitterPanel26.Text = "Panel 2";
+            // 
             // Sb1
             // 
             this.Sb1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
@@ -5327,48 +5369,6 @@
             this.btnOperClose.Name = "btnOperClose";
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
-            // 
-            // tabApmNew
-            // 
-            this.tabApmNew.Controls.Add(this.c1SplitContainer7);
-            this.tabApmNew.Location = new System.Drawing.Point(1, 26);
-            this.tabApmNew.Name = "tabApmNew";
-            this.tabApmNew.Size = new System.Drawing.Size(1463, 1088);
-            this.tabApmNew.TabIndex = 11;
-            this.tabApmNew.Text = "ทำนัดใหม่";
-            // 
-            // c1SplitContainer7
-            // 
-            this.c1SplitContainer7.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.c1SplitContainer7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.c1SplitContainer7.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
-            this.c1SplitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1SplitContainer7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.c1SplitContainer7.Location = new System.Drawing.Point(0, 0);
-            this.c1SplitContainer7.Name = "c1SplitContainer7";
-            this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel24);
-            this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel26);
-            this.c1SplitContainer7.Size = new System.Drawing.Size(1463, 1088);
-            this.c1SplitContainer7.TabIndex = 0;
-            // 
-            // c1SplitterPanel24
-            // 
-            this.c1SplitterPanel24.Height = 270;
-            this.c1SplitterPanel24.Location = new System.Drawing.Point(0, 21);
-            this.c1SplitterPanel24.Name = "c1SplitterPanel24";
-            this.c1SplitterPanel24.Size = new System.Drawing.Size(1463, 249);
-            this.c1SplitterPanel24.SizeRatio = 24.908D;
-            this.c1SplitterPanel24.TabIndex = 0;
-            this.c1SplitterPanel24.Text = "Panel 1";
-            // 
-            // c1SplitterPanel26
-            // 
-            this.c1SplitterPanel26.Height = 814;
-            this.c1SplitterPanel26.Location = new System.Drawing.Point(0, 295);
-            this.c1SplitterPanel26.Name = "c1SplitterPanel26";
-            this.c1SplitterPanel26.Size = new System.Drawing.Size(1463, 793);
-            this.c1SplitterPanel26.TabIndex = 1;
-            this.c1SplitterPanel26.Text = "Panel 2";
             // 
             // FrmOPD
             // 
@@ -5623,10 +5623,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox1)).EndInit();
             this.c1SplitterPanel25.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picStaffNote)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
             this.tabApmNew.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer7)).EndInit();
             this.c1SplitContainer7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

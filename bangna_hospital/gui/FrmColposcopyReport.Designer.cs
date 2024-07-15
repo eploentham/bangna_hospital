@@ -56,27 +56,39 @@ namespace bangna_hospital.gui
             this.pnPage1Diag = new System.Windows.Forms.Panel();
             this.pnPage1Pic = new System.Windows.Forms.Panel();
             this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
-            this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.pnPage2Diag = new System.Windows.Forms.Panel();
-            this.pnPage2PicLeft = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pnPage2PicRight = new System.Windows.Forms.Panel();
-            this.pnPage2Pic1 = new System.Windows.Forms.Panel();
-            this.pnPage2Pic2 = new System.Windows.Forms.Panel();
-            this.pnPage2Pic3 = new System.Windows.Forms.Panel();
             this.pnPage2Pic4 = new System.Windows.Forms.Panel();
-            this.pnPage31 = new System.Windows.Forms.Panel();
-            this.pnPage32 = new System.Windows.Forms.Panel();
-            this.pnPage33 = new System.Windows.Forms.Panel();
+            this.pnPage2Pic3 = new System.Windows.Forms.Panel();
+            this.pnPage2PicLeft = new System.Windows.Forms.Panel();
+            this.pnPage2Pic2 = new System.Windows.Forms.Panel();
+            this.pnPage2Pic1 = new System.Windows.Forms.Panel();
+            this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
             this.pnPage34 = new System.Windows.Forms.Panel();
-            this.pnPage31Pic = new System.Windows.Forms.Panel();
-            this.pnPage31Diag = new System.Windows.Forms.Panel();
-            this.pnPage32Pic = new System.Windows.Forms.Panel();
-            this.pnPage33Pic = new System.Windows.Forms.Panel();
-            this.pnPage32Diag = new System.Windows.Forms.Panel();
-            this.pnPage33Diag = new System.Windows.Forms.Panel();
-            this.pnPage34Pic = new System.Windows.Forms.Panel();
             this.pnPage34Diag = new System.Windows.Forms.Panel();
+            this.pnPage34Pic = new System.Windows.Forms.Panel();
+            this.pnPage33 = new System.Windows.Forms.Panel();
+            this.pnPage33Diag = new System.Windows.Forms.Panel();
+            this.pnPage33Pic = new System.Windows.Forms.Panel();
+            this.pnPage32 = new System.Windows.Forms.Panel();
+            this.pnPage32Diag = new System.Windows.Forms.Panel();
+            this.pnPage32Pic = new System.Windows.Forms.Panel();
+            this.pnPage31 = new System.Windows.Forms.Panel();
+            this.pnPage31Diag = new System.Windows.Forms.Panel();
+            this.pnPage31Pic = new System.Windows.Forms.Panel();
+            this.btnpage26Prn = new C1.Win.C1Input.C1Button();
+            this.c1DockingTabPage4 = new C1.Win.C1Command.C1DockingTabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnPage26Diag = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.pnPage26Pic2 = new System.Windows.Forms.Panel();
+            this.pnPage26Pic1 = new System.Windows.Forms.Panel();
+            this.pnPage26Pic5 = new System.Windows.Forms.Panel();
+            this.pnPage26Pic4 = new System.Windows.Forms.Panel();
+            this.pnPage26Pic3 = new System.Windows.Forms.Panel();
+            this.pnPage26Pic6 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
             this.c1SplitterPanel1.SuspendLayout();
@@ -97,14 +109,19 @@ namespace bangna_hospital.gui
             this.c1DockingTab1.SuspendLayout();
             this.c1DockingTabPage1.SuspendLayout();
             this.c1DockingTabPage2.SuspendLayout();
-            this.c1DockingTabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.pnPage2PicLeft.SuspendLayout();
             this.pnPage2PicRight.SuspendLayout();
-            this.pnPage31.SuspendLayout();
-            this.pnPage32.SuspendLayout();
-            this.pnPage33.SuspendLayout();
+            this.pnPage2PicLeft.SuspendLayout();
+            this.c1DockingTabPage3.SuspendLayout();
             this.pnPage34.SuspendLayout();
+            this.pnPage33.SuspendLayout();
+            this.pnPage32.SuspendLayout();
+            this.pnPage31.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnpage26Prn)).BeginInit();
+            this.c1DockingTabPage4.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1SplitContainer1
@@ -118,12 +135,13 @@ namespace bangna_hospital.gui
             this.c1SplitContainer1.Name = "c1SplitContainer1";
             this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel1);
             this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel2);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(1437, 888);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1437, 1019);
             this.c1SplitContainer1.TabIndex = 0;
             // 
             // c1SplitterPanel1
             // 
             this.c1SplitterPanel1.Collapsible = true;
+            this.c1SplitterPanel1.Controls.Add(this.btnpage26Prn);
             this.c1SplitterPanel1.Controls.Add(this.btnSearch);
             this.c1SplitterPanel1.Controls.Add(this.btnpage3Prn);
             this.c1SplitterPanel1.Controls.Add(this.btnpage2Prn);
@@ -144,10 +162,10 @@ namespace bangna_hospital.gui
             this.c1SplitterPanel1.Controls.Add(this.label7);
             this.c1SplitterPanel1.Controls.Add(this.label6);
             this.c1SplitterPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel1.Height = 117;
+            this.c1SplitterPanel1.Height = 134;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
-            this.c1SplitterPanel1.Size = new System.Drawing.Size(1437, 89);
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(1437, 106);
             this.c1SplitterPanel1.SizeRatio = 13.244D;
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
@@ -164,7 +182,7 @@ namespace bangna_hospital.gui
             // 
             // btnpage3Prn
             // 
-            this.btnpage3Prn.Location = new System.Drawing.Point(1272, 36);
+            this.btnpage3Prn.Location = new System.Drawing.Point(1353, 36);
             this.btnpage3Prn.Name = "btnpage3Prn";
             this.btnpage3Prn.Size = new System.Drawing.Size(112, 33);
             this.btnpage3Prn.TabIndex = 568;
@@ -174,7 +192,7 @@ namespace bangna_hospital.gui
             // 
             // btnpage2Prn
             // 
-            this.btnpage2Prn.Location = new System.Drawing.Point(1155, 36);
+            this.btnpage2Prn.Location = new System.Drawing.Point(1069, 36);
             this.btnpage2Prn.Name = "btnpage2Prn";
             this.btnpage2Prn.Size = new System.Drawing.Size(112, 33);
             this.btnpage2Prn.TabIndex = 567;
@@ -184,7 +202,7 @@ namespace bangna_hospital.gui
             // 
             // btnpage1Prn
             // 
-            this.btnpage1Prn.Location = new System.Drawing.Point(1038, 36);
+            this.btnpage1Prn.Location = new System.Drawing.Point(952, 36);
             this.btnpage1Prn.Name = "btnpage1Prn";
             this.btnpage1Prn.Size = new System.Drawing.Size(112, 33);
             this.btnpage1Prn.TabIndex = 566;
@@ -194,7 +212,7 @@ namespace bangna_hospital.gui
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(970, 39);
+            this.btnSave.Location = new System.Drawing.Point(884, 39);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(62, 27);
             this.btnSave.TabIndex = 30;
@@ -391,10 +409,10 @@ namespace bangna_hospital.gui
             // 
             this.c1SplitterPanel2.Controls.Add(this.c1DockingTab1);
             this.c1SplitterPanel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel2.Height = 767;
-            this.c1SplitterPanel2.Location = new System.Drawing.Point(0, 142);
+            this.c1SplitterPanel2.Height = 881;
+            this.c1SplitterPanel2.Location = new System.Drawing.Point(0, 159);
             this.c1SplitterPanel2.Name = "c1SplitterPanel2";
-            this.c1SplitterPanel2.Size = new System.Drawing.Size(1437, 746);
+            this.c1SplitterPanel2.Size = new System.Drawing.Size(1437, 860);
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
             // 
@@ -402,12 +420,13 @@ namespace bangna_hospital.gui
             // 
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage4);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage3);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
             this.c1DockingTab1.SelectedIndex = 2;
-            this.c1DockingTab1.Size = new System.Drawing.Size(1437, 746);
+            this.c1DockingTab1.Size = new System.Drawing.Size(1437, 860);
             this.c1DockingTab1.TabIndex = 0;
             this.c1DockingTab1.TabsSpacing = 5;
             this.c1DockingTab1.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -418,7 +437,7 @@ namespace bangna_hospital.gui
             this.c1DockingTabPage1.Controls.Add(this.pnPage1Pic);
             this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(1435, 715);
+            this.c1DockingTabPage1.Size = new System.Drawing.Size(1435, 829);
             this.c1DockingTabPage1.TabIndex = 0;
             this.c1DockingTabPage1.Text = "หน้าที่ 1.";
             // 
@@ -427,7 +446,7 @@ namespace bangna_hospital.gui
             this.pnPage1Diag.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnPage1Diag.Location = new System.Drawing.Point(936, 0);
             this.pnPage1Diag.Name = "pnPage1Diag";
-            this.pnPage1Diag.Size = new System.Drawing.Size(499, 715);
+            this.pnPage1Diag.Size = new System.Drawing.Size(499, 829);
             this.pnPage1Diag.TabIndex = 1;
             // 
             // pnPage1Pic
@@ -435,7 +454,7 @@ namespace bangna_hospital.gui
             this.pnPage1Pic.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnPage1Pic.Location = new System.Drawing.Point(0, 0);
             this.pnPage1Pic.Name = "pnPage1Pic";
-            this.pnPage1Pic.Size = new System.Drawing.Size(936, 715);
+            this.pnPage1Pic.Size = new System.Drawing.Size(936, 829);
             this.pnPage1Pic.TabIndex = 0;
             // 
             // c1DockingTabPage2
@@ -444,21 +463,17 @@ namespace bangna_hospital.gui
             this.c1DockingTabPage2.Controls.Add(this.panel1);
             this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(1435, 715);
+            this.c1DockingTabPage2.Size = new System.Drawing.Size(1435, 829);
             this.c1DockingTabPage2.TabIndex = 1;
             this.c1DockingTabPage2.Text = "หน้าที่ 2.";
             // 
-            // c1DockingTabPage3
+            // pnPage2Diag
             // 
-            this.c1DockingTabPage3.Controls.Add(this.pnPage34);
-            this.c1DockingTabPage3.Controls.Add(this.pnPage33);
-            this.c1DockingTabPage3.Controls.Add(this.pnPage32);
-            this.c1DockingTabPage3.Controls.Add(this.pnPage31);
-            this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 30);
-            this.c1DockingTabPage3.Name = "c1DockingTabPage3";
-            this.c1DockingTabPage3.Size = new System.Drawing.Size(1435, 715);
-            this.c1DockingTabPage3.TabIndex = 2;
-            this.c1DockingTabPage3.Text = "หน้าที่ 3.";
+            this.pnPage2Diag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPage2Diag.Location = new System.Drawing.Point(0, 525);
+            this.pnPage2Diag.Name = "pnPage2Diag";
+            this.pnPage2Diag.Size = new System.Drawing.Size(1435, 304);
+            this.pnPage2Diag.TabIndex = 1;
             // 
             // panel1
             // 
@@ -470,13 +485,29 @@ namespace bangna_hospital.gui
             this.panel1.Size = new System.Drawing.Size(1435, 525);
             this.panel1.TabIndex = 0;
             // 
-            // pnPage2Diag
+            // pnPage2PicRight
             // 
-            this.pnPage2Diag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnPage2Diag.Location = new System.Drawing.Point(0, 525);
-            this.pnPage2Diag.Name = "pnPage2Diag";
-            this.pnPage2Diag.Size = new System.Drawing.Size(1435, 190);
-            this.pnPage2Diag.TabIndex = 1;
+            this.pnPage2PicRight.Controls.Add(this.pnPage2Pic4);
+            this.pnPage2PicRight.Controls.Add(this.pnPage2Pic3);
+            this.pnPage2PicRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPage2PicRight.Location = new System.Drawing.Point(801, 0);
+            this.pnPage2PicRight.Name = "pnPage2PicRight";
+            this.pnPage2PicRight.Size = new System.Drawing.Size(634, 525);
+            this.pnPage2PicRight.TabIndex = 1;
+            // 
+            // pnPage2Pic4
+            // 
+            this.pnPage2Pic4.Location = new System.Drawing.Point(17, 272);
+            this.pnPage2Pic4.Name = "pnPage2Pic4";
+            this.pnPage2Pic4.Size = new System.Drawing.Size(432, 249);
+            this.pnPage2Pic4.TabIndex = 0;
+            // 
+            // pnPage2Pic3
+            // 
+            this.pnPage2Pic3.Location = new System.Drawing.Point(17, 17);
+            this.pnPage2Pic3.Name = "pnPage2Pic3";
+            this.pnPage2Pic3.Size = new System.Drawing.Size(432, 249);
+            this.pnPage2Pic3.TabIndex = 0;
             // 
             // pnPage2PicLeft
             // 
@@ -488,15 +519,12 @@ namespace bangna_hospital.gui
             this.pnPage2PicLeft.Size = new System.Drawing.Size(801, 525);
             this.pnPage2PicLeft.TabIndex = 0;
             // 
-            // pnPage2PicRight
+            // pnPage2Pic2
             // 
-            this.pnPage2PicRight.Controls.Add(this.pnPage2Pic4);
-            this.pnPage2PicRight.Controls.Add(this.pnPage2Pic3);
-            this.pnPage2PicRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnPage2PicRight.Location = new System.Drawing.Point(801, 0);
-            this.pnPage2PicRight.Name = "pnPage2PicRight";
-            this.pnPage2PicRight.Size = new System.Drawing.Size(634, 525);
-            this.pnPage2PicRight.TabIndex = 1;
+            this.pnPage2Pic2.Location = new System.Drawing.Point(17, 272);
+            this.pnPage2Pic2.Name = "pnPage2Pic2";
+            this.pnPage2Pic2.Size = new System.Drawing.Size(432, 249);
+            this.pnPage2Pic2.TabIndex = 1;
             // 
             // pnPage2Pic1
             // 
@@ -505,46 +533,43 @@ namespace bangna_hospital.gui
             this.pnPage2Pic1.Size = new System.Drawing.Size(432, 249);
             this.pnPage2Pic1.TabIndex = 0;
             // 
-            // pnPage2Pic2
+            // c1DockingTabPage3
             // 
-            this.pnPage2Pic2.Location = new System.Drawing.Point(17, 272);
-            this.pnPage2Pic2.Name = "pnPage2Pic2";
-            this.pnPage2Pic2.Size = new System.Drawing.Size(432, 249);
-            this.pnPage2Pic2.TabIndex = 1;
+            this.c1DockingTabPage3.Controls.Add(this.pnPage34);
+            this.c1DockingTabPage3.Controls.Add(this.pnPage33);
+            this.c1DockingTabPage3.Controls.Add(this.pnPage32);
+            this.c1DockingTabPage3.Controls.Add(this.pnPage31);
+            this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage3.Name = "c1DockingTabPage3";
+            this.c1DockingTabPage3.Size = new System.Drawing.Size(1435, 829);
+            this.c1DockingTabPage3.TabIndex = 2;
+            this.c1DockingTabPage3.Text = "หน้าที่ 3.";
             // 
-            // pnPage2Pic3
+            // pnPage34
             // 
-            this.pnPage2Pic3.Location = new System.Drawing.Point(17, 17);
-            this.pnPage2Pic3.Name = "pnPage2Pic3";
-            this.pnPage2Pic3.Size = new System.Drawing.Size(432, 249);
-            this.pnPage2Pic3.TabIndex = 0;
+            this.pnPage34.Controls.Add(this.pnPage34Diag);
+            this.pnPage34.Controls.Add(this.pnPage34Pic);
+            this.pnPage34.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPage34.Location = new System.Drawing.Point(0, 597);
+            this.pnPage34.Name = "pnPage34";
+            this.pnPage34.Size = new System.Drawing.Size(1435, 232);
+            this.pnPage34.TabIndex = 3;
             // 
-            // pnPage2Pic4
+            // pnPage34Diag
             // 
-            this.pnPage2Pic4.Location = new System.Drawing.Point(17, 272);
-            this.pnPage2Pic4.Name = "pnPage2Pic4";
-            this.pnPage2Pic4.Size = new System.Drawing.Size(432, 249);
-            this.pnPage2Pic4.TabIndex = 0;
+            this.pnPage34Diag.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnPage34Diag.Location = new System.Drawing.Point(952, 0);
+            this.pnPage34Diag.Name = "pnPage34Diag";
+            this.pnPage34Diag.Size = new System.Drawing.Size(483, 232);
+            this.pnPage34Diag.TabIndex = 4;
             // 
-            // pnPage31
+            // pnPage34Pic
             // 
-            this.pnPage31.Controls.Add(this.pnPage31Diag);
-            this.pnPage31.Controls.Add(this.pnPage31Pic);
-            this.pnPage31.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnPage31.Location = new System.Drawing.Point(0, 0);
-            this.pnPage31.Name = "pnPage31";
-            this.pnPage31.Size = new System.Drawing.Size(1435, 176);
-            this.pnPage31.TabIndex = 0;
-            // 
-            // pnPage32
-            // 
-            this.pnPage32.Controls.Add(this.pnPage32Diag);
-            this.pnPage32.Controls.Add(this.pnPage32Pic);
-            this.pnPage32.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnPage32.Location = new System.Drawing.Point(0, 176);
-            this.pnPage32.Name = "pnPage32";
-            this.pnPage32.Size = new System.Drawing.Size(1435, 208);
-            this.pnPage32.TabIndex = 1;
+            this.pnPage34Pic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnPage34Pic.Location = new System.Drawing.Point(0, 0);
+            this.pnPage34Pic.Name = "pnPage34Pic";
+            this.pnPage34Pic.Size = new System.Drawing.Size(422, 232);
+            this.pnPage34Pic.TabIndex = 3;
             // 
             // pnPage33
             // 
@@ -556,39 +581,13 @@ namespace bangna_hospital.gui
             this.pnPage33.Size = new System.Drawing.Size(1435, 213);
             this.pnPage33.TabIndex = 2;
             // 
-            // pnPage34
+            // pnPage33Diag
             // 
-            this.pnPage34.Controls.Add(this.pnPage34Diag);
-            this.pnPage34.Controls.Add(this.pnPage34Pic);
-            this.pnPage34.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnPage34.Location = new System.Drawing.Point(0, 597);
-            this.pnPage34.Name = "pnPage34";
-            this.pnPage34.Size = new System.Drawing.Size(1435, 118);
-            this.pnPage34.TabIndex = 3;
-            // 
-            // pnPage31Pic
-            // 
-            this.pnPage31Pic.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnPage31Pic.Location = new System.Drawing.Point(0, 0);
-            this.pnPage31Pic.Name = "pnPage31Pic";
-            this.pnPage31Pic.Size = new System.Drawing.Size(422, 176);
-            this.pnPage31Pic.TabIndex = 0;
-            // 
-            // pnPage31Diag
-            // 
-            this.pnPage31Diag.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnPage31Diag.Location = new System.Drawing.Point(952, 0);
-            this.pnPage31Diag.Name = "pnPage31Diag";
-            this.pnPage31Diag.Size = new System.Drawing.Size(483, 176);
-            this.pnPage31Diag.TabIndex = 1;
-            // 
-            // pnPage32Pic
-            // 
-            this.pnPage32Pic.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnPage32Pic.Location = new System.Drawing.Point(0, 0);
-            this.pnPage32Pic.Name = "pnPage32Pic";
-            this.pnPage32Pic.Size = new System.Drawing.Size(422, 208);
-            this.pnPage32Pic.TabIndex = 1;
+            this.pnPage33Diag.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnPage33Diag.Location = new System.Drawing.Point(952, 0);
+            this.pnPage33Diag.Name = "pnPage33Diag";
+            this.pnPage33Diag.Size = new System.Drawing.Size(483, 213);
+            this.pnPage33Diag.TabIndex = 3;
             // 
             // pnPage33Pic
             // 
@@ -598,6 +597,16 @@ namespace bangna_hospital.gui
             this.pnPage33Pic.Size = new System.Drawing.Size(422, 213);
             this.pnPage33Pic.TabIndex = 2;
             // 
+            // pnPage32
+            // 
+            this.pnPage32.Controls.Add(this.pnPage32Diag);
+            this.pnPage32.Controls.Add(this.pnPage32Pic);
+            this.pnPage32.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnPage32.Location = new System.Drawing.Point(0, 176);
+            this.pnPage32.Name = "pnPage32";
+            this.pnPage32.Size = new System.Drawing.Size(1435, 208);
+            this.pnPage32.TabIndex = 1;
+            // 
             // pnPage32Diag
             // 
             this.pnPage32Diag.Dock = System.Windows.Forms.DockStyle.Right;
@@ -606,35 +615,147 @@ namespace bangna_hospital.gui
             this.pnPage32Diag.Size = new System.Drawing.Size(483, 208);
             this.pnPage32Diag.TabIndex = 2;
             // 
-            // pnPage33Diag
+            // pnPage32Pic
             // 
-            this.pnPage33Diag.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnPage33Diag.Location = new System.Drawing.Point(952, 0);
-            this.pnPage33Diag.Name = "pnPage33Diag";
-            this.pnPage33Diag.Size = new System.Drawing.Size(483, 213);
-            this.pnPage33Diag.TabIndex = 3;
+            this.pnPage32Pic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnPage32Pic.Location = new System.Drawing.Point(0, 0);
+            this.pnPage32Pic.Name = "pnPage32Pic";
+            this.pnPage32Pic.Size = new System.Drawing.Size(422, 208);
+            this.pnPage32Pic.TabIndex = 1;
             // 
-            // pnPage34Pic
+            // pnPage31
             // 
-            this.pnPage34Pic.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnPage34Pic.Location = new System.Drawing.Point(0, 0);
-            this.pnPage34Pic.Name = "pnPage34Pic";
-            this.pnPage34Pic.Size = new System.Drawing.Size(422, 118);
-            this.pnPage34Pic.TabIndex = 3;
+            this.pnPage31.Controls.Add(this.pnPage31Diag);
+            this.pnPage31.Controls.Add(this.pnPage31Pic);
+            this.pnPage31.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnPage31.Location = new System.Drawing.Point(0, 0);
+            this.pnPage31.Name = "pnPage31";
+            this.pnPage31.Size = new System.Drawing.Size(1435, 176);
+            this.pnPage31.TabIndex = 0;
             // 
-            // pnPage34Diag
+            // pnPage31Diag
             // 
-            this.pnPage34Diag.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnPage34Diag.Location = new System.Drawing.Point(952, 0);
-            this.pnPage34Diag.Name = "pnPage34Diag";
-            this.pnPage34Diag.Size = new System.Drawing.Size(483, 118);
-            this.pnPage34Diag.TabIndex = 4;
+            this.pnPage31Diag.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnPage31Diag.Location = new System.Drawing.Point(952, 0);
+            this.pnPage31Diag.Name = "pnPage31Diag";
+            this.pnPage31Diag.Size = new System.Drawing.Size(483, 176);
+            this.pnPage31Diag.TabIndex = 1;
+            // 
+            // pnPage31Pic
+            // 
+            this.pnPage31Pic.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnPage31Pic.Location = new System.Drawing.Point(0, 0);
+            this.pnPage31Pic.Name = "pnPage31Pic";
+            this.pnPage31Pic.Size = new System.Drawing.Size(422, 176);
+            this.pnPage31Pic.TabIndex = 0;
+            // 
+            // btnpage26Prn
+            // 
+            this.btnpage26Prn.Location = new System.Drawing.Point(1187, 36);
+            this.btnpage26Prn.Name = "btnpage26Prn";
+            this.btnpage26Prn.Size = new System.Drawing.Size(156, 33);
+            this.btnpage26Prn.TabIndex = 570;
+            this.btnpage26Prn.Text = "Print หน้าที่ 2 (6 รูป)";
+            this.btnpage26Prn.UseVisualStyleBackColor = true;
+            this.btnpage26Prn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
+            // c1DockingTabPage4
+            // 
+            this.c1DockingTabPage4.Controls.Add(this.pnPage26Diag);
+            this.c1DockingTabPage4.Controls.Add(this.panel2);
+            this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage4.Name = "c1DockingTabPage4";
+            this.c1DockingTabPage4.Size = new System.Drawing.Size(1435, 829);
+            this.c1DockingTabPage4.TabIndex = 3;
+            this.c1DockingTabPage4.Text = "หน้า2 (6 รูป)";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel5);
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1435, 767);
+            this.panel2.TabIndex = 0;
+            // 
+            // pnPage26Diag
+            // 
+            this.pnPage26Diag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPage26Diag.Location = new System.Drawing.Point(0, 767);
+            this.pnPage26Diag.Name = "pnPage26Diag";
+            this.pnPage26Diag.Size = new System.Drawing.Size(1435, 62);
+            this.pnPage26Diag.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.pnPage26Pic3);
+            this.panel4.Controls.Add(this.pnPage26Pic2);
+            this.panel4.Controls.Add(this.pnPage26Pic1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(719, 767);
+            this.panel4.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.pnPage26Pic6);
+            this.panel5.Controls.Add(this.pnPage26Pic5);
+            this.panel5.Controls.Add(this.pnPage26Pic4);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(719, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(716, 767);
+            this.panel5.TabIndex = 1;
+            // 
+            // pnPage26Pic2
+            // 
+            this.pnPage26Pic2.Location = new System.Drawing.Point(10, 256);
+            this.pnPage26Pic2.Name = "pnPage26Pic2";
+            this.pnPage26Pic2.Size = new System.Drawing.Size(432, 249);
+            this.pnPage26Pic2.TabIndex = 3;
+            // 
+            // pnPage26Pic1
+            // 
+            this.pnPage26Pic1.Location = new System.Drawing.Point(10, 4);
+            this.pnPage26Pic1.Name = "pnPage26Pic1";
+            this.pnPage26Pic1.Size = new System.Drawing.Size(432, 249);
+            this.pnPage26Pic1.TabIndex = 2;
+            // 
+            // pnPage26Pic5
+            // 
+            this.pnPage26Pic5.Location = new System.Drawing.Point(15, 256);
+            this.pnPage26Pic5.Name = "pnPage26Pic5";
+            this.pnPage26Pic5.Size = new System.Drawing.Size(432, 249);
+            this.pnPage26Pic5.TabIndex = 5;
+            // 
+            // pnPage26Pic4
+            // 
+            this.pnPage26Pic4.Location = new System.Drawing.Point(15, 4);
+            this.pnPage26Pic4.Name = "pnPage26Pic4";
+            this.pnPage26Pic4.Size = new System.Drawing.Size(432, 249);
+            this.pnPage26Pic4.TabIndex = 4;
+            // 
+            // pnPage26Pic3
+            // 
+            this.pnPage26Pic3.Location = new System.Drawing.Point(10, 511);
+            this.pnPage26Pic3.Name = "pnPage26Pic3";
+            this.pnPage26Pic3.Size = new System.Drawing.Size(432, 249);
+            this.pnPage26Pic3.TabIndex = 4;
+            // 
+            // pnPage26Pic6
+            // 
+            this.pnPage26Pic6.Location = new System.Drawing.Point(15, 511);
+            this.pnPage26Pic6.Name = "pnPage26Pic6";
+            this.pnPage26Pic6.Size = new System.Drawing.Size(432, 249);
+            this.pnPage26Pic6.TabIndex = 6;
             // 
             // FrmColposcopyReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1437, 888);
+            this.ClientSize = new System.Drawing.Size(1437, 1019);
             this.Controls.Add(this.c1SplitContainer1);
             this.Name = "FrmColposcopyReport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -662,14 +783,19 @@ namespace bangna_hospital.gui
             this.c1DockingTab1.ResumeLayout(false);
             this.c1DockingTabPage1.ResumeLayout(false);
             this.c1DockingTabPage2.ResumeLayout(false);
-            this.c1DockingTabPage3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.pnPage2PicLeft.ResumeLayout(false);
             this.pnPage2PicRight.ResumeLayout(false);
-            this.pnPage31.ResumeLayout(false);
-            this.pnPage32.ResumeLayout(false);
-            this.pnPage33.ResumeLayout(false);
+            this.pnPage2PicLeft.ResumeLayout(false);
+            this.c1DockingTabPage3.ResumeLayout(false);
             this.pnPage34.ResumeLayout(false);
+            this.pnPage33.ResumeLayout(false);
+            this.pnPage32.ResumeLayout(false);
+            this.pnPage31.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnpage26Prn)).EndInit();
+            this.c1DockingTabPage4.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -724,5 +850,17 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Panel pnPage34Pic;
         private System.Windows.Forms.Panel pnPage33Diag;
         private System.Windows.Forms.Panel pnPage32Diag;
+        private C1.Win.C1Input.C1Button btnpage26Prn;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage4;
+        private System.Windows.Forms.Panel pnPage26Diag;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel pnPage26Pic5;
+        private System.Windows.Forms.Panel pnPage26Pic4;
+        private System.Windows.Forms.Panel pnPage26Pic2;
+        private System.Windows.Forms.Panel pnPage26Pic1;
+        private System.Windows.Forms.Panel pnPage26Pic6;
+        private System.Windows.Forms.Panel pnPage26Pic3;
     }
 }

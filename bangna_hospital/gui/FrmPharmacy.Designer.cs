@@ -32,11 +32,13 @@
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStatus = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
+            this.ll1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.txtSBSearchHN = new C1.Win.C1Ribbon.RibbonTextBox();
             this.rbPttName = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnPrint = new C1.Win.C1Ribbon.RibbonButton();
             this.rbItemName = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnPrintStricker = new C1.Win.C1Ribbon.RibbonButton();
+            this.btnPrintStrickerEng = new C1.Win.C1Ribbon.RibbonButton();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
@@ -111,7 +113,27 @@
             this.spMedScanIPD = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.spMedScanImg = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnMedScan = new System.Windows.Forms.Panel();
-            this.btnPrintStrickerEng = new C1.Win.C1Ribbon.RibbonButton();
+            this.tabDrugProf = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer2 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.spDrugProfList = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.spDrugProfImages = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.spDrugProfPtt = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.lbPttAttachNote = new System.Windows.Forms.Label();
+            this.lbVN = new System.Windows.Forms.Label();
+            this.lbPttAge = new System.Windows.Forms.Label();
+            this.lbPttFinNote = new System.Windows.Forms.Label();
+            this.txtPttHN = new C1.Win.C1Input.C1TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lbPttNameT = new System.Windows.Forms.Label();
+            this.spDrugProfPttDrug = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.tabDrugProfPttDrug = new C1.Win.C1Command.C1DockingTab();
+            this.tabPttDrugProfile = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnDrugProfile = new System.Windows.Forms.Panel();
+            this.tabpttAllergy = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnDrugAllergy = new System.Windows.Forms.Panel();
+            this.tabpttChronic = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnChronic = new System.Windows.Forms.Panel();
+            this.lbAdmitDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
@@ -164,6 +186,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).BeginInit();
             this.spMedScan.SuspendLayout();
             this.spMedScanImg.SuspendLayout();
+            this.tabDrugProf.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).BeginInit();
+            this.c1SplitContainer2.SuspendLayout();
+            this.spDrugProfPtt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttHN)).BeginInit();
+            this.spDrugProfPttDrug.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabDrugProfPttDrug)).BeginInit();
+            this.tabDrugProfPttDrug.SuspendLayout();
+            this.tabPttDrugProfile.SuspendLayout();
+            this.tabpttAllergy.SuspendLayout();
+            this.tabpttChronic.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -172,6 +205,7 @@
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbStation);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbStatus);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbMessage);
+            this.c1StatusBar1.LeftPaneItems.Add(this.ll1);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 794);
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.txtSBSearchHN);
@@ -201,6 +235,11 @@
             this.lfSbMessage.Name = "lfSbMessage";
             this.lfSbMessage.Text = "lfSbMessage";
             // 
+            // ll1
+            // 
+            this.ll1.Name = "ll1";
+            this.ll1.Text = "Label";
+            // 
             // txtSBSearchHN
             // 
             this.txtSBSearchHN.Label = "HN:";
@@ -227,6 +266,12 @@
             this.btnPrintStricker.Name = "btnPrintStricker";
             this.btnPrintStricker.SmallImage = global::bangna_hospital.Properties.Resources.printer_orange24;
             this.btnPrintStricker.Text = "พิมพ์ Sticker ยา";
+            // 
+            // btnPrintStrickerEng
+            // 
+            this.btnPrintStrickerEng.Name = "btnPrintStrickerEng";
+            this.btnPrintStrickerEng.SmallImage = global::bangna_hospital.Properties.Resources.printer_green16;
+            this.btnPrintStrickerEng.Text = "พิมพ์ Stricker Eng";
             // 
             // rb1
             // 
@@ -256,6 +301,7 @@
             this.tC1.Controls.Add(this.tabOPD);
             this.tC1.Controls.Add(this.tabDispensingOPD);
             this.tC1.Controls.Add(this.tabMedScan);
+            this.tC1.Controls.Add(this.tabDrugProf);
             this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
@@ -986,11 +1032,225 @@
             this.pnMedScan.Size = new System.Drawing.Size(1238, 746);
             this.pnMedScan.TabIndex = 0;
             // 
-            // btnPrintStrickerEng
+            // tabDrugProf
             // 
-            this.btnPrintStrickerEng.Name = "btnPrintStrickerEng";
-            this.btnPrintStrickerEng.SmallImage = global::bangna_hospital.Properties.Resources.printer_green16;
-            this.btnPrintStrickerEng.Text = "พิมพ์ Stricker Eng";
+            this.tabDrugProf.Controls.Add(this.c1SplitContainer2);
+            this.tabDrugProf.Location = new System.Drawing.Point(1, 26);
+            this.tabDrugProf.Name = "tabDrugProf";
+            this.tabDrugProf.Size = new System.Drawing.Size(1576, 767);
+            this.tabDrugProf.TabIndex = 5;
+            this.tabDrugProf.Text = "Drug Profile";
+            // 
+            // c1SplitContainer2
+            // 
+            this.c1SplitContainer2.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer2.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer2.Name = "c1SplitContainer2";
+            this.c1SplitContainer2.Panels.Add(this.spDrugProfList);
+            this.c1SplitContainer2.Panels.Add(this.spDrugProfImages);
+            this.c1SplitContainer2.Panels.Add(this.spDrugProfPtt);
+            this.c1SplitContainer2.Panels.Add(this.spDrugProfPttDrug);
+            this.c1SplitContainer2.Size = new System.Drawing.Size(1576, 767);
+            this.c1SplitContainer2.TabIndex = 0;
+            // 
+            // spDrugProfList
+            // 
+            this.spDrugProfList.Collapsible = true;
+            this.spDrugProfList.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.spDrugProfList.Location = new System.Drawing.Point(0, 21);
+            this.spDrugProfList.Name = "spDrugProfList";
+            this.spDrugProfList.Size = new System.Drawing.Size(458, 746);
+            this.spDrugProfList.SizeRatio = 29.58D;
+            this.spDrugProfList.TabIndex = 0;
+            this.spDrugProfList.Text = "Panel 1";
+            this.spDrugProfList.Width = 465;
+            // 
+            // spDrugProfImages
+            // 
+            this.spDrugProfImages.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            this.spDrugProfImages.Location = new System.Drawing.Point(1032, 21);
+            this.spDrugProfImages.Name = "spDrugProfImages";
+            this.spDrugProfImages.Size = new System.Drawing.Size(544, 746);
+            this.spDrugProfImages.SizeRatio = 49.32D;
+            this.spDrugProfImages.TabIndex = 3;
+            this.spDrugProfImages.Text = "Images";
+            this.spDrugProfImages.Width = 544;
+            // 
+            // spDrugProfPtt
+            // 
+            this.spDrugProfPtt.Controls.Add(this.lbAdmitDate);
+            this.spDrugProfPtt.Controls.Add(this.lbPttAttachNote);
+            this.spDrugProfPtt.Controls.Add(this.lbVN);
+            this.spDrugProfPtt.Controls.Add(this.lbPttAge);
+            this.spDrugProfPtt.Controls.Add(this.lbPttFinNote);
+            this.spDrugProfPtt.Controls.Add(this.txtPttHN);
+            this.spDrugProfPtt.Controls.Add(this.label8);
+            this.spDrugProfPtt.Controls.Add(this.lbPttNameT);
+            this.spDrugProfPtt.Height = 147;
+            this.spDrugProfPtt.Location = new System.Drawing.Point(469, 21);
+            this.spDrugProfPtt.Name = "spDrugProfPtt";
+            this.spDrugProfPtt.Size = new System.Drawing.Size(559, 126);
+            this.spDrugProfPtt.SizeRatio = 19.266D;
+            this.spDrugProfPtt.TabIndex = 1;
+            this.spDrugProfPtt.Text = "Panel 2";
+            // 
+            // lbPttAttachNote
+            // 
+            this.lbPttAttachNote.AutoSize = true;
+            this.lbPttAttachNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPttAttachNote.Location = new System.Drawing.Point(4, 58);
+            this.lbPttAttachNote.Name = "lbPttAttachNote";
+            this.lbPttAttachNote.Size = new System.Drawing.Size(106, 20);
+            this.lbPttAttachNote.TabIndex = 285;
+            this.lbPttAttachNote.Text = "attach note ...";
+            // 
+            // lbVN
+            // 
+            this.lbVN.AutoSize = true;
+            this.lbVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbVN.ForeColor = System.Drawing.Color.Red;
+            this.lbVN.Location = new System.Drawing.Point(503, 38);
+            this.lbVN.Name = "lbVN";
+            this.lbVN.Size = new System.Drawing.Size(36, 20);
+            this.lbVN.TabIndex = 284;
+            this.lbVN.Text = "age";
+            // 
+            // lbPttAge
+            // 
+            this.lbPttAge.AutoSize = true;
+            this.lbPttAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPttAge.Location = new System.Drawing.Point(396, 37);
+            this.lbPttAge.Name = "lbPttAge";
+            this.lbPttAge.Size = new System.Drawing.Size(36, 20);
+            this.lbPttAge.TabIndex = 283;
+            this.lbPttAge.Text = "age";
+            // 
+            // lbPttFinNote
+            // 
+            this.lbPttFinNote.AutoSize = true;
+            this.lbPttFinNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPttFinNote.Location = new System.Drawing.Point(172, 6);
+            this.lbPttFinNote.Name = "lbPttFinNote";
+            this.lbPttFinNote.Size = new System.Drawing.Size(69, 20);
+            this.lbPttFinNote.TabIndex = 282;
+            this.lbPttFinNote.Text = "Fin Note";
+            // 
+            // txtPttHN
+            // 
+            this.txtPttHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttHN.Location = new System.Drawing.Point(38, 3);
+            this.txtPttHN.Name = "txtPttHN";
+            this.txtPttHN.ReadOnly = true;
+            this.txtPttHN.Size = new System.Drawing.Size(128, 27);
+            this.txtPttHN.TabIndex = 280;
+            this.txtPttHN.TabStop = false;
+            this.txtPttHN.Tag = null;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label8.Location = new System.Drawing.Point(4, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(32, 20);
+            this.label8.TabIndex = 279;
+            this.label8.Text = "HN";
+            // 
+            // lbPttNameT
+            // 
+            this.lbPttNameT.AutoSize = true;
+            this.lbPttNameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPttNameT.Location = new System.Drawing.Point(3, 33);
+            this.lbPttNameT.Name = "lbPttNameT";
+            this.lbPttNameT.Size = new System.Drawing.Size(35, 25);
+            this.lbPttNameT.TabIndex = 281;
+            this.lbPttNameT.Text = "ชื่อ";
+            // 
+            // spDrugProfPttDrug
+            // 
+            this.spDrugProfPttDrug.Controls.Add(this.tabDrugProfPttDrug);
+            this.spDrugProfPttDrug.Height = 616;
+            this.spDrugProfPttDrug.Location = new System.Drawing.Point(469, 172);
+            this.spDrugProfPttDrug.Name = "spDrugProfPttDrug";
+            this.spDrugProfPttDrug.Size = new System.Drawing.Size(559, 595);
+            this.spDrugProfPttDrug.TabIndex = 2;
+            this.spDrugProfPttDrug.Text = "Panel 3";
+            // 
+            // tabDrugProfPttDrug
+            // 
+            this.tabDrugProfPttDrug.Controls.Add(this.tabPttDrugProfile);
+            this.tabDrugProfPttDrug.Controls.Add(this.tabpttAllergy);
+            this.tabDrugProfPttDrug.Controls.Add(this.tabpttChronic);
+            this.tabDrugProfPttDrug.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabDrugProfPttDrug.Location = new System.Drawing.Point(0, 0);
+            this.tabDrugProfPttDrug.Name = "tabDrugProfPttDrug";
+            this.tabDrugProfPttDrug.Size = new System.Drawing.Size(559, 595);
+            this.tabDrugProfPttDrug.TabIndex = 0;
+            this.tabDrugProfPttDrug.TabsSpacing = 5;
+            this.tabDrugProfPttDrug.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
+            // 
+            // tabPttDrugProfile
+            // 
+            this.tabPttDrugProfile.Controls.Add(this.pnDrugProfile);
+            this.tabPttDrugProfile.Location = new System.Drawing.Point(1, 26);
+            this.tabPttDrugProfile.Name = "tabPttDrugProfile";
+            this.tabPttDrugProfile.Size = new System.Drawing.Size(557, 568);
+            this.tabPttDrugProfile.TabIndex = 0;
+            this.tabPttDrugProfile.Text = "Drug Profile";
+            // 
+            // pnDrugProfile
+            // 
+            this.pnDrugProfile.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDrugProfile.Location = new System.Drawing.Point(0, 0);
+            this.pnDrugProfile.Name = "pnDrugProfile";
+            this.pnDrugProfile.Size = new System.Drawing.Size(557, 568);
+            this.pnDrugProfile.TabIndex = 3;
+            // 
+            // tabpttAllergy
+            // 
+            this.tabpttAllergy.Controls.Add(this.pnDrugAllergy);
+            this.tabpttAllergy.Location = new System.Drawing.Point(1, 26);
+            this.tabpttAllergy.Name = "tabpttAllergy";
+            this.tabpttAllergy.Size = new System.Drawing.Size(557, 568);
+            this.tabpttAllergy.TabIndex = 1;
+            this.tabpttAllergy.Text = "Allergy";
+            // 
+            // pnDrugAllergy
+            // 
+            this.pnDrugAllergy.Location = new System.Drawing.Point(7, 18);
+            this.pnDrugAllergy.Name = "pnDrugAllergy";
+            this.pnDrugAllergy.Size = new System.Drawing.Size(200, 100);
+            this.pnDrugAllergy.TabIndex = 0;
+            // 
+            // tabpttChronic
+            // 
+            this.tabpttChronic.Controls.Add(this.pnChronic);
+            this.tabpttChronic.Location = new System.Drawing.Point(1, 26);
+            this.tabpttChronic.Name = "tabpttChronic";
+            this.tabpttChronic.Size = new System.Drawing.Size(557, 568);
+            this.tabpttChronic.TabIndex = 2;
+            this.tabpttChronic.Text = "Chronic";
+            // 
+            // pnChronic
+            // 
+            this.pnChronic.Location = new System.Drawing.Point(7, 15);
+            this.pnChronic.Name = "pnChronic";
+            this.pnChronic.Size = new System.Drawing.Size(200, 100);
+            this.pnChronic.TabIndex = 0;
+            // 
+            // lbAdmitDate
+            // 
+            this.lbAdmitDate.AutoSize = true;
+            this.lbAdmitDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAdmitDate.Location = new System.Drawing.Point(297, 37);
+            this.lbAdmitDate.Name = "lbAdmitDate";
+            this.lbAdmitDate.Size = new System.Drawing.Size(36, 20);
+            this.lbAdmitDate.TabIndex = 286;
+            this.lbAdmitDate.Text = "age";
             // 
             // FrmPharmacy
             // 
@@ -1056,6 +1316,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).EndInit();
             this.spMedScan.ResumeLayout(false);
             this.spMedScanImg.ResumeLayout(false);
+            this.tabDrugProf.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).EndInit();
+            this.c1SplitContainer2.ResumeLayout(false);
+            this.spDrugProfPtt.ResumeLayout(false);
+            this.spDrugProfPtt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttHN)).EndInit();
+            this.spDrugProfPttDrug.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabDrugProfPttDrug)).EndInit();
+            this.tabDrugProfPttDrug.ResumeLayout(false);
+            this.tabPttDrugProfile.ResumeLayout(false);
+            this.tabpttAllergy.ResumeLayout(false);
+            this.tabpttChronic.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1147,5 +1419,27 @@
         private System.Windows.Forms.Panel pnMedScan;
         private C1.Win.C1Ribbon.RibbonTextBox txtSBSearchHN;
         private C1.Win.C1Ribbon.RibbonButton btnPrintStrickerEng;
+        private C1.Win.C1Ribbon.RibbonLabel ll1;
+        private C1.Win.C1Command.C1DockingTabPage tabDrugProf;
+        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer2;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spDrugProfList;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spDrugProfPtt;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spDrugProfPttDrug;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spDrugProfImages;
+        private System.Windows.Forms.Label lbPttFinNote;
+        private C1.Win.C1Input.C1TextBox txtPttHN;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lbPttNameT;
+        private System.Windows.Forms.Label lbVN;
+        private System.Windows.Forms.Label lbPttAge;
+        private System.Windows.Forms.Label lbPttAttachNote;
+        private C1.Win.C1Command.C1DockingTab tabDrugProfPttDrug;
+        private C1.Win.C1Command.C1DockingTabPage tabPttDrugProfile;
+        private C1.Win.C1Command.C1DockingTabPage tabpttAllergy;
+        private C1.Win.C1Command.C1DockingTabPage tabpttChronic;
+        private System.Windows.Forms.Panel pnDrugAllergy;
+        private System.Windows.Forms.Panel pnDrugProfile;
+        private System.Windows.Forms.Panel pnChronic;
+        private System.Windows.Forms.Label lbAdmitDate;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.object1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -100,6 +101,7 @@ namespace bangna_hospital.gui
             }
 
             rb1.Text = "เริ่มส่ง Email";
+            new LogWriter("d", "FrmAipn BtnSendEmail_Click เริ่มส่ง Email pathFile "+ pathFile);
             MailMessage mail = new MailMessage();
 
             //txtEmailSubject.Value = "Routine LAB Result HN " + txtHn.Text.ToUpper() + " Name " + txtPttNameE.Text + " [VN " + txtVnShow.Text + "] Hormone Report Date " + System.DateTime.Now.ToString("dd/MM/") + System.DateTime.Now.Year;
@@ -124,19 +126,18 @@ namespace bangna_hospital.gui
             }
             //AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
             //mail.AlternateViews.Add(htmlView);
-
+            new LogWriter("d", "FrmAipn BtnSendEmail_Click SmtpServer " + bc.iniC.EmailAuthUserAIPN+ " bc.iniC.EmailAuthPassAIPN " + bc.iniC.EmailAuthPassAIPN);
             SmtpServer = new SmtpClient("smtp.gmail.com");
             SmtpServer.Port = 587;
             SmtpServer.Credentials = new NetworkCredential(bc.iniC.EmailAuthUserAIPN, bc.iniC.EmailAuthPassAIPN);
             SmtpServer.EnableSsl = true;
             SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-
+            new LogWriter("d", "FrmAipn BtnSendEmail_Click SmtpServer.Send(mail) ");
             SmtpServer.Send(mail);
             rb1.Text = "ส่ง Email เรียบร้อย";
             btnSendEmail.Enabled = true;
             hideLbLoading();
         }
-
         private void BtnOpenXML_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -148,7 +149,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             setLbLoading("เตรียม บิล");
             showLbLoading();
-            String sessionno = bc.genAipnFile(txtAuthorName.Text.Trim(), txtAn.Text.Trim(), cboSubMType.Text, ChkAn.Checked, chkNoAdd.Checked);
+            String sessionno = bc.genAipnFile(txtAuthorName.Text.Trim(), txtAn.Text.Trim(), cboSubMType.Text, ChkAn.Checked, chkNoAdd.Checked, chkAnNew.Checked);
             txtSessionNO.Text = sessionno;
             hideLbLoading();
         }
@@ -170,7 +171,7 @@ namespace bangna_hospital.gui
         }
         private void FrmAipn_Load(object sender, EventArgs e)
         {
-            this.Text = "last Update 2023-04-12 update session on";
+            this.Text = "last Update 2024-07-10-1 แก้ AN แบบ บาง1 update session on";
             txtFrom.Text = bc.iniC.EmailFromAIPN;
             txtTO.Text = bc.iniC.EmailToAIPN;
             txtSubject.Text = bc.iniC.EmailSubjectAIPN;

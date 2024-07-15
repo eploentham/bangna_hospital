@@ -46,6 +46,19 @@ namespace bangna_hospital.object1
             txt += "</ClaimAuth>" + Environment.NewLine;
             return txt;
         }
+        public String genPrefixAN(String an1)
+        {
+            String[] anno = an1.Split('.');
+            String ancnt = "", prefixAn = "", anno1="";
+            anno1 = "000000" + anno[0];
+            anno1 = anno1.Substring(anno1.Length - 6);
+            //new LogWriter("d", "genPrefixAN an1[1] " + anno[1]);
+            ancnt = "0000" + anno[1];
+            ancnt = ancnt.Substring(ancnt.Length - 4);
+            //new LogWriter("d", "genPrefixAN ancnt " + ancnt);
+            prefixAn = anno1 + "" + ancnt;
+            return prefixAn;
+        }
         public String genPrefixAN(String an, String ancnt1)
         {
             String anno = "", ancnt="", prefixAn="";

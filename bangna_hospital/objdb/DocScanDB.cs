@@ -1352,7 +1352,6 @@ namespace bangna_hospital.objdb
                 sql = ex.Message + " " + ex.InnerException;
                 //new LogWriter("e", "voidDocScan " + sql);
             }
-
             return re;
         }
         public String voidDocScanByStatusMedicalExamination(String hn, String mlfm, String vsdate, String preno, String userId)
@@ -1380,7 +1379,6 @@ namespace bangna_hospital.objdb
                 sql = ex.Message + " " + ex.InnerException;
                 //new LogWriter("e", "voidDocScan " + sql);
             }
-
             return re;
         }
         public String voidDocScanCertMed(String id, String userId)
@@ -1405,7 +1403,6 @@ namespace bangna_hospital.objdb
                 sql = ex.Message + " " + ex.InnerException;
                 //new LogWriter("e", "voidDocScan " + sql);
             }
-
             return re;
         }
         public String voidDocScan1(String id, String userId)

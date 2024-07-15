@@ -114,7 +114,7 @@ namespace bangna_hospital.object1
                 //age = new Age(dtB);
                 if (dtB.Year < 1900)        //  แต่เป็น  ค.ศ. และปีเป็นน้อยกว่า 1900
                 {
-                    dtB.AddYears(543);
+                    //dtB.AddYears(543);
                     DateTime dt = new DateTime(dtB.Year + 543, dtB.Month, dtB.Day);
                     dtB = dt;
                 }
@@ -132,7 +132,7 @@ namespace bangna_hospital.object1
                 //age = new Age(dtB);
                 if (dtB.Year < 1900)        //  แต่เป็น  ค.ศ. และปีเป็นน้อยกว่า 1900
                 {
-                    dtB.AddYears(543);
+                    //dtB.AddYears(543);
                     DateTime dt = new DateTime(dtB.Year + 543, dtB.Month, dtB.Day);
                     dtB = dt;
                 }
@@ -150,7 +150,7 @@ namespace bangna_hospital.object1
                 //age = new Age(dtB);
                 if (dtB.Year < 1900)        //  แต่เป็น  ค.ศ. และปีเป็นน้อยกว่า 1900
                 {
-                    dtB.AddYears(543);
+                    //dtB.AddYears(543);
                     DateTime dt = new DateTime(dtB.Year + 543, dtB.Month, dtB.Day);
                     dtB = dt;
                 }

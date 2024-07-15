@@ -178,7 +178,7 @@ namespace bangna_hospital.objdb
             {
                 wheresessionno = " and sessionno = '' ";// รายการใหม่
             }
-            String sql = "select aipn.aipn_id, aipn.an_no, aipn.an_cnt " +
+            String sql = "select aipn.aipn_id, aipn.an_no, aipn.an_cnt, an_1 " +
                 "From aipn_t_aipn  aipn " +
                 " Where aipn.status_send = '1' " +wheresessionno+" "
                 +"Order By aipn.aipn_id ";

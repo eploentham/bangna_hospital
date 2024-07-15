@@ -246,6 +246,34 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
+        public DataTable selectDrugProfileByAN(String anno, String ancnt)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereitem = "";
+            sql = "Select pharm01.MNC_PH_TN , pharm01.MNC_PH_THAI, phart06.MNC_PH_CD   " +
+                "From " + pharT06.table + " phart06 " +
+                "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
+                "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
+                "Where phart05.MNC_AN_NO = '" + anno + "' and phart05.MNC_AN_YR = '" + ancnt + "' "+
+                "  and pharm01.mnc_ph_typ_flg = 'P' " +
+                "Group By phart06.MNC_PH_CD ,pharm01.MNC_PH_TN,pharm01.MNC_PH_THAI ";
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectDrugProfileByAN(String anno, String ancnt, String drugcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereitem = "";
+            sql = "Select pharm01.MNC_PH_TN , pharm01.MNC_PH_THAI, phart06.MNC_PH_CD,phart06.MNC_PH_QTY_PAID ,convert(varchar(20),phart06.MNC_CFR_DAT,23) as MNC_CFR_DAT,phart05.MNC_REQ_TIM  " +
+                "From " + pharT06.table + " phart06 " +
+                "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
+                "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
+                "Where phart05.MNC_AN_NO = '" + anno + "' and phart05.MNC_AN_YR = '" + ancnt + "' " +
+                "  and pharm01.mnc_ph_typ_flg = 'P' and phart06.MNC_PH_CD = '" + drugcode + "' " +
+                "Order By phart06.MNC_CFR_DAT,phart06.MNC_CFR_NO ";
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public DataTable selectByCFRNoDrug(String flagOPD)
         {
             DataTable dt = new DataTable();

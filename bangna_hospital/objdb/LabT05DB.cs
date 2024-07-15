@@ -41,6 +41,31 @@ namespace bangna_hospital.objdb
             labT05.table = "lab_t05";
 
         }
+        public DataTable selectResultDate(String reqdate)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            sql = "SELECT labt01.MNC_REQ_NO,convert(VARCHAR(20),labt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,labt01.MNC_HN_NO,labt01.MNC_REQ_TIM,labt01.MNC_REQ_DEP " +
+                ",isnull(labt01.MNC_AN_NO,'') as MNC_AN_NO,isnull(labt01.MNC_AN_YR,'') as MNC_AN_YR " +
+                ", ptt01.MNC_VN_SEQ, ptt01.MNC_VN_SUM, ptt01.MNC_VN_NO " +
+                ", pm02.MNC_PFIX_DSC + ' '+ pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as pttfullnamet,pm01.MNC_SEX,labt01.MNC_FN_TYP_CD " +
+                ", userm01dtr.MNC_USR_FULL as dtrname,isnull(labt01.MNC_EMPC_CD,'') as MNC_EMPC_CD " +
+                "FROM  LAB_T01 labt01 " +
+                "left join PATIENT_T01 ptt01 on labt01.MNC_HN_NO = ptt01.MNC_HN_NO and labt01.MNC_PRE_NO = ptt01.MNC_PRE_NO and labt01.MNC_DATE = ptt01.MNC_DATE " +
+                
+                "inner join patient_m01 pm01 on labt01.mnc_hn_no = pm01.mnc_hn_no and labt01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Left Join USERLOG_M01 userm01dtr on labt01.MNC_ORD_DOT = userm01dtr.MNC_USR_NAME " +
+                "where labt02.MNC_RESULT_DAT is not null " +              //ผลพึ่งออก
+                "and labt02.mnc_req_sts = 'O'  " +                      //O  comfirm เรียบร้อย ยังไม่พิมพ์  mnc_req_sts เป็นค่าว่าง = request นั้น รอ รับทำการ,A=รับทำการแล้ว,O=confirm เรียบร้อย, Q=comfirm เรียบร้อย พิมพ์เรียบร้อย
+                "and labt01.mnc_req_sts <> 'C' " +
+                "and labt01.MNC_REQ_DAT = '" + reqdate + "' " +     //pt08.MNC_SEC_NO = PATIENT_M32.MNC_SEC_NO and pt08.MNC_WD_NO = PATIENT_M32.MNC_MD_DEP_NO
+                "and labm01.MNC_LB_GRP_CD != 'BL' " +               // Blood Bank ไม่ต้องพิมพ์
+                "Order By labt02.MNC_REQ_DAT,labt02.MNC_REQ_NO,labt02.MNC_LB_CD ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public DataTable selectRequestLabNotPrnbyDeptNo(String deptcode)
         {
             String sql = "";
@@ -50,13 +75,15 @@ namespace bangna_hospital.objdb
                 ", ptt01.MNC_VN_SEQ, ptt01.MNC_VN_SUM, ptt01.MNC_VN_NO " +
                 "FROM  LAB_T01 labt01 " +
                 "left join LAB_T02 labt02 ON labt01.MNC_REQ_NO = labt02.MNC_REQ_NO AND labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
-                "left join PATIENT_T01 ptt01 on labt01.MNC_HN_NO = ptt01.MNC_HN_NO and labt01.MNC_PRE_NO = ptt01.MNC_HN_NO and labt01.MNC_DATE = ptt01.MNC_DATE " +
-                "left join LAB_m06 labm06 ON labt02.MNC_MNC_LB_GRP_CD = labm06.MNC_LB_GRP_CD " +
+                "left join PATIENT_T01 ptt01 on labt01.MNC_HN_NO = ptt01.MNC_HN_NO and labt01.MNC_PRE_NO = ptt01.MNC_PRE_NO and labt01.MNC_DATE = ptt01.MNC_DATE " +
+                "left join LAB_M01 labm01 on labt02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                //"left join LAB_m06 labm06 ON labm01.MNC_MNC_LB_GRP_CD = labm06.MNC_LB_GRP_CD " +
                 "where labt01.status_print_result_no is null  " +      //ยังไม่ได้พิมพ์
                 "and labt02.MNC_RESULT_DAT is not null " +              //ผลพึ่งออก
-                "and labt02.mnc_req_sts <> 'C'  and labt01.mnc_req_sts <> 'C' " +
+                "and labt02.mnc_req_sts = 'O'  " +                      //O  comfirm เรียบร้อย ยังไม่พิมพ์  mnc_req_sts เป็นค่าว่าง = request นั้น รอ รับทำการ,A=รับทำการแล้ว,O=confirm เรียบร้อย, Q=comfirm เรียบร้อย พิมพ์เรียบร้อย
+                "and labt01.mnc_req_sts <> 'C' " +                       // ให้ดึงที่เป็น O
                 "and labt01.MNC_REQ_DEP = '" + deptcode+"' " +     //pt08.MNC_SEC_NO = PATIENT_M32.MNC_SEC_NO and pt08.MNC_WD_NO = PATIENT_M32.MNC_MD_DEP_NO
-                "and labm06.MNC_LB_GRP_CD != 'BL' " +               // Blood Bank ไม่ต้องพิมพ์
+                "and labm01.MNC_LB_GRP_CD != 'BL' " +               // Blood Bank ไม่ต้องพิมพ์
                 "Order By labt02.MNC_REQ_DAT,labt02.MNC_REQ_NO,labt02.MNC_LB_CD ";
 
             dt = conn.selectData(sql);
@@ -66,31 +93,33 @@ namespace bangna_hospital.objdb
         {
             String sql = "";
             DataTable dt = new DataTable();
-            sql = "SELECT labt02.MNC_LB_CD, LAB_M01.MNC_LB_DSC, labt05.MNC_RES_VALUE, labt05.MNC_STS, labt05.MNC_RES, labt05.MNC_RES_UNT, labt05.MNC_LB_RES,convert(VARCHAR(20),labt05.mnc_req_dat,23) as mnc_req_dat, labt05.mnc_res" +
-                ", labt05.mnc_req_no ,fn02.MNC_FN_TYP_DSC, labt01.mnc_req_yr,patient_m02.MNC_PFIX_DSC + ' ' + patient_m26.MNC_DOT_FNAME + ' ' + patient_m26.MNC_DOT_LNAME as dtr_name" +
-                ",convert(VARCHAR(20),labt05.MNC_STAMP_DAT) as MNC_STAMP_DAT, labt05.MNC_LB_USR, labt01.mnc_dot_cd,labt01.MNC_REQ_DEP,lab_m01.MNC_LB_DSC, lab_m06.MNC_LB_GRP_DSC, lab_m07.MNC_LB_TYP_DSC " +
+            sql = "SELECT labt02.MNC_LB_CD, labm01.MNC_LB_DSC as mnc_lb_dsc, labt05.MNC_RES_VALUE, labt05.MNC_STS, labt05.MNC_RES, labt05.MNC_RES_UNT, labt05.MNC_LB_RES as mnc_lb_res,convert(VARCHAR(20),labt05.mnc_req_dat,23) as mnc_req_dat " +
+                ", labt05.mnc_req_no ,fn02.MNC_FN_TYP_DSC, labt01.mnc_req_yr,isnull(patient_m02.MNC_PFIX_DSC,'') + ' ' + isnull(patient_m26.MNC_DOT_FNAME,'') + ' ' + isnull(patient_m26.MNC_DOT_LNAME,'') as dtr_name" +
+                ",convert(VARCHAR(20),labt05.MNC_STAMP_DAT) as MNC_STAMP_DAT,labt05.MNC_STAMP_TIM" +
+                ", labt05.MNC_LB_USR, isnull(labt01.mnc_dot_cd,'') as mnc_dot_cd,isnull(labt01.MNC_REQ_DEP,'') as MNC_REQ_DEP, labm06.MNC_LB_GRP_DSC, lab_m07.MNC_LB_TYP_DSC " +
                 ", convert(VARCHAR(20),labt02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT,labt02.MNC_RESULT_TIM " +
                 ",usr_result.MNC_USR_NAME as MNC_USR_NAME_result,usr_result.MNC_USR_FULL as user_lab" +
                 ",usr_report.MNC_USR_NAME as MNC_USR_NAME_report,usr_report.MNC_USR_FULL as user_report" +
                 ",usr_approve.MNC_USR_NAME as MNC_USR_NAME_approve,usr_approve.MNC_USR_FULL as user_check" +
-                ", '' as hostname " +
+                ", '' as hostname,'' as mnc_lb_grp_cd " +
+                ",isnull(labt01.MNC_AN_NO,'') as MNC_AN_NO,isnull(labt01.MNC_AN_YR,'') as MNC_AN_YR,labt05.MNC_LB_RES_CD " +
                 "FROM  LAB_T01 labt01  " +
                 "left join LAB_T02 labt02 ON labt01.MNC_REQ_NO = labt02.MNC_REQ_NO AND labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
                 "left join LAB_T05 labt05 ON labt01.MNC_REQ_NO = labt05.MNC_REQ_NO AND labt01.MNC_REQ_DAT = labt05.MNC_REQ_DAT and labt02.MNC_LB_CD = labt05.MNC_LB_CD " +
-                "left join LAB_M01 ON labt02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
-                "left join lab_m06 on LAB_M01.MNC_LB_GRP_CD = lab_m06.MNC_LB_GRP_CD " +
-                "inner join lab_m07 on lab_m01.MNC_LB_GRP_CD =lab_m07.MNC_LB_GRP_CD  AND lab_m01.MNC_LB_TYP_CD = lab_m07.MNC_LB_TYP_CD " +
+                "left join LAB_M01 labm01 ON labt02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                "left join lab_m06 labm06 on labm01.MNC_LB_GRP_CD = labm06.MNC_LB_GRP_CD " +
+                "inner join lab_m07 on labm01.MNC_LB_GRP_CD =lab_m07.MNC_LB_GRP_CD  AND labm01.MNC_LB_TYP_CD = lab_m07.MNC_LB_TYP_CD " +
                 " inner join patient_m26 on labt01.mnc_dot_cd = patient_m26.MNC_DOT_CD " +
                 " inner join patient_m02 on patient_m26.MNC_DOT_PFIX =patient_m02.MNC_PFIX_CD " +
                 "Left Join finance_m02 fn02 on labt01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
                 "left join userlog_m01 usr_result on usr_result.MNC_USR_NAME = labt02.mnc_usr_result " +
                 "left join userlog_m01 usr_report on usr_report.MNC_USR_NAME = labt02.mnc_usr_result_report " +
                 "left join userlog_m01 usr_approve on usr_approve.MNC_USR_NAME = labt02.mnc_usr_result_approve " +
-                
                 "where labt01.MNC_REQ_NO = '" + reqno + "'  " +
                 "and labt01.MNC_REQ_DAT = '" + reqdate + "' " +
-                "and labt02.mnc_req_sts <> 'C'  and labt01.mnc_req_sts <> 'C'" +
-                "Order By labt05.MNC_REQ_DAT,labt05.MNC_REQ_NO,labt05.MNC_LB_CD,labt05.MNC_LB_RES_CD ";
+                "and labt02.mnc_req_sts <> 'C'  and labt01.mnc_req_sts <> 'C' " +
+                "and labm01.status_outlab <> '1' " + //outlab ไม่ต้องพิมพ์
+                "Order By labt05.MNC_REQ_DAT,labt05.MNC_REQ_NO,labt05.MNC_LB_CD,convert(int,labt05.MNC_LB_RES_CD) ";
 
             dt = conn.selectData(sql);
             return dt;

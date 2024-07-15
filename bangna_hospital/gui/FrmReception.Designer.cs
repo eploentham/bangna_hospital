@@ -52,7 +52,7 @@ namespace bangna_hospital.gui
             this.sCPtt = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnPttPatient = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.btnPttPaid = new C1.Win.C1Input.C1Button();
-            this.c1Button1 = new C1.Win.C1Input.C1Button();
+            this.btnPttSsnCopy = new C1.Win.C1Input.C1Button();
             this.txtPttPassportOld = new C1.Win.C1Input.C1TextBox();
             this.label69 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
@@ -314,7 +314,7 @@ namespace bangna_hospital.gui
             this.sCPtt.SuspendLayout();
             this.pnPttPatient.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttPaid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttSsnCopy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttPassportOld)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttRef1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttPaid)).BeginInit();
@@ -670,7 +670,7 @@ namespace bangna_hospital.gui
             // 
             this.pnPttPatient.Collapsible = true;
             this.pnPttPatient.Controls.Add(this.btnPttPaid);
-            this.pnPttPatient.Controls.Add(this.c1Button1);
+            this.pnPttPatient.Controls.Add(this.btnPttSsnCopy);
             this.pnPttPatient.Controls.Add(this.txtPttPassportOld);
             this.pnPttPatient.Controls.Add(this.label69);
             this.pnPttPatient.Controls.Add(this.label55);
@@ -733,7 +733,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.247D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 982;
+            this.pnPttPatient.Width = 989;
             // 
             // btnPttPaid
             // 
@@ -747,17 +747,17 @@ namespace bangna_hospital.gui
             this.btnPttPaid.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPttPaid.UseVisualStyleBackColor = true;
             // 
-            // c1Button1
+            // btnPttSsnCopy
             // 
-            this.c1Button1.Image = global::bangna_hospital.Properties.Resources.GoToDown_small;
-            this.c1Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.c1Button1.Location = new System.Drawing.Point(583, 31);
-            this.c1Button1.Name = "c1Button1";
-            this.c1Button1.Size = new System.Drawing.Size(54, 28);
-            this.c1Button1.TabIndex = 102;
-            this.c1Button1.Text = "ssn";
-            this.c1Button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.c1Button1.UseVisualStyleBackColor = true;
+            this.btnPttSsnCopy.Image = global::bangna_hospital.Properties.Resources.GoToDown_small;
+            this.btnPttSsnCopy.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPttSsnCopy.Location = new System.Drawing.Point(583, 31);
+            this.btnPttSsnCopy.Name = "btnPttSsnCopy";
+            this.btnPttSsnCopy.Size = new System.Drawing.Size(54, 28);
+            this.btnPttSsnCopy.TabIndex = 102;
+            this.btnPttSsnCopy.Text = "ssn";
+            this.btnPttSsnCopy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPttSsnCopy.UseVisualStyleBackColor = true;
             // 
             // txtPttPassportOld
             // 
@@ -1437,7 +1437,7 @@ namespace bangna_hospital.gui
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.groupBox3.Location = new System.Drawing.Point(11, 377);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(881, 159);
+            this.groupBox3.Size = new System.Drawing.Size(881, 55);
             this.groupBox3.TabIndex = 90;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ที่อยู่ผู้ติดต่อได้";
@@ -2381,7 +2381,7 @@ namespace bangna_hospital.gui
             this.pnVsVisit.SizeRatio = 58.173D;
             this.pnVsVisit.TabIndex = 0;
             this.pnVsVisit.Text = "Panel 1";
-            this.pnVsVisit.Width = 726;
+            this.pnVsVisit.Width = 719;
             // 
             // btnVsPaid
             // 
@@ -3446,7 +3446,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.ResumeLayout(false);
             this.pnPttPatient.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnPttPaid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPttSsnCopy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttPassportOld)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttRef1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttPaid)).EndInit();
@@ -3875,7 +3875,7 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Label label69;
         private C1.Win.C1Ribbon.RibbonTextBox rbTxtHnSearch;
         private C1.Win.C1Ribbon.RibbonDatePicker rbDateSearch;
-        private C1.Win.C1Input.C1Button c1Button1;
+        private C1.Win.C1Input.C1Button btnPttSsnCopy;
         private C1.Win.C1Input.C1Button btnPttPaid;
         private C1.Win.C1Input.C1Button btnPttInsur;
         private C1.Win.C1Input.C1Button btnPttComp;

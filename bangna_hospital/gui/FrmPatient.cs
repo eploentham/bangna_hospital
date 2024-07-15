@@ -1239,9 +1239,17 @@ namespace bangna_hospital.gui
                 }
             }
             else if (tabVS.SelectedTab == tabOrder){TABVSACTIVE = tabOrder.Name; }
-            else if (tabVS.SelectedTab == tabOutLab) { TABVSACTIVE = tabOutLab.Name; }
+            else if (tabVS.SelectedTab == tabOutLab) 
+            { 
+                TABVSACTIVE = tabOutLab.Name;
+                setGrfOutLab();
+            }
             else if (tabVS.SelectedTab == tabStaffNote) { TABVSACTIVE = tabStaffNote.Name; }
-            else if (tabVS.SelectedTab == tabApm) { TABVSACTIVE = tabApm.Name; }
+            else if (tabVS.SelectedTab == tabApm) 
+            { 
+                TABVSACTIVE = tabApm.Name;
+                setGrfPttApm();
+            }
             else if (tabVS.SelectedTab == tabCerti) { TABVSACTIVE = tabCerti.Name; }
             else if (tabVS.SelectedTab == tabOrderNew) { TABVSACTIVE = tabOrderNew.Name; }
         }
@@ -2136,17 +2144,17 @@ namespace bangna_hospital.gui
         }
         private void setGrfChronic()
         {
-            grfChronic.Rows.Count = 1;
             //ใช้ database ใน object patient จะได้ไม่ต้องดึงข้อมูลหลายครั้ง  ลดการดึงข้อมูล
             PTT.CHRONIC = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard);
+            grfChronic.Rows.Count = 1; grfChronic.Rows.Count = PTT.CHRONIC.Rows.Count + 1;
             //MessageBox.Show("01 ", "");
             int i = 1, j = 1;
             foreach (DataRow row1 in PTT.CHRONIC.Rows)
             {
                 //pB1.Value++;
-                Row rowa = grfChronic.Rows.Add();
+                Row rowa = grfChronic.Rows[i];
                 rowa[1] = row1["MNC_CRO_DESC"].ToString();
-                
+                i++;
             }
         }
         private void initGrfDrugAllergy()
@@ -2182,18 +2190,19 @@ namespace bangna_hospital.gui
         }
         private void setGrfDrugAllergy()
         {
-            grfDrugAllergy.Rows.Count = 1;
             //ใช้ database ใน object patient จะได้ไม่ต้องดึงข้อมูลหลายครั้ง  ลดการดึงข้อมูล
             PTT.DRUGALLERGY = bc.bcDB.vsDB.selectDrugAllergy(txtPttHN.Text.Trim());
+            grfDrugAllergy.Rows.Count = 1; grfDrugAllergy.Rows.Count = PTT.DRUGALLERGY.Rows.Count + 1;
             //MessageBox.Show("01 ", "");
             int i = 1, j = 1;
             foreach (DataRow row1 in PTT.DRUGALLERGY.Rows)
             {
                 //pB1.Value++;
-                Row rowa = grfDrugAllergy.Rows.Add();
+                Row rowa = grfDrugAllergy.Rows[i];
                 rowa[1] = row1["mnc_ph_tn"].ToString();
                 rowa[3] = row1["MNC_PH_ALG_DSC"].ToString();
                 rowa[2] = row1["MNC_PH_MEMO"].ToString();
+                i++;
             }
         }
         private void initGrfVS()
@@ -2343,8 +2352,10 @@ namespace bangna_hospital.gui
                     //new LogWriter("e", "FrmScanView1 setStaffNote file  " + file + preno1+" hn "+txtHn.Text+" yy "+yy);
                     //stffnoteR = Image.FromFile(file + preno1 + "R.JPG");
                     //stffnoteS = Image.FromFile(file + preno1 + "S.JPG");
-                    picL.Image = Image.FromFile(file + preno1 + "R.JPG");
-                    picR.Image = Image.FromFile(file + preno1 + "S.JPG");
+                    //picL.Image = Image.FromFile(file + preno1 + "R.JPG");     //หมอแจ้งว่า สลับกันกับโปรแกรมเก่า หมอผู้หญิง
+                    //picR.Image = Image.FromFile(file + preno1 + "S.JPG");     //หมอแจ้งว่า สลับกันกับโปรแกรมเก่า หมอผู้หญิง
+                    picL.Image = Image.FromFile(file + preno1 + "S.JPG");
+                    picR.Image = Image.FromFile(file + preno1 + "R.JPG");
                 }
                 catch (Exception ex)
                 {
@@ -2674,7 +2685,7 @@ namespace bangna_hospital.gui
         {
             //PTT = bc.bcDB.pttDB.selectPatinetByHn(this.HN);
             txtPttHN.Value = PTT.Hn;            lbPttNameT.Text = PTT.Name;            HN = PTT.Hn;
-            setGrfVS();            setGrfDrugAllergy();            setGrfChronic();            setGrfOutLab();            setGrfPttApm();
+            setGrfVS();            setGrfDrugAllergy();            setGrfChronic();            /*setGrfOutLab();        setGrfPttApm();  comment เพราะหมอแจ้งว่าช้า เอาไปไว้ที่ TabVS_SelectedTabChanged */
             if (grfVS.Rows.Count>2) grfVS.Select(1, 1);
 
             TABVSACTIVE = tabStaffNote.Name;
@@ -2800,7 +2811,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-02-26";
+            this.Text = "Last Update 2024-06-26 staffnote สลับหน้า ";
             lbVN.Left = lbPttAge.Left + 120;
             chkItemDrug.Checked = true;
             ChkItemDrug_Click(null, null);

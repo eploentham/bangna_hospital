@@ -5084,8 +5084,7 @@ namespace bangna_hospital.gui
             btnScanClearImg.Visible = false;
             btnScanGetImg.Visible = false;
             btnScanSaveImg.Visible = false;
-            timeOperList.Enabled = true;
-            timeOperList.Start();
+            
             DEPTNO = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
             String stationname = bc.bcDB.pm32DB.getDeptName(bc.iniC.station);
             
@@ -5104,6 +5103,9 @@ namespace bangna_hospital.gui
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             this.Text = "Last Update 2024-02-21-1";
+
+            timeOperList.Enabled = true;
+            timeOperList.Start();
         }
     }
 }

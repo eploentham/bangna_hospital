@@ -69,11 +69,14 @@ namespace bangna_hospital.objdb
         public DataTable SelectAllByGroup(String labgrpcode)
         {
             DataTable dt = new DataTable();
-            String sql = "select lab_m01.*, lab_m02.mnc_lb_pri01 " +
-                "From lab_m01  " +
-                "Left join lab_m02 on lab_m01.mnc_lb_cd = lab_m02.mnc_lb_cd " +
-                "Where lab_m01.MNC_LB_GRP_CD = '" + labgrpcode + "' " +
-                " ";
+            String sql = "Select labm01.MNC_LB_CD,labm01.MNC_LB_DSC,labm01.MNC_LB_TYP_CD,labm01.MNC_LB_GRP_CD,labm01.MNC_LB_DIS_STS" +
+                ", labm02.mnc_lb_pri01, labm02.mnc_lb_pri02, labm02.mnc_lb_pri03,labm06.MNC_LB_GRP_DSC,labm01.MNC_SPC_CD,labm11.MNC_SPC_DSC,labm01.MNC_SCH_ACT " +
+                "From lab_m01 labm01 " +
+                "Left join lab_m02 labm02 on labm01.MNC_LB_CD = labm02.MNC_LB_CD " +
+                "Left Join LAB_M06 labm06 on labm01.MNC_LB_GRP_CD = labm06.MNC_LB_GRP_CD " +
+                "Left join LAB_M11 labm11 on labm01.MNC_SPC_CD = labm11.MNC_SPC_CD " +
+                "Where labm01.MNC_LB_GRP_CD = '" + labgrpcode + "' " +
+                "Order By  labm01.MNC_LB_CD ";
             dt = conn.selectData(sql);
             
             return dt;

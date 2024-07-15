@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_screencapture</AssemblyName>
+    <AssemblyName>bangna_hospital_aipn</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -55,12 +55,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Paomedia-Small-N-Flat-Floppy.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon-sqr-01.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
-    <StartupObject>bangna_hospital.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
@@ -231,6 +232,12 @@
     </Compile>
     <Compile Include="gui\FrmItemSearch.Designer.cs">
       <DependentUpon>FrmItemSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmLab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmLab.Designer.cs">
+      <DependentUpon>FrmLab.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmLabCompare.cs">
       <SubType>Form</SubType>
@@ -719,7 +726,9 @@
     <Compile Include="objdb\EpidemAPIDB.cs" />
     <Compile Include="objdb\FinanceT01DB.cs" />
     <Compile Include="objdb\FLocationDB.cs" />
+    <Compile Include="objdb\LabM04DB.cs" />
     <Compile Include="objdb\LabM06DB.cs" />
+    <Compile Include="objdb\LabM07DB.cs" />
     <Compile Include="objdb\LabT05DB.cs" />
     <Compile Include="objdb\LisLabRequestDB.cs" />
     <Compile Include="objdb\LisLabResultDB.cs" />
@@ -830,7 +839,9 @@
     <Compile Include="object1\LabCovidDetected.cs" />
     <Compile Include="object1\LabM01.cs" />
     <Compile Include="object1\LabM02.cs" />
+    <Compile Include="object1\LabM04.cs" />
     <Compile Include="object1\LabM06.cs" />
+    <Compile Include="object1\LabM07.cs" />
     <Compile Include="object1\LabT01.cs" />
     <Compile Include="object1\LabT02.cs" />
     <Compile Include="object1\LabT05.cs" />
@@ -1030,6 +1041,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmItemSearch.resx">
       <DependentUpon>FrmItemSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmLab.resx">
+      <DependentUpon>FrmLab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmLabCompare.resx">
       <DependentUpon>FrmLabCompare.cs</DependentUpon>

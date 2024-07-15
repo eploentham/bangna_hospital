@@ -312,6 +312,109 @@ namespace bangna_hospital.control
             c.SelectedIndex = row1;
             return c;
         }
+        public String fixLabUnit(String labcode, String labsubname,String unitold, String refold)
+        {
+            String unit = "";
+
+            unit = unitold.Replace("0.00-0.00", "").Replace("0.00 - 0.00", "").Replace("0.00", "");
+
+            unit = refold.Equals(unitold) ? "" : unitold;
+            if (labcode.Equals("HE001") && labsubname.Equals("WBC  count")) unit = "cell/µL"; //CBC   WBC count 
+            else if (labcode.Equals("HE001") && labsubname.Equals("RBC  count")) unit = "10^6/µL"; //CBC   RBC count 
+            else if (labcode.Equals("HE001") && labsubname.Equals("Atp.Lymp")) unit = "cell/µL"; //CBC   Atp.Lymp
+            else if (labcode.Equals("HE001") && labsubname.Equals("PLT. count")) unit = "cell/µL"; //Influenza A&B+COVID-19 Ag Combo   
+            else if (labcode.Equals("SE001") && labsubname.Equals("VDRL")) unit = "";
+            else if (labcode.Equals("SE038") && labsubname.Equals("HBsAg")) unit = "";
+            else if (labcode.Equals("SE670") && labsubname.Equals("Influenza B")) unit = "";
+            else if (labcode.Equals("SE670") && labsubname.Equals("Influenza A")) unit = "";
+            else if (labcode.Equals("SE670") && labsubname.Equals("COVID-19 Antigen test")) unit = "";
+            else if (labcode.Equals("MS100") && labsubname.Equals("Pregnancy test (Citest strip),UPT")) unit = "";
+            else if (labcode.Equals("SE640") && labsubname.Equals("COVID-19 Antigen test")) unit = "";
+            //else if (labcode.Equals("MS022") && labsubname.Equals("Pregnancy test (Citest strip)")) unit = "NEGATIVE";
+            //else if (labcode.Equals("SE005") && labsubname.Equals("Anti HIV")) unit = "NEGATIVE";
+            //else if (labcode.Equals("SE001") && labsubname.Equals("VDRL")) unit = "NON REACTIVE";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Renal Epi")) unit = "Cell/HPF";
+            else if (labcode.Equals("CH035") && labsubname.Equals("HB A1C  (Glycosylated Hb)")) unit = "%";
+            else if (labcode.Equals("MS043") && labsubname.Equals("WBC")) unit = "Cell/HPF";
+            else if (labcode.Equals("MS043") && labsubname.Equals("RBC")) unit = "Cell/HPF";
+            else if (labcode.Equals("CH008") && labsubname.Equals("HDL-C")) unit = "mg/dL";
+            else if (labcode.Equals("MS001") && labsubname.Equals("WBC")) unit = "Cell/HPF";
+            else if (labcode.Equals("MS001") && labsubname.Equals("RBC")) unit = "Cell/HPF";
+            else if (labcode.Equals("MS001") && labsubname.Equals("RBC")) unit = "Cell/HPF";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Epith. Squamous")) unit = "Cell/HPF";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Crystal")) unit = "Cell/HPF";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Cast")) unit = "/LPF";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Bladder cell")) unit = "Cell/HPF";
+            return unit;
+        }
+        public String fixLabRef(String labcode, String labsubname, String resunit, String refold)
+        {
+            String reref= "", reref1= "";
+            reref1 = resunit.Replace(refold, "").Replace("[", "").Replace("]", "").Trim();
+            if (labcode.Equals("HE001") && labsubname.Equals("RBC  morpho.")) reref = "Normal";       //CBC   RBC  morpho.
+            else if (labcode.Equals("HE001") && labsubname.Equals("Atp.Lymp")) reref = "";
+            else if (labcode.Equals("HE001") && labsubname.Equals("PLT . smear")) reref = "Adequate";
+            else if (labcode.Equals("MB014") && labsubname.Equals("AFB STAIN")) reref = "NEGATIVE";//AFB STAIN   ( Second Time) 
+            else if (labcode.Equals("MB014") && labsubname.Equals("02")) reref = "NEGATIVE";//AFB STAIN   ( Second Time) 
+            else if (labcode.Equals("MS001") && labsubname.Equals("Renal Epi")) reref = "";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Yeast")) reref = "";
+            else if (labcode.Equals("MS001") && labsubname.Equals("WBC")) reref = "";
+            else if (labcode.Equals("MS001") && labsubname.Equals("RBC")) reref = "";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Epith. Squamous")) reref = "";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Crystal")) reref = "";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Cast")) reref = "";
+            else if (labcode.Equals("MS001") && labsubname.Equals("Bladder cell")) reref = "";//SE640
+
+            else if (labcode.Equals("MS022") && labsubname.Equals("Pregnancy test (Citest strip)")) reref = "NEGATIVE";
+            else if (labcode.Equals("MS043") && labsubname.Equals("RBC")) reref = "";
+            else if (labcode.Equals("MS043") && labsubname.Equals("Ova & Parasite")) reref = "Not found";
+            else if (labcode.Equals("MS043") && labsubname.Equals("WBC")) reref = "";
+            else if (labcode.Equals("MS100") && labsubname.Equals("Pregnancy test (Citest strip),UPT")) reref = "NEGATIVE";
+
+            else if (labcode.Equals("SE001") && labsubname.Equals("VDRL")) reref = "NON REACTIVE";
+            else if (labcode.Equals("SE005") && labsubname.Equals("Anti HIV")) reref = "NEGATIVE";
+            else if (labcode.Equals("SE005") && labsubname.Equals("Sen100% Spec99.72%")) reref = "";
+            else if (labcode.Equals("SE005") && labsubname.Equals("Sen100% Spec99.96%")) reref = "";
+            else if (labcode.Equals("SE005") && labsubname.Equals("Sen100% Spec99.40%")) reref = "";
+            else if (labcode.Equals("SE038") && labsubname.Equals("HBsAg")) reref = "NEGATIVE";
+            else if (labcode.Equals("SE047") && labsubname.Equals("Anti HCV")) reref = "NEGATIVE";
+            else if (labcode.Equals("SE502") && labsubname.Equals("VDRL(Check up)")) reref = "NON REACTIVE";
+            else if (labcode.Equals("SE640") && labsubname.Equals("COVID-19 Antigen test")) reref = "NEGATIVE";
+            else if (labcode.Equals("SE670") && labsubname.Equals("Influenza A")) reref = "NEGATIVE"; //Influenza A&B+COVID-19 Ag Combo   
+            else if (labcode.Equals("SE670") && labsubname.Equals("Influenza B")) reref = "NEGATIVE";
+            else if (labcode.Equals("SE670") && labsubname.Equals("COVID-19 Antigen test")) reref = "NEGATIVE";
+
+            else if (labcode.Equals("TG048") && labsubname.Equals("Methamphetamine test")) reref = "NEGATIVE";
+            else if (labcode.Equals("TG048") && labsubname.Equals("Marijuana (URINE)")) reref = "NEGATIVE";
+            else if (labcode.Equals("CH008") && labsubname.Equals("HDL-C")) reref = "Male > 35;Female > 44";
+            
+            else if (labcode.Equals("PA530") && labsubname.Equals("HPV genotype 16")) reref = "NEGATIVE";//PA530
+            else if (labcode.Equals("PA530") && labsubname.Equals("HPV genotype 18")) reref = "NEGATIVE";//PA530
+            else if (labcode.Equals("PA530") && labsubname.Equals("13 Other HPV -DNA Type")) reref = "NEGATIVE";//PA530
+            else reref = reref1;
+            return reref;
+        }
+        public String getPaidShortName(String paidname)
+        {
+            if (paidname.Equals("ประกันสังคม (บ.1)")) return "ปกส(บ.1)";
+            else if (paidname.Equals("ประกันสังคม (บ.2)")) return "ปกส(บ.2)";
+            else if (paidname.Equals("ประกันสังคม (บ.5)")) return "ปกส(บ.5)";
+            else if (paidname.Equals("ประกันสังคมอิสระ (บ.1)")) return "ปกต(บ.1)";
+            else if (paidname.Equals("ประกันสังคมอิสระ (บ.2)")) return "ปกต(บ.2)";
+            else if (paidname.Equals("ประกันสังคมอิสระ (บ.5)")) return "ปกต(บ.5)";
+            else if (paidname.Equals("ตรวจสุขภาพ (เงินสด)")) return "ตส(เงินสด)";
+            else if (paidname.Equals("ตรวจสุขภาพ (บริษัท)")) return "ตส(บริษัท)";
+            else if (paidname.Equals("ตรวจสุขภาพ (PACKAGE)")) return "ตส(PACKAGE)";
+            else if (paidname.Equals("ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปากน้ำ")) return "ลูกหนี้(ปากน้ำ)";
+            else if (paidname.Equals("ลูกหนี้บางนา 1")) return "ลูกหนี้(บ.1)";
+            else if (paidname.Equals("บริษัทประกัน")) return "บ.ประกัน";
+            else if (paidname.Equals("ลูกหนี้ UC บางนา 1")) return "UCบ.1";
+            else if (paidname.Equals("ลูกหนี้ UC โครงการสวนหัวใจ")) return "UC(สวนหัวใจ)";
+            else if (paidname.Equals("ลูกหนี้บางนา 2")) return "ลูกหนี้(บ.1)";
+            else if (paidname.Equals("ลูกหนี้ UC โครงการต้อกระจก")) return "UC(ต้อกระจก)";
+            else if (paidname.Equals("ลูกหนี้ตรวจสุขภาพประกันสังคม")) return "ลูกหนี้(ปกส)";
+            else return paidname;
+        }
         public void getlDistrict(String provcode)
         {
             //lDept = new List<Position>();
@@ -752,7 +855,7 @@ namespace bangna_hospital.control
             iniC.EmailSubjectAIPN = iniF.getIni("email", "EmailSubjectAIPN");
             iniC.EmailPortAIPN = iniF.getIni("email", "EmailPortAIPN");
             iniC.EmailAuthUserAIPN = iniF.getIni("email", "EmailAuthUserAIPN");
-            //iniC.EmailAuthPassAIPN = iniF.getIni("email", "EmailAuthPassAIPN");
+            iniC.EmailAuthPassAIPN = iniF.getIni("email", "EmailAuthPassAIPN");
 
             iniC.OPD_BTEMP = iniF.getIni("OPBKKClaim", "OPD_BTEMP");
             iniC.OPD_SBP = iniF.getIni("OPBKKClaim", "OPD_SBP");//      ความดันโลหิตค่าตัวบน
@@ -2308,7 +2411,8 @@ namespace bangna_hospital.control
             return TextRenderer.MeasureText(txt, font, new Size(int.MaxValue, int.MaxValue), TextFormatFlags.SingleLine | TextFormatFlags.NoClipping | TextFormatFlags.PreserveGraphicsClipping);
         }
         public Bitmap ResizeImage(Image image, int width, int height)
-        {            
+        {
+            if(image==null) return null;
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 
@@ -3819,7 +3923,7 @@ namespace bangna_hospital.control
                 }
             }
         }
-        public String genAipnFile(String authorName, String anno1, String submtype, Boolean statusSendMulti, Boolean statusNoAdd)
+        public String genAipnFile(String authorName, String anno1, String submtype, Boolean statusSendMulti, Boolean statusNoAdd, Boolean flagAnNew)
         {
             DataTable dtaipn = new DataTable();
             DataTable dtclaimAuth = new DataTable();
@@ -3850,10 +3954,12 @@ namespace bangna_hospital.control
             }
             foreach(DataRow rowAipn in dtAipn.Rows)
             {
-                String aipnXML = "",aipnid = "", anno="", ancnt="";
+                String aipnXML = "",aipnid = "", anno="", ancnt="", an1="";
                 aipnid = rowAipn["aipn_id"].ToString();
                 anno = rowAipn["an_no"].ToString();
                 ancnt = rowAipn["an_cnt"].ToString();
+                an1 = rowAipn["an_1"].ToString();
+
                 dtaipn = bcDB.aipnDB.selectAipn(aipnid);
                 dtclaimAuth = bcDB.aipnDB.selectClaimAuth(aipnid);
                 dtIPADT = bcDB.aipnDB.selectIPADT(aipnid);
@@ -3883,7 +3989,12 @@ namespace bangna_hospital.control
                 }
                 if (dtaipn.Rows.Count > 0)
                 {
-                    prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_no"].ToString().ToString(), dtaipn.Rows[0]["an_cnt"].ToString().ToString());
+                    new LogWriter("d", "genAipnFile an_1 " + dtaipn.Rows[0]["an_1"].ToString());
+                    if (flagAnNew)
+                        prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_1"].ToString());
+                    else
+                        prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_no"].ToString(), dtaipn.Rows[0]["an_cnt"].ToString());
+                    
                     hn = dtaipn.Rows[0]["hn"].ToString();
                 }
                 aipnIPADT = aipnxmlF.genIPADT(prefixAn, dtIPADT);

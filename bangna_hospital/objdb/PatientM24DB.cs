@@ -118,6 +118,18 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public DataTable selectCustByCode(String code)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pm24.MNC_COM_CD,isnull(pm24.MNC_COM_DSC,'') as MNC_COM_DSC, isnull(pm24.MNC_COM_TEL,'') as MNC_COM_TEL,isnull(pm24.phone2,'') as phone2,isnull(pm24.email,'') as email " +
+                ",isnull(pm24.insur1_code,'') as insur1_code ,isnull(pm24.insur2_code,'') as insur2_code ,isnull(pm24.status_insur,'') as status_insur,isnull(pm24.MNC_COM_ADD,'') as MNC_COM_ADD " +
+                ",isnull(pm24.MNC_COM_NAM,'') as MNC_COM_NAM " +
+                "From  patient_M24 pm24 " +
+            " Where pm24." + pm24.MNC_COM_CD + " = '" + code + "' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public DataTable selectCustByName(String name)
         {
             DataTable dt = new DataTable();

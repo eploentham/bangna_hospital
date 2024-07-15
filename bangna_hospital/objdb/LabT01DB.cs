@@ -75,6 +75,63 @@ namespace bangna_hospital.objdb
 
             labT01.table = "lab_t01";
         }
+        public DataTable selectReqIPDByDate(String hn, String anno, String ancnt)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select labt01.MNC_REQ_NO,convert(varchar(20),labt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,labt01.MNC_REQ_DEP,labt01.MNC_REQ_STS,labt01.MNC_REQ_TIM  " +
+                ",labt01.MNC_HN_NO,isnull(labt01.MNC_AN_YR,'') as MNC_AN_YR,isnull(labt01.MNC_AN_NO,'') as MNC_AN_NO,labt01.MNC_PRE_NO,labt01.MNC_WD_NO " +
+                ",isnull(labt01.MNC_ORD_DOT,'') as MNC_ORD_DOT ,labt01.MNC_FN_TYP_CD, convert(varchar(20),labt01.mnc_date,23) as mnc_date " +
+                ", userm01.MNC_USR_FULL, pm02.MNC_PFIX_DSC +' '+pm01.MNC_FNAME_T+' '+pm01.MNC_LNAME_T as pttfullnamet " +
+                "From " + labT01.table + " labt01 " +
+                "inner join patient_m01 pm01 on labt01.mnc_hn_no = pm01.mnc_hn_no and labt01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Left Join USERLOG_M01 userm01 on labt01.MNC_DOT_CD = userm01.MNC_USR_NAME " +
+                "inner join PATIENT_T08 pt08 on labt01.mnc_hn_no = pt08.mnc_hn_no and labt01.MNC_PRE_NO = pt08.MNC_PRE_NO and labt01.MNC_DATE = pt08.MNC_DATE  "+
+                "Where labt01.MNC_HN_NO ='" + hn + "' and pt08.MNC_AN_NO ='" + anno + "' and pt08.MNC_AN_YR ='" + ancnt + "' and labt01.MNC_REQ_STS <> 'C'  " +
+                "Order By labt01.MNC_REQ_TIM";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
+        public DataTable selectReqOPDByDate(String hn,String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select labt01.MNC_REQ_NO,convert(varchar(20),labt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,labt01.MNC_REQ_DEP,labt01.MNC_REQ_STS,labt01.MNC_REQ_TIM  " +
+                ",labt01.MNC_HN_NO,isnull(labt01.MNC_AN_YR,'') as MNC_AN_YR,isnull(labt01.MNC_AN_NO,'') as MNC_AN_NO,labt01.MNC_PRE_NO,labt01.MNC_WD_NO " +
+                ",isnull(labt01.MNC_ORD_DOT,'') as MNC_ORD_DOT ,labt01.MNC_FN_TYP_CD, convert(varchar(20),labt01.mnc_date,23) as mnc_date " +
+                ", userm01.MNC_USR_FULL, pm02.MNC_PFIX_DSC +' '+pm01.MNC_FNAME_T+' '+pm01.MNC_LNAME_T as pttfullnamet " +
+                "From " + labT01.table + " labt01 " +
+                "inner join patient_m01 pm01 on labt01.mnc_hn_no = pm01.mnc_hn_no and labt01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Left Join USERLOG_M01 userm01 on labt01.MNC_DOT_CD = userm01.MNC_USR_NAME " +
+                "Where labt01.MNC_HN_NO ='" + hn + "' and labt01.MNC_DATE ='" + vsdate + "' and labt01.MNC_PRE_NO ='" + preno + "' and labt01.MNC_REQ_STS <> 'C'  " +
+                "Order By labt01.MNC_REQ_TIM";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
+        public DataTable selectVisitReqLabByDate(String datereq)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select  pt01.MNC_HN_NO,pt01.MNC_PRE_NO,pt01.MNC_FN_TYP_CD, convert(varchar(20),pt01.MNC_DATE,23) as MNC_DATE, userm01.MNC_USR_FULL as dtrnamet " +
+                ", pm02.MNC_PFIX_DSC, pm01.MNC_FNAME_T, pm01.MNC_LNAME_T, pm02.MNC_PFIX_DSC +' '+pm01.MNC_FNAME_T+' '+pm01.MNC_LNAME_T as pttfullnamet " +
+                ", pt01.MNC_TIME, pm01.MNC_SEX, pt01.MNC_DEP_NO, pt01.MNC_SEC_NO,pm01.MNC_BDAY " +
+                ", pt01.MNC_VN_NO,pt01.MNC_VN_SEQ,pt01.MNC_VN_SUM, isnull(pt08.MNC_AN_NO,'0') as MNC_AN_NO, isnull(pt08.MNC_AN_YR,'') as MNC_AN_YR " +
+                ", pt012.MNC_PAT_FLAG, isnull(pt012.MNC_WD_NO,'') as MNC_WD_NO, pm32d.MNC_MD_DEP_DSC as dept_opd,pm32an.MNC_MD_DEP_DSC as dept_ipd " +
+                "From PATIENT_T01 pt01 " +
+                "inner join patient_m01 pm01 on pt01.mnc_hn_no = pm01.mnc_hn_no and pt01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Left Join USERLOG_M01 userm01 on pt01.MNC_DOT_CD = userm01.MNC_USR_NAME " +
+                " Left Join PATIENT_T01_2 pt012 on  pt01.mnc_hn_no = pt012.mnc_hn_no and pt01.mnc_pre_no = pt012.mnc_pre_no and pt01.mnc_date = pt012.mnc_date " +
+                "left join PATIENT_M32 pm32d on pt01.MNC_SEC_NO = pm32d.MNC_SEC_NO and pt01.MNC_DEP_NO = pm32d.MNC_MD_DEP_NO " +
+                "left join PATIENT_T08 pt08 on pt01.MNC_HN_NO = pt08.MNC_HN_NO and pt01.MNC_DATE = pt08.MNC_DATE and pt01.MNC_PRE_NO = pt08.MNC_PRE_NO " +
+                "left join PATIENT_M32 pm32an on pt08.MNC_SEC_NO = pm32an.MNC_SEC_NO and pt08.MNC_WD_NO = pm32an.MNC_MD_DEP_NO " +
+                "Where pt01.MNC_DATE ='" + datereq + "' and pt01.MNC_STS <> 'C' and pt01.MNC_LAB_FLG = 'A' " +
+                "Order By pt01.MNC_TIME";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
         public DataTable selectNoSendByStatusLis(String datereq)
         {
             DataTable dt = new DataTable();
@@ -115,7 +172,26 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
-        
+        public DataTable selectReqOPDByNoStatus()
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select labt01.MNC_REQ_YR,labt01.MNC_REQ_NO,convert(varchar(20),labt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,labt01.MNC_REQ_DEP,labt01.MNC_REQ_TIM,labt01.MNC_DOT_CD " +
+                ",pm01.MNC_HN_NO,isnull(labt01.MNC_AN_YR,'') as MNC_AN_YR,isnull(labt01.MNC_AN_NO,'') as MNC_AN_NO,labt01.MNC_PRE_NO,convert(varchar(20),labt01.MNC_DATE,23 ) as MNC_DATE " +
+                ", pm02.MNC_PFIX_DSC + ' '+ pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as pttfullnamet,pm01.MNC_SEX,labt01.MNC_FN_TYP_CD,fm02.MNC_FN_TYP_DSC " +
+                ", userm01dtr.MNC_USR_FULL as dtrname,isnull(labt01.MNC_EMPC_CD,'') as MNC_EMPC_CD, isnull(userm01_usr.MNC_USR_FULL,'') as MNC_USR_FULL_usr " +
+                ", convert(varchar(20),pm01.MNC_BDAY,23) as MNC_BDAY " +
+                "From LAB_T01 labt01 " +
+                "inner join patient_m01 pm01 on labt01.mnc_hn_no = pm01.mnc_hn_no and labt01.mnc_hn_yr = pm01.mnc_hn_yr " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Left Join USERLOG_M01 userm01dtr on labt01.MNC_ORD_DOT = userm01dtr.MNC_USR_NAME " +
+                "Left Join USERLOG_M01 userm01_usr on labt01.MNC_EMPC_CD = userm01_usr.MNC_USR_NAME " +
+                "Left Join FINANCE_M02 fm02 on labt01.MNC_FN_TYP_CD = fm02.MNC_FN_TYP_CD " +
+                "Where labt01.MNC_REQ_STS = '' and labt01.MNC_AN_NO is null " +
+                "Order By labt01.MNC_REQ_DAT, labt01.MNC_REQ_TIM,labt01.MNC_REQ_NO ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         private void chkNull(LabT01 p)
         {
             long chk = 0;
@@ -143,6 +219,7 @@ namespace bangna_hospital.objdb
             String sql = "", re = "";
             sql = "update lab_t01 " +
                 "Set status_print_result_no = '1' " +
+                //", MNC_REQ_STS = 'Q' " +  // ต้อง comment ไว้ก่อน ใช้งานจริง ค่อยเอาออก
                 "Where  mnc_req_no = '" + reqno + "' and MNC_REQ_DAT = '" + reqdate + "' ";
             try
             {

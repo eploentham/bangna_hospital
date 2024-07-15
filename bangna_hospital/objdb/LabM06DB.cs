@@ -38,9 +38,9 @@ namespace bangna_hospital.objdb
             if (DTALL.Rows.Count <= 0)
             {
                 String sql = "", re = "";
-                sql = "Select labm06.* " +
-                    "From  LAB_M06 labm06 ";
-                //" Where pm08.MNC_TYP_PT = 'I' ";
+                sql = "Select labm06.MNC_LB_GRP_CD,labm06.MNC_LB_GRP_DSC,labm06.MNC_STAMP_DAT,labm06.MNC_STAMP_TIM,labm06.MNC_USR_ADD,labm06.MNC_USR_UPD,labm06.MNC_ORDER,labm06.MNC_COLOR " +
+                    "From  LAB_M06 labm06 "+
+                " Order By labm06.MNC_ORDER ";
                 DTALL = conn.selectData(conn.connMainHIS, sql);
             }
             return DTALL;

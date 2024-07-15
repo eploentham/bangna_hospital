@@ -49,6 +49,8 @@ namespace bangna_hospital
             //Application.Run(new gui.FrmBillLabCheck(bc));
             //MessageBox.Show("error Main " , "");
             //Application.Run(new gui.FrmXrayViewDaily(bc));
+            var exists = System.Diagnostics.Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1;
+            if(exists) { MessageBox.Show("โปรแกรมเปิดอยู่แล้ว", "");                Environment.Exit(0); }
             String err = "";
             try
             {
@@ -258,6 +260,16 @@ namespace bangna_hospital
                 {
                     err = "xray";
                     Application.Run(new gui.FrmXray(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("lab"))
+                {
+                    err = "lab";
+                    Application.Run(new gui.FrmLab(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("pharmacyIPD"))
+                {
+                    err = "pharmacyIPD";
+                    Application.Run(new gui.FrmPharmacy(bc));
                 }
                 else
                 {

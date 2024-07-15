@@ -2,6 +2,7 @@
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
+using C1.Win.BarCode;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1List;
@@ -21,6 +22,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
@@ -55,15 +57,18 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Panel pnBotton;
         private System.Windows.Forms.Panel pnRight;
         private System.Windows.Forms.Panel pnLeft;
-        
+        C1BarCode qrcode;
+
         MedicalCertificate mcerti;
         DocScan dsc;
         Timer timer1;
-        Boolean pageLoad = false, statusAutoSend = false;
+        Boolean pageLoad = false, statusAutoSend = false, SoundPlay = false;
         Image imgPrint;
-        String LINEERR = "", DEPTNO = "",HN = "", PRENO="", VSDATE="", DTRCODE="", CERTID="",AN="";
+        String LINEERR = "", DEPTNO = "",HN = "", PRENO="", VSDATE="", DTRCODE="", CERTID="",AN="", ANPRNLAB="",ERRLINE="", REQNOPRNLAB="";
         Patient PTT;
         C1ThemeController theme1;
+        SoundPlayer player;
+
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmScreenCapture(BangnaControl bc)
@@ -102,7 +107,13 @@ namespace bangna_hospital.gui
             //picScr.Image = Resources.screen_first_l;
             picScr.SizeMode = PictureBoxSizeMode.StretchImage;
             pnPic.Controls.Add(picScr);
-            
+            player = new SoundPlayer();
+            player.SoundLocation = "livechat-129007.wav";
+            player.Load();
+            qrcode = new C1BarCode();
+            qrcode.ForeColor = System.Drawing.Color.Black;
+            qrcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+
             this.Activated += FrmScreenCapture_Activated;
             this.FormClosed += FrmScreenCapture_FormClosed;
             txtHn.KeyUp += TxtHn_KeyUp;
@@ -135,12 +146,11 @@ namespace bangna_hospital.gui
             }
             else bc.bcDB.pttDB.setCboDeptOPD(cboDept, bc.iniC.station);
 
-            
-            
             //FrmScreenCapturePrintMulti frm = new FrmScreenCapturePrintMulti();
             //frm.Show(this);
             //initPrintMulti();
             rr1.Text = bc.iniC.pathScreenCaptureUpload;
+
             if (bc.iniC.statusScreenCaptureAutoSend.Equals("1"))
             {
                 chkAutoSend.Checked = true;
@@ -176,6 +186,18 @@ namespace bangna_hospital.gui
             fEditS = new Font(bc.iniC.pdfFontName, bc.pdfFontSize - 2, FontStyle.Regular);
             fEditS1 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize - 1, FontStyle.Regular);
 
+        }
+        private void playSoundStop()
+        {
+            player.Stop();
+            SoundPlay = false;
+            //player.Play();
+        }
+        private void playSound()
+        {
+            SoundPlay = true;
+            player.Play();      //play one time
+            //player.Play();
         }
         private void BtnPrint_Click(object sender, EventArgs e)
         {
@@ -213,7 +235,7 @@ namespace bangna_hospital.gui
             {
                 getListFile();
             }
-            if (TIMERCNT % 2 == 0)
+            if (TIMERCNT % 4 == 0)
             {
                 if (bc.iniC.statusAutoPrintLabResult.Equals("1"))
                 {
@@ -224,14 +246,11 @@ namespace bangna_hospital.gui
                     }
                     catch (Exception ex)
                     {
-                        new LogWriter("e", "FrmScreenCapture Timer1_Tick printLabResult ex.Message " + ex.Message);
+                        new LogWriter("e", "FrmScreenCapture Timer1_Tick printLabResult errline "+ERRLINE+ " ex.Message" + ex.Message);
                     }
                     timer1.Start();
                 }
-                if (TIMERCNT >= 100000)
-                {
-                    TIMERCNT = 0;
-                }
+                TIMERCNT = 0;
             }
         }
         private void printLabResult()
@@ -240,20 +259,23 @@ namespace bangna_hospital.gui
             DataTable dtRes = new DataTable();
             DataTable dtReq = new DataTable();
             String[] deptno = bc.iniC.station.Split(',');
-            foreach(String deptno1 in deptno)
+            ERRLINE = "";
+            foreach (String deptno1 in deptno)
             {
-                dtReq = bc.bcDB.labT05DB.selectRequestLabNotPrnbyDeptNo(deptno1);
+                dtReq = bc.bcDB.labT05DB.selectRequestLabNotPrnbyDeptNo(deptno1);   //ต้องดึง lab_t01.mnc_req_sts = 'O' เพราะใน lab_t02 mnc_req_sts มีทั้ง O, Q
                 if (dtReq.Rows.Count > 0)
                 {
-                    String reqno = "", reqdate = "", hn = "", depname = "", anno = "", vnno = "";
+                    ERRLINE = "01";
+                    String reqdate = "", hn = "", depname = "", vnno = "";
                     reqdate = dtReq.Rows[0]["MNC_REQ_DAT"].ToString();
-                    reqno = dtReq.Rows[0]["MNC_REQ_NO"].ToString();
+                    REQNOPRNLAB = dtReq.Rows[0]["MNC_REQ_NO"].ToString();
                     hn = dtReq.Rows[0]["MNC_HN_NO"].ToString();
-                    anno = dtReq.Rows[0]["MNC_AN_NO"].ToString() + "." + dtReq.Rows[0]["MNC_AN_YR"].ToString();
+                    ANPRNLAB = dtReq.Rows[0]["MNC_AN_NO"].ToString() + "." + dtReq.Rows[0]["MNC_AN_YR"].ToString();
                     vnno = dtReq.Rows[0]["MNC_VN_NO"].ToString() + "." + dtReq.Rows[0]["MNC_VN_SEQ"].ToString() + "." + dtReq.Rows[0]["MNC_VN_SUM"].ToString();
-                    dtRes = bc.bcDB.labT05DB.selectResultbyReqNo(reqdate, reqno);
+                    dtRes = bc.bcDB.labT05DB.selectResultbyReqNo(reqdate, REQNOPRNLAB);
                     if (dtRes.Rows.Count > 0)
                     {
+                        ERRLINE = "02";
                         ptt = bc.bcDB.pttDB.selectPatinetByHn(hn);
                         dtRes.Columns.Add("patient_name", typeof(String));
                         dtRes.Columns.Add("patient_hn", typeof(String));
@@ -267,38 +289,62 @@ namespace bangna_hospital.gui
                         dtRes.Columns.Add("patient_company", typeof(String));
                         //dt.Columns.Add("ptt_department", typeof(String));
                         dtRes.Columns.Add("patient_type", typeof(String));
-                        dtRes.Columns.Add("mnc_lb_dsc", typeof(String));
-                        dtRes.Columns.Add("mnc_lb_grp_cd", typeof(String));
+                        //dtRes.Columns.Add("mnc_lb_dsc", typeof(String));
+                        //dtRes.Columns.Add("mnc_lb_grp_cd", typeof(String));
                         dtRes.Columns.Add("sort1", typeof(String));
                         //dtRes.Columns.Add("hostname", typeof(String));
+                        ERRLINE = "03";
+                        Boolean chkresultnull=false;
                         foreach (DataRow drow in dtRes.Rows)
                         {
-                            drow["patient_age"] = ptt.AgeStringOK1DOT();
+                            //drow["patient_age"] = ptt.AgeStringOK1DOT();
+                            drow["patient_age"] = ptt.AgeStringOK1();
                             depname = dtRes.Rows[0]["MNC_REQ_DEP"].ToString();
                             drow["patient_name"] = ptt.Name;
                             drow["patient_hn"] = ptt.Hn;
                             drow["patient_company"] = "";           //ไม่ต้องพิมพ์ ชื่อบริษัท ลองดู
-                            drow["patient_vn"] = anno.Equals(".") ? vnno : anno;
-                            drow["MNC_LB_RES"] = drow["MNC_LB_RES"].ToString().Replace(drow["MNC_RES"].ToString(),"");      //lab ต้องการให้แสดงค่าตัวเลข
+                            ERRLINE = "031";
+                            drow["patient_vn"] = bc.iniC.statusStation.Equals("OPD") ? vnno : ANPRNLAB;
+                            ERRLINE = "0310";
+                            new LogWriter("d", "FrmScreenCapture printLabResult hn " + hn + " reqdate " + reqdate + " REQNOPRNLAB " + REQNOPRNLAB);
+                            if(!chkresultnull) chkresultnull = drow["MNC_RES_VALUE"] == null ? true : false;        // check เพราะ มีค่าว่าง เมื่อ วันเวลา status labt02.mnc_req_sts = 'O' ค่าผล ก็ยังว่าง  ปล่อยให้พิมพ์ แต่ไม่ต้อง update status status_print_result_no
+                            else if (!chkresultnull) chkresultnull = drow["MNC_RES_VALUE"].ToString().Equals("") ? true : false;        // check เพราะ มีค่าว่าง เมื่อ วันเวลา status labt02.mnc_req_sts = 'O' ค่าผล ก็ยังว่าง  ปล่อยให้พิมพ์ แต่ไม่ต้อง update status status_print_result_no
+                            new LogWriter("d", "FrmScreenCapture printLabResult drow['mnc_lb_res'] " + drow["mnc_lb_res"] + " drow['mnc_lb_res'].ToString() " + drow["mnc_lb_res"].ToString());
+                            ERRLINE = "032";
                             drow["patient_type"] = dtRes.Rows[0]["MNC_FN_TYP_DSC"].ToString();
                             drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(drow["mnc_req_dat"].ToString());
+                            ERRLINE = "033";
                             drow["doctor"] = dtRes.Rows[0]["dtr_name"].ToString() + "[" + dtRes.Rows[0]["mnc_dot_cd"].ToString() + "]";
+                            ERRLINE = "04";
                             drow["result_date"] = bc.datetoShow(dtRes.Rows[0]["mnc_req_dat"].ToString());
-                            drow["print_date"] = bc.datetoShow(dtRes.Rows[0]["MNC_STAMP_DAT"].ToString()) + " " + bc.FormatTime(dtRes.Rows[0]["MNC_RESULT_TIM"].ToString());
+                            drow["print_date"] = bc.datetoShow(dtRes.Rows[0]["MNC_RESULT_DAT"].ToString()) + " " + bc.FormatTime(dtRes.Rows[0]["MNC_RESULT_TIM"].ToString());
                             drow["user_lab"] = drow["user_lab"].ToString() + " [ทน." + drow["MNC_USR_NAME_result"].ToString() + "]";
                             drow["user_report"] = drow["user_report"].ToString() + " [ทน." + drow["MNC_USR_NAME_report"].ToString() + "]";
                             drow["user_check"] = drow["user_check"].ToString() + " [ทน." + drow["MNC_USR_NAME_approve"].ToString() + "]";
                             drow["patient_dep"] = depname.Equals("101") ? "OPD1" : depname.Equals("107") ? "OPD2" : depname.Equals("103") ? "OPD3" :
                             depname.Equals("104") ? "ER" : depname.Equals("106") ? "WARD6" : depname.Equals("108") ? "WARD5W" : depname.Equals("109") ? "ล้างไต" :
                                 depname.Equals("105") ? "WARD5M" : depname.Equals("113") ? "ICU" : depname.Equals("114") ? "NS/LR" : depname.Equals("115") ? "ทันตกรรม" : depname.Equals("116") ? "CCU" : depname;
-                            drow["mnc_lb_dsc"] = dtRes.Rows[0]["MNC_LB_DSC"].ToString();
-                            drow["mnc_lb_grp_cd"] = dtRes.Rows[0]["MNC_LB_TYP_DSC"].ToString();
+                            ERRLINE = "05";
+                            drow["mnc_lb_dsc"] = drow["MNC_LB_DSC"].ToString();
+                            drow["mnc_lb_grp_cd"] = drow["MNC_LB_TYP_DSC"].ToString();
                             drow["hostname"] = bc.iniC.hostname;
-                            if (drow["MNC_RES_VALUE"].ToString().Equals("-"))                                drow["MNC_RES_UNT"] = "";
+                            //if (drow["MNC_RES_VALUE"].ToString().Equals("-"))                                drow["MNC_RES_UNT"] = "";
                             drow["MNC_RES_UNT"] = drow["MNC_RES_UNT"].ToString().Replace("0.00-0.00", "").Replace("0.00 - 0.00", "").Replace("0.00", "");
                             drow["sort1"] = drow["mnc_req_dat"].ToString().Replace("-", "").Replace("-", "") + drow["MNC_REQ_NO"].ToString();
+                            //drow["MNC_RES"]=ชื่อlabลูก
+                            //drow["mnc_lb_res"]REFERRENCE RANGE
+                            //drow["mnc_lb_res"] = drow["mnc_lb_res"].ToString().Replace(drow["MNC_RES"].ToString(), "");      //lab ต้องการให้แสดงค่าตัวเลข
+                            drow["mnc_lb_res"] = bc.fixLabRef(drow["MNC_LB_CD"].ToString(), drow["MNC_RES"].ToString(), drow["mnc_lb_res"].ToString(), drow["MNC_RES"].ToString());      // REFERRENCE RANGE
+                            drow["MNC_RES_UNT"] = bc.fixLabUnit(drow["MNC_LB_CD"].ToString(), drow["MNC_RES"].ToString().Trim(), drow["MNC_RES_UNT"].ToString().Trim(), drow["mnc_lb_res"].ToString());
+                            if (drow["mnc_lb_res"].Equals("0 - 0"))
+                            {
+                                drow["mnc_lb_res"] = drow["MNC_RES_UNT"].ToString();
+                                drow["MNC_RES_UNT"] = "";
+                            }
+                            ERRLINE = "06";
                         }
                         //printerA5
+                        playSound();
                         rr1.Text = bc.iniC.printerA5;
                         SetDefaultPrinter(bc.iniC.printerA5);
                         FrmReportNew frm = new FrmReportNew(bc, "lab_result_4");
@@ -306,7 +352,8 @@ namespace bangna_hospital.gui
                         if (bc.iniC.statusPrintPreview.Equals("1"))                            frm.ShowDialog(this);                        
                         else                            frm.PrintReport();                       
                         frm.Dispose();
-                        bc.bcDB.labT01DB.updateStatusPrintResult(reqno, reqdate);
+                        bc.bcDB.labT01DB.updateStatusPrintResult(REQNOPRNLAB, reqdate);
+                        new LogWriter("d", "FrmScreenCapture printLabResult  " + ptt.Hn+" an "+ ANPRNLAB);
                     }
                 }
             }
@@ -394,6 +441,43 @@ namespace bangna_hospital.gui
                     newHeight = newHeight / heightFactor;
                 }
             }
+
+            DocScan dsc = new DocScan();
+            //new LogWriter("d", "BtnUpload_Click dsc.vn " + dsc.vn + " dsc.an " + dsc.an);
+            dsc.active = "1";
+            dsc.doc_scan_id = "";
+            dsc.doc_group_id = "1100000007";
+            dsc.hn = txtPrnHN.Text;
+
+            dsc.an = AN;
+            dsc.vn = "";
+
+            dsc.visit_date = "";
+            dsc.pre_no = "";
+            dsc.ml_fm = "FM-MED-003";
+            
+            dsc.host_ftp = bc.iniC.hostFTP;
+            //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
+            dsc.image_path = "";
+            dsc.doc_group_sub_id = "1200000005";
+
+            dsc.an_date = "";
+            dsc.folder_ftp = bc.iniC.folderFTP;
+            dsc.status_ipd = "I";
+            dsc.row_no = "1";
+            dsc.row_cnt = "1";
+            dsc.status_ml = "2";
+            String re = bc.bcDB.dscDB.insertScreenCapture(dsc, bc.userId);
+            long chk = 0;
+            if (long.TryParse(re, out chk))
+            {
+                bc.bcDB.dscDB.voidDocScanCertMed(re, "screencapture_ordersheet");      //ต้องการ ไม่ให้แสดงผล คือ ไม่ให้ select ขึ้น ต้องการแค่ เลขที่ doc_scan เท่านั้น
+                qrcode.CodeType = C1.BarCode.CodeType.QRCode;
+                qrcode.Text = txtPrnHN.Text.Trim() + "#AN " + AN+"#docid "+ re;
+            }
+            RectangleF recfqrcode = new RectangleF(20, 20, e.MarginBounds.Width-62-30, e.MarginBounds.Height-62-60);
+            //e.Graphics.DrawImage(qrcode.Image, recfqrcode);
+
             RectangleF recf = new RectangleF(15, 15, (int)newWidth, (int)newHeight);
             e.Graphics.DrawImage(logo, recf);
             
@@ -407,7 +491,7 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString(txtWrdRoom.Text.Trim(), famt1, Brushes.Black, 300, 68, flags);
             e.Graphics.DrawString("Attending Physical ................................... ", famt7, Brushes.Black, 400, 102, flags);
             e.Graphics.DrawString(lbDtrName.Text, famt7, Brushes.Black, 570, 92, flags);
-            e.Graphics.DrawString("อาการ "+txtSymptoms.Text.Replace(Environment.NewLine,""), famt1, Brushes.Black, 40, 102, flags);
+            e.Graphics.DrawString("อาการ "+txtSymptoms.Text.Replace(Environment.NewLine,""), fEditS1, Brushes.Black, 40, 102, flags);
             //DataTable DRUGALLERGY = bc.bcDB.vsDB.selectDrugAllergy(txtPrnHN.Text.Trim());
             String drugallergy = grfDrugAllergy.Rows.Count == 1 ? "ไม่พบแพ้ยา" : "";
             if(grfDrugAllergy.Rows.Count> 1)
@@ -435,7 +519,7 @@ namespace bangna_hospital.gui
             e.Graphics.DrawLine(blackPen, 40, 800, 780, 800);
             e.Graphics.DrawString("Order for Continuation", famt1, Brushes.Black, 510, 132, flags);
             e.Graphics.DrawString("บันทึกอาการและความก้าวหน้า Progess Note of Multidisciplnary Team(ตามมาตรฐาน S.O.A.P)", famt1, Brushes.Black, 40, 800, flags);
-            e.Graphics.DrawString("FM-MED-003 (00-01/02/61) (1/1)", famt, Brushes.Black, 50, 1130, flags);
+            e.Graphics.DrawString("FM-MED-003 (00-01/02/61) (1/1)", famt, Brushes.Black, 50, 1120, flags);
 
             if (chkOrdSheetPreOp.Checked)
             {
@@ -930,11 +1014,12 @@ namespace bangna_hospital.gui
                             txtCertID.Value = certid;
                             img.Dispose();
                             uploadFileCertMedTOdocscan(mcerti, filename, dsc.vn, dsc.visit_date, dsc.pre_no);
+                            new LogWriter("d", "FrmScreenCapture sendFTPCertMed mcerti "+ mcerti);
                         }
                     }
                     else if (img.Height <= 2000)//น่าจะเป็นใบรับรองแพทย์
                     {
-                        //new LogWriter("d", "FrmScreenCapture sendFTPCertMed img.Height <= 2000 ");
+                        new LogWriter("d", "FrmScreenCapture sendFTPCertMed img.Height <= 2000 ");
                         FtpClient ftp = new FtpClient(bc.iniC.hostFTPCertMed, bc.iniC.userFTPCertMed, bc.iniC.passFTPCertMed, bc.ftpUsePassiveLabOut);
                         if (ftp.upload("//cert_med//" + filename1, filename))
                         {
@@ -960,6 +1045,7 @@ namespace bangna_hospital.gui
                     }
                     else
                     {
+                        new LogWriter("d", "FrmScreenCapture sendFTPCertMed else ");
                         FtpClient ftp = new FtpClient(bc.iniC.hostFTPCertMed, bc.iniC.userFTPCertMed, bc.iniC.passFTPCertMed, bc.ftpUsePassiveLabOut);
                         if (ftp.upload("//cert_med//" + filename1, filename))
                         {
@@ -1760,17 +1846,18 @@ namespace bangna_hospital.gui
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new System.Drawing.Point(5, screenHeight - this.Height - 40);
             //frmImg.Location = new System.Drawing.Point(this.Location.X + this.Width + 20, this.Top);
-            this.Text = "Last Update 2024-05-29 Blood Bank ไม่ต้องพิมพ์ Auto Print Lab " ;
+            this.Text = "Last Update 2024-06-20 bug, Notify Sound, Blood Bank ไม่ต้องพิมพ์, Auto Print Lab " ;
             //getListFile();
             txtCertID.Focus();
             String stationname ="";
             String[] deptno = bc.iniC.station.Split(',');
             foreach(String deptno1 in deptno)
             {
-                stationname += bc.bcDB.pm32DB.getDeptName(deptno1);
+                stationname += bc.bcDB.pm32DB.getDeptNameOPD1(deptno1);
                 DEPTNO = bc.bcDB.pm32DB.getDeptNoOPD(deptno1);
             }
             rl1.Text = "hostFTPDrugIn " + bc.iniC.hostFTPDrugIn+ " printerA4 " +bc.iniC.printerA4;
+            rl2.Text = bc.iniC.statusStation + " printerA5 " + bc.iniC.printerA5;
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
         }
