@@ -133,11 +133,11 @@ namespace bangna_hospital.gui
                     drow["patient_hn"] = ptt.Hn;
                     drow["patient_company"] = "";           //ไม่ต้องพิมพ์ ชื่อบริษัท ลองดู
                     ERRLINE = "031";
-                    drow["patient_vn"] = bc.iniC.statusStation.Equals("OPD") ? VNNO : drow["MNC_AN_NO"].ToString() + "." + drow["MNC_AN_YR"].ToString();
+                    drow["patient_vn"] = drow["MNC_AN_NO"].ToString().Equals("0") ? VNNO : drow["MNC_AN_NO"].ToString() + "." + drow["MNC_AN_YR"].ToString();
                     ERRLINE = "0310";
-                    new LogWriter("d", "FrmScreenCapture printLabResult hn " + HN + " reqdate " + reqdate + " REQNOPRNLAB " + reqno);
+                    //new LogWriter("d", "FrmLab printLabResult hn " + HN + " reqdate " + reqdate + " REQNOPRNLAB " + reqno);
                     
-                    new LogWriter("d", "FrmScreenCapture printLabResult drow['mnc_lb_res'] " + drow["mnc_lb_res"] + " drow['mnc_lb_res'].ToString() " + drow["mnc_lb_res"].ToString());
+                    //new LogWriter("d", "FrmLab printLabResult drow['mnc_lb_res'] " + drow["mnc_lb_res"] + " drow['mnc_lb_res'].ToString() " + drow["mnc_lb_res"].ToString());
                     ERRLINE = "032";
                     drow["patient_type"] = dtRes.Rows[0]["MNC_FN_TYP_DSC"].ToString();
                     drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + bc.datetoShow(drow["mnc_req_dat"].ToString());
@@ -623,7 +623,32 @@ namespace bangna_hospital.gui
         private void GrfRes_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
+            //if (e.NewRange.r1 < 0) return;
 
+            //if (e.NewRange.Data == null) return;
+            //if (e.NewRange.r1 == e.OldRange.r1 && e.OldRange.r1 != 1) return;
+            //try
+            //{
+            //    if (rowindexgrfResReq != ((C1FlexGrid)(sender)).Row) { rowindexgrfResReq = ((C1FlexGrid)(sender)).Row; }
+            //    else { return; }
+            //    showLbLoading();
+            //    HN = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfResv] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqHn].ToString() : "";
+            //    String reqno = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqNo] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqNo].ToString() : "";
+            //    String reqdate = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqDate] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqDate].ToString() : "";
+            //    setGrfRes(reqdate, reqno);
+            //    printLabResult(reqdate, reqno);
+            //}
+            //catch (Exception ex)
+            //{
+            //    new LogWriter("e", "FrmLab GrfResReq_AfterRowColChange " + ex.Message);
+            //    bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmLab GrfResReq_AfterRowColChange  ", ex.Message);
+            //    lfSbMessage.Text = ex.Message;
+            //}
+            //finally
+            //{
+            //    //frmFlash.Dispose();
+            //    hideLbLoading();
+            //}
         }
         private void setGrfRes(String reqdate, String reqno)
         {
@@ -733,6 +758,7 @@ namespace bangna_hospital.gui
                 HN = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqHn] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqHn].ToString() : "";
                 String reqno = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqNo] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqNo].ToString() : "";
                 String reqdate = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqDate] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqReqDate].ToString() : "";
+                //VNNO = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReq] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colgrfReqHn].ToString() : "";
                 setGrfRes(reqdate, reqno);
                 printLabResult(reqdate, reqno);
             }
@@ -1053,6 +1079,7 @@ namespace bangna_hospital.gui
             lbLoading.Hide();
             scRes.HeaderHeight = 0;
             scReq.HeaderHeight = 0;
+            scMake.HeaderHeight = 0;
 
             this.Text = "Last Update 2024-07-02-1";
             DEPTNO = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);

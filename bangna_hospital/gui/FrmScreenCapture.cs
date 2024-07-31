@@ -1010,11 +1010,16 @@ namespace bangna_hospital.gui
                             mcerti = bc.bcDB.mcertiDB.selectByPk("555" + certid);
                             lbName.Text = mcerti.ptt_name_t;
                             DocScan dsc = bc.bcDB.dscDB.selectByPk(mcerti.doc_scan_id);
+                            if (mcerti.visit_date.Equals(""))
+                            {
+                                bc.bcDB.mcertiDB.updateVsDateByPk("555" + certid, dsc.visit_date);  // มี bug ทำให้ต้อง update vsdate ในกรณี vsdate เป้นค่าว่าง เวลาค้นหา จะได้ค้นหาพบ
+                            }
                             txtVN.Value = dsc.vn;
                             txtCertID.Value = certid;
                             img.Dispose();
                             uploadFileCertMedTOdocscan(mcerti, filename, dsc.vn, dsc.visit_date, dsc.pre_no);
                             new LogWriter("d", "FrmScreenCapture sendFTPCertMed mcerti "+ mcerti);
+                            //File.Delete(filename);
                         }
                     }
                     else if (img.Height <= 2000)//น่าจะเป็นใบรับรองแพทย์
@@ -1846,7 +1851,7 @@ namespace bangna_hospital.gui
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new System.Drawing.Point(5, screenHeight - this.Height - 40);
             //frmImg.Location = new System.Drawing.Point(this.Location.X + this.Width + 20, this.Top);
-            this.Text = "Last Update 2024-06-20 bug, Notify Sound, Blood Bank ไม่ต้องพิมพ์, Auto Print Lab " ;
+            this.Text = "Last Update 2024-07-24 bug vsdate, Notify Sound, Blood Bank ไม่ต้องพิมพ์, Auto Print Lab " ;
             //getListFile();
             txtCertID.Focus();
             String stationname ="";

@@ -47,7 +47,7 @@
             this.lbReqPttNameT = new System.Windows.Forms.Label();
             this.lbResHN = new System.Windows.Forms.Label();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.tabReceive = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabMake = new C1.Win.C1Command.C1DockingTabPage();
             this.tabResult = new C1.Win.C1Command.C1DockingTabPage();
             this.scRes = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel4 = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -81,6 +81,10 @@
             this.pnSubGrpLists = new System.Windows.Forms.Panel();
             this.c1SplitterPanel8 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1DockingTabPage4 = new C1.Win.C1Command.C1DockingTabPage();
+            this.scMake = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel11 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel12 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel13 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TCMain)).BeginInit();
             this.TCMain.SuspendLayout();
@@ -89,6 +93,7 @@
             this.scReq.SuspendLayout();
             this.c1SplitterPanel1.SuspendLayout();
             this.c1SplitterPanel2.SuspendLayout();
+            this.tabMake.SuspendLayout();
             this.tabResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scRes)).BeginInit();
             this.scRes.SuspendLayout();
@@ -113,6 +118,8 @@
             this.c1SplitterPanel10.SuspendLayout();
             this.spGroup.SuspendLayout();
             this.spSubGroup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scMake)).BeginInit();
+            this.scMake.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -168,7 +175,7 @@
             // TCMain
             // 
             this.TCMain.Controls.Add(this.tabRequest);
-            this.TCMain.Controls.Add(this.tabReceive);
+            this.TCMain.Controls.Add(this.tabMake);
             this.TCMain.Controls.Add(this.tabResult);
             this.TCMain.Controls.Add(this.tabMaster);
             this.TCMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -286,13 +293,14 @@
             this.c1SplitterPanel3.TabIndex = 2;
             this.c1SplitterPanel3.Text = "Panel 3";
             // 
-            // tabReceive
+            // tabMake
             // 
-            this.tabReceive.Location = new System.Drawing.Point(1, 26);
-            this.tabReceive.Name = "tabReceive";
-            this.tabReceive.Size = new System.Drawing.Size(1034, 652);
-            this.tabReceive.TabIndex = 1;
-            this.tabReceive.Text = "กำลังทำผลReceive LAB";
+            this.tabMake.Controls.Add(this.scMake);
+            this.tabMake.Location = new System.Drawing.Point(1, 26);
+            this.tabMake.Name = "tabMake";
+            this.tabMake.Size = new System.Drawing.Size(1034, 652);
+            this.tabMake.TabIndex = 1;
+            this.tabMake.Text = "กำลังทำผลReceive LAB";
             // 
             // tabResult
             // 
@@ -582,7 +590,7 @@
             this.spGroup.Collapsible = true;
             this.spGroup.Controls.Add(this.pnGrpAdd);
             this.spGroup.Controls.Add(this.pnGrpList);
-            this.spGroup.Height = 310;
+            this.spGroup.Height = 303;
             this.spGroup.Location = new System.Drawing.Point(0, 21);
             this.spGroup.Name = "spGroup";
             this.spGroup.Size = new System.Drawing.Size(514, 282);
@@ -651,6 +659,50 @@
             this.c1DockingTabPage4.TabIndex = 1;
             this.c1DockingTabPage4.Text = "Page4";
             // 
+            // scMake
+            // 
+            this.scMake.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.scMake.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.scMake.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.scMake.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scMake.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.scMake.Location = new System.Drawing.Point(0, 0);
+            this.scMake.Name = "scMake";
+            this.scMake.Panels.Add(this.c1SplitterPanel11);
+            this.scMake.Panels.Add(this.c1SplitterPanel12);
+            this.scMake.Panels.Add(this.c1SplitterPanel13);
+            this.scMake.Size = new System.Drawing.Size(1034, 652);
+            this.scMake.TabIndex = 0;
+            // 
+            // c1SplitterPanel11
+            // 
+            this.c1SplitterPanel11.Collapsible = true;
+            this.c1SplitterPanel11.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.c1SplitterPanel11.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel11.Name = "c1SplitterPanel11";
+            this.c1SplitterPanel11.Size = new System.Drawing.Size(508, 631);
+            this.c1SplitterPanel11.TabIndex = 0;
+            this.c1SplitterPanel11.Text = "Panel 1";
+            this.c1SplitterPanel11.Width = 515;
+            // 
+            // c1SplitterPanel12
+            // 
+            this.c1SplitterPanel12.Height = 324;
+            this.c1SplitterPanel12.Location = new System.Drawing.Point(519, 21);
+            this.c1SplitterPanel12.Name = "c1SplitterPanel12";
+            this.c1SplitterPanel12.Size = new System.Drawing.Size(515, 303);
+            this.c1SplitterPanel12.TabIndex = 1;
+            this.c1SplitterPanel12.Text = "Panel 2";
+            // 
+            // c1SplitterPanel13
+            // 
+            this.c1SplitterPanel13.Height = 324;
+            this.c1SplitterPanel13.Location = new System.Drawing.Point(519, 349);
+            this.c1SplitterPanel13.Name = "c1SplitterPanel13";
+            this.c1SplitterPanel13.Size = new System.Drawing.Size(515, 303);
+            this.c1SplitterPanel13.TabIndex = 2;
+            this.c1SplitterPanel13.Text = "Panel 3";
+            // 
             // FrmLab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -672,6 +724,7 @@
             this.c1SplitterPanel1.ResumeLayout(false);
             this.c1SplitterPanel2.ResumeLayout(false);
             this.c1SplitterPanel2.PerformLayout();
+            this.tabMake.ResumeLayout(false);
             this.tabResult.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scRes)).EndInit();
             this.scRes.ResumeLayout(false);
@@ -696,6 +749,8 @@
             this.c1SplitterPanel10.ResumeLayout(false);
             this.spGroup.ResumeLayout(false);
             this.spSubGroup.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scMake)).EndInit();
+            this.scMake.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -706,7 +761,7 @@
         private C1.Win.C1Ribbon.C1StatusBar c1StatusBar1;
         private C1.Win.C1Command.C1DockingTab TCMain;
         private C1.Win.C1Command.C1DockingTabPage tabRequest;
-        private C1.Win.C1Command.C1DockingTabPage tabReceive;
+        private C1.Win.C1Command.C1DockingTabPage tabMake;
         private C1.Win.C1Command.C1DockingTabPage tabResult;
         private C1.Win.C1Ribbon.RibbonLabel lfsb1;
         private C1.Win.C1Ribbon.RibbonLabel lfSbStation;
@@ -756,5 +811,9 @@
         private System.Windows.Forms.Panel pnLabList;
         private System.Windows.Forms.Panel pnLabResAdd;
         private System.Windows.Forms.Panel pnLabResList;
+        private C1.Win.C1SplitContainer.C1SplitContainer scMake;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel11;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel12;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel13;
     }
 }

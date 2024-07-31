@@ -28,6 +28,7 @@ using System.Net;
 using C1.Win.C1Input;
 using Column = C1.Win.C1FlexGrid.Column;
 using Row = C1.Win.C1FlexGrid.Row;
+using Org.BouncyCastle.Asn1.Pkcs;
 
 namespace bangna_hospital.gui
 {
@@ -67,12 +68,13 @@ namespace bangna_hospital.gui
         int colPic1 = 1, colPic2 = 2, colPic3 = 3, colPic4 = 4;
         int colDrugProfListHn = 1, colDrugProfListPttNamet = 2, colDrugProfListAnNo = 3, colDrugProfListWard = 4, colDrugProfListRoomBed = 5, colDrugProfListAdmitDateShow = 6, colDrugProfListDays = 7, colDrugProfListAdmitDate = 8;
         int colDrugProfPttDrugDrugCODE = 1, colDrugProfPttDrugDrugname = 2, colDrugProfPttDrugUsing = 3, colDrugProfPttDrugDrugHome = 4, colDrugProfPttDrugDrugReturn = 5;
+        int pX = -1, pY = -1;
 
         listStream strm;
         List<listStream> lStream, lStreamPic;
         FileInfo rptStrickerPath, rptStrickerSumPath;
 
-        Point pDown = Point.Empty;
+        Point pDown = Point.Empty, lastMousePosition;
         Rectangle rect = Rectangle.Empty;
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
@@ -83,7 +85,16 @@ namespace bangna_hospital.gui
         Form frmImg;
         DateTime NightTimeStart, NightTimeEnd;
         Patient PTT;
-        Boolean FLAGforgrfClick = false;
+        Boolean FLAGforgrfClick = false, draw = false;
+
+        bool startPaint = false;
+        Graphics g;
+        //nullable int for storing Null value
+        int? initX = null;
+        int? initY = null;
+        bool drawSquare = false;
+        bool drawRectangle = false;
+        bool drawCircle = false;
         public FrmPharmacy(BangnaControl bc)
         {
             InitializeComponent();
@@ -1188,30 +1199,51 @@ namespace bangna_hospital.gui
         private void PicDrugIN_MouseUp(object sender, MouseEventArgs e)
         {
             //throw new NotImplementedException();
-            if (picDrugIN.Image == null) return;
-            Rectangle iR = ImageArea(picDrugIN);
-            rect = new Rectangle(pDown.X - iR.X, pDown.Y - iR.Y,
-                                 e.X - pDown.X, e.Y - pDown.Y);
-            Rectangle rectSrc = Scaled(rect, picDrugIN, true);
-            Rectangle rectDest = new Rectangle(Point.Empty, rectSrc.Size);
+            //comment ไป เพราะต้องการให้ เขียนภาพ ไม่ต้องการให้ cropภาพแล้ว
+            //if (picDrugIN.Image == null) return;
+            //Rectangle iR = ImageArea(picDrugIN);
+            //if((e.X - pDown.X)<=0) return;
+            //rect = new Rectangle(pDown.X - iR.X, pDown.Y - iR.Y, e.X - pDown.X, e.Y - pDown.Y);
+            //Rectangle rectSrc = Scaled(rect, picDrugIN, true);
+            //Rectangle rectDest = new Rectangle(Point.Empty, rectSrc.Size);
 
-            Bitmap bmp = new Bitmap(rectDest.Width, rectDest.Height);
-            using (Graphics g = Graphics.FromImage(bmp))
-            {
-                g.DrawImage(picDrugIN.Image, rectDest, rectSrc, GraphicsUnit.Pixel);
-            }
-            picDrugIN.Image = bmp;
+            //Bitmap bmp = new Bitmap(rectDest.Width, rectDest.Height);
+            //using (Graphics g = Graphics.FromImage(bmp))
+            //{
+            //    g.DrawImage(picDrugIN.Image, rectDest, rectSrc, GraphicsUnit.Pixel);
+            //}
+            //picDrugIN.Image = bmp;
+
+            draw = false;
         }
         private void PicDrugIN_MouseMove(object sender, MouseEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!e.Button.HasFlag(MouseButtons.Left)) return;
-
-            rect = new Rectangle(pDown, new Size(e.X - pDown.X, e.Y - pDown.Y));
-            using (Graphics g = picDrugIN.CreateGraphics())
+            if (draw)
             {
-                picDrugIN.Refresh();
-                g.DrawRectangle(Pens.Orange, rect);
+                if (!e.Button.HasFlag(MouseButtons.Left)) return;
+
+                rect = new Rectangle(pDown, new Size(e.X - pDown.X, e.Y - pDown.Y));
+                using (Graphics g = picDrugIN.CreateGraphics())
+                {
+                    picDrugIN.Refresh();
+                    g.DrawRectangle(Pens.Orange, rect);
+                }
+                Console.WriteLine(e.Location);
+                if (e.Button == MouseButtons.Left && lastMousePosition != null)
+                {
+                    Pen pen = new Pen(Color.Black, 3);
+                    //gfx.DrawLine(pen, lastMousePosition, e.Location);
+                    using (Graphics gfx = Graphics.FromImage(picDrugIN.Image))
+                    {
+                        
+                        gfx.DrawLine(pen, pX, pY, e.X, e.Y);
+                    }
+                    //picDrugIN.Image = bmp;
+                }
+                lastMousePosition = e.Location;
+                pX = e.X;
+                pY = e.Y;
             }
         }
         private void PicDrugIN_MouseDown(object sender, MouseEventArgs e)
@@ -1219,6 +1251,10 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             pDown = e.Location;
             picDrugIN.Refresh();
+            draw = true;
+
+            pX = e.X;
+            pY = e.Y;
         }
         private void PicDrugIN_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -2250,7 +2286,9 @@ namespace bangna_hospital.gui
                 }
                 imgDrug = (Image)((Tile)sender).Tag;
                 pnDrugINimg.Dock = DockStyle.Fill;
+                
                 picDrugIN.Image = imgDrug;
+                //pnDrugINimg.AutoScrollMinSize = new Size(picDrugIN.Image.Width, picDrugIN.Image.Height);
                 newHeight = 0;
                 ((Tile)sender).Checked = true;
                 ((Tile)sender).BackColor = Color.SteelBlue;

@@ -167,6 +167,7 @@ namespace bangna_hospital.gui
             this.DTRCODE = dtrcode;
             //มาจากหน้าจอ DoctorView และเป็น OPD ให้ update act_no
             fromDoctor = true;
+            //MessageBox.Show("FrmScanView1 Constructor", "");
             initConfig();
             //new LogWriter("d", "FrmScanView1 initConfig end");
         }
@@ -178,7 +179,7 @@ namespace bangna_hospital.gui
             fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
             fEdit3B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize+3, FontStyle.Bold);
             fEdit5B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 5, FontStyle.Bold);
-
+            //MessageBox.Show("FrmScanView1 initConfig 00", "");
             array1 = new ArrayList();
             lStream = new List<listStream>();
             lStreamPic = new List<listStream>();
@@ -203,7 +204,7 @@ namespace bangna_hospital.gui
             lbLoading.AutoSize = false;
             lbLoading.Size = new Size(300, 60);
             this.Controls.Add(lbLoading);
-
+            //MessageBox.Show("FrmScanView1 initConfig 01", "");
             //theme1.SetTheme(sb1, bc.iniC.themeApplication);
             theme1.SetTheme(gbPtt, bc.iniC.themeApplication);
             theme1.SetTheme(panel2, bc.iniC.themeApplication);
@@ -255,7 +256,7 @@ namespace bangna_hospital.gui
             initTabVS();
             initGrfOPD();
             initGrfIPD();
-            
+            //MessageBox.Show("FrmScanView1 initConfig 02", "");
             //initGrfPicture();
             //initTabPrn();
             //initGrf();
@@ -265,7 +266,7 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(tcDtr, theme1.Theme);
             //MessageBox.Show("222", "");
             //setTabMachineResult();
-
+            //MessageBox.Show("FrmScanView1 initConfig 03", "");
             tabHnLabOut.DoubleClick += TabHnLabOut_DoubleClick;
         }
 
@@ -2832,8 +2833,10 @@ namespace bangna_hospital.gui
                         C1DockingTabPage tabHnLabOut = new C1DockingTabPage();
                         //tabHnLabOut.Location = new System.Drawing.Point(1, 24);
                         //tabScan.Name = "c1DockingTabPage1";
+                        
                         tabHnLabOut.Size = new System.Drawing.Size(667, 175);
                         tabHnLabOut.TabIndex = 0;
+                        
                         //tabHnLabOut.Text = bc.datetoShow(rowdsc["date_create"].ToString());
                         if (rowdsc["ml_fm"].ToString().Equals("FM-LAB-997"))
                         {
@@ -2966,7 +2969,9 @@ namespace bangna_hospital.gui
                                 tabHnLabOut.Controls.Add(labOutView);
 
                                 ContextMenu menuGw = new ContextMenu();
+                                EventHandler myEvent = (sender, e) => ContextMenu_void_outlab(rowdsc["doc_scan_id"].ToString());//my delegate
                                 menuGw.MenuItems.Add("Export Out Lab", new EventHandler(ContextMenu_LabOut_export_outlab));
+                                menuGw.MenuItems.Add("Void Out Lab", myEvent);
                                 labOutView.ContextMenu = menuGw;
 
                                 C1PdfDocumentSource pds = new C1PdfDocumentSource();
@@ -2990,6 +2995,21 @@ namespace bangna_hospital.gui
         private void ContextMenu_labOutView_print(MemoryStream stream)
         {
             setlabOutViewPrint(stream);
+        }
+        private void ContextMenu_void_outlab(String dscid)
+        {
+            //String dscid = grfHn[grfHn.Row, colId] != null ? grfHn[grfHn.Row, colId].ToString() : "";
+            //String pttname = grfHn[grfHn.Row, colFullName] != null ? grfHn[grfHn.Row, colFullName].ToString() : "";
+            //String hn = grfHn[grfHn.Row, colHN] != null ? grfHn[grfHn.Row, colHN].ToString() : "";
+            if (MessageBox.Show("ต้องการ ยกเลิก outlab" + Environment.NewLine + "id " + dscid, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                String re = bc.bcDB.dscDB.voidDocScanOutLab(dscid, "");
+                if(int.TryParse(re, out int chk))
+                {
+
+                }
+                setTabHnLabOut();
+            }
         }
         private void setlabOutViewPrint(MemoryStream stream)
         {
@@ -3396,7 +3416,6 @@ namespace bangna_hospital.gui
             theme1.SetTheme(grfPic, bc.iniC.themeApp);
             theme1.SetTheme(panel, bc.iniC.themeApp);
         }
-
         private void GrfPic_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

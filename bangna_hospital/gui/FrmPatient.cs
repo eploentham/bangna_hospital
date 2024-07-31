@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Printing;
@@ -197,7 +198,9 @@ namespace bangna_hospital.gui
             tabVS.SelectedTabChanged += TabVS_SelectedTabChanged;
             btnCerti1.Click += BtnCerti1_Click;
             btnCerti2.Click += BtnCerti2_Click;
-            
+            btnCertiView2.Click += BtnCertiView2_Click;
+            btnCertiView1.Click += BtnCertiView1_Click;
+
             txtSearchItem.KeyUp += TxtSearchItem_KeyUp;
             txtSearchItem.Enter += TxtSearchItem_Enter;
             txtItemCode.KeyUp += TxtItemCode_KeyUp;
@@ -245,7 +248,6 @@ namespace bangna_hospital.gui
             txtInteraction.KeyUp += TxtInteraction_KeyUp;
             btnPrnStaffNote.Click += BtnPrnStaffNote_Click;
         }
-
         private void BtnPrnStaffNote_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -1152,10 +1154,69 @@ namespace bangna_hospital.gui
                 txtItemQTY.Value = "1";
             }
         }
+        private void BtnCertiView2_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String cert2ndleaf = bc.bcDB.mcertiDB.selectCertIDByHn2ndLeaf(HN, PRENO, VSDATE);
+            if (cert2ndleaf.Length > 0)
+            {
+                pnCertiMed.Controls.Clear();
+                pnCertiMed.Controls.Add(fvCerti);
+                MedicalCertificate certi = new MedicalCertificate();
+                certi = bc.bcDB.mcertiDB.selectByPk(cert2ndleaf);
+                DocScan dsc = new DocScan();
+                dsc = bc.bcDB.dscDB.selectByPk(certi.doc_scan_id);
+                FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                C1PdfDocumentSource pdsMedCerti = new C1PdfDocumentSource();
+                pdsMedCerti.LoadFromStream(streamCertiDtr);
+                fvCerti.DocumentSource = pdsMedCerti;
+            }
+        }
         private void BtnCerti2_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            FrmCertDoctor frm = new FrmCertDoctor(bc, DTRCODE, txtPttHN.Text.Trim(), VSDATE, PRENO, "2NFLEAF");
+            frm.ShowDialog(this);
 
+            if (frm.streamCertiDtr != null)
+            {
+                pnCertiMed.Controls.Clear();
+                pnCertiMed.Controls.Add(fvCerti);
+                C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                pds.LoadFromStream(frm.streamCertiDtr);
+                fvCerti.DocumentSource = pds;
+                btnCerti1.Enabled = true;
+
+                if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+                frm.streamCertiDtr.Position = 0;
+                setLbLoading("กำลังสั่งพิมพ์ ...");
+                showLbLoading();
+                SetDefaultPrinter(bc.iniC.printerLabOut);
+                pds.LoadFromStream(frm.streamCertiDtr);
+                pds.Print();
+                hideLbLoading();
+                //new LogWriter("d", "FrmScanView1 BtnCertiNew_Click Print Done ");
+            }
+        }
+        private void BtnCertiView1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String cert2ndleaf = bc.bcDB.mcertiDB.selectCertIDByHn2ndLeaf(HN, PRENO, VSDATE);
+            if (cert2ndleaf.Length > 0)
+            {
+                pnCertiMed.Controls.Clear();
+                pnCertiMed.Controls.Add(fvCerti);
+                MedicalCertificate certi = new MedicalCertificate();
+                certi = bc.bcDB.mcertiDB.selectByPk(cert2ndleaf);
+                DocScan dsc = new DocScan();
+                dsc = bc.bcDB.dscDB.selectByPk(certi.doc_scan_id);
+                FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                C1PdfDocumentSource pdsMedCerti = new C1PdfDocumentSource();
+                pdsMedCerti.LoadFromStream(streamCertiDtr);
+                fvCerti.DocumentSource = pdsMedCerti;
+            }
         }
         private void BtnCerti1_Click(object sender, EventArgs e)
         {
@@ -1232,11 +1293,31 @@ namespace bangna_hospital.gui
             if (tabVS.SelectedTab == tabMedScan)
             {
                 TABVSACTIVE = tabMedScan.Name;
-                if (flagTabMedScanChange)
+                if (bc.iniC.linkmedicalscan.Length <= 0)
                 {
-                    setGrfIPDScan();
-                    flagTabMedScanChange = false;
+                    if (flagTabMedScanChange)
+                    {
+                        setGrfIPDScan();
+                        flagTabMedScanChange = false;
+                    }
                 }
+                else
+                {
+                    try
+                    {
+                        string url = bc.iniC.linkmedicalscan + HN + "?userid=" + DTRCODE;
+                        //System.Diagnostics.Process.Start("open", url);
+                        url = url.Replace("&", "^&");
+                        Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                    }
+                    catch (Exception ex) 
+                    {
+                        lfSbMessage.Text = ex.Message;
+                        new LogWriter("e", this.Name+" TabVS_SelectedTabChanged " + ex.Message);
+                        bc.bcDB.insertLogPage(bc.userId, this.Name, "TabVS_SelectedTabChanged ", ex.Message);
+                    }                    
+                }
+                
             }
             else if (tabVS.SelectedTab == tabOrder){TABVSACTIVE = tabOrder.Name; }
             else if (tabVS.SelectedTab == tabOutLab) 
@@ -2284,8 +2365,8 @@ namespace bangna_hospital.gui
             if (e.NewRange.r1 == e.OldRange.r1 && e.OldRange.r1 != 1) return;
             try
             {
-                if(rowindexgrfVs != ((C1FlexGrid)(sender)).Row) { rowindexgrfVs = ((C1FlexGrid)(sender)).Row; }
-                else { return; }
+                if(rowindexgrfVs != ((C1FlexGrid)(sender)).Row) { rowindexgrfVs = ((C1FlexGrid)(sender)).Row;}
+                else { return;}
                 showLbLoading();
                 PRENO = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colVsPreno] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colVsPreno].ToString() : "";
                 VSDATE = ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colVsVsDate1] != null ? ((C1FlexGrid)(sender))[((C1FlexGrid)(sender)).Row, colVsVsDate1].ToString() : "";
@@ -2362,14 +2443,14 @@ namespace bangna_hospital.gui
                     //MessageBox.Show("ไม่พบ StaffNote ในระบบ " + ex.Message, "");
                     //lfSbStatus.Text = ex.Message.ToString();
                     lfSbMessage.Text = err + " setStaffNote " + ex.Message;
-                    new LogWriter("e", "FrmOPD setStaffNote " + ex.Message);
+                    new LogWriter("e", this.Name + " setStaffNote " + ex.Message);
                     bc.bcDB.insertLogPage(bc.userId, this.Name, "setStaffNote", ex.Message);
-
                 }
             }
         }
         private void setGrfVS()
         {
+            //new LogWriter("d", this.Name+" setGrfVS " );
             DataTable dt = new DataTable();
             dt = bc.bcDB.vsDB.selectVisitByHn3(txtPttHN.Text);
             grfVS.Rows.Count = 1; grfVS.Rows.Count = dt.Rows.Count+1;
@@ -2811,7 +2892,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-06-26 staffnote สลับหน้า ";
+            this.Text = "Last Update 2024-07-26 บาง1link staffnote สลับหน้า ";
             lbVN.Left = lbPttAge.Left + 120;
             chkItemDrug.Checked = true;
             ChkItemDrug_Click(null, null);

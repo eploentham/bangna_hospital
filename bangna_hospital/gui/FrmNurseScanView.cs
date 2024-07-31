@@ -873,7 +873,7 @@ namespace bangna_hospital.gui
                     grfPttinWrd[i, colLabOutDtrName] = row["mnc_pfix_dsc"].ToString() + " " + row["MNC_DOT_FNAME"].ToString() + " " + row["MNC_DOT_LNAME"].ToString();
                     grfPttinWrd[i, colLabOutRemark] = row["MNC_shif_memo"].ToString();
                     grfPttinWrd[i, colLabOutBefore] = row["before"].ToString();
-                    HNinWrd += row["MNC_HN_NO"].ToString()+",";
+                    HNinWrd += "'"+row["MNC_HN_NO"].ToString()+"',";
                     //grfLabOutWait[i, colApmRemark] = row["MNC_REM_MEMO"].ToString();
                     //grfLabOutWait[i, colApmDept] = row["mnc_name"].ToString();
                     //grfLabOutWait[i, colApmId] = row["mnc_name"].ToString();
@@ -1009,14 +1009,14 @@ namespace bangna_hospital.gui
             {
                 hn1 = hn.Substring(0, hn.Length - 1);
             }
-            String[] hn2 = hn1.Split(',');
-            if (hn2.Length > 0)
-            {
-                foreach(String hn4 in hn2)
-                {
-                    hn3 += "'" + hn4+"',";
-                }
-            }
+            //String[] hn2 = hn1.Split(',');
+            //if (hn2.Length > 0)
+            //{
+            //    foreach(String hn4 in hn2)
+            //    {
+            //        hn3 += "'" + hn4+"',";
+            //    }
+            //}
             if (hn3.Length <= 0) return;
             hn1 = hn3.Substring(hn3.Length - 1, 1);
             if (hn1.IndexOf(",") >= 0)
@@ -1045,7 +1045,6 @@ namespace bangna_hospital.gui
             grfXrayFinish.Cols[colLabOutFReqNo].Width = 80;
 
             dt = bc.bcDB.rpttcDB.selectResultByHn(hn1);
-
             //grfXrayFinish.Cols[colHnPrnStaffNote].Width = 60;
 
             //if (datestart.Length <= 0 && dateend.Length <= 0)

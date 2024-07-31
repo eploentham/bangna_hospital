@@ -300,8 +300,8 @@ namespace bangna_hospital.gui
             dt = bc.bcDB.labbDB.selectAll();
 
             grfMas.ShowCursor = true;
-            ContextMenu menuGw = new ContextMenu();
-            grfHn.ContextMenu = menuGw;
+            //ContextMenu menuGw = new ContextMenu();
+            //grfHn.ContextMenu = menuGw;
             int i = 1;
             grfMas.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)
@@ -355,7 +355,6 @@ namespace bangna_hospital.gui
             //    theme1.SetTheme(con, bc.iniC.themeApplication);
             //}
         }
-
         private void GrfLabOutView_DoubleClick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -377,7 +376,117 @@ namespace bangna_hospital.gui
 
             frmFlash.Dispose();
         }
+        private void setgrfLabOutView()
+        {
+            showFormWaiting();
+            String datestart = "", dateend = "", hn = "", txt = "";
+            DataTable dt = new DataTable();
+            DataTable dtM01 = new DataTable();
+            //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
+            //MessageBox.Show("txtDateEnd " + txtDateEnd.Text, "");
+            datestart = bc.datetoDB(txtLabOutViewDate.Text);
+            //dateend = bc.datetoDB(txtDateEnd.Text);
+            //MessageBox.Show("datestart "+ datestart, "");
+            //MessageBox.Show("dateend "+ dateend, "");
+            //grfLabOutView.Clear();
+            grfLabOutView.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfLabOutView.Cols.Count = 15;
+            grfLabOutView.Cols[colHISDateReq].Caption = "Date Req1";
+            grfLabOutView.Cols[colHISHN].Caption = "HN";
+            grfLabOutView.Cols[colHISFullName].Caption = "Name";
+            grfLabOutView.Cols[colHISVN].Caption = "VN";
+            grfLabOutView.Cols[colHISLabCode].Caption = "Code";
+            grfLabOutView.Cols[colHISLabName].Caption = "Lab Name";
+            grfLabOutView.Cols[colHISReqNo].Caption = "req id";
+            grfLabOutView.Cols[colHISStatusRes].Caption = "Status";
+            grfLabOutView.Cols[colHISVsDate].Caption = "Date Visit";
+            grfLabOutView.Cols[colHISDateResult].Caption = "Date Result";
+            grfLabOutView.Cols[colHISDateReq].Width = 100;
+            grfLabOutView.Cols[colHISHN].Width = 80;
+            grfLabOutView.Cols[colHISFullName].Width = 260;
+            grfLabOutView.Cols[colHISVN].Width = 100;
+            grfLabOutView.Cols[colHISLabCode].Width = 80;
+            grfLabOutView.Cols[colHISLabName].Width = 300;
+            grfLabOutView.Cols[colHISReqNo].Width = 60;
+            grfLabOutView.Cols[colHISStatusRes].Width = 60;
+            grfLabOutView.Cols[colHISVsDate].Width = 90;
+            grfLabOutView.Cols[colHISDateResult].Width = 90;
+            //MessageBox.Show("1111", "");
+            String flag = "";
+            //dt = bc.bcDB.laboDB.selectByDateReq(datestart);
+            theme1.SetTheme(grfLabOutView, bc.iniC.themeApplication);
 
+            dt = bc.bcDB.laboDB.selectByDateReq(datestart);
+
+            //grfHn.Cols[colHnPrnStaffNote].Width = 60;
+
+            grfLabOutView.ShowCursor = true;
+            //ContextMenu menuGw = new ContextMenu();
+            //grfLabOutView.ContextMenu = menuGw;
+            int i = 0;
+            grfLabOutView.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    i++;
+                    grfLabOutView[i, 0] = (i);
+                    grfLabOutView[i, colHISid] = row["lab_out_id"].ToString();
+                    grfLabOutView[i, colHISHN] = row["hn"].ToString();
+                    grfLabOutView[i, colHISFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfLabOutView[i, colHISDateReq] = bc.datetoShow(row["date_req"].ToString());
+                    grfLabOutView[i, colHISVN] = row["vn"].ToString();
+                    grfLabOutView[i, colHISLabCode] = row["lab_code"].ToString();
+                    grfLabOutView[i, colHISLabName] = row["lab_name"].ToString();
+                    grfLabOutView[i, colHISReqNo] = row["req_no"].ToString();
+                    grfLabOutView[i, colHISpreno] = row["pre_no"].ToString();
+                    grfLabOutView[i, colHISVsDate] = bc.datetoShow(row["visit_date"].ToString());
+                    grfLabOutView[i, colHISEdit] = "0";
+                    if (row["status_result"].ToString().Equals("1"))
+                    {
+                        grfLabOutView[i, colHISStatusRes] = "OK";
+                    }
+                    else
+                    {
+                        grfLabOutView[i, colHISStatusRes] = "";
+                    }
+                    grfLabOutView[i, colHISDateResult] = bc.datetoShow(row["date_result"].ToString());
+                    if (row["lab_code"] != null)
+                    {
+                        dtM01 = bc.bcDB.laboDB.selectLabM01By(row["lab_code"].ToString());
+                        if (dtM01.Rows.Count > 0)
+                        {
+                            grfLabOutView[i, colHISPeriodResult] = dtM01.Rows[0]["MNC_SCH_ACT"].ToString();
+                        }
+                    }
+                    //if ((i % 2) == 0)
+                    //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                    //grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmLabOutReceiveView setGrf ex " + ex.Message);
+                }
+            }
+            grfLabOutView.Rows[0].Visible = true;
+            grfLabOutView.Cols[0].Visible = true;
+            grfLabOutView.Cols[colHISid].Visible = false;
+            grfLabOutView.Cols[colHISEdit].Visible = false;
+            grfLabOutView.Cols[colHISpreno].Visible = false;
+            grfLabOutView.Cols[colHISHN].AllowEditing = false;
+            grfLabOutView.Cols[colHISFullName].AllowEditing = false;
+            grfLabOutView.Cols[colHISDateReq].AllowEditing = false;
+            grfLabOutView.Cols[colHISVN].AllowEditing = false;
+            grfLabOutView.Cols[colHISLabCode].AllowEditing = false;
+            grfLabOutView.Cols[colHISLabName].AllowEditing = false;
+            grfLabOutView.Cols[colHISReqNo].AllowEditing = false;
+            grfLabOutView.Cols[colHISStatusRes].AllowEditing = false;
+            grfLabOutView.Cols[colHISVsDate].AllowEditing = false;
+            grfLabOutView.Cols[colHISHN].AllowSorting = true;
+            grfLabOutView.AllowFiltering = true;
+            frmFlash.Dispose();
+        }
         private void initGrfLabOut()
         {
             grfLabOut = new C1FlexGrid();
@@ -399,11 +508,15 @@ namespace bangna_hospital.gui
             grfLabOut.Cols[0].Visible = false;
             theme1.SetTheme(grfLabOut, bc.iniC.themeApplication);
             grfLabOut.AllowFiltering = true;
+
+            
+
             //foreach (Control con in panel1.Controls)
             //{
             //    theme1.SetTheme(con, bc.iniC.themeApplication);
             //}
         }
+        
         private void initGrf()
         {
             grfHn = new C1FlexGrid();
@@ -415,7 +528,9 @@ namespace bangna_hospital.gui
 
             grfHn.DoubleClick += GrfHn_DoubleClick;
             //grfHn.Click += GrfHn_Click;
-
+            ContextMenu menuGwX = new ContextMenu();
+            menuGwX.MenuItems.Add("ยกเลิก outlab", new EventHandler(ContextMenu_void_outlab));
+            grfHn.ContextMenu = menuGwX;
             //menuGw.MenuItems.Add("&แก้ไข รายการเบิก", new EventHandler(ContextMenu_edit));
             //menuGw.MenuItems.Add("&แก้ไข", new EventHandler(ContextMenu_Gw_Edit));
             //menuGw.MenuItems.Add("&ยกเลิก", new EventHandler(ContextMenu_Gw_Cancel));
@@ -429,6 +544,120 @@ namespace bangna_hospital.gui
             //{
             //    theme1.SetTheme(con, bc.iniC.themeApplication);
             //}
+        }
+        private void ContextMenu_void_outlab(object sender, System.EventArgs e)
+        {
+            if (grfHn == null) return;
+            if (grfHn.Row < 1) return;
+            if (grfHn.Col <= 0) return;
+            String dscid = grfHn[grfHn.Row, colId] != null ? grfHn[grfHn.Row, colId].ToString() : "";
+            String pttname = grfHn[grfHn.Row, colFullName] != null ? grfHn[grfHn.Row, colFullName].ToString() : "";
+            String hn = grfHn[grfHn.Row, colHN] != null ? grfHn[grfHn.Row, colHN].ToString() : "";
+            if (MessageBox.Show("ต้องการ ยกเลิก outlab"+Environment.NewLine+"hn "+ hn+" "+ pttname + Environment.NewLine+"id "+ dscid, "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+
+            }
+        }
+        private void setGrf()
+        {
+            String datestart = "", dateend = "", hn = "", txt = "";
+            DataTable dt = new DataTable();
+            //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
+            //MessageBox.Show("txtDateEnd " + txtDateEnd.Text, "");
+            datestart = bc.datetoDB(txtDateStart.Text);
+            dateend = bc.datetoDB(txtDateEnd.Text);
+            DateTime.TryParse(txtDateStart.Text, out DateTime datestart1);
+            DateTime.TryParse(txtDateEnd.Text, out DateTime dateend1);
+            if (datestart1.Year < 1900)
+            {
+                datestart1 = datestart1.AddYears(543);
+            }
+            if (datestart1.Year > 2500)
+            {
+                datestart1 = datestart1.AddYears(-543);
+            }
+            datestart = datestart1.Year.ToString() + datestart1.ToString("-MM-dd");
+            dateend = dateend1.Year.ToString() + dateend1.ToString("-MM-dd");
+            //MessageBox.Show("datestart "+ datestart, "");
+            //MessageBox.Show("dateend "+ dateend, "");
+            //grfHn.Clear();
+            grfHn.Rows.Count = 1;
+            //grfQue.Rows.Count = 1;
+            grfHn.Cols.Count = 9;
+            grfHn.Cols[colDateReq].Caption = "Date Req2";
+            grfHn.Cols[colHN].Caption = "HN";
+            grfHn.Cols[colFullName].Caption = "Name";
+            grfHn.Cols[colDateReceive].Caption = "Date Rec";
+            grfHn.Cols[colReqNo].Caption = "Req No";
+            grfHn.Cols[colVN].Caption = "VN";
+            grfHn.Cols[colId].Caption = "id";
+            grfHn.Cols[colComp].Caption = "Comp";
+            grfHn.Cols[colDateReq].Width = 100;
+            grfHn.Cols[colHN].Width = 80;
+            grfHn.Cols[colFullName].Width = 300;
+            grfHn.Cols[colDateReceive].Width = 100;
+            grfHn.Cols[colReqNo].Width = 80;
+            grfHn.Cols[colVN].Width = 80;
+            grfHn.Cols[colComp].Width = 100;
+            //MessageBox.Show("1111", "");
+            if (datestart.Length <= 0 && dateend.Length <= 0 && txtHn.Text.Length <= 0)
+            {
+                return;
+            }
+            if (chkDateReq.Checked)
+            {
+                dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "daterequest");
+            }
+            else if (chkDateLabOut.Checked)
+            {
+                dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
+            }
+            else if (chkDateReqHIS.Checked)
+            {
+                //dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
+            }
+            //grfHn.Cols[colHnPrnStaffNote].Width = 60;
+
+            //if (datestart.Length <= 0 && dateend.Length <= 0)
+            //{
+            //    MessageBox.Show("วันทีเริ่มต้น ไม่มีค่า", "");
+            //    return;
+            //}
+            grfHn.ShowCursor = true;
+            //ContextMenu menuGw = new ContextMenu();
+            //grfHn.ContextMenu = menuGw;
+            int i = 1;
+            grfHn.Rows.Count = dt.Rows.Count + 1;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    grfHn[i, 0] = (i);
+                    grfHn[i, colHN] = row["hn"].ToString();
+                    grfHn[i, colFullName] = row["patient_fullname"].ToString();     //row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
+                    grfHn[i, colDateReceive] = bc.datetoShow(row["date_create"].ToString());
+                    grfHn[i, colDateReq] = bc.datetoShow(row["date_req"].ToString());
+                    grfHn[i, colReqNo] = row["req_id"].ToString();
+                    grfHn[i, colVN] = row["vn"].ToString();
+                    grfHn[i, colId] = row["doc_scan_id"].ToString();
+                    grfHn[i, colComp] = row["ml_fm"].ToString().Equals("FM-LAB-998") ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-997")
+                        ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-996") ? "RIA" : row["ml_fm"].ToString().Equals("FM-LAB-995")
+                        ? "Medica" : row["ml_fm"].ToString().Equals("FM-LAB-994") ? "GM" : row["ml_fm"].ToString().Equals("FM-LAB-993") ? "Bangna5" : "";
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmLabOutReceiveView1 setGrf ex " + ex.Message);
+                }
+                i++;
+            }
+            grfHn.Cols[colId].Visible = false;
+            grfHn.Cols[colHN].AllowEditing = false;
+            grfHn.Cols[colFullName].AllowEditing = false;
+            grfHn.Cols[colDateReceive].AllowEditing = false;
+            grfHn.Cols[colDateReq].AllowEditing = false;
+            grfHn.Cols[colReqNo].AllowEditing = false;
+            grfHn.Cols[colVN].AllowEditing = false;
+            grfHn.Cols[colComp].AllowEditing = false;
         }
 
         private void GrfHn_DoubleClick(object sender, EventArgs e)
@@ -557,95 +786,7 @@ namespace bangna_hospital.gui
                 frm.ShowDialog(this);
             }
         }
-        private void setGrf()
-        {
-            String datestart = "", dateend = "", hn = "", txt = "";
-            DataTable dt = new DataTable();
-            //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
-            //MessageBox.Show("txtDateEnd " + txtDateEnd.Text, "");
-            datestart = bc.datetoDB(txtDateStart.Text);
-            dateend = bc.datetoDB(txtDateEnd.Text);
-            //MessageBox.Show("datestart "+ datestart, "");
-            //MessageBox.Show("dateend "+ dateend, "");
-            grfHn.Clear();
-            grfHn.Rows.Count = 1;
-            //grfQue.Rows.Count = 1;
-            grfHn.Cols.Count = 9;
-            grfHn.Cols[colDateReq].Caption = "Date Req";
-            grfHn.Cols[colHN].Caption = "HN";
-            grfHn.Cols[colFullName].Caption = "Name";
-            grfHn.Cols[colDateReceive].Caption = "Date Rec";
-            grfHn.Cols[colReqNo].Caption = "Req No";
-            grfHn.Cols[colVN].Caption = "VN";
-            grfHn.Cols[colId].Caption = "id";
-            grfHn.Cols[colComp].Caption = "Comp";
-            grfHn.Cols[colDateReq].Width = 100;
-            grfHn.Cols[colHN].Width = 80;
-            grfHn.Cols[colFullName].Width = 300;
-            grfHn.Cols[colDateReceive].Width = 100;
-            grfHn.Cols[colReqNo].Width = 80;
-            grfHn.Cols[colVN].Width = 80;
-            grfHn.Cols[colComp].Width = 100;
-            //MessageBox.Show("1111", "");
-            if (datestart.Length <= 0 && dateend.Length <= 0 && txtHn.Text.Length <= 0)
-            {
-                return;
-            }
-            if (chkDateReq.Checked)
-            {
-                dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "daterequest");
-            }
-            else if (chkDateLabOut.Checked)
-            {
-                dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
-            }
-            else if (chkDateReqHIS.Checked)
-            {
-                //dt = bc.bcDB.dscDB.selectLabOutByDateReq(datestart, dateend, txtHn.Text.Trim(), "datecreate");
-            }
-            //grfHn.Cols[colHnPrnStaffNote].Width = 60;
-
-            //if (datestart.Length <= 0 && dateend.Length <= 0)
-            //{
-            //    MessageBox.Show("วันทีเริ่มต้น ไม่มีค่า", "");
-            //    return;
-            //}
-            grfHn.ShowCursor = true;
-            ContextMenu menuGw = new ContextMenu();
-            grfHn.ContextMenu = menuGw;
-            int i = 1;
-            grfHn.Rows.Count = dt.Rows.Count + 1;
-            foreach (DataRow row in dt.Rows)
-            {
-                try
-                {
-                    grfHn[i, 0] = (i);
-                    grfHn[i, colHN] = row["hn"].ToString();
-                    grfHn[i, colFullName] = row["patient_fullname"].ToString();     //row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
-                    grfHn[i, colDateReceive] = bc.datetoShow(row["date_create"].ToString());
-                    grfHn[i, colDateReq] = bc.datetoShow(row["date_req"].ToString());
-                    grfHn[i, colReqNo] = row["req_id"].ToString();
-                    grfHn[i, colVN] = row["vn"].ToString();
-                    grfHn[i, colId] = row["doc_scan_id"].ToString();
-                    grfHn[i, colComp] = row["ml_fm"].ToString().Equals("FM-LAB-998") ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-997") 
-                        ? "InnoTech" : row["ml_fm"].ToString().Equals("FM-LAB-996") ? "RIA" : row["ml_fm"].ToString().Equals("FM-LAB-995") 
-                        ? "Medica" : row["ml_fm"].ToString().Equals("FM-LAB-994") ? "GM" : row["ml_fm"].ToString().Equals("FM-LAB-993") ? "Bangna5":"";
-                }
-                catch (Exception ex)
-                {
-                    new LogWriter("e", "FrmLabOutReceiveView1 setGrf ex " + ex.Message);
-                }
-                i++;
-            }
-            grfHn.Cols[colId].Visible = false;
-            grfHn.Cols[colHN].AllowEditing = false;
-            grfHn.Cols[colFullName].AllowEditing = false;
-            grfHn.Cols[colDateReceive].AllowEditing = false;
-            grfHn.Cols[colDateReq].AllowEditing = false;
-            grfHn.Cols[colReqNo].AllowEditing = false;
-            grfHn.Cols[colVN].AllowEditing = false;
-            grfHn.Cols[colComp].AllowEditing = false;
-        }
+        
         private void BtnOk_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -766,117 +907,7 @@ namespace bangna_hospital.gui
             grfLabOut.Cols[colHISVsDate].AllowEditing = false;
             frmFlash.Dispose();
         }
-        private void setgrfLabOutView()
-        {
-            showFormWaiting();
-            String datestart = "", dateend = "", hn = "", txt = "";
-            DataTable dt = new DataTable();
-            DataTable dtM01 = new DataTable();
-            //MessageBox.Show("txtDateStart " + txtDateStart.Text, "");
-            //MessageBox.Show("txtDateEnd " + txtDateEnd.Text, "");
-            datestart = bc.datetoDB(txtLabOutViewDate.Text);
-            //dateend = bc.datetoDB(txtDateEnd.Text);
-            //MessageBox.Show("datestart "+ datestart, "");
-            //MessageBox.Show("dateend "+ dateend, "");
-            //grfLabOutView.Clear();
-            grfLabOutView.Rows.Count = 1;
-            //grfQue.Rows.Count = 1;
-            grfLabOutView.Cols.Count = 15;
-            grfLabOutView.Cols[colHISDateReq].Caption = "Date Req";
-            grfLabOutView.Cols[colHISHN].Caption = "HN";
-            grfLabOutView.Cols[colHISFullName].Caption = "Name";
-            grfLabOutView.Cols[colHISVN].Caption = "VN";
-            grfLabOutView.Cols[colHISLabCode].Caption = "Code";
-            grfLabOutView.Cols[colHISLabName].Caption = "Lab Name";
-            grfLabOutView.Cols[colHISReqNo].Caption = "req id";
-            grfLabOutView.Cols[colHISStatusRes].Caption = "Status";
-            grfLabOutView.Cols[colHISVsDate].Caption = "Date Visit";
-            grfLabOutView.Cols[colHISDateResult].Caption = "Date Result";
-            grfLabOutView.Cols[colHISDateReq].Width = 100;
-            grfLabOutView.Cols[colHISHN].Width = 80;
-            grfLabOutView.Cols[colHISFullName].Width = 260;
-            grfLabOutView.Cols[colHISVN].Width = 100;
-            grfLabOutView.Cols[colHISLabCode].Width = 80;
-            grfLabOutView.Cols[colHISLabName].Width = 300;
-            grfLabOutView.Cols[colHISReqNo].Width = 60;
-            grfLabOutView.Cols[colHISStatusRes].Width = 60;
-            grfLabOutView.Cols[colHISVsDate].Width = 90;
-            grfLabOutView.Cols[colHISDateResult].Width = 90;
-            //MessageBox.Show("1111", "");
-            String flag = "";
-            //dt = bc.bcDB.laboDB.selectByDateReq(datestart);
-            theme1.SetTheme(grfLabOutView, bc.iniC.themeApplication);
-
-            dt = bc.bcDB.laboDB.selectByDateReq(datestart);
-
-            //grfHn.Cols[colHnPrnStaffNote].Width = 60;
-
-            grfLabOutView.ShowCursor = true;
-            ContextMenu menuGw = new ContextMenu();
-            grfLabOutView.ContextMenu = menuGw;
-            int i = 0;
-            grfLabOutView.Rows.Count = dt.Rows.Count + 1;
-            foreach (DataRow row in dt.Rows)
-            {
-                try
-                {
-                    i++;
-                    grfLabOutView[i, 0] = (i);
-                    grfLabOutView[i, colHISid] = row["lab_out_id"].ToString();
-                    grfLabOutView[i, colHISHN] = row["hn"].ToString();
-                    grfLabOutView[i, colHISFullName] = row["patient_fullname"].ToString();//row["prefix"].ToString() + " " + row["MNC_FNAME_T"].ToString() + " " + row["MNC_LNAME_T"].ToString();
-                    grfLabOutView[i, colHISDateReq] = bc.datetoShow(row["date_req"].ToString());
-                    grfLabOutView[i, colHISVN] = row["vn"].ToString();
-                    grfLabOutView[i, colHISLabCode] = row["lab_code"].ToString();
-                    grfLabOutView[i, colHISLabName] = row["lab_name"].ToString();
-                    grfLabOutView[i, colHISReqNo] = row["req_no"].ToString();
-                    grfLabOutView[i, colHISpreno] = row["pre_no"].ToString();
-                    grfLabOutView[i, colHISVsDate] = bc.datetoShow(row["visit_date"].ToString());
-                    grfLabOutView[i, colHISEdit] = "0";
-                    if (row["status_result"].ToString().Equals("1"))
-                    {
-                        grfLabOutView[i, colHISStatusRes] = "OK";
-                    }
-                    else
-                    {
-                        grfLabOutView[i, colHISStatusRes] = "";
-                    }
-                    grfLabOutView[i, colHISDateResult] = bc.datetoShow(row["date_result"].ToString());
-                    if (row["lab_code"] != null)
-                    {
-                        dtM01 = bc.bcDB.laboDB.selectLabM01By(row["lab_code"].ToString());
-                        if (dtM01.Rows.Count > 0)
-                        {
-                            grfLabOutView[i, colHISPeriodResult] = dtM01.Rows[0]["MNC_SCH_ACT"].ToString();
-                        }
-                    }
-                    //if ((i % 2) == 0)
-                    //    grfLabOutWait.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
-                    //grfLabOut.Rows[i].StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor);
-                }
-                catch (Exception ex)
-                {
-                    new LogWriter("e", "FrmLabOutReceiveView setGrf ex " + ex.Message);
-                }
-            }
-            grfLabOutView.Rows[0].Visible = true;
-            grfLabOutView.Cols[0].Visible = true;
-            grfLabOutView.Cols[colHISid].Visible = false;
-            grfLabOutView.Cols[colHISEdit].Visible = false;
-            grfLabOutView.Cols[colHISpreno].Visible = false;
-            grfLabOutView.Cols[colHISHN].AllowEditing = false;
-            grfLabOutView.Cols[colHISFullName].AllowEditing = false;
-            grfLabOutView.Cols[colHISDateReq].AllowEditing = false;
-            grfLabOutView.Cols[colHISVN].AllowEditing = false;
-            grfLabOutView.Cols[colHISLabCode].AllowEditing = false;
-            grfLabOutView.Cols[colHISLabName].AllowEditing = false;
-            grfLabOutView.Cols[colHISReqNo].AllowEditing = false;
-            grfLabOutView.Cols[colHISStatusRes].AllowEditing = false;
-            grfLabOutView.Cols[colHISVsDate].AllowEditing = false;
-            grfLabOutView.Cols[colHISHN].AllowSorting = true;
-            grfLabOutView.AllowFiltering = true;
-            frmFlash.Dispose();
-        }
+        
         private void initCompoment()
         {
             int gapLine = 20, gapX = 20;
@@ -1322,7 +1353,7 @@ namespace bangna_hospital.gui
         private void FrmlabOutReceiveView1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2023-12-07 ";
+            this.Text = "Last Update 2024-07-25 void outlab ";
             tC1.Font = fEdit;
             theme1.SetTheme(tC1, bc.iniC.themeApp);
             theme1.SetTheme(panel3, bc.iniC.themeApp);

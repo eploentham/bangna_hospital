@@ -80,7 +80,7 @@ namespace bangna_hospital.gui
             lbDtrName.Text = bc.user.fullname;
             DTRCODE = bc.user.username;//เปิดโปรแกรม login ด้วย แพทย์ ถือว่าเป็น แพทย์
             txtDate.Value = DateTime.Now;
-
+            //MessageBox.Show("FrmDoctor initConfig ", "");
             setEvent();
 
 
@@ -226,19 +226,32 @@ namespace bangna_hospital.gui
         private void openNewForm(String hn,String txt,ref Patient ptt)
         {
             //showFormWaiting();
-            FrmPatient frm;
-            if (ptt != null)
+            //MessageBox.Show("FrmDoctor openNewForm ", "");
+            if (bc.iniC.statusdoctorold.Equals("old"))
             {
-                frm = new FrmPatient(bc, DTRCODE,ref ptt);
+                FrmScanView1 frm = new FrmScanView1(bc, DTRCODE, hn, "hide");
+                //frm.FormBorderStyle = FormBorderStyle.None;
+                //AddNewTab(frm, txt);
+
+                frm.FormBorderStyle = FormBorderStyle.FixedSingle;
+                frm.WindowState = FormWindowState.Maximized;
+                frm.Show(this);
             }
             else
             {
-                frm = new FrmPatient(bc, DTRCODE);
+                FrmPatient frm;
+                if (ptt != null)
+                {
+                    frm = new FrmPatient(bc, DTRCODE, ref ptt);
+                }
+                else
+                {
+                    frm = new FrmPatient(bc, DTRCODE);
+                }
+                frm.FormBorderStyle = FormBorderStyle.FixedSingle;
+                frm.WindowState = FormWindowState.Maximized;
+                frm.Show(this);
             }
-            frm.FormBorderStyle = FormBorderStyle.FixedSingle;
-            frm.WindowState = FormWindowState.Maximized;
-            frm.Show(this);
-
             txtHN.Value = "";
             //frmFlash.Dispose();
         }

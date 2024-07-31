@@ -845,7 +845,7 @@ namespace bangna_hospital.gui
             if (grfApm == null) return;
             if (grfApm.Row <= 0) return;
             if (grfApm.Col <= 0) return;
-
+            MessageBox.Show("FrmDoctorView1 GrfApm_DoubleClick", "");
             String vn = "", hn = "", vsdate = "", txt = "";
             vn = grfApm[grfApm.Row, colApmVnShow] != null ? grfApm[grfApm.Row, colApmVnShow].ToString() : "";
             hn = grfApm[grfApm.Row, colApmHn] != null ? grfApm[grfApm.Row, colApmHn].ToString() : "";
@@ -855,6 +855,7 @@ namespace bangna_hospital.gui
 
         private void setGrfApm()
         {
+            MessageBox.Show("FrmDoctorView1 setGrfApm", "");
             //grfApm.Clear();
             grfApm.Rows.Count = 1;
             //grfQue.Rows.Count = 1;
@@ -953,7 +954,7 @@ namespace bangna_hospital.gui
         private void openNewForm(String hn, String txt)
         {
             showFormWaiting();
-            //MessageBox.Show("11", "");
+            //MessageBox.Show("FrmDoctorView1 openNewForm 11", "");
             FrmScanView1 frm = new FrmScanView1(bc, DTRCODE, hn,"hide");
             //frm.FormBorderStyle = FormBorderStyle.None;
             //AddNewTab(frm, txt);

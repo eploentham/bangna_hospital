@@ -211,7 +211,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
-                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,m01.MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,convert(varchar(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr " +
                 "From  patient_m01 m01 " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " Where m01.MNC_HN_NO = '" + hn + "' ";
@@ -292,7 +292,7 @@ namespace bangna_hospital.objdb
                 ", m01.MNC_DOM_ADD, m01.MNC_DOM_MOO, m01.MNC_DOM_SOI,m01.MNC_DOM_ROAD, m01.MNC_DOM_TUM, m01.MNC_DOM_AMP, m01.MNC_DOM_CHW,m01.MNC_DOM_POC,m01.MNC_DOM_TEL" +
                 ", m01.MNC_REF_ADD, m01.MNC_REF_MOO, m01.MNC_REF_SOI,m01.MNC_REF_ROAD, m01.MNC_REF_TUM, m01.MNC_REF_AMP, m01.MNC_REF_CHW,m01.MNC_REF_POC,m01.MNC_REF_TEL, m01.MNC_REF_NAME  " +
                 ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,comp.MNC_COM_DSC,insur.MNC_COM_DSC as MNC_COM_DSCi,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
-                ", m01.remark1, m01.remark2, m01.MNC_STATUS, m01.MNC_REF_REL, isnull(status_hiv,'') as status_hiv, isnull(status_afb,'') as status_afb  " +
+                ", m01.remark1, m01.remark2, m01.MNC_STATUS, m01.MNC_REF_REL, isnull(m01.status_hiv,'') as status_hiv, isnull(m01.status_afb,'') as status_afb  " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " left join PATIENT_M24 insur on m01.MNC_COM_CD = insur.MNC_COM_CD " +

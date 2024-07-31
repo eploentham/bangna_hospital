@@ -96,6 +96,7 @@ namespace bangna_hospital.gui
             //new LogWriter("e", "Login BtnOk_Click " );
             stf = stfDB.selectByLogin(txtUserName.Text, txtPassword.Text);
             //stf.fullname = "111";
+            //MessageBox.Show("BtnOk_Click 11111", "");
             if (stf.fullname.Length > 0)
             {
                 bc.userId = stf.staff_id;

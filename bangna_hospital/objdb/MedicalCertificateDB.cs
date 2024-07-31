@@ -131,8 +131,28 @@ namespace bangna_hospital.objdb
                 "Where dgs." + mcerti.pkField + " ='" + id + "' " +
                 " ";
             dt = conn.selectData(conn.conn, sql);
-            cop1 = setDocGroupScan(dt);
+            cop1 = setMedicalCert(dt);
             return cop1;
+        }
+        /*
+         * Method นี้ ใช้เพราะ มี bug การinsert ไม่มี vsdate
+         */
+        public String updateVsDateByPk(String id, String vsdate)
+        {
+            String sql = "", re = "";
+            sql = "update " + mcerti.table + " set " +
+                "visit_date = '" + vsdate + "' " +
+                "Where certi_id = '" + id + "' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateDocScanIdByPk sql " + sql + " id " + id);
+            }
+            return re;
         }
         public String updateDocScanIdByPk(String id, String dscid)
         {
@@ -259,7 +279,7 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        public MedicalCertificate setDocGroupScan(DataTable dt)
+        public MedicalCertificate setMedicalCert(DataTable dt)
         {
             MedicalCertificate dgs1 = new MedicalCertificate();
             if (dt.Rows.Count > 0)
@@ -291,11 +311,11 @@ namespace bangna_hospital.objdb
             }
             else
             {
-                setDocGroupScan(dgs1);
+                setMedicalCert(dgs1);
             }
             return dgs1;
         }
-        public MedicalCertificate setDocGroupScan(MedicalCertificate dgs1)
+        public MedicalCertificate setMedicalCert(MedicalCertificate dgs1)
         {
             dgs1.active = "";
             dgs1.an = "";

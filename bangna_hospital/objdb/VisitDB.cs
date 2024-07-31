@@ -1087,7 +1087,7 @@ namespace bangna_hospital.objdb
                 "and t01.MNC_STS <> 'C' " +
                 " Order by t01.MNC_HN_NO, t01.mnc_date desc ";
             dt = conn.selectData(sql);
-
+            //new LogWriter("d", " sql "+ sql);
             return dt;
         }
         public DataTable selectVisitByHn4(String hn, String flag)

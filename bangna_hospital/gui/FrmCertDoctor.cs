@@ -149,7 +149,7 @@ namespace bangna_hospital.gui
             
             ptt = new Patient();
 
-            btnPrintCert.Click += BtnPrintStk_Click;
+            btnPrintCert.Click += BtnPrintCert_Click;
             btnPrintCertE.Click += BtnPrintCertE_Click;
             cboDept.SelectedIndexChanged += CboDept_SelectedIndexChanged;
             txtDtrCode.KeyUp += TxtDtrCode_KeyUp;
@@ -509,7 +509,7 @@ namespace bangna_hospital.gui
                 }
             }
         }
-        private void BtnPrintStk_Click(object sender, EventArgs e)
+        private void BtnPrintCert_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             if (lbDtrName.Text.Length > 0)

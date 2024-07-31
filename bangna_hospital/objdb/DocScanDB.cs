@@ -1381,6 +1381,30 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String voidDocScanOutLab(String id, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
+                "," + dsc.user_cancel + " = '" + userId + "'" +
+                ", status_conv1 = 'outlab'" +
+                "Where " + dsc.pkField + "='" + id + "'"
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+            return re;
+        }
         public String voidDocScanCertMed(String id, String userId)
         {
             String re = "";

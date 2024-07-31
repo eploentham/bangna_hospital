@@ -780,7 +780,7 @@
             this.c1SplitterPanel7.Controls.Add(this.txtPttApmDate);
             this.c1SplitterPanel7.Controls.Add(this.label69);
             this.c1SplitterPanel7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel7.Height = 259;
+            this.c1SplitterPanel7.Height = 252;
             this.c1SplitterPanel7.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel7.Name = "c1SplitterPanel7";
             this.c1SplitterPanel7.Size = new System.Drawing.Size(1260, 231);
