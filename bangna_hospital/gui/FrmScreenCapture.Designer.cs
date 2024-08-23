@@ -139,7 +139,7 @@
             // chkAutoSend
             // 
             this.chkAutoSend.AutoSize = true;
-            this.chkAutoSend.Location = new System.Drawing.Point(618, 7);
+            this.chkAutoSend.Location = new System.Drawing.Point(672, 7);
             this.chkAutoSend.Name = "chkAutoSend";
             this.chkAutoSend.Size = new System.Drawing.Size(69, 17);
             this.chkAutoSend.TabIndex = 550;
@@ -153,7 +153,7 @@
             this.label2.BackColor = System.Drawing.SystemColors.Control;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.label2.Location = new System.Drawing.Point(277, 9);
+            this.label2.Location = new System.Drawing.Point(331, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 548;
@@ -163,7 +163,7 @@
             // 
             this.txtCertID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCertID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtCertID.Location = new System.Drawing.Point(318, 7);
+            this.txtCertID.Location = new System.Drawing.Point(372, 7);
             this.txtCertID.Name = "txtCertID";
             this.txtCertID.Size = new System.Drawing.Size(69, 20);
             this.txtCertID.TabIndex = 547;
@@ -177,7 +177,7 @@
             this.lbVn.BackColor = System.Drawing.SystemColors.Control;
             this.lbVn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbVn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbVn.Location = new System.Drawing.Point(390, 8);
+            this.lbVn.Location = new System.Drawing.Point(444, 8);
             this.lbVn.Name = "lbVn";
             this.lbVn.Size = new System.Drawing.Size(35, 16);
             this.lbVn.TabIndex = 546;
@@ -187,7 +187,7 @@
             // 
             this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtVN.Location = new System.Drawing.Point(428, 6);
+            this.txtVN.Location = new System.Drawing.Point(482, 6);
             this.txtVN.Name = "txtVN";
             this.txtVN.Size = new System.Drawing.Size(68, 20);
             this.txtVN.TabIndex = 545;
@@ -207,7 +207,7 @@
             // chkView
             // 
             this.chkView.AutoSize = true;
-            this.chkView.Location = new System.Drawing.Point(564, 8);
+            this.chkView.Location = new System.Drawing.Point(618, 8);
             this.chkView.Name = "chkView";
             this.chkView.Size = new System.Drawing.Size(48, 17);
             this.chkView.TabIndex = 4;
@@ -218,7 +218,7 @@
             // chkUpload
             // 
             this.chkUpload.AutoSize = true;
-            this.chkUpload.Location = new System.Drawing.Point(499, 8);
+            this.chkUpload.Location = new System.Drawing.Point(553, 8);
             this.chkUpload.Name = "chkUpload";
             this.chkUpload.Size = new System.Drawing.Size(59, 17);
             this.chkUpload.TabIndex = 3;
@@ -229,10 +229,10 @@
             // lbName
             // 
             this.lbName.AutoSize = true;
-            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbName.Location = new System.Drawing.Point(149, 9);
+            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbName.Location = new System.Drawing.Point(149, 6);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(21, 20);
+            this.lbName.Size = new System.Drawing.Size(25, 24);
             this.lbName.TabIndex = 2;
             this.lbName.Text = "...";
             // 

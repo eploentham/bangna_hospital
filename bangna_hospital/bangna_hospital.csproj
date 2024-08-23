@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_doctor</AssemblyName>
+    <AssemblyName>bangna_hospital_opd</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -55,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\doctor_asian_male_coronavirus_people_avatar_mask_icon_141385.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -178,6 +178,12 @@
     </Compile>
     <Compile Include="gui\FrmCertDoctor.Designer.cs">
       <DependentUpon>FrmCertDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmCertDoctorBn1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmCertDoctorBn1.Designer.cs">
+      <DependentUpon>FrmCertDoctorBn1.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmCompAdd.cs">
       <SubType>Form</SubType>
@@ -739,6 +745,7 @@
     <Compile Include="objdb\PatientT013DB.cs" />
     <Compile Include="objdb\PatientT03DB.cs" />
     <Compile Include="objdb\PatientT07DB.cs" />
+    <Compile Include="objdb\PatientT08DB.cs" />
     <Compile Include="objdb\PatientT10DB.cs" />
     <Compile Include="objdb\PatientT16DB.cs" />
     <Compile Include="objdb\PharmacyM14DB.cs" />
@@ -887,6 +894,7 @@
     <Compile Include="object1\PatientT014.cs" />
     <Compile Include="object1\PatientT03.cs" />
     <Compile Include="object1\PatientT07.cs" />
+    <Compile Include="object1\PatientT08.cs" />
     <Compile Include="object1\PatientT10.cs" />
     <Compile Include="object1\PatientT16.cs" />
     <Compile Include="object1\PharmacyM14.cs" />
@@ -1005,6 +1013,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmCertDoctor.resx">
       <DependentUpon>FrmCertDoctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmCertDoctorBn1.resx">
+      <DependentUpon>FrmCertDoctorBn1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmCompAdd.resx">
       <DependentUpon>FrmCompAdd.cs</DependentUpon>

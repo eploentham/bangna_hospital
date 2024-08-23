@@ -17,12 +17,14 @@ namespace bangna_hospital.gui
     public partial class FrmEditJobNo : Form
     {
         BangnaControl bc;
-        C1FlexGrid grfHn;
+        C1FlexGrid grfHn, grfAn;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B;
         int colgrfHnHN = 1, colgrfHnDocNo=2, colgrfHnDocDate=3, colgrfHnDocCD=4, colgrfHnDocSts=5,colgrfHnAmt=6, colgrfHnJobNo=7, colgrfHnJobNoOld = 8;
+        int colgrfAnanno = 1, colgrfAnAdDate = 2;
         Boolean pageLoad = false;
         C1ThemeController theme1;
         Patient ptt;
+        String FLAGFOCUS = "";
         public FrmEditJobNo(BangnaControl bc)
         {
             this.bc = bc;
@@ -40,13 +42,130 @@ namespace bangna_hospital.gui
             theme1 = new C1ThemeController();
             ptt = new Patient();
             initGrfHn();
+            initGrfAn();
 
             txtPttHn.KeyUp += TxtPttHn_KeyUp;
             btnGet.Click += BtnGet_Click;
             btnRevest.Click += BtnRevest_Click;
             c1Button1.Click += C1Button1_Click;
+            txtAnHN.KeyUp += TxtAnHN_KeyUp;
+            txtAnANNO1.Enter += TxtAnANNO1_Enter;
+            txtAnANNO1.Leave += TxtAnANNO1_Leave;
+            txtAnANNO2.Enter += TxtAnANNO2_Enter;
+            txtAnANNO2.Leave += TxtAnANNO2_Leave;
+            btnAn1.Click += BtnAn1_Click;
+            btnAn2.Click += BtnAn2_Click;
+            btnAnMerge.Click += BtnAnMerge_Click;
+        }
+        private void BtnAnMerge_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            rb2.Text = "";
+            String re = bc.bcDB.MergeAN(txtAnANNO2.Text.Trim(), txtAnANNO1.Text.Trim(), txtRemark.Text.Trim());
+            rb2.Text = re;
+        }
+        private void BtnAn2_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtAnANNONew.Value = txtAnANNO2.Text.Trim();
+        }
+        private void BtnAn1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            txtAnANNONew.Value = txtAnANNO1.Text.Trim();
+        }
+        private void TxtAnANNO2_Leave(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //FLAGFOCUS = "";
+        }
+        private void TxtAnANNO2_Enter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FLAGFOCUS = "txtAnANNO2";
         }
 
+        private void TxtAnANNO1_Leave(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //FLAGFOCUS = "";
+        }
+
+        private void TxtAnANNO1_Enter(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FLAGFOCUS = "txtAnANNO1";
+        }
+
+        private void TxtAnHN_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                ptt = new Patient();
+                ptt = bc.bcDB.pttDB.selectPatinetByHn(txtAnHN.Text.Trim());
+                lbAnPttnameT.Text = ptt.Name;
+                setGrfPttAn();
+            }
+        }
+
+        private void initGrfAn()
+        {
+            grfAn = new C1FlexGrid();
+            grfAn.Font = fEdit;
+            grfAn.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfAn.Location = new System.Drawing.Point(0, 0);
+            grfAn.Rows.Count = 1;
+            grfAn.Cols.Count = 3;
+            grfAn.Cols[colgrfAnanno].Width = 100;
+            grfAn.Cols[colgrfAnAdDate].Width = 100;
+            
+            grfAn.ShowCursor = true;
+            grfHn.Cols[colgrfAnanno].Caption = "ANNO";
+            grfAn.Cols[colgrfAnAdDate].Caption = "ad date";
+
+            grfAn.Cols[colgrfAnanno].AllowEditing = false;
+            grfAn.Cols[colgrfAnAdDate].AllowEditing = false;
+            
+            grfAn.AllowFiltering = true;
+
+            grfAn.Click += GrfAn_Click;
+
+            pnAn.Controls.Add(grfAn);
+            theme1.SetTheme(grfAn, bc.iniC.themeApp);
+        }
+
+        private void GrfAn_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfAn[grfAn.Row, colgrfAnanno] == null) return;
+            if (FLAGFOCUS.Equals("txtAnANNO1"))
+            {
+                txtAnANNO1.Value = grfAn[grfAn.Row, colgrfAnanno].ToString();
+            }
+            else if (FLAGFOCUS.Equals("txtAnANNO2"))
+            {
+                txtAnANNO2.Value = grfAn[grfAn.Row, colgrfAnanno].ToString();
+            }
+        }
+        private void setGrfPttAn()
+        {
+            DataTable dtvs = new DataTable();
+            dtvs = bc.bcDB.pt08DB.SelectByHN(txtAnHN.Text.Trim());
+            grfAn.Rows.Count = 1;
+            grfAn.Rows.Count = dtvs.Rows.Count + 1;
+            int i = 1, j = 1;
+            foreach (DataRow row1 in dtvs.Rows)
+            {
+                Row rowa = grfAn.Rows[i];
+                rowa[colgrfAnanno] = row1["MNC_AN_NO"].ToString()+"."+ row1["MNC_AN_YR"].ToString();
+                DateTime.TryParse(row1["MNC_AD_DATE"].ToString(), out DateTime dt);
+                rowa[colgrfAnAdDate] = dt.ToString("yyyy-MM-dd");
+
+                rowa[0] = i.ToString();
+                i++;
+            }
+        }
         private void C1Button1_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

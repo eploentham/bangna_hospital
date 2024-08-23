@@ -944,7 +944,7 @@
             this.chk64.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk64.Location = new System.Drawing.Point(53, 8);
             this.chk64.Name = "chk64";
-            this.chk64.Size = new System.Drawing.Size(40, 20);
+            this.chk64.Size = new System.Drawing.Size(39, 20);
             this.chk64.TabIndex = 8;
             this.chk64.Text = "64";
             this.chk64.UseVisualStyleBackColor = true;
@@ -956,7 +956,7 @@
             this.chk50.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chk50.Location = new System.Drawing.Point(6, 8);
             this.chk50.Name = "chk50";
-            this.chk50.Size = new System.Drawing.Size(40, 20);
+            this.chk50.Size = new System.Drawing.Size(39, 20);
             this.chk50.TabIndex = 7;
             this.chk50.TabStop = true;
             this.chk50.Text = "50";
@@ -1214,7 +1214,7 @@
             this.chkHI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkHI.Location = new System.Drawing.Point(602, 13);
             this.chkHI.Name = "chkHI";
-            this.chkHI.Size = new System.Drawing.Size(69, 20);
+            this.chkHI.Size = new System.Drawing.Size(68, 20);
             this.chkHI.TabIndex = 6;
             this.chkHI.Text = "Home I";
             this.chkHI.UseVisualStyleBackColor = true;
@@ -1225,7 +1225,7 @@
             this.chkATKFree.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkATKFree.Location = new System.Drawing.Point(521, 13);
             this.chkATKFree.Name = "chkATKFree";
-            this.chkATKFree.Size = new System.Drawing.Size(69, 20);
+            this.chkATKFree.Size = new System.Drawing.Size(68, 20);
             this.chkATKFree.TabIndex = 5;
             this.chkATKFree.Text = "ATK ฟรี";
             this.chkATKFree.UseVisualStyleBackColor = true;
@@ -1236,7 +1236,7 @@
             this.chkCentralPark.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCentralPark.Location = new System.Drawing.Point(405, 13);
             this.chkCentralPark.Name = "chkCentralPark";
-            this.chkCentralPark.Size = new System.Drawing.Size(107, 20);
+            this.chkCentralPark.Size = new System.Drawing.Size(106, 20);
             this.chkCentralPark.TabIndex = 4;
             this.chkCentralPark.Text = "Central PARK";
             this.chkCentralPark.UseVisualStyleBackColor = true;
@@ -1247,7 +1247,7 @@
             this.chkPCR1500.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPCR1500.Location = new System.Drawing.Point(5, 13);
             this.chkPCR1500.Name = "chkPCR1500";
-            this.chkPCR1500.Size = new System.Drawing.Size(111, 20);
+            this.chkPCR1500.Size = new System.Drawing.Size(110, 20);
             this.chkPCR1500.TabIndex = 3;
             this.chkPCR1500.Text = "หคท PCR 1500";
             this.chkPCR1500.UseVisualStyleBackColor = true;
@@ -1258,7 +1258,7 @@
             this.ChkSE640.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChkSE640.Location = new System.Drawing.Point(303, 13);
             this.ChkSE640.Name = "ChkSE640";
-            this.ChkSE640.Size = new System.Drawing.Size(92, 20);
+            this.ChkSE640.Size = new System.Drawing.Size(91, 20);
             this.ChkSE640.TabIndex = 2;
             this.ChkSE640.Text = "ATK Rapid";
             this.ChkSE640.UseVisualStyleBackColor = true;
@@ -1269,7 +1269,7 @@
             this.chkSE629.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSE629.Location = new System.Drawing.Point(226, 13);
             this.chkSE629.Name = "chkSE629";
-            this.chkSE629.Size = new System.Drawing.Size(65, 20);
+            this.chkSE629.Size = new System.Drawing.Size(64, 20);
             this.chkSE629.TabIndex = 1;
             this.chkSE629.Text = "SE629";
             this.chkSE629.UseVisualStyleBackColor = true;
@@ -1280,7 +1280,7 @@
             this.chkSE184.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSE184.Location = new System.Drawing.Point(124, 13);
             this.chkSE184.Name = "chkSE184";
-            this.chkSE184.Size = new System.Drawing.Size(89, 20);
+            this.chkSE184.Size = new System.Drawing.Size(88, 20);
             this.chkSE184.TabIndex = 0;
             this.chkSE184.Text = "SE184 (จีน)";
             this.chkSE184.UseVisualStyleBackColor = true;
@@ -1484,7 +1484,7 @@
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label18.Location = new System.Drawing.Point(8, 162);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(41, 16);
+            this.label18.Size = new System.Drawing.Size(40, 16);
             this.label18.TabIndex = 44;
             this.label18.Text = "จังหวัด";
             // 
@@ -1502,7 +1502,7 @@
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label17.Location = new System.Drawing.Point(8, 135);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(35, 16);
+            this.label17.Size = new System.Drawing.Size(34, 16);
             this.label17.TabIndex = 42;
             this.label17.Text = "อำเภอ";
             // 
@@ -1520,7 +1520,7 @@
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label16.Location = new System.Drawing.Point(8, 105);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(33, 16);
+            this.label16.Size = new System.Drawing.Size(32, 16);
             this.label16.TabIndex = 40;
             this.label16.Text = "ตำบล";
             // 
@@ -1566,7 +1566,7 @@
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label15.Location = new System.Drawing.Point(8, 75);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(58, 16);
+            this.label15.Size = new System.Drawing.Size(57, 16);
             this.label15.TabIndex = 34;
             this.label15.Text = "address";
             // 
@@ -4247,7 +4247,7 @@
             this.label110.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.label110.Location = new System.Drawing.Point(287, 106);
             this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(36, 16);
+            this.label110.Size = new System.Drawing.Size(35, 16);
             this.label110.TabIndex = 155;
             this.label110.Text = "SSN";
             // 

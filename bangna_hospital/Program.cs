@@ -57,10 +57,20 @@ namespace bangna_hospital
                 //MessageBox.Show("error Main try{} "+ bc.iniC.programLoad, "");
                 if (bc.iniC.programLoad.Equals("ScanView"))
                 {
-                    FrmScanView1 frm = new FrmScanView1(bc, bc.hn,"show");
-                    //Form1 frm = new Form1();
-                    frm.WindowState = FormWindowState.Maximized;
-                    Application.Run(frm);
+                    if (bc.iniC.statusdoctorold.Equals("new"))
+                    {
+                        FrmPatient frm = new FrmPatient(bc,"");
+                        //Form1 frm = new Form1();
+                        frm.WindowState = FormWindowState.Maximized;
+                        Application.Run(frm);
+                    }
+                    else
+                    {
+                        FrmScanView1 frm = new FrmScanView1(bc, bc.hn, "show");
+                        //Form1 frm = new Form1();
+                        frm.WindowState = FormWindowState.Maximized;
+                        Application.Run(frm);
+                    }
                 }
                 else if (bc.iniC.programLoad.Equals("ScanAdd"))
                 {

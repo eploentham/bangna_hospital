@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZXing.OneD;
 
 namespace bangna_hospital.objdb
 {
@@ -79,6 +80,7 @@ namespace bangna_hospital.objdb
         public MedicalCertificateDB mcertiDB;
         public FinanceT01DB fint01DB;
         public PatientT07DB pt07DB;
+        public PatientT08DB pt08DB;
         public PatientT03DB pt03DB;
         public PatientM13DB pm13DB;
         public SummaryT03DB sumt03DB;
@@ -200,6 +202,7 @@ namespace bangna_hospital.objdb
                 drugSetDB = new DrugSetDB(conn);
                 labm07DB = new LabM07DB(conn);
                 labM04DB = new LabM04DB(conn);
+                pt08DB = new PatientT08DB(conn);
             }
             catch(Exception ex)
             {
@@ -348,6 +351,121 @@ namespace bangna_hospital.objdb
             }
             // reset
             //this.dataTable.Clear();
+        }
+        public String MergeAN(String annosource, String annodesc, String remark)
+        {
+            String sql = "",re="", tablename="", tablenameold="";
+            String[] annos = annosource.Split('.');
+            String[] annod = annodesc.Split('.');
+            if (annod.Length <=1) return "(annodesc.Length <=1)";
+            if (annos.Length <= 1) return "(annosource.Length <= 1";
+            tablename = "Patient_t01_2";
+            sql = "Update "+ tablename + " Set " +
+                "an_no_old = "+ annos[0] + "."+annos[1]+" " +
+                ",remark = 'merge  " + annosource + "->"+ annodesc + " "+ remark.Replace("'","''")+"'" +
+                ",date_modi = convert(varchar(20), getdate(),23) " +
+                ",MNC_AN_YR = '" + annod[1] +"'"+
+                ",MNC_AN_NO = '" + annod[0] +"' "+
+                "Where MNC_AN_YR = '" + annos[1] + "' and MNC_AN_NO = '"+ annos[0] + "' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t01_2";
+                tablename = "Patient_t011";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t011";
+                tablename = "Patient_t03";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t03";
+                tablename = "Patient_t08";
+                sql = sql.Replace(tablenameold, tablename);
+                //re = conn.ExecuteNonQuery(conn.connMainHIS, sql);     ไม่ต้องแก้ไข เพราะ AN เป็น PK
+                tablenameold = "Patient_t08";
+                tablename = "Patient_t08_1";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t08_1";
+                tablename = "Patient_t08_2";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t08_2";
+                tablename = "Patient_t08_30";
+                sql = sql.Replace(tablenameold, tablename);
+                sql = sql.Replace("MNC_AN_YR", "MNC_YEAR");
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+
+                tablenameold = "Patient_t08_30";
+                tablename = "Patient_t09";
+                sql = sql.Replace(tablenameold, tablename);
+                sql = sql.Replace("MNC_YEAR", "MNC_AN_YR");
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t09";
+                tablename = "Patient_t12";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t12";
+                tablename = "Patient_t15";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t15";
+                tablename = "Patient_t18";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t18";
+                tablename = "Patient_t19";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t19";
+                tablename = "Patient_t28";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t28";
+                tablename = "Patient_t31";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "Patient_t31";
+                tablename = "PHARMACY_T01";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "PHARMACY_T01";
+                tablename = "PHARMACY_T05";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "PHARMACY_T05";
+                tablename = "LAB_T01";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "LAB_T01";
+                tablename = "FINANCE_T01";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "FINANCE_T01";
+                tablename = "FINANCE_T03";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "FINANCE_T03";
+                tablename = "FINANCE_T03_1";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "FINANCE_T03_1";
+                tablename = "FINANCE_T06_DOT";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                tablenameold = "FINANCE_T06_DOT";
+                tablename = "FINANCE_T14";
+                sql = sql.Replace(tablenameold, tablename);
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                re = "update เรียบร้อย";
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+                re = sql;
+            }
+            return re;
         }
     }
 }

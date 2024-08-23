@@ -16,7 +16,7 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
         Font fEdit, fEditB;
-        String filename = "", hn="", pttname="", vn="", flagVn="";
+        String filename = "", hn="", pttname="", vn="", flagVn="", CERTID="";
         DocScan dsc;
         public FrmScreenCaptureUpload(BangnaControl bc, String filename, String hn, String pttname, String vn, String flagVn)
         {
@@ -41,6 +41,19 @@ namespace bangna_hospital.gui
             this.dsc = dsc;
             initConfig();
         }
+        public FrmScreenCaptureUpload(BangnaControl bc, String filename, String hn, String pttname, String vn, String flagVn, DocScan dsc,String certid)
+        {
+            InitializeComponent();
+            this.bc = bc;
+            this.filename = filename;
+            this.hn = hn;
+            this.pttname = pttname;
+            this.vn = vn;
+            this.flagVn = flagVn;
+            this.dsc = dsc;
+            this.CERTID = certid;
+            initConfig();
+        }
         private void initConfig()
         {
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
@@ -59,6 +72,8 @@ namespace bangna_hospital.gui
                 txtFM.Value = dsc.ml_fm;
             }
             btnUpload.Click += BtnUpload_Click;
+
+            toolStripStatusLabel1.Text = CERTID;
         }
 
         private void BtnUpload_Click(object sender, EventArgs e)
@@ -100,7 +115,7 @@ namespace bangna_hospital.gui
             {
                 dsc.visit_date = this.dsc.visit_date;
                 dsc.pre_no = this.dsc.pre_no;
-                bc.bcDB.dscDB.voidDocScanCertMed(this.dsc.doc_scan_id, "");
+                bc.bcDB.dscDB.voidDocScanCertMed(this.dsc.doc_scan_id, "screencaptureupload");
             }
             
             dsc.host_ftp = bc.iniC.hostFTP;
@@ -124,6 +139,7 @@ namespace bangna_hospital.gui
                 //dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
                 dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + re + ext;
                 String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
+                if (CERTID.Length > 0) { String re2 = bc.bcDB.mcertiDB.updateDocScanIdScanUploadByPk("555"+CERTID, re); }
                 //MessageBox.Show("filename" + filename + "\n bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path, "");
                 //FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                 FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP,bc.ftpUsePassive,bc.iniC.ProxyProxyType, bc.iniC.ProxyHost, bc.iniC.ProxyPort);
@@ -137,7 +153,7 @@ namespace bangna_hospital.gui
                 if(ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
                 {
                     File.Delete(filename);
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(200);
                     this.Dispose();
                 }
             }

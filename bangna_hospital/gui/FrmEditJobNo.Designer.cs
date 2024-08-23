@@ -53,6 +53,22 @@
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtAnHN = new C1.Win.C1Input.C1TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtAnANNO1 = new C1.Win.C1Input.C1TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtAnANNO2 = new C1.Win.C1Input.C1TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtAnANNONew = new C1.Win.C1Input.C1TextBox();
+            this.btnAnSearch = new C1.Win.C1Input.C1Button();
+            this.lbAnPttnameT = new System.Windows.Forms.Label();
+            this.btnAn1 = new C1.Win.C1Input.C1Button();
+            this.btnAn2 = new C1.Win.C1Input.C1Button();
+            this.btnAnMerge = new C1.Win.C1Input.C1Button();
+            this.pnAn = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtRemark = new C1.Win.C1Input.C1TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNoCur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNo)).BeginInit();
@@ -65,7 +81,17 @@
             this.c1DockingTabPage1.SuspendLayout();
             this.c1DockingTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            this.c1DockingTabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnHN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnANNO1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnANNO2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnANNONew)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAnSearch)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAn1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAn2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAnMerge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRemark)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPttHn
@@ -279,11 +305,27 @@
             // 
             // c1DockingTabPage3
             // 
+            this.c1DockingTabPage3.Controls.Add(this.label9);
+            this.c1DockingTabPage3.Controls.Add(this.txtRemark);
+            this.c1DockingTabPage3.Controls.Add(this.pnAn);
+            this.c1DockingTabPage3.Controls.Add(this.btnAnMerge);
+            this.c1DockingTabPage3.Controls.Add(this.btnAn2);
+            this.c1DockingTabPage3.Controls.Add(this.btnAn1);
+            this.c1DockingTabPage3.Controls.Add(this.lbAnPttnameT);
+            this.c1DockingTabPage3.Controls.Add(this.btnAnSearch);
+            this.c1DockingTabPage3.Controls.Add(this.label8);
+            this.c1DockingTabPage3.Controls.Add(this.txtAnANNONew);
+            this.c1DockingTabPage3.Controls.Add(this.label6);
+            this.c1DockingTabPage3.Controls.Add(this.txtAnANNO1);
+            this.c1DockingTabPage3.Controls.Add(this.label7);
+            this.c1DockingTabPage3.Controls.Add(this.txtAnANNO2);
+            this.c1DockingTabPage3.Controls.Add(this.label5);
+            this.c1DockingTabPage3.Controls.Add(this.txtAnHN);
             this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 30);
             this.c1DockingTabPage3.Name = "c1DockingTabPage3";
             this.c1DockingTabPage3.Size = new System.Drawing.Size(1072, 459);
             this.c1DockingTabPage3.TabIndex = 2;
-            this.c1DockingTabPage3.Text = "Page3";
+            this.c1DockingTabPage3.Text = "รวม AN";
             // 
             // c1StatusBar1
             // 
@@ -310,6 +352,158 @@
             this.rb2.Name = "rb2";
             this.rb2.Text = "Label";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label5.Location = new System.Drawing.Point(9, 6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(32, 20);
+            this.label5.TabIndex = 77;
+            this.label5.Text = "HN";
+            // 
+            // txtAnHN
+            // 
+            this.txtAnHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAnHN.Location = new System.Drawing.Point(73, 3);
+            this.txtAnHN.Name = "txtAnHN";
+            this.txtAnHN.Size = new System.Drawing.Size(186, 27);
+            this.txtAnHN.TabIndex = 78;
+            this.txtAnHN.Tag = null;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label6.Location = new System.Drawing.Point(285, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 20);
+            this.label6.TabIndex = 84;
+            this.label6.Text = "AN NO 1";
+            // 
+            // txtAnANNO1
+            // 
+            this.txtAnANNO1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAnANNO1.Location = new System.Drawing.Point(358, 6);
+            this.txtAnANNO1.Name = "txtAnANNO1";
+            this.txtAnANNO1.Size = new System.Drawing.Size(147, 27);
+            this.txtAnANNO1.TabIndex = 85;
+            this.txtAnANNO1.Tag = null;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label7.Location = new System.Drawing.Point(285, 41);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(71, 20);
+            this.label7.TabIndex = 86;
+            this.label7.Text = "AN NO 2";
+            // 
+            // txtAnANNO2
+            // 
+            this.txtAnANNO2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAnANNO2.Location = new System.Drawing.Point(358, 35);
+            this.txtAnANNO2.Name = "txtAnANNO2";
+            this.txtAnANNO2.Size = new System.Drawing.Size(147, 27);
+            this.txtAnANNO2.TabIndex = 87;
+            this.txtAnANNO2.Tag = null;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label8.Location = new System.Drawing.Point(595, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(86, 20);
+            this.label8.TabIndex = 88;
+            this.label8.Text = "AN NO รวม";
+            // 
+            // txtAnANNONew
+            // 
+            this.txtAnANNONew.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAnANNONew.Location = new System.Drawing.Point(689, 3);
+            this.txtAnANNONew.Name = "txtAnANNONew";
+            this.txtAnANNONew.Size = new System.Drawing.Size(147, 27);
+            this.txtAnANNONew.TabIndex = 89;
+            this.txtAnANNONew.Tag = null;
+            // 
+            // btnAnSearch
+            // 
+            this.btnAnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAnSearch.Location = new System.Drawing.Point(16, 78);
+            this.btnAnSearch.Name = "btnAnSearch";
+            this.btnAnSearch.Size = new System.Drawing.Size(87, 36);
+            this.btnAnSearch.TabIndex = 123;
+            this.btnAnSearch.Text = "ดึงข้อมูล";
+            this.btnAnSearch.UseVisualStyleBackColor = true;
+            // 
+            // lbAnPttnameT
+            // 
+            this.lbAnPttnameT.AutoSize = true;
+            this.lbAnPttnameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAnPttnameT.Location = new System.Drawing.Point(11, 37);
+            this.lbAnPttnameT.Name = "lbAnPttnameT";
+            this.lbAnPttnameT.Size = new System.Drawing.Size(35, 25);
+            this.lbAnPttnameT.TabIndex = 124;
+            this.lbAnPttnameT.Text = "ชื่อ";
+            // 
+            // btnAn1
+            // 
+            this.btnAn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAn1.Location = new System.Drawing.Point(511, 6);
+            this.btnAn1.Name = "btnAn1";
+            this.btnAn1.Size = new System.Drawing.Size(36, 26);
+            this.btnAn1.TabIndex = 125;
+            this.btnAn1.Text = "->";
+            this.btnAn1.UseVisualStyleBackColor = true;
+            // 
+            // btnAn2
+            // 
+            this.btnAn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAn2.Location = new System.Drawing.Point(511, 35);
+            this.btnAn2.Name = "btnAn2";
+            this.btnAn2.Size = new System.Drawing.Size(36, 26);
+            this.btnAn2.TabIndex = 126;
+            this.btnAn2.Text = "->";
+            this.btnAn2.UseVisualStyleBackColor = true;
+            // 
+            // btnAnMerge
+            // 
+            this.btnAnMerge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAnMerge.Location = new System.Drawing.Point(677, 78);
+            this.btnAnMerge.Name = "btnAnMerge";
+            this.btnAnMerge.Size = new System.Drawing.Size(87, 36);
+            this.btnAnMerge.TabIndex = 127;
+            this.btnAnMerge.Text = "Merge";
+            this.btnAnMerge.UseVisualStyleBackColor = true;
+            // 
+            // pnAn
+            // 
+            this.pnAn.Location = new System.Drawing.Point(16, 120);
+            this.pnAn.Name = "pnAn";
+            this.pnAn.Size = new System.Drawing.Size(489, 334);
+            this.pnAn.TabIndex = 128;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label9.Location = new System.Drawing.Point(595, 39);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 20);
+            this.label9.TabIndex = 129;
+            this.label9.Text = "หมายเหตุ";
+            // 
+            // txtRemark
+            // 
+            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(689, 36);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(372, 27);
+            this.txtRemark.TabIndex = 130;
+            this.txtRemark.Tag = null;
+            // 
             // FrmEditJobNo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,7 +528,18 @@
             this.c1DockingTabPage1.PerformLayout();
             this.c1DockingTabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            this.c1DockingTabPage3.ResumeLayout(false);
+            this.c1DockingTabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnHN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnANNO1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnANNO2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAnANNONew)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAnSearch)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAn1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAn2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAnMerge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtRemark)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -367,5 +572,21 @@
         private C1.Win.C1Ribbon.RibbonLabel lb1;
         private C1.Win.C1Ribbon.RibbonLabel rb1;
         private C1.Win.C1Ribbon.RibbonLabel rb2;
+        private System.Windows.Forms.Label label6;
+        private C1.Win.C1Input.C1TextBox txtAnANNO1;
+        private System.Windows.Forms.Label label7;
+        private C1.Win.C1Input.C1TextBox txtAnANNO2;
+        private System.Windows.Forms.Label label5;
+        private C1.Win.C1Input.C1TextBox txtAnHN;
+        private System.Windows.Forms.Label label8;
+        private C1.Win.C1Input.C1TextBox txtAnANNONew;
+        private System.Windows.Forms.Label lbAnPttnameT;
+        private C1.Win.C1Input.C1Button btnAnSearch;
+        private C1.Win.C1Input.C1Button btnAn1;
+        private C1.Win.C1Input.C1Button btnAn2;
+        private C1.Win.C1Input.C1Button btnAnMerge;
+        private System.Windows.Forms.Panel pnAn;
+        private System.Windows.Forms.Label label9;
+        private C1.Win.C1Input.C1TextBox txtRemark;
     }
 }

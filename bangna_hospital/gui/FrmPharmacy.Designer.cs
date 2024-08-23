@@ -118,6 +118,7 @@
             this.spDrugProfList = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.spDrugProfImages = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.spDrugProfPtt = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.lbAdmitDate = new System.Windows.Forms.Label();
             this.lbPttAttachNote = new System.Windows.Forms.Label();
             this.lbVN = new System.Windows.Forms.Label();
             this.lbPttAge = new System.Windows.Forms.Label();
@@ -133,7 +134,6 @@
             this.pnDrugAllergy = new System.Windows.Forms.Panel();
             this.tabpttChronic = new C1.Win.C1Command.C1DockingTabPage();
             this.pnChronic = new System.Windows.Forms.Panel();
-            this.lbAdmitDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
@@ -1067,7 +1067,7 @@
             this.spDrugProfList.SizeRatio = 29.58D;
             this.spDrugProfList.TabIndex = 0;
             this.spDrugProfList.Text = "Panel 1";
-            this.spDrugProfList.Width = 465;
+            this.spDrugProfList.Width = 458;
             // 
             // spDrugProfImages
             // 
@@ -1097,6 +1097,16 @@
             this.spDrugProfPtt.SizeRatio = 19.266D;
             this.spDrugProfPtt.TabIndex = 1;
             this.spDrugProfPtt.Text = "Panel 2";
+            // 
+            // lbAdmitDate
+            // 
+            this.lbAdmitDate.AutoSize = true;
+            this.lbAdmitDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAdmitDate.Location = new System.Drawing.Point(297, 37);
+            this.lbAdmitDate.Name = "lbAdmitDate";
+            this.lbAdmitDate.Size = new System.Drawing.Size(36, 20);
+            this.lbAdmitDate.TabIndex = 286;
+            this.lbAdmitDate.Text = "age";
             // 
             // lbPttAttachNote
             // 
@@ -1241,16 +1251,6 @@
             this.pnChronic.Name = "pnChronic";
             this.pnChronic.Size = new System.Drawing.Size(200, 100);
             this.pnChronic.TabIndex = 0;
-            // 
-            // lbAdmitDate
-            // 
-            this.lbAdmitDate.AutoSize = true;
-            this.lbAdmitDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbAdmitDate.Location = new System.Drawing.Point(297, 37);
-            this.lbAdmitDate.Name = "lbAdmitDate";
-            this.lbAdmitDate.Size = new System.Drawing.Size(36, 20);
-            this.lbAdmitDate.TabIndex = 286;
-            this.lbAdmitDate.Text = "age";
             // 
             // FrmPharmacy
             // 

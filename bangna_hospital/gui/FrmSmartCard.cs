@@ -25,6 +25,7 @@ using C1.Win.C1Document;
 using C1.Win.FlexViewer;
 using System.Reflection;
 using System.Threading;
+using iTextSharp.text.pdf;
 
 namespace bangna_hospital.gui
 //NID Card CS.net
@@ -45,7 +46,7 @@ namespace bangna_hospital.gui
         RDNID mRDNIDWRAPPER = new RDNID();
         string StartupPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
         String fname = "", lname = "", PID="", dob="", addrno="", districtname="", amphurname="", provincename="", sex="", prefixname="", moo="", trok="" ,soi="";
-        String fnamee = "", lnamee = "" ,road="", address="", webcamname = "";
+        String fnamee = "", lnamee = "" ,road="", address="", webcamname = "",HN="";
         List<String> lSmartCard;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
@@ -59,7 +60,7 @@ namespace bangna_hospital.gui
         int colHn = 1, colName = 2, colDate = 3, colAdmit=4, coladdate=5;
         DateTime dtstart1 = new DateTime();
         DateTime dtstart2 = new DateTime();
-        String dtrcode = "", dtrname = "", admittime = "", drugset="";
+        String dtrcode = "", dtrname = "", admittime = "", drugset="", FLAGSHOW = "";
         FilterInfoCollection webcanDevice;
         Bitmap img;
         Image image1;
@@ -98,6 +99,15 @@ namespace bangna_hospital.gui
             this.bc = bc;
             initConfig();
         }
+        public FrmSmartCard(BangnaControl bc, String hn, String flagShow)
+        {
+            InitializeComponent();
+            //new LogWriter("d", "FrmSmartCard FrmSmartCard  00");
+            this.bc = bc;
+            this.FLAGSHOW = flagShow;
+            this.HN = hn;
+            initConfig();
+        }
         private void initConfig()
         {
             pageLoad = true;
@@ -121,7 +131,6 @@ namespace bangna_hospital.gui
             imgTran = Resources.red_checkmark_png_51;
             imgCorrG = Resources.ValidateDocument_small;
             imgNo = Resources.Female_user_info_24;
-
             
             stt = new C1SuperTooltip();
             sep = new C1SuperErrorProvider();
@@ -169,7 +178,6 @@ namespace bangna_hospital.gui
             bc.setCboNation(cboHiNat);
             bc.setCboProvince(cboHiProv);
             bc.bcDB.pm02DB.setCboPrefixT(cboHiPrefix, "");
-            
 
             //new LogWriter("d", "FrmSmartCard initConfig  01");
             initGrfAdmit();
@@ -413,7 +421,6 @@ namespace bangna_hospital.gui
             picPttCap.MouseWheel += PicPttCap_MouseWheel;
             //trackBar1.Scroll += TrackBar1_Scroll;
 
-
             //tC1.DragEnter += TC1_DragEnter;
             //tC1.DragDrop += TC1_DragDrop;
             tabCapture.DragEnter += TabCapture_DragEnter;
@@ -425,15 +432,25 @@ namespace bangna_hospital.gui
             btnPrnATK.Click += BtnPrnATK_Click;
             btnVisitClose.Click += BtnVisitClose_Click;
             //
+            chkStkOPD.Click += ChkStkOPD_Click;
+            chkStkIPD.Click += ChkStkIPD_Click;
         }
-
+        private void ChkStkIPD_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            bc.bcDB.pttDB.setCboDeptIPDWdNo(cboStkWard, bc.iniC.station);
+        }
+        private void ChkStkOPD_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            bc.bcDB.pttDB.setCboDeptOPD(cboStkWard, bc.iniC.station);
+        }
         private void BtnVisitClose_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             genImgStaffNotATKScreening();
             bc.bcDB.vsDB.updateStatusCloseVisitNoLAB(txtHn.Text.Trim(), ptt.MNC_HN_YR, txtPreno.Text.Trim(), txtVsdate.Text.Trim());
         }
-
         private void BtnPrnATK_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -560,7 +577,6 @@ namespace bangna_hospital.gui
             img.Dispose();
             imgDrag = Image.FromStream(streamPic);
         }
-
         private bool GetImage(out string filename, DragEventArgs e)
         {
             //throw new NotImplementedException();
@@ -9341,10 +9357,21 @@ namespace bangna_hospital.gui
             {
                 tC1.SelectedTab = tabPharAdmit;
             }
-
             else
             {
                 tC1.SelectedTab = tabPttNew;
+            }
+            if (FLAGSHOW.Equals("sticker"))
+            {
+                tC1.SelectedTab = tabSticker;
+                tabCapture.TabVisible = false;
+                tabPharAdmit.TabVisible = false;
+                tabPttNew.TabVisible = false;
+                tabAuthen.TabVisible = false;
+                tabHi.TabVisible = false;
+
+                txtStkHn.Text = HN;
+                setTxtStkHn();
             }
             //tCBn1.SelectedTab = tabBn1Ptt;
             txtStkHn.Focus();

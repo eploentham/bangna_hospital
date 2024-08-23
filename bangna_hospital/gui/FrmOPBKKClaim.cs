@@ -3175,6 +3175,7 @@ namespace bangna_hospital.gui
         }
         private void exportUcelExcel()
         {
+            new LogWriter("d", this.Name+" exportUcelExcel start " );
             pageLoad = true;
             showLbLoading();
             DataTable dtUcepGen = new DataTable();
@@ -3203,7 +3204,7 @@ namespace bangna_hospital.gui
                 an = wheresplit[8];
                 anyear = wheresplit[9];
                 andate = wheresplit[10];
-
+                new LogWriter("d", "FrmOPBKKClaim exportUcelExcel if (wheresplit.Length > 9) anyear " + anyear + " an " + an + " andate " + andate + " hn " + hn + " hnyear " + hnyear);
                 DataTable dtdrug = bc.bcDB.vsDB.selectOrderDrugUcepIPDByHn(hn, hnyear, an, anyear);     //drug
                 foreach (DataRow rowdrug in dtdrug.Rows)
                 {
@@ -3306,6 +3307,7 @@ namespace bangna_hospital.gui
             }
             else
             {
+                new LogWriter("d", "FrmOPBKKClaim exportUcelExcel else (wheresplit.Length > 9)  " );
                 foreach (Row row in grfUcepSelect.Rows)
                 {
                     row1++;
@@ -3324,6 +3326,7 @@ namespace bangna_hospital.gui
                         anyear = row[colGrfUcepSelectAnYear].ToString();
                         andate = bc.datetoDB(row[colGrfUcepSelectAnDate].ToString());
                         //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate0 " + andate);
+                        new LogWriter("d", "FrmOPBKKClaim exportUcelExcel else foreach (Row row in grfUcepSelect.Rows)  anyear " + anyear + " an " + an + " andate " + andate + " hn " + hn + " hnyear " + hnyear);
                         if (statusipd.Equals("OPD"))
                         {
                             DateTime vsdate1 = new DateTime();
@@ -3421,7 +3424,7 @@ namespace bangna_hospital.gui
                             //{
                             //    andate1 = andate1.AddYears(543);
                             //}
-                            //new LogWriter("d", "FrmOPBKKClaim exportUcelExcel andate1 " + andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US")));
+                            new LogWriter("d", "FrmOPBKKClaim exportUcelExcel else -> if (statusipd.Equals(OPD)) " );
                             //andate = andate1.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
                             DataTable dtdrug = new DataTable();
                             if (chkUcepAllVisit.Checked)

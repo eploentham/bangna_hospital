@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
-    public partial class FrmCertDoctor : Form
+    public partial class FrmCertDoctorBn1 : Form
     {
         BangnaControl bc;
         System.Drawing.Font fEdit, fEditB, fEditBig, ffB;
@@ -94,13 +94,13 @@ namespace bangna_hospital.gui
                "public ^{ get; set; }", "private ^{ get; set; }", "internal ^{ get; set; }", "protected ^{ get; set; }"
                };
 
-        public FrmCertDoctor(BangnaControl bc)
+        public FrmCertDoctorBn1(BangnaControl bc)
         {
             this.bc = bc;
             InitializeComponent();
             initConfig();
         }
-        public FrmCertDoctor(BangnaControl bc, String hn, String vsdate, String preno)
+        public FrmCertDoctorBn1(BangnaControl bc, String hn, String vsdate, String preno)
         {
             this.bc = bc;
             this.HN = hn;
@@ -109,7 +109,7 @@ namespace bangna_hospital.gui
             InitializeComponent();
             initConfig();
         }
-        public FrmCertDoctor(BangnaControl bc, String dtrCode, String hn, String vsdate, String preno)
+        public FrmCertDoctorBn1(BangnaControl bc, String dtrCode, String hn, String vsdate, String preno)
         {
             this.bc = bc;
             this.HN = hn;
@@ -119,7 +119,7 @@ namespace bangna_hospital.gui
             InitializeComponent();
             initConfig();
         }
-        public FrmCertDoctor(BangnaControl bc, String dtrCode, String hn, String vsdate, String preno, String certid)
+        public FrmCertDoctorBn1(BangnaControl bc, String dtrCode, String hn, String vsdate, String preno, String certid)
         {
             this.bc = bc;
             this.HN = hn;
@@ -156,14 +156,14 @@ namespace bangna_hospital.gui
             txtLine1.KeyUp += TxtLine1_KeyUp;
             txtLine2.KeyUp += TxtLine2_KeyUp;
             txtLine3.KeyUp += TxtLine3_KeyUp;
-            txtChk3NumDays.KeyPress += TxtChk3NumDays_KeyPress;
-            txtChk3NumDays.KeyUp += TxtChk3NumDays_KeyUp;
+            txtChk2NumDays.KeyPress += TxtChk2NumDays_KeyPress;
+            txtChk2NumDays.KeyUp += TxtChkNumDays_KeyUp;
             
-            chk2.Click += Chk2_Click;
-            chk3.Click += Chk3_Click;
-            chk4.Click += Chk4_Click;
             chk1.Click += Chk1_Click;
-            txtChk3DateStart.DropDownClosed += TxtChk3DateStart_DropDownClosed;
+            chk2.Click += Chk2_Click;
+            chk4.Click += Chk4_Click;
+            chk3.Click += Chk3_Click;
+            txtChk2DateStart.DropDownClosed += TxtChk2DateStart_DropDownClosed;
             chkOPD.Click += ChkOPD_Click;
             chkIPD.Click += ChkIPD_Click;
 
@@ -201,16 +201,16 @@ namespace bangna_hospital.gui
             pageLoad = false;
         }
 
-        private void TxtChk3NumDays_KeyUp(object sender, KeyEventArgs e)
+        private void TxtChkNumDays_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
-            setTxtChk3DateEnd(txtChk3NumDays.Text.Trim());
+            setTxtChk3DateEnd(txtChk2NumDays.Text.Trim());
         }
 
-        private void TxtChk3DateStart_DropDownClosed(object sender, C1.Win.C1Input.DropDownClosedEventArgs e)
+        private void TxtChk2DateStart_DropDownClosed(object sender, C1.Win.C1Input.DropDownClosedEventArgs e)
         {
             //throw new NotImplementedException();
-            setTxtChk3DateEnd(txtChk3NumDays.Text.Trim());
+            setTxtChk3DateEnd(txtChk2NumDays.Text.Trim());
         }
 
         private void BtnPrintCertE_Click(object sender, EventArgs e)
@@ -225,7 +225,7 @@ namespace bangna_hospital.gui
                 lb1.Text = "ไม่พบรหัสแพทย์";
             }
         }
-        private void TxtChk3NumDays_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtChk2NumDays_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -243,32 +243,32 @@ namespace bangna_hospital.gui
         {
             if (numsday.Equals(""))
             {
-                txtChk3DateEnd.Value = null;
+                txtChk2DateEnd.Value = null;
                 return;
             }
             int numday = 0;
             if (!int.TryParse(numsday, out numday))
             {
-                txtChk3DateEnd.Value = null;
+                txtChk2DateEnd.Value = null;
                 return;
             }
             numday -= 1;        // แก้ให้ ตามHRบริษัทต้องการ
             DateTime date = new DateTime();
             //DateTime.TryParse(txtVsDate.Value.ToString(), out date);
-            DateTime.TryParse(txtChk3DateStart.Value.ToString(), out date);
+            DateTime.TryParse(txtChk2DateStart.Value.ToString(), out date);
             date = date.AddDays(numday);
             if (date.Year < 2000)
             {
                 date = date.AddYears(543);
             }
             //txtChk3DateStart.Value = txtVsDate.Text;
-            if (txtChk3DateEnd.CultureInfo.Name.IndexOf("th") >= 0)
+            if (txtChk2DateEnd.CultureInfo.Name.IndexOf("th") >= 0)
             {
-                txtChk3DateEnd.Value = date;
+                txtChk2DateEnd.Value = date;
             }
             else
             {
-                txtChk3DateEnd.Value = date;
+                txtChk2DateEnd.Value = date;
             }
             //txtChk3DateEnd.Value = date;
         }
@@ -399,7 +399,7 @@ namespace bangna_hospital.gui
             }
         }
 
-        private void Chk1_Click(object sender, EventArgs e)
+        private void Chk3_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setControlDateClear();
@@ -413,26 +413,26 @@ namespace bangna_hospital.gui
             txtChk4Time.Text = txtVsTime.Text;
         }
 
-        private void Chk3_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            setControlDateClear();
-            txtChk3DateStart.Value = txtVsDate.Value;
-            setTxtChk3DateEnd(txtChk3NumDays.Text);
-        }
-
         private void Chk2_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setControlDateClear();
             txtChk2DateStart.Value = txtVsDate.Value;
+            setTxtChk3DateEnd(txtChk2NumDays.Text);
+        }
+
+        private void Chk1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setControlDateClear();
+            txtChk1DateStart.Value = txtVsDate.Value;
             if (chkIPD.Checked)
             {
-                txtChk2DateEnd.Value = DateTime.Now;
+                txtChk1DateEnd.Value = DateTime.Now;
             }
             else
             {
-                txtChk2DateEnd.Value = txtVsDate.Value;
+                txtChk1DateEnd.Value = txtVsDate.Value;
             }
         }
         private void setControlDateClear()
@@ -514,15 +514,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (lbDtrName.Text.Length > 0)
             {
-                if (bc.iniC.station.Equals("201"))
-                {
-                    printCertDoctoriTextSharpThaiPhysical();
-                }
-                else
-                {
-                    printCertDoctoriTextSharpThai();
-                }
-                
+                printCertDoctoriTextSharpThai();
             }
             else
             {
@@ -542,7 +534,7 @@ namespace bangna_hospital.gui
             mcerti.status_ipd = chkOPD.Checked ? "O": "I";
             mcerti.visit_date = VSDATE;
             mcerti.visit_time = txtVsTime.Text;
-            mcerti.remark = "";
+            mcerti.remark = txtRemark.Text.Trim();
             mcerti.line1 = txtLine1.Text;
             mcerti.line2 = txtLine2.Text;
             mcerti.line3 = txtLine3.Text;
@@ -670,7 +662,7 @@ namespace bangna_hospital.gui
                 linenumber += 10;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "ข้าพเจ้า", 50, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................................................", 85, linenumber-2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "แพทย์แผนปัจจุบันชั้นหนึ่งสาขาเวชกรรมเลขที่", 335, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "แพทย์แผนปัจจุบันชั้นหนึ่งใบอนุญาตฯเลขที่", 335, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............", 528, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, lbDtrName.Text.Trim(), 90, linenumber + 3, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, txtDtrCode.Text.Trim(), 535, linenumber + 3, 0);
@@ -706,73 +698,81 @@ namespace bangna_hospital.gui
                 linenumber -= 20;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "..............................................................................................................................................................................................................", 35, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, txtLine3.Text.Trim(), 40, linenumber + 3, 0);
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "..............................................................................................................................................................................................................", 35, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtLine4.Text.Trim(), 40, linenumber + 3, 0);
+                //แก้ไข แล้วกระดาษไม่พอ  เลยcomment 
+                //linenumber -= 20;
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "..............................................................................................................................................................................................................", 35, linenumber - 2, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, txtLine4.Text.Trim(), 40, linenumber + 3, 0);
 
                 //linenumber -= 20;
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk1.Text, 50, linenumber, 0);
+                linenumber -= 20;   int gap1 = 70;
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk1.Text, 50 + gap1, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   1. เข้าพักรักษาตัวในโรงพยาบาล" , 50 + gap1, linenumber, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 245 + gap1, linenumber - 2, 0);
+
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "ถึงวันที่", 360 + gap1, linenumber - 2, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 395 + gap1, linenumber - 2, 0);
                 if (chk1.Checked)
                 {
                     canvas.SetFontAndSize(bfRB, fontSize2);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54, linenumber+2, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54 + gap1, linenumber + 2, 0);
                     canvas.SetFontAndSize(bfR, fontSize1);
-                }
+                    //DateTime dateend = new DateTime();
+                    //DateTime datestart = new DateTime();
+
+                    //DateTime.TryParse(txtChk1DateStart.Value.ToString(), out datestart);
+                    //DateTime.TryParse(txtChk1DateEnd.Value.ToString(), out dateend);
+                    //canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart.ToString("dd-MM-") + (datestart.Year + 543).ToString(), 250 + gap1, linenumber + 3, 0);
+                    //canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend.ToString("dd-MM-") + (dateend.Year + 543).ToString(), 400 + gap1, linenumber + 3, 0);
+                }//txtChk3NumDays
                 linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk2.Text, 50, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 245, linenumber - 2, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ควรอนุญาตให้  [  ]   " + chk2.Text, 53, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "............", 240 + gap1, linenumber - 2, 0);
                 
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ถึงวันที่", 360, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 395, linenumber - 2, 0);
-                //canvas.ShowTextAligned(Element.ALIGN_LEFT, ptt.visitDate, 400, linenumber + 3, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, label6.Text.Replace("ตั้งแต่วันที่", "").Trim(), 275 + gap1, linenumber - 2, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................  ถึงวันที่  ..............................", 345, linenumber - 2, 0);
+                
                 if (chk2.Checked)
                 {
                     canvas.SetFontAndSize(bfRB, fontSize2);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54, linenumber + 2, 0);
-                    canvas.SetFontAndSize(bfR, fontSize1);
-                    DateTime dateend = new DateTime();
-                    DateTime datestart = new DateTime();
-
-                    DateTime.TryParse(txtChk2DateStart.Value.ToString(), out datestart);
-                    DateTime.TryParse(txtChk2DateEnd.Value.ToString(), out dateend);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart.ToString("dd-MM-") + (datestart.Year + 543).ToString(), 250, linenumber + 3, 0);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend.ToString("dd-MM-") + (dateend.Year + 543).ToString(), 400, linenumber + 3, 0);
-                }//txtChk3NumDays
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk3.Text, 50, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "............", 240, linenumber - 2, 0);
-                
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, label6.Text.Trim(), 275, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................  ถึงวันที่  ..............................", 345, linenumber - 2, 0);
-                
-                if (chk3.Checked)
-                {
-                    canvas.SetFontAndSize(bfRB, fontSize2);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54, linenumber + 2, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54 + gap1, linenumber + 2, 0);
                     canvas.SetFontAndSize(bfR, fontSize1);
 
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk3NumDays.Text.Trim(), 250, linenumber + 3, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk2NumDays.Text.Trim(), 250 + gap1, linenumber + 3, 0);
                     //canvas.ShowTextAligned(Element.ALIGN_LEFT, vsDateTH, 355, linenumber + 3, 0);
                     DateTime dateend = new DateTime();
                     DateTime datestart = new DateTime();
                     
-                    DateTime.TryParse(txtChk3DateStart.Value.ToString(), out datestart);
+                    DateTime.TryParse(txtChk2DateStart.Value.ToString(), out datestart);
                     datestart = new DateTime(datestart.Year, datestart.Month, datestart.Day, 0, 0, 0);
-                    DateTime.TryParse(txtChk3DateEnd.Value.ToString(), out dateend);
+                    DateTime.TryParse(txtChk2DateEnd.Value.ToString(), out dateend);
                     dateend = new DateTime(dateend.Year, dateend.Month, dateend.Day, 0, 0, 0);
 
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart.ToString("dd-MM-") + (datestart.Year + 543).ToString(), 355, linenumber + 3, 0);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend.ToString("dd-MM-") + (dateend.Year + 543).ToString(), 495, linenumber + 3, 0);
+                    //canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart.ToString("dd-MM-") + (datestart.Year + 543).ToString(), 355, linenumber + 3, 0);
+                    //canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend.ToString("dd-MM-") + (dateend.Year + 543).ToString(), 495, linenumber + 3, 0);
                 }
                 linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk4.Text, 50, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................  เวลา", 185, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 320, linenumber - 2, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk3.Text, 50 + gap1, linenumber, 0);
+                if (chk3.Checked)
+                {
+                    canvas.SetFontAndSize(bfRB, fontSize2);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54 + gap1, linenumber + 2, 0);
+                    canvas.SetFontAndSize(bfR, fontSize1);
+                }
+                //linenumber -= 20;
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk3.Text, 50, linenumber, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 245, linenumber - 2, 0);
+
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "ถึงวันที่", 360, linenumber - 2, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 395, linenumber - 2, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, ptt.visitDate, 400, linenumber + 3, 0);
+                linenumber -= 20;
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   " + chk4.Text, 50 + gap1, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................  เวลา", 185 + gap1, linenumber - 2, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 320 + gap1, linenumber - 2, 0);
                 if (chk4.Checked)
                 {
                     canvas.SetFontAndSize(bfRB, fontSize2);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54, linenumber + 2, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54 + gap1, linenumber + 2, 0);
                     canvas.SetFontAndSize(bfR, fontSize1);
                     //txtChk4Date
                     DateTime date = new DateTime();
@@ -781,34 +781,51 @@ namespace bangna_hospital.gui
                     {
                         date = date.AddYears(543);
                     }
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, date.ToString("dd-MM-yyyy"), 190, linenumber + 3, 0);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk4Time.Text.Trim(), 325, linenumber + 3, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, date.ToString("dd-MM-yyyy"), 190 + gap1, linenumber + 3, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk4Time.Text.Trim(), 325 + gap1, linenumber + 3, 0);
                 }
                 //linenumber -= 20;
                 linenumber -= 20;
                 canvas.SetFontAndSize(bfRB, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "(กรณีที่4. ใช้รับรองว่ามารับการตรวจรักษาจริงเท่านั้น  มิใช่เป็นใบรับรองแพทย์ลาป่วย)" , 30, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "(กรณีที่4. ใช้รับรองว่ามารับการตรวจรักษาจริงเท่านั้น  มิใช่เป็นใบรับรองแพทย์ลาป่วย)" , 50 + gap1, linenumber, 0);
+
                 linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "***  เอกสารนี้ไม่สามารถใช้ประกอบการดำเนินคดีได้", 30, linenumber, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "***  เอกสารนี้ไม่สามารถใช้ประกอบการดำเนินคดีได้", 30, linenumber, 0);
                 canvas.SetFontAndSize(bfR, fontSize1);
 
-                //linenumber -= 20;
-                //linenumber -= 20;
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ตั้งแต่วันที่ ", 53, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 95, linenumber - 2, 0);
+
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ถึงวันที่", 200, linenumber - 2, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 230, linenumber - 2, 0);
+                DateTime dateend1 = new DateTime();
+                DateTime datestart1 = new DateTime();
+
+                DateTime.TryParse(txtChk1DateStart.Value.ToString(), out datestart1);
+                DateTime.TryParse(txtChk1DateEnd.Value.ToString(), out dateend1);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart1.ToString("dd-MM-") + (datestart1.Year + 543).ToString(), 110, linenumber + 3, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend1.ToString("dd-MM-") + (dateend1.Year + 543).ToString(), 243, linenumber + 3, 0);
+
+                linenumber -= 20;
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "หมายเหตุ .......................................................................................................................................................................................", 35, linenumber - 2, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtRemark.Text.Trim(), 40, linenumber + 3, 0);
+
+                linenumber -= 20;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "ลงชื่อ", 380, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................", 405, linenumber - 2, 0);
                 linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................", 50, linenumber - 2, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................", 50, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "(                                                      )", 385, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "..................................................................", 395, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, lbDtrName.Text.Trim()+" ["+txtDtrCode.Text.Trim()+"]", 398, linenumber + 3, 0);
 
                 linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ผู้รับเอกสารใบรับรองแพทย์", 75, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "แพทย์ผู้ตรวจโรค", 440, linenumber, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "ผู้รับเอกสารใบรับรองแพทย์", 75, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "แพทย์ผู้ตรวจรักษา", 440, linenumber, 0);
 
-                linenumber -= 20;
+                //linenumber -= 20;
                 canvas.SetFontAndSize(bfR, 12);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "FM-MED-001 (01-05/02/59)(1/1)", 50, linenumber+6, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "FM-NUR-001/1 (แก้ไขครั้งที่ 02-01/01/66)", 50, linenumber+6, 0);
 
                 //logo.SetAbsolutePosition(310, linenumber+3);
                 //logo.SetAbsolutePosition(240, linenumber + 3);
@@ -832,7 +849,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "FrmCertDoctor printCertDoctoriTextSharpThai "+ex.Message);
+                new LogWriter("e", "FrmCertDoctorBn1 printCertDoctoriTextSharpThai "+ex.Message);
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -1080,7 +1097,7 @@ namespace bangna_hospital.gui
                 //linenumber -= 20;
                 linenumber -= 20;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "[  ]   for reimbursement", 50, linenumber, 0);
-                if (chk1.Checked)
+                if (chk3.Checked)
                 {
                     canvas.SetFontAndSize(bfRB, fontSize2);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54, linenumber + 2, 0);
@@ -1093,7 +1110,7 @@ namespace bangna_hospital.gui
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "until", 350, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 380, linenumber - 2, 0);
                 //canvas.ShowTextAligned(Element.ALIGN_LEFT, ptt.visitDate, 400, linenumber + 3, 0);
-                if (chk2.Checked)
+                if (chk1.Checked)
                 {
                     canvas.SetFontAndSize(bfRB, fontSize2);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54, linenumber + 2, 0);
@@ -1101,8 +1118,8 @@ namespace bangna_hospital.gui
                     DateTime dateend = new DateTime();
                     DateTime datestart = new DateTime();
 
-                    DateTime.TryParse(txtChk2DateStart.Value.ToString(), out datestart);
-                    DateTime.TryParse(txtChk2DateEnd.Value.ToString(), out dateend);
+                    DateTime.TryParse(txtChk1DateStart.Value.ToString(), out datestart);
+                    DateTime.TryParse(txtChk1DateEnd.Value.ToString(), out dateend);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart.ToString("dd-MM-") + (datestart.Year).ToString(), 200, linenumber + 3, 0);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend.ToString("dd-MM-") + (dateend.Year).ToString(), 400, linenumber + 3, 0);
                 }//txtChk3NumDays
@@ -1113,19 +1130,19 @@ namespace bangna_hospital.gui
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "days  from", 325, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "..............................  until  ..............................", 385, linenumber - 2, 0);
 
-                if (chk3.Checked)
+                if (chk2.Checked)
                 {
                     canvas.SetFontAndSize(bfRB, fontSize2);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, "/", 54, linenumber + 2, 0);
                     canvas.SetFontAndSize(bfR, fontSize1);
 
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk3NumDays.Text.Trim(), 300, linenumber + 3, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk2NumDays.Text.Trim(), 300, linenumber + 3, 0);
                     //canvas.ShowTextAligned(Element.ALIGN_LEFT, vsDateTH, 355, linenumber + 3, 0);
                     DateTime dateend = new DateTime();
                     DateTime datestart = new DateTime();
 
-                    DateTime.TryParse(txtChk3DateStart.Value.ToString(), out datestart);
-                    DateTime.TryParse(txtChk3DateEnd.Value.ToString(), out dateend);
+                    DateTime.TryParse(txtChk2DateStart.Value.ToString(), out datestart);
+                    DateTime.TryParse(txtChk2DateEnd.Value.ToString(), out dateend);
 
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart.ToString("dd-MM-") + (datestart.Year ).ToString(), 395, linenumber + 3, 0);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend.ToString("dd-MM-") + (dateend.Year ).ToString(), 510, linenumber + 3, 0);
@@ -1191,7 +1208,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "FrmCertDoctor printCertDoctoriTextSharpEnglish " + ex.Message);
+                new LogWriter("e", "FrmCertDoctorBn1 printCertDoctoriTextSharpEnglish " + ex.Message);
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -1280,269 +1297,6 @@ namespace bangna_hospital.gui
                 }
             }
         }
-        private void printCertDoctoriTextSharpThaiPhysical()
-        {
-            String certid = "";
-            certid = insertCertDoctor();
-            if (certid.Length > 3)
-            {
-                //certid = certid.Replace("555", "");
-                certid = certid.Substring(3, 7);
-            }
-
-            String patheName = Environment.CurrentDirectory + "\\cert_med\\";
-            if (!Directory.Exists(patheName))
-            {
-                Directory.CreateDirectory(patheName);
-            }
-
-            System.Drawing.Font fontMS12 = new System.Drawing.Font("Microsoft Sans Serif", 12);
-            BaseFont bfR, bfR1, bfRB;
-            BaseColor clrBlack = new iTextSharp.text.BaseColor(0, 0, 0);
-            string myFont = Environment.CurrentDirectory + "\\THSarabunNew.ttf";
-            string myFontB = Environment.CurrentDirectory + "\\THSarabunNew Bold.ttf";
-            String filename = patheName + txtHn.Text.Trim() + "_" + VSDATE + "_" + PRENO + ".pdf";
-            filename = (chkOPD.Checked) ? patheName + txtHn.Text.Trim() + "_" + VSDATE + "_" + PRENO + ".pdf" : patheName + txtHn.Text.Trim() + "_" + AN + ".pdf";
-
-            bfR = BaseFont.CreateFont(myFont, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            bfR1 = BaseFont.CreateFont(myFont, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-            bfRB = BaseFont.CreateFont(myFontB, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-
-            iTextSharp.text.Font fntHead = new iTextSharp.text.Font(bfR, 12, iTextSharp.text.Font.NORMAL, clrBlack);
-
-            var logo = iTextSharp.text.Image.GetInstance(Environment.CurrentDirectory + "\\LOGO-BW-tran.jpg");
-            logo.SetAbsolutePosition(20, PageSize.A4.Height - 60);
-            logo.ScaleAbsoluteHeight(50);
-            logo.ScaleAbsoluteWidth(50);
-
-            FontFactory.RegisterDirectory("C:\\WINDOWS\\Fonts");
-            iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
-            FileStream output = null;
-            PdfWriter writer = null;
-            try
-            {
-                String vstime = "", vsDateTH = "", docscanid = "";
-                docscanid = bc.bcDB.mcertiDB.selectDocScanIDByHn(txtHn.Text.Trim(), PRENO, VSDATE);
-                DateTime vsdat1 = new DateTime();
-                vstime = "0000" + ptt.visitTime;
-                vstime = vstime.Substring(vstime.Length - 4);
-                vstime = vstime.Substring(0, 2) + ":" + vstime.Substring(vstime.Length - 2, 2);
-                DateTime.TryParse(ptt.visitDate, out vsdat1);
-                if (vsdat1.Year < 2000)
-                {
-                    vsdat1 = vsdat1.AddYears(543);
-                }
-                vsDateTH = vsdat1.ToString("dd-MM-") + (vsdat1.Year + 543).ToString();
-                qrcode.CodeType = C1.BarCode.CodeType.QRCode;
-                qrcode.Text = txtHn.Text.Trim() + " " + txtNameT.Text.Trim() + " " + vsDateTH + " " + certid;
-                System.Drawing.Image imgqrcode = qrcode.Image;
-                var imgqrcode1 = iTextSharp.text.Image.GetInstance(imgqrcode, BaseColor.WHITE);
-
-                output = new FileStream(filename, FileMode.Create);
-                writer = PdfWriter.GetInstance(doc, output);
-                doc.Open();
-                doc.Add(logo);
-                int linenumber = 820, colCenter = 200, fontSize0 = 8, fontSize1 = 16, fontSize2 = 18, fontSize20 = 20, fontSize4 = 22, fontSize26 = 26;
-                PdfContentByte canvas = writer.DirectContent;
-                linenumber = bc.padYCertMed > 0 ? bc.padYCertMed : 820;
-                canvas.BeginText();
-                canvas.SetFontAndSize(bfRB, fontSize20);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostname, 80, linenumber, 0);
-                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "55 หมู่4 ถนนเทพารักษ์ ตำบลบางพลีใหญ่ อำเภอบางพลี จังหวัด สมุทรปราการ 10540", 100, 780, 0);
-                canvas.SetFontAndSize(bfRB, fontSize20);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostnamee, 80, linenumber - 15, 0);
-                canvas.SetFontAndSize(bfR, 12);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostaddresst, 80, linenumber - 30, 0);
-                canvas.EndText();
-                linenumber = 720;
-                
-                canvas.BeginText();
-                canvas.SetFontAndSize(bfR, fontSize26);
-                canvas.ShowTextAligned(Element.ALIGN_CENTER, "ใบรับรองแพทย์", PageSize.A4.Width / 2, linenumber + 40, 0);
-                canvas.SetFontAndSize(bfR, fontSize2);
-                canvas.ShowTextAligned(Element.ALIGN_CENTER, "เลขที่ " + certid, 530, linenumber + 40, 0);
-
-                canvas.SetFontAndSize(bfR, fontSize1);
-                linenumber += 10;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ข้าพเจ้า", 50, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................................................", 85, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "เลขที่ใบกระกอบ", 335, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................", 405, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, lbDtrName.Text.Trim(), 90, linenumber + 3, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtDtrCode.Text.Trim(), 415, linenumber + 3, 0);
-
-                linenumber -= 20;
-                canvas.SetFontAndSize(bfR, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ขอรับรองว่า", 35, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................................................................................................................................................................", 90, linenumber - 2, 0);
-                //canvas.ShowTextAligned(Element.ALIGN_LEFT, txtNameT.Text.Trim()+" HN "+ txtHn.Text.Trim(), 93, linenumber + 3, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtNameT.Text.Trim(), 93, linenumber + 3, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, " HN " + txtHn.Text.Trim(), 335, linenumber + 3, 0);
-
-                linenumber -= 20;
-                canvas.SetFontAndSize(bfR, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ได้รับการตรวจโรคจากโรงพยาบาลนี้เมื่อ วันที่", 35, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "............................................................................................", 225, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, vsDateTH, 230, linenumber + 3, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "เวลามาตรวจ", 470, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............", 528, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "น. ", 570, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, vstime, 535, linenumber + 3, 0);
-
-                linenumber -= 20;
-                canvas.SetFontAndSize(bfR, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ปรากฏว่าป่วยเป็นโรค", 35, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, ".........................................................................................................................................................................", 130, linenumber - 2, 0);
-                canvas.SetFontAndSize(bfRB, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtLine1.Text.Trim(), 133, linenumber + 3, 0);
-                canvas.SetFontAndSize(bfR, fontSize1);
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "..............................................................................................................................................................................................................", 35, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtLine2.Text.Trim(), 40, linenumber + 3, 0);
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "..............................................................................................................................................................................................................", 35, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtLine3.Text.Trim(), 40, linenumber + 3, 0);
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "..............................................................................................................................................................................................................", 35, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtLine4.Text.Trim(), 40, linenumber + 3, 0);
-
-                linenumber -= 20;
-                canvas.SetFontAndSize(bfRB, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "หมายเหตุ  ใบรับรองฉบับนี้ใช้รับรองว่ามารับการรักษา และฟื้นฟูจริงเท่านั้น  มิใช่เป็นใบรับรองเพื่อลาป่วย", 30, linenumber, 0);
-                linenumber -= 20;
-                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "***  เอกสารนี้ไม่สามารถใช้ประกอบการดำเนินคดีได้", 30, linenumber, 0);
-                //canvas.SetFontAndSize(bfR, fontSize1);
-
-                linenumber -= 20;
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ลงชื่อ", 380, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................", 405, linenumber - 2, 0);
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................", 50, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "(                                                      )", 385, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "..................................................................", 395, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, lbDtrName.Text.Trim() + " [" + txtDtrCode.Text.Trim() + "]", 398, linenumber + 3, 0);
-
-                linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ผู้รับเอกสารใบรับรองแพทย์", 75, linenumber, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "นักกายภาพบำบัด", 440, linenumber, 0);
-
-                linenumber -= 20;
-                canvas.SetFontAndSize(bfR, 12);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "FM-PTD-013 (01-05/02/59)(1/1)", 50, linenumber + 6, 0);
-
-                
-                imgqrcode1.SetAbsolutePosition(240, linenumber + 3);
-                imgqrcode1.ScaleAbsoluteHeight(50);
-                imgqrcode1.ScaleAbsoluteWidth(50);
-                doc.Add(imgqrcode1);
-                
-                logo.SetAbsolutePosition(315, linenumber + 12);
-                logo.ScaleAbsoluteHeight(60);
-                logo.ScaleAbsoluteWidth(60);
-                //doc.Add(logo);  //เอาออก มีแจ้งว่า ประกันไม่จ่าย
-
-                canvas.EndText();
-                canvas.Stroke();
-            }
-            catch (Exception ex)
-            {
-                new LogWriter("e", "FrmCertDoctor printCertDoctoriTextSharpThai " + ex.Message);
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                doc.Close();
-                output.Close();
-                writer.Close();
-
-                byte[] data = File.ReadAllBytes(filename);
-                this.streamCertiDtr = new MemoryStream(data);
-                this.streamCertiDtr.Position = 0;
-                Application.DoEvents();
-                DocScan dsc = new DocScan();
-                dsc.active = "1";
-                dsc.doc_scan_id = "";
-                dsc.doc_group_id = "1100000007";
-                dsc.hn = txtHn.Text;
-
-                dsc.an = chkIPD.Checked ? AN : "";
-                dsc.vn = ptt.vn;
-
-                dsc.visit_date = VSDATE;
-                dsc.host_ftp = bc.iniC.hostFTP;
-                //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
-                dsc.image_path = "";
-                dsc.doc_group_sub_id = "1200000030";
-                dsc.pre_no = PRENO;
-                dsc.an_date = "";
-                dsc.folder_ftp = bc.iniC.folderFTP;
-                dsc.status_ipd = chkOPD.Checked ? "O" : "I";
-                dsc.row_no = "1";
-                dsc.row_cnt = "1";
-                dsc.status_ml = "2";
-                dsc.ml_fm = "FM-MED-001";
-                dsc.remark = "PDF";
-                dsc.sort1 = CERTID.Equals("2NFLEAF") ? "2" : "1";
-                if (chkOPD.Checked)
-                {
-                    if (CERTID.Equals("2NFLEAF"))
-                    {
-                        bc.bcDB.dscDB.voidDocScanByStatusCertMedical2NFLEAF(txtHn.Text, "FM-MED-001", VSDATE, PRENO, "");
-                    }
-                    else
-                    {
-                        bc.bcDB.dscDB.voidDocScanByStatusCertMedical(txtHn.Text, "FM-MED-001", VSDATE, PRENO, "");
-                    }
-                }
-                else
-                {
-
-                }
-                String reDocScanId = bc.bcDB.dscDB.insertScreenCapture(dsc, bc.userId);
-                long chk = 0;
-                if (long.TryParse(reDocScanId, out chk))
-                {
-                    dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + reDocScanId + ".PDF";
-                    String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, reDocScanId);
-                    FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive, bc.iniC.ProxyProxyType, bc.iniC.ProxyHost, bc.iniC.ProxyPort);
-                    ftp.createDirectory(bc.iniC.folderFTP + "//" + txtHn.Text.Replace("/", "-"));
-                    ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
-                    if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
-                    {
-                        
-                        bc.bcDB.mcertiDB.updateDocScanIdByPk("555" + certid, reDocScanId);
-                        if (chkOPD.Checked)
-                        {
-                            if (CERTID.Equals("2NFLEAF"))
-                            {
-                                bc.bcDB.vsDB.updateMedicalCertId2NFLEAF(txtHn.Text, PRENO, VSDATE, "555" + certid);
-                            }
-                            else
-                            {
-                                bc.bcDB.vsDB.updateMedicalCertId(txtHn.Text, PRENO, VSDATE, "555" + certid);
-                            }
-                        }
-                        else
-                        {
-
-                        }
-                        System.Threading.Thread.Sleep(200);
-                    }
-                }
-                if ((HN.Length > 0) && (PRENO.Length > 0))
-                {
-                    this.Dispose(true);
-                }
-                else
-                {
-                    Process p = new Process();
-                    ProcessStartInfo s = new ProcessStartInfo(filename);
-                    p.StartInfo = s;
-                    p.Start();
-                }
-            }
-        }
         internal RectangleF GetPageRect()
         {
             RectangleF rcPage = _c1pdf.PageRectangle;
@@ -1611,12 +1365,12 @@ namespace bangna_hospital.gui
             txtLine3.Text = "";
             txtLine4.Text = "";
 
+            chk3.Checked = false;
             chk1.Checked = false;
             chk2.Checked = false;
-            chk3.Checked = false;
             chk4.Checked = false;
 
-            txtChk3NumDays.Text = "1";
+            txtChk2NumDays.Text = "1";
             txtChk4Time.Text = vstime;
             //txtDtrCode.Text = ptt.dtrcode;
             
@@ -1752,9 +1506,9 @@ namespace bangna_hospital.gui
                 }
             }
         }
-        private void FrmCertDoctor_Load(object sender, EventArgs e)
+        private void FrmCertDoctorBn1_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2024-01-11 fix big font ";
+            this.Text = "Last Update 2024-08-23 fix big font ";
         }
     }
 }

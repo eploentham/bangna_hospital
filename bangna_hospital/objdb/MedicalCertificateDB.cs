@@ -154,11 +154,36 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        /*
+         * ใช้ update ใบรับรองแพทย์ ใบนี้ ใช้ docscan record ไหน
+         */
         public String updateDocScanIdByPk(String id, String dscid)
         {
             String sql = "", re = "";
             sql = "update " + mcerti.table + " set " +
                 "doc_scan_id = '" + dscid + "' " +
+                //",status_scan_upload = '1' " +
+                "Where certi_id = '" + id + "' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateDocScanIdByPk sql " + sql + " id " + id);
+            }
+            return re;
+        }
+        /*
+         * ใช้ update ใบรับรองแพทย์ ใบนี้ ใช้ docscan record ไหน  ใบล่าสุด
+         */
+        public String updateDocScanIdScanUploadByPk(String id, String dscid)
+        {
+            String sql = "", re = "";
+            sql = "update " + mcerti.table + " set " +
+                "doc_scan_id = '" + dscid + "' " +
+                ",status_scan_upload = '1' " +
                 "Where certi_id = '" + id + "' ";
             try
             {
@@ -260,14 +285,14 @@ namespace bangna_hospital.objdb
                 " ," + mcerti.dtr_name_e + "," + mcerti.dtr_name_t + "," + mcerti.status_ipd + "" +
                 " ," + mcerti.date_create + "," + mcerti.visit_date + "," + mcerti.visit_time + "" +
                 " ," + mcerti.pre_no + "," + mcerti.certi_code + "," + mcerti.doc_scan_id + " " +
-                " ," + mcerti.user_create + ","+ mcerti.status_2nd_leaf + "," + mcerti.an + "," + mcerti.counter_name + ") " +
+                " ," + mcerti.user_create + ","+ mcerti.status_2nd_leaf + "," + mcerti.an + "," + mcerti.counter_name + "," + mcerti.remark + ") " +
                 "Values ('" + p.hn.Replace("'", "''") + "','1','" + p.line1 + "'" +
                 ",'" + p.line2.Replace("'", "''") + "','" + p.line3.Replace("'", "''") + "','" + p.line4 + "'" +
                 ",'" + p.ptt_name_e.Replace("'", "''") + "','" + p.ptt_name_t.Replace("'", "''") + "','" + p.dtr_code + "'" +
                 ",'" + p.dtr_name_e.Replace("'", "''") + "','" + p.dtr_name_t.Replace("'", "''") + "','" + p.status_ipd + "'" +
                 ",convert(varchar(20),GETDATE(),23),'" + p.visit_date.Replace("'", "''") + "','" + p.visit_time + "'" +
                 ",'" + p.pre_no + "','" + p.certi_code + "','" + p.doc_scan_id + "'" +
-                ",'" + userId + "','"+p.status_2nd_leaf + "','" + p.an + "','" + p.counter_name + "')";
+                ",'" + userId + "','"+p.status_2nd_leaf + "','" + p.an + "','" + p.counter_name + "','" + p.remark.Replace("'","''") + "')";
             try
             {
                 re = conn.ExecuteNonQuery(conn.conn, sql);

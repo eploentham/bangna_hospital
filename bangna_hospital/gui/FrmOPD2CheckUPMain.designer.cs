@@ -65,7 +65,7 @@
             this.btnPrintOPD21TrueStar.Name = "btnPrintOPD21TrueStar";
             this.btnPrintOPD21TrueStar.Size = new System.Drawing.Size(284, 54);
             this.btnPrintOPD21TrueStar.TabIndex = 132;
-            this.btnPrintOPD21TrueStar.Text = "Print ใบรับรองแพทย์ การตรวจสุขภาพแรงงานต่างด้าว\r\nTrue Star";
+            this.btnPrintOPD21TrueStar.Text = "Print ใบรับรองแพทย์ การตรวจสุขภาพแรงงานต่างด้าว\r\nTrue Star/ต่างด้าว/ภาษาไทย";
             this.btnPrintOPD21TrueStar.UseVisualStyleBackColor = true;
             // 
             // btnPrintLicenseDriver

@@ -41,10 +41,12 @@
             this.txtVn = new C1.Win.C1Input.C1TextBox();
             this.lbVn = new System.Windows.Forms.Label();
             this.picWait = new C1.Win.C1Input.C1PictureBox();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).BeginInit();
+            this.sB11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWait)).BeginInit();
@@ -58,7 +60,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label1.Location = new System.Drawing.Point(6, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 16);
+            this.label1.Size = new System.Drawing.Size(33, 16);
             this.label1.TabIndex = 2;
             this.label1.Text = "HN :";
             this.theme1.SetTheme(this.label1, "(default)");
@@ -84,7 +86,7 @@
             this.lbName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.lbName.Location = new System.Drawing.Point(135, 12);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(17, 16);
+            this.lbName.Size = new System.Drawing.Size(16, 16);
             this.lbName.TabIndex = 4;
             this.lbName.Text = "...";
             this.theme1.SetTheme(this.lbName, "(default)");
@@ -97,7 +99,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label2.Location = new System.Drawing.Point(6, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(83, 16);
+            this.label2.Size = new System.Drawing.Size(82, 16);
             this.label2.TabIndex = 6;
             this.label2.Text = "ประเถทเอกสาร :";
             this.theme1.SetTheme(this.label2, "(default)");
@@ -137,6 +139,8 @@
             // sB11
             // 
             this.sB11.BackColor = System.Drawing.Color.White;
+            this.sB11.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
             this.sB11.Location = new System.Drawing.Point(0, 233);
             this.sB11.Name = "sB11";
             this.sB11.Size = new System.Drawing.Size(342, 22);
@@ -166,7 +170,7 @@
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.label3.Location = new System.Drawing.Point(6, 72);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 16);
+            this.label3.Size = new System.Drawing.Size(66, 16);
             this.label3.TabIndex = 10;
             this.label3.Text = "FM code :";
             this.theme1.SetTheme(this.label3, "(default)");
@@ -193,7 +197,7 @@
             this.lbVn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
             this.lbVn.Location = new System.Drawing.Point(211, 72);
             this.lbVn.Name = "lbVn";
-            this.lbVn.Size = new System.Drawing.Size(28, 16);
+            this.lbVn.Size = new System.Drawing.Size(27, 16);
             this.lbVn.TabIndex = 12;
             this.lbVn.Text = "vn :";
             this.theme1.SetTheme(this.lbVn, "(default)");
@@ -207,6 +211,12 @@
             this.picWait.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picWait.TabIndex = 5;
             this.picWait.TabStop = false;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // FrmScreenCaptureUpload
             // 
@@ -233,6 +243,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDgs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpload)).EndInit();
+            this.sB11.ResumeLayout(false);
+            this.sB11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picWait)).EndInit();
@@ -255,5 +267,6 @@
         private System.Windows.Forms.Label label3;
         private C1.Win.C1Input.C1TextBox txtVn;
         private System.Windows.Forms.Label lbVn;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

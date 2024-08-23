@@ -10,6 +10,7 @@ using C1.Win.C1Ribbon;
 using C1.Win.C1Themes;
 using GrapeCity.ActiveReports.Document.Section;
 using GrapeCity.ActiveReports.Extensibility.Data.SchemaModel;
+//using iTextSharp.text.pdf.parser;
 using Org.BouncyCastle.Asn1.Cms;
 using Org.BouncyCastle.Ocsp;
 using System;
@@ -30,6 +31,7 @@ using System.Text;
 using System.Windows.Forms;
 using ZXing;
 using ZXing.Common;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Column = C1.Win.C1FlexGrid.Column;
 
 namespace bangna_hospital.gui
@@ -60,7 +62,7 @@ namespace bangna_hospital.gui
         C1BarCode qrcode;
 
         MedicalCertificate mcerti;
-        DocScan dsc;
+        DocScan dsc, DSCMCERT;
         Timer timer1;
         Boolean pageLoad = false, statusAutoSend = false, SoundPlay = false;
         Image imgPrint;
@@ -230,6 +232,10 @@ namespace bangna_hospital.gui
                 sendFTPCertMed();
                 getListFile();
                 timer1.Start();
+            }
+            else if (chkUpload.Checked && !bc.iniC.statusScreenCaptureAutoSend.Equals("1"))
+            {
+                setListViewUpload();
             }
             else
             {
@@ -628,9 +634,10 @@ namespace bangna_hospital.gui
                 if (mcerti.certi_id.Length > 0)
                 {
                     lbName.Text = mcerti.ptt_name_t;
-                    dsc = new DocScan();
-                    dsc = bc.bcDB.dscDB.selectByPk(mcerti.doc_scan_id);
-                    txtVN.Value = dsc.vn;
+                    DSCMCERT = new DocScan();
+                    DSCMCERT = bc.bcDB.dscDB.selectByPk(mcerti.doc_scan_id);
+                    txtVN.Value = DSCMCERT.vn;
+                    txtHn.Value = DSCMCERT.hn;
                 }
             }
         }
@@ -722,9 +729,9 @@ namespace bangna_hospital.gui
                 ptt = new Patient();
                 ptt = bc.bcDB.pttDB.selectPatient(txtHn.Text.Trim());
                 lbName.Text = ptt.Name;
+                
             }
         }
-
         private void FrmScreenCapture_Activated(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -1170,8 +1177,10 @@ namespace bangna_hospital.gui
                 ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
                 if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, filename))
                 {
+                    //sql = "Update t_medical_certificate set doc_scan_id = '" + doc_scan_id_new + "', status_scan_upload = '1' where certi_id = '" + certmedid + "'"
+                    bc.bcDB.mcertiDB.updateDocScanIdByPk(mcerti.certi_id, re);
                     File.Delete(filename);
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(200);
                 }
             }
         }
@@ -1615,7 +1624,13 @@ namespace bangna_hospital.gui
             filename = grfView[grfView.Row, colUploadPath].ToString();
             if (File.Exists(filename))
             {
-                if (dsc.doc_scan_id.Length > 0)
+                if ((DSCMCERT != null)&&(DSCMCERT.doc_scan_id.Length > 0))
+                {
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc, txtCertID.Text.Trim());
+                    frm.ShowDialog(this);
+                    setListViewUpload();
+                }
+                else if (dsc.doc_scan_id.Length > 0)
                 {
                     FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc);
                     frm.ShowDialog(this);
@@ -1625,8 +1640,10 @@ namespace bangna_hospital.gui
                     FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim());
                     frm.ShowDialog(this);
                 }
-                
-                Application.Exit();
+                if (!bc.iniC.applicationrunnextrecord.Equals("1"))
+                {
+                    Application.Exit();
+                }
                 //getListFile();
             }
             else
@@ -1698,6 +1715,7 @@ namespace bangna_hospital.gui
         {
             if (grfView.IsDisposed) return;
             if (grfView.Rows == null) return;
+            grfView.Rows.Count = 0;
             grfView.Rows.Count = lFile.Count+1;
             Column colpic1 = grfView.Cols[colUploadImg];
             colpic1.DataType = typeof(Image);
@@ -1724,7 +1742,8 @@ namespace bangna_hospital.gui
                             resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
                             //row[colUploadImg] = resizedImage;
                             grfView.SetCellImage(i, colUploadImg, resizedImage);
-                            //loadedImage.Dispose();
+                            
+                            loadedImage.Dispose();
                         }
                     }
                     else
@@ -1741,6 +1760,97 @@ namespace bangna_hospital.gui
             grfView.Refresh();
             grfView.AutoSizeCols();
             grfView.AutoSizeRows();
+        }
+        private void setListViewUpload()
+        {
+            if (grfView.IsDisposed) return;
+            if (grfView.Rows == null) return;
+            String path = "";
+            
+            path = bc.iniC.pathScreenCaptureUpload;
+            
+            DirectoryInfo dir = new DirectoryInfo(path);
+            FileInfo[] Files = dir.GetFiles("*.*");
+            grfView.Rows.Count = 0;
+            if(Files.Length>0) grfView.Rows.Count = 1;
+            Column colpic1 = grfView.Cols[colUploadImg];
+            colpic1.DataType = typeof(Image);
+            int i = 0;
+            //foreach (String file in lFile)
+            clearCertMed();
+            foreach (FileInfo file in Files)
+            {
+                try
+                {
+                    
+                    //Row row = grfView.Rows.Add();
+                    //row[colUploadPath] = file;
+                    grfView.SetData(i, colUploadPath, file.FullName);
+                    string ext = Path.GetExtension(file.Extension);
+                    Image loadedImage, resizedImage;
+                    if (ext.ToLower().IndexOf("pdf") < 0)
+                    {
+                        if (File.Exists(file.FullName))
+                        {
+                            loadedImage = Image.FromFile(file.FullName);
+                            int originalWidth = 0;
+                            originalWidth = loadedImage.Width;
+                            int newWidth = 280;
+                            newWidth = bc.imggridscanwidth;
+                            resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                            //row[colUploadImg] = resizedImage;
+                            grfView.SetCellImage(i, colUploadImg, resizedImage);
+
+                            readQRCODE((Bitmap)loadedImage);
+                            loadedImage.Dispose();
+                        }
+                    }
+                    else
+                    {
+                        //row[colUploadImg] = Resources.pdf_symbol_300;
+                    }
+                    i++;
+                    break;  //เพราะต้องการให้แสดง แค่รูปเดียว ทำที่ละรูป
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", file + " " + ex.Message);
+                    MessageBox.Show("err " + file + " " + ex.Message, "");
+                }
+            }
+            grfView.Refresh();
+            grfView.AutoSizeCols();
+            grfView.AutoSizeRows();
+        }
+        private void clearCertMed()
+        {
+            txtHn.Value = "";
+            txtCertID.Value = "";
+            txtVN.Value = "";
+            lbName.Text = "";
+            DSCMCERT = new DocScan();
+            mcerti = new MedicalCertificate();
+        }
+        private void readQRCODE(Bitmap bmp)
+        {
+            clearCertMed();
+            String textqrcode = FindQrCodeInImage(bmp);
+            if (textqrcode != null && textqrcode.Length > 0)
+            {
+                String[] txtqrcode = textqrcode.Split(' ');
+                if (txtqrcode.Length > 0)
+                {
+                    txtHn.Value = txtqrcode[0];
+                    String certid = "";
+                    certid = txtqrcode[txtqrcode.Length - 1];
+                    
+                    mcerti = bc.bcDB.mcertiDB.selectByPk("555" + certid);
+                    lbName.Text = mcerti.ptt_name_t;
+                    DSCMCERT = bc.bcDB.dscDB.selectByPk(mcerti.doc_scan_id);
+                    txtVN.Value = DSCMCERT.vn;
+                    txtCertID.Value = certid;
+                }
+            }
         }
         private string FindQrCodeInImage(Bitmap bmp)
         {
@@ -1865,6 +1975,7 @@ namespace bangna_hospital.gui
             rl2.Text = bc.iniC.statusStation + " printerA5 " + bc.iniC.printerA5;
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
+            if(chkUpload.Checked) {timer1.Enabled = false;      setListViewUpload(); }
         }
     }
 }

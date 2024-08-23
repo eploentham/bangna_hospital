@@ -2169,9 +2169,14 @@ namespace bangna_hospital.gui
                 {
                     if (drow["MNC_PH_TYP_CD"].ToString().Equals("021"))
                     {// check ยาน้ำ pharm01.MNC_PH_TYP_CD = 021 ให้พิมพ์ stricker หลายดวง ตามจำนวน qty MNC_PH_QTY_PAID
-                        if (drow["MNC_PH_UNT_CD"].ToString().Equals("ML")) continue;//ถ้าอยูเป็นยาน้ำ แต่หน่วยเป็น ML ไม่ต้อง ให้ผ่านไป
-                        if (drow["MNC_PH_CD"].ToString().Equals("KA003")) continue;//รหัสนี้ ให้ผ่าน
-                        if (drow["MNC_PH_CD"].ToString().Equals("HE017")) continue;//รหัสนี้ ให้ผ่าน
+                        if (drow["MNC_PH_UNT_CD"].ToString().Equals("ML")) continue;        //ถ้าอยูเป็นยาน้ำ แต่หน่วยเป็น ML ไม่ต้อง ให้ผ่านไป
+                        if (drow["MNC_PH_CD"].ToString().Equals("KA003")) continue;         //รหัสนี้ ให้ผ่าน
+                        if (drow["MNC_PH_CD"].ToString().Equals("HE017")) continue;         //รหัสนี้ ให้ผ่าน
+                        if (int.Parse(drow["MNC_PH_QTY_PAID"].ToString()) > 1) rowadd.Add(drow);
+                    }
+                    else if (drow["MNC_PH_UNT_CD"].ToString().ToUpper().Equals("BOT"))
+                    {
+                        //ห้องยา ให้แก้ ถ้าเป็น BOT ให้พิมพ์ตามจำนวน QTY    67-08-22
                         if (int.Parse(drow["MNC_PH_QTY_PAID"].ToString()) > 1) rowadd.Add(drow);
                     }
                 }
@@ -2402,7 +2407,7 @@ namespace bangna_hospital.gui
             String stationname = bc.bcDB.pm32DB.getDeptName(bc.iniC.station);
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname+" drugin "+bc.iniC.hostFTPDrugIn;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS+" "+ bc.iniC.programLoad;
-            this.Text = "Last Update 2024-06-17 bug เที่ยงคืน, find grid sticker sum ดึง เวชภัณฑ์ เพิ่ม timer แก้ bug กลางคืนพิมพ์ IPD เป็นพิมพ์หมดทั้ง OPD IPD";
+            this.Text = "Last Update 2024-06-17 หน่วยbotพิมพ์stickerตามqty bug เที่ยงคืน, find grid sticker sum ดึง เวชภัณฑ์ เพิ่ม timer แก้ bug กลางคืนพิมพ์ IPD เป็นพิมพ์หมดทั้ง OPD IPD";
             lfSbStatus.Text = "";
             rb1.Text = "timer "+bc.timerImgScanNew.ToString();
             rb2.Text = bc.iniC.printerStickerDrug;

@@ -38,6 +38,7 @@
             this.rgSb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rgSbHIV = new C1.Win.C1Ribbon.RibbonLabel();
             this.rgSbAFB = new C1.Win.C1Ribbon.RibbonLabel();
+            this.btnPrnSticker = new C1.Win.C1Ribbon.RibbonButton();
             this.spMain = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spPtt = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.spPtt2 = new C1.Win.C1SplitContainer.C1SplitContainer();
@@ -286,6 +287,7 @@
             this.c1StatusBar1.RightPaneItems.Add(this.rgSb1);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbHIV);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbAFB);
+            this.c1StatusBar1.RightPaneItems.Add(this.btnPrnSticker);
             this.c1StatusBar1.Size = new System.Drawing.Size(1727, 22);
             // 
             // lfSbMessage
@@ -327,6 +329,12 @@
             // 
             this.rgSbAFB.Name = "rgSbAFB";
             this.rgSbAFB.Text = "Label";
+            // 
+            // btnPrnSticker
+            // 
+            this.btnPrnSticker.Name = "btnPrnSticker";
+            this.btnPrnSticker.SmallImage = global::bangna_hospital.Properties.Resources.printer_blue16;
+            this.btnPrnSticker.Text = "Sticker";
             // 
             // spMain
             // 
@@ -2170,5 +2178,6 @@
         private C1.Win.C1Command.C1DockingTabPage tabEST;
         private C1.Win.C1Command.C1DockingTabPage tabScope;
         private C1.Win.C1Command.C1DockingTabPage tabEKG;
+        private C1.Win.C1Ribbon.RibbonButton btnPrnSticker;
     }
 }

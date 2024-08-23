@@ -617,54 +617,109 @@ namespace bangna_hospital.gui
         private void BtnCertiNew1_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            new LogWriter("d", "FrmScanView1 BtnCertiNew1_Click DTRCODE " + DTRCODE + " hn " + hn + " vsDate " + vsDate + " preno " + preno+ " 2NFLEAF");
-            FrmCertDoctor frm = new FrmCertDoctor(bc, DTRCODE, hn, vsDate, preno,"2NFLEAF");
-            frm.ShowDialog(this);
-
-            if (frm.streamCertiDtr != null)
+            new LogWriter("d", this.Name+" BtnCertiNew1_Click DTRCODE " + DTRCODE + " hn " + hn + " vsDate " + vsDate + " preno " + preno+ " 2NFLEAF");
+            if (bc.iniC.hostname.Equals("โรงพยาบาล บางนา5"))
             {
-                pnTabCertiBotton.Controls.Clear();
-                pnTabCertiBotton.Controls.Add(fvCerti);
-                C1PdfDocumentSource pds = new C1PdfDocumentSource();
-                pds.LoadFromStream(frm.streamCertiDtr);
-                fvCerti.DocumentSource = pds;
+                FrmCertDoctor frm = new FrmCertDoctor(bc, DTRCODE, hn, vsDate, preno, "2NFLEAF");
+                frm.ShowDialog(this);
 
-                if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
-                frm.streamCertiDtr.Position = 0;
-                setLbLoading("กำลังสั่งพิมพ์ ...");
-                showLbLoading();
-                SetDefaultPrinter(bc.iniC.printerLabOut);
-                pds.LoadFromStream(frm.streamCertiDtr);
-                pds.Print();
-                hideLbLoading();
-                new LogWriter("d", "FrmScanView1 BtnCertiNew1_Click Print Done ");
+                if (frm.streamCertiDtr != null)
+                {
+                    pnTabCertiBotton.Controls.Clear();
+                    pnTabCertiBotton.Controls.Add(fvCerti);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    fvCerti.DocumentSource = pds;
+
+                    if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+                    frm.streamCertiDtr.Position = 0;
+                    setLbLoading("กำลังสั่งพิมพ์ ...");
+                    showLbLoading();
+                    SetDefaultPrinter(bc.iniC.printerLabOut);
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    pds.Print();
+                    hideLbLoading();
+                    new LogWriter("d", "FrmScanView1 BtnCertiNew1_Click Print Done ");
+                }
+            }
+            else if (bc.iniC.hostname.Equals("โรงพยาบาล บางนา1"))
+            {
+                FrmCertDoctorBn1 frm = new FrmCertDoctorBn1(bc, DTRCODE, hn, vsDate, preno, "2NFLEAF");
+                frm.ShowDialog(this);
+
+                if (frm.streamCertiDtr != null)
+                {
+                    pnTabCertiBotton.Controls.Clear();
+                    pnTabCertiBotton.Controls.Add(fvCerti);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    fvCerti.DocumentSource = pds;
+
+                    if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+                    frm.streamCertiDtr.Position = 0;
+                    setLbLoading("กำลังสั่งพิมพ์ ...");
+                    showLbLoading();
+                    SetDefaultPrinter(bc.iniC.printerLabOut);
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    pds.Print();
+                    hideLbLoading();
+                    new LogWriter("d", "FrmScanView1 BtnCertiNew1_Click Print Done ");
+                }
             }
         }
         private void BtnCertiNew_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             new LogWriter("d", "FrmScanView1 BtnCertiNew_Click DTRCODE "+ DTRCODE+ " hn " + hn+ " vsDate " + vsDate+ " preno " + preno);
-            FrmCertDoctor frm = new FrmCertDoctor(bc, DTRCODE, hn, vsDate,preno);
-            frm.ShowDialog(this);
-
-            if(frm.streamCertiDtr != null)
+            if (bc.iniC.hostname.Equals("โรงพยาบาล บางนา5"))
             {
-                pnTabCertiBotton.Controls.Clear();
-                pnTabCertiBotton.Controls.Add(fvCerti);
-                C1PdfDocumentSource pds = new C1PdfDocumentSource();
-                pds.LoadFromStream(frm.streamCertiDtr);
-                fvCerti.DocumentSource = pds;
-                btnCertiNew1.Enabled = true;
+                FrmCertDoctor frm = new FrmCertDoctor(bc, DTRCODE, hn, vsDate, preno);
+                frm.ShowDialog(this);
 
-                if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
-                frm.streamCertiDtr.Position = 0;
-                setLbLoading("กำลังสั่งพิมพ์ ...");
-                showLbLoading();
-                SetDefaultPrinter(bc.iniC.printerLabOut);
-                pds.LoadFromStream(frm.streamCertiDtr);
-                pds.Print();
-                hideLbLoading();
-                new LogWriter("d", "FrmScanView1 BtnCertiNew_Click Print Done " );
+                if (frm.streamCertiDtr != null)
+                {
+                    pnTabCertiBotton.Controls.Clear();
+                    pnTabCertiBotton.Controls.Add(fvCerti);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    fvCerti.DocumentSource = pds;
+                    btnCertiNew1.Enabled = true;
+
+                    if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+                    frm.streamCertiDtr.Position = 0;
+                    setLbLoading("กำลังสั่งพิมพ์ ...");
+                    showLbLoading();
+                    SetDefaultPrinter(bc.iniC.printerLabOut);
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    pds.Print();
+                    hideLbLoading();
+                    new LogWriter("d", "FrmScanView1 BtnCertiNew_Click Print Done ");
+                }
+            }
+            else if(bc.iniC.hostname.Equals("โรงพยาบาล บางนา1"))
+            {
+                FrmCertDoctorBn1 frm = new FrmCertDoctorBn1(bc, DTRCODE, hn, vsDate, preno);
+                frm.ShowDialog(this);
+
+                if (frm.streamCertiDtr != null)
+                {
+                    pnTabCertiBotton.Controls.Clear();
+                    pnTabCertiBotton.Controls.Add(fvCerti);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    fvCerti.DocumentSource = pds;
+                    btnCertiNew1.Enabled = true;
+
+                    if (!bc.iniC.statusLabOutAutoPrint.Equals("1")) return;
+                    frm.streamCertiDtr.Position = 0;
+                    setLbLoading("กำลังสั่งพิมพ์ ...");
+                    showLbLoading();
+                    SetDefaultPrinter(bc.iniC.printerLabOut);
+                    pds.LoadFromStream(frm.streamCertiDtr);
+                    pds.Print();
+                    hideLbLoading();
+                    new LogWriter("d", "FrmScanView1 BtnCertiNew_Click Print Done ");
+                }
             }
         }
         private void initGrfOrderLabXray()

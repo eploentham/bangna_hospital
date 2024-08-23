@@ -170,7 +170,7 @@
             this.tabHisProcedure = new C1.Win.C1Command.C1DockingTabPage();
             this.pnHisProcedure = new System.Windows.Forms.Panel();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
-            this.c1SplitContainer2 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.scFinish = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel10 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnOperFinish = new System.Windows.Forms.Panel();
             this.c1SplitterPanel11 = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -361,7 +361,7 @@
             this.label42 = new System.Windows.Forms.Label();
             this.txtXRay = new System.Windows.Forms.TextBox();
             this.label43 = new System.Windows.Forms.Label();
-            this.c1DockingTabPage7 = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabCheckUPThai = new C1.Win.C1Command.C1DockingTabPage();
             this.tabMedScan = new C1.Win.C1Command.C1DockingTabPage();
             this.spMedScan = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spMedScanIPD = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -459,6 +459,28 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
+            this.btnCheckUPPrn7Thai = new C1.Win.C1Input.C1Button();
+            this.txtCheckUPThaiSign2 = new System.Windows.Forms.TextBox();
+            this.txtCheckUPThaiSign1 = new System.Windows.Forms.TextBox();
+            this.label101 = new System.Windows.Forms.Label();
+            this.txtCheckUPThaiHIV = new System.Windows.Forms.TextBox();
+            this.label100 = new System.Windows.Forms.Label();
+            this.txtCheckUPThaiDiag = new System.Windows.Forms.TextBox();
+            this.label99 = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
+            this.txtCheckUPDate = new System.Windows.Forms.DateTimePicker();
+            this.btnPrnCertMed = new C1.Win.C1Input.C1Button();
+            this.tabFinishCertMed = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnCertiMed = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.btnCertiView4 = new C1.Win.C1Input.C1Button();
+            this.btnCertiView3 = new C1.Win.C1Input.C1Button();
+            this.btnCertiView2 = new C1.Win.C1Input.C1Button();
+            this.btnCertiView1 = new C1.Win.C1Input.C1Button();
+            this.btnCerti4 = new C1.Win.C1Input.C1Button();
+            this.btnCerti3 = new C1.Win.C1Input.C1Button();
+            this.btnCerti2 = new C1.Win.C1Input.C1Button();
+            this.btnCerti1 = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -550,8 +572,8 @@
             this.tabHisXray.SuspendLayout();
             this.tabHisProcedure.SuspendLayout();
             this.tabFinish.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).BeginInit();
-            this.c1SplitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scFinish)).BeginInit();
+            this.scFinish.SuspendLayout();
             this.c1SplitterPanel10.SuspendLayout();
             this.c1SplitterPanel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).BeginInit();
@@ -618,6 +640,7 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.c1DockingTabPage6.SuspendLayout();
+            this.tabCheckUPThai.SuspendLayout();
             this.tabMedScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).BeginInit();
             this.spMedScan.SuspendLayout();
@@ -687,6 +710,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer7)).BeginInit();
             this.c1SplitContainer7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPPrn7Thai)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrnCertMed)).BeginInit();
+            this.tabFinishCertMed.SuspendLayout();
+            this.panel10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti1)).BeginInit();
             this.SuspendLayout();
             // 
             // tC1
@@ -707,7 +742,7 @@
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
             this.tC1.Name = "tC1";
-            this.tC1.Size = new System.Drawing.Size(1465, 1115);
+            this.tC1.Size = new System.Drawing.Size(1469, 1115);
             this.tC1.TabIndex = 0;
             this.tC1.TabsSpacing = 5;
             // 
@@ -716,7 +751,7 @@
             this.tabOper.Controls.Add(this.spOper);
             this.tabOper.Location = new System.Drawing.Point(1, 26);
             this.tabOper.Name = "tabOper";
-            this.tabOper.Size = new System.Drawing.Size(1463, 1088);
+            this.tabOper.Size = new System.Drawing.Size(1467, 1088);
             this.tabOper.TabIndex = 0;
             this.tabOper.Text = "คนไข้ในแผนก";
             // 
@@ -732,7 +767,7 @@
             this.spOper.Panels.Add(this.spOperList);
             this.spOper.Panels.Add(this.spOperVisit);
             this.spOper.Panels.Add(this.spOperOrder);
-            this.spOper.Size = new System.Drawing.Size(1463, 1088);
+            this.spOper.Size = new System.Drawing.Size(1467, 1088);
             this.spOper.TabIndex = 2;
             // 
             // spOperList
@@ -761,6 +796,7 @@
             // 
             // pnVitalSign
             // 
+            this.pnVitalSign.Controls.Add(this.btnPrnCertMed);
             this.pnVitalSign.Controls.Add(this.txtOperBmi);
             this.pnVitalSign.Controls.Add(this.label80);
             this.pnVitalSign.Controls.Add(this.lbAttachNote);
@@ -2221,26 +2257,26 @@
             // 
             // tabFinish
             // 
-            this.tabFinish.Controls.Add(this.c1SplitContainer2);
+            this.tabFinish.Controls.Add(this.scFinish);
             this.tabFinish.Location = new System.Drawing.Point(1, 26);
             this.tabFinish.Name = "tabFinish";
-            this.tabFinish.Size = new System.Drawing.Size(1463, 1088);
+            this.tabFinish.Size = new System.Drawing.Size(1467, 1088);
             this.tabFinish.TabIndex = 1;
             this.tabFinish.Text = "ตรวจเสร็จแล้ว close visit";
             // 
-            // c1SplitContainer2
+            // scFinish
             // 
-            this.c1SplitContainer2.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.c1SplitContainer2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.c1SplitContainer2.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
-            this.c1SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1SplitContainer2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.c1SplitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.c1SplitContainer2.Name = "c1SplitContainer2";
-            this.c1SplitContainer2.Panels.Add(this.c1SplitterPanel10);
-            this.c1SplitContainer2.Panels.Add(this.c1SplitterPanel11);
-            this.c1SplitContainer2.Size = new System.Drawing.Size(1463, 1088);
-            this.c1SplitContainer2.TabIndex = 0;
+            this.scFinish.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.scFinish.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.scFinish.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.scFinish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scFinish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.scFinish.Location = new System.Drawing.Point(0, 0);
+            this.scFinish.Name = "scFinish";
+            this.scFinish.Panels.Add(this.c1SplitterPanel10);
+            this.scFinish.Panels.Add(this.c1SplitterPanel11);
+            this.scFinish.Size = new System.Drawing.Size(1467, 1088);
+            this.scFinish.TabIndex = 0;
             // 
             // c1SplitterPanel10
             // 
@@ -2249,26 +2285,26 @@
             this.c1SplitterPanel10.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel10.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel10.Name = "c1SplitterPanel10";
-            this.c1SplitterPanel10.Size = new System.Drawing.Size(723, 1067);
+            this.c1SplitterPanel10.Size = new System.Drawing.Size(725, 1067);
             this.c1SplitterPanel10.TabIndex = 0;
             this.c1SplitterPanel10.Text = "Panel 1";
-            this.c1SplitterPanel10.Width = 723;
+            this.c1SplitterPanel10.Width = 732;
             // 
             // pnOperFinish
             // 
             this.pnOperFinish.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOperFinish.Location = new System.Drawing.Point(0, 0);
             this.pnOperFinish.Name = "pnOperFinish";
-            this.pnOperFinish.Size = new System.Drawing.Size(723, 1067);
+            this.pnOperFinish.Size = new System.Drawing.Size(725, 1067);
             this.pnOperFinish.TabIndex = 0;
             // 
             // c1SplitterPanel11
             // 
             this.c1SplitterPanel11.Controls.Add(this.c1DockingTab2);
             this.c1SplitterPanel11.Height = 1088;
-            this.c1SplitterPanel11.Location = new System.Drawing.Point(734, 21);
+            this.c1SplitterPanel11.Location = new System.Drawing.Point(736, 21);
             this.c1SplitterPanel11.Name = "c1SplitterPanel11";
-            this.c1SplitterPanel11.Size = new System.Drawing.Size(729, 1067);
+            this.c1SplitterPanel11.Size = new System.Drawing.Size(731, 1067);
             this.c1SplitterPanel11.TabIndex = 1;
             this.c1SplitterPanel11.Text = "Panel 2";
             // 
@@ -2276,10 +2312,12 @@
             // 
             this.c1DockingTab2.Controls.Add(this.c1DockingTabPage1);
             this.c1DockingTab2.Controls.Add(this.c1DockingTabPage2);
+            this.c1DockingTab2.Controls.Add(this.tabFinishCertMed);
             this.c1DockingTab2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab2.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab2.Name = "c1DockingTab2";
-            this.c1DockingTab2.Size = new System.Drawing.Size(729, 1067);
+            this.c1DockingTab2.SelectedIndex = 2;
+            this.c1DockingTab2.Size = new System.Drawing.Size(731, 1067);
             this.c1DockingTab2.TabIndex = 1;
             this.c1DockingTab2.TabsSpacing = 5;
             this.c1DockingTab2.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -2289,7 +2327,7 @@
             this.c1DockingTabPage1.Controls.Add(this.c1SplitContainer3);
             this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(727, 1040);
+            this.c1DockingTabPage1.Size = new System.Drawing.Size(729, 1040);
             this.c1DockingTabPage1.TabIndex = 3;
             this.c1DockingTabPage1.Text = "Staff Note";
             // 
@@ -2304,7 +2342,7 @@
             this.c1SplitContainer3.Name = "c1SplitContainer3";
             this.c1SplitContainer3.Panels.Add(this.c1SplitterPanel12);
             this.c1SplitContainer3.Panels.Add(this.c1SplitterPanel13);
-            this.c1SplitContainer3.Size = new System.Drawing.Size(727, 1040);
+            this.c1SplitContainer3.Size = new System.Drawing.Size(729, 1040);
             this.c1SplitContainer3.TabIndex = 0;
             // 
             // c1SplitterPanel12
@@ -2350,7 +2388,7 @@
             this.c1DockingTabPage2.Controls.Add(this.pnFinishDrug1);
             this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(727, 1040);
+            this.c1DockingTabPage2.Size = new System.Drawing.Size(729, 1040);
             this.c1DockingTabPage2.TabIndex = 0;
             this.c1DockingTabPage2.Text = "Drug/Lab/Xray/Procedure";
             // 
@@ -2360,7 +2398,7 @@
             this.pnFinishDrug1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFinishDrug1.Location = new System.Drawing.Point(0, 0);
             this.pnFinishDrug1.Name = "pnFinishDrug1";
-            this.pnFinishDrug1.Size = new System.Drawing.Size(727, 1040);
+            this.pnFinishDrug1.Size = new System.Drawing.Size(729, 1040);
             this.pnFinishDrug1.TabIndex = 0;
             // 
             // c1SplitContainer4
@@ -2376,7 +2414,7 @@
             this.c1SplitContainer4.Panels.Add(this.c1SplitterPanel15);
             this.c1SplitContainer4.Panels.Add(this.c1SplitterPanel16);
             this.c1SplitContainer4.Panels.Add(this.c1SplitterPanel17);
-            this.c1SplitContainer4.Size = new System.Drawing.Size(727, 1040);
+            this.c1SplitContainer4.Size = new System.Drawing.Size(729, 1040);
             this.c1SplitContainer4.TabIndex = 0;
             // 
             // c1SplitterPanel14
@@ -2459,7 +2497,7 @@
             this.tabAdmit.Controls.Add(this.c1SplitContainer6);
             this.tabAdmit.Location = new System.Drawing.Point(1, 26);
             this.tabAdmit.Name = "tabAdmit";
-            this.tabAdmit.Size = new System.Drawing.Size(1463, 1088);
+            this.tabAdmit.Size = new System.Drawing.Size(1467, 1088);
             this.tabAdmit.TabIndex = 9;
             this.tabAdmit.Text = "Admit/Observ";
             // 
@@ -2477,7 +2515,7 @@
             this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel22);
             this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel21);
             this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel23);
-            this.c1SplitContainer6.Size = new System.Drawing.Size(1463, 1088);
+            this.c1SplitContainer6.Size = new System.Drawing.Size(1467, 1088);
             this.c1SplitContainer6.TabIndex = 2;
             // 
             // c1SplitterPanel19
@@ -2538,7 +2576,7 @@
             this.tabAppioment.Controls.Add(this.panel9);
             this.tabAppioment.Location = new System.Drawing.Point(1, 26);
             this.tabAppioment.Name = "tabAppioment";
-            this.tabAppioment.Size = new System.Drawing.Size(1463, 1088);
+            this.tabAppioment.Size = new System.Drawing.Size(1467, 1088);
             this.tabAppioment.TabIndex = 2;
             this.tabAppioment.Text = "นัด appointment";
             // 
@@ -2547,7 +2585,7 @@
             this.pnApm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnApm.Location = new System.Drawing.Point(0, 41);
             this.pnApm.Name = "pnApm";
-            this.pnApm.Size = new System.Drawing.Size(1463, 1047);
+            this.pnApm.Size = new System.Drawing.Size(1467, 1047);
             this.pnApm.TabIndex = 2;
             // 
             // panel9
@@ -2563,7 +2601,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1463, 41);
+            this.panel9.Size = new System.Drawing.Size(1467, 41);
             this.panel9.TabIndex = 3;
             // 
             // btnApmExcel
@@ -2677,7 +2715,7 @@
             this.tabCheckUP.Controls.Add(this.spCheckUP);
             this.tabCheckUP.Location = new System.Drawing.Point(1, 26);
             this.tabCheckUP.Name = "tabCheckUP";
-            this.tabCheckUP.Size = new System.Drawing.Size(1463, 1088);
+            this.tabCheckUP.Size = new System.Drawing.Size(1467, 1088);
             this.tabCheckUP.TabIndex = 3;
             this.tabCheckUP.Text = "ตรวจสุขภาพ checkup";
             // 
@@ -2693,7 +2731,7 @@
             this.spCheckUP.Panels.Add(this.spCheckUpList);
             this.spCheckUP.Panels.Add(this.spCheckUPVisit);
             this.spCheckUP.Panels.Add(this.spCheckUPOrder);
-            this.spCheckUP.Size = new System.Drawing.Size(1463, 1088);
+            this.spCheckUP.Size = new System.Drawing.Size(1467, 1088);
             this.spCheckUP.TabIndex = 2;
             // 
             // spCheckUpList
@@ -2711,11 +2749,11 @@
             // spCheckUPVisit
             // 
             this.spCheckUPVisit.Controls.Add(this.panel8);
-            this.spCheckUPVisit.Height = 428;
+            this.spCheckUPVisit.Height = 453;
             this.spCheckUPVisit.Location = new System.Drawing.Point(542, 21);
             this.spCheckUPVisit.Name = "spCheckUPVisit";
-            this.spCheckUPVisit.Size = new System.Drawing.Size(921, 407);
-            this.spCheckUPVisit.SizeRatio = 39.512D;
+            this.spCheckUPVisit.Size = new System.Drawing.Size(921, 432);
+            this.spCheckUPVisit.SizeRatio = 41.79D;
             this.spCheckUPVisit.TabIndex = 1;
             this.spCheckUPVisit.Text = "Panel 2";
             // 
@@ -2767,7 +2805,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(0, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(921, 407);
+            this.panel8.Size = new System.Drawing.Size(921, 432);
             this.panel8.TabIndex = 203;
             // 
             // groupBox1
@@ -3127,7 +3165,6 @@
             this.txtCheckUPHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtCheckUPHN.Location = new System.Drawing.Point(53, 4);
             this.txtCheckUPHN.Name = "txtCheckUPHN";
-            this.txtCheckUPHN.ReadOnly = true;
             this.txtCheckUPHN.Size = new System.Drawing.Size(186, 27);
             this.txtCheckUPHN.TabIndex = 161;
             this.txtCheckUPHN.Tag = null;
@@ -3467,10 +3504,10 @@
             // spCheckUPOrder
             // 
             this.spCheckUPOrder.Controls.Add(this.c1DockingTab3);
-            this.spCheckUPOrder.Height = 656;
-            this.spCheckUPOrder.Location = new System.Drawing.Point(542, 453);
+            this.spCheckUPOrder.Height = 631;
+            this.spCheckUPOrder.Location = new System.Drawing.Point(542, 478);
             this.spCheckUPOrder.Name = "spCheckUPOrder";
-            this.spCheckUPOrder.Size = new System.Drawing.Size(921, 635);
+            this.spCheckUPOrder.Size = new System.Drawing.Size(921, 610);
             this.spCheckUPOrder.TabIndex = 2;
             this.spCheckUPOrder.Text = "Panel 3";
             // 
@@ -3479,11 +3516,11 @@
             this.c1DockingTab3.Controls.Add(this.c1DockingTabPage4);
             this.c1DockingTab3.Controls.Add(this.c1DockingTabPage5);
             this.c1DockingTab3.Controls.Add(this.c1DockingTabPage6);
-            this.c1DockingTab3.Controls.Add(this.c1DockingTabPage7);
+            this.c1DockingTab3.Controls.Add(this.tabCheckUPThai);
             this.c1DockingTab3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab3.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab3.Name = "c1DockingTab3";
-            this.c1DockingTab3.Size = new System.Drawing.Size(921, 635);
+            this.c1DockingTab3.Size = new System.Drawing.Size(921, 610);
             this.c1DockingTab3.TabIndex = 0;
             this.c1DockingTab3.TabsSpacing = 5;
             this.c1DockingTab3.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -3493,7 +3530,7 @@
             this.c1DockingTabPage4.Controls.Add(this.gbTrueStar);
             this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage4.Name = "c1DockingTabPage4";
-            this.c1DockingTabPage4.Size = new System.Drawing.Size(919, 608);
+            this.c1DockingTabPage4.Size = new System.Drawing.Size(919, 583);
             this.c1DockingTabPage4.TabIndex = 0;
             this.c1DockingTabPage4.Text = "ตรวจสุขภาพ 7 โรค";
             // 
@@ -3518,7 +3555,7 @@
             this.gbTrueStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.gbTrueStar.Location = new System.Drawing.Point(0, 0);
             this.gbTrueStar.Name = "gbTrueStar";
-            this.gbTrueStar.Size = new System.Drawing.Size(919, 608);
+            this.gbTrueStar.Size = new System.Drawing.Size(919, 583);
             this.gbTrueStar.TabIndex = 184;
             this.gbTrueStar.TabStop = false;
             // 
@@ -3883,7 +3920,7 @@
             // 
             this.c1DockingTabPage5.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage5.Name = "c1DockingTabPage5";
-            this.c1DockingTabPage5.Size = new System.Drawing.Size(919, 608);
+            this.c1DockingTabPage5.Size = new System.Drawing.Size(919, 583);
             this.c1DockingTabPage5.TabIndex = 1;
             this.c1DockingTabPage5.Text = "ต่างด้าว";
             // 
@@ -3932,7 +3969,7 @@
             this.c1DockingTabPage6.Controls.Add(this.label43);
             this.c1DockingTabPage6.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage6.Name = "c1DockingTabPage6";
-            this.c1DockingTabPage6.Size = new System.Drawing.Size(919, 608);
+            this.c1DockingTabPage6.Size = new System.Drawing.Size(919, 583);
             this.c1DockingTabPage6.TabIndex = 2;
             this.c1DockingTabPage6.Text = "บุคคล ประจำปี";
             // 
@@ -4307,20 +4344,30 @@
             this.label43.TabIndex = 105;
             this.label43.Text = "ผลการตรวจ X-Ray ปอด :";
             // 
-            // c1DockingTabPage7
+            // tabCheckUPThai
             // 
-            this.c1DockingTabPage7.Location = new System.Drawing.Point(1, 26);
-            this.c1DockingTabPage7.Name = "c1DockingTabPage7";
-            this.c1DockingTabPage7.Size = new System.Drawing.Size(919, 608);
-            this.c1DockingTabPage7.TabIndex = 3;
-            this.c1DockingTabPage7.Text = "Page7";
+            this.tabCheckUPThai.Controls.Add(this.label87);
+            this.tabCheckUPThai.Controls.Add(this.txtCheckUPDate);
+            this.tabCheckUPThai.Controls.Add(this.txtCheckUPThaiSign2);
+            this.tabCheckUPThai.Controls.Add(this.txtCheckUPThaiSign1);
+            this.tabCheckUPThai.Controls.Add(this.label101);
+            this.tabCheckUPThai.Controls.Add(this.txtCheckUPThaiHIV);
+            this.tabCheckUPThai.Controls.Add(this.label100);
+            this.tabCheckUPThai.Controls.Add(this.txtCheckUPThaiDiag);
+            this.tabCheckUPThai.Controls.Add(this.label99);
+            this.tabCheckUPThai.Controls.Add(this.btnCheckUPPrn7Thai);
+            this.tabCheckUPThai.Location = new System.Drawing.Point(1, 26);
+            this.tabCheckUPThai.Name = "tabCheckUPThai";
+            this.tabCheckUPThai.Size = new System.Drawing.Size(919, 583);
+            this.tabCheckUPThai.TabIndex = 3;
+            this.tabCheckUPThai.Text = "7โรค ภาษาไทย";
             // 
             // tabMedScan
             // 
             this.tabMedScan.Controls.Add(this.spMedScan);
             this.tabMedScan.Location = new System.Drawing.Point(1, 26);
             this.tabMedScan.Name = "tabMedScan";
-            this.tabMedScan.Size = new System.Drawing.Size(1463, 1088);
+            this.tabMedScan.Size = new System.Drawing.Size(1467, 1088);
             this.tabMedScan.TabIndex = 4;
             this.tabMedScan.Text = "Scan เวชระเบียน";
             // 
@@ -4335,7 +4382,7 @@
             this.spMedScan.Name = "spMedScan";
             this.spMedScan.Panels.Add(this.spMedScanIPD);
             this.spMedScan.Panels.Add(this.spMedScanImg);
-            this.spMedScan.Size = new System.Drawing.Size(1463, 1088);
+            this.spMedScan.Size = new System.Drawing.Size(1467, 1088);
             this.spMedScan.TabIndex = 0;
             // 
             // spMedScanIPD
@@ -4373,7 +4420,7 @@
             this.tabOutLabDate.Controls.Add(this.spTodayOutLab);
             this.tabOutLabDate.Location = new System.Drawing.Point(1, 26);
             this.tabOutLabDate.Name = "tabOutLabDate";
-            this.tabOutLabDate.Size = new System.Drawing.Size(1463, 1088);
+            this.tabOutLabDate.Size = new System.Drawing.Size(1467, 1088);
             this.tabOutLabDate.TabIndex = 5;
             this.tabOutLabDate.Text = "นัดฟังผล OutLab วันนี้";
             // 
@@ -4388,7 +4435,7 @@
             this.spTodayOutLab.Name = "spTodayOutLab";
             this.spTodayOutLab.Panels.Add(this.spTodayOutLabList);
             this.spTodayOutLab.Panels.Add(this.spTodayOutLabView);
-            this.spTodayOutLab.Size = new System.Drawing.Size(1463, 1088);
+            this.spTodayOutLab.Size = new System.Drawing.Size(1467, 1088);
             this.spTodayOutLab.TabIndex = 0;
             // 
             // spTodayOutLabList
@@ -4426,7 +4473,7 @@
             this.tabOutlab.Controls.Add(this.spOutLab);
             this.tabOutlab.Location = new System.Drawing.Point(1, 26);
             this.tabOutlab.Name = "tabOutlab";
-            this.tabOutlab.Size = new System.Drawing.Size(1463, 1088);
+            this.tabOutlab.Size = new System.Drawing.Size(1467, 1088);
             this.tabOutlab.TabIndex = 6;
             this.tabOutlab.Text = "Out Lab";
             // 
@@ -4441,7 +4488,7 @@
             this.spOutLab.Name = "spOutLab";
             this.spOutLab.Panels.Add(this.spOutLabList);
             this.spOutLab.Panels.Add(this.spOutLabView);
-            this.spOutLab.Size = new System.Drawing.Size(1463, 1088);
+            this.spOutLab.Size = new System.Drawing.Size(1467, 1088);
             this.spOutLab.TabIndex = 0;
             // 
             // spOutLabList
@@ -4470,7 +4517,7 @@
             this.tabSearch.Controls.Add(this.spSearch);
             this.tabSearch.Location = new System.Drawing.Point(1, 26);
             this.tabSearch.Name = "tabSearch";
-            this.tabSearch.Size = new System.Drawing.Size(1463, 1088);
+            this.tabSearch.Size = new System.Drawing.Size(1467, 1088);
             this.tabSearch.TabIndex = 7;
             this.tabSearch.Text = "ค้นหา";
             // 
@@ -4486,7 +4533,7 @@
             this.spSearch.Panels.Add(this.spSrcOrder);
             this.spSearch.Panels.Add(this.spSrcPttSrc);
             this.spSearch.Panels.Add(this.spSrcVs);
-            this.spSearch.Size = new System.Drawing.Size(1463, 1088);
+            this.spSearch.Size = new System.Drawing.Size(1467, 1088);
             this.spSearch.TabIndex = 0;
             // 
             // spSrcOrder
@@ -4824,7 +4871,7 @@
             this.tabReport.Controls.Add(this.spRpt);
             this.tabReport.Location = new System.Drawing.Point(1, 26);
             this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(1463, 1088);
+            this.tabReport.Size = new System.Drawing.Size(1467, 1088);
             this.tabReport.TabIndex = 8;
             this.tabReport.Text = "Report";
             // 
@@ -4840,7 +4887,7 @@
             this.spRpt.Panels.Add(this.c1SplitterPanel8);
             this.spRpt.Panels.Add(this.c1SplitterPanel5);
             this.spRpt.Panels.Add(this.c1SplitterPanel18);
-            this.spRpt.Size = new System.Drawing.Size(1463, 1088);
+            this.spRpt.Size = new System.Drawing.Size(1467, 1088);
             this.spRpt.TabIndex = 0;
             // 
             // c1SplitterPanel8
@@ -4909,7 +4956,7 @@
             this.c1SplitterPanel5.Collapsible = true;
             this.c1SplitterPanel5.Controls.Add(this.pnRptName);
             this.c1SplitterPanel5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.c1SplitterPanel5.Height = 408;
+            this.c1SplitterPanel5.Height = 401;
             this.c1SplitterPanel5.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel5.Name = "c1SplitterPanel5";
             this.c1SplitterPanel5.Size = new System.Drawing.Size(426, 380);
@@ -5104,7 +5151,7 @@
             this.tabStaffNote.Controls.Add(this.spStaffNote);
             this.tabStaffNote.Location = new System.Drawing.Point(1, 26);
             this.tabStaffNote.Name = "tabStaffNote";
-            this.tabStaffNote.Size = new System.Drawing.Size(1463, 1088);
+            this.tabStaffNote.Size = new System.Drawing.Size(1467, 1088);
             this.tabStaffNote.TabIndex = 10;
             this.tabStaffNote.Text = "StaffNote";
             // 
@@ -5119,7 +5166,7 @@
             this.spStaffNote.Name = "spStaffNote";
             this.spStaffNote.Panels.Add(this.spStaffNoteLeft);
             this.spStaffNote.Panels.Add(this.c1SplitterPanel25);
-            this.spStaffNote.Size = new System.Drawing.Size(1463, 1088);
+            this.spStaffNote.Size = new System.Drawing.Size(1467, 1088);
             this.spStaffNote.TabIndex = 0;
             // 
             // spStaffNoteLeft
@@ -5236,7 +5283,7 @@
             this.tabApmNew.Controls.Add(this.c1SplitContainer7);
             this.tabApmNew.Location = new System.Drawing.Point(1, 26);
             this.tabApmNew.Name = "tabApmNew";
-            this.tabApmNew.Size = new System.Drawing.Size(1463, 1088);
+            this.tabApmNew.Size = new System.Drawing.Size(1467, 1088);
             this.tabApmNew.TabIndex = 11;
             this.tabApmNew.Text = "ทำนัดใหม่";
             // 
@@ -5251,7 +5298,7 @@
             this.c1SplitContainer7.Name = "c1SplitContainer7";
             this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel24);
             this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel26);
-            this.c1SplitContainer7.Size = new System.Drawing.Size(1463, 1088);
+            this.c1SplitContainer7.Size = new System.Drawing.Size(1467, 1088);
             this.c1SplitContainer7.TabIndex = 0;
             // 
             // c1SplitterPanel24
@@ -5292,7 +5339,7 @@
             this.Sb1.RightPaneItems.Add(this.rgSbModule);
             this.Sb1.RightPaneItems.Add(this.btnScanSaveImg);
             this.Sb1.RightPaneItems.Add(this.btnOperClose);
-            this.Sb1.Size = new System.Drawing.Size(1465, 22);
+            this.Sb1.Size = new System.Drawing.Size(1469, 22);
             // 
             // lfsbLastUpdate
             // 
@@ -5370,11 +5417,243 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
+            // btnCheckUPPrn7Thai
+            // 
+            this.btnCheckUPPrn7Thai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnCheckUPPrn7Thai.Location = new System.Drawing.Point(606, 129);
+            this.btnCheckUPPrn7Thai.Name = "btnCheckUPPrn7Thai";
+            this.btnCheckUPPrn7Thai.Size = new System.Drawing.Size(153, 45);
+            this.btnCheckUPPrn7Thai.TabIndex = 200;
+            this.btnCheckUPPrn7Thai.Text = "พิมพ์ใบรับรองแพทย์";
+            this.btnCheckUPPrn7Thai.UseVisualStyleBackColor = true;
+            // 
+            // txtCheckUPThaiSign2
+            // 
+            this.txtCheckUPThaiSign2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtCheckUPThaiSign2.Location = new System.Drawing.Point(115, 87);
+            this.txtCheckUPThaiSign2.Name = "txtCheckUPThaiSign2";
+            this.txtCheckUPThaiSign2.Size = new System.Drawing.Size(644, 22);
+            this.txtCheckUPThaiSign2.TabIndex = 207;
+            // 
+            // txtCheckUPThaiSign1
+            // 
+            this.txtCheckUPThaiSign1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtCheckUPThaiSign1.Location = new System.Drawing.Point(115, 59);
+            this.txtCheckUPThaiSign1.Name = "txtCheckUPThaiSign1";
+            this.txtCheckUPThaiSign1.Size = new System.Drawing.Size(644, 22);
+            this.txtCheckUPThaiSign1.TabIndex = 205;
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label101.Location = new System.Drawing.Point(8, 62);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(70, 16);
+            this.label101.TabIndex = 206;
+            this.label101.Text = "สัญญาณชีพ  :";
+            // 
+            // txtCheckUPThaiHIV
+            // 
+            this.txtCheckUPThaiHIV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtCheckUPThaiHIV.Location = new System.Drawing.Point(115, 31);
+            this.txtCheckUPThaiHIV.Name = "txtCheckUPThaiHIV";
+            this.txtCheckUPThaiHIV.Size = new System.Drawing.Size(430, 22);
+            this.txtCheckUPThaiHIV.TabIndex = 203;
+            this.txtCheckUPThaiHIV.Text = "ไม่พบการติดเชื้อ Anti HIV";
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label100.Location = new System.Drawing.Point(8, 34);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(63, 16);
+            this.label100.TabIndex = 204;
+            this.label100.Text = "Anti HIV  :";
+            // 
+            // txtCheckUPThaiDiag
+            // 
+            this.txtCheckUPThaiDiag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtCheckUPThaiDiag.Location = new System.Drawing.Point(115, 3);
+            this.txtCheckUPThaiDiag.Name = "txtCheckUPThaiDiag";
+            this.txtCheckUPThaiDiag.Size = new System.Drawing.Size(644, 22);
+            this.txtCheckUPThaiDiag.TabIndex = 201;
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label99.Location = new System.Drawing.Point(8, 6);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(45, 16);
+            this.label99.TabIndex = 202;
+            this.label99.Text = "เห็นว่า  :";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label87.Location = new System.Drawing.Point(7, 120);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(93, 16);
+            this.label87.TabIndex = 208;
+            this.label87.Text = "วันที่ตรวจสุขภาพ :";
+            // 
+            // txtCheckUPDate
+            // 
+            this.txtCheckUPDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.txtCheckUPDate.Location = new System.Drawing.Point(115, 115);
+            this.txtCheckUPDate.Name = "txtCheckUPDate";
+            this.txtCheckUPDate.Size = new System.Drawing.Size(94, 22);
+            this.txtCheckUPDate.TabIndex = 209;
+            // 
+            // btnPrnCertMed
+            // 
+            this.btnPrnCertMed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnPrnCertMed.Location = new System.Drawing.Point(576, 175);
+            this.btnPrnCertMed.Name = "btnPrnCertMed";
+            this.btnPrnCertMed.Size = new System.Drawing.Size(139, 33);
+            this.btnPrnCertMed.TabIndex = 279;
+            this.btnPrnCertMed.Text = "พิมพ์ใบรับรองแพทย์";
+            this.btnPrnCertMed.UseVisualStyleBackColor = true;
+            // 
+            // tabFinishCertMed
+            // 
+            this.tabFinishCertMed.Controls.Add(this.pnCertiMed);
+            this.tabFinishCertMed.Controls.Add(this.panel10);
+            this.tabFinishCertMed.Location = new System.Drawing.Point(1, 26);
+            this.tabFinishCertMed.Name = "tabFinishCertMed";
+            this.tabFinishCertMed.Size = new System.Drawing.Size(729, 1040);
+            this.tabFinishCertMed.TabIndex = 4;
+            this.tabFinishCertMed.Text = "ใบรับรองแพทย์";
+            // 
+            // pnCertiMed
+            // 
+            this.pnCertiMed.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnCertiMed.Location = new System.Drawing.Point(0, 50);
+            this.pnCertiMed.Name = "pnCertiMed";
+            this.pnCertiMed.Size = new System.Drawing.Size(729, 990);
+            this.pnCertiMed.TabIndex = 3;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.btnCertiView4);
+            this.panel10.Controls.Add(this.btnCertiView3);
+            this.panel10.Controls.Add(this.btnCertiView2);
+            this.panel10.Controls.Add(this.btnCertiView1);
+            this.panel10.Controls.Add(this.btnCerti4);
+            this.panel10.Controls.Add(this.btnCerti3);
+            this.panel10.Controls.Add(this.btnCerti2);
+            this.panel10.Controls.Add(this.btnCerti1);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(729, 50);
+            this.panel10.TabIndex = 2;
+            // 
+            // btnCertiView4
+            // 
+            this.btnCertiView4.Image = global::bangna_hospital.Properties.Resources.PrintPreview_large;
+            this.btnCertiView4.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCertiView4.Location = new System.Drawing.Point(856, 3);
+            this.btnCertiView4.Name = "btnCertiView4";
+            this.btnCertiView4.Size = new System.Drawing.Size(94, 39);
+            this.btnCertiView4.TabIndex = 286;
+            this.btnCertiView4.Text = "ดูใบที่ 4.";
+            this.btnCertiView4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCertiView4.UseVisualStyleBackColor = true;
+            // 
+            // btnCertiView3
+            // 
+            this.btnCertiView3.Image = global::bangna_hospital.Properties.Resources.PrintPreview_large;
+            this.btnCertiView3.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCertiView3.Location = new System.Drawing.Point(614, 3);
+            this.btnCertiView3.Name = "btnCertiView3";
+            this.btnCertiView3.Size = new System.Drawing.Size(94, 39);
+            this.btnCertiView3.TabIndex = 285;
+            this.btnCertiView3.Text = "ดูใบที่ 3.";
+            this.btnCertiView3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCertiView3.UseVisualStyleBackColor = true;
+            // 
+            // btnCertiView2
+            // 
+            this.btnCertiView2.Image = global::bangna_hospital.Properties.Resources.PrintPreview_large;
+            this.btnCertiView2.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCertiView2.Location = new System.Drawing.Point(355, 3);
+            this.btnCertiView2.Name = "btnCertiView2";
+            this.btnCertiView2.Size = new System.Drawing.Size(94, 39);
+            this.btnCertiView2.TabIndex = 284;
+            this.btnCertiView2.Text = "ดูใบที่ 2.";
+            this.btnCertiView2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCertiView2.UseVisualStyleBackColor = true;
+            // 
+            // btnCertiView1
+            // 
+            this.btnCertiView1.Image = global::bangna_hospital.Properties.Resources.PrintPreview_large;
+            this.btnCertiView1.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCertiView1.Location = new System.Drawing.Point(103, 3);
+            this.btnCertiView1.Name = "btnCertiView1";
+            this.btnCertiView1.Size = new System.Drawing.Size(94, 39);
+            this.btnCertiView1.TabIndex = 283;
+            this.btnCertiView1.Text = "ดูใบที่ 1.";
+            this.btnCertiView1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCertiView1.UseVisualStyleBackColor = true;
+            // 
+            // btnCerti4
+            // 
+            this.btnCerti4.Image = ((System.Drawing.Image)(resources.GetObject("btnCerti4.Image")));
+            this.btnCerti4.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCerti4.Location = new System.Drawing.Point(756, 3);
+            this.btnCerti4.Name = "btnCerti4";
+            this.btnCerti4.Size = new System.Drawing.Size(94, 39);
+            this.btnCerti4.TabIndex = 282;
+            this.btnCerti4.Text = "ใบที่ 4.";
+            this.btnCerti4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerti4.UseVisualStyleBackColor = true;
+            // 
+            // btnCerti3
+            // 
+            this.btnCerti3.Image = ((System.Drawing.Image)(resources.GetObject("btnCerti3.Image")));
+            this.btnCerti3.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCerti3.Location = new System.Drawing.Point(514, 3);
+            this.btnCerti3.Name = "btnCerti3";
+            this.btnCerti3.Size = new System.Drawing.Size(94, 39);
+            this.btnCerti3.TabIndex = 281;
+            this.btnCerti3.Text = "ใบที่ 3.";
+            this.btnCerti3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerti3.UseVisualStyleBackColor = true;
+            // 
+            // btnCerti2
+            // 
+            this.btnCerti2.Image = ((System.Drawing.Image)(resources.GetObject("btnCerti2.Image")));
+            this.btnCerti2.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCerti2.Location = new System.Drawing.Point(255, 3);
+            this.btnCerti2.Name = "btnCerti2";
+            this.btnCerti2.Size = new System.Drawing.Size(94, 39);
+            this.btnCerti2.TabIndex = 280;
+            this.btnCerti2.Text = "ใบที่ 2.";
+            this.btnCerti2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerti2.UseVisualStyleBackColor = true;
+            // 
+            // btnCerti1
+            // 
+            this.btnCerti1.Image = global::bangna_hospital.Properties.Resources.TableItemsProperties_large;
+            this.btnCerti1.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnCerti1.Location = new System.Drawing.Point(3, 3);
+            this.btnCerti1.Name = "btnCerti1";
+            this.btnCerti1.Size = new System.Drawing.Size(94, 39);
+            this.btnCerti1.TabIndex = 279;
+            this.btnCerti1.Text = "ใบที่ 1.";
+            this.btnCerti1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCerti1.UseVisualStyleBackColor = true;
+            // 
             // FrmOPD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1465, 1137);
+            this.ClientSize = new System.Drawing.Size(1469, 1137);
             this.Controls.Add(this.tC1);
             this.Controls.Add(this.Sb1);
             this.Name = "FrmOPD";
@@ -5475,8 +5754,8 @@
             this.tabHisXray.ResumeLayout(false);
             this.tabHisProcedure.ResumeLayout(false);
             this.tabFinish.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).EndInit();
-            this.c1SplitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scFinish)).EndInit();
+            this.scFinish.ResumeLayout(false);
             this.c1SplitterPanel10.ResumeLayout(false);
             this.c1SplitterPanel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).EndInit();
@@ -5555,6 +5834,8 @@
             this.panel1.PerformLayout();
             this.c1DockingTabPage6.ResumeLayout(false);
             this.c1DockingTabPage6.PerformLayout();
+            this.tabCheckUPThai.ResumeLayout(false);
+            this.tabCheckUPThai.PerformLayout();
             this.tabMedScan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).EndInit();
             this.spMedScan.ResumeLayout(false);
@@ -5627,6 +5908,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer7)).EndInit();
             this.c1SplitContainer7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPPrn7Thai)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrnCertMed)).EndInit();
+            this.tabFinishCertMed.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertiView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCerti1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5690,7 +5983,7 @@
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage4;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage6;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage7;
+        private C1.Win.C1Command.C1DockingTabPage tabCheckUPThai;
         private System.Windows.Forms.GroupBox gbTrueStar;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.RadioButton chk7AbNormal;
@@ -5980,7 +6273,7 @@
         private System.Windows.Forms.RadioButton chkApmHn;
         private System.Windows.Forms.RadioButton chkApmDate;
         private C1.Win.Calendar.C1DateEdit txtApmDate;
-        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer2;
+        private C1.Win.C1SplitContainer.C1SplitContainer scFinish;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel10;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel11;
         private C1.Win.C1Command.C1DockingTab c1DockingTab2;
@@ -6064,5 +6357,27 @@
         private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer7;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel24;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel26;
+        private C1.Win.C1Input.C1Button btnCheckUPPrn7Thai;
+        private System.Windows.Forms.TextBox txtCheckUPThaiSign2;
+        private System.Windows.Forms.TextBox txtCheckUPThaiSign1;
+        private System.Windows.Forms.Label label101;
+        private System.Windows.Forms.TextBox txtCheckUPThaiHIV;
+        private System.Windows.Forms.Label label100;
+        private System.Windows.Forms.TextBox txtCheckUPThaiDiag;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.DateTimePicker txtCheckUPDate;
+        private C1.Win.C1Input.C1Button btnPrnCertMed;
+        private C1.Win.C1Command.C1DockingTabPage tabFinishCertMed;
+        private System.Windows.Forms.Panel pnCertiMed;
+        private System.Windows.Forms.Panel panel10;
+        private C1.Win.C1Input.C1Button btnCertiView4;
+        private C1.Win.C1Input.C1Button btnCertiView3;
+        private C1.Win.C1Input.C1Button btnCertiView2;
+        private C1.Win.C1Input.C1Button btnCertiView1;
+        private C1.Win.C1Input.C1Button btnCerti4;
+        private C1.Win.C1Input.C1Button btnCerti3;
+        private C1.Win.C1Input.C1Button btnCerti2;
+        private C1.Win.C1Input.C1Button btnCerti1;
     }
 }

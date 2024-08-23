@@ -1038,9 +1038,9 @@ namespace bangna_hospital.objdb
             String sql = "", re = "";
             sql = "Select pt08.MNC_HN_NO,pm02.MNC_PFIX_DSC,pm01.MNC_FNAME_T, DATEDIFF(day,pt08.MNC_AD_DATE,getdate()) as day1,pm02.MNC_PFIX_DSC as prefix,convert(varchar(20),pt08.MNC_AN_NO)+'.'+convert(varchar(20),pt08.MNC_AN_YR) as an_no,pt08.MNC_PRE_NO, " +
                 "pm01.MNC_LNAME_T,convert(varchar(20),pt08.MNC_AD_DATE,23) as MNC_AD_DATE,pt08.MNC_RM_NAM,pt08.MNC_BD_NO, '' as status_selected, pm02.MNC_PFIX_DSC +' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as patient_fullname" +
-                ",pt08.MNC_WD_NO,pt08.MNC_RM_NAM,pt08.MNC_BD_NO,pt01.MNC_SHIF_MEMO " +
+                ",pt08.MNC_WD_NO,pt08.MNC_RM_NAM,pt08.MNC_BD_NO,pt01.MNC_SHIF_MEMO, convert(varchar(20),pt01.MNC_DATE,23) as MNC_DATE " +
                 "from PATIENT_T08 pt08 " +
-                "inner join PATIENT_T01 pt01 on pt01.MNC_PRE_NO =pt08.MNC_PRE_NO and pt01.MNC_date = pt08.MNC_date " +
+                "inner join PATIENT_T01 pt01 on pt01.MNC_PRE_NO =pt08.MNC_PRE_NO and pt01.MNC_DATE = pt08.MNC_DATE " +
                 "INNER JOIN dbo.PATIENT_M01 pm01 ON pt08.MNC_HN_NO = pm01.MNC_HN_NO " +
                 "INNER JOIN dbo.PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
                 "WHERE   pt08.MNC_AD_STS = 'A' and mnc_ds_lev = '1' and pt08.mnc_wd_no = '" + wardid + "' " +
@@ -1149,6 +1149,7 @@ namespace bangna_hospital.objdb
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";
+            c.Items.Clear();
             c.Items.Add(item);
             foreach (PatientM32 row in lDeptIPD)
             {
@@ -1177,7 +1178,7 @@ namespace bangna_hospital.objdb
             ComboBoxItem item = new ComboBoxItem();
             if (lDeptOPDNew.Count <= 0) getlDeptOPDNew();
             int i = 0;
-
+            c.Items.Clear();
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";
@@ -1209,7 +1210,7 @@ namespace bangna_hospital.objdb
             ComboBoxItem item = new ComboBoxItem();
             if (lDeptOPD.Count <= 0) getlDeptOPD();
             int i = 0;
-
+            c.Items.Clear();
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";

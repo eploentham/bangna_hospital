@@ -45,6 +45,6 @@ namespace bangna_hospital.object1
         public String importMDBpaidcode = "", statusVisitBack="", aipnXmlPath = "", aipnAuthorName="", ssopXmlPath = "";
         public String grdQueFontSize = "", grdQueFontName = "", grdQueTodayFontSize = "", grdQueTodayFontName = "", grfRowHeight="";
         public String pathLabOutReceiveATTA = "", pathLabOutBackupATTA = "", statusScreenCaptureUploadDoc="", padYCertMed="", statusScreenCaptureAutoSend = "", statusPrintPreview="", nightTime="", nightTimeOn="", statusAutoPrintLabResult="";
-        public String statusdoctorold = "", linkmedicalscan="";
+        public String statusdoctorold = "", linkmedicalscan="", applicationrunnextrecord="";
     }
 }
