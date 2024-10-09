@@ -108,6 +108,21 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public DataTable SelectDrugAll1()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select pm01.MNC_PH_CD,pm01.MNC_PH_ID,pm01.MNC_PH_TN,pm01.MNC_PH_UNT_CD,pm01.MNC_PH_GRP_CD,pm01.MNC_PH_TYP_CD,pm01.MNC_PH_MIN,pm01.MNC_PH_MAX,pm01.MNC_PH_DAY " +
+                ", pm05.mnc_ph_pri01, pm05.mnc_ph_pri02, pm05.mnc_ph_pri03, isnull(pm01.onhand,'0') as onhand " +
+                "From pharmacy_m01 pm01 " +
+                "inner join pharmacy_m05 pm05 on pm01.mnc_ph_cd = pm05.mnc_ph_cd " +
+                "left join PHARMACY_M03 pm03 on pm01.MNC_PH_UNT_CD = pm03.MNC_PH_UNT_CD " +
+                "Where mnc_ph_typ_flg = 'P' " +
+                "Order By pm01.MNC_PH_CD";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public DataTable SelectAll()
         {
             DataTable dt = new DataTable();

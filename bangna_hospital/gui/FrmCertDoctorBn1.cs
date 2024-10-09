@@ -573,7 +573,7 @@ namespace bangna_hospital.gui
         }
         private void printCertDoctoriTextSharpThai()
         {
-            String certid = "";
+            String certid = "", pathApp="";
             certid = insertCertDoctor();
             if (certid.Length > 3)
             {
@@ -582,6 +582,16 @@ namespace bangna_hospital.gui
             }
 
             String patheName = Environment.CurrentDirectory + "\\cert_med\\";
+            if ((Environment.CurrentDirectory.ToLower().IndexOf("windows") >= 0) && ((Environment.CurrentDirectory.ToLower().IndexOf("c:") >= 0)))
+            {
+                new LogWriter("e", "FrmCertDoctorBn1 printCertDoctoriTextSharpThai Environment.CurrentDirectory " + Environment.CurrentDirectory);
+                pathApp = bc.iniC.pathIniFile;
+                patheName = pathApp + "\\cert_med\\";
+            }
+            else
+            {
+                pathApp = Environment.CurrentDirectory;
+            }
             if (!Directory.Exists(patheName))
             {
                 Directory.CreateDirectory(patheName);
@@ -590,8 +600,9 @@ namespace bangna_hospital.gui
             System.Drawing.Font fontMS12 = new System.Drawing.Font("Microsoft Sans Serif", 12);
             BaseFont bfR, bfR1, bfRB;
             BaseColor clrBlack = new iTextSharp.text.BaseColor(0, 0, 0);
-            string myFont = Environment.CurrentDirectory + "\\THSarabunNew.ttf";
-            string myFontB = Environment.CurrentDirectory + "\\THSarabunNew Bold.ttf";
+            string myFont = pathApp + "\\THSarabunNew.ttf";
+            string myFontB = pathApp + "\\THSarabunNew Bold.ttf";
+            
             String filename = patheName + txtHn.Text.Trim() + "_" + VSDATE + "_" + PRENO + ".pdf";
             filename = (chkOPD.Checked) ? patheName + txtHn.Text.Trim() + "_" + VSDATE + "_" + PRENO + ".pdf" : patheName + txtHn.Text.Trim() + "_"+AN + ".pdf";
 
@@ -601,7 +612,8 @@ namespace bangna_hospital.gui
 
             iTextSharp.text.Font fntHead = new iTextSharp.text.Font(bfR, 12, iTextSharp.text.Font.NORMAL, clrBlack);
 
-            var logo = iTextSharp.text.Image.GetInstance(Environment.CurrentDirectory + "\\LOGO-BW-tran.jpg");
+            var logo = iTextSharp.text.Image.GetInstance(pathApp + "\\LOGO-BW-tran.jpg");
+
             logo.SetAbsolutePosition(20, PageSize.A4.Height - 60);
             logo.ScaleAbsoluteHeight(50);
             logo.ScaleAbsoluteWidth(50);
@@ -798,17 +810,30 @@ namespace bangna_hospital.gui
 
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "ถึงวันที่", 200, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "........................................", 230, linenumber - 2, 0);
+
                 DateTime dateend1 = new DateTime();
                 DateTime datestart1 = new DateTime();
-
-                DateTime.TryParse(txtChk1DateStart.Value.ToString(), out datestart1);
-                DateTime.TryParse(txtChk1DateEnd.Value.ToString(), out dateend1);
+                if (chk1.Checked)
+                {
+                    DateTime.TryParse(txtChk1DateStart.Value.ToString(), out datestart1);
+                    DateTime.TryParse(txtChk1DateEnd.Value.ToString(), out dateend1);
+                }
+                else if ((chk1.Checked) && (chk2.Checked))
+                {
+                    DateTime.TryParse(txtChk1DateStart.Value.ToString(), out datestart1);
+                    DateTime.TryParse(txtChk1DateEnd.Value.ToString(), out dateend1);
+                }
+                else if (chk2.Checked)
+                {
+                    DateTime.TryParse(txtChk2DateStart.Value.ToString(), out datestart1);
+                    DateTime.TryParse(txtChk2DateEnd.Value.ToString(), out dateend1);
+                }
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart1.ToString("dd-MM-") + (datestart1.Year + 543).ToString(), 110, linenumber + 3, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend1.ToString("dd-MM-") + (dateend1.Year + 543).ToString(), 243, linenumber + 3, 0);
 
                 linenumber -= 20;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "หมายเหตุ .......................................................................................................................................................................................", 35, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtRemark.Text.Trim(), 40, linenumber + 3, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, txtRemark.Text.Trim(), 80, linenumber + 3, 0);
 
                 linenumber -= 20;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "ลงชื่อ", 380, linenumber, 0);

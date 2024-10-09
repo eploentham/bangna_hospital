@@ -640,6 +640,12 @@ namespace bangna_hospital.control
             iniC.passDBMainHIS = iniF.getIni("connection", "passDBMainHIS");
             iniC.portDBMainHIS = iniF.getIni("connection", "portDBMainHIS");
 
+            iniC.hostDBBACK = iniF.getIni("connection", "hostDBBACK");
+            iniC.nameDBBACK = iniF.getIni("connection", "nameDBBACK");
+            iniC.userDBBACK = iniF.getIni("connection", "userDBBACK");
+            iniC.passDBBACK = iniF.getIni("connection", "passDBBACK");
+            iniC.portDBBACK = iniF.getIni("connection", "portDBBACK");
+
             iniC.hostDBPACs = iniF.getIni("connection", "hostDBPACs");
             iniC.nameDBPACs = iniF.getIni("connection", "nameDBPACs");
             iniC.userDBPACs = iniF.getIni("connection", "userDBPACs");
@@ -847,6 +853,7 @@ namespace bangna_hospital.control
             iniC.statusdoctorold = iniF.getIni("app", "statusdoctorold");
             iniC.linkmedicalscan = iniF.getIni("app", "linkmedicalscan");
             iniC.applicationrunnextrecord = iniF.getIni("app", "applicationrunnextrecord");
+            iniC.statusdruginon = iniF.getIni("app", "statusdruginon");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -954,6 +961,7 @@ namespace bangna_hospital.control
             iniC.statusdoctorold = iniC.statusdoctorold == null ? "old" : iniC.statusdoctorold.Equals("") ? "old" : iniC.statusdoctorold;
             iniC.linkmedicalscan = iniC.linkmedicalscan == null ? "" : iniC.linkmedicalscan.Equals("") ? "" : iniC.linkmedicalscan;
             iniC.applicationrunnextrecord = iniC.applicationrunnextrecord == null ? "" : iniC.applicationrunnextrecord.Equals("") ? "" : iniC.applicationrunnextrecord;
+            iniC.statusdruginon = iniC.statusdruginon == null ? "" : iniC.statusdruginon.Equals("") ? "" : iniC.statusdruginon;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -3702,7 +3710,7 @@ namespace bangna_hospital.control
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {
-                chk = dt.Rows[0]["MNC_NAT_CD"].ToString() + " " + dt.Rows[0]["FnameMNC_NAT_DSC"].ToString() ;
+                chk = dt.Rows[0]["MNC_NAT_CD"].ToString() + " " + dt.Rows[0]["FnameMNC_NAT_DSC"].ToString();
             }
             return chk;
         }

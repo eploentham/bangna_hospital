@@ -618,7 +618,6 @@ namespace bangna_hospital.gui
                 e.Graphics.DrawString("-lbuprofen  (400) # 20", famt, Brushes.Black, 470, 292, flags);
                 e.Graphics.DrawString(" 1 x 3 ⊙ pc", famt, Brushes.Black, 470, 312, flags);
             }
-
             g.Dispose();
             blackPen.Dispose();
             logo.Dispose();
@@ -1029,40 +1028,54 @@ namespace bangna_hospital.gui
                             //File.Delete(filename);
                         }
                     }
-                    else if (img.Height <= 2000)//น่าจะเป็นใบรับรองแพทย์
-                    {
-                        new LogWriter("d", "FrmScreenCapture sendFTPCertMed img.Height <= 2000 ");
-                        FtpClient ftp = new FtpClient(bc.iniC.hostFTPCertMed, bc.iniC.userFTPCertMed, bc.iniC.passFTPCertMed, bc.ftpUsePassiveLabOut);
-                        if (ftp.upload("//cert_med//" + filename1, filename))
-                        {
-                            //new LogWriter("d", "FrmScreenCapture sendFTPCertMed cert_med File.Delete(filename); " + filename);
-                            img.Dispose();
-                            File.Delete(filename);
-                        }
-                    }
-                    else if (img.Height > 3000)//น่าจะเป็น Order Sheet
-                    {
-                        //new LogWriter("d", "FrmScreenCapture sendFTPCertMed img.Height > 3000 ");
-                        imgPrint = (Image)img.Clone();
-                        if (bc.iniC.statusLabOutAutoPrint.Equals("1")) printDrugIn();
-                        FtpClient ftp = new FtpClient(bc.iniC.hostFTPDrugIn, bc.iniC.userFTPDrugIn, bc.iniC.passFTPDrugIn, bc.ftpUsePassiveLabOut);
-                        if (ftp.upload("//drugin//" + filename1, filename))
-                        {
-                            //new LogWriter("d", "FrmScreenCapture sendFTPCertMed drugin File.Delete(filename); " + filename);
-                            img.Dispose();
-                            imgPrint.Dispose();
-                            File.Delete(filename);
-                        }
-                        
-                    }
                     else
                     {
-                        new LogWriter("d", "FrmScreenCapture sendFTPCertMed else ");
-                        FtpClient ftp = new FtpClient(bc.iniC.hostFTPCertMed, bc.iniC.userFTPCertMed, bc.iniC.passFTPCertMed, bc.ftpUsePassiveLabOut);
-                        if (ftp.upload("//cert_med//" + filename1, filename))
+                        if (bc.iniC.statusdruginon.Equals("0"))     //เป็น ใบรับรองแพทย์อย่างเดียว
                         {
-                            img.Dispose();
-                            File.Delete(filename);
+                            new LogWriter("d", "FrmScreenCapture sendFTPCertMed img.Height <= 2000 ");
+                            FtpClient ftp = new FtpClient(bc.iniC.hostFTPCertMed, bc.iniC.userFTPCertMed, bc.iniC.passFTPCertMed, bc.ftpUsePassiveLabOut);
+                            if (ftp.upload("//cert_med//" + filename1, filename))
+                            {
+                                //new LogWriter("d", "FrmScreenCapture sendFTPCertMed cert_med File.Delete(filename); " + filename);
+                                img.Dispose();
+                                File.Delete(filename);
+                            }
+                        }
+                        else if (img.Height <= 2000)//น่าจะเป็นใบรับรองแพทย์
+                        {
+                            new LogWriter("d", "FrmScreenCapture sendFTPCertMed img.Height <= 2000 ");
+                            FtpClient ftp = new FtpClient(bc.iniC.hostFTPCertMed, bc.iniC.userFTPCertMed, bc.iniC.passFTPCertMed, bc.ftpUsePassiveLabOut);
+                            if (ftp.upload("//cert_med//" + filename1, filename))
+                            {
+                                //new LogWriter("d", "FrmScreenCapture sendFTPCertMed cert_med File.Delete(filename); " + filename);
+                                img.Dispose();
+                                File.Delete(filename);
+                            }
+                        }
+                        else if (img.Height > 3000)//น่าจะเป็น Order Sheet
+                        {
+                            //new LogWriter("d", "FrmScreenCapture sendFTPCertMed img.Height > 3000 ");
+                            imgPrint = (Image)img.Clone();
+                            if (bc.iniC.statusLabOutAutoPrint.Equals("1")) printDrugIn();
+                            FtpClient ftp = new FtpClient(bc.iniC.hostFTPDrugIn, bc.iniC.userFTPDrugIn, bc.iniC.passFTPDrugIn, bc.ftpUsePassiveLabOut);
+                            if (ftp.upload("//drugin//" + filename1, filename))
+                            {
+                                //new LogWriter("d", "FrmScreenCapture sendFTPCertMed drugin File.Delete(filename); " + filename);
+                                img.Dispose();
+                                imgPrint.Dispose();
+                                File.Delete(filename);
+                            }
+
+                        }
+                        else
+                        {
+                            new LogWriter("d", "FrmScreenCapture sendFTPCertMed else ");
+                            FtpClient ftp = new FtpClient(bc.iniC.hostFTPCertMed, bc.iniC.userFTPCertMed, bc.iniC.passFTPCertMed, bc.ftpUsePassiveLabOut);
+                            if (ftp.upload("//cert_med//" + filename1, filename))
+                            {
+                                img.Dispose();
+                                File.Delete(filename);
+                            }
                         }
                     }
                     reader = null;

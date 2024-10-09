@@ -852,7 +852,7 @@ namespace bangna_hospital.gui
                 divno = grfClinic[e.Row, colClinicdivno].ToString();
                 typpt = grfClinic[e.Row, colClinictyppt].ToString();
                 ssopcode = grfClinic[e.Row, e.Col].ToString();
-                String re = bc.bcDB.pttM32DB.updateSSOPCode(depno, secno, divno, typpt, ssopcode);
+                String re = bc.bcDB.pm32DB.updateSSOPCode(depno, secno, divno, typpt, ssopcode);
             }
         }
 
@@ -2200,7 +2200,7 @@ namespace bangna_hospital.gui
                     if (bc.opBKKClinic.ContainsValue(opbkkcode))
                     {
                         var myKey = bc.opBKKClinic.FirstOrDefault(x => x.Value == opbkkcode).Key;
-                        String re = bc.bcDB.pttM32DB.updateOPBKKCode(depno, secno, divno, typpt, myKey);
+                        String re = bc.bcDB.pm32DB.updateOPBKKCode(depno, secno, divno, typpt, myKey);
                     }
 
                 }
@@ -2222,7 +2222,7 @@ namespace bangna_hospital.gui
                     if (bc.opBKKClinic.ContainsValue(opbkkcode))
                     {
                         var myKey = bc.opBKKClinic.FirstOrDefault(x => x.Value == opbkkcode).Key;
-                        String re = bc.bcDB.pttM32DB.updateOPBKKCode(depno, secno, divno, typpt, myKey);
+                        String re = bc.bcDB.pm32DB.updateOPBKKCode(depno, secno, divno, typpt, myKey);
                     }
 
                 }
@@ -4455,7 +4455,7 @@ namespace bangna_hospital.gui
             cboMethod.AutoCompleteSource = AutoCompleteSource.ListItems;
             bc.setCboOPBKKClinic(cboMethod, "");
 
-            dt = bc.bcDB.pttM32DB.SelectAll();
+            dt = bc.bcDB.pm32DB.SelectAll();
             grfClinic.Rows.Count = 1;
             grfClinic.Cols.Count = 9;
             grfClinic.Rows.Count = dt.Rows.Count + 1;

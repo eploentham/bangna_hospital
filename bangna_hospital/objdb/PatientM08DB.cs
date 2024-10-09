@@ -51,7 +51,7 @@ namespace bangna_hospital.objdb
                 lPm08.Add(cus1);
             }
         }
-        public void getlAmpurinProv(String provcode)
+        public void getlAmphurinProv(String provcode)
         {
             //lDept = new List<Position>();
             lAmphurinProv.Clear();
@@ -69,6 +69,19 @@ namespace bangna_hospital.objdb
                     lAmphurinProv.Add(cus1);
                 }
             }
+        }
+        public String getAmphurName(String tamboncode)
+        {
+            String re = "";
+            foreach (PatientM08 row in lPm08)
+            {
+                if (row.MNC_AMP_CD.Equals(tamboncode))
+                {
+                    re = row.MNC_AMP_DSC;
+                    break;
+                }
+            }
+            return re;
         }
         public void getlAmpurinAmphurCode(String amphurcode)
         {
@@ -211,7 +224,7 @@ namespace bangna_hospital.objdb
             ComboBoxItem item = new ComboBoxItem();
             //DataTable dt = selectDeptIPD();
             int i = 0;
-            getlAmpurinProv(provcode);
+            getlAmphurinProv(provcode);
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";

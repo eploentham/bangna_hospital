@@ -183,6 +183,7 @@ namespace bangna_hospital.objdb
         public String getTambonName(String tamboncode)
         {
             String re = "";
+            if (ltambonAll.Count <= 0) getlTambonAll();
             foreach (PatientM07 row in ltambonAll)
             {
                 if (row.MNC_TUM_CD.Equals(tamboncode))
@@ -303,6 +304,24 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
 
             return dt;
+        }
+        public String getTumbonAmphurProvName(String tamboncode)
+        {
+            DataTable dt = new DataTable();
+            if (tamboncode.Length < 0) return "";
+            String sql = "",re="";
+            sql = "Select pm07.*,pm08.MNC_AMP_DSC,pm09.MNC_CHW_DSC " +
+                "From  patient_M07 pm07 " +
+                "inner join patient_M08 pm08 on pm08.MNC_AMP_CD = pm07.MNC_AMP_CD " +
+                "inner join patient_m09 pm09 on pm09.MNC_CHW_CD = pm07.MNC_CHW_CD " +
+                //"inner join patient_m11 pm11 on pm07.MNC_TUM_CD = pm11.MNC_TUM_CD " +
+                " Where pm07.MNC_TUM_CD = '" + tamboncode + "' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = " ตำบล " + dt.Rows[0]["MNC_TUM_DSC"].ToString() + " อำเภอ " + dt.Rows[0]["MNC_AMP_DSC"].ToString() + " จังหวัด " + dt.Rows[0]["MNC_CHW_DSC"].ToString();
+            }
+            return re;
         }
         public AutoCompleteStringCollection setAutoCompTumbonName(String tambonname)
         {

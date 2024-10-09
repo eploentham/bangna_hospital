@@ -451,7 +451,6 @@ namespace bangna_hospital.gui
                 lbDtrName.Text = bc.selectDoctorName(txtDtrCode.Text.Trim());
             }
         }
-
         private void CboDept_SelectedIndexChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -590,6 +589,11 @@ namespace bangna_hospital.gui
             }
 
             String patheName = Environment.CurrentDirectory + "\\cert_med\\";
+            if ((Environment.CurrentDirectory.ToLower().IndexOf("windows") >= 0) && ((Environment.CurrentDirectory.ToLower().IndexOf("c:") >= 0)))
+            {
+                new LogWriter("e", "FrmCertDoctorBn1 printCertDoctoriTextSharpThai Environment.CurrentDirectory " + Environment.CurrentDirectory);
+                patheName = bc.iniC.pathIniFile + "\\cert_med\\";
+            }
             if (!Directory.Exists(patheName))
             {
                 Directory.CreateDirectory(patheName);
@@ -1358,7 +1362,7 @@ namespace bangna_hospital.gui
                 
                 canvas.BeginText();
                 canvas.SetFontAndSize(bfR, fontSize26);
-                canvas.ShowTextAligned(Element.ALIGN_CENTER, "ใบรับรองแพทย์", PageSize.A4.Width / 2, linenumber + 40, 0);
+                canvas.ShowTextAligned(Element.ALIGN_CENTER, "ใบรับรองการรักษาทางกายภาพบำบัด", PageSize.A4.Width / 2, linenumber + 40, 0);
                 canvas.SetFontAndSize(bfR, fontSize2);
                 canvas.ShowTextAligned(Element.ALIGN_CENTER, "เลขที่ " + certid, 530, linenumber + 40, 0);
 
@@ -1366,7 +1370,7 @@ namespace bangna_hospital.gui
                 linenumber += 10;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "ข้าพเจ้า", 50, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................................................", 85, linenumber - 2, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "เลขที่ใบกระกอบ", 335, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "เลขที่ใบประกอบ", 335, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "...............................................................", 405, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, lbDtrName.Text.Trim(), 90, linenumber + 3, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, txtDtrCode.Text.Trim(), 415, linenumber + 3, 0);
@@ -1424,8 +1428,9 @@ namespace bangna_hospital.gui
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, lbDtrName.Text.Trim() + " [" + txtDtrCode.Text.Trim() + "]", 398, linenumber + 3, 0);
 
                 linenumber -= 20;
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ผู้รับเอกสารใบรับรองแพทย์", 75, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "ผู้รับเอกสารใบรับรองการทำกายภาพ", 75, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "นักกายภาพบำบัด", 440, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "PHYSIOTHERAPIST", 440, linenumber-=20, 0);
 
                 linenumber -= 20;
                 canvas.SetFontAndSize(bfR, 12);

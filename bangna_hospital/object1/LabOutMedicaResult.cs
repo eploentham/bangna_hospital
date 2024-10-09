@@ -8,5 +8,6 @@ namespace bangna_hospital.object1
     public class LabOutMedicaResult
     {
         public String labno { get; set; }
+        public String url { get; set; }
     }
 }

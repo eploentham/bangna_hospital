@@ -17,10 +17,11 @@ namespace bangna_hospital.gui
     public partial class FrmEditJobNo : Form
     {
         BangnaControl bc;
-        C1FlexGrid grfHn, grfAn;
+        C1FlexGrid grfHn, grfAn ,grfDeptVisit;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B;
         int colgrfHnHN = 1, colgrfHnDocNo=2, colgrfHnDocDate=3, colgrfHnDocCD=4, colgrfHnDocSts=5,colgrfHnAmt=6, colgrfHnJobNo=7, colgrfHnJobNoOld = 8;
         int colgrfAnanno = 1, colgrfAnAdDate = 2;
+        int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitStatusAdmit=3, colgrfDeptDept=4;
         Boolean pageLoad = false;
         C1ThemeController theme1;
         Patient ptt;
@@ -43,6 +44,7 @@ namespace bangna_hospital.gui
             ptt = new Patient();
             initGrfHn();
             initGrfAn();
+            initGrfDeptVisit();
 
             txtPttHn.KeyUp += TxtPttHn_KeyUp;
             btnGet.Click += BtnGet_Click;
@@ -56,6 +58,128 @@ namespace bangna_hospital.gui
             btnAn1.Click += BtnAn1_Click;
             btnAn2.Click += BtnAn2_Click;
             btnAnMerge.Click += BtnAnMerge_Click;
+            txtDeptHN.KeyUp += TxtDeptHN_KeyUp;
+            btnDeptUpdate.Click += BtnDeptUpdate_Click;
+            cboDeptNew.SelectedItemChanged += CboDeptNew_SelectedItemChanged;
+            pageLoad = false;
+        }
+        private void CboDeptNew_SelectedItemChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+
+        }
+        private void BtnDeptUpdate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (MessageBox.Show("111", "2222", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (chkDeptOPDNew.Checked)
+                {
+
+                }
+                else
+                {
+                    String secid=bc.bcDB.pm32DB.getSecCodeIPD(cboDeptNew.Text);
+                    String deptid = bc.bcDB.pm32DB.getDeptNoIPD(secid);
+                    String re = bc.bcDB.pt08DB.updateSecNo(txtDeptHN.Text.Trim(), txtDeptVsdate.Text.Trim(), txtDeptPreno.Text.Trim(), deptid, secid);
+                    if(int.TryParse(re, out int chk))
+                    {
+                        sbMessage.Text = "ย้ายแผนกเรียบร้อย";
+                    }
+                    else
+                    {
+                        sbMessage.Text = "มีข้อผิดพลาด "+re;
+                    }
+                }
+            }
+        }
+        private void TxtDeptHN_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                ptt = new Patient();
+                ptt = bc.bcDB.pttDB.selectPatinetByHn(txtDeptHN.Text.Trim());
+                lbDeptPttnameT.Text = ptt.Name;
+                setGrfDeptVisit();
+            }
+        }
+        private void initGrfDeptVisit()
+        {
+            grfDeptVisit = new C1FlexGrid();
+            grfDeptVisit.Font = fEdit;
+            grfDeptVisit.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfDeptVisit.Location = new System.Drawing.Point(0, 0);
+            grfDeptVisit.Rows.Count = 1;
+            grfDeptVisit.Cols.Count = 5;
+            grfDeptVisit.Cols[colgrfDeptVisitVsdate].Width = 100;
+            grfDeptVisit.Cols[colgrfDeptVisitPreno].Width = 100;
+            grfDeptVisit.Cols[colgrfDeptVisitStatusAdmit].Width = 60;
+
+            grfDeptVisit.ShowCursor = true;
+            grfDeptVisit.Cols[colgrfDeptVisitVsdate].Caption = "vsdate";
+            grfDeptVisit.Cols[colgrfDeptVisitPreno].Caption = "preno";
+            grfDeptVisit.Cols[colgrfDeptDept].Caption = "dept";
+
+            grfDeptVisit.Cols[colgrfDeptVisitVsdate].AllowEditing = false;
+            grfDeptVisit.Cols[colgrfDeptVisitPreno].AllowEditing = false;
+            grfDeptVisit.Cols[colgrfDeptVisitStatusAdmit].AllowEditing = false;
+            grfDeptVisit.Cols[colgrfDeptDept].AllowEditing = false;
+
+            grfDeptVisit.AllowFiltering = true;
+
+            grfDeptVisit.Click += GrfDeptVisit_Click;
+
+            pnDept.Controls.Add(grfDeptVisit);
+            theme1.SetTheme(grfDeptVisit, bc.iniC.themeApp);
+        }
+        private void GrfDeptVisit_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfDeptVisit[grfDeptVisit.Row, colgrfDeptVisitVsdate] == null) return;
+
+            String preno = grfDeptVisit[grfDeptVisit.Row, colgrfDeptVisitPreno].ToString();
+            String vsdate = grfDeptVisit[grfDeptVisit.Row, colgrfDeptVisitVsdate].ToString();
+            txtDeptPreno.Value = preno;
+            txtDeptVsdate.Value = vsdate;
+            if(grfDeptVisit[grfDeptVisit.Row, colgrfDeptVisitStatusAdmit].ToString().Equals("O"))
+            {
+                chkDeptOPD.Checked = true;
+                chkDeptIPD.Checked = false;
+                chkDeptOPDNew.Checked = true;
+                chkDeptIPDNew.Checked = false;
+                //cboDeptNew
+                bc.bcDB.pttDB.setCboDeptOPD(cboDeptNew, bc.iniC.station);
+            }
+            else
+            {
+                chkDeptOPD.Checked = false;
+                chkDeptIPD.Checked = true;
+                chkDeptOPDNew.Checked = false;
+                chkDeptIPDNew.Checked = true;
+                bc.bcDB.pttDB.setCboDeptIPDWdNo(cboDeptNew, bc.iniC.station);
+            }
+            txtDeptDept.Value = grfDeptVisit[grfDeptVisit.Row, colgrfDeptDept].ToString();
+        }
+        private void setGrfDeptVisit()
+        {
+            DataTable dtvs = new DataTable();
+            dtvs = bc.bcDB.vsDB.selectVisitByHn(txtDeptHN.Text.Trim());
+            grfDeptVisit.Rows.Count = 1;
+            grfDeptVisit.Rows.Count = dtvs.Rows.Count + 1;
+            int i = 1, j = 1;
+            foreach (DataRow row1 in dtvs.Rows)
+            {
+                Row rowa = grfDeptVisit.Rows[i];
+                rowa[colgrfDeptVisitVsdate] = row1["MNC_DATE"].ToString();
+                rowa[colgrfDeptVisitPreno] = row1["mnc_pre_no"].ToString();
+                rowa[colgrfDeptVisitStatusAdmit] = row1["MNC_AN_NO"].ToString().Equals("0") ? "O" : "I";
+                rowa[colgrfDeptDept] = row1["MNC_AN_NO"].ToString().Equals("0") ? row1["MNC_SEC_NO"].ToString(): row1["MNC_SEC_NO_ipd"].ToString();
+
+                rowa[0] = i.ToString();
+                i++;
+            }
         }
         private void BtnAnMerge_Click(object sender, EventArgs e)
         {
@@ -121,7 +245,7 @@ namespace bangna_hospital.gui
             grfAn.Cols[colgrfAnAdDate].Width = 100;
             
             grfAn.ShowCursor = true;
-            grfHn.Cols[colgrfAnanno].Caption = "ANNO";
+            grfAn.Cols[colgrfAnanno].Caption = "ANNO";
             grfAn.Cols[colgrfAnAdDate].Caption = "ad date";
 
             grfAn.Cols[colgrfAnanno].AllowEditing = false;

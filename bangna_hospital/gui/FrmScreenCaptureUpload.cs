@@ -98,16 +98,19 @@ namespace bangna_hospital.gui
             dsc.doc_scan_id = "";
             dsc.doc_group_id = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
             dsc.hn = txtHn.Text;
-            if (lbVn.Text.Trim().Equals("VN :"))
+            if (lbVn.Text.ToUpper().IndexOf("VN")>=0)
             {
+                //MessageBox.Show("lbVn.Text.Trim().Equals", lbVn.Text.Trim());
                 dsc.an = "";
                 dsc.vn = txtVn.Text.Trim();
             }
             else
             {
+                //MessageBox.Show("else lbVn.Text.Trim().Equals", lbVn.Text.Length.ToString());
                 dsc.vn = "";
                 dsc.an = txtVn.Text.Trim();
             }
+            //return;
             dsc.visit_date = "";
             dsc.pre_no = "";
             dsc.ml_fm = txtFM.Text.Trim();

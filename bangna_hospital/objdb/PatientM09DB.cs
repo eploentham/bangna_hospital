@@ -69,6 +69,20 @@ namespace bangna_hospital.objdb
                 }
             }
         }
+        public String getProvName(String tamboncode)
+        {
+            String re = "";
+            if (lPm09.Count <= 0) getlCus();
+            foreach (PatientM09 row in lPm09)
+            {
+                if (row.MNC_CHW_CD.Equals(tamboncode))
+                {
+                    re = row.MNC_CHW_DSC;
+                    break;
+                }
+            }
+            return re;
+        }
         public void setCboProvByProvCode(C1ComboBox c, String provcode, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();

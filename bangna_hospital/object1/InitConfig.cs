@@ -10,6 +10,7 @@ namespace bangna_hospital.object1
     {
         public String hostDB = "", userDB = "", passDB = "", nameDB = "", portDB = "";
         public String hostDBMainHIS = "", userDBMainHIS = "", passDBMainHIS = "", nameDBMainHIS = "", portDBMainHIS = "";
+        public String hostDBBACK = "", userDBBACK = "", passDBBACK = "", nameDBBACK = "", portDBBACK = "";
         public String hostDBPACs = "", userDBPACs = "", passDBPACs = "", nameDBPACs = "", portDBPACs = "";
         public String hostDBLabOut = "", userDBLabOut = "", passDBLabOut = "", nameDBLabOut = "", portDBLabOut = "";
         public String hostDBIm = "", userDBIm = "", passDBIm = "", nameDBIm = "", portDBIm = "";
@@ -45,6 +46,6 @@ namespace bangna_hospital.object1
         public String importMDBpaidcode = "", statusVisitBack="", aipnXmlPath = "", aipnAuthorName="", ssopXmlPath = "";
         public String grdQueFontSize = "", grdQueFontName = "", grdQueTodayFontSize = "", grdQueTodayFontName = "", grfRowHeight="";
         public String pathLabOutReceiveATTA = "", pathLabOutBackupATTA = "", statusScreenCaptureUploadDoc="", padYCertMed="", statusScreenCaptureAutoSend = "", statusPrintPreview="", nightTime="", nightTimeOn="", statusAutoPrintLabResult="";
-        public String statusdoctorold = "", linkmedicalscan="", applicationrunnextrecord="";
+        public String statusdoctorold = "", linkmedicalscan="", applicationrunnextrecord="", statusdruginon="";
     }
 }

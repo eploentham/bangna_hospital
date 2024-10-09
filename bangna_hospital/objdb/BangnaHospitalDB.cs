@@ -47,7 +47,6 @@ namespace bangna_hospital.objdb
         public LabT02DB labT02DB;
         public FinanceM01DB finM01DB;
         public FinanceM02DB finM02DB;
-        public PatientM32DB pttM32DB;
         public OPDCheckUPDB opdcDB;
         public PharmacyM01DB pharM01DB;
         public PharmacyM02DB pharM02DB;
@@ -93,6 +92,11 @@ namespace bangna_hospital.objdb
         public PatientM44DB pm44DB;
         public PharmacyM14DB pharm14DB;
         public DrugSetDB drugSetDB;
+        public REQDETAILDEPTDB reqdDB;
+        public REQHEADDEPTDB reqhDB;
+        public PharmacyEndMonthDB endyearDB;        // แก้ให้เป็น endyear จะได้ทำ ปีละครั้ง
+        public SupraHospitalDB supraHospDB;
+        public SupraSupraDB supraDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -139,7 +143,7 @@ namespace bangna_hospital.objdb
                 labT02DB = new LabT02DB(conn);
                 finM01DB = new FinanceM01DB(conn);
                 finM02DB = new FinanceM02DB(conn);
-                pttM32DB = new PatientM32DB(conn);
+                //pttM32DB = new PatientM32DB(conn);
                 opdcDB = new OPDCheckUPDB(conn);
                 pharM01DB = new PharmacyM01DB(conn);
                 pharM02DB = new PharmacyM02DB(conn);
@@ -203,6 +207,11 @@ namespace bangna_hospital.objdb
                 labm07DB = new LabM07DB(conn);
                 labM04DB = new LabM04DB(conn);
                 pt08DB = new PatientT08DB(conn);
+                reqdDB = new REQDETAILDEPTDB(conn);
+                reqhDB = new REQHEADDEPTDB(conn);
+                endyearDB = new PharmacyEndMonthDB(conn);
+                supraHospDB = new SupraHospitalDB(conn);
+                supraDB = new SupraSupraDB(conn);
             }
             catch(Exception ex)
             {

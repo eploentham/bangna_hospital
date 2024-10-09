@@ -170,6 +170,23 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String getDeptNoIPD(String seccode)
+        {
+            String re = "";
+            if (lPm08.Count <= 0) getlCus();
+            foreach (PatientM32 row in lPm08)
+            {
+                if (row.MNC_TYP_PT.Equals("O"))
+                {
+                    if (row.mnc_sec_no.Equals(seccode))
+                    {
+                        re = row.mnc_md_dep_no;
+                        break;
+                    }
+                }
+            }
+            return re;
+        }
         public String getDeptName(String seccode)
         {
             String re = "";
@@ -229,6 +246,23 @@ namespace bangna_hospital.objdb
                     if (row.mnc_md_dep_no.Equals(deptcode))
                     {
                         re = row.mnc_md_dep_dsc;
+                        break;
+                    }
+                }
+            }
+            return re;
+        }
+        public String getSecCodeIPD(String secname)
+        {
+            String re = "";
+            if (lPm08.Count <= 0) getlCus();
+            foreach (PatientM32 row in lPm08)
+            {
+                if (row.MNC_TYP_PT.Equals("I"))
+                {
+                    if (row.mnc_md_dep_dsc.Equals(secname))
+                    {
+                        re = row.mnc_sec_no;
                         break;
                     }
                 }

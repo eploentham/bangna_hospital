@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_opd</AssemblyName>
+    <AssemblyName>bangna_hospital_stock</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -126,13 +126,19 @@
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data, Version=5.0.8.1, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NgrokApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NgrokApi.0.12.0\lib\netstandard2.0\NgrokApi.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Npgsql.dll</HintPath>
@@ -142,7 +148,13 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -388,6 +400,18 @@
     </Compile>
     <Compile Include="gui\frmSsnData.Designer.cs">
       <DependentUpon>frmSsnData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmSSO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmSSO.Designer.cs">
+      <DependentUpon>FrmSSO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmStock.Designer.cs">
+      <DependentUpon>FrmStock.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmVaccineApprove.cs">
       <SubType>Form</SubType>
@@ -748,11 +772,17 @@
     <Compile Include="objdb\PatientT08DB.cs" />
     <Compile Include="objdb\PatientT10DB.cs" />
     <Compile Include="objdb\PatientT16DB.cs" />
+    <Compile Include="objdb\PharmacyEndMonthDB.cs" />
     <Compile Include="objdb\PharmacyM14DB.cs" />
+    <Compile Include="objdb\REQDETAILDEPTDB.cs" />
+    <Compile Include="objdb\REQHEADDEPTDB.cs" />
     <Compile Include="objdb\SummaryT03DB.cs" />
+    <Compile Include="objdb\SupraHospitalDB.cs" />
+    <Compile Include="objdb\SupraSupraDB.cs" />
     <Compile Include="objdb\TFingerScanDB.cs" />
     <Compile Include="objdb\XrayM05DB.cs" />
     <Compile Include="object1\AipnXmlFile.cs" />
+    <Compile Include="object1\ConnectBangna5.cs" />
     <Compile Include="object1\DocScanOutLab.cs" />
     <Compile Include="object1\DocumentM01.cs" />
     <Compile Include="object1\EpidemAPI.cs" />
@@ -897,6 +927,7 @@
     <Compile Include="object1\PatientT08.cs" />
     <Compile Include="object1\PatientT10.cs" />
     <Compile Include="object1\PatientT16.cs" />
+    <Compile Include="object1\PharmacyEndMonth.cs" />
     <Compile Include="object1\PharmacyM14.cs" />
     <Compile Include="object1\PharmacyT01.cs" />
     <Compile Include="object1\PharmacyM01.cs" />
@@ -912,9 +943,13 @@
     <Compile Include="objdb\QueueDB.cs" />
     <Compile Include="object1\QueueType.cs" />
     <Compile Include="object1\RDNIDWRAPPER.cs" />
+    <Compile Include="object1\REQDETAILDEPT.cs" />
+    <Compile Include="object1\REQHEADDEPT.cs" />
     <Compile Include="object1\RestAPI.cs" />
     <Compile Include="object1\SubDistrict.cs" />
     <Compile Include="object1\SummaryT03.cs" />
+    <Compile Include="object1\SupraHospital.cs" />
+    <Compile Include="object1\SupraSupra.cs" />
     <Compile Include="object1\TemporaryM01.cs" />
     <Compile Include="object1\TemporaryM02.cs" />
     <Compile Include="object1\TFingerScan.cs" />
@@ -1261,6 +1296,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\frmSsnData.resx">
       <DependentUpon>frmSsnData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmSSO.resx">
+      <DependentUpon>FrmSSO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmStock.resx">
+      <DependentUpon>FrmStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmVaccineInsurExcel.resx">
       <DependentUpon>FrmVaccineInsurExcel.cs</DependentUpon>

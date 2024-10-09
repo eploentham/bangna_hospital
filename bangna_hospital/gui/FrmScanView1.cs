@@ -1768,7 +1768,27 @@ namespace bangna_hospital.gui
                     initGrfScan();
                 }
                 flagtabScan = true;
-                setGrfScan();
+                if (bc.iniC.linkmedicalscan.Length <= 0)
+                {
+                    setGrfScan();
+                }
+                else
+                {
+                    try
+                    {
+                        string url = bc.iniC.linkmedicalscan + txtHn.Text.Trim() + "?userid=" + DTRCODE;
+                        //System.Diagnostics.Process.Start("open", url);
+                        url = url.Replace("&", "^&");
+                        Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                    }
+                    catch (Exception ex)
+                    {
+                        //lfSbMessage.Text = ex.Message;
+                        new LogWriter("e", this.Name + " TabVS_SelectedTabChanged " + ex.Message);
+                        bc.bcDB.insertLogPage(bc.userId, this.Name, "TabVS_SelectedTabChanged ", ex.Message);
+                    }
+                }
+                
             }
             else if (tcDtr.SelectedTab == tabOrder)
             {
@@ -1896,7 +1916,7 @@ namespace bangna_hospital.gui
                     certiView.SizeMode = PictureBoxSizeMode.StretchImage;
                     certiView.Image = img;
                     certiView.Size = new Size(1000, 850);
-                    certiView.Location = new System.Drawing.Point(10, btnCertiNew.Top+btnCertiNew.Height-25);
+                    certiView.Location = new System.Drawing.Point(10, btnCertiNew.Top + btnCertiNew.Height-25);
                     ContextMenu menuGw = new ContextMenu();
                     menuGw.MenuItems.Add("Print Certificate Medical", new EventHandler(ContextMenu_CertiMedical_Print));
                     menuGw.MenuItems.Add("Download Certificate Medical", new EventHandler(ContextMenu_CertiMedical_Download));

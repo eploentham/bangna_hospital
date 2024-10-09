@@ -13,7 +13,7 @@ namespace bangna_hospital.objdb
 {
     public class ConnectDB
     {
-        public SqlConnection connMainHIS, conn, connPACs, connLabOut, connLog, connSsnData, connLinkLIS;
+        public SqlConnection connMainHIS, conn, connPACs, connLabOut, connLog, connSsnData, connLinkLIS, connBACK;
         public MySqlConnection connMySQL;
         public Staff user;
         public long _rowsAffected = 0, _rowsAffectedMySQL=0;
@@ -30,12 +30,14 @@ namespace bangna_hospital.objdb
             connOPBKK = new NpgsqlConnection();
             connSsnData = new SqlConnection();
             connLinkLIS = new SqlConnection();
+            connBACK = new SqlConnection();
 
             connLog = new SqlConnection();
             //new LogWriter("d", "ConnectDB ConnectDB  01" );
             connMySQL = new MySqlConnection();
             //new LogWriter("d", "ConnectDB ConnectDB  02");
             connMainHIS.ConnectionString = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
+            connBACK.ConnectionString = "Server=" + initc.hostDBBACK + ";Database=" + initc.nameDBBACK + ";Uid=" + initc.userDBBACK + ";Pwd=" + initc.passDBBACK + ";";
             conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB + ";";
             connLabOut.ConnectionString = "Server=" + initc.hostDBLabOut + ";Database=" + initc.nameDBLabOut + ";Uid=" + initc.userDBLabOut + ";Pwd=" + initc.passDBLabOut + ";";
             connPACs.ConnectionString = "Server=" + initc.hostDBPACs + ";Database=" + initc.nameDBPACs + ";Uid=" + initc.userDBPACs + ";Pwd=" + initc.passDBPACs + ";";

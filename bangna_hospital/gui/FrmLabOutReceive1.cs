@@ -8,6 +8,7 @@ using C1.Win.FlexViewer;
 using Ionic.Zip;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
+using iTextSharp.text.pdf.qrcode;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -2120,7 +2121,8 @@ namespace bangna_hospital.gui
             try
             {
                 //String page = "http://119.59.102.111/app/getlist.php?date="+ currDate + "&hosp_code=CT-MD0166";
-                String page = "http://119.59.102.111/app/getlist.php?date=" + currDate + "&hosp_code=" + bc.iniC.laboutMedicahosp_code;
+                //String page = "http://119.59.102.111/app/getlist.php?date=" + currDate + "&hosp_code=" + bc.iniC.laboutMedicahosp_code;
+                String page = "https://labresult2.medicalab.co.th/util/getlist.php?date=" + currDate + "&hosp_code=" + bc.iniC.laboutMedicahosp_code+ "&user=bangnahos1";
                 //WebClient webClient = new WebClient();
                 var http = (HttpWebRequest)WebRequest.Create(new Uri(page));
                 http.Accept = "application/json";
@@ -2169,19 +2171,25 @@ namespace bangna_hospital.gui
                 String address = path+lab.labno+".pdf";
                 Boolean chkFileExit = false;
                 listBox2.Items.Add("Check Medica lab " + lab.labno+ " bc.iniC.hostFTPLabOutMedica "+ bc.iniC.hostFTPLabOutMedica+ " bc.iniC.userFTPLabOutMedica " + bc.iniC.userFTPLabOutMedica+ " bc.iniC.passFTPLabOutMedica " + bc.iniC.passFTPLabOutMedica+ " bc.ftpUsePassiveLabOut " + bc.ftpUsePassiveLabOut);
-                Application.DoEvents();
-                Thread.Sleep(200);
-                FtpClient ftp = new FtpClient(bc.iniC.hostFTPLabOutMedica, bc.iniC.userFTPLabOutMedica, bc.iniC.passFTPLabOutMedica, bc.ftpUsePassiveLabOut);
-                MemoryStream streamresult = ftp.download(address);
-                if (streamresult == null)
+                //Application.DoEvents();
+                //Thread.Sleep(200);
+                //FtpClient ftp = new FtpClient(bc.iniC.hostFTPLabOutMedica, bc.iniC.userFTPLabOutMedica, bc.iniC.passFTPLabOutMedica, bc.ftpUsePassiveLabOut);
+                //MemoryStream streamresult = ftp.download(address);
+                //if (streamresult == null)
+                //{
+                //    continue;
+                //}
+                //if (streamresult.Length == 0)
+                //{
+                //    continue;
+                //}
+                MemoryStream streamresult = new MemoryStream();
+                using (WebClient client = new WebClient())
                 {
-                    continue;
+                    byte[] bytestreamresult = client.DownloadData(lab.url);
+                    streamresult.Write(bytestreamresult, 0, bytestreamresult.Length);
                 }
-                if (streamresult.Length == 0)
-                {
-                    continue;
-                }
-                
+
                 streamresult.Seek(0, SeekOrigin.Begin);
                 listBox2.Items.Add("Check Medica ftp " + lab.labno);
                 Application.DoEvents();
@@ -3853,7 +3861,7 @@ namespace bangna_hospital.gui
         private void FrmLabOutReceive1_Load(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            this.Text = "Last Update 2024-01-25   bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutmedicacode "+bc.iniC.laboutMedicahosp_code;
+            this.Text = "Last Update 2024-09-25 Medica แก้url  bc.timerCheckLabOut " + bc.timerCheckLabOut+" status online "+bc.iniC.statusLabOutReceiveOnline+" status autoprint "+ bc.iniC.statusLabOutAutoPrint+" laboutmedicacode "+bc.iniC.laboutMedicahosp_code;
             if (bc.iniC.statusLabOutReceiveOnline.Equals("1"))
             {
                 tC1.ShowTabs = true;

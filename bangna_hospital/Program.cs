@@ -281,6 +281,16 @@ namespace bangna_hospital
                     err = "pharmacyIPD";
                     Application.Run(new gui.FrmPharmacy(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("sso"))
+                {
+                    err = "sso";
+                    Application.Run(new gui.FrmSSO(bc));
+                }
+                else if (bc.iniC.programLoad.Equals("stock"))
+                {
+                    err = "stock";
+                    Application.Run(new gui.FrmStock(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))
