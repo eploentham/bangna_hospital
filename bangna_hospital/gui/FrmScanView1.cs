@@ -1788,7 +1788,6 @@ namespace bangna_hospital.gui
                         bc.bcDB.insertLogPage(bc.userId, this.Name, "TabVS_SelectedTabChanged ", ex.Message);
                     }
                 }
-                
             }
             else if (tcDtr.SelectedTab == tabOrder)
             {
@@ -1965,8 +1964,8 @@ namespace bangna_hospital.gui
             }
             else if(tcDtr.SelectedTab == tabHnLabOut)
             {
-                if (!flagTabOutlabLoad)
-                {
+                //if (!flagTabOutlabLoad)
+                //{
                     FrmWaiting frmW = new FrmWaiting();
                     frmW.StartPosition = FormStartPosition.CenterScreen;
                     frmW.Show(this);
@@ -1974,7 +1973,7 @@ namespace bangna_hospital.gui
                     setTabHnLabOut();
 
                     frmW.Dispose();
-                }
+                //}
                 flagTabOutlabLoad = true;
             }
             //else if (tcDtr.SelectedTab == tabPic)
@@ -2501,7 +2500,7 @@ namespace bangna_hospital.gui
                 txtChronic += row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString() +",";
             }
             lbAge.Text = "อายุ " + ptt.AgeStringShort();
-
+            flagTabOutlabLoad = false;
             picL.Image = null;
             picR.Image = null;
             setGrfVsIPD();
@@ -2758,7 +2757,7 @@ namespace bangna_hospital.gui
             //pB1.Left = txtHn.Left;
             //pB1.Show();
             setHeaderDisable();
-
+            //new LogWriter("e", "FrmScanView1 setTabHnLabOut 00" );
             if (txtHn.Text.Trim().Length <= 0)
             {
                 setHeaderEnable();
@@ -2885,11 +2884,16 @@ namespace bangna_hospital.gui
             {
                 tabHnLabOutR.Clear();
             }
+            //new LogWriter("d", "FrmScanView1 setTabHnLabOut dtlaboutdsc.Rows.Count "+ dtlaboutdsc.Rows.Count);
+            //new LogWriter("d", "FrmScanView1 setTabHnLabOut bc.iniC.hostFTP " + bc.iniC.hostFTP);
+            //new LogWriter("d", "FrmScanView1 setTabHnLabOut bc.iniC.userFTP " + bc.iniC.userFTP);
+            //new LogWriter("d", "FrmScanView1 setTabHnLabOut bc.iniC.passFTP " + bc.iniC.passFTP);
             if (dtlaboutdsc.Rows.Count > 0)
             {
                 int k = 0;
                 foreach (DataRow rowdsc in dtlaboutdsc.Rows)
                 {
+                    String err = "00";
                     try
                     {
                         String ext1 = "";
@@ -2904,7 +2908,7 @@ namespace bangna_hospital.gui
                         //yearid = dt.Rows[0][bc.bcDB.labexDB.labex.YearId].ToString();
                         //vn = dt.Rows[0][bc.bcDB.labexDB.labex.Vn].ToString();
                         //vn = vn.Replace("/", ".").Replace("(", ".").Replace(")", "");
-
+                        err = "01";
                         C1DockingTabPage tabHnLabOut = new C1DockingTabPage();
                         //tabHnLabOut.Location = new System.Drawing.Point(1, 24);
                         //tabScan.Name = "c1DockingTabPage1";
@@ -2927,18 +2931,40 @@ namespace bangna_hospital.gui
                         }
                         tabHnLabOut.Name = "tabHnLabOut_" + datetick;
                         //tabHnLabOut.DoubleClick += TabHnLabOut_DoubleClick;
-                        
+                        err = "02";
                         //for (int i = 0; i < 6; i++)
                         //{
                         MemoryStream stream;
-
-                        if (!Directory.Exists("report"))
+                        try
                         {
-                            Directory.CreateDirectory("report");
+                            if (!Directory.Exists(Environment.CurrentDirectory + "\\report\\"))
+                            {
+                                Directory.CreateDirectory(Environment.CurrentDirectory + "\\report\\");
+                            }
                         }
+                        catch(Exception ex1)
+                        {
 
-                        FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                        }
+                        
+                        err = "03";
+                        //new LogWriter("d", "FrmScanView1 setTabHnLabOut 01 bc.EnableSsl "+ bc.EnableSsl);
+                        //FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive, bc.EnableSsl);
+                        FtpClient ftpc = null;
+                        if (bc.iniC.hostname.Equals("โรงพยาบาล บางนา5"))
+                        {
+                            ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive, bc.EnableSsl);
+                        }
+                        else
+                        {
+                            new LogWriter("e", this.Name + " setTabHnLabOut hostFTPLabOut " + bc.iniC.hostFTPLabOut);
+                            ftpc = new FtpClient(bc.iniC.hostFTPLabOut, bc.iniC.userFTPLabOut, bc.iniC.passFTPLabOut, bc.ftpUsePassive, bc.EnableSsl);
+                        }
+                        err = "04";
+                        //ftpc = new FtpClient(bc.iniC.hostFTPLabOut, bc.iniC.userFTPLabOut, bc.iniC.passFTPLabOut, bc.ftpUsePassive, bc.EnableSsl);
+                        //new LogWriter("d", "FrmScanView1 setTabHnLabOut 01 1 ");
                         stream = ftpc.download(rowdsc[bc.bcDB.dscDB.dsc.folder_ftp] + "/" + rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
+                        //new LogWriter("d", "FrmScanView1 setTabHnLabOut 01 2 ");
                         if (stream == null)
                         {
                             setHeaderEnable();
@@ -2951,15 +2977,19 @@ namespace bangna_hospital.gui
                             tabHnLabOut.Dispose();
                             continue;
                         }
+                        err = "05";
+                        //new LogWriter("d", "FrmScanView1 setTabHnLabOut 01 3 ");
                         stream.Seek(0, SeekOrigin.Begin);
                         String ext = Path.GetExtension(rowdsc[bc.bcDB.dscDB.dsc.image_path].ToString());
-
+                        //new LogWriter("d", "FrmScanView1 setTabHnLabOut 01 4 ");
                         Application.DoEvents();
                         
                         tcHnLabOut.TabPages.Add(tabHnLabOut);
                         //tcHnLabOut.Controls.Add(tablabOut);
+                        //new LogWriter("d", "FrmScanView1 setTabHnLabOut 011 ");
                         if (bc.iniC.windows.Equals("windowsxp"))
                         {
+                            //new LogWriter("d", "FrmScanView1 setTabHnLabOut windowsxp ");
                             var fileStream = new FileStream("report\\" + datetick + ext, FileMode.Create, FileAccess.Write);
                             stream.CopyTo(fileStream);
                             Thread.Sleep(50);
@@ -3005,6 +3035,7 @@ namespace bangna_hospital.gui
                         }
                         else
                         {
+                            //new LogWriter("d", "FrmScanView1 setTabHnLabOut 02 ");
                             if (ext.Equals(".jpg"))
                             {
                                 C1PictureBox labOutView = new C1PictureBox();
@@ -3061,7 +3092,7 @@ namespace bangna_hospital.gui
                     }
                     catch (Exception ex)
                     {
-                        new LogWriter("e", "FrmScanView1 setTabHnLabOut "+ex.Message);
+                        new LogWriter("e", "FrmScanView1 setTabHnLabOut err "+err+" "+ex.Message);
                     }
                 }
             }
@@ -9885,7 +9916,9 @@ namespace bangna_hospital.gui
                     String[] an1 = txtVN.Text.Trim().Split('/');
                     if (an1.Length >= 2)
                     {
-                        dtLab = setPrintLabPrnSSO(an1[0], an1[1], "", "an");
+                        //แก้lab ให้เป้น ดึงตาม preno แทน เพราะใน ข้อมูลมี an, an_yr เป็น null เข้าใจว่า เป็นการสั่งlabและได้ผลก่อนadmit  ค่าlab ทำให้ admit
+                        //dtLab = setPrintLabPrnSSO(an1[0], an1[1], "", "an");
+                        dtLab = setPrintLabPrnSSO("", preno, vsDate, "vn");
                     }
                 }
                 else
@@ -10841,7 +10874,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2024-02-19 windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
+            this.Text = "Last Update 2025-02-10 แก้ให้ FTP outlab sort windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

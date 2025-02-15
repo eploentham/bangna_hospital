@@ -197,5 +197,31 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String updateOPDSecNo(String hn, String vsdate, String preno, String deptno, String secno)
+        {
+            String re = "";
+            String sql = "";
+            try
+            {
+                sql = "Update Patient_t01 Set " +
+                    "MNC_SEC_NO = '" + secno + "' " +
+                    ",MNC_DEP_NO = '" + deptno + "' " +
+                    //",MNC_WD_NO = '' " +
+                    //",MNC_RM_NAM = '' " +
+                    " Where MNC_HN_NO = '" + hn + "' and MNC_DATE = '" + vsdate + "' and MNC_PRE_NO = '" + preno + "' ";
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateSecNo sql " + sql + " hn " + hn);
+                re = sql;
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+            }
+            return re;
+        }
     }
 }

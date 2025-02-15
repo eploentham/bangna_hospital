@@ -240,11 +240,6 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(tC1, "Office2010Green");
             return tab;
         }
-private void MenuScanChk_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             // ...

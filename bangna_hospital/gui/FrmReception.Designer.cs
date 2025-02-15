@@ -206,6 +206,7 @@ namespace bangna_hospital.gui
             this.tabVs = new C1.Win.C1Command.C1DockingTabPage();
             this.scVs = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnVsVisit = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.chkVsStatusDOE = new C1.Win.C1Input.C1CheckBox();
             this.btnVsPaid = new C1.Win.C1Input.C1Button();
             this.txtVsComp = new C1.Win.C1Input.C1TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -297,6 +298,222 @@ namespace bangna_hospital.gui
             this.c1Label2 = new C1.Win.C1Input.C1Label();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnSSO = new System.Windows.Forms.Panel();
+            this.tabAlien = new C1.Win.C1Command.C1DockingTabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btnAlienGenVisitAll = new C1.Win.C1Input.C1Button();
+            this.label124 = new System.Windows.Forms.Label();
+            this.txtAlienFullName13 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr213 = new C1.Win.C1Input.C1TextBox();
+            this.label125 = new System.Windows.Forms.Label();
+            this.txtAlienAddr13 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button25 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn13 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp313 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef113 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat13 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button26 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno13 = new System.Windows.Forms.Label();
+            this.txtAliendob13 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID13 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien13 = new C1.Win.C1Input.C1CheckBox();
+            this.label121 = new System.Windows.Forms.Label();
+            this.txtAlienFullName12 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr212 = new C1.Win.C1Input.C1TextBox();
+            this.label122 = new System.Windows.Forms.Label();
+            this.txtAlienAddr12 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button23 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn12 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp312 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef112 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat12 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button24 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno12 = new System.Windows.Forms.Label();
+            this.txtAliendob12 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID12 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien12 = new C1.Win.C1Input.C1CheckBox();
+            this.label118 = new System.Windows.Forms.Label();
+            this.txtAlienFullName11 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr211 = new C1.Win.C1Input.C1TextBox();
+            this.label119 = new System.Windows.Forms.Label();
+            this.txtAlienAddr11 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button21 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn11 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp311 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef111 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat11 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button22 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno11 = new System.Windows.Forms.Label();
+            this.txtAliendob11 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID11 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien11 = new C1.Win.C1Input.C1CheckBox();
+            this.label115 = new System.Windows.Forms.Label();
+            this.txtAlienFullName10 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr210 = new C1.Win.C1Input.C1TextBox();
+            this.label116 = new System.Windows.Forms.Label();
+            this.txtAlienAddr10 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button19 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn10 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp310 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef110 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat10 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button20 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno10 = new System.Windows.Forms.Label();
+            this.txtAliendob10 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID10 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien10 = new C1.Win.C1Input.C1CheckBox();
+            this.label112 = new System.Windows.Forms.Label();
+            this.txtAlienFullName9 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr29 = new C1.Win.C1Input.C1TextBox();
+            this.label113 = new System.Windows.Forms.Label();
+            this.txtAlienAddr9 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button17 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn9 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp39 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef19 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat9 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button18 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno9 = new System.Windows.Forms.Label();
+            this.txtAliendob9 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID9 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien9 = new C1.Win.C1Input.C1CheckBox();
+            this.label109 = new System.Windows.Forms.Label();
+            this.txtAlienFullName8 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr28 = new C1.Win.C1Input.C1TextBox();
+            this.label110 = new System.Windows.Forms.Label();
+            this.txtAlienAddr8 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button15 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn8 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp38 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef18 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat8 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button16 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno8 = new System.Windows.Forms.Label();
+            this.txtAliendob8 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID8 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien8 = new C1.Win.C1Input.C1CheckBox();
+            this.label106 = new System.Windows.Forms.Label();
+            this.txtAlienFullName7 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr27 = new C1.Win.C1Input.C1TextBox();
+            this.label107 = new System.Windows.Forms.Label();
+            this.txtAlienAddr7 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button13 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn7 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp37 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef17 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat7 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button14 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno7 = new System.Windows.Forms.Label();
+            this.txtAliendob7 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID7 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien7 = new C1.Win.C1Input.C1CheckBox();
+            this.label103 = new System.Windows.Forms.Label();
+            this.txtAlienFullName6 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr26 = new C1.Win.C1Input.C1TextBox();
+            this.label104 = new System.Windows.Forms.Label();
+            this.txtAlienAddr6 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button11 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn6 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp36 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef16 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat6 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button12 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno6 = new System.Windows.Forms.Label();
+            this.txtAliendob6 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID6 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien6 = new C1.Win.C1Input.C1CheckBox();
+            this.label100 = new System.Windows.Forms.Label();
+            this.txtAlienFullName5 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr25 = new C1.Win.C1Input.C1TextBox();
+            this.label101 = new System.Windows.Forms.Label();
+            this.txtAlienAddr5 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button9 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn5 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp35 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef15 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat5 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button10 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno5 = new System.Windows.Forms.Label();
+            this.txtAliendob5 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID5 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien5 = new C1.Win.C1Input.C1CheckBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.txtAlienFullName4 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr24 = new C1.Win.C1Input.C1TextBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this.txtAlienAddr4 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button7 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn4 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp34 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef14 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat4 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button8 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno4 = new System.Windows.Forms.Label();
+            this.txtAliendob4 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID4 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien4 = new C1.Win.C1Input.C1CheckBox();
+            this.label94 = new System.Windows.Forms.Label();
+            this.txtAlienFullName3 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr23 = new C1.Win.C1Input.C1TextBox();
+            this.label95 = new System.Windows.Forms.Label();
+            this.txtAlienAddr3 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button5 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn3 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp33 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef13 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat3 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button6 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno3 = new System.Windows.Forms.Label();
+            this.txtAliendob3 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID3 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien3 = new C1.Win.C1Input.C1CheckBox();
+            this.label91 = new System.Windows.Forms.Label();
+            this.txtAlienFullName2 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienAddr22 = new C1.Win.C1Input.C1TextBox();
+            this.label92 = new System.Windows.Forms.Label();
+            this.txtAlienAddr2 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button3 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn2 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttwp32 = new C1.Win.C1Input.C1TextBox();
+            this.txtPttRef12 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienNat2 = new C1.Win.C1Input.C1TextBox();
+            this.c1Button4 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno2 = new System.Windows.Forms.Label();
+            this.txtAliendob2 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienPID2 = new C1.Win.C1Input.C1TextBox();
+            this.chkAlien2 = new C1.Win.C1Input.C1CheckBox();
+            this.btnAlienAddrCopy = new C1.Win.C1Input.C1Button();
+            this.label90 = new System.Windows.Forms.Label();
+            this.txtAlienFullName1 = new C1.Win.C1Input.C1TextBox();
+            this.c1CheckBox1 = new C1.Win.C1Input.C1CheckBox();
+            this.label89 = new System.Windows.Forms.Label();
+            this.cboAlienSendDept = new C1.Win.C1Input.C1ComboBox();
+            this.lbAlienPaidName = new System.Windows.Forms.Label();
+            this.txtAlienPaidcode = new C1.Win.C1Input.C1TextBox();
+            this.label87 = new System.Windows.Forms.Label();
+            this.txtAlienAddr21 = new C1.Win.C1Input.C1TextBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.txtAlienAddr1 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienOwnAddr2 = new C1.Win.C1Input.C1TextBox();
+            this.txtAlienOwnAddr1 = new C1.Win.C1Input.C1TextBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.txtAlienOwnName = new C1.Win.C1Input.C1TextBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.c1Button1 = new C1.Win.C1Input.C1Button();
+            this.txtAlienHn1 = new C1.Win.C1Input.C1TextBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.txtPttwp31 = new C1.Win.C1Input.C1TextBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.txtPttRef11 = new C1.Win.C1Input.C1TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.txtAlienNat1 = new C1.Win.C1Input.C1TextBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.btnExp1 = new C1.Win.C1Input.C1Button();
+            this.lbAlienpreno1 = new System.Windows.Forms.Label();
+            this.txtAliendob1 = new C1.Win.C1Input.C1TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtAlienPID1 = new C1.Win.C1Input.C1TextBox();
+            this.label68 = new System.Windows.Forms.Label();
+            this.chkAlien1 = new C1.Win.C1Input.C1CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -404,6 +621,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.scVs)).BeginInit();
             this.scVs.SuspendLayout();
             this.pnVsVisit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkVsStatusDOE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVsPaid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVsComp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVsInsur)).BeginInit();
@@ -460,6 +678,172 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).BeginInit();
             this.c1SplitterPanel3.SuspendLayout();
+            this.tabAlien.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAlienGenVisitAll)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr213)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp313)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef113)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button26)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr212)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp312)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef112)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr211)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp311)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef111)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button22)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr210)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp310)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef110)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr29)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp39)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr28)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp38)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr27)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp37)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr26)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp36)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr25)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp35)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp34)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp33)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr22)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp32)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAlienAddrCopy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1CheckBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboAlienSendDept)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPaidcode)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienOwnAddr2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienOwnAddr1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienOwnName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp31)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExp1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien1)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -533,6 +917,7 @@ namespace bangna_hospital.gui
             this.tC.Controls.Add(this.tabDoc);
             this.tC.Controls.Add(this.tabWard);
             this.tC.Controls.Add(this.tabSSO);
+            this.tC.Controls.Add(this.tabAlien);
             this.tC.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tC.Location = new System.Drawing.Point(0, 0);
@@ -885,7 +1270,7 @@ namespace bangna_hospital.gui
             this.cboPttSex.Items.Add("F");
             this.cboPttSex.ItemsDisplayMember = "";
             this.cboPttSex.ItemsValueMember = "";
-            this.cboPttSex.Location = new System.Drawing.Point(318, 4);
+            this.cboPttSex.Location = new System.Drawing.Point(316, 4);
             this.cboPttSex.Name = "cboPttSex";
             this.cboPttSex.Size = new System.Drawing.Size(97, 24);
             this.cboPttSex.TabIndex = 113;
@@ -1437,7 +1822,7 @@ namespace bangna_hospital.gui
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.groupBox3.Location = new System.Drawing.Point(11, 377);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(881, 55);
+            this.groupBox3.Size = new System.Drawing.Size(881, 58);
             this.groupBox3.TabIndex = 90;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "ที่อยู่ผู้ติดต่อได้";
@@ -2341,6 +2726,7 @@ namespace bangna_hospital.gui
             // pnVsVisit
             // 
             this.pnVsVisit.Collapsible = true;
+            this.pnVsVisit.Controls.Add(this.chkVsStatusDOE);
             this.pnVsVisit.Controls.Add(this.btnVsPaid);
             this.pnVsVisit.Controls.Add(this.txtVsComp);
             this.pnVsVisit.Controls.Add(this.label14);
@@ -2382,6 +2768,19 @@ namespace bangna_hospital.gui
             this.pnVsVisit.TabIndex = 0;
             this.pnVsVisit.Text = "Panel 1";
             this.pnVsVisit.Width = 719;
+            // 
+            // chkVsStatusDOE
+            // 
+            this.chkVsStatusDOE.BackColor = System.Drawing.SystemColors.Control;
+            this.chkVsStatusDOE.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkVsStatusDOE.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkVsStatusDOE.Location = new System.Drawing.Point(417, 179);
+            this.chkVsStatusDOE.Name = "chkVsStatusDOE";
+            this.chkVsStatusDOE.Size = new System.Drawing.Size(164, 24);
+            this.chkVsStatusDOE.TabIndex = 140;
+            this.chkVsStatusDOE.Text = "ส่งข้อมูล กรมการค้า";
+            this.chkVsStatusDOE.UseVisualStyleBackColor = true;
+            this.chkVsStatusDOE.Value = false;
             // 
             // btnVsPaid
             // 
@@ -2479,7 +2878,7 @@ namespace bangna_hospital.gui
             // 
             // txtVsSymptom
             // 
-            this.txtVsSymptom.Location = new System.Drawing.Point(111, 204);
+            this.txtVsSymptom.Location = new System.Drawing.Point(111, 206);
             this.txtVsSymptom.Name = "txtVsSymptom";
             this.txtVsSymptom.Size = new System.Drawing.Size(449, 24);
             this.txtVsSymptom.TabIndex = 130;
@@ -2509,7 +2908,7 @@ namespace bangna_hospital.gui
             this.label78.AutoSize = true;
             this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label78.ForeColor = System.Drawing.Color.Red;
-            this.label78.Location = new System.Drawing.Point(4, 207);
+            this.label78.Location = new System.Drawing.Point(4, 209);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(53, 20);
             this.label78.TabIndex = 126;
@@ -3417,6 +3816,2321 @@ namespace bangna_hospital.gui
             this.pnSSO.Size = new System.Drawing.Size(1252, 760);
             this.pnSSO.TabIndex = 0;
             // 
+            // tabAlien
+            // 
+            this.tabAlien.Controls.Add(this.panel3);
+            this.tabAlien.Location = new System.Drawing.Point(1, 24);
+            this.tabAlien.Name = "tabAlien";
+            this.tabAlien.Size = new System.Drawing.Size(1252, 850);
+            this.tabAlien.TabIndex = 9;
+            this.tabAlien.Text = "ตรวจสุขภาพต่างด้าว";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.btnAlienGenVisitAll);
+            this.panel3.Controls.Add(this.label124);
+            this.panel3.Controls.Add(this.txtAlienFullName13);
+            this.panel3.Controls.Add(this.txtAlienAddr213);
+            this.panel3.Controls.Add(this.label125);
+            this.panel3.Controls.Add(this.txtAlienAddr13);
+            this.panel3.Controls.Add(this.c1Button25);
+            this.panel3.Controls.Add(this.txtAlienHn13);
+            this.panel3.Controls.Add(this.txtPttwp313);
+            this.panel3.Controls.Add(this.txtPttRef113);
+            this.panel3.Controls.Add(this.txtAlienNat13);
+            this.panel3.Controls.Add(this.c1Button26);
+            this.panel3.Controls.Add(this.lbAlienpreno13);
+            this.panel3.Controls.Add(this.txtAliendob13);
+            this.panel3.Controls.Add(this.txtAlienPID13);
+            this.panel3.Controls.Add(this.chkAlien13);
+            this.panel3.Controls.Add(this.label121);
+            this.panel3.Controls.Add(this.txtAlienFullName12);
+            this.panel3.Controls.Add(this.txtAlienAddr212);
+            this.panel3.Controls.Add(this.label122);
+            this.panel3.Controls.Add(this.txtAlienAddr12);
+            this.panel3.Controls.Add(this.c1Button23);
+            this.panel3.Controls.Add(this.txtAlienHn12);
+            this.panel3.Controls.Add(this.txtPttwp312);
+            this.panel3.Controls.Add(this.txtPttRef112);
+            this.panel3.Controls.Add(this.txtAlienNat12);
+            this.panel3.Controls.Add(this.c1Button24);
+            this.panel3.Controls.Add(this.lbAlienpreno12);
+            this.panel3.Controls.Add(this.txtAliendob12);
+            this.panel3.Controls.Add(this.txtAlienPID12);
+            this.panel3.Controls.Add(this.chkAlien12);
+            this.panel3.Controls.Add(this.label118);
+            this.panel3.Controls.Add(this.txtAlienFullName11);
+            this.panel3.Controls.Add(this.txtAlienAddr211);
+            this.panel3.Controls.Add(this.label119);
+            this.panel3.Controls.Add(this.txtAlienAddr11);
+            this.panel3.Controls.Add(this.c1Button21);
+            this.panel3.Controls.Add(this.txtAlienHn11);
+            this.panel3.Controls.Add(this.txtPttwp311);
+            this.panel3.Controls.Add(this.txtPttRef111);
+            this.panel3.Controls.Add(this.txtAlienNat11);
+            this.panel3.Controls.Add(this.c1Button22);
+            this.panel3.Controls.Add(this.lbAlienpreno11);
+            this.panel3.Controls.Add(this.txtAliendob11);
+            this.panel3.Controls.Add(this.txtAlienPID11);
+            this.panel3.Controls.Add(this.chkAlien11);
+            this.panel3.Controls.Add(this.label115);
+            this.panel3.Controls.Add(this.txtAlienFullName10);
+            this.panel3.Controls.Add(this.txtAlienAddr210);
+            this.panel3.Controls.Add(this.label116);
+            this.panel3.Controls.Add(this.txtAlienAddr10);
+            this.panel3.Controls.Add(this.c1Button19);
+            this.panel3.Controls.Add(this.txtAlienHn10);
+            this.panel3.Controls.Add(this.txtPttwp310);
+            this.panel3.Controls.Add(this.txtPttRef110);
+            this.panel3.Controls.Add(this.txtAlienNat10);
+            this.panel3.Controls.Add(this.c1Button20);
+            this.panel3.Controls.Add(this.lbAlienpreno10);
+            this.panel3.Controls.Add(this.txtAliendob10);
+            this.panel3.Controls.Add(this.txtAlienPID10);
+            this.panel3.Controls.Add(this.chkAlien10);
+            this.panel3.Controls.Add(this.label112);
+            this.panel3.Controls.Add(this.txtAlienFullName9);
+            this.panel3.Controls.Add(this.txtAlienAddr29);
+            this.panel3.Controls.Add(this.label113);
+            this.panel3.Controls.Add(this.txtAlienAddr9);
+            this.panel3.Controls.Add(this.c1Button17);
+            this.panel3.Controls.Add(this.txtAlienHn9);
+            this.panel3.Controls.Add(this.txtPttwp39);
+            this.panel3.Controls.Add(this.txtPttRef19);
+            this.panel3.Controls.Add(this.txtAlienNat9);
+            this.panel3.Controls.Add(this.c1Button18);
+            this.panel3.Controls.Add(this.lbAlienpreno9);
+            this.panel3.Controls.Add(this.txtAliendob9);
+            this.panel3.Controls.Add(this.txtAlienPID9);
+            this.panel3.Controls.Add(this.chkAlien9);
+            this.panel3.Controls.Add(this.label109);
+            this.panel3.Controls.Add(this.txtAlienFullName8);
+            this.panel3.Controls.Add(this.txtAlienAddr28);
+            this.panel3.Controls.Add(this.label110);
+            this.panel3.Controls.Add(this.txtAlienAddr8);
+            this.panel3.Controls.Add(this.c1Button15);
+            this.panel3.Controls.Add(this.txtAlienHn8);
+            this.panel3.Controls.Add(this.txtPttwp38);
+            this.panel3.Controls.Add(this.txtPttRef18);
+            this.panel3.Controls.Add(this.txtAlienNat8);
+            this.panel3.Controls.Add(this.c1Button16);
+            this.panel3.Controls.Add(this.lbAlienpreno8);
+            this.panel3.Controls.Add(this.txtAliendob8);
+            this.panel3.Controls.Add(this.txtAlienPID8);
+            this.panel3.Controls.Add(this.chkAlien8);
+            this.panel3.Controls.Add(this.label106);
+            this.panel3.Controls.Add(this.txtAlienFullName7);
+            this.panel3.Controls.Add(this.txtAlienAddr27);
+            this.panel3.Controls.Add(this.label107);
+            this.panel3.Controls.Add(this.txtAlienAddr7);
+            this.panel3.Controls.Add(this.c1Button13);
+            this.panel3.Controls.Add(this.txtAlienHn7);
+            this.panel3.Controls.Add(this.txtPttwp37);
+            this.panel3.Controls.Add(this.txtPttRef17);
+            this.panel3.Controls.Add(this.txtAlienNat7);
+            this.panel3.Controls.Add(this.c1Button14);
+            this.panel3.Controls.Add(this.lbAlienpreno7);
+            this.panel3.Controls.Add(this.txtAliendob7);
+            this.panel3.Controls.Add(this.txtAlienPID7);
+            this.panel3.Controls.Add(this.chkAlien7);
+            this.panel3.Controls.Add(this.label103);
+            this.panel3.Controls.Add(this.txtAlienFullName6);
+            this.panel3.Controls.Add(this.txtAlienAddr26);
+            this.panel3.Controls.Add(this.label104);
+            this.panel3.Controls.Add(this.txtAlienAddr6);
+            this.panel3.Controls.Add(this.c1Button11);
+            this.panel3.Controls.Add(this.txtAlienHn6);
+            this.panel3.Controls.Add(this.txtPttwp36);
+            this.panel3.Controls.Add(this.txtPttRef16);
+            this.panel3.Controls.Add(this.txtAlienNat6);
+            this.panel3.Controls.Add(this.c1Button12);
+            this.panel3.Controls.Add(this.lbAlienpreno6);
+            this.panel3.Controls.Add(this.txtAliendob6);
+            this.panel3.Controls.Add(this.txtAlienPID6);
+            this.panel3.Controls.Add(this.chkAlien6);
+            this.panel3.Controls.Add(this.label100);
+            this.panel3.Controls.Add(this.txtAlienFullName5);
+            this.panel3.Controls.Add(this.txtAlienAddr25);
+            this.panel3.Controls.Add(this.label101);
+            this.panel3.Controls.Add(this.txtAlienAddr5);
+            this.panel3.Controls.Add(this.c1Button9);
+            this.panel3.Controls.Add(this.txtAlienHn5);
+            this.panel3.Controls.Add(this.txtPttwp35);
+            this.panel3.Controls.Add(this.txtPttRef15);
+            this.panel3.Controls.Add(this.txtAlienNat5);
+            this.panel3.Controls.Add(this.c1Button10);
+            this.panel3.Controls.Add(this.lbAlienpreno5);
+            this.panel3.Controls.Add(this.txtAliendob5);
+            this.panel3.Controls.Add(this.txtAlienPID5);
+            this.panel3.Controls.Add(this.chkAlien5);
+            this.panel3.Controls.Add(this.label97);
+            this.panel3.Controls.Add(this.txtAlienFullName4);
+            this.panel3.Controls.Add(this.txtAlienAddr24);
+            this.panel3.Controls.Add(this.label98);
+            this.panel3.Controls.Add(this.txtAlienAddr4);
+            this.panel3.Controls.Add(this.c1Button7);
+            this.panel3.Controls.Add(this.txtAlienHn4);
+            this.panel3.Controls.Add(this.txtPttwp34);
+            this.panel3.Controls.Add(this.txtPttRef14);
+            this.panel3.Controls.Add(this.txtAlienNat4);
+            this.panel3.Controls.Add(this.c1Button8);
+            this.panel3.Controls.Add(this.lbAlienpreno4);
+            this.panel3.Controls.Add(this.txtAliendob4);
+            this.panel3.Controls.Add(this.txtAlienPID4);
+            this.panel3.Controls.Add(this.chkAlien4);
+            this.panel3.Controls.Add(this.label94);
+            this.panel3.Controls.Add(this.txtAlienFullName3);
+            this.panel3.Controls.Add(this.txtAlienAddr23);
+            this.panel3.Controls.Add(this.label95);
+            this.panel3.Controls.Add(this.txtAlienAddr3);
+            this.panel3.Controls.Add(this.c1Button5);
+            this.panel3.Controls.Add(this.txtAlienHn3);
+            this.panel3.Controls.Add(this.txtPttwp33);
+            this.panel3.Controls.Add(this.txtPttRef13);
+            this.panel3.Controls.Add(this.txtAlienNat3);
+            this.panel3.Controls.Add(this.c1Button6);
+            this.panel3.Controls.Add(this.lbAlienpreno3);
+            this.panel3.Controls.Add(this.txtAliendob3);
+            this.panel3.Controls.Add(this.txtAlienPID3);
+            this.panel3.Controls.Add(this.chkAlien3);
+            this.panel3.Controls.Add(this.label91);
+            this.panel3.Controls.Add(this.txtAlienFullName2);
+            this.panel3.Controls.Add(this.txtAlienAddr22);
+            this.panel3.Controls.Add(this.label92);
+            this.panel3.Controls.Add(this.txtAlienAddr2);
+            this.panel3.Controls.Add(this.c1Button3);
+            this.panel3.Controls.Add(this.txtAlienHn2);
+            this.panel3.Controls.Add(this.txtPttwp32);
+            this.panel3.Controls.Add(this.txtPttRef12);
+            this.panel3.Controls.Add(this.txtAlienNat2);
+            this.panel3.Controls.Add(this.c1Button4);
+            this.panel3.Controls.Add(this.lbAlienpreno2);
+            this.panel3.Controls.Add(this.txtAliendob2);
+            this.panel3.Controls.Add(this.txtAlienPID2);
+            this.panel3.Controls.Add(this.chkAlien2);
+            this.panel3.Controls.Add(this.btnAlienAddrCopy);
+            this.panel3.Controls.Add(this.label90);
+            this.panel3.Controls.Add(this.txtAlienFullName1);
+            this.panel3.Controls.Add(this.c1CheckBox1);
+            this.panel3.Controls.Add(this.label89);
+            this.panel3.Controls.Add(this.cboAlienSendDept);
+            this.panel3.Controls.Add(this.lbAlienPaidName);
+            this.panel3.Controls.Add(this.txtAlienPaidcode);
+            this.panel3.Controls.Add(this.label87);
+            this.panel3.Controls.Add(this.txtAlienAddr21);
+            this.panel3.Controls.Add(this.label86);
+            this.panel3.Controls.Add(this.txtAlienAddr1);
+            this.panel3.Controls.Add(this.txtAlienOwnAddr2);
+            this.panel3.Controls.Add(this.txtAlienOwnAddr1);
+            this.panel3.Controls.Add(this.label85);
+            this.panel3.Controls.Add(this.txtAlienOwnName);
+            this.panel3.Controls.Add(this.label84);
+            this.panel3.Controls.Add(this.c1Button1);
+            this.panel3.Controls.Add(this.txtAlienHn1);
+            this.panel3.Controls.Add(this.label83);
+            this.panel3.Controls.Add(this.txtPttwp31);
+            this.panel3.Controls.Add(this.label82);
+            this.panel3.Controls.Add(this.txtPttRef11);
+            this.panel3.Controls.Add(this.label81);
+            this.panel3.Controls.Add(this.txtAlienNat1);
+            this.panel3.Controls.Add(this.label79);
+            this.panel3.Controls.Add(this.btnExp1);
+            this.panel3.Controls.Add(this.lbAlienpreno1);
+            this.panel3.Controls.Add(this.txtAliendob1);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.txtAlienPID1);
+            this.panel3.Controls.Add(this.label68);
+            this.panel3.Controls.Add(this.chkAlien1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1252, 850);
+            this.panel3.TabIndex = 0;
+            // 
+            // btnAlienGenVisitAll
+            // 
+            this.btnAlienGenVisitAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAlienGenVisitAll.Location = new System.Drawing.Point(1158, 19);
+            this.btnAlienGenVisitAll.Name = "btnAlienGenVisitAll";
+            this.btnAlienGenVisitAll.Size = new System.Drawing.Size(83, 45);
+            this.btnAlienGenVisitAll.TabIndex = 512;
+            this.btnAlienGenVisitAll.Text = "ออกvisitทั้งหมด";
+            this.btnAlienGenVisitAll.UseVisualStyleBackColor = true;
+            // 
+            // label124
+            // 
+            this.label124.AutoSize = true;
+            this.label124.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label124.Location = new System.Drawing.Point(9, 829);
+            this.label124.Name = "label124";
+            this.label124.Size = new System.Drawing.Size(150, 20);
+            this.label124.TabIndex = 511;
+            this.label124.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName13
+            // 
+            this.txtAlienFullName13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName13.Location = new System.Drawing.Point(165, 826);
+            this.txtAlienFullName13.Name = "txtAlienFullName13";
+            this.txtAlienFullName13.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName13.TabIndex = 510;
+            this.txtAlienFullName13.Tag = null;
+            // 
+            // txtAlienAddr213
+            // 
+            this.txtAlienAddr213.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr213.Location = new System.Drawing.Point(911, 822);
+            this.txtAlienAddr213.Name = "txtAlienAddr213";
+            this.txtAlienAddr213.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr213.TabIndex = 509;
+            this.txtAlienAddr213.Tag = null;
+            // 
+            // label125
+            // 
+            this.label125.AutoSize = true;
+            this.label125.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label125.Location = new System.Drawing.Point(465, 827);
+            this.label125.Name = "label125";
+            this.label125.Size = new System.Drawing.Size(43, 20);
+            this.label125.TabIndex = 508;
+            this.label125.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr13
+            // 
+            this.txtAlienAddr13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr13.Location = new System.Drawing.Point(514, 823);
+            this.txtAlienAddr13.Name = "txtAlienAddr13";
+            this.txtAlienAddr13.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr13.TabIndex = 507;
+            this.txtAlienAddr13.Tag = null;
+            // 
+            // c1Button25
+            // 
+            this.c1Button25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button25.Location = new System.Drawing.Point(877, 793);
+            this.c1Button25.Name = "c1Button25";
+            this.c1Button25.Size = new System.Drawing.Size(65, 28);
+            this.c1Button25.TabIndex = 506;
+            this.c1Button25.Text = "ออกvisit";
+            this.c1Button25.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn13
+            // 
+            this.txtAlienHn13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn13.Location = new System.Drawing.Point(948, 796);
+            this.txtAlienHn13.Name = "txtAlienHn13";
+            this.txtAlienHn13.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn13.TabIndex = 505;
+            this.txtAlienHn13.Tag = null;
+            // 
+            // txtPttwp313
+            // 
+            this.txtPttwp313.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp313.Location = new System.Drawing.Point(727, 797);
+            this.txtPttwp313.Name = "txtPttwp313";
+            this.txtPttwp313.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp313.TabIndex = 504;
+            this.txtPttwp313.Tag = null;
+            // 
+            // txtPttRef113
+            // 
+            this.txtPttRef113.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef113.Location = new System.Drawing.Point(593, 797);
+            this.txtPttRef113.Name = "txtPttRef113";
+            this.txtPttRef113.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef113.TabIndex = 503;
+            this.txtPttRef113.Tag = null;
+            // 
+            // txtAlienNat13
+            // 
+            this.txtAlienNat13.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat13.Location = new System.Drawing.Point(461, 797);
+            this.txtAlienNat13.Name = "txtAlienNat13";
+            this.txtAlienNat13.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat13.TabIndex = 502;
+            this.txtAlienNat13.Tag = null;
+            // 
+            // c1Button26
+            // 
+            this.c1Button26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button26.Location = new System.Drawing.Point(126, 793);
+            this.c1Button26.Name = "c1Button26";
+            this.c1Button26.Size = new System.Drawing.Size(52, 28);
+            this.c1Button26.TabIndex = 501;
+            this.c1Button26.Text = "ค้นหา";
+            this.c1Button26.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno13
+            // 
+            this.lbAlienpreno13.AutoSize = true;
+            this.lbAlienpreno13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno13.Location = new System.Drawing.Point(1084, 799);
+            this.lbAlienpreno13.Name = "lbAlienpreno13";
+            this.lbAlienpreno13.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno13.TabIndex = 500;
+            this.lbAlienpreno13.Text = "...";
+            // 
+            // txtAliendob13
+            // 
+            this.txtAliendob13.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob13.Location = new System.Drawing.Point(329, 797);
+            this.txtAliendob13.Name = "txtAliendob13";
+            this.txtAliendob13.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob13.TabIndex = 499;
+            this.txtAliendob13.Tag = null;
+            // 
+            // txtAlienPID13
+            // 
+            this.txtAlienPID13.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID13.Location = new System.Drawing.Point(197, 797);
+            this.txtAlienPID13.Name = "txtAlienPID13";
+            this.txtAlienPID13.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID13.TabIndex = 498;
+            this.txtAlienPID13.Tag = null;
+            // 
+            // chkAlien13
+            // 
+            this.chkAlien13.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien13.Location = new System.Drawing.Point(22, 797);
+            this.chkAlien13.Name = "chkAlien13";
+            this.chkAlien13.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien13.TabIndex = 497;
+            this.chkAlien13.Text = "ส่งตัว";
+            this.chkAlien13.UseVisualStyleBackColor = true;
+            this.chkAlien13.Value = null;
+            // 
+            // label121
+            // 
+            this.label121.AutoSize = true;
+            this.label121.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label121.Location = new System.Drawing.Point(9, 770);
+            this.label121.Name = "label121";
+            this.label121.Size = new System.Drawing.Size(150, 20);
+            this.label121.TabIndex = 496;
+            this.label121.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName12
+            // 
+            this.txtAlienFullName12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName12.Location = new System.Drawing.Point(165, 767);
+            this.txtAlienFullName12.Name = "txtAlienFullName12";
+            this.txtAlienFullName12.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName12.TabIndex = 495;
+            this.txtAlienFullName12.Tag = null;
+            // 
+            // txtAlienAddr212
+            // 
+            this.txtAlienAddr212.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr212.Location = new System.Drawing.Point(911, 763);
+            this.txtAlienAddr212.Name = "txtAlienAddr212";
+            this.txtAlienAddr212.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr212.TabIndex = 494;
+            this.txtAlienAddr212.Tag = null;
+            // 
+            // label122
+            // 
+            this.label122.AutoSize = true;
+            this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label122.Location = new System.Drawing.Point(465, 768);
+            this.label122.Name = "label122";
+            this.label122.Size = new System.Drawing.Size(43, 20);
+            this.label122.TabIndex = 493;
+            this.label122.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr12
+            // 
+            this.txtAlienAddr12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr12.Location = new System.Drawing.Point(514, 764);
+            this.txtAlienAddr12.Name = "txtAlienAddr12";
+            this.txtAlienAddr12.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr12.TabIndex = 492;
+            this.txtAlienAddr12.Tag = null;
+            // 
+            // c1Button23
+            // 
+            this.c1Button23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button23.Location = new System.Drawing.Point(877, 734);
+            this.c1Button23.Name = "c1Button23";
+            this.c1Button23.Size = new System.Drawing.Size(65, 28);
+            this.c1Button23.TabIndex = 491;
+            this.c1Button23.Text = "ออกvisit";
+            this.c1Button23.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn12
+            // 
+            this.txtAlienHn12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn12.Location = new System.Drawing.Point(948, 737);
+            this.txtAlienHn12.Name = "txtAlienHn12";
+            this.txtAlienHn12.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn12.TabIndex = 490;
+            this.txtAlienHn12.Tag = null;
+            // 
+            // txtPttwp312
+            // 
+            this.txtPttwp312.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp312.Location = new System.Drawing.Point(727, 738);
+            this.txtPttwp312.Name = "txtPttwp312";
+            this.txtPttwp312.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp312.TabIndex = 489;
+            this.txtPttwp312.Tag = null;
+            // 
+            // txtPttRef112
+            // 
+            this.txtPttRef112.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef112.Location = new System.Drawing.Point(593, 738);
+            this.txtPttRef112.Name = "txtPttRef112";
+            this.txtPttRef112.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef112.TabIndex = 488;
+            this.txtPttRef112.Tag = null;
+            // 
+            // txtAlienNat12
+            // 
+            this.txtAlienNat12.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat12.Location = new System.Drawing.Point(461, 738);
+            this.txtAlienNat12.Name = "txtAlienNat12";
+            this.txtAlienNat12.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat12.TabIndex = 487;
+            this.txtAlienNat12.Tag = null;
+            // 
+            // c1Button24
+            // 
+            this.c1Button24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button24.Location = new System.Drawing.Point(126, 734);
+            this.c1Button24.Name = "c1Button24";
+            this.c1Button24.Size = new System.Drawing.Size(52, 28);
+            this.c1Button24.TabIndex = 486;
+            this.c1Button24.Text = "ค้นหา";
+            this.c1Button24.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno12
+            // 
+            this.lbAlienpreno12.AutoSize = true;
+            this.lbAlienpreno12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno12.Location = new System.Drawing.Point(1084, 740);
+            this.lbAlienpreno12.Name = "lbAlienpreno12";
+            this.lbAlienpreno12.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno12.TabIndex = 485;
+            this.lbAlienpreno12.Text = "...";
+            // 
+            // txtAliendob12
+            // 
+            this.txtAliendob12.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob12.Location = new System.Drawing.Point(329, 738);
+            this.txtAliendob12.Name = "txtAliendob12";
+            this.txtAliendob12.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob12.TabIndex = 484;
+            this.txtAliendob12.Tag = null;
+            // 
+            // txtAlienPID12
+            // 
+            this.txtAlienPID12.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID12.Location = new System.Drawing.Point(197, 738);
+            this.txtAlienPID12.Name = "txtAlienPID12";
+            this.txtAlienPID12.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID12.TabIndex = 483;
+            this.txtAlienPID12.Tag = null;
+            // 
+            // chkAlien12
+            // 
+            this.chkAlien12.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien12.Location = new System.Drawing.Point(22, 738);
+            this.chkAlien12.Name = "chkAlien12";
+            this.chkAlien12.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien12.TabIndex = 482;
+            this.chkAlien12.Text = "ส่งตัว";
+            this.chkAlien12.UseVisualStyleBackColor = true;
+            this.chkAlien12.Value = null;
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label118.Location = new System.Drawing.Point(9, 711);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(150, 20);
+            this.label118.TabIndex = 481;
+            this.label118.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName11
+            // 
+            this.txtAlienFullName11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName11.Location = new System.Drawing.Point(165, 708);
+            this.txtAlienFullName11.Name = "txtAlienFullName11";
+            this.txtAlienFullName11.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName11.TabIndex = 480;
+            this.txtAlienFullName11.Tag = null;
+            // 
+            // txtAlienAddr211
+            // 
+            this.txtAlienAddr211.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr211.Location = new System.Drawing.Point(911, 704);
+            this.txtAlienAddr211.Name = "txtAlienAddr211";
+            this.txtAlienAddr211.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr211.TabIndex = 479;
+            this.txtAlienAddr211.Tag = null;
+            // 
+            // label119
+            // 
+            this.label119.AutoSize = true;
+            this.label119.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label119.Location = new System.Drawing.Point(465, 709);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(43, 20);
+            this.label119.TabIndex = 478;
+            this.label119.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr11
+            // 
+            this.txtAlienAddr11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr11.Location = new System.Drawing.Point(514, 705);
+            this.txtAlienAddr11.Name = "txtAlienAddr11";
+            this.txtAlienAddr11.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr11.TabIndex = 477;
+            this.txtAlienAddr11.Tag = null;
+            // 
+            // c1Button21
+            // 
+            this.c1Button21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button21.Location = new System.Drawing.Point(877, 675);
+            this.c1Button21.Name = "c1Button21";
+            this.c1Button21.Size = new System.Drawing.Size(65, 28);
+            this.c1Button21.TabIndex = 476;
+            this.c1Button21.Text = "ออกvisit";
+            this.c1Button21.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn11
+            // 
+            this.txtAlienHn11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn11.Location = new System.Drawing.Point(948, 678);
+            this.txtAlienHn11.Name = "txtAlienHn11";
+            this.txtAlienHn11.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn11.TabIndex = 475;
+            this.txtAlienHn11.Tag = null;
+            // 
+            // txtPttwp311
+            // 
+            this.txtPttwp311.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp311.Location = new System.Drawing.Point(727, 679);
+            this.txtPttwp311.Name = "txtPttwp311";
+            this.txtPttwp311.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp311.TabIndex = 474;
+            this.txtPttwp311.Tag = null;
+            // 
+            // txtPttRef111
+            // 
+            this.txtPttRef111.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef111.Location = new System.Drawing.Point(593, 679);
+            this.txtPttRef111.Name = "txtPttRef111";
+            this.txtPttRef111.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef111.TabIndex = 473;
+            this.txtPttRef111.Tag = null;
+            // 
+            // txtAlienNat11
+            // 
+            this.txtAlienNat11.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat11.Location = new System.Drawing.Point(461, 679);
+            this.txtAlienNat11.Name = "txtAlienNat11";
+            this.txtAlienNat11.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat11.TabIndex = 472;
+            this.txtAlienNat11.Tag = null;
+            // 
+            // c1Button22
+            // 
+            this.c1Button22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button22.Location = new System.Drawing.Point(126, 675);
+            this.c1Button22.Name = "c1Button22";
+            this.c1Button22.Size = new System.Drawing.Size(52, 28);
+            this.c1Button22.TabIndex = 471;
+            this.c1Button22.Text = "ค้นหา";
+            this.c1Button22.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno11
+            // 
+            this.lbAlienpreno11.AutoSize = true;
+            this.lbAlienpreno11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno11.Location = new System.Drawing.Point(1084, 681);
+            this.lbAlienpreno11.Name = "lbAlienpreno11";
+            this.lbAlienpreno11.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno11.TabIndex = 470;
+            this.lbAlienpreno11.Text = "...";
+            // 
+            // txtAliendob11
+            // 
+            this.txtAliendob11.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob11.Location = new System.Drawing.Point(329, 679);
+            this.txtAliendob11.Name = "txtAliendob11";
+            this.txtAliendob11.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob11.TabIndex = 469;
+            this.txtAliendob11.Tag = null;
+            // 
+            // txtAlienPID11
+            // 
+            this.txtAlienPID11.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID11.Location = new System.Drawing.Point(197, 679);
+            this.txtAlienPID11.Name = "txtAlienPID11";
+            this.txtAlienPID11.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID11.TabIndex = 468;
+            this.txtAlienPID11.Tag = null;
+            // 
+            // chkAlien11
+            // 
+            this.chkAlien11.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien11.Location = new System.Drawing.Point(22, 679);
+            this.chkAlien11.Name = "chkAlien11";
+            this.chkAlien11.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien11.TabIndex = 467;
+            this.chkAlien11.Text = "ส่งตัว";
+            this.chkAlien11.UseVisualStyleBackColor = true;
+            this.chkAlien11.Value = null;
+            // 
+            // label115
+            // 
+            this.label115.AutoSize = true;
+            this.label115.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label115.Location = new System.Drawing.Point(9, 652);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(150, 20);
+            this.label115.TabIndex = 466;
+            this.label115.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName10
+            // 
+            this.txtAlienFullName10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName10.Location = new System.Drawing.Point(165, 649);
+            this.txtAlienFullName10.Name = "txtAlienFullName10";
+            this.txtAlienFullName10.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName10.TabIndex = 465;
+            this.txtAlienFullName10.Tag = null;
+            // 
+            // txtAlienAddr210
+            // 
+            this.txtAlienAddr210.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr210.Location = new System.Drawing.Point(911, 645);
+            this.txtAlienAddr210.Name = "txtAlienAddr210";
+            this.txtAlienAddr210.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr210.TabIndex = 464;
+            this.txtAlienAddr210.Tag = null;
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label116.Location = new System.Drawing.Point(465, 650);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(43, 20);
+            this.label116.TabIndex = 463;
+            this.label116.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr10
+            // 
+            this.txtAlienAddr10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr10.Location = new System.Drawing.Point(514, 646);
+            this.txtAlienAddr10.Name = "txtAlienAddr10";
+            this.txtAlienAddr10.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr10.TabIndex = 462;
+            this.txtAlienAddr10.Tag = null;
+            // 
+            // c1Button19
+            // 
+            this.c1Button19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button19.Location = new System.Drawing.Point(877, 616);
+            this.c1Button19.Name = "c1Button19";
+            this.c1Button19.Size = new System.Drawing.Size(65, 28);
+            this.c1Button19.TabIndex = 461;
+            this.c1Button19.Text = "ออกvisit";
+            this.c1Button19.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn10
+            // 
+            this.txtAlienHn10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn10.Location = new System.Drawing.Point(948, 619);
+            this.txtAlienHn10.Name = "txtAlienHn10";
+            this.txtAlienHn10.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn10.TabIndex = 460;
+            this.txtAlienHn10.Tag = null;
+            // 
+            // txtPttwp310
+            // 
+            this.txtPttwp310.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp310.Location = new System.Drawing.Point(727, 620);
+            this.txtPttwp310.Name = "txtPttwp310";
+            this.txtPttwp310.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp310.TabIndex = 459;
+            this.txtPttwp310.Tag = null;
+            // 
+            // txtPttRef110
+            // 
+            this.txtPttRef110.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef110.Location = new System.Drawing.Point(593, 620);
+            this.txtPttRef110.Name = "txtPttRef110";
+            this.txtPttRef110.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef110.TabIndex = 458;
+            this.txtPttRef110.Tag = null;
+            // 
+            // txtAlienNat10
+            // 
+            this.txtAlienNat10.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat10.Location = new System.Drawing.Point(461, 620);
+            this.txtAlienNat10.Name = "txtAlienNat10";
+            this.txtAlienNat10.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat10.TabIndex = 457;
+            this.txtAlienNat10.Tag = null;
+            // 
+            // c1Button20
+            // 
+            this.c1Button20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button20.Location = new System.Drawing.Point(126, 616);
+            this.c1Button20.Name = "c1Button20";
+            this.c1Button20.Size = new System.Drawing.Size(52, 28);
+            this.c1Button20.TabIndex = 456;
+            this.c1Button20.Text = "ค้นหา";
+            this.c1Button20.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno10
+            // 
+            this.lbAlienpreno10.AutoSize = true;
+            this.lbAlienpreno10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno10.Location = new System.Drawing.Point(1084, 622);
+            this.lbAlienpreno10.Name = "lbAlienpreno10";
+            this.lbAlienpreno10.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno10.TabIndex = 455;
+            this.lbAlienpreno10.Text = "...";
+            // 
+            // txtAliendob10
+            // 
+            this.txtAliendob10.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob10.Location = new System.Drawing.Point(329, 620);
+            this.txtAliendob10.Name = "txtAliendob10";
+            this.txtAliendob10.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob10.TabIndex = 454;
+            this.txtAliendob10.Tag = null;
+            // 
+            // txtAlienPID10
+            // 
+            this.txtAlienPID10.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID10.Location = new System.Drawing.Point(197, 620);
+            this.txtAlienPID10.Name = "txtAlienPID10";
+            this.txtAlienPID10.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID10.TabIndex = 453;
+            this.txtAlienPID10.Tag = null;
+            // 
+            // chkAlien10
+            // 
+            this.chkAlien10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien10.Location = new System.Drawing.Point(22, 620);
+            this.chkAlien10.Name = "chkAlien10";
+            this.chkAlien10.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien10.TabIndex = 452;
+            this.chkAlien10.Text = "ส่งตัว";
+            this.chkAlien10.UseVisualStyleBackColor = true;
+            this.chkAlien10.Value = null;
+            // 
+            // label112
+            // 
+            this.label112.AutoSize = true;
+            this.label112.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label112.Location = new System.Drawing.Point(9, 593);
+            this.label112.Name = "label112";
+            this.label112.Size = new System.Drawing.Size(150, 20);
+            this.label112.TabIndex = 451;
+            this.label112.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName9
+            // 
+            this.txtAlienFullName9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName9.Location = new System.Drawing.Point(165, 590);
+            this.txtAlienFullName9.Name = "txtAlienFullName9";
+            this.txtAlienFullName9.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName9.TabIndex = 450;
+            this.txtAlienFullName9.Tag = null;
+            // 
+            // txtAlienAddr29
+            // 
+            this.txtAlienAddr29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr29.Location = new System.Drawing.Point(911, 586);
+            this.txtAlienAddr29.Name = "txtAlienAddr29";
+            this.txtAlienAddr29.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr29.TabIndex = 449;
+            this.txtAlienAddr29.Tag = null;
+            // 
+            // label113
+            // 
+            this.label113.AutoSize = true;
+            this.label113.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label113.Location = new System.Drawing.Point(465, 591);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(43, 20);
+            this.label113.TabIndex = 448;
+            this.label113.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr9
+            // 
+            this.txtAlienAddr9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr9.Location = new System.Drawing.Point(514, 587);
+            this.txtAlienAddr9.Name = "txtAlienAddr9";
+            this.txtAlienAddr9.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr9.TabIndex = 447;
+            this.txtAlienAddr9.Tag = null;
+            // 
+            // c1Button17
+            // 
+            this.c1Button17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button17.Location = new System.Drawing.Point(877, 557);
+            this.c1Button17.Name = "c1Button17";
+            this.c1Button17.Size = new System.Drawing.Size(65, 28);
+            this.c1Button17.TabIndex = 446;
+            this.c1Button17.Text = "ออกvisit";
+            this.c1Button17.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn9
+            // 
+            this.txtAlienHn9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn9.Location = new System.Drawing.Point(948, 560);
+            this.txtAlienHn9.Name = "txtAlienHn9";
+            this.txtAlienHn9.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn9.TabIndex = 445;
+            this.txtAlienHn9.Tag = null;
+            // 
+            // txtPttwp39
+            // 
+            this.txtPttwp39.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp39.Location = new System.Drawing.Point(727, 561);
+            this.txtPttwp39.Name = "txtPttwp39";
+            this.txtPttwp39.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp39.TabIndex = 444;
+            this.txtPttwp39.Tag = null;
+            // 
+            // txtPttRef19
+            // 
+            this.txtPttRef19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef19.Location = new System.Drawing.Point(593, 561);
+            this.txtPttRef19.Name = "txtPttRef19";
+            this.txtPttRef19.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef19.TabIndex = 443;
+            this.txtPttRef19.Tag = null;
+            // 
+            // txtAlienNat9
+            // 
+            this.txtAlienNat9.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat9.Location = new System.Drawing.Point(461, 561);
+            this.txtAlienNat9.Name = "txtAlienNat9";
+            this.txtAlienNat9.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat9.TabIndex = 442;
+            this.txtAlienNat9.Tag = null;
+            // 
+            // c1Button18
+            // 
+            this.c1Button18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button18.Location = new System.Drawing.Point(126, 557);
+            this.c1Button18.Name = "c1Button18";
+            this.c1Button18.Size = new System.Drawing.Size(52, 28);
+            this.c1Button18.TabIndex = 441;
+            this.c1Button18.Text = "ค้นหา";
+            this.c1Button18.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno9
+            // 
+            this.lbAlienpreno9.AutoSize = true;
+            this.lbAlienpreno9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno9.Location = new System.Drawing.Point(1084, 563);
+            this.lbAlienpreno9.Name = "lbAlienpreno9";
+            this.lbAlienpreno9.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno9.TabIndex = 440;
+            this.lbAlienpreno9.Text = "...";
+            // 
+            // txtAliendob9
+            // 
+            this.txtAliendob9.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob9.Location = new System.Drawing.Point(329, 561);
+            this.txtAliendob9.Name = "txtAliendob9";
+            this.txtAliendob9.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob9.TabIndex = 439;
+            this.txtAliendob9.Tag = null;
+            // 
+            // txtAlienPID9
+            // 
+            this.txtAlienPID9.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID9.Location = new System.Drawing.Point(197, 561);
+            this.txtAlienPID9.Name = "txtAlienPID9";
+            this.txtAlienPID9.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID9.TabIndex = 438;
+            this.txtAlienPID9.Tag = null;
+            // 
+            // chkAlien9
+            // 
+            this.chkAlien9.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien9.Location = new System.Drawing.Point(22, 561);
+            this.chkAlien9.Name = "chkAlien9";
+            this.chkAlien9.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien9.TabIndex = 437;
+            this.chkAlien9.Text = "ส่งตัว";
+            this.chkAlien9.UseVisualStyleBackColor = true;
+            this.chkAlien9.Value = null;
+            // 
+            // label109
+            // 
+            this.label109.AutoSize = true;
+            this.label109.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label109.Location = new System.Drawing.Point(9, 534);
+            this.label109.Name = "label109";
+            this.label109.Size = new System.Drawing.Size(150, 20);
+            this.label109.TabIndex = 436;
+            this.label109.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName8
+            // 
+            this.txtAlienFullName8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName8.Location = new System.Drawing.Point(165, 528);
+            this.txtAlienFullName8.Name = "txtAlienFullName8";
+            this.txtAlienFullName8.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName8.TabIndex = 435;
+            this.txtAlienFullName8.Tag = null;
+            // 
+            // txtAlienAddr28
+            // 
+            this.txtAlienAddr28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr28.Location = new System.Drawing.Point(911, 527);
+            this.txtAlienAddr28.Name = "txtAlienAddr28";
+            this.txtAlienAddr28.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr28.TabIndex = 434;
+            this.txtAlienAddr28.Tag = null;
+            // 
+            // label110
+            // 
+            this.label110.AutoSize = true;
+            this.label110.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label110.Location = new System.Drawing.Point(465, 532);
+            this.label110.Name = "label110";
+            this.label110.Size = new System.Drawing.Size(43, 20);
+            this.label110.TabIndex = 433;
+            this.label110.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr8
+            // 
+            this.txtAlienAddr8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr8.Location = new System.Drawing.Point(514, 528);
+            this.txtAlienAddr8.Name = "txtAlienAddr8";
+            this.txtAlienAddr8.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr8.TabIndex = 432;
+            this.txtAlienAddr8.Tag = null;
+            // 
+            // c1Button15
+            // 
+            this.c1Button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button15.Location = new System.Drawing.Point(877, 498);
+            this.c1Button15.Name = "c1Button15";
+            this.c1Button15.Size = new System.Drawing.Size(65, 28);
+            this.c1Button15.TabIndex = 431;
+            this.c1Button15.Text = "ออกvisit";
+            this.c1Button15.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn8
+            // 
+            this.txtAlienHn8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn8.Location = new System.Drawing.Point(948, 501);
+            this.txtAlienHn8.Name = "txtAlienHn8";
+            this.txtAlienHn8.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn8.TabIndex = 430;
+            this.txtAlienHn8.Tag = null;
+            // 
+            // txtPttwp38
+            // 
+            this.txtPttwp38.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp38.Location = new System.Drawing.Point(727, 502);
+            this.txtPttwp38.Name = "txtPttwp38";
+            this.txtPttwp38.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp38.TabIndex = 429;
+            this.txtPttwp38.Tag = null;
+            // 
+            // txtPttRef18
+            // 
+            this.txtPttRef18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef18.Location = new System.Drawing.Point(593, 502);
+            this.txtPttRef18.Name = "txtPttRef18";
+            this.txtPttRef18.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef18.TabIndex = 428;
+            this.txtPttRef18.Tag = null;
+            // 
+            // txtAlienNat8
+            // 
+            this.txtAlienNat8.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat8.Location = new System.Drawing.Point(461, 502);
+            this.txtAlienNat8.Name = "txtAlienNat8";
+            this.txtAlienNat8.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat8.TabIndex = 427;
+            this.txtAlienNat8.Tag = null;
+            // 
+            // c1Button16
+            // 
+            this.c1Button16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button16.Location = new System.Drawing.Point(126, 498);
+            this.c1Button16.Name = "c1Button16";
+            this.c1Button16.Size = new System.Drawing.Size(52, 28);
+            this.c1Button16.TabIndex = 426;
+            this.c1Button16.Text = "ค้นหา";
+            this.c1Button16.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno8
+            // 
+            this.lbAlienpreno8.AutoSize = true;
+            this.lbAlienpreno8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno8.Location = new System.Drawing.Point(1084, 504);
+            this.lbAlienpreno8.Name = "lbAlienpreno8";
+            this.lbAlienpreno8.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno8.TabIndex = 425;
+            this.lbAlienpreno8.Text = "...";
+            // 
+            // txtAliendob8
+            // 
+            this.txtAliendob8.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob8.Location = new System.Drawing.Point(329, 502);
+            this.txtAliendob8.Name = "txtAliendob8";
+            this.txtAliendob8.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob8.TabIndex = 424;
+            this.txtAliendob8.Tag = null;
+            // 
+            // txtAlienPID8
+            // 
+            this.txtAlienPID8.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID8.Location = new System.Drawing.Point(197, 502);
+            this.txtAlienPID8.Name = "txtAlienPID8";
+            this.txtAlienPID8.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID8.TabIndex = 423;
+            this.txtAlienPID8.Tag = null;
+            // 
+            // chkAlien8
+            // 
+            this.chkAlien8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien8.Location = new System.Drawing.Point(22, 502);
+            this.chkAlien8.Name = "chkAlien8";
+            this.chkAlien8.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien8.TabIndex = 422;
+            this.chkAlien8.Text = "ส่งตัว";
+            this.chkAlien8.UseVisualStyleBackColor = true;
+            this.chkAlien8.Value = null;
+            // 
+            // label106
+            // 
+            this.label106.AutoSize = true;
+            this.label106.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label106.Location = new System.Drawing.Point(9, 473);
+            this.label106.Name = "label106";
+            this.label106.Size = new System.Drawing.Size(150, 20);
+            this.label106.TabIndex = 421;
+            this.label106.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName7
+            // 
+            this.txtAlienFullName7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName7.Location = new System.Drawing.Point(165, 469);
+            this.txtAlienFullName7.Name = "txtAlienFullName7";
+            this.txtAlienFullName7.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName7.TabIndex = 420;
+            this.txtAlienFullName7.Tag = null;
+            // 
+            // txtAlienAddr27
+            // 
+            this.txtAlienAddr27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr27.Location = new System.Drawing.Point(911, 468);
+            this.txtAlienAddr27.Name = "txtAlienAddr27";
+            this.txtAlienAddr27.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr27.TabIndex = 419;
+            this.txtAlienAddr27.Tag = null;
+            // 
+            // label107
+            // 
+            this.label107.AutoSize = true;
+            this.label107.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label107.Location = new System.Drawing.Point(465, 473);
+            this.label107.Name = "label107";
+            this.label107.Size = new System.Drawing.Size(43, 20);
+            this.label107.TabIndex = 418;
+            this.label107.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr7
+            // 
+            this.txtAlienAddr7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr7.Location = new System.Drawing.Point(514, 469);
+            this.txtAlienAddr7.Name = "txtAlienAddr7";
+            this.txtAlienAddr7.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr7.TabIndex = 417;
+            this.txtAlienAddr7.Tag = null;
+            // 
+            // c1Button13
+            // 
+            this.c1Button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button13.Location = new System.Drawing.Point(877, 439);
+            this.c1Button13.Name = "c1Button13";
+            this.c1Button13.Size = new System.Drawing.Size(65, 28);
+            this.c1Button13.TabIndex = 416;
+            this.c1Button13.Text = "ออกvisit";
+            this.c1Button13.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn7
+            // 
+            this.txtAlienHn7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn7.Location = new System.Drawing.Point(948, 442);
+            this.txtAlienHn7.Name = "txtAlienHn7";
+            this.txtAlienHn7.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn7.TabIndex = 415;
+            this.txtAlienHn7.Tag = null;
+            // 
+            // txtPttwp37
+            // 
+            this.txtPttwp37.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp37.Location = new System.Drawing.Point(727, 443);
+            this.txtPttwp37.Name = "txtPttwp37";
+            this.txtPttwp37.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp37.TabIndex = 414;
+            this.txtPttwp37.Tag = null;
+            // 
+            // txtPttRef17
+            // 
+            this.txtPttRef17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef17.Location = new System.Drawing.Point(593, 443);
+            this.txtPttRef17.Name = "txtPttRef17";
+            this.txtPttRef17.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef17.TabIndex = 413;
+            this.txtPttRef17.Tag = null;
+            // 
+            // txtAlienNat7
+            // 
+            this.txtAlienNat7.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat7.Location = new System.Drawing.Point(461, 443);
+            this.txtAlienNat7.Name = "txtAlienNat7";
+            this.txtAlienNat7.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat7.TabIndex = 412;
+            this.txtAlienNat7.Tag = null;
+            // 
+            // c1Button14
+            // 
+            this.c1Button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button14.Location = new System.Drawing.Point(126, 439);
+            this.c1Button14.Name = "c1Button14";
+            this.c1Button14.Size = new System.Drawing.Size(52, 28);
+            this.c1Button14.TabIndex = 411;
+            this.c1Button14.Text = "ค้นหา";
+            this.c1Button14.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno7
+            // 
+            this.lbAlienpreno7.AutoSize = true;
+            this.lbAlienpreno7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno7.Location = new System.Drawing.Point(1084, 445);
+            this.lbAlienpreno7.Name = "lbAlienpreno7";
+            this.lbAlienpreno7.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno7.TabIndex = 410;
+            this.lbAlienpreno7.Text = "...";
+            // 
+            // txtAliendob7
+            // 
+            this.txtAliendob7.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob7.Location = new System.Drawing.Point(329, 443);
+            this.txtAliendob7.Name = "txtAliendob7";
+            this.txtAliendob7.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob7.TabIndex = 409;
+            this.txtAliendob7.Tag = null;
+            // 
+            // txtAlienPID7
+            // 
+            this.txtAlienPID7.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID7.Location = new System.Drawing.Point(197, 443);
+            this.txtAlienPID7.Name = "txtAlienPID7";
+            this.txtAlienPID7.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID7.TabIndex = 408;
+            this.txtAlienPID7.Tag = null;
+            // 
+            // chkAlien7
+            // 
+            this.chkAlien7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien7.Location = new System.Drawing.Point(22, 443);
+            this.chkAlien7.Name = "chkAlien7";
+            this.chkAlien7.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien7.TabIndex = 407;
+            this.chkAlien7.Text = "ส่งตัว";
+            this.chkAlien7.UseVisualStyleBackColor = true;
+            this.chkAlien7.Value = null;
+            // 
+            // label103
+            // 
+            this.label103.AutoSize = true;
+            this.label103.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label103.Location = new System.Drawing.Point(9, 414);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(150, 20);
+            this.label103.TabIndex = 406;
+            this.label103.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName6
+            // 
+            this.txtAlienFullName6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName6.Location = new System.Drawing.Point(165, 410);
+            this.txtAlienFullName6.Name = "txtAlienFullName6";
+            this.txtAlienFullName6.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName6.TabIndex = 405;
+            this.txtAlienFullName6.Tag = null;
+            // 
+            // txtAlienAddr26
+            // 
+            this.txtAlienAddr26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr26.Location = new System.Drawing.Point(911, 409);
+            this.txtAlienAddr26.Name = "txtAlienAddr26";
+            this.txtAlienAddr26.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr26.TabIndex = 404;
+            this.txtAlienAddr26.Tag = null;
+            // 
+            // label104
+            // 
+            this.label104.AutoSize = true;
+            this.label104.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label104.Location = new System.Drawing.Point(465, 414);
+            this.label104.Name = "label104";
+            this.label104.Size = new System.Drawing.Size(43, 20);
+            this.label104.TabIndex = 403;
+            this.label104.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr6
+            // 
+            this.txtAlienAddr6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr6.Location = new System.Drawing.Point(514, 410);
+            this.txtAlienAddr6.Name = "txtAlienAddr6";
+            this.txtAlienAddr6.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr6.TabIndex = 402;
+            this.txtAlienAddr6.Tag = null;
+            // 
+            // c1Button11
+            // 
+            this.c1Button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button11.Location = new System.Drawing.Point(877, 380);
+            this.c1Button11.Name = "c1Button11";
+            this.c1Button11.Size = new System.Drawing.Size(65, 28);
+            this.c1Button11.TabIndex = 401;
+            this.c1Button11.Text = "ออกvisit";
+            this.c1Button11.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn6
+            // 
+            this.txtAlienHn6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn6.Location = new System.Drawing.Point(948, 383);
+            this.txtAlienHn6.Name = "txtAlienHn6";
+            this.txtAlienHn6.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn6.TabIndex = 400;
+            this.txtAlienHn6.Tag = null;
+            // 
+            // txtPttwp36
+            // 
+            this.txtPttwp36.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp36.Location = new System.Drawing.Point(727, 384);
+            this.txtPttwp36.Name = "txtPttwp36";
+            this.txtPttwp36.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp36.TabIndex = 399;
+            this.txtPttwp36.Tag = null;
+            // 
+            // txtPttRef16
+            // 
+            this.txtPttRef16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef16.Location = new System.Drawing.Point(593, 384);
+            this.txtPttRef16.Name = "txtPttRef16";
+            this.txtPttRef16.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef16.TabIndex = 398;
+            this.txtPttRef16.Tag = null;
+            // 
+            // txtAlienNat6
+            // 
+            this.txtAlienNat6.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat6.Location = new System.Drawing.Point(461, 384);
+            this.txtAlienNat6.Name = "txtAlienNat6";
+            this.txtAlienNat6.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat6.TabIndex = 397;
+            this.txtAlienNat6.Tag = null;
+            // 
+            // c1Button12
+            // 
+            this.c1Button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button12.Location = new System.Drawing.Point(126, 380);
+            this.c1Button12.Name = "c1Button12";
+            this.c1Button12.Size = new System.Drawing.Size(52, 28);
+            this.c1Button12.TabIndex = 396;
+            this.c1Button12.Text = "ค้นหา";
+            this.c1Button12.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno6
+            // 
+            this.lbAlienpreno6.AutoSize = true;
+            this.lbAlienpreno6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno6.Location = new System.Drawing.Point(1084, 386);
+            this.lbAlienpreno6.Name = "lbAlienpreno6";
+            this.lbAlienpreno6.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno6.TabIndex = 395;
+            this.lbAlienpreno6.Text = "...";
+            // 
+            // txtAliendob6
+            // 
+            this.txtAliendob6.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob6.Location = new System.Drawing.Point(329, 384);
+            this.txtAliendob6.Name = "txtAliendob6";
+            this.txtAliendob6.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob6.TabIndex = 394;
+            this.txtAliendob6.Tag = null;
+            // 
+            // txtAlienPID6
+            // 
+            this.txtAlienPID6.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID6.Location = new System.Drawing.Point(197, 384);
+            this.txtAlienPID6.Name = "txtAlienPID6";
+            this.txtAlienPID6.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID6.TabIndex = 393;
+            this.txtAlienPID6.Tag = null;
+            // 
+            // chkAlien6
+            // 
+            this.chkAlien6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien6.Location = new System.Drawing.Point(22, 384);
+            this.chkAlien6.Name = "chkAlien6";
+            this.chkAlien6.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien6.TabIndex = 392;
+            this.chkAlien6.Text = "ส่งตัว";
+            this.chkAlien6.UseVisualStyleBackColor = true;
+            this.chkAlien6.Value = null;
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label100.Location = new System.Drawing.Point(9, 355);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(150, 20);
+            this.label100.TabIndex = 391;
+            this.label100.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName5
+            // 
+            this.txtAlienFullName5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName5.Location = new System.Drawing.Point(165, 351);
+            this.txtAlienFullName5.Name = "txtAlienFullName5";
+            this.txtAlienFullName5.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName5.TabIndex = 390;
+            this.txtAlienFullName5.Tag = null;
+            // 
+            // txtAlienAddr25
+            // 
+            this.txtAlienAddr25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr25.Location = new System.Drawing.Point(911, 350);
+            this.txtAlienAddr25.Name = "txtAlienAddr25";
+            this.txtAlienAddr25.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr25.TabIndex = 389;
+            this.txtAlienAddr25.Tag = null;
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label101.Location = new System.Drawing.Point(465, 355);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(43, 20);
+            this.label101.TabIndex = 388;
+            this.label101.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr5
+            // 
+            this.txtAlienAddr5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr5.Location = new System.Drawing.Point(514, 351);
+            this.txtAlienAddr5.Name = "txtAlienAddr5";
+            this.txtAlienAddr5.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr5.TabIndex = 387;
+            this.txtAlienAddr5.Tag = null;
+            // 
+            // c1Button9
+            // 
+            this.c1Button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button9.Location = new System.Drawing.Point(877, 321);
+            this.c1Button9.Name = "c1Button9";
+            this.c1Button9.Size = new System.Drawing.Size(65, 28);
+            this.c1Button9.TabIndex = 386;
+            this.c1Button9.Text = "ออกvisit";
+            this.c1Button9.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn5
+            // 
+            this.txtAlienHn5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn5.Location = new System.Drawing.Point(948, 324);
+            this.txtAlienHn5.Name = "txtAlienHn5";
+            this.txtAlienHn5.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn5.TabIndex = 385;
+            this.txtAlienHn5.Tag = null;
+            // 
+            // txtPttwp35
+            // 
+            this.txtPttwp35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp35.Location = new System.Drawing.Point(727, 325);
+            this.txtPttwp35.Name = "txtPttwp35";
+            this.txtPttwp35.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp35.TabIndex = 384;
+            this.txtPttwp35.Tag = null;
+            // 
+            // txtPttRef15
+            // 
+            this.txtPttRef15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef15.Location = new System.Drawing.Point(593, 325);
+            this.txtPttRef15.Name = "txtPttRef15";
+            this.txtPttRef15.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef15.TabIndex = 383;
+            this.txtPttRef15.Tag = null;
+            // 
+            // txtAlienNat5
+            // 
+            this.txtAlienNat5.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat5.Location = new System.Drawing.Point(461, 325);
+            this.txtAlienNat5.Name = "txtAlienNat5";
+            this.txtAlienNat5.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat5.TabIndex = 382;
+            this.txtAlienNat5.Tag = null;
+            // 
+            // c1Button10
+            // 
+            this.c1Button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button10.Location = new System.Drawing.Point(126, 321);
+            this.c1Button10.Name = "c1Button10";
+            this.c1Button10.Size = new System.Drawing.Size(52, 28);
+            this.c1Button10.TabIndex = 381;
+            this.c1Button10.Text = "ค้นหา";
+            this.c1Button10.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno5
+            // 
+            this.lbAlienpreno5.AutoSize = true;
+            this.lbAlienpreno5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno5.Location = new System.Drawing.Point(1084, 327);
+            this.lbAlienpreno5.Name = "lbAlienpreno5";
+            this.lbAlienpreno5.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno5.TabIndex = 380;
+            this.lbAlienpreno5.Text = "...";
+            // 
+            // txtAliendob5
+            // 
+            this.txtAliendob5.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob5.Location = new System.Drawing.Point(329, 325);
+            this.txtAliendob5.Name = "txtAliendob5";
+            this.txtAliendob5.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob5.TabIndex = 379;
+            this.txtAliendob5.Tag = null;
+            // 
+            // txtAlienPID5
+            // 
+            this.txtAlienPID5.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID5.Location = new System.Drawing.Point(197, 325);
+            this.txtAlienPID5.Name = "txtAlienPID5";
+            this.txtAlienPID5.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID5.TabIndex = 378;
+            this.txtAlienPID5.Tag = null;
+            // 
+            // chkAlien5
+            // 
+            this.chkAlien5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien5.Location = new System.Drawing.Point(22, 325);
+            this.chkAlien5.Name = "chkAlien5";
+            this.chkAlien5.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien5.TabIndex = 377;
+            this.chkAlien5.Text = "ส่งตัว";
+            this.chkAlien5.UseVisualStyleBackColor = true;
+            this.chkAlien5.Value = null;
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label97.Location = new System.Drawing.Point(9, 296);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(150, 20);
+            this.label97.TabIndex = 376;
+            this.label97.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName4
+            // 
+            this.txtAlienFullName4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName4.Location = new System.Drawing.Point(165, 292);
+            this.txtAlienFullName4.Name = "txtAlienFullName4";
+            this.txtAlienFullName4.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName4.TabIndex = 375;
+            this.txtAlienFullName4.Tag = null;
+            // 
+            // txtAlienAddr24
+            // 
+            this.txtAlienAddr24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr24.Location = new System.Drawing.Point(911, 291);
+            this.txtAlienAddr24.Name = "txtAlienAddr24";
+            this.txtAlienAddr24.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr24.TabIndex = 374;
+            this.txtAlienAddr24.Tag = null;
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label98.Location = new System.Drawing.Point(465, 296);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(43, 20);
+            this.label98.TabIndex = 373;
+            this.label98.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr4
+            // 
+            this.txtAlienAddr4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr4.Location = new System.Drawing.Point(514, 292);
+            this.txtAlienAddr4.Name = "txtAlienAddr4";
+            this.txtAlienAddr4.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr4.TabIndex = 372;
+            this.txtAlienAddr4.Tag = null;
+            // 
+            // c1Button7
+            // 
+            this.c1Button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button7.Location = new System.Drawing.Point(877, 262);
+            this.c1Button7.Name = "c1Button7";
+            this.c1Button7.Size = new System.Drawing.Size(65, 28);
+            this.c1Button7.TabIndex = 371;
+            this.c1Button7.Text = "ออกvisit";
+            this.c1Button7.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn4
+            // 
+            this.txtAlienHn4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn4.Location = new System.Drawing.Point(948, 265);
+            this.txtAlienHn4.Name = "txtAlienHn4";
+            this.txtAlienHn4.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn4.TabIndex = 370;
+            this.txtAlienHn4.Tag = null;
+            // 
+            // txtPttwp34
+            // 
+            this.txtPttwp34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp34.Location = new System.Drawing.Point(727, 266);
+            this.txtPttwp34.Name = "txtPttwp34";
+            this.txtPttwp34.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp34.TabIndex = 369;
+            this.txtPttwp34.Tag = null;
+            // 
+            // txtPttRef14
+            // 
+            this.txtPttRef14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef14.Location = new System.Drawing.Point(593, 266);
+            this.txtPttRef14.Name = "txtPttRef14";
+            this.txtPttRef14.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef14.TabIndex = 368;
+            this.txtPttRef14.Tag = null;
+            // 
+            // txtAlienNat4
+            // 
+            this.txtAlienNat4.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat4.Location = new System.Drawing.Point(461, 266);
+            this.txtAlienNat4.Name = "txtAlienNat4";
+            this.txtAlienNat4.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat4.TabIndex = 367;
+            this.txtAlienNat4.Tag = null;
+            // 
+            // c1Button8
+            // 
+            this.c1Button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button8.Location = new System.Drawing.Point(126, 262);
+            this.c1Button8.Name = "c1Button8";
+            this.c1Button8.Size = new System.Drawing.Size(52, 28);
+            this.c1Button8.TabIndex = 366;
+            this.c1Button8.Text = "ค้นหา";
+            this.c1Button8.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno4
+            // 
+            this.lbAlienpreno4.AutoSize = true;
+            this.lbAlienpreno4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno4.Location = new System.Drawing.Point(1084, 268);
+            this.lbAlienpreno4.Name = "lbAlienpreno4";
+            this.lbAlienpreno4.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno4.TabIndex = 365;
+            this.lbAlienpreno4.Text = "...";
+            // 
+            // txtAliendob4
+            // 
+            this.txtAliendob4.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob4.Location = new System.Drawing.Point(329, 266);
+            this.txtAliendob4.Name = "txtAliendob4";
+            this.txtAliendob4.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob4.TabIndex = 364;
+            this.txtAliendob4.Tag = null;
+            // 
+            // txtAlienPID4
+            // 
+            this.txtAlienPID4.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID4.Location = new System.Drawing.Point(197, 266);
+            this.txtAlienPID4.Name = "txtAlienPID4";
+            this.txtAlienPID4.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID4.TabIndex = 363;
+            this.txtAlienPID4.Tag = null;
+            // 
+            // chkAlien4
+            // 
+            this.chkAlien4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien4.Location = new System.Drawing.Point(22, 266);
+            this.chkAlien4.Name = "chkAlien4";
+            this.chkAlien4.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien4.TabIndex = 362;
+            this.chkAlien4.Text = "ส่งตัว";
+            this.chkAlien4.UseVisualStyleBackColor = true;
+            this.chkAlien4.Value = null;
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label94.Location = new System.Drawing.Point(9, 235);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(150, 20);
+            this.label94.TabIndex = 361;
+            this.label94.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName3
+            // 
+            this.txtAlienFullName3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName3.Location = new System.Drawing.Point(165, 233);
+            this.txtAlienFullName3.Name = "txtAlienFullName3";
+            this.txtAlienFullName3.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName3.TabIndex = 360;
+            this.txtAlienFullName3.Tag = null;
+            // 
+            // txtAlienAddr23
+            // 
+            this.txtAlienAddr23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr23.Location = new System.Drawing.Point(911, 232);
+            this.txtAlienAddr23.Name = "txtAlienAddr23";
+            this.txtAlienAddr23.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr23.TabIndex = 359;
+            this.txtAlienAddr23.Tag = null;
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label95.Location = new System.Drawing.Point(465, 235);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(43, 20);
+            this.label95.TabIndex = 358;
+            this.label95.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr3
+            // 
+            this.txtAlienAddr3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr3.Location = new System.Drawing.Point(514, 233);
+            this.txtAlienAddr3.Name = "txtAlienAddr3";
+            this.txtAlienAddr3.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr3.TabIndex = 357;
+            this.txtAlienAddr3.Tag = null;
+            // 
+            // c1Button5
+            // 
+            this.c1Button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button5.Location = new System.Drawing.Point(877, 203);
+            this.c1Button5.Name = "c1Button5";
+            this.c1Button5.Size = new System.Drawing.Size(65, 28);
+            this.c1Button5.TabIndex = 356;
+            this.c1Button5.Text = "ออกvisit";
+            this.c1Button5.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn3
+            // 
+            this.txtAlienHn3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn3.Location = new System.Drawing.Point(948, 206);
+            this.txtAlienHn3.Name = "txtAlienHn3";
+            this.txtAlienHn3.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn3.TabIndex = 355;
+            this.txtAlienHn3.Tag = null;
+            // 
+            // txtPttwp33
+            // 
+            this.txtPttwp33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp33.Location = new System.Drawing.Point(727, 207);
+            this.txtPttwp33.Name = "txtPttwp33";
+            this.txtPttwp33.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp33.TabIndex = 354;
+            this.txtPttwp33.Tag = null;
+            // 
+            // txtPttRef13
+            // 
+            this.txtPttRef13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef13.Location = new System.Drawing.Point(593, 207);
+            this.txtPttRef13.Name = "txtPttRef13";
+            this.txtPttRef13.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef13.TabIndex = 353;
+            this.txtPttRef13.Tag = null;
+            // 
+            // txtAlienNat3
+            // 
+            this.txtAlienNat3.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat3.Location = new System.Drawing.Point(461, 207);
+            this.txtAlienNat3.Name = "txtAlienNat3";
+            this.txtAlienNat3.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat3.TabIndex = 352;
+            this.txtAlienNat3.Tag = null;
+            // 
+            // c1Button6
+            // 
+            this.c1Button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button6.Location = new System.Drawing.Point(126, 203);
+            this.c1Button6.Name = "c1Button6";
+            this.c1Button6.Size = new System.Drawing.Size(52, 28);
+            this.c1Button6.TabIndex = 351;
+            this.c1Button6.Text = "ค้นหา";
+            this.c1Button6.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno3
+            // 
+            this.lbAlienpreno3.AutoSize = true;
+            this.lbAlienpreno3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno3.Location = new System.Drawing.Point(1084, 209);
+            this.lbAlienpreno3.Name = "lbAlienpreno3";
+            this.lbAlienpreno3.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno3.TabIndex = 350;
+            this.lbAlienpreno3.Text = "...";
+            // 
+            // txtAliendob3
+            // 
+            this.txtAliendob3.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob3.Location = new System.Drawing.Point(329, 207);
+            this.txtAliendob3.Name = "txtAliendob3";
+            this.txtAliendob3.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob3.TabIndex = 349;
+            this.txtAliendob3.Tag = null;
+            // 
+            // txtAlienPID3
+            // 
+            this.txtAlienPID3.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID3.Location = new System.Drawing.Point(197, 207);
+            this.txtAlienPID3.Name = "txtAlienPID3";
+            this.txtAlienPID3.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID3.TabIndex = 348;
+            this.txtAlienPID3.Tag = null;
+            // 
+            // chkAlien3
+            // 
+            this.chkAlien3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien3.Location = new System.Drawing.Point(22, 207);
+            this.chkAlien3.Name = "chkAlien3";
+            this.chkAlien3.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien3.TabIndex = 347;
+            this.chkAlien3.Text = "ส่งตัว";
+            this.chkAlien3.UseVisualStyleBackColor = true;
+            this.chkAlien3.Value = null;
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label91.Location = new System.Drawing.Point(9, 176);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(150, 20);
+            this.label91.TabIndex = 346;
+            this.label91.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName2
+            // 
+            this.txtAlienFullName2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName2.Location = new System.Drawing.Point(165, 174);
+            this.txtAlienFullName2.Name = "txtAlienFullName2";
+            this.txtAlienFullName2.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName2.TabIndex = 345;
+            this.txtAlienFullName2.Tag = null;
+            // 
+            // txtAlienAddr22
+            // 
+            this.txtAlienAddr22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr22.Location = new System.Drawing.Point(911, 173);
+            this.txtAlienAddr22.Name = "txtAlienAddr22";
+            this.txtAlienAddr22.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr22.TabIndex = 344;
+            this.txtAlienAddr22.Tag = null;
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label92.Location = new System.Drawing.Point(465, 176);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(43, 20);
+            this.label92.TabIndex = 343;
+            this.label92.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr2
+            // 
+            this.txtAlienAddr2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr2.Location = new System.Drawing.Point(514, 174);
+            this.txtAlienAddr2.Name = "txtAlienAddr2";
+            this.txtAlienAddr2.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr2.TabIndex = 342;
+            this.txtAlienAddr2.Tag = null;
+            // 
+            // c1Button3
+            // 
+            this.c1Button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button3.Location = new System.Drawing.Point(877, 144);
+            this.c1Button3.Name = "c1Button3";
+            this.c1Button3.Size = new System.Drawing.Size(65, 28);
+            this.c1Button3.TabIndex = 341;
+            this.c1Button3.Text = "ออกvisit";
+            this.c1Button3.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn2
+            // 
+            this.txtAlienHn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn2.Location = new System.Drawing.Point(948, 147);
+            this.txtAlienHn2.Name = "txtAlienHn2";
+            this.txtAlienHn2.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn2.TabIndex = 340;
+            this.txtAlienHn2.Tag = null;
+            // 
+            // txtPttwp32
+            // 
+            this.txtPttwp32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp32.Location = new System.Drawing.Point(727, 148);
+            this.txtPttwp32.Name = "txtPttwp32";
+            this.txtPttwp32.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp32.TabIndex = 339;
+            this.txtPttwp32.Tag = null;
+            // 
+            // txtPttRef12
+            // 
+            this.txtPttRef12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef12.Location = new System.Drawing.Point(593, 148);
+            this.txtPttRef12.Name = "txtPttRef12";
+            this.txtPttRef12.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef12.TabIndex = 338;
+            this.txtPttRef12.Tag = null;
+            // 
+            // txtAlienNat2
+            // 
+            this.txtAlienNat2.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat2.Location = new System.Drawing.Point(461, 148);
+            this.txtAlienNat2.Name = "txtAlienNat2";
+            this.txtAlienNat2.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat2.TabIndex = 337;
+            this.txtAlienNat2.Tag = null;
+            // 
+            // c1Button4
+            // 
+            this.c1Button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button4.Location = new System.Drawing.Point(126, 144);
+            this.c1Button4.Name = "c1Button4";
+            this.c1Button4.Size = new System.Drawing.Size(52, 28);
+            this.c1Button4.TabIndex = 336;
+            this.c1Button4.Text = "ค้นหา";
+            this.c1Button4.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno2
+            // 
+            this.lbAlienpreno2.AutoSize = true;
+            this.lbAlienpreno2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno2.Location = new System.Drawing.Point(1084, 150);
+            this.lbAlienpreno2.Name = "lbAlienpreno2";
+            this.lbAlienpreno2.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno2.TabIndex = 335;
+            this.lbAlienpreno2.Text = "...";
+            // 
+            // txtAliendob2
+            // 
+            this.txtAliendob2.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob2.Location = new System.Drawing.Point(329, 148);
+            this.txtAliendob2.Name = "txtAliendob2";
+            this.txtAliendob2.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob2.TabIndex = 334;
+            this.txtAliendob2.Tag = null;
+            // 
+            // txtAlienPID2
+            // 
+            this.txtAlienPID2.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID2.Location = new System.Drawing.Point(197, 148);
+            this.txtAlienPID2.Name = "txtAlienPID2";
+            this.txtAlienPID2.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID2.TabIndex = 333;
+            this.txtAlienPID2.Tag = null;
+            // 
+            // chkAlien2
+            // 
+            this.chkAlien2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien2.Location = new System.Drawing.Point(22, 148);
+            this.chkAlien2.Name = "chkAlien2";
+            this.chkAlien2.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien2.TabIndex = 332;
+            this.chkAlien2.Text = "ส่งตัว";
+            this.chkAlien2.UseVisualStyleBackColor = true;
+            this.chkAlien2.Value = null;
+            // 
+            // btnAlienAddrCopy
+            // 
+            this.btnAlienAddrCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnAlienAddrCopy.Image = global::bangna_hospital.Properties.Resources.GoToDown_small;
+            this.btnAlienAddrCopy.Location = new System.Drawing.Point(422, 35);
+            this.btnAlienAddrCopy.Name = "btnAlienAddrCopy";
+            this.btnAlienAddrCopy.Size = new System.Drawing.Size(33, 28);
+            this.btnAlienAddrCopy.TabIndex = 331;
+            this.btnAlienAddrCopy.UseVisualStyleBackColor = true;
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label90.Location = new System.Drawing.Point(9, 117);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(150, 20);
+            this.label90.TabIndex = 330;
+            this.label90.Text = "คำนำหน้า ชื่อ นามสกุล :";
+            // 
+            // txtAlienFullName1
+            // 
+            this.txtAlienFullName1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienFullName1.Location = new System.Drawing.Point(165, 115);
+            this.txtAlienFullName1.Name = "txtAlienFullName1";
+            this.txtAlienFullName1.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienFullName1.TabIndex = 329;
+            this.txtAlienFullName1.Tag = null;
+            // 
+            // c1CheckBox1
+            // 
+            this.c1CheckBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.c1CheckBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.c1CheckBox1.Checked = true;
+            this.c1CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.c1CheckBox1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.c1CheckBox1.Location = new System.Drawing.Point(22, 40);
+            this.c1CheckBox1.Name = "c1CheckBox1";
+            this.c1CheckBox1.Size = new System.Drawing.Size(176, 24);
+            this.c1CheckBox1.TabIndex = 328;
+            this.c1CheckBox1.Text = "ส่งข้อมูล กรมการค้า";
+            this.c1CheckBox1.UseVisualStyleBackColor = true;
+            this.c1CheckBox1.Value = true;
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label89.ForeColor = System.Drawing.Color.Red;
+            this.label89.Location = new System.Drawing.Point(825, 37);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(62, 20);
+            this.label89.TabIndex = 327;
+            this.label89.Text = "ส่งตัวไป*";
+            // 
+            // cboAlienSendDept
+            // 
+            this.cboAlienSendDept.AllowSpinLoop = false;
+            this.cboAlienSendDept.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboAlienSendDept.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboAlienSendDept.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboAlienSendDept.GapHeight = 0;
+            this.cboAlienSendDept.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboAlienSendDept.ItemsDisplayMember = "";
+            this.cboAlienSendDept.ItemsValueMember = "";
+            this.cboAlienSendDept.Location = new System.Drawing.Point(904, 36);
+            this.cboAlienSendDept.Name = "cboAlienSendDept";
+            this.cboAlienSendDept.Size = new System.Drawing.Size(248, 24);
+            this.cboAlienSendDept.TabIndex = 326;
+            this.cboAlienSendDept.Tag = null;
+            // 
+            // lbAlienPaidName
+            // 
+            this.lbAlienPaidName.AutoSize = true;
+            this.lbAlienPaidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienPaidName.Location = new System.Drawing.Point(964, 8);
+            this.lbAlienPaidName.Name = "lbAlienPaidName";
+            this.lbAlienPaidName.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienPaidName.TabIndex = 325;
+            this.lbAlienPaidName.Text = "...";
+            // 
+            // txtAlienPaidcode
+            // 
+            this.txtAlienPaidcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPaidcode.Location = new System.Drawing.Point(904, 10);
+            this.txtAlienPaidcode.Name = "txtAlienPaidcode";
+            this.txtAlienPaidcode.Size = new System.Drawing.Size(54, 24);
+            this.txtAlienPaidcode.TabIndex = 324;
+            this.txtAlienPaidcode.Tag = null;
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label87.Location = new System.Drawing.Point(825, 10);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(43, 20);
+            this.label87.TabIndex = 323;
+            this.label87.Text = "สิทธิ :";
+            // 
+            // txtAlienAddr21
+            // 
+            this.txtAlienAddr21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr21.Location = new System.Drawing.Point(911, 114);
+            this.txtAlienAddr21.Name = "txtAlienAddr21";
+            this.txtAlienAddr21.Size = new System.Drawing.Size(294, 24);
+            this.txtAlienAddr21.TabIndex = 322;
+            this.txtAlienAddr21.Tag = null;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label86.Location = new System.Drawing.Point(465, 117);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(43, 20);
+            this.label86.TabIndex = 321;
+            this.label86.Text = "ที่อยู่ :";
+            // 
+            // txtAlienAddr1
+            // 
+            this.txtAlienAddr1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienAddr1.Location = new System.Drawing.Point(514, 115);
+            this.txtAlienAddr1.Name = "txtAlienAddr1";
+            this.txtAlienAddr1.Size = new System.Drawing.Size(394, 24);
+            this.txtAlienAddr1.TabIndex = 320;
+            this.txtAlienAddr1.Tag = null;
+            // 
+            // txtAlienOwnAddr2
+            // 
+            this.txtAlienOwnAddr2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienOwnAddr2.Location = new System.Drawing.Point(461, 36);
+            this.txtAlienOwnAddr2.Name = "txtAlienOwnAddr2";
+            this.txtAlienOwnAddr2.Size = new System.Drawing.Size(354, 24);
+            this.txtAlienOwnAddr2.TabIndex = 319;
+            this.txtAlienOwnAddr2.Tag = null;
+            // 
+            // txtAlienOwnAddr1
+            // 
+            this.txtAlienOwnAddr1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienOwnAddr1.Location = new System.Drawing.Point(461, 10);
+            this.txtAlienOwnAddr1.Name = "txtAlienOwnAddr1";
+            this.txtAlienOwnAddr1.Size = new System.Drawing.Size(354, 24);
+            this.txtAlienOwnAddr1.TabIndex = 318;
+            this.txtAlienOwnAddr1.Tag = null;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label85.Location = new System.Drawing.Point(366, 10);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(89, 20);
+            this.label85.TabIndex = 317;
+            this.label85.Text = "ที่อยู่นายจ้าง :";
+            // 
+            // txtAlienOwnName
+            // 
+            this.txtAlienOwnName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienOwnName.Location = new System.Drawing.Point(97, 10);
+            this.txtAlienOwnName.Name = "txtAlienOwnName";
+            this.txtAlienOwnName.Size = new System.Drawing.Size(252, 24);
+            this.txtAlienOwnName.TabIndex = 316;
+            this.txtAlienOwnName.Tag = null;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label84.Location = new System.Drawing.Point(18, 10);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(63, 20);
+            this.label84.TabIndex = 315;
+            this.label84.Text = "นายจ้าง :";
+            // 
+            // c1Button1
+            // 
+            this.c1Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button1.Location = new System.Drawing.Point(877, 85);
+            this.c1Button1.Name = "c1Button1";
+            this.c1Button1.Size = new System.Drawing.Size(65, 28);
+            this.c1Button1.TabIndex = 314;
+            this.c1Button1.Text = "ออกvisit";
+            this.c1Button1.UseVisualStyleBackColor = true;
+            // 
+            // txtAlienHn1
+            // 
+            this.txtAlienHn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienHn1.Location = new System.Drawing.Point(948, 88);
+            this.txtAlienHn1.Name = "txtAlienHn1";
+            this.txtAlienHn1.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienHn1.TabIndex = 313;
+            this.txtAlienHn1.Tag = null;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label83.Location = new System.Drawing.Point(949, 65);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(40, 20);
+            this.label83.TabIndex = 312;
+            this.label83.Text = "HN :";
+            // 
+            // txtPttwp31
+            // 
+            this.txtPttwp31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttwp31.Location = new System.Drawing.Point(727, 89);
+            this.txtPttwp31.Name = "txtPttwp31";
+            this.txtPttwp31.Size = new System.Drawing.Size(130, 24);
+            this.txtPttwp31.TabIndex = 311;
+            this.txtPttwp31.Tag = null;
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label82.Location = new System.Drawing.Point(1100, 67);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(141, 20);
+            this.label82.TabIndex = 310;
+            this.label82.Text = "เลขใบอนุญาติทำงาน :";
+            // 
+            // txtPttRef11
+            // 
+            this.txtPttRef11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPttRef11.Location = new System.Drawing.Point(593, 89);
+            this.txtPttRef11.Name = "txtPttRef11";
+            this.txtPttRef11.Size = new System.Drawing.Size(130, 24);
+            this.txtPttRef11.TabIndex = 309;
+            this.txtPttRef11.Tag = null;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label81.Location = new System.Drawing.Point(1070, 63);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(82, 20);
+            this.label81.TabIndex = 308;
+            this.label81.Text = "refต่างด้าว :";
+            // 
+            // txtAlienNat1
+            // 
+            this.txtAlienNat1.BackColor = System.Drawing.SystemColors.Info;
+            this.txtAlienNat1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienNat1.Location = new System.Drawing.Point(461, 89);
+            this.txtAlienNat1.Name = "txtAlienNat1";
+            this.txtAlienNat1.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienNat1.TabIndex = 307;
+            this.txtAlienNat1.Tag = null;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label79.Location = new System.Drawing.Point(424, 66);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(343, 20);
+            this.label79.TabIndex = 306;
+            this.label79.Text = "สัญชาติM : เมียนมา, L : ลาว, C : กัมพูชา, V : เวียดนาม";
+            // 
+            // btnExp1
+            // 
+            this.btnExp1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnExp1.Location = new System.Drawing.Point(126, 85);
+            this.btnExp1.Name = "btnExp1";
+            this.btnExp1.Size = new System.Drawing.Size(52, 28);
+            this.btnExp1.TabIndex = 305;
+            this.btnExp1.Text = "ค้นหา";
+            this.btnExp1.UseVisualStyleBackColor = true;
+            // 
+            // lbAlienpreno1
+            // 
+            this.lbAlienpreno1.AutoSize = true;
+            this.lbAlienpreno1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbAlienpreno1.Location = new System.Drawing.Point(1084, 91);
+            this.lbAlienpreno1.Name = "lbAlienpreno1";
+            this.lbAlienpreno1.Size = new System.Drawing.Size(21, 20);
+            this.lbAlienpreno1.TabIndex = 304;
+            this.lbAlienpreno1.Text = "...";
+            // 
+            // txtAliendob1
+            // 
+            this.txtAliendob1.BackColor = System.Drawing.Color.MistyRose;
+            this.txtAliendob1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAliendob1.Location = new System.Drawing.Point(329, 89);
+            this.txtAliendob1.Name = "txtAliendob1";
+            this.txtAliendob1.Size = new System.Drawing.Size(130, 24);
+            this.txtAliendob1.TabIndex = 303;
+            this.txtAliendob1.Tag = null;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label9.Location = new System.Drawing.Point(273, 66);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(152, 20);
+            this.label9.TabIndex = 302;
+            this.label9.Text = "DOB DD-MM-YYYY";
+            // 
+            // txtAlienPID1
+            // 
+            this.txtAlienPID1.BackColor = System.Drawing.Color.Plum;
+            this.txtAlienPID1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienPID1.Location = new System.Drawing.Point(197, 89);
+            this.txtAlienPID1.Name = "txtAlienPID1";
+            this.txtAlienPID1.Size = new System.Drawing.Size(130, 24);
+            this.txtAlienPID1.TabIndex = 301;
+            this.txtAlienPID1.Tag = null;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label68.Location = new System.Drawing.Point(200, 66);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(36, 20);
+            this.label68.TabIndex = 300;
+            this.label68.Text = "PID";
+            // 
+            // chkAlien1
+            // 
+            this.chkAlien1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.chkAlien1.Location = new System.Drawing.Point(22, 89);
+            this.chkAlien1.Name = "chkAlien1";
+            this.chkAlien1.Size = new System.Drawing.Size(83, 24);
+            this.chkAlien1.TabIndex = 299;
+            this.chkAlien1.Text = "ส่งตัว";
+            this.chkAlien1.UseVisualStyleBackColor = true;
+            this.chkAlien1.Value = false;
+            // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3543,6 +6257,7 @@ namespace bangna_hospital.gui
             this.scVs.ResumeLayout(false);
             this.pnVsVisit.ResumeLayout(false);
             this.pnVsVisit.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chkVsStatusDOE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnVsPaid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVsComp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVsInsur)).EndInit();
@@ -3606,6 +6321,173 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOsearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label2)).EndInit();
             this.c1SplitterPanel3.ResumeLayout(false);
+            this.tabAlien.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAlienGenVisitAll)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr213)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp313)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef113)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button26)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr212)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp312)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef112)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr211)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp311)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef111)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button22)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr210)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp310)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef110)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr29)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp39)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr28)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp38)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr27)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp37)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr26)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp36)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr25)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp35)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp34)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp33)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr22)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp32)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnAlienAddrCopy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienFullName1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1CheckBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboAlienSendDept)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPaidcode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienAddr1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienOwnAddr2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienOwnAddr1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienOwnName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienHn1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttwp31)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPttRef11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienNat1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExp1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAliendob1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkAlien1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3881,5 +6763,222 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1Button btnPttComp;
         private C1.Win.C1Input.C1Button btnPttInsurCopyto;
         private C1.Win.C1Input.C1Button btnVsPaid;
+        private C1.Win.C1Input.C1CheckBox chkVsStatusDOE;
+        private C1.Win.C1Command.C1DockingTabPage tabAlien;
+        private System.Windows.Forms.Panel panel3;
+        private C1.Win.C1Input.C1TextBox txtAlienNat1;
+        private System.Windows.Forms.Label label79;
+        private C1.Win.C1Input.C1Button btnExp1;
+        private System.Windows.Forms.Label lbAlienpreno1;
+        private C1.Win.C1Input.C1TextBox txtAliendob1;
+        private System.Windows.Forms.Label label9;
+        private C1.Win.C1Input.C1TextBox txtAlienPID1;
+        private System.Windows.Forms.Label label68;
+        private C1.Win.C1Input.C1CheckBox chkAlien1;
+        private C1.Win.C1Input.C1TextBox txtPttwp31;
+        private System.Windows.Forms.Label label82;
+        private C1.Win.C1Input.C1TextBox txtPttRef11;
+        private System.Windows.Forms.Label label81;
+        private C1.Win.C1Input.C1TextBox txtAlienHn1;
+        private System.Windows.Forms.Label label83;
+        private C1.Win.C1Input.C1Button c1Button1;
+        private C1.Win.C1Input.C1TextBox txtAlienOwnName;
+        private System.Windows.Forms.Label label84;
+        private C1.Win.C1Input.C1TextBox txtAlienOwnAddr1;
+        private System.Windows.Forms.Label label85;
+        private C1.Win.C1Input.C1TextBox txtAlienOwnAddr2;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr21;
+        private System.Windows.Forms.Label label86;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr1;
+        private C1.Win.C1Input.C1TextBox txtAlienPaidcode;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label lbAlienPaidName;
+        private System.Windows.Forms.Label label89;
+        private C1.Win.C1Input.C1ComboBox cboAlienSendDept;
+        private C1.Win.C1Input.C1CheckBox c1CheckBox1;
+        private System.Windows.Forms.Label label90;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName1;
+        private C1.Win.C1Input.C1Button btnAlienAddrCopy;
+        private System.Windows.Forms.Label label91;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName2;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr22;
+        private System.Windows.Forms.Label label92;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr2;
+        private C1.Win.C1Input.C1Button c1Button3;
+        private C1.Win.C1Input.C1TextBox txtAlienHn2;
+        private C1.Win.C1Input.C1TextBox txtPttwp32;
+        private C1.Win.C1Input.C1TextBox txtPttRef12;
+        private C1.Win.C1Input.C1TextBox txtAlienNat2;
+        private C1.Win.C1Input.C1Button c1Button4;
+        private System.Windows.Forms.Label lbAlienpreno2;
+        private C1.Win.C1Input.C1TextBox txtAliendob2;
+        private C1.Win.C1Input.C1TextBox txtAlienPID2;
+        private C1.Win.C1Input.C1CheckBox chkAlien2;
+        private System.Windows.Forms.Label label121;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName12;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr212;
+        private System.Windows.Forms.Label label122;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr12;
+        private C1.Win.C1Input.C1Button c1Button23;
+        private C1.Win.C1Input.C1TextBox txtAlienHn12;
+        private C1.Win.C1Input.C1TextBox txtPttwp312;
+        private C1.Win.C1Input.C1TextBox txtPttRef112;
+        private C1.Win.C1Input.C1TextBox txtAlienNat12;
+        private C1.Win.C1Input.C1Button c1Button24;
+        private System.Windows.Forms.Label lbAlienpreno12;
+        private C1.Win.C1Input.C1TextBox txtAliendob12;
+        private C1.Win.C1Input.C1TextBox txtAlienPID12;
+        private C1.Win.C1Input.C1CheckBox chkAlien12;
+        private System.Windows.Forms.Label label118;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName11;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr211;
+        private System.Windows.Forms.Label label119;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr11;
+        private C1.Win.C1Input.C1Button c1Button21;
+        private C1.Win.C1Input.C1TextBox txtAlienHn11;
+        private C1.Win.C1Input.C1TextBox txtPttwp311;
+        private C1.Win.C1Input.C1TextBox txtPttRef111;
+        private C1.Win.C1Input.C1TextBox txtAlienNat11;
+        private C1.Win.C1Input.C1Button c1Button22;
+        private System.Windows.Forms.Label lbAlienpreno11;
+        private C1.Win.C1Input.C1TextBox txtAliendob11;
+        private C1.Win.C1Input.C1TextBox txtAlienPID11;
+        private C1.Win.C1Input.C1CheckBox chkAlien11;
+        private System.Windows.Forms.Label label115;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName10;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr210;
+        private System.Windows.Forms.Label label116;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr10;
+        private C1.Win.C1Input.C1Button c1Button19;
+        private C1.Win.C1Input.C1TextBox txtAlienHn10;
+        private C1.Win.C1Input.C1TextBox txtPttwp310;
+        private C1.Win.C1Input.C1TextBox txtPttRef110;
+        private C1.Win.C1Input.C1TextBox txtAlienNat10;
+        private C1.Win.C1Input.C1Button c1Button20;
+        private System.Windows.Forms.Label lbAlienpreno10;
+        private C1.Win.C1Input.C1TextBox txtAliendob10;
+        private C1.Win.C1Input.C1TextBox txtAlienPID10;
+        private C1.Win.C1Input.C1CheckBox chkAlien10;
+        private System.Windows.Forms.Label label112;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName9;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr29;
+        private System.Windows.Forms.Label label113;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr9;
+        private C1.Win.C1Input.C1Button c1Button17;
+        private C1.Win.C1Input.C1TextBox txtAlienHn9;
+        private C1.Win.C1Input.C1TextBox txtPttwp39;
+        private C1.Win.C1Input.C1TextBox txtPttRef19;
+        private C1.Win.C1Input.C1TextBox txtAlienNat9;
+        private C1.Win.C1Input.C1Button c1Button18;
+        private System.Windows.Forms.Label lbAlienpreno9;
+        private C1.Win.C1Input.C1TextBox txtAliendob9;
+        private C1.Win.C1Input.C1TextBox txtAlienPID9;
+        private C1.Win.C1Input.C1CheckBox chkAlien9;
+        private System.Windows.Forms.Label label109;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName8;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr28;
+        private System.Windows.Forms.Label label110;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr8;
+        private C1.Win.C1Input.C1Button c1Button15;
+        private C1.Win.C1Input.C1TextBox txtAlienHn8;
+        private C1.Win.C1Input.C1TextBox txtPttwp38;
+        private C1.Win.C1Input.C1TextBox txtPttRef18;
+        private C1.Win.C1Input.C1TextBox txtAlienNat8;
+        private C1.Win.C1Input.C1Button c1Button16;
+        private System.Windows.Forms.Label lbAlienpreno8;
+        private C1.Win.C1Input.C1TextBox txtAliendob8;
+        private C1.Win.C1Input.C1TextBox txtAlienPID8;
+        private C1.Win.C1Input.C1CheckBox chkAlien8;
+        private System.Windows.Forms.Label label106;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName7;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr27;
+        private System.Windows.Forms.Label label107;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr7;
+        private C1.Win.C1Input.C1Button c1Button13;
+        private C1.Win.C1Input.C1TextBox txtAlienHn7;
+        private C1.Win.C1Input.C1TextBox txtPttwp37;
+        private C1.Win.C1Input.C1TextBox txtPttRef17;
+        private C1.Win.C1Input.C1TextBox txtAlienNat7;
+        private C1.Win.C1Input.C1Button c1Button14;
+        private System.Windows.Forms.Label lbAlienpreno7;
+        private C1.Win.C1Input.C1TextBox txtAliendob7;
+        private C1.Win.C1Input.C1TextBox txtAlienPID7;
+        private C1.Win.C1Input.C1CheckBox chkAlien7;
+        private System.Windows.Forms.Label label103;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName6;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr26;
+        private System.Windows.Forms.Label label104;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr6;
+        private C1.Win.C1Input.C1Button c1Button11;
+        private C1.Win.C1Input.C1TextBox txtAlienHn6;
+        private C1.Win.C1Input.C1TextBox txtPttwp36;
+        private C1.Win.C1Input.C1TextBox txtPttRef16;
+        private C1.Win.C1Input.C1TextBox txtAlienNat6;
+        private C1.Win.C1Input.C1Button c1Button12;
+        private System.Windows.Forms.Label lbAlienpreno6;
+        private C1.Win.C1Input.C1TextBox txtAliendob6;
+        private C1.Win.C1Input.C1TextBox txtAlienPID6;
+        private C1.Win.C1Input.C1CheckBox chkAlien6;
+        private System.Windows.Forms.Label label100;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName5;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr25;
+        private System.Windows.Forms.Label label101;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr5;
+        private C1.Win.C1Input.C1Button c1Button9;
+        private C1.Win.C1Input.C1TextBox txtAlienHn5;
+        private C1.Win.C1Input.C1TextBox txtPttwp35;
+        private C1.Win.C1Input.C1TextBox txtPttRef15;
+        private C1.Win.C1Input.C1TextBox txtAlienNat5;
+        private C1.Win.C1Input.C1Button c1Button10;
+        private System.Windows.Forms.Label lbAlienpreno5;
+        private C1.Win.C1Input.C1TextBox txtAliendob5;
+        private C1.Win.C1Input.C1TextBox txtAlienPID5;
+        private C1.Win.C1Input.C1CheckBox chkAlien5;
+        private System.Windows.Forms.Label label97;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName4;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr24;
+        private System.Windows.Forms.Label label98;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr4;
+        private C1.Win.C1Input.C1Button c1Button7;
+        private C1.Win.C1Input.C1TextBox txtAlienHn4;
+        private C1.Win.C1Input.C1TextBox txtPttwp34;
+        private C1.Win.C1Input.C1TextBox txtPttRef14;
+        private C1.Win.C1Input.C1TextBox txtAlienNat4;
+        private C1.Win.C1Input.C1Button c1Button8;
+        private System.Windows.Forms.Label lbAlienpreno4;
+        private C1.Win.C1Input.C1TextBox txtAliendob4;
+        private C1.Win.C1Input.C1TextBox txtAlienPID4;
+        private C1.Win.C1Input.C1CheckBox chkAlien4;
+        private System.Windows.Forms.Label label94;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName3;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr23;
+        private System.Windows.Forms.Label label95;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr3;
+        private C1.Win.C1Input.C1Button c1Button5;
+        private C1.Win.C1Input.C1TextBox txtAlienHn3;
+        private C1.Win.C1Input.C1TextBox txtPttwp33;
+        private C1.Win.C1Input.C1TextBox txtPttRef13;
+        private C1.Win.C1Input.C1TextBox txtAlienNat3;
+        private C1.Win.C1Input.C1Button c1Button6;
+        private System.Windows.Forms.Label lbAlienpreno3;
+        private C1.Win.C1Input.C1TextBox txtAliendob3;
+        private C1.Win.C1Input.C1TextBox txtAlienPID3;
+        private C1.Win.C1Input.C1CheckBox chkAlien3;
+        private System.Windows.Forms.Label label124;
+        private C1.Win.C1Input.C1TextBox txtAlienFullName13;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr213;
+        private System.Windows.Forms.Label label125;
+        private C1.Win.C1Input.C1TextBox txtAlienAddr13;
+        private C1.Win.C1Input.C1Button c1Button25;
+        private C1.Win.C1Input.C1TextBox txtAlienHn13;
+        private C1.Win.C1Input.C1TextBox txtPttwp313;
+        private C1.Win.C1Input.C1TextBox txtPttRef113;
+        private C1.Win.C1Input.C1TextBox txtAlienNat13;
+        private C1.Win.C1Input.C1Button c1Button26;
+        private System.Windows.Forms.Label lbAlienpreno13;
+        private C1.Win.C1Input.C1TextBox txtAliendob13;
+        private C1.Win.C1Input.C1TextBox txtAlienPID13;
+        private C1.Win.C1Input.C1CheckBox chkAlien13;
+        private C1.Win.C1Input.C1Button btnAlienGenVisitAll;
     }
 }

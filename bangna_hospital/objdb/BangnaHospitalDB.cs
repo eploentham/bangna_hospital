@@ -97,6 +97,10 @@ namespace bangna_hospital.objdb
         public PharmacyEndMonthDB endyearDB;        // แก้ให้เป็น endyear จะได้ทำ ปีละครั้ง
         public SupraHospitalDB supraHospDB;
         public SupraSupraDB supraDB;
+        public TokenDB tokenDB;
+        public PatientM39DB pm39DB;
+        public PatientM40DB pm40DB;
+        public DoctorM02DB dtrM02DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -212,6 +216,10 @@ namespace bangna_hospital.objdb
                 endyearDB = new PharmacyEndMonthDB(conn);
                 supraHospDB = new SupraHospitalDB(conn);
                 supraDB = new SupraSupraDB(conn);
+                tokenDB = new TokenDB(conn);
+                pm39DB = new PatientM39DB(conn);
+                pm40DB = new PatientM40DB(conn);
+                dtrM02DB = new DoctorM02DB(conn);
             }
             catch(Exception ex)
             {

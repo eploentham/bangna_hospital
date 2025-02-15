@@ -293,7 +293,7 @@
             // 
             this.btnSaveFmCode.Location = new System.Drawing.Point(227, 215);
             this.btnSaveFmCode.Name = "btnSaveFmCode";
-            this.btnSaveFmCode.Size = new System.Drawing.Size(99, 38);
+            this.btnSaveFmCode.Size = new System.Drawing.Size(139, 38);
             this.btnSaveFmCode.TabIndex = 25;
             this.btnSaveFmCode.Text = "save FM code";
             this.theme.SetTheme(this.btnSaveFmCode, "(default)");

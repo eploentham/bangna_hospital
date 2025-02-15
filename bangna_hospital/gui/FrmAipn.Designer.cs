@@ -56,6 +56,7 @@ namespace bangna_hospital.gui
             this.chkNoAdd = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.lb2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             this.SuspendLayout();
@@ -101,7 +102,6 @@ namespace bangna_hospital.gui
             this.txtSessionNO.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtSessionNO.Location = new System.Drawing.Point(126, 44);
             this.txtSessionNO.Name = "txtSessionNO";
-            this.txtSessionNO.ReadOnly = true;
             this.txtSessionNO.Size = new System.Drawing.Size(269, 26);
             this.txtSessionNO.TabIndex = 4;
             // 
@@ -213,6 +213,7 @@ namespace bangna_hospital.gui
             // 
             this.c1StatusBar1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             this.c1StatusBar1.LeftPaneItems.Add(this.lb1);
+            this.c1StatusBar1.LeftPaneItems.Add(this.lb2);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 400);
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.rb1);
@@ -319,6 +320,11 @@ namespace bangna_hospital.gui
             this.label8.TabIndex = 16;
             this.label8.Text = "authorName";
             // 
+            // lb2
+            // 
+            this.lb2.Name = "lb2";
+            this.lb2.Text = "Label";
+            // 
             // FrmAipn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -382,5 +388,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.CheckBox chkAnNew;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label8;
+        private C1.Win.C1Ribbon.RibbonLabel lb2;
     }
 }

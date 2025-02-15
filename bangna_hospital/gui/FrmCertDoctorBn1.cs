@@ -828,9 +828,11 @@ namespace bangna_hospital.gui
                     DateTime.TryParse(txtChk2DateStart.Value.ToString(), out datestart1);
                     DateTime.TryParse(txtChk2DateEnd.Value.ToString(), out dateend1);
                 }
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart1.ToString("dd-MM-") + (datestart1.Year + 543).ToString(), 110, linenumber + 3, 0);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend1.ToString("dd-MM-") + (dateend1.Year + 543).ToString(), 243, linenumber + 3, 0);
-
+                if (!chk4.Checked) 
+                {
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, datestart1.ToString("dd-MM-") + (datestart1.Year + 543).ToString(), 110, linenumber + 3, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, dateend1.ToString("dd-MM-") + (dateend1.Year + 543).ToString(), 243, linenumber + 3, 0);
+                }
                 linenumber -= 20;
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "หมายเหตุ .......................................................................................................................................................................................", 35, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, txtRemark.Text.Trim(), 80, linenumber + 3, 0);
@@ -1446,12 +1448,10 @@ namespace bangna_hospital.gui
             {
                 this.pattern = pattern;
             }
-
             public InsertSpaceSnippet()
                 : this(@"^(\d+)([a-zA-Z_]+)(\d*)$")
             {
             }
-
             public override CompareResult Compare(string fragmentText)
             {
                 if (Regex.IsMatch(fragmentText, pattern))
@@ -1462,7 +1462,6 @@ namespace bangna_hospital.gui
                 }
                 return CompareResult.Hidden;
             }
-
             public string InsertSpaces(string fragment)
             {
                 var m = Regex.Match(fragment, pattern);
@@ -1470,7 +1469,6 @@ namespace bangna_hospital.gui
                     return fragment;
                 return (m.Groups[1].Value + " " + m.Groups[2].Value + " " + m.Groups[3].Value).Trim();
             }
-
             public override string ToolTipTitle
             {
                 get
@@ -1479,7 +1477,6 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
         /// <summary>
         /// Inerts line break after '}'
         /// </summary>
@@ -1533,7 +1530,7 @@ namespace bangna_hospital.gui
         }
         private void FrmCertDoctorBn1_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2024-08-23 fix big font ";
+            this.Text = "Last Update 2025-02-11 fix big font ";
         }
     }
 }

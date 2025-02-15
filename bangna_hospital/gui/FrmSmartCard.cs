@@ -2499,8 +2499,16 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (pageLoad) return;
             String wardid = "";
-            wardid = ((ComboBoxItem)cboStkWard.SelectedItem).Value;
-            setGrfHn(wardid);
+            if (chkStkOPD.Checked)
+            {
+                wardid = ((ComboBoxItem)cboStkWard.SelectedItem).Value;
+                setGrfHn(wardid);
+            }
+            else
+            {
+                wardid = ((ComboBoxItem)cboStkWard.SelectedItem).Value;
+                setGrfHn(wardid);
+            }
         }
         private void BtnStkPrint_Click(object sender, EventArgs e)
         {
@@ -4207,10 +4215,10 @@ namespace bangna_hospital.gui
             }
             else
             {
-                DateTime dtstart1 = new DateTime();
-                DateTime.TryParse(txtStkDateStart.Text, out dtstart1);
-                DateTime dtend1 = new DateTime();
-                DateTime.TryParse(txtStkDateEnd.Text, out dtend1);
+                DateTime dtstart1 = (DateTime)txtStkDateStart.Value;
+                //DateTime.TryParse(txtStkDateStart.Value, out dtstart1);
+                DateTime dtend1 = (DateTime)txtStkDateEnd.Value;
+                //DateTime.TryParse(txtStkDateEnd.Text, out dtend1);
                 String deptid = bc.bcDB.pttDB.selectDeptIdOPDBySecId(wardid);
                 dt = bc.bcDB.vsDB.selectPttHiinDept1(deptid, wardid, dtstart1.ToString("yyyy-MM-dd"), dtend1.ToString("yyyy-MM-dd"));
             }

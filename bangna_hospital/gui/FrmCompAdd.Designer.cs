@@ -246,7 +246,7 @@
             // 
             this.c1StatusBar1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             this.c1StatusBar1.LeftPaneItems.Add(this.lfsbMessage);
-            this.c1StatusBar1.Location = new System.Drawing.Point(0, 372);
+            this.c1StatusBar1.Location = new System.Drawing.Point(0, 366);
             this.c1StatusBar1.Margin = new System.Windows.Forms.Padding(4);
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.ribbonLabel2);
@@ -362,7 +362,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(957, 394);
+            this.ClientSize = new System.Drawing.Size(957, 388);
             this.Controls.Add(this.lbMessage);
             this.Controls.Add(this.txtCompContractName);
             this.Controls.Add(this.label6);

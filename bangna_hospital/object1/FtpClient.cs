@@ -22,17 +22,24 @@ namespace bangna_hospital.object1
         FtpWebResponse ftpResponse = null;
         Stream ftpStream = null;
         int bufferSize = 2048;
-        Boolean ftpUsePassive = false;
+        Boolean ftpUsePassive = false, EnableSsl=false;
 
         /* Construct Object */
         public FtpClient(string hostIP, string userName, string password)
         {
             host = hostIP; user = userName; pass = password;
         }
+        public FtpClient(string hostIP, string userName, string password, Boolean ftpUsePassive, Boolean enableSsl)
+        {
+            host = hostIP; user = userName; pass = password;
+            this.ftpUsePassive = ftpUsePassive;
+            this.EnableSsl = enableSsl;
+        }
         public FtpClient(string hostIP, string userName, string password, Boolean ftpUsePassive)
         {
             host = hostIP; user = userName; pass = password;
             this.ftpUsePassive = ftpUsePassive;
+            this.EnableSsl = false;
         }
         public FtpClient(string hostIP, string userName, string password, Boolean ftpUsePassive, String ProxyProxyType, String ProxyHost, String ProxyPort)
         {
@@ -41,6 +48,7 @@ namespace bangna_hospital.object1
             this.ProxyProxyType = ProxyProxyType;
             this.ProxyHost = ProxyHost;
             this.ProxyPort = ProxyPort;
+            this.EnableSsl = false;
 
         }
         /* Download File */
@@ -50,19 +58,27 @@ namespace bangna_hospital.object1
             try
             {
                 /* Create an FTP Request */
+                new LogWriter("d", "FtpClient download 00 host "+ host);
+                new LogWriter("d", "FtpClient download 00 remoteFile " + remoteFile);
                 ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
+                new LogWriter("d", "FtpClient download 01 ");
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
+                ftpRequest.EnableSsl = EnableSsl;
+                new LogWriter("d", "FtpClient download 02 ");
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
                 /* Establish Return Communication with the FTP Server */
+                new LogWriter("d", "FtpClient download 03 ");
                 ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
+                new LogWriter("d", "FtpClient download 04 ");
                 /* Get the FTP Server's Response Stream */
                 ftpStream = ftpResponse.GetResponseStream();
+                new LogWriter("d", "FtpClient download 05 ");
                 /* Open a File Stream to Write the Downloaded File */
                 //FileStream localFileStream = new FileStream(localFile, FileMode.Create);
 
@@ -83,6 +99,7 @@ namespace bangna_hospital.object1
                 }
                 catch (Exception ex) {
                     Console.WriteLine(ex.ToString());
+                    new LogWriter("e", "FtpClient download while (bytesRead > 0)  " + ex.ToString());
                 }
                 /* Resource Cleanup */
                 //localFileStream.Close();
@@ -90,7 +107,7 @@ namespace bangna_hospital.object1
                 ftpResponse.Close();
                 ftpRequest = null;
             }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); new LogWriter("e", "FtpClient download  " + ex.ToString()); }
             return stream;
         }
         public MemoryStream download4K(String remoteFile)
@@ -120,12 +137,13 @@ namespace bangna_hospital.object1
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
+                    new LogWriter("e", "FtpClient download4K while (bytesRead > 0)  " + ex.ToString());
                 }
                 ftpStream.Close();
                 ftpResponse.Close();
                 ftpRequest = null;
             }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); new LogWriter("e", "FtpClient download4K " + ex.ToString()); }
             return stream;
         }
         /* Upload File */

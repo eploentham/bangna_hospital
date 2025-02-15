@@ -50,6 +50,45 @@ namespace bangna_hospital.objdb
                 lPm02.Add(cus1);
             }
         }
+        public String getSexByCode(String code)
+        {
+            String re = "";
+            foreach (PatientM02 row in lPm02)
+            {
+                if (row.MNC_PFIX_CD.Equals(code))
+                {
+                    re = row.MNC_SEX;
+                    break;
+                }
+            }
+            return re;
+        }
+        public String getCodeByNameE(String name)
+        {
+            String re = "";
+            foreach (PatientM02 row in lPm02)
+            {
+                if (row.MNC_PFIX_DSC_e.Equals(name))
+                {
+                    re = row.MNC_PFIX_CD;
+                    break;
+                }
+            }
+            return re;
+        }
+        public String getCodeByName(String name)
+        {
+            String re = "";
+            foreach (PatientM02 row in lPm02)
+            {
+                if (row.MNC_PFIX_DSC.Equals(name))
+                {
+                    re = row.MNC_PFIX_CD;
+                    break;
+                }
+            }
+            return re;
+        }
         public DataTable selectAll()
         {
             DataTable dt = new DataTable();

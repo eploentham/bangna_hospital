@@ -243,6 +243,51 @@
             this.label52 = new System.Windows.Forms.Label();
             this.cboAlienCompany = new System.Windows.Forms.ComboBox();
             this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnThaiPrint = new System.Windows.Forms.Button();
+            this.txtThaiDoctorName = new System.Windows.Forms.TextBox();
+            this.label102 = new System.Windows.Forms.Label();
+            this.txtThaiDoctorId = new System.Windows.Forms.TextBox();
+            this.txtThaiSign2 = new System.Windows.Forms.TextBox();
+            this.txtThaiSign1 = new System.Windows.Forms.TextBox();
+            this.label101 = new System.Windows.Forms.Label();
+            this.txtThaiHIV = new System.Windows.Forms.TextBox();
+            this.label100 = new System.Windows.Forms.Label();
+            this.txtThaiCheckUP = new System.Windows.Forms.TextBox();
+            this.label99 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.panel18 = new System.Windows.Forms.Panel();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
+            this.panel20 = new System.Windows.Forms.Panel();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
+            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.radioButton11 = new System.Windows.Forms.RadioButton();
+            this.radioButton12 = new System.Windows.Forms.RadioButton();
+            this.radioButton13 = new System.Windows.Forms.RadioButton();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.radioButton14 = new System.Windows.Forms.RadioButton();
+            this.radioButton15 = new System.Windows.Forms.RadioButton();
+            this.radioButton16 = new System.Windows.Forms.RadioButton();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.radioButton17 = new System.Windows.Forms.RadioButton();
+            this.radioButton18 = new System.Windows.Forms.RadioButton();
+            this.radioButton19 = new System.Windows.Forms.RadioButton();
+            this.label92 = new System.Windows.Forms.Label();
+            this.label93 = new System.Windows.Forms.Label();
+            this.label94 = new System.Windows.Forms.Label();
+            this.label95 = new System.Windows.Forms.Label();
+            this.label96 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
             this.txtThaiHN = new System.Windows.Forms.TextBox();
             this.label71 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
@@ -279,51 +324,6 @@
             this.txtThaiDOB = new System.Windows.Forms.TextBox();
             this.label91 = new System.Windows.Forms.Label();
             this.btnThaiSearch = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.panel17 = new System.Windows.Forms.Panel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.panel18 = new System.Windows.Forms.Panel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.panel19 = new System.Windows.Forms.Panel();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.panel20 = new System.Windows.Forms.Panel();
-            this.radioButton8 = new System.Windows.Forms.RadioButton();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.panel21 = new System.Windows.Forms.Panel();
-            this.radioButton11 = new System.Windows.Forms.RadioButton();
-            this.radioButton12 = new System.Windows.Forms.RadioButton();
-            this.radioButton13 = new System.Windows.Forms.RadioButton();
-            this.panel22 = new System.Windows.Forms.Panel();
-            this.radioButton14 = new System.Windows.Forms.RadioButton();
-            this.radioButton15 = new System.Windows.Forms.RadioButton();
-            this.radioButton16 = new System.Windows.Forms.RadioButton();
-            this.panel23 = new System.Windows.Forms.Panel();
-            this.radioButton17 = new System.Windows.Forms.RadioButton();
-            this.radioButton18 = new System.Windows.Forms.RadioButton();
-            this.radioButton19 = new System.Windows.Forms.RadioButton();
-            this.label92 = new System.Windows.Forms.Label();
-            this.label93 = new System.Windows.Forms.Label();
-            this.label94 = new System.Windows.Forms.Label();
-            this.label95 = new System.Windows.Forms.Label();
-            this.label96 = new System.Windows.Forms.Label();
-            this.label97 = new System.Windows.Forms.Label();
-            this.label98 = new System.Windows.Forms.Label();
-            this.txtThaiCheckUP = new System.Windows.Forms.TextBox();
-            this.label99 = new System.Windows.Forms.Label();
-            this.txtThaiHIV = new System.Windows.Forms.TextBox();
-            this.label100 = new System.Windows.Forms.Label();
-            this.txtThaiSign1 = new System.Windows.Forms.TextBox();
-            this.label101 = new System.Windows.Forms.Label();
-            this.txtThaiSign2 = new System.Windows.Forms.TextBox();
-            this.txtThaiDoctorName = new System.Windows.Forms.TextBox();
-            this.label102 = new System.Windows.Forms.Label();
-            this.txtThaiDoctorId = new System.Windows.Forms.TextBox();
-            this.btnThaiPrint = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.gbTrueStar.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -349,7 +349,6 @@
             this.panel16.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.c1DockingTabPage3.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel17.SuspendLayout();
             this.panel18.SuspendLayout();
@@ -358,6 +357,7 @@
             this.panel21.SuspendLayout();
             this.panel22.SuspendLayout();
             this.panel23.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSearch
@@ -2690,356 +2690,105 @@
             this.c1DockingTabPage3.TabIndex = 2;
             this.c1DockingTabPage3.Text = "ภาษาไทย";
             // 
-            // txtThaiHN
-            // 
-            this.txtThaiHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiHN.Location = new System.Drawing.Point(112, 6);
-            this.txtThaiHN.Name = "txtThaiHN";
-            this.txtThaiHN.Size = new System.Drawing.Size(100, 22);
-            this.txtThaiHN.TabIndex = 159;
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label71.Location = new System.Drawing.Point(5, 9);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(33, 16);
-            this.label71.TabIndex = 158;
-            this.label71.Text = "HN :";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label72.Location = new System.Drawing.Point(293, 6);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(93, 16);
-            this.label72.TabIndex = 160;
-            this.label72.Text = "วันที่ตรวจสุขภาพ :";
-            // 
-            // txtThaiDate
-            // 
-            this.txtThaiDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtThaiDate.Location = new System.Drawing.Point(388, 5);
-            this.txtThaiDate.Name = "txtThaiDate";
-            this.txtThaiDate.Size = new System.Drawing.Size(94, 20);
-            this.txtThaiDate.TabIndex = 161;
-            // 
-            // txtThaiPttNameT
-            // 
-            this.txtThaiPttNameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiPttNameT.Location = new System.Drawing.Point(112, 34);
-            this.txtThaiPttNameT.Name = "txtThaiPttNameT";
-            this.txtThaiPttNameT.Size = new System.Drawing.Size(362, 22);
-            this.txtThaiPttNameT.TabIndex = 162;
-            // 
-            // txtThaiSex
-            // 
-            this.txtThaiSex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiSex.Location = new System.Drawing.Point(112, 62);
-            this.txtThaiSex.Name = "txtThaiSex";
-            this.txtThaiSex.Size = new System.Drawing.Size(63, 22);
-            this.txtThaiSex.TabIndex = 163;
-            // 
-            // txtThaiAge
-            // 
-            this.txtThaiAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiAge.Location = new System.Drawing.Point(222, 62);
-            this.txtThaiAge.Name = "txtThaiAge";
-            this.txtThaiAge.Size = new System.Drawing.Size(63, 22);
-            this.txtThaiAge.TabIndex = 164;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label73);
-            this.groupBox3.Controls.Add(this.txtThaiBreath);
-            this.groupBox3.Controls.Add(this.label74);
-            this.groupBox3.Controls.Add(this.label75);
-            this.groupBox3.Controls.Add(this.txtThaiPulse);
-            this.groupBox3.Controls.Add(this.label76);
-            this.groupBox3.Controls.Add(this.label77);
-            this.groupBox3.Controls.Add(this.txtThaiTempu);
-            this.groupBox3.Controls.Add(this.label79);
-            this.groupBox3.Controls.Add(this.label80);
-            this.groupBox3.Controls.Add(this.txtThaiBloodPressure);
-            this.groupBox3.Controls.Add(this.label81);
-            this.groupBox3.Controls.Add(this.label82);
-            this.groupBox3.Controls.Add(this.label83);
-            this.groupBox3.Controls.Add(this.txtThaiHeight);
-            this.groupBox3.Controls.Add(this.label84);
-            this.groupBox3.Controls.Add(this.txtThaiWeight);
-            this.groupBox3.Controls.Add(this.label85);
-            this.groupBox3.Controls.Add(this.txtThaiRhgroup);
-            this.groupBox3.Controls.Add(this.label86);
-            this.groupBox3.Controls.Add(this.txtThaiABOGroup);
-            this.groupBox3.Controls.Add(this.label87);
-            this.groupBox3.Location = new System.Drawing.Point(498, 5);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(544, 110);
-            this.groupBox3.TabIndex = 170;
-            this.groupBox3.TabStop = false;
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label73.Location = new System.Drawing.Point(482, 76);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(50, 16);
-            this.label73.TabIndex = 25;
-            this.label73.Text = "ครั้ง/นาที";
-            // 
-            // txtThaiBreath
-            // 
-            this.txtThaiBreath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiBreath.Location = new System.Drawing.Point(427, 73);
-            this.txtThaiBreath.Name = "txtThaiBreath";
-            this.txtThaiBreath.Size = new System.Drawing.Size(49, 22);
-            this.txtThaiBreath.TabIndex = 24;
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label74.Location = new System.Drawing.Point(379, 76);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(55, 16);
-            this.label74.TabIndex = 23;
-            this.label74.Text = "R.Rate :";
-            // 
-            // label75
-            // 
-            this.label75.AutoSize = true;
-            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label75.Location = new System.Drawing.Point(325, 76);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(50, 16);
-            this.label75.TabIndex = 22;
-            this.label75.Text = "ครั้ง/นาที";
-            // 
-            // txtThaiPulse
-            // 
-            this.txtThaiPulse.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiPulse.Location = new System.Drawing.Point(270, 73);
-            this.txtThaiPulse.Name = "txtThaiPulse";
-            this.txtThaiPulse.Size = new System.Drawing.Size(49, 22);
-            this.txtThaiPulse.TabIndex = 21;
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label76.Location = new System.Drawing.Point(211, 76);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(55, 16);
-            this.label76.TabIndex = 20;
-            this.label76.Text = "H.Rate :";
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label77.Location = new System.Drawing.Point(482, 20);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(16, 16);
-            this.label77.TabIndex = 19;
-            this.label77.Text = "C";
-            // 
-            // txtThaiTempu
-            // 
-            this.txtThaiTempu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiTempu.Location = new System.Drawing.Point(427, 17);
-            this.txtThaiTempu.Name = "txtThaiTempu";
-            this.txtThaiTempu.Size = new System.Drawing.Size(38, 22);
-            this.txtThaiTempu.TabIndex = 18;
-            // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label79.Location = new System.Drawing.Point(372, 20);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(50, 16);
-            this.label79.TabIndex = 17;
-            this.label79.Text = "อุณหภูมิ :";
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label80.Location = new System.Drawing.Point(161, 76);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(51, 16);
-            this.label80.TabIndex = 16;
-            this.label80.Text = "มม.ปรอท";
-            // 
-            // txtThaiBloodPressure
-            // 
-            this.txtThaiBloodPressure.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiBloodPressure.Location = new System.Drawing.Point(94, 73);
-            this.txtThaiBloodPressure.Name = "txtThaiBloodPressure";
-            this.txtThaiBloodPressure.Size = new System.Drawing.Size(63, 22);
-            this.txtThaiBloodPressure.TabIndex = 13;
-            // 
-            // label81
-            // 
-            this.label81.AutoSize = true;
-            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label81.Location = new System.Drawing.Point(6, 76);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(78, 16);
-            this.label81.TabIndex = 12;
-            this.label81.Text = "ความดันโลหิต :";
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label82.Location = new System.Drawing.Point(311, 48);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(24, 16);
-            this.label82.TabIndex = 11;
-            this.label82.Text = "ซม.";
-            // 
-            // label83
-            // 
-            this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label83.Location = new System.Drawing.Point(147, 48);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(22, 16);
-            this.label83.TabIndex = 10;
-            this.label83.Text = "กก.";
-            // 
-            // txtThaiHeight
-            // 
-            this.txtThaiHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiHeight.Location = new System.Drawing.Point(259, 45);
-            this.txtThaiHeight.Name = "txtThaiHeight";
-            this.txtThaiHeight.Size = new System.Drawing.Size(49, 22);
-            this.txtThaiHeight.TabIndex = 9;
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label84.Location = new System.Drawing.Point(205, 48);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(46, 16);
-            this.label84.TabIndex = 8;
-            this.label84.Text = "ส่วนสูง :";
-            // 
-            // txtThaiWeight
-            // 
-            this.txtThaiWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiWeight.Location = new System.Drawing.Point(94, 45);
-            this.txtThaiWeight.Name = "txtThaiWeight";
-            this.txtThaiWeight.Size = new System.Drawing.Size(49, 22);
-            this.txtThaiWeight.TabIndex = 7;
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label85.Location = new System.Drawing.Point(6, 48);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(46, 16);
-            this.label85.TabIndex = 6;
-            this.label85.Text = "น้ำหนัก :";
-            // 
-            // txtThaiRhgroup
-            // 
-            this.txtThaiRhgroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiRhgroup.Location = new System.Drawing.Point(259, 17);
-            this.txtThaiRhgroup.Name = "txtThaiRhgroup";
-            this.txtThaiRhgroup.Size = new System.Drawing.Size(63, 22);
-            this.txtThaiRhgroup.TabIndex = 5;
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label86.Location = new System.Drawing.Point(181, 20);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(70, 16);
-            this.label86.TabIndex = 4;
-            this.label86.Text = "Rh Group :";
-            // 
-            // txtThaiABOGroup
-            // 
-            this.txtThaiABOGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiABOGroup.Location = new System.Drawing.Point(94, 17);
-            this.txtThaiABOGroup.Name = "txtThaiABOGroup";
-            this.txtThaiABOGroup.Size = new System.Drawing.Size(63, 22);
-            this.txtThaiABOGroup.TabIndex = 3;
-            // 
-            // label87
-            // 
-            this.label87.AutoSize = true;
-            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label87.Location = new System.Drawing.Point(6, 20);
-            this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(81, 16);
-            this.label87.TabIndex = 2;
-            this.label87.Text = "ABO Group :";
-            // 
-            // label88
-            // 
-            this.label88.AutoSize = true;
-            this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label88.Location = new System.Drawing.Point(5, 37);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(71, 16);
-            this.label88.TabIndex = 165;
-            this.label88.Text = "ชื่อ-นามสกุล  :";
-            // 
-            // label89
-            // 
-            this.label89.AutoSize = true;
-            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label89.Location = new System.Drawing.Point(5, 65);
-            this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(31, 16);
-            this.label89.TabIndex = 166;
-            this.label89.Text = "เพศ :";
-            // 
-            // label90
-            // 
-            this.label90.AutoSize = true;
-            this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label90.Location = new System.Drawing.Point(185, 65);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(30, 16);
-            this.label90.TabIndex = 167;
-            this.label90.Text = "อายุ :";
-            // 
-            // txtThaiDOB
-            // 
-            this.txtThaiDOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiDOB.Location = new System.Drawing.Point(394, 62);
-            this.txtThaiDOB.Name = "txtThaiDOB";
-            this.txtThaiDOB.Size = new System.Drawing.Size(80, 22);
-            this.txtThaiDOB.TabIndex = 168;
-            // 
-            // label91
-            // 
-            this.label91.AutoSize = true;
-            this.label91.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label91.Location = new System.Drawing.Point(345, 65);
-            this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(42, 16);
-            this.label91.TabIndex = 169;
-            this.label91.Text = "DOB :";
-            // 
-            // btnThaiSearch
-            // 
-            this.btnThaiSearch.Location = new System.Drawing.Point(222, 5);
-            this.btnThaiSearch.Name = "btnThaiSearch";
-            this.btnThaiSearch.Size = new System.Drawing.Size(63, 23);
-            this.btnThaiSearch.TabIndex = 171;
-            this.btnThaiSearch.Text = "ดึงข้อมูล";
-            this.btnThaiSearch.UseVisualStyleBackColor = true;
+            // btnThaiPrint
+            // 
+            this.btnThaiPrint.Location = new System.Drawing.Point(962, 393);
+            this.btnThaiPrint.Name = "btnThaiPrint";
+            this.btnThaiPrint.Size = new System.Drawing.Size(74, 41);
+            this.btnThaiPrint.TabIndex = 229;
+            this.btnThaiPrint.Text = "Print";
+            this.btnThaiPrint.UseVisualStyleBackColor = true;
+            // 
+            // txtThaiDoctorName
+            // 
+            this.txtThaiDoctorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiDoctorName.Location = new System.Drawing.Point(203, 474);
+            this.txtThaiDoctorName.Name = "txtThaiDoctorName";
+            this.txtThaiDoctorName.Size = new System.Drawing.Size(279, 22);
+            this.txtThaiDoctorName.TabIndex = 194;
+            this.txtThaiDoctorName.Text = "นายแพทย์ อรรถสิทธิ์ ทองปลาเค้า";
+            // 
+            // label102
+            // 
+            this.label102.AutoSize = true;
+            this.label102.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label102.Location = new System.Drawing.Point(38, 477);
+            this.label102.Name = "label102";
+            this.label102.Size = new System.Drawing.Size(73, 16);
+            this.label102.TabIndex = 193;
+            this.label102.Text = "แพทย์ผู้ตรวจ :";
+            // 
+            // txtThaiDoctorId
+            // 
+            this.txtThaiDoctorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiDoctorId.Location = new System.Drawing.Point(120, 474);
+            this.txtThaiDoctorId.Name = "txtThaiDoctorId";
+            this.txtThaiDoctorId.Size = new System.Drawing.Size(77, 22);
+            this.txtThaiDoctorId.TabIndex = 192;
+            this.txtThaiDoctorId.Text = "24738";
+            // 
+            // txtThaiSign2
+            // 
+            this.txtThaiSign2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiSign2.Location = new System.Drawing.Point(120, 446);
+            this.txtThaiSign2.Name = "txtThaiSign2";
+            this.txtThaiSign2.Size = new System.Drawing.Size(644, 22);
+            this.txtThaiSign2.TabIndex = 191;
+            // 
+            // txtThaiSign1
+            // 
+            this.txtThaiSign1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiSign1.Location = new System.Drawing.Point(120, 418);
+            this.txtThaiSign1.Name = "txtThaiSign1";
+            this.txtThaiSign1.Size = new System.Drawing.Size(644, 22);
+            this.txtThaiSign1.TabIndex = 189;
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label101.Location = new System.Drawing.Point(13, 421);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(70, 16);
+            this.label101.TabIndex = 190;
+            this.label101.Text = "สัญญาณชีพ  :";
+            // 
+            // txtThaiHIV
+            // 
+            this.txtThaiHIV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiHIV.Location = new System.Drawing.Point(120, 390);
+            this.txtThaiHIV.Name = "txtThaiHIV";
+            this.txtThaiHIV.Size = new System.Drawing.Size(430, 22);
+            this.txtThaiHIV.TabIndex = 187;
+            this.txtThaiHIV.Text = "ไม่พบการติดเชื้อ Anti HIV";
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label100.Location = new System.Drawing.Point(13, 393);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(63, 16);
+            this.label100.TabIndex = 188;
+            this.label100.Text = "Anti HIV  :";
+            // 
+            // txtThaiCheckUP
+            // 
+            this.txtThaiCheckUP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiCheckUP.Location = new System.Drawing.Point(120, 362);
+            this.txtThaiCheckUP.Name = "txtThaiCheckUP";
+            this.txtThaiCheckUP.Size = new System.Drawing.Size(644, 22);
+            this.txtThaiCheckUP.TabIndex = 185;
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label99.Location = new System.Drawing.Point(13, 365);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(45, 16);
+            this.label99.TabIndex = 186;
+            this.label99.Text = "เห็นว่า  :";
             // 
             // groupBox5
             // 
@@ -3406,105 +3155,356 @@
             this.label98.TabIndex = 166;
             this.label98.Text = "1. โรคเรื้อนในระยะติดต่อหรือในระยะที่ปรากฏอาการเป็นที่รังเกียจแก่สังคม (Leprosy)";
             // 
-            // txtThaiCheckUP
+            // txtThaiHN
             // 
-            this.txtThaiCheckUP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiCheckUP.Location = new System.Drawing.Point(120, 362);
-            this.txtThaiCheckUP.Name = "txtThaiCheckUP";
-            this.txtThaiCheckUP.Size = new System.Drawing.Size(644, 22);
-            this.txtThaiCheckUP.TabIndex = 185;
+            this.txtThaiHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiHN.Location = new System.Drawing.Point(112, 6);
+            this.txtThaiHN.Name = "txtThaiHN";
+            this.txtThaiHN.Size = new System.Drawing.Size(100, 22);
+            this.txtThaiHN.TabIndex = 159;
             // 
-            // label99
+            // label71
             // 
-            this.label99.AutoSize = true;
-            this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label99.Location = new System.Drawing.Point(13, 365);
-            this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(45, 16);
-            this.label99.TabIndex = 186;
-            this.label99.Text = "เห็นว่า  :";
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label71.Location = new System.Drawing.Point(5, 9);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(33, 16);
+            this.label71.TabIndex = 158;
+            this.label71.Text = "HN :";
             // 
-            // txtThaiHIV
+            // label72
             // 
-            this.txtThaiHIV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiHIV.Location = new System.Drawing.Point(120, 390);
-            this.txtThaiHIV.Name = "txtThaiHIV";
-            this.txtThaiHIV.Size = new System.Drawing.Size(430, 22);
-            this.txtThaiHIV.TabIndex = 187;
-            this.txtThaiHIV.Text = "ไม่พบการติดเชื้อ Anti HIV";
+            this.label72.AutoSize = true;
+            this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label72.Location = new System.Drawing.Point(293, 6);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(93, 16);
+            this.label72.TabIndex = 160;
+            this.label72.Text = "วันที่ตรวจสุขภาพ :";
             // 
-            // label100
+            // txtThaiDate
             // 
-            this.label100.AutoSize = true;
-            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label100.Location = new System.Drawing.Point(13, 393);
-            this.label100.Name = "label100";
-            this.label100.Size = new System.Drawing.Size(63, 16);
-            this.label100.TabIndex = 188;
-            this.label100.Text = "Anti HIV  :";
+            this.txtThaiDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.txtThaiDate.Location = new System.Drawing.Point(388, 5);
+            this.txtThaiDate.Name = "txtThaiDate";
+            this.txtThaiDate.Size = new System.Drawing.Size(94, 20);
+            this.txtThaiDate.TabIndex = 161;
             // 
-            // txtThaiSign1
+            // txtThaiPttNameT
             // 
-            this.txtThaiSign1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiSign1.Location = new System.Drawing.Point(120, 418);
-            this.txtThaiSign1.Name = "txtThaiSign1";
-            this.txtThaiSign1.Size = new System.Drawing.Size(644, 22);
-            this.txtThaiSign1.TabIndex = 189;
+            this.txtThaiPttNameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiPttNameT.Location = new System.Drawing.Point(112, 34);
+            this.txtThaiPttNameT.Name = "txtThaiPttNameT";
+            this.txtThaiPttNameT.Size = new System.Drawing.Size(362, 22);
+            this.txtThaiPttNameT.TabIndex = 162;
             // 
-            // label101
+            // txtThaiSex
             // 
-            this.label101.AutoSize = true;
-            this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label101.Location = new System.Drawing.Point(13, 421);
-            this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(70, 16);
-            this.label101.TabIndex = 190;
-            this.label101.Text = "สัญญาณชีพ  :";
+            this.txtThaiSex.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiSex.Location = new System.Drawing.Point(112, 62);
+            this.txtThaiSex.Name = "txtThaiSex";
+            this.txtThaiSex.Size = new System.Drawing.Size(63, 22);
+            this.txtThaiSex.TabIndex = 163;
             // 
-            // txtThaiSign2
+            // txtThaiAge
             // 
-            this.txtThaiSign2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiSign2.Location = new System.Drawing.Point(120, 446);
-            this.txtThaiSign2.Name = "txtThaiSign2";
-            this.txtThaiSign2.Size = new System.Drawing.Size(644, 22);
-            this.txtThaiSign2.TabIndex = 191;
+            this.txtThaiAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiAge.Location = new System.Drawing.Point(222, 62);
+            this.txtThaiAge.Name = "txtThaiAge";
+            this.txtThaiAge.Size = new System.Drawing.Size(63, 22);
+            this.txtThaiAge.TabIndex = 164;
             // 
-            // txtThaiDoctorName
+            // groupBox3
             // 
-            this.txtThaiDoctorName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiDoctorName.Location = new System.Drawing.Point(203, 474);
-            this.txtThaiDoctorName.Name = "txtThaiDoctorName";
-            this.txtThaiDoctorName.Size = new System.Drawing.Size(279, 22);
-            this.txtThaiDoctorName.TabIndex = 194;
-            this.txtThaiDoctorName.Text = "นายแพทย์ อรรถสิทธิ์ ทองปลาเค้า";
+            this.groupBox3.Controls.Add(this.label73);
+            this.groupBox3.Controls.Add(this.txtThaiBreath);
+            this.groupBox3.Controls.Add(this.label74);
+            this.groupBox3.Controls.Add(this.label75);
+            this.groupBox3.Controls.Add(this.txtThaiPulse);
+            this.groupBox3.Controls.Add(this.label76);
+            this.groupBox3.Controls.Add(this.label77);
+            this.groupBox3.Controls.Add(this.txtThaiTempu);
+            this.groupBox3.Controls.Add(this.label79);
+            this.groupBox3.Controls.Add(this.label80);
+            this.groupBox3.Controls.Add(this.txtThaiBloodPressure);
+            this.groupBox3.Controls.Add(this.label81);
+            this.groupBox3.Controls.Add(this.label82);
+            this.groupBox3.Controls.Add(this.label83);
+            this.groupBox3.Controls.Add(this.txtThaiHeight);
+            this.groupBox3.Controls.Add(this.label84);
+            this.groupBox3.Controls.Add(this.txtThaiWeight);
+            this.groupBox3.Controls.Add(this.label85);
+            this.groupBox3.Controls.Add(this.txtThaiRhgroup);
+            this.groupBox3.Controls.Add(this.label86);
+            this.groupBox3.Controls.Add(this.txtThaiABOGroup);
+            this.groupBox3.Controls.Add(this.label87);
+            this.groupBox3.Location = new System.Drawing.Point(498, 5);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(544, 110);
+            this.groupBox3.TabIndex = 170;
+            this.groupBox3.TabStop = false;
             // 
-            // label102
+            // label73
             // 
-            this.label102.AutoSize = true;
-            this.label102.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label102.Location = new System.Drawing.Point(38, 477);
-            this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(73, 16);
-            this.label102.TabIndex = 193;
-            this.label102.Text = "แพทย์ผู้ตรวจ :";
+            this.label73.AutoSize = true;
+            this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label73.Location = new System.Drawing.Point(482, 76);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(50, 16);
+            this.label73.TabIndex = 25;
+            this.label73.Text = "ครั้ง/นาที";
             // 
-            // txtThaiDoctorId
+            // txtThaiBreath
             // 
-            this.txtThaiDoctorId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtThaiDoctorId.Location = new System.Drawing.Point(120, 474);
-            this.txtThaiDoctorId.Name = "txtThaiDoctorId";
-            this.txtThaiDoctorId.Size = new System.Drawing.Size(77, 22);
-            this.txtThaiDoctorId.TabIndex = 192;
-            this.txtThaiDoctorId.Text = "24738";
+            this.txtThaiBreath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiBreath.Location = new System.Drawing.Point(427, 73);
+            this.txtThaiBreath.Name = "txtThaiBreath";
+            this.txtThaiBreath.Size = new System.Drawing.Size(49, 22);
+            this.txtThaiBreath.TabIndex = 24;
             // 
-            // btnThaiPrint
+            // label74
             // 
-            this.btnThaiPrint.Location = new System.Drawing.Point(962, 393);
-            this.btnThaiPrint.Name = "btnThaiPrint";
-            this.btnThaiPrint.Size = new System.Drawing.Size(74, 41);
-            this.btnThaiPrint.TabIndex = 229;
-            this.btnThaiPrint.Text = "Print";
-            this.btnThaiPrint.UseVisualStyleBackColor = true;
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label74.Location = new System.Drawing.Point(379, 76);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(55, 16);
+            this.label74.TabIndex = 23;
+            this.label74.Text = "R.Rate :";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label75.Location = new System.Drawing.Point(325, 76);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(50, 16);
+            this.label75.TabIndex = 22;
+            this.label75.Text = "ครั้ง/นาที";
+            // 
+            // txtThaiPulse
+            // 
+            this.txtThaiPulse.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiPulse.Location = new System.Drawing.Point(270, 73);
+            this.txtThaiPulse.Name = "txtThaiPulse";
+            this.txtThaiPulse.Size = new System.Drawing.Size(49, 22);
+            this.txtThaiPulse.TabIndex = 21;
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label76.Location = new System.Drawing.Point(211, 76);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(55, 16);
+            this.label76.TabIndex = 20;
+            this.label76.Text = "H.Rate :";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label77.Location = new System.Drawing.Point(482, 20);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(16, 16);
+            this.label77.TabIndex = 19;
+            this.label77.Text = "C";
+            // 
+            // txtThaiTempu
+            // 
+            this.txtThaiTempu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiTempu.Location = new System.Drawing.Point(427, 17);
+            this.txtThaiTempu.Name = "txtThaiTempu";
+            this.txtThaiTempu.Size = new System.Drawing.Size(38, 22);
+            this.txtThaiTempu.TabIndex = 18;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label79.Location = new System.Drawing.Point(372, 20);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(50, 16);
+            this.label79.TabIndex = 17;
+            this.label79.Text = "อุณหภูมิ :";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label80.Location = new System.Drawing.Point(161, 76);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(51, 16);
+            this.label80.TabIndex = 16;
+            this.label80.Text = "มม.ปรอท";
+            // 
+            // txtThaiBloodPressure
+            // 
+            this.txtThaiBloodPressure.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiBloodPressure.Location = new System.Drawing.Point(94, 73);
+            this.txtThaiBloodPressure.Name = "txtThaiBloodPressure";
+            this.txtThaiBloodPressure.Size = new System.Drawing.Size(63, 22);
+            this.txtThaiBloodPressure.TabIndex = 13;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label81.Location = new System.Drawing.Point(6, 76);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(78, 16);
+            this.label81.TabIndex = 12;
+            this.label81.Text = "ความดันโลหิต :";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label82.Location = new System.Drawing.Point(311, 48);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(24, 16);
+            this.label82.TabIndex = 11;
+            this.label82.Text = "ซม.";
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label83.Location = new System.Drawing.Point(147, 48);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(22, 16);
+            this.label83.TabIndex = 10;
+            this.label83.Text = "กก.";
+            // 
+            // txtThaiHeight
+            // 
+            this.txtThaiHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiHeight.Location = new System.Drawing.Point(259, 45);
+            this.txtThaiHeight.Name = "txtThaiHeight";
+            this.txtThaiHeight.Size = new System.Drawing.Size(49, 22);
+            this.txtThaiHeight.TabIndex = 9;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label84.Location = new System.Drawing.Point(205, 48);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(46, 16);
+            this.label84.TabIndex = 8;
+            this.label84.Text = "ส่วนสูง :";
+            // 
+            // txtThaiWeight
+            // 
+            this.txtThaiWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiWeight.Location = new System.Drawing.Point(94, 45);
+            this.txtThaiWeight.Name = "txtThaiWeight";
+            this.txtThaiWeight.Size = new System.Drawing.Size(49, 22);
+            this.txtThaiWeight.TabIndex = 7;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label85.Location = new System.Drawing.Point(6, 48);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(46, 16);
+            this.label85.TabIndex = 6;
+            this.label85.Text = "น้ำหนัก :";
+            // 
+            // txtThaiRhgroup
+            // 
+            this.txtThaiRhgroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiRhgroup.Location = new System.Drawing.Point(259, 17);
+            this.txtThaiRhgroup.Name = "txtThaiRhgroup";
+            this.txtThaiRhgroup.Size = new System.Drawing.Size(63, 22);
+            this.txtThaiRhgroup.TabIndex = 5;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label86.Location = new System.Drawing.Point(181, 20);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(70, 16);
+            this.label86.TabIndex = 4;
+            this.label86.Text = "Rh Group :";
+            // 
+            // txtThaiABOGroup
+            // 
+            this.txtThaiABOGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiABOGroup.Location = new System.Drawing.Point(94, 17);
+            this.txtThaiABOGroup.Name = "txtThaiABOGroup";
+            this.txtThaiABOGroup.Size = new System.Drawing.Size(63, 22);
+            this.txtThaiABOGroup.TabIndex = 3;
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label87.Location = new System.Drawing.Point(6, 20);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(81, 16);
+            this.label87.TabIndex = 2;
+            this.label87.Text = "ABO Group :";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label88.Location = new System.Drawing.Point(5, 37);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(71, 16);
+            this.label88.TabIndex = 165;
+            this.label88.Text = "ชื่อ-นามสกุล  :";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label89.Location = new System.Drawing.Point(5, 65);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(31, 16);
+            this.label89.TabIndex = 166;
+            this.label89.Text = "เพศ :";
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label90.Location = new System.Drawing.Point(185, 65);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(30, 16);
+            this.label90.TabIndex = 167;
+            this.label90.Text = "อายุ :";
+            // 
+            // txtThaiDOB
+            // 
+            this.txtThaiDOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtThaiDOB.Location = new System.Drawing.Point(394, 62);
+            this.txtThaiDOB.Name = "txtThaiDOB";
+            this.txtThaiDOB.Size = new System.Drawing.Size(80, 22);
+            this.txtThaiDOB.TabIndex = 168;
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label91.Location = new System.Drawing.Point(345, 65);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(42, 16);
+            this.label91.TabIndex = 169;
+            this.label91.Text = "DOB :";
+            // 
+            // btnThaiSearch
+            // 
+            this.btnThaiSearch.Location = new System.Drawing.Point(222, 5);
+            this.btnThaiSearch.Name = "btnThaiSearch";
+            this.btnThaiSearch.Size = new System.Drawing.Size(63, 23);
+            this.btnThaiSearch.TabIndex = 171;
+            this.btnThaiSearch.Text = "ดึงข้อมูล";
+            this.btnThaiSearch.UseVisualStyleBackColor = true;
             // 
             // FrmOPD21CheckUP
             // 
@@ -3562,8 +3562,6 @@
             this.groupBox1.PerformLayout();
             this.c1DockingTabPage3.ResumeLayout(false);
             this.c1DockingTabPage3.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.panel17.ResumeLayout(false);
@@ -3580,6 +3578,8 @@
             this.panel22.PerformLayout();
             this.panel23.ResumeLayout(false);
             this.panel23.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }

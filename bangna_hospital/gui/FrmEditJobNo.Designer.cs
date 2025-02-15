@@ -84,6 +84,20 @@
             this.lbDeptPttnameT = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.txtDeptHN = new C1.Win.C1Input.C1TextBox();
+            this.c1DockingTabPage5 = new C1.Win.C1Command.C1DockingTabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnTokenGen = new C1.Win.C1Input.C1Button();
+            this.btnTokenNew = new C1.Win.C1Input.C1Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtTokenToken = new C1.Win.C1Input.C1TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtTokenDaysExpire = new C1.Win.C1Input.C1TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtTokenSecretKey = new C1.Win.C1Input.C1TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtTokenDateExpire = new C1.Win.Calendar.C1DateEdit();
+            this.cboTokenModule = new C1.Win.C1Input.C1ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.sbMessage = new C1.Win.C1Ribbon.C1StatusBar();
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
@@ -118,6 +132,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboDeptNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptDept)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptHN)).BeginInit();
+            this.c1DockingTabPage5.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnTokenGen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnTokenNew)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenToken)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenDaysExpire)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenSecretKey)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenDateExpire)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboTokenModule)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -280,10 +303,12 @@
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage3);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage4);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage5);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
+            this.c1DockingTab1.SelectedIndex = 4;
             this.c1DockingTab1.Size = new System.Drawing.Size(1074, 490);
             this.c1DockingTab1.TabIndex = 129;
             this.c1DockingTab1.TabsSpacing = 5;
@@ -719,6 +744,178 @@
             this.txtDeptHN.TabIndex = 126;
             this.txtDeptHN.Tag = null;
             // 
+            // c1DockingTabPage5
+            // 
+            this.c1DockingTabPage5.Controls.Add(this.groupBox2);
+            this.c1DockingTabPage5.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage5.Name = "c1DockingTabPage5";
+            this.c1DockingTabPage5.Size = new System.Drawing.Size(1072, 459);
+            this.c1DockingTabPage5.TabIndex = 4;
+            this.c1DockingTabPage5.Text = "gen Token";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.btnTokenGen);
+            this.groupBox2.Controls.Add(this.btnTokenNew);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.txtTokenToken);
+            this.groupBox2.Controls.Add(this.label18);
+            this.groupBox2.Controls.Add(this.txtTokenDaysExpire);
+            this.groupBox2.Controls.Add(this.label17);
+            this.groupBox2.Controls.Add(this.txtTokenSecretKey);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Controls.Add(this.txtTokenDateExpire);
+            this.groupBox2.Controls.Add(this.cboTokenModule);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Location = new System.Drawing.Point(11, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(674, 451);
+            this.groupBox2.TabIndex = 180;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // btnTokenGen
+            // 
+            this.btnTokenGen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnTokenGen.Location = new System.Drawing.Point(487, 124);
+            this.btnTokenGen.Name = "btnTokenGen";
+            this.btnTokenGen.Size = new System.Drawing.Size(138, 45);
+            this.btnTokenGen.TabIndex = 189;
+            this.btnTokenGen.Text = "save Token";
+            this.btnTokenGen.UseVisualStyleBackColor = true;
+            // 
+            // btnTokenNew
+            // 
+            this.btnTokenNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnTokenNew.Location = new System.Drawing.Point(487, 25);
+            this.btnTokenNew.Name = "btnTokenNew";
+            this.btnTokenNew.Size = new System.Drawing.Size(138, 45);
+            this.btnTokenNew.TabIndex = 188;
+            this.btnTokenNew.Text = "gen Token";
+            this.btnTokenNew.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label19.Location = new System.Drawing.Point(12, 150);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(62, 20);
+            this.label19.TabIndex = 186;
+            this.label19.Text = "TOKEN";
+            // 
+            // txtTokenToken
+            // 
+            this.txtTokenToken.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTokenToken.Location = new System.Drawing.Point(6, 175);
+            this.txtTokenToken.Multiline = true;
+            this.txtTokenToken.Name = "txtTokenToken";
+            this.txtTokenToken.Size = new System.Drawing.Size(658, 270);
+            this.txtTokenToken.TabIndex = 187;
+            this.txtTokenToken.Tag = null;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label18.Location = new System.Drawing.Point(12, 89);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(111, 20);
+            this.label18.TabIndex = 184;
+            this.label18.Text = "จำนวนวัน expire";
+            // 
+            // txtTokenDaysExpire
+            // 
+            this.txtTokenDaysExpire.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTokenDaysExpire.Location = new System.Drawing.Point(131, 85);
+            this.txtTokenDaysExpire.Name = "txtTokenDaysExpire";
+            this.txtTokenDaysExpire.Size = new System.Drawing.Size(163, 27);
+            this.txtTokenDaysExpire.TabIndex = 185;
+            this.txtTokenDaysExpire.Tag = null;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label17.Location = new System.Drawing.Point(12, 56);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(81, 20);
+            this.label17.TabIndex = 182;
+            this.label17.Text = "secret key";
+            // 
+            // txtTokenSecretKey
+            // 
+            this.txtTokenSecretKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTokenSecretKey.Location = new System.Drawing.Point(108, 55);
+            this.txtTokenSecretKey.Name = "txtTokenSecretKey";
+            this.txtTokenSecretKey.Size = new System.Drawing.Size(335, 27);
+            this.txtTokenSecretKey.TabIndex = 183;
+            this.txtTokenSecretKey.Tag = null;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label16.Location = new System.Drawing.Point(12, 119);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(87, 20);
+            this.label16.TabIndex = 180;
+            this.label16.Text = "date expire";
+            // 
+            // txtTokenDateExpire
+            // 
+            this.txtTokenDateExpire.AllowSpinLoop = false;
+            this.txtTokenDateExpire.Calendar.RightToLeft = System.Windows.Forms.RightToLeft.Inherit;
+            this.txtTokenDateExpire.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtTokenDateExpire.CurrentTimeZone = false;
+            this.txtTokenDateExpire.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtTokenDateExpire.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtTokenDateExpire.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtTokenDateExpire.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtTokenDateExpire.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtTokenDateExpire.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
+            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
+            this.txtTokenDateExpire.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtTokenDateExpire.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtTokenDateExpire.GMTOffset = System.TimeSpan.Parse("07:00:00");
+            this.txtTokenDateExpire.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtTokenDateExpire.Location = new System.Drawing.Point(131, 118);
+            this.txtTokenDateExpire.Name = "txtTokenDateExpire";
+            this.txtTokenDateExpire.Size = new System.Drawing.Size(128, 24);
+            this.txtTokenDateExpire.TabIndex = 181;
+            this.txtTokenDateExpire.Tag = null;
+            // 
+            // cboTokenModule
+            // 
+            this.cboTokenModule.AllowSpinLoop = false;
+            this.cboTokenModule.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboTokenModule.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboTokenModule.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboTokenModule.GapHeight = 0;
+            this.cboTokenModule.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboTokenModule.ItemsDisplayMember = "";
+            this.cboTokenModule.ItemsValueMember = "";
+            this.cboTokenModule.Location = new System.Drawing.Point(108, 25);
+            this.cboTokenModule.Name = "cboTokenModule";
+            this.cboTokenModule.Size = new System.Drawing.Size(186, 24);
+            this.cboTokenModule.TabIndex = 178;
+            this.cboTokenModule.Tag = null;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label15.Location = new System.Drawing.Point(12, 26);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(61, 20);
+            this.label15.TabIndex = 179;
+            this.label15.Text = "Module";
+            // 
             // sbMessage
             // 
             this.sbMessage.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
@@ -789,6 +986,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboDeptNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptDept)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDeptHN)).EndInit();
+            this.c1DockingTabPage5.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnTokenGen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnTokenNew)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenToken)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenDaysExpire)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenSecretKey)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtTokenDateExpire)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboTokenModule)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -857,5 +1064,19 @@
         private System.Windows.Forms.Label label10;
         private C1.Win.C1Input.C1TextBox txtDeptPreno;
         private System.Windows.Forms.Panel pnDept;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private C1.Win.C1Input.C1ComboBox cboTokenModule;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private C1.Win.Calendar.C1DateEdit txtTokenDateExpire;
+        private System.Windows.Forms.Label label17;
+        private C1.Win.C1Input.C1TextBox txtTokenSecretKey;
+        private System.Windows.Forms.Label label19;
+        private C1.Win.C1Input.C1TextBox txtTokenToken;
+        private System.Windows.Forms.Label label18;
+        private C1.Win.C1Input.C1TextBox txtTokenDaysExpire;
+        private C1.Win.C1Input.C1Button btnTokenNew;
+        private C1.Win.C1Input.C1Button btnTokenGen;
     }
 }

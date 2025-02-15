@@ -269,6 +269,23 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String getSecCodeOPD(String secname)
+        {
+            String re = "";
+            if (lPm08.Count <= 0) getlCus();
+            foreach (PatientM32 row in lPm08)
+            {
+                if (row.MNC_TYP_PT.Equals("O"))
+                {
+                    if (row.mnc_md_dep_dsc.Equals(secname))
+                    {
+                        re = row.mnc_sec_no;
+                        break;
+                    }
+                }
+            }
+            return re;
+        }
         public void setCboAmphur(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();

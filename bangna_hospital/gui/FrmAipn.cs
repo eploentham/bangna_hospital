@@ -171,7 +171,7 @@ namespace bangna_hospital.gui
         }
         private void FrmAipn_Load(object sender, EventArgs e)
         {
-            this.Text = "last Update 2024-07-10-1 แก้ AN แบบ บาง1 update session on";
+            this.Text = "last Update 2024-11-04 แก้ message AN new เลข anเป็น9ตัวเดิม10 txtsession readonly AN แบบ บาง1 update session on";
             txtFrom.Text = bc.iniC.EmailFromAIPN;
             txtTO.Text = bc.iniC.EmailToAIPN;
             txtSubject.Text = bc.iniC.EmailSubjectAIPN;

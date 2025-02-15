@@ -698,6 +698,10 @@ namespace bangna_hospital.objdb
                 wherepid = " m01.MNC_FNAME_T like '" + chk[0] + "%' and m01.MNC_STAMP_DAT = convert(varchar(20), getdate(),23) and m01.MNC_BDAY = '" + chk[1] +"' ";
                 orderby = " Order By m01.MNC_HN_NO desc ";
             }
+            else if (flag.Equals("work_permit1"))
+            {
+                wherepid = " m01.work_permit1 = '" + pid + "' ";
+            }
             else
             {
                 wherepid = " m01.passport = '" + pid + "' ";
@@ -1066,10 +1070,19 @@ namespace bangna_hospital.objdb
         public String selectDeptIdOPDBySecId(String secid)
         {
             DataTable dt = new DataTable();
-            String sql = "", re = "";
+            String sql = "", re = "", wheresec="";
+            String[] secid1 = secid.Split(',');
+            if (secid1.Length > 1)
+            {
+                wheresec = "m32.MNC_sec_no in (" + secid + ") ";
+            }
+            else
+            {
+                wheresec = "m32.MNC_sec_no = '" + secid + "' ";
+            }
             sql = "Select m32.MNC_MD_DEP_no " +
                 "From  patient_m32 m32 " +
-                " Where m32.MNC_sec_no = '" + secid + "' and m32.MNC_TYP_PT = 'O' ";
+                " Where "+ wheresec + " and m32.MNC_TYP_PT = 'O' ";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {
@@ -1350,6 +1363,15 @@ namespace bangna_hospital.objdb
             p.MNC_STATUS = p.MNC_STATUS == null ? "" : p.MNC_STATUS;
             p.MNC_NATI_CD = p.MNC_NATI_CD == null ? "" : p.MNC_NATI_CD;
 
+            p.passportold = p.passportold == null ? "" : p.passportold;
+            p.ref1 = p.ref1 == null ? "" : p.ref1;
+            p.MNC_REF_REL = p.MNC_REF_REL == null ? "" : p.MNC_REF_REL;
+            p.MNC_REF_REL = p.MNC_REF_REL == null ? "" : p.MNC_REF_REL;
+            p.MNC_REF_REL = p.MNC_REF_REL == null ? "" : p.MNC_REF_REL;
+            p.MNC_REF_REL = p.MNC_REF_REL == null ? "" : p.MNC_REF_REL;
+            p.MNC_REF_REL = p.MNC_REF_REL == null ? "" : p.MNC_REF_REL;
+            p.MNC_REF_REL = p.MNC_REF_REL == null ? "" : p.MNC_REF_REL;
+
             //p.MNC_DOC_YR = long.TryParse(p.MNC_DOC_YR, out chk) ? chk.ToString() : "0";
 
             //p.MNC_DF_AMT = decimal.TryParse(p.MNC_DF_AMT, out chk1) ? chk1.ToString() : "0";
@@ -1459,7 +1481,7 @@ namespace bangna_hospital.objdb
                     p.MNC_CUR_ROAD + "','" + p.MNC_DOM_ROAD + "','" + p.MNC_REF_ROAD + "','" +
                     p.MNC_OCC_CD + "','" + p.MNC_EDU_CD + "','" + p.MNC_NAT_CD + "','" +
                     p.MNC_REL_CD + "','" + p.MNC_NATI_CD + "','" + p.MNC_FIN_NOTE.Replace("'", "''") + "','" +
-                    p.remark1 + "','" + p.remark2 + "','" + p.MNC_STATUS + "','" + p.MNC_REF_REL + "',' " +
+                    p.remark1 + "','" + p.remark2 + "','" + p.MNC_STATUS + "','" + p.MNC_REF_REL + "','" +
                     p.ref1.Trim().Replace("'", "''") + "','"+p.passportold+"') ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 //new LogWriter("d", "insert Patient chk " + chk);

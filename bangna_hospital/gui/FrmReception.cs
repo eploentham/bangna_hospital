@@ -1,6 +1,7 @@
 ﻿using AutocompleteMenuNS;
 using bangna_hospital.control;
 using bangna_hospital.FlexGrid;
+using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.C1Excel;
@@ -369,8 +370,159 @@ namespace bangna_hospital.gui
             btnPttInsurCopyto.Click += BtnPttInsurCopyto_Click;
             btnVsPaid.Click += BtnVsPaid_Click;
             btnPttSsnCopy.Click += BtnPttSsnCopy_Click;
+
+            btnAlienGenVisitAll.Click += BtnAlienGenVisitAll_Click;
+            rbTxtHnSearch.KeyPress += RbTxtHnSearch_KeyPress;
         }
 
+        private void RbTxtHnSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            //grfApm.ApplySearch(txtApmSrc.Text.Trim(), true, true, false);
+            if (tC.SelectedTab == tabToday)
+            {
+                grfToday.ApplySearch(rbTxtHnSearch.Text.Trim(), true, true, false);
+            }
+            else if (tC.SelectedTab == tabApm)
+            {
+                //grfApm.ApplySearch(rbTxtHnSearch.Text.Trim(), true, true, false);
+            }
+            else if (tC.SelectedTab == tabWard)
+            {
+                //grfWard.ApplySearch(rbTxtHnSearch.Text.Trim(), true, true, false);
+            }
+        }
+        private void BtnAlienGenVisitAll_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(chkAlien1.Checked)
+            {
+                genVisitAlien(txtAlienFullName1.Text.Trim(), txtAlienAddr1.Text.Trim(), txtAlienAddr21.Text.Trim(), txtAlienPID1.Text.Trim(), txtAliendob1.Text.Trim(), txtAlienNat1.Text.Trim(), txtAlienHn1, lbAlienpreno1);
+            }
+            if (chkAlien2.Checked)
+            {
+                genVisitAlien(txtAlienFullName2.Text.Trim(), txtAlienAddr2.Text.Trim(), txtAlienAddr22.Text.Trim(), txtAlienPID2.Text.Trim(), txtAliendob2.Text.Trim(), txtAlienNat2.Text.Trim(), txtAlienHn2, lbAlienpreno2);
+            }
+            if (chkAlien3.Checked)
+            {
+                genVisitAlien(txtAlienFullName3.Text.Trim(), txtAlienAddr3.Text.Trim(), txtAlienAddr23.Text.Trim(), txtAlienPID3.Text.Trim(), txtAliendob3.Text.Trim(), txtAlienNat3.Text.Trim(), txtAlienHn3, lbAlienpreno3);
+            }
+            if (chkAlien4.Checked)
+            {
+                genVisitAlien(txtAlienFullName4.Text.Trim(), txtAlienAddr4.Text.Trim(), txtAlienAddr24.Text.Trim(), txtAlienPID4.Text.Trim(), txtAliendob4.Text.Trim(), txtAlienNat4.Text.Trim(), txtAlienHn4, lbAlienpreno4);
+            }
+            if (chkAlien5.Checked)
+            {
+                genVisitAlien(txtAlienFullName5.Text.Trim(), txtAlienAddr5.Text.Trim(), txtAlienAddr25.Text.Trim(), txtAlienPID5.Text.Trim(), txtAliendob5.Text.Trim(), txtAlienNat5.Text.Trim(), txtAlienHn5, lbAlienpreno5);
+            }
+            if (chkAlien6.Checked)
+            {
+                genVisitAlien(txtAlienFullName6.Text.Trim(), txtAlienAddr6.Text.Trim(), txtAlienAddr26.Text.Trim(), txtAlienPID6.Text.Trim(), txtAliendob6.Text.Trim(), txtAlienNat6.Text.Trim(), txtAlienHn6, lbAlienpreno6);
+            }
+            if (chkAlien7.Checked)
+            {
+                genVisitAlien(txtAlienFullName7.Text.Trim(), txtAlienAddr7.Text.Trim(), txtAlienAddr27.Text.Trim(), txtAlienPID7.Text.Trim(), txtAliendob7.Text.Trim(), txtAlienNat7.Text.Trim(), txtAlienHn7, lbAlienpreno7);
+            }
+            if (chkAlien8.Checked)
+            {
+                genVisitAlien(txtAlienFullName8.Text.Trim(), txtAlienAddr8.Text.Trim(), txtAlienAddr28.Text.Trim(), txtAlienPID8.Text.Trim(), txtAliendob8.Text.Trim(), txtAlienNat8.Text.Trim(), txtAlienHn8, lbAlienpreno8);
+            }
+            if (chkAlien9.Checked)
+            {
+                genVisitAlien(txtAlienFullName9.Text.Trim(), txtAlienAddr9.Text.Trim(), txtAlienAddr29.Text.Trim(), txtAlienPID9.Text.Trim(), txtAliendob9.Text.Trim(), txtAlienNat9.Text.Trim(), txtAlienHn9, lbAlienpreno9);
+            }
+            if (chkAlien10.Checked)
+            {
+                genVisitAlien(txtAlienFullName10.Text.Trim(), txtAlienAddr10.Text.Trim(), txtAlienAddr210.Text.Trim(), txtAlienPID10.Text.Trim(), txtAliendob10.Text.Trim(), txtAlienNat10.Text.Trim(), txtAlienHn10, lbAlienpreno10);
+            }
+            if (chkAlien11.Checked)
+            {
+                genVisitAlien(txtAlienFullName11.Text.Trim(), txtAlienAddr11.Text.Trim(), txtAlienAddr211.Text.Trim(), txtAlienPID11.Text.Trim(), txtAliendob11.Text.Trim(), txtAlienNat11.Text.Trim(), txtAlienHn11, lbAlienpreno11);
+            }
+            if (chkAlien12.Checked)
+            {
+                genVisitAlien(txtAlienFullName12.Text.Trim(), txtAlienAddr12.Text.Trim(), txtAlienAddr212.Text.Trim(), txtAlienPID12.Text.Trim(), txtAliendob12.Text.Trim(), txtAlienNat12.Text.Trim(), txtAlienHn12, lbAlienpreno10);
+            }
+            if (chkAlien13.Checked)
+            {
+                genVisitAlien(txtAlienFullName13.Text.Trim(), txtAlienAddr13.Text.Trim(), txtAlienAddr213.Text.Trim(), txtAlienPID13.Text.Trim(), txtAliendob13.Text.Trim(), txtAlienNat13.Text.Trim(), txtAlienHn13, lbAlienpreno13);
+            }
+        }
+        private void genVisitAlien(String fullname, String addr1, String addr2, String alienpid, String dob, String natcode, C1TextBox txthn, Label lbpreno)
+        {
+            //throw new NotImplementedException();
+            String err = "", sex = "";
+            Patient ptt = new Patient();
+            ptt.MNC_HN_NO = "";
+            ptt.passport = "";
+            ptt.MNC_HN_YR = "";
+            ptt.MNC_PFIX_CDT = bc.bcDB.pm02DB.getCodeByNameE(fullname);
+            ptt.MNC_PFIX_CDE = bc.bcDB.pm02DB.getCodeByNameE(fullname);
+            err = "02";
+            ptt.MNC_FNAME_T = fullname;
+            ptt.MNC_LNAME_T = fullname;
+            ptt.MNC_FNAME_E = fullname;
+            ptt.MNC_LNAME_E = fullname;
+            if ((ptt.MNC_FNAME_T.Length <= 0) && (ptt.MNC_FNAME_E.Length <= 0))
+            {
+                lfSbMessage.Text = "ชื่อ ไม่ถูกต้อง";
+                return;
+            }
+
+            DateTime.TryParse(dob, out DateTime dob1);
+            if (dob1.Year < 1900) { dob1 = dob1.AddYears(543); }
+            ptt.MNC_BDAY = dob1.Year.ToString() + "-" + dob1.ToString("MM-dd");
+            ptt.patient_birthday = dob1.Year.ToString() + "-" + dob1.ToString("MM-dd");
+            String age = ptt.AgeStringOK1DOT();
+            if (age.Length > 0)
+            {
+                if (age.IndexOf(".") > 0) ptt.MNC_AGE = age.Substring(0, age.IndexOf("."));
+                else ptt.MNC_AGE = age;
+            }
+            else
+            {
+                ptt.MNC_AGE = "0";
+            }
+            ptt.MNC_SEX = sex;
+            ptt.MNC_SS_NO = alienpid;
+            ptt.WorkPermit1 = alienpid;
+            ptt.MNC_NAT_CD = natcode.Trim().Equals("M") ? "48" : natcode.Trim().Equals("L") ? "56" : natcode.Trim().Equals("C") ? "57" : natcode.Trim().Equals("V") ? "46" : "97";
+            ptt.MNC_ID_NAM = alienpid;
+            ptt.MNC_ID_NO = alienpid;
+            //ptt.MNC_AGE = "";
+            ptt.MNC_ATT_NOTE = "";
+            ptt.MNC_CUR_ADD = "";
+            ptt.MNC_CUR_MOO = "";
+            ptt.MNC_CUR_SOI = "";
+            ptt.MNC_CUR_ROAD = "";
+            ptt.MNC_CUR_TUM = "";
+            ptt.MNC_CUR_AMP = "";
+            ptt.MNC_CUR_CHW = "";
+            ptt.MNC_CUR_POC = "";
+            ptt.MNC_CUR_TEL = "";
+            ptt.MNC_DOM_ADD = "";
+            ptt.MNC_DOM_MOO = "";
+            ptt.MNC_DOM_SOI = "";
+            ptt.MNC_DOM_ROAD = "";
+            ptt.MNC_DOM_TUM = "";
+            ptt.MNC_DOM_AMP = "";
+            ptt.MNC_DOM_CHW = "";
+            ptt.MNC_DOM_POC = "";
+            ptt.MNC_DOM_TEL = "";
+            ptt.MNC_COM_CD = "";           //มีแจ้ง error ว่า save แล้ว บริษัทหาย ได้ลอง debug เช่น aIa ค้นไม่เจอ
+            ptt.MNC_COM_CD2 = "";
+            ptt.MNC_FN_TYP_CD = "18";
+            ptt.remark1 = "alien doe";
+            ptt.passport = "";
+            ptt.MNC_HN_YR = "";
+            String re = bc.bcDB.pttDB.insertPatientStep1(ptt);
+            if (long.TryParse(re, out long chk))
+            {
+                ptt = bc.bcDB.pttDB.selectPatinetByPID(alienpid, "work_permit1");
+                txthn.Value = ptt.Hn;
+                
+            }
+        }
         private void BtnPttSsnCopy_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -790,7 +942,8 @@ namespace bangna_hospital.gui
                         txtPttCurSearchTambon.Value = txttambox[0].Trim();
                         txtPttCurAmp.Value = txttambox[1].Trim();
                         txtPttCurChw.Value = txttambox[2].Trim();
-                        txtPttCurPostcode.Value = bc.bcDB.pm07DB.getPostCode(txttambox[2]);
+                        //txtPttCurPostcode.Value = bc.bcDB.pm07DB.getPostCode(txttambox[2]);
+                        txtPttCurPostcode.Value = txttambox[3].Trim();
                     }
                 }
             }
@@ -811,7 +964,8 @@ namespace bangna_hospital.gui
                         txtPttIdSearchTambon.Value = txttambox[0].Trim();
                         txtPttIdAmp.Value = txttambox[1].Trim();
                         txtPttIdChw.Value = txttambox[2].Trim();
-                        txtPttIDPostcode.Value = bc.bcDB.pm07DB.getPostCode(txttambox[2]);
+                        //txtPttIDPostcode.Value = bc.bcDB.pm07DB.getPostCode(txttambox[2]);
+                        txtPttIDPostcode.Value = txttambox[3].Trim();
                     }
                 }
             }
@@ -918,6 +1072,7 @@ namespace bangna_hospital.gui
             txtVsComp.AutoCompleteCustomSource = autoComp;
             txtPttInsur.AutoCompleteCustomSource = autoInsur;
             txtPttCompCode.AutoCompleteCustomSource = autoComp;
+            txtPttInsur.Value = bc.COMPNAME;
         }
         private void BtnPttComp_MouseHover(object sender, EventArgs e)
         {
@@ -935,6 +1090,7 @@ namespace bangna_hospital.gui
             txtVsComp.AutoCompleteCustomSource = autoComp;
             txtPttInsur.AutoCompleteCustomSource = autoInsur;
             txtPttCompCode.AutoCompleteCustomSource = autoComp;
+            txtPttCompCode.Value= bc.COMPNAME;
         }
         private void TxtPttNickName_KeyUp(object sender, KeyEventArgs e)
         {
@@ -1344,33 +1500,32 @@ namespace bangna_hospital.gui
                     if (!setPattient()) return;
                     err = "01";
                     re = bc.bcDB.pttDB.insertPatientStep1(ptt);
-                    if (int.TryParse(re, out int chk1))
+                    if (int.TryParse(re, out int chk2))
                     {
 
                     }
                 }
                 err = "011";
-                Visit vs = new Visit();
-                vs = setVisit();
+                Visit vs = setVisit();
                 err = "02";
-                if (vs.HN.Length < 5)
-                {
-                    lfSbStatus.Text = "HN";
-                    return;
-                }
-                if (vs.symptom.Length <= 0)
-                {
-                    lfSbStatus.Text = "อาการ";
-                    txtVsSymptom.Focus();
-                    return;
-                }
+                if (vs.HN.Length < 5) {                    lfSbStatus.Text = "HN";                    return;                }
+                if (vs.symptom.Length <= 0) {                    lfSbStatus.Text = "อาการ";                    txtVsSymptom.Focus();                    return;                }
                 if (vs.DeptCode.Length <= 0)
                 {
                     lfSbStatus.Text = "ส่งตัวไป";
                     cboVsDept.Focus();
                     return;
                 }
-                if (vs.PaidCode.Length <= 0)
+                if (vs.PaidCode.Length <= 1)
+                {
+                    lfSbStatus.Text = "รักษาด้วยสิทธิ";
+                    txtVsPaidCode.Focus();
+                    return;
+                }
+                //ต้อง check เพราะมีการป้อน สิทธิ ที่ไม่มี เช่น -, **  โปรแกรมก็ให้ผ่าน
+                String chk1 = "";
+                chk1 = bc.bcDB.finM02DB.getPaidName(vs.PaidCode);
+                if (chk1.Length <= 0)
                 {
                     lfSbStatus.Text = "รักษาด้วยสิทธิ";
                     txtVsPaidCode.Focus();
@@ -1394,11 +1549,20 @@ namespace bangna_hospital.gui
                 {
                     String deptno = bc.bcDB.pm32DB.selectDeptOPDBySecNO(vs.DeptCode);
                     re = bc.bcDB.vsDB.updateVisit(vs.HN, VSDATE, PRENO, vs.PaidCode, vs.symptom, deptno, vs.DeptCode, vs.VisitType, vs.remark, vs.compcode, vs.insurcode);
+                    if (chkVsStatusDOE.Checked)
+                    {
+                        bc.bcDB.vsDB.updateVisitStatusDOE(vs.HN, VSDATE, PRENO, "1", "", "");
+                    }
                 }
                 else
                 {
                     re = bc.bcDB.vsDB.insertVisit1(vs.HN, vs.PaidCode, vs.symptom, vs.DeptCode, vs.remark, vs.DoctorId, vs.VisitType, vs.compcode, vs.insurcode, txtVsUser.Text.Trim());
+                    if (chkVsStatusDOE.Checked)
+                    {
+                        bc.bcDB.vsDB.updateVisitStatusDOE(vs.HN, DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd"), re, "1", "", "");
+                    }
                 }
+                //และเข้าในว่า ต้องแก้ store procedure แก้ store procedure ต้องแก้โปรแกรมด้วยไหม ต้องหาคำตอบ
                 
                 err = "04";
                 QUENO = bc.bcDB.vsDB.selectVisitQUE(vs.HN, DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd"),re);
@@ -1488,6 +1652,7 @@ namespace bangna_hospital.gui
                 err = "03";
                 //MNC_FIX_DOT_CD := edtDotcd2.TEXT  แพทย์เจ้าของไข้
                 vs.DoctorOwn = "";
+                vs.status_doe = chkVsStatusDOE.Checked ? "1" : "0";
                 lfSbMessage.Text = vs.VisitType;
                 //IF MNC_DOT_CD = '00000' THEN         MNC_REQ_DOT_STS:= 'O'          else MNC_REQ_DOT_STS:= 'R';
                 //if (cboType.text = 'A') or (cboType.text = 'F') then Appointment
@@ -1515,10 +1680,7 @@ namespace bangna_hospital.gui
             {
                 DateTime dob = new DateTime();
                 DateTime.TryParse(txtPttDOB.Value.ToString(), out dob);
-                if (dob.Year < 1900)
-                {
-                    dob = dob.AddYears(543);
-                }
+                if (dob.Year < 1900)                {                    dob = dob.AddYears(543);                }
                 if(dob.Year < 1900)
                 {
                     lfSbMessage.Text = "วัน เดือน ปี เกิด ไม่ถูกต้อง";
@@ -1526,10 +1688,7 @@ namespace bangna_hospital.gui
                     tC.SelectedTab = tabPtt;
                     return false;
                 }
-                if (dob.Year >2450)
-                {
-                    dob = dob.AddYears(-543);
-                }
+                if (dob.Year >2450)                {                    dob = dob.AddYears(-543);                }
                 err = "01";
                 ptt = new Patient();
                 ptt.MNC_HN_NO = txtPttHn.Text.Trim();
@@ -1613,7 +1772,7 @@ namespace bangna_hospital.gui
                 ptt.MNC_FN_TYP_CD =bc.bcDB.finM02DB.getPaidCode( txtPttPaid.Text.Trim());
                 ptt.MNC_ATT_NOTE = txtPttAttchNote.Text.Trim();
                 ptt.remark1 = txtPttRemark1.Text.Trim();
-                ptt.remark2 = txtPttRemark1.Text.Trim();
+                ptt.remark2 = txtPttRemark2.Text.Trim();
                 err = "07";
                 ptt.MNC_NAT_CD = cboPttNat.SelectedItem == null ? "" : ((ComboBoxItem)cboPttNat.SelectedItem).Value;
                 ptt.MNC_NATI_CD = cboPttRace.SelectedItem == null ? "" : ((ComboBoxItem)cboPttRace.SelectedItem).Value;
@@ -2785,6 +2944,22 @@ namespace bangna_hospital.gui
         private void CboPttPrefixT_DropDownClosed(object sender, C1.Win.C1Input.DropDownClosedEventArgs e)
         {
             //throw new NotImplementedException();
+            if(pageLoad) { return; }
+            String chk = cboPttPrefixT.SelectedItem == null ? "" : ((ComboBoxItem)cboPttPrefixT.SelectedItem).Value;
+            String sex = "";
+            //if (chk.Equals("01")) { sex = "M"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("02")) { sex = "F"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("03")) { sex = "F"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("04")) { sex = "M"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("05")) { sex = "F"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("11")) { sex = "M"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("13")) { sex = "F"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("12")) { sex = "F"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("I1")) { sex = "M"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("I2")) { sex = "F"; bc.setC1Combo(cboPttSex, sex); }
+            //else if (chk.Equals("I3")) { sex = "F"; bc.setC1Combo(cboPttSex, sex); }
+            sex = bc.bcDB.pm02DB.getSexByCode(chk);
+            bc.setC1Combo(cboPttSex, sex);
             txtPttNameT.SelectAll();            txtPttNameT.Focus();
         }
         private void TxtPttNameT_KeyUp(object sender, KeyEventArgs e)
@@ -2960,7 +3135,9 @@ namespace bangna_hospital.gui
             lbVsStatus.Text = "";
             txtVsInsur.Value = "";
             txtVsComp.Value = "";
-            
+            chkVsStatusDOE.Checked = false;
+
+
             clearTxtUser();
         }
         private void initGrfSSO()
@@ -3883,6 +4060,7 @@ namespace bangna_hospital.gui
                 lbVsStatus.Text = "VN "+ dt.Rows[0]["MNC_VN_NO"].ToString()+"."+ dt.Rows[0]["MNC_VN_SEQ"].ToString() + "." + dt.Rows[0]["MNC_VN_SUM"].ToString() + bc.adjustACTNO(dt.Rows[0]["MNC_ACT_NO"].ToString());
                 txtVsComp.Value = txtPttCompCode.Text;
                 txtVsInsur.Value = txtPttInsur.Text;
+                chkVsStatusDOE.Checked = dt.Rows[0]["status_alien_doe"].ToString().Equals("1") ? true : false; 
                 clearTxtUser();
             }
         }
@@ -4508,7 +4686,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            lfSbLastUpdate.Text = "Update 2567-06-05";
+            this.Text = "Update 2568-02-06-3  statusdoe,สิทธิไม่ถูกต้อง,สิทธิ ค่าว่างหรือรหัสผิด";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

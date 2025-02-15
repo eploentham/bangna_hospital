@@ -2,6 +2,7 @@
 using bangna_hospital.gui;
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
+using bangna_hospital.Properties;
 using C1.C1Excel;
 using C1.C1Zip;
 using C1.Win.C1Document;
@@ -40,16 +41,17 @@ namespace bangna_hospital.control
         public ConnectDB conn;
 
         public String theme = "", userId = "", hn="", vn="", preno="", appName = "", vsdate="", operative_note_precidures_1, operative_note_finding_1, operative_note_hn, operative_note_id, USERCONFIRMID="";
+        public String COMPNAME = "";
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
         public int imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0, queFontSize=0, padYCertMed=0;
-        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew = 0, printerQueueFontSize = 0, grfRowHeight=30;
+        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew = 0, printerQueueFontSize = 0, grfRowHeight=30, staffNoteFontSize=0;
 
         public BangnaHospitalDB bcDB;
 
         public Patient sPtt;
-        public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false;
+        public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false, EnableSsl = false;
         public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0, imageCC_width = 0, imageME_width = 0, imageDiag_width = 0, imageCC_Height = 0, imageME_Height = 0, imageDiag_Height = 0;
         public String[] preoperation, postoperation, operation, fining, procidures;
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
@@ -498,6 +500,92 @@ namespace bangna_hospital.control
             }
             return dt;
         }
+        public C1ComboBox setCboAlienPosition(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "กรรมกร";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "ผู้รับใช้ในบ้าน";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "ช่างเครื่องยนต์ในเรือประมงทะเล";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "ผู้ประสานงานด้านภาษากัมพูชา ลาว เมียนมา หรือเวียดนาม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "งานขายของหน้าร้าน";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "6";
+            item.Text = "งานกสิกรรม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "7";
+            item.Text = "งานเลี้ยงสัตว์";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "8";
+            item.Text = "งานป่าไม้";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "9";
+            item.Text = "งานประมง";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "10";
+            item.Text = "งานช่างก่ออิฐ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "11";
+            item.Text = "งานช่างไม้";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "12";
+            item.Text = "งานช่างก่อสร้างอาคาร";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "13";
+            item.Text = "งานทำที่นอนหรือผ้าห่มนวม";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "14";
+            item.Text = "งานทำมีด";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "15";
+            item.Text = "งานทำรองเท้า";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "16";
+            item.Text = "งานทำหมวก";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "17";
+            item.Text = "งานประดิษฐ์เครื่องแต่งกาย";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "18";
+            item.Text = "งานปั้นหรือทำเครื่องปั้นดินเผา";
+            c.Items.Add(item);
+            return c;
+        }
         public C1ComboBox setCboVisitType(C1ComboBox c)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -543,6 +631,137 @@ namespace bangna_hospital.control
             item = new ComboBoxItem();
             item.Value = "A";
             item.Text = "แพทย์นัด Appoint";
+            c.Items.Add(item);
+
+            return c;
+        }
+        public C1ComboBox setCboAlienCountry(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "M";
+            item.Text = "เมียนมา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "M";
+            item.Text = "พม่า";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "L";
+            item.Text = "ลาว";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "C";
+            item.Text = " กัมพูชา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "V";
+            item.Text = "เวียดนาม";
+            c.Items.Add(item);
+
+            return c;
+        }
+        public C1ComboBox setCboSkintone(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "white1";
+            item.Text = "ขาวที่สุด";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "white";
+            item.Text = "ขาว";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "black";
+            item.Text = "ดำ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "brown";
+            item.Text = "น้ำตาล";
+
+            item = new ComboBoxItem();
+            item.Value = "brown1";
+            item.Text = "น้ำตาลเข้ม";
+
+            item = new ComboBoxItem();
+            item.Value = "brown2";
+            item.Text = "เหลือง";
+
+            item = new ComboBoxItem();
+            item.Value = "brown3";
+            item.Text = "ขาวอมชมพู";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "brown4";
+            item.Text = "ขาวเหลือง";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "brown5";
+            item.Text = "ผิวสองสี";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "brown6";
+            item.Text = "ผิวเข้มที่สุด";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "brown7";
+            item.Text = "ดำ-แดง";
+            c.Items.Add(item);
+
+            return c;
+        }
+        public C1ComboBox setCboChckUP(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "sso";
+            item.Text = "ตรวจสุขภาพประกันสังคม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "doe";
+            item.Text = "ตรวจสุขภาพต่างด้าว";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "doeonline";
+            item.Text = "ตรวจสุขภาพต่างด้าว On line";
             c.Items.Add(item);
 
             return c;
@@ -698,6 +917,7 @@ namespace bangna_hospital.control
             iniC.ProxyHost = iniF.getIni("ftp", "ProxyHost");
             iniC.ProxyPort = iniF.getIni("ftp", "ProxyPort");
             iniC.ProxyProxyType = iniF.getIni("ftp", "ProxyProxyType");
+            iniC.EnableSsl = iniF.getIni("ftp", "EnableSsl");
 
             iniC.hostFTPLabOut = iniF.getIni("ftp", "hostFTPLabOut");
             iniC.userFTPLabOut = iniF.getIni("ftp", "userFTPLabOut");
@@ -726,6 +946,20 @@ namespace bangna_hospital.control
             iniC.portFTPDrugIn = iniF.getIni("ftp", "portFTPDrugIn");
             iniC.folderFTPDrugIn = iniF.getIni("ftp", "folderFTPDrugIn");
             iniC.usePassiveFTPDrugIn = iniF.getIni("ftp", "usePassiveFTPDrugIn");
+
+            iniC.hostFTPbangnadoe = iniF.getIni("ftp", "hostFTPbangnadoe");
+            iniC.userFTPbangnadoe = iniF.getIni("ftp", "userFTPbangnadoe");
+            iniC.passFTPbangnadoe = iniF.getIni("ftp", "passFTPbangnadoe");
+            iniC.portFTPbangnadoe = iniF.getIni("ftp", "portFTPbangnadoe");
+            iniC.folderFTPbangnadoe = iniF.getIni("ftp", "folderFTPbangnadoe");
+            iniC.usePassiveFTPbangnadoe = iniF.getIni("ftp", "usePassiveFTPbangnadoe");
+
+            iniC.hostFTPCertMeddoe = iniF.getIni("ftp", "hostFTPCertMeddoe");
+            iniC.userFTPCertMeddoe = iniF.getIni("ftp", "userFTPCertMeddoe");
+            iniC.passFTPCertMeddoe = iniF.getIni("ftp", "passFTPCertMeddoe");
+            iniC.portFTPCertMeddoe = iniF.getIni("ftp", "portFTPCertMeddoe");
+            iniC.folderFTPCertMeddoe = iniF.getIni("ftp", "folderFTPCertMeddoe");
+            iniC.usePassiveFTPCertMeddoe = iniF.getIni("ftp", "usePassiveFTPCertMeddoe");
 
             iniC.grdViewFontSize = iniF.getIni("app", "grdViewFontSize");
             iniC.grdViewFontName = iniF.getIni("app", "grdViewFontName");
@@ -854,6 +1088,15 @@ namespace bangna_hospital.control
             iniC.linkmedicalscan = iniF.getIni("app", "linkmedicalscan");
             iniC.applicationrunnextrecord = iniF.getIni("app", "applicationrunnextrecord");
             iniC.statusdruginon = iniF.getIni("app", "statusdruginon");
+            iniC.doealientoken = iniF.getIni("app", "doealientoken");
+            iniC.urlbangnadoe = iniF.getIni("app", "urlbangnadoe");
+            iniC.provcode = iniF.getIni("app", "provcode");
+            iniC.urlbangnadoeresult = iniF.getIni("app", "urlbangnadoeresult");
+            iniC.pathdoealiencert = iniF.getIni("app", "pathdoealiencert");
+            iniC.pathlocalStaffNote = iniF.getIni("app", "pathlocalStaffNote");
+            iniC.compcodedoe = iniF.getIni("app", "compcodedoe");
+            iniC.staffNoteFontName = iniF.getIni("app", "staffNoteFontName");
+            iniC.staffNoteFontSize = iniF.getIni("app", "staffNoteFontSize");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -892,7 +1135,7 @@ namespace bangna_hospital.control
             iniC.pdfFontName = iniC.pdfFontName == null ? iniC.grdViewFontName : iniC.pdfFontName;
             iniC.pdfFontSize = iniC.pdfFontSize == null ? iniC.grdViewFontSize : iniC.pdfFontSize;
             iniC.pdfFontSizetitleFont = iniC.pdfFontSizetitleFont == null ? iniC.pdfFontSize : iniC.pdfFontSizetitleFont;
-            iniC.pdfFontSizetxtFont = iniC.pdfFontSizetxtFont== null ? iniC.pdfFontSize : iniC.pdfFontSizetxtFont;
+            iniC.pdfFontSizetxtFont = iniC.pdfFontSizetxtFont == null ? iniC.pdfFontSize : iniC.pdfFontSizetxtFont;
             iniC.pdfFontSizehdrFont = iniC.pdfFontSizehdrFont == null ? iniC.pdfFontSize : iniC.pdfFontSizehdrFont;
             iniC.pdfFontSizetxtFontB = iniC.pdfFontSizetxtFontB == null ? iniC.pdfFontSize : iniC.pdfFontSizetxtFontB;
 
@@ -962,6 +1205,9 @@ namespace bangna_hospital.control
             iniC.linkmedicalscan = iniC.linkmedicalscan == null ? "" : iniC.linkmedicalscan.Equals("") ? "" : iniC.linkmedicalscan;
             iniC.applicationrunnextrecord = iniC.applicationrunnextrecord == null ? "" : iniC.applicationrunnextrecord.Equals("") ? "" : iniC.applicationrunnextrecord;
             iniC.statusdruginon = iniC.statusdruginon == null ? "" : iniC.statusdruginon.Equals("") ? "" : iniC.statusdruginon;
+            iniC.pathlocalStaffNote = iniC.pathlocalStaffNote == null ? "D:\\image\\" : iniC.pathlocalStaffNote.Equals("") ? "D:\\image\\" : iniC.pathlocalStaffNote;
+            iniC.staffNoteFontName = iniC.staffNoteFontName == null ? iniC.pdfFontName : iniC.staffNoteFontName.Equals("") ? iniC.pdfFontName : iniC.staffNoteFontName;
+            iniC.staffNoteFontSize = iniC.staffNoteFontSize == null ? iniC.pdfFontSize : iniC.staffNoteFontSize.Equals("") ? iniC.pdfFontSize : iniC.staffNoteFontSize;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -970,10 +1216,13 @@ namespace bangna_hospital.control
             int.TryParse(iniC.pdfFontSizetxtFont, out pdfFontSizetxtFont);
             int.TryParse(iniC.pdfFontSizetxtFontB, out pdfFontSizetxtFontB);
             int.TryParse(iniC.queFontSize, out queFontSize);
+            int.TryParse(iniC.staffNoteFontSize, out staffNoteFontSize);
 
             int.TryParse(iniC.imggridscanwidth, out imggridscanwidth);
             Boolean.TryParse(iniC.usePassiveFTP, out ftpUsePassive);
             Boolean.TryParse(iniC.usePassiveFTPLabOut, out ftpUsePassiveLabOut);
+            Boolean.TryParse(iniC.EnableSsl, out EnableSsl);
+
             int.TryParse(iniC.grfScanWidth, out grfScanWidth);
             int.TryParse(iniC.timerCheckLabOut, out timerCheckLabOut);
 
@@ -1252,6 +1501,25 @@ namespace bangna_hospital.control
                     }
                 }
             }
+            return re;
+        }
+        public String datetoDBCultureInfo(String dt)
+        {
+            DateTime dt1 = new DateTime();
+            String re = "", year1 = "", mm = "", dd = "";
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            if (DateTime.TryParse(dt, currentCulture, DateTimeStyles.None, out dt1))
+            {
+                Console.WriteLine("Parsed date: " + dt1.ToString());
+                if (dt1.Year < 1900) dt1 = dt1.AddYears(543);
+            }
+            else
+            {
+                Console.WriteLine("Unable to parse the date string.");
+            }
+            
+            re = dt1.Year.ToString()+"-"+dt1.ToString("MM-dd");
+            
             return re;
         }
         public String datetoDB(String dt)
@@ -1588,6 +1856,21 @@ namespace bangna_hospital.control
             item.Text = "positive";
             c.Items.Add(item);
             c.SelectedItem = item;
+        }
+        public void setCboSex(C1ComboBox c, String selected)
+        {
+            c.Items.Clear();
+            ComboBoxItem item = new ComboBoxItem();
+
+            item = new ComboBoxItem();
+            item.Value = "M";
+            item.Text = "Male";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "F";
+            item.Text = "Female";
+            c.Items.Add(item);
         }
         public void setCboPregnant(C1ComboBox c, String selected)
         {
@@ -4005,7 +4288,10 @@ namespace bangna_hospital.control
                 {
                     new LogWriter("d", "genAipnFile an_1 " + dtaipn.Rows[0]["an_1"].ToString());
                     if (flagAnNew)
+                    {
+                        if (dtaipn.Rows[0]["an_1"].ToString().Length <= 0) MessageBox.Show("AN new "+dtaipn.Rows[0]["an_1"].ToString(), "");
                         prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_1"].ToString());
+                    }
                     else
                         prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_no"].ToString(), dtaipn.Rows[0]["an_cnt"].ToString());
                     
@@ -4299,6 +4585,431 @@ namespace bangna_hospital.control
                 }
             }
             return dt;
+        }
+        private String getDate(C1DateEdit object1)
+        {
+            String re = "";
+            DateTime dtdate = new DateTime();
+            dtdate = (DateTime)(object1.Value);
+            if (dtdate.Year < 1900) dtdate = dtdate.AddYears(543);
+            if (dtdate.Year > 2500) dtdate = dtdate.AddYears(-543);
+            return re;
+        }
+        public XrayT01 setXrayT01(String hn, string hnyear, String vsDate, String preno, String dtrcode)
+        {
+            XrayT01 xrayT01 = new XrayT01();
+            xrayT01.MNC_REQ_YR = (DateTime.Now.Year + 543).ToString();
+            xrayT01.MNC_REQ_NO = "";
+            xrayT01.MNC_REQ_DAT = DateTime.Now.Year + "-" + DateTime.Now.ToString("MM-dd");
+            xrayT01.MNC_REQ_DEP = "";
+            xrayT01.MNC_REQ_STS = "";
+            xrayT01.MNC_REQ_TIM = "";
+            xrayT01.MNC_HN_YR = hnyear;
+            xrayT01.MNC_HN_NO = hn;
+            xrayT01.MNC_AN_YR = "";
+            xrayT01.MNC_AN_NO = "";
+            xrayT01.MNC_PRE_NO = preno;
+            xrayT01.MNC_DATE = vsDate;
+            xrayT01.MNC_TIME = "";
+            xrayT01.MNC_DOT_CD = dtrcode;
+            xrayT01.MNC_WD_NO = "";
+            xrayT01.MNC_RM_NAM = "";
+            xrayT01.MNC_BD_NO = "";
+            xrayT01.MNC_FN_TYP_CD = "";
+            xrayT01.MNC_COM_CD = "";
+            xrayT01.MNC_REM = "";
+            xrayT01.MNC_XR_STS = "";
+            xrayT01.MNC_CAL_NO = "";
+            xrayT01.MNC_EMPR_CD = user.username;
+            xrayT01.MNC_EMPC_CD = user.username;
+            xrayT01.MNC_ORD_DOT = "";
+            xrayT01.MNC_CFM_DOT = "";
+            xrayT01.MNC_DOC_YR = "";
+            xrayT01.MNC_DOC_NO = "";
+            xrayT01.MNC_DOC_DAT = "";
+            xrayT01.MNC_DOC_CD = "";
+            xrayT01.MNC_STAMP_DAT = "";
+            xrayT01.MNC_STAMP_TIM = "";
+            xrayT01.MNC_CANCEL_STS = "";
+            xrayT01.MNC_PAC_CD = "";
+            xrayT01.MNC_PAC_TYP = "";
+            xrayT01.status_pacs = "";
+            return xrayT01;
+        }
+        public void genImgStaffNote(Patient ptt, Visit vs, Font fEdit)
+        {
+            String err = "";
+            float mmpi = 25.4f;
+            int dpi = 150, line1Len = 965, x2Right = 1740;
+            Font fEditS = new Font(fEdit.FontFamily, fEdit.Size-1);
+            Font fEditB = new Font(fEdit.FontFamily, fEdit.Size +1, FontStyle.Bold);
+            Font famtB = new Font(fEdit.FontFamily, fEdit.Size + 4, FontStyle.Bold);        //fEdit5B
+            Font fEdit5B = new Font(fEdit.FontFamily, fEdit.Size + 6, FontStyle.Bold);
+            err = "00";
+            Image imgLogo = Resources.LOGO_Green_Transparent;
+            int newHeight = 50, yPos = 0, gapLine = 45, col2 = 470, col3 = 980, col31 = 460, recx = 15, recy = 15, col2int = 0, col4 = 0, col40 = 0, col40int = 0, yPosint = 0, col5 = 980, col6 = 1340;
+            String line = "", date = "";
+            StringFormat flags = new StringFormat(StringFormatFlags.LineLimit);  //wraps
+
+            Image resizedImageLogo = imgLogo.GetThumbnailImage((newHeight * imgLogo.Width) / imgLogo.Height, newHeight, null, IntPtr.Zero);
+            //Bitmap imgA4 = new Bitmap((int)(210 / mmpi * dpi), (int)(297 / mmpi * dpi));        //Port
+            Bitmap imgA4 = new Bitmap((int)(297 / mmpi * dpi), (int)(210 / mmpi * dpi));        //lang
+
+            Pen penGreen3 = new Pen(Color.FromArgb(26, 173, 79), 3);
+            Pen penBlue3 = new Pen(Color.FromArgb(79, 111, 108), 3);
+            Pen blackPen = new Pen(Color.Black, 1);
+            Pen penBorder = penBlue3;
+            SolidBrush BrushBlack = new SolidBrush(Color.Black);
+            SolidBrush brushBule = new SolidBrush(Color.Blue);
+            Rectangle rec = new Rectangle(0, 0, 20, 20);
+            date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+            col2 = 105;
+            col3 = 300;
+            col4 = 1000;
+            col40 = 650;
+            yPos = 15;
+            col6 = 1340;
+            col2int = int.Parse(col2.ToString());
+            yPosint = int.Parse(yPos.ToString());
+            col40int = int.Parse(col40.ToString());
+            imgA4.SetResolution(dpi, dpi);
+            err = "01";
+
+            using (Graphics gfx = Graphics.FromImage(imgA4))
+            using (SolidBrush brush = new SolidBrush(Color.White))
+            {
+                String line1 = "";
+                gfx.FillRectangle(brush, 0, 0, imgA4.Width, imgA4.Height);
+                gfx.DrawImage(resizedImageLogo, 120, 40);
+                //gfx.DrawImage(resizedImageLogo, 1000, 40);
+                line = "โรงพยาบาล บางนา5";
+                gfx.DrawString(line, famtB, brushBule, 195, 35, flags);
+                gfx.DrawString(line, famtB, brushBule, 1070, 35, flags);
+                //gfx.DrawRectangle(penBorder, 3, 3, imgA4.Width - 9, imgA4.Height - 9);            // Border
+                line = "H.N. " + ptt.MNC_HN_NO + "     " + vs.VN;
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 35, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col6, 35, flags);
+                line = "ชื่อ " + ptt.Name;
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 60, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col6, 60, flags);
+                line = "เลขที่บัตร " + ptt.MNC_ID_NO;
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 85, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, 1340, 85, flags);
+                line = vs.PaidName;
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, 115, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col4, 115, flags);
+
+                line = ptt.comNameT;
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, 140, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col4, 140, flags);
+                line = "โรคประจำตัว        ไม่มี";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, 140, flags);
+                rec = new Rectangle(col2int + 125, 145, recx, recy);
+                gfx.DrawRectangle(blackPen, rec);
+                line = "อายุ " + ptt.AgeStringShort1() + " [" + datetoShow(ptt.MNC_BDAY) + "]";
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 140, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col6, 140, flags);
+
+                line = "มีโรค ระบุ";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2 + 35, 170, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col2int + 35 - recx - 10, 180, recx, recy));
+                line = "วันที่เวลา " + date;
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 170, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col6, 170, flags);
+
+                line = "โรคเรื้อรัง";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, 200, flags);
+                line = "ชื่อแพทย์ " + vs.DoctorId + " " + vs.DoctorName;
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 200, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col6, 200, flags);
+
+                line = "DR Time.                               ปิดใบยา";
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 230, flags);
+                line = "อาการเบื้องต้น " + vs.symptom;
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, 230, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col6, 230, flags);
+
+                line = "Temp";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2, 260, flags);
+
+                line = "H.Rate";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 80, 260, flags);
+                line = "R.Rate";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 160, 260, flags);
+                line = "BP1";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 240, 260, flags);
+                line = "Time :";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 300, 260, flags);
+                line = "BP2 ";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 380, 260, flags);
+                line = "Time :";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 440, 260, flags);
+
+                line = "Wt.";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2, 290, flags);
+                line = "Ht.";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 80, 290, flags);
+                line = "BMI.";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 100, 290, flags);
+                line = "CC.";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 180, 290, flags);
+                line = "CC.IN";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 240, 290, flags);
+                line = "CC.EX";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 300, 290, flags);
+                line = "Ab.C";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 400, 290, flags);
+                line = "H.C.";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2 + 460, 290, flags);
+
+                line = "Precaution (Med) _________________________________________ ";
+                gfx.DrawString(line, fEdit, Brushes.Black, col4, 290, flags);
+                err = "02";
+                line = "แพ้ยา/อาหาร/อื่นๆ         ไม่มี";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, 320, flags);
+                gfx.DrawString(line, fEdit, Brushes.Black, col4, 320, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col2int + 180, 330, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col4 - recx + 200, 330, recx, recy));
+                line = "มี ระบุอาการ";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2 + recx + 10, 350, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col2int + 20 - recx, 360, recx, recy));
+                gfx.DrawString(line, fEdit, Brushes.Black, col4 + recx + 10, 350, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col4, 360, recx, recy));
+                line = "O2 Sat __________        Pain Score __________";
+                gfx.DrawString(line, fEdit, Brushes.Black, col31, 350, flags);
+
+                gfx.DrawRectangle(penBorder, 100, 20, 865, 1200);// Border
+                gfx.DrawRectangle(penBorder, col5, 20, 760, 1200);// Border
+
+                yPos = 390;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);      //1
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                gfx.DrawLine(penBorder, 1550, yPos, 1550, 1020);        //
+
+                //gfx.DrawString("",)
+                line = "Staff Note";
+                gfx.DrawString(line, famtB, brushBule, 380, yPos, flags);
+                line = "Rx";
+                gfx.DrawString(line, famtB, brushBule, 980, yPos, flags);
+                line = "ใบสั่งยา";
+                gfx.DrawString(line, famtB, brushBule, 1280, yPos, flags);
+                line = "จำนวนหน่วย";
+                gfx.DrawString(line, famtB, brushBule, 1550, yPos, flags);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+
+                gfx.DrawLine(penBorder, col3, yPos, x2Right, yPos);
+
+                err = "03";
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                gfx.DrawString("CHIEF COMPLIANT", fEditB, brushBule, 110, yPos, flags);
+                
+                gfx.DrawString(vs.DeptCode, fEdit, Brushes.Black, col4 + 100, yPos - 30, flags);
+                line = "Medication                       No Medication";
+                gfx.DrawString(line, fEdit, Brushes.Black, col4 + 100, yPos, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col4 + 80 - recx - 5, yPos + 10, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col4 + 300 - recx, yPos + 10, recx, recy));
+                gfx.DrawString(vs.symptom, fEdit, Brushes.Black, 110 + 100, yPos + 50, flags);
+                gfx.DrawString(vs.symptom, fEditB, Brushes.Black, col40 + 460, yPos + 50 + 35, flags);
+                //btnSavePic
+                //line = "อาการ";
+                //gfx.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 175, flags);
+                //line = "เอกซเรย์ปอด";
+                //gfx.DrawString(line, fEditB, Brushes.Black, col40 + 460, yPos + 175, flags);
+
+                //line = "สัมผัสผู้ป่วย ชื่อ";
+                //gfx.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 230, flags);
+                //line = "Set ";
+                //if (chkHI.Checked)
+                //{
+                //    line = "Set " + drugset.ToUpper();
+                //}
+                //gfx.DrawString(line, fEditB, Brushes.Black, col40 + 460, yPos + 230, flags);
+
+                //line = "สัมผัสล่าสุด";
+                //gfx.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 275, flags);
+                //line = "เครื่องวัดออกซิเจน ปลายนิ้ว    1";
+                //gfx.DrawString(line, fEditB, Brushes.Black, col40 + 460, yPos + 275, flags);
+                //line = "ปรอทวัดอุณหภูมิ     1";
+                //gfx.DrawString(line, fEditB, Brushes.Black, col40 + 460, yPos + 305, flags);
+
+                gfx.DrawString("ผลตรวจ ATK screening HI", fEditB, Brushes.Black, col4 + 100, 615, flags);
+                gfx.DrawString("ผลบวก พบว่า พบเชื้อ", fEdit, Brushes.Black, 1100, 665, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(1085, 670, recx, recy));
+                gfx.DrawString("ผลลบ พบว่า ไม่พบเชื้อ", fEdit, Brushes.Black, 1100, 710, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(1085, 720, recx, recy));
+                
+                line = "คำแนะนำ       การออกกำลังกาย               การรับประทานอาหารที่ถูกสัดส่วน";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, yPos + 320, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 105, yPos + 325, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 310, yPos + 325, recx, recy));
+
+                line = "การตรวจสุขภาพประจำปี          การพบแพทย์เฉพาะทาง       อื่นๆ";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2 + 40, yPos + 365, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 35 - recx, yPos + 375, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 280 - recx, yPos + 375, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 510 - recx, yPos + 375, recx, recy));
+
+                err = "04";
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                gfx.DrawString("PYSICAL EXAM", fEditB, brushBule, 110, yPos, flags);
+
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);      //10
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                gfx.DrawString("DIAGNOSIS", fEditB, brushBule, 110, yPos, flags);
+                gfx.DrawString("คำแนะนำ", fEditB, brushBule, 680, yPos, flags);
+
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);      //15
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                gfx.DrawString("รหัสโรค", fEditB, brushBule, 110, yPos, flags);
+                gfx.DrawString("FOLLOW UP", fEditB, brushBule, 680, yPos, flags);
+
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+                gfx.DrawString("ATTENDIND PHYSICAN", fEditB, brushBule, 680, yPos, flags);
+
+                yPos += gapLine;
+                gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
+                gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
+
+                //yPos += gapLine;
+                err = "05";
+                line = "ใบรับรองแพทย์             ไม่มี      มี             Consult      ไม่มี      มี __________________";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2 + 40, yPos, flags);
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 240 - recx, yPos + 10, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 305 - recx, yPos + 10, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 410 - recx, yPos + 10, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 515 - recx, yPos + 10, recx, recy));
+                gfx.DrawRectangle(blackPen, new Rectangle(col2 + 590 - recx, yPos + 10, recx, recy));
+
+                line = "Health Education :";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, imgA4.Height - 90, flags);
+                line = "ชื่อผู้รับ _____________________________";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2 + 500, imgA4.Height - 90, flags);
+
+                line = "ลงชื่อพยาบาล: _____________________________________";
+                gfx.DrawString(line, fEdit, Brushes.Black, col2, imgA4.Height - 60, flags);
+                line = "FM-REC-002 (00 10/09/53)(1/1)";
+                gfx.DrawString(line, fEditS, Brushes.Black, col2, imgA4.Height - 30, flags);
+                gfx.DrawString(line, fEditS, Brushes.Black, col6, imgA4.Height - 30, flags);
+                //gfx.DrawString("",)
+            }
+            //imgA4.Save("aaaa.jpg");
+            try
+            {
+                err = "06";
+                Rectangle rectL = new Rectangle(0, 0, 980, imgA4.Height);
+                //Bitmap imgL = new Bitmap(980, imgA4.Height);
+                Bitmap imgL = new Bitmap(630, imgA4.Width - 960);
+                Graphics gfxL = Graphics.FromImage(imgL);
+                gfxL.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                gfxL.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                gfxL.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                gfxL.DrawImage(imgA4, 0, 0, rectL, GraphicsUnit.Pixel);
+
+                String filenameS = "";
+                filenameS = "000000" + vs.preno;
+                filenameS = filenameS.Substring(filenameS.Length - 6);
+
+                Rectangle rectR = new Rectangle(975, 0, imgA4.Width - 960, imgA4.Height);
+                //Bitmap imgR = new Bitmap(imgA4.Width - 975, imgA4.Height);
+                Bitmap imgR = new Bitmap(502, imgA4.Width - 960);
+                Graphics gfxR = Graphics.FromImage(imgR);
+                gfxR.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                gfxR.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                gfxR.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                gfxR.DrawImage(imgA4, 0, 0, rectR, GraphicsUnit.Pixel);
+                String filenameR = "", path = "", year = "", mon = "", day = "";
+                year = vs.VisitDate.Substring(0, 4);
+                mon = vs.VisitDate.Substring(5, 2);
+                day = vs.VisitDate.Substring(8, 2);
+                path =  "\\\\"+iniC.pathScanStaffNote + ""+ year + "\\" + mon + "\\" + day + "\\";
+                path = iniC.pathlocalStaffNote + "" + year + "\\" + mon + "\\" + day + "\\";
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                filenameR = "000000" + vs.preno;
+                filenameR = filenameR.Substring(filenameR.Length - 6);
+                err = "07";
+                if (File.Exists(filenameR))
+                {
+                    if (!IsFileLocked(filenameR))
+                    {
+                        File.Delete(filenameR);
+                    }
+                }
+                if (File.Exists(filenameS))
+                {
+                    if (!IsFileLocked(filenameS))
+                    {
+                        File.Delete(filenameS);
+                    }
+                }
+                //new LogWriter("e", "genImgStaffNote path filenameS " + path + filenameS);
+                imgL.Save(path + filenameS + "S.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
+                //imgL.Save(filenameS + "R.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
+                err = "08";
+                //new LogWriter("e", "genImgStaffNote path filenameS " + path + filenameR);
+                imgR.Save(path + filenameR + "R.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
+                //imgR.Save(filenameR + "S.JPG", System.Drawing.Imaging.ImageFormat.Jpeg);
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "genImgStaffNote err" + err + " error " + ex.Message);
+                MessageBox.Show("" + ex.Message, "");
+            }
+        }
+        private bool IsFileLocked(string filePath)
+        {
+            try
+            {
+                using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

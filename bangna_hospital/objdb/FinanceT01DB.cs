@@ -32,21 +32,32 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public DataTable SelectPADByPreno1(String hn, String vsdate, String preno, String paidcode)
+        {
+            DataTable dt = new DataTable();
+            String re = "0";
+            String sql = "select MNC_HN_NO,MNC_DOC_NO, convert(varchar(20), MNC_DOC_DAT,23) as MNC_DOC_DAT,MNC_DOC_TIM, mnc_DOC_CD, mnc_DOC_STS, mnc_SUM_PRI, MNC_JOB_NO, isnull(MNC_JOB_NOold,'') as MNC_JOB_NOold " +
+                "From finance_t01  " +
+                "Where MNC_HN_NO = '" + hn + "' and MNC_PRE_NO = '"+ preno + "' and MNC_DATE = '"+ vsdate+ "' and MNC_FN_TYP_CD = '"+ paidcode + "' and MNC_DOC_STS <> 'V' " +
+                "Order By mnc_DOC_DAT desc ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public String SelectPADByPreno(String hn, String vsdate, String preno, String paidcode)
         {
             DataTable dt = new DataTable();
             String re = "0";
             String sql = "select MNC_SUM_PRI " +
                 "From finance_t01  " +
-                "Where MNC_HN_NO = '" + hn + "' and MNC_PRE_NO = '"+ preno + "' and MNC_DATE = '"+ vsdate+ "' and MNC_FN_TYP_CD = '"+ paidcode + "' and MNC_DOC_STS <> 'V' " +
+                "Where MNC_HN_NO = '" + hn + "' and MNC_PRE_NO = '" + preno + "' and MNC_DATE = '" + vsdate + "' and MNC_FN_TYP_CD = '" + paidcode + "' and MNC_DOC_STS <> 'V' " +
                 "Order By mnc_DOC_DAT desc ";
             dt = conn.selectData(sql);
             if (dt.Rows.Count > 0)
             {
                 re = dt.Rows[0]["MNC_SUM_PRI"].ToString();
             }
-            float.TryParse(re, out float amt);
-            re = amt.ToString("#,###.00");
+            if (float.TryParse(re, out float amt)) re = amt.ToString("#,###.00");
             return re;
         }
         public String SelectJOBNOCurrent()

@@ -128,6 +128,7 @@ namespace bangna_hospital.gui
             cboDept.SelectedIndexChanged += CboDept_SelectedIndexChanged;
             txtDtrCode.KeyUp += TxtDtrCode_KeyUp;
             btnPrint.Click += BtnPrint_Click;
+            btnUpload.Click += BtnUpload_Click;
 
             chkUpload.Checked = true;
 
@@ -165,6 +166,58 @@ namespace bangna_hospital.gui
             //this.Width = this.Width - int.Parse(bc.iniC.imggridscanwidth);
             //this.Width = formwidth + int.Parse(bc.iniC.imggridscanwidth);
             pageLoad = false;
+        }
+
+        private void BtnUpload_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            btnUpload.Enabled = false;
+            UploadCertMed(true);
+            btnUpload.Enabled = true;
+        }
+        private void UploadCertMed(Boolean autoupload)
+        {
+            String filename = "";
+            if (txtHn.Text.Length == 0)
+            {
+                MessageBox.Show("ไม่พบ HN", "");
+                return;
+            }
+            if (lbName.Text.Length == 0)
+            {
+                MessageBox.Show("ไม่พบ ชื่อ คนไข้", "");
+                return;
+            }
+            filename = grfView[grfView.Row, colUploadPath].ToString();
+            if (File.Exists(filename))
+            {
+
+                if ((DSCMCERT != null) && (DSCMCERT.doc_scan_id.Length > 0))
+                {
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc, txtCertID.Text.Trim(), autoupload);
+                    frm.ShowDialog(this);
+                    setListViewUpload();
+                }
+                else if (DSCMCERT.doc_scan_id.Length > 0)
+                {
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc);
+                    frm.ShowDialog(this);
+                }
+                else
+                {
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim());
+                    frm.ShowDialog(this);
+                }
+                if (!bc.iniC.applicationrunnextrecord.Equals("1"))
+                {
+                    Application.Exit();
+                }
+                //getListFile();
+            }
+            else
+            {
+                MessageBox.Show("ไม่พบ File Upload", "");
+            }
         }
         private void initFont()
         {
@@ -1612,6 +1665,7 @@ namespace bangna_hospital.gui
 
             ContextMenu menuGw = new ContextMenu();
             menuGw.MenuItems.Add("ต้องการ Upload ภาพนี้", new EventHandler(ContextMenu_UpLoad));
+            menuGw.MenuItems.Add("เปิดดูรูป", new EventHandler(ContextMenu_ViewImage));
             menuGw.MenuItems.Add("ต้องการ ลบข้อมูลนี้", new EventHandler(ContextMenu_Delete));
             //mouseWheel = 0;
             //pic.MouseWheel += Pic_MouseWheel;
@@ -1623,50 +1677,45 @@ namespace bangna_hospital.gui
         }
         private void ContextMenu_UpLoad(object sender, System.EventArgs e)
         {
-            String filename = "";
-            if (txtHn.Text.Length == 0)
-            {
-                MessageBox.Show("ไม่พบ HN", "");
-                return;
-            }
-            if (lbName.Text.Length == 0)
-            {
-                MessageBox.Show("ไม่พบ ชื่อ คนไข้", "");
-                return;
-            }
-            filename = grfView[grfView.Row, colUploadPath].ToString();
-            if (File.Exists(filename))
-            {
-                if ((DSCMCERT != null)&&(DSCMCERT.doc_scan_id.Length > 0))
-                {
-                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc, txtCertID.Text.Trim());
-                    frm.ShowDialog(this);
-                    setListViewUpload();
-                }
-                else if (dsc.doc_scan_id.Length > 0)
-                {
-                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc);
-                    frm.ShowDialog(this);
-                }
-                else
-                {
-                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim());
-                    frm.ShowDialog(this);
-                }
-                if (!bc.iniC.applicationrunnextrecord.Equals("1"))
-                {
-                    Application.Exit();
-                }
-                //getListFile();
-            }
-            else
-            {
-                MessageBox.Show("ไม่พบ File Upload", "");
-            }
+            UploadCertMed(false);
         }
         private void ContextMenu_Delete(object sender, System.EventArgs e)
         {
             
+        }
+        private void ContextMenu_ViewImage(object sender, System.EventArgs e)
+        {
+            String filename = "";
+            if (txtHn.Text.Length == 0)
+            {
+                //MessageBox.Show("ไม่พบ HN", "");
+                //return;
+            }
+            if (lbName.Text.Length == 0)
+            {//
+                //MessageBox.Show("ไม่พบ ชื่อ คนไข้", "");
+                //return;
+            }
+            filename = grfView[grfView.Row, colUploadPath].ToString();
+            if (File.Exists(filename))
+            {
+                Form frm = new Form();
+                frm.Top = this.Top;
+                frm.Left = this.Left + this.Width + 20;
+                frm.Width = this.Width;
+                frm.Height = this.Height;
+                C1PictureBox pic = new C1PictureBox();
+                pic.Dock = DockStyle.Fill;
+                Image img, img1;
+                img = Image.FromFile(filename);
+                img1 = (Image)img.Clone();
+                img.Dispose();
+                pic.Image = img1;
+                pic.SizeMode = PictureBoxSizeMode.StretchImage;
+                frm.Controls.Add(pic);
+                frm.Show(this);
+                readQRCODE((Bitmap)img1);
+            }
         }
         private void getListFile()
         {
@@ -1813,7 +1862,7 @@ namespace bangna_hospital.gui
                             resizedImage = loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
                             //row[colUploadImg] = resizedImage;
                             grfView.SetCellImage(i, colUploadImg, resizedImage);
-
+                            rl3.Text = file.FullName;
                             readQRCODE((Bitmap)loadedImage);
                             loadedImage.Dispose();
                         }

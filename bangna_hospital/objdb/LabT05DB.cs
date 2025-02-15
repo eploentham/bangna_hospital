@@ -58,7 +58,7 @@ namespace bangna_hospital.objdb
                 "Left Join USERLOG_M01 userm01dtr on labt01.MNC_ORD_DOT = userm01dtr.MNC_USR_NAME " +
                 "where labt02.MNC_RESULT_DAT is not null " +              //ผลพึ่งออก
                 "and labt02.mnc_req_sts = 'O'  " +                      //O  comfirm เรียบร้อย ยังไม่พิมพ์  mnc_req_sts เป็นค่าว่าง = request นั้น รอ รับทำการ,A=รับทำการแล้ว,O=confirm เรียบร้อย, Q=comfirm เรียบร้อย พิมพ์เรียบร้อย
-                "and labt01.mnc_req_sts <> 'C' " +
+                "and labt01.mnc_req_sts <> 'C' " +                          //Q
                 "and labt01.MNC_REQ_DAT = '" + reqdate + "' " +     //pt08.MNC_SEC_NO = PATIENT_M32.MNC_SEC_NO and pt08.MNC_WD_NO = PATIENT_M32.MNC_MD_DEP_NO
                 "and labm01.MNC_LB_GRP_CD != 'BL' " +               // Blood Bank ไม่ต้องพิมพ์
                 "Order By labt02.MNC_REQ_DAT,labt02.MNC_REQ_NO,labt02.MNC_LB_CD ";

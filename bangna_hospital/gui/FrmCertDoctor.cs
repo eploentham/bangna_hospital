@@ -780,13 +780,13 @@ namespace bangna_hospital.gui
                     canvas.SetFontAndSize(bfR, fontSize1);
                     //txtChk4Date
                     DateTime date = new DateTime();
-                    DateTime.TryParse(txtChk4Date.Text, out date);
+                    DateTime.TryParse(txtChk4Date.Value.ToString(), out date);
                     if (date.Year < 2000)
                     {
                         date = date.AddYears(543);
                     }
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, date.ToString("dd-MM-yyyy"), 190, linenumber + 3, 0);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk4Time.Text.Trim(), 325, linenumber + 3, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, date.ToString("dd-MM-") + (date.Year + 543).ToString(), 190, linenumber + 3, 0);
+                    //canvas.ShowTextAligned(Element.ALIGN_LEFT, txtChk4Time.Text.Trim(), 325, linenumber + 3, 0);
                 }
                 //linenumber -= 20;
                 linenumber -= 20;
@@ -1759,7 +1759,7 @@ namespace bangna_hospital.gui
         }
         private void FrmCertDoctor_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2024-01-11 fix big font ";
+            this.Text = "Last Update 2024-11-22 fix ข้อ4 วันที่ผิด big font ";
         }
     }
 }

@@ -32,5 +32,6 @@ namespace bangna_hospital.object1
         public String phone2 { get; set; }
         public String email { get; set; }
         public String name_old { get; set; }
+        public String MNC_ATT_NOTE { get; set; }
     }
 }

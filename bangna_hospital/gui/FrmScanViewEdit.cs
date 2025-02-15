@@ -49,7 +49,7 @@ namespace bangna_hospital.gui
             btnRotate.Click += BtnRotate_Click;
             bc.bcDB.dgsDB.setCboDgs(cboDgs, "");
 
-            btnSave.Click += BtnSave_Click;
+            btnSave.Click += BtnSaveSort_Click;
             btnAnalyze.Click += BtnAnalyze_Click;
             this.FormClosing += FrmScanNewView_FormClosing;
             txtFmCode.KeyUp += TxtFmCode_KeyUp;
@@ -282,17 +282,24 @@ namespace bangna_hospital.gui
                 dgs = ex.Message;
             }
         }
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void BtnSaveSort_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             String re = "";
             int chk = 0;
-            re = bc.bcDB.dscDB.updateSort(txtID.Text, txtSort1.Text.Trim());
-            if(int.TryParse(re, out chk))
+            if(int.TryParse(txtSort1.Text.Trim(), out int chk1))
             {
-                MessageBox.Show("แก้ไขข้อมูล ลำดับ เรียบร้อย", "");
+                re = bc.bcDB.dscDB.updateSort(txtID.Text, txtSort1.Text.Trim());
+                if (int.TryParse(re, out chk))
+                {
+                    MessageBox.Show("แก้ไขข้อมูล ลำดับ เรียบร้อย", "");
+                }
             }
-
+            else
+            {
+                MessageBox.Show("ข้อมูลไม่ถูกต้อง", "");
+                return;
+            }
         }
         private void FrmScanViewEdit_Load(object sender, EventArgs e)
         {

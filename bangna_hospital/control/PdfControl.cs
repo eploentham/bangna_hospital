@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using bangna_hospital.object1;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
@@ -109,6 +110,7 @@ namespace bangna_hospital.control
                 doc.Open();
                 foreach (string filename in sourceFiles)
                 {
+                    if (filename == null) continue;
                     PdfReader reader = new PdfReader(filename);
                     reader.ConsolidateNamedDestinations();
                     for (int i = 1; i <= reader.NumberOfPages; i++)
@@ -124,6 +126,7 @@ namespace bangna_hospital.control
             catch (Exception e)
             {
                 //Response.Write(e.Message);
+                new LogWriter("e", "PdfControl  MergeFileslab2 hn " + e.Message);
             }
         }
         public void MergeFileslab(string destinationFile, string[] sourceFiles)

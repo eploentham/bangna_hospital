@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -749,11 +750,39 @@ namespace bangna_hospital.objdb
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
                 "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' " +
                 "Order By sort1 ";
-            sql = "select * " +
+            //user อยากให้ sort แล้ว  67-12-19
+            //sql = "select * " +
+            //    "From " + dsc.table + " dsc " +
+            //    //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+            //    "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1'and dsc." + dsc.status_record + "='1' " +
+            //    "Order By dsc.doc_scan_id,dsc.row_no ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
+        public DataTable selectByAn(String hn, String an, String sort1)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sort2 = "";
+            if ((sort1.Length > 0) && sort1.Equals("sort1"))
+            {
+                sort2 = "Order By sort1 ";
+            }
+            else{
+                sort2 = "Order By dsc.doc_scan_id,dsc.row_no ";
+            }
+            String sql = "select * " +
                 "From " + dsc.table + " dsc " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1'and dsc." + dsc.status_record + "='1' " +
-                "Order By dsc.doc_scan_id,dsc.row_no ";
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1' " +
+                sort2;
+            //user อยากให้ sort แล้ว  67-12-19
+            //sql = "select * " +
+            //    "From " + dsc.table + " dsc " +
+            //    //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+            //    "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.an + "='" + an + "' and dsc." + dsc.active + "='1'and dsc." + dsc.status_record + "='1' " +
+            //    "Order By dsc.doc_scan_id,dsc.row_no ";
             dt = conn.selectData(conn.conn, sql);
 
             return dt;
@@ -789,7 +818,7 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public DataTable selectByAn(string hn, string an, string sort1)
+        public DataTable selectByAn2(string hn, string an, string sort1)
         {
             DocScan docScan = new DocScan();
             DataTable dataTable = new DataTable();

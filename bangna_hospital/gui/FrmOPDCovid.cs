@@ -4074,7 +4074,6 @@ namespace bangna_hospital.gui
             qrcode.Height = 60;
 
             //Image imgqrcode = qrcode.Image;
-
             if (widthFactor > 1 | heightFactor > 1)
             {
                 if (widthFactor > heightFactor)

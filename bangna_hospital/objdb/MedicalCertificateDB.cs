@@ -51,6 +51,20 @@ namespace bangna_hospital.objdb
             mcerti.table = "t_medical_certificate";
             mcerti.pkField = "certi_id";
         }
+        public String selectCertIDByEditVisitDate(String hn)
+        {
+            DataTable dt = new DataTable();
+            String re = "";
+            String sql = "select max(certi_id) as certi_id " +
+                "From " + mcerti.table + " dgs " +
+                "Where hn = '" + hn + "'  ";
+            dt = conn.selectData(conn.conn, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0]["certi_id"].ToString();
+            }
+            return re;
+        }
         public String selectCertIDByHn(String hn, String preno, String vsdate)
         {
             DataTable dt = new DataTable();
@@ -296,6 +310,7 @@ namespace bangna_hospital.objdb
             try
             {
                 re = conn.ExecuteNonQuery(conn.conn, sql);
+                //re = conn.ExecuteScalarNonQuery(conn.conn, sql);
             }
             catch (Exception ex)
             {

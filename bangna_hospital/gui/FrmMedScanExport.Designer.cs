@@ -37,11 +37,42 @@
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.txtSBSearchHN = new C1.Win.C1Ribbon.RibbonTextBox();
             this.btnSBSearch = new C1.Win.C1Ribbon.RibbonButton();
+            this.rbEditSort = new C1.Win.C1Ribbon.RibbonButton();
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.ribbonLabel2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
             this.tabExp = new C1.Win.C1Command.C1DockingTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.imgOutlab15 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab14 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab13 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab12 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab11 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab10 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab9 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab8 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab7 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab6 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab5 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab4 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab3 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab2 = new C1.Win.C1Input.C1CheckBox();
+            this.imgOutlab1 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote15 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote14 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote13 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote12 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote11 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote10 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote9 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote8 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote7 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote6 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote5 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote4 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote3 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote2 = new C1.Win.C1Input.C1CheckBox();
+            this.imgStaffNote1 = new C1.Win.C1Input.C1CheckBox();
             this.imgXray15 = new C1.Win.C1Input.C1PictureBox();
             this.imgLab15 = new C1.Win.C1Input.C1PictureBox();
             this.imgScan15 = new C1.Win.C1Input.C1PictureBox();
@@ -244,41 +275,44 @@
             this.txtSrcHn = new C1.Win.C1Input.C1TextBox();
             this.c1Label1 = new C1.Win.C1Input.C1Label();
             this.spSrcVs = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.imgStaffNote1 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote2 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote3 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote4 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote5 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote6 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote7 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote8 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote9 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote10 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote11 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote12 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote13 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote14 = new C1.Win.C1Input.C1CheckBox();
-            this.imgStaffNote15 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab1 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab2 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab3 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab4 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab5 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab6 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab7 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab8 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab9 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab10 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab11 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab12 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab13 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab14 = new C1.Win.C1Input.C1CheckBox();
-            this.imgOutlab15 = new C1.Win.C1Input.C1CheckBox();
+            this.rbEditSort1 = new C1.Win.C1Ribbon.RibbonButton();
+            this.cboExportSort = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabExp.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgXray15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLab15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgScan15)).BeginInit();
@@ -434,36 +468,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSrcHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab15)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -478,9 +482,11 @@
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.txtSBSearchHN);
             this.c1StatusBar1.RightPaneItems.Add(this.btnSBSearch);
+            this.c1StatusBar1.RightPaneItems.Add(this.rbEditSort);
+            this.c1StatusBar1.RightPaneItems.Add(this.rbEditSort1);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
             this.c1StatusBar1.RightPaneItems.Add(this.ribbonLabel2);
-            this.c1StatusBar1.Size = new System.Drawing.Size(1154, 22);
+            this.c1StatusBar1.Size = new System.Drawing.Size(1350, 22);
             // 
             // lfsbLastUpdate
             // 
@@ -515,8 +521,14 @@
             // btnSBSearch
             // 
             this.btnSBSearch.Name = "btnSBSearch";
-            this.btnSBSearch.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnSBSearch.SmallImage")));
+            this.btnSBSearch.SmallImage = global::bangna_hospital.Properties.Resources.refresh16;
             this.btnSBSearch.Text = "ค้นหา";
+            // 
+            // rbEditSort
+            // 
+            this.rbEditSort.Name = "rbEditSort";
+            this.rbEditSort.SmallImage = global::bangna_hospital.Properties.Resources.DecreaseIndent_small;
+            this.rbEditSort.Text = "แก้ไขการเรียงแบบscanก่อนหลัง";
             // 
             // rgSbModule
             // 
@@ -539,7 +551,7 @@
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
             this.tC1.Name = "tC1";
-            this.tC1.Size = new System.Drawing.Size(1154, 774);
+            this.tC1.Size = new System.Drawing.Size(1350, 774);
             this.tC1.TabIndex = 1;
             this.tC1.TabsSpacing = 5;
             // 
@@ -548,12 +560,14 @@
             this.tabExp.Controls.Add(this.panel1);
             this.tabExp.Location = new System.Drawing.Point(1, 26);
             this.tabExp.Name = "tabExp";
-            this.tabExp.Size = new System.Drawing.Size(1152, 747);
+            this.tabExp.Size = new System.Drawing.Size(1348, 747);
             this.tabExp.TabIndex = 0;
             this.tabExp.Text = "Export scanเวช PDF";
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.cboExportSort);
             this.panel1.Controls.Add(this.imgOutlab15);
             this.panel1.Controls.Add(this.imgOutlab14);
             this.panel1.Controls.Add(this.imgOutlab13);
@@ -729,8 +743,338 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1152, 747);
+            this.panel1.Size = new System.Drawing.Size(1348, 747);
             this.panel1.TabIndex = 2;
+            // 
+            // imgOutlab15
+            // 
+            this.imgOutlab15.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab15.Location = new System.Drawing.Point(956, 595);
+            this.imgOutlab15.Name = "imgOutlab15";
+            this.imgOutlab15.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab15.TabIndex = 419;
+            this.imgOutlab15.Text = "outlab";
+            this.imgOutlab15.UseVisualStyleBackColor = true;
+            this.imgOutlab15.Value = null;
+            // 
+            // imgOutlab14
+            // 
+            this.imgOutlab14.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab14.Location = new System.Drawing.Point(956, 560);
+            this.imgOutlab14.Name = "imgOutlab14";
+            this.imgOutlab14.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab14.TabIndex = 418;
+            this.imgOutlab14.Text = "outlab";
+            this.imgOutlab14.UseVisualStyleBackColor = true;
+            this.imgOutlab14.Value = null;
+            // 
+            // imgOutlab13
+            // 
+            this.imgOutlab13.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab13.Location = new System.Drawing.Point(956, 517);
+            this.imgOutlab13.Name = "imgOutlab13";
+            this.imgOutlab13.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab13.TabIndex = 417;
+            this.imgOutlab13.Text = "outlab";
+            this.imgOutlab13.UseVisualStyleBackColor = true;
+            this.imgOutlab13.Value = null;
+            // 
+            // imgOutlab12
+            // 
+            this.imgOutlab12.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab12.Location = new System.Drawing.Point(956, 478);
+            this.imgOutlab12.Name = "imgOutlab12";
+            this.imgOutlab12.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab12.TabIndex = 416;
+            this.imgOutlab12.Text = "outlab";
+            this.imgOutlab12.UseVisualStyleBackColor = true;
+            this.imgOutlab12.Value = null;
+            // 
+            // imgOutlab11
+            // 
+            this.imgOutlab11.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab11.Location = new System.Drawing.Point(956, 437);
+            this.imgOutlab11.Name = "imgOutlab11";
+            this.imgOutlab11.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab11.TabIndex = 415;
+            this.imgOutlab11.Text = "outlab";
+            this.imgOutlab11.UseVisualStyleBackColor = true;
+            this.imgOutlab11.Value = null;
+            // 
+            // imgOutlab10
+            // 
+            this.imgOutlab10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab10.Location = new System.Drawing.Point(956, 377);
+            this.imgOutlab10.Name = "imgOutlab10";
+            this.imgOutlab10.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab10.TabIndex = 414;
+            this.imgOutlab10.Text = "outlab";
+            this.imgOutlab10.UseVisualStyleBackColor = true;
+            this.imgOutlab10.Value = null;
+            // 
+            // imgOutlab9
+            // 
+            this.imgOutlab9.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab9.Location = new System.Drawing.Point(956, 337);
+            this.imgOutlab9.Name = "imgOutlab9";
+            this.imgOutlab9.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab9.TabIndex = 413;
+            this.imgOutlab9.Text = "outlab";
+            this.imgOutlab9.UseVisualStyleBackColor = true;
+            this.imgOutlab9.Value = null;
+            // 
+            // imgOutlab8
+            // 
+            this.imgOutlab8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab8.Location = new System.Drawing.Point(956, 299);
+            this.imgOutlab8.Name = "imgOutlab8";
+            this.imgOutlab8.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab8.TabIndex = 412;
+            this.imgOutlab8.Text = "outlab";
+            this.imgOutlab8.UseVisualStyleBackColor = true;
+            this.imgOutlab8.Value = null;
+            // 
+            // imgOutlab7
+            // 
+            this.imgOutlab7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab7.Location = new System.Drawing.Point(956, 267);
+            this.imgOutlab7.Name = "imgOutlab7";
+            this.imgOutlab7.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab7.TabIndex = 411;
+            this.imgOutlab7.Text = "outlab";
+            this.imgOutlab7.UseVisualStyleBackColor = true;
+            this.imgOutlab7.Value = null;
+            // 
+            // imgOutlab6
+            // 
+            this.imgOutlab6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab6.Location = new System.Drawing.Point(956, 233);
+            this.imgOutlab6.Name = "imgOutlab6";
+            this.imgOutlab6.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab6.TabIndex = 410;
+            this.imgOutlab6.Text = "outlab";
+            this.imgOutlab6.UseVisualStyleBackColor = true;
+            this.imgOutlab6.Value = null;
+            // 
+            // imgOutlab5
+            // 
+            this.imgOutlab5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab5.Location = new System.Drawing.Point(956, 178);
+            this.imgOutlab5.Name = "imgOutlab5";
+            this.imgOutlab5.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab5.TabIndex = 409;
+            this.imgOutlab5.Text = "outlab";
+            this.imgOutlab5.UseVisualStyleBackColor = true;
+            this.imgOutlab5.Value = null;
+            // 
+            // imgOutlab4
+            // 
+            this.imgOutlab4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab4.Location = new System.Drawing.Point(956, 144);
+            this.imgOutlab4.Name = "imgOutlab4";
+            this.imgOutlab4.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab4.TabIndex = 408;
+            this.imgOutlab4.Text = "outlab";
+            this.imgOutlab4.UseVisualStyleBackColor = true;
+            this.imgOutlab4.Value = null;
+            // 
+            // imgOutlab3
+            // 
+            this.imgOutlab3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab3.Location = new System.Drawing.Point(956, 107);
+            this.imgOutlab3.Name = "imgOutlab3";
+            this.imgOutlab3.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab3.TabIndex = 407;
+            this.imgOutlab3.Text = "outlab";
+            this.imgOutlab3.UseVisualStyleBackColor = true;
+            this.imgOutlab3.Value = null;
+            // 
+            // imgOutlab2
+            // 
+            this.imgOutlab2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab2.Location = new System.Drawing.Point(956, 65);
+            this.imgOutlab2.Name = "imgOutlab2";
+            this.imgOutlab2.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab2.TabIndex = 406;
+            this.imgOutlab2.Text = "outlab";
+            this.imgOutlab2.UseVisualStyleBackColor = true;
+            this.imgOutlab2.Value = null;
+            // 
+            // imgOutlab1
+            // 
+            this.imgOutlab1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgOutlab1.Location = new System.Drawing.Point(956, 28);
+            this.imgOutlab1.Name = "imgOutlab1";
+            this.imgOutlab1.Size = new System.Drawing.Size(74, 24);
+            this.imgOutlab1.TabIndex = 405;
+            this.imgOutlab1.Text = "outlab";
+            this.imgOutlab1.UseVisualStyleBackColor = true;
+            this.imgOutlab1.Value = null;
+            // 
+            // imgStaffNote15
+            // 
+            this.imgStaffNote15.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote15.Location = new System.Drawing.Point(720, 599);
+            this.imgStaffNote15.Name = "imgStaffNote15";
+            this.imgStaffNote15.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote15.TabIndex = 404;
+            this.imgStaffNote15.Text = "ใบยา";
+            this.imgStaffNote15.UseVisualStyleBackColor = true;
+            this.imgStaffNote15.Value = null;
+            // 
+            // imgStaffNote14
+            // 
+            this.imgStaffNote14.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote14.Location = new System.Drawing.Point(720, 562);
+            this.imgStaffNote14.Name = "imgStaffNote14";
+            this.imgStaffNote14.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote14.TabIndex = 403;
+            this.imgStaffNote14.Text = "ใบยา";
+            this.imgStaffNote14.UseVisualStyleBackColor = true;
+            this.imgStaffNote14.Value = null;
+            // 
+            // imgStaffNote13
+            // 
+            this.imgStaffNote13.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote13.Location = new System.Drawing.Point(720, 521);
+            this.imgStaffNote13.Name = "imgStaffNote13";
+            this.imgStaffNote13.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote13.TabIndex = 402;
+            this.imgStaffNote13.Text = "ใบยา";
+            this.imgStaffNote13.UseVisualStyleBackColor = true;
+            this.imgStaffNote13.Value = null;
+            // 
+            // imgStaffNote12
+            // 
+            this.imgStaffNote12.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote12.Location = new System.Drawing.Point(720, 482);
+            this.imgStaffNote12.Name = "imgStaffNote12";
+            this.imgStaffNote12.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote12.TabIndex = 401;
+            this.imgStaffNote12.Text = "ใบยา";
+            this.imgStaffNote12.UseVisualStyleBackColor = true;
+            this.imgStaffNote12.Value = null;
+            // 
+            // imgStaffNote11
+            // 
+            this.imgStaffNote11.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote11.Location = new System.Drawing.Point(720, 441);
+            this.imgStaffNote11.Name = "imgStaffNote11";
+            this.imgStaffNote11.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote11.TabIndex = 400;
+            this.imgStaffNote11.Text = "ใบยา";
+            this.imgStaffNote11.UseVisualStyleBackColor = true;
+            this.imgStaffNote11.Value = null;
+            // 
+            // imgStaffNote10
+            // 
+            this.imgStaffNote10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote10.Location = new System.Drawing.Point(720, 381);
+            this.imgStaffNote10.Name = "imgStaffNote10";
+            this.imgStaffNote10.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote10.TabIndex = 399;
+            this.imgStaffNote10.Text = "ใบยา";
+            this.imgStaffNote10.UseVisualStyleBackColor = true;
+            this.imgStaffNote10.Value = null;
+            // 
+            // imgStaffNote9
+            // 
+            this.imgStaffNote9.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote9.Location = new System.Drawing.Point(720, 341);
+            this.imgStaffNote9.Name = "imgStaffNote9";
+            this.imgStaffNote9.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote9.TabIndex = 398;
+            this.imgStaffNote9.Text = "ใบยา";
+            this.imgStaffNote9.UseVisualStyleBackColor = true;
+            this.imgStaffNote9.Value = null;
+            // 
+            // imgStaffNote8
+            // 
+            this.imgStaffNote8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote8.Location = new System.Drawing.Point(720, 303);
+            this.imgStaffNote8.Name = "imgStaffNote8";
+            this.imgStaffNote8.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote8.TabIndex = 397;
+            this.imgStaffNote8.Text = "ใบยา";
+            this.imgStaffNote8.UseVisualStyleBackColor = true;
+            this.imgStaffNote8.Value = null;
+            // 
+            // imgStaffNote7
+            // 
+            this.imgStaffNote7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote7.Location = new System.Drawing.Point(720, 267);
+            this.imgStaffNote7.Name = "imgStaffNote7";
+            this.imgStaffNote7.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote7.TabIndex = 396;
+            this.imgStaffNote7.Text = "ใบยา";
+            this.imgStaffNote7.UseVisualStyleBackColor = true;
+            this.imgStaffNote7.Value = null;
+            // 
+            // imgStaffNote6
+            // 
+            this.imgStaffNote6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote6.Location = new System.Drawing.Point(720, 233);
+            this.imgStaffNote6.Name = "imgStaffNote6";
+            this.imgStaffNote6.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote6.TabIndex = 395;
+            this.imgStaffNote6.Text = "ใบยา";
+            this.imgStaffNote6.UseVisualStyleBackColor = true;
+            this.imgStaffNote6.Value = null;
+            // 
+            // imgStaffNote5
+            // 
+            this.imgStaffNote5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote5.Location = new System.Drawing.Point(720, 178);
+            this.imgStaffNote5.Name = "imgStaffNote5";
+            this.imgStaffNote5.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote5.TabIndex = 394;
+            this.imgStaffNote5.Text = "ใบยา";
+            this.imgStaffNote5.UseVisualStyleBackColor = true;
+            this.imgStaffNote5.Value = null;
+            // 
+            // imgStaffNote4
+            // 
+            this.imgStaffNote4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote4.Location = new System.Drawing.Point(720, 140);
+            this.imgStaffNote4.Name = "imgStaffNote4";
+            this.imgStaffNote4.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote4.TabIndex = 393;
+            this.imgStaffNote4.Text = "ใบยา";
+            this.imgStaffNote4.UseVisualStyleBackColor = true;
+            this.imgStaffNote4.Value = null;
+            // 
+            // imgStaffNote3
+            // 
+            this.imgStaffNote3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote3.Location = new System.Drawing.Point(720, 103);
+            this.imgStaffNote3.Name = "imgStaffNote3";
+            this.imgStaffNote3.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote3.TabIndex = 392;
+            this.imgStaffNote3.Text = "ใบยา";
+            this.imgStaffNote3.UseVisualStyleBackColor = true;
+            this.imgStaffNote3.Value = null;
+            // 
+            // imgStaffNote2
+            // 
+            this.imgStaffNote2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote2.Location = new System.Drawing.Point(720, 66);
+            this.imgStaffNote2.Name = "imgStaffNote2";
+            this.imgStaffNote2.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote2.TabIndex = 391;
+            this.imgStaffNote2.Text = "ใบยา";
+            this.imgStaffNote2.UseVisualStyleBackColor = true;
+            this.imgStaffNote2.Value = null;
+            // 
+            // imgStaffNote1
+            // 
+            this.imgStaffNote1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.imgStaffNote1.Location = new System.Drawing.Point(720, 29);
+            this.imgStaffNote1.Name = "imgStaffNote1";
+            this.imgStaffNote1.Size = new System.Drawing.Size(65, 24);
+            this.imgStaffNote1.TabIndex = 390;
+            this.imgStaffNote1.Text = "ใบยา";
+            this.imgStaffNote1.UseVisualStyleBackColor = true;
+            this.imgStaffNote1.Value = null;
             // 
             // imgXray15
             // 
@@ -1216,7 +1560,7 @@
             // 
             this.lbMsg15.AutoSize = true;
             this.lbMsg15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg15.Location = new System.Drawing.Point(1042, 599);
+            this.lbMsg15.Location = new System.Drawing.Point(1218, 599);
             this.lbMsg15.Name = "lbMsg15";
             this.lbMsg15.Size = new System.Drawing.Size(21, 20);
             this.lbMsg15.TabIndex = 344;
@@ -1275,7 +1619,7 @@
             // 
             this.lbMsg14.AutoSize = true;
             this.lbMsg14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg14.Location = new System.Drawing.Point(1042, 560);
+            this.lbMsg14.Location = new System.Drawing.Point(1218, 560);
             this.lbMsg14.Name = "lbMsg14";
             this.lbMsg14.Size = new System.Drawing.Size(21, 20);
             this.lbMsg14.TabIndex = 338;
@@ -1334,7 +1678,7 @@
             // 
             this.lbMsg13.AutoSize = true;
             this.lbMsg13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg13.Location = new System.Drawing.Point(1042, 521);
+            this.lbMsg13.Location = new System.Drawing.Point(1218, 521);
             this.lbMsg13.Name = "lbMsg13";
             this.lbMsg13.Size = new System.Drawing.Size(21, 20);
             this.lbMsg13.TabIndex = 332;
@@ -1393,7 +1737,7 @@
             // 
             this.lbMsg12.AutoSize = true;
             this.lbMsg12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg12.Location = new System.Drawing.Point(1042, 482);
+            this.lbMsg12.Location = new System.Drawing.Point(1218, 482);
             this.lbMsg12.Name = "lbMsg12";
             this.lbMsg12.Size = new System.Drawing.Size(21, 20);
             this.lbMsg12.TabIndex = 326;
@@ -1451,7 +1795,7 @@
             // btnExpAll
             // 
             this.btnExpAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnExpAll.Location = new System.Drawing.Point(152, 668);
+            this.btnExpAll.Location = new System.Drawing.Point(346, 653);
             this.btnExpAll.Name = "btnExpAll";
             this.btnExpAll.Size = new System.Drawing.Size(116, 33);
             this.btnExpAll.TabIndex = 320;
@@ -1462,7 +1806,7 @@
             // 
             this.lbMsg11.AutoSize = true;
             this.lbMsg11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg11.Location = new System.Drawing.Point(1042, 441);
+            this.lbMsg11.Location = new System.Drawing.Point(1218, 441);
             this.lbMsg11.Name = "lbMsg11";
             this.lbMsg11.Size = new System.Drawing.Size(21, 20);
             this.lbMsg11.TabIndex = 319;
@@ -1472,7 +1816,7 @@
             // 
             this.lbMsg10.AutoSize = true;
             this.lbMsg10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg10.Location = new System.Drawing.Point(1042, 381);
+            this.lbMsg10.Location = new System.Drawing.Point(1218, 381);
             this.lbMsg10.Name = "lbMsg10";
             this.lbMsg10.Size = new System.Drawing.Size(21, 20);
             this.lbMsg10.TabIndex = 318;
@@ -1482,7 +1826,7 @@
             // 
             this.lbMsg9.AutoSize = true;
             this.lbMsg9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg9.Location = new System.Drawing.Point(1042, 341);
+            this.lbMsg9.Location = new System.Drawing.Point(1218, 341);
             this.lbMsg9.Name = "lbMsg9";
             this.lbMsg9.Size = new System.Drawing.Size(21, 20);
             this.lbMsg9.TabIndex = 317;
@@ -1492,7 +1836,7 @@
             // 
             this.lbMsg8.AutoSize = true;
             this.lbMsg8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg8.Location = new System.Drawing.Point(1042, 303);
+            this.lbMsg8.Location = new System.Drawing.Point(1218, 303);
             this.lbMsg8.Name = "lbMsg8";
             this.lbMsg8.Size = new System.Drawing.Size(21, 20);
             this.lbMsg8.TabIndex = 316;
@@ -1502,7 +1846,7 @@
             // 
             this.lbMsg7.AutoSize = true;
             this.lbMsg7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg7.Location = new System.Drawing.Point(1042, 267);
+            this.lbMsg7.Location = new System.Drawing.Point(1218, 267);
             this.lbMsg7.Name = "lbMsg7";
             this.lbMsg7.Size = new System.Drawing.Size(21, 20);
             this.lbMsg7.TabIndex = 315;
@@ -1512,7 +1856,7 @@
             // 
             this.lbMsg6.AutoSize = true;
             this.lbMsg6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg6.Location = new System.Drawing.Point(1042, 231);
+            this.lbMsg6.Location = new System.Drawing.Point(1218, 231);
             this.lbMsg6.Name = "lbMsg6";
             this.lbMsg6.Size = new System.Drawing.Size(21, 20);
             this.lbMsg6.TabIndex = 314;
@@ -1522,7 +1866,7 @@
             // 
             this.lbMsg5.AutoSize = true;
             this.lbMsg5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg5.Location = new System.Drawing.Point(1042, 176);
+            this.lbMsg5.Location = new System.Drawing.Point(1218, 176);
             this.lbMsg5.Name = "lbMsg5";
             this.lbMsg5.Size = new System.Drawing.Size(21, 20);
             this.lbMsg5.TabIndex = 313;
@@ -1532,7 +1876,7 @@
             // 
             this.lbMsg4.AutoSize = true;
             this.lbMsg4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg4.Location = new System.Drawing.Point(1042, 140);
+            this.lbMsg4.Location = new System.Drawing.Point(1218, 140);
             this.lbMsg4.Name = "lbMsg4";
             this.lbMsg4.Size = new System.Drawing.Size(21, 20);
             this.lbMsg4.TabIndex = 312;
@@ -1542,7 +1886,7 @@
             // 
             this.lbMsg3.AutoSize = true;
             this.lbMsg3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg3.Location = new System.Drawing.Point(1042, 103);
+            this.lbMsg3.Location = new System.Drawing.Point(1218, 103);
             this.lbMsg3.Name = "lbMsg3";
             this.lbMsg3.Size = new System.Drawing.Size(21, 20);
             this.lbMsg3.TabIndex = 311;
@@ -1552,7 +1896,7 @@
             // 
             this.lbMsg2.AutoSize = true;
             this.lbMsg2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg2.Location = new System.Drawing.Point(1042, 66);
+            this.lbMsg2.Location = new System.Drawing.Point(1218, 66);
             this.lbMsg2.Name = "lbMsg2";
             this.lbMsg2.Size = new System.Drawing.Size(21, 20);
             this.lbMsg2.TabIndex = 310;
@@ -1562,7 +1906,7 @@
             // 
             this.lbMsg1.AutoSize = true;
             this.lbMsg1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbMsg1.Location = new System.Drawing.Point(1042, 28);
+            this.lbMsg1.Location = new System.Drawing.Point(1218, 28);
             this.lbMsg1.Name = "lbMsg1";
             this.lbMsg1.Size = new System.Drawing.Size(21, 20);
             this.lbMsg1.TabIndex = 309;
@@ -2132,7 +2476,7 @@
             this.tabMedScan.Controls.Add(this.spMedScan);
             this.tabMedScan.Location = new System.Drawing.Point(1, 26);
             this.tabMedScan.Name = "tabMedScan";
-            this.tabMedScan.Size = new System.Drawing.Size(1152, 747);
+            this.tabMedScan.Size = new System.Drawing.Size(1348, 747);
             this.tabMedScan.TabIndex = 2;
             this.tabMedScan.Text = "scan เวชระเบียน";
             // 
@@ -2147,7 +2491,7 @@
             this.spMedScan.Name = "spMedScan";
             this.spMedScan.Panels.Add(this.spMedScanIPD);
             this.spMedScan.Panels.Add(this.spMedScanImg);
-            this.spMedScan.Size = new System.Drawing.Size(1152, 747);
+            this.spMedScan.Size = new System.Drawing.Size(1348, 747);
             this.spMedScan.TabIndex = 1;
             // 
             // spMedScanIPD
@@ -2185,7 +2529,7 @@
             this.tabOutLab.Controls.Add(this.spOutLab);
             this.tabOutLab.Location = new System.Drawing.Point(1, 26);
             this.tabOutLab.Name = "tabOutLab";
-            this.tabOutLab.Size = new System.Drawing.Size(1152, 747);
+            this.tabOutLab.Size = new System.Drawing.Size(1348, 747);
             this.tabOutLab.TabIndex = 3;
             this.tabOutLab.Text = "Out LAB";
             // 
@@ -2200,7 +2544,7 @@
             this.spOutLab.Name = "spOutLab";
             this.spOutLab.Panels.Add(this.spOutLabList);
             this.spOutLab.Panels.Add(this.spOutLabView);
-            this.spOutLab.Size = new System.Drawing.Size(1152, 747);
+            this.spOutLab.Size = new System.Drawing.Size(1348, 747);
             this.spOutLab.TabIndex = 1;
             // 
             // spOutLabList
@@ -2229,7 +2573,7 @@
             this.tabRpt.Controls.Add(this.spRpt);
             this.tabRpt.Location = new System.Drawing.Point(1, 26);
             this.tabRpt.Name = "tabRpt";
-            this.tabRpt.Size = new System.Drawing.Size(1152, 747);
+            this.tabRpt.Size = new System.Drawing.Size(1348, 747);
             this.tabRpt.TabIndex = 1;
             this.tabRpt.Text = "Report";
             // 
@@ -2245,7 +2589,7 @@
             this.spRpt.Panels.Add(this.c1SplitterPanel8);
             this.spRpt.Panels.Add(this.c1SplitterPanel5);
             this.spRpt.Panels.Add(this.c1SplitterPanel18);
-            this.spRpt.Size = new System.Drawing.Size(1152, 747);
+            this.spRpt.Size = new System.Drawing.Size(1348, 747);
             this.spRpt.TabIndex = 1;
             // 
             // c1SplitterPanel8
@@ -2509,7 +2853,7 @@
             this.tabSearch.Controls.Add(this.spSearch);
             this.tabSearch.Location = new System.Drawing.Point(1, 26);
             this.tabSearch.Name = "tabSearch";
-            this.tabSearch.Size = new System.Drawing.Size(1152, 747);
+            this.tabSearch.Size = new System.Drawing.Size(1348, 747);
             this.tabSearch.TabIndex = 4;
             this.tabSearch.Text = "ค้นหา";
             // 
@@ -2525,7 +2869,7 @@
             this.spSearch.Panels.Add(this.spSrcOrder);
             this.spSearch.Panels.Add(this.spSrcPttSrc);
             this.spSearch.Panels.Add(this.spSrcVs);
-            this.spSearch.Size = new System.Drawing.Size(1152, 747);
+            this.spSearch.Size = new System.Drawing.Size(1348, 747);
             this.spSearch.TabIndex = 1;
             // 
             // spSrcOrder
@@ -2858,341 +3202,38 @@
             this.spSrcVs.Text = "Panel 2";
             this.spSrcVs.Width = 547;
             // 
-            // imgStaffNote1
+            // rbEditSort1
             // 
-            this.imgStaffNote1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote1.Location = new System.Drawing.Point(720, 29);
-            this.imgStaffNote1.Name = "imgStaffNote1";
-            this.imgStaffNote1.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote1.TabIndex = 390;
-            this.imgStaffNote1.Text = "ใบยา";
-            this.imgStaffNote1.UseVisualStyleBackColor = true;
-            this.imgStaffNote1.Value = null;
+            this.rbEditSort1.Name = "rbEditSort1";
+            this.rbEditSort1.SmallImage = global::bangna_hospital.Properties.Resources.paragraphincreaseindentation;
+            this.rbEditSort1.Text = "แก้ไขการเรียงแบบ กำหนดเอง";
             // 
-            // imgStaffNote2
+            // cboExportSort
             // 
-            this.imgStaffNote2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote2.Location = new System.Drawing.Point(720, 66);
-            this.imgStaffNote2.Name = "imgStaffNote2";
-            this.imgStaffNote2.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote2.TabIndex = 391;
-            this.imgStaffNote2.Text = "ใบยา";
-            this.imgStaffNote2.UseVisualStyleBackColor = true;
-            this.imgStaffNote2.Value = null;
+            this.cboExportSort.FormattingEnabled = true;
+            this.cboExportSort.Items.AddRange(new object[] {
+            "เรียงตามลำดับscan",
+            "เรียง แบบกำหนดเอง"});
+            this.cboExportSort.Location = new System.Drawing.Point(141, 656);
+            this.cboExportSort.Name = "cboExportSort";
+            this.cboExportSort.Size = new System.Drawing.Size(170, 28);
+            this.cboExportSort.TabIndex = 420;
             // 
-            // imgStaffNote3
+            // label2
             // 
-            this.imgStaffNote3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote3.Location = new System.Drawing.Point(720, 103);
-            this.imgStaffNote3.Name = "imgStaffNote3";
-            this.imgStaffNote3.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote3.TabIndex = 392;
-            this.imgStaffNote3.Text = "ใบยา";
-            this.imgStaffNote3.UseVisualStyleBackColor = true;
-            this.imgStaffNote3.Value = null;
-            // 
-            // imgStaffNote4
-            // 
-            this.imgStaffNote4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote4.Location = new System.Drawing.Point(720, 140);
-            this.imgStaffNote4.Name = "imgStaffNote4";
-            this.imgStaffNote4.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote4.TabIndex = 393;
-            this.imgStaffNote4.Text = "ใบยา";
-            this.imgStaffNote4.UseVisualStyleBackColor = true;
-            this.imgStaffNote4.Value = null;
-            // 
-            // imgStaffNote5
-            // 
-            this.imgStaffNote5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote5.Location = new System.Drawing.Point(720, 178);
-            this.imgStaffNote5.Name = "imgStaffNote5";
-            this.imgStaffNote5.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote5.TabIndex = 394;
-            this.imgStaffNote5.Text = "ใบยา";
-            this.imgStaffNote5.UseVisualStyleBackColor = true;
-            this.imgStaffNote5.Value = null;
-            // 
-            // imgStaffNote6
-            // 
-            this.imgStaffNote6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote6.Location = new System.Drawing.Point(720, 233);
-            this.imgStaffNote6.Name = "imgStaffNote6";
-            this.imgStaffNote6.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote6.TabIndex = 395;
-            this.imgStaffNote6.Text = "ใบยา";
-            this.imgStaffNote6.UseVisualStyleBackColor = true;
-            this.imgStaffNote6.Value = null;
-            // 
-            // imgStaffNote7
-            // 
-            this.imgStaffNote7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote7.Location = new System.Drawing.Point(720, 267);
-            this.imgStaffNote7.Name = "imgStaffNote7";
-            this.imgStaffNote7.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote7.TabIndex = 396;
-            this.imgStaffNote7.Text = "ใบยา";
-            this.imgStaffNote7.UseVisualStyleBackColor = true;
-            this.imgStaffNote7.Value = null;
-            // 
-            // imgStaffNote8
-            // 
-            this.imgStaffNote8.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote8.Location = new System.Drawing.Point(720, 303);
-            this.imgStaffNote8.Name = "imgStaffNote8";
-            this.imgStaffNote8.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote8.TabIndex = 397;
-            this.imgStaffNote8.Text = "ใบยา";
-            this.imgStaffNote8.UseVisualStyleBackColor = true;
-            this.imgStaffNote8.Value = null;
-            // 
-            // imgStaffNote9
-            // 
-            this.imgStaffNote9.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote9.Location = new System.Drawing.Point(720, 341);
-            this.imgStaffNote9.Name = "imgStaffNote9";
-            this.imgStaffNote9.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote9.TabIndex = 398;
-            this.imgStaffNote9.Text = "ใบยา";
-            this.imgStaffNote9.UseVisualStyleBackColor = true;
-            this.imgStaffNote9.Value = null;
-            // 
-            // imgStaffNote10
-            // 
-            this.imgStaffNote10.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote10.Location = new System.Drawing.Point(720, 381);
-            this.imgStaffNote10.Name = "imgStaffNote10";
-            this.imgStaffNote10.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote10.TabIndex = 399;
-            this.imgStaffNote10.Text = "ใบยา";
-            this.imgStaffNote10.UseVisualStyleBackColor = true;
-            this.imgStaffNote10.Value = null;
-            // 
-            // imgStaffNote11
-            // 
-            this.imgStaffNote11.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote11.Location = new System.Drawing.Point(720, 441);
-            this.imgStaffNote11.Name = "imgStaffNote11";
-            this.imgStaffNote11.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote11.TabIndex = 400;
-            this.imgStaffNote11.Text = "ใบยา";
-            this.imgStaffNote11.UseVisualStyleBackColor = true;
-            this.imgStaffNote11.Value = null;
-            // 
-            // imgStaffNote12
-            // 
-            this.imgStaffNote12.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote12.Location = new System.Drawing.Point(720, 482);
-            this.imgStaffNote12.Name = "imgStaffNote12";
-            this.imgStaffNote12.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote12.TabIndex = 401;
-            this.imgStaffNote12.Text = "ใบยา";
-            this.imgStaffNote12.UseVisualStyleBackColor = true;
-            this.imgStaffNote12.Value = null;
-            // 
-            // imgStaffNote13
-            // 
-            this.imgStaffNote13.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote13.Location = new System.Drawing.Point(720, 521);
-            this.imgStaffNote13.Name = "imgStaffNote13";
-            this.imgStaffNote13.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote13.TabIndex = 402;
-            this.imgStaffNote13.Text = "ใบยา";
-            this.imgStaffNote13.UseVisualStyleBackColor = true;
-            this.imgStaffNote13.Value = null;
-            // 
-            // imgStaffNote14
-            // 
-            this.imgStaffNote14.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote14.Location = new System.Drawing.Point(720, 562);
-            this.imgStaffNote14.Name = "imgStaffNote14";
-            this.imgStaffNote14.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote14.TabIndex = 403;
-            this.imgStaffNote14.Text = "ใบยา";
-            this.imgStaffNote14.UseVisualStyleBackColor = true;
-            this.imgStaffNote14.Value = null;
-            // 
-            // imgStaffNote15
-            // 
-            this.imgStaffNote15.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgStaffNote15.Location = new System.Drawing.Point(720, 599);
-            this.imgStaffNote15.Name = "imgStaffNote15";
-            this.imgStaffNote15.Size = new System.Drawing.Size(65, 24);
-            this.imgStaffNote15.TabIndex = 404;
-            this.imgStaffNote15.Text = "ใบยา";
-            this.imgStaffNote15.UseVisualStyleBackColor = true;
-            this.imgStaffNote15.Value = null;
-            // 
-            // imgOutlab1
-            // 
-            this.imgOutlab1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab1.Location = new System.Drawing.Point(956, 28);
-            this.imgOutlab1.Name = "imgOutlab1";
-            this.imgOutlab1.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab1.TabIndex = 405;
-            this.imgOutlab1.Text = "outlab";
-            this.imgOutlab1.UseVisualStyleBackColor = true;
-            this.imgOutlab1.Value = null;
-            // 
-            // imgOutlab2
-            // 
-            this.imgOutlab2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab2.Location = new System.Drawing.Point(956, 65);
-            this.imgOutlab2.Name = "imgOutlab2";
-            this.imgOutlab2.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab2.TabIndex = 406;
-            this.imgOutlab2.Text = "outlab";
-            this.imgOutlab2.UseVisualStyleBackColor = true;
-            this.imgOutlab2.Value = null;
-            // 
-            // imgOutlab3
-            // 
-            this.imgOutlab3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab3.Location = new System.Drawing.Point(956, 107);
-            this.imgOutlab3.Name = "imgOutlab3";
-            this.imgOutlab3.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab3.TabIndex = 407;
-            this.imgOutlab3.Text = "outlab";
-            this.imgOutlab3.UseVisualStyleBackColor = true;
-            this.imgOutlab3.Value = null;
-            // 
-            // imgOutlab4
-            // 
-            this.imgOutlab4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab4.Location = new System.Drawing.Point(956, 144);
-            this.imgOutlab4.Name = "imgOutlab4";
-            this.imgOutlab4.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab4.TabIndex = 408;
-            this.imgOutlab4.Text = "outlab";
-            this.imgOutlab4.UseVisualStyleBackColor = true;
-            this.imgOutlab4.Value = null;
-            // 
-            // imgOutlab5
-            // 
-            this.imgOutlab5.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab5.Location = new System.Drawing.Point(956, 178);
-            this.imgOutlab5.Name = "imgOutlab5";
-            this.imgOutlab5.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab5.TabIndex = 409;
-            this.imgOutlab5.Text = "outlab";
-            this.imgOutlab5.UseVisualStyleBackColor = true;
-            this.imgOutlab5.Value = null;
-            // 
-            // imgOutlab6
-            // 
-            this.imgOutlab6.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab6.Location = new System.Drawing.Point(956, 233);
-            this.imgOutlab6.Name = "imgOutlab6";
-            this.imgOutlab6.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab6.TabIndex = 410;
-            this.imgOutlab6.Text = "outlab";
-            this.imgOutlab6.UseVisualStyleBackColor = true;
-            this.imgOutlab6.Value = null;
-            // 
-            // imgOutlab7
-            // 
-            this.imgOutlab7.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab7.Location = new System.Drawing.Point(956, 267);
-            this.imgOutlab7.Name = "imgOutlab7";
-            this.imgOutlab7.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab7.TabIndex = 411;
-            this.imgOutlab7.Text = "outlab";
-            this.imgOutlab7.UseVisualStyleBackColor = true;
-            this.imgOutlab7.Value = null;
-            // 
-            // imgOutlab8
-            // 
-            this.imgOutlab8.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab8.Location = new System.Drawing.Point(956, 299);
-            this.imgOutlab8.Name = "imgOutlab8";
-            this.imgOutlab8.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab8.TabIndex = 412;
-            this.imgOutlab8.Text = "outlab";
-            this.imgOutlab8.UseVisualStyleBackColor = true;
-            this.imgOutlab8.Value = null;
-            // 
-            // imgOutlab9
-            // 
-            this.imgOutlab9.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab9.Location = new System.Drawing.Point(956, 337);
-            this.imgOutlab9.Name = "imgOutlab9";
-            this.imgOutlab9.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab9.TabIndex = 413;
-            this.imgOutlab9.Text = "outlab";
-            this.imgOutlab9.UseVisualStyleBackColor = true;
-            this.imgOutlab9.Value = null;
-            // 
-            // imgOutlab10
-            // 
-            this.imgOutlab10.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab10.Location = new System.Drawing.Point(956, 377);
-            this.imgOutlab10.Name = "imgOutlab10";
-            this.imgOutlab10.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab10.TabIndex = 414;
-            this.imgOutlab10.Text = "outlab";
-            this.imgOutlab10.UseVisualStyleBackColor = true;
-            this.imgOutlab10.Value = null;
-            // 
-            // imgOutlab11
-            // 
-            this.imgOutlab11.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab11.Location = new System.Drawing.Point(956, 437);
-            this.imgOutlab11.Name = "imgOutlab11";
-            this.imgOutlab11.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab11.TabIndex = 415;
-            this.imgOutlab11.Text = "outlab";
-            this.imgOutlab11.UseVisualStyleBackColor = true;
-            this.imgOutlab11.Value = null;
-            // 
-            // imgOutlab12
-            // 
-            this.imgOutlab12.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab12.Location = new System.Drawing.Point(956, 478);
-            this.imgOutlab12.Name = "imgOutlab12";
-            this.imgOutlab12.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab12.TabIndex = 416;
-            this.imgOutlab12.Text = "outlab";
-            this.imgOutlab12.UseVisualStyleBackColor = true;
-            this.imgOutlab12.Value = null;
-            // 
-            // imgOutlab13
-            // 
-            this.imgOutlab13.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab13.Location = new System.Drawing.Point(956, 517);
-            this.imgOutlab13.Name = "imgOutlab13";
-            this.imgOutlab13.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab13.TabIndex = 417;
-            this.imgOutlab13.Text = "outlab";
-            this.imgOutlab13.UseVisualStyleBackColor = true;
-            this.imgOutlab13.Value = null;
-            // 
-            // imgOutlab14
-            // 
-            this.imgOutlab14.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab14.Location = new System.Drawing.Point(956, 560);
-            this.imgOutlab14.Name = "imgOutlab14";
-            this.imgOutlab14.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab14.TabIndex = 418;
-            this.imgOutlab14.Text = "outlab";
-            this.imgOutlab14.UseVisualStyleBackColor = true;
-            this.imgOutlab14.Value = null;
-            // 
-            // imgOutlab15
-            // 
-            this.imgOutlab15.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.imgOutlab15.Location = new System.Drawing.Point(956, 595);
-            this.imgOutlab15.Name = "imgOutlab15";
-            this.imgOutlab15.Size = new System.Drawing.Size(74, 24);
-            this.imgOutlab15.TabIndex = 419;
-            this.imgOutlab15.Text = "outlab";
-            this.imgOutlab15.UseVisualStyleBackColor = true;
-            this.imgOutlab15.Value = null;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label2.Location = new System.Drawing.Point(61, 659);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 20);
+            this.label2.TabIndex = 421;
+            this.label2.Text = "การเรียง";
             // 
             // FrmMedScanExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1154, 796);
+            this.ClientSize = new System.Drawing.Size(1350, 796);
             this.Controls.Add(this.tC1);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmMedScanExport";
@@ -3205,6 +3246,36 @@
             this.tabExp.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgXray15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLab15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgScan15)).EndInit();
@@ -3362,36 +3433,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSrcHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Label1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgStaffNote15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgOutlab15)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3644,5 +3685,9 @@
         private C1.Win.C1Input.C1CheckBox imgOutlab3;
         private C1.Win.C1Input.C1CheckBox imgOutlab2;
         private C1.Win.C1Input.C1CheckBox imgOutlab1;
+        private C1.Win.C1Ribbon.RibbonButton rbEditSort;
+        private C1.Win.C1Ribbon.RibbonButton rbEditSort1;
+        private System.Windows.Forms.ComboBox cboExportSort;
+        private System.Windows.Forms.Label label2;
     }
 }

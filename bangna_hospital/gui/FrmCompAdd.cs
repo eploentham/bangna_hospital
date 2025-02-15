@@ -105,8 +105,22 @@ namespace bangna_hospital.gui
             grfComp.Cols[colgrfCompName].AllowEditing = false;
             grfComp.Cols[colgrfCompCode].Visible = false;
             grfComp.Click += GrfComp_Click;
+            grfComp.DoubleClick += GrfComp_DoubleClick;
             panel1.Controls.Add(grfComp);
         }
+
+        private void GrfComp_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (((C1FlexGrid)sender).Row <= 0) return;
+            String code = grfComp[grfComp.Row, colgrfCompCode].ToString();
+            String name = grfComp[grfComp.Row, colgrfCompName].ToString();
+            txtCompCode.Value = code;
+            COMPNAME = name;
+            bc.COMPNAME = name;
+            this.Dispose();
+        }
+
         private void GrfComp_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

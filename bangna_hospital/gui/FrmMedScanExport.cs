@@ -24,9 +24,13 @@ using System.Net;
 using C1.Win.FlexViewer;
 using System.Drawing.Printing;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Xml.Linq;
-using GrapeCity.ActiveReports.Extensibility.Drawing;
+
+using C1.Win.C1Tile;
+using bangna_hospital.Properties;
+
+using DataRow = System.Data.DataRow;
+using Image = System.Drawing.Image;
+using Column = C1.Win.C1FlexGrid.Column;
 
 namespace bangna_hospital.gui
 {
@@ -47,6 +51,13 @@ namespace bangna_hospital.gui
         listStream strm;
         String RPTNAME = "";
 
+        C1TileControl TileCust;
+        Template tempRec;
+        ImageElement imgCust, ieOrd;
+        PanelElement peJobR, peJobY, peJobJ, peCust;
+        TextElement teJobR, teJobJ, teJobY, teCust;
+        Group grRec;
+
         DataTable DTRPT;
         int originalHeight = 0, newHeight = 720, mouseWheel = 0;
         int colgrfOutLabDscHN = 1, colgrfOutLabDscPttName = 2, colgrfOutLabDscVsDate = 3, colgrfOutLabDscVN = 4, colgrfOutLabDscId = 5, colgrfOutLablabcode = 6, colgrfOutLablabname = 7, colgrfOutLabApmDate = 8, colgrfOutLabApmDesc = 9, colgrfOutLabApmDtr = 10, colgrfOutLabApmReqNo = 11, colgrfOutLabApmReqDate = 12;
@@ -57,9 +68,14 @@ namespace bangna_hospital.gui
         Patient PTT;
         Visit VS;
         List<listStream> lStream;
+        List<String> lstrings;
         Image resizedImage, IMG;
         Boolean pageLoad = false, tabMedScanActiveNOtabOutLabActive = true;
-        Form frmImg;
+        Form frmImg, frmGrf;
+        Label lbTiledoc = new Label();
+        Label lbTilesort = new Label();
+        TextBox txtTiledoc = new TextBox();
+        TextBox txtTilesort = new TextBox();
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmMedScanExport(BangnaControl bc)
@@ -81,6 +97,7 @@ namespace bangna_hospital.gui
             lbLoading.Size = new Size(300, 60);
             this.Controls.Add(lbLoading);
             lStream = new List<listStream>();
+            lstrings = new List<string>();
 
             fvCerti = new C1FlexViewer();
             fvCerti.AutoScrollMargin = new System.Drawing.Size(0, 0);
@@ -314,6 +331,7 @@ namespace bangna_hospital.gui
                     pnScanTop.Controls.Add(lbDocGrp9);
                 }
             }
+            pnMedScan.Controls.Clear();
             pnMedScan.Controls.Add(pnScan);
             pnMedScan.Controls.Add(pnScanTop);
             pnScan.Controls.Add(grfIPDScan);
@@ -615,7 +633,7 @@ namespace bangna_hospital.gui
             foreach (DataRow row1 in dt.Rows)
             {
                 //pB1.Value++;
-                Row rowa = grfIPD.Rows[i];
+                C1.Win.C1FlexGrid.Row rowa = grfIPD.Rows[i];
                 String status = "", vn = "";
 
                 //status = row1["MNC_PAT_FLAG"] != null ? row1["MNC_PAT_FLAG"].ToString().Equals("O") ? "OPD" : "IPD" : "-";
@@ -637,6 +655,7 @@ namespace bangna_hospital.gui
         private void setGrfIPDScan()
         {
             showLbLoading();
+            initGrfIPDScan();
             lStream.Clear();
             String statusOPD = "", vsDate = "", vn = "", an = "", anDate = "", hn = "", preno = "", anyr = "", vn1 = "";
             DataTable dtOrder = new DataTable();
@@ -962,8 +981,320 @@ namespace bangna_hospital.gui
             txtAn13.KeyUp += TxtAn1_KeyUp;
             txtAn14.KeyUp += TxtAn1_KeyUp;
             txtAn15.KeyUp += TxtAn1_KeyUp;
+
+            txtSBSearchHN.KeyDown += TxtSBSearchHN_KeyDown;
+            rbEditSort.Click += RbEditSort_Click;
+            rbEditSort1.Click += RbEditSort1_Click;
+            
+        }
+        private void RbEditSort1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            rb1.Text = rbEditSort1.Text;
+            
+            HNmedscan = txtSBSearchHN.Text.Trim();
+            Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(txtSBSearchHN.Text);
+            rb1.Text = ptt.Name;
+            tC1.SelectedTab = tabMedScan;
+            showLbLoading();
+            initTileCustomer();
+            setTileCustomer("sort1");
+            hideLbLoading();
         }
 
+        private void RbEditSort_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            rb2.Text = rbEditSort.Text;
+            HNmedscan = txtSBSearchHN.Text.Trim();
+            Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(txtSBSearchHN.Text);
+            rb1.Text = ptt.Name;
+            tC1.SelectedTab = tabMedScan;
+            showLbLoading();
+            initTileCustomer();
+            setTileCustomer("id");
+            hideLbLoading();
+        }
+        private void initTileCustomer()
+        {
+            pnMedScan.Controls.Clear();
+            TileCust = new C1TileControl();
+            TileCust.Dock = DockStyle.Fill;
+            TileCust.Font = fEdit;
+            TileCust.AllowDrop = true;
+            TileCust.Orientation = LayoutOrientation.Vertical;
+            TileCust.DragEnter += TileCust_DragEnter;
+            TileCust.DragDrop += TileCust_DragDrop;
+            
+            grRec = new Group();
+            TileCust.Groups.Add(this.grRec);
+
+            //peRec = new C1.Win.C1Tile.PanelElement();
+            //ieRec = new C1.Win.C1Tile.ImageElement();
+            tempRec = new C1.Win.C1Tile.Template();
+            imgCust = new C1.Win.C1Tile.ImageElement();
+            peJobR = new C1.Win.C1Tile.PanelElement();
+            peJobY = new C1.Win.C1Tile.PanelElement();
+            peJobJ = new C1.Win.C1Tile.PanelElement();
+            peCust = new C1.Win.C1Tile.PanelElement();
+            ieOrd = new C1.Win.C1Tile.ImageElement();
+
+            teCust = new TextElement();
+            teCust.Font = fEdit2;
+            teCust.BackColorSelector = C1.Win.C1Tile.BackColorSelector.Unbound;
+            teCust.ForeColor = System.Drawing.Color.Red;
+            teCust.ForeColorSelector = C1.Win.C1Tile.ForeColorSelector.Unbound;
+            teCust.SingleLine = true;
+            teCust.TextSelector = C1.Win.C1Tile.TextSelector.Text1;
+            teCust.AlignmentOfContents = ContentAlignment.MiddleCenter;
+
+            teJobJ = new TextElement();
+            teJobJ.Font = fEdit;
+            teJobJ.BackColorSelector = C1.Win.C1Tile.BackColorSelector.Unbound;
+            teJobJ.ForeColor = System.Drawing.Color.Black;
+            teJobJ.ForeColorSelector = C1.Win.C1Tile.ForeColorSelector.Unbound;
+            teJobJ.SingleLine = true;
+            teJobJ.TextSelector = C1.Win.C1Tile.TextSelector.Text2;
+
+            teJobY = new TextElement();
+            teJobY.Font = fEdit;
+            teJobY.BackColorSelector = C1.Win.C1Tile.BackColorSelector.Unbound;
+            teJobY.ForeColor = System.Drawing.Color.Black;
+            teJobY.ForeColorSelector = C1.Win.C1Tile.ForeColorSelector.Unbound;
+            teJobY.SingleLine = true;
+            teJobY.TextSelector = C1.Win.C1Tile.TextSelector.Text4;
+
+            teJobR = new TextElement();
+            teJobR.BackColorSelector = C1.Win.C1Tile.BackColorSelector.Unbound;
+            teJobR.ForeColor = System.Drawing.Color.Black;
+            teJobR.ForeColorSelector = C1.Win.C1Tile.ForeColorSelector.Unbound;
+            teJobR.SingleLine = true;
+            teJobR.Font = fEdit;
+            teJobR.TextSelector = C1.Win.C1Tile.TextSelector.Text3;
+
+            imgCust.ImageLayout = C1.Win.C1Tile.ForeImageLayout.Clip;
+            imgCust.ImageRows = 1;
+            imgCust.ImageColumns = 1;
+            imgCust.AlignmentOfContents = ContentAlignment.MiddleLeft;
+            imgCust.Alignment = ContentAlignment.TopLeft;
+            imgCust.ColumnIndexSelector = 0;
+
+            peCust.Dock = DockStyle.Top;
+            peCust.Children.Add(imgCust);
+            peCust.Children.Add(teCust);
+
+            peJobJ.Children.Add(teJobJ);
+            peJobJ.Dock = DockStyle.Top;
+            peJobY.Children.Add(teJobY);
+            peJobY.Dock = DockStyle.Fill;
+
+            peJobR.Children.Add(teJobR);
+            //peCat.Children.Add(teOrd);
+            peJobR.Dock = System.Windows.Forms.DockStyle.Top;
+            peJobR.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
+
+            //TileCat.DefaultTemplate.Elements.Add(peOrd);
+            TileCust.Templates.Add(this.tempRec);
+            tempRec.Elements.Add(peCust);
+            tempRec.Elements.Add(peJobR);
+            tempRec.Elements.Add(peJobJ);
+            tempRec.Elements.Add(peJobY);
+
+
+            //tempRec.Elements.Add(pnFoodsPrice);
+            tempRec.Name = "tempFlickrrec";
+            TileCust.ScrollOffset = 0;
+            TileCust.SurfaceContentAlignment = System.Drawing.ContentAlignment.TopLeft;
+            TileCust.Padding = new System.Windows.Forms.Padding(0);
+            TileCust.GroupPadding = new System.Windows.Forms.Padding(0);
+
+            //pnTilImage.BackColor = tilecolor;
+            pnMedScan.Controls.Add(TileCust);
+            //setTileCustomer();
+
+        }
+
+        private void TileCust_DragDrop(object sender, DragEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void TileCust_DragEnter(object sender, DragEventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
+        private void setTileCustomer(String sort1)
+        {
+            int index = 0;
+            DataTable dt = new DataTable();
+            String an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
+            
+            dt = bc.bcDB.dscDB.selectByAn(txtSBSearchHN.Text, an, sort1);
+            TileCust.Groups[0].Tiles.Clear();
+            TileCollection tiles = TileCust.Groups[0].Tiles;
+            FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+            StringBuilder sbdscid = new StringBuilder();
+            StringBuilder sbfilename = new StringBuilder();
+            StringBuilder sbftphost = new StringBuilder();
+            StringBuilder sbfolderftp = new StringBuilder();
+            int newWidth = bc.imgScanWidth;
+            newWidth = 280;
+            foreach (DataRow drow in dt.Rows)
+            {
+                var tile = new Tile();
+                
+                DocScan docScan = new DocScan();
+                sbdscid.Clear();
+                sbdscid.Append(drow[bc.bcDB.dscDB.dsc.doc_scan_id].ToString());
+                sbfilename.Clear();
+                sbfilename.Append(drow[bc.bcDB.dscDB.dsc.image_path].ToString());
+                sbftphost.Clear();
+                sbftphost.Append(drow[bc.bcDB.dscDB.dsc.host_ftp].ToString());
+                sbfolderftp.Clear();
+                sbfolderftp.Append(drow[bc.bcDB.dscDB.dsc.folder_ftp].ToString());
+                String err = "";
+
+                tile.HorizontalSize = 3;
+                tile.VerticalSize = 4;
+                //tile.VerticalSize = 1;
+                tile.Template = tempRec;
+                docScan.doc_scan_id = drow["doc_scan_id"].ToString();
+                docScan.sort1 = drow["sort1"].ToString();
+                docScan.remark = drow["remark"].ToString();
+                //tile.Text1 = drow["doc_scan_id"].ToString();
+                tile.Text2 = drow["doc_scan_id"].ToString() +" "+drow["sort1"].ToString();
+                tile.Text3 = drow["remark"].ToString();
+                
+                theme1.SetTheme(TileCust, bc.iniC.themeDonor);
+
+                //tile.Tag = foo1;
+                //tile.BackColor = fooc.status_case_r.Equals("1") ? Color.White : fooc.status_case_j.Equals("1") ? Color.Green : fooc.status_case_y.Equals("1") ? Color.Pink : Color.Aqua;
+                tile.Tag = docScan;
+                tile.Name = drow["doc_scan_id"].ToString();
+                tile.Index = index;
+                tile.Click += Tile_Click;
+                TileCust.DoDragDrop(tile, DragDropEffects.All);
+                //tile.Image = Resources.save_file_5324_24;
+
+                try
+                {
+                    tile.Image = null;
+                    tiles.Add(tile);                    
+                    MemoryStream stream = ftpc.download4K(sbfolderftp.ToString() + "/" + sbfilename.ToString());
+                    err = "01";
+                    Image loadedImage = new Bitmap(stream);
+                    int originalWidth = 0;
+                    originalWidth = loadedImage.Width;
+                    loadedImage= loadedImage.GetThumbnailImage(newWidth, (newWidth * loadedImage.Height) / originalWidth, null, IntPtr.Zero);
+                    tile.Image = loadedImage;       // + 0001) : null;
+                    
+                    //loadedImage = Resources.Remove_ticket_24;
+                    if (loadedImage != null)
+                    {
+                        //int originalWidth = loadedImage.Width;
+                        //int newWidth = 60;
+                        //tile.Image1 = loadedImage;
+                        //MemoryStream ms1 = new MemoryStream(dt.Rows[0]["logo"].ToString().Length > 0 ? (byte[])dt.Rows[0]["logo"] : null);
+                        //tile.Image1 = Image.FromStream(new MemoryStream(dt.Rows[0]["logo"].ToString().Length > 0 ? (byte[])dt.Rows[0]["logo"] : null));
+                        //tile.Image = loadedImage;
+                        //loadedImage = Resources.Remove_ticket_24;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show("" + ex.Message, "showImg");
+                    new LogWriter("e", "MainMenu  setTileCustomer " + ex.Message);
+                }
+                index++;
+            }
+        }
+        private void Tile_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                Tile tile = sender as Tile;
+                if (tile != null)
+                {
+                    DocScan docScan = new DocScan();
+                    docScan = (DocScan)tile.Tag;
+                    Form frm = new Form();
+                    
+                    Button btn = new Button();
+                    lbTiledoc.Text = "เลขที่";
+                    lbTilesort.Text = "เรียงลำดับ";
+                    btn.Text = "บันทึก";
+                    lbTiledoc.Top = 20;
+                    lbTiledoc.Left = 20;
+                    lbTilesort.Top = 45;
+                    lbTilesort.Left = 20;
+                    txtTiledoc.Top = lbTiledoc.Top;
+                    txtTilesort.Top = lbTilesort.Top;
+                    txtTiledoc.Left = lbTiledoc.Left+lbTiledoc.Width+20;
+                    txtTilesort.Left = lbTilesort.Left + lbTilesort.Width + 20;
+                    btn.Top = txtTilesort.Top+25;
+                    btn.Left = 20;
+
+                    frm.Controls.Add(lbTiledoc);
+                    frm.Controls.Add(lbTilesort);
+                    frm.Controls.Add(txtTiledoc);
+                    frm.Controls.Add(txtTilesort);
+                    frm.Controls.Add(btn);
+                    txtTilesort.Text = docScan.sort1;
+                    txtTiledoc.Text = docScan.doc_scan_id;
+                    frm.StartPosition = FormStartPosition.CenterScreen;
+                    btn.Click += Btn_Click;
+                    frm.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmMedScanExport  Tile_Click " + ex.Message);
+            }
+        }
+
+        private void Btn_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String re = bc.bcDB.dscDB.updateSort(txtTiledoc.Text.Trim(), txtTilesort.Text.Trim());
+            if (int.TryParse(re, out _)) { lfSbMessage.Text = "บันทึกข้อมูลเรียบร้อย"; }
+        }
+
+        private void TxtSBSearchHN_KeyDown(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                setSearchHN();
+            }
+        }
+        private void setSearchHN()
+        {
+            if (tC1Active.Equals(tabMedScan.Name))
+            {
+                HNmedscan = txtSBSearchHN.Text.Trim();
+                Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(txtSBSearchHN.Text);
+                rb1.Text = ptt.Name;
+                if (tabMedScanActiveNOtabOutLabActive)
+                {
+                    tC1.SelectedTab = tabMedScan;
+                    setGrfIPD();
+                }
+                else
+                {
+                    tC1.SelectedTab = tabOutLab;
+                    fvCerti.DocumentSource = null;
+                    setGrfOutLab();
+                }
+            }
+            else if (tC1Active.Equals(tabOutLab.Name))
+            {
+                setGrfOutLab();
+            }
+        }
         private void TxtAn1_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1004,27 +1335,7 @@ namespace bangna_hospital.gui
         private void BtnSBSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (tC1Active.Equals(tabMedScan.Name))
-            {
-                HNmedscan = txtSBSearchHN.Text.Trim();
-                Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(txtSBSearchHN.Text);
-                rb1.Text = ptt.Name;
-                if (tabMedScanActiveNOtabOutLabActive)
-                {
-                    tC1.SelectedTab = tabMedScan;
-                    setGrfIPD();
-                }
-                else
-                {
-                    tC1.SelectedTab = tabOutLab;
-                    fvCerti.DocumentSource = null;
-                    setGrfOutLab();
-                }
-            }
-            else if (tC1Active.Equals(tabOutLab.Name))
-            {
-                setGrfOutLab();
-            }
+            setSearchHN();
         }
         private void BtnRpt1_Click(object sender, EventArgs e)
         {
@@ -1106,39 +1417,45 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             String hn = "", an = "", err = "", folderName = "";
             Boolean flagStaffnote = false, flagOutlab = false;
-            if (chkExp1.Checked) { hn = txtHn1.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab1.Checked ? true : false, imgStaffNote1.Checked ? true : false); }
-            if (chkExp2.Checked) { hn = txtHn2.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab2.Checked ? true : false, imgStaffNote2.Checked ? true : false); }
-            if (chkExp3.Checked) { hn = txtHn3.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab3.Checked ? true : false, imgStaffNote3.Checked ? true : false); }
-            if (chkExp4.Checked) { hn = txtHn4.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab4.Checked ? true : false, imgStaffNote4.Checked ? true : false); }
-            if (chkExp5.Checked) { hn = txtHn5.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab5.Checked ? true : false, imgStaffNote5.Checked ? true : false); }
+            if (chkExp1.Checked) { hn = txtHn1.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab1.Checked ? true : false, imgStaffNote1.Checked ? true : false,lbMsg1); }
+            if (chkExp2.Checked) { hn = txtHn2.Text.Trim(); an = txtAn2.Text.Trim(); genPDF(hn, an, imgOutlab2.Checked ? true : false, imgStaffNote2.Checked ? true : false, lbMsg2); }
+            if (chkExp3.Checked) { hn = txtHn3.Text.Trim(); an = txtAn3.Text.Trim(); genPDF(hn, an, imgOutlab3.Checked ? true : false, imgStaffNote3.Checked ? true : false, lbMsg3); }
+            if (chkExp4.Checked) { hn = txtHn4.Text.Trim(); an = txtAn4.Text.Trim(); genPDF(hn, an, imgOutlab4.Checked ? true : false, imgStaffNote4.Checked ? true : false, lbMsg4); }
+            if (chkExp5.Checked) { hn = txtHn5.Text.Trim(); an = txtAn5.Text.Trim(); genPDF(hn, an, imgOutlab5.Checked ? true : false, imgStaffNote5.Checked ? true : false, lbMsg5); }
 
-            if (chkExp6.Checked) { hn = txtHn6.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab6.Checked ? true : false, imgStaffNote6.Checked ? true : false); }
-            if (chkExp7.Checked) { hn = txtHn7.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab7.Checked ? true : false, imgStaffNote7.Checked ? true : false); }
-            if (chkExp8.Checked) { hn = txtHn8.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab8.Checked ? true : false, imgStaffNote8.Checked ? true : false); }
-            if (chkExp9.Checked) { hn = txtHn9.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab9.Checked ? true : false, imgStaffNote9.Checked ? true : false); }
-            if (chkExp10.Checked) { hn = txtHn10.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab10.Checked ? true : false, imgStaffNote10.Checked ? true : false); }
+            if (chkExp6.Checked) { hn = txtHn6.Text.Trim(); an = txtAn6.Text.Trim(); genPDF(hn, an, imgOutlab6.Checked ? true : false, imgStaffNote6.Checked ? true : false, lbMsg6); }
+            if (chkExp7.Checked) { hn = txtHn7.Text.Trim(); an = txtAn7.Text.Trim(); genPDF(hn, an, imgOutlab7.Checked ? true : false, imgStaffNote7.Checked ? true : false, lbMsg7); }
+            if (chkExp8.Checked) { hn = txtHn8.Text.Trim(); an = txtAn8.Text.Trim(); genPDF(hn, an, imgOutlab8.Checked ? true : false, imgStaffNote8.Checked ? true : false, lbMsg8); }
+            if (chkExp9.Checked) { hn = txtHn9.Text.Trim(); an = txtAn9.Text.Trim(); genPDF(hn, an, imgOutlab9.Checked ? true : false, imgStaffNote9.Checked ? true : false, lbMsg9); }
+            if (chkExp10.Checked) { hn = txtHn10.Text.Trim(); an = txtAn10.Text.Trim(); genPDF(hn, an, imgOutlab10.Checked ? true : false, imgStaffNote10.Checked ? true : false, lbMsg10); }
 
-            if (chkExp11.Checked) { hn = txtHn11.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab11.Checked ? true : false, imgStaffNote11.Checked ? true : false); }
-            if (chkExp12.Checked) { hn = txtHn12.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab12.Checked ? true : false, imgStaffNote12.Checked ? true : false); }
-            if (chkExp13.Checked) { hn = txtHn13.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab13.Checked ? true : false, imgStaffNote13.Checked ? true : false); }
-            if (chkExp14.Checked) { hn = txtHn14.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab14.Checked ? true : false, imgStaffNote14.Checked ? true : false); }
-            if (chkExp15.Checked) { hn = txtHn15.Text.Trim(); an = txtAn1.Text.Trim(); genPDF(hn, an, imgOutlab15.Checked ? true : false, imgStaffNote15.Checked ? true : false); }
+            if (chkExp11.Checked) { hn = txtHn11.Text.Trim(); an = txtAn11.Text.Trim(); genPDF(hn, an, imgOutlab11.Checked ? true : false, imgStaffNote11.Checked ? true : false, lbMsg11); }
+            if (chkExp12.Checked) { hn = txtHn12.Text.Trim(); an = txtAn12.Text.Trim(); genPDF(hn, an, imgOutlab12.Checked ? true : false, imgStaffNote12.Checked ? true : false, lbMsg12); }
+            if (chkExp13.Checked) { hn = txtHn13.Text.Trim(); an = txtAn13.Text.Trim(); genPDF(hn, an, imgOutlab13.Checked ? true : false, imgStaffNote13.Checked ? true : false, lbMsg13); }
+            if (chkExp14.Checked) { hn = txtHn14.Text.Trim(); an = txtAn14.Text.Trim(); genPDF(hn, an, imgOutlab14.Checked ? true : false, imgStaffNote14.Checked ? true : false, lbMsg14); }
+            if (chkExp15.Checked) { hn = txtHn15.Text.Trim(); an = txtAn15.Text.Trim(); genPDF(hn, an, imgOutlab15.Checked ? true : false, imgStaffNote15.Checked ? true : false, lbMsg15); }
+            foreach(String path1 in lstrings)
+            {
+                Process.Start("explorer.exe", path1);
+            }
         }
         class listStream
         {
             public String id = "", dgsid = "";
             public MemoryStream stream;
         }
-        private void genPDF(String hn, String an, Boolean flagOutlab, Boolean flagStaffnote)
+        private void genPDF(String hn, String an, Boolean flagOutlab, Boolean flagStaffnote, Label lb)
         {
             List<listStream> lStream;
             lStream = new List<listStream>();
             String err = "", folderName = "";
-            showLbLoading();
-            lbLoading.BringToFront();
+            //showLbLoading();
+            //lbLoading.BringToFront();
             try
             {
                 lbLoading.Text = "กรุณารอซักครู่ ดึงข้อมูล FTP";
+                lb.Text = "กรุณารอซักครู่ ดึงข้อมูล FTP";
+                Application.DoEvents();
                 FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                 DataTable dtdsc = new DataTable();
                 DataTable dtoutlab = new DataTable();
@@ -1167,7 +1484,7 @@ namespace bangna_hospital.gui
                 }
                 Application.DoEvents();
                 
-                dtdsc = bc.bcDB.dscDB.selectByAn(hn, an.Replace(".", "/"));
+                dtdsc = bc.bcDB.dscDB.selectByAn(hn, an.Replace(".", "/"),cboExportSort.Text.Equals("เรียงตามลำดับscan") ?"id":"sort1");
                 if (dtdsc.Rows.Count > 0)
                 {
                     foreach (DataRow row1 in dtdsc.Rows)
@@ -1203,6 +1520,8 @@ namespace bangna_hospital.gui
                 _c1pdf.DocumentInfo.Title = "bangna5";
                 int i = 1, newWidth1 = 210;
                 lbLoading.Text = "กรุณารอซักครู่ กำลังเตรียมข้อมูล ";
+                lb.Text = "กรุณารอซักครู่ กำลังเตรียมข้อมูล ";
+                Application.DoEvents();
                 StringBuilder sberr = new StringBuilder();
                 err = "01";
                 sberr.Append("01");
@@ -1211,6 +1530,13 @@ namespace bangna_hospital.gui
                     String preno = "", vsdate = "", vn = "", preno1="",file = "", dd = "", mm = "", yy = "";
                     preno = dtdsc.Rows[0][8] !=null ? dtdsc.Rows[0][8].ToString():"";
                     vsdate = dtdsc.Rows[0][9] != null ? dtdsc.Rows[0][9].ToString() : "";
+                    if (vsdate.Length <= 0)
+                    {
+                        String[] an11 = an.Split('.');
+                        DataTable dt = new DataTable();
+                        dt = bc.bcDB.vsDB.selectVisitByAn(hn, an11[0], an11[1]);
+                        vsdate = dt.Rows[0]["mnc_date"].ToString();
+                    }
                     dd = vsdate.Substring(vsdate.Length - 2);
                     mm = vsdate.Substring(5, 2);
                     yy = vsdate.Substring(0, 4);
@@ -1230,7 +1556,6 @@ namespace bangna_hospital.gui
                 }
                 foreach (listStream lstrmm in lStream)
                 {
-                    //MemoryStream strm = lstrmm.stream.CopyTo(strm);
                     //strm.
                     //strm.Seek(0, SeekOrigin.Begin);
                     //Application.DoEvents();
@@ -1245,37 +1570,53 @@ namespace bangna_hospital.gui
                     err = "04";
                     //rc = new RectangleF(10, 10, 590, 770);
                     //_c1pdf.DrawImage(img1, rc);
-                    _c1pdf.DrawImage(bc.ResizeImagetoA41(Image.FromStream(lstrmm.stream), 900), new RectangleF(10, 10, 590, 770));
-                    err = "05";
-                    if (i < lStream.Count)
-                        _c1pdf.NewPage();
-                    //img.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-")+"_"+i + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                    //img1.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                    //resizedImage.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-                    using (var fileStream = new FileStream(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + hn + "_" + an.Replace("/", "-") + "_" + i + ".jpg", FileMode.Create, FileAccess.Write))
+                    lstrmm.stream.Position=0;
+                    try
                     {
-                        lstrmm.stream.Position = 0;
-                        lstrmm.stream.CopyTo(fileStream);
+                        _c1pdf.DrawImage(bc.ResizeImagetoA41(Image.FromStream(lstrmm.stream), 900), new RectangleF(10, 10, 590, 770));
+                        err = "05";
+                        if (i < lStream.Count)
+                            _c1pdf.NewPage();
+                        //img.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-")+"_"+i + ".jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                        //img1.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                        //resizedImage.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + txtHn.Text.Trim() + "_" + txtVN.Text.Trim().Replace("/", "-") + "_" + i + "_re.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+                        using (var fileStream = new FileStream(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + hn + "_" + an.Replace("/", "-") + "_" + i + ".jpg", FileMode.Create, FileAccess.Write))
+                        {
+                            lstrmm.stream.Position = 0;
+                            lstrmm.stream.CopyTo(fileStream);
+                        }
                     }
+                    catch(Exception ex)
+                    {
+                        new LogWriter("e", "FrmMedScanExport  genPDF hn " + hn +" an "+ an +" "+ ex.Message);
+                    }
+                    
                     //strm.Dispose();
                     err = "06";
                     //img.Dispose();
                     //img1.Dispose();
                     i++;
                     lbLoading.Text = "กรุณารอซักครู่ ... " + (i - 1) + "/" + lStream.Count;
-                    if(i%9 == 0) Application.DoEvents();
+                    lb.Text = "กรุณารอซักครู่ ... " + (i - 1) + "/" + lStream.Count;
+                    //Application.DoEvents();
+                    if (i%9 == 0) Application.DoEvents();
                 }
                 DataTable dtLab = new DataTable();//LAB
                 DataTable dtXray = new DataTable();//Xray
                 String[] an1 = an.Split('.');
                 if (an1.Length >= 2)
                 {
-                    dtLab = bc.bcDB.vsDB.selectLabbyAN(hn, an1[0], an1[1]);
+                    //lab ต้องดึงตาม preno เพราะ จะมีหลายคนที่มีหลายใบยา แล้วใน database an เป็น null  อ้วนแจ้ง
+                    //dtLab = bc.bcDB.vsDB.selectLabbyAN(hn, an1[0], an1[1]);
+                    DataTable dtadmit = new DataTable();
+                    dtadmit = bc.bcDB.vsDB.selectVisitByAn(hn, an1[0], an1[1]);
+                    dtLab = bc.bcDB.vsDB.selectLabbyVN1(dtadmit.Rows[0]["mnc_date"].ToString(), dtadmit.Rows[0]["mnc_date"].ToString(), hn, "", dtadmit.Rows[0]["mnc_pre_no"].ToString());
                     dtXray = bc.bcDB.vsDB.selectResultXraybyAN(hn, an1[0], an1[1]);
                 }
                 if (dtLab.Rows.Count > 0)
                 {
                     lbLoading.Text = "กรุณารอซักครู่ มี lab ... ";
+                    Application.DoEvents();
                     foreach (DataRow drow in dtLab.Rows)
                     {
                         drow["patient_name"] = ptt.Name;
@@ -1330,13 +1671,14 @@ namespace bangna_hospital.gui
                 _c1pdf.Save(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + hn + "_" + an.Replace(".", "-") + ".pdf");
                 //_c1pdf.Dispose();
                 lbLoading.Text = "กำลัง export รวม File ... ";
+                lb.Text = "กำลัง export รวม File ... ";
                 Application.DoEvents();
                 System.Threading.Thread.Sleep(1000);
 
                 if (System.IO.File.Exists(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + hn + "_" + an.Replace(".", "-") + "_lab.pdf"))
                 {
                     String[] files;
-                    if (flagOutlab)
+                    if (flagOutlab && dtoutlab.Rows.Count>0)
                     {
                         List<string> listfileoutlab = new List<string>();
                         string[] filePaths = Directory.GetFiles(bc.iniC.pathDownloadFile + "\\" + folderName + "\\", "*.pdf", SearchOption.AllDirectories);
@@ -1355,6 +1697,8 @@ namespace bangna_hospital.gui
                         {
                             files[ii] = filePath;
                         }
+                        files[0] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + hn + "_" + an.Replace(".", "-") + ".pdf";
+                        files[1] = bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + hn + "_" + an.Replace(".", "-") + "_lab.pdf";
                     }
                     else
                     {
@@ -1367,13 +1711,15 @@ namespace bangna_hospital.gui
                     pdfc.MergeFileslab2(bc.iniC.pathDownloadFile + "\\" + folderName + "\\" + hn + "_" + an.Replace(".", "-") + "_all.pdf", files);
                     pdfc = null;
                 }
-                Process.Start("explorer.exe", bc.iniC.pathDownloadFile + "\\" + folderName);
+                lstrings.Add(bc.iniC.pathDownloadFile + "\\" + folderName);
+                //Process.Start("explorer.exe", bc.iniC.pathDownloadFile + "\\" + folderName);
+                lb.Text = "Export เรียบร้อย "+ bc.iniC.pathDownloadFile + "\\" + folderName;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("error " + ex.Message, "err " + err);
             }
-            hideLbLoading();
+            //hideLbLoading();
         }
         private void BtnExp1_Click(object sender, EventArgs e)
         {
@@ -1381,25 +1727,28 @@ namespace bangna_hospital.gui
             String hn = "", an = "", err = "", folderName = "";
             Boolean flagStaffnote = false, flagOutlab = false, flagXray=false;
             
-            if (((C1Button)sender).Name.Equals("btnExp1")) { hn = txtHn1.Text.Trim(); an = txtAn1.Text.Trim(); flagOutlab = imgOutlab1.Checked ? true : false; flagStaffnote = imgStaffNote1.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp2")) { hn = txtHn2.Text.Trim(); an = txtAn2.Text.Trim(); flagOutlab = imgOutlab2.Checked ? true : false; flagStaffnote = imgStaffNote2.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp3")) { hn = txtHn3.Text.Trim(); an = txtAn3.Text.Trim(); flagOutlab = imgOutlab3.Checked ? true : false; flagStaffnote = imgStaffNote3.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp4")) { hn = txtHn4.Text.Trim(); an = txtAn4.Text.Trim(); flagOutlab = imgOutlab4.Checked ? true : false; flagStaffnote = imgStaffNote4.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp5")) { hn = txtHn5.Text.Trim(); an = txtAn5.Text.Trim(); flagOutlab = imgOutlab5.Checked ? true : false; flagStaffnote = imgStaffNote5.Checked ? true : false; }
+            if (((C1Button)sender).Name.Equals("btnExp1")) { hn = txtHn1.Text.Trim(); an = txtAn1.Text.Trim(); flagOutlab = imgOutlab1.Checked ? true : false; flagStaffnote = imgStaffNote1.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg1); }
+            else if (((C1Button)sender).Name.Equals("btnExp2")) { hn = txtHn2.Text.Trim(); an = txtAn2.Text.Trim(); flagOutlab = imgOutlab2.Checked ? true : false; flagStaffnote = imgStaffNote2.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg2); }
+            else if (((C1Button)sender).Name.Equals("btnExp3")) { hn = txtHn3.Text.Trim(); an = txtAn3.Text.Trim(); flagOutlab = imgOutlab3.Checked ? true : false; flagStaffnote = imgStaffNote3.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg3); }
+            else if (((C1Button)sender).Name.Equals("btnExp4")) { hn = txtHn4.Text.Trim(); an = txtAn4.Text.Trim(); flagOutlab = imgOutlab4.Checked ? true : false; flagStaffnote = imgStaffNote4.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg4); }
+            else if (((C1Button)sender).Name.Equals("btnExp5")) { hn = txtHn5.Text.Trim(); an = txtAn5.Text.Trim(); flagOutlab = imgOutlab5.Checked ? true : false; flagStaffnote = imgStaffNote5.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg5); }
 
-            else if (((C1Button)sender).Name.Equals("btnExp6")) { hn = txtHn6.Text.Trim(); an = txtAn6.Text.Trim(); flagOutlab = imgOutlab6.Checked ? true : false; flagStaffnote = imgStaffNote6.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp7")) { hn = txtHn7.Text.Trim(); an = txtAn7.Text.Trim(); flagOutlab = imgOutlab7.Checked ? true : false; flagStaffnote = imgStaffNote7.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp8")) { hn = txtHn8.Text.Trim(); an = txtAn8.Text.Trim(); flagOutlab = imgOutlab8.Checked ? true : false; flagStaffnote = imgStaffNote8.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp9")) { hn = txtHn9.Text.Trim(); an = txtAn9.Text.Trim(); flagOutlab = imgOutlab9.Checked ? true : false; flagStaffnote = imgStaffNote9.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp10")) { hn = txtHn10.Text.Trim(); an = txtAn10.Text.Trim(); flagOutlab = imgOutlab10.Checked ? true : false; flagStaffnote = imgStaffNote10.Checked ? true : false; }
+            else if (((C1Button)sender).Name.Equals("btnExp6")) { hn = txtHn6.Text.Trim(); an = txtAn6.Text.Trim(); flagOutlab = imgOutlab6.Checked ? true : false; flagStaffnote = imgStaffNote6.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg6); }
+            else if (((C1Button)sender).Name.Equals("btnExp7")) { hn = txtHn7.Text.Trim(); an = txtAn7.Text.Trim(); flagOutlab = imgOutlab7.Checked ? true : false; flagStaffnote = imgStaffNote7.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg7); }
+            else if (((C1Button)sender).Name.Equals("btnExp8")) { hn = txtHn8.Text.Trim(); an = txtAn8.Text.Trim(); flagOutlab = imgOutlab8.Checked ? true : false; flagStaffnote = imgStaffNote8.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg8); }
+            else if (((C1Button)sender).Name.Equals("btnExp9")) { hn = txtHn9.Text.Trim(); an = txtAn9.Text.Trim(); flagOutlab = imgOutlab9.Checked ? true : false; flagStaffnote = imgStaffNote9.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg9); }
+            else if (((C1Button)sender).Name.Equals("btnExp10")) { hn = txtHn10.Text.Trim(); an = txtAn10.Text.Trim(); flagOutlab = imgOutlab10.Checked ? true : false; flagStaffnote = imgStaffNote10.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg10); }
 
-            else if (((C1Button)sender).Name.Equals("btnExp11")) { hn = txtHn11.Text.Trim(); an = txtAn11.Text.Trim(); flagOutlab = imgOutlab11.Checked ? true : false; flagStaffnote = imgStaffNote11.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp12")) { hn = txtHn12.Text.Trim(); an = txtAn12.Text.Trim(); flagOutlab = imgOutlab12.Checked ? true : false; flagStaffnote = imgStaffNote12.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp13")) { hn = txtHn13.Text.Trim(); an = txtAn13.Text.Trim(); flagOutlab = imgOutlab13.Checked ? true : false; flagStaffnote = imgStaffNote13.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp14")) { hn = txtHn14.Text.Trim(); an = txtAn14.Text.Trim(); flagOutlab = imgOutlab14.Checked ? true : false; flagStaffnote = imgStaffNote14.Checked ? true : false; }
-            else if (((C1Button)sender).Name.Equals("btnExp15")) { hn = txtHn15.Text.Trim(); an = txtAn15.Text.Trim(); flagOutlab = imgOutlab15.Checked ? true : false; flagStaffnote = imgStaffNote15.Checked ? true : false; }
+            else if (((C1Button)sender).Name.Equals("btnExp11")) { hn = txtHn11.Text.Trim(); an = txtAn11.Text.Trim(); flagOutlab = imgOutlab11.Checked ? true : false; flagStaffnote = imgStaffNote11.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg11); }
+            else if (((C1Button)sender).Name.Equals("btnExp12")) { hn = txtHn12.Text.Trim(); an = txtAn12.Text.Trim(); flagOutlab = imgOutlab12.Checked ? true : false; flagStaffnote = imgStaffNote12.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg12); }
+            else if (((C1Button)sender).Name.Equals("btnExp13")) { hn = txtHn13.Text.Trim(); an = txtAn13.Text.Trim(); flagOutlab = imgOutlab13.Checked ? true : false; flagStaffnote = imgStaffNote13.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg13); }
+            else if (((C1Button)sender).Name.Equals("btnExp14")) { hn = txtHn14.Text.Trim(); an = txtAn14.Text.Trim(); flagOutlab = imgOutlab14.Checked ? true : false; flagStaffnote = imgStaffNote14.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg14); }
+            else if (((C1Button)sender).Name.Equals("btnExp15")) { hn = txtHn15.Text.Trim(); an = txtAn15.Text.Trim(); flagOutlab = imgOutlab15.Checked ? true : false; flagStaffnote = imgStaffNote15.Checked ? true : false; genPDF(hn, an, flagOutlab, flagStaffnote, lbMsg15); }
             //dsc_id = id;
-            genPDF(hn, an, flagOutlab, flagStaffnote);
+            foreach (String path1 in lstrings)
+            {
+                Process.Start("explorer.exe", path1);
+            }
         }
         private void LbPttName1_Click(object sender, EventArgs e)
         {
@@ -1433,11 +1782,11 @@ namespace bangna_hospital.gui
             grf.Rows.Count = 1;
             grf.Cols.Count = 5;
 
-            Form frm = new Form();
-            frm.Size = new Size(400, 400);
-            frm.StartPosition = FormStartPosition.CenterScreen;
-            frm.Controls.Add(grf);
-            frm.Controls.Add(lbname);
+            frmGrf = new Form();
+            frmGrf.Size = new Size(400, 400);
+            frmGrf.StartPosition = FormStartPosition.CenterScreen;
+            frmGrf.Controls.Add(grf);
+            frmGrf.Controls.Add(lbname);
             lbname.Top = 5;
             lbname.Left = 10;
             lbname.AutoSize = true;
@@ -1449,6 +1798,8 @@ namespace bangna_hospital.gui
             grf.Cols[4].Visible = false;
             grf.Size = new Size(380, 300);
             grf.Click += Grf_Click;
+            grf.DoubleClick += Grf_DoubleClick;
+            grf.SelectionMode = SelectionModeEnum.Row;
             DataTable dt = new DataTable();
             dt = bc.bcDB.vsDB.selectPttIPDANbyHN(hn);
             grf.Rows.Count = dt.Rows.Count + 1;
@@ -1463,9 +1814,15 @@ namespace bangna_hospital.gui
                 rowa[4] = hn;
                 i++;
             }
-            frm.ShowDialog(this);
-            
+            frmGrf.ShowDialog(this);
         }
+
+        private void Grf_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            frmGrf.Dispose();
+        }
+
         private void Grf_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -1570,7 +1927,7 @@ namespace bangna_hospital.gui
         private void FrmMedScanExport_Load(object sender, EventArgs e)
         {
             this.Text = "last Update 2024-02-21";
-            lfsbLastUpdate.Text = "last Update 2024-02-21";
+            lfsbLastUpdate.Text = "last Update 2024-12-27";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

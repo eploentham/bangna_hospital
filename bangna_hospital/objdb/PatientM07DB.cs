@@ -362,7 +362,7 @@ namespace bangna_hospital.objdb
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    autoSymptom.Add(row["MNC_TUM_DSC"].ToString() + "," + row["MNC_AMP_DSC"].ToString() + "," + row["MNC_CHW_DSC"].ToString());
+                    autoSymptom.Add(row["MNC_TUM_DSC"].ToString() + "," + row["MNC_AMP_DSC"].ToString() + "," + row["MNC_CHW_DSC"].ToString() + "," + row["MNC_POC"].ToString());
                     PatientM07 cus1 = new PatientM07();
                     cus1.MNC_COU_CD = row[pm07.MNC_COU_CD].ToString();
                     cus1.MNC_CHW_CD = row[pm07.MNC_CHW_CD].ToString();

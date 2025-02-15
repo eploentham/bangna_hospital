@@ -22,7 +22,7 @@ namespace bangna_hospital.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace bangna_hospital.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("bangna_hospital.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace bangna_hospital.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon _ {
+        public static System.Drawing.Icon _ {
             get {
                 object obj = ResourceManager.GetObject("_", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -73,7 +73,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _698929 {
+        public static System.Drawing.Bitmap _698929 {
             get {
                 object obj = ResourceManager.GetObject("_698929", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _lock {
+        public static System.Drawing.Bitmap _lock {
             get {
                 object obj = ResourceManager.GetObject("_lock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Accept_database {
+        public static System.Drawing.Bitmap Accept_database {
             get {
                 object obj = ResourceManager.GetObject("Accept_database", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap accept_database16 {
+        public static System.Drawing.Bitmap accept_database16 {
             get {
                 object obj = ResourceManager.GetObject("accept_database16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap accept_database24 {
+        public static System.Drawing.Bitmap accept_database24 {
             get {
                 object obj = ResourceManager.GetObject("accept_database24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +123,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Accept_database48 {
+        public static System.Drawing.Bitmap Accept_database48 {
             get {
                 object obj = ResourceManager.GetObject("Accept_database48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +133,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Accept_Male_User24 {
+        public static System.Drawing.Bitmap Accept_Male_User24 {
             get {
                 object obj = ResourceManager.GetObject("Accept_Male_User24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +143,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ad24 {
+        public static System.Drawing.Bitmap ad24 {
             get {
                 object obj = ResourceManager.GetObject("ad24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +153,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Add_ticket_24 {
+        public static System.Drawing.Bitmap Add_ticket_24 {
             get {
                 object obj = ResourceManager.GetObject("Add_ticket_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +163,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap add_to_database16 {
+        public static System.Drawing.Bitmap add_to_database16 {
             get {
                 object obj = ResourceManager.GetObject("add_to_database16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +173,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AlignTextCenter_small {
+        public static System.Drawing.Bitmap AlignTextCenter_small {
             get {
                 object obj = ResourceManager.GetObject("AlignTextCenter_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,7 +183,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AlignTextJustify_small {
+        public static System.Drawing.Bitmap AlignTextJustify_small {
             get {
                 object obj = ResourceManager.GetObject("AlignTextJustify_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -193,7 +193,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AlignTextLeft_small {
+        public static System.Drawing.Bitmap AlignTextLeft_small {
             get {
                 object obj = ResourceManager.GetObject("AlignTextLeft_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +203,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AlignTextRight_small {
+        public static System.Drawing.Bitmap AlignTextRight_small {
             get {
                 object obj = ResourceManager.GetObject("AlignTextRight_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -213,7 +213,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon application {
+        public static System.Drawing.Icon application {
             get {
                 object obj = ResourceManager.GetObject("application", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -223,7 +223,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap AppMenuArrow {
+        public static System.Drawing.Bitmap AppMenuArrow {
             get {
                 object obj = ResourceManager.GetObject("AppMenuArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -233,7 +233,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_true_1 {
+        public static System.Drawing.Bitmap arrow_true_1 {
             get {
                 object obj = ResourceManager.GetObject("arrow_true_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -243,7 +243,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrow_true_2 {
+        public static System.Drawing.Bitmap arrow_true_2 {
             get {
                 object obj = ResourceManager.GetObject("arrow_true_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -253,7 +253,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon backup_restore {
+        public static System.Drawing.Icon backup_restore {
             get {
                 object obj = ResourceManager.GetObject("backup_restore", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -263,7 +263,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bangna_hospital {
+        public static System.Drawing.Bitmap bangna_hospital {
             get {
                 object obj = ResourceManager.GetObject("bangna_hospital", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -273,7 +273,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BlankPage_large {
+        public static System.Drawing.Bitmap BlankPage_large {
             get {
                 object obj = ResourceManager.GetObject("BlankPage_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -283,7 +283,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bold_small {
+        public static System.Drawing.Bitmap Bold_small {
             get {
                 object obj = ResourceManager.GetObject("Bold_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -293,7 +293,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bookmark_large {
+        public static System.Drawing.Bitmap Bookmark_large {
             get {
                 object obj = ResourceManager.GetObject("Bookmark_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -303,7 +303,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Borders_small {
+        public static System.Drawing.Bitmap Borders_small {
             get {
                 object obj = ResourceManager.GetObject("Borders_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -313,7 +313,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Brush_small {
+        public static System.Drawing.Bitmap Brush_small {
             get {
                 object obj = ResourceManager.GetObject("Brush_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -323,7 +323,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bullets_small {
+        public static System.Drawing.Bitmap Bullets_small {
             get {
                 object obj = ResourceManager.GetObject("Bullets_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -333,7 +333,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ChangeCase_small {
+        public static System.Drawing.Bitmap ChangeCase_small {
             get {
                 object obj = ResourceManager.GetObject("ChangeCase_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -343,7 +343,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charactergrowfont {
+        public static System.Drawing.Bitmap charactergrowfont {
             get {
                 object obj = ResourceManager.GetObject("charactergrowfont", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -353,7 +353,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charactershrinkfont {
+        public static System.Drawing.Bitmap charactershrinkfont {
             get {
                 object obj = ResourceManager.GetObject("charactershrinkfont", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -363,7 +363,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Chart_large {
+        public static System.Drawing.Bitmap Chart_large {
             get {
                 object obj = ResourceManager.GetObject("Chart_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -373,7 +373,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Clear_small {
+        public static System.Drawing.Bitmap Clear_small {
             get {
                 object obj = ResourceManager.GetObject("Clear_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -383,7 +383,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ClearFormatting_small {
+        public static System.Drawing.Bitmap ClearFormatting_small {
             get {
                 object obj = ResourceManager.GetObject("ClearFormatting_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -393,7 +393,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ClipArt_large {
+        public static System.Drawing.Bitmap ClipArt_large {
             get {
                 object obj = ResourceManager.GetObject("ClipArt_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -403,7 +403,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap close {
+        public static System.Drawing.Bitmap close {
             get {
                 object obj = ResourceManager.GetObject("close", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -413,7 +413,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Users\Ekapop\Documents\GrapeCity Samples\ActiveReports 11\Data\NWIND.MDB.
         /// </summary>
-        internal static string ConnectionString {
+        public static string ConnectionString {
             get {
                 return ResourceManager.GetString("ConnectionString", resourceCulture);
             }
@@ -422,7 +422,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Copy_small {
+        public static System.Drawing.Bitmap Copy_small {
             get {
                 object obj = ResourceManager.GetObject("Copy_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -432,7 +432,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CoverPage_large {
+        public static System.Drawing.Bitmap CoverPage_large {
             get {
                 object obj = ResourceManager.GetObject("CoverPage_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -442,7 +442,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CrossReference_large {
+        public static System.Drawing.Bitmap CrossReference_large {
             get {
                 object obj = ResourceManager.GetObject("CrossReference_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -452,7 +452,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap custom_reports24 {
+        public static System.Drawing.Bitmap custom_reports24 {
             get {
                 object obj = ResourceManager.GetObject("custom_reports24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -462,7 +462,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Cut_small {
+        public static System.Drawing.Bitmap Cut_small {
             get {
                 object obj = ResourceManager.GetObject("Cut_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -472,7 +472,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap database48 {
+        public static System.Drawing.Bitmap database48 {
             get {
                 object obj = ResourceManager.GetObject("database48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -482,7 +482,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DateAndTime_large {
+        public static System.Drawing.Bitmap DateAndTime_large {
             get {
                 object obj = ResourceManager.GetObject("DateAndTime_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -492,7 +492,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DecreaseIndent_small {
+        public static System.Drawing.Bitmap DecreaseIndent_small {
             get {
                 object obj = ResourceManager.GetObject("DecreaseIndent_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -502,7 +502,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteColumns_small {
+        public static System.Drawing.Bitmap DeleteColumns_small {
             get {
                 object obj = ResourceManager.GetObject("DeleteColumns_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -512,7 +512,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteRows_small {
+        public static System.Drawing.Bitmap DeleteRows_small {
             get {
                 object obj = ResourceManager.GetObject("DeleteRows_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -522,7 +522,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteTable_small {
+        public static System.Drawing.Bitmap DeleteTable_small {
             get {
                 object obj = ResourceManager.GetObject("DeleteTable_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -532,7 +532,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DeleteTableItems_large {
+        public static System.Drawing.Bitmap DeleteTableItems_large {
             get {
                 object obj = ResourceManager.GetObject("DeleteTableItems_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -542,7 +542,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon doctor_asian_female_people_avatar_icon_141428 {
+        public static System.Drawing.Icon doctor_asian_female_people_avatar_icon_141428 {
             get {
                 object obj = ResourceManager.GetObject("doctor_asian_female_people_avatar_icon_141428", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -552,7 +552,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon doctor_asian_male_coronavirus_people_avatar_mask_icon_141385 {
+        public static System.Drawing.Icon doctor_asian_male_coronavirus_people_avatar_mask_icon_141385 {
             get {
                 object obj = ResourceManager.GetObject("doctor_asian_male_coronavirus_people_avatar_mask_icon_141385", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -562,7 +562,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon doctor256_24904 {
+        public static System.Drawing.Icon doctor256_24904 {
             get {
                 object obj = ResourceManager.GetObject("doctor256_24904", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -572,7 +572,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap download_database16 {
+        public static System.Drawing.Bitmap download_database16 {
             get {
                 object obj = ResourceManager.GetObject("download_database16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -582,7 +582,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap download_database24 {
+        public static System.Drawing.Bitmap download_database24 {
             get {
                 object obj = ResourceManager.GetObject("download_database24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -592,7 +592,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Edit_Male_User24 {
+        public static System.Drawing.Bitmap Edit_Male_User24 {
             get {
                 object obj = ResourceManager.GetObject("Edit_Male_User24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -602,7 +602,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap editcopy {
+        public static System.Drawing.Bitmap editcopy {
             get {
                 object obj = ResourceManager.GetObject("editcopy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -612,7 +612,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap editcut {
+        public static System.Drawing.Bitmap editcut {
             get {
                 object obj = ResourceManager.GetObject("editcut", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -622,7 +622,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditorDesignMode_small {
+        public static System.Drawing.Bitmap EditorDesignMode_small {
             get {
                 object obj = ResourceManager.GetObject("EditorDesignMode_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -632,7 +632,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditorPreviewMode_small {
+        public static System.Drawing.Bitmap EditorPreviewMode_small {
             get {
                 object obj = ResourceManager.GetObject("EditorPreviewMode_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -642,7 +642,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditorSourceMode_small {
+        public static System.Drawing.Bitmap EditorSourceMode_small {
             get {
                 object obj = ResourceManager.GetObject("EditorSourceMode_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -652,7 +652,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap editpaste {
+        public static System.Drawing.Bitmap editpaste {
             get {
                 object obj = ResourceManager.GetObject("editpaste", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -662,7 +662,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap editredo {
+        public static System.Drawing.Bitmap editredo {
             get {
                 object obj = ResourceManager.GetObject("editredo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -672,7 +672,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap editundo {
+        public static System.Drawing.Bitmap editundo {
             get {
                 object obj = ResourceManager.GetObject("editundo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -682,7 +682,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Email_icon {
+        public static System.Drawing.Bitmap Email_icon {
             get {
                 object obj = ResourceManager.GetObject("Email_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -692,7 +692,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Email_icon_24 {
+        public static System.Drawing.Bitmap Email_icon_24 {
             get {
                 object obj = ResourceManager.GetObject("Email_icon_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -702,7 +702,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ActiveReports_Excel.xlsx.
         /// </summary>
-        internal static string Excel2007FileName {
+        public static string Excel2007FileName {
             get {
                 return ResourceManager.GetString("Excel2007FileName", resourceCulture);
             }
@@ -711,7 +711,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Excel 2007 files (*.xlsx)|*.xlsx|Excel files (*.xls)|*.xls|All files (*.*)|*.*.
         /// </summary>
-        internal static string Excel2007Filter {
+        public static string Excel2007Filter {
             get {
                 return ResourceManager.GetString("Excel2007Filter", resourceCulture);
             }
@@ -720,7 +720,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ActiveReports_Excel.xls.
         /// </summary>
-        internal static string ExcelFileName {
+        public static string ExcelFileName {
             get {
                 return ResourceManager.GetString("ExcelFileName", resourceCulture);
             }
@@ -729,7 +729,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Excel files (*.xls)|*.xls|All files (*.*)|*.*.
         /// </summary>
-        internal static string ExcelFilter {
+        public static string ExcelFilter {
             get {
                 return ResourceManager.GetString("ExcelFilter", resourceCulture);
             }
@@ -738,7 +738,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Export Complete.
         /// </summary>
-        internal static string ExportCompleteString {
+        public static string ExportCompleteString {
             get {
                 return ResourceManager.GetString("ExportCompleteString", resourceCulture);
             }
@@ -747,7 +747,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ExportPdf_large {
+        public static System.Drawing.Bitmap ExportPdf_large {
             get {
                 object obj = ResourceManager.GetObject("ExportPdf_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -757,7 +757,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Female_user_accept_24 {
+        public static System.Drawing.Bitmap Female_user_accept_24 {
             get {
                 object obj = ResourceManager.GetObject("Female_user_accept_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -767,7 +767,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Female_user_add_24 {
+        public static System.Drawing.Bitmap Female_user_add_24 {
             get {
                 object obj = ResourceManager.GetObject("Female_user_add_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -777,7 +777,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Female_user_edit_24 {
+        public static System.Drawing.Bitmap Female_user_edit_24 {
             get {
                 object obj = ResourceManager.GetObject("Female_user_edit_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -787,7 +787,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Female_user_help_24 {
+        public static System.Drawing.Bitmap Female_user_help_24 {
             get {
                 object obj = ResourceManager.GetObject("Female_user_help_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -797,7 +797,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Female_user_info_24 {
+        public static System.Drawing.Bitmap Female_user_info_24 {
             get {
                 object obj = ResourceManager.GetObject("Female_user_info_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -807,7 +807,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Female_user_remove_24 {
+        public static System.Drawing.Bitmap Female_user_remove_24 {
             get {
                 object obj = ResourceManager.GetObject("Female_user_remove_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -817,7 +817,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Female_user_search_24 {
+        public static System.Drawing.Bitmap Female_user_search_24 {
             get {
                 object obj = ResourceManager.GetObject("Female_user_search_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -827,7 +827,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fileopen {
+        public static System.Drawing.Bitmap fileopen {
             get {
                 object obj = ResourceManager.GetObject("fileopen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -837,7 +837,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap filesave {
+        public static System.Drawing.Bitmap filesave {
             get {
                 object obj = ResourceManager.GetObject("filesave", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -847,7 +847,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FillColor_small {
+        public static System.Drawing.Bitmap FillColor_small {
             get {
                 object obj = ResourceManager.GetObject("FillColor_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -857,7 +857,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Find_small {
+        public static System.Drawing.Bitmap Find_small {
             get {
                 object obj = ResourceManager.GetObject("Find_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -867,7 +867,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FixErrors_small {
+        public static System.Drawing.Bitmap FixErrors_small {
             get {
                 object obj = ResourceManager.GetObject("FixErrors_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -877,7 +877,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FlashMovie_large {
+        public static System.Drawing.Bitmap FlashMovie_large {
             get {
                 object obj = ResourceManager.GetObject("FlashMovie_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -887,7 +887,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap folder {
+        public static System.Drawing.Bitmap folder {
             get {
                 object obj = ResourceManager.GetObject("folder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -897,7 +897,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FontColor_small {
+        public static System.Drawing.Bitmap FontColor_small {
             get {
                 object obj = ResourceManager.GetObject("FontColor_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -907,7 +907,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Footer_large {
+        public static System.Drawing.Bitmap Footer_large {
             get {
                 object obj = ResourceManager.GetObject("Footer_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -917,7 +917,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Forklift_48x48 {
+        public static System.Drawing.Bitmap Forklift_48x48 {
             get {
                 object obj = ResourceManager.GetObject("Forklift_48x48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -927,7 +927,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap FormattingSymbols_small {
+        public static System.Drawing.Bitmap FormattingSymbols_small {
             get {
                 object obj = ResourceManager.GetObject("FormattingSymbols_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -937,7 +937,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon front_desk_icon_127279 {
+        public static System.Drawing.Icon front_desk_icon_127279 {
             get {
                 object obj = ResourceManager.GetObject("front_desk_icon_127279", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -947,7 +947,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap GoToDown_small {
+        public static System.Drawing.Bitmap GoToDown_small {
             get {
                 object obj = ResourceManager.GetObject("GoToDown_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -957,7 +957,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap GoToNext_small {
+        public static System.Drawing.Bitmap GoToNext_small {
             get {
                 object obj = ResourceManager.GetObject("GoToNext_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -967,7 +967,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Graphicloads_100_Flat_Laboratory {
+        public static System.Drawing.Icon Graphicloads_100_Flat_Laboratory {
             get {
                 object obj = ResourceManager.GetObject("Graphicloads_100_Flat_Laboratory", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -977,7 +977,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap GrowFont_small {
+        public static System.Drawing.Bitmap GrowFont_small {
             get {
                 object obj = ResourceManager.GetObject("GrowFont_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -987,7 +987,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Header_large {
+        public static System.Drawing.Bitmap Header_large {
             get {
                 object obj = ResourceManager.GetObject("Header_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -997,7 +997,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Hide_left {
+        public static System.Drawing.Bitmap Hide_left {
             get {
                 object obj = ResourceManager.GetObject("Hide_left", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1007,7 +1007,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Hide_right {
+        public static System.Drawing.Bitmap Hide_right {
             get {
                 object obj = ResourceManager.GetObject("Hide_right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1017,7 +1017,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap HighlightColor_small {
+        public static System.Drawing.Bitmap HighlightColor_small {
             get {
                 object obj = ResourceManager.GetObject("HighlightColor_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1027,7 +1027,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ActiveReports_HTML.html.
         /// </summary>
-        internal static string HTMLFileName {
+        public static string HTMLFileName {
             get {
                 return ResourceManager.GetString("HTMLFileName", resourceCulture);
             }
@@ -1036,7 +1036,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Html files (*.htm)|*.html|All files (*.*)|*.*.
         /// </summary>
-        internal static string HTMLFilter {
+        public static string HTMLFilter {
             get {
                 return ResourceManager.GetString("HTMLFilter", resourceCulture);
             }
@@ -1045,7 +1045,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Hyperlink_large {
+        public static System.Drawing.Bitmap Hyperlink_large {
             get {
                 object obj = ResourceManager.GetObject("Hyperlink_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1055,7 +1055,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon icon_bangna_hospital {
+        public static System.Drawing.Icon icon_bangna_hospital {
             get {
                 object obj = ResourceManager.GetObject("icon_bangna_hospital", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1065,7 +1065,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon icon_bangna_hospital_capture {
+        public static System.Drawing.Icon icon_bangna_hospital_capture {
             get {
                 object obj = ResourceManager.GetObject("icon_bangna_hospital_capture", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1075,7 +1075,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon icon_bangna_hospital_scan_add {
+        public static System.Drawing.Icon icon_bangna_hospital_scan_add {
             get {
                 object obj = ResourceManager.GetObject("icon_bangna_hospital_scan_add", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1085,7 +1085,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_doctor_64 {
+        public static System.Drawing.Bitmap icons8_doctor_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8_doctor_64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1095,7 +1095,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon icons8_doctor_641 {
+        public static System.Drawing.Icon icons8_doctor_641 {
             get {
                 object obj = ResourceManager.GetObject("icons8_doctor_641", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1105,7 +1105,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Iconshock_Real_Vista_Education_Laboratory {
+        public static System.Drawing.Icon Iconshock_Real_Vista_Education_Laboratory {
             get {
                 object obj = ResourceManager.GetObject("Iconshock_Real_Vista_Education_Laboratory", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1115,7 +1115,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Image_small {
+        public static System.Drawing.Bitmap Image_small {
             get {
                 object obj = ResourceManager.GetObject("Image_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1125,7 +1125,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap images {
+        public static System.Drawing.Bitmap images {
             get {
                 object obj = ResourceManager.GetObject("images", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1135,7 +1135,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap IncreaseIndent_small {
+        public static System.Drawing.Bitmap IncreaseIndent_small {
             get {
                 object obj = ResourceManager.GetObject("IncreaseIndent_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1145,7 +1145,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap InsertColumnAfter_small {
+        public static System.Drawing.Bitmap InsertColumnAfter_small {
             get {
                 object obj = ResourceManager.GetObject("InsertColumnAfter_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1155,7 +1155,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap InsertColumnBefore_small {
+        public static System.Drawing.Bitmap InsertColumnBefore_small {
             get {
                 object obj = ResourceManager.GetObject("InsertColumnBefore_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1165,7 +1165,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap InsertRowAbove_small {
+        public static System.Drawing.Bitmap InsertRowAbove_small {
             get {
                 object obj = ResourceManager.GetObject("InsertRowAbove_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1175,7 +1175,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap InsertRowBelow_small {
+        public static System.Drawing.Bitmap InsertRowBelow_small {
             get {
                 object obj = ResourceManager.GetObject("InsertRowBelow_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1185,7 +1185,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap InsertTableItems_large {
+        public static System.Drawing.Bitmap InsertTableItems_large {
             get {
                 object obj = ResourceManager.GetObject("InsertTableItems_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1195,7 +1195,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Italic_small {
+        public static System.Drawing.Bitmap Italic_small {
             get {
                 object obj = ResourceManager.GetObject("Italic_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1205,7 +1205,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap kyc {
+        public static System.Drawing.Bitmap kyc {
             get {
                 object obj = ResourceManager.GetObject("kyc", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1215,7 +1215,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap line_811lnpoa {
+        public static System.Drawing.Bitmap line_811lnpoa {
             get {
                 object obj = ResourceManager.GetObject("line_811lnpoa", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1225,7 +1225,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LineSpacing_small {
+        public static System.Drawing.Bitmap LineSpacing_small {
             get {
                 object obj = ResourceManager.GetObject("LineSpacing_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1235,7 +1235,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap listbullets {
+        public static System.Drawing.Bitmap listbullets {
             get {
                 object obj = ResourceManager.GetObject("listbullets", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1245,7 +1245,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap listnumbering {
+        public static System.Drawing.Bitmap listnumbering {
             get {
                 object obj = ResourceManager.GetObject("listnumbering", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1255,7 +1255,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap loading_transparent {
+        public static System.Drawing.Bitmap loading_transparent {
             get {
                 object obj = ResourceManager.GetObject("loading_transparent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1265,7 +1265,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap lock24 {
+        public static System.Drawing.Bitmap lock24 {
             get {
                 object obj = ResourceManager.GetObject("lock24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1275,7 +1275,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap lock48 {
+        public static System.Drawing.Bitmap lock48 {
             get {
                 object obj = ResourceManager.GetObject("lock48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1285,7 +1285,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap login16 {
+        public static System.Drawing.Bitmap login16 {
             get {
                 object obj = ResourceManager.GetObject("login16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1295,7 +1295,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap login24 {
+        public static System.Drawing.Bitmap login24 {
             get {
                 object obj = ResourceManager.GetObject("login24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1305,7 +1305,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap logo {
+        public static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1315,7 +1315,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LOGO_BW_tran {
+        public static System.Drawing.Bitmap LOGO_BW_tran {
             get {
                 object obj = ResourceManager.GetObject("LOGO_BW_tran", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1325,7 +1325,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LOGO_Green_Transparent {
+        public static System.Drawing.Bitmap LOGO_Green_Transparent {
             get {
                 object obj = ResourceManager.GetObject("LOGO_Green_Transparent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1335,7 +1335,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap lorry_24x24 {
+        public static System.Drawing.Bitmap lorry_24x24 {
             get {
                 object obj = ResourceManager.GetObject("lorry_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1345,7 +1345,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap lorry_48x48 {
+        public static System.Drawing.Bitmap lorry_48x48 {
             get {
                 object obj = ResourceManager.GetObject("lorry_48x48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1355,7 +1355,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Mac_Header {
+        public static System.Drawing.Bitmap Mac_Header {
             get {
                 object obj = ResourceManager.GetObject("Mac_Header", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1365,7 +1365,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Mac_HeaderSelected {
+        public static System.Drawing.Bitmap Mac_HeaderSelected {
             get {
                 object obj = ResourceManager.GetObject("Mac_HeaderSelected", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1375,7 +1375,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap maintenance16 {
+        public static System.Drawing.Bitmap maintenance16 {
             get {
                 object obj = ResourceManager.GetObject("maintenance16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1385,7 +1385,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap maintenance24 {
+        public static System.Drawing.Bitmap maintenance24 {
             get {
                 object obj = ResourceManager.GetObject("maintenance24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1395,7 +1395,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap maintenance48 {
+        public static System.Drawing.Bitmap maintenance48 {
             get {
                 object obj = ResourceManager.GetObject("maintenance48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1405,7 +1405,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Male_User_Accept48 {
+        public static System.Drawing.Bitmap Male_User_Accept48 {
             get {
                 object obj = ResourceManager.GetObject("Male_User_Accept48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1415,7 +1415,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Male_User_Edit48 {
+        public static System.Drawing.Bitmap Male_User_Edit48 {
             get {
                 object obj = ResourceManager.GetObject("Male_User_Edit48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1425,7 +1425,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Male_User_Help24 {
+        public static System.Drawing.Bitmap Male_User_Help24 {
             get {
                 object obj = ResourceManager.GetObject("Male_User_Help24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1435,7 +1435,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Male_User_Help48 {
+        public static System.Drawing.Bitmap Male_User_Help48 {
             get {
                 object obj = ResourceManager.GetObject("Male_User_Help48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1445,7 +1445,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Male_User_Warning24 {
+        public static System.Drawing.Bitmap Male_User_Warning24 {
             get {
                 object obj = ResourceManager.GetObject("Male_User_Warning24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1455,7 +1455,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Male_User_Warning48 {
+        public static System.Drawing.Bitmap Male_User_Warning48 {
             get {
                 object obj = ResourceManager.GetObject("Male_User_Warning48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1465,7 +1465,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon medical_29_icon_icons_com_73943 {
+        public static System.Drawing.Icon medical_29_icon_icons_com_73943 {
             get {
                 object obj = ResourceManager.GetObject("medical_29_icon_icons_com_73943", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1475,7 +1475,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon Message_already_read {
+        public static System.Drawing.Icon Message_already_read {
             get {
                 object obj = ResourceManager.GetObject("Message_already_read", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1485,7 +1485,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon monitor {
+        public static System.Drawing.Icon monitor {
             get {
                 object obj = ResourceManager.GetObject("monitor", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1495,7 +1495,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Navigate_left {
+        public static System.Drawing.Bitmap Navigate_left {
             get {
                 object obj = ResourceManager.GetObject("Navigate_left", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1505,7 +1505,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Navigate_right {
+        public static System.Drawing.Bitmap Navigate_right {
             get {
                 object obj = ResourceManager.GetObject("Navigate_right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1515,7 +1515,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap New_large {
+        public static System.Drawing.Bitmap New_large {
             get {
                 object obj = ResourceManager.GetObject("New_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1525,7 +1525,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Numbering_small {
+        public static System.Drawing.Bitmap Numbering_small {
             get {
                 object obj = ResourceManager.GetObject("Numbering_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1535,7 +1535,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open {
+        public static System.Drawing.Bitmap open {
             get {
                 object obj = ResourceManager.GetObject("open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1545,7 +1545,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Open_folder_accept {
+        public static System.Drawing.Bitmap Open_folder_accept {
             get {
                 object obj = ResourceManager.GetObject("Open_folder_accept", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1555,7 +1555,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Open_Large {
+        public static System.Drawing.Bitmap Open_Large {
             get {
                 object obj = ResourceManager.GetObject("Open_Large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1565,7 +1565,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Open_small {
+        public static System.Drawing.Bitmap Open_small {
             get {
                 object obj = ResourceManager.GetObject("Open_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1575,7 +1575,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open24 {
+        public static System.Drawing.Bitmap open24 {
             get {
                 object obj = ResourceManager.GetObject("open24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1585,7 +1585,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open48 {
+        public static System.Drawing.Bitmap open48 {
             get {
                 object obj = ResourceManager.GetObject("open48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1595,7 +1595,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ordering16 {
+        public static System.Drawing.Bitmap ordering16 {
             get {
                 object obj = ResourceManager.GetObject("ordering16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1605,7 +1605,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PageBreaks_large {
+        public static System.Drawing.Bitmap PageBreaks_large {
             get {
                 object obj = ResourceManager.GetObject("PageBreaks_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1615,7 +1615,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PageNumber_large {
+        public static System.Drawing.Bitmap PageNumber_large {
             get {
                 object obj = ResourceManager.GetObject("PageNumber_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1625,7 +1625,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap paragraphcenterjustify {
+        public static System.Drawing.Bitmap paragraphcenterjustify {
             get {
                 object obj = ResourceManager.GetObject("paragraphcenterjustify", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1635,7 +1635,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap paragraphdecreaseindentation {
+        public static System.Drawing.Bitmap paragraphdecreaseindentation {
             get {
                 object obj = ResourceManager.GetObject("paragraphdecreaseindentation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1645,7 +1645,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap paragraphfulljustify {
+        public static System.Drawing.Bitmap paragraphfulljustify {
             get {
                 object obj = ResourceManager.GetObject("paragraphfulljustify", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1655,7 +1655,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap paragraphincreaseindentation {
+        public static System.Drawing.Bitmap paragraphincreaseindentation {
             get {
                 object obj = ResourceManager.GetObject("paragraphincreaseindentation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1665,7 +1665,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap paragraphleftjustify {
+        public static System.Drawing.Bitmap paragraphleftjustify {
             get {
                 object obj = ResourceManager.GetObject("paragraphleftjustify", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1675,7 +1675,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Paste_large {
+        public static System.Drawing.Bitmap Paste_large {
             get {
                 object obj = ResourceManager.GetObject("Paste_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1685,7 +1685,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Paste_small {
+        public static System.Drawing.Bitmap Paste_small {
             get {
                 object obj = ResourceManager.GetObject("Paste_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1695,7 +1695,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf {
+        public static System.Drawing.Bitmap pdf {
             get {
                 object obj = ResourceManager.GetObject("pdf", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1705,7 +1705,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon pdf_64 {
+        public static System.Drawing.Icon pdf_64 {
             get {
                 object obj = ResourceManager.GetObject("pdf_64", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1715,7 +1715,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf_symbol {
+        public static System.Drawing.Bitmap pdf_symbol {
             get {
                 object obj = ResourceManager.GetObject("pdf_symbol", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1725,7 +1725,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf_symbol_300 {
+        public static System.Drawing.Bitmap pdf_symbol_300 {
             get {
                 object obj = ResourceManager.GetObject("pdf_symbol_300", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1735,7 +1735,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf_symbol_400 {
+        public static System.Drawing.Bitmap pdf_symbol_400 {
             get {
                 object obj = ResourceManager.GetObject("pdf_symbol_400", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1745,7 +1745,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf_symbol_80 {
+        public static System.Drawing.Bitmap pdf_symbol_80 {
             get {
                 object obj = ResourceManager.GetObject("pdf_symbol_80", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1755,7 +1755,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf_symbol_80_2 {
+        public static System.Drawing.Bitmap pdf_symbol_80_2 {
             get {
                 object obj = ResourceManager.GetObject("pdf_symbol_80_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1765,7 +1765,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ActiveReports_PDF.pdf.
         /// </summary>
-        internal static string PDFFileName {
+        public static string PDFFileName {
             get {
                 return ResourceManager.GetString("PDFFileName", resourceCulture);
             }
@@ -1774,7 +1774,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Pdf files (*.pdf)|*.pdf|All files (*.*)|*.*.
         /// </summary>
-        internal static string PDFFilter {
+        public static string PDFFilter {
             get {
                 return ResourceManager.GetString("PDFFilter", resourceCulture);
             }
@@ -1783,7 +1783,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon phone_blue {
+        public static System.Drawing.Icon phone_blue {
             get {
                 object obj = ResourceManager.GetObject("phone_blue", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1793,7 +1793,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon phone_green {
+        public static System.Drawing.Icon phone_green {
             get {
                 object obj = ResourceManager.GetObject("phone_green", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1803,7 +1803,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon phone_grey {
+        public static System.Drawing.Icon phone_grey {
             get {
                 object obj = ResourceManager.GetObject("phone_grey", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1813,7 +1813,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon phone_red {
+        public static System.Drawing.Icon phone_red {
             get {
                 object obj = ResourceManager.GetObject("phone_red", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -1823,7 +1823,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap phonebook24 {
+        public static System.Drawing.Bitmap phonebook24 {
             get {
                 object obj = ResourceManager.GetObject("phonebook24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1833,7 +1833,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Picture_large {
+        public static System.Drawing.Bitmap Picture_large {
             get {
                 object obj = ResourceManager.GetObject("Picture_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1843,7 +1843,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Pin_small {
+        public static System.Drawing.Bitmap Pin_small {
             get {
                 object obj = ResourceManager.GetObject("Pin_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1853,7 +1853,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Pinned {
+        public static System.Drawing.Bitmap Pinned {
             get {
                 object obj = ResourceManager.GetObject("Pinned", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1863,7 +1863,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Pinnned_small {
+        public static System.Drawing.Bitmap Pinnned_small {
             get {
                 object obj = ResourceManager.GetObject("Pinnned_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1873,7 +1873,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290 {
+        public static System.Drawing.Bitmap pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290 {
             get {
                 object obj = ResourceManager.GetObject("pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1883,7 +1883,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap power24 {
+        public static System.Drawing.Bitmap power24 {
             get {
                 object obj = ResourceManager.GetObject("power24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1893,7 +1893,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap print {
+        public static System.Drawing.Bitmap print {
             get {
                 object obj = ResourceManager.GetObject("print", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1903,7 +1903,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Print_large {
+        public static System.Drawing.Bitmap Print_large {
             get {
                 object obj = ResourceManager.GetObject("Print_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1913,7 +1913,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_blue16 {
+        public static System.Drawing.Bitmap printer_blue16 {
             get {
                 object obj = ResourceManager.GetObject("printer_blue16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1923,7 +1923,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_blue24 {
+        public static System.Drawing.Bitmap printer_blue24 {
             get {
                 object obj = ResourceManager.GetObject("printer_blue24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1933,7 +1933,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_blue48 {
+        public static System.Drawing.Bitmap printer_blue48 {
             get {
                 object obj = ResourceManager.GetObject("printer_blue48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1943,7 +1943,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_green16 {
+        public static System.Drawing.Bitmap printer_green16 {
             get {
                 object obj = ResourceManager.GetObject("printer_green16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1953,7 +1953,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_green48 {
+        public static System.Drawing.Bitmap printer_green48 {
             get {
                 object obj = ResourceManager.GetObject("printer_green48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1963,7 +1963,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_orange16 {
+        public static System.Drawing.Bitmap printer_orange16 {
             get {
                 object obj = ResourceManager.GetObject("printer_orange16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1973,7 +1973,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_orange24 {
+        public static System.Drawing.Bitmap printer_orange24 {
             get {
                 object obj = ResourceManager.GetObject("printer_orange24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1983,7 +1983,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_orange48 {
+        public static System.Drawing.Bitmap printer_orange48 {
             get {
                 object obj = ResourceManager.GetObject("printer_orange48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1993,7 +1993,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PrintPreview_large {
+        public static System.Drawing.Bitmap PrintPreview_large {
             get {
                 object obj = ResourceManager.GetObject("PrintPreview_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2003,7 +2003,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Process_accept16 {
+        public static System.Drawing.Bitmap Process_accept16 {
             get {
                 object obj = ResourceManager.GetObject("Process_accept16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2013,7 +2013,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap prohibit24 {
+        public static System.Drawing.Bitmap prohibit24 {
             get {
                 object obj = ResourceManager.GetObject("prohibit24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2023,7 +2023,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap qrcode_657bkkyq {
+        public static System.Drawing.Bitmap qrcode_657bkkyq {
             get {
                 object obj = ResourceManager.GetObject("qrcode_657bkkyq", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2033,7 +2033,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap QuickPrint_large {
+        public static System.Drawing.Bitmap QuickPrint_large {
             get {
                 object obj = ResourceManager.GetObject("QuickPrint_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2043,7 +2043,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap red_checkmark_png_16 {
+        public static System.Drawing.Bitmap red_checkmark_png_16 {
             get {
                 object obj = ResourceManager.GetObject("red_checkmark_png_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2053,7 +2053,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap red_checkmark_png_51 {
+        public static System.Drawing.Bitmap red_checkmark_png_51 {
             get {
                 object obj = ResourceManager.GetObject("red_checkmark_png_51", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2063,7 +2063,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap redo {
+        public static System.Drawing.Bitmap redo {
             get {
                 object obj = ResourceManager.GetObject("redo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2073,7 +2073,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Redo_small {
+        public static System.Drawing.Bitmap Redo_small {
             get {
                 object obj = ResourceManager.GetObject("Redo_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2083,7 +2083,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap refresh16 {
+        public static System.Drawing.Bitmap refresh16 {
             get {
                 object obj = ResourceManager.GetObject("refresh16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2093,7 +2093,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap refresh24 {
+        public static System.Drawing.Bitmap refresh24 {
             get {
                 object obj = ResourceManager.GetObject("refresh24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2103,7 +2103,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap refresh48 {
+        public static System.Drawing.Bitmap refresh48 {
             get {
                 object obj = ResourceManager.GetObject("refresh48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2113,7 +2113,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Remove_ticket_24 {
+        public static System.Drawing.Bitmap Remove_ticket_24 {
             get {
                 object obj = ResourceManager.GetObject("Remove_ticket_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2123,7 +2123,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Replace_small {
+        public static System.Drawing.Bitmap Replace_small {
             get {
                 object obj = ResourceManager.GetObject("Replace_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2133,7 +2133,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rsz_close {
+        public static System.Drawing.Bitmap rsz_close {
             get {
                 object obj = ResourceManager.GetObject("rsz_close", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2143,7 +2143,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ActiveReports_RTF.rtf.
         /// </summary>
-        internal static string RtfFileName {
+        public static string RtfFileName {
             get {
                 return ResourceManager.GetString("RtfFileName", resourceCulture);
             }
@@ -2152,7 +2152,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Rtf files (*.rtf)|*.rtf|All files (*.*)|*.*.
         /// </summary>
-        internal static string RtfFilter {
+        public static string RtfFilter {
             get {
                 return ResourceManager.GetString("RtfFilter", resourceCulture);
             }
@@ -2161,7 +2161,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rules16 {
+        public static System.Drawing.Bitmap rules16 {
             get {
                 object obj = ResourceManager.GetObject("rules16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2171,7 +2171,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rules24 {
+        public static System.Drawing.Bitmap rules24 {
             get {
                 object obj = ResourceManager.GetObject("rules24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2181,7 +2181,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rules48 {
+        public static System.Drawing.Bitmap rules48 {
             get {
                 object obj = ResourceManager.GetObject("rules48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2191,7 +2191,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save {
+        public static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2201,7 +2201,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Save_large {
+        public static System.Drawing.Bitmap Save_large {
             get {
                 object obj = ResourceManager.GetObject("Save_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2211,7 +2211,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Save_small {
+        public static System.Drawing.Bitmap Save_small {
             get {
                 object obj = ResourceManager.GetObject("Save_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2221,7 +2221,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SaveAs_large {
+        public static System.Drawing.Bitmap SaveAs_large {
             get {
                 object obj = ResourceManager.GetObject("SaveAs_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2231,7 +2231,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Search_globe16 {
+        public static System.Drawing.Bitmap Search_globe16 {
             get {
                 object obj = ResourceManager.GetObject("Search_globe16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2241,7 +2241,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Search_globe24 {
+        public static System.Drawing.Bitmap Search_globe24 {
             get {
                 object obj = ResourceManager.GetObject("Search_globe24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2251,7 +2251,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Search_globe48 {
+        public static System.Drawing.Bitmap Search_globe48 {
             get {
                 object obj = ResourceManager.GetObject("Search_globe48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2261,7 +2261,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Search_Male_User48 {
+        public static System.Drawing.Bitmap Search_Male_User48 {
             get {
                 object obj = ResourceManager.GetObject("Search_Male_User48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2271,7 +2271,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Microsoft Excel WorkBook( XLS , XLSX ).
         /// </summary>
-        internal static string SectionExcelString {
+        public static string SectionExcelString {
             get {
                 return ResourceManager.GetString("SectionExcelString", resourceCulture);
             }
@@ -2280,7 +2280,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hypertext Markup Language(HTML).
         /// </summary>
-        internal static string SectionHTMLString {
+        public static string SectionHTMLString {
             get {
                 return ResourceManager.GetString("SectionHTMLString", resourceCulture);
             }
@@ -2289,7 +2289,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Portable Document Format(PDF).
         /// </summary>
-        internal static string SectionPDFString {
+        public static string SectionPDFString {
             get {
                 return ResourceManager.GetString("SectionPDFString", resourceCulture);
             }
@@ -2298,7 +2298,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Plain Text(TXT).
         /// </summary>
-        internal static string SectionPlainTextString {
+        public static string SectionPlainTextString {
             get {
                 return ResourceManager.GetString("SectionPlainTextString", resourceCulture);
             }
@@ -2307,7 +2307,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Rich Text Format(RTF).
         /// </summary>
-        internal static string SectionRTFString {
+        public static string SectionRTFString {
             get {
                 return ResourceManager.GetString("SectionRTFString", resourceCulture);
             }
@@ -2316,7 +2316,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Tagged Image Format(TIFF).
         /// </summary>
-        internal static string SectionTIFFString {
+        public static string SectionTIFFString {
             get {
                 return ResourceManager.GetString("SectionTIFFString", resourceCulture);
             }
@@ -2325,7 +2325,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Select_small {
+        public static System.Drawing.Bitmap Select_small {
             get {
                 object obj = ResourceManager.GetObject("Select_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2335,7 +2335,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SelectAll_small {
+        public static System.Drawing.Bitmap SelectAll_small {
             get {
                 object obj = ResourceManager.GetObject("SelectAll_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2345,7 +2345,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Shapes_large {
+        public static System.Drawing.Bitmap Shapes_large {
             get {
                 object obj = ResourceManager.GetObject("Shapes_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2355,7 +2355,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ShrinkFont_small {
+        public static System.Drawing.Bitmap ShrinkFont_small {
             get {
                 object obj = ResourceManager.GetObject("ShrinkFont_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2365,7 +2365,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon signal_receiver {
+        public static System.Drawing.Icon signal_receiver {
             get {
                 object obj = ResourceManager.GetObject("signal_receiver", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -2375,7 +2375,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SmartArt_large {
+        public static System.Drawing.Bitmap SmartArt_large {
             get {
                 object obj = ResourceManager.GetObject("SmartArt_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2385,7 +2385,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon smartcard {
+        public static System.Drawing.Icon smartcard {
             get {
                 object obj = ResourceManager.GetObject("smartcard", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -2395,7 +2395,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SortAscending_small {
+        public static System.Drawing.Bitmap SortAscending_small {
             get {
                 object obj = ResourceManager.GetObject("SortAscending_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2405,7 +2405,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap spd_1 {
+        public static System.Drawing.Bitmap spd_1 {
             get {
                 object obj = ResourceManager.GetObject("spd_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2415,7 +2415,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap spd_2 {
+        public static System.Drawing.Bitmap spd_2 {
             get {
                 object obj = ResourceManager.GetObject("spd_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2425,7 +2425,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap start128 {
+        public static System.Drawing.Bitmap start128 {
             get {
                 object obj = ResourceManager.GetObject("start128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2435,7 +2435,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap stop_red128 {
+        public static System.Drawing.Bitmap stop_red128 {
             get {
                 object obj = ResourceManager.GetObject("stop_red128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2445,7 +2445,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap stop_red48 {
+        public static System.Drawing.Bitmap stop_red48 {
             get {
                 object obj = ResourceManager.GetObject("stop_red48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2455,7 +2455,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Strikethrough_small {
+        public static System.Drawing.Bitmap Strikethrough_small {
             get {
                 object obj = ResourceManager.GetObject("Strikethrough_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2465,7 +2465,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Striketrhough_small {
+        public static System.Drawing.Bitmap Striketrhough_small {
             get {
                 object obj = ResourceManager.GetObject("Striketrhough_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2475,7 +2475,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Subscript_small {
+        public static System.Drawing.Bitmap Subscript_small {
             get {
                 object obj = ResourceManager.GetObject("Subscript_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2485,7 +2485,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Superscript_small {
+        public static System.Drawing.Bitmap Superscript_small {
             get {
                 object obj = ResourceManager.GetObject("Superscript_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2495,7 +2495,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Symbol_large {
+        public static System.Drawing.Bitmap Symbol_large {
             get {
                 object obj = ResourceManager.GetObject("Symbol_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2505,7 +2505,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Table_large {
+        public static System.Drawing.Bitmap Table_large {
             get {
                 object obj = ResourceManager.GetObject("Table_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2515,7 +2515,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Table_small {
+        public static System.Drawing.Bitmap Table_small {
             get {
                 object obj = ResourceManager.GetObject("Table_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2525,7 +2525,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TableCellProperties_small {
+        public static System.Drawing.Bitmap TableCellProperties_small {
             get {
                 object obj = ResourceManager.GetObject("TableCellProperties_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2535,7 +2535,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TableColumnProperties_small {
+        public static System.Drawing.Bitmap TableColumnProperties_small {
             get {
                 object obj = ResourceManager.GetObject("TableColumnProperties_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2545,7 +2545,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TableItemsProperties_large {
+        public static System.Drawing.Bitmap TableItemsProperties_large {
             get {
                 object obj = ResourceManager.GetObject("TableItemsProperties_large", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2555,7 +2555,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TableProperties_small {
+        public static System.Drawing.Bitmap TableProperties_small {
             get {
                 object obj = ResourceManager.GetObject("TableProperties_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2565,7 +2565,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TableRowProperties_small {
+        public static System.Drawing.Bitmap TableRowProperties_small {
             get {
                 object obj = ResourceManager.GetObject("TableRowProperties_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2575,7 +2575,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ActiveReports_Text.txt.
         /// </summary>
-        internal static string TextFileName {
+        public static string TextFileName {
             get {
                 return ResourceManager.GetString("TextFileName", resourceCulture);
             }
@@ -2584,7 +2584,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to txt files (*.txt)|*.txt|All files (*.*)|*.*.
         /// </summary>
-        internal static string TextFilter {
+        public static string TextFilter {
             get {
                 return ResourceManager.GetString("TextFilter", resourceCulture);
             }
@@ -2593,7 +2593,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap TextToTable_small {
+        public static System.Drawing.Bitmap TextToTable_small {
             get {
                 object obj = ResourceManager.GetObject("TextToTable_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2603,7 +2603,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap themes24 {
+        public static System.Drawing.Bitmap themes24 {
             get {
                 object obj = ResourceManager.GetObject("themes24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2613,7 +2613,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap theory24 {
+        public static System.Drawing.Bitmap theory24 {
             get {
                 object obj = ResourceManager.GetObject("theory24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2623,7 +2623,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Ticket_24 {
+        public static System.Drawing.Bitmap Ticket_24 {
             get {
                 object obj = ResourceManager.GetObject("Ticket_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2633,7 +2633,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ActiveReports_Tiff.tiff.
         /// </summary>
-        internal static string TiffFileName {
+        public static string TiffFileName {
             get {
                 return ResourceManager.GetString("TiffFileName", resourceCulture);
             }
@@ -2642,7 +2642,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Tiff files (*.tiff)|*.tiff|All files (*.*)|*.*.
         /// </summary>
-        internal static string TiffFilter {
+        public static string TiffFilter {
             get {
                 return ResourceManager.GetString("TiffFilter", resourceCulture);
             }
@@ -2651,7 +2651,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap transparent_16 {
+        public static System.Drawing.Bitmap transparent_16 {
             get {
                 object obj = ResourceManager.GetObject("transparent_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2661,7 +2661,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap transport_24x24 {
+        public static System.Drawing.Bitmap transport_24x24 {
             get {
                 object obj = ResourceManager.GetObject("transport_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2671,7 +2671,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap transport_48x48 {
+        public static System.Drawing.Bitmap transport_48x48 {
             get {
                 object obj = ResourceManager.GetObject("transport_48x48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2681,7 +2681,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap trash24 {
+        public static System.Drawing.Bitmap trash24 {
             get {
                 object obj = ResourceManager.GetObject("trash24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2691,7 +2691,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap trash48 {
+        public static System.Drawing.Bitmap trash48 {
             get {
                 object obj = ResourceManager.GetObject("trash48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2701,7 +2701,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Underline_small {
+        public static System.Drawing.Bitmap Underline_small {
             get {
                 object obj = ResourceManager.GetObject("Underline_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2711,7 +2711,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Underline_small1 {
+        public static System.Drawing.Bitmap Underline_small1 {
             get {
                 object obj = ResourceManager.GetObject("Underline_small1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2721,7 +2721,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap undo {
+        public static System.Drawing.Bitmap undo {
             get {
                 object obj = ResourceManager.GetObject("undo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2731,7 +2731,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Undo_small {
+        public static System.Drawing.Bitmap Undo_small {
             get {
                 object obj = ResourceManager.GetObject("Undo_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2741,7 +2741,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap unit_completed16 {
+        public static System.Drawing.Bitmap unit_completed16 {
             get {
                 object obj = ResourceManager.GetObject("unit_completed16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2751,7 +2751,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap unit_completed24 {
+        public static System.Drawing.Bitmap unit_completed24 {
             get {
                 object obj = ResourceManager.GetObject("unit_completed24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2761,7 +2761,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Unpinned {
+        public static System.Drawing.Bitmap Unpinned {
             get {
                 object obj = ResourceManager.GetObject("Unpinned", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2771,7 +2771,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap users24 {
+        public static System.Drawing.Bitmap users24 {
             get {
                 object obj = ResourceManager.GetObject("users24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2781,7 +2781,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ValidateDocument_small {
+        public static System.Drawing.Bitmap ValidateDocument_small {
             get {
                 object obj = ResourceManager.GetObject("ValidateDocument_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2791,7 +2791,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon webpage {
+        public static System.Drawing.Icon webpage {
             get {
                 object obj = ResourceManager.GetObject("webpage", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
@@ -2801,7 +2801,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap webpage24 {
+        public static System.Drawing.Bitmap webpage24 {
             get {
                 object obj = ResourceManager.GetObject("webpage24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2811,7 +2811,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap WordCount_small {
+        public static System.Drawing.Bitmap WordCount_small {
             get {
                 object obj = ResourceManager.GetObject("WordCount_small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2821,7 +2821,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zoom_in16 {
+        public static System.Drawing.Bitmap zoom_in16 {
             get {
                 object obj = ResourceManager.GetObject("zoom_in16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2831,7 +2831,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zoom_in24 {
+        public static System.Drawing.Bitmap zoom_in24 {
             get {
                 object obj = ResourceManager.GetObject("zoom_in24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2841,7 +2841,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap zoom_in48 {
+        public static System.Drawing.Bitmap zoom_in48 {
             get {
                 object obj = ResourceManager.GetObject("zoom_in48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2851,7 +2851,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Zoom_out16 {
+        public static System.Drawing.Bitmap Zoom_out16 {
             get {
                 object obj = ResourceManager.GetObject("Zoom_out16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2861,7 +2861,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Zoom_out24 {
+        public static System.Drawing.Bitmap Zoom_out24 {
             get {
                 object obj = ResourceManager.GetObject("Zoom_out24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -2871,7 +2871,7 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Zoom_out48 {
+        public static System.Drawing.Bitmap Zoom_out48 {
             get {
                 object obj = ResourceManager.GetObject("Zoom_out48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.control;
+using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Themes;
@@ -21,7 +22,7 @@ namespace bangna_hospital.gui
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B;
         int colgrfHnHN = 1, colgrfHnDocNo=2, colgrfHnDocDate=3, colgrfHnDocCD=4, colgrfHnDocSts=5,colgrfHnAmt=6, colgrfHnJobNo=7, colgrfHnJobNoOld = 8;
         int colgrfAnanno = 1, colgrfAnAdDate = 2;
-        int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitStatusAdmit=3, colgrfDeptDept=4;
+        int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitStatusAdmit=3, colgrfDeptDept=4, colgrfDeptVisitVn=5;
         Boolean pageLoad = false;
         C1ThemeController theme1;
         Patient ptt;
@@ -61,8 +62,30 @@ namespace bangna_hospital.gui
             txtDeptHN.KeyUp += TxtDeptHN_KeyUp;
             btnDeptUpdate.Click += BtnDeptUpdate_Click;
             cboDeptNew.SelectedItemChanged += CboDeptNew_SelectedItemChanged;
+            btnTokenNew.Click += BtnTokenNew_Click;
+            btnTokenGen.Click += BtnTokenGen_Click;
             pageLoad = false;
         }
+
+        private void BtnTokenGen_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //var tokenGenerator = new JwtTokenGenerator("your_secret_key");
+        }
+
+        private void BtnTokenNew_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            Token token = new Token();
+            token.token_id = "";
+            token.token_text = txtTokenToken.Text.Trim();
+            token.user_name = "";
+            token.number_days_expire = txtTokenDaysExpire.Text.Trim();
+            token.date_expire = txtTokenDateExpire.Text.Trim();
+            token.secret_key = txtTokenSecretKey.Text.Trim();
+
+        }
+
         private void CboDeptNew_SelectedItemChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -72,24 +95,35 @@ namespace bangna_hospital.gui
         private void BtnDeptUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (MessageBox.Show("111", "2222", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show("ต้องการย้ายแผนกคนไข้", "2222", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                String secid = "", deptid = "", re="";
                 if (chkDeptOPDNew.Checked)
                 {
-
-                }
-                else
-                {
-                    String secid=bc.bcDB.pm32DB.getSecCodeIPD(cboDeptNew.Text);
-                    String deptid = bc.bcDB.pm32DB.getDeptNoIPD(secid);
-                    String re = bc.bcDB.pt08DB.updateSecNo(txtDeptHN.Text.Trim(), txtDeptVsdate.Text.Trim(), txtDeptPreno.Text.Trim(), deptid, secid);
-                    if(int.TryParse(re, out int chk))
+                    secid = bc.bcDB.pm32DB.getSecCodeOPD(cboDeptNew.Text);
+                    deptid = bc.bcDB.pm32DB.getDeptNoOPD(secid);
+                    re = bc.bcDB.pt08DB.updateOPDSecNo(txtDeptHN.Text.Trim(), txtDeptVsdate.Text.Trim(), txtDeptPreno.Text.Trim(), deptid, secid);
+                    if (int.TryParse(re, out int chk))
                     {
                         sbMessage.Text = "ย้ายแผนกเรียบร้อย";
                     }
                     else
                     {
-                        sbMessage.Text = "มีข้อผิดพลาด "+re;
+
+                    }
+                }
+                else
+                {
+                    secid = bc.bcDB.pm32DB.getSecCodeIPD(cboDeptNew.Text);
+                    deptid = bc.bcDB.pm32DB.getDeptNoIPD(secid);
+                    re = bc.bcDB.pt08DB.updateSecNo(txtDeptHN.Text.Trim(), txtDeptVsdate.Text.Trim(), txtDeptPreno.Text.Trim(), deptid, secid);
+                    if (int.TryParse(re, out int chk1))
+                    {
+                        sbMessage.Text = "ย้ายแผนกเรียบร้อย";
+                    }
+                    else
+                    {
+                        sbMessage.Text = "มีข้อผิดพลาด " + re;
                     }
                 }
             }
@@ -112,20 +146,23 @@ namespace bangna_hospital.gui
             grfDeptVisit.Dock = System.Windows.Forms.DockStyle.Fill;
             grfDeptVisit.Location = new System.Drawing.Point(0, 0);
             grfDeptVisit.Rows.Count = 1;
-            grfDeptVisit.Cols.Count = 5;
+            grfDeptVisit.Cols.Count = 6;
             grfDeptVisit.Cols[colgrfDeptVisitVsdate].Width = 100;
             grfDeptVisit.Cols[colgrfDeptVisitPreno].Width = 100;
             grfDeptVisit.Cols[colgrfDeptVisitStatusAdmit].Width = 60;
+            grfDeptVisit.Cols[colgrfDeptVisitVn].Width = 60;
 
             grfDeptVisit.ShowCursor = true;
             grfDeptVisit.Cols[colgrfDeptVisitVsdate].Caption = "vsdate";
             grfDeptVisit.Cols[colgrfDeptVisitPreno].Caption = "preno";
             grfDeptVisit.Cols[colgrfDeptDept].Caption = "dept";
+            grfDeptVisit.Cols[colgrfDeptVisitVn].Caption = "VNNO";
 
             grfDeptVisit.Cols[colgrfDeptVisitVsdate].AllowEditing = false;
             grfDeptVisit.Cols[colgrfDeptVisitPreno].AllowEditing = false;
             grfDeptVisit.Cols[colgrfDeptVisitStatusAdmit].AllowEditing = false;
             grfDeptVisit.Cols[colgrfDeptDept].AllowEditing = false;
+            grfDeptVisit.Cols[colgrfDeptVisitVn].AllowEditing = false;
 
             grfDeptVisit.AllowFiltering = true;
 
@@ -176,7 +213,7 @@ namespace bangna_hospital.gui
                 rowa[colgrfDeptVisitPreno] = row1["mnc_pre_no"].ToString();
                 rowa[colgrfDeptVisitStatusAdmit] = row1["MNC_AN_NO"].ToString().Equals("0") ? "O" : "I";
                 rowa[colgrfDeptDept] = row1["MNC_AN_NO"].ToString().Equals("0") ? row1["MNC_SEC_NO"].ToString(): row1["MNC_SEC_NO_ipd"].ToString();
-
+                rowa[colgrfDeptVisitVn] = row1["mnc_vn_no"].ToString()+"."+ row1["MNC_VN_SEQ"].ToString()+"."+ row1["MNC_VN_SUM"].ToString();
                 rowa[0] = i.ToString();
                 i++;
             }

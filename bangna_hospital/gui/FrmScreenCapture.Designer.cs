@@ -84,6 +84,22 @@
             this.chkOrdSheetPostOpDi = new System.Windows.Forms.RadioButton();
             this.chkOrdSheetPreOpDi = new System.Windows.Forms.RadioButton();
             this.chkOrdSheet = new System.Windows.Forms.RadioButton();
+            this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.chkV2AutoSend = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtV2CertID = new C1.Win.C1Input.C1TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtV2VN = new C1.Win.C1Input.C1TextBox();
+            this.btnV2Search = new System.Windows.Forms.Button();
+            this.chkV2View = new System.Windows.Forms.RadioButton();
+            this.chkV2Upload = new System.Windows.Forms.RadioButton();
+            this.lbV2Name = new System.Windows.Forms.Label();
+            this.txtV2Hn = new C1.Win.C1Input.C1TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.rl3 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.btnUpload = new System.Windows.Forms.Button();
             this.pnPic.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCertID)).BeginInit();
@@ -97,6 +113,11 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboDept)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.c1DockingTabPage3.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtV2CertID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtV2VN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtV2Hn)).BeginInit();
             this.SuspendLayout();
             // 
             // pnPic
@@ -119,6 +140,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnUpload);
             this.panel2.Controls.Add(this.chkAutoSend);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.txtCertID);
@@ -260,6 +282,7 @@
             this.c1StatusBar1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
             this.c1StatusBar1.LeftPaneItems.Add(this.rl1);
             this.c1StatusBar1.LeftPaneItems.Add(this.rl2);
+            this.c1StatusBar1.LeftPaneItems.Add(this.rl3);
             this.c1StatusBar1.LeftPaneItems.Add(this.lfSbStation);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 750);
             this.c1StatusBar1.Name = "c1StatusBar1";
@@ -302,6 +325,7 @@
             // 
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage3);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
@@ -667,6 +691,176 @@
             this.chkOrdSheet.Text = "Order Sheet";
             this.chkOrdSheet.UseVisualStyleBackColor = true;
             // 
+            // c1DockingTabPage3
+            // 
+            this.c1DockingTabPage3.Controls.Add(this.panel1);
+            this.c1DockingTabPage3.Controls.Add(this.panel3);
+            this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage3.Name = "c1DockingTabPage3";
+            this.c1DockingTabPage3.Size = new System.Drawing.Size(1002, 725);
+            this.c1DockingTabPage3.TabIndex = 2;
+            this.c1DockingTabPage3.Text = "Scan V2";
+            // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 35);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1002, 690);
+            this.panel1.TabIndex = 3;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.chkV2AutoSend);
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.txtV2CertID);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.txtV2VN);
+            this.panel3.Controls.Add(this.btnV2Search);
+            this.panel3.Controls.Add(this.chkV2View);
+            this.panel3.Controls.Add(this.chkV2Upload);
+            this.panel3.Controls.Add(this.lbV2Name);
+            this.panel3.Controls.Add(this.txtV2Hn);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1002, 35);
+            this.panel3.TabIndex = 2;
+            // 
+            // chkV2AutoSend
+            // 
+            this.chkV2AutoSend.AutoSize = true;
+            this.chkV2AutoSend.Location = new System.Drawing.Point(672, 7);
+            this.chkV2AutoSend.Name = "chkV2AutoSend";
+            this.chkV2AutoSend.Size = new System.Drawing.Size(69, 17);
+            this.chkV2AutoSend.TabIndex = 550;
+            this.chkV2AutoSend.TabStop = true;
+            this.chkV2AutoSend.Text = "autosend";
+            this.chkV2AutoSend.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.SystemColors.Control;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label8.Location = new System.Drawing.Point(331, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 16);
+            this.label8.TabIndex = 548;
+            this.label8.Text = "cert  :";
+            // 
+            // txtV2CertID
+            // 
+            this.txtV2CertID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtV2CertID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtV2CertID.Location = new System.Drawing.Point(372, 7);
+            this.txtV2CertID.Name = "txtV2CertID";
+            this.txtV2CertID.Size = new System.Drawing.Size(69, 20);
+            this.txtV2CertID.TabIndex = 547;
+            this.txtV2CertID.Tag = null;
+            this.txtV2CertID.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtV2CertID.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.SystemColors.Control;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.label9.Location = new System.Drawing.Point(444, 8);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(35, 16);
+            this.label9.TabIndex = 546;
+            this.label9.Text = "VN  :";
+            // 
+            // txtV2VN
+            // 
+            this.txtV2VN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtV2VN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtV2VN.Location = new System.Drawing.Point(482, 6);
+            this.txtV2VN.Name = "txtV2VN";
+            this.txtV2VN.Size = new System.Drawing.Size(68, 20);
+            this.txtV2VN.TabIndex = 545;
+            this.txtV2VN.Tag = null;
+            this.txtV2VN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtV2VN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            // 
+            // btnV2Search
+            // 
+            this.btnV2Search.Location = new System.Drawing.Point(120, 7);
+            this.btnV2Search.Name = "btnV2Search";
+            this.btnV2Search.Size = new System.Drawing.Size(24, 23);
+            this.btnV2Search.TabIndex = 5;
+            this.btnV2Search.Text = "...";
+            this.btnV2Search.UseVisualStyleBackColor = true;
+            // 
+            // chkV2View
+            // 
+            this.chkV2View.AutoSize = true;
+            this.chkV2View.Location = new System.Drawing.Point(618, 8);
+            this.chkV2View.Name = "chkV2View";
+            this.chkV2View.Size = new System.Drawing.Size(48, 17);
+            this.chkV2View.TabIndex = 4;
+            this.chkV2View.TabStop = true;
+            this.chkV2View.Text = "View";
+            this.chkV2View.UseVisualStyleBackColor = true;
+            // 
+            // chkV2Upload
+            // 
+            this.chkV2Upload.AutoSize = true;
+            this.chkV2Upload.Location = new System.Drawing.Point(553, 8);
+            this.chkV2Upload.Name = "chkV2Upload";
+            this.chkV2Upload.Size = new System.Drawing.Size(59, 17);
+            this.chkV2Upload.TabIndex = 3;
+            this.chkV2Upload.TabStop = true;
+            this.chkV2Upload.Text = "Upload";
+            this.chkV2Upload.UseVisualStyleBackColor = true;
+            // 
+            // lbV2Name
+            // 
+            this.lbV2Name.AutoSize = true;
+            this.lbV2Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbV2Name.Location = new System.Drawing.Point(149, 6);
+            this.lbV2Name.Name = "lbV2Name";
+            this.lbV2Name.Size = new System.Drawing.Size(25, 24);
+            this.lbV2Name.TabIndex = 2;
+            this.lbV2Name.Text = "...";
+            // 
+            // txtV2Hn
+            // 
+            this.txtV2Hn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtV2Hn.Location = new System.Drawing.Point(43, 6);
+            this.txtV2Hn.Name = "txtV2Hn";
+            this.txtV2Hn.Size = new System.Drawing.Size(76, 24);
+            this.txtV2Hn.TabIndex = 1;
+            this.txtV2Hn.Tag = null;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(6, 9);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(33, 16);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "HN :";
+            // 
+            // rl3
+            // 
+            this.rl3.Name = "rl3";
+            this.rl3.Text = "Label";
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(747, 5);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(24, 23);
+            this.btnUpload.TabIndex = 551;
+            this.btnUpload.Text = "+";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            // 
             // FrmScreenCapture
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -695,6 +889,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboDept)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.c1DockingTabPage3.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtV2CertID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtV2VN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtV2Hn)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -758,5 +958,21 @@
         private System.Windows.Forms.RadioButton chkOrdSheetPreOpDi;
         private System.Windows.Forms.RadioButton chkOrdSheetPreOp;
         private System.Windows.Forms.RadioButton chkOrdSheetPostOp;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton chkV2AutoSend;
+        private System.Windows.Forms.Label label8;
+        private C1.Win.C1Input.C1TextBox txtV2CertID;
+        private System.Windows.Forms.Label label9;
+        private C1.Win.C1Input.C1TextBox txtV2VN;
+        private System.Windows.Forms.Button btnV2Search;
+        private System.Windows.Forms.RadioButton chkV2View;
+        private System.Windows.Forms.RadioButton chkV2Upload;
+        private System.Windows.Forms.Label lbV2Name;
+        private C1.Win.C1Input.C1TextBox txtV2Hn;
+        private System.Windows.Forms.Label label11;
+        private C1.Win.C1Ribbon.RibbonLabel rl3;
+        private System.Windows.Forms.Button btnUpload;
     }
 }

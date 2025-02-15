@@ -45,6 +45,7 @@ namespace bangna_hospital.objdb
             pm24.email = "email";
             pm24.MNC_COM_NAM = "MNC_COM_NAM";
             pm24.name_old = "name_old";
+            pm24.MNC_ATT_NOTE = "MNC_ATT_NOTE";
 
             pm24.table = "patient_M24";
 
@@ -96,7 +97,7 @@ namespace bangna_hospital.objdb
             String sql = "", re = "";
             sql = "Select pm24.MNC_COM_CD,pm24.MNC_COM_DSC " +
                 "From  patient_M24 pm24 " +
-            " Where pm24." + pm24.MNC_COM_DSC + " = '" + name + "' ";
+            " Where pm24." + pm24.MNC_COM_DSC + " = '" + name.Trim() + "' ";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {
@@ -192,6 +193,19 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String chkName(String paidcode)
+        {
+            String re = "";
+            foreach (PatientM24 row in lPm24)
+            {
+                if (row.MNC_COM_DSC.Equals(paidcode))
+                {
+                    re = row.MNC_COM_DSC;
+                    break;
+                }
+            }
+            return re;
+        }
         public AutoCompleteStringCollection getlPaid1(Boolean refresh)
         {
             if (refresh) lPm24.Clear();
@@ -248,6 +262,7 @@ namespace bangna_hospital.objdb
             p.phone2 = p.phone2 == null ? "" : p.phone2;
             p.email = p.email == null ? "" : p.email;
             p.MNC_COM_NAM = p.MNC_COM_NAM == null ? "" : p.MNC_COM_NAM;
+            p.MNC_ATT_NOTE = p.MNC_ATT_NOTE == null ? "" : p.MNC_ATT_NOTE;
         }
         public String insertCompany(PatientM24 p, String userId)
         {
@@ -275,14 +290,14 @@ namespace bangna_hospital.objdb
                 "" + pm24.MNC_COM_POC + "," + pm24.MNC_COM_TEL + "," + pm24.MNC_COM_TYP_CD + "," +
                 "" + pm24.MNC_COM_STS + "," + pm24.MNC_COM_START + "," + pm24.MNC_COM_DSC_E + ", " +
                 "" + pm24.status_insur + "," + pm24.insur1_code + "," + pm24.insur2_code + ", " +
-                "" + pm24.phone2 + "," + pm24.email + "," + pm24.MNC_COM_NAM + " " +
+                "" + pm24.phone2 + "," + pm24.email + "," + pm24.MNC_COM_NAM + "," + pm24.MNC_ATT_NOTE + " " +
                ") " +
                 "Values ((select max(MNC_COM_CD) from "+ pm24.table + " Where mnc_com_cd not in ('DUMMY','SA001','SA002','SA003'))+1,'" + p.MNC_COM_PRF_CD + "','" + p.MNC_COM_DSC.Replace("'", "''") + "'," +
                 "'" + p.MNC_COM_TUM_CD + "','" + p.MNC_COM_AMP_CD + "','" + p.MNC_COM_CHW_CD + "'," +
                 "'" + p.MNC_COM_POC + "','" + p.MNC_COM_TEL + "','" + p.MNC_COM_TYP_CD + "'," +
                 "'" + p.MNC_COM_STS + "',convert(varchar(20), getdate(),20),'" + p.MNC_COM_DSC_E.Replace("'", "''") + "'," +
                 "'" + p.status_insur + "','" + p.insur1_code + "','" + p.insur2_code + "'," +
-                "'" + p.phone2 + "','" + p.email + "','" + p.MNC_COM_NAM.Replace("'", "''") + "' " +
+                "'" + p.phone2 + "','" + p.email + "','" + p.MNC_COM_NAM.Replace("'", "''") + "','" + p.MNC_ATT_NOTE.Replace("'", "''") + "' " +
                 ")";
             try
             {
@@ -291,6 +306,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 re = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "PatientM24DB insert sql  " + sql);
                 new LogWriter("e", "PatientM24DB insert error  " + ex.Message + " " + ex.InnerException);
                 //bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnPttSave_Click save image ", ex.Message);
             }
@@ -353,6 +369,7 @@ namespace bangna_hospital.objdb
                 pm08.phone2 = dt.Rows[0]["phone"].ToString();
                 pm08.MNC_COM_NAM = dt.Rows[0]["MNC_COM_NAM"].ToString();
                 pm08.name_old = dt.Rows[0]["name_old"].ToString();
+                pm08.MNC_ATT_NOTE = dt.Rows[0]["MNC_ATT_NOTE"].ToString();
             }
             else
             {
@@ -378,6 +395,7 @@ namespace bangna_hospital.objdb
             p.phone2 = "";
             p.MNC_COM_NAM = "";
             p.name_old = "";
+            p.MNC_ATT_NOTE = "";
             return p;
         }
     }
