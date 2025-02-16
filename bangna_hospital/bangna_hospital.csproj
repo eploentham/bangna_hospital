@@ -505,6 +505,12 @@
     <Compile Include="gui\FrmStock.Designer.cs">
       <DependentUpon>FrmStock.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmToken.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmToken.Designer.cs">
+      <DependentUpon>FrmToken.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmVaccineApprove.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1428,6 +1434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmStock.resx">
       <DependentUpon>FrmStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmToken.resx">
+      <DependentUpon>FrmToken.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmVaccineInsurExcel.resx">
       <DependentUpon>FrmVaccineInsurExcel.cs</DependentUpon>
