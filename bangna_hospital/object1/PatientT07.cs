@@ -56,5 +56,7 @@ namespace bangna_hospital.object1
         public String remark_call_date { get; set; }
         public String apm_time { get; set; }
         public String doctor_name { get; set; }
+        public String patient_name { get; set; }
+        public String deptname { get; set; }
     }
 }

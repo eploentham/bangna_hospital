@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -292,7 +293,7 @@ namespace bangna_hospital.objdb
                 ", m01.MNC_DOM_ADD, m01.MNC_DOM_MOO, m01.MNC_DOM_SOI,m01.MNC_DOM_ROAD, m01.MNC_DOM_TUM, m01.MNC_DOM_AMP, m01.MNC_DOM_CHW,m01.MNC_DOM_POC,m01.MNC_DOM_TEL" +
                 ", m01.MNC_REF_ADD, m01.MNC_REF_MOO, m01.MNC_REF_SOI,m01.MNC_REF_ROAD, m01.MNC_REF_TUM, m01.MNC_REF_AMP, m01.MNC_REF_CHW,m01.MNC_REF_POC,m01.MNC_REF_TEL, m01.MNC_REF_NAME  " +
                 ", m01.MNC_COM_CD, m01.MNC_COM_CD2, m01.MNC_NICKNAME,comp.MNC_COM_DSC,insur.MNC_COM_DSC as MNC_COM_DSCi,m01.work_permit1,m01.work_permit2,m01.work_permit3,m01.MNC_FN_TYP_CD " +
-                ", m01.remark1, m01.remark2, m01.MNC_STATUS, m01.MNC_REF_REL, isnull(m01.status_hiv,'') as status_hiv, isnull(m01.status_afb,'') as status_afb  " +
+                ", m01.remark1, m01.remark2, m01.MNC_STATUS, m01.MNC_REF_REL, isnull(m01.status_hiv,'') as status_hiv, isnull(m01.status_afb,'') as status_afb,m01.doe_position  " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
                 " left join PATIENT_M24 insur on m01.MNC_COM_CD = insur.MNC_COM_CD " +
@@ -379,6 +380,7 @@ namespace bangna_hospital.objdb
                 ptt.statusAFB = dt.Rows[0]["status_afb"].ToString();
                 ptt.ref1 = dt.Rows[0]["ref1"].ToString();
                 ptt.passportold = dt.Rows[0]["passport_old"].ToString();
+                ptt.doe_position = dt.Rows[0]["doe_position"].ToString();
             }
             else
             {
@@ -458,6 +460,7 @@ namespace bangna_hospital.objdb
                 ptt.statusAFB = "";
                 ptt.ref1 = "";
                 ptt.passportold = "";
+                ptt.doe_position = "";
             }
             return ptt;
         }
@@ -1738,13 +1741,32 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
+        public String updateDoePostion(String hn, String position)
+        {
+            String sql = "", chk = "";
+            long hn1 = 0;
+            try
+            {
+                sql = "Update patient_vaccine Set "
+                    + " " + ptt.doe_position + " = '" + position + "' "
+                    + "Where MNC_HN_NO = '" + hn + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //new LogWriter("d", "update Temp chk " + chk + " MNC_FNAME_T " + p.MNC_FNAME_T + " MNC_LNAME_T " + p.MNC_LNAME_T + " MNC_ID_NO " + p.MNC_ID_NO);
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateDoePostion sql " + sql + " ex " + chk);
+            }
+            return chk;
+        }
         public String insertPatientImage(String hn, String hnyear, byte[] image)
         {
             String sql = "", re = "";
             try
             {
                 string str = Encoding.Default.GetString(image);
-                new LogWriter("d", "insertPatientImage hn " + hn+ " hnyear " + hnyear);
+                //new LogWriter("d", "insertPatientImage hn " + hn+ " hnyear " + hnyear);
                 sql = "delete from patient_img where mnc_hn_no = '"+hn+"' and mnc_hn_yr = '"+hnyear+"' ";
                 conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 sql = "insert into patient_img (mnc_hn_no, mnc_hn_yr, mnc_pat_img) values(" +
@@ -1758,6 +1780,24 @@ namespace bangna_hospital.objdb
                 new LogWriter("e", "insert Patient sql " + sql + " ex " + re);
             }
             return re;
+        }
+        public byte[] SelectPatientImage(string hn, string hnyear)
+        {
+            DataTable dt = new DataTable();
+            string sql = "SELECT mnc_pat_img FROM patient_img WHERE mnc_hn_no = @hn AND mnc_hn_yr = @hnyear";
+            SqlCommand cmd = new SqlCommand(sql, conn.connMainHIS);
+            cmd.Parameters.AddWithValue("@hn", hn);
+            cmd.Parameters.AddWithValue("@hnyear", hnyear);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                return dt.Rows[0]["mnc_pat_img"]!= DBNull.Value ? (byte[])dt.Rows[0]["mnc_pat_img"]:null;
+            }
+            else
+            {
+                return null;
+            }
         }
         public Patient setPatient(Patient ptt1)
         {

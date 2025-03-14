@@ -15,7 +15,7 @@ namespace bangna_hospital.objdb
         ConnectDB conn;
         public StaffDB stfDB;
         public DocGroupScanDB dgsDB;
-        public PatientDB pttDB;
+        
         public DocScanDB dscDB;
         public DocGroupSubScanDB dgssDB;
         public VisitDB vsDB;
@@ -50,7 +50,7 @@ namespace bangna_hospital.objdb
         public OPDCheckUPDB opdcDB;
         public PharmacyM01DB pharM01DB;
         public PharmacyM02DB pharM02DB;
-        public PatientM30DB pttM30DB;
+        
         public OPBKKdrugcatelogDB opbkkDrugCatDB;
         public DotDfDetailDB dfdDB;
         public PatientSmartcardDB pttscDB;
@@ -58,18 +58,27 @@ namespace bangna_hospital.objdb
         public QueueTypeDB queueTypeDB;
         public QueueDB queueDB;
         public LabCovidDetectedDB lcoviddDB;
-        public PatientM09DB pm09DB;
-        public PatientM08DB pm08DB;
-        public PatientM07DB pm07DB;
+        public PatientDB pttDB;         //PatientM01DB
+        public PatientM02DB pm02DB;
+        public PatientM03DB pm03DB;
+        public PatientM04DB pm04DB;
         public PatientM05DB pm05DB;
         public PatientM06DB pm06DB;
-        public PatientM04DB pm04DB;
-        public PatientM03DB pm03DB;
-        public PatientM02DB pm02DB;
+        public PatientM07DB pm07DB;
+        public PatientM08DB pm08DB;
+        public PatientM09DB pm09DB;
+        public PatientM13DB pm13DB;
         public PatientM24DB pm24DB;
+        public PatientM26DB pm26DB;     //Doctor
         public PatientM32DB pm32DB;
         public PatientM30DB pm30DB;
+        public PatientM30DB pttM30DB;
+        public PatientM39DB pm39DB;
+        public PatientM40DB pm40DB;
+        public PatientM44DB pm44DB;
         public PatientHIDB ptthiDB;
+        public PatientT16DB pt16DB;
+        public PatientT013DB pt013DB;
         public PrakunM01DB prakM01DB;
         public FLocationDB flocaDB;
         public AipnDB aipnDB;
@@ -81,15 +90,14 @@ namespace bangna_hospital.objdb
         public PatientT07DB pt07DB;
         public PatientT08DB pt08DB;
         public PatientT03DB pt03DB;
-        public PatientM13DB pm13DB;
+        
         public SummaryT03DB sumt03DB;
-        public PatientT16DB pt16DB;
-        public PatientT013DB pt013DB;
+        
         public LabM04DB labM04DB;
         public LabM06DB labm06DB;
         public LabM07DB labm07DB;
         public XrayM05DB xraym05DB;
-        public PatientM44DB pm44DB;
+        
         public PharmacyM14DB pharm14DB;
         public DrugSetDB drugSetDB;
         public REQDETAILDEPTDB reqdDB;
@@ -98,9 +106,9 @@ namespace bangna_hospital.objdb
         public SupraHospitalDB supraHospDB;
         public SupraSupraDB supraDB;
         public TokenDB tokenDB;
-        public PatientM39DB pm39DB;
-        public PatientM40DB pm40DB;
+        
         public DoctorM02DB dtrM02DB;
+        
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -220,6 +228,7 @@ namespace bangna_hospital.objdb
                 pm39DB = new PatientM39DB(conn);
                 pm40DB = new PatientM40DB(conn);
                 dtrM02DB = new DoctorM02DB(conn);
+                pm26DB = new PatientM26DB(conn);
             }
             catch(Exception ex)
             {

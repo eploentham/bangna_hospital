@@ -69,13 +69,14 @@
             this.tabEndYear = new C1.Win.C1Command.C1DockingTabPage();
             this.scEndYear = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel7 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.cboEndYearMonth = new System.Windows.Forms.ComboBox();
             this.btnEndYearUpdate = new System.Windows.Forms.Button();
-            this.txtEndYearSearch = new C1.Win.C1Input.C1TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.btnEndStockSave = new System.Windows.Forms.Button();
             this.cboEndYearYear = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtEndYearSearch = new C1.Win.C1Input.C1TextBox();
             this.c1SplitterPanel8 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnEndYear = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
@@ -520,13 +521,14 @@
             // 
             // c1SplitterPanel7
             // 
+            this.c1SplitterPanel7.Controls.Add(this.cboEndYearMonth);
             this.c1SplitterPanel7.Controls.Add(this.btnEndYearUpdate);
-            this.c1SplitterPanel7.Controls.Add(this.txtEndYearSearch);
             this.c1SplitterPanel7.Controls.Add(this.label4);
             this.c1SplitterPanel7.Controls.Add(this.button2);
             this.c1SplitterPanel7.Controls.Add(this.btnEndStockSave);
             this.c1SplitterPanel7.Controls.Add(this.cboEndYearYear);
             this.c1SplitterPanel7.Controls.Add(this.label3);
+            this.c1SplitterPanel7.Controls.Add(this.txtEndYearSearch);
             this.c1SplitterPanel7.Height = 64;
             this.c1SplitterPanel7.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel7.Name = "c1SplitterPanel7";
@@ -535,32 +537,31 @@
             this.c1SplitterPanel7.TabIndex = 0;
             this.c1SplitterPanel7.Text = "Panel 1";
             // 
+            // cboEndYearMonth
+            // 
+            this.cboEndYearMonth.FormattingEnabled = true;
+            this.cboEndYearMonth.Location = new System.Drawing.Point(173, 9);
+            this.cboEndYearMonth.Name = "cboEndYearMonth";
+            this.cboEndYearMonth.Size = new System.Drawing.Size(121, 24);
+            this.cboEndYearMonth.TabIndex = 273;
+            // 
             // btnEndYearUpdate
             // 
             this.btnEndYearUpdate.BackColor = System.Drawing.Color.PaleGreen;
             this.btnEndYearUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnEndYearUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEndYearUpdate.Location = new System.Drawing.Point(423, 5);
+            this.btnEndYearUpdate.Location = new System.Drawing.Point(533, 5);
             this.btnEndYearUpdate.Name = "btnEndYearUpdate";
-            this.btnEndYearUpdate.Size = new System.Drawing.Size(133, 32);
+            this.btnEndYearUpdate.Size = new System.Drawing.Size(197, 32);
             this.btnEndYearUpdate.TabIndex = 272;
-            this.btnEndYearUpdate.Text = "update qty";
+            this.btnEndYearUpdate.Text = "update qty(onhandnew)";
             this.btnEndYearUpdate.UseVisualStyleBackColor = false;
-            // 
-            // txtEndYearSearch
-            // 
-            this.txtEndYearSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtEndYearSearch.Location = new System.Drawing.Point(699, 8);
-            this.txtEndYearSearch.Name = "txtEndYearSearch";
-            this.txtEndYearSearch.Size = new System.Drawing.Size(255, 27);
-            this.txtEndYearSearch.TabIndex = 271;
-            this.txtEndYearSearch.Tag = null;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(626, 8);
+            this.label4.Location = new System.Drawing.Point(736, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 24);
             this.label4.TabIndex = 270;
@@ -571,7 +572,7 @@
             this.button2.BackColor = System.Drawing.Color.PaleGreen;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(1014, 3);
+            this.button2.Location = new System.Drawing.Point(1124, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(98, 32);
             this.button2.TabIndex = 139;
@@ -583,11 +584,11 @@
             this.btnEndStockSave.BackColor = System.Drawing.Color.PaleGreen;
             this.btnEndStockSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnEndStockSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEndStockSave.Location = new System.Drawing.Point(208, 3);
+            this.btnEndStockSave.Location = new System.Drawing.Point(318, 3);
             this.btnEndStockSave.Name = "btnEndStockSave";
-            this.btnEndStockSave.Size = new System.Drawing.Size(133, 32);
+            this.btnEndStockSave.Size = new System.Drawing.Size(183, 32);
             this.btnEndStockSave.TabIndex = 138;
-            this.btnEndStockSave.Text = "save ph_qty";
+            this.btnEndStockSave.Text = "save (MNC_PH_QTY)";
             this.btnEndStockSave.UseVisualStyleBackColor = false;
             // 
             // cboEndYearYear
@@ -595,7 +596,7 @@
             this.cboEndYearYear.FormattingEnabled = true;
             this.cboEndYearYear.Location = new System.Drawing.Point(47, 9);
             this.cboEndYearYear.Name = "cboEndYearYear";
-            this.cboEndYearYear.Size = new System.Drawing.Size(121, 24);
+            this.cboEndYearYear.Size = new System.Drawing.Size(83, 24);
             this.cboEndYearYear.TabIndex = 3;
             // 
             // label3
@@ -607,6 +608,15 @@
             this.label3.Size = new System.Drawing.Size(18, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "ปี";
+            // 
+            // txtEndYearSearch
+            // 
+            this.txtEndYearSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtEndYearSearch.Location = new System.Drawing.Point(809, 8);
+            this.txtEndYearSearch.Name = "txtEndYearSearch";
+            this.txtEndYearSearch.Size = new System.Drawing.Size(255, 27);
+            this.txtEndYearSearch.TabIndex = 271;
+            this.txtEndYearSearch.Tag = null;
             // 
             // c1SplitterPanel8
             // 
@@ -709,15 +719,16 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pnRecD;
         private C1.Win.C1SplitContainer.C1SplitContainer scEndYear;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel7;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel8;
-        private System.Windows.Forms.ComboBox cboEndYearYear;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel pnEndYear;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel7;
+        private System.Windows.Forms.Button btnEndYearUpdate;
+        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnEndStockSave;
+        private System.Windows.Forms.ComboBox cboEndYearYear;
+        private System.Windows.Forms.Label label3;
         private C1.Win.C1Input.C1TextBox txtEndYearSearch;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnEndYearUpdate;
+        private System.Windows.Forms.ComboBox cboEndYearMonth;
     }
 }

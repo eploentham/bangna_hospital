@@ -8,7 +8,13 @@ using C1.C1Zip;
 using C1.Win.C1Document;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
+using C1.Win.C1SplitContainer;
+using C1.Win.C1Themes;
 using C1.Win.FlexViewer;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Utilities.Net;
+
+
 //using CrystalDecisions.CrystalReports.Engine;
 //using CrystalDecisions.Shared;
 //using CrystalDecisions.Windows.Forms;
@@ -24,6 +30,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
@@ -84,6 +91,7 @@ namespace bangna_hospital.control
         public EpidemCovidIsolatePlace epiIsoP;
         public EpidemCluster epiClus;
         public List<Item> items;
+        public C1ThemeController theme1;
 
         Hashtable _styles;
         public VideoCaptureDevice video;
@@ -160,6 +168,9 @@ namespace bangna_hospital.control
                 epiSpcmP = new EpidemCovidSpcmPlace();
                 epiIsoP = new EpidemCovidIsolatePlace();
                 epiClus = new EpidemCluster();
+
+                theme1 = new C1ThemeController();
+                theme1.Theme = iniC.themeApplication;
             }
             catch(Exception ex)
             {
@@ -584,6 +595,23 @@ namespace bangna_hospital.control
             item.Value = "18";
             item.Text = "งานปั้นหรือทำเครื่องปั้นดินเผา";
             c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "19";
+            item.Text = "กิจการก่อสร้าง";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "20";
+            item.Text = "จำหน่ายอาหารและเครื่องดื่ม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "21";
+            item.Text = "BT24 - การให้บริการต่างๆ";
+            c.Items.Add(item);//
+            item = new ComboBoxItem();
+            item.Value = "22";
+            item.Text = "ผลิตหรือจำหน่ายวัสดุก่อสร้าง";
+            c.Items.Add(item);
             return c;
         }
         public C1ComboBox setCboVisitType(C1ComboBox c)
@@ -673,6 +701,28 @@ namespace bangna_hospital.control
 
             return c;
         }
+        public C1ComboBox setCboTokenType(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "cert_alien";
+            item.Text = "ใบรับรองแพทย์ต่างด้าว";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "cert";
+            item.Text = "ใบรับรองแพทย์";
+            c.Items.Add(item);
+
+            return c;
+        }
         public C1ComboBox setCboSkintone(C1ComboBox c)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -718,7 +768,7 @@ namespace bangna_hospital.control
 
             item = new ComboBoxItem();
             item.Value = "brown4";
-            item.Text = "ขาวเหลือง";
+            item.Text = "ขาว-เหลือง";
             c.Items.Add(item);
 
             item = new ComboBoxItem();
@@ -1508,7 +1558,7 @@ namespace bangna_hospital.control
             DateTime dt1 = new DateTime();
             String re = "", year1 = "", mm = "", dd = "";
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            if (DateTime.TryParse(dt, currentCulture, DateTimeStyles.None, out dt1))
+            if (DateTime.TryParse(dt, currentCulture, DateTimeStyles.AdjustToUniversal, out dt1))
             {
                 Console.WriteLine("Parsed date: " + dt1.ToString());
                 if (dt1.Year < 1900) dt1 = dt1.AddYears(543);
@@ -2921,7 +2971,7 @@ namespace bangna_hospital.control
         {
             try
             {
-                IPAddress ipad = IPAddress.Parse(ipaddress);
+                System.Net.IPAddress ipad = System.Net.IPAddress.Parse(ipaddress);
                 tcpServerListener = new TcpListener(ipad, int.Parse(port));
 
                 tcpServerListener.Start();
@@ -4287,14 +4337,30 @@ namespace bangna_hospital.control
                 if (dtaipn.Rows.Count > 0)
                 {
                     new LogWriter("d", "genAipnFile an_1 " + dtaipn.Rows[0]["an_1"].ToString());
-                    if (flagAnNew)
+                    String servicetype = "";
+                    DataTable dtclaima = bcDB.aipnDB.selectClaimAuth(aipnid);
+                    if(dtclaima.Rows.Count>0)
                     {
-                        if (dtaipn.Rows[0]["an_1"].ToString().Length <= 0) MessageBox.Show("AN new "+dtaipn.Rows[0]["an_1"].ToString(), "");
-                        prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_1"].ToString());
+                        servicetype = dtclaima.Rows[0]["servicetype"].ToString();
+                    }
+                    new LogWriter("d", "genAipnFile servicetype " + servicetype);
+                    if (servicetype.Equals("DS"))       //ถ้าเป็น ODS
+                    {
+                        String vsdate = dtaipn.Rows[0]["visit_date"].ToString().Replace("-", "").Replace("-", "");
+                        vsdate = vsdate.Substring(1);
+                        prefixAn = aipnxmlF.genPrefixAN(vsdate, dtaipn.Rows[0]["pre_no"].ToString());
+                        new LogWriter("d", "genAipnFile prefixAn " + prefixAn);
                     }
                     else
-                        prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_no"].ToString(), dtaipn.Rows[0]["an_cnt"].ToString());
-                    
+                    {
+                        if (flagAnNew)
+                        {
+                            if (dtaipn.Rows[0]["an_1"].ToString().Length <= 0) MessageBox.Show("AN new " + dtaipn.Rows[0]["an_1"].ToString(), "");
+                            prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_1"].ToString());
+                        }
+                        else
+                            prefixAn = aipnxmlF.genPrefixAN(dtaipn.Rows[0]["an_no"].ToString(), dtaipn.Rows[0]["an_cnt"].ToString());
+                    }
                     hn = dtaipn.Rows[0]["hn"].ToString();
                 }
                 aipnIPADT = aipnxmlF.genIPADT(prefixAn, dtIPADT);
@@ -4636,7 +4702,7 @@ namespace bangna_hospital.control
             xrayT01.status_pacs = "";
             return xrayT01;
         }
-        public void genImgStaffNote(Patient ptt, Visit vs, Font fEdit)
+        public void genImgStaffNote(Patient ptt, Visit vs, Font fEdit, String chkcode, String chkname, string chiefcom)
         {
             String err = "";
             float mmpi = 25.4f;
@@ -4664,15 +4730,8 @@ namespace bangna_hospital.control
             Rectangle rec = new Rectangle(0, 0, 20, 20);
             date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
-            col2 = 105;
-            col3 = 300;
-            col4 = 1000;
-            col40 = 650;
-            yPos = 15;
-            col6 = 1340;
-            col2int = int.Parse(col2.ToString());
-            yPosint = int.Parse(yPos.ToString());
-            col40int = int.Parse(col40.ToString());
+            col2 = 105;            col3 = 300;            col4 = 1000;            col40 = 650;            yPos = 15;            col6 = 1340;
+            col2int = int.Parse(col2.ToString());            yPosint = int.Parse(yPos.ToString());            col40int = int.Parse(col40.ToString());
             imgA4.SetResolution(dpi, dpi);
             err = "01";
 
@@ -4960,7 +5019,7 @@ namespace bangna_hospital.control
                 mon = vs.VisitDate.Substring(5, 2);
                 day = vs.VisitDate.Substring(8, 2);
                 path =  "\\\\"+iniC.pathScanStaffNote + ""+ year + "\\" + mon + "\\" + day + "\\";
-                path = iniC.pathlocalStaffNote + "" + year + "\\" + mon + "\\" + day + "\\";
+                //path = iniC.pathlocalStaffNote + "" + year + "\\" + mon + "\\" + day + "\\";
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -5010,6 +5069,115 @@ namespace bangna_hospital.control
                 return true;
             }
             return false;
+        }
+        public String checkPaidSSO(String pid, Label lbloading)
+        {
+            String re = "";
+            try
+            {
+                lbloading.Text = "patient sso01";
+                PrakunM01 pkunM01 = new PrakunM01();
+                pkunM01 = bcDB.prakM01DB.selectByPID(pid);
+                if (pkunM01.Social_Card_no.Equals(""))
+                {
+                    pkunM01 = bcDB.prakM01DB.selectByCardNo(pid);
+                    if (pkunM01.Social_Card_no.Equals(""))
+                    {
+                        pkunM01 = bcDB.prakM01DB.selectOne();
+                        re = "ไม่พบ สิทธิ จาก database HIS->" + pkunM01.UploadDate;
+                    }
+                    else
+                    {
+                        String txt = pkunM01.PrakanCode.Equals("2210028") ? "สิทธิ บางนา 1" : pkunM01.PrakanCode.Equals("2211006") ? "สิทธิ บางนา 2" : pkunM01.PrakanCode.Equals("2211041") ? "สิทธิ บางนา 5" : "สิทธิ  ที่อื่น";
+                        re = "พบ " + txt + " เริ่ม[" + pkunM01.StartDate + "] สิ้นสุด[" + pkunM01.EndDate + "] จาก database HIS->" + pkunM01.UploadDate;
+                    }
+                }
+                else
+                {
+                    //abel1.Text = prak.PrakanCode.Equals("2210028") ? "สิทธิ บางนา 1" : prak.PrakanCode.Equals("2211006") ? "สิทธิ บางนา 2" : prak.PrakanCode.Equals("2211041") ? "สิทธิ บางนา 5" : "สิทธิ  ที่อื่น";
+                    String txt = pkunM01.PrakanCode.Equals("2210028") ? "สิทธิ บางนา 1" : pkunM01.PrakanCode.Equals("2211006") ? "สิทธิ บางนา 2" : pkunM01.PrakanCode.Equals("2211041") ? "สิทธิ บางนา 5" : "สิทธิ  ที่อื่น";
+                    re = "พบ " + txt + " เริ่ม[" + pkunM01.StartDate + "] สิ้นสุด[" + pkunM01.EndDate + "] จาก database HIS->" + pkunM01.UploadDate;
+                }
+                lbloading.Text = "patient sso02";
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmReception checkPaidSSO " + ex.Message);
+                bcDB.insertLogPage(userId, "BangnaControl", "checkPaidSSO ", ex.Message);
+            }
+            return re;
+        }
+        public String checkPaidSSO(String pid)
+        {
+            String re = "";
+            try
+            {
+                PrakunM01 pkunM01 = new PrakunM01();
+                pkunM01 = bcDB.prakM01DB.selectByPID(pid);
+                if (pkunM01.Social_Card_no.Equals(""))
+                {
+                    pkunM01 = bcDB.prakM01DB.selectByCardNo(pid);
+                    if (pkunM01.Social_Card_no.Equals(""))                    {                        re = "";                    }
+                    else                    {       re = pkunM01.PrakanCode.Equals("2210028") ? "44" : pkunM01.PrakanCode.Equals("2211006") ? "45" : pkunM01.PrakanCode.Equals("2211041") ? "46" : ""; }
+                }
+                else                        {       re = pkunM01.PrakanCode.Equals("2210028") ? "44" : pkunM01.PrakanCode.Equals("2211006") ? "45" : pkunM01.PrakanCode.Equals("2211041") ? "46" : ""; }
+                
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmReception checkPaidSSO " + ex.Message);
+                bcDB.insertLogPage(userId, "BangnaControl", "checkPaidSSO ", ex.Message);
+            }
+            return re;
+        }
+        public async Task<DoeAlienList> GetDoeAien(String alcode)
+        {
+            DoeAlienList doeAlienList = new DoeAlienList();
+            DoeAlienRequest doea = new DoeAlienRequest();
+            doea.reqcode = "";
+            doea.alcode = alcode;
+            if (alcode.Trim().Length <= 0)
+            {
+                return doeAlienList;
+            }
+            doea.token = iniC.doealientoken;
+            var url = iniC.urlbangnadoe;
+            String jsonEpi = JsonConvert.SerializeObject(doea, Formatting.Indented);
+            jsonEpi = jsonEpi.Replace("[" + Environment.NewLine + "    null" + Environment.NewLine + "  ]", "[]");
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    HttpResponseMessage response = await httpClient.GetAsync(url + "?regcode=&alcode=" + alcode);
+                    if (response.StatusCode.ToString().ToUpper().Equals("OK"))
+                    {
+                        String content1 = await response.Content.ReadAsStringAsync();
+                        DoeAlientResponse doear = JsonConvert.DeserializeObject<DoeAlientResponse>(content1);
+                        if (doear.statuscode.Equals("-100")) return doeAlienList;
+                        doeAlienList.empname = doear.empname; doeAlienList.wkaddress = doear.wkaddress; doeAlienList.btname = doear.btname;
+                        int i = 1, j = 1;
+                        foreach (var alien in doear.alienlist)
+                        {
+                            doeAlienList.alcode = alien.alcode;
+                            doeAlienList.altype = alien.altype;
+                            doeAlienList.alprefix = alien.alprefix;
+                            doeAlienList.alprefixen = alien.alprefixen;
+                            doeAlienList.alnameen = alien.alnameen;
+                            doeAlienList.alsnameen = alien.alsnameen;
+                            doeAlienList.albdate = alien.albdate;
+                            doeAlienList.algender = alien.algender;
+                            doeAlienList.alnation = alien.alnation;
+                            doeAlienList.alposid = alien.alposid;
+                            i++;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exception
+            }
+            return doeAlienList;
         }
     }
 }

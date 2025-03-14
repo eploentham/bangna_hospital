@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +64,50 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
 
             return dt;
+        }
+        public String insertStoreProcedure(String hn, String vsdate, String preno, String useradd, String ordercode, String qty)
+        {
+            String sql = "", re = "";
+            long hn1 = 0;
+            try
+            {
+                conn.comStore = new SqlCommand();
+                conn.comStore.Connection = conn.connMainHIS;
+                conn.comStore.CommandText = "gen_procedure_opd_by_hn";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("hn_where", hn);
+                conn.comStore.Parameters.AddWithValue("vsdate", vsdate);
+                conn.comStore.Parameters.AddWithValue("preno", preno);
+                conn.comStore.Parameters.AddWithValue("mnc_usr_add", useradd);
+                conn.comStore.Parameters.AddWithValue("order_code", ordercode);
+                conn.comStore.Parameters.AddWithValue("qty", qty);
+
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+                conn.connMainHIS.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+                if (int.TryParse(re, out int chk))
+                {
+                    //vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("MM") + "-" + DateTime.Now.Day.ToString("dd");
+                    //sql = "SELECT MNC_VN_NO, MNC_VN_SEQ FROM PATIENT_T01 " +
+                    //    "WHERE (MNC_HN_NO ='"+ hn + "') AND (MNC_DATE =@'"+ vsdate + "') AND (MNC_ACT_NO <= 600) ORDER BY MNC_VN_NO, MNC_VN_SEQ;";
+                }
+            }
+            catch (Exception ex)
+            {
+                //conn.connLinkLIS.Close();
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insert insertStoreProcedure  ex " + sql);
+                re = sql;
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
         }
     }
 }

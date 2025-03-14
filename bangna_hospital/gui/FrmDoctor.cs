@@ -83,7 +83,6 @@ namespace bangna_hospital.gui
             //MessageBox.Show("FrmDoctor initConfig ", "");
             setEvent();
 
-
             initFont();
             initLoading();
             initGrfApm();

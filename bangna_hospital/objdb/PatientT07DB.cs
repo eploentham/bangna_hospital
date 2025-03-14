@@ -251,6 +251,33 @@ namespace bangna_hospital.objdb
             PatientT07 pt071 = setPatientT07(dt);
             return pt071;
         }
+        public PatientT07 selectAppointmentToday(String hn)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            sql = "Select pt07.MNC_DOC_YR, pt07.MNC_DOC_NO, pt07.MNC_HN_YR, pt07.MNC_HN_NO, pt07.MNC_DATE, pt07.MNC_TIME,m01.MNC_CUR_TEL,fm02.MNC_FN_TYP_DSC, " +
+                "pt07.MNC_PRE_NO, pt07.MNC_DEP_NO, pt07.MNC_SEC_NO, pt07.MNC_DEPR_NO, pt07.MNC_SECR_NO,isnull(pt07.remark_call,'') as remark_call,isnull(pt07.status_remark_call, '') as status_remark_call, pt07.remark_call_date, " +
+                "convert(varchar(20), pt07.MNC_APP_DAT, 23 ) as MNC_APP_DAT, pt07.MNC_APP_TIM, pt07.MNC_APP_DSC, pt07.MNC_APP_STS, pt07.MNC_APP_ADD, " +
+                "pt07.MNC_APP_TEL, pt07.MNC_APP_OR_FLG, pt07.MNC_APP_ADM_FLG, pt07.MNC_APP_NO, pt07.MNC_DOT_CD,pt07.MNC_USR_UPD,pt07.MNC_VN_NO,pt07.MNC_VN_SEQ,pt07.MNC_VN_SUM, " +
+                "pt07.MNC_SEX, pt07.MNC_NAME, pt07.MNC_AGE, pt07.MNC_APP_BY, pt07.MNC_AN_YR,pt07.apm_time, " +
+                "pt07.MNC_AN_NO, pt07.MNC_STS, pt07.MNC_REM_MEMO, pt07.MNC_FN_TYP_CD, pt07.MNC_EMPR_CD, pt07.MNC_SEND_CARD,  " +
+                " convert(varchar(20), pt07.MNC_STAMP_DAT, 20) as MNC_STAMP_DAT, pt07.MNC_STAMP_TIM, convert(varchar(20), pt07.MNC_SEND_DAT,23) as MNC_SEND_DAT, pt07.MNC_SEND_TIM, pt07.MNC_SEND_VN, pt07.MNC_VN_SEQ,  " +
+                "pt07.MNC_VN_SUM, pt07.MNC_APP_TIM_E, pt07.MNC_APP_TYP, pm32.mnc_md_dep_dsc  " +
+                ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet " +
+                ",(isnull(pm02dtr.MNC_PFIX_DSC,'') +' ' +isnull(pm26.MNC_DOT_FNAME,'') + ' ' + isnull(pm26.MNC_DOT_LNAME,'')) as dtr_name " +
+                "From  " + pt07.table + " pt07 " +
+                " inner join patient_m01 m01 on pt07.MNC_HN_NO = m01.MNC_HN_NO " +
+                " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                "left join patient_m32 pm32 on pt07.mnc_sec_no = pm32.mnc_sec_no and pt07.mnc_dep_no = pm32.mnc_md_dep_no and pm32.mnc_typ_pt = 'O' " +
+                "left join	patient_m26 pm26 on pt07.MNC_DOT_CD = pm26.MNC_DOT_CD " +
+                "left JOIN	dbo.PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                "left join Finance_m02 fm02 on pt07.MNC_FN_TYP_CD = fm02.MNC_FN_TYP_CD " +
+            " Where pt07.MNC_HN_NO = '" + hn + "' and pt07.MNC_APP_DAT = convert(varchar(20), getdate(), 23) " +
+            "Order By pt07.MNC_APP_DAT , pt07.MNC_APP_TIM  ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            PatientT07 pt071 = setPatientT07(dt);
+            return pt071;
+        }
         public DataTable selectAppointmentOrder(String apmyear, String apmno)
         {
             String sql = "";
@@ -612,6 +639,8 @@ namespace bangna_hospital.objdb
                 pt07.MNC_APP_TYP = dt.Rows[0]["MNC_APP_TYP"].ToString();
                 pt07.apm_time = dt.Rows[0]["apm_time"].ToString();
                 pt07.doctor_name = dt.Rows[0]["dtr_name"].ToString();
+                pt07.patient_name = dt.Rows[0]["ptt_fullnamet"].ToString();
+                pt07.deptname = dt.Rows[0]["mnc_md_dep_dsc"].ToString();
             }
             else
             {
@@ -666,6 +695,8 @@ namespace bangna_hospital.objdb
             p.MNC_APP_TYP = "";
             p.apm_time = "";
             p.doctor_name = "";
+            pt07.patient_name = "";
+            pt07.deptname = "";
             return p;
         }
     }

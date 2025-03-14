@@ -21,7 +21,7 @@ namespace bangna_hospital.object1
         FtpWebRequest ftpRequest = null;
         FtpWebResponse ftpResponse = null;
         Stream ftpStream = null;
-        int bufferSize = 2048;
+        int bufferSize = 4096;
         Boolean ftpUsePassive = false, EnableSsl=false;
 
         /* Construct Object */
@@ -58,24 +58,24 @@ namespace bangna_hospital.object1
             try
             {
                 /* Create an FTP Request */
-                new LogWriter("d", "FtpClient download 00 host "+ host);
-                new LogWriter("d", "FtpClient download 00 remoteFile " + remoteFile);
+                //new LogWriter("d", "FtpClient download 00 host "+ host);
+                //new LogWriter("d", "FtpClient download 00 remoteFile " + remoteFile);
                 ftpRequest = (FtpWebRequest)FtpWebRequest.Create(host + "/" + remoteFile);
                 /* Log in to the FTP Server with the User Name and Password Provided */
                 ftpRequest.Credentials = new NetworkCredential(user, pass);
-                new LogWriter("d", "FtpClient download 01 ");
+                //new LogWriter("d", "FtpClient download 01 ");
                 /* When in doubt, use these options */
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = ftpUsePassive;
                 ftpRequest.KeepAlive = true;
                 ftpRequest.EnableSsl = EnableSsl;
-                new LogWriter("d", "FtpClient download 02 ");
+                //new LogWriter("d", "FtpClient download 02 ");
                 /* Specify the Type of FTP Request */
                 ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
                 /* Establish Return Communication with the FTP Server */
-                new LogWriter("d", "FtpClient download 03 ");
+                //new LogWriter("d", "FtpClient download 03 ");
                 ftpResponse = (FtpWebResponse)ftpRequest.GetResponse();
-                new LogWriter("d", "FtpClient download 04 ");
+                //new LogWriter("d", "FtpClient download 04 ");
                 /* Get the FTP Server's Response Stream */
                 ftpStream = ftpResponse.GetResponseStream();
                 new LogWriter("d", "FtpClient download 05 ");
@@ -106,6 +106,7 @@ namespace bangna_hospital.object1
                 ftpStream.Close();
                 ftpResponse.Close();
                 ftpRequest = null;
+                new LogWriter("d", "FtpClient download 06 ");
             }
             catch (Exception ex) { Console.WriteLine(ex.ToString()); new LogWriter("e", "FtpClient download  " + ex.ToString()); }
             return stream;

@@ -69,7 +69,7 @@ namespace bangna_hospital.objdb
         public DataTable selectClaimAuth(String aipnid)
         {
             DataTable dt = new DataTable();
-            String sql = "select claim.aipn_claimauth_id,claim.aipn_id,claim.authcode,claim.authdt,claim.upayplan,claim.servicetype,isnull(claim.servicesubtype,'') as servicesubtype,isnull(claim.projectcode,'') as projectcode,isnull(claim.userreserve,'') as userreserve,isnull(claim.hmain,'') as hmain,isnull(claim.hcare,'') as hcare,isnull(claim.careas,'') as careas,isnull(claim.eventcode,'') as eventcode " +
+            String sql = "select claim.aipn_claimauth_id,claim.aipn_id,claim.authcode,claim.authdt,claim.upayplan,isnull(claim.servicetype,'') as servicetype,isnull(claim.servicesubtype,'') as servicesubtype,isnull(claim.projectcode,'') as projectcode,isnull(claim.userreserve,'') as userreserve,isnull(claim.hmain,'') as hmain,isnull(claim.hcare,'') as hcare,isnull(claim.careas,'') as careas,isnull(claim.eventcode,'') as eventcode " +
                 "From aipn_t_claimauth  claim " +
                 " Where claim.aipn_id = '" + aipnid + "' " +
                 "Order By claim.aipn_id ";

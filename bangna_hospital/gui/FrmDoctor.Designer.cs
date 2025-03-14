@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDoctor));
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
+            this.lfSbLastUpdate = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
@@ -73,7 +74,6 @@
             this.pnRptCri1 = new System.Windows.Forms.Panel();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
             this.pnFinish = new System.Windows.Forms.Panel();
-            this.lfSbLastUpdate = new C1.Win.C1Ribbon.RibbonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spDoctor)).BeginInit();
             this.spDoctor.SuspendLayout();
@@ -118,6 +118,11 @@
             this.c1StatusBar1.RightPaneItems.Add(this.rbSbDrugSet);
             this.c1StatusBar1.RightPaneItems.Add(this.rpDrugSetNew);
             this.c1StatusBar1.Size = new System.Drawing.Size(1194, 22);
+            // 
+            // lfSbLastUpdate
+            // 
+            this.lfSbLastUpdate.Name = "lfSbLastUpdate";
+            this.lfSbLastUpdate.Text = "Label";
             // 
             // lfSbMessage
             // 
@@ -247,9 +252,9 @@
             this.lbDtrName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lbDtrName.Location = new System.Drawing.Point(7, 8);
             this.lbDtrName.Name = "lbDtrName";
-            this.lbDtrName.Size = new System.Drawing.Size(38, 24);
+            this.lbDtrName.Size = new System.Drawing.Size(79, 24);
             this.lbDtrName.TabIndex = 267;
-            this.lbDtrName.Text = "HN";
+            this.lbDtrName.Text = "dtrname";
             // 
             // label1
             // 
@@ -636,11 +641,6 @@
             this.pnFinish.Name = "pnFinish";
             this.pnFinish.Size = new System.Drawing.Size(1192, 635);
             this.pnFinish.TabIndex = 0;
-            // 
-            // lfSbLastUpdate
-            // 
-            this.lfSbLastUpdate.Name = "lfSbLastUpdate";
-            this.lfSbLastUpdate.Text = "Label";
             // 
             // FrmDoctor
             // 

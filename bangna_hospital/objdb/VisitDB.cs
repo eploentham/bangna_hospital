@@ -1466,7 +1466,7 @@ namespace bangna_hospital.objdb
                 " t01.MNC_SHIF_MEMO,t01.MNC_FN_TYP_CD, t01.mnc_pre_no, t01.mnc_breath, t01.mnc_high,t01.mnc_bp1_l,t01.mnc_temp,t01.mnc_weight,m01.*, m07.mnc_tum_dsc, m08.mnc_amp_dsc, m09.mnc_chw_dsc, t01.mnc_ratios" +
                 ", convert(VARCHAR(20),m01.mnc_bday,23) as mnc_bday, m01.MNC_NAT_CD,m04.MNC_NAT_DSC,m04.MNC_NAT_DSC_e, convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.mnc_time" +
                 ", t01.MNC_DOT_CD as doctor_id " +
-                ",isnull(pm02dtr.MNC_PFIX_DSC,'')  + ' ' + isnull(pm26.MNC_DOT_FNAME,'')  + ' ' + isnull(pm26.MNC_DOT_LNAME,'')  as dtr_name  " +
+                ",isnull(pm02dtr.MNC_PFIX_DSC,'')  + ' ' + isnull(pm26.MNC_DOT_FNAME,'')  + ' ' + isnull(pm26.MNC_DOT_LNAME,'')  as dtr_name,isnull(t01.skin_tone,'') as  skin_tone " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -1563,7 +1563,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select convert(varchar(20),t01.MNC_DATE,23) as MNC_DATE, t01.MNC_PRE_NO, t01.status_quick_order, t01.MNC_VN_NO, t01.MNC_VN_SEQ, t01.MNC_VN_SUM, t01.MNC_HN_NO " +
+            sql = "Select convert(varchar(20),t01.MNC_DATE,23) as MNC_DATE, t01.MNC_PRE_NO, t01.status_quick_order, t01.MNC_VN_NO, t01.MNC_VN_SEQ, t01.MNC_VN_SUM, t01.MNC_HN_NO,isnull(t01.skin_tone,'') as skin_tone " +
                 "From patient_t01 t01 " +
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
                 "and t01.MNC_DATE = convert(varchar(20),getdate(),23) and t01.status_alien_doe = '1' " +
@@ -1577,10 +1577,23 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             Visit vs = new Visit();
             String sql = "";
-            sql = "Select t01.* " +
-                "From patient_t01 t01 " +
-                " Where  t01.MNC_STS <> 'C' nd t01.MNC_DATE = convert(varchar(20),getdate(),23) and t01.MNC_VN_NO = '"+vnno+"' and t01.MNC_VN_SEQ = '"+vnseq+"' " +
-                " Order by t01.MNC_HN_NO, t01.MNC_PRE_NO ";
+            sql = "Select convert(VARCHAR(20),pt01.MNC_DATE,23) as MNC_DATE, pt01.MNC_HN_NO,pt01.MNC_VN_NO,pt01.MNC_VN_SEQ, pt01.MNC_VN_SUM,pt01.MNC_SHIF_MEMO,pt01.MNC_TIME,pt01.MNC_PRE_NO,pt01.MNC_WEIGHT " +
+                ",pt01.MNC_HIGH,pt01.MNC_TEMP,pt01.MNC_RATIOS,pt01.MNC_BREATH,pt01.MNC_BP1_L,pt01.MNC_BP1_R,pt01.MNC_BP2_L,pt01.MNC_BP2_R,pt01.MNC_CC,pt01.MNC_CC_IN,pt01.MNC_CC_EX,pt01.MNC_AbC " +
+                ",pt01.MNC_HC,pt01.MNC_STS,pt01.MNC_DOT_CD,fm02.MNC_FN_TYP_DSC, pm24.MNC_COM_DSC, pm01.MNC_HN_YR " +
+                ",isnull(pm02dtr.MNC_PFIX_DSC,'')+' '+isnull(pm26.MNC_DOT_FNAME,'') + ' ' + isnull(pm26.MNC_DOT_LNAME,'')  as dtr_name " +
+                ",isnull(pm02ptt.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname  " +
+                ",pt01.MNC_DIA_CD, pt01.MNC_DOT_MEMO, pt01.MNC_LAB_FLG, pt01.MNC_PHA_FLG, pt01.MNC_XRA_FLG, pt01.MNC_PHY_FLG, pt01.MNC_CAR_MEMO,pt01.MNC_DIA_MEMO" +
+                ",pt01.certi_id,pm01.MNC_ID_NO " +
+                "From PATIENT_T01 pt01  " +
+                " inner join patient_m01 pm01 on pt01.MNC_HN_NO = pm01.MNC_HN_NO " +
+                " left join patient_m02 pm02ptt on pm01.MNC_PFIX_CDT = pm02ptt.MNC_PFIX_CD " +
+                " LEFT join patient_m26 pm26 on pt01.mnc_dot_cd = pm26.MNC_DOT_CD " +
+                " left join patient_m02 pm02dtr on pm26.MNC_DOT_PFIX =pm02dtr.MNC_PFIX_CD " +
+                " left join finance_m02 fm02 on pt01.MNC_FN_TYP_CD =fm02.MNC_FN_TYP_CD " +
+                " left join PATIENT_M24 pm24 on pt01.MNC_COM_CD =pm24.MNC_COM_CD " +
+                "where pt01.MNC_date = convert(varchar(20),GETDATE(),23)  " +
+                "and pt01.MNC_VN_NO = '" + vnno+ "' and pt01.MNC_VN_SEQ = '" + vnseq+"' " +
+                " Order by pt01.MNC_HN_NO, pt01.MNC_PRE_NO ";
             dt = conn.selectData(sql);
             vs = setVisit(dt);
             return vs;
@@ -1592,8 +1605,7 @@ namespace bangna_hospital.objdb
             sql = "Select t01.* " +
                 "From patient_t01 t01 " +
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
-                " and t01.MNC_STS <> 'C' " +
-
+                " and t01.MNC_STS <> 'C' and t01.MNC_DATE = convert(varchar(20),getdate(),23) " +
                 " Order by t01.MNC_HN_NO, t01.MNC_PRE_NO ";
             dt = conn.selectData(sql);
 
@@ -4433,6 +4445,7 @@ namespace bangna_hospital.objdb
             //INSERT_PAT_T01
             try
             {
+                dtrid = dtrid.Length == 0 ? "00000" : dtrid;      //IF CboDotCD.TEXT = '' THEN MNC_DOT_CD:= '00000'
                 conn.comStore = new SqlCommand();
                 conn.comStore.Connection = conn.connMainHIS;
                 conn.comStore.CommandText = "gen_patient_t01_by_hn";
@@ -4644,6 +4657,19 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public DataTable selectCertByPID(String pid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereAn = "";
+
+            sql = "Select convert(varchar(20), pt01.MNC_DATE,23) MNC_DATE, pt01.certi_id " +
+            "From PATIENT_T01 pt01 " +
+            "where pt01.MNC_ID_NAM = '" + pid + "'  and pt01.MNC_STS != 'C'  " +
+            "Order By pt01.MNC_DATE desc, pt01.MNC_PRE_NO desc  ";
+            //}
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public DataTable selectOrderTempByHN(String hn, String vsdate, String preno)
         {
             DataTable dt = new DataTable();
@@ -4844,6 +4870,37 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String updateVitalSign1(Visit vs, String userid)
+        {
+            String sql = "", re = "";
+            sql = "update patient_t01 set " +
+                "MNC_HIGH = '" + vs.high + "'" +
+                ",MNC_WEIGHT = '" + vs.weight + "'" +
+                ",MNC_RATIOS = '" + vs.hrate + "'" +//   hrate ใน database เก็บ field ratios
+                ",MNC_TEMP = '" + vs.temp + "'" +
+                ",skin_tone = '" + vs.skin_tone + "'" +
+                ",MNC_BREATH = '" + vs.breath + "'" +
+                ",MNC_BP1_L = '" + vs.bp1l + "'" +
+                ",MNC_BP1_R = '" + vs.bp1r + "'" +
+                ",MNC_BP2_L = '" + vs.bp2l + "'" +
+                ",MNC_BP2_R = '" + vs.bp2r + "'" +
+                ",MNC_CC = '" + vs.cc + "'" +
+                ",MNC_CC_IN = '" + vs.ccin + "'" +
+                ",MNC_CC_EX = '" + vs.ccex + "'" +
+                ",MNC_ABC = '" + vs.abc + "'" +
+                ",MNC_HC = '" + vs.hc + "'" +
+                "Where mnc_hn_no = '" + vs.HN + "' and mnc_date = '" + vs.VisitDate + "' and mnc_pre_no ='" + vs.preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateVitalSign sql " + sql + " hn " + vs.HN);
+            }
+            return re;
+        }
         public String updateVitalSign(Visit vs, String userid)
         {
             String sql = "", re = "";
@@ -4976,6 +5033,23 @@ namespace bangna_hospital.objdb
             {
                 sql = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "updateDoctor sql " + sql + " hn " + hn);
+            }
+            return re;
+        }
+        public String voidVisit(String hn, String preno, String vsdate)
+        {
+            String sql = "", re = "";
+            sql = "update patient_t01 set " +
+                "MNC_STS = 'C' " +
+                "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "voidVisit sql " + sql);
             }
             return re;
         }

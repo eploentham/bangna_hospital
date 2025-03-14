@@ -69,13 +69,13 @@ namespace bangna_hospital.objdb
                 }
             }
         }
-        public String getProvName(String tamboncode)
+        public String getProvName(String provcode)
         {
             String re = "";
             if (lPm09.Count <= 0) getlCus();
             foreach (PatientM09 row in lPm09)
             {
-                if (row.MNC_CHW_CD.Equals(tamboncode))
+                if (row.MNC_CHW_CD.Equals(provcode))
                 {
                     re = row.MNC_CHW_DSC;
                     break;

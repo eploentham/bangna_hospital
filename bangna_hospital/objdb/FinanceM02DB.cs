@@ -138,6 +138,7 @@ namespace bangna_hospital.objdb
         public String getPaidName(String paidcode)
         {
             String re = "";
+            if (lPm02.Count <= 0) getlPaid();
             foreach (FinanceM02 row in lPm02)
             {
                 if (row.MNC_FN_TYP_CD.Equals(paidcode))

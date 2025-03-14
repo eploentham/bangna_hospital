@@ -98,6 +98,23 @@
             this.txtTokenDateExpire = new C1.Win.Calendar.C1DateEdit();
             this.cboTokenModule = new C1.Win.C1Input.C1ComboBox();
             this.label15 = new System.Windows.Forms.Label();
+            this.c1DockingTabPage6 = new C1.Win.C1Command.C1DockingTabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.txtVoidpreno = new C1.Win.C1Input.C1TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtVoidvsdate = new C1.Win.C1Input.C1TextBox();
+            this.btnVoid = new C1.Win.C1Input.C1Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lbvoidName = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtVoidHN = new C1.Win.C1Input.C1TextBox();
+            this.c1DockingTabPage7 = new C1.Win.C1Command.C1DockingTabPage();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtDtrAppoint = new C1.Win.C1Input.C1TextBox();
+            this.lbDtrName = new System.Windows.Forms.Label();
+            this.btnDtrupdate = new C1.Win.C1Input.C1Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtDtrcode = new C1.Win.C1Input.C1TextBox();
             this.sbMessage = new C1.Win.C1Ribbon.C1StatusBar();
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
@@ -141,6 +158,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtTokenSecretKey)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTokenDateExpire)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboTokenModule)).BeginInit();
+            this.c1DockingTabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVoidpreno)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVoidvsdate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVoidHN)).BeginInit();
+            this.c1DockingTabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtrAppoint)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDtrupdate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -304,6 +330,8 @@
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage3);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage4);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage5);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage6);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage7);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
@@ -916,6 +944,179 @@
             this.label15.TabIndex = 179;
             this.label15.Text = "Module";
             // 
+            // c1DockingTabPage6
+            // 
+            this.c1DockingTabPage6.Controls.Add(this.label23);
+            this.c1DockingTabPage6.Controls.Add(this.txtVoidpreno);
+            this.c1DockingTabPage6.Controls.Add(this.label22);
+            this.c1DockingTabPage6.Controls.Add(this.txtVoidvsdate);
+            this.c1DockingTabPage6.Controls.Add(this.btnVoid);
+            this.c1DockingTabPage6.Controls.Add(this.panel3);
+            this.c1DockingTabPage6.Controls.Add(this.lbvoidName);
+            this.c1DockingTabPage6.Controls.Add(this.label21);
+            this.c1DockingTabPage6.Controls.Add(this.txtVoidHN);
+            this.c1DockingTabPage6.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage6.Name = "c1DockingTabPage6";
+            this.c1DockingTabPage6.Size = new System.Drawing.Size(1072, 459);
+            this.c1DockingTabPage6.TabIndex = 5;
+            this.c1DockingTabPage6.Text = "Void Visit";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label23.Location = new System.Drawing.Point(274, 45);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(54, 20);
+            this.label23.TabIndex = 207;
+            this.label23.Text = "pre no";
+            // 
+            // txtVoidpreno
+            // 
+            this.txtVoidpreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtVoidpreno.Location = new System.Drawing.Point(347, 42);
+            this.txtVoidpreno.Name = "txtVoidpreno";
+            this.txtVoidpreno.Size = new System.Drawing.Size(147, 27);
+            this.txtVoidpreno.TabIndex = 208;
+            this.txtVoidpreno.Tag = null;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label22.Location = new System.Drawing.Point(270, 15);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(71, 20);
+            this.label22.TabIndex = 205;
+            this.label22.Text = "visit date";
+            // 
+            // txtVoidvsdate
+            // 
+            this.txtVoidvsdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtVoidvsdate.Location = new System.Drawing.Point(347, 12);
+            this.txtVoidvsdate.Name = "txtVoidvsdate";
+            this.txtVoidvsdate.Size = new System.Drawing.Size(147, 27);
+            this.txtVoidvsdate.TabIndex = 206;
+            this.txtVoidvsdate.Tag = null;
+            // 
+            // btnVoid
+            // 
+            this.btnVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnVoid.Location = new System.Drawing.Point(653, 16);
+            this.btnVoid.Name = "btnVoid";
+            this.btnVoid.Size = new System.Drawing.Size(153, 45);
+            this.btnVoid.TabIndex = 204;
+            this.btnVoid.Text = "Void";
+            this.btnVoid.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Location = new System.Drawing.Point(16, 75);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(790, 379);
+            this.panel3.TabIndex = 138;
+            // 
+            // lbvoidName
+            // 
+            this.lbvoidName.AutoSize = true;
+            this.lbvoidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbvoidName.Location = new System.Drawing.Point(14, 47);
+            this.lbvoidName.Name = "lbvoidName";
+            this.lbvoidName.Size = new System.Drawing.Size(35, 25);
+            this.lbvoidName.TabIndex = 130;
+            this.lbvoidName.Text = "ชื่อ";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label21.Location = new System.Drawing.Point(12, 16);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(32, 20);
+            this.label21.TabIndex = 128;
+            this.label21.Text = "HN";
+            // 
+            // txtVoidHN
+            // 
+            this.txtVoidHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtVoidHN.Location = new System.Drawing.Point(76, 13);
+            this.txtVoidHN.Name = "txtVoidHN";
+            this.txtVoidHN.Size = new System.Drawing.Size(186, 27);
+            this.txtVoidHN.TabIndex = 129;
+            this.txtVoidHN.Tag = null;
+            // 
+            // c1DockingTabPage7
+            // 
+            this.c1DockingTabPage7.Controls.Add(this.label25);
+            this.c1DockingTabPage7.Controls.Add(this.txtDtrAppoint);
+            this.c1DockingTabPage7.Controls.Add(this.lbDtrName);
+            this.c1DockingTabPage7.Controls.Add(this.btnDtrupdate);
+            this.c1DockingTabPage7.Controls.Add(this.label20);
+            this.c1DockingTabPage7.Controls.Add(this.txtDtrcode);
+            this.c1DockingTabPage7.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage7.Name = "c1DockingTabPage7";
+            this.c1DockingTabPage7.Size = new System.Drawing.Size(1072, 459);
+            this.c1DockingTabPage7.TabIndex = 6;
+            this.c1DockingTabPage7.Text = "appointent";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label25.Location = new System.Drawing.Point(375, 26);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(98, 20);
+            this.label25.TabIndex = 207;
+            this.label25.Text = "appointment";
+            // 
+            // txtDtrAppoint
+            // 
+            this.txtDtrAppoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrAppoint.Location = new System.Drawing.Point(488, 23);
+            this.txtDtrAppoint.Name = "txtDtrAppoint";
+            this.txtDtrAppoint.Size = new System.Drawing.Size(80, 27);
+            this.txtDtrAppoint.TabIndex = 208;
+            this.txtDtrAppoint.Tag = null;
+            // 
+            // lbDtrName
+            // 
+            this.lbDtrName.AutoSize = true;
+            this.lbDtrName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbDtrName.Location = new System.Drawing.Point(19, 77);
+            this.lbDtrName.Name = "lbDtrName";
+            this.lbDtrName.Size = new System.Drawing.Size(35, 25);
+            this.lbDtrName.TabIndex = 206;
+            this.lbDtrName.Text = "ชื่อ";
+            // 
+            // btnDtrupdate
+            // 
+            this.btnDtrupdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDtrupdate.Location = new System.Drawing.Point(624, 17);
+            this.btnDtrupdate.Name = "btnDtrupdate";
+            this.btnDtrupdate.Size = new System.Drawing.Size(153, 45);
+            this.btnDtrupdate.TabIndex = 205;
+            this.btnDtrupdate.Text = "update";
+            this.btnDtrupdate.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label20.Location = new System.Drawing.Point(20, 29);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(57, 20);
+            this.label20.TabIndex = 130;
+            this.label20.Text = "Doctor";
+            // 
+            // txtDtrcode
+            // 
+            this.txtDtrcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDtrcode.Location = new System.Drawing.Point(84, 26);
+            this.txtDtrcode.Name = "txtDtrcode";
+            this.txtDtrcode.Size = new System.Drawing.Size(186, 27);
+            this.txtDtrcode.TabIndex = 131;
+            this.txtDtrcode.Tag = null;
+            // 
             // sbMessage
             // 
             this.sbMessage.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
@@ -996,6 +1197,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtTokenSecretKey)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTokenDateExpire)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboTokenModule)).EndInit();
+            this.c1DockingTabPage6.ResumeLayout(false);
+            this.c1DockingTabPage6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVoidpreno)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVoidvsdate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtVoidHN)).EndInit();
+            this.c1DockingTabPage7.ResumeLayout(false);
+            this.c1DockingTabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtrAppoint)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDtrupdate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1078,5 +1290,22 @@
         private C1.Win.C1Input.C1TextBox txtTokenDaysExpire;
         private C1.Win.C1Input.C1Button btnTokenNew;
         private C1.Win.C1Input.C1Button btnTokenGen;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage6;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label lbvoidName;
+        private System.Windows.Forms.Label label21;
+        private C1.Win.C1Input.C1TextBox txtVoidHN;
+        private C1.Win.C1Input.C1Button btnVoid;
+        private System.Windows.Forms.Label label22;
+        private C1.Win.C1Input.C1TextBox txtVoidvsdate;
+        private System.Windows.Forms.Label label23;
+        private C1.Win.C1Input.C1TextBox txtVoidpreno;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage7;
+        private System.Windows.Forms.Label label25;
+        private C1.Win.C1Input.C1TextBox txtDtrAppoint;
+        private System.Windows.Forms.Label lbDtrName;
+        private C1.Win.C1Input.C1Button btnDtrupdate;
+        private System.Windows.Forms.Label label20;
+        private C1.Win.C1Input.C1TextBox txtDtrcode;
     }
 }

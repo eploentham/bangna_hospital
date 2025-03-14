@@ -31,6 +31,7 @@
             this.pnPic = new System.Windows.Forms.Panel();
             this.pnView = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnUpload = new System.Windows.Forms.Button();
             this.chkAutoSend = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCertID = new C1.Win.C1Input.C1TextBox();
@@ -45,6 +46,7 @@
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.rl1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rl2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.rl3 = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
             this.rr1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rr2 = new C1.Win.C1Ribbon.RibbonLabel();
@@ -98,8 +100,6 @@
             this.lbV2Name = new System.Windows.Forms.Label();
             this.txtV2Hn = new C1.Win.C1Input.C1TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.rl3 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.btnUpload = new System.Windows.Forms.Button();
             this.pnPic.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCertID)).BeginInit();
@@ -157,6 +157,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1002, 35);
             this.panel2.TabIndex = 0;
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Location = new System.Drawing.Point(747, 5);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(24, 23);
+            this.btnUpload.TabIndex = 551;
+            this.btnUpload.Text = "+";
+            this.btnUpload.UseVisualStyleBackColor = true;
             // 
             // chkAutoSend
             // 
@@ -300,6 +309,11 @@
             // 
             this.rl2.Name = "rl2";
             this.rl2.Text = "Label";
+            // 
+            // rl3
+            // 
+            this.rl3.Name = "rl3";
+            this.rl3.Text = "Label";
             // 
             // lfSbStation
             // 
@@ -846,20 +860,6 @@
             this.label11.Size = new System.Drawing.Size(33, 16);
             this.label11.TabIndex = 0;
             this.label11.Text = "HN :";
-            // 
-            // rl3
-            // 
-            this.rl3.Name = "rl3";
-            this.rl3.Text = "Label";
-            // 
-            // btnUpload
-            // 
-            this.btnUpload.Location = new System.Drawing.Point(747, 5);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(24, 23);
-            this.btnUpload.TabIndex = 551;
-            this.btnUpload.Text = "+";
-            this.btnUpload.UseVisualStyleBackColor = true;
             // 
             // FrmScreenCapture
             // 

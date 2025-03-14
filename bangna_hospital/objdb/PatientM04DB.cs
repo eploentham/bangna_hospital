@@ -93,6 +93,19 @@ namespace bangna_hospital.objdb
                 }
             }
         }
+        public String getNationName(String natcode)
+        {
+            String re = "";
+            foreach (PatientM04 row in lPm04)
+            {
+                if (row.MNC_NAT_CD.Equals(natcode))
+                {
+                    re = row.MNC_NAT_DSC;
+                    break;
+                }
+            }
+            return re;
+        }
         public PatientM04 setPatientM08(DataTable dt)
         {
             PatientM04 pm08 = new PatientM04();

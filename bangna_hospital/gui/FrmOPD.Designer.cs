@@ -36,6 +36,7 @@
             this.pnOperList = new System.Windows.Forms.Panel();
             this.spOperVisit = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnVitalSign = new System.Windows.Forms.Panel();
+            this.lbFindPaidSSO = new System.Windows.Forms.Label();
             this.lbOperVitalPrint = new System.Windows.Forms.Label();
             this.lbOperVitalTime = new System.Windows.Forms.Label();
             this.lbOperVitalCount = new System.Windows.Forms.Label();
@@ -232,6 +233,8 @@
             this.tabAppioment = new C1.Win.C1Command.C1DockingTabPage();
             this.pnApm = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.txtApmVsNewHn = new C1.Win.C1Input.C1TextBox();
+            this.chkApmVsNew = new System.Windows.Forms.RadioButton();
             this.btnApmExcel = new C1.Win.C1Input.C1Button();
             this.txtApmSrc = new C1.Win.C1Input.C1TextBox();
             this.cboApmDept1 = new C1.Win.C1Input.C1ComboBox();
@@ -382,6 +385,7 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.tabCheckUPAlien = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnCheckUPExcelAlien = new C1.Win.C1Input.C1Button();
             this.btnCheckUPSaveStaffNote = new C1.Win.C1Input.C1Button();
             this.btnPrnXray = new C1.Win.C1Input.C1Button();
             this.btnPrnLAB = new C1.Win.C1Input.C1Button();
@@ -876,6 +880,7 @@
             this.c1SplitContainer6.SuspendLayout();
             this.tabAppioment.SuspendLayout();
             this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmVsNewHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApmExcel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmSrc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboApmDept1)).BeginInit();
@@ -936,6 +941,7 @@
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabCheckUPAlien.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPExcelAlien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPSaveStaffNote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrnXray)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrnLAB)).BeginInit();
@@ -1133,6 +1139,7 @@
             // 
             // pnVitalSign
             // 
+            this.pnVitalSign.Controls.Add(this.lbFindPaidSSO);
             this.pnVitalSign.Controls.Add(this.lbOperVitalPrint);
             this.pnVitalSign.Controls.Add(this.lbOperVitalTime);
             this.pnVitalSign.Controls.Add(this.lbOperVitalCount);
@@ -1202,6 +1209,17 @@
             this.pnVitalSign.Name = "pnVitalSign";
             this.pnVitalSign.Size = new System.Drawing.Size(825, 277);
             this.pnVitalSign.TabIndex = 0;
+            // 
+            // lbFindPaidSSO
+            // 
+            this.lbFindPaidSSO.AutoSize = true;
+            this.lbFindPaidSSO.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbFindPaidSSO.ForeColor = System.Drawing.Color.Red;
+            this.lbFindPaidSSO.Location = new System.Drawing.Point(6, 174);
+            this.lbFindPaidSSO.Name = "lbFindPaidSSO";
+            this.lbFindPaidSSO.Size = new System.Drawing.Size(30, 25);
+            this.lbFindPaidSSO.TabIndex = 294;
+            this.lbFindPaidSSO.Text = "...";
             // 
             // lbOperVitalPrint
             // 
@@ -1372,7 +1390,7 @@
             // btnPrnCertMed
             // 
             this.btnPrnCertMed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnPrnCertMed.Location = new System.Drawing.Point(576, 175);
+            this.btnPrnCertMed.Location = new System.Drawing.Point(593, 176);
             this.btnPrnCertMed.Name = "btnPrnCertMed";
             this.btnPrnCertMed.Size = new System.Drawing.Size(139, 33);
             this.btnPrnCertMed.TabIndex = 279;
@@ -1431,7 +1449,7 @@
             // 
             this.lbOperDia.AutoSize = true;
             this.lbOperDia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbOperDia.Location = new System.Drawing.Point(5, 175);
+            this.lbOperDia.Location = new System.Drawing.Point(406, 181);
             this.lbOperDia.Name = "lbOperDia";
             this.lbOperDia.Size = new System.Drawing.Size(45, 20);
             this.lbOperDia.TabIndex = 273;
@@ -1683,7 +1701,7 @@
             // btnOperSaveVital
             // 
             this.btnOperSaveVital.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnOperSaveVital.Location = new System.Drawing.Point(9, 199);
+            this.btnOperSaveVital.Location = new System.Drawing.Point(9, 202);
             this.btnOperSaveVital.Name = "btnOperSaveVital";
             this.btnOperSaveVital.Size = new System.Drawing.Size(116, 33);
             this.btnOperSaveVital.TabIndex = 245;
@@ -2867,10 +2885,10 @@
             this.c1SplitterPanel12.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel12.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel12.Name = "c1SplitterPanel12";
-            this.c1SplitterPanel12.Size = new System.Drawing.Size(355, 1019);
+            this.c1SplitterPanel12.Size = new System.Drawing.Size(403, 1019);
             this.c1SplitterPanel12.TabIndex = 0;
             this.c1SplitterPanel12.Text = "Panel 1";
-            this.c1SplitterPanel12.Width = 355;
+            this.c1SplitterPanel12.Width = 403;
             // 
             // picFinishL
             // 
@@ -2884,9 +2902,9 @@
             // 
             this.c1SplitterPanel13.Controls.Add(this.picFinishR);
             this.c1SplitterPanel13.Height = 1040;
-            this.c1SplitterPanel13.Location = new System.Drawing.Point(366, 21);
+            this.c1SplitterPanel13.Location = new System.Drawing.Point(414, 21);
             this.c1SplitterPanel13.Name = "c1SplitterPanel13";
-            this.c1SplitterPanel13.Size = new System.Drawing.Size(363, 1019);
+            this.c1SplitterPanel13.Size = new System.Drawing.Size(409, 1019);
             this.c1SplitterPanel13.TabIndex = 1;
             this.c1SplitterPanel13.Text = "Panel 2";
             // 
@@ -3236,6 +3254,8 @@
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.txtApmVsNewHn);
+            this.panel9.Controls.Add(this.chkApmVsNew);
             this.panel9.Controls.Add(this.btnApmExcel);
             this.panel9.Controls.Add(this.txtApmSrc);
             this.panel9.Controls.Add(this.cboApmDept1);
@@ -3249,6 +3269,27 @@
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(1653, 41);
             this.panel9.TabIndex = 3;
+            // 
+            // txtApmVsNewHn
+            // 
+            this.txtApmVsNewHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtApmVsNewHn.Location = new System.Drawing.Point(1318, 6);
+            this.txtApmVsNewHn.Name = "txtApmVsNewHn";
+            this.txtApmVsNewHn.Size = new System.Drawing.Size(134, 27);
+            this.txtApmVsNewHn.TabIndex = 118;
+            this.txtApmVsNewHn.Tag = null;
+            // 
+            // chkApmVsNew
+            // 
+            this.chkApmVsNew.AutoSize = true;
+            this.chkApmVsNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkApmVsNew.Location = new System.Drawing.Point(1179, 8);
+            this.chkApmVsNew.Name = "chkApmVsNew";
+            this.chkApmVsNew.Size = new System.Drawing.Size(133, 24);
+            this.chkApmVsNew.TabIndex = 117;
+            this.chkApmVsNew.TabStop = true;
+            this.chkApmVsNew.Text = "คนไข้มาตามนัด";
+            this.chkApmVsNew.UseVisualStyleBackColor = true;
             // 
             // btnApmExcel
             // 
@@ -3288,7 +3329,7 @@
             // btnApmSearch
             // 
             this.btnApmSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnApmSearch.Location = new System.Drawing.Point(1072, 6);
+            this.btnApmSearch.Location = new System.Drawing.Point(1072, 5);
             this.btnApmSearch.Name = "btnApmSearch";
             this.btnApmSearch.Size = new System.Drawing.Size(80, 31);
             this.btnApmSearch.TabIndex = 112;
@@ -4933,6 +4974,7 @@
             // 
             // tabCheckUPAlien
             // 
+            this.tabCheckUPAlien.Controls.Add(this.btnCheckUPExcelAlien);
             this.tabCheckUPAlien.Controls.Add(this.btnCheckUPSaveStaffNote);
             this.tabCheckUPAlien.Controls.Add(this.btnPrnXray);
             this.tabCheckUPAlien.Controls.Add(this.btnPrnLAB);
@@ -4960,6 +5002,18 @@
             this.tabCheckUPAlien.Size = new System.Drawing.Size(1101, 509);
             this.tabCheckUPAlien.TabIndex = 1;
             this.tabCheckUPAlien.Text = "ต่างด้าว";
+            // 
+            // btnCheckUPExcelAlien
+            // 
+            this.btnCheckUPExcelAlien.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnCheckUPExcelAlien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnCheckUPExcelAlien.Image = global::bangna_hospital.Properties.Resources.Excel_Logo_PNG_Photo;
+            this.btnCheckUPExcelAlien.Location = new System.Drawing.Point(827, 117);
+            this.btnCheckUPExcelAlien.Name = "btnCheckUPExcelAlien";
+            this.btnCheckUPExcelAlien.Size = new System.Drawing.Size(114, 35);
+            this.btnCheckUPExcelAlien.TabIndex = 277;
+            this.btnCheckUPExcelAlien.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCheckUPExcelAlien.UseVisualStyleBackColor = false;
             // 
             // btnCheckUPSaveStaffNote
             // 
@@ -9048,6 +9102,7 @@
             this.tabAppioment.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmVsNewHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApmExcel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmSrc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboApmDept1)).EndInit();
@@ -9120,6 +9175,7 @@
             this.panel1.PerformLayout();
             this.tabCheckUPAlien.ResumeLayout(false);
             this.tabCheckUPAlien.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPExcelAlien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPSaveStaffNote)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrnXray)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrnLAB)).EndInit();
@@ -9980,5 +10036,9 @@
         private C1.Win.C1Input.C1Button btnPrnLAB;
         private C1.Win.C1Input.C1Button btnCheckUPSaveStaffNote;
         private C1.Win.C1Input.C1CheckBox chkCheckUPEditCert;
+        private System.Windows.Forms.Label lbFindPaidSSO;
+        private C1.Win.C1Input.C1Button btnCheckUPExcelAlien;
+        private System.Windows.Forms.RadioButton chkApmVsNew;
+        private C1.Win.C1Input.C1TextBox txtApmVsNewHn;
     }
 }

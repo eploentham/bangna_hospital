@@ -319,6 +319,37 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String insertCertDoctor(String dtrcode, String dtrname, String vsdate, String hn, String pttname, String preno, String station)
+        {
+            String certid = "";
+            MedicalCertificate mcerti = new MedicalCertificate();
+            mcerti.active = "1";
+            mcerti.an = "";
+            mcerti.certi_id = "";
+            mcerti.certi_code = "";
+            mcerti.dtr_code = dtrcode.Trim();
+            mcerti.dtr_name_t = dtrname;
+            mcerti.status_ipd = "O";
+            mcerti.visit_date = vsdate;
+            mcerti.visit_time = "";
+            mcerti.remark = "";
+            mcerti.line1 = "";
+            mcerti.line2 = "";
+            mcerti.line3 = "";
+            mcerti.line4 = "";
+            mcerti.hn = hn;
+            mcerti.pre_no = preno;
+            mcerti.ptt_name_e = pttname;
+            mcerti.ptt_name_t = "";
+            mcerti.doc_scan_id = "";
+            mcerti.status_2nd_leaf = "1";
+            mcerti.counter_name = station;
+            insertMedicalCertificate(mcerti, "");
+            
+            certid = selectCertIDByHn(hn, preno, vsdate);      //มีปัญหาเรื่องแก้ไขวันที่ ในการค้นหา
+            
+            return certid;
+        }
         public MedicalCertificate setMedicalCert(DataTable dt)
         {
             MedicalCertificate dgs1 = new MedicalCertificate();

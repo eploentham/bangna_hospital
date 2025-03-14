@@ -373,8 +373,102 @@ namespace bangna_hospital.gui
 
             btnAlienGenVisitAll.Click += BtnAlienGenVisitAll_Click;
             rbTxtHnSearch.KeyPress += RbTxtHnSearch_KeyPress;
+            lbalcode.DoubleClick += Lbalcode_DoubleClick;
         }
 
+        private async void Lbalcode_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            DoeAlienList doealien = await bc.GetDoeAien(txtPttwp1.Text.Trim());
+            if (doealien.alcode == null) { lfSbMessage.Text = "ไม่พบข้อมูล จากAPIกรมการจัดหางาน";  return; }
+            txtPttNameT.Value = doealien.alnameen;
+            txtPttNameE.Value = doealien.alnameen;
+            txtPttPID.Value = doealien.alcode;
+            String[] dob1 = doealien.albdate.Split(new char[] { '-' });
+            txtPttDOB.Value = bc.datetoDBCultureInfo(dob1[2]+"-"+ dob1[1]+"-"+ dob1[0]);
+            DateTime ddchk = DateTime.Parse(bc.datetoDBCultureInfo(dob1[2] + "-" + dob1[1] + "-" + dob1[0]));
+            if (ddchk.Year < 1900) { ddchk = ddchk.AddYears(543); }
+            String dob = bc.datetoDBCultureInfo(dob1[2] + "-" + dob1[1] + "-" + dob1[0]);
+            if (dob.Length >= 10)
+            {
+                txtPttDOBDD.Value = ddchk.Day;
+                txtPttDOBMM.Value = ddchk.Month;
+                txtPttDOBYear.Value = ddchk.Year;
+                Patient pttage = new Patient();
+                pttage.patient_birthday = dob;
+                txtPttAge.Value = pttage.AgeStringShort1();
+            }
+            bc.setC1ComboByName(cboPttPrefixT, doealien.alprefixen.Replace("MRS", "MRS.").Replace("MR", "MR.").Replace("MISS", "MISS."));
+            bc.setC1Combo(cboPttSex, doealien.algender.Replace("1", "M").Replace("2", "F"));
+            //cboPttNat
+            bc.setC1Combo(cboPttNat, doealien.alnation.Replace("M", "48").Replace("L", "56").Replace("V", "46").Replace("C", "57"));
+            txtPttCompCode.Value = doealien.empname;
+            String[] addr = doealien.wkaddress.Split(new char[] { ' ' });
+            if (addr.Length > 0)
+            {
+                txtPttIDHomeNo.Value = addr[0];
+                txtPttIDPostcode.Value = addr[addr.Length - 1];
+                int i = 0;
+                foreach (String txt in addr)
+                {
+                    if (txt.IndexOf("Moo") > 0)
+                    {
+                        txtPttIDMoo.Value = txt.Replace("Moo", "").Trim();
+                    }
+                    if (txt.IndexOf("ซอย") >= 0)
+                    {
+                        String aa = "", bb = "", cc = "",dd="";
+                        if (addr.Length > 4)
+                        {
+                            aa = addr[i+1];
+                            bb = addr[i + 2];
+                            cc = addr[i + 3];
+                            dd = addr[i + 4];
+                        }
+                        if ((dd.IndexOf("แขวง") >= 0)|| (dd.IndexOf("ตำบล") >= 0))
+                        {
+                            txtPttIDSoi.Value = txt.Trim()+ aa+bb+cc;
+                        }
+                        else
+                        {
+                            txtPttIDSoi.Value = txt.Trim() + aa + bb + cc+dd;
+                        }
+                    }
+                    if (txt.IndexOf("แขวง") >= 0)
+                    {
+                        txtPttIdSearchTambon.Value = txt.Replace("แขวง", "").Trim();
+                    }
+                    if (txt.IndexOf("ตำบล") >= 0)
+                    {
+                        txtPttIdSearchTambon.Value = txt.Replace("ตำบล", "").Trim();
+                    }
+                    if (txt.IndexOf("เขต") >= 0)
+                    {
+                        txtPttIdAmp.Value = txt.Trim();
+                    }
+                    if (txt.IndexOf("อำเภอ") >= 0)
+                    {
+                        txtPttIdAmp.Value = txt.Replace("อำเภอ", "").Trim();
+                    }
+                    if (txt.IndexOf("จังหวัด") >= 0)
+                    {
+                        String provname = txt.Replace("จังหวัด", "").Trim();
+                        //String provcode = bc.bcDB.pm09DB.getProvName(provname);
+                        txtPttIdChw.Value = txt.Replace("จังหวัด", "").Trim();
+                    }
+                    i++;
+                }
+            }
+            txtPttCurHomeNo.Value = txtPttIDHomeNo.Text;
+            txtPttCurMoo.Value = txtPttIDMoo.Text;
+            txtPttCurSoi.Value = txtPttIDSoi.Text;
+            txtPttCurRoad.Value = txtPttIDRoad.Text;
+            txtPttCurPostcode.Value = txtPttIDPostcode.Text;
+            txtPttCurSearchTambon.Value = txtPttIdSearchTambon.Text;
+            txtPttCurAmp.Value = txtPttIdAmp.Text;
+            txtPttCurChw.Value = txtPttIdChw.Text;
+            checkPaidSSO(txtPttwp1.Text.Trim());
+        }
         private void RbTxtHnSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1749,6 +1843,8 @@ namespace bangna_hospital.gui
                 ptt.MNC_DOM_TUM = bc.bcDB.pm07DB.getTambonCode(txtPttIdSearchTambon.Text.Trim());
                 ptt.MNC_DOM_AMP = bc.bcDB.pm07DB.getAmpCode(txtPttIdAmp.Text.Trim());
                 ptt.MNC_DOM_CHW = bc.bcDB.pm07DB.getChwCode(txtPttIdChw.Text.Trim());
+                if (txtPttIdChw.Text.Equals("กรุงเทพมหานคร")) txtPttIdChw.Value = "กรุงเทพ ฯ";
+                ptt.MNC_DOM_CHW = bc.bcDB.pm07DB.getChwCode(txtPttIdChw.Text.Trim());
                 ptt.MNC_DOM_POC = txtPttIDPostcode.Text.Length <= 5 ? txtPttIDPostcode.Text.Trim() : txtPttIDPostcode.Text.Substring(0, 5);
                 ptt.MNC_DOM_TEL = "";
                 err = "05";
@@ -3096,7 +3192,7 @@ namespace bangna_hospital.gui
                 txtVsHN.Value = "";                lbVsPttNameT.Text = "";                lbVsPttNameE.Text = "";                txtVsPaidCode.Value = "";
                 cboVsDept.SelectedIndex = 0;                txtVsRemark.Value = "";                txtVsNote.Value = "";                cboVsDtr.SelectedIndex = 0;
                 
-                cboVsType.SelectedItem = itemVsType;                picVsPtt.Image = null;
+                cboVsType.SelectedItem = itemVsType;                
                 //cboVsType.Text = "";
                 CHWCODE = ""; AMPCODE = ""; TAMBONCODE = ""; VSDATE = ""; PRENO = ""; QUENO = "";
                 

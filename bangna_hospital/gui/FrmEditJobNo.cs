@@ -18,7 +18,7 @@ namespace bangna_hospital.gui
     public partial class FrmEditJobNo : Form
     {
         BangnaControl bc;
-        C1FlexGrid grfHn, grfAn ,grfDeptVisit;
+        C1FlexGrid grfHn, grfAn ,grfDeptVisit, grfvoid;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B;
         int colgrfHnHN = 1, colgrfHnDocNo=2, colgrfHnDocDate=3, colgrfHnDocCD=4, colgrfHnDocSts=5,colgrfHnAmt=6, colgrfHnJobNo=7, colgrfHnJobNoOld = 8;
         int colgrfAnanno = 1, colgrfAnAdDate = 2;
@@ -64,7 +64,97 @@ namespace bangna_hospital.gui
             cboDeptNew.SelectedItemChanged += CboDeptNew_SelectedItemChanged;
             btnTokenNew.Click += BtnTokenNew_Click;
             btnTokenGen.Click += BtnTokenGen_Click;
+            txtVoidHN.KeyUp += TxtVoidHN_KeyUp;
+            btnVoid.Click += BtnVoid_Click;
+            txtDtrcode.KeyUp += TxtDtrcode_KeyUp;
+            btnDtrupdate.Click += BtnDtrupdate_Click;
+            txtDtrAppoint.KeyPress += TxtDtrAppoint_KeyPress;
             pageLoad = false;
+        }
+
+        private void TxtDtrAppoint_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+        private void BtnDtrupdate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(int.TryParse(txtDtrcode.Text.Trim(), out int flagFocus))
+            {
+                String re = bc.bcDB.pm26DB.updateAppoint(txtDtrcode.Text.Trim(), txtDtrAppoint.Text.Trim());
+            }
+        }
+        private void TxtDtrcode_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(e.KeyCode == Keys.Enter)
+            {
+                PatientM26 dtr = new PatientM26();
+                dtr = bc.bcDB.pm26DB.selectByPk(txtDtrcode.Text.Trim());
+                lbDtrName.Text = dtr.dtrname;
+                txtDtrAppoint.Value = dtr.MNC_APP_NO;
+            }
+        }
+        private void BtnVoid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedExceptio  
+            String re = bc.bcDB.vsDB.voidVisit(txtVoidHN.Text.Trim(),txtVoidpreno.Text.Trim(),txtVoidvsdate.Text.Trim());
+            txtVoidpreno.Value = "";
+            setGrfVoid();
+        }
+        private void setGrfVoid()
+        {
+            panel3.Controls.Clear();
+            
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.vsDB.selectByvsdate(txtVoidHN.Text.Trim(), txtVoidvsdate.Text.Trim());
+            if (dt.Rows.Count > 0)
+            {
+                grfvoid = new C1FlexGrid();
+                grfvoid.Rows.Count = 1;
+                grfvoid.Rows.Count = dt.Rows.Count + 1;
+                grfvoid.Cols.Count = 4;
+                grfvoid.AfterRowColChange += Grfvoid_AfterRowColChange;
+                panel3.Controls.Add(grfvoid);
+                int i = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    grfvoid[i, 1] = dr["MNC_DATE"].ToString();
+                    grfvoid[i, 2] = dr["MNC_PRE_NO"].ToString();
+                    grfvoid[i, 3] = dr["MNC_SHIF_MEMO"].ToString();
+                    i++;
+                }
+            }
+        }
+        private void TxtVoidHN_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+           if(e.KeyCode== Keys.Enter)
+            {
+                setGrfVoid();
+            }
+        }
+
+        private void Grfvoid_AfterRowColChange(object sender, RangeEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(grfvoid.Row==null) { return; }
+            txtVoidpreno.Value = grfvoid[grfvoid.Row, 2].ToString();
+        }
+
+        private void TxtVoidHN_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            
         }
 
         private void BtnTokenGen_Click(object sender, EventArgs e)
@@ -495,6 +585,7 @@ namespace bangna_hospital.gui
         private void FrmEditJobNo_Load(object sender, EventArgs e)
         {
             lb1.Text = "[hostDB " + bc.iniC.hostDB + " nameDB " + bc.iniC.nameDB + "] [hostDBMainHIS " + bc.iniC.hostDBMainHIS + " nameDBMainHIS " + bc.iniC.nameDBMainHIS+"]";
+            txtVoidvsdate.Value = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd"); 
         }
     }
 }

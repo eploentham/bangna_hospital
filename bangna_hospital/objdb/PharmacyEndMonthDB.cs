@@ -41,6 +41,19 @@ namespace bangna_hospital.objdb
             endyear.onhandnew = "onhandnew";
             endyear.table = "PHARMACY_ENDMONTH";
         }
+        public DataTable SelectByYear(String year, String month)
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "Select endyear.MNC_YEAR,endyear.MNC_MONTH,endyear.MNC_PH_CD,endyear.MNC_UNT_CD,endyear.MNC_DEP_NO, endyear.MNC_SEC_NO " +
+                ", endyear.MNC_PH_COST_AVG, endyear.MNC_PH_QTY_USE, endyear.MNC_PH_QTY, endyear.MNC_OLD_CD,pharm01.MNC_PH_TN, endyear.adjust, endyear.onhandnew " +
+                "From PHARMACY_ENDMONTH endyear " +
+                "left join BNG5_DBMS_FRONT.dbo.PHARMACY_M01 pharm01 on endyear.MNC_PH_CD = pharm01.MNC_PH_CD  " +
+                "Where endyear.MNC_YEAR = '" + year + "' and endyear.MNC_MONTH = '" + month + "' Order By MNC_PH_CD";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
         public DataTable SelectByYear(String year)
         {
             DataTable dt = new DataTable();
@@ -54,12 +67,12 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public String updateOnhandNew(String itemcode, String year, float onhandnew)
+        public String updateOnhandNew(String itemcode, String year, String month, float onhandnew)
         {
             String sql = "", re = "";
             sql = "update PHARMACY_ENDMONTH set " +
                 "onhandnew = '" + onhandnew + "' " +
-                "Where MNC_PH_CD = '" + itemcode + "' and MNC_YEAR = '" + year + "' and MNC_MONTH = '01' ";
+                "Where MNC_PH_CD = '" + itemcode + "' and MNC_YEAR = '" + year + "' and MNC_MONTH = '"+ month + "' ";
             try
             {
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);

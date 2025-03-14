@@ -700,6 +700,16 @@ namespace bangna_hospital.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Excel_Logo_PNG_Photo {
+            get {
+                object obj = ResourceManager.GetObject("Excel-Logo-PNG-Photo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ActiveReports_Excel.xlsx.
         /// </summary>
         public static string Excel2007FileName {

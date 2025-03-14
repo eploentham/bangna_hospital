@@ -72,7 +72,7 @@ namespace bangna_hospital.gui
             this.txtPttwp2 = new C1.Win.C1Input.C1TextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.txtPttwp1 = new C1.Win.C1Input.C1TextBox();
-            this.label63 = new System.Windows.Forms.Label();
+            this.lbalcode = new System.Windows.Forms.Label();
             this.m_picPhoto = new C1.Win.C1Input.C1PictureBox();
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
@@ -514,6 +514,7 @@ namespace bangna_hospital.gui
             this.txtAlienPID1 = new C1.Win.C1Input.C1TextBox();
             this.label68 = new System.Windows.Forms.Label();
             this.chkAlien1 = new C1.Win.C1Input.C1CheckBox();
+            this.c1Button2 = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -844,6 +845,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtAliendob1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkAlien1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -954,6 +956,7 @@ namespace bangna_hospital.gui
             // pnSrcTop
             // 
             this.pnSrcTop.Collapsible = true;
+            this.pnSrcTop.Controls.Add(this.c1Button2);
             this.pnSrcTop.Controls.Add(this.btnSrcCardRead);
             this.pnSrcTop.Controls.Add(this.btnSrcNew);
             this.pnSrcTop.Controls.Add(this.btnSrcOk);
@@ -970,7 +973,7 @@ namespace bangna_hospital.gui
             // btnSrcCardRead
             // 
             this.btnSrcCardRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnSrcCardRead.Location = new System.Drawing.Point(425, 3);
+            this.btnSrcCardRead.Location = new System.Drawing.Point(551, 3);
             this.btnSrcCardRead.Name = "btnSrcCardRead";
             this.btnSrcCardRead.Size = new System.Drawing.Size(84, 45);
             this.btnSrcCardRead.TabIndex = 109;
@@ -1075,7 +1078,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.Controls.Add(this.txtPttwp2);
             this.pnPttPatient.Controls.Add(this.label64);
             this.pnPttPatient.Controls.Add(this.txtPttwp1);
-            this.pnPttPatient.Controls.Add(this.label63);
+            this.pnPttPatient.Controls.Add(this.lbalcode);
             this.pnPttPatient.Controls.Add(this.m_picPhoto);
             this.pnPttPatient.Controls.Add(this.label46);
             this.pnPttPatient.Controls.Add(this.label45);
@@ -1333,15 +1336,16 @@ namespace bangna_hospital.gui
             this.txtPttwp1.TabIndex = 109;
             this.txtPttwp1.Tag = null;
             // 
-            // label63
+            // lbalcode
             // 
-            this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label63.Location = new System.Drawing.Point(4, 143);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(65, 16);
-            this.label63.TabIndex = 108;
-            this.label63.Text = "เลขบัตรชมพู";
+            this.lbalcode.AutoSize = true;
+            this.lbalcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbalcode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.lbalcode.Location = new System.Drawing.Point(4, 143);
+            this.lbalcode.Name = "lbalcode";
+            this.lbalcode.Size = new System.Drawing.Size(65, 16);
+            this.lbalcode.TabIndex = 108;
+            this.lbalcode.Text = "เลขบัตรชมพู";
             // 
             // m_picPhoto
             // 
@@ -6131,6 +6135,15 @@ namespace bangna_hospital.gui
             this.chkAlien1.UseVisualStyleBackColor = true;
             this.chkAlien1.Value = false;
             // 
+            // c1Button2
+            // 
+            this.c1Button2.Location = new System.Drawing.Point(448, 3);
+            this.c1Button2.Name = "c1Button2";
+            this.c1Button2.Size = new System.Drawing.Size(57, 23);
+            this.c1Button2.TabIndex = 110;
+            this.c1Button2.Text = "alcode";
+            this.c1Button2.UseVisualStyleBackColor = true;
+            // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6488,6 +6501,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtAliendob1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkAlien1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -6654,7 +6668,7 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1TextBox txtPttwp2;
         private System.Windows.Forms.Label label64;
         private C1.Win.C1Input.C1TextBox txtPttwp1;
-        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.Label lbalcode;
         private C1.Win.C1Input.C1TextBox txtPttwp3;
         private System.Windows.Forms.Label label65;
         private C1.Win.C1Input.C1TextBox txtPttNickName;
@@ -6980,5 +6994,6 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1TextBox txtAlienPID13;
         private C1.Win.C1Input.C1CheckBox chkAlien13;
         private C1.Win.C1Input.C1Button btnAlienGenVisitAll;
+        private C1.Win.C1Input.C1Button c1Button2;
     }
 }

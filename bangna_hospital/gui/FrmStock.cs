@@ -48,6 +48,7 @@ namespace bangna_hospital.gui
             initGrfEndYear();
             bc.setCboYear(cboRecYear);
             bc.setCboYear(cboEndYearYear);
+            bc.setCboMonth(cboEndYearMonth);
             FlagDRUG = "drug";
             if (FlagDRUG.Equals("drug")) { btnDrug.SmallImage = Resources.pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290; btnSupply.SmallImage = null; }
             if (FlagDRUG.Equals("drug")) { btnDrug.SmallImage = null; btnSupply.SmallImage = Resources.Ticket_24; }
@@ -59,13 +60,22 @@ namespace bangna_hospital.gui
             btnEndStockSave.Click += BtnEndStockSave_Click;
             txtEndYearSearch.KeyPress += TxtEndYearSearch_KeyPress;
             btnEndYearUpdate.Click += BtnEndYearUpdate_Click;
+            cboEndYearMonth.SelectedValueChanged += CboEndYearMonth_SelectedValueChanged;
 
             pageLoad = false;
+        }
+
+        private void CboEndYearMonth_SelectedValueChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            setGrfEndYear(cboEndYearYear.Text, cboEndYearMonth.SelectedValue.ToString());
         }
 
         private void BtnEndYearUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (cboEndYearMonth.SelectedValue.ToString().Length <= 0) { lfSbMessage.Text = "กรุณาเลือกเดือน";  return; }
             foreach (Row rowa in grfEndYear.Rows)
             {
                 if (rowa[colEndYearItemCode].ToString().Equals("code")) continue;
@@ -75,7 +85,7 @@ namespace bangna_hospital.gui
                     float onhandnew = 0;
                     onhandnew = (float)rowa[colEndYearItemOnhandNew];
                     String itemcode = (String)rowa[colEndYearItemCode];
-                    String re = bc.bcDB.endyearDB.updateOnhandNew(itemcode, cboEndYearYear.Text, onhandnew);
+                    String re = bc.bcDB.endyearDB.updateOnhandNew(itemcode, cboEndYearYear.Text, cboEndYearMonth.SelectedValue.ToString(), onhandnew);
                 }
             }
         }
@@ -106,7 +116,15 @@ namespace bangna_hospital.gui
         private void CboEndYearYear_SelectedValueChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setGrfEndYear(cboEndYearYear.Text);
+            if (pageLoad) return;
+            if(cboEndYearMonth.SelectedValue == null)
+            {
+                setGrfEndYear(cboEndYearYear.Text);
+            }
+            else
+            {
+                setGrfEndYear(cboEndYearYear.Text, cboEndYearMonth.SelectedValue.ToString());
+            }
         }
 
         private void CboRecYear_SelectedValueChanged(object sender, EventArgs e)
@@ -196,7 +214,37 @@ namespace bangna_hospital.gui
             }
 
         }
+        private void setGrfEndYear(String year, String month)
+        {
+            showLbLoading();
+            DataTable dt = new DataTable();
+            //MessageBox.Show("hn "+hn, "");
+            dt = bc.bcDB.endyearDB.SelectByYear(year, month);
+            int i = 1, j = 1, row = grfEndYear.Rows.Count;
 
+            grfEndYear.Rows.Count = 1;
+            grfEndYear.Rows.Count = dt.Rows.Count + 1;
+            //pB1.Maximum = dt.Rows.Count;
+            foreach (DataRow row1 in dt.Rows)
+            {
+                //pB1.Value++;
+                Row rowa = grfEndYear.Rows[i];
+
+                rowa[colEndYearItemCode] = row1["MNC_PH_CD"].ToString();
+                rowa[colEndYearItemName] = row1["MNC_PH_TN"].ToString();
+                rowa[colEndYearItemOnhand] = row1["MNC_PH_QTY"].ToString();
+                rowa[colEndYearItemUnit] = row1["MNC_UNT_CD"].ToString();
+                rowa[colEndYearItemAdjust] = row1["adjust"].ToString();
+
+                rowa[colEndYearItemOnhandNew] = row1["onhandnew"].ToString();
+
+                rowa[colEndYearItemEdit] = "0";
+
+                rowa[0] = i;
+                i++;
+            }
+            hideLbLoading();
+        }
         private void setGrfEndYear(String year)
         {
             showLbLoading();
