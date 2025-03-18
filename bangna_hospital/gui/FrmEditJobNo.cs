@@ -2,7 +2,11 @@
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using C1.Win.C1FlexGrid;
+using C1.Win.C1Input;
 using C1.Win.C1Themes;
+using PCSC.Exceptions;
+using PCSC.Utils;
+using PCSC;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,9 +73,114 @@ namespace bangna_hospital.gui
             txtDtrcode.KeyUp += TxtDtrcode_KeyUp;
             btnDtrupdate.Click += BtnDtrupdate_Click;
             txtDtrAppoint.KeyPress += TxtDtrAppoint_KeyPress;
+            c1Button2.Click += C1Button2_Click;
             pageLoad = false;
         }
 
+        // Inside the C1Button2_Click method
+        private void C1Button2_Click(object sender, EventArgs e)
+        {
+            //var contextFactory = ContextFactory.Instance;
+            //using (var context = contextFactory.Establish(SCardScope.System))
+            //{
+            //    var readerNames = context.GetReaders();
+            //    if (readerNames == null || readerNames.Length == 0)
+            //    {
+            //        Console.WriteLine("No smart card readers found.");
+            //        return;
+            //    }
+
+            //    var readerName = readerNames[0];
+            //    Console.WriteLine($"Using reader: {readerName}");
+
+            //    using (var reader = context.ConnectReader(readerName, SCardShareMode.Shared, SCardProtocol.Any))
+            //    {
+            //        var apdu = new CommandAPDU(IsoCase.Case2Short, reader.Protocol)
+            //        {
+            //            CLA = 0x80, // Class
+            //            INS = 0xB0, // Instruction
+            //            P1 = 0x00,  // Parameter 1
+            //            P2 = 0x11,  // Parameter 2
+            //            Lc = 0x02,
+            //            Data = 0x00,
+            //            Le = 0x64   // Expected length of the response
+            //        };
+            //        //var fullNameThApdu = new CommandAPDU(IsoCase.Case2Short, reader.Protocol)
+            //        //{
+            //        //    CLA = 0x80,
+            //        //    INS = 0xB0,
+            //        //    P1 = 0x00,
+            //        //    P2 = 0x11,
+            //        //    Le = 0x64
+            //        //};
+            //        //ReadAndPrintData(reader, fullNameThApdu, "Full Name (TH)");
+            //        var receivePci = new SCardPCI(); // IO returned protocol control information.
+            //        var sendPci = SCardPCI.GetPci(reader.Protocol); // Protocol Control Information (T0, T1 or Raw)
+            //        var receiveBuffer = new byte[256];
+            //        var command = apdu.ToArray();
+
+            //        var bytesReceived = reader.Transmit(
+            //                sendPci, // Protocol Control Information (T0, T1 or Raw)
+            //                command, // command APDU
+            //                command.Length,
+            //                receivePci, // returning Protocol Control Information
+            //                receiveBuffer,
+            //                receiveBuffer.Length); // data buffer
+
+            //        var responseApdu = new ResponseApdu(receiveBuffer, bytesReceived, IsoCase.Case2Short, reader.Protocol);
+            //        Console.WriteLine("SW1: {0:X2}, SW2: {1:X2}\nUid: {2}",
+            //            responseApdu.SW1,
+            //            responseApdu.SW2,
+            //            responseApdu.HasData ? BitConverter.ToString(responseApdu.GetData()) : "No uid received");
+            //    }
+            //}
+            //try
+            //{
+            //    ThaiNationalIDCardReader cardReader = new ThaiNationalIDCardReader();
+            //    PersonalPhoto personalPhoto = cardReader.GetPersonalPhoto();
+
+            //    Console.WriteLine($"CitizenID: {personalPhoto.CitizenID}");
+            //    Console.WriteLine($"ThaiPersonalInfo: {personalPhoto.ThaiPersonalInfo}");
+            //    Console.WriteLine($"EnglishPersonalInfo: {personalPhoto.EnglishPersonalInfo}");
+            //    Console.WriteLine($"DateOfBirth: {personalPhoto.DateOfBirth}");
+            //    Console.WriteLine($"Sex: {personalPhoto.Sex}");
+            //    Console.WriteLine($"AddressInfo: {personalPhoto.AddressInfo}");
+            //    Console.WriteLine($"IssueDate: {personalPhoto.IssueDate}");
+            //    Console.WriteLine($"ExpireDate: {personalPhoto.ExpireDate}");
+            //    Console.WriteLine($"Issuer: {personalPhoto.Issuer}");
+            //    Console.WriteLine($"Photo: {personalPhoto.Photo}");
+            //}
+            //catch (Exception e1)
+            //{
+            //    Console.WriteLine(e1);
+            //}
+        }
+        private void ReadAndPrintData(ICardReader reader, CommandAPDU apdu, string fieldName)
+        {
+            var receivePci = new SCardPCI(); // IO returned protocol control information.
+            var sendPci = SCardPCI.GetPci(reader.Protocol); // Protocol Control Information (T0, T1 or Raw)
+            var receiveBuffer = new byte[256];
+            var command = apdu.ToArray();
+            byte[] citizenID = { 0x80, 0xb0, 0x00, 0x04, 0x02, 0x00, 0x0d };
+            var bytesReceived = reader.Transmit(
+                    sendPci, // Protocol Control Information (T0, T1 or Raw)
+                    citizenID, // command APDU
+                    command.Length,
+                    receivePci, // returning Protocol Control Information
+                    receiveBuffer,
+                    receiveBuffer.Length); // data buffer
+
+            var responseApdu = new ResponseApdu(receiveBuffer, bytesReceived, IsoCase.Case2Short, reader.Protocol);
+            if (responseApdu.HasData)
+            {
+                var data = Encoding.ASCII.GetString(responseApdu.GetData());
+                Console.WriteLine($"{fieldName}: {data}");
+            }
+            else
+            {
+                Console.WriteLine($"{fieldName}: No data received.");
+            }
+        }
         private void TxtDtrAppoint_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();

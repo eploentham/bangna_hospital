@@ -658,7 +658,7 @@ namespace bangna_hospital.control
 
             item = new ComboBoxItem();
             item.Value = "A";
-            item.Text = "แพทย์นัด Appoint";
+            item.Text = "แพทย์นัด Appionment";
             c.Items.Add(item);
 
             return c;

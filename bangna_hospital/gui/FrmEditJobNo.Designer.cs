@@ -119,6 +119,8 @@
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.c1DockingTabPage8 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1Button2 = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNoCur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNo)).BeginInit();
@@ -168,6 +170,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnDtrupdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
+            this.c1DockingTabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPttHn
@@ -332,6 +336,7 @@
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage5);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage6);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage7);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage8);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
@@ -1142,6 +1147,25 @@
             this.rb2.Name = "rb2";
             this.rb2.Text = "Label";
             // 
+            // c1DockingTabPage8
+            // 
+            this.c1DockingTabPage8.Controls.Add(this.c1Button2);
+            this.c1DockingTabPage8.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage8.Name = "c1DockingTabPage8";
+            this.c1DockingTabPage8.Size = new System.Drawing.Size(1072, 459);
+            this.c1DockingTabPage8.TabIndex = 7;
+            this.c1DockingTabPage8.Text = "test app";
+            // 
+            // c1Button2
+            // 
+            this.c1Button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button2.Location = new System.Drawing.Point(24, 23);
+            this.c1Button2.Name = "c1Button2";
+            this.c1Button2.Size = new System.Drawing.Size(138, 45);
+            this.c1Button2.TabIndex = 123;
+            this.c1Button2.Text = "read smart card";
+            this.c1Button2.UseVisualStyleBackColor = true;
+            // 
             // FrmEditJobNo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1209,6 +1233,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnDtrupdate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
+            this.c1DockingTabPage8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1307,5 +1333,7 @@
         private C1.Win.C1Input.C1Button btnDtrupdate;
         private System.Windows.Forms.Label label20;
         private C1.Win.C1Input.C1TextBox txtDtrcode;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage8;
+        private C1.Win.C1Input.C1Button c1Button2;
     }
 }

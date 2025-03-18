@@ -1300,7 +1300,7 @@ namespace bangna_hospital.gui
                 vs.DeptCode = txtDoeDeptNew.Text.Trim();
                 vs.remark = "doealien";
                 err = "02";
-                vs.VisitType = "P";//ใน source  Fieldนี้ MNC_PT_FLG
+                vs.VisitType = "P";//ใน source  Fieldนี้ MNC_PT_FLG Package ให้เป็น P
                 vs.DoctorId = bc.iniC.dtrcode;      //IF CboDotCD.TEXT = '' THEN MNC_DOT_CD:= '00000'
                 if (vs.DoctorId.Length <= 0) vs.DoctorId = "00000";
                 vs.VisitNote = "doealien";

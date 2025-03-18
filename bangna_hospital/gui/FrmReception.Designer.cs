@@ -42,6 +42,7 @@ namespace bangna_hospital.gui
             this.tabSrc = new C1.Win.C1Command.C1DockingTabPage();
             this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnSrcTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1Button2 = new C1.Win.C1Input.C1Button();
             this.btnSrcCardRead = new C1.Win.C1Input.C1Button();
             this.btnSrcNew = new C1.Win.C1Input.C1Button();
             this.btnSrcOk = new C1.Win.C1Input.C1Button();
@@ -514,7 +515,6 @@ namespace bangna_hospital.gui
             this.txtAlienPID1 = new C1.Win.C1Input.C1TextBox();
             this.label68 = new System.Windows.Forms.Label();
             this.chkAlien1 = new C1.Win.C1Input.C1CheckBox();
-            this.c1Button2 = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -522,6 +522,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
             this.pnSrcTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcCardRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).BeginInit();
@@ -845,7 +846,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtAliendob1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkAlien1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -969,6 +969,15 @@ namespace bangna_hospital.gui
             this.pnSrcTop.SizeRatio = 6.619D;
             this.pnSrcTop.TabIndex = 0;
             this.pnSrcTop.Text = "Panel 1";
+            // 
+            // c1Button2
+            // 
+            this.c1Button2.Location = new System.Drawing.Point(448, 3);
+            this.c1Button2.Name = "c1Button2";
+            this.c1Button2.Size = new System.Drawing.Size(57, 23);
+            this.c1Button2.TabIndex = 110;
+            this.c1Button2.Text = "alcode";
+            this.c1Button2.UseVisualStyleBackColor = true;
             // 
             // btnSrcCardRead
             // 
@@ -6135,15 +6144,6 @@ namespace bangna_hospital.gui
             this.chkAlien1.UseVisualStyleBackColor = true;
             this.chkAlien1.Value = false;
             // 
-            // c1Button2
-            // 
-            this.c1Button2.Location = new System.Drawing.Point(448, 3);
-            this.c1Button2.Name = "c1Button2";
-            this.c1Button2.Size = new System.Drawing.Size(57, 23);
-            this.c1Button2.TabIndex = 110;
-            this.c1Button2.Text = "alcode";
-            this.c1Button2.UseVisualStyleBackColor = true;
-            // 
             // FrmReception
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6162,6 +6162,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer1.ResumeLayout(false);
             this.pnSrcTop.ResumeLayout(false);
             this.pnSrcTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcCardRead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).EndInit();
@@ -6501,7 +6502,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.txtAliendob1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAlienPID1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkAlien1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

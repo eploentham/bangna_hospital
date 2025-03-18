@@ -2173,8 +2173,6 @@ namespace bangna_hospital.gui
             {
                 dtvs = bc.bcDB.pt07DB.selectByHnAll(txtApmHn.Text.Trim(), "desc");
             }
-            
-            
             grfApm.Rows.Count = 1; grfApm.Rows.Count = dtvs.Rows.Count + 1;
             int i = 1, j = 1;
             foreach (DataRow row1 in dtvs.Rows)

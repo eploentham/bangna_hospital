@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -215,6 +215,12 @@
     <Reference Include="Npgsql, Version=2.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.2.2.7\lib\net40\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="PCSC, Version=7.0.0.0, Culture=neutral, PublicKeyToken=13b76e54a2ee80a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\PCSC.7.0.0\lib\netstandard2.0\PCSC.dll</HintPath>
+    </Reference>
+    <Reference Include="PCSC.Iso7816, Version=7.0.0.0, Culture=neutral, PublicKeyToken=13b76e54a2ee80a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\PCSC.Iso7816.7.0.0\lib\netstandard2.0\PCSC.Iso7816.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -245,6 +251,9 @@
     </Reference>
     <Reference Include="System.Speech, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Speech.9.0.0\lib\netstandard2.0\System.Speech.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.9.0.3\lib\netstandard2.0\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Encodings.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.8.0.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
@@ -921,6 +930,10 @@
     <Compile Include="objdb\TokenDB.cs" />
     <Compile Include="objdb\XrayM05DB.cs" />
     <Compile Include="object1\AipnXmlFile.cs" />
+    <Compile Include="object1\Apdu.cs" />
+    <Compile Include="object1\ClaHighPart.cs" />
+    <Compile Include="object1\ClassByte.cs" />
+    <Compile Include="object1\CommandAPDU.cs" />
     <Compile Include="object1\ConnectBangna5.cs" />
     <Compile Include="object1\DocScanOutLab.cs" />
     <Compile Include="object1\Doctor.cs" />
@@ -1019,6 +1032,11 @@
     <Compile Include="object1\FLocation.cs" />
     <Compile Include="object1\Graphics_DrawRtfText.cs" />
     <Compile Include="object1\ImageRenderListener.cs" />
+    <Compile Include="object1\InstructionByte.cs" />
+    <Compile Include="object1\InstructionCode.cs" />
+    <Compile Include="object1\Interfaces\IThaiNationalIDCardAPDUCommand.cs" />
+    <Compile Include="object1\InvalidApduException.cs" />
+    <Compile Include="object1\IsoCase.cs" />
     <Compile Include="object1\Item.cs" />
     <Compile Include="object1\JwtTokenGenerator.cs" />
     <Compile Include="object1\LabCovidDetected.cs" />
@@ -1035,6 +1053,13 @@
     <Compile Include="object1\LisLabRequest.cs" />
     <Compile Include="object1\LisLabResult.cs" />
     <Compile Include="object1\MedicalCertificate.cs" />
+    <Compile Include="object1\Models\AddressInfo.cs" />
+    <Compile Include="object1\Models\Personal.cs" />
+    <Compile Include="object1\Models\PersonalInfo.cs" />
+    <Compile Include="object1\Models\PersonalPhoto.cs" />
+    <Compile Include="object1\Models\ThaiNationalIDCardAPDUCommand.cs" />
+    <Compile Include="object1\Models\ThaiNationalIDCardAPDUCommandType01.cs" />
+    <Compile Include="object1\Models\ThaiNationalIDCardAPDUCommandType02.cs" />
     <Compile Include="object1\Nation.cs" />
     <Compile Include="object1\OPBKKAER.cs" />
     <Compile Include="object1\OPBKKCHA.cs" />
@@ -1096,7 +1121,9 @@
     <Compile Include="object1\RDNIDWRAPPER.cs" />
     <Compile Include="object1\REQDETAILDEPT.cs" />
     <Compile Include="object1\REQHEADDEPT.cs" />
+    <Compile Include="object1\ResponseApdu.cs" />
     <Compile Include="object1\RestAPI.cs" />
+    <Compile Include="object1\SecureMessagingFormat.cs" />
     <Compile Include="object1\SubDistrict.cs" />
     <Compile Include="object1\SummaryT03.cs" />
     <Compile Include="object1\SupraHospital.cs" />
@@ -1104,6 +1131,7 @@
     <Compile Include="object1\TemporaryM01.cs" />
     <Compile Include="object1\TemporaryM02.cs" />
     <Compile Include="object1\TFingerScan.cs" />
+    <Compile Include="object1\ThaiNationalIDCardReader.cs" />
     <Compile Include="object1\Token.cs" />
     <Compile Include="object1\TokenLogin.cs" />
     <Compile Include="object1\TokenService.cs" />

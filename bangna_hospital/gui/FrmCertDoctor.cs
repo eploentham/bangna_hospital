@@ -1759,7 +1759,6 @@ namespace bangna_hospital.gui
         }
         private void FrmCertDoctor_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2024-11-22 fix ข้อ4 วันที่ผิด big font ";
         }
     }
 }

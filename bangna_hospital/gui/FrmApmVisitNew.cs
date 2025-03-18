@@ -634,7 +634,7 @@ namespace bangna_hospital.gui
             vs.DeptCode = cboAppViewDept.SelectedItem == null ? "" : ((ComboBoxItem)cboAppViewDept.SelectedItem).Value;
             vs.remark = txtAppRemark.Text.Trim();
             err = "02";
-            vs.VisitType = "P";                 //ใน source  Fieldนี้ MNC_PT_FLG
+            vs.VisitType = "A";                 //ใน source  Fieldนี้ MNC_PT_FLG appoint ให้เป็น A
             vs.DoctorId = "0";       //IF CboDotCD.TEXT = '' THEN MNC_DOT_CD:= '00000'
             vs.VisitNote = "";
             if (vs.PaidCode.Equals("02"))
@@ -863,7 +863,7 @@ namespace bangna_hospital.gui
             vs.DeptCode = cboVsDept.SelectedItem == null ? "" : ((ComboBoxItem)cboVsDept.SelectedItem).Value;
             vs.remark = txtAppRemark.Text.Trim();
             err = "02";
-            vs.VisitType = "P";                 //ใน source  Fieldนี้ MNC_PT_FLG
+            vs.VisitType = "A";                 //ใน source  Fieldนี้ MNC_PT_FLG Appointment
             vs.DoctorId = txtApmDoctorId.Text.Trim();       //IF CboDotCD.TEXT = '' THEN MNC_DOT_CD:= '00000'
             if(vs.DoctorId.Length <= 0) vs.DoctorId = "00000";
             vs.VisitNote = "";
@@ -891,7 +891,7 @@ namespace bangna_hospital.gui
         }
         private void FrmApmVisitNew_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2025-03-07";
+            this.Text = "Last Update 2025-03-17";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

@@ -45,6 +45,7 @@ namespace bangna_hospital.gui
         Patient ptt;
         C1FlexGrid grfSrc, grfPttComp, grfPttVs, grfPttApm, grfRptReport, grfRptData, grfCust1, grfVsPttVisit, grfToday, grfApm, grfWard, grfSSO;
         C1ThemeController theme1;
+        //ThaiNationalIDCardReader idcard;
 
         Label lbLoading;
 
