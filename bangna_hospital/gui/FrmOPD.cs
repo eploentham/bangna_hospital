@@ -699,10 +699,12 @@ namespace bangna_hospital.gui
         }
         private void genCheckUPAlienPDF()
         {
+            //new LogWriter("d", "FrmOPD genCheckUPAlienPDF ");
             String filename = "";
             int gapLine = 14, linenumber = 5, gapX = 40, gapY = 20, xCol1 = 20, xCol2 = 40, xCol3 = 100, xCol4 = 200, xCol5 = 250, xCol6 = 300, xCol7 = 450, xCol8 = 510;
             String certid = "";
             certid = chkCheckUPEditCert.Checked ? insertCertDoctor("edit") : insertCertDoctor("");
+            //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 00");
             bc.bcDB.vsDB.updateMedicalCertId(txtCheckUPHN.Text.Trim(), PRENO, VSDATE, certid);
             if (txtCheckUPDoctorId.Text.Trim().Equals("24738")) {
                 bc.bcDB.tokenDB.updateUsed(txtCheckUPDoctorId.Text.Trim(), "cert_alien", certid);       // ทำเพื่อ จะได้ มีระบบ ลายเซ็นแพทย์ เป็นแบบรูปภาพ แล้วมีการเก็บ ลง ใน ระบบ
@@ -721,6 +723,7 @@ namespace bangna_hospital.gui
             _sfCenter.Alignment = StringAlignment.Center;
             _sfLeft.Alignment = StringAlignment.Near;
             pdf.FontType = FontTypeEnum.Embedded;
+            //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 01");
             filename = certid + "_"+txtCheckUPHN.Text.Trim() + "_alien_" + DateTime.Now.Year.ToString() + ".pdf";
             try
             {
@@ -861,6 +864,7 @@ namespace bangna_hospital.gui
                     pdf.DrawString("/", famt7B, Brushes.Black, new PointF(xxx, linenumber - 8), _sfLeft);
                 }
                 pdf.DrawString("ผลการตรวจอื่นๆ (ถ้ามี) ..................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(txtAlienOther.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2 + 100, linenumber - 5), _sfLeft);
                 //linenumber += gapLine;
                 pdf.DrawString("สรุปผลตรวจ", fPDFl2, Brushes.Black, new PointF((PageSize.A4.Width / 2)-30, linenumber += (gapLine + 5)), _sfLeft);
                 pdf.DrawString("1. [  ] สุขภาพสมบูรณ์ดี", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
@@ -886,26 +890,27 @@ namespace bangna_hospital.gui
                 RectangleF recfqrcode = new RectangleF(xCol2 + 465, lineqrcode-10, imgqrcode.Width, imgqrcode.Height+20);
                 pdf.DrawImage(imgqrcode, recfqrcode);
                 //ถ้าใน Folder sign มีรูป ให้แสดง ลงใน PDF
+                //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 02");
                 String signFileName = Environment.CurrentDirectory + "\\sign\\sign_"+ txtCheckUPDoctorId.Text.Trim() + ".jpg";
                 if (File.Exists(signFileName))
                 {
-                    Image imgSign = null;
-                    imgSign = Image.FromFile(signFileName);
+                    //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 03");
+                    Image imgSign = null;                    imgSign = Image.FromFile(signFileName);
                     float newWidthsign = imgSign.Width * 100 / imgSign.HorizontalResolution, newHeightsign = imgSign.Height * 100 / imgSign.VerticalResolution;
-                    //float widthFactorsign = 60.8F, heightFactorsign = 60.8F;
+                    float widthFactorsign = 60.8F, heightFactorsign = 60.8F;
                     RectangleF recfSign = new RectangleF(xCol4 + 75, linesign - 32, 90, 30);
                     pdf.DrawImage(imgSign, recfSign);
-                    RectangleF recflogo1 = new RectangleF(xCol4 + 235, linesign - 72, (int)newWidth, (int)newHeight);
-                    pdf.DrawImage(loadedImagelogo, recflogo1);
-                    MemoryStream ms = new MemoryStream();
-                    pdf.Save(ms);
-                    ms.Position = 0;
-                    if (txtCheckUPDoctorId.Text.Trim().Equals("24738"))
-                    {//online ให้ส่งไปที่ server FTP ถ้าเป็น offline ต้อง scan เลยไม่ต้อง
-                        FtpClient ftpc = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, false);
-                        ftpc.upload(bc.iniC.folderFTPCertMeddoe + "/" + filename, ms);
-                    }
+                    //MemoryStream ms = new MemoryStream();                    pdf1.Save(ms);                    ms.Position = 0;
+                    //if (txtCheckUPDoctorId.Text.Trim().Equals("24738"))
+                    //{//online ให้ส่งไปที่ server FTP ถ้าเป็น offline ต้อง scan เลยไม่ต้อง
+                    //    FtpClient ftpc = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, false);
+                    //    ftpc.upload(bc.iniC.folderFTPCertMeddoe + "/" + filename, ms);
+                    //}
+                    //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 04");
                 }
+                RectangleF recflogo1 = new RectangleF(xCol4 + 235, linesign - 72, (int)newWidth, (int)newHeight);
+                pdf.DrawImage(loadedImagelogo, recflogo1);
+                //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 05 "+ patheName + filename);
                 pdf.Save(patheName + filename);
             }
             catch (Exception ex) {
@@ -3043,16 +3048,23 @@ namespace bangna_hospital.gui
             {
                 if (txtOperHN.Text.Length <= 0) { return; }
             }
-            
+            //new LogWriter("e", "FrmOPD printStaffNote 00");
             PrintDocument documentStaffNote = new PrintDocument();
             documentStaffNote.PrinterSettings.PrinterName = bc.iniC.printerStaffNote;
             documentStaffNote.DefaultPageSettings.Landscape = true;
             if (TEMPLATESTAFFNOTE.Equals("1"))
             {
+                //new LogWriter("e", "FrmOPD printStaffNote 01");
                 documentStaffNote.PrintPage += Document_PrintPageStaffNote;
             }
             else if (TEMPLATESTAFFNOTE.Equals("checkup_doe"))
             {
+                //new LogWriter("e", "FrmOPD printStaffNote 02");
+                documentStaffNote.PrintPage += Document_PrintPageStaffNote;
+            }
+            else
+            {
+                //new LogWriter("e", "FrmOPD printStaffNote 02");
                 documentStaffNote.PrintPage += Document_PrintPageStaffNote;
             }
             documentStaffNote.Print();
@@ -3084,7 +3096,7 @@ namespace bangna_hospital.gui
             col2int = int.Parse(col2.ToString());
             yPosint = int.Parse(yPos.ToString());
             col40int = int.Parse(col40.ToString());
-            
+            //new LogWriter("e", "FrmOPD Document_PrintPageStaffNote 00 ");
             col2 = 65;
             col3 = 320;
             col4 = 880;
@@ -3215,7 +3227,7 @@ namespace bangna_hospital.gui
             line = "Precaution (Med) _________________________________________ ";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 , yPos + 250, flags);
-
+            //new LogWriter("e", "FrmOPD Document_PrintPageStaffNote 01 ");
             line = "แพ้ยา/อาหาร/อื่นๆ         ไม่มี";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 180, flags);
@@ -3259,21 +3271,24 @@ namespace bangna_hospital.gui
                 if (grfChkPackItems.Rows.Count > 0)
                 {
                     float lineY = (yPos + 350);
-                    if (chkCheckUPSelect.Checked && ((ComboBoxItem)cboCheckUPSelect.SelectedItem).Value.ToString().Equals("doeonline"))
+                    if (cboCheckUPSelect.SelectedItem != null)
                     {
-                        String txt1 = ((ComboBoxItem)cboCheckUPOrder.SelectedItem).Value.ToString();
-                        String txt2 = cboCheckUPOrder.Text;
-                        e.Graphics.DrawString(txt1+" "+ txt2, fStaffN, Brushes.Black, col40int + 20, lineY, flags);
-                    }
-                    foreach (Row row in grfChkPackItems.Rows)
-                    {
-                        if (row[colChkPackItemsname] == null) continue;
-                        if (row[colChkPackItemsname].ToString().Length <= 0) continue;
-                        if (row[colChkPackItemsname].ToString().Equals("name")) continue;
-                        line = row[colChkPackItemsname].ToString();
-                        textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-                        e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 20, lineY, flags);
-                        lineY += 27;
+                        if (chkCheckUPSelect.Checked && ((ComboBoxItem)cboCheckUPSelect.SelectedItem).Value.ToString().Equals("doeonline"))
+                        {
+                            String txt1 = ((ComboBoxItem)cboCheckUPOrder.SelectedItem).Value.ToString();
+                            String txt2 = cboCheckUPOrder.Text;
+                            e.Graphics.DrawString(txt1 + " " + txt2, fStaffN, Brushes.Black, col40int + 20, lineY, flags);
+                        }
+                        foreach (Row row in grfChkPackItems.Rows)
+                        {
+                            if (row[colChkPackItemsname] == null) continue;
+                            if (row[colChkPackItemsname].ToString().Length <= 0) continue;
+                            if (row[colChkPackItemsname].ToString().Equals("name")) continue;
+                            line = row[colChkPackItemsname].ToString();
+                            textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
+                            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 20, lineY, flags);
+                            lineY += 27;
+                        }
                     }
                 }
             }
@@ -6505,7 +6520,7 @@ namespace bangna_hospital.gui
                 }
                 else
                 {
-                    DataTable dtvs = bc.bcDB.vsDB.selectByvsdate(HN);
+                    DataTable dtvs = bc.bcDB.vsDB.selectByvsdateAllVoid(HN);        // เอาที่ ยกเลิก มาแสดงด้วย
                     ROWGrfOper = 0;
                     if (dtvs.Rows.Count == 1)
                     {
@@ -7342,7 +7357,7 @@ namespace bangna_hospital.gui
             txtCheckUPAddr1.Text = PTT.MNC_CUR_ADD + " " + moo + soi + road + " " + tambon +" "+ poc;
             txtCheckUPAddr3.Text = PTT.MNC_CUR_ADD + " " + moo + soi + road + " " + tambon + " " + poc;//ที่อยู่ลูกจ้าง
             //คุยกับอิวปชส ให้เอา ที่อยู่ต่างด้าวกับที่อยู่นายจ้างเป็นที่อยู่เดียวกัน
-
+            
             //if (PTT.MNC_SEX.Equals("")) cboCheckUPSex.Text = "";
             String packagecode = "";        //ต้องหา package code ให้ได้ จะได้รู้ว่ารายการตรวจอะไรบ้าง
             if (chkCheckUPSelect.Checked && ((ComboBoxItem)cboCheckUPSelect.SelectedItem).Value.ToString().Equals("doeonline"))
@@ -7451,6 +7466,7 @@ namespace bangna_hospital.gui
             
             DateTime.TryParse(txtPttApmDate.Text, out DateTime apmdate);
             if (apmdate == null) return null;
+            if (apmdate.Year < 1900) apmdate = apmdate.AddYears(543);
             PatientT07 apm = new PatientT07();
             apm.MNC_HN_NO = txtOperHN.Text.Trim();
             apm.MNC_HN_YR = VS.MNC_HN_YR;
@@ -7471,7 +7487,7 @@ namespace bangna_hospital.gui
             apm.MNC_DEP_NO = DEPTNO;
             apm.MNC_SECR_NO = cboApmDept.SelectedItem == null ? "" : ((ComboBoxItem)cboApmDept.SelectedItem).Value;
             apm.MNC_DEPR_NO = bc.bcDB.pm32DB.getDeptNoOPD(apm.MNC_SECR_NO);
-
+            apm.apm_time = txtApmTime.Text.Trim();
             //apm.MNC_SEC_NO = cboApmDept.SelectedItem == null ? "" : ((ComboBoxItem)cboApmDept.SelectedItem).Value;
             return apm;
         }
@@ -7613,7 +7629,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2025-03-06 นัด alien";
+            this.Text = "Last Update 2025-03-21 แก้นัดแพทย์, เพิ่ม ผลการตรวจผิดปกติ ถ้ามี นัด alien";
             lfSbMessage.Text = "";
             btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;
             btnOperSaveDtr.Left = pnVitalSign.Width - btnOperSaveDtr.Width - btnPrnCertMed.Width - 20;

@@ -68,7 +68,7 @@ namespace bangna_hospital.objdb
             pt07.remark_call = "remark_call";
             pt07.status_remark_call = "status_remark_call";
             pt07.remark_call_date = "remark_call_date";
-
+            pt07.apm_time = "apm_time";
             pt07.table = "PATIENT_T07";//Table Appointment
         }
         public DataTable selectByHnAll(String hn, String sort1)
@@ -431,7 +431,7 @@ namespace bangna_hospital.objdb
             }
             else
             {
-                chk = update(p.MNC_DOC_YR, p.MNC_DOC_NO, p.MNC_SECR_NO, p.MNC_DEPR_NO, p.MNC_APP_DSC, p.MNC_APP_TEL, p.MNC_APP_DAT, p.MNC_APP_TIM);
+                chk = update(p.MNC_DOC_YR, p.MNC_DOC_NO, p.MNC_SECR_NO, p.MNC_DEPR_NO, p.MNC_APP_DSC, p.MNC_APP_TEL, p.MNC_APP_DAT, p.MNC_APP_TIM, p.apm_time);
             }
 
             return chk;
@@ -509,9 +509,8 @@ namespace bangna_hospital.objdb
                     pt07.MNC_SEND_DAT + "," + pt07.MNC_SEND_TIM + "," + pt07.MNC_SEND_VN + "," +
                     pt07.MNC_USR_UPD + "," + pt07.MNC_VN_NO + "," + pt07.MNC_VN_SEQ + "," +
                     pt07.MNC_VN_SUM + "," + pt07.MNC_APP_TIM_E + "," + pt07.MNC_APP_TYP + "," +
-                    pt07.remark_call + "," + pt07.status_remark_call + "," + pt07.remark_call_date + " " +
-                //    pt07.MNC_AN_YR + "," + pt07.MNC_STAMP_DAT + "," + pt07.MNC_STAMP_TIM + " " +
-
+                    pt07.remark_call + "," + pt07.status_remark_call + "," + pt07.remark_call_date + "," +
+                    pt07.apm_time + " " +
                     ") " +
                     "Values( '" +
                     p.MNC_HN_NO + "','" + p.MNC_HN_YR + "','" + p.MNC_DATE + "','" +
@@ -528,8 +527,8 @@ namespace bangna_hospital.objdb
                     p.MNC_SEND_DAT + "','" + p.MNC_SEND_TIM + "','" + p.MNC_SEND_VN + "','" +
                     p.MNC_USR_UPD + "','" + p.MNC_VN_NO + "','" + p.MNC_VN_SEQ + "','" +
                     p.MNC_VN_SUM + "','" + p.MNC_APP_TIM_E + "','" + p.MNC_APP_TYP + "','" +
-                    p.remark_call + "','" + p.status_remark_call + "','" + p.remark_call_date + "' " +
-                //    p.MNC_AN_YR + "',convert(varchar(20), getdate(),23),REPLACE(convert(varchar(5),getdate(),108),':','') " +
+                    p.remark_call + "','" + p.status_remark_call + "','" + p.remark_call_date + "','" +
+                    p.apm_time + "' " +
                     ") ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 //new LogWriter("d", "insert Patient chk " + chk);
@@ -541,7 +540,7 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
-        public String update(String docyear, String docno, String secno, String deptno, String apmdesc, String ptttel, String apmdate, String apmtime)
+        public String update(String docyear, String docno, String secno, String deptno, String apmdesc, String ptttel, String apmdate, String apmtime, String apmtime1)
         {
             String sql = "", chk = "", hn = "";
             long hn1 = 0;
@@ -554,7 +553,7 @@ namespace bangna_hospital.objdb
                     + "," + pt07.MNC_APP_TEL + " = '" + ptttel + "' "
                     + "," + pt07.MNC_APP_DAT + " = '" + apmdate + "' "
                     + "," + pt07.MNC_APP_TIM + " = '" + apmtime + "' "
-                    + " "
+                    + "," + pt07.apm_time + " = '" + apmtime1 + "' "
                     + "Where MNC_DOC_YR = '" + docyear + "' and MNC_DOC_NO = '" + docno + "' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 //new LogWriter("d", "update Temp chk " + chk + " docyear " + docyear + " docno " + docno);
@@ -641,6 +640,7 @@ namespace bangna_hospital.objdb
                 pt07.doctor_name = dt.Rows[0]["dtr_name"].ToString();
                 pt07.patient_name = dt.Rows[0]["ptt_fullnamet"].ToString();
                 pt07.deptname = dt.Rows[0]["mnc_md_dep_dsc"].ToString();
+                pt07.apm_cnt_inday = dt.Rows.Count.ToString();
             }
             else
             {
@@ -697,6 +697,7 @@ namespace bangna_hospital.objdb
             p.doctor_name = "";
             pt07.patient_name = "";
             pt07.deptname = "";
+            pt07.apm_cnt_inday = "";
             return p;
         }
     }

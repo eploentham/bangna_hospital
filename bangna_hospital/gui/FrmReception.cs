@@ -1,6 +1,7 @@
 ﻿using AutocompleteMenuNS;
 using bangna_hospital.control;
 using bangna_hospital.FlexGrid;
+using bangna_hospital.Models;
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
@@ -24,8 +25,11 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Speech.Synthesis;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
+using static CSJ2K.j2k.codestream.HeaderInfo;
 
 namespace bangna_hospital.gui
 {
@@ -46,7 +50,7 @@ namespace bangna_hospital.gui
         C1FlexGrid grfSrc, grfPttComp, grfPttVs, grfPttApm, grfRptReport, grfRptData, grfCust1, grfVsPttVisit, grfToday, grfApm, grfWard, grfSSO;
         C1ThemeController theme1;
         //ThaiNationalIDCardReader idcard;
-
+        PersonalPhoto PHOTO;
         Label lbLoading;
 
         int colgrfSrcHn = 1, colgrfSrcFullNameT = 2, colgrfSrcPID = 3, colgrfSrcDOB = 4, colgrfSrcPttid=5, colgrfSrcAge=6, colgrfSrcVisitReleaseOPD=7, colgrfSrcVisitReleaseIPD = 8,colgrfSrcVisitReleaseIPDDischarge=9;
@@ -375,18 +379,32 @@ namespace bangna_hospital.gui
             btnAlienGenVisitAll.Click += BtnAlienGenVisitAll_Click;
             rbTxtHnSearch.KeyPress += RbTxtHnSearch_KeyPress;
             lbalcode.DoubleClick += Lbalcode_DoubleClick;
+            btnSrcAlien.Click += BtnSrcAlien_Click;
         }
 
-        private async void Lbalcode_DoubleClick(object sender, EventArgs e)
+        private void BtnSrcAlien_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            DoeAlienList doealien = await bc.GetDoeAien(txtPttwp1.Text.Trim());
-            if (doealien.alcode == null) { lfSbMessage.Text = "ไม่พบข้อมูล จากAPIกรมการจัดหางาน";  return; }
+            chkAlien(txtSrcHn.Text.Trim());
+            if (txtPttPID.Text.Trim().Length > 0) { tC.SelectedTab = tabPtt; setControlTabPTT(); }
+        }
+
+        private void Lbalcode_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            chkAlien(txtPttwp1.Text.Trim());
+        }
+        private async void chkAlien(String alcode)
+        {
+            Boolean chk = false;
+            DoeAlienList doealien = await bc.GetDoeAien(alcode);
+            if (doealien.alcode == null) { lfSbMessage.Text = "ไม่พบข้อมูล จากAPIกรมการจัดหางาน"; return; }
             txtPttNameT.Value = doealien.alnameen;
             txtPttNameE.Value = doealien.alnameen;
             txtPttPID.Value = doealien.alcode;
+            txtPttwp1.Value = doealien.alcode;
             String[] dob1 = doealien.albdate.Split(new char[] { '-' });
-            txtPttDOB.Value = bc.datetoDBCultureInfo(dob1[2]+"-"+ dob1[1]+"-"+ dob1[0]);
+            txtPttDOB.Value = bc.datetoDBCultureInfo(dob1[2] + "-" + dob1[1] + "-" + dob1[0]);
             DateTime ddchk = DateTime.Parse(bc.datetoDBCultureInfo(dob1[2] + "-" + dob1[1] + "-" + dob1[0]));
             if (ddchk.Year < 1900) { ddchk = ddchk.AddYears(543); }
             String dob = bc.datetoDBCultureInfo(dob1[2] + "-" + dob1[1] + "-" + dob1[0]);
@@ -418,21 +436,21 @@ namespace bangna_hospital.gui
                     }
                     if (txt.IndexOf("ซอย") >= 0)
                     {
-                        String aa = "", bb = "", cc = "",dd="";
+                        String aa = "", bb = "", cc = "", dd = "";
                         if (addr.Length > 4)
                         {
-                            aa = addr[i+1];
+                            aa = addr[i + 1];
                             bb = addr[i + 2];
                             cc = addr[i + 3];
                             dd = addr[i + 4];
                         }
-                        if ((dd.IndexOf("แขวง") >= 0)|| (dd.IndexOf("ตำบล") >= 0))
+                        if ((dd.IndexOf("แขวง") >= 0) || (dd.IndexOf("ตำบล") >= 0))
                         {
-                            txtPttIDSoi.Value = txt.Trim()+ aa+bb+cc;
+                            txtPttIDSoi.Value = txt.Trim() + aa + bb + cc;
                         }
                         else
                         {
-                            txtPttIDSoi.Value = txt.Trim() + aa + bb + cc+dd;
+                            txtPttIDSoi.Value = txt.Trim() + aa + bb + cc + dd;
                         }
                     }
                     if (txt.IndexOf("แขวง") >= 0)
@@ -469,6 +487,8 @@ namespace bangna_hospital.gui
             txtPttCurAmp.Value = txtPttIdAmp.Text;
             txtPttCurChw.Value = txtPttIdChw.Text;
             checkPaidSSO(txtPttwp1.Text.Trim());
+            chk = true;
+            //return chk;
         }
         private void RbTxtHnSearch_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -623,13 +643,11 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             txtPttSsn.Value = txtPttPID.Text.Trim();
         }
-
         private void BtnVsPaid_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setFormPaidList(((C1Button)sender).Name);
         }
-
         private void CboPttNat_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1141,15 +1159,22 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             clearControl();
-            if (ReadCard() != 0) { txtSrcHn.Focus(); return; }
+            int ret = 0;        // ทำเพื่อ รองรับ  smartcartd แบบอ่านเอง ไม่ผ่าน DLLของ rd-comp
+            ret = ReadCardThaiID();
+            if (ret != 0) { ReadCard(); txtSrcHn.Focus(); return; }
+            setControlTabPTT();
+        }
+        private void setControlTabPTT()
+        {
             Patient ptt = new Patient();
             try
             {
+                clearControl();
                 ptt = bc.bcDB.pttDB.selectPatinetByPID(txtPttPID.Text.Trim(), "pid");
-                if (ptt.MNC_HN_NO.Length <= 0) FLAGPTTNEW = true; else FLAGPTTNEW=false;
+                if (ptt.MNC_HN_NO.Length <= 0) FLAGPTTNEW = true; else FLAGPTTNEW = false;
             }
-            catch(Exception ex){lfSbMessage.Text = ex.Message; new LogWriter("e", "FrmReception BtnSrcCardRead_Click " + ex.Message); bc.bcDB.insertLogPage(bc.userId, this.Name, "setPttAge", ex.Message); }
-            if(setControl(ptt, "smartcard")) tC.SelectedTab = tabPtt;
+            catch (Exception ex) { lfSbMessage.Text = ex.Message; new LogWriter("e", "FrmReception BtnSrcCardRead_Click " + ex.Message); bc.bcDB.insertLogPage(bc.userId, this.Name, "setPttAge", ex.Message); }
+            if (setControl(ptt, "smartcard")) tC.SelectedTab = tabPtt;
         }
         private void BtnPttInsur_MouseHover(object sender, EventArgs e)
         {
@@ -2270,6 +2295,96 @@ namespace bangna_hospital.gui
             }
             hideLbLoading();
             return true;
+        }
+        private int ReadCardThaiID()
+        {
+            new LogWriter("e", "FrmReception ReadCardThaiID " );
+            int ret = 0;
+            ThaiNationalIDCardReader idreader = new ThaiNationalIDCardReader();
+            Personal personal = new Personal();
+            PHOTO = new PersonalPhoto(personal);
+            new LogWriter("e", "FrmReception ReadCardThaiID 01");
+            PHOTO = idreader.GetPersonalPhoto();
+            new LogWriter("e", "FrmReception ReadCardThaiID 02");
+            if (PHOTO.Photo.Length <=0)
+            {
+                personal = idreader.GetPersonal();
+                if (personal.CitizenID.Length <= 0) { ret = 100; }
+            }
+            txtPttPID.Value = PHOTO.CitizenID;
+            setControlCitizen(PHOTO.ThaiPersonalInfo.Prefix, PHOTO.ThaiPersonalInfo.FirstName, PHOTO.EnglishPersonalInfo.FirstName, PHOTO.ThaiPersonalInfo.LastName, PHOTO.EnglishPersonalInfo.LastName
+                , PHOTO.AddressInfo.HouseNo, PHOTO.AddressInfo.Lane, "", "", PHOTO.AddressInfo.Road, PHOTO.AddressInfo.SubDistrict, PHOTO.AddressInfo.District, PHOTO.AddressInfo.Province, PHOTO.Sex, PHOTO.dobYYYY+""+ PHOTO.dobMM+""+ PHOTO.dobDD
+                ,PHOTO.GetPhotoAsImage());
+            return 0;
+        }
+        private void setControlCitizen(String prefix, String namet, String namee, String surnamet, String surnamee, String homeno, String moo, String trok, String soi, String road, String tombon, String amphoe, String province, String sex, String dobddMMyyyy, Image img)
+        {
+            String err = "", provincename1="", provid="", amprid="", districtid="", poc="", dob="";
+            txtPttNameT.Value = namet.Trim();
+            txtPttSurNameT.Value = surnamet.Trim();
+            txtPttNameE.Value = namee.Trim();
+            txtPttSurNameE.Value = surnamee.Trim();
+            m_picPhoto.Image = null;
+            //m_txtBrithDate.Text = _yyyymmdd_(fields[(int)NID_FIELD.BIRTH_DATE]);
+            string _yyyy = "", _mm = "", _dd = "";
+
+            String addr = homeno + " " + moo + " " + trok + " " + soi + " " + road + " " + tombon + " " + amphoe + " " + province;
+            err = "07";
+            txtPttIDHomeNo.Value = homeno.Trim();
+            txtPttIDMoo.Value = moo.Trim().Replace("หมู่ที่", "").Trim();
+            txtPttIDSoi.Value = soi.Trim();
+            txtPttIDRoad.Value = road.Trim();
+            //txtPttIDHomeNo.Value = fields[(int)NID_FIELD.HOME_NO].Trim();
+
+            prefix = bc.bcDB.pttDB.selectProfixId(prefix.Trim());
+            provincename1 = province.Trim().Replace("จังหวัด", "");
+            provid = bc.bcDB.pttDB.selectProvinceId(provincename1);
+            amprid = bc.bcDB.pttDB.selectAmphurId(provid, amphoe.Trim().Replace("อำเภอ", ""));
+            districtid = bc.bcDB.pttDB.selectDistrictId(provid, amprid, tombon.Trim().Replace("ตำบล", ""));
+            poc = bc.bcDB.pttDB.selectPOCId(provid, amprid, districtid);
+            err = "08";
+            txtPttIdChw.Value = bc.bcDB.pm07DB.getChwName(provid);
+            txtPttIdAmp.Value = bc.bcDB.pm07DB.getAmpName(amprid);
+            txtPttIdSearchTambon.Value = bc.bcDB.pm07DB.getTambonName(districtid);
+            txtPttIDPostcode.Value = bc.bcDB.pm07DB.getPostCode(txtPttIdSearchTambon.Text);
+            //bc.setC1Combo(cboPttIDProv, provid);
+            //bc.bcDB.pm08DB.setCboAmphurByProvCode(cboPttIDAmphur, provid, amprid);
+            //bc.bcDB.pm07DB.setCboTambonByAmphrCode(cboPttIDTambon, amprid, districtid);
+            txtPttIDPostcode.Value = poc;
+            bc.setC1Combo(cboPttPrefixT, prefix);
+            bc.setC1Combo(cboPttSex, sex.Trim() == "1" ? "M" : "F");
+            //cboPttSex.Text = fields[(int)NID_FIELD.GENDER].Trim() == "1" ? "M" : "F";
+            //m_txtIssueDate.Text = _yyyymmdd_(fields[(int)NID_FIELD.ISSUE_DATE]);
+            //m_txtExpiryDate.Text = _yyyymmdd_(fields[(int)NID_FIELD.EXPIRY_DATE]);
+            //if ("99999999" == m_txtExpiryDate.Text)
+            //    m_txtExpiryDate.Text = "99999999 ตลอดชีพ";
+            //m_txtIssueNum.Text = fields[(int)NID_FIELD.ISSUE_NUM];
+
+            try
+            {
+                _yyyy = dobddMMyyyy.Substring(0, 4);
+                _mm = dobddMMyyyy.Substring(4, 2);
+                _dd = dobddMMyyyy.Substring(6, 2);
+                dob = _yyyy + "-" + _mm + "-" + _dd;
+                DateTime dtime = new DateTime();
+                DateTime.TryParse(dob, out dtime);
+                if (dtime.Year > 2450)
+                {
+                    dtime = dtime.AddYears(-543);
+                }
+                txtPttDOBDD.Value = _dd;
+                txtPttDOBMM.Value = _mm;
+                txtPttDOB.Value = dtime;
+                txtPttDOBYear.Value = (dtime.Year + 543);
+                setPttAge();
+                Bitmap MyImage = new Bitmap(img, m_picPhoto.Width - 2, m_picPhoto.Height - 2);
+                m_picPhoto.Image = (Image)MyImage;
+            }
+            catch (Exception ex)
+            {
+                //sep.SetError(fields[(int)NID_FIELD.BIRTH_DATE], "");
+                lfSbMessage.Text = dobddMMyyyy + " " + ex.Message;
+            }
         }
         protected int ReadCard()
         {
@@ -4783,7 +4898,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            this.Text = "Update 2568-02-06-3  statusdoe,สิทธิไม่ถูกต้อง,สิทธิ ค่าว่างหรือรหัสผิด";
+            this.Text = "Update 2568-03-19  smartcard";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

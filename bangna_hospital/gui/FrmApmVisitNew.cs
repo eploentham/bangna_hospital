@@ -59,16 +59,8 @@ namespace bangna_hospital.gui
             bc.bcDB.pttDB.setCboDeptOPDNew(cboAppViewDept, "");     //ส่งตัวไป
             bc.bcDB.pttDB.setCboDeptOPDNew(cboApmDept, "");
             initGrfAppNew();
-            if (APM.MNC_DOC_NO.Length <= 0)
-            {
-                setGrfApm();
-                c1DockingTab1.SelectedTab = tabAppView;
-            }
-            else
-            {
-                setControl();
-                c1DockingTab1.SelectedTab = tabAppVisit;
-            }
+            if ((APM.MNC_DOC_NO.Length > 0) && (APM.apm_cnt_inday.Equals("1")))            {                setControl();                c1DockingTab1.SelectedTab = tabAppVisit;            }
+            else            {                setGrfApm();                c1DockingTab1.SelectedTab = tabAppView;            }
             btnVsSave.Click += BtnVsSave_Click;
             txtVsUser.KeyUp += TxtVsUser_KeyUp;
             chkNewVisit.Click += ChkNewVisit_Click;
@@ -683,6 +675,7 @@ namespace bangna_hospital.gui
                 String txt = txtVsUser.Text.Trim();
                 if (txt.Length > 0)
                 {
+                    if(btnVsSave.Enabled==false)                    {                        return;                    }
                     setLbLoading("กำลังค้นหา กรุณารอสักครู่ ...");
                     showLbLoading();
                     lbVsUser.Text = bc.bcDB.stfDB.selectByPassword(txtVsUser.Text.Trim());
@@ -891,7 +884,7 @@ namespace bangna_hospital.gui
         }
         private void FrmApmVisitNew_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2025-03-17";
+            this.Text = "Last Update 2025-03-26";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

@@ -53,17 +53,19 @@ namespace bangna_hospital.object1
         public PersonalPhoto GetPersonalPhoto()
         {
             MemoryStream stream = new MemoryStream();
-
+            //new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 00");
             try
             {
+                new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 01");
                 Open();
-
+                new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 02");
                 Personal personal = GetPersonalInfo();
+                new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 021");
                 PersonalPhoto personalPhoto = new PersonalPhoto(personal);
-
+                new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 03");
                 byte[][] photoCommand = apdu.PhotoCommand;
                 byte[] responseBuffer;
-
+                //new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 04");
                 for (int i = 0; i < photoCommand.Length; i++)
                 {
                     responseBuffer = SendCommand(photoCommand[i]);
@@ -71,9 +73,9 @@ namespace bangna_hospital.object1
                 }
 
                 stream.Seek(0, SeekOrigin.Begin);
-
+                new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 05");
                 personalPhoto.Photo = string.Format($"data:image/jpeg;base64,{Convert.ToBase64String(stream.ToArray())}");
-
+                new LogWriter("d", "ThaiNationalIDCardReader GetPersonalPhoto 06");
                 return personalPhoto;
             }
             catch (Exception e)
@@ -93,17 +95,21 @@ namespace bangna_hospital.object1
             try
             {
                 Personal personal = new Personal();
-
+                //new LogWriter("d", "ThaiNationalIDCardReader GetPersonalInfo 00" );
                 personal.CitizenID = GetUTF8FromAsciiBytes(SendCommand(apdu.CitizenIDCommand));
-
+                //new LogWriter("d", "ThaiNationalIDCardReader GetPersonalInfo 01");
                 string personalInfo = GetUTF8FromAsciiBytes(SendCommand(apdu.PersonalInfoCommand));
+                //new LogWriter("d", "ThaiNationalIDCardReader GetPersonalInfo 02");
                 string thaiPersonalInfo = personalInfo.Substring(0, 100);
                 string englishPersonalInfo = personalInfo.Substring(100, 100);
-
+                //new LogWriter("d", "ThaiNationalIDCardReader GetPersonalInfo 03");
                 personal.ThaiPersonalInfo = new PersonalInfo(thaiPersonalInfo);
                 personal.EnglishPersonalInfo = new PersonalInfo(englishPersonalInfo);
-
+                //new LogWriter("d", "ThaiNationalIDCardReader GetPersonalInfo 04");
                 string dateOfBirth = personalInfo.Substring(200, 8);
+                personal.dobYYYY = dateOfBirth.Substring(0, 4);
+                personal.dobMM = dateOfBirth.Substring(4, 2);
+                personal.dobDD = dateOfBirth.Substring(6, 2);
                 personal.DateOfBirth = new DateTime(Convert.ToInt32(dateOfBirth.Substring(0, 4)) - 543
                     , Convert.ToInt32(dateOfBirth.Substring(4, 2))
                     , Convert.ToInt32(dateOfBirth.Substring(6, 2))
@@ -137,6 +143,7 @@ namespace bangna_hospital.object1
 
         private string GetUTF8FromAsciiBytes(byte[] asciiBytes)
         {
+            //new LogWriter("d", "ThaiNationalIDCardReader GetUTF8FromAsciiBytes 00 "+ asciiBytes.Length);
             byte[] utf8 = Encoding.Convert(
                 Encoding.GetEncoding("TIS-620"),
                 Encoding.UTF8,
@@ -149,26 +156,29 @@ namespace bangna_hospital.object1
         private byte[] SendCommand(byte[] command)
         {
             byte[] responseBuffer = new byte[256];
-
+            //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 00");
             error = reader.Transmit(intPtr, command, ref responseBuffer);
+            //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 01");
             HandleError();
-
+            //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 02");
             ResponseApdu responseApdu = new ResponseApdu(responseBuffer, IsoCase.Case2Short, reader.ActiveProtocol);
-
+            //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 03");
             if (responseApdu.SW1.Equals((byte)SW1Code.NormalDataResponse))
             {
+                //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 04");
                 command = apdu.GetResponse().Concat(new byte[] { responseApdu.SW2 }).ToArray();
                 responseBuffer = new byte[258];
-
+                //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 05");
                 error = reader.Transmit(intPtr, command, ref responseBuffer);
                 HandleError();
-
+                //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 06");
                 if (responseBuffer.Length - responseApdu.SW2 == 2)
                 {
+                    //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 08 "+ responseBuffer.Length.ToString());
                     return responseBuffer.Take(responseBuffer.Length - 2).ToArray();
                 }
             }
-
+            //new LogWriter("d", "ThaiNationalIDCardReader SendCommand 07");
             return responseBuffer;
         }
 

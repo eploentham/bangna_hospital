@@ -42,7 +42,7 @@ namespace bangna_hospital.gui
             this.tabSrc = new C1.Win.C1Command.C1DockingTabPage();
             this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnSrcTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1Button2 = new C1.Win.C1Input.C1Button();
+            this.btnSrcAlien = new C1.Win.C1Input.C1Button();
             this.btnSrcCardRead = new C1.Win.C1Input.C1Button();
             this.btnSrcNew = new C1.Win.C1Input.C1Button();
             this.btnSrcOk = new C1.Win.C1Input.C1Button();
@@ -522,7 +522,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
             this.pnSrcTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcAlien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcCardRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).BeginInit();
@@ -956,13 +956,13 @@ namespace bangna_hospital.gui
             // pnSrcTop
             // 
             this.pnSrcTop.Collapsible = true;
-            this.pnSrcTop.Controls.Add(this.c1Button2);
+            this.pnSrcTop.Controls.Add(this.btnSrcAlien);
             this.pnSrcTop.Controls.Add(this.btnSrcCardRead);
             this.pnSrcTop.Controls.Add(this.btnSrcNew);
             this.pnSrcTop.Controls.Add(this.btnSrcOk);
             this.pnSrcTop.Controls.Add(this.txtSrcHn);
             this.pnSrcTop.Controls.Add(this.c1Label1);
-            this.pnSrcTop.Height = 49;
+            this.pnSrcTop.Height = 56;
             this.pnSrcTop.Location = new System.Drawing.Point(0, 0);
             this.pnSrcTop.Name = "pnSrcTop";
             this.pnSrcTop.Size = new System.Drawing.Size(1252, 49);
@@ -970,14 +970,14 @@ namespace bangna_hospital.gui
             this.pnSrcTop.TabIndex = 0;
             this.pnSrcTop.Text = "Panel 1";
             // 
-            // c1Button2
+            // btnSrcAlien
             // 
-            this.c1Button2.Location = new System.Drawing.Point(448, 3);
-            this.c1Button2.Name = "c1Button2";
-            this.c1Button2.Size = new System.Drawing.Size(57, 23);
-            this.c1Button2.TabIndex = 110;
-            this.c1Button2.Text = "alcode";
-            this.c1Button2.UseVisualStyleBackColor = true;
+            this.btnSrcAlien.Location = new System.Drawing.Point(448, 3);
+            this.btnSrcAlien.Name = "btnSrcAlien";
+            this.btnSrcAlien.Size = new System.Drawing.Size(57, 43);
+            this.btnSrcAlien.TabIndex = 110;
+            this.btnSrcAlien.Text = "alcode";
+            this.btnSrcAlien.UseVisualStyleBackColor = true;
             // 
             // btnSrcCardRead
             // 
@@ -1130,7 +1130,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.247D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 989;
+            this.pnPttPatient.Width = 982;
             // 
             // btnPttPaid
             // 
@@ -6162,7 +6162,7 @@ namespace bangna_hospital.gui
             this.c1SplitContainer1.ResumeLayout(false);
             this.pnSrcTop.ResumeLayout(false);
             this.pnSrcTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcAlien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcCardRead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).EndInit();
@@ -6994,6 +6994,6 @@ namespace bangna_hospital.gui
         private C1.Win.C1Input.C1TextBox txtAlienPID13;
         private C1.Win.C1Input.C1CheckBox chkAlien13;
         private C1.Win.C1Input.C1Button btnAlienGenVisitAll;
-        private C1.Win.C1Input.C1Button c1Button2;
+        private C1.Win.C1Input.C1Button btnSrcAlien;
     }
 }

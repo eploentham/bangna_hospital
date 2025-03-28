@@ -13,5 +13,8 @@ namespace bangna_hospital.Models
         public DateTime IssueDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public string Issuer { get; set; }
+        public String dobYYYY { get; set; }
+        public String dobMM { get; set; }
+        public String dobDD { get; set; }
     }
 }

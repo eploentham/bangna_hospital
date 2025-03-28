@@ -250,8 +250,38 @@ namespace bangna_hospital.gui
             btnPrnSticker.Click += BtnPrnSticker_Click;
 
             txtPttHN.KeyUp += TxtPttHN_KeyUp;
+            picL.DoubleClick += PicL_DoubleClick;
+            picR.DoubleClick += PicL_DoubleClick;
         }
 
+        private void PicL_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(picL.Image == null) { return; }
+            showStaffNote();
+        }
+        private void showStaffNote()
+        {
+            Form frm = new Form();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.WindowState = FormWindowState.Maximized;
+            PictureBox picl = new PictureBox();
+            picl.Dock = DockStyle.Left;
+            picl.Image = picL.Image;
+            picl.SizeMode = PictureBoxSizeMode.StretchImage;
+            picl.Top = 0;
+            PictureBox picr = new PictureBox();
+            picr.Dock = DockStyle.Right;
+            picr.Image = picR.Image;
+            picr.SizeMode = PictureBoxSizeMode.StretchImage;
+            picr.Top = 0;
+            frm.Controls.Add(picr);
+            frm.Controls.Add(picl);
+            Rectangle screenRect = Screen.GetBounds(Bounds);
+            picr.Width = screenRect.Width / 2;
+            picl.Width = screenRect.Width / 2;
+            frm.ShowDialog();
+        }
         private void TxtPttHN_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1870,7 +1900,7 @@ namespace bangna_hospital.gui
             grfOutLab.Cols[colgrfOutLablabcode].AllowEditing = false;
             grfOutLab.Cols[colgrfOutLablabname].AllowEditing = false;
             grfOutLab.AfterRowColChange += GrfOutLab_AfterRowColChange;
-
+            grfOutLab.SelectionMode = SelectionModeEnum.Row;
             pnOutLabList.Controls.Add(grfOutLab);
 
             theme1.SetTheme(grfOutLab, "ExpressionDark");
@@ -1891,7 +1921,8 @@ namespace bangna_hospital.gui
                 C1PdfDocumentSource pds = new C1PdfDocumentSource();
                 DocScan dsc = new DocScan();
                 dsc = bc.bcDB.dscDB.selectByPk(dscid);
-                FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                //FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                FtpClient ftpc = new FtpClient(bc.iniC.hostFTPLabOut, bc.iniC.userFTPLabOut, bc.iniC.passFTPLabOut, bc.ftpUsePassive);
                 pds.LoadFromStream(ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString()));
                 fvOutlab.DocumentSource = pds;
                 ftpc = null;
@@ -2863,8 +2894,8 @@ namespace bangna_hospital.gui
                 setStaffNote(VSDATE, PRENO, ref picL, ref picR);
                 tabVS.TabPages[tabOrderNew.Name].TabVisible = (grfVS[grfVS.Row, colVsVsStatus].ToString().Equals("F")) ? false : true;
             }
-            lbPttAttachNote.Text = PTT.MNC_ATT_NOTE;
-            lbPttFinNote.Text = PTT.MNC_FIN_NOTE;
+            lbPttAttachNote.Text = PTT.MNC_ATT_NOTE.Length <= 0 ? "..." : PTT.MNC_ATT_NOTE;
+            lbPttFinNote.Text = PTT.MNC_FIN_NOTE.Length<=0 ? "..." : PTT.MNC_FIN_NOTE;
             lbPttAge.Text = "age : "+PTT.AgeStringOK1DOT();
             lfSbComp.Text = "comp("+PTT.comNameT+")";
             lfSbInsur.Text = "insur["+PTT.insurNameT+"]";

@@ -441,7 +441,7 @@ namespace bangna_hospital.objdb
                 " INNER JOIN dbo.PATIENT_M01 ON dbo.PATIENT_T01.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO and dbo.PATIENT_T01.MNC_HN_yr = dbo.PATIENT_M01.MNC_HN_yr  " +
                 " INNER JOIN dbo.PATIENT_M02 ON dbo.PATIENT_M01.MNC_PFIX_CDT = dbo.PATIENT_M02.MNC_PFIX_CD " +
                 "left join dbo.finance_m02 on finance_m02.MNC_FN_TYP_cd = patient_t01.MNC_FN_TYP_cd " +
-                " WHERE   PATIENT_T01.MNC_STS <> 'C'  and patient_t01.status_sso' " +
+                " WHERE   PATIENT_T01.MNC_STS <> 'C'  and patient_t01.status_sso = '1' " +
                 " and patient_t01.mnc_date >= '" + datestart + "' and patient_t01.mnc_date <= '" + dateend + "' " +
                 " Order By PATIENT_M01.MNC_FNAME_T, PATIENT_M01.MNC_LNAME_T ";
             dt = conn.selectData(sql);
@@ -1606,6 +1606,19 @@ namespace bangna_hospital.objdb
                 "From patient_t01 t01 " +
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
                 " and t01.MNC_STS <> 'C' and t01.MNC_DATE = convert(varchar(20),getdate(),23) " +
+                " Order by t01.MNC_HN_NO, t01.MNC_PRE_NO ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable selectByvsdateAllVoid(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select t01.* " +
+                "From patient_t01 t01 " +
+                " Where t01.MNC_HN_NO = '" + hn + "' " +
+                "  and t01.MNC_DATE = convert(varchar(20),getdate(),23) " +
                 " Order by t01.MNC_HN_NO, t01.MNC_PRE_NO ";
             dt = conn.selectData(sql);
 

@@ -319,6 +319,8 @@ namespace bangna_hospital.gui
         private void BtnImportDfGen_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            DataTable dtdf = new DataTable();
+            //dtdf = bc.bcDB.dfdDB.selectByDate(txtImpDateStart.Value.ToString(), txtImpDateEnd.Value.ToString());
             String dfdate = "";
             int i = 20000;
             DateTime date = new DateTime();
@@ -370,7 +372,7 @@ namespace bangna_hospital.gui
                     anyr = row[colImpanyr] != null ? row[colImpanyr].ToString() : "";
 
                     fncd = "470"; fndsc = "ค่าแพทย์ CHECKUP"; dfamt = "10";
-
+                    if (dtrid.Equals("10660")) { dfamt = "40"; }
                     DotDfDetail dotdfd = new DotDfDetail();
                     dotdfd.MNC_DOC_CD = doccd;              //pk
                     dotdfd.MNC_DOC_YR = docyr;              //pk
@@ -568,7 +570,7 @@ namespace bangna_hospital.gui
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2024-05-09-1";
+            this.Text = "Last Update 2025-03-27  แก้ checkup 40";
         }
     }
 }

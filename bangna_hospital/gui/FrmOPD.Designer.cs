@@ -748,6 +748,8 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
+            this.txtAlienOther = new System.Windows.Forms.TextBox();
+            this.label164 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -5183,6 +5185,8 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.label164);
+            this.groupBox11.Controls.Add(this.txtAlienOther);
             this.groupBox11.Controls.Add(this.chkAlienConfirm4);
             this.groupBox11.Controls.Add(this.chkAlienConfirm3);
             this.groupBox11.Controls.Add(this.chkAlienConfirm2);
@@ -5202,7 +5206,7 @@
             // chkAlienConfirm4
             // 
             this.chkAlienConfirm4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkAlienConfirm4.Location = new System.Drawing.Point(375, 108);
+            this.chkAlienConfirm4.Location = new System.Drawing.Point(375, 88);
             this.chkAlienConfirm4.Name = "chkAlienConfirm4";
             this.chkAlienConfirm4.Size = new System.Drawing.Size(88, 24);
             this.chkAlienConfirm4.TabIndex = 211;
@@ -5213,7 +5217,7 @@
             // chkAlienConfirm3
             // 
             this.chkAlienConfirm3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkAlienConfirm3.Location = new System.Drawing.Point(254, 108);
+            this.chkAlienConfirm3.Location = new System.Drawing.Point(254, 88);
             this.chkAlienConfirm3.Name = "chkAlienConfirm3";
             this.chkAlienConfirm3.Size = new System.Drawing.Size(88, 24);
             this.chkAlienConfirm3.TabIndex = 210;
@@ -5224,7 +5228,7 @@
             // chkAlienConfirm2
             // 
             this.chkAlienConfirm2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkAlienConfirm2.Location = new System.Drawing.Point(142, 108);
+            this.chkAlienConfirm2.Location = new System.Drawing.Point(142, 88);
             this.chkAlienConfirm2.Name = "chkAlienConfirm2";
             this.chkAlienConfirm2.Size = new System.Drawing.Size(88, 24);
             this.chkAlienConfirm2.TabIndex = 209;
@@ -5235,7 +5239,7 @@
             // chkAlienConfirm1
             // 
             this.chkAlienConfirm1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkAlienConfirm1.Location = new System.Drawing.Point(26, 108);
+            this.chkAlienConfirm1.Location = new System.Drawing.Point(26, 88);
             this.chkAlienConfirm1.Name = "chkAlienConfirm1";
             this.chkAlienConfirm1.Size = new System.Drawing.Size(88, 24);
             this.chkAlienConfirm1.TabIndex = 208;
@@ -5247,7 +5251,7 @@
             // 
             this.label143.AutoSize = true;
             this.label143.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label143.Location = new System.Drawing.Point(6, 217);
+            this.label143.Location = new System.Drawing.Point(6, 175);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(580, 20);
             this.label143.TabIndex = 207;
@@ -5258,7 +5262,7 @@
             // 
             this.label142.AutoSize = true;
             this.label142.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label142.Location = new System.Drawing.Point(6, 188);
+            this.label142.Location = new System.Drawing.Point(6, 146);
             this.label142.Name = "label142";
             this.label142.Size = new System.Drawing.Size(547, 20);
             this.label142.TabIndex = 206;
@@ -5267,7 +5271,7 @@
             // chkAlienNoGoodHealth
             // 
             this.chkAlienNoGoodHealth.AutoSize = true;
-            this.chkAlienNoGoodHealth.Location = new System.Drawing.Point(11, 158);
+            this.chkAlienNoGoodHealth.Location = new System.Drawing.Point(11, 116);
             this.chkAlienNoGoodHealth.Name = "chkAlienNoGoodHealth";
             this.chkAlienNoGoodHealth.Size = new System.Drawing.Size(237, 24);
             this.chkAlienNoGoodHealth.TabIndex = 4;
@@ -5278,7 +5282,7 @@
             // chkAlienConfirm
             // 
             this.chkAlienConfirm.AutoSize = true;
-            this.chkAlienConfirm.Location = new System.Drawing.Point(10, 69);
+            this.chkAlienConfirm.Location = new System.Drawing.Point(10, 58);
             this.chkAlienConfirm.Name = "chkAlienConfirm";
             this.chkAlienConfirm.Size = new System.Drawing.Size(456, 24);
             this.chkAlienConfirm.TabIndex = 3;
@@ -8955,6 +8959,24 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
+            // txtAlienOther
+            // 
+            this.txtAlienOther.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienOther.Location = new System.Drawing.Point(6, 228);
+            this.txtAlienOther.Name = "txtAlienOther";
+            this.txtAlienOther.Size = new System.Drawing.Size(604, 26);
+            this.txtAlienOther.TabIndex = 212;
+            // 
+            // label164
+            // 
+            this.label164.AutoSize = true;
+            this.label164.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label164.Location = new System.Drawing.Point(6, 205);
+            this.label164.Name = "label164";
+            this.label164.Size = new System.Drawing.Size(155, 20);
+            this.label164.TabIndex = 213;
+            this.label164.Text = "ผลการตรวจอื่นๆ (ถ้ามี) :";
+            // 
             // FrmOPD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10040,5 +10062,7 @@
         private C1.Win.C1Input.C1Button btnCheckUPExcelAlien;
         private System.Windows.Forms.RadioButton chkApmVsNew;
         private C1.Win.C1Input.C1TextBox txtApmVsNewHn;
+        private System.Windows.Forms.Label label164;
+        private System.Windows.Forms.TextBox txtAlienOther;
     }
 }
