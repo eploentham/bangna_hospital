@@ -892,6 +892,7 @@
     <Compile Include="objdb\DoctorM02DB.cs" />
     <Compile Include="objdb\DocumentM01DB.cs" />
     <Compile Include="objdb\DotDfDetailDB.cs" />
+    <Compile Include="objdb\DotDfRateDB.cs" />
     <Compile Include="objdb\DrugDB.cs" />
     <Compile Include="objdb\DrugSetDB.cs" />
     <Compile Include="objdb\EpidemAPIDB.cs" />
@@ -940,6 +941,7 @@
     <Compile Include="object1\DoeAlienList.cs" />
     <Compile Include="object1\DoeAlientResponse.cs" />
     <Compile Include="object1\DoeAlienUpdateHealthCheckResult.cs" />
+    <Compile Include="object1\DotDfRate.cs" />
     <Compile Include="object1\EpidemAPI.cs" />
     <Compile Include="object1\EpidemCluster.cs" />
     <Compile Include="object1\EpidemCovidIsolatePlace.cs" />
