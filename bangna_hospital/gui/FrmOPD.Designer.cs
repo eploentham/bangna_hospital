@@ -128,7 +128,7 @@
             this.pnHisProcedure = new System.Windows.Forms.Panel();
             this.tabOrder = new C1.Win.C1Command.C1DockingTabPage();
             this.spOrder = new C1.Win.C1SplitContainer.C1SplitContainer();
-            this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.spOrderTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.btnOrderSubmit = new C1.Win.C1Input.C1Button();
             this.btnOrderSave = new C1.Win.C1Input.C1Button();
             this.btnItemAdd = new C1.Win.C1Input.C1Button();
@@ -146,8 +146,19 @@
             this.chkItemLab = new System.Windows.Forms.RadioButton();
             this.txtSearchItem = new C1.Win.C1Input.C1TextBox();
             this.label77 = new System.Windows.Forms.Label();
-            this.c1SplitterPanel4 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.spOrderLeft = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnOrder = new System.Windows.Forms.Panel();
+            this.spOrderRight = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnPreno = new System.Windows.Forms.Panel();
+            this.spPreno = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnPrenoDrug = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel4 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnPrenoLab = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel27 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnPrenoXray = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel28 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnPrenoProcedure = new System.Windows.Forms.Panel();
             this.tabScan = new C1.Win.C1Command.C1DockingTabPage();
             this.spScan = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.tabScanL = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -400,6 +411,8 @@
             this.btnCheckUPAlienGetResult = new C1.Win.C1Input.C1Button();
             this.btnCheckUPAlienPrint = new C1.Win.C1Input.C1Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label164 = new System.Windows.Forms.Label();
+            this.txtAlienOther = new System.Windows.Forms.TextBox();
             this.chkAlienConfirm4 = new C1.Win.C1Input.C1CheckBox();
             this.chkAlienConfirm3 = new C1.Win.C1Input.C1CheckBox();
             this.chkAlienConfirm2 = new C1.Win.C1Input.C1CheckBox();
@@ -748,8 +761,6 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
-            this.txtAlienOther = new System.Windows.Forms.TextBox();
-            this.label164 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -808,7 +819,7 @@
             this.tabOrder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spOrder)).BeginInit();
             this.spOrder.SuspendLayout();
-            this.c1SplitterPanel3.SuspendLayout();
+            this.spOrderTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSubmit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).BeginInit();
@@ -817,7 +828,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOperItemSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).BeginInit();
+            this.spOrderLeft.SuspendLayout();
+            this.spOrderRight.SuspendLayout();
+            this.pnPreno.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spPreno)).BeginInit();
+            this.spPreno.SuspendLayout();
+            this.c1SplitterPanel3.SuspendLayout();
             this.c1SplitterPanel4.SuspendLayout();
+            this.c1SplitterPanel27.SuspendLayout();
+            this.c1SplitterPanel28.SuspendLayout();
             this.tabScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spScan)).BeginInit();
             this.spScan.SuspendLayout();
@@ -1117,7 +1136,7 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 817;
+            this.spOperList.Width = 824;
             // 
             // pnOperList
             // 
@@ -1131,7 +1150,7 @@
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 298;
+            this.spOperVisit.Height = 305;
             this.spOperVisit.Location = new System.Drawing.Point(828, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(825, 277);
@@ -2103,39 +2122,40 @@
             this.spOrder.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.spOrder.Location = new System.Drawing.Point(0, 0);
             this.spOrder.Name = "spOrder";
-            this.spOrder.Panels.Add(this.c1SplitterPanel3);
-            this.spOrder.Panels.Add(this.c1SplitterPanel4);
+            this.spOrder.Panels.Add(this.spOrderTop);
+            this.spOrder.Panels.Add(this.spOrderLeft);
+            this.spOrder.Panels.Add(this.spOrderRight);
             this.spOrder.Size = new System.Drawing.Size(823, 731);
             this.spOrder.TabIndex = 0;
             // 
-            // c1SplitterPanel3
+            // spOrderTop
             // 
-            this.c1SplitterPanel3.Collapsible = true;
-            this.c1SplitterPanel3.Controls.Add(this.btnOrderSubmit);
-            this.c1SplitterPanel3.Controls.Add(this.btnOrderSave);
-            this.c1SplitterPanel3.Controls.Add(this.btnItemAdd);
-            this.c1SplitterPanel3.Controls.Add(this.txtItemRemark);
-            this.c1SplitterPanel3.Controls.Add(this.label82);
-            this.c1SplitterPanel3.Controls.Add(this.label81);
-            this.c1SplitterPanel3.Controls.Add(this.txtItemQTY);
-            this.c1SplitterPanel3.Controls.Add(this.lbItemName);
-            this.c1SplitterPanel3.Controls.Add(this.txtItemCode);
-            this.c1SplitterPanel3.Controls.Add(this.label79);
-            this.c1SplitterPanel3.Controls.Add(this.btnOperItemSearch);
-            this.c1SplitterPanel3.Controls.Add(this.chkItemProcedure);
-            this.c1SplitterPanel3.Controls.Add(this.chkItemDrug);
-            this.c1SplitterPanel3.Controls.Add(this.chkItemXray);
-            this.c1SplitterPanel3.Controls.Add(this.chkItemLab);
-            this.c1SplitterPanel3.Controls.Add(this.txtSearchItem);
-            this.c1SplitterPanel3.Controls.Add(this.label77);
-            this.c1SplitterPanel3.Height = 147;
-            this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
-            this.c1SplitterPanel3.Name = "c1SplitterPanel3";
-            this.c1SplitterPanel3.Size = new System.Drawing.Size(823, 126);
-            this.c1SplitterPanel3.SizeRatio = 21.183D;
-            this.c1SplitterPanel3.TabIndex = 0;
-            this.c1SplitterPanel3.Text = "Panel 1";
-            this.c1SplitterPanel3.Width = 823;
+            this.spOrderTop.Collapsible = true;
+            this.spOrderTop.Controls.Add(this.btnOrderSubmit);
+            this.spOrderTop.Controls.Add(this.btnOrderSave);
+            this.spOrderTop.Controls.Add(this.btnItemAdd);
+            this.spOrderTop.Controls.Add(this.txtItemRemark);
+            this.spOrderTop.Controls.Add(this.label82);
+            this.spOrderTop.Controls.Add(this.label81);
+            this.spOrderTop.Controls.Add(this.txtItemQTY);
+            this.spOrderTop.Controls.Add(this.lbItemName);
+            this.spOrderTop.Controls.Add(this.txtItemCode);
+            this.spOrderTop.Controls.Add(this.label79);
+            this.spOrderTop.Controls.Add(this.btnOperItemSearch);
+            this.spOrderTop.Controls.Add(this.chkItemProcedure);
+            this.spOrderTop.Controls.Add(this.chkItemDrug);
+            this.spOrderTop.Controls.Add(this.chkItemXray);
+            this.spOrderTop.Controls.Add(this.chkItemLab);
+            this.spOrderTop.Controls.Add(this.txtSearchItem);
+            this.spOrderTop.Controls.Add(this.label77);
+            this.spOrderTop.Height = 147;
+            this.spOrderTop.Location = new System.Drawing.Point(0, 21);
+            this.spOrderTop.Name = "spOrderTop";
+            this.spOrderTop.Size = new System.Drawing.Size(823, 126);
+            this.spOrderTop.SizeRatio = 21.183D;
+            this.spOrderTop.TabIndex = 0;
+            this.spOrderTop.Text = "Panel 1";
+            this.spOrderTop.Width = 823;
             // 
             // btnOrderSubmit
             // 
@@ -2311,23 +2331,137 @@
             this.label77.TabIndex = 254;
             this.label77.Text = "ค้นหา :";
             // 
-            // c1SplitterPanel4
+            // spOrderLeft
             // 
-            this.c1SplitterPanel4.Controls.Add(this.pnOrder);
-            this.c1SplitterPanel4.Height = 573;
-            this.c1SplitterPanel4.Location = new System.Drawing.Point(0, 179);
-            this.c1SplitterPanel4.Name = "c1SplitterPanel4";
-            this.c1SplitterPanel4.Size = new System.Drawing.Size(823, 552);
-            this.c1SplitterPanel4.TabIndex = 1;
-            this.c1SplitterPanel4.Text = "Panel 2";
+            this.spOrderLeft.Controls.Add(this.pnOrder);
+            this.spOrderLeft.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.spOrderLeft.Height = 573;
+            this.spOrderLeft.Location = new System.Drawing.Point(0, 179);
+            this.spOrderLeft.Name = "spOrderLeft";
+            this.spOrderLeft.Size = new System.Drawing.Size(409, 552);
+            this.spOrderLeft.SizeRatio = 49.939D;
+            this.spOrderLeft.TabIndex = 1;
+            this.spOrderLeft.Text = "Panel 2";
+            this.spOrderLeft.Width = 409;
             // 
             // pnOrder
             // 
             this.pnOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOrder.Location = new System.Drawing.Point(0, 0);
             this.pnOrder.Name = "pnOrder";
-            this.pnOrder.Size = new System.Drawing.Size(823, 552);
+            this.pnOrder.Size = new System.Drawing.Size(409, 552);
             this.pnOrder.TabIndex = 0;
+            // 
+            // spOrderRight
+            // 
+            this.spOrderRight.Controls.Add(this.pnPreno);
+            this.spOrderRight.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            this.spOrderRight.Location = new System.Drawing.Point(413, 179);
+            this.spOrderRight.Name = "spOrderRight";
+            this.spOrderRight.Size = new System.Drawing.Size(410, 552);
+            this.spOrderRight.TabIndex = 2;
+            this.spOrderRight.Text = "Panel 3";
+            this.spOrderRight.Width = 410;
+            // 
+            // pnPreno
+            // 
+            this.pnPreno.Controls.Add(this.spPreno);
+            this.pnPreno.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPreno.Location = new System.Drawing.Point(0, 0);
+            this.pnPreno.Name = "pnPreno";
+            this.pnPreno.Size = new System.Drawing.Size(410, 552);
+            this.pnPreno.TabIndex = 0;
+            // 
+            // spPreno
+            // 
+            this.spPreno.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.spPreno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.spPreno.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.spPreno.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spPreno.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.spPreno.Location = new System.Drawing.Point(0, 0);
+            this.spPreno.Name = "spPreno";
+            this.spPreno.Panels.Add(this.c1SplitterPanel3);
+            this.spPreno.Panels.Add(this.c1SplitterPanel4);
+            this.spPreno.Panels.Add(this.c1SplitterPanel27);
+            this.spPreno.Panels.Add(this.c1SplitterPanel28);
+            this.spPreno.Size = new System.Drawing.Size(410, 552);
+            this.spPreno.TabIndex = 1;
+            // 
+            // c1SplitterPanel3
+            // 
+            this.c1SplitterPanel3.Controls.Add(this.pnPrenoDrug);
+            this.c1SplitterPanel3.Height = 154;
+            this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel3.Name = "c1SplitterPanel3";
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(410, 133);
+            this.c1SplitterPanel3.SizeRatio = 28.089D;
+            this.c1SplitterPanel3.TabIndex = 0;
+            this.c1SplitterPanel3.Text = "Drug";
+            // 
+            // pnPrenoDrug
+            // 
+            this.pnPrenoDrug.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPrenoDrug.Location = new System.Drawing.Point(0, 0);
+            this.pnPrenoDrug.Name = "pnPrenoDrug";
+            this.pnPrenoDrug.Size = new System.Drawing.Size(410, 133);
+            this.pnPrenoDrug.TabIndex = 0;
+            // 
+            // c1SplitterPanel4
+            // 
+            this.c1SplitterPanel4.Controls.Add(this.pnPrenoLab);
+            this.c1SplitterPanel4.Height = 123;
+            this.c1SplitterPanel4.Location = new System.Drawing.Point(0, 179);
+            this.c1SplitterPanel4.Name = "c1SplitterPanel4";
+            this.c1SplitterPanel4.Size = new System.Drawing.Size(410, 102);
+            this.c1SplitterPanel4.SizeRatio = 31.579D;
+            this.c1SplitterPanel4.TabIndex = 1;
+            this.c1SplitterPanel4.Text = "Lab";
+            // 
+            // pnPrenoLab
+            // 
+            this.pnPrenoLab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPrenoLab.Location = new System.Drawing.Point(0, 0);
+            this.pnPrenoLab.Name = "pnPrenoLab";
+            this.pnPrenoLab.Size = new System.Drawing.Size(410, 102);
+            this.pnPrenoLab.TabIndex = 0;
+            // 
+            // c1SplitterPanel27
+            // 
+            this.c1SplitterPanel27.Controls.Add(this.pnPrenoXray);
+            this.c1SplitterPanel27.Height = 106;
+            this.c1SplitterPanel27.Location = new System.Drawing.Point(0, 306);
+            this.c1SplitterPanel27.Name = "c1SplitterPanel27";
+            this.c1SplitterPanel27.Size = new System.Drawing.Size(410, 85);
+            this.c1SplitterPanel27.SizeRatio = 40.159D;
+            this.c1SplitterPanel27.TabIndex = 2;
+            this.c1SplitterPanel27.Text = "Xray";
+            // 
+            // pnPrenoXray
+            // 
+            this.pnPrenoXray.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPrenoXray.Location = new System.Drawing.Point(0, 0);
+            this.pnPrenoXray.Name = "pnPrenoXray";
+            this.pnPrenoXray.Size = new System.Drawing.Size(410, 85);
+            this.pnPrenoXray.TabIndex = 0;
+            // 
+            // c1SplitterPanel28
+            // 
+            this.c1SplitterPanel28.Controls.Add(this.pnPrenoProcedure);
+            this.c1SplitterPanel28.Height = 157;
+            this.c1SplitterPanel28.Location = new System.Drawing.Point(0, 416);
+            this.c1SplitterPanel28.Name = "c1SplitterPanel28";
+            this.c1SplitterPanel28.Size = new System.Drawing.Size(410, 136);
+            this.c1SplitterPanel28.TabIndex = 3;
+            this.c1SplitterPanel28.Text = "Procedure";
+            // 
+            // pnPrenoProcedure
+            // 
+            this.pnPrenoProcedure.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPrenoProcedure.Location = new System.Drawing.Point(0, 0);
+            this.pnPrenoProcedure.Name = "pnPrenoProcedure";
+            this.pnPrenoProcedure.Size = new System.Drawing.Size(410, 136);
+            this.pnPrenoProcedure.TabIndex = 0;
             // 
             // tabScan
             // 
@@ -2447,7 +2581,7 @@
             this.c1SplitterPanel1.Controls.Add(this.txtPttApmDate);
             this.c1SplitterPanel1.Controls.Add(this.label69);
             this.c1SplitterPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel1.Height = 314;
+            this.c1SplitterPanel1.Height = 321;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
             this.c1SplitterPanel1.Size = new System.Drawing.Size(823, 293);
@@ -2958,7 +3092,7 @@
             this.c1SplitterPanel14.Height = 291;
             this.c1SplitterPanel14.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel14.Name = "c1SplitterPanel14";
-            this.c1SplitterPanel14.Size = new System.Drawing.Size(727, 270);
+            this.c1SplitterPanel14.Size = new System.Drawing.Size(823, 270);
             this.c1SplitterPanel14.SizeRatio = 28.089D;
             this.c1SplitterPanel14.TabIndex = 0;
             this.c1SplitterPanel14.Text = "Drug";
@@ -2968,7 +3102,7 @@
             this.pnFinishDrug.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFinishDrug.Location = new System.Drawing.Point(0, 0);
             this.pnFinishDrug.Name = "pnFinishDrug";
-            this.pnFinishDrug.Size = new System.Drawing.Size(727, 270);
+            this.pnFinishDrug.Size = new System.Drawing.Size(823, 270);
             this.pnFinishDrug.TabIndex = 0;
             // 
             // c1SplitterPanel15
@@ -2977,7 +3111,7 @@
             this.c1SplitterPanel15.Height = 234;
             this.c1SplitterPanel15.Location = new System.Drawing.Point(0, 316);
             this.c1SplitterPanel15.Name = "c1SplitterPanel15";
-            this.c1SplitterPanel15.Size = new System.Drawing.Size(727, 213);
+            this.c1SplitterPanel15.Size = new System.Drawing.Size(823, 213);
             this.c1SplitterPanel15.SizeRatio = 31.579D;
             this.c1SplitterPanel15.TabIndex = 1;
             this.c1SplitterPanel15.Text = "Lab";
@@ -2987,7 +3121,7 @@
             this.pnFinishLab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFinishLab.Location = new System.Drawing.Point(0, 0);
             this.pnFinishLab.Name = "pnFinishLab";
-            this.pnFinishLab.Size = new System.Drawing.Size(727, 213);
+            this.pnFinishLab.Size = new System.Drawing.Size(823, 213);
             this.pnFinishLab.TabIndex = 0;
             // 
             // c1SplitterPanel16
@@ -2996,7 +3130,7 @@
             this.c1SplitterPanel16.Height = 202;
             this.c1SplitterPanel16.Location = new System.Drawing.Point(0, 554);
             this.c1SplitterPanel16.Name = "c1SplitterPanel16";
-            this.c1SplitterPanel16.Size = new System.Drawing.Size(727, 181);
+            this.c1SplitterPanel16.Size = new System.Drawing.Size(823, 181);
             this.c1SplitterPanel16.SizeRatio = 40.159D;
             this.c1SplitterPanel16.TabIndex = 2;
             this.c1SplitterPanel16.Text = "Xray";
@@ -3006,7 +3140,7 @@
             this.pnFinishXray.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFinishXray.Location = new System.Drawing.Point(0, 0);
             this.pnFinishXray.Name = "pnFinishXray";
-            this.pnFinishXray.Size = new System.Drawing.Size(727, 181);
+            this.pnFinishXray.Size = new System.Drawing.Size(823, 181);
             this.pnFinishXray.TabIndex = 0;
             // 
             // c1SplitterPanel17
@@ -3015,7 +3149,7 @@
             this.c1SplitterPanel17.Height = 301;
             this.c1SplitterPanel17.Location = new System.Drawing.Point(0, 760);
             this.c1SplitterPanel17.Name = "c1SplitterPanel17";
-            this.c1SplitterPanel17.Size = new System.Drawing.Size(727, 280);
+            this.c1SplitterPanel17.Size = new System.Drawing.Size(823, 280);
             this.c1SplitterPanel17.TabIndex = 3;
             this.c1SplitterPanel17.Text = "Procedure";
             // 
@@ -3024,7 +3158,7 @@
             this.pnFinishProcedure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFinishProcedure.Location = new System.Drawing.Point(0, 0);
             this.pnFinishProcedure.Name = "pnFinishProcedure";
-            this.pnFinishProcedure.Size = new System.Drawing.Size(727, 280);
+            this.pnFinishProcedure.Size = new System.Drawing.Size(823, 280);
             this.pnFinishProcedure.TabIndex = 0;
             // 
             // tabFinishCertMed
@@ -3433,7 +3567,7 @@
             this.spCheckUpList.SizeRatio = 33.122D;
             this.spCheckUpList.TabIndex = 0;
             this.spCheckUpList.Text = "Panel 1";
-            this.spCheckUpList.Width = 546;
+            this.spCheckUpList.Width = 539;
             // 
             // spCheckUPVisit
             // 
@@ -5202,6 +5336,24 @@
             this.groupBox11.TabIndex = 264;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "สรุปผลตรวจ";
+            // 
+            // label164
+            // 
+            this.label164.AutoSize = true;
+            this.label164.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label164.Location = new System.Drawing.Point(6, 205);
+            this.label164.Name = "label164";
+            this.label164.Size = new System.Drawing.Size(155, 20);
+            this.label164.TabIndex = 213;
+            this.label164.Text = "ผลการตรวจอื่นๆ (ถ้ามี) :";
+            // 
+            // txtAlienOther
+            // 
+            this.txtAlienOther.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAlienOther.Location = new System.Drawing.Point(6, 228);
+            this.txtAlienOther.Name = "txtAlienOther";
+            this.txtAlienOther.Size = new System.Drawing.Size(604, 26);
+            this.txtAlienOther.TabIndex = 212;
             // 
             // chkAlienConfirm4
             // 
@@ -8959,24 +9111,6 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
-            // txtAlienOther
-            // 
-            this.txtAlienOther.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAlienOther.Location = new System.Drawing.Point(6, 228);
-            this.txtAlienOther.Name = "txtAlienOther";
-            this.txtAlienOther.Size = new System.Drawing.Size(604, 26);
-            this.txtAlienOther.TabIndex = 212;
-            // 
-            // label164
-            // 
-            this.label164.AutoSize = true;
-            this.label164.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label164.Location = new System.Drawing.Point(6, 205);
-            this.label164.Name = "label164";
-            this.label164.Size = new System.Drawing.Size(155, 20);
-            this.label164.TabIndex = 213;
-            this.label164.Text = "ผลการตรวจอื่นๆ (ถ้ามี) :";
-            // 
             // FrmOPD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -9047,8 +9181,8 @@
             this.tabOrder.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spOrder)).EndInit();
             this.spOrder.ResumeLayout(false);
-            this.c1SplitterPanel3.ResumeLayout(false);
-            this.c1SplitterPanel3.PerformLayout();
+            this.spOrderTop.ResumeLayout(false);
+            this.spOrderTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSubmit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOrderSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).EndInit();
@@ -9057,7 +9191,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOperItemSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).EndInit();
+            this.spOrderLeft.ResumeLayout(false);
+            this.spOrderRight.ResumeLayout(false);
+            this.pnPreno.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spPreno)).EndInit();
+            this.spPreno.ResumeLayout(false);
+            this.c1SplitterPanel3.ResumeLayout(false);
             this.c1SplitterPanel4.ResumeLayout(false);
+            this.c1SplitterPanel27.ResumeLayout(false);
+            this.c1SplitterPanel28.ResumeLayout(false);
             this.tabScan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spScan)).EndInit();
             this.spScan.ResumeLayout(false);
@@ -9587,8 +9729,7 @@
         private C1.Win.C1Input.C1Button btnApmOrder;
         private C1.Win.C1Input.C1Button btnApmSave;
         private C1.Win.C1SplitContainer.C1SplitContainer spOrder;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel3;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel4;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spOrderLeft;
         private System.Windows.Forms.RadioButton chkItemProcedure;
         private System.Windows.Forms.RadioButton chkItemDrug;
         private System.Windows.Forms.RadioButton chkItemXray;
@@ -10064,5 +10205,17 @@
         private C1.Win.C1Input.C1TextBox txtApmVsNewHn;
         private System.Windows.Forms.Label label164;
         private System.Windows.Forms.TextBox txtAlienOther;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spOrderRight;
+        public C1.Win.C1SplitContainer.C1SplitterPanel spOrderTop;
+        private System.Windows.Forms.Panel pnPreno;
+        private C1.Win.C1SplitContainer.C1SplitContainer spPreno;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel3;
+        private System.Windows.Forms.Panel pnPrenoDrug;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel4;
+        private System.Windows.Forms.Panel pnPrenoLab;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel27;
+        private System.Windows.Forms.Panel pnPrenoXray;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel28;
+        private System.Windows.Forms.Panel pnPrenoProcedure;
     }
 }

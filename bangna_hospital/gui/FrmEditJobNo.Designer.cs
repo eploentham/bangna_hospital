@@ -115,12 +115,44 @@
             this.btnDtrupdate = new C1.Win.C1Input.C1Button();
             this.label20 = new System.Windows.Forms.Label();
             this.txtDtrcode = new C1.Win.C1Input.C1TextBox();
+            this.c1DockingTabPage8 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1Button2 = new C1.Win.C1Input.C1Button();
+            this.c1DockingTabPage9 = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnUpdateDrugExpireDate = new C1.Win.C1Input.C1Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.c1TextBox1 = new C1.Win.C1Input.C1TextBox();
+            this.c1DockingTabPage10 = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnXrayDelReq = new C1.Win.C1Input.C1Button();
+            this.pnxrayitems = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.txtXrayReqdate = new C1.Win.C1Input.C1TextBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtXrayReqYear = new C1.Win.C1Input.C1TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.txtXrayReqno = new C1.Win.C1Input.C1TextBox();
+            this.btnXray = new C1.Win.C1Input.C1Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtXrayDate = new C1.Win.C1Input.C1TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtXrayPreno = new C1.Win.C1Input.C1TextBox();
+            this.chkXrayIpd = new System.Windows.Forms.RadioButton();
+            this.chkXrayOpd = new System.Windows.Forms.RadioButton();
+            this.pnXray = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.txtXrayHn = new C1.Win.C1Input.C1TextBox();
+            this.lbXrayPttnameT = new System.Windows.Forms.Label();
             this.sbMessage = new C1.Win.C1Ribbon.C1StatusBar();
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.c1DockingTabPage8 = new C1.Win.C1Command.C1DockingTabPage();
-            this.c1Button2 = new C1.Win.C1Input.C1Button();
+            this.cboDept1 = new C1.Win.C1Input.C1ComboBox();
+            this.chkDeptIPD1 = new System.Windows.Forms.RadioButton();
+            this.chkDeptOPD1 = new System.Windows.Forms.RadioButton();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNoCur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNo)).BeginInit();
@@ -169,9 +201,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrAppoint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDtrupdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
             this.c1DockingTabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
+            this.c1DockingTabPage9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUpdateDrugExpireDate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).BeginInit();
+            this.c1DockingTabPage10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXrayDelReq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayReqdate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayReqYear)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayReqno)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXray)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayDate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayPreno)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayHn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboDept1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPttHn
@@ -337,6 +382,8 @@
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage6);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage7);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage8);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage9);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage10);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
@@ -1122,6 +1169,299 @@
             this.txtDtrcode.TabIndex = 131;
             this.txtDtrcode.Tag = null;
             // 
+            // c1DockingTabPage8
+            // 
+            this.c1DockingTabPage8.Controls.Add(this.label35);
+            this.c1DockingTabPage8.Controls.Add(this.label34);
+            this.c1DockingTabPage8.Controls.Add(this.cboDept1);
+            this.c1DockingTabPage8.Controls.Add(this.chkDeptIPD1);
+            this.c1DockingTabPage8.Controls.Add(this.chkDeptOPD1);
+            this.c1DockingTabPage8.Controls.Add(this.label33);
+            this.c1DockingTabPage8.Controls.Add(this.c1Button2);
+            this.c1DockingTabPage8.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage8.Name = "c1DockingTabPage8";
+            this.c1DockingTabPage8.Size = new System.Drawing.Size(1072, 459);
+            this.c1DockingTabPage8.TabIndex = 7;
+            this.c1DockingTabPage8.Text = "test app";
+            // 
+            // c1Button2
+            // 
+            this.c1Button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button2.Location = new System.Drawing.Point(24, 23);
+            this.c1Button2.Name = "c1Button2";
+            this.c1Button2.Size = new System.Drawing.Size(138, 45);
+            this.c1Button2.TabIndex = 123;
+            this.c1Button2.Text = "read smart card";
+            this.c1Button2.UseVisualStyleBackColor = true;
+            // 
+            // c1DockingTabPage9
+            // 
+            this.c1DockingTabPage9.Controls.Add(this.btnUpdateDrugExpireDate);
+            this.c1DockingTabPage9.Controls.Add(this.panel4);
+            this.c1DockingTabPage9.Controls.Add(this.label26);
+            this.c1DockingTabPage9.Controls.Add(this.label24);
+            this.c1DockingTabPage9.Controls.Add(this.c1TextBox1);
+            this.c1DockingTabPage9.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage9.Name = "c1DockingTabPage9";
+            this.c1DockingTabPage9.Size = new System.Drawing.Size(1072, 459);
+            this.c1DockingTabPage9.TabIndex = 8;
+            this.c1DockingTabPage9.Text = "ใบรับรองแพทย์ duplicate key";
+            // 
+            // btnUpdateDrugExpireDate
+            // 
+            this.btnUpdateDrugExpireDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnUpdateDrugExpireDate.Location = new System.Drawing.Point(637, 11);
+            this.btnUpdateDrugExpireDate.Name = "btnUpdateDrugExpireDate";
+            this.btnUpdateDrugExpireDate.Size = new System.Drawing.Size(184, 30);
+            this.btnUpdateDrugExpireDate.TabIndex = 123;
+            this.btnUpdateDrugExpireDate.Text = "delete patient_t36";
+            this.btnUpdateDrugExpireDate.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Location = new System.Drawing.Point(11, 51);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(876, 403);
+            this.panel4.TabIndex = 80;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label26.Location = new System.Drawing.Point(281, 17);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(35, 25);
+            this.label26.TabIndex = 79;
+            this.label26.Text = "ชื่อ";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label24.Location = new System.Drawing.Point(25, 21);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(44, 20);
+            this.label24.TabIndex = 77;
+            this.label24.Text = "code";
+            // 
+            // c1TextBox1
+            // 
+            this.c1TextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox1.Location = new System.Drawing.Point(89, 18);
+            this.c1TextBox1.Name = "c1TextBox1";
+            this.c1TextBox1.Size = new System.Drawing.Size(186, 27);
+            this.c1TextBox1.TabIndex = 78;
+            this.c1TextBox1.Tag = null;
+            // 
+            // c1DockingTabPage10
+            // 
+            this.c1DockingTabPage10.Controls.Add(this.btnXrayDelReq);
+            this.c1DockingTabPage10.Controls.Add(this.pnxrayitems);
+            this.c1DockingTabPage10.Controls.Add(this.label32);
+            this.c1DockingTabPage10.Controls.Add(this.txtXrayReqdate);
+            this.c1DockingTabPage10.Controls.Add(this.label31);
+            this.c1DockingTabPage10.Controls.Add(this.txtXrayReqYear);
+            this.c1DockingTabPage10.Controls.Add(this.label28);
+            this.c1DockingTabPage10.Controls.Add(this.txtXrayReqno);
+            this.c1DockingTabPage10.Controls.Add(this.btnXray);
+            this.c1DockingTabPage10.Controls.Add(this.label29);
+            this.c1DockingTabPage10.Controls.Add(this.txtXrayDate);
+            this.c1DockingTabPage10.Controls.Add(this.label30);
+            this.c1DockingTabPage10.Controls.Add(this.txtXrayPreno);
+            this.c1DockingTabPage10.Controls.Add(this.chkXrayIpd);
+            this.c1DockingTabPage10.Controls.Add(this.chkXrayOpd);
+            this.c1DockingTabPage10.Controls.Add(this.pnXray);
+            this.c1DockingTabPage10.Controls.Add(this.label27);
+            this.c1DockingTabPage10.Controls.Add(this.txtXrayHn);
+            this.c1DockingTabPage10.Controls.Add(this.lbXrayPttnameT);
+            this.c1DockingTabPage10.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage10.Name = "c1DockingTabPage10";
+            this.c1DockingTabPage10.Size = new System.Drawing.Size(1072, 459);
+            this.c1DockingTabPage10.TabIndex = 9;
+            this.c1DockingTabPage10.Text = "Xay worklist ไม่เข้า";
+            // 
+            // btnXrayDelReq
+            // 
+            this.btnXrayDelReq.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnXrayDelReq.Location = new System.Drawing.Point(960, 4);
+            this.btnXrayDelReq.Name = "btnXrayDelReq";
+            this.btnXrayDelReq.Size = new System.Drawing.Size(101, 36);
+            this.btnXrayDelReq.TabIndex = 151;
+            this.btnXrayDelReq.Text = "delete req";
+            this.btnXrayDelReq.UseVisualStyleBackColor = true;
+            // 
+            // pnxrayitems
+            // 
+            this.pnxrayitems.Location = new System.Drawing.Point(508, 72);
+            this.pnxrayitems.Name = "pnxrayitems";
+            this.pnxrayitems.Size = new System.Drawing.Size(561, 366);
+            this.pnxrayitems.TabIndex = 150;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label32.Location = new System.Drawing.Point(253, 42);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(64, 20);
+            this.label32.TabIndex = 148;
+            this.label32.Text = "reqdate";
+            // 
+            // txtXrayReqdate
+            // 
+            this.txtXrayReqdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtXrayReqdate.Location = new System.Drawing.Point(323, 39);
+            this.txtXrayReqdate.Name = "txtXrayReqdate";
+            this.txtXrayReqdate.Size = new System.Drawing.Size(109, 27);
+            this.txtXrayReqdate.TabIndex = 149;
+            this.txtXrayReqdate.Tag = null;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label31.Location = new System.Drawing.Point(603, 39);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(62, 20);
+            this.label31.TabIndex = 146;
+            this.label31.Text = "reqyear";
+            // 
+            // txtXrayReqYear
+            // 
+            this.txtXrayReqYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtXrayReqYear.Location = new System.Drawing.Point(678, 36);
+            this.txtXrayReqYear.Name = "txtXrayReqYear";
+            this.txtXrayReqYear.Size = new System.Drawing.Size(87, 27);
+            this.txtXrayReqYear.TabIndex = 147;
+            this.txtXrayReqYear.Tag = null;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label28.Location = new System.Drawing.Point(438, 42);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(50, 20);
+            this.label28.TabIndex = 144;
+            this.label28.Text = "reqno";
+            // 
+            // txtXrayReqno
+            // 
+            this.txtXrayReqno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtXrayReqno.Location = new System.Drawing.Point(499, 39);
+            this.txtXrayReqno.Name = "txtXrayReqno";
+            this.txtXrayReqno.Size = new System.Drawing.Size(87, 27);
+            this.txtXrayReqno.TabIndex = 145;
+            this.txtXrayReqno.Tag = null;
+            // 
+            // btnXray
+            // 
+            this.btnXray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnXray.Location = new System.Drawing.Point(793, 3);
+            this.btnXray.Name = "btnXray";
+            this.btnXray.Size = new System.Drawing.Size(101, 36);
+            this.btnXray.TabIndex = 143;
+            this.btnXray.Text = "แก้ไขstatus";
+            this.btnXray.UseVisualStyleBackColor = true;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label29.Location = new System.Drawing.Point(603, 9);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(56, 20);
+            this.label29.TabIndex = 141;
+            this.label29.Text = "vsdate";
+            // 
+            // txtXrayDate
+            // 
+            this.txtXrayDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtXrayDate.Location = new System.Drawing.Point(664, 6);
+            this.txtXrayDate.Name = "txtXrayDate";
+            this.txtXrayDate.Size = new System.Drawing.Size(109, 27);
+            this.txtXrayDate.TabIndex = 142;
+            this.txtXrayDate.Tag = null;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label30.Location = new System.Drawing.Point(438, 9);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(50, 20);
+            this.label30.TabIndex = 139;
+            this.label30.Text = "preno";
+            // 
+            // txtXrayPreno
+            // 
+            this.txtXrayPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtXrayPreno.Location = new System.Drawing.Point(499, 6);
+            this.txtXrayPreno.Name = "txtXrayPreno";
+            this.txtXrayPreno.Size = new System.Drawing.Size(87, 27);
+            this.txtXrayPreno.TabIndex = 140;
+            this.txtXrayPreno.Tag = null;
+            // 
+            // chkXrayIpd
+            // 
+            this.chkXrayIpd.AutoSize = true;
+            this.chkXrayIpd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkXrayIpd.Location = new System.Drawing.Point(362, 6);
+            this.chkXrayIpd.Name = "chkXrayIpd";
+            this.chkXrayIpd.Size = new System.Drawing.Size(54, 24);
+            this.chkXrayIpd.TabIndex = 138;
+            this.chkXrayIpd.Text = "IPD";
+            this.chkXrayIpd.UseVisualStyleBackColor = true;
+            // 
+            // chkXrayOpd
+            // 
+            this.chkXrayOpd.AutoSize = true;
+            this.chkXrayOpd.Checked = true;
+            this.chkXrayOpd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkXrayOpd.Location = new System.Drawing.Point(284, 6);
+            this.chkXrayOpd.Name = "chkXrayOpd";
+            this.chkXrayOpd.Size = new System.Drawing.Size(61, 24);
+            this.chkXrayOpd.TabIndex = 137;
+            this.chkXrayOpd.TabStop = true;
+            this.chkXrayOpd.Text = "OPD";
+            this.chkXrayOpd.UseVisualStyleBackColor = true;
+            // 
+            // pnXray
+            // 
+            this.pnXray.Location = new System.Drawing.Point(3, 72);
+            this.pnXray.Name = "pnXray";
+            this.pnXray.Size = new System.Drawing.Size(499, 366);
+            this.pnXray.TabIndex = 82;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label27.Location = new System.Drawing.Point(5, 6);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(32, 20);
+            this.label27.TabIndex = 79;
+            this.label27.Text = "HN";
+            // 
+            // txtXrayHn
+            // 
+            this.txtXrayHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtXrayHn.Location = new System.Drawing.Point(69, 3);
+            this.txtXrayHn.Name = "txtXrayHn";
+            this.txtXrayHn.Size = new System.Drawing.Size(186, 27);
+            this.txtXrayHn.TabIndex = 80;
+            this.txtXrayHn.Tag = null;
+            // 
+            // lbXrayPttnameT
+            // 
+            this.lbXrayPttnameT.AutoSize = true;
+            this.lbXrayPttnameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbXrayPttnameT.Location = new System.Drawing.Point(5, 44);
+            this.lbXrayPttnameT.Name = "lbXrayPttnameT";
+            this.lbXrayPttnameT.Size = new System.Drawing.Size(35, 25);
+            this.lbXrayPttnameT.TabIndex = 81;
+            this.lbXrayPttnameT.Text = "ชื่อ";
+            // 
             // sbMessage
             // 
             this.sbMessage.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
@@ -1147,24 +1487,75 @@
             this.rb2.Name = "rb2";
             this.rb2.Text = "Label";
             // 
-            // c1DockingTabPage8
+            // cboDept1
             // 
-            this.c1DockingTabPage8.Controls.Add(this.c1Button2);
-            this.c1DockingTabPage8.Location = new System.Drawing.Point(1, 30);
-            this.c1DockingTabPage8.Name = "c1DockingTabPage8";
-            this.c1DockingTabPage8.Size = new System.Drawing.Size(1072, 459);
-            this.c1DockingTabPage8.TabIndex = 7;
-            this.c1DockingTabPage8.Text = "test app";
+            this.cboDept1.AllowSpinLoop = false;
+            this.cboDept1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboDept1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboDept1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDept1.GapHeight = 0;
+            this.cboDept1.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboDept1.ItemsDisplayMember = "";
+            this.cboDept1.ItemsValueMember = "";
+            this.cboDept1.Location = new System.Drawing.Point(194, 80);
+            this.cboDept1.Name = "cboDept1";
+            this.cboDept1.Size = new System.Drawing.Size(268, 29);
+            this.cboDept1.TabIndex = 210;
+            this.cboDept1.Tag = null;
             // 
-            // c1Button2
+            // chkDeptIPD1
             // 
-            this.c1Button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button2.Location = new System.Drawing.Point(24, 23);
-            this.c1Button2.Name = "c1Button2";
-            this.c1Button2.Size = new System.Drawing.Size(138, 45);
-            this.c1Button2.TabIndex = 123;
-            this.c1Button2.Text = "read smart card";
-            this.c1Button2.UseVisualStyleBackColor = true;
+            this.chkDeptIPD1.AutoSize = true;
+            this.chkDeptIPD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDeptIPD1.Location = new System.Drawing.Point(73, 85);
+            this.chkDeptIPD1.Name = "chkDeptIPD1";
+            this.chkDeptIPD1.Size = new System.Drawing.Size(54, 24);
+            this.chkDeptIPD1.TabIndex = 209;
+            this.chkDeptIPD1.Text = "IPD";
+            this.chkDeptIPD1.UseVisualStyleBackColor = true;
+            // 
+            // chkDeptOPD1
+            // 
+            this.chkDeptOPD1.AutoSize = true;
+            this.chkDeptOPD1.Checked = true;
+            this.chkDeptOPD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDeptOPD1.Location = new System.Drawing.Point(9, 85);
+            this.chkDeptOPD1.Name = "chkDeptOPD1";
+            this.chkDeptOPD1.Size = new System.Drawing.Size(61, 24);
+            this.chkDeptOPD1.TabIndex = 208;
+            this.chkDeptOPD1.TabStop = true;
+            this.chkDeptOPD1.Text = "OPD";
+            this.chkDeptOPD1.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label33.Location = new System.Drawing.Point(143, 87);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(45, 20);
+            this.label33.TabIndex = 207;
+            this.label33.Text = "แผนก";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label34.Location = new System.Drawing.Point(468, 85);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(21, 20);
+            this.label34.TabIndex = 211;
+            this.label34.Text = "...";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label35.Location = new System.Drawing.Point(592, 85);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(21, 20);
+            this.label35.TabIndex = 212;
+            this.label35.Text = "...";
             // 
             // FrmEditJobNo
             // 
@@ -1232,9 +1623,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrAppoint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDtrupdate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
             this.c1DockingTabPage8.ResumeLayout(false);
+            this.c1DockingTabPage8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
+            this.c1DockingTabPage9.ResumeLayout(false);
+            this.c1DockingTabPage9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnUpdateDrugExpireDate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).EndInit();
+            this.c1DockingTabPage10.ResumeLayout(false);
+            this.c1DockingTabPage10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXrayDelReq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayReqdate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayReqYear)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayReqno)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnXray)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayDate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayPreno)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtXrayHn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboDept1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1335,5 +1742,37 @@
         private C1.Win.C1Input.C1TextBox txtDtrcode;
         private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage8;
         private C1.Win.C1Input.C1Button c1Button2;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage9;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label24;
+        private C1.Win.C1Input.C1TextBox c1TextBox1;
+        private System.Windows.Forms.Panel panel4;
+        private C1.Win.C1Input.C1Button btnUpdateDrugExpireDate;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage10;
+        private System.Windows.Forms.Panel pnXray;
+        private System.Windows.Forms.Label label27;
+        private C1.Win.C1Input.C1TextBox txtXrayHn;
+        private System.Windows.Forms.Label lbXrayPttnameT;
+        private System.Windows.Forms.Label label29;
+        private C1.Win.C1Input.C1TextBox txtXrayDate;
+        private System.Windows.Forms.Label label30;
+        private C1.Win.C1Input.C1TextBox txtXrayPreno;
+        private System.Windows.Forms.RadioButton chkXrayIpd;
+        private System.Windows.Forms.RadioButton chkXrayOpd;
+        private C1.Win.C1Input.C1Button btnXray;
+        private System.Windows.Forms.Label label31;
+        private C1.Win.C1Input.C1TextBox txtXrayReqYear;
+        private System.Windows.Forms.Label label28;
+        private C1.Win.C1Input.C1TextBox txtXrayReqno;
+        private System.Windows.Forms.Label label32;
+        private C1.Win.C1Input.C1TextBox txtXrayReqdate;
+        private C1.Win.C1Input.C1Button btnXrayDelReq;
+        private System.Windows.Forms.Panel pnxrayitems;
+        private C1.Win.C1Input.C1ComboBox cboDept1;
+        private System.Windows.Forms.RadioButton chkDeptIPD1;
+        private System.Windows.Forms.RadioButton chkDeptOPD1;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
     }
 }

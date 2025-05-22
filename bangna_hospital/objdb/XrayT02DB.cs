@@ -43,14 +43,13 @@ namespace bangna_hospital.objdb
             XrayT02.MNC_SND_OUT_STS = "MNC_SND_OUT_STS";
             XrayT02.MNC_XR_STS = "MNC_XR_STS";
             XrayT02.status_pacs = "status_pacs";
-
         }
         public DataTable selectbyHNReqNo(String hn, String reqdate, String reqno)
         {
             DataTable dt = new DataTable();
-            String sql = "", lccode = "", wherelccode = "";
+            String sql = "";
             sql = "SELECT  XRAY_T02.MNC_XR_CD as order_code, XRAY_M01.MNC_XR_DSC as order_name, convert(varchar(20),XRAY_T02.MNC_REQ_DAT, 23) as req_date " +
-                ", XRAY_T02.MNC_REQ_NO as req_no, 'xray' as flag, '1' as qty " +
+                ", XRAY_T02.MNC_REQ_NO as req_no, 'xray' as flag, '1' as qty,XRAY_T02.MNC_REQ_YR " +
                 "FROM    XRAY_T01  " +
                 "left join XRAY_T02 ON XRAY_T01.MNC_REQ_NO = XRAY_T02.MNC_REQ_NO AND XRAY_T01.MNC_REQ_DAT = XRAY_T02.MNC_REQ_DAT " +
                 "left join XRAY_M01 ON XRAY_T02.MNC_XR_CD = XRAY_M01.MNC_XR_CD " +
@@ -58,9 +57,7 @@ namespace bangna_hospital.objdb
                 "and XRAY_T01.mnc_hn_no = '" + hn + "' " +
                 "and XRAY_T02.mnc_req_sts <> 'C'  and XRAY_T01.mnc_req_sts <> 'C'  " +
                 "Order By XRAY_T02.MNC_XR_CD ";
-
             dt = conn.selectData(conn.connMainHIS, sql);
-
             return dt;
         }
         private void chkNull(XrayT02 p)
@@ -68,7 +65,6 @@ namespace bangna_hospital.objdb
             long chk = 0;
             int chk1 = 0;
             decimal chk2 = 0;
-
         }
         public String insertXrayT02(XrayT02 p, String userId)
         {
@@ -103,6 +99,22 @@ namespace bangna_hospital.objdb
 
             return re;
         }
+        public String updateStatusPaca(String reqyr, String reqno, String req_date, String hn)
+        {
+            String sql = "", re = "";
+            sql = "Update xray_t02 " +
+                "Set status_pacs ='0' " +
+                "Where MNC_REQ_YR = '" + reqyr + "' and MNC_REQ_NO = '" + reqno + "' and MNC_REQ_DAT = '" + req_date + "' ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            return re;
+        }
         public String updateAccessNumber(String reqyr, String reqno, String req_date, String xray_code, String accessnumber)
         {
             String sql = "", re = "";
@@ -122,9 +134,25 @@ namespace bangna_hospital.objdb
         public String deleteReqNo(String reqyr, String reqno)
         {
             String sql = "", re = "";
-            sql = "Delete From xray_t02 Where mnc_doc_cd = 'ROS' and mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "'";
+            sql = "Delete From xray_t02 Where mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "' ";
             try
             {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            return re;
+        }
+        public String deleteReqNo(String reqyr, String reqno, String req_date)
+        {
+            String sql = "", re = "";
+            sql = "Delete From xray_t02 Where mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "' and MNC_REQ_DAT = '" + req_date + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                sql = "Delete From xray_t01 Where mnc_req_yr = '" + reqyr + "' and mnc_req_no = '" + reqno + "' and MNC_REQ_DAT = '" + req_date + "'";
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)

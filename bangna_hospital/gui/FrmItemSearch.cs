@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static C1.Win.C1Preview.Strings;
 using ImageElement = C1.Win.C1Tile.ImageElement;
 using TextElement = C1.Win.C1Tile.TextElement;
 
@@ -27,7 +28,7 @@ namespace bangna_hospital.gui
         C1ThemeController theme1;
         Image imgCorr, imgTran;
         Group grpDrug, grpDrugItems, grpLab, grpLabItems, grpXray, grpXrayItems, grpProcedure, grpProcedureItems;
-        C1FlexGrid grfItems;
+        C1FlexGrid grfItems, grfSearch, grfSearchItems;
 
         C1TileControl topTilesDrug, itemTilesDrug,topTilesLab, itemTilesLab, topTilesXray, itemTilesXray, topTilesProcedure, itemTilesProcedure;
         PanelElement pnTopTilesLab, pnItemsTilesLab, pnTopTilesXray, pnTopTilesProcedure;
@@ -35,6 +36,7 @@ namespace bangna_hospital.gui
         TextElement txtTopTilesLab, txtTopTilesXray, txtTopTilesProcedure;
         Template tempFolder;
         int colGrfItemsCode = 1, colGrfItemsName = 2, colGrfItemStatus = 3;
+        int colGrfSearchItemsCode = 1, colGrfSearchItemsName = 2, colGrfSearchItemStatus = 3, colGrfSearchItemGrp = 3;
         public FrmItemSearch(BangnaControl bc)
         {
             this.bc = bc;
@@ -63,12 +65,117 @@ namespace bangna_hospital.gui
 
             initControl();
             initGrfItems();
+            initGrfSearch();
+            initGrfSearchItems();
 
             btnClose.Click += BtnClose_Click;
+            txtSearchItem.KeyUp += TxtSearchItem_KeyUp;
+            txtSearchItem.KeyPress += TxtSearchItem_KeyPress;
             getGroupDrug();
             getGroupLab();
             getGroupXray();
             getGroupProcedure();
+        }
+
+        private void TxtSearchItem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            
+        }
+        private void TxtSearchItem_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtSearchItem.Text.Trim().Length <= 0) return;
+                setOrderItem();
+                txtItemCode.Focus();
+            }
+            else if (txtSearchItem.Text.Trim().Length > 2)
+            {
+                DataTable dt = new DataTable();
+                //dt = bc.bcDB.pharM01DB.SelectAllByName(txtSearch.Text);
+                if (chkItemLab.Checked)
+                {
+                    dt = bc.bcDB.labM01DB.SelectAllBySearch(txtSearchItem.Text.Trim());
+                }
+                else if (chkItemXray.Checked)
+                {
+                    dt = bc.bcDB.xrayM01DB.SelectAllBySearch(txtSearchItem.Text.Trim());
+                }
+                else if (chkItemProcedure.Checked)
+                {
+                    dt = bc.bcDB.pm30DB.SelectAllBySearch(txtSearchItem.Text.Trim());
+                }
+                else if (chkItemDrug.Checked)
+                {
+                    //dt = bc.bcDB.pharM01DB.SelectNameByPk(txtSearchItem.Text.Trim());
+                }
+                grfSearchItems.Rows.Count = 1;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    Row rowa = grfSearchItems.Rows.Add();
+                    int i = grfSearch.Rows.Count;
+                    rowa[colGrfItemsCode] = dr["code"].ToString();
+                    rowa[colGrfItemsName] = dr["name"].ToString();
+                    rowa[colGrfItemStatus] = (chkItemLab.Checked) ? "lab" : (chkItemXray.Checked) ? "xray" : (chkItemProcedure.Checked) ? "procedure" : (chkItemDrug.Checked) ? "drug" : "";
+                    rowa[0] = (i - 1);
+                }
+            }
+            else if (txtSearchItem.Text.Trim().Length <= 0)
+            {
+                grfSearchItems.Rows.Count = 1;
+            }
+        }
+        private void setOrderItem()
+        {
+            String[] txt = txtSearchItem.Text.Split('#');
+            if (txt.Length <= 1)
+            {
+                lfSbMessage.Text = "no item";
+                txtItemCode.Value = "";
+                lbItemName.Text = "";
+                //txtItemQTY.Value = "1";
+                return;
+            }
+            String name = txt[0].Trim();
+            String code = txt[1].Trim();
+            if (chkItemLab.Checked)
+            {
+                LabM01 lab = new LabM01();
+                lab = bc.bcDB.labM01DB.SelectByPk(code);
+                txtItemCode.Value = lab.MNC_LB_CD;
+                lbItemName.Text = lab.MNC_LB_DSC;
+                //txtItemQTY.Visible = false;
+                //txtItemQTY.Value = "1";
+            }
+            else if (chkItemXray.Checked)
+            {
+                XrayM01 xray = new XrayM01();
+                xray = bc.bcDB.xrayM01DB.SelectByPk(code);
+                txtItemCode.Value = xray.MNC_XR_CD;
+                lbItemName.Text = xray.MNC_XR_DSC;
+                //txtItemQTY.Visible = false;
+                //txtItemQTY.Value = "1";
+            }
+            else if (chkItemProcedure.Checked)
+            {
+                PatientM30 pm30 = new PatientM30();
+                String name1 = bc.bcDB.pm30DB.SelectNameByPk(code);
+                txtItemCode.Value = code;
+                lbItemName.Text = name1;
+                //txtItemQTY.Visible = false;
+                //txtItemQTY.Value = "1";
+            }
+            else if (chkItemDrug.Checked)
+            {
+                PharmacyM01 drug = new PharmacyM01();
+                String name1 = bc.bcDB.pharM01DB.SelectNameByPk(code);
+                txtItemCode.Value = code;
+                lbItemName.Text = name1;
+                //txtItemQTY.Visible = false;
+                //txtItemQTY.Value = "1";
+            }
         }
         private void BtnClose_Click(object sender, EventArgs e)
         {
@@ -319,6 +426,100 @@ namespace bangna_hospital.gui
             this.itemTilesProcedure.TabStop = false;
             this.itemTilesProcedure.TileBackColor = System.Drawing.Color.DimGray;
         }
+        private void initGrfSearchItems()
+        {
+            grfSearchItems = new C1FlexGrid();
+            grfSearchItems.Font = fEdit;
+            grfSearchItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfSearchItems.Location = new System.Drawing.Point(0, 0);
+            grfSearchItems.Rows.Count = 1;
+            grfSearchItems.Cols.Count = 4;
+
+            //grfitems.Cols.Count = 8;
+            grfSearchItems.Cols[colGrfItemsCode].Caption = "code";
+            grfSearchItems.Cols[colGrfItemsName].Caption = "name";
+            grfSearchItems.Cols[colGrfItemStatus].Caption = "สถานะ";
+            grfSearchItems.Cols[colGrfSearchItemGrp].Caption = "กลุ่ม";
+
+            grfSearchItems.Cols[colGrfItemsCode].Width = 100;
+            grfSearchItems.Cols[colGrfItemsName].Width = 500;
+            grfSearchItems.Cols[colGrfItemStatus].Width = 70;
+            grfSearchItems.Cols[colGrfSearchItemGrp].Width = 100;
+
+            grfSearchItems.Cols[colGrfItemStatus].Visible = false;
+            //grfitems.Cols[colGrfItemsCode].Visible = false;
+            //grfitems.Cols[colGrfItemsCode].Visible = false;
+
+            grfSearchItems.Cols[colGrfItemsCode].AllowEditing = false;
+            grfSearchItems.Cols[colGrfItemsName].AllowEditing = false;
+            grfSearchItems.Cols[colGrfItemStatus].AllowEditing = false;
+            grfSearchItems.Cols[colGrfSearchItemGrp].AllowEditing = false;
+
+            grfSearchItems.DoubleClick += GrfSearchItems_DoubleClick;
+
+            pnSearchItems.Controls.Add(grfSearchItems);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfSearchItems, bc.iniC.themegrfOpd);
+        }
+
+        private void GrfSearchItems_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            try
+            {
+                if (((C1FlexGrid)sender).Row <= 0) return;
+                if (((C1FlexGrid)sender).Col <= 0) return;
+                String code = ((C1FlexGrid)sender).GetData(((C1FlexGrid)sender).Row, colGrfSearchItemsCode).ToString();
+                String name = ((C1FlexGrid)sender).GetData(((C1FlexGrid)sender).Row, colGrfSearchItemsName).ToString();
+                setGrfItem(code, name,chkItemLab.Checked ? "lab" : chkItemXray.Checked ? "xray" : chkItemProcedure.Checked ? "procedure":"drug");
+            }
+            catch(Exception ex)
+            {
+                new LogWriter("e", "FrmScanView1 GrfSearchItems_DoubleClick " + ex.Message);
+            }
+        }
+
+        private void initGrfSearch()
+        {
+            grfSearch = new C1FlexGrid();
+            grfSearch.Font = fEdit;
+            grfSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfSearch.Location = new System.Drawing.Point(0, 0);
+            grfSearch.Rows.Count = 1;
+            grfSearch.Cols.Count = 4;
+
+            //grfitems.Cols.Count = 8;
+            grfSearch.Cols[colGrfItemsCode].Caption = "code";
+            grfSearch.Cols[colGrfItemsName].Caption = "name";
+            grfSearch.Cols[colGrfItemStatus].Caption = "สถานะ";
+
+            grfSearch.Cols[colGrfItemsCode].Width = 100;
+            grfSearch.Cols[colGrfItemsName].Width = 500;
+            grfSearch.Cols[colGrfItemStatus].Width = 70;
+
+            //grfitems.Cols[colGrfItemsCode].Visible = false;
+            //grfitems.Cols[colGrfItemsCode].Visible = false;
+            //grfitems.Cols[colGrfItemsCode].Visible = false;
+
+            grfSearch.Cols[colGrfItemsCode].AllowEditing = false;
+            grfSearch.Cols[colGrfItemsName].AllowEditing = false;
+            grfSearch.Cols[colGrfItemStatus].AllowEditing = false;
+
+            grfSearch.DoubleClick += GrfSearch_DoubleClick;
+
+            pnItems.Controls.Add(grfSearch);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfSearch, bc.iniC.themegrfOpd);
+        }
+
+        private void GrfSearch_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
+        }
+
         private void initGrfItems()
         {
             grfItems = new C1FlexGrid();
@@ -400,7 +601,7 @@ namespace bangna_hospital.gui
         private void Tilegrpproc_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            lfsb1.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
+            lfSbMessage.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
             clearImageGrf(ref grpProcedure);
             ((Tile)sender).Image = imgCorr;
             getItemsProcedure(((Tile)sender).Text1);
@@ -462,7 +663,7 @@ namespace bangna_hospital.gui
         private void TilegrpXray_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            lfsb1.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
+            lfSbMessage.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
             clearImageGrf(ref grpXray);
             ((Tile)sender).Image = imgCorr;
             getItemsXray(((Tile)sender).Text1);
@@ -522,7 +723,7 @@ namespace bangna_hospital.gui
         private void Tilegrpdrug_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            lfsb1.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
+            lfSbMessage.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
             clearImageGrf(ref grpDrug);
             ((Tile)sender).Image = imgCorr;
             getItemsDrug(((Tile)sender).Text1);
@@ -619,7 +820,7 @@ namespace bangna_hospital.gui
         private void Tilegrplab_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            lfsb1.Text = ((Tile)sender).Text+" "+ ((Tile)sender).Text1;
+            lfSbMessage.Text = ((Tile)sender).Text+" "+ ((Tile)sender).Text1;
             clearImageGrf(ref grpLab);
             ((Tile)sender).Image = imgCorr;
             getItemsLab(((Tile)sender).Text1);
@@ -633,7 +834,6 @@ namespace bangna_hospital.gui
         }
         private void FrmItemSearch_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

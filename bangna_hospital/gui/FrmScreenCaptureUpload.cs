@@ -82,8 +82,9 @@ namespace bangna_hospital.gui
             String dgssid = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
             if (dgssid.Length <= 0)
             {
-                MessageBox.Show("ไม่ได้เลือก กลุ่มเอกสาร", "");
-                return;
+                dgssid = bc.iniC.statusScreenCaptureUploadDoc;
+                //MessageBox.Show("ไม่ได้เลือก กลุ่มเอกสาร", "");
+                //return;
             }
             picWait.Show();
             string ext = Path.GetExtension(filename);

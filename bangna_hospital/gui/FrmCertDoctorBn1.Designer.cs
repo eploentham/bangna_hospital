@@ -38,6 +38,8 @@ namespace bangna_hospital.gui
             this.chkOPD = new System.Windows.Forms.RadioButton();
             this.cboDept = new C1.Win.C1Input.C1ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtRemark = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.lb2nfleaf = new System.Windows.Forms.Label();
             this.btnAppoinment = new System.Windows.Forms.Button();
             this.btnPrintCertE = new System.Windows.Forms.Button();
@@ -87,8 +89,6 @@ namespace bangna_hospital.gui
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb3 = new C1.Win.C1Ribbon.RibbonLabel();
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.txtRemark = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
             this.tabCertDtr.SuspendLayout();
@@ -231,6 +231,24 @@ namespace bangna_hospital.gui
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(626, 717);
             this.panel2.TabIndex = 142;
+            // 
+            // txtRemark
+            // 
+            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtRemark.Location = new System.Drawing.Point(85, 471);
+            this.txtRemark.Name = "txtRemark";
+            this.txtRemark.Size = new System.Drawing.Size(538, 26);
+            this.txtRemark.TabIndex = 155;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label11.Location = new System.Drawing.Point(8, 474);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 20);
+            this.label11.TabIndex = 156;
+            this.label11.Text = "หมายเหตุ.";
             // 
             // lb2nfleaf
             // 
@@ -721,7 +739,7 @@ namespace bangna_hospital.gui
             // 
             this.label68.AutoSize = true;
             this.label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label68.Location = new System.Drawing.Point(8, 38);
+            this.label68.Location = new System.Drawing.Point(8, 35);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(64, 20);
             this.label68.TabIndex = 43;
@@ -747,7 +765,7 @@ namespace bangna_hospital.gui
             // 
             this.label69.AutoSize = true;
             this.label69.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label69.Location = new System.Drawing.Point(8, 66);
+            this.label69.Location = new System.Drawing.Point(8, 64);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(51, 20);
             this.label69.TabIndex = 46;
@@ -819,24 +837,6 @@ namespace bangna_hospital.gui
             // 
             this.lb1.Name = "lb1";
             this.lb1.Text = "Label";
-            // 
-            // txtRemark
-            // 
-            this.txtRemark.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtRemark.Location = new System.Drawing.Point(85, 471);
-            this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(538, 26);
-            this.txtRemark.TabIndex = 155;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label11.Location = new System.Drawing.Point(8, 474);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(71, 20);
-            this.label11.TabIndex = 156;
-            this.label11.Text = "หมายเหตุ.";
             // 
             // FrmCertDoctorBn1
             // 

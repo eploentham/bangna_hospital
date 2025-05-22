@@ -59,5 +59,6 @@ namespace bangna_hospital.object1
         public String patient_name { get; set; }
         public String deptname { get; set; }
         public String apm_cnt_inday { get; set; }
+        public String nationcode { get; set; }
     }
 }

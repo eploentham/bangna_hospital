@@ -53,6 +53,7 @@ namespace bangna_hospital.gui
             this.btnBrow2 = new C1.Win.C1Input.C1Button();
             this.btnBrow1 = new C1.Win.C1Input.C1Button();
             this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
+            this.btnSsnUpdate = new C1.Win.C1Input.C1Button();
             this.label13 = new System.Windows.Forms.Label();
             this.cboYear = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -77,7 +78,6 @@ namespace bangna_hospital.gui
             this.btnSsnBrow5 = new C1.Win.C1Input.C1Button();
             this.btnSsnBrow2 = new C1.Win.C1Input.C1Button();
             this.btnSsnBrow1 = new C1.Win.C1Input.C1Button();
-            this.btnSsnUpdate = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.sB1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -95,6 +95,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnBrow2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnBrow1)).BeginInit();
             this.c1DockingTabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSsnUpdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnInsert)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnImp5)).BeginInit();
@@ -106,7 +107,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSsnUpdate)).BeginInit();
             this.SuspendLayout();
             // 
             // sB1
@@ -363,6 +363,15 @@ namespace bangna_hospital.gui
             this.c1DockingTabPage2.TabIndex = 1;
             this.c1DockingTabPage2.Text = "Page2";
             // 
+            // btnSsnUpdate
+            // 
+            this.btnSsnUpdate.Location = new System.Drawing.Point(521, 223);
+            this.btnSsnUpdate.Name = "btnSsnUpdate";
+            this.btnSsnUpdate.Size = new System.Drawing.Size(144, 68);
+            this.btnSsnUpdate.TabIndex = 64;
+            this.btnSsnUpdate.Text = "2.  Update ";
+            this.btnSsnUpdate.UseVisualStyleBackColor = true;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -593,15 +602,6 @@ namespace bangna_hospital.gui
             this.btnSsnBrow1.Text = "...";
             this.btnSsnBrow1.UseVisualStyleBackColor = true;
             // 
-            // btnSsnUpdate
-            // 
-            this.btnSsnUpdate.Location = new System.Drawing.Point(521, 223);
-            this.btnSsnUpdate.Name = "btnSsnUpdate";
-            this.btnSsnUpdate.Size = new System.Drawing.Size(144, 68);
-            this.btnSsnUpdate.TabIndex = 64;
-            this.btnSsnUpdate.Text = "2.  Update ";
-            this.btnSsnUpdate.UseVisualStyleBackColor = true;
-            // 
             // frmSsnData
             // 
             this.AllowDrop = true;
@@ -632,6 +632,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnBrow1)).EndInit();
             this.c1DockingTabPage2.ResumeLayout(false);
             this.c1DockingTabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSsnUpdate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnInsert)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnImp5)).EndInit();
@@ -643,7 +644,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnSsnUpdate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -143,6 +143,16 @@
             this.c1SplitterPanel8 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnExcel = new System.Windows.Forms.Panel();
             this.c1SplitterPanel5 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.label46 = new System.Windows.Forms.Label();
+            this.txtExcelProcedure = new C1.Win.C1Input.C1TextBox();
+            this.btnExcelgenPDF = new C1.Win.C1Input.C1Button();
+            this.txtExcelColAlPosition = new C1.Win.C1Input.C1TextBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.txtExcelColAlHRate = new C1.Win.C1Input.C1TextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.txtExcelColAlPresure = new C1.Win.C1Input.C1TextBox();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
             this.txtExcelColAlRowStart = new C1.Win.C1Input.C1TextBox();
             this.txtCheckUPDoctorName = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
@@ -177,19 +187,9 @@
             this.btnDoeExcelCheck = new C1.Win.C1Input.C1Button();
             this.btnDoeExcelOpen = new C1.Win.C1Input.C1Button();
             this.c1SplitterPanel6 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel7 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.label42 = new System.Windows.Forms.Label();
-            this.txtExcelColAlPresure = new C1.Win.C1Input.C1TextBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.txtExcelColAlHRate = new C1.Win.C1Input.C1TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.pnExcelVisit = new System.Windows.Forms.Panel();
-            this.txtExcelColAlPosition = new C1.Win.C1Input.C1TextBox();
-            this.label45 = new System.Windows.Forms.Label();
-            this.btnExcelgenPDF = new C1.Win.C1Input.C1Button();
-            this.txtExcelProcedure = new C1.Win.C1Input.C1TextBox();
-            this.label46 = new System.Windows.Forms.Label();
             this.pnPDFView = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel7 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnExcelVisit = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
@@ -252,6 +252,11 @@
             this.c1SplitContainer2.SuspendLayout();
             this.c1SplitterPanel8.SuspendLayout();
             this.c1SplitterPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelProcedure)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExcelgenPDF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPosition)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlHRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPresure)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlRowStart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPPrnStaffNoteDoe)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExcelSaveStaffNote)).BeginInit();
@@ -274,11 +279,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnDoeExcelOpen)).BeginInit();
             this.c1SplitterPanel6.SuspendLayout();
             this.c1SplitterPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPresure)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlHRate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPosition)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnExcelgenPDF)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelProcedure)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -325,7 +325,7 @@
             this.c1SplitterPanel1.SizeRatio = 43.924D;
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
-            this.c1SplitterPanel1.Width = 695;
+            this.c1SplitterPanel1.Width = 702;
             // 
             // pnDoeList
             // 
@@ -353,7 +353,7 @@
             // c1SplitterPanel3
             // 
             this.c1SplitterPanel3.Collapsible = true;
-            this.c1SplitterPanel3.Height = 170;
+            this.c1SplitterPanel3.Height = 177;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
             this.c1SplitterPanel3.Size = new System.Drawing.Size(695, 149);
@@ -1553,6 +1553,107 @@
             this.c1SplitterPanel5.TabIndex = 0;
             this.c1SplitterPanel5.Text = "Panel 1";
             // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label46.Location = new System.Drawing.Point(165, 81);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(45, 16);
+            this.label46.TabIndex = 352;
+            this.label46.Text = "หัตถการ";
+            // 
+            // txtExcelProcedure
+            // 
+            this.txtExcelProcedure.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtExcelProcedure.Location = new System.Drawing.Point(216, 77);
+            this.txtExcelProcedure.Name = "txtExcelProcedure";
+            this.txtExcelProcedure.Size = new System.Drawing.Size(50, 24);
+            this.txtExcelProcedure.TabIndex = 351;
+            this.txtExcelProcedure.Tag = null;
+            this.txtExcelProcedure.Value = "H0003";
+            // 
+            // btnExcelgenPDF
+            // 
+            this.btnExcelgenPDF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnExcelgenPDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnExcelgenPDF.Location = new System.Drawing.Point(713, 75);
+            this.btnExcelgenPDF.Name = "btnExcelgenPDF";
+            this.btnExcelgenPDF.Size = new System.Drawing.Size(133, 30);
+            this.btnExcelgenPDF.TabIndex = 315;
+            this.btnExcelgenPDF.Text = "5.gen cert PDF";
+            this.btnExcelgenPDF.UseVisualStyleBackColor = false;
+            // 
+            // txtExcelColAlPosition
+            // 
+            this.txtExcelColAlPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtExcelColAlPosition.Location = new System.Drawing.Point(570, 75);
+            this.txtExcelColAlPosition.Name = "txtExcelColAlPosition";
+            this.txtExcelColAlPosition.Size = new System.Drawing.Size(50, 24);
+            this.txtExcelColAlPosition.TabIndex = 350;
+            this.txtExcelColAlPosition.Tag = null;
+            this.txtExcelColAlPosition.Value = "11";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label45.Location = new System.Drawing.Point(576, 57);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(33, 16);
+            this.label45.TabIndex = 349;
+            this.label45.Text = "อาชีพ";
+            // 
+            // txtExcelColAlHRate
+            // 
+            this.txtExcelColAlHRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtExcelColAlHRate.Location = new System.Drawing.Point(1033, 32);
+            this.txtExcelColAlHRate.Name = "txtExcelColAlHRate";
+            this.txtExcelColAlHRate.Size = new System.Drawing.Size(40, 24);
+            this.txtExcelColAlHRate.TabIndex = 348;
+            this.txtExcelColAlHRate.Tag = null;
+            this.txtExcelColAlHRate.Value = "20";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label44.Location = new System.Drawing.Point(1037, 10);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(34, 16);
+            this.label44.TabIndex = 347;
+            this.label44.Text = "ชีพจร";
+            // 
+            // txtExcelColAlPresure
+            // 
+            this.txtExcelColAlPresure.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtExcelColAlPresure.Location = new System.Drawing.Point(987, 32);
+            this.txtExcelColAlPresure.Name = "txtExcelColAlPresure";
+            this.txtExcelColAlPresure.Size = new System.Drawing.Size(40, 24);
+            this.txtExcelColAlPresure.TabIndex = 346;
+            this.txtExcelColAlPresure.Tag = null;
+            this.txtExcelColAlPresure.Value = "19";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label43.Location = new System.Drawing.Point(984, 10);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(46, 16);
+            this.label43.TabIndex = 345;
+            this.label43.Text = "ความดัน";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label42.Location = new System.Drawing.Point(128, 39);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(56, 16);
+            this.label42.TabIndex = 344;
+            this.label42.Text = "row start";
+            // 
             // txtExcelColAlRowStart
             // 
             this.txtExcelColAlRowStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -1916,6 +2017,14 @@
             this.c1SplitterPanel6.Text = "Panel 2";
             this.c1SplitterPanel6.Width = 704;
             // 
+            // pnPDFView
+            // 
+            this.pnPDFView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPDFView.Location = new System.Drawing.Point(0, 0);
+            this.pnPDFView.Name = "pnPDFView";
+            this.pnPDFView.Size = new System.Drawing.Size(704, 599);
+            this.pnPDFView.TabIndex = 0;
+            // 
             // c1SplitterPanel7
             // 
             this.c1SplitterPanel7.Controls.Add(this.pnExcelVisit);
@@ -1927,56 +2036,6 @@
             this.c1SplitterPanel7.Text = "Panel 3";
             this.c1SplitterPanel7.Width = 419;
             // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label42.Location = new System.Drawing.Point(128, 39);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(56, 16);
-            this.label42.TabIndex = 344;
-            this.label42.Text = "row start";
-            // 
-            // txtExcelColAlPresure
-            // 
-            this.txtExcelColAlPresure.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtExcelColAlPresure.Location = new System.Drawing.Point(987, 32);
-            this.txtExcelColAlPresure.Name = "txtExcelColAlPresure";
-            this.txtExcelColAlPresure.Size = new System.Drawing.Size(40, 24);
-            this.txtExcelColAlPresure.TabIndex = 346;
-            this.txtExcelColAlPresure.Tag = null;
-            this.txtExcelColAlPresure.Value = "19";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label43.Location = new System.Drawing.Point(984, 10);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(46, 16);
-            this.label43.TabIndex = 345;
-            this.label43.Text = "ความดัน";
-            // 
-            // txtExcelColAlHRate
-            // 
-            this.txtExcelColAlHRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtExcelColAlHRate.Location = new System.Drawing.Point(1033, 32);
-            this.txtExcelColAlHRate.Name = "txtExcelColAlHRate";
-            this.txtExcelColAlHRate.Size = new System.Drawing.Size(40, 24);
-            this.txtExcelColAlHRate.TabIndex = 348;
-            this.txtExcelColAlHRate.Tag = null;
-            this.txtExcelColAlHRate.Value = "20";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label44.Location = new System.Drawing.Point(1037, 10);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(34, 16);
-            this.label44.TabIndex = 347;
-            this.label44.Text = "ชีพจร";
-            // 
             // pnExcelVisit
             // 
             this.pnExcelVisit.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1984,65 +2043,6 @@
             this.pnExcelVisit.Name = "pnExcelVisit";
             this.pnExcelVisit.Size = new System.Drawing.Size(419, 599);
             this.pnExcelVisit.TabIndex = 0;
-            // 
-            // txtExcelColAlPosition
-            // 
-            this.txtExcelColAlPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtExcelColAlPosition.Location = new System.Drawing.Point(570, 75);
-            this.txtExcelColAlPosition.Name = "txtExcelColAlPosition";
-            this.txtExcelColAlPosition.Size = new System.Drawing.Size(50, 24);
-            this.txtExcelColAlPosition.TabIndex = 350;
-            this.txtExcelColAlPosition.Tag = null;
-            this.txtExcelColAlPosition.Value = "11";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label45.Location = new System.Drawing.Point(576, 57);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(33, 16);
-            this.label45.TabIndex = 349;
-            this.label45.Text = "อาชีพ";
-            // 
-            // btnExcelgenPDF
-            // 
-            this.btnExcelgenPDF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnExcelgenPDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnExcelgenPDF.Location = new System.Drawing.Point(713, 75);
-            this.btnExcelgenPDF.Name = "btnExcelgenPDF";
-            this.btnExcelgenPDF.Size = new System.Drawing.Size(133, 30);
-            this.btnExcelgenPDF.TabIndex = 315;
-            this.btnExcelgenPDF.Text = "5.gen cert PDF";
-            this.btnExcelgenPDF.UseVisualStyleBackColor = false;
-            // 
-            // txtExcelProcedure
-            // 
-            this.txtExcelProcedure.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtExcelProcedure.Location = new System.Drawing.Point(216, 77);
-            this.txtExcelProcedure.Name = "txtExcelProcedure";
-            this.txtExcelProcedure.Size = new System.Drawing.Size(50, 24);
-            this.txtExcelProcedure.TabIndex = 351;
-            this.txtExcelProcedure.Tag = null;
-            this.txtExcelProcedure.Value = "H0003";
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label46.Location = new System.Drawing.Point(165, 81);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(45, 16);
-            this.label46.TabIndex = 352;
-            this.label46.Text = "หัตถการ";
-            // 
-            // pnPDFView
-            // 
-            this.pnPDFView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnPDFView.Location = new System.Drawing.Point(0, 0);
-            this.pnPDFView.Name = "pnPDFView";
-            this.pnPDFView.Size = new System.Drawing.Size(704, 599);
-            this.pnPDFView.TabIndex = 0;
             // 
             // FrmDoeAlien
             // 
@@ -2123,6 +2123,11 @@
             this.c1SplitterPanel8.ResumeLayout(false);
             this.c1SplitterPanel5.ResumeLayout(false);
             this.c1SplitterPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelProcedure)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnExcelgenPDF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPosition)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlHRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPresure)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlRowStart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCheckUPPrnStaffNoteDoe)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnExcelSaveStaffNote)).EndInit();
@@ -2145,11 +2150,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnDoeExcelOpen)).EndInit();
             this.c1SplitterPanel6.ResumeLayout(false);
             this.c1SplitterPanel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPresure)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlHRate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelColAlPosition)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnExcelgenPDF)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExcelProcedure)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

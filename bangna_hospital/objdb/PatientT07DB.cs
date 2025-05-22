@@ -238,6 +238,7 @@ namespace bangna_hospital.objdb
                 "pt07.MNC_VN_SUM, pt07.MNC_APP_TIM_E, pt07.MNC_APP_TYP, pm32.mnc_md_dep_dsc  " +
                 ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet " +
                 ",(isnull(pm02dtr.MNC_PFIX_DSC,'') +' ' +isnull(pm26.MNC_DOT_FNAME,'') + ' ' + isnull(pm26.MNC_DOT_LNAME,'')) as dtr_name " +
+                ",isnull(m01.MNC_NAT_CD,'') as MNC_NAT_CD " +
                 "From  " + pt07.table + " pt07 " +
                 " inner join patient_m01 m01 on pt07.MNC_HN_NO = m01.MNC_HN_NO " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -249,6 +250,10 @@ namespace bangna_hospital.objdb
             "Order By pt07.MNC_APP_DAT , pt07.MNC_APP_TIM  ";
             dt = conn.selectData(conn.connMainHIS, sql);
             PatientT07 pt071 = setPatientT07(dt);
+            if (dt.Rows.Count > 0)
+            {
+                pt071.nationcode = dt.Rows[0]["MNC_NAT_CD"].ToString();
+            }
             return pt071;
         }
         public PatientT07 selectAppointmentToday(String hn)
@@ -584,6 +589,25 @@ namespace bangna_hospital.objdb
             {
                 chk = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "updateRemarkCall sql " + sql + " ex " + chk);
+            }
+            return chk;
+        }
+        public String voidAppoinment(String docyear, String docno)
+        {
+            String sql = "", chk = "", hn = "";
+            long hn1 = 0;
+            try
+            {
+                sql = "Delete " + pt07.table + "  "
+                    + " "
+                    + "Where MNC_DOC_YR = '" + docyear + "' and MNC_DOC_NO = '" + docno + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //new LogWriter("d", "update Temp chk " + chk + " docyear " + docyear + " docno " + docno);
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "voidAppoinment sql " + sql + " ex " + chk);
             }
             return chk;
         }

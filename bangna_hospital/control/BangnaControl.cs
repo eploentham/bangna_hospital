@@ -1147,6 +1147,9 @@ namespace bangna_hospital.control
             iniC.compcodedoe = iniF.getIni("app", "compcodedoe");
             iniC.staffNoteFontName = iniF.getIni("app", "staffNoteFontName");
             iniC.staffNoteFontSize = iniF.getIni("app", "staffNoteFontSize");
+            iniC.usersharepathstaffnote = iniF.getIni("app", "usersharepathstaffnote");
+            iniC.passwordsharepathstaffnote = iniF.getIni("app", "passwordsharepathstaffnote");
+            iniC.pathapp = iniF.getIni("app", "pathapp");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1258,6 +1261,7 @@ namespace bangna_hospital.control
             iniC.pathlocalStaffNote = iniC.pathlocalStaffNote == null ? "D:\\image\\" : iniC.pathlocalStaffNote.Equals("") ? "D:\\image\\" : iniC.pathlocalStaffNote;
             iniC.staffNoteFontName = iniC.staffNoteFontName == null ? iniC.pdfFontName : iniC.staffNoteFontName.Equals("") ? iniC.pdfFontName : iniC.staffNoteFontName;
             iniC.staffNoteFontSize = iniC.staffNoteFontSize == null ? iniC.pdfFontSize : iniC.staffNoteFontSize.Equals("") ? iniC.pdfFontSize : iniC.staffNoteFontSize;
+            iniC.pathapp = iniC.pathapp == null ? "C:\app" : iniC.pathapp.Equals("") ? "C:\app" : iniC.pathapp;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -1551,6 +1555,41 @@ namespace bangna_hospital.control
                     }
                 }
             }
+            return re;
+        }
+        public String datetoShowEN(String dt)
+        {
+            DateTime dt1 = new DateTime();
+            String re = "", year1 = "", mm = "", dd = "";
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            if (DateTime.TryParse(dt, currentCulture, DateTimeStyles.AdjustToUniversal, out dt1))
+            {
+                Console.WriteLine("Parsed date: " + dt1.ToString());
+                if (dt1.Year < 1900) dt1 = dt1.AddYears(543);
+            }
+            else
+            {
+                Console.WriteLine("Unable to parse the date string.");
+            }
+            re = dt1.ToString("dd-MM")+"-"+ dt1.Year.ToString();
+
+            return re;
+        }
+        public String datetoShowTHMMM(String dt)
+        {
+            DateTime dt1 = new DateTime();
+            String re = "", year1 = "", mm = "", dd = "";
+            CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            if (DateTime.TryParse(dt, currentCulture, DateTimeStyles.AdjustToUniversal, out dt1))
+            {
+                Console.WriteLine("Parsed date: " + dt1.ToString());
+                if (dt1.Year < 1900) dt1 = dt1.AddYears(543);
+            }
+            else
+            {
+                Console.WriteLine("Unable to parse the date string.");
+            }
+            re = dt1.ToString("dd")+" " + getMonthNameTHShort(dt1.ToString("MM")) + " " + (dt1.Year+543).ToString();
             return re;
         }
         public String datetoDBCultureInfo(String dt)
@@ -2110,10 +2149,817 @@ namespace bangna_hospital.control
             item.Text = "สิทธิประกันสังคมทุพพลภาพ";
             c.Items.Add(item);
         }
+        public void setCboSSOPOPDxCodeSet(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "IT";
+            item.Text = "ICD-10";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "SN";
+            item.Text = "SNOMED";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "TT";
+            item.Text = "ICD-10-TM";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "...";
+            item.Text = "(ยังไม่ได้กำหนด)";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPSL(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "ลำดับ1";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "ลำดับ2";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "ลำดับ3";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "ลำดับ4";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "ลำดับ5";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "6";
+            item.Text = "ลำดับ6";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "7";
+            item.Text = "ลำดับ7";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "8";
+            item.Text = "ลำดับ8";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "9";
+            item.Text = "ลำดับ9";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPCompletion(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "Y";
+            item.Text = "ผู้ป่วยได้รับบริการครบแล้ว";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "N";
+            item.Text = "บริการนี้ยังไม่เสร็จสมบรูณ์ ต้องมารับบริการเพื่อภายหลัง";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPCodeSet(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "IN";
+            item.Text = "ICD-9-CM";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "LC";
+            item.Text = "Lonic";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "TT";
+            item.Text = "ICD-10-TM";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "...";
+            item.Text = "(ยังไม่ได้กำหนด)";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPClinic(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "01";
+            item.Text = "อายุรกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "02";
+            item.Text = "ศัลยกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "03";
+            item.Text = "สูติกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "04";
+            item.Text = "นรีเวชกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "05";
+            item.Text = "กุมารเวช";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "06";
+            item.Text = "โสต ศอ นาสิก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "07";
+            item.Text = "จักษุ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "08";
+            item.Text = "ศัลยกรรมกระดูก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "09";
+            item.Text = "จิตเวช";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "10";
+            item.Text = "รังสีวิทยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "11";
+            item.Text = "ทันตกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "12";
+            item.Text = "ฉุกเฉิน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "99";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPTypeOut(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "จำหน่ายกลับบ้าน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "รับเข้าเป็นผู้ป่วยใน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "ส่งต่อไปสถานพยาบาลอื่น";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "เสียชีวิต";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "หนีกลับ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "9";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPTypeIn(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "เข้ารับบริการเอง";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "เข้ารับบริการตามนัดหมาย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "รับส่งต่อมาจากสถานพยาบาลอื่น";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "เข้ารับบริการแบบฉุกเฉิน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPTypeServ(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "01";
+            item.Text = "พบแพทย์เพื่อวินิจฉัยโรคครั้งแรก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "02";
+            item.Text = "พบแพทย์ตามนัดเพื่อติดตามการรักษาโรคทั่วไป";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "03";
+            item.Text = "พบแพทย์ตามนัดเพื่อติดตามการรักษาโรครื้อรัง";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "04";
+            item.Text = "ปรึกษาแพทย์(Consultation)";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "05";
+            item.Text = "รับบริการกรณีฉุกเฉิน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "06";
+            item.Text = "ตรวจสุขภาพทั่วไป";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "07";
+            item.Text = "ตรวจวินิจฉัยทางรังสีวิทยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "08";
+            item.Text = "รับรองอบรมความรู้ในการปฏิบัติตัวสำหรับผู้ป่วยโรคเรื้อรัง";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPCareAccount(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "สถานพยาบาลหลัก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "สถานพยาบาล Supra";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "สถานพยาบาลเครือข่าย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "9";
+            item.Text = "สถานพยาบาลอื่นๆ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPClass(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "OP";
+            item.Text = "หัตถการ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "EC";
+            item.Text = "การตรวจรักษา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "LB";
+            item.Text = "LAB";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "XR";
+            item.Text = "การตรวจวินิจฉัยและรักษาทางรังสีวิทยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "IV";
+            item.Text = "การตรวจวินิจฉัยด้วยวิธีพิเศษอื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ZZ";
+            item.Text = "อื่นๆที่ยังไม่ได้กำหนด";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPClaimcont(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "OD";
+            item.Text = "ไม่ได้กำหนดเงื่อนไข";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "NR";
+            item.Text = "เบิกไม่ได้";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "PA";
+            item.Text = "ขออนุมัติก่อนเบิก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "AU";
+            item.Text = "ตรวจหลังการเบิก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ST";
+            item.Text = "ใช้ได้ตามลำดับ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "IN";
+            item.Text = "มีข้อบ่งชี้กำกับ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPPrdSeCode(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "0";
+            item.Text = "ไม่ต้องจัดยาแทน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "ผู้สั่งไม่ให้จัดยาแทน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "ให้แทนได้, ผู้ป่วยขอเลือกยาต้นแบบ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "ให้แทนได้, เภสัชกรเป็นผู้เลือกยาต้นแบบ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "ให้แทนได้, แต่ยาแทนขาดตรวจจากห้องยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "ให้แทนได้, ยาต้นแบบถูกใช้เป้นยาแทน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "6";
+            item.Text = "การแทนยาถูกกำหนดจากที่อื่น";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "7";
+            item.Text = "ไม่ให้จัดแทน, มีกฎข้อบังคับให้ใช้ยาชื่อนี้";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "8";
+            item.Text = "ให้แทนได้, แต่ยาแทนขาดตลาดไป";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "9";
+            item.Text = "เหตุผลอื่น";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPPrdCat(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "ยาแผนปัจจุบันทางการค้า";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "ยาแผนปัจจุบันผลิตเอง";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "ยาแผนไทยทางการค้า";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "4";
+            item.Text = "ยาแผนไทยผลิตเอง";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "ยาแผนการรักษาทางเลือกอื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "6";
+            item.Text = "เวชภัณฑ์";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "7";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPDispeStat(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "0";
+            item.Text = "ยกเลิก,ไม่มีการจ่ายยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "รับยาแล้ว";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "แก้ไข,คืนยาหรือเปลี่ยนยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "แก้ไข,เบิกผิดพลาด";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPBenefitplan(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "NB";
+            item.Text = "พรบ.ผู้ประสบภัยจากรถฯ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "CS";
+            item.Text = "ประกันชีวิตส่วนบุคคล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "UC";
+            item.Text = "นายจ้าง/บริษัทเอกชน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "SS";
+            item.Text = "หน่วยบริการส่งต่อ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "GO";
+            item.Text = "สถานภยาบาลยกเว้นค่ารักษาพยาบาล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "GE";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "RT";
+            item.Text = "พ.ร.บ.ผู้ประสบภัยจากรถฯ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "PI";
+            item.Text = "ประกันชีวิตส่วนบุคคล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "บริษัท/นายจ้างเอกชน";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "RF";
+            item.Text = "หน่วยบริการส่งต่อ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "SO";
+            item.Text = "หน่วยอื่นๆของสถานพยาบาล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ZZ";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPOtherPayPlan(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "RT";
+            item.Text = "พรบ.ผู้ประสบภัยจากรถฯ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "PI";
+            item.Text = "ประกันชีวิตส่วนบุคคล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "EM";
+            item.Text = "นายจ้าง/บริษัทเอกชน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "RF";
+            item.Text = "หน่วยบริการส่งต่อ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "SH";
+            item.Text = "สถานภยาบาลยกเว้นค่ารักษาพยาบาล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "ZZ";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPPayPlan(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "00";
+            item.Text = "ไม่ใช้สิทธิ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "10";
+            item.Text = "ใช้สิทธิสวัสดิการข้าราชการ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "20";
+            item.Text = "ใช้สิทธิ ขรก. ส่วนท้องถิ่น";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "30";
+            item.Text = "ใช้สิทธิ องค์กรอื่นๆ ของรัฐ เบิกกสทช";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "31";
+            item.Text = "ใช้มิทธิ องค์กรอื่นๆ ของรัฐ เบิกกกต";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "80";
+            item.Text = "ใช้สิทธิประกันสังคม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "81";
+            item.Text = "ใช้สิทธิกองทุนเงินทดแทน";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "86";
+            item.Text = "ทุพลภาพ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPTFlag(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "A";
+            item.Text = "เป็นรายการขอเบิก";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "E";
+            item.Text = "แก้ไขรายการ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "D";
+            item.Text = "ยกเลิกรายการ";
+            c.Items.Add(item);
+        }
+        public void setCboSSOPBillmuad(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "ค่าห้อง และค่าอาหาร";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "ค่าอวัยวะเทียว และอุปกรณ์ในการบำบัด";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "3";
+            item.Text = "ค่ายา และสารอาหาร";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "ค่าเวชภัณฑ์ที่มิใช่ยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "6";
+            item.Text = "ค่าบริการโลหิต และส่วนประกอบของโลหิต";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "7";
+            item.Text = "ค่าตรวจวินิจฉัยทางเทคนิคการแพทย์";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "8";
+            item.Text = "ค่าตรวจวินิจฉัย และรักษาทางรังสีวิทยา";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "9";
+            item.Text = "ค่าตรวจวินิจฉัยโดยวิธีพิเศษอื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "A";
+            item.Text = "ค่าอุปกรณ์ของใช้ และเครื่องมือฯ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "B";
+            item.Text = "ค่าทำหัตถการ และวิสัญญี";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "C";
+            item.Text = "ค่าบริการทางการพยาบาล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "D";
+            item.Text = "ค่าบริการทางทันตกรรม";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "E";
+            item.Text = "ค่าบริการทางกายภาพบำบัด";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "F";
+            item.Text = "ค่าบริการฝังเข็มและค่าบริการการให้การบำบัดของผู้ประกอบโรคศิลปะอื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "G";
+            item.Text = "ค่าบริการอื่นๆ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "H";
+            item.Text = "ค่าห้องผ่าตัด/ห้องคลอด";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "I";
+            item.Text = "ค่าธรรมเนียมบุคลากรทางการแพทย์";
+            c.Items.Add(item);
+        }
         public void setCboSSOPClaimCat(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
-
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
             item = new ComboBoxItem();
             item.Value = "OP1";
             item.Text = "OPD ปกติ";
@@ -2328,6 +3174,61 @@ namespace bangna_hospital.control
             else if (monthId == "12")
             {
                 return "ธันวาคม";
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public String getMonthNameTHShort(String monthId)
+        {
+            if (monthId == "01")
+            {
+                return "ม.ค.";
+            }
+            else if (monthId == "02")
+            {
+                return "ก.พ.";
+            }
+            else if (monthId == "03")
+            {
+                return "ม.ค.";
+            }
+            else if (monthId == "04")
+            {
+                return "เม.ย";
+            }
+            else if (monthId == "05")
+            {
+                return "พ.ค.";
+            }
+            else if (monthId == "06")
+            {
+                return "มิ.ย.";
+            }
+            else if (monthId == "07")
+            {
+                return "ก.ค.";
+            }
+            else if (monthId == "08")
+            {
+                return "ส.ค.";
+            }
+            else if (monthId == "09")
+            {
+                return "ก.ย.";
+            }
+            else if (monthId == "10")
+            {
+                return "ต.ค.";
+            }
+            else if (monthId == "11")
+            {
+                return "พ.ย.";
+            }
+            else if (monthId == "12")
+            {
+                return "ธ.ค.";
             }
             else
             {
@@ -4521,6 +5422,20 @@ namespace bangna_hospital.control
         //        return Convert.ToHexString(hashBytes); // .NET 5 +
         //    }
         //}
+        public string GetMD5(string input)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
         public String ComputeMD5Bytes(byte[] input)
         {
             StringBuilder sb = new StringBuilder();

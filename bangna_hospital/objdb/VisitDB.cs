@@ -703,6 +703,60 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectPtt(String hn, string paidcode, String datestart, String dateend)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", wherepaidcode = "", wheredate = "", wherehn = "";
+            String[] secid1 = paidcode.Split(',');
+            if (secid1.Length > 1)
+            {
+                wherepaidcode = " and patient_t01.MNC_FN_TYP_CD in (" + paidcode + ")   ";
+            }
+            else
+            {
+                wherepaidcode = " and patient_t01.MNC_FN_TYP_CD like '" + paidcode + "%'  ";
+            }
+            if (datestart.Length > 1)
+            {
+                wheredate = " and patient_t01.mnc_date >= '" + datestart + "' and patient_t01.mnc_date <= '" + dateend + "' ";
+            }
+            if (hn.Length > 1)
+            {
+                wherehn = " and patient_t01.mnc_hn_no like '%" + hn + "%'  ";
+            }
+            sql = "select PATIENT_T01.mnc_hn_no,patient_m02.MNC_PFIX_DSC as prefix,patient_m01.MNC_FNAME_T, " +
+                "patient_m01.MNC_LNAME_T, convert(VARCHAR(20),PATIENT_T01.MNC_DATE,23) as MNC_DATE, " +
+                "patient_m01.mnc_id_no " +
+                ",patient_t01.MNC_SHIF_MEMO, " +
+                "PATIENT_T01.mnc_pre_no,PATIENT_M01.mnc_cur_tel, MNC_time, " +
+                "Case FINANCE_M02.MNC_FN_TYP_DSC " +
+                    "When 'ประกันสังคม (บ.1)' Then 'ปกส(บ.1)' " +
+                    "When 'ประกันสังคม (บ.2)' Then 'ปกส(บ.2)' " +
+                    "When 'ประกันสังคม (บ.5)' Then 'ปกส(บ.5)' " +
+                    "When 'ประกันสังคมอิสระ (บ.1)' Then 'ปกต(บ.1)' " +
+                    "When 'ประกันสังคมอิสระ (บ.5)' Then 'ปกต(บ.5)' " +
+                    "When 'ตรวจสุขภาพ (เงินสด)' Then 'ตส(เงินสด)' " +
+                    "When 'ตรวจสุขภาพ (บริษัท)' Then 'ตส(บริษัท)' " +
+                    "When 'ตรวจสุขภาพ (PACKAGE)' Then 'ตส(PACKAGE)' " +
+                    "When 'ลูกหนี้ประกันสังคม รพ.เมืองสมุทรปากน้ำ' Then 'ลูกหนี้(ปากน้ำ)' " +
+                    "When 'ลูกหนี้บางนา 1' Then 'ลูกหนี้(บ.1)' " +
+                    "When 'บริษัทประกัน' Then 'บ.ประกัน' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "When '' Then '' " +
+                    "Else MNC_FN_TYP_DSC " +
+                    "End as MNC_FN_TYP_DSC,PATIENT_T01.MNC_FN_TYP_CD " +
+                    ",isnull(patient_m02.MNC_PFIX_DSC,'') +' ' + isnull(patient_m01.MNC_FNAME_T,'')+' ' + isnull(patient_m01.MNC_LNAME_T,'') as pttfullname " +
+                "from  PATIENT_T01  " +
+                " INNER JOIN dbo.PATIENT_M01 ON dbo.PATIENT_T01.MNC_HN_NO = dbo.PATIENT_M01.MNC_HN_NO and dbo.PATIENT_T01.MNC_HN_yr = dbo.PATIENT_M01.MNC_HN_yr  " +
+                " INNER JOIN dbo.PATIENT_M02 ON dbo.PATIENT_M01.MNC_PFIX_CDT = dbo.PATIENT_M02.MNC_PFIX_CD " +
+                "left join dbo.finance_m02 on finance_m02.MNC_FN_TYP_cd = patient_t01.MNC_FN_TYP_cd " +
+                " WHERE   PATIENT_T01.MNC_STS <> 'C'  " + wherepaidcode + wheredate+ wherehn +" " +
+                " Order By PATIENT_T01.mnc_date, PATIENT_T01.mnc_time ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectPttinWard2(String hn)
         {
             DataTable dt = new DataTable();
@@ -4626,36 +4680,51 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("dtr_code", dtrcode);
                 conn.comStore.Parameters.AddWithValue("mnc_usr_add", userId);
 
-                SqlParameter retvalL = conn.comStore.Parameters.Add("row_labno", SqlDbType.VarChar, 50);
+                //SqlParameter retvalL = conn.comStore.Parameters.Add("row_labno", SqlDbType.VarChar, 50);
+                //retvalL.Value = "";
+                //retvalL.Direction = ParameterDirection.Output;
+                //SqlParameter retvalX = conn.comStore.Parameters.Add("row_xrayno", SqlDbType.VarChar, 50);
+                //retvalX.Value = "";
+                //retvalX.Direction = ParameterDirection.Output;
+                //SqlParameter retvalP = conn.comStore.Parameters.Add("row_procedureno", SqlDbType.VarChar, 50);
+                //retvalP.Value = "";
+                //retvalP.Direction = ParameterDirection.Output;
+                //SqlParameter retvalC = conn.comStore.Parameters.Add("row_curdate", SqlDbType.VarChar, 50);
+                //retvalC.Value = "";
+                //retvalC.Direction = ParameterDirection.Output;
+                //SqlParameter retvalD = conn.comStore.Parameters.Add("row_drug", SqlDbType.VarChar, 50);
+                //retvalD.Value = "";
+                //retvalD.Direction = ParameterDirection.Output;
+                SqlParameter retvalL = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 200);
                 retvalL.Value = "";
                 retvalL.Direction = ParameterDirection.Output;
-                SqlParameter retvalX = conn.comStore.Parameters.Add("row_xrayno", SqlDbType.VarChar, 50);
-                retvalX.Value = "";
-                retvalX.Direction = ParameterDirection.Output;
-                SqlParameter retvalP = conn.comStore.Parameters.Add("row_procedureno", SqlDbType.VarChar, 50);
-                retvalP.Value = "";
-                retvalP.Direction = ParameterDirection.Output;
-                SqlParameter retvalC = conn.comStore.Parameters.Add("row_curdate", SqlDbType.VarChar, 50);
-                retvalC.Value = "";
-                retvalC.Direction = ParameterDirection.Output;
-                SqlParameter retvalD = conn.comStore.Parameters.Add("row_drug", SqlDbType.VarChar, 50);
-                retvalD.Value = "";
-                retvalD.Direction = ParameterDirection.Output;
                 conn.connMainHIS.Open();
                 conn.comStore.ExecuteNonQuery();
-                reL = (String)conn.comStore.Parameters["row_labno"].Value;
-                reX = (String)conn.comStore.Parameters["row_xrayno"].Value;
-                reP = (String)conn.comStore.Parameters["row_procedureno"].Value;
-                reC = (String)conn.comStore.Parameters["row_curdate"].Value;
-                reD = (String)conn.comStore.Parameters["row_drug"].Value;
-                re = reL + "#" + reX + "#" + reP + "#" + reD + "#" + reC;
-                if (int.TryParse(re, out int chk))
-                {
-                    //vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("MM") + "-" + DateTime.Now.Day.ToString("dd");
-                    //sql = "SELECT MNC_VN_NO, MNC_VN_SEQ FROM PATIENT_T01 " +
-                    //    "WHERE (MNC_HN_NO ='"+ hn + "') AND (MNC_DATE =@'"+ vsdate + "') AND (MNC_ACT_NO <= 600) ORDER BY MNC_VN_NO, MNC_VN_SEQ;";
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+                //reL = (String)conn.comStore.Parameters["row_labno"].Value;
+                //reX = (String)conn.comStore.Parameters["row_xrayno"].Value;
+                //reP = (String)conn.comStore.Parameters["row_procedureno"].Value;
+                //reC = (String)conn.comStore.Parameters["row_curdate"].Value;
+                //reD = (String)conn.comStore.Parameters["row_drug"].Value;
+                //re = reL + "#" + reX + "#" + reP + "#" + reD + "#" + reC;
+                //if (re.Length > 0)
+                //{
+                //    String[] res = re.Split('#');
+                //    if (res.Length > 3)
+                //    {
+                //        String relab = res[0];
+                //        String redrug = res[1];
+                //        String rexray = res[3];
+                //        String reprocedure = res[2];
+                //    }
+                //}
+                //if (int.TryParse(re, out int chk))
+                //{
+                //    //vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.Month.ToString("MM") + "-" + DateTime.Now.Day.ToString("dd");
+                //    //sql = "SELECT MNC_VN_NO, MNC_VN_SEQ FROM PATIENT_T01 " +
+                //    //    "WHERE (MNC_HN_NO ='"+ hn + "') AND (MNC_DATE =@'"+ vsdate + "') AND (MNC_ACT_NO <= 600) ORDER BY MNC_VN_NO, MNC_VN_SEQ;";
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -4747,7 +4816,7 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 sql = ex.Message + " " + ex.InnerException;
-                new LogWriter("e", "deleteOrderTemp sql " + sql + " id " + id);
+                new LogWriter("e", "updateOrderTemp sql " + sql + " id " + id);
             }
             return re;
         }

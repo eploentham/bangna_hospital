@@ -159,6 +159,23 @@ namespace bangna_hospital.object1
             }
             return re;
         }
+        public String AgeStringTHlong()
+        {
+            String re = "";
+            DateTime dtB;
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
+            if (DateTime.TryParse(patient_birthday, culture, DateTimeStyles.None, out dtB))
+            {
+                if (dtB.Year > 2500)
+                {
+                    dtB = dtB.AddYears(-543);
+                }
+                age = new Age(dtB);
+                //re = age.AgeString.Replace("Years", "Y").Replace("Year", "Y").Replace("Months", "M").Replace("Month", "M").Replace("Days", "D").Replace("Day", "D");
+                re = age.Years + " ปี " + age.Months + " เดือน " + age.Days+" วัน";
+            }
+            return re;
+        }
         public String AgeStringShort()
         {
             String re = "";

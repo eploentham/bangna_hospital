@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace bangna_hospital.objdb
 {
@@ -68,6 +69,28 @@ namespace bangna_hospital.objdb
                 re = dt.Rows[0]["MNC_SR_DSC"].ToString();
             }
             return re;
+        }
+        public DataTable SelectAllBySearch(String labgrpcode)
+        {
+            DataTable dt = new DataTable();
+            String wheresearch = "";
+            if (labgrpcode == "")
+            {
+                return dt;
+            }
+            wheresearch = " (pm30.MNC_SR_DSC like '" + labgrpcode + "%') ";
+            if (labgrpcode != "")
+            {
+                wheresearch += " or (pm30.MNC_SR_CD like '" + labgrpcode + "%') ";
+            }
+            String sql = "select pm30.MNC_SR_DSC as name, pm30.MNC_SR_CD as code, pm301.MNC_RESULT01 " +
+                "From patient_m30 pm30 " +
+                "Left join PATIENT_M301 pm301 on pm30.mnc_sr_cd = pm301.mnc_sr_cd " +
+                "Where " + wheresearch + " " +
+                " ";
+            dt = conn.selectData(sql);
+
+            return dt;
         }
         public DataTable SelectAllByGroup(String labgrpcode)
         {

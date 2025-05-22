@@ -30,14 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmItemSearch));
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
-            this.lfsb1 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.lfsb2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lfsbStatus = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnClose = new C1.Win.C1Ribbon.RibbonButton();
             this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
             this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pnItemDrug = new System.Windows.Forms.Panel();
+            this.pnTopDrug = new System.Windows.Forms.Panel();
             this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnItemLab = new System.Windows.Forms.Panel();
@@ -50,10 +52,21 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.pnItemProcedure = new System.Windows.Forms.Panel();
             this.pnTopProcedure = new System.Windows.Forms.Panel();
+            this.c1DockingTabPage5 = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnSearchItems = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lbItemName = new System.Windows.Forms.Label();
+            this.txtItemCode = new C1.Win.C1Input.C1TextBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label77 = new System.Windows.Forms.Label();
+            this.txtSearchItem = new C1.Win.C1Input.C1TextBox();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.chkItemDrug = new System.Windows.Forms.RadioButton();
+            this.chkItemProcedure = new System.Windows.Forms.RadioButton();
+            this.chkItemXray = new System.Windows.Forms.RadioButton();
+            this.chkItemLab = new System.Windows.Forms.RadioButton();
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnItems = new System.Windows.Forms.Panel();
-            this.pnItemDrug = new System.Windows.Forms.Panel();
-            this.pnTopDrug = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
@@ -68,28 +81,33 @@
             this.panel4.SuspendLayout();
             this.c1DockingTabPage4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.c1DockingTabPage5.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).BeginInit();
+            this.panel7.SuspendLayout();
             this.c1SplitterPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1StatusBar1
             // 
             this.c1StatusBar1.AutoSizeElement = C1.Framework.AutoSizeElement.Width;
-            this.c1StatusBar1.LeftPaneItems.Add(this.lfsb1);
-            this.c1StatusBar1.LeftPaneItems.Add(this.lfsb2);
+            this.c1StatusBar1.LeftPaneItems.Add(this.lfSbMessage);
+            this.c1StatusBar1.LeftPaneItems.Add(this.lfsbStatus);
             this.c1StatusBar1.Location = new System.Drawing.Point(0, 717);
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.btnClose);
             this.c1StatusBar1.Size = new System.Drawing.Size(963, 22);
             // 
-            // lfsb1
+            // lfSbMessage
             // 
-            this.lfsb1.Name = "lfsb1";
-            this.lfsb1.Text = "Label";
+            this.lfSbMessage.Name = "lfSbMessage";
+            this.lfSbMessage.Text = "Label";
             // 
-            // lfsb2
+            // lfsbStatus
             // 
-            this.lfsb2.Name = "lfsb2";
-            this.lfsb2.Text = "Label";
+            this.lfsbStatus.Name = "lfsbStatus";
+            this.lfsbStatus.Text = "Label";
             // 
             // btnClose
             // 
@@ -128,9 +146,11 @@
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage3);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage4);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage5);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
+            this.c1DockingTab1.SelectedIndex = 4;
             this.c1DockingTab1.Size = new System.Drawing.Size(963, 381);
             this.c1DockingTab1.TabIndex = 0;
             this.c1DockingTab1.TabsSpacing = 5;
@@ -154,6 +174,22 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(961, 356);
             this.panel1.TabIndex = 0;
+            // 
+            // pnItemDrug
+            // 
+            this.pnItemDrug.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnItemDrug.Location = new System.Drawing.Point(0, 119);
+            this.pnItemDrug.Name = "pnItemDrug";
+            this.pnItemDrug.Size = new System.Drawing.Size(961, 237);
+            this.pnItemDrug.TabIndex = 3;
+            // 
+            // pnTopDrug
+            // 
+            this.pnTopDrug.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnTopDrug.Location = new System.Drawing.Point(0, 0);
+            this.pnTopDrug.Name = "pnTopDrug";
+            this.pnTopDrug.Size = new System.Drawing.Size(961, 119);
+            this.pnTopDrug.TabIndex = 2;
             // 
             // c1DockingTabPage2
             // 
@@ -260,6 +296,140 @@
             this.pnTopProcedure.Size = new System.Drawing.Size(961, 119);
             this.pnTopProcedure.TabIndex = 2;
             // 
+            // c1DockingTabPage5
+            // 
+            this.c1DockingTabPage5.Controls.Add(this.pnSearchItems);
+            this.c1DockingTabPage5.Controls.Add(this.panel6);
+            this.c1DockingTabPage5.Location = new System.Drawing.Point(1, 24);
+            this.c1DockingTabPage5.Name = "c1DockingTabPage5";
+            this.c1DockingTabPage5.Size = new System.Drawing.Size(961, 356);
+            this.c1DockingTabPage5.TabIndex = 4;
+            this.c1DockingTabPage5.Text = "ค้นหา";
+            // 
+            // pnSearchItems
+            // 
+            this.pnSearchItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnSearchItems.Location = new System.Drawing.Point(0, 46);
+            this.pnSearchItems.Name = "pnSearchItems";
+            this.pnSearchItems.Size = new System.Drawing.Size(961, 310);
+            this.pnSearchItems.TabIndex = 5;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.lbItemName);
+            this.panel6.Controls.Add(this.txtItemCode);
+            this.panel6.Controls.Add(this.label79);
+            this.panel6.Controls.Add(this.label77);
+            this.panel6.Controls.Add(this.txtSearchItem);
+            this.panel6.Controls.Add(this.panel7);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(961, 46);
+            this.panel6.TabIndex = 4;
+            // 
+            // lbItemName
+            // 
+            this.lbItemName.AutoSize = true;
+            this.lbItemName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbItemName.Location = new System.Drawing.Point(700, 12);
+            this.lbItemName.Name = "lbItemName";
+            this.lbItemName.Size = new System.Drawing.Size(30, 25);
+            this.lbItemName.TabIndex = 272;
+            this.lbItemName.Text = "...";
+            // 
+            // txtItemCode
+            // 
+            this.txtItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtItemCode.Location = new System.Drawing.Point(613, 12);
+            this.txtItemCode.Name = "txtItemCode";
+            this.txtItemCode.Size = new System.Drawing.Size(83, 24);
+            this.txtItemCode.TabIndex = 271;
+            this.txtItemCode.Tag = null;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label79.Location = new System.Drawing.Point(556, 12);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(47, 20);
+            this.label79.TabIndex = 270;
+            this.label79.Text = "item :";
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label77.Location = new System.Drawing.Point(356, 14);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(51, 20);
+            this.label77.TabIndex = 255;
+            this.label77.Text = "ค้นหา :";
+            // 
+            // txtSearchItem
+            // 
+            this.txtSearchItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSearchItem.Location = new System.Drawing.Point(413, 11);
+            this.txtSearchItem.Name = "txtSearchItem";
+            this.txtSearchItem.Size = new System.Drawing.Size(131, 24);
+            this.txtSearchItem.TabIndex = 1;
+            this.txtSearchItem.Tag = null;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.chkItemDrug);
+            this.panel7.Controls.Add(this.chkItemProcedure);
+            this.panel7.Controls.Add(this.chkItemXray);
+            this.panel7.Controls.Add(this.chkItemLab);
+            this.panel7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.panel7.Location = new System.Drawing.Point(11, 3);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(339, 38);
+            this.panel7.TabIndex = 0;
+            // 
+            // chkItemDrug
+            // 
+            this.chkItemDrug.AutoSize = true;
+            this.chkItemDrug.Location = new System.Drawing.Point(236, 9);
+            this.chkItemDrug.Name = "chkItemDrug";
+            this.chkItemDrug.Size = new System.Drawing.Size(76, 24);
+            this.chkItemDrug.TabIndex = 3;
+            this.chkItemDrug.Text = "DRUG";
+            this.chkItemDrug.UseVisualStyleBackColor = true;
+            // 
+            // chkItemProcedure
+            // 
+            this.chkItemProcedure.AutoSize = true;
+            this.chkItemProcedure.Location = new System.Drawing.Point(151, 9);
+            this.chkItemProcedure.Name = "chkItemProcedure";
+            this.chkItemProcedure.Size = new System.Drawing.Size(77, 24);
+            this.chkItemProcedure.TabIndex = 2;
+            this.chkItemProcedure.Text = "หัตถการ";
+            this.chkItemProcedure.UseVisualStyleBackColor = true;
+            // 
+            // chkItemXray
+            // 
+            this.chkItemXray.AutoSize = true;
+            this.chkItemXray.Location = new System.Drawing.Point(71, 9);
+            this.chkItemXray.Name = "chkItemXray";
+            this.chkItemXray.Size = new System.Drawing.Size(72, 24);
+            this.chkItemXray.TabIndex = 1;
+            this.chkItemXray.Text = "XRAY";
+            this.chkItemXray.UseVisualStyleBackColor = true;
+            // 
+            // chkItemLab
+            // 
+            this.chkItemLab.AutoSize = true;
+            this.chkItemLab.Checked = true;
+            this.chkItemLab.Location = new System.Drawing.Point(6, 9);
+            this.chkItemLab.Name = "chkItemLab";
+            this.chkItemLab.Size = new System.Drawing.Size(58, 24);
+            this.chkItemLab.TabIndex = 0;
+            this.chkItemLab.TabStop = true;
+            this.chkItemLab.Text = "LAB";
+            this.chkItemLab.UseVisualStyleBackColor = true;
+            // 
             // c1SplitterPanel2
             // 
             this.c1SplitterPanel2.Controls.Add(this.pnItems);
@@ -277,22 +447,6 @@
             this.pnItems.Name = "pnItems";
             this.pnItems.Size = new System.Drawing.Size(963, 290);
             this.pnItems.TabIndex = 0;
-            // 
-            // pnItemDrug
-            // 
-            this.pnItemDrug.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnItemDrug.Location = new System.Drawing.Point(0, 119);
-            this.pnItemDrug.Name = "pnItemDrug";
-            this.pnItemDrug.Size = new System.Drawing.Size(961, 237);
-            this.pnItemDrug.TabIndex = 3;
-            // 
-            // pnTopDrug
-            // 
-            this.pnTopDrug.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnTopDrug.Location = new System.Drawing.Point(0, 0);
-            this.pnTopDrug.Name = "pnTopDrug";
-            this.pnTopDrug.Size = new System.Drawing.Size(961, 119);
-            this.pnTopDrug.TabIndex = 2;
             // 
             // FrmItemSearch
             // 
@@ -319,6 +473,13 @@
             this.panel4.ResumeLayout(false);
             this.c1DockingTabPage4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.c1DockingTabPage5.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.c1SplitterPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -343,8 +504,8 @@
         private System.Windows.Forms.Panel pnItems;
         private System.Windows.Forms.Panel pnItemLab;
         private System.Windows.Forms.Panel pnTopLab;
-        private C1.Win.C1Ribbon.RibbonLabel lfsb1;
-        private C1.Win.C1Ribbon.RibbonLabel lfsb2;
+        private C1.Win.C1Ribbon.RibbonLabel lfSbMessage;
+        private C1.Win.C1Ribbon.RibbonLabel lfsbStatus;
         private C1.Win.C1Ribbon.RibbonButton btnClose;
         private System.Windows.Forms.Panel pnItemXray;
         private System.Windows.Forms.Panel pnTopXray;
@@ -352,5 +513,18 @@
         private System.Windows.Forms.Panel pnTopProcedure;
         private System.Windows.Forms.Panel pnItemDrug;
         private System.Windows.Forms.Panel pnTopDrug;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
+        private System.Windows.Forms.Panel pnSearchItems;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.RadioButton chkItemDrug;
+        private System.Windows.Forms.RadioButton chkItemProcedure;
+        private System.Windows.Forms.RadioButton chkItemXray;
+        private System.Windows.Forms.RadioButton chkItemLab;
+        private C1.Win.C1Input.C1TextBox txtSearchItem;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Label lbItemName;
+        private C1.Win.C1Input.C1TextBox txtItemCode;
+        private System.Windows.Forms.Label label79;
     }
 }

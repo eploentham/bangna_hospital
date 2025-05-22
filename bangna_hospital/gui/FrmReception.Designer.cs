@@ -962,7 +962,7 @@ namespace bangna_hospital.gui
             this.pnSrcTop.Controls.Add(this.btnSrcOk);
             this.pnSrcTop.Controls.Add(this.txtSrcHn);
             this.pnSrcTop.Controls.Add(this.c1Label1);
-            this.pnSrcTop.Height = 56;
+            this.pnSrcTop.Height = 49;
             this.pnSrcTop.Location = new System.Drawing.Point(0, 0);
             this.pnSrcTop.Name = "pnSrcTop";
             this.pnSrcTop.Size = new System.Drawing.Size(1252, 49);
@@ -1130,7 +1130,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.247D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 982;
+            this.pnPttPatient.Width = 989;
             // 
             // btnPttPaid
             // 

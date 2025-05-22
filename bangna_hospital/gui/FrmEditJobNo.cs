@@ -22,11 +22,12 @@ namespace bangna_hospital.gui
     public partial class FrmEditJobNo : Form
     {
         BangnaControl bc;
-        C1FlexGrid grfHn, grfAn ,grfDeptVisit, grfvoid;
+        C1FlexGrid grfHn, grfAn ,grfDeptVisit, grfvoid, grfXray, grfXrayItem;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B;
         int colgrfHnHN = 1, colgrfHnDocNo=2, colgrfHnDocDate=3, colgrfHnDocCD=4, colgrfHnDocSts=5,colgrfHnAmt=6, colgrfHnJobNo=7, colgrfHnJobNoOld = 8;
         int colgrfAnanno = 1, colgrfAnAdDate = 2;
         int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitStatusAdmit=3, colgrfDeptDept=4, colgrfDeptVisitVn=5;
+        int colgrfxrayreqno = 1, colgrfxrayyear = 2, colgrfxrayreqdate = 3, colgrfxraystatuspacs = 4, colgrfxrayitemcode=5, colgrfxrayitemname=6;
         Boolean pageLoad = false;
         C1ThemeController theme1;
         Patient ptt;
@@ -50,6 +51,16 @@ namespace bangna_hospital.gui
             initGrfHn();
             initGrfAn();
             initGrfDeptVisit();
+            initGrfXray();
+            initGrfXrayItems();
+            chkDeptOPD.Checked = true;
+            chkDeptIPD.Checked = false;
+            chkDeptOPDNew.Checked = true;
+            chkDeptIPDNew.Checked = false;
+            //cboDeptNew
+            chkDeptOPD1.Checked = true;
+            chkDeptIPD1.Checked = false;
+            bc.bcDB.pttDB.setCboDeptOPD(cboDept1, bc.iniC.station);
 
             txtPttHn.KeyUp += TxtPttHn_KeyUp;
             btnGet.Click += BtnGet_Click;
@@ -74,7 +85,59 @@ namespace bangna_hospital.gui
             btnDtrupdate.Click += BtnDtrupdate_Click;
             txtDtrAppoint.KeyPress += TxtDtrAppoint_KeyPress;
             c1Button2.Click += C1Button2_Click;
+            btnUpdateDrugExpireDate.Click += BtnUpdateDrugExpireDate_Click;
+            btnXray.Click += BtnXray_Click;
+            txtXrayHn.KeyUp += TxtXrayHn_KeyUp;
+            btnXrayDelReq.Click += BtnXrayDelReq_Click;
+            cboDept1.SelectedItemChanged += CboDept1_SelectedItemChanged;
             pageLoad = false;
+        }
+
+        private void CboDept1_SelectedItemChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (pageLoad) return;
+            if (chkDeptOPD1.Checked)
+            {
+                String secid = ((ComboBoxItem)cboDept1.SelectedItem).Value;
+                String deptid = bc.bcDB.pm32DB.getDeptNoOPD(secid);
+                label34.Text = secid;
+                label35.Text = deptid;
+            }
+            else
+            {
+                //bc.bcDB.pm32DB.setCboDeptIPD(cboDept1, bc.iniC.station);
+            }
+        }
+
+        private void BtnXrayDelReq_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String re = bc.bcDB.xrayT02DB.deleteReqNo(txtXrayReqYear.Text.Trim(), txtXrayReqno.Text.Trim(), txtXrayReqdate.Text.Trim());
+        }
+
+        private void TxtXrayHn_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                ptt = new Patient();
+                ptt = bc.bcDB.pttDB.selectPatinetByHn(txtXrayHn.Text.Trim());
+                lbXrayPttnameT.Text = ptt.Name;
+                setGrfXray();
+            }
+        }
+
+        private void BtnXray_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String re = bc.bcDB.xrayT02DB.updateStatusPaca(txtXrayReqYear.Text.Trim(), txtXrayReqno.Text.Trim(), txtXrayReqdate.Text.Trim(), txtXrayHn.Text.Trim());
+        }
+
+        private void BtnUpdateDrugExpireDate_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String re = "update pharmacy_t15 set mnc_exp_dat = mnc_exp_dat + 1000";
         }
 
         // Inside the C1Button2_Click method
@@ -336,6 +399,123 @@ namespace bangna_hospital.gui
                 ptt = bc.bcDB.pttDB.selectPatinetByHn(txtDeptHN.Text.Trim());
                 lbDeptPttnameT.Text = ptt.Name;
                 setGrfDeptVisit();
+            }
+        }
+        private void initGrfXrayItems()
+        {
+            grfXrayItem = new C1FlexGrid();
+            grfXrayItem.Font = fEdit;
+            grfXrayItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfXrayItem.Location = new System.Drawing.Point(0, 0);
+            grfXrayItem.Rows.Count = 1;
+            grfXrayItem.Cols.Count = 7;
+            grfXrayItem.Cols[colgrfxrayreqno].Width = 100;
+            grfXrayItem.Cols[colgrfxrayyear].Width = 100;
+            grfXrayItem.Cols[colgrfxrayreqdate].Width = 60;
+            grfXrayItem.Cols[colgrfxraystatuspacs].Width = 60;
+
+            grfXrayItem.ShowCursor = true;
+            grfXrayItem.Cols[colgrfxrayreqno].Caption = "reqno";
+            grfXrayItem.Cols[colgrfxrayyear].Caption = "reqyr";
+            grfXrayItem.Cols[colgrfxrayreqdate].Caption = "reqdate";
+            grfXrayItem.Cols[colgrfxrayitemcode].Caption = "itemcode";
+            grfXrayItem.Cols[colgrfxrayitemname].Caption = "itemname";
+
+            grfXrayItem.Cols[colgrfxraystatuspacs].Visible = false;
+            grfXrayItem.Cols[colgrfxrayreqno].AllowEditing = false;
+            grfXrayItem.Cols[colgrfxrayyear].AllowEditing = false;
+            grfXrayItem.Cols[colgrfxrayreqdate].AllowEditing = false;
+            grfXrayItem.Cols[colgrfxraystatuspacs].AllowEditing = false;
+
+            grfXrayItem.AllowFiltering = true;
+
+            grfXrayItem.Click += GrfXrayItem_Click;
+
+            pnxrayitems.Controls.Add(grfXrayItem);
+            theme1.SetTheme(grfXrayItem, bc.iniC.themeApp);
+        }
+        private void GrfXrayItem_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfXrayItem.Row <= 0) return;
+            if (grfXrayItem[grfXrayItem.Row, colgrfxrayitemcode] == null) return;
+        }
+        private void setGrfXrayItems(String hn, String reqno, String reqdate)
+        {
+            DataTable dtvs = new DataTable();
+            dtvs = bc.bcDB.xrayT02DB.selectbyHNReqNo(hn, reqdate, reqno);
+            grfXrayItem.Rows.Count = 1;
+            grfXrayItem.Rows.Count = dtvs.Rows.Count + 1;
+            int i = 1, j = 1;
+            foreach (DataRow row1 in dtvs.Rows)
+            {
+                Row rowa = grfXrayItem.Rows[i];
+                rowa[colgrfxrayreqno] = row1["req_no"].ToString();
+                rowa[colgrfxrayyear] = row1["MNC_REQ_YR"].ToString();
+                rowa[colgrfxrayreqdate] = row1["req_date"].ToString();
+                rowa[colgrfxrayitemcode] = row1["order_code"].ToString();
+                rowa[colgrfxrayitemname] = row1["order_name"].ToString();
+                rowa[0] = i.ToString();
+                i++;
+            }
+        }
+        private void initGrfXray()
+        {
+            grfXray = new C1FlexGrid();
+            grfXray.Font = fEdit;
+            grfXray.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfXray.Location = new System.Drawing.Point(0, 0);
+            grfXray.Rows.Count = 1;
+            grfXray.Cols.Count = 5;
+            grfXray.Cols[colgrfxrayreqno].Width = 100;
+            grfXray.Cols[colgrfxrayyear].Width = 100;
+            grfXray.Cols[colgrfxrayreqdate].Width = 60;
+            grfXray.Cols[colgrfxraystatuspacs].Width = 60;
+
+            grfXray.ShowCursor = true;
+            grfXray.Cols[colgrfxrayreqno].Caption = "reqno";
+            grfXray.Cols[colgrfxrayyear].Caption = "reqyr";
+            grfXray.Cols[colgrfxrayreqdate].Caption = "reqdate";
+            grfXray.Cols[colgrfxraystatuspacs].Caption = "status";
+
+            grfXray.Cols[colgrfxrayreqno].AllowEditing = false;
+            grfXray.Cols[colgrfxrayyear].AllowEditing = false;
+            grfXray.Cols[colgrfxrayreqdate].AllowEditing = false;
+            grfXray.Cols[colgrfxraystatuspacs].AllowEditing = false;
+
+            grfXray.AllowFiltering = true;
+
+            grfXray.Click += GrfXray_Click;
+
+            pnXray.Controls.Add(grfXray);
+            theme1.SetTheme(grfXray, bc.iniC.themeApp);
+        }
+        private void GrfXray_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfXray.Row <= 0) return;
+            if (grfXray[grfXray.Row, colgrfxrayreqno] == null) return;
+            txtXrayReqdate.Value = grfXray[grfXray.Row, colgrfxrayreqdate].ToString();
+            txtXrayReqno.Value = grfXray[grfXray.Row, colgrfxrayreqno].ToString();
+            txtXrayReqYear.Value = grfXray[grfXray.Row, colgrfxrayyear].ToString();
+            setGrfXrayItems(txtXrayHn.Text.Trim(), txtXrayReqno.Text.Trim(), txtXrayReqdate.Text.Trim());
+        }
+        private void setGrfXray()
+        {
+            DataTable dtvs = new DataTable();
+            dtvs = bc.bcDB.xrayT01DB.selectVisitStatusPacsReqByHN(txtXrayDate.Text.Trim(), txtXrayHn.Text.Trim());
+            grfXray.Rows.Count = 1;
+            grfXray.Rows.Count = dtvs.Rows.Count + 1;
+            int i = 1, j = 1;
+            foreach (DataRow row1 in dtvs.Rows)
+            {
+                Row rowa = grfXray.Rows[i];
+                rowa[colgrfxrayreqno] = row1["MNC_REQ_NO"].ToString();
+                rowa[colgrfxrayyear] = row1["MNC_REQ_YR"].ToString();
+                rowa[colgrfxrayreqdate] = row1["mnc_req_dat1"].ToString();
+                rowa[colgrfxraystatuspacs] = row1["status_pacs"].ToString();
+                rowa[0] = i.ToString();
+                i++;
             }
         }
         private void initGrfDeptVisit()
@@ -638,7 +818,6 @@ namespace bangna_hospital.gui
 
             grfHn.Click += GrfHn_Click;
 
-
             panel1.Controls.Add(grfHn);
             theme1.SetTheme(grfHn, bc.iniC.themeApp);
         }
@@ -694,7 +873,8 @@ namespace bangna_hospital.gui
         private void FrmEditJobNo_Load(object sender, EventArgs e)
         {
             lb1.Text = "[hostDB " + bc.iniC.hostDB + " nameDB " + bc.iniC.nameDB + "] [hostDBMainHIS " + bc.iniC.hostDBMainHIS + " nameDBMainHIS " + bc.iniC.nameDBMainHIS+"]";
-            txtVoidvsdate.Value = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd"); 
+            txtVoidvsdate.Value = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd");
+            txtXrayDate.Value = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
         }
     }
 }

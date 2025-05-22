@@ -281,9 +281,9 @@ namespace bangna_hospital
                     err = "pharmacyIPD";
                     Application.Run(new gui.FrmPharmacy(bc));
                 }
-                else if (bc.iniC.programLoad.Equals("sso"))
+                else if (bc.iniC.programLoad.Equals("ssop"))
                 {
-                    err = "sso";
+                    err = "ssop";
                     Application.Run(new gui.FrmSSO(bc));
                 }
                 else if (bc.iniC.programLoad.Equals("stock"))

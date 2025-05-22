@@ -89,6 +89,7 @@ namespace bangna_hospital.objdb
         public FinanceT01DB fint01DB;
         public PatientT07DB pt07DB;
         public PatientT08DB pt08DB;
+        public PatientT09DB pt09DB;
         public PatientT03DB pt03DB;
         
         public SummaryT03DB sumt03DB;
@@ -108,7 +109,13 @@ namespace bangna_hospital.objdb
         public TokenDB tokenDB;
         
         public DoctorM02DB dtrM02DB;
-        
+        public SSOPBillItemsDB ssopBillItemsDB;
+        public SSOPBillTranDB sSOPBillTranDB;
+        public SSOPDispenseditemDB sSOPDIDB;
+        public SSOPDispensingDB sSOPDDB;
+        public SSOPOpdxDB sSOPODDB;
+        public SSOPOpservicesDB sSOPOSDB;
+
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -229,6 +236,13 @@ namespace bangna_hospital.objdb
                 pm40DB = new PatientM40DB(conn);
                 dtrM02DB = new DoctorM02DB(conn);
                 pm26DB = new PatientM26DB(conn);
+                ssopBillItemsDB = new SSOPBillItemsDB(conn);
+                sSOPBillTranDB = new SSOPBillTranDB(conn);
+                sSOPDIDB = new SSOPDispenseditemDB(conn);
+                sSOPDDB = new SSOPDispensingDB(conn);
+                sSOPODDB = new SSOPOpdxDB(conn);
+                sSOPOSDB = new SSOPOpservicesDB(conn);
+                pt09DB = new PatientT09DB(conn);
             }
             catch(Exception ex)
             {

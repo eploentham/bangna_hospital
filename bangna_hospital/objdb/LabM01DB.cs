@@ -66,6 +66,31 @@ namespace bangna_hospital.objdb
             labM01 = setLabM01(dt);
             return labM01;
         }
+        public DataTable SelectAllBySearch(String labgrpcode)
+        {
+            DataTable dt = new DataTable();
+            String wheresearch = "";
+            if (labgrpcode == "")
+            {
+                return dt;
+            }
+            wheresearch = " (labm01.MNC_LB_DSC like '" + labgrpcode + "%') ";
+            if (labgrpcode != "")
+            {
+                wheresearch += " or (labm01.MNC_LB_CD like '" + labgrpcode + "%') ";
+            }
+            String sql = "Select labm01.MNC_LB_CD as code,labm01.MNC_LB_DSC as name ,labm01.MNC_LB_TYP_CD,labm01.MNC_LB_GRP_CD as grp_name,labm01.MNC_LB_DIS_STS" +
+                ", labm02.mnc_lb_pri01, labm02.mnc_lb_pri02, labm02.mnc_lb_pri03,labm06.MNC_LB_GRP_DSC,labm01.MNC_SPC_CD,labm11.MNC_SPC_DSC,labm01.MNC_SCH_ACT " +
+                "From lab_m01 labm01 " +
+                "Left join lab_m02 labm02 on labm01.MNC_LB_CD = labm02.MNC_LB_CD " +
+                "Left Join LAB_M06 labm06 on labm01.MNC_LB_GRP_CD = labm06.MNC_LB_GRP_CD " +
+                "Left join LAB_M11 labm11 on labm01.MNC_SPC_CD = labm11.MNC_SPC_CD " +
+                "Where " + wheresearch + " " +
+                "Order By  labm01.MNC_LB_CD ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable SelectAllByGroup(String labgrpcode)
         {
             DataTable dt = new DataTable();

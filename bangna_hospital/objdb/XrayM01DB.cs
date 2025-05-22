@@ -99,6 +99,28 @@ namespace bangna_hospital.objdb
             xrayM01 = setXrayM01(dt);
             return xrayM01;
         }
+        public DataTable SelectAllBySearch(String xraycode)
+        {
+            DataTable dt = new DataTable();
+            String wheresearch = "";
+            if (xraycode == "")
+            {
+                return dt;
+            }
+            wheresearch = " (xray_m01.mnc_xr_dsc like '" + xraycode + "%') ";
+            if (xraycode != "")
+            {
+                wheresearch += " or (xray_m01.mnc_xr_cd like '" + xraycode + "%') ";
+            }
+            String sql = "select xray_m01.MNC_XR_CD as code,xray_m01.MNC_XR_DSC as name,xray_m01.MNC_XR_GRP_CD as grp_name, xray_m02.mnc_xr_pri01 " +
+                "From xray_m01  " +
+                "Left join xray_m02 on xray_m01.mnc_xr_cd = xray_m02.mnc_xr_cd " +
+                "Where  "+ wheresearch + " " +
+                " ";
+            dt = conn.selectData(sql);
+            //xrayM01 = setXrayM01(dt);
+            return dt;
+        }
         public String updateOPBKKCode(String xraycode, String opbkkcode)
         {
             String sql = "", chk = "";

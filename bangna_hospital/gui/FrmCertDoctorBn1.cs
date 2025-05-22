@@ -581,7 +581,8 @@ namespace bangna_hospital.gui
                 certid = certid.Substring(3, 7);
             }
 
-            String patheName = Environment.CurrentDirectory + "\\cert_med\\";
+            //String patheName = Environment.CurrentDirectory + "\\cert_med\\";
+            String patheName = Application.StartupPath + "\\cert_med\\";        //Copilot บอกให้ใช้ Application.StartupPath
             if ((Environment.CurrentDirectory.ToLower().IndexOf("windows") >= 0) && ((Environment.CurrentDirectory.ToLower().IndexOf("c:") >= 0)))
             {
                 new LogWriter("e", "FrmCertDoctorBn1 printCertDoctoriTextSharpThai Environment.CurrentDirectory " + Environment.CurrentDirectory);
@@ -1000,7 +1001,12 @@ namespace bangna_hospital.gui
             certid = insertCertDoctor();
             certid = certid.Replace("555", "");
 
-            String patheName = Environment.CurrentDirectory + "\\cert_med\\";
+            //String patheName = Environment.CurrentDirectory + "\\cert_med\\";
+            String patheName = Application.StartupPath + "\\cert_med\\";        //Copilot บอกให้ใช้ Application.StartupPath
+            if (Environment.CurrentDirectory.Equals(""))
+            {
+                
+            }
             if (!Directory.Exists(patheName))
             {
                 Directory.CreateDirectory(patheName);
@@ -1530,7 +1536,7 @@ namespace bangna_hospital.gui
         }
         private void FrmCertDoctorBn1_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2025-02-11 fix big font ";
+            this.Text = "Last Update 2025-05-21 fix app path ";
         }
     }
 }
