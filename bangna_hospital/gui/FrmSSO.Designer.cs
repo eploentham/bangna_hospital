@@ -146,6 +146,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.btnSSOPVoid = new C1.Win.C1Input.C1Button();
+            this.btnSSOPGen = new C1.Win.C1Input.C1Button();
             this.btnSSOPSave = new C1.Win.C1Input.C1Button();
             this.txtSSOPBilltransID = new C1.Win.C1Input.C1TextBox();
             this.txtSSOPProcHMain = new C1.Win.C1Input.C1TextBox();
@@ -239,11 +241,12 @@
             this.label27 = new System.Windows.Forms.Label();
             this.c1SplitterPanel11 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.c1DockingTab2 = new C1.Win.C1Command.C1DockingTab();
+            this.tabSSOPDetails = new C1.Win.C1Command.C1DockingTab();
             this.tabSSOPBillItems = new C1.Win.C1Command.C1DockingTabPage();
             this.pnBillI = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.c1Button9 = new C1.Win.C1Input.C1Button();
+            this.btnSSOPItemVoid = new C1.Win.C1Input.C1Button();
+            this.btnSSOPProcBillItemsNew = new C1.Win.C1Input.C1Button();
             this.txtSSOPBillItemsID = new C1.Win.C1Input.C1TextBox();
             this.btnSSOPProcBillItemsSave = new C1.Win.C1Input.C1Button();
             this.btnSSOPProcBillItemsGet = new C1.Win.C1Input.C1Button();
@@ -276,7 +279,8 @@
             this.tabSSOPDispensing = new C1.Win.C1Command.C1DockingTabPage();
             this.pnDisp = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.c1Button7 = new C1.Win.C1Input.C1Button();
+            this.btnSSOPDispVoid = new C1.Win.C1Input.C1Button();
+            this.btnSSOPProcDispensingNew = new C1.Win.C1Input.C1Button();
             this.txtSSOPDispID = new C1.Win.C1Input.C1TextBox();
             this.btnSSOPProcDispensingSave = new C1.Win.C1Input.C1Button();
             this.c1Button2 = new C1.Win.C1Input.C1Button();
@@ -315,7 +319,8 @@
             this.tabSSOPDispenseditem = new C1.Win.C1Command.C1DockingTabPage();
             this.pnDispI = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.c1Button5 = new C1.Win.C1Input.C1Button();
+            this.btnSSOPDispItemVoid = new C1.Win.C1Input.C1Button();
+            this.btnSSOPProcDispenseditemNew = new C1.Win.C1Input.C1Button();
             this.txtSSOPDispenseditemid = new C1.Win.C1Input.C1TextBox();
             this.btnSSOPProcDispenseditemSave = new C1.Win.C1Input.C1Button();
             this.c1Button8 = new C1.Win.C1Input.C1Button();
@@ -360,7 +365,8 @@
             this.tabSSOPOpServices = new C1.Win.C1Command.C1DockingTabPage();
             this.pnOpServ = new System.Windows.Forms.Panel();
             this.panel14 = new System.Windows.Forms.Panel();
-            this.c1Button3 = new C1.Win.C1Input.C1Button();
+            this.btnSSOPOPserVoid = new C1.Win.C1Input.C1Button();
+            this.btnSSOPProcOPServicesNew = new C1.Win.C1Input.C1Button();
             this.txtSSOPOpServicesid = new C1.Win.C1Input.C1TextBox();
             this.btnSSOPProcOPServicesSave = new C1.Win.C1Input.C1Button();
             this.c1Button6 = new C1.Win.C1Input.C1Button();
@@ -405,7 +411,8 @@
             this.tabSSOPOPDx = new C1.Win.C1Command.C1DockingTabPage();
             this.pnOPDx = new System.Windows.Forms.Panel();
             this.panel16 = new System.Windows.Forms.Panel();
-            this.c1Button1 = new C1.Win.C1Input.C1Button();
+            this.btnSSOPOPDxVoid = new C1.Win.C1Input.C1Button();
+            this.btnSSOPProcOPDxNew = new C1.Win.C1Input.C1Button();
             this.txtSSOPOPDxid = new C1.Win.C1Input.C1TextBox();
             this.btnSSOPProcOPDxSave = new C1.Win.C1Input.C1Button();
             this.cboSSOPOPDxcodeset = new C1.Win.C1Input.C1ComboBox();
@@ -429,21 +436,17 @@
             this.txtSSOPgentextSearch = new C1.Win.C1Input.C1TextBox();
             this.label67 = new System.Windows.Forms.Label();
             this.c1SplitterPanel13 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnSSOPGenTextMaketext = new System.Windows.Forms.Panel();
             this.c1SplitterPanel14 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.label148 = new System.Windows.Forms.Label();
-            this.txtSSOPgentextSessionid = new C1.Win.C1Input.C1TextBox();
-            this.btnSSOPgentextgentext = new C1.Win.C1Input.C1Button();
-            this.txtSSOPgentextHMAIN = new C1.Win.C1Input.C1TextBox();
+            this.txtSSOPgentextRecordCnt = new C1.Win.C1Input.C1TextBox();
+            this.label152 = new System.Windows.Forms.Label();
+            this.txtSSOPgentextHname = new C1.Win.C1Input.C1TextBox();
             this.label149 = new System.Windows.Forms.Label();
             this.txtSSOPgentextHCODE = new C1.Win.C1Input.C1TextBox();
             this.label150 = new System.Windows.Forms.Label();
-            this.txtSSOPgentextRecordCnt = new C1.Win.C1Input.C1TextBox();
-            this.label152 = new System.Windows.Forms.Label();
-            this.c1SplitterPanel15 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel16 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel17 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel18 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.pnSSOPGenTextMaketext = new System.Windows.Forms.Panel();
+            this.label148 = new System.Windows.Forms.Label();
+            this.txtSSOPgentextSessionid = new C1.Win.C1Input.C1TextBox();
+            this.btnSSOPgentextgentext = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC)).BeginInit();
             this.tC.SuspendLayout();
@@ -503,6 +506,8 @@
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPGen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPBilltransID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPProcHMain)).BeginInit();
@@ -550,11 +555,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).BeginInit();
             this.c1SplitterPanel11.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).BeginInit();
-            this.c1DockingTab2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabSSOPDetails)).BeginInit();
+            this.tabSSOPDetails.SuspendLayout();
             this.tabSSOPBillItems.SuspendLayout();
             this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPItemVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcBillItemsNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPBillItemsID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcBillItemsSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcBillItemsGet)).BeginInit();
@@ -573,7 +579,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPBillItemsInvno)).BeginInit();
             this.tabSSOPDispensing.SuspendLayout();
             this.panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPDispVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispensingNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPDispID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispensingSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
@@ -595,7 +602,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPDispensingproiderid)).BeginInit();
             this.tabSSOPDispenseditem.SuspendLayout();
             this.panel12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPDispItemVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispenseditemNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPDispenseditemid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispenseditemSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button8)).BeginInit();
@@ -620,7 +628,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPDispenseditemdispid)).BeginInit();
             this.tabSSOPOpServices.SuspendLayout();
             this.panel14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPOPserVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPServicesNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPOpServicesid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPServicesSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).BeginInit();
@@ -645,7 +654,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPOpServicesinvno)).BeginInit();
             this.tabSSOPOPDx.SuspendLayout();
             this.panel16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPOPDxVoid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPDxNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPOPDxid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPDxSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboSSOPOPDxcodeset)).BeginInit();
@@ -663,11 +673,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextSearch)).BeginInit();
             this.c1SplitterPanel13.SuspendLayout();
             this.c1SplitterPanel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextRecordCnt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHname)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHCODE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextSessionid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPgentextgentext)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHMAIN)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHCODE)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextRecordCnt)).BeginInit();
             this.SuspendLayout();
             // 
             // Sb1
@@ -689,7 +699,7 @@
             this.Sb1.RightPaneItems.Add(this.rgSbModule);
             this.Sb1.RightPaneItems.Add(this.btnScanSaveImg);
             this.Sb1.RightPaneItems.Add(this.btnOperClose);
-            this.Sb1.Size = new System.Drawing.Size(1562, 22);
+            this.Sb1.Size = new System.Drawing.Size(1666, 22);
             // 
             // lfsbLastUpdate
             // 
@@ -775,7 +785,7 @@
             this.tC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC.Location = new System.Drawing.Point(0, 0);
             this.tC.Name = "tC";
-            this.tC.Size = new System.Drawing.Size(1562, 846);
+            this.tC.Size = new System.Drawing.Size(1666, 846);
             this.tC.TabIndex = 2;
             this.tC.TabsSpacing = 5;
             // 
@@ -784,7 +794,7 @@
             this.tabSupra.Controls.Add(this.c1DockingTab1);
             this.tabSupra.Location = new System.Drawing.Point(1, 26);
             this.tabSupra.Name = "tabSupra";
-            this.tabSupra.Size = new System.Drawing.Size(1560, 819);
+            this.tabSupra.Size = new System.Drawing.Size(1664, 819);
             this.tabSupra.TabIndex = 0;
             this.tabSupra.Text = "Supra";
             // 
@@ -796,7 +806,7 @@
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.Size = new System.Drawing.Size(1560, 819);
+            this.c1DockingTab1.Size = new System.Drawing.Size(1664, 819);
             this.c1DockingTab1.TabIndex = 0;
             this.c1DockingTab1.TabsSpacing = 5;
             // 
@@ -805,7 +815,7 @@
             this.tabSupraNew.Controls.Add(this.scSupraNew);
             this.tabSupraNew.Location = new System.Drawing.Point(1, 26);
             this.tabSupraNew.Name = "tabSupraNew";
-            this.tabSupraNew.Size = new System.Drawing.Size(1558, 792);
+            this.tabSupraNew.Size = new System.Drawing.Size(1662, 792);
             this.tabSupraNew.TabIndex = 0;
             this.tabSupraNew.Text = "ดึงคนไข้ใหม่";
             // 
@@ -821,7 +831,7 @@
             this.scSupraNew.Panels.Add(this.c1SplitterPanel1);
             this.scSupraNew.Panels.Add(this.c1SplitterPanel2);
             this.scSupraNew.Panels.Add(this.c1SplitterPanel3);
-            this.scSupraNew.Size = new System.Drawing.Size(1558, 792);
+            this.scSupraNew.Size = new System.Drawing.Size(1662, 792);
             this.scSupraNew.TabIndex = 0;
             // 
             // c1SplitterPanel1
@@ -830,18 +840,18 @@
             this.c1SplitterPanel1.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
-            this.c1SplitterPanel1.Size = new System.Drawing.Size(778, 771);
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(830, 771);
             this.c1SplitterPanel1.SizeRatio = 50.045D;
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
-            this.c1SplitterPanel1.Width = 778;
+            this.c1SplitterPanel1.Width = 830;
             // 
             // pnSupra
             // 
             this.pnSupra.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSupra.Location = new System.Drawing.Point(0, 0);
             this.pnSupra.Name = "pnSupra";
-            this.pnSupra.Size = new System.Drawing.Size(778, 771);
+            this.pnSupra.Size = new System.Drawing.Size(830, 771);
             this.pnSupra.TabIndex = 0;
             // 
             // c1SplitterPanel2
@@ -855,9 +865,9 @@
             this.c1SplitterPanel2.Controls.Add(this.label1);
             this.c1SplitterPanel2.Controls.Add(this.btnSuprNewSave);
             this.c1SplitterPanel2.Height = 157;
-            this.c1SplitterPanel2.Location = new System.Drawing.Point(782, 21);
+            this.c1SplitterPanel2.Location = new System.Drawing.Point(834, 21);
             this.c1SplitterPanel2.Name = "c1SplitterPanel2";
-            this.c1SplitterPanel2.Size = new System.Drawing.Size(776, 136);
+            this.c1SplitterPanel2.Size = new System.Drawing.Size(828, 136);
             this.c1SplitterPanel2.SizeRatio = 19.868D;
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
@@ -997,9 +1007,9 @@
             this.c1SplitterPanel3.Controls.Add(this.label86);
             this.c1SplitterPanel3.Controls.Add(this.cboSuprNewReason);
             this.c1SplitterPanel3.Height = 631;
-            this.c1SplitterPanel3.Location = new System.Drawing.Point(782, 182);
+            this.c1SplitterPanel3.Location = new System.Drawing.Point(834, 182);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
-            this.c1SplitterPanel3.Size = new System.Drawing.Size(776, 610);
+            this.c1SplitterPanel3.Size = new System.Drawing.Size(828, 610);
             this.c1SplitterPanel3.TabIndex = 2;
             this.c1SplitterPanel3.Text = "Panel 3";
             // 
@@ -1559,7 +1569,7 @@
             this.tabOper.Controls.Add(this.c1SplitContainer2);
             this.tabOper.Location = new System.Drawing.Point(1, 26);
             this.tabOper.Name = "tabOper";
-            this.tabOper.Size = new System.Drawing.Size(1558, 792);
+            this.tabOper.Size = new System.Drawing.Size(1662, 792);
             this.tabOper.TabIndex = 1;
             this.tabOper.Text = "กำลังรักษา";
             // 
@@ -1574,7 +1584,7 @@
             this.c1SplitContainer2.Name = "c1SplitContainer2";
             this.c1SplitContainer2.Panels.Add(this.c1SplitterPanel4);
             this.c1SplitContainer2.Panels.Add(this.c1SplitterPanel5);
-            this.c1SplitContainer2.Size = new System.Drawing.Size(1558, 792);
+            this.c1SplitContainer2.Size = new System.Drawing.Size(1662, 792);
             this.c1SplitContainer2.TabIndex = 0;
             // 
             // c1SplitterPanel4
@@ -1600,7 +1610,7 @@
             // 
             this.tabFinish.Location = new System.Drawing.Point(1, 26);
             this.tabFinish.Name = "tabFinish";
-            this.tabFinish.Size = new System.Drawing.Size(1558, 792);
+            this.tabFinish.Size = new System.Drawing.Size(1662, 792);
             this.tabFinish.TabIndex = 2;
             this.tabFinish.Text = "รักษาเสร็จแล้ว";
             // 
@@ -1609,7 +1619,7 @@
             this.tabSSOP.Controls.Add(this.tcSSOP);
             this.tabSSOP.Location = new System.Drawing.Point(1, 26);
             this.tabSSOP.Name = "tabSSOP";
-            this.tabSSOP.Size = new System.Drawing.Size(1560, 819);
+            this.tabSSOP.Size = new System.Drawing.Size(1664, 819);
             this.tabSSOP.TabIndex = 1;
             this.tabSSOP.Text = "SSOP โครงการxxx";
             // 
@@ -1622,7 +1632,7 @@
             this.tcSSOP.Location = new System.Drawing.Point(0, 0);
             this.tcSSOP.Name = "tcSSOP";
             this.tcSSOP.SelectedIndex = 1;
-            this.tcSSOP.Size = new System.Drawing.Size(1560, 819);
+            this.tcSSOP.Size = new System.Drawing.Size(1664, 819);
             this.tcSSOP.TabIndex = 0;
             this.tcSSOP.TabsSpacing = 5;
             // 
@@ -1631,7 +1641,7 @@
             this.tabSSOPimp.Controls.Add(this.spSSOPget);
             this.tabSSOPimp.Location = new System.Drawing.Point(1, 26);
             this.tabSSOPimp.Name = "tabSSOPimp";
-            this.tabSSOPimp.Size = new System.Drawing.Size(1558, 792);
+            this.tabSSOPimp.Size = new System.Drawing.Size(1662, 792);
             this.tabSSOPimp.TabIndex = 0;
             this.tabSSOPimp.Text = "ดึงข้อมูล";
             // 
@@ -1647,7 +1657,7 @@
             this.spSSOPget.Panels.Add(this.c1SplitterPanel6);
             this.spSSOPget.Panels.Add(this.c1SplitterPanel7);
             this.spSSOPget.Panels.Add(this.c1SplitterPanel8);
-            this.spSSOPget.Size = new System.Drawing.Size(1558, 792);
+            this.spSSOPget.Size = new System.Drawing.Size(1662, 792);
             this.spSSOPget.TabIndex = 0;
             // 
             // c1SplitterPanel6
@@ -1657,17 +1667,17 @@
             this.c1SplitterPanel6.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel6.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel6.Name = "c1SplitterPanel6";
-            this.c1SplitterPanel6.Size = new System.Drawing.Size(777, 771);
+            this.c1SplitterPanel6.Size = new System.Drawing.Size(829, 771);
             this.c1SplitterPanel6.TabIndex = 0;
             this.c1SplitterPanel6.Text = "Panel 1";
-            this.c1SplitterPanel6.Width = 777;
+            this.c1SplitterPanel6.Width = 829;
             // 
             // pnSSOPimp
             // 
             this.pnSSOPimp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSSOPimp.Location = new System.Drawing.Point(0, 44);
             this.pnSSOPimp.Name = "pnSSOPimp";
-            this.pnSSOPimp.Size = new System.Drawing.Size(777, 727);
+            this.pnSSOPimp.Size = new System.Drawing.Size(829, 727);
             this.pnSSOPimp.TabIndex = 0;
             // 
             // panel2
@@ -1677,7 +1687,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(777, 44);
+            this.panel2.Size = new System.Drawing.Size(829, 44);
             this.panel2.TabIndex = 1;
             // 
             // txtSSOPgrfsearch
@@ -1712,9 +1722,9 @@
             this.c1SplitterPanel7.Controls.Add(this.txtSSOPhn);
             this.c1SplitterPanel7.Controls.Add(this.label21);
             this.c1SplitterPanel7.Height = 94;
-            this.c1SplitterPanel7.Location = new System.Drawing.Point(781, 21);
+            this.c1SplitterPanel7.Location = new System.Drawing.Point(833, 21);
             this.c1SplitterPanel7.Name = "c1SplitterPanel7";
-            this.c1SplitterPanel7.Size = new System.Drawing.Size(777, 73);
+            this.c1SplitterPanel7.Size = new System.Drawing.Size(829, 73);
             this.c1SplitterPanel7.SizeRatio = 11.929D;
             this.c1SplitterPanel7.TabIndex = 1;
             this.c1SplitterPanel7.Text = "Panel 2";
@@ -1865,9 +1875,9 @@
             this.c1SplitterPanel8.Controls.Add(this.pnSSOPHn);
             this.c1SplitterPanel8.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
             this.c1SplitterPanel8.Height = 694;
-            this.c1SplitterPanel8.Location = new System.Drawing.Point(781, 119);
+            this.c1SplitterPanel8.Location = new System.Drawing.Point(833, 119);
             this.c1SplitterPanel8.Name = "c1SplitterPanel8";
-            this.c1SplitterPanel8.Size = new System.Drawing.Size(777, 673);
+            this.c1SplitterPanel8.Size = new System.Drawing.Size(829, 673);
             this.c1SplitterPanel8.TabIndex = 2;
             this.c1SplitterPanel8.Text = "Panel 3";
             // 
@@ -1876,7 +1886,7 @@
             this.pnSSOPItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSSOPItems.Location = new System.Drawing.Point(0, 0);
             this.pnSSOPItems.Name = "pnSSOPItems";
-            this.pnSSOPItems.Size = new System.Drawing.Size(777, 520);
+            this.pnSSOPItems.Size = new System.Drawing.Size(829, 520);
             this.pnSSOPItems.TabIndex = 1;
             // 
             // pnSSOPHn
@@ -1884,7 +1894,7 @@
             this.pnSSOPHn.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnSSOPHn.Location = new System.Drawing.Point(0, 520);
             this.pnSSOPHn.Name = "pnSSOPHn";
-            this.pnSSOPHn.Size = new System.Drawing.Size(777, 153);
+            this.pnSSOPHn.Size = new System.Drawing.Size(829, 153);
             this.pnSSOPHn.TabIndex = 0;
             // 
             // tabSSOPprocess
@@ -1892,7 +1902,7 @@
             this.tabSSOPprocess.Controls.Add(this.c1SplitContainer1);
             this.tabSSOPprocess.Location = new System.Drawing.Point(1, 26);
             this.tabSSOPprocess.Name = "tabSSOPprocess";
-            this.tabSSOPprocess.Size = new System.Drawing.Size(1558, 792);
+            this.tabSSOPprocess.Size = new System.Drawing.Size(1662, 792);
             this.tabSSOPprocess.TabIndex = 1;
             this.tabSSOPprocess.Text = "เตรียมข้อมูล";
             // 
@@ -1908,7 +1918,7 @@
             this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel9);
             this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel10);
             this.c1SplitContainer1.Panels.Add(this.c1SplitterPanel11);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(1558, 792);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1662, 792);
             this.c1SplitContainer1.TabIndex = 0;
             // 
             // c1SplitterPanel9
@@ -1917,31 +1927,31 @@
             this.c1SplitterPanel9.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel9.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel9.Name = "c1SplitterPanel9";
-            this.c1SplitterPanel9.Size = new System.Drawing.Size(520, 771);
+            this.c1SplitterPanel9.Size = new System.Drawing.Size(555, 771);
             this.c1SplitterPanel9.SizeRatio = 33.456D;
             this.c1SplitterPanel9.TabIndex = 0;
             this.c1SplitterPanel9.Text = "Panel 1";
-            this.c1SplitterPanel9.Width = 520;
+            this.c1SplitterPanel9.Width = 555;
             // 
             // pnSSOP
             // 
             this.pnSSOP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSSOP.Location = new System.Drawing.Point(0, 0);
             this.pnSSOP.Name = "pnSSOP";
-            this.pnSSOP.Size = new System.Drawing.Size(520, 771);
+            this.pnSSOP.Size = new System.Drawing.Size(555, 771);
             this.pnSSOP.TabIndex = 0;
             // 
             // c1SplitterPanel10
             // 
             this.c1SplitterPanel10.Controls.Add(this.panel4);
             this.c1SplitterPanel10.Height = 164;
-            this.c1SplitterPanel10.Location = new System.Drawing.Point(524, 21);
+            this.c1SplitterPanel10.Location = new System.Drawing.Point(559, 21);
             this.c1SplitterPanel10.Name = "c1SplitterPanel10";
-            this.c1SplitterPanel10.Size = new System.Drawing.Size(1034, 143);
+            this.c1SplitterPanel10.Size = new System.Drawing.Size(1103, 143);
             this.c1SplitterPanel10.SizeRatio = 20.812D;
             this.c1SplitterPanel10.TabIndex = 1;
             this.c1SplitterPanel10.Text = "Panel 2";
-            this.c1SplitterPanel10.Width = 1034;
+            this.c1SplitterPanel10.Width = 1103;
             // 
             // panel4
             // 
@@ -1976,7 +1986,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1034, 143);
+            this.panel4.Size = new System.Drawing.Size(1103, 143);
             this.panel4.TabIndex = 0;
             // 
             // panel3
@@ -2012,11 +2022,13 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1034, 143);
+            this.panel3.Size = new System.Drawing.Size(1103, 143);
             this.panel3.TabIndex = 202;
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.btnSSOPVoid);
+            this.panel6.Controls.Add(this.btnSSOPGen);
             this.panel6.Controls.Add(this.btnSSOPSave);
             this.panel6.Controls.Add(this.txtSSOPBilltransID);
             this.panel6.Controls.Add(this.txtSSOPProcHMain);
@@ -2057,8 +2069,34 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1034, 143);
+            this.panel6.Size = new System.Drawing.Size(1103, 143);
             this.panel6.TabIndex = 202;
+            // 
+            // btnSSOPVoid
+            // 
+            this.btnSSOPVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPVoid.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
+            this.btnSSOPVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPVoid.Location = new System.Drawing.Point(1002, 102);
+            this.btnSSOPVoid.Name = "btnSSOPVoid";
+            this.btnSSOPVoid.Size = new System.Drawing.Size(89, 33);
+            this.btnSSOPVoid.TabIndex = 276;
+            this.btnSSOPVoid.Text = "ยกเลิก";
+            this.btnSSOPVoid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPVoid.UseVisualStyleBackColor = true;
+            // 
+            // btnSSOPGen
+            // 
+            this.btnSSOPGen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPGen.Image = global::bangna_hospital.Properties.Resources.Symbol_large;
+            this.btnSSOPGen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPGen.Location = new System.Drawing.Point(956, 42);
+            this.btnSSOPGen.Name = "btnSSOPGen";
+            this.btnSSOPGen.Size = new System.Drawing.Size(135, 33);
+            this.btnSSOPGen.TabIndex = 275;
+            this.btnSSOPGen.Text = "เตรียมข้อมูล";
+            this.btnSSOPGen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPGen.UseVisualStyleBackColor = true;
             // 
             // btnSSOPSave
             // 
@@ -3068,36 +3106,36 @@
             this.c1SplitterPanel11.Controls.Add(this.panel5);
             this.c1SplitterPanel11.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
             this.c1SplitterPanel11.Height = 624;
-            this.c1SplitterPanel11.Location = new System.Drawing.Point(524, 189);
+            this.c1SplitterPanel11.Location = new System.Drawing.Point(559, 189);
             this.c1SplitterPanel11.Name = "c1SplitterPanel11";
-            this.c1SplitterPanel11.Size = new System.Drawing.Size(1034, 603);
+            this.c1SplitterPanel11.Size = new System.Drawing.Size(1103, 603);
             this.c1SplitterPanel11.TabIndex = 2;
             this.c1SplitterPanel11.Text = "Panel 3";
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.c1DockingTab2);
+            this.panel5.Controls.Add(this.tabSSOPDetails);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1034, 603);
+            this.panel5.Size = new System.Drawing.Size(1103, 603);
             this.panel5.TabIndex = 0;
             // 
-            // c1DockingTab2
+            // tabSSOPDetails
             // 
-            this.c1DockingTab2.Controls.Add(this.tabSSOPBillItems);
-            this.c1DockingTab2.Controls.Add(this.tabSSOPDispensing);
-            this.c1DockingTab2.Controls.Add(this.tabSSOPDispenseditem);
-            this.c1DockingTab2.Controls.Add(this.tabSSOPOpServices);
-            this.c1DockingTab2.Controls.Add(this.tabSSOPOPDx);
-            this.c1DockingTab2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1DockingTab2.Location = new System.Drawing.Point(0, 0);
-            this.c1DockingTab2.Name = "c1DockingTab2";
-            this.c1DockingTab2.SelectedIndex = 3;
-            this.c1DockingTab2.Size = new System.Drawing.Size(1034, 603);
-            this.c1DockingTab2.TabIndex = 0;
-            this.c1DockingTab2.TabsSpacing = 5;
-            this.c1DockingTab2.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
+            this.tabSSOPDetails.Controls.Add(this.tabSSOPBillItems);
+            this.tabSSOPDetails.Controls.Add(this.tabSSOPDispensing);
+            this.tabSSOPDetails.Controls.Add(this.tabSSOPDispenseditem);
+            this.tabSSOPDetails.Controls.Add(this.tabSSOPOpServices);
+            this.tabSSOPDetails.Controls.Add(this.tabSSOPOPDx);
+            this.tabSSOPDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabSSOPDetails.Location = new System.Drawing.Point(0, 0);
+            this.tabSSOPDetails.Name = "tabSSOPDetails";
+            this.tabSSOPDetails.SelectedIndex = 3;
+            this.tabSSOPDetails.Size = new System.Drawing.Size(1103, 603);
+            this.tabSSOPDetails.TabIndex = 0;
+            this.tabSSOPDetails.TabsSpacing = 5;
+            this.tabSSOPDetails.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
             // 
             // tabSSOPBillItems
             // 
@@ -3105,7 +3143,7 @@
             this.tabSSOPBillItems.Controls.Add(this.panel7);
             this.tabSSOPBillItems.Location = new System.Drawing.Point(1, 26);
             this.tabSSOPBillItems.Name = "tabSSOPBillItems";
-            this.tabSSOPBillItems.Size = new System.Drawing.Size(1032, 576);
+            this.tabSSOPBillItems.Size = new System.Drawing.Size(1101, 576);
             this.tabSSOPBillItems.TabIndex = 0;
             this.tabSSOPBillItems.Text = "Bill Items";
             // 
@@ -3114,12 +3152,13 @@
             this.pnBillI.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnBillI.Location = new System.Drawing.Point(0, 163);
             this.pnBillI.Name = "pnBillI";
-            this.pnBillI.Size = new System.Drawing.Size(1032, 413);
+            this.pnBillI.Size = new System.Drawing.Size(1101, 413);
             this.pnBillI.TabIndex = 1;
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.c1Button9);
+            this.panel7.Controls.Add(this.btnSSOPItemVoid);
+            this.panel7.Controls.Add(this.btnSSOPProcBillItemsNew);
             this.panel7.Controls.Add(this.txtSSOPBillItemsID);
             this.panel7.Controls.Add(this.btnSSOPProcBillItemsSave);
             this.panel7.Controls.Add(this.btnSSOPProcBillItemsGet);
@@ -3152,20 +3191,33 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1032, 163);
+            this.panel7.Size = new System.Drawing.Size(1101, 163);
             this.panel7.TabIndex = 0;
             // 
-            // c1Button9
+            // btnSSOPItemVoid
             // 
-            this.c1Button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.c1Button9.Location = new System.Drawing.Point(881, 8);
-            this.c1Button9.Name = "c1Button9";
-            this.c1Button9.Size = new System.Drawing.Size(29, 33);
-            this.c1Button9.TabIndex = 284;
-            this.c1Button9.Text = "+";
-            this.c1Button9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.c1Button9.UseVisualStyleBackColor = true;
+            this.btnSSOPItemVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPItemVoid.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
+            this.btnSSOPItemVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPItemVoid.Location = new System.Drawing.Point(1001, 122);
+            this.btnSSOPItemVoid.Name = "btnSSOPItemVoid";
+            this.btnSSOPItemVoid.Size = new System.Drawing.Size(89, 33);
+            this.btnSSOPItemVoid.TabIndex = 285;
+            this.btnSSOPItemVoid.Text = "ยกเลิก";
+            this.btnSSOPItemVoid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPItemVoid.UseVisualStyleBackColor = true;
+            // 
+            // btnSSOPProcBillItemsNew
+            // 
+            this.btnSSOPProcBillItemsNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPProcBillItemsNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPProcBillItemsNew.Location = new System.Drawing.Point(881, 8);
+            this.btnSSOPProcBillItemsNew.Name = "btnSSOPProcBillItemsNew";
+            this.btnSSOPProcBillItemsNew.Size = new System.Drawing.Size(29, 33);
+            this.btnSSOPProcBillItemsNew.TabIndex = 284;
+            this.btnSSOPProcBillItemsNew.Text = "+";
+            this.btnSSOPProcBillItemsNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPProcBillItemsNew.UseVisualStyleBackColor = true;
             // 
             // txtSSOPBillItemsID
             // 
@@ -3489,7 +3541,7 @@
             this.tabSSOPDispensing.Controls.Add(this.panel10);
             this.tabSSOPDispensing.Location = new System.Drawing.Point(1, 26);
             this.tabSSOPDispensing.Name = "tabSSOPDispensing";
-            this.tabSSOPDispensing.Size = new System.Drawing.Size(1032, 576);
+            this.tabSSOPDispensing.Size = new System.Drawing.Size(1101, 576);
             this.tabSSOPDispensing.TabIndex = 1;
             this.tabSSOPDispensing.Text = "Dispensing";
             // 
@@ -3498,12 +3550,13 @@
             this.pnDisp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDisp.Location = new System.Drawing.Point(0, 187);
             this.pnDisp.Name = "pnDisp";
-            this.pnDisp.Size = new System.Drawing.Size(1032, 389);
+            this.pnDisp.Size = new System.Drawing.Size(1101, 389);
             this.pnDisp.TabIndex = 3;
             // 
             // panel10
             // 
-            this.panel10.Controls.Add(this.c1Button7);
+            this.panel10.Controls.Add(this.btnSSOPDispVoid);
+            this.panel10.Controls.Add(this.btnSSOPProcDispensingNew);
             this.panel10.Controls.Add(this.txtSSOPDispID);
             this.panel10.Controls.Add(this.btnSSOPProcDispensingSave);
             this.panel10.Controls.Add(this.c1Button2);
@@ -3542,20 +3595,33 @@
             this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel10.Location = new System.Drawing.Point(0, 0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(1032, 187);
+            this.panel10.Size = new System.Drawing.Size(1101, 187);
             this.panel10.TabIndex = 2;
             // 
-            // c1Button7
+            // btnSSOPDispVoid
             // 
-            this.c1Button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.c1Button7.Location = new System.Drawing.Point(881, 10);
-            this.c1Button7.Name = "c1Button7";
-            this.c1Button7.Size = new System.Drawing.Size(29, 33);
-            this.c1Button7.TabIndex = 284;
-            this.c1Button7.Text = "+";
-            this.c1Button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.c1Button7.UseVisualStyleBackColor = true;
+            this.btnSSOPDispVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPDispVoid.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
+            this.btnSSOPDispVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPDispVoid.Location = new System.Drawing.Point(992, 148);
+            this.btnSSOPDispVoid.Name = "btnSSOPDispVoid";
+            this.btnSSOPDispVoid.Size = new System.Drawing.Size(89, 33);
+            this.btnSSOPDispVoid.TabIndex = 285;
+            this.btnSSOPDispVoid.Text = "ยกเลิก";
+            this.btnSSOPDispVoid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPDispVoid.UseVisualStyleBackColor = true;
+            // 
+            // btnSSOPProcDispensingNew
+            // 
+            this.btnSSOPProcDispensingNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPProcDispensingNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPProcDispensingNew.Location = new System.Drawing.Point(881, 10);
+            this.btnSSOPProcDispensingNew.Name = "btnSSOPProcDispensingNew";
+            this.btnSSOPProcDispensingNew.Size = new System.Drawing.Size(29, 33);
+            this.btnSSOPProcDispensingNew.TabIndex = 284;
+            this.btnSSOPProcDispensingNew.Text = "+";
+            this.btnSSOPProcDispensingNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPProcDispensingNew.UseVisualStyleBackColor = true;
             // 
             // txtSSOPDispID
             // 
@@ -3955,7 +4021,7 @@
             this.tabSSOPDispenseditem.Controls.Add(this.panel12);
             this.tabSSOPDispenseditem.Location = new System.Drawing.Point(1, 26);
             this.tabSSOPDispenseditem.Name = "tabSSOPDispenseditem";
-            this.tabSSOPDispenseditem.Size = new System.Drawing.Size(1032, 576);
+            this.tabSSOPDispenseditem.Size = new System.Drawing.Size(1101, 576);
             this.tabSSOPDispenseditem.TabIndex = 2;
             this.tabSSOPDispenseditem.Text = "DispensedItem";
             // 
@@ -3964,12 +4030,13 @@
             this.pnDispI.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDispI.Location = new System.Drawing.Point(0, 220);
             this.pnDispI.Name = "pnDispI";
-            this.pnDispI.Size = new System.Drawing.Size(1032, 356);
+            this.pnDispI.Size = new System.Drawing.Size(1101, 356);
             this.pnDispI.TabIndex = 3;
             // 
             // panel12
             // 
-            this.panel12.Controls.Add(this.c1Button5);
+            this.panel12.Controls.Add(this.btnSSOPDispItemVoid);
+            this.panel12.Controls.Add(this.btnSSOPProcDispenseditemNew);
             this.panel12.Controls.Add(this.txtSSOPDispenseditemid);
             this.panel12.Controls.Add(this.btnSSOPProcDispenseditemSave);
             this.panel12.Controls.Add(this.c1Button8);
@@ -4014,20 +4081,33 @@
             this.panel12.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel12.Location = new System.Drawing.Point(0, 0);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(1032, 220);
+            this.panel12.Size = new System.Drawing.Size(1101, 220);
             this.panel12.TabIndex = 2;
             // 
-            // c1Button5
+            // btnSSOPDispItemVoid
             // 
-            this.c1Button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.c1Button5.Location = new System.Drawing.Point(932, 131);
-            this.c1Button5.Name = "c1Button5";
-            this.c1Button5.Size = new System.Drawing.Size(29, 33);
-            this.c1Button5.TabIndex = 284;
-            this.c1Button5.Text = "+";
-            this.c1Button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.c1Button5.UseVisualStyleBackColor = true;
+            this.btnSSOPDispItemVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPDispItemVoid.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
+            this.btnSSOPDispItemVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPDispItemVoid.Location = new System.Drawing.Point(1009, 63);
+            this.btnSSOPDispItemVoid.Name = "btnSSOPDispItemVoid";
+            this.btnSSOPDispItemVoid.Size = new System.Drawing.Size(89, 33);
+            this.btnSSOPDispItemVoid.TabIndex = 285;
+            this.btnSSOPDispItemVoid.Text = "ยกเลิก";
+            this.btnSSOPDispItemVoid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPDispItemVoid.UseVisualStyleBackColor = true;
+            // 
+            // btnSSOPProcDispenseditemNew
+            // 
+            this.btnSSOPProcDispenseditemNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPProcDispenseditemNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPProcDispenseditemNew.Location = new System.Drawing.Point(932, 131);
+            this.btnSSOPProcDispenseditemNew.Name = "btnSSOPProcDispenseditemNew";
+            this.btnSSOPProcDispenseditemNew.Size = new System.Drawing.Size(29, 33);
+            this.btnSSOPProcDispenseditemNew.TabIndex = 284;
+            this.btnSSOPProcDispenseditemNew.Text = "+";
+            this.btnSSOPProcDispenseditemNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPProcDispenseditemNew.UseVisualStyleBackColor = true;
             // 
             // txtSSOPDispenseditemid
             // 
@@ -4116,7 +4196,7 @@
             // txtSSOPDispenseditemsupplyfor
             // 
             this.txtSSOPDispenseditemsupplyfor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSSOPDispenseditemsupplyfor.Location = new System.Drawing.Point(901, 92);
+            this.txtSSOPDispenseditemsupplyfor.Location = new System.Drawing.Point(901, 97);
             this.txtSSOPDispenseditemsupplyfor.Name = "txtSSOPDispenseditemsupplyfor";
             this.txtSSOPDispenseditemsupplyfor.Size = new System.Drawing.Size(128, 27);
             this.txtSSOPDispenseditemsupplyfor.TabIndex = 215;
@@ -4126,7 +4206,7 @@
             // 
             this.label122.AutoSize = true;
             this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label122.Location = new System.Drawing.Point(831, 95);
+            this.label122.Location = new System.Drawing.Point(831, 100);
             this.label122.Name = "label122";
             this.label122.Size = new System.Drawing.Size(73, 20);
             this.label122.TabIndex = 214;
@@ -4460,7 +4540,7 @@
             this.tabSSOPOpServices.Controls.Add(this.panel14);
             this.tabSSOPOpServices.Location = new System.Drawing.Point(1, 26);
             this.tabSSOPOpServices.Name = "tabSSOPOpServices";
-            this.tabSSOPOpServices.Size = new System.Drawing.Size(1032, 576);
+            this.tabSSOPOpServices.Size = new System.Drawing.Size(1101, 576);
             this.tabSSOPOpServices.TabIndex = 3;
             this.tabSSOPOpServices.Text = "OPServices";
             // 
@@ -4469,12 +4549,13 @@
             this.pnOpServ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOpServ.Location = new System.Drawing.Point(0, 257);
             this.pnOpServ.Name = "pnOpServ";
-            this.pnOpServ.Size = new System.Drawing.Size(1032, 319);
+            this.pnOpServ.Size = new System.Drawing.Size(1101, 319);
             this.pnOpServ.TabIndex = 3;
             // 
             // panel14
             // 
-            this.panel14.Controls.Add(this.c1Button3);
+            this.panel14.Controls.Add(this.btnSSOPOPserVoid);
+            this.panel14.Controls.Add(this.btnSSOPProcOPServicesNew);
             this.panel14.Controls.Add(this.txtSSOPOpServicesid);
             this.panel14.Controls.Add(this.btnSSOPProcOPServicesSave);
             this.panel14.Controls.Add(this.c1Button6);
@@ -4519,20 +4600,33 @@
             this.panel14.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel14.Location = new System.Drawing.Point(0, 0);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(1032, 257);
+            this.panel14.Size = new System.Drawing.Size(1101, 257);
             this.panel14.TabIndex = 2;
             // 
-            // c1Button3
+            // btnSSOPOPserVoid
             // 
-            this.c1Button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.c1Button3.Location = new System.Drawing.Point(881, 175);
-            this.c1Button3.Name = "c1Button3";
-            this.c1Button3.Size = new System.Drawing.Size(29, 33);
-            this.c1Button3.TabIndex = 284;
-            this.c1Button3.Text = "+";
-            this.c1Button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.c1Button3.UseVisualStyleBackColor = true;
+            this.btnSSOPOPserVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPOPserVoid.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
+            this.btnSSOPOPserVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPOPserVoid.Location = new System.Drawing.Point(1003, 7);
+            this.btnSSOPOPserVoid.Name = "btnSSOPOPserVoid";
+            this.btnSSOPOPserVoid.Size = new System.Drawing.Size(89, 33);
+            this.btnSSOPOPserVoid.TabIndex = 285;
+            this.btnSSOPOPserVoid.Text = "ยกเลิก";
+            this.btnSSOPOPserVoid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPOPserVoid.UseVisualStyleBackColor = true;
+            // 
+            // btnSSOPProcOPServicesNew
+            // 
+            this.btnSSOPProcOPServicesNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPProcOPServicesNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPProcOPServicesNew.Location = new System.Drawing.Point(881, 175);
+            this.btnSSOPProcOPServicesNew.Name = "btnSSOPProcOPServicesNew";
+            this.btnSSOPProcOPServicesNew.Size = new System.Drawing.Size(29, 33);
+            this.btnSSOPProcOPServicesNew.TabIndex = 284;
+            this.btnSSOPProcOPServicesNew.Text = "+";
+            this.btnSSOPProcOPServicesNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPProcOPServicesNew.UseVisualStyleBackColor = true;
             // 
             // txtSSOPOpServicesid
             // 
@@ -5057,7 +5151,7 @@
             this.tabSSOPOPDx.Controls.Add(this.panel16);
             this.tabSSOPOPDx.Location = new System.Drawing.Point(1, 26);
             this.tabSSOPOPDx.Name = "tabSSOPOPDx";
-            this.tabSSOPOPDx.Size = new System.Drawing.Size(1032, 576);
+            this.tabSSOPOPDx.Size = new System.Drawing.Size(1101, 576);
             this.tabSSOPOPDx.TabIndex = 4;
             this.tabSSOPOPDx.Text = "OPDx";
             // 
@@ -5066,12 +5160,13 @@
             this.pnOPDx.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOPDx.Location = new System.Drawing.Point(0, 100);
             this.pnOPDx.Name = "pnOPDx";
-            this.pnOPDx.Size = new System.Drawing.Size(1032, 476);
+            this.pnOPDx.Size = new System.Drawing.Size(1101, 476);
             this.pnOPDx.TabIndex = 3;
             // 
             // panel16
             // 
-            this.panel16.Controls.Add(this.c1Button1);
+            this.panel16.Controls.Add(this.btnSSOPOPDxVoid);
+            this.panel16.Controls.Add(this.btnSSOPProcOPDxNew);
             this.panel16.Controls.Add(this.txtSSOPOPDxid);
             this.panel16.Controls.Add(this.btnSSOPProcOPDxSave);
             this.panel16.Controls.Add(this.cboSSOPOPDxcodeset);
@@ -5090,20 +5185,33 @@
             this.panel16.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel16.Location = new System.Drawing.Point(0, 0);
             this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(1032, 100);
+            this.panel16.Size = new System.Drawing.Size(1101, 100);
             this.panel16.TabIndex = 2;
             // 
-            // c1Button1
+            // btnSSOPOPDxVoid
             // 
-            this.c1Button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.c1Button1.Location = new System.Drawing.Point(881, 7);
-            this.c1Button1.Name = "c1Button1";
-            this.c1Button1.Size = new System.Drawing.Size(29, 33);
-            this.c1Button1.TabIndex = 283;
-            this.c1Button1.Text = "+";
-            this.c1Button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.c1Button1.UseVisualStyleBackColor = true;
+            this.btnSSOPOPDxVoid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPOPDxVoid.Image = global::bangna_hospital.Properties.Resources.DeleteRows_small;
+            this.btnSSOPOPDxVoid.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPOPDxVoid.Location = new System.Drawing.Point(580, 46);
+            this.btnSSOPOPDxVoid.Name = "btnSSOPOPDxVoid";
+            this.btnSSOPOPDxVoid.Size = new System.Drawing.Size(89, 33);
+            this.btnSSOPOPDxVoid.TabIndex = 284;
+            this.btnSSOPOPDxVoid.Text = "ยกเลิก";
+            this.btnSSOPOPDxVoid.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPOPDxVoid.UseVisualStyleBackColor = true;
+            // 
+            // btnSSOPProcOPDxNew
+            // 
+            this.btnSSOPProcOPDxNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSSOPProcOPDxNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSSOPProcOPDxNew.Location = new System.Drawing.Point(881, 7);
+            this.btnSSOPProcOPDxNew.Name = "btnSSOPProcOPDxNew";
+            this.btnSSOPProcOPDxNew.Size = new System.Drawing.Size(29, 33);
+            this.btnSSOPProcOPDxNew.TabIndex = 283;
+            this.btnSSOPProcOPDxNew.Text = "+";
+            this.btnSSOPProcOPDxNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSSOPProcOPDxNew.UseVisualStyleBackColor = true;
             // 
             // txtSSOPOPDxid
             // 
@@ -5281,7 +5389,7 @@
             this.tabGenText.Controls.Add(this.scGenText);
             this.tabGenText.Location = new System.Drawing.Point(1, 26);
             this.tabGenText.Name = "tabGenText";
-            this.tabGenText.Size = new System.Drawing.Size(1558, 792);
+            this.tabGenText.Size = new System.Drawing.Size(1662, 792);
             this.tabGenText.TabIndex = 2;
             this.tabGenText.Text = "Gen Text";
             // 
@@ -5297,11 +5405,7 @@
             this.scGenText.Panels.Add(this.c1SplitterPanel12);
             this.scGenText.Panels.Add(this.c1SplitterPanel13);
             this.scGenText.Panels.Add(this.c1SplitterPanel14);
-            this.scGenText.Panels.Add(this.c1SplitterPanel15);
-            this.scGenText.Panels.Add(this.c1SplitterPanel16);
-            this.scGenText.Panels.Add(this.c1SplitterPanel17);
-            this.scGenText.Panels.Add(this.c1SplitterPanel18);
-            this.scGenText.Size = new System.Drawing.Size(1558, 792);
+            this.scGenText.Size = new System.Drawing.Size(1662, 792);
             this.scGenText.TabIndex = 0;
             // 
             // c1SplitterPanel12
@@ -5311,18 +5415,18 @@
             this.c1SplitterPanel12.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel12.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel12.Name = "c1SplitterPanel12";
-            this.c1SplitterPanel12.Size = new System.Drawing.Size(372, 771);
-            this.c1SplitterPanel12.SizeRatio = 23.938D;
+            this.c1SplitterPanel12.Size = new System.Drawing.Size(795, 771);
+            this.c1SplitterPanel12.SizeRatio = 51.158D;
             this.c1SplitterPanel12.TabIndex = 0;
             this.c1SplitterPanel12.Text = "Panel 1";
-            this.c1SplitterPanel12.Width = 372;
+            this.c1SplitterPanel12.Width = 795;
             // 
             // pnGenTextSearch
             // 
             this.pnGenTextSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnGenTextSearch.Location = new System.Drawing.Point(0, 42);
             this.pnGenTextSearch.Name = "pnGenTextSearch";
-            this.pnGenTextSearch.Size = new System.Drawing.Size(372, 729);
+            this.pnGenTextSearch.Size = new System.Drawing.Size(795, 729);
             this.pnGenTextSearch.TabIndex = 1;
             // 
             // panel8
@@ -5332,7 +5436,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(0, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(372, 42);
+            this.panel8.Size = new System.Drawing.Size(795, 42);
             this.panel8.TabIndex = 0;
             // 
             // txtSSOPgentextSearch
@@ -5357,40 +5461,105 @@
             // c1SplitterPanel13
             // 
             this.c1SplitterPanel13.Controls.Add(this.pnSSOPGenTextMaketext);
-            this.c1SplitterPanel13.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.c1SplitterPanel13.Height = 792;
-            this.c1SplitterPanel13.Location = new System.Drawing.Point(376, 21);
+            this.c1SplitterPanel13.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
+            this.c1SplitterPanel13.Height = 625;
+            this.c1SplitterPanel13.Location = new System.Drawing.Point(799, 188);
             this.c1SplitterPanel13.Name = "c1SplitterPanel13";
-            this.c1SplitterPanel13.Size = new System.Drawing.Size(353, 771);
-            this.c1SplitterPanel13.SizeRatio = 29.942D;
+            this.c1SplitterPanel13.Size = new System.Drawing.Size(759, 604);
+            this.c1SplitterPanel13.SizeRatio = 81.726D;
             this.c1SplitterPanel13.TabIndex = 1;
             this.c1SplitterPanel13.Text = "Panel 2";
-            this.c1SplitterPanel13.Width = 353;
+            this.c1SplitterPanel13.Width = 759;
+            // 
+            // pnSSOPGenTextMaketext
+            // 
+            this.pnSSOPGenTextMaketext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnSSOPGenTextMaketext.Location = new System.Drawing.Point(0, 0);
+            this.pnSSOPGenTextMaketext.Name = "pnSSOPGenTextMaketext";
+            this.pnSSOPGenTextMaketext.Size = new System.Drawing.Size(759, 604);
+            this.pnSSOPGenTextMaketext.TabIndex = 0;
             // 
             // c1SplitterPanel14
             // 
             this.c1SplitterPanel14.Controls.Add(this.txtSSOPgentextRecordCnt);
             this.c1SplitterPanel14.Controls.Add(this.label152);
-            this.c1SplitterPanel14.Controls.Add(this.txtSSOPgentextHMAIN);
+            this.c1SplitterPanel14.Controls.Add(this.txtSSOPgentextHname);
             this.c1SplitterPanel14.Controls.Add(this.label149);
             this.c1SplitterPanel14.Controls.Add(this.txtSSOPgentextHCODE);
             this.c1SplitterPanel14.Controls.Add(this.label150);
             this.c1SplitterPanel14.Controls.Add(this.label148);
             this.c1SplitterPanel14.Controls.Add(this.txtSSOPgentextSessionid);
             this.c1SplitterPanel14.Controls.Add(this.btnSSOPgentextgentext);
-            this.c1SplitterPanel14.Height = 120;
-            this.c1SplitterPanel14.Location = new System.Drawing.Point(733, 21);
+            this.c1SplitterPanel14.Height = 163;
+            this.c1SplitterPanel14.Location = new System.Drawing.Point(799, 21);
             this.c1SplitterPanel14.Name = "c1SplitterPanel14";
-            this.c1SplitterPanel14.Size = new System.Drawing.Size(825, 99);
+            this.c1SplitterPanel14.Size = new System.Drawing.Size(759, 142);
             this.c1SplitterPanel14.SizeRatio = 15.228D;
             this.c1SplitterPanel14.TabIndex = 2;
             this.c1SplitterPanel14.Text = "Panel 3";
+            // 
+            // txtSSOPgentextRecordCnt
+            // 
+            this.txtSSOPgentextRecordCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSSOPgentextRecordCnt.Location = new System.Drawing.Point(318, 46);
+            this.txtSSOPgentextRecordCnt.Name = "txtSSOPgentextRecordCnt";
+            this.txtSSOPgentextRecordCnt.Size = new System.Drawing.Size(128, 27);
+            this.txtSSOPgentextRecordCnt.TabIndex = 287;
+            this.txtSSOPgentextRecordCnt.Tag = null;
+            // 
+            // label152
+            // 
+            this.label152.AutoSize = true;
+            this.label152.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label152.Location = new System.Drawing.Point(233, 52);
+            this.label152.Name = "label152";
+            this.label152.Size = new System.Drawing.Size(80, 20);
+            this.label152.TabIndex = 286;
+            this.label152.Text = "record cnt";
+            // 
+            // txtSSOPgentextHname
+            // 
+            this.txtSSOPgentextHname.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSSOPgentextHname.Location = new System.Drawing.Point(322, 13);
+            this.txtSSOPgentextHname.Name = "txtSSOPgentextHname";
+            this.txtSSOPgentextHname.Size = new System.Drawing.Size(406, 27);
+            this.txtSSOPgentextHname.TabIndex = 285;
+            this.txtSSOPgentextHname.Tag = null;
+            // 
+            // label149
+            // 
+            this.label149.AutoSize = true;
+            this.label149.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label149.Location = new System.Drawing.Point(264, 19);
+            this.label149.Name = "label149";
+            this.label149.Size = new System.Drawing.Size(52, 20);
+            this.label149.TabIndex = 284;
+            this.label149.Text = "hmain";
+            // 
+            // txtSSOPgentextHCODE
+            // 
+            this.txtSSOPgentextHCODE.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtSSOPgentextHCODE.Location = new System.Drawing.Point(98, 47);
+            this.txtSSOPgentextHCODE.Name = "txtSSOPgentextHCODE";
+            this.txtSSOPgentextHCODE.Size = new System.Drawing.Size(128, 27);
+            this.txtSSOPgentextHCODE.TabIndex = 283;
+            this.txtSSOPgentextHCODE.Tag = null;
+            // 
+            // label150
+            // 
+            this.label150.AutoSize = true;
+            this.label150.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label150.Location = new System.Drawing.Point(13, 53);
+            this.label150.Name = "label150";
+            this.label150.Size = new System.Drawing.Size(67, 20);
+            this.label150.TabIndex = 282;
+            this.label150.Text = "HCODE";
             // 
             // label148
             // 
             this.label148.AutoSize = true;
             this.label148.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label148.Location = new System.Drawing.Point(139, 20);
+            this.label148.Location = new System.Drawing.Point(13, 20);
             this.label148.Name = "label148";
             this.label148.Size = new System.Drawing.Size(79, 20);
             this.label148.TabIndex = 281;
@@ -5399,7 +5568,7 @@
             // txtSSOPgentextSessionid
             // 
             this.txtSSOPgentextSessionid.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSSOPgentextSessionid.Location = new System.Drawing.Point(224, 14);
+            this.txtSSOPgentextSessionid.Location = new System.Drawing.Point(98, 14);
             this.txtSSOPgentextSessionid.Name = "txtSSOPgentextSessionid";
             this.txtSSOPgentextSessionid.Size = new System.Drawing.Size(160, 27);
             this.txtSSOPgentextSessionid.TabIndex = 280;
@@ -5410,7 +5579,7 @@
             this.btnSSOPgentextgentext.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSSOPgentextgentext.Image = global::bangna_hospital.Properties.Resources.Table_large;
             this.btnSSOPgentextgentext.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSSOPgentextgentext.Location = new System.Drawing.Point(15, 14);
+            this.btnSSOPgentextgentext.Location = new System.Drawing.Point(642, 94);
             this.btnSSOPgentextgentext.Name = "btnSSOPgentextgentext";
             this.btnSSOPgentextgentext.Size = new System.Drawing.Size(107, 33);
             this.btnSSOPgentextgentext.TabIndex = 279;
@@ -5418,120 +5587,11 @@
             this.btnSSOPgentextgentext.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSSOPgentextgentext.UseVisualStyleBackColor = true;
             // 
-            // txtSSOPgentextHMAIN
-            // 
-            this.txtSSOPgentextHMAIN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSSOPgentextHMAIN.Location = new System.Drawing.Point(475, 13);
-            this.txtSSOPgentextHMAIN.Name = "txtSSOPgentextHMAIN";
-            this.txtSSOPgentextHMAIN.Size = new System.Drawing.Size(128, 27);
-            this.txtSSOPgentextHMAIN.TabIndex = 285;
-            this.txtSSOPgentextHMAIN.Tag = null;
-            // 
-            // label149
-            // 
-            this.label149.AutoSize = true;
-            this.label149.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label149.Location = new System.Drawing.Point(390, 19);
-            this.label149.Name = "label149";
-            this.label149.Size = new System.Drawing.Size(52, 20);
-            this.label149.TabIndex = 284;
-            this.label149.Text = "hmain";
-            // 
-            // txtSSOPgentextHCODE
-            // 
-            this.txtSSOPgentextHCODE.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSSOPgentextHCODE.Location = new System.Drawing.Point(224, 47);
-            this.txtSSOPgentextHCODE.Name = "txtSSOPgentextHCODE";
-            this.txtSSOPgentextHCODE.Size = new System.Drawing.Size(128, 27);
-            this.txtSSOPgentextHCODE.TabIndex = 283;
-            this.txtSSOPgentextHCODE.Tag = null;
-            // 
-            // label150
-            // 
-            this.label150.AutoSize = true;
-            this.label150.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label150.Location = new System.Drawing.Point(139, 53);
-            this.label150.Name = "label150";
-            this.label150.Size = new System.Drawing.Size(67, 20);
-            this.label150.TabIndex = 282;
-            this.label150.Text = "HCODE";
-            // 
-            // txtSSOPgentextRecordCnt
-            // 
-            this.txtSSOPgentextRecordCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtSSOPgentextRecordCnt.Location = new System.Drawing.Point(444, 46);
-            this.txtSSOPgentextRecordCnt.Name = "txtSSOPgentextRecordCnt";
-            this.txtSSOPgentextRecordCnt.Size = new System.Drawing.Size(128, 27);
-            this.txtSSOPgentextRecordCnt.TabIndex = 287;
-            this.txtSSOPgentextRecordCnt.Tag = null;
-            // 
-            // label152
-            // 
-            this.label152.AutoSize = true;
-            this.label152.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label152.Location = new System.Drawing.Point(359, 52);
-            this.label152.Name = "label152";
-            this.label152.Size = new System.Drawing.Size(80, 20);
-            this.label152.TabIndex = 286;
-            this.label152.Text = "record cnt";
-            // 
-            // c1SplitterPanel15
-            // 
-            this.c1SplitterPanel15.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel15.Height = 668;
-            this.c1SplitterPanel15.Location = new System.Drawing.Point(1181, 145);
-            this.c1SplitterPanel15.Name = "c1SplitterPanel15";
-            this.c1SplitterPanel15.Size = new System.Drawing.Size(377, 647);
-            this.c1SplitterPanel15.SizeRatio = 45.882D;
-            this.c1SplitterPanel15.TabIndex = 3;
-            this.c1SplitterPanel15.Text = "Panel 4";
-            this.c1SplitterPanel15.Width = 377;
-            // 
-            // c1SplitterPanel16
-            // 
-            this.c1SplitterPanel16.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel16.Location = new System.Drawing.Point(1008, 145);
-            this.c1SplitterPanel16.Name = "c1SplitterPanel16";
-            this.c1SplitterPanel16.Size = new System.Drawing.Size(169, 647);
-            this.c1SplitterPanel16.SizeRatio = 38.428D;
-            this.c1SplitterPanel16.TabIndex = 4;
-            this.c1SplitterPanel16.Text = "Panel 5";
-            this.c1SplitterPanel16.Width = 169;
-            // 
-            // c1SplitterPanel17
-            // 
-            this.c1SplitterPanel17.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel17.Location = new System.Drawing.Point(875, 145);
-            this.c1SplitterPanel17.Name = "c1SplitterPanel17";
-            this.c1SplitterPanel17.Size = new System.Drawing.Size(129, 647);
-            this.c1SplitterPanel17.SizeRatio = 48.387D;
-            this.c1SplitterPanel17.TabIndex = 5;
-            this.c1SplitterPanel17.Text = "Panel 6";
-            this.c1SplitterPanel17.Width = 129;
-            // 
-            // c1SplitterPanel18
-            // 
-            this.c1SplitterPanel18.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel18.Location = new System.Drawing.Point(733, 145);
-            this.c1SplitterPanel18.Name = "c1SplitterPanel18";
-            this.c1SplitterPanel18.Size = new System.Drawing.Size(138, 647);
-            this.c1SplitterPanel18.TabIndex = 6;
-            this.c1SplitterPanel18.Text = "Panel 7";
-            this.c1SplitterPanel18.Width = 138;
-            // 
-            // pnSSOPGenTextMaketext
-            // 
-            this.pnSSOPGenTextMaketext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnSSOPGenTextMaketext.Location = new System.Drawing.Point(0, 0);
-            this.pnSSOPGenTextMaketext.Name = "pnSSOPGenTextMaketext";
-            this.pnSSOPGenTextMaketext.Size = new System.Drawing.Size(353, 771);
-            this.pnSSOPGenTextMaketext.TabIndex = 0;
-            // 
             // FrmSSO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1562, 868);
+            this.ClientSize = new System.Drawing.Size(1666, 868);
             this.Controls.Add(this.tC);
             this.Controls.Add(this.Sb1);
             this.Name = "FrmSSO";
@@ -5605,6 +5665,8 @@
             this.panel3.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPGen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPBilltransID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPProcHMain)).EndInit();
@@ -5652,12 +5714,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).EndInit();
             this.c1SplitterPanel11.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab2)).EndInit();
-            this.c1DockingTab2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabSSOPDetails)).EndInit();
+            this.tabSSOPDetails.ResumeLayout(false);
             this.tabSSOPBillItems.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPItemVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcBillItemsNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPBillItemsID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcBillItemsSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcBillItemsGet)).EndInit();
@@ -5677,7 +5740,8 @@
             this.tabSSOPDispensing.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPDispVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispensingNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPDispID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispensingSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
@@ -5700,7 +5764,8 @@
             this.tabSSOPDispenseditem.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPDispItemVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispenseditemNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPDispenseditemid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcDispenseditemSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button8)).EndInit();
@@ -5726,7 +5791,8 @@
             this.tabSSOPOpServices.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPOPserVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPServicesNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPOpServicesid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPServicesSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button6)).EndInit();
@@ -5752,7 +5818,8 @@
             this.tabSSOPOPDx.ResumeLayout(false);
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1Button1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPOPDxVoid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPDxNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPOPDxid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPProcOPDxSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboSSOPOPDxcodeset)).EndInit();
@@ -5772,11 +5839,11 @@
             this.c1SplitterPanel13.ResumeLayout(false);
             this.c1SplitterPanel14.ResumeLayout(false);
             this.c1SplitterPanel14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextRecordCnt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHname)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHCODE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextSessionid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSSOPgentextgentext)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHMAIN)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextHCODE)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSSOPgentextRecordCnt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -5992,7 +6059,7 @@
         private C1.Win.C1Input.C1TextBox txtSSOPProcClaimAmt;
         private System.Windows.Forms.Label label71;
         private C1.Win.C1Input.C1TextBox txtSSOPProcHMain;
-        private C1.Win.C1Command.C1DockingTab c1DockingTab2;
+        private C1.Win.C1Command.C1DockingTab tabSSOPDetails;
         private C1.Win.C1Command.C1DockingTabPage tabSSOPBillItems;
         private C1.Win.C1Command.C1DockingTabPage tabSSOPDispensing;
         private C1.Win.C1Command.C1DockingTabPage tabSSOPDispenseditem;
@@ -6171,11 +6238,11 @@
         private C1.Win.C1Input.C1TextBox txtSSOPDispenseditemid;
         private C1.Win.C1Input.C1TextBox txtSSOPOpServicesid;
         private C1.Win.C1Input.C1TextBox txtSSOPOPDxid;
-        private C1.Win.C1Input.C1Button c1Button3;
-        private C1.Win.C1Input.C1Button c1Button1;
-        private C1.Win.C1Input.C1Button c1Button5;
-        private C1.Win.C1Input.C1Button c1Button9;
-        private C1.Win.C1Input.C1Button c1Button7;
+        private C1.Win.C1Input.C1Button btnSSOPProcOPServicesNew;
+        private C1.Win.C1Input.C1Button btnSSOPProcOPDxNew;
+        private C1.Win.C1Input.C1Button btnSSOPProcDispenseditemNew;
+        private C1.Win.C1Input.C1Button btnSSOPProcBillItemsNew;
+        private C1.Win.C1Input.C1Button btnSSOPProcDispensingNew;
         private C1.Win.C1Command.C1DockingTabPage tabGenText;
         private C1.Win.C1SplitContainer.C1SplitContainer scGenText;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel12;
@@ -6188,16 +6255,19 @@
         private C1.Win.C1Input.C1Button btnSSOPgentextgentext;
         private C1.Win.C1Input.C1TextBox txtSSOPgentextSessionid;
         private System.Windows.Forms.Label label148;
-        private C1.Win.C1Input.C1TextBox txtSSOPgentextHMAIN;
+        private C1.Win.C1Input.C1TextBox txtSSOPgentextHname;
         private System.Windows.Forms.Label label149;
         private C1.Win.C1Input.C1TextBox txtSSOPgentextHCODE;
         private System.Windows.Forms.Label label150;
         private C1.Win.C1Input.C1TextBox txtSSOPgentextRecordCnt;
         private System.Windows.Forms.Label label152;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel15;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel16;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel17;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel18;
         private System.Windows.Forms.Panel pnSSOPGenTextMaketext;
+        private C1.Win.C1Input.C1Button btnSSOPGen;
+        private C1.Win.C1Input.C1Button btnSSOPVoid;
+        private C1.Win.C1Input.C1Button btnSSOPItemVoid;
+        private C1.Win.C1Input.C1Button btnSSOPDispVoid;
+        private C1.Win.C1Input.C1Button btnSSOPDispItemVoid;
+        private C1.Win.C1Input.C1Button btnSSOPOPserVoid;
+        private C1.Win.C1Input.C1Button btnSSOPOPDxVoid;
     }
 }

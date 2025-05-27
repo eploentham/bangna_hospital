@@ -106,6 +106,22 @@ namespace bangna_hospital.objdb
             }
             return items;
         }
+        public string voidBillItem(String id)
+        {
+            string result = "";
+            try
+            {
+                string sql = "UPDATE " + sSOPBillItem.table + " SET " +
+                             sSOPBillItem.active + " = '3' " +                             
+                             "WHERE " + sSOPBillItem.pkField + " = '" + id + "'";
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
+        }
         public SSOPBillItems chknull(SSOPBillItems p)
         {
             if (p == null) p = new SSOPBillItems();

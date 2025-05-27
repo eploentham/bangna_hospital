@@ -153,7 +153,23 @@ namespace bangna_hospital.objdb
             }
             return sSOPDispenseditem1;
         }
-
+        public string voidDispensedItem(String id)
+        {
+            string result = "";
+            try
+            {
+                //p = chknull(p);
+                string sql = "UPDATE " + sSOPDispenseditem.table + " SET " +
+                    sSOPDispenseditem.active + " = '3', " +
+                    "WHERE " + sSOPDispenseditem.pkField + " = '" + id + "'";
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
+        }
         public SSOPDispenseditem chknull(SSOPDispenseditem sSOPDispenseditem)
         {
             if (sSOPDispenseditem == null) sSOPDispenseditem = new SSOPDispenseditem();
@@ -241,7 +257,6 @@ namespace bangna_hospital.objdb
             }
             return result;
         }
-
         public string update(SSOPDispenseditem p)
         {
             string result = "";
@@ -277,7 +292,6 @@ namespace bangna_hospital.objdb
             }
             return result;
         }
-
         public SSOPDispenseditem setData(DataRow row)
         {
             SSOPDispenseditem p = new SSOPDispenseditem();

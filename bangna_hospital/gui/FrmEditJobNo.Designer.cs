@@ -116,6 +116,12 @@
             this.label20 = new System.Windows.Forms.Label();
             this.txtDtrcode = new C1.Win.C1Input.C1TextBox();
             this.c1DockingTabPage8 = new C1.Win.C1Command.C1DockingTabPage();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.cboDept1 = new C1.Win.C1Input.C1ComboBox();
+            this.chkDeptIPD1 = new System.Windows.Forms.RadioButton();
+            this.chkDeptOPD1 = new System.Windows.Forms.RadioButton();
+            this.label33 = new System.Windows.Forms.Label();
             this.c1Button2 = new C1.Win.C1Input.C1Button();
             this.c1DockingTabPage9 = new C1.Win.C1Command.C1DockingTabPage();
             this.btnUpdateDrugExpireDate = new C1.Win.C1Input.C1Button();
@@ -147,12 +153,6 @@
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
-            this.cboDept1 = new C1.Win.C1Input.C1ComboBox();
-            this.chkDeptIPD1 = new System.Windows.Forms.RadioButton();
-            this.chkDeptOPD1 = new System.Windows.Forms.RadioButton();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNoCur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNo)).BeginInit();
@@ -202,6 +202,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnDtrupdate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).BeginInit();
             this.c1DockingTabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboDept1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).BeginInit();
             this.c1DockingTabPage9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnUpdateDrugExpireDate)).BeginInit();
@@ -216,7 +217,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtXrayPreno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtXrayHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboDept1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPttHn
@@ -1184,6 +1184,76 @@
             this.c1DockingTabPage8.TabIndex = 7;
             this.c1DockingTabPage8.Text = "test app";
             // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label35.Location = new System.Drawing.Point(592, 85);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(21, 20);
+            this.label35.TabIndex = 212;
+            this.label35.Text = "...";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label34.Location = new System.Drawing.Point(468, 85);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(21, 20);
+            this.label34.TabIndex = 211;
+            this.label34.Text = "...";
+            // 
+            // cboDept1
+            // 
+            this.cboDept1.AllowSpinLoop = false;
+            this.cboDept1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboDept1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboDept1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboDept1.GapHeight = 0;
+            this.cboDept1.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboDept1.ItemsDisplayMember = "";
+            this.cboDept1.ItemsValueMember = "";
+            this.cboDept1.Location = new System.Drawing.Point(194, 80);
+            this.cboDept1.Name = "cboDept1";
+            this.cboDept1.Size = new System.Drawing.Size(268, 29);
+            this.cboDept1.TabIndex = 210;
+            this.cboDept1.Tag = null;
+            // 
+            // chkDeptIPD1
+            // 
+            this.chkDeptIPD1.AutoSize = true;
+            this.chkDeptIPD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDeptIPD1.Location = new System.Drawing.Point(73, 85);
+            this.chkDeptIPD1.Name = "chkDeptIPD1";
+            this.chkDeptIPD1.Size = new System.Drawing.Size(54, 24);
+            this.chkDeptIPD1.TabIndex = 209;
+            this.chkDeptIPD1.Text = "IPD";
+            this.chkDeptIPD1.UseVisualStyleBackColor = true;
+            // 
+            // chkDeptOPD1
+            // 
+            this.chkDeptOPD1.AutoSize = true;
+            this.chkDeptOPD1.Checked = true;
+            this.chkDeptOPD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkDeptOPD1.Location = new System.Drawing.Point(9, 85);
+            this.chkDeptOPD1.Name = "chkDeptOPD1";
+            this.chkDeptOPD1.Size = new System.Drawing.Size(61, 24);
+            this.chkDeptOPD1.TabIndex = 208;
+            this.chkDeptOPD1.TabStop = true;
+            this.chkDeptOPD1.Text = "OPD";
+            this.chkDeptOPD1.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label33.Location = new System.Drawing.Point(143, 87);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(45, 20);
+            this.label33.TabIndex = 207;
+            this.label33.Text = "แผนก";
+            // 
             // c1Button2
             // 
             this.c1Button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
@@ -1487,76 +1557,6 @@
             this.rb2.Name = "rb2";
             this.rb2.Text = "Label";
             // 
-            // cboDept1
-            // 
-            this.cboDept1.AllowSpinLoop = false;
-            this.cboDept1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cboDept1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboDept1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.cboDept1.GapHeight = 0;
-            this.cboDept1.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.cboDept1.ItemsDisplayMember = "";
-            this.cboDept1.ItemsValueMember = "";
-            this.cboDept1.Location = new System.Drawing.Point(194, 80);
-            this.cboDept1.Name = "cboDept1";
-            this.cboDept1.Size = new System.Drawing.Size(268, 29);
-            this.cboDept1.TabIndex = 210;
-            this.cboDept1.Tag = null;
-            // 
-            // chkDeptIPD1
-            // 
-            this.chkDeptIPD1.AutoSize = true;
-            this.chkDeptIPD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkDeptIPD1.Location = new System.Drawing.Point(73, 85);
-            this.chkDeptIPD1.Name = "chkDeptIPD1";
-            this.chkDeptIPD1.Size = new System.Drawing.Size(54, 24);
-            this.chkDeptIPD1.TabIndex = 209;
-            this.chkDeptIPD1.Text = "IPD";
-            this.chkDeptIPD1.UseVisualStyleBackColor = true;
-            // 
-            // chkDeptOPD1
-            // 
-            this.chkDeptOPD1.AutoSize = true;
-            this.chkDeptOPD1.Checked = true;
-            this.chkDeptOPD1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.chkDeptOPD1.Location = new System.Drawing.Point(9, 85);
-            this.chkDeptOPD1.Name = "chkDeptOPD1";
-            this.chkDeptOPD1.Size = new System.Drawing.Size(61, 24);
-            this.chkDeptOPD1.TabIndex = 208;
-            this.chkDeptOPD1.TabStop = true;
-            this.chkDeptOPD1.Text = "OPD";
-            this.chkDeptOPD1.UseVisualStyleBackColor = true;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label33.Location = new System.Drawing.Point(143, 87);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(45, 20);
-            this.label33.TabIndex = 207;
-            this.label33.Text = "แผนก";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label34.Location = new System.Drawing.Point(468, 85);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(21, 20);
-            this.label34.TabIndex = 211;
-            this.label34.Text = "...";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label35.Location = new System.Drawing.Point(592, 85);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(21, 20);
-            this.label35.TabIndex = 212;
-            this.label35.Text = "...";
-            // 
             // FrmEditJobNo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1625,6 +1625,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDtrcode)).EndInit();
             this.c1DockingTabPage8.ResumeLayout(false);
             this.c1DockingTabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboDept1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1Button2)).EndInit();
             this.c1DockingTabPage9.ResumeLayout(false);
             this.c1DockingTabPage9.PerformLayout();
@@ -1641,7 +1642,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtXrayPreno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtXrayHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cboDept1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

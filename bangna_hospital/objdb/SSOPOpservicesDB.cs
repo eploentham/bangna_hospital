@@ -117,7 +117,24 @@ namespace bangna_hospital.objdb
             }
             return sSOPOpservices1;
         }
+        public string voidOPService(String id)
+        {
+            string result = "";
+            try
+            {
+                //sSOPOpservices = chknull(sSOPOpservices);
+                string sql = "UPDATE " + sSOPOpservices.table + " SET " +
+                    sSOPOpservices.active + " = '3' " +
+                    "WHERE " + sSOPOpservices.pkField + " = '" + id + "'";
 
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
+        }
         public SSOPOpservices chknull(SSOPOpservices sSOPOpservices)
         {
             if (sSOPOpservices == null) sSOPOpservices = new SSOPOpservices();

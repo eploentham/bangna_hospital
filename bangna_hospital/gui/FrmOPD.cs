@@ -7767,7 +7767,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2025-05-08 scanซ้ำ แก้นัดแพทย์, เพิ่ม ผลการตรวจผิดปกติ ถ้ามี นัด alien";
+            this.Text = "Last Update 2025-05-23 scanซ้ำ แก้นัดแพทย์, เพิ่ม ผลการตรวจผิดปกติ ถ้ามี นัด alien";
             lfSbMessage.Text = "";
             btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;
             btnOperSaveDtr.Left = pnVitalSign.Width - btnOperSaveDtr.Width - btnPrnCertMed.Width - 20;

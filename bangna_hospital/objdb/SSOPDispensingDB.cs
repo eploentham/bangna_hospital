@@ -98,7 +98,24 @@ namespace bangna_hospital.objdb
             }
             return sSOPDispensing1;
         }
+        public string voidDispensing(String id)
+        {
+            string result = "";
+            try
+            {
+                //sSOPDispensing = chknull(sSOPDispensing);
+                string sql = "UPDATE " + sSOPDispensing.table + " SET " +
+                    sSOPDispensing.active + " = '3' " +                    
+                    "WHERE " + sSOPDispensing.pkField + " = '" + id + "'";
 
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
+        }
         public SSOPDispensing chknull(SSOPDispensing sSOPDispensing)
         {
             if (sSOPDispensing == null) sSOPDispensing = new SSOPDispensing();
@@ -207,7 +224,7 @@ namespace bangna_hospital.objdb
                     sSOPDispensing.dispestat + " = '" + p.dispestat + "', " +
                     sSOPDispensing.svid + " = '" + p.svid + "', " +
                     sSOPDispensing.daycover + " = '" + p.daycover + "' " +
-                    "WHERE " + sSOPDispensing.billdisp_id + " = '" + p.billdisp_id + "'";
+                    "WHERE " + sSOPDispensing.pkField + " = '" + p.billdisp_id + "'";
 
                 result = conn.ExecuteNonQuery(conn.connSsnData, sql);
             }

@@ -110,9 +110,8 @@ namespace bangna_hospital.objdb
         public DataTable selectBystatusprocess(String statusprocess)
         {
             SSOPBillTran sSOPBillTran1 = new SSOPBillTran();
-            String sql = "Select * From " + sSOPBillTran.table + " Where " + sSOPBillTran.status_process + "='" + statusprocess + "'";
+            String sql = "Select * From " + sSOPBillTran.table + " Where " + sSOPBillTran.status_process + "='" + statusprocess + "' and active = '1' Order By "+ sSOPBillTran.billtran_id+" desc";
             DataTable dt = conn.selectData(conn.connSsnData, sql);
-            
             return dt;
         }
         public String selectMaxSessionID()
@@ -131,6 +130,74 @@ namespace bangna_hospital.objdb
                 re = "1";
             }
             return re;
+        }
+        public string updateStatusProcessMakeTextPrepare(String id)
+        {
+            string result = "";
+            try
+            {
+                string sql = "UPDATE " + sSOPBillTran.table + " SET " +
+                sSOPBillTran.status_process + " = '0' " +
+                "WHERE " + sSOPBillTran.pkField + " = '" + id + "'";
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
+        }
+        public string updateStatusProcessMakeText(String id)
+        {
+            string result = "";
+            try
+            {
+                string sql = "UPDATE " + sSOPBillTran.table + " SET " +
+                sSOPBillTran.status_process + " = '1' " +
+                "WHERE " + sSOPBillTran.pkField + " = '" + id + "'";
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
+        }
+        public string updateStatusProcessMakeTextSend(String id)
+        {
+            string result = "";
+            try
+            {
+                string sql = "UPDATE " + sSOPBillTran.table + " SET " +
+                sSOPBillTran.status_process + " = '2' " +
+                "WHERE " + sSOPBillTran.pkField + " = '" + id + "'";
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
+        }
+        public string updateStatusVoid(String id)
+        {
+            string result = "";
+            try
+            {
+                string sql = "UPDATE " + sSOPBillTran.table + " SET " +
+                sSOPBillTran.active + " = '3' " +
+                "WHERE " + sSOPBillTran.pkField + " = '" + id + "'";
+                result = conn.ExecuteNonQuery(conn.connSsnData, sql);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception if needed
+                Console.WriteLine("Error in update: " + ex.Message);
+            }
+            return result;
         }
         public SSOPBillTran chknull(SSOPBillTran sSOPBillTran)
         {

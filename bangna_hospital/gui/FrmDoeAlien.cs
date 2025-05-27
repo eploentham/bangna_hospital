@@ -1182,7 +1182,7 @@ namespace bangna_hospital.gui
         {
             Visit vs = new Visit();
             String err = "", compcode="", chkcomp="", prefix="", preno="";
-            prefix = txtDoeAlprefixen.Text.Trim().Replace("MRS", "MRS.").Replace("MR", "MR.").Replace("MISS", "MISS.");
+            prefix = txtDoeAlprefixen.Text.Trim().Equals("MRS") ? "MRS." : txtDoeAlprefixen.Text.Trim().Equals("MR")?"MR.": txtDoeAlprefixen.Text.Trim().Equals("MISS")?"MISS.": txtDoeAlprefixen.Text.Trim();
             Patient ptt = new Patient();
             ptt = bc.bcDB.pttDB.selectPatinetByPID(txtDoeAlcode.Text.Trim(), "pid");      //check ต่างด้าวให้ เปลี่ยนเป็น mnc_id_no 
             if (ptt.Hn.Length <= 0)
@@ -1567,11 +1567,16 @@ namespace bangna_hospital.gui
             showLbLoading();
             try
             {
+                String name = grfOPD[grfOPD.Row, colalnameen]!=null? grfOPD[grfOPD.Row, colalnameen].ToString():"";
+                name = (name.IndexOf("MRS") == 0) ? name.Replace("MRS", "") : name;
+                name = (name.IndexOf("MR")==0) ? name.Replace("MR","") : name;
+                name = (name.IndexOf(".") >= 0) ? name.Replace(".", "") : name;
+                if (name.IndexOf(".") == 0) name = name.Replace(".", "").Trim();
                 txtDoeAlcode.Value = grfOPD[grfOPD.Row, colalcode].ToString();
                 txtDoeAltype.Value = grfOPD[grfOPD.Row, colaltype].ToString();
                 txtDoeAlprefix.Value = grfOPD[grfOPD.Row, colalprefix].ToString();
                 txtDoeAlprefixen.Value = grfOPD[grfOPD.Row, colalprefixen].ToString();
-                txtDoeAlnameen.Value = grfOPD[grfOPD.Row, colalnameen].ToString();
+                txtDoeAlnameen.Value = name.Trim();
                 txtDoeAlsnameen.Value = grfOPD[grfOPD.Row, colalsnamee].ToString();
                 txtDoeAlbdate.Value = grfOPD[grfOPD.Row, colalbdate].ToString();
                 txtDoeAlgender.Value = grfOPD[grfOPD.Row, colalgender].ToString();
@@ -1589,6 +1594,7 @@ namespace bangna_hospital.gui
             catch (Exception ex)
             {
                 //MessageBox.Show("error " + ex.Message, "");
+                lfSbMessage.Text = ex.Message;
             }
             hideLbLoading();
         }
