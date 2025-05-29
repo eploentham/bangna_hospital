@@ -1136,7 +1136,7 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 824;
+            this.spOperList.Width = 817;
             // 
             // pnOperList
             // 
@@ -1150,7 +1150,7 @@
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 305;
+            this.spOperVisit.Height = 298;
             this.spOperVisit.Location = new System.Drawing.Point(828, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(825, 277);
@@ -2581,7 +2581,7 @@
             this.c1SplitterPanel1.Controls.Add(this.txtPttApmDate);
             this.c1SplitterPanel1.Controls.Add(this.label69);
             this.c1SplitterPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel1.Height = 321;
+            this.c1SplitterPanel1.Height = 314;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
             this.c1SplitterPanel1.Size = new System.Drawing.Size(823, 293);
@@ -8974,7 +8974,7 @@
             this.c1SplitterPanel24.Height = 270;
             this.c1SplitterPanel24.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel24.Name = "c1SplitterPanel24";
-            this.c1SplitterPanel24.Size = new System.Drawing.Size(1467, 249);
+            this.c1SplitterPanel24.Size = new System.Drawing.Size(1653, 249);
             this.c1SplitterPanel24.SizeRatio = 24.908D;
             this.c1SplitterPanel24.TabIndex = 0;
             this.c1SplitterPanel24.Text = "Panel 1";
@@ -8984,7 +8984,7 @@
             this.c1SplitterPanel26.Height = 814;
             this.c1SplitterPanel26.Location = new System.Drawing.Point(0, 295);
             this.c1SplitterPanel26.Name = "c1SplitterPanel26";
-            this.c1SplitterPanel26.Size = new System.Drawing.Size(1467, 793);
+            this.c1SplitterPanel26.Size = new System.Drawing.Size(1653, 793);
             this.c1SplitterPanel26.TabIndex = 1;
             this.c1SplitterPanel26.Text = "Panel 2";
             // 

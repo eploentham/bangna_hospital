@@ -39,6 +39,7 @@ namespace bangna_hospital.gui
         int colgrfOPServid = 1, colgrfOPServsvid = 2, colgrfOPServcodeset = 3, colgrfOPServtypein = 4;
         int colgrfOPDxid = 1, colgrfOPDxsl = 2, colgrfOPDxcodeset = 3, colgrfOPDxcode = 4;
         int colgrfMakeTextSearchchk = 1,colgrfMakeTextSearchid=2, colgrfMakeTextSearchname = 3, colgrfMakeTextSearchhn = 4, colgrfMakeTextSearchvsdate = 5;
+        
         Label lbLoading;
         Boolean pageLoad = false;
         public FrmSSO(BangnaControl bc)
@@ -96,6 +97,7 @@ namespace bangna_hospital.gui
             initGrfSupra();             initGrfSSOP();              initGrfSSOPimp();               initGrfItems();
             initGrfBillItems();         initGrfDisp();              initGrfDispItems();             initGrfOpServ();
             initGrfOPDx();              initGrfMakeTextSearch();    initGrfMakeText();
+            
         }
         private void initCombobox()
         {
@@ -662,6 +664,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
 
         }
+        
         private void initGrfMakeText()
         {
             grfMakeText = new C1FlexGrid();

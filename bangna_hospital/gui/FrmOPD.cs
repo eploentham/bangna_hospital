@@ -6185,13 +6185,15 @@ namespace bangna_hospital.gui
             grf.Cols[colgrfPttApmDeptMake].AllowEditing = false;
             
             if(grf.Name.Equals("grfPttApm")) grfPttApm.Click += GrfPttApm_Click;
+
             if (grf.Name.Equals("grfApm")) {
                 ContextMenu menuGw = new ContextMenu();
                 menuGw.MenuItems.Add("ต้องการออกvisit ตามนัด", new EventHandler(ContextMenu_VisitNew));
-                //menuGw.MenuItems.Add("Download Certificate Medical", new EventHandler(ContextMenu_CertiMedical_Download));
-                //grfApm.ContextMenu = menuGw;
+                menuGw.MenuItems.Add("แก้ไขนัด", new EventHandler(ContextMenu_EditAppoinment));
+                grfApm.ContextMenu = menuGw;
                 grfApm.DoubleClick += GrfApm_DoubleClick; 
-            }else if (grf.Name.Equals("grfPttApm"))
+            }
+            else if (grf.Name.Equals("grfPttApm"))
             {
                 ContextMenu menuGw = new ContextMenu();
                 menuGw.MenuItems.Add("ต้องการยกเลิก ใบนัดพบแพพย์", new EventHandler(ContextMenu_VoidAppoinment));
@@ -6200,6 +6202,24 @@ namespace bangna_hospital.gui
             }
             pn.Controls.Add(grf);
             theme1.SetTheme(grf, bc.iniC.themeApp);
+        }
+        private void ContextMenu_EditAppoinment(object sender, System.EventArgs e)
+        {
+            String docyear = "", docno = "";
+            try
+            {
+                PatientT07 apm = new PatientT07();
+                docno = grfApm[grfApm.Row, colgrfPttApmDocNo].ToString();
+                docyear = grfApm[grfApm.Row, colgrfPttApmDocYear].ToString();
+                apm = bc.bcDB.pt07DB.selectAppointment(docyear, docno);
+                FrmApmVisitNew frm = new FrmApmVisitNew(bc, apm,"edit");
+                frm.ShowDialog(this);
+                frm.Dispose();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         private void ContextMenu_VoidAppoinment(object sender, System.EventArgs e)
         {

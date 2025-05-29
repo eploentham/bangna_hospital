@@ -82,6 +82,10 @@
             this.chkNewVisit = new C1.Win.C1Input.C1CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabAppointment = new C1.Win.C1Command.C1DockingTabPage();
+            this.txtApmHn = new C1.Win.C1Input.C1TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.pnPttApm = new System.Windows.Forms.Panel();
             this.lbApm1Month = new System.Windows.Forms.Label();
             this.lbApm14Week = new System.Windows.Forms.Label();
             this.lbApm7Week = new System.Windows.Forms.Label();
@@ -110,12 +114,8 @@
             this.lbApmList = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.cboApmDept = new C1.Win.C1Input.C1ComboBox();
-            this.c1DateEdit1 = new C1.Win.Calendar.C1DateEdit();
+            this.txtApmDate = new C1.Win.Calendar.C1DateEdit();
             this.label12 = new System.Windows.Forms.Label();
-            this.pnPttApm = new System.Windows.Forms.Panel();
-            this.txtApmHn = new C1.Win.C1Input.C1TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttHN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVsPtt)).BeginInit();
@@ -141,6 +141,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtAppViewHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkNewVisit)).BeginInit();
             this.tabAppointment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmPlusDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApmNew)).BeginInit();
@@ -155,8 +156,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtApmTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmDsc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboApmDept)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtApmHn)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmDate)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -787,7 +787,7 @@
             this.tabAppointment.Controls.Add(this.lbApmList);
             this.tabAppointment.Controls.Add(this.label10);
             this.tabAppointment.Controls.Add(this.cboApmDept);
-            this.tabAppointment.Controls.Add(this.c1DateEdit1);
+            this.tabAppointment.Controls.Add(this.txtApmDate);
             this.tabAppointment.Controls.Add(this.label12);
             this.tabAppointment.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tabAppointment.Location = new System.Drawing.Point(1, 24);
@@ -795,6 +795,44 @@
             this.tabAppointment.Size = new System.Drawing.Size(895, 560);
             this.tabAppointment.TabIndex = 2;
             this.tabAppointment.Text = "ทำนัดใหม่";
+            // 
+            // txtApmHn
+            // 
+            this.txtApmHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtApmHn.Location = new System.Drawing.Point(41, 3);
+            this.txtApmHn.Name = "txtApmHn";
+            this.txtApmHn.Size = new System.Drawing.Size(128, 27);
+            this.txtApmHn.TabIndex = 322;
+            this.txtApmHn.TabStop = false;
+            this.txtApmHn.Tag = null;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label13.Location = new System.Drawing.Point(175, 3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(35, 25);
+            this.label13.TabIndex = 323;
+            this.label13.Text = "ชื่อ";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label14.Location = new System.Drawing.Point(7, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(32, 20);
+            this.label14.TabIndex = 321;
+            this.label14.Text = "HN";
+            // 
+            // pnPttApm
+            // 
+            this.pnPttApm.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnPttApm.Location = new System.Drawing.Point(0, 331);
+            this.pnPttApm.Name = "pnPttApm";
+            this.pnPttApm.Size = new System.Drawing.Size(895, 229);
+            this.pnPttApm.TabIndex = 320;
             // 
             // lbApm1Month
             // 
@@ -836,7 +874,7 @@
             // 
             this.txtApmPlusDay.Location = new System.Drawing.Point(305, 43);
             this.txtApmPlusDay.Name = "txtApmPlusDay";
-            this.txtApmPlusDay.Size = new System.Drawing.Size(38, 24);
+            this.txtApmPlusDay.Size = new System.Drawing.Size(38, 18);
             this.txtApmPlusDay.TabIndex = 316;
             this.txtApmPlusDay.Tag = null;
             // 
@@ -899,7 +937,7 @@
             // 
             this.txtApmDocYear.Location = new System.Drawing.Point(58, 151);
             this.txtApmDocYear.Name = "txtApmDocYear";
-            this.txtApmDocYear.Size = new System.Drawing.Size(41, 24);
+            this.txtApmDocYear.Size = new System.Drawing.Size(41, 18);
             this.txtApmDocYear.TabIndex = 309;
             this.txtApmDocYear.Tag = null;
             this.txtApmDocYear.Visible = false;
@@ -908,7 +946,7 @@
             // 
             this.txtApmNO.Location = new System.Drawing.Point(128, 148);
             this.txtApmNO.Name = "txtApmNO";
-            this.txtApmNO.Size = new System.Drawing.Size(116, 24);
+            this.txtApmNO.Size = new System.Drawing.Size(116, 18);
             this.txtApmNO.TabIndex = 308;
             this.txtApmNO.Tag = null;
             // 
@@ -927,7 +965,7 @@
             // 
             this.txtApmTel.Location = new System.Drawing.Point(128, 122);
             this.txtApmTel.Name = "txtApmTel";
-            this.txtApmTel.Size = new System.Drawing.Size(312, 24);
+            this.txtApmTel.Size = new System.Drawing.Size(312, 18);
             this.txtApmTel.TabIndex = 306;
             this.txtApmTel.Tag = null;
             // 
@@ -966,7 +1004,7 @@
             // 
             this.txtApmRemark.Location = new System.Drawing.Point(128, 184);
             this.txtApmRemark.Name = "txtApmRemark";
-            this.txtApmRemark.Size = new System.Drawing.Size(503, 24);
+            this.txtApmRemark.Size = new System.Drawing.Size(503, 18);
             this.txtApmRemark.TabIndex = 302;
             this.txtApmRemark.Tag = null;
             // 
@@ -1014,7 +1052,7 @@
             // 
             this.txtApmTime.Location = new System.Drawing.Point(594, 42);
             this.txtApmTime.Name = "txtApmTime";
-            this.txtApmTime.Size = new System.Drawing.Size(120, 24);
+            this.txtApmTime.Size = new System.Drawing.Size(120, 18);
             this.txtApmTime.TabIndex = 297;
             this.txtApmTime.Tag = null;
             // 
@@ -1033,7 +1071,7 @@
             // 
             this.txtApmDsc.Location = new System.Drawing.Point(128, 97);
             this.txtApmDsc.Name = "txtApmDsc";
-            this.txtApmDsc.Size = new System.Drawing.Size(312, 24);
+            this.txtApmDsc.Size = new System.Drawing.Size(312, 18);
             this.txtApmDsc.TabIndex = 295;
             this.txtApmDsc.Tag = null;
             // 
@@ -1075,33 +1113,33 @@
             this.cboApmDept.TabIndex = 292;
             this.cboApmDept.Tag = null;
             // 
-            // c1DateEdit1
+            // txtApmDate
             // 
-            this.c1DateEdit1.AllowSpinLoop = false;
-            this.c1DateEdit1.Calendar.RightToLeft = System.Windows.Forms.RightToLeft.Inherit;
-            this.c1DateEdit1.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
-            this.c1DateEdit1.CurrentTimeZone = false;
-            this.c1DateEdit1.DisplayFormat.CustomFormat = "dd/MM/yyyy";
-            this.c1DateEdit1.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.c1DateEdit1.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            this.txtApmDate.AllowSpinLoop = false;
+            this.txtApmDate.Calendar.RightToLeft = System.Windows.Forms.RightToLeft.Inherit;
+            this.txtApmDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
+            this.txtApmDate.CurrentTimeZone = false;
+            this.txtApmDate.DisplayFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtApmDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtApmDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
             | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.c1DateEdit1.EditFormat.CustomFormat = "dd/MM/yyyy";
-            this.c1DateEdit1.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.c1DateEdit1.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
+            this.txtApmDate.EditFormat.CustomFormat = "dd/MM/yyyy";
+            this.txtApmDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtApmDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)(((((C1.Win.C1Input.FormatInfoInheritFlags.NullText | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
             | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
             | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.c1DateEdit1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1DateEdit1.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.c1DateEdit1.GMTOffset = System.TimeSpan.Parse("07:00:00");
-            this.c1DateEdit1.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.c1DateEdit1.Location = new System.Drawing.Point(396, 42);
-            this.c1DateEdit1.Name = "c1DateEdit1";
-            this.c1DateEdit1.Size = new System.Drawing.Size(128, 27);
-            this.c1DateEdit1.TabIndex = 291;
-            this.c1DateEdit1.Tag = null;
+            this.txtApmDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtApmDate.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
+            this.txtApmDate.GMTOffset = System.TimeSpan.Parse("07:00:00");
+            this.txtApmDate.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.txtApmDate.Location = new System.Drawing.Point(396, 42);
+            this.txtApmDate.Name = "txtApmDate";
+            this.txtApmDate.Size = new System.Drawing.Size(128, 27);
+            this.txtApmDate.TabIndex = 291;
+            this.txtApmDate.Tag = null;
             // 
             // label12
             // 
@@ -1112,44 +1150,6 @@
             this.label12.Size = new System.Drawing.Size(53, 20);
             this.label12.TabIndex = 290;
             this.label12.Text = "วันที่นัด";
-            // 
-            // pnPttApm
-            // 
-            this.pnPttApm.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnPttApm.Location = new System.Drawing.Point(0, 331);
-            this.pnPttApm.Name = "pnPttApm";
-            this.pnPttApm.Size = new System.Drawing.Size(895, 229);
-            this.pnPttApm.TabIndex = 320;
-            // 
-            // txtApmHn
-            // 
-            this.txtApmHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtApmHn.Location = new System.Drawing.Point(41, 3);
-            this.txtApmHn.Name = "txtApmHn";
-            this.txtApmHn.Size = new System.Drawing.Size(128, 27);
-            this.txtApmHn.TabIndex = 322;
-            this.txtApmHn.TabStop = false;
-            this.txtApmHn.Tag = null;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label13.Location = new System.Drawing.Point(175, 3);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(35, 25);
-            this.label13.TabIndex = 323;
-            this.label13.Text = "ชื่อ";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label14.Location = new System.Drawing.Point(7, 6);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(32, 20);
-            this.label14.TabIndex = 321;
-            this.label14.Text = "HN";
             // 
             // FrmApmVisitNew
             // 
@@ -1190,6 +1190,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chkNewVisit)).EndInit();
             this.tabAppointment.ResumeLayout(false);
             this.tabAppointment.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmPlusDay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApmNew)).EndInit();
@@ -1204,8 +1205,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtApmTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtApmDsc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboApmDept)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtApmHn)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtApmDate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1295,7 +1295,7 @@
         private System.Windows.Forms.Label lbApmList;
         private System.Windows.Forms.Label label10;
         private C1.Win.C1Input.C1ComboBox cboApmDept;
-        private C1.Win.Calendar.C1DateEdit c1DateEdit1;
+        private C1.Win.Calendar.C1DateEdit txtApmDate;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel pnPttApm;
         private C1.Win.C1Input.C1TextBox txtApmHn;

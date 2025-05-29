@@ -27,13 +27,23 @@ namespace bangna_hospital.gui
         C1ThemeController theme1;
         Patient PTT = new Patient();
         AutoCompleteStringCollection autoApm;
+        String STATUSEDIT = "";
         int colgrfOrderCode = 1, colgrfOrderName = 2, colgrfOrderStatus = 3, colgrfOrderQty = 4, colgrfOrderID = 5, colgrfOrderReqNO = 6, colgrfOrdFlagSave = 7;
         int colgrfPttApmVsDate = 1, colgrfPttApmApmDateShow = 2, colgrfPttApmApmTime = 3, colgrfPttApmHN = 4, colgrfPttApmPttName = 5, colgrfPttApmDeptR = 6, colgrfPttApmDeptMake = 7, colgrfPttApmNote = 8, colgrfPttApmOrder = 9, colgrfPttApmDocYear = 10, colgrfPttApmDocNo = 11, colgrfPttApmDtrname = 12, colgrfPttApmPhone = 13, colgrfPttApmPaidName = 14, colgrfPttApmRemarkCall = 15, colgrfPttApmStatusRemarkCall = 16, colgrfPttApmRemarkCallDate = 17, colgrfPttApmApmDate1 = 18;
+
         public FrmApmVisitNew(BangnaControl bc, PatientT07 apm)
         {
             this.bc = bc;
             this.APM = apm;
             InitializeComponent(); 
+            initConfig();
+        }
+        public FrmApmVisitNew(BangnaControl bc, PatientT07 apm, String statusedit)
+        {
+            this.bc = bc;
+            this.APM = apm;
+            this.STATUSEDIT = "edit";
+            InitializeComponent();
             initConfig();
         }
         private void initConfig()
@@ -59,6 +69,7 @@ namespace bangna_hospital.gui
             bc.bcDB.pttDB.setCboDeptOPDNew(cboAppViewDept, "");     //ส่งตัวไป
             bc.bcDB.pttDB.setCboDeptOPDNew(cboApmDept, "");
             initGrfAppNew();
+            initGrfOrder(ref grfApmOrder, ref pnApmOrder, "grfApmOrder");
             if ((APM.MNC_DOC_NO.Length > 0) && (APM.apm_cnt_inday.Equals("1")))            {                setControl();                c1DockingTab1.SelectedTab = tabAppVisit;            }
             else            {                setGrfApm();                c1DockingTab1.SelectedTab = tabAppView;            }
             btnVsSave.Click += BtnVsSave_Click;
@@ -79,6 +90,9 @@ namespace bangna_hospital.gui
             btnApmNew.Click += BtnApmNew_Click;
             btnApmSave.Click += BtnApmSave_Click;
             btnApmPrint.Click += BtnApmPrint_Click;
+            txtApmDtr.KeyUp += TxtApmDtr_KeyUp;
+            lbApmList.DoubleClick += LbApmList_DoubleClick;
+
 
             initGrfPttApm(ref grfPttApm, ref pnPttApm, "grfPttApm");
             chlApmList.Hide();
@@ -88,6 +102,48 @@ namespace bangna_hospital.gui
             }
         }
 
+        private void LbApmList_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chlApmList.Visible == true)
+            {
+                chlApmList.Hide();
+                String txt = "";
+                foreach (var chk in chlApmList.Items)
+                {
+                    if (chk.Selected)
+                    {
+                        txt += chk.Value.ToString() + "\r\n";
+                    }
+                }
+                txtApmList.Value += "\r\n" + txt;
+                txtApmList.ScrollBars = ScrollBars.Both;
+            }
+            else if (chlApmList.Visible == false)
+            {
+                chlApmList.Top = cboApmDept.Top;
+                chlApmList.Left = cboApmDept.Left;
+                chlApmList.Show();
+                foreach (var chk in chlApmList.Items)
+                {
+                    if (chk.Selected)
+                    {
+                        chk.Selected = false;
+                    }
+                }
+            }
+        }
+
+        private void TxtApmDtr_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtApmDtr.Text.Trim().Length <= 0) return;
+                lbApmDtrName.Text = "";
+                lbApmDtrName.Text = bc.selectDoctorName(txtApmDtr.Text.Trim());
+            }
+        }
         private void BtnApmPrint_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -301,7 +357,56 @@ namespace bangna_hospital.gui
                 }
             }
         }
+        private void initGrfOrder(ref C1FlexGrid grf, ref Panel pn, String grfname)
+        {
+            grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
+            grf.Rows.Count = 1;
+            grf.Cols.Count = 8;
+            grf.Cols[colgrfOrderCode].Width = 100;
+            grf.Cols[colgrfOrderName].Width = 400;
+            grf.Cols[colgrfOrderQty].Width = 70;
+            grf.Name = grfname;
+            grf.ShowCursor = true;
+            grf.Cols[colgrfOrderCode].Caption = "code";
+            grf.Cols[colgrfOrderName].Caption = "name";
+            grf.Cols[colgrfOrderQty].Caption = "qty";
+            grf.Cols[colgrfOrderReqNO].Caption = "reqno";
 
+            //grfOperList.Cols[colgrfOperListPaidName].Caption = "นายจ้าง";
+            grf.Cols[colgrfOrderCode].DataType = typeof(String);
+            grf.Cols[colgrfOrderName].DataType = typeof(String);
+            grf.Cols[colgrfOrderQty].DataType = typeof(String);
+
+            grf.Cols[colgrfOrderCode].TextAlign = TextAlignEnum.CenterCenter;
+            grf.Cols[colgrfOrderName].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[colgrfOrderQty].TextAlign = TextAlignEnum.LeftCenter;
+            grf.Cols[colgrfOrderReqNO].TextAlign = TextAlignEnum.CenterCenter;
+
+            grf.Cols[colgrfOrderCode].Visible = true;
+            grf.Cols[colgrfOrderName].Visible = true;
+            grf.Cols[colgrfOrderStatus].Visible = false;
+            grf.Cols[colgrfOrderID].Visible = false;
+            grf.Cols[colgrfOrdFlagSave].Visible = false;
+            if (grfname.Equals("grfOrder"))
+            {
+                grf.Cols[colgrfOrderQty].Visible = true;
+            }
+            else
+            {
+                grf.Cols[colgrfOrderQty].Visible = false;
+            }
+            grf.Cols[colgrfOrderCode].AllowEditing = false;
+            grf.Cols[colgrfOrderName].AllowEditing = false;
+            grf.Cols[colgrfOrderReqNO].AllowEditing = false;
+            
+            grf.AllowSorting = AllowSortingEnum.None;
+            pn.Controls.Add(grf);
+            theme1.SetTheme(grf, bc.iniC.themeApp);
+        }
+        
         private void initGrfPttApm(ref C1FlexGrid grf, ref Panel pn, String grfname)
         {
             grf = new C1FlexGrid();
@@ -392,8 +497,11 @@ namespace bangna_hospital.gui
         {
             PatientT07 apm = new PatientT07();
             apm = bc.bcDB.pt07DB.selectAppointment(apmyear, apmno);
+            txtApmHn.Value = apm.MNC_HN_NO;
+            txtApmDate.Value = bc.datetoShow(apm.MNC_APP_DAT);
             txtApmTime.Value = apm.apm_time;
             txtPttApmDate.Value = apm.MNC_APP_DAT;
+            txtApmDate.Value = apm.MNC_APP_DAT;
             txtApmNO.Value = apm.MNC_DOC_NO;
             txtApmDocYear.Value = apm.MNC_DOC_YR;
             txtApmDtr.Value = apm.MNC_DOT_CD;
@@ -405,6 +513,7 @@ namespace bangna_hospital.gui
             txtApmTel.Value = apm.MNC_APP_TEL;
             txtApmRemark.Value = apm.MNC_DOT_CD;
             lbApmDtrName.Text = bc.selectDoctorName(apm.MNC_DOT_CD);
+            label13.Text = apm.patient_name;
             DataTable dt = new DataTable();
             dt = bc.bcDB.pt07DB.selectAppointmentOrder(txtApmDocYear.Text, txtApmNO.Text);
             grfApmOrder.Rows.Count = 1;
@@ -473,8 +582,9 @@ namespace bangna_hospital.gui
         {
             if (txtApmHn.Text.Trim().Length <= 0) return null;
 
-            DateTime.TryParse(txtPttApmDate.Text, out DateTime apmdate);
+            DateTime.TryParse(txtApmDate.Text, out DateTime apmdate);
             if (apmdate == null) return null;
+            apmdate = apmdate.Year < 1900 ? apmdate.AddYears(543) : apmdate;
             PatientT07 apm = new PatientT07();
             apm.MNC_HN_NO = txtApmHn.Text.Trim();
             apm.MNC_HN_YR = "";
@@ -893,6 +1003,12 @@ namespace bangna_hospital.gui
             txtApmDsc.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtApmDsc.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtApmDsc.AutoCompleteCustomSource = autoApm;
+            if (STATUSEDIT.Equals("edit"))
+            {
+                c1DockingTab1.SelectedTab = tabAppointment;
+                tabAppointment.Text = "แก้ไขนัดหมาย";
+                setControlApm(APM.MNC_DOC_YR, APM.MNC_DOC_NO);
+            }
         }
     }
 }
