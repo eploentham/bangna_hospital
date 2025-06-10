@@ -99,15 +99,23 @@ namespace bangna_hospital.object1
             {
             }
             txt += inv;
-            byte[] txtwin874Bytes = ToWindows874Bytes(txt);
-            byte[] md5 = GetMD5(txtwin874Bytes);
-            String md51 = ComputeMD5Bytes(txtwin874Bytes);
+            //ต้องsaveเป็น file ก่อน
+            String filename1 = filename.Replace(".txt", "") + "_temp" + ".txt";
+            File.WriteAllText(filename1, txt, Encoding.GetEncoding(874));
+            byte[] fileBytes;
+            using (FileStream fs = new FileStream(filename1, FileMode.Open, FileAccess.Read))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(fileBytes, 0, fileBytes.Length);
+                // fileBytes now contains the binary data
+            }
+            String md51 = ComputeMD5Bytes(fileBytes);
             byte[] md51Bytes = Encoding.GetEncoding(874).GetBytes(md51);
             byte[] footerEndNote1 = ToWindows874Bytes("<?EndNote Checksum=\"");
             byte[] footerEndNote2 = ToWindows874Bytes("\"?>");
             byte[] enterbytes = Encoding.GetEncoding(874).GetBytes(Environment.NewLine);
             // รวม
-            byte[] result = txtwin874Bytes.Concat(enterbytes).Concat(footerEndNote1).Concat(md51Bytes).Concat(footerEndNote2).ToArray();
+            byte[] result = fileBytes.Concat(footerEndNote1).Concat(md51Bytes).Concat(footerEndNote2).ToArray();
             if (File.Exists(filename))
                 File.Delete(filename);
             File.WriteAllBytes(filename, result);
@@ -191,22 +199,31 @@ namespace bangna_hospital.object1
                 inv += "<DispensedItems>" + Environment.NewLine;
                 inv += dispe.ToString();
                 inv += "</DispensedItems>" + Environment.NewLine;
-                //inv += "</ClaimRec>" + Environment.NewLine;
-                inv += "</ClaimRec>";      //ไม่เอา Enter
+                inv += "</ClaimRec>" + Environment.NewLine;
+                //inv += "</ClaimRec>";      //ไม่เอา Enter
             }
             catch (Exception ex)
             {
             }
             txt += inv;
-            byte[] txtwin874Bytes = ToWindows874Bytes(txt);
-            byte[] md5 = GetMD5(txtwin874Bytes);
-            String md51 = ComputeMD5Bytes(txtwin874Bytes);
+            //ต้องsaveเป็น file ก่อน
+            String filename1 = filename.Replace(".txt", "") + "_temp" + ".txt";
+            File.WriteAllText(filename1, txt, Encoding.GetEncoding(874));
+            byte[] fileBytes;
+            using (FileStream fs = new FileStream(filename1, FileMode.Open, FileAccess.Read))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(fileBytes, 0, fileBytes.Length);
+                // fileBytes now contains the binary data
+            }
+            
+            String md51 = ComputeMD5Bytes(fileBytes);
             byte[] md51Bytes = Encoding.GetEncoding(874).GetBytes(md51);
             byte[] footerEndNote1 = ToWindows874Bytes("<?EndNote Checksum=\"");
             byte[] footerEndNote2 = ToWindows874Bytes("\"?>");
             byte[] enterbytes = Encoding.GetEncoding(874).GetBytes(Environment.NewLine);
             // รวม
-            byte[] result = txtwin874Bytes.Concat(enterbytes).Concat(footerEndNote1).Concat(md51Bytes).Concat(footerEndNote2).ToArray();
+            byte[] result = fileBytes.Concat(footerEndNote1).Concat(md51Bytes).Concat(footerEndNote2).ToArray();
             if (File.Exists(filename))
                 File.Delete(filename);
             File.WriteAllBytes(filename, result);
@@ -285,25 +302,34 @@ namespace bangna_hospital.object1
                 }
                 inv += "<BillItems>" + Environment.NewLine;
                 inv += billinv1.ToString();
-                inv += "</BillItem>" + Environment.NewLine;
-                //inv += "</ClaimRec>" + Environment.NewLine;
-                inv += "</ClaimRec>" ;      //ไม่เอา Enter
+                inv += "</BillItems>" + Environment.NewLine;
+                inv += "</ClaimRec>" + Environment.NewLine;
+                //inv += "</ClaimRec>" ;      //ไม่เอา Enter
             }
             catch (Exception ex)
             {
 
             }
             txt += inv;
-            byte[] txtwin874Bytes = ToWindows874Bytes(txt);
-            byte[] md5 = GetMD5(txtwin874Bytes);
-            String md51 = ComputeMD5Bytes(txtwin874Bytes);
+            //ต้องsaveเป็น file ก่อน
+            String filename1 = filename.Replace(".txt","")+"_temp" + ".txt";
+            File.WriteAllText(filename1, txt, Encoding.GetEncoding(874));
+            byte[] fileBytes;
+            using (FileStream fs = new FileStream(filename1, FileMode.Open, FileAccess.Read))
+            {
+                fileBytes = new byte[fs.Length];
+                fs.Read(fileBytes, 0, fileBytes.Length);
+                // fileBytes now contains the binary data
+            }
+            String md51 = ComputeMD5Bytes(fileBytes);
             byte[] md51Bytes = Encoding.GetEncoding(874).GetBytes(md51);
             byte[] footerEndNote1 = ToWindows874Bytes("<?EndNote Checksum=\"");
             byte[] footerEndNote2 = ToWindows874Bytes("\"?>");
             byte[] enterbytes = Encoding.GetEncoding(874).GetBytes(Environment.NewLine);
             // รวม
-            byte[] result = txtwin874Bytes.Concat(enterbytes).Concat(footerEndNote1).Concat(md51Bytes).Concat(footerEndNote2).ToArray();
-            if(File.Exists(filename))
+            //byte[] result = txtwin874Bytes.Concat(enterbytes).Concat(footerEndNote1).Concat(md51Bytes).Concat(footerEndNote2).ToArray();
+            byte[] result = fileBytes.Concat(footerEndNote1).Concat(md51Bytes).Concat(footerEndNote2).ToArray();
+            if (File.Exists(filename))
                 File.Delete(filename);
             File.WriteAllBytes(filename, result);
             return txt;

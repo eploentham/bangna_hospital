@@ -234,10 +234,11 @@ namespace bangna_hospital.gui
             {
                 foreach (Row rowa in grfApmOrder.Rows)
                 {
-                    String name = "";
+                    String name = "", code="";
                     name = rowa[colgrfOrderName].ToString();
+                    code = rowa[colgrfOrderCode].ToString();
                     if (name.Equals("name")) continue;
-                    txt += name + "\r\n";
+                    txt += code+" "+name + "\r\n";
                 }
                 if (txt.Length > 1)
                 {
@@ -585,6 +586,7 @@ namespace bangna_hospital.gui
             DateTime.TryParse(txtApmDate.Text, out DateTime apmdate);
             if (apmdate == null) return null;
             apmdate = apmdate.Year < 1900 ? apmdate.AddYears(543) : apmdate;
+            String stationname = bc.bcDB.pttDB.selectDeptIPDName(bc.iniC.station);
             PatientT07 apm = new PatientT07();
             apm.MNC_HN_NO = txtApmHn.Text.Trim();
             apm.MNC_HN_YR = "";
@@ -605,7 +607,7 @@ namespace bangna_hospital.gui
             apm.MNC_DEP_NO = "";
             apm.MNC_SECR_NO = cboApmDept.SelectedItem == null ? "" : ((ComboBoxItem)cboApmDept.SelectedItem).Value;
             apm.MNC_DEPR_NO = bc.bcDB.pm32DB.getDeptNoOPD(apm.MNC_SECR_NO);
-
+            apm.MNC_NAME = stationname;
             //apm.MNC_SEC_NO = cboApmDept.SelectedItem == null ? "" : ((ComboBoxItem)cboApmDept.SelectedItem).Value;
             return apm;
         }

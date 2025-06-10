@@ -191,7 +191,6 @@ namespace bangna_hospital.gui
             filename = grfView[grfView.Row, colUploadPath].ToString();
             if (File.Exists(filename))
             {
-
                 if ((DSCMCERT != null) && (DSCMCERT.doc_scan_id.Length > 0))
                 {
                     FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc, txtCertID.Text.Trim(), autoupload);
@@ -1117,7 +1116,6 @@ namespace bangna_hospital.gui
                                 imgPrint.Dispose();
                                 File.Delete(filename);
                             }
-
                         }
                         else
                         {

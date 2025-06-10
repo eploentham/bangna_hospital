@@ -45,13 +45,15 @@ namespace bangna_hospital.gui
         BangnaControl bc;
 
         Font fEdit, fEditB, fEdit3B, fEdit5B;
-        C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac, tcPrnEmail;
-        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd, tabPrnEmailDrug, tabPrnEmailLab, tabPrnEmailXray, tabPrnEmailSummary,  tabPrnEmailOther, tabCerti;
+        C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac, tcPrnEmail, tcDoc;
+        C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd, tabPrnEmailDrug, tabPrnEmailLab, tabPrnEmailXray, tabPrnEmailSummary,  tabPrnEmailOther, tabCerti, tabDoc;
+        C1DockingTabPage tabEKG, tabDocOLD, tabEST, tabECHO, tabHolter, tabEarEyelung;
         C1FlexGrid grfOrder, grfScan, grfLab, grfXray, grfPrn, grfHn, grfPic, grfIPD, grfOPD;
-        C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem, grfPrnEmailImg, grfCertiView;
+        C1FlexGrid grfOrdDrug, grfOrdSup, grfOrdLab, grfOrdXray, grfOrdOR, grfOrdItem, grfPrnEmailImg, grfCertiView, grfEKG, grfDocOLD, grfEST, grfHolter, grfECHO, grfEarEyeLung;
         C1FlexViewer labOutView, fvPrnEmailSummary, fvPrnEmailDrug, fvPrnEmailLab, fvPrnEmailXray, fvPrnEmailOther, fvCerti;
         List<C1DockingTabPage> tabHnLabOutR;
         Panel pnOrdSearchDrug, pnOrdSearchSup, pnOrdSearchLab, pnOrdSearchXray, pnOrdSearchOR, pnOrdItem, pnscOrdItem, pnOrdDiagVal, pnPrnEmail, pnPrnEmailGrfPrn;
+        Panel pnEKGTop, pnEKGView, pnDocTop, pnDocView,pnECHOTop, pnECHOView, pnESTTop, pnESTView, pnHolterTop, pnHolterView, pnEarEyeLung;
         Label lbPttVitalSigns, lbPttPressure, lbPttTemp, lbPttWeight, lbPttHigh, lbPttBloodGroup, lbPttCC, lbPttCCin, lbPttCCex, lbPttAbc, lbPttHC, lbPttBp1, lbPttBp2, lbPttHrate, lbPttLRate;
         Label lbPttSymptom, lbPttVsDate, lbPaidType, lbLoading, lbDocAll, lbDocGrp1, lbDocGrp2, lbDocGrp3, lbDocGrp4, lbDocGrp5, lbDocGrp6, lbDocGrp7, lbDocGrp8, lbDocGrp9, lbItmNum, lbItmPerDay, lbItmNumDay;
 
@@ -90,6 +92,8 @@ namespace bangna_hospital.gui
         int colPrnSSOchk = 1, colPrnSSOVn = 2, colPrnSSOvsDate = 3, colPrnSSODesc = 4, colPrnSSOpreno = 5;
         int colPrnEmailDocCD = 1, colPrnEmailDocYr = 2, colPrnEmailDocNo = 3, colPrnEmailDocDat = 4, colPrnEmailDate = 5, colPrnEmailPaidName=6, colPrnEmailStatusOPD=7, colPrnEmailAn=8, colPrnEmailAnYr=9;
         int colPrnEmailImgimage = 1, colPrnEmailImgFilename = 2;
+        int colgrfOutLabDscHN = 1, colgrfOutLabDscPttName = 2, colgrfOutLabDscVsDate = 3, colgrfOutLabDscVN = 4, colgrfOutLabDscId = 5, colgrfOutLablabcode = 6, colgrfOutLablabname = 7, colgrfOutLabApmDate = 8, colgrfOutLabApmDesc = 9, colgrfOutLabApmDtr = 10, colgrfOutLabApmReqNo = 11, colgrfOutLabApmReqDate = 12;
+        int colgrfLungVsDate = 1,colgrfLungLeftEar=2, colgrfLungRightEar = 3, colgrfLungLeftEarNormal = 4, colgrfLungRightEarNormal = 5, colgrfLungLeftEarOther = 6, colgrfLungRightEarOther = 7, colgrfLungLeftEye = 8, colgrfLungRightEye = 9, colgrfLungLeftEyePh = 10, colgrfLungRightEyePh = 11, colgrfLungEyeNormal = 12, colgrfLungLungValue = 13, colgrfLungLungNormal = 14;
 
         int newHeight = 720;
         int mouseWheel = 0;
@@ -256,6 +260,13 @@ namespace bangna_hospital.gui
             initTabVS();
             initGrfOPD();
             initGrfIPD();
+            initGrfEKG();
+            initGrfDocOLD();
+            initGrfECHO();
+            initGrfEST();
+            initGrfHolter();
+            initGrfEarEyeLung();
+            setGrfEarEyeLung();
             //MessageBox.Show("FrmScanView1 initConfig 02", "");
             //initGrfPicture();
             //initTabPrn();
@@ -389,8 +400,118 @@ namespace bangna_hospital.gui
             tabMac.TabIndex = 0;
             //tabHn.Text = "Hn เวชระเบียน";
             tabMac.Text = "Machine Result";
-            tabMac.Name = "tabHn";
+            tabMac.Name = "tabMac";
             tcDtr.Controls.Add(tabMac);
+
+            tabDoc = new C1DockingTabPage();
+            tabDoc.Location = new System.Drawing.Point(1, 24);
+            //tabScan.Name = "c1DockingTabPage1";
+            tabDoc.Size = new System.Drawing.Size(667, 175);
+            tabDoc.TabIndex = 0;
+            //tabHn.Text = "Hn เวชระเบียน";
+            tabDoc.Text = "Document";
+            tabDoc.Name = "tabDoc";
+            tcDtr.Controls.Add(tabDoc);
+            tcMac = new C1DockingTab();
+            tcMac.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcMac.Location = new System.Drawing.Point(0, 266);
+            tcMac.Name = "tcMac";
+            tcMac.Size = new System.Drawing.Size(669, 200);
+            tcMac.TabIndex = 0;
+            tcMac.TabsSpacing = 5;
+
+            tcDoc = new C1DockingTab();
+            tcDoc.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcDoc.Location = new System.Drawing.Point(0, 266);
+            tcDoc.Name = "tcDoc";
+            tcDoc.Size = new System.Drawing.Size(669, 200);
+            tcDoc.TabIndex = 0;
+            tcDoc.TabsSpacing = 5;
+            //tcMac.DoubleClick += TcMac_DoubleClick;
+            tabDoc.Controls.Add(tcDoc);
+            tabEKG = new C1DockingTabPage();
+            tabEKG.Location = new System.Drawing.Point(1, 24);
+            tabEKG.Size = new System.Drawing.Size(667, 175);
+            tabEKG.TabIndex = 0;
+            tabEKG.Text = "EKG";
+            tabEKG.Name = "tabEKG";
+            tcDoc.Controls.Add(tabEKG);
+
+            tabECHO = new C1DockingTabPage();
+            tabECHO.Location = new System.Drawing.Point(1, 24);
+            tabECHO.Size = new System.Drawing.Size(667, 175);
+            tabECHO.TabIndex = 0;
+            tabECHO.Text = "ECHO";
+            tabECHO.Name = "tabECHO";
+            tcDoc.Controls.Add(tabECHO);
+
+            tabEST = new C1DockingTabPage();
+            tabEST.Location = new System.Drawing.Point(1, 24);
+            tabEST.Size = new System.Drawing.Size(667, 175);
+            tabEST.TabIndex = 0;
+            tabEST.Text = "EST";
+            tabEST.Name = "tabEST";
+            tcDoc.Controls.Add(tabEST);
+
+            tabHolter = new C1DockingTabPage();
+            tabHolter.Location = new System.Drawing.Point(1, 24);
+            tabHolter.Size = new System.Drawing.Size(667, 175);
+            tabHolter.TabIndex = 0;
+            tabHolter.Text = "Holter";
+            tabHolter.Name = "tabHolter";
+            tcDoc.Controls.Add(tabHolter);
+
+            tabEarEyelung = new C1DockingTabPage();
+            tabEarEyelung.Location = new System.Drawing.Point(1, 24);
+            tabEarEyelung.Size = new System.Drawing.Size(667, 175);
+            tabEarEyelung.TabIndex = 0;
+            tabEarEyelung.Text = "EarEyeLung";
+            tabEarEyelung.Name = "tabEarEyelung";
+            tcDoc.Controls.Add(tabEarEyelung);
+
+            //tabDocOLD = new C1DockingTabPage();
+            tabDocOLD = new C1DockingTabPage();
+            tabDocOLD.Location = new System.Drawing.Point(1, 24);
+            tabDocOLD.Size = new System.Drawing.Size(667, 175);
+            tabDocOLD.TabIndex = 0;
+            tabDocOLD.Text = "Document Other Hospital";
+            tabDocOLD.Name = "tabDocOLD";
+            tcDoc.Controls.Add(tabDocOLD);
+
+            pnEKGTop = new Panel();
+            pnEKGView = new Panel();
+            pnDocTop = new Panel();
+            pnDocView = new Panel();
+            pnECHOTop = new Panel();
+            pnECHOView = new Panel();
+            pnESTTop = new Panel();
+            pnESTView = new Panel();
+            pnHolterTop = new Panel();
+            pnHolterView = new Panel();
+            pnEarEyeLung = new Panel();
+
+            pnEKGTop.Dock = DockStyle.Top;
+            pnEKGView.Dock = DockStyle.Fill;
+            pnDocTop.Dock = DockStyle.Top;
+            pnDocView.Dock = DockStyle.Fill;
+            pnECHOTop.Dock = DockStyle.Top;
+            pnECHOView.Dock = DockStyle.Fill;
+            pnESTTop.Dock = DockStyle.Top;
+            pnESTView.Dock = DockStyle.Fill;
+            pnHolterTop.Dock = DockStyle.Top;
+            pnHolterView.Dock = DockStyle.Fill;
+            pnEarEyeLung.Dock = DockStyle.Fill;
+            tabEKG.Controls.Add(pnEKGView);
+            tabEKG.Controls.Add(pnEKGTop);
+            tabDocOLD.Controls.Add(pnDocView);
+            tabDocOLD.Controls.Add(pnDocTop);
+            tabEST.Controls.Add(pnESTView);
+            tabEST.Controls.Add(pnESTTop);
+            tabECHO.Controls.Add(pnECHOView);
+            tabECHO.Controls.Add(pnECHOTop);
+            tabHolter.Controls.Add(pnHolterView);
+            tabHolter.Controls.Add(pnHolterTop);
+            tabEarEyelung.Controls.Add(pnEarEyeLung);
 
             tabHnLabOut = new C1DockingTabPage();
             tabHnLabOut.Location = new System.Drawing.Point(1, 24);
@@ -416,15 +537,6 @@ namespace bangna_hospital.gui
             tabHnLabOut.Controls.Add(tcHnLabOut);
             theme1.SetTheme(tcHnLabOut, bc.iniC.themeApplication);
 
-            tcMac = new C1DockingTab();
-            tcMac.Dock = System.Windows.Forms.DockStyle.Fill;
-            tcMac.Location = new System.Drawing.Point(0, 266);
-            tcMac.Name = "tcMac";
-            tcMac.Size = new System.Drawing.Size(669, 200);
-            tcMac.TabIndex = 0;
-            tcMac.TabsSpacing = 5;
-            tcMac.DoubleClick += TcMac_DoubleClick;
-            tabMac.Controls.Add(tcMac);
             theme1.SetTheme(tcMac, bc.iniC.themeApplication);
 
             tabPic = new C1DockingTabPage();
@@ -456,6 +568,582 @@ namespace bangna_hospital.gui
 
             panel3.Controls.Add(tcDtr);
             theme1.SetTheme(tcDtr, bc.iniC.themeApplication);
+        }
+        private void initGrfHolter()
+        {
+            grfHolter = new C1FlexGrid();
+            grfHolter.Font = fEdit;
+            grfHolter.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfHolter.Location = new System.Drawing.Point(0, 0);
+            grfHolter.Rows.Count = 1;
+            grfHolter.Cols.Count = 8;
+
+            grfHolter.Cols[colgrfOutLabDscHN].Width = 80;
+            grfHolter.Cols[colgrfOutLabDscPttName].Width = 250;
+            grfHolter.Cols[colgrfOutLabDscVsDate].Width = 100;
+            grfHolter.Cols[colgrfOutLabDscVN].Width = 80;
+            grfHolter.Cols[colgrfOutLablabcode].Width = 80;
+            grfHolter.Cols[colgrfOutLablabname].Width = 250;
+
+            grfHolter.Cols[colgrfOutLabDscHN].Caption = "";
+            grfHolter.Cols[colgrfOutLabDscPttName].Caption = "";
+            grfHolter.Cols[colgrfOutLabDscVsDate].Caption = "Visit Date";
+            grfHolter.Cols[colgrfOutLabDscVN].Caption = "VN";
+
+            grfHolter.Cols[colgrfOutLabDscId].Visible = false;
+            grfHolter.Cols[colgrfOutLabDscHN].AllowEditing = false;
+            grfHolter.Cols[colgrfOutLabDscPttName].AllowEditing = false;
+            grfHolter.Cols[colgrfOutLabDscVsDate].AllowEditing = false;
+            grfHolter.Cols[colgrfOutLabDscVN].AllowEditing = false;
+            grfHolter.Cols[colgrfOutLablabcode].Visible = false;
+            grfHolter.Cols[colgrfOutLablabname].Visible = false;
+            grfHolter.Click += GrfHolter_Click;
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("ต้องการ ยกเลิก", new EventHandler(ContextMenu_voidEKG));
+            //grfEKG.ContextMenu = menuGw;
+            pnHolterTop.Controls.Add(grfHolter);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfHolter, bc.iniC.themegrfOpd);
+        }
+
+        private void GrfHolter_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfHolter.Row <= 0) return;
+            if (grfHolter.Col <= 0) return;
+            String hn = "", vn = "", vsDate = "", dscid = "";
+            dscid = grfHolter[grfHolter.Row, colgrfOutLabDscId] != null ? grfHolter[grfHolter.Row, colgrfOutLabDscId].ToString() : "";
+            try
+            {
+                pnHolterView.Controls.Clear();
+                C1FlexViewer fv = new C1FlexViewer();
+                fv.AutoScrollMargin = new System.Drawing.Size(0, 0);
+                fv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+                fv.Dock = System.Windows.Forms.DockStyle.Fill;
+                fv.Location = new System.Drawing.Point(0, 0);
+                fv.Name = "fvSrcECHOScan";
+                fv.Size = new System.Drawing.Size(1065, 790);
+                fv.TabIndex = 0;
+                fv.Ribbon.Minimized = true;
+                pnHolterView.Controls.Add(fv);
+                try
+                {
+                    DocScan dsc = new DocScan();
+                    dsc = bc.bcDB.dscDB.selectByPk(dscid);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                    MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                    if (dsc.image_path.ToLower().IndexOf("pdf") > 0)
+                    {
+                        pds.LoadFromStream(streamCertiDtr);
+                        fv.DocumentSource = pds;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmOPD GrfHolter_Click " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfHolter_Click", ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmOPD GrfHolter_Click " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfHolter_Click save  ", ex.Message);
+                //lfSbMessage.Text = ex.Message;
+            }
+        }
+        private void setGrfHolter()
+        {
+            grfHolter.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.dscDB.selectByHolter(txtHn.Text.Trim());
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfHolter.Rows.Add();
+                rowa[colgrfOutLabDscVsDate] = bc.datetoShow1(row1["visit_date"].ToString());
+                rowa[colgrfOutLabDscVN] = row1["vn"].ToString();
+                rowa[colgrfOutLabDscId] = row1["doc_scan_id"].ToString();
+            }
+        }
+        private void initGrfEST()
+        {
+            grfEST = new C1FlexGrid();
+            grfEST.Font = fEdit;
+            grfEST.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfEST.Location = new System.Drawing.Point(0, 0);
+            grfEST.Rows.Count = 1;
+            grfEST.Cols.Count = 8;
+
+            grfEST.Cols[colgrfOutLabDscHN].Width = 80;
+            grfEST.Cols[colgrfOutLabDscPttName].Width = 250;
+            grfEST.Cols[colgrfOutLabDscVsDate].Width = 100;
+            grfEST.Cols[colgrfOutLabDscVN].Width = 80;
+            grfEST.Cols[colgrfOutLablabcode].Width = 80;
+            grfEST.Cols[colgrfOutLablabname].Width = 250;
+
+            grfEST.Cols[colgrfOutLabDscHN].Caption = "";
+            grfEST.Cols[colgrfOutLabDscPttName].Caption = "";
+            grfEST.Cols[colgrfOutLabDscVsDate].Caption = "Visit Date";
+            grfEST.Cols[colgrfOutLabDscVN].Caption = "VN";
+
+            grfEST.Cols[colgrfOutLabDscId].Visible = false;
+            grfEST.Cols[colgrfOutLabDscHN].AllowEditing = false;
+            grfEST.Cols[colgrfOutLabDscPttName].AllowEditing = false;
+            grfEST.Cols[colgrfOutLabDscVsDate].AllowEditing = false;
+            grfEST.Cols[colgrfOutLabDscVN].AllowEditing = false;
+            grfEST.Cols[colgrfOutLablabcode].Visible = false;
+            grfEST.Cols[colgrfOutLablabname].Visible = false;
+            grfEST.Click += GrfEST_Click;
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("ต้องการ ยกเลิก", new EventHandler(ContextMenu_voidEKG));
+            //grfEKG.ContextMenu = menuGw;
+            pnESTTop.Controls.Add(grfEST);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfEST, bc.iniC.themegrfOpd);
+        }
+
+        private void GrfEST_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfEST.Row <= 0) return;
+            if (grfEST.Col <= 0) return;
+            String hn = "", vn = "", vsDate = "", dscid = "";
+            dscid = grfEST[grfEST.Row, colgrfOutLabDscId] != null ? grfEST[grfEST.Row, colgrfOutLabDscId].ToString() : "";
+            try
+            {
+                pnESTView.Controls.Clear();
+                C1FlexViewer fv = new C1FlexViewer();
+                fv.AutoScrollMargin = new System.Drawing.Size(0, 0);
+                fv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+                fv.Dock = System.Windows.Forms.DockStyle.Fill;
+                fv.Location = new System.Drawing.Point(0, 0);
+                fv.Name = "fvSrcECHOScan";
+                fv.Size = new System.Drawing.Size(1065, 790);
+                fv.TabIndex = 0;
+                fv.Ribbon.Minimized = true;
+                pnESTView.Controls.Add(fv);
+                try
+                {
+                    DocScan dsc = new DocScan();
+                    dsc = bc.bcDB.dscDB.selectByPk(dscid);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                    MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                    if (dsc.image_path.ToLower().IndexOf("pdf") > 0)
+                    {
+                        pds.LoadFromStream(streamCertiDtr);
+                        fv.DocumentSource = pds;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmOPD GrfEST_Click " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfEST_Click", ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmOPD GrfEST_Click " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfEST_Click save  ", ex.Message);
+                //lfSbMessage.Text = ex.Message;
+            }
+        }
+        private void setGrfEST()
+        {
+            grfEST.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.dscDB.selectByEST(txtHn.Text.Trim());
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfEST.Rows.Add();
+                rowa[colgrfOutLabDscVsDate] = bc.datetoShow1(row1["visit_date"].ToString());
+                rowa[colgrfOutLabDscVN] = row1["vn"].ToString();
+                rowa[colgrfOutLabDscId] = row1["doc_scan_id"].ToString();
+            }
+        }
+        private void initGrfECHO()
+        {
+            grfECHO = new C1FlexGrid();
+            grfECHO.Font = fEdit;
+            grfECHO.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfECHO.Location = new System.Drawing.Point(0, 0);
+            grfECHO.Rows.Count = 1;
+            grfECHO.Cols.Count = 8;
+
+            grfECHO.Cols[colgrfOutLabDscHN].Width = 80;
+            grfECHO.Cols[colgrfOutLabDscPttName].Width = 250;
+            grfECHO.Cols[colgrfOutLabDscVsDate].Width = 100;
+            grfECHO.Cols[colgrfOutLabDscVN].Width = 80;
+            grfECHO.Cols[colgrfOutLablabcode].Width = 80;
+            grfECHO.Cols[colgrfOutLablabname].Width = 250;
+
+            grfECHO.Cols[colgrfOutLabDscHN].Caption = "";
+            grfECHO.Cols[colgrfOutLabDscPttName].Caption = "";
+            grfECHO.Cols[colgrfOutLabDscVsDate].Caption = "Visit Date";
+            grfECHO.Cols[colgrfOutLabDscVN].Caption = "VN";
+
+            grfECHO.Cols[colgrfOutLabDscId].Visible = false;
+            grfECHO.Cols[colgrfOutLabDscHN].AllowEditing = false;
+            grfECHO.Cols[colgrfOutLabDscPttName].AllowEditing = false;
+            grfECHO.Cols[colgrfOutLabDscVsDate].AllowEditing = false;
+            grfECHO.Cols[colgrfOutLabDscVN].AllowEditing = false;
+            grfECHO.Cols[colgrfOutLablabcode].Visible = false;
+            grfECHO.Cols[colgrfOutLablabname].Visible = false;
+            grfECHO.Click += GrfECHO_Click;
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("ต้องการ ยกเลิก", new EventHandler(ContextMenu_voidEKG));
+            //grfEKG.ContextMenu = menuGw;
+            pnECHOTop.Controls.Add(grfECHO);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfECHO, bc.iniC.themegrfOpd);
+        }
+
+        private void GrfECHO_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfECHO.Row <= 0) return;
+            if (grfECHO.Col <= 0) return;
+            String hn = "", vn = "", vsDate = "", dscid = "";
+            dscid = grfECHO[grfECHO.Row, colgrfOutLabDscId] != null ? grfECHO[grfECHO.Row, colgrfOutLabDscId].ToString() : "";
+            try
+            {
+                pnECHOView.Controls.Clear();
+                C1FlexViewer fv = new C1FlexViewer();
+                fv.AutoScrollMargin = new System.Drawing.Size(0, 0);
+                fv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+                fv.Dock = System.Windows.Forms.DockStyle.Fill;
+                fv.Location = new System.Drawing.Point(0, 0);
+                fv.Name = "fvSrcECHOScan";
+                fv.Size = new System.Drawing.Size(1065, 790);
+                fv.TabIndex = 0;
+                fv.Ribbon.Minimized = true;
+                pnECHOView.Controls.Add(fv);
+                try
+                {
+                    DocScan dsc = new DocScan();
+                    dsc = bc.bcDB.dscDB.selectByPk(dscid);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                    MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                    if (dsc.image_path.ToLower().IndexOf("pdf") > 0)
+                    {
+                        pds.LoadFromStream(streamCertiDtr);
+                        fv.DocumentSource = pds;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmOPD GrfECHO_Click " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfECHO_Click", ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmOPD GrfECHO_Click " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfECHO_Click save  ", ex.Message);
+                //lfSbMessage.Text = ex.Message;
+            }
+        }
+        private void setGrfECHO()
+        {
+            grfECHO.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.dscDB.selectByECHO(txtHn.Text.Trim());
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfECHO.Rows.Add();
+                rowa[colgrfOutLabDscVsDate] = bc.datetoShow1(row1["visit_date"].ToString());
+                rowa[colgrfOutLabDscVN] = row1["vn"].ToString();
+                rowa[colgrfOutLabDscId] = row1["doc_scan_id"].ToString();
+            }
+        }
+        private void initGrfEKG()
+        {
+            grfEKG = new C1FlexGrid();
+            grfEKG.Font = fEdit;
+            grfEKG.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfEKG.Location = new System.Drawing.Point(0, 0);
+            grfEKG.Rows.Count = 1;
+            grfEKG.Cols.Count = 8;
+
+            grfEKG.Cols[colgrfOutLabDscHN].Width = 80;
+            grfEKG.Cols[colgrfOutLabDscPttName].Width = 250;
+            grfEKG.Cols[colgrfOutLabDscVsDate].Width = 100;
+            grfEKG.Cols[colgrfOutLabDscVN].Width = 80;
+            grfEKG.Cols[colgrfOutLablabcode].Width = 80;
+            grfEKG.Cols[colgrfOutLablabname].Width = 250;
+
+            grfEKG.Cols[colgrfOutLabDscHN].Caption = "";
+            grfEKG.Cols[colgrfOutLabDscPttName].Caption = "";
+            grfEKG.Cols[colgrfOutLabDscVsDate].Caption = "Visit Date";
+            grfEKG.Cols[colgrfOutLabDscVN].Caption = "VN";
+
+            grfEKG.Cols[colgrfOutLabDscId].Visible = false;
+            grfEKG.Cols[colgrfOutLabDscHN].AllowEditing = false;
+            grfEKG.Cols[colgrfOutLabDscPttName].AllowEditing = false;
+            grfEKG.Cols[colgrfOutLabDscVsDate].AllowEditing = false;
+            grfEKG.Cols[colgrfOutLabDscVN].AllowEditing = false;
+            grfEKG.Cols[colgrfOutLablabcode].Visible = false;
+            grfEKG.Cols[colgrfOutLablabname].Visible = false;
+            grfEKG.Click += GrfEKG_Click;
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("ต้องการ ยกเลิก", new EventHandler(ContextMenu_voidEKG));
+            //grfEKG.ContextMenu = menuGw;
+            pnEKGTop.Controls.Add(grfEKG);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfEKG, bc.iniC.themegrfOpd);
+        }
+
+        private void GrfEKG_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfEKG.Row <= 0) return;
+            if (grfEKG.Col <= 0) return;
+            String hn = "", vn = "", vsDate = "", dscid = "";
+            dscid = grfEKG[grfEKG.Row, colgrfOutLabDscId] != null ? grfEKG[grfEKG.Row, colgrfOutLabDscId].ToString() : "";
+            try
+            {
+                pnEKGView.Controls.Clear();
+                C1FlexViewer fv = new C1FlexViewer();
+                fv.AutoScrollMargin = new System.Drawing.Size(0, 0);
+                fv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+                fv.Dock = System.Windows.Forms.DockStyle.Fill;
+                fv.Location = new System.Drawing.Point(0, 0);
+                fv.Name = "fvSrcEKGScan";
+                fv.Size = new System.Drawing.Size(1065, 790);
+                fv.TabIndex = 0;
+                fv.Ribbon.Minimized = true;
+                pnEKGView.Controls.Add(fv);
+                try
+                {
+                    DocScan dsc = new DocScan();
+                    dsc = bc.bcDB.dscDB.selectByPk(dscid);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                    MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                    if (dsc.image_path.ToLower().IndexOf("pdf") > 0)
+                    {
+                        pds.LoadFromStream(streamCertiDtr);
+                        fv.DocumentSource = pds;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmOPD GrfEKG_DoubleClick " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfEKG_DoubleClick", ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmOPD GrfEKG_DoubleClick " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfEKG_DoubleClick save  ", ex.Message);
+                //lfSbMessage.Text = ex.Message;
+            }
+        }
+        private void setGrfEKG()
+        {
+            grfEKG.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.dscDB.selectByEKG(txtHn.Text.Trim());
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfEKG.Rows.Add();
+                rowa[colgrfOutLabDscVsDate] = bc.datetoShow1(row1["visit_date"].ToString());
+                rowa[colgrfOutLabDscVN] = row1["vn"].ToString();
+                rowa[colgrfOutLabDscId] = row1["doc_scan_id"].ToString();
+            }
+        }
+        private void initGrfDocOLD()
+        {
+            grfDocOLD = new C1FlexGrid();
+            grfDocOLD.Font = fEdit;
+            grfDocOLD.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfDocOLD.Location = new System.Drawing.Point(0, 0);
+            grfDocOLD.Rows.Count = 1;
+            grfDocOLD.Cols.Count = 8;
+
+            grfDocOLD.Cols[colgrfOutLabDscHN].Width = 80;
+            grfDocOLD.Cols[colgrfOutLabDscPttName].Width = 250;
+            grfDocOLD.Cols[colgrfOutLabDscVsDate].Width = 100;
+            grfDocOLD.Cols[colgrfOutLabDscVN].Width = 80;
+            grfDocOLD.Cols[colgrfOutLablabcode].Width = 80;
+            grfDocOLD.Cols[colgrfOutLablabname].Width = 250;
+
+            grfDocOLD.Cols[colgrfOutLabDscHN].Caption = "HN";
+            grfDocOLD.Cols[colgrfOutLabDscPttName].Caption = "Name";
+            grfDocOLD.Cols[colgrfOutLabDscVsDate].Caption = "Visit Date";
+            grfDocOLD.Cols[colgrfOutLabDscVN].Caption = "VN";
+
+            grfDocOLD.Cols[colgrfOutLabDscId].Visible = false;
+            grfDocOLD.Cols[colgrfOutLabDscHN].AllowEditing = false;
+            grfDocOLD.Cols[colgrfOutLabDscPttName].AllowEditing = false;
+            grfDocOLD.Cols[colgrfOutLabDscVsDate].AllowEditing = false;
+            grfDocOLD.Cols[colgrfOutLabDscVN].AllowEditing = false;
+            grfDocOLD.Cols[colgrfOutLablabcode].Visible = false;
+            grfDocOLD.Cols[colgrfOutLablabname].Visible = false;
+            grfDocOLD.Click += GrfDocOLD_Click;
+            
+            pnDocTop.Controls.Add(grfDocOLD);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfDocOLD, bc.iniC.themegrfOpd);
+        }
+
+        private void GrfDocOLD_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfDocOLD.Row <= 0) return;
+            if (grfDocOLD.Col <= 0) return;
+            String hn = "", vn = "", vsDate = "", dscid = "";
+            dscid = grfDocOLD[grfDocOLD.Row, colgrfOutLabDscId] != null ? grfDocOLD[grfDocOLD.Row, colgrfOutLabDscId].ToString() : "";
+            try
+            {
+                pnDocView.Controls.Clear();
+                C1FlexViewer fv = new C1FlexViewer();
+                fv.AutoScrollMargin = new System.Drawing.Size(0, 0);
+                fv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+                fv.Dock = System.Windows.Forms.DockStyle.Fill;
+                fv.Location = new System.Drawing.Point(0, 0);
+                fv.Name = "fvSrcDocOLDScan";
+                fv.Size = new System.Drawing.Size(1065, 790);
+                fv.TabIndex = 0;
+                fv.Ribbon.Minimized = true;
+                pnDocView.Controls.Add(fv);
+                try
+                {
+                    DocScan dsc = new DocScan();
+                    dsc = bc.bcDB.dscDB.selectByPk(dscid);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+                    FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
+                    MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                    if (dsc.image_path.ToLower().IndexOf("pdf") > 0)
+                    {
+                        pds.LoadFromStream(streamCertiDtr);
+                        fv.DocumentSource = pds;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmOPD GrfDocOLD_DoubleClick " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfDocOLD_DoubleClick", ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmOPD GrfDocOLD_DoubleClick " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfDocOLD_DoubleClick save  ", ex.Message);
+                //lfSbMessage.Text = ex.Message;
+            }
+        }
+        private void setGrfDocOLD()
+        {
+            grfDocOLD.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.dscDB.selectByDocOLD(txtHn.Text.Trim());
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfDocOLD.Rows.Add();
+                rowa[colgrfOutLabDscVsDate] = bc.datetoShow1(row1["visit_date"].ToString());
+                rowa[colgrfOutLabDscVN] = row1["vn"].ToString();
+                rowa[colgrfOutLabDscId] = row1["doc_scan_id"].ToString();
+            }
+        }
+        private void initGrfEarEyeLung()
+        {
+            grfEarEyeLung = new C1FlexGrid();
+            grfEarEyeLung.Font = fEdit;
+            grfEarEyeLung.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfEarEyeLung.Location = new System.Drawing.Point(0, 0);
+            grfEarEyeLung.Rows.Count = 1;
+            grfEarEyeLung.Cols.Count = 15;
+
+            grfEarEyeLung.Cols[colgrfLungLeftEar].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungRightEar].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungLeftEarNormal].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungRightEarNormal].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungLeftEarOther].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungRightEarOther].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungLeftEye].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungRightEye].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungLeftEyePh].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungRightEyePh].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungEyeNormal].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungLungValue].Width = 80;
+            grfEarEyeLung.Cols[colgrfLungLungNormal].Width = 80;
+
+            grfEarEyeLung.Cols[colgrfLungLeftEar].Caption = "หูซ้าย";
+            grfEarEyeLung.Cols[colgrfLungRightEar].Caption = "หูขวา";
+            grfEarEyeLung.Cols[colgrfLungLeftEarNormal].Caption = "หูซ้าย";
+            grfEarEyeLung.Cols[colgrfLungRightEarNormal].Caption = "หูขวา";
+            grfEarEyeLung.Cols[colgrfLungLeftEarOther].Caption = "หูซ้ายอื่นๆ";
+            grfEarEyeLung.Cols[colgrfLungRightEarOther].Caption = "หูซ้ายอื่นๆ";
+            grfEarEyeLung.Cols[colgrfLungLeftEye].Caption = "ตาซ้าย";
+            grfEarEyeLung.Cols[colgrfLungRightEye].Caption = "ตาขวา";
+            grfEarEyeLung.Cols[colgrfLungLeftEyePh].Caption = "ตาซ้าย";
+            grfEarEyeLung.Cols[colgrfLungRightEyePh].Caption = "ตาขวา";
+            grfEarEyeLung.Cols[colgrfLungEyeNormal].Caption = "ตาบอดสี";
+            grfEarEyeLung.Cols[colgrfLungLungValue].Caption = "ปอด";
+            grfEarEyeLung.Cols[colgrfLungLungNormal].Caption = "ปอดปกติ";
+
+            grfEarEyeLung.Cols[colgrfLungLeftEar].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungRightEar].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungLeftEarNormal].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungRightEarNormal].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungLeftEarOther].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungRightEarOther].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungLeftEye].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungRightEye].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungLeftEyePh].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungRightEyePh].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungEyeNormal].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungLungValue].AllowEditing = false;
+            grfEarEyeLung.Cols[colgrfLungLungNormal].AllowEditing = false;
+            grfEarEyeLung.Click += GrfEarEyeLung_Click;
+            //ContextMenu menuGw = new ContextMenu();
+            //menuGw.MenuItems.Add("ต้องการ ยกเลิก", new EventHandler(ContextMenu_voidEKG));
+            //grfEKG.ContextMenu = menuGw;
+            pnEarEyeLung.Controls.Add(grfEarEyeLung);
+
+            //theme1.SetTheme(grfOPD, "ExpressionDark");
+            theme1.SetTheme(grfEarEyeLung, bc.iniC.themegrfOpd);
+        }
+        private void setGrfEarEyeLung()
+        {
+            grfEarEyeLung.Rows.Count = 1;
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.vsDB.selectEarEyeLung(txtHn.Text.Trim());
+            foreach (DataRow row1 in dt.Rows)
+            {
+                Row rowa = grfEarEyeLung.Rows.Add();
+                rowa[colgrfLungVsDate] = row1["MNC_DATE"].ToString();
+                rowa[colgrfLungLeftEar] = row1["left_ear"].ToString();
+                rowa[colgrfLungRightEar] = row1["right_ear"].ToString();
+                rowa[colgrfLungLeftEarNormal] = row1["left_ear_normal"].ToString().Equals("1")? "Normal":"";
+                rowa[colgrfLungRightEarNormal] = row1["right_ear_normal"].ToString().Equals("1") ? "Normal" : "";
+                rowa[colgrfLungLeftEarOther] = row1["left_ear_other"].ToString();
+                rowa[colgrfLungRightEarOther] = row1["right_ear_other"].ToString();
+                rowa[colgrfLungLeftEye] = row1["left_eye"].ToString();
+                rowa[colgrfLungRightEye] = row1["right_eye"].ToString();
+                rowa[colgrfLungLeftEyePh] = row1["left_eye_ph"].ToString();
+                rowa[colgrfLungRightEyePh] = row1["right_eye_ph"].ToString();
+                rowa[colgrfLungEyeNormal] = row1["eye_normal"].ToString();
+                rowa[colgrfLungLungValue] = row1["lung_value"].ToString();
+                rowa[colgrfLungLungNormal] = row1["lung_normal"].ToString();
+            }
+        }
+        private void GrfEarEyeLung_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+
         }
 
         private void TcMac_DoubleClick(object sender, EventArgs e)
@@ -2020,6 +2708,14 @@ namespace bangna_hospital.gui
                 flagTabPic = true;
                 setTabGrfPicPatient();
             }
+            else if (tcDtr.SelectedTab == tabDocOLD)
+            {
+
+            }
+            else if (tcDtr.SelectedTab == tabDoc)
+            {
+
+            }
         }
         private void ContextMenu_CertiMedical_Print(object sender, System.EventArgs e)
         {
@@ -2545,6 +3241,11 @@ namespace bangna_hospital.gui
                 //setControlPnOrdDiagVal(vitalsign, pres, temp, weight, high, "", cc, ccin, ccex, abc, hc, bp1l, bp2l, radios, breath, symptom, vsDate, paidtype);
             }
             setControlGbPtt();
+            setGrfDocOLD();
+            setGrfEKG();
+            setGrfEST();
+            setGrfECHO();
+            setGrfHolter();
         }
         private void setTabGrfPicPatient()
         {

@@ -96,7 +96,7 @@ namespace bangna_hospital.gui
             {
                 Staff stf = new Staff();
                 stf = bc.bcDB.stfDB.selectByPasswordConfirm1(txtPassword.Text.Trim());
-                if (!stf.staff_id.Equals(""))
+                if ((stf.staff_id !=null)&&(!stf.staff_id.Equals("")))
                 {
                     label2.Text = stf.staff_fname_t + " " + stf.staff_lname_t;
                     bc.cStf = stf;

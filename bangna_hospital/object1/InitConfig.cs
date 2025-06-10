@@ -50,6 +50,6 @@ namespace bangna_hospital.object1
         public String pathLabOutReceiveATTA = "", pathLabOutBackupATTA = "", statusScreenCaptureUploadDoc = "", padYCertMed = "", statusScreenCaptureAutoSend = "", statusPrintPreview = "", nightTime = "", nightTimeOn = "", statusAutoPrintLabResult = "";
         public String statusdoctorold = "", linkmedicalscan = "", applicationrunnextrecord = "", statusdruginon = "", doealientoken="", urlbangnadoe="", provcode="", urlbangnadoeresult="";
         public String pathdoealiencert = "", pathlocalStaffNote="", compcodedoe="", staffNoteFontName="", staffNoteFontSize="", usersharepathstaffnote="", passwordsharepathstaffnote = "";
-        public String pathapp = "";
+        public String pathapp = "", pathlocalEKG="",pathlocalDocOLD="", pathlocalEST = "", pathlocalECHO="", pathlocalHolter="", statusPasswordConfirm="";
     }
 }

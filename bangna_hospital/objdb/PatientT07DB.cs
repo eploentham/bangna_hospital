@@ -436,7 +436,7 @@ namespace bangna_hospital.objdb
             }
             else
             {
-                chk = update(p.MNC_DOC_YR, p.MNC_DOC_NO, p.MNC_SECR_NO, p.MNC_DEPR_NO, p.MNC_APP_DSC, p.MNC_APP_TEL, p.MNC_APP_DAT, p.MNC_APP_TIM, p.apm_time);
+                chk = update(p.MNC_DOC_YR, p.MNC_DOC_NO, p.MNC_SECR_NO, p.MNC_DEPR_NO, p.MNC_APP_DSC, p.MNC_APP_TEL, p.MNC_APP_DAT, p.MNC_APP_TIM, p.apm_time, p.MNC_NAME,p.MNC_DOT_CD);
             }
 
             return chk;
@@ -466,6 +466,7 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("apm_desc", p.MNC_APP_DSC);
                 conn.comStore.Parameters.AddWithValue("apm_remark", p.MNC_REM_MEMO);
                 conn.comStore.Parameters.AddWithValue("apm_time1", p.apm_time);
+                conn.comStore.Parameters.AddWithValue("station_name", p.MNC_NAME);
 
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";
@@ -545,7 +546,7 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
-        public String update(String docyear, String docno, String secno, String deptno, String apmdesc, String ptttel, String apmdate, String apmtime, String apmtime1)
+        public String update(String docyear, String docno, String secno, String deptno, String apmdesc, String ptttel, String apmdate, String apmtime, String apmtime1, String stationname, String dtrcode)
         {
             String sql = "", chk = "", hn = "";
             long hn1 = 0;
@@ -559,6 +560,8 @@ namespace bangna_hospital.objdb
                     + "," + pt07.MNC_APP_DAT + " = '" + apmdate + "' "
                     + "," + pt07.MNC_APP_TIM + " = '" + apmtime + "' "
                     + "," + pt07.apm_time + " = '" + apmtime1 + "' "
+                    + "," + pt07.MNC_NAME + " = '" + stationname + "' "
+                    + "," + pt07.MNC_DOT_CD + " = '" + dtrcode + "' "
                     + "Where MNC_DOC_YR = '" + docyear + "' and MNC_DOC_NO = '" + docno + "' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 //new LogWriter("d", "update Temp chk " + chk + " docyear " + docyear + " docno " + docno);
@@ -589,6 +592,25 @@ namespace bangna_hospital.objdb
             {
                 chk = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "updateRemarkCall sql " + sql + " ex " + chk);
+            }
+            return chk;
+        }
+        public String deleteOrderApm(String docyear, String docno, String ordcode)
+        {
+            String sql = "", chk = "", hn = "";
+            long hn1 = 0;
+            try
+            {
+                sql = "Delete Patient_t073   "
+                    + " "
+                    + "Where MNC_DOC_YR = '" + docyear + "' and MNC_DOC_NO = '" + docno + "' and MNC_OPR_CD = '"+ ordcode+"' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //new LogWriter("d", "update Temp chk " + chk + " docyear " + docyear + " docno " + docno);
+            }
+            catch (Exception ex)
+            {
+                chk = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "voidAppoinment sql " + sql + " ex " + chk);
             }
             return chk;
         }

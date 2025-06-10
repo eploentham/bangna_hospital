@@ -264,13 +264,13 @@ namespace bangna_hospital.objdb
                 //sSOPBillTran = chknull(sSOPBillTran);
                 // Construct the SQL INSERT statement
                 string sql = "INSERT INTO " + sSOPBillTran.table + " (" +
-                    sSOPBillTran.station + ", " +                             sSOPBillTran.authcode + ", " +                             sSOPBillTran.dtran + ", " +
-                    sSOPBillTran.hcode + ", " +                             sSOPBillTran.invno + ", " +                             sSOPBillTran.billno + ", " +
-                    sSOPBillTran.hn + ", " +                             sSOPBillTran.memberno + ", " +                             sSOPBillTran.amount + ", " +
-                    sSOPBillTran.paid + ", " +                             sSOPBillTran.vercode + ", " +                             sSOPBillTran.tflag + ", " +
-                    sSOPBillTran.pid + ", " +                             sSOPBillTran.name + ", " +                             sSOPBillTran.hmain + ", " +
-                    sSOPBillTran.payplan + ", " +                             sSOPBillTran.claimamt + ", " +                    sSOPBillTran.otherpayplan + ", " +
-                    sSOPBillTran.otherpay + ", " +                             sSOPBillTran.active + ", " +                     sSOPBillTran.preno + ", date_create, status_process) " +
+                    sSOPBillTran.station + ", " +                       sSOPBillTran.authcode + ", " +                          sSOPBillTran.dtran + ", " +
+                    sSOPBillTran.hcode + ", " +                         sSOPBillTran.invno + ", " +                             sSOPBillTran.billno + ", " +
+                    sSOPBillTran.hn + ", " +                            sSOPBillTran.memberno + ", " +                          sSOPBillTran.amount + ", " +
+                    sSOPBillTran.paid + ", " +                          sSOPBillTran.vercode + ", " +                        sSOPBillTran.tflag + ", " +
+                    sSOPBillTran.pid + ", " +                           sSOPBillTran.name + ", " +                            sSOPBillTran.hmain + ", " +
+                    sSOPBillTran.payplan + ", " +                       sSOPBillTran.claimamt + ", " +                    sSOPBillTran.otherpayplan + ", " +
+                    sSOPBillTran.otherpay + ", " +                      sSOPBillTran.active + ", " +                     sSOPBillTran.preno + ", date_create, status_process) " +
                     "VALUES (" +
                     "'" + p.station + "', " +                             "'" + p.authcode + "', " +                        "'" + p.dtran + "', " +
                     "'" + p.hcode + "', " +                             "'" + p.invno + "', " +                             "'" + p.billno + "', " +

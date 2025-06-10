@@ -703,6 +703,78 @@ namespace bangna_hospital.objdb
             cop1 = setDocScan(dt);
             return cop1;
         }
+        public DataTable selectByDocOLD(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                " and status_record = '3' and active = '1' and doc_group_sub_id = '1200000039' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
+        public DataTable selectByHolter(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                " and status_record = '3' and active = '1' and doc_group_sub_id = '1200000042' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
+        public DataTable selectByCertMed(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                " and status_record = '4' and active = '1' and doc_group_sub_id = '1200000030' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
+        public DataTable selectByECHO(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                " and status_record = '3' and active = '1' and doc_group_sub_id = '1200000041' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
+        public DataTable selectByEST(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                " and status_record = '3' and active = '1' and doc_group_sub_id = '1200000040' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
+        public DataTable selectByEKG(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' " +
+                " and status_record = '3' and active = '1' and doc_group_sub_id = '1200000038' " +
+                "Order By doc_group_id ";
+            dt = conn.selectData(conn.conn, sql);
+            return dt;
+        }
         public DataTable selectByVn(String hn, String vn, String vsDate)
         {
             DocScan cop1 = new DocScan();
@@ -959,6 +1031,64 @@ namespace bangna_hospital.objdb
             {
                 sql = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "insertScreenCapture sql " + sql );
+            }
+            finally
+            {
+                conn.conn.Close();
+                conn.comStore.Dispose();
+            }
+            return re;
+        }
+        public String insertEKG(DocScan p, String userId)
+        {
+            String re = "";
+            String sql = "";
+            DataTable dt = new DataTable();
+            p.active = "1";
+            //p.ssdata_id = "";
+            int chk = 0;
+            chkNull(p);
+
+            try
+            {
+                //new LogWriter("d", "insertScreenCapture p.an " + p.an+ " p.vn "+ p.vn);
+                conn.comStore = new System.Data.SqlClient.SqlCommand();
+                conn.comStore.Connection = conn.conn;
+                conn.comStore.CommandText = "insert_doc_scan_v41";
+                conn.comStore.CommandType = CommandType.StoredProcedure;
+                conn.comStore.Parameters.AddWithValue("doc_group_id", p.doc_group_id);
+                conn.comStore.Parameters.AddWithValue("host_ftp", p.host_ftp);
+                conn.comStore.Parameters.AddWithValue("hn", p.hn);
+                conn.comStore.Parameters.AddWithValue("vn", p.vn);
+                conn.comStore.Parameters.AddWithValue("remark", p.remark);
+                conn.comStore.Parameters.AddWithValue("user_create", userId);
+                conn.comStore.Parameters.AddWithValue("an", p.an);
+                conn.comStore.Parameters.AddWithValue("doc_group_sub_id", p.doc_group_sub_id);
+                conn.comStore.Parameters.AddWithValue("pre_no", p.pre_no);
+                conn.comStore.Parameters.AddWithValue("an_date", p.an_date);
+                conn.comStore.Parameters.AddWithValue("status_ipd", p.status_ipd);
+                conn.comStore.Parameters.AddWithValue("ext", p.image_path);
+                conn.comStore.Parameters.AddWithValue("visit_date", p.visit_date);
+                conn.comStore.Parameters.AddWithValue("folder_ftp", p.folder_ftp);
+                conn.comStore.Parameters.AddWithValue("row_no2", p.row_no);
+                conn.comStore.Parameters.AddWithValue("row_cnt", p.row_cnt);
+                conn.comStore.Parameters.AddWithValue("status_version", p.status_version);
+                conn.comStore.Parameters.AddWithValue("pic_before_scan", p.pic_before_scan_cnt);
+                conn.comStore.Parameters.AddWithValue("ml_fm", p.ml_fm);
+                conn.comStore.Parameters.AddWithValue("status_ml", p.status_ml);
+                SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
+                retval.Value = "";
+                retval.Direction = ParameterDirection.Output;
+
+                conn.conn.Open();
+                conn.comStore.ExecuteNonQuery();
+                re = (String)conn.comStore.Parameters["row_no1"].Value;
+                //string retunvalue = (string)sqlcomm.Parameters["@b"].Value;
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "insertEKG sql " + sql);
             }
             finally
             {

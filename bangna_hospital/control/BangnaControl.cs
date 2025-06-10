@@ -701,6 +701,28 @@ namespace bangna_hospital.control
 
             return c;
         }
+        public C1ComboBox setCboNormal(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "Normal";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "0";
+            item.Text = "AbNormal";
+            c.Items.Add(item);
+
+            return c;
+        }
         public C1ComboBox setCboTokenType(C1ComboBox c)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -1150,6 +1172,12 @@ namespace bangna_hospital.control
             iniC.usersharepathstaffnote = iniF.getIni("app", "usersharepathstaffnote");
             iniC.passwordsharepathstaffnote = iniF.getIni("app", "passwordsharepathstaffnote");
             iniC.pathapp = iniF.getIni("app", "pathapp");
+            iniC.pathlocalEKG = iniF.getIni("app", "pathlocalEKG");
+            iniC.pathlocalDocOLD = iniF.getIni("app", "pathlocalDocOLD");
+            iniC.pathlocalEST = iniF.getIni("app", "pathlocalEST");
+            iniC.pathlocalECHO = iniF.getIni("app", "pathlocalECHO");
+            iniC.pathlocalHolter = iniF.getIni("app", "pathlocalHolter");
+            iniC.statusPasswordConfirm = iniF.getIni("app", "statusPasswordConfirm");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1262,6 +1290,12 @@ namespace bangna_hospital.control
             iniC.staffNoteFontName = iniC.staffNoteFontName == null ? iniC.pdfFontName : iniC.staffNoteFontName.Equals("") ? iniC.pdfFontName : iniC.staffNoteFontName;
             iniC.staffNoteFontSize = iniC.staffNoteFontSize == null ? iniC.pdfFontSize : iniC.staffNoteFontSize.Equals("") ? iniC.pdfFontSize : iniC.staffNoteFontSize;
             iniC.pathapp = iniC.pathapp == null ? "C:\app" : iniC.pathapp.Equals("") ? "C:\app" : iniC.pathapp;
+            iniC.pathlocalEKG = iniC.pathlocalEKG == null ? "D:\\EKG" : iniC.pathlocalEKG.Equals("") ? "D:\\EKG" : iniC.pathlocalEKG;
+            iniC.pathlocalDocOLD = iniC.pathlocalDocOLD == null ? "D:\\docold" : iniC.pathlocalDocOLD.Equals("") ? "D:\\docold" : iniC.pathlocalDocOLD;
+            iniC.pathlocalEST = iniC.pathlocalEST == null ? "D:\\EST" : iniC.pathlocalEST.Equals("") ? "D:\\EST" : iniC.pathlocalEST;
+            iniC.pathlocalECHO = iniC.pathlocalECHO == null ? "D:\\ECHO" : iniC.pathlocalECHO.Equals("") ? "D:\\ECHO" : iniC.pathlocalECHO;
+            iniC.pathlocalHolter = iniC.pathlocalHolter == null ? "D:\\Holter" : iniC.pathlocalHolter.Equals("") ? "D:\\Holter" : iniC.pathlocalHolter;
+            iniC.statusPasswordConfirm = iniC.statusPasswordConfirm == null ? "0" : iniC.statusPasswordConfirm.Equals("") ? "0" : iniC.statusPasswordConfirm;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);

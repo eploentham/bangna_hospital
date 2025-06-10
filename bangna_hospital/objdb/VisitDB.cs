@@ -531,7 +531,7 @@ namespace bangna_hospital.objdb
                 " WHERE   pt01.MNC_STS <> 'C'  " + wheresec  +
                 " and pt01.mnc_date >= '" + datestart+ "' and pt01.mnc_date <= '" + dateend + "' " +
                 "and pt01.MNC_ACT_NO >= '101' " +
-                //"and pt01.MNC_ACT_NO < '131' " +  // comment ไว้ test โปรแกรม
+                "and pt01.MNC_ACT_NO < '131' " +  // comment ไว้ test โปรแกรม
                 " Order By pt01.mnc_date, pt01.mnc_time ";
             dt = conn.selectData(sql);
 
@@ -1690,6 +1690,37 @@ namespace bangna_hospital.objdb
                 " Order by t01.MNC_HN_NO, t01.MNC_PRE_NO ";
             dt = conn.selectData(sql);
 
+            return dt;
+        }
+        public DataTable selectEarEyeLung(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select convert(varchar(20),MNC_DATE,23) as MNC_DATE, isnull(left_ear,'') as left_ear,isnull(right_ear,'') as right_ear,isnull(left_ear_normal,'') as left_ear_normal " +
+                ",isnull(right_ear_normal,'') as right_ear_normal,isnull(left_ear_other,'') as left_ear_other,isnull(right_ear_other,'') as right_ear_other " +
+                ",isnull(left_eye,'') as left_eye,isnull(right_eye,'') as right_eye,isnull(left_eye_ph,'') as left_eye_ph,isnull(right_eye_ph,'') as right_eye_ph " +
+                ",isnull(eye_normal,'') as eye_normal,isnull(lung_value,'') as lung_value,isnull(lung_normal,'') as lung_normal " +
+                "From  patient_t01_1  " +
+                " " +
+                "where   patient_t01_1.mnc_hn_no = '" + hn + "'  " +
+                " ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectT011(String hn, String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select * " +
+                "From  patient_t01_1  " +
+                " " +
+                "where   patient_t01_1.mnc_hn_no = '" + hn + "'  " +
+                " and patient_t01_1.MNC_DATE = '" + vsdate + "' " +
+                " and patient_t01_1.mnc_pre_no = " + preno + " " +
+                " ";
+
+            dt = conn.selectData(sql);
             return dt;
         }
         public DataTable selectVisitByHn2(String hn, String visitDate)
@@ -4839,8 +4870,8 @@ namespace bangna_hospital.objdb
         {
             String sql = "", re = "";
             sql = "update patient_t01 set " +
-                //"mnc_act_no = '610'" +
-                "mnc_act_no = '131'" +
+                "MNC_STAFF_STS = 'A'" +     //แก้ใหม่ เพราะ OPD5  ปิดรับทำการแล้วห้องยา ไม่เห็น ใน tab แรก
+                ",mnc_act_no = '131'" +
                 //", mnc_sts = 'F' " +
                 ", mnc_sts = 'O' " +
                 //", mnc_lab_flg = 'A' " +
@@ -4851,6 +4882,7 @@ namespace bangna_hospital.objdb
                 sql = "update patient_t01_1 set act_no_131 = replace(left(convert(varchar(100),getdate(),108),5),':','') " +
                        "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //UPDATE PATIENT_T01_2 SET MNC_ACT_NO = @ACT_NO WHERE(MNC_HN_NO = @HN_NO) AND(MNC_HN_YR = @HN_YR) AND(MNC_DATE = @MNC_DAT) AND(MNC_PRE_NO = @PRE_NO) AND(MNC_PAT_FLAG = @PAT_FLAG);
             }
             catch (Exception ex)
             {
@@ -4923,6 +4955,67 @@ namespace bangna_hospital.objdb
             String sql = "", re = "";
             sql = "update patient_t01 set " +
                 "certi_id = '"+ certid + "' " +
+                "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateMedicalCertId sql " + sql + " hn " + hn);
+            }
+            return re;
+        }
+        public String updateEar(String hn, String preno, String vsdate, String leftear, String rightear, String leftearnormal, String rightearnormal, String leftearother, String rightearother)
+        {
+            String sql = "", re = "";
+            sql = "update patient_t01_1 set " +
+                "left_ear = '" + leftear + "' " +
+                ",right_ear = '" + rightear + "' " +
+                ",left_ear_normal = '" + leftearnormal + "' " +
+                ",right_ear_normal = '" + rightearnormal + "' " +
+                ",left_ear_other = '" + leftearother + "' " +
+                ",right_ear_other = '" + rightearother + "' " +
+                "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateMedicalCertId sql " + sql + " hn " + hn);
+            }
+            return re;
+        }
+        public String updateEye(String hn, String preno, String vsdate, String lefteye, String righteye, String lefteyeph, String righteyeph, String eyenormal)
+        {
+            String sql = "", re = "";
+            sql = "update patient_t01_1 set " +
+                "left_eye = '" + lefteye + "' " +
+                ",right_eye = '" + righteye + "' " +
+                ",left_eye_ph = '" + lefteyeph + "' " +
+                ",right_eye_ph = '" + righteyeph + "' " +
+                ",eye_normal = '" + eyenormal + "' " +
+                "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateMedicalCertId sql " + sql + " hn " + hn);
+            }
+            return re;
+        }
+        public String updateLung(String hn, String preno, String vsdate, String lungvalue, String lungnormal)
+        {
+            String sql = "", re = "";
+            sql = "update patient_t01_1 set " +
+                "lung_value = '" + lungvalue + "' " +
+                ",lung_normal = '" + lungnormal + "' " +
                 "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
             try
             {

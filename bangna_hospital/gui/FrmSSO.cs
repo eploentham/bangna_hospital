@@ -235,7 +235,7 @@ namespace bangna_hospital.gui
             List<SSOPDispenseditem> ldispitems = new List<SSOPDispenseditem>();
             List<SSOPOpservices> lopserv = new List<SSOPOpservices>();
             List<SSOPOpdx> lopdx = new List<SSOPOpdx>();
-            String hcode ="88888",Hmain = "", sessionNo = "999999", pathFile = "";
+            String hcode =bc.iniC.ssoid,Hmain = "", sessionNo = "999999", pathFile = "";
             if (grfMakeText.Rows.Count > 0)
             {
                 foreach (Row rowa in grfMakeText.Rows)
@@ -248,27 +248,27 @@ namespace bangna_hospital.gui
                         List<SSOPBillItems> litems = bc.bcDB.ssopBillItemsDB.selectByBTransId(id);
                         if(litems != null && litems.Count > 0)
                         {
-                            foreach (SSOPBillItems item in litems)                            {                                lbillitems.Add(item);                            }
+                            foreach (SSOPBillItems item in litems)                              {                                lbillitems.Add(item);              }
                         }
                         List<SSOPDispensing> ldisp1 = bc.bcDB.sSOPDDB.selectByBTransId(id);
                         if (ldisp1 != null && ldisp1.Count > 0)
                         {
-                            foreach (SSOPDispensing item in ldisp1)                            {                                ldisp.Add(item);                            }
+                            foreach (SSOPDispensing item in ldisp1)                             {                                ldisp.Add(item);                   }
                         }
                         List<SSOPDispenseditem> ldispitems1 = bc.bcDB.sSOPDIDB.selectByBTransId(id);
                         if (ldispitems1 != null && ldispitems1.Count > 0)
                         {
-                            foreach (SSOPDispenseditem item in ldispitems1)                            {                                ldispitems.Add(item);                            }
+                            foreach (SSOPDispenseditem item in ldispitems1)                     {                                ldispitems.Add(item);              }
                         }
                         List<SSOPOpservices> lopserv1 = bc.bcDB.sSOPOSDB.selectByBTransId(id);
                         if (lopserv1 != null && lopserv1.Count > 0)
                         {
-                            foreach (SSOPOpservices item in lopserv1)                            {                                lopserv.Add(item);                            }
+                            foreach (SSOPOpservices item in lopserv1)                           {                                lopserv.Add(item);                 }
                         }
                         List<SSOPOpdx> lopdx1 = bc.bcDB.sSOPODDB.selectByBTransId(id);
                         if (lopdx1 != null && lopdx1.Count > 0)
                         {
-                            foreach (SSOPOpdx item in lopdx1)                            {                                lopdx.Add(item);                            }
+                            foreach (SSOPOpdx item in lopdx1)                                   {                                lopdx.Add(item);                   }
                         }
                     }
                 }
@@ -284,9 +284,9 @@ namespace bangna_hospital.gui
             if (!Directory.Exists(pathFile))            {                Directory.CreateDirectory(pathFile);            }
             String date1 = DateTime.Now.Year.ToString()+ DateTime.Now.ToString("MMdd");
             String senddate = DateTime.Now.Year.ToString() + DateTime.Now.ToString("-MM-dd")+"T" + DateTime.Now.ToString("HH:mm:ss");
-            String filenamebillt = pathFile + "\\" + "BillTran" + date1 + ".txt";
-            String filenamedisp = pathFile + "\\" + "SSOPDispensing" + date1 + ".txt";
-            String filenameopserv = pathFile + "\\" + "SSOPOpServices" + date1 + ".txt";
+            String filenamebillt = pathFile + "\\" + "BILLTRAN" + date1 + ".txt";
+            String filenamedisp = pathFile + "\\" + "BILLDISP" + date1 + ".txt";
+            String filenameopserv = pathFile + "\\" + "OPServices" + date1 + ".txt";
             SSOPxmlFile ssopxmlFile = new SSOPxmlFile();
             ssopxmlFile.genBillTrans(hcode, bc.iniC.hostname, senddate, sessionNo, lbillt, lbillitems, filenamebillt);
             ssopxmlFile.genDispensing(hcode, bc.iniC.hostname, senddate, sessionNo, ldisp, ldispitems, filenamedisp);
@@ -300,13 +300,16 @@ namespace bangna_hospital.gui
                 String fileZipName = "";
                 C1ZipFile zip = new C1ZipFile(); //iniC.ssoid
                 //fileZipName = Hmain+"AIPN"+ sessionNo;
-                fileZipName = bc.iniC.ssoid + "SSOP" + sessionNo;
+                senddate = senddate.Replace("-", "").Replace(":", "");
+                senddate = senddate.Replace("T", "-");
+                fileZipName = bc.iniC.ssoid + "_SSOPBIL_" + sessionNo+"_01_"+ senddate;
                 zip.Create(pathFile + "\\" + fileZipName + ".zip");
                 foreach (String filename in Directory.GetFiles(pathFile))
                 {
                     if (filename.IndexOf("-data") > 0)                  {                        continue;                    }
                     if (filename.IndexOf("-utf8") > 0)                  {                        continue;                    }
                     if (filename.IndexOf(".zip") > 0)                   {                        continue;                    }
+                    if (filename.IndexOf("_temp.txt") > 0) { continue; }
                     zip.Entries.Add(filename);
                 }
                 zip.Close();
@@ -499,11 +502,12 @@ namespace bangna_hospital.gui
                         String yr = "0000"+dt.Rows[0]["MNC_DOC_YR"].ToString();
                         yr = yr.Substring(2, 2);
                         invno = yr + no;//MNC_SUM_PRI
-                        amount = dt.Rows[0]["MNC_SUM_PRI"].ToString();                      paid = dt.Rows[0]["MNC_PAY_CASH"].ToString();                        secno = dt.Rows[0]["MNC_SEC_NO"].ToString();
-                        docno = dt.Rows[0]["MNC_DOC_NO"].ToString();                        docdate = dt.Rows[0]["MNC_DOC_DAT"].ToString();
+                        amount = dt.Rows[0]["MNC_SUM_PRI"].ToString();          paid = dt.Rows[0]["MNC_PAY_CASH"].ToString();       secno = dt.Rows[0]["MNC_SEC_NO"].ToString();
+                        docno = dt.Rows[0]["MNC_DOC_NO"].ToString();            docdate = dt.Rows[0]["MNC_DOC_DAT"].ToString();
                     }
+                    secno = "147";
                     SSOPBillTran ssopbilltran = setSSOPBillTran(secno, vsdate, invno, "", hn, preno, amount, paid
-                        , pid, name, "", "", "", "");
+                        , pid, name, "", "80", paid, "");
                     //setGrfSSOP(hn, preno, vsdate);
                     String rebillt = bc.bcDB.sSOPBillTranDB.insertData(ssopbilltran);
                     if (long.Parse(rebillt) > 0)
@@ -547,7 +551,7 @@ namespace bangna_hospital.gui
                                             disp.itemcnt = dtdrug.Rows.Count.ToString();            disp.chargeamt = rowd["MNC_PH_PRI"].ToString();         disp.claimamt = rowd["MNC_PH_PRI"].ToString();
                                             disp.paid = rowd["MNC_PH_PRI"].ToString();              disp.otherpay = rowd["MNC_PH_PRI"].ToString();          disp.reimburser = rowd["MNC_PH_PRI"].ToString();
                                             disp.benefitplan = "";                                  disp.dispestat = "1";                                   disp.svid = "OP1";
-                                            disp.daycover = "7D";
+                                            disp.daycover = "7D"; 
                                             String re3 = bc.bcDB.sSOPDDB.insertData(disp);
                                         }
                                         SSOPDispenseditem ditem = new SSOPDispenseditem();
@@ -566,7 +570,7 @@ namespace bangna_hospital.gui
                             {
                                 SSOPOpservices p = new SSOPOpservices();
                                 p.opservices_id = "";                               p.svid = svid;                              p.class1 = class1;
-                                p.invno = invno;                                    p.hcode = "";                               p.hn = hn;
+                                p.invno = invno;                                    p.hcode = bc.iniC.ssoid;                               p.hn = hn;
                                 p.pid = pid;                                        p.careaccount = "1";                        p.typeserv = "01";
                                 p.typein = "1";                                     p.typeout = "1";                            p.dtappoint = "";
                                 p.svpid = rowb["MNC_DOT_CD_DF"].ToString();   //  Doctor
@@ -637,17 +641,18 @@ namespace bangna_hospital.gui
             fEditS1 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize - 1, FontStyle.Regular);
 
         }
-        private SSOPBillTran setSSOPBillTran(string station, string dtran, string invno, string billno, string hn, String preno, string amount, string paid, string pid, string name, string hmain, string payplan, string claimamt, string otherpay)
+        private SSOPBillTran setSSOPBillTran(string station, string dtran, string invno, string billno, string hn, String preno, string amount, string paid, string pid, string name, string paidcode, string payplan, string claimamt, string otherpay)
         {
             SSOPBillTran sSOPBillTran = new SSOPBillTran();
-            sSOPBillTran.hcode = bc.iniC.ssoid; sSOPBillTran.hmain = bc.iniC.hostname;
+            sSOPBillTran.hcode = bc.iniC.ssoid; 
+            sSOPBillTran.hmain = paidcode.Equals("44")?"11592": paidcode.Equals("45")? "11772" : paidcode.Equals("46")?"24036": paidcode.Equals("47")? "11592" : paidcode.Equals("48")? "11772" : paidcode.Equals("49")? "24036" : "24036";
             sSOPBillTran.billtran_id = "";            sSOPBillTran.station = station ?? "";
             sSOPBillTran.authcode = "";            sSOPBillTran.dtran = dtran ?? "";
             sSOPBillTran.invno = invno ?? "";
             sSOPBillTran.billno = billno ?? "";            sSOPBillTran.hn = hn ?? "";
             sSOPBillTran.memberno = "";            sSOPBillTran.amount = amount ?? "";
             sSOPBillTran.paid = paid ?? "";            sSOPBillTran.vercode = "";
-            sSOPBillTran.tflag = "";            sSOPBillTran.pid = pid ?? "";
+            sSOPBillTran.tflag = "A";/*Fix Aขอเบิก*/            sSOPBillTran.pid = pid ?? "";
             sSOPBillTran.name = name ?? "";
             sSOPBillTran.payplan = payplan ?? "";            sSOPBillTran.claimamt = claimamt ?? "";
             sSOPBillTran.otherpayplan = "";            sSOPBillTran.otherpay = otherpay ?? "";
@@ -1711,7 +1716,7 @@ namespace bangna_hospital.gui
         }
         private void FrmSSO_Load(object sender, EventArgs e)
         {
-            this.Text = "last update 2025-05-27";
+            this.Text = "last update 2025-06-06";
             scSupraNew.HeaderHeight = 0;
             spSSOPget.HeaderHeight = 0;
             c1SplitContainer1.HeaderHeight = 0;

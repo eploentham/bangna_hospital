@@ -5415,18 +5415,18 @@
             this.c1SplitterPanel12.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel12.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel12.Name = "c1SplitterPanel12";
-            this.c1SplitterPanel12.Size = new System.Drawing.Size(795, 771);
+            this.c1SplitterPanel12.Size = new System.Drawing.Size(848, 771);
             this.c1SplitterPanel12.SizeRatio = 51.158D;
             this.c1SplitterPanel12.TabIndex = 0;
             this.c1SplitterPanel12.Text = "Panel 1";
-            this.c1SplitterPanel12.Width = 795;
+            this.c1SplitterPanel12.Width = 848;
             // 
             // pnGenTextSearch
             // 
             this.pnGenTextSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnGenTextSearch.Location = new System.Drawing.Point(0, 42);
             this.pnGenTextSearch.Name = "pnGenTextSearch";
-            this.pnGenTextSearch.Size = new System.Drawing.Size(795, 729);
+            this.pnGenTextSearch.Size = new System.Drawing.Size(848, 729);
             this.pnGenTextSearch.TabIndex = 1;
             // 
             // panel8
@@ -5436,7 +5436,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(0, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(795, 42);
+            this.panel8.Size = new System.Drawing.Size(848, 42);
             this.panel8.TabIndex = 0;
             // 
             // txtSSOPgentextSearch
@@ -5463,20 +5463,20 @@
             this.c1SplitterPanel13.Controls.Add(this.pnSSOPGenTextMaketext);
             this.c1SplitterPanel13.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
             this.c1SplitterPanel13.Height = 625;
-            this.c1SplitterPanel13.Location = new System.Drawing.Point(799, 188);
+            this.c1SplitterPanel13.Location = new System.Drawing.Point(852, 188);
             this.c1SplitterPanel13.Name = "c1SplitterPanel13";
-            this.c1SplitterPanel13.Size = new System.Drawing.Size(759, 604);
+            this.c1SplitterPanel13.Size = new System.Drawing.Size(810, 604);
             this.c1SplitterPanel13.SizeRatio = 81.726D;
             this.c1SplitterPanel13.TabIndex = 1;
             this.c1SplitterPanel13.Text = "Panel 2";
-            this.c1SplitterPanel13.Width = 759;
+            this.c1SplitterPanel13.Width = 810;
             // 
             // pnSSOPGenTextMaketext
             // 
             this.pnSSOPGenTextMaketext.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSSOPGenTextMaketext.Location = new System.Drawing.Point(0, 0);
             this.pnSSOPGenTextMaketext.Name = "pnSSOPGenTextMaketext";
-            this.pnSSOPGenTextMaketext.Size = new System.Drawing.Size(759, 604);
+            this.pnSSOPGenTextMaketext.Size = new System.Drawing.Size(810, 604);
             this.pnSSOPGenTextMaketext.TabIndex = 0;
             // 
             // c1SplitterPanel14
@@ -5491,9 +5491,9 @@
             this.c1SplitterPanel14.Controls.Add(this.txtSSOPgentextSessionid);
             this.c1SplitterPanel14.Controls.Add(this.btnSSOPgentextgentext);
             this.c1SplitterPanel14.Height = 163;
-            this.c1SplitterPanel14.Location = new System.Drawing.Point(799, 21);
+            this.c1SplitterPanel14.Location = new System.Drawing.Point(852, 21);
             this.c1SplitterPanel14.Name = "c1SplitterPanel14";
-            this.c1SplitterPanel14.Size = new System.Drawing.Size(759, 142);
+            this.c1SplitterPanel14.Size = new System.Drawing.Size(810, 142);
             this.c1SplitterPanel14.SizeRatio = 15.228D;
             this.c1SplitterPanel14.TabIndex = 2;
             this.c1SplitterPanel14.Text = "Panel 3";

@@ -36,6 +36,7 @@
             this.pnOperList = new System.Windows.Forms.Panel();
             this.spOperVisit = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnVitalSign = new System.Windows.Forms.Panel();
+            this.lboperAge = new System.Windows.Forms.Label();
             this.lbFindPaidSSO = new System.Windows.Forms.Label();
             this.lbOperVitalPrint = new System.Windows.Forms.Label();
             this.lbOperVitalTime = new System.Windows.Forms.Label();
@@ -168,6 +169,8 @@
             this.tabApm = new C1.Win.C1Command.C1DockingTabPage();
             this.scApm = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.lbDtrApmCnt = new System.Windows.Forms.Label();
+            this.lbDtrApmLimit = new System.Windows.Forms.Label();
             this.lbApm1Month = new System.Windows.Forms.Label();
             this.lbApm14Week = new System.Windows.Forms.Label();
             this.lbApm7Week = new System.Windows.Forms.Label();
@@ -698,9 +701,47 @@
             this.tabSearchLab = new C1.Win.C1Command.C1DockingTabPage();
             this.tabSearchXray = new C1.Win.C1Command.C1DockingTabPage();
             this.tabSearchProcedure = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabEKG = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnEKGView = new System.Windows.Forms.Panel();
+            this.pnEKG = new System.Windows.Forms.Panel();
+            this.pnEKGtop = new System.Windows.Forms.Panel();
+            this.btnSrcEKGScanSave = new C1.Win.C1Input.C1Button();
+            this.btnSrcEKGScanNew = new C1.Win.C1Input.C1Button();
+            this.tabECHO = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnECHOView = new System.Windows.Forms.Panel();
+            this.pnECHO = new System.Windows.Forms.Panel();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.btnSrcECHOScanSave = new C1.Win.C1Input.C1Button();
+            this.btnSrcECHOScanNew = new C1.Win.C1Input.C1Button();
+            this.tabEST = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnESTView = new System.Windows.Forms.Panel();
+            this.pnEST = new System.Windows.Forms.Panel();
+            this.panel25 = new System.Windows.Forms.Panel();
+            this.btnSrcESTScanSave = new C1.Win.C1Input.C1Button();
+            this.btnSrcESTScanNew = new C1.Win.C1Input.C1Button();
+            this.tabHolter = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnHolterView = new System.Windows.Forms.Panel();
+            this.pnHolter = new System.Windows.Forms.Panel();
+            this.panel28 = new System.Windows.Forms.Panel();
+            this.btnSrcHolterScanSave = new C1.Win.C1Input.C1Button();
+            this.btnSrcHolterScanNew = new C1.Win.C1Input.C1Button();
+            this.tabDocOLD = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnDocOLDView = new System.Windows.Forms.Panel();
+            this.pnDocOLD = new System.Windows.Forms.Panel();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.btnSrcDocOLDSave = new C1.Win.C1Input.C1Button();
+            this.btnSrcDocOLDNew = new C1.Win.C1Input.C1Button();
+            this.tabCertMed = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnCertMedView = new System.Windows.Forms.Panel();
+            this.pnCertMed = new System.Windows.Forms.Panel();
             this.spSrcPttSrc = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.lbSrcPreno = new System.Windows.Forms.Label();
+            this.lbSrcVN = new System.Windows.Forms.Label();
+            this.lbSrcVsDate = new System.Windows.Forms.Label();
+            this.lbSrcAge = new System.Windows.Forms.Label();
+            this.lbPttFinNote = new System.Windows.Forms.Label();
             this.lbChronic = new C1.Win.C1Input.C1Label();
-            this.lbAllery = new C1.Win.C1Input.C1Label();
+            this.lbDrugAllergy = new C1.Win.C1Input.C1Label();
             this.lvSrcPttName = new C1.Win.C1Input.C1Label();
             this.lbSrcHN = new C1.Win.C1Input.C1Label();
             this.pnSrcGrf = new System.Windows.Forms.Panel();
@@ -761,6 +802,36 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
+            this.label165 = new System.Windows.Forms.Label();
+            this.label166 = new System.Windows.Forms.Label();
+            this.label167 = new System.Windows.Forms.Label();
+            this.txtOperLeftEar = new C1.Win.C1Input.C1TextBox();
+            this.txtOperRightEar = new C1.Win.C1Input.C1TextBox();
+            this.txtOperLeftEarOther = new C1.Win.C1Input.C1TextBox();
+            this.txtOperRightEarOther = new C1.Win.C1Input.C1TextBox();
+            this.label168 = new System.Windows.Forms.Label();
+            this.chkOperLeftEarNormal = new System.Windows.Forms.RadioButton();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.chkOperLeftEarAbNormal = new System.Windows.Forms.RadioButton();
+            this.panel20 = new System.Windows.Forms.Panel();
+            this.chkOperRightEarAbNormal = new System.Windows.Forms.RadioButton();
+            this.chkOperRightEarNormal = new System.Windows.Forms.RadioButton();
+            this.txtOperRightEye = new C1.Win.C1Input.C1TextBox();
+            this.txtOperLeftEye = new C1.Win.C1Input.C1TextBox();
+            this.label169 = new System.Windows.Forms.Label();
+            this.label170 = new System.Windows.Forms.Label();
+            this.txtOperRightEyePh = new C1.Win.C1Input.C1TextBox();
+            this.txtOperLeftEyePh = new C1.Win.C1Input.C1TextBox();
+            this.label171 = new System.Windows.Forms.Label();
+            this.label172 = new System.Windows.Forms.Label();
+            this.cboOperEye = new C1.Win.C1Input.C1ComboBox();
+            this.btnOperEarSave = new C1.Win.C1Input.C1Button();
+            this.btnOperEyeSave = new C1.Win.C1Input.C1Button();
+            this.btnOperSaveStaffNote = new C1.Win.C1Input.C1Button();
+            this.label173 = new System.Windows.Forms.Label();
+            this.txtOperLung = new C1.Win.C1Input.C1TextBox();
+            this.cboOperLung = new C1.Win.C1Input.C1ComboBox();
+            this.btnOperLungSave = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -1037,9 +1108,30 @@
             this.spSrcLab.SuspendLayout();
             this.spSrcXray.SuspendLayout();
             this.spSrcProcedure.SuspendLayout();
+            this.tabEKG.SuspendLayout();
+            this.pnEKGtop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcEKGScanSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcEKGScanNew)).BeginInit();
+            this.tabECHO.SuspendLayout();
+            this.panel22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcECHOScanSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcECHOScanNew)).BeginInit();
+            this.tabEST.SuspendLayout();
+            this.panel25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcESTScanSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcESTScanNew)).BeginInit();
+            this.tabHolter.SuspendLayout();
+            this.panel28.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcHolterScanSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcHolterScanNew)).BeginInit();
+            this.tabDocOLD.SuspendLayout();
+            this.panel21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcDocOLDSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcDocOLDNew)).BeginInit();
+            this.tabCertMed.SuspendLayout();
             this.spSrcPttSrc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbChronic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbAllery)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbDrugAllergy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvSrcPttName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbSrcHN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).BeginInit();
@@ -1076,6 +1168,23 @@
             this.c1SplitContainer7.SuspendLayout();
             this.tabQue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEarOther)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEarOther)).BeginInit();
+            this.panel19.SuspendLayout();
+            this.panel20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEye)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEye)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEyePh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEyePh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboOperEye)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperEarSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperEyeSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperSaveStaffNote)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLung)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboOperLung)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperLungSave)).BeginInit();
             this.SuspendLayout();
             // 
             // tC1
@@ -1097,7 +1206,7 @@
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
             this.tC1.Name = "tC1";
-            this.tC1.Size = new System.Drawing.Size(1655, 1115);
+            this.tC1.Size = new System.Drawing.Size(2635, 1115);
             this.tC1.TabIndex = 0;
             this.tC1.TabsSpacing = 5;
             // 
@@ -1106,7 +1215,7 @@
             this.tabOper.Controls.Add(this.spOper);
             this.tabOper.Location = new System.Drawing.Point(1, 26);
             this.tabOper.Name = "tabOper";
-            this.tabOper.Size = new System.Drawing.Size(1653, 1088);
+            this.tabOper.Size = new System.Drawing.Size(2633, 1088);
             this.tabOper.TabIndex = 0;
             this.tabOper.Text = "คนไข้ในแผนก";
             // 
@@ -1122,7 +1231,7 @@
             this.spOper.Panels.Add(this.spOperList);
             this.spOper.Panels.Add(this.spOperVisit);
             this.spOper.Panels.Add(this.spOperOrder);
-            this.spOper.Size = new System.Drawing.Size(1653, 1088);
+            this.spOper.Size = new System.Drawing.Size(2633, 1088);
             this.spOper.TabIndex = 2;
             // 
             // spOperList
@@ -1132,34 +1241,61 @@
             this.spOperList.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.spOperList.Location = new System.Drawing.Point(0, 21);
             this.spOperList.Name = "spOperList";
-            this.spOperList.Size = new System.Drawing.Size(817, 1067);
+            this.spOperList.Size = new System.Drawing.Size(1307, 1067);
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 817;
+            this.spOperList.Width = 1314;
             // 
             // pnOperList
             // 
             this.pnOperList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOperList.Location = new System.Drawing.Point(0, 0);
             this.pnOperList.Name = "pnOperList";
-            this.pnOperList.Size = new System.Drawing.Size(817, 1067);
+            this.pnOperList.Size = new System.Drawing.Size(1307, 1067);
             this.pnOperList.TabIndex = 0;
             // 
             // spOperVisit
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 298;
-            this.spOperVisit.Location = new System.Drawing.Point(828, 21);
+            this.spOperVisit.Height = 305;
+            this.spOperVisit.Location = new System.Drawing.Point(1318, 21);
             this.spOperVisit.Name = "spOperVisit";
-            this.spOperVisit.Size = new System.Drawing.Size(825, 277);
+            this.spOperVisit.Size = new System.Drawing.Size(1315, 277);
             this.spOperVisit.SizeRatio = 28.137D;
             this.spOperVisit.TabIndex = 1;
             this.spOperVisit.Text = "Panel 2";
             // 
             // pnVitalSign
             // 
+            this.pnVitalSign.Controls.Add(this.btnOperLungSave);
+            this.pnVitalSign.Controls.Add(this.cboOperLung);
+            this.pnVitalSign.Controls.Add(this.txtOperLung);
+            this.pnVitalSign.Controls.Add(this.label173);
+            this.pnVitalSign.Controls.Add(this.btnOperSaveStaffNote);
+            this.pnVitalSign.Controls.Add(this.btnOperEyeSave);
+            this.pnVitalSign.Controls.Add(this.btnOperEarSave);
+            this.pnVitalSign.Controls.Add(this.cboOperEye);
+            this.pnVitalSign.Controls.Add(this.txtOperRightEyePh);
+            this.pnVitalSign.Controls.Add(this.txtOperLeftEyePh);
+            this.pnVitalSign.Controls.Add(this.label171);
+            this.pnVitalSign.Controls.Add(this.label172);
+            this.pnVitalSign.Controls.Add(this.txtOperRightEye);
+            this.pnVitalSign.Controls.Add(this.txtOperLeftEye);
+            this.pnVitalSign.Controls.Add(this.label169);
+            this.pnVitalSign.Controls.Add(this.label170);
+            this.pnVitalSign.Controls.Add(this.panel20);
+            this.pnVitalSign.Controls.Add(this.panel19);
+            this.pnVitalSign.Controls.Add(this.label168);
+            this.pnVitalSign.Controls.Add(this.txtOperRightEarOther);
+            this.pnVitalSign.Controls.Add(this.txtOperLeftEarOther);
+            this.pnVitalSign.Controls.Add(this.txtOperRightEar);
+            this.pnVitalSign.Controls.Add(this.txtOperLeftEar);
+            this.pnVitalSign.Controls.Add(this.label167);
+            this.pnVitalSign.Controls.Add(this.label166);
+            this.pnVitalSign.Controls.Add(this.label165);
+            this.pnVitalSign.Controls.Add(this.lboperAge);
             this.pnVitalSign.Controls.Add(this.lbFindPaidSSO);
             this.pnVitalSign.Controls.Add(this.lbOperVitalPrint);
             this.pnVitalSign.Controls.Add(this.lbOperVitalTime);
@@ -1228,8 +1364,20 @@
             this.pnVitalSign.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnVitalSign.Location = new System.Drawing.Point(0, 0);
             this.pnVitalSign.Name = "pnVitalSign";
-            this.pnVitalSign.Size = new System.Drawing.Size(825, 277);
+            this.pnVitalSign.Size = new System.Drawing.Size(1315, 277);
             this.pnVitalSign.TabIndex = 0;
+            // 
+            // lboperAge
+            // 
+            this.lboperAge.AutoSize = true;
+            this.lboperAge.BackColor = System.Drawing.Color.White;
+            this.lboperAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lboperAge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lboperAge.Location = new System.Drawing.Point(636, 8);
+            this.lboperAge.Name = "lboperAge";
+            this.lboperAge.Size = new System.Drawing.Size(21, 20);
+            this.lboperAge.TabIndex = 558;
+            this.lboperAge.Text = "...";
             // 
             // lbFindPaidSSO
             // 
@@ -1893,9 +2041,9 @@
             // 
             this.spOperOrder.Controls.Add(this.tCOrder);
             this.spOperOrder.Height = 779;
-            this.spOperOrder.Location = new System.Drawing.Point(828, 330);
+            this.spOperOrder.Location = new System.Drawing.Point(1318, 330);
             this.spOperOrder.Name = "spOperOrder";
-            this.spOperOrder.Size = new System.Drawing.Size(825, 758);
+            this.spOperOrder.Size = new System.Drawing.Size(1315, 758);
             this.spOperOrder.SizeRatio = 25D;
             this.spOperOrder.TabIndex = 2;
             this.spOperOrder.Text = "Panel 3";
@@ -1909,7 +2057,7 @@
             this.tCOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tCOrder.Location = new System.Drawing.Point(0, 0);
             this.tCOrder.Name = "tCOrder";
-            this.tCOrder.Size = new System.Drawing.Size(825, 758);
+            this.tCOrder.Size = new System.Drawing.Size(1315, 758);
             this.tCOrder.TabIndex = 0;
             this.tCOrder.TabsSpacing = 5;
             this.tCOrder.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -1919,7 +2067,7 @@
             this.tabHistory.Controls.Add(this.spHistory);
             this.tabHistory.Location = new System.Drawing.Point(1, 26);
             this.tabHistory.Name = "tabHistory";
-            this.tabHistory.Size = new System.Drawing.Size(823, 731);
+            this.tabHistory.Size = new System.Drawing.Size(1313, 731);
             this.tabHistory.TabIndex = 3;
             this.tabHistory.Text = "History";
             // 
@@ -1934,7 +2082,7 @@
             this.spHistory.Name = "spHistory";
             this.spHistory.Panels.Add(this.spHistoryVS);
             this.spHistory.Panels.Add(this.c1SplitterPanel6);
-            this.spHistory.Size = new System.Drawing.Size(823, 731);
+            this.spHistory.Size = new System.Drawing.Size(1313, 731);
             this.spHistory.TabIndex = 0;
             // 
             // spHistoryVS
@@ -1943,19 +2091,19 @@
             this.spHistoryVS.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.spHistoryVS.Location = new System.Drawing.Point(0, 21);
             this.spHistoryVS.Name = "spHistoryVS";
-            this.spHistoryVS.Size = new System.Drawing.Size(401, 710);
+            this.spHistoryVS.Size = new System.Drawing.Size(573, 710);
             this.spHistoryVS.SizeRatio = 49.862D;
             this.spHistoryVS.TabIndex = 0;
             this.spHistoryVS.Text = "Panel 1";
-            this.spHistoryVS.Width = 401;
+            this.spHistoryVS.Width = 573;
             // 
             // c1SplitterPanel6
             // 
             this.c1SplitterPanel6.Controls.Add(this.tCHistory);
             this.c1SplitterPanel6.Height = 731;
-            this.c1SplitterPanel6.Location = new System.Drawing.Point(412, 21);
+            this.c1SplitterPanel6.Location = new System.Drawing.Point(584, 21);
             this.c1SplitterPanel6.Name = "c1SplitterPanel6";
-            this.c1SplitterPanel6.Size = new System.Drawing.Size(411, 710);
+            this.c1SplitterPanel6.Size = new System.Drawing.Size(583, 710);
             this.c1SplitterPanel6.TabIndex = 1;
             this.c1SplitterPanel6.Text = "Panel 2";
             // 
@@ -1970,7 +2118,7 @@
             this.tCHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tCHistory.Location = new System.Drawing.Point(0, 0);
             this.tCHistory.Name = "tCHistory";
-            this.tCHistory.Size = new System.Drawing.Size(411, 710);
+            this.tCHistory.Size = new System.Drawing.Size(583, 710);
             this.tCHistory.TabIndex = 0;
             this.tCHistory.TabsSpacing = 5;
             this.tCHistory.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -1980,7 +2128,7 @@
             this.tabHisMedScan.Controls.Add(this.c1SplitContainer1);
             this.tabHisMedScan.Location = new System.Drawing.Point(1, 30);
             this.tabHisMedScan.Name = "tabHisMedScan";
-            this.tabHisMedScan.Size = new System.Drawing.Size(409, 679);
+            this.tabHisMedScan.Size = new System.Drawing.Size(581, 679);
             this.tabHisMedScan.TabIndex = 0;
             this.tabHisMedScan.Text = "ใบยาscan";
             // 
@@ -1995,7 +2143,7 @@
             this.c1SplitContainer1.Name = "c1SplitContainer1";
             this.c1SplitContainer1.Panels.Add(this.spOPDImgL);
             this.c1SplitContainer1.Panels.Add(this.spOPDImgR);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(409, 679);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(581, 679);
             this.c1SplitContainer1.TabIndex = 0;
             // 
             // spOPDImgL
@@ -2005,10 +2153,10 @@
             this.spOPDImgL.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.spOPDImgL.Location = new System.Drawing.Point(0, 21);
             this.spOPDImgL.Name = "spOPDImgL";
-            this.spOPDImgL.Size = new System.Drawing.Size(195, 658);
+            this.spOPDImgL.Size = new System.Drawing.Size(281, 658);
             this.spOPDImgL.TabIndex = 0;
             this.spOPDImgL.Text = "Panel 1";
-            this.spOPDImgL.Width = 195;
+            this.spOPDImgL.Width = 281;
             // 
             // picHisL
             // 
@@ -2022,9 +2170,9 @@
             // 
             this.spOPDImgR.Controls.Add(this.picHisR);
             this.spOPDImgR.Height = 679;
-            this.spOPDImgR.Location = new System.Drawing.Point(206, 21);
+            this.spOPDImgR.Location = new System.Drawing.Point(292, 21);
             this.spOPDImgR.Name = "spOPDImgR";
-            this.spOPDImgR.Size = new System.Drawing.Size(203, 658);
+            this.spOPDImgR.Size = new System.Drawing.Size(289, 658);
             this.spOPDImgR.TabIndex = 1;
             this.spOPDImgR.Text = "Panel 2";
             // 
@@ -2041,7 +2189,7 @@
             this.tabHisOrder.Controls.Add(this.pnHistoryOrder);
             this.tabHisOrder.Location = new System.Drawing.Point(1, 30);
             this.tabHisOrder.Name = "tabHisOrder";
-            this.tabHisOrder.Size = new System.Drawing.Size(409, 679);
+            this.tabHisOrder.Size = new System.Drawing.Size(581, 679);
             this.tabHisOrder.TabIndex = 1;
             this.tabHisOrder.Text = "DRUG";
             // 
@@ -2050,7 +2198,7 @@
             this.pnHistoryOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnHistoryOrder.Location = new System.Drawing.Point(0, 0);
             this.pnHistoryOrder.Name = "pnHistoryOrder";
-            this.pnHistoryOrder.Size = new System.Drawing.Size(409, 679);
+            this.pnHistoryOrder.Size = new System.Drawing.Size(581, 679);
             this.pnHistoryOrder.TabIndex = 0;
             // 
             // tabHisLab
@@ -2058,7 +2206,7 @@
             this.tabHisLab.Controls.Add(this.pnHistoryLab);
             this.tabHisLab.Location = new System.Drawing.Point(1, 30);
             this.tabHisLab.Name = "tabHisLab";
-            this.tabHisLab.Size = new System.Drawing.Size(409, 679);
+            this.tabHisLab.Size = new System.Drawing.Size(581, 679);
             this.tabHisLab.TabIndex = 2;
             this.tabHisLab.Text = "LAB";
             // 
@@ -2067,7 +2215,7 @@
             this.pnHistoryLab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnHistoryLab.Location = new System.Drawing.Point(0, 0);
             this.pnHistoryLab.Name = "pnHistoryLab";
-            this.pnHistoryLab.Size = new System.Drawing.Size(409, 679);
+            this.pnHistoryLab.Size = new System.Drawing.Size(581, 679);
             this.pnHistoryLab.TabIndex = 0;
             // 
             // tabHisXray
@@ -2075,7 +2223,7 @@
             this.tabHisXray.Controls.Add(this.pnHistoryXray);
             this.tabHisXray.Location = new System.Drawing.Point(1, 30);
             this.tabHisXray.Name = "tabHisXray";
-            this.tabHisXray.Size = new System.Drawing.Size(409, 679);
+            this.tabHisXray.Size = new System.Drawing.Size(581, 679);
             this.tabHisXray.TabIndex = 3;
             this.tabHisXray.Text = "Xray";
             // 
@@ -2084,7 +2232,7 @@
             this.pnHistoryXray.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnHistoryXray.Location = new System.Drawing.Point(0, 0);
             this.pnHistoryXray.Name = "pnHistoryXray";
-            this.pnHistoryXray.Size = new System.Drawing.Size(409, 679);
+            this.pnHistoryXray.Size = new System.Drawing.Size(581, 679);
             this.pnHistoryXray.TabIndex = 0;
             // 
             // tabHisProcedure
@@ -2092,7 +2240,7 @@
             this.tabHisProcedure.Controls.Add(this.pnHisProcedure);
             this.tabHisProcedure.Location = new System.Drawing.Point(1, 30);
             this.tabHisProcedure.Name = "tabHisProcedure";
-            this.tabHisProcedure.Size = new System.Drawing.Size(409, 679);
+            this.tabHisProcedure.Size = new System.Drawing.Size(581, 679);
             this.tabHisProcedure.TabIndex = 4;
             this.tabHisProcedure.Text = "หัตถการ";
             // 
@@ -2101,7 +2249,7 @@
             this.pnHisProcedure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnHisProcedure.Location = new System.Drawing.Point(0, 0);
             this.pnHisProcedure.Name = "pnHisProcedure";
-            this.pnHisProcedure.Size = new System.Drawing.Size(409, 679);
+            this.pnHisProcedure.Size = new System.Drawing.Size(581, 679);
             this.pnHisProcedure.TabIndex = 0;
             // 
             // tabOrder
@@ -2109,7 +2257,7 @@
             this.tabOrder.Controls.Add(this.spOrder);
             this.tabOrder.Location = new System.Drawing.Point(1, 26);
             this.tabOrder.Name = "tabOrder";
-            this.tabOrder.Size = new System.Drawing.Size(823, 731);
+            this.tabOrder.Size = new System.Drawing.Size(1313, 731);
             this.tabOrder.TabIndex = 1;
             this.tabOrder.Text = "Order";
             // 
@@ -2125,7 +2273,7 @@
             this.spOrder.Panels.Add(this.spOrderTop);
             this.spOrder.Panels.Add(this.spOrderLeft);
             this.spOrder.Panels.Add(this.spOrderRight);
-            this.spOrder.Size = new System.Drawing.Size(823, 731);
+            this.spOrder.Size = new System.Drawing.Size(1313, 731);
             this.spOrder.TabIndex = 0;
             // 
             // spOrderTop
@@ -2468,7 +2616,7 @@
             this.tabScan.Controls.Add(this.spScan);
             this.tabScan.Location = new System.Drawing.Point(1, 26);
             this.tabScan.Name = "tabScan";
-            this.tabScan.Size = new System.Drawing.Size(823, 731);
+            this.tabScan.Size = new System.Drawing.Size(1313, 731);
             this.tabScan.TabIndex = 0;
             this.tabScan.Text = "Scan";
             // 
@@ -2483,7 +2631,7 @@
             this.spScan.Name = "spScan";
             this.spScan.Panels.Add(this.tabScanL);
             this.spScan.Panels.Add(this.tabScanR);
-            this.spScan.Size = new System.Drawing.Size(823, 731);
+            this.spScan.Size = new System.Drawing.Size(1313, 731);
             this.spScan.TabIndex = 0;
             // 
             // tabScanL
@@ -2529,7 +2677,7 @@
             this.tabApm.Controls.Add(this.scApm);
             this.tabApm.Location = new System.Drawing.Point(1, 26);
             this.tabApm.Name = "tabApm";
-            this.tabApm.Size = new System.Drawing.Size(823, 731);
+            this.tabApm.Size = new System.Drawing.Size(1313, 731);
             this.tabApm.TabIndex = 2;
             this.tabApm.Text = "Appointment";
             // 
@@ -2544,12 +2692,14 @@
             this.scApm.Name = "scApm";
             this.scApm.Panels.Add(this.c1SplitterPanel1);
             this.scApm.Panels.Add(this.c1SplitterPanel2);
-            this.scApm.Size = new System.Drawing.Size(823, 731);
+            this.scApm.Size = new System.Drawing.Size(1313, 731);
             this.scApm.TabIndex = 0;
             // 
             // c1SplitterPanel1
             // 
             this.c1SplitterPanel1.Collapsible = true;
+            this.c1SplitterPanel1.Controls.Add(this.lbDtrApmCnt);
+            this.c1SplitterPanel1.Controls.Add(this.lbDtrApmLimit);
             this.c1SplitterPanel1.Controls.Add(this.lbApm1Month);
             this.c1SplitterPanel1.Controls.Add(this.lbApm14Week);
             this.c1SplitterPanel1.Controls.Add(this.lbApm7Week);
@@ -2581,13 +2731,33 @@
             this.c1SplitterPanel1.Controls.Add(this.txtPttApmDate);
             this.c1SplitterPanel1.Controls.Add(this.label69);
             this.c1SplitterPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1SplitterPanel1.Height = 314;
+            this.c1SplitterPanel1.Height = 321;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
-            this.c1SplitterPanel1.Size = new System.Drawing.Size(823, 293);
+            this.c1SplitterPanel1.Size = new System.Drawing.Size(1313, 293);
             this.c1SplitterPanel1.SizeRatio = 44.154D;
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
+            // 
+            // lbDtrApmCnt
+            // 
+            this.lbDtrApmCnt.AutoSize = true;
+            this.lbDtrApmCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbDtrApmCnt.Location = new System.Drawing.Point(137, 236);
+            this.lbDtrApmCnt.Name = "lbDtrApmCnt";
+            this.lbDtrApmCnt.Size = new System.Drawing.Size(21, 20);
+            this.lbDtrApmCnt.TabIndex = 291;
+            this.lbDtrApmCnt.Text = "...";
+            // 
+            // lbDtrApmLimit
+            // 
+            this.lbDtrApmLimit.AutoSize = true;
+            this.lbDtrApmLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbDtrApmLimit.Location = new System.Drawing.Point(13, 236);
+            this.lbDtrApmLimit.Name = "lbDtrApmLimit";
+            this.lbDtrApmLimit.Size = new System.Drawing.Size(21, 20);
+            this.lbDtrApmLimit.TabIndex = 290;
+            this.lbDtrApmLimit.Text = "...";
             // 
             // lbApm1Month
             // 
@@ -2912,7 +3082,7 @@
             this.c1SplitterPanel2.Height = 406;
             this.c1SplitterPanel2.Location = new System.Drawing.Point(0, 346);
             this.c1SplitterPanel2.Name = "c1SplitterPanel2";
-            this.c1SplitterPanel2.Size = new System.Drawing.Size(823, 385);
+            this.c1SplitterPanel2.Size = new System.Drawing.Size(1313, 385);
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
             // 
@@ -2921,7 +3091,7 @@
             this.pnPttApm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnPttApm.Location = new System.Drawing.Point(0, 0);
             this.pnPttApm.Name = "pnPttApm";
-            this.pnPttApm.Size = new System.Drawing.Size(823, 385);
+            this.pnPttApm.Size = new System.Drawing.Size(1313, 385);
             this.pnPttApm.TabIndex = 0;
             // 
             // tabFinish
@@ -2929,7 +3099,7 @@
             this.tabFinish.Controls.Add(this.scFinish);
             this.tabFinish.Location = new System.Drawing.Point(1, 26);
             this.tabFinish.Name = "tabFinish";
-            this.tabFinish.Size = new System.Drawing.Size(1653, 1088);
+            this.tabFinish.Size = new System.Drawing.Size(2633, 1088);
             this.tabFinish.TabIndex = 1;
             this.tabFinish.Text = "ตรวจเสร็จแล้ว close visit";
             // 
@@ -2944,7 +3114,7 @@
             this.scFinish.Name = "scFinish";
             this.scFinish.Panels.Add(this.c1SplitterPanel10);
             this.scFinish.Panels.Add(this.c1SplitterPanel11);
-            this.scFinish.Size = new System.Drawing.Size(1653, 1088);
+            this.scFinish.Size = new System.Drawing.Size(2633, 1088);
             this.scFinish.TabIndex = 0;
             // 
             // c1SplitterPanel10
@@ -3297,7 +3467,7 @@
             this.tabAdmit.Controls.Add(this.c1SplitContainer6);
             this.tabAdmit.Location = new System.Drawing.Point(1, 26);
             this.tabAdmit.Name = "tabAdmit";
-            this.tabAdmit.Size = new System.Drawing.Size(1653, 1088);
+            this.tabAdmit.Size = new System.Drawing.Size(2633, 1088);
             this.tabAdmit.TabIndex = 9;
             this.tabAdmit.Text = "Admit/Observ";
             // 
@@ -3315,7 +3485,7 @@
             this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel22);
             this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel21);
             this.c1SplitContainer6.Panels.Add(this.c1SplitterPanel23);
-            this.c1SplitContainer6.Size = new System.Drawing.Size(1653, 1088);
+            this.c1SplitContainer6.Size = new System.Drawing.Size(2633, 1088);
             this.c1SplitContainer6.TabIndex = 2;
             // 
             // c1SplitterPanel19
@@ -3376,7 +3546,7 @@
             this.tabAppioment.Controls.Add(this.panel9);
             this.tabAppioment.Location = new System.Drawing.Point(1, 26);
             this.tabAppioment.Name = "tabAppioment";
-            this.tabAppioment.Size = new System.Drawing.Size(1653, 1088);
+            this.tabAppioment.Size = new System.Drawing.Size(2633, 1088);
             this.tabAppioment.TabIndex = 2;
             this.tabAppioment.Text = "นัด appointment";
             // 
@@ -3385,7 +3555,7 @@
             this.pnApm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnApm.Location = new System.Drawing.Point(0, 41);
             this.pnApm.Name = "pnApm";
-            this.pnApm.Size = new System.Drawing.Size(1653, 1047);
+            this.pnApm.Size = new System.Drawing.Size(2633, 1047);
             this.pnApm.TabIndex = 2;
             // 
             // panel9
@@ -3403,7 +3573,7 @@
             this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1653, 41);
+            this.panel9.Size = new System.Drawing.Size(2633, 41);
             this.panel9.TabIndex = 3;
             // 
             // txtApmVsNewHn
@@ -3538,7 +3708,7 @@
             this.tabCheckUP.Controls.Add(this.spCheckUP);
             this.tabCheckUP.Location = new System.Drawing.Point(1, 26);
             this.tabCheckUP.Name = "tabCheckUP";
-            this.tabCheckUP.Size = new System.Drawing.Size(1653, 1088);
+            this.tabCheckUP.Size = new System.Drawing.Size(2633, 1088);
             this.tabCheckUP.TabIndex = 3;
             this.tabCheckUP.Text = "ตรวจสุขภาพ checkup";
             // 
@@ -3554,7 +3724,7 @@
             this.spCheckUP.Panels.Add(this.spCheckUpList);
             this.spCheckUP.Panels.Add(this.spCheckUPVisit);
             this.spCheckUP.Panels.Add(this.spCheckUPOrder);
-            this.spCheckUP.Size = new System.Drawing.Size(1653, 1088);
+            this.spCheckUP.Size = new System.Drawing.Size(2633, 1088);
             this.spCheckUP.TabIndex = 2;
             // 
             // spCheckUpList
@@ -3563,19 +3733,19 @@
             this.spCheckUpList.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.spCheckUpList.Location = new System.Drawing.Point(0, 21);
             this.spCheckUpList.Name = "spCheckUpList";
-            this.spCheckUpList.Size = new System.Drawing.Size(539, 1067);
+            this.spCheckUpList.Size = new System.Drawing.Size(864, 1067);
             this.spCheckUpList.SizeRatio = 33.122D;
             this.spCheckUpList.TabIndex = 0;
             this.spCheckUpList.Text = "Panel 1";
-            this.spCheckUpList.Width = 539;
+            this.spCheckUpList.Width = 864;
             // 
             // spCheckUPVisit
             // 
             this.spCheckUPVisit.Controls.Add(this.panel8);
             this.spCheckUPVisit.Height = 527;
-            this.spCheckUPVisit.Location = new System.Drawing.Point(550, 21);
+            this.spCheckUPVisit.Location = new System.Drawing.Point(875, 21);
             this.spCheckUPVisit.Name = "spCheckUPVisit";
-            this.spCheckUPVisit.Size = new System.Drawing.Size(1103, 506);
+            this.spCheckUPVisit.Size = new System.Drawing.Size(1758, 506);
             this.spCheckUPVisit.SizeRatio = 48.616D;
             this.spCheckUPVisit.TabIndex = 1;
             this.spCheckUPVisit.Text = "Panel 2";
@@ -3638,7 +3808,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(0, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1103, 506);
+            this.panel8.Size = new System.Drawing.Size(1758, 506);
             this.panel8.TabIndex = 203;
             // 
             // txtCheckUPComp
@@ -4694,9 +4864,9 @@
             // 
             this.spCheckUPOrder.Controls.Add(this.c1DockingTab3);
             this.spCheckUPOrder.Height = 557;
-            this.spCheckUPOrder.Location = new System.Drawing.Point(550, 552);
+            this.spCheckUPOrder.Location = new System.Drawing.Point(875, 552);
             this.spCheckUPOrder.Name = "spCheckUPOrder";
-            this.spCheckUPOrder.Size = new System.Drawing.Size(1103, 536);
+            this.spCheckUPOrder.Size = new System.Drawing.Size(1758, 536);
             this.spCheckUPOrder.TabIndex = 2;
             this.spCheckUPOrder.Text = "Panel 3";
             // 
@@ -4712,7 +4882,7 @@
             this.c1DockingTab3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab3.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab3.Name = "c1DockingTab3";
-            this.c1DockingTab3.Size = new System.Drawing.Size(1103, 536);
+            this.c1DockingTab3.Size = new System.Drawing.Size(1758, 536);
             this.c1DockingTab3.TabIndex = 0;
             this.c1DockingTab3.TabsSpacing = 5;
             this.c1DockingTab3.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -4722,7 +4892,7 @@
             this.c1DockingTabPage4.Controls.Add(this.gbTrueStar);
             this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage4.Name = "c1DockingTabPage4";
-            this.c1DockingTabPage4.Size = new System.Drawing.Size(1101, 509);
+            this.c1DockingTabPage4.Size = new System.Drawing.Size(1756, 509);
             this.c1DockingTabPage4.TabIndex = 0;
             this.c1DockingTabPage4.Text = "ตรวจสุขภาพ 7 โรค";
             // 
@@ -4747,7 +4917,7 @@
             this.gbTrueStar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.gbTrueStar.Location = new System.Drawing.Point(0, 0);
             this.gbTrueStar.Name = "gbTrueStar";
-            this.gbTrueStar.Size = new System.Drawing.Size(1101, 509);
+            this.gbTrueStar.Size = new System.Drawing.Size(1756, 509);
             this.gbTrueStar.TabIndex = 184;
             this.gbTrueStar.TabStop = false;
             // 
@@ -5135,7 +5305,7 @@
             this.tabCheckUPAlien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tabCheckUPAlien.Location = new System.Drawing.Point(1, 26);
             this.tabCheckUPAlien.Name = "tabCheckUPAlien";
-            this.tabCheckUPAlien.Size = new System.Drawing.Size(1101, 509);
+            this.tabCheckUPAlien.Size = new System.Drawing.Size(1756, 509);
             this.tabCheckUPAlien.TabIndex = 1;
             this.tabCheckUPAlien.Text = "ต่างด้าว";
             // 
@@ -5894,7 +6064,7 @@
             this.c1DockingTabPage6.Controls.Add(this.label43);
             this.c1DockingTabPage6.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage6.Name = "c1DockingTabPage6";
-            this.c1DockingTabPage6.Size = new System.Drawing.Size(1101, 509);
+            this.c1DockingTabPage6.Size = new System.Drawing.Size(1756, 509);
             this.c1DockingTabPage6.TabIndex = 2;
             this.c1DockingTabPage6.Text = "บุคคล ประจำปี";
             // 
@@ -6284,7 +6454,7 @@
             this.tabCheckUPThai.Controls.Add(this.btnCheckUPPrn7Thai);
             this.tabCheckUPThai.Location = new System.Drawing.Point(1, 26);
             this.tabCheckUPThai.Name = "tabCheckUPThai";
-            this.tabCheckUPThai.Size = new System.Drawing.Size(1101, 509);
+            this.tabCheckUPThai.Size = new System.Drawing.Size(1756, 509);
             this.tabCheckUPThai.TabIndex = 3;
             this.tabCheckUPThai.Text = "7โรค ภาษาไทย";
             // 
@@ -6425,7 +6595,7 @@
             this.tabCheckUPDriver.Controls.Add(this.groupBox2);
             this.tabCheckUPDriver.Location = new System.Drawing.Point(1, 26);
             this.tabCheckUPDriver.Name = "tabCheckUPDriver";
-            this.tabCheckUPDriver.Size = new System.Drawing.Size(1101, 509);
+            this.tabCheckUPDriver.Size = new System.Drawing.Size(1756, 509);
             this.tabCheckUPDriver.TabIndex = 4;
             this.tabCheckUPDriver.Text = "ใบขับขี่";
             // 
@@ -6953,7 +7123,7 @@
             this.tabCheckUPSSO.Controls.Add(this.label95);
             this.tabCheckUPSSO.Location = new System.Drawing.Point(1, 26);
             this.tabCheckUPSSO.Name = "tabCheckUPSSO";
-            this.tabCheckUPSSO.Size = new System.Drawing.Size(1101, 509);
+            this.tabCheckUPSSO.Size = new System.Drawing.Size(1756, 509);
             this.tabCheckUPSSO.TabIndex = 5;
             this.tabCheckUPSSO.Text = "ตรวจสุขภาพ ประกันสังคม";
             // 
@@ -8026,7 +8196,7 @@
             // 
             this.tabCheckUPCovid.Location = new System.Drawing.Point(1, 26);
             this.tabCheckUPCovid.Name = "tabCheckUPCovid";
-            this.tabCheckUPCovid.Size = new System.Drawing.Size(1101, 509);
+            this.tabCheckUPCovid.Size = new System.Drawing.Size(1756, 509);
             this.tabCheckUPCovid.TabIndex = 6;
             this.tabCheckUPCovid.Text = "ตรวจ COVID";
             // 
@@ -8035,7 +8205,7 @@
             this.tabMedScan.Controls.Add(this.spMedScan);
             this.tabMedScan.Location = new System.Drawing.Point(1, 26);
             this.tabMedScan.Name = "tabMedScan";
-            this.tabMedScan.Size = new System.Drawing.Size(1653, 1088);
+            this.tabMedScan.Size = new System.Drawing.Size(2633, 1088);
             this.tabMedScan.TabIndex = 4;
             this.tabMedScan.Text = "Scan เวชระเบียน";
             // 
@@ -8050,7 +8220,7 @@
             this.spMedScan.Name = "spMedScan";
             this.spMedScan.Panels.Add(this.spMedScanIPD);
             this.spMedScan.Panels.Add(this.spMedScanImg);
-            this.spMedScan.Size = new System.Drawing.Size(1653, 1088);
+            this.spMedScan.Size = new System.Drawing.Size(2633, 1088);
             this.spMedScan.TabIndex = 0;
             // 
             // spMedScanIPD
@@ -8088,7 +8258,7 @@
             this.tabOutLabDate.Controls.Add(this.spTodayOutLab);
             this.tabOutLabDate.Location = new System.Drawing.Point(1, 26);
             this.tabOutLabDate.Name = "tabOutLabDate";
-            this.tabOutLabDate.Size = new System.Drawing.Size(1653, 1088);
+            this.tabOutLabDate.Size = new System.Drawing.Size(2633, 1088);
             this.tabOutLabDate.TabIndex = 5;
             this.tabOutLabDate.Text = "นัดฟังผล OutLab วันนี้";
             // 
@@ -8103,7 +8273,7 @@
             this.spTodayOutLab.Name = "spTodayOutLab";
             this.spTodayOutLab.Panels.Add(this.spTodayOutLabList);
             this.spTodayOutLab.Panels.Add(this.spTodayOutLabView);
-            this.spTodayOutLab.Size = new System.Drawing.Size(1653, 1088);
+            this.spTodayOutLab.Size = new System.Drawing.Size(2633, 1088);
             this.spTodayOutLab.TabIndex = 0;
             // 
             // spTodayOutLabList
@@ -8141,7 +8311,7 @@
             this.tabOutlab.Controls.Add(this.spOutLab);
             this.tabOutlab.Location = new System.Drawing.Point(1, 26);
             this.tabOutlab.Name = "tabOutlab";
-            this.tabOutlab.Size = new System.Drawing.Size(1653, 1088);
+            this.tabOutlab.Size = new System.Drawing.Size(2633, 1088);
             this.tabOutlab.TabIndex = 6;
             this.tabOutlab.Text = "Out Lab";
             // 
@@ -8156,7 +8326,7 @@
             this.spOutLab.Name = "spOutLab";
             this.spOutLab.Panels.Add(this.spOutLabList);
             this.spOutLab.Panels.Add(this.spOutLabView);
-            this.spOutLab.Size = new System.Drawing.Size(1653, 1088);
+            this.spOutLab.Size = new System.Drawing.Size(2633, 1088);
             this.spOutLab.TabIndex = 0;
             // 
             // spOutLabList
@@ -8185,7 +8355,7 @@
             this.tabSearch.Controls.Add(this.spSearch);
             this.tabSearch.Location = new System.Drawing.Point(1, 26);
             this.tabSearch.Name = "tabSearch";
-            this.tabSearch.Size = new System.Drawing.Size(1653, 1088);
+            this.tabSearch.Size = new System.Drawing.Size(2633, 1088);
             this.tabSearch.TabIndex = 7;
             this.tabSearch.Text = "ค้นหา";
             // 
@@ -8201,7 +8371,7 @@
             this.spSearch.Panels.Add(this.spSrcOrder);
             this.spSearch.Panels.Add(this.spSrcPttSrc);
             this.spSearch.Panels.Add(this.spSrcVs);
-            this.spSearch.Size = new System.Drawing.Size(1653, 1088);
+            this.spSearch.Size = new System.Drawing.Size(2633, 1088);
             this.spSearch.TabIndex = 0;
             // 
             // spSrcOrder
@@ -8224,9 +8394,16 @@
             this.c1DockingTab1.Controls.Add(this.tabSearchLab);
             this.c1DockingTab1.Controls.Add(this.tabSearchXray);
             this.c1DockingTab1.Controls.Add(this.tabSearchProcedure);
+            this.c1DockingTab1.Controls.Add(this.tabEKG);
+            this.c1DockingTab1.Controls.Add(this.tabECHO);
+            this.c1DockingTab1.Controls.Add(this.tabEST);
+            this.c1DockingTab1.Controls.Add(this.tabHolter);
+            this.c1DockingTab1.Controls.Add(this.tabDocOLD);
+            this.c1DockingTab1.Controls.Add(this.tabCertMed);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
             this.c1DockingTab1.Name = "c1DockingTab1";
+            this.c1DockingTab1.SelectedIndex = 9;
             this.c1DockingTab1.Size = new System.Drawing.Size(863, 1067);
             this.c1DockingTab1.TabIndex = 0;
             this.c1DockingTab1.TabsSpacing = 5;
@@ -8324,7 +8501,7 @@
             this.spSrcDrug.Height = 346;
             this.spSrcDrug.Location = new System.Drawing.Point(0, 21);
             this.spSrcDrug.Name = "spSrcDrug";
-            this.spSrcDrug.Size = new System.Drawing.Size(762, 325);
+            this.spSrcDrug.Size = new System.Drawing.Size(861, 325);
             this.spSrcDrug.SizeRatio = 33.398D;
             this.spSrcDrug.TabIndex = 0;
             this.spSrcDrug.Text = "Drug";
@@ -8334,7 +8511,7 @@
             this.pnSrcDrug.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSrcDrug.Location = new System.Drawing.Point(0, 0);
             this.pnSrcDrug.Name = "pnSrcDrug";
-            this.pnSrcDrug.Size = new System.Drawing.Size(762, 325);
+            this.pnSrcDrug.Size = new System.Drawing.Size(861, 325);
             this.pnSrcDrug.TabIndex = 0;
             // 
             // spSrcLab
@@ -8343,7 +8520,7 @@
             this.spSrcLab.Height = 269;
             this.spSrcLab.Location = new System.Drawing.Point(0, 371);
             this.spSrcLab.Name = "spSrcLab";
-            this.spSrcLab.Size = new System.Drawing.Size(762, 248);
+            this.spSrcLab.Size = new System.Drawing.Size(861, 248);
             this.spSrcLab.SizeRatio = 39.213D;
             this.spSrcLab.TabIndex = 1;
             this.spSrcLab.Text = "LAB";
@@ -8353,7 +8530,7 @@
             this.pnSrcLab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSrcLab.Location = new System.Drawing.Point(0, 0);
             this.pnSrcLab.Name = "pnSrcLab";
-            this.pnSrcLab.Size = new System.Drawing.Size(762, 248);
+            this.pnSrcLab.Size = new System.Drawing.Size(861, 248);
             this.pnSrcLab.TabIndex = 1;
             // 
             // spSrcXray
@@ -8362,7 +8539,7 @@
             this.spSrcXray.Height = 220;
             this.spSrcXray.Location = new System.Drawing.Point(0, 644);
             this.spSrcXray.Name = "spSrcXray";
-            this.spSrcXray.Size = new System.Drawing.Size(762, 199);
+            this.spSrcXray.Size = new System.Drawing.Size(861, 199);
             this.spSrcXray.SizeRatio = 53.269D;
             this.spSrcXray.TabIndex = 2;
             this.spSrcXray.Text = "Xray";
@@ -8372,7 +8549,7 @@
             this.pnSrcXray.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSrcXray.Location = new System.Drawing.Point(0, 0);
             this.pnSrcXray.Name = "pnSrcXray";
-            this.pnSrcXray.Size = new System.Drawing.Size(762, 199);
+            this.pnSrcXray.Size = new System.Drawing.Size(861, 199);
             this.pnSrcXray.TabIndex = 1;
             // 
             // spSrcProcedure
@@ -8381,7 +8558,7 @@
             this.spSrcProcedure.Height = 193;
             this.spSrcProcedure.Location = new System.Drawing.Point(0, 868);
             this.spSrcProcedure.Name = "spSrcProcedure";
-            this.spSrcProcedure.Size = new System.Drawing.Size(762, 172);
+            this.spSrcProcedure.Size = new System.Drawing.Size(861, 172);
             this.spSrcProcedure.TabIndex = 3;
             this.spSrcProcedure.Text = "Procedure";
             // 
@@ -8390,7 +8567,7 @@
             this.pnSrcProcedure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSrcProcedure.Location = new System.Drawing.Point(0, 0);
             this.pnSrcProcedure.Name = "pnSrcProcedure";
-            this.pnSrcProcedure.Size = new System.Drawing.Size(762, 172);
+            this.pnSrcProcedure.Size = new System.Drawing.Size(861, 172);
             this.pnSrcProcedure.TabIndex = 1;
             // 
             // tabSearchLab
@@ -8417,10 +8594,316 @@
             this.tabSearchProcedure.TabIndex = 4;
             this.tabSearchProcedure.Text = "หัตถการ";
             // 
+            // tabEKG
+            // 
+            this.tabEKG.Controls.Add(this.pnEKGView);
+            this.tabEKG.Controls.Add(this.pnEKG);
+            this.tabEKG.Controls.Add(this.pnEKGtop);
+            this.tabEKG.Location = new System.Drawing.Point(1, 26);
+            this.tabEKG.Name = "tabEKG";
+            this.tabEKG.Size = new System.Drawing.Size(861, 1040);
+            this.tabEKG.TabIndex = 5;
+            this.tabEKG.Text = "EKG";
+            // 
+            // pnEKGView
+            // 
+            this.pnEKGView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnEKGView.Location = new System.Drawing.Point(0, 168);
+            this.pnEKGView.Name = "pnEKGView";
+            this.pnEKGView.Size = new System.Drawing.Size(861, 872);
+            this.pnEKGView.TabIndex = 2;
+            // 
+            // pnEKG
+            // 
+            this.pnEKG.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnEKG.Location = new System.Drawing.Point(0, 42);
+            this.pnEKG.Name = "pnEKG";
+            this.pnEKG.Size = new System.Drawing.Size(861, 126);
+            this.pnEKG.TabIndex = 1;
+            // 
+            // pnEKGtop
+            // 
+            this.pnEKGtop.Controls.Add(this.btnSrcEKGScanSave);
+            this.pnEKGtop.Controls.Add(this.btnSrcEKGScanNew);
+            this.pnEKGtop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnEKGtop.Location = new System.Drawing.Point(0, 0);
+            this.pnEKGtop.Name = "pnEKGtop";
+            this.pnEKGtop.Size = new System.Drawing.Size(861, 42);
+            this.pnEKGtop.TabIndex = 0;
+            // 
+            // btnSrcEKGScanSave
+            // 
+            this.btnSrcEKGScanSave.Location = new System.Drawing.Point(177, 4);
+            this.btnSrcEKGScanSave.Name = "btnSrcEKGScanSave";
+            this.btnSrcEKGScanSave.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcEKGScanSave.TabIndex = 6;
+            this.btnSrcEKGScanSave.Text = "save ekg";
+            this.btnSrcEKGScanSave.UseVisualStyleBackColor = true;
+            // 
+            // btnSrcEKGScanNew
+            // 
+            this.btnSrcEKGScanNew.Location = new System.Drawing.Point(15, 4);
+            this.btnSrcEKGScanNew.Name = "btnSrcEKGScanNew";
+            this.btnSrcEKGScanNew.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcEKGScanNew.TabIndex = 5;
+            this.btnSrcEKGScanNew.Text = "scan ekg ใหม่";
+            this.btnSrcEKGScanNew.UseVisualStyleBackColor = true;
+            // 
+            // tabECHO
+            // 
+            this.tabECHO.Controls.Add(this.pnECHOView);
+            this.tabECHO.Controls.Add(this.pnECHO);
+            this.tabECHO.Controls.Add(this.panel22);
+            this.tabECHO.Location = new System.Drawing.Point(1, 26);
+            this.tabECHO.Name = "tabECHO";
+            this.tabECHO.Size = new System.Drawing.Size(861, 1040);
+            this.tabECHO.TabIndex = 7;
+            this.tabECHO.Text = "ECHO";
+            // 
+            // pnECHOView
+            // 
+            this.pnECHOView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnECHOView.Location = new System.Drawing.Point(0, 168);
+            this.pnECHOView.Name = "pnECHOView";
+            this.pnECHOView.Size = new System.Drawing.Size(861, 872);
+            this.pnECHOView.TabIndex = 5;
+            // 
+            // pnECHO
+            // 
+            this.pnECHO.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnECHO.Location = new System.Drawing.Point(0, 42);
+            this.pnECHO.Name = "pnECHO";
+            this.pnECHO.Size = new System.Drawing.Size(861, 126);
+            this.pnECHO.TabIndex = 4;
+            // 
+            // panel22
+            // 
+            this.panel22.Controls.Add(this.btnSrcECHOScanSave);
+            this.panel22.Controls.Add(this.btnSrcECHOScanNew);
+            this.panel22.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel22.Location = new System.Drawing.Point(0, 0);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(861, 42);
+            this.panel22.TabIndex = 3;
+            // 
+            // btnSrcECHOScanSave
+            // 
+            this.btnSrcECHOScanSave.Location = new System.Drawing.Point(177, 4);
+            this.btnSrcECHOScanSave.Name = "btnSrcECHOScanSave";
+            this.btnSrcECHOScanSave.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcECHOScanSave.TabIndex = 6;
+            this.btnSrcECHOScanSave.Text = "save";
+            this.btnSrcECHOScanSave.UseVisualStyleBackColor = true;
+            // 
+            // btnSrcECHOScanNew
+            // 
+            this.btnSrcECHOScanNew.Location = new System.Drawing.Point(15, 4);
+            this.btnSrcECHOScanNew.Name = "btnSrcECHOScanNew";
+            this.btnSrcECHOScanNew.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcECHOScanNew.TabIndex = 5;
+            this.btnSrcECHOScanNew.Text = "scan echo ใหม่";
+            this.btnSrcECHOScanNew.UseVisualStyleBackColor = true;
+            // 
+            // tabEST
+            // 
+            this.tabEST.Controls.Add(this.pnESTView);
+            this.tabEST.Controls.Add(this.pnEST);
+            this.tabEST.Controls.Add(this.panel25);
+            this.tabEST.Location = new System.Drawing.Point(1, 26);
+            this.tabEST.Name = "tabEST";
+            this.tabEST.Size = new System.Drawing.Size(861, 1040);
+            this.tabEST.TabIndex = 8;
+            this.tabEST.Text = "EST";
+            // 
+            // pnESTView
+            // 
+            this.pnESTView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnESTView.Location = new System.Drawing.Point(0, 168);
+            this.pnESTView.Name = "pnESTView";
+            this.pnESTView.Size = new System.Drawing.Size(861, 872);
+            this.pnESTView.TabIndex = 5;
+            // 
+            // pnEST
+            // 
+            this.pnEST.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnEST.Location = new System.Drawing.Point(0, 42);
+            this.pnEST.Name = "pnEST";
+            this.pnEST.Size = new System.Drawing.Size(861, 126);
+            this.pnEST.TabIndex = 4;
+            // 
+            // panel25
+            // 
+            this.panel25.Controls.Add(this.btnSrcESTScanSave);
+            this.panel25.Controls.Add(this.btnSrcESTScanNew);
+            this.panel25.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel25.Location = new System.Drawing.Point(0, 0);
+            this.panel25.Name = "panel25";
+            this.panel25.Size = new System.Drawing.Size(861, 42);
+            this.panel25.TabIndex = 3;
+            // 
+            // btnSrcESTScanSave
+            // 
+            this.btnSrcESTScanSave.Location = new System.Drawing.Point(177, 4);
+            this.btnSrcESTScanSave.Name = "btnSrcESTScanSave";
+            this.btnSrcESTScanSave.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcESTScanSave.TabIndex = 6;
+            this.btnSrcESTScanSave.Text = "save";
+            this.btnSrcESTScanSave.UseVisualStyleBackColor = true;
+            // 
+            // btnSrcESTScanNew
+            // 
+            this.btnSrcESTScanNew.Location = new System.Drawing.Point(15, 4);
+            this.btnSrcESTScanNew.Name = "btnSrcESTScanNew";
+            this.btnSrcESTScanNew.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcESTScanNew.TabIndex = 5;
+            this.btnSrcESTScanNew.Text = "scan est ใหม่";
+            this.btnSrcESTScanNew.UseVisualStyleBackColor = true;
+            // 
+            // tabHolter
+            // 
+            this.tabHolter.Controls.Add(this.pnHolterView);
+            this.tabHolter.Controls.Add(this.pnHolter);
+            this.tabHolter.Controls.Add(this.panel28);
+            this.tabHolter.Location = new System.Drawing.Point(1, 26);
+            this.tabHolter.Name = "tabHolter";
+            this.tabHolter.Size = new System.Drawing.Size(861, 1040);
+            this.tabHolter.TabIndex = 9;
+            this.tabHolter.Text = "Holter";
+            // 
+            // pnHolterView
+            // 
+            this.pnHolterView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnHolterView.Location = new System.Drawing.Point(0, 168);
+            this.pnHolterView.Name = "pnHolterView";
+            this.pnHolterView.Size = new System.Drawing.Size(861, 872);
+            this.pnHolterView.TabIndex = 5;
+            // 
+            // pnHolter
+            // 
+            this.pnHolter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnHolter.Location = new System.Drawing.Point(0, 42);
+            this.pnHolter.Name = "pnHolter";
+            this.pnHolter.Size = new System.Drawing.Size(861, 126);
+            this.pnHolter.TabIndex = 4;
+            // 
+            // panel28
+            // 
+            this.panel28.Controls.Add(this.btnSrcHolterScanSave);
+            this.panel28.Controls.Add(this.btnSrcHolterScanNew);
+            this.panel28.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel28.Location = new System.Drawing.Point(0, 0);
+            this.panel28.Name = "panel28";
+            this.panel28.Size = new System.Drawing.Size(861, 42);
+            this.panel28.TabIndex = 3;
+            // 
+            // btnSrcHolterScanSave
+            // 
+            this.btnSrcHolterScanSave.Location = new System.Drawing.Point(177, 4);
+            this.btnSrcHolterScanSave.Name = "btnSrcHolterScanSave";
+            this.btnSrcHolterScanSave.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcHolterScanSave.TabIndex = 6;
+            this.btnSrcHolterScanSave.Text = "save";
+            this.btnSrcHolterScanSave.UseVisualStyleBackColor = true;
+            // 
+            // btnSrcHolterScanNew
+            // 
+            this.btnSrcHolterScanNew.Location = new System.Drawing.Point(15, 4);
+            this.btnSrcHolterScanNew.Name = "btnSrcHolterScanNew";
+            this.btnSrcHolterScanNew.Size = new System.Drawing.Size(127, 29);
+            this.btnSrcHolterScanNew.TabIndex = 5;
+            this.btnSrcHolterScanNew.Text = "scan Holter ใหม่";
+            this.btnSrcHolterScanNew.UseVisualStyleBackColor = true;
+            // 
+            // tabDocOLD
+            // 
+            this.tabDocOLD.Controls.Add(this.pnDocOLDView);
+            this.tabDocOLD.Controls.Add(this.pnDocOLD);
+            this.tabDocOLD.Controls.Add(this.panel21);
+            this.tabDocOLD.Location = new System.Drawing.Point(1, 26);
+            this.tabDocOLD.Name = "tabDocOLD";
+            this.tabDocOLD.Size = new System.Drawing.Size(861, 1040);
+            this.tabDocOLD.TabIndex = 6;
+            this.tabDocOLD.Text = "ประวัติจากโรงพยาบาลอื่น";
+            // 
+            // pnDocOLDView
+            // 
+            this.pnDocOLDView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDocOLDView.Location = new System.Drawing.Point(0, 168);
+            this.pnDocOLDView.Name = "pnDocOLDView";
+            this.pnDocOLDView.Size = new System.Drawing.Size(861, 872);
+            this.pnDocOLDView.TabIndex = 5;
+            // 
+            // pnDocOLD
+            // 
+            this.pnDocOLD.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnDocOLD.Location = new System.Drawing.Point(0, 42);
+            this.pnDocOLD.Name = "pnDocOLD";
+            this.pnDocOLD.Size = new System.Drawing.Size(861, 126);
+            this.pnDocOLD.TabIndex = 4;
+            // 
+            // panel21
+            // 
+            this.panel21.Controls.Add(this.btnSrcDocOLDSave);
+            this.panel21.Controls.Add(this.btnSrcDocOLDNew);
+            this.panel21.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel21.Location = new System.Drawing.Point(0, 0);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(861, 42);
+            this.panel21.TabIndex = 3;
+            // 
+            // btnSrcDocOLDSave
+            // 
+            this.btnSrcDocOLDSave.Location = new System.Drawing.Point(177, 4);
+            this.btnSrcDocOLDSave.Name = "btnSrcDocOLDSave";
+            this.btnSrcDocOLDSave.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcDocOLDSave.TabIndex = 6;
+            this.btnSrcDocOLDSave.Text = "save ";
+            this.btnSrcDocOLDSave.UseVisualStyleBackColor = true;
+            // 
+            // btnSrcDocOLDNew
+            // 
+            this.btnSrcDocOLDNew.Location = new System.Drawing.Point(15, 4);
+            this.btnSrcDocOLDNew.Name = "btnSrcDocOLDNew";
+            this.btnSrcDocOLDNew.Size = new System.Drawing.Size(101, 29);
+            this.btnSrcDocOLDNew.TabIndex = 5;
+            this.btnSrcDocOLDNew.Text = "scan  ใหม่";
+            this.btnSrcDocOLDNew.UseVisualStyleBackColor = true;
+            // 
+            // tabCertMed
+            // 
+            this.tabCertMed.Controls.Add(this.pnCertMedView);
+            this.tabCertMed.Controls.Add(this.pnCertMed);
+            this.tabCertMed.Location = new System.Drawing.Point(1, 26);
+            this.tabCertMed.Name = "tabCertMed";
+            this.tabCertMed.Size = new System.Drawing.Size(861, 1040);
+            this.tabCertMed.TabIndex = 10;
+            this.tabCertMed.Text = "ใบรับรองแพทย์";
+            // 
+            // pnCertMedView
+            // 
+            this.pnCertMedView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnCertMedView.Location = new System.Drawing.Point(0, 126);
+            this.pnCertMedView.Name = "pnCertMedView";
+            this.pnCertMedView.Size = new System.Drawing.Size(861, 914);
+            this.pnCertMedView.TabIndex = 5;
+            // 
+            // pnCertMed
+            // 
+            this.pnCertMed.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnCertMed.Location = new System.Drawing.Point(0, 0);
+            this.pnCertMed.Name = "pnCertMed";
+            this.pnCertMed.Size = new System.Drawing.Size(861, 126);
+            this.pnCertMed.TabIndex = 4;
+            // 
             // spSrcPttSrc
             // 
+            this.spSrcPttSrc.Controls.Add(this.lbSrcPreno);
+            this.spSrcPttSrc.Controls.Add(this.lbSrcVN);
+            this.spSrcPttSrc.Controls.Add(this.lbSrcVsDate);
+            this.spSrcPttSrc.Controls.Add(this.lbSrcAge);
+            this.spSrcPttSrc.Controls.Add(this.lbPttFinNote);
             this.spSrcPttSrc.Controls.Add(this.lbChronic);
-            this.spSrcPttSrc.Controls.Add(this.lbAllery);
+            this.spSrcPttSrc.Controls.Add(this.lbDrugAllergy);
             this.spSrcPttSrc.Controls.Add(this.lvSrcPttName);
             this.spSrcPttSrc.Controls.Add(this.lbSrcHN);
             this.spSrcPttSrc.Controls.Add(this.pnSrcGrf);
@@ -8435,6 +8918,64 @@
             this.spSrcPttSrc.TabIndex = 0;
             this.spSrcPttSrc.Text = "Panel 1";
             // 
+            // lbSrcPreno
+            // 
+            this.lbSrcPreno.AutoSize = true;
+            this.lbSrcPreno.BackColor = System.Drawing.Color.White;
+            this.lbSrcPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSrcPreno.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbSrcPreno.Location = new System.Drawing.Point(465, 30);
+            this.lbSrcPreno.Name = "lbSrcPreno";
+            this.lbSrcPreno.Size = new System.Drawing.Size(21, 20);
+            this.lbSrcPreno.TabIndex = 560;
+            this.lbSrcPreno.Text = "...";
+            // 
+            // lbSrcVN
+            // 
+            this.lbSrcVN.AutoSize = true;
+            this.lbSrcVN.BackColor = System.Drawing.Color.White;
+            this.lbSrcVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSrcVN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbSrcVN.Location = new System.Drawing.Point(779, 30);
+            this.lbSrcVN.Name = "lbSrcVN";
+            this.lbSrcVN.Size = new System.Drawing.Size(25, 20);
+            this.lbSrcVN.TabIndex = 559;
+            this.lbSrcVN.Text = "vn";
+            // 
+            // lbSrcVsDate
+            // 
+            this.lbSrcVsDate.AutoSize = true;
+            this.lbSrcVsDate.BackColor = System.Drawing.Color.White;
+            this.lbSrcVsDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSrcVsDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbSrcVsDate.Location = new System.Drawing.Point(679, 30);
+            this.lbSrcVsDate.Name = "lbSrcVsDate";
+            this.lbSrcVsDate.Size = new System.Drawing.Size(56, 20);
+            this.lbSrcVsDate.TabIndex = 558;
+            this.lbSrcVsDate.Text = "vsdate";
+            // 
+            // lbSrcAge
+            // 
+            this.lbSrcAge.AutoSize = true;
+            this.lbSrcAge.BackColor = System.Drawing.Color.White;
+            this.lbSrcAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSrcAge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbSrcAge.Location = new System.Drawing.Point(574, 30);
+            this.lbSrcAge.Name = "lbSrcAge";
+            this.lbSrcAge.Size = new System.Drawing.Size(21, 20);
+            this.lbSrcAge.TabIndex = 557;
+            this.lbSrcAge.Text = "...";
+            // 
+            // lbPttFinNote
+            // 
+            this.lbPttFinNote.AutoSize = true;
+            this.lbPttFinNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbPttFinNote.Location = new System.Drawing.Point(396, 7);
+            this.lbPttFinNote.Name = "lbPttFinNote";
+            this.lbPttFinNote.Size = new System.Drawing.Size(69, 20);
+            this.lbPttFinNote.TabIndex = 279;
+            this.lbPttFinNote.Text = "Fin Note";
+            // 
             // lbChronic
             // 
             this.lbChronic.AutoSize = true;
@@ -8447,17 +8988,17 @@
             this.lbChronic.Tag = null;
             this.lbChronic.Value = "มีโรคเรื้อรัง";
             // 
-            // lbAllery
+            // lbDrugAllergy
             // 
-            this.lbAllery.AutoSize = true;
-            this.lbAllery.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lbAllery.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbAllery.Location = new System.Drawing.Point(5, 54);
-            this.lbAllery.Name = "lbAllery";
-            this.lbAllery.Size = new System.Drawing.Size(59, 20);
-            this.lbAllery.TabIndex = 8;
-            this.lbAllery.Tag = null;
-            this.lbAllery.Value = "มีแพ้ยา";
+            this.lbDrugAllergy.AutoSize = true;
+            this.lbDrugAllergy.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbDrugAllergy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbDrugAllergy.Location = new System.Drawing.Point(5, 54);
+            this.lbDrugAllergy.Name = "lbDrugAllergy";
+            this.lbDrugAllergy.Size = new System.Drawing.Size(103, 20);
+            this.lbDrugAllergy.TabIndex = 8;
+            this.lbDrugAllergy.Tag = null;
+            this.lbDrugAllergy.Value = "มีแพ้ยา";
             // 
             // lvSrcPttName
             // 
@@ -8539,7 +9080,7 @@
             this.tabReport.Controls.Add(this.spRpt);
             this.tabReport.Location = new System.Drawing.Point(1, 26);
             this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(1653, 1088);
+            this.tabReport.Size = new System.Drawing.Size(2633, 1088);
             this.tabReport.TabIndex = 8;
             this.tabReport.Text = "Report";
             // 
@@ -8555,20 +9096,20 @@
             this.spRpt.Panels.Add(this.c1SplitterPanel8);
             this.spRpt.Panels.Add(this.c1SplitterPanel5);
             this.spRpt.Panels.Add(this.c1SplitterPanel18);
-            this.spRpt.Size = new System.Drawing.Size(1653, 1088);
+            this.spRpt.Size = new System.Drawing.Size(2633, 1088);
             this.spRpt.TabIndex = 0;
             // 
             // c1SplitterPanel8
             // 
             this.c1SplitterPanel8.Controls.Add(this.pnRpt);
             this.c1SplitterPanel8.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel8.Location = new System.Drawing.Point(431, 21);
+            this.c1SplitterPanel8.Location = new System.Drawing.Point(772, 21);
             this.c1SplitterPanel8.Name = "c1SplitterPanel8";
-            this.c1SplitterPanel8.Size = new System.Drawing.Size(1036, 1067);
+            this.c1SplitterPanel8.Size = new System.Drawing.Size(1861, 1067);
             this.c1SplitterPanel8.SizeRatio = 70.802D;
             this.c1SplitterPanel8.TabIndex = 1;
             this.c1SplitterPanel8.Text = "Panel 2";
-            this.c1SplitterPanel8.Width = 1036;
+            this.c1SplitterPanel8.Width = 1861;
             // 
             // pnRpt
             // 
@@ -8576,7 +9117,7 @@
             this.pnRpt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnRpt.Location = new System.Drawing.Point(0, 0);
             this.pnRpt.Name = "pnRpt";
-            this.pnRpt.Size = new System.Drawing.Size(1036, 1067);
+            this.pnRpt.Size = new System.Drawing.Size(1861, 1067);
             this.pnRpt.TabIndex = 0;
             // 
             // arvMain
@@ -8616,7 +9157,7 @@
             this.arvMain.Sidebar.TocPanel.Text = "Document map";
             this.arvMain.Sidebar.TocPanel.Width = 200;
             this.arvMain.Sidebar.Width = 200;
-            this.arvMain.Size = new System.Drawing.Size(1036, 1067);
+            this.arvMain.Size = new System.Drawing.Size(1861, 1067);
             this.arvMain.TabIndex = 1;
             // 
             // c1SplitterPanel5
@@ -8624,21 +9165,21 @@
             this.c1SplitterPanel5.Collapsible = true;
             this.c1SplitterPanel5.Controls.Add(this.pnRptName);
             this.c1SplitterPanel5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.c1SplitterPanel5.Height = 401;
+            this.c1SplitterPanel5.Height = 408;
             this.c1SplitterPanel5.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel5.Name = "c1SplitterPanel5";
-            this.c1SplitterPanel5.Size = new System.Drawing.Size(427, 380);
+            this.c1SplitterPanel5.Size = new System.Drawing.Size(768, 380);
             this.c1SplitterPanel5.SizeRatio = 37.638D;
             this.c1SplitterPanel5.TabIndex = 0;
             this.c1SplitterPanel5.Text = "Panel 1";
-            this.c1SplitterPanel5.Width = 427;
+            this.c1SplitterPanel5.Width = 768;
             // 
             // pnRptName
             // 
             this.pnRptName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnRptName.Location = new System.Drawing.Point(0, 0);
             this.pnRptName.Name = "pnRptName";
-            this.pnRptName.Size = new System.Drawing.Size(427, 380);
+            this.pnRptName.Size = new System.Drawing.Size(768, 380);
             this.pnRptName.TabIndex = 0;
             // 
             // c1SplitterPanel18
@@ -8648,7 +9189,7 @@
             this.c1SplitterPanel18.Height = 676;
             this.c1SplitterPanel18.Location = new System.Drawing.Point(0, 433);
             this.c1SplitterPanel18.Name = "c1SplitterPanel18";
-            this.c1SplitterPanel18.Size = new System.Drawing.Size(427, 655);
+            this.c1SplitterPanel18.Size = new System.Drawing.Size(768, 655);
             this.c1SplitterPanel18.TabIndex = 2;
             this.c1SplitterPanel18.Text = "Panel 3";
             // 
@@ -8819,7 +9360,7 @@
             this.tabStaffNote.Controls.Add(this.spStaffNote);
             this.tabStaffNote.Location = new System.Drawing.Point(1, 26);
             this.tabStaffNote.Name = "tabStaffNote";
-            this.tabStaffNote.Size = new System.Drawing.Size(1653, 1088);
+            this.tabStaffNote.Size = new System.Drawing.Size(2633, 1088);
             this.tabStaffNote.TabIndex = 10;
             this.tabStaffNote.Text = "StaffNote";
             // 
@@ -8834,7 +9375,7 @@
             this.spStaffNote.Name = "spStaffNote";
             this.spStaffNote.Panels.Add(this.spStaffNoteLeft);
             this.spStaffNote.Panels.Add(this.c1SplitterPanel25);
-            this.spStaffNote.Size = new System.Drawing.Size(1653, 1088);
+            this.spStaffNote.Size = new System.Drawing.Size(2633, 1088);
             this.spStaffNote.TabIndex = 0;
             // 
             // spStaffNoteLeft
@@ -8951,7 +9492,7 @@
             this.tabApmNew.Controls.Add(this.c1SplitContainer7);
             this.tabApmNew.Location = new System.Drawing.Point(1, 26);
             this.tabApmNew.Name = "tabApmNew";
-            this.tabApmNew.Size = new System.Drawing.Size(1653, 1088);
+            this.tabApmNew.Size = new System.Drawing.Size(2633, 1088);
             this.tabApmNew.TabIndex = 11;
             this.tabApmNew.Text = "ทำนัดใหม่";
             // 
@@ -8966,7 +9507,7 @@
             this.c1SplitContainer7.Name = "c1SplitContainer7";
             this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel24);
             this.c1SplitContainer7.Panels.Add(this.c1SplitterPanel26);
-            this.c1SplitContainer7.Size = new System.Drawing.Size(1653, 1088);
+            this.c1SplitContainer7.Size = new System.Drawing.Size(2633, 1088);
             this.c1SplitContainer7.TabIndex = 0;
             // 
             // c1SplitterPanel24
@@ -8994,7 +9535,7 @@
             this.tabQue.Controls.Add(this.textBox1);
             this.tabQue.Location = new System.Drawing.Point(1, 26);
             this.tabQue.Name = "tabQue";
-            this.tabQue.Size = new System.Drawing.Size(1653, 1088);
+            this.tabQue.Size = new System.Drawing.Size(2633, 1088);
             this.tabQue.TabIndex = 12;
             this.tabQue.Text = "Que";
             // 
@@ -9033,7 +9574,7 @@
             this.Sb1.RightPaneItems.Add(this.rgSbModule);
             this.Sb1.RightPaneItems.Add(this.btnScanSaveImg);
             this.Sb1.RightPaneItems.Add(this.btnOperClose);
-            this.Sb1.Size = new System.Drawing.Size(1655, 22);
+            this.Sb1.Size = new System.Drawing.Size(2635, 22);
             // 
             // lfsbLastUpdate
             // 
@@ -9111,11 +9652,329 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
+            // label165
+            // 
+            this.label165.AutoSize = true;
+            this.label165.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label165.Location = new System.Drawing.Point(877, 7);
+            this.label165.Name = "label165";
+            this.label165.Size = new System.Drawing.Size(96, 20);
+            this.label165.TabIndex = 559;
+            this.label165.Text = "ตรวจการได้ยิน";
+            // 
+            // label166
+            // 
+            this.label166.AutoSize = true;
+            this.label166.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label166.Location = new System.Drawing.Point(877, 31);
+            this.label166.Name = "label166";
+            this.label166.Size = new System.Drawing.Size(50, 20);
+            this.label166.TabIndex = 560;
+            this.label166.Text = "หูซ้าย :";
+            // 
+            // label167
+            // 
+            this.label167.AutoSize = true;
+            this.label167.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label167.Location = new System.Drawing.Point(877, 62);
+            this.label167.Name = "label167";
+            this.label167.Size = new System.Drawing.Size(49, 20);
+            this.label167.TabIndex = 561;
+            this.label167.Text = "หูขวา :";
+            // 
+            // txtOperLeftEar
+            // 
+            this.txtOperLeftEar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperLeftEar.Location = new System.Drawing.Point(931, 30);
+            this.txtOperLeftEar.Name = "txtOperLeftEar";
+            this.txtOperLeftEar.Size = new System.Drawing.Size(50, 24);
+            this.txtOperLeftEar.TabIndex = 564;
+            this.txtOperLeftEar.Tag = null;
+            // 
+            // txtOperRightEar
+            // 
+            this.txtOperRightEar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperRightEar.Location = new System.Drawing.Point(931, 60);
+            this.txtOperRightEar.Name = "txtOperRightEar";
+            this.txtOperRightEar.Size = new System.Drawing.Size(50, 24);
+            this.txtOperRightEar.TabIndex = 565;
+            this.txtOperRightEar.Tag = null;
+            // 
+            // txtOperLeftEarOther
+            // 
+            this.txtOperLeftEarOther.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperLeftEarOther.Location = new System.Drawing.Point(1136, 31);
+            this.txtOperLeftEarOther.Name = "txtOperLeftEarOther";
+            this.txtOperLeftEarOther.Size = new System.Drawing.Size(50, 24);
+            this.txtOperLeftEarOther.TabIndex = 568;
+            this.txtOperLeftEarOther.Tag = null;
+            // 
+            // txtOperRightEarOther
+            // 
+            this.txtOperRightEarOther.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperRightEarOther.Location = new System.Drawing.Point(1137, 61);
+            this.txtOperRightEarOther.Name = "txtOperRightEarOther";
+            this.txtOperRightEarOther.Size = new System.Drawing.Size(50, 24);
+            this.txtOperRightEarOther.TabIndex = 569;
+            this.txtOperRightEarOther.Tag = null;
+            // 
+            // label168
+            // 
+            this.label168.AutoSize = true;
+            this.label168.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label168.Location = new System.Drawing.Point(885, 100);
+            this.label168.Name = "label168";
+            this.label168.Size = new System.Drawing.Size(82, 20);
+            this.label168.TabIndex = 570;
+            this.label168.Text = "สายตาบอดสี";
+            // 
+            // chkOperLeftEarNormal
+            // 
+            this.chkOperLeftEarNormal.AutoSize = true;
+            this.chkOperLeftEarNormal.Location = new System.Drawing.Point(5, 5);
+            this.chkOperLeftEarNormal.Name = "chkOperLeftEarNormal";
+            this.chkOperLeftEarNormal.Size = new System.Drawing.Size(45, 20);
+            this.chkOperLeftEarNormal.TabIndex = 571;
+            this.chkOperLeftEarNormal.TabStop = true;
+            this.chkOperLeftEarNormal.Text = "ปกติ";
+            this.chkOperLeftEarNormal.UseVisualStyleBackColor = true;
+            // 
+            // panel19
+            // 
+            this.panel19.Controls.Add(this.chkOperLeftEarAbNormal);
+            this.panel19.Controls.Add(this.chkOperLeftEarNormal);
+            this.panel19.Location = new System.Drawing.Point(987, 28);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(144, 28);
+            this.panel19.TabIndex = 572;
+            // 
+            // chkOperLeftEarAbNormal
+            // 
+            this.chkOperLeftEarAbNormal.AutoSize = true;
+            this.chkOperLeftEarAbNormal.Location = new System.Drawing.Point(70, 5);
+            this.chkOperLeftEarAbNormal.Name = "chkOperLeftEarAbNormal";
+            this.chkOperLeftEarAbNormal.Size = new System.Drawing.Size(59, 20);
+            this.chkOperLeftEarAbNormal.TabIndex = 572;
+            this.chkOperLeftEarAbNormal.TabStop = true;
+            this.chkOperLeftEarAbNormal.Text = "ผิดปกติ";
+            this.chkOperLeftEarAbNormal.UseVisualStyleBackColor = true;
+            // 
+            // panel20
+            // 
+            this.panel20.Controls.Add(this.chkOperRightEarAbNormal);
+            this.panel20.Controls.Add(this.chkOperRightEarNormal);
+            this.panel20.Location = new System.Drawing.Point(987, 59);
+            this.panel20.Name = "panel20";
+            this.panel20.Size = new System.Drawing.Size(144, 28);
+            this.panel20.TabIndex = 573;
+            // 
+            // chkOperRightEarAbNormal
+            // 
+            this.chkOperRightEarAbNormal.AutoSize = true;
+            this.chkOperRightEarAbNormal.Location = new System.Drawing.Point(70, 5);
+            this.chkOperRightEarAbNormal.Name = "chkOperRightEarAbNormal";
+            this.chkOperRightEarAbNormal.Size = new System.Drawing.Size(59, 20);
+            this.chkOperRightEarAbNormal.TabIndex = 572;
+            this.chkOperRightEarAbNormal.TabStop = true;
+            this.chkOperRightEarAbNormal.Text = "ผิดปกติ";
+            this.chkOperRightEarAbNormal.UseVisualStyleBackColor = true;
+            // 
+            // chkOperRightEarNormal
+            // 
+            this.chkOperRightEarNormal.AutoSize = true;
+            this.chkOperRightEarNormal.Location = new System.Drawing.Point(5, 5);
+            this.chkOperRightEarNormal.Name = "chkOperRightEarNormal";
+            this.chkOperRightEarNormal.Size = new System.Drawing.Size(45, 20);
+            this.chkOperRightEarNormal.TabIndex = 571;
+            this.chkOperRightEarNormal.TabStop = true;
+            this.chkOperRightEarNormal.Text = "ปกติ";
+            this.chkOperRightEarNormal.UseVisualStyleBackColor = true;
+            // 
+            // txtOperRightEye
+            // 
+            this.txtOperRightEye.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperRightEye.Location = new System.Drawing.Point(940, 154);
+            this.txtOperRightEye.Name = "txtOperRightEye";
+            this.txtOperRightEye.Size = new System.Drawing.Size(70, 24);
+            this.txtOperRightEye.TabIndex = 577;
+            this.txtOperRightEye.Tag = null;
+            // 
+            // txtOperLeftEye
+            // 
+            this.txtOperLeftEye.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperLeftEye.Location = new System.Drawing.Point(940, 124);
+            this.txtOperLeftEye.Name = "txtOperLeftEye";
+            this.txtOperLeftEye.Size = new System.Drawing.Size(70, 24);
+            this.txtOperLeftEye.TabIndex = 576;
+            this.txtOperLeftEye.Tag = null;
+            // 
+            // label169
+            // 
+            this.label169.AutoSize = true;
+            this.label169.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label169.Location = new System.Drawing.Point(879, 156);
+            this.label169.Name = "label169";
+            this.label169.Size = new System.Drawing.Size(56, 20);
+            this.label169.TabIndex = 575;
+            this.label169.Text = "ตาขวา :";
+            // 
+            // label170
+            // 
+            this.label170.AutoSize = true;
+            this.label170.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label170.Location = new System.Drawing.Point(879, 125);
+            this.label170.Name = "label170";
+            this.label170.Size = new System.Drawing.Size(57, 20);
+            this.label170.TabIndex = 574;
+            this.label170.Text = "ตาซ้าย :";
+            // 
+            // txtOperRightEyePh
+            // 
+            this.txtOperRightEyePh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperRightEyePh.Location = new System.Drawing.Point(1075, 153);
+            this.txtOperRightEyePh.Name = "txtOperRightEyePh";
+            this.txtOperRightEyePh.Size = new System.Drawing.Size(70, 24);
+            this.txtOperRightEyePh.TabIndex = 581;
+            this.txtOperRightEyePh.Tag = null;
+            // 
+            // txtOperLeftEyePh
+            // 
+            this.txtOperLeftEyePh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperLeftEyePh.Location = new System.Drawing.Point(1075, 123);
+            this.txtOperLeftEyePh.Name = "txtOperLeftEyePh";
+            this.txtOperLeftEyePh.Size = new System.Drawing.Size(70, 24);
+            this.txtOperLeftEyePh.TabIndex = 580;
+            this.txtOperLeftEyePh.Tag = null;
+            // 
+            // label171
+            // 
+            this.label171.AutoSize = true;
+            this.label171.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label171.Location = new System.Drawing.Point(1014, 155);
+            this.label171.Name = "label171";
+            this.label171.Size = new System.Drawing.Size(58, 20);
+            this.label171.TabIndex = 579;
+            this.label171.Text = "phขวา :";
+            // 
+            // label172
+            // 
+            this.label172.AutoSize = true;
+            this.label172.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label172.Location = new System.Drawing.Point(1014, 124);
+            this.label172.Name = "label172";
+            this.label172.Size = new System.Drawing.Size(59, 20);
+            this.label172.TabIndex = 578;
+            this.label172.Text = "phซ้าย :";
+            // 
+            // cboOperEye
+            // 
+            this.cboOperEye.AllowSpinLoop = false;
+            this.cboOperEye.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboOperEye.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboOperEye.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboOperEye.GapHeight = 0;
+            this.cboOperEye.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboOperEye.ItemsDisplayMember = "";
+            this.cboOperEye.ItemsValueMember = "";
+            this.cboOperEye.Location = new System.Drawing.Point(971, 98);
+            this.cboOperEye.Name = "cboOperEye";
+            this.cboOperEye.Size = new System.Drawing.Size(125, 24);
+            this.cboOperEye.TabIndex = 582;
+            this.cboOperEye.Tag = null;
+            // 
+            // btnOperEarSave
+            // 
+            this.btnOperEarSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnOperEarSave.Image = global::bangna_hospital.Properties.Resources.Save_large;
+            this.btnOperEarSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOperEarSave.Location = new System.Drawing.Point(1193, 20);
+            this.btnOperEarSave.Name = "btnOperEarSave";
+            this.btnOperEarSave.Size = new System.Drawing.Size(114, 33);
+            this.btnOperEarSave.TabIndex = 583;
+            this.btnOperEarSave.Text = "save หู";
+            this.btnOperEarSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOperEarSave.UseVisualStyleBackColor = true;
+            // 
+            // btnOperEyeSave
+            // 
+            this.btnOperEyeSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnOperEyeSave.Image = global::bangna_hospital.Properties.Resources.Save_large;
+            this.btnOperEyeSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOperEyeSave.Location = new System.Drawing.Point(1102, 92);
+            this.btnOperEyeSave.Name = "btnOperEyeSave";
+            this.btnOperEyeSave.Size = new System.Drawing.Size(105, 33);
+            this.btnOperEyeSave.TabIndex = 584;
+            this.btnOperEyeSave.Text = "save ตา";
+            this.btnOperEyeSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOperEyeSave.UseVisualStyleBackColor = true;
+            // 
+            // btnOperSaveStaffNote
+            // 
+            this.btnOperSaveStaffNote.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnOperSaveStaffNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnOperSaveStaffNote.Image = global::bangna_hospital.Properties.Resources.folder;
+            this.btnOperSaveStaffNote.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOperSaveStaffNote.Location = new System.Drawing.Point(1193, 54);
+            this.btnOperSaveStaffNote.Name = "btnOperSaveStaffNote";
+            this.btnOperSaveStaffNote.Size = new System.Drawing.Size(114, 35);
+            this.btnOperSaveStaffNote.TabIndex = 585;
+            this.btnOperSaveStaffNote.Text = "บันทึกใบยา";
+            this.btnOperSaveStaffNote.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOperSaveStaffNote.UseVisualStyleBackColor = false;
+            // 
+            // label173
+            // 
+            this.label173.AutoSize = true;
+            this.label173.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label173.Location = new System.Drawing.Point(879, 189);
+            this.label173.Name = "label173";
+            this.label173.Size = new System.Drawing.Size(57, 20);
+            this.label173.TabIndex = 586;
+            this.label173.Text = "เป่าปอด";
+            // 
+            // txtOperLung
+            // 
+            this.txtOperLung.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperLung.Location = new System.Drawing.Point(942, 185);
+            this.txtOperLung.Name = "txtOperLung";
+            this.txtOperLung.Size = new System.Drawing.Size(50, 24);
+            this.txtOperLung.TabIndex = 587;
+            this.txtOperLung.Tag = null;
+            // 
+            // cboOperLung
+            // 
+            this.cboOperLung.AllowSpinLoop = false;
+            this.cboOperLung.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboOperLung.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboOperLung.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboOperLung.GapHeight = 0;
+            this.cboOperLung.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.cboOperLung.ItemsDisplayMember = "";
+            this.cboOperLung.ItemsValueMember = "";
+            this.cboOperLung.Location = new System.Drawing.Point(998, 184);
+            this.cboOperLung.Name = "cboOperLung";
+            this.cboOperLung.Size = new System.Drawing.Size(125, 24);
+            this.cboOperLung.TabIndex = 588;
+            this.cboOperLung.Tag = null;
+            // 
+            // btnOperLungSave
+            // 
+            this.btnOperLungSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnOperLungSave.Image = global::bangna_hospital.Properties.Resources.Save_large;
+            this.btnOperLungSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOperLungSave.Location = new System.Drawing.Point(1129, 175);
+            this.btnOperLungSave.Name = "btnOperLungSave";
+            this.btnOperLungSave.Size = new System.Drawing.Size(105, 33);
+            this.btnOperLungSave.TabIndex = 589;
+            this.btnOperLungSave.Text = "save ปอด";
+            this.btnOperLungSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOperLungSave.UseVisualStyleBackColor = true;
+            // 
             // FrmOPD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1655, 1137);
+            this.ClientSize = new System.Drawing.Size(2635, 1137);
             this.Controls.Add(this.tC1);
             this.Controls.Add(this.Sb1);
             this.Name = "FrmOPD";
@@ -9435,10 +10294,31 @@
             this.spSrcLab.ResumeLayout(false);
             this.spSrcXray.ResumeLayout(false);
             this.spSrcProcedure.ResumeLayout(false);
+            this.tabEKG.ResumeLayout(false);
+            this.pnEKGtop.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcEKGScanSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcEKGScanNew)).EndInit();
+            this.tabECHO.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcECHOScanSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcECHOScanNew)).EndInit();
+            this.tabEST.ResumeLayout(false);
+            this.panel25.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcESTScanSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcESTScanNew)).EndInit();
+            this.tabHolter.ResumeLayout(false);
+            this.panel28.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcHolterScanSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcHolterScanNew)).EndInit();
+            this.tabDocOLD.ResumeLayout(false);
+            this.panel21.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcDocOLDSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSrcDocOLDNew)).EndInit();
+            this.tabCertMed.ResumeLayout(false);
             this.spSrcPttSrc.ResumeLayout(false);
             this.spSrcPttSrc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lbChronic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lbAllery)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbDrugAllergy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvSrcPttName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbSrcHN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSrcOk)).EndInit();
@@ -9478,6 +10358,25 @@
             this.tabQue.ResumeLayout(false);
             this.tabQue.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEarOther)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEarOther)).EndInit();
+            this.panel19.ResumeLayout(false);
+            this.panel19.PerformLayout();
+            this.panel20.ResumeLayout(false);
+            this.panel20.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEye)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEye)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperRightEyePh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLeftEyePh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboOperEye)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperEarSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperEyeSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperSaveStaffNote)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperLung)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboOperLung)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnOperLungSave)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -9798,7 +10697,7 @@
         private C1.Win.C1Input.C1Label lvSrcPttName;
         private C1.Win.C1Input.C1Label lbSrcHN;
         private C1.Win.C1Input.C1Label lbChronic;
-        private C1.Win.C1Input.C1Label lbAllery;
+        private C1.Win.C1Input.C1Label lbDrugAllergy;
         private C1.Win.C1SplitContainer.C1SplitterPanel spSrcOrder;
         private C1.Win.C1Command.C1DockingTab c1DockingTab1;
         private C1.Win.C1Command.C1DockingTabPage tabSearchDrug;
@@ -10217,5 +11116,76 @@
         private System.Windows.Forms.Panel pnPrenoXray;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel28;
         private System.Windows.Forms.Panel pnPrenoProcedure;
+        private C1.Win.C1Command.C1DockingTabPage tabEKG;
+        private C1.Win.C1Command.C1DockingTabPage tabDocOLD;
+        private System.Windows.Forms.Label lbPttFinNote;
+        private System.Windows.Forms.Label lbSrcAge;
+        private System.Windows.Forms.Label lbSrcVN;
+        private System.Windows.Forms.Label lbSrcVsDate;
+        private System.Windows.Forms.Label lbSrcPreno;
+        private System.Windows.Forms.Panel pnEKGtop;
+        private System.Windows.Forms.Panel pnEKG;
+        private C1.Win.C1Input.C1Button btnSrcEKGScanSave;
+        private C1.Win.C1Input.C1Button btnSrcEKGScanNew;
+        private System.Windows.Forms.Panel pnEKGView;
+        private System.Windows.Forms.Panel pnDocOLDView;
+        private System.Windows.Forms.Panel pnDocOLD;
+        private System.Windows.Forms.Panel panel21;
+        private C1.Win.C1Input.C1Button btnSrcDocOLDSave;
+        private C1.Win.C1Input.C1Button btnSrcDocOLDNew;
+        private C1.Win.C1Command.C1DockingTabPage tabECHO;
+        private C1.Win.C1Command.C1DockingTabPage tabEST;
+        private C1.Win.C1Command.C1DockingTabPage tabHolter;
+        private System.Windows.Forms.Panel pnECHOView;
+        private System.Windows.Forms.Panel pnECHO;
+        private System.Windows.Forms.Panel panel22;
+        private C1.Win.C1Input.C1Button btnSrcECHOScanSave;
+        private C1.Win.C1Input.C1Button btnSrcECHOScanNew;
+        private System.Windows.Forms.Panel pnESTView;
+        private System.Windows.Forms.Panel pnEST;
+        private System.Windows.Forms.Panel panel25;
+        private C1.Win.C1Input.C1Button btnSrcESTScanSave;
+        private C1.Win.C1Input.C1Button btnSrcESTScanNew;
+        private System.Windows.Forms.Panel pnHolterView;
+        private System.Windows.Forms.Panel pnHolter;
+        private System.Windows.Forms.Panel panel28;
+        private C1.Win.C1Input.C1Button btnSrcHolterScanSave;
+        private C1.Win.C1Input.C1Button btnSrcHolterScanNew;
+        private System.Windows.Forms.Label lbDtrApmCnt;
+        private System.Windows.Forms.Label lbDtrApmLimit;
+        private C1.Win.C1Command.C1DockingTabPage tabCertMed;
+        private System.Windows.Forms.Panel pnCertMedView;
+        private System.Windows.Forms.Panel pnCertMed;
+        private System.Windows.Forms.Label lboperAge;
+        private C1.Win.C1Input.C1TextBox txtOperRightEar;
+        private C1.Win.C1Input.C1TextBox txtOperLeftEar;
+        private System.Windows.Forms.Label label167;
+        private System.Windows.Forms.Label label166;
+        private System.Windows.Forms.Label label165;
+        private C1.Win.C1Input.C1TextBox txtOperRightEarOther;
+        private C1.Win.C1Input.C1TextBox txtOperLeftEarOther;
+        private System.Windows.Forms.Label label168;
+        private System.Windows.Forms.Panel panel20;
+        private System.Windows.Forms.RadioButton chkOperRightEarAbNormal;
+        private System.Windows.Forms.RadioButton chkOperRightEarNormal;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.RadioButton chkOperLeftEarAbNormal;
+        private System.Windows.Forms.RadioButton chkOperLeftEarNormal;
+        private C1.Win.C1Input.C1TextBox txtOperRightEyePh;
+        private C1.Win.C1Input.C1TextBox txtOperLeftEyePh;
+        private System.Windows.Forms.Label label171;
+        private System.Windows.Forms.Label label172;
+        private C1.Win.C1Input.C1TextBox txtOperRightEye;
+        private C1.Win.C1Input.C1TextBox txtOperLeftEye;
+        private System.Windows.Forms.Label label169;
+        private System.Windows.Forms.Label label170;
+        private C1.Win.C1Input.C1ComboBox cboOperEye;
+        private C1.Win.C1Input.C1Button btnOperEyeSave;
+        private C1.Win.C1Input.C1Button btnOperEarSave;
+        private C1.Win.C1Input.C1Button btnOperSaveStaffNote;
+        private C1.Win.C1Input.C1Button btnOperLungSave;
+        private C1.Win.C1Input.C1ComboBox cboOperLung;
+        private C1.Win.C1Input.C1TextBox txtOperLung;
+        private System.Windows.Forms.Label label173;
     }
 }
