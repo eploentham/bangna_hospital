@@ -31,7 +31,7 @@ namespace bangna_hospital.gui
         Patient PTT;
         C1ThemeController theme1;
         int colgrfSupraVsDate = 1, colgrfSupraPreno = 2, colgrfSupraSymptoms = 3, colgrfSupraVNAN=4, colgrfSupraStatusAdmit=5;
-        int colgrfSSOPimpchk = 1, colgrfSSOPimpVsDate = 2, colgrfSSOPimpPreno = 3, colgrfSSOPimpHn = 4, colgrfSSOPimpName = 5, colgrfSSOPimpSymptoms = 6, colgrfSSOPimpPaidName = 7, colgrfSSOPimppid = 8;
+        int colgrfSSOPimpchk = 1, colgrfSSOPimpVsDate = 2, colgrfSSOPimpPreno = 3, colgrfSSOPimpHn = 4, colgrfSSOPimpName = 5, colgrfSSOPimpSymptoms = 6, colgrfSSOPimpPaidName = 7, colgrfSSOPimppid = 8, colgrfSSOPimpVsTime = 9;
         int colgrfSSOPhn=1, colgrfSSOPname=2, colgrfSSOPvsdate=3, colgrfSSOPpreno = 4, colgrfSSOPid = 5, colgrfSSOPSymptoms=6;
         int colgrfBillIid=1, colgrfBillIsvdate = 2, colgrfBillIlccode = 3, colgrfBillIdesc = 4;
         int colgrfDispid = 1, colgrfDispprescdt = 2, colgrfDispprescb = 3, colgrfDispitemcnt = 4;
@@ -225,9 +225,9 @@ namespace bangna_hospital.gui
         private void BtnSSOPgentextgentext_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            genXML();
+            genSSOPXML();
         }
-        private String genXML()
+        private String genSSOPXML()
         {
             List<SSOPBillTran> lbillt = new List<SSOPBillTran>();
             List<SSOPBillItems> lbillitems = new List<SSOPBillItems>();
@@ -488,13 +488,13 @@ namespace bangna_hospital.gui
                 String vsdate = arow[colgrfSSOPimpVsDate] != null ? arow[colgrfSSOPimpVsDate].ToString() : "";
                 String name = arow[colgrfSSOPimpName] != null ? arow[colgrfSSOPimpName].ToString() : "";
                 String pid = arow[colgrfSSOPimppid] != null ? arow[colgrfSSOPimppid].ToString() : "";
-                //String preno = arow[colgrfSSOPpreno] != null ? arow[colgrfSSOPPaidName].ToString() : "";
+                String vstime = arow[colgrfSSOPimpVsTime] != null ? arow[colgrfSSOPimpVsTime].ToString() : "";
                 if (int.TryParse(hn, out int i))
                 {
                     DataTable dt = bc.bcDB.fint01DB.SelectByPreno(hn, vsdate, preno);
                     DataTable dtbillitems = bc.bcDB.fint01DB.SelectBillGroupSS1Bypreno(hn, vsdate, preno);
                     if(dtbillitems.Rows.Count <= 0){            MessageBox.Show("ไม่พบรายการ", "");              return;             }
-                    String invno = "", amount="0", paid="0", secno="", docno="", docdate="";
+                    String invno = "", amount="0", paid="0", secno="", docno="", docdate="", paidcode="";
                     if (dt.Rows.Count > 0)
                     {
                         String no = "000000"+ dt.Rows[0]["MNC_DOC_NO"].ToString();
@@ -504,10 +504,13 @@ namespace bangna_hospital.gui
                         invno = yr + no;//MNC_SUM_PRI
                         amount = dt.Rows[0]["MNC_SUM_PRI"].ToString();          paid = dt.Rows[0]["MNC_PAY_CASH"].ToString();       secno = dt.Rows[0]["MNC_SEC_NO"].ToString();
                         docno = dt.Rows[0]["MNC_DOC_NO"].ToString();            docdate = dt.Rows[0]["MNC_DOC_DAT"].ToString();
+                        paidcode = dt.Rows[0]["MNC_FN_TYP_CD"].ToString();
                     }
                     secno = "147";
-                    SSOPBillTran ssopbilltran = setSSOPBillTran(secno, vsdate, invno, "", hn, preno, amount, paid
-                        , pid, name, "", "80", paid, "");
+                    paid = "0.00";
+                    
+                    SSOPBillTran ssopbilltran = setSSOPBillTran(secno, vsdate+"T"+ vstime, invno, "", hn, preno, amount, paid
+                        , pid, name, paidcode, "80", paid, "");
                     //setGrfSSOP(hn, preno, vsdate);
                     String rebillt = bc.bcDB.sSOPBillTranDB.insertData(ssopbilltran);
                     if (long.Parse(rebillt) > 0)
@@ -522,46 +525,52 @@ namespace bangna_hospital.gui
                             svid = ss1 + svid2 + svid1;
                             if (ss1.Equals("04"))         //drug  เอามาเป็นรายการสั่งยา
                             {
-                                String reqdrugold = "";
+                                String reqdrugold = "", otherpay="0.00", reimburser="HP";
+                                float amt = 0;
                                 DataTable dtdrug = bc.bcDB.pharT06DB.selectBypreno(hn, preno, vsdate);
                                 if (dtdrug.Rows.Count > 0)
                                 {
                                     foreach (DataRow rowd in dtdrug.Rows)
                                     {
                                         SSOPBillItems p = new SSOPBillItems();
-                                        p.billtrans_id = rebillt;                                   p.billitems_id = "";                                    p.billmuad = ss1;
-                                        p.claimcat = "OP1";                                         p.invno = invno;                                        p.svdate = rowd["MNC_CFR_DAT"].ToString();
-                                        p.lccode = rowd["MNC_PH_CD"].ToString();                    p.stdcode = "";                                         p.desc1 = rowd["MNC_PH_TN"].ToString();
+                                        p.billtrans_id = rebillt;                                   p.billitems_id = "";                            p.billmuad = ss1;
+                                        p.claimcat = "OP1";                                         p.invno = invno;                                p.svdate = rowd["MNC_CFR_DAT"].ToString();
+                                        p.lccode = rowd["MNC_PH_CD"].ToString();                    p.stdcode = "";                                 p.desc1 = rowd["MNC_PH_TN"].ToString();
                                         p.qty = rowd["MNC_PH_QTY_PAID"].ToString();
                                         p.up1 = rowd["MNC_PH_PRI"].ToString();
                                         p.chargeamt = rowd["MNC_PH_PRI"].ToString();
                                         p.claimup = rowd["MNC_PH_PRI"].ToString();
                                         p.claimamount = rowd["MNC_PH_PRI"].ToString();
-                                        p.svrefid = "";
+                                        p.svrefid = invno;
                                         p.active = "1";
+                                        p.billmuad = "3";
                                         String re1 = bc.bcDB.ssopBillItemsDB.insertData(p);
                                         String reqdrug = rowd["MNC_CFR_NO"].ToString() + "." + rowd["MNC_CFR_YR"].ToString();
                                         if(!reqdrugold.Equals(reqdrug))
                                         {
                                             reqdrugold = reqdrug;
+                                            float.TryParse(rowd["MNC_PH_PRI"].ToString(), out float price);
+                                            amt += price;
                                             SSOPDispensing disp = new SSOPDispensing();
-                                            disp.dispid = reqdrug;                                  disp.billdisp_id = "";                                  disp.billtrans_id = rebillt;
-                                            disp.hn = hn;                                           disp.pid = pid;                                         disp.invno = invno;
-                                            disp.prescdt = rowd["MNC_CFR_DAT"].ToString();          disp.dispdt = rowd["MNC_CFR_DAT"].ToString();           disp.prescb = "";
-                                            disp.itemcnt = dtdrug.Rows.Count.ToString();            disp.chargeamt = rowd["MNC_PH_PRI"].ToString();         disp.claimamt = rowd["MNC_PH_PRI"].ToString();
-                                            disp.paid = rowd["MNC_PH_PRI"].ToString();              disp.otherpay = rowd["MNC_PH_PRI"].ToString();          disp.reimburser = rowd["MNC_PH_PRI"].ToString();
-                                            disp.benefitplan = "";                                  disp.dispestat = "1";                                   disp.svid = "OP1";
-                                            disp.daycover = "7D"; 
+                                            disp.dispid = reqdrug;                              disp.billdisp_id = "";                                  disp.billtrans_id = rebillt;
+                                            disp.hn = hn;                                       disp.pid = pid;                                         disp.invno = invno;
+                                            disp.prescdt = rowd["MNC_CFR_DAT"].ToString();      disp.dispdt = rowd["MNC_CFR_DAT"].ToString();           disp.prescb = "ว"+rowd["MNC_DOT_CD"].ToString();
+                                            disp.itemcnt = dtdrug.Rows.Count.ToString();        disp.chargeamt = amt.ToString("#,###.00");              disp.claimamt = amt.ToString("#,###.00");
+                                            disp.paid = amt.ToString("#,###.00");               disp.otherpay = otherpay;                               disp.reimburser = reimburser;
+                                            disp.benefitplan = "";                              disp.dispestat = "1";                                   disp.svid = svid;
+                                            disp.daycover = "7D";                               disp.providerid = bc.iniC.ssoid;
                                             String re3 = bc.bcDB.sSOPDDB.insertData(disp);
                                         }
                                         SSOPDispenseditem ditem = new SSOPDispenseditem();
                                         ditem.dispid = reqdrug;                                     ditem.prdcat = "1";                                     ditem.hospdrgid = rowd["MNC_PH_CD"].ToString();
                                         ditem.drgid = rowd["tmt_code"].ToString();                  ditem.dfscode = rowd["MNC_PH_DIR_CD"].ToString();       ditem.dfstext = rowd["MNC_PH_DIR_DSC"].ToString();
-                                        ditem.packsize = rowd["MNC_PH_PRI"].ToString();             ditem.sigcode = rowd["MNC_PH_TIM_CD"].ToString();       ditem.sigtext = rowd["MNC_PH_TIM_CD"].ToString();
+                                        ditem.packsize = rowd["MNC_PH_UNT_CD"].ToString();          ditem.sigcode = rowd["MNC_PH_TIM_CD"].ToString();       ditem.sigtext = rowd["MNC_PH_TIM_DSC"].ToString();
                                         ditem.quantity = rowd["MNC_PH_QTY_PAID"].ToString();        ditem.unitprice = rowd["MNC_PH_PRI"].ToString();        ditem.chargeamt = rowd["MNC_PH_PRI"].ToString();
                                         ditem.reimbamt = rowd["MNC_PH_PRI"].ToString();             ditem.reimbprice = rowd["MNC_PH_PRI"].ToString();       ditem.prdsecode = "0";
                                         ditem.claimcont = "OD";                                     ditem.claimcat = "OP1";                                 ditem.multidisp = "11";
                                         ditem.supplyfor = "7D";                                     ditem.billtrans_id = rebillt;
+                                        ditem.sigtext = ditem.sigtext.Length<= 0 ? "/" : ditem.sigtext;
+                                        ditem.dfstext = ditem.dfstext.Length <= 0 ? "/" : ditem.dfstext;
                                         String re2 = bc.bcDB.sSOPDIDB.insertData(ditem);
                                     }
                                 }
@@ -573,8 +582,8 @@ namespace bangna_hospital.gui
                                 p.invno = invno;                                    p.hcode = bc.iniC.ssoid;                               p.hn = hn;
                                 p.pid = pid;                                        p.careaccount = "1";                        p.typeserv = "01";
                                 p.typein = "1";                                     p.typeout = "1";                            p.dtappoint = "";
-                                p.svpid = rowb["MNC_DOT_CD_DF"].ToString();   //  Doctor
-                                p.clinic = "";                                      p.begdt = docdate;                          p.enddt = docdate;
+                                p.svpid = "ว"+rowb["MNC_DOT_CD_DF"].ToString();   //  Doctor
+                                p.clinic = "01";                                      p.begdt = docdate;                          p.enddt = docdate;
                                 p.lccode = svid;                                    p.codeset = "";                             p.stdcode = "";
                                 p.svcharge = rowb["MNC_FN_PAD"].ToString();         p.completion = "";                          p.svtxcode = "";
                                 p.claimcat = "OP1";                                 p.active = "1";                             p.billtrans_id = rebillt;
@@ -1453,7 +1462,7 @@ namespace bangna_hospital.gui
             grfItems.Dock = System.Windows.Forms.DockStyle.Fill;
             grfItems.Location = new System.Drawing.Point(0, 0);
             grfItems.Rows.Count = 1;
-            grfItems.Cols.Count = 9;
+            grfItems.Cols.Count = 10;
 
             grfItems.Cols[colgrfSSOPimpVsDate].Width = 90;
             grfItems.Cols[colgrfSSOPimpPreno].Width = 60;
@@ -1473,7 +1482,7 @@ namespace bangna_hospital.gui
             grfItems.Cols[colgrfSSOPimpHn].Caption = "HN";
             grfItems.Cols[colgrfSSOPimpchk].Visible = false;
             grfItems.Cols[colgrfSSOPimpVsDate].AllowEditing = false;
-            grfItems.Cols[colgrfSSOPimpVsDate].AllowEditing = false;
+            grfItems.Cols[colgrfSSOPimpVsTime].AllowEditing = false;
             grfItems.Cols[colgrfSSOPimpPreno].AllowEditing = false;
             grfItems.Cols[colgrfSSOPimpHn].AllowEditing = false;
             grfItems.Cols[colgrfSSOPimpName].AllowEditing = false;
@@ -1507,7 +1516,7 @@ namespace bangna_hospital.gui
             grfSSOPimp.Dock = System.Windows.Forms.DockStyle.Fill;
             grfSSOPimp.Location = new System.Drawing.Point(0, 0);
             grfSSOPimp.Rows.Count = 1;
-            grfSSOPimp.Cols.Count = 9;
+            grfSSOPimp.Cols.Count = 10;
 
             grfSSOPimp.Cols[colgrfSSOPimpVsDate].Width = 90;
             grfSSOPimp.Cols[colgrfSSOPimpPreno].Width = 60;
@@ -1527,7 +1536,7 @@ namespace bangna_hospital.gui
             grfSSOPimp.Cols[colgrfSSOPimpHn].Caption = "HN";
             //grfSSOP.Cols[colgrfSSOPchk].Visible = false;
             grfSSOPimp.Cols[colgrfSSOPimpVsDate].AllowEditing = false;
-            grfSSOPimp.Cols[colgrfSSOPimpVsDate].AllowEditing = false;
+            grfSSOPimp.Cols[colgrfSSOPimpVsTime].AllowEditing = false;
             grfSSOPimp.Cols[colgrfSSOPimpPreno].AllowEditing = false;
             grfSSOPimp.Cols[colgrfSSOPimpHn].AllowEditing = false;
             grfSSOPimp.Cols[colgrfSSOPimpName].AllowEditing = false;
@@ -1557,7 +1566,7 @@ namespace bangna_hospital.gui
                 rowa[colgrfSSOPimpName] = grfSSOPimp[grfSSOPimp.Row, colgrfSSOPimpName].ToString();
                 rowa[colgrfSSOPimpPaidName] = grfSSOPimp[grfSSOPimp.Row, colgrfSSOPimpPaidName].ToString();
                 rowa[colgrfSSOPimppid] = grfSSOPimp[grfSSOPimp.Row, colgrfSSOPimppid].ToString();
-                //grfSSOPimp[grfSSOPimp.Row, colgrfSSOPimpchk] = true;
+                rowa[colgrfSSOPimpVsTime] = grfSSOPimp[grfSSOPimp.Row, colgrfSSOPimpVsTime].ToString();
             }
         }
 
@@ -1594,6 +1603,7 @@ namespace bangna_hospital.gui
                 rowa[colgrfSSOPimpName] = row1["pttfullname"].ToString();
                 rowa[colgrfSSOPimpPaidName] = row1["MNC_FN_TYP_DSC"].ToString();
                 rowa[colgrfSSOPimppid] = row1["mnc_id_no"].ToString();
+                rowa[colgrfSSOPimpVsTime] = bc.showTime( row1["MNC_TIME"].ToString());
                 rowa[0] = i;
                 i++;
             }
@@ -1716,7 +1726,7 @@ namespace bangna_hospital.gui
         }
         private void FrmSSO_Load(object sender, EventArgs e)
         {
-            this.Text = "last update 2025-06-06";
+            this.Text = "last update 2025-06-25";
             scSupraNew.HeaderHeight = 0;
             spSSOPget.HeaderHeight = 0;
             c1SplitContainer1.HeaderHeight = 0;

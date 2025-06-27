@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
+using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Themes;
 using System;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
-    public partial class FrmLabCompare : Form
+    public partial class FrmLabCompare1 : Form
     {
         BangnaControl bc;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, fEditBRed;
@@ -27,9 +28,9 @@ namespace bangna_hospital.gui
         String HN = "", PRENO = "", VSDATE = "", AN = "", statusIPD="", LABNAME="";
         List<String> lLccode;
         DateTime datedischarge;
-
+        C1DockingTab tcDtr;
         int colLabHn = 1, colLablccode = 2, colLabLabName = 3, colLabSubName = 4, colLabRange = 5, colLabUnitName = 6, colLabSubcode = 7, colLabReqNO=8, colLabReqDate=9;
-        public FrmLabCompare(BangnaControl bc, String hn, String vsdate, String preno, String an)
+        public FrmLabCompare1(BangnaControl bc, String hn, String vsdate, String preno, String an)
         {
             InitializeComponent();
             this.bc = bc;
@@ -40,7 +41,7 @@ namespace bangna_hospital.gui
             statusIPD = (AN.Length > 0) ? "IPD":"OPD";
             initConfig();
         }
-        public FrmLabCompare(BangnaControl bc, String hn, String vsdate, String preno, String an, String labname)
+        public FrmLabCompare1(BangnaControl bc, String hn, String vsdate, String preno, String an, String labname)
         {
             InitializeComponent();
             this.bc = bc;
@@ -78,19 +79,68 @@ namespace bangna_hospital.gui
             bc.setC1ComboByName(cboLab, LABNAME);
             initGrfLab(0);
             initCboSeries();
+            initTabDtr();
             setControl();
             //initGrf();
             cboLab.SelectedItemChanged += CboLab_SelectedItemChanged;
             cboSeries.SelectedItemChanged += CboSeries_SelectedItemChanged;
             btnOk.Click += BtnOk_Click;
+            btnLabAdd.Click += BtnLabAdd_Click;
             pageLoad = false;
         }
 
+        private void BtnLabAdd_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (cboLab.SelectedItem == null) return;
+            String lccode = cboLab.SelectedItem != null ? ((ComboBoxItem)(cboLab.SelectedItem)).Value.ToString() : "";
+            String lcname = cboLab.SelectedItem != null ? cboLab.SelectedItem.ToString() : "";
+            Boolean chk = false;
+            foreach(C1DockingTabPage tab in tcDtr.TabPages)
+            {
+                String tabname = tab.Name.Replace("tab","");
+                if (tabname.Equals(lcname))
+                {
+                    chk = true;
+                }
+            }
+            if (!chk)
+            {
+                datedischarge = DateTime.Now;
+                setGrfLab(datedischarge);
+            }
+        }
+
+        private void initTabDtr()
+        {
+            tcDtr = new C1DockingTab();
+            tcDtr.Dock = System.Windows.Forms.DockStyle.Fill;
+            tcDtr.Location = new System.Drawing.Point(0, 266);
+            tcDtr.Name = "tcDtr";
+            tcDtr.Size = new System.Drawing.Size(669, 200);
+            tcDtr.TabIndex = 0;
+            tcDtr.TabsSpacing = 5;
+            panel2.Controls.Add(tcDtr);
+
+            LabM01 lab = new LabM01();
+            lab = bc.bcDB.labM01DB.SelectByName(LABNAME);
+            panelResult.Hide();
+            //C1DockingTabPage tabLab = new C1DockingTabPage();
+            //tabLab.Location = new System.Drawing.Point(1, 24);
+            ////tabScan.Name = "c1DockingTabPage1";
+            //tabLab.Size = new System.Drawing.Size(667, 175);
+            //tabLab.TabIndex = 0;
+            //tabLab.Text = LABNAME;
+            //tabLab.Name = "tab"+ lab.MNC_LB_DSC;
+            //tabLab.Controls.Add(panelResult);
+            //panelResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            //tcDtr.Controls.Add(tabLab);
+        }
         private void CboSeries_SelectedItemChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             pageLoad = true;
-            setCbo();
+            //setCbo();
             pageLoad = false;
         }
 
@@ -98,7 +148,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             datedischarge = DateTime.Now;
-            setGrfLab(datedischarge);
+            //setGrfLab(datedischarge, tcDtr);
         }
 
         private void CboLab_SelectedItemChanged(object sender, EventArgs e)
@@ -106,7 +156,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             pageLoad = true;
             //String lccode = cboLab.SelectedItem != null ? cboLab.SelectedItem.ToString() : "1100000099";
-            setCbo();
+            //setCbo();
             pageLoad = false;
         }
         private void setCbo()
@@ -131,7 +181,7 @@ namespace bangna_hospital.gui
                     }
                 }
                 datedischarge = DateTime.Now;
-                setGrfLab(datedischarge);
+                //setGrfLab(datedischarge);
                 grfLab.Show();
             }
             catch(Exception ex)
@@ -153,9 +203,9 @@ namespace bangna_hospital.gui
             grfLab.Dock = System.Windows.Forms.DockStyle.Fill;
             grfLab.Location = new System.Drawing.Point(0, 0);
             
-            panelLab.Controls.Clear();
+            //panelLab.Controls.Clear();
 
-            panelLab.Controls.Add(grfLab);
+            //panelLab.Controls.Add(grfLab);
 
             grfLab.Rows.Count = 1;
             //grfLab.Cols.Count = 10 + icol;
@@ -194,13 +244,13 @@ namespace bangna_hospital.gui
             //grfLab.Click += GrfHn_Click;
             theme1.SetTheme(grfLab, "MacBlue");
         }
-        private void setGrfLab(DateTime datedisc)
+        private void setGrfLab(DateTime datedis)
         {
             DataTable dtlab = new DataTable();
             DataTable dtdate = new DataTable();
             String datestart = "", dateend = "";
-            DateTime dateend1 = datedisc;
-            DateTime datestart1 = datedisc;
+            DateTime dateend1 = datedis;
+            DateTime datestart1 = datedis;
             String seriesid = "";
             dateend = dateend1.Year + "-" + dateend1.ToString("MM-dd");
             seriesid = cboSeries.SelectedItem != null ? ((ComboBoxItem)cboSeries.SelectedItem).Value : "";
@@ -241,76 +291,88 @@ namespace bangna_hospital.gui
             }
             datestart = datestart1.Year + "-" + datestart1.ToString("MM-dd");
             //dtlab = bc.bcDB.labT02DB.selectLabSubNamebyHN(HN, lLccode, datestart, dateend);
+            String lccode = cboLab.SelectedItem != null ? ((ComboBoxItem)cboLab.SelectedItem).Value : "";
+            String lcname = cboLab.SelectedItem != null ? ((ComboBoxItem)cboLab.SelectedItem).Text : "";
+            lLccode.Clear();
+            lLccode.Add(lccode);
             dtdate = bc.bcDB.labT02DB.selectLabSubNameDatebyHN(HN, lLccode, datestart, dateend);
-            
-            initGrfLab(dtdate.Rows.Count);
-            grfLab.Rows.Count = 1;
-            
-            grfResult = new C1FlexGrid();
+            lf1.Text = lcname+" "+dtdate.Rows.Count + " รายการ";
+            //initGrfLab(dtdate.Rows.Count);
+            //grfLab.Rows.Count = 1;
+            C1DockingTabPage tab = new C1DockingTabPage();
+            tab.Name = "tab" + lcname;
+            tab.Text = lcname;
+            tcDtr.TabPages.Add(tab);
+            tcDtr.CloseBox = CloseBoxPositionEnum.AllPages;
+            tcDtr.TabsShowFocusCues = true;
+            //tcDtr.Controls.Add(tab);
+
+            C1FlexGrid grfResult = new C1FlexGrid();
             grfResult.Font = fEdit;
             grfResult.Dock = System.Windows.Forms.DockStyle.Fill;
             grfResult.Location = new System.Drawing.Point(0, 0);
+            grfResult.Name = "grf"+lccode;
             grfResult.Rows.Count = 1;
-            grfResult.Cols.Count = dtdate.Rows.Count+1;
-            panelResult.Controls.Clear();
+            grfResult.Cols.Count = dtdate.Rows.Count+4; //บวกชื่อ lab sub name
+            Panel panelResult = new Panel();
+            panelResult.Dock = System.Windows.Forms.DockStyle.Fill;
             panelResult.Controls.Add(grfResult);
+            tab.Controls.Add(panelResult);
             //grfLab.Rows.Count = dtlab.Rows.Count + 1;
             //grfLab.Cols.Add(dtdate.Rows.Count);
-            int i = 0, icol=1;
+            CellStyle cells0 = grfResult.Cols[2].StyleNew;
+            cells0.BackColor = ColorTranslator.FromHtml("#FFCACC");
+            CellStyle cells1 = grfResult.Cols[3].StyleNew;
+            cells1.BackColor = ColorTranslator.FromHtml("#DBC4F0");
+            int i = 0, icol=4;
             foreach(DataRow dcol in dtdate.Rows)
             {
-                grfResult.Cols[0].Visible = false;
+                grfResult.Cols[0].Visible = true;
                 grfResult.Cols[icol].Visible = true;
                 grfResult.Cols[icol].Caption = dcol["MNC_REQ_DAT"].ToString()+"["+ dcol["MNC_REQ_NO"].ToString()+"]";
                 grfResult.Cols[icol].Width = 125;
                 grfResult.Cols[icol].AllowSorting = false;
                 grfResult.Cols[icol].TextAlign = TextAlignEnum.RightCenter;
                 CellStyle cells = grfResult.Cols[icol].StyleNew;
-                if(icol==1) cells.BackColor = ColorTranslator.FromHtml("#88AB8E");
-                else if (icol == 2) cells.BackColor = ColorTranslator.FromHtml("#AFC8AD");
-                else if (icol == 3) cells.BackColor = ColorTranslator.FromHtml("#EEE7DA");
-                else if (icol == 4) cells.BackColor = ColorTranslator.FromHtml("#F2F1EB");
-                else if (icol == 5) cells.BackColor = ColorTranslator.FromHtml("#C3E2C2");
-                else if (icol == 6) cells.BackColor = ColorTranslator.FromHtml("#EAECCC");
-                else if (icol == 7) cells.BackColor = ColorTranslator.FromHtml("#DBCC95");
-                else if (icol == 8) cells.BackColor = ColorTranslator.FromHtml("#CD8D7A");
+                if (icol == 4) cells.BackColor = ColorTranslator.FromHtml("#88AB8E");
+                else if (icol == 5) cells.BackColor = ColorTranslator.FromHtml("#AFC8AD");
+                else if (icol == 6) cells.BackColor = ColorTranslator.FromHtml("#EEE7DA");
+                else if (icol == 7) cells.BackColor = ColorTranslator.FromHtml("#F2F1EB");
+                else if (icol == 8) cells.BackColor = ColorTranslator.FromHtml("#C3E2C2");
+                else if (icol == 9) cells.BackColor = ColorTranslator.FromHtml("#EAECCC");
+                else if (icol == 10) cells.BackColor = ColorTranslator.FromHtml("#DBCC95");
+                else if (icol == 11) cells.BackColor = ColorTranslator.FromHtml("#CD8D7A");
 
-                else if (icol == 9) cells.BackColor = ColorTranslator.FromHtml("#FFC5C5");
-                else if (icol == 10) cells.BackColor = ColorTranslator.FromHtml("#FFEBD8");
-                else if (icol == 11) cells.BackColor = ColorTranslator.FromHtml("#C7DCA7");
-                else if (icol == 12) cells.BackColor = ColorTranslator.FromHtml("#89B9AD");
+                else if (icol == 12) cells.BackColor = ColorTranslator.FromHtml("#FFC5C5");
+                else if (icol == 13) cells.BackColor = ColorTranslator.FromHtml("#FFEBD8");
+                else if (icol == 14) cells.BackColor = ColorTranslator.FromHtml("#C7DCA7");
+                else if (icol == 15) cells.BackColor = ColorTranslator.FromHtml("#89B9AD");
 
-                else if (icol == 13) cells.BackColor = ColorTranslator.FromHtml("#DADDB1");
-                else if (icol == 14) cells.BackColor = ColorTranslator.FromHtml("#B3A492");
-                else if (icol == 15) cells.BackColor = ColorTranslator.FromHtml("#BFB29E");
-                else if (icol == 16) cells.BackColor = ColorTranslator.FromHtml("#D6C7AE");
+                else if (icol == 16) cells.BackColor = ColorTranslator.FromHtml("#DADDB1");
+                else if (icol == 17) cells.BackColor = ColorTranslator.FromHtml("#B3A492");
+                else if (icol == 18) cells.BackColor = ColorTranslator.FromHtml("#BFB29E");
+                else if (icol == 19) cells.BackColor = ColorTranslator.FromHtml("#D6C7AE");
 
-                else if (icol == 17) cells.BackColor = ColorTranslator.FromHtml("#FAF3F0");
-                else if (icol == 18) cells.BackColor = ColorTranslator.FromHtml("#D4E2D4");
-                else if (icol == 19) cells.BackColor = ColorTranslator.FromHtml("#FFCACC");
-                else if (icol == 20) cells.BackColor = ColorTranslator.FromHtml("#DBC4F0");
-
+                else if (icol == 20) cells.BackColor = ColorTranslator.FromHtml("#FAF3F0");
+                else if (icol == 21) cells.BackColor = ColorTranslator.FromHtml("#D4E2D4");
+                else if (icol == 22) cells.BackColor = ColorTranslator.FromHtml("#FFCACC");
+                else if (icol == 23) cells.BackColor = ColorTranslator.FromHtml("#DBC4F0");
+                //grfResult.Cols[0] = icol;
                 icol++;
             }
             ////grfLab.Redraw;
             //grfLab.Refresh();
-            //foreach (DataRow drow in dtlab.Rows)
-            //{else if (row1["status_remark_call"].ToString().Equals("2")) { rowa[colgrfPttApmStatusRemarkCall] = "โทรเรียบร้อย ไม่รับสาย"; rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); }//#EBBDB6
+            //foreach (DataRow drow in dtdate.Rows)
+            //{ 
             //    i++;
-            //    grfLab[i, colLabHn] = txtHn.Text.Trim();
-            //    grfLab[i, colLablccode] = drow["MNC_LB_CD"].ToString();
-            //    grfLab[i, colLabLabName] = drow["MNC_LB_DSC"].ToString();
-            //    grfLab[i, colLabSubName] = drow["MNC_LB_RES"].ToString();
-            //    grfLab[i, colLabUnitName] = drow["MNC_RES_UNT"].ToString();
-            //    grfLab[i, colLabRange] = drow["MNC_LB_RES_MIN"].ToString() + " - " + drow["MNC_LB_RES_MAX"].ToString();
-            //    grfLab[i, colLabSubcode] = drow["MNC_LB_RES_CD"].ToString();
-            //    //grfLab[i, colLabReqNO] = drow["MNC_REQ_NO"].ToString();
-            //    //grfLab[i, colLabReqDate] = drow["MNC_REQ_DAT"].ToString();
+            //    grfResult[i, 1] = drow["MNC_LB_CD"].ToString();
+            //    grfResult[i, 2] = drow["MNC_RES"].ToString();
             //}
             //1. เอาข้อมูลจาก dtdate มาวน reqdate กับ reqno และ hn
             //2. แล้วมาวนใน grfLab อีกที lccode  ใช้แบบนี้ไม่ได้ เพราะ มี male female การแสดงผล  และถ้าใน table lab_t05 มีข้อมูล แต่ใน grf ไม่มีข้อมูล จะทำให้เกิด bug
             String labname = "", labnameold = "", reqno1 = "", reqnoold = "";
-            for (int jjj = 1; jjj < icol; jjj++)
+            //grfResult.Cols[colLabSubName].Visible = true;
+            for (int jjj = 4; jjj < icol; jjj++)
             {
                 String reqno = "", reqdate="";
                 reqno = grfResult.Cols[jjj].Caption;
@@ -318,35 +380,105 @@ namespace bangna_hospital.gui
                 String[] req = reqno.Split('[');
                 if (req.Length > 1)
                 {
-                    reqno = req[1];
-                    reqdate = req[0];
-                    DataTable dtres = new DataTable();
-                    dtres = bc.bcDB.labT02DB.selectLabResultbyHNReqNo(HN, lLccode, reqdate, reqno);//ได้ result ต้องเอาลงให้ครบ ถ้าค้นไม่เจอ ก็ เพิ่ม record
-                    //String labname = "", labnameold = "", reqno1 = "", reqnoold = "";
-                    foreach (DataRow rowres in dtres.Rows)
+                    String err = "00";
+                    try
                     {
-                        Boolean chk = false;
-                        for(int k = 1; k < grfLab.Rows.Count; k++)//ค้นใน grf ว่ามี ข้อมูลไหม ถ้าไม่เจอ ต้องเพิ่ม
-                        {       // ต้องเอาชื่อlab sub เพราะ ใน table lab_t05 field mnc_lb_res_cd เป็น running
-                            if(rowres["MNC_RES"].ToString().Trim().Equals("Target cell"))
-                            {
-                                String aaa = "";
+                        reqno = req[1];
+                        reqdate = req[0];
+                        DataTable dtres = new DataTable();
+                        dtres = bc.bcDB.labT02DB.selectLabResultbyHNReqNo(HN, lLccode, reqdate, reqno);//ได้ result ต้องเอาลงให้ครบ ถ้าค้นไม่เจอ ก็ เพิ่ม record
+                        //String labname = "", labnameold = "", reqno1 = "", reqnoold = "";
+                        foreach (DataRow rowres in dtres.Rows)
+                        {
+                            err = "00";
+                            Boolean chk = false;
+                            for (int rowindex = 1; rowindex < grfResult.Rows.Count; rowindex++)//ค้นใน grf ว่ามี ข้อมูลไหม ถ้าไม่เจอ ต้องเพิ่ม
+                            {       // ต้องเอาชื่อlab sub เพราะ ใน table lab_t05 field mnc_lb_res_cd เป็น running
+                                    //grfResult[rowindex, 1] = rowres["MNC_RES"].ToString();
+                                if (rowres["MNC_RES"].ToString().Trim().Equals("Target cell"))
+                                {
+                                    String aaa = "";
+                                }
+                                if (rowres["MNC_RES"].ToString().Trim().Equals(grfResult[rowindex, 1].ToString()))
+                                {
+                                    err = "01 rowindex " + rowindex+ " grfResult.Rows.Count " + grfResult.Rows.Count;
+                                    //grfLab[colindex, colLabSubName] = "";
+                                    //grfResult[colindex, colLabUnitName] = rowres["MNC_RES_UNT"].ToString();
+                                    //grfResult[colindex, colLabRange] = rowres["MNC_RES_MIN"].ToString() + " - " + rowres["MNC_RES_MAX"].ToString();
+                                    grfResult[rowindex, jjj] = rowres["MNC_RES_VALUE"].ToString();
+                                    try
+                                    {
+                                        float min = 0, max = 0, val = 0;
+                                        float.TryParse(rowres["MNC_RES_MIN"].ToString(), out min);
+                                        float.TryParse(rowres["MNC_RES_MAX"].ToString(), out max);
+                                        float.TryParse(rowres["MNC_RES_VALUE"].ToString(), out val);
+                                        if ((val < min) || (val > max))
+                                        {
+                                            var cell = grfResult[rowindex, jjj];
+                                            var rng = grfResult.GetCellRange(rowindex, jjj);
+                                            var newStyle = grfResult.Styles.Add(null);
+                                            newStyle.MergeWith(rng.StyleDisplay);
+                                            newStyle.Font = fEditB;
+                                            newStyle.ForeColor = Color.Red;
+                                            rng.Style = newStyle;
+                                        }
+                                        if (rowres["MNC_STS"].ToString().Trim().ToLower().Equals("abnormal"))
+                                        {
+                                            var cell = grfResult[rowindex, jjj];
+                                            var rng = grfResult.GetCellRange(rowindex, jjj);
+                                            var newStyle = grfResult.Styles.Add(null);
+                                            newStyle.MergeWith(rng.StyleDisplay);
+                                            newStyle.Font = fEditB;
+                                            newStyle.ForeColor = Color.Red;
+                                            rng.Style = newStyle;
+                                            //rowres.SetColumnError(jjj, "error");
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                    }
+                                    chk = true;
+                                }
                             }
-                            if (rowres["MNC_RES"].ToString().Trim().Equals(grfLab[k, colLabSubName].ToString()) && rowres["MNC_LB_CD"].ToString().Equals(grfLab[k, colLablccode].ToString()))
+                            if (!chk)
                             {
-                                grfLab[k, colLabUnitName] = rowres["MNC_RES_UNT"].ToString();
-                                grfLab[k, colLabRange] = rowres["MNC_RES_MIN"].ToString() + " - " + rowres["MNC_RES_MAX"].ToString();
-                                grfResult[k, jjj] = rowres["MNC_RES_VALUE"].ToString();
+                                //Row rownew = grfLab.Rows.Add();
                                 try
                                 {
-                                    float min = 0, max = 0, val =0;
+                                    Row resultnew = grfResult.Rows.Add();
+                                    //rownew[0] = grfLab.Rows.Count-1;
+                                    labname = rowres["MNC_LB_DSC"].ToString().Trim();
+                                    reqno1 = rowres["mnc_req_no"].ToString().Trim();
+                                    //if (!labname.Equals(labnameold) || !reqno1.Equals(reqnoold))
+                                    if (!labname.Equals(labnameold))
+                                    {
+                                        labnameold = labname;
+                                        reqnoold = reqno1;
+                                        //rownew[colLabLabName] = labname;
+                                    }
+                                    else
+                                    {
+                                        //rownew[colLabLabName] = "";
+                                    }
+                                    //rownew[colLabHn] = txtHn.Text.Trim();
+                                    //rownew[colLablccode] = rowres["MNC_LB_CD"].ToString();
+                                    //rownew[colLabSubName] = rowres["MNC_RES"].ToString().Trim();
+                                    //rownew[colLabUnitName] = rowres["MNC_RES_UNT"].ToString().Trim();
+                                    //rownew[colLabRange] = rowres["MNC_RES_MIN"].ToString() + " - " + rowres["MNC_RES_MAX"].ToString();
+                                    //rownew[colLabSubcode] = rowres["MNC_LB_RES_CD"].ToString();
+                                    resultnew[1] = rowres["MNC_RES"].ToString();
+                                    resultnew[jjj] = rowres["MNC_RES_VALUE"].ToString();
+                                    resultnew[2] = rowres["MNC_RES_UNT"].ToString();
+                                    resultnew[3] = rowres["MNC_RES_MIN"].ToString() + " - " + rowres["MNC_RES_MAX"].ToString();
+                                    float min = 0, max = 0, val = 0;
                                     float.TryParse(rowres["MNC_RES_MIN"].ToString(), out min);
                                     float.TryParse(rowres["MNC_RES_MAX"].ToString(), out max);
                                     float.TryParse(rowres["MNC_RES_VALUE"].ToString(), out val);
-                                    if ((val<min) || (val > max))
+                                    if ((val < min) || (val > max))
                                     {
-                                        var cell = grfResult[k, jjj];
-                                        var rng = grfResult.GetCellRange(k, jjj);
+                                        //var cell = rownew[jjj];
+                                        var rng = grfResult.GetCellRange(grfResult.Rows.Count - 1, jjj);
                                         var newStyle = grfResult.Styles.Add(null);
                                         newStyle.MergeWith(rng.StyleDisplay);
                                         newStyle.Font = fEditB;
@@ -355,8 +487,8 @@ namespace bangna_hospital.gui
                                     }
                                     if (rowres["MNC_STS"].ToString().Trim().ToLower().Equals("abnormal"))
                                     {
-                                        var cell = grfResult[k, jjj];
-                                        var rng = grfResult.GetCellRange(k, jjj);
+                                        //var cell = rownew[jjj];
+                                        var rng = grfResult.GetCellRange(grfResult.Rows.Count - 1, jjj);
                                         var newStyle = grfResult.Styles.Add(null);
                                         newStyle.MergeWith(rng.StyleDisplay);
                                         newStyle.Font = fEditB;
@@ -365,73 +497,18 @@ namespace bangna_hospital.gui
                                         //rowres.SetColumnError(jjj, "error");
                                     }
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
-
+                                    new LogWriter("e", "FrmLabCompare setGrfLab selectLabResultbyHNReqNo " + err + " " + ex.Message);
                                 }
-                                chk = true;
-                            }
-                        }
-                        if (!chk)
-                        {
-                            Row rownew = grfLab.Rows.Add();
-                            Row resultnew = grfResult.Rows.Add();
-                            rownew[0] = grfLab.Rows.Count-1;
-                            labname = rowres["MNC_LB_DSC"].ToString().Trim();
-                            reqno1 = rowres["mnc_req_no"].ToString().Trim();
-                            //if (!labname.Equals(labnameold) || !reqno1.Equals(reqnoold))
-                            if (!labname.Equals(labnameold))
-                            {
-                                labnameold = labname;
-                                reqnoold = reqno1;
-                                rownew[colLabLabName] = labname;
-                            }
-                            else
-                            {
-                                rownew[colLabLabName] = "";
-                            }
-                            rownew[colLabHn] = txtHn.Text.Trim();
-                            rownew[colLablccode] = rowres["MNC_LB_CD"].ToString();
-                            rownew[colLabSubName] = rowres["MNC_RES"].ToString().Trim();
-                            rownew[colLabUnitName] = rowres["MNC_RES_UNT"].ToString().Trim();
-                            rownew[colLabRange] = rowres["MNC_RES_MIN"].ToString() + " - " + rowres["MNC_RES_MAX"].ToString();
-                            rownew[colLabSubcode] = rowres["MNC_LB_RES_CD"].ToString();
-
-                            resultnew[jjj] = rowres["MNC_RES_VALUE"].ToString();
-                            try
-                            {
-                                float min = 0, max = 0, val = 0;
-                                float.TryParse(rowres["MNC_RES_MIN"].ToString(), out min);
-                                float.TryParse(rowres["MNC_RES_MAX"].ToString(), out max);
-                                float.TryParse(rowres["MNC_RES_VALUE"].ToString(), out val);
-                                if ((val < min) || (val > max))
-                                {
-                                    var cell = rownew[jjj];
-                                    var rng = grfResult.GetCellRange(grfResult.Rows.Count-1, jjj);
-                                    var newStyle = grfResult.Styles.Add(null);
-                                    newStyle.MergeWith(rng.StyleDisplay);
-                                    newStyle.Font = fEditB;
-                                    newStyle.ForeColor = Color.Red;
-                                    rng.Style = newStyle;
-                                }
-                                if (rowres["MNC_STS"].ToString().Trim().ToLower().Equals("abnormal"))
-                                {
-                                    var cell = rownew[jjj];
-                                    var rng = grfResult.GetCellRange(grfResult.Rows.Count - 1, jjj);
-                                    var newStyle = grfResult.Styles.Add(null);
-                                    newStyle.MergeWith(rng.StyleDisplay);
-                                    newStyle.Font = fEditB;
-                                    newStyle.ForeColor = Color.Red;
-                                    rng.Style = newStyle;
-                                    //rowres.SetColumnError(jjj, "error");
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-
                             }
                         }
                     }
+                    catch(Exception ex)
+                    {
+                        new LogWriter("e", "FrmLabCompare setGrfLab selectLabResultbyHNReqNo "+ err+" " + ex.Message);
+                    }
+                    
                 }
             }
         }
@@ -504,7 +581,9 @@ namespace bangna_hospital.gui
                 chronic += row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString() + ",";
             }
             lbChronic1.Text = chronic;
-            setCbo();
+            //setCbo();
+            datedischarge = DateTime.Now;
+            setGrfLab(datedischarge);
         }
         private void addLccode()
         {

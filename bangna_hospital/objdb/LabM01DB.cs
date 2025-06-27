@@ -53,6 +53,19 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
+        public LabM01 SelectByName(String labcode)
+        {
+            DataTable dt = new DataTable();
+            LabM01 labM01 = new LabM01();
+            String sql = "select lab_m01.*, lab_m02.mnc_lb_pri01 " +
+                "From lab_m01  " +
+                "Left join lab_m02 on lab_m01.mnc_lb_cd = lab_m02.mnc_lb_cd " +
+                "Where lab_m01.mnc_lb_dsc = '" + labcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+            labM01 = setLabM01(dt);
+            return labM01;
+        }
         public LabM01 SelectByPk(String labcode)
         {
             DataTable dt = new DataTable();

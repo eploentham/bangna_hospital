@@ -98,6 +98,17 @@ namespace bangna_hospital.gui
             dsc.doc_scan_id = "";
             dsc.doc_group_id = cboDgs.SelectedItem == null ? "" : ((ComboBoxItem)cboDgs.SelectedItem).Value;
             dsc.hn = txtHn.Text;
+            
+            //return;
+            dsc.visit_date = "";
+            dsc.pre_no = "";
+            dsc.ml_fm = txtFM.Text.Trim();
+            if (this.dsc != null && this.dsc.doc_scan_id.Length > 0)
+            {
+                dsc.visit_date = this.dsc.visit_date;
+                dsc.pre_no = this.dsc.pre_no;
+                bc.bcDB.dscDB.voidDocScanCertMed(this.dsc.doc_scan_id, "screencaptureupload");
+            }
             if (lbVn.Text.ToUpper().IndexOf("VN") >= 0)
             {
                 //MessageBox.Show("lbVn.Text.Trim().Equals", lbVn.Text.Trim());
@@ -110,17 +121,6 @@ namespace bangna_hospital.gui
                 dsc.vn = "";
                 dsc.an = txtVn.Text.Trim();
             }
-            //return;
-            dsc.visit_date = "";
-            dsc.pre_no = "";
-            dsc.ml_fm = txtFM.Text.Trim();
-            if (this.dsc != null && this.dsc.doc_scan_id.Length > 0)
-            {
-                dsc.visit_date = this.dsc.visit_date;
-                dsc.pre_no = this.dsc.pre_no;
-                bc.bcDB.dscDB.voidDocScanCertMed(this.dsc.doc_scan_id, "screencaptureupload");
-            }
-
             dsc.host_ftp = bc.iniC.hostFTP;
             //dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
             dsc.image_path = "";

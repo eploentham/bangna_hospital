@@ -2678,7 +2678,7 @@ namespace bangna_hospital.gui
             this.lbPID.AutoSize = true;
             this.lbPID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lbPID.ForeColor = System.Drawing.Color.Red;
-            this.lbPID.Location = new System.Drawing.Point(565, 6);
+            this.lbPID.Location = new System.Drawing.Point(585, 4);
             this.lbPID.Name = "lbPID";
             this.lbPID.Size = new System.Drawing.Size(52, 20);
             this.lbPID.TabIndex = 57;

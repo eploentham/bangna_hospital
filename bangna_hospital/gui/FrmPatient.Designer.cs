@@ -1182,7 +1182,7 @@
             this.spOutLabList.SizeRatio = 37.338D;
             this.spOutLabList.TabIndex = 0;
             this.spOutLabList.Text = "Panel 1";
-            this.spOutLabList.Width = 469;
+            this.spOutLabList.Width = 462;
             // 
             // pnOutLabList
             // 

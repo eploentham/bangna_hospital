@@ -49,7 +49,10 @@ using Font = System.Drawing.Font;
 using System.Security.Cryptography;
 using bangna_hospital.objdb;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
+using C1.Win.C1Document.Export;
+using WIA;
+using Item = bangna_hospital.object1.Item;
+using static GrapeCity.ActiveReports.ReportsCore.Tools.DataSourceException;
 namespace bangna_hospital.gui
 {
     public partial class FrmOPD : Form
@@ -109,6 +112,11 @@ namespace bangna_hospital.gui
         String[] AUTOCHECKUPDIAG = { "สุขภาพสมบรูณ์แข็งแรง", "สุขภาพแข็งแรง", "ควรปรึกษาแพทย์" };
         Label lbLoading;
         FileInfo FILEL, FILER;
+        DateTime RPTDTAPMSTART, RPTDTAPMEND;
+        String RPTSECCODE = "", RPTDTRCODE = "", RPTDEPTCODE = "", RPTDEPTNAME = "";
+        const string WIA_FORMAT_JPEG = "{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}";
+        const string WIA_FORMAT_PNG = "{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}";
+        const string WIA_FORMAT_BMP = "{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}";
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmOPD(BangnaControl bc)
@@ -509,14 +517,221 @@ namespace bangna_hospital.gui
             btnOperEyeSave.Click += BtnOperEyeSave_Click;
             btnOperSaveStaffNote.Click += BtnOperSaveStaffNote_Click;
             btnOperLungSave.Click += BtnOperLungSave_Click;
+            btnCertMedScan.Click += BtnCertMedScan_Click;
+            btnCertMedGet.Click += BtnCertMedGet_Click;
+            btnCertMedUpload.Click += BtnCertMedUpload_Click;
         }
 
+        private void BtnCertMedUpload_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String folderPath = bc.iniC.pathImageScan;
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+            string[] files = Directory.GetFiles(folderPath);
+            foreach (String file in files)
+            {
+                string ext = Path.GetExtension(file);
+                String dgssname = "", vn = "", an = "";
+                //dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
+                //DocGroupSubScan dgss = new DocGroupSubScan();
+                //dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
+                DocScan dsc = new DocScan();
+                //new LogWriter("d", "BtnUpload_Click dsc.vn " + dsc.vn + " dsc.an " + dsc.an);
+                dsc.active = "1";
+                dsc.doc_scan_id = "";
+                dsc.doc_group_id = "1100000007";
+                dsc.hn = txtSrcHn.Text;
+
+                dsc.visit_date = VSDATE;
+                dsc.pre_no = PRENO;
+                dsc.ml_fm = "";
+                //comment ไว้ ยังทำไม่เวร็จ
+                //DocScan dsc1 = bc.bcDB.dscDB.selectByVn
+                //    dsc.visit_date = this.dsc.visit_date;
+                //    dsc.pre_no = this.dsc.pre_no;
+                DocScan dsc1 = bc.bcDB.dscDB.selectByPk(txtdocNo.Text.Trim());
+                bc.bcDB.dscDB.voidDocScanCertMed(txtdocNo.Text.Trim(), "screencaptureupload");
+                dsc.pre_no = dsc1.pre_no;
+                dsc.visit_date = dsc1.visit_date;
+                dsc.vn = dsc1.vn;
+                //dsc.an = "";
+                //dsc.vn = VN;
+
+                dsc.host_ftp = bc.iniC.hostFTP;
+                ////dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
+                //dsc.image_path = "";
+                dsc.doc_group_sub_id = "1200000030";
+
+                //dsc.an_date = "";
+                dsc.folder_ftp = bc.iniC.folderFTP;
+                dsc.status_ipd = dsc1.status_ipd;
+                dsc.row_no = dsc1.status_ipd;
+                dsc.row_cnt = dsc1.status_ipd;
+                dsc.status_ml = dsc1.status_ipd;
+
+                String re = bc.bcDB.dscDB.insertScreenCapture(dsc, bc.userId);
+
+                ////sB11.Text = " filename " + filename + " bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path;
+                long chk = 0;
+                if (long.TryParse(re, out chk))
+                {
+                    //dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
+                    dsc.image_path = txtSrcHn.Text.Replace("/", "-") + "//" + txtSrcHn.Text.Replace("/", "-") + "-" + re + ext;
+                    String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
+                //    if (CERTID.Length > 0) { String re2 = bc.bcDB.mcertiDB.updateDocScanIdScanUploadByPk("555" + CERTID, re); }
+                //    //MessageBox.Show("filename" + filename + "\n bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path, "");
+                //    //FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                    FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive, bc.iniC.ProxyProxyType, bc.iniC.ProxyHost, bc.iniC.ProxyPort);
+                //    //MessageBox.Show("HN "+ txtHn.Text.Replace("/", "-"), "");
+                    //ftp.createDirectory(txtHn.Text);
+                    ftp.createDirectory(bc.iniC.folderFTP + "//" + txtSrcHn.Text.Replace("/", "-"));
+                //    //MessageBox.Show("222", "");
+                    ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
+                //    //MessageBox.Show("333", "");
+
+                    if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, file))
+                    {
+                        File.Delete(file);
+                //        System.Threading.Thread.Sleep(200);
+                //        this.Dispose();
+                    }
+                }
+                break;      //ใช้ break ดีกว่าเพื่อไม่ให้วนลูป ถ้ามี file มากกว่า 1 file
+            }
+        }
+
+        private void BtnCertMedGet_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            getScanCertMed();
+        }
+        private void getScanCertMed()
+        {
+            String folderPath = bc.iniC.pathImageScan;
+            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+            string[] files = Directory.GetFiles(folderPath);
+            foreach (String file in files)
+            {
+                pnCertMedView.Controls.Clear();
+                try
+                {
+                    C1FlexViewer fv = new C1FlexViewer();
+                    fv.AutoScrollMargin = new System.Drawing.Size(0, 0);
+                    fv.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+                    fv.Dock = System.Windows.Forms.DockStyle.Fill;
+                    fv.Location = new System.Drawing.Point(0, 0);
+                    fv.Name = "fvSrcCertMEdScan";
+                    fv.Size = new System.Drawing.Size(1065, 790);
+                    fv.TabIndex = 0;
+                    fv.Ribbon.Minimized = true;
+                    pnCertMedView.Controls.Add(fv);
+                    C1PdfDocumentSource pds = new C1PdfDocumentSource();
+
+                    var pdf = new C1PdfDocument();
+                    Image img = Image.FromFile(file);
+                    // Replace this line in GrfCertMed_DoubleClick:
+                    // pdf.DrawImage(img, RectangleF.FromLTRB(0, 0, img.Width, img.Height));
+
+                    // With the following code to fit the image to the A4 page size:
+
+                    var pageWidth = 595f;  // A4 width in points (8.27 inch * 72)
+                    var pageHeight = 842f; // A4 height in points (11.69 inch * 72)
+                    float imgAspect = (float)img.Width / img.Height;
+                    float pageAspect = pageWidth / pageHeight;
+                    float drawWidth, drawHeight, offsetX, offsetY;
+
+                    if (imgAspect > pageAspect)
+                    {
+                        // Image is wider relative to page
+                        drawWidth = pageWidth;
+                        drawHeight = pageWidth / imgAspect;
+                        offsetX = 0;
+                        offsetY = (pageHeight - drawHeight) / 2;
+                    }
+                    else
+                    {
+                        // Image is taller relative to page
+                        drawHeight = pageHeight - 40;
+                        drawWidth = pageHeight * imgAspect;
+                        offsetX = (((pageWidth - drawWidth) / 2));
+                        //offsetX += (float)(0.6);
+                        offsetY = (float)0.6;
+                    }
+                    pdf.DrawImage(img, new RectangleF(offsetX, offsetY, drawWidth, drawHeight));
+                    //img.Dispose();
+                    //pdf.DrawImage(img, RectangleF.FromLTRB(0, 0, img.Width, img.Height));
+                    string tempPdf = Path.GetTempFileName() + ".pdf";
+                    pdf.Save(tempPdf);
+                    pds.LoadFromFile(tempPdf);
+                    fv.DocumentSource = pds;
+                    img.Dispose();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    lfSbMessage.Text = ex.Message;
+                    new LogWriter("e", "FrmOPD BtnCertMedGet_Click " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnCertMedGet_Click", ex.Message);
+                }
+                continue;
+            }
+        }
+        private void BtnCertMedScan_Click(object sender, EventArgs e)
+        {
+            // Replace the abstract 'CommonDialog' with a concrete implementation.  
+            new LogWriter("d", "FrmOPD BtnCertMedScan_Click 00");
+            var dialog = new WIA.CommonDialog(); // Ensure the WIA namespace is correctly referenced.  
+            //DeviceManager deviceManager = new DeviceManager();
+            //DeviceInfo availableScanner = null;
+            //Device device = null;
+            
+            //foreach (DeviceInfo info in deviceManager.DeviceInfos)
+            //{
+            //    if (info.Type == WiaDeviceType.ScannerDeviceType)
+            //    {
+            //        // แสดงชื่อ scanner
+            //        string scannerName = info.Properties["Name"].get_Value().ToString();
+            //        availableScanner = info;
+            //        if (scannerName.Equals(""))
+            //        {
+            //            device = info.Connect();
+            //            var item = device.Items[1];
+            //            var imgFile = (ImageFile)dialog.ShowTransfer(item, WIA_FORMAT_JPEG, false);
+            //            String folderPath = bc.iniC.pathImageScan;
+            //    if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+            //    String filename = folderPath + "//" + txtSrcHn.Text.Replace("/", "-") + "-" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+            //    imgFile.SaveFile(filename);
+            //    getScanCertMed();
+            //            break;
+            //        }
+            //    }
+            //}
+
+            var device = dialog.ShowSelectDevice(WiaDeviceType.ScannerDeviceType, true, false);
+            //foreach(WIA.Device device in dialog)
+            //{
+            //    new LogWriter("d", "FrmOPD BtnCertMedScan_Click 00.1 " + di.Name);
+            //}
+            new LogWriter("d", "FrmOPD BtnCertMedScan_Click 01");
+            if (device != null)
+            {
+                new LogWriter("d", "FrmOPD BtnCertMedScan_Click 02");
+                var item = device.Items[1];
+                new LogWriter("d", "FrmOPD BtnCertMedScan_Click 03");
+                var imgFile = (ImageFile)dialog.ShowTransfer(item, WIA_FORMAT_JPEG, false);
+                
+                String folderPath = bc.iniC.pathImageScan;
+                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
+                String filename = folderPath + "//" + txtSrcHn.Text.Replace("/", "-") + "-" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                imgFile.SaveFile(filename);
+                getScanCertMed();
+            }
+        }
         private void BtnOperLungSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             String re = bc.bcDB.vsDB.updateLung(txtOperHN.Text.Trim(), PRENO, VSDATE, txtOperLung.Text.Trim(), cboOperLung.Text.Trim());
         }
-
         private void BtnOperSaveStaffNote_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -526,7 +741,6 @@ namespace bangna_hospital.gui
             bc.genImgStaffNote(PTT, VS, fStaffN, packcode, packname, "");
             lfSbStatus.Text = "บันทึกใบยาเรียบร้อย";
         }
-
         private void BtnOperEyeSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -2675,23 +2889,62 @@ namespace bangna_hospital.gui
         }
         private void genReportPatientinDept()
         {
-
-        }
-        private void genReportApmDoctor()
-        {
-            DateTime.TryParse(txtRptStartDate.Value.ToString(), out DateTime dtapmstart);//txtApmDate
-            if (dtapmstart.Year < 1900) { dtapmstart.AddYears(543); }
-            DateTime.TryParse(txtRptEndDate.Value.ToString(), out DateTime dtapmend);//txtApmDate
-            if (dtapmend.Year < 1900) { dtapmend.AddYears(543); }
-            String seccode = "", dtrcode = "", deptcode = "", deptname = "";
-            seccode = cboRpt2.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt2.SelectedItem).Value.ToString();
-            deptcode = bc.bcDB.pm32DB.selectDeptOPDBySecNO(seccode);
-            dtrcode = cboRpt1.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt1.SelectedItem).Value.ToString();
-            DTRPT = bc.bcDB.pt07DB.selectByDate1(dtapmstart.Year.ToString() + "-" + dtapmstart.ToString("MM-dd"), dtapmend.Year.ToString() + "-" + dtapmend.ToString("MM-dd"), dtrcode, deptcode, cboRpt2.Text, "");
+            setVARRPT();
+            //String date = RPTDTAPMSTART.Year.ToString() + "-" + RPTDTAPMSTART.ToString("MM-dd");
+            DTRPT = bc.bcDB.vsDB.selectPttinDeptActNo110(RPTDEPTCODE, RPTSECCODE, RPTDTAPMSTART.Year.ToString() + "-" + RPTDTAPMSTART.ToString("MM-dd"), RPTDTAPMEND.Year.ToString() + "-" + RPTDTAPMEND.ToString("MM-dd"));
             int i = 1;
             foreach (DataRow drow in DTRPT.Rows)
             {
                 drow["row_number"] = i++;
+                drow["hn"] = drow["MNC_HN_NO"].ToString();
+                drow["apm_time"] = bc.showTime(drow["MNC_TIME"].ToString());
+                drow["apm_date"] = bc.datetoShow1(drow["MNC_DATE"].ToString());
+                drow["apmdept"] = drow["MNC_SEC_NO"].ToString().Equals("302") ? "OPD3" : drow["MNC_SEC_NO"].ToString().Equals("131") ? "OPD2": drow["MNC_SEC_NO"].ToString().Equals("111") ?"OPD1": drow["MNC_SEC_NO"].ToString().Equals("123") ?"OPD4": drow["MNC_SEC_NO"].ToString().Equals("156") ?"OPD5": drow["MNC_SEC_NO"].ToString();
+                drow["pttname"] = drow["ptt_fullnamet"].ToString();
+                drow["paidname"] = drow["MNC_FN_TYP_DSC"].ToString().Replace("ประกันสังคมอิสระ (บ.5)", "ปกต บ.5").Replace("ประกันสังคมอิสระ (บ.2)", "ปกต บ.2").Replace("ประกันสังคมอิสระ (บ.1)", "ปกต บ.1").Replace("ประกันสังคม (บ.5)", "ปกส บ.5").Replace("ประกันสังคม (บ.2)", "ปกส บ.2").Replace("ประกันสังคม (บ.1)", "ปกส บ.1");
+                drow["dtrname"] = drow["dtr_name"].ToString().Replace("นพ. พิพัฒน์ชัย อรุณธรรมคุณ", "นพ. พิพัฒน์ชัย อรุณธรรม.");
+                drow["desc1"] = drow["MNC_SHIF_MEMO"].ToString().Replace("\r\n", ",");
+                drow["apmmake"] = drow["MNC_COM_DSC"].ToString();
+                drow["apmmake"] = drow["MNC_COM_DSC"].ToString();
+            }
+            FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\ptt_visit_dept_date.rdlx");
+            if (RPTDTRCODE.Length > 0)
+            {
+                //rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date_doctor.rdlx");
+                rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\ptt_visit_dept_date.rdlx");
+            }
+            if (!System.IO.File.Exists(rptPath.FullName)) { lfSbMessage.Text = "File report not found"; return; }
+            PageReport definition = new PageReport(rptPath);
+            PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
+
+            runtime.Parameters["line1"].CurrentValue = bc.iniC.hostname;
+            runtime.Parameters["line2"].CurrentValue = "รายงานคนไข้ตามแผนก "+ cboRpt2.Text+ " ประจำวันที่ " + RPTDTAPMSTART.ToString("dd-MM-yyyy") + " ถึงวันที่ " + RPTDTAPMEND.ToString("dd-MM-yyyy");
+            runtime.Parameters["line3"].CurrentValue = (RPTDTRCODE.Length > 0) ? "แพทย์ " + cboRpt1.Text : "";
+
+            runtime.LocateDataSource += Runtime_LocateDataSource;
+            arvMain.LoadDocument(runtime);
+        }
+        private void setVARRPT()
+        {
+            DateTime.TryParse(txtRptStartDate.Value.ToString(), out RPTDTAPMSTART);//txtApmDate
+            if (RPTDTAPMSTART.Year < 1900) { RPTDTAPMSTART.AddYears(543); }
+            DateTime.TryParse(txtRptEndDate.Value.ToString(), out RPTDTAPMEND);//txtApmDate
+            if (RPTDTAPMEND.Year < 1900) { RPTDTAPMEND.AddYears(543); }
+
+            RPTSECCODE = cboRpt2.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt2.SelectedItem).Value.ToString();
+            RPTDEPTCODE = bc.bcDB.pm32DB.selectDeptOPDBySecNO(RPTSECCODE);
+            RPTDTRCODE = cboRpt1.SelectedItem == null ? "" : ((ComboBoxItem)cboRpt1.SelectedItem).Value.ToString();
+        }
+        private void genReportApmDoctor()
+        {
+            setVARRPT();
+            
+            DTRPT = bc.bcDB.pt07DB.selectByDate1(RPTDTAPMSTART.Year.ToString() + "-" + RPTDTAPMSTART.ToString("MM-dd"), RPTDTAPMEND.Year.ToString() + "-" + RPTDTAPMEND.ToString("MM-dd"), RPTDTRCODE, RPTDEPTCODE, cboRpt2.Text, "");
+            int i = 1;
+            foreach (DataRow drow in DTRPT.Rows)
+            {
+                drow["row_number"] = i++;
+                drow["hn"] = drow["MNC_HN_NO"].ToString();
                 drow["apm_time"] = bc.showTime(drow["apm_time"].ToString());
                 drow["apm_date"] = bc.datetoShow1(drow["apm_date"].ToString());
                 drow["apmdept"] = drow["apmdept"].ToString().Replace("กุมารเวช", "").Replace("เวชปฎิบัติทั่วไป", "").Replace("ศัลยกรรมกระดูก", "").Replace("อายุรกรรมทั่วไป", "").Replace("อายุรกรรมโรคหัวใจ", "").Replace("สูตินารีเวช", "");//นพ. พิพัฒน์ชัย อรุณธรรมคุณ เวชปฎิบัติทั่วไป (OPD3)
@@ -2701,7 +2954,7 @@ namespace bangna_hospital.gui
                 drow["desc1"] = drow["desc1"].ToString().Replace("\r\n", ",");
             }
             FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date.rdlx");
-            if (dtrcode.Length > 0)
+            if (RPTDTRCODE.Length > 0)
             {
                 //rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date_doctor.rdlx");
                 rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\appointment_date.rdlx");
@@ -2711,8 +2964,8 @@ namespace bangna_hospital.gui
             PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
 
             runtime.Parameters["line1"].CurrentValue = bc.iniC.hostname;
-            runtime.Parameters["line2"].CurrentValue = "รายงานแพทย์นัด ประจำวันที่ " + dtapmstart.ToString("dd-MM-yyyy") + " ถึงวันที่ " + dtapmend.ToString("dd-MM-yyyy");
-            runtime.Parameters["line3"].CurrentValue = (dtrcode.Length > 0) ? "แพทย์ " + cboRpt1.Text : "";
+            runtime.Parameters["line2"].CurrentValue = "รายงานแพทย์นัด ประจำวันที่ " + RPTDTAPMSTART.ToString("dd-MM-yyyy") + " ถึงวันที่ " + RPTDTAPMEND.ToString("dd-MM-yyyy");
+            runtime.Parameters["line3"].CurrentValue = (RPTDTRCODE.Length > 0) ? "แพทย์ " + cboRpt1.Text : "";
 
             runtime.LocateDataSource += Runtime_LocateDataSource;
             arvMain.LoadDocument(runtime);
@@ -2962,7 +3215,6 @@ namespace bangna_hospital.gui
                 e.Handled = true;
             }
         }
-
         private void TxtApmPlusDay_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -2998,7 +3250,6 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
         private void BtnOperItemSearch_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3048,7 +3299,6 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
         private void TxtSrcHn_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -3062,6 +3312,7 @@ namespace bangna_hospital.gui
             showLbLoading();
             setControlSrcPttSrc();
             setGrfSrc();
+            pnCertMedView.Controls.Clear();
             hideLbLoading();
         }
         private void setControlSrcPttSrc()
@@ -3198,11 +3449,10 @@ namespace bangna_hospital.gui
                 tabMedScan.Show();
             }
         }
-
         private void BtnOperClose_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (bc.iniC.statusPasswordConfirm.Equals("0"))
+            if (bc.iniC.statusPasswordConfirm.Equals("1"))
             {
                 FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
                 frm.ShowDialog();
@@ -3215,13 +3465,11 @@ namespace bangna_hospital.gui
             }
             String re = bc.bcDB.vsDB.updateStatusCloseVisit(HN, PRENO, VSDATE, bc.USERCONFIRMID);
         }
-
         private void TimeOperList_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             setGrfOperList();
         }
-
         private void BtnApmPrint_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3651,7 +3899,7 @@ namespace bangna_hospital.gui
         private void BtnScanSaveImg_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (bc.iniC.statusPasswordConfirm.Equals("0"))
+            if (bc.iniC.statusPasswordConfirm.Equals("1"))
             {
                 FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
                 frm.ShowDialog();
@@ -3776,6 +4024,10 @@ namespace bangna_hospital.gui
                 lfSbMessage.Text = err + " saveImgStaffNote " + ex.Message;
                 new LogWriter("e", "FrmOPD saveImgStaffNote " + ex.Message);
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "saveImgStaffNote", ex.Message);
+                if (bc.iniC.statusShowMessageError.Equals(""))
+                {
+                    MessageBox.Show("saveImgStaffNote " + ex.Message, "");
+                }
             }
         }
         private bool IsFileLocked(string filePath)
@@ -5621,7 +5873,7 @@ namespace bangna_hospital.gui
             //ContextMenu menuGw = new ContextMenu();
             //menuGw.MenuItems.Add("ต้องการ ยกเลิก", new EventHandler(GrfCertMed_DoubleClick));
             //grfCertMed.ContextMenu = menuGw;
-            pnCertMed.Controls.Add(grfCertMed);
+            pnCertMed1.Controls.Add(grfCertMed);
 
             //theme1.SetTheme(grfOPD, "ExpressionDark");
             theme1.SetTheme(grfCertMed, bc.iniC.themegrfOpd);
@@ -5653,10 +5905,56 @@ namespace bangna_hospital.gui
                     C1PdfDocumentSource pds = new C1PdfDocumentSource();
                     FtpClient ftpc = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive);
                     MemoryStream streamCertiDtr = ftpc.download(dsc.folder_ftp + "/" + dsc.image_path.ToString());
+                    txtdocNo.Value = dsc.doc_scan_id;
                     if (dsc.image_path.ToLower().IndexOf("pdf") > 0)
                     {
                         pds.LoadFromStream(streamCertiDtr);
                         fv.DocumentSource = pds;
+                    }
+                    else
+                    {
+                        var pdf = new C1PdfDocument();
+                        Image img = Image.FromStream(streamCertiDtr);
+                        // Replace this line in GrfCertMed_DoubleClick:
+                        // pdf.DrawImage(img, RectangleF.FromLTRB(0, 0, img.Width, img.Height));
+
+                        // With the following code to fit the image to the A4 page size:
+
+                        var pageWidth = 595f;  // A4 width in points (8.27 inch * 72)
+                        var pageHeight = 842f; // A4 height in points (11.69 inch * 72)
+                        float imgAspect = (float)img.Width / img.Height;
+                        float pageAspect = pageWidth / pageHeight;
+                        float drawWidth, drawHeight, offsetX, offsetY;
+
+                        if (imgAspect > pageAspect)
+                        {
+                            // Image is wider relative to page
+                            drawWidth = pageWidth;
+                            drawHeight = pageWidth / imgAspect;
+                            offsetX = 0;
+                            offsetY = (pageHeight - drawHeight) / 2;
+                        }
+                        else
+                        {
+                            // Image is taller relative to page
+                            drawHeight = pageHeight-40;
+                            drawWidth = pageHeight * imgAspect;
+                            offsetX = (((pageWidth - drawWidth) / 2));
+                            //offsetX += (float)(0.6);
+                            offsetY = (float)0.6;
+                        }
+                        pdf.DrawImage(img, new RectangleF(offsetX, offsetY, drawWidth, drawHeight));
+                        //pdf.DrawImage(img, RectangleF.FromLTRB(0, 0, img.Width, img.Height));
+                        string tempPdf = Path.GetTempFileName() + ".pdf";
+                        pdf.Save(tempPdf);
+                        pds.LoadFromFile(tempPdf);
+                        fv.DocumentSource = pds;
+                        //PictureBox pic = new PictureBox();
+                        //pic.Image = Image.FromStream(streamCertiDtr);
+                        //pic.SizeMode = PictureBoxSizeMode.Zoom;
+                        //pic.Dock = DockStyle.Fill;
+                        //pnCertMedView.Controls.Clear();
+                        //pnCertMedView.Controls.Add(pic);
                     }
                 }
                 catch (Exception ex)
@@ -8069,25 +8367,28 @@ namespace bangna_hospital.gui
             txtOperLeftEyePh.Value = "";
             txtOperRightEyePh.Value = "";
             cboOperEye.Value = "";
-            DataTable dt011 = bc.bcDB.vsDB.selectT011(HN, VSDATE, PRENO);   //select by HN, VSDATE, PRENO
-            if (dt011.Rows.Count > 0)
+            if (VSDATE.Length > 0)
             {
-                txtOperLeftEar.Value = dt011.Rows[0]["left_ear"].ToString();
-                txtOperRightEar.Value = dt011.Rows[0]["right_ear"].ToString();
-                txtOperLeftEarOther.Value = dt011.Rows[0]["left_ear_other"].ToString();
-                txtOperRightEarOther.Value = dt011.Rows[0]["right_ear_other"].ToString();
-                chkOperRightEarNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("1") ? true : false;
-                chkOperLeftEarNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("1") ? true : false;
-                chkOperRightEarAbNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("0") ? true : false;
-                chkOperLeftEarAbNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("0") ? true : false;
+                DataTable dt011 = bc.bcDB.vsDB.selectT011(HN, VSDATE, PRENO);   //select by HN, VSDATE, PRENO
+                if (dt011.Rows.Count > 0)
+                {
+                    txtOperLeftEar.Value = dt011.Rows[0]["left_ear"].ToString();
+                    txtOperRightEar.Value = dt011.Rows[0]["right_ear"].ToString();
+                    txtOperLeftEarOther.Value = dt011.Rows[0]["left_ear_other"].ToString();
+                    txtOperRightEarOther.Value = dt011.Rows[0]["right_ear_other"].ToString();
+                    chkOperRightEarNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("1") ? true : false;
+                    chkOperLeftEarNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("1") ? true : false;
+                    chkOperRightEarAbNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("0") ? true : false;
+                    chkOperLeftEarAbNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("0") ? true : false;
 
-                txtOperLeftEye.Value = dt011.Rows[0]["left_eye"].ToString();
-                txtOperRightEye.Value = dt011.Rows[0]["right_eye"].ToString();
-                txtOperLeftEyePh.Value = dt011.Rows[0]["left_eye_ph"].ToString();
-                txtOperRightEyePh.Value = dt011.Rows[0]["right_eye_ph"].ToString();
-                bc.setC1ComboByName(cboOperEye, dt011.Rows[0]["eye_normal"].ToString());
-                bc.setC1ComboByName(cboOperLung, dt011.Rows[0]["lung_normal"].ToString());
-                txtOperLung.Value = dt011.Rows[0]["lung_value"].ToString();
+                    txtOperLeftEye.Value = dt011.Rows[0]["left_eye"].ToString();
+                    txtOperRightEye.Value = dt011.Rows[0]["right_eye"].ToString();
+                    txtOperLeftEyePh.Value = dt011.Rows[0]["left_eye_ph"].ToString();
+                    txtOperRightEyePh.Value = dt011.Rows[0]["right_eye_ph"].ToString();
+                    bc.setC1ComboByName(cboOperEye, dt011.Rows[0]["eye_normal"].ToString());
+                    bc.setC1ComboByName(cboOperLung, dt011.Rows[0]["lung_normal"].ToString());
+                    txtOperLung.Value = dt011.Rows[0]["lung_value"].ToString();
+                }
             }
             //if (grfOrder != null) grfOrder.Rows.Count = 1;
             chkItemLab.Checked = true;
@@ -9184,7 +9485,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2025-06-09 ปุ่มบันทึกใบยา";
+            this.Text = "Last Update 2025-06-25 report กดปิดการรักษาซ้ำ";
             lfSbMessage.Text = "";
             btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;
             btnOperSaveDtr.Left = pnVitalSign.Width - btnOperSaveDtr.Width - btnPrnCertMed.Width - 20;

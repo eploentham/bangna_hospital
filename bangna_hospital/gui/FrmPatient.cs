@@ -2631,16 +2631,16 @@ namespace bangna_hospital.gui
         }
         private void ContextMenu_Compare_Lab(object sender, System.EventArgs e)
         {
-            FrmLabCompare frm;
+            FrmLabCompare1 frm;
             if (!grfVS[grfVS.Row, colVsStatus].ToString().Equals("I"))
             {
-                frm = new FrmLabCompare(bc, txtPttHN.Text, VSDATE, PRENO, "");
+                frm = new FrmLabCompare1(bc, txtPttHN.Text, VSDATE, PRENO, "");
             }
             else
             {
                 String an = "";
                 an = grfVS[grfVS.Row, colVsAn].ToString();
-                frm = new FrmLabCompare(bc, txtPttHN.Text, "", "", an);
+                frm = new FrmLabCompare1(bc, txtPttHN.Text, "", "", an);
             }
             frm.ShowDialog(this);
             //frm.Show(this);

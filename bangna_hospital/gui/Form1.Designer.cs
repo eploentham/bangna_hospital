@@ -119,6 +119,7 @@
             this.c1List1 = new C1.Win.C1List.C1List();
             this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
             this.c1DateEdit3 = new C1.Win.C1Input.C1DateEdit();
+            this.c1TextBox3 = new C1.Win.C1Input.C1TextBox();
             this.c1DockingManager1 = new C1.Win.C1Command.C1DockingManager(this.components);
             this.c1PdfDocument1 = new C1.C1Pdf.C1PdfDocument();
             this.c1FlexReport1 = new C1.Win.FlexReport.C1FlexReport();
@@ -127,7 +128,6 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.autocompleteMenu1 = new AutocompleteMenuNS.AutocompleteMenu();
             this.c1XLBook1 = new C1.C1Excel.C1XLBook();
-            this.c1TextBox3 = new C1.Win.C1Input.C1TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.c1Combo1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -159,8 +159,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).BeginInit();
             this.SuspendLayout();
             // 
             // c1Combo1
@@ -1076,6 +1076,20 @@
             this.c1ThemeController1.SetTheme(this.c1DateEdit3, "(default)");
             this.c1DateEdit3.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
+            // c1TextBox3
+            // 
+            this.autocompleteMenu1.SetAutocompleteMenu(this.c1TextBox3, null);
+            this.c1TextBox3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
+            this.c1TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.c1TextBox3.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
+            this.c1TextBox3.Location = new System.Drawing.Point(376, 347);
+            this.c1TextBox3.Name = "c1TextBox3";
+            this.c1TextBox3.Size = new System.Drawing.Size(100, 18);
+            this.c1TextBox3.TabIndex = 12;
+            this.c1TextBox3.Tag = null;
+            this.c1ThemeController1.SetTheme(this.c1TextBox3, "(default)");
+            this.c1TextBox3.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
+            // 
             // c1DockingManager1
             // 
             this.c1DockingManager1.ParentContainer = this;
@@ -1128,25 +1142,13 @@
             // 
             // autocompleteMenu1
             // 
+            this.autocompleteMenu1.AppearInterval = 300;
             this.autocompleteMenu1.Colors = ((AutocompleteMenuNS.Colors)(resources.GetObject("autocompleteMenu1.Colors")));
             this.autocompleteMenu1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.autocompleteMenu1.ImageList = null;
             this.autocompleteMenu1.Items = new string[0];
+            this.autocompleteMenu1.MaximumSize = new System.Drawing.Size(400, 240);
             this.autocompleteMenu1.TargetControlWrapper = null;
-            // 
-            // c1TextBox3
-            // 
-            this.autocompleteMenu1.SetAutocompleteMenu(this.c1TextBox3, null);
-            this.c1TextBox3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(71)))), ((int)(((byte)(71)))));
-            this.c1TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.c1TextBox3.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(172)))), ((int)(((byte)(172)))));
-            this.c1TextBox3.Location = new System.Drawing.Point(376, 347);
-            this.c1TextBox3.Name = "c1TextBox3";
-            this.c1TextBox3.Size = new System.Drawing.Size(100, 18);
-            this.c1TextBox3.TabIndex = 12;
-            this.c1TextBox3.Tag = null;
-            this.c1ThemeController1.SetTheme(this.c1TextBox3, "(default)");
-            this.c1TextBox3.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // Form1
             // 
@@ -1199,8 +1201,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1List1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DateEdit3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingManager1)).EndInit();
             this.ResumeLayout(false);
 
         }

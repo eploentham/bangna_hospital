@@ -35,7 +35,7 @@ namespace bangna_hospital.object1
         {
             String txt = "", inv = "", billinv = "";
             String HeaderXML = "<?xml version=\"1.0\" encoding=\"windows-874\"?>";
-            String ClaimRec = "<ClaimRec System=\"OP\" PayPlan=\"SS\" Version=\"0.93\" Prgs=\"PD\" >";
+            String ClaimRec = "<ClaimRec System=\"OP\" PayPlan=\"SS\" Version=\"0.93\">";
             StringBuilder billinv1 = new StringBuilder();
             try
             {
@@ -125,7 +125,7 @@ namespace bangna_hospital.object1
         {
             String txt = "", inv = "", billinv = "";
             String HeaderXML = "<?xml version=\"1.0\" encoding=\"windows-874\"?>";
-            String ClaimRec = "<ClaimRec System=\"IP\" PayPlan=\"SS\" Version=\"0.93\" Prgs=\"PD\" >";
+            String ClaimRec = "<ClaimRec System=\"OP\" PayPlan=\"SS\" Version=\"0.93\" >";
             StringBuilder dispe = new StringBuilder();
             try
             {
@@ -163,6 +163,7 @@ namespace bangna_hospital.object1
                     dispe.Append(drow.dispestat + split);
                     dispe.Append(drow.svid + split);
                     dispe.Append(drow.daycover + Environment.NewLine);
+                    
                     //billinv1.Append();
                 }
                 inv += "<Dispensing>" + Environment.NewLine;

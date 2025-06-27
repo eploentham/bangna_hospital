@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -160,6 +161,9 @@ namespace bangna_hospital.gui
             if (TC1ACTIVE.Equals(tabFinish.Name))
             {
                 setGrfFinish();
+            }else if (TC1ACTIVE.Equals(tabApm.Name))
+            {
+                setGrfApm();
             }
         }
         private void RpDrugSetNew_Click(object sender, EventArgs e)
@@ -530,11 +534,15 @@ namespace bangna_hospital.gui
             //grfFin.Clear();
             showLbLoading();
             String date = "";
-            DateTime.TryParse(txtDate.Text, out DateTime curdate);
-            if (curdate.Year < 1900)            {                curdate = curdate.AddYears(543);            }
+            DateTime curdate = DateTime.Now;
+            if(!DateTime.TryParse(txtDate.Text, out curdate))
+            {
+                curdate = DateTime.Now;
+            }
+            if (curdate.Year < 1900) { curdate = curdate.AddYears(543); }
             DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectVisitByDtr2(bc.user.staff_id, curdate.Year.ToString()+"-"+ curdate.ToString("MM-dd"));
-            int i = 1, cnt=0;
+            dt = bc.bcDB.vsDB.selectVisitByDtr2(bc.user.staff_id, curdate.Year.ToString() + "-" + curdate.ToString("MM-dd"));
+            int i = 1, cnt = 0;
             grfFin.Rows.Count = 1; grfFin.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)
             {
@@ -551,7 +559,7 @@ namespace bangna_hospital.gui
                     grfFin[i, colFinTime] = bc.showTime(row["mnc_time"].ToString());
                     grfFin[i, colFinSex] = row["mnc_sex"].ToString();
                     grfFin[i, colFinAge] = ptt.AgeStringOK1DOT();
-                    grfFin[i, colFinPaidName] = row["MNC_FN_TYP_DSC"].ToString()+"["+ row["MNC_FN_TYP_CD"].ToString()+"]";
+                    grfFin[i, colFinPaidName] = row["MNC_FN_TYP_DSC"].ToString() + "[" + row["MNC_FN_TYP_CD"].ToString() + "]";
                     grfFin[i, colFinRemark] = row["MNC_SHIF_MEMO"].ToString();
                     //grfFin[i, colFinDept] = row["MNC_MD_DEP_DSC1"].ToString();
 
@@ -570,9 +578,9 @@ namespace bangna_hospital.gui
                         row.SetColumnError(colFinVnShow, row["MNC_VN_NO"].ToString() + "." + row["MNC_VN_SEQ"].ToString() + "." + row["MNC_VN_SUM"].ToString());
 
                     }
-                    if (row["MNC_PAT_FLAG"].ToString().Equals("I")) 
+                    if (row["MNC_PAT_FLAG"].ToString().Equals("I"))
                     {
-                        grfFin.GetCellRange(i, colFinVnShow,i, colFinPttName).StyleNew.Font = fEditB; 
+                        grfFin.GetCellRange(i, colFinVnShow, i, colFinPttName).StyleNew.Font = fEditB;
                         grfFin[i, colFinVnShow] = row["MNC_AN_NO"].ToString() + "." + row["MNC_AN_YR"].ToString();
                         grfFin[i, colFinPATFLAG] = "ADMIT";
                         CellNote note = new CellNote(row["MNC_VN_NO"].ToString() + "." + row["MNC_VN_SEQ"].ToString() + "." + row["MNC_VN_SUM"].ToString());
@@ -786,7 +794,10 @@ namespace bangna_hospital.gui
         }
         private void setGrfApm()
         {
-            DateTime.TryParse(txtDate.Text, out DateTime dtdate);
+            DateTime dtdate;
+            //DateTime.TryParse(txtDate.Text, out dtdate);
+            DateTime.TryParseExact(txtDate.Text, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtdate);
+            //CultureInfo.CurrentCulture.DateTimeFormat
             if (dtdate.Year < 1900)
             {
                 dtdate = dtdate.AddYears(543);
@@ -895,7 +906,7 @@ namespace bangna_hospital.gui
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             //theme1.SetTheme(this, "Office2010Blue");
-            this.Text = "Last Update 2024-03-22";
+            this.Text = "Last Update 2025-06-27";
             lfSbLastUpdate.Text = "Update 2567-03-22-1";
             lfSbMessage.Text = "";
             bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor_Load", "Application Doctor Start");

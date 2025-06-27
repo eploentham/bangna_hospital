@@ -287,10 +287,11 @@ namespace bangna_hospital.objdb
             p.codeset = row[sSOPOpservices.codeset]?.ToString() ?? "";
             p.stdcode = row[sSOPOpservices.stdcode]?.ToString() ?? "";
             p.svcharge = row[sSOPOpservices.svcharge]?.ToString() ?? "";
-            p.completion = row[sSOPOpservices.completion]?.ToString() ?? "";
+            p.completion = row[sSOPOpservices.completion]?.ToString() ?? "Y";
             p.svtxcode = row[sSOPOpservices.svtxcode]?.ToString() ?? "";
             p.claimcat = row[sSOPOpservices.claimcat]?.ToString() ?? "";
             p.billtrans_id = row[sSOPOpservices.billtrans_id]?.ToString() ?? "";
+            p.completion = p.completion.Equals("") ? "Y" : p.completion;
             return p;
         }
 

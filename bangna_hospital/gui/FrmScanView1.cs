@@ -10878,16 +10878,27 @@ namespace bangna_hospital.gui
         }
         private void ContextMenu_Compare_Lab(object sender, System.EventArgs e)
         {
-            FrmLabCompare frm;
+            FrmLabCompare1 frm;
             if (!chkIPD.Checked)
             {
-                frm = new FrmLabCompare(bc, txtHn.Text, vsDate, preno,"");
+                //frm = new FrmLabCompare(bc, txtHn.Text, vsDate, preno,"");
+                String labname = "";
+                try
+                {
+                    labname = grfLab[grfLab.Row, colLabName] != null ? grfLab[grfLab.Row, colLabName].ToString() : "";
+                }
+                catch (Exception ex)
+                {
+                    new LogWriter("e", "FrmScanView1 ContextMenu_Compare_Lab ex " + ex.Message);
+
+                }
+                frm = new FrmLabCompare1(bc, txtHn.Text, vsDate, preno, "", labname);
             }
             else
             {
                 String an = "";
                 an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
-                frm = new FrmLabCompare(bc, txtHn.Text, "", "", an);
+                frm = new FrmLabCompare1(bc, txtHn.Text, "", "", an);
             }
             frm.ShowDialog(this);
             //frm.Show(this);
@@ -11575,7 +11586,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2025-02-10 แก้ให้ FTP outlab sort windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
+            this.Text = "Last Update 2025-06-17 แก้ให้ labcompare FTP outlab sort windows "+bc.iniC.windows+" dd "+DateTime.Now.ToString("dd")+" mm "+DateTime.Now.ToString("MM")+" year "+DateTime.Now.Year+" แก้ แสดงวิธีกินยา ตามเภสัร ";
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

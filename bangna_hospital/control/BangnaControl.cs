@@ -1178,6 +1178,8 @@ namespace bangna_hospital.control
             iniC.pathlocalECHO = iniF.getIni("app", "pathlocalECHO");
             iniC.pathlocalHolter = iniF.getIni("app", "pathlocalHolter");
             iniC.statusPasswordConfirm = iniF.getIni("app", "statusPasswordConfirm");
+            iniC.statusShowMessageError = iniF.getIni("app", "statusShowMessageError");
+            iniC.scannername = iniF.getIni("app", "scannername");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1296,6 +1298,8 @@ namespace bangna_hospital.control
             iniC.pathlocalECHO = iniC.pathlocalECHO == null ? "D:\\ECHO" : iniC.pathlocalECHO.Equals("") ? "D:\\ECHO" : iniC.pathlocalECHO;
             iniC.pathlocalHolter = iniC.pathlocalHolter == null ? "D:\\Holter" : iniC.pathlocalHolter.Equals("") ? "D:\\Holter" : iniC.pathlocalHolter;
             iniC.statusPasswordConfirm = iniC.statusPasswordConfirm == null ? "0" : iniC.statusPasswordConfirm.Equals("") ? "0" : iniC.statusPasswordConfirm;
+            iniC.statusShowMessageError = iniC.statusShowMessageError == null ? "0" : iniC.statusShowMessageError.Equals("") ? "0" : iniC.statusShowMessageError;
+            iniC.scannername = iniC.scannername == null ? "" : iniC.scannername.Equals("") ? "" : iniC.scannername;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);

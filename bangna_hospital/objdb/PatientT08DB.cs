@@ -134,6 +134,17 @@ namespace bangna_hospital.objdb
             
             return dt;
         }
+        public DataTable SelectANByHN(String hn, String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "select ptt08.* " +
+                "From PATIENT_T08 ptt08  " +
+                "Where ptt08.MNC_HN_NO = '" + hn + "' and  ptt08.MNC_DATE = '" + vsdate + "' and ptt08.MNC_PRE_NO = '" + preno + "'" +
+                " ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable SelectByHN(String hn)
         {
             DataTable dt = new DataTable();

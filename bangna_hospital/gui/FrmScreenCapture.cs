@@ -193,13 +193,13 @@ namespace bangna_hospital.gui
             {
                 if ((DSCMCERT != null) && (DSCMCERT.doc_scan_id.Length > 0))
                 {
-                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc, txtCertID.Text.Trim(), autoupload);
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), DSCMCERT, txtCertID.Text.Trim(), autoupload);
                     frm.ShowDialog(this);
                     setListViewUpload();
                 }
                 else if (DSCMCERT.doc_scan_id.Length > 0)
                 {
-                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), dsc);
+                    FrmScreenCaptureUpload frm = new FrmScreenCaptureUpload(bc, filename, txtHn.Text.Trim(), lbName.Text, txtVN.Text.Trim(), lbVn.Text.Trim(), DSCMCERT);
                     frm.ShowDialog(this);
                 }
                 else

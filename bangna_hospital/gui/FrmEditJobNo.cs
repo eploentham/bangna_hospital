@@ -22,12 +22,13 @@ namespace bangna_hospital.gui
     public partial class FrmEditJobNo : Form
     {
         BangnaControl bc;
-        C1FlexGrid grfHn, grfAn ,grfDeptVisit, grfvoid, grfXray, grfXrayItem;
+        C1FlexGrid grfHn, grfAn ,grfDeptVisit, grfvoid, grfXray, grfXrayItem, grfLabReq;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B;
         int colgrfHnHN = 1, colgrfHnDocNo=2, colgrfHnDocDate=3, colgrfHnDocCD=4, colgrfHnDocSts=5,colgrfHnAmt=6, colgrfHnJobNo=7, colgrfHnJobNoOld = 8;
         int colgrfAnanno = 1, colgrfAnAdDate = 2;
         int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitStatusAdmit=3, colgrfDeptDept=4, colgrfDeptVisitVn=5;
         int colgrfxrayreqno = 1, colgrfxrayyear = 2, colgrfxrayreqdate = 3, colgrfxraystatuspacs = 4, colgrfxrayitemcode=5, colgrfxrayitemname=6;
+        int colgrfLabReqHn = 1, colgrfLabReqReqno = 2, colgrfLabReqReqdate = 3, colgrfLabReqlbcode = 4, colgrfLabReqpttname = 5, colgrfLabReqorddoc = 6, colgrfLabReqordname = 7, colgrfLabRequsrcode = 8, colgrfLabRequsrname = 9, colgrfLabReqstatussend = 10, colgrfLabReqdatesend = 11;
         Boolean pageLoad = false;
         C1ThemeController theme1;
         Patient ptt;
@@ -53,6 +54,7 @@ namespace bangna_hospital.gui
             initGrfDeptVisit();
             initGrfXray();
             initGrfXrayItems();
+            initGrflabReq();
             chkDeptOPD.Checked = true;
             chkDeptIPD.Checked = false;
             chkDeptOPDNew.Checked = true;
@@ -90,9 +92,21 @@ namespace bangna_hospital.gui
             txtXrayHn.KeyUp += TxtXrayHn_KeyUp;
             btnXrayDelReq.Click += BtnXrayDelReq_Click;
             cboDept1.SelectedItemChanged += CboDept1_SelectedItemChanged;
+            txtLabReqHn.KeyUp += TxtLabReqHn_KeyUp;
             pageLoad = false;
         }
 
+        private void TxtLabReqHn_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode == Keys.Enter)
+            {
+                ptt = new Patient();
+                ptt = bc.bcDB.pttDB.selectPatinetByHn(txtLabReqHn.Text.Trim());
+                lbLabReqPttnameT.Text = ptt.Name;
+                setGrfLabReq();
+            }
+        }
         private void CboDept1_SelectedItemChanged(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -778,6 +792,71 @@ namespace bangna_hospital.gui
             if(int.TryParse(re, out int chk))
             {
                 MessageBox.Show("OK ดึงกลับมาเวรปัจจุบัน เรียบร้อย ", "");
+            }
+        }
+        private void initGrflabReq()
+        {
+            grfLabReq = new C1FlexGrid();
+            grfLabReq.Font = fEdit;
+            grfLabReq.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfLabReq.Location = new System.Drawing.Point(0, 0);
+            grfLabReq.Rows.Count = 1;
+            grfLabReq.Cols.Count = 9;
+            grfLabReq.Cols[colgrfHnHN].Width = 100;
+            grfLabReq.Cols[colgrfHnDocNo].Width = 100;
+            grfLabReq.Cols[colgrfHnDocDate].Width = 110;
+            grfLabReq.Cols[colgrfHnDocCD].Width = 100;
+            grfLabReq.Cols[colgrfHnDocSts].Width = 60;
+            grfLabReq.Cols[colgrfHnAmt].Width = 80;
+            grfLabReq.Cols[colgrfHnJobNo].Width = 60;
+            grfLabReq.Cols[colgrfHnJobNoOld].Width = 60;
+            grfLabReq.ShowCursor = true;
+            grfLabReq.Cols[colgrfHnHN].Caption = "hn";
+            grfLabReq.Cols[colgrfHnDocNo].Caption = "DOC NO";
+            grfLabReq.Cols[colgrfHnDocDate].Caption = "Doc date";
+            grfLabReq.Cols[colgrfHnDocCD].Caption = "DOC CD";
+            grfLabReq.Cols[colgrfHnDocSts].Caption = "STS";
+            grfLabReq.Cols[colgrfHnAmt].Caption = "AMT";
+            grfLabReq.Cols[colgrfHnJobNo].Caption = "jbono";
+            grfLabReq.Cols[colgrfHnJobNoOld].Caption = "jbonoold";
+
+            grfLabReq.Cols[colgrfHnHN].AllowEditing = false;
+            grfLabReq.Cols[colgrfHnDocNo].AllowEditing = false;
+            grfLabReq.Cols[colgrfHnDocDate].AllowEditing = false;
+            grfLabReq.Cols[colgrfHnDocCD].AllowEditing = false;
+            grfLabReq.Cols[colgrfHnDocSts].AllowEditing = false;
+            grfLabReq.Cols[colgrfHnAmt].AllowEditing = false;
+            grfLabReq.Cols[colgrfHnJobNo].AllowEditing = false;
+            grfLabReq.Cols[colgrfHnJobNoOld].AllowEditing = false;
+            grfLabReq.AllowFiltering = true;
+
+            grfLabReq.Click += GrfLabReq_Click;
+
+            pnLabReqView.Controls.Add(grfLabReq);
+            theme1.SetTheme(grfLabReq, bc.iniC.themeApp);
+        }
+
+        private void GrfLabReq_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfLabReq.Rows == null) return;
+        }
+        private void setGrfLabReq()
+        {
+            DataTable dtvs = new DataTable();
+            dtvs = bc.bcDB.labT05DB.selectRequestByHn(txtLabReqHn.Text.Trim());
+            grfLabReq.Rows.Count = 1;
+            grfLabReq.Rows.Count = dtvs.Rows.Count + 1;
+            int i = 1, j = 1;
+            foreach (DataRow row1 in dtvs.Rows)
+            {
+                Row rowa = grfLabReq.Rows[i];
+                rowa[colgrfxrayreqno] = row1["MNC_REQ_NO"].ToString();
+                rowa[colgrfxrayyear] = row1["MNC_REQ_YR"].ToString();
+                rowa[colgrfxrayreqdate] = row1["mnc_req_dat1"].ToString();
+                rowa[colgrfxraystatuspacs] = row1["status_pacs"].ToString();
+                rowa[0] = i.ToString();
+                i++;
             }
         }
         private void initGrfHn()

@@ -61,14 +61,14 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             sql = "Select phart06.MNC_PH_CD,phart06.MNC_PH_QTY_PAID,phart06.MNC_PH_UNT_CD,phart06.MNC_PH_DIR_CD,phart06.MNC_PH_DIR_DSC,phart06.MNC_PH_PRI " +
-                ",pharm01.MNC_PH_TN,convert(varchar(20), phart06.MNC_CFR_DAT,23) as MNC_CFR_DAT,phart06.MNC_CFR_NO,phart06.MNC_CFR_YR,pharm01.tmt_code " +
-                ", phart06.MNC_PH_TIM_CD  " +
+                ", pharm01.MNC_PH_TN,convert(varchar(20), phart06.MNC_CFR_DAT,23) as MNC_CFR_DAT,phart06.MNC_CFR_NO,phart06.MNC_CFR_YR,pharm01.tmt_code " +
+                ", phart06.MNC_PH_TIM_CD,phart05.MNC_ORD_DOT,isnull(phart01.MNC_DOT_CD,'') as MNC_DOT_CD ,pharm22.MNC_PH_TIM_DSC " +
                 "From " + pharT06.table + " phart06 " +
                 "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
                 "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
-                //"inner join pharmacy_m03 pharm03 on pharm03.MNC_PH_UNT_CD = phart06.MNC_PH_UNT_CD " +
-                //"inner join pharmacy_m04 pharm04 on pharm04.MNC_PH_DIR_CD = phart06.MNC_PH_DIR_CD  " +
-                "Where  phart05.MNC_HN_NO = '" + hn + "' and phart05.MNC_PRE_NO = '" + preno + "' and phart05.MNC_DATE = '" + visitdate + "' " +
+                "left join PHARMACY_T01 phart01 on phart05.MNC_REQ_DAT = phart01.MNC_REQ_DAT and phart05.MNC_REQ_NO = phart01.MNC_REQ_NO "+
+                "Left join PHARMACY_M22 pharm22 ON pharm01.MNC_PH_TIM_CD = pharm22.MNC_PH_TIM_CD  " +
+                "Where  phart05.MNC_HN_NO = '" + hn + "' and phart05.MNC_PRE_NO = '" + preno + "' and phart05.MNC_DATE = '" + visitdate + "' and pharm01.MNC_PH_TYP_FLG = 'P' " +
                 "Order By phart06.mnc_no ";
             dt = conn.selectData(sql);
 

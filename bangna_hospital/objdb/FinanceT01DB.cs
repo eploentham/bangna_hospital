@@ -37,7 +37,8 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String re = "0";
             String sql = "select MNC_HN_NO,MNC_DOC_NO,MNC_SEC_NO, convert(varchar(20), MNC_DOC_DAT,23) as MNC_DOC_DAT,MNC_DOC_TIM, mnc_DOC_CD " +
-                ", MNC_DOC_YR, mnc_DOC_STS, isnull(mnc_SUM_PRI,0) as mnc_SUM_PRI, isnull(MNC_PAY_CASH,0) as MNC_PAY_CASH, MNC_JOB_NO, isnull(MNC_JOB_NOold,'') as MNC_JOB_NOold " +
+                ", MNC_DOC_YR, mnc_DOC_STS, isnull(mnc_SUM_PRI,0) as mnc_SUM_PRI, isnull(MNC_PAY_CASH,0) as MNC_PAY_CASH, MNC_JOB_NO, isnull(MNC_JOB_NOold,'') as MNC_JOB_NOold" +
+                ",MNC_FN_TYP_CD " +
                 "From finance_t01  " +
                 "Where MNC_HN_NO = '" + hn + "' and MNC_PRE_NO = '" + preno + "' and MNC_DATE = '" + vsdate + "' and MNC_DOC_STS <> 'V' " +
                 "Order By mnc_DOC_DAT desc ";
