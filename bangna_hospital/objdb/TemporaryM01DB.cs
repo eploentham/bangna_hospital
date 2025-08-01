@@ -127,5 +127,19 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
+        public DataTable selectM01(String doccd, String docno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereAn = "";
+
+            sql = "Select tem01.mnc_hn_name, tem01.mnc_com_name, tem01.mnc_com_addr, tem01.mnc_age, tem01.mnc_sex,convert(VARCHAR(20), tem01.mnc_doc_dat ,23) as doc_dat, tem01.MNC_DOC_NO2 " +
+                ", tem01.MNC_SUM_AMT, tem01.MNC_FN_TYP_CD, tem01.MNC_FN_TYP_DSC,tem01.MNC_COM_NAME, tem01.MNC_DIA_DSC, convert(VARCHAR(20),tem01.MNC_DIS_DAT) as MNC_DIS_DAT, convert(VARCHAR(20),tem01.MNC_ADM_DAT) as MNC_ADM_DAT, convert(VARCHAR(20),tem01.MNC_DIA_DAT) as MNC_DIA_DAT " +
+            "From temporary_m01 tem01 " +
+            "where tem01.mnc_doc_dat = '" + doccd + "' and tem01.mnc_doc_no = '" + docno + "'  " +
+            " ";
+            //}
+            dt = conn.selectData(sql);
+            return dt;
+        }
     }
 }

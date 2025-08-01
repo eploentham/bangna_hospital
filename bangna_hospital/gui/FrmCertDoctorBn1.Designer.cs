@@ -38,6 +38,8 @@ namespace bangna_hospital.gui
             this.chkOPD = new System.Windows.Forms.RadioButton();
             this.cboDept = new C1.Win.C1Input.C1ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cboHostname = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
             this.txtRemark = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.lb2nfleaf = new System.Windows.Forms.Label();
@@ -196,6 +198,8 @@ namespace bangna_hospital.gui
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.cboHostname);
+            this.panel2.Controls.Add(this.label25);
             this.panel2.Controls.Add(this.txtRemark);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.lb2nfleaf);
@@ -231,6 +235,28 @@ namespace bangna_hospital.gui
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(626, 717);
             this.panel2.TabIndex = 142;
+            // 
+            // cboHostname
+            // 
+            this.cboHostname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.cboHostname.FormattingEnabled = true;
+            this.cboHostname.Items.AddRange(new object[] {
+            "โรงพยาบาล บางนา",
+            "สหคลีนิกบางนา"});
+            this.cboHostname.Location = new System.Drawing.Point(113, 555);
+            this.cboHostname.Name = "cboHostname";
+            this.cboHostname.Size = new System.Drawing.Size(510, 28);
+            this.cboHostname.TabIndex = 213;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label25.Location = new System.Drawing.Point(8, 559);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(52, 20);
+            this.label25.TabIndex = 212;
+            this.label25.Text = "บริษัท :";
             // 
             // txtRemark
             // 
@@ -287,9 +313,9 @@ namespace bangna_hospital.gui
             // 
             // pnCertOld
             // 
-            this.pnCertOld.Location = new System.Drawing.Point(3, 562);
+            this.pnCertOld.Location = new System.Drawing.Point(3, 589);
             this.pnCertOld.Name = "pnCertOld";
-            this.pnCertOld.Size = new System.Drawing.Size(620, 152);
+            this.pnCertOld.Size = new System.Drawing.Size(620, 125);
             this.pnCertOld.TabIndex = 147;
             // 
             // txtVsTime
@@ -933,5 +959,7 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.CheckBox chk4;
         private System.Windows.Forms.TextBox txtRemark;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cboHostname;
+        private System.Windows.Forms.Label label25;
     }
 }

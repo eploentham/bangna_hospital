@@ -291,6 +291,11 @@ namespace bangna_hospital
                     err = "stock";
                     Application.Run(new gui.FrmStock(bc));
                 }
+                else if (bc.iniC.programLoad.Equals("cashier"))
+                {
+                    err = "cashier";
+                    Application.Run(new gui.FrmCashier(bc));
+                }
                 else
                 {
                     if (System.Diagnostics.Process.GetCurrentProcess().ProcessName.ToLower().Equals("bangna_hospital_scan_capture"))

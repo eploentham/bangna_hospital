@@ -1870,6 +1870,7 @@ namespace bangna_hospital.gui
         }
         private void printStickerDrug()
         {
+            new LogWriter("e", "FRMPharmacy printStickerDrug 00");
             PrintDocument document = new PrintDocument();
             document.PrinterSettings.PrinterName = bc.iniC.printerStickerDrug;
             document.PrintPage += Document_PrintPage_Sticker_Drug;
@@ -1884,7 +1885,7 @@ namespace bangna_hospital.gui
                     for (int i = 0; i < num; i++) { document.Print(); }
                 }
             }
-
+            new LogWriter("e", "FRMPharmacy printStickerDrug 01");
             PrintDocument documentSum = new PrintDocument();
             documentSum.PrinterSettings.PrinterName = bc.iniC.printerStickerDrug;
             documentSum.PrintPage += Document_PrintPage_Sticker_DrugSum;
@@ -1895,11 +1896,12 @@ namespace bangna_hospital.gui
                 documentSum.PrinterSettings.Copies = short.Parse(num.ToString());
                 for (int i = 0; i < num; i++){ documentSum.Print(); }
             }
+            new LogWriter("e", "FRMPharmacy printStickerDrug end");
         }
         private void Document_PrintPage_Sticker_Drug(object sender, PrintPageEventArgs e)
         {
             float yPos = 10, ydate = 0, gapline = 17, col1 = 10, col2 = 60, col4 = 200;
-
+            new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug ");
             Graphics g = e.Graphics;
             SolidBrush Brush = new SolidBrush(Color.Black);
             Rectangle rec = new Rectangle(0, 0, 20, 20);
@@ -1908,19 +1910,27 @@ namespace bangna_hospital.gui
             String text = "";
             if (DTSTCDRUG.Rows.Count > 0)
             {
+                new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug 00");
                 e.Graphics.DrawString(bc.iniC.hostname, fPrnBil, Brushes.Black, col2, yPos, flags);
                 e.Graphics.DrawString(bc.iniC.hosttel, fPrnBil, Brushes.Black, col4, yPos, flags);
                 yPos += gapline;
                 e.Graphics.DrawString(DateTime.Now.ToString("dd/MM/yyyy HH:mm"), fPrnBil, Brushes.Black, col2, yPos, flags);
                 e.Graphics.DrawString("HN " + HN, fEditB, Brushes.Black, col4, yPos, flags);
                 yPos += gapline;
+                new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug 01 "+ rbPttName.Text);
                 e.Graphics.DrawString(rbPttName.Text, famtB, Brushes.Black, col1, yPos, flags);
+                //e.Graphics.DrawString(PTT.Name, famtB, Brushes.Black, col1, yPos, flags);
                 yPos += gapline + 15;
+                new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug 010 " );
                 e.Graphics.DrawString(DROWDRUG["MNC_PH_DIR_DSC"].ToString(), fEdit, Brushes.Black, col1, yPos, flags);
+                new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug 011 ");
                 yPos += gapline;                yPos += gapline;                yPos += gapline;                yPos += gapline;
+                new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug 012 ");
                 yPos += gapline - 5;
+                new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug 02");
                 e.Graphics.DrawString(DROWDRUG["MNC_PH_TN"].ToString() + " [" + DROWDRUG["MNC_PH_QTY_PAID"].ToString() + " " + DROWDRUG["MNC_PH_UNT_CD"].ToString() + "]", fEdit, Brushes.Black, col1, yPos, flags);
             }
+            new LogWriter("e", "FRMPharmacy Document_PrintPage_Sticker_Drug end");
         }
         private void Document_PrintPage_Sticker_DrugSum(object sender, PrintPageEventArgs e)
         {

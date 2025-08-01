@@ -28,7 +28,7 @@ namespace bangna_hospital.gui
         int colgrfAnanno = 1, colgrfAnAdDate = 2;
         int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitStatusAdmit=3, colgrfDeptDept=4, colgrfDeptVisitVn=5;
         int colgrfxrayreqno = 1, colgrfxrayyear = 2, colgrfxrayreqdate = 3, colgrfxraystatuspacs = 4, colgrfxrayitemcode=5, colgrfxrayitemname=6;
-        int colgrfLabReqHn = 1, colgrfLabReqReqno = 2, colgrfLabReqReqdate = 3, colgrfLabReqlbcode = 4, colgrfLabReqpttname = 5, colgrfLabReqorddoc = 6, colgrfLabReqordname = 7, colgrfLabRequsrcode = 8, colgrfLabRequsrname = 9, colgrfLabReqstatussend = 10, colgrfLabReqdatesend = 11;
+        int colgrfLabReqHn = 1, colgrfLabReqReqno = 2, colgrfLabReqReqdate = 3, colgrfLabReqlbcode = 4, colgrfLabReqyear = 5, colgrfLabReqlabname = 6, colgrfLabReqordname = 7, colgrfLabRequsrcode = 8, colgrfLabRequsrname = 9, colgrfLabReqstatussend = 10, colgrfLabReqdatesend = 11;
         Boolean pageLoad = false;
         C1ThemeController theme1;
         Patient ptt;
@@ -801,41 +801,52 @@ namespace bangna_hospital.gui
             grfLabReq.Dock = System.Windows.Forms.DockStyle.Fill;
             grfLabReq.Location = new System.Drawing.Point(0, 0);
             grfLabReq.Rows.Count = 1;
-            grfLabReq.Cols.Count = 9;
-            grfLabReq.Cols[colgrfHnHN].Width = 100;
-            grfLabReq.Cols[colgrfHnDocNo].Width = 100;
-            grfLabReq.Cols[colgrfHnDocDate].Width = 110;
-            grfLabReq.Cols[colgrfHnDocCD].Width = 100;
+            grfLabReq.Cols.Count = 12;
+            grfLabReq.Cols[colgrfLabReqHn].Width = 100;
+            grfLabReq.Cols[colgrfLabReqReqno].Width = 100;
+            grfLabReq.Cols[colgrfLabReqReqdate].Width = 110;
+            grfLabReq.Cols[colgrfLabReqlbcode].Width = 100;
             grfLabReq.Cols[colgrfHnDocSts].Width = 60;
             grfLabReq.Cols[colgrfHnAmt].Width = 80;
             grfLabReq.Cols[colgrfHnJobNo].Width = 60;
             grfLabReq.Cols[colgrfHnJobNoOld].Width = 60;
             grfLabReq.ShowCursor = true;
-            grfLabReq.Cols[colgrfHnHN].Caption = "hn";
-            grfLabReq.Cols[colgrfHnDocNo].Caption = "DOC NO";
-            grfLabReq.Cols[colgrfHnDocDate].Caption = "Doc date";
-            grfLabReq.Cols[colgrfHnDocCD].Caption = "DOC CD";
-            grfLabReq.Cols[colgrfHnDocSts].Caption = "STS";
-            grfLabReq.Cols[colgrfHnAmt].Caption = "AMT";
-            grfLabReq.Cols[colgrfHnJobNo].Caption = "jbono";
-            grfLabReq.Cols[colgrfHnJobNoOld].Caption = "jbonoold";
+            grfLabReq.Cols[colgrfLabReqHn].Caption = "hn";
+            grfLabReq.Cols[colgrfLabReqReqno].Caption = "req NO";
+            grfLabReq.Cols[colgrfLabReqReqdate].Caption = "req date";
+            grfLabReq.Cols[colgrfLabReqlbcode].Caption = "labcode";
+            grfLabReq.Cols[colgrfLabReqlabname].Caption = "labname";
+            grfLabReq.Cols[colgrfLabReqlabname].AllowEditing = false;
+            grfLabReq.Cols[colgrfLabReqHn].AllowEditing = false;
+            grfLabReq.Cols[colgrfLabReqReqno].AllowEditing = false;
+            grfLabReq.Cols[colgrfLabReqReqdate].AllowEditing = false;
+            grfLabReq.Cols[colgrfLabReqlbcode].AllowEditing = false;
+            grfLabReq.Cols[colgrfLabReqyear].Visible = false;
 
-            grfLabReq.Cols[colgrfHnHN].AllowEditing = false;
-            grfLabReq.Cols[colgrfHnDocNo].AllowEditing = false;
-            grfLabReq.Cols[colgrfHnDocDate].AllowEditing = false;
-            grfLabReq.Cols[colgrfHnDocCD].AllowEditing = false;
-            grfLabReq.Cols[colgrfHnDocSts].AllowEditing = false;
-            grfLabReq.Cols[colgrfHnAmt].AllowEditing = false;
-            grfLabReq.Cols[colgrfHnJobNo].AllowEditing = false;
-            grfLabReq.Cols[colgrfHnJobNoOld].AllowEditing = false;
             grfLabReq.AllowFiltering = true;
-
+            ContextMenu menuGw = new ContextMenu();
+            menuGw.MenuItems.Add("resend request", new EventHandler(ContextMenu_Resend_request));
+            grfLabReq.ContextMenu = menuGw;
             grfLabReq.Click += GrfLabReq_Click;
 
             pnLabReqView.Controls.Add(grfLabReq);
             theme1.SetTheme(grfLabReq, bc.iniC.themeApp);
         }
-
+        private void ContextMenu_Resend_request(object sender, System.EventArgs e)
+        {
+            if (grfLabReq.Rows == null) return;
+            if (grfLabReq.Row <= 0) return;
+            if (grfLabReq[grfLabReq.Row, colgrfLabReqReqno] == null) return;
+            String reqno = grfLabReq[grfLabReq.Row, colgrfLabReqReqno].ToString();
+            String reqdate = grfLabReq[grfLabReq.Row, colgrfLabReqReqdate].ToString();
+            String reqyear = grfLabReq[grfLabReq.Row, colgrfLabReqyear].ToString();
+            String re = bc.bcDB.labT01DB.updateStatusRequestLabUnsend(reqyear, reqno, reqdate);
+            String re1 = bc.bcDB.labT02DB.updateStatusRequestLabUnsend(reqyear, reqno, reqdate);
+            if(int.TryParse(re, out int chk) && int.TryParse(re1, out int chk1))
+            {
+                lb1.Text = "Updatere send OK";
+            }
+        }
         private void GrfLabReq_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -851,10 +862,14 @@ namespace bangna_hospital.gui
             foreach (DataRow row1 in dtvs.Rows)
             {
                 Row rowa = grfLabReq.Rows[i];
-                rowa[colgrfxrayreqno] = row1["MNC_REQ_NO"].ToString();
-                rowa[colgrfxrayyear] = row1["MNC_REQ_YR"].ToString();
-                rowa[colgrfxrayreqdate] = row1["mnc_req_dat1"].ToString();
-                rowa[colgrfxraystatuspacs] = row1["status_pacs"].ToString();
+                rowa[colgrfLabReqHn] = row1["MNC_HN_NO"].ToString();
+                rowa[colgrfLabReqReqno] = row1["MNC_REQ_NO"].ToString();
+                rowa[colgrfLabReqyear] = row1["MNC_REQ_YR"].ToString();
+                rowa[colgrfLabReqReqdate] = row1["MNC_REQ_DAT"].ToString();
+                rowa[colgrfLabReqstatussend] = row1["status_request_lab"].ToString();
+                rowa[colgrfLabReqdatesend] = row1["date_request_lab"].ToString();
+                rowa[colgrfLabReqlbcode] = row1["MNC_LB_CD"].ToString();
+                rowa[colgrfLabReqlabname] = row1["MNC_LB_DSC"].ToString();
                 rowa[0] = i.ToString();
                 i++;
             }

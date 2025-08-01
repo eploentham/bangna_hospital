@@ -41,10 +41,22 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String re = "0";
-            String sql = "select MNC_DOC_CD, MNC_DOC_YR, MNC_DOC_NO, cponvert(varchar(20),MNC_DOC_DAT,23) as MNC_DOC_DAT, MNC_DEF_CD, MNC_DEF_DSC, MNC_ORD_BY, MNC_AMT, MNC_DEF_LEV, MNC_TOT_AMT, MNC_DIS_AMT, MNC_STS, MNC_QTY " +
+            String sql = "select MNC_DOC_CD, MNC_DOC_YR, MNC_DOC_NO, convert(varchar(20),MNC_DOC_DAT,23) as MNC_DOC_DAT, MNC_DEF_CD, MNC_DEF_DSC, MNC_ORD_BY, MNC_AMT, MNC_DEF_LEV, MNC_TOT_AMT, MNC_DIS_AMT, MNC_STS, MNC_QTY " +
                 "From TEMPORARY_M02  " +
                 "Where MNC_DOC_NO = '" + docno + "' and MNC_DOC_DAT = '" + docdate + "'  " +
                 "Order By mnc_DOC_DAT desc ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable SelectByDocno1(String docno, String docdate)
+        {
+            DataTable dt = new DataTable();
+            String re = "0";
+            String sql = "select MNC_DOC_CD, MNC_DOC_YR, MNC_DOC_NO, convert(varchar(20),MNC_DOC_DAT,23) as MNC_DOC_DAT, MNC_DEF_CD, MNC_DEF_DSC, MNC_ORD_BY, MNC_AMT, MNC_DEF_LEV, MNC_TOT_AMT, MNC_DIS_AMT, MNC_STS, MNC_QTY " +
+                "From TEMPORARY_M02  " +
+                "Where MNC_DOC_NO = '" + docno + "' and MNC_DOC_DAT = '" + docdate + "'  " +
+                "Order By MNC_ORD_BY  ";
             dt = conn.selectData(sql);
 
             return dt;

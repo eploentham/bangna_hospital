@@ -651,10 +651,19 @@ namespace bangna_hospital.gui
                 linenumber = bc.padYCertMed > 0 ? bc.padYCertMed : 820;
                 canvas.BeginText();
                 canvas.SetFontAndSize(bfRB, fontSize20);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostname, 80, linenumber, 0);
+                if(cboHostname.SelectedIndex == 1)
+                {
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, cboHostname.Text.Trim(), 80, linenumber, 0);
+                    canvas.SetFontAndSize(bfRB, fontSize20);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostnamee, 80, linenumber - 15, 0);
+                }
+                else
+                {
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, ((ComboBoxItem)cboHostname.SelectedItem).Value, 80, linenumber, 0);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostname, 80, linenumber, 0);
+                }
                 //canvas.ShowTextAligned(Element.ALIGN_LEFT, "55 หมู่4 ถนนเทพารักษ์ ตำบลบางพลีใหญ่ อำเภอบางพลี จังหวัด สมุทรปราการ 10540", 100, 780, 0);
-                canvas.SetFontAndSize(bfRB, fontSize20);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostnamee, 80, linenumber - 15, 0);
+                
                 canvas.SetFontAndSize(bfR, 12);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostaddresst, 80, linenumber - 30, 0);
                 canvas.EndText();
@@ -1536,7 +1545,8 @@ namespace bangna_hospital.gui
         }
         private void FrmCertDoctorBn1_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2025-05-21 fix app path ";
+            this.Text = "Last Update 2025-07-31 fix app path ";
+            cboHostname.SelectedIndex = 0;
         }
     }
 }

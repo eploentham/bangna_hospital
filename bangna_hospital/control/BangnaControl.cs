@@ -1180,6 +1180,7 @@ namespace bangna_hospital.control
             iniC.statusPasswordConfirm = iniF.getIni("app", "statusPasswordConfirm");
             iniC.statusShowMessageError = iniF.getIni("app", "statusShowMessageError");
             iniC.scannername = iniF.getIni("app", "scannername");
+            iniC.deptphone = iniF.getIni("app", "deptphone");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1300,6 +1301,7 @@ namespace bangna_hospital.control
             iniC.statusPasswordConfirm = iniC.statusPasswordConfirm == null ? "0" : iniC.statusPasswordConfirm.Equals("") ? "0" : iniC.statusPasswordConfirm;
             iniC.statusShowMessageError = iniC.statusShowMessageError == null ? "0" : iniC.statusShowMessageError.Equals("") ? "0" : iniC.statusShowMessageError;
             iniC.scannername = iniC.scannername == null ? "" : iniC.scannername.Equals("") ? "" : iniC.scannername;
+            iniC.deptphone = iniC.deptphone == null ? "" : iniC.deptphone.Equals("") ? "" : iniC.deptphone;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -6029,6 +6031,7 @@ namespace bangna_hospital.control
             try
             {
                 lbloading.Text = "patient sso01";
+                Application.DoEvents();
                 PrakunM01 pkunM01 = new PrakunM01();
                 pkunM01 = bcDB.prakM01DB.selectByPID(pid);
                 if (pkunM01.Social_Card_no.Equals(""))
@@ -6052,6 +6055,7 @@ namespace bangna_hospital.control
                     re = "พบ " + txt + " เริ่ม[" + pkunM01.StartDate + "] สิ้นสุด[" + pkunM01.EndDate + "] จาก database HIS->" + pkunM01.UploadDate;
                 }
                 lbloading.Text = "patient sso02";
+                Application.DoEvents();
             }
             catch (Exception ex)
             {

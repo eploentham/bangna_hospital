@@ -156,6 +156,16 @@
             this.lbLabReqPttnameT = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.txtLabReqHn = new C1.Win.C1Input.C1TextBox();
+            this.c1DockingTabPage12 = new C1.Win.C1Command.C1DockingTabPage();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.c1DockingTabPage13 = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1Button3 = new C1.Win.C1Input.C1Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label38 = new System.Windows.Forms.Label();
+            this.c1TextBox3 = new C1.Win.C1Input.C1TextBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.sbMessage = new C1.Win.C1Ribbon.C1StatusBar();
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
@@ -227,6 +237,12 @@
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnLabReqHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLabReqHn)).BeginInit();
+            this.c1DockingTabPage12.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
+            this.c1DockingTabPage13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -396,6 +412,8 @@
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage9);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage10);
             this.c1DockingTab1.Controls.Add(this.c1DockingTabPage11);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage12);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage13);
             this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.c1DockingTab1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
@@ -1121,7 +1139,7 @@
             this.c1DockingTabPage7.Name = "c1DockingTabPage7";
             this.c1DockingTabPage7.Size = new System.Drawing.Size(1330, 607);
             this.c1DockingTabPage7.TabIndex = 6;
-            this.c1DockingTabPage7.Text = "appointent";
+            this.c1DockingTabPage7.Text = "appoinment";
             // 
             // label25
             // 
@@ -1360,7 +1378,7 @@
             this.c1DockingTabPage10.Name = "c1DockingTabPage10";
             this.c1DockingTabPage10.Size = new System.Drawing.Size(1330, 607);
             this.c1DockingTabPage10.TabIndex = 9;
-            this.c1DockingTabPage10.Text = "Xay worklist ไม่เข้า";
+            this.c1DockingTabPage10.Text = "Xray worklist ไม่เข้า";
             // 
             // btnXrayDelReq
             // 
@@ -1552,7 +1570,7 @@
             this.c1DockingTabPage11.Name = "c1DockingTabPage11";
             this.c1DockingTabPage11.Size = new System.Drawing.Size(1330, 607);
             this.c1DockingTabPage11.TabIndex = 10;
-            this.c1DockingTabPage11.Text = "Lab Request";
+            this.c1DockingTabPage11.Text = "Lab Request Uni";
             // 
             // pnLabReqView
             // 
@@ -1612,6 +1630,103 @@
             this.txtLabReqHn.Size = new System.Drawing.Size(186, 27);
             this.txtLabReqHn.TabIndex = 78;
             this.txtLabReqHn.Tag = null;
+            // 
+            // c1DockingTabPage12
+            // 
+            this.c1DockingTabPage12.Controls.Add(this.panel6);
+            this.c1DockingTabPage12.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage12.Name = "c1DockingTabPage12";
+            this.c1DockingTabPage12.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage12.TabIndex = 11;
+            this.c1DockingTabPage12.Text = "Lab Follow";
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.c1TextBox2);
+            this.panel6.Controls.Add(this.label37);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1330, 39);
+            this.panel6.TabIndex = 134;
+            // 
+            // c1TextBox2
+            // 
+            this.c1TextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox2.Location = new System.Drawing.Point(106, 3);
+            this.c1TextBox2.Name = "c1TextBox2";
+            this.c1TextBox2.Size = new System.Drawing.Size(186, 27);
+            this.c1TextBox2.TabIndex = 133;
+            this.c1TextBox2.Tag = null;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label37.Location = new System.Drawing.Point(8, 9);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(92, 20);
+            this.label37.TabIndex = 132;
+            this.label37.Text = "row number";
+            // 
+            // c1DockingTabPage13
+            // 
+            this.c1DockingTabPage13.Controls.Add(this.c1Button3);
+            this.c1DockingTabPage13.Controls.Add(this.panel7);
+            this.c1DockingTabPage13.Controls.Add(this.label38);
+            this.c1DockingTabPage13.Controls.Add(this.c1TextBox3);
+            this.c1DockingTabPage13.Controls.Add(this.label39);
+            this.c1DockingTabPage13.Location = new System.Drawing.Point(1, 30);
+            this.c1DockingTabPage13.Name = "c1DockingTabPage13";
+            this.c1DockingTabPage13.Size = new System.Drawing.Size(1330, 607);
+            this.c1DockingTabPage13.TabIndex = 12;
+            this.c1DockingTabPage13.Text = "Void เวชscan";
+            // 
+            // c1Button3
+            // 
+            this.c1Button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1Button3.Location = new System.Drawing.Point(649, 35);
+            this.c1Button3.Name = "c1Button3";
+            this.c1Button3.Size = new System.Drawing.Size(153, 45);
+            this.c1Button3.TabIndex = 206;
+            this.c1Button3.Text = "Void";
+            this.c1Button3.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            this.panel7.Location = new System.Drawing.Point(12, 94);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(790, 379);
+            this.panel7.TabIndex = 205;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label38.Location = new System.Drawing.Point(7, 6);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(32, 20);
+            this.label38.TabIndex = 82;
+            this.label38.Text = "HN";
+            // 
+            // c1TextBox3
+            // 
+            this.c1TextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox3.Location = new System.Drawing.Point(71, 3);
+            this.c1TextBox3.Name = "c1TextBox3";
+            this.c1TextBox3.Size = new System.Drawing.Size(186, 27);
+            this.c1TextBox3.TabIndex = 83;
+            this.c1TextBox3.Tag = null;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label39.Location = new System.Drawing.Point(7, 44);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(35, 25);
+            this.label39.TabIndex = 84;
+            this.label39.Text = "ชื่อ";
             // 
             // sbMessage
             // 
@@ -1728,6 +1843,14 @@
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnLabReqHn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtLabReqHn)).EndInit();
+            this.c1DockingTabPage12.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
+            this.c1DockingTabPage13.ResumeLayout(false);
+            this.c1DockingTabPage13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1868,5 +1991,15 @@
         private System.Windows.Forms.Label label36;
         private C1.Win.C1Input.C1TextBox txtLabReqHn;
         private C1.Win.C1Input.C1Button btnLabReqHn;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage12;
+        private System.Windows.Forms.Panel panel6;
+        private C1.Win.C1Input.C1TextBox c1TextBox2;
+        private System.Windows.Forms.Label label37;
+        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage13;
+        private System.Windows.Forms.Label label38;
+        private C1.Win.C1Input.C1TextBox c1TextBox3;
+        private System.Windows.Forms.Label label39;
+        private C1.Win.C1Input.C1Button c1Button3;
+        private System.Windows.Forms.Panel panel7;
     }
 }

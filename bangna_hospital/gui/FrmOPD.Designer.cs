@@ -841,6 +841,7 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
+            this.btnCertMedUploadNew = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -1203,6 +1204,7 @@
             this.c1SplitContainer7.SuspendLayout();
             this.tabQue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertMedUploadNew)).BeginInit();
             this.SuspendLayout();
             // 
             // tC1
@@ -4073,7 +4075,7 @@
             this.spCheckUpList.SizeRatio = 33.122D;
             this.spCheckUpList.TabIndex = 0;
             this.spCheckUpList.Text = "Panel 1";
-            this.spCheckUpList.Width = 871;
+            this.spCheckUpList.Width = 864;
             // 
             // spCheckUPVisit
             // 
@@ -9235,6 +9237,7 @@
             // 
             // pnCertMed2
             // 
+            this.pnCertMed2.Controls.Add(this.btnCertMedUploadNew);
             this.pnCertMed2.Controls.Add(this.txtcertNo);
             this.pnCertMed2.Controls.Add(this.txtdocNo);
             this.pnCertMed2.Controls.Add(this.c1Label3);
@@ -10084,6 +10087,15 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
+            // btnCertMedUploadNew
+            // 
+            this.btnCertMedUploadNew.Location = new System.Drawing.Point(127, 91);
+            this.btnCertMedUploadNew.Name = "btnCertMedUploadNew";
+            this.btnCertMedUploadNew.Size = new System.Drawing.Size(113, 29);
+            this.btnCertMedUploadNew.TabIndex = 13;
+            this.btnCertMedUploadNew.Text = "upload ภาพใหม่";
+            this.btnCertMedUploadNew.UseVisualStyleBackColor = true;
+            // 
             // FrmOPD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10501,6 +10513,7 @@
             this.tabQue.ResumeLayout(false);
             this.tabQue.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCertMedUploadNew)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11320,5 +11333,6 @@
         private C1.Win.C1Input.C1TextBox txtdocNo;
         private C1.Win.C1Input.C1Label c1Label3;
         private C1.Win.C1Input.C1Label c1Label2;
+        private C1.Win.C1Input.C1Button btnCertMedUploadNew;
     }
 }

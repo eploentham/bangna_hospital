@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
 {
@@ -175,6 +176,20 @@ namespace bangna_hospital.objdb
             dgs1.dtrname = "";
             dgs1.MNC_APP_NO = "";
             return dgs1;
+        }
+        public AutoCompleteStringCollection getlACM()
+        {
+            //lDept = new List<Position>();
+
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            //dt = selectDeptOPDNew();
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_DOT_CD"].ToString()+" "+ row["MNC_DOT_PFIX"].ToString() + " " + row["MNC_DOT_FNAME"].ToString() + " " + row["MNC_DOT_LNAME"].ToString());
+            }
+            return autoSymptom;
         }
     }
 }

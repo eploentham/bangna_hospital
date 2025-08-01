@@ -58,7 +58,7 @@ namespace bangna_hospital.gui
     public partial class FrmOPD : Form
     {
         BangnaControl bc;
-        System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt2, famt2B, famt2BL, famt5, famt5B, famt5BL, famt7, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
+        System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt2, famt2B, famt4B, famt2BL, famt5, famt5B, famt5BL, famt7, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
         Font fStaffN;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
@@ -105,7 +105,7 @@ namespace bangna_hospital.gui
         listStream strm;
         List<listStream> lStream, lStreamPic;
         List<String> lApm;
-        AutoCompleteStringCollection acmApmTime, autoLab, autoXray, autoProcedure, autoPhy, autoApm, autoDrug, autoCHECKUPDIAG;
+        AutoCompleteStringCollection acmApmTime, autoLab, autoXray, autoProcedure, autoPhy, autoApm, autoDrug, autoCHECKUPDIAG, ACMDTR;
         string[] AUTOSymptom = { "07:00-08:00","08:00-09:00","08:00-15:00","09:00-10:00","09:00-15:00","10:00-11:00","10:00-15:00","11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00","15:00-16:00","16:00-17:00","17:00-18:00"
                 ,"18:00-19:00","19:00-20:00","20:00-21:00"
         };
@@ -155,6 +155,8 @@ namespace bangna_hospital.gui
             autoApm = bc.bcDB.pm13DB.getlApm();
             autoCHECKUPDIAG = new AutoCompleteStringCollection();
             autoCHECKUPDIAG.AddRange(AUTOCHECKUPDIAG);
+            ACMDTR = new AutoCompleteStringCollection();
+            
             brush = new SolidBrush(Color.Black);
 
             txtPttApmDate.Value = DateTime.Now;
@@ -229,6 +231,7 @@ namespace bangna_hospital.gui
             famt2 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 2, FontStyle.Regular);
             famt2B = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 2, FontStyle.Bold);
             famt2BL = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 2, FontStyle.Underline);
+            famt4B = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 4, FontStyle.Bold);
 
             famt7 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 7, FontStyle.Regular);
             famt7B = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 7, FontStyle.Bold);
@@ -520,11 +523,22 @@ namespace bangna_hospital.gui
             btnCertMedScan.Click += BtnCertMedScan_Click;
             btnCertMedGet.Click += BtnCertMedGet_Click;
             btnCertMedUpload.Click += BtnCertMedUpload_Click;
+            btnCertMedUploadNew.Click += BtnCertMedUploadNew_Click;
+        }
+
+        private void BtnCertMedUploadNew_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            saveCertMed("new");
         }
 
         private void BtnCertMedUpload_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            saveCertMed("");
+        }
+        private void saveCertMed(String flagnew)
+        {
             String folderPath = bc.iniC.pathImageScan;
             if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
             string[] files = Directory.GetFiles(folderPath);
@@ -532,16 +546,10 @@ namespace bangna_hospital.gui
             {
                 string ext = Path.GetExtension(file);
                 String dgssname = "", vn = "", an = "";
-                //dgssid = bc.bcDB.dgssDB.getIdDgss("Document Other");
-                //DocGroupSubScan dgss = new DocGroupSubScan();
-                //dgss = bc.bcDB.dgssDB.selectByPk(dgssid);
                 DocScan dsc = new DocScan();
-                //new LogWriter("d", "BtnUpload_Click dsc.vn " + dsc.vn + " dsc.an " + dsc.an);
                 dsc.active = "1";
-                dsc.doc_scan_id = "";
                 dsc.doc_group_id = "1100000007";
                 dsc.hn = txtSrcHn.Text;
-
                 dsc.visit_date = VSDATE;
                 dsc.pre_no = PRENO;
                 dsc.ml_fm = "";
@@ -549,14 +557,27 @@ namespace bangna_hospital.gui
                 //DocScan dsc1 = bc.bcDB.dscDB.selectByVn
                 //    dsc.visit_date = this.dsc.visit_date;
                 //    dsc.pre_no = this.dsc.pre_no;
-                DocScan dsc1 = bc.bcDB.dscDB.selectByPk(txtdocNo.Text.Trim());
-                bc.bcDB.dscDB.voidDocScanCertMed(txtdocNo.Text.Trim(), "screencaptureupload");
-                dsc.pre_no = dsc1.pre_no;
-                dsc.visit_date = dsc1.visit_date;
-                dsc.vn = dsc1.vn;
-                //dsc.an = "";
-                //dsc.vn = VN;
-
+                if(flagnew.Equals("new"))
+                {
+                    dsc.doc_scan_id = "";
+                    dsc.vn = VN;
+                    dsc.status_ipd = "O";
+                    dsc.row_no = "0";
+                    dsc.row_cnt = "";
+                    dsc.status_ml = "";
+                }
+                else
+                {
+                    DocScan dsc1 = bc.bcDB.dscDB.selectByPk(txtdocNo.Text.Trim());
+                    bc.bcDB.dscDB.voidDocScanCertMed(txtdocNo.Text.Trim(), "screencaptureupload");
+                    dsc.pre_no = dsc1.pre_no;
+                    dsc.visit_date = dsc1.visit_date;
+                    dsc.vn = dsc1.vn;
+                    dsc.status_ipd = dsc1.status_ipd;
+                    dsc.row_no = dsc1.row_no;
+                    dsc.row_cnt = dsc1.row_cnt;
+                    dsc.status_ml = dsc1.status_ml;
+                }
                 dsc.host_ftp = bc.iniC.hostFTP;
                 ////dsc.image_path = txtHn.Text + "//" + txtHn.Text + "_" + dgssid + "_" + dsc.row_no + "." + ext[ext.Length - 1];
                 //dsc.image_path = "";
@@ -564,10 +585,7 @@ namespace bangna_hospital.gui
 
                 //dsc.an_date = "";
                 dsc.folder_ftp = bc.iniC.folderFTP;
-                dsc.status_ipd = dsc1.status_ipd;
-                dsc.row_no = dsc1.status_ipd;
-                dsc.row_cnt = dsc1.status_ipd;
-                dsc.status_ml = dsc1.status_ipd;
+                
 
                 String re = bc.bcDB.dscDB.insertScreenCapture(dsc, bc.userId);
 
@@ -578,28 +596,28 @@ namespace bangna_hospital.gui
                     //dsc.image_path = txtHn.Text.Replace("/", "-") + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "//" + txtHn.Text.Replace("/", "-") + "-" + vn + "-" + re + ext;         //+1
                     dsc.image_path = txtSrcHn.Text.Replace("/", "-") + "//" + txtSrcHn.Text.Replace("/", "-") + "-" + re + ext;
                     String re1 = bc.bcDB.dscDB.updateImagepath(dsc.image_path, re);
-                //    if (CERTID.Length > 0) { String re2 = bc.bcDB.mcertiDB.updateDocScanIdScanUploadByPk("555" + CERTID, re); }
-                //    //MessageBox.Show("filename" + filename + "\n bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path, "");
-                //    //FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
+                    //    if (CERTID.Length > 0) { String re2 = bc.bcDB.mcertiDB.updateDocScanIdScanUploadByPk("555" + CERTID, re); }
+                    //    //MessageBox.Show("filename" + filename + "\n bc.iniC.folderFTP " + bc.iniC.folderFTP + "//" + dsc.image_path, "");
+                    //    //FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP);
                     FtpClient ftp = new FtpClient(bc.iniC.hostFTP, bc.iniC.userFTP, bc.iniC.passFTP, bc.ftpUsePassive, bc.iniC.ProxyProxyType, bc.iniC.ProxyHost, bc.iniC.ProxyPort);
-                //    //MessageBox.Show("HN "+ txtHn.Text.Replace("/", "-"), "");
+                    //    //MessageBox.Show("HN "+ txtHn.Text.Replace("/", "-"), "");
                     //ftp.createDirectory(txtHn.Text);
                     ftp.createDirectory(bc.iniC.folderFTP + "//" + txtSrcHn.Text.Replace("/", "-"));
-                //    //MessageBox.Show("222", "");
+                    //    //MessageBox.Show("222", "");
                     ftp.delete(bc.iniC.folderFTP + "//" + dsc.image_path);
-                //    //MessageBox.Show("333", "");
+                    //    //MessageBox.Show("333", "");
 
                     if (ftp.upload(bc.iniC.folderFTP + "//" + dsc.image_path, file))
                     {
                         File.Delete(file);
-                //        System.Threading.Thread.Sleep(200);
-                //        this.Dispose();
+                        //        System.Threading.Thread.Sleep(200);
+                        //        this.Dispose();
                     }
                 }
                 break;      //ใช้ break ดีกว่าเพื่อไม่ให้วนลูป ถ้ามี file มากกว่า 1 file
             }
+            setGrfCertMed();
         }
-
         private void BtnCertMedGet_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3535,7 +3553,7 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString("print date " + DateTime.Now, fEditS, Brushes.Black, col41 + 220, yPos, flagsR);
             yPos = yPos + line;//ขึ้นบันทัดใหม่
             textSize = TextRenderer.MeasureText("ใบนัดพบแพทย์ Appointment Note", famt2B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString("ใบนัดพบแพทย์ Appointment Note", famt2B, Brushes.Black, centerpage - (textSize.Width / 2), yPos, flags);
+            e.Graphics.DrawString("ใบนัดพบแพทย์ Appointment Note", famt4B, Brushes.Black, centerpage - (textSize.Width / 2), yPos, flags);
             e.Graphics.DrawString("เลขที่: "+APM.MNC_DOC_YR.Substring(APM.MNC_DOC_YR.Length - 2) + "-" + APM.MNC_DOC_NO, famt2, Brushes.Black, col41+220, yPos, flagsR);
             //e.Graphics.DrawString(APM.MNC_DOC_YR.Substring(APM.MNC_DOC_YR.Length-2) + "-"+APM.MNC_DOC_NO, famt5, Brushes.Black, col41+120, yPos, flags);
 
@@ -3622,7 +3640,7 @@ namespace bangna_hospital.gui
             //bc.cStf = stf;
 
             e.Graphics.DrawString("เบอร์โทรติดต่อ:", famt2, Brushes.Black, col2, yPos, flags);
-            e.Graphics.DrawString("02-1381155-60", famt2, Brushes.Black, col21, yPos, flags);
+            e.Graphics.DrawString(bc.iniC.deptphone, famt2, Brushes.Black, col21, yPos, flags);
             e.Graphics.DrawString("ผู้บันทึก:", famt2, Brushes.Black, col4, yPos, flags);
             e.Graphics.DrawLine(blackPen, col4+60, yPos+22, col4+270, yPos+22);
             if(bc.cStf!= null) { e.Graphics.DrawString(bc.cStf.fullname, famt2, Brushes.Black, col4 + 60, yPos - 3, flags);     }
@@ -4114,14 +4132,22 @@ namespace bangna_hospital.gui
             yPosint = int.Parse(yPos.ToString());
             col40int = int.Parse(col40.ToString());
             //recx = 25;
-
-            line = "5";
+            VS = bc.bcDB.vsDB.selectbyPreno(HN, VSDATE, PRENO);
+            if (bc.iniC.branchId.Equals("001-1")) line = bc.iniC.hostname; else line = "5";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             xOffset = e.MarginBounds.Right - textSize.Width;  //pad?
             yOffset = e.MarginBounds.Bottom - textSize.Height;  //pad?
             //e.Graphics.DrawString(line, fPrn, Brushes.Black, xOffset, yPos, new StringFormat());leftMargin
-            e.Graphics.DrawString(line, famt7B, Brushes.Black, col3-5, yPos-15, flags);
-            e.Graphics.DrawString(line, famt7B, Brushes.Black, col4+10, yPos-15, flags);
+            if (bc.iniC.branchId.Equals("001-1"))
+            {
+                e.Graphics.DrawString(line, famt7B, Brushes.Black, col2, yPos - 15, flags);
+                e.Graphics.DrawString(line, famt7B, Brushes.Black, col40, yPos - 15, flags);
+            }
+            else
+            {
+                e.Graphics.DrawString(line, famt7B, Brushes.Black, col3 - 5, yPos - 15, flags);
+                e.Graphics.DrawString(line, famt7B, Brushes.Black, col4 + 10, yPos - 15, flags);
+            }
             line = "H.N. " + PTT.MNC_HN_NO + "     " + VS.VN;
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3 + 25, yPos , flags);
@@ -4147,7 +4173,7 @@ namespace bangna_hospital.gui
             line = "โรคประจำตัว        ไม่มี";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 60, flags);
-            rec = new System.Drawing.Rectangle(col2int + 95, 75, recx, recy);
+            rec = new System.Drawing.Rectangle(col2int + 82, 75, recx, recy);
             e.Graphics.DrawRectangle(blackPen, rec);
 
             line = prndob;
@@ -4180,6 +4206,7 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 120, flags);
 
             line = "อาการเบื้องต้น " + VS.symptom.Replace("\r\n","");
+            if (VS.symptom.Length > 50)            {                line = VS.symptom.Substring(0, 50);            }
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 120, flags);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40, yPos + 100, flags);
@@ -4234,20 +4261,24 @@ namespace bangna_hospital.gui
 
             line = "Precaution (Med) _________________________________________ ";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 , yPos + 250, flags);
+            //e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 , yPos + 250, flags);
             //new LogWriter("e", "FrmOPD Document_PrintPageStaffNote 01 ");
-            line = "แพ้ยา/อาหาร/อื่นๆ         ไม่มี";
+            line = "แพ้ยา/อาหาร/อื่นๆ";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 180, flags);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40, yPos + 180, flags);
             e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 123 , yPosint + 183, recx, recy));
             e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 135, yPosint + 183, recx, recy));
+            line = "ไม่มี";
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2int + 123 + recx, yPos + 180, flags);
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 135 + recx, yPos + 180, flags);
+
             line = "มี ระบุอาการ";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 20, yPos + 200, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 20 - recx, yPosint + 203, recx, recy));
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 15, yPos + 200, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 15 - recx, yPosint + 203, recx, recy));
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 123 + recx, yPos + 200, flags);
+            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 123, yPosint + 203, recx, recy));
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 135+recx, yPos + 200, flags);
+            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 135, yPosint + 203, recx, recy));
 
             //line = "อาการเบื้อต้น  "+ txtSymptom.Text;
             //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
@@ -4324,10 +4355,10 @@ namespace bangna_hospital.gui
             line = "ใบรับรองแพทย์             ไม่มี      มี          Consult      ไม่มี      มี __________________";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 640, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 170 - recx - 15, yPosint + 645, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 215 - recx -5, yPosint + 645, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 335 , yPosint + 645, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 385, yPosint + 645, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 170 - recx - 28, yPosint + 640, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 215 - recx -30, yPosint + 640, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 282 , yPosint + 640, recx, recy));
+            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 322, yPosint + 640, recx, recy));
 
             line = "ชื่อผู้รับ _____________________________";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
@@ -5239,6 +5270,8 @@ namespace bangna_hospital.gui
             if (grfSrc.Col <= 0) return;
             String hn = "";
             hn = grfSrc[grfSrc.Row, colgrfSrcHn] != null ? grfSrc[grfSrc.Row, colgrfSrcHn].ToString() : "";
+            PRENO = grfSrc[grfSrc.Row, colgrfSrcHn] != null ? grfSrc[grfSrc.Row, colgrfSrcHn].ToString() : "";
+
             setControlPatientByGrf(hn);
         }
         private void setControlPatientByGrf(String hn)
@@ -5357,21 +5390,21 @@ namespace bangna_hospital.gui
             if (e.NewRange.r1 < 0) return;
             if (e.NewRange.Data == null) return;
             if (e.NewRange.r1 == e.OldRange.r1 && e.OldRange.r1 != 1) return;
-            String vsdate = "", preno = "", vn="";
+            
             try
             {
-                preno = grfSrcVs[grfSrcVs.Row, colVsPreno] != null ? grfSrcVs[grfSrcVs.Row, colVsPreno].ToString() : "";
-                vsdate = grfSrcVs[grfSrcVs.Row, colVsVsDate1] != null ? grfSrcVs[grfSrcVs.Row, colVsVsDate1].ToString() : "";
-                vn = grfSrcVs[grfSrcVs.Row, colVsVn] != null ? grfSrcVs[grfSrcVs.Row, colVsVn].ToString() : "";
+                PRENO = grfSrcVs[grfSrcVs.Row, colVsPreno] != null ? grfSrcVs[grfSrcVs.Row, colVsPreno].ToString() : "";
+                VSDATE = grfSrcVs[grfSrcVs.Row, colVsVsDate1] != null ? grfSrcVs[grfSrcVs.Row, colVsVsDate1].ToString() : "";
+                VN = grfSrcVs[grfSrcVs.Row, colVsVn] != null ? grfSrcVs[grfSrcVs.Row, colVsVn].ToString() : "";
                 btnSrcEKGScanSave.Enabled = false;
-                lbSrcPreno.Text = preno;
-                lbSrcVsDate.Text = bc.datetoShow1(vsdate);
-                lbSrcVN.Text = vn;
-                setSrcStaffNote(vsdate, preno);
-                setGrfSrcLab(vsdate, preno);
-                setGrfSrcOrder(vsdate, preno);
-                setGrfSrcXray(vsdate, preno);
-                setGrfSrcProcedure(vsdate, preno);
+                lbSrcPreno.Text = PRENO;
+                lbSrcVsDate.Text = bc.datetoShow1(VSDATE);
+                lbSrcVN.Text = VN;
+                setSrcStaffNote(VSDATE, PRENO);
+                setGrfSrcLab(VSDATE, PRENO);
+                setGrfSrcOrder(VSDATE, PRENO);
+                setGrfSrcXray(VSDATE, PRENO);
+                setGrfSrcProcedure(VSDATE, PRENO);
             }
             catch (Exception ex)
             {
@@ -5869,7 +5902,7 @@ namespace bangna_hospital.gui
             grfCertMed.Cols[colgrfOutLabDscVN].AllowEditing = false;
             grfCertMed.Cols[colgrfOutLablabcode].Visible = false;
             grfCertMed.Cols[colgrfOutLablabname].Visible = false;
-            grfCertMed.DoubleClick += GrfCertMed_DoubleClick;
+            grfCertMed.Click += GrfCertMed_Click;
             //ContextMenu menuGw = new ContextMenu();
             //menuGw.MenuItems.Add("ต้องการ ยกเลิก", new EventHandler(GrfCertMed_DoubleClick));
             //grfCertMed.ContextMenu = menuGw;
@@ -5878,7 +5911,8 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(grfOPD, "ExpressionDark");
             theme1.SetTheme(grfCertMed, bc.iniC.themegrfOpd);
         }
-        private void GrfCertMed_DoubleClick(object sender, EventArgs e)
+
+        private void GrfCertMed_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             if (grfCertMed.Row <= 0) return;
@@ -5937,7 +5971,7 @@ namespace bangna_hospital.gui
                         else
                         {
                             // Image is taller relative to page
-                            drawHeight = pageHeight-40;
+                            drawHeight = pageHeight - 40;
                             drawWidth = pageHeight * imgAspect;
                             offsetX = (((pageWidth - drawWidth) / 2));
                             //offsetX += (float)(0.6);
@@ -5960,14 +5994,14 @@ namespace bangna_hospital.gui
                 catch (Exception ex)
                 {
                     lfSbMessage.Text = ex.Message;
-                    new LogWriter("e", "FrmOPD GrfCertMed_DoubleClick " + ex.Message);
-                    bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfCertMed_DoubleClick", ex.Message);
+                    new LogWriter("e", "FrmOPD GrfCertMed_Click " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfCertMed_Click", ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "FrmOPD GrfCertMed_DoubleClick " + ex.Message);
-                bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfCertMed_DoubleClick save  ", ex.Message);
+                new LogWriter("e", "FrmOPD GrfCertMed_Click " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "GrfCertMed_Click save  ", ex.Message);
                 lfSbMessage.Text = ex.Message;
             }
         }
@@ -8005,6 +8039,11 @@ namespace bangna_hospital.gui
                 rowa[0] = i.ToString();
                 i++;
             }
+            if (tabApm.IsSelected)
+            {
+                txtApmDtr.Value = txtOperDtr.Text.Trim();
+                lbApmDtrName.Text = lbOperDtrName.Text.Trim();
+            }
         }
         private void initGrfOperFinish()
         {
@@ -9485,7 +9524,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2025-06-25 report กดปิดการรักษาซ้ำ";
+            this.Text = "Last Update 2025-07-29 report กดปิดการรักษาซ้ำ";
             lfSbMessage.Text = "";
             btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;
             btnOperSaveDtr.Left = pnVitalSign.Width - btnOperSaveDtr.Width - btnPrnCertMed.Width - 20;
@@ -9498,6 +9537,10 @@ namespace bangna_hospital.gui
             txtOperSticker.Top = btnOperPrnSticker.Top + 3;
             btnOperOpenSticker.Left = txtOperSticker.Left - btnOperOpenSticker.Width - 10;
             btnOperOpenSticker.Top = btnOperPrnSticker.Top;
+
+            txtApmDtr.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtApmDtr.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtApmDtr.AutoCompleteCustomSource = autoDrug;
 
             txtCheckUPDate.Value = DateTime.Now;
             timeOperList.Enabled = true;

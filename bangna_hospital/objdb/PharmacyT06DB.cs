@@ -312,7 +312,7 @@ namespace bangna_hospital.objdb
                 "From " + pharT06.table + " phart06 " +
                 "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
                 "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
-                " " +
+                "inner join Patient_t01_1 ptt011 on phart05.MNC_HN_NO = ptt011.MNC_HN_NO and phart05.MNC_DATE = ptt011.MNC_DATE and phart05.MNC_PRE_NO = ptt011.MNC_PRE_NO " +
                 "Where phart05.status_print_stricker_new is null and pharm01.mnc_ph_typ_flg = 'P'  " + whereanno+
                 "Order By phart05.MNC_REQ_NO ";
             dt = conn.selectData(sql);

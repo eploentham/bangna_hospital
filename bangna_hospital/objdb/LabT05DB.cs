@@ -200,7 +200,7 @@ namespace bangna_hospital.objdb
                 ", pm02.MNC_PFIX_DSC, pm01.MNC_FNAME_T, pm01.MNC_LNAME_T, convert(varchar(20), pm01.MNC_BDAY,23) as MNC_BDAY, pm01.MNC_SEX " +
                 ", pt01.MNC_VN_NO,pt01.MNC_VN_SEQ,pt01.MNC_VN_SUM,isnull(labt01.MNC_ORD_DOT,'') as MNC_ORD_DOT,isnull(pt01.mnc_sec_no,'') as mnc_sec_no, userm01.MNC_USR_FULL " +
                 ",isnuLL(labt01.MNC_WD_NO,'') as MNC_WD_NO,isnull(labt01.MNC_EMPC_CD,'') as MNC_EMPC_CD, isnull(userm01_usr.MNC_USR_FULL,'') as MNC_USR_FULL_usr " +
-                ",labt01.status_request_lab,labt01.date_request_lab, labt01.api_database,labt02.status_request_lab,labt02.date_request_lab, labt02.api_database " +
+                ",labt01.status_request_lab,labt01.date_request_lab, labt01.api_database,labt02.status_request_lab,labt02.date_request_lab, labt02.api_database, labm01.MNC_LB_DSC " +
                 "From lab_t01 labt01  " +
                 "inner join lab_t02 labt02 on labt01.MNC_REQ_YR = labt02.MNC_REQ_YR and labt01.MNC_REQ_NO = labt02.MNC_REQ_NO and labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
                 "inner join patient_m01 pm01 on labt01.mnc_hn_no = pm01.mnc_hn_no and labt01.mnc_hn_yr = pm01.mnc_hn_yr  " +
@@ -208,8 +208,8 @@ namespace bangna_hospital.objdb
                 "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD  " +
                 "Left Join USERLOG_M01 userm01 on labt01.MNC_ORD_DOT = userm01.MNC_USR_NAME  " +
                 "left Join USERLOG_M01 userm01_usr on labt01.MNC_EMPC_CD = userm01_usr.MNC_USR_NAME  " +
-                " " +
-                "where labt01.MNC_HN_NO = '"+ hn + "'  " +
+                "left join LAB_M01 labm01 ON labt02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                "where labt01.MNC_HN_NO = '" + hn + "'  " +
                 "Order By labt01.MNC_REQ_DAT,labt02.MNC_REQ_NO,labt02.MNC_LB_CD ";
 
             dt = conn.selectData(sql);

@@ -20,6 +20,24 @@ namespace bangna_hospital.objdb
         {
 
         }
+
+        public DataTable SelectPaidOPDByDate(String vsdate)
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select ft01.MNC_HN_NO,ft01.MNC_DOC_NO, convert(varchar(20),ft01.MNC_DOC_DAT,23) as MNC_DOC_DAT,ft01.mnc_DOC_CD, ft01.mnc_DOC_STS, ft01.mnc_SUM_PRI " +
+                ", ft01.MNC_JOB_NO, ft01.MNC_DOC_TIM, ft01.MNC_FN_TYP_CD, ft01.MNC_DIA_DSC,fn02.MNC_FN_TYP_DSC " +
+                ",isnull(pm02ptt.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname,ft01.MNC_DOC_TIM,ft01.MNC_PRE_NO  " +
+                "From finance_t01 ft01  " +
+                " Left Join finance_m02 fn02 on ft01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
+                " inner join patient_m01 pm01 on ft01.MNC_HN_NO = pm01.MNC_HN_NO " +
+                " left join patient_m02 pm02ptt on pm01.MNC_PFIX_CDT = pm02ptt.MNC_PFIX_CD " +
+                "Where ft01.MNC_DOC_DAT = '" + vsdate + "' and ft01.MNC_DOC_STS = 'F' and ft01.MNC_AN_NO is null " +
+                "Order By ft01.MNC_DOC_TIM desc ";
+            dt = conn.selectData(sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public DataTable SelectAllByHN(String hn)
         {
             DataTable dt = new DataTable();
@@ -142,7 +160,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String re = "0";
-            String sql = "select ft03.MNC_APP_CD2,convert(varchar920),ft03.MNC_FN_DAT,23) as MNC_FN_DAT, ft03.MNC_FN_TYP_CD, ft03.MNC_FN_CD, fm01.MNC_FN_DSCT, fm01.mnc_grp_ss1,ft03.MNC_FN_PAD  " +
+            String sql = "select ft03.MNC_APP_CD2,convert(varchar(9)20),ft03.MNC_FN_DAT,23) as MNC_FN_DAT, ft03.MNC_FN_TYP_CD, ft03.MNC_FN_CD, fm01.MNC_FN_DSCT, fm01.mnc_grp_ss1,ft03.MNC_FN_PAD  " +
                 "From FINANCE_T01 ft01 " +
                 "left join FINANCE_T03 ft03 on ft01.MNC_DOC_CD = ft03.MNC_DOC_CD and ft01.MNC_DOC_NO = ft03.MNC_DOC_NO and ft01.MNC_DOC_YR = ft03.MNC_DOC_YR " +
                 "left join FINANCE_M01 fm01 on ft03.MNC_FN_CD = fm01.MNC_FN_CD " +

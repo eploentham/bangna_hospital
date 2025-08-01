@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_opd</AssemblyName>
+    <AssemblyName>bangna_hospital_pharmacy</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -300,6 +300,12 @@
     </Compile>
     <Compile Include="gui\FrmApmVisitNew.Designer.cs">
       <DependentUpon>FrmApmVisitNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmCashier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmCashier.Designer.cs">
+      <DependentUpon>FrmCashier.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmCertDoctor.cs">
       <SubType>Form</SubType>
@@ -1256,6 +1262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmCapture.resx">
       <DependentUpon>FrmCapture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmCashier.resx">
+      <DependentUpon>FrmCashier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmCertDoctor.resx">
       <DependentUpon>FrmCertDoctor.cs</DependentUpon>

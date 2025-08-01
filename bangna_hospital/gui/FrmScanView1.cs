@@ -10056,7 +10056,8 @@ namespace bangna_hospital.gui
                 an = grfIPD[grfIPD.Row, colIPDAnShow] != null ? grfIPD[grfIPD.Row, colIPDAnShow].ToString() : "";
                 if (docgrpid.Equals("1100000099"))
                 {
-                    dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
+                    //dt = bc.bcDB.dscDB.selectByAn(txtHn.Text, an);
+                    dt = bc.bcDB.dscDB.selectByAnScan(txtHn.Text, an);
                     menuGw.MenuItems.Add("ต้องการ Download ตามกลุ่มเอกสาร", new EventHandler(ContextMenu_grfscan_Download_byGroup));
                 }
                 else
@@ -10079,10 +10080,10 @@ namespace bangna_hospital.gui
             {
                 try
                 {
-                    int cnt = 0;
-                    cnt = dt.Rows.Count / 2;
+                    //int cnt = 0;
+                    //cnt = dt.Rows.Count / 2;
 
-                    grfScan.Rows.Count = cnt + 1;
+                    //grfScan.Rows.Count = cnt + 1;
                     //foreach (Row row1 in grfScan.Rows)
                     //{
                     //    row1.Height = 100;
@@ -10132,7 +10133,8 @@ namespace bangna_hospital.gui
                             else
                             {
                                 rowrun++;
-                                rowd = grfScan.Rows[rowrun];
+                                //rowd = grfScan.Rows[rowrun];
+                                rowd = grfScan.Rows.Add();
                                 Application.DoEvents();
                             }
                             MemoryStream stream;
@@ -10180,6 +10182,7 @@ namespace bangna_hospital.gui
                             //{
                             //    string aa = "";
                             //}
+                            stream.Position = 0;
                             loadedImage = new Bitmap(stream);
                             err = "04";
                             int originalWidth = 0;

@@ -50,6 +50,10 @@ namespace bangna_hospital.gui
                 {
                     setRptLabResult();
                 }
+                else if (reportname.Equals("cashier_receipt"))
+                {
+                    setRptLabResult();
+                }
             }
             catch(Exception ex)
             {

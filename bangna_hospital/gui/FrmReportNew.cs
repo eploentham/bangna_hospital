@@ -41,10 +41,14 @@ namespace bangna_hospital.gui
                 System.IO.FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory()+"\\report\\" +reportfilename+ ".rdlx");
                 PageReport definition = new PageReport(rptPath);
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
-                Parameter line1 = new Parameter();
-                Parameter line2 = new Parameter();
-                Parameter line3 = new Parameter();
-                //runtime.Parameters.Add(line1);
+
+                // With the following, using GrapeCity.ActiveReports.Expressions.ExpressionObjectModel.Parameter:
+                runtime.Parameters["line1"].CurrentValue = "your_value_here1";
+                runtime.Parameters["line2"].CurrentValue = "your_value_here2";
+                runtime.Parameters["line3"].CurrentValue = "your_value_here3";
+                // If you need to set more parameters, use their names and assign values similarly:
+                // runtime.Parameters["line2"].CurrentValue = "your_value_here";
+                // runtime.Parameters["line3"].CurrentValue = "your_value_here";
                 //runtime.Parameters.Add(line1);
                 //runtime.Parameters.Add(line1);
                 runtime.LocateDataSource += Runtime_LocateDataSource;

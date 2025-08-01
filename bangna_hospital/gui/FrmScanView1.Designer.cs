@@ -47,6 +47,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnDrugNew = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.gbPtt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
@@ -59,11 +60,13 @@
             this.sC1.SuspendLayout();
             this.scVs.SuspendLayout();
             this.scScan.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugNew)).BeginInit();
             this.SuspendLayout();
             // 
             // gbPtt
             // 
             this.gbPtt.BackColor = System.Drawing.Color.White;
+            this.gbPtt.Controls.Add(this.btnDrugNew);
             this.gbPtt.Controls.Add(this.lbChronic1);
             this.gbPtt.Controls.Add(this.lbDrugAllergy);
             this.gbPtt.Controls.Add(this.lbAge);
@@ -140,7 +143,6 @@
             this.chkIPD.BackColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
             this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkIPD.ForeColor = System.Drawing.Color.Black;
             this.chkIPD.Location = new System.Drawing.Point(957, 11);
             this.chkIPD.Name = "chkIPD";
@@ -308,6 +310,20 @@
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
             // 
+            // btnDrugNew
+            // 
+            this.btnDrugNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDrugNew.Image = global::bangna_hospital.Properties.Resources.pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290;
+            this.btnDrugNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDrugNew.Location = new System.Drawing.Point(756, 9);
+            this.btnDrugNew.Name = "btnDrugNew";
+            this.btnDrugNew.Size = new System.Drawing.Size(75, 30);
+            this.btnDrugNew.TabIndex = 559;
+            this.btnDrugNew.Text = "drug";
+            this.btnDrugNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnDrugNew, "(default)");
+            this.btnDrugNew.UseVisualStyleBackColor = true;
+            // 
             // FrmScanView1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,6 +347,7 @@
             this.sC1.ResumeLayout(false);
             this.scVs.ResumeLayout(false);
             this.scScan.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugNew)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -356,5 +373,6 @@
         private System.Windows.Forms.Label lbDrugAllergy;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lbChronic1;
+        private C1.Win.C1Input.C1Button btnDrugNew;
     }
 }

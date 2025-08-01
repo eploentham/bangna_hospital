@@ -4937,8 +4937,10 @@ namespace bangna_hospital.objdb
             try
             {
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
-                sql = "update patient_t01_1 set act_no_131 = replace(left(convert(varchar(100),getdate(),108),5),':','') " +
-                       "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
+                sql = "update patient_t01_1 " +
+                    "set act_no_131 = replace(left(convert(varchar(100),getdate(),108),5),':','') " +
+                    ", status_close_opd = '1' " +
+                    "Where mnc_hn_no = '" + hn + "' and mnc_date = '" + vsdate + "' and mnc_pre_no ='" + preno + "'";
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 //UPDATE PATIENT_T01_2 SET MNC_ACT_NO = @ACT_NO WHERE(MNC_HN_NO = @HN_NO) AND(MNC_HN_YR = @HN_YR) AND(MNC_DATE = @MNC_DAT) AND(MNC_PRE_NO = @PRE_NO) AND(MNC_PAT_FLAG = @PAT_FLAG);
             }
