@@ -74,6 +74,8 @@
             this.pnRptCri1 = new System.Windows.Forms.Panel();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
             this.pnFinish = new System.Windows.Forms.Panel();
+            this.rbToken = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spDoctor)).BeginInit();
             this.spDoctor.SuspendLayout();
@@ -117,6 +119,8 @@
             this.c1StatusBar1.RightPaneItems.Add(this.ribbonLabel4);
             this.c1StatusBar1.RightPaneItems.Add(this.rbSbDrugSet);
             this.c1StatusBar1.RightPaneItems.Add(this.rpDrugSetNew);
+            this.c1StatusBar1.RightPaneItems.Add(this.ribbonSeparator1);
+            this.c1StatusBar1.RightPaneItems.Add(this.rbToken);
             this.c1StatusBar1.Size = new System.Drawing.Size(1194, 22);
             // 
             // lfSbLastUpdate
@@ -642,6 +646,16 @@
             this.pnFinish.Size = new System.Drawing.Size(1192, 635);
             this.pnFinish.TabIndex = 0;
             // 
+            // rbToken
+            // 
+            this.rbToken.Name = "rbToken";
+            this.rbToken.SmallImage = global::bangna_hospital.Properties.Resources.Add_ticket_24;
+            this.rbToken.Text = "Token";
+            // 
+            // ribbonSeparator1
+            // 
+            this.ribbonSeparator1.Name = "ribbonSeparator1";
+            // 
             // FrmDoctor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -736,5 +750,7 @@
         private System.Windows.Forms.Panel pnFinish;
         private C1.Win.C1Input.C1Button btnDfDate;
         private C1.Win.C1Ribbon.RibbonLabel lfSbLastUpdate;
+        private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator1;
+        private C1.Win.C1Ribbon.RibbonButton rbToken;
     }
 }

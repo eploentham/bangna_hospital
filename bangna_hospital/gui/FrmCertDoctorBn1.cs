@@ -76,7 +76,8 @@ namespace bangna_hospital.gui
         ,"เหงือกอักเสบ, 27 Pa ฟันผุ","วุ้นในตาเสื่อม","มะเร็งท่อทางเดินน้ำดี","ตาแดง เยื่อบุตาอักเสบทั้งสองข้าง","ตาแดง","เศษสิ่งแปลกปลอมในกระจกตาซ้าย","ตับอ่อนอักเสบ","ฟันคุดทำความสะอาดไม่ถึง","ต้อกระจกระยะเริ่มแรก และมีสายตายาวตามอายุ","ปวดท้องเรื้อรัง","มะเร็งทางเดินน้ำดี","มะเร็งตับอ่อน","มะเร็งลำไส้ตรง"
         ,"seminoma","เนื้องอกจิสต์ (GIST)","มะเร็งลิ้น","กระจกตาดำถลอก ตาซ้าย","กระจกตาดำถลอก ตาขวา","ต้อกระจก","สิ่งแปลกปลอมที่กระจกตาดำซ้าย","สิ่งแปลกปลอมที่กระจกตาดำขวา","เยื่อบุตาอักเสบ ไวรัสตาแดง","สารเคมีกระเด็นเข้าตา กระจกตาดำถลอกตาขวา","มาตรวจเบาหวานจอตา  (ปกติ)","เปลือกตาอักเสบ กุ้งยิง"
         ,"จอประสาทตาเสื่อม","เบาหวานขึ้นจอตา","กระจกตาอักเสบแห้ง","จอประสาทตาบวม ตาซ้าย","จอประสาทตาบวม ตาขวา","เบาหวานขึ้นจอตา   มารับการยิงเลเซอร์จอตา","โรคหนังแข็ง","โรคความดันโลหิตสูง","โรคปอดอักเสบจากแพ้ภูมิตนเอง","โรคกระดูกสันหลังติดยึดชนิดข้อระยางค์เด่น","โรคโลหิตจาง","ข้ออักเสบรูมาตอยด์กำเริบ"
-        ,"โรคเส้นเลือดอักเสบ IgA","โรคแพ้ภูมิตนเอง","อุบัติเหตุจราจร ","กล้ามเนื้อเข่าอักเสบ","หกล้มกระดูก","กล้ามเนื้อต้นคออักเสบ","รักษาต่อเนื่อง","แผลเย็บ","เศษเหล็กเข้าตา","แสงควันเชื่อมเข้าตา","ล้างแผลต่อเนื่อง","อุบัติเหตุ","ลิ่มเลือดอุดตัน","ตรวจหัวใจ วัดความดัน","มะเร็งเม็ดเลือดขาว"};
+        ,"โรคเส้นเลือดอักเสบ IgA","โรคแพ้ภูมิตนเอง","อุบัติเหตุจราจร ","กล้ามเนื้อเข่าอักเสบ","หกล้มกระดูก","กล้ามเนื้อต้นคออักเสบ","รักษาต่อเนื่อง","แผลเย็บ","เศษเหล็กเข้าตา","แสงควันเชื่อมเข้าตา","ล้างแผลต่อเนื่อง","อุบัติเหตุ","ลิ่มเลือดอุดตัน","ตรวจหัวใจ วัดความดัน","มะเร็งเม็ดเลือดขาว"
+        ,"มะเร็งต่อมน้ำเหลือง","ตรวจหัวใจ วิ่งสายพาน","เกล็ดเลือดต่ำ","โรคหยุดหายใจขณะหลับระดับความรุนแรงมาก(AHI 48.8, low sat 89%)","กล้ามเนื้อลูกตาล้า","ปวดศรีษะจากกล้ามเนื้อเกร็งตัว"};
 
         string[] AUTOLINE2 = { "นัดติดตามอาการ และนัดเจาะเลือด", "นัดติดตามอาการ", "นัดตรวจอัลตราซาวน์ช่องท้อง", "นัดพบแพทย์เฉพาะทาง", "นัดติดตามอาการ และนัดฉีดยาฆ่าเชื้อ", "นัดติดตามอาการ และนัดเจาะเลือดเช็คค่าตับและตับอ่อน", "หากไม่ดีขึ้น แนะนำให้มาโรงพยาบาลอีกครั้ง", "แนะนำให้มาโรงพยาบาลหากไม่ดีขึ้น"
                 , "หากรับประทานยาไม่ดีขึ้นหรือมีอาการผิดปกติ แนะนำพบแพทย์", "ผู้ป่วยตรวจพบเชื้อโควิด ด้วยวิธี ATK","ล้างแผลต่อเนื่องห้ามแผลโดนน้ำ","นัดฉีดยาฆ่าเชื้อ","ล้างแผลต่อเนื่อง ห้ามแผลโดนน้ำ","ไขมัน","ความดัน","ผลอ่านเอ็กซ์เรย์ปอด พบลักษณะ หลอดลมอักเสบ","ปวดหัวมาก จากความเครียด","ท้องเสีย"
@@ -654,18 +655,18 @@ namespace bangna_hospital.gui
                 if(cboHostname.SelectedIndex == 1)
                 {
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, cboHostname.Text.Trim(), 80, linenumber, 0);
-                    canvas.SetFontAndSize(bfRB, fontSize20);
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostnamee, 80, linenumber - 15, 0);
+                    canvas.SetFontAndSize(bfR, 12);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostaddress1, 80, linenumber - 15, 0);
                 }
                 else
                 {
-                    canvas.ShowTextAligned(Element.ALIGN_LEFT, ((ComboBoxItem)cboHostname.SelectedItem).Value, 80, linenumber, 0);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostname, 80, linenumber, 0);
+                    canvas.SetFontAndSize(bfR, 12);
+                    canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostaddresst, 80, linenumber - 15, 0);
                 }
                 //canvas.ShowTextAligned(Element.ALIGN_LEFT, "55 หมู่4 ถนนเทพารักษ์ ตำบลบางพลีใหญ่ อำเภอบางพลี จังหวัด สมุทรปราการ 10540", 100, 780, 0);
                 
-                canvas.SetFontAndSize(bfR, 12);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostaddresst, 80, linenumber - 30, 0);
+                
                 canvas.EndText();
                 linenumber = 720;
 
@@ -856,6 +857,23 @@ namespace bangna_hospital.gui
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "..................................................................", 395, linenumber - 2, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, lbDtrName.Text.Trim()+" ["+txtDtrCode.Text.Trim()+"]", 398, linenumber + 3, 0);
 
+                String signFileName = Environment.CurrentDirectory + "\\sign\\sign_" + txtDtrCode.Text.Trim() + ".jpg";
+                if (File.Exists(signFileName))
+                {
+                    //bc.bcDB.vsDB.updateMedicalCertId(txtCheckUPHN.Text.Trim(), PRENO, VSDATE, certid);
+                    bc.bcDB.tokenDB.updateUsed(txtDtrCode.Text.Trim(), "cert_med", certid);       // ทำเพื่อ จะได้ มีระบบ ลายเซ็นแพทย์ เป็นแบบรูปภาพ แล้วมีการเก็บ ลง ใน ระบบ
+                    
+                    //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 03");
+                    System.Drawing.Image imgSign = null; imgSign = System.Drawing.Image.FromFile(signFileName);
+                    float newWidthsign = imgSign.Width * 100 / imgSign.HorizontalResolution, newHeightsign = imgSign.Height * 100 / imgSign.VerticalResolution;
+                    float widthFactorsign = 60.8F, heightFactorsign = 60.8F;
+                    var imgsign1 = iTextSharp.text.Image.GetInstance(imgSign, BaseColor.WHITE);
+                    imgsign1.SetAbsolutePosition(400, linenumber + 3);
+                    imgsign1.ScaleAbsoluteHeight(50);
+                    imgsign1.ScaleAbsoluteWidth(50);
+                    doc.Add(imgsign1);
+                }
+
                 linenumber -= 20;
                 //canvas.ShowTextAligned(Element.ALIGN_LEFT, "ผู้รับเอกสารใบรับรองแพทย์", 75, linenumber, 0);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "แพทย์ผู้ตรวจรักษา", 440, linenumber, 0);
@@ -1006,15 +1024,21 @@ namespace bangna_hospital.gui
         }
         private void printCertDoctoriTextSharpEnglish()
         {
-            String certid = "";
+            String certid = "", pathApp = "";
             certid = insertCertDoctor();
             certid = certid.Replace("555", "");
 
             //String patheName = Environment.CurrentDirectory + "\\cert_med\\";
             String patheName = Application.StartupPath + "\\cert_med\\";        //Copilot บอกให้ใช้ Application.StartupPath
-            if (Environment.CurrentDirectory.Equals(""))
+            if ((Environment.CurrentDirectory.ToLower().IndexOf("windows") >= 0) && ((Environment.CurrentDirectory.ToLower().IndexOf("c:") >= 0)))
             {
-                
+                new LogWriter("e", "FrmCertDoctorBn1 printCertDoctoriTextSharpThai Environment.CurrentDirectory " + Environment.CurrentDirectory);
+                pathApp = bc.iniC.pathIniFile;
+                patheName = pathApp + "\\cert_med\\";
+            }
+            else
+            {
+                pathApp = Environment.CurrentDirectory;
             }
             if (!Directory.Exists(patheName))
             {

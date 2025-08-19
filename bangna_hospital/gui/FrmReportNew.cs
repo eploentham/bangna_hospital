@@ -20,6 +20,7 @@ namespace bangna_hospital.gui
         public String reportfilename = "";
         public String HN="", VN="", preno="", reqDate="";
         public DataTable DT = new DataTable();
+        public String LINE1 = "", LINE2 = "", LINE3 = "";
         BangnaControl bc;
         public FrmReportNew(BangnaControl bc, String filename)
         {
@@ -27,7 +28,15 @@ namespace bangna_hospital.gui
             this.bc = bc;
             this.reportfilename = filename;
         }
-
+        public FrmReportNew(BangnaControl bc, String filename, String line1, String line2, String line3)
+        {
+            InitializeComponent();
+            this.bc = bc;
+            this.LINE1 = line1;
+            this.LINE2 = line2;
+            this.LINE3 = line3;
+            this.reportfilename = filename;
+        }
         private void FrmReportNew_Load(object sender, EventArgs e)
         {
             try
@@ -43,9 +52,9 @@ namespace bangna_hospital.gui
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
 
                 // With the following, using GrapeCity.ActiveReports.Expressions.ExpressionObjectModel.Parameter:
-                runtime.Parameters["line1"].CurrentValue = "your_value_here1";
-                runtime.Parameters["line2"].CurrentValue = "your_value_here2";
-                runtime.Parameters["line3"].CurrentValue = "your_value_here3";
+                runtime.Parameters["line1"].CurrentValue = LINE1.Length > 0 ? LINE1 : "";
+                runtime.Parameters["line2"].CurrentValue = LINE2.Length > 0 ? LINE2 : "";
+                runtime.Parameters["line3"].CurrentValue = LINE3.Length > 0 ? LINE3 : "";
                 // If you need to set more parameters, use their names and assign values similarly:
                 // runtime.Parameters["line2"].CurrentValue = "your_value_here";
                 // runtime.Parameters["line3"].CurrentValue = "your_value_here";
@@ -80,16 +89,52 @@ namespace bangna_hospital.gui
             //ExportForm exportForm = new ExportForm(arvMain.Document);
             //exportForm.ShowDialog(this);
         }
-        public Boolean PrintReport()
+        public Boolean PrintReportNoLINE()
         {
-            Boolean chk=false;
+            Boolean chk = false;
+            String err = "00";
             try
             {
                 System.IO.FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\" + reportfilename + ".rdlx");
                 PageReport definition = new PageReport(rptPath);
+                err = "01";
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
+                err = "02";
+                //runtime.Parameters["line1"].CurrentValue = LINE1.Length > 0 ? LINE1 : "";
+                //runtime.Parameters["line2"].CurrentValue = LINE2.Length > 0 ? LINE2 : "";
+                //runtime.Parameters["line3"].CurrentValue = LINE3.Length > 0 ? LINE3 : "";
+                err = "03";
                 runtime.LocateDataSource += Runtime_LocateDataSource1;
-                
+                err = "04";
+                runtime.Print(false);
+                chk = true;
+                definition.Dispose();
+                runtime.Dispose();
+            }
+            catch (Exception ex)
+            {
+                chk = false;
+                new LogWriter("e", this.Name + " PrintReport   " + err + " " + ex.Message);
+            }
+            return chk;
+        }
+        public Boolean PrintReport()
+        {
+            Boolean chk=false;
+            String err = "00";
+            try
+            {
+                System.IO.FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\" + reportfilename + ".rdlx");
+                PageReport definition = new PageReport(rptPath);
+                err = "01";
+                GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
+                err = "02";
+                runtime.Parameters["line1"].CurrentValue = LINE1.Length > 0 ? LINE1 : "";
+                runtime.Parameters["line2"].CurrentValue = LINE2.Length > 0 ? LINE2 : "";
+                runtime.Parameters["line3"].CurrentValue = LINE3.Length > 0 ? LINE3 : "";
+                err = "03";
+                runtime.LocateDataSource += Runtime_LocateDataSource1;
+                err = "04";
                 runtime.Print(false);
                 chk = true;
                 definition.Dispose();
@@ -98,6 +143,7 @@ namespace bangna_hospital.gui
             catch (Exception ex)
             {
                 chk=false;
+                new LogWriter("e", this.Name + " PrintReport   "+ err +" "+ ex.Message);
             }
             return chk;
         }

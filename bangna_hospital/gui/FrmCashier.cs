@@ -97,6 +97,20 @@ namespace bangna_hospital.gui
             tabMain.SelectedTabChanged += TabMain_SelectedTabChanged;
             rgPrn.Click += RgPrn_Click;
             rgSearch.KeyPress += RgSearch_KeyPress;
+            rgPrn1.Click += RgPrn1_Click;
+            rgPrnReceipt.Click += RgPrnReceipt_Click;
+        }
+
+        private void RgPrnReceipt_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (DTINV == null || DTINV.Rows.Count <= 0)
+            {
+                MessageBox.Show("กรุณาเลือกข้อมูลที่ต้องการพิมพ์");
+                return;
+            }
+            printReceipt("original/ต้นฉบับ", bc.iniC.statusPrintPreview.Equals("1") ? "preview" : "");
+            printReceipt("copy/สำเนา", bc.iniC.statusPrintPreview.Equals("1") ? "preview" : "");
         }
 
         private void RgSearch_KeyPress(object sender, KeyPressEventArgs e)
@@ -115,28 +129,38 @@ namespace bangna_hospital.gui
                 }
             }
         }
-
+        private void RgPrn1_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            printReceipt("copy/สำเนา", bc.iniC.statusPrintPreview.Equals("1") ? "preview":"");
+        }
         private void RgPrn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            printReceipt("original/ต้นฉบับ", bc.iniC.statusPrintPreview.Equals("1") ? "preview":"");
+        }
+        private void printReceipt(String original, String preview)
+        {
             setPrintINV();
-            FrmReportNew frm = new FrmReportNew(bc, "cashier_receipt");
+            
             DataTable dtinv = new DataTable();
             dtinv = DTINV.Copy();
             if (dtinv == null || dtinv.Rows.Count <= 0) return;
             if (!dtinv.Columns.Contains("apmmake")) dtinv.Columns.Add("apmmake", typeof(String));
             if (!dtinv.Columns.Contains("phone")) dtinv.Columns.Add("phone", typeof(String));
+            float total = 0;
             foreach (DataRow arow in dtinv.Rows)
             {
                 float.TryParse(arow["amount"].ToString(), out float amt);
+                total+=amt;
                 arow["amount"] = amt.ToString("#,##0.00");
-                if (float.Parse(arow["amount"].ToString())<=0)
+                if (float.Parse(arow["amount"].ToString()) <= 0)
                 {
                     arow.Delete();
                 }
                 else
                 {
-                    arow["apmmake"] = "original/ต้นฉบับ";
+                    arow["apmmake"] = original;
                     arow["phone"] = "0";
                 }
             }
@@ -154,8 +178,16 @@ namespace bangna_hospital.gui
             //    newRow["phone"] = "1";
             //    dtinv1.Rows.Add(newRow);
             //}
+            FrmReportNew frm = new FrmReportNew(bc, "cashier_receipt", total.ToString("#,##0.00"), original,"");
             frm.DT = dtinv;
-            frm.ShowDialog(this);
+            if (preview.Equals("preview"))
+            {
+                frm.ShowDialog(this);
+            }
+            else
+            {
+                frm.PrintReport();
+            }
         }
         private void setPrintINV()
         {
@@ -173,15 +205,23 @@ namespace bangna_hospital.gui
             foreach (DataRow drow in DTINV.Rows)
             {
                 Boolean chkname = false;
+                String invno = dttem01.Rows[0]["MNC_DOC_NO2"].ToString();
+                String[] invno1 = invno.Split('#');
+                if(invno1.Length > 1)
+                {
+                    String invno2 = invno1[1].Length>2 ? invno1[1].Substring(invno1[1].Length-2) : invno1[1];
+                    String invno3= invno1[1].Length > 2 ? invno1[1].Substring(0,invno1[1].Length - 4) : invno1[1];
+                    invno = "BO"+ invno3 + invno2;
+                }
                 drow["hn"] = HN;
                 drow["desc1"] = drow["MNC_DEF_CD"].ToString()+" "+drow["MNC_DEF_DSC"].ToString();
                 drow["pttname"] = PTTNAME;
                 drow["inv_no"] = DOCNO;
-                drow["apm_date"] = VSDATE;
-                drow["end_date"] = VSDATE;
-                drow["apm_time"] = VSTIME;
+                drow["apm_date"] = bc.datetoShow1(VSDATE);
+                drow["end_date"] = bc.datetoShow1(VSDATE);
+                drow["apm_time"] = bc.showTime(VSTIME);
                 drow["amount"] = drow["MNC_AMT"].ToString();
-                drow["inv_no"] = dttem01.Rows[0]["MNC_DOC_NO2"].ToString();
+                drow["inv_no"] = invno;
                 //chkname = txtName.Text.Any(c => !Char.IsLetterOrDigit(c));
                 //if (chkname)
                 //{
@@ -385,7 +425,7 @@ namespace bangna_hospital.gui
         }
         private void FrmCashier_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 20250718  ";
+            this.Text = "Last Update 20250807  ";
             System.Drawing.Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

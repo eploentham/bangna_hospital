@@ -202,7 +202,7 @@ namespace bangna_hospital.objdb
                 lDgs.Add(itm1);
             }
         }
-        public void setCboDgs(C1ComboBox c, String dtrcode, String selected)
+        public void setCboDrugSet(C1ComboBox c, String dtrcode, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
             //DataTable dt = selectAll();

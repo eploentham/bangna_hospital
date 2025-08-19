@@ -39,6 +39,8 @@
             this.rgSbHIV = new C1.Win.C1Ribbon.RibbonLabel();
             this.rgSbAFB = new C1.Win.C1Ribbon.RibbonLabel();
             this.rgPrn = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
+            this.rgPrn1 = new C1.Win.C1Ribbon.RibbonButton();
             this.tabMain = new C1.Win.C1Command.C1DockingTab();
             this.tabOper = new C1.Win.C1Command.C1DockingTabPage();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
@@ -47,6 +49,8 @@
             this.pnGrfFinishInv = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
             this.tabReport = new C1.Win.C1Command.C1DockingTabPage();
+            this.rgPrnReceipt = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonSeparator2 = new C1.Win.C1Ribbon.RibbonSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
             this.tabMain.SuspendLayout();
@@ -70,6 +74,10 @@
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbHIV);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbAFB);
             this.c1StatusBar1.RightPaneItems.Add(this.rgPrn);
+            this.c1StatusBar1.RightPaneItems.Add(this.ribbonSeparator1);
+            this.c1StatusBar1.RightPaneItems.Add(this.rgPrn1);
+            this.c1StatusBar1.RightPaneItems.Add(this.ribbonSeparator2);
+            this.c1StatusBar1.RightPaneItems.Add(this.rgPrnReceipt);
             this.c1StatusBar1.Size = new System.Drawing.Size(1303, 22);
             // 
             // lfSbMessage
@@ -122,6 +130,16 @@
             this.rgPrn.Name = "rgPrn";
             this.rgPrn.SmallImage = global::bangna_hospital.Properties.Resources.printer_blue16;
             this.rgPrn.Text = "ใบเสร็จ";
+            // 
+            // ribbonSeparator1
+            // 
+            this.ribbonSeparator1.Name = "ribbonSeparator1";
+            // 
+            // rgPrn1
+            // 
+            this.rgPrn1.Name = "rgPrn1";
+            this.rgPrn1.SmallImage = global::bangna_hospital.Properties.Resources.printer_orange24;
+            this.rgPrn1.Text = "สำเนา";
             // 
             // tabMain
             // 
@@ -202,6 +220,16 @@
             this.tabReport.TabIndex = 3;
             this.tabReport.Text = "Report";
             // 
+            // rgPrnReceipt
+            // 
+            this.rgPrnReceipt.Name = "rgPrnReceipt";
+            this.rgPrnReceipt.SmallImage = global::bangna_hospital.Properties.Resources.printer_green48;
+            this.rgPrnReceipt.Text = "พิมพ์ทั้งหมด";
+            // 
+            // ribbonSeparator2
+            // 
+            this.ribbonSeparator2.Name = "ribbonSeparator2";
+            // 
             // FrmCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -245,5 +273,9 @@
         private C1.Win.C1SplitContainer.C1SplitterPanel pnGrfFinishView;
         private C1.Win.C1SplitContainer.C1SplitterPanel pnGrfFinishInv;
         private C1.Win.C1Ribbon.RibbonTextBox rgSearch;
+        private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator1;
+        private C1.Win.C1Ribbon.RibbonButton rgPrn1;
+        private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator2;
+        private C1.Win.C1Ribbon.RibbonButton rgPrnReceipt;
     }
 }

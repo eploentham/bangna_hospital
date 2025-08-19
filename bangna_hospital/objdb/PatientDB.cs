@@ -534,6 +534,8 @@ namespace bangna_hospital.objdb
                 ptt.remark1 = dt.Rows[0]["remark1"].ToString();
                 ptt.remark2 = dt.Rows[0]["remark2"].ToString();
                 ptt.MNC_STATUS = dt.Rows[0]["MNC_STATUS"].ToString();
+                ptt.statusHIV = "";
+                ptt.statusAFB = "";
             }
             else
             {
@@ -575,6 +577,8 @@ namespace bangna_hospital.objdb
                 ptt.remark1 = "";
                 ptt.remark2 = "";
                 ptt.MNC_STATUS = "";
+                ptt.statusHIV = "";
+                ptt.statusAFB = "";
             }
             return ptt;
         }

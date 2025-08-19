@@ -2136,13 +2136,16 @@ namespace bangna_hospital.gui
                     btnPrintStrickerEng.SmallImage = Resources.printer_green16;
                     if (STRATTIME.Equals("00"))
                     {
-                        DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug("pharmacyOPD");
+                        //DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug("pharmacyOPD");
+                        DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrugFixClose("pharmacyOPD",bc.iniC.statusPrintStickerDrugAll);
                     }
                     else
                     {
-                        DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug(bc.iniC.programLoad);
+                        //DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug(bc.iniC.programLoad);
+                        DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrugFixClose(bc.iniC.programLoad, bc.iniC.statusPrintStickerDrugAll);
                     }
                 }
+                //new LogWriter("d", this.Name + " TimeImgDrugINward_Tick  DTSTCDRUG.Rows.Count " + DTSTCDRUG.Rows.Count);
                 if (DTSTCDRUG.Rows.Count > 0)
                 {
                     //DTSTCDRUG = bc.bcDB.pharT06DB.selectByCFRNoDrug1(DTSTCDRUG.Rows[0]["MNC_CFR_YR"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFR_NO"].ToString(), DTSTCDRUG.Rows[0]["MNC_DOC_CD"].ToString(), DTSTCDRUG.Rows[0]["MNC_CFG_DAT"].ToString());
@@ -2168,7 +2171,7 @@ namespace bangna_hospital.gui
             Boolean chk = false;
             if (stricker.Equals("summary")) frmDrugStricker.reportfilename = "drug_stricker_sum";            //check แค่นี้ เพราะตอน formload check file ว่ามีไหม จะได้ ไม่ต้อง read IO บ่อยๆ
             else frmDrugStricker.reportfilename = "drug_stricker";
-
+            //new LogWriter("d", this.Name + " setReportStricker  00 " );
             int i = 1;
             DateTime dt = DateTime.Now;
             if (dt.Year < 1900) dt = dt.AddYears(543);
@@ -2177,6 +2180,7 @@ namespace bangna_hospital.gui
                 List<DataRow> rowadd = new List<DataRow>();
                 foreach (DataRow drow in dtdrug.Rows)//check ยาน้ำ pharm01.MNC_PH_TYP_CD = 021 ให้พิมพ์ stricker หลายดวง ตามจำนวน qty  MNC_PH_QTY_PAID
                 {
+                    //new LogWriter("d", this.Name + " setReportStricker  01 ");
                     if (drow["MNC_PH_TYP_CD"].ToString().Equals("021"))
                     {// check ยาน้ำ pharm01.MNC_PH_TYP_CD = 021 ให้พิมพ์ stricker หลายดวง ตามจำนวน qty MNC_PH_QTY_PAID
                         if (drow["MNC_PH_UNT_CD"].ToString().Equals("ML")) continue;        //ถ้าอยูเป็นยาน้ำ แต่หน่วยเป็น ML ไม่ต้อง ให้ผ่านไป
@@ -2236,7 +2240,8 @@ namespace bangna_hospital.gui
             }
             else
             {
-                if (frmDrugStricker.PrintReport())
+                new LogWriter("d", this.Name + " setReportStricker  02 ");
+                if (frmDrugStricker.PrintReportNoLINE())
                 {
                     if (dtdrug.Rows.Count > 0)
                         bc.bcDB.pharT05DB.updateStatusPrintStrickered(dtdrug.Rows[0]["MNC_DOC_CD"].ToString(), dtdrug.Rows[0]["MNC_CFR_YR"].ToString(), dtdrug.Rows[0]["MNC_CFR_NO"].ToString(), dtdrug.Rows[0]["MNC_CFG_DAT"].ToString());
@@ -2417,7 +2422,7 @@ namespace bangna_hospital.gui
             String stationname = bc.bcDB.pm32DB.getDeptName(bc.iniC.station);
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname+" drugin "+bc.iniC.hostFTPDrugIn;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS+" "+ bc.iniC.programLoad;
-            this.Text = "Last Update 2024-06-17 หน่วยbotพิมพ์stickerตามqty bug เที่ยงคืน, find grid sticker sum ดึง เวชภัณฑ์ เพิ่ม timer แก้ bug กลางคืนพิมพ์ IPD เป็นพิมพ์หมดทั้ง OPD IPD";
+            this.Text = "Last Update 2025-08-19 ";
             lfSbStatus.Text = "";
             rb1.Text = "timer "+bc.timerImgScanNew.ToString();
             rb2.Text = bc.iniC.printerStickerDrug;

@@ -279,6 +279,16 @@ namespace bangna_hospital.gui
             //setTabMachineResult();
             //MessageBox.Show("FrmScanView1 initConfig 03", "");
             tabHnLabOut.DoubleClick += TabHnLabOut_DoubleClick;
+            btnDrugNew.Click += BtnDrugNew_Click;
+        }
+
+        private void BtnDrugNew_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmDoctorOrder frm = new FrmDoctorOrder(bc, DTRCODE, hn, vsDate, preno);
+            frm.WindowState = FormWindowState.Maximized;
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.ShowDialog(this);
         }
 
         private void TabHnLabOut_DoubleClick(object sender, EventArgs e)

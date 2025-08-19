@@ -1369,11 +1369,11 @@
             // 
             this.spOrderOrders.Controls.Add(this.pnOrder);
             this.spOrderOrders.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
-            this.spOrderOrders.Height = 256;
-            this.spOrderOrders.Location = new System.Drawing.Point(0, 355);
+            this.spOrderOrders.Height = 239;
+            this.spOrderOrders.Location = new System.Drawing.Point(0, 372);
             this.spOrderOrders.Name = "spOrderOrders";
-            this.spOrderOrders.Size = new System.Drawing.Size(1260, 235);
-            this.spOrderOrders.SizeRatio = 43.686D;
+            this.spOrderOrders.Size = new System.Drawing.Size(1260, 218);
+            this.spOrderOrders.SizeRatio = 40.785D;
             this.spOrderOrders.TabIndex = 1;
             this.spOrderOrders.Text = "Panel 2";
             // 
@@ -1382,7 +1382,7 @@
             this.pnOrder.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOrder.Location = new System.Drawing.Point(0, 0);
             this.pnOrder.Name = "pnOrder";
-            this.pnOrder.Size = new System.Drawing.Size(1260, 235);
+            this.pnOrder.Size = new System.Drawing.Size(1260, 218);
             this.pnOrder.TabIndex = 0;
             // 
             // spOrderItem
@@ -1426,14 +1426,14 @@
             this.spOrderItem.Controls.Add(this.btnOperItemSearch);
             this.spOrderItem.Controls.Add(this.txtSearchItem);
             this.spOrderItem.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.spOrderItem.Height = 330;
+            this.spOrderItem.Height = 347;
             this.spOrderItem.Location = new System.Drawing.Point(0, 21);
             this.spOrderItem.Name = "spOrderItem";
-            this.spOrderItem.Size = new System.Drawing.Size(581, 309);
-            this.spOrderItem.SizeRatio = 46.815D;
+            this.spOrderItem.Size = new System.Drawing.Size(612, 326);
+            this.spOrderItem.SizeRatio = 49.283D;
             this.spOrderItem.TabIndex = 0;
             this.spOrderItem.Text = "Panel 1";
-            this.spOrderItem.Width = 581;
+            this.spOrderItem.Width = 619;
             // 
             // btnPrnStaffNote
             // 
@@ -1815,19 +1815,19 @@
             this.spOrderDrugSet.Controls.Add(this.pnDrugSet);
             this.spOrderDrugSet.Controls.Add(this.pnDrugSetTop);
             this.spOrderDrugSet.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.spOrderDrugSet.Location = new System.Drawing.Point(592, 21);
+            this.spOrderDrugSet.Location = new System.Drawing.Point(623, 21);
             this.spOrderDrugSet.Name = "spOrderDrugSet";
-            this.spOrderDrugSet.Size = new System.Drawing.Size(668, 309);
+            this.spOrderDrugSet.Size = new System.Drawing.Size(637, 326);
             this.spOrderDrugSet.TabIndex = 2;
             this.spOrderDrugSet.Text = "Panel 3";
-            this.spOrderDrugSet.Width = 668;
+            this.spOrderDrugSet.Width = 637;
             // 
             // pnDrugSet
             // 
             this.pnDrugSet.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnDrugSet.Location = new System.Drawing.Point(0, 41);
             this.pnDrugSet.Name = "pnDrugSet";
-            this.pnDrugSet.Size = new System.Drawing.Size(668, 268);
+            this.pnDrugSet.Size = new System.Drawing.Size(637, 285);
             this.pnDrugSet.TabIndex = 304;
             // 
             // pnDrugSetTop
@@ -1838,7 +1838,7 @@
             this.pnDrugSetTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnDrugSetTop.Location = new System.Drawing.Point(0, 0);
             this.pnDrugSetTop.Name = "pnDrugSetTop";
-            this.pnDrugSetTop.Size = new System.Drawing.Size(668, 41);
+            this.pnDrugSetTop.Size = new System.Drawing.Size(637, 41);
             this.pnDrugSetTop.TabIndex = 310;
             // 
             // lbDrugSet

@@ -241,8 +241,8 @@ namespace bangna_hospital.gui
             this.cboHostname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.cboHostname.FormattingEnabled = true;
             this.cboHostname.Items.AddRange(new object[] {
-            "โรงพยาบาล บางนา",
-            "สหคลีนิกบางนา"});
+            "โรงพยาบาล บางนา1",
+            "คลินิกเวชกรรมบางนา"});
             this.cboHostname.Location = new System.Drawing.Point(113, 555);
             this.cboHostname.Name = "cboHostname";
             this.cboHostname.Size = new System.Drawing.Size(510, 28);

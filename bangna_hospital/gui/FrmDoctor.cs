@@ -94,11 +94,19 @@ namespace bangna_hospital.gui
             theme1.SetTheme(pnTop, "Office2010Green");
             tC1.SelectedTab = tabQue;
             TC1_SelectedTabChanged(null, null);
-
+            rbToken.Click += RbToken_Click;
             lbDtrName.Text = bc.user.fullname;
             DTRCODE = bc.user.username;//เปิดโปรแกรม login ด้วย แพทย์ ถือว่าเป็น แพทย์
-            
         }
+        private void RbToken_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            PatientM26 dtr = new PatientM26();
+            dtr = bc.bcDB.pm26DB.selectByPk(DTRCODE);
+            FrmToken frm = new FrmToken(bc, dtr);
+            frm.ShowDialog(this);
+        }
+
         private void setEvent()
         {
             tC1.SelectedTabChanged += TC1_SelectedTabChanged;

@@ -343,6 +343,12 @@
     <Compile Include="gui\FrmDoctorDrugSet1.Designer.cs">
       <DependentUpon>FrmDoctorDrugSet1.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmDoctorOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmDoctorOrder.Designer.cs">
+      <DependentUpon>FrmDoctorOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\FrmDoeAlien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1289,6 +1295,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorDrugSet1.resx">
       <DependentUpon>FrmDoctorDrugSet1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmDoctorOrder.resx">
+      <DependentUpon>FrmDoctorOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmDoctorView1.resx">
       <DependentUpon>FrmDoctorView1.cs</DependentUpon>

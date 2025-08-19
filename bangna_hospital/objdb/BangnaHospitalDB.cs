@@ -421,7 +421,7 @@ namespace bangna_hospital.objdb
                 tablenameold = "Patient_t03";
                 tablename = "Patient_t08";
                 sql = sql.Replace(tablenameold, tablename);
-                //re = conn.ExecuteNonQuery(conn.connMainHIS, sql);     ไม่ต้องแก้ไข เพราะ AN เป็น PK
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);//     ไม่ต้องแก้ไข เพราะ AN เป็น PK
                 tablenameold = "Patient_t08";
                 tablename = "Patient_t08_1";
                 sql = sql.Replace(tablenameold, tablename);

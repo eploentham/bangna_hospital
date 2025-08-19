@@ -364,7 +364,7 @@ namespace bangna_hospital.objdb
                 pharM01.frequency = dt.Rows[0]["MNC_ph_dir_dsc"].ToString().Replace("/", "").Trim();//Frequency  ข้อบ่งชี้ Indication
                 pharM01.precautions = dt.Rows[0]["MNC_ph_cau_dsc"].ToString().Replace("/","").Trim();//Precautions
                 pharM01.indication = dt.Rows[0]["MNC_PH_TIM_DSC"].ToString().Replace("/", "").Trim();//Indication คำเตือน
-                pharM01.interaction = "";
+                pharM01.interaction = dt.Rows[0]["drug_interaction"].ToString();
                 pharM01.using1 = dt.Rows[0]["MNC_PH_FRE_DSC"].ToString().Replace("/", "").Trim();
                 pharM01.tmt_code_opbkk = dt.Rows[0]["tmt_code_opbkk"].ToString().Replace("/", "").Trim();
             }

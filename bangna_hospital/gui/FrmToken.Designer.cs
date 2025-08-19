@@ -260,6 +260,7 @@
             this.Controls.Add(this.tCMain);
             this.Controls.Add(this.c1StatusBar1);
             this.Name = "FrmToken";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmToken";
             this.Load += new System.EventHandler(this.FrmToken_Load);
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();

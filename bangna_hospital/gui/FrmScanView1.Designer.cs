@@ -30,6 +30,7 @@
         {
             this.theme1 = new C1.Win.C1Themes.C1ThemeController();
             this.gbPtt = new System.Windows.Forms.GroupBox();
+            this.btnDrugNew = new C1.Win.C1Input.C1Button();
             this.lbChronic1 = new System.Windows.Forms.Label();
             this.lbDrugAllergy = new System.Windows.Forms.Label();
             this.lbAge = new System.Windows.Forms.Label();
@@ -47,9 +48,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.scScan = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnDrugNew = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).BeginInit();
             this.gbPtt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).BeginInit();
@@ -60,7 +61,6 @@
             this.sC1.SuspendLayout();
             this.scVs.SuspendLayout();
             this.scScan.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnDrugNew)).BeginInit();
             this.SuspendLayout();
             // 
             // gbPtt
@@ -87,6 +87,20 @@
             this.gbPtt.TabStop = false;
             this.gbPtt.Text = "Patient";
             this.theme1.SetTheme(this.gbPtt, "(default)");
+            // 
+            // btnDrugNew
+            // 
+            this.btnDrugNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDrugNew.Image = global::bangna_hospital.Properties.Resources.pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290;
+            this.btnDrugNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDrugNew.Location = new System.Drawing.Point(756, 9);
+            this.btnDrugNew.Name = "btnDrugNew";
+            this.btnDrugNew.Size = new System.Drawing.Size(40, 30);
+            this.btnDrugNew.TabIndex = 559;
+            this.btnDrugNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.theme1.SetTheme(this.btnDrugNew, "(default)");
+            this.btnDrugNew.UseVisualStyleBackColor = true;
+            this.btnDrugNew.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // lbChronic1
             // 
@@ -141,19 +155,19 @@
             // chkIPD
             // 
             this.chkIPD.BackColor = System.Drawing.Color.Transparent;
-            this.chkIPD.BorderColor = System.Drawing.Color.Transparent;
+            this.chkIPD.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.chkIPD.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.chkIPD.ForeColor = System.Drawing.Color.Black;
+            this.chkIPD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.chkIPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.chkIPD.Location = new System.Drawing.Point(957, 11);
             this.chkIPD.Name = "chkIPD";
-            this.chkIPD.Padding = new System.Windows.Forms.Padding(1);
+            this.chkIPD.Padding = new System.Windows.Forms.Padding(4, 1, 1, 1);
             this.chkIPD.Size = new System.Drawing.Size(50, 24);
             this.chkIPD.TabIndex = 554;
             this.chkIPD.Text = "IPD";
             this.theme1.SetTheme(this.chkIPD, "(default)");
             this.chkIPD.UseVisualStyleBackColor = true;
             this.chkIPD.Value = null;
-            this.chkIPD.VisualStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             this.chkIPD.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // label2
@@ -171,7 +185,9 @@
             // 
             // txtVN
             // 
+            this.txtVN.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtVN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtVN.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtVN.Location = new System.Drawing.Point(874, 13);
             this.txtVN.Name = "txtVN";
@@ -179,13 +195,14 @@
             this.txtVN.TabIndex = 543;
             this.txtVN.Tag = null;
             this.theme1.SetTheme(this.txtVN, "(default)");
-            this.txtVN.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtVN.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // txtName
             // 
             this.txtName.AutoSize = false;
+            this.txtName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtName.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtName.Location = new System.Drawing.Point(146, 11);
             this.txtName.Name = "txtName";
@@ -193,8 +210,7 @@
             this.txtName.TabIndex = 541;
             this.txtName.Tag = null;
             this.theme1.SetTheme(this.txtName, "(default)");
-            this.txtName.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtName.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // btnHn
             // 
@@ -223,7 +239,9 @@
             // txtHn
             // 
             this.txtHn.AutoSize = false;
+            this.txtHn.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.txtHn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHn.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(152)))));
             this.txtHn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtHn.Location = new System.Drawing.Point(48, 11);
             this.txtHn.Name = "txtHn";
@@ -231,8 +249,7 @@
             this.txtHn.TabIndex = 538;
             this.txtHn.Tag = null;
             this.theme1.SetTheme(this.txtHn, "(default)");
-            this.txtHn.VisualStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
-            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2007Blue;
+            this.txtHn.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
             // 
             // panel1
             // 
@@ -249,20 +266,23 @@
             // sC1
             // 
             this.sC1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.sC1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(221)))), ((int)(((byte)(238)))));
-            this.sC1.CollapsingAreaColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(250)))));
+            this.sC1.BackColor = System.Drawing.Color.White;
+            this.sC1.CollapsingAreaColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.sC1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
             this.sC1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sC1.FixedLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(166)))), ((int)(((byte)(194)))));
-            this.sC1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
+            this.sC1.FixedLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.sC1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.sC1.HeaderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.sC1.HeaderLineWidth = 1;
             this.sC1.Location = new System.Drawing.Point(0, 0);
             this.sC1.Name = "sC1";
             this.sC1.Panels.Add(this.scVs);
             this.sC1.Panels.Add(this.scScan);
             this.sC1.Size = new System.Drawing.Size(1679, 624);
-            this.sC1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(166)))), ((int)(((byte)(194)))));
+            this.sC1.SplitterColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(212)))), ((int)(((byte)(212)))));
+            this.sC1.SplitterMovingColor = System.Drawing.Color.Black;
             this.sC1.TabIndex = 2;
             this.theme1.SetTheme(this.sC1, "(default)");
-            this.sC1.ToolTipGradient = C1.Win.C1SplitContainer.ToolTipGradient.Blue;
             this.sC1.UseParentVisualStyle = false;
             // 
             // scVs
@@ -310,20 +330,6 @@
             this.panel3.TabIndex = 1;
             this.theme1.SetTheme(this.panel3, "(default)");
             // 
-            // btnDrugNew
-            // 
-            this.btnDrugNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnDrugNew.Image = global::bangna_hospital.Properties.Resources.pngtree_pharmacy_logo_icon_vector_illustration_design_template_png_image_5655290;
-            this.btnDrugNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDrugNew.Location = new System.Drawing.Point(756, 9);
-            this.btnDrugNew.Name = "btnDrugNew";
-            this.btnDrugNew.Size = new System.Drawing.Size(75, 30);
-            this.btnDrugNew.TabIndex = 559;
-            this.btnDrugNew.Text = "drug";
-            this.btnDrugNew.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.theme1.SetTheme(this.btnDrugNew, "(default)");
-            this.btnDrugNew.UseVisualStyleBackColor = true;
-            // 
             // FrmScanView1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -337,6 +343,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.theme1)).EndInit();
             this.gbPtt.ResumeLayout(false);
             this.gbPtt.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugNew)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chkIPD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtName)).EndInit();
@@ -347,7 +354,6 @@
             this.sC1.ResumeLayout(false);
             this.scVs.ResumeLayout(false);
             this.scScan.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnDrugNew)).EndInit();
             this.ResumeLayout(false);
 
         }

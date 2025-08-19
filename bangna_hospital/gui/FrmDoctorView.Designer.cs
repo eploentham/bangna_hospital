@@ -453,7 +453,7 @@
             this.c1SplitterPanel5.Collapsible = true;
             this.c1SplitterPanel5.Controls.Add(this.pnRptName);
             this.c1SplitterPanel5.Cursor = System.Windows.Forms.Cursors.Default;
-            this.c1SplitterPanel5.Height = 246;
+            this.c1SplitterPanel5.Height = 253;
             this.c1SplitterPanel5.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel5.Name = "c1SplitterPanel5";
             this.c1SplitterPanel5.Size = new System.Drawing.Size(361, 225);

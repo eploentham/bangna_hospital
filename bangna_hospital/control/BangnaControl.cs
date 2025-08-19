@@ -1181,6 +1181,8 @@ namespace bangna_hospital.control
             iniC.statusShowMessageError = iniF.getIni("app", "statusShowMessageError");
             iniC.scannername = iniF.getIni("app", "scannername");
             iniC.deptphone = iniF.getIni("app", "deptphone");
+            iniC.hostaddress1 = iniF.getIni("app", "hostaddress1");
+            iniC.statusPrintStickerDrugAll = iniF.getIni("app", "statusPrintStickerDrugAll");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1302,6 +1304,8 @@ namespace bangna_hospital.control
             iniC.statusShowMessageError = iniC.statusShowMessageError == null ? "0" : iniC.statusShowMessageError.Equals("") ? "0" : iniC.statusShowMessageError;
             iniC.scannername = iniC.scannername == null ? "" : iniC.scannername.Equals("") ? "" : iniC.scannername;
             iniC.deptphone = iniC.deptphone == null ? "" : iniC.deptphone.Equals("") ? "" : iniC.deptphone;
+            iniC.hostaddress1 = iniC.hostaddress1 == null ? "" : iniC.hostaddress1.Equals("") ? "" : iniC.hostaddress1;
+            iniC.statusPrintStickerDrugAll = iniC.statusPrintStickerDrugAll == null ? "" : iniC.statusPrintStickerDrugAll.Equals("") ? "" : iniC.statusPrintStickerDrugAll;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);

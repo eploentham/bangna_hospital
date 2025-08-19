@@ -163,7 +163,7 @@ namespace bangna_hospital.gui
             fvCerti.Ribbon.Minimized = true;
             pnCertiMed.Controls.Add(fvCerti);
             rgSb1.Text = "";            lfSbComp.Text = "";            lfSbInsur.Text = "";            lfSbStation.Text = "";            lfSbMessage.Text = "";
-            bc.bcDB.drugSetDB.setCboDgs(cboDrugSetName, DTRCODE, "");
+            bc.bcDB.drugSetDB.setCboDrugSet(cboDrugSetName, DTRCODE, "");
             pnDrugSet.Hide();
             bc.bcDB.pttDB.setCboDeptOPDNew(cboApmDept, "");
         }
@@ -981,8 +981,8 @@ namespace bangna_hospital.gui
                         catch (Exception ex)
                         {
                             lfSbMessage.Text = ex.Message;
-                            new LogWriter("e", "FrmOPD setGrfOrder " + ex.Message);
-                            bc.bcDB.insertLogPage(bc.userId, this.Name, "setGrfOrder ", ex.Message);
+                            new LogWriter("e", "FrmPatient BtnOrderSubmit_Click " + ex.Message);
+                            bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnOrderSubmit_Click ", ex.Message);
                         }
                     }
                 }

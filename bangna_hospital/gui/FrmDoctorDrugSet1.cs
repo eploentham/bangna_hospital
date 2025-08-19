@@ -219,7 +219,7 @@ namespace bangna_hospital.gui
             initFont();
             initGrfDrugSet();
 
-            bc.bcDB.drugSetDB.setCboDgs(cboDrugSetName, DTRCODE, "");
+            bc.bcDB.drugSetDB.setCboDrugSet(cboDrugSetName, DTRCODE, "");
         }
         private void initFont()
         {
@@ -260,7 +260,7 @@ namespace bangna_hospital.gui
             grfDrugSet.Cols[colgrfDrugSetItemCode].Caption = "code";
             grfDrugSet.Cols[colgrfDrugSetItemName].Caption = "Name";
             grfDrugSet.Cols[colgrfDrugSetUsing1].Caption = "วิธีใช้ ";
-            grfDrugSet.Cols[colgrfDrugSetFreq].Caption = "วความถี่ในการใช้ยา";
+            grfDrugSet.Cols[colgrfDrugSetFreq].Caption = "ความถี่ในการใช้ยา";
             grfDrugSet.Cols[colgrfDrugSetPrecau].Caption = "ข้อบ่งชี้ ";
             grfDrugSet.Cols[colgrfDrugSetindica].Caption = "ข้อควรระวัง";
             grfDrugSet.Cols[colgrfDrugSetInterac].Caption = "ปฎิกิริยาต่อยาอื่น";
@@ -307,7 +307,7 @@ namespace bangna_hospital.gui
                 rowa[colgrfDrugSetItemName] = row1["item_name"].ToString();
                 rowa[colgrfDrugSetItemQty] = row1["qty"].ToString();
                 rowa[colgrfDrugSetItemStatus] = row1["status_item"].ToString();
-                rowa[colgrfDrugSetUsing1] = row1["using"].ToString();
+                rowa[colgrfDrugSetUsing1] = row1["using1"].ToString();
                 rowa[colgrfDrugSetFreq] = row1["frequency"].ToString();
                 rowa[colgrfDrugSetPrecau] = row1["precautions"].ToString();
                 rowa[colgrfDrugSetindica] = row1["indication"].ToString();
@@ -355,7 +355,7 @@ namespace bangna_hospital.gui
                 drugSet.item_name = arow[colgrfDrugSetItemName].ToString();
                 drugSet.frequency = arow[colgrfDrugSetFreq].ToString();
                 drugSet.precautions = arow[colgrfDrugSetPrecau].ToString();
-                drugSet.using1 = arow[colgrfDrugSetUsing1].ToString();
+                drugSet.using1 = arow[colgrfDrugSetUsing1] != null ?arow[colgrfDrugSetUsing1].ToString():"";
                 drugSet.qty = arow[colgrfDrugSetItemQty].ToString();
                 String re = bc.bcDB.drugSetDB.insertDrugSet(drugSet, "");
                 if(!int.TryParse(re, out int chk))
