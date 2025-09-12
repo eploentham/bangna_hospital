@@ -30,8 +30,8 @@
         {
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
-            this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
-            this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabMain = new C1.Win.C1Command.C1DockingTab();
+            this.tabDrugSet = new C1.Win.C1Command.C1DockingTabPage();
             this.spDrugSet = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.btnDrugSetDel = new C1.Win.C1Input.C1Button();
@@ -73,13 +73,21 @@
             this.txtSearchItem = new C1.Win.C1Input.C1TextBox();
             this.c1SplitterPanel5 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnDrugSet = new System.Windows.Forms.Panel();
-            this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabUsDrugOld = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabChief = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnChief = new System.Windows.Forms.Panel();
+            this.tabPhysical = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnPhysical = new System.Windows.Forms.Panel();
+            this.tabDiag = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnDiagnosis = new System.Windows.Forms.Panel();
             this.spMain = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.tabDtrAdvice = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnDtrAdvice = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
-            this.c1DockingTab1.SuspendLayout();
-            this.c1DockingTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
+            this.tabMain.SuspendLayout();
+            this.tabDrugSet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spDrugSet)).BeginInit();
             this.spDrugSet.SuspendLayout();
             this.c1SplitterPanel3.SuspendLayout();
@@ -102,9 +110,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnItemSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).BeginInit();
             this.c1SplitterPanel5.SuspendLayout();
+            this.tabChief.SuspendLayout();
+            this.tabPhysical.SuspendLayout();
+            this.tabDiag.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spMain)).BeginInit();
             this.spMain.SuspendLayout();
             this.c1SplitterPanel2.SuspendLayout();
+            this.tabDtrAdvice.SuspendLayout();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -120,27 +132,31 @@
             this.lfSbMessage.Name = "lfSbMessage";
             this.lfSbMessage.Text = "Label";
             // 
-            // c1DockingTab1
+            // tabMain
             // 
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
-            this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1DockingTab1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
-            this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.Size = new System.Drawing.Size(1531, 660);
-            this.c1DockingTab1.TabIndex = 1;
-            this.c1DockingTab1.TabsSpacing = 5;
-            this.c1DockingTab1.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
+            this.tabMain.Controls.Add(this.tabDrugSet);
+            this.tabMain.Controls.Add(this.tabUsDrugOld);
+            this.tabMain.Controls.Add(this.tabChief);
+            this.tabMain.Controls.Add(this.tabPhysical);
+            this.tabMain.Controls.Add(this.tabDiag);
+            this.tabMain.Controls.Add(this.tabDtrAdvice);
+            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.tabMain.Location = new System.Drawing.Point(0, 0);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.Size = new System.Drawing.Size(1531, 660);
+            this.tabMain.TabIndex = 1;
+            this.tabMain.TabsSpacing = 5;
+            this.tabMain.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
             // 
-            // c1DockingTabPage1
+            // tabDrugSet
             // 
-            this.c1DockingTabPage1.Controls.Add(this.spDrugSet);
-            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 26);
-            this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(1529, 633);
-            this.c1DockingTabPage1.TabIndex = 0;
-            this.c1DockingTabPage1.Text = "drug set";
+            this.tabDrugSet.Controls.Add(this.spDrugSet);
+            this.tabDrugSet.Location = new System.Drawing.Point(1, 26);
+            this.tabDrugSet.Name = "tabDrugSet";
+            this.tabDrugSet.Size = new System.Drawing.Size(1529, 633);
+            this.tabDrugSet.TabIndex = 0;
+            this.tabDrugSet.Text = "drug set";
             // 
             // spDrugSet
             // 
@@ -611,13 +627,64 @@
             this.pnDrugSet.Size = new System.Drawing.Size(969, 538);
             this.pnDrugSet.TabIndex = 0;
             // 
-            // c1DockingTabPage2
+            // tabUsDrugOld
             // 
-            this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 26);
-            this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(1529, 633);
-            this.c1DockingTabPage2.TabIndex = 1;
-            this.c1DockingTabPage2.Text = "us drug old";
+            this.tabUsDrugOld.Location = new System.Drawing.Point(1, 26);
+            this.tabUsDrugOld.Name = "tabUsDrugOld";
+            this.tabUsDrugOld.Size = new System.Drawing.Size(1529, 633);
+            this.tabUsDrugOld.TabIndex = 1;
+            this.tabUsDrugOld.Text = "us drug old";
+            // 
+            // tabChief
+            // 
+            this.tabChief.Controls.Add(this.pnChief);
+            this.tabChief.Location = new System.Drawing.Point(1, 26);
+            this.tabChief.Name = "tabChief";
+            this.tabChief.Size = new System.Drawing.Size(1529, 633);
+            this.tabChief.TabIndex = 2;
+            this.tabChief.Text = "Chief Compliant";
+            // 
+            // pnChief
+            // 
+            this.pnChief.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnChief.Location = new System.Drawing.Point(0, 0);
+            this.pnChief.Name = "pnChief";
+            this.pnChief.Size = new System.Drawing.Size(1529, 633);
+            this.pnChief.TabIndex = 0;
+            // 
+            // tabPhysical
+            // 
+            this.tabPhysical.Controls.Add(this.pnPhysical);
+            this.tabPhysical.Location = new System.Drawing.Point(1, 26);
+            this.tabPhysical.Name = "tabPhysical";
+            this.tabPhysical.Size = new System.Drawing.Size(1529, 633);
+            this.tabPhysical.TabIndex = 3;
+            this.tabPhysical.Text = "Physical Exam";
+            // 
+            // pnPhysical
+            // 
+            this.pnPhysical.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPhysical.Location = new System.Drawing.Point(0, 0);
+            this.pnPhysical.Name = "pnPhysical";
+            this.pnPhysical.Size = new System.Drawing.Size(1529, 633);
+            this.pnPhysical.TabIndex = 0;
+            // 
+            // tabDiag
+            // 
+            this.tabDiag.Controls.Add(this.pnDiagnosis);
+            this.tabDiag.Location = new System.Drawing.Point(1, 26);
+            this.tabDiag.Name = "tabDiag";
+            this.tabDiag.Size = new System.Drawing.Size(1529, 633);
+            this.tabDiag.TabIndex = 4;
+            this.tabDiag.Text = "Diagnosis";
+            // 
+            // pnDiagnosis
+            // 
+            this.pnDiagnosis.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDiagnosis.Location = new System.Drawing.Point(0, 0);
+            this.pnDiagnosis.Name = "pnDiagnosis";
+            this.pnDiagnosis.Size = new System.Drawing.Size(1529, 633);
+            this.pnDiagnosis.TabIndex = 0;
             // 
             // spMain
             // 
@@ -634,13 +701,30 @@
             // 
             // c1SplitterPanel2
             // 
-            this.c1SplitterPanel2.Controls.Add(this.c1DockingTab1);
+            this.c1SplitterPanel2.Controls.Add(this.tabMain);
             this.c1SplitterPanel2.Height = 681;
             this.c1SplitterPanel2.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel2.Name = "c1SplitterPanel2";
             this.c1SplitterPanel2.Size = new System.Drawing.Size(1531, 660);
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
+            // 
+            // tabDtrAdvice
+            // 
+            this.tabDtrAdvice.Controls.Add(this.pnDtrAdvice);
+            this.tabDtrAdvice.Location = new System.Drawing.Point(1, 26);
+            this.tabDtrAdvice.Name = "tabDtrAdvice";
+            this.tabDtrAdvice.Size = new System.Drawing.Size(1529, 633);
+            this.tabDtrAdvice.TabIndex = 5;
+            this.tabDtrAdvice.Text = "Doctor Advice";
+            // 
+            // pnDtrAdvice
+            // 
+            this.pnDtrAdvice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDtrAdvice.Location = new System.Drawing.Point(0, 0);
+            this.pnDtrAdvice.Name = "pnDtrAdvice";
+            this.pnDtrAdvice.Size = new System.Drawing.Size(1529, 633);
+            this.pnDtrAdvice.TabIndex = 0;
             // 
             // FrmDoctorDrugSet1
             // 
@@ -653,9 +737,9 @@
             this.Text = "FrmDoctorDrugSet1";
             this.Load += new System.EventHandler(this.FrmDoctorDrugSet1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
-            this.c1DockingTab1.ResumeLayout(false);
-            this.c1DockingTabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tabMain)).EndInit();
+            this.tabMain.ResumeLayout(false);
+            this.tabDrugSet.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spDrugSet)).EndInit();
             this.spDrugSet.ResumeLayout(false);
             this.c1SplitterPanel3.ResumeLayout(false);
@@ -680,9 +764,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnItemSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).EndInit();
             this.c1SplitterPanel5.ResumeLayout(false);
+            this.tabChief.ResumeLayout(false);
+            this.tabPhysical.ResumeLayout(false);
+            this.tabDiag.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spMain)).EndInit();
             this.spMain.ResumeLayout(false);
             this.c1SplitterPanel2.ResumeLayout(false);
+            this.tabDtrAdvice.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -691,9 +779,9 @@
         #endregion
 
         private C1.Win.C1Ribbon.C1StatusBar c1StatusBar1;
-        private C1.Win.C1Command.C1DockingTab c1DockingTab1;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage1;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage2;
+        private C1.Win.C1Command.C1DockingTab tabMain;
+        private C1.Win.C1Command.C1DockingTabPage tabDrugSet;
+        private C1.Win.C1Command.C1DockingTabPage tabUsDrugOld;
         private C1.Win.C1SplitContainer.C1SplitContainer spMain;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel2;
         private System.Windows.Forms.Label lbDtrName;
@@ -738,5 +826,13 @@
         private System.Windows.Forms.Label label8;
         private C1.Win.C1Input.C1TextBox txtPrecautions;
         private System.Windows.Forms.Label label9;
+        private C1.Win.C1Command.C1DockingTabPage tabChief;
+        private C1.Win.C1Command.C1DockingTabPage tabPhysical;
+        private C1.Win.C1Command.C1DockingTabPage tabDiag;
+        private System.Windows.Forms.Panel pnChief;
+        private System.Windows.Forms.Panel pnPhysical;
+        private System.Windows.Forms.Panel pnDiagnosis;
+        private C1.Win.C1Command.C1DockingTabPage tabDtrAdvice;
+        private System.Windows.Forms.Panel pnDtrAdvice;
     }
 }

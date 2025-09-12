@@ -117,6 +117,7 @@ namespace bangna_hospital.gui
         const string WIA_FORMAT_JPEG = "{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}";
         const string WIA_FORMAT_PNG = "{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}";
         const string WIA_FORMAT_BMP = "{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}";
+        Boolean EDITDOE = false;
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmOPD(BangnaControl bc)
@@ -342,6 +343,7 @@ namespace bangna_hospital.gui
         {
             theme1.SetTheme(grfCheckUPList, "Violette");
             theme1.SetTheme(panel8, "Violette");
+            theme1.SetTheme(chkCheckUpEdit, "Violette");
             theme1.SetTheme(chkCheckUPSelect, "Violette");
             theme1.SetTheme(groupBox4, "Violette");
             theme1.SetTheme(gbTrueStar, "Violette");
@@ -1536,7 +1538,8 @@ namespace bangna_hospital.gui
                 pdf.DrawString("ใบรับรองแพทย์", fPDFl2, Brushes.Black, new PointF((PageSize.A4.Width / 2) - 38, linenumber += (gapLine-5)), _sfLeft);
                 pdf.DrawString("เลขที่ "+ certid, fPDFl2, Brushes.Black, new PointF(xCol2+520, 50), _sfRight);
                 pdf.DrawString("ตรวจสุขภาพคนต่างด้าว/แรงงานต่างด้าว", fPDFl2, Brushes.Black, new PointF((PageSize.A4.Width / 2) - 78, linenumber += (gapLine)), _sfLeft);
-                pdf.DrawString("วันที่ตรวจ " + DateTime.Now.ToString("dd-MM-") + (DateTime.Now.Year).ToString(), fPDF, Brushes.Black, new PointF(PageSize.A4.Width - 120, linenumber), _sfLeft);
+                if(EDITDOE) pdf.DrawString("วันที่ตรวจ " + bc.datetoShow1(VSDATE), fPDF, Brushes.Black, new PointF(PageSize.A4.Width - 120, linenumber), _sfLeft);
+                else pdf.DrawString("วันที่ตรวจ " + DateTime.Now.ToString("dd-MM-") + (DateTime.Now.Year).ToString(), fPDF, Brushes.Black, new PointF(PageSize.A4.Width - 120, linenumber), _sfLeft);
                 pdf.DrawString("1. รายละเอียด ประวัติส่วนตัวของผู้รับการตรวจสุขภาพ", fPDFl2, Brushes.Black, new PointF(xCol2 , linenumber += (gapLine +5)), _sfLeft);
                 pdf.DrawString("1) ชื่อ-นามสกุล(นาย,นาง,นางสาว,เด็กชาย,เด็กหญิง) ...................................................................................................................................................." , fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
                 pdf.DrawString("ชื่อ-นามสกุล(ภาษาอังกฤษ) ............................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
@@ -3177,7 +3180,7 @@ namespace bangna_hospital.gui
             tick = DateTime.Now.Ticks.ToString();
             foreach(Row rowa in grfOrder.Rows)
             {
-                String code = "", flag = "", name="", qty="", chk="", idtemp="";
+                String code = "", flag = "", name="", qty="", chk="", idtemp="", interac = "", indica = "", freq = "", precau = "";
                 idtemp = rowa[colgrfOrderID] ==null ? "": rowa[colgrfOrderID].ToString();
                 code = rowa[colgrfOrderCode].ToString();
                 if (code.Equals("code")) continue;
@@ -3186,7 +3189,11 @@ namespace bangna_hospital.gui
                 name = rowa[colgrfOrderName].ToString();
                 qty = rowa[colgrfOrderQty].ToString();
                 flag = rowa[colgrfOrderStatus].ToString();
-                String re = bc.bcDB.vsDB.insertOrderTemp(idtemp, code, name, qty,"","", flag, txtOperHN.Text.Trim(), VSDATE, PRENO);
+                //freq = rowa[colgrfOrder].ToString();
+                //precau = rowa[colgrfOrderDrugPrecau].ToString();
+                //interac = rowa[colgrfOrderDrugInterac].ToString();
+                //indica = rowa[colgrfOrderDrugIndica].ToString();
+                String re = bc.bcDB.vsDB.insertOrderTemp(idtemp, code, name, qty,"","","","", flag, txtOperHN.Text.Trim(), VSDATE, PRENO);
                 if (int.TryParse(re, out int _))
                 {
 
@@ -9169,20 +9176,39 @@ namespace bangna_hospital.gui
         private void setControlCheckUP(String hn, String vsdate, String preno)
         {
             if (hn == null) { return; }
+            String hn1 = hn;
             DataTable dt = bc.bcDB.vsDB.selectVisitByHn5(hn);   //เพื่อ check 
-            if (dt.Rows.Count <= 0) { return; }
+            EDITDOE = chkCheckUpEdit.Checked;
+            if (dt.Rows.Count <= 0)
+            {
+                if (chkCheckUpEdit.Checked)
+                {   //ต้องการแก้ไข ข้อมูลเก่า
+                    dt = bc.bcDB.vsDB.selectVisitByCertId(hn);
+                    if (dt.Rows.Count > 0) { hn1 = dt.Rows[0]["MNC_HN_NO"].ToString(); }
+                    else { hn1 = ""; }
+                }
+                else { return; }
+            }
             clearControlCheckUP();
-            PTT = bc.bcDB.pttDB.selectPatinetByHn(hn);
+            PTT = bc.bcDB.pttDB.selectPatinetByHn(hn1);
             //new LogWriter("d", "FrmOPD setControlCheckUP " + hn);
-            if (PTT==null) return;
+            if (PTT == null) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
+            if (PTT.MNC_HN_NO.Length <= 0) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
             Visit visit = new Visit();
             DataTable dtvs = new DataTable();
             VSDATE = vsdate;
             PRENO = preno;
             //new LogWriter("d", "FrmOPD setControlCheckUP 001");
-            if (chkCheckUPSelect.Checked && ((ComboBoxItem)cboCheckUPSelect.SelectedItem).Value.ToString().Equals("doeonline"))
+            if ((chkCheckUPSelect.Checked && ((ComboBoxItem)cboCheckUPSelect.SelectedItem).Value.ToString().Equals("doeonline")) || (EDITDOE))
             {       //ให้แน่ใจว่า มาจาก ตรวจสุขภาพต่างด้าว
-                dtvs = bc.bcDB.vsDB.selectByvsdateDOE(hn);
+                if (EDITDOE)
+                {//ต้องการแก้ไข ข้อมูลเก่า
+                    dtvs = bc.bcDB.vsDB.selectByvsdateDOECertId(hn);
+                }
+                else
+                {
+                    dtvs = bc.bcDB.vsDB.selectByvsdateDOE(hn);
+                }
                 if (dtvs.Rows.Count > 0)
                 {
                     VS = new Visit();
@@ -9252,7 +9278,7 @@ namespace bangna_hospital.gui
             
             //if (PTT.MNC_SEX.Equals("")) cboCheckUPSex.Text = "";
             String packagecode = "";        //ต้องหา package code ให้ได้ จะได้รู้ว่ารายการตรวจอะไรบ้าง
-            if (chkCheckUPSelect.Checked && ((ComboBoxItem)cboCheckUPSelect.SelectedItem).Value.ToString().Equals("doeonline"))
+            if ((chkCheckUPSelect.Checked && ((ComboBoxItem)cboCheckUPSelect.SelectedItem).Value.ToString().Equals("doeonline")) || (EDITDOE))
             {
                 txtCheckUPEmplyer.Text = PTT.remark1;
                 txtCheckUPAddr1.Text = PTT.remark2;
@@ -9294,6 +9320,7 @@ namespace bangna_hospital.gui
             txtCheckUPPttPID.Value = "";
             txtCheckUPDoctorId.Text = "";
             txtCheckUPDoctorName.Text = "";
+            chkCheckUpEdit.Checked = false;
             clearControlCheckupSSO();
         }
         private void setControlTabOperVital(Visit vs)
@@ -9524,7 +9551,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2025-07-29 report กดปิดการรักษาซ้ำ";
+            this.Text = "Last Update 2025-09-08 report กดปิดการรักษาซ้ำ";
             lfSbMessage.Text = "";
             btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;
             btnOperSaveDtr.Left = pnVitalSign.Width - btnOperSaveDtr.Width - btnPrnCertMed.Width - 20;

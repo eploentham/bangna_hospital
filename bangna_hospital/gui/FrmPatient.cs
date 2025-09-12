@@ -1009,7 +1009,7 @@ namespace bangna_hospital.gui
             tick = DateTime.Now.Ticks.ToString();
             foreach (Row rowa in grfOrder.Rows)
             {
-                String code = "", flag = "", name = "", qty = "", chk = "", freq="", precau="", id="";
+                String code = "", flag = "", name = "", qty = "", chk = "", freq="", precau="", id="", interac = "", indica = "";
                 code = rowa[colgrfOrderCode].ToString();
                 if (code.Equals("code")) continue;
                 chk = rowa[colgrfOrdFlagSave].ToString();
@@ -1020,7 +1020,9 @@ namespace bangna_hospital.gui
                 flag = rowa[colgrfOrderStatus].ToString();
                 freq = rowa[colgrfOrderDrugFre].ToString();
                 precau = rowa[colgrfOrderDrugPrecau].ToString();
-                String re = bc.bcDB.vsDB.insertOrderTemp(id, code, name, qty, freq, precau, flag, txtPttHN.Text.Trim(), VSDATE, PRENO);
+                interac = rowa[colgrfOrderDrugInterac].ToString();
+                indica = rowa[colgrfOrderDrugIndica].ToString();
+                String re = bc.bcDB.vsDB.insertOrderTemp(id, code, name, qty, freq, precau, interac, indica, flag, txtPttHN.Text.Trim(), VSDATE, PRENO);
                 if (int.TryParse(re, out int _))
                 {
 

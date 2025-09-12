@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -75,6 +76,58 @@ namespace bangna_hospital.objdb
             pharM01.MNC_PRINT_FLG = "MNC_PRINT_FLG";
             pharM01.MNC_PH_NEW_SS = "MNC_PH_NEW_SS";
             pharM01.tmt_code = "tmt_code";
+        }
+        public AutoCompleteStringCollection getlDrugAllTherd()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            DataTable dt = new DataTable();
+            String connstring= conn.connMainHIS.ConnectionString;
+            String sql = "select pm01.*, pm05.mnc_ph_pri01, pm05.mnc_ph_pri02, pm05.mnc_ph_pri03 " +
+                "From pharmacy_m01 pm01 " +
+                "inner join pharmacy_m05 pm05 on pm01.mnc_ph_cd = pm05.mnc_ph_cd " +
+                "Where mnc_ph_typ_flg = 'P' " +
+                "Order By pm01.MNC_PH_CD";
+            using (SqlConnection conn1 = new SqlConnection(connstring))
+            {
+                conn1.Open();
+                // query
+                SqlCommand comMainhis = new SqlCommand();
+                comMainhis.CommandText = sql;
+                comMainhis.CommandType = CommandType.Text;
+                comMainhis.Connection = conn1;
+                comMainhis.CommandTimeout = 60;
+                SqlDataAdapter adapMainhis = new SqlDataAdapter(comMainhis);
+                try
+                {
+                    //new LogWriter("e", "ConnectDB selectData con.ConnectionString " + con.ConnectionString);
+
+                    adapMainhis.Fill(dt);
+                    //return toReturn;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    conn1.Close();
+                    comMainhis.Dispose();
+                    adapMainhis.Dispose();
+                }
+            }
+            //dtCus = dt;
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                //PatientM13 cus1 = new PatientM13();
+                //cus1.MNC_APP_CD = row["MNC_APP_CD"].ToString();
+                //cus1.MNC_APP_DSC = row["MNC_APP_DSC"].ToString();
+
+                //labM01.Add(cus1);
+            }
+            return autoSymptom;
         }
         public AutoCompleteStringCollection getlDrugAll()
         {

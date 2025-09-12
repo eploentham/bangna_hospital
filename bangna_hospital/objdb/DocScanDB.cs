@@ -957,6 +957,18 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public DataTable selectByDoctorOrder(String hn, String vsdate, String preno)
+        {
+            DocScan cop1 = new DocScan();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + dsc.table + " dsc " +
+                "Where dsc." + dsc.hn + " ='" + hn + "' and dsc." + dsc.visit_date + "='" + vsdate + "'and dsc." + dsc.pre_no + "='" + preno + "' and dsc." + dsc.active + "='1' and doc_group_sub_id = '1200000003' " +
+                "Order By sort1 ";
+            dt = conn.selectData(conn.conn, sql);
+
+            return dt;
+        }
         private void chkNull(DocScan p)
         {
             long chk = 0;
@@ -1545,6 +1557,33 @@ namespace bangna_hospital.objdb
                 "Where " + dsc.hn + " ='" + hn + "' " +
                 "and status_record = '5' " +
                 "and ml_fm = '" + mlfm + "' " +
+                "and visit_date = '" + vsdate + "' " +
+                "and pre_no = '" + preno + "' "
+                ;
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.conn, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                //new LogWriter("e", "voidDocScan " + sql);
+            }
+            return re;
+        }
+        public String voidDocScanByStatusDoctorOrder(String hn, String vsdate, String preno, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+
+            sql = "Update " + dsc.table + " Set " +
+                " " + dsc.active + " = '3'" +
+                "," + dsc.date_cancel + " = convert(varchar(20), getdate(),23) " +
+                "," + dsc.user_cancel + " = '" + userId + "' " +
+                "Where " + dsc.hn + " ='" + hn + "' " +
+                "and status_record = '5' " +
+                "and doc_group_sub_id = '1200000003' " +
                 "and visit_date = '" + vsdate + "' " +
                 "and pre_no = '" + preno + "' "
                 ;

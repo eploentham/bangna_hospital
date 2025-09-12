@@ -115,6 +115,7 @@ namespace bangna_hospital.objdb
         public SSOPDispensingDB sSOPDDB;
         public SSOPOpdxDB sSOPODDB;
         public SSOPOpservicesDB sSOPOSDB;
+        public AutoCompDB autoCompDB;
 
         public BangnaHospitalDB(ConnectDB c)
         {
@@ -243,6 +244,7 @@ namespace bangna_hospital.objdb
                 sSOPODDB = new SSOPOpdxDB(conn);
                 sSOPOSDB = new SSOPOpservicesDB(conn);
                 pt09DB = new PatientT09DB(conn);
+                autoCompDB = new AutoCompDB(conn);
             }
             catch(Exception ex)
             {

@@ -145,6 +145,22 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
+        public DataTable selectbyReqNo(String hn, String reqdate, String reqno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            sql = "SELECT  phart02.MNC_PH_CD as order_code, pharm01.MNC_PH_TN as order_name, convert(varchar(20),phart01.MNC_REQ_DAT, 23) as req_date " +
+                ", phart02.MNC_REQ_NO as req_no, 'drug' as flag, '1' as qty " +
+                "FROM    pharmacy_t01 phart01  " +
+                "left join pharmacy_t02 phart02 ON phart01.MNC_DOC_CD = phart02.MNC_DOC_CD and phart01.MNC_REQ_YR = phart02.MNC_REQ_YR and phart01.MNC_REQ_NO = phart02.MNC_REQ_NO  " +
+                "inner join pharmacy_m01 pharm01 on phart02.MNC_PH_CD = pharm01.MNC_PH_CD " +
+                "where phart01.MNC_REQ_YR = '" + reqdate + "' and phart01.MNC_REQ_NO = '" + reqno + "'  " +
+                //"and phart01.mnc_hn_no = '" + hn + "' " +
+                "and phart01.MNC_REQ_STS <> 'C'  " +
+                "Order By phart02.MNC_PH_CD ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public DataTable selectByCFRNoDrug1(String cfryear, String cfrno, String doccd, String cfrdate)
         {
             DataTable dt = new DataTable();

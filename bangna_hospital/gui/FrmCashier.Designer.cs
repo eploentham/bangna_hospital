@@ -41,19 +41,21 @@
             this.rgPrn = new C1.Win.C1Ribbon.RibbonButton();
             this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
             this.rgPrn1 = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonSeparator2 = new C1.Win.C1Ribbon.RibbonSeparator();
+            this.rgPrnReceipt = new C1.Win.C1Ribbon.RibbonButton();
             this.tabMain = new C1.Win.C1Command.C1DockingTab();
             this.tabOper = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnOperList = new System.Windows.Forms.Panel();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
             this.scFinish = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.pnGrfFinishView = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnGrfFinishInv = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
             this.tabReport = new C1.Win.C1Command.C1DockingTabPage();
-            this.rgPrnReceipt = new C1.Win.C1Ribbon.RibbonButton();
-            this.ribbonSeparator2 = new C1.Win.C1Ribbon.RibbonSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
             this.tabMain.SuspendLayout();
+            this.tabOper.SuspendLayout();
             this.tabFinish.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scFinish)).BeginInit();
             this.scFinish.SuspendLayout();
@@ -141,6 +143,16 @@
             this.rgPrn1.SmallImage = global::bangna_hospital.Properties.Resources.printer_orange24;
             this.rgPrn1.Text = "สำเนา";
             // 
+            // ribbonSeparator2
+            // 
+            this.ribbonSeparator2.Name = "ribbonSeparator2";
+            // 
+            // rgPrnReceipt
+            // 
+            this.rgPrnReceipt.Name = "rgPrnReceipt";
+            this.rgPrnReceipt.SmallImage = global::bangna_hospital.Properties.Resources.printer_green48;
+            this.rgPrnReceipt.Text = "พิมพ์ทั้งหมด";
+            // 
             // tabMain
             // 
             this.tabMain.Controls.Add(this.tabOper);
@@ -156,11 +168,20 @@
             // 
             // tabOper
             // 
+            this.tabOper.Controls.Add(this.pnOperList);
             this.tabOper.Location = new System.Drawing.Point(1, 24);
             this.tabOper.Name = "tabOper";
             this.tabOper.Size = new System.Drawing.Size(1301, 737);
             this.tabOper.TabIndex = 0;
             this.tabOper.Text = "รอรับชำระ";
+            // 
+            // pnOperList
+            // 
+            this.pnOperList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnOperList.Location = new System.Drawing.Point(0, 0);
+            this.pnOperList.Name = "pnOperList";
+            this.pnOperList.Size = new System.Drawing.Size(1301, 737);
+            this.pnOperList.TabIndex = 0;
             // 
             // tabFinish
             // 
@@ -220,16 +241,6 @@
             this.tabReport.TabIndex = 3;
             this.tabReport.Text = "Report";
             // 
-            // rgPrnReceipt
-            // 
-            this.rgPrnReceipt.Name = "rgPrnReceipt";
-            this.rgPrnReceipt.SmallImage = global::bangna_hospital.Properties.Resources.printer_green48;
-            this.rgPrnReceipt.Text = "พิมพ์ทั้งหมด";
-            // 
-            // ribbonSeparator2
-            // 
-            this.ribbonSeparator2.Name = "ribbonSeparator2";
-            // 
             // FrmCashier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,6 +255,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).EndInit();
             this.tabMain.ResumeLayout(false);
+            this.tabOper.ResumeLayout(false);
             this.tabFinish.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scFinish)).EndInit();
             this.scFinish.ResumeLayout(false);
@@ -277,5 +289,6 @@
         private C1.Win.C1Ribbon.RibbonButton rgPrn1;
         private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator2;
         private C1.Win.C1Ribbon.RibbonButton rgPrnReceipt;
+        private System.Windows.Forms.Panel pnOperList;
     }
 }

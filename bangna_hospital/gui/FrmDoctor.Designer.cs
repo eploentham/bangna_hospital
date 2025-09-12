@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDoctor));
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfSbLastUpdate = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
@@ -37,6 +36,8 @@
             this.ribbonLabel4 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rbSbDrugSet = new C1.Win.C1Ribbon.RibbonButton();
             this.rpDrugSetNew = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
+            this.rbToken = new C1.Win.C1Ribbon.RibbonButton();
             this.spDoctor = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnTop = new System.Windows.Forms.Panel();
@@ -74,8 +75,6 @@
             this.pnRptCri1 = new System.Windows.Forms.Panel();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
             this.pnFinish = new System.Windows.Forms.Panel();
-            this.rbToken = new C1.Win.C1Ribbon.RibbonButton();
-            this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.spDoctor)).BeginInit();
             this.spDoctor.SuspendLayout();
@@ -157,8 +156,18 @@
             // rpDrugSetNew
             // 
             this.rpDrugSetNew.Name = "rpDrugSetNew";
-            this.rpDrugSetNew.SmallImage = ((System.Drawing.Image)(resources.GetObject("rpDrugSetNew.SmallImage")));
-            this.rpDrugSetNew.Text = "Drug Set New";
+            this.rpDrugSetNew.SmallImage = global::bangna_hospital.Properties.Resources.custom_reports24;
+            this.rpDrugSetNew.Text = "Drug Set [Chief complian] [Physical exam] ";
+            // 
+            // ribbonSeparator1
+            // 
+            this.ribbonSeparator1.Name = "ribbonSeparator1";
+            // 
+            // rbToken
+            // 
+            this.rbToken.Name = "rbToken";
+            this.rbToken.SmallImage = global::bangna_hospital.Properties.Resources.Add_ticket_24;
+            this.rbToken.Text = "Token";
             // 
             // spDoctor
             // 
@@ -645,16 +654,6 @@
             this.pnFinish.Name = "pnFinish";
             this.pnFinish.Size = new System.Drawing.Size(1192, 635);
             this.pnFinish.TabIndex = 0;
-            // 
-            // rbToken
-            // 
-            this.rbToken.Name = "rbToken";
-            this.rbToken.SmallImage = global::bangna_hospital.Properties.Resources.Add_ticket_24;
-            this.rbToken.Text = "Token";
-            // 
-            // ribbonSeparator1
-            // 
-            this.ribbonSeparator1.Name = "ribbonSeparator1";
             // 
             // FrmDoctor
             // 

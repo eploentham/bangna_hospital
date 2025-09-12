@@ -111,6 +111,25 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
+        public DataTable selectReq(String hn, String vsdate, String preno)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+
+            sql = "Select phart02.*, pharm01.mnc_ph_tn, pharm01.mnc_ph_id, pharm01.mnc_ph_ctl_cd, pharm01.mnc_ph_gn " +
+                ", pharm01.mnc_ph_unt_cd, pharm01.mnc_ph_grp_cd, pharm01.mnc_ph_typ_cd " +
+                ", pharm01.mnc_ph_dir_cd, pm04.mnc_ph_dir_dsc, pharm01.MNC_PH_CAU_CD, pm11.MNC_PH_CAU_dsc,pharm01.mnc_ph_typ_flg " +
+                ",isnull(phart02.frequency,'') as frequency,isnull(phart02.precautions,'') as precautions,isnull(phart02.interaction,'') as interaction,isnull(phart02.indication,'') as indication,isnull(phart02.using1,'') as using1 " +
+                "From " + pharT02.table + " phart02 " +
+                "inner join pharmacy_t01 phart01 on phart02.mnc_doc_cd = phart01.mnc_doc_cd and phart02.mnc_req_no = phart01.mnc_req_no and phart02.mnc_req_yr = phart01.mnc_req_yr " +
+                "Left Join pharmacy_m01 pharm01 on phart02.mnc_ph_cd = pharm01.mnc_ph_cd  " +
+                "Left join pharmacy_m04 pm04 on pharm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +
+                "Left join PHARMACY_M11 pm11 on pharm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
+                "Where phart01.mnc_hn_no = '" + hn + "'  and phart01.mnc_pre_no = '" + preno + "' and phart01.mnc_date = '" + vsdate + "' " +
+                "Order By phart02.mnc_ord_no";
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public String insertPharmacyT02(PharmacyT02 p, String userId)
         {
             String sql = "",re="";

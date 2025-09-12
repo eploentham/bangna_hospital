@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_pharmacy</AssemblyName>
+    <AssemblyName>bangna_hospital_doctor_view</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -55,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icons8-doctor-64.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -86,6 +86,7 @@
     <Reference Include="C1.Win.C1Command.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Document.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
     <Reference Include="C1.Win.C1DX.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
+    <Reference Include="C1.Win.C1Editor.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.ImportExport.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Input.4, Version=4.0.20182.314, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
@@ -899,6 +900,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="objdb\AipnDB.cs" />
+    <Compile Include="objdb\AutoCompDB.cs" />
     <Compile Include="objdb\BangnaHospitalDB.cs" />
     <Compile Include="objdb\BLabOutDB.cs" />
     <Compile Include="objdb\ConnectDB.cs" />
@@ -954,6 +956,10 @@
     <Compile Include="objdb\XrayM05DB.cs" />
     <Compile Include="object1\AipnXmlFile.cs" />
     <Compile Include="object1\Apdu.cs" />
+    <Compile Include="object1\AutoComp.cs" />
+    <Compile Include="object1\MedicalDrawingForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="object1\PatientT09.cs" />
     <Compile Include="object1\SSOPBillItems.cs" />
     <Compile Include="object1\SSOPBillTran.cs" />

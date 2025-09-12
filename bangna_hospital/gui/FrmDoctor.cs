@@ -914,8 +914,8 @@ namespace bangna_hospital.gui
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             //theme1.SetTheme(this, "Office2010Blue");
-            this.Text = "Last Update 2025-06-27";
-            lfSbLastUpdate.Text = "Update 2567-03-22-1";
+            this.Text = "Last Update 2025-09-05";
+            lfSbLastUpdate.Text = "Update 2568-09-22-1";
             lfSbMessage.Text = "";
             bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor_Load", "Application Doctor Start");
         }

@@ -1433,7 +1433,7 @@
             this.spOrderItem.SizeRatio = 49.283D;
             this.spOrderItem.TabIndex = 0;
             this.spOrderItem.Text = "Panel 1";
-            this.spOrderItem.Width = 619;
+            this.spOrderItem.Width = 612;
             // 
             // btnPrnStaffNote
             // 

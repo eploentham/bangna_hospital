@@ -96,6 +96,11 @@ namespace bangna_hospital.gui
             try
             {
                 System.IO.FileInfo rptPath = new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory() + "\\report\\" + reportfilename + ".rdlx");
+                string appPath = Application.StartupPath;
+                if((rptPath.FullName.IndexOf("windows") > 0)||(rptPath.FullName.IndexOf("system32") > 0))
+                {
+                    rptPath = new System.IO.FileInfo(appPath + "\\report\\" + reportfilename + ".rdlx");
+                }
                 PageReport definition = new PageReport(rptPath);
                 err = "01";
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
