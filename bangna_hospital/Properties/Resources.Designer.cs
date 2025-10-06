@@ -442,6 +442,26 @@ namespace bangna_hospital.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap cross_24 {
+            get {
+                object obj = ResourceManager.GetObject("cross_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap cross_small_24 {
+            get {
+                object obj = ResourceManager.GetObject("cross-small_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap CrossReference_large {
             get {
                 object obj = ResourceManager.GetObject("CrossReference_large", resourceCulture);

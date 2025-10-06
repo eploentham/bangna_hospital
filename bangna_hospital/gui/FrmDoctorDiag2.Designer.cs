@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.richerTextBox1 = new bangna_hospital.gui.RicherTextBox();
+            //this.richerTextBox1 = new bangna_hospital.gui.RicherTextBox();
             this.SuspendLayout();
             // 
             // richerTextBox1
@@ -95,6 +95,6 @@
 
         #endregion
 
-        private RicherTextBox richerTextBox1;
+        private UCRicherTextBox richerTextBox1;
     }
 }

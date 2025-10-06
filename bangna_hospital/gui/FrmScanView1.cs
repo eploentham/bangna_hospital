@@ -11,6 +11,7 @@ using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1Ribbon;
 using C1.Win.C1SplitContainer;
+using C1.Win.C1SuperTooltip;
 using C1.Win.C1Tile;
 using C1.Win.FlexViewer;
 using GrapeCity.ActiveReports.Viewer.Win.Internal.Export;
@@ -44,7 +45,7 @@ namespace bangna_hospital.gui
     public partial class FrmScanView1 : Form
     {
         BangnaControl bc;
-
+        C1SuperTooltip stt;
         Font fEdit, fEditB, fEdit3B, fEdit5B;
         C1DockingTab tcDtr, tcVs, tcHnLabOut, tcMac, tcPrnEmail, tcDoc;
         C1DockingTabPage tabStfNote, tabOrder, tabScan, tabLab, tabXray, tablabOut, tabOPD, tabIPD, tabPrn, tabMac, tabHnLabOut, tabPic, tabOrdAdd, tabPrnEmailDrug, tabPrnEmailLab, tabPrnEmailXray, tabPrnEmailSummary,  tabPrnEmailOther, tabCerti, tabDoc;
@@ -205,7 +206,7 @@ namespace bangna_hospital.gui
             PTT = new Patient();
             txtName.Font = fEdit3B;
             lbDrugAllergy.Font = fEdit3B;
-
+            stt = new C1SuperTooltip();
             lbLoading = new Label();
             lbLoading.Font = fEdit5B;
             lbLoading.BackColor = Color.WhiteSmoke;
@@ -236,6 +237,9 @@ namespace bangna_hospital.gui
 
             //btnRefresh.Click += BtnRefresh_Click;
             txtHn.KeyUp += TxtHn_KeyUp;
+            txtHn.MouseHover += TxtHn_MouseHover;
+            txtName.MouseHover += TxtName_MouseHover;
+            lbDrugAllergy.DoubleClick += LbDrugAllergy_DoubleClick;
             //picExit.Click += PicExit_Click;
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged;
             //sC1.TabIndexChanged += SC1_TabIndexChanged;
@@ -268,6 +272,30 @@ namespace bangna_hospital.gui
             btnDrugNew.Click += BtnDrugNew_Click;
         }
 
+        private void LbDrugAllergy_DoubleClick(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmDrugAllergy frm = new FrmDrugAllergy(bc, PTT);
+            frm.WindowState = FormWindowState.Normal;
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.Size = new Size(800, 600);
+            frm.ShowDialog(this);
+        }
+
+        private void TxtName_MouseHover(object sender, EventArgs e)
+        {
+            // ToolStripItem is abstract and cannot be instantiated directly.
+            // stt.Show("ที่อยู่ปัจจบัน " + PTT.address_cur + Environment.NewLine + "</br>ที่อยู่ตามบัตร " + PTT.address_doc, txtName, 3000);
+            //stt.Show(stt.GetToolTip(txtName), txtName);
+            stt.SetToolTip(txtName, "<p><b>ที่อยู่ปัจจบัน</b> " + PTT.address_cur + "</p><p><b>ที่อยู่ตามบัตร</b> " + PTT.address_doc+ "</p><p><b>ที่อยู่ผู้ติดต่อ</b> " + PTT.address_ref+ "</p>");
+        }
+
+        private void TxtHn_MouseHover(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            stt.SetToolTip(txtHn, "<p><b>ที่อยู่ปัจจบัน</b> " + PTT.address_cur + "</p><p><b>ที่อยู่ตามบัตร</b> " + PTT.address_doc+ "</p><p><b>ที่อยู่ผู้ติดต่อ</b> " + PTT.address_ref + "</p>");
+        }
+
         private void BtnDrugNew_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -276,6 +304,8 @@ namespace bangna_hospital.gui
             frm.WindowState = FormWindowState.Maximized;
             frm.StartPosition = FormStartPosition.CenterScreen;
             frm.ShowDialog(this);
+            setControlDoctorOrder();
+            frm.Dispose();
         }
         private void TabHnLabOut_DoubleClick(object sender, EventArgs e)
         {
@@ -602,7 +632,6 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(grfOPD, "ExpressionDark");
             theme1.SetTheme(grfHolter, bc.iniC.themegrfOpd);
         }
-
         private void GrfHolter_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -700,7 +729,6 @@ namespace bangna_hospital.gui
             //theme1.SetTheme(grfOPD, "ExpressionDark");
             theme1.SetTheme(grfEST, bc.iniC.themegrfOpd);
         }
-
         private void GrfEST_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -949,12 +977,15 @@ namespace bangna_hospital.gui
             grfEKG.Rows.Count = 1;
             DataTable dt = new DataTable();
             dt = bc.bcDB.dscDB.selectByEKG(txtHn.Text.Trim());
+            grfEKG.Rows.Count = dt.Rows.Count;
+            int i = 1;
             foreach (DataRow row1 in dt.Rows)
             {
-                Row rowa = grfEKG.Rows.Add();
+                Row rowa = grfEKG.Rows[i];
                 rowa[colgrfOutLabDscVsDate] = bc.datetoShow1(row1["visit_date"].ToString());
                 rowa[colgrfOutLabDscVN] = row1["vn"].ToString();
                 rowa[colgrfOutLabDscId] = row1["doc_scan_id"].ToString();
+                i++;
             }
         }
         private void initGrfDocOLD()
@@ -1045,12 +1076,15 @@ namespace bangna_hospital.gui
             grfDocOLD.Rows.Count = 1;
             DataTable dt = new DataTable();
             dt = bc.bcDB.dscDB.selectByDocOLD(txtHn.Text.Trim());
+            grfDocOLD.Rows.Count = dt.Rows.Count;
+            int i = 1;
             foreach (DataRow row1 in dt.Rows)
             {
-                Row rowa = grfDocOLD.Rows.Add();
+                Row rowa = grfDocOLD.Rows[i];
                 rowa[colgrfOutLabDscVsDate] = bc.datetoShow1(row1["visit_date"].ToString());
                 rowa[colgrfOutLabDscVN] = row1["vn"].ToString();
                 rowa[colgrfOutLabDscId] = row1["doc_scan_id"].ToString();
+                i++;
             }
         }
         private void initGrfEarEyeLung()
@@ -2702,6 +2736,7 @@ namespace bangna_hospital.gui
         {
             Boolean re = true;
             //ตรวจสอบว่า Visit นี้ doctor ป้อน สั่งยา หรือไม่
+            this.SuspendLayout();
             VSDTRORD = grfOPD[grfOPD.Row, colVsStatusDtrOrd] != null ? grfOPD[grfOPD.Row, colVsStatusDtrOrd].ToString().Equals("1") ? true : false : false;
             if (VSDTRORD)
             {
@@ -2720,6 +2755,7 @@ namespace bangna_hospital.gui
             setGrfEST();
             setGrfECHO();
             setGrfHolter();
+            this.ResumeLayout();
             return re;
         }
         private void ContextMenu_CertiMedical_Print(object sender, System.EventArgs e)
@@ -3160,7 +3196,7 @@ namespace bangna_hospital.gui
             }
             catch (Exception ex)
             {
-                new LogWriter("e", "FRMOPD GrfSrcVs_AfterRowColChange " + ex.Message);
+                new LogWriter("e", "FRMOPD setGrfProcedure " + ex.Message);
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "FRMOPD setGrfHisProcedure  ", ex.Message);
                 //lfSbMessage.Text = ex.Message;
             }
@@ -12003,7 +12039,7 @@ namespace bangna_hospital.gui
             //poigtt.X = gbPtt.Width - picExit.Width - 10;
             //poigtt.Y = 10;
             //picExit.Location = poigtt;
-            this.Text = "Last Update 2025-09-11 ";
+            this.Text = "Last Update 2025-09-11 "+PTT.address_cur;
             Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height/2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

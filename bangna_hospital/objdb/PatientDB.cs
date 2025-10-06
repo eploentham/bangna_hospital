@@ -209,12 +209,28 @@ namespace bangna_hospital.objdb
         }
         public Patient selectPatient(String hn)
         {
+            Patient ptt = new Patient();
             DataTable dt = new DataTable();
             String sql = "";
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE,convert(varchar(20),m01.MNC_bday,23) as MNC_bday, m01.mnc_id_no, m01.mnc_hn_yr " +
+                ", isnull(pm09.MNC_CHW_DSC,'') as MNC_CHW_DSC, isnull(pm08.MNC_AMP_DSC,'') as MNC_AMP_DSC, isnull(pm07.mnc_tum_dsc,'') as mnc_tum_dsc " +
+                ", isnull(m01.MNC_CUR_ADD,'') as MNC_CUR_ADD, isnull(m01.MNC_CUR_MOO,'') as MNC_CUR_MOO, isnull(m01.MNC_CUR_SOI,'') as MNC_CUR_SOI,isnull(m01.MNC_CUR_ROAD,'') as MNC_CUR_ROAD,isnull(m01.MNC_CUR_POC,'') as MNC_CUR_POC, isnull(m01.MNC_CUR_TEL,'') as MNC_CUR_TEL " +
+                ", isnull(pm09doc.MNC_CHW_DSC,'') as MNC_CHW_DSC_doc, isnull(pm08doc.MNC_AMP_DSC,'') as MNC_AMP_DSC_doc, isnull(pm07doc.mnc_tum_dsc,'') as mnc_tum_dsc_doc " +
+                ", isnull(m01.MNC_DOM_ADD,'') as MNC_DOM_ADD, isnull(m01.MNC_DOM_MOO,'') as MNC_DOM_MOO, isnull(m01.MNC_DOM_SOI,'') as MNC_DOM_SOI,isnull(m01.MNC_DOM_ROAD,'') as MNC_DOM_ROAD,isnull(m01.MNC_DOM_POC,'') as MNC_DOM_POC, isnull(m01.MNC_DOM_TEL,'') as MNC_DOM_TEL " +
+                ", isnull(pm09ref.MNC_CHW_DSC,'') as MNC_CHW_DSC_ref, isnull(pm08ref.MNC_AMP_DSC,'') as MNC_AMP_DSC_ref, isnull(pm07ref.mnc_tum_dsc,'') as mnc_tum_dsc_ref " +
+                ", isnull(m01.MNC_REF_ADD,'') as MNC_REF_ADD, isnull(m01.MNC_REF_MOO,'') as MNC_REF_MOO, isnull(m01.MNC_REF_SOI,'') as MNC_REF_SOI,isnull(m01.MNC_REF_ROAD,'') as MNC_REF_ROAD,isnull(m01.MNC_REF_POC,'') as MNC_REF_POC, isnull(m01.MNC_REF_TEL,'') as MNC_REF_TEL,isnull(m01.MNC_REF_NAME,'') as MNC_REF_NAME " +
                 "From  patient_m01 m01 " +
                 " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                "Left Join Patient_m09 pm09 on m01.MNC_CUR_CHW =pm09.MNC_CHW_CD " +
+                "Left Join Patient_m08 pm08 on m01.MNC_CUR_AMP =pm08.MNC_AMP_CD " +
+                "Left Join Patient_m07 pm07 on m01.MNC_CUR_TUM =pm07.MNC_TUM_CD " +
+                "Left Join Patient_m09 pm09doc on m01.MNC_DOM_CHW =pm09doc.MNC_CHW_CD " +
+                "Left Join Patient_m08 pm08doc on m01.MNC_DOM_AMP =pm08doc.MNC_AMP_CD " +
+                "Left Join Patient_m07 pm07doc on m01.MNC_DOM_TUM =pm07doc.MNC_TUM_CD " +
+                "Left Join Patient_m09 pm09ref on m01.MNC_DOM_CHW =pm09ref.MNC_CHW_CD " +
+                "Left Join Patient_m08 pm08ref on m01.MNC_DOM_AMP =pm08ref.MNC_AMP_CD " +
+                "Left Join Patient_m07 pm07ref on m01.MNC_DOM_TUM =pm07ref.MNC_TUM_CD " +
                 " Where m01.MNC_HN_NO = '" + hn + "' ";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
@@ -225,6 +241,19 @@ namespace bangna_hospital.objdb
                 ptt.Name = dt.Rows[0]["prefix"].ToString() + " " + dt.Rows[0]["MNC_FNAME_T"].ToString() + " " + dt.Rows[0]["MNC_LNAME_T"].ToString();
                 ptt.idcard = dt.Rows[0]["mnc_id_no"].ToString();
                 ptt.hnyr = dt.Rows[0]["mnc_hn_yr"].ToString();
+                ptt.CHWName = dt.Rows[0]["MNC_CHW_DSC"].ToString();
+                ptt.AMPName = dt.Rows[0]["MNC_AMP_DSC"].ToString();
+                ptt.TUMName = dt.Rows[0]["MNC_TUM_DSC"].ToString();
+                ptt.MNC_REF_NAME = dt.Rows[0]["MNC_REF_NAME"].ToString();
+                ptt.address_cur = (chkSpaceNo(dt.Rows[0]["MNC_CUR_ADD"].ToString()) + chkSpaceMoo(dt.Rows[0]["MNC_CUR_MOO"].ToString()) + chkSpaceSoi(dt.Rows[0]["MNC_CUR_SOI"].ToString()) + chkSpaceRoad(dt.Rows[0]["MNC_CUR_ROAD"].ToString())
+                    + chkSpaceTum(ptt.TUMName) + chkSpaceAmp(ptt.AMPName) + chkSpaceChw(ptt.CHWName)
+                    + chkSpace(dt.Rows[0]["MNC_CUR_TEL"].ToString())).Trim();
+                ptt.address_doc = (chkSpaceNo(dt.Rows[0]["MNC_DOM_ADD"].ToString()) + chkSpaceMoo(dt.Rows[0]["MNC_DOM_MOO"].ToString()) + chkSpaceSoi(dt.Rows[0]["MNC_DOM_SOI"].ToString()) + chkSpaceRoad(dt.Rows[0]["MNC_DOM_ROAD"].ToString())
+                    + chkSpaceTum(dt.Rows[0]["MNC_CHW_DSC_doc"].ToString()) + chkSpaceAmp(dt.Rows[0]["MNC_AMP_DSC_doc"].ToString()) + chkSpaceChw(dt.Rows[0]["MNC_TUM_DSC_doc"].ToString())
+                    + chkSpace(dt.Rows[0]["MNC_DOM_TEL"].ToString())).Trim();
+                ptt.address_ref = (chkSpaceNo(dt.Rows[0]["MNC_REF_ADD"].ToString()) + chkSpaceMoo(dt.Rows[0]["MNC_REF_MOO"].ToString()) + chkSpaceSoi(dt.Rows[0]["MNC_REF_SOI"].ToString()) + chkSpaceRoad(dt.Rows[0]["MNC_REF_ROAD"].ToString())
+                    + chkSpaceTum(dt.Rows[0]["MNC_CHW_DSC_ref"].ToString()) + chkSpaceAmp(dt.Rows[0]["MNC_AMP_DSC_ref"].ToString()) + chkSpaceChw(dt.Rows[0]["MNC_TUM_DSC_ref"].ToString())
+                    + chkSpace(dt.Rows[0]["MNC_REF_TEL"].ToString())).Trim() + chkSpace(ptt.MNC_REF_NAME).Trim();
             }
             return ptt;
         }
@@ -1878,6 +1907,46 @@ namespace bangna_hospital.objdb
             ptt1.ref1 = "";
             ptt1.passportold = "";
             return ptt1;
+        }
+        public String chkSpace(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? txt.Trim() + " " : "";
+        }
+        public String chkSpaceNo(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? "บ้านเลขที่ "+txt.Trim() + " " : "";
+        }
+        public String chkSpaceMoo(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? "หมู่ " + txt.Trim() + " " : "";
+        }
+        public String chkSpaceSoi(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? "ซอย " + txt.Trim() + " " : "";
+        }
+        public String chkSpaceRoad(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? "ถนน " + txt.Trim() + " " : "";
+        }
+        public String chkSpaceTum(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? "ตำบล " + txt.Trim() + " " : "";
+        }
+        public String chkSpaceAmp(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? "อำเภอ " + txt.Trim() + " " : "";
+        }
+        public String chkSpaceChw(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length > 0 ? "จังหวัด " + txt.Trim() + " " : "";
         }
     }
 }

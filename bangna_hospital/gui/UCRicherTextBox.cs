@@ -1,11 +1,14 @@
-﻿using System;
+﻿using AutocompleteMenuNS;
+using bangna_hospital.control;
+using bangna_hospital.object1;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
 
 namespace bangna_hospital.gui
 {
@@ -21,8 +24,13 @@ namespace bangna_hospital.gui
         Zoom = 0x80
     }
 
-    public partial class RicherTextBox : UserControl
+    public partial class UCRicherTextBox : UserControl
     {
+        BangnaControl BC;
+        String PRENO = "", VSDATE = "", HN = "", DTRCODE = "", StatusFormUs="", TXT="";
+        AutocompleteMenu AUTOMENU;
+        Patient PTT;
+        Boolean isLoaded = false;
         private ToolStrip toolStrip1;
         private ToolStripButton tsbtnSave;
         private ToolStripButton tsbtnOpen;
@@ -338,19 +346,62 @@ namespace bangna_hospital.gui
             get { return rtbDocument.Rtf; }
             set { try { rtbDocument.Rtf = value; } catch (ArgumentException) { rtbDocument.Text = value; } }
         }
-
         #endregion
 
-
         #region Construction and initial loading
-        public RicherTextBox()
+        public UCRicherTextBox(BangnaControl bc, String dtrcode, String hn, String vsdate, String preno, Patient ptt, String statusformus, String txt)
         {
+            isLoaded = false;
+            BC = bc;
+            DTRCODE = dtrcode;
+            HN = hn;
+            VSDATE = vsdate;
+            PRENO = preno;
+            PTT = ptt;
+            StatusFormUs = statusformus;
+            TXT = txt;
+            //AUTOMENU = aUTOCom;
             InitializeComponent();
+            this.Load += new System.EventHandler(this.RicherTextBox_Load);
+            rtbDocument.Font = new Font("Microsoft Sans Serif", 12);
+            tscmbFont.SelectedIndexChanged += new EventHandler(tscmbFont_Click);
+            tscmbFontSize.SelectedIndexChanged += new EventHandler(tscmbFontSize_Click);
+            tsbtnChooseFont.Click += new EventHandler(btnChooseFont_Click);
+            tsbtnBold.Click += new EventHandler(tsbtnBIU_Click);
+            tsbtnItalic.Click += new EventHandler(tsbtnBIU_Click);
+            tsbtnUnderline.Click += new EventHandler(tsbtnBIU_Click);
+            rtbDocument.SelectionChanged += new EventHandler(rtbDocument_SelectionChanged);
+            tsbtnAlignLeft.Click += new EventHandler(tsbtnAlignment_Click);
+            tsbtnAlignCenter.Click += new EventHandler(tsbtnAlignment_Click);
+            tsbtnAlignRight.Click += new EventHandler(tsbtnAlignment_Click);
+            tsbtnFontColor.Click += new EventHandler(tsbtnFontColor_Click);
+            tsbtnBullets.Click += new EventHandler(tsbtnBulletsAndNumbering_Click);
+            tsbtnIndent.Click += new EventHandler(tsbtnBulletsAndNumbering_Click);
+            tsbtnOutdent.Click += new EventHandler(tsbtnBulletsAndNumbering_Click);
+            tsbtnSave.Click += new EventHandler(tsbtnSave_Click);
+            tsbtnInsertPicture.Visible = false;
+            tsbtnZoomIn.Visible = false;
+            tsbtnZoomOut.Visible = false; tsbtnZoomIn.Visible = false;
+            tstxtZoomFactor.Visible = false;
+            toolStripSeparator7.Visible = false; toolStripSeparator5.Visible = false;
+            isLoaded = true;
+            AUTOMENU = new AutocompleteMenuNS.AutocompleteMenu();
+            AUTOMENU.AllowsTabKey = true;
+            AUTOMENU.Font = new System.Drawing.Font(BC.iniC.grdViewFontName, 12F);
+            AUTOMENU.Items = new string[0];
+            AUTOMENU.SearchPattern = "[\\w\\.:=!<>]";
+            AUTOMENU.TargetControlWrapper = null;
+            if(statusformus.Equals("doctor_order_physical_exam"))
+            {
+                AUTOMENU.SetAutocompleteItems(BC.bcDB.autoCompDB.BuildAutoCompleteLine1("doctor_physical", DTRCODE));
+            }
+            AUTOMENU.SetAutocompleteMenu(rtbDocument, AUTOMENU);
         }
 
         private void RicherTextBox_Load(object sender, EventArgs e)
         {
             // load system fonts
+            isLoaded = true;
             foreach (FontFamily family in FontFamily.Families)
             {
                 tscmbFont.Items.Add(family.Name);
@@ -361,12 +412,39 @@ namespace bangna_hospital.gui
 
             tstxtZoomFactor.Text = Convert.ToString(rtbDocument.ZoomFactor * 100);
             tsbtnWordWrap.Checked = rtbDocument.WordWrap;
+            RichTextBoxLoad();
+            isLoaded = false;
         }
-
         #endregion
+        public void RichTextBoxLoad()
+        {
+            // Custom painting logic if needed
+            //loadDoctorOrderPhysicalExamFTP();
+            rtbDocument.Text = TXT;
+        }
+        private void loadDoctorOrderPhysicalExam()
+        {
 
+        }
+        private void loadDoctorOrderPhysicalExamFTP()
+        {
+            DataTable dt = BC.bcDB.dscDB.selectByDoctorOrderPhysicalExam(HN, VSDATE, PRENO);
+            if (dt.Rows.Count <= 0) return;
+            FtpClient ftp = new FtpClient(BC.iniC.hostFTP, BC.iniC.userFTP, BC.iniC.passFTP, BC.ftpUsePassive);
+            MemoryStream stream = ftp.download(dt.Rows[0][BC.bcDB.dscDB.dsc.folder_ftp] + "/" + dt.Rows[0][BC.bcDB.dscDB.dsc.image_path].ToString());
+            stream.Position = 0;
+            var fileType = FileTypeDetectorPDF.DetectFileType(stream);
+            switch (fileType)
+            {
+                case FileTypeDetectorPDF.FileTypePDF.PDF:
+                    rtbDocument.LoadFile(stream, RichTextBoxStreamType.RichText);
+                    break;
+                case FileTypeDetectorPDF.FileTypePDF.JPEG:
+                    Console.WriteLine("ไฟล์นี้เป็น JPEG");
+                    break;
+            }
+        }
         #region Toolstrip items handling
-
         private void tsbtnBIU_Click(object sender, EventArgs e)
         {
             try
@@ -611,29 +689,110 @@ namespace bangna_hospital.gui
 
         private void tsbtnSave_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog dlg = new SaveFileDialog())
+            if(StatusFormUs.Equals("VIEW"))
             {
-                dlg.Filter = "Rich text format|*.rtf";
-                dlg.FilterIndex = 0;
-                dlg.OverwritePrompt = true;
-                if (dlg.ShowDialog() == DialogResult.OK)
+                return;
+            }
+            else if (StatusFormUs.Equals("doctor_order_physical_exam"))
+            {
+                //saveDoctorOrderPhysicalExamFTP();
+                saveDoctorOrderPhysicalExam();
+            }
+            else
+            {
+                using (SaveFileDialog dlg = new SaveFileDialog())
                 {
-                    try
+                    dlg.Filter = "Rich text format|*.rtf";
+                    dlg.FilterIndex = 0;
+                    dlg.OverwritePrompt = true;
+                    if (dlg.ShowDialog() == DialogResult.OK)
                     {
-                        rtbDocument.SaveFile(dlg.FileName, RichTextBoxStreamType.RichText);
-                    }
-                    catch (IOException exc)
-                    {
-                        MessageBox.Show("Error writing file: \n" + exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (ArgumentException exc_a)
-                    {
-                        MessageBox.Show("Error writing file: \n" + exc_a.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        try
+                        {
+                            rtbDocument.SaveFile(dlg.FileName, RichTextBoxStreamType.RichText);
+                        }
+                        catch (IOException exc)
+                        {
+                            MessageBox.Show("Error writing file: \n" + exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (ArgumentException exc_a)
+                        {
+                            MessageBox.Show("Error writing file: \n" + exc_a.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }
         }
+        private void saveDoctorOrderPhysicalExam()
+        {
+            String re = "";
+            re = BC.bcDB.vsDB.updatePhysicalExam(HN, VSDATE, PRENO, rtbDocument.Rtf.Trim(), DTRCODE);
+            if (re.Equals("1"))
+            {
+                //lfSbMessage.Text = "Save Physical Exam Complete";
+            }
+            else
+            {
+                //lfSbMessage.Text = "Save Physical Exam not complete";
+            }
+        }
+        private void saveDoctorOrderPhysicalExamFTP()
+        {
+            try
+            {
+                FtpClient ftp = new FtpClient(BC.iniC.hostFTP, BC.iniC.userFTP, BC.iniC.passFTP, BC.ftpUsePassive);
+                DocScan dsc = new DocScan();
+                dsc.active = "1";
+                dsc.doc_scan_id = "";
+                dsc.doc_group_id = "1100000001";
+                dsc.hn = HN;
+                dsc.an = "";
+                dsc.visit_date = VSDATE;
+                dsc.host_ftp = BC.iniC.hostFTP;
+                dsc.image_path = "";
+                dsc.doc_group_sub_id = "1200000003";
+                dsc.pre_no = PRENO;
+                dsc.folder_ftp = BC.iniC.folderFTP;
+                dsc.row_no = "1";
+                dsc.row_cnt = "1";
+                dsc.status_version = "2";
+                dsc.req_id = "";
+                dsc.date_req = "";
+                dsc.status_ipd = "O";
+                dsc.ml_fm = "FM-MED-902";
+                dsc.remark = "RTF";
+                dsc.sort1 = "1";
 
+                BC.bcDB.dscDB.voidDocScanByStatusDoctorOrder(HN, VSDATE, PRENO, DTRCODE);
+                dsc.patient_fullname = PTT.Name;
+                dsc.status_record = "5";
+                dsc.comp_labout_id = "";
+                String re = BC.bcDB.dscDB.insertMedicalExamination(dsc, BC.userId);
+                dsc.image_path = BC.hn + "//1200000003_" + BC.hn + "_" + BC.vsdate + "_" + BC.preno + "_" + re + ".RTF";
+                String re1 = BC.bcDB.dscDB.updateImagepath(dsc.image_path, re);
+                ftp.createDirectory(BC.iniC.folderFTP + "//" + BC.hn.Replace("/", "-"));
+                ftp.delete(BC.iniC.folderFTP + "//" + dsc.image_path);
+
+                // Convert drawingSurface to MemoryStream
+                using (var ms = new System.IO.MemoryStream())
+                {
+                    rtbDocument.SaveFile(ms, RichTextBoxStreamType.RichText);
+                    ms.Position = 0;
+                    if (ftp.upload(BC.iniC.folderFTP + "//" + dsc.image_path, ms))
+                    {
+                        // Optionally handle success
+                    }
+                }
+            }
+            catch (IOException exc)
+            {
+                MessageBox.Show("Error writing file: \n" + exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ArgumentException exc_a)
+            {
+                MessageBox.Show("Error writing file: \n" + exc_a.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void tsbtnOpen_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog dlg = new OpenFileDialog())
@@ -1000,7 +1159,7 @@ namespace bangna_hospital.gui
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RicherTextBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCRicherTextBox));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsbtnSave = new System.Windows.Forms.ToolStripButton();
             this.tsbtnOpen = new System.Windows.Forms.ToolStripButton();
@@ -1131,7 +1290,7 @@ namespace bangna_hospital.gui
             // tscmbFont
             // 
             this.tscmbFont.Name = "tscmbFont";
-            this.tscmbFont.Size = new System.Drawing.Size(121, 26);
+            this.tscmbFont.Size = new System.Drawing.Size(141, 26);
             // 
             // tscmbFontSize
             // 
@@ -1622,7 +1781,7 @@ namespace bangna_hospital.gui
             // RicherTextBox
             // 
             this.Controls.Add(this.rtbDocument);
-            this.Controls.Add(this.toolStripFindReplace);
+            //this.Controls.Add(this.toolStripFindReplace);
             this.Controls.Add(this.toolStrip1);
             this.Name = "RicherTextBox";
             this.Size = new System.Drawing.Size(695, 403);

@@ -5,5 +5,11 @@
     <Setting Name="OcrEngineType" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="CLAUDEAPI_KEY" Type="System.String" Scope="User">
+      <Value Profile="(Default)">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</Value>
+    </Setting>
+    <Setting Name="CLAUDEAPI_MODEL" Type="System.String" Scope="User">
+      <Value Profile="(Default)">claude-sonnet-4-5-20250929</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

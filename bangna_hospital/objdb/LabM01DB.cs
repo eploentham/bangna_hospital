@@ -13,6 +13,8 @@ namespace bangna_hospital.objdb
     {
         public LabM01 labM01;
         ConnectDB conn;
+        DataTable DTlab;
+        internal AutoCompleteStringCollection AUTOLab;
         public LabM01DB(ConnectDB c)
         {
             conn = c;
@@ -42,6 +44,22 @@ namespace bangna_hospital.objdb
             labM01.MNC_HL7_CODE = "MNC_DOC_CD";
             labM01.ucep_code = "ucep_code";
             labM01.price = "mnc_lb_pri01";
+        }
+        public AutoCompleteStringCollection setAUTOLab()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            if (DTlab == null || DTlab.Rows.Count <= 0)
+            {
+                DTlab = SelectAll(); AUTOLab = new AutoCompleteStringCollection();
+                foreach (DataRow row in DTlab.Rows)
+                {
+                    //autoSymptom.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                    AUTOLab.Add(row["MNC_LB_DSC"].ToString() + "#" + row["MNC_LB_CD"].ToString());
+                }
+            }
+            return autoSymptom;
         }
         public DataTable SelectAll()
         {

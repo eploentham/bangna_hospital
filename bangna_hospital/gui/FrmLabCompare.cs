@@ -52,6 +52,20 @@ namespace bangna_hospital.gui
             statusIPD = (AN.Length > 0) ? "IPD" : "OPD";
             initConfig();
         }
+        public FrmLabCompare(BangnaControl bc, String hn, String vsdate, String preno, String an, Size size)
+        {
+            InitializeComponent();
+            this.bc = bc;
+            this.HN = hn;
+            this.VSDATE = vsdate;
+            this.PRENO = preno;
+            this.AN = an;
+            statusIPD = (AN.Length > 0) ? "IPD" : "OPD";
+            this.Size = size;
+            this.WindowState = FormWindowState.Normal;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            initConfig();
+        }
         private void initConfig()
         {
             pageLoad = true;

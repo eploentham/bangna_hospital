@@ -14,6 +14,8 @@ namespace bangna_hospital.objdb
     {
         public XrayM01 xrayM01;
         ConnectDB conn;
+        DataTable DTXray;
+        internal AutoCompleteStringCollection AUTOXray;
         public XrayM01DB(ConnectDB c)
         {
             conn = c;
@@ -44,6 +46,22 @@ namespace bangna_hospital.objdb
             xrayM01.pacs_infinitt_code = "pacs_infinitt_code";
             xrayM01.modality_code = "modality_code";
             xrayM01.ucep_code = "ucep_code";
+        }
+        public AutoCompleteStringCollection setAUTOXray()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            if (DTXray == null || DTXray.Rows.Count <= 0)
+            {
+                DTXray = SelectAll(); AUTOXray = new AutoCompleteStringCollection();
+                foreach (DataRow row in DTXray.Rows)
+                {
+                    //autoSymptom.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                    AUTOXray.Add(row["MNC_XR_DSC"].ToString() + "#" + row["MNC_XR_CD"].ToString());
+                }
+            }
+            return autoSymptom;
         }
         public DataTable SelectAll()
         {

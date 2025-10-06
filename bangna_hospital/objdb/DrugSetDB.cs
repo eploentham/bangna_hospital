@@ -89,7 +89,8 @@ namespace bangna_hospital.objdb
             p.precautions = p.precautions == null ? "" : p.precautions;
             p.interaction = p.interaction == null ? "" : p.interaction;
             p.indication = p.indication == null ? "" : p.indication;
-
+            p.using1 = p.using1 == null ? "" : p.using1;
+            p.remark = p.remark == null ? "1" : p.remark;
             //p.doctor_id = long.TryParse(p.doctor_id, out chk) ? chk.ToString() : "0";
         }
         public String insert(DrugSet p, String userId)
@@ -117,7 +118,6 @@ namespace bangna_hospital.objdb
                 sql = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "insert error  " + ex.Message + " " + ex.InnerException);
             }
-
             return re;
         }
         public String update(DrugSet p, String userId)
@@ -127,15 +127,18 @@ namespace bangna_hospital.objdb
             int chk = 0;
             chkNull(p);
             sql = "Update " + drugs.table + " Set " +
-                " " + drugs.drug_set_name + " = '" + p.drug_set_name + "' " +
+                " " + drugs.drug_set_name + " = '" + p.drug_set_name.Replace("'", "''") + "' " +
                 "," + drugs.item_code + " = '" + p.item_code + "' " +
-                "," + drugs.item_name + " = '" + p.item_name + "' " +
+                "," + drugs.item_name + " = '" + p.item_name.Replace("'", "''") + "' " +
                 "," + drugs.status_item + " = '" + p.status_item + "' " +
                 "," + drugs.qty + " = '" + p.qty + "' " +
-                "," + drugs.frequency + " = '" + p.frequency + "' " +
-                "," + drugs.precautions + " = '" + p.precautions + "' " +
-                "," + drugs.interaction + " = '" + p.interaction + "' " +
-                "," + drugs.indication + " = '" + p.indication + "' " +
+                "," + drugs.frequency + " = '" + p.frequency.Replace("'","''") + "' " +
+                "," + drugs.precautions + " = '" + p.precautions.Replace("'", "''") + "' " +
+                "," + drugs.interaction + " = '" + p.interaction.Replace("'", "''") + "' " +
+                "," + drugs.indication + " = '" + p.indication.Replace("'", "''") + "' " +
+                "," + drugs.using1 + " = '" + p.using1.Replace("'", "''") + "' " +
+                "," + drugs.remark + " = '" + p.remark.Replace("'", "''") + "' " +
+                "," + drugs.date_modi + " = convert(varchar(20),getdate(),121) " +
                 "Where " + drugs.pkField + "='" + p.drug_set_id + "'"
                 ;
             try
@@ -157,7 +160,7 @@ namespace bangna_hospital.objdb
             sql = "Update " + drugs.table + " Set " +
                 " " + drugs.active + " = '3' " +
                 ", " + drugs.user_cancel + " = '"+ userId + "' " +
-                ",date_cancel = getdate() " +
+                ",date_cancel = convert(varchar(20),getdate(),121) " +
                 " " +
                 "Where " + drugs.pkField + "='" + id + "'"
                 ;

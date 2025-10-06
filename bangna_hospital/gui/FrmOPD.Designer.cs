@@ -843,6 +843,10 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
+            this.txtOperPain = new C1.Win.C1Input.C1TextBox();
+            this.txtOperO2 = new C1.Win.C1Input.C1TextBox();
+            this.label174 = new System.Windows.Forms.Label();
+            this.label175 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -1207,6 +1211,8 @@
             this.c1SplitContainer7.SuspendLayout();
             this.tabQue.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperPain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperO2)).BeginInit();
             this.SuspendLayout();
             // 
             // tC1
@@ -1267,7 +1273,7 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 1307;
+            this.spOperList.Width = 1314;
             // 
             // pnOperList
             // 
@@ -1281,7 +1287,7 @@
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 298;
+            this.spOperVisit.Height = 305;
             this.spOperVisit.Location = new System.Drawing.Point(1318, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(1315, 277);
@@ -1291,6 +1297,10 @@
             // 
             // pnVitalSign
             // 
+            this.pnVitalSign.Controls.Add(this.txtOperPain);
+            this.pnVitalSign.Controls.Add(this.txtOperO2);
+            this.pnVitalSign.Controls.Add(this.label174);
+            this.pnVitalSign.Controls.Add(this.label175);
             this.pnVitalSign.Controls.Add(this.btnOperLungSave);
             this.pnVitalSign.Controls.Add(this.cboOperLung);
             this.pnVitalSign.Controls.Add(this.txtOperLung);
@@ -2435,7 +2445,7 @@
             this.spHistoryVS.SizeRatio = 49.862D;
             this.spHistoryVS.TabIndex = 0;
             this.spHistoryVS.Text = "Panel 1";
-            this.spHistoryVS.Width = 646;
+            this.spHistoryVS.Width = 653;
             // 
             // c1SplitterPanel6
             // 
@@ -2496,7 +2506,7 @@
             this.spOPDImgL.Size = new System.Drawing.Size(318, 658);
             this.spOPDImgL.TabIndex = 0;
             this.spOPDImgL.Text = "Panel 1";
-            this.spOPDImgL.Width = 318;
+            this.spOPDImgL.Width = 325;
             // 
             // picHisL
             // 
@@ -2981,10 +2991,10 @@
             this.tabScanL.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.tabScanL.Location = new System.Drawing.Point(0, 21);
             this.tabScanL.Name = "tabScanL";
-            this.tabScanL.Size = new System.Drawing.Size(403, 710);
+            this.tabScanL.Size = new System.Drawing.Size(647, 710);
             this.tabScanL.TabIndex = 0;
             this.tabScanL.Text = "Panel 1";
-            this.tabScanL.Width = 403;
+            this.tabScanL.Width = 647;
             // 
             // picL
             // 
@@ -2998,9 +3008,9 @@
             // 
             this.tabScanR.Controls.Add(this.picR);
             this.tabScanR.Height = 731;
-            this.tabScanR.Location = new System.Drawing.Point(414, 21);
+            this.tabScanR.Location = new System.Drawing.Point(658, 21);
             this.tabScanR.Name = "tabScanR";
-            this.tabScanR.Size = new System.Drawing.Size(409, 710);
+            this.tabScanR.Size = new System.Drawing.Size(655, 710);
             this.tabScanR.TabIndex = 1;
             this.tabScanR.Text = "Panel 2";
             // 
@@ -3464,26 +3474,26 @@
             this.c1SplitterPanel10.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel10.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel10.Name = "c1SplitterPanel10";
-            this.c1SplitterPanel10.Size = new System.Drawing.Size(817, 1067);
+            this.c1SplitterPanel10.Size = new System.Drawing.Size(1307, 1067);
             this.c1SplitterPanel10.TabIndex = 0;
             this.c1SplitterPanel10.Text = "Panel 1";
-            this.c1SplitterPanel10.Width = 817;
+            this.c1SplitterPanel10.Width = 1307;
             // 
             // pnOperFinish
             // 
             this.pnOperFinish.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOperFinish.Location = new System.Drawing.Point(0, 0);
             this.pnOperFinish.Name = "pnOperFinish";
-            this.pnOperFinish.Size = new System.Drawing.Size(817, 1067);
+            this.pnOperFinish.Size = new System.Drawing.Size(1307, 1067);
             this.pnOperFinish.TabIndex = 0;
             // 
             // c1SplitterPanel11
             // 
             this.c1SplitterPanel11.Controls.Add(this.tCFinish);
             this.c1SplitterPanel11.Height = 1088;
-            this.c1SplitterPanel11.Location = new System.Drawing.Point(828, 21);
+            this.c1SplitterPanel11.Location = new System.Drawing.Point(1318, 21);
             this.c1SplitterPanel11.Name = "c1SplitterPanel11";
-            this.c1SplitterPanel11.Size = new System.Drawing.Size(825, 1067);
+            this.c1SplitterPanel11.Size = new System.Drawing.Size(1315, 1067);
             this.c1SplitterPanel11.TabIndex = 1;
             this.c1SplitterPanel11.Text = "Panel 2";
             // 
@@ -3496,7 +3506,7 @@
             this.tCFinish.Location = new System.Drawing.Point(0, 0);
             this.tCFinish.Name = "tCFinish";
             this.tCFinish.SelectedIndex = 2;
-            this.tCFinish.Size = new System.Drawing.Size(825, 1067);
+            this.tCFinish.Size = new System.Drawing.Size(1315, 1067);
             this.tCFinish.TabIndex = 1;
             this.tCFinish.TabsSpacing = 5;
             this.tCFinish.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
@@ -3506,7 +3516,7 @@
             this.tabFinishStaffNote.Controls.Add(this.c1SplitContainer3);
             this.tabFinishStaffNote.Location = new System.Drawing.Point(1, 26);
             this.tabFinishStaffNote.Name = "tabFinishStaffNote";
-            this.tabFinishStaffNote.Size = new System.Drawing.Size(823, 1040);
+            this.tabFinishStaffNote.Size = new System.Drawing.Size(1313, 1040);
             this.tabFinishStaffNote.TabIndex = 3;
             this.tabFinishStaffNote.Text = "Staff Note";
             // 
@@ -3521,7 +3531,7 @@
             this.c1SplitContainer3.Name = "c1SplitContainer3";
             this.c1SplitContainer3.Panels.Add(this.c1SplitterPanel12);
             this.c1SplitContainer3.Panels.Add(this.c1SplitterPanel13);
-            this.c1SplitContainer3.Size = new System.Drawing.Size(823, 1040);
+            this.c1SplitContainer3.Size = new System.Drawing.Size(1313, 1040);
             this.c1SplitContainer3.TabIndex = 0;
             // 
             // c1SplitterPanel12
@@ -3531,10 +3541,10 @@
             this.c1SplitterPanel12.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel12.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel12.Name = "c1SplitterPanel12";
-            this.c1SplitterPanel12.Size = new System.Drawing.Size(403, 1019);
+            this.c1SplitterPanel12.Size = new System.Drawing.Size(647, 1019);
             this.c1SplitterPanel12.TabIndex = 0;
             this.c1SplitterPanel12.Text = "Panel 1";
-            this.c1SplitterPanel12.Width = 403;
+            this.c1SplitterPanel12.Width = 647;
             // 
             // picFinishL
             // 
@@ -3548,9 +3558,9 @@
             // 
             this.c1SplitterPanel13.Controls.Add(this.picFinishR);
             this.c1SplitterPanel13.Height = 1040;
-            this.c1SplitterPanel13.Location = new System.Drawing.Point(414, 21);
+            this.c1SplitterPanel13.Location = new System.Drawing.Point(658, 21);
             this.c1SplitterPanel13.Name = "c1SplitterPanel13";
-            this.c1SplitterPanel13.Size = new System.Drawing.Size(409, 1019);
+            this.c1SplitterPanel13.Size = new System.Drawing.Size(655, 1019);
             this.c1SplitterPanel13.TabIndex = 1;
             this.c1SplitterPanel13.Text = "Panel 2";
             // 
@@ -3567,7 +3577,7 @@
             this.c1DockingTabPage2.Controls.Add(this.pnFinishDrug1);
             this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 26);
             this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(823, 1040);
+            this.c1DockingTabPage2.Size = new System.Drawing.Size(1313, 1040);
             this.c1DockingTabPage2.TabIndex = 0;
             this.c1DockingTabPage2.Text = "Drug/Lab/Xray/Procedure";
             // 
@@ -3577,7 +3587,7 @@
             this.pnFinishDrug1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnFinishDrug1.Location = new System.Drawing.Point(0, 0);
             this.pnFinishDrug1.Name = "pnFinishDrug1";
-            this.pnFinishDrug1.Size = new System.Drawing.Size(823, 1040);
+            this.pnFinishDrug1.Size = new System.Drawing.Size(1313, 1040);
             this.pnFinishDrug1.TabIndex = 0;
             // 
             // c1SplitContainer4
@@ -3593,7 +3603,7 @@
             this.c1SplitContainer4.Panels.Add(this.c1SplitterPanel15);
             this.c1SplitContainer4.Panels.Add(this.c1SplitterPanel16);
             this.c1SplitContainer4.Panels.Add(this.c1SplitterPanel17);
-            this.c1SplitContainer4.Size = new System.Drawing.Size(823, 1040);
+            this.c1SplitContainer4.Size = new System.Drawing.Size(1313, 1040);
             this.c1SplitContainer4.TabIndex = 0;
             // 
             // c1SplitterPanel14
@@ -3677,7 +3687,7 @@
             this.tabFinishCertMed.Controls.Add(this.panel10);
             this.tabFinishCertMed.Location = new System.Drawing.Point(1, 26);
             this.tabFinishCertMed.Name = "tabFinishCertMed";
-            this.tabFinishCertMed.Size = new System.Drawing.Size(823, 1040);
+            this.tabFinishCertMed.Size = new System.Drawing.Size(1313, 1040);
             this.tabFinishCertMed.TabIndex = 4;
             this.tabFinishCertMed.Text = "ใบรับรองแพทย์";
             // 
@@ -3686,7 +3696,7 @@
             this.pnCertiMed.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnCertiMed.Location = new System.Drawing.Point(0, 50);
             this.pnCertiMed.Name = "pnCertiMed";
-            this.pnCertiMed.Size = new System.Drawing.Size(823, 990);
+            this.pnCertiMed.Size = new System.Drawing.Size(1313, 990);
             this.pnCertiMed.TabIndex = 3;
             // 
             // panel10
@@ -3703,7 +3713,7 @@
             this.panel10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.panel10.Location = new System.Drawing.Point(0, 0);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(823, 50);
+            this.panel10.Size = new System.Drawing.Size(1313, 50);
             this.panel10.TabIndex = 2;
             // 
             // btnCertiView4
@@ -10113,6 +10123,44 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
+            // txtOperPain
+            // 
+            this.txtOperPain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperPain.Location = new System.Drawing.Point(942, 243);
+            this.txtOperPain.Name = "txtOperPain";
+            this.txtOperPain.Size = new System.Drawing.Size(50, 24);
+            this.txtOperPain.TabIndex = 593;
+            this.txtOperPain.Tag = null;
+            // 
+            // txtOperO2
+            // 
+            this.txtOperO2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtOperO2.Location = new System.Drawing.Point(942, 216);
+            this.txtOperO2.Name = "txtOperO2";
+            this.txtOperO2.Size = new System.Drawing.Size(50, 24);
+            this.txtOperO2.TabIndex = 592;
+            this.txtOperO2.Tag = null;
+            // 
+            // label174
+            // 
+            this.label174.AutoSize = true;
+            this.label174.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label174.Location = new System.Drawing.Point(872, 247);
+            this.label174.Name = "label174";
+            this.label174.Size = new System.Drawing.Size(71, 15);
+            this.label174.TabIndex = 591;
+            this.label174.Text = "Pain score :";
+            // 
+            // label175
+            // 
+            this.label175.AutoSize = true;
+            this.label175.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label175.Location = new System.Drawing.Point(878, 218);
+            this.label175.Name = "label175";
+            this.label175.Size = new System.Drawing.Size(60, 20);
+            this.label175.TabIndex = 590;
+            this.label175.Text = "O2 sat:";
+            // 
             // FrmOPD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10532,6 +10580,8 @@
             this.tabQue.ResumeLayout(false);
             this.tabQue.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperPain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtOperO2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11353,5 +11403,9 @@
         private C1.Win.C1Input.C1Label c1Label2;
         private C1.Win.C1Input.C1Button btnCertMedUploadNew;
         private C1.Win.C1Input.C1CheckBox chkCheckUpEdit;
+        private C1.Win.C1Input.C1TextBox txtOperPain;
+        private C1.Win.C1Input.C1TextBox txtOperO2;
+        private System.Windows.Forms.Label label174;
+        private System.Windows.Forms.Label label175;
     }
 }

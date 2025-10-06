@@ -665,8 +665,7 @@ namespace bangna_hospital.gui
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, bc.iniC.hostaddresst, 80, linenumber - 15, 0);
                 }
                 //canvas.ShowTextAligned(Element.ALIGN_LEFT, "55 หมู่4 ถนนเทพารักษ์ ตำบลบางพลีใหญ่ อำเภอบางพลี จังหวัด สมุทรปราการ 10540", 100, 780, 0);
-                
-                
+
                 canvas.EndText();
                 linenumber = 720;
 

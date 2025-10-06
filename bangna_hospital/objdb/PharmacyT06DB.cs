@@ -134,13 +134,14 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "", lccode = "", wherelccode = "";
             sql = "SELECT  phart02.MNC_PH_CD as order_code, pharm01.MNC_PH_TN as order_name, convert(varchar(20),phart01.MNC_REQ_DAT, 23) as req_date " +
-                ", phart02.MNC_REQ_NO as req_no, 'drug' as flag, '1' as qty " +
+                ", phart02.MNC_REQ_NO as req_no, 'drug' as flag, phart02.MNC_PH_QTY as qty,phart02.MNC_PH_UNT_CD" +
+                ",isnull(phart02.frequency,'') as frequency,isnull(phart02.precautions,'') as precautions,isnull(phart02.interaction,'') as interaction,isnull(phart02.indication,'') as indication,isnull(phart02.using1,'') as using1 " +
                 "FROM    pharmacy_t01 phart01  " +
                 "left join pharmacy_t02 phart02 ON phart01.MNC_DOC_CD = phart02.MNC_DOC_CD and phart01.MNC_REQ_YR = phart02.MNC_REQ_YR and phart01.MNC_REQ_NO = phart02.MNC_REQ_NO  " +
                 "inner join pharmacy_m01 pharm01 on phart02.MNC_PH_CD = pharm01.MNC_PH_CD " +
                 "where phart01.MNC_REQ_DAT = '" + reqdate + "' and phart01.MNC_REQ_NO = '" + reqno + "'  " +
                 "and phart01.mnc_hn_no = '" + hn + "' " +
-                "and phart01.MNC_REQ_STS <> 'C'  " +
+                "and phart01.MNC_REQ_STS <> 'C' and and pharm01.mnc_ph_typ_flg = 'P'  " +
                 "Order By phart02.MNC_PH_CD ";
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
@@ -278,6 +279,21 @@ namespace bangna_hospital.objdb
                 //"  and pharm01.mnc_ph_typ_flg = 'P' " +
                 "Order By phart06.mnc_no ";
             dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectDrugbyHNReqDate(String hn, String reqdate)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            sql = "Select pharm01.MNC_PH_TN , pharm01.MNC_PH_THAI, phart06.MNC_PH_CD" +
+                ",using1, frequency, precautions, interaction, indication,(phart06.MNC_PH_QTY) as MNC_PH_QTY   " +
+                "From " + pharT06.table + " phart06 " +
+                "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
+                "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
+                "Where phart05.MNC_HN_NO = '" + hn + "' and phart05.MNC_CFG_DAT = '" + reqdate + "' " +
+                "  and pharm01.mnc_ph_typ_flg = 'P' " +
+                "Order By phart06.MNC_PH_CD ,pharm01.MNC_PH_TN,pharm01.MNC_PH_THAI ";
+            dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
         public DataTable selectDrugProfileByAN(String anno, String ancnt)

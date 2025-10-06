@@ -1,6 +1,6 @@
 namespace bangna_hospital.gui
 {
-    partial class ImagePanel
+    partial class UCImagePanel
     {
         /// <summary> 
         /// Required designer variable.

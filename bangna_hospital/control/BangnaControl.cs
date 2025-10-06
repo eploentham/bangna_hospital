@@ -47,22 +47,22 @@ namespace bangna_hospital.control
         private IniFile iniF;
         public ConnectDB conn;
 
-        public String theme = "", userId = "", hn="", vn="", preno="", appName = "", vsdate="", operative_note_precidures_1, operative_note_finding_1, operative_note_hn, operative_note_id, USERCONFIRMID="";
+        public String theme = "", userId = "", hn = "", vn = "", preno = "", appName = "", vsdate = "", operative_note_precidures_1, operative_note_finding_1, operative_note_hn, operative_note_id, USERCONFIRMID = "";
         public String COMPNAME = "";
         public Color cTxtFocus;
         public Staff user;
         public Staff sStf, cStf;
-        public int imggridscanwidth=0, pdfFontSize=0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB=0, queFontSize=0, padYCertMed=0;
-        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew = 0, printerQueueFontSize = 0, grfRowHeight=30, staffNoteFontSize=0;
+        public int imggridscanwidth = 0, pdfFontSize = 0, pdfFontSizetitleFont = 0, pdfFontSizetxtFont = 0, pdfFontSizehdrFont = 0, pdfFontSizetxtFontB = 0, queFontSize = 0, padYCertMed = 0;
+        public int grdViewFontSize = 0, grdQueFontSize = 0, grdQueTodayFontSize = 0, timerImgScanNew = 0, printerQueueFontSize = 0, grfRowHeight = 30, staffNoteFontSize = 0;
 
         public BangnaHospitalDB bcDB;
 
         public Patient sPtt;
         public Boolean ftpUsePassive = false, ftpUsePassiveLabOut = false, EnableSsl = false;
-        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart=0, timerCheckLabOut=0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio=0, imageCC_width = 0, imageME_width = 0, imageDiag_width = 0, imageCC_Height = 0, imageME_Height = 0, imageDiag_Height = 0;
+        public int grfScanWidth = 0, imgScanWidth = 0, txtSearchHnLenghtStart = 0, timerCheckLabOut = 0, tabLabOutImageHeight = 0, tabLabOutImageWidth = 0, grfImgWidth = 0, scVssizeradio = 0, imageCC_width = 0, imageME_width = 0, imageDiag_width = 0, imageCC_Height = 0, imageME_Height = 0, imageDiag_Height = 0;
         public String[] preoperation, postoperation, operation, fining, procidures;
         public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPE", ".BMP", ".GIF", ".PNG" };
-        public Dictionary<String, String> opBKKINSCL = new Dictionary<String, String>() { { "UCS", "สิทธิหลักประกันสุขภาพ" },{ "WEL", "สิทธิหลักประกันสุขภาพ (ยกเว้นการร่วมจ่าย)" }, { "OFC", "สิทธิข้าราชการ" }, { "SSS", "สิทธิประกันสังคม" }, { "LGO", "สิทธิ อปท" }, { "SSI", "สิทธิประกันสังคมทุพพลภาพ" } };
+        public Dictionary<String, String> opBKKINSCL = new Dictionary<String, String>() { { "UCS", "สิทธิหลักประกันสุขภาพ" }, { "WEL", "สิทธิหลักประกันสุขภาพ (ยกเว้นการร่วมจ่าย)" }, { "OFC", "สิทธิข้าราชการ" }, { "SSS", "สิทธิประกันสังคม" }, { "LGO", "สิทธิ อปท" }, { "SSI", "สิทธิประกันสังคมทุพพลภาพ" } };
         public Dictionary<String, String> opBKKClinic = new Dictionary<String, String>();
         public Dictionary<String, String> opBKKCHRGITEM_CODEA = new Dictionary<String, String>();
         public Dictionary<String, String> ssopClaimCat = new Dictionary<String, String>() { { "OP1", "OPD ปกติ" }, { "OP...", "OPD อื่นๆ" }, { "RPT", "ไตวายเรื้อรัง" }, { "P01", "OCPA" }, { "P02", "RDPA" }, { "P03", "DDPA" }, { "REF", "ส่งต่อ" }, { "EM1", "ฉุกเฉิน" }, { "EM2", "ฉุกเฉินระยะทาง" }, { "OPF", "เบิกเพิ่มแบบเหมาจ่าย" }, { "OPR", "เบิกเพิ่มตามอัตรา" }, { "XX...", "บัญชี...ต่างๆ" } };
@@ -93,8 +93,11 @@ namespace bangna_hospital.control
         public List<Item> items;
         public C1ThemeController theme1;
 
+        public FileTypeDetectorPDF chkPDF;
+
         Hashtable _styles;
         public VideoCaptureDevice video;
+        
         public BangnaControl()
         {
             initConfig();
@@ -171,13 +174,13 @@ namespace bangna_hospital.control
 
                 theme1 = new C1ThemeController();
                 theme1.Theme = iniC.themeApplication;
+                chkPDF = new FileTypeDetectorPDF();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                new LogWriter("e", "BangnaControl initConfig err "+ err+" "+ ex.Message);
-                MessageBox.Show("error "+ex.Message+" err "+err, "");
+                new LogWriter("e", "BangnaControl initConfig err " + err + " " + ex.Message);
+                MessageBox.Show("error " + ex.Message + " err " + err, "");
             }
-            
         }
         public void cloneComboBox(C1ComboBox c, ref C1ComboBox d)
         {
@@ -209,21 +212,33 @@ namespace bangna_hospital.control
             String re = "";
             try
             {
-                float bmi = 0;
-                float.TryParse(weight, out float wei);
-                float.TryParse(high, out float high1);
-                if (high1 > 0)
-                {
-                    bmi = wei / (high1 * high1);
-                }
-                else
-                {
-                    bmi = 0;
-                }
-                
-                re = bmi.ToString();
+                float bmi = 0;                float.TryParse(weight, out float wei);                float.TryParse(high, out float high1);
+                if (high1 > 0)                {                    bmi = wei / ((high1 / 100) * (high1 / 100));                }
+                else                {                    bmi = 0;                }
+                re = bmi.ToString("##.##");
             }
-            catch(Exception ex)
+            catch (Exception ex)            {            }
+            return re;
+        }
+        public String calBMI(String weight, String high,ref Color backcolor,ref Color forecolor)
+        {
+            String re = "";
+            try
+            {
+                re = calBMI(weight, high);
+                //สีฟ้า / น้ำเงินอ่อน - น้ำหนักน้อย / ผอม(BMI < 18.5)   #3B82F6     Soft    93C5FD 
+                //สีเขียว - น้ำหนักปกติ / ดี(BMI 18.5 - 22.9)         #10B981         6EE7B7 
+                //สีเหลือง - น้ำหนักเกิน(BMI 23.0 - 24.9)            #F59E0B         FCD34D 
+                //สีส้ม - อ้วนระดับ 1(BMI 25.0 - 29.9)              #F97316         FDBA74 
+                //สีแดง - อ้วนระดับ 2 ขึ้นไป(BMI ≥ 30.0)             #EF4444         #FCA5A5 
+                if (float.Parse(re) < 18.5) { backcolor = ColorTranslator.FromHtml("#3B82F6"); }
+                else if ((float.Parse(re) >= 18.5) && (float.Parse(re) <= 22.9)) { backcolor = ColorTranslator.FromHtml("#10B981"); }
+                else if ((float.Parse(re) > 22.9) && (float.Parse(re) <= 24.9)) { backcolor = ColorTranslator.FromHtml("#F59E0B"); }
+                else if ((float.Parse(re) > 24.9) && (float.Parse(re) <= 29.9)) { backcolor = ColorTranslator.FromHtml("#FDBA74"); }
+                else if (float.Parse(re) > 29.9) { backcolor = ColorTranslator.FromHtml("#FCA5A5"); }
+                else { }
+            }
+            catch (Exception ex)
             {
 
             }
@@ -325,7 +340,7 @@ namespace bangna_hospital.control
             c.SelectedIndex = row1;
             return c;
         }
-        public String fixLabUnit(String labcode, String labsubname,String unitold, String refold)
+        public String fixLabUnit(String labcode, String labsubname, String unitold, String refold)
         {
             String unit = "";
 
@@ -362,7 +377,7 @@ namespace bangna_hospital.control
         }
         public String fixLabRef(String labcode, String labsubname, String resunit, String refold)
         {
-            String reref= "", reref1= "";
+            String reref = "", reref1 = "";
             reref1 = resunit.Replace(refold, "").Replace("[", "").Replace("]", "").Trim();
             if (labcode.Equals("HE001") && labsubname.Equals("RBC  morpho.")) reref = "Normal";       //CBC   RBC  morpho.
             else if (labcode.Equals("HE001") && labsubname.Equals("Atp.Lymp")) reref = "";
@@ -400,7 +415,7 @@ namespace bangna_hospital.control
             else if (labcode.Equals("TG048") && labsubname.Equals("Methamphetamine test")) reref = "NEGATIVE";
             else if (labcode.Equals("TG048") && labsubname.Equals("Marijuana (URINE)")) reref = "NEGATIVE";
             else if (labcode.Equals("CH008") && labsubname.Equals("HDL-C")) reref = "Male > 35;Female > 44";
-            
+
             else if (labcode.Equals("PA530") && labsubname.Equals("HPV genotype 16")) reref = "NEGATIVE";//PA530
             else if (labcode.Equals("PA530") && labsubname.Equals("HPV genotype 18")) reref = "NEGATIVE";//PA530
             else if (labcode.Equals("PA530") && labsubname.Equals("13 Other HPV -DNA Type")) reref = "NEGATIVE";//PA530
@@ -448,7 +463,7 @@ namespace bangna_hospital.control
             DataTable dt = new DataTable();
             String sql = "select dept.*  " +
                 "From patient_m08 dept " +
-                "Where MNC_CHW_CD  = '"+ provcode + "'";
+                "Where MNC_CHW_CD  = '" + provcode + "'";
             //dt = conn.selectData(conn.conn, sql);
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
@@ -742,7 +757,10 @@ namespace bangna_hospital.control
             item.Value = "cert";
             item.Text = "ใบรับรองแพทย์";
             c.Items.Add(item);
-
+            item = new ComboBoxItem();
+            item.Value = "doctor_order";
+            item.Text = "ใบสั่งยา";
+            c.Items.Add(item);
             return c;
         }
         public C1ComboBox setCboSkintone(C1ComboBox c)
@@ -906,7 +924,7 @@ namespace bangna_hospital.control
         {
             DataTable dt = new DataTable();
             String sql = "select dept.*  " +
-                "From patient_m04 dept " ;
+                "From patient_m04 dept ";
             //dt = conn.selectData(conn.conn, sql);
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
@@ -1348,7 +1366,7 @@ namespace bangna_hospital.control
             String chk = "";
             if (c.Items.Count == 0) return "";
             //if (c.SelectedIndex < 0) return;
-            if(c.SelectedIndex > c.Items.Count)
+            if (c.SelectedIndex > c.Items.Count)
             {
                 c.SelectedIndex = 0;
             }
@@ -1501,7 +1519,7 @@ namespace bangna_hospital.control
                     }
                     else if (dt1.Year < 1500)
                     {
-                        re = dt1.ToString("dd-MM")+ "-"+ (dt1.Year + 543).ToString();
+                        re = dt1.ToString("dd-MM") + "-" + (dt1.Year + 543).ToString();
                     }
                     else
                     {
@@ -1548,7 +1566,7 @@ namespace bangna_hospital.control
             }
             else
             {
-                if ((dt != null)&&(dt.Length>0))
+                if ((dt != null) && (dt.Length > 0))
                 {
                     if (DateTime.TryParse(dt, out dt1))
                     {
@@ -1556,7 +1574,7 @@ namespace bangna_hospital.control
                         {
                             dt1 = dt1.AddYears(543);
                         }
-                        re = dt1.ToString("dd-MM"+"-"+dt1.Year.ToString());
+                        re = dt1.ToString("dd-MM" + "-" + dt1.Year.ToString());
                     }
                     else
                     {
@@ -1615,7 +1633,7 @@ namespace bangna_hospital.control
             {
                 Console.WriteLine("Unable to parse the date string.");
             }
-            re = dt1.ToString("dd-MM")+"-"+ dt1.Year.ToString();
+            re = dt1.ToString("dd-MM") + "-" + dt1.Year.ToString();
 
             return re;
         }
@@ -1633,7 +1651,7 @@ namespace bangna_hospital.control
             {
                 Console.WriteLine("Unable to parse the date string.");
             }
-            re = dt1.ToString("dd")+" " + getMonthNameTHShort(dt1.ToString("MM")) + " " + (dt1.Year+543).ToString();
+            re = dt1.ToString("dd") + " " + getMonthNameTHShort(dt1.ToString("MM")) + " " + (dt1.Year + 543).ToString();
             return re;
         }
         public String datetoDBCultureInfo(String dt)
@@ -1650,16 +1668,16 @@ namespace bangna_hospital.control
             {
                 Console.WriteLine("Unable to parse the date string.");
             }
-            
-            re = dt1.Year.ToString()+"-"+dt1.ToString("MM-dd");
-            
+
+            re = dt1.Year.ToString() + "-" + dt1.ToString("MM-dd");
+
             return re;
         }
         public String datetoDB(String dt)
         {
             DateTime dt1 = new DateTime();
-            String re = "", year1="",mm="",dd="";
-            int year = 0, mon=0, day=0;
+            String re = "", year1 = "", mm = "", dd = "";
+            int year = 0, mon = 0, day = 0;
             //new LogWriter("d", "datetoDB 01" );
             if (iniC.windows.Equals("windowsxp"))
             {
@@ -1682,42 +1700,42 @@ namespace bangna_hospital.control
                 //}
                 //else
                 //{
-                    //new LogWriter("d", "datetoDB 02 iniC.windowsxp DateTime.TryParse(dt, out dt1) false ");
-                    if (dt.Length >= 10)
+                //new LogWriter("d", "datetoDB 02 iniC.windowsxp DateTime.TryParse(dt, out dt1) false ");
+                if (dt.Length >= 10)
+                {
+                    year1 = dt.Substring(6, 4);
+                    mm = dt.Substring(3, 2);
+                    dd = dt.Substring(0, 2);
+                    int.TryParse(mm, out mon);
+                    if (mon > 12)
                     {
-                        year1 = dt.Substring(6, 4);
-                        mm = dt.Substring(3, 2);
-                        dd = dt.Substring(0, 2);
+                        mm = dt.Substring(0, 2);
+                        dd = dt.Substring(3, 2);
                         int.TryParse(mm, out mon);
-                        if (mon > 12)
+                    }
+                    //new LogWriter("d", "datetoDB year1 " + year1);
+                    if (int.TryParse(year1, out year))
+                    {
+                        //new LogWriter("d", "datetoDB year1 int.TryParse(year1, out year) " + year);
+                        if (year <= 1500)
                         {
-                            mm = dt.Substring(0, 2);
-                            dd = dt.Substring(3, 2);
-                            int.TryParse(mm, out mon);
+                            year = year + 543;
                         }
-                        //new LogWriter("d", "datetoDB year1 " + year1);
-                        if (int.TryParse(year1, out year))
+                        else if (year >= 2500)
                         {
-                            //new LogWriter("d", "datetoDB year1 int.TryParse(year1, out year) " + year);
-                            if (year <= 1500)
-                            {
-                                year = year + 543;
-                            }
-                            else if (year >= 2500)
-                            {
-                                year = year - 543;
-                            }
+                            year = year - 543;
                         }
-                        else
-                        {
-                            //new LogWriter("d", "datetoDB year1 else int.TryParse(year1, out year) ");
-                        }
-                        re = year.ToString() + "-" + mm + "-" + dd;
                     }
                     else
                     {
-
+                        //new LogWriter("d", "datetoDB year1 else int.TryParse(year1, out year) ");
                     }
+                    re = year.ToString() + "-" + mm + "-" + dd;
+                }
+                else
+                {
+
+                }
                 //}
                 //re = dt1.ToString("yyyy-MM-dd");
             }
@@ -1738,10 +1756,10 @@ namespace bangna_hospital.control
                         };
                         if (DateTime.TryParse(dt, out dt1))
                         {
-                            
+
                             if (dt1.Year > 2500)
                             {
-                                re = (dt1.Year -543).ToString() + "-" + dt1.ToString("MM-dd");
+                                re = (dt1.Year - 543).ToString() + "-" + dt1.ToString("MM-dd");
                             }
                             else
                             {
@@ -1767,7 +1785,7 @@ namespace bangna_hospital.control
                     }
                 }
             }
-            
+
             return re;
         }
         public String datetoDBWin10(String ddMM, String year1)
@@ -1799,7 +1817,7 @@ namespace bangna_hospital.control
             mm = ddMM.Substring(3, 2);
             dt1.AddDays(int.Parse(dd)).AddMonths(int.Parse(mm)).AddYears(int.Parse(year1));
             dt1 = new DateTime(int.Parse(year1), int.Parse(mm), int.Parse(dd));
-            re = dt1.Year+"-"+ dt1.ToString("MM-dd");
+            re = dt1.Year + "-" + dt1.ToString("MM-dd");
 
             //dt1 = DateTime.Parse(dt.ToString());
             return re;
@@ -2162,7 +2180,7 @@ namespace bangna_hospital.control
         public void setCboOPBKKINSCL(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
-            
+
             item = new ComboBoxItem();
             item.Value = "UCS";
             item.Text = "สิทธิหลักประกันสุขภาพ";
@@ -3379,7 +3397,7 @@ namespace bangna_hospital.control
             ComboBoxItem item = new ComboBoxItem();
             //DataTable dt = selectAll();
             int i = 0;
-            
+
             item = new ComboBoxItem();
             item.Value = "";
             item.Text = "";
@@ -3704,7 +3722,7 @@ namespace bangna_hospital.control
         }
         public Bitmap ResizeImage(Image image, int width, int height)
         {
-            if(image==null) return null;
+            if (image == null) return null;
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 
@@ -3866,7 +3884,7 @@ namespace bangna_hospital.control
             /*
              * 
              */
-            int ww = 697, hh= 610;
+            int ww = 697, hh = 610;
 
             Image aaa = RotateImage(image);
             float tgtWidthMM = 297;  //A4 paper size
@@ -3880,8 +3898,8 @@ namespace bangna_hospital.control
             float dpiX = srcWidthPx / tgtWidthInches;
             float dpiY = srcHeightPx / tgtHeightInches;
 
-            var destRect = new Rectangle(0, 0, ww, hh-100);
-            var destImage = new Bitmap(ww , hh- 100);
+            var destRect = new Rectangle(0, 0, ww, hh - 100);
+            var destImage = new Bitmap(ww, hh - 100);
             destImage.SetResolution(aaa.HorizontalResolution, aaa.VerticalResolution);
 
             using (var graphics = Graphics.FromImage(destImage))
@@ -3926,7 +3944,7 @@ namespace bangna_hospital.control
                 int k = socket.Receive(b);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -3940,7 +3958,7 @@ namespace bangna_hospital.control
             msh.SendingFacility = reqdept;
             msh.ReceivingApplication = "ThaiGL";
             msh.ReceivingFacility = "";
-            msh.DateTimeOfMessage = DateTime.Now.Year+DateTime.Now.ToString("MMddHHmmss");
+            msh.DateTimeOfMessage = DateTime.Now.Year + DateTime.Now.ToString("MMddHHmmss");
             msh.Security = "";
             //msh.MessageType = "ADT^A08";
             msh.MessageType = MessageType;
@@ -3955,7 +3973,7 @@ namespace bangna_hospital.control
             msh.CharacterSet = "";
             msh.PrincipalLanguageOfMessage = "";
             msh.AlternateCharacterSetHandlingScheme = "UNICODE UTF-8";
-            
+
             return msh;
         }
         public PACsEVN genPACsEVN()
@@ -3978,7 +3996,7 @@ namespace bangna_hospital.control
             pid.PatientID = "";
             pid.PatientIdentifierList = hn;
             pid.AlternatePatientID = "";
-            pid.PatientName = pttprefix+"^"+ pttfirstname+"^^^"+ pttlastame;
+            pid.PatientName = pttprefix + "^" + pttfirstname + "^^^" + pttlastame;
             pid.MothersMaidenName = "";
             pid.DateTimeOfBirth = dob;
             pid.Sex = sex;
@@ -4012,7 +4030,7 @@ namespace bangna_hospital.control
             PACsPV1 pv1 = new PACsPV1();
             pv1.SetID = "";
             pv1.PatientClass = opdtype;
-            pv1.AssignedPatientLocation = depcode+"^"+ depname;
+            pv1.AssignedPatientLocation = depcode + "^" + depname;
             pv1.AdmissionType = "";
             pv1.PreadmitNumber = "";
             pv1.PriorPatientLocation = "";
@@ -4067,7 +4085,7 @@ namespace bangna_hospital.control
         }
         public String PACsADT(PACsMSH msh, PACsEVN evn, PACsPID pid, PACsPV1 pv1)
         {
-            String txt = "", MSH="", separate="|", EVN="", PID="", PV1="";
+            String txt = "", MSH = "", separate = "|", EVN = "", PID = "", PV1 = "";
             txt = "\x0b";
 
             MSH = "MSH" + separate + msh.EncodingCharacters + separate + msh.SendingApplication + separate + msh.SendingFacility + separate + msh.ReceivingApplication
@@ -4134,7 +4152,7 @@ namespace bangna_hospital.control
             orc.Parent = "";
 
             orc.DateTimeOfTransaction = DateTime.Now.Year + DateTime.Now.ToString("MMddHHmmss");
-            orc.EnteredBy = userid+"^"+ username;
+            orc.EnteredBy = userid + "^" + username;
             orc.VerifiedBy = "";
             orc.OrderingProvider = userid + "^" + username;
             orc.EnterersLocation = "";
@@ -4152,7 +4170,7 @@ namespace bangna_hospital.control
             orc.OrderingProviderAddress = "";
             return orc;
         }
-        public PACsOBR genOBR(String xrayyear, String reqno, String xraycode,String xrayname, String xraytype, String userid, String username)
+        public PACsOBR genOBR(String xrayyear, String reqno, String xraycode, String xrayname, String xraytype, String userid, String username)
         {
             PACsOBR obr = new PACsOBR();
             obr.SetID = "";
@@ -4160,7 +4178,7 @@ namespace bangna_hospital.control
             obr.FillerOrderNumber = "";
             String code = "";
             code = bcDB.xrDB.selectPACsInfinittCode(xraycode);
-            obr.UniversalServiceID = code + "^"+ xrayname;
+            obr.UniversalServiceID = code + "^" + xrayname;
             obr.Priority = "";
             obr.RequestedDateTime = "";
             obr.ObservationDateTime = "";
@@ -4177,7 +4195,7 @@ namespace bangna_hospital.control
 
             obr.OrderCallbackPhoneNumber = "";
             obr.PlacerField1 = xrayyear + reqno + code;
-            obr.PlacerField2 = "RP"+ xrayyear + reqno + code;
+            obr.PlacerField2 = "RP" + xrayyear + reqno + code;
             obr.FillerField1 = "SS" + xrayyear + reqno + code;
             obr.FillerField2 = "";
             obr.ResultsRptStatusChngDateTime = "";
@@ -4213,21 +4231,21 @@ namespace bangna_hospital.control
             code = bcDB.xrDB.selectPACsInfinittCode(xraycode);
             PACsZDS zds = new PACsZDS();
             zds.ZDS_Field1 = "1.2.410.2000010.66.101." + xrayyear + reqno + code;
-            zds.ZDS_Field2 ="";
-            zds.ZDS_Field3 ="";
-            zds.ZDS_Field4 ="";
-            zds.ZDS_Field5 ="";
-            zds.ZDS_Field6 ="";
-            zds.ZDS_Field7 ="";
-            zds.ZDS_Field8 ="";
-            zds.ZDS_Field9 ="";
+            zds.ZDS_Field2 = "";
+            zds.ZDS_Field3 = "";
+            zds.ZDS_Field4 = "";
+            zds.ZDS_Field5 = "";
+            zds.ZDS_Field6 = "";
+            zds.ZDS_Field7 = "";
+            zds.ZDS_Field8 = "";
+            zds.ZDS_Field9 = "";
             zds.ZDS_Field10 = "";
 
             return zds;
         }
         public String PACsORM(PACsMSH msh, PACsPID pid, PACsPV1 pv1, PACsORC orc, PACsOBR obr, PACsZDS zds, String comment)
         {
-            String txt = "", MSH = "", separate = "|", PID = "", PV1 = "", ORC = "", OBR = "", ZDS = "", NTE="";
+            String txt = "", MSH = "", separate = "|", PID = "", PV1 = "", ORC = "", OBR = "", ZDS = "", NTE = "";
             txt = "\x0b";
 
             MSH = "MSH" + separate + msh.EncodingCharacters + separate + msh.SendingApplication + separate + msh.SendingFacility + separate + msh.ReceivingApplication
@@ -4235,7 +4253,7 @@ namespace bangna_hospital.control
                 + separate + msh.MessageControlID + separate + msh.ProcessingID + separate + msh.VersionID + separate + msh.SequenceNumber
                 + separate + msh.ContinuationPointer + separate + msh.AcceptAcknowledgementType + separate + msh.ApplicationAcknowledgementType + separate + msh.CountryCode
                 + separate + msh.CharacterSet + separate + msh.PrincipalLanguageOfMessage + separate + msh.AlternateCharacterSetHandlingScheme;
-            
+
             PID = "PID" + separate + pid.SetID + separate + pid.PatientID + separate + pid.PatientIdentifierList + separate + pid.AlternatePatientID
                 + pid.PatientName + separate + pid.MothersMaidenName + separate + pid.DateTimeOfBirth + separate + pid.Sex
                 + pid.PatientAlias + separate + pid.Race + separate + pid.PatientAddress + separate + pid.CountyCode
@@ -4282,8 +4300,8 @@ namespace bangna_hospital.control
             ZDS = "ZDS" + separate + zds.ZDS_Field1 + separate + zds.ZDS_Field2 + separate + zds.ZDS_Field3 + separate + zds.ZDS_Field4 + separate
                 + zds.ZDS_Field5 + separate + zds.ZDS_Field6 + separate + zds.ZDS_Field7 + separate + zds.ZDS_Field8 + separate
                 + zds.ZDS_Field9 + separate + zds.ZDS_Field10;
-            NTE = "NTE" + separate +"1"+ separate+ comment;
-            txt = txt + MSH + Environment.NewLine + PID + Environment.NewLine + PV1 + Environment.NewLine + ORC + Environment.NewLine + OBR + Environment.NewLine + ZDS + Environment.NewLine+ NTE+ "\x0c";
+            NTE = "NTE" + separate + "1" + separate + comment;
+            txt = txt + MSH + Environment.NewLine + PID + Environment.NewLine + PV1 + Environment.NewLine + ORC + Environment.NewLine + OBR + Environment.NewLine + ZDS + Environment.NewLine + NTE + "\x0c";
             return txt;
         }
         public String genORM(String reqdept, String hn, String pttprefix, String pttfirstname, String pttlastame, String dob, String sex, String nation
@@ -4353,7 +4371,7 @@ namespace bangna_hospital.control
             chk.UseVisualStyleBackColor = true;
             chk.Value = null;
             chk.VisualStyleBaseStyle = C1.Win.C1Input.VisualStyle.Office2010Blue;
-            
+
         }
         public void setControlCheckBox(ref CheckBox chk, Font fEdit, String text, String name, int x, int y)
         {
@@ -4504,7 +4522,7 @@ namespace bangna_hospital.control
             {
                 // Store each line in array of strings 
                 postoperation = File.ReadAllLines(filename);
-            }            
+            }
             return chk;
         }
         public Boolean writePostOperation()
@@ -4534,7 +4552,7 @@ namespace bangna_hospital.control
             {
                 // Store each line in array of strings 
                 preoperation = File.ReadAllLines(filename);
-                
+
             }
             return chk;
         }
@@ -4595,9 +4613,9 @@ namespace bangna_hospital.control
             if (str == null) return null;
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
-            foreach(String txt in str)
+            foreach (String txt in str)
             {
-                writer.Write(txt+ Environment.NewLine);
+                writer.Write(txt + Environment.NewLine);
             }
             writer.Flush();
             stream.Position = 0;
@@ -5227,11 +5245,11 @@ namespace bangna_hospital.control
             DataTable dtCoin = new DataTable();
             DataTable dtAipn = new DataTable();
 
-            String Hmain = "", sessionNo = "",pathFile = "", HeaderXML = "<?xml version=\"1.0\" encoding=\"windows-874\"?>", FooterXML="";
+            String Hmain = "", sessionNo = "", pathFile = "", HeaderXML = "<?xml version=\"1.0\" encoding=\"windows-874\"?>", FooterXML = "";
             //aipnid = bcDB.aipnDB.selectAipnIdByStatusMakeText();
-            
+
             dtAipn = bcDB.aipnDB.selectAipnIdByStatusMakeText(anno1, statusSendMulti, statusNoAdd);
-            
+
             if (dtAipn.Rows.Count <= 0)
             {
                 MessageBox.Show("ไม่พบข้อมูล ", "");
@@ -5244,9 +5262,9 @@ namespace bangna_hospital.control
             {
                 Directory.CreateDirectory(pathFile);
             }
-            foreach(DataRow rowAipn in dtAipn.Rows)
+            foreach (DataRow rowAipn in dtAipn.Rows)
             {
-                String aipnXML = "",aipnid = "", anno="", ancnt="", an1="";
+                String aipnXML = "", aipnid = "", anno = "", ancnt = "", an1 = "";
                 aipnid = rowAipn["aipn_id"].ToString();
                 anno = rowAipn["an_no"].ToString();
                 ancnt = rowAipn["an_cnt"].ToString();
@@ -5284,7 +5302,7 @@ namespace bangna_hospital.control
                     new LogWriter("d", "genAipnFile an_1 " + dtaipn.Rows[0]["an_1"].ToString());
                     String servicetype = "";
                     DataTable dtclaima = bcDB.aipnDB.selectClaimAuth(aipnid);
-                    if(dtclaima.Rows.Count>0)
+                    if (dtclaima.Rows.Count > 0)
                     {
                         servicetype = dtclaima.Rows[0]["servicetype"].ToString();
                     }
@@ -5314,7 +5332,7 @@ namespace bangna_hospital.control
 
                 aipnInv = aipnxmlF.genInvoice(dtInv.Rows[0]["invnumber"].ToString(), dtInv.Rows[0]["invdt"].ToString(), dtInv.Rows[0]["invadddiscount"].ToString()
                         , dtInv.Rows[0]["drgcharge"].ToString(), dtInv.Rows[0]["xdrgclaim"].ToString(), dtBillItms);
-                
+
                 if (dtCoin.Rows.Count > 0)
                 {
                     aionCoin = aipnxmlF.genCoinsurance(dtCoin.Rows[0]["instypecode"].ToString(), dtCoin.Rows[0]["instotal"].ToString(), dtCoin.Rows[0]["insroomboard"].ToString(), dtCoin.Rows[0]["insproffee"].ToString(), dtCoin.Rows[0]["insother"].ToString());
@@ -5381,26 +5399,26 @@ namespace bangna_hospital.control
                 {
                     //fileName += "-"+submtype;
                 }
-                if ((fileName.Length > 0) && (fileName.Substring(fileName.Length-1)=="-"))
+                if ((fileName.Length > 0) && (fileName.Substring(fileName.Length - 1) == "-"))
                 {
-                    fileName = fileName.Substring(0,fileName.Length - 1);
+                    fileName = fileName.Substring(0, fileName.Length - 1);
                 }
                 Boolean chk = ByteArrayToFile(pathFile + "\\" + fileName + "-data.xml", win874BytesAipn);
                 Boolean chk2 = ByteArrayToFile(pathFile + "\\" + fileName + "-utf8.xml", Encoding.UTF8.GetBytes(aipnXML));
                 Boolean chk1 = ByteArrayToFile(pathFile + "\\" + fileName + ".xml", rv1);
                 bcDB.aipnDB.updateSessionNoStatusMakeText(sessionNo, aipnid);
             }
-            
+
             try
             {
                 String fileZipName = "";
                 C1ZipFile zip = new C1ZipFile(); //iniC.ssoid
                 //fileZipName = Hmain+"AIPN"+ sessionNo;
                 fileZipName = iniC.ssoid + "AIPN" + sessionNo;
-                zip.Create(pathFile + "\\"+fileZipName +".zip");
-                foreach(String filename in Directory.GetFiles(pathFile))
+                zip.Create(pathFile + "\\" + fileZipName + ".zip");
+                foreach (String filename in Directory.GetFiles(pathFile))
                 {
-                    if (filename.IndexOf("-data")>0)
+                    if (filename.IndexOf("-data") > 0)
                     {
                         continue;
                     }
@@ -5420,9 +5438,9 @@ namespace bangna_hospital.control
             catch (Exception ex)
             {
                 Console.WriteLine("Exception caught in process: {0}", ex);
-                    
+
             }
-            
+
             return sessionNo;
         }
         public string CreateMD5Hash(string input)
@@ -5531,19 +5549,19 @@ namespace bangna_hospital.control
         public String showTime(String time)
         {
             String txt = "";
-            if(time==null) return txt;
+            if (time == null) return txt;
             txt = "0000" + time;
             txt = txt.Substring(txt.Length - 4);
             txt = txt.Substring(0, 2) + ":" + txt.Substring(txt.Length - 2);
             return txt;
         }
-        private DataTable setPrintLabAN(Patient ptt,String an)
+        private DataTable setPrintLabAN(Patient ptt, String an)
         {
             DataTable dt = new DataTable();
             String anno = "", xraycode = "", txt1 = "", reqdate = "", reqno = "", dtrname = "", ordname = "", orddetail = "", dtrxrname = "", resdate = "", pttcompname = "", paidname = "", depname = "";
-            
+
             dt = bcDB.vsDB.selectLabbyAN_ALL(ptt.MNC_HN_NO, vsdate);
-            
+
             foreach (DataRow drow in dt.Rows)
             {
                 Boolean chkname = false;
@@ -5560,9 +5578,9 @@ namespace bangna_hospital.control
 
                 drow["patient_name"] = ptt.Name;
                 drow["patient_hn"] = hn;
-                
+
                 drow["patient_vn"] = vn;
-                
+
                 drow["patient_type"] = drow["MNC_FN_TYP_DSC"].ToString();
                 drow["request_no"] = drow["MNC_REQ_NO"].ToString() + "/" + datetoShow(drow["mnc_req_dat"].ToString());
                 drow["doctor"] = drow["dtr_name"].ToString() + "[" + drow["mnc_dot_cd"].ToString() + "]";
@@ -5666,8 +5684,8 @@ namespace bangna_hospital.control
             String err = "";
             float mmpi = 25.4f;
             int dpi = 150, line1Len = 965, x2Right = 1740;
-            Font fEditS = new Font(fEdit.FontFamily, fEdit.Size-1);
-            Font fEditB = new Font(fEdit.FontFamily, fEdit.Size +1, FontStyle.Bold);
+            Font fEditS = new Font(fEdit.FontFamily, fEdit.Size - 1);
+            Font fEditB = new Font(fEdit.FontFamily, fEdit.Size + 1, FontStyle.Bold);
             Font famtB = new Font(fEdit.FontFamily, fEdit.Size + 4, FontStyle.Bold);        //fEdit5B
             Font fEdit5B = new Font(fEdit.FontFamily, fEdit.Size + 6, FontStyle.Bold);
             err = "00";
@@ -5689,8 +5707,8 @@ namespace bangna_hospital.control
             Rectangle rec = new Rectangle(0, 0, 20, 20);
             date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
-            col2 = 105;            col3 = 300;            col4 = 1000;            col40 = 650;            yPos = 15;            col6 = 1340;
-            col2int = int.Parse(col2.ToString());            yPosint = int.Parse(yPos.ToString());            col40int = int.Parse(col40.ToString());
+            col2 = 105; col3 = 300; col4 = 1000; col40 = 650; yPos = 15; col6 = 1340;
+            col2int = int.Parse(col2.ToString()); yPosint = int.Parse(yPos.ToString()); col40int = int.Parse(col40.ToString());
             imgA4.SetResolution(dpi, dpi);
             err = "01";
 
@@ -5824,7 +5842,7 @@ namespace bangna_hospital.control
                 gfx.DrawLine(penBorder, 100, yPos, line1Len, yPos);
                 gfx.DrawLine(penBorder, col5, yPos, x2Right, yPos);
                 gfx.DrawString("CHIEF COMPLIANT", fEditB, brushBule, 110, yPos, flags);
-                
+
                 gfx.DrawString(vs.DeptCode, fEdit, Brushes.Black, col4 + 100, yPos - 30, flags);
                 line = "Medication                       No Medication";
                 gfx.DrawString(line, fEdit, Brushes.Black, col4 + 100, yPos, flags);
@@ -5859,7 +5877,7 @@ namespace bangna_hospital.control
                 gfx.DrawRectangle(blackPen, new Rectangle(1085, 670, recx, recy));
                 gfx.DrawString("ผลลบ พบว่า ไม่พบเชื้อ", fEdit, Brushes.Black, 1100, 710, flags);
                 gfx.DrawRectangle(blackPen, new Rectangle(1085, 720, recx, recy));
-                
+
                 line = "คำแนะนำ       การออกกำลังกาย               การรับประทานอาหารที่ถูกสัดส่วน";
                 gfx.DrawString(line, fEdit, Brushes.Black, col2, yPos + 320, flags);
                 gfx.DrawRectangle(blackPen, new Rectangle(col2 + 105, yPos + 325, recx, recy));
@@ -5977,7 +5995,7 @@ namespace bangna_hospital.control
                 year = vs.VisitDate.Substring(0, 4);
                 mon = vs.VisitDate.Substring(5, 2);
                 day = vs.VisitDate.Substring(8, 2);
-                path =  "\\\\"+iniC.pathScanStaffNote + ""+ year + "\\" + mon + "\\" + day + "\\";
+                path = "\\\\" + iniC.pathScanStaffNote + "" + year + "\\" + mon + "\\" + day + "\\";
                 //path = iniC.pathlocalStaffNote + "" + year + "\\" + mon + "\\" + day + "\\";
                 if (!Directory.Exists(path))
                 {
@@ -6078,11 +6096,11 @@ namespace bangna_hospital.control
                 if (pkunM01.Social_Card_no.Equals(""))
                 {
                     pkunM01 = bcDB.prakM01DB.selectByCardNo(pid);
-                    if (pkunM01.Social_Card_no.Equals(""))                    {                        re = "";                    }
-                    else                    {       re = pkunM01.PrakanCode.Equals("2210028") ? "44" : pkunM01.PrakanCode.Equals("2211006") ? "45" : pkunM01.PrakanCode.Equals("2211041") ? "46" : ""; }
+                    if (pkunM01.Social_Card_no.Equals("")) { re = ""; }
+                    else { re = pkunM01.PrakanCode.Equals("2210028") ? "44" : pkunM01.PrakanCode.Equals("2211006") ? "45" : pkunM01.PrakanCode.Equals("2211041") ? "46" : ""; }
                 }
-                else                        {       re = pkunM01.PrakanCode.Equals("2210028") ? "44" : pkunM01.PrakanCode.Equals("2211006") ? "45" : pkunM01.PrakanCode.Equals("2211041") ? "46" : ""; }
-                
+                else { re = pkunM01.PrakanCode.Equals("2210028") ? "44" : pkunM01.PrakanCode.Equals("2211006") ? "45" : pkunM01.PrakanCode.Equals("2211041") ? "46" : ""; }
+
             }
             catch (Exception ex)
             {
@@ -6139,6 +6157,66 @@ namespace bangna_hospital.control
                 // Handle exception
             }
             return doeAlienList;
+        }
+        public static string GetFileTypeFormMemoryStream(MemoryStream stream)
+        {
+            if (stream == null || stream.Length < 4)
+                return "Unknown";
+
+            stream.Position = 0;
+            byte[] header = new byte[8];
+            stream.Read(header, 0, header.Length);
+            stream.Position = 0; // Reset position
+
+            // PDF
+            if (header[0] == 0x25 && header[1] == 0x50 && header[2] == 0x44 && header[3] == 0x46)
+                return "PDF";
+
+            // JPEG
+            if (header[0] == 0xFF && header[1] == 0xD8)
+                return "JPEG";
+
+            // PNG
+            if (header[0] == 0x89 && header[1] == 0x50 && header[2] == 0x4E && header[3] == 0x47)
+                return "PNG";
+
+            // GIF
+            if (header[0] == 0x47 && header[1] == 0x49 && header[2] == 0x46)
+                return "GIF";
+
+            // BMP
+            if (header[0] == 0x42 && header[1] == 0x4D)
+                return "BMP";
+
+            return "Unknown";
+        }
+        public bool IsSameImage(Image img1, Image img2)
+        {
+            if (img1 == null || img2 == null) return false;
+            using (var ms1 = new MemoryStream())
+            using (var ms2 = new MemoryStream())
+            {
+                img1.Save(ms1, System.Drawing.Imaging.ImageFormat.Png);
+                img2.Save(ms2, System.Drawing.Imaging.ImageFormat.Png);
+
+                var hash1 = GetMD5Hash(ms1.ToArray());
+                var hash2 = GetMD5Hash(ms2.ToArray());
+
+                return hash1.SequenceEqual(hash2);
+            }
+        }
+
+        private byte[] GetMD5Hash(byte[] data)
+        {
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                return md5.ComputeHash(data);
+            }
+        }
+        public String chkSpace(String txt)
+        {
+            if (txt == null) return "";
+            return txt.Trim().Length>0 ? txt.Trim()+" " : "";
         }
     }
 }

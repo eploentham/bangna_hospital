@@ -640,7 +640,7 @@ namespace bangna_hospital.objdb
                 "left join	patient_m26 pm26 on pt01.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "left JOIN	dbo.PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
                 " left JOIN dbo.PATIENT_M24 pm24 on pt01.MNC_COM_CD = pm24.MNC_COM_CD " +
-                "Left Join PATIENT_T08 pt08 on pt01.MNC_HN_NO = m01.MNC_HN_NO and pt01.MNC_PRE_NO = m01.MNC_PRE_NO and pt01.MNC_DATE = m01.MNC_DATE  " +
+                "Left Join PATIENT_T08 pt08 on pt01.MNC_HN_NO = pt08.MNC_HN_NO and pt01.MNC_PRE_NO = pt08.MNC_PRE_NO and pt01.MNC_DATE = pt08.MNC_DATE  " +
                 " WHERE   pt01.MNC_STS <> 'C'  " + wheredept + wherepharmacyok+
                 " and pt01.mnc_date >= '" + datestart + "' and pt01.mnc_date <= '" + dateend + "' and pt01.MNC_ACT_NO >= '131' and pt01.MNC_ACT_NO < '600'  " +
                 " and pt01.MNC_FN_TYP_CD not in ('44','45','46','47','48','49') " +
@@ -1013,6 +1013,23 @@ namespace bangna_hospital.objdb
                 "inner join	PATIENT_M32 as bb ON bb.MNC_SEC_NO = PATIENT_M26.MNC_SEC_NO " +
                 " WHERE   PATIENT_T01.MNC_STS <> 'C'  and PATIENT_T01.MNC_DEP_NO = '" + wdno + "' and patient_t01.mnc_date ='"+date+"' " +
                 " Order By PATIENT_T01.mnc_date desc, PATIENT_T01.mnc_time desc ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
+        public DataTable selectVN_VisitAllByHn(String hn)
+        {
+            String actno = "";
+            //actno = flagVisit.Equals("finish") ? "610" : "110";
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select   t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM " +
+                " ,t01.MNC_FN_TYP_CD " +
+                ", convert(VARCHAR(20),t01.mnc_date,23) as mnc_date " +
+                "From patient_t01 t01 " +
+                " Where  t01.MNC_HN_NO = '" + hn + "'  " +
+                "and t01.MNC_STS <> 'C' " +   
+                " Order By t01.MNC_DATE desc, t01.MNC_TIME ";
             dt = conn.selectData(sql);
 
             return dt;
@@ -2550,6 +2567,20 @@ namespace bangna_hospital.objdb
                 "left join pharmacy_m36 pharm36 ON t02.MNC_PH_ALG_CD = pharm36.MNC_PH_ALG_CD  " +
                 "where  t02.mnc_hn_no = '" + hn + "' " +
                 "Order By t02.mnc_stamp_dat, t02.mnc_stamp_tim ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectDrugGroupAllergy(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "SELECT t022.* ,pharm36.MNC_PH_ALG_DSC, pharm14.MNC_PH_GRP_DSC " +
+                "FROM  PATIENT_T02_2 t022 " +
+                "left join PHARMACY_M14 pharm14 ON t022.MNC_PH_GRP_CD = pharm14.MNC_PH_GRP_CD  " +
+                "left join pharmacy_m36 pharm36 ON t022.MNC_PH_ALG_CD = pharm36.MNC_PH_ALG_CD  " +
+                "where  t022.mnc_hn_no = '" + hn + "' " +
+                "Order By t022.mnc_stamp_dat, t022.mnc_stamp_tim ";
 
             dt = conn.selectData(sql);
             return dt;

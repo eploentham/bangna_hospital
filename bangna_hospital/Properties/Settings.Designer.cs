@@ -12,7 +12,7 @@ namespace bangna_hospital.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -32,6 +32,31 @@ namespace bangna_hospital.Properties {
             }
             set {
                 this["OcrEngineType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("sk-ant-api03-wvctFj7FjYwkOvVTNWQ2acoQd5xjrQnG9bOjEO4mupt10-7jNSNkitP11mvFW7Ql2enH" +
+            "AYTXjOpclyWvj4pg3Q-0XQckwAA")]
+        public string CLAUDEAPI_KEY {
+            get {
+                return ((string)(this["CLAUDEAPI_KEY"]));
+            }
+            set {
+                this["CLAUDEAPI_KEY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("claude-sonnet-4-5-20250929")]
+        public string CLAUDEAPI_MODEL {
+            get {
+                return ((string)(this["CLAUDEAPI_MODEL"]));
+            }
+            set {
+                this["CLAUDEAPI_MODEL"] = value;
             }
         }
     }

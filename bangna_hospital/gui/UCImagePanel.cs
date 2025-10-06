@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace bangna_hospital.gui
 {
-    public partial class ImagePanel : UserControl
+    public partial class UCImagePanel : UserControl
     {
-        public ImagePanel()
+        public UCImagePanel()
         {
             InitializeComponent();
 

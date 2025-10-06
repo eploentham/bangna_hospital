@@ -704,7 +704,7 @@ namespace bangna_hospital.gui
         private void getGroupDrug()
         {
             DataTable dt = new DataTable();
-            dt = bc.bcDB.pharm14DB.SelectAll();
+            dt = bc.bcDB.pharM14DB.SelectAll();
             foreach (DataRow dr in dt.Rows)
             {
                 Tile tilegrpdrug = new Tile();

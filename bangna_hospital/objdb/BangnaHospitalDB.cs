@@ -99,7 +99,7 @@ namespace bangna_hospital.objdb
         public LabM07DB labm07DB;
         public XrayM05DB xraym05DB;
         
-        public PharmacyM14DB pharm14DB;
+        public PharmacyM14DB pharM14DB;
         public DrugSetDB drugSetDB;
         public REQDETAILDEPTDB reqdDB;
         public REQHEADDEPTDB reqhDB;
@@ -116,7 +116,11 @@ namespace bangna_hospital.objdb
         public SSOPOpdxDB sSOPODDB;
         public SSOPOpservicesDB sSOPOSDB;
         public AutoCompDB autoCompDB;
-
+        public PaidMapDB paidMapDB;
+        public AttachNoteDB attachNoteDB;
+        internal PatientT022DB ptt022DB;
+        internal PatientT02DB ptt02DB;
+        internal MedicalPrescriptionDB mpDB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -222,7 +226,7 @@ namespace bangna_hospital.objdb
                 labm06DB = new LabM06DB(conn);
                 xraym05DB = new XrayM05DB(conn);
                 pm44DB = new PatientM44DB(conn);
-                pharm14DB = new PharmacyM14DB(conn);
+                pharM14DB = new PharmacyM14DB(conn);
                 drugSetDB = new DrugSetDB(conn);
                 labm07DB = new LabM07DB(conn);
                 labM04DB = new LabM04DB(conn);
@@ -245,6 +249,11 @@ namespace bangna_hospital.objdb
                 sSOPOSDB = new SSOPOpservicesDB(conn);
                 pt09DB = new PatientT09DB(conn);
                 autoCompDB = new AutoCompDB(conn);
+                paidMapDB = new PaidMapDB(conn);
+                attachNoteDB = new AttachNoteDB(conn);
+                ptt022DB = new PatientT022DB(conn);
+                ptt02DB = new PatientT02DB(conn);
+                mpDB = new MedicalPrescriptionDB(conn);
             }
             catch(Exception ex)
             {

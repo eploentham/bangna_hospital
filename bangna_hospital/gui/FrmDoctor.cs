@@ -97,6 +97,7 @@ namespace bangna_hospital.gui
             rbToken.Click += RbToken_Click;
             lbDtrName.Text = bc.user.fullname;
             DTRCODE = bc.user.username;//เปิดโปรแกรม login ด้วย แพทย์ ถือว่าเป็น แพทย์
+            rbSbDrugSet.Visible = false;
         }
         private void RbToken_Click(object sender, EventArgs e)
         {

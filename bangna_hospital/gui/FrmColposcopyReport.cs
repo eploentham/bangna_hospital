@@ -69,7 +69,6 @@ namespace bangna_hospital.gui
             btnpage3Prn.Click += Btnpage3Prn_Click;
             btnpage26Prn.Click += Btnpage26Prn_Click;
         }
-
         private void Btnpage26Prn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();

@@ -13,6 +13,8 @@ namespace bangna_hospital.objdb
     {//Table HotCharge  ค่าหัตถการ
         public PatientM30 pttM32;
         ConnectDB conn;
+        DataTable DTProcedure;
+        internal AutoCompleteStringCollection AUTOProcedure;
         public PatientM30DB(ConnectDB c)
         {
             conn = c;
@@ -44,6 +46,22 @@ namespace bangna_hospital.objdb
             pttM32.mnc_sr_max = "mnc_sr_max";
             pttM32.ucep_code = "ucep_code";
 
+        }
+        public AutoCompleteStringCollection setAUTOProcedure()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            if (DTProcedure == null || DTProcedure.Rows.Count <= 0)
+            {
+                DTProcedure = SelectAll(); AUTOProcedure = new AutoCompleteStringCollection();
+                foreach (DataRow row in DTProcedure.Rows)
+                {
+                    //autoSymptom.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                    AUTOProcedure.Add(row["MNC_SR_DSC"].ToString() + "#" + row["MNC_SR_CD"].ToString());
+                }
+            }
+            return autoSymptom;
         }
         public DataTable SelectAll()
         {

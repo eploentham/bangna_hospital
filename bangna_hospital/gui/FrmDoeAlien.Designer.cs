@@ -325,7 +325,7 @@
             this.c1SplitterPanel1.SizeRatio = 43.924D;
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
-            this.c1SplitterPanel1.Width = 695;
+            this.c1SplitterPanel1.Width = 702;
             // 
             // pnDoeList
             // 
@@ -353,7 +353,7 @@
             // c1SplitterPanel3
             // 
             this.c1SplitterPanel3.Collapsible = true;
-            this.c1SplitterPanel3.Height = 170;
+            this.c1SplitterPanel3.Height = 177;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
             this.c1SplitterPanel3.Size = new System.Drawing.Size(695, 149);

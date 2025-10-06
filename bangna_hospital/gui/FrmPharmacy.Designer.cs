@@ -35,12 +35,15 @@
             this.ll1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.txtSBSearchHN = new C1.Win.C1Ribbon.RibbonTextBox();
             this.rbPttName = new C1.Win.C1Ribbon.RibbonLabel();
+            this.ribbonSeparator1 = new C1.Win.C1Ribbon.RibbonSeparator();
             this.btnPrint = new C1.Win.C1Ribbon.RibbonButton();
             this.rbItemName = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnPrintStricker = new C1.Win.C1Ribbon.RibbonButton();
             this.btnPrintStrickerEng = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonSeparator2 = new C1.Win.C1Ribbon.RibbonSeparator();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.ribbonSeparator3 = new C1.Win.C1Ribbon.RibbonSeparator();
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.rbTimerStart = new C1.Win.C1Ribbon.RibbonButton();
             this.tC1 = new C1.Win.C1Command.C1DockingTab();
@@ -107,7 +110,20 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tabOPDDispensing = new C1.Win.C1Command.C1DockingTabPage();
             this.tabDispensingOPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.spDispensingOPD = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.dispensingOPDList1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.dispensingOPDList = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dispensingOPD = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitContainer4 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.spPtt1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.spAllergy = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnDispDrugAllergy = new System.Windows.Forms.Panel();
+            this.spChronic = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnDispChronic = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel11 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnDisp = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel10 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tabMedScan = new C1.Win.C1Command.C1DockingTabPage();
             this.spMedScan = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spMedScanIPD = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -134,6 +150,15 @@
             this.pnDrugAllergy = new System.Windows.Forms.Panel();
             this.tabpttChronic = new C1.Win.C1Command.C1DockingTabPage();
             this.pnChronic = new System.Windows.Forms.Panel();
+            this.tabDrugMap = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer3 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel8 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnDrugMap = new System.Windows.Forms.Panel();
+            this.pnDrugMapTop = new System.Windows.Forms.Panel();
+            this.btnDrugMapSave = new C1.Win.C1Input.C1Button();
+            this.txtDrugMapSearch = new C1.Win.C1Input.C1TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.c1SplitterPanel9 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
@@ -182,6 +207,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox5)).BeginInit();
             this.tabDispensingOPD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.spDispensingOPD)).BeginInit();
+            this.spDispensingOPD.SuspendLayout();
+            this.dispensingOPDList1.SuspendLayout();
+            this.dispensingOPD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer4)).BeginInit();
+            this.c1SplitContainer4.SuspendLayout();
+            this.spAllergy.SuspendLayout();
+            this.spChronic.SuspendLayout();
+            this.c1SplitterPanel11.SuspendLayout();
             this.tabMedScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).BeginInit();
             this.spMedScan.SuspendLayout();
@@ -197,6 +231,13 @@
             this.tabPttDrugProfile.SuspendLayout();
             this.tabpttAllergy.SuspendLayout();
             this.tabpttChronic.SuspendLayout();
+            this.tabDrugMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer3)).BeginInit();
+            this.c1SplitContainer3.SuspendLayout();
+            this.c1SplitterPanel8.SuspendLayout();
+            this.pnDrugMapTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugMapSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugMapSearch)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -210,12 +251,15 @@
             this.c1StatusBar1.Name = "c1StatusBar1";
             this.c1StatusBar1.RightPaneItems.Add(this.txtSBSearchHN);
             this.c1StatusBar1.RightPaneItems.Add(this.rbPttName);
+            this.c1StatusBar1.RightPaneItems.Add(this.ribbonSeparator1);
             this.c1StatusBar1.RightPaneItems.Add(this.btnPrint);
             this.c1StatusBar1.RightPaneItems.Add(this.rbItemName);
             this.c1StatusBar1.RightPaneItems.Add(this.btnPrintStricker);
             this.c1StatusBar1.RightPaneItems.Add(this.btnPrintStrickerEng);
+            this.c1StatusBar1.RightPaneItems.Add(this.ribbonSeparator2);
             this.c1StatusBar1.RightPaneItems.Add(this.rb1);
             this.c1StatusBar1.RightPaneItems.Add(this.rb2);
+            this.c1StatusBar1.RightPaneItems.Add(this.ribbonSeparator3);
             this.c1StatusBar1.RightPaneItems.Add(this.rgSbModule);
             this.c1StatusBar1.RightPaneItems.Add(this.rbTimerStart);
             this.c1StatusBar1.Size = new System.Drawing.Size(1578, 22);
@@ -250,6 +294,10 @@
             this.rbPttName.Name = "rbPttName";
             this.rbPttName.Text = "ptt";
             // 
+            // ribbonSeparator1
+            // 
+            this.ribbonSeparator1.Name = "ribbonSeparator1";
+            // 
             // btnPrint
             // 
             this.btnPrint.Name = "btnPrint";
@@ -273,6 +321,10 @@
             this.btnPrintStrickerEng.SmallImage = global::bangna_hospital.Properties.Resources.printer_green16;
             this.btnPrintStrickerEng.Text = "พิมพ์ Stricker Eng";
             // 
+            // ribbonSeparator2
+            // 
+            this.ribbonSeparator2.Name = "ribbonSeparator2";
+            // 
             // rb1
             // 
             this.rb1.Name = "rb1";
@@ -282,6 +334,10 @@
             // 
             this.rb2.Name = "rb2";
             this.rb2.Text = "rb2";
+            // 
+            // ribbonSeparator3
+            // 
+            this.ribbonSeparator3.Name = "ribbonSeparator3";
             // 
             // rgSbModule
             // 
@@ -302,6 +358,7 @@
             this.tC1.Controls.Add(this.tabDispensingOPD);
             this.tC1.Controls.Add(this.tabMedScan);
             this.tC1.Controls.Add(this.tabDrugProf);
+            this.tC1.Controls.Add(this.tabDrugMap);
             this.tC1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.tC1.Location = new System.Drawing.Point(0, 0);
@@ -965,19 +1022,163 @@
             // 
             // tabDispensingOPD
             // 
-            this.tabDispensingOPD.Controls.Add(this.panel1);
+            this.tabDispensingOPD.Controls.Add(this.spDispensingOPD);
             this.tabDispensingOPD.Location = new System.Drawing.Point(1, 26);
             this.tabDispensingOPD.Name = "tabDispensingOPD";
             this.tabDispensingOPD.Size = new System.Drawing.Size(1576, 767);
             this.tabDispensingOPD.TabIndex = 3;
             this.tabDispensingOPD.Text = "จ่ายยา OPD";
             // 
+            // spDispensingOPD
+            // 
+            this.spDispensingOPD.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.spDispensingOPD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.spDispensingOPD.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.spDispensingOPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.spDispensingOPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.spDispensingOPD.Location = new System.Drawing.Point(0, 0);
+            this.spDispensingOPD.Name = "spDispensingOPD";
+            this.spDispensingOPD.Panels.Add(this.dispensingOPDList1);
+            this.spDispensingOPD.Panels.Add(this.dispensingOPD);
+            this.spDispensingOPD.Panels.Add(this.c1SplitterPanel11);
+            this.spDispensingOPD.Panels.Add(this.c1SplitterPanel10);
+            this.spDispensingOPD.Size = new System.Drawing.Size(1576, 767);
+            this.spDispensingOPD.TabIndex = 0;
+            // 
+            // dispensingOPDList1
+            // 
+            this.dispensingOPDList1.Controls.Add(this.dispensingOPDList);
+            this.dispensingOPDList1.Controls.Add(this.panel1);
+            this.dispensingOPDList1.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.dispensingOPDList1.Location = new System.Drawing.Point(0, 21);
+            this.dispensingOPDList1.Name = "dispensingOPDList1";
+            this.dispensingOPDList1.Size = new System.Drawing.Size(367, 746);
+            this.dispensingOPDList1.SizeRatio = 23.346D;
+            this.dispensingOPDList1.TabIndex = 0;
+            this.dispensingOPDList1.Text = "Panel 1";
+            this.dispensingOPDList1.Width = 367;
+            // 
+            // dispensingOPDList
+            // 
+            this.dispensingOPDList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dispensingOPDList.Location = new System.Drawing.Point(0, 28);
+            this.dispensingOPDList.Name = "dispensingOPDList";
+            this.dispensingOPDList.Size = new System.Drawing.Size(367, 718);
+            this.dispensingOPDList.TabIndex = 1;
+            // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(57, 30);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.Size = new System.Drawing.Size(367, 28);
             this.panel1.TabIndex = 0;
+            // 
+            // dispensingOPD
+            // 
+            this.dispensingOPD.Controls.Add(this.c1SplitContainer4);
+            this.dispensingOPD.Height = 142;
+            this.dispensingOPD.Location = new System.Drawing.Point(371, 21);
+            this.dispensingOPD.Name = "dispensingOPD";
+            this.dispensingOPD.Size = new System.Drawing.Size(1205, 121);
+            this.dispensingOPD.SizeRatio = 18.611D;
+            this.dispensingOPD.TabIndex = 1;
+            this.dispensingOPD.Text = "Panel 2";
+            // 
+            // c1SplitContainer4
+            // 
+            this.c1SplitContainer4.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer4.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer4.Name = "c1SplitContainer4";
+            this.c1SplitContainer4.Panels.Add(this.spPtt1);
+            this.c1SplitContainer4.Panels.Add(this.spAllergy);
+            this.c1SplitContainer4.Panels.Add(this.spChronic);
+            this.c1SplitContainer4.Size = new System.Drawing.Size(1205, 121);
+            this.c1SplitContainer4.TabIndex = 0;
+            // 
+            // spPtt1
+            // 
+            this.spPtt1.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.spPtt1.Height = 121;
+            this.spPtt1.Location = new System.Drawing.Point(0, 21);
+            this.spPtt1.Name = "spPtt1";
+            this.spPtt1.Size = new System.Drawing.Size(429, 100);
+            this.spPtt1.SizeRatio = 35.72D;
+            this.spPtt1.TabIndex = 0;
+            this.spPtt1.Text = "Patient";
+            this.spPtt1.Width = 429;
+            // 
+            // spAllergy
+            // 
+            this.spAllergy.Controls.Add(this.pnDispDrugAllergy);
+            this.spAllergy.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.spAllergy.Location = new System.Drawing.Point(433, 21);
+            this.spAllergy.Name = "spAllergy";
+            this.spAllergy.Size = new System.Drawing.Size(469, 100);
+            this.spAllergy.SizeRatio = 61.068D;
+            this.spAllergy.TabIndex = 1;
+            this.spAllergy.Text = "Drug Allergy";
+            this.spAllergy.Width = 469;
+            // 
+            // pnDispDrugAllergy
+            // 
+            this.pnDispDrugAllergy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDispDrugAllergy.Location = new System.Drawing.Point(0, 0);
+            this.pnDispDrugAllergy.Name = "pnDispDrugAllergy";
+            this.pnDispDrugAllergy.Size = new System.Drawing.Size(469, 100);
+            this.pnDispDrugAllergy.TabIndex = 0;
+            // 
+            // spChronic
+            // 
+            this.spChronic.Controls.Add(this.pnDispChronic);
+            this.spChronic.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            this.spChronic.Location = new System.Drawing.Point(906, 21);
+            this.spChronic.Name = "spChronic";
+            this.spChronic.Size = new System.Drawing.Size(299, 100);
+            this.spChronic.TabIndex = 2;
+            this.spChronic.Text = "Chronic";
+            this.spChronic.Width = 299;
+            // 
+            // pnDispChronic
+            // 
+            this.pnDispChronic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDispChronic.Location = new System.Drawing.Point(0, 0);
+            this.pnDispChronic.Name = "pnDispChronic";
+            this.pnDispChronic.Size = new System.Drawing.Size(299, 100);
+            this.pnDispChronic.TabIndex = 0;
+            // 
+            // c1SplitterPanel11
+            // 
+            this.c1SplitterPanel11.Controls.Add(this.pnDisp);
+            this.c1SplitterPanel11.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.c1SplitterPanel11.Height = 621;
+            this.c1SplitterPanel11.Location = new System.Drawing.Point(371, 167);
+            this.c1SplitterPanel11.Name = "c1SplitterPanel11";
+            this.c1SplitterPanel11.Size = new System.Drawing.Size(565, 600);
+            this.c1SplitterPanel11.SizeRatio = 47.044D;
+            this.c1SplitterPanel11.TabIndex = 3;
+            this.c1SplitterPanel11.Text = "Panel 4";
+            this.c1SplitterPanel11.Width = 565;
+            // 
+            // pnDisp
+            // 
+            this.pnDisp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDisp.Location = new System.Drawing.Point(0, 0);
+            this.pnDisp.Name = "pnDisp";
+            this.pnDisp.Size = new System.Drawing.Size(565, 600);
+            this.pnDisp.TabIndex = 0;
+            // 
+            // c1SplitterPanel10
+            // 
+            this.c1SplitterPanel10.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.c1SplitterPanel10.Location = new System.Drawing.Point(940, 167);
+            this.c1SplitterPanel10.Name = "c1SplitterPanel10";
+            this.c1SplitterPanel10.Size = new System.Drawing.Size(636, 600);
+            this.c1SplitterPanel10.TabIndex = 4;
+            this.c1SplitterPanel10.Text = "Panel 5";
+            this.c1SplitterPanel10.Width = 636;
             // 
             // tabMedScan
             // 
@@ -1067,7 +1268,7 @@
             this.spDrugProfList.SizeRatio = 29.58D;
             this.spDrugProfList.TabIndex = 0;
             this.spDrugProfList.Text = "Panel 1";
-            this.spDrugProfList.Width = 458;
+            this.spDrugProfList.Width = 465;
             // 
             // spDrugProfImages
             // 
@@ -1252,6 +1453,102 @@
             this.pnChronic.Size = new System.Drawing.Size(200, 100);
             this.pnChronic.TabIndex = 0;
             // 
+            // tabDrugMap
+            // 
+            this.tabDrugMap.Controls.Add(this.c1SplitContainer3);
+            this.tabDrugMap.Location = new System.Drawing.Point(1, 26);
+            this.tabDrugMap.Name = "tabDrugMap";
+            this.tabDrugMap.Size = new System.Drawing.Size(1576, 767);
+            this.tabDrugMap.TabIndex = 6;
+            this.tabDrugMap.Text = "Drug Map Paid";
+            // 
+            // c1SplitContainer3
+            // 
+            this.c1SplitContainer3.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer3.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer3.Name = "c1SplitContainer3";
+            this.c1SplitContainer3.Panels.Add(this.c1SplitterPanel8);
+            this.c1SplitContainer3.Panels.Add(this.c1SplitterPanel9);
+            this.c1SplitContainer3.Size = new System.Drawing.Size(1576, 767);
+            this.c1SplitContainer3.TabIndex = 0;
+            // 
+            // c1SplitterPanel8
+            // 
+            this.c1SplitterPanel8.Controls.Add(this.pnDrugMap);
+            this.c1SplitterPanel8.Controls.Add(this.pnDrugMapTop);
+            this.c1SplitterPanel8.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.c1SplitterPanel8.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel8.Name = "c1SplitterPanel8";
+            this.c1SplitterPanel8.Size = new System.Drawing.Size(786, 746);
+            this.c1SplitterPanel8.TabIndex = 0;
+            this.c1SplitterPanel8.Text = "Panel 1";
+            this.c1SplitterPanel8.Width = 786;
+            // 
+            // pnDrugMap
+            // 
+            this.pnDrugMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDrugMap.Location = new System.Drawing.Point(0, 47);
+            this.pnDrugMap.Name = "pnDrugMap";
+            this.pnDrugMap.Size = new System.Drawing.Size(786, 699);
+            this.pnDrugMap.TabIndex = 0;
+            // 
+            // pnDrugMapTop
+            // 
+            this.pnDrugMapTop.Controls.Add(this.btnDrugMapSave);
+            this.pnDrugMapTop.Controls.Add(this.txtDrugMapSearch);
+            this.pnDrugMapTop.Controls.Add(this.label9);
+            this.pnDrugMapTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnDrugMapTop.Location = new System.Drawing.Point(0, 0);
+            this.pnDrugMapTop.Name = "pnDrugMapTop";
+            this.pnDrugMapTop.Size = new System.Drawing.Size(786, 47);
+            this.pnDrugMapTop.TabIndex = 0;
+            // 
+            // btnDrugMapSave
+            // 
+            this.btnDrugMapSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDrugMapSave.Image = global::bangna_hospital.Properties.Resources.Save_large;
+            this.btnDrugMapSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnDrugMapSave.Location = new System.Drawing.Point(485, 9);
+            this.btnDrugMapSave.Name = "btnDrugMapSave";
+            this.btnDrugMapSave.Size = new System.Drawing.Size(79, 35);
+            this.btnDrugMapSave.TabIndex = 283;
+            this.btnDrugMapSave.Text = "save";
+            this.btnDrugMapSave.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDrugMapSave.UseVisualStyleBackColor = true;
+            // 
+            // txtDrugMapSearch
+            // 
+            this.txtDrugMapSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtDrugMapSearch.Location = new System.Drawing.Point(77, 7);
+            this.txtDrugMapSearch.Name = "txtDrugMapSearch";
+            this.txtDrugMapSearch.Size = new System.Drawing.Size(154, 27);
+            this.txtDrugMapSearch.TabIndex = 282;
+            this.txtDrugMapSearch.TabStop = false;
+            this.txtDrugMapSearch.Tag = null;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label9.Location = new System.Drawing.Point(14, 10);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 20);
+            this.label9.TabIndex = 281;
+            this.label9.Text = "ค้นหา";
+            // 
+            // c1SplitterPanel9
+            // 
+            this.c1SplitterPanel9.Height = 767;
+            this.c1SplitterPanel9.Location = new System.Drawing.Point(790, 21);
+            this.c1SplitterPanel9.Name = "c1SplitterPanel9";
+            this.c1SplitterPanel9.Size = new System.Drawing.Size(786, 746);
+            this.c1SplitterPanel9.TabIndex = 1;
+            this.c1SplitterPanel9.Text = "Panel 2";
+            // 
             // FrmPharmacy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1312,6 +1609,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox5)).EndInit();
             this.tabDispensingOPD.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.spDispensingOPD)).EndInit();
+            this.spDispensingOPD.ResumeLayout(false);
+            this.dispensingOPDList1.ResumeLayout(false);
+            this.dispensingOPD.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer4)).EndInit();
+            this.c1SplitContainer4.ResumeLayout(false);
+            this.spAllergy.ResumeLayout(false);
+            this.spChronic.ResumeLayout(false);
+            this.c1SplitterPanel11.ResumeLayout(false);
             this.tabMedScan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).EndInit();
             this.spMedScan.ResumeLayout(false);
@@ -1328,6 +1634,14 @@
             this.tabPttDrugProfile.ResumeLayout(false);
             this.tabpttAllergy.ResumeLayout(false);
             this.tabpttChronic.ResumeLayout(false);
+            this.tabDrugMap.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer3)).EndInit();
+            this.c1SplitContainer3.ResumeLayout(false);
+            this.c1SplitterPanel8.ResumeLayout(false);
+            this.pnDrugMapTop.ResumeLayout(false);
+            this.pnDrugMapTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDrugMapSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtDrugMapSearch)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1394,7 +1708,6 @@
         private System.Windows.Forms.Panel pnOPDFinishList;
         private System.Windows.Forms.Panel pnOPDFinishItem;
         private C1.Win.C1Command.C1DockingTabPage tabDispensingOPD;
-        private System.Windows.Forms.Panel panel1;
         private C1.Win.C1Ribbon.RibbonButton btnPrint;
         private C1.Win.C1Ribbon.RibbonLabel rb1;
         private C1.Win.C1Ribbon.RibbonLabel rb2;
@@ -1441,5 +1754,31 @@
         private System.Windows.Forms.Panel pnDrugProfile;
         private System.Windows.Forms.Panel pnChronic;
         private System.Windows.Forms.Label lbAdmitDate;
+        private C1.Win.C1Command.C1DockingTabPage tabDrugMap;
+        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer3;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel8;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel9;
+        private System.Windows.Forms.Panel pnDrugMap;
+        private System.Windows.Forms.Panel pnDrugMapTop;
+        private C1.Win.C1Input.C1TextBox txtDrugMapSearch;
+        private System.Windows.Forms.Label label9;
+        private C1.Win.C1Input.C1Button btnDrugMapSave;
+        private C1.Win.C1SplitContainer.C1SplitContainer spDispensingOPD;
+        private C1.Win.C1SplitContainer.C1SplitterPanel dispensingOPDList1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel dispensingOPD;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel11;
+        private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer4;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spPtt1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spAllergy;
+        private C1.Win.C1SplitContainer.C1SplitterPanel spChronic;
+        private System.Windows.Forms.Panel dispensingOPDList;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnDispDrugAllergy;
+        private System.Windows.Forms.Panel pnDispChronic;
+        private System.Windows.Forms.Panel pnDisp;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel10;
+        private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator1;
+        private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator2;
+        private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator3;
     }
 }

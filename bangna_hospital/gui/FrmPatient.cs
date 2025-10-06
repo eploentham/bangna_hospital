@@ -106,7 +106,7 @@ namespace bangna_hospital.gui
             autoLab = new AutoCompleteStringCollection();
             autoXray = new AutoCompleteStringCollection();
             autoProcedure = new AutoCompleteStringCollection();
-            autoDrug = bc.bcDB.pharM01DB.getlDrugAll();
+            autoDrug = bc.bcDB.pharM01DB.setAUTODrug();
             autoLab = bc.bcDB.labM01DB.getlLabAll();
             autoXray = bc.bcDB.xrayM01DB.getlLabAll();
             autoProcedure = bc.bcDB.pm30DB.getlProcedureAll();

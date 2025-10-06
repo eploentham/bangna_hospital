@@ -66,5 +66,18 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectPaidmapByCode(String code)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+
+            sql = "Select  pmap.MNC_FN_TYP_CD, pmap.status_paid " +
+                "From  b_paid_map pmap  " +
+                " Where pmap.active = '1' and pmap.mnc_ph_cd = '" + code + "' " +
+                "Order By pmap.MNC_FN_TYP_CD";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
     }
 }

@@ -4176,33 +4176,94 @@ namespace bangna_hospital.gui
             line = VS.CompName;
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40, yPos + 60, flags);
+            String allergy1 = "", allergy2 = "", chronic="";
+            DataTable dtallergy = new DataTable();
+            DataTable dtchronic = new DataTable();
+            dtallergy = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim());
+            dtchronic = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard);
+            int i = 0;
+            foreach (DataRow row in dtallergy.Rows)
+            {
+                allergy1 += row["MNC_ph_tn"].ToString() + " " + row["MNC_ph_memo"].ToString() + ", ";
+                i++;
+                if (i == 3) break;
+            }
+            i = 0;
+            foreach (DataRow row in dtchronic.Rows)
+            {
+                chronic += row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString() + ",";
+                i++;
+                if (i == 3) break;
+            }
+            
+            if (dtchronic.Rows.Count > 0)
+            {
+                chronic = chronic.Substring(0, chronic.Length - 1);
+                e.Graphics.DrawString("โรคประจำตัว " + chronic.Replace(",",Environment.NewLine), fStaffN, Brushes.Black, col2, yPos + 60, flags);
+                //rec = new System.Drawing.Rectangle(col2int + 82, 75, recx, recy);
+                //e.Graphics.DrawRectangle(blackPen, rec);
+            }
+            else
+            {
+                line = "โรคประจำตัว        ยังไม่พบ";
+                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 60, flags);
+                rec = new System.Drawing.Rectangle(col2int + 82, 75, recx, recy);
+                e.Graphics.DrawRectangle(blackPen, rec);
+                chronic = " ไม่มีข้อมูล โรคเรื้อรัง";
+                line = "โรคเรื้อรัง";
+                e.Graphics.DrawString(line + chronic, fStaffN, Brushes.Black, col2, yPos + 100, flags);
+                line = "มีโรค ระบุ";
+                textSize = TextRenderer.MeasureText(line, fStaffN, proposedSize, TextFormatFlags.RightToLeft);
+                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 70, yPos + 80, flags);
+                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 67 - recx, 99, recx, recy));
+            }
+            if (dtallergy.Rows.Count > 0)
+            {
+                e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ  " + allergy1.Replace(",", Environment.NewLine), fStaffN, Brushes.Black, col2, yPos + 180, flags);
+                e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ  " + allergy1.Replace(",", Environment.NewLine), fStaffN, Brushes.Black, col40, yPos + 180, flags);
+            }
+            else
+            { 
+                allergy1 = "แพ้ยา/อาหาร/อื่นๆ ไม่มีข้อมูล การแพ้ยา ";
+                e.Graphics.DrawString(allergy1, fStaffN, Brushes.Black, col2, yPos + 180, flags);
+                e.Graphics.DrawString(allergy1, fStaffN, Brushes.Black, col40, yPos + 180, flags);
+                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 123, yPosint + 183, recx, recy));
+                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 135, yPosint + 183, recx, recy));
+                line = "ไม่มี";
+                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2int + 123 + recx, yPos + 180, flags);
+                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 135 + recx, yPos + 180, flags);
+                line = "มี ระบุอาการ";
+                textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
+                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 123 + recx, yPos + 200, flags);
+                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 123, yPosint + 203, recx, recy));
+                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 135 + recx, yPos + 200, flags);
+                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 135, yPosint + 203, recx, recy));
+            }
+            //line = "แพ้ยา/อาหาร/อื่นๆ";
+            //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
+            
+            
+            if (allergy1.Length > 0)
+            {
+                
+                //e.Graphics.DrawString("/", fStaffN, Brushes.Black, col2int + 69 - recx, 99, flags);
+            }
 
-            line = "โรคประจำตัว        ไม่มี";
-            textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 60, flags);
-            rec = new System.Drawing.Rectangle(col2int + 82, 75, recx, recy);
-            e.Graphics.DrawRectangle(blackPen, rec);
+
+
+
+
 
             line = prndob;
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 60, flags);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4, yPos + 60, flags);
-            //line = lbPaidName.Text.Trim();
-            //textSize = TextRenderer.MeasureText(line, fEdit, proposedSize, TextFormatFlags.RightToLeft);
 
-            line = "มีโรค ระบุ";
-            textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 70, yPos + 80, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 67 - recx, 99, recx, recy));
             date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             line = "วันที่เวลา " + date;
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 80, flags);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4, yPos + 80, flags);
-
-            line = "โรคเรื้อรัง";
-            textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 100, flags);
             line = "ชื่อแพทย์ " + VS.DoctorId + " " + VS.DoctorName;
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 100, flags);
@@ -4218,9 +4279,9 @@ namespace bangna_hospital.gui
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 120, flags);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40, yPos + 100, flags);
 
-            line = "Temp" + VS.temp;
+            line = "Temp " + VS.temp;
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2+5, yPos + 140, flags);
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 140, flags);
 
             line = "H.Rate " + VS.ratios;
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
@@ -4270,23 +4331,7 @@ namespace bangna_hospital.gui
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             //e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 , yPos + 250, flags);
             //new LogWriter("e", "FrmOPD Document_PrintPageStaffNote 01 ");
-            line = "แพ้ยา/อาหาร/อื่นๆ";
-            textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 180, flags);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40, yPos + 180, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 123 , yPosint + 183, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 135, yPosint + 183, recx, recy));
-            line = "ไม่มี";
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2int + 123 + recx, yPos + 180, flags);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 135 + recx, yPos + 180, flags);
-
-            line = "มี ระบุอาการ";
-            textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 123 + recx, yPos + 200, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 123, yPosint + 203, recx, recy));
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 135+recx, yPos + 200, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 135, yPosint + 203, recx, recy));
-
+            
             //line = "อาการเบื้อต้น  "+ txtSymptom.Text;
             //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
             //e.Graphics.DrawString(line, fEdit, Brushes.Black, col2 + 10, yPos + 220, flags);
@@ -9544,14 +9589,14 @@ namespace bangna_hospital.gui
             autoLab = bc.bcDB.labM01DB.getlLabAll();
             autoXray = bc.bcDB.xrayM01DB.getlLabAll();
             autoProcedure = bc.bcDB.pm30DB.getlProcedureAll();
-            autoDrug = bc.bcDB.pharM01DB.getlDrugAll();
+            autoDrug = bc.bcDB.pharM01DB.setAUTODrug();
 
             chkItemLab.Checked = true;
             ChkItemLab_Click(null, null);
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2025-09-08 report กดปิดการรักษาซ้ำ";
+            this.Text = "Last Update 2025-09-17 report กดปิดการรักษาซ้ำ";
             lfSbMessage.Text = "";
             btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;
             btnOperSaveDtr.Left = pnVitalSign.Width - btnOperSaveDtr.Width - btnPrnCertMed.Width - 20;

@@ -13,9 +13,9 @@ namespace bangna_hospital.object1
     {
         public String Hn = "", Name = "", Age = "", vn="", preno="", visitDate="", an="", anDate="", statusIPD="", anCnt="", dob="", idcard="", fname="", lname="", title="", hnyr="";
         public String patient_birthday = "", addr="", visitTime="", dtrcode="", comNameT = "", insurNameT = "", WorkPermit1="", WorkPermit2 = "", WorkPermit3 = "", MNC_ID_NAM="";
-        public String MNC_FIN_NOTE  = "", doe_position="";
+        public String MNC_FIN_NOTE  = "", doe_position="", address_cur="", address_doc = "", address_ref = "";
         public Age age = new Age(DateTime.Now);
-        public DataTable DRUGALLERGY, CHRONIC;
+        public DataTable DRUGALLERGY, CHRONIC, DRUGGRPALLERGY;
         public String MNC_HN_NO { get; set; }
         public String MNC_HN_YR { get; set; }
         public String MNC_PFIX_CDT { get; set; }

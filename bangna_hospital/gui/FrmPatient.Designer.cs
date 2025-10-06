@@ -485,7 +485,7 @@
             this.spAllergy.Location = new System.Drawing.Point(671, 21);
             this.spAllergy.Name = "spAllergy";
             this.spAllergy.Size = new System.Drawing.Size(624, 111);
-            this.spAllergy.SizeRatio = 59.353D;
+            this.spAllergy.SizeRatio = 59.316D;
             this.spAllergy.TabIndex = 1;
             this.spAllergy.Text = "Drug Allergy";
             this.spAllergy.Width = 624;
@@ -603,7 +603,7 @@
             this.tabScanL.Size = new System.Drawing.Size(621, 569);
             this.tabScanL.TabIndex = 0;
             this.tabScanL.Text = "Panel 1";
-            this.tabScanL.Width = 621;
+            this.tabScanL.Width = 628;
             // 
             // picL
             // 

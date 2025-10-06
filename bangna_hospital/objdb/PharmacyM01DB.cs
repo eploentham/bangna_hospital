@@ -11,8 +11,10 @@ namespace bangna_hospital.objdb
 {
     public class PharmacyM01DB
     {
+        DataTable DTDRUG, DTUSING, DTFRE, DTCAU, DTPROPER, DTINDICA;
         public PharmacyM01 pharM01;
         ConnectDB conn;
+        internal AutoCompleteStringCollection AUTODrugTR, AUTODrugGN, AUTOUSING, AUTOUSING1, AUTOFRE, AUTOFRE1, AUTOINDICA, AUTOINDICA1, AUTOPROPER, AUTOPROPER1, AUTOCAU, AUTOCAU1;
         public PharmacyM01DB(ConnectDB c)
         {
             conn = c;
@@ -129,24 +131,265 @@ namespace bangna_hospital.objdb
             }
             return autoSymptom;
         }
-        public AutoCompleteStringCollection getlDrugAll()
+        public AutoCompleteStringCollection setAUTODrug()
         {
             //lDept = new List<Position>();
             AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
             //labM01.Clear();
-            DataTable dt = new DataTable();
-            dt = SelectDrugAll();
-            //dtCus = dt;
-            foreach (DataRow row in dt.Rows)
+            if (DTDRUG == null || DTDRUG.Rows.Count <= 0)
             {
-                autoSymptom.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
-                //PatientM13 cus1 = new PatientM13();
-                //cus1.MNC_APP_CD = row["MNC_APP_CD"].ToString();
-                //cus1.MNC_APP_DSC = row["MNC_APP_DSC"].ToString();
-
-                //labM01.Add(cus1);
+                DTDRUG = SelectDrugAll(); AUTODrugTR = new AutoCompleteStringCollection(); AUTODrugGN = new AutoCompleteStringCollection();
+                foreach (DataRow row in DTDRUG.Rows)
+                {
+                    autoSymptom.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                    AUTODrugTR.Add(row["MNC_PH_TN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                    AUTODrugGN.Add(row["MNC_PH_GN"].ToString() + "#" + row["MNC_PH_CD"].ToString());
+                }
             }
             return autoSymptom;
+        }
+        public AutoCompleteStringCollection getAUTOUsing()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            dt = SelectUsingAllThai();
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_PH_DIR_CD"].ToString() + "#" + row["MNC_PH_DIR_DSC"].ToString());
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection setAUTOUsingDesc()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            if(DTUSING == null || DTUSING.Rows.Count <= 0)
+            {
+                AUTOUSING = new AutoCompleteStringCollection();
+                AUTOUSING1 = new AutoCompleteStringCollection();
+                DTUSING = SelectUsingAllThai();
+                foreach (DataRow row in DTUSING.Rows)
+                {
+                    autoSymptom.Add(row["MNC_PH_DIR_DSC"].ToString());
+                    AUTOUSING.Add(row["MNC_PH_DIR_DSC"].ToString());
+                    AUTOUSING1.Add(row["MNC_PH_DIR_CD"].ToString() + "#" + row["MNC_PH_DIR_DSC"].ToString());
+                }
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection setAUTOFrequency()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            if(DTFRE == null || DTFRE.Rows.Count <= 0)
+            {
+                AUTOFRE = new AutoCompleteStringCollection(); AUTOFRE1 = new AutoCompleteStringCollection();
+                DTFRE = SelectFrequencyAllThai();
+                foreach (DataRow row in DTFRE.Rows)
+                {
+                    autoSymptom.Add(row["MNC_PH_FRE_CD"].ToString() + "#" + row["MNC_PH_FRE_DSC"].ToString());
+                    AUTOFRE1.Add(row["MNC_PH_FRE_CD"].ToString() + "#" + row["MNC_PH_FRE_DSC"].ToString());
+                    AUTOFRE.Add(row["MNC_PH_FRE_DSC"].ToString());
+                }
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection getAUTOFrequencyDesc()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            dt = SelectFrequencyAllThai();
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_PH_FRE_DSC"].ToString());
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection getAUTOPrecaution()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            dt = SelectPrecautionAllThai();
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_PH_CAU_CD"].ToString() + "#" + row["MNC_PH_CAU_DSC"].ToString());
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection getAUTOPrecautionDesc()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            //dt = SelectPrecautionAllThai();
+            if((DTCAU==null) || DTCAU.Rows.Count == 0)
+            {
+                DTCAU = SelectPrecautionAllThai(); AUTOCAU = new AutoCompleteStringCollection(); AUTOCAU1 = new AutoCompleteStringCollection();
+                foreach (DataRow row in DTCAU.Rows)
+                {
+                    autoSymptom.Add(row["MNC_PH_CAU_DSC"].ToString());
+                    AUTOCAU.Add(row["MNC_PH_CAU_DSC"].ToString());
+                    AUTOCAU1.Add(row["MNC_PH_CAU_CD"].ToString() + "#" + row["MNC_PH_CAU_DSC"].ToString());
+                }
+            }
+            
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection getAUTOIndication()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            dt = SelectIndicationAllThai();
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_PH_TIM_CD"].ToString() + "#" + row["MNC_PH_TIM_DSC"].ToString());
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection setAUTOIndicationDesc()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            //dt = SelectIndicationAllThai();
+            if((DTINDICA==null) || (DTINDICA.Rows.Count <= 0))
+            {
+                DTINDICA = SelectIndicationAllThai(); AUTOINDICA = new AutoCompleteStringCollection(); AUTOINDICA1 = new AutoCompleteStringCollection();
+                foreach (DataRow row in DTINDICA.Rows)
+                {
+                    autoSymptom.Add(row["MNC_PH_TIM_DSC"].ToString());
+                    AUTOINDICA.Add(row["MNC_PH_TIM_DSC"].ToString());
+                    AUTOINDICA1.Add(row["MNC_PH_TIM_CD"].ToString() + "#" + row["MNC_PH_TIM_DSC"].ToString());
+                }
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection getAUTOProperties()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            dt = SelectPropertiesAllThai();
+            foreach (DataRow row in dt.Rows)
+            {
+                autoSymptom.Add(row["MNC_PH_IND_CD"].ToString() + "#" + row["MNC_PH_IND_DSC"].ToString());
+            }
+            return autoSymptom;
+        }
+        public AutoCompleteStringCollection getAUTOPropertiesDesc()
+        {
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            DataTable dt = new DataTable();
+            //dt = SelectPropertiesAllThai();
+            if((DTPROPER==null) || (DTPROPER.Rows.Count <= 0))
+            {
+                DTPROPER = SelectPropertiesAllThai();
+                foreach (DataRow row in DTPROPER.Rows)
+                {
+                    autoSymptom.Add(row["MNC_PH_IND_DSC"].ToString());
+                    AUTOPROPER.Add(row["MNC_PH_IND_DSC"].ToString());
+                    AUTOPROPER1.Add(row["MNC_PH_IND_CD"].ToString() + "#" + row["MNC_PH_IND_DSC"].ToString());
+                }
+            }
+            return autoSymptom;
+        }
+        public DataTable SelectPropertiesAllThai()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select phar24.MNC_PH_IND_DSC, phar24.MNC_PH_IND_CD " +
+                "From PHARMACY_M24 phar24 " +
+                " " +
+                "Order By phar24.MNC_PH_IND_DSC ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectIndicationAllThai()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select phar22.MNC_PH_TIM_DSC, phar22.MNC_PH_TIM_CD " +
+                "From PHARMACY_M22 phar22 " +
+                " " +
+                "Order By phar22.MNC_PH_TIM_DSC ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectPrecautionAllThai()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select phar11.MNC_PH_CAU_DSC, phar11.MNC_PH_CAU_CD " +
+                "From PHARMACY_M11 phar11 " +
+                " " +
+                "Order By phar11.MNC_PH_CAU_DSC ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectFrequencyAllThai()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select phar21.MNC_PH_FRE_CD, phar21.MNC_PH_FRE_DSC " +
+                "From PHARMACY_M21 phar21 " +
+                " " +
+                "Order By phar21.MNC_PH_FRE_DSC ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectUsingAllThai()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select phar04.MNC_PH_DIR_CD, phar04.MNC_PH_DIR_DSC " +
+                "From pharmacy_m04 phar04 " +
+                " " +
+                "Order By phar04.MNC_PH_DIR_DSC ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectDrugMap()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select pm01.MNC_PH_CD, pm01.MNC_PH_TN, pm01.MNC_PH_GN " +
+                "From pharmacy_m01 pm01 " +
+                "Where mnc_ph_typ_flg = 'P' " +
+                "Order By pm01.MNC_PH_CD";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectDrugMapFromSP()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn1 = new SqlConnection(conn.connMainHIS.ConnectionString))
+            {
+                //using (SqlCommand cmd = new SqlCommand("select_drug_map_claude", conn1))  //ใช้ PIVOT ไม่เข้าใจ แก้ไขไม่ได้
+                using (SqlCommand cmd = new SqlCommand("select_drug_map", conn1))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    // If your stored procedure requires parameters, add them here:
+                    // cmd.Parameters.AddWithValue("@paramName", value);
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        try
+                        {
+                            conn1.Open();
+                            da.Fill(dt);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle exception as needed
+                            throw new Exception("Error executing select_drug_map_claude: " + ex.Message, ex);
+                        }
+                    }
+                }
+            }
+            return dt;
         }
         public DataTable SelectDrugAll()
         {
@@ -158,7 +401,7 @@ namespace bangna_hospital.objdb
                 "Where mnc_ph_typ_flg = 'P' " + 
                 "Order By pm01.MNC_PH_CD";
             dt = conn.selectData(conn.connMainHIS, sql);
-            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);   select_drug_map
             return dt;
         }
         public DataTable SelectDrugAll1()
@@ -223,13 +466,15 @@ namespace bangna_hospital.objdb
             PharmacyM01 pharm01 = new PharmacyM01();
             DataTable dt = new DataTable();
             String re = "";
-            String sql = "select pm01.*,pm04.mnc_ph_dir_dsc,pm11.MNC_PH_CAU_dsc,pm22.MNC_PH_TIM_DSC,pm24.MNC_PH_IND_DSC, pm21.MNC_PH_FRE_DSC " +
+            String sql = "select pm01.*" +//ใช้ set object ก็ใช้เป็น *
+                ",pm04.mnc_ph_dir_dsc,pm11.MNC_PH_CAU_dsc,pm22.MNC_PH_TIM_DSC,pm24.MNC_PH_IND_DSC, pm21.MNC_PH_FRE_DSC " +
                 "From pharmacy_m01 pm01 " +//PHARMACY_M21
-                "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +//Frequency
-                "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +//Precautions
-                "Left join PHARMACY_M22 pm22 on pm01.MNC_PH_TIM_CD = pm22.MNC_PH_TIM_CD " +//Indication คำเตือน
-                "Left join PHARMACY_M24 pm24 on pm01.MNC_PH_IND_CD = pm24.MNC_PH_IND_CD " +//
-                "Left join PHARMACY_M21 pm21 on pm01.MNC_PH_FRE_CD = pm21.MNC_PH_FRE_CD " +//
+                "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +//จริงๆคือ Using วิธีใช้
+                "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +//Precautions จริงๆคือ คำเตือน
+                "Left join PHARMACY_M22 pm22 on pm01.MNC_PH_TIM_CD = pm22.MNC_PH_TIM_CD " +//Indication ข้อบ่งชี้
+                "Left join PHARMACY_M24 pm24 on pm01.MNC_PH_IND_CD = pm24.MNC_PH_IND_CD " +//สรรพคุณ
+                "Left join PHARMACY_M21 pm21 on pm01.MNC_PH_FRE_CD = pm21.MNC_PH_FRE_CD " +//ความถี่
+                //"Left Join b_paid_map pmap on pm01.MNC_PH_CD = pmap.MNC_PH_CD " +     //join ไม่ได้ เพราะ มีหลายrecord
                 "Where pm01.mnc_ph_cd = '" + labgrpcode + "' " +
                 " ";
             dt = conn.selectData(sql);
@@ -414,11 +659,17 @@ namespace bangna_hospital.objdb
                 pharM01.MNC_PH_NEW_SS = dt.Rows[0]["MNC_PH_NEW_SS"].ToString();
                 pharM01.tmt_code = dt.Rows[0]["tmt_code"].ToString();
                 pharM01.MNC_PH_THAI = dt.Rows[0]["MNC_PH_THAI"].ToString();
-                pharM01.frequency = dt.Rows[0]["MNC_ph_dir_dsc"].ToString().Replace("/", "").Trim();//Frequency  ข้อบ่งชี้ Indication
-                pharM01.precautions = dt.Rows[0]["MNC_ph_cau_dsc"].ToString().Replace("/","").Trim();//Precautions
-                pharM01.indication = dt.Rows[0]["MNC_PH_TIM_DSC"].ToString().Replace("/", "").Trim();//Indication คำเตือน
+                //pharmacy_m04.MNC_PH_DIR_DSC วิธีใช้
+                //PHARMACY_M21.MNC_PH_FRE_DSC ความถี่
+                //PHARMACY_M22.MNC_PH_TIM_DSC ข้อบ่งชี้
+                //PHARMACY_M11.MNC_PH_CAU_DSC คำเตือน
+                //PHARMACY_M24.MNC_PH_IND_DSC สรรพคุณ
+                pharM01.using1 = dt.Rows[0]["MNC_PH_DIR_DSC"].ToString().Replace("/", "").Trim();   //using1 วิธีใช้
+                pharM01.frequency = dt.Rows[0]["MNC_ph_FRE_dsc"].ToString().Replace("/", "").Trim();//Frequency  ความถี่
+                pharM01.indication = dt.Rows[0]["MNC_PH_TIM_DSC"].ToString().Replace("/", "").Trim();//Indication ข้อบ่งชี้
+                pharM01.precautions = dt.Rows[0]["MNC_ph_cau_dsc"].ToString().Replace("/","").Trim();//Precautions  คำเตือน
+                pharM01.properties = dt.Rows[0]["MNC_PH_IND_DSC"].ToString().Replace("/", "").Trim();//Precautions  สรรพคุณ
                 pharM01.interaction = dt.Rows[0]["drug_interaction"].ToString();
-                pharM01.using1 = dt.Rows[0]["MNC_PH_FRE_DSC"].ToString().Replace("/", "").Trim();
                 pharM01.tmt_code_opbkk = dt.Rows[0]["tmt_code_opbkk"].ToString().Replace("/", "").Trim();
             }
             else
@@ -489,7 +740,7 @@ namespace bangna_hospital.objdb
             p.precautions = "";//Precautions
             p.indication = "";//Indication คำเตือน
             p.interaction = "";
-            p.using1 = "";
+            p.using1 = "";//วิธีใช้
             p.tmt_code_opbkk = "";
             return p;
         }

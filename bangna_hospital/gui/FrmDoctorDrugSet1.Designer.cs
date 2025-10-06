@@ -52,14 +52,12 @@
             this.lbItemEng = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lbStrength = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lbTradeName = new System.Windows.Forms.Label();
             this.txtInteraction = new C1.Win.C1Input.C1TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtIndication = new C1.Win.C1Input.C1TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtFrequency1 = new C1.Win.C1Input.C1TextBox();
+            this.txtUsing = new C1.Win.C1Input.C1TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnItemAdd = new C1.Win.C1Input.C1Button();
             this.txtItemRemark = new C1.Win.C1Input.C1TextBox();
@@ -80,10 +78,12 @@
             this.pnPhysical = new System.Windows.Forms.Panel();
             this.tabDiag = new C1.Win.C1Command.C1DockingTabPage();
             this.pnDiagnosis = new System.Windows.Forms.Panel();
-            this.spMain = new C1.Win.C1SplitContainer.C1SplitContainer();
-            this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tabDtrAdvice = new C1.Win.C1Command.C1DockingTabPage();
             this.pnDtrAdvice = new System.Windows.Forms.Panel();
+            this.spMain = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.txtGeneric = new C1.Win.C1Input.C1TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
             this.tabMain.SuspendLayout();
@@ -102,7 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugSetId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInteraction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIndication)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUsing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemRemark)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemQTY)).BeginInit();
@@ -113,10 +113,11 @@
             this.tabChief.SuspendLayout();
             this.tabPhysical.SuspendLayout();
             this.tabDiag.SuspendLayout();
+            this.tabDtrAdvice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spMain)).BeginInit();
             this.spMain.SuspendLayout();
             this.c1SplitterPanel2.SuspendLayout();
-            this.tabDtrAdvice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtGeneric)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -262,6 +263,8 @@
             // 
             // c1SplitterPanel4
             // 
+            this.c1SplitterPanel4.Controls.Add(this.txtGeneric);
+            this.c1SplitterPanel4.Controls.Add(this.label10);
             this.c1SplitterPanel4.Controls.Add(this.txtPrecautions);
             this.c1SplitterPanel4.Controls.Add(this.label9);
             this.c1SplitterPanel4.Controls.Add(this.txtFrequency);
@@ -273,14 +276,12 @@
             this.c1SplitterPanel4.Controls.Add(this.lbItemEng);
             this.c1SplitterPanel4.Controls.Add(this.label7);
             this.c1SplitterPanel4.Controls.Add(this.lbStrength);
-            this.c1SplitterPanel4.Controls.Add(this.label6);
             this.c1SplitterPanel4.Controls.Add(this.label5);
-            this.c1SplitterPanel4.Controls.Add(this.lbTradeName);
             this.c1SplitterPanel4.Controls.Add(this.txtInteraction);
             this.c1SplitterPanel4.Controls.Add(this.label3);
             this.c1SplitterPanel4.Controls.Add(this.txtIndication);
             this.c1SplitterPanel4.Controls.Add(this.label2);
-            this.c1SplitterPanel4.Controls.Add(this.txtFrequency1);
+            this.c1SplitterPanel4.Controls.Add(this.txtUsing);
             this.c1SplitterPanel4.Controls.Add(this.label1);
             this.c1SplitterPanel4.Controls.Add(this.btnItemAdd);
             this.c1SplitterPanel4.Controls.Add(this.txtItemRemark);
@@ -417,37 +418,16 @@
             this.lbStrength.TabIndex = 302;
             this.lbStrength.Text = "...";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label6.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.label6.Location = new System.Drawing.Point(4, 128);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 20);
-            this.label6.TabIndex = 301;
-            this.label6.Text = "Trade";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(1, 94);
+            this.label5.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.label5.Location = new System.Drawing.Point(1, 127);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 20);
             this.label5.TabIndex = 300;
             this.label5.Text = "Thai";
-            // 
-            // lbTradeName
-            // 
-            this.lbTradeName.AutoSize = true;
-            this.lbTradeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbTradeName.ForeColor = System.Drawing.Color.DarkGoldenrod;
-            this.lbTradeName.Location = new System.Drawing.Point(65, 126);
-            this.lbTradeName.Name = "lbTradeName";
-            this.lbTradeName.Size = new System.Drawing.Size(21, 20);
-            this.lbTradeName.TabIndex = 299;
-            this.lbTradeName.Text = "...";
             // 
             // txtInteraction
             // 
@@ -491,14 +471,14 @@
             this.label2.TabIndex = 295;
             this.label2.Text = "ข้อบ่งชี้ Indication(m24)";
             // 
-            // txtFrequency1
+            // txtUsing
             // 
-            this.txtFrequency1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtFrequency1.Location = new System.Drawing.Point(9, 215);
-            this.txtFrequency1.Name = "txtFrequency1";
-            this.txtFrequency1.Size = new System.Drawing.Size(268, 24);
-            this.txtFrequency1.TabIndex = 294;
-            this.txtFrequency1.Tag = null;
+            this.txtUsing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtUsing.Location = new System.Drawing.Point(9, 215);
+            this.txtUsing.Name = "txtUsing";
+            this.txtUsing.Size = new System.Drawing.Size(268, 24);
+            this.txtUsing.TabIndex = 294;
+            this.txtUsing.Tag = null;
             // 
             // label1
             // 
@@ -564,7 +544,8 @@
             // 
             this.lbItemNameThai.AutoSize = true;
             this.lbItemNameThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbItemNameThai.Location = new System.Drawing.Point(65, 92);
+            this.lbItemNameThai.ForeColor = System.Drawing.Color.DarkGoldenrod;
+            this.lbItemNameThai.Location = new System.Drawing.Point(65, 125);
             this.lbItemNameThai.Name = "lbItemNameThai";
             this.lbItemNameThai.Size = new System.Drawing.Size(21, 20);
             this.lbItemNameThai.TabIndex = 286;
@@ -686,6 +667,23 @@
             this.pnDiagnosis.Size = new System.Drawing.Size(1529, 633);
             this.pnDiagnosis.TabIndex = 0;
             // 
+            // tabDtrAdvice
+            // 
+            this.tabDtrAdvice.Controls.Add(this.pnDtrAdvice);
+            this.tabDtrAdvice.Location = new System.Drawing.Point(1, 26);
+            this.tabDtrAdvice.Name = "tabDtrAdvice";
+            this.tabDtrAdvice.Size = new System.Drawing.Size(1529, 633);
+            this.tabDtrAdvice.TabIndex = 5;
+            this.tabDtrAdvice.Text = "Doctor Advice";
+            // 
+            // pnDtrAdvice
+            // 
+            this.pnDtrAdvice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDtrAdvice.Location = new System.Drawing.Point(0, 0);
+            this.pnDtrAdvice.Name = "pnDtrAdvice";
+            this.pnDtrAdvice.Size = new System.Drawing.Size(1529, 633);
+            this.pnDtrAdvice.TabIndex = 0;
+            // 
             // spMain
             // 
             this.spMain.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
@@ -709,22 +707,26 @@
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
             // 
-            // tabDtrAdvice
+            // txtGeneric
             // 
-            this.tabDtrAdvice.Controls.Add(this.pnDtrAdvice);
-            this.tabDtrAdvice.Location = new System.Drawing.Point(1, 26);
-            this.tabDtrAdvice.Name = "tabDtrAdvice";
-            this.tabDtrAdvice.Size = new System.Drawing.Size(1529, 633);
-            this.tabDtrAdvice.TabIndex = 5;
-            this.tabDtrAdvice.Text = "Doctor Advice";
+            this.txtGeneric.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtGeneric.ForeColor = System.Drawing.Color.Red;
+            this.txtGeneric.Location = new System.Drawing.Point(68, 93);
+            this.txtGeneric.Name = "txtGeneric";
+            this.txtGeneric.Size = new System.Drawing.Size(480, 24);
+            this.txtGeneric.TabIndex = 347;
+            this.txtGeneric.Tag = null;
             // 
-            // pnDtrAdvice
+            // label10
             // 
-            this.pnDtrAdvice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnDtrAdvice.Location = new System.Drawing.Point(0, 0);
-            this.pnDtrAdvice.Name = "pnDtrAdvice";
-            this.pnDtrAdvice.Size = new System.Drawing.Size(1529, 633);
-            this.pnDtrAdvice.TabIndex = 0;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label10.ForeColor = System.Drawing.Color.Red;
+            this.label10.Location = new System.Drawing.Point(1, 94);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(65, 20);
+            this.label10.TabIndex = 346;
+            this.label10.Text = "Generic";
             // 
             // FrmDoctorDrugSet1
             // 
@@ -756,7 +758,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugSetId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtInteraction)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIndication)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFrequency1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUsing)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnItemAdd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemRemark)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemQTY)).EndInit();
@@ -767,10 +769,11 @@
             this.tabChief.ResumeLayout(false);
             this.tabPhysical.ResumeLayout(false);
             this.tabDiag.ResumeLayout(false);
+            this.tabDtrAdvice.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spMain)).EndInit();
             this.spMain.ResumeLayout(false);
             this.c1SplitterPanel2.ResumeLayout(false);
-            this.tabDtrAdvice.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtGeneric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -795,7 +798,7 @@
         private C1.Win.C1Input.C1Button btnNew;
         private C1.Win.C1Input.C1TextBox txtIndication;
         private System.Windows.Forms.Label label2;
-        private C1.Win.C1Input.C1TextBox txtFrequency1;
+        private C1.Win.C1Input.C1TextBox txtUsing;
         private System.Windows.Forms.Label label1;
         private C1.Win.C1Input.C1Button btnItemAdd;
         private C1.Win.C1Input.C1TextBox txtItemRemark;
@@ -811,8 +814,6 @@
         private C1.Win.C1Input.C1TextBox txtInteraction;
         private System.Windows.Forms.Label label3;
         private C1.Win.C1Ribbon.RibbonLabel lfSbMessage;
-        private System.Windows.Forms.Label lbTradeName;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbStrength;
@@ -834,5 +835,7 @@
         private System.Windows.Forms.Panel pnDiagnosis;
         private C1.Win.C1Command.C1DockingTabPage tabDtrAdvice;
         private System.Windows.Forms.Panel pnDtrAdvice;
+        private C1.Win.C1Input.C1TextBox txtGeneric;
+        private System.Windows.Forms.Label label10;
     }
 }
