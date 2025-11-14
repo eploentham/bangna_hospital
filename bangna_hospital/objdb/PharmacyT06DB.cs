@@ -111,6 +111,25 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable selectByCFRNo(String cfryear, String cfrno, String doccd)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "Select '' as hostname, '' as tel, phart05.MNC_HN_NO as hn,'' as pttname, pharm01.MNC_PH_TN as drugname_t, pharm01.MNC_PH_THAI as drugname_t, phart06.MNC_PH_DIR_DSC as drug_using, '' as drug_cust, phart06.MNC_PH_CD,phart06.MNC_PH_QTY_PAID,phart06.MNC_PH_UNT_CD,phart06.MNC_PH_DIR_DSC,phart06.MNC_PH_PRI " +
+                ",pharm01.MNC_PH_TN,phart05.MNC_DOC_CD,phart05.MNC_CFR_YR,phart05.MNC_CFR_NO,convert(varchar(20), phart05.MNC_CFG_DAT,23) as MNC_CFG_DAT " +
+                ",isnull(phart06.frequency,'') as frequency,isnull(phart06.precautions,'') as precautions,isnull(phart06.interaction,'' ) as interaction,isnull(phart06.indication,'') as indication,isnull(phart06.using1,'') as using1,isnull(phart06.properties,'') as properties,isnull(pharm01.MNC_PH_GN,'') as generic " +
+                "From " + pharT06.table + " phart06 " +
+                "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
+                "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
+                //"inner join pharmacy_m03 pharm03 on pharm03.MNC_PH_UNT_CD = phart06.MNC_PH_UNT_CD " +
+                //"inner join pharmacy_m04 pharm04 on pharm04.MNC_PH_DIR_CD = phart06.MNC_PH_DIR_CD  " +
+                "Where phart05.MNC_DOC_CD = '" + doccd + "' and phart05.MNC_CFR_YR = '" + cfryear + "' and phart05.MNC_CFR_NO = '" + cfrno + "' " +
+                //"and phart05.MNC_CFG_DAT = '" + cfrdate + "'  " +
+                "Order By phart06.mnc_no ";
+            dt = conn.selectData(sql);
+
+            return dt;
+        }
         public DataTable selectByCFRNoDrug(String cfryear, String cfrno, String doccd, String cfrdate)
         {
             DataTable dt = new DataTable();
@@ -231,19 +250,81 @@ namespace bangna_hospital.objdb
                 ", phart06.MNC_PH_DIR_DSC as drug_using " +
                 ", isnull(pharm04.MNC_PH_DIR_DSC_E,'') as MNC_PH_DIR_DSC_E, isnull(pharm21.MNC_PH_FRE_DSC_E,'') as MNC_PH_FRE_DSC_E " +
                 ",isnull(pharm22.MNC_PH_TIM_DSC_E,'') as MNC_PH_TIM_DSC_E,pharm01.MNC_PH_TYP_CD " +
+                ",phart06.using1, phart06.frequency, phart06.precautions, phart06.interaction, phart06.indication " +
                 "From " + pharT06.table + " phart06 " +
                 "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
                 "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
-                "left join PHARMACY_M11 pm11 on pharm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
                 "left JOIN PATIENT_M01 pm01 ON phart05.MNC_HN_NO = pm01.MNC_HN_NO " +
                 "left JOIN PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
                 "left JOIN pharmacy_m03 pharm03 ON phart06.MNC_PH_UNT_CD = pharm03.MNC_PH_UNT_CD " +
-                "Left join PHARMACY_M24 pharm24 ON pharm01.MNC_PH_IND_CD = pharm24.MNC_PH_IND_CD " +
-                "Left join PHARMACY_M04 pharm04 ON phart06.MNC_PH_DIR_CD = pharm04.MNC_PH_DIR_CD " +
-                "Left join PHARMACY_M21 pharm21 ON phart06.MNC_PH_FRE_CD = pharm21.MNC_PH_FRE_CD " +
-                "Left join PHARMACY_M22 pharm22 ON phart06.MNC_PH_TIM_CD = pharm22.MNC_PH_TIM_CD " +
+                "left join PHARMACY_M11 pm11 on pharm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +          //Precautions จริงๆคือ คำเตือน
+                "Left join PHARMACY_M24 pharm24 ON pharm01.MNC_PH_IND_CD = pharm24.MNC_PH_IND_CD " +    //สรรพคุณ
+                "Left join PHARMACY_M04 pharm04 ON phart06.MNC_PH_DIR_CD = pharm04.MNC_PH_DIR_CD " +    //จริงๆคือ Using วิธีใช้
+                "Left join PHARMACY_M21 pharm21 ON phart06.MNC_PH_FRE_CD = pharm21.MNC_PH_FRE_CD " +    //ความถี่
+                "Left join PHARMACY_M22 pharm22 ON phart06.MNC_PH_TIM_CD = pharm22.MNC_PH_TIM_CD " +    //Indication ข้อบ่งชี้
                 "Where phart05.MNC_DOC_CD = '" + doccd + "' and phart05.MNC_CFR_YR = '" + cfryear + "' and phart05.MNC_CFR_NO = '" + cfrno + "' " + whereitem +
                 "  and pharm01.mnc_ph_typ_flg = 'P' " +
+                "Order By phart06.mnc_no ";
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectByCFRNoDrug3(String cfryear, String cfrno, String doccd, String itemcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereitem = "";
+            if (itemcode.Length > 0) whereitem = " and phart06.MNC_PH_CD = '" + itemcode + "' ";
+            //sql = "Select '' as printdatetime,'' as hostname, '' as tel, ('HN '+convert(varchar(20),phart05.MNC_HN_NO)) as hn " +
+            //    ", pharm01.MNC_PH_TN + ' ' +convert(varchar(20),phart06.MNC_PH_QTY_PAID)+' '+pharm03.MNC_PH_UNT_DSC as drugname_e " +
+            //    ", pharm01.MNC_PH_THAI as drugname_t, '' as drug_cust, phart06.MNC_PH_CD,phart06.MNC_PH_QTY_PAID,phart06.MNC_PH_UNT_CD,phart06.MNC_PH_PRI " +
+            //    ",pharm01.MNC_PH_TN,phart05.MNC_DOC_CD,phart05.MNC_CFR_YR,phart05.MNC_CFR_NO,convert(varchar(20), phart05.MNC_CFG_DAT,23) as MNC_CFG_DAT " +
+            //    ", (isnull(pm02.MNC_PFIX_DSC,'') +' ' + isnull(pm01.MNC_FNAME_T,'') + ' ' + isnull(pm01.MNC_LNAME_T,'')) as pttname  " +
+            //    ",convert(varchar(20),phart06.MNC_PH_QTY_PAID)+' '+pharm03.MNC_PH_UNT_DSC unitqty " +
+            //    ", isnull(pharm24.MNC_PH_IND_DSC,'') as drug_ind, isnull(pharm24.MNC_PH_IND_DSC_E,'') as drug_ind_e, isnull(pm11.MNC_PH_CAU_DSC,'') as drug_cau, isnull(pm11.MNC_PH_CAU_DSC_E,'') as drug_cau_e  " +
+            //    ", phart06.MNC_PH_DIR_DSC as drug_using " +
+            //    ", isnull(pharm04.MNC_PH_DIR_DSC_E,'') as MNC_PH_DIR_DSC_E, isnull(pharm21.MNC_PH_FRE_DSC_E,'') as MNC_PH_FRE_DSC_E " +
+            //    ",isnull(pharm22.MNC_PH_TIM_DSC_E,'') as MNC_PH_TIM_DSC_E,pharm01.MNC_PH_TYP_CD " +
+            //    "From " + pharT06.table + " phart06 " +
+            //    "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
+            //    "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
+            //    "left join PHARMACY_M11 pm11 on pharm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +
+            //    "left JOIN PATIENT_M01 pm01 ON phart05.MNC_HN_NO = pm01.MNC_HN_NO " +
+            //    "left JOIN PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+            //    "left JOIN pharmacy_m03 pharm03 ON phart06.MNC_PH_UNT_CD = pharm03.MNC_PH_UNT_CD " +
+            //    "Left join PHARMACY_M24 pharm24 ON pharm01.MNC_PH_IND_CD = pharm24.MNC_PH_IND_CD " +
+            //    "Left join PHARMACY_M04 pharm04 ON pharm01.MNC_PH_DIR_CD = pharm04.MNC_PH_DIR_CD " +
+            //    "Left join PHARMACY_M21 pharm21 ON pharm01.MNC_PH_FRE_CD = pharm21.MNC_PH_FRE_CD " +
+            //    "Left join PHARMACY_M22 pharm22 ON pharm01.MNC_PH_TIM_CD = pharm22.MNC_PH_TIM_CD " +
+            //    "Where phart05.MNC_DOC_CD = '" + doccd + "' and phart05.MNC_CFR_YR = '" + cfryear + "' and phart05.MNC_CFR_NO = '" + cfrno + "' " + whereitem+
+            //    "  and pharm01.mnc_ph_typ_flg = 'P' " +
+            //    "Order By phart06.mnc_no ";
+            sql = "Select '' as printdatetime,'' as hostname, '' as tel, ('HN '+convert(varchar(20),phart05.MNC_HN_NO)) as hn " +
+                ", pharm01.MNC_PH_TN + ' ' +convert(varchar(20),phart06.MNC_PH_QTY_PAID)+' '+pharm03.MNC_PH_UNT_DSC as drugname_e " +
+                ", pharm01.MNC_PH_THAI as drugname_t, '' as drug_cust, phart06.MNC_PH_CD,phart06.MNC_PH_QTY_PAID,phart06.MNC_PH_UNT_CD,phart06.MNC_PH_PRI " +
+                ",pharm01.MNC_PH_TN,phart05.MNC_DOC_CD,phart05.MNC_CFR_YR,phart05.MNC_CFR_NO,convert(varchar(20), phart05.MNC_CFG_DAT,23) as MNC_CFG_DAT " +
+                ", (isnull(pm02.MNC_PFIX_DSC,'') +' ' + isnull(pm01.MNC_FNAME_T,'') + ' ' + isnull(pm01.MNC_LNAME_T,'')) as pttname  " +
+                ",convert(varchar(20),phart06.MNC_PH_QTY_PAID)+' '+pharm03.MNC_PH_UNT_DSC unitqty " +
+                ", isnull(phart06.MNC_PH_DIR_DSC,'') as drug_using, isnull(pharm04.MNC_PH_DIR_DSC_E,'') as drug_using_e " +
+                ", isnull(pharm21.MNC_PH_FRE_DSC,'') as drug_freq, isnull(pharm21.MNC_PH_FRE_DSC_E,'') as drug_freq_e" +
+                ", isnull(pharm22.MNC_PH_TIM_DSC,'') as drug_ind, isnull(pharm22.MNC_PH_TIM_DSC_E,'') as drug_ind_e" +
+                ", isnull(pm11.MNC_PH_CAU_DSC,'') as drug_cau, isnull(pm11.MNC_PH_CAU_DSC_E,'') as drug_cau_e  " +
+                ", isnull(pharm24.MNC_PH_IND_DSC,'') as drug_properties, isnull(pharm24.MNC_PH_IND_DSC_E,'') as drug_properties_e  " +
+                ", pharm01.MNC_PH_TYP_CD " +
+                ", pm01.MNC_SEX as pttsex, pm01.MNC_NAT_CD as nation " +
+                ",phart06.using1, phart06.frequency, phart06.precautions, phart06.interaction, phart06.indication, phart06.properties,isnull(pharm01.MNC_PH_GN,'') as generic " +
+                "From " + pharT06.table + " phart06 " +
+                "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
+                "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +
+                "left JOIN PATIENT_M01 pm01 ON phart05.MNC_HN_NO = pm01.MNC_HN_NO " +
+                "left JOIN PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "left JOIN pharmacy_m03 pharm03 ON phart06.MNC_PH_UNT_CD = pharm03.MNC_PH_UNT_CD " +
+                "left join PHARMACY_M11 pm11 on pharm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +          //Precautions จริงๆคือ คำเตือน
+                "Left join PHARMACY_M24 pharm24 ON pharm01.MNC_PH_IND_CD = pharm24.MNC_PH_IND_CD " +    //สรรพคุณ
+                "Left join PHARMACY_M04 pharm04 ON phart06.MNC_PH_DIR_CD = pharm04.MNC_PH_DIR_CD " +    //จริงๆคือ Using วิธีใช้
+                "Left join PHARMACY_M21 pharm21 ON phart06.MNC_PH_FRE_CD = pharm21.MNC_PH_FRE_CD " +    //ความถี่
+                "Left join PHARMACY_M22 pharm22 ON phart06.MNC_PH_TIM_CD = pharm22.MNC_PH_TIM_CD " +    //Indication ข้อบ่งชี้
+                "Left Join Patient_m04 pm04 on pm01.MNC_NAT_CD = pm04.MNC_NAT_CD " +
+                "Where phart05.MNC_DOC_CD = '" + doccd + "' and phart05.MNC_CFR_YR = '" + cfryear + "' and phart05.MNC_CFR_NO = '" + cfrno + "' " + whereitem +
+                //"  and pharm01.mnc_ph_typ_flg = 'P' " +
                 "Order By phart06.mnc_no ";
             dt = conn.selectData(sql);
             return dt;
@@ -421,6 +502,25 @@ namespace bangna_hospital.objdb
                 "Order By phart06.mnc_no ";
             dt = conn.selectData(sql);
             return dt;
+        }
+        public String updateUsingFreqIndicau(String using1, String freq, String indica, String precau, String interac, String properties
+            , String doccode, String cfryear, String cfrno, String itemcode, String userid)
+        {
+            String sql = "", re = "";
+            sql = "Update  pharmacy_t06 " +
+                "Set using1 = '"+ using1.Replace("'","''") + "', frequency = '"+freq.Replace("'","''")+"', indication = '"+indica.Replace("'","''")+"' " +
+                ", precautions = '"+ precau.Replace("'","''")+"', interaction = '"+ interac.Replace("'","''")+"', properties = '"+ properties.Replace("'","''") +"' " +
+                ", user_modi = '" + userid + "', date_modi = convert(varchar(20), getdate(),20) " +
+                "Where MNC_DOC_CD = '" + doccode + "' and MNC_CFR_YR = '" + cfryear + "' and MNC_CFR_NO = '" + cfrno + "' and MNC_PH_CD = '" + itemcode + "'";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+            }
+            return re;
         }
         public PharmacyT06 setPharmacyT06(DataTable dt)
         {

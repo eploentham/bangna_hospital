@@ -888,7 +888,7 @@ namespace bangna_hospital.gui
             //if (lDgss.Count <= 0) getlBsp();
             date = txtDate.Text;
             DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectAppointmentByDtr(bc.user.staff_id, bc.datetoDB(date));
+            dt = bc.bcDB.pt07DB.selectAppointmentByDtr(bc.user.staff_id, bc.datetoDB(date));
             int i = 1;
             grfApm.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)

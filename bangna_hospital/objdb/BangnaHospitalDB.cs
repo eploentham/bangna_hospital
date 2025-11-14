@@ -121,6 +121,8 @@ namespace bangna_hospital.objdb
         internal PatientT022DB ptt022DB;
         internal PatientT02DB ptt02DB;
         internal MedicalPrescriptionDB mpDB;
+        internal PatientM321DB pM321DB;
+        internal SummaryT04DB sumT04DB;
         public BangnaHospitalDB(ConnectDB c)
         {
             conn = c;
@@ -254,6 +256,8 @@ namespace bangna_hospital.objdb
                 ptt022DB = new PatientT022DB(conn);
                 ptt02DB = new PatientT02DB(conn);
                 mpDB = new MedicalPrescriptionDB(conn);
+                pM321DB = new PatientM321DB(conn);
+                sumT04DB = new SummaryT04DB(conn);
             }
             catch(Exception ex)
             {

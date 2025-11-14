@@ -294,7 +294,7 @@ namespace bangna_hospital.gui
                 dtdate.AddYears(543);
             }
             DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectAppointmentByDtr(bc.user.staff_id, dtdate.Year.ToString()+"-"+ dtdate.ToString("MM-dd"));
+            dt = bc.bcDB.pt07DB.selectAppointmentByDtr(bc.user.staff_id, dtdate.Year.ToString()+"-"+ dtdate.ToString("MM-dd"));
             int i = 1;
             grfApm.Rows.Count = 1; grfApm.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)

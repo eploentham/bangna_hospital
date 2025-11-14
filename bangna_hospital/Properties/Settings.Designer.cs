@@ -37,8 +37,8 @@ namespace bangna_hospital.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sk-ant-api03-wvctFj7FjYwkOvVTNWQ2acoQd5xjrQnG9bOjEO4mupt10-7jNSNkitP11mvFW7Ql2enH" +
-            "AYTXjOpclyWvj4pg3Q-0XQckwAA")]
+        [global::System.Configuration.DefaultSettingValueAttribute("sk-ant-api03-LcE7xlM_zKm0XlJmqwehRhSLKFAKjnSJiHmFmh7TwIqCOyN4Q6WHdgTEoRvtYdRqyQPU" +
+            "zHv2L0tDkh82Yra-ew-rQJRxAAA")]
         public string CLAUDEAPI_KEY {
             get {
                 return ((string)(this["CLAUDEAPI_KEY"]));

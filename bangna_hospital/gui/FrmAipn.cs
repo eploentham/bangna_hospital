@@ -171,13 +171,15 @@ namespace bangna_hospital.gui
         }
         private void FrmAipn_Load(object sender, EventArgs e)
         {
-            this.Text = "last Update 2025-03-11 แก้ gen prefix AN OBS, message AN new เลข anเป็น9ตัวเดิม10 txtsession readonly AN แบบ บาง1 update session on";
+            this.Text = "last Update 2025-11-13 แก้ gen prefix AN OBS, message AN new เลข anเป็น9ตัวเดิม10 txtsession readonly AN แบบ บาง1 update session on";
             txtFrom.Text = bc.iniC.EmailFromAIPN;
             txtTO.Text = bc.iniC.EmailToAIPN;
             txtSubject.Text = bc.iniC.EmailSubjectAIPN;
             lb1.Text = bc.iniC.hostDBMainHIS;
             txtAuthorName.Text = bc.iniC.aipnAuthorName;
             cboSubMType.SelectedIndex = 0;
+            if(bc.iniC.branchId.Equals("001")) chkAnNew.Checked = true;
+            else chkAnNew.Checked = false;
             //lbLoading.Location = new Point(this.Location.X+50, 200);
             //showLbLoading();
         }

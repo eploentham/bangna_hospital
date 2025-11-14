@@ -11,8 +11,6 @@ using C1.Win.C1SplitContainer;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
 using C1.Win.FlexViewer;
-using C1.Win.ImportServices.ReportingService4;
-using iTextSharp.text;
 using Microsoft.Web.WebView2.WinForms;
 //using GrapeCity.ActiveReports.Document.Section;
 using System;
@@ -27,7 +25,7 @@ using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 using Button = System.Windows.Forms.Button;
 using Font = System.Drawing.Font;
 using Image = System.Drawing.Image;
@@ -125,9 +123,7 @@ namespace bangna_hospital.gui
             initControlTabAI();
             setEvent();
             setControlPnPateint();
-            pnSubmit = new Panel();
-            pnSubmit.Dock = DockStyle.Fill;
-            pnSubmit.Name = "pnSubmit";
+            pnSubmit = new Panel();            pnSubmit.Dock = DockStyle.Fill;            pnSubmit.Name = "pnSubmit";
             isLoad = false;
         }
         private void initFont()
@@ -262,10 +258,19 @@ namespace bangna_hospital.gui
         }
         private void initClaudeClient()
         {
+            String claudekey = BC.iniC.CLAUDEAPI_KEY;       //ใช้ใน ini file เพราะ ถ้าเก็บใน Properties เวลา up to github จะเห็น key claude จะยกเลิก key
+            if ((claudekey == null) || (claudekey.Length <= 0))
+            {
+                lfSbMessage.Text = "ไม่พบ Key API ของ Claude";
+                new LogWriter("e", this.Name + " BtnClaudeSend_Click " + lfSbMessage.Text);
+                BC.bcDB.insertLogPage(BC.userId, this.Name, "BtnClaudeSend_Click ", lfSbMessage.Text);
+                return;
+            }
             var config = new ClaudeConfig
             {
                 //ApiKey = Environment.GetEnvironmentVariable("CLAUDE_API_KEY"),
-                ApiKey = Properties.Settings.Default.CLAUDEAPI_KEY,
+                //ApiKey = Properties.Settings.Default.CLAUDEAPI_KEY,
+                ApiKey = claudekey,
                 // Model ที่จะใช้
                 DefaultModel = Properties.Settings.Default.CLAUDEAPI_MODEL,
                 DefaultMaxTokens = 2048,
@@ -531,7 +536,7 @@ namespace bangna_hospital.gui
             SplitContainer scclaude = new SplitContainer();
             scclaude.Dock = DockStyle.Fill;
             scclaude.Orientation = Orientation.Horizontal;
-            //scclaude.Panel1.Height= 50;
+            
             scclaude.Panel1.BackColor = Color.LightBlue;
             scclaude.Name = "scclaude";
             spClaude.Controls.Add(scclaude);
@@ -539,7 +544,7 @@ namespace bangna_hospital.gui
             scgemeni.Dock = DockStyle.Fill;
             scgemeni.Orientation = Orientation.Horizontal;
             scgemeni.Panel1.BackColor = ColorTranslator.FromHtml("#FCA5A5");
-            //scgemeni.Panel1.Height = 50;
+            
             scgemeni.Name = "scgemeni";
             Panel pnclaudechat = new Panel();
             pnclaudechat.Dock = DockStyle.Fill;
@@ -555,6 +560,7 @@ namespace bangna_hospital.gui
             Panel pnclaudeSend = new Panel();
             pnclaudeSend.Dock = DockStyle.Right;
             pnclaudeSend.Width = 100;
+            //pnclaudeSend.Height = 150;
             btnClaudeSend = new Button();
             btnClaudeSend.Dock = DockStyle.Fill;
             btnClaudeSend.Font = fEditB;
@@ -564,7 +570,7 @@ namespace bangna_hospital.gui
             scclaude.Panel1.Controls.Add(pnclaudechat);
             scclaude.Panel1.Controls.Add(pnclaudeSend);
             spGemeni.Controls.Add(scgemeni);
-
+            scclaude.SplitterDistance = 10;
             Panel pngemenichat = new Panel();
             pngemenichat.Dock = DockStyle.Fill;
             //pngemenichat.Width = 400;
@@ -587,7 +593,7 @@ namespace bangna_hospital.gui
             pngemeniSend.Controls.Add(btnGemeniSend);
             scgemeni.Panel1.Controls.Add(pngemenichat);
             scgemeni.Panel1.Controls.Add(pngemeniSend);
-
+            scgemeni.SplitterDistance = 10;
             wvClaude = new WebView2();
             wvClaude.Dock = DockStyle.Fill;
             //wvClaude.Source = new Uri("https://chat.openai.com/chat");
@@ -597,6 +603,7 @@ namespace bangna_hospital.gui
             wvGemeni.Dock = DockStyle.Fill;
             //wvGemeni.Source = new Uri("https://gemini.google.com/");
             scgemeni.Panel2.Controls.Add(wvGemeni);
+            //scclaude.Panel1.Height = 100;
 
             pnAI.Controls.Add(scAI);
             pnAI.ResumeLayout();
@@ -611,6 +618,7 @@ namespace bangna_hospital.gui
             String filename = Path.Combine(Application.StartupPath, "claude-chat.html");
             if (File.Exists(filename))            {                wvClaude.CoreWebView2.Navigate(filename);            }
             else            {                lfSbMessage.Text = "ไม่พบไฟล์ " + filename;            }
+            var hasFunction = await CheckJavaScriptFunction(wvClaude, "addAssistantMessage");
             btnClaudeSend.Enabled = true; // Enable send button if you disabled it initially
         }
         private void BtnGemeniSend_Click(object sender, EventArgs e)
@@ -623,41 +631,52 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             //String claudekey = Environment.GetEnvironmentVariable("CLAUDEAPI_KEY");
+            var startTime = DateTime.Now;
+            btnClaudeSend.Enabled = false; btnClaudeSend.Text = "waiting";
             String claudekey = Properties.Settings.Default.CLAUDEAPI_KEY;
             if (claudekey == null)
             {
                 lfSbMessage.Text ="ไม่พบ Key API ของ Claude";
+                new LogWriter("e", this.Name+" BtnClaudeSend_Click "+ lfSbMessage.Text);
+                BC.bcDB.insertLogPage(BC.userId, this.Name, "BtnClaudeSend_Click ", lfSbMessage.Text);
                 return;
             }
             if (txtClaude.Text.Length <= 0) return;
-            var userMessage = txtClaude.Text;
-            // แสดงข้อความ user
-            //await wvClaude.ExecuteScriptAsync($"addUserMessage('{EscapeJS(userMessage)}', '{DateTime.Now:HH:mm}')");
-            //txtClaude.Clear();
             try
             {
                 // เรียก Claude
                 ClaudeRequest request = new ClaudeRequest
                 {
                     MaxTokens = 2048, Temperature = 0.7, Model = Properties.Settings.Default.CLAUDEAPI_MODEL,
-                    Messages = new List<ClaudeMessage>{ new ClaudeMessage{Role = "user",  Content = userMessage }}
+                    Messages = new List<ClaudeMessage>{new ClaudeMessage{Role = "user", Content = txtClaude.Text.Trim() }}
                 };
                 var response = await _claudeClient.SendRequestAsync(request);
                 // แสดงข้อความ Claude
-                if (wvClaude.CoreWebView2 == null)
-                {
-                    Console.WriteLine("WebView2 not ready!");
-                    return;
-                }
+                if (wvClaude.CoreWebView2 == null) { Console.WriteLine("WebView2 not ready!");  return;  }
                 // 3. ตรวจสอบ function
-                var hasFunction = await CheckJavaScriptFunction(wvClaude, "addAssistantMessage");
+                //var hasFunction = await CheckJavaScriptFunction(wvClaude, "addAssistantMessage");
+                await wvClaude.ExecuteScriptAsync($"addUserMessage('{EscapeJS(txtClaude.Text.Trim())}', '{DateTime.Now:HH:mm}')");
                 await wvClaude.ExecuteScriptAsync($"addAssistantMessage('{EscapeJS(response.Text)}', '{DateTime.Now:HH:mm}')");
+                var responseTime = (int)(DateTime.Now - startTime).TotalMilliseconds;
+                ClaudeChatLogger _logger = new ClaudeChatLogger("claude_chat_logs.db");
+                await _logger.LogChatAsync(
+                    userMessage: txtClaude.Text.Trim(),
+                    response: response,
+                    model: Properties.Settings.Default.CLAUDEAPI_MODEL,
+                    systemPrompt: DTRCODE,
+                    responseTimeMs: responseTime,
+                    status: "success",              //logตรงนี้ คือ success
+                    errorMessage: ""                //ไม่มี error
+                );
+                txtClaude.Clear();
             }
             catch (Exception ex)
             {
+                new LogWriter("e", this.Name + " BtnClaudeSend_Click " + ex.Message);
                 await wvClaude.ExecuteScriptAsync($"addErrorMessage('{EscapeJS(ex.Message)}')");
                 lfSbMessage.Text = ex.Message;
             }
+            finally { btnClaudeSend.Enabled = true; btnClaudeSend.Text = "Send"; }
             //await DebugAll();
         }
         private string EscapeJS(string text)
@@ -720,6 +739,7 @@ namespace bangna_hospital.gui
             catch (Exception ex)
             {
                 Console.WriteLine($"[ERROR] Check function failed: {ex.Message}");
+                new LogWriter("e", this.Name + " CheckJavaScriptFunction " + ex.Message);
                 return false;
             }
         }
@@ -2112,7 +2132,7 @@ namespace bangna_hospital.gui
                 catch (Exception ex)
                 {
                     lfSbMessage.Text = ex.Message;
-                    new LogWriter("e", "FrmOPD setGrfOrder " + ex.Message);
+                    new LogWriter("e", this.Name + " setGrfOrder " + ex.Message);
                     BC.bcDB.insertLogPage(BC.userId, this.Name, "setGrfOrder ", ex.Message);
                 }
             }
@@ -2392,7 +2412,7 @@ namespace bangna_hospital.gui
         private void FrmDoctorOrder_Load(object sender, EventArgs e)
         {
             //this.SuspendLayout();
-            this.Text = "last update 20250910";
+            this.Text = "last update 20251006";
             System.Drawing.Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";

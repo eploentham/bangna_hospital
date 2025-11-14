@@ -61,6 +61,21 @@
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnMain = new System.Windows.Forms.Panel();
             this.tabMain = new C1.Win.C1Command.C1DockingTab();
+            this.tabDiag = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.pnChief = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnPhysicalMain = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.pnPhysicalDesc = new System.Windows.Forms.Panel();
+            this.pnPhysicalDraw = new System.Windows.Forms.Panel();
+            this.pnDiag = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.pnDiag1 = new System.Windows.Forms.Panel();
+            this.pnDiagApmView = new System.Windows.Forms.Panel();
+            this.pnDtrAdvice = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.pnDtrAdvice1 = new System.Windows.Forms.Panel();
+            this.pnDtrAdviceApm = new System.Windows.Forms.Panel();
             this.tabOrderDrug = new C1.Win.C1Command.C1DockingTabPage();
             this.spOrder = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spOrderOrders = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -136,22 +151,8 @@
             this.btnDrugSetAll = new C1.Win.C1Input.C1Button();
             this.cboDrugSetName = new C1.Win.C1Input.C1ComboBox();
             this.txtDrugOldSearch = new C1.Win.C1Input.C1TextBox();
-            this.tabDiag = new C1.Win.C1Command.C1DockingTabPage();
-            this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
-            this.pnChief = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.pnPhysicalMain = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pnPhysicalDesc = new System.Windows.Forms.Panel();
-            this.pnPhysicalDraw = new System.Windows.Forms.Panel();
-            this.pnDiag = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.pnDiag1 = new System.Windows.Forms.Panel();
-            this.pnDiagApmView = new System.Windows.Forms.Panel();
-            this.pnDtrAdvice = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.pnDtrAdvice1 = new System.Windows.Forms.Panel();
-            this.pnDtrAdviceApm = new System.Windows.Forms.Panel();
             this.tabAI = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnAI = new System.Windows.Forms.Panel();
             this.c1SplitterPanel6 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnVitalSign = new System.Windows.Forms.Panel();
             this.lbPaidName = new System.Windows.Forms.Label();
@@ -192,7 +193,6 @@
             this.label53 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
-            this.pnAI = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.scMain)).BeginInit();
             this.scMain.SuspendLayout();
@@ -208,6 +208,24 @@
             this.pnMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
             this.tabMain.SuspendLayout();
+            this.tabDiag.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
+            this.c1SplitContainer1.SuspendLayout();
+            this.pnPhysicalMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.pnDiag.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            this.pnDtrAdvice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.tabOrderDrug.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spOrder)).BeginInit();
             this.spOrder.SuspendLayout();
@@ -251,24 +269,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetAll)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDrugSetName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugOldSearch)).BeginInit();
-            this.tabDiag.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
-            this.c1SplitContainer1.SuspendLayout();
-            this.pnPhysicalMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.pnDiag.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
-            this.pnDtrAdvice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
             this.tabAI.SuspendLayout();
             this.c1SplitterPanel6.SuspendLayout();
             this.pnVitalSign.SuspendLayout();
@@ -581,8 +581,8 @@
             // 
             // tabMain
             // 
-            this.tabMain.Controls.Add(this.tabOrderDrug);
             this.tabMain.Controls.Add(this.tabDiag);
+            this.tabMain.Controls.Add(this.tabOrderDrug);
             this.tabMain.Controls.Add(this.tabAI);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabMain.Location = new System.Drawing.Point(0, 0);
@@ -591,6 +591,171 @@
             this.tabMain.TabIndex = 0;
             this.tabMain.TabsSpacing = 5;
             this.tabMain.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
+            // 
+            // tabDiag
+            // 
+            this.tabDiag.Controls.Add(this.c1SplitContainer1);
+            this.tabDiag.Location = new System.Drawing.Point(1, 24);
+            this.tabDiag.Name = "tabDiag";
+            this.tabDiag.Size = new System.Drawing.Size(1269, 549);
+            this.tabDiag.TabIndex = 1;
+            this.tabDiag.Text = "ป้อน Physical Exam/Diagnosis";
+            // 
+            // c1SplitContainer1
+            // 
+            this.c1SplitContainer1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.c1SplitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.c1SplitContainer1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.c1SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1SplitContainer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.c1SplitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.c1SplitContainer1.Name = "c1SplitContainer1";
+            this.c1SplitContainer1.Panels.Add(this.pnChief);
+            this.c1SplitContainer1.Panels.Add(this.pnPhysicalMain);
+            this.c1SplitContainer1.Panels.Add(this.pnDiag);
+            this.c1SplitContainer1.Panels.Add(this.pnDtrAdvice);
+            this.c1SplitContainer1.Size = new System.Drawing.Size(1269, 549);
+            this.c1SplitContainer1.TabIndex = 0;
+            // 
+            // pnChief
+            // 
+            this.pnChief.Height = 187;
+            this.pnChief.Location = new System.Drawing.Point(0, 21);
+            this.pnChief.Name = "pnChief";
+            this.pnChief.Size = new System.Drawing.Size(1269, 166);
+            this.pnChief.SizeRatio = 34.312D;
+            this.pnChief.TabIndex = 0;
+            this.pnChief.Text = "Chief Compliant";
+            // 
+            // pnPhysicalMain
+            // 
+            this.pnPhysicalMain.Controls.Add(this.splitContainer1);
+            this.pnPhysicalMain.Height = 176;
+            this.pnPhysicalMain.Location = new System.Drawing.Point(0, 212);
+            this.pnPhysicalMain.Name = "pnPhysicalMain";
+            this.pnPhysicalMain.Size = new System.Drawing.Size(1269, 155);
+            this.pnPhysicalMain.SizeRatio = 49.718D;
+            this.pnPhysicalMain.TabIndex = 1;
+            this.pnPhysicalMain.Text = "Physical Exam";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.pnPhysicalDesc);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.pnPhysicalDraw);
+            this.splitContainer1.Size = new System.Drawing.Size(1269, 155);
+            this.splitContainer1.SplitterDistance = 421;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // pnPhysicalDesc
+            // 
+            this.pnPhysicalDesc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPhysicalDesc.Location = new System.Drawing.Point(0, 0);
+            this.pnPhysicalDesc.Name = "pnPhysicalDesc";
+            this.pnPhysicalDesc.Size = new System.Drawing.Size(421, 155);
+            this.pnPhysicalDesc.TabIndex = 0;
+            // 
+            // pnPhysicalDraw
+            // 
+            this.pnPhysicalDraw.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnPhysicalDraw.Location = new System.Drawing.Point(0, 0);
+            this.pnPhysicalDraw.Name = "pnPhysicalDraw";
+            this.pnPhysicalDraw.Size = new System.Drawing.Size(844, 155);
+            this.pnPhysicalDraw.TabIndex = 0;
+            // 
+            // pnDiag
+            // 
+            this.pnDiag.Controls.Add(this.splitContainer3);
+            this.pnDiag.Height = 87;
+            this.pnDiag.Location = new System.Drawing.Point(0, 392);
+            this.pnDiag.Name = "pnDiag";
+            this.pnDiag.Size = new System.Drawing.Size(1269, 66);
+            this.pnDiag.TabIndex = 2;
+            this.pnDiag.Text = "Diagnosis";
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.pnDiag1);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.pnDiagApmView);
+            this.splitContainer3.Size = new System.Drawing.Size(1269, 66);
+            this.splitContainer3.SplitterDistance = 896;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // pnDiag1
+            // 
+            this.pnDiag1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDiag1.Location = new System.Drawing.Point(0, 0);
+            this.pnDiag1.Name = "pnDiag1";
+            this.pnDiag1.Size = new System.Drawing.Size(896, 66);
+            this.pnDiag1.TabIndex = 0;
+            // 
+            // pnDiagApmView
+            // 
+            this.pnDiagApmView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDiagApmView.Location = new System.Drawing.Point(0, 0);
+            this.pnDiagApmView.Name = "pnDiagApmView";
+            this.pnDiagApmView.Size = new System.Drawing.Size(369, 66);
+            this.pnDiagApmView.TabIndex = 0;
+            // 
+            // pnDtrAdvice
+            // 
+            this.pnDtrAdvice.Controls.Add(this.splitContainer2);
+            this.pnDtrAdvice.Height = 87;
+            this.pnDtrAdvice.Location = new System.Drawing.Point(0, 483);
+            this.pnDtrAdvice.Name = "pnDtrAdvice";
+            this.pnDtrAdvice.Size = new System.Drawing.Size(1269, 66);
+            this.pnDtrAdvice.TabIndex = 3;
+            this.pnDtrAdvice.Text = "Doctor Advice";
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.pnDtrAdvice1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.pnDtrAdviceApm);
+            this.splitContainer2.Size = new System.Drawing.Size(1269, 66);
+            this.splitContainer2.SplitterDistance = 421;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // pnDtrAdvice1
+            // 
+            this.pnDtrAdvice1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDtrAdvice1.Location = new System.Drawing.Point(0, 0);
+            this.pnDtrAdvice1.Name = "pnDtrAdvice1";
+            this.pnDtrAdvice1.Size = new System.Drawing.Size(421, 66);
+            this.pnDtrAdvice1.TabIndex = 0;
+            // 
+            // pnDtrAdviceApm
+            // 
+            this.pnDtrAdviceApm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnDtrAdviceApm.Location = new System.Drawing.Point(0, 0);
+            this.pnDtrAdviceApm.Name = "pnDtrAdviceApm";
+            this.pnDtrAdviceApm.Size = new System.Drawing.Size(844, 66);
+            this.pnDtrAdviceApm.TabIndex = 0;
             // 
             // tabOrderDrug
             // 
@@ -674,7 +839,7 @@
             this.spOrderItem.SizeRatio = 45.228D;
             this.spOrderItem.TabIndex = 0;
             this.spOrderItem.Text = "Panel 1";
-            this.spOrderItem.Width = 565;
+            this.spOrderItem.Width = 572;
             // 
             // label19
             // 
@@ -1425,171 +1590,6 @@
             this.txtDrugOldSearch.TabIndex = 312;
             this.txtDrugOldSearch.Tag = null;
             // 
-            // tabDiag
-            // 
-            this.tabDiag.Controls.Add(this.c1SplitContainer1);
-            this.tabDiag.Location = new System.Drawing.Point(1, 24);
-            this.tabDiag.Name = "tabDiag";
-            this.tabDiag.Size = new System.Drawing.Size(1269, 549);
-            this.tabDiag.TabIndex = 1;
-            this.tabDiag.Text = "ป้อน Physical Exam/Diagnosis";
-            // 
-            // c1SplitContainer1
-            // 
-            this.c1SplitContainer1.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.c1SplitContainer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.c1SplitContainer1.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
-            this.c1SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1SplitContainer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.c1SplitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.c1SplitContainer1.Name = "c1SplitContainer1";
-            this.c1SplitContainer1.Panels.Add(this.pnChief);
-            this.c1SplitContainer1.Panels.Add(this.pnPhysicalMain);
-            this.c1SplitContainer1.Panels.Add(this.pnDiag);
-            this.c1SplitContainer1.Panels.Add(this.pnDtrAdvice);
-            this.c1SplitContainer1.Size = new System.Drawing.Size(1269, 549);
-            this.c1SplitContainer1.TabIndex = 0;
-            // 
-            // pnChief
-            // 
-            this.pnChief.Height = 187;
-            this.pnChief.Location = new System.Drawing.Point(0, 21);
-            this.pnChief.Name = "pnChief";
-            this.pnChief.Size = new System.Drawing.Size(1269, 166);
-            this.pnChief.SizeRatio = 34.312D;
-            this.pnChief.TabIndex = 0;
-            this.pnChief.Text = "Chief Compliant";
-            // 
-            // pnPhysicalMain
-            // 
-            this.pnPhysicalMain.Controls.Add(this.splitContainer1);
-            this.pnPhysicalMain.Height = 176;
-            this.pnPhysicalMain.Location = new System.Drawing.Point(0, 212);
-            this.pnPhysicalMain.Name = "pnPhysicalMain";
-            this.pnPhysicalMain.Size = new System.Drawing.Size(1269, 155);
-            this.pnPhysicalMain.SizeRatio = 49.718D;
-            this.pnPhysicalMain.TabIndex = 1;
-            this.pnPhysicalMain.Text = "Physical Exam";
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.pnPhysicalDesc);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.pnPhysicalDraw);
-            this.splitContainer1.Size = new System.Drawing.Size(1269, 155);
-            this.splitContainer1.SplitterDistance = 421;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // pnPhysicalDesc
-            // 
-            this.pnPhysicalDesc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnPhysicalDesc.Location = new System.Drawing.Point(0, 0);
-            this.pnPhysicalDesc.Name = "pnPhysicalDesc";
-            this.pnPhysicalDesc.Size = new System.Drawing.Size(421, 155);
-            this.pnPhysicalDesc.TabIndex = 0;
-            // 
-            // pnPhysicalDraw
-            // 
-            this.pnPhysicalDraw.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnPhysicalDraw.Location = new System.Drawing.Point(0, 0);
-            this.pnPhysicalDraw.Name = "pnPhysicalDraw";
-            this.pnPhysicalDraw.Size = new System.Drawing.Size(844, 155);
-            this.pnPhysicalDraw.TabIndex = 0;
-            // 
-            // pnDiag
-            // 
-            this.pnDiag.Controls.Add(this.splitContainer3);
-            this.pnDiag.Height = 87;
-            this.pnDiag.Location = new System.Drawing.Point(0, 392);
-            this.pnDiag.Name = "pnDiag";
-            this.pnDiag.Size = new System.Drawing.Size(1269, 66);
-            this.pnDiag.TabIndex = 2;
-            this.pnDiag.Text = "Diagnosis";
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.pnDiag1);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.pnDiagApmView);
-            this.splitContainer3.Size = new System.Drawing.Size(1269, 66);
-            this.splitContainer3.SplitterDistance = 896;
-            this.splitContainer3.TabIndex = 0;
-            // 
-            // pnDiag1
-            // 
-            this.pnDiag1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnDiag1.Location = new System.Drawing.Point(0, 0);
-            this.pnDiag1.Name = "pnDiag1";
-            this.pnDiag1.Size = new System.Drawing.Size(896, 66);
-            this.pnDiag1.TabIndex = 0;
-            // 
-            // pnDiagApmView
-            // 
-            this.pnDiagApmView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnDiagApmView.Location = new System.Drawing.Point(0, 0);
-            this.pnDiagApmView.Name = "pnDiagApmView";
-            this.pnDiagApmView.Size = new System.Drawing.Size(369, 66);
-            this.pnDiagApmView.TabIndex = 0;
-            // 
-            // pnDtrAdvice
-            // 
-            this.pnDtrAdvice.Controls.Add(this.splitContainer2);
-            this.pnDtrAdvice.Height = 87;
-            this.pnDtrAdvice.Location = new System.Drawing.Point(0, 483);
-            this.pnDtrAdvice.Name = "pnDtrAdvice";
-            this.pnDtrAdvice.Size = new System.Drawing.Size(1269, 66);
-            this.pnDtrAdvice.TabIndex = 3;
-            this.pnDtrAdvice.Text = "Doctor Advice";
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.pnDtrAdvice1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.pnDtrAdviceApm);
-            this.splitContainer2.Size = new System.Drawing.Size(1269, 66);
-            this.splitContainer2.SplitterDistance = 421;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // pnDtrAdvice1
-            // 
-            this.pnDtrAdvice1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnDtrAdvice1.Location = new System.Drawing.Point(0, 0);
-            this.pnDtrAdvice1.Name = "pnDtrAdvice1";
-            this.pnDtrAdvice1.Size = new System.Drawing.Size(421, 66);
-            this.pnDtrAdvice1.TabIndex = 0;
-            // 
-            // pnDtrAdviceApm
-            // 
-            this.pnDtrAdviceApm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnDtrAdviceApm.Location = new System.Drawing.Point(0, 0);
-            this.pnDtrAdviceApm.Name = "pnDtrAdviceApm";
-            this.pnDtrAdviceApm.Size = new System.Drawing.Size(844, 66);
-            this.pnDtrAdviceApm.TabIndex = 0;
-            // 
             // tabAI
             // 
             this.tabAI.Controls.Add(this.pnAI);
@@ -1598,6 +1598,14 @@
             this.tabAI.Size = new System.Drawing.Size(1269, 549);
             this.tabAI.TabIndex = 2;
             this.tabAI.Text = "สอบถาม";
+            // 
+            // pnAI
+            // 
+            this.pnAI.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnAI.Location = new System.Drawing.Point(0, 0);
+            this.pnAI.Name = "pnAI";
+            this.pnAI.Size = new System.Drawing.Size(1269, 549);
+            this.pnAI.TabIndex = 0;
             // 
             // c1SplitterPanel6
             // 
@@ -2020,14 +2028,6 @@
             this.label51.TabIndex = 279;
             this.label51.Text = "temp :";
             // 
-            // pnAI
-            // 
-            this.pnAI.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnAI.Location = new System.Drawing.Point(0, 0);
-            this.pnAI.Name = "pnAI";
-            this.pnAI.Size = new System.Drawing.Size(1269, 549);
-            this.pnAI.TabIndex = 0;
-            // 
             // FrmDoctorOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2055,6 +2055,24 @@
             this.pnMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).EndInit();
             this.tabMain.ResumeLayout(false);
+            this.tabDiag.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
+            this.c1SplitContainer1.ResumeLayout(false);
+            this.pnPhysicalMain.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.pnDiag.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            this.pnDtrAdvice.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.tabOrderDrug.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spOrder)).EndInit();
             this.spOrder.ResumeLayout(false);
@@ -2101,24 +2119,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugSetAll)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDrugSetName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugOldSearch)).EndInit();
-            this.tabDiag.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
-            this.c1SplitContainer1.ResumeLayout(false);
-            this.pnPhysicalMain.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.pnDiag.ResumeLayout(false);
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
-            this.pnDtrAdvice.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
             this.tabAI.ResumeLayout(false);
             this.c1SplitterPanel6.ResumeLayout(false);
             this.pnVitalSign.ResumeLayout(false);

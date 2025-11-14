@@ -3,6 +3,7 @@ using bangna_hospital.gui;
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
+using bangna_hospital.utility;
 using C1.C1Excel;
 using C1.C1Zip;
 using C1.Win.C1Document;
@@ -46,7 +47,7 @@ namespace bangna_hospital.control
         public InitConfig iniC;
         private IniFile iniF;
         public ConnectDB conn;
-
+        public System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt2, famt2B, famt4B, famt2BL, famt5, famt5B, famt5BL, famt7, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
         public String theme = "", userId = "", hn = "", vn = "", preno = "", appName = "", vsdate = "", operative_note_precidures_1, operative_note_finding_1, operative_note_hn, operative_note_id, USERCONFIRMID = "";
         public String COMPNAME = "";
         public Color cTxtFocus;
@@ -153,7 +154,7 @@ namespace bangna_hospital.control
                 initOPBKKCHRGITEM();
                 //new LogWriter("d", "BangnaControl initConfig initOPBKKCHRGITEM(); out " + err);
                 getInit();
-
+                InitFonts();
                 epiPersS = new EpidemPersonStatus();
                 epiPersT = new EpidemPersonType();
                 epiMari = new EpidemMarital();
@@ -1201,6 +1202,13 @@ namespace bangna_hospital.control
             iniC.deptphone = iniF.getIni("app", "deptphone");
             iniC.hostaddress1 = iniF.getIni("app", "hostaddress1");
             iniC.statusPrintStickerDrugAll = iniF.getIni("app", "statusPrintStickerDrugAll");
+            iniC.CLAUDEAPI_KEY = iniF.getIni("app", "CLAUDEAPI_KEY");
+            iniC.API_juristic = iniF.getIni("app", "API_juristic");
+            iniC.printadjustY = iniF.getIni("app", "printadjustY");
+            iniC.printYPOS = iniF.getIni("app", "printYPOS");
+            iniC.statusPrintQue = iniF.getIni("app", "statusPrintQue");
+            iniC.sectioncheckup = iniF.getIni("app", "sectioncheckup");
+            iniC.tabdefault = iniF.getIni("app", "tabdefault");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1324,6 +1332,13 @@ namespace bangna_hospital.control
             iniC.deptphone = iniC.deptphone == null ? "" : iniC.deptphone.Equals("") ? "" : iniC.deptphone;
             iniC.hostaddress1 = iniC.hostaddress1 == null ? "" : iniC.hostaddress1.Equals("") ? "" : iniC.hostaddress1;
             iniC.statusPrintStickerDrugAll = iniC.statusPrintStickerDrugAll == null ? "" : iniC.statusPrintStickerDrugAll.Equals("") ? "" : iniC.statusPrintStickerDrugAll;
+            iniC.CLAUDEAPI_KEY = iniC.CLAUDEAPI_KEY == null ? "" : iniC.CLAUDEAPI_KEY.Equals("") ? "" : iniC.CLAUDEAPI_KEY;
+            iniC.API_juristic = iniC.API_juristic == null ? "" : iniC.API_juristic.Equals("") ? "" : iniC.API_juristic;
+            iniC.printadjustY = iniC.printadjustY == null ? "0" : iniC.printadjustY.Equals("") ? "0" : iniC.printadjustY;
+            iniC.printYPOS = iniC.printYPOS == null ? "0" : iniC.printYPOS.Equals("") ? "0" : iniC.printYPOS;
+            iniC.statusPrintQue = iniC.statusPrintQue == null ? "0" : iniC.statusPrintQue.Equals("") ? "0" : iniC.statusPrintQue;
+            iniC.sectioncheckup = iniC.sectioncheckup == null ? "302" : iniC.sectioncheckup.Equals("") ? "302" : iniC.sectioncheckup;
+            iniC.tabdefault = iniC.tabdefault == null ? "0" : iniC.tabdefault.Equals("") ? "0" : iniC.tabdefault;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -5258,10 +5273,7 @@ namespace bangna_hospital.control
             Hmain = iniC.ssoid;
             sessionNo = bcDB.aipnDB.insertClaimZip(Hmain);
             pathFile = iniC.aipnXmlPath + "\\" + sessionNo;
-            if (!Directory.Exists(pathFile))
-            {
-                Directory.CreateDirectory(pathFile);
-            }
+            if (!Directory.Exists(pathFile))            {                Directory.CreateDirectory(pathFile);            }
             foreach (DataRow rowAipn in dtAipn.Rows)
             {
                 String aipnXML = "", aipnid = "", anno = "", ancnt = "", an1 = "";
@@ -5281,8 +5293,9 @@ namespace bangna_hospital.control
                 dtCoin = bcDB.aipnDB.selectCoinsurance(aipnid);
                 if (dtInv.Rows.Count <= 0)
                 {
-                    MessageBox.Show("invoice บิล ไม่พบข้อมูล ", "");
-                    return "";
+                    new LogWriter("d", "BangnaControl genAipnFile  invoice บิล ไม่พบข้อมูล aipnid "+ aipnid+ " anno " + anno+ " ancnt " + ancnt);
+                    //MessageBox.Show("invoice บิล ไม่พบข้อมูล ", "");
+                    continue;
                 }
                 AipnXmlFile aipnxmlF = new AipnXmlFile();
                 String aipnHeader = "", aipnClaimAuth = "", aipnIPADT = "", aipnIPOp = "", aipnIPDx = "", aipnBillItms = "", aipnInv = "", aionCoin = "";
@@ -6217,6 +6230,43 @@ namespace bangna_hospital.control
         {
             if (txt == null) return "";
             return txt.Trim().Length>0 ? txt.Trim()+" " : "";
+        }
+        public void InitFonts()
+        {
+            fEdit = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize), FontStyle.Regular);
+            fEditB = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize), FontStyle.Bold);
+            fEditS = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize - 1), FontStyle.Regular);
+            fEdit3B = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize + 3), FontStyle.Bold);
+            fEdit5B = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize + 5), FontStyle.Bold);
+            fEditS1 = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize -1), FontStyle.Regular);
+            fEdit2 = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize + 2), FontStyle.Regular);
+            fEdit2B = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize + 2), FontStyle.Regular);
+            famtB14 = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize + 14), FontStyle.Regular);
+            famtB30 = FontHelper.Create(iniC.grdViewFontName, (grdViewFontSize + 30), FontStyle.Regular);
+
+            famt1 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 1), FontStyle.Regular);
+            famt2 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 2), FontStyle.Regular);
+            famt2B = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 2), FontStyle.Bold);
+            famt4B = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 4), FontStyle.Bold);
+            famt2BL = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 2), FontStyle.Underline);
+            famt5 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 5), FontStyle.Regular);
+            famt5B = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 5), FontStyle.Bold);
+            famt5BL = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 5), FontStyle.Bold);
+            famt7 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 7), FontStyle.Regular);
+
+            famt7B = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 7), FontStyle.Regular);
+            ftotal = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 7), FontStyle.Regular);
+            fPrnBil = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 7), FontStyle.Regular);
+
+            fque = FontHelper.Create(iniC.pdfFontName, (pdfFontSize), FontStyle.Regular);
+            fqueB = FontHelper.Create(iniC.pdfFontName, (pdfFontSize), FontStyle.Bold);
+            fPDF = FontHelper.Create(iniC.pdfFontName, (pdfFontSize), FontStyle.Regular);
+            fPDFs2 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize -2), FontStyle.Regular);
+            fPDFs6 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize -6), FontStyle.Regular);
+            fPDFs8 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize -8), FontStyle.Regular);
+            fPDFl2 = FontHelper.Create(iniC.pdfFontName, (pdfFontSize + 2), FontStyle.Regular);
+
+            // ... อื่น ๆ
         }
     }
 }

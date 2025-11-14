@@ -67,7 +67,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "", re = "";
-            sql = "Select pm40.MNC_PAC_CD,pm40.MNC_OPR_CD,pm40.MNC_OPR_FLAG , isnull(labm01.MNC_LB_DSC,'') as MNC_LB_DSC, isnull(xraym01.MNC_XR_DSC,'') as MNC_XR_DSC,isnull(dtrm02.MNC_DF_DSC,'') as MNC_DF_DSC, isnull(pm30.MNC_SR_DSC,'') as MNC_SR_DSC " +
+            sql = "Select pm40.MNC_PAC_CD,pm40.MNC_OPR_CD,isnull(pm40.MNC_OPR_FLAG,'') as MNC_OPR_FLAG , isnull(labm01.MNC_LB_DSC,'') as MNC_LB_DSC, isnull(xraym01.MNC_XR_DSC,'') as MNC_XR_DSC,isnull(dtrm02.MNC_DF_DSC,'') as MNC_DF_DSC, isnull(pm30.MNC_SR_DSC,'') as MNC_SR_DSC " +
                 "From  " + pm40.table + " pm40 " +
                 "left join LAB_M01 labm01 on pm40.MNC_OPR_CD = labm01.MNC_LB_CD and pm40.MNC_OPR_FLAG = 'L' " +
                 "left join XRAY_M01 xraym01 on pm40.MNC_OPR_CD = xraym01.MNC_XR_CD and pm40.MNC_OPR_FLAG = 'X' " +

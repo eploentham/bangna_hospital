@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +27,10 @@ namespace bangna_hospital.gui
         C1ThemeController theme1;
         Patient PTT;
         Boolean isLoad = false;
+        String TABACTIVE = "";
+        C1FlexGrid grfLab;
         AutoCompleteStringCollection AUTODrug;
+        int colLabDate = 1, colLabName = 2, colLabNameSub = 3, colLabResult = 4, colInterpret = 5, colNormal = 6, colUnit = 7;
         public FrmDrugAllergy(BangnaControl bc, Patient ptt)
         {
             this.BC = bc;
@@ -47,6 +52,7 @@ namespace bangna_hospital.gui
             c1SplitContainer2.HeaderHeight = 0;
             initFont();
             initControl();
+            initGrfLab();
             setEvent();
             setControl();
             isLoad = false;
@@ -79,6 +85,79 @@ namespace bangna_hospital.gui
             btnDrugGrpSave.Click += BtnDrugGrpSave_Click; ;
             txtDrugSearch.KeyUp += TxtDrugSearch_KeyUp;
             txtItemCode.KeyUp += TxtItemCode_KeyUp;
+            tabMain.SelectedIndexChanged += TabMain_SelectedIndexChanged;
+            txtLabOrdDate.KeyPress += TxtLabOrdDate_KeyPress;
+        }
+
+        private void TxtLabOrdDate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow only digits and control keys (e.g., Backspace)
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void initGrfLab()
+        {
+            grfLab = new C1FlexGrid();
+            grfLab.Dock = DockStyle.Fill;
+            grfLab.Font = fEdit;
+            grfLab.Rows.Count = 1;
+            grfLab.Cols.Count = 8;
+            grfLab.Cols[colLabDate].Caption = "วันที่สั่ง";
+            grfLab.Cols[colLabName].Caption = "ชื่อLAB";
+            grfLab.Cols[colLabNameSub].Caption = "ชื่อLABย่อย";
+            grfLab.Cols[colLabResult].Caption = "ผลLAB";
+            grfLab.Cols[colInterpret].Caption = "แปรผล";
+            grfLab.Cols[colNormal].Caption = "Normal";
+            grfLab.Cols[colUnit].Caption = "Unit";
+            grfLab.Cols[colLabDate].Width = 100;
+            grfLab.Cols[colLabName].Width = 250;
+            grfLab.Cols[colLabNameSub].Width = 200;
+            grfLab.Cols[colInterpret].Width = 200;
+            grfLab.Cols[colNormal].Width = 200;
+            grfLab.Cols[colUnit].Width = 150;
+            grfLab.Cols[colLabResult].Width = 150;
+            panel5.Controls.Add(grfLab);
+        }
+        private void setGrfLab()
+        {
+            DateTime vsdate = new DateTime();
+            DateTime vsdate1 = new DateTime();
+            vsdate = DateTime.Now;
+            vsdate1 = vsdate.AddDays(-int.Parse(txtLabOrdDate.Text.Trim()));
+            if(vsdate.Year < 2000)              {                vsdate = vsdate.AddYears(543);         }
+            if (vsdate1.Year < 2000)            {                vsdate1 = vsdate1.AddYears(543);       }
+            DataTable dt = new DataTable();
+            dt = BC.bcDB.vsDB.selectLabbyDate(txtPttHN.Text, vsdate1.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), vsdate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+            grfLab.Rows.Count = 1;
+            grfLab.Rows.Count = dt.Rows.Count + 1;
+            int i = 1;
+            String labname = "", labnameold = "", reqno = "", reqnoold = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                Row row1 = grfLab.Rows[i];
+                labname = row["MNC_LB_DSC"].ToString();
+                reqno = row["mnc_req_no"].ToString();
+                if (!labname.Equals(labnameold) || !reqno.Equals(reqnoold)) {   labnameold = labname;       reqnoold = reqno;   row1[colLabName] = row["MNC_LB_DSC"].ToString();   }
+                else                {                    row1[colLabName] = "";                }
+                row1[colLabDate] = row["mnc_req_dat"].ToString();
+                //row1[colLabName] = row["MNC_LB_DSC"].ToString();
+                row1[colLabNameSub] = row["MNC_RES"].ToString();
+                row1[colLabResult] = row["MNC_RES_VALUE"].ToString();
+                row1[colInterpret] = row["MNC_STS"].ToString();
+                row1[colNormal] = row["MNC_LB_RES"].ToString();
+                row1[colUnit] = row["MNC_RES_UNT"].ToString();
+                i++;
+            }
+        }
+        private void TabMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TABACTIVE = tabMain.SelectedTab.Name;
+            if(TABACTIVE.Equals(tabLabOrder.Name))              {                pnLabCond.Show(); setGrfLab();             }
+            else                                                {                pnLabCond.Hide();                          }
         }
 
         private void TxtItemCode_KeyUp(object sender, KeyEventArgs e)

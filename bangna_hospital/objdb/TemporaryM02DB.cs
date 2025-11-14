@@ -58,7 +58,7 @@ namespace bangna_hospital.objdb
                 "Where MNC_DOC_NO = '" + docno + "' and MNC_DOC_DAT = '" + docdate + "'  " +
                 "Order By MNC_ORD_BY  ";
             dt = conn.selectData(sql);
-
+            
             return dt;
         }
     }

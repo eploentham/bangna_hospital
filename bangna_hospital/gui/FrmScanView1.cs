@@ -11978,53 +11978,85 @@ namespace bangna_hospital.gui
         }
         private void setControlGbPtt()
         {
-            int widthL = 0, widthR = 0;
-            Size size = new Size();
-            widthL = tabStfNote.Width / 2;
-            widthR = widthL + 5;
-            //sct.SplitterDistance = fpL.Width;
-            //cspL.Width = widthL;        //panel รูปใบยาซ้าย
-            //cspL.Width = 240;
-            //cspL.Width = 1300;
-            tcVs.Width = 100;
-            sC1.HeaderHeight = 0;
-            scVs.Width = 240;
-            scScan.Width = 1700;
-            //panel2.Width = 240;
-            panel2.Width = 240;
-            //sct.Panel1.Width = fpL.Width;
-            //sct.Panel2.Width = fpR.Width;
-            sct.HeaderHeight = 0;
-            tabOPD.Width = 240;
-            gbPtt.Height = 45;
-            tcDtr.Width = 1700;
-            scVs.SizeRatio  = bc.scVssizeradio;       // set ขนาด หน้าจอ ซ้ายกับขวา ให้ set ตรงนี้
-            Application.DoEvents();
+            string err = "00";
+            try
+            {
+                int widthL = 0, widthR = 0;
+                Size size = new Size();
+                // Layout calculations and guard checks
+                err = "01";
+                if (tabStfNote == null) throw new InvalidOperationException("tabStfNote is null.");
+                widthL = Math.Max(0, tabStfNote.Width / 2);
+                widthR = widthL + 5;
+                err = "02";                if (tcVs != null) tcVs.Width = 100;
+
+                err = "03";                if (sC1 != null) sC1.HeaderHeight = 0;
+
+                err = "04";                if (scVs != null) scVs.Width = 240;
+
+                err = "05";                if (scScan != null) scScan.Width = 1700;
+
+                err = "06";                if (panel2 != null) panel2.Width = 240;
+
+                err = "07";                if (sct != null) sct.HeaderHeight = 0;
+
+                err = "08";                if (tabOPD != null) tabOPD.Width = 240;
+
+                err = "09";                if (gbPtt != null) gbPtt.Height = 45;
+
+                err = "10";                if (tcDtr != null) tcDtr.Width = 1700;
+                // Clamp SizeRatio to a sane range (ComponentOne expects a percentage-like value)
+                err = "11";
+                if (scVs != null)
+                {
+                    int ratio = (bc != null) ? bc.scVssizeradio : 60;
+                    if (ratio < 10) ratio = 10;
+                    if (ratio > 90) ratio = 90;
+                    scVs.SizeRatio = ratio;// set ขนาด หน้าจอ ซ้ายกับขวา ให้ set ตรงนี้
+                }
+                Application.DoEvents();
+                err = "12";                setBTNHN();
+                err = "13";                if (txtHn != null) txtHn.Width = 90;
+                err = "14";                if (txtHn != null && txtName != null)                    txtName.Location = new Point(txtHn.Width + 50, txtHn.Location.Y);
+                err = "15";                if (lbAge != null && txtName != null)                    lbAge.Location = new Point(txtName.Location.X + txtName.Width + 5, txtName.Location.Y);
+                err = "16";                if (lbAge != null && bc != null) size = bc.MeasureString(lbAge);
+                err = "17";                if (label2 != null && txtName != null)                    label2.Location = new Point(lbAge.Location.X + size.Width + 5, txtName.Location.Y);
+                
+                size = bc.MeasureString(label2);
+                txtVN.Location = new Point(label2.Location.X + size.Width + 5, txtName.Location.Y);
+                size = bc.MeasureString(txtVN);
+                chkIPD.Location = new Point(txtVN.Location.X + txtVN.Width + 10, txtName.Location.Y - 5);
+                //txt.Location = new Point(chkIPD.Location.X + chkIPD.Width + 10, txtName.Location.Y);
+                lbCnt.Location = new Point(chkIPD.Location.X + chkIPD.Width + 10, txtName.Location.Y);
+                btnDrugNew.Location = lbCnt.Location;
+                size = bc.MeasureString(lbCnt);
+                lbDrugAllergy.Location = new Point(lbCnt.Location.X + size.Width + 10, txtName.Location.Y);
+
+                size = bc.MeasureString(lbDrugAllergy);
+                lbChronic1.AutoSize = true;
+                lbChronic1.Location = new System.Drawing.Point(lbDrugAllergy.Location.X + size.Width + 10, txtName.Location.Y);
+                lbChronic1.Text = "Chronic : " + txtChronic;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    new LogWriter("e", this.Name + " setControlGbPtt(" + err + ") " + ex.Message);
+                    if (bc != null) bc.bcDB.insertLogPage(bc.userId, this.Name, "setControlGbPtt", err + ": " + ex.Message);
+                }
+                catch { /* avoid secondary exceptions during logging */ }
+
+                MessageBox.Show("เกิดข้อผิดพลาดระหว่างจัดวางหน้าจอ (code " + err + ")\n" + ex.Message,
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            finally
+            {
+                this.ResumeLayout();
+            }
+            
             //size = bc.MeasureString(txtName);
             //txtName.Size = size;
-            setBTNHN();
-            txtHn.Width = 90;
-            txtName.Location = new Point(txtHn.Width + 50, txtHn.Location.Y);
-            lbAge.Location = new Point(txtName.Location.X + txtName.Width + 5, txtName.Location.Y);
-            size = bc.MeasureString(lbAge);
-            //label1.Location = new Point(lbAge.Location.X + size.Width + 10, txtName.Location.Y);
-            //size = bc.MeasureString(label1);
-            //cboDgs.Location = new Point(label1.Location.X + size.Width + 10, txtName.Location.Y);
-            label2.Location = new Point(lbAge.Location.X + size.Width +5, txtName.Location.Y);
-            size = bc.MeasureString(label2);
-            txtVN.Location = new Point(label2.Location.X + size.Width +5, txtName.Location.Y);
-            size = bc.MeasureString(txtVN);
-            chkIPD.Location = new Point(txtVN.Location.X + txtVN.Width + 10, txtName.Location.Y - 5);
-            //txt.Location = new Point(chkIPD.Location.X + chkIPD.Width + 10, txtName.Location.Y);
-            lbCnt.Location = new Point(chkIPD.Location.X + chkIPD.Width + 10, txtName.Location.Y);
-            btnDrugNew.Location = lbCnt.Location;
-            size = bc.MeasureString(lbCnt);
-            lbDrugAllergy.Location = new Point(lbCnt.Location.X + size.Width + 10, txtName.Location.Y);
             
-            size = bc.MeasureString(lbDrugAllergy);
-            lbChronic1.AutoSize = true;
-            lbChronic1.Location = new System.Drawing.Point(lbDrugAllergy.Location.X + size.Width + 10, txtName.Location.Y);
-            lbChronic1.Text = "Chronic : " + txtChronic;
         }
         private void setBTNHN()
         {

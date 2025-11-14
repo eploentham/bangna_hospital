@@ -6,10 +6,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace bangna_hospital.services
 {
@@ -21,49 +20,49 @@ namespace bangna_hospital.services
 
     public class ClaudeMessage
     {
-        [JsonPropertyName("role")]
+        [JsonProperty("role")]
         public string Role { get; set; }
 
-        [JsonPropertyName("content")]
+        [JsonProperty("content")]
         public string Content { get; set; }
     }
 
     public class ClaudeRequest
     {
-        [JsonPropertyName("model")]
+        [JsonProperty("model")]
         public string Model { get; set; }
 
-        [JsonPropertyName("max_tokens")]
+        [JsonProperty("max_tokens")]
         public int MaxTokens { get; set; }
 
-        [JsonPropertyName("messages")]
+        [JsonProperty("messages")]
         public List<ClaudeMessage> Messages { get; set; }
 
-        [JsonPropertyName("temperature")]
+        [JsonProperty("temperature", NullValueHandling = NullValueHandling.Ignore)]
         public double? Temperature { get; set; }
 
-        [JsonPropertyName("system")]
+        [JsonProperty("system", NullValueHandling = NullValueHandling.Ignore)]
         public string System { get; set; }
 
-        [JsonPropertyName("stream")]
+        [JsonProperty("stream")]
         public bool Stream { get; set; } = false;
     }
 
     public class ClaudeContentBlock
     {
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public string Type { get; set; }
 
-        [JsonPropertyName("text")]
+        [JsonProperty("text")]
         public string Text { get; set; }
     }
 
     public class ClaudeUsage
     {
-        [JsonPropertyName("input_tokens")]
+        [JsonProperty("input_tokens")]
         public int InputTokens { get; set; }
 
-        [JsonPropertyName("output_tokens")]
+        [JsonProperty("output_tokens")]
         public int OutputTokens { get; set; }
 
         public decimal CalculateCost(string model)
@@ -80,46 +79,49 @@ namespace bangna_hospital.services
 
     public class ClaudeResponse
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public string Type { get; set; }
 
-        [JsonPropertyName("role")]
+        [JsonProperty("role")]
         public string Role { get; set; }
 
-        [JsonPropertyName("content")]
+        [JsonProperty("content")]
         public List<ClaudeContentBlock> Content { get; set; }
 
-        [JsonPropertyName("model")]
+        [JsonProperty("model")]
         public string Model { get; set; }
 
-        [JsonPropertyName("stop_reason")]
+        [JsonProperty("stop_reason")]
         public string StopReason { get; set; }
 
-        [JsonPropertyName("usage")]
+        [JsonProperty("usage")]
         public ClaudeUsage Usage { get; set; }
 
+        [JsonIgnore]
         public string Text => Content?.FirstOrDefault()?.Text ?? string.Empty;
+
+        [JsonIgnore]
         public decimal Cost => Usage?.CalculateCost(Model) ?? 0;
     }
 
     public class ClaudeErrorResponse
     {
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public string Type { get; set; }
 
-        [JsonPropertyName("error")]
+        [JsonProperty("error")]
         public ClaudeErrorDetail Error { get; set; }
     }
 
     public class ClaudeErrorDetail
     {
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public string Type { get; set; }
 
-        [JsonPropertyName("message")]
+        [JsonProperty("message")]
         public string Message { get; set; }
     }
 
@@ -144,7 +146,7 @@ namespace bangna_hospital.services
     #endregion
 
     // ========================================
-    // CLAUDE API CLIENT - เวอร์ชันใหม่
+    // CLAUDE API CLIENT
     // ========================================
 
     public class ClaudeApiClient : IDisposable
@@ -319,11 +321,11 @@ namespace bangna_hospital.services
 
         private async Task<ClaudeResponse> SendHttpRequestAsync(ClaudeRequest request)
         {
-            // Serialize request
-            var json = JsonSerializer.Serialize(request, new JsonSerializerOptions
+            // Serialize request ด้วย Newtonsoft.Json
+            var json = JsonConvert.SerializeObject(request, new JsonSerializerSettings
             {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-                WriteIndented = false
+                NullValueHandling = NullValueHandling.Ignore,
+                Formatting = Formatting.None
             });
 
             Log($"📤 Request: {TruncateForLog(json, 200)}");
@@ -332,7 +334,7 @@ namespace bangna_hospital.services
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var startTime = DateTime.Now;
 
-            // ใช้ URL เต็มโดยตรง - แก้ปัญหา 404
+            // ใช้ URL เต็มโดยตรง
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, API_URL))
             {
                 requestMessage.Content = content;
@@ -360,8 +362,8 @@ namespace bangna_hospital.services
                     );
                 }
 
-                // Parse response
-                var response = JsonSerializer.Deserialize<ClaudeResponse>(responseString);
+                // Parse response ด้วย Newtonsoft.Json
+                var response = JsonConvert.DeserializeObject<ClaudeResponse>(responseString);
 
                 Log($"📥 Response: {TruncateForLog(response.Text, 200)}");
                 Log($"💰 Tokens: {response.Usage?.InputTokens} in + {response.Usage?.OutputTokens} out = ${response.Cost:F4}");
@@ -431,7 +433,7 @@ namespace bangna_hospital.services
         {
             try
             {
-                return JsonSerializer.Deserialize<ClaudeErrorResponse>(responseString);
+                return JsonConvert.DeserializeObject<ClaudeErrorResponse>(responseString);
             }
             catch
             {
@@ -441,7 +443,7 @@ namespace bangna_hospital.services
 
         private string GenerateCacheKey(ClaudeRequest request)
         {
-            var json = JsonSerializer.Serialize(request);
+            var json = JsonConvert.SerializeObject(request);
             using (var sha256 = SHA256.Create())
             {
                 var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(json));
@@ -505,6 +507,48 @@ namespace bangna_hospital.services
             ErrorDetails = errorDetails;
         }
     }
+
+    // ========================================
+    // HELPER CLASS สำหรับ WebView2
+    // ========================================
+
+    public static class ClaudeWebViewHelper
+    {
+        /// <summary>
+        /// Escape string สำหรับส่งไปยัง JavaScript ใน WebView2
+        /// </summary>
+        public static string EscapeForJavaScript(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return "\"\"";
+
+            // ใช้ Newtonsoft.Json เพื่อ escape อัตโนมัติ
+            return JsonConvert.SerializeObject(text);
+        }
+
+        /// <summary>
+        /// ส่งข้อความไปแสดงใน WebView2
+        /// </summary>
+        public static async Task SendMessageToWebView(
+            Microsoft.Web.WebView2.WinForms.WebView2 webView,
+            string message,
+            string time = null)
+        {
+            if (webView?.CoreWebView2 == null)
+            {
+                throw new InvalidOperationException("WebView2 is not initialized");
+            }
+
+            time = time ?? DateTime.Now.ToString("HH:mm");
+
+            var jsonMessage = EscapeForJavaScript(message);
+            var jsonTime = EscapeForJavaScript(time);
+
+            var script = $"addAssistantMessage({jsonMessage}, {jsonTime})";
+
+            await webView.ExecuteScriptAsync(script);
+        }
+    }
 }
 
 // ========================================
@@ -525,7 +569,7 @@ class Program
         // สร้าง config
         var config = new ClaudeConfig
         {
-            ApiKey = "sk-ant-api03-OJI_CWuS7aTSJlFj5hjfATNr1ihYD5H2TD0vucUhEDHm_Zt4C5OMhkhe8dLmPX_Owzlaf8cOkIvJRadrECVOw-zihRQAAA",  // ⚠️ ใส่ API Key ของคุณ
+            ApiKey = "sk-ant-api03-YOUR_API_KEY_HERE",
             DefaultModel = "claude-sonnet-4-5-20250929",
             DefaultMaxTokens = 1024,
             EnableLogging = true
@@ -543,6 +587,9 @@ class Program
                 Console.WriteLine("\n✅ SUCCESS!");
                 Console.WriteLine($"📥 Claude: {response.Text}");
                 Console.WriteLine($"💰 Cost: ${response.Cost:F6}");
+
+                // ส่งไปแสดงใน WebView2
+                // await ClaudeWebViewHelper.SendMessageToWebView(wvClaude, response.Text);
             }
             catch (ClaudeApiException ex)
             {

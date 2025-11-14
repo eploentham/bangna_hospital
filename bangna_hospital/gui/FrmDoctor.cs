@@ -812,7 +812,7 @@ namespace bangna_hospital.gui
                 dtdate = dtdate.AddYears(543);
             }
             DataTable dt = new DataTable();
-            dt = bc.bcDB.vsDB.selectAppointmentByDtr(bc.user.staff_id, dtdate.Year.ToString() + "-" + dtdate.ToString("MM-dd"));
+            dt = bc.bcDB.pt07DB.selectAppointmentByDtr(bc.user.staff_id, dtdate.Year.ToString() + "-" + dtdate.ToString("MM-dd"));
             int i = 1;
             grfApm.Rows.Count = 1; grfApm.Rows.Count = dt.Rows.Count + 1;
             foreach (DataRow row in dt.Rows)
@@ -915,8 +915,8 @@ namespace bangna_hospital.gui
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             //theme1.SetTheme(this, "Office2010Blue");
-            this.Text = "Last Update 2025-09-05";
-            lfSbLastUpdate.Text = "Update 2568-09-22-1";
+            this.Text = "Last Update 2025-10-20";
+            lfSbLastUpdate.Text = "Update 2568-10-20";
             lfSbMessage.Text = "";
             bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor_Load", "Application Doctor Start");
         }

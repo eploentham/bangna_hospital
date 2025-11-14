@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_pharmacy</AssemblyName>
+    <AssemblyName>bangna_hospital_cashier</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -886,6 +886,12 @@
     <Compile Include="gui\FrmXrayViewDaily.Designer.cs">
       <DependentUpon>FrmXrayViewDaily.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\UCDrugEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="gui\UCDrugEdit.Designer.cs">
+      <DependentUpon>UCDrugEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="gui\UCImagePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -981,6 +987,7 @@
     <Compile Include="objdb\PatientM06DB.cs" />
     <Compile Include="objdb\PatientM13DB.cs" />
     <Compile Include="objdb\PatientM26DB.cs" />
+    <Compile Include="objdb\PatientM321DB.cs" />
     <Compile Include="objdb\PatientM39DB.cs" />
     <Compile Include="objdb\PatientM40DB.cs" />
     <Compile Include="objdb\PatientM44DB.cs" />
@@ -1004,6 +1011,7 @@
     <Compile Include="objdb\SSOPOpdxDB.cs" />
     <Compile Include="objdb\SSOPOpservicesDB.cs" />
     <Compile Include="objdb\SummaryT03DB.cs" />
+    <Compile Include="objdb\SummaryT04DB.cs" />
     <Compile Include="objdb\SupraHospitalDB.cs" />
     <Compile Include="objdb\SupraSupraDB.cs" />
     <Compile Include="objdb\TFingerScanDB.cs" />
@@ -1021,6 +1029,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="object1\PaidMap.cs" />
+    <Compile Include="object1\PatientM321.cs" />
     <Compile Include="object1\PatientT02.cs" />
     <Compile Include="object1\PatientT022.cs" />
     <Compile Include="object1\PatientT09.cs" />
@@ -1229,6 +1238,7 @@
     <Compile Include="object1\SSOPxmlFile.cs" />
     <Compile Include="object1\SubDistrict.cs" />
     <Compile Include="object1\SummaryT03.cs" />
+    <Compile Include="object1\SummaryT04.cs" />
     <Compile Include="object1\SupraHospital.cs" />
     <Compile Include="object1\SupraSupra.cs" />
     <Compile Include="object1\TemporaryM01.cs" />
@@ -1327,10 +1337,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="services\ChatLog.cs" />
     <Compile Include="services\ClaudeApiClient.cs" />
     <Compile Include="services\Fix401ApiKey.cs" />
     <Compile Include="services\RateLimitedClaudeClient.cs" />
     <Compile Include="services\WebView2MessageFix.cs" />
+    <Compile Include="utility\FontHelper.cs" />
     <EmbeddedResource Include="gui\FrmAipn.resx">
       <DependentUpon>FrmAipn.cs</DependentUpon>
     </EmbeddedResource>
@@ -1647,6 +1659,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmXrayViewDaily.resx">
       <DependentUpon>FrmXrayViewDaily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\UCDrugEdit.resx">
+      <DependentUpon>UCDrugEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\UCImagePanel.resx">
       <DependentUpon>UCImagePanel.cs</DependentUpon>

@@ -66,13 +66,52 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public DataTable selectByCompcode(String compcode)
+        public DataTable selectByCompCode(String name)
         {
             DataTable dt = new DataTable();
             String sql = "", re = "";
             sql = "Select pm39.* " +
                 "From  " + pm39.table + " pm39 " +
-                " Where pm39.MNC_COM_CD = '"+ compcode + "' ";
+            " Where (pm39." + pm39.MNC_PAC_CD + " like '" + name + "%')   ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
+        public DataTable selectByCompName(String name)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pm39.* " +
+                "From  " + pm39.table + " pm39 " +
+            " Where (pm39." + pm39.MNC_PAC_DSC + " like '" + name + "%')   ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
+        public DataTable selectViewHelpByCompCode(String name)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select top 40 pt01.MNC_FN_TYP_CD,  pt01.MNC_COM_CD, pt01.MNC_COMPANY, pt01.MNC_PAC_CD, pm39.MNC_PAC_DSC " +
+                ",pt01.MNC_HN_NO, pm02.MNC_PFIX_DSC + ' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as fullnamet, convert(varchar(20), pt01.MNC_DATE, 23) as MNC_DATE " +
+                ", pm39.MNC_PAC_TYP " +
+                "From  " + pm39.table + " pm39 " +
+                "inner join Patient_t01 pt01 on pt01.MNC_COM_CD = pm39.MNC_COM_CD " +
+                "inner join Patient_m01 pm01 on pt01.MNC_HN_NO = pm01.MNC_HN_NO " +
+                "left join Patient_m02 pm02 on pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+            " Where pt01." + pm39.MNC_COM_CD + " = '" + name + "'  Order By pt01.MNC_DATE desc, pt01.MNC_TIME desc ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+
+            return dt;
+        }
+        public DataTable selectByCompcode(String compcode)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select pm39.*, isnull(pm24.MNC_COM_DSC,'') as MNC_COM_DSC, isnull(pm24.MNC_COM_ADD, '') as MNC_COM_ADD " +
+                "From  " + pm39.table + " pm39 " +
+                "Left Join Patient_m24 pm24 on pm39.MNC_COM_CD = pm24.MNC_COM_CD " +
+                " Where pm39.MNC_COM_CD = '" + compcode + "' ";
             dt = conn.selectData(conn.connMainHIS, sql);
 
             return dt;
@@ -122,6 +161,28 @@ namespace bangna_hospital.objdb
                 
                 i++;
             }
+        }
+        public String updateCompCode(String packagecode, String packagetype, String compcode, String userId)
+        {
+            String re = "";
+            String sql = "";
+            int chk = 0;
+            
+            sql = "Update " + pm39.table + " Set " + pm39.MNC_COM_CD + " = '" + compcode + "' " +
+               ", date_modi = convert(varchar(20), getdate(),20) " +
+               ", user_modi = '"+userId+"' " +
+                "Where " + pm39.MNC_PAC_CD + " = '" + packagecode + "' and " + pm39.MNC_PAC_TYP + " = '" + packagetype + "' "+
+                " ";
+            try
+            {
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "PatientM39DB updateCompCode error  " + ex.Message + " " + ex.InnerException);
+            }
+            return re;
         }
     }
 }

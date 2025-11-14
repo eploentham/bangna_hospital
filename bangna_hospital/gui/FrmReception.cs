@@ -1597,7 +1597,6 @@ namespace bangna_hospital.gui
                 txtPttwp2.Focus();
             }
         }
-
         private void BtnVsSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -1628,8 +1627,8 @@ namespace bangna_hospital.gui
                 err = "011";
                 Visit vs = setVisit();
                 err = "02";
-                if (vs.HN.Length < 5) {                    lfSbStatus.Text = "HN";                    return;                }
-                if (vs.symptom.Length <= 0) {                    lfSbStatus.Text = "อาการ";                    txtVsSymptom.Focus();                    return;                }
+                if (vs.HN.Length < 5) {                     lfSbStatus.Text = "HN";                 return;                }
+                if (vs.symptom.Length <= 0) {               lfSbStatus.Text = "อาการ";             txtVsSymptom.Focus();                    return;                }
                 if (vs.DeptCode.Length <= 0)
                 {
                     lfSbStatus.Text = "ส่งตัวไป";
@@ -1886,8 +1885,8 @@ namespace bangna_hospital.gui
                 ptt.MNC_REF_TEL = txtPttRefContact1Mobile.Text.Trim();
                 ptt.MNC_REF_REL = txtPttRefContact1Rel.Text.Trim();
                 err = "06";
-                ptt.MNC_COM_CD = bc.bcDB.pm24DB.getPaidCode(txtPttInsur.Text.Trim());           //มีแจ้ง error ว่า save แล้ว บริษัทหาย ได้ลอง debug เช่น aIa ค้นไม่เจอ
-                ptt.MNC_COM_CD2 = bc.bcDB.pm24DB.getPaidCode(txtPttCompCode.Text.Trim());
+                ptt.MNC_COM_CD = bc.bcDB.pm24DB.getPaidCodeCopilot(txtPttInsur.Text.Trim());           //มีแจ้ง error ว่า save แล้ว บริษัทหาย ได้ลอง debug เช่น aIa ค้นไม่เจอ
+                ptt.MNC_COM_CD2 = bc.bcDB.pm24DB.getPaidCodeCopilot(txtPttCompCode.Text.Trim());
                 ptt.WorkPermit1 = txtPttwp1.Text.Trim();
                 ptt.WorkPermit2 = txtPttwp2.Text.Trim();
                 ptt.WorkPermit3 = txtPttwp3.Text.Trim();
@@ -4898,7 +4897,7 @@ namespace bangna_hospital.gui
         }
         private void FrmReception_Load(object sender, EventArgs e)
         {
-            this.Text = "Update 2568-03-19  smartcard";
+            this.Text = "Update 2568-11-05  com_cd";
             tC.SelectedTab = tabSrc;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;

@@ -1449,7 +1449,7 @@ namespace bangna_hospital.gui
                 //{
                 //new LogWriter("e", "FrmNurseScanView setGrfApm datestart " + datestart);
                 err = "03 datestart "+ datestart;
-                dt = bc.bcDB.vsDB.selectAppointmentByDtr(txtHn.Text.Trim(), datestart);
+                dt = bc.bcDB.pt07DB.selectAppointmentByDtr(txtHn.Text.Trim(), datestart);
                 //}
                 int i = 1;
                 grfApm.Rows.Count = dt.Rows.Count + 1;

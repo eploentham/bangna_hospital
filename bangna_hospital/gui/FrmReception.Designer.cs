@@ -1130,7 +1130,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.247D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 982;
+            this.pnPttPatient.Width = 989;
             // 
             // btnPttPaid
             // 
@@ -3413,7 +3413,7 @@ namespace bangna_hospital.gui
             this.pnRptCri.Controls.Add(this.txtRptDateStart);
             this.pnRptCri.Controls.Add(this.btnRptOk);
             this.pnRptCri.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Bottom;
-            this.pnRptCri.Height = 423;
+            this.pnRptCri.Height = 416;
             this.pnRptCri.Location = new System.Drawing.Point(0, 455);
             this.pnRptCri.Name = "pnRptCri";
             this.pnRptCri.Size = new System.Drawing.Size(409, 395);

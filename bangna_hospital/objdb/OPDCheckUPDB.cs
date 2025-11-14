@@ -260,7 +260,7 @@ namespace bangna_hospital.objdb
             String sql = "";
             DataTable dt = new DataTable();
             sql = "Select * From " + opdc.table + " Where " + opdc.HN + "='" + hn + "' and "+opdc.Active+"='1'";
-            dt = conn.selectData(sql);
+            dt = conn.selectData(conn.connSsnData, sql);
             if (dt.Rows.Count > 0)
             {
                 item = setData(item, dt);

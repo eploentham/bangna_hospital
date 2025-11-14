@@ -12,6 +12,7 @@ namespace bangna_hospital.objdb
 {
     public class PatientM26DB
     {
+        DataTable DTDRUG; internal AutoCompleteStringCollection AUTODTR;
         ConnectDB conn;
         PatientM26 pm26;
         public PatientM26DB(ConnectDB c) {
@@ -79,6 +80,35 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             cop1 = setMedicalCert(dt);
             return cop1;
+        }
+        public DataTable SelectDtrAll()
+        {
+            DataTable dt = new DataTable();
+
+            String sql = "select pm26.*,pm02.MNC_PFIX_DSC " +
+                "From " + pm26.table + " pm26 " +
+                "Left Join PATIENT_M02 pm02 On pm26.MNC_DOT_PFIX = pm02.MNC_PFIX_CD " +
+                "Where pm26." + pm26.MNC_DOT_STS + " ='Y' " +
+                " ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);   select_drug_map
+            return dt;
+        }
+        public AutoCompleteStringCollection setAUTODTR()
+        {
+            //lDept = new List<Position>();
+            AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
+            //labM01.Clear();
+            if (DTDRUG == null || DTDRUG.Rows.Count <= 0)
+            {
+                DTDRUG = SelectDtrAll(); AUTODTR = new AutoCompleteStringCollection();
+                foreach (DataRow row in DTDRUG.Rows)
+                {
+                    autoSymptom.Add(row["MNC_PFIX_DSC"].ToString() + " " + row["MNC_DOT_FNAME"].ToString()+" "+ row["MNC_DOT_LNAME"].ToString() + "#" + row["MNC_DOT_CD"].ToString());
+                    AUTODTR.Add(row["MNC_PFIX_DSC"].ToString() + " " + row["MNC_DOT_FNAME"].ToString() + " " + row["MNC_DOT_LNAME"].ToString() + "#" + row["MNC_DOT_CD"].ToString());
+                }
+            }
+            return autoSymptom;
         }
         public String updateAppoint(String dtrcode, String appoint)
         {

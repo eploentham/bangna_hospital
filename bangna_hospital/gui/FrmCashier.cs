@@ -1,5 +1,6 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
+using C1.C1Pdf;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
@@ -10,7 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +27,7 @@ namespace bangna_hospital.gui
     public partial class FrmCashier : Form
     {
         BangnaControl bc;
-        Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB;
+        Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         Patient PTT;
@@ -33,6 +37,7 @@ namespace bangna_hospital.gui
         DataTable DTINV = new DataTable();
         Timer timeOperList;
         Label lbLoading;
+        TextBox txttaxid, txtName, txtAddr1, txtAddr2;
         String PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", PTTNAME="", VSTIME="", DOCNO="", DOCDATE="";
         Boolean isLoad = false;
         int colgrfOperListHn = 1, colgrfOperListVn=2, colgrfOperListFullNameT = 3, colgrfOperListSymptoms = 4, colgrfOperListPaidName = 5, colgrfOperListPreno = 6, colgrfOperListVsDate = 7, colgrfOperListVsTime = 8, colgrfOperListActNo = 9, colgrfOperListDtrName = 10, colgrfOperListPha = 11, colgrfOperListLab = 12, colgrfOperListXray = 13;
@@ -54,7 +59,7 @@ namespace bangna_hospital.gui
             isLoad = true;
             theme1 = new C1ThemeController();
             timeOperList = new Timer();
-            timeOperList.Interval = bc.timerCheckLabOut * 1000;
+            timeOperList.Interval = Math.Max(1000, bc.timerCheckLabOut * 1000); // enforce >= 1s
             timeOperList.Enabled = false;
             initFont();
             initLoading();
@@ -62,8 +67,8 @@ namespace bangna_hospital.gui
             initGrfFinish();
             initGrfInv();
             initGrfOperList();
-            timeOperList.Enabled = true;
-            timeOperList.Start();
+            //timeOperList.Enabled = true;
+            //timeOperList.Start();
             isLoad = false;
         }
         private void initLoading()
@@ -78,24 +83,39 @@ namespace bangna_hospital.gui
         }
         private void initFont()
         {
-            fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
-            fEditB = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Bold);
-            fEdit2 = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Regular);
-            fEdit2B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 2, FontStyle.Bold);
-            fEdit5B = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize + 5, FontStyle.Bold);
+            // ใช้ค่าจาก config และกำหนด fallback/default font name/size
+            string grdFontName = string.IsNullOrEmpty(bc.iniC.grdViewFontName) ? "Tahoma" : bc.iniC.grdViewFontName;
+            int grdFontSize = bc.grdViewFontSize > 0 ? bc.grdViewFontSize : 10;
+            string pdfFontName = string.IsNullOrEmpty(bc.iniC.pdfFontName) ? "Tahoma" : bc.iniC.pdfFontName;
+            int pdfFontSize = bc.pdfFontSize > 0 ? bc.pdfFontSize : 10;
+            string queFontName = string.IsNullOrEmpty(bc.iniC.queFontName) ? "Tahoma" : bc.iniC.queFontName;
+            int queFontSize = bc.queFontSize > 0 ? bc.queFontSize : 10;
 
-            famt1 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 1, FontStyle.Regular);
-            famt5 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 5, FontStyle.Regular);
-            famt7B = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 7, FontStyle.Bold);
-            famtB14 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 14, FontStyle.Bold);
-            famtB30 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 30, FontStyle.Bold);
-            ftotal = new Font(bc.iniC.pdfFontName, bc.pdfFontSize + 60, FontStyle.Bold);
-            fPrnBil = new Font(bc.iniC.pdfFontName, bc.pdfFontSize, FontStyle.Regular);
-            fque = new Font(bc.iniC.queFontName, bc.queFontSize + 3, FontStyle.Bold);
-            fqueB = new Font(bc.iniC.queFontName, bc.queFontSize + 7, FontStyle.Bold);
-            fEditS = new Font(bc.iniC.pdfFontName, bc.pdfFontSize - 2, FontStyle.Regular);
-            fEditS1 = new Font(bc.iniC.pdfFontName, bc.pdfFontSize - 1, FontStyle.Regular);
+            fEdit = new Font(grdFontName, grdFontSize, FontStyle.Regular);
+            fEditB = new Font(grdFontName, grdFontSize, FontStyle.Bold);
+            fEdit2 = new Font(grdFontName, grdFontSize + 2, FontStyle.Regular);
+            fEdit2B = new Font(grdFontName, grdFontSize + 2, FontStyle.Bold);
+            fEdit3B = new Font(grdFontName, grdFontSize + 3, FontStyle.Bold);
+            fEdit5B = new Font(grdFontName, grdFontSize + 5, FontStyle.Bold);
 
+            famt1 = new Font(pdfFontName, pdfFontSize + 1, FontStyle.Regular);
+            famt5 = new Font(pdfFontName, pdfFontSize + 5, FontStyle.Regular);
+            famt7B = new Font(pdfFontName, pdfFontSize + 7, FontStyle.Bold);
+            famtB14 = new Font(pdfFontName, pdfFontSize + 14, FontStyle.Bold);
+            famtB30 = new Font(pdfFontName, pdfFontSize + 30, FontStyle.Bold);
+            ftotal = new Font(pdfFontName, pdfFontSize + 60, FontStyle.Bold);
+            fPrnBil = new Font(pdfFontName, pdfFontSize, FontStyle.Regular);
+            fEditS = new Font(pdfFontName, Math.Max(pdfFontSize - 2, 6), FontStyle.Regular);
+            fEditS1 = new Font(pdfFontName, Math.Max(pdfFontSize - 1, 6), FontStyle.Regular);
+
+            fPDF = new Font(pdfFontName, pdfFontSize, FontStyle.Regular);
+            fPDFs2 = new Font(pdfFontName, Math.Max(pdfFontSize - 2, 6), FontStyle.Regular);
+            fPDFl2 = new Font(pdfFontName, pdfFontSize + 2, FontStyle.Regular);
+            fPDFs6 = new Font(pdfFontName, Math.Max(pdfFontSize - 6, 6), FontStyle.Regular);
+            fPDFs8 = new Font(pdfFontName, Math.Max(pdfFontSize - 8, 6), FontStyle.Regular);
+
+            fque = new Font(queFontName, queFontSize + 3, FontStyle.Bold);
+            fqueB = new Font(queFontName, queFontSize + 7, FontStyle.Bold);
         }
         private void setTheme()
         {
@@ -152,49 +172,266 @@ namespace bangna_hospital.gui
         private void RgPrn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            printReceipt("original/ต้นฉบับ", bc.iniC.statusPrintPreview.Equals("1") ? "preview":"");
+            if(bc.iniC.branchId.Equals("001"))
+                printReceipt("original/ต้นฉบับ", bc.iniC.statusPrintPreview.Equals("1") ? "preview":"");
+            else if (bc.iniC.branchId.Equals("005"))
+                printReceiptBn5();
         }
-        private void printReceipt(String original, String preview)
+        private void printReceiptBn5()
+        {
+            showLbLoading();
+            String compname = "", compaddr1 = "", compaddr2 = "";
+            Patient ptt = new Patient();
+            ptt = bc.bcDB.pttDB.selectPatinetByHn(HN);
+            DataTable dtvs = bc.bcDB.vsDB.selectCompByPreno(HN, VSDATE, PRENO);
+            if(dtvs.Rows.Count > 0) { 
+                compname = dtvs.Rows[0]["MNC_COM_DSC"] != null ? dtvs.Rows[0]["MNC_COM_PRF"].ToString()+" "+dtvs.Rows[0]["MNC_COM_DSC"].ToString() : "";
+                compaddr1 = dtvs.Rows[0]["MNC_COM_ADD"] != null ? dtvs.Rows[0]["MNC_COM_ADD"].ToString() : "";
+            }
+            AutoCompleteStringCollection acb = new AutoCompleteStringCollection();
+            acb = bc.bcDB.labM01DB.getlLabAll();
+            Size proposedSize = new Size(100, 100);
+            Form frm = new Form();
+            frm.StartPosition = FormStartPosition.CenterParent;
+            frm.WindowState = FormWindowState.Normal;
+            frm.Size = new Size(800, 600);
+
+            Button btntaxid = new Button();
+            btntaxid.Text = "นิติบุคคล";
+            Size textSize = TextRenderer.MeasureText(btntaxid.Text, btntaxid.Font, proposedSize, TextFormatFlags.Left);
+            btntaxid.Location = new System.Drawing.Point(20, 0);
+            btntaxid.Size = new Size(100, 30);
+            btntaxid.Font = fEdit;
+            btntaxid.Click += Btntaxid_Click;
+            txttaxid = new TextBox();
+            txttaxid.Name = "txttaxid";
+            txttaxid.Font = fEdit;
+            txttaxid.Location = btntaxid.Location;
+            txttaxid.Left = btntaxid.Width + textSize.Width;
+            txttaxid.Width = 300;
+            txttaxid.Text = "";
+
+            Label lbName = new Label();
+            lbName.Text = "ชื่อบริษัท";
+            lbName.Location = new System.Drawing.Point(20, 30);
+            lbName.Font = fEdit;
+            textSize = TextRenderer.MeasureText(lbName.Text, lbName.Font, proposedSize, TextFormatFlags.Left);
+            txtName = new TextBox();
+            txtName.Name = "txtName";
+            txtName.Font = fEdit;
+            txtName.Location = lbName.Location;
+            txtName.Left = lbName.Width + textSize.Width+10;
+            txtName.Width = 400;
+            txtName.Text = compname;
+            txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtName.AutoCompleteCustomSource = acb;
+
+            Label lbAddr1 = new Label();
+            lbAddr1.Text = "ที่อยู่บริษัท1";
+            lbAddr1.Location = new System.Drawing.Point(20, 60);
+            lbAddr1.Font = fEdit;
+            textSize = TextRenderer.MeasureText(lbAddr1.Text, lbName.Font, proposedSize, TextFormatFlags.Left);
+            txtAddr1 = new TextBox();
+            txtAddr1.Name = "txtAddr1";
+            txtAddr1.Font = fEdit;
+            txtAddr1.Location = lbAddr1.Location;
+            txtAddr1.Left = lbAddr1.Width + textSize.Width;
+            txtAddr1.Width = 400;
+            txtAddr1.Text = compaddr1;
+
+            Label lbAddr2 = new Label();
+            lbAddr2.Text = "ที่อยู่บริษัท2";
+            lbAddr2.Location = new System.Drawing.Point(20, 90);
+            lbAddr2.Font = fEdit;
+            textSize = TextRenderer.MeasureText(lbAddr1.Text, lbName.Font, proposedSize, TextFormatFlags.Left);
+            txtAddr2 = new TextBox();
+            txtAddr2.Name = "txtAddr2";
+            txtAddr2.Font = fEdit;
+            txtAddr2.Location = lbAddr2.Location;
+            txtAddr2.Left = lbAddr2.Width + textSize.Width;
+            txtAddr2.Width = 400;
+            txtAddr2.Text = "";
+
+            C1FlexGrid grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Bottom;
+            grf.Location = new System.Drawing.Point(10, 110);
+            grf.Height = 400;
+            grf.Rows.Count = 1;
+            grf.Cols.Count = 4;
+
+            frm.Controls.Add(lbName);
+            frm.Controls.Add(txtName);
+            frm.Controls.Add(lbAddr1);
+            frm.Controls.Add(lbAddr2);
+            frm.Controls.Add(txtAddr1);
+            frm.Controls.Add(txtAddr2);
+            frm.Controls.Add(grf);
+            frm.Controls.Add(btntaxid);
+            frm.Controls.Add(txttaxid);
+            theme1.SetTheme(frm, bc.iniC.themeApp);
+
+            frm.ShowDialog(this);
+            
+            //DataTable dtinv = new DataTable();
+            float total = setPrintReceipt("",DTINV);
+            genPDFreceipt(DTINV, total);
+
+            frm.Dispose();
+            hideLbLoading();
+            lfSbMessage.Text = "พิมพ์ ใบเสร็จรับเงิน OK";
+        }
+        private void genPDFreceipt(DataTable dtinv, float total)
+        {
+            String filename = "";
+            int gapLine = 15, linenumber = 5, gapX = 40, gapY = 20, xCol1 = 20, xCol2 = 40, xCol3 = 100, xCol4 = 200, xCol5 = 250, xCol6 = 300, xCol7 = 400, xCol8 = 440;
+            C1PdfDocument pdf = new C1PdfDocument();
+            StringFormat _sfRight, _sfCenter, _sfLeft;
+            float pageWidth = 553, pageHeight = 797;
+            //float cmToInch = 0.393701f;
+            // 1 mm = 2.83465 points
+            //ขนาดกระดาษต่อเนื่อง w 20.5 h 28 cm
+            pageWidth = 210 * 2.83465f;   // = 581.1 points     ขยับค่า 210 ต้องปรับเยอะ กระเทือนเยอะ
+            pageHeight = 280 * 2.83465f;  // = 793.7 points
+
+            pdf.PageSize = new SizeF(pageWidth, pageHeight);
+            //new LogWriter("d", this.Name + " genPDFreceipt 00");
+            _sfRight = new StringFormat();
+            _sfCenter = new StringFormat();
+            _sfLeft = new StringFormat();
+            _sfRight.Alignment = StringAlignment.Far;
+            _sfCenter.Alignment = StringAlignment.Center;
+            _sfLeft.Alignment = StringAlignment.Near;
+            pdf.FontType = FontTypeEnum.Embedded;
+            pdf.PageSize = C1PdfDocumentBase.ToPoints(new SizeF(pageWidth, pageHeight));
+            filename = HN+ "_receipt_" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".pdf";
+            //new LogWriter("d", this.Name + " genPDFreceipt 01" );
+            try
+            {
+                //pdf.DrawString("โรงพยาบาล บางนา5  55 หมู่4 ถนนเทพารักษ์ ตำบลบางพลีใหญ่ อำเภอบางพลี จังหวัด สมุทรปราการ 10540", fPDF, Brushes.Black, new PointF(recf.Width + 65, linenumber += gapLine), _sfLeft);
+                pdf.DrawString("ชื่อบริษัท " + txtName.Text.Trim() , fPDF, Brushes.Black, new PointF(xCol2-50, 40), _sfLeft);
+                pdf.DrawString("ที่อยู่ " + txtAddr1.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2-20, 55), _sfLeft);
+                pdf.DrawString(txtAddr2.Text.Trim()+" taxid: "+ txttaxid.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2-20, 70), _sfLeft);
+                pdf.DrawString("ใบเสร็จรับเงิน ", fPDFl2, Brushes.Black, new PointF(xCol5 - 35, 60), _sfLeft);
+                pdf.DrawString("Receipt ", fPDFl2, Brushes.Black, new PointF(xCol5 - 35, 70), _sfLeft);
+                if (dtinv.Rows.Count > 0)
+                {
+                    //new LogWriter("d", this.Name + " genPDFreceipt 02");
+                    String pttname = dtinv.Rows[0]["pttname"].ToString();
+                    String invno = dtinv.Rows[0]["inv_no"].ToString();
+                    String hn = dtinv.Rows[0]["hn"].ToString();
+                    String diadesc = dtinv.Rows[0]["desc1"].ToString();
+                    String vsdate = dtinv.Rows[0]["apm_date"].ToString();
+                    String vstime = dtinv.Rows[0]["apm_time"].ToString();
+                    String invdate = dtinv.Rows[0]["end_date"].ToString();
+                    String sypmtoms = dtinv.Rows[0]["symptoms"].ToString();
+                    pdf.DrawString(invno, fPDF, Brushes.Black, new PointF(xCol7+45, 50), _sfRight);
+                    pdf.DrawString(pttname+" ["+hn+"]", fPDF, Brushes.Black, new PointF(xCol2+20, 85), _sfLeft);
+                    pdf.DrawString(sypmtoms, fPDF, Brushes.Black, new PointF(xCol5+75, 85), _sfRight);
+                    pdf.DrawString(bc.datetoShow1(vsdate), fPDF, Brushes.Black, new PointF(xCol5+70, 96), _sfLeft);
+                    pdf.DrawString((vstime), fPDF, Brushes.Black, new PointF(xCol7+15, 96), _sfLeft);
+                    pdf.DrawString(bc.datetoShow1(invdate), fPDF, Brushes.Black, new PointF(xCol5-5, 108), _sfLeft);
+                    linenumber += (130);
+                    //new LogWriter("d", this.Name + " genPDFreceipt 03");
+                    foreach (DataRow row in dtinv.Rows)
+                    {
+                        String amt = row["MNC_AMT"].ToString();
+                        String desc = row["MNC_DEF_DSC"].ToString();
+                        //String qty = row["MNC_QTY"].ToString();
+                        String code = row["MNC_DEF_CD"].ToString();
+                        float famt = 0;
+                        float.TryParse(amt, out famt);
+                        //pdf.DrawString(qty, fPDF, Brushes.Black, new PointF(xCol1, linenumber += (gapLine)), _sfLeft);
+                        pdf.DrawString(code, fPDF, Brushes.Black, new PointF(xCol2-10, linenumber+=(gapLine)), _sfLeft);
+                        pdf.DrawString(desc, fPDF, Brushes.Black, new PointF(xCol3-10, linenumber), _sfLeft);
+                        pdf.DrawString(famt>0 ? famt.ToString("#,###.00"): "", fPDF, Brushes.Black, new PointF(xCol8, linenumber), _sfRight);
+
+                    }
+                }
+                pdf.DrawString(total.ToString("#,###.00"), fPDF, Brushes.Black, new PointF(xCol8, 503), _sfRight);
+                String patheName = Environment.CurrentDirectory + "\\receipt\\";
+                if ((Environment.CurrentDirectory.ToLower().IndexOf("windows") >= 0) && ((Environment.CurrentDirectory.ToLower().IndexOf("c:") >= 0)))
+                {
+                    //new LogWriter("d", "genPDFreceipt Environment.CurrentDirectory " + Environment.CurrentDirectory);
+                    patheName = bc.iniC.pathIniFile + "\\receipt\\";
+                }
+                if (!Directory.Exists(patheName))               {                    Directory.CreateDirectory(patheName);                }
+                String pathFileName = patheName + filename;
+                if (File.Exists(pathFileName))                  {                    File.Delete(pathFileName);                }
+                pdf.Save(pathFileName);
+                if (File.Exists(pathFileName))
+                {
+                    lfSbMessage.Text = "สร้างใบเสร็จรับเงิน " + pathFileName + " เรียบร้อย";
+                    var psi = new ProcessStartInfo { FileName = pathFileName, UseShellExecute = true };
+                    Process.Start(psi);
+                }
+                else
+                    lfSbMessage.Text = "สร้างใบเสร็จรับเงิน ไม่สำเร็จ";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                new LogWriter("e", this.Name+ " genPDFreceipt " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "genPDFreceipt ", ex.Message);
+            }
+            finally
+            {
+                pdf.Dispose();
+                
+            }
+        }
+        private async void Btntaxid_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            //https://dataapi.moc.go.th/juristic?juristic_id=0105537004444
+            if(txttaxid == null) { lfSbMessage.Text = "txttaxid is null";  return; }
+            if (txttaxid.Text.Length <= 0) { lfSbMessage.Text = "กรุณากรอก เลขประจำตัวผู้เสียภาษี"; return; }
+            using (var client = new System.Net.Http.HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                var url = "https://dataapi.moc.go.th/juristic?juristic_id="+ txttaxid.Text.Trim();
+                try
+                {
+                    var response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    string result = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show(result, "API Result");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message, "API Error");
+                }
+            }
+        }
+        
+        private float setPrintReceipt(String original, DataTable dtinv)
         {
             setPrintINV();
-            
-            DataTable dtinv = new DataTable();
+            //dtinv = new DataTable();
             dtinv = DTINV.Copy();
-            if (dtinv == null || dtinv.Rows.Count <= 0) return;
+            if (dtinv == null || dtinv.Rows.Count <= 0) return 0;
             if (!dtinv.Columns.Contains("apmmake")) dtinv.Columns.Add("apmmake", typeof(String));
             if (!dtinv.Columns.Contains("phone")) dtinv.Columns.Add("phone", typeof(String));
             float total = 0;
             foreach (DataRow arow in dtinv.Rows)
             {
                 float.TryParse(arow["amount"].ToString(), out float amt);
-                total+=amt;
+                total += amt;
                 arow["amount"] = amt.ToString("#,##0.00");
-                if (float.Parse(arow["amount"].ToString()) <= 0)
-                {
-                    arow.Delete();
-                }
-                else
-                {
-                    arow["apmmake"] = original;
-                    arow["phone"] = "0";
-                }
+                if (float.Parse(arow["amount"].ToString()) <= 0)                {                    arow.Delete();                }
+                else                {                    arow["apmmake"] = original;                    arow["phone"] = "0";                }
             }
             dtinv.AcceptChanges();
-            //DataTable dtinv1 = new DataTable();
-            //dtinv1 = dtinv.Copy();
-            //foreach (DataRow arow in dtinv.Rows)
-            //{
-            //    DataRow newRow = dtinv1.NewRow();
-            //    foreach (DataColumn col in dtinv.Columns)
-            //    {
-            //        newRow[col.ColumnName] = arow[col.ColumnName];
-            //    }
-            //    newRow["apmmake"] = "copy/สำเนา";
-            //    newRow["phone"] = "1";
-            //    dtinv1.Rows.Add(newRow);
-            //}
+            return total;
+        }
+        private void printReceipt(String original, String preview)
+        {
+            //DataTable dtinv = new DataTable();
+            float total = setPrintReceipt(original, DTINV);
+            
             FrmReportNew frm = new FrmReportNew(bc, "cashier_receipt", total.ToString("#,##0.00"), original,"");
-            frm.DT = dtinv;
+            frm.DT = DTINV;
             if (preview.Equals("preview"))
             {
                 frm.ShowDialog(this);
@@ -217,6 +454,10 @@ namespace bangna_hospital.gui
             if (!DTINV.Columns.Contains("end_date")) DTINV.Columns.Add("end_date", typeof(String));
             if (!DTINV.Columns.Contains("apm_time")) DTINV.Columns.Add("apm_time", typeof(String));
             if (!DTINV.Columns.Contains("amount")) DTINV.Columns.Add("amount", typeof(String));
+            if (!DTINV.Columns.Contains("comp_name")) DTINV.Columns.Add("comp_name", typeof(String));
+            if (!DTINV.Columns.Contains("comp_addr1")) DTINV.Columns.Add("comp_addr1", typeof(String));
+            if (!DTINV.Columns.Contains("comp_addr2")) DTINV.Columns.Add("comp_addr2", typeof(String));
+            if (!DTINV.Columns.Contains("symptoms")) DTINV.Columns.Add("symptoms", typeof(String));
             foreach (DataRow drow in DTINV.Rows)
             {
                 Boolean chkname = false;
@@ -224,19 +465,29 @@ namespace bangna_hospital.gui
                 String[] invno1 = invno.Split('#');
                 if(invno1.Length > 1)
                 {
+                    String[] txt = invno1[1].Split('/');
                     String invno2 = invno1[1].Length>2 ? invno1[1].Substring(invno1[1].Length-2) : invno1[1];
                     String invno3= invno1[1].Length > 2 ? invno1[1].Substring(0,invno1[1].Length - 4) : invno1[1];
                     invno = "BO"+ invno3 + invno2;
+                    //การเงินให้แก้68-11-13
+                    if (txt.Length > 1)
+                    {
+                        invno = "BO" + txt[1] + txt[0];
+                    }
                 }
-                drow["hn"] = HN;
+
+                drow["hn"] = dttem01.Rows[0]["mnc_hn_no"] !=null ? dttem01.Rows[0]["mnc_hn_no"].ToString():"";
                 drow["desc1"] = drow["MNC_DEF_CD"].ToString()+" "+drow["MNC_DEF_DSC"].ToString();
-                drow["pttname"] = PTTNAME;
-                drow["inv_no"] = DOCNO;
+                drow["pttname"] = dttem01.Rows[0]["mnc_hn_name"] != null ? dttem01.Rows[0]["mnc_hn_name"].ToString() : "";
+                //drow["inv_no"] = DOCNO;
                 drow["apm_date"] = bc.datetoShow1(VSDATE);
                 drow["end_date"] = bc.datetoShow1(VSDATE);
                 drow["apm_time"] = bc.showTime(VSTIME);
                 drow["amount"] = drow["MNC_AMT"].ToString();
                 drow["inv_no"] = invno;
+                drow["comp_name"] = dttem01.Rows[0]["MNC_COM_NAME"] != null ? dttem01.Rows[0]["MNC_COM_NAME"].ToString():"";
+                drow["comp_addr1"] = dttem01.Rows[0]["MNC_COM_addr"] != null ? dttem01.Rows[0]["MNC_COM_addr"].ToString():"";
+                drow["symptoms"] = dttem01.Rows[0]["MNC_DIA_DSC"] != null ? dttem01.Rows[0]["MNC_DIA_DSC"].ToString() : "";
                 //chkname = txtName.Text.Any(c => !Char.IsLetterOrDigit(c));
                 //if (chkname)
                 //{
@@ -377,48 +628,58 @@ namespace bangna_hospital.gui
         private void setGrfOperList()
         {
             if (isLoad) return;
-            if (grfOperList == null) return;
-            if (grfOperList.Rows == null) return;
+            if (grfOperList == null || grfOperList.IsDisposed || !grfOperList.IsHandleCreated) return;
+            C1.Win.C1FlexGrid.RowCollection rows;
+            try         {                rows = grfOperList.Rows;            }
+            catch       {                return; /* rows not ready yet */           }
+
+            if (rows == null) return;
             isLoad = true;
-            timeOperList.Stop();
-            showLbLoading();
-            DataTable dtvs = new DataTable();
-            String deptno = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
-            String vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
-            DateTime dateTime = DateTime.Now.AddDays(-1);
-            //vsdate = dateTime.Year.ToString() + "-" + dateTime.ToString("MM-dd");
-            dtvs = bc.bcDB.vsDB.selectPttActNo131_600PharmacyOK("","", vsdate, vsdate);
-
-            grfOperList.Rows.Count = 1;
-            grfOperList.Rows.Count = dtvs.Rows.Count + 1;
-            int i = 1, j = 1, row = grfOperList.Rows.Count;
-            foreach (DataRow row1 in dtvs.Rows)
+            try
             {
-                Row rowa = grfOperList.Rows[i];
-                rowa[colgrfOperListHn] = row1["MNC_HN_NO"].ToString();
-                rowa[colgrfOperListVn] = row1["MNC_VN_NO"].ToString()+"."+ row1["MNC_VN_SEQ"].ToString()+"."+ row1["MNC_VN_SUM"].ToString();
-                rowa[colgrfOperListFullNameT] = row1["ptt_fullnamet"].ToString();
-                rowa[colgrfOperListSymptoms] = row1["MNC_SHIF_MEMO"].ToString();
-                rowa[colgrfOperListPaidName] = row1["MNC_FN_TYP_DSC"].ToString();
-                rowa[colgrfOperListPreno] = row1["MNC_PRE_NO"].ToString();
-                rowa[colgrfOperListLab] = row1["MNC_LAB_FLG"].ToString();
-                rowa[colgrfOperListPha] = row1["MNC_PHA_FLG"].ToString();
-                rowa[colgrfOperListXray] = row1["MNC_XRA_FLG"].ToString();
+                timeOperList.Stop();
+                showLbLoading();
+                DataTable dtvs = new DataTable();
+                String deptno = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
+                String vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
+                DateTime dateTime = DateTime.Now.AddDays(-1);
+                //vsdate = dateTime.Year.ToString() + "-" + dateTime.ToString("MM-dd");
+                dtvs = bc.bcDB.vsDB.selectPttActNo131_600PharmacyOK("", "", vsdate, vsdate);
 
-                rowa[colgrfOperListVsDate] = row1["MNC_DATE"].ToString();
-                rowa[colgrfOperListVsTime] = bc.showTime(row1["MNC_TIME"].ToString());
-                rowa[colgrfOperListActNo] = bc.adjustACTNO(row1["MNC_ACT_NO"].ToString());
-                rowa[colgrfOperListDtrName] = row1["dtr_name"].ToString();
-                if (row1["MNC_ACT_NO"].ToString().Equals("110")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor); }
-                else if (row1["MNC_ACT_NO"].ToString().Equals("114")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); }
-                else if (row1["MNC_AN_NO"].ToString().Length>0) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); rowa[colgrfOperListVn] = row1["MNC_AN_NO"].ToString(); }
+                grfOperList.Rows.Count = 1;
+                grfOperList.Rows.Count = dtvs.Rows.Count + 1;
+                int i = 1, j = 1, row = grfOperList.Rows.Count;
+                foreach (DataRow row1 in dtvs.Rows)
+                {
+                    Row rowa = grfOperList.Rows[i];
+                    rowa[colgrfOperListHn] = row1["MNC_HN_NO"].ToString();
+                    rowa[colgrfOperListVn] = row1["MNC_VN_NO"].ToString() + "." + row1["MNC_VN_SEQ"].ToString() + "." + row1["MNC_VN_SUM"].ToString();
+                    rowa[colgrfOperListFullNameT] = row1["ptt_fullnamet"].ToString();
+                    rowa[colgrfOperListSymptoms] = row1["MNC_SHIF_MEMO"].ToString();
+                    rowa[colgrfOperListPaidName] = row1["MNC_FN_TYP_DSC"].ToString();
+                    rowa[colgrfOperListPreno] = row1["MNC_PRE_NO"].ToString();
+                    rowa[colgrfOperListLab] = row1["MNC_LAB_FLG"].ToString();
+                    rowa[colgrfOperListPha] = row1["MNC_PHA_FLG"].ToString();
+                    rowa[colgrfOperListXray] = row1["MNC_XRA_FLG"].ToString();
 
-                rowa[0] = i.ToString();
-                i++;
+                    rowa[colgrfOperListVsDate] = row1["MNC_DATE"].ToString();
+                    rowa[colgrfOperListVsTime] = bc.showTime(row1["MNC_TIME"].ToString());
+                    rowa[colgrfOperListActNo] = bc.adjustACTNO(row1["MNC_ACT_NO"].ToString());
+                    rowa[colgrfOperListDtrName] = row1["dtr_name"].ToString();
+                    if (row1["MNC_ACT_NO"].ToString().Equals("110")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml(bc.iniC.grfRowColor); }
+                    else if (row1["MNC_ACT_NO"].ToString().Equals("114")) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); }
+                    else if (row1["MNC_AN_NO"].ToString().Length > 0) { rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6"); rowa[colgrfOperListVn] = row1["MNC_AN_NO"].ToString(); }
+
+                    rowa[0] = i.ToString();
+                    i++;
+                }
             }
-            hideLbLoading();
-            timeOperList.Start();
-            isLoad = false;
+            finally
+            {
+                hideLbLoading();
+                if (timeOperList != null && timeOperList.Enabled) timeOperList.Start();
+                isLoad = false;
+            }
         }
         private void initGrfInv()
         {
@@ -607,12 +868,13 @@ namespace bangna_hospital.gui
         }
         private void FrmCashier_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 20250807  ";
+            this.Text = "Last Update 20251113  ";
             System.Drawing.Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
             scFinish.HeaderHeight = 0;
+            timeOperList.Start();// Start timer after controls are ready
         }
     }
 }

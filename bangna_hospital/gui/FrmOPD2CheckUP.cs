@@ -21,11 +21,12 @@ namespace bangna_hospital.gui
         OPDCheckUP opdc;
         Boolean pageLoad = false, keyDistrict = false;
 
-        String id = "";
+        String id = "", HN="";
         public FrmOPD2CheckUP(BangnaControl c, String hn)
         {
             InitializeComponent();
             bc = c;
+            this.HN = hn;
             //id = opdcid;
             initConfig();
         }
@@ -33,22 +34,23 @@ namespace bangna_hospital.gui
         {
             InitializeComponent();
             bc = new BangnaControl();
+            this.HN = hn;
             //id = opdcid;
             initConfig();
         }
         private void initConfig()
         {
             opdc = new OPDCheckUP();
-            setControl("");
+            setControl();
         }
-        private void setControl(String hn)
+        private void setControl()
         {
-            if (hn.Equals(""))
+            if (HN.Equals(""))
             {
                 return;
             }
 
-            opdc = bc.bcDB.opdcDB.selectByHn(hn);
+            opdc = bc.bcDB.opdcDB.selectByHn(HN);
             if (!opdc.Id.Equals(""))
             {
                 txtABOGroup.Text = opdc.ABOGroup;
@@ -83,7 +85,7 @@ namespace bangna_hospital.gui
             {
                 String date = "";
                 date = System.DateTime.Today.Year + "-" + System.DateTime.Today.ToString("MM-dd");
-                System.Data.DataTable dt = bc.bcDB.vsDB.selectVisitByHn2(hn, date);
+                System.Data.DataTable dt = bc.bcDB.vsDB.selectVisitByHn2(HN, date);
                 //DataTable dtor = bc.selectOPDViewOR(hn);
                 if (dt.Rows.Count <= 0)
                 {
@@ -150,7 +152,7 @@ namespace bangna_hospital.gui
             //MemoryStream ms = new MemoryStream();
             string myFont = Environment.CurrentDirectory + "\\THSarabun.ttf";
             string myFontB = Environment.CurrentDirectory + "\\THSarabun Bold.ttf";
-            String hn = "", name = "", doctor = "", fncd = "", birthday = "", dsDate = "", dsTime = "", an = "";
+            String name = "", doctor = "", fncd = "", birthday = "", dsDate = "", dsTime = "", an = "";
 
             decimal total = 0;
 
@@ -159,7 +161,8 @@ namespace bangna_hospital.gui
             bfRB = BaseFont.CreateFont(myFontB, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
             iTextSharp.text.Font fntHead = new iTextSharp.text.Font(bfR, 12, iTextSharp.text.Font.NORMAL, clrBlack);
-
+            String patheName = Environment.CurrentDirectory + "\\checkup\\";
+            if (!Directory.Exists(patheName)) { Directory.CreateDirectory(patheName); }
             String[] aa = dsDate.Split(',');
             if (aa.Length > 1)
             {
@@ -184,7 +187,7 @@ namespace bangna_hospital.gui
             try
             {
 
-                FileStream output = new FileStream(Environment.CurrentDirectory + "\\" + hn + ".pdf", FileMode.Create);
+                FileStream output = new FileStream(patheName + HN + ".pdf", FileMode.Create);
                 PdfWriter writer = PdfWriter.GetInstance(doc, output);
                 doc.Open();
                 //PdfContentByte cb = writer.DirectContent;
@@ -447,7 +450,6 @@ namespace bangna_hospital.gui
                     canvas.SetFontAndSize(bfRB, fontSize2);
                     canvas.ShowTextAligned(Element.ALIGN_LEFT, txtT4.Text, colCenter + 70, linenumber+1, 0);
                 }
-                
 
                 linenumber = 100;
                 canvas.SetFontAndSize(bfR, 12);
@@ -457,15 +459,15 @@ namespace bangna_hospital.gui
                 canvas.SetFontAndSize(bfR, 12);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "ผ่านการรับรองมาตรฐาน  ", 60, linenumber -= 20, 0);
                 canvas.SetFontAndSize(bfR, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "Signature  " + txtDoctorName.Text.Trim(), 370, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "Signature  " + txtDoctorName.Text.Trim() +" [ว."+txtDoctorId.Text.Trim()+"]", 370, linenumber, 0);
                 canvas.SetFontAndSize(bfR, 12);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "ISO 9001:2000 ทุกหน่วยงาน  ", 60, linenumber -= 20, 0);
                 canvas.SetFontAndSize(bfR, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "(แพทย์ผู้ตรวจ)  ", 420, linenumber, 0);
+                canvas.ShowTextAligned(Element.ALIGN_LEFT, "(แพทย์อาชีวะเวชศาสตร์)  ", 420, linenumber, 0);
                 canvas.SetFontAndSize(bfR, 12);
                 canvas.ShowTextAligned(Element.ALIGN_LEFT, "FM-NUR-001/3 (แก้ไขครั้งที่ 00 15/02/53)  ", 60, linenumber -= 20, 0);
                 canvas.SetFontAndSize(bfR, fontSize1);
-                canvas.ShowTextAligned(Element.ALIGN_LEFT, "Attending physician  ", 420, linenumber, 0);
+                //canvas.ShowTextAligned(Element.ALIGN_LEFT, "Attending physician  ", 420, linenumber, 0);
                 canvas.EndText();
 
                 //canvas.BeginText();
@@ -494,7 +496,7 @@ namespace bangna_hospital.gui
             {
                 doc.Close();
                 Process p = new Process();
-                ProcessStartInfo s = new ProcessStartInfo(Environment.CurrentDirectory + "\\" + hn + ".pdf");
+                ProcessStartInfo s = new ProcessStartInfo(patheName + HN + ".pdf");
                 //s.Arguments = "/c dir *.cs";
                 p.StartInfo = s;
                 //p.StartInfo.Arguments = "/c dir *.cs";
@@ -515,7 +517,7 @@ namespace bangna_hospital.gui
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            setControl(txtHn.Text);
+            setControl();
         }
 
         private void cboXRay_Click(object sender, EventArgs e)
@@ -672,12 +674,6 @@ namespace bangna_hospital.gui
         {
             txtBloodG.Text = cboBloodG.Text;
         }
-
-        private void FrmOPD2CheckUP_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtDoctorId_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -690,8 +686,12 @@ namespace bangna_hospital.gui
         {
             if (e.KeyCode == Keys.Enter)
             {
-                setControl(txtHn.Text);
+                setControl();
             }
+        }
+        private void FrmOPD2CheckUP_Load(object sender, EventArgs e)
+        {
+            this.Text = "ตรวจสุขภาพ (Check Up) 2024-06-17 09:09";
         }
     }
 }

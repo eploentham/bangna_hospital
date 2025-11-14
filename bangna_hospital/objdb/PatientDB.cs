@@ -325,8 +325,8 @@ namespace bangna_hospital.objdb
                 ", m01.remark1, m01.remark2, m01.MNC_STATUS, m01.MNC_REF_REL, isnull(m01.status_hiv,'') as status_hiv, isnull(m01.status_afb,'') as status_afb,m01.doe_position  " +
                 "From  patient_m01 m01 " +
                 " left join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
-                " left join PATIENT_M24 insur on m01.MNC_COM_CD = insur.MNC_COM_CD " +
-                " left join PATIENT_M24 comp on m01.MNC_COM_CD2 = comp.MNC_COM_CD " +
+                " left join PATIENT_M24 insur on m01.MNC_COM_CD = insur.MNC_COM_CD " +      //บริษัทประกัน
+                " left join PATIENT_M24 comp on m01.MNC_COM_CD2 = comp.MNC_COM_CD " +       //บริษัทที่ทำงาน
                 " Where m01.MNC_hn_NO = '" + hn + "' " +
                 " ";
             dt = conn.selectData(conn.connMainHIS, sql);
@@ -824,8 +824,8 @@ namespace bangna_hospital.objdb
                 ptt1.MNC_REF_POC = dt.Rows[0]["MNC_REF_POC"].ToString();
                 ptt1.MNC_REF_TEL = dt.Rows[0]["MNC_REF_TEL"].ToString();
 
-                ptt1.MNC_COM_CD = dt.Rows[0]["MNC_COM_CD"].ToString();
-                ptt1.MNC_COM_CD2 = dt.Rows[0]["MNC_COM_CD2"].ToString();
+                ptt1.MNC_COM_CD = dt.Rows[0]["MNC_COM_CD"].ToString();          //บริษัทประกัน
+                ptt1.MNC_COM_CD2 = dt.Rows[0]["MNC_COM_CD2"].ToString();        //บริษัททำงาน
                 ptt1.WorkPermit1 = dt.Rows[0]["work_permit1"].ToString();
                 ptt1.WorkPermit2 = dt.Rows[0]["work_permit2"].ToString();
                 ptt1.WorkPermit3 = dt.Rows[0]["work_permit3"].ToString();
@@ -1080,7 +1080,7 @@ namespace bangna_hospital.objdb
                 "pm01.MNC_LNAME_T,convert(varchar(20),pt08.MNC_AD_DATE,23) as MNC_AD_DATE,pt08.MNC_RM_NAM,pt08.MNC_BD_NO, '' as status_selected, pm02.MNC_PFIX_DSC +' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T as patient_fullname" +
                 ",pt08.MNC_WD_NO,pt08.MNC_RM_NAM,pt08.MNC_BD_NO,pt01.MNC_SHIF_MEMO, convert(varchar(20),pt01.MNC_DATE,23) as MNC_DATE " +
                 "from PATIENT_T08 pt08 " +
-                "inner join PATIENT_T01 pt01 on pt01.MNC_PRE_NO =pt08.MNC_PRE_NO and pt01.MNC_DATE = pt08.MNC_DATE " +
+                "inner join PATIENT_T01 pt01 on pt01.MNC_PRE_NO = pt08.MNC_PRE_NO and pt01.MNC_DATE = pt08.MNC_DATE " +
                 "INNER JOIN dbo.PATIENT_M01 pm01 ON pt08.MNC_HN_NO = pm01.MNC_HN_NO " +
                 "INNER JOIN dbo.PATIENT_M02 pm02 ON pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
                 "WHERE   pt08.MNC_AD_STS = 'A' and mnc_ds_lev = '1' and pt08.mnc_wd_no = '" + wardid + "' " +
@@ -1438,6 +1438,12 @@ namespace bangna_hospital.objdb
             else
             {
                 chk = updateStept1(p);
+                //ถ้าเป็นการแก้ไข -> บริษัท ต้องตามไป update patient_t01 ด้วย เฉพาะวันที่ ปัจจุบัน      68-11-05
+                sql = "Update Patient_t01 Set " +
+                    "MNC_COM_CD = '" + p.MNC_COM_CD2 + "' " +                 //insur
+                    ",MNC_RES_MAS = '" + p.MNC_COM_CD.Replace("'", "''") + "' " +   // comp
+                    " Where MNC_HN_NO = '" + hn + "' and MNC_DATE = convert(varchar(20), getdate(), 23) ";
+                String re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             return chk;
         }

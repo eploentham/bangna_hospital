@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace bangna_hospital.objdb
@@ -17,6 +20,10 @@ namespace bangna_hospital.objdb
         public List<PatientM24> lPm24Search;
         DataTable dtInsur ;
         DataTable dtComp ;
+        private readonly object _paidIndexLock = new object();
+        private Dictionary<string, string> _paidNameToCode; // normalized name -> code
+        private readonly object _paidCodeIndexLock = new object();
+        private Dictionary<string, string> _paidCodeToName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         public PatientM24DB(ConnectDB c)
         {
             conn = c;
@@ -139,7 +146,7 @@ namespace bangna_hospital.objdb
                 ",isnull(pm24.insur1_code,'') as insur1_code ,isnull(pm24.insur2_code,'') as insur2_code ,isnull(pm24.status_insur,'') as status_insur,isnull(pm24.MNC_COM_ADD,'') as MNC_COM_ADD " +
                 ",isnull(pm24.MNC_COM_NAM,'') as MNC_COM_NAM " +
                 "From  patient_M24 pm24 "+
-            " Where (pm24."+ pm24.MNC_COM_DSC + " like '"+ name + "%') or (pm24."+ pm24.MNC_COM_CD + " like '"+ name + "%') or (pm24."+ pm24.MNC_COM_DSC_E + " like '"+ name + "%') ";
+            " Where (pm24."+ pm24.MNC_COM_DSC + " like '%"+ name + "%') or (pm24."+ pm24.MNC_COM_CD + " like '%"+ name + "%') or (pm24."+ pm24.MNC_COM_DSC_E + " like '"+ name + "%') ";
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
@@ -172,6 +179,10 @@ namespace bangna_hospital.objdb
                 //    String aaa = "";
                 //}
                 //bool areEqual = row.MNC_COM_DSC.Equals(paidname, StringComparison.OrdinalIgnoreCase);     //มีแจ้ง error ว่า save แล้ว บริษัทหาย ได้ลอง debug เช่น aIa ค้นไม่เจอ
+                if(paidname.Equals("วีทีเอ เซอร์วิส จำกัด")) 
+                {
+                    continue;
+                }
                 if (row.MNC_COM_DSC.Equals(paidname, StringComparison.OrdinalIgnoreCase))
                 {
                     re = row.MNC_COM_CD;
@@ -192,6 +203,149 @@ namespace bangna_hospital.objdb
                 }
             }
             return re;
+        }
+        public string getPaidNameCopilot(string paidcode)
+        {
+            if (string.IsNullOrWhiteSpace(paidcode)) return string.Empty;
+            var key = paidcode.Trim();
+
+            var snapshot = _paidCodeToName; // local snapshot
+            string name;
+            return snapshot != null && snapshot.TryGetValue(key, out name) ? name ?? string.Empty : string.Empty;
+        }
+        public string getPaidCodeCopilot(string paidname)
+        {
+            if (string.IsNullOrWhiteSpace(paidname))
+                return string.Empty;
+
+            EnsurePaidIndex();
+            var key = NormalizeKey(paidname);
+
+            string code;
+            return _paidNameToCode != null && _paidNameToCode.TryGetValue(key, out code)
+                ? code
+                : string.Empty;
+        }
+        // Rebuild after lPm24 changes (bulk refresh)
+        public void RebuildPaidCodeIndex()
+        {
+            var source = lPm24 ?? new List<PatientM24>();
+            var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var row in source)
+            {
+                if (row == null || string.IsNullOrWhiteSpace(row.MNC_COM_CD)) continue;
+                var key = row.MNC_COM_CD.Trim();
+
+                // Keep first mapping if duplicates exist
+                if (!dict.ContainsKey(key))
+                    dict[key] = row.MNC_COM_DSC ?? string.Empty;
+            }
+
+            Interlocked.Exchange(ref _paidCodeToName, dict);
+        }
+        // If you support incremental changes, wrap lPm24 mutations and update cache accordingly:
+        public void ReplacePaidList(IEnumerable<PatientM24> rows)
+        {
+            lPm24 = rows?.Where(r => r != null).ToList() ?? new List<PatientM24>();
+            RebuildPaidCodeIndex();
+        }
+
+        public void AddOrUpdatePaid(PatientM24 row)
+        {
+            if (row == null || string.IsNullOrWhiteSpace(row.MNC_COM_CD)) return;
+
+            lock (_paidCodeIndexLock)
+            {
+                var key = row.MNC_COM_CD.Trim();
+                var exist = lPm24.FirstOrDefault(r => r != null &&
+                                                      !string.IsNullOrWhiteSpace(r.MNC_COM_CD) &&
+                                                      string.Equals(r.MNC_COM_CD.Trim(), key, StringComparison.OrdinalIgnoreCase));
+                if (exist == null) lPm24.Add(row);
+                else { exist.MNC_COM_DSC = row.MNC_COM_DSC; }
+            }
+
+            // clone-and-swap dictionary
+            var k = row.MNC_COM_CD.Trim();
+            var clone = new Dictionary<string, string>(_paidCodeToName, StringComparer.OrdinalIgnoreCase)
+            {
+                [k] = row.MNC_COM_DSC ?? string.Empty
+            };
+            Interlocked.Exchange(ref _paidCodeToName, clone);
+        }
+
+        public void RemovePaidByCode(string paidcode)
+        {
+            if (string.IsNullOrWhiteSpace(paidcode)) return;
+            var key = paidcode.Trim();
+
+            lock (_paidCodeIndexLock)
+            {
+                lPm24.RemoveAll(r => r != null &&
+                                     !string.IsNullOrWhiteSpace(r.MNC_COM_CD) &&
+                                     string.Equals(r.MNC_COM_CD.Trim(), key, StringComparison.OrdinalIgnoreCase));
+            }
+
+            var clone = new Dictionary<string, string>(_paidCodeToName, StringComparer.OrdinalIgnoreCase);
+            clone.Remove(key);
+            Interlocked.Exchange(ref _paidCodeToName, clone);
+        }
+        // Normalization helpers
+        private static string NormalizeKey(string s)
+        {
+            if (s == null) return string.Empty;
+            s = Regex.Replace(s.Trim(), @"\s+", " ");
+            s = s.Normalize(NormalizationForm.FormKC);
+            s = RemoveDiacritics(s);
+            return s;
+        }
+
+        private static string RemoveDiacritics(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+            var normalized = text.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder(normalized.Length);
+            foreach (var c in normalized)
+            {
+                var uc = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (uc != UnicodeCategory.NonSpacingMark)
+                    sb.Append(c);
+            }
+            return sb.ToString().Normalize(NormalizationForm.FormC);
+        }
+        // Call this after lPm24 is populated or when it changes
+        private void EnsurePaidIndex()
+        {
+            if (_paidNameToCode != null) return;
+
+            lock (_paidIndexLock)
+            {
+                if (_paidNameToCode != null) return;
+
+                var dict = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                if (lPm24 != null)
+                {
+                    foreach (var row in lPm24)
+                    {
+                        if (row == null || string.IsNullOrWhiteSpace(row.MNC_COM_DSC)) continue;
+                        var key = NormalizeKey(row.MNC_COM_DSC);
+                        if (key.Length == 0) continue;
+
+                        // Preserve first seen code if duplicates exist
+                        if (!dict.ContainsKey(key))
+                            dict[key] = row.MNC_COM_CD;
+                    }
+                }
+                _paidNameToCode = dict;
+            }
+        }
+
+        public void RebuildPaidIndex()
+        {
+            lock (_paidIndexLock)
+            {
+                _paidNameToCode = null;
+            }
         }
         public String chkName(String paidcode)
         {
