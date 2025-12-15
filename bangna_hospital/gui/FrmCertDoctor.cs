@@ -172,6 +172,7 @@ namespace bangna_hospital.gui
             txtChk3DateStart.DropDownClosed += TxtChk3DateStart_DropDownClosed;
             chkOPD.Click += ChkOPD_Click;
             chkIPD.Click += ChkIPD_Click;
+            
 
             initGrfDtrCert();
             initAutoComTxtLine1();
@@ -186,6 +187,8 @@ namespace bangna_hospital.gui
             
             pageLoad = false;
         }
+
+        
 
         private void ChkIPD_Click(object sender, EventArgs e)
         {
@@ -633,10 +636,20 @@ namespace bangna_hospital.gui
                 String vstime = "", vsDateTH="", docscanid = "";
                 docscanid = bc.bcDB.mcertiDB.selectDocScanIDByHn(txtHn.Text.Trim(), PRENO, VSDATE);
                 DateTime vsdat1 = new DateTime();
-                vstime = "0000" + ptt.visitTime;
+                //vstime = "0000" + ptt.visitTime;
+                //ต้องการแก้ไขเป็นเวลาที่ป้อนเอง
+                vstime = txtVsTime.Text.Length>0 ? "0000" + txtVsTime.Text.Replace(":",""):"0000";
                 vstime = vstime.Substring(vstime.Length - 4);
                 vstime = vstime.Substring(0, 2) + ":" + vstime.Substring(vstime.Length - 2, 2);
-                DateTime.TryParse(ptt.visitDate, out vsdat1);
+                if(bc.iniC.authenedit.Equals("1"))
+                {
+                    vsdat1 = ((DateTime)txtVsDate.Value).Date;
+                }
+                else
+                {
+                    DateTime.TryParse(ptt.visitDate, out vsdat1);
+                }
+                
                 if (vsdat1.Year < 2000)
                 {
                     vsdat1 = vsdat1.AddYears(543);
@@ -1617,7 +1630,7 @@ namespace bangna_hospital.gui
             txtNameE.Text = ptt.MNC_FNAME_E + " " + ptt.MNC_LNAME_E;
             txtDOB.Text = ptt.patient_birthday;
 
-            txtVsDate.Value = ptt.visitDate;
+            txtVsDate.Value = DateTime.Parse(ptt.visitDate);
             
             vstime = "0000"+ptt.visitTime;
             vstime = vstime.Substring(vstime.Length - 4);
@@ -1772,7 +1785,7 @@ namespace bangna_hospital.gui
         }
         private void FrmCertDoctor_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2025-07-14";
+            this.Text = "Last Update 2025-11-28";
         }
     }
 }

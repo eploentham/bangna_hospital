@@ -46,8 +46,8 @@
             this.btnSave = new C1.Win.C1Input.C1Button();
             this.btnPrint = new C1.Win.C1Input.C1Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.chkLangThai = new System.Windows.Forms.RadioButton();
             this.chkLangEng = new System.Windows.Forms.RadioButton();
+            this.chkLangThai = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtGeneric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProperties)).BeginInit();
@@ -64,9 +64,9 @@
             // txtItemCode
             // 
             this.txtItemCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtItemCode.Location = new System.Drawing.Point(74, 4);
+            this.txtItemCode.Location = new System.Drawing.Point(54, 4);
             this.txtItemCode.Name = "txtItemCode";
-            this.txtItemCode.Size = new System.Drawing.Size(83, 24);
+            this.txtItemCode.Size = new System.Drawing.Size(69, 24);
             this.txtItemCode.TabIndex = 265;
             this.txtItemCode.Tag = null;
             // 
@@ -84,9 +84,9 @@
             // 
             this.txtGeneric.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtGeneric.ForeColor = System.Drawing.Color.Red;
-            this.txtGeneric.Location = new System.Drawing.Point(163, 3);
+            this.txtGeneric.Location = new System.Drawing.Point(129, 3);
             this.txtGeneric.Name = "txtGeneric";
-            this.txtGeneric.Size = new System.Drawing.Size(268, 24);
+            this.txtGeneric.Size = new System.Drawing.Size(219, 24);
             this.txtGeneric.TabIndex = 359;
             this.txtGeneric.Tag = null;
             // 
@@ -105,7 +105,7 @@
             this.txtProperties.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtProperties.Location = new System.Drawing.Point(74, 138);
             this.txtProperties.Name = "txtProperties";
-            this.txtProperties.Size = new System.Drawing.Size(357, 24);
+            this.txtProperties.Size = new System.Drawing.Size(274, 24);
             this.txtProperties.TabIndex = 356;
             this.txtProperties.Tag = null;
             // 
@@ -114,7 +114,7 @@
             this.txtInteraction.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtInteraction.Location = new System.Drawing.Point(84, 165);
             this.txtInteraction.Name = "txtInteraction";
-            this.txtInteraction.Size = new System.Drawing.Size(347, 24);
+            this.txtInteraction.Size = new System.Drawing.Size(264, 24);
             this.txtInteraction.TabIndex = 353;
             this.txtInteraction.Tag = null;
             // 
@@ -133,7 +133,7 @@
             this.txtUsing.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtUsing.Location = new System.Drawing.Point(74, 30);
             this.txtUsing.Name = "txtUsing";
-            this.txtUsing.Size = new System.Drawing.Size(357, 24);
+            this.txtUsing.Size = new System.Drawing.Size(274, 24);
             this.txtUsing.TabIndex = 354;
             this.txtUsing.Tag = null;
             // 
@@ -172,7 +172,7 @@
             this.txtFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtFrequency.Location = new System.Drawing.Point(74, 57);
             this.txtFrequency.Name = "txtFrequency";
-            this.txtFrequency.Size = new System.Drawing.Size(357, 24);
+            this.txtFrequency.Size = new System.Drawing.Size(274, 24);
             this.txtFrequency.TabIndex = 349;
             this.txtFrequency.Tag = null;
             // 
@@ -191,7 +191,7 @@
             this.txtPrecautions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtPrecautions.Location = new System.Drawing.Point(74, 84);
             this.txtPrecautions.Name = "txtPrecautions";
-            this.txtPrecautions.Size = new System.Drawing.Size(357, 24);
+            this.txtPrecautions.Size = new System.Drawing.Size(274, 24);
             this.txtPrecautions.TabIndex = 351;
             this.txtPrecautions.Tag = null;
             // 
@@ -200,7 +200,7 @@
             this.txtIndication.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtIndication.Location = new System.Drawing.Point(74, 111);
             this.txtIndication.Name = "txtIndication";
-            this.txtIndication.Size = new System.Drawing.Size(357, 24);
+            this.txtIndication.Size = new System.Drawing.Size(274, 24);
             this.txtIndication.TabIndex = 347;
             this.txtIndication.Tag = null;
             // 
@@ -209,7 +209,7 @@
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSave.Image = global::bangna_hospital.Properties.Resources.SaveAs_large;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(350, 190);
+            this.btnSave.Location = new System.Drawing.Point(266, 190);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(81, 27);
             this.btnSave.TabIndex = 360;
@@ -222,7 +222,7 @@
             this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnPrint.Image = global::bangna_hospital.Properties.Resources.printer_orange24;
             this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(250, 190);
+            this.btnPrint.Location = new System.Drawing.Point(187, 190);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(71, 27);
             this.btnPrint.TabIndex = 361;
@@ -236,19 +236,8 @@
             this.panel1.Controls.Add(this.chkLangThai);
             this.panel1.Location = new System.Drawing.Point(8, 190);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 27);
+            this.panel1.Size = new System.Drawing.Size(149, 27);
             this.panel1.TabIndex = 362;
-            // 
-            // chkLangThai
-            // 
-            this.chkLangThai.AutoSize = true;
-            this.chkLangThai.Location = new System.Drawing.Point(4, 4);
-            this.chkLangThai.Name = "chkLangThai";
-            this.chkLangThai.Size = new System.Drawing.Size(42, 17);
-            this.chkLangThai.TabIndex = 0;
-            this.chkLangThai.TabStop = true;
-            this.chkLangThai.Text = "thai";
-            this.chkLangThai.UseVisualStyleBackColor = true;
             // 
             // chkLangEng
             // 
@@ -260,6 +249,17 @@
             this.chkLangEng.TabStop = true;
             this.chkLangEng.Text = "english";
             this.chkLangEng.UseVisualStyleBackColor = true;
+            // 
+            // chkLangThai
+            // 
+            this.chkLangThai.AutoSize = true;
+            this.chkLangThai.Location = new System.Drawing.Point(4, 4);
+            this.chkLangThai.Name = "chkLangThai";
+            this.chkLangThai.Size = new System.Drawing.Size(42, 17);
+            this.chkLangThai.TabIndex = 0;
+            this.chkLangThai.TabStop = true;
+            this.chkLangThai.Text = "thai";
+            this.chkLangThai.UseVisualStyleBackColor = true;
             // 
             // UCDrugEdit
             // 
@@ -284,7 +284,7 @@
             this.Controls.Add(this.txtItemCode);
             this.Controls.Add(this.label79);
             this.Name = "UCDrugEdit";
-            this.Size = new System.Drawing.Size(439, 221);
+            this.Size = new System.Drawing.Size(361, 221);
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtGeneric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtProperties)).EndInit();

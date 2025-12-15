@@ -44,6 +44,9 @@ namespace bangna_hospital.objdb
             labM01.MNC_HL7_CODE = "MNC_DOC_CD";
             labM01.ucep_code = "ucep_code";
             labM01.price = "mnc_lb_pri01";
+            labM01.status_control = "status_control";
+            labM01.control_supervisor = "control_supervisor";
+            labM01.control_year = "control_year";
         }
         public AutoCompleteStringCollection setAUTOLab()
         {
@@ -127,6 +130,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "Select labm01.MNC_LB_CD,labm01.MNC_LB_DSC,labm01.MNC_LB_TYP_CD,labm01.MNC_LB_GRP_CD,labm01.MNC_LB_DIS_STS" +
                 ", labm02.mnc_lb_pri01, labm02.mnc_lb_pri02, labm02.mnc_lb_pri03,labm06.MNC_LB_GRP_DSC,labm01.MNC_SPC_CD,labm11.MNC_SPC_DSC,labm01.MNC_SCH_ACT " +
+                ", isnull(labm01.control_year,'') as control_year,isnull(labm01.control_supervisor,'') as control_supervisor " +
                 "From lab_m01 labm01 " +
                 "Left join lab_m02 labm02 on labm01.MNC_LB_CD = labm02.MNC_LB_CD " +
                 "Left Join LAB_M06 labm06 on labm01.MNC_LB_GRP_CD = labm06.MNC_LB_GRP_CD " +
@@ -155,6 +159,24 @@ namespace bangna_hospital.objdb
                 //labM01.Add(cus1);
             }
             return autoSymptom;
+        }
+        public String updateControlLab(String labcode, String controlyear, String controlsupervisor)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update lab_m01 Set " +
+                    "control_year = '" + controlyear + "' " +
+                    ", control_supervisor = '" + controlsupervisor+"' " +
+                    "Where mnc_lb_cd = '" + labcode + "'";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " LabM01DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
         }
         public String updateOPBKKCode(String labcode, String opbkkcode)
         {
@@ -199,7 +221,9 @@ namespace bangna_hospital.objdb
                 labM01.MNC_HL7_CODE = dt.Rows[0]["mnc_res_flg"].ToString();
                 labM01.ucep_code = dt.Rows[0]["ucep_code"].ToString();
                 labM01.price = dt.Rows[0]["mnc_lb_pri01"].ToString();
-
+                labM01.status_control = dt.Rows[0]["status_control"] != null ? dt.Rows[0]["status_control"].ToString():"";
+                labM01.control_supervisor = dt.Rows[0]["control_supervisor"] != null ? dt.Rows[0]["control_supervisor"].ToString() : "";
+                labM01.control_year = dt.Rows[0]["control_year"] != null ? dt.Rows[0]["control_year"].ToString() : "";
             }
             else
             {
@@ -231,6 +255,9 @@ namespace bangna_hospital.objdb
             p.MNC_HL7_CODE = "";
             p.ucep_code = "";
             p.price = "0";
+            p.status_control = "";
+            p.control_supervisor = "";
+            p.control_year = "";
             return p;
         }
 

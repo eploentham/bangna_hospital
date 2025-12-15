@@ -444,5 +444,51 @@ namespace bangna_hospital.objdb
             }
             return toReturn;
         }
+        public object ExecuteScalar(string sql)
+        {
+            // forward to the connection-specific overload
+            return ExecuteScalar(this.connMySQL, sql, null);
+        }
+
+        public object ExecuteScalar(MySqlConnection connection, string sql)
+        {
+            return ExecuteScalar(connection, sql, null);
+        }
+        public object ExecuteScalar(MySqlConnection connection, string sql, Dictionary<string, object> parameters)
+        {
+            if (connection == null) throw new ArgumentNullException(nameof(connection));
+            if (string.IsNullOrWhiteSpace(sql)) return null;
+            try
+            {
+                using (var cmd = new MySqlCommand(sql, connection))
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    if (parameters != null)
+                    {
+                        foreach (var kv in parameters)
+                        {
+                            var paramName = kv.Key.StartsWith("@") ? kv.Key : "@" + kv.Key;
+                            cmd.Parameters.AddWithValue(paramName, kv.Value ?? DBNull.Value);
+                        }
+                    }
+                    var mustClose = false;
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                        mustClose = true;
+                    }
+                    var result = cmd.ExecuteScalar();
+                    if (mustClose) connection.Close();
+                    return result == DBNull.Value ? null : result;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Use your project's logging helper if available:
+                // new LogWriter("e", "ConnectDB.ExecuteScalar " + ex.Message);
+                return null;
+            }
+        }
     }
 }

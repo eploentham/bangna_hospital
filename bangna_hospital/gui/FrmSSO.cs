@@ -1,36 +1,44 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.objdb;
 using bangna_hospital.object1;
+using bangna_hospital.Properties;
+using C1.C1Pdf;
 using C1.C1Zip;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1SplitContainer;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
+using iTextSharp.text;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace bangna_hospital.gui
 {
     public partial class FrmSSO : Form
     {
         BangnaControl bc;
-        System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB;
+        System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt2, famt2B, famt4B, famt2BL, famt5, famt5B, famt5BL, famt7, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         C1FlexGrid grfSupra, grfRpt, grfSSOPimp, grfItems, grfSSOP, grfBillI, grfDisp, grfDispI, grfOPDx, grfOpServ, grfMakeTextSearch, grfMakeText;
+        C1FlexGrid grfImage;
         Patient PTT;
         C1ThemeController theme1;
-        int colgrfSupraVsDate = 1, colgrfSupraPreno = 2, colgrfSupraSymptoms = 3, colgrfSupraVNAN=4, colgrfSupraStatusAdmit=5;
+        int colgrfSupraHN = 1, colgrfSupraPname = 2, colgrfSupraVsDate = 3, colgrfSupraPreno = 4, colgrfSupraSymptoms = 5, colgrfSupraVNAN=6, colgrfSupraStatusAdmit=7;
         int colgrfSSOPimpchk = 1, colgrfSSOPimpVsDate = 2, colgrfSSOPimpPreno = 3, colgrfSSOPimpHn = 4, colgrfSSOPimpName = 5, colgrfSSOPimpSymptoms = 6, colgrfSSOPimpPaidName = 7, colgrfSSOPimppid = 8, colgrfSSOPimpVsTime = 9;
         int colgrfSSOPhn=1, colgrfSSOPname=2, colgrfSSOPvsdate=3, colgrfSSOPpreno = 4, colgrfSSOPid = 5, colgrfSSOPSymptoms=6;
         int colgrfBillIid=1, colgrfBillIsvdate = 2, colgrfBillIlccode = 3, colgrfBillIdesc = 4;
@@ -39,9 +47,11 @@ namespace bangna_hospital.gui
         int colgrfOPServid = 1, colgrfOPServsvid = 2, colgrfOPServcodeset = 3, colgrfOPServtypein = 4;
         int colgrfOPDxid = 1, colgrfOPDxsl = 2, colgrfOPDxcodeset = 3, colgrfOPDxcode = 4;
         int colgrfMakeTextSearchchk = 1,colgrfMakeTextSearchid=2, colgrfMakeTextSearchname = 3, colgrfMakeTextSearchhn = 4, colgrfMakeTextSearchvsdate = 5;
-        
+        int colgrfImageid=1, colgrfImageimgpath=2;
+
         Label lbLoading;
         Boolean pageLoad = false;
+        TSupraDB tSupraDB;
         public FrmSSO(BangnaControl bc)
         {
             this.bc = bc;
@@ -51,19 +61,26 @@ namespace bangna_hospital.gui
         private void initConfig()
         {
             theme1 = new C1ThemeController();
-
             initFont();
             initLoading();
             initCombobox();
             initGrf();
-
+            tSupraDB = new TSupraDB(bc.conn);
+            tSupraDB.setCboHospital(cboSuprNewHospSupra, "");
+            tSupraDB.setCboBranch(cboSuprNewHospHost, "");
+            bc.setCboSupraReason(cboSupraNewReason);
+            txtSupraNewDateInput.Value = DateTime.Now;
+            txtSupraNewDateRefer.Value = DateTime.Now;
             PTT = new Patient();
             initEvent();
+            txtSupraNewDtrCode.Text = "";
+            txtSupraNewDtrNameT.Text = "";
+            txtSuprNewDoc.Text = "";
         }
         private void initEvent()
         {
             txtSupraNewHn.KeyUp += TxtSupraNewHn_KeyUp;
-            btnSuprNewSave.Click += BtnSuprNewSave_Click;
+            btnSupraNewSave.Click += BtnSupraNewSave_Click;
             btnSSOPSearch.Click += BtnSSOPSearch_Click;
             btnSSOPimport.Click += BtnSSOPimport_Click;
             tcSSOP.SelectedTabChanged += TcSSOP_SelectedTabChanged;
@@ -89,6 +106,283 @@ namespace bangna_hospital.gui
             btnSSOPOPserVoid.Click += BtnSSOPOPserVoid_Click;
             btnSSOPOPDxVoid.Click += BtnSSOPOPDxVoid_Click;
             txtSSOPgrfsearch.KeyUp += TxtSSOPgrfsearch_KeyUp;
+            txtSBSearchHN.KeyDown += TxtSBSearchHN_KeyDown;
+            txtSupraNewDtrCode.KeyUp += TxtSupraNewDtrCode_KeyUp;
+            btnSupraNewPrnRefer.Click += BtnSupraNewPrnRefer_Click;
+            tabSupraMain.SelectedIndexChanged += TabSupraMain_SelectedIndexChanged;
+            btnImageSave.Click += BtnImageSave_Click;
+            txtImageExp.KeyPress += TxtImageExp_KeyPress;
+            btnImageExpense.Click += BtnImageExpense_Click;
+            btnSuprNewPayment.Click += BtnSuprNewPayment_Click;
+            txtSupraExpense.KeyPress += TxtSupraExpense_KeyPress;
+        }
+
+        private void TxtSupraExpense_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.') {                e.Handled = true;            }
+        }
+
+        private void BtnSuprNewPayment_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
+            frm.ShowDialog();
+            frm.Dispose();
+            if (bc.USERCONFIRMID.Length <= 0)
+            {
+                lfSbMessage.Text = "Password ไม่ถูกต้อง";
+                return;
+            }
+            saveExpenseSupra("SUPRA", txtSuprNewDoc.Text.Trim()+"/"+ txtSuprNewDocYear.Text.Trim(), txtSupraNewHn.Text.Trim(), lbSupraNewPttName.Text.Trim(), txtSupraExpense.Text.Trim());
+        }
+
+        private void BtnImageExpense_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
+            frm.ShowDialog();
+            frm.Dispose();
+            if (bc.USERCONFIRMID.Length <= 0)
+            {
+                lfSbMessage.Text = "Password ไม่ถูกต้อง";
+                return;
+            }
+            saveExpenseSupra("SUPRA_IMAGE", txtImageID.Text.Trim(), txtImageHn.Text.Trim(), lbImagePttNameT.Text.Trim(), txtImageExp.Text.Trim().Replace(",", ""));
+        }
+        private void saveExpenseSupra(String module, String supraid, String hn, String pttname, String expenseamt)
+        {
+            //throw new NotImplementedException();
+            TExpenseDB expenseDB = new TExpenseDB(bc.conn);
+            TExpense expense = new TExpense();
+            expense.expense_date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", new CultureInfo("en-US"));
+            expense.expense_desc = "ค่าใช้จ่าย SUPRA no " + supraid + " hn " + hn + " " + pttname;
+            expense.expense = decimal.Parse(expenseamt);
+            expense.module_id = module;
+            expense.table_name = "t_supra_image";
+            expense.row_id = long.Parse(supraid);
+            expense.user_req_id = bc.USERCONFIRMID;
+            String re = expenseDB.Insert(expense);
+            if (long.TryParse(re, out long chk))
+            {
+                lfSbMessage.Text = "บันทึกค่าใช้จ่ายเรียบร้อย";
+            }
+        }
+        private void TxtImageExp_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //throw new NotImplementedException();
+            // Allow digits, control characters (backspace), one decimal point or comma
+            char ch = e.KeyChar;
+            if (char.IsControl(ch)) return;
+            var c1tb = sender as C1.Win.C1Input.C1TextBox;
+            string text = c1tb != null ? c1tb.Text : (sender as TextBox)?.Text ?? string.Empty;
+            // only allow digits, dot or comma
+            if (!char.IsDigit(ch) && ch != '.' && ch != ',')            {                e.Handled = true;                return;            }
+            // prevent multiple dots or commas
+            if ((ch == '.' || ch == ',') && text.IndexOf(ch) >= 0)      {                e.Handled = true;                return;            }
+        }
+        private void BtnImageSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            saveImageSupra();
+        }
+        private void saveImageSupra()
+        {
+            String path = "", filename = "", ext = "";
+            try
+            {
+                String icd9 = "", icd10 = "", vsdate = "", discdate="", expense="";
+                DateTime.TryParse(txtVsDate.Text, out DateTime dvsdate);
+                DateTime.TryParse(txtDiscDate.Text, out DateTime ddiscdate);
+                icd9 = txtImageICD9_1.Text.Trim();
+                expense = txtImageExp.Text.Replace(",","");
+
+                String re = tSupraDB.updateProcess(txtImageID.Text, icd9, "", expense, dvsdate.ToString("yyyy-MM-dd"),ddiscdate.ToString("yyyy-MM-dd"), txtImageHospitalCode.Text.Trim(), txtImageHn.Text.Trim(), "");
+                if (re.Equals("1"))
+                {
+                    lfSbMessage.Text = "save OK";
+                    clearControlImageSupra();
+                    setGrfImage();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "");
+            }
+        }
+        private void clearControlImageSupra()
+        {
+            txtImagePID.Value = "";
+            txtImageID.Value = "";
+            txtImageHn.Value = "";
+            lbImagePttNameT.Text = "";
+            txtImageHospitalCode.Value = "";
+            txtImageICD9_3.Value = "";
+            txtVsDate.Value = DateTime.Now;
+            txtDiscDate.Value = DateTime.Now;
+            txtImageICD9_1.Value = "";
+            txtImageICD9_2.Value = "";
+            txtImageExp.Value = "0.00";
+            c1TextBox6.Value = "";
+            txtImageHospital.Value = "";
+            txtImageHospitalCode.Value = "";
+            picBoxSupra.Image = null;
+        }
+        private void TabSupraMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (tabSupraMain.SelectedTab == tabImage)
+            {
+                setGrfImage();
+            }
+            else if (tabSupraMain.SelectedTab == tabOper)
+            {
+
+            }
+        }
+        private void BtnSupraNewPrnRefer_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            genCheckUPAlienPDF();
+        }
+        private void genCheckUPAlienPDF()
+        {
+            //new LogWriter("d", "FrmOPD genCheckUPAlienPDF ");
+            String filename = "";
+            int gapLine = 14, linenumber = 5, gapX = 40, gapY = 20, xCol1 = 20, xCol2 = 40, xCol3 = 100, xCol4 = 200, xCol5 = 250, xCol6 = 300, xCol7 = 450, xCol8 = 510;
+            String certid = "";
+            
+            String patheName = Environment.CurrentDirectory + "\\supra\\";
+            if (!Directory.Exists(patheName)) { Directory.CreateDirectory(patheName); }
+            C1PdfDocument pdf = new C1PdfDocument();
+            StringFormat _sfRight, _sfCenter, _sfLeft;
+            _sfRight = new StringFormat();
+            _sfCenter = new StringFormat();
+            _sfLeft = new StringFormat();
+            _sfRight.Alignment = StringAlignment.Far;
+            _sfCenter.Alignment = StringAlignment.Center;
+            _sfLeft.Alignment = StringAlignment.Near;
+            pdf.FontType = FontTypeEnum.Embedded;
+            pdf.PageSize = new SizeF(PageSize.A4.Width, PageSize.A4.Height);
+            //new LogWriter("d", "FrmOPD genCheckUPAlienPDF 01");
+            filename = txtSupraNewHn.Text.Trim() + "_supra_" + DateTime.Now.Year.ToString() + ".pdf";
+            try
+            {
+                // Replace the line causing the error with the correct namespace
+                System.Drawing.Image loadedImagelogo = Resources.LOGO_BW_tran;
+                float newWidth = loadedImagelogo.Width * 100 / loadedImagelogo.HorizontalResolution, newHeight = loadedImagelogo.Height * 100 / loadedImagelogo.VerticalResolution;
+                float widthFactor = 4.8F, heightFactor = 4.8F;
+                if (widthFactor > 1 | heightFactor > 1)
+                {
+                    if (widthFactor > heightFactor)
+                    {
+                        widthFactor = 1;
+                        newWidth = newWidth / widthFactor;
+                        newHeight = newHeight / widthFactor;
+                        //newWidth = newWidth / 1.2;
+                        //newHeight = newHeight / 1.2;
+                    }
+                    else
+                    {
+                        newWidth = newWidth / heightFactor;
+                        newHeight = newHeight / heightFactor;
+                    }
+                }
+                RectangleF recflogo = new RectangleF(15, 5, (int)newWidth, (int)newHeight);
+                pdf.DrawImage(loadedImagelogo, recflogo);
+                pdf.DrawString(" "+bc.iniC.hostname, fPDF, Brushes.Black, new PointF(recflogo.Width+20, linenumber += (gapLine - 5)), _sfLeft);
+                pdf.DrawString(bc.iniC.hostaddresst, fPDF, Brushes.Black, new PointF(recflogo.Width + 20, linenumber += (gapLine)), _sfLeft);
+                linenumber += gapLine; linenumber += gapLine; linenumber += gapLine; linenumber += gapLine;
+                pdf.DrawString(" ใบรับรองการส่งตัวผู้ป่วยไปตรวจนอกสถานที่", fPDFl2, Brushes.Black, new PointF((PageSize.A4.Width / 2) - 80, linenumber += (gapLine - 5)), _sfLeft);
+                pdf.DrawString("เลขที่ "+ txtSuprNewDoc.Text.Trim()+"/"+ txtSuprNewDocYear.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2+45, 50), _sfRight);
+                pdf.DrawString("วันที่ "+DateTime.Now.ToString("dd MMM yyyy", new CultureInfo("th-TH")), fPDF, Brushes.Black, new PointF(xCol8, linenumber += (gapLine)), _sfRight);
+                linenumber += gapLine;
+                pdf.DrawString("รพ./สถานที่รับ", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine -10)), _sfLeft);
+                linenumber += (gapLine-5);
+                pdf.DrawString("ผู้ส่ง .....................................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(" " + cboSuprNewHospHost.Text, fPDFl2, Brushes.Black, new PointF(xCol2 + 25, linenumber - 8), _sfLeft);
+                pdf.DrawString("ผู้รับ .....................................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(" " + cboSuprNewHospSupra.Text, fPDFl2, Brushes.Black, new PointF(xCol2 + 25, linenumber - 7), _sfLeft);
+                linenumber += gapLine;
+                pdf.DrawString("ขอส่งตัวผู้ป่วย", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                linenumber += (gapLine - 5);
+                pdf.DrawString("ชื่อ.............................................................................................................................................เพศ..........................อายุ.....................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(PTT.Name+" ["+ txtSupraNewHn.Text.Trim()+"]", fPDF, Brushes.Black, new PointF(xCol2 + 20, linenumber-3), _sfLeft);
+                pdf.DrawString(lbSupraPttAge.Text, fPDF, Brushes.Black, new PointF(xCol2 + 360, linenumber - 3), _sfLeft);
+                pdf.DrawString(PTT.MNC_SEX, fPDF, Brushes.Black, new PointF(xCol2 + 440, linenumber - 3), _sfLeft);
+                pdf.DrawString("โรค 1. ..................................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(txtSupraDiag1.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2+30, linenumber - 3), _sfLeft);
+                pdf.DrawString("2. ..........................................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(txtSupraDiag2.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2 + 20, linenumber - 3), _sfLeft);
+                pdf.DrawString("3. ..........................................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(txtSupraDiag3.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2 + 20, linenumber - 3), _sfLeft);
+                pdf.DrawString("4. ..........................................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(txtSupraDiag4.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2 + 20, linenumber - 3), _sfLeft);
+                pdf.DrawString("แพทย์ผู้ส่ง ...................................................................................................................................................................................", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(txtSupraNewDtrNameT.Text.Trim() + " [" + txtSupraNewDtrCode.Text.Trim()+"] ", fPDF, Brushes.Black, new PointF(xCol2 + 50, linenumber-3), _sfLeft);
+                pdf.DrawString("เหตุผลในการส่งตัว ......................................................................................................................................................................", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(cboSupraNewReason.Text.Trim(), fPDFl2, Brushes.Black, new PointF(xCol2 + 90, linenumber - 3), _sfLeft);
+                pdf.DrawString("วันที่ส่งตัว ....................................................................................................................................................................................", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString(((DateTime)(txtSupraNewDateRefer.Value)).ToString("dd MMM yyyy", new CultureInfo("th-TH")), fPDFl2, Brushes.Black, new PointF(xCol2 + 90, linenumber - 3), _sfLeft);
+                linenumber += (gapLine + 5);
+                pdf.DrawString("ข้อกำหนดและความต้องการของผู้ส่ง ", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString("เคสReferด่วน แผนกAdmission เป็นผู้ออกหนังสือส่งตัว ", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString("กรณีผู้ป่วยใน ผู้รับโปรดแจ้งผู้ส่งเป็นประจำทุกวัน ", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString("หมายเหตุ:  กรณีผู้ป่วยใช้สิทธิประกันสังคมทางโรงพยาบาล จะรับผิดชอบค่ารักษาตามสิทธิ ยกเว้นยานอกบัญชียาหลัก ", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                linenumber += (gapLine + 5);
+                linenumber += (gapLine + 5);
+                pdf.DrawString("ลงชื่อ ................................................................", fPDF, Brushes.Black, new PointF(xCol7-100, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString("(นายแพทย์อรรถสิทธ์  ทองปลาเค้า) ", fPDF, Brushes.Black, new PointF(xCol7, linenumber += (gapLine + 5)), _sfCenter);
+                pdf.DrawString("ผู้อำนวยการโรงพยาบาลบางนา5 ", fPDF, Brushes.Black, new PointF(xCol7, linenumber += (gapLine + 5)), _sfCenter);
+                linenumber += (gapLine + 5);
+                pdf.DrawString("สำหรับผู้ประสานงานติดต่อ ", fPDF, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                //pdf.DrawString("ผู้ส่ง .......................................................", fPDF, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString("ชื่อ-นามสกุล "+ txtSupraNewSupraContactName.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
+                pdf.DrawString("ตำแหน่ง  เจ้าหน้าที่ประกันสังคม แผนก ประกันสังคม ", fPDF, Brushes.Black, new PointF(xCol4, linenumber), _sfLeft);
+
+                pdf.Save(patheName + filename);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                new LogWriter("e", "FrmOPD genCheckUPAlienPDF " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "genCheckUPAlienPDF ", ex.Message);
+            }
+            finally
+            {
+                pdf.Dispose();
+                Process p = new Process();
+                ProcessStartInfo s = new ProcessStartInfo(patheName + filename);
+                //s.Arguments = "/c dir *.cs";
+                p.StartInfo = s;
+
+                p.Start();
+            }
+        }
+        private void TxtSupraNewDtrCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.KeyCode != Keys.Enter) return;
+            string code = txtSupraNewDtrCode.Text?.Trim();
+            if (string.IsNullOrEmpty(code)) return;
+
+            try
+            {
+                txtSupraNewDtrNameT.Text = bc.selectDoctorName(txtSupraNewDtrCode.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "");
+            }
+        }
+
+        private void TxtSBSearchHN_KeyDown(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if((e.KeyCode == Keys.Enter)&& txtSBSearchHN.Text.Length>3)
+            {
+                setGrfSupra(txtSBSearchHN.Text.Trim());
+            }
         }
 
         private void initGrf()
@@ -96,8 +390,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             initGrfSupra();             initGrfSSOP();              initGrfSSOPimp();               initGrfItems();
             initGrfBillItems();         initGrfDisp();              initGrfDispItems();             initGrfOpServ();
-            initGrfOPDx();              initGrfMakeTextSearch();    initGrfMakeText();
-            
+            initGrfOPDx();              initGrfMakeTextSearch();    initGrfMakeText();              initGrfImage();
         }
         private void initCombobox()
         {
@@ -126,6 +419,7 @@ namespace bangna_hospital.gui
             bc.setCboSSOPOPDxCodeSet(cboSSOPOPDxcodeset, "");
             bc.setCboSSOPSL(cboSSOPOPDxsl, "");
             bc.bcDB.pttDB.setCboDeptOPD(cboSSOPProcStation, bc.iniC.station);
+            bc.setCboPaid(cboSupraPaid, "");
         }
         private void TxtSSOPgrfsearch_KeyUp(object sender, KeyEventArgs e)
         {
@@ -638,6 +932,13 @@ namespace bangna_hospital.gui
 
             famt1 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 1, FontStyle.Regular);
             famt5 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 5, FontStyle.Regular);
+            famt5BL = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 5, FontStyle.Underline);
+            famt5B = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 5, FontStyle.Bold);
+            famt2 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 2, FontStyle.Regular);
+            famt2B = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 2, FontStyle.Bold);
+            famt2BL = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 2, FontStyle.Underline);
+            famt4B = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 4, FontStyle.Bold);
+
             famt7 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 7, FontStyle.Regular);
             famt7B = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 7, FontStyle.Bold);
             famtB14 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 14, FontStyle.Bold);
@@ -649,6 +950,11 @@ namespace bangna_hospital.gui
             fEditS = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize - 2, FontStyle.Regular);
             fEditS1 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize - 1, FontStyle.Regular);
 
+            fPDF = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize, FontStyle.Regular);
+            fPDFs2 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize - 2, FontStyle.Regular);
+            fPDFl2 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize + 2, FontStyle.Regular);
+            fPDFs6 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize - 6, FontStyle.Regular);
+            fPDFs8 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize - 8, FontStyle.Regular);
         }
         private SSOPBillTran setSSOPBillTran(string station, string dtran, string invno, string billno, string hn, String preno, string amount, string paid, string pid, string name, string paidcode, string payplan, string claimamt, string otherpay)
         {
@@ -673,12 +979,46 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             setGrfSSOPimp();
         }
-        private void BtnSuprNewSave_Click(object sender, EventArgs e)
+        private void BtnSupraNewSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-
+            TSupra supra = setSupra();
+            String re1 = tSupraDB.insertOrUpdate(supra);
+            String re = bc.bcDB.vsDB.updateStatusSupra(txtSupraNewHn.Text.Trim(), lbSupraVsDate.Text,lbSuprapreno.Text);
+            if (re.Equals("1"))     {        lfSbMessage.Text = "update ok"; txtSuprNewDoc.Text = re1; txtSuprNewDocYear.Text = supra.SupraDate.Substring(2); }
+            else            {                lfSbMessage.Text =("update error");            }
         }
-        
+        private TSupra setSupra()
+        {
+            DateTime dtInput = DateTime.Now;
+            dtInput = ((DateTime)txtSupraNewDateInput.Value).Date;
+            DateTime dtSupra = DateTime.Now;
+            dtSupra = ((DateTime)txtSupraNewDateRefer.Value).Date;
+            if(dtInput.Year < 2000)             {                dtInput = dtInput.AddYears(543);           }
+            if (dtSupra.Year < 2000)            {                dtSupra = dtSupra.AddYears(543);           }
+            TSupra tSupra = new TSupra();
+            tSupra.Hn = txtSupraNewHn.Text.Trim();
+            tSupra.PatId = lbSupraPID.Text;
+            tSupra.PatName = lbSupraNewPttName.Text;
+            tSupra.SupraDoc = "";
+            tSupra.SupraDate = dtSupra.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+            tSupra.InputDate = dtInput.ToString("yyyy-MM-dd", new CultureInfo("en-US"));  
+            tSupra.BranchCode = cboSuprNewHospHost.SelectedItem != null ? ((ComboBoxItem)(cboSuprNewHospHost.SelectedItem)).Value : "";
+            tSupra.HospId = cboSuprNewHospSupra.SelectedItem != null ? ((ComboBoxItem)(cboSuprNewHospSupra.SelectedItem)).Value : "";
+            tSupra.Diseased1 = txtSupraDiag1.Text.Trim();
+            tSupra.Diseased2 = txtSupraDiag2.Text.Trim();
+            tSupra.Diseased3 = txtSupraDiag3.Text.Trim();
+            tSupra.Diseased4 = txtSupraDiag4.Text.Trim();
+            tSupra.DoctorName = txtSupraNewDtrNameT.Text;
+            tSupra.PatStaff = txtSupraNewSupraContactName.Text.Trim();
+            tSupra.SupraTypeId = cboSupraNewReason.Text.Trim();
+            tSupra.PatAge = lbSupraPttAge.Text.Trim();
+            tSupra.PaidTypeName = cboSupraPaid.SelectedItem != null ? cboSupraPaid.SelectedItem.ToString():"";
+            tSupra.doctor_remark1 = "";
+            tSupra.doctor_remark2 = "";
+            tSupra.doctor_remark3 = "";
+            return tSupra;
+        }
         private void initGrfMakeText()
         {
             grfMakeText = new C1FlexGrid();
@@ -1619,15 +1959,582 @@ namespace bangna_hospital.gui
         }
         private void setControlSupra(String hn)
         {
-            lbPttAttachNote.Text = "";
-            lbVN.Text = "";
+            clearControlSupra();
+            lbSupraVN.Text = "";
             PTT = bc.bcDB.pttDB.selectPatinetByHn(hn);
             if (PTT == null) return;
             txtSupraNewHn.Value = PTT.MNC_HN_NO;
             lbSupraNewPttName.Text = PTT.Name;
-            lbPttAge.Text = PTT.AgeStringOK1DOT();
-            lbPttAttachNote.Text = PTT.MNC_ATT_NOTE;
+            lbSupraPttAge.Text = PTT.AgeStringOK1DOT();
+            lbSupraPttAttachNote.Text = PTT.MNC_ATT_NOTE;
             setGrfSupra(hn);
+        }
+        private void clearControlSupra()
+        {
+            txtSupraNewHn.Value = "";
+            lbSupraNewPttName.Text = "";
+            lbSupraPttAge.Text = "";
+            lbSupraPttAttachNote.Text = "";
+            lbSupraVN.Text = "";
+            grfSupra.Rows.Count = 1;
+            txtSupraDiag1.Value = "";
+            txtSupraDiag2.Value = "";
+            txtSupraDiag3.Value = "";
+            txtSupraDiag4.Value = "";
+            txtSupraNewDtrNameT.Text = "";
+            txtSupraNewDtrCode.Text = "";
+            txtSuprNewDoc.Text = "";
+            txtSuprNewDocYear.Text = "";
+            lbSupraPttAttachNote.Text = "";
+            txtSupraNewDateInput.Value = null;
+            txtSupraNewDateRefer.Value = null;
+            txtSupraExpense.Value = "";
+            c1TextBox12.Value = "";
+            c1TextBox13.Value = "";
+            txtSupraRemark.Value = "";
+            cboSupraPaid.SelectedIndex = 0;
+            cboSuprNewHospHost.SelectedIndex = 0;
+            cboSuprNewHospSupra.SelectedIndex = 0;
+            cboSupraNewReason.SelectedIndex = 0;
+            txtSupraNewSupraContactName.Value = "นาย วุฒินันท์  ธัมมาภิรักษ์กุล";
+            txtSupraNewSupraContactTel.Value = "";
+            txtSupraNewContactName.Value = "";
+            txtSupraNewContactTel.Value = "";
+            txtSupraContact.Value = "";
+            lbSupraPID.Text = "";
+        }
+        private void initGrfImage()
+        {
+            grfImage = new C1FlexGrid();
+            grfImage.Font = fEdit;
+            grfImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfImage.Location = new System.Drawing.Point(0, 0);
+            grfImage.Rows.Count = 1;
+            grfImage.Cols.Count = 3;
+            grfImage.Cols[colgrfImageid].Width = 90;
+            grfImage.Cols[colgrfImageimgpath].Width = 200;
+            grfImage.ShowCursor = true;
+            //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
+            grfImage.Cols[colgrfImageid].Visible = true;
+            grfImage.Cols[colgrfImageimgpath].Visible = true;
+            grfImage.Cols[colgrfImageid].Caption = "";
+            grfImage.Cols[colgrfImageimgpath].Caption = "";
+            grfImage.Cols[colgrfImageid].AllowEditing = false;
+            grfImage.Cols[colgrfImageimgpath].AllowEditing = false;
+            grfImage.AfterRowColChange += GrfImage_AfterRowColChange;
+
+            pnImageView.Controls.Add(grfImage);
+
+            //theme1.SetTheme(grfIPD, "ExpressionDark");
+            theme1.SetTheme(grfImage, bc.iniC.themegrfIpd);
+        }
+        private void GrfImage_AfterRowColChange(object sender, RangeEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfImage.Row < 1) return;
+
+            String imgpath = grfImage[grfImage.Row, colgrfImageimgpath] != null ? grfImage[grfImage.Row, colgrfImageimgpath].ToString() : "";
+            String id = grfImage[grfImage.Row, colgrfImageid] != null ? grfImage[grfImage.Row, colgrfImageid].ToString() : "";
+            txtImageID.Value = id;
+            showImage(imgpath);
+            setSupraImageText(id);
+
+        }
+        private void showImage(String imgpath)
+        {
+            try
+            {
+                picBoxSupra.Image = null;
+                if (imgpath.Equals("")) return;
+                String path = "";
+                if (imgpath.IndexOf('/') >= 0)
+                {
+                    path = imgpath.Substring(1);
+                }
+                else
+                {
+                    path = imgpath;
+                }
+                    FtpClient ftpc = new FtpClient("ftp://172.25.10.3", "u_supra_temp", "u_supra_temp", true);
+                using (MemoryStream streamCertiDtr = ftpc.download(imgpath))
+                {
+                    if (streamCertiDtr == null || streamCertiDtr.Length == 0) return;
+
+                    streamCertiDtr.Position = 0;
+                    using (var img = System.Drawing.Image.FromStream(streamCertiDtr))
+                    {
+                        // create a copy so we can dispose the stream and original image safely
+                        var bmp = new Bitmap(img);
+
+                        // update PictureBox (dispose previous image to avoid leaks)
+                        var old = picBoxSupra.Image;
+                        picBoxSupra.Dock = DockStyle.Fill;
+                        picBoxSupra.SizeMode = PictureBoxSizeMode.StretchImage;
+                        picBoxSupra.Image = bmp;
+                        old?.Dispose();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("showImage " + ex.Message, "");
+            }
+        }
+        private void setGrfImage()
+        {
+            showLbLoading();
+            DataTable dtvs = new DataTable();
+            //MessageBox.Show("hn "+hn, "");
+            dtvs = tSupraDB.selectImage();
+            int i = 1, j = 1;
+
+            grfImage.Rows.Count = 1;
+            grfImage.Rows.Count = dtvs.Rows.Count + 1;
+            //pB1.Maximum = dt.Rows.Count;
+            foreach (DataRow row1 in dtvs.Rows)
+            {
+                //pB1.Value++;
+                Row rowa = grfImage.Rows[i];
+                rowa[colgrfImageid] = row1["id"].ToString();
+                rowa[colgrfImageimgpath] = row1["ftp_file_path_archive"].ToString();
+                if (row1["status_process"].ToString().Equals("1"))
+                {
+                    grfImage.Rows[i].StyleNew.BackColor = Color.LightGreen;
+                }
+                rowa[0] = i;
+                i++;
+            }
+            hideLbLoading();
+        }
+        private void clearPicBoxSupra()
+        {
+            var old = picBoxSupra.Image;
+            picBoxSupra.Image = null;
+            old?.Dispose();
+        }
+        private void setSupraImageText(String id)
+        {
+            DataTable dt = new DataTable();
+            dt = tSupraDB.selectTextImageById(id);
+            if (dt.Rows.Count > 0)
+            {
+                txtImageText.Text = dt.Rows[0]["text_content"].ToString();
+                txtImagePID.Value = dt.Rows[0]["pid_list"]!=null? dt.Rows[0]["pid_list"].ToString():"";
+                txtWhatImageIS.Value = dt.Rows[0]["what_image_is"] != null ? dt.Rows[0]["what_image_is"].ToString() : "";
+                if(txtWhatImageIS.Text.Equals("RECEIPT_000_OPD"))
+                {
+                    setControlREceipt000OPD();
+                }
+                else if (txtWhatImageIS.Text.Equals("INVIOCE_000_IPD"))
+                {
+                    setControlINVOICE000IPD();
+                }
+                
+            }
+            else
+            {
+                txtImageText.Text = "";
+            }
+        }
+        private void setControlREceipt000OPD()
+        {
+            String pttname = extractPttName( txtImageText.Text.Trim());
+            String total = extractTotalReceipt000(txtImageText.Text.Trim());
+            lbImagePttNameT.Text = pttname.Trim();
+            txtImageExp.Value = total;
+            String name = lbImagePttNameT.Text.Trim().Replace("นาย", "");
+            name = name.Replace("นาง", "");
+            name = name.Replace("น.ส.", "");
+            String[] name1 = name.Trim().Split(' ');
+            if(name1.Length>0)
+            {
+                DataTable ptt = bc.bcDB.pttDB.selectPatient1(name1[0], name1[1]);
+                if (ptt.Rows.Count > 0)
+                {
+                    txtImageHn.Value = ptt.Rows[0]["MNC_HN_NO"].ToString();
+                    txtImagePID.Value = ptt.Rows[0]["MNC_ID_NO"].ToString();
+                }
+            }
+        }
+        private void setControlINVOICE000IPD()
+        {
+            if (txtImagePID.Text.Length <= 0) {String pid = extractPID(txtImageText.Text.Trim()); txtImagePID.Value = pid; }
+            Patient ptt = bc.bcDB.pttDB.selectPatinetByPID(txtImagePID.Text, "pid");
+            if (ptt.Hn.Length <= 0) { ptt = bc.bcDB.pttDB.selectPatinetByPID(txtImagePID.Text, "password"); }
+            //if (ptt.Hn.Length <= 0) { ptt = bc.bcDB.pttDB.selectPatinetByPID(txtImagePID.Text, "password"); }
+            txtImageHn.Value = ptt.Hn;
+            lbImagePttNameT.Text = ptt.Name;
+            List<(string Code, string Description)> aa = ExtractIcd9CmEntries(txtImageText.Text.Trim());
+            String veshaphan = extractVeshaphan(txtImageText.Text.Trim());
+            String total = extractTotal(txtImageText.Text.Trim());
+            String visitdate = extractVisitDate(txtImageText.Text.Trim());
+            String hospital = extractHospital(txtImageText.Text.Trim());
+            if (aa.Count > 0)
+            {
+                String icd9cmcode = "";
+                String icd9cmdesc = "";
+                foreach (var a in aa)
+                {
+                    icd9cmcode += a.Code + ",";
+                    icd9cmdesc += a.Description + "; ";
+                }
+                if (icd9cmcode.EndsWith(","))
+                {
+                    icd9cmcode = icd9cmcode.Substring(0, icd9cmcode.Length - 1);
+                }
+                txtImageICD9_1.Value = icd9cmcode;
+                txtImageICD9_2.Value = icd9cmdesc;
+            }
+            else
+            {
+                txtImageICD9_1.Value = "";
+                txtImageICD9_2.Value = "";
+            }
+            c1TextBox6.Value = veshaphan;
+            txtImageExp.Value = total;
+            txtImageHospital.Value = hospital;
+        }
+        private String extractPID(String text)
+        {
+            String pid = "";//บัตรประชาชน  
+            try
+            {
+                if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+                int start = text.IndexOf("บัตรประชาชน", StringComparison.OrdinalIgnoreCase);
+                if (start >= 0)
+                {
+                    String slice = text.Substring(start);
+                    String[] slice1 = slice.Split('\n');
+                    if (slice1.Length > 0) { pid = slice1[0].Trim(); pid = (pid.Replace("บัตรประชาชน", "")).Trim(); }
+                }
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = "extractPID " + ex.Message;
+            }
+            return pid;
+        }
+        private String extractPttName(string text)
+        {
+            String amt1 = "", hospcode = "";
+            try
+            {
+                if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+                int start = text.IndexOf("นาย", StringComparison.OrdinalIgnoreCase);
+                int start0 = text.IndexOf("นายก", StringComparison.OrdinalIgnoreCase);
+                int start1 = text.IndexOf("นาง", StringComparison.OrdinalIgnoreCase);
+                int start2 = text.IndexOf("น.ส.", StringComparison.OrdinalIgnoreCase);
+                if(start0 >= 0) { int start000 = text.IndexOf("นาย", start0+4, StringComparison.OrdinalIgnoreCase); if (start000 > 0) start = start000; }
+                if (start >= 0)
+                {
+                    //start += "นาย".Length;
+                    String slice = text.Substring(start);
+                    String[] slice1 = slice.Split('\n');
+                    if(slice1.Length>0)                    {                        amt1 = slice1[0].Trim();                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = "extractHospital " + ex.Message;
+            }
+            return amt1;
+        }
+        private String extractHospital(string text)
+        {
+            String amt1 = "", hospcode="";
+            try
+            {
+                if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+                int start = text.IndexOf("ศูนย์", StringComparison.OrdinalIgnoreCase);
+                int start2 = text.IndexOf("ชูนย์การแพทย์", StringComparison.OrdinalIgnoreCase);
+                if(start2>0)        {           start = start2; }       //ถือว่าเป็นคำผิด พลาด ให้ถือว่าถูกต้อง
+                if (start < 0) { return string.Empty; }
+                int start1 = text.IndexOf("ศูนย์การแพทย์สมเด็จพระเทพรัตนราชสุดา", StringComparison.OrdinalIgnoreCase);
+                if (start1 == 0) 
+                {
+                    txtImageHospitalCode.Value = "000";
+                    DataTable dthosp = tSupraDB.selectHospitalByCode(txtImageHospitalCode.Text.Trim());
+                    if(dthosp.Rows.Count>0)
+                    {
+                        amt1 = dthosp.Rows[0]["hosp_name_t"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = "extractHospital " + ex.Message;
+            }
+            return amt1;
+        }
+        private String extractVeshaphan(string text)
+        {
+            float amt1 = 0;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(text)) return string.Empty;       //เวชภณ
+                // Find start token "icd-9cm"               เวชภณ\nเท์ที่ไม่ใช่ยา            เวชภัณฑ\nเท์ที่ไม่ใช่ยา
+                int start = text.IndexOf("เวชภ", StringComparison.OrdinalIgnoreCase);//"เวชภัณ\nท์ที่ไม่ใช่ยา"
+                if (start < 0) return string.Empty;
+                // slice after token        เวชภัณ\nเท์ที่ไม่ใช่ยา
+                int start1 = text.IndexOf("เวชภัณฑ์", StringComparison.OrdinalIgnoreCase);
+                int start12 = text.IndexOf("เวชภัณฑ์ที่ไม่ใช่ยา", StringComparison.OrdinalIgnoreCase);
+                int start13 = text.IndexOf("เวชภัณ\nท์ที่ไม่ใช่ยา", StringComparison.OrdinalIgnoreCase);
+                int start14 = text.IndexOf("เวชภณ\nเท์ที่ไม่ใช่ยา", StringComparison.OrdinalIgnoreCase);
+                int start15 = text.IndexOf("เวชภัณ\nเท์ที่ไม่ใช่ยา", StringComparison.OrdinalIgnoreCase);
+                int start16 = text.IndexOf("เวชภัณฑ\nเท์ที่ไม่ใช่ยา", StringComparison.OrdinalIgnoreCase);
+                int start2 = text.IndexOf("ไม่ใช่ยา", StringComparison.OrdinalIgnoreCase);
+                if (start1 > 0 && start12 >= start1 && start2 > start12) start += "เวชภัณฑ์ที่ไม่ใช่ยา".Length;
+                else if (start13 > 0) start += "เวชภัณ\nท์ที่ไม่ใช่ยา".Length;
+                else if (start14 > 0) start += "เวชภณ\nเท์ที่ไม่ใช่ยา".Length;
+                else if (start15 > 0) start += "เวชภัณ\nเท์ที่ไม่ใช่ยา".Length;
+                else if (start16 > 0) start += "เวชภัณฑ\nเท์ที่ไม่ใช่ยา".Length;
+                else start += "เวชภัณ".Length;
+                string slice = text.Substring(start);
+                if (start > 0) { string[] amt = slice.Split('\n'); if (!float.TryParse(amt[0], out amt1)) float.TryParse(amt[1], out amt1); }
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = "extractVeshaphan " + ex.Message;
+            }
+            return amt1.ToString("#,###.00");
+        }
+        private String extractTotalReceipt000(string text)
+        {
+            float amt1 = 0;
+            String slice = "", text1 = "";
+            try
+            {
+                if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+                // Find start token "icd-9cm" 
+                int start = text.LastIndexOf("รับชำระเงิน", StringComparison.OrdinalIgnoreCase);//"เวชภัณ\nท์ที่ไม่ใช่ยา"
+                int start1 = text.LastIndexOf("จำนวน", StringComparison.OrdinalIgnoreCase);
+                int start2 = text.LastIndexOf("เงินทอน", StringComparison.OrdinalIgnoreCase);
+                if (start>0 && start1 >0 && start2 >0)
+                {
+                    text1 = text.Substring(start, start2- start);
+                    String[] slice1 = text1.Split('\n');
+                    if (slice1.Length > 0)
+                    {
+                        slice = slice1[slice1.Length - 1];
+                        start1 = slice.IndexOf("จำนวน", StringComparison.OrdinalIgnoreCase);
+                        slice = (slice.Substring(start1+ "จำนวน".Length)).Trim();
+                        amt1 = float.Parse(slice);
+                    }
+                }
+                return amt1.ToString("#,###.00");
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = "extractTotal " + ex.Message;
+            }
+            return amt1.ToString("#,###.00");
+        }
+        private String extractTotal(string text)
+        {
+            float amt1 = 0;
+            String slice = "", text1="";
+            try
+            {
+                if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+                // Find start token "icd-9cm" 
+                int start = text.LastIndexOf("รวม", StringComparison.OrdinalIgnoreCase);//"เวชภัณ\nท์ที่ไม่ใช่ยา"
+                int start0 = text.IndexOf("รวม", StringComparison.OrdinalIgnoreCase);
+                int start1 = text.LastIndexOf("รวมสุทธิ", StringComparison.OrdinalIgnoreCase);//
+                int start2 = text.LastIndexOf("รวม\nเสทธิ", StringComparison.OrdinalIgnoreCase);//"รวม\nเสทธิ"
+                int start3 = text.LastIndexOf("รวมสุทธ", StringComparison.OrdinalIgnoreCase);//รวมสุทธ
+                //int start4 = text.LastIndexOf("รวมสุทธิ", StringComparison.OrdinalIgnoreCase);
+                if (start < 0) return string.Empty;
+                if(text.Length == (start1 + ("รวมสุทธิ").Length))
+                {
+                    text1 = text.Substring(0, start);
+                    start = text1.LastIndexOf("รวม", StringComparison.OrdinalIgnoreCase);
+                    slice = text1.Substring(start);
+                }
+                else if(start2 >0)       //"รวม\nเสทธิ"
+                { text1 = text.Substring(0, start2+20); start = text1.LastIndexOf("รวม\nเสทธิ", StringComparison.OrdinalIgnoreCase); slice = text1.Substring(start); }
+                else if (start3 > 0 && start > 0)
+                {
+                    start += "รวมสุทธ".Length;
+                    slice = text.Substring(start);
+                    //check ว่า slice มียอดเงินไหม
+                    string[] amt = slice.Split('\n');
+                    Boolean chk1=false, chk2=false;
+                    if(amt.Length > 0) chk1 = float.TryParse(amt[0], out float amt00);
+                    if (amt.Length > 1) chk2 = float.TryParse(amt[1], out float amt01);
+                    if(chk1 == false && chk2 == false)
+                    {
+                        text1 = text.Substring(0, start- "รวมสุทธิ".Length);
+                        start = text1.LastIndexOf("รวม", StringComparison.OrdinalIgnoreCase);
+                        slice = text1.Substring(start);
+                    }
+                }
+                else if (start1 < 0 && start > 0)
+                {
+                    slice = text.Substring(start);
+                }
+                else if (start1 > 0 && start > 0)
+                {
+                    slice = text.Substring(start);
+                    if (slice.Length > 1)
+                    {
+                        string[] slice1 = slice.Split('\n');
+                        if (!float.TryParse(slice1[1], out float amt2))
+                        {
+                            text1 = text.Substring(0, start);
+                            start = text1.LastIndexOf("รวม", StringComparison.OrdinalIgnoreCase);
+                            slice = text1.Substring(start);
+                        }
+                        else { slice = amt2.ToString()+"\n"; }      //หาtotalเจอ
+                    }
+                }
+                
+                else
+                {
+                    if (start1 > 0) start += "รวมสุทธิ".Length;
+                    else start += "รวมสุทธิ".Length;
+                    slice = text.Substring(start);
+                }
+                // slice after token
+                if (start > 0) 
+                {
+                    float amt10 = 0, amt11=0, amt12 = 0, amt13 = 0;
+                    string[] amt = slice.Split('\n'); //if (!float.TryParse(amt[0], out amt1)) if (!float.TryParse(amt[1], out amt1)) if ((amt.Length>2) &&(!float.TryParse(amt[2], out amt1))) float.TryParse(amt[3], out amt1);
+                    //แอบcheck ว่ามีรวมอื่นๆอีกไหม คือมีหลายรวม ให้เอารวม มากสุด เพราะหาtotalเจอในตำแหน่งที่ผิด
+                    float.TryParse(amt[0], out amt10);
+                    if (amt.Length > 1) float.TryParse(amt[1], out amt11);
+                    if (amt.Length > 2) float.TryParse(amt[2], out amt12);
+                    if (amt.Length > 3) float.TryParse(amt[3], out amt13);
+                    if(amt12> amt10 && amt12 > amt13) { amt1 = amt12; }
+                    else if (amt11 > amt10 && amt11 > amt12) { amt1 = amt11; }
+                    else if(amt13 > amt10 && amt13 > amt12) { amt1 = amt13; }
+                    else if(amt10 > amt12 && amt10 > amt13) { amt1 = amt10; }
+                }
+                return amt1.ToString("#,###.00");
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = "extractTotal " + ex.Message;
+            }
+            return amt1.ToString("#,###.00");
+        }
+        private String extractVisitDate(string text)
+        {
+            String amt1 = "";
+            try
+            {
+                if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+                // Find start token "icd-9cm" 
+                int start = text.IndexOf("ตั้งแต่วันที่", StringComparison.OrdinalIgnoreCase);//ตังแต่วันที
+                int start1 = text.IndexOf("ตั่งแต่วันที่", StringComparison.OrdinalIgnoreCase);//ตั้งแต่วันที
+                int start2 = text.IndexOf("ตังแต่วันที่", StringComparison.OrdinalIgnoreCase);//ตั้งแต่วันที่
+                int start3 = text.IndexOf("ตั้งแต่วันที", StringComparison.OrdinalIgnoreCase);
+                int start4 = text.IndexOf("ตังแต่วันที", StringComparison.OrdinalIgnoreCase);
+                if (start1 > 0) { start = start1; }//ถือว่าเป็นคำผิด พลาด ให้ถือว่าถูกต้อง
+                else if (start2 > 0) { start = start2; }//ถือว่าเป็นคำผิด พลาด ให้ถือว่าถูกต้อง
+                else if (start3 > 0) { start = start3; }
+                else if (start4 > 0) { start = start4; }
+                if (start < 0) return string.Empty;
+                // slice after token
+                string slice = text.Substring(start + "ตั้งแต่วันที่".Length);
+                if (slice.IndexOf('\n') >= 0) 
+                {
+                    if(slice.IndexOf('\n') == 0) { slice = slice.Substring(0, 40); }
+                    else slice = slice.Substring(0, slice.IndexOf('\n'));
+                    if (slice.IndexOf("ถึง") > 0)
+                    {
+                        String slice1 = (slice.Substring(0, slice.IndexOf("ถึง"))).Trim();
+                        String slicedisc = (slice.Substring(slice.IndexOf("ถึง"))).Trim();
+                        slicedisc = slicedisc.Replace("ถึง", "");
+                        if (slicedisc.IndexOf("รวม") > 0)
+                        {
+                            slicedisc = (slicedisc.Substring(0, slicedisc.IndexOf("รวม"))).Trim();
+                            String[] slicedisc2 = slicedisc.Split(' ');
+                            if (slicedisc2.Length > 0)
+                            {
+                                String dddisc2 = "", mmdisc2 = "", yeardisc2 = "";
+                                String[] slicedisc3 = slicedisc2[0].Split('/');
+                                if (slicedisc3.Length > 0)
+                                {
+                                    dddisc2 = slicedisc3[0];
+                                    mmdisc2 = slicedisc3[1];
+                                    yeardisc2 = slicedisc3[2];
+                                    if (int.Parse(yeardisc2) > 2500) { yeardisc2 = (int.Parse(yeardisc2) - 543).ToString(); }
+                                    DateTime dtdisc = new DateTime(int.Parse(yeardisc2), int.Parse(mmdisc2), int.Parse(dddisc2));
+                                    txtDiscDate.Value = (DateTime)dtdisc;
+                                }
+                            }
+                        }
+                        txtVsDate.Value = fixDate(slice1);
+                    }
+                }
+                else { slice = slice.Trim(); txtVsDate.Value = fixDate(slice); }
+                string[] amt = slice.Split('\n');
+                //if (amt.Length > 0) float.TryParse(amt[0], out amt1);
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = "extractTotal " + ex.Message;
+            }
+            return amt1;
+        }
+        private DateTime fixDate(String txt)
+        {
+            DateTime date = new DateTime();
+            String[] slice2 = txt.Split(' ');
+            if (slice2.Length > 0)
+            {
+                String dd = "", mm = "", year = "";
+                String[] slice3 = slice2[0].Split('/');
+                if (slice3.Length > 0)
+                {
+                    dd = slice3[0];
+                    mm = slice3[1];
+                    year = slice3[2];
+                    if (int.Parse(year) > 2500) { year = (int.Parse(year) - 543).ToString(); }
+                    date = new DateTime(int.Parse(year), int.Parse(mm), int.Parse(dd));
+                }
+                //txtVsDate.Value
+            }
+            return date;
+        }
+        private List<(string Code, string Description)> ExtractIcd9CmEntries(string text)
+        {
+            var result = new List<(string Code, string Description)>();
+            if (string.IsNullOrWhiteSpace(text)) return result;
+
+            // Find start token "icd-9cm"
+            int start = text.IndexOf("icd-9cm", StringComparison.OrdinalIgnoreCase);
+            int start1 = text.IndexOf("icd - 9cm", StringComparison.OrdinalIgnoreCase);
+            int start2 = text.IndexOf("icd 9cm", StringComparison.OrdinalIgnoreCase);
+            if (start1 > 0) { start = start1; }//ถือว่าเป็นคำผิด พลาด ให้ถือว่าถูกต้อง
+            else if (start2 > 0) { start = start2; }//ถือว่าเป็นคำผิด พลาด ให้ถือว่าถูกต้อง
+            if (start < 0) return result;
+            // slice after token
+            start += "icd-9cm".Length;
+            string slice = text.Substring(start);
+
+            // optional end markers commonly appear after the section; trim to first marker if found
+            string[] endMarkers = new[] { "ที่", "จำนวนเงิน", "รวม", "เลขที่อ้างอิง" };
+            int endIdx = -1;
+            foreach (var m in endMarkers)
+            {
+                int i = slice.IndexOf(m, StringComparison.OrdinalIgnoreCase);
+                if (i >= 0 && (endIdx < 0 || i < endIdx)) endIdx = i;
+            }
+            if (endIdx > 0) slice = slice.Substring(0, endIdx);
+
+            // Pattern: code (3-4 digits) followed by description until next code or end
+            var matches = Regex.Matches(slice, @"\b(\d{3,4})\b\s*([^\d]+?)(?=(?:\s*\b\d{3,4}\b)|\z)", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            foreach (Match m in matches)
+            {
+                string code = m.Groups[1].Value.Trim();
+                string desc = m.Groups[2].Value.Replace("\r", " ").Replace("\n", " ").Trim();
+                // normalize multiple spaces
+                desc = Regex.Replace(desc, @"\s{2,}", " ").Trim();
+                if (!string.IsNullOrEmpty(code))
+                    result.Add((code, desc));
+            }
+            return result;
         }
         private void initGrfSupra()
         {
@@ -1636,8 +2543,9 @@ namespace bangna_hospital.gui
             grfSupra.Dock = System.Windows.Forms.DockStyle.Fill;
             grfSupra.Location = new System.Drawing.Point(0, 0);
             grfSupra.Rows.Count = 1;
-            grfSupra.Cols.Count = 11;
-
+            grfSupra.Cols.Count = 8;
+            grfSupra.Cols[colgrfSSOPhn].Width = 90;
+            grfSupra.Cols[colgrfSSOPname].Width = 200;
             grfSupra.Cols[colgrfSupraVsDate].Width = 90;
             grfSupra.Cols[colgrfSupraPreno].Width = 60;
             grfSupra.Cols[colgrfSupraSymptoms].Width = 200;
@@ -1646,12 +2554,15 @@ namespace bangna_hospital.gui
             
             grfSupra.ShowCursor = true;
             //grfVs.AllowMerging = C1.Win.C1FlexGrid.AllowMergingEnum.RestrictRows;
+            grfSupra.Cols[colgrfSupraHN].Visible = true;
+            grfSupra.Cols[colgrfSupraPname].Visible = true;
             grfSupra.Cols[colgrfSupraVsDate].Caption = "visitdate";
             grfSupra.Cols[colgrfSupraPreno].Caption = "preno";
             grfSupra.Cols[colgrfSupraSymptoms].Caption = "Symptoms";
             grfSupra.Cols[colgrfSupraVNAN].Caption = "VNAN";
             grfSupra.Cols[colgrfSupraStatusAdmit].Caption = "status";
-
+            grfSupra.Cols[colgrfSupraHN].AllowEditing = false;
+            grfSupra.Cols[colgrfSupraPname].AllowEditing = false;
             grfSupra.Cols[colgrfSupraVsDate].AllowEditing = false;
             grfSupra.Cols[colgrfSupraPreno].AllowEditing = false;
             grfSupra.Cols[colgrfSupraSymptoms].AllowEditing = false;
@@ -1669,15 +2580,19 @@ namespace bangna_hospital.gui
         private void GrfSupra_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
-
+            if (grfSupra.Row < 1) return;
+            String hn = grfSupra[grfSupra.Row, colgrfSupraHN] != null ? grfSupra[grfSupra.Row, colgrfSupraHN].ToString() : "";
+            String preno = grfSupra[grfSupra.Row, colgrfSupraPreno] != null ? grfSupra[grfSupra.Row, colgrfSupraPreno].ToString() : "";
+            String vsdate = grfSupra[grfSupra.Row, colgrfSupraVsDate] != null ? grfSupra[grfSupra.Row, colgrfSupraVsDate].ToString() : "";
+            setControlSupra(hn,preno,vsdate);
         }
         private void setGrfSupra(String hn)
         {
             showLbLoading();
             DataTable dtvs = new DataTable();
             //MessageBox.Show("hn "+hn, "");
-            dtvs = bc.bcDB.vsDB.selectVisitByHn(hn);
-            int i = 1, j = 1, row = grfSupra.Rows.Count;
+            dtvs = bc.bcDB.vsDB.selectLikeVisitByHn(hn);
+            int i = 1, j = 1;
 
             grfSupra.Rows.Count = 1;
             grfSupra.Rows.Count = dtvs.Rows.Count + 1;
@@ -1686,7 +2601,8 @@ namespace bangna_hospital.gui
             {
                 //pB1.Value++;
                 Row rowa = grfSupra.Rows[i];
-
+                rowa[colgrfSupraHN] = row1["MNC_HN_NO"].ToString();
+                rowa[colgrfSupraPname] = row1["ptt_fullnamet"].ToString();
                 rowa[colgrfSupraVsDate] = row1["MNC_DATE"].ToString();
                 rowa[colgrfSupraPreno] = row1["mnc_pre_no"].ToString();
                 rowa[colgrfSupraStatusAdmit] = row1["MNC_AN_NO"].ToString().Equals("0") ? "O" : "I";
@@ -1697,6 +2613,20 @@ namespace bangna_hospital.gui
                 i++;
             }
             hideLbLoading();
+        }
+        private void setControlSupra(String hn, String preno, String vsdate)
+        {
+            lbSupraPttAttachNote.Text = "";
+            PTT = bc.bcDB.pttDB.selectPatinetByHn(hn);
+            if (PTT == null) return;
+            txtSupraNewHn.Value = PTT.MNC_HN_NO;
+            lbSupraNewPttName.Text = PTT.Name;
+            lbSupraPttAge.Text = PTT.AgeStringOK1DOT();
+            lbSupraPttAttachNote.Text = PTT.MNC_ATT_NOTE;
+            lbSupraVsDate.Text = vsdate;
+            lbSuprapreno.Text = preno;
+            lbSupraPID.Text = PTT.MNC_ID_NO;
+            //setGrfSupraDetail(hn, preno, vsdate);
         }
         private void initLoading()
         {
@@ -1731,6 +2661,7 @@ namespace bangna_hospital.gui
             spSSOPget.HeaderHeight = 0;
             c1SplitContainer1.HeaderHeight = 0;
             scGenText.HeaderHeight = 0;
+            spImage.HeaderHeight = 0;
             tcSSOP.SelectedTab = tabSSOPimp;
             tabSSOPDetails.SelectedTab = tabSSOPBillItems;
             System.Drawing.Rectangle screenRect = Screen.GetBounds(Bounds);

@@ -28,11 +28,11 @@ namespace bangna_hospital.object1
             txt += "</Header>" + Environment.NewLine;
             return txt;
         }
-        public String genClaimAuth(String UPayPlan, String ServiceType, String ProjectCode, String EventCode, String Hmain, String Hcare, String CareAs, String ServiceSubType)
+        public String genClaimAuth(String UPayPlan, String ServiceType, String ProjectCode, String EventCode, String Hmain, String Hcare, String CareAs, String ServiceSubType, String authCode)
         {
             String txt = "";
             txt = "<ClaimAuth>" + Environment.NewLine;
-            txt += "<AuthCode></AuthCode>" + Environment.NewLine;
+            txt += "<AuthCode>"+ authCode + "</AuthCode>" + Environment.NewLine;
             txt += "<AuthDT></AuthDT>"+Environment.NewLine;
             txt += "<UPayPlan>" + UPayPlan + "</UPayPlan>" + Environment.NewLine;
             txt += "<ServiceType>" + ServiceType + "</ServiceType>" + Environment.NewLine;

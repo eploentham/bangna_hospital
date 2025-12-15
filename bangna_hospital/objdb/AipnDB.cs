@@ -69,7 +69,7 @@ namespace bangna_hospital.objdb
         public DataTable selectClaimAuth(String aipnid)
         {
             DataTable dt = new DataTable();
-            String sql = "select claim.aipn_claimauth_id,claim.aipn_id,claim.authcode,claim.authdt,claim.upayplan,isnull(claim.servicetype,'') as servicetype,isnull(claim.servicesubtype,'') as servicesubtype,isnull(claim.projectcode,'') as projectcode,isnull(claim.userreserve,'') as userreserve,isnull(claim.hmain,'') as hmain,isnull(claim.hcare,'') as hcare,isnull(claim.careas,'') as careas,isnull(claim.eventcode,'') as eventcode " +
+            String sql = "select claim.aipn_claimauth_id,claim.aipn_id,isnull(claim.authcode,'') as authcode,claim.authdt,claim.upayplan,isnull(claim.servicetype,'') as servicetype,isnull(claim.servicesubtype,'') as servicesubtype,isnull(claim.projectcode,'') as projectcode,isnull(claim.userreserve,'') as userreserve,isnull(claim.hmain,'') as hmain,isnull(claim.hcare,'') as hcare,isnull(claim.careas,'') as careas,isnull(claim.eventcode,'') as eventcode " +
                 "From aipn_t_claimauth  claim " +
                 " Where claim.aipn_id = '" + aipnid + "' " +
                 "Order By claim.aipn_id ";
@@ -158,7 +158,7 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public DataTable selectAipnIdByStatusMakeText(String anno, Boolean sendMulti, Boolean statusNoAdd)
+        public DataTable selectAipnIdByStatusMakeText(String anno, Boolean sendMulti, Boolean statusNoAdd, Boolean statusNew)
         {
             DataTable dt = new DataTable();
             String id = "", wheresessionno="";
@@ -174,9 +174,9 @@ namespace bangna_hospital.objdb
             {
                 wheresessionno = " and sessionno != '' ";// ทำเหมือน status ใหม่ ใช่ตอนแรก  ตาม สกส
             }
-            else
+            else if (statusNew)
             {
-                wheresessionno = " and sessionno = '' ";// รายการใหม่
+                wheresessionno = " and sessionno = '' ";// เฉพาะรายการใหม่
             }
             String sql = "select aipn.aipn_id, aipn.an_no, aipn.an_cnt, an_1 " +
                 "From aipn_t_aipn  aipn " +

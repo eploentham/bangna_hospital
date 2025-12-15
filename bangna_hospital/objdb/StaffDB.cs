@@ -188,7 +188,7 @@ namespace bangna_hospital.objdb
             String sql = "select stf.mnc_usr_name, stf.mnc_usr_pw, stf.mnc_usr_full,stf.mnc_usr_lev  " +
                 "From " + stf.table + " stf " +
                 //"Left Join f_patient_prefix pfx On stf.prefix_id = pfx.f_patient_prefix_id " +
-                "Where stf." + stf.password1 + " ='" + pass + "' ";
+                "Where stf." + stf.password1 + " ='" + pass + "' and MNC_USR_STS = 'Y' ";
             dt = conn.selectData(conn.connMainHIS, sql);
             if (dt.Rows.Count > 0)
             {

@@ -22,6 +22,7 @@ using GrapeCity.ActiveReports.Document;
 using GrapeCity.ActiveReports.Extensibility.Rendering.Components.Map.GeoData;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,6 +39,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WIA;
@@ -61,7 +63,7 @@ namespace bangna_hospital.gui
     {
         BangnaControl bc;
         System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt2, famt2B, famt4B, famt2BL, famt5, famt5B, famt5BL, famt7, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
-        Font fStaffN, fStaffNs;
+        Font fStaffN, fStaffNs, fStaffNB;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         Patient PTT;
@@ -70,7 +72,7 @@ namespace bangna_hospital.gui
         C1ThemeController theme1;
         C1FlexGrid grfOperList, grfOperFinish, grfOperFinishDrug, grfOperFinishLab, grfOperFinishXray, grfOperFinishProcedure, grfCheckUPList, grfPttApm, grfOrder, grfIPD, grfIPDScan, grfOPD, grfOutLab, grfHisOrder, grfLab, grfXray, grfHisProcedure, grfSrc, grfSrcVs, grfSrcOrder, grfSrcLab, grfSrcXray, grfSrcProcedure, grfTodayOutLab, grfApmOrder;
         C1FlexGrid grfApm, grfRpt, grfChkPackItems, grfOrderPreno, grfEKG, grfDocOLD, grfEST, grfHolter, grfECHO, grfCertMed, grfApmMulti;
-        C1FlexGrid grfMapPackage, grfPackage, grfMapPackageViewhelp, grfpackageitems;
+        C1FlexGrid grfMapPackage, grfPackage, grfMapPackageViewhelp, grfpackageitems, grfOperLab, grfOperXray;
         C1FlexReport rptView;
         Boolean pageLoad = false, tabMedScanActiveNOtabOutLabActive=true;
         Image imgCorr, imgTran, resizedImage, IMG, IMGSTAFFNOTE;
@@ -83,7 +85,7 @@ namespace bangna_hospital.gui
         C1PictureBox pic;
         C1FlexViewer fvCerti, fvTodayOutLab;
         C1BarCode qrcode;
-        DataTable DTRPT, dtallergy, dtchronic;
+        DataTable DTRPT, DTALLERGY, DTCHRONIC;
         
         int originalHeight = 0, newHeight = 720, mouseWheel = 0;
         int colgrfSrcHn = 1, colgrfSrcFullNameT = 2, colgrfSrcPID = 3, colgrfSrcDOB = 4, colgrfSrcPttid = 5, colgrfSrcAge = 6, colgrfSrcVisitReleaseOPD = 7, colgrfSrcVisitReleaseIPD = 8, colgrfSrcVisitReleaseIPDDischarge = 9;
@@ -124,7 +126,8 @@ namespace bangna_hospital.gui
         const string WIA_FORMAT_JPEG = "{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}";
         const string WIA_FORMAT_PNG = "{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}";
         const string WIA_FORMAT_BMP = "{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}";
-        Boolean EDITDOE = false;
+        Boolean EDITDOE = false, TEMPCANCER=false;
+        ListBox lstAutoComplete;
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmOPD(BangnaControl bc)
@@ -226,6 +229,9 @@ namespace bangna_hospital.gui
             txtRptEndDate.Value = DateTime.Now;
             clearControlCheckupSSO();
             chkApmDate.Checked = true;
+            lstAutoComplete = new ListBox();
+            lstAutoComplete.Dock = DockStyle.Fill;
+            pnInformation.Controls.Add(lstAutoComplete);
             pageLoad = false;
         }
         private void initFont()
@@ -263,6 +269,7 @@ namespace bangna_hospital.gui
             fPDFs8 = new System.Drawing.Font(bc.iniC.pdfFontName, bc.pdfFontSize - 8, FontStyle.Regular);
             fStaffN = new System.Drawing.Font(bc.iniC.staffNoteFontName, bc.staffNoteFontSize, FontStyle.Regular);
             fStaffNs = new System.Drawing.Font(bc.iniC.staffNoteFontName, bc.staffNoteFontSize-2, FontStyle.Regular);
+            fStaffNB = new System.Drawing.Font(bc.iniC.staffNoteFontName, bc.staffNoteFontSize+1, FontStyle.Bold);
         }
         private void initControl()
         {
@@ -353,6 +360,9 @@ namespace bangna_hospital.gui
             initGrfpackage();
             initGrfMapPackageViewhelp();
             initGrfMapPackageItmes();
+            //initGrfOperLab();
+            initGrfLab(ref grfOperLab, ref pnPrenoLab);
+            initGrfXray(ref grfOperXray, ref pnPrenoXray);
             pnApmOrder.Hide();
         }
         private void setTheme()
@@ -502,6 +512,13 @@ namespace bangna_hospital.gui
             btnPrnStaffNote.Click += BtnPrnStaffNote_Click;
             btnPrnStaffNote1.Click += DropDownItem1_Click;
             btnPrnStaffNote2.Click += DropDownItem2_Click;
+            btnPrnStaffNote3.Click += DropDownItem3_Click;
+            btnPrnStaffNote4.Click += DropDownItem4_Click;
+            dropDownItem27.Click += DropDownItem27_Click;
+            dropDownItem5.Click += DropDownItem5_Click;
+            dropDownItem6.Click += DropDownItem6_Click;
+            dropDownItem7.Click += DropDownItem7_Click;
+            dropDownItem8.Click += DropDownItem8_Click;
 
             btnCheckUPAlienPrint.Click += BtnCheckUPAlienPrint_Click;
             cboCheckUPSelect.SelectedItemChanged += CboCheckUPSelect_SelectedItemChanged;
@@ -556,7 +573,6 @@ namespace bangna_hospital.gui
             btnCheckUpCompPrint.Click += BtnCheckUpCompPrint_Click;
             txtMapPackagepackageCode.KeyUp += TxtMapPackagepackageCode_KeyUp;
         }
-
         private void TxtMapPackagepackageCode_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1184,7 +1200,6 @@ namespace bangna_hospital.gui
                 bc.bcDB.insertLogPage(bc.userId, this.Name, "BtnSrcESTScanNew_Click", ex.Message);
             }
         }
-
         private void BtnSrcECHOScanSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -1237,7 +1252,6 @@ namespace bangna_hospital.gui
             }
             setGrfECHO();
         }
-
         private void BtnSrcECHOScanNew_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -1565,6 +1579,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
+                //แก้ให้ สามารถ ค้นหาโดยใช้ ชื่อ pid ได้   68-12-01
                 HN = txtOperHN.Text.Trim();
                 setControlOper(txtOperHN.Name);
             }
@@ -1938,25 +1953,69 @@ namespace bangna_hospital.gui
                 p.Start();
             }
         }
+        private void DropDownItem8_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TEMPCANCER = true;            printStaffNoteTemplate("8");
+        }
+
+        private void DropDownItem7_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TEMPCANCER = true;            printStaffNoteTemplate("7");
+        }
+
+        private void DropDownItem6_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TEMPCANCER = true;            printStaffNoteTemplate("6");
+        }
+
+        private void DropDownItem5_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TEMPCANCER = true;            printStaffNoteTemplate("5");
+        }
+
+        private void DropDownItem27_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TEMPCANCER = true;            printStaffNoteTemplate("27");
+        }
+        private void DropDownItem4_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TEMPCANCER = true;            printStaffNoteTemplate("4");
+        }
+
+        private void DropDownItem3_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TEMPCANCER = true;            printStaffNoteTemplate("3");
+        }
         private void DropDownItem2_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            MessageBox.Show("333333", "");
+            TEMPCANCER = true;            printStaffNoteTemplate("2");
         }
         private void DropDownItem1_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            MessageBox.Show("222222", "");
+            TEMPCANCER = true;            printStaffNoteTemplate("1");
         }
         private void BtnPrnStaffNote_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             //MessageBox.Show("11111", "");
-            dtchronic = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard);
-            dtallergy = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim());
+            TEMPCANCER = false;            printStaffNoteTemplate("0");
+        }
+        private void printStaffNoteTemplate(String temp)
+        {
+            DTCHRONIC = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard);
+            DTALLERGY = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim());
             //user แจ้งให้ save doctor ด้วย 68-10-21
             BtnOperSaveDtr_Click(null, null);       //ด้วย 68-10-21
-            printStaffNote("1");
+            printStaffNote(temp);
             if (bc.iniC.statusPrintQue.Equals("1")) { printQueueDtr(); }
         }
         private void BtnOperOpenSticker_Click(object sender, EventArgs e)
@@ -2655,10 +2714,21 @@ namespace bangna_hospital.gui
         private void BtnScanGetImg_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
+            if (tC1.SelectedTab == tabOper)
+            {
+                setImageStaffNote(picL, picR);
+            }
+            else if (tC1.SelectedTab == tabSearch)
+            {
+                setImageStaffNote(picSrcL, picSrcR);
+            }
+        }
+        private void setImageStaffNote(C1PictureBox picl, C1PictureBox picr)
+        {
             String dd = "", mm = "", yy = "", err = "", preno1 = "";
             if (tC1.SelectedTab == tabCheckUP)
             {
-                FrmStaffNote frm = new FrmStaffNote(bc, txtCheckUPHN.Text.Trim(), cboCheckUPPrefixT.Text.Trim() +" "+txtCheckUPNameT.Text.Trim()+" "+ txtCheckUPSurNameT.Text.Trim(), VSDATE, PRENO, "checkup");
+                FrmStaffNote frm = new FrmStaffNote(bc, txtCheckUPHN.Text.Trim(), cboCheckUPPrefixT.Text.Trim() + " " + txtCheckUPNameT.Text.Trim() + " " + txtCheckUPSurNameT.Text.Trim(), VSDATE, PRENO, "checkup");
                 frm.ShowDialog(this);
                 frm.Dispose();
             }
@@ -2666,33 +2736,33 @@ namespace bangna_hospital.gui
             {
                 try
                 {
-                    picL.Image = null;
-                    picR.Image = null;
+                    picl.Image = null;
+                    picr.Image = null;
                     String folderPath = bc.iniC.pathlocalStaffNote;
                     if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
                     string[] files = Directory.GetFiles(folderPath);
                     foreach (String file in files)
                     {
-                        if (picL.Image == null)
+                        if (picl.Image == null)
                         {
                             FILEL = new FileInfo(file);
                             using (FileStream fsR = new FileStream(FILEL.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
                             {
                                 using (Image imgl = Image.FromStream(fsR))
                                 {
-                                    picL.Image = (Image)imgl.Clone();
+                                    picl.Image = (Image)imgl.Clone();
                                 }
                             }
                             continue;
                         }
-                        if (picR.Image == null)
+                        if (picr.Image == null)
                         {
                             FILER = new FileInfo(file);
                             using (FileStream fsR = new FileStream(FILER.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
                             {
                                 using (Image imgr = Image.FromStream(fsR))
                                 {
-                                    picR.Image = (Image)imgr.Clone();
+                                    picr.Image = (Image)imgr.Clone();
                                 }
                             }
                             continue;
@@ -2703,13 +2773,12 @@ namespace bangna_hospital.gui
                 catch (Exception ex)
                 {
                     lfSbStatus.Text = ex.Message.ToString();
-                    lfSbMessage.Text = err + " getImgStaffNote " + ex.Message;
-                    new LogWriter("e", "FrmOPD getImgStaffNote " + ex.Message);
-                    bc.bcDB.insertLogPage(bc.userId, this.Name, "getImgStaffNote", ex.Message);
+                    lfSbMessage.Text = err + " setImageStaffNote " + ex.Message;
+                    new LogWriter("e", "FrmOPD setImageStaffNote " + ex.Message);
+                    bc.bcDB.insertLogPage(bc.userId, this.Name, "setImageStaffNote", ex.Message);
                 }
             }
         }
-
         private void BtnCheckUPPrnDriver_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -3300,10 +3369,14 @@ namespace bangna_hospital.gui
                 //precau = rowa[colgrfOrderDrugPrecau].ToString();
                 //interac = rowa[colgrfOrderDrugInterac].ToString();
                 //indica = rowa[colgrfOrderDrugIndica].ToString();
-                String re = bc.bcDB.vsDB.insertOrderTemp(idtemp, code, name, qty,"","","","", flag, txtOperHN.Text.Trim(), VSDATE, PRENO);
+                String re = bc.bcDB.vsDB.insertOrderTemp(idtemp, code, name, qty,"","","","","", flag, txtOperHN.Text.Trim(), VSDATE, PRENO);
                 if (int.TryParse(re, out int _))
                 {
-
+                    lfSbMessage.Text = "save OK";
+                }
+                else
+                {
+                    lfSbMessage.Text = re;
                 }
             }
             setGrfOrderTemp();
@@ -3442,24 +3515,36 @@ namespace bangna_hospital.gui
         private void setGrfSrc1()
         {
             showLbLoading();
-            setControlSrcPttSrc();
-            setGrfSrc();
+            bool ispid = false, isname = false, isNum = false, isLettersOnly = false;
+            long chkpid = 0;
+            isNum = long.TryParse(txtSrcHn.Text.Trim(), out chkpid);
+            isLettersOnly = !string.IsNullOrWhiteSpace(txtSrcHn.Text) && Regex.IsMatch(txtSrcHn.Text.Trim(), @"^[\p{L}\s]+$");
+            if(isLettersOnly) setGrfSrc("search");
+            else setGrfSrc("");
+            if (isNum) setControlSrcPttSrc("","","");
             pnCertMedView.Controls.Clear();
             hideLbLoading();
         }
-        private void setControlSrcPttSrc()
+        private void setControlSrcPttSrc(String vn, String preno, String vsdate)
         {
+            //แก้ไข ให้สามารถค้นหา จาก PID name ได้ 681202
             if (txtSrcHn.Text.Trim().Length <= 0) return;
-            Patient ptt = bc.bcDB.pttDB.selectPatinetByHn(txtSrcHn.Text.Trim());
+            Patient ptt = new Patient();
+            bool ispid = false, isname = false, isNum = false, isLettersOnly = false;
+            long chkpid = 0;
+            isNum = long.TryParse(txtOperHN.Text.Trim(), out chkpid);
+            isLettersOnly = !string.IsNullOrWhiteSpace(txtSrcHn.Text) && Regex.IsMatch(txtSrcHn.Text.Trim(), @"^[\p{L}\s]+$");
+            ptt = bc.bcDB.pttDB.selectPatinetByHn(HN);
             if (ptt == null) return;
             lvSrcPttName.Value = ptt.Name;
             lbPttFinNote.Text = ptt.MNC_FIN_NOTE.Length <= 0 ? "..." : ptt.MNC_FIN_NOTE;
-            DataTable dt = new DataTable();
+            lbSrcHN.Value = ptt.Hn;
+            DataTable dtallergy = new DataTable();
             DataTable dtchronic = new DataTable();
             String allergy = "", txtChronic="";
-            dt = bc.bcDB.vsDB.selectDrugAllergy(txtSrcHn.Text.Trim());
+            dtallergy = bc.bcDB.vsDB.selectDrugAllergy(ptt.Hn);
             dtchronic = bc.bcDB.vsDB.SelectChronicByPID(ptt.idcard);
-            foreach (DataRow row in dt.Rows)
+            foreach (DataRow row in dtallergy.Rows)
             {
                 allergy += row["MNC_ph_tn"].ToString() + " " + row["MNC_ph_memo"].ToString() + ", ";
             }
@@ -3477,13 +3562,13 @@ namespace bangna_hospital.gui
                 txtChronic += row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString() + ",";
             }
             lbChronic.Value = txtChronic.Length > 0 ? "โรคเรื้อรัง " + txtChronic : "ไม่มีข้อมูล โรคเรื้อรัง";
-            lbSrcAge.Text = "อายุ " + ptt.AgeStringShort();
-            lbSrcPreno.Text = "";
-            lbSrcVsDate.Text = "";
-            lbSrcVN.Text = "";
+            lbSrcAge.Value = "อายุ " + ptt.AgeStringShort();
+            lbSrcPreno.Value = preno;
+            lbSrcVsDate.Value = vsdate;
+            lbSrcVN.Value = vn;
             btnSrcEKGScanSave.Enabled = false;
         }
-        private void setGrfSrc()
+        private void setGrfSrc(String flagsearch)
         {
             DataTable dt = new DataTable();
             dt = bc.bcDB.pttDB.selectPatinetBySearch(txtSrcHn.Text.Trim());
@@ -3589,18 +3674,16 @@ namespace bangna_hospital.gui
                 FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
                 frm.ShowDialog();
                 frm.Dispose();
-                if (bc.USERCONFIRMID.Length <= 0)
-                {
-                    lfSbMessage.Text = "Password ไม่ถูกต้อง";
-                    return;
-                }
+                if (bc.USERCONFIRMID.Length <= 0)       {                    lfSbMessage.Text = "Password ไม่ถูกต้อง";                    return;          }
             }
             String re = bc.bcDB.vsDB.updateStatusCloseVisit(HN, PRENO, VSDATE, bc.USERCONFIRMID);
+            if(int.TryParse(re, out int _))             {                lfSbMessage.Text = "ปิด visit OK";                setGrfOperList("");            }
+            else            {                lfSbMessage.Text = re;            }
         }
         private void TimeOperList_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setGrfOperList();
+            setGrfOperList("");
         }
         private void BtnApmPrint_Click(object sender, EventArgs e)
         {
@@ -4097,7 +4180,7 @@ namespace bangna_hospital.gui
             {
 
                 err = "00";
-                lfSbMessage.Text =VSDATE+ " " + PRENO;
+                lfSbMessage.Text =VSDATE+ " " + PRENO+" ["+bc.user.staff_fname_t+" " + bc.user.staff_lname_t+"]";
                 String filenameS = "";
                 filenameS = "000000" + PRENO;
                 filenameS = filenameS.Substring(filenameS.Length - 6);
@@ -4222,9 +4305,9 @@ namespace bangna_hospital.gui
         }
         private void printStaffNote(String template)
         {
+            TEMPLATESTAFFNOTE = template;
             if (template.Equals("checkup_doe"))
             {
-                TEMPLATESTAFFNOTE = template;
                 if (txtCheckUPHN.Text.Length <= 0) { return; }
             }
             else
@@ -4235,7 +4318,7 @@ namespace bangna_hospital.gui
             PrintDocument documentStaffNote = new PrintDocument();
             documentStaffNote.PrinterSettings.PrinterName = bc.iniC.printerStaffNote;
             documentStaffNote.DefaultPageSettings.Landscape = true;
-            if (TEMPLATESTAFFNOTE.Equals("1"))
+            if (TEMPLATESTAFFNOTE.Equals("0"))
             {
                 //new LogWriter("e", "FrmOPD printStaffNote 01");
                 documentStaffNote.PrintPage += Document_PrintPageStaffNote;
@@ -4300,8 +4383,8 @@ namespace bangna_hospital.gui
             }
             else
             {
-                e.Graphics.DrawString(line, famt7B, Brushes.Black, col3 - 15, yPos - yAdj+15, flags);
-                e.Graphics.DrawString(line, famt7B, Brushes.Black, col4 , yPos - yAdj+15, flags);
+                e.Graphics.DrawString(line, famt7B, Brushes.Black, col3 - 15,   yPos - yAdj+15, flags);
+                e.Graphics.DrawString(line, famt7B, Brushes.Black, col4 ,       yPos - yAdj+15, flags);
             }
             line = "H.N. " + PTT.MNC_HN_NO + "     " + VS.VN;
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
@@ -4311,11 +4394,11 @@ namespace bangna_hospital.gui
             line = "ชื่อ " + PTT.Name;
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 20, flags);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4, yPos + 20, flags);
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4+15, yPos + 20, flags);
             line = "เลขที่บัตร " + PTT.MNC_ID_NO;
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 40, flags);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4, yPos + 40, flags);
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4 + 15, yPos + 40, flags);
             String paid = VS.PaidName;
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(paid, fStaffN, Brushes.Black, col2, yPos + 40, flags);
@@ -4328,27 +4411,27 @@ namespace bangna_hospital.gui
             //dtallergy = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim());
             //dtchronic = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard);
             //สำคัญ ถ้าพิมพ์ ครั้งแรกจะโหลดข้อมูล ถ้าพิมพ์ ต่อจาก processอื่น พยายาม ไม่ดึง เพื่อความเร็ว และลด network
-            if (dtchronic == null) { dtchronic = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard); }
-            if (dtallergy == null) { dtallergy = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim()); }
+            if (DTCHRONIC == null) { DTCHRONIC = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard); }
+            if (DTALLERGY == null) { DTALLERGY = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim()); }
             int i = 0;
-            foreach (DataRow row in dtallergy.Rows)
+            foreach (DataRow row in DTALLERGY.Rows)
             {
                 allergy1 += row["MNC_ph_tn"].ToString() + " " + row["MNC_ph_memo"].ToString() + ", ";
                 i++;
                 if (i == 3) break;
             }
             i = 0;
-            foreach (DataRow row in dtchronic.Rows)
+            foreach (DataRow row in DTCHRONIC.Rows)
             {
                 chronic += row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString() + ",";
                 i++;
                 if (i == 3) break;
             }
             
-            if (dtchronic.Rows.Count > 0)
+            if (DTCHRONIC.Rows.Count > 0)
             {
                 string txtchronic = "";int cnt = 0;float yPos1 = yPos+60;
-                foreach (DataRow row in dtchronic.Rows)
+                foreach (DataRow row in DTCHRONIC.Rows)
                 {
                     txtchronic = "";
                     if (cnt == 0) { txtchronic = "โรคประจำตัว "+row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString(); }
@@ -4365,7 +4448,7 @@ namespace bangna_hospital.gui
             {
                 line = "โรคประจำตัว        ยังไม่พบ";
                 e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 60, flags);
-                rec = new System.Drawing.Rectangle(col2int + 82, 75, recx, recy);
+                rec = new System.Drawing.Rectangle(col2int + 72, 75, recx, recy);
                 e.Graphics.DrawRectangle(blackPen, rec);
                 chronic = " ไม่มีข้อมูล โรคเรื้อรัง";
                 line = "โรคเรื้อรัง";
@@ -4375,7 +4458,7 @@ namespace bangna_hospital.gui
                 e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 70, yPos + 80, flags);
                 e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 67 - recx, 99, recx, recy));
             }
-            if (dtallergy.Rows.Count > 0)
+            if (DTALLERGY.Rows.Count > 0)
             {
                 e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ  " + allergy1.Replace(",", Environment.NewLine), fStaffN, Brushes.Black, col2, yPos + 180, flags);
                 e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ  " + allergy1.Replace(",", Environment.NewLine), fStaffN, Brushes.Black, col40, yPos + 180, flags);
@@ -4385,7 +4468,7 @@ namespace bangna_hospital.gui
                 allergy1 = "แพ้ยา/อาหาร/อื่นๆ ไม่มีข้อมูล การแพ้ยา ";
                 e.Graphics.DrawString(allergy1, fStaffN, Brushes.Black, col2, yPos + 180, flags);
                 e.Graphics.DrawString(allergy1, fStaffN, Brushes.Black, col40, yPos + 180, flags);
-                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 211, yPosint + 183, recx, recy));
+                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 207, yPosint + 183, recx, recy));
                 e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 213, yPosint + 183, recx, recy));
                 line = "ไม่มี";
                 e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2int + 208 + recx, yPos + 180, flags);
@@ -4393,7 +4476,7 @@ namespace bangna_hospital.gui
                 line = "มี ระบุอาการ";
                 textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
                 e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 211 + recx, yPos + 200, flags);
-                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 211, yPosint + 203, recx, recy));
+                e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 207, yPosint + 203, recx, recy));
                 e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 213 + recx, yPos + 200, flags);
                 e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 211, yPosint + 203, recx, recy));
             }
@@ -4408,13 +4491,13 @@ namespace bangna_hospital.gui
             line = prndob;
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 60, flags);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4, yPos + 60, flags);
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4 + 15, yPos + 60, flags);
 
             date = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             line = "วันที่เวลา " + date;
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 80, flags);
-            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4, yPos + 80, flags);
+            e.Graphics.DrawString(line, fStaffN, Brushes.Black, col4 + 15, yPos + 80, flags);
             line = "ชื่อแพทย์ " + VS.DoctorId + " " + VS.DoctorName;
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3, yPos + 100, flags);
@@ -4491,21 +4574,436 @@ namespace bangna_hospital.gui
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 40, yPos + 260, flags);
 
-            line = "Medication                       No Medication";
+            line = "[ ]Medication                       [ ]No Medication";
             //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col40 + 50, yPos + 290, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 30 , yPosint + 290, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 120 + 60, yPosint + 290, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 30 , yPosint + 290, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 120 + 55, yPosint + 290, recx, recy));
 
-            if (TEMPLATESTAFFNOTE.Equals("1"))
+            if (TEMPLATESTAFFNOTE.Equals("0") || TEMPCANCER)
             {
-                line = "อาการ " + VS.symptom;
-                //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col3 + 40, yPos + 315, flags);
-
-                line = "อาการ " + VS.symptom;
-                //textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
-                e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2 + 20, yPos + 350, flags);
+                e.Graphics.DrawString("อาการ " + VS.symptom, fStaffN, Brushes.Black, col3 + 40, yPos + 315, flags);
+                e.Graphics.DrawString("อาการ " + VS.symptom, fStaffN, Brushes.Black, col4 + 20, yPos + 350, flags);
+                if (TEMPLATESTAFFNOTE.Equals("1"))
+                {
+                    //AC Doxorubicin-Cyclophosphamide
+                    e.Graphics.DrawString("Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40+10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 4 mg in 0.9% NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Ativan  ( 0.5) 1 tab", fStaffN, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("Chemotherapy Order:", fStaffNB, Brushes.Black, col40, yPos + 480, flags);
+                    e.Graphics.DrawString("-  Doxorubicin ......mg (60 mg/m2) in 0.9%NaCl 100 ml free flow", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("(Vesicant agent:extraprecaution for extravasation)", fStaffNB, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Cyclophosphamide ......mg (600mg/m2) in 0.9%NaCl100 mliv in 30 min", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("Home Medication", fStaffNB, Brushes.Black, col40, yPos + 560, flags);
+                    e.Graphics.DrawString("-Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("-Metoclopamide 1 tab potid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("-Onsea (8 mg) 1 tab po bid am on day", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("-Dexa (4 mg) 1*2 pc on day", fStaffN, Brushes.Black, col40 + 10, yPos + 640, flags);
+                    e.Graphics.DrawString("-Senokot 2 tabs pohsprn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 660, flags);
+                    e.Graphics.DrawString("-NSS 1 litre for กลั้วคอ ..................", fStaffN, Brushes.Black, col40 + 10, yPos + 680, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("2"))
+                {
+                    //Bleomycin
+                    e.Graphics.DrawString("Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Metoclopamide 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Bleomycin30 mg in0.9%NaCl 100 ml iv free flow", fStaffN, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("Home Medication", fStaffNB, Brushes.Black, col40, yPos + 480, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5mg po hs prn for insomnia *10tab", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab potid ac *10 tab", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- paracetamol 1 tab po prn q 6 hr for fever", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40, yPos + 560, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("3"))
+                {
+                    //Carboplatin
+                    e.Graphics.DrawString("Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 20mg in 0.9% NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40, yPos + 480, flags);
+                    e.Graphics.DrawString("Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("- Carboplatin  ……… mg (AUC5 or 7) in D5W 250ml iv in 1 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("Monitor infusional Hypersensitivity reaction", fStaffN, Brushes.Black, col40 + 20, yPos + 540, flags);
+                    e.Graphics.DrawString("Home Medication", fStaffNB, Brushes.Black, col40, yPos + 560, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab potid ac *15tab...", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Dexamethasone(4) 1*2 pc/6", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs poprn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 640, flags);
+                    e.Graphics.DrawString("- Onsea (8 mg) 1 tab poam on day2-4 *3tab", fStaffN, Brushes.Black, col40 + 10, yPos + 660, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("4"))
+                {
+                    //Carboplatin-Gemcitabine
+                    e.Graphics.DrawString("Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 10 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("Chemotherapy Order:", fStaffNB, Brushes.Black, col40, yPos + 460, flags);
+                    e.Graphics.DrawString("- Carboplatin (AUC5) .............mg in 5%DW 100 ml iv in 1 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("- Gemcitabine ....mg(1000-1250mg/m2) in 0.9%NaCl 100 ml iv in 30 min", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("Home Medication", fStaffNB, Brushes.Black, col40, yPos + 520, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac *15tab...", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Dexamethasone(0.5) 4*2pc day 2-4 *24tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- onsia (8) 1x1 ac d2-4 * 3tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40 + 10, yPos + 640, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("5"))
+                {
+                    //Cisplatin -Gemcitabine
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 10 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("🔲 0.9%NaCl 500 ml iv in 2 h before chemotherapy", fStaffN, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40, yPos + 470, flags);
+                    e.Graphics.DrawString("- Cisplatin .... mg (25 mg/ m2) in NSS 100mlivin30 min day1, 8", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("- Gemcitabine .... mg(1000-1250mg/m2) in 0.9%NaCl 100 ml iv in 30 min day1,8", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 540, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac *15tab...", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Dexamethasone(0.5) 4*2pc day 2-4 *24tab", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- onsia (8) 1x1 ac d2-4 * 3tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 640, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40 + 10, yPos + 660, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("6"))
+                {
+                    //Cisplatin
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsia 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 10 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Cisplatin .... mg (50 mg/ m2) in NSS 100mlivin30 min day1, 8 ,15", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac *15tab...", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Dexamethasone(4) 1*2 pc/6", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Onsea (8 mg) 1 tab poam on day2-4 *3tab", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("7"))//
+                {
+                    //CMF
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 20 mg in 0.9%NaCl 20 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- 5FU ..... mg (600 mg/ m²) in 0.9%NaCl 100 ml iv in 10 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("- Methotrexate .... mg (40 mg/m²) in 0.9%NaCl 100 ml iv in 10 min", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("- Cyclophosphamide  .... mg (600mg/m² )0.9%NaCl 100 ml iv in 15 min", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 540, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac *15tab...", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Dexamethasone(0.5) 4*2pc day 2-4 *24tab", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- onsia (8) 1 tab po bid  ac day2-4 * 6tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("8"))
+                {
+                    //CMV
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 4 mg in 0.9%NaCl 20 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- 5FU ..... mg (600 mg/ m²) in 0.9%NaCl 100 ml iv in 30 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("- Methotrexate .... mg (40 mg/m²) in 0.9%NaCl 100 ml iv in 30 min", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("- Cyclophosphamide(50 mg/ tab) .....................................................", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 540, flags);
+                    e.Graphics.DrawString("- Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab potid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohsprn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("9"))
+                {
+                    //Gemcitabine
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 20 mg in 0.9% NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40, yPos + 480, flags);
+                    e.Graphics.DrawString("- Docetaxel …….. mg (75 or 100 mg/m2) in 0.9%NaCl 250 ml iv in 1 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 540, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5  mg po hs prn for insomnia *10 tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac ..…  *15 tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("-  Dexamethasone(0.5) 4*2pc day 2-4   *24tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohs prn for constipation....   *20tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- Tramol 50 mg/cap 1 cap oral prn q6hr   * 20 tab", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("10"))
+                {
+                    //Docetaxel
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Gemcitabine .... mg(1000-1250mg/m²) in 0.9%NaCl 100 ml iv in 30 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("- Capecitabine ..................", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 520, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac ", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Plasil 1×3 po ac.*20.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Immodium1 cap po prn*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- ORS จิบ ", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- 20 % Urea cream apply b.i.d", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("11"))
+                {
+                    //Herceptin
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- MaintenanceTrastuzumab ……..mg (6mg/kg/d) +NSS 250 ml iv in 60 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- onsia 1 tab oral od ac", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Folic 1 tab pood pc", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab potid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Tramadol 1 cap po prn q 6 hr for pain", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohsprn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Others  Tamoxifen (20) 1*1 OD", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("12"))
+                {
+                    //Herceptin2
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- MaintenanceTrastuzumab .... mg (6mg/kg/d) +NSS 250 ml iv in 60 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- onsia 1 tab oral od ac", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Folic 1 tab pood pc", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab potid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Tramadol 1 cap po prn q 6 hr for pain", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohsprn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("13"))
+                {
+                    //ID
+                    e.Graphics.DrawString("Next OPD .....................        [ ] Lab        [ ]  No Lab", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("          [ ] CBC        [ ] BUN        [ ] Cr        [ ] E’lyt        [ ] ALP               [ ] SGOT           [ ] SGPT", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("          [ ] FBS        [ ] Lipid      [ ] PO4       [ ] UA           [ ] Urine Phosphorus  [ ] Urine Cr ", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("          [ ] CD4        [ ] VL         [ ] VDRL      [ ] HbsAg        [ ] Anti- HCV         [ ] CXR", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("14"))
+                {
+                    //Infliximab
+                    e.Graphics.DrawString("ให้ยาครั้งที่....................", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("[ ] Para( 500)", fStaffN, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("[ ] CPM 10 ml iv", fStaffN, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("..............................", fStaffN, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("-  Infliximab..........mg  in 0.9%NaCl 250  ml iv", fStaffN, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("20 ml/hr.       ปรับทุก 15 min", fStaffN, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("40 ml/hr.", fStaffN, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("80 ml/hr.", fStaffN, Brushes.Black, col40, yPos + 400, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("15"))
+                {
+                    //Irinotecan
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 10 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Irinotecan .... mg (180 mg/ m2) in 5%DW 500ml iv in 90 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- onsia 1 tab oral od ac", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Folic 1 tab pood pc", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Tramadol 1 cap po prn q 6 hr for pain", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("16"))
+                {
+                    //Mayo’s 5FU-low dose LV
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv for D1-5", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Leucovorin ...................... mg (20 mg/m²) iv push (พร้อม premed)", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("  5FU ...... mg (375 or 400 or 425 mg/m2) in 0.9%NaCl 100 ml iv in 10 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("  Repeat for total 0 4 or 0 5 days from ........... to .............", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 520, flags);
+                    e.Graphics.DrawString("[ ] Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("[ ] Metoclopamide 1 tab po tid ac ..........*15tab", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("[ ] NSS บ้วนปาก 1 ", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("[ ] ORS จิบ *", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("17"))
+                {
+                    //Paclitaxel
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 4 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Paclitaxel....... mg (175 mg/m2) in 0.9%NaCl 250 ml iv in 1 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("Record vital sign q 15 min x 4 after starting paclitaxel", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac - Others", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Tramadol1 cap po prn q 6 hr for pain", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohsprn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- onsea (8 mg) 1x2 ac d2-4", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Others ", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("17"))
+                {
+                    //Paclitaxel-Carboplatin
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 20 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Paclitaxel....... mg (175 mg/m²) in 0.9%NaCl 500 ml iv in 4 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("Record vital sign q 15 min x 4 after starting Paclitaxel", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("- Carboplatin ....... mg (AUC 5-6) in D5W 500 ml iv in 1 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("Monitor infusional Hypersensitivity reaction", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 520, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia .... *10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac * 15tab ....", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Dexamethasone(0.5) 4*2pc day 2-4 *24tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Tramol(50)1cap oral prn pain q 4 hr *20 tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- Onsea or Zofran (8 mg) 1 tab bid on d2-4 *6tab", fStaffN, Brushes.Black, col40 + 10, yPos + 640, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("18"))
+                {
+                    //Single Agent Doxorubicin
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 20 mg in 0.9%NaCl 20 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Doxorubicin .... mg (60-75 mg/m²) in 0.9%NaCl 100 ml iv in 15 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("(Vesicant agent:extraprecaution for extravasation)", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac -15tab ....", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Dexamethasone(0.5) 4*2pc day 2-4 *24tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- onsia (8) 1x1 ac d2-4 * 3tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("19"))
+                {
+                    //Single agent Gemcitabine
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Gemcitabine .... mg (1000-1250 mg/m²) in 0.9%NaCl 100 ml iv in 30 min", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia..*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *20tab", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Plasil 1×3 po ac.*20.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Immodium1 cap po prn*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- ORS จิบ", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- 20 % Urea cream apply b.i.d", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("20"))
+                {
+                    //TC
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 20 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Docetaxel .... mg (75 or 100 mg/m²) in 0.9%NaCl 250 ml iv in 1 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("Record vital sign q 15 min x 4 after starting Paclitaxel", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("- Cyclophosphamide(600 mg/m²) in 0.9%NaCl 100 ml iv in 30 min", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("Monitor infusional Hypersensitivity reaction", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 520, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia*10.tab", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac ....  *15 tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Dexamethasone(0.5) 4*2pc day 2-4   *24tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohs prn for constipation....   *20tabs", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Tramol 50 mg/cap 1 cap oral prn q6hr   * 20 tab", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                    e.Graphics.DrawString("- Others", fStaffN, Brushes.Black, col40 + 10, yPos + 640, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("21"))
+                {
+                    //Vinorebine
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 4mg in 0.9% NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Vinorebine .... mg (25 mg/m²) in 0.9%NaCl 100 cc iv in 10 mins", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Onsia(8) 1*1 ac D2-4 * 3 tab", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("22"))
+                {
+                    //Weekly Paclitaxel
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 4 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Paclitaxel....... mg (80 mg/m²) in 0.9%NaCl 250 ml iv in 1 hr", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("Record vital sign q 15 min x 4 after starting paclitaxel", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 500, flags);
+                    e.Graphics.DrawString("- Folic 1 tab pood pc", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac - Others", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- Dexamethasone(0.5) 4*2pc day", fStaffN, Brushes.Black, col40 + 10, yPos + 580, flags);
+                    e.Graphics.DrawString("- Tramadol1 cap po prn q 6 hr for pain", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohsprn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("23"))
+                {
+                    //WeeklyPaclitaxel-Herceptin 
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 4 mg in 0.9%NaCl 10 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Benadryl (25 mg) 1 tab po", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- Chlorpheniramine 10 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 460, flags);
+                    e.Graphics.DrawString("- Taxol/Anzatax/ Intaxel/ Paclitaxel.... mg (80 mg/m2) in 0.9%NaCl 250 cc iv in 1hr", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("Record vital sign q 15 min x 4 after starting paclitaxel", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("Maintenance Trastuzumab....mg (6mg/kg/d) +NSS 100 ml iv in 60 min ", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 520, flags);
+                    e.Graphics.DrawString("- Lorazepam 1 mg po hs prn for insomnia", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Tramadol1 cap po prn q 6 hr for pain", fStaffN, Brushes.Black, col40 + 10, yPos + 600, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs pohsprn for constipation", fStaffN, Brushes.Black, col40 + 10, yPos + 620, flags);
+                }
+                else if (TEMPLATESTAFFNOTE.Equals("24"))
+                {
+                    //XELOXC 
+                    e.Graphics.DrawString("⬛ Premedication", fStaffNB, Brushes.Black, col40, yPos + 400, flags);
+                    e.Graphics.DrawString("- Onsea 8 mg iv", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("- Dexamethasone 20 mg in 0.9%NaCl 20 ml iv", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("- CPM 1 amp IV", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("⬛ Chemotherapy Order:", fStaffNB, Brushes.Black, col40 + 10, yPos + 400, flags);
+                    e.Graphics.DrawString("- Oxaliplatin .... mg (130 mg/m2) in D5W 500 ml iv in 2 hr.", fStaffN, Brushes.Black, col40 + 10, yPos + 420, flags);
+                    e.Graphics.DrawString("(flush iv line with D5W before oxaliplatin Infusion)", fStaffN, Brushes.Black, col40 + 20, yPos + 480, flags);
+                    e.Graphics.DrawString("Capecitabine .... mg ................", fStaffN, Brushes.Black, col40 + 10, yPos + 440, flags);
+                    e.Graphics.DrawString("⬛ Home Medication", fStaffNB, Brushes.Black, col40, yPos + 460, flags);
+                    e.Graphics.DrawString("- Lorazepam 0.5 mg po hs prn for insomnia #", fStaffN, Brushes.Black, col40 + 10, yPos + 480, flags);
+                    e.Graphics.DrawString("- Metoclopamide 1 tab po tid ac  #", fStaffN, Brushes.Black, col40 + 10, yPos + 500, flags);
+                    e.Graphics.DrawString("- Dexamethasone(4) 1*2 am bid day 2-4 *", fStaffN, Brushes.Black, col40 + 10, yPos + 520, flags);
+                    e.Graphics.DrawString("- Senokot 2 tabs po  prn for constipation *", fStaffN, Brushes.Black, col40 + 10, yPos + 540, flags);
+                    e.Graphics.DrawString("- onsia (8) 1 tab po bid on day 2-4 * ", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- Immodium1 cap po prn*", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- ORS จิบ", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                    e.Graphics.DrawString("- 20 % Urea cream apply b.i.d", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
+                }
             }
             else if (TEMPLATESTAFFNOTE.Equals("checkup_doe"))
             {
@@ -4533,34 +5031,27 @@ namespace bangna_hospital.gui
                     }
                 }
             }
-                //line = "สัมผัสผู้ป่วย ชื่อ";
-                //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
-                //e.Graphics.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 430, flags);
+            //ตามล่าม  พูดไทย X-ray Lab
+            e.Graphics.DrawString("🔲ตามล่าม      🔲พูดไทยได้     🔲X-ray      🔲Lab        🔲EKG        🔲DTX", fStaffNB, Brushes.Black, col40, yPos + 250, flags);
+            //e.Graphics.DrawString("พูดไทยได้", fStaffNB, Brushes.Black, col40 + 40, yPos + 250, flags);
+            //e.Graphics.DrawString("X-ray", fStaffNB, Brushes.Black, col40 + 100, yPos + 250, flags);
+            //e.Graphics.DrawString("Lab", fStaffNB, Brushes.Black, col40 + 150, yPos + 250, flags);
+            //e.Graphics.DrawString("EKG", fStaffNB, Brushes.Black, col40 + 200, yPos + 250, flags);
+            //e.Graphics.DrawString("DTX", fStaffNB, Brushes.Black, col40 + 250, yPos + 250, flags);
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int - 20, 250, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 20, yPosint + 250, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 80, yPosint + 250, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 130, yPosint + 250, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 180, yPosint + 250, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col40int + 230, yPosint + 250, recx, recy));
 
-                //line = "สัมผัสล่าสุด";
-                //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
-                //e.Graphics.DrawString(line, fEditB, Brushes.Black, col2 + 20, yPos + 475, flags);
-
-                //line = "คำแนะนำ       การออกกำลังกาย               การรับประทานอาหารที่ถูกสัดส่วน";
-                //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
-                //e.Graphics.DrawString(line, fEdit, Brushes.Black, col2, yPos + 620, flags);
-                //e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 75 - recx, yPosint + 620, recx, recy));
-                //e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 210 - recx, yPosint + 620, recx, recy));
-
-                //line = "การตรวจสุขภาพประจำปี          การพบแพทย์เฉพาะทาง       อื่นๆ";
-                //textSize = TextRenderer.MeasureText(line, famtB, proposedSize, TextFormatFlags.RightToLeft);
-                //e.Graphics.DrawString(line, fEdit, Brushes.Black, col2 + 40, yPos + 640, flags);
-                //e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 35 - recx, yPosint + 640, recx, recy));
-                //e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 190 - recx, yPosint + 640, recx, recy));
-                //e.Graphics.DrawRectangle(blackPen, new Rectangle(col2int + 3350 - recx, yPosint + 640, recx, recy));
-
-            line = "ใบรับรองแพทย์             ไม่มี      มี          Consult      ไม่มี      มี __________________";
+            line = "ใบรับรองแพทย์             🔲ไม่มี      🔲มี          Consult      🔲ไม่มี      🔲มี __________________";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
             e.Graphics.DrawString(line, fStaffN, Brushes.Black, col2, yPos + 640, flags);
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 170 - recx - 35, yPosint + 640, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 215 - recx -33, yPosint + 640, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 282 , yPosint + 640, recx, recy));
-            e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 323, yPosint + 642, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(183, yPosint + 640, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(235, yPosint + 640, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(357, yPosint + 640, recx, recy));
+            //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(405, yPosint + 640, recx, recy));
 
             line = "ชื่อผู้รับ _____________________________";
             textSize = TextRenderer.MeasureText(line, famt7B, proposedSize, TextFormatFlags.RightToLeft);
@@ -4649,14 +5140,14 @@ namespace bangna_hospital.gui
                 err = "05";
                 e.Graphics.DrawString("ประวัติการแพ้ยา", fque, Brushes.Black, 5, yPos + 260, flags);
                 //สำคัญ ถ้าพิมพ์ ครั้งแรกจะโหลดข้อมูล ถ้าพิมพ์ ต่อจาก processอื่น พยายาม ไม่ดึง เพื่อความเร็ว และลด network
-                if (dtchronic== null) { dtchronic = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard); }
-                if (dtallergy == null) { dtallergy = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim()); }
+                if (DTCHRONIC== null) { DTCHRONIC = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard); }
+                if (DTALLERGY == null) { DTALLERGY = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim()); }
                 err = "051";
-                if (dtchronic.Rows.Count > 0)
+                if (DTCHRONIC.Rows.Count > 0)
                 {
                     string txtchronic = ""; int cnt = 0; yPos += 280;
                     err = "052";
-                    foreach (DataRow row in dtchronic.Rows)
+                    foreach (DataRow row in DTCHRONIC.Rows)
                     {
                         txtchronic = "";
                         if (cnt == 0) { txtchronic = "โรคประจำตัว " + row["CHRONICCODE"].ToString() + " " + row["MNC_CRO_DESC"].ToString(); }
@@ -4709,7 +5200,10 @@ namespace bangna_hospital.gui
             {
                 setGrfOPD();
             }
-            
+            else if (tCOrder.SelectedTab == tabOrder)
+            {
+                setGrfOPD();
+            }
         }
         private void getImgStaffNote()
         {
@@ -4948,7 +5442,7 @@ namespace bangna_hospital.gui
             if (long.TryParse(re, out long chk))
             {
                 lfSbMessage.Text = "update Doctor OK";
-                setGrfOperList();
+                setGrfOperList("");
             }
         }
         private void TxtOperDtr_KeyUp(object sender, KeyEventArgs e)
@@ -5216,7 +5710,7 @@ namespace bangna_hospital.gui
                 rb1.Visible = true;
                 rb2.Visible = true;
                 rgSbModule.Visible = true;
-                setGrfOperList();
+                setGrfOperList("");
             }
             else if (tC1.SelectedTab == tabFinish)
             {
@@ -5276,8 +5770,8 @@ namespace bangna_hospital.gui
                 txtSBSearchHN.Visible = false;
                 txtSBSearchDate.Visible = false;
                 btnSBSearch.Visible = false;
-                btnScanSaveImg.Visible = false;
-                btnScanGetImg.Visible = false;
+                btnScanSaveImg.Visible = bc.iniC.authenedit.Equals("1") ? true : false;       //ต้องการให้ upload file scan ได้    68-12-01
+                btnScanGetImg.Visible = bc.iniC.authenedit.Equals("1") ? true: false;       //ต้องการให้ upload file scan ได้      68-12-01
                 btnScanClearImg.Visible = false;
                 btnOperClose.Visible = false;
 
@@ -5638,7 +6132,7 @@ namespace bangna_hospital.gui
             DataTable dt = new DataTable();
             String vn = "", vsdate = "", an = "";
             grfSrcProcedure.Rows.Count = 1;
-            dt = bc.bcDB.pt16DB.SelectProcedureByVisit(txtSrcHn.Text.Trim(), preno, vsDate);
+            dt = bc.bcDB.pt16DB.SelectProcedureByVisit(HN, preno, vsDate);
             int i = 0;
             grfSrcProcedure.Rows.Count = dt.Rows.Count + 1;
             try
@@ -5816,20 +6310,20 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (grfSrc.Row <= 0) return;
             if (grfSrc.Col <= 0) return;
-            String hn = "";
-            hn = grfSrc[grfSrc.Row, colgrfSrcHn] != null ? grfSrc[grfSrc.Row, colgrfSrcHn].ToString() : "";
-            PRENO = grfSrc[grfSrc.Row, colgrfSrcHn] != null ? grfSrc[grfSrc.Row, colgrfSrcHn].ToString() : "";
+            HN = grfSrc[grfSrc.Row, colgrfSrcHn] != null ? grfSrc[grfSrc.Row, colgrfSrcHn].ToString() : "";
+            //PRENO = grfSrc[grfSrc.Row, colgrfSrcHn] != null ? grfSrc[grfSrc.Row, colgrfSrcHn].ToString() : "";
+            //VSDATE = grfSrc[grfSrc.Row, colgrfSrc] != null ? grfSrc[grfSrc.Row, colgrfSrcHn].ToString() : "";
 
-            setControlPatientByGrf(hn);
+            setControlPatientByGrf(HN);
         }
         private void setControlPatientByGrf(String hn)
         {
             setGrfSrcVs(hn);
             lfSbStatus.Text = "";
             lfSbMessage.Text = "";
-            lbSrcPreno.Text = "";
-            lbSrcVsDate.Text = "";
-            lbSrcVN.Text = "";
+            lbSrcPreno.Value = "";
+            lbSrcVsDate.Value = "";
+            lbSrcVN.Value = "";
             setGrfDocOLD();
             setGrfEKG();
             setGrfEST();
@@ -5944,15 +6438,18 @@ namespace bangna_hospital.gui
                 PRENO = grfSrcVs[grfSrcVs.Row, colVsPreno] != null ? grfSrcVs[grfSrcVs.Row, colVsPreno].ToString() : "";
                 VSDATE = grfSrcVs[grfSrcVs.Row, colVsVsDate1] != null ? grfSrcVs[grfSrcVs.Row, colVsVsDate1].ToString() : "";
                 VN = grfSrcVs[grfSrcVs.Row, colVsVn] != null ? grfSrcVs[grfSrcVs.Row, colVsVn].ToString() : "";
+                //HN = grfSrcVs[grfSrcVs.Row, colVs] != null ? grfSrcVs[grfSrcVs.Row, colVsVn].ToString() : "";
+
                 btnSrcEKGScanSave.Enabled = false;
-                lbSrcPreno.Text = PRENO;
-                lbSrcVsDate.Text = bc.datetoShow1(VSDATE);
-                lbSrcVN.Text = VN;
+                lbSrcPreno.Value = PRENO;
+                lbSrcVsDate.Value = bc.datetoShow1(VSDATE);
+                lbSrcVN.Value = VN;
                 setSrcStaffNote(VSDATE, PRENO);
                 setGrfSrcLab(VSDATE, PRENO);
                 setGrfSrcOrder(VSDATE, PRENO);
                 setGrfSrcXray(VSDATE, PRENO);
                 setGrfSrcProcedure(VSDATE, PRENO);
+                setControlSrcPttSrc(VN, PRENO, VSDATE);
             }
             catch (Exception ex)
             {
@@ -5999,7 +6496,7 @@ namespace bangna_hospital.gui
         private void setGrfSrcOrder(String vsDate, String preno)
         {
             DataTable dtOrder = new DataTable();
-            dtOrder = bc.bcDB.vsDB.selectDrugOPD(txtSrcHn.Text.Trim(), preno, vsDate);
+            dtOrder = bc.bcDB.vsDB.selectDrugOPD(HN, preno, vsDate);
             grfSrcOrder.Rows.Count = 1;
             int i = 0;
             decimal aaa = 0;
@@ -6049,7 +6546,7 @@ namespace bangna_hospital.gui
             DataTable dt = new DataTable();
             String vn = "", vsdate = "", an = "";
             grfSrcXray.Rows.Count = 1;
-            dt = bc.bcDB.vsDB.selectResultXraybyVN1(txtSrcHn.Text.Trim(), preno, vsDate);
+            dt = bc.bcDB.vsDB.selectResultXraybyVN1(HN, preno, vsDate);
             int i = 0;
             grfSrcXray.Rows.Count = dt.Rows.Count + 1;
             try
@@ -6116,7 +6613,7 @@ namespace bangna_hospital.gui
             {
                 return;
             }
-            dt = bc.bcDB.vsDB.selectLabResultbyVN(txtSrcHn.Text.Trim(), preno, vsDate);
+            dt = bc.bcDB.vsDB.selectLabResultbyVN(HN, preno, vsDate);
             grfSrcLab.Rows.Count = 1; grfSrcLab.Rows.Count = dt.Rows.Count + 1;
             try
             {
@@ -7261,31 +7758,31 @@ namespace bangna_hospital.gui
         }
         private void initGrfXray(ref C1FlexGrid grf,ref Panel pn)
         {
-            grfXray = new C1FlexGrid();
-            grfXray.Font = fEdit;
-            grfXray.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfXray.Location = new System.Drawing.Point(0, 0);
-            grfXray.Cols.Count = 5;
-            grfXray.Cols[colXrayDate].Caption = "วันที่สั่ง";
-            grfXray.Cols[colXrayName].Caption = "ชื่อX-Ray";
-            grfXray.Cols[colXrayCode].Caption = "Code X-Ray";
+            grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
+            grf.Cols.Count = 5;
+            grf.Cols[colXrayDate].Caption = "วันที่สั่ง";
+            grf.Cols[colXrayName].Caption = "ชื่อX-Ray";
+            grf.Cols[colXrayCode].Caption = "Code X-Ray";
             //grfXray.Cols[colXrayResult].Caption = "ผล X-Ray";
 
-            grfXray.Cols[colXrayDate].Width = 100;
-            grfXray.Cols[colXrayName].Width = 250;
-            grfXray.Cols[colXrayCode].Width = 100;
-            grfXray.Cols[colXrayResult].Width = 200;
+            grf.Cols[colXrayDate].Width = 100;
+            grf.Cols[colXrayName].Width = 250;
+            grf.Cols[colXrayCode].Width = 100;
+            grf.Cols[colXrayResult].Width = 200;
 
-            grfXray.Cols[colXrayDate].AllowEditing = false;
-            grfXray.Cols[colXrayName].AllowEditing = false;
-            grfXray.Cols[colXrayCode].AllowEditing = false;
-            grfXray.Cols[colXrayResult].AllowEditing = false;
+            grf.Cols[colXrayDate].AllowEditing = false;
+            grf.Cols[colXrayName].AllowEditing = false;
+            grf.Cols[colXrayCode].AllowEditing = false;
+            grf.Cols[colXrayResult].AllowEditing = false;
 
-            grfXray.Name = "grfXray";
-            grfXray.Rows.Count = 1;
-            pnHistoryXray.Controls.Add(grfXray);
+            grf.Name = "grfXray";
+            grf.Rows.Count = 1;
+            pn.Controls.Add(grf);
 
-            theme1.SetTheme(grfXray, bc.iniC.themeApp);
+            theme1.SetTheme(grf, bc.iniC.themeApp);
         }
         private void setGrfXray(String hn, String vsDate, String preno,ref C1FlexGrid grf)
         {
@@ -7316,37 +7813,37 @@ namespace bangna_hospital.gui
         }
         private void initGrfLab(ref C1FlexGrid grf,ref Panel pn)
         {
-            grfLab = new C1FlexGrid();
-            grfLab.Font = fEdit;
-            grfLab.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfLab.Location = new System.Drawing.Point(0, 0);
-            grfLab.Rows.Count = 1;
-            grfLab.Cols.Count = 6;
+            grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
+            grf.Rows.Count = 1;
+            grf.Cols.Count = 6;
 
-            grfLab.Cols.Count = 8;
-            grfLab.Cols[colLabDate].Caption = "วันที่สั่ง";
-            grfLab.Cols[colLabName].Caption = "ชื่อLAB";
-            grfLab.Cols[colLabNameSub].Caption = "ชื่อLABย่อย";
-            grfLab.Cols[colLabResult].Caption = "ผลLAB";
-            grfLab.Cols[colInterpret].Caption = "แปรผล";
-            grfLab.Cols[colNormal].Caption = "Normal";
-            grfLab.Cols[colUnit].Caption = "Unit";
-            grfLab.Cols[colLabDate].Width = 100;
-            grfLab.Cols[colLabName].Width = 250;
-            grfLab.Cols[colLabNameSub].Width = 200;
-            grfLab.Cols[colInterpret].Width = 200;
-            grfLab.Cols[colNormal].Width = 200;
-            grfLab.Cols[colUnit].Width = 150;
-            grfLab.Cols[colLabResult].Width = 150;
+            grf.Cols.Count = 8;
+            grf.Cols[colLabDate].Caption = "วันที่สั่ง";
+            grf.Cols[colLabName].Caption = "ชื่อLAB";
+            grf.Cols[colLabNameSub].Caption = "ชื่อLABย่อย";
+            grf.Cols[colLabResult].Caption = "ผลLAB";
+            grf.Cols[colInterpret].Caption = "แปรผล";
+            grf.Cols[colNormal].Caption = "Normal";
+            grf.Cols[colUnit].Caption = "Unit";
+            grf.Cols[colLabDate].Width = 100;
+            grf.Cols[colLabName].Width = 250;
+            grf.Cols[colLabNameSub].Width = 200;
+            grf.Cols[colInterpret].Width = 200;
+            grf.Cols[colNormal].Width = 200;
+            grf.Cols[colUnit].Width = 150;
+            grf.Cols[colLabResult].Width = 150;
 
-            grfLab.Cols[colLabName].AllowEditing = false;
-            grfLab.Cols[colInterpret].AllowEditing = false;
-            grfLab.Cols[colNormal].AllowEditing = false;
+            grf.Cols[colLabName].AllowEditing = false;
+            grf.Cols[colInterpret].AllowEditing = false;
+            grf.Cols[colNormal].AllowEditing = false;
 
-            pnHistoryLab.Controls.Add(grfLab);
+            pn.Controls.Add(grf);
 
             //theme1.SetTheme(grfOPD, "ExpressionDark");
-            theme1.SetTheme(grfLab, bc.iniC.themegrfOpd);
+            theme1.SetTheme(grf, bc.iniC.themegrfOpd);
         }
         private void setGrfLab(String hn, String vsDate, String preno, ref C1FlexGrid grf)
         {
@@ -8900,12 +9397,14 @@ namespace bangna_hospital.gui
         private void setControlOper(String sendername)
         {
             if (pageLoad) return ;
+            bool ispid = false, isname = false, isNum = false, isLettersOnly=false;
+            long chkpid = 0;
             lfSbMessage.Text = grfOperList.Row.ToString();
             picHisL.Image = null;
             picHisR.Image = null;
             picL.Image = null;
             picR.Image = null;
-
+            isNum = long.TryParse(HN, out chkpid);
             showLbLoading();
             lfSbStatus.Text = "";
             lfSbMessage.Text = "";
@@ -8916,18 +9415,31 @@ namespace bangna_hospital.gui
             }
             else if (sendername.Equals(txtOperHN.Name))
             {
-                String[] chk = txtOperHN.Text.Trim().Split('/');
-                if(chk.Length > 1)
-                {
-                    VS = bc.bcDB.vsDB.selectByvn(chk[0], chk[1]);
+                //แก้ให้ สามารถ ค้นหาโดยใช้ ชื่อ pid ได้   68-12-01
+                String[] chkvn = txtOperHN.Text.Trim().Split('/');
+                
+                if (chkvn.Length > 1)
+                {       //ค้นหาจาก vn
+                    VS = bc.bcDB.vsDB.selectByvn(chkvn[0], chkvn[1]);
                     PRENO = VS.preno;
                     VSDATE = VS.VisitDate;
                     HN = VS.HN;
+                    VN = VS.VN;
+                    isNum = true;       //ให้ค่า isNum = true ไปเลยจะได้แสดงผล
                 }
                 else
                 {
+                    //long chkpid = 0;
+                    //bool ispid = false;
+                    isNum = long.TryParse(txtOperHN.Text.Trim(), out chkpid);
+                    //if (isNum)                    {                        if (txtOperHN.Text.Length == 13) { ispid = true; }                    }
+                    //else
+                    //{
+                    isLettersOnly = !string.IsNullOrWhiteSpace(txtOperHN.Text) && Regex.IsMatch(txtOperHN.Text.Trim(), @"^[\p{L}\s]+$");
+                    //    if (isLettersOnly)                      {           isname = true;          }
+                    //}
                     DataTable dtvs = bc.bcDB.vsDB.selectByvsdateAllVoid(HN);        // เอาที่ ยกเลิก มาแสดงด้วย
-                    ROWGrfOper = 0;
+                    //ROWGrfOper = 0;
                     if (dtvs.Rows.Count == 1)
                     {
                         VS = bc.bcDB.vsDB.selectbyPreno(HN, dtvs.Rows[0]["MNC_PRE_NO"].ToString());
@@ -8936,63 +9448,126 @@ namespace bangna_hospital.gui
                     }
                     else if (dtvs.Rows.Count > 1)
                     {
-                        lfSbMessage.Text = "พบข้อมูล มีใบยามากกว่า 1 ใบ กรุณาเป็นเลขที่ใบยา";
-                        hideLbLoading();
-                        return;
+                        Form frm = new Form();
+                        Panel pn = new Panel();
+                        frm.StartPosition = FormStartPosition.Manual;
+                        frm.Location = new Point(txtOperHN.Location.X + 10+ pnOperList.Width, txtOperHN.Location.Y + txtOperHN.Width+3);
+                        frm.Size = new Size(600, 400);
+                        pn.Dock = DockStyle.Fill;
+                        frm.Controls.Add(pn);
+                        C1FlexGrid grfOperVnCheck = new C1FlexGrid();
+                        grfOperVnCheck.Font = fEdit;
+                        grfOperVnCheck.Dock = System.Windows.Forms.DockStyle.Fill;
+                        grfOperVnCheck.Location = new System.Drawing.Point(0, 0);
+                        grfOperVnCheck.Rows.Count = 1;
+                        grfOperVnCheck.Cols.Count = 4;
+                        grfOperVnCheck.Cols[0].Width = 60;
+                        grfOperVnCheck.Cols[1].Width = 80;
+                        grfOperVnCheck.Cols[2].Width = 400;
+                        grfOperVnCheck.ShowCursor = true;
+                        grfOperVnCheck.Cols[0].Caption = "";
+                        grfOperVnCheck.Cols[1].Caption = "VN";
+                        grfOperVnCheck.Cols[2].Caption = "อาการ";
+                        grfOperVnCheck.Cols[3].Caption = "preno";
+                        grfOperVnCheck.Cols[3].Visible = false;
+                        grfOperVnCheck.Cols[0].AllowEditing = false;
+                        grfOperVnCheck.Cols[1].AllowEditing = false;
+                        grfOperVnCheck.Cols[2].AllowEditing = false;
+                        grfOperVnCheck.Rows.Count = dtvs.Rows.Count + 1;
+                        int i = 1;
+                        foreach(DataRow arow in dtvs.Rows)
+                        {
+                            Row rowa = grfOperVnCheck.Rows[i];
+                            rowa[0] = i;
+                            rowa[1] = arow["MNC_VN_NO"].ToString()+"."+ arow["MNC_VN_SEQ"].ToString()+"."+ arow["MNC_VN_SUM"].ToString();
+                            rowa[2] = arow["MNC_SHIF_MEMO"].ToString();
+                            rowa[3] = arow["MNC_PRE_NO"].ToString();
+                            i++;
+                        }
+                        pn.Controls.Add(grfOperVnCheck);
+                        grfOperVnCheck.DoubleClick += (s, e) =>
+                        {
+                            if (grfOperVnCheck.Row <= 0) return;
+                            if (grfOperVnCheck[grfOperVnCheck.Row, 3] == null) return;
+                            PRENO = grfOperVnCheck[grfOperVnCheck.Row, 3].ToString();
+                            VS = bc.bcDB.vsDB.selectbyPreno(HN, PRENO);
+                            VN = VS.VN;
+                            VSDATE = VS.VisitDate;
+                            frm.Close();
+                        };
+                        frm.ShowDialog();
+                        lfSbMessage.Text = "พบข้อมูล มีใบยามากกว่า 1 ใบ กรุณาป้อนเป็นเลขที่ใบยา";
+                        isNum = true;
+                        //hideLbLoading();
+                    }
+                    setGrfOperList("search");
+                }
+            }
+            if (isNum)
+            {
+                PTT = bc.bcDB.pttDB.selectPatinetByHn(HN);
+                setControlTabOperVital(VS);
+                getImgStaffNote();
+                clearControlOrder();
+                setGrfPttApm();
+                if (tCOrder.SelectedTab == tabHistory) { setGrfOPD(); }
+                setGrfOutLab();
+                setGrfOrderTemp();
+                txtOperLeftEar.Value = "";
+                txtOperRightEar.Value = "";
+                txtOperLeftEarOther.Value = "";
+                txtOperRightEarOther.Value = "";
+                txtOperLeftEye.Value = "";
+                txtOperRightEye.Value = "";
+                txtOperLeftEyePh.Value = "";
+                txtOperRightEyePh.Value = "";
+                cboOperEye.Value = "";
+                if (VSDATE.Length > 0)
+                {
+                    DataTable dt011 = bc.bcDB.vsDB.selectT011(HN, VSDATE, PRENO);   //select by HN, VSDATE, PRENO
+                    if (dt011.Rows.Count > 0)
+                    {
+                        txtOperLeftEar.Value = dt011.Rows[0]["left_ear"].ToString();
+                        txtOperRightEar.Value = dt011.Rows[0]["right_ear"].ToString();
+                        txtOperLeftEarOther.Value = dt011.Rows[0]["left_ear_other"].ToString();
+                        txtOperRightEarOther.Value = dt011.Rows[0]["right_ear_other"].ToString();
+                        chkOperRightEarNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("1") ? true : false;
+                        chkOperLeftEarNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("1") ? true : false;
+                        chkOperRightEarAbNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("0") ? true : false;
+                        chkOperLeftEarAbNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("0") ? true : false;
+
+                        txtOperLeftEye.Value = dt011.Rows[0]["left_eye"].ToString();
+                        txtOperRightEye.Value = dt011.Rows[0]["right_eye"].ToString();
+                        txtOperLeftEyePh.Value = dt011.Rows[0]["left_eye_ph"].ToString();
+                        txtOperRightEyePh.Value = dt011.Rows[0]["right_eye_ph"].ToString();
+                        bc.setC1ComboByName(cboOperEye, dt011.Rows[0]["eye_normal"].ToString());
+                        bc.setC1ComboByName(cboOperLung, dt011.Rows[0]["lung_normal"].ToString());
+                        txtOperLung.Value = dt011.Rows[0]["lung_value"].ToString();
                     }
                 }
+                //if (grfOrder != null) grfOrder.Rows.Count = 1;
+                chkItemLab.Checked = true;
+                ChkItemLab_Click(null, null);
+                HNmedscan = HN;
+                rb1.Text = VS.PatientName;
+                txtSBSearchHN.Text = HNmedscan;
+                lbFindPaidSSO.Text = bc.checkPaidSSO(PTT.MNC_ID_NO, lbLoading);
             }
-            PTT = bc.bcDB.pttDB.selectPatinetByHn(HN);
-            setControlTabOperVital(VS);
-            getImgStaffNote();
-            clearControlOrder();
-            setGrfPttApm();
-            if(tCOrder.SelectedTab == tabHistory) { setGrfOPD(); }
-            setGrfOutLab();
-            setGrfOrderTemp();
-            txtOperLeftEar.Value = "";
-            txtOperRightEar.Value = "";
-            txtOperLeftEarOther.Value = "";
-            txtOperRightEarOther.Value = "";
-            txtOperLeftEye.Value = "";
-            txtOperRightEye.Value = "";
-            txtOperLeftEyePh.Value = "";
-            txtOperRightEyePh.Value = "";
-            cboOperEye.Value = "";
-            if (VSDATE.Length > 0)
+            else
             {
-                DataTable dt011 = bc.bcDB.vsDB.selectT011(HN, VSDATE, PRENO);   //select by HN, VSDATE, PRENO
-                if (dt011.Rows.Count > 0)
-                {
-                    txtOperLeftEar.Value = dt011.Rows[0]["left_ear"].ToString();
-                    txtOperRightEar.Value = dt011.Rows[0]["right_ear"].ToString();
-                    txtOperLeftEarOther.Value = dt011.Rows[0]["left_ear_other"].ToString();
-                    txtOperRightEarOther.Value = dt011.Rows[0]["right_ear_other"].ToString();
-                    chkOperRightEarNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("1") ? true : false;
-                    chkOperLeftEarNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("1") ? true : false;
-                    chkOperRightEarAbNormal.Checked = dt011.Rows[0]["right_ear_normal"].ToString().Equals("0") ? true : false;
-                    chkOperLeftEarAbNormal.Checked = dt011.Rows[0]["left_ear_normal"].ToString().Equals("0") ? true : false;
 
-                    txtOperLeftEye.Value = dt011.Rows[0]["left_eye"].ToString();
-                    txtOperRightEye.Value = dt011.Rows[0]["right_eye"].ToString();
-                    txtOperLeftEyePh.Value = dt011.Rows[0]["left_eye_ph"].ToString();
-                    txtOperRightEyePh.Value = dt011.Rows[0]["right_eye_ph"].ToString();
-                    bc.setC1ComboByName(cboOperEye, dt011.Rows[0]["eye_normal"].ToString());
-                    bc.setC1ComboByName(cboOperLung, dt011.Rows[0]["lung_normal"].ToString());
-                    txtOperLung.Value = dt011.Rows[0]["lung_value"].ToString();
-                }
             }
-            //if (grfOrder != null) grfOrder.Rows.Count = 1;
-            chkItemLab.Checked = true;
-            ChkItemLab_Click(null, null);
-            HNmedscan = HN;
-            rb1.Text = VS.PatientName;
-            txtSBSearchHN.Text = HNmedscan;
-            lbFindPaidSSO.Text = bc.checkPaidSSO(PTT.MNC_ID_NO, lbLoading);
+            
             //txtOperTemp.Focus();
             hideLbLoading();
         }
-        private void setGrfOperList()
+
+        private void GrfOperVnCheck_DoubleClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void setGrfOperList(String flagsearch)
         {
             if (pageLoad) return;
             if(grfOperList == null) return;
@@ -9004,7 +9579,8 @@ namespace bangna_hospital.gui
             String vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
             DateTime dateTime = DateTime.Now.AddDays(-1);
             //vsdate = dateTime.Year.ToString() + "-" + dateTime.ToString("MM-dd");
-            dtvs = bc.bcDB.vsDB.selectPttinDeptActNo101(deptno,bc.iniC.station,vsdate, vsdate);
+            
+            dtvs = bc.bcDB.vsDB.selectPttinDeptActNo101(deptno,bc.iniC.station,vsdate, vsdate, txtOperHN.Text.Trim(), flagsearch);
             
             grfOperList.Rows.Count = 1; grfOperList.Rows.Count = dtvs.Rows.Count + 1;
             int i = 1, j = 1, row = grfOperList.Rows.Count;
@@ -9895,6 +10471,8 @@ namespace bangna_hospital.gui
         {
             txtOperHN.Value = vs.HN;
             lbOperPttNameT.Text = vs.PatientName;
+            lboperAge.Text = "อายุ "+PTT.AgeStringOK1DOT();
+            lboperVN.Text = "VN "+ VN;
             txtOperTemp.Value = vs.temp;
             txtOperHrate.Value = vs.ratios;
             txtOperRrate.Value = vs.breath;
@@ -9943,6 +10521,8 @@ namespace bangna_hospital.gui
             lbOperDtrName.Text = "";
             lbSymptoms.Text = "";
             txtOperBmi.Value = "";
+            lboperAge.Text = "";
+            lboperVN.Text = "";
         }
         private PatientT07 getApm()
         {
@@ -10045,6 +10625,30 @@ namespace bangna_hospital.gui
                 lbItemName.Text = lab.MNC_LB_DSC;
                 txtItemQTY.Visible = false;
                 txtItemQTY.Value = "1";
+                lstAutoComplete.Items.Clear();
+                if (lab.control_year.Length > 0)
+                {
+                    String txt1 = "";
+                    if(lab.control_supervisor.Equals("1"))
+                        txt1 = " labนี้จะสั่งต้องขออนุมัติ ✅️";
+                    else
+                        txt1 = " ";
+                    lstAutoComplete.Items.Add(lab.MNC_LB_DSC + " สามารถสั่งได้ " + lab.control_year + " ครั้งต่อปี ");
+                    lstAutoComplete.Items.Add(txt1);
+                    DataTable dtlabcon = bc.bcDB.labT02DB.selectLabByHnLabcodeinYear(txtOperHN.Text.Trim(), code);
+                    if (dtlabcon.Rows.Count >0)
+                    {
+                        foreach (DataRow arow in dtlabcon.Rows)
+                        {
+                            lstAutoComplete.Items.Add(" สั่งไปแล้ววันที่ " + bc.datetoShow(arow["req_date"].ToString()) + " เลขที่ " + arow["req_no"].ToString());
+                        }
+                        lfSbMessage.Text = "lab นี้สั่งเกินจำนวนที่กำหนดใน 1 ปีแล้ว ต้องขออนุมัติ " + lab.control_supervisor;
+                    }
+                    else
+                    {
+                        lstAutoComplete.Items.Add(" ยังไม่เคยสั่ง "+ lab.MNC_LB_DSC+ "☕️☕️☕️");
+                    }
+                }
             }
             else if (chkItemXray.Checked)
             {
@@ -10115,7 +10719,7 @@ namespace bangna_hospital.gui
             //txtCheckUPThaiDiag.AutoCompleteSource = AutoCompleteSource.CustomSource;
             //txtCheckUPThaiDiag.AutoCompleteCustomSource = autoCHECKUPDIAG;
 
-            setGrfOperList();
+            setGrfOperList("");
             btnScanClearImg.Visible = false;
             btnScanGetImg.Visible = false;
             btnScanSaveImg.Visible = false;
@@ -10137,7 +10741,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2025-11-06 package appoinment";
+            this.Text = "Last Update 2025-12-10-1 search staffnote";
             QUEDEPT = STATIONNAME;
             lfSbMessage.Text = "";
             //btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;
@@ -10159,9 +10763,20 @@ namespace bangna_hospital.gui
             txtApmDtr.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtApmDtr.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtApmDtr.AutoCompleteCustomSource = ACMDTR;
-
+            pnInformation.Width = tabOrder.Width - btnOrderSubmit.Left - btnOrderSubmit.Width - 15;
+            pnInformation.Left = btnOrderSubmit.Left + btnOrderSubmit.Width + 10;
             txtCheckUPDate.Value = DateTime.Now;
             timeOperList.Enabled = true;
+            lbSrcPreno.Value = "";
+            lbSrcAge.Value = "";
+            lbSrcVsDate.Value = "";
+            lbSrcVN.Value = "";
+            lvSrcPttName.Value = "";
+            lbSrcHN.Value = "";
+            lbPttFinNote.Text = "";
+            lbDrugAllergy.Value = "";
+            lbChronic.Value = "";
+            lboperVN.Text = "";
             timeOperList.Start();
         }
     }

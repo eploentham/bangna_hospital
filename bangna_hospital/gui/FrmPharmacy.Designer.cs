@@ -124,7 +124,7 @@
             this.pnDispDrugAllergy = new System.Windows.Forms.Panel();
             this.spChronic = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnDispChronic = new System.Windows.Forms.Panel();
-            this.c1SplitterPanel11 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.dispensingStaffNote = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnDisp = new System.Windows.Forms.Panel();
             this.c1SplitterPanel10 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.tabMedScan = new C1.Win.C1Command.C1DockingTabPage();
@@ -219,7 +219,7 @@
             this.c1SplitContainer4.SuspendLayout();
             this.spAllergy.SuspendLayout();
             this.spChronic.SuspendLayout();
-            this.c1SplitterPanel11.SuspendLayout();
+            this.dispensingStaffNote.SuspendLayout();
             this.tabMedScan.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).BeginInit();
             this.spMedScan.SuspendLayout();
@@ -1044,7 +1044,7 @@
             this.spDispensingOPD.Name = "spDispensingOPD";
             this.spDispensingOPD.Panels.Add(this.dispensingOPDList1);
             this.spDispensingOPD.Panels.Add(this.dispensingOPD);
-            this.spDispensingOPD.Panels.Add(this.c1SplitterPanel11);
+            this.spDispensingOPD.Panels.Add(this.dispensingStaffNote);
             this.spDispensingOPD.Panels.Add(this.c1SplitterPanel10);
             this.spDispensingOPD.Size = new System.Drawing.Size(1576, 767);
             this.spDispensingOPD.TabIndex = 0;
@@ -1099,10 +1099,10 @@
             this.chkDispensingOPDwait.Checked = true;
             this.chkDispensingOPDwait.Location = new System.Drawing.Point(153, 4);
             this.chkDispensingOPDwait.Name = "chkDispensingOPDwait";
-            this.chkDispensingOPDwait.Size = new System.Drawing.Size(101, 20);
+            this.chkDispensingOPDwait.Size = new System.Drawing.Size(137, 20);
             this.chkDispensingOPDwait.TabIndex = 1;
             this.chkDispensingOPDwait.TabStop = true;
-            this.chkDispensingOPDwait.Text = "🚀ยังไม่ได้จ่ายยา";
+            this.chkDispensingOPDwait.Text = "🚀ยังไม่ได้จ่ายยา⚡️⚡️⚡️";
             this.chkDispensingOPDwait.UseVisualStyleBackColor = true;
             // 
             // chkDispensingOPDall
@@ -1193,18 +1193,18 @@
             this.pnDispChronic.Size = new System.Drawing.Size(293, 118);
             this.pnDispChronic.TabIndex = 0;
             // 
-            // c1SplitterPanel11
+            // dispensingStaffNote
             // 
-            this.c1SplitterPanel11.Controls.Add(this.pnDisp);
-            this.c1SplitterPanel11.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.c1SplitterPanel11.Height = 585;
-            this.c1SplitterPanel11.Location = new System.Drawing.Point(297, 203);
-            this.c1SplitterPanel11.Name = "c1SplitterPanel11";
-            this.c1SplitterPanel11.Size = new System.Drawing.Size(600, 564);
-            this.c1SplitterPanel11.SizeRatio = 47.059D;
-            this.c1SplitterPanel11.TabIndex = 3;
-            this.c1SplitterPanel11.Text = "Panel 4";
-            this.c1SplitterPanel11.Width = 600;
+            this.dispensingStaffNote.Controls.Add(this.pnDisp);
+            this.dispensingStaffNote.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.dispensingStaffNote.Height = 585;
+            this.dispensingStaffNote.Location = new System.Drawing.Point(297, 203);
+            this.dispensingStaffNote.Name = "dispensingStaffNote";
+            this.dispensingStaffNote.Size = new System.Drawing.Size(600, 564);
+            this.dispensingStaffNote.SizeRatio = 47.059D;
+            this.dispensingStaffNote.TabIndex = 3;
+            this.dispensingStaffNote.Text = "Panel 4";
+            this.dispensingStaffNote.Width = 600;
             // 
             // pnDisp
             // 
@@ -1663,7 +1663,7 @@
             this.c1SplitContainer4.ResumeLayout(false);
             this.spAllergy.ResumeLayout(false);
             this.spChronic.ResumeLayout(false);
-            this.c1SplitterPanel11.ResumeLayout(false);
+            this.dispensingStaffNote.ResumeLayout(false);
             this.tabMedScan.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spMedScan)).EndInit();
             this.spMedScan.ResumeLayout(false);
@@ -1812,7 +1812,7 @@
         private C1.Win.C1SplitContainer.C1SplitContainer spDispensingOPD;
         private C1.Win.C1SplitContainer.C1SplitterPanel dispensingOPDList1;
         private C1.Win.C1SplitContainer.C1SplitterPanel dispensingOPD;
-        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel11;
+        private C1.Win.C1SplitContainer.C1SplitterPanel dispensingStaffNote;
         private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer4;
         private C1.Win.C1SplitContainer.C1SplitterPanel spPtt1;
         private C1.Win.C1SplitContainer.C1SplitterPanel spAllergy;

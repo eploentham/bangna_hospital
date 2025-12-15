@@ -646,7 +646,7 @@ namespace bangna_hospital.gui
                 output = new FileStream(filename, FileMode.Create);
                 writer = PdfWriter.GetInstance(doc, output);
                 doc.Open();
-                doc.Add(logo);
+                if(bc.iniC.hidelogo.Equals("0")) doc.Add(logo);
                 int linenumber = 820, colCenter = 200, fontSize0 = 8, fontSize1 = 16, fontSize2 = 18, fontSize20 = 20, fontSize4 = 22, fontSize26 = 26;
                 PdfContentByte canvas = writer.DirectContent;
                 linenumber = bc.padYCertMed > 0 ? bc.padYCertMed : 820;
@@ -1568,7 +1568,7 @@ namespace bangna_hospital.gui
         }
         private void FrmCertDoctorBn1_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 2025-07-31 fix app path ";
+            this.Text = "Last Update 2025-12-09 hide logo ";
             cboHostname.SelectedIndex = 0;
         }
     }

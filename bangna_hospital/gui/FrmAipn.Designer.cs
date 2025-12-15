@@ -46,6 +46,7 @@ namespace bangna_hospital.gui
             this.txtFrom = new System.Windows.Forms.TextBox();
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.lb2 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.label6 = new System.Windows.Forms.Label();
             this.txtAn = new System.Windows.Forms.TextBox();
@@ -56,7 +57,7 @@ namespace bangna_hospital.gui
             this.chkNoAdd = new System.Windows.Forms.CheckBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.lb2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.chkNew = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             this.SuspendLayout();
@@ -141,9 +142,9 @@ namespace bangna_hospital.gui
             this.chkAnNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.chkAnNew.Location = new System.Drawing.Point(359, 164);
             this.chkAnNew.Name = "chkAnNew";
-            this.chkAnNew.Size = new System.Drawing.Size(83, 24);
+            this.chkAnNew.Size = new System.Drawing.Size(114, 24);
             this.chkAnNew.TabIndex = 16;
-            this.chkAnNew.Text = "AN new";
+            this.chkAnNew.Text = "AN new bn1";
             this.chkAnNew.UseVisualStyleBackColor = true;
             // 
             // btnSendEmail
@@ -224,6 +225,11 @@ namespace bangna_hospital.gui
             this.lb1.Name = "lb1";
             this.lb1.Text = "Label";
             // 
+            // lb2
+            // 
+            this.lb2.Name = "lb2";
+            this.lb2.Text = "Label";
+            // 
             // rb1
             // 
             this.rb1.Name = "rb1";
@@ -255,7 +261,7 @@ namespace bangna_hospital.gui
             "ADD",
             "AUD",
             "ADJ"});
-            this.cboSubMType.Location = new System.Drawing.Point(108, 106);
+            this.cboSubMType.Location = new System.Drawing.Point(108, 135);
             this.cboSubMType.Name = "cboSubMType";
             this.cboSubMType.Size = new System.Drawing.Size(82, 28);
             this.cboSubMType.TabIndex = 9;
@@ -264,7 +270,7 @@ namespace bangna_hospital.gui
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label7.Location = new System.Drawing.Point(6, 109);
+            this.label7.Location = new System.Drawing.Point(6, 138);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(89, 20);
             this.label7.TabIndex = 10;
@@ -274,7 +280,7 @@ namespace bangna_hospital.gui
             // 
             this.lbPttName.AutoSize = true;
             this.lbPttName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbPttName.Location = new System.Drawing.Point(196, 109);
+            this.lbPttName.Location = new System.Drawing.Point(196, 138);
             this.lbPttName.Name = "lbPttName";
             this.lbPttName.Size = new System.Drawing.Size(21, 20);
             this.lbPttName.TabIndex = 11;
@@ -305,7 +311,7 @@ namespace bangna_hospital.gui
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.textBox1.Location = new System.Drawing.Point(108, 138);
+            this.textBox1.Location = new System.Drawing.Point(108, 167);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(269, 26);
             this.textBox1.TabIndex = 17;
@@ -314,22 +320,29 @@ namespace bangna_hospital.gui
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label8.Location = new System.Drawing.Point(6, 141);
+            this.label8.Location = new System.Drawing.Point(6, 170);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(97, 20);
             this.label8.TabIndex = 16;
             this.label8.Text = "authorName";
             // 
-            // lb2
+            // chkNew
             // 
-            this.lb2.Name = "lb2";
-            this.lb2.Text = "Label";
+            this.chkNew.AutoSize = true;
+            this.chkNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkNew.Location = new System.Drawing.Point(259, 134);
+            this.chkNew.Name = "chkNew";
+            this.chkNew.Size = new System.Drawing.Size(129, 24);
+            this.chkNew.TabIndex = 19;
+            this.chkNew.Text = "เฉพาะข้อมูลใหม่";
+            this.chkNew.UseVisualStyleBackColor = true;
             // 
             // FrmAipn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(557, 422);
+            this.Controls.Add(this.chkNew);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.chkNoAdd);
@@ -389,5 +402,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label8;
         private C1.Win.C1Ribbon.RibbonLabel lb2;
+        private System.Windows.Forms.CheckBox chkNew;
     }
 }

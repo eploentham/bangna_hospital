@@ -77,17 +77,17 @@ namespace bangna_hospital.objdb
             {
                 wherepha = "  and  pht05.MNC_PHA_STS = 'P' and pt01.MNC_PHA_FLG = 'A' ";
             }
-            String sql = "SELECT  pht05.MNC_DOC_CD, pht05.MNC_CFR_YR, pht05.MNC_CFR_NO, convert(varchar(20),pht05.MNC_CFG_DAT,23) as MNC_CFG_DAT, pht05.MNC_ORD_DOT  " +
+            String sql = "SELECT  pht05.MNC_DOC_CD, pht05.MNC_CFR_YR, pht05.MNC_CFR_NO, convert(varchar(20),pht05.MNC_CFG_DAT,23) as MNC_CFG_DAT, isnull(pht05.MNC_ORD_DOT,'') as MNC_ORD_DOT " +
                     ", convert(varchar(20),pht05.MNC_REQ_DAT,23) as MNC_REQ_DAT, pht05.MNC_REQ_TIM  " +
                     ",  pht05.MNC_HN_NO, pht05.MNC_PRE_NO, convert(varchar(20),pht05.MNC_DATE,23) as MNC_DATE  " +
                     ", pht05.MNC_TIME, pht05.MNC_USE_LOG, pht05.MNC_FN_TYP_CD " +
-                    ", '' as MNC_QUE_NO, pt01.MNC_DOT_CD  " +
+                    ", pht05.MNC_QUE_NO, isnull(pt01.MNC_DOT_CD,'') as MNC_DOT_CD  " +
                     ", pm02.MNC_PFIX_DSC + ' ' + pm01.MNC_FNAME_T + ' ' + pm01.MNC_LNAME_T AS PATIENTNAME " +
                     ", convert(varchar(20), pm01.MNC_BDAY,23) as MNC_BDAY, pm01.MNC_SEX, finm02.MNC_FN_TYP_DSC " +
                     ", pt01.MNC_VN_NO, pt01.MNC_VN_SEQ, pt01.MNC_VN_SUM, pt01.MNC_DEP_NO, pt01.MNC_SEC_NO  " +
                     ", pm02dtr.MNC_PFIX_DSC + ' ' + pm26dtr.MNC_DOT_FNAME + ' ' + pm26dtr.MNC_DOT_LNAME AS ORDDOTNAME " +
-                    ", userm01.MNC_USR_FULL AS MNC_USR_FULL_C, userm01.MNC_USR_FULL, pm16.MNC_SEC_DSC,isnull(pt011.status_doctor_order,'') as status_doctor_order " +
-                    ",pt01.MNC_SHIF_MEMO, pm04.MNC_NAT_DSC as nation " +
+                    ", isnull(userm01r.MNC_USR_FULL,'') AS MNC_USR_FULL_R, isnull(userm01c.MNC_USR_FULL,'') AS MNC_USR_FULL_C, pm16.MNC_SEC_DSC,isnull(pt011.status_doctor_order,'') as status_doctor_order " +
+                    ",pt01.MNC_SHIF_MEMO, isnull(pm04.MNC_NAT_DSC,'') as nation,pht05.MNC_PHA_STS,pt01.MNC_PHA_TIM " +
                     " From PATIENT_T01 pt01 " +
                     "Left join PHARMACY_M16 pm16 on pm16.MNC_DEP_NO = pt01.MNC_DEP_NO AND pm16.MNC_SEC_NO = pt01.MNC_SEC_NO " +
                     "inner join PATIENT_M01 pm01 ON pt01.MNC_HN_YR = pm01.MNC_HN_YR AND pt01.MNC_HN_NO = pm01.MNC_HN_NO " +
@@ -96,8 +96,8 @@ namespace bangna_hospital.objdb
                     "Left join PATIENT_M26 pm26dtr ON  pm26dtr.MNC_DOT_CD = pt01.MNC_DOT_CD   " +
                     "Left JOIN  PATIENT_M02 pm02dtr ON pm26dtr.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
                     "Left join FINANCE_M02 finm02 ON pt01.MNC_FN_TYP_CD = finm02.MNC_FN_TYP_CD " +
-                    "Left join USERLOG_M01 userm01 ON pht05.MNC_EMPR_CD = userm01.MNC_USR_NAME " +
-                    //"Left join PATIENT_M24 pm24 ON pt01.MNC_COM_CD = pm24.MNC_COM_CD " +
+                    "Left join USERLOG_M01 userm01c ON pht05.MNC_EMPC_CD = userm01c.MNC_USR_NAME " +
+                    "Left join USERLOG_M01 userm01r ON pht05.MNC_EMPR_CD = userm01r.MNC_USR_NAME " +
                     "Left join PATIENT_T01_1 pt011 on pt01.MNC_HN_NO = pt011.MNC_HN_NO AND pt01.MNC_PRE_NO = pt011.MNC_PRE_NO AND pt01.MNC_DATE = pt011.MNC_DATE " +
                     "Left Join Patient_m04 pm04 on pm01.MNC_NAT_CD = pm04.MNC_NAT_CD " +
                     "Where pht05.MNC_CFG_DAT = convert(varchar(20),getdate(),23) and pht05.MNC_DOC_CD = 'CRO' and pt01.MNC_STS != 'C' " +
@@ -384,7 +384,7 @@ WHERE     (Pharmacy_t05.MNC_CFG_DAT = '07/18/2006')
             //Phar_t05.ParamByName('MNC_CFG_DAT').Value := MNC_CFR_DAT;
             try
             {
-                sql = "Update PHARMACY_T05 Set MNC_PHA_STS = 'P' where MNC_DOC_CD = '"+ doccd + "' and  MNC_CFR_NO = '"+ cfrno + "' and MNC_CFR_YR = '"+ cfryear + "' and MNC_CFG_DAT = '"+ cfgdate + "'";
+                sql = "Update PHARMACY_T05 Set MNC_PHA_STS = 'P', MNC_EMPC_CD = '"+ usercode + "' where MNC_DOC_CD = '"+ doccd + "' and  MNC_CFR_NO = '"+ cfrno + "' and MNC_CFR_YR = '"+ cfryear + "' and MNC_CFG_DAT = '"+ cfgdate + "'";
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 sql = "Update PATIENT_T01 set MNC_PHA_FLG = 'A', MNC_PHA_USR = '"+ usercode + "', MNC_PHA_TIM = replace(left(convert(varchar(100),getdate(),108),5),':','') Where mnc_hn_no = '" + hn + "' and mnc_date = '"+ visit_date + "' and mnc_pre_no = '"+ pre_no + "' ";
                 re = conn.ExecuteNonQuery(conn.connMainHIS, sql);

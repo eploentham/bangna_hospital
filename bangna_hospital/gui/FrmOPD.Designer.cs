@@ -36,6 +36,8 @@
             this.pnOperList = new System.Windows.Forms.Panel();
             this.spOperVisit = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnVitalSign = new System.Windows.Forms.Panel();
+            this.lboperVN = new System.Windows.Forms.Label();
+            this.lboperAge = new System.Windows.Forms.Label();
             this.btnOperPrnQue = new C1.Win.C1Input.C1Button();
             this.cboOperRoom = new C1.Win.C1Input.C1ComboBox();
             this.txtOperPain = new C1.Win.C1Input.C1TextBox();
@@ -72,7 +74,6 @@
             this.label167 = new System.Windows.Forms.Label();
             this.label166 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
-            this.lboperAge = new System.Windows.Forms.Label();
             this.lbFindPaidSSO = new System.Windows.Forms.Label();
             this.lbOperVitalPrint = new System.Windows.Forms.Label();
             this.lbOperVitalTime = new System.Windows.Forms.Label();
@@ -89,6 +90,28 @@
             this.btnPrnStaffNote2 = new C1.Win.C1Input.DropDownItem();
             this.btnPrnStaffNote3 = new C1.Win.C1Input.DropDownItem();
             this.btnPrnStaffNote4 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem5 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem6 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem7 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem8 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem9 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem10 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem11 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem12 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem13 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem14 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem15 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem16 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem17 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem18 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem19 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem20 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem21 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem22 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem23 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem24 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem25 = new C1.Win.C1Input.DropDownItem();
+            this.dropDownItem26 = new C1.Win.C1Input.DropDownItem();
             this.btnOperOpenSticker = new C1.Win.C1Input.C1Button();
             this.txtOperSticker = new C1.Win.C1Input.C1TextBox();
             this.btnOperPrnSticker = new C1.Win.C1Input.C1Button();
@@ -166,6 +189,7 @@
             this.tabOrder = new C1.Win.C1Command.C1DockingTabPage();
             this.spOrder = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spOrderTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnInformation = new System.Windows.Forms.Panel();
             this.btnOrderSubmit = new C1.Win.C1Input.C1Button();
             this.btnOrderSave = new C1.Win.C1Input.C1Button();
             this.btnItemAdd = new C1.Win.C1Input.C1Button();
@@ -825,10 +849,10 @@
             this.btnCertMedScan = new C1.Win.C1Input.C1Button();
             this.pnCertMed1 = new System.Windows.Forms.Panel();
             this.spSrcPttSrc = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.lbSrcPreno = new System.Windows.Forms.Label();
-            this.lbSrcVN = new System.Windows.Forms.Label();
-            this.lbSrcVsDate = new System.Windows.Forms.Label();
-            this.lbSrcAge = new System.Windows.Forms.Label();
+            this.lbSrcVN = new C1.Win.C1Input.C1Label();
+            this.lbSrcVsDate = new C1.Win.C1Input.C1Label();
+            this.lbSrcAge = new C1.Win.C1Input.C1Label();
+            this.lbSrcPreno = new C1.Win.C1Input.C1Label();
             this.lbPttFinNote = new System.Windows.Forms.Label();
             this.lbChronic = new C1.Win.C1Input.C1Label();
             this.lbDrugAllergy = new C1.Win.C1Input.C1Label();
@@ -922,6 +946,7 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
+            this.dropDownItem27 = new C1.Win.C1Input.DropDownItem();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -1275,6 +1300,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnCertMedGet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCertMedScan)).BeginInit();
             this.spSrcPttSrc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcVN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcVsDate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcAge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcPreno)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbChronic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbDrugAllergy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvSrcPttName)).BeginInit();
@@ -1412,7 +1441,7 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 1307;
+            this.spOperList.Width = 1314;
             // 
             // pnOperList
             // 
@@ -1426,7 +1455,7 @@
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 298;
+            this.spOperVisit.Height = 305;
             this.spOperVisit.Location = new System.Drawing.Point(1318, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(1315, 277);
@@ -1436,6 +1465,8 @@
             // 
             // pnVitalSign
             // 
+            this.pnVitalSign.Controls.Add(this.lboperVN);
+            this.pnVitalSign.Controls.Add(this.lboperAge);
             this.pnVitalSign.Controls.Add(this.btnOperPrnQue);
             this.pnVitalSign.Controls.Add(this.cboOperRoom);
             this.pnVitalSign.Controls.Add(this.txtOperPain);
@@ -1468,7 +1499,6 @@
             this.pnVitalSign.Controls.Add(this.label167);
             this.pnVitalSign.Controls.Add(this.label166);
             this.pnVitalSign.Controls.Add(this.label165);
-            this.pnVitalSign.Controls.Add(this.lboperAge);
             this.pnVitalSign.Controls.Add(this.lbFindPaidSSO);
             this.pnVitalSign.Controls.Add(this.lbOperVitalPrint);
             this.pnVitalSign.Controls.Add(this.lbOperVitalTime);
@@ -1539,6 +1569,27 @@
             this.pnVitalSign.Name = "pnVitalSign";
             this.pnVitalSign.Size = new System.Drawing.Size(1315, 277);
             this.pnVitalSign.TabIndex = 0;
+            // 
+            // lboperVN
+            // 
+            this.lboperVN.AutoSize = true;
+            this.lboperVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lboperVN.ForeColor = System.Drawing.Color.Fuchsia;
+            this.lboperVN.Location = new System.Drawing.Point(5, 116);
+            this.lboperVN.Name = "lboperVN";
+            this.lboperVN.Size = new System.Drawing.Size(38, 20);
+            this.lboperVN.TabIndex = 597;
+            this.lboperVN.Text = "lab :";
+            // 
+            // lboperAge
+            // 
+            this.lboperAge.AutoSize = true;
+            this.lboperAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lboperAge.Location = new System.Drawing.Point(631, 3);
+            this.lboperAge.Name = "lboperAge";
+            this.lboperAge.Size = new System.Drawing.Size(38, 20);
+            this.lboperAge.TabIndex = 596;
+            this.lboperAge.Text = "lab :";
             // 
             // btnOperPrnQue
             // 
@@ -1923,18 +1974,6 @@
             this.label165.TabIndex = 559;
             this.label165.Text = "ตรวจการได้ยิน";
             // 
-            // lboperAge
-            // 
-            this.lboperAge.AutoSize = true;
-            this.lboperAge.BackColor = System.Drawing.Color.White;
-            this.lboperAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lboperAge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lboperAge.Location = new System.Drawing.Point(636, 8);
-            this.lboperAge.Name = "lboperAge";
-            this.lboperAge.Size = new System.Drawing.Size(21, 20);
-            this.lboperAge.TabIndex = 558;
-            this.lboperAge.Text = "...";
-            // 
             // lbFindPaidSSO
             // 
             this.lbFindPaidSSO.AutoSize = true;
@@ -2055,6 +2094,29 @@
             this.btnPrnStaffNote.Items.Add(this.btnPrnStaffNote2);
             this.btnPrnStaffNote.Items.Add(this.btnPrnStaffNote3);
             this.btnPrnStaffNote.Items.Add(this.btnPrnStaffNote4);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem5);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem6);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem7);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem8);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem9);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem10);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem11);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem12);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem13);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem14);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem15);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem16);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem17);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem18);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem19);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem20);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem21);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem22);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem23);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem24);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem25);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem26);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem27);
             this.btnPrnStaffNote.Location = new System.Drawing.Point(649, 136);
             this.btnPrnStaffNote.Name = "btnPrnStaffNote";
             this.btnPrnStaffNote.Size = new System.Drawing.Size(117, 39);
@@ -2064,19 +2126,129 @@
             // 
             // btnPrnStaffNote1
             // 
-            this.btnPrnStaffNote1.Text = "Printใบยา แบบ1";
+            this.btnPrnStaffNote1.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.btnPrnStaffNote1.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.btnPrnStaffNote1.Text = "AC Doxorubicin-Cyclophosphamide";
             // 
             // btnPrnStaffNote2
             // 
-            this.btnPrnStaffNote2.Text = "Printใบยา แบบ2";
+            this.btnPrnStaffNote2.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.btnPrnStaffNote2.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.btnPrnStaffNote2.Text = "Bleomycin";
             // 
             // btnPrnStaffNote3
             // 
-            this.btnPrnStaffNote3.Text = "Printใบยา แบบ3";
+            this.btnPrnStaffNote3.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.btnPrnStaffNote3.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.btnPrnStaffNote3.Text = "Carboplatin";
             // 
             // btnPrnStaffNote4
             // 
-            this.btnPrnStaffNote4.Text = "Printใบยา แบบ4";
+            this.btnPrnStaffNote4.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.btnPrnStaffNote4.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.btnPrnStaffNote4.Text = "Carboplatin-Gemcitabine";
+            // 
+            // dropDownItem5
+            // 
+            this.dropDownItem5.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem5.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.dropDownItem5.Text = "Cisplatin -Gemcitabine";
+            // 
+            // dropDownItem6
+            // 
+            this.dropDownItem6.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem6.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.dropDownItem6.Text = "Cisplatin";
+            // 
+            // dropDownItem7
+            // 
+            this.dropDownItem7.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem7.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.dropDownItem7.Text = "CMF";
+            // 
+            // dropDownItem8
+            // 
+            this.dropDownItem8.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem8.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.dropDownItem8.Text = "CMV";
+            // 
+            // dropDownItem9
+            // 
+            this.dropDownItem9.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem9.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.dropDownItem9.Text = "Docetaxel";
+            // 
+            // dropDownItem10
+            // 
+            this.dropDownItem10.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem10.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.dropDownItem10.Text = "Gemcitabine";
+            // 
+            // dropDownItem11
+            // 
+            this.dropDownItem11.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem11.ImageAlign = C1.Win.C1Input.Enums.InputImageAlignment.MiddleLeft;
+            this.dropDownItem11.Text = "Herceptin";
+            // 
+            // dropDownItem12
+            // 
+            this.dropDownItem12.Text = "Herceptin2";
+            // 
+            // dropDownItem13
+            // 
+            this.dropDownItem13.Text = "Holter";
+            // 
+            // dropDownItem14
+            // 
+            this.dropDownItem14.Text = "ID";
+            // 
+            // dropDownItem15
+            // 
+            this.dropDownItem15.Text = "Infliximab";
+            // 
+            // dropDownItem16
+            // 
+            this.dropDownItem16.Text = "Irinotecan";
+            // 
+            // dropDownItem17
+            // 
+            this.dropDownItem17.Text = "Mayo’s 5FU-low dose LV";
+            // 
+            // dropDownItem18
+            // 
+            this.dropDownItem18.Text = "Paclitaxel";
+            // 
+            // dropDownItem19
+            // 
+            this.dropDownItem19.Text = "Paclitaxel-Carboplatin";
+            // 
+            // dropDownItem20
+            // 
+            this.dropDownItem20.Text = "Single Agent Doxorubicin";
+            // 
+            // dropDownItem21
+            // 
+            this.dropDownItem21.Text = "Single agent Gemcitabine";
+            // 
+            // dropDownItem22
+            // 
+            this.dropDownItem22.Text = "TC";
+            // 
+            // dropDownItem23
+            // 
+            this.dropDownItem23.Text = "Vinorebine";
+            // 
+            // dropDownItem24
+            // 
+            this.dropDownItem24.Text = "Weekly Paclitaxel";
+            // 
+            // dropDownItem25
+            // 
+            this.dropDownItem25.Text = "WeeklyPaclitaxel-Herceptin ";
+            // 
+            // dropDownItem26
+            // 
+            this.dropDownItem26.Text = "XELOXC ";
             // 
             // btnOperOpenSticker
             // 
@@ -2224,7 +2396,7 @@
             // 
             this.lbOperPttNameT.AutoSize = true;
             this.lbOperPttNameT.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbOperPttNameT.Location = new System.Drawing.Point(173, 5);
+            this.lbOperPttNameT.Location = new System.Drawing.Point(151, 5);
             this.lbOperPttNameT.Name = "lbOperPttNameT";
             this.lbOperPttNameT.Size = new System.Drawing.Size(35, 25);
             this.lbOperPttNameT.TabIndex = 268;
@@ -2235,7 +2407,7 @@
             this.txtOperHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtOperHN.Location = new System.Drawing.Point(41, 3);
             this.txtOperHN.Name = "txtOperHN";
-            this.txtOperHN.Size = new System.Drawing.Size(128, 27);
+            this.txtOperHN.Size = new System.Drawing.Size(107, 27);
             this.txtOperHN.TabIndex = 267;
             this.txtOperHN.Tag = null;
             // 
@@ -2651,7 +2823,7 @@
             this.spHistoryVS.SizeRatio = 49.862D;
             this.spHistoryVS.TabIndex = 0;
             this.spHistoryVS.Text = "Panel 1";
-            this.spHistoryVS.Width = 646;
+            this.spHistoryVS.Width = 653;
             // 
             // c1SplitterPanel6
             // 
@@ -2712,7 +2884,7 @@
             this.spOPDImgL.Size = new System.Drawing.Size(318, 658);
             this.spOPDImgL.TabIndex = 0;
             this.spOPDImgL.Text = "Panel 1";
-            this.spOPDImgL.Width = 318;
+            this.spOPDImgL.Width = 325;
             // 
             // picHisL
             // 
@@ -2835,6 +3007,7 @@
             // spOrderTop
             // 
             this.spOrderTop.Collapsible = true;
+            this.spOrderTop.Controls.Add(this.pnInformation);
             this.spOrderTop.Controls.Add(this.btnOrderSubmit);
             this.spOrderTop.Controls.Add(this.btnOrderSave);
             this.spOrderTop.Controls.Add(this.btnItemAdd);
@@ -2860,6 +3033,14 @@
             this.spOrderTop.TabIndex = 0;
             this.spOrderTop.Text = "Panel 1";
             this.spOrderTop.Width = 1313;
+            // 
+            // pnInformation
+            // 
+            this.pnInformation.BackColor = System.Drawing.Color.Cornsilk;
+            this.pnInformation.Location = new System.Drawing.Point(791, 4);
+            this.pnInformation.Name = "pnInformation";
+            this.pnInformation.Size = new System.Drawing.Size(519, 119);
+            this.pnInformation.TabIndex = 277;
             // 
             // btnOrderSubmit
             // 
@@ -2983,6 +3164,7 @@
             // chkItemDrug
             // 
             this.chkItemDrug.AutoSize = true;
+            this.chkItemDrug.Enabled = false;
             this.chkItemDrug.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.chkItemDrug.Location = new System.Drawing.Point(426, 4);
             this.chkItemDrug.Name = "chkItemDrug";
@@ -4366,7 +4548,7 @@
             this.spCheckUpList.SizeRatio = 33.122D;
             this.spCheckUpList.TabIndex = 0;
             this.spCheckUpList.Text = "Panel 1";
-            this.spCheckUpList.Width = 871;
+            this.spCheckUpList.Width = 864;
             // 
             // spCheckUPVisit
             // 
@@ -9489,10 +9671,10 @@
             this.c1SplitterPanel7.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
             this.c1SplitterPanel7.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel7.Name = "c1SplitterPanel7";
-            this.c1SplitterPanel7.Size = new System.Drawing.Size(421, 1019);
+            this.c1SplitterPanel7.Size = new System.Drawing.Size(679, 1019);
             this.c1SplitterPanel7.TabIndex = 0;
             this.c1SplitterPanel7.Text = "Panel 1";
-            this.c1SplitterPanel7.Width = 421;
+            this.c1SplitterPanel7.Width = 679;
             // 
             // picSrcL
             // 
@@ -9506,9 +9688,9 @@
             // 
             this.c1SplitterPanel9.Controls.Add(this.picSrcR);
             this.c1SplitterPanel9.Height = 1040;
-            this.c1SplitterPanel9.Location = new System.Drawing.Point(432, 21);
+            this.c1SplitterPanel9.Location = new System.Drawing.Point(690, 21);
             this.c1SplitterPanel9.Name = "c1SplitterPanel9";
-            this.c1SplitterPanel9.Size = new System.Drawing.Size(429, 1019);
+            this.c1SplitterPanel9.Size = new System.Drawing.Size(685, 1019);
             this.c1SplitterPanel9.TabIndex = 1;
             this.c1SplitterPanel9.Text = "Panel 2";
             // 
@@ -10053,10 +10235,10 @@
             // 
             // spSrcPttSrc
             // 
-            this.spSrcPttSrc.Controls.Add(this.lbSrcPreno);
             this.spSrcPttSrc.Controls.Add(this.lbSrcVN);
             this.spSrcPttSrc.Controls.Add(this.lbSrcVsDate);
             this.spSrcPttSrc.Controls.Add(this.lbSrcAge);
+            this.spSrcPttSrc.Controls.Add(this.lbSrcPreno);
             this.spSrcPttSrc.Controls.Add(this.lbPttFinNote);
             this.spSrcPttSrc.Controls.Add(this.lbChronic);
             this.spSrcPttSrc.Controls.Add(this.lbDrugAllergy);
@@ -10074,53 +10256,53 @@
             this.spSrcPttSrc.TabIndex = 0;
             this.spSrcPttSrc.Text = "Panel 1";
             // 
-            // lbSrcPreno
-            // 
-            this.lbSrcPreno.AutoSize = true;
-            this.lbSrcPreno.BackColor = System.Drawing.Color.White;
-            this.lbSrcPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSrcPreno.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbSrcPreno.Location = new System.Drawing.Point(465, 30);
-            this.lbSrcPreno.Name = "lbSrcPreno";
-            this.lbSrcPreno.Size = new System.Drawing.Size(21, 20);
-            this.lbSrcPreno.TabIndex = 560;
-            this.lbSrcPreno.Text = "...";
-            // 
             // lbSrcVN
             // 
             this.lbSrcVN.AutoSize = true;
-            this.lbSrcVN.BackColor = System.Drawing.Color.White;
-            this.lbSrcVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSrcVN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbSrcVN.Location = new System.Drawing.Point(779, 30);
+            this.lbSrcVN.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbSrcVN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbSrcVN.Location = new System.Drawing.Point(794, 30);
             this.lbSrcVN.Name = "lbSrcVN";
-            this.lbSrcVN.Size = new System.Drawing.Size(25, 20);
-            this.lbSrcVN.TabIndex = 559;
-            this.lbSrcVN.Text = "vn";
+            this.lbSrcVN.Size = new System.Drawing.Size(67, 20);
+            this.lbSrcVN.TabIndex = 564;
+            this.lbSrcVN.Tag = null;
+            this.lbSrcVN.Value = "ค้นหา";
             // 
             // lbSrcVsDate
             // 
             this.lbSrcVsDate.AutoSize = true;
-            this.lbSrcVsDate.BackColor = System.Drawing.Color.White;
-            this.lbSrcVsDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSrcVsDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
+            this.lbSrcVsDate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbSrcVsDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.lbSrcVsDate.Location = new System.Drawing.Point(679, 30);
             this.lbSrcVsDate.Name = "lbSrcVsDate";
-            this.lbSrcVsDate.Size = new System.Drawing.Size(56, 20);
-            this.lbSrcVsDate.TabIndex = 558;
-            this.lbSrcVsDate.Text = "vsdate";
+            this.lbSrcVsDate.Size = new System.Drawing.Size(99, 20);
+            this.lbSrcVsDate.TabIndex = 563;
+            this.lbSrcVsDate.Tag = null;
+            this.lbSrcVsDate.Value = "ค้นหา";
             // 
             // lbSrcAge
             // 
             this.lbSrcAge.AutoSize = true;
-            this.lbSrcAge.BackColor = System.Drawing.Color.White;
-            this.lbSrcAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSrcAge.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(118)))), ((int)(((byte)(135)))));
-            this.lbSrcAge.Location = new System.Drawing.Point(574, 30);
+            this.lbSrcAge.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbSrcAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbSrcAge.Location = new System.Drawing.Point(571, 30);
             this.lbSrcAge.Name = "lbSrcAge";
-            this.lbSrcAge.Size = new System.Drawing.Size(21, 20);
-            this.lbSrcAge.TabIndex = 557;
-            this.lbSrcAge.Text = "...";
+            this.lbSrcAge.Size = new System.Drawing.Size(74, 20);
+            this.lbSrcAge.TabIndex = 562;
+            this.lbSrcAge.Tag = null;
+            this.lbSrcAge.Value = "ค้นหา";
+            // 
+            // lbSrcPreno
+            // 
+            this.lbSrcPreno.AutoSize = true;
+            this.lbSrcPreno.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbSrcPreno.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbSrcPreno.Location = new System.Drawing.Point(467, 30);
+            this.lbSrcPreno.Name = "lbSrcPreno";
+            this.lbSrcPreno.Size = new System.Drawing.Size(87, 20);
+            this.lbSrcPreno.TabIndex = 561;
+            this.lbSrcPreno.Tag = null;
+            this.lbSrcPreno.Value = "ค้นหา";
             // 
             // lbPttFinNote
             // 
@@ -11151,6 +11333,11 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
+            // dropDownItem27
+            // 
+            this.dropDownItem27.Image = global::bangna_hospital.Properties.Resources.printer_orange16;
+            this.dropDownItem27.Text = "ตามล่าม  พูดไทยได้ X-ray Lab";
+            // 
             // FrmOPD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11559,6 +11746,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnCertMedScan)).EndInit();
             this.spSrcPttSrc.ResumeLayout(false);
             this.spSrcPttSrc.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcVN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcVsDate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcAge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lbSrcPreno)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbChronic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lbDrugAllergy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lvSrcPttName)).EndInit();
@@ -12381,10 +12572,6 @@
         private C1.Win.C1Command.C1DockingTabPage tabEKG;
         private C1.Win.C1Command.C1DockingTabPage tabDocOLD;
         private System.Windows.Forms.Label lbPttFinNote;
-        private System.Windows.Forms.Label lbSrcAge;
-        private System.Windows.Forms.Label lbSrcVN;
-        private System.Windows.Forms.Label lbSrcVsDate;
-        private System.Windows.Forms.Label lbSrcPreno;
         private System.Windows.Forms.Panel pnEKGtop;
         private System.Windows.Forms.Panel pnEKG;
         private C1.Win.C1Input.C1Button btnSrcEKGScanSave;
@@ -12418,7 +12605,6 @@
         private C1.Win.C1Command.C1DockingTabPage tabCertMed;
         private System.Windows.Forms.Panel pnCertMedView;
         private System.Windows.Forms.Panel pnCertMed;
-        private System.Windows.Forms.Label lboperAge;
         private C1.Win.C1Input.C1TextBox txtOperRightEar;
         private C1.Win.C1Input.C1TextBox txtOperLeftEar;
         private System.Windows.Forms.Label label167;
@@ -12541,5 +12727,35 @@
         private C1.Win.C1Input.DropDownItem dropDownItem3;
         private C1.Win.C1Input.DropDownItem dropDownItem4;
         private C1.Win.C1Input.C1Button btnCheckUpCompPrint;
+        private System.Windows.Forms.Panel pnInformation;
+        private C1.Win.C1Input.C1Label lbSrcVsDate;
+        private C1.Win.C1Input.C1Label lbSrcAge;
+        private C1.Win.C1Input.C1Label lbSrcPreno;
+        private C1.Win.C1Input.C1Label lbSrcVN;
+        private System.Windows.Forms.Label lboperAge;
+        private System.Windows.Forms.Label lboperVN;
+        private C1.Win.C1Input.DropDownItem dropDownItem5;
+        private C1.Win.C1Input.DropDownItem dropDownItem6;
+        private C1.Win.C1Input.DropDownItem dropDownItem7;
+        private C1.Win.C1Input.DropDownItem dropDownItem8;
+        private C1.Win.C1Input.DropDownItem dropDownItem9;
+        private C1.Win.C1Input.DropDownItem dropDownItem10;
+        private C1.Win.C1Input.DropDownItem dropDownItem11;
+        private C1.Win.C1Input.DropDownItem dropDownItem12;
+        private C1.Win.C1Input.DropDownItem dropDownItem13;
+        private C1.Win.C1Input.DropDownItem dropDownItem14;
+        private C1.Win.C1Input.DropDownItem dropDownItem15;
+        private C1.Win.C1Input.DropDownItem dropDownItem16;
+        private C1.Win.C1Input.DropDownItem dropDownItem17;
+        private C1.Win.C1Input.DropDownItem dropDownItem18;
+        private C1.Win.C1Input.DropDownItem dropDownItem19;
+        private C1.Win.C1Input.DropDownItem dropDownItem20;
+        private C1.Win.C1Input.DropDownItem dropDownItem21;
+        private C1.Win.C1Input.DropDownItem dropDownItem22;
+        private C1.Win.C1Input.DropDownItem dropDownItem23;
+        private C1.Win.C1Input.DropDownItem dropDownItem24;
+        private C1.Win.C1Input.DropDownItem dropDownItem25;
+        private C1.Win.C1Input.DropDownItem dropDownItem26;
+        private C1.Win.C1Input.DropDownItem dropDownItem27;
     }
 }

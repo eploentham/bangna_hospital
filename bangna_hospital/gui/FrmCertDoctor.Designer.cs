@@ -38,13 +38,13 @@ namespace bangna_hospital.gui
             this.chkOPD = new System.Windows.Forms.RadioButton();
             this.cboDept = new C1.Win.C1Input.C1ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtVsDate = new System.Windows.Forms.DateTimePicker();
             this.lb2nfleaf = new System.Windows.Forms.Label();
             this.btnAppoinment = new System.Windows.Forms.Button();
             this.btnPrintCertE = new System.Windows.Forms.Button();
             this.pnCertOld = new System.Windows.Forms.Panel();
             this.txtVsTime = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtVsDate = new C1.Win.C1Input.C1DateEdit();
             this.label9 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chk4 = new System.Windows.Forms.CheckBox();
@@ -94,7 +94,6 @@ namespace bangna_hospital.gui
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cboDept)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtVsDate)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtChk4Date)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtChk3DateEnd)).BeginInit();
@@ -194,13 +193,13 @@ namespace bangna_hospital.gui
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtVsDate);
             this.panel2.Controls.Add(this.lb2nfleaf);
             this.panel2.Controls.Add(this.btnAppoinment);
             this.panel2.Controls.Add(this.btnPrintCertE);
             this.panel2.Controls.Add(this.pnCertOld);
             this.panel2.Controls.Add(this.txtVsTime);
             this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.txtVsDate);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.txtLine4);
@@ -227,6 +226,14 @@ namespace bangna_hospital.gui
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(626, 717);
             this.panel2.TabIndex = 142;
+            // 
+            // txtVsDate
+            // 
+            this.txtVsDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.txtVsDate.Location = new System.Drawing.Point(132, 97);
+            this.txtVsDate.Name = "txtVsDate";
+            this.txtVsDate.Size = new System.Drawing.Size(131, 20);
+            this.txtVsDate.TabIndex = 155;
             // 
             // lb2nfleaf
             // 
@@ -288,37 +295,6 @@ namespace bangna_hospital.gui
             this.label10.Size = new System.Drawing.Size(85, 20);
             this.label10.TabIndex = 145;
             this.label10.Text = "เวลามาตรวจ";
-            // 
-            // txtVsDate
-            // 
-            this.txtVsDate.AllowSpinLoop = false;
-            // 
-            // 
-            // 
-            this.txtVsDate.Calendar.DayNameLength = 1;
-            this.txtVsDate.Calendar.VisualStyle = C1.Win.C1Input.VisualStyle.System;
-            this.txtVsDate.Culture = 1054;
-            this.txtVsDate.CurrentTimeZone = false;
-            this.txtVsDate.DisplayFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtVsDate.DisplayFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtVsDate.EditFormat.FormatType = C1.Win.C1Input.FormatTypeEnum.ShortDate;
-            this.txtVsDate.EditFormat.Inherit = ((C1.Win.C1Input.FormatInfoInheritFlags)((((((C1.Win.C1Input.FormatInfoInheritFlags.CustomFormat | C1.Win.C1Input.FormatInfoInheritFlags.NullText) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.EmptyAsNull) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimStart) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.TrimEnd) 
-            | C1.Win.C1Input.FormatInfoInheritFlags.CalendarType)));
-            this.txtVsDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtVsDate.GMTOffset = System.TimeSpan.Parse("00:00:00");
-            this.txtVsDate.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.txtVsDate.Location = new System.Drawing.Point(141, 94);
-            this.txtVsDate.Name = "txtVsDate";
-            this.txtVsDate.Size = new System.Drawing.Size(129, 22);
-            this.txtVsDate.TabIndex = 144;
-            this.txtVsDate.Tag = null;
             // 
             // label9
             // 
@@ -846,7 +822,6 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.cboDept)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtVsDate)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtChk4Date)).EndInit();
@@ -899,7 +874,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.TextBox txtChk4Time;
         private System.Windows.Forms.TextBox txtVsTime;
         private System.Windows.Forms.Label label10;
-        private C1.Win.C1Input.C1DateEdit txtVsDate;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel pnCertOld;
         private System.Windows.Forms.Button btnPrintCertE;
@@ -919,5 +893,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.CheckBox chk2;
         private System.Windows.Forms.CheckBox chk3;
         private System.Windows.Forms.CheckBox chk4;
+        private System.Windows.Forms.DateTimePicker txtVsDate;
     }
 }

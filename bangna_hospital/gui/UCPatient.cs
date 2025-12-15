@@ -49,7 +49,7 @@ namespace bangna_hospital.gui
             clearControl();
             isLoaded = false;
         }
-        private void clearControl()
+        internal void clearControl()
         {
             lbHN.Text = "";
             lbAttachNote.Text = "";

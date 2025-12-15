@@ -989,7 +989,9 @@ namespace bangna_hospital.gui
             fvCerti.Location = new System.Drawing.Point(0, 0);            fvCerti.Name = "fvCerti";            fvCerti.Size = new System.Drawing.Size(1065, 790);
             fvCerti.TabIndex = 0;            fvCerti.Ribbon.Minimized = true;            panel3.Controls.Add(fvCerti);
             theme1.SetTheme(fvCerti, bc.iniC.themeApp);
+            setLbLoading(bc.iniC.hostFTPCertMeddoe+" "+ bc.iniC.userFTPCertMeddoe+" "+ bc.iniC.passFTPCertMeddoe);
             FtpClient ftpc = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, false);
+            //new LogWriter("d", "showPDF ");
             MemoryStream streamCertiDoe = ftpc.download(filename);
             STREAMCertiDOE = new MemoryStream();
             streamCertiDoe.Position = 0;            streamCertiDoe.CopyTo(STREAMCertiDOE, 4096);            streamCertiDoe.Position = 0;            STREAMCertiDOE.Position = 0;
@@ -999,9 +1001,7 @@ namespace bangna_hospital.gui
             fvCerti.DocumentSource = pds;
             FILENAME = filename;
             //ExtractImagesAndDecodeQRCode(file);
-
         }
-
         private void FvCerti_OperationError(object sender, OperationErrorEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1780,8 +1780,11 @@ namespace bangna_hospital.gui
             if(bc.iniC.hostname.Equals("โรงพยาบาล บางนา2"))//เพราะ FTP ตอนสร้าง จะมี Folder ย่อย
             {
                 lfSbMessage.Text = "cert_doe/" + grfPDF[grfPDF.Row, colpdfpath].ToString();
+                setLbLoading("11");
                 showPDF("cert_doe/" + grfPDF[grfPDF.Row, colpdfpath].ToString());
                 FILENAME = "cert_doe/" + grfPDF[grfPDF.Row, colpdfpath].ToString();
+                //showPDF(grfPDF[grfPDF.Row, colpdfpath].ToString());
+                //FILENAME = grfPDF[grfPDF.Row, colpdfpath].ToString();
             }
             else
             {
@@ -1796,7 +1799,7 @@ namespace bangna_hospital.gui
             showLbLoading();
             lbErr.Text = bc.iniC.pathdoealiencert;
             int i = 0;
-            FtpClient ftpc = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, false);
+            FtpClient ftpc = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, Boolean.Parse(bc.iniC.usePassiveFTPCertMeddoe));
             List<String> listFile = ftpc.directoryList(bc.iniC.folderFTPCertMeddoe);
             grfPDF.Rows.Count = 1;
             foreach (string file in listFile)

@@ -149,7 +149,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             setLbLoading("เตรียม บิล");
             showLbLoading();
-            String sessionno = bc.genAipnFile(txtAuthorName.Text.Trim(), txtAn.Text.Trim(), cboSubMType.Text, ChkAn.Checked, chkNoAdd.Checked, chkAnNew.Checked);
+            String sessionno = bc.genAipnFile(txtAuthorName.Text.Trim(), txtAn.Text.Trim(), cboSubMType.Text, ChkAn.Checked, chkNoAdd.Checked, chkAnNew.Checked, chkNew.Checked);
             txtSessionNO.Text = sessionno;
             hideLbLoading();
         }
@@ -171,7 +171,7 @@ namespace bangna_hospital.gui
         }
         private void FrmAipn_Load(object sender, EventArgs e)
         {
-            this.Text = "last Update 2025-11-13 แก้ gen prefix AN OBS, message AN new เลข anเป็น9ตัวเดิม10 txtsession readonly AN แบบ บาง1 update session on";
+            this.Text = "last Update 2025-11-26 แก้ gen authcode prefix AN OBS, message AN new เลข anเป็น9ตัวเดิม10 txtsession readonly AN แบบ บาง1 update session on";
             txtFrom.Text = bc.iniC.EmailFromAIPN;
             txtTO.Text = bc.iniC.EmailToAIPN;
             txtSubject.Text = bc.iniC.EmailSubjectAIPN;

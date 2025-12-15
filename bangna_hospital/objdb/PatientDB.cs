@@ -172,13 +172,30 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public DataTable selectPatient1(String fname, String lname)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", wherehn = "", wherename = "";
+            
+            if (lname.Length > 0)
+            {
+                wherename = " m01.MNC_FNAME_T like '%" + fname + "%' and m01.MNC_LNAME_T like '%" + lname + "%' ";
+            }
+            sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
+                "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE, m01.mnc_hn_yr,m01.MNC_ID_NO " +
+                "From  patient_m01 m01 " +
+                " inner join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
+                " Where  " + wherehn + wherename;
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public DataTable selectPatient(String hn, String name)
         {
             DataTable dt = new DataTable();
             String sql = "", wherehn="", wherename="";
             if (hn.Length > 0)
             {
-                wherehn = " m01.MNC_HN_NO like '%"+hn+"%'";
+                wherehn = " m01.MNC_HN_NO like '%"+ hn + "%'";
             }
             if (name.Length > 0)
             {

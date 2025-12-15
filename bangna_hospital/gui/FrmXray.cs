@@ -163,7 +163,7 @@ namespace bangna_hospital.gui
             DataTable dtvs = new DataTable();
             String deptno = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
             String vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
-            dtvs = bc.bcDB.vsDB.selectPttinDeptActNo101(deptno, bc.iniC.station, vsdate, vsdate);
+            dtvs = bc.bcDB.vsDB.selectPttinDeptActNo101(deptno, bc.iniC.station, vsdate, vsdate,"","");
 
             grfOperList.Rows.Count = 1;
             grfOperList.Rows.Count = dtvs.Rows.Count + 1;

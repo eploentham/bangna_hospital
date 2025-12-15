@@ -1,6 +1,7 @@
 ﻿using AutocompleteMenuNS;
 using bangna_hospital.control;
 using bangna_hospital.FlexGrid;
+using bangna_hospital.objdb;
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.C1Pdf;
@@ -240,6 +241,9 @@ namespace bangna_hospital.gui
             txtHn.MouseHover += TxtHn_MouseHover;
             txtName.MouseHover += TxtName_MouseHover;
             lbDrugAllergy.DoubleClick += LbDrugAllergy_DoubleClick;
+            btnDrugNew.MouseHover += BtnDrugNew_MouseHover;
+            btnSupra.MouseHover += BtnSupra_MouseHover;
+            btnSupra.Click += BtnSupra_Click;
             //picExit.Click += PicExit_Click;
             //tcDtr.SelectedTabChanged += TcDtr_SelectedTabChanged;
             //sC1.TabIndexChanged += SC1_TabIndexChanged;
@@ -270,6 +274,154 @@ namespace bangna_hospital.gui
             //MessageBox.Show("FrmScanView1 initConfig 03", "");
             tabHnLabOut.DoubleClick += TabHnLabOut_DoubleClick;
             btnDrugNew.Click += BtnDrugNew_Click;
+        }
+
+        private void BtnSupra_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            Form frm = new Form();
+            frm.WindowState = FormWindowState.Normal;
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.Size = new Size(800, 600);
+            C1DockingTab tc = new C1DockingTab();
+            tc.Dock = DockStyle.Fill;
+            frm.Controls.Add(tc);
+            C1DockingTabPage tab1 = new C1DockingTabPage();
+            tab1.Text = "ส่งต่อ Supra";
+            tc.Controls.Add(tab1);
+            tab1.Dock = DockStyle.Fill;
+            C1DockingTabPage tab2 = new C1DockingTabPage();
+            tab2.Text = "ประวัติการส่งต่อ Supra";
+            tc.Controls.Add(tab2);
+            tab2.Dock = DockStyle.Fill;
+            Panel pn = new Panel();
+            pn.Dock = DockStyle.Fill;
+            tab1.Controls.Add(pn);
+            Panel pn2 = new Panel();
+            pn2.Dock = DockStyle.Fill;
+            tab2.Controls.Add(pn2);
+            C1FlexGrid grfsupraview = new C1FlexGrid();
+            grfsupraview.Dock = DockStyle.Fill;
+            pn2.Controls.Add(grfsupraview);
+            grfsupraview.Font = fEdit;
+            grfsupraview.Rows.Count = 1;
+            grfsupraview.Cols.Count = 6;
+            grfsupraview.Cols[1].Caption = "วันที่ส่งต่อ";
+            grfsupraview.Cols[2].Caption = "HN";
+            grfsupraview.Cols[3].Caption = "ชื่อ-สกุล";
+            grfsupraview.Cols[4].Caption = "แพทย์ผู้ส่งต่อ";
+            grfsupraview.Cols[1].Width = 100;
+            grfsupraview.Cols[2].Width = 100;
+            grfsupraview.Cols[3].Width = 250;
+            grfsupraview.Cols[4].Width = 200;
+            grfsupraview.Cols[5].Width = 200;
+            grfsupraview.AllowEditing = false;
+            Label lbhn = new Label();
+            lbhn.Text = "HN : " + txtHn.Text+" "+txtName.Text.Trim();
+            lbhn.Font = fEdit;
+            lbhn.AutoSize = true;
+            lbhn.Location = new Point(10, 10);
+            pn.Controls.Add(lbhn);
+            Label lbDesc1 = new Label();
+            lbDesc1.Text = "รายละเอียดการส่งต่อ 1 : ";
+            lbDesc1.Font = fEdit;
+            lbDesc1.AutoSize = true;
+            lbDesc1.Location = new Point(10, 40);
+            TextBox txtDesc1 = new TextBox();
+            txtDesc1.Font = fEdit;
+            txtDesc1.Size = new Size(500, 100);
+            txtDesc1.Location = new Point(10, 70);
+            pn.Controls.Add(lbDesc1);
+            pn.Controls.Add(txtDesc1);
+            Label lbDesc2 = new Label();
+            lbDesc2.Text = "รายละเอียดการส่งต่อ 2 : ";
+            lbDesc2.Font = fEdit;
+            lbDesc2.AutoSize = true;
+            lbDesc2.Location = new Point(10, 180);
+            TextBox txtDesc2 = new TextBox();
+            txtDesc2.Font = fEdit;
+            txtDesc2.Size = new Size(500, 100);
+            txtDesc2.Location = new Point(10, 210);
+            pn.Controls.Add(lbDesc2);
+            pn.Controls.Add(txtDesc2);
+            Button btnSend = new Button();
+            btnSend.Text = "ส่งข้อมูล";
+            btnSend.Font = fEdit;
+            btnSend.Size = new Size(100, 40);
+            btnSend.Location = new Point(10, 320);
+            btnSend.Click += (s, ev) =>
+            {
+                TSupra  supra = new TSupra();
+                TSupraDB tSupraDB = new TSupraDB(bc.conn);
+                String dtrname = bc.selectDoctorName(DTRCODE);
+                TSupra tSupra = new TSupra();
+                tSupra.Hn = txtHn.Text.Trim();
+                tSupra.PatId = PTT.MNC_ID_NO;
+                tSupra.PatName = txtName.Text.Trim();
+                tSupra.SupraDoc = "";
+                tSupra.SupraDate = "";
+                tSupra.InputDate = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                tSupra.BranchCode = bc.iniC.branchId;
+                tSupra.HospId = "";
+                tSupra.Diseased1 = "";
+                tSupra.Diseased2 = "";
+                tSupra.Diseased3 = "";
+                tSupra.Diseased4 = "";
+                tSupra.DoctorName = dtrname;
+                tSupra.PatStaff = "";
+                tSupra.SupraTypeId = "";
+                tSupra.PatAge = PTT.AgeStringOK1DOT();
+                tSupra.PaidTypeName = "";
+                String re1 = tSupraDB.insertOrUpdate(supra);
+                frm.Close();
+            };
+            tc.SelectedTabChanged += (s, ev) =>
+            {
+                if (tc.SelectedTab == tab2)
+                {
+                    //load history
+                    DataTable lSupra = new DataTable();
+                    TSupraDB tSupraDB = new TSupraDB(bc.conn);
+                    lSupra = tSupraDB.selectByHn(txtHn.Text.Trim());
+                    grfsupraview.Rows.Count = 1; grfsupraview.Rows.Count = lSupra.Rows.Count + 1;
+                    int i = 0;
+                    foreach (DataRow arow in lSupra.Rows)
+                    {
+                        i++;
+                        string name = "", hospid="";
+                        hospid = arow["hosp_id"].ToString();
+                        name = hospid.Length > 10 ? arow["hosp_name1"].ToString() : arow["hosp_name2"].ToString();
+                        Row row = grfsupraview.Rows[i];
+                        row[0] = i;
+                        row[1] = arow["supra_date"] != null? bc.datetoShow(arow["supra_date"].ToString()):"";
+                        row[2] = arow["hn"].ToString();
+                        row[3] = arow["pat_name"].ToString();
+                        row[4] = arow["doctor_name"].ToString();
+                        row[5] = arow["hosp_name1"].ToString();
+                    }
+                }
+            };
+            pn.Controls.Add(btnSend);
+            frm.ShowDialog(this);
+            frm.Dispose();
+        }
+
+        private void Tc_SelectedTabChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void BtnSupra_MouseHover(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            stt.SetToolTip(btnSupra, "<p><b>ส่งคนไข้ไปรักษาต่อ โรงพยาบาลอื่น Supra</b>");
+        }
+
+        private void BtnDrugNew_MouseHover(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            stt.SetToolTip(btnDrugNew, "<p><b>สั่งยาใหม่</b>");
+
         }
 
         private void LbDrugAllergy_DoubleClick(object sender, EventArgs e)

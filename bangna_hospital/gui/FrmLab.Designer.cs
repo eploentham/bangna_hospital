@@ -73,6 +73,21 @@
             this.c1SplitContainer2 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel9 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnLabAdd = new System.Windows.Forms.Panel();
+            this.btnSave = new C1.Win.C1Input.C1Button();
+            this.chkSupervisor = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtLimit = new C1.Win.C1Input.C1TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtPrice3 = new C1.Win.C1Input.C1TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtPrice2 = new C1.Win.C1Input.C1TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPrice1 = new C1.Win.C1Input.C1TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtName = new C1.Win.C1Input.C1TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtCode = new C1.Win.C1Input.C1TextBox();
+            this.label79 = new System.Windows.Forms.Label();
             this.pnLabList = new System.Windows.Forms.Panel();
             this.c1SplitterPanel10 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnLabResAdd = new System.Windows.Forms.Panel();
@@ -117,6 +132,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).BeginInit();
             this.c1SplitContainer2.SuspendLayout();
             this.c1SplitterPanel9.SuspendLayout();
+            this.pnLabAdd.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLimit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCode)).BeginInit();
             this.c1SplitterPanel10.SuspendLayout();
             this.spGroup.SuspendLayout();
             this.spSubGroup.SuspendLayout();
@@ -380,7 +403,7 @@
             this.c1SplitterPanel4.Size = new System.Drawing.Size(508, 631);
             this.c1SplitterPanel4.TabIndex = 0;
             this.c1SplitterPanel4.Text = "Panel 1";
-            this.c1SplitterPanel4.Width = 515;
+            this.c1SplitterPanel4.Width = 508;
             // 
             // pnVs
             // 
@@ -588,18 +611,178 @@
             // 
             // pnLabAdd
             // 
+            this.pnLabAdd.Controls.Add(this.btnSave);
+            this.pnLabAdd.Controls.Add(this.chkSupervisor);
+            this.pnLabAdd.Controls.Add(this.label6);
+            this.pnLabAdd.Controls.Add(this.txtLimit);
+            this.pnLabAdd.Controls.Add(this.label5);
+            this.pnLabAdd.Controls.Add(this.txtPrice3);
+            this.pnLabAdd.Controls.Add(this.label4);
+            this.pnLabAdd.Controls.Add(this.txtPrice2);
+            this.pnLabAdd.Controls.Add(this.label3);
+            this.pnLabAdd.Controls.Add(this.txtPrice1);
+            this.pnLabAdd.Controls.Add(this.label2);
+            this.pnLabAdd.Controls.Add(this.txtName);
+            this.pnLabAdd.Controls.Add(this.label1);
+            this.pnLabAdd.Controls.Add(this.txtCode);
+            this.pnLabAdd.Controls.Add(this.label79);
             this.pnLabAdd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnLabAdd.Location = new System.Drawing.Point(0, 220);
+            this.pnLabAdd.Location = new System.Drawing.Point(0, 149);
             this.pnLabAdd.Name = "pnLabAdd";
-            this.pnLabAdd.Size = new System.Drawing.Size(514, 59);
+            this.pnLabAdd.Size = new System.Drawing.Size(514, 130);
             this.pnLabAdd.TabIndex = 1;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSave.Location = new System.Drawing.Point(451, 93);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(60, 33);
+            this.btnSave.TabIndex = 279;
+            this.btnSave.Text = "save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // chkSupervisor
+            // 
+            this.chkSupervisor.AutoSize = true;
+            this.chkSupervisor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.chkSupervisor.Location = new System.Drawing.Point(238, 93);
+            this.chkSupervisor.Name = "chkSupervisor";
+            this.chkSupervisor.Size = new System.Drawing.Size(184, 24);
+            this.chkSupervisor.TabIndex = 278;
+            this.chkSupervisor.Text = "สั่งได้ต้องผ่าน supervisor";
+            this.chkSupervisor.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label6.Location = new System.Drawing.Point(399, 62);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(32, 20);
+            this.label6.TabIndex = 276;
+            this.label6.Text = "ครั้ง";
+            // 
+            // txtLimit
+            // 
+            this.txtLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtLimit.Location = new System.Drawing.Point(344, 59);
+            this.txtLimit.Name = "txtLimit";
+            this.txtLimit.Size = new System.Drawing.Size(49, 24);
+            this.txtLimit.TabIndex = 275;
+            this.txtLimit.Tag = null;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label5.Location = new System.Drawing.Point(233, 62);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(105, 20);
+            this.label5.TabIndex = 274;
+            this.label5.Text = "สั่งได้ไม่เกินปีละ";
+            // 
+            // txtPrice3
+            // 
+            this.txtPrice3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPrice3.Location = new System.Drawing.Point(77, 110);
+            this.txtPrice3.Name = "txtPrice3";
+            this.txtPrice3.Size = new System.Drawing.Size(83, 24);
+            this.txtPrice3.TabIndex = 273;
+            this.txtPrice3.Tag = null;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label4.Location = new System.Drawing.Point(8, 110);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 20);
+            this.label4.TabIndex = 272;
+            this.label4.Text = "price3 :";
+            // 
+            // txtPrice2
+            // 
+            this.txtPrice2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPrice2.Location = new System.Drawing.Point(77, 84);
+            this.txtPrice2.Name = "txtPrice2";
+            this.txtPrice2.Size = new System.Drawing.Size(83, 24);
+            this.txtPrice2.TabIndex = 271;
+            this.txtPrice2.Tag = null;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label3.Location = new System.Drawing.Point(8, 84);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 20);
+            this.label3.TabIndex = 270;
+            this.label3.Text = "price2 :";
+            // 
+            // txtPrice1
+            // 
+            this.txtPrice1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtPrice1.Location = new System.Drawing.Point(77, 58);
+            this.txtPrice1.Name = "txtPrice1";
+            this.txtPrice1.Size = new System.Drawing.Size(83, 24);
+            this.txtPrice1.TabIndex = 269;
+            this.txtPrice1.Tag = null;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label2.Location = new System.Drawing.Point(8, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 20);
+            this.label2.TabIndex = 268;
+            this.label2.Text = "price1 :";
+            // 
+            // txtName
+            // 
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtName.Location = new System.Drawing.Point(77, 32);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(427, 24);
+            this.txtName.TabIndex = 267;
+            this.txtName.Tag = null;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label1.Location = new System.Drawing.Point(8, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 20);
+            this.label1.TabIndex = 266;
+            this.label1.Text = "ชื่อ :";
+            // 
+            // txtCode
+            // 
+            this.txtCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtCode.Location = new System.Drawing.Point(77, 6);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(83, 24);
+            this.txtCode.TabIndex = 265;
+            this.txtCode.Tag = null;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label79.Location = new System.Drawing.Point(8, 6);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(41, 20);
+            this.label79.TabIndex = 264;
+            this.label79.Text = "รหัส :";
             // 
             // pnLabList
             // 
             this.pnLabList.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnLabList.Location = new System.Drawing.Point(0, 0);
             this.pnLabList.Name = "pnLabList";
-            this.pnLabList.Size = new System.Drawing.Size(514, 220);
+            this.pnLabList.Size = new System.Drawing.Size(514, 149);
             this.pnLabList.TabIndex = 0;
             // 
             // c1SplitterPanel10
@@ -634,7 +817,7 @@
             this.spGroup.Collapsible = true;
             this.spGroup.Controls.Add(this.pnGrpAdd);
             this.spGroup.Controls.Add(this.pnGrpList);
-            this.spGroup.Height = 303;
+            this.spGroup.Height = 310;
             this.spGroup.Location = new System.Drawing.Point(0, 21);
             this.spGroup.Name = "spGroup";
             this.spGroup.Size = new System.Drawing.Size(514, 282);
@@ -748,6 +931,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer2)).EndInit();
             this.c1SplitContainer2.ResumeLayout(false);
             this.c1SplitterPanel9.ResumeLayout(false);
+            this.pnLabAdd.ResumeLayout(false);
+            this.pnLabAdd.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtLimit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCode)).EndInit();
             this.c1SplitterPanel10.ResumeLayout(false);
             this.spGroup.ResumeLayout(false);
             this.spSubGroup.ResumeLayout(false);
@@ -815,5 +1007,20 @@
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel11;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel12;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel13;
+        private C1.Win.C1Input.C1TextBox txtPrice3;
+        private System.Windows.Forms.Label label4;
+        private C1.Win.C1Input.C1TextBox txtPrice2;
+        private System.Windows.Forms.Label label3;
+        private C1.Win.C1Input.C1TextBox txtPrice1;
+        private System.Windows.Forms.Label label2;
+        private C1.Win.C1Input.C1TextBox txtName;
+        private System.Windows.Forms.Label label1;
+        private C1.Win.C1Input.C1TextBox txtCode;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.Label label6;
+        private C1.Win.C1Input.C1TextBox txtLimit;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox chkSupervisor;
+        private C1.Win.C1Input.C1Button btnSave;
     }
 }

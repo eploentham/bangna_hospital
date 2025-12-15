@@ -35,7 +35,7 @@ namespace bangna_hospital.gui
         int colgrfReslabcode = 1, colgrfReslabnamet = 2, colgrfReslabsubnamet = 3, colgrfResValue = 4, colgrfResStd = 5, colgrfResUnit = 6;
         int colgrfGrpCode = 1, colgrfGrpName = 2, colgrfGrpSort1 = 3;
         int colgrfSubGrpCode = 1, colgrfSubGrpName = 2;
-        int colgrfLablabcode = 1, colgrfLablabname = 2, colgrfLabGrpname = 3, colgrfLabSubGrpName = 4, colgrfLabSpcname = 5, colgrfLabPrice1 = 6, colgrfLabPrice2 = 7, colgrfLabPrice3 = 8, colgrfLabSchAct = 9;
+        int colgrfLablabcode = 1, colgrfLablabname = 2, colgrfLabGrpname = 3, colgrfLabSubGrpName = 4, colgrfLabSpcname = 5, colgrfLabPrice1 = 6, colgrfLabPrice2 = 7, colgrfLabPrice3 = 8, colgrfLabSchAct = 9, colgrfLabYearLimit = 10, colgrfLabSupervisor = 11;
         int colgrfLabRescode=1, colgrfLabResname=2, colgrfLabResMin=3, colgrfLabResMax=4, colgrfLabResgrpname=5, colgrfLabResUnitname=6, colgrfLabResValname = 7, colgrfLabResValDefault=8;
         int rowindexgrfResReq = 0, rowindexgrfGrp=0, rowindexgrfLabRes = 0;
         DataTable DTRES = new DataTable();
@@ -72,7 +72,6 @@ namespace bangna_hospital.gui
             timeOperList = new Timer();
             timeOperList.Interval = bc.timerImgScanNew*1000*60;
             timeOperList.Enabled = false;
-
             initGrfReq();
             initGrfResVs();
             initGrfResReq();
@@ -83,7 +82,67 @@ namespace bangna_hospital.gui
             initGrfLab();
             initGrfLlabRes();
         }
-        
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            String labcode = txtCode.Text;
+            String labname = txtName.Text;
+            String price1 = txtPrice1.Text;
+            String price2 = txtPrice2.Text;
+            String price3 = txtPrice3.Text;
+            String limit = txtLimit.Text;
+            String supervisor = chkSupervisor.Checked ? "1" : "0";
+            String re = bc.bcDB.labM01DB.updateControlLab(labcode, limit, supervisor);
+            if(int.Parse(re) > 0)
+            {
+                lfSbMessage.Text = "บันทึกข้อมูลสำเร็จ";
+                String grpcode = grfGrp[grfGrp.Row, colgrfGrpCode].ToString();
+                setGrfLab(grpcode);
+            }
+            else
+            {
+                lfSbMessage.Text = "บันทึกข้อมูลไม่สำเร็จ";
+            }
+        }
+
+        private void clearControlMaster()
+        {
+            txtCode.Value = "";
+            txtName.Value = "";
+            txtPrice1.Value = "";
+            txtPrice2.Value = "";
+            txtPrice3.Value = "";
+            txtLimit.Value = "";
+            chkSupervisor.Checked = false;
+        }
+        private void setControlLab()
+        {
+            if (pageLoad) return;
+            try
+            {
+                showLbLoading();
+                clearControlMaster();
+                txtCode.Value = grfLab[grfLab.Row, colgrfLablabcode].ToString();
+                txtName.Value = grfLab[grfLab.Row, colgrfLablabname].ToString();
+                txtPrice1.Value = grfLab[grfLab.Row, colgrfLabPrice1].ToString();
+                txtPrice2.Value = grfLab[grfLab.Row, colgrfLabPrice2].ToString();
+                txtPrice3.Value = grfLab[grfLab.Row, colgrfLabPrice3].ToString();
+                txtLimit.Value = grfLab[grfLab.Row, colgrfLabYearLimit].ToString();
+                chkSupervisor.Checked = grfLab[grfLab.Row, colgrfLabSupervisor].ToString().Equals("1") ? true : false;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmLab setControlLab " + ex.Message);
+                bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmLab setControlLab  ", ex.Message);
+                lfSbMessage.Text = ex.Message;
+            }
+            finally
+            {
+                //frmFlash.Dispose();
+                hideLbLoading();
+            }
+        }
         private void initFont()
         {
             fEdit = new Font(bc.iniC.grdViewFontName, bc.grdViewFontSize, FontStyle.Regular);
@@ -101,8 +160,72 @@ namespace bangna_hospital.gui
             TCMain.SelectedTabChanged += TCMain_SelectedTabChanged;
             tabRes.SelectedTabChanged += TabRes_SelectedTabChanged;
             txtSBSearchDate.DropDownClosed += TxtSBSearchDate_DropDownClosed;
+            btnSave.Click += BtnSave_Click;
+            // Restrict txtLimit to numeric input only (digits and optional single decimal point)
+            // txtLimit is a C1 input control in the designer; attach KeyPress and Leave handlers
+            txtLimit.KeyPress += TxtLimit_KeyPress;
+            txtLimit.Leave += TxtLimit_Leave;
+        }
+        // --- New handlers to lock txtLimit to numeric input ---
+        private void TxtLimit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow control keys (backspace, delete, arrows), digits and one decimal point
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // If '.' entered, ensure there's not already a '.' in the text
+            if (e.KeyChar == '.')
+            {
+                var ctl = sender as Control;
+                string current = ctl?.Text ?? txtLimit.Value?.ToString() ?? "";
+                if (current.Contains('.')) e.Handled = true;
+            }
         }
 
+        private void TxtLimit_Leave(object sender, EventArgs e)
+        {
+            // Sanitize pasted/entered text on leave: keep only digits and at most one decimal point
+            var raw = txtLimit.Text?.ToString() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(raw)) return;
+
+            // Keep digits and dots
+            var cleanedChars = raw.Where(c => char.IsDigit(c) || c == '.').ToArray();
+            var cleaned = new string(cleanedChars);
+
+            // If multiple dots, keep first
+            int firstDot = cleaned.IndexOf('.');
+            if (firstDot >= 0)
+            {
+                // remove subsequent dots
+                var sb = new StringBuilder();
+                bool dotSeen = false;
+                foreach (var c in cleaned)
+                {
+                    if (c == '.')
+                    {
+                        if (!dotSeen) { sb.Append(c); dotSeen = true; }
+                        // else skip
+                    }
+                    else sb.Append(c);
+                }
+                cleaned = sb.ToString();
+            }
+
+            // Final numeric validation: if not parseable, clear or keep digits-only
+            if (!decimal.TryParse(cleaned, out _))
+            {
+                var digitsOnly = new string(cleaned.Where(char.IsDigit).ToArray());
+                txtLimit.Value = digitsOnly;
+            }
+            else
+            {
+                txtLimit.Value = cleaned;
+            }
+        }
+        // --- end new handlers ---
         private void TxtSBSearchDate_DropDownClosed(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -318,7 +441,7 @@ namespace bangna_hospital.gui
             grfLab.Dock = System.Windows.Forms.DockStyle.Fill;
             grfLab.Location = new System.Drawing.Point(0, 0);
             grfLab.Rows.Count = 1;
-            grfLab.Cols.Count = 10;
+            grfLab.Cols.Count = 13;
             grfLab.Cols[colgrfLablabcode].Width = 70;
             grfLab.Cols[colgrfLablabname].Width = 250;
             grfLab.Cols[colgrfLabGrpname].Width = 50;
@@ -390,6 +513,7 @@ namespace bangna_hospital.gui
                 else { return; }
                 String labcode = grfLab[grfLab.Row, colgrfLablabcode].ToString();
                 setGrfLabRes(labcode);
+                setControlLab();
             }
             catch (Exception ex)
             {
@@ -427,6 +551,8 @@ namespace bangna_hospital.gui
                 rowa[colgrfLabPrice2] = row1["mnc_lb_pri02"].ToString();
                 rowa[colgrfLabPrice3] = row1["mnc_lb_pri03"].ToString();
                 rowa[colgrfLabSchAct] = row1["MNC_SCH_ACT"].ToString();
+                rowa[colgrfLabYearLimit] = row1["control_year"].ToString();
+                rowa[colgrfLabSupervisor] = row1["control_supervisor"].ToString();
 
                 rowa[0] = i.ToString();
                 i++;
@@ -518,7 +644,6 @@ namespace bangna_hospital.gui
             pnGrpList.Controls.Add(grfGrp);
             theme1.SetTheme(grfGrp, bc.iniC.themeApp);
         }
-
         private void GrfGrp_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();
@@ -532,6 +657,7 @@ namespace bangna_hospital.gui
                 String grpcode = grfGrp[grfGrp.Row, colgrfGrpCode].ToString();
                 setGrfSubGrp(grpcode);
                 setGrfLab(grpcode);
+                clearControlMaster();
             }
             catch (Exception ex)
             {
@@ -1080,7 +1206,7 @@ namespace bangna_hospital.gui
             scRes.HeaderHeight = 0;
             scReq.HeaderHeight = 0;
             scMake.HeaderHeight = 0;
-
+            c1SplitContainer2.HeaderHeight = 0;
             this.Text = "Last Update 2024-07-02-1";
             DEPTNO = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
             String stationname = bc.bcDB.pm32DB.getDeptName(bc.iniC.station);
@@ -1088,15 +1214,16 @@ namespace bangna_hospital.gui
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             lfsb1.Text = "timer "+bc.timerImgScanNew.ToString();
             txtSBSearchDate.Value = DateTime.Now;
-
+         //pnLabAdd.Height= 400;
             pnGrpList.Height = 370;
             pnSubGrpLists.Height = 370;
             timeOperList.Enabled = true;
             timeOperList.Start();
             setGrfReqLab();     //tabReq
             tcMaster.SelectedTab = tabMasGrp;
-            pnLabList.Height = 400;
+            pnLabList.Height = 300;
             pnLabResList.Height = 350;
+            c1SplitterPanel7.SizeRatio = 70;
         }
     }
 }

@@ -262,7 +262,7 @@ namespace bangna_hospital.objdb
             }
             return autoSymptom;
         }
-        public AutoCompleteStringCollection getAUTOProperties()
+        public AutoCompleteStringCollection setAUTOProperties()
         {
             AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
             DataTable dt = new DataTable();
@@ -270,6 +270,8 @@ namespace bangna_hospital.objdb
             foreach (DataRow row in dt.Rows)
             {
                 autoSymptom.Add(row["MNC_PH_IND_CD"].ToString() + "#" + row["MNC_PH_IND_DSC"].ToString());
+                AUTOPROPER.Add(row["MNC_PH_IND_DSC"].ToString());
+                AUTOPROPER1.Add(row["MNC_PH_IND_CD"].ToString() + "#" + row["MNC_PH_IND_DSC"].ToString());
             }
             return autoSymptom;
         }

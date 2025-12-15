@@ -27,12 +27,14 @@ namespace bangna_hospital.objdb
 
             String sql = "select ft01.MNC_HN_NO,ft01.MNC_DOC_NO, convert(varchar(20),ft01.MNC_DOC_DAT,23) as MNC_DOC_DAT,ft01.mnc_DOC_CD, ft01.mnc_DOC_STS, ft01.mnc_SUM_PRI " +
                 ", ft01.MNC_JOB_NO, ft01.MNC_DOC_TIM, ft01.MNC_FN_TYP_CD, ft01.MNC_DIA_DSC,fn02.MNC_FN_TYP_DSC " +
-                ",isnull(pm02ptt.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname,ft01.MNC_DOC_TIM,ft01.MNC_PRE_NO  " +
+                ",isnull(pm02ptt.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname,ft01.MNC_DOC_TIM,ft01.MNC_PRE_NO" +
+                ",isnull(ft01.MNC_AN_NO,'') as MNC_AN_NO  " +
                 "From finance_t01 ft01  " +
                 " Left Join finance_m02 fn02 on ft01.MNC_FN_TYP_CD = fn02.MNC_FN_TYP_CD " +
                 " inner join patient_m01 pm01 on ft01.MNC_HN_NO = pm01.MNC_HN_NO " +
                 " left join patient_m02 pm02ptt on pm01.MNC_PFIX_CDT = pm02ptt.MNC_PFIX_CD " +
-                "Where ft01.MNC_DOC_DAT = '" + vsdate + "' and ft01.MNC_DOC_STS = 'F' and ft01.MNC_AN_NO is null " +
+                "Where ft01.MNC_DOC_DAT = '" + vsdate + "' and ft01.MNC_DOC_STS = 'F'  " +
+                //" and ft01.MNC_AN_NO is null " +      //การเงินแจ้ง ให้ดึงคนไข้ในมาด้วย and ft01.MNC_AN_NO is null
                 "Order By ft01.MNC_DOC_TIM desc ";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);

@@ -679,6 +679,44 @@ namespace bangna_hospital.control
 
             return c;
         }
+        public C1ComboBox setCboSupraReason(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            item1.Text = "";
+            item1.Value = "";
+            c.Items.Clear();
+            c.Items.Add(item1);
+
+            item = new ComboBoxItem();
+            item.Value = "A";
+            item.Text = "การวินิจฉัย";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "M";
+            item.Text = "รักษาจนเสร็จ";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "R";
+            item.Text = "ขอทราบผล";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "C";
+            item.Text = " รักษาเบื้องต้น";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "V";
+            item.Text = "อื่นๆ";
+            c.Items.Add(item);
+
+            return c;
+        }
         public C1ComboBox setCboAlienCountry(C1ComboBox c)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -1209,6 +1247,8 @@ namespace bangna_hospital.control
             iniC.statusPrintQue = iniF.getIni("app", "statusPrintQue");
             iniC.sectioncheckup = iniF.getIni("app", "sectioncheckup");
             iniC.tabdefault = iniF.getIni("app", "tabdefault");
+            iniC.authenedit = iniF.getIni("app", "authenedit");
+            iniC.hidelogo = iniF.getIni("app", "hidelogo");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1339,6 +1379,8 @@ namespace bangna_hospital.control
             iniC.statusPrintQue = iniC.statusPrintQue == null ? "0" : iniC.statusPrintQue.Equals("") ? "0" : iniC.statusPrintQue;
             iniC.sectioncheckup = iniC.sectioncheckup == null ? "302" : iniC.sectioncheckup.Equals("") ? "302" : iniC.sectioncheckup;
             iniC.tabdefault = iniC.tabdefault == null ? "0" : iniC.tabdefault.Equals("") ? "0" : iniC.tabdefault;
+            iniC.authenedit = iniC.authenedit == null ? "0" : iniC.authenedit.Equals("") ? "0" : iniC.authenedit;
+            iniC.hidelogo = iniC.hidelogo == null ? "0" : iniC.hidelogo.Equals("") ? "0" : iniC.hidelogo;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -2537,6 +2579,29 @@ namespace bangna_hospital.control
             item.Value = "08";
             item.Text = "รับรองอบรมความรู้ในการปฏิบัติตัวสำหรับผู้ป่วยโรคเรื้อรัง";
             c.Items.Add(item);
+        }
+        public void setCboPaid(C1ComboBox c, String selected)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            item = new ComboBoxItem();
+            item.Value = "";
+            item.Text = "";
+            c.Items.Add(item);
+            item = new ComboBoxItem();
+            item.Value = "1";
+            item.Text = "ปกสบางนา1";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "2";
+            item.Text = "ปกสบางนา2";
+            c.Items.Add(item);
+
+            item = new ComboBoxItem();
+            item.Value = "5";
+            item.Text = "ปกสบางนา5";
+            c.Items.Add(item);
+
         }
         public void setCboSSOPCareAccount(C1ComboBox c, String selected)
         {
@@ -5248,7 +5313,7 @@ namespace bangna_hospital.control
                 }
             }
         }
-        public String genAipnFile(String authorName, String anno1, String submtype, Boolean statusSendMulti, Boolean statusNoAdd, Boolean flagAnNew)
+        public String genAipnFile(String authorName, String anno1, String submtype, Boolean statusSendMulti, Boolean statusNoAdd, Boolean flagAnNew, Boolean flagNew)
         {
             DataTable dtaipn = new DataTable();
             DataTable dtclaimAuth = new DataTable();
@@ -5263,7 +5328,7 @@ namespace bangna_hospital.control
             String Hmain = "", sessionNo = "", pathFile = "", HeaderXML = "<?xml version=\"1.0\" encoding=\"windows-874\"?>", FooterXML = "";
             //aipnid = bcDB.aipnDB.selectAipnIdByStatusMakeText();
 
-            dtAipn = bcDB.aipnDB.selectAipnIdByStatusMakeText(anno1, statusSendMulti, statusNoAdd);
+            dtAipn = bcDB.aipnDB.selectAipnIdByStatusMakeText(anno1, statusSendMulti, statusNoAdd, flagNew);
 
             if (dtAipn.Rows.Count <= 0)
             {
@@ -5308,7 +5373,7 @@ namespace bangna_hospital.control
                     Hmain = drow["hmain"].ToString();
                     aipnHeader = aipnxmlF.genHeader(iniC.ssoid, dtEffTime, authorName);
                     aipnClaimAuth = aipnxmlF.genClaimAuth(drow["upayplan"].ToString(), drow["servicetype"].ToString(), drow["projectcode"].ToString()
-                        , drow["eventcode"].ToString(), drow["hmain"].ToString(), Hcare, drow["careas"].ToString(), drow["servicesubtype"].ToString());
+                        , drow["eventcode"].ToString(), drow["hmain"].ToString(), Hcare, drow["careas"].ToString(), drow["servicesubtype"].ToString(), drow["authcode"].ToString());
                 }
                 if (dtaipn.Rows.Count > 0)
                 {

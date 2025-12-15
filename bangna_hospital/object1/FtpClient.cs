@@ -108,7 +108,7 @@ namespace bangna_hospital.object1
                 ftpRequest = null;
                 new LogWriter("d", "FtpClient download 06 ");
             }
-            catch (Exception ex) { Console.WriteLine(ex.ToString()); new LogWriter("e", "FtpClient download  " + ex.ToString()); }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); new LogWriter("e", "FtpClient download  " + ex.ToString()+ " host "+ host+ " remoteFile " + remoteFile); }
             return stream;
         }
         public MemoryStream download4K(String remoteFile)
