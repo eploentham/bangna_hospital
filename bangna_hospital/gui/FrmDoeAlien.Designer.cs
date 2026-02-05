@@ -85,6 +85,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtDoeAlcode = new C1.Win.C1Input.C1TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDoeGet11Nov = new C1.Win.C1Input.C1Button();
             this.label15 = new System.Windows.Forms.Label();
             this.txtDoeURLbangna = new C1.Win.C1Input.C1TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -103,6 +104,7 @@
             this.tabSendCert = new C1.Win.C1Command.C1DockingTabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnSendCertSend11Nov = new C1.Win.C1Input.C1Button();
             this.btnSendCertPend = new C1.Win.C1Input.C1Button();
             this.lbSendCertNat = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
@@ -221,6 +223,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDoeAltype)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDoeAlcode)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDoeGet11Nov)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDoeURLbangna)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDoetoken)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDoeGet)).BeginInit();
@@ -233,6 +236,7 @@
             this.tabGetNameList.SuspendLayout();
             this.tabSendCert.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSendCertSend11Nov)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSendCertPend)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCertSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSendCertgetPDF)).BeginInit();
@@ -325,7 +329,7 @@
             this.c1SplitterPanel1.SizeRatio = 43.924D;
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
-            this.c1SplitterPanel1.Width = 695;
+            this.c1SplitterPanel1.Width = 702;
             // 
             // pnDoeList
             // 
@@ -353,7 +357,7 @@
             // c1SplitterPanel3
             // 
             this.c1SplitterPanel3.Collapsible = true;
-            this.c1SplitterPanel3.Height = 170;
+            this.c1SplitterPanel3.Height = 177;
             this.c1SplitterPanel3.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel3.Name = "c1SplitterPanel3";
             this.c1SplitterPanel3.Size = new System.Drawing.Size(695, 149);
@@ -477,7 +481,7 @@
             // 
             this.lbDoeAlgenderName.AutoSize = true;
             this.lbDoeAlgenderName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbDoeAlgenderName.Location = new System.Drawing.Point(149, 204);
+            this.lbDoeAlgenderName.Location = new System.Drawing.Point(187, 204);
             this.lbDoeAlgenderName.Name = "lbDoeAlgenderName";
             this.lbDoeAlgenderName.Size = new System.Drawing.Size(21, 20);
             this.lbDoeAlgenderName.TabIndex = 290;
@@ -487,7 +491,7 @@
             // 
             this.lbDoeAlnationName.AutoSize = true;
             this.lbDoeAlnationName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbDoeAlnationName.Location = new System.Drawing.Point(149, 228);
+            this.lbDoeAlnationName.Location = new System.Drawing.Point(187, 228);
             this.lbDoeAlnationName.Name = "lbDoeAlnationName";
             this.lbDoeAlnationName.Size = new System.Drawing.Size(21, 20);
             this.lbDoeAlnationName.TabIndex = 289;
@@ -497,7 +501,7 @@
             // 
             this.lbDoeAlposidName.AutoSize = true;
             this.lbDoeAlposidName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbDoeAlposidName.Location = new System.Drawing.Point(149, 258);
+            this.lbDoeAlposidName.Location = new System.Drawing.Point(187, 258);
             this.lbDoeAlposidName.Name = "lbDoeAlposidName";
             this.lbDoeAlposidName.Size = new System.Drawing.Size(21, 20);
             this.lbDoeAlposidName.TabIndex = 288;
@@ -697,9 +701,9 @@
             // txtDoeAlposid
             // 
             this.txtDoeAlposid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDoeAlposid.Location = new System.Drawing.Point(94, 255);
+            this.txtDoeAlposid.Location = new System.Drawing.Point(83, 255);
             this.txtDoeAlposid.Name = "txtDoeAlposid";
-            this.txtDoeAlposid.Size = new System.Drawing.Size(50, 24);
+            this.txtDoeAlposid.Size = new System.Drawing.Size(98, 24);
             this.txtDoeAlposid.TabIndex = 183;
             this.txtDoeAlposid.Tag = null;
             // 
@@ -716,9 +720,9 @@
             // txtDoeAlnation
             // 
             this.txtDoeAlnation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDoeAlnation.Location = new System.Drawing.Point(94, 228);
+            this.txtDoeAlnation.Location = new System.Drawing.Point(83, 228);
             this.txtDoeAlnation.Name = "txtDoeAlnation";
-            this.txtDoeAlnation.Size = new System.Drawing.Size(50, 24);
+            this.txtDoeAlnation.Size = new System.Drawing.Size(98, 24);
             this.txtDoeAlnation.TabIndex = 181;
             this.txtDoeAlnation.Tag = null;
             // 
@@ -735,9 +739,9 @@
             // txtDoeAlgender
             // 
             this.txtDoeAlgender.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDoeAlgender.Location = new System.Drawing.Point(94, 201);
+            this.txtDoeAlgender.Location = new System.Drawing.Point(83, 201);
             this.txtDoeAlgender.Name = "txtDoeAlgender";
-            this.txtDoeAlgender.Size = new System.Drawing.Size(50, 24);
+            this.txtDoeAlgender.Size = new System.Drawing.Size(98, 24);
             this.txtDoeAlgender.TabIndex = 179;
             this.txtDoeAlgender.Tag = null;
             // 
@@ -868,14 +872,15 @@
             // txtDoeAlcode
             // 
             this.txtDoeAlcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtDoeAlcode.Location = new System.Drawing.Point(94, 6);
+            this.txtDoeAlcode.Location = new System.Drawing.Point(68, 6);
             this.txtDoeAlcode.Name = "txtDoeAlcode";
-            this.txtDoeAlcode.Size = new System.Drawing.Size(181, 24);
+            this.txtDoeAlcode.Size = new System.Drawing.Size(242, 24);
             this.txtDoeAlcode.TabIndex = 165;
             this.txtDoeAlcode.Tag = null;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnDoeGet11Nov);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.txtDoeURLbangna);
             this.panel1.Controls.Add(this.label14);
@@ -894,6 +899,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(897, 178);
             this.panel1.TabIndex = 0;
+            // 
+            // btnDoeGet11Nov
+            // 
+            this.btnDoeGet11Nov.BackColor = System.Drawing.Color.PeachPuff;
+            this.btnDoeGet11Nov.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDoeGet11Nov.Location = new System.Drawing.Point(369, 29);
+            this.btnDoeGet11Nov.Name = "btnDoeGet11Nov";
+            this.btnDoeGet11Nov.Size = new System.Drawing.Size(72, 30);
+            this.btnDoeGet11Nov.TabIndex = 276;
+            this.btnDoeGet11Nov.Text = "11 Nov";
+            this.btnDoeGet11Nov.UseVisualStyleBackColor = false;
             // 
             // label15
             // 
@@ -1063,6 +1079,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.btnSendCertSend11Nov);
             this.panel4.Controls.Add(this.btnSendCertPend);
             this.panel4.Controls.Add(this.lbSendCertNat);
             this.panel4.Controls.Add(this.panel10);
@@ -1096,6 +1113,17 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(525, 830);
             this.panel4.TabIndex = 1;
+            // 
+            // btnSendCertSend11Nov
+            // 
+            this.btnSendCertSend11Nov.BackColor = System.Drawing.Color.PeachPuff;
+            this.btnSendCertSend11Nov.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSendCertSend11Nov.Location = new System.Drawing.Point(135, 585);
+            this.btnSendCertSend11Nov.Name = "btnSendCertSend11Nov";
+            this.btnSendCertSend11Nov.Size = new System.Drawing.Size(101, 35);
+            this.btnSendCertSend11Nov.TabIndex = 307;
+            this.btnSendCertSend11Nov.Text = "11 Nov";
+            this.btnSendCertSend11Nov.UseVisualStyleBackColor = false;
             // 
             // btnSendCertPend
             // 
@@ -1308,9 +1336,9 @@
             this.btnSendCertSend.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSendCertSend.Location = new System.Drawing.Point(6, 585);
             this.btnSendCertSend.Name = "btnSendCertSend";
-            this.btnSendCertSend.Size = new System.Drawing.Size(168, 35);
+            this.btnSendCertSend.Size = new System.Drawing.Size(123, 35);
             this.btnSendCertSend.TabIndex = 282;
-            this.btnSendCertSend.Text = "send กรมการจัดหางาน";
+            this.btnSendCertSend.Text = "send DOE";
             this.btnSendCertSend.UseVisualStyleBackColor = false;
             // 
             // label25
@@ -2089,6 +2117,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtDoeAlcode)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDoeGet11Nov)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDoeURLbangna)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDoetoken)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDoeGet)).EndInit();
@@ -2102,6 +2131,7 @@
             this.tabSendCert.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSendCertSend11Nov)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSendCertPend)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCertSearch)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSendCertgetPDF)).EndInit();
@@ -2319,5 +2349,7 @@
         private System.Windows.Forms.Label label46;
         private C1.Win.C1Input.C1TextBox txtExcelProcedure;
         private System.Windows.Forms.Panel pnPDFView;
+        private C1.Win.C1Input.C1Button btnDoeGet11Nov;
+        private C1.Win.C1Input.C1Button btnSendCertSend11Nov;
     }
 }

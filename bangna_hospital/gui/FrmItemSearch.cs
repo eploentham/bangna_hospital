@@ -37,9 +37,26 @@ namespace bangna_hospital.gui
         Template tempFolder;
         int colGrfItemsCode = 1, colGrfItemsName = 2, colGrfItemStatus = 3;
         int colGrfSearchItemsCode = 1, colGrfSearchItemsName = 2, colGrfSearchItemStatus = 3, colGrfSearchItemGrp = 3;
+        String DEFAULTTAB = "";
+        public DataTable DTLABGRPSEARCH, DTLABSEARCH, DTXRAYGRPSEARCH, DTXRAYSEARCH, DTPROCEDUREGRPSEARCH, DTPROCEDURESEARCH, DTDRUGGRPSEARCH, DTDRUGSEARCH;
         public FrmItemSearch(BangnaControl bc)
         {
             this.bc = bc;
+            InitializeComponent();
+            initConfig();
+        }
+        public FrmItemSearch(BangnaControl bc, String defaulttab)
+        {
+            this.bc = bc;
+            this.DEFAULTTAB = defaulttab??"";
+            InitializeComponent();
+            initConfig();
+        }
+        public FrmItemSearch(BangnaControl bc, String defaulttab, DataTable dtlabsearch)
+        {
+            this.bc = bc;
+            this.DEFAULTTAB = defaulttab ?? "";
+            this.DTLABGRPSEARCH = dtlabsearch;
             InitializeComponent();
             initConfig();
         }
@@ -111,15 +128,16 @@ namespace bangna_hospital.gui
                 {
                     //dt = bc.bcDB.pharM01DB.SelectNameByPk(txtSearchItem.Text.Trim());
                 }
-                grfSearchItems.Rows.Count = 1;
+                grfSearchItems.Rows.Count = 1; grfSearchItems.Rows.Count = dt.Rows.Count + 1;
+                int i = 1;
                 foreach (DataRow dr in dt.Rows)
                 {
-                    Row rowa = grfSearchItems.Rows.Add();
-                    int i = grfSearch.Rows.Count;
+                    Row rowa = grfSearchItems.Rows[i]; rowa[0] = i;
+                    //int i = grfSearch.Rows.Count;
                     rowa[colGrfItemsCode] = dr["code"].ToString();
                     rowa[colGrfItemsName] = dr["name"].ToString();
                     rowa[colGrfItemStatus] = (chkItemLab.Checked) ? "lab" : (chkItemXray.Checked) ? "xray" : (chkItemProcedure.Checked) ? "procedure" : (chkItemDrug.Checked) ? "drug" : "";
-                    rowa[0] = (i - 1);
+                    i++;
                 }
             }
             else if (txtSearchItem.Text.Trim().Length <= 0)
@@ -187,15 +205,23 @@ namespace bangna_hospital.gui
                 {
                     if (rowa.Index == 0) continue;
                     Item item = new Item();
-                    item.code = rowa[colGrfItemsCode].ToString();
-                    item.name = rowa[colGrfItemsName].ToString();
-                    item.flag = rowa[colGrfItemStatus].ToString();
+                    item.code = rowa[colGrfItemsCode]?.ToString() ?? "";
+                    item.name = rowa[colGrfItemsName]?.ToString() ?? "";
+                    item.flag = rowa[colGrfItemStatus]?.ToString() ?? "";
                     item.qty = "1";
                     items.Add(item);
                 }
             }
             bc.items = items;
             this.Dispose();
+        }
+        // ✅ สร้าง helper method
+        private string GetGridCellValue(Row row, int columnIndex)
+        {
+            if (row == null || columnIndex < 0)
+                return "";
+
+            return row[columnIndex]?.ToString() ?? "";
         }
         private void initControl()
         {
@@ -470,8 +496,8 @@ namespace bangna_hospital.gui
             {
                 if (((C1FlexGrid)sender).Row <= 0) return;
                 if (((C1FlexGrid)sender).Col <= 0) return;
-                String code = ((C1FlexGrid)sender).GetData(((C1FlexGrid)sender).Row, colGrfSearchItemsCode).ToString();
-                String name = ((C1FlexGrid)sender).GetData(((C1FlexGrid)sender).Row, colGrfSearchItemsName).ToString();
+                String code = ((C1FlexGrid)sender).GetData(((C1FlexGrid)sender).Row, colGrfSearchItemsCode)?.ToString()??"";
+                String name = ((C1FlexGrid)sender).GetData(((C1FlexGrid)sender).Row, colGrfSearchItemsName)?.ToString()??"";
                 setGrfItem(code, name,chkItemLab.Checked ? "lab" : chkItemXray.Checked ? "xray" : chkItemProcedure.Checked ? "procedure":"drug");
             }
             catch(Exception ex)
@@ -564,14 +590,14 @@ namespace bangna_hospital.gui
 
         private void setGrfItem(String code, String name, String flag)
         {
-            DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
             try
             {
                 Row rowa = grfItems.Rows.Add();
                 int i = grfItems.Rows.Count;
-                rowa[colGrfItemsCode] = code;
-                rowa[colGrfItemsName] = name;
-                rowa[colGrfItemStatus] = flag;
+                rowa[colGrfItemsCode] = code??"";
+                rowa[colGrfItemsName] = name ?? "";
+                rowa[colGrfItemStatus] = flag ?? "";
                 rowa[0] = (i-1);
             }
             catch (Exception ex)
@@ -590,8 +616,8 @@ namespace bangna_hospital.gui
                 grpProcedure.Tiles.Add(tilegrpproc);
                 //tilegrplab.Template = tempFolder;
                 //tilegrplab.Image = imgCorr;
-                tilegrpproc.Text = dr["MNC_SR_GRP_DSC"].ToString();
-                tilegrpproc.Text1 = dr["MNC_SR_GRP_CD"].ToString();
+                tilegrpproc.Text = dr["MNC_SR_GRP_DSC"]?.ToString() ?? "";
+                tilegrpproc.Text1 = dr["MNC_SR_GRP_CD"]?.ToString() ?? "";
                 tilegrpproc.BackColor = Color.Coral;
                 tilegrpproc.Tag = dr;
                 tilegrpproc.Click += Tilegrpproc_Click;
@@ -602,7 +628,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             lfSbMessage.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
-            clearImageGrf(ref grpProcedure);
+            clearImageGrf(grpProcedure);
             ((Tile)sender).Image = imgCorr;
             getItemsProcedure(((Tile)sender).Text1);
         }
@@ -618,8 +644,8 @@ namespace bangna_hospital.gui
                 grpProcedureItems.Tiles.Add(tileitemproc);
                 //tilegrplab.Template = tempFolder;
                 tileitemproc.Image = null;
-                tileitemproc.Text = dr["MNC_SR_DSC"].ToString();
-                tileitemproc.Text1 = dr["MNC_SR_CD"].ToString();
+                tileitemproc.Text = dr["MNC_SR_DSC"]?.ToString() ?? "";
+                tileitemproc.Text1 = dr["MNC_SR_CD"]?.ToString() ?? "";
                 //tileitemproc.Text3 = dr["MNC_SR_TYP_CD"].ToString();
                 tileitemproc.BackColor = Color.LightCoral;
                 tileitemproc.Tag = dr;
@@ -652,8 +678,8 @@ namespace bangna_hospital.gui
                 grpXray.Tiles.Add(tilegrpXray);
                 //tilegrplab.Template = tempFolder;
                 //tilegrplab.Image = imgCorr;
-                tilegrpXray.Text = dr["MNC_XR_GRP_DSC"].ToString();
-                tilegrpXray.Text1 = dr["MNC_XR_GRP_CD"].ToString();
+                tilegrpXray.Text = dr["MNC_XR_GRP_DSC"]?.ToString() ?? "";
+                tilegrpXray.Text1 = dr["MNC_XR_GRP_CD"]?.ToString() ?? "";
                 tilegrpXray.BackColor = Color.SeaGreen;
                 tilegrpXray.Tag = dr;
                 tilegrpXray.Click += TilegrpXray_Click;
@@ -664,7 +690,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             lfSbMessage.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
-            clearImageGrf(ref grpXray);
+            clearImageGrf(grpXray);
             ((Tile)sender).Image = imgCorr;
             getItemsXray(((Tile)sender).Text1);
         }
@@ -680,9 +706,9 @@ namespace bangna_hospital.gui
                 grpXrayItems.Tiles.Add(tileitemxray);
                 //tilegrplab.Template = tempFolder;
                 tileitemxray.Image = null;
-                tileitemxray.Text = dr["MNC_XR_DSC"].ToString();
-                tileitemxray.Text1 = dr["MNC_XR_CD"].ToString();
-                tileitemxray.Text3 = dr["MNC_XR_TYP_CD"].ToString();
+                tileitemxray.Text = dr["MNC_XR_DSC"]?.ToString() ?? "";
+                tileitemxray.Text1 = dr["MNC_XR_CD"]?.ToString() ?? "";
+                tileitemxray.Text3 = dr["MNC_XR_TYP_CD"]?.ToString() ?? "";
                 tileitemxray.BackColor = Color.SeaGreen;
                 tileitemxray.Tag = dr;
                 tileitemxray.Click += Tileitemxray_Click;
@@ -712,8 +738,8 @@ namespace bangna_hospital.gui
                 grpDrug.Tiles.Add(tilegrpdrug);
                 //tilegrplab.Template = tempFolder;
                 //tilegrplab.Image = imgCorr;
-                tilegrpdrug.Text = dr["MNC_PH_GRP_DSC"].ToString();
-                tilegrpdrug.Text1 = dr["MNC_PH_GRP_CD"].ToString();
+                tilegrpdrug.Text = dr["MNC_PH_GRP_DSC"]?.ToString() ?? "";
+                tilegrpdrug.Text1 = dr["MNC_PH_GRP_CD"]?.ToString() ?? "";
                 tilegrpdrug.BackColor = Color.Goldenrod;
                 tilegrpdrug.Tag = dr;
                 tilegrpdrug.Click += Tilegrpdrug_Click;
@@ -724,7 +750,7 @@ namespace bangna_hospital.gui
         {
             //throw new NotImplementedException();
             lfSbMessage.Text = ((Tile)sender).Text + " " + ((Tile)sender).Text1;
-            clearImageGrf(ref grpDrug);
+            clearImageGrf(grpDrug);
             ((Tile)sender).Image = imgCorr;
             getItemsDrug(((Tile)sender).Text1);
         }
@@ -741,8 +767,8 @@ namespace bangna_hospital.gui
                 grpDrugItems.Tiles.Add(tileitemdrug);
                 //tilegrplab.Template = tempFolder;
                 tileitemdrug.Image = null;
-                tileitemdrug.Text = dr["MNC_PH_TN"].ToString();
-                tileitemdrug.Text1 = dr["MNC_PH_CD"].ToString();
+                tileitemdrug.Text = dr["MNC_PH_TN"]?.ToString() ?? "";
+                tileitemdrug.Text1 = dr["MNC_PH_CD"]?.ToString() ?? "";
                 //tileitemdrug.Text3 = dr["MNC_LB_TYP_CD"].ToString();
                 tileitemdrug.BackColor = Color.IndianRed;
                 tileitemdrug.Tag = dr;
@@ -766,74 +792,88 @@ namespace bangna_hospital.gui
 
         private void getGroupLab()
         {
-            DataTable dt = new DataTable();
-            dt= bc.bcDB.labm06DB.selectAll();
-            foreach (DataRow dr in dt.Rows)
+            if((DTLABGRPSEARCH==null) || (DTLABGRPSEARCH.Rows.Count<=0))
+            {
+                DTLABGRPSEARCH = bc.bcDB.labm06DB.selectAll();
+            }
+            foreach (DataRow dr in DTLABGRPSEARCH.Rows)
             {
                 Tile tilegrplab = new Tile();
                 tilegrplab.HorizontalSize = 2;
                 grpLab.Tiles.Add(tilegrplab);
                 //tilegrplab.Template = tempFolder;
                 //tilegrplab.Image = imgCorr;
-                tilegrplab.Text = dr["MNC_LB_GRP_DSC"].ToString();
-                tilegrplab.Text1 = dr["MNC_LB_GRP_CD"].ToString();
+                tilegrplab.Text = dr["MNC_LB_GRP_DSC"]?.ToString() ?? "";
+                tilegrplab.Text1 = dr["MNC_LB_GRP_CD"]?.ToString() ?? "";
                 tilegrplab.BackColor = Color.SteelBlue;
                 tilegrplab.Tag = dr;
                 tilegrplab.Click += Tilegrplab_Click;
             }
         }
+        // ✅ Filter ใน memory แทนการ query
         private void getItemsLab(String grpcode)
         {
             grpLabItems.Tiles.Clear();
-            DataTable dt = new DataTable();
-            dt = bc.bcDB.labM01DB.SelectAllByGroup(grpcode);
-            foreach (DataRow dr in dt.Rows)
+            //DataTable dt = new DataTable();
+            if(DTLABSEARCH==null || DTLABSEARCH.Rows.Count<=0)
+                DTLABSEARCH = bc.bcDB.labM01DB.SelectAll();
+            // ✅ Filter ใน memory (ไม่ query DB)
+            DataRow[] filteredRows = DTLABSEARCH.Select($"MNC_LB_GRP_CD = '{grpcode}'");
+            foreach (DataRow dr in filteredRows)
             {
                 Tile tileitemlab = new Tile();
                 tileitemlab.HorizontalSize = 2;
                 grpLabItems.Tiles.Add(tileitemlab);
                 //tilegrplab.Template = tempFolder;
                 tileitemlab.Image = null;
-                tileitemlab.Text = dr["MNC_LB_DSC"].ToString();
-                tileitemlab.Text1 = dr["MNC_LB_CD"].ToString();
-                tileitemlab.Text3 = dr["MNC_LB_TYP_CD"].ToString();
+                tileitemlab.Text = dr["MNC_LB_DSC"]?.ToString() ?? "";
+                tileitemlab.Text1 = dr["MNC_LB_CD"]?.ToString() ?? "";
+                tileitemlab.Text3 = dr["MNC_LB_TYP_CD"]?.ToString() ?? "";
                 tileitemlab.BackColor = Color.SteelBlue;
                 tileitemlab.Tag = dr;
-                tileitemlab.Click += Tileitemlab_Click;
+                tileitemlab.Click  += (sender, e) => 
+                {
+                    if (((Tile)sender).Image == null)   {       ((Tile)sender).Image = imgCorr;         }
+                    else                {                        ((Tile)sender).Image = null;           }
+                    setGrfItem(((Tile)sender).Text1, ((Tile)sender).Text, "lab");
+                };
+                //tileitemlab.Click += Tileitemlab_Click;
             }
         }
-
-        private void Tileitemlab_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            if (((Tile)sender).Image == null)
-            {
-                ((Tile)sender).Image = imgCorr;
-            }
-            else
-            {
-                ((Tile)sender).Image = null;
-            }
-            setGrfItem(((Tile)sender).Text1, ((Tile)sender).Text,"lab");
-        }
-
         private void Tilegrplab_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
             lfSbMessage.Text = ((Tile)sender).Text+" "+ ((Tile)sender).Text1;
-            clearImageGrf(ref grpLab);
+            clearImageGrf(grpLab);
             ((Tile)sender).Image = imgCorr;
             getItemsLab(((Tile)sender).Text1);
         }
-        private void clearImageGrf(ref Group grp)
+        private void clearImageGrf(Group grp)
         {
-            foreach (Tile tile in ((Group)grp).Tiles)
+            if (grp == null) return;  // ✅ เพิ่ม null check
+            foreach (Tile tile in grp.Tiles)
             {
                 tile.Image = null;
             }
         }
         private void FrmItemSearch_Load(object sender, EventArgs e)
         {
+            if (DEFAULTTAB == "DRUG")
+            {
+                TC1.SelectedTab = tabDrug;
+            }
+            else if (DEFAULTTAB == "LAB")
+            {
+                TC1.SelectedTab = tabLab;
+            }
+            else if (DEFAULTTAB == "XRAY")
+            {
+                TC1.SelectedTab = tabXray;
+            }
+            else if (DEFAULTTAB == "PROCEDURE")
+            {
+                TC1.SelectedTab = tabProcedure;
+            }
         }
     }
 }

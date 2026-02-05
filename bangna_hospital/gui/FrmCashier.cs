@@ -7,6 +7,8 @@ using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
 using GrapeCity.ActiveReports.Document.Section;
+using iText.Layout;
+using iTextSharp.text;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Document = iText.Layout.Document;
+using Font = System.Drawing.Font;
 using Row = C1.Win.C1FlexGrid.Row;
 
 namespace bangna_hospital.gui
@@ -28,7 +32,7 @@ namespace bangna_hospital.gui
     public partial class FrmCashier : Form
     {
         BangnaControl bc;
-        Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
+        System.Drawing.Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB, fPDF, fPDFs2, fPDFs6, fPDFs8, fPDFl2;
         C1SuperTooltip stt;
         C1SuperErrorProvider sep;
         Patient PTT;
@@ -96,8 +100,8 @@ namespace bangna_hospital.gui
             string queFontName = string.IsNullOrEmpty(bc.iniC.queFontName) ? "Tahoma" : bc.iniC.queFontName;
             int queFontSize = bc.queFontSize > 0 ? bc.queFontSize : 10;
 
-            fEdit = new Font(grdFontName, grdFontSize, FontStyle.Regular);
-            fEditB = new Font(grdFontName, grdFontSize, FontStyle.Bold);
+            fEdit = new System.Drawing.Font(grdFontName, grdFontSize, FontStyle.Regular);
+            fEditB = new System.Drawing.Font(grdFontName, grdFontSize, FontStyle.Bold);
             fEdit2 = new Font(grdFontName, grdFontSize + 2, FontStyle.Regular);
             fEdit2B = new Font(grdFontName, grdFontSize + 2, FontStyle.Bold);
             fEdit3B = new Font(grdFontName, grdFontSize + 3, FontStyle.Bold);
@@ -325,7 +329,24 @@ namespace bangna_hospital.gui
         }
         private void genReceipt(DataTable dtinv, float total)
         {
+            String filename = "";
+            int gapLine = 15, linenumber = 5, gapX = 40, gapY = 20, xCol1 = 20, xCol2 = 40, xCol3 = 100, xCol4 = 200, xCol5 = 250, xCol6 = 300, xCol7 = 400, xCol8 = 440;
+            iTextSharp.text.Document doc = new iTextSharp.text.Document(PageSize.A4, 36, 36, 36, 36);
+            StringFormat _sfRight, _sfCenter, _sfLeft;
+            float pageWidth = 553, pageHeight = 797, discount = 0;
+            //float cmToInch = 0.393701f;
+            // 1 mm = 2.83465 points
+            //ขนาดกระดาษต่อเนื่อง w 20.5 h 28 cm
+            pageWidth = 210 * 2.83465f;   // = 581.1 points     ขยับค่า 210 ต้องปรับเยอะ กระเทือนเยอะ
+            pageHeight = 280 * 2.83465f;  // = 793.7 points
+            try
+            {
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void genPDFreceipt(DataTable dtinv, float total)
         {
@@ -825,7 +846,6 @@ namespace bangna_hospital.gui
             pnOperList.Controls.Add(grfOperList);
             theme1.SetTheme(grfOperList, bc.iniC.themeApp);
         }
-
         private void GrfOperList_AfterRowColChange(object sender, RangeEventArgs e)
         {
             //throw new NotImplementedException();

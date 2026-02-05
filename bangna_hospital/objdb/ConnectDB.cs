@@ -19,7 +19,7 @@ namespace bangna_hospital.objdb
         public long _rowsAffected = 0, _rowsAffectedMySQL=0;
         public SqlCommand comStore;
         public NpgsqlConnection connOPBKK;
-        public String _IPAddress = "";
+        public String _IPAddress = "", connectionStringMainHIS="";
         public ConnectDB(InitConfig initc)
         {
             //new LogWriter("d", "ConnectDB ConnectDB  00");
@@ -36,6 +36,7 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "ConnectDB ConnectDB  01" );
             connMySQL = new MySqlConnection();
             //new LogWriter("d", "ConnectDB ConnectDB  02");
+            connectionStringMainHIS = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
             connMainHIS.ConnectionString = "Server=" + initc.hostDBMainHIS + ";Database=" + initc.nameDBMainHIS + ";Uid=" + initc.userDBMainHIS + ";Pwd=" + initc.passDBMainHIS + ";";
             connBACK.ConnectionString = "Server=" + initc.hostDBBACK + ";Database=" + initc.nameDBBACK + ";Uid=" + initc.userDBBACK + ";Pwd=" + initc.passDBBACK + ";";
             conn.ConnectionString = "Server=" + initc.hostDB + ";Database=" + initc.nameDB + ";Uid=" + initc.userDB + ";Pwd=" + initc.passDB + ";";
@@ -116,6 +117,34 @@ namespace bangna_hospital.objdb
             }
 
             return toReturn;
+        }
+        // ✅ เพิ่ม overload method นี้ใน ConnectDB class
+        public String executeNonQuery(string sql, SqlParameter[] parameters)
+        {
+            String re = "";
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionStringMainHIS))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        // เพิ่ม parameters
+                        if (parameters != null && parameters.Length > 0)
+                        {
+                            command.Parameters.AddRange(parameters);
+                        }
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        re = rowsAffected.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                re = ex.Message;
+            }
+            return re;
         }
         public String ExecuteNonQuery(SqlConnection con, String sql)
         {

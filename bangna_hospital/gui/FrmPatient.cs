@@ -7,6 +7,7 @@ using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
 using C1.Win.FlexViewer;
+using C1.Win.TouchToolKit;
 using GrapeCity.ActiveReports.Document.Section;
 using System;
 using System.Collections.Generic;
@@ -1009,7 +1010,7 @@ namespace bangna_hospital.gui
             tick = DateTime.Now.Ticks.ToString();
             foreach (Row rowa in grfOrder.Rows)
             {
-                String code = "", flag = "", name = "", qty = "", chk = "", freq="", precau="", id="", interac = "", indica = "";
+                String code = "", flag = "", name = "", qty = "", chk = "", freq="", precau="", id="", interac = "", indica = "", statuscontrol = "", supervisor = "", passsupervisor = "", controlyear = "", controlremark = "";
                 code = rowa[colgrfOrderCode].ToString();
                 if (code.Equals("code")) continue;
                 chk = rowa[colgrfOrdFlagSave].ToString();
@@ -1022,7 +1023,7 @@ namespace bangna_hospital.gui
                 precau = rowa[colgrfOrderDrugPrecau].ToString();
                 interac = rowa[colgrfOrderDrugInterac].ToString();
                 indica = rowa[colgrfOrderDrugIndica].ToString();
-                String re = bc.bcDB.vsDB.insertOrderTemp(id, code, name, qty, freq, precau, interac, indica, flag, txtPttHN.Text.Trim(), VSDATE, PRENO);
+                String re = bc.bcDB.vsDB.insertOrderTemp(id, code, name, qty, freq, precau, interac, indica, flag, txtPttHN.Text.Trim(), VSDATE, PRENO, statuscontrol, controlyear, controlremark, supervisor, passsupervisor);
                 if (int.TryParse(re, out int _))
                 {
 

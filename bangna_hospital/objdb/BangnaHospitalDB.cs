@@ -311,6 +311,7 @@ namespace bangna_hospital.objdb
             String sql = "";
             if (dt == null) return;
             if (dt.Rows.Count <= 0) return;
+
             using (SqlConnection connection = new SqlConnection(conn.connMainHIS.ConnectionString))
             {
                 // make sure to enable triggers
@@ -321,9 +322,7 @@ namespace bangna_hospital.objdb
                     new SqlBulkCopy
                     (
                     connection,
-                    SqlBulkCopyOptions.TableLock |
-                    SqlBulkCopyOptions.FireTriggers |
-                    SqlBulkCopyOptions.UseInternalTransaction,
+                    SqlBulkCopyOptions.TableLock |                    SqlBulkCopyOptions.FireTriggers |                    SqlBulkCopyOptions.UseInternalTransaction,
                     null
                     );
                 // set the destination table name
@@ -522,5 +521,6 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        
     }
 }

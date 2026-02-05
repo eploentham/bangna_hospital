@@ -215,6 +215,81 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
+        public DataTable selectbyLabCode(String reqdate, String reqdate1, String hn, String labcode)
+        {
+            String sql = "";
+            DataTable dt = new DataTable();
+            //reqdate = DateTime.Now.Year.ToString() + DateTime.Now.ToString("-MM-dd");
+            sql = "SELECT labt02.MNC_LB_CD, labm01.MNC_LB_DSC as mnc_lb_dsc " +
+                ", convert(VARCHAR(20),labt01.mnc_req_dat,23) as mnc_req_dat " +
+                " , labt01.mnc_req_yr" +
+                ", isnull(labt01.mnc_dot_cd,'') as mnc_dot_cd, isnull(labt01.MNC_REQ_DEP,'') as MNC_REQ_DEP " +
+                ", convert(VARCHAR(20), labt02.MNC_RESULT_DAT,23) as MNC_RESULT_DAT, labt02.MNC_RESULT_TIM " +
+                //", '' as hostname,'' as mnc_lb_grp_cd " +
+                ",isnull(labt01.MNC_AN_NO,'') as MNC_AN_NO,isnull(labt01.MNC_AN_YR,'') as MNC_AN_YR, isnull(userm01.MNC_USR_FULL,'') as MNC_USR_FULL_usr " +
+                "FROM  LAB_T01 labt01  " +
+                "left join LAB_T02 labt02 ON labt01.MNC_REQ_NO = labt02.MNC_REQ_NO AND labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
+                "left join LAB_M01 labm01 ON labt02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                 "Left Join USERLOG_M01 userm01 on labt01.MNC_ORD_DOT = userm01.MNC_USR_NAME  " +
+                "where labt01.MNC_HN_NO = '" + hn + "'  " +
+                "and labt01.MNC_REQ_DAT >= '" + reqdate + "' and labt01.MNC_REQ_DAT <= '" + reqdate1 + "' and labt02.MNC_LB_CD = '" +labcode+ "' " +
+                "and labt02.mnc_req_sts <> 'C'  and labt01.mnc_req_sts <> 'C' " +
+
+                "Order By labt01.MNC_REQ_DAT,labt01.MNC_REQ_NO ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selecCnttbyHn(String reqdate, String reqdate1, String hn, String labcode)
+        {
+            String sql = "", wherelabcode="";
+            if(labcode.Length > 0)
+            {
+                wherelabcode = " and labt02.MNC_LB_CD = '" + labcode + "' ";
+            }
+            DataTable dt = new DataTable();
+            //reqdate = DateTime.Now.Year.ToString() + DateTime.Now.ToString("-MM-dd");
+            sql = "SELECT labt02.MNC_LB_CD, labm01.MNC_LB_DSC  " +
+                ", count(1) as cnt, isnull(labm02.MNC_LB_PRI01,0) as MNC_LB_PRI01 " +
+                " " +
+                "FROM  LAB_T01 labt01  " +
+                "left join LAB_T02 labt02 ON labt01.MNC_REQ_NO = labt02.MNC_REQ_NO AND labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
+                "left join LAB_M01 labm01 ON labt02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                "left join LAB_M02 labm02 ON labM02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                "where labt01.MNC_HN_NO = '" + hn + "'  " +
+                "and labt01.MNC_REQ_DAT >= '" + reqdate + "' and labt01.MNC_REQ_DAT <= '" + reqdate1 + "' " +
+                "and labt02.mnc_req_sts <> 'C'  and labt01.mnc_req_sts <> 'C' and labt02.MNC_RESULT_DAT is not null " + wherelabcode+
+                "Group By labt02.MNC_LB_CD, labm01.MNC_LB_DSC,labm02.MNC_LB_PRI01 " +
+                "Order By labm01.MNC_LB_DSC ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selecControltbyHn(String reqdate, String reqdate1, String hn, String labcode)
+        {
+            String sql = "", wherelabcode = "";
+            if (labcode.Length > 0)
+            {
+                wherelabcode = " and labt02.MNC_LB_CD = '" + labcode + "' ";
+            }
+            DataTable dt = new DataTable();
+            //reqdate = DateTime.Now.Year.ToString() + DateTime.Now.ToString("-MM-dd");
+            sql = "SELECT labt02.MNC_LB_CD, labm01.MNC_LB_DSC  " +
+                ", isnull(labm02.MNC_LB_PRI01,0) as MNC_LB_PRI01,convert(varchar(20),labt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,labt02.MNC_REQ_NO " +
+                " " +
+                "FROM  LAB_T01 labt01  " +
+                "left join LAB_T02 labt02 ON labt01.MNC_REQ_NO = labt02.MNC_REQ_NO AND labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +
+                "left join LAB_M01 labm01 ON labt02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                "left join LAB_M02 labm02 ON labM02.MNC_LB_CD = labm01.MNC_LB_CD " +
+                "where labt01.MNC_HN_NO = '" + hn + "'  " +
+                "and labt01.MNC_REQ_DAT >= '" + reqdate + "' and labt01.MNC_REQ_DAT <= '" + reqdate1 + "' " +
+                "and labt02.mnc_req_sts <> 'C'  and labt01.mnc_req_sts <> 'C' and labt02.MNC_RESULT_DAT is not null " + wherelabcode +
+                //"Group By labt02.MNC_LB_CD, labm01.MNC_LB_DSC,labm02.MNC_LB_PRI01 " +
+                "Order By labm01.MNC_LB_DSC ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
         private void chkNull(LabT05 p)
         {
             long chk = 0;

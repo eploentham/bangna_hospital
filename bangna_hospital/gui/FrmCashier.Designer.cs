@@ -55,18 +55,18 @@
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnExpView = new System.Windows.Forms.Panel();
             this.c1SplitterPanel2 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.pnExp = new System.Windows.Forms.Panel();
-            this.tabReport = new C1.Win.C1Command.C1DockingTabPage();
-            this.label155 = new System.Windows.Forms.Label();
-            this.txtExpenseID = new C1.Win.C1Input.C1TextBox();
-            this.lbExpenseDesc = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtExpense = new C1.Win.C1Input.C1TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtAmount = new C1.Win.C1Input.C1TextBox();
-            this.btnExpenseSave = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.picBoxSupra = new C1.Win.C1Input.C1PictureBox();
+            this.pnExp = new System.Windows.Forms.Panel();
+            this.btnExpenseSave = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtAmount = new C1.Win.C1Input.C1TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtExpense = new C1.Win.C1Input.C1TextBox();
+            this.lbExpenseDesc = new System.Windows.Forms.Label();
+            this.label155 = new System.Windows.Forms.Label();
+            this.txtExpenseID = new C1.Win.C1Input.C1TextBox();
+            this.tabReport = new C1.Win.C1Command.C1DockingTabPage();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
             this.tabMain.SuspendLayout();
@@ -79,12 +79,12 @@
             this.spExpense.SuspendLayout();
             this.c1SplitterPanel1.SuspendLayout();
             this.c1SplitterPanel2.SuspendLayout();
-            this.pnExp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExpenseID)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExpense)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAmount)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxSupra)).BeginInit();
+            this.pnExp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExpense)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExpenseID)).BeginInit();
             this.SuspendLayout();
             // 
             // c1StatusBar1
@@ -305,6 +305,23 @@
             this.c1SplitterPanel2.TabIndex = 1;
             this.c1SplitterPanel2.Text = "Panel 2";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.picBoxSupra);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 152);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(447, 564);
+            this.panel1.TabIndex = 1;
+            // 
+            // picBoxSupra
+            // 
+            this.picBoxSupra.Location = new System.Drawing.Point(3, 6);
+            this.picBoxSupra.Name = "picBoxSupra";
+            this.picBoxSupra.Size = new System.Drawing.Size(100, 50);
+            this.picBoxSupra.TabIndex = 1;
+            this.picBoxSupra.TabStop = false;
+            // 
             // pnExp
             // 
             this.pnExp.Controls.Add(this.btnExpenseSave);
@@ -321,42 +338,36 @@
             this.pnExp.Size = new System.Drawing.Size(447, 152);
             this.pnExp.TabIndex = 0;
             // 
-            // tabReport
+            // btnExpenseSave
             // 
-            this.tabReport.Location = new System.Drawing.Point(1, 24);
-            this.tabReport.Name = "tabReport";
-            this.tabReport.Size = new System.Drawing.Size(1301, 737);
-            this.tabReport.TabIndex = 3;
-            this.tabReport.Text = "Report";
+            this.btnExpenseSave.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnExpenseSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnExpenseSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExpenseSave.Location = new System.Drawing.Point(323, 117);
+            this.btnExpenseSave.Name = "btnExpenseSave";
+            this.btnExpenseSave.Size = new System.Drawing.Size(62, 32);
+            this.btnExpenseSave.TabIndex = 216;
+            this.btnExpenseSave.Text = "save";
+            this.btnExpenseSave.UseVisualStyleBackColor = false;
             // 
-            // label155
+            // label3
             // 
-            this.label155.AutoSize = true;
-            this.label155.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label155.Location = new System.Drawing.Point(13, 6);
-            this.label155.Name = "label155";
-            this.label155.Size = new System.Drawing.Size(21, 20);
-            this.label155.TabIndex = 79;
-            this.label155.Text = "id";
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label3.Location = new System.Drawing.Point(13, 120);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 20);
+            this.label3.TabIndex = 84;
+            this.label3.Text = "ยอดจ่าย";
             // 
-            // txtExpenseID
+            // txtAmount
             // 
-            this.txtExpenseID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtExpenseID.Location = new System.Drawing.Point(71, 3);
-            this.txtExpenseID.Name = "txtExpenseID";
-            this.txtExpenseID.Size = new System.Drawing.Size(147, 24);
-            this.txtExpenseID.TabIndex = 78;
-            this.txtExpenseID.Tag = null;
-            // 
-            // lbExpenseDesc
-            // 
-            this.lbExpenseDesc.AutoSize = true;
-            this.lbExpenseDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lbExpenseDesc.Location = new System.Drawing.Point(13, 33);
-            this.lbExpenseDesc.Name = "lbExpenseDesc";
-            this.lbExpenseDesc.Size = new System.Drawing.Size(21, 20);
-            this.lbExpenseDesc.TabIndex = 80;
-            this.lbExpenseDesc.Text = "...";
+            this.txtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtAmount.Location = new System.Drawing.Point(84, 117);
+            this.txtAmount.Name = "txtAmount";
+            this.txtAmount.Size = new System.Drawing.Size(147, 24);
+            this.txtAmount.TabIndex = 83;
+            this.txtAmount.Tag = null;
             // 
             // label2
             // 
@@ -378,53 +389,42 @@
             this.txtExpense.TabIndex = 81;
             this.txtExpense.Tag = null;
             // 
-            // label3
+            // lbExpenseDesc
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label3.Location = new System.Drawing.Point(13, 120);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 20);
-            this.label3.TabIndex = 84;
-            this.label3.Text = "ยอดจ่าย";
+            this.lbExpenseDesc.AutoSize = true;
+            this.lbExpenseDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lbExpenseDesc.Location = new System.Drawing.Point(13, 33);
+            this.lbExpenseDesc.Name = "lbExpenseDesc";
+            this.lbExpenseDesc.Size = new System.Drawing.Size(21, 20);
+            this.lbExpenseDesc.TabIndex = 80;
+            this.lbExpenseDesc.Text = "...";
             // 
-            // txtAmount
+            // label155
             // 
-            this.txtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtAmount.Location = new System.Drawing.Point(84, 117);
-            this.txtAmount.Name = "txtAmount";
-            this.txtAmount.Size = new System.Drawing.Size(147, 24);
-            this.txtAmount.TabIndex = 83;
-            this.txtAmount.Tag = null;
+            this.label155.AutoSize = true;
+            this.label155.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label155.Location = new System.Drawing.Point(13, 6);
+            this.label155.Name = "label155";
+            this.label155.Size = new System.Drawing.Size(21, 20);
+            this.label155.TabIndex = 79;
+            this.label155.Text = "id";
             // 
-            // btnExpenseSave
+            // txtExpenseID
             // 
-            this.btnExpenseSave.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnExpenseSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnExpenseSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExpenseSave.Location = new System.Drawing.Point(323, 117);
-            this.btnExpenseSave.Name = "btnExpenseSave";
-            this.btnExpenseSave.Size = new System.Drawing.Size(62, 32);
-            this.btnExpenseSave.TabIndex = 216;
-            this.btnExpenseSave.Text = "save";
-            this.btnExpenseSave.UseVisualStyleBackColor = false;
+            this.txtExpenseID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtExpenseID.Location = new System.Drawing.Point(71, 3);
+            this.txtExpenseID.Name = "txtExpenseID";
+            this.txtExpenseID.Size = new System.Drawing.Size(147, 24);
+            this.txtExpenseID.TabIndex = 78;
+            this.txtExpenseID.Tag = null;
             // 
-            // panel1
+            // tabReport
             // 
-            this.panel1.Controls.Add(this.picBoxSupra);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 152);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(447, 564);
-            this.panel1.TabIndex = 1;
-            // 
-            // picBoxSupra
-            // 
-            this.picBoxSupra.Location = new System.Drawing.Point(3, 6);
-            this.picBoxSupra.Name = "picBoxSupra";
-            this.picBoxSupra.Size = new System.Drawing.Size(100, 50);
-            this.picBoxSupra.TabIndex = 1;
-            this.picBoxSupra.TabStop = false;
+            this.tabReport.Location = new System.Drawing.Point(1, 24);
+            this.tabReport.Name = "tabReport";
+            this.tabReport.Size = new System.Drawing.Size(1301, 737);
+            this.tabReport.TabIndex = 3;
+            this.tabReport.Text = "Report";
             // 
             // FrmCashier
             // 
@@ -449,13 +449,13 @@
             this.spExpense.ResumeLayout(false);
             this.c1SplitterPanel1.ResumeLayout(false);
             this.c1SplitterPanel2.ResumeLayout(false);
-            this.pnExp.ResumeLayout(false);
-            this.pnExp.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExpenseID)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtExpense)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAmount)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxSupra)).EndInit();
+            this.pnExp.ResumeLayout(false);
+            this.pnExp.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExpense)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtExpenseID)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

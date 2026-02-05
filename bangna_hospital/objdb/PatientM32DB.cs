@@ -66,6 +66,16 @@ namespace bangna_hospital.objdb
             
             return dt;
         }
+        public DataTable selectDeptOPD()
+        {
+            DataTable dt = new DataTable();
+            String sql = "", re = "";
+            sql = "Select m32.MNC_MD_DEP_DSC,m32.MNC_MD_DEP_NO, m32.MNC_SEC_NO " +
+                "From  patient_m32 m32 " +
+                " Where m32.active = '1' and m32.MNC_TYP_PT = 'O' and dept_opd = '1' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public String selectDeptOPD(String deptid)
         {
             DataTable dt = new DataTable();
@@ -133,6 +143,27 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        public String setC1ComboDeptOPD(C1ComboBox c, String data)
+        {
+            String re = "";
+            DataTable dt = selectDeptOPD();
+            if(dt.Rows.Count > 0)
+            {
+                foreach(DataRow arow in dt.Rows)
+                {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.Value = arow["MNC_SEC_NO"].ToString();
+                    item.Text = arow["MNC_MD_DEP_DSC"].ToString();
+                    c.Items.Add(item);
+                    if (data.Equals(item.Value))
+                    {
+                        re = item.Text;
+                        c.SelectedItem = item;
+                    }
+                }
+            }
+            return re;
+        }
         public void getlCus()
         {
             //lDept = new List<Position>();
@@ -155,19 +186,22 @@ namespace bangna_hospital.objdb
         }
         public String getDeptNoOPD(String seccode)
         {
-            String re = "";
+            String re = "", seccode2="";
             if (lPm08.Count <= 0) getlCus();
-            foreach (PatientM32 row in lPm08)
-            {
-                if (row.MNC_TYP_PT.Equals("O"))
+            String[] seccode1 = seccode.Split(',');
+            if (seccode1.Length > 1) seccode2 = seccode1[0];
+            else seccode2 = seccode;
+                foreach (PatientM32 row in lPm08)
                 {
-                    if (row.mnc_sec_no.Equals(seccode))
+                    if (row.MNC_TYP_PT.Equals("O"))
                     {
-                        re = row.mnc_md_dep_no;
-                        break;
+                        if (row.mnc_sec_no.Equals(seccode2))
+                        {
+                            re = row.mnc_md_dep_no;
+                            break;
+                        }
                     }
                 }
-            }
             return re;
         }
         public String getDeptNoIPD(String seccode)

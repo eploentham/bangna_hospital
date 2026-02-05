@@ -265,6 +265,7 @@ namespace bangna_hospital.objdb
                 "Where phart05.MNC_DOC_CD = '" + doccd + "' and phart05.MNC_CFR_YR = '" + cfryear + "' and phart05.MNC_CFR_NO = '" + cfrno + "' " + whereitem +
                 "  and pharm01.mnc_ph_typ_flg = 'P' " +
                 "Order By phart06.mnc_no ";
+
             dt = conn.selectData(sql);
             return dt;
         }

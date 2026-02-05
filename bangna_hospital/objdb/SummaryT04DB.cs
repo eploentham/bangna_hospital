@@ -63,7 +63,7 @@ namespace bangna_hospital.objdb
                 "left join PATIENT_M26 pm26 on sumt04.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "left join PATIENT_M02 pm02 on pm26.MNC_DOT_PFIX = pm02.MNC_PFIX_CD " +
                 "Where sumt04." + summT04.MNC_SUM_DAT + "=convert(varchar(10),getdate(),120) " +
-                "and pm321.MNC_SEC_NO " + " = '" + dtrcode + "'  ";
+                "and pm321.MNC_SEC_NO " + " in (" + dtrcode + ")  ";
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
@@ -90,9 +90,14 @@ namespace bangna_hospital.objdb
             {
                 try
                 {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item = new ComboBoxItem();
+                    item.Value = "";
+                    item.Text = "";
+                    c.Items.Add(item);
                     foreach (DataRow arow in DTROOM.Rows)
                     {
-                        ComboBoxItem item = new ComboBoxItem();
+                        item = new ComboBoxItem();
                         item.Value = arow["sum04key"].ToString();
                         item.Text = arow["dtrname"].ToString()+"#"+ arow["MNC_DOT_CD"].ToString() + " ["+ arow["MNC_MED_RM_NAM"].ToString()+"]";//MNC_MED_RM_NAM
                         c.Items.Add(item);

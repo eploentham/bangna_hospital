@@ -54,7 +54,7 @@ namespace bangna_hospital.gui
         int colLabDate = 1, colLabName = 2, colLabNameSub = 3, colLabResult = 4, colInterpret = 5, colNormal = 6, colUnit = 7;
         int colXrayDate = 1, colXrayCode = 2, colXrayName = 3, colXrayResult = 4;
         int colProcCode = 1, colProcName = 2, colProcReqDate = 3, colProcReqTime = 4;
-        int colgrfOrderCode = 1, colgrfOrderName = 2, colgrfOrderStatus = 3, colgrfOrderQty = 4, colgrfOrderDrugUsing=5, colgrfOrderDrugFre = 6, colgrfOrderDrugPrecau = 7, colgrfOrderDrugIndica = 8, colgrfOrderDrugProper = 9, colgrfOrderDrugInterac = 10, colgrfOrderDrugRemark = 11, colgrfOrderID = 12, colgrfOrderReqNO = 13, colgrfOrderReqDate = 14, colgrfOrdFlagSave = 15, colgrfOrderGeneric=16, colgrfOrderThai=17;
+        int colgrfOrderCode = 1, colgrfOrderName = 2, colgrfOrderStatus = 3, colgrfOrderQty = 4, colgrfOrderDrugUsing=5, colgrfOrderDrugFre = 6, colgrfOrderDrugPrecau = 7, colgrfOrderDrugIndica = 8, colgrfOrderDrugProper = 9, colgrfOrderDrugInterac = 10, colgrfOrderDrugRemark = 11, colgrfOrderID = 12, colgrfOrderReqNO = 13, colgrfOrderReqDate = 14, colgrfOrdFlagSave = 15, colgrfOrderGeneric=16, colgrfOrderThai=17, colgrfOrdStatusControl = 18, colgrfOrdSupervisor = 19, colgrfOrdPassSupervisor = 20, colgrfOrdControlYear = 21, colgrfOrdControlRemark = 22;
         int colgrfDrugSetItemCode = 1, colgrfDrugSetItemName = 2, colgrfDrugSetItemQty = 3, colgrfDrugSetUsing = 4, colgrfDrugSetFreq = 5, colgrfDrugSetPrecau = 6, colgrfDrugSetProper = 7, colgrfDrugSetInterac = 8, colgrfDrugSetItemStatus = 9, colgrfDrugSetID = 10, colgrfDrugSetFlagSave = 11, colgrfDrugSetIndica = 12;
         int colgrfWeight=1, colgrfHeight = 2, colgrfTemp = 5, colgrfBSA = 3, colgrfBMI = 4, colgrfPulse = 6, colgrfRespiratory = 7, colgrfSystolic = 8, colgrfDiastolic = 9, colgrfMeanBP = 10, colgrfO2Sat = 11, colgrfGlucometer = 12;
         int rowindexgrfVS;
@@ -426,7 +426,7 @@ namespace bangna_hospital.gui
             {
                 txtSearchItem.SelectAll();
                 txtSearchItem.Focus();
-            }            
+            }
             else if (tabMain.SelectedTab == tabDiag)
             {
                 DataTable dt = new DataTable();
@@ -480,14 +480,14 @@ namespace bangna_hospital.gui
                 {
                     if (arow[colgrfDrugSetItemCode].ToString().Equals("code")) continue;
                     Row rowa = grfOrder.Rows.Add();
-                    rowa[colgrfOrderCode] = arow[colgrfDrugSetItemCode].ToString();
-                    rowa[colgrfOrderName] = arow[colgrfDrugSetItemName].ToString();
-                    rowa[colgrfOrderQty] = arow[colgrfDrugSetItemQty].ToString();
+                    rowa[colgrfOrderCode] = arow[colgrfDrugSetItemCode]?.ToString()??"";
+                    rowa[colgrfOrderName] = arow[colgrfDrugSetItemName]?.ToString() ?? "";
+                    rowa[colgrfOrderQty] = arow[colgrfDrugSetItemQty]?.ToString() ?? "";
                     rowa[colgrfOrderStatus] = "drug";
-                    rowa[colgrfOrderDrugFre] = arow[colgrfDrugSetFreq].ToString();
-                    rowa[colgrfOrderDrugPrecau] = arow[colgrfDrugSetPrecau].ToString();
-                    rowa[colgrfOrderDrugInterac] = arow[colgrfDrugSetInterac].ToString();
-                    rowa[colgrfOrderDrugIndica] = arow[colgrfDrugSetIndica].ToString();
+                    rowa[colgrfOrderDrugFre] = arow[colgrfDrugSetFreq]?.ToString() ?? "";
+                    rowa[colgrfOrderDrugPrecau] = arow[colgrfDrugSetPrecau]?.ToString() ?? "";
+                    rowa[colgrfOrderDrugInterac] = arow[colgrfDrugSetInterac]?.ToString() ?? "";
+                    rowa[colgrfOrderDrugIndica] = arow[colgrfDrugSetIndica]?.ToString() ?? "";
                     //rowa[colgrfOrderDrugUsing] = arow[colgrfDrugSetus].ToString();
                     rowa[colgrfOrderID] = "";
                     rowa[colgrfOrderReqNO] = "";
@@ -1215,7 +1215,7 @@ namespace bangna_hospital.gui
             showLbLoading();
             foreach (Row rowa in grfOrder.Rows)
             {
-                String code = "", flag = "", name = "", qty = "", chk = "", using1="", freq = "", precau = "", id = "", interac="", indica="";
+                String code = "", flag = "", name = "", qty = "", chk = "", using1="", freq = "", precau = "", id = "", interac="", indica="", statuscontrol = "", supervisor = "", passsupervisor = "", controlyear = "", controlremark = "";
                 code = rowa[colgrfOrderCode].ToString();
                 if (code.Equals("code")) continue;
                 chk = rowa[colgrfOrdFlagSave].ToString();
@@ -1224,12 +1224,17 @@ namespace bangna_hospital.gui
                 name = rowa[colgrfOrderName].ToString();
                 qty = rowa[colgrfOrderQty].ToString();
                 flag = rowa[colgrfOrderStatus].ToString();
-                freq = rowa[colgrfOrderDrugFre] !=null ? rowa[colgrfOrderDrugFre].ToString():"";
-                precau = rowa[colgrfOrderDrugPrecau] != null ? rowa[colgrfOrderDrugPrecau].ToString():"";
-                interac = rowa[colgrfOrderDrugInterac] != null ? rowa[colgrfOrderDrugInterac].ToString():"";
-                indica = rowa[colgrfOrderDrugIndica] != null ? rowa[colgrfOrderDrugIndica].ToString():"";
-                using1 = rowa[colgrfOrderDrugUsing] != null ? rowa[colgrfOrderDrugUsing].ToString():"";
-                String re = BC.bcDB.vsDB.insertOrderTemp(id, code, name, qty, using1, freq, precau, interac, indica, flag, txtPttHN.Text.Trim(), VSDATE, PRENO);
+                freq = rowa[colgrfOrderDrugFre]?.ToString()??"";
+                precau = rowa[colgrfOrderDrugPrecau]?.ToString()??"";
+                interac = rowa[colgrfOrderDrugInterac]?.ToString()??"";
+                indica = rowa[colgrfOrderDrugIndica]?.ToString() ?? "";
+                using1 = rowa[colgrfOrderDrugUsing]?.ToString() ?? "";
+                statuscontrol = rowa[colgrfOrdStatusControl]?.ToString() ?? "";
+                supervisor = rowa[colgrfOrdSupervisor]?.ToString() ?? "";
+                passsupervisor = rowa[colgrfOrdPassSupervisor]?.ToString() ?? "";
+                controlyear = rowa[colgrfOrdControlYear]?.ToString() ?? "";
+                controlremark = rowa[colgrfOrdControlRemark]?.ToString() ?? "";
+                String re = BC.bcDB.vsDB.insertOrderTemp(id, code, name, qty, using1, freq, precau, interac, indica, flag, txtPttHN.Text.Trim(), VSDATE, PRENO, statuscontrol, controlyear, controlremark, supervisor, passsupervisor);
                 if (int.TryParse(re, out int _))
                 {
 
@@ -1460,6 +1465,7 @@ namespace bangna_hospital.gui
                 foreach (Item item in BC.items)
                 {                    setGrfOrderItem(item.code, item.name, item.qty, item.flag);                }
             }
+            frm.Dispose();
         }
         private void setControlCHkItemDrug()
         {

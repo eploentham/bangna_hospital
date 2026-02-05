@@ -307,7 +307,7 @@ namespace bangna_hospital.gui
                 pdf.DrawString("ขอส่งตัวผู้ป่วย", fPDFl2, Brushes.Black, new PointF(xCol2, linenumber += (gapLine + 5)), _sfLeft);
                 linenumber += (gapLine - 5);
                 pdf.DrawString("ชื่อ.............................................................................................................................................เพศ..........................อายุ.....................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
-                pdf.DrawString(PTT.Name+" ["+ txtSupraNewHn.Text.Trim()+"]", fPDF, Brushes.Black, new PointF(xCol2 + 20, linenumber-3), _sfLeft);
+                pdf.DrawString(PTT.Name+" ["+ PTT.MNC_ID_NO.Trim()+"]", fPDF, Brushes.Black, new PointF(xCol2 + 20, linenumber-3), _sfLeft);
                 pdf.DrawString(lbSupraPttAge.Text, fPDF, Brushes.Black, new PointF(xCol2 + 360, linenumber - 3), _sfLeft);
                 pdf.DrawString(PTT.MNC_SEX, fPDF, Brushes.Black, new PointF(xCol2 + 440, linenumber - 3), _sfLeft);
                 pdf.DrawString("โรค 1. ..................................................................................................................................................................................................................", fPDF, Brushes.Black, new PointF(xCol2 + 5, linenumber += (gapLine + 5)), _sfLeft);
@@ -1954,7 +1954,7 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (e.KeyCode == Keys.Enter)
             {
-                setControlSupra(txtSupraNewHn.Text);
+                setControlSupra(txtSupraNewHn.Text.Trim());
             }
         }
         private void setControlSupra(String hn)
@@ -2656,7 +2656,7 @@ namespace bangna_hospital.gui
         }
         private void FrmSSO_Load(object sender, EventArgs e)
         {
-            this.Text = "last update 2025-06-25";
+            this.Text = "last update 2025-12-18";
             scSupraNew.HeaderHeight = 0;
             spSSOPget.HeaderHeight = 0;
             c1SplitContainer1.HeaderHeight = 0;

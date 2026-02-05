@@ -7,7 +7,7 @@
     <ProjectGuid>{8A5250AA-38DF-4CF4-BB80-32E3B4FCCCBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>bangna_hospital</RootNamespace>
-    <AssemblyName>bangna_hospital_doctor_view</AssemblyName>
+    <AssemblyName>bangna_hospital_opd</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -55,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icons8-doctor-64.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\pen_paper_round_icon_by_vexels_JGk_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -447,6 +447,12 @@
     </Compile>
     <Compile Include="gui\FrmOPD.Designer.cs">
       <DependentUpon>FrmOPD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gui\FrmOpdRoomDoctor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="gui\FrmOpdRoomDoctor.Designer.cs">
+      <DependentUpon>FrmOpdRoomDoctor.cs</DependentUpon>
     </Compile>
     <Compile Include="gui\FrmOrder.cs">
       <SubType>Form</SubType>
@@ -1026,6 +1032,11 @@
     <Compile Include="object1\BaseUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="object1\DoeAlienList.cs" />
+    <Compile Include="object1\DoeAlienList11Nov.cs" />
+    <Compile Include="object1\DoeAlientError.cs" />
+    <Compile Include="object1\DoeAlientResponse.cs" />
+    <Compile Include="object1\DoeAlientResponse11Nov.cs" />
     <Compile Include="object1\FileTypeDetectorPDF.cs" />
     <Compile Include="gui\UCMedicalDrawingForm.cs">
       <SubType>UserControl</SubType>
@@ -1049,8 +1060,6 @@
     <Compile Include="object1\DoctorM02.cs" />
     <Compile Include="object1\DocumentM01.cs" />
     <Compile Include="object1\DoeAlienRequest.cs" />
-    <Compile Include="object1\DoeAlienList.cs" />
-    <Compile Include="object1\DoeAlientResponse.cs" />
     <Compile Include="object1\DoeAlienUpdateHealthCheckResult.cs" />
     <Compile Include="object1\DotDfRate.cs" />
     <Compile Include="object1\EpidemAPI.cs" />
@@ -1445,6 +1454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmOPD.resx">
       <DependentUpon>FrmOPD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gui\FrmOpdRoomDoctor.resx">
+      <DependentUpon>FrmOpdRoomDoctor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="gui\FrmOperativeNoteView.resx">
       <DependentUpon>FrmOperativeNoteView.cs</DependentUpon>

@@ -78,13 +78,25 @@ namespace bangna_hospital.objdb
         }
         public String getCodeByName(String name)
         {
-            String re = "";
+            String re = "", txt= name;
+            if(name.Equals("MISS")) txt = "Miss.";
             foreach (PatientM02 row in lPm02)
             {
-                if (row.MNC_PFIX_DSC.Equals(name))
+                if (row.MNC_PFIX_DSC.Equals(txt))
                 {
                     re = row.MNC_PFIX_CD;
                     break;
+                }
+            }
+            if((re.Length <= 0)&&name.Equals("MISS"))
+            {
+                foreach (PatientM02 row in lPm02)
+                {
+                    if (row.MNC_PFIX_DSC_e.Equals(name))
+                    {
+                        re = row.MNC_PFIX_CD;
+                        break;
+                    }
                 }
             }
             return re;

@@ -36,12 +36,40 @@ namespace bangna_hospital.objdb
             pm321.table = "patient_M32_1";
 
         }
-        public String selectAll()
+        public DataTable selectAll()
         {
+            DataTable dt = new DataTable();
             String sql = "select * " +
                 "From " + pm321.table + " ";
-            //DTRoomUse = conn.selectData(conn.connMainHIS, sql);
-            return sql;
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
+        public DataTable selectByDept(String depNo)
+        {
+            //PatientM321 p = new PatientM321();
+            DataTable dt = new DataTable();
+            String sql = "select pm321.*, isnull(sumt04.MNC_MED_RM_CD,'') as MNC_MED_RM_CD,sumt04.MNC_DOT_CD, pm26.MNC_DOT_FNAME, pm26.MNC_DOT_LNAME,pm02.MNC_PFIX_DSC " +
+                "From " + pm321.table + " pm321 " +
+                "Left Join SUMMARY_T04 sumt04 on pm321.MNC_MED_RM_CD = sumt04.MNC_MED_RM_CD " +
+                "Left Join PATIENT_M26 pm26 on sumt04.MNC_DOT_CD = pm26.MNC_DOT_CD " +
+                "Left Join PATIENT_M02 pm02 on pm26.MNC_DOT_PFIX = pm02.MNC_PFIX_CD " +
+                "Where pm321." + pm321.MNC_DEP_NO + "='" + depNo + "' and pm321.MNC_MED_RM_STS = 'Y' and sumt04.MNC_SUM_DAT = convert(varchar(20),getdate(), 23) ";
+                
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //p = setPateintM321(dt);
+            return dt;
+        }
+        public PatientM321 selectByDept(String depNo, String secNo)
+        {
+            PatientM321 p = new PatientM321();
+            DataTable dt = new DataTable();
+            String sql = "select * " +
+                "From " + pm321.table + " " +
+                "Where " + pm321.MNC_DEP_NO + "='" + depNo + "' and MNC_MED_RM_STS = 'Y' and " + pm321.MNC_SEC_NO + "in(" + secNo + ") ";
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+            p = setPateintM321(dt);
+            return p;
         }
         public PatientM321 selectByPk(String depNo, String secNo, String medRmCd)
         {

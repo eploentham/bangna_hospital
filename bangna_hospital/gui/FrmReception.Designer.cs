@@ -1130,7 +1130,7 @@ namespace bangna_hospital.gui
             this.pnPttPatient.SizeRatio = 79.247D;
             this.pnPttPatient.TabIndex = 0;
             this.pnPttPatient.Text = "Panel 1";
-            this.pnPttPatient.Width = 989;
+            this.pnPttPatient.Width = 982;
             // 
             // btnPttPaid
             // 
@@ -2780,7 +2780,7 @@ namespace bangna_hospital.gui
             this.pnVsVisit.SizeRatio = 58.173D;
             this.pnVsVisit.TabIndex = 0;
             this.pnVsVisit.Text = "Panel 1";
-            this.pnVsVisit.Width = 719;
+            this.pnVsVisit.Width = 726;
             // 
             // chkVsStatusDOE
             // 

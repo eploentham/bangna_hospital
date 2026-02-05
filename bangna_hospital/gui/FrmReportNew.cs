@@ -52,9 +52,9 @@ namespace bangna_hospital.gui
                 GrapeCity.ActiveReports.Document.PageDocument runtime = new GrapeCity.ActiveReports.Document.PageDocument(definition);
 
                 // With the following, using GrapeCity.ActiveReports.Expressions.ExpressionObjectModel.Parameter:
-                runtime.Parameters["line1"].CurrentValue = LINE1.Length > 0 ? LINE1 : "";
-                runtime.Parameters["line2"].CurrentValue = LINE2.Length > 0 ? LINE2 : "";
-                runtime.Parameters["line3"].CurrentValue = LINE3.Length > 0 ? LINE3 : "";
+                //runtime.Parameters["line1"].CurrentValue = LINE1.Length > 0 ? LINE1 : "";
+                //runtime.Parameters["line2"].CurrentValue = LINE2.Length > 0 ? LINE2 : "";
+                //runtime.Parameters["line3"].CurrentValue = LINE3.Length > 0 ? LINE3 : "";
                 // If you need to set more parameters, use their names and assign values similarly:
                 // runtime.Parameters["line2"].CurrentValue = "your_value_here";
                 // runtime.Parameters["line3"].CurrentValue = "your_value_here";

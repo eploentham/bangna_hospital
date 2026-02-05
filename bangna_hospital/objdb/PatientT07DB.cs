@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,22 +103,12 @@ namespace bangna_hospital.objdb
         public String countAppointmentByDtrDate(String dtrcode, String date, String fix)
         {
             DataTable dt = new DataTable();
-            String sql = "", re = "0", wherepaid = "";
+            String sql = "", re = "", wherepaid = "";
             DateTime dtdate1 = new DateTime();
             DateTime dtdate2 = new DateTime();
             DateTime dtdate = new DateTime();
-            if(fix.Equals("1"))
-            {
-                dtdate1 = DateTime.Parse(date);
-                dtdate2 = DateTime.Parse(date);
-            }
-            else
-            {
-                if (DateTime.TryParse(date, out dtdate))
-                {
-                    dtdate1 = dtdate.AddDays(-2);
-                    dtdate2 = dtdate.AddDays(5);
-                }
+            if(fix.Equals("1"))            {                dtdate1 = DateTime.Parse(date);                dtdate2 = DateTime.Parse(date);          }
+            else    {       if (DateTime.TryParse(date, out dtdate))    {       dtdate1 = dtdate.AddDays(-2);       dtdate2 = dtdate.AddDays(5);    }
             }
             if (dtdate1.Year < 2000) dtdate1 = dtdate1.AddYears(543);
             if (dtdate2.Year < 2000) dtdate2 = dtdate2.AddYears(543);
@@ -132,7 +123,23 @@ namespace bangna_hospital.objdb
             {
                 foreach(DataRow dr in dt.Rows)
                 {
-                    re += "["+dr["MNC_APP_DAT"].ToString()+"->"+dr["cnt"].ToString() + "];";
+                    re += "["+ datetoShow3(dr["MNC_APP_DAT"].ToString())+"->"+dr["cnt"].ToString() + "];";
+                }
+            }
+            return re;
+        }
+        public String datetoShow3(String dt)
+        {
+            if (dt == null) return "";
+            DateTime dt1 = new DateTime();
+            //MySqlDateTime dtm = new MySqlDateTime();
+            String re = "";
+            if (dt != null)
+            {
+                if (DateTime.TryParse(dt.ToString(), out dt1))
+                {
+                    if (dt1.Year < 2000)                    {                        dt1 = dt1.AddYears(543);                    }
+                    re = dt1.ToString("dd-MM-yyyy", new CultureInfo("en-US"));
                 }
             }
             return re;
@@ -216,14 +223,12 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
-        public DataTable selectByDateDept(String date, String deptcode, String sort1)
+        public DataTable selectByDateDept(String date, String deptcode, String dtrcode, String sort1)
         {
             DataTable dt = new DataTable();
-            String sql = "", re = "", wherepaid = "";
-            if (deptcode.Length > 0)
-            {
-                wherepaid = " and pt07.MNC_SECR_NO = '" + deptcode + "' ";
-            }
+            String sql = "", re = "", wherepaid = "",wheredtr="";
+            if (deptcode.Length > 0)            {                wherepaid = " and pt07.MNC_SECR_NO = '" + deptcode + "' ";            }
+            if (dtrcode.Length > 0)            { wheredtr = " and pt07.MNC_DOT_CD = '" + dtrcode + "' ";            }
             sql = "Select pt07.MNC_DOC_YR, pt07.MNC_DOC_NO, pt07.MNC_HN_YR, pt07.MNC_HN_NO, pt07.MNC_DATE, pt07.MNC_TIME,m01.MNC_CUR_TEL,fm02.MNC_FN_TYP_DSC, " +
                 "pt07.MNC_PRE_NO, pt07.MNC_DEP_NO, pt07.MNC_SEC_NO, pt07.MNC_DEPR_NO, pt07.MNC_SECR_NO,isnull(pt07.remark_call,'') as remark_call,isnull(pt07.status_remark_call,'') as status_remark_call, pt07.remark_call_date, " +
                 "convert(varchar(20), pt07.MNC_APP_DAT, 23 ) as MNC_APP_DAT, pt07.MNC_APP_TIM, pt07.MNC_APP_DSC, pt07.MNC_APP_STS, pt07.MNC_APP_ADD, " +
@@ -241,7 +246,7 @@ namespace bangna_hospital.objdb
                 "left join	patient_m26 pm26 on pt07.MNC_DOT_CD = pm26.MNC_DOT_CD " +
                 "left JOIN	dbo.PATIENT_M02 as pm02dtr ON pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
                 "left join Finance_m02 fm02 on pt07.MNC_FN_TYP_CD = fm02.MNC_FN_TYP_CD " +
-            " Where pt07.MNC_APP_DAT = '" + date + "' " + wherepaid +
+            " Where pt07.MNC_APP_DAT = '" + date + "' " + wherepaid + wheredtr+
             "Order By pt07.MNC_APP_DAT " + sort1 + ", pt07.MNC_APP_TIM " + sort1 + " ";
             dt = conn.selectData(conn.connMainHIS, sql);
 
@@ -477,6 +482,8 @@ namespace bangna_hospital.objdb
             String sql = "", chk = "";
             try
             {
+                sql = "Delete From patient_t073 Where MNC_DOC_YR = '"+ docyear + "' and  MNC_DOC_NO '"+ docno + "' and  MNC_OPR_CD '"+ ordercode + "' and  MNC_OPR_FLAG '"+ flag + "' and  MNC_FN_CD '"+ fncode + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
                 sql = "Insert into PATIENT_T073 (" +
                     "MNC_DOC_YR, MNC_DOC_NO, MNC_OPR_CD, MNC_OPR_FLAG, MNC_FN_CD " +
                     ") " +
@@ -539,6 +546,8 @@ namespace bangna_hospital.objdb
                 conn.comStore.Parameters.AddWithValue("station_name", p.MNC_NAME);
                 conn.comStore.Parameters.AddWithValue("userid", p.MNC_EMPR_CD);
                 conn.comStore.Parameters.AddWithValue("apm_status", p.MNC_STS);
+                conn.comStore.Parameters.AddWithValue("apm_status_or", p.MNC_APP_OR_FLG);
+                conn.comStore.Parameters.AddWithValue("apm_status_adm", p.MNC_APP_ADM_FLG);
 
                 SqlParameter retval = conn.comStore.Parameters.Add("row_no1", SqlDbType.VarChar, 50);
                 retval.Value = "";

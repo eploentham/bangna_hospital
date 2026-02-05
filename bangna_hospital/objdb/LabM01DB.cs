@@ -87,6 +87,26 @@ namespace bangna_hospital.objdb
             labM01 = setLabM01(dt);
             return labM01;
         }
+        public DataTable SelectControlByPk(String labcode)
+        {
+            DataTable dt = new DataTable();
+            LabM01 labM01 = new LabM01();
+            String sql = "select lab_m01.status_control,lab_m01.control_year,lab_m01.control_supervisor,lab_m01.control_paid_code,lab_m01.control_remark  " +
+                "From lab_m01  Where lab_m01.mnc_lb_cd = '" + labcode + "' " +
+                " ";
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable SelectAllSearch()
+        {
+            DataTable dt = new DataTable();
+            LabM01 labM01 = new LabM01();
+            String sql = "select lab_m01.MNC_LB_CD,isnull(lab_m01.status_control,'') as status_control,lab_m01.MNC_LB_DSC,isnull(lab_m01.control_year,0) as control_year,isnull(lab_m01.control_supervisor,'') as control_supervisor,isnull(lab_m01.control_paid_code,'') as control_paid_code,isnull(lab_m01.control_remark,'') as control_remark  " +
+                "From lab_m01  Where lab_m01.active = '1' " +
+                " ";
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public LabM01 SelectByPk(String labcode)
         {
             DataTable dt = new DataTable();
@@ -224,6 +244,8 @@ namespace bangna_hospital.objdb
                 labM01.status_control = dt.Rows[0]["status_control"] != null ? dt.Rows[0]["status_control"].ToString():"";
                 labM01.control_supervisor = dt.Rows[0]["control_supervisor"] != null ? dt.Rows[0]["control_supervisor"].ToString() : "";
                 labM01.control_year = dt.Rows[0]["control_year"] != null ? dt.Rows[0]["control_year"].ToString() : "";
+                labM01.control_paid_code = dt.Rows[0]["control_paid_code"] != null ? dt.Rows[0]["control_paid_code"].ToString() : "";
+                labM01.control_remark = dt.Rows[0]["control_remark"] != null ? dt.Rows[0]["control_remark"].ToString() : "";
             }
             else
             {
@@ -258,6 +280,8 @@ namespace bangna_hospital.objdb
             p.status_control = "";
             p.control_supervisor = "";
             p.control_year = "";
+            p.control_paid_code = "";
+            p.control_remark = "";
             return p;
         }
 

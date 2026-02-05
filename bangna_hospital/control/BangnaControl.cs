@@ -867,6 +867,24 @@ namespace bangna_hospital.control
 
             return c;
         }
+        public C1ComboBox setCboOPDOper(C1ComboBox c)
+        {
+            ComboBoxItem item = new ComboBoxItem();
+            String select = "";
+            int row1 = 0;
+            ComboBoxItem item1 = new ComboBoxItem();
+            //item = new ComboBoxItem(); item.Value = ""; item.Text = ""; c.Items.Add(item);
+            item = new ComboBoxItem();            item.Value = "1";            item.Text = "ทั้งหมดก่อนclose visit";            c.Items.Add(item);
+            item = new ComboBoxItem();            item.Value = "2";            item.Text = "มาใหม่ รอป้อน vital sign";            c.Items.Add(item);//act_no 101
+            if(iniC.hidecomponent.Equals("0"))
+            {
+                item = new ComboBoxItem(); item.Value = "3"; item.Text = "รอ ป้อนแพทย์ผู้ตรวจ"; c.Items.Add(item);//act_no 110
+            }
+            item = new ComboBoxItem();            item.Value = "4";            item.Text = "แพทย์กำลังตรวจ";            c.Items.Add(item);//act_no 114
+            item = new ComboBoxItem();            item.Value = "5";            item.Text = "รอclose visit";            c.Items.Add(item);//act_no 114
+            c.SelectedIndex = row1;
+            return c;
+        }
         public C1ComboBox setCboChckUP(C1ComboBox c)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -1249,6 +1267,11 @@ namespace bangna_hospital.control
             iniC.tabdefault = iniF.getIni("app", "tabdefault");
             iniC.authenedit = iniF.getIni("app", "authenedit");
             iniC.hidelogo = iniF.getIni("app", "hidelogo");
+            iniC.statusPasswordConfirmLow = iniF.getIni("app", "statusPasswordConfirmLow");
+            iniC.urlbangnadoe11nov = iniF.getIni("app", "urlbangnadoe11nov");
+            iniC.urlbangnadoeresult11nov = iniF.getIni("app", "urlbangnadoeresult11nov");
+            iniC.statusbypasserror = iniF.getIni("app", "statusbypasserror");
+            iniC.hidecomponent = iniF.getIni("app", "hidecomponent");
 
             iniC.email_form = iniF.getIni("email", "email_form");
             iniC.email_auth_user = iniF.getIni("email", "email_auth_user");
@@ -1381,6 +1404,9 @@ namespace bangna_hospital.control
             iniC.tabdefault = iniC.tabdefault == null ? "0" : iniC.tabdefault.Equals("") ? "0" : iniC.tabdefault;
             iniC.authenedit = iniC.authenedit == null ? "0" : iniC.authenedit.Equals("") ? "0" : iniC.authenedit;
             iniC.hidelogo = iniC.hidelogo == null ? "0" : iniC.hidelogo.Equals("") ? "0" : iniC.hidelogo;
+            iniC.statusPasswordConfirmLow = iniC.statusPasswordConfirmLow == null ? "0" : iniC.statusPasswordConfirmLow.Equals("") ? "0" : iniC.statusPasswordConfirmLow;
+            iniC.statusbypasserror = iniC.statusbypasserror == null ? "0" : iniC.statusbypasserror.Equals("") ? "0" : iniC.statusbypasserror;
+            iniC.hidecomponent = iniC.hidecomponent == null ? "1" : iniC.hidecomponent.Equals("") ? "1" : iniC.hidecomponent;
 
             int.TryParse(iniC.grdViewFontSize, out grdViewFontSize);
             int.TryParse(iniC.pdfFontSize, out pdfFontSize);
@@ -1525,6 +1551,21 @@ namespace bangna_hospital.control
                 }
             }
         }
+        public void setC1ComboByNameIndexOf(C1ComboBox c, String data)
+        {
+            if (c.Items.Count == 0) return;
+            if (data.Length == 0) c.SelectedIndex = 0;
+            c.SelectedIndex = c.SelectedItem == null ? 0 : c.SelectedIndex;
+            c.SelectedIndex = 0;
+            foreach (ComboBoxItem item in c.Items)
+            {
+                if (item.Text.IndexOf(data)>=0)
+                {
+                    c.SelectedItem = item;
+                    break;
+                }
+            }
+        }
         public Image RotateImage(Image img)
         {
             var bmp = new Bitmap(img);
@@ -1560,9 +1601,29 @@ namespace bangna_hospital.control
             stream.Position = 0;
             return stream;
         }
+        public String datetoShow3(String dt)
+        {
+            if (dt == null) return "";
+            DateTime dt1 = new DateTime();
+            //MySqlDateTime dtm = new MySqlDateTime();
+            String re = "";
+            if (dt != null)
+            {
+                if (DateTime.TryParse(dt.ToString(), out dt1))
+                {
+                    if (dt1.Year < 2000)
+                    {
+                        dt1 = dt1.AddYears(543);
+                    }
+                    re = dt1.ToString("dd-MM-yyyy");
+                }
+            }
+            return re;
+        }
         public String datetoShow(Object dt)
         {
             if (dt == null) return "";
+            if (dt.ToString() == "") return "";
             DateTime dt1 = new DateTime();
             //MySqlDateTime dtm = new MySqlDateTime();
             String re = "";
@@ -5105,6 +5166,19 @@ namespace bangna_hospital.control
             }
             return chk;
         }
+        public DataTable selectDoctor(String doctorId)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", chk = "-";
+            sql = "Select  patient_m02.MNC_PFIX_DSC as prefix,patient_m26.MNC_DOT_FNAME as Fname,patient_m26.MNC_DOT_LNAME as Lname,patient_m26.MNC_DOT_FNAME_e,patient_m26.MNC_DOT_LNAME_e, isnull(PATIENT_m261.MNC_DOT_GRP_CD,'') as MNC_DOT_GRP_CD  " +
+                "From  patient_m26  " +
+                " inner join patient_m02 on patient_m26.MNC_DOT_PFIX = patient_m02.MNC_PFIX_CD +" +
+                "Left Join PATIENT_m261 pm261 on patient_m26.MNC_DOT_CD = PATIENT_m261.MNC_DOT_CD and PATIENT_m261.MNC_DOT_GRP_CD = '0' and PATIENT_m261.MNC_DOT_GRP_STS = 'Y'  " +
+                "where patient_m26.MNC_DOT_CD = '" + doctorId + "' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            
+            return dt;
+        }
         public String selectDoctorNameE(String doctorId)
         {
             DataTable dt = new DataTable();
@@ -6159,6 +6233,7 @@ namespace bangna_hospital.control
             }
             catch (Exception ex)
             {
+                lbloading.Text = "มีerror";
                 new LogWriter("e", "FrmReception checkPaidSSO " + ex.Message);
                 bcDB.insertLogPage(userId, "BangnaControl", "checkPaidSSO ", ex.Message);
             }

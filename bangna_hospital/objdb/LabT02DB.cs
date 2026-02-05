@@ -247,6 +247,22 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(conn.connMainHIS, sql);
             return dt;
         }
+        public DataTable selectbyHN(String hn, String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            sql = "SELECT  LAB_T02.MNC_LB_CD as order_code, LAB_M01.MNC_LB_DSC as order_name, convert(varchar(20),LAB_T02.MNC_REQ_DAT, 23) as req_date " +
+                ", LAB_T02.MNC_REQ_NO as req_no, 'lab' as flag, '1' as qty " +
+                "FROM    LAB_T01  " +
+                "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
+                "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "where LAB_T01.MNC_DATE = '" + vsdate + "' and LAB_T01.MNC_PRE_NO = '" + preno + "'  " +
+                "and LAB_T01.mnc_hn_no = '" + hn + "' " +
+                "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'  " +
+                "Order By LAB_T02.MNC_LB_CD ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public DataTable selectLabByHnLabcodeinYear(String hn, String labcode)
         {
             DataTable dt = new DataTable();

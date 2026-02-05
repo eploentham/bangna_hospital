@@ -57,12 +57,101 @@ namespace bangna_hospital.gui
             btnSsnImp5.Click += BtnSsnImp5_Click;
             btnSsnInsert.Click += BtnSsnInsert_Click;
             btnSsnUpdate.Click += BtnSsnUpdate_Click;
+            btnCheckDup.Click += BtnCheckDup_Click;
 
             this.DragEnter += FrmSsnData_DragEnter;
             this.DragDrop += FrmSsnData_DragDrop;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
+        private void BtnCheckDup_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            listBox1.Items.Clear();
+            CheckDuplicateSocialIDAcrossTables();
+        }
+        // ✅ เพิ่ม method ตรวจสอบ SocialID ซ้ำข้าม 3 tables
+        private void CheckDuplicateSocialIDAcrossTables()
+        {
+            HashSet<string> allSocialIds = new HashSet<string>();
+            List<string> duplicates = new List<string>();
+            int totalCount = 0;
+
+            listBox1.Items.Add("=== ตรวจสอบ SocialID ซ้ำข้าม 3 ตาราง ===");
+
+            // ตรวจสอบ dtBr1
+            foreach (DataRow row in dtBr1.Rows)
+            {
+                string socid = row["SocialID"]?.ToString() ?? "";
+                if (!string.IsNullOrEmpty(socid))
+                {
+                    if (!allSocialIds.Add(socid))
+                    {
+                        duplicates.Add($"BR1: {socid}");
+                    }
+                    totalCount++;
+                }
+            }
+
+            // ตรวจสอบ dtBr2
+            List<DataRow> toDeleteBr2 = new List<DataRow>();
+            foreach (DataRow row in dtBr2.Rows)
+            {
+                string socid = row["SocialID"]?.ToString() ?? "";
+                if (!string.IsNullOrEmpty(socid))
+                {
+                    if (!allSocialIds.Add(socid))
+                    {
+                        duplicates.Add($"BR2: {socid} (ซ้ำกับ BR1)");
+                        toDeleteBr2.Add(row);
+                    }
+                    totalCount++;
+                }
+            }
+
+            // ตรวจสอบ dtBr5
+            List<DataRow> toDeleteBr5 = new List<DataRow>();
+            foreach (DataRow row in dtBr5.Rows)
+            {
+                string socid = row["SocialID"]?.ToString() ?? "";
+                if (!string.IsNullOrEmpty(socid))
+                {
+                    if (!allSocialIds.Add(socid))
+                    {
+                        duplicates.Add($"BR5: {socid} (ซ้ำกับ BR1/BR2)");
+                        toDeleteBr5.Add(row);
+                    }
+                    totalCount++;
+                }
+            }
+            dtBr5.AcceptChanges();
+            // แสดงผล
+            listBox1.Items.Add($"📊 จำนวนทั้งหมด: {totalCount} รายการ");
+            listBox1.Items.Add($"✅ SocialID ไม่ซ้ำ: {allSocialIds.Count} รายการ");
+            listBox1.Items.Add($"⚠️ SocialID ซ้ำ: {duplicates.Count} รายการ");
+
+            if (duplicates.Any())
+            {
+                listBox1.Items.Add("=== รายการซ้ำ ===");
+                foreach (var dup in duplicates.Take(20))  // แสดงแค่ 20 ตัวแรก
+                {
+                    listBox1.Items.Add($"  {dup}");
+                }
+
+                if (duplicates.Count > 20)
+                {
+                    listBox1.Items.Add($"  ... และอีก {duplicates.Count - 20} รายการ");
+                }
+            }
+            foreach (DataRow row in toDeleteBr2)
+            {
+                dtBr2.Rows.Remove(row);
+            }
+            foreach (DataRow row in toDeleteBr5)
+            {
+                dtBr5.Rows.Remove(row);
+            }
+        }
         private void BtnSsnUpdate_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
@@ -346,7 +435,8 @@ namespace bangna_hospital.gui
         {
             String path = "", err="";
             DataTable dt = new DataTable();
-            dt.Columns.Add("ssn_data_period_id", typeof(System.Int64));
+            this.SuspendLayout();
+            //dt.Columns.Add("ssn_data_period_id", typeof(System.Int64));       //comment ไปก่อน ทำไว้แล้ว ลืม 69-01-19
             dt.Columns.Add("SocialID", typeof(System.String));
             dt.Columns.Add("Social_Card_no", typeof(System.String));
             dt.Columns.Add("TitleName", typeof(System.String));
@@ -371,6 +461,10 @@ namespace bangna_hospital.gui
                 dt.Columns.Add("status_ssn_data", typeof(System.String));
             }
             dt.Columns.Add("FLAG", typeof(System.String));
+            // ✅ สร้าง HashSet สำหรับเช็คซ้ำ
+            HashSet<string> socialIdSet = new HashSet<string>();
+            // สถิติ
+            int totalLines = 0, validLines = 0, duplicateLines = 0, errorLines = 0, shortLines = 0;
             listBox1.Items.Add("ssn_data1 add");
             try
             {
@@ -422,6 +516,7 @@ namespace bangna_hospital.gui
                             while ((ln = file.ReadLine()) != null)
                             {
                                 err = "01";
+                                totalLines++;
                                 //Console.WriteLine(ln);
                                 //byte[] utf8Bytes = utf8.GetBytes(ln);
                                 //byte[] outUTF8Bytes = Encoding.Convert(Encoding.ASCII, Encoding.UTF8, utf8Bytes);
@@ -445,112 +540,153 @@ namespace bangna_hospital.gui
                                 DateTime datechk4 = new DateTime();
                                 if (ln.Length > 20)
                                 {
-                                    err = "02";
-                                    socid = ln.Substring(0, 13);
-                                    cardno = ln.Substring(13, 13);
-                                    titlename = ln.Substring(26, 15).Trim();
-                                    firstname = ln.Substring(41, 30).Trim();
-                                    lastname = ln.Substring(71, 28).Trim();
-                                    fullname = titlename + " " + firstname + " " + lastname;
-                                    prakuncode = ln.Substring(99, 11).Trim();
-                                    prang = prakuncode.Substring(1, 1);
-                                    prakuncode = prakuncode.Substring(4, 7);
-                                    
-                                    startdate = ln.Substring(110, 8).Trim();
-                                    year = startdate.Substring(0, 4);
-                                    month = startdate.Substring(4, 2);
-                                    day = startdate.Substring(6, 2);
-                                    if (int.Parse(year)>2500)
+                                    try
                                     {
-                                        year = (int.Parse(year) - 543).ToString();
-                                    }
-                                    err = "021";
-                                    startdate = year + "-" + month + "-" + day;
-                                    //startdate = year + month + day;
-                                    DateTime.TryParse(startdate, out datechk1);
-                                    if (!DateTime.TryParse(startdate, out datechk))
-                                    {
-                                        listBox1.Items.Add("startdate " + startdate);
-                                    }
-                                    //startdate = month + "-" + day+"-"+year;
-
-                                    enddate = ln.Substring(118, 8).Trim();
-                                    year = enddate.Substring(0, 4);
-                                    month = enddate.Substring(4, 2);
-                                    day = enddate.Substring(6, 2);
-                                    //year = (int.Parse(year) - 543).ToString();
-                                    if (int.Parse(year) > 2500)
-                                    {
-                                        year = (int.Parse(year) - 543).ToString();
-                                    }
-                                    enddate = year + "-" + month + "-" + day;
-                                    //enddate = year + month + day;
-                                    DateTime.TryParse(enddate, out datechk2);
-                                    if (!DateTime.TryParse(enddate, out datechk))
-                                    {
-                                        listBox1.Items.Add("enddate " + enddate);
-                                    }
-                                    //enddate = month + "-" + day+"-"+year;
-                                    err = "022";
-                                    dob = ln.Substring(126, 8).Trim();
-                                    year = dob.Substring(0, 4);
-                                    month = dob.Substring(4, 2);
-                                    day = dob.Substring(6, 2);
-                                    //year = (int.Parse(year) - 543).ToString();
-                                    if (int.Parse(year) > 2500)
-                                    {
-                                        year = (int.Parse(year) - 543).ToString();
-                                    }
-                                    dob = year + "-" + month + "-" + day;
-                                    //dob = year + month + day;
-                                    DateTime.TryParse(dob, out datechk3);
-                                    if (datechk3.Year < 1900)
-                                    {
-                                        datechk3 = datechk3.AddYears(543);
-                                    }
-                                    if (!DateTime.TryParse(dob, out datechk))
-                                    {
-                                        listBox1.Items.Add("dob " + dob);
-                                        if (day.Equals("29"))
+                                        err = "02";
+                                        if (counter == 3166) { listBox1.Items.Add("First line " + ln); }
+                                        else if (counter == 19566) { listBox1.Items.Add("First line " + ln); }
+                                        else if (counter == 37463)
                                         {
-                                            dob = year + "-" + month + "-28";
-                                            if (!DateTime.TryParse(dob, out datechk3))
+                                            listBox1.Items.Add("First line " + ln);
+                                        }
+                                        socid = ln.Substring(0, 13);
+                                        // ✅ ตรวจสอบซ้ำด้วย HashSet
+                                        if (socialIdSet.Contains(socid))
+                                        {
+                                            duplicateLines++;
+                                            listBox1.Items.Add($"⚠️ บรรทัด {totalLines}: SocialID ซ้ำ {socid}");
+                                            continue;  // ข้ามบรรทัดนี้
+                                            listBox1.Items.Add($"⚠️ บรรทัด {totalLines}: SocialID ซ้ำ {socid}");
+                                        }
+                                        cardno = ln.Substring(13, 13);
+                                        titlename = ln.Substring(26, 15).Trim();
+                                        firstname = ln.Substring(41, 30).Trim();
+                                        lastname = ln.Substring(71, 28).Trim();
+                                        fullname = titlename + " " + firstname + " " + lastname;
+                                        prakuncode = ln.Substring(99, 11).Trim();
+                                        //69-01-19 PrakanCodeในtextมีspace
+                                        if (prakuncode.Length < 11) { prang = "0"; prakuncode = "0000" + prakuncode; prakuncode = prakuncode.Substring(4, 7); listBox1.Items.Add("prakuncode error make prakuncode 0000"); }
+                                        else { prang = prakuncode.Substring(1, 1); prakuncode = prakuncode.Substring(4, 7); }
+
+                                        startdate = ln.Substring(110, 8).Trim();
+                                        year = startdate.Substring(0, 4);
+                                        month = startdate.Substring(4, 2);
+                                        day = startdate.Substring(6, 2);
+                                        if (int.Parse(year) > 2500) { year = (int.Parse(year) - 543).ToString(); }
+                                        err = "021";
+                                        if (int.Parse(year) < 1800)
+                                        {
+                                            listBox1.Items.Add("startdate TryParseThaiDate error " + startdate);
+                                        }
+                                        startdate = year + "-" + month + "-" + day;
+                                        //startdate = year + month + day;
+                                        DateTime.TryParse(startdate, out datechk1);
+                                        if (!DateTime.TryParse(startdate, out datechk)) { listBox1.Items.Add("startdate " + startdate); }
+                                        //if(datechk1.Year < 1800)
+                                        //{
+                                        //    listBox1.Items.Add("startdate TryParseThaiDate error " + startdate);
+                                        //}
+                                        //startdate = month + "-" + day+"-"+year;
+                                        //if(!TryParseThaiDate(startdate, out datechk1))
+                                        //{
+                                        //    // Valid date
+                                        //    listBox1.Items.Add("startdate TryParseThaiDate error " + startdate);
+                                        //}
+                                        enddate = ln.Substring(118, 8).Trim();
+                                        year = enddate.Substring(0, 4);
+                                        month = enddate.Substring(4, 2);
+                                        day = enddate.Substring(6, 2);
+                                        //year = (int.Parse(year) - 543).ToString();
+                                        if (int.Parse(year) > 2500)
+                                        {
+                                            year = (int.Parse(year) - 543).ToString();
+                                        }
+                                        if (int.Parse(year) < 1800)
+                                        {
+                                            listBox1.Items.Add("enddate TryParseThaiDate error " + enddate);
+                                        }
+                                        enddate = year + "-" + month + "-" + day;
+                                        //enddate = year + month + day;
+                                        DateTime.TryParse(enddate, out datechk2);
+                                        if (!DateTime.TryParse(enddate, out datechk))
+                                        {
+                                            listBox1.Items.Add("enddate " + enddate);
+                                        }
+                                        //enddate = month + "-" + day+"-"+year;
+                                        err = "022";
+                                        //69-01-19 PrakanCodeในtextมีspace
+                                        //69-02-02 dob ในtext ไม่มีข้อมูล
+                                        if (ln.Length > 126) { dob = ln.Substring(126, 8).Trim(); }
+                                        else { 
+                                            dob = "20000101"; year = "2000"; month = "01"; day = "01"; listBox1.Items.Add("dob ในtext ไม่มีข้อมูล"); }
+                                        if (dob.Length < 8) { year = "2000"; month = "01"; day = "01"; listBox1.Items.Add("dob error make dob " + year + month + day); }
+                                        else { year = dob.Substring(0, 4); month = dob.Substring(4, 2); day = dob.Substring(6, 2); }
+                                        //year = (int.Parse(year) - 543).ToString();
+                                        if (int.Parse(year) > 2500) { year = (int.Parse(year) - 543).ToString(); }
+                                        if (int.Parse(year) < 1800)
+                                        {
+                                            listBox1.Items.Add("dob TryParseThaiDate error " + dob);
+                                        }
+                                        dob = year + "-" + month + "-" + day;
+                                        //dob = year + month + day;
+                                        DateTime.TryParse(dob, out datechk3);
+                                        if (datechk3.Year < 1900) 
+                                        { 
+                                            datechk3 = datechk3.AddYears(543); }
+                                        
+                                        if (!DateTime.TryParse(dob, out datechk))
+                                        {
+                                            listBox1.Items.Add("dob " + dob);
+                                            if (day.Equals("29"))
                                             {
-                                                listBox1.Items.Add("dob1 " + dob);
+                                                dob = year + "-" + month + "-28";
+                                                if (!DateTime.TryParse(dob, out datechk3))
+                                                {
+                                                    listBox1.Items.Add("dob1 " + dob);
+                                                }
                                             }
                                         }
+                                        //dob = month + "-" + day + "-" + year;                                    
+                                        //DateTime.TryParse(uploadate, out datechk4);
+                                        //uploadate = DateTime.Now.Year+"-"+DateTime.Now.ToString("MM-dd");
+                                        err = "023";
+                                        // ✅ เพิ่ม SocialID เข้า HashSet
+                                        socialIdSet.Add(socid);
+                                        DataRow drow = dt.Rows.Add();
+                                        if (flagTabPage.Length > 0)
+                                        {
+                                            drow["ssn_data_period_id"] = cnt;
+                                            drow["status_ssn_data"] = "0";
+                                        }
+                                        drow["SocialID"] = socid;
+                                        drow["Social_Card_no"] = cardno;
+                                        drow["TitleName"] = titlename;
+                                        drow["FirstName"] = firstname;
+                                        drow["LastName"] = lastname;
+                                        drow["FullName"] = fullname;
+                                        drow["PrakanCode"] = prakuncode;
+                                        drow["Prangnant"] = prang;
+                                        drow["StartDate"] = startdate;
+                                        drow["EndDate"] = enddate;
+                                        drow["BirthDay"] = dob;
+                                        drow["UploadDate"] = DateTime.Now;
+                                        drow["FLAG"] = flag1;
+                                        counter++; validLines++;
                                     }
-                                    //dob = month + "-" + day + "-" + year;                                    
-                                    //DateTime.TryParse(uploadate, out datechk4);
-                                    //uploadate = DateTime.Now.Year+"-"+DateTime.Now.ToString("MM-dd");
-                                    err = "023";
-                                    DataRow drow = dt.Rows.Add();
-                                    if (flagTabPage.Length > 0)
+                                    catch (Exception ex)
                                     {
-                                        drow["ssn_data_period_id"] = cnt;
-                                        drow["status_ssn_data"] = "0";
+                                        errorLines++;
+                                        listBox1.Items.Add($"❌ บรรทัด {totalLines}: {ex.Message}");
                                     }
-                                    drow["SocialID"] = socid;
-                                    drow["Social_Card_no"] = cardno;
-                                    drow["TitleName"] = titlename;
-                                    drow["FirstName"] = firstname;
-                                    drow["LastName"] = lastname;
-                                    drow["FullName"] = fullname;
-                                    drow["PrakanCode"] = prakuncode;
-                                    drow["Prangnant"] = prang;
-                                    drow["StartDate"] = startdate;
-                                    drow["EndDate"] = enddate;
-                                    drow["BirthDay"] = dob;
-                                    drow["UploadDate"] = DateTime.Now;
-                                    drow["FLAG"] = flag1;
-                                    counter++;
                                 }
-                                //dt.Rows.Add(drow);
+                                else{                                    shortLines++;                                }
+                                    //dt.Rows.Add(drow);
                                 cnt++;
                             }
                             file.Close();
                             //Console.WriteLine($ "File has {counter} lines.");
                         }
+
                         if (flag.Equals("1"))
                         {
                             label4.Text = counter.ToString() + " " + cnt.ToString();
@@ -566,6 +702,7 @@ namespace bangna_hospital.gui
                             label6.Text = counter.ToString() + " " + cnt.ToString();
                             label7.Text = counter.ToString() + " " + cnt.ToString();
                         }
+
                     }
                     catch(Exception ex)
                     {
@@ -579,12 +716,153 @@ namespace bangna_hospital.gui
             }
             
             listBox1.Items.Add("ssn_data1 add success");
+            this.ResumeLayout();
             //Console.ReadKey();
             return dt;
         }
+        // ✅ แก้ไขใน TryParseThaiDate ให้ return วันที่ที่ถูกต้องเสมอ
+        private bool TryParseThaiDate(string dateStr, out DateTime result)
+        {
+            // SQL Server DateTime range
+            DateTime sqlMinDate = new DateTime(1753, 1, 1);
+            DateTime sqlMaxDate = new DateTime(9999, 12, 31);
+            DateTime defaultDate = new DateTime(2000, 1, 1);
+
+            result = defaultDate;  // ✅ Set default ที่ปลอดภัย
+
+            try
+            {
+                if (string.IsNullOrEmpty(dateStr) || dateStr.Length < 8)
+                    return false;
+
+                string year = dateStr.Substring(0, 4);
+                string month = dateStr.Substring(4, 2);
+                string day = dateStr.Substring(6, 2);
+
+                int yearInt = int.Parse(year);
+
+                // แปลงปี พ.ศ. เป็น ค.ศ.
+                if (yearInt > 2500)
+                {
+                    yearInt -= 543;
+                }
+
+                // ✅ ตรวจสอบช่วงปีให้อยู่ใน SQL Server range
+                if (yearInt < 1753)
+                {
+                    yearInt = 2000;  // ใช้ค่า default
+                }
+                else if (yearInt > 9999)
+                {
+                    yearInt = 2000;
+                }
+
+                int monthInt = int.Parse(month);
+                int dayInt = int.Parse(day);
+
+                // ตรวจสอบเดือน
+                if (monthInt < 1 || monthInt > 12)
+                {
+                    monthInt = 1;
+                }
+
+                // ตรวจสอบวัน
+                if (dayInt < 1 || dayInt > 31)
+                {
+                    dayInt = 1;
+                }
+
+                // สร้าง DateTime
+                result = new DateTime(yearInt, monthInt, dayInt);
+
+                // ✅ Double check ว่าอยู่ในช่วงที่ถูกต้อง
+                if (result < sqlMinDate)
+                {
+                    result = defaultDate;
+                    return false;
+                }
+
+                if (result > sqlMaxDate)
+                {
+                    result = defaultDate;
+                    return false;
+                }
+
+                return true;
+            }
+            catch
+            {
+                result = defaultDate;
+                return false;
+            }
+        }
+        // ✅ เปรียบเทียบข้อมูล
+        private bool CompareData(SocialDataInfo existing, string fullname, string cardno,
+            string prakuncode, string startdate, string enddate, string dob)
+        {
+            return existing.FullName == fullname &&
+                   existing.CardNo == cardno &&
+                   existing.PrakanCode == prakuncode &&
+                   existing.StartDate == startdate &&
+                   existing.EndDate == enddate &&
+                   existing.BirthDay == dob;
+        }
+        // ✅ Helper methods สำหรับ parse วันที่
+        private string ParseDateFromLine(string dateStr)
+        {
+            if (dateStr.Length < 8) return DateTime.Now.ToString("yyyy-MM-dd");
+
+            string year = dateStr.Substring(0, 4);
+            string month = dateStr.Substring(4, 2);
+            string day = dateStr.Substring(6, 2);
+
+            if (int.Parse(year) > 2500)
+            {
+                year = (int.Parse(year) - 543).ToString();
+            }
+
+            return $"{year}-{month}-{day}";
+        }
+        private string ParseBirthDateFromLine(string ln)
+        {
+            string dob = "20000101";
+
+            if (ln.Length > 126)
+            {
+                dob = ln.Substring(126, 8).Trim();
+            }
+
+            if (dob.Length < 8)
+            {
+                return "2000-01-01";
+            }
+
+            string year = dob.Substring(0, 4);
+            string month = dob.Substring(4, 2);
+            string day = dob.Substring(6, 2);
+
+            if (int.Parse(year) > 2500)
+            {
+                year = (int.Parse(year) - 543).ToString();
+            }
+
+            return $"{year}-{month}-{day}";
+        }
+        // ✅ สร้าง class เก็บข้อมูล
+        private class SocialDataInfo
+        {
+            public string SocialID { get; set; }
+            public string FullName { get; set; }
+            public string CardNo { get; set; }
+            public string PrakanCode { get; set; }
+            public string StartDate { get; set; }
+            public string EndDate { get; set; }
+            public string BirthDay { get; set; }
+            public int LineNumber { get; set; }
+        }
         private void frmSsnData_Load(object sender, EventArgs e)
         {
-            this.Text = "2022-02-17";
+            this.Text = "2026-02-02-2 dob ไม่มีข้อมูล มีข้อมูลซ้ำ  2022-02-17-1";
             CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
             lB1.Text = currentCulture.Name;
             this.WindowState = FormWindowState.Normal;

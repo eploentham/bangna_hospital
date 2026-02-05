@@ -51,7 +51,7 @@ namespace bangna_hospital.object1
         public String statusdoctorold = "", linkmedicalscan = "", applicationrunnextrecord = "", statusdruginon = "", doealientoken="", urlbangnadoe="", provcode="", urlbangnadoeresult="";
         public String pathdoealiencert = "", pathlocalStaffNote="", compcodedoe="", staffNoteFontName="", staffNoteFontSize="", usersharepathstaffnote="", passwordsharepathstaffnote = "";
         public String pathapp = "", pathlocalEKG="",pathlocalDocOLD="", pathlocalEST = "", pathlocalECHO="", pathlocalHolter="", statusPasswordConfirm="", statusShowMessageError="", scannername="";
-        public String deptphone = "", hostaddress1="", statusPrintStickerDrugAll="", CLAUDEAPI_KEY="", API_juristic="", printadjustY="", printYPOS="", statusPrintQue="", sectioncheckup="";
-        public String tabdefault = "", authenedit="", hidelogo="";
+        public String deptphone = "", hostaddress1="", statusPrintStickerDrugAll="", CLAUDEAPI_KEY="", API_juristic="", printadjustY="", printYPOS="", statusPrintQue="", sectioncheckup="", urlbangnadoe11nov = "", urlbangnadoeresult11nov="";
+        public String tabdefault = "", authenedit="", hidelogo="", statusPasswordConfirmLow="", statusbypasserror="", hidecomponent="";
     }
 }

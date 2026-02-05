@@ -61,5 +61,28 @@ namespace bangna_hospital.objdb
             }
             return autoSymptom;
         }
+        public List<String> getApmRemarkList()
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            List<String> arr = new List<String>();
+            sql = "Select  MNC_DFL_DSC From  Default_m07 defm07 " +
+                " " +
+                "Where defm07.MNC_DFL_CD = 'APP_REM'  " +
+                " ";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                String[] arr1 = dt.Rows[0]["MNC_DFL_DSC"].ToString().Split('\n');
+                foreach (string item in arr1)
+                {
+                    if (!string.IsNullOrWhiteSpace(item))
+                    {
+                        arr.Add(item.Trim());
+                    }
+                }
+            }
+            return arr;
+        }
     }
 }

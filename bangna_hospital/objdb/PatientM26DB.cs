@@ -81,6 +81,30 @@ namespace bangna_hospital.objdb
             cop1 = setMedicalCert(dt);
             return cop1;
         }
+        public DataTable selectByCode(String deptcode)
+        {
+            PatientM26 cop1 = new PatientM26();
+            DataTable dt = new DataTable();
+            String sql = "select pm26.MNC_DOT_FNAME,pm26.MNC_DOT_LNAME,pm02.MNC_PFIX_DSC,pm26.MNC_DOT_CD " +
+                "From " + pm26.table + " pm26 " +
+                "Left Join PATIENT_M02 pm02 On pm26.MNC_DOT_PFIX = pm02.MNC_PFIX_CD " +
+                "Where pm26." + pm26.MNC_DOT_CD + " like '" + deptcode + "%' " +
+                " ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
+        public DataTable selectByDept(String deptcode)
+        {
+            PatientM26 cop1 = new PatientM26();
+            DataTable dt = new DataTable();
+            String sql = "select pm26.MNC_DOT_FNAME,pm26.MNC_DOT_LNAME,pm02.MNC_PFIX_DSC,pm26.MNC_DOT_CD " +
+                "From " + pm26.table + " pm26 " +
+                "Left Join PATIENT_M02 pm02 On pm26.MNC_DOT_PFIX = pm02.MNC_PFIX_CD " +
+                "Where pm26." + pm26.MNC_DEP_NO + " ='" + deptcode + "' " +
+                " ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public DataTable SelectDtrAll()
         {
             DataTable dt = new DataTable();

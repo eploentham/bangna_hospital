@@ -1,38 +1,42 @@
 ﻿using bangna_hospital.control;
 using bangna_hospital.object1;
+using bangna_hospital.Properties;
+using C1.C1Excel;
+using C1.C1Pdf;
+using C1.Win.BarCode;
+using C1.Win.C1Chart;
+using C1.Win.C1Command;
+using C1.Win.C1Document;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
+using C1.Win.FlexViewer;
+using C1.Win.ImportServices.ReportingService4;
+using GrapeCity.ActiveReports.Document.Section.Annotations;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
+using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using iText.Kernel.Utils;
+using iTextSharp.text;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Policy;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using C1.Win.ImportServices.ReportingService4;
-using C1.Win.FlexViewer;
-using C1.Win.C1Document;
-using System.IO;
-using iText.Kernel.Pdf.Canvas.Parser.Listener;
-using iText.Kernel.Pdf.Canvas.Parser;
-using iText.Kernel.Pdf;
-using C1.C1Excel;
-using bangna_hospital.Properties;
-using C1.C1Pdf;
-using System.Diagnostics;
-using iTextSharp.text;
 using Image = System.Drawing.Image;
-using C1.Win.BarCode;
-using GrapeCity.ActiveReports.Document.Section.Annotations;
-using C1.Win.C1Command;
-using iText.Kernel.Utils;
+using Label = System.Windows.Forms.Label;
 
 namespace bangna_hospital.gui
 {
@@ -48,7 +52,7 @@ namespace bangna_hospital.gui
         C1ThemeController theme1;
         C1FlexViewer fvCerti;
         String REGCODE = "",FILENAMEEXCEL="";
-        int colalcode = 1, colaltype = 2, colalprefix = 3, colalprefixen = 4, colalnameen = 5, colalsnamee=6, colalbdate=7, colalgender=8, colalnation=9, colalposid=10;
+        int colalcode = 1, colaltype = 2, colalprefix = 3, colalprefixen = 4, colalnameen = 5, colalsnamee=6, colalbdate=7, colalgender=8, colalnation=9, colalposid=10, colalflag11nov=11;
         int colvsdate = 1, colvshn =2, colvsalienname = 3, colvsalcode = 4, colvspre = 5, colvsheight=6, colvsweight=7, colvsbreath=8, colvshrate=9, colvsbp1l=10, colvsskintone=11, colvsnation=12, colvsposition=13,colvsdob=14, colvsgender=15, colvsempname=16, colvswkaddress=17;
         int colpdfname = 1, colpdfpath = 2;
         int colviewhn = 1, colviewname = 2, colviewvsdate = 3, colviewpreno = 4, colviewstatusdoe = 5;
@@ -80,15 +84,23 @@ namespace bangna_hospital.gui
             theme1 = new C1ThemeController();
             DOEAR = new List<DoeAlienList>();
             initFont();
+            //new LogWriter("e", "FrmDoeAlien initConfig 00");
             setEvent();
+            //new LogWriter("e", "FrmDoeAlien initConfig 01");
             setTheme();
+            //new LogWriter("e", "FrmDoeAlien initConfig 02");
             bc.bcDB.pttDB.setCboDeptOPD(cboDoeDeptNew, bc.iniC.station);
             initGrfOPD();
+            //new LogWriter("e", "FrmDoeAlien initConfig 03");
             initGrfVs();
+            //new LogWriter("e", "FrmDoeAlien initConfig 04");
             initGrfPDF();
+            //new LogWriter("e", "FrmDoeAlien initConfig 05");
             initGrfView();
+            //new LogWriter("e", "FrmDoeAlien initConfig 06");
             initLoading();
             initGrfExcelVisit();
+            //new LogWriter("e", "FrmDoeAlien initConfig 07");
             txtDoeView.Value = DateTime.Now;
             setControl();
             pageLoad = false;
@@ -121,10 +133,23 @@ namespace bangna_hospital.gui
         }
         private void setControl()
         {
-            txtDoetoken.Value = bc.iniC.doealientoken;
-            txtDoeURLbangna.Value = bc.iniC.urlbangnadoe;
-            txtDoeReqcode.Value = REGCODE;
-            txtDoeDeptNew.Value = bc.iniC.station;
+            try
+            {
+                txtDoetoken.Value = bc.iniC.doealientoken ?? "";
+                txtDoeURLbangna.Value = bc.iniC.urlbangnadoe ?? "";
+                txtDoeReqcode.Value = REGCODE ?? "";
+                txtDoeDeptNew.Value = bc.iniC.station ?? "";
+                // ✅ เพิ่มการตรวจสอบ FTP settings
+                if (string.IsNullOrWhiteSpace(bc.iniC.hostFTPCertMeddoe))
+                {
+                    lfSbMessage.Text = "⚠️ ไม่พบการตั้งค่า FTP ใน ini file";
+                }
+                //new LogWriter("e", "FrmDoeAlien setControl 04");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("FrmDoeAlien setControl " + ex.Message);
+            }
         }
         private void initFont()
         {
@@ -160,6 +185,7 @@ namespace bangna_hospital.gui
             txtDoePaidCode.KeyUp += TxtDoePaidCode_KeyUp;
             cboDoeDeptNew.SelectedItemChanged += CboDoeDeptNew_SelectedItemChanged;
             btnSendCertSend.Click += BtnSendCertSend_Click;
+            btnSendCertSend11Nov.Click += BtnSendCertSend11Nov_Click;
             btnSendCertgetPDF.Click += BtnSendCertgetPDF_Click;
             txtSendCertCertID.KeyUp += TxtSendCertCertID_KeyUp;
             txtDoeView.DropDownClosed += TxtDoeView_DropDownClosed;
@@ -187,6 +213,7 @@ namespace bangna_hospital.gui
             txtCheckUPDoctorId.KeyUp += TxtCheckUPDoctorId_KeyUp;
             txtCheckUPDoctorId.KeyPress += TxtCheckUPDoctorId_KeyPress;
             btnExcelmergePDF.Click += BtnExcelmergePDF_Click;
+            btnDoeGet11Nov.Click += BtnDoeGet11Nov_Click;
         }
 
         private void BtnExcelmergePDF_Click(object sender, EventArgs e)
@@ -1026,17 +1053,19 @@ namespace bangna_hospital.gui
         private void BtnSendCertSend_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            SendCertFTP(FILENAME);
+            SendCertFTP(FILENAME,"");
         }
-        private async void SendCertFTP(String ftpfilename)
+        private void BtnSendCertSend11Nov_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            SendCertFTP(FILENAME,"11NOV");
+        }
+        private async void SendCertFTP(String ftpfilename, String flag11NOV)
         {            
             lfSbMessage.Text = ftpfilename+" "+ STREAMCertiDOE.Length + " " + STREAMCertiDOE.Position;
             STREAMCertiDOE.Position = 0;
-            if (STREAMCertiDOE.Length <= 0)
-            {
-                lbErr.Text = "STREAMCertiDOE.Length <= 0 SendCertFTP";
-                return;
-            }
+            if (STREAMCertiDOE.Length <= 0)     {                lbErr.Text = "STREAMCertiDOE.Length <= 0 SendCertFTP";                return;   }
+            showLbLoading();
             FtpClient ftpc = new FtpClient(bc.iniC.hostFTPbangnadoe, bc.iniC.userFTPbangnadoe, bc.iniC.passFTPbangnadoe, false);
             var url = txtSendCerturlBangna.Text.Trim();
             String doefielname = "";
@@ -1050,6 +1079,7 @@ namespace bangna_hospital.gui
                 //doeRes.cert_id = txtSendCertCertID.Text.Trim();
                 //doeRes.alchkhos = "";
                 String status = chkSendCertStatus1.Checked ? "1" : chkSendCertStatus2.Checked ? "2" : chkSendCertStatus3.Checked ? "3" : "0";
+                String status11nov = chkSendCertStatus1.Checked ? "1" : chkSendCertStatus2.Checked ? "2" : chkSendCertStatus3.Checked ? "3" : "0";
                 //doeRes.alchkdate = txtSendCertvsdate.Text.Trim();
                 //doeRes.alchkprovid = "";
                 //doeRes.licenseno = txtSendCertdtrcode.Text.Trim();
@@ -1058,12 +1088,17 @@ namespace bangna_hospital.gui
                 //doeRes.alchkdesc = txtSendCertdesc.Text.Trim();
                 //doeRes.alchkdoc = "";
                 //String jsonEpi = JsonConvert.SerializeObject(doeRes);
+                if (flag11NOV.Equals("11NOV"))      {             url = bc.iniC.urlbangnadoeresult11nov;           }
                 using (HttpClient httpClient = new HttpClient())
                 {
                     //var content = new StringContent(jsonEpi, Encoding.UTF8, "application/json");
+                    ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;   //บันทัดนี้ ถ้าไม่ใส่ จะ error เกี่ยวกับ certificate
                     HttpResponseMessage response = await httpClient.GetAsync(url + "?cert_id=" + txtSendCertCertID.Text.Trim().Replace("555", "") + "&alcodedoe=" + txtSendCertalcode.Text.Trim()
                         + "&chkstatus=" + status + "&chkdate=" + txtSendCertvsdate.Text.Trim() + "&dtrcode=" + txtSendCertdtrcode.Text.Trim()
-                        + "&dtrname=" + txtSendCertdtrName.Text.Trim() + "&position=" + txtSendCertdtrposition.Text.Trim());
+                        + "&dtrname=" + txtSendCertdtrName.Text.Trim() + "&position=" + txtSendCertdtrposition.Text.Trim()
+                        +"&alien_id="+ txtSendCertalcode.Text.Trim()+"&alien_check_status="+ status11nov+"&alien_check_date=" + txtSendCertvsdate.Text.Trim()+"&alien_check_province_id=11"
+                        + "&alien_check_province_name=สมุทรปราการ"+"&licenseno=" + txtSendCertdtrcode.Text.Trim()+"&check_name=" + txtSendCertdtrName.Text.Trim()+"&check_position=" + txtSendCertdtrposition.Text.Trim()
+                        + "&alien_check_desc='-'&alien_check_hospital="+bc.iniC.hostname);
                     if (response.IsSuccessStatusCode)
                     {
                         // Handle success
@@ -1071,9 +1106,12 @@ namespace bangna_hospital.gui
                         //setGrfPDFFormFolder();
                         String content1 = await response.Content.ReadAsStringAsync();
                         DoeAlientResponse doear = JsonConvert.DeserializeObject<DoeAlientResponse>(content1);
-                        if (int.Parse(doear.statuscode)<0)
+                        Boolean chk1=false;
+                        if (doear.code.Equals("200"))                        {                            chk1 = true;                        }
+                        if (chk1==false && (int.Parse(doear.statuscode)<0))
                         {
                             lbErr.Text = "ไม่สามารถส่งไฟล์ไปยังเซิฟเวอร์ได้ "+ doear.statusdesc;
+                            hideLbLoading();
                             return;
                         }
                         FtpClient ftpd = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, false);
@@ -1087,9 +1125,14 @@ namespace bangna_hospital.gui
                     else
                     {
                         // Handle error
+                        String content1 = await response.Content.ReadAsStringAsync();
+                        DoeAlientError doear = JsonConvert.DeserializeObject<DoeAlientError>(content1);
+                        lfSbMessage.Text = content1.ToString();
                     }
                 }
             }
+            clearControlSendDOE();
+            hideLbLoading();
         }
         private async void SendCert()
         {
@@ -1165,10 +1208,144 @@ namespace bangna_hospital.gui
                 }
             }
         }
+        private async void setDoeAienGrfOPD(String flag11NOV)
+        {
+            grfOPD.DataSource = null;
+            grfOPD.Rows.Count = 1;
+            //if ((grfExcel!=null)&&(grfExcel.Rows.Count > 0)) grfExcel.Rows.Count = 0;
+            showLbLoading();
+            DoeAlienRequest doea = new DoeAlienRequest();
+            doea.reqcode = txtDoeReqcode.Text.Trim();
+            doea.alcode = txtDoeAlcode.Text.Trim();
+            if (txtDoeReqcode.Text.Trim().Length <= 0 && txtDoeAlcode.Text.Trim().Length <= 0)  {           hideLbLoading();        return;     }
+            doea.token = txtDoetoken.Text.Trim();
+            var url = txtDoeURLbangna.Text.Trim();
+            String jsonEpi = JsonConvert.SerializeObject(doea, Formatting.Indented);
+            jsonEpi = jsonEpi.Replace("[" + Environment.NewLine + "    null" + Environment.NewLine + "  ]", "[]");
+            try
+            {
+                if(flag11NOV.Equals("11NOV"))
+                {
+                    //{{base_url}}/request-namelist-information
+                    url = txtDoeAlcode.Text.Length>0 ? bc.iniC.urlbangnadoe11nov + "?alien_id=" + txtDoeAlcode.Text.Trim(): bc.iniC.urlbangnadoe11nov + "&namelist_id=" + txtDoeReqcode.Text.Trim();
+                }
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    //var content = new StringContent(jsonEpi, Encoding.UTF8, "application/json");
+                    //บันทัดนี้ ถ้าไม่ใส่ จะ error เกี่ยวกับ certificate
+                    ServicePointManager.ServerCertificateValidationCallback +=  (sender, cert, chain, sslPolicyErrors) => true;   //บันทัดนี้ ถ้าไม่ใส่ จะ error เกี่ยวกับ certificate
+                    HttpResponseMessage response = await httpClient.GetAsync(url);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        DoeAlientResponse doear = new DoeAlientResponse();
+                        DoeAlientResponse11Nov doear11nov = new DoeAlientResponse11Nov();
+                        String content1 = await response.Content.ReadAsStringAsync();
+                        if (flag11NOV.Equals("11NOV"))
+                        {
+                            doear11nov = JsonConvert.DeserializeObject<DoeAlientResponse11Nov>(content1);
+                            txtDoeEmpname.Value = doear11nov.emp_name;
+                            txtDoeWkaddress.Value = doear11nov.work_address;
+                            //txtDoeReqcode.Value = doear.reqcode;
+                            txtDoeBtname.Value = doear11nov.btname;
+                            if(doear11nov.alien_list == null)   {   lfSbMessage.Text = "ไม่พบข้อมูล";  hideLbLoading();    return;     }
+                            grfOPD.Rows.Count = doear11nov.alien_list.Count + 1;
+                            int i = 1, j = 1;
+                            foreach (var alien in doear11nov.alien_list)
+                            {
+                                Row rowa = grfOPD.Rows[i];
+                                rowa[colalcode] = alien.alien_id;
+                                rowa[colaltype] = alien.alien_type;
+                                rowa[colalprefix] = alien.alien_prefix;
+                                rowa[colalprefixen] = alien.alien_prefix;
+                                rowa[colalnameen] = alien.alien_firstname_en;
+                                rowa[colalsnamee] = alien.alien_middlename_en +" "+alien.alien_lastname_en;
+                                rowa[colalbdate] = alien.birth_date;
+                                rowa[colalgender] = alien.gender;
+                                rowa[colalnation] = alien.nationality_name;
+                                rowa[colalposid] = alien.job_name;
+                                rowa[colalflag11nov] = "1";
+                                rowa[0] = i.ToString();
+                                i++;
+                                //Console.WriteLine((alienlist)alien.alcode);
+                            }
+                        }
+                        else
+                        {
+                            doear = JsonConvert.DeserializeObject<DoeAlientResponse>(content1);
+                            if (doear.statuscode.Equals("-100")) return;
+                            txtDoeEmpname.Value = doear.empname;
+                            txtDoeWkaddress.Value = doear.wkaddress;
+                            //txtDoeReqcode.Value = doear.reqcode;
+                            txtDoeBtname.Value = doear.btname;
+                            grfOPD.Rows.Count = doear.alienlist.Count + 1;
+                            int i = 1, j = 1;
+                            foreach (var alien in doear.alienlist)
+                            {
+                                Row rowa = grfOPD.Rows[i];
+                                rowa[colalcode] = alien.alcode;
+                                rowa[colaltype] = alien.altype;
+                                rowa[colalprefix] = alien.alprefix;
+                                rowa[colalprefixen] = alien.alprefixen;
+                                rowa[colalnameen] = alien.alnameen;
+                                rowa[colalsnamee] = alien.alsnameen;
+                                rowa[colalbdate] = alien.albdate;
+                                rowa[colalgender] = alien.algender;
+                                rowa[colalnation] = alien.alnation;
+                                rowa[colalposid] = alien.alposid;
+                                rowa[colalflag11nov] = "";
+                                rowa[0] = i.ToString();
+                                i++;
+                                //Console.WriteLine((alienlist)alien.alcode);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        String content1 = await response.Content.ReadAsStringAsync();
+                        dynamic errorResponse = JsonConvert.DeserializeObject(content1);
+                        if (errorResponse?.error != null)
+                        {
+                            //string errorCode = errorResponse.error.code?.ToString() ?? "Unknown";
+                            //string errorMessage = errorResponse.error.message?.ToString() ?? "Unknown error";
+
+                        }
+                        lfSbMessage.Text = content1;
+                    }
+                    if (response.StatusCode.ToString().ToUpper().Equals("OK"))
+                    {
+                        
+                        
+                        //Console.WriteLine(content);
+                    }
+                    else if (response.StatusCode.ToString().ToUpper().Equals("400"))
+                    {
+
+                    }
+                    else
+                    {
+                        //MessageBox.Show("error send " + result.StatusCode, "");
+                    }
+                }
+                txtDoeHN.Value = "";
+                txtDoepreno.Value = "";
+                c1SplitterPanel3.SizeRatio = 0;
+            }
+            catch (Exception ex)
+            {
+                lfSbMessage.Text = ex.InnerException+" "+ ex.Message;
+                //MessageBox.Show("error " + ex.Message, "");
+            }
+            finally            {                               hideLbLoading();            }
+        }
+        private void BtnDoeGet11Nov_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setDoeAienGrfOPD("11NOV");
+        }
         private void BtnDoeGet_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setDoeAienGrfOPD();
+            setDoeAienGrfOPD("");
         }
 
         private void BtnDoeSave_Click(object sender, EventArgs e)
@@ -1176,7 +1353,10 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             //Row rowa = grfVs.Rows.Add();
             //rowa[colvsdate] = txtDoevsdate.Text.Trim();
+            btnDoeSave.Enabled = false;
             DoeAddVisit();
+            Thread.Sleep(1000);
+            btnDoeSave.Enabled = true;
         }
         private Visit DoeAddVisit()
         {
@@ -1192,8 +1372,8 @@ namespace bangna_hospital.gui
             ptt.MNC_HN_NO = "";
             ptt.passport = "";
             ptt.MNC_HN_YR = "";
-            ptt.MNC_PFIX_CDT = bc.bcDB.pm02DB.getCodeByName(prefix);
-            ptt.MNC_PFIX_CDE = bc.bcDB.pm02DB.getCodeByName(prefix);
+            ptt.MNC_PFIX_CDT = bc.bcDB.pm02DB.getCodeByName(prefix.ToUpper());
+            ptt.MNC_PFIX_CDE = bc.bcDB.pm02DB.getCodeByName(prefix.ToUpper());
             err = "02";
             ptt.MNC_FNAME_T = txtDoeAlnameen.Text.Trim();
             ptt.MNC_LNAME_T = txtDoeAlsnameen.Text.Trim();
@@ -1253,11 +1433,11 @@ namespace bangna_hospital.gui
                 ptt.MNC_AGE = "0";
             }
             ptt.MNC_SEX = txtDoeAlgender.Text.Trim().Equals("1")?"M": txtDoeAlgender.Text.Trim().Equals("2")?"F":"";
-            ptt.MNC_SS_NO = txtDoeAlcode.Text.Trim();
+            ptt.MNC_SS_NO = txtDoeAlcode.Text.Length <= 13 ? txtDoeAlcode.Text.Trim(): txtDoeAlcode.Text.Trim().Substring(0,13);
             ptt.WorkPermit1 = txtDoeAlcode.Text.Trim();
             ptt.MNC_NAT_CD = txtDoeAlnation.Text.Trim().Equals("M") ? "48" : txtDoeAlnation.Text.Trim().Equals("L") ? "56" : txtDoeAlnation.Text.Trim().Equals("C") ? "57" : txtDoeAlnation.Text.Trim().Equals("V") ? "46" : "97";
             ptt.MNC_ID_NAM = txtDoeAlcode.Text.Trim();
-            ptt.MNC_ID_NO = txtDoeAlcode.Text.Trim();
+            ptt.MNC_ID_NO = txtDoeAlcode.Text.Length<=13? txtDoeAlcode.Text.Trim(): txtDoeAlcode.Text.Trim().Substring(0,13);
             //ptt.MNC_AGE = "";
             ptt.MNC_ATT_NOTE = "";
             ptt.MNC_CUR_ADD = "";
@@ -1285,6 +1465,7 @@ namespace bangna_hospital.gui
             ptt.remark2 = txtDoeWkaddress.Text.Trim();
             ptt.passport = "";
             ptt.MNC_HN_YR = DateTime.Now.Year.ToString();
+            ptt.ref1 = txtDoeAlcode.Text;
             String re = bc.bcDB.pttDB.insertPatientStep1(ptt);
             if (long.TryParse(re, out long chk))
             {
@@ -1342,7 +1523,11 @@ namespace bangna_hospital.gui
                     }
                 }
             }
-            return vs;
+            else
+            {
+                lfSbMessage.Text = "ไม่สามารถ ออก HN ได้";
+            }
+                return vs;
         }
         private void setTheme()
         {
@@ -1505,7 +1690,7 @@ namespace bangna_hospital.gui
             grfOPD.Dock = System.Windows.Forms.DockStyle.Fill;
             grfOPD.Location = new System.Drawing.Point(0, 0);
             grfOPD.Rows.Count = 1;
-            grfOPD.Cols.Count = 11;
+            grfOPD.Cols.Count = 12;
             grfOPD.Cols[colalcode].Width = 80;
             grfOPD.Cols[colaltype].Width = 80;
             grfOPD.Cols[colalprefix].Width = 60;
@@ -1529,7 +1714,7 @@ namespace bangna_hospital.gui
             grfOPD.Cols[colalnation].Caption = "nation";
             grfOPD.Cols[colalposid].Caption = "position";
             //grfOPD.Rows[0].Visible = false;
-            //grfOPD.Cols[0].Visible = false;
+            grfOPD.Cols[11].Visible = false;
             grfOPD.Cols[colalcode].AllowEditing = false;
             grfOPD.Cols[colaltype].AllowEditing = false;
             grfOPD.Cols[colalprefix].AllowEditing = false;
@@ -1567,29 +1752,41 @@ namespace bangna_hospital.gui
             showLbLoading();
             try
             {
+                String flga = grfOPD[grfOPD.Row, colalflag11nov] != null ? grfOPD[grfOPD.Row, colalflag11nov].ToString() : "";
                 String name = grfOPD[grfOPD.Row, colalnameen]!=null? grfOPD[grfOPD.Row, colalnameen].ToString():"";
                 name = (name.IndexOf("MRS") == 0) ? name.Replace("MRS", "") : name;
                 name = (name.IndexOf("MR")==0) ? name.Replace("MR","") : name;
                 name = (name.IndexOf(".") >= 0) ? name.Replace(".", "") : name;
                 if (name.IndexOf(".") == 0) name = name.Replace(".", "").Trim();
                 txtDoeAlcode.Value = grfOPD[grfOPD.Row, colalcode].ToString();
-                txtDoeAltype.Value = grfOPD[grfOPD.Row, colaltype].ToString();
                 txtDoeAlprefix.Value = grfOPD[grfOPD.Row, colalprefix].ToString();
                 txtDoeAlprefixen.Value = grfOPD[grfOPD.Row, colalprefixen].ToString();
                 txtDoeAlnameen.Value = name.Trim();
-                txtDoeAlsnameen.Value = grfOPD[grfOPD.Row, colalsnamee].ToString();
                 txtDoeAlbdate.Value = grfOPD[grfOPD.Row, colalbdate].ToString();
                 txtDoeAlgender.Value = grfOPD[grfOPD.Row, colalgender].ToString();
                 txtDoeAlnation.Value = grfOPD[grfOPD.Row, colalnation].ToString();
                 txtDoeAlposid.Value = grfOPD[grfOPD.Row, colalposid].ToString();
-                lbDoeAltypeName.Text = grfOPD[grfOPD.Row, colaltype].ToString().Equals("1") ? "ขึ้นทะเบียนคนต่างด้าวผิดกฏหมาย" : grfOPD[grfOPD.Row, colaltype].ToString().Equals("2") ? "ต่ออายุคนต่างด้าว" : "-";
-                lbDoeAlgenderName.Text = grfOPD[grfOPD.Row, colalgender].ToString().Equals("1") ? "ชาย" : grfOPD[grfOPD.Row, colalgender].ToString().Equals("2") ? "หญิง" : "-";
-                lbDoeAlposidName.Text = grfOPD[grfOPD.Row, colalposid].ToString().Equals("1") ? "กรรมกร" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("2") ? "ผู้รับใช้ในบ้าน" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("3") ? "ช่างเครื่องยนต์ในเรือประมงทะเล" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("4") ? " ผู้ประสานงานด้านภาษากัมพูชา ลาว เมียนมา หรือเวียดนาม" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("5") ? "งานขายของหน้าร้าน"
-                    : grfOPD[grfOPD.Row, colalposid].ToString().Equals("6") ? "งานกสิกรรม" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("7") ? "งานเลี้ยงสัตว์" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("8") ? "งานป่าไม้" :
-                    grfOPD[grfOPD.Row, colalposid].ToString().Equals("9") ? "งานประมง" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("10") ? "งานช่างก่ออิฐ" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("11") ? "งานช่างไม้" :
-                    grfOPD[grfOPD.Row, colalposid].ToString().Equals("12") ? "งานช่างก่อสร้างอาคาร" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("13") ? "งานทำที่นอนหรือผ้าห่มนวม" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("14") ? "งานทำมีด" :
-                    grfOPD[grfOPD.Row, colalposid].ToString().Equals("15") ? "งานทำรองเท้า" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("16") ? "งานทำหมวก" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("17") ? "งานประดิษฐ์เครื่องแต่งกาย" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("18") ? "งานปั้นหรือทำเครื่องปั้นดินเผา" : "-";
-                lbDoeAlnationName.Text = grfOPD[grfOPD.Row, colalnation].ToString().Equals("M") ? "เมียนมา" : grfOPD[grfOPD.Row, colalnation].ToString().Equals("L") ? "ลาว" : grfOPD[grfOPD.Row, colalnation].ToString().Equals("C") ? "กัมพูชา" : grfOPD[grfOPD.Row, colalnation].ToString().Equals("V") ? "เวียดนาม" : "-";
+                txtDoeAlsnameen.Value = grfOPD[grfOPD.Row, colalsnamee].ToString();
+                if (flga.Equals("1"))
+                {
+                    txtDoeAltype.Value = "";
+                    lbDoeAltypeName.Text = "";
+                    lbDoeAlgenderName.Text = grfOPD[grfOPD.Row, colalgender].ToString();
+                    lbDoeAlposidName.Text = grfOPD[grfOPD.Row, colalposid].ToString();
+                    lbDoeAlnationName.Text = grfOPD[grfOPD.Row, colalnation].ToString();
+                }
+                else
+                {
+                    txtDoeAltype.Value = grfOPD[grfOPD.Row, colaltype].ToString();
+                    lbDoeAltypeName.Text = grfOPD[grfOPD.Row, colaltype].ToString().Equals("1") ? "ขึ้นทะเบียนคนต่างด้าวผิดกฏหมาย" : grfOPD[grfOPD.Row, colaltype].ToString().Equals("2") ? "ต่ออายุคนต่างด้าว" : "-";
+                    lbDoeAlgenderName.Text = grfOPD[grfOPD.Row, colalgender].ToString().Equals("1") ? "ชาย" : grfOPD[grfOPD.Row, colalgender].ToString().Equals("2") ? "หญิง" : "-";
+                    lbDoeAlposidName.Text = grfOPD[grfOPD.Row, colalposid].ToString().Equals("1") ? "กรรมกร" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("2") ? "ผู้รับใช้ในบ้าน" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("3") ? "ช่างเครื่องยนต์ในเรือประมงทะเล" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("4") ? " ผู้ประสานงานด้านภาษากัมพูชา ลาว เมียนมา หรือเวียดนาม" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("5") ? "งานขายของหน้าร้าน"
+                        : grfOPD[grfOPD.Row, colalposid].ToString().Equals("6") ? "งานกสิกรรม" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("7") ? "งานเลี้ยงสัตว์" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("8") ? "งานป่าไม้" :
+                        grfOPD[grfOPD.Row, colalposid].ToString().Equals("9") ? "งานประมง" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("10") ? "งานช่างก่ออิฐ" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("11") ? "งานช่างไม้" :
+                        grfOPD[grfOPD.Row, colalposid].ToString().Equals("12") ? "งานช่างก่อสร้างอาคาร" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("13") ? "งานทำที่นอนหรือผ้าห่มนวม" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("14") ? "งานทำมีด" :
+                        grfOPD[grfOPD.Row, colalposid].ToString().Equals("15") ? "งานทำรองเท้า" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("16") ? "งานทำหมวก" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("17") ? "งานประดิษฐ์เครื่องแต่งกาย" : grfOPD[grfOPD.Row, colalposid].ToString().Equals("18") ? "งานปั้นหรือทำเครื่องปั้นดินเผา" : "-";
+                    lbDoeAlnationName.Text = grfOPD[grfOPD.Row, colalnation].ToString().Equals("M") ? "เมียนมา" : grfOPD[grfOPD.Row, colalnation].ToString().Equals("L") ? "ลาว" : grfOPD[grfOPD.Row, colalnation].ToString().Equals("C") ? "กัมพูชา" : grfOPD[grfOPD.Row, colalnation].ToString().Equals("V") ? "เวียดนาม" : "-";
+                }
             }
             catch (Exception ex)
             {
@@ -1629,73 +1826,6 @@ namespace bangna_hospital.gui
             //    //MessageBox.Show("error " + ex.Message, "");
             //}
         }
-        private async void setDoeAienGrfOPD()
-        {
-            grfOPD.DataSource = null;
-            grfOPD.Rows.Count = 1;
-            //if ((grfExcel!=null)&&(grfExcel.Rows.Count > 0)) grfExcel.Rows.Count = 0;
-            DoeAlienRequest doea = new DoeAlienRequest();
-            doea.reqcode = txtDoeReqcode.Text.Trim();
-            doea.alcode = txtDoeAlcode.Text.Trim();
-            if(txtDoeReqcode.Text.Trim().Length<=0 && txtDoeAlcode.Text.Trim().Length <= 0)
-            {
-                return;
-            }
-            doea.token = txtDoetoken.Text.Trim();
-            var url = txtDoeURLbangna.Text.Trim();
-            String jsonEpi = JsonConvert.SerializeObject(doea, Formatting.Indented);
-            jsonEpi = jsonEpi.Replace("[" + Environment.NewLine + "    null" + Environment.NewLine + "  ]", "[]");
-            try
-            {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    //var content = new StringContent(jsonEpi, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await httpClient.GetAsync(url + "?regcode=" + txtDoeReqcode.Text.Trim() + "&alcode=" + txtDoeAlcode.Text.Trim());
-                    if (response.StatusCode.ToString().ToUpper().Equals("OK"))
-                    {
-                        String content1 = await response.Content.ReadAsStringAsync();
-                        DoeAlientResponse doear = JsonConvert.DeserializeObject<DoeAlientResponse>(content1);
-                        if (doear.statuscode.Equals("-100")) return;
-                        txtDoeEmpname.Value = doear.empname;
-                        txtDoeWkaddress.Value = doear.wkaddress;
-                        //txtDoeReqcode.Value = doear.reqcode;
-                        txtDoeBtname.Value = doear.btname;
-                        grfOPD.Rows.Count = doear.alienlist.Count + 1;
-                        int i = 1, j = 1;
-                        foreach (var alien in doear.alienlist)
-                        {
-                            Row rowa = grfOPD.Rows[i];
-                            rowa[colalcode] = alien.alcode;
-                            rowa[colaltype] = alien.altype;
-                            rowa[colalprefix] = alien.alprefix;
-                            rowa[colalprefixen] = alien.alprefixen;
-                            rowa[colalnameen] = alien.alnameen;
-                            rowa[colalsnamee] = alien.alsnameen;
-                            rowa[colalbdate] = alien.albdate;
-                            rowa[colalgender] = alien.algender;
-                            rowa[colalnation] = alien.alnation;
-                            rowa[colalposid] = alien.alposid;
-
-                            rowa[0] = i.ToString();
-                            i++;
-                            //Console.WriteLine((alienlist)alien.alcode);
-                        }
-                        //Console.WriteLine(content);
-                    }
-                    else
-                    {
-                        //MessageBox.Show("error send " + result.StatusCode, "");
-                    }
-                }
-                txtDoeHN.Value = "";
-                txtDoepreno.Value = "";
-                c1SplitterPanel3.SizeRatio = 0;
-            }
-            catch(Exception ex)
-            {
-                //MessageBox.Show("error " + ex.Message, "");
-            }
-        }
         private void setControlSendDOE(String certid)
         {
             //new LogWriter("d", "setControlSendDOE 00 ");
@@ -1718,7 +1848,7 @@ namespace bangna_hospital.gui
             txtSendCerthn.Value = HN;
             txtSendCertvsdate.Value = bc.datetoShow1(VSDATE);
             txtSendCertCertID.Value = vs.certi_id;
-            txtSendCertalcode.Value = vs.ID;
+            txtSendCertalcode.Value = ptt.ref1.Length>0?ptt.ref1: vs.ID;
             //txtSendCertprovcode.Text = bc.iniC.provcode;
             txtSendCerturlBangna.Text = bc.iniC.urlbangnadoeresult;
             txtSendCertdtrcode.Value = vs.MNC_DOT_CD;
@@ -1776,8 +1906,8 @@ namespace bangna_hospital.gui
             if (grfPDF.Row < 0) return;
             if (grfPDF[grfPDF.Row, colpdfpath] == null) return;
             showLbLoading();
-            
-            if(bc.iniC.hostname.Equals("โรงพยาบาล บางนา2"))//เพราะ FTP ตอนสร้าง จะมี Folder ย่อย
+            clearControlSendDOE();
+            if (bc.iniC.hostname.Equals("โรงพยาบาล บางนา2"))//เพราะ FTP ตอนสร้าง จะมี Folder ย่อย
             {
                 lfSbMessage.Text = "cert_doe/" + grfPDF[grfPDF.Row, colpdfpath].ToString();
                 setLbLoading("11");
@@ -1794,12 +1924,61 @@ namespace bangna_hospital.gui
             }
             hideLbLoading();
         }
+        // ✅ Helper method สำหรับตรวจสอบและสร้าง FtpClient
+        private FtpClient CreateFtpClient(out string errorMessage)
+        {
+            errorMessage = null;
+            //new LogWriter("e", "FrmDoeAlien CreateFtpClient 00");
+            // ตรวจสอบค่าทั้งหมด
+            if (string.IsNullOrWhiteSpace(bc.iniC.hostFTPCertMeddoe))
+            {
+                errorMessage = "ไม่พบค่า hostFTPCertMeddoe ใน ini file";
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(bc.iniC.userFTPCertMeddoe))
+            {
+                errorMessage = "ไม่พบค่า userFTPCertMeddoe ใน ini file";
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(bc.iniC.passFTPCertMeddoe))
+            {
+                errorMessage = "ไม่พบค่า passFTPCertMeddoe ใน ini file";
+                return null;
+            }
+            //new LogWriter("e", "FrmDoeAlien CreateFtpClient 01");
+            // Parse Boolean แบบปลอดภัย
+            bool usePassive = false;
+            if (!bool.TryParse(bc.iniC.usePassiveFTPCertMeddoe, out usePassive))
+            {
+                usePassive = false;  // Default
+            }
+
+            try
+            {
+                return new FtpClient(
+                    bc.iniC.hostFTPCertMeddoe,
+                    bc.iniC.userFTPCertMeddoe,
+                    bc.iniC.passFTPCertMeddoe,
+                    usePassive
+                );
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"ไม่สามารถสร้าง FTP Client: {ex.Message}";
+                return null;
+            }
+        }
         private void setGrfPDFFormFTP()
         {
             showLbLoading();
-            lbErr.Text = bc.iniC.pathdoealiencert;
+            lbErr.Text = bc.iniC.pathdoealiencert ?? "";
             int i = 0;
-            FtpClient ftpc = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, Boolean.Parse(bc.iniC.usePassiveFTPCertMeddoe));
+            string error;
+            FtpClient ftpc = CreateFtpClient(out error);
+            if (ftpc == null)   {      lbErr.Text = error;      hideLbLoading();    return;            }
+            //FtpClient ftpc = new FtpClient(bc.iniC.hostFTPCertMeddoe, bc.iniC.userFTPCertMeddoe, bc.iniC.passFTPCertMeddoe, Boolean.Parse(bc.iniC.usePassiveFTPCertMeddoe));
             List<String> listFile = ftpc.directoryList(bc.iniC.folderFTPCertMeddoe);
             grfPDF.Rows.Count = 1;
             foreach (string file in listFile)
@@ -1855,7 +2034,7 @@ namespace bangna_hospital.gui
                 tabSendCert.TabVisible = false;
                 tabDoeView.TabVisible = false;
                 tabExcel.TabVisible = false;
-                setDoeAienGrfOPD();
+                setDoeAienGrfOPD("");
             }
             else if (FLAGTABDOE.Equals("formfolder"))
             {//ดึง PDF จาก folder เพื่อดูว่ามี pdf ที่ยังไม่ได้ส่ง และทำการส่ง

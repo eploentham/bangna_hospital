@@ -78,6 +78,7 @@ namespace bangna_hospital.gui
             this.btnSsnBrow5 = new C1.Win.C1Input.C1Button();
             this.btnSsnBrow2 = new C1.Win.C1Input.C1Button();
             this.btnSsnBrow1 = new C1.Win.C1Input.C1Button();
+            this.btnCheckDup = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.sB1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
             this.c1DockingTab1.SuspendLayout();
@@ -107,6 +108,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckDup)).BeginInit();
             this.SuspendLayout();
             // 
             // sB1
@@ -135,6 +137,7 @@ namespace bangna_hospital.gui
             // 
             // c1DockingTabPage1
             // 
+            this.c1DockingTabPage1.Controls.Add(this.btnCheckDup);
             this.c1DockingTabPage1.Controls.Add(this.picPtt);
             this.c1DockingTabPage1.Controls.Add(this.listBox1);
             this.c1DockingTabPage1.Controls.Add(this.btnM01);
@@ -162,9 +165,9 @@ namespace bangna_hospital.gui
             // 
             // picPtt
             // 
-            this.picPtt.Location = new System.Drawing.Point(510, 253);
+            this.picPtt.Location = new System.Drawing.Point(82, 272);
             this.picPtt.Name = "picPtt";
-            this.picPtt.Size = new System.Drawing.Size(207, 161);
+            this.picPtt.Size = new System.Drawing.Size(144, 142);
             this.picPtt.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picPtt.TabIndex = 38;
             this.picPtt.TabStop = false;
@@ -174,12 +177,12 @@ namespace bangna_hospital.gui
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(232, 124);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(272, 290);
+            this.listBox1.Size = new System.Drawing.Size(478, 290);
             this.listBox1.TabIndex = 37;
             // 
             // btnM01
             // 
-            this.btnM01.Location = new System.Drawing.Point(510, 179);
+            this.btnM01.Location = new System.Drawing.Point(82, 198);
             this.btnM01.Name = "btnM01";
             this.btnM01.Size = new System.Drawing.Size(144, 68);
             this.btnM01.TabIndex = 36;
@@ -188,7 +191,7 @@ namespace bangna_hospital.gui
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(82, 179);
+            this.btnInsert.Location = new System.Drawing.Point(82, 124);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(144, 68);
             this.btnInsert.TabIndex = 35;
@@ -602,6 +605,15 @@ namespace bangna_hospital.gui
             this.btnSsnBrow1.Text = "...";
             this.btnSsnBrow1.UseVisualStyleBackColor = true;
             // 
+            // btnCheckDup
+            // 
+            this.btnCheckDup.Location = new System.Drawing.Point(232, 420);
+            this.btnCheckDup.Name = "btnCheckDup";
+            this.btnCheckDup.Size = new System.Drawing.Size(144, 27);
+            this.btnCheckDup.TabIndex = 66;
+            this.btnCheckDup.Text = "ตรวจสอบซ้ำ";
+            this.btnCheckDup.UseVisualStyleBackColor = true;
+            // 
             // frmSsnData
             // 
             this.AllowDrop = true;
@@ -644,6 +656,7 @@ namespace bangna_hospital.gui
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSsnBrow1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCheckDup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -699,5 +712,6 @@ namespace bangna_hospital.gui
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox cboPeriod;
         private C1.Win.C1Input.C1Button btnSsnUpdate;
+        private C1.Win.C1Input.C1Button btnCheckDup;
     }
 }

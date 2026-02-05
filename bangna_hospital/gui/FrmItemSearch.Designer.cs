@@ -35,24 +35,24 @@
             this.btnClose = new C1.Win.C1Ribbon.RibbonButton();
             this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
-            this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
+            this.TC1 = new C1.Win.C1Command.C1DockingTab();
+            this.tabDrug = new C1.Win.C1Command.C1DockingTabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnItemDrug = new System.Windows.Forms.Panel();
             this.pnTopDrug = new System.Windows.Forms.Panel();
-            this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabLab = new C1.Win.C1Command.C1DockingTabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnItemLab = new System.Windows.Forms.Panel();
             this.pnTopLab = new System.Windows.Forms.Panel();
-            this.c1DockingTabPage3 = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabXray = new C1.Win.C1Command.C1DockingTabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.pnItemXray = new System.Windows.Forms.Panel();
             this.pnTopXray = new System.Windows.Forms.Panel();
-            this.c1DockingTabPage4 = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabProcedure = new C1.Win.C1Command.C1DockingTabPage();
             this.panel5 = new System.Windows.Forms.Panel();
             this.pnItemProcedure = new System.Windows.Forms.Panel();
             this.pnTopProcedure = new System.Windows.Forms.Panel();
-            this.c1DockingTabPage5 = new C1.Win.C1Command.C1DockingTabPage();
+            this.tabSearch = new C1.Win.C1Command.C1DockingTabPage();
             this.pnSearchItems = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lbItemName = new System.Windows.Forms.Label();
@@ -71,17 +71,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
             this.c1SplitterPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
-            this.c1DockingTab1.SuspendLayout();
-            this.c1DockingTabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TC1)).BeginInit();
+            this.TC1.SuspendLayout();
+            this.tabDrug.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.c1DockingTabPage2.SuspendLayout();
+            this.tabLab.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.c1DockingTabPage3.SuspendLayout();
+            this.tabXray.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.c1DockingTabPage4.SuspendLayout();
+            this.tabProcedure.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.c1DockingTabPage5.SuspendLayout();
+            this.tabSearch.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearchItem)).BeginInit();
@@ -131,7 +131,7 @@
             // 
             // c1SplitterPanel1
             // 
-            this.c1SplitterPanel1.Controls.Add(this.c1DockingTab1);
+            this.c1SplitterPanel1.Controls.Add(this.TC1);
             this.c1SplitterPanel1.Height = 402;
             this.c1SplitterPanel1.Location = new System.Drawing.Point(0, 21);
             this.c1SplitterPanel1.Name = "c1SplitterPanel1";
@@ -140,30 +140,30 @@
             this.c1SplitterPanel1.TabIndex = 0;
             this.c1SplitterPanel1.Text = "Panel 1";
             // 
-            // c1DockingTab1
+            // TC1
             // 
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage3);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage4);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage5);
-            this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
-            this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.SelectedIndex = 4;
-            this.c1DockingTab1.Size = new System.Drawing.Size(963, 381);
-            this.c1DockingTab1.TabIndex = 0;
-            this.c1DockingTab1.TabsSpacing = 5;
-            this.c1DockingTab1.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
+            this.TC1.Controls.Add(this.tabDrug);
+            this.TC1.Controls.Add(this.tabLab);
+            this.TC1.Controls.Add(this.tabXray);
+            this.TC1.Controls.Add(this.tabProcedure);
+            this.TC1.Controls.Add(this.tabSearch);
+            this.TC1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TC1.Location = new System.Drawing.Point(0, 0);
+            this.TC1.Name = "TC1";
+            this.TC1.SelectedIndex = 4;
+            this.TC1.Size = new System.Drawing.Size(963, 381);
+            this.TC1.TabIndex = 0;
+            this.TC1.TabsSpacing = 5;
+            this.TC1.VisualStyle = C1.Win.C1Command.VisualStyle.Custom;
             // 
-            // c1DockingTabPage1
+            // tabDrug
             // 
-            this.c1DockingTabPage1.Controls.Add(this.panel1);
-            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(961, 356);
-            this.c1DockingTabPage1.TabIndex = 0;
-            this.c1DockingTabPage1.Text = "Drug";
+            this.tabDrug.Controls.Add(this.panel1);
+            this.tabDrug.Location = new System.Drawing.Point(1, 24);
+            this.tabDrug.Name = "tabDrug";
+            this.tabDrug.Size = new System.Drawing.Size(961, 356);
+            this.tabDrug.TabIndex = 0;
+            this.tabDrug.Text = "Drug";
             // 
             // panel1
             // 
@@ -191,14 +191,14 @@
             this.pnTopDrug.Size = new System.Drawing.Size(961, 119);
             this.pnTopDrug.TabIndex = 2;
             // 
-            // c1DockingTabPage2
+            // tabLab
             // 
-            this.c1DockingTabPage2.Controls.Add(this.panel3);
-            this.c1DockingTabPage2.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage2.Name = "c1DockingTabPage2";
-            this.c1DockingTabPage2.Size = new System.Drawing.Size(961, 356);
-            this.c1DockingTabPage2.TabIndex = 1;
-            this.c1DockingTabPage2.Text = "Lab";
+            this.tabLab.Controls.Add(this.panel3);
+            this.tabLab.Location = new System.Drawing.Point(1, 24);
+            this.tabLab.Name = "tabLab";
+            this.tabLab.Size = new System.Drawing.Size(961, 356);
+            this.tabLab.TabIndex = 1;
+            this.tabLab.Text = "Lab";
             // 
             // panel3
             // 
@@ -226,14 +226,14 @@
             this.pnTopLab.Size = new System.Drawing.Size(961, 119);
             this.pnTopLab.TabIndex = 0;
             // 
-            // c1DockingTabPage3
+            // tabXray
             // 
-            this.c1DockingTabPage3.Controls.Add(this.panel4);
-            this.c1DockingTabPage3.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage3.Name = "c1DockingTabPage3";
-            this.c1DockingTabPage3.Size = new System.Drawing.Size(961, 356);
-            this.c1DockingTabPage3.TabIndex = 2;
-            this.c1DockingTabPage3.Text = "Xray";
+            this.tabXray.Controls.Add(this.panel4);
+            this.tabXray.Location = new System.Drawing.Point(1, 24);
+            this.tabXray.Name = "tabXray";
+            this.tabXray.Size = new System.Drawing.Size(961, 356);
+            this.tabXray.TabIndex = 2;
+            this.tabXray.Text = "Xray";
             // 
             // panel4
             // 
@@ -261,14 +261,14 @@
             this.pnTopXray.Size = new System.Drawing.Size(961, 119);
             this.pnTopXray.TabIndex = 2;
             // 
-            // c1DockingTabPage4
+            // tabProcedure
             // 
-            this.c1DockingTabPage4.Controls.Add(this.panel5);
-            this.c1DockingTabPage4.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage4.Name = "c1DockingTabPage4";
-            this.c1DockingTabPage4.Size = new System.Drawing.Size(961, 356);
-            this.c1DockingTabPage4.TabIndex = 3;
-            this.c1DockingTabPage4.Text = "Procedure";
+            this.tabProcedure.Controls.Add(this.panel5);
+            this.tabProcedure.Location = new System.Drawing.Point(1, 24);
+            this.tabProcedure.Name = "tabProcedure";
+            this.tabProcedure.Size = new System.Drawing.Size(961, 356);
+            this.tabProcedure.TabIndex = 3;
+            this.tabProcedure.Text = "Procedure";
             // 
             // panel5
             // 
@@ -296,15 +296,15 @@
             this.pnTopProcedure.Size = new System.Drawing.Size(961, 119);
             this.pnTopProcedure.TabIndex = 2;
             // 
-            // c1DockingTabPage5
+            // tabSearch
             // 
-            this.c1DockingTabPage5.Controls.Add(this.pnSearchItems);
-            this.c1DockingTabPage5.Controls.Add(this.panel6);
-            this.c1DockingTabPage5.Location = new System.Drawing.Point(1, 24);
-            this.c1DockingTabPage5.Name = "c1DockingTabPage5";
-            this.c1DockingTabPage5.Size = new System.Drawing.Size(961, 356);
-            this.c1DockingTabPage5.TabIndex = 4;
-            this.c1DockingTabPage5.Text = "ค้นหา";
+            this.tabSearch.Controls.Add(this.pnSearchItems);
+            this.tabSearch.Controls.Add(this.panel6);
+            this.tabSearch.Location = new System.Drawing.Point(1, 24);
+            this.tabSearch.Name = "tabSearch";
+            this.tabSearch.Size = new System.Drawing.Size(961, 356);
+            this.tabSearch.TabIndex = 4;
+            this.tabSearch.Text = "ค้นหา";
             // 
             // pnSearchItems
             // 
@@ -463,17 +463,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
             this.c1SplitContainer1.ResumeLayout(false);
             this.c1SplitterPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
-            this.c1DockingTab1.ResumeLayout(false);
-            this.c1DockingTabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TC1)).EndInit();
+            this.TC1.ResumeLayout(false);
+            this.tabDrug.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.c1DockingTabPage2.ResumeLayout(false);
+            this.tabLab.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.c1DockingTabPage3.ResumeLayout(false);
+            this.tabXray.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.c1DockingTabPage4.ResumeLayout(false);
+            this.tabProcedure.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            this.c1DockingTabPage5.ResumeLayout(false);
+            this.tabSearch.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtItemCode)).EndInit();
@@ -492,11 +492,11 @@
         private C1.Win.C1SplitContainer.C1SplitContainer c1SplitContainer1;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel1;
         private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel2;
-        private C1.Win.C1Command.C1DockingTab c1DockingTab1;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage1;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage2;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage3;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage4;
+        private C1.Win.C1Command.C1DockingTab TC1;
+        private C1.Win.C1Command.C1DockingTabPage tabDrug;
+        private C1.Win.C1Command.C1DockingTabPage tabLab;
+        private C1.Win.C1Command.C1DockingTabPage tabXray;
+        private C1.Win.C1Command.C1DockingTabPage tabProcedure;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
@@ -513,7 +513,7 @@
         private System.Windows.Forms.Panel pnTopProcedure;
         private System.Windows.Forms.Panel pnItemDrug;
         private System.Windows.Forms.Panel pnTopDrug;
-        private C1.Win.C1Command.C1DockingTabPage c1DockingTabPage5;
+        private C1.Win.C1Command.C1DockingTabPage tabSearch;
         private System.Windows.Forms.Panel pnSearchItems;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
