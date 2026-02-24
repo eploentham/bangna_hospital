@@ -122,6 +122,22 @@ namespace bangna_hospital.objdb
 
             return dt;
         }
+        public DataTable SelectProcedureMap()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select pm30.MNC_SR_CD, pm30.MNC_SR_DSC, pm30.MNC_SR_GRP_CD, isnull(fm01.MNC_FN_CD,'') as MNC_FN_CD, isnull(fm11.MNC_DEF_DSC,'') as MNC_DEF_DSC " +
+                ",simb2.CodeBSG,simb2.BillingSubGroupTH,simb2.BillingSubGroupEN,fm01.MNC_SIMB_CD,fm01.MNC_CHARGE_CD,fm01.MNC_SUB_CHARGE_CD, pm303.MNC_CHARGE_NO  " +
+                "From PATIENT_M30 pm30 " +
+                "left join PATIENT_M303 pm303 on pm30.MNC_SR_CD = pm303.MNC_SR_CD  " +
+                "left join FINANCE_M01 fm01 on pm303.MNC_FN_CD = fm01.MNC_FN_CD " +
+                "Left join Finance_m11 fm11 on fm01.MNC_SIMB_CD = fm11.MNC_DEF_CD " +
+                "Left Join SIMB2_BillingGroup simb2 on pm303.CodeBSG = simb2.CodeBSG  " +
+                //"Where xray01.MNC_XR_TYP_FLG = '1' " +
+                "Order By pm30.MNC_SR_CD,pm303.MNC_CHARGE_NO ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public AutoCompleteStringCollection getlProcedureAll()
         {
             //lDept = new List<Position>();
@@ -156,6 +172,21 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 new LogWriter("e", " PatientM30DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
+        public String UpdateCodeBSG(String drugcode, String codebsg)
+        {
+            String sql = "", chk = "";
+            sql = "Update PATIENT_M303 Set CodeBSG = '" + codebsg + "' " +
+                "Where MNC_SR_CD ='" + drugcode + "' and ";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "XrayM02DB UpdateCodeBSG Exception " + ex.Message);
             }
             return chk;
         }

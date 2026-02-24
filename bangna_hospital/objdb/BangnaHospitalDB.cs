@@ -12,7 +12,7 @@ namespace bangna_hospital.objdb
 {
     public class BangnaHospitalDB
     {
-        ConnectDB conn;
+        protected ConnectDB conn;
         public StaffDB stfDB;
         public DocGroupScanDB dgsDB;
         

@@ -287,23 +287,10 @@ namespace bangna_hospital.objdb
             try
             {
                 con.Open();
-                //_rowsAffected = com.ExecuteNonQuery();
-                //if (sql.Substring(0,2).ToLower().IndexOf("in")>=0)
-                //{
-                //    _rowsAffected = (int)com.ExecuteScalar();
-                //    //var aaa = com.ExecuteScalar();
-
-                //}
-                //else
-                //{
                 _rowsAffected = com.ExecuteNonQuery();
-                //}
+                
                 toReturn = _rowsAffected.ToString();
-                //toReturn = sql.Substring(0, 1).ToLower() == "i" ? com.LastInsertedId.ToString() : _rowsAffected.ToString();
-                //if (sql.IndexOf("Insert Into Visit") >= 0)        //old program
-                //{
-                //    toReturn = _rowsAffected.ToString();
-                //}
+                
             }
             catch (Exception ex)
             {

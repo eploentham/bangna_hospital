@@ -2,6 +2,7 @@
 using bangna_hospital.object1;
 using bangna_hospital.Properties;
 using C1.Framework;
+using C1.Win.C1Command;
 using C1.Win.C1FlexGrid;
 using C1.Win.C1Themes;
 using C1.Win.C1Tile;
@@ -225,6 +226,7 @@ namespace bangna_hospital.gui
         }
         private void initControl()
         {
+            this.SuspendLayout();
             theme1 = new C1ThemeController();
             imgCorr = Resources.red_checkmark_png_16;
             imgTran = Resources.DeleteTable_small;
@@ -451,6 +453,7 @@ namespace bangna_hospital.gui
             this.itemTilesProcedure.TabIndex = 1;
             this.itemTilesProcedure.TabStop = false;
             this.itemTilesProcedure.TileBackColor = System.Drawing.Color.DimGray;
+            this.ResumeLayout();
         }
         private void initGrfSearchItems()
         {
@@ -858,22 +861,31 @@ namespace bangna_hospital.gui
         }
         private void FrmItemSearch_Load(object sender, EventArgs e)
         {
+            TC1.TabPages.Cast<C1DockingTabPage>().ToList().ForEach(tab =>   {   tab.TabVisible = false; tab.Visible = false;    });
             if (DEFAULTTAB == "DRUG")
             {
+                TC1.TabPages[tabDrug.TabIndex].TabVisible = true;
                 TC1.SelectedTab = tabDrug;
             }
             else if (DEFAULTTAB == "LAB")
             {
-                TC1.SelectedTab = tabLab;
+                TC1.TabPages[tabLab.TabIndex].TabVisible = true;
+                TC1.SelectedTab = tabLab;//สำคัญ ต้อง set visible แล้ว set selected tab ถึงจะเห็น tile
             }
             else if (DEFAULTTAB == "XRAY")
             {
+                TC1.TabPages[tabXray.TabIndex].TabVisible = true;
                 TC1.SelectedTab = tabXray;
             }
             else if (DEFAULTTAB == "PROCEDURE")
             {
+                TC1.TabPages[tabProcedure.TabIndex].TabVisible = true;
                 TC1.SelectedTab = tabProcedure;
             }
+            c1SplitContainer1.HeaderHeight = 0;
+            //tabLab.PerformLayout();
+            //TC1.PerformLayout();
+            //this.Refresh();
         }
     }
 }

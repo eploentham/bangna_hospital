@@ -29,5 +29,11 @@ namespace bangna_hospital.object1
         public String mnc_sr_min { get; set; }
         public String mnc_sr_max { get; set; }
         public String ucep_code { get; set; }
+        public String status_control { get; set; }
+        public String control_supervisor { get; set; }
+        public String control_remark { get; set; }
+        public String control_paid_code { get; set; }
+        public String passsupervisor { get; set; }
+        public String txtremark { get; set; }
     }
 }

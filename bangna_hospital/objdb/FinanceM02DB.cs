@@ -97,6 +97,43 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
+        // ✅ 2. Method ใหม่: Build ทั้ง 2 indexes พร้อมกัน
+        public void RebuildAllIndexes()
+        {
+            var source = lPm02 ?? new List<FinanceM02>();
+
+            var codeToName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var nameToCode = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var row in source)
+            {
+                if (row == null) continue;
+
+                // Build code->name index
+                if (!string.IsNullOrWhiteSpace(row.MNC_FN_TYP_CD))
+                {
+                    var code = row.MNC_FN_TYP_CD.Trim();
+                    if (!codeToName.ContainsKey(code))
+                        codeToName[code] = row.MNC_FN_TYP_DSC ?? string.Empty;
+                }
+
+                // Build name->code index (with normalization)
+                if (!string.IsNullOrWhiteSpace(row.MNC_FN_TYP_DSC))
+                {
+                    // Skip specific problematic companies
+                    if (row.MNC_FN_TYP_DSC.Equals("วีทีเอ เซอร์วิส จำกัด", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    var normalizedName = NormalizeKey(row.MNC_FN_TYP_DSC);
+                    if (normalizedName.Length > 0 && !nameToCode.ContainsKey(normalizedName))
+                        nameToCode[normalizedName] = row.MNC_FN_TYP_CD ?? string.Empty;
+                }
+            }
+
+            // Atomic swap
+            Interlocked.Exchange(ref _paidCodeToName, codeToName);
+            Interlocked.Exchange(ref _paidNameToCode, nameToCode);
+        }
         public void getlCus()
         {
             //lDept = new List<Position>();
@@ -112,6 +149,7 @@ namespace bangna_hospital.objdb
                 cus1.MNC_FN_TYP_DSC = row[finM02.MNC_FN_TYP_DSC].ToString();
                 lPm02.Add(cus1);
             }
+            RebuildAllIndexes();
         }
         public AutoCompleteStringCollection getlPaid()
         {
@@ -146,7 +184,7 @@ namespace bangna_hospital.objdb
         {
             if (string.IsNullOrWhiteSpace(paidcode)) return string.Empty;
             var key = paidcode.Trim();
-
+            if (lPm02.Count == 0) getlCus();
             var snapshot = _paidCodeToName; // local snapshot
             string name;
             return snapshot != null && snapshot.TryGetValue(key, out name) ? name ?? string.Empty : string.Empty;

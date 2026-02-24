@@ -45,7 +45,9 @@ namespace bangna_hospital.gui
 
         int rowindexgrfRpt = 0;
         String DTRCODE = "", DEPTNO = "", TC1ACTIVE = "", RPTSELECT="";
-
+        private ListBox lstSearchResult;
+        private Panel pnSearchResult;
+        private List<Patient> searchResults;
         Boolean flagExit = false;
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt1, famt5, famt7B, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B, famtB14, famtB30, fque, fqueB;
         System.Windows.Forms.Timer timer1;
@@ -91,6 +93,7 @@ namespace bangna_hospital.gui
             initGrfFinish();
             initGrfRpt();
             initGrfIPD();
+            initSearchResultList();
             theme1.SetTheme(pnTop, "Office2010Green");
             tC1.SelectedTab = tabQue;
             TC1_SelectedTabChanged(null, null);
@@ -98,6 +101,121 @@ namespace bangna_hospital.gui
             lbDtrName.Text = bc.user.fullname;
             DTRCODE = bc.user.username;//เปิดโปรแกรม login ด้วย แพทย์ ถือว่าเป็น แพทย์
             rbSbDrugSet.Visible = false;
+        }
+        private void initSearchResultList()
+        {
+            // สร้าง Panel container
+            pnSearchResult = new Panel();
+            pnSearchResult.BorderStyle = BorderStyle.FixedSingle;
+            pnSearchResult.BackColor = Color.White;
+            pnSearchResult.Size = new Size(600, 300);
+            pnSearchResult.Visible = false;
+            pnSearchResult.BringToFront();
+
+            // สร้าง ListBox
+            lstSearchResult = new ListBox();
+            lstSearchResult.Font = fEdit;
+            lstSearchResult.Dock = DockStyle.Fill;
+            lstSearchResult.DisplayMember = "DisplayText";
+            lstSearchResult.DoubleClick += LstSearchResult_DoubleClick;
+            lstSearchResult.KeyDown += LstSearchResult_KeyDown;
+
+            pnSearchResult.Controls.Add(lstSearchResult);
+            this.Controls.Add(pnSearchResult);
+
+            // กำหนดตำแหน่งให้อยู่ใต้ txtHN
+            pnSearchResult.Location = new Point(txtHN.Left, txtHN.Top + txtHN.Height + 2);
+        }
+        private void LstSearchResult_DoubleClick(object sender, EventArgs e)
+        {
+            SelectSearchResult();
+        }
+
+        private void LstSearchResult_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SelectSearchResult();
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                HideSearchResult();
+                txtHN.Focus();
+                e.Handled = true;
+            }
+        }
+        private void SearchPatients(String searchText)
+        {
+            try
+            {
+                // ค้นหาจาก database
+                DataTable dt = bc.bcDB.pttDB.searchPatientByNameOrHn(searchText);
+
+                if (dt.Rows.Count == 0)
+                {
+                    HideSearchResult();
+                    return;
+                }
+
+                // เก็บผลลัพธ์
+                searchResults = new List<Patient>();
+                lstSearchResult.Items.Clear();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    Patient ptt = new Patient();
+                    ptt.MNC_HN_NO = row["MNC_HN_NO"]?.ToString() ?? "";
+                    ptt.MNC_FNAME_T = row["MNC_FNAME_T"]?.ToString() ?? "";
+                    ptt.MNC_LNAME_T = row["MNC_LNAME_T"]?.ToString() ?? "";
+                    ptt.MNC_ID_NO = row["MNC_ID_NO"]?.ToString() ?? "";
+                    ptt.patient_birthday = row["MNC_BDAY"]?.ToString() ?? "";
+                    ptt.MNC_SEX = row["MNC_SEX"]?.ToString() ?? "";
+
+                    // สร้างข้อความแสดง
+                    String displayText = $"HN: {ptt.MNC_HN_NO} | {ptt.MNC_FNAME_T} {ptt.MNC_LNAME_T} | PID: {ptt.MNC_ID_NO}";
+
+                    searchResults.Add(ptt);
+                    lstSearchResult.Items.Add(displayText);
+                }
+
+                ShowSearchResult();
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "FrmDoctor SearchPatients " + ex.Message);
+                lfSbMessage.Text = ex.Message;
+            }
+        }
+
+        private void ShowSearchResult()
+        {
+            pnSearchResult.Visible = true;
+            pnSearchResult.BringToFront();
+        }
+
+        private void HideSearchResult()
+        {
+            pnSearchResult.Visible = false;
+            lstSearchResult.Items.Clear();
+            searchResults?.Clear();
+        }
+
+        private void SelectSearchResult()
+        {
+            if (lstSearchResult.SelectedIndex < 0 || searchResults == null)
+            {
+                // ถ้าไม่ได้เลือก ให้เลือกรายการแรก
+                if (lstSearchResult.Items.Count > 0)
+                    lstSearchResult.SelectedIndex = 0;
+                else
+                    return;
+            }
+
+            Patient selectedPtt = searchResults[lstSearchResult.SelectedIndex];
+            txtHN.Text = selectedPtt.MNC_HN_NO;
+            HideSearchResult();
+            openNewForm(selectedPtt.MNC_HN_NO, "", ref selectedPtt);
         }
         private void RbToken_Click(object sender, EventArgs e)
         {
@@ -198,25 +316,43 @@ namespace bangna_hospital.gui
         private void TxtHN_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            //{
+            //    e.Handled = true;
+            //}
+            //// only allow one decimal point
+            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //{
+            //    e.Handled = true;
+            //}
         }
         private void TxtHN_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
+            // ✅ กด ESC ซ่อน list
+            if (e.KeyCode == Keys.Escape)       {           HideSearchResult();         return;     }
+            // ✅ กด Enter ถ้ามี list ให้เลือกรายการแรก
             if (e.KeyCode == Keys.Enter)
             {
-                if(txtHN.Text.Length<=0) return;
+                if (pnSearchResult.Visible && lstSearchResult.Items.Count > 0)  {   SelectSearchResult();   return; }
+                if (txtHN.Text.Length<=0) return;
                 //if(txtHN.Text.)
                 setSearch();
+                return;
             }
+            // ✅ กด Down Arrow ให้ focus ที่ list
+            if (e.KeyCode == Keys.Down && pnSearchResult.Visible)
+            {
+                lstSearchResult.Focus();
+                if (lstSearchResult.Items.Count > 0)
+                    lstSearchResult.SelectedIndex = 0;
+                return;
+            }
+
+            // ✅ ค้นหาเมื่อพิมพ์ครบ 3 ตัวอักษร
+            String searchText = txtHN.Text.Trim();
+            if (searchText.Length >= 3) {                SearchPatients(searchText);            }
+            else                        {                HideSearchResult();            }
         }
         private void setSearch()
         {
@@ -915,7 +1051,7 @@ namespace bangna_hospital.gui
             lfSbStation.Text = DEPTNO + "[" + bc.iniC.station + "]" + stationname;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
             //theme1.SetTheme(this, "Office2010Blue");
-            this.Text = "Last Update 2025-10-20";
+            this.Text = "Last Update 2026-02-19";
             lfSbLastUpdate.Text = "Update 2568-10-20";
             lfSbMessage.Text = "";
             bc.bcDB.insertLogPage(bc.userId, this.Name, "FrmDoctor_Load", "Application Doctor Start");

@@ -854,6 +854,10 @@ namespace bangna_hospital.gui
             lb.Font = fEdit;
             panel10.Controls.Add(lb);
             DataTable dt = bc.bcDB.vsDB.selectCertByPID(txtSendCertalcode.Text.Trim());
+            if(dt.Rows.Count <= 0)
+            {
+                dt = bc.bcDB.vsDB.selectCertByPIDref1(txtSendCertalcode.Text.Trim());
+            }
             foreach(DataRow dataRow in dt.Rows)
             {
                 lb.Items.Add(dataRow["MNC_DATE"].ToString()+" "+dataRow["certi_id"].ToString());

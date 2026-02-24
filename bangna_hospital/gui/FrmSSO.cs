@@ -282,11 +282,7 @@ namespace bangna_hospital.gui
                         //newWidth = newWidth / 1.2;
                         //newHeight = newHeight / 1.2;
                     }
-                    else
-                    {
-                        newWidth = newWidth / heightFactor;
-                        newHeight = newHeight / heightFactor;
-                    }
+                    else        {               newWidth = newWidth / heightFactor;             newHeight = newHeight / heightFactor;           }
                 }
                 RectangleF recflogo = new RectangleF(15, 5, (int)newWidth, (int)newHeight);
                 pdf.DrawImage(loadedImagelogo, recflogo);

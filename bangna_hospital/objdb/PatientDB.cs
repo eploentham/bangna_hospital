@@ -1178,6 +1178,38 @@ namespace bangna_hospital.objdb
             
             return dt;
         }
+        public DataTable searchPatientByNameOrHn(String searchText)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+
+            // ตรวจสอบว่าเป็นตัวเลข (HN) หรือตัวอักษร (ชื่อ)
+            bool isNumeric = long.TryParse(searchText, out long numValue);
+
+            if (isNumeric)
+            {
+                // ค้นหาจาก HN หรือ PID
+                sql = "SELECT TOP 20 " +
+                      "pm01.MNC_HN_NO, pm01.MNC_FNAME_T, pm01.MNC_LNAME_T, pm01.MNC_ID_NO, pm01.MNC_BDAY, pm01.MNC_SEX " +
+                      "FROM patient_M01 pm01 " +
+                      "WHERE pm01.MNC_HN_NO LIKE '" + searchText + "%' " +
+                      "   OR pm01.MNC_ID_NO LIKE '" + searchText + "%' " +
+                      "ORDER BY pm01.MNC_HN_NO DESC";
+            }
+            else
+            {
+                // ค้นหาจาก ชื่อ หรือ นามสกุล
+                sql = "SELECT TOP 20 " +
+                      "pm01.MNC_HN_NO, pm01.MNC_FNAME_T, pm01.MNC_LNAME_T,pm01.MNC_ID_NO, pm01.MNC_BDAY, pm01.MNC_SEX " +
+                      "FROM patient_M01 pm01 " +
+                      "WHERE pm01.MNC_FNAME_T LIKE '%" + searchText + "%' " +
+                      "   OR pm01.MNC_LNAME_T LIKE '%" + searchText + "%' " +
+                      "ORDER BY pm01.MNC_HN_NO DESC";
+            }
+
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
         public void setCboDeptIPD(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();

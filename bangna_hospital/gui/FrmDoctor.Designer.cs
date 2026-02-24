@@ -227,7 +227,7 @@
             this.txtHN.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.txtHN.Location = new System.Drawing.Point(517, 8);
             this.txtHN.Name = "txtHN";
-            this.txtHN.Size = new System.Drawing.Size(91, 27);
+            this.txtHN.Size = new System.Drawing.Size(351, 27);
             this.txtHN.TabIndex = 269;
             this.txtHN.Tag = null;
             // 

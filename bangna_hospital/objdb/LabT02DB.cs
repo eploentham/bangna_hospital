@@ -235,11 +235,21 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "", lccode = "", wherelccode = "";
-            sql = "SELECT  LAB_T02.MNC_LB_CD as order_code, LAB_M01.MNC_LB_DSC as order_name, convert(varchar(20),LAB_T02.MNC_REQ_DAT, 23) as req_date " +
-                ", LAB_T02.MNC_REQ_NO as req_no, 'lab' as flag, '1' as qty " +
+            sql = "SELECT  LAB_T02.MNC_LB_CD as order_code, LAB_M01.MNC_LB_DSC as order_name, convert(varchar(20),LAB_T02.MNC_REQ_DAT, 23) as req_date ,isnull(LAB_T02.MNC_LB_PRI,0) as MNC_LB_PRI " +
+                ", LAB_T02.MNC_REQ_NO as req_no, 'lab' as flag, '1' as qty, isnull(userm01_usr.MNC_USR_FULL,'') as MNC_USR_FULL_usr " +
+                ",LAB_T01.MNC_DOT_CD, isnull(pm02dtr.MNC_PFIX_DSC,'')  + ' ' + isnull(pm26.MNC_DOT_FNAME,'')+' '+isnull(pm26.MNC_DOT_LNAME,'') as dtr_name " +
+                ",  isnull(pm02.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname " +
+                ",pt01.MNC_FN_TYP_CD,pt01.MNC_DEP_NO, pt01.MNC_SEC_NO,pt01.MNC_COM_CD, isnull(pt01.MNC_RES_MAS,'') as MNC_RES_MAS,LAB_T01.MNC_HN_NO " +
+                ", pt01.mnc_vn_seq, pt01.mnc_vn_sum, pt01.mnc_vn_no,pt01.MNC_TIME,LAB_T01.MNC_REQ_TIM,convert(varchar(20),pt01.MNC_DATE,23) as MNC_DATE " +
                 "FROM    LAB_T01  " +
                 "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
                 "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +
+                "inner join patient_m01 pm01 on LAB_T01.MNC_HN_NO = pm01.MNC_HN_NO  " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "left join patient_m26 pm26 on LAB_T01.MNC_ORD_DOT = pm26.MNC_DOT_CD " +
+                "left join patient_m02 pm02dtr on pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                "left Join USERLOG_M01 userm01_usr on LAB_T01.MNC_EMPC_CD = userm01_usr.MNC_USR_NAME  " +
+                "inner join PATIENT_T01 pt01 on LAB_T01.MNC_HN_NO = pt01.MNC_HN_NO and  LAB_T01.MNC_DATE = pt01.MNC_DATE and  LAB_T01.MNC_PRE_NO = pt01.MNC_PRE_NO " +
                 "where LAB_T01.MNC_REQ_DAT = '" + reqdate + "' and LAB_T01.MNC_REQ_NO = '" + reqno + "'  " +
                 "and LAB_T01.mnc_hn_no = '" + hn + "' " +
                 "and LAB_T02.mnc_req_sts <> 'C'  and LAB_T01.mnc_req_sts <> 'C'  " +
@@ -252,7 +262,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "", lccode = "", wherelccode = "";
             sql = "SELECT  LAB_T02.MNC_LB_CD as order_code, LAB_M01.MNC_LB_DSC as order_name, convert(varchar(20),LAB_T02.MNC_REQ_DAT, 23) as req_date " +
-                ", LAB_T02.MNC_REQ_NO as req_no, 'lab' as flag, '1' as qty " +
+                ", LAB_T02.MNC_REQ_NO as req_no, 'lab' as flag, '1' as qty, LAB_T02.MNC_REQ_STS " +
                 "FROM    LAB_T01  " +
                 "left join LAB_T02 ON LAB_T01.MNC_REQ_NO = LAB_T02.MNC_REQ_NO AND LAB_T01.MNC_REQ_DAT = LAB_T02.MNC_REQ_DAT " +
                 "left join LAB_M01 ON LAB_T02.MNC_LB_CD = LAB_M01.MNC_LB_CD " +

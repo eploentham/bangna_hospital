@@ -86,6 +86,96 @@ namespace bangna_hospital.objdb
 
                 lPm24.Add(cus1);
             }
+            RebuildAllIndexes();
+        }
+        // ✅ 2. Method ใหม่: Build ทั้ง 2 indexes พร้อมกัน
+        public void RebuildAllIndexes()
+        {
+            var source = lPm24 ?? new List<PatientM24>();
+
+            var codeToName = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var nameToCode = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var row in source)
+            {
+                if (row == null) continue;
+
+                // Build code->name index
+                if (!string.IsNullOrWhiteSpace(row.MNC_COM_CD))
+                {
+                    var code = row.MNC_COM_CD.Trim();
+                    if (!codeToName.ContainsKey(code))
+                        codeToName[code] = row.MNC_COM_DSC ?? string.Empty;
+                }
+
+                // Build name->code index (with normalization)
+                if (!string.IsNullOrWhiteSpace(row.MNC_COM_DSC))
+                {
+                    // Skip specific problematic companies
+                    if (row.MNC_COM_DSC.Equals("วีทีเอ เซอร์วิส จำกัด", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    var normalizedName = NormalizeKey(row.MNC_COM_DSC);
+                    if (normalizedName.Length > 0 && !nameToCode.ContainsKey(normalizedName))
+                        nameToCode[normalizedName] = row.MNC_COM_CD ?? string.Empty;
+                }
+            }
+
+            // Atomic swap
+            Interlocked.Exchange(ref _paidCodeToName, codeToName);
+            Interlocked.Exchange(ref _paidNameToCode, nameToCode);
+        }
+        public String getCompanyNameFast(String compcode)
+        {
+            if (string.IsNullOrWhiteSpace(compcode)) return string.Empty;
+
+            var key = compcode.Trim();
+
+            // ใช้ Dictionary ถ้ามี (เร็ว O(1))
+            if (_paidCodeToName != null)
+            {
+                string name;
+                if (_paidCodeToName.TryGetValue(key, out name))
+                    return name ?? string.Empty;
+            }
+
+            // Fallback: query จาก list (ช้า O(n))
+            foreach (PatientM24 row in lPm24)
+            {
+                if (row != null && row.MNC_COM_CD != null && row.MNC_COM_CD.Equals(compcode))
+                    return row.MNC_COM_DSC ?? string.Empty;
+            }
+
+            return string.Empty;
+        }
+        public String getCompanyCodeFast(String compname)
+        {
+            if (string.IsNullOrWhiteSpace(compname)) return string.Empty;
+
+            // Skip specific problematic companies
+            if (compname.Equals("วีทีเอ เซอร์วิส จำกัด", StringComparison.OrdinalIgnoreCase))
+                return string.Empty;
+
+            // ใช้ Dictionary ถ้ามี (เร็ว O(1))
+            if (_paidNameToCode != null)
+            {
+                var key = NormalizeKey(compname);
+                string code;
+                if (_paidNameToCode.TryGetValue(key, out code))
+                    return code ?? string.Empty;
+            }
+
+            // Fallback: query จาก list (ช้า O(n))
+            foreach (PatientM24 row in lPm24)
+            {
+                if (row != null && row.MNC_COM_DSC != null &&
+                    row.MNC_COM_DSC.Equals(compname, StringComparison.OrdinalIgnoreCase))
+                {
+                    return row.MNC_COM_CD ?? string.Empty;
+                }
+            }
+
+            return string.Empty;
         }
         public DataTable selectAll()
         {
@@ -359,6 +449,134 @@ namespace bangna_hospital.objdb
                 }
             }
             return re;
+        }
+        public String chkNameFast(String paidname)
+        {
+            if (string.IsNullOrWhiteSpace(paidname)) return string.Empty;
+
+            // ใช้ Dictionary ถ้ามี
+            if (_paidNameToCode != null)
+            {
+                var key = NormalizeKey(paidname);
+                string code;
+                if (_paidNameToCode.TryGetValue(key, out code))
+                {
+                    // Return the actual name from code->name dictionary
+                    return getPaidName(code);
+                }
+            }
+
+            // Fallback: query จาก list
+            foreach (PatientM24 row in lPm24)
+            {
+                if (row != null && row.MNC_COM_DSC != null && row.MNC_COM_DSC.Equals(paidname))
+                    return row.MNC_COM_DSC;
+            }
+
+            return string.Empty;
+        }
+        // ✅ 6. Method ใหม่: ค้นหาแบบ exact match (เร็วสุด)
+        public string GetCompanyNameFast(string companyCode)
+        {
+            if(lPm24.Count == 0) getlCus(); // Ensure data is loaded
+            if (string.IsNullOrWhiteSpace(companyCode)) return string.Empty;
+
+            var snapshot = _paidCodeToName;
+            if (snapshot == null) return string.Empty;
+
+            string name;
+            return snapshot.TryGetValue(companyCode.Trim(), out name)
+                ? name ?? string.Empty
+                : string.Empty;
+        }
+        // ✅ 7. Method ใหม่: ค้นหา code จาก name (เร็วสุด)
+        public string GetCompanyCodeFast(string companyName)
+        {
+            if (string.IsNullOrWhiteSpace(companyName)) return string.Empty;
+
+            // Skip blacklist
+            if (companyName.Equals("วีทีเอ เซอร์วิส จำกัด", StringComparison.OrdinalIgnoreCase))
+                return string.Empty;
+
+            var snapshot = _paidNameToCode;
+            if (snapshot == null) return string.Empty;
+
+            var key = NormalizeKey(companyName);
+            string code;
+            return snapshot.TryGetValue(key, out code)
+                ? code ?? string.Empty
+                : string.Empty;
+        }
+        // ✅ 8. Method ใหม่: ตรวจสอบว่ามี company หรือไม่
+        public bool CompanyExists(string companyCode)
+        {
+            if (string.IsNullOrWhiteSpace(companyCode)) return false;
+
+            var snapshot = _paidCodeToName;
+            return snapshot != null && snapshot.ContainsKey(companyCode.Trim());
+        }
+        // ✅ 9. Method ใหม่: ตรวจสอบว่ามี company name หรือไม่
+        public bool CompanyNameExists(string companyName)
+        {
+            if (string.IsNullOrWhiteSpace(companyName)) return false;
+
+            var snapshot = _paidNameToCode;
+            if (snapshot == null) return false;
+
+            var key = NormalizeKey(companyName);
+            return snapshot.ContainsKey(key);
+        }
+        // ✅ 10. Method ใหม่: เพิ่ม/แก้ไข company และ update cache
+        public String InsertOrUpdateCompanyWithCache(PatientM24 p, String userId)
+        {
+            String re = insertCompany(p, userId);
+
+            // Update cache ถ้า insert/update สำเร็จ
+            if (long.TryParse(re, out long recordsAffected) && recordsAffected > 0)
+            {
+                // Reload ข้อมูลใหม่ และ rebuild index
+                getlCus();
+            }
+
+            return re;
+        }
+        // ✅ 12. Method ใหม่: ค้นหา companies แบบ partial match
+        public List<PatientM24> SearchCompanies(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+                return new List<PatientM24>();
+
+            var normalized = NormalizeKey(searchText);
+            var results = new List<PatientM24>();
+
+            // ใช้ in-memory search (เร็วกว่า database query)
+            foreach (var company in lPm24)
+            {
+                if (company == null) continue;
+
+                var compName = NormalizeKey(company.MNC_COM_DSC ?? "");
+                var compCode = (company.MNC_COM_CD ?? "").Trim();
+
+                if (compName.IndexOf(normalized, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    compCode.IndexOf(searchText.Trim(), StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    results.Add(company);
+                }
+            }
+
+            return results;
+        }
+        // ✅ 14. Method ใหม่: Clear cache
+        public void ClearCache()
+        {
+            lock (_paidIndexLock)            {                _paidNameToCode = null;            }
+            lock (_paidCodeIndexLock)            {                _paidCodeToName = null;            }
+        }
+
+        // ✅ 15. Method ใหม่: Force refresh cache
+        public void RefreshCache()
+        {
+            getlCus();
         }
         public AutoCompleteStringCollection getlPaid1(Boolean refresh)
         {

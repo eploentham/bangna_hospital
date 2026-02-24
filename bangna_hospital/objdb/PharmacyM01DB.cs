@@ -78,6 +78,7 @@ namespace bangna_hospital.objdb
             pharM01.MNC_PRINT_FLG = "MNC_PRINT_FLG";
             pharM01.MNC_PH_NEW_SS = "MNC_PH_NEW_SS";
             pharM01.tmt_code = "tmt_code";
+            pharM01.CodeBSG = "CodeBSG";
         }
         public AutoCompleteStringCollection getlDrugAllTherd()
         {
@@ -352,14 +353,32 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
-        public DataTable SelectDrugMap()
+        public DataTable SelectDrugMap(String drug)
+        {
+            DataTable dt = new DataTable();
+            String wheredrug = "";
+            if(drug.Equals("drug"))             {                wheredrug = "P";            }
+            else if(drug.Equals("supply"))      {                wheredrug = "O"; }
+            String sql = "select pm01.MNC_PH_CD, pm01.MNC_PH_GN, pm01.MNC_PH_TN, pm01.MNC_PH_GN,isnull(pm01.MNC_FN_CD,'') as MNC_FN_CD, isnull(fm11.MNC_DEF_DSC,'') as MNC_DEF_DSC " +
+                ",simb2.CodeBSG,simb2.BillingSubGroupTH,simb2.BillingSubGroupEN,fm01.MNC_SIMB_CD,fm01.MNC_CHARGE_CD,fm01.MNC_SUB_CHARGE_CD, '' as MNC_CHARGE_NO  " +
+                "From pharmacy_m01 pm01 " +
+                "left join FINANCE_M01 fm01 on pm01.MNC_FN_CD = fm01.MNC_FN_CD " +
+                "Left join Finance_m11 fm11 on fm01.MNC_SIMB_CD = fm11.MNC_DEF_CD " +
+                "Left Join SIMB2_BillingGroup simb2 on pm01.CodeBSG = simb2.CodeBSG  " +
+                "Where mnc_ph_typ_flg = '" + wheredrug + "' " +
+                "Order By pm01.MNC_PH_CD";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
+        public DataTable SelectSimbG2()
         {
             DataTable dt = new DataTable();
 
-            String sql = "select pm01.MNC_PH_CD, pm01.MNC_PH_TN, pm01.MNC_PH_GN " +
-                "From pharmacy_m01 pm01 " +
-                "Where mnc_ph_typ_flg = 'P' " +
-                "Order By pm01.MNC_PH_CD";
+            String sql = "select simb.* " +
+                "From SIMB2_BillingGroup simb " +
+                " " +
+                "Order By simb.ID ";
             dt = conn.selectData(conn.connMainHIS, sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
@@ -554,6 +573,21 @@ namespace bangna_hospital.objdb
 
             return chk;
         }
+        public String UpdateCodeBSG(String drugcode, String codebsg)
+        {
+            String sql = "", chk = "";
+            sql = "Update pharmacy_m01 Set CodeBSG = '" + codebsg + "' " +
+                "Where mnc_ph_cd ='" + drugcode + "'";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "PharmacyM01DB UpdateCodeBSG Exception " + ex.Message);
+            }
+            return chk;
+        }
         public String SelectPriceByTmtCode(String tmtcode)
         {
             DataTable dt = new DataTable();
@@ -673,6 +707,7 @@ namespace bangna_hospital.objdb
                 pharM01.properties = dt.Rows[0]["MNC_PH_IND_DSC"].ToString().Replace("/", "").Trim();//Precautions  สรรพคุณ
                 pharM01.interaction = dt.Rows[0]["drug_interaction"].ToString();
                 pharM01.tmt_code_opbkk = dt.Rows[0]["tmt_code_opbkk"].ToString().Replace("/", "").Trim();
+                pharM01.CodeBSG = dt.Rows[0]["CodeBSG"].ToString().Trim();
             }
             else
             {
@@ -744,6 +779,7 @@ namespace bangna_hospital.objdb
             p.interaction = "";
             p.using1 = "";//วิธีใช้
             p.tmt_code_opbkk = "";
+            p.CodeBSG = "";
             return p;
         }
     }

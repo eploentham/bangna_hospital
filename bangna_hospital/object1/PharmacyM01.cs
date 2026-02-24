@@ -71,5 +71,6 @@ namespace bangna_hospital.object1
         public String using1 { get; set; }
         public String tmt_code_opbkk { get; set; }
 		public String properties { get; set; } //สรรพคุณยา
+		public String CodeBSG { get; set; }
     }
 }

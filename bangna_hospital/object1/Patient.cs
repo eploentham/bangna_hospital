@@ -202,8 +202,9 @@ namespace bangna_hospital.object1
                 DateTime dtm = new DateTime();
                 DateTime.TryParse(System.DateTime.Now.Year + "-" + System.DateTime.Now.ToString("MM-dd"), out dtm);
                 age = new Age(dtB, dtm);
-                //re = age.AgeString.Replace("Years", "Y").Replace("Year", "Y").Replace("Months", "M").Replace("Month", "M").Replace("Days", "D").Replace("Day", "D");
-                re = age.Years + "." + age.Months + "." + age.Days;
+                re = age.AgeString.Replace("Years", "Y").Replace("Year", "Y").Replace("Months", "M").Replace("Month", "M").Replace("Days", "D").Replace("Day", "D");
+                //re = age.Years + "." + age.Months + "." + age.Days;
+
             }
             return re;
         }

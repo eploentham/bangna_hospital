@@ -88,6 +88,20 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);MNC_DEF_DSC
             return dt;
         }
+        public DataTable SelectDfMap()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select fm01.MNC_FN_CD, fm01.MNC_FN_DSCT, fm01.MNC_FN_GRP, isnull(fm11.MNC_DEF_DSC,'') as MNC_DEF_DSC " +
+                ",simb2.CodeBSG,simb2.BillingSubGroupTH,simb2.BillingSubGroupEN,fm01.MNC_SIMB_CD,fm01.MNC_CHARGE_CD,fm01.MNC_SUB_CHARGE_CD, '' as MNC_CHARGE_NO  " +
+                "From FINANCE_m01 fm01 " +
+                "Left join Finance_m11 fm11 on fm01.MNC_SIMB_CD = fm11.MNC_DEF_CD " +
+                "Left Join SIMB2_BillingGroup simb2 on fm01.CodeBSG = simb2.CodeBSG  " +
+                "Where fm01.MNC_FN_DF_STS = 'Y' " +
+                "Order By fm01.MNC_FN_CD ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public DataTable SelectAllOPBKK()
         {
             DataTable dt = new DataTable();

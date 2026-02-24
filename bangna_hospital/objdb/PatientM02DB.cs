@@ -144,6 +144,152 @@ namespace bangna_hospital.objdb
                 }
             }
         }
+        public void setCboPrefixT1(C1ComboBox c, String selected)
+        {
+            // ✅ Start timer
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            // Load data once if needed
+            if (lPm02.Count <= 0) getlCus();
+
+            // ✅ Check if already populated (cache check)
+            if (c.Items.Count > 0 && string.IsNullOrEmpty(selected))
+            {
+                return; // Already loaded, skip
+            }
+
+            c.SuspendLayout();
+            try
+            {
+                c.Items.Clear();
+
+                // ✅ Pre-allocate capacity if supported
+                // c.Items.Capacity = lPm02.Count + 1;
+
+                // Add empty item
+                c.Items.Add(new ComboBoxItem { Value = "", Text = "" });
+
+                int selectedIndex = 0;
+
+                // ✅ Use for loop with index (slightly faster than foreach)
+                for (int i = 0; i < lPm02.Count; i++)
+                {
+                    var row = lPm02[i];
+                    c.Items.Add(new ComboBoxItem
+                    {
+                        Value = row.MNC_PFIX_CD,
+                        Text = row.MNC_PFIX_DSC
+                    });
+
+                    if (row.MNC_PFIX_CD.Equals(selected))
+                    {
+                        selectedIndex = i + 1; // +1 for empty item
+                    }
+                }
+
+                c.SelectedIndex = selectedIndex;
+            }
+            finally
+            {
+                c.ResumeLayout();
+            }
+            // ✅ Stop timer and log
+            stopwatch.Stop();
+            System.Diagnostics.Debug.WriteLine(
+                $"setCboPrefixT1: {stopwatch.ElapsedMilliseconds}ms ({stopwatch.ElapsedTicks} ticks)"
+            );
+            new LogWriter("d", $"setCboPrefixT1: {stopwatch.ElapsedMilliseconds}ms");
+        }
+        public void setCboPrefixT2_DataSource(C1ComboBox c, String selected)
+        {
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+            if (lPm02.Count <= 0) getlCus();
+
+            // ✅ สร้าง binding list
+            var bindingList = new List<ComboBoxItem>(lPm02.Count + 1){  new ComboBoxItem { Value = "", Text = "" }    };
+
+            int selectedIndex = 0;
+            for (int i = 0; i < lPm02.Count; i++)
+            {
+                var row = lPm02[i];
+                bindingList.Add(new ComboBoxItem
+                {
+                    Value = row.MNC_PFIX_CD,
+                    Text = row.MNC_PFIX_DSC
+                });
+
+                if (row.MNC_PFIX_CD.Equals(selected))
+                {
+                    selectedIndex = i + 1;
+                }
+            }
+
+            // ✅ Bind ครั้งเดียว - เร็วกว่า Items.Add เยอะ!
+            c.DataSource = bindingList;
+            //c.DisplayMember = "Text";
+            //c.ValueMember = "Value";
+            //c.SelectedIndex = selectedIndex;
+
+            stopwatch.Stop();
+            System.Diagnostics.Debug.WriteLine($"setCboPrefixT2_DataSource: {stopwatch.ElapsedMilliseconds}ms");
+        }
+        public void setCboPrefixT_Fast(C1ComboBox c, String selected)
+        {
+            //var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+            if (lPm02.Count <= 0) getlCus();
+
+            c.SuspendLayout();
+            try
+            {
+                c.Items.Clear();
+
+                // ✅ สร้าง array ของ items ก่อน
+                var itemsArray = new ComboBoxItem[lPm02.Count + 1];
+                itemsArray[0] = new ComboBoxItem { Value = "", Text = "" };
+
+                int selectedIndex = 0;
+
+                for (int i = 0; i < lPm02.Count; i++)
+                {
+                    var row = lPm02[i];
+                    itemsArray[i + 1] = new ComboBoxItem
+                    {
+                        Value = row.MNC_PFIX_CD,
+                        Text = row.MNC_PFIX_DSC
+                    };
+
+                    if (row.MNC_PFIX_CD.Equals(selected))
+                    {
+                        selectedIndex = i + 1;
+                    }
+                }
+
+                // ✅ Add ทีเดียวทั้งหมด (ถ้ารองรับ)
+                try
+                {
+                    c.Items.AddRange(itemsArray);
+                }
+                catch (Exception)
+                {
+                    // Fallback: ถ้า AddRange ไม่มี ก็ใช้ Add ทีละตัว
+                    foreach (var item in itemsArray)
+                    {
+                        c.Items.Add(item);
+                    }
+                }
+
+                c.SelectedIndex = selectedIndex;
+            }
+            finally
+            {
+                c.ResumeLayout();
+            }
+
+            //stopwatch.Stop();
+            //System.Diagnostics.Debug.WriteLine($"setCboPrefixT_Fast: {stopwatch.ElapsedMilliseconds}ms");
+            //new LogWriter("d", $"setCboPrefixT_Fast: {stopwatch.ElapsedMilliseconds}ms");
+        }
         public void setCboPrefixE(C1ComboBox c, String selected)
         {
             ComboBoxItem item = new ComboBoxItem();
@@ -175,6 +321,110 @@ namespace bangna_hospital.objdb
                     c.SelectedIndex = 0;
                 }
             }
+        }
+        public void setCboPrefixE1(C1ComboBox c, String selected)
+        {
+            // Load data once if needed
+            if (lPm02.Count <= 0) getlCus();
+
+            // ✅ Check if already populated (cache check)
+            if (c.Items.Count > 0 && string.IsNullOrEmpty(selected))
+            {
+                return; // Already loaded, skip
+            }
+
+            c.SuspendLayout();
+            try
+            {
+                c.Items.Clear();
+
+                // ✅ Pre-allocate capacity if supported
+                // c.Items.Capacity = lPm02.Count + 1;
+
+                // Add empty item
+                c.Items.Add(new ComboBoxItem { Value = "", Text = "" });
+
+                int selectedIndex = 0;
+
+                // ✅ Use for loop with index (slightly faster than foreach)
+                for (int i = 0; i < lPm02.Count; i++)
+                {
+                    var row = lPm02[i];
+                    c.Items.Add(new ComboBoxItem
+                    {
+                        Value = row.MNC_PFIX_CD,
+                        Text = row.MNC_PFIX_DSC_e
+                    });
+
+                    if (row.MNC_PFIX_CD.Equals(selected))
+                    {
+                        selectedIndex = i + 1; // +1 for empty item
+                    }
+                }
+
+                c.SelectedIndex = selectedIndex;
+            }
+            finally
+            {
+                c.ResumeLayout();
+            }
+        }
+        public void setCboPrefixE_Fast(C1ComboBox c, String selected)
+        {
+            //var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+            if (lPm02.Count <= 0) getlCus();
+
+            c.SuspendLayout();
+            try
+            {
+                c.Items.Clear();
+
+                // ✅ สร้าง array ของ items ก่อน
+                var itemsArray = new ComboBoxItem[lPm02.Count + 1];
+                itemsArray[0] = new ComboBoxItem { Value = "", Text = "" };
+
+                int selectedIndex = 0;
+
+                for (int i = 0; i < lPm02.Count; i++)
+                {
+                    var row = lPm02[i];
+                    itemsArray[i + 1] = new ComboBoxItem
+                    {
+                        Value = row.MNC_PFIX_CD,
+                        Text = row.MNC_PFIX_DSC_e
+                    };
+
+                    if (row.MNC_PFIX_CD.Equals(selected))
+                    {
+                        selectedIndex = i + 1;
+                    }
+                }
+
+                // ✅ Add ทีเดียวทั้งหมด (ถ้ารองรับ)
+                try
+                {
+                    c.Items.AddRange(itemsArray);
+                }
+                catch (Exception)
+                {
+                    // Fallback: ถ้า AddRange ไม่มี ก็ใช้ Add ทีละตัว
+                    foreach (var item in itemsArray)
+                    {
+                        c.Items.Add(item);
+                    }
+                }
+
+                c.SelectedIndex = selectedIndex;
+            }
+            finally
+            {
+                c.ResumeLayout();
+            }
+
+            //stopwatch.Stop();
+            //System.Diagnostics.Debug.WriteLine($"setCboPrefixT_Fast: {stopwatch.ElapsedMilliseconds}ms");
+            //new LogWriter("d", $"setCboPrefixT_Fast: {stopwatch.ElapsedMilliseconds}ms");
         }
         public PatientM02 setPatientM08(DataTable dt)
         {

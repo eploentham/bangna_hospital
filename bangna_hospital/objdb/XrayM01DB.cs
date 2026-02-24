@@ -67,8 +67,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
 
-            String sql = "select * " +
-                "From xray_m01  ";
+            String sql = "select * From xray_m01  ";
             dt = conn.selectData(sql);
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
@@ -76,13 +75,34 @@ namespace bangna_hospital.objdb
         public DataTable SelectAllByGroup(String labgrpcode)
         {
             DataTable dt = new DataTable();
-            String sql = "select xray_m01.*, xray_m02.mnc_xr_pri01 " +
+            //String sql = "select xray_m01.*, xray_m02.mnc_xr_pri01 " +
+            //    "From xray_m01  " +
+            //    "Left join xray_m02 on xray_m01.mnc_xr_cd = xray_m02.mnc_xr_cd and  " +
+            //    "Where xray_m01.MNC_XR_GRP_CD = '" + labgrpcode + "' " +
+            //    " ";
+            String sql = "select xray_m01.* " +
                 "From xray_m01  " +
-                "Left join xray_m02 on xray_m01.mnc_xr_cd = xray_m02.mnc_xr_cd " +
+                //"Left join xray_m02 on xray_m01.mnc_xr_cd = xray_m02.mnc_xr_cd and  " +
                 "Where xray_m01.MNC_XR_GRP_CD = '" + labgrpcode + "' " +
                 " ";
             dt = conn.selectData(sql);
 
+            return dt;
+        }
+        public DataTable SelectXrayMap()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select xray01.MNC_XR_CD, xray01.MNC_XR_DSC, xray01.MNC_XR_GRP_CD, isnull(fm01.MNC_FN_CD,'') as MNC_FN_CD, isnull(fm11.MNC_DEF_DSC,'') as MNC_DEF_DSC " +
+                ",simb2.CodeBSG,simb2.BillingSubGroupTH,simb2.BillingSubGroupEN,fm01.MNC_SIMB_CD,fm01.MNC_CHARGE_CD,fm01.MNC_SUB_CHARGE_CD, xray02.MNC_CHARGE_NO  " +
+                "From XRAY_M01 xray01 " +
+                "left join XRAY_M02 xray02 on xray01.MNC_XR_CD = xray02.MNC_XR_CD  " +
+                "left join FINANCE_M01 fm01 on xray02.MNC_FN_CD = fm01.MNC_FN_CD " +
+                "Left join Finance_m11 fm11 on fm01.MNC_SIMB_CD = fm11.MNC_DEF_CD " +
+                "Left Join SIMB2_BillingGroup simb2 on xray02.CodeBSG = simb2.CodeBSG  " +
+                //"Where xray01.MNC_XR_TYP_FLG = '1' " +
+                "Order By xray01.MNC_XR_CD,xray02.MNC_CHARGE_NO ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
             return dt;
         }
         public AutoCompleteStringCollection getlLabAll()
@@ -153,6 +173,21 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 new LogWriter("e", " XrayM01DB updateOPBKKCode error " + ex.InnerException);
+            }
+            return chk;
+        }
+        public String UpdateCodeBSG(String drugcode, String codebsg)
+        {
+            String sql = "", chk = "";
+            sql = "Update xray_m02 Set CodeBSG = '" + codebsg + "' " +
+                "Where mnc_xr_cd ='" + drugcode + "'";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "XrayM02DB UpdateCodeBSG Exception " + ex.Message);
             }
             return chk;
         }

@@ -1,4 +1,5 @@
 ﻿using bangna_hospital.object1;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -49,11 +50,38 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "";
             sql = "SELECT  XRAY_T02.MNC_XR_CD as order_code, XRAY_M01.MNC_XR_DSC as order_name, convert(varchar(20),XRAY_T02.MNC_REQ_DAT, 23) as req_date " +
+                ", XRAY_T02.MNC_REQ_NO as req_no, 'xray' as flag, '1' as qty,XRAY_T02.MNC_REQ_YR,isnull(XRAY_T02.MNC_XR_PRI,0) as MNC_XR_PRI " +
+                ",  isnull(pm02.MNC_PFIX_DSC,'') +' '+isnull(pm01.MNC_FNAME_T,'')+' '+isnull(pm01.MNC_LNAME_T,'') as pttfullname " +
+                ",XRAY_T01.MNC_DOT_CD, isnull(pm02dtr.MNC_PFIX_DSC,'')  + ' ' + isnull(pm26.MNC_DOT_FNAME,'')+' '+isnull(pm26.MNC_DOT_LNAME,'') as dtr_name " +
+                ",pt01.MNC_FN_TYP_CD,pt01.MNC_DEP_NO, pt01.MNC_SEC_NO,pt01.MNC_COM_CD, isnull(pt01.MNC_RES_MAS,'') as MNC_RES_MAS,XRAY_T01.MNC_HN_NO " +
+                ", pt01.mnc_vn_seq, pt01.mnc_vn_sum, pt01.mnc_vn_no,pt01.MNC_TIME,XRAY_T01.MNC_REQ_TIM,convert(varchar(20),pt01.MNC_DATE,23) as MNC_DATE " +
+                ", isnull(userm01_usr.MNC_USR_FULL,'') as MNC_USR_FULL_usr " +
+                "FROM    XRAY_T01  " +
+                "left join XRAY_T02 ON XRAY_T01.MNC_REQ_NO = XRAY_T02.MNC_REQ_NO AND XRAY_T01.MNC_REQ_DAT = XRAY_T02.MNC_REQ_DAT " +
+                "left join XRAY_M01 ON XRAY_T02.MNC_XR_CD = XRAY_M01.MNC_XR_CD " +
+                "inner join patient_m01 pm01 on XRAY_T01.MNC_HN_NO = pm01.MNC_HN_NO  " +
+                "Left Join patient_m02 pm02 On pm01.MNC_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "left join patient_m26 pm26 on XRAY_T01.MNC_ORD_DOT = pm26.MNC_DOT_CD " +
+                "left join patient_m02 pm02dtr on pm26.MNC_DOT_PFIX = pm02dtr.MNC_PFIX_CD " +
+                "left Join USERLOG_M01 userm01_usr on XRAY_T01.MNC_EMPC_CD = userm01_usr.MNC_USR_NAME  " +
+                "inner join PATIENT_T01 pt01 on XRAY_T01.MNC_HN_NO = pt01.MNC_HN_NO and  XRAY_T01.MNC_DATE = pt01.MNC_DATE and  XRAY_T01.MNC_PRE_NO = pt01.MNC_PRE_NO " +
+                "where XRAY_T01.MNC_REQ_DAT = '" + reqdate + "' and XRAY_T01.MNC_REQ_NO = '" + reqno + "'  " +
+                "and XRAY_T01.mnc_hn_no = '" + hn + "' " +
+                "and XRAY_T02.mnc_req_sts <> 'C'  and XRAY_T01.mnc_req_sts <> 'C'  " +
+                "Order By XRAY_T02.MNC_XR_CD ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            return dt;
+        }
+        public DataTable selectbyHN(String hn, String vsdate, String preno)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", lccode = "", wherelccode = "";
+            sql = "SELECT  XRAY_T02.MNC_XR_CD as order_code, XRAY_M01.MNC_XR_DSC as order_name, convert(varchar(20),XRAY_T02.MNC_REQ_DAT, 23) as req_date " +
                 ", XRAY_T02.MNC_REQ_NO as req_no, 'xray' as flag, '1' as qty,XRAY_T02.MNC_REQ_YR " +
                 "FROM    XRAY_T01  " +
                 "left join XRAY_T02 ON XRAY_T01.MNC_REQ_NO = XRAY_T02.MNC_REQ_NO AND XRAY_T01.MNC_REQ_DAT = XRAY_T02.MNC_REQ_DAT " +
                 "left join XRAY_M01 ON XRAY_T02.MNC_XR_CD = XRAY_M01.MNC_XR_CD " +
-                "where XRAY_T01.MNC_REQ_DAT = '" + reqdate + "' and XRAY_T01.MNC_REQ_NO = '" + reqno + "'  " +
+                "where XRAY_T01.MNC_DATE = '" + vsdate + "' and XRAY_T01.MNC_PRE_NO = '" + preno + "'  " +
                 "and XRAY_T01.mnc_hn_no = '" + hn + "' " +
                 "and XRAY_T02.mnc_req_sts <> 'C'  and XRAY_T01.mnc_req_sts <> 'C'  " +
                 "Order By XRAY_T02.MNC_XR_CD ";

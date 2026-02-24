@@ -275,7 +275,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             //reqdate = DateTime.Now.Year.ToString() + DateTime.Now.ToString("-MM-dd");
             sql = "SELECT labt02.MNC_LB_CD, labm01.MNC_LB_DSC  " +
-                ", isnull(labm02.MNC_LB_PRI01,0) as MNC_LB_PRI01,convert(varchar(20),labt01.MNC_REQ_DAT,23) as MNC_REQ_DAT,labt02.MNC_REQ_NO " +
+                ", isnull(labm02.MNC_LB_PRI01,0) as MNC_LB_PRI01,convert(varchar(20),labt01.MNC_REQ_DAT,23) as req_date,labt02.MNC_REQ_NO as req_no " +
                 " " +
                 "FROM  LAB_T01 labt01  " +
                 "left join LAB_T02 labt02 ON labt01.MNC_REQ_NO = labt02.MNC_REQ_NO AND labt01.MNC_REQ_DAT = labt02.MNC_REQ_DAT " +

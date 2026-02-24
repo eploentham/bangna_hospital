@@ -5511,6 +5511,20 @@ namespace bangna_hospital.objdb
             dt = conn.selectData(sql);
             return dt;
         }
+        public DataTable selectCertByPIDref1(String pid)
+        {
+            DataTable dt = new DataTable();
+            String sql = "", whereAn = "";
+
+            sql = "Select convert(varchar(20), pt01.MNC_DATE,23) MNC_DATE, pt01.certi_id " +
+            "From PATIENT_T01 pt01 " +
+            "inner join patient_m01 pm01 on pt01.mnc_hn_no = pm01.mnc_hn_no " +
+            "where pm01.ref1 = '" + pid + "'  and pt01.MNC_STS != 'C'  " +
+            "Order By pt01.MNC_DATE desc, pt01.MNC_PRE_NO desc  ";
+            //}
+            dt = conn.selectData(sql);
+            return dt;
+        }
         public DataTable selectOrderTempByHN(String hn, String vsdate, String preno)
         {
             DataTable dt = new DataTable();

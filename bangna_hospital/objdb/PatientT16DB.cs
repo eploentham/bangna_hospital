@@ -39,7 +39,7 @@ namespace bangna_hospital.objdb
         {
             String re = "", sql = "";
             DataTable dt = new DataTable();
-            sql = "Select pt16.MNC_REQ_YR,pt16.MNC_REQ_NO,pt16.MNC_REQ_DAT,pt16.MNC_SR_CD,pt16.MNC_SR_PRI,pt16.MNC_SR_QTY,pt16.MNC_FN_CD,pt16.MNC_STAMP_DAT,pm30.MNC_SR_DSC " +
+            sql = "Select pt16.MNC_REQ_YR,pt16.MNC_REQ_NO,pt16.MNC_REQ_DAT,pt16.MNC_SR_CD,pt16.MNC_SR_PRI,pt16.MNC_SR_QTY,pt16.MNC_FN_CD,pt16.MNC_STAMP_DAT,pm30.MNC_SR_DSC,pt16.MNC_REQ_STS " +
                 "From Patient_t15 pt15 " +
                 "Left Join "+ pt16.table+ " pt16 on pt16.MNC_REQ_YR = pt15.MNC_REQ_YR and pt16.MNC_REQ_NO = pt15.MNC_REQ_NO and pt16.MNC_REQ_DAT = pt15.MNC_REQ_DAT " +
                 "Left Join PATIENT_M30 pm30 on pt16.MNC_SR_CD = pm30.MNC_SR_CD " +
@@ -52,7 +52,7 @@ namespace bangna_hospital.objdb
             DataTable dt = new DataTable();
             String sql = "", lccode = "", wherelccode = "";
             sql = "SELECT  pt16.MNC_SR_CD as order_code, pm30.MNC_SR_DSC as order_name, convert(varchar(20),pt16.MNC_REQ_DAT, 23) as req_date " +
-                ", pt16.MNC_REQ_NO as req_no, 'xray' as flag, '1' as qty " +
+                ", pt16.MNC_REQ_NO as req_no, 'procedure' as flag, '1' as qty " +
                 "FROM    Patient_t15 pt15  " +
                 "left join Patient_T16 pt16 ON pt15.MNC_REQ_NO = pt16.MNC_REQ_NO AND pt15.MNC_REQ_DAT = pt16.MNC_REQ_DAT " +
                 "left join PATIENT_M30 pm30 ON pt16.MNC_SR_CD = pm30.MNC_SR_CD " +

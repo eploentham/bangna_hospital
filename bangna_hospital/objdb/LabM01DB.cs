@@ -161,6 +161,22 @@ namespace bangna_hospital.objdb
             
             return dt;
         }
+        public DataTable SelectLabMap()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select lab01.MNC_LB_CD, lab01.MNC_LB_DSC, lab01.MNC_LB_DSC,isnull(lab02.MNC_FN_CD,'') as MNC_FN_CD, isnull(fm11.MNC_DEF_DSC,'') as MNC_DEF_DSC " +
+                ",simb2.CodeBSG,simb2.BillingSubGroupTH,simb2.BillingSubGroupEN,fm01.MNC_SIMB_CD,fm01.MNC_CHARGE_CD,fm01.MNC_SUB_CHARGE_CD, lab02.MNC_CHARGE_NO  " +
+                "From LAB_M01 lab01 " +
+                "left join LAB_M02 lab02 on lab01.MNC_LB_CD = lab02.MNC_LB_CD  " +
+                "left join FINANCE_M01 fm01 on lab02.MNC_FN_CD = fm01.MNC_FN_CD " +
+                "Left join Finance_m11 fm11 on fm01.MNC_SIMB_CD = fm11.MNC_DEF_CD " +
+                "Left Join SIMB2_BillingGroup simb2 on lab02.CodeBSG = simb2.CodeBSG  " +
+                "Where lab01.active = '1' " +
+                "Order By lab01.MNC_LB_CD,lab02.MNC_CHARGE_NO";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public AutoCompleteStringCollection getlLabAll()
         {
             //lDept = new List<Position>();
@@ -179,6 +195,21 @@ namespace bangna_hospital.objdb
                 //labM01.Add(cus1);
             }
             return autoSymptom;
+        }
+        public String UpdateCodeBSG(String drugcode, String codebsg)
+        {
+            String sql = "", chk = "";
+            sql = "Update lab_m02 Set CodeBSG = '" + codebsg + "' " +
+                "Where mnc_lb_cd ='" + drugcode + "'";
+            try
+            {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", "LabM01DB UpdateCodeBSG Exception " + ex.Message);
+            }
+            return chk;
         }
         public String updateControlLab(String labcode, String controlyear, String controlsupervisor)
         {

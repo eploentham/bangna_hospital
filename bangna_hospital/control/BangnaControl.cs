@@ -1652,11 +1652,8 @@ namespace bangna_hospital.control
                 {
                     if (DateTime.TryParse(dt.ToString(), out dt1))
                     {
-                        if (dt1.Year < 2000)
-                        {
-                            dt1 = dt1.AddYears(543);
-                        }
-                        re = dt1.ToString("dd-MM-yyyy");
+                        if (dt1.Year < 2000)                        {                            dt1 = dt1.AddYears(543);                        }
+                        re = dt1.ToString("dd-MM-yyyy", new CultureInfo("en-US"));
                     }
                 }
             }

@@ -23,6 +23,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static CSJ2K.j2k.codestream.HeaderInfo;
 using Document = iText.Layout.Document;
 using Font = System.Drawing.Font;
 using Row = C1.Win.C1FlexGrid.Row;
@@ -38,18 +39,23 @@ namespace bangna_hospital.gui
         Patient PTT;
         Visit VS;
         C1ThemeController theme1;
-        C1FlexGrid grfOperList, grfFinish, grfInv, grfExp;
+        C1FlexGrid grfOperList, grfFinish, grfInv, grfExp, grfMasterDrug, grfMasterSimb2;
         DataTable DTINV = new DataTable();
         Timer timeOperList;
         Label lbLoading;
         TextBox txttaxid, txtName, txtAddr1, txtAddr2;
         String PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", PTTNAME="", VSTIME="", DOCNO="", DOCDATE="";
+        Boolean FLAGNEWSIMB2 = false;
         Boolean isLoad = false;
         TExpenseDB expenseDB;
         TSupraDB supraDB;
+        Simb2BillingGroupDB simb2DB;
+        List<Simb2BillingGroup> listSimb2;
         int colgrfOperListHn = 1, colgrfOperListVn=2, colgrfOperListFullNameT = 3, colgrfOperListSymptoms = 4, colgrfOperListPaidName = 5, colgrfOperListPreno = 6, colgrfOperListVsDate = 7, colgrfOperListVsTime = 8, colgrfOperListActNo = 9, colgrfOperListDtrName = 10, colgrfOperListPha = 11, colgrfOperListLab = 12, colgrfOperListXray = 13;
         int colgrfFinishHn = 1, colgrfFinishFullNameT = 2, colgrfFinishPaidName = 3, colgrfFinishSymptoms = 4, colgrfFinishPreno = 5, colgrfFinishVsDate = 6, colgrfFinishVsTime = 7, colgrfFinishActNo = 8, colgrfFinishDocno = 9, colgrfFinishAN = 10;
         int colgrfExpid=1, colgrfExpDesc=2, colgrfExpAmount=3, colgrfExpModule=4, colgrfExpUser=5, colgrfExpDateReq=6;
+        int colgrfDrugCode = 1, colgrfDrugName = 2, colgrfDrugFnCd = 3, colgrfDrugFnName=4, colgrfDrugSimbcode = 5, colgrfDrugChargeCD = 6, colgrfDrugCodeBSG=7, colgrfDrugBillingSubGroupTH=8;
+        int colgrfSimb2GID = 1, colgrfSimb2CodeBG = 2, colgrfSimb2BillGTH = 3, colgrfSimb2BillGEN = 4, colgrfSimb2CodeBSG = 5, colgrfSimb2CodeSubGTH = 6, colgrfSimb2CodeSubGEN=7;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         internal static extern IntPtr GetFocus();
         public FrmCashier(BangnaControl bc)
@@ -67,7 +73,7 @@ namespace bangna_hospital.gui
             isLoad = true;
             theme1 = new C1ThemeController();
             timeOperList = new Timer();
-            timeOperList.Interval = Math.Max(1000, bc.timerCheckLabOut * 1000); // enforce >= 1s
+            timeOperList.Interval = Math.Max(1000, bc.timerCheckLabOut * 1000);             // enforce >= 1s
             timeOperList.Enabled = false;
             initFont();
             initLoading();
@@ -142,6 +148,130 @@ namespace bangna_hospital.gui
             timeOperList.Tick += TimeOperList_Tick;
             btnExpenseSave.Click += BtnExpenseSave_Click;
             txtAmount.KeyPress += TxtAmount_KeyPress;
+            btnSimb2New.Click += BtnSimb2New_Click;
+            btnSimb2Save.Click += BtnSimb2Save_Click;
+            btnSimb2MapNew.Click += BtnSimb2MapNew_Click;
+            BtnSimb2NewSave.Click += BtnSimb2NewSave_Click;
+            chkMastersupply.Click += ChkMastersupply_Click;
+            chkMasterDrug.Click += ChkMasterDrug_Click;
+            chkMasterLab.Click += ChkMasterLab_Click;
+            chkMasterXray.Click += ChkMasterXray_Click;
+            chkMasterDf.Click += ChkMasterDf_Click;
+            chkMasterProc.Click += ChkMasterProc_Click;
+            txtMasterSearch.KeyDown += TxtMasterSearch_KeyDown;
+        }
+
+        private void TxtMasterSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            //throw new NotImplementedException();
+            grfMasterDrug.ApplySearch(txtMasterSearch.Text.Trim(), true, true, false);
+        }
+
+        private void ChkMasterProc_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkMasterProc.Checked)            {                setGrfMasterDrug(); }
+        }
+
+        private void ChkMasterDf_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkMasterDf.Checked)            {                setGrfMasterDrug(); }
+        }
+
+        private void ChkMasterXray_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkMasterXray.Checked)            {                setGrfMasterDrug(); }
+        }
+
+        private void ChkMasterLab_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkMasterLab.Checked)            {                setGrfMasterDrug(); }
+        }
+
+        private void ChkMasterDrug_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkMasterDrug.Checked)            {                setGrfMasterDrug(); }
+        }
+
+        private void ChkMastersupply_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(chkMastersupply.Checked)            {                setGrfMasterDrug();            }
+        }
+
+        private void BtnSimb2NewSave_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (txtMasterSimb2CodeBGNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุรหัส new simb2"; return; }
+            if (txtMasterSimb2BillGTHNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มใหม่ (ไทย)"; return; }
+            if (txtMasterSimb2BillGENNew.Text.Trim().Length <= 0)   { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มใหม่ (อังกฤษ)"; return; }
+            if (txtMasterSimb2CodeBSGNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุรหัสกลุ่มย่อย BSG"; return; }
+            if (txtMasterSimb2CodeSubGTHNew.Text.Trim().Length <= 0) { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (ไทย)"; return; }
+            if (txtMasterSimb2CodeSubGENNew.Text.Trim().Length <= 0) { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (อังกฤษ)"; return; }
+            Simb2BillingGroup chk = simb2DB.GetByCodeBG(txtMasterSimb2CodeBGNew.Text.Trim());
+            if (chk != null)    {                lfSbMessage.Text = "รหัส SIMB2 นี้มีอยู่แล้วในระบบ";                return;           }
+            chk = simb2DB.GetByCodeBSG(txtMasterSimb2CodeBSGNew.Text.Trim()); 
+            if (chk != null)    {                lfSbMessage.Text = "รหัสกลุ่มย่อย BSG นี้มีอยู่แล้วในระบบ";              return;       }
+            Simb2BillingGroup obj = new Simb2BillingGroup();
+            obj.ID = 0;
+            obj.CodeBG = txtMasterSimb2CodeBGNew.Text.Trim();
+            obj.BillingGroupTH = txtMasterSimb2BillGTHNew.Text.Trim();
+            obj.BillingGroupEN = txtMasterSimb2BillGENNew.Text.Trim();
+            obj.CodeBSG = txtMasterSimb2CodeBSGNew.Text.Trim();
+            obj.BillingSubGroupTH = txtMasterSimb2CodeSubGTHNew.Text.Trim();
+            obj.BillingSubGroupEN = txtMasterSimb2CodeSubGENNew.Text.Trim();
+            String re = simb2DB.InsertOrUpdate(obj);
+            if (long.TryParse(re, out long result) && result > 0)
+            {
+                lfSbMessage.Text = "Insert new SIMB2 สำเร็จ";
+                listSimb2.Add(obj);
+                setGrfMasterSimb2();
+            }
+            else
+            {
+                lfSbMessage.Text = re;
+            }
+            FLAGNEWSIMB2 = false;
+            btnSimb2MapNew.Enabled = true;
+            btnSimb2Save.Enabled = true;
+        }
+
+        private void BtnSimb2MapNew_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            clearControlTabMaster();
+        }
+
+        private void BtnSimb2Save_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (txtMasterDrugGenericCode.Text.Trim().Length <= 0)   { lfSbMessage.Text ="กรุณาระบุรหัสยา"; return;         }
+            if (txtMasterSimb2CodeBSG.Text.Trim().Length <= 0)      { lfSbMessage.Text = "กรุณาระบุ SIMB2 code"; return; }
+            String re = "";
+            if (chkMasterDrug.Checked)      {       re = bc.bcDB.pharM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
+            else if (chkMasterLab.Checked)  {       re = bc.bcDB.labM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
+            else if (chkMasterXray.Checked) {       re = bc.bcDB.xrayM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
+            if(long.Parse(re) > 0)
+            {
+                lfSbMessage.Text = "Update SIMB2 code สำเร็จ";
+                setGrfMasterDrug();
+            }
+            else
+            {
+                lfSbMessage.Text = re;
+            }
+        }
+
+        private void BtnSimb2New_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            FLAGNEWSIMB2 = true;
+            btnSimb2MapNew.Enabled = false;
+            btnSimb2Save.Enabled = false;
         }
 
         private void TxtAmount_KeyPress(object sender, KeyPressEventArgs e)
@@ -623,6 +753,9 @@ namespace bangna_hospital.gui
                 setLbLoading("กำลังโหลดข้อมูล ...");
                 showLbLoading();
                 setGrfFinish();
+                rgPrn.Visible = true;
+                rgPrn1.Visible = true;
+                rgPrnReceipt.Visible = true;
                 hideLbLoading();
 
             }
@@ -632,8 +765,40 @@ namespace bangna_hospital.gui
                 setLbLoading("กำลังโหลดข้อมูล ...");
                 showLbLoading();
                 setGrfExp();
+                rgPrn.Visible = false;
+                rgPrn1.Visible = false;
+                rgPrnReceipt.Visible = false;
                 hideLbLoading();
             }
+            else if(tabMain.SelectedTab == tabMaster)
+            {
+                TABVSACTIVE = tabMaster.Name;
+                setLbLoading("กำลังโหลดข้อมูล ...");
+                showLbLoading();
+                initControlTabMaster();
+                if (grfMasterDrug==null) initGrfMasterDrug();
+                setGrfMasterDrug();
+                if(grfMasterSimb2==null) initGrfMasterSimb2();
+                setGrfMasterSimb2();
+                hideLbLoading();
+            }
+        }
+        private void initControlTabMaster()
+        {
+            simb2DB = new Simb2BillingGroupDB(bc.conn);
+            listSimb2 = simb2DB.GetList();
+        }
+        private void clearControlTabMaster()
+        {
+            txtMasterSimb2id.Value = "";
+            txtMasterDrugGenericCode.Value = "";
+            txtMasterDrugGenricName.Value = "";
+            txtMasterSimb2CodeBG.Value = "";
+            txtMasterSimb2BillGTH.Value = "";
+            txtMasterSimb2BillGEN.Value = "";
+            txtMasterSimb2CodeBSG.Value = "";
+            txtMasterSimb2CodeSubGTH.Value = "";
+            txtMasterSimb2CodeSubGEN.Value = "";
         }
         private void setLbLoading(String txt)
         {
@@ -650,6 +815,168 @@ namespace bangna_hospital.gui
         {
             lbLoading.Hide();
             Application.DoEvents();
+        }
+        private void initGrfMasterSimb2()
+        {
+            grfMasterSimb2 = new C1FlexGrid();
+            grfMasterSimb2.Font = fEdit;
+            grfMasterSimb2.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfMasterSimb2.Location = new System.Drawing.Point(0, 0);
+            grfMasterSimb2.Rows.Count = 1;
+            grfMasterSimb2.Cols.Count = 8;
+            grfMasterSimb2.Cols[colgrfSimb2GID].Width = 60;
+            grfMasterSimb2.Cols[colgrfSimb2CodeBG].Width = 60;
+            grfMasterSimb2.Cols[colgrfSimb2BillGTH].Width = 300;
+            grfMasterSimb2.Cols[colgrfSimb2BillGEN].Width = 300;
+            grfMasterSimb2.Cols[colgrfSimb2CodeBSG].Width = 80;
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGTH].Width = 300;
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGEN].Width = 300;
+            grfMasterSimb2.ShowCursor = true;
+            grfMasterSimb2.Cols[colgrfSimb2GID].Caption = "รหัส";
+            grfMasterSimb2.Cols[colgrfSimb2CodeBG].Caption = "รายการ";
+            grfMasterSimb2.Cols[colgrfSimb2BillGTH].Caption = "รายการ";
+            grfMasterSimb2.Cols[colgrfSimb2BillGEN].Caption = "รายการ";
+            grfMasterSimb2.Cols[colgrfSimb2CodeBSG].Caption = "รายการ";
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGTH].Caption = "รายการ";
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGEN].Caption = "รายการ";
+
+            grfMasterSimb2.Cols[colgrfSimb2GID].AllowEditing = false;
+            grfMasterSimb2.Cols[colgrfSimb2CodeBG].AllowEditing = false;
+            grfMasterSimb2.Cols[colgrfSimb2BillGTH].AllowEditing = false;
+            grfMasterSimb2.Cols[colgrfSimb2BillGEN].AllowEditing = false;
+            grfMasterSimb2.Cols[colgrfSimb2CodeBSG].AllowEditing = false;
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGTH].AllowEditing = false;
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGEN].AllowEditing = false;
+            pnMasterSimb2.Controls.Add(grfMasterSimb2);
+            grfMasterSimb2.Click += GrfMasterSimb2_Click;
+        }
+
+        private void GrfMasterSimb2_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfMasterSimb2.Row <= 0) return;
+            if (FLAGNEWSIMB2)
+            {
+                txtMasterSimb2CodeBGNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeBSG]?.ToString() ?? "";
+                txtMasterSimb2BillGTHNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGTH]?.ToString() ?? "";
+                txtMasterSimb2BillGENNew.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGEN]?.ToString() ?? "";
+                txtMasterSimb2CodeBSGNew.Value = "";
+                txtMasterSimb2CodeSubGTHNew.Value = "";
+                txtMasterSimb2CodeSubGENNew.Value = "";
+            }
+            else
+            {
+                txtMasterSimb2id.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2GID]?.ToString() ?? "";
+                txtMasterSimb2CodeBG.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeBG]?.ToString() ?? "";
+                txtMasterSimb2BillGTH.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGEN]?.ToString() ?? "";
+                txtMasterSimb2BillGEN.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2BillGTH]?.ToString() ?? "";
+                txtMasterSimb2CodeBSG.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeBSG]?.ToString() ?? "";
+                txtMasterSimb2CodeSubGTH.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGTH]?.ToString() ?? "";
+                txtMasterSimb2CodeSubGEN.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGEN]?.ToString() ?? "";
+            }
+        }
+
+        private void setGrfMasterSimb2()
+        {
+            DataTable dt = new DataTable();
+            dt = bc.bcDB.pharM01DB.SelectSimbG2();
+            grfMasterSimb2.Rows.Count = 1;
+            if (dt.Rows.Count > 0)
+            {
+                grfMasterSimb2.Rows.Count = dt.Rows.Count + 1;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    grfMasterSimb2[i + 1, colgrfSimb2GID] = dt.Rows[i]["ID"] != null ? dt.Rows[i]["ID"].ToString() : "";
+                    grfMasterSimb2[i + 1, colgrfSimb2CodeBG] = dt.Rows[i]["CODEBG"] != null ? dt.Rows[i]["CODEBG"].ToString() : "";
+                    grfMasterSimb2[i + 1, colgrfSimb2BillGTH] = dt.Rows[i]["BillingGroupTH"] != null ? dt.Rows[i]["BillingGroupTH"].ToString() : "";
+                    grfMasterSimb2[i + 1, colgrfSimb2BillGEN] = dt.Rows[i]["BillingGroupEN"] != null ? dt.Rows[i]["BillingGroupEN"].ToString() : "";
+                    grfMasterSimb2[i + 1, colgrfSimb2CodeBSG] = dt.Rows[i]["CODEBSG"] != null ? dt.Rows[i]["CODEBSG"].ToString() : "";
+                    grfMasterSimb2[i + 1, colgrfSimb2CodeSubGTH] = dt.Rows[i]["BillingSubGroupTH"] != null ? dt.Rows[i]["BillingSubGroupTH"].ToString() : "";
+                    grfMasterSimb2[i + 1, colgrfSimb2CodeSubGEN] = dt.Rows[i]["BillingSubGroupEN"] != null ? dt.Rows[i]["BillingSubGroupEN"].ToString() : "";
+                }
+            }
+        }
+        private void initGrfMasterDrug()
+        {
+            grfMasterDrug = new C1FlexGrid();
+            grfMasterDrug.Font = fEdit;
+            grfMasterDrug.Dock = System.Windows.Forms.DockStyle.Fill;
+            grfMasterDrug.Location = new System.Drawing.Point(0, 0);
+            grfMasterDrug.Rows.Count = 1;
+            grfMasterDrug.Cols.Count = 9;
+            grfMasterDrug.Cols[colgrfDrugCode].Width = 80;
+            grfMasterDrug.Cols[colgrfDrugName].Width = 250;
+            grfMasterDrug.Cols[colgrfDrugFnCd].Width = 60;
+            grfMasterDrug.Cols[colgrfDrugFnName].Width = 200;
+            grfMasterDrug.Cols[colgrfDrugSimbcode].Width = 60;
+            grfMasterDrug.Cols[colgrfDrugChargeCD].Width = 40;
+            grfMasterDrug.Cols[colgrfDrugCodeBSG].Width = 80;
+            grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].Width = 200;
+            grfMasterDrug.ShowCursor = true;
+            grfMasterDrug.Cols[colgrfDrugCode].Caption = "รหัส";
+            grfMasterDrug.Cols[colgrfDrugName].Caption = "DrugName";
+            grfMasterDrug.Cols[colgrfDrugFnCd].Caption = "FnCd";
+            grfMasterDrug.Cols[colgrfDrugFnName].Caption = "FnName";
+            grfMasterDrug.Cols[colgrfDrugSimbcode].Caption = "simb";
+            grfMasterDrug.Cols[colgrfDrugChargeCD].Caption = "ChargeNo";
+            grfMasterDrug.Cols[colgrfDrugCodeBSG].Caption = "CodeBSG";
+            grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].Caption = "BillingSubGroupTH";
+
+            grfMasterDrug.Cols[colgrfDrugCode].DataType = typeof(String);
+            grfMasterDrug.Cols[colgrfDrugName].DataType = typeof(String);
+            grfMasterDrug.Cols[colgrfDrugCode].TextAlign = TextAlignEnum.CenterCenter;
+            grfMasterDrug.Cols[colgrfDrugName].TextAlign = TextAlignEnum.LeftCenter;
+            grfMasterDrug.Cols[colgrfDrugFnCd].TextAlign = TextAlignEnum.CenterCenter;
+            grfMasterDrug.Cols[colgrfDrugFnName].TextAlign = TextAlignEnum.LeftCenter;
+            grfMasterDrug.Cols[colgrfDrugCodeBSG].TextAlign = TextAlignEnum.CenterCenter;
+            grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].TextAlign = TextAlignEnum.LeftCenter;
+            grfMasterDrug.Cols[colgrfDrugCode].AllowEditing = false;
+            grfMasterDrug.Cols[colgrfDrugName].AllowEditing = false;
+            grfMasterDrug.Cols[colgrfDrugFnCd].AllowEditing = false;
+            grfMasterDrug.Cols[colgrfDrugFnName].AllowEditing = false;
+            grfMasterDrug.Cols[colgrfDrugChargeCD].AllowEditing = false;
+            grfMasterDrug.Cols[colgrfDrugCodeBSG].AllowEditing = false;
+            grfMasterDrug.Cols[colgrfDrugSimbcode].AllowEditing = false;
+            grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].AllowEditing = false;
+            pnMasterDrugView.Controls.Add(grfMasterDrug);
+            grfMasterDrug.Click += GrfMasterDrug_Click;
+        }
+        private void GrfMasterDrug_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (grfMasterDrug.Row <= 0) return;
+            String code = grfMasterDrug[grfMasterDrug.Row, colgrfDrugCode]?.ToString() ?? "";
+            String name = grfMasterDrug[grfMasterDrug.Row, colgrfDrugName]?.ToString() ?? "";
+            txtMasterDrugGenericCode.Value = code;
+            txtMasterDrugGenricName.Value = name;
+        }
+        private void setGrfMasterDrug()
+        {
+            DataTable dt = new DataTable();
+            if(chkMasterDrug.Checked )          {   dt = bc.bcDB.pharM01DB.SelectDrugMap("drug");            }
+            else if(chkMastersupply.Checked)    {   dt = bc.bcDB.pharM01DB.SelectDrugMap("supply");          }
+            else if (chkMasterLab.Checked )     {   dt = bc.bcDB.labM01DB.SelectLabMap();                   }
+            else if (chkMasterXray.Checked)     {   dt = bc.bcDB.xrayM01DB.SelectXrayMap();                 }
+            else if (chkMasterProc.Checked)     {   dt = bc.bcDB.pm30DB.SelectProcedureMap();               }
+            else if (chkMasterDf.Checked)       {   dt = bc.bcDB.finM01DB.SelectDfMap();                    }
+            grfMasterDrug.Rows.Count = 1;
+            if (dt.Rows.Count > 0)
+            {
+                grfMasterDrug.Rows.Count = dt.Rows.Count + 1;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    grfMasterDrug[i + 1, colgrfDrugCode] = chkMasterDrug.Checked ? dt.Rows[i]["MNC_PH_CD"]?.ToString()?? "" : chkMastersupply.Checked ? dt.Rows[i]["MNC_PH_CD"]?.ToString()?? "" : chkMasterLab.Checked ? dt.Rows[i]["MNC_LB_CD"]?.ToString()?? "" : chkMasterXray.Checked ? dt.Rows[i]["MNC_XR_CD"]?.ToString()?? "" : chkMasterProc.Checked ? dt.Rows[i]["MNC_SR_CD"]?.ToString()?? "" : "";
+                    grfMasterDrug[i + 1, colgrfDrugName] = chkMasterDrug.Checked ? dt.Rows[i]["MNC_PH_GN"]?.ToString()?? "" : chkMastersupply.Checked ? dt.Rows[i]["MNC_PH_TN"]?.ToString()?? "" : chkMasterLab.Checked ? dt.Rows[i]["MNC_LB_DSC"]?.ToString()?? "" : chkMasterXray.Checked ? dt.Rows[i]["MNC_XR_DSC"]?.ToString()?? "" : chkMasterProc.Checked ? dt.Rows[i]["MNC_SR_DSC"]?.ToString()?? "" : "";
+                    grfMasterDrug[i + 1, colgrfDrugFnCd] = dt.Rows[i]["MNC_FN_CD"] != null ? dt.Rows[i]["MNC_FN_CD"].ToString() : "";
+                    grfMasterDrug[i + 1, colgrfDrugFnName] = dt.Rows[i]["MNC_DEF_DSC"] != null ? dt.Rows[i]["MNC_DEF_DSC"].ToString() : "";
+                    grfMasterDrug[i + 1, colgrfDrugCodeBSG] = dt.Rows[i]["CODEBSG"] != null ? dt.Rows[i]["CODEBSG"].ToString() : "";
+                    grfMasterDrug[i + 1, colgrfDrugBillingSubGroupTH] = dt.Rows[i]["BillingSubGroupTH"] != null ? dt.Rows[i]["BillingSubGroupTH"].ToString() : "";
+                    grfMasterDrug[i + 1, colgrfSimb2CodeSubGEN] = dt.Rows[i]["BillingSubGroupEN"] != null ? dt.Rows[i]["BillingSubGroupEN"].ToString() : "";
+                    grfMasterDrug[i + 1, colgrfDrugChargeCD] = dt.Rows[i]["MNC_CHARGE_CD"] != null ? dt.Rows[i]["MNC_CHARGE_CD"].ToString() : "";
+                    grfMasterDrug[i + 1, colgrfDrugSimbcode] = dt.Rows[i]["MNC_SIMB_CD"] != null ? dt.Rows[i]["MNC_SIMB_CD"].ToString() : "";
+                    grfMasterDrug[i+1,0] = (i + 1).ToString(); 
+                }
+            }
         }
         private void initGrfExp()
         {
