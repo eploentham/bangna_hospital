@@ -176,11 +176,10 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             String sql = "", wherehn = "", wherename = "";
+            if (fname.Length > 0)            {                wherename = " m01.MNC_FNAME_T like '%" + fname + "%'";            }
+            if (lname.Length > 0)            {                wherename += " and m01.MNC_LNAME_T like '%" + lname + "%'";            }
+                //wherename = " m01.MNC_FNAME_T like '%" + fname + "%' and m01.MNC_LNAME_T like '%" + lname + "%' ";
             
-            if (lname.Length > 0)
-            {
-                wherename = " m01.MNC_FNAME_T like '%" + fname + "%' and m01.MNC_LNAME_T like '%" + lname + "%' ";
-            }
             sql = "Select m01.MNC_HN_NO,m02.MNC_PFIX_DSC as prefix, " +
                 "m01.MNC_FNAME_T,m01.MNC_LNAME_T,m01.MNC_AGE, m01.mnc_hn_yr,m01.MNC_ID_NO " +
                 "From  patient_m01 m01 " +

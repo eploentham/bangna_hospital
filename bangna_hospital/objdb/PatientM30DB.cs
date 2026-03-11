@@ -179,7 +179,7 @@ namespace bangna_hospital.objdb
         {
             String sql = "", chk = "";
             sql = "Update PATIENT_M303 Set CodeBSG = '" + codebsg + "' " +
-                "Where MNC_SR_CD ='" + drugcode + "' and ";
+                "Where MNC_SR_CD ='" + drugcode + "'  ";
             try
             {
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);

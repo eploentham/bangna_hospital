@@ -239,6 +239,8 @@ namespace bangna_hospital.gui
             chkApmDate.Checked = true;
             lstAutoComplete = new ListBox();            lstAutoComplete.Dock = DockStyle.Fill;
             pnInformation.Controls.Add(lstAutoComplete);
+            tC1.SelectedTab = tabOper;
+            TC1_SelectedTabChanged(this, EventArgs.Empty); // เรียกตรงๆ
             pageLoad = false;
         }
         
@@ -283,17 +285,17 @@ namespace bangna_hospital.gui
             bc.bcDB.sumT04DB.setCboSummaryT04(cboOperRoom, bc.iniC.station, "");
 
             //initGrfCheckUPList();
-            initGrfOperList();
-            initGrfPttApm(ref grfPttApm,ref pnPttApm, "grfPttApm");
+            //initGrfOperList();
+            //initGrfPttApm(ref grfPttApm,ref pnPttApm, "grfPttApm");
             //initGrfPttApm(ref grfApm, ref pnApm, "grfApm");
-            initGrfOrder(ref grfOrder,ref pnOrder, "grfOrder");
-            initGrfIPD();
-            initGrfIPDScan();
-            initGrfOPD();
+            //initGrfOrder(ref grfOrder,ref pnOrder, "grfOrder");
+            //initGrfIPD();
+            //initGrfIPDScan();
+            //initGrfOPD();
             //initGrfOutLab();
-            initGrfLab(ref grfLab,ref pnHistoryLab);
-            initGrfHisOrder();
-            initGrfXray(ref grfXray, ref pnHistoryXray);
+            //initGrfLab(ref grfLab,ref pnHistoryLab);
+            //initGrfHisOrder();
+            //initGrfXray(ref grfXray, ref pnHistoryXray);
             //initGrfSrc();
             //initGrfSrcVs();
             //initGrfSrcLab();
@@ -307,16 +309,16 @@ namespace bangna_hospital.gui
             //initGrfXray(ref grfOperFinishXray, ref pnFinishXray);
             //initGrfOperFinishDrug();
             //initGrfOperFinishProcedure();
-            initGrfOrder(ref grfApmOrder, ref pnApmOrder, "grfApmOrder");
-            initGrfRpt();
-            initRptView();
-            initGrfChkPackItems();
+            //initGrfOrder(ref grfApmOrder, ref pnApmOrder, "grfApmOrder");
+            //initGrfRpt();
+            //initRptView();
+            //initGrfChkPackItems();
             //initGrfEKG();
             //initGrfDocOLD();
             //initGrfEST();
             //initGrfECHO();
             //initGrfHolter();
-            initGrfCertMed();
+            //initGrfCertMed();
             //initGrfMapPackage();
             //initGrfpackage();
             //initGrfMapPackageViewhelp();
@@ -461,6 +463,7 @@ namespace bangna_hospital.gui
             txtOperCodeApprove.KeyUp += TxtOperCodeApprove_KeyUp;            cboApmDtr.SelectedItemChanged += CboApmDtr_SelectedItemChanged;
             btnOperDept.Click += BtnOperDept_Click;            btnOperConsult.Click += BtnOperConsult_Click;
             lbOperItem.DoubleClick += LbOperItem_DoubleClick;
+
             //btnOperPrnReq.Click += BtnOperPrnReq_Click;
         }
 
@@ -893,10 +896,7 @@ namespace bangna_hospital.gui
             if(cboApmDtr.SelectedItem != null)
             {
                 String dtrcode = cboApmDtr.SelectedItem!=null?((ComboBoxItem)cboApmDtr.SelectedItem).Value:"";
-                if(dtrcode.Length>0)
-                {
-                    setGrfApm();
-                }
+                if(dtrcode.Length>0)        {                    setGrfApm();                }
             }
         }
 
@@ -909,11 +909,8 @@ namespace bangna_hospital.gui
                 if(!code.Equals(""))
                 {
                     String chk = bc.selectDoctorName(code.Trim());
-                    if(chk.Length<=0)
-                    {
-                        MessageBox.Show("ไม่พบรหัสแพทย์ " + code);
-                        txtOperCodeApprove.Focus();
-                    }
+                    if(chk.Length<=0)       {                        MessageBox.Show("ไม่พบรหัสแพทย์ " + code);        txtOperCodeApprove.Focus();     }
+                    else                    {                        label193.Text = chk;                    }
                 }
             }
         }
@@ -989,10 +986,7 @@ namespace bangna_hospital.gui
             if (e.KeyCode == Keys.Enter)
             {
                 String txt = txtMapPackagepackageCode.Text.Trim();
-                if (!txt.Equals(""))
-                {
-                    setGrfPackage(txt,"code");
-                }
+                if (!txt.Equals(""))                {                    setGrfPackage(txt,"code");                }
             }
         }
 
@@ -1061,10 +1055,7 @@ namespace bangna_hospital.gui
             if(e.KeyCode == Keys.Enter)
             {
                 String txt = txtMapPackageSearch.Text.Trim();
-                if (!txt.Equals(""))
-                {
-                    setGrfMapPackage(txt);
-                }
+                if (!txt.Equals(""))                {                    setGrfMapPackage(txt);                }
             }
         }
         private void BtnOperPrnQue_Click(object sender, EventArgs e)
@@ -4438,6 +4429,7 @@ namespace bangna_hospital.gui
             {
                 // ✅ Lazy Loading - init ครั้งแรกที่เข้า tab จริงๆ
                 if (grfCheckUPList==null) { initGrfCheckUPList(); }
+                if (grfChkPackItems == null) initGrfChkPackItems();
                 if (!isCheckUPInitialized)
                 {
                     showLbLoading();
@@ -4469,6 +4461,18 @@ namespace bangna_hospital.gui
             else if (tC1.SelectedTab == tabOper)
             {
                 if (grfOutLab == null) initGrfOutLab();
+                if (grfOperList == null) initGrfOperList();
+                if (grfPttApm == null) initGrfPttApm(ref grfPttApm, ref pnPttApm, "grfPttApm");
+                if (grfOrder == null) initGrfOrder(ref grfOrder, ref pnOrder, "grfOrder");
+                if (grfLab == null) initGrfLab(ref grfLab, ref pnHistoryLab);
+                if (grfXray == null) initGrfXray(ref grfXray, ref pnHistoryXray);
+                if (grfHisOrder == null) initGrfHisOrder();
+                if (grfIPD == null) initGrfIPD();
+                if (grfIPDScan == null) initGrfIPDScan();
+                if (grfOPD == null) initGrfOPD();
+                if (grfApmOrder == null) initGrfOrder(ref grfApmOrder, ref pnApmOrder, "grfApmOrder");
+
+
                 tabMedScanActiveNOtabOutLabActive = false;                TC1Active = tabOper.Name;                txtSBSearchHN.Visible = true;
                 txtSBSearchDate.Visible = false;                btnSBSearch.Visible = false;                btnScanSaveImg.Visible = true;
                 btnScanGetImg.Visible = true;                btnScanClearImg.Visible = true;                btnOperClose.Visible = true;
@@ -4514,7 +4518,8 @@ namespace bangna_hospital.gui
             {
                 tabMedScanActiveNOtabOutLabActive = false;
                 TC1Active = tabSearch.Name;
-                if(grfSrc==null) { initGrfSrc(); }
+                if (grfCertMed == null) initGrfCertMed();
+                if (grfSrc==null) { initGrfSrc(); }
                 if (grfEKG==null)    {   initGrfEKG();}
                 if (grfECHO == null) { initGrfECHO(); }
                 if (grfEST == null) { initGrfEST(); }
@@ -4578,6 +4583,10 @@ namespace bangna_hospital.gui
                 if(grfMapPackageViewhelp==null) { initGrfMapPackageViewhelp(); }
                 if(grfPackage==null) { initGrfpackage(); }
                 if(grfpackageitems==null) { initGrfMapPackageItmes(); }
+            }
+            else if (tC1.SelectedTab == tabReport)
+            {
+                if (grfRpt == null) { initGrfRpt(); initRptView(); }
             }
             else
             {
@@ -4961,6 +4970,12 @@ namespace bangna_hospital.gui
                         lfSbMessage.Text = "พบข้อมูล มีใบยามากกว่า 1 ใบ กรุณาป้อนเป็นเลขที่ใบยา";
                         isNum = true;
                         //hideLbLoading();
+                    }else if (dtvs.Rows.Count == 0)
+                    {
+                        String aaa = txtOperHN.Text.Trim();
+                        clearControlTabOperVital();
+                        txtOperHN.Value = aaa;
+                        lfSbMessage.Text = "ไม่พบข้อมูล ";
                     }
                     setGrfOperList("search");
                 }
@@ -5413,7 +5428,9 @@ namespace bangna_hospital.gui
         private void addItemLAB(String itemcode, object sender)
         {
             //String name = "", code = "";
+            lbOperCodeApprove.Visible = false; txtOperCodeApprove.Visible = false;
             setHSLABM01();
+            lstAutoComplete.Items.Clear();
             //String[] txt = itemname.Split('#');
             //var labItem1 = HSLABM01.FirstOrDefault(d => d.MNC_LB_CD == txtSearchItem.Text.Trim().ToUpper());
             var labItem = HSLABM01.FirstOrDefault(d => d.MNC_LB_CD.Equals(itemcode.Trim().ToUpper(), StringComparison.OrdinalIgnoreCase));
@@ -5435,37 +5452,45 @@ namespace bangna_hospital.gui
                     //lstAutoComplete.Items.Add("lab นี้ถูกจำกัดสิทธิ์ " + bc.bcDB.finM02DB.getPaidName(VS.PaidCode) + " ตามที่กำหนด ");
                     if (LAB.control_remark.Length > 0)
                         txt.Add(LAB.control_remark);
-                        //lstAutoComplete.Items.Add(LAB.control_remark);
+                    //lstAutoComplete.Items.Add(LAB.control_remark);
                     //lfSbMessage.Text = "lab นี้ไม่สามารถสั่งได้ เนื่องจากเป็นสิทธิ์ " + bc.bcDB.pm08DB.getPaidDscByCode(VS.PaidCode) + " ตามที่กำหนด ";
                     //return;
-                    DateTime dtLab1, dtLab2;                    dtLab2 = DateTime.Now;                    dtLab1 = new DateTime(2026, 1, 1);
-                    String date1 = dtLab1.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-                    String date2 = dtLab2.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
-                    DataTable dtlabcon = bc.bcDB.labT05DB.selecControltbyHn(date1, date2, txtOperHN.Text.Trim(), LAB.MNC_LB_CD);
-
-                    //lstAutoComplete.Items.Add(LAB.MNC_LB_DSC + " สามารถสั่งได้ " + LAB.control_year + " ครั้งต่อปี ");
-                    txt.Add(LAB.MNC_LB_DSC + " สามารถสั่งได้ " + LAB.control_year + " ครั้งต่อปี ");
-                    if (dtlabcon.Rows.Count > 0)
+                    if (LAB.control_supervisor.Equals("1"))
                     {
-                        foreach (DataRow arow in dtlabcon.Rows)
-                        {
-                            txt.Add(" สั่งไปแล้ววันที่ " + bc.datetoShow(arow["req_date"]?.ToString()??"") + " เลขที่ " + arow["req_no"].ToString());
-                            //lstAutoComplete.Items.Add(" สั่งไปแล้ววันที่ " + bc.datetoShow(arow["req_date"].ToString()) + " เลขที่ " + arow["req_no"].ToString());
-                        }
-                        if (LAB.control_supervisor.Equals("1") && dtlabcon.Rows.Count >= Convert.ToInt32(LAB.control_year))//1=ขออนุมัติ
-                        {
-                            lbOperCodeApprove.Visible = true;               txtOperCodeApprove.Visible = true;              txtOperCodeApprove.Focus();
-                        }
-                        else if (LAB.control_supervisor.Equals("2"))//2=เฉพาะแพทย์GI
-                        {
-                            //เวชปฎิบัติทั่วไป (OPD3)        2=เฉพาะแพทย์GI
-                            PatientM26 dtr = bc.bcDB.pm26DB.selectByPk(txtOperDtr.Text.Trim());
-                            String sec = "";
-                            sec = bc.bcDB.pm32DB.getDeptNoOPD(dtr.MNC_SEC_NO);
-                            if (sec.IndexOf("เวชปฎิบัติทั่วไป") >= 0){lfSbMessage.Text = "lab นี้ไม่สามารถสั่งได้ เนื่องจากเป็นสิทธิ์ แพทย์ GI ตามที่กำหนด ";       return; }
-                        }
+                        lbOperCodeApprove.Visible=true;               txtOperCodeApprove.Visible = true;              txtOperCodeApprove.Focus();
+                        txt.Add("กรุณาป้อน แพทย์อนุมัติ");
                     }
-                    else { txt.Add(" ยังไม่เคยสั่ง " + LAB.MNC_LB_DSC + "☕️☕️☕️"); }
+                    else
+                    {
+                        DateTime dtLab1, dtLab2; dtLab2 = DateTime.Now; dtLab1 = new DateTime(2026, 1, 1);
+                        String date1 = dtLab1.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                        String date2 = dtLab2.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                        DataTable dtlabcon = bc.bcDB.labT05DB.selecControltbyHn(date1, date2, txtOperHN.Text.Trim(), LAB.MNC_LB_CD);
+
+                        //lstAutoComplete.Items.Add(LAB.MNC_LB_DSC + " สามารถสั่งได้ " + LAB.control_year + " ครั้งต่อปี ");
+                        txt.Add(LAB.MNC_LB_DSC + " สามารถสั่งได้ " + LAB.control_year + " ครั้งต่อปี ");
+                        if (dtlabcon.Rows.Count > 0)
+                        {
+                            foreach (DataRow arow in dtlabcon.Rows)
+                            {
+                                txt.Add(" สั่งไปแล้ววันที่ " + bc.datetoShow(arow["req_date"]?.ToString() ?? "") + " เลขที่ " + arow["req_no"].ToString() + " วันที่ผล " + bc.datetoShow(arow["res_date"].ToString()));
+                                //lstAutoComplete.Items.Add(" สั่งไปแล้ววันที่ " + bc.datetoShow(arow["req_date"].ToString()) + " เลขที่ " + arow["req_no"].ToString());
+                            }
+                            if (LAB.control_supervisor.Equals("1") && dtlabcon.Rows.Count >= Convert.ToInt32(LAB.control_year))//1=ขออนุมัติ
+                            {
+                                lbOperCodeApprove.Visible = true; txtOperCodeApprove.Visible = true; txtOperCodeApprove.Focus();
+                            }
+                            else if (LAB.control_supervisor.Equals("2"))//2=เฉพาะแพทย์GI
+                            {
+                                //เวชปฎิบัติทั่วไป (OPD3)        2=เฉพาะแพทย์GI
+                                PatientM26 dtr = bc.bcDB.pm26DB.selectByPk(txtOperDtr.Text.Trim());
+                                String sec = "";
+                                sec = bc.bcDB.pm32DB.getDeptNoOPD(dtr.MNC_SEC_NO);
+                                if (sec.IndexOf("เวชปฎิบัติทั่วไป") >= 0) { lfSbMessage.Text = "lab นี้ไม่สามารถสั่งได้ เนื่องจากเป็นสิทธิ์ แพทย์ GI ตามที่กำหนด "; return; }
+                            }
+                        }
+                        else { txt.Add(" ยังไม่เคยสั่ง " + LAB.MNC_LB_DSC + "☕️☕️☕️"); }
+                    }
                     lstAutoComplete.Items.AddRange(txt.ToArray());
                     LAB.control_remark = string.Join("\n", txt);
                 }
@@ -5548,8 +5573,8 @@ namespace bangna_hospital.gui
         {
             String name = "", code = "";
             lstAutoComplete.Items.Clear();
-            lbOperCodeApprove.Visible = false;
-            txtOperCodeApprove.Visible = false;
+            lbOperCodeApprove.Visible = false;            txtOperCodeApprove.Visible = false;
+            lbOperCodeApprove.Visible = false; txtOperCodeApprove.Visible = false; 
             checkDupItem(items);
             if (chkItemLab.Checked)
             {

@@ -319,8 +319,25 @@
             this.tabAdmit = new C1.Win.C1Command.C1DockingTabPage();
             this.c1SplitContainer6 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel19 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1SplitterPanel20 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.btnSimb2Save = new System.Windows.Forms.Button();
+            this.label192 = new System.Windows.Forms.Label();
+            this.label191 = new System.Windows.Forms.Label();
+            this.c1TextBox4 = new C1.Win.C1Input.C1TextBox();
+            this.label189 = new System.Windows.Forms.Label();
+            this.label190 = new System.Windows.Forms.Label();
+            this.label188 = new System.Windows.Forms.Label();
+            this.c1TextBox3 = new C1.Win.C1Input.C1TextBox();
+            this.label187 = new System.Windows.Forms.Label();
+            this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
+            this.label165 = new System.Windows.Forms.Label();
+            this.c1ComboBox2 = new C1.Win.C1Input.C1ComboBox();
+            this.panel30 = new System.Windows.Forms.Panel();
+            this.label76 = new System.Windows.Forms.Label();
+            this.c1TextBox1 = new C1.Win.C1Input.C1TextBox();
+            this.label77 = new System.Windows.Forms.Label();
             this.c1SplitterPanel22 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.c1SplitterPanel20 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.panel31 = new System.Windows.Forms.Panel();
             this.tabAppioment = new C1.Win.C1Command.C1DockingTabPage();
             this.pnApm = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -967,23 +984,7 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
-            this.label76 = new System.Windows.Forms.Label();
-            this.c1TextBox1 = new C1.Win.C1Input.C1TextBox();
-            this.label77 = new System.Windows.Forms.Label();
-            this.panel30 = new System.Windows.Forms.Panel();
-            this.panel31 = new System.Windows.Forms.Panel();
-            this.c1ComboBox2 = new C1.Win.C1Input.C1ComboBox();
-            this.label165 = new System.Windows.Forms.Label();
-            this.c1TextBox2 = new C1.Win.C1Input.C1TextBox();
-            this.label187 = new System.Windows.Forms.Label();
-            this.label188 = new System.Windows.Forms.Label();
-            this.c1TextBox3 = new C1.Win.C1Input.C1TextBox();
-            this.c1TextBox4 = new C1.Win.C1Input.C1TextBox();
-            this.label189 = new System.Windows.Forms.Label();
-            this.label190 = new System.Windows.Forms.Label();
-            this.label191 = new System.Windows.Forms.Label();
-            this.label192 = new System.Windows.Forms.Label();
-            this.btnSimb2Save = new System.Windows.Forms.Button();
+            this.label193 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -1153,6 +1154,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer6)).BeginInit();
             this.c1SplitContainer6.SuspendLayout();
             this.c1SplitterPanel19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).BeginInit();
             this.c1SplitterPanel20.SuspendLayout();
             this.tabAppioment.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -1431,11 +1437,6 @@
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // tC1
@@ -1498,7 +1499,7 @@
             this.spOperList.SizeRatio = 49.966D;
             this.spOperList.TabIndex = 0;
             this.spOperList.Text = "Panel 1";
-            this.spOperList.Width = 1307;
+            this.spOperList.Width = 1314;
             // 
             // pnOperList
             // 
@@ -1549,7 +1550,7 @@
             // 
             this.spOperVisit.Collapsible = true;
             this.spOperVisit.Controls.Add(this.pnVitalSign);
-            this.spOperVisit.Height = 298;
+            this.spOperVisit.Height = 305;
             this.spOperVisit.Location = new System.Drawing.Point(1318, 21);
             this.spOperVisit.Name = "spOperVisit";
             this.spOperVisit.Size = new System.Drawing.Size(1315, 277);
@@ -3152,6 +3153,7 @@
             // spOrderTop
             // 
             this.spOrderTop.Collapsible = true;
+            this.spOrderTop.Controls.Add(this.label193);
             this.spOrderTop.Controls.Add(this.lbOperCodeApprove);
             this.spOrderTop.Controls.Add(this.txtOperCodeApprove);
             this.spOrderTop.Controls.Add(this.pnInformation);
@@ -3172,7 +3174,7 @@
             this.spOrderTop.Controls.Add(this.chkItemLab);
             this.spOrderTop.Controls.Add(this.txtSearchItem);
             this.spOrderTop.Controls.Add(this.lbOperItem);
-            this.spOrderTop.Height = 147;
+            this.spOrderTop.Height = 154;
             this.spOrderTop.Location = new System.Drawing.Point(0, 21);
             this.spOrderTop.Name = "spOrderTop";
             this.spOrderTop.Size = new System.Drawing.Size(1313, 126);
@@ -4514,7 +4516,183 @@
             this.c1SplitterPanel19.SizeRatio = 26.476D;
             this.c1SplitterPanel19.TabIndex = 0;
             this.c1SplitterPanel19.Text = "รอ Admit";
-            this.c1SplitterPanel19.Width = 696;
+            this.c1SplitterPanel19.Width = 689;
+            // 
+            // btnSimb2Save
+            // 
+            this.btnSimb2Save.BackColor = System.Drawing.Color.PaleGreen;
+            this.btnSimb2Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnSimb2Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSimb2Save.Location = new System.Drawing.Point(616, 389);
+            this.btnSimb2Save.Name = "btnSimb2Save";
+            this.btnSimb2Save.Size = new System.Drawing.Size(70, 32);
+            this.btnSimb2Save.TabIndex = 296;
+            this.btnSimb2Save.Text = "save";
+            this.btnSimb2Save.UseVisualStyleBackColor = false;
+            // 
+            // label192
+            // 
+            this.label192.AutoSize = true;
+            this.label192.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label192.ForeColor = System.Drawing.Color.Red;
+            this.label192.Location = new System.Drawing.Point(19, 73);
+            this.label192.Name = "label192";
+            this.label192.Size = new System.Drawing.Size(30, 25);
+            this.label192.TabIndex = 295;
+            this.label192.Text = "...";
+            // 
+            // label191
+            // 
+            this.label191.AutoSize = true;
+            this.label191.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label191.ForeColor = System.Drawing.Color.Red;
+            this.label191.Location = new System.Drawing.Point(19, 40);
+            this.label191.Name = "label191";
+            this.label191.Size = new System.Drawing.Size(30, 25);
+            this.label191.TabIndex = 282;
+            this.label191.Text = "...";
+            // 
+            // c1TextBox4
+            // 
+            this.c1TextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox4.Location = new System.Drawing.Point(101, 113);
+            this.c1TextBox4.Name = "c1TextBox4";
+            this.c1TextBox4.Size = new System.Drawing.Size(77, 24);
+            this.c1TextBox4.TabIndex = 281;
+            this.c1TextBox4.Tag = null;
+            // 
+            // label189
+            // 
+            this.label189.AutoSize = true;
+            this.label189.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label189.Location = new System.Drawing.Point(181, 114);
+            this.label189.Name = "label189";
+            this.label189.Size = new System.Drawing.Size(21, 20);
+            this.label189.TabIndex = 280;
+            this.label189.Text = "...";
+            // 
+            // label190
+            // 
+            this.label190.AutoSize = true;
+            this.label190.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label190.ForeColor = System.Drawing.Color.DarkOrchid;
+            this.label190.Location = new System.Drawing.Point(4, 114);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(93, 20);
+            this.label190.TabIndex = 279;
+            this.label190.Text = "แพทย์admit :";
+            // 
+            // label188
+            // 
+            this.label188.AutoSize = true;
+            this.label188.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label188.Location = new System.Drawing.Point(464, 145);
+            this.label188.Name = "label188";
+            this.label188.Size = new System.Drawing.Size(36, 20);
+            this.label188.TabIndex = 278;
+            this.label188.Text = "bed";
+            // 
+            // c1TextBox3
+            // 
+            this.c1TextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox3.Location = new System.Drawing.Point(517, 144);
+            this.c1TextBox3.Name = "c1TextBox3";
+            this.c1TextBox3.Size = new System.Drawing.Size(142, 24);
+            this.c1TextBox3.TabIndex = 277;
+            this.c1TextBox3.Tag = null;
+            // 
+            // label187
+            // 
+            this.label187.AutoSize = true;
+            this.label187.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label187.Location = new System.Drawing.Point(251, 144);
+            this.label187.Name = "label187";
+            this.label187.Size = new System.Drawing.Size(45, 20);
+            this.label187.TabIndex = 276;
+            this.label187.Text = "room";
+            // 
+            // c1TextBox2
+            // 
+            this.c1TextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox2.Location = new System.Drawing.Point(304, 143);
+            this.c1TextBox2.Name = "c1TextBox2";
+            this.c1TextBox2.Size = new System.Drawing.Size(142, 24);
+            this.c1TextBox2.TabIndex = 275;
+            this.c1TextBox2.Tag = null;
+            // 
+            // label165
+            // 
+            this.label165.AutoSize = true;
+            this.label165.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label165.Location = new System.Drawing.Point(6, 147);
+            this.label165.Name = "label165";
+            this.label165.Size = new System.Drawing.Size(43, 20);
+            this.label165.TabIndex = 274;
+            this.label165.Text = "ward";
+            // 
+            // c1ComboBox2
+            // 
+            this.c1ComboBox2.AllowSpinLoop = false;
+            this.c1ComboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.c1ComboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.c1ComboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1ComboBox2.GapHeight = 0;
+            this.c1ComboBox2.ImagePadding = new System.Windows.Forms.Padding(0);
+            this.c1ComboBox2.ItemsDisplayMember = "";
+            this.c1ComboBox2.ItemsValueMember = "";
+            this.c1ComboBox2.Location = new System.Drawing.Point(54, 144);
+            this.c1ComboBox2.Name = "c1ComboBox2";
+            this.c1ComboBox2.Size = new System.Drawing.Size(175, 24);
+            this.c1ComboBox2.TabIndex = 273;
+            this.c1ComboBox2.Tag = null;
+            // 
+            // panel30
+            // 
+            this.panel30.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel30.Location = new System.Drawing.Point(0, 427);
+            this.panel30.Name = "panel30";
+            this.panel30.Size = new System.Drawing.Size(689, 640);
+            this.panel30.TabIndex = 272;
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label76.Location = new System.Drawing.Point(164, 5);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(35, 25);
+            this.label76.TabIndex = 271;
+            this.label76.Text = "ชื่อ";
+            // 
+            // c1TextBox1
+            // 
+            this.c1TextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.c1TextBox1.Location = new System.Drawing.Point(54, 3);
+            this.c1TextBox1.Name = "c1TextBox1";
+            this.c1TextBox1.Size = new System.Drawing.Size(107, 27);
+            this.c1TextBox1.TabIndex = 270;
+            this.c1TextBox1.Tag = null;
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label77.Location = new System.Drawing.Point(20, 6);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(32, 20);
+            this.label77.TabIndex = 269;
+            this.label77.Text = "HN";
+            // 
+            // c1SplitterPanel22
+            // 
+            this.c1SplitterPanel22.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
+            this.c1SplitterPanel22.Location = new System.Drawing.Point(1516, 21);
+            this.c1SplitterPanel22.Name = "c1SplitterPanel22";
+            this.c1SplitterPanel22.Size = new System.Drawing.Size(1117, 1067);
+            this.c1SplitterPanel22.SizeRatio = 57.916D;
+            this.c1SplitterPanel22.TabIndex = 3;
+            this.c1SplitterPanel22.Text = "ประวัติการ Admit/Observ";
+            this.c1SplitterPanel22.Width = 1117;
             // 
             // c1SplitterPanel20
             // 
@@ -4528,16 +4706,13 @@
             this.c1SplitterPanel20.TabIndex = 1;
             this.c1SplitterPanel20.Text = "Observ";
             // 
-            // c1SplitterPanel22
+            // panel31
             // 
-            this.c1SplitterPanel22.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel22.Location = new System.Drawing.Point(1516, 21);
-            this.c1SplitterPanel22.Name = "c1SplitterPanel22";
-            this.c1SplitterPanel22.Size = new System.Drawing.Size(1117, 1067);
-            this.c1SplitterPanel22.SizeRatio = 57.916D;
-            this.c1SplitterPanel22.TabIndex = 3;
-            this.c1SplitterPanel22.Text = "ประวัติการ Admit/Observ";
-            this.c1SplitterPanel22.Width = 1117;
+            this.panel31.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel31.Location = new System.Drawing.Point(0, 427);
+            this.panel31.Name = "panel31";
+            this.panel31.Size = new System.Drawing.Size(812, 640);
+            this.panel31.TabIndex = 273;
             // 
             // tabAppioment
             // 
@@ -11626,178 +11801,15 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
-            // label76
+            // label193
             // 
-            this.label76.AutoSize = true;
-            this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label76.Location = new System.Drawing.Point(164, 5);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(35, 25);
-            this.label76.TabIndex = 271;
-            this.label76.Text = "ชื่อ";
-            // 
-            // c1TextBox1
-            // 
-            this.c1TextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1TextBox1.Location = new System.Drawing.Point(54, 3);
-            this.c1TextBox1.Name = "c1TextBox1";
-            this.c1TextBox1.Size = new System.Drawing.Size(107, 27);
-            this.c1TextBox1.TabIndex = 270;
-            this.c1TextBox1.Tag = null;
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label77.Location = new System.Drawing.Point(20, 6);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(32, 20);
-            this.label77.TabIndex = 269;
-            this.label77.Text = "HN";
-            // 
-            // panel30
-            // 
-            this.panel30.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel30.Location = new System.Drawing.Point(0, 427);
-            this.panel30.Name = "panel30";
-            this.panel30.Size = new System.Drawing.Size(689, 640);
-            this.panel30.TabIndex = 272;
-            // 
-            // panel31
-            // 
-            this.panel31.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel31.Location = new System.Drawing.Point(0, 427);
-            this.panel31.Name = "panel31";
-            this.panel31.Size = new System.Drawing.Size(812, 640);
-            this.panel31.TabIndex = 273;
-            // 
-            // c1ComboBox2
-            // 
-            this.c1ComboBox2.AllowSpinLoop = false;
-            this.c1ComboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.c1ComboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.c1ComboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1ComboBox2.GapHeight = 0;
-            this.c1ComboBox2.ImagePadding = new System.Windows.Forms.Padding(0);
-            this.c1ComboBox2.ItemsDisplayMember = "";
-            this.c1ComboBox2.ItemsValueMember = "";
-            this.c1ComboBox2.Location = new System.Drawing.Point(54, 144);
-            this.c1ComboBox2.Name = "c1ComboBox2";
-            this.c1ComboBox2.Size = new System.Drawing.Size(175, 24);
-            this.c1ComboBox2.TabIndex = 273;
-            this.c1ComboBox2.Tag = null;
-            // 
-            // label165
-            // 
-            this.label165.AutoSize = true;
-            this.label165.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label165.Location = new System.Drawing.Point(6, 147);
-            this.label165.Name = "label165";
-            this.label165.Size = new System.Drawing.Size(43, 20);
-            this.label165.TabIndex = 274;
-            this.label165.Text = "ward";
-            // 
-            // c1TextBox2
-            // 
-            this.c1TextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1TextBox2.Location = new System.Drawing.Point(304, 143);
-            this.c1TextBox2.Name = "c1TextBox2";
-            this.c1TextBox2.Size = new System.Drawing.Size(142, 24);
-            this.c1TextBox2.TabIndex = 275;
-            this.c1TextBox2.Tag = null;
-            // 
-            // label187
-            // 
-            this.label187.AutoSize = true;
-            this.label187.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label187.Location = new System.Drawing.Point(251, 144);
-            this.label187.Name = "label187";
-            this.label187.Size = new System.Drawing.Size(45, 20);
-            this.label187.TabIndex = 276;
-            this.label187.Text = "room";
-            // 
-            // label188
-            // 
-            this.label188.AutoSize = true;
-            this.label188.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label188.Location = new System.Drawing.Point(464, 145);
-            this.label188.Name = "label188";
-            this.label188.Size = new System.Drawing.Size(36, 20);
-            this.label188.TabIndex = 278;
-            this.label188.Text = "bed";
-            // 
-            // c1TextBox3
-            // 
-            this.c1TextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1TextBox3.Location = new System.Drawing.Point(517, 144);
-            this.c1TextBox3.Name = "c1TextBox3";
-            this.c1TextBox3.Size = new System.Drawing.Size(142, 24);
-            this.c1TextBox3.TabIndex = 277;
-            this.c1TextBox3.Tag = null;
-            // 
-            // c1TextBox4
-            // 
-            this.c1TextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.c1TextBox4.Location = new System.Drawing.Point(101, 113);
-            this.c1TextBox4.Name = "c1TextBox4";
-            this.c1TextBox4.Size = new System.Drawing.Size(77, 24);
-            this.c1TextBox4.TabIndex = 281;
-            this.c1TextBox4.Tag = null;
-            // 
-            // label189
-            // 
-            this.label189.AutoSize = true;
-            this.label189.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label189.Location = new System.Drawing.Point(181, 114);
-            this.label189.Name = "label189";
-            this.label189.Size = new System.Drawing.Size(21, 20);
-            this.label189.TabIndex = 280;
-            this.label189.Text = "...";
-            // 
-            // label190
-            // 
-            this.label190.AutoSize = true;
-            this.label190.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label190.ForeColor = System.Drawing.Color.DarkOrchid;
-            this.label190.Location = new System.Drawing.Point(4, 114);
-            this.label190.Name = "label190";
-            this.label190.Size = new System.Drawing.Size(93, 20);
-            this.label190.TabIndex = 279;
-            this.label190.Text = "แพทย์admit :";
-            // 
-            // label191
-            // 
-            this.label191.AutoSize = true;
-            this.label191.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label191.ForeColor = System.Drawing.Color.Red;
-            this.label191.Location = new System.Drawing.Point(19, 40);
-            this.label191.Name = "label191";
-            this.label191.Size = new System.Drawing.Size(30, 25);
-            this.label191.TabIndex = 282;
-            this.label191.Text = "...";
-            // 
-            // label192
-            // 
-            this.label192.AutoSize = true;
-            this.label192.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label192.ForeColor = System.Drawing.Color.Red;
-            this.label192.Location = new System.Drawing.Point(19, 73);
-            this.label192.Name = "label192";
-            this.label192.Size = new System.Drawing.Size(30, 25);
-            this.label192.TabIndex = 295;
-            this.label192.Text = "...";
-            // 
-            // btnSimb2Save
-            // 
-            this.btnSimb2Save.BackColor = System.Drawing.Color.PaleGreen;
-            this.btnSimb2Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.btnSimb2Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSimb2Save.Location = new System.Drawing.Point(616, 389);
-            this.btnSimb2Save.Name = "btnSimb2Save";
-            this.btnSimb2Save.Size = new System.Drawing.Size(70, 32);
-            this.btnSimb2Save.TabIndex = 296;
-            this.btnSimb2Save.Text = "save";
-            this.btnSimb2Save.UseVisualStyleBackColor = false;
+            this.label193.AutoSize = true;
+            this.label193.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label193.Location = new System.Drawing.Point(633, 12);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(10, 16);
+            this.label193.TabIndex = 280;
+            this.label193.Text = ".";
             // 
             // FrmOPD
             // 
@@ -11989,6 +12001,11 @@
             this.c1SplitContainer6.ResumeLayout(false);
             this.c1SplitterPanel19.ResumeLayout(false);
             this.c1SplitterPanel19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).EndInit();
             this.c1SplitterPanel20.ResumeLayout(false);
             this.tabAppioment.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
@@ -12313,11 +12330,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Sb1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1ComboBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1TextBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -13280,5 +13292,6 @@
         private System.Windows.Forms.Label label187;
         private C1.Win.C1Input.C1TextBox c1TextBox2;
         private System.Windows.Forms.Button btnSimb2Save;
+        private System.Windows.Forms.Label label193;
     }
 }

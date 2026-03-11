@@ -105,8 +105,7 @@ namespace bangna_hospital.objdb
         {
             DataTable dt = new DataTable();
             
-            String sql = "select ptt091.*, ptm184.MNC_CRO_DESC, um01.MNC_USR_FULL " +
-                " " +
+            String sql = "select ptt091.*, ptm184.MNC_CRO_DESC, um01.MNC_USR_FULL  " +
                 "from PATIENT_T09_1 ptt091 " +
                 "inner join PATIENT_M184 ptm184 on ptt091.CHRONICCODE = ptm184.MNC_CRO_CD " +
                 "inner join USERLOG_M01 um01 on um01.MNC_USR_NAME = ptt091.MNC_DOC_CD " +

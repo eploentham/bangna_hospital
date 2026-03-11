@@ -2029,8 +2029,8 @@ namespace bangna_hospital.gui
             //throw new NotImplementedException();
             if (grfImage.Row < 1) return;
 
-            String imgpath = grfImage[grfImage.Row, colgrfImageimgpath] != null ? grfImage[grfImage.Row, colgrfImageimgpath].ToString() : "";
-            String id = grfImage[grfImage.Row, colgrfImageid] != null ? grfImage[grfImage.Row, colgrfImageid].ToString() : "";
+            String imgpath = grfImage[grfImage.Row, colgrfImageimgpath]?.ToString() ?? "";
+            String id = grfImage[grfImage.Row, colgrfImageid]?.ToString() ??"";
             txtImageID.Value = id;
             showImage(imgpath);
             setSupraImageText(id);
@@ -2114,9 +2114,9 @@ namespace bangna_hospital.gui
             dt = tSupraDB.selectTextImageById(id);
             if (dt.Rows.Count > 0)
             {
-                txtImageText.Text = dt.Rows[0]["text_content"].ToString();
-                txtImagePID.Value = dt.Rows[0]["pid_list"]!=null? dt.Rows[0]["pid_list"].ToString():"";
-                txtWhatImageIS.Value = dt.Rows[0]["what_image_is"] != null ? dt.Rows[0]["what_image_is"].ToString() : "";
+                txtImageText.Text = dt.Rows[0]["text_content"]?.ToString()??"";
+                txtImagePID.Value = dt.Rows[0]["pid_list"]?.ToString()??"";
+                txtWhatImageIS.Value = dt.Rows[0]["what_image_is"]?.ToString() ?? "";
                 if(txtWhatImageIS.Text.Equals("RECEIPT_000_OPD"))
                 {
                     setControlREceipt000OPD();
@@ -2125,7 +2125,6 @@ namespace bangna_hospital.gui
                 {
                     setControlINVOICE000IPD();
                 }
-                
             }
             else
             {
@@ -2142,7 +2141,7 @@ namespace bangna_hospital.gui
             name = name.Replace("นาง", "");
             name = name.Replace("น.ส.", "");
             String[] name1 = name.Trim().Split(' ');
-            if(name1.Length>0)
+            if(name1.Length>1)
             {
                 DataTable ptt = bc.bcDB.pttDB.selectPatient1(name1[0], name1[1]);
                 if (ptt.Rows.Count > 0)

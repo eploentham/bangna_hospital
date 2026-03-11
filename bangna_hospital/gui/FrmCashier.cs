@@ -6,7 +6,8 @@ using C1.Win.C1FlexGrid;
 using C1.Win.C1Input;
 using C1.Win.C1SuperTooltip;
 using C1.Win.C1Themes;
-using GrapeCity.ActiveReports.Document.Section;
+//using GrapeCity.ActiveReports.Document.Section;
+//using GrapeCity.ActiveReports.PageReportModel;
 using iText.Layout;
 using iTextSharp.text;
 using Microsoft.VisualBasic;
@@ -17,6 +18,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -24,9 +26,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static CSJ2K.j2k.codestream.HeaderInfo;
+using DataRow = System.Data.DataRow;
 using Document = iText.Layout.Document;
 using Font = System.Drawing.Font;
+using Image = System.Drawing.Image;
 using Row = C1.Win.C1FlexGrid.Row;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace bangna_hospital.gui
 {
@@ -56,6 +61,21 @@ namespace bangna_hospital.gui
         int colgrfExpid=1, colgrfExpDesc=2, colgrfExpAmount=3, colgrfExpModule=4, colgrfExpUser=5, colgrfExpDateReq=6;
         int colgrfDrugCode = 1, colgrfDrugName = 2, colgrfDrugFnCd = 3, colgrfDrugFnName=4, colgrfDrugSimbcode = 5, colgrfDrugChargeCD = 6, colgrfDrugCodeBSG=7, colgrfDrugBillingSubGroupTH=8;
         int colgrfSimb2GID = 1, colgrfSimb2CodeBG = 2, colgrfSimb2BillGTH = 3, colgrfSimb2BillGEN = 4, colgrfSimb2CodeBSG = 5, colgrfSimb2CodeSubGTH = 6, colgrfSimb2CodeSubGEN=7;
+        private DataTable dtPrint;
+        private int currentPrintRow = 0, pagecur = 1, currentPrintPage=0;
+        private const int MAX_ROWS_PER_PAGE = 10;
+        StringFormat sfCenter = new StringFormat { Alignment = StringAlignment.Center };
+        StringFormat sfRight = new StringFormat { Alignment = StringAlignment.Far };
+        StringFormat sfLeft = new StringFormat { Alignment = StringAlignment.Near };
+        // === FONTS ===
+        PrivateFontCollection pfc = new PrivateFontCollection();
+        Font fntTitle, fntNormal, fntSubTitle, fntBold, fntSmall, fntStamp;
+        float colDesc , colDescW, colAmount, colAmountW = 90f, colDiscount, colDiscountW = 90f, colNet, colNetW= 90f, rowH = 20f;
+        float margin = 40f;
+        
+        decimal totalNet = 0;
+        String prndate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+        Image logo1 = null, logo=null;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         internal static extern IntPtr GetFocus();
         public FrmCashier(BangnaControl bc)
@@ -70,6 +90,16 @@ namespace bangna_hospital.gui
         }
         private void initConfig()
         {
+            pfc.AddFontFile(@"THSarabunNew.ttf");
+            fntTitle = new Font(pfc.Families[0], 16, FontStyle.Bold);
+            fntSubTitle = new Font(pfc.Families[0], 14, FontStyle.Bold);
+            fntNormal = new Font(pfc.Families[0], 13, FontStyle.Regular);
+            fntBold = new Font(pfc.Families[0], 13, FontStyle.Bold);
+            fntSmall = new Font(pfc.Families[0], 11, FontStyle.Regular);
+            fntStamp = new Font(pfc.Families[0], 36, FontStyle.Bold);
+            logo1 = System.Drawing.Image.FromFile(Environment.CurrentDirectory + "\\LOGO-BW-tran.jpg");
+            logo = (System.Drawing.Image)logo1.Clone();
+            logo1.Dispose();
             isLoad = true;
             theme1 = new C1ThemeController();
             timeOperList = new Timer();
@@ -158,14 +188,17 @@ namespace bangna_hospital.gui
             chkMasterXray.Click += ChkMasterXray_Click;
             chkMasterDf.Click += ChkMasterDf_Click;
             chkMasterProc.Click += ChkMasterProc_Click;
-            txtMasterSearch.KeyDown += TxtMasterSearch_KeyDown;
+            //txtMasterSearch.KeyDown += TxtMasterSearch_KeyDown;
+            txtMasterSearch.KeyUp += TxtMasterSearch_KeyUp;
         }
 
-        private void TxtMasterSearch_KeyDown(object sender, KeyEventArgs e)
+        private void TxtMasterSearch_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             grfMasterDrug.ApplySearch(txtMasterSearch.Text.Trim(), true, true, false);
         }
+
+        
 
         private void ChkMasterProc_Click(object sender, EventArgs e)
         {
@@ -206,12 +239,12 @@ namespace bangna_hospital.gui
         private void BtnSimb2NewSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (txtMasterSimb2CodeBGNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุรหัส new simb2"; return; }
-            if (txtMasterSimb2BillGTHNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มใหม่ (ไทย)"; return; }
-            if (txtMasterSimb2BillGENNew.Text.Trim().Length <= 0)   { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มใหม่ (อังกฤษ)"; return; }
-            if (txtMasterSimb2CodeBSGNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุรหัสกลุ่มย่อย BSG"; return; }
-            if (txtMasterSimb2CodeSubGTHNew.Text.Trim().Length <= 0) { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (ไทย)"; return; }
-            if (txtMasterSimb2CodeSubGENNew.Text.Trim().Length <= 0) { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (อังกฤษ)"; return; }
+            if (txtMasterSimb2CodeBGNew.Text.Trim().Length <= 0)        { lfSbMessage.Text = "กรุณาระบุรหัส new simb2";       return; }
+            if (txtMasterSimb2BillGTHNew.Text.Trim().Length <= 0)       { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มใหม่ (ไทย)";       return; }
+            if (txtMasterSimb2BillGENNew.Text.Trim().Length <= 0)       { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มใหม่ (อังกฤษ)";     return; }
+            if (txtMasterSimb2CodeBSGNew.Text.Trim().Length <= 0)       { lfSbMessage.Text = "กรุณาระบุรหัสกลุ่มย่อย BSG";        return; }
+            if (txtMasterSimb2CodeSubGTHNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (ไทย)";    return; }
+            if (txtMasterSimb2CodeSubGENNew.Text.Trim().Length <= 0)    { lfSbMessage.Text = "กรุณาระบุชื่อกลุ่มย่อยใหม่ (อังกฤษ)";  return; }
             Simb2BillingGroup chk = simb2DB.GetByCodeBG(txtMasterSimb2CodeBGNew.Text.Trim());
             if (chk != null)    {                lfSbMessage.Text = "รหัส SIMB2 นี้มีอยู่แล้วในระบบ";                return;           }
             chk = simb2DB.GetByCodeBSG(txtMasterSimb2CodeBSGNew.Text.Trim()); 
@@ -252,10 +285,11 @@ namespace bangna_hospital.gui
             if (txtMasterDrugGenericCode.Text.Trim().Length <= 0)   { lfSbMessage.Text ="กรุณาระบุรหัสยา"; return;         }
             if (txtMasterSimb2CodeBSG.Text.Trim().Length <= 0)      { lfSbMessage.Text = "กรุณาระบุ SIMB2 code"; return; }
             String re = "";
-            if (chkMasterDrug.Checked)      {       re = bc.bcDB.pharM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
-            else if (chkMasterLab.Checked)  {       re = bc.bcDB.labM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
-            else if (chkMasterXray.Checked) {       re = bc.bcDB.xrayM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
-            if(long.Parse(re) > 0)
+            if (chkMasterDrug.Checked)      {   re = bc.bcDB.pharM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
+            else if (chkMasterLab.Checked)  {   re = bc.bcDB.labM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
+            else if (chkMasterXray.Checked) {   re = bc.bcDB.xrayM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
+            else if (chkMasterProc.Checked) {   re = bc.bcDB.pm30DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim()); }
+            if (long.Parse(re) > 0)
             {
                 lfSbMessage.Text = "Update SIMB2 code สำเร็จ";
                 setGrfMasterDrug();
@@ -640,7 +674,6 @@ namespace bangna_hospital.gui
                 }
             }
         }
-        
         private float setPrintReceipt(String original, DataTable dtinv)
         {
             setPrintINV();
@@ -834,11 +867,17 @@ namespace bangna_hospital.gui
             grfMasterSimb2.ShowCursor = true;
             grfMasterSimb2.Cols[colgrfSimb2GID].Caption = "รหัส";
             grfMasterSimb2.Cols[colgrfSimb2CodeBG].Caption = "รายการ";
-            grfMasterSimb2.Cols[colgrfSimb2BillGTH].Caption = "รายการ";
-            grfMasterSimb2.Cols[colgrfSimb2BillGEN].Caption = "รายการ";
-            grfMasterSimb2.Cols[colgrfSimb2CodeBSG].Caption = "รายการ";
-            grfMasterSimb2.Cols[colgrfSimb2CodeSubGTH].Caption = "รายการ";
-            grfMasterSimb2.Cols[colgrfSimb2CodeSubGEN].Caption = "รายการ";
+            grfMasterSimb2.Cols[colgrfSimb2BillGTH].Caption = "BillG TH";
+            grfMasterSimb2.Cols[colgrfSimb2BillGEN].Caption = "BillG EN";
+            grfMasterSimb2.Cols[colgrfSimb2CodeBSG].Caption = "CodeBSG";
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGTH].Caption = "SubG TH";
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGEN].Caption = "SubG EN";
+            grfMasterSimb2.Cols[colgrfSimb2CodeBG].TextAlign = TextAlignEnum.CenterCenter;
+            grfMasterSimb2.Cols[colgrfSimb2BillGTH].TextAlign = TextAlignEnum.LeftCenter;
+            grfMasterSimb2.Cols[colgrfSimb2BillGEN].TextAlign = TextAlignEnum.LeftCenter;
+            grfMasterSimb2.Cols[colgrfSimb2CodeBG].TextAlign = TextAlignEnum.CenterCenter;
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGTH].TextAlign = TextAlignEnum.LeftCenter;
+            grfMasterSimb2.Cols[colgrfSimb2CodeSubGEN].TextAlign = TextAlignEnum.LeftCenter;
 
             grfMasterSimb2.Cols[colgrfSimb2GID].AllowEditing = false;
             grfMasterSimb2.Cols[colgrfSimb2CodeBG].AllowEditing = false;
@@ -847,7 +886,10 @@ namespace bangna_hospital.gui
             grfMasterSimb2.Cols[colgrfSimb2CodeBSG].AllowEditing = false;
             grfMasterSimb2.Cols[colgrfSimb2CodeSubGTH].AllowEditing = false;
             grfMasterSimb2.Cols[colgrfSimb2CodeSubGEN].AllowEditing = false;
+            grfMasterSimb2.Cols[0].Width = 50;
+            grfMasterSimb2.Cols[colgrfSimb2GID].Visible = false;
             pnMasterSimb2.Controls.Add(grfMasterSimb2);
+            grfMasterSimb2.SelectionMode = SelectionModeEnum.Row;
             grfMasterSimb2.Click += GrfMasterSimb2_Click;
         }
 
@@ -893,6 +935,7 @@ namespace bangna_hospital.gui
                     grfMasterSimb2[i + 1, colgrfSimb2CodeBSG] = dt.Rows[i]["CODEBSG"] != null ? dt.Rows[i]["CODEBSG"].ToString() : "";
                     grfMasterSimb2[i + 1, colgrfSimb2CodeSubGTH] = dt.Rows[i]["BillingSubGroupTH"] != null ? dt.Rows[i]["BillingSubGroupTH"].ToString() : "";
                     grfMasterSimb2[i + 1, colgrfSimb2CodeSubGEN] = dt.Rows[i]["BillingSubGroupEN"] != null ? dt.Rows[i]["BillingSubGroupEN"].ToString() : "";
+                    grfMasterSimb2[i + 1, 0] = (i + 1).ToString();
                 }
             }
         }
@@ -904,6 +947,7 @@ namespace bangna_hospital.gui
             grfMasterDrug.Location = new System.Drawing.Point(0, 0);
             grfMasterDrug.Rows.Count = 1;
             grfMasterDrug.Cols.Count = 9;
+            grfMasterDrug.Cols[0].Width = 50;
             grfMasterDrug.Cols[colgrfDrugCode].Width = 80;
             grfMasterDrug.Cols[colgrfDrugName].Width = 250;
             grfMasterDrug.Cols[colgrfDrugFnCd].Width = 60;
@@ -918,7 +962,7 @@ namespace bangna_hospital.gui
             grfMasterDrug.Cols[colgrfDrugFnCd].Caption = "FnCd";
             grfMasterDrug.Cols[colgrfDrugFnName].Caption = "FnName";
             grfMasterDrug.Cols[colgrfDrugSimbcode].Caption = "simb";
-            grfMasterDrug.Cols[colgrfDrugChargeCD].Caption = "ChargeNo";
+            grfMasterDrug.Cols[colgrfDrugChargeCD].Caption = "ChargeCD";
             grfMasterDrug.Cols[colgrfDrugCodeBSG].Caption = "CodeBSG";
             grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].Caption = "BillingSubGroupTH";
 
@@ -928,6 +972,8 @@ namespace bangna_hospital.gui
             grfMasterDrug.Cols[colgrfDrugName].TextAlign = TextAlignEnum.LeftCenter;
             grfMasterDrug.Cols[colgrfDrugFnCd].TextAlign = TextAlignEnum.CenterCenter;
             grfMasterDrug.Cols[colgrfDrugFnName].TextAlign = TextAlignEnum.LeftCenter;
+            grfMasterDrug.Cols[colgrfDrugSimbcode].TextAlign = TextAlignEnum.CenterCenter;
+            grfMasterDrug.Cols[colgrfDrugChargeCD].TextAlign = TextAlignEnum.CenterCenter;
             grfMasterDrug.Cols[colgrfDrugCodeBSG].TextAlign = TextAlignEnum.CenterCenter;
             grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].TextAlign = TextAlignEnum.LeftCenter;
             grfMasterDrug.Cols[colgrfDrugCode].AllowEditing = false;
@@ -938,6 +984,7 @@ namespace bangna_hospital.gui
             grfMasterDrug.Cols[colgrfDrugCodeBSG].AllowEditing = false;
             grfMasterDrug.Cols[colgrfDrugSimbcode].AllowEditing = false;
             grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].AllowEditing = false;
+            grfMasterDrug.SelectionMode = SelectionModeEnum.Row;
             pnMasterDrugView.Controls.Add(grfMasterDrug);
             grfMasterDrug.Click += GrfMasterDrug_Click;
         }
@@ -971,11 +1018,15 @@ namespace bangna_hospital.gui
                     grfMasterDrug[i + 1, colgrfDrugFnName] = dt.Rows[i]["MNC_DEF_DSC"] != null ? dt.Rows[i]["MNC_DEF_DSC"].ToString() : "";
                     grfMasterDrug[i + 1, colgrfDrugCodeBSG] = dt.Rows[i]["CODEBSG"] != null ? dt.Rows[i]["CODEBSG"].ToString() : "";
                     grfMasterDrug[i + 1, colgrfDrugBillingSubGroupTH] = dt.Rows[i]["BillingSubGroupTH"] != null ? dt.Rows[i]["BillingSubGroupTH"].ToString() : "";
-                    grfMasterDrug[i + 1, colgrfSimb2CodeSubGEN] = dt.Rows[i]["BillingSubGroupEN"] != null ? dt.Rows[i]["BillingSubGroupEN"].ToString() : "";
+                    //grfMasterDrug[i + 1, colgrfSimb2CodeSubGEN] = dt.Rows[i]["BillingSubGroupEN"] != null ? dt.Rows[i]["BillingSubGroupEN"].ToString() : "";
                     grfMasterDrug[i + 1, colgrfDrugChargeCD] = dt.Rows[i]["MNC_CHARGE_CD"] != null ? dt.Rows[i]["MNC_CHARGE_CD"].ToString() : "";
                     grfMasterDrug[i + 1, colgrfDrugSimbcode] = dt.Rows[i]["MNC_SIMB_CD"] != null ? dt.Rows[i]["MNC_SIMB_CD"].ToString() : "";
                     grfMasterDrug[i+1,0] = (i + 1).ToString(); 
                 }
+            }
+            if (txtMasterSearch.Text.Trim().Length > 0)
+            {
+                grfMasterDrug.ApplySearch(txtMasterSearch.Text.Trim(), true, true, false);
             }
         }
         private void initGrfExp()
@@ -1431,9 +1482,498 @@ namespace bangna_hospital.gui
                 focusedControl = Control.FromHandle(focusedHandle);
             return focusedControl;
         }
+        private void printReceipt(String hn, String reqno, String reqdate)
+        {
+            dtPrint = bc.bcDB.xrayT02DB.selectbyHNReqNo(hn, reqdate, reqno);
+            if (dtPrint.Rows.Count == 0) { lfSbMessage.Text = "ไม่พบข้อมูลใบสั่ง Xray"; return; }
+            // Reset counter
+            currentPrintRow = 0;
+            PrintDocument document = new PrintDocument();
+            document.PrinterSettings.PrinterName = bc.iniC.printerA4;
+            document.PrintPage += Document_PrintPageReceipt1;
+            document.DefaultPageSettings.Landscape = false;
+            document.Print();
+            // Clear ข้อมูลหลังพิมพ์เสร็จ
+            dtPrint = null;
+        }
+        private void Document_PrintPageReceipt(object sender, PrintPageEventArgs e)
+        {
+            //throw new NotImplementedException();
+            // A5 Landscape size in points (1 inch = 72 points)
+            const int A5_WIDTH = 595;   // 8.27 inches × 72 = 595 points
+            const int A5_HEIGHT = 420, adjHeight = 90;  // 5.83 inches × 72 = 420 points
+            // Safe printable area (with margins)
+            const int MARGIN_TOP = 20, MARGIN_BOTTOM = 20, MARGIN_LEFT = 20, MARGIN_RIGHT = 20, gapline = 5;
+            // Maximum printable height
+            int maxPrintableHeight = A5_HEIGHT - MARGIN_BOTTOM; // 400 points
+            // ✅ กำหนดค่าคงที่สำหรับกระดาษ A5 Landscape
+            const int MAX_Y = A5_HEIGHT - MARGIN_BOTTOM + adjHeight; // 390 points
+            if (dtPrint == null || dtPrint.Rows.Count == 0) { e.HasMorePages = false; lfSbMessage.Text = "ไม่พบข้อมูลใบสั่ง Xray"; return; }
+            String pttname = "", deptname = "", dtrname = "", vsdatetime = "", reqdatetime = "", compname = "", paidname = "", hn = "", vn = "";
+            String userreq = "", line = null, prndate = "", price = "", qty = "", price1 = "";
+            float colName = 10, col1 = 50, col2 = 250, col3 = 450, col4 = 550, colPriceR2L = 180, colqty = 200, colqtyRtoL = 225, col5 = 620;
+            prndate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+            var logo1 = System.Drawing.Image.FromFile(Environment.CurrentDirectory + "\\LOGO-BW-tran.jpg");
+            System.Drawing.Image logo = (System.Drawing.Image)logo1.Clone();
+            logo1.Dispose();
+            if (currentPrintRow == 0 || currentPrintRow >= dtPrint.Rows.Count)
+            {
+                DataRow firstRow = dtPrint.Rows[0];
+                pttname = firstRow["pttfullname"]?.ToString() ?? "";
+                deptname = firstRow["MNC_SEC_NO"]?.ToString() ?? "";
+                compname = firstRow["MNC_RES_MAS"]?.ToString() ?? "";
+                dtrname = firstRow["dtr_name"]?.ToString() ?? "";
+                paidname = firstRow["MNC_FN_TYP_CD"]?.ToString() ?? "";
+                userreq = firstRow["MNC_USR_FULL_usr"]?.ToString() ?? "";
+                vsdatetime = bc.datetoShow2(firstRow["MNC_DATE"]?.ToString() ?? "") + " " + bc.showTime(firstRow["MNC_TIME"]?.ToString() ?? "");
+                reqdatetime = bc.datetoShow2(firstRow["req_date"]?.ToString() ?? "") + " " + bc.showTime(firstRow["MNC_REQ_TIM"]?.ToString() ?? "");
+                hn = firstRow["MNC_HN_NO"]?.ToString() ?? "";
+                vn = firstRow["MNC_VN_NO"]?.ToString() ?? "";
+
+                deptname = bc.bcDB.pm32DB.getDeptNameOPD(deptname);
+                compname = bc.bcDB.pm24DB.GetCompanyNameFast(compname);
+                paidname = bc.bcDB.finM02DB.getPaidNameCopilot(paidname);
+            }
+            Graphics g = e.Graphics;
+            float fontHeight = fPDF.GetHeight();
+            int startX = 10; int startY = 10; int offset = 5;
+            g.DrawImage(logo, colName, startY);
+            g.DrawString("โรงพยาบาล บางนา5", fPDF, Brushes.Black, colName, startY);                               offset += (int)fontHeight;
+            g.DrawString("Bangna5 General Hospital " + pttname, fPDF, Brushes.Black, col2, startY + offset);    offset += (int)fontHeight;
+            g.DrawString(bc.iniC.hostaddresst, fPDF, Brushes.Black, col4, startY + offset);                     offset += (int)fontHeight;
+            g.DrawString(bc.iniC.hostaddresse, fPDF, Brushes.Black, col4, startY + offset);                     offset += (int)fontHeight;
+
+            offset += (int)fontHeight;
+            g.DrawString("ใบเสร็จรับเงิน", fPDF, Brushes.Black, colName, startY + offset);                           offset += (int)fontHeight;
+            g.DrawString("เลขประจำตัวผู้เสียภาษี Tax ID " , fPDF, Brushes.Black, col2, startY + offset);
+            g.DrawString("VN: " + VS.VN, fPDF, Brushes.Black, col4, startY + offset);
+
+            offset += (int)fontHeight + gapline;
+            //g.DrawString("เลขที่ใบสั่ง: " + REQNOXRAY + "/" + REQDATEXRAY, fPDF, Brushes.Black, col2, startY + offset);
+            g.DrawString("วันที่สั่ง: " + reqdatetime, fPDF, Brushes.Black, col4, startY + offset);
+
+            offset += (int)fontHeight;
+            g.DrawString("แผนก: " + deptname, fPDF, Brushes.Black, colName, startY + offset);
+            g.DrawString("แพทย์: " + dtrname, fPDF, Brushes.Black, col2, startY + offset);
+            g.DrawString("วันที่ตรวจ: " + vsdatetime, fPDF, Brushes.Black, col4, startY + offset);
+
+            offset += (int)fontHeight;
+            g.DrawString("บริษัท: " + compname, fPDF, Brushes.Black, colName, startY + offset);
+            g.DrawString("ประเภทผู้ป่วย: " + paidname, fPDF, Brushes.Black, col2, startY + offset);
+            g.DrawString("วันที่พิมพ์: " + prndate, fPDF, Brushes.Black, col4, startY + offset);
+
+            // ✅ Header ตาราง
+            offset += (int)fontHeight + gapline - 5;
+            g.DrawString("...............................................................................................................................................................................................................................................", fPDF, Brushes.Black, startX, startY + offset);
+            g.DrawString("STAT", fPDF, Brushes.Black, MARGIN_LEFT, startY + offset + 15);
+            g.DrawString("DESCRIPTION", fPDF, Brushes.Black, col1, startY + offset + 15);
+            g.DrawString("PRICE", fPDF, Brushes.Black, col4, startY + offset + 15);
+            offset += (int)fontHeight + gapline - 5;
+            g.DrawString("...............................................................................................................................................................................................................................................", fPDF, Brushes.Black, startX, startY + offset);
+            // ✅ พิมพ์รายการ Lab (สูงสุด 9 รายการต่อหน้า)
+            int rowsOnThisPage = 0; int startRow = currentPrintRow;
+
+            for (int i = startRow; i < dtPrint.Rows.Count && rowsOnThisPage < MAX_ROWS_PER_PAGE; i++)
+            {
+                DataRow arow = dtPrint.Rows[i];
+                offset += (int)fontHeight + 5;
+                String stat = "";
+                String desc = (arow["order_name"]?.ToString() ?? "") + " " + (arow["order_code"]?.ToString() ?? "");
+                float price2 = 0;
+                float.TryParse(arow["MNC_XR_PRI"]?.ToString() ?? "0", out price2);
+                g.DrawString(stat, fPDF, Brushes.Black, MARGIN_LEFT, startY + offset);
+                g.DrawString(desc, fPDF, Brushes.Black, col1, startY + offset);
+                g.DrawString(price2.ToString("#,###.00"), fPDF, Brushes.Black, col4, startY + offset);
+                rowsOnThisPage++; currentPrintRow++;
+            }
+            int pagecnt = 0;
+            pagecnt = (dtPrint.Rows.Count / 10);
+            if ((dtPrint.Rows.Count % 10) > 0) pagecnt++;
+            // ✅ Footer
+            offset += (int)fontHeight + 5;
+            g.DrawString("...............................................................................................................................................................................................................................................", fPDF, Brushes.Black, startX, MAX_Y);
+            g.DrawString("user/เจ้าหน้าที่ " + userreq, fPDF, Brushes.Black, col1, MAX_Y + 15);
+            g.DrawString("total/รวมรายการ " + dtPrint.Rows.Count, fPDF, Brushes.Black, col3, MAX_Y + 15);
+            g.DrawString("page " + pagecur + "/" + pagecnt, fPDF, Brushes.Black, col5, MAX_Y + 15);
+            g.DrawString("...............................................................................................................................................................................................................................................", fPDF, Brushes.Black, startX, MAX_Y + 25);
+            g.DrawString("FM-XRT-040 (00-08/04/59)(1/1)", fPDFs2, Brushes.Black, startX, MAX_Y + 30);
+
+            // ✅ ตรวจสอบว่ายังมีรายการเหลืออยู่หรือไม่
+            if (currentPrintRow < dtPrint.Rows.Count)
+            {
+                pagecur++;
+                e.HasMorePages = true;  // พิมพ์หน้าต่อไป
+            }
+            else
+            {
+                e.HasMorePages = false; // พิมพ์เสร็จแล้ว
+                currentPrintRow = 0; // Reset counter
+            }
+        }
+        private void Document_PrintPageReceipt1(object sender, PrintPageEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            float pageWidth = e.PageBounds.Width;
+            float pageHeight = e.PageBounds.Height;
+            float y = margin;
+            colDesc = margin;
+            colDescW = pageWidth - margin * 2 - 270;
+            colAmount = colDesc + colDescW;
+            colDiscount = colAmount + colAmountW;
+            colNet = colDiscount + colDiscountW;
+            currentPrintPage++;
+            // ... (fonts, brushes เหมือนเดิม)
+            // ============================================================
+            // HEADER — พิมพ์ทุกหน้า
+            // ============================================================
+            y = PrintReceiptHeader(g, pageWidth, margin, currentPrintPage);
+            //   ^ แยก header ออกเป็น method แล้ว return ค่า y หลัง header
+            // ============================================================
+            // TABLE HEADER — พิมพ์ทุกหน้า
+            // ============================================================
+            y = PrintReceiptTableHeader(g, pageWidth, margin, y);
+            // ============================================================
+            // TABLE ROWS — วนต่อจาก currentPrintRow
+            // ============================================================
+            float footerHeight = 120f; // พื้นที่สำรองไว้สำหรับ total+footer (หน้าสุดท้าย)
+            float maxY = pageHeight - margin - footerHeight;
+            var allRows = dtPrint.AsEnumerable().ToList(); // หรือแยก normal/doctor ตามเดิม
+            while (currentPrintRow < allRows.Count)
+            {
+                DataRow row = allRows[currentPrintRow];
+                float rowH = MeasureRowHeight(g, row, pageWidth); // ความสูงแต่ละ row
+                // ถ้า row นี้จะเกินหน้า
+                if (y + rowH > maxY)
+                {
+                    e.HasMorePages = true;
+                    return; // หยุดแค่นี้ — event จะถูกเรียกอีกครั้งสำหรับหน้าถัดไป
+                }
+                totalNet = PrintReceiptRow(g, row, pageWidth, margin, y);
+                y += rowH;
+                currentPrintRow++;
+            }
+            // ============================================================
+            // ถึงตรงนี้ = พิมพ์ rows ครบแล้ว → พิมพ์ total + footer
+            // ============================================================
+            y = PrintReceiptTotal(g, pageWidth, margin, y, totalNet);
+            PrintReceiptFooter(g, pageWidth, margin, y);
+
+            e.HasMorePages = false;
+
+            // Reset สำหรับครั้งถัดไป
+            currentPrintRow = 0;
+            currentPrintPage = 0;
+        }
+        private float PrintReceiptTableHeader(Graphics g, float pageWidth, float margin, float y)
+        {
+            // พิมพ์ header ของตาราง เช่น "รายการ", "ราคา", "จำนวน" ฯลฯ
+            // ใช้ g.DrawString(...) เพื่อพิมพ์ header
+            // คำนวณตำแหน่ง x ของแต่ละ column ตามที่กำหนดไว้
+            // Return ค่า y หลังจากพิมพ์ header เสร็จ (เพื่อใช้เป็นจุดเริ่มต้นของ rows)
+            // ============================================================
+            // TABLE HEADER
+            // ============================================================
+            float colDesc = margin;
+            float colDescW = pageWidth - margin * 2 - 270;
+            float colAmount = colDesc + colDescW;
+            float colAmountW = 90f;
+            float colDiscount = colAmount + colAmountW;
+            float colDiscountW = 90f;
+            float colNet = colDiscount + colDiscountW;
+            float colNetW = 90f;
+            float rowH = 20f;
+
+            // เส้นบน header
+            g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
+            y += 2;
+
+            g.DrawString("รายการ", fntBold, Brushes.Black,                new RectangleF(colDesc, y, colDescW, rowH), sfCenter);
+            g.DrawString("จำนวนเงิน", fntBold, Brushes.Black,                new RectangleF(colAmount, y, colAmountW, rowH), sfCenter);
+            g.DrawString("ส่วนลด", fntBold, Brushes.Black,                new RectangleF(colDiscount, y, colDiscountW, rowH), sfCenter);
+            g.DrawString("คงเหลือ", fntBold, Brushes.Black,                new RectangleF(colNet, y, colNetW, rowH), sfCenter);
+            y += rowH;
+
+            g.DrawString("Description", fntBold, Brushes.Black,                new RectangleF(colDesc, y, colDescW, rowH), sfCenter);
+            g.DrawString("Amount", fntBold, Brushes.Black,                new RectangleF(colAmount, y, colAmountW, rowH), sfCenter);
+            g.DrawString("Discount", fntBold, Brushes.Black,                new RectangleF(colDiscount, y, colDiscountW, rowH), sfCenter);
+            g.DrawString("Net Amount", fntBold, Brushes.Black,                new RectangleF(colNet, y, colNetW, rowH), sfCenter);
+            y += rowH;
+
+            g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
+            y += 4;
+            return y + 20f; // ตัวอย่าง เพิ่มความสูง 20 หลัง header
+        }
+        private decimal PrintReceiptRow(Graphics g, DataRow row, float pageWidth, float margin, float y)
+        {
+            // พิมพ์ข้อมูลแต่ละ row ตาม column ต่างๆ
+            // ใช้ row["COLUMN_NAME"] เพื่อดึงข้อมูล
+            // ใช้ g.DrawString(...) เพื่อพิมพ์ข้อมูล
+            // คำนวณตำแหน่ง x ของแต่ละ column ตามที่กำหนดไว้
+            
+            string desc = row["ITEMNAME"]?.ToString() ?? "";
+            decimal amount = row["AMOUNT"] != DBNull.Value ? Convert.ToDecimal(row["AMOUNT"]) : 0;
+            decimal disc = row["DISCOUNT"] != DBNull.Value ? Convert.ToDecimal(row["DISCOUNT"]) : 0;
+            decimal totalnet = amount - disc;
+            //totalNet += net;
+
+            g.DrawString(desc, fntNormal, Brushes.Black, new RectangleF(colDesc + 4, y, colDescW - 4, rowH));
+            if (amount != 0)
+                g.DrawString(amount.ToString("#,##0.00"), fntNormal, Brushes.Black,                        new RectangleF(colAmount, y, colAmountW - 4, rowH), sfRight);
+            if (disc != 0)
+                g.DrawString(disc.ToString("#,##0.00"), fntNormal, Brushes.Black,                        new RectangleF(colDiscount, y, colDiscountW - 4, rowH), sfRight);
+            g.DrawString(totalnet.ToString("#,##0.00"), fntNormal, Brushes.Black,                    new RectangleF(colNet, y, colNetW - 4, rowH), sfRight);
+            y += rowH;
+            return totalnet;
+        }
+        private float PrintReceiptTotal(Graphics g, float pageWidth, float margin, float y, decimal totalNet)
+        {
+            // พิมพ์ส่วน total เช่น "รวมทั้งสิ้น", "ส่วนลด", "ยอดสุทธิ" ฯลฯ
+            // ใช้ g.DrawString(...) เพื่อพิมพ์ total
+            // ============================================================
+            // TOTAL
+            // ============================================================
+            // ดึงข้อมูล header จาก row แรก
+            DataRow hdr = dtPrint.Rows[0];
+            g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
+            y += 4;
+
+            string totalText = hdr["TOTALTEXT"]?.ToString() ?? NumberToText(totalNet);
+            string payMethod = hdr["PAYMETHOD"]?.ToString() ?? "";
+
+            g.DrawString("จำนวนเงิน\nTotal Amount in letters", fntNormal, Brushes.Black,                new RectangleF(margin, y, 120, 36));
+            g.DrawString($"{totalText}", fntNormal, Brushes.Black,                new RectangleF(margin + 124, y, colDescW - 124, 18));
+            g.DrawString("รวมทั้งสิ้น\nTotal", fntBold, Brushes.Black,                new RectangleF(colAmount, y, colAmountW + colDiscountW, 36), sfCenter);
+            g.DrawString(totalNet.ToString("#,##0.00"), fntBold, Brushes.Black,                new RectangleF(colNet, y, colNetW - 4, 18), sfRight);
+            g.DrawString(totalNet.ToString("#,##0.00"), fntBold, Brushes.Black,                new RectangleF(colNet, y + 18, colNetW - 4, 18), sfRight);
+            y += 36;
+            g.DrawString(payMethod, fntNormal, Brushes.Black,                new RectangleF(margin + 124, y, colDescW - 124, 18));
+            y += 24;
+            g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
+            // ============================================================
+            // STAMP "จ่ายแล้ว" (ถ้าชำระแล้ว)
+            // ============================================================
+            bool isPaid = hdr["PAYSTATUS"]?.ToString() == "Y";
+            if (isPaid)
+            {
+                g.TranslateTransform(pageWidth - margin - 120, y - 100);
+                g.RotateTransform(-15);
+                g.DrawString("จ่ายแล้ว", fntStamp, Brushes.Red, 0, 0);
+                g.ResetTransform();
+            }
+            //y += 20;
+            return y + 20f; // ตัวอย่าง เพิ่มความสูง 20 หลัง total
+        }
+        private void PrintReceiptFooter(Graphics g, float pageWidth, float margin, float y)
+        {
+            // พิมพ์ส่วน footer เช่น "ขอบคุณที่ใช้บริการ", "ติดต่อเราได้ที่..." ฯลฯ
+            // ใช้ g.DrawString(...) เพื่อพิมพ์ footer
+            // ============================================================
+            // FOOTER
+            // ============================================================
+            string footerTh = "เพื่อความปลอดภัยของผู้ป่วย โรงพยาบาลขอสงวนสิทธิ์ไม่รับเปลี่ยนหรือคืนยา";
+            string footerEn = "For patient safety, The hospital reseves the right not to accept any exchange or return of medication";
+            g.DrawString(footerTh, fntSmall, Brushes.Black, new RectangleF(margin, y, pageWidth - margin * 2 - 120, 16), sfCenter);
+            y += 16;
+            g.DrawString(footerEn, fntSmall, Brushes.Black, new RectangleF(margin, y, pageWidth - margin * 2 - 120, 16), sfCenter);
+            y += 24;
+
+            // Signature
+            float sigX = pageWidth - margin - 130;
+            g.DrawLine(Pens.Black, sigX, y, sigX + 120, y);
+            y += 2;
+            g.DrawString("วิจิตรา นวลผ่อง", fntNormal, Brushes.Black,                new RectangleF(sigX, y, 120, 18), sfCenter);
+            y += 18;
+            g.DrawString("เจ้าหน้าที่การเงิน / Cashier", fntSmall, Brushes.Black,                new RectangleF(sigX, y, 120, 16), sfCenter);
+        }
+        private float MeasureRowHeight(Graphics g, DataRow row, float pageWidth)
+        {
+            float colDescW = pageWidth - 40f * 2 - 270; // เหมือนที่คำนวณใน handler
+            Font fntNormal = new Font(pfc.Families[0], 13);
+            SizeF sz = g.MeasureString(row["ITEMNAME"]?.ToString() ?? "", fntNormal,  (int)colDescW);
+            fntNormal.Dispose();
+            return Math.Max(sz.Height, 20f);
+        }
+        private float PrintReceiptHeader(Graphics g, float pageWidth, float margin, int pageNo)
+        {
+            float y = margin;
+            Font fntTitle = new Font(pfc.Families[0], 16, FontStyle.Bold);
+            Font fntBold = new Font(pfc.Families[0], 13, FontStyle.Bold);
+            Font fntNormal = new Font(pfc.Families[0], 13, FontStyle.Regular);
+            Font fntSmall = new Font(pfc.Families[0], 11, FontStyle.Regular);
+            StringFormat sfCenter = new StringFormat { Alignment = StringAlignment.Center };
+            StringFormat sfRight = new StringFormat { Alignment = StringAlignment.Far };
+            DataRow hdr = dtPrint.Rows[0];
+            // ----------------------------------------
+            // เลขหน้า (top right)
+            // ----------------------------------------
+            int totalPages = CalcTotalPages(g, pageWidth, margin);
+            g.DrawString($"{pageNo}/{totalPages}", fntNormal, Brushes.Black,  new RectangleF(pageWidth - margin - 50, y, 50, 18), sfRight);
+
+            // ----------------------------------------
+            // Logo
+            // ----------------------------------------
+            g.DrawRectangle(Pens.Black, margin, y, 60, 50);
+            g.DrawString("INTRARAT\nHOSPITAL", fntSmall, Brushes.Black, new RectangleF(margin, y, 60, 50), sfCenter);
+
+            // ----------------------------------------
+            // ชื่อโรงพยาบาล
+            // ----------------------------------------
+            float cx = margin + 65;
+            float cw = pageWidth - margin * 2 - 65;
+
+            g.DrawString("บริษัท โรงพยาบาลอินทรารัตน์ จำกัด", fntTitle, Brushes.Black, new RectangleF(cx, y, cw, 22), sfCenter);
+            y += 22;
+            g.DrawString("INTRARAT HOSPITAL COMPANY LIMITED", fntBold, Brushes.Black, new RectangleF(cx, y, cw, 18), sfCenter);
+            y += 18;
+            g.DrawString("เลขที่ 555/5 ถนนรามอินทรา, แขวงรามอินทรา เขตคันนายาว, กรุงเทพฯ 10230 โทร 02 481 5555", fntSmall, Brushes.Black, new RectangleF(cx, y, cw, 16), sfCenter);
+            y += 16;
+            g.DrawString("555/5 Raminthra Rd, Raminthra, Khannayao Bangkok 10230 Tel +66 2 481 5555", fntSmall, Brushes.Black, new RectangleF(cx, y, cw, 16), sfCenter);
+            y += 20;
+
+            // ----------------------------------------
+            // แผนก OPD + Tax ID  (ทุกหน้า)
+            // ----------------------------------------
+            g.DrawString("แผนกผู้ป่วยนอก / OPD", fntBold, Brushes.Black, margin, y);
+            g.DrawString("เลขประจำตัวผู้เสียภาษี", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
+            y += 16;
+            g.DrawString("Tax ID 0105557153755", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
+            y += 4;
+
+            // ----------------------------------------
+            // กล่อง ใบเสร็จรับเงิน — เฉพาะหน้าแรก
+            // ----------------------------------------
+            if (pageNo == 1)
+            {
+                RectangleF rcTitle = new RectangleF(margin, y, 200, 26);
+                g.DrawRectangle(Pens.Black, rcTitle.X, rcTitle.Y, rcTitle.Width, rcTitle.Height);
+                g.DrawString("ใบเสร็จรับเงิน (ต้นฉบับ)", fntBold, Brushes.Black, rcTitle, sfCenter);
+                y += 32;
+                // ----------------------------------------
+                // ข้อมูลผู้ป่วย — เฉพาะหน้าแรก
+                // ----------------------------------------
+                string ptName = hdr["PTNAME"]?.ToString() ?? "";
+                string hnText = hdr["HN"]?.ToString() ?? "";
+                string vnText = hdr["VN"]?.ToString() ?? "";
+                string docNo = hdr["DOCNO"]?.ToString() ?? "";
+                string docDate = hdr["DOCDATE"]?.ToString() ?? "";
+                string visitDate = hdr["VISITDATE"]?.ToString() ?? "";
+                string rightType = hdr["RIGHTTYPE"]?.ToString() ?? "";
+
+                g.DrawString($"ชื่อ - นามสกุล / Patient name : {ptName}", fntNormal, Brushes.Black, margin, y);
+                g.DrawString($"เลขที่เอกสาร/Document No  {docNo}", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);  // ← sfRight หรือ sfLeft แล้วแต่ layout
+                y += 18;
+                g.DrawString($"เลขประจำตัวผู้ป่วย / HN :  {hnText}      VN : {vnText}", fntNormal, Brushes.Black, margin, y);
+                g.DrawString($"วันที่ / Date :  {docDate}", fntNormal, Brushes.Black,   new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
+                y += 18;
+                g.DrawString($"วันที่พบแพทย์ / Visit date :  {visitDate}", fntNormal, Brushes.Black, margin, y);
+                y += 18;
+                g.DrawString($"สิทธิการรักษา:   {rightType}", fntNormal, Brushes.Black, margin, y);
+                y += 22;
+            }
+            else
+            {
+                // หน้า 2+ แสดงแค่ HN/ชื่อ ย่อ ๆ แทน
+                string ptName = hdr["PTNAME"]?.ToString() ?? "";
+                string hnText = hdr["HN"]?.ToString() ?? "";
+                g.DrawString($"HN: {hnText}  {ptName}  (ต่อ)", fntNormal, Brushes.Black, margin, y);
+                y += 22;
+            }
+            fntTitle.Dispose(); fntBold.Dispose(); fntNormal.Dispose(); fntSmall.Dispose();
+            return y; // คืนค่า y ให้ handler ใช้ต่อ
+        }
+        private int CalcTotalPages(Graphics g, float pageWidth, float margin)
+        {
+            // ประมาณจำนวนหน้าจาก จำนวน rows ÷ rows ต่อหน้า
+            float pageHeight = 1169f; // A4 ~1169 units
+            float headerHeight = 180f;  // ความสูง header หน้าแรก (ปรับตามจริง)
+            float headerNext = 120f;  // header หน้าถัดไป
+            float footerHeight = 120f;
+            float rowH = 20f;   // ความสูงเฉลี่ยต่อ row
+            int totalRows = dtPrint.Rows.Count;
+            float firstPageRows = (pageHeight - margin * 2 - headerHeight - footerHeight) / rowH;
+            if (totalRows <= (int)firstPageRows) return 1;
+            float nextPageRows = (pageHeight - margin * 2 - headerNext - footerHeight) / rowH;
+            int remaining = totalRows - (int)firstPageRows;
+            return 1 + (int)Math.Ceiling(remaining / nextPageRows);
+        }
+        private string NumberToText(decimal amount)
+        {
+            if (amount == 0) return "ศูนย์บาทถ้วน";
+            string[] ones = { "", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า" };
+            string[] tens = { "", "สิบ", "ยี่สิบ", "สามสิบ", "สี่สิบ", "ห้าสิบ", "หกสิบ", "เจ็ดสิบ", "แปดสิบ", "เก้าสิบ" };
+            long baht = (long)Math.Floor(amount);
+            int satang = (int)Math.Round((amount - baht) * 100);
+            string result = ConvertGroup(baht, ones, tens) + "บาท";
+            result += (satang > 0)  ? ConvertGroup(satang, ones, tens) + "สตางค์" : "ถ้วน";
+            return result;
+        }
+        private string ConvertGroup(long n, string[] ones, string[] tens)
+        {
+            if (n == 0) return "";
+            if (n < 0) return "ลบ" + ConvertGroup(-n, ones, tens);
+            string result = "";
+            if (n >= 1_000_000_000_000)   // ล้านล้าน
+            {
+                result += ConvertGroup(n / 1_000_000_000_000, ones, tens) + "ล้านล้าน";
+                n %= 1_000_000_000_000;
+            }
+            if (n >= 1_000_000_000)       // พันล้าน
+            {
+                result += ConvertGroup(n / 1_000_000_000, ones, tens) + "พันล้าน";
+                n %= 1_000_000_000;
+            }
+            if (n >= 100_000_000)         // ร้อยล้าน
+            {
+                result += ConvertGroup(n / 100_000_000, ones, tens) + "ร้อยล้าน";
+                n %= 100_000_000;
+            }
+            if (n >= 10_000_000)          // สิบล้าน
+            {
+                result += ConvertGroup(n / 10_000_000, ones, tens) + "สิบล้าน";
+                n %= 10_000_000;
+            }
+            if (n >= 1_000_000)           // ล้าน
+            {
+                result += ConvertGroup(n / 1_000_000, ones, tens) + "ล้าน";
+                n %= 1_000_000;
+            }
+            if (n >= 100_000)             // แสน
+            {
+                result += ones[n / 100_000] + "แสน";
+                n %= 100_000;
+            }
+            if (n >= 10_000)              // หมื่น
+            {
+                result += ones[n / 10_000] + "หมื่น";
+                n %= 10_000;
+            }
+            if (n >= 1_000)               // พัน
+            {
+                result += ones[n / 1_000] + "พัน";
+                n %= 1_000;
+            }
+            if (n >= 100)                 // ร้อย
+            {
+                result += ones[n / 100] + "ร้อย";
+                n %= 100;
+            }
+            if (n >= 10)                  // สิบ
+            {
+                // กรณีพิเศษ: 10 = "สิบ" ไม่ใช่ "หนึ่งสิบ"
+                result += (n / 10 == 1) ? "สิบ" : tens[n / 10];
+                n %= 10;
+            }
+            if (n > 0)                    // หน่วย
+            {
+                // กรณีพิเศษ: หลักหน่วยของสิบ = "เอ็ด" เช่น 21 = "ยี่สิบเอ็ด"
+                bool hasExd = result.Contains("สิบ") && n == 1;
+                result += hasExd ? "เอ็ด" : ones[n];
+            }
+            return result;
+        }
         private void FrmCashier_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 20251125  ";
+            this.Text = "Last Update 20260311  ";
             System.Drawing.Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
