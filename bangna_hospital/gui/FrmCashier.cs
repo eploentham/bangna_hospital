@@ -19,6 +19,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Drawing.Text;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -44,24 +45,23 @@ namespace bangna_hospital.gui
         Patient PTT;
         Visit VS;
         C1ThemeController theme1;
-        C1FlexGrid grfOperList, grfFinish, grfInv, grfExp, grfMasterDrug, grfMasterSimb2;
-        DataTable DTINV = new DataTable();
+        C1FlexGrid grfOperList, grfFinishOPD, grfFinishIPD, grfInv, grfInvIPD, grfExp, grfMasterDrug, grfMasterSimb2;
+        DataTable DTINV = new DataTable(), DTPRINT, DTSIMB2;
         Timer timeOperList;
         Label lbLoading;
-        TextBox txttaxid, txtName, txtAddr1, txtAddr2;
-        String PRENO = "", VSDATE = "", HN = "", DEPTNO = "", DTRCODE = "", DOCGRPID = "", TABVSACTIVE = "", PTTNAME="", VSTIME="", DOCNO="", DOCDATE="";
-        Boolean FLAGNEWSIMB2 = false;
-        Boolean isLoad = false;
+        TextBox txttaxid, txtCompName, txtAddr1, txtAddr2;
+        String PRENO = "", VSDATE = "", HN = "", PAIDCODE="", ANNO="", CARDTXT = "", DTRCODE = "", DISCHARGEDATE = "", TABVSACTIVE = "", TABFINISHACTIVE = "", PTTNAME="", VSTIME="", DOCNO="", DOCDATE="", FNCODE="";
+        Boolean FLAGNEWSIMB2 = false, isLoad = false;
         TExpenseDB expenseDB;
         TSupraDB supraDB;
         Simb2BillingGroupDB simb2DB;
         List<Simb2BillingGroup> listSimb2;
         int colgrfOperListHn = 1, colgrfOperListVn=2, colgrfOperListFullNameT = 3, colgrfOperListSymptoms = 4, colgrfOperListPaidName = 5, colgrfOperListPreno = 6, colgrfOperListVsDate = 7, colgrfOperListVsTime = 8, colgrfOperListActNo = 9, colgrfOperListDtrName = 10, colgrfOperListPha = 11, colgrfOperListLab = 12, colgrfOperListXray = 13;
-        int colgrfFinishHn = 1, colgrfFinishFullNameT = 2, colgrfFinishPaidName = 3, colgrfFinishSymptoms = 4, colgrfFinishPreno = 5, colgrfFinishVsDate = 6, colgrfFinishVsTime = 7, colgrfFinishActNo = 8, colgrfFinishDocno = 9, colgrfFinishAN = 10;
+        int colgrfFinishHn = 1, colgrfFinishFullNameT = 2, colgrfFinishPaidName = 3, colgrfFinishSymptoms = 4, colgrfFinishPreno = 5, colgrfFinishVsDate = 6, colgrfFinishVsTime = 7, colgrfFinishActNo = 8, colgrfFinishDocno = 9, colgrfFinishAN = 10, colgrfFinishPaidCode=11, colgrfFinishDocdate=12;
         int colgrfExpid=1, colgrfExpDesc=2, colgrfExpAmount=3, colgrfExpModule=4, colgrfExpUser=5, colgrfExpDateReq=6;
         int colgrfDrugCode = 1, colgrfDrugName = 2, colgrfDrugFnCd = 3, colgrfDrugFnName=4, colgrfDrugSimbcode = 5, colgrfDrugChargeCD = 6, colgrfDrugCodeBSG=7, colgrfDrugBillingSubGroupTH=8;
         int colgrfSimb2GID = 1, colgrfSimb2CodeBG = 2, colgrfSimb2BillGTH = 3, colgrfSimb2BillGEN = 4, colgrfSimb2CodeBSG = 5, colgrfSimb2CodeSubGTH = 6, colgrfSimb2CodeSubGEN=7;
-        private DataTable dtPrint;
+        
         private int currentPrintRow = 0, pagecur = 1, currentPrintPage=0;
         private const int MAX_ROWS_PER_PAGE = 10;
         StringFormat sfCenter = new StringFormat { Alignment = StringAlignment.Center };
@@ -69,13 +69,16 @@ namespace bangna_hospital.gui
         StringFormat sfLeft = new StringFormat { Alignment = StringAlignment.Near };
         // === FONTS ===
         PrivateFontCollection pfc = new PrivateFontCollection();
-        Font fntTitle, fntNormal, fntSubTitle, fntBold, fntSmall, fntStamp;
+        Font fntTitle, fntNormal, fntNormal1, fntSubTitle, fntBold, fntSmall, fntStamp;
+
         float colDesc , colDescW, colAmount, colAmountW = 90f, colDiscount, colDiscountW = 90f, colNet, colNetW= 90f, rowH = 20f;
-        float margin = 40f;
+        float margin = 40f, logoW = 80f, logoH = 80f, imgRatio=0, boxRatio=0;
         
         decimal totalNet = 0;
-        String prndate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+        String prndate = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), PRINTORIGINAL="";
         Image logo1 = null, logo=null;
+        FontFamily ff;
+        AutoCompleteStringCollection acb;
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         internal static extern IntPtr GetFocus();
         public FrmCashier(BangnaControl bc)
@@ -91,15 +94,21 @@ namespace bangna_hospital.gui
         private void initConfig()
         {
             pfc.AddFontFile(@"THSarabunNew.ttf");
-            fntTitle = new Font(pfc.Families[0], 16, FontStyle.Bold);
-            fntSubTitle = new Font(pfc.Families[0], 14, FontStyle.Bold);
-            fntNormal = new Font(pfc.Families[0], 13, FontStyle.Regular);
-            fntBold = new Font(pfc.Families[0], 13, FontStyle.Bold);
-            fntSmall = new Font(pfc.Families[0], 11, FontStyle.Regular);
-            fntStamp = new Font(pfc.Families[0], 36, FontStyle.Bold);
+            ff = pfc.Families[0];
+            fntTitle = new Font(ff, (16+3), FontStyle.Bold);
+            fntSubTitle = new Font(ff, 14, FontStyle.Bold);
+            fntNormal = new Font(ff, (13+1), FontStyle.Regular);
+            fntNormal1 = new Font(ff, (13), FontStyle.Regular);
+            fntBold = new Font(ff, (13+1), FontStyle.Bold);
+            fntSmall = new Font(ff, 11, FontStyle.Regular);
+            fntStamp = new Font(ff, 36, FontStyle.Bold);
+            //new LogWriter("d", this.Name + " initConfig logo path " + Environment.CurrentDirectory + "\\LOGO-BW-tran.jpg"); 
             logo1 = System.Drawing.Image.FromFile(Environment.CurrentDirectory + "\\LOGO-BW-tran.jpg");
             logo = (System.Drawing.Image)logo1.Clone();
             logo1.Dispose();
+            acb = new AutoCompleteStringCollection();
+            imgRatio = (float)logo.Width / logo.Height;
+            boxRatio = logoW / logoH;
             isLoad = true;
             theme1 = new C1ThemeController();
             timeOperList = new Timer();
@@ -108,12 +117,15 @@ namespace bangna_hospital.gui
             initFont();
             initLoading();
             setEvent(); setTheme();
-            initGrfFinish();
-            initGrfInv();
+            initGrfFinish(ref grfFinishOPD, ref pnGrfFinishView);
+            initGrfFinish(ref grfFinishIPD, ref pnGrfFinishViewIPD);
+            initGrfInv(ref grfInv, ref pnGrfFinishInv);
+            initGrfInv(ref grfInvIPD, ref pnGrfFinishInvIPD);
             initGrfOperList();
             initGrfExp();
             //timeOperList.Enabled = true;
             //timeOperList.Start();
+            TABFINISHACTIVE = tabFinishOPD.Name;
             isLoad = false;
         }
         private void initLoading()
@@ -170,8 +182,8 @@ namespace bangna_hospital.gui
         private void setEvent()
         {
             tabMain.SelectedTabChanged += TabMain_SelectedTabChanged;
+            scFinish.SelectedTabChanged += ScFinish_SelectedTabChanged;
             rgPrn.Click += RgPrn_Click;
-            rgSearch.KeyPress += RgSearch_KeyPress;
             rgSearch.KeyUp += RgSearch_KeyUp;
             rgPrn1.Click += RgPrn1_Click;
             rgPrnReceipt.Click += RgPrnReceipt_Click;
@@ -188,17 +200,296 @@ namespace bangna_hospital.gui
             chkMasterXray.Click += ChkMasterXray_Click;
             chkMasterDf.Click += ChkMasterDf_Click;
             chkMasterProc.Click += ChkMasterProc_Click;
-            //txtMasterSearch.KeyDown += TxtMasterSearch_KeyDown;
+            chkMasterFncode.Click += ChkMasterFncode_Click;
             txtMasterSearch.KeyUp += TxtMasterSearch_KeyUp;
+            rgPrnReceiptDetail.Click += RgPrnReceiptDetail_Click;
+            ribbonDatePicker1.DropDownClosed += RibbonDatePicker1_DropDownClosed;
+        }
+
+        private void ScFinish_SelectedTabChanged(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            TABFINISHACTIVE = scFinish.SelectedTab.Name;
+            HN = "";
+            PRENO = "";
+            PTTNAME = "";
+            VSDATE = "";
+            VSTIME = "";
+            DOCDATE = "";
+            DOCNO = "";
+            PAIDCODE = "";
+            ANNO = "";
+        }
+        private void RibbonDatePicker1_DropDownClosed(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (TABVSACTIVE.Equals(tabFinish.Name))
+            {
+                setGrfFinish(ribbonDatePicker1.Value.Year + "-" + ribbonDatePicker1.Value.ToString("MM-dd"));
+            }
+        }
+
+        private void ShowDataTableInGrid(DataTable dt)
+        {
+            Form frmView = new Form();
+            frmView.Text = "DTPRINT Data Viewer";
+            frmView.Size = new Size(1000, 600);
+            frmView.StartPosition = FormStartPosition.CenterParent;
+            Panel pntop = new Panel();
+            pntop.Dock = DockStyle.Top;
+            pntop.Height = 40;
+            Panel pngrf = new Panel();
+            pngrf.Dock = DockStyle.Fill;
+            ComboBox cboDiscount = new ComboBox();
+            cboDiscount.Items.Add("ส่วนลดค่ายาทั้งหมด %");
+            cboDiscount.Items.Add("ส่วนลดค่ายาทั้งหมด บาท");
+            cboDiscount.Top = 10;
+            Label lbDiscount = new Label();
+            lbDiscount.Text = "ส่วนลด";
+            lbDiscount.Top = 10;
+            lbDiscount.Left = 50;
+            cboDiscount.Left = 150;
+            cboDiscount.Font = fEdit;
+            lbDiscount.Font = fEdit;
+            cboDiscount.Width = 200;
+            TextBox txtDiscount = new TextBox();
+            txtDiscount.Top = cboDiscount.Top;
+            txtDiscount.Left = cboDiscount.Left + cboDiscount.Width + 10;
+            txtDiscount.Font = fEdit;
+            TextBox txtamt = new TextBox();
+            txtamt.Top = cboDiscount.Top;
+            txtamt.Left = txtDiscount.Left + txtDiscount.Width + 10;
+            txtamt.Font = fEdit;
+            pntop.Controls.Add(cboDiscount);
+            pntop.Controls.Add(lbDiscount);
+            pntop.Controls.Add(txtDiscount);
+            pntop.Controls.Add(txtamt);
+
+            DataGridView dgv = new DataGridView();
+            dgv.Dock = DockStyle.Fill;
+            dgv.DataSource = dt;
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgv.ReadOnly = false;
+            
+            frmView.Controls.Add(pngrf);
+            frmView.Controls.Add(pntop);
+            pngrf.Controls.Add(dgv);
+            dgv.DataBindingComplete += (s, e) =>
+            {
+                dgv.Columns["doc_no"].Visible = false;
+                dgv.Columns["doc_date"].Visible = false;
+                dgv.Columns["finance_code"].Visible = false;
+                dgv.Columns["req_no"].Visible = false;
+                dgv.Columns["req_date"].Visible = false;
+                dgv.Columns["hn"].Visible = false;
+                dgv.Columns["patient_name"].Visible = false;
+                dgv.Columns["preno"].Visible = false;
+                dgv.Columns["visitdate"].Visible = false;
+                dgv.Columns["symptom"].Visible = false;
+                dgv.Columns["vn_no"].Visible = false;
+                dgv.Columns["vn_seq"].Visible = false;
+                dgv.Columns["an_no"].Visible = false;
+                dgv.Columns["an_year"].Visible = false;
+                dgv.Columns["paid_name"].Visible = false;
+                dgv.Columns["visit_time"].Visible = false;
+                dgv.Columns["seq"].Visible = false;
+                dgv.Columns["service_type"].Visible = true;
+                dgv.Columns["item_code"].Visible = true;
+                dgv.Columns["item_name"].Visible = true;
+                dgv.Columns["item_name_e"].Visible = false;
+                dgv.Columns["location_simb2"].Visible = false;
+                dgv.Columns["location1"].Visible = false;
+                dgv.Columns["ID"].Visible = false;
+                dgv.Columns["CodeBG"].Visible = false;
+                dgv.Columns["BillingGroupTH"].Visible = false;
+                dgv.Columns["BillingGroupEN"].Visible = false;
+                dgv.Columns["CodeBSG"].Visible = true;
+                dgv.Columns["CreatedDate"].Visible = false;
+                dgv.Columns["active"].Visible = false;
+                dgv.Columns["status_master"].Visible = false;
+                dgv.Columns["date_modi"].Visible = false;
+                dgv.Columns["date_cancel"].Visible = false;
+                dgv.Columns["unit"].Visible = false;
+                dgv.Columns["CodeBSG1"].Visible = false;
+                dgv.Columns["BillingSubGroupTH"].Visible = false;
+                dgv.Columns["BillingSubGroupEN"].Visible = false;
+                dgv.Columns["discount"].ReadOnly = false;
+                dgv.Columns["item_name"].ReadOnly = true;
+                dgv.Columns["qty"].ReadOnly = true;
+                dgv.Columns["unit_price"].ReadOnly = true; 
+                dgv.Columns["total_amount"].ReadOnly = true;
+                dgv.Columns["ds_date"].ReadOnly = false;
+            };
+            txtDiscount.KeyUp +=(s,e)=>
+            {
+                if (cboDiscount.SelectedIndex == 0) // %
+                {
+                    if (decimal.TryParse(txtDiscount.Text.Trim(), out decimal discountPercent))
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (row["service_type"].ToString().Equals("DRUG"))
+                            {
+                                decimal.TryParse(row["unit_price"].ToString(), out decimal unitprice);
+                                decimal.TryParse(row["qty"].ToString(), out decimal qty);
+                                decimal discountAmount = (unitprice * qty) * discountPercent / 100;
+                                decimal total  = unitprice * qty;
+                                row["discount"] = discountAmount;
+                                row["total_amount"] = total - discountAmount;
+                                
+                            }
+                        }
+                    }
+                }
+                else if (cboDiscount.SelectedIndex == 1) // บาท
+                {
+                    if (decimal.TryParse(txtDiscount.Text.Trim(), out decimal discountBaht))
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (row["service_type"].ToString().Equals("DRUG"))
+                            {
+                                decimal.TryParse(row["unit_price"].ToString(), out decimal unitprice);
+                                decimal.TryParse(row["qty"].ToString(), out decimal qty);
+                                decimal totalAmount = unitprice * qty;
+                                row["discount"] = discountBaht;
+                                row["total_amount"] = totalAmount - discountBaht;
+                                
+                            }
+                        }
+                    }
+                }
+            };
+            decimal totalAmountSum = 0;
+            foreach (DataRow dataRow in dt.Rows)
+            {
+                decimal amt = 0;
+                decimal.TryParse(dataRow["total_amount"].ToString(), out amt);
+                totalAmountSum += amt;
+            }
+            txtamt.Text = totalAmountSum.ToString("N2");
+            // ✅ Event สำหรับอัพเดท total_amount เมื่อแก้ discount
+            dgv.CellValueChanged += (s, ev) =>
+            {
+                if (ev.RowIndex >= 0 && ev.ColumnIndex >= 0)
+                {
+                    string colName = dgv.Columns[ev.ColumnIndex].Name;
+                    if (colName == "discount")
+                    {
+                        DataGridViewRow row = dgv.Rows[ev.RowIndex];
+                        decimal.TryParse(row.Cells["unit_price"].Value?.ToString(), out decimal unitPrice);
+                        decimal.TryParse(row.Cells["qty"].Value?.ToString(), out decimal qty);
+                        decimal.TryParse(row.Cells["discount"].Value?.ToString(), out decimal discount);
+
+                        decimal total = (unitPrice * qty) - discount;
+                        row.Cells["total_amount"].Value = total;
+                    }
+                }
+            };
+            frmView.ShowDialog(this);
+            // ✅ บันทึกข้อมูลกลับเข้า DTPRINT หลังปิด dialog
+            foreach (DataRow dtRow in dt.Rows)
+            {
+                foreach (DataRow printRow in DTPRINT.Rows)
+                {
+                    if (printRow["item_code"].ToString() == dtRow["item_code"].ToString() &&
+                        printRow["seq"].ToString() == dtRow["seq"].ToString())
+                    {
+                        printRow["discount"] = dtRow["discount"];
+                        printRow["total_amount"] = dtRow["total_amount"];
+                        break;
+                    }
+                }
+            }
+            DTPRINT.AcceptChanges();
+        }
+        private void RgPrnReceiptDetail_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            setLbLoading("กำลังโหลดข้อมูล ...");
+            showLbLoading();
+            try
+            {
+                lfSbMessage.Text = DOCNO;
+                DTPRINT = bc.bcDB.getReceipt(DOCNO, DOCDATE);
+                DISCHARGEDATE = bc.bcDB.vsDB.selectDSDateAN1(HN, VSDATE, PRENO);
+                setLbLoading("กำลังโหลดข้อมูล ...setgrid");
+                DateTime dsdate = new DateTime();
+                if ((DTPRINT != null) && (DTPRINT.Rows.Count > 0))
+                {
+                    if (DTPRINT.Rows[0].Table.Columns.Contains("ds_date"))
+                    {
+                        object dsDateValue = DTPRINT.Rows[0]["ds_date"];
+                        dsdate = (DateTime)dsDateValue;
+                        DISCHARGEDATE = dsdate.ToString("yyyy-MM-dd", new CultureInfo("en-US"));
+                    }
+                    string usrno = "";
+                    DataTable dtuft01 = bc.bcDB.fint01DB.SelectBillByDocno(DOCNO, DOCDATE);
+                    if (dtuft01.Rows.Count > 0) usrno = dtuft01.Rows[0]["MNC_USR_CD"].ToString();
+                    //if (!DTPRINT.Columns.Contains("amount")) DTPRINT.Columns.Add("amount", typeof(decimal));
+                    ShowDataTableInGrid(DTPRINT); // ✅ แสดงข้อมูลใน grid
+                    if (!DTPRINT.Columns.Contains("MNC_VN_NO")) DTPRINT.Columns.Add("MNC_VN_NO", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_VN_SEQ")) DTPRINT.Columns.Add("MNC_VN_SEQ", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_DATE")) DTPRINT.Columns.Add("MNC_DATE", typeof(DateTime));
+                    if (!DTPRINT.Columns.Contains("MNC_FN_TYP_DSC")) DTPRINT.Columns.Add("MNC_FN_TYP_DSC", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_SHIF_MEMO")) DTPRINT.Columns.Add("MNC_SHIF_MEMO", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_TIME")) DTPRINT.Columns.Add("MNC_TIME", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_PAY_CASH")) DTPRINT.Columns.Add("MNC_PAY_CASH", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_NO")) DTPRINT.Columns.Add("MNC_NO", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_DEF_DSC")) DTPRINT.Columns.Add("MNC_DEF_DSC", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_FN_AMT")) DTPRINT.Columns.Add("MNC_FN_AMT", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_FN_DIS")) DTPRINT.Columns.Add("MNC_FN_DIS", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_SIMB_CD")) DTPRINT.Columns.Add("MNC_SIMB_CD", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_DOC_NO")) DTPRINT.Columns.Add("MNC_DOC_NO", typeof(string));
+                    if (!DTPRINT.Columns.Contains("MNC_DOC_DAT")) DTPRINT.Columns.Add("MNC_DOC_DAT", typeof(DateTime));
+                    if (!DTPRINT.Columns.Contains("MNC_USR_CD")) DTPRINT.Columns.Add("MNC_USR_CD", typeof(string));
+                    //if (!DTPRINT.Columns.Contains("discount")) DTPRINT.Columns.Add("discount", typeof(decimal));
+                    //if (DTPRINT.Columns.Contains("unit_price"))
+                    //{
+                    //    int unitPriceIndex = DTPRINT.Columns["unit_price"].Ordinal;
+                    //    DTPRINT.Columns["discount"].SetOrdinal(unitPriceIndex);
+                    //}
+                    foreach (DataRow row in DTPRINT.Rows)
+                    {
+                        row["MNC_VN_NO"] = VS.VN;
+                        row["MNC_VN_SEQ"] = row["vn_seq"];
+                        row["MNC_DATE"] = row["visitdate"];
+                        row["MNC_FN_TYP_DSC"] = row["paid_name"];
+                        row["MNC_SHIF_MEMO"] = row["symptom"];
+                        row["MNC_TIME"] = row["visit_time"];
+                        row["MNC_DOC_NO"] = row["doc_no"];
+                        row["MNC_DOC_DAT"] = row["doc_date"];
+                        row["MNC_DEF_DSC"] = row["BillingSubGroupTH"];
+                        row["MNC_FN_AMT"] = row["total_amount"];
+                        row["MNC_USR_CD"] = usrno;
+                        //row["discount"] = 0;
+                    }
+                    DTPRINT.AcceptChanges();
+                    //new LogWriter("d", "DTPRINT rows: " + DTPRINT.Rows.Count);
+                    hideLbLoading();
+                    printReceiptDetailSIMB2();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                hideLbLoading();
+            }
+        }
+        private void ChkMasterFncode_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (chkMasterFncode.Checked) { setGrfMasterDrug(); }
         }
 
         private void TxtMasterSearch_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             grfMasterDrug.ApplySearch(txtMasterSearch.Text.Trim(), true, true, false);
-        }
-
-        
+        }        
 
         private void ChkMasterProc_Click(object sender, EventArgs e)
         {
@@ -282,66 +573,63 @@ namespace bangna_hospital.gui
         private void BtnSimb2Save_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (txtMasterDrugGenericCode.Text.Trim().Length <= 0)   { lfSbMessage.Text ="กรุณาระบุรหัสยา"; return;         }
+            if (txtMasterDrugGenericCode.Text.Trim().Length <= 0 && chkMasterFncode.Checked==false)   { lfSbMessage.Text ="กรุณาระบุรหัสยา"; return;         }
             if (txtMasterSimb2CodeBSG.Text.Trim().Length <= 0)      { lfSbMessage.Text = "กรุณาระบุ SIMB2 code"; return; }
             String re = "";
-            if (chkMasterDrug.Checked)      {   re = bc.bcDB.pharM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
-            else if (chkMasterLab.Checked)  {   re = bc.bcDB.labM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
-            else if (chkMasterXray.Checked) {   re = bc.bcDB.xrayM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
-            else if (chkMasterProc.Checked) {   re = bc.bcDB.pm30DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim()); }
+            if (chkMasterDrug.Checked)      {   re = bc.bcDB.pharM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
+            else if (chkMasterLab.Checked)  {   re = bc.bcDB.labM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
+            else if (chkMasterXray.Checked) {   re = bc.bcDB.xrayM01DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());      }
+            else if (chkMasterProc.Checked) {   re = bc.bcDB.pm30DB.UpdateCodeBSG(txtMasterDrugGenericCode.Text.Trim(), txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim()); }
+            else if (chkMasterFncode.Checked) { re = bc.bcDB.finM01DB.updateSCodeBSG(txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim()); }
+            else if (chkMasterDf.Checked)   {   re = bc.bcDB.finM01DB.updateSCodeBSG(txtMasterFnCode.Text.Trim(), txtMasterSimb2CodeBSG.Text.Trim());       }
             if (long.Parse(re) > 0)
             {
                 lfSbMessage.Text = "Update SIMB2 code สำเร็จ";
                 setGrfMasterDrug();
             }
-            else
-            {
-                lfSbMessage.Text = re;
-            }
+            else            {                lfSbMessage.Text = re;            }
         }
-
         private void BtnSimb2New_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            FLAGNEWSIMB2 = true;
-            btnSimb2MapNew.Enabled = false;
-            btnSimb2Save.Enabled = false;
+            FLAGNEWSIMB2 = true;            btnSimb2MapNew.Enabled = false;            btnSimb2Save.Enabled = false;
         }
 
         private void TxtAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
             //throw new NotImplementedException();
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
-            {
-                e.Handled = true;
-            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.') {        e.Handled = true;      }
         }
-
         private void BtnExpenseSave_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if(txtExpenseID.Text.Length <= 0)   {                lfSbMessage.Text = "not id";                   return;                }
+            if(txtExpenseID.Text.Length <= 0)   {                lfSbMessage.Text = "not id";               return;         }
             FrmPasswordConfirm frm = new FrmPasswordConfirm(bc);
             frm.ShowDialog();
             frm.Dispose();
-            if (bc.USERCONFIRMID.Length <= 0)   {                lfSbMessage.Text = "Password ไม่ถูกต้อง";         return;             }
+            if (bc.USERCONFIRMID.Length <= 0)   {                lfSbMessage.Text = "Password ไม่ถูกต้อง";     return;         }
             String re = expenseDB.updateAmountDraw(long.Parse("999"+txtExpenseID.Text.Trim()), txtAmount.Text.Trim().Replace(",",""), bc.USERCONFIRMID);
         }
-
         private void RgSearch_KeyUp(object sender, KeyEventArgs e)
         {
             //throw new NotImplementedException();
             if (TABVSACTIVE.Equals(tabFinish.Name))
             {
                 lfSbMessage.Text = rgSearch.Text;
-                grfFinish.ApplySearch(rgSearch.Text.Trim(), true, true, false);
+                if (TABFINISHACTIVE.Equals(tabFinishOPD.Name))
+                {
+                    grfFinishOPD.ApplySearch(rgSearch.Text.Trim(), true, true, false);
+                }else if (TABFINISHACTIVE.Equals(tabFinishIPD.Name))
+                {
+                    grfFinishIPD.ApplySearch(rgSearch.Text.Trim(), true, true, false);
+                }
             }
+            else if (TABVSACTIVE.Equals(tabOper.Name)) { lfSbMessage.Text = rgSearch.Text; grfOperList.ApplySearch(rgSearch.Text.Trim(), true, true, false); }
         }
-
         private void TimeOperList_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            setGrfOperList();
+            setGrfOperList(ribbonDatePicker1.Value.Year + "-" + ribbonDatePicker1.Value.ToString("MM-dd"));
         }
         private void RgPrnReceipt_Click(object sender, EventArgs e)
         {
@@ -354,37 +642,43 @@ namespace bangna_hospital.gui
             printReceipt("original/ต้นฉบับ", bc.iniC.statusPrintPreview.Equals("1") ? "preview" : "");
             printReceipt("copy/สำเนา", bc.iniC.statusPrintPreview.Equals("1") ? "preview" : "");
         }
-
-        private void RgSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //throw new NotImplementedException();
-            //if (e.KeyChar == (char)Keys.Enter)
-            //{
-            //    String txt = rgSearch.Text.Trim();
-            //    if (txt.Length > 0)
-            //    {
-            //        if(tabMain.SelectedTab==tabFinish)
-            //        {
-                        
-            //        }
-            //    else
-            //    {
-                    
-            //    }
-            //}
-        }
         private void RgPrn1_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            printReceipt("copy/สำเนา", bc.iniC.statusPrintPreview.Equals("1") ? "preview":"");
+            //printReceipt("copy/สำเนา", bc.iniC.statusPrintPreview.Equals("1") ? "preview":"");
+            if (bc.iniC.branchId.Equals("001"))
+                printReceipt("ใบเสร็จรับเงิน/Receipt (Copy สำเนา)", bc.iniC.statusPrintPreview.Equals("1") ? "preview" : "");
+            else if (bc.iniC.branchId.Equals("005"))
+            {
+                PRINTORIGINAL = "ใบเสร็จรับเงิน/Receipt (Copy สำเนา)";
+                printReceiptBn5();
+            }
         }
         private void RgPrn_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if(bc.iniC.branchId.Equals("001"))
-                printReceipt("original/ต้นฉบับ", bc.iniC.statusPrintPreview.Equals("1") ? "preview":"");
-            else if (bc.iniC.branchId.Equals("005"))
-                printReceiptBn5();
+            if(TABVSACTIVE.Equals(tabFinish.Name))    
+            {
+                if (grfFinishOPD.Row <= 0) { MessageBox.Show("กรุณาเลือกข้อมูลที่ต้องการพิมพ์"); return; }
+                if (bc.iniC.branchId.Equals("001"))
+                    printReceipt("original/ต้นฉบับ", bc.iniC.statusPrintPreview.Equals("1") ? "preview" : "");
+                else if (bc.iniC.branchId.Equals("005"))
+                {
+                    PRINTORIGINAL = "ใบเสร็จรับเงิน/Receipt (Original ต้นฉบับ)";
+                    printReceiptBn5();//RgPrn_Click
+                }
+            }
+            else if(TABVSACTIVE.Equals(tabOper.Name)) 
+            {       
+                if (grfOperList.Row <= 0) { MessageBox.Show("กรุณาเลือกข้อมูลที่ต้องการพิมพ์"); return; }
+                if (bc.iniC.branchId.Equals("001"))
+                    printReceipt("copy/สำเนา", bc.iniC.statusPrintPreview.Equals("1") ? "preview" : "");
+                else if (bc.iniC.branchId.Equals("005"))
+                {
+                    PRINTORIGINAL = "ใบเสร็จรับเงิน/Receipt (Copy สำเนา)";
+                    printReceiptBn5();  //RgPrn_Click
+                }
+            }
         }
         private void printReceiptBn5()
         {
@@ -393,25 +687,26 @@ namespace bangna_hospital.gui
             Patient ptt = new Patient();
             ptt = bc.bcDB.pttDB.selectPatinetByHn(HN);
             DataTable dtvs = bc.bcDB.vsDB.selectCompByPreno(HN, VSDATE, PRENO);
-            if(dtvs.Rows.Count > 0) { 
+            DataTable dtcard = bc.bcDB.fint01DB.SelectCardRemark(DOCNO, DOCDATE);
+            DISCHARGEDATE = bc.bcDB.vsDB.selectDSDateAN1(HN, VSDATE, PRENO);
+            if (dtvs.Rows.Count > 0) { 
                 compname = dtvs.Rows[0]["MNC_COM_DSC"] != null ? dtvs.Rows[0]["MNC_COM_PRF"].ToString()+" "+dtvs.Rows[0]["MNC_COM_DSC"].ToString() : "";
                 compaddr1 = dtvs.Rows[0]["MNC_COM_ADD"] != null ? dtvs.Rows[0]["MNC_COM_ADD"].ToString() : "";
             }
-            AutoCompleteStringCollection acb = new AutoCompleteStringCollection();
-            acb = bc.bcDB.labM01DB.getlLabAll();
+            if (dtcard.Rows.Count > 0)
+            {
+                CARDTXT = dtcard.Rows[0]["MNC_CARD_DSC"].ToString() +" number "+ dtcard.Rows[0]["MNC_CARD_NO"].ToString() + " code " + dtcard.Rows[0]["MNC_CARD_CFM_NO"].ToString() + " Transfer amount " + dtcard.Rows[0]["MNC_CARD_AMT"].ToString();
+            }
+            
             Size proposedSize = new Size(100, 100);
             Form frm = new Form();
             frm.StartPosition = FormStartPosition.CenterParent;
             frm.WindowState = FormWindowState.Normal;
             frm.Size = new Size(800, 600);
 
-            Button btntaxid = new Button();
-            btntaxid.Text = "นิติบุคคล";
+            Button btntaxid = new Button();            btntaxid.Text = "นิติบุคคล";
             Size textSize = TextRenderer.MeasureText(btntaxid.Text, btntaxid.Font, proposedSize, TextFormatFlags.Left);
-            btntaxid.Location = new System.Drawing.Point(20, 0);
-            btntaxid.Size = new Size(100, 30);
-            btntaxid.Font = fEdit;
-            btntaxid.Click += Btntaxid_Click;
+            btntaxid.Location = new System.Drawing.Point(20, 0);            btntaxid.Size = new Size(100, 30);            btntaxid.Font = fEdit;            btntaxid.Click += Btntaxid_Click;
             txttaxid = new TextBox();
             txttaxid.Name = "txttaxid";
             txttaxid.Font = fEdit;
@@ -420,26 +715,20 @@ namespace bangna_hospital.gui
             txttaxid.Width = 300;
             txttaxid.Text = "";
 
-            Label lbName = new Label();
-            lbName.Text = "ชื่อบริษัท";
-            lbName.Location = new System.Drawing.Point(20, 30);
-            lbName.Font = fEdit;
+            Label lbName = new Label();            lbName.Text = "ชื่อบริษัท";            lbName.Location = new System.Drawing.Point(20, 30);            lbName.Font = fEdit;
             textSize = TextRenderer.MeasureText(lbName.Text, lbName.Font, proposedSize, TextFormatFlags.Left);
-            txtName = new TextBox();
-            txtName.Name = "txtName";
-            txtName.Font = fEdit;
-            txtName.Location = lbName.Location;
-            txtName.Left = lbName.Width + textSize.Width+10;
-            txtName.Width = 400;
-            txtName.Text = compname;
-            txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtName.AutoCompleteCustomSource = acb;
+            txtCompName = new TextBox();
+            txtCompName.Name = "txtCompName";
+            txtCompName.Font = fEdit;
+            txtCompName.Location = lbName.Location;
+            txtCompName.Left = lbName.Width + textSize.Width+10;
+            txtCompName.Width = 400;
+            txtCompName.Text = compname;
+            txtCompName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtCompName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtCompName.AutoCompleteCustomSource = acb;
 
-            Label lbAddr1 = new Label();
-            lbAddr1.Text = "ที่อยู่บริษัท1";
-            lbAddr1.Location = new System.Drawing.Point(20, 60);
-            lbAddr1.Font = fEdit;
+            Label lbAddr1 = new Label();            lbAddr1.Text = "ที่อยู่บริษัท1";            lbAddr1.Location = new System.Drawing.Point(20, 60);            lbAddr1.Font = fEdit;
             textSize = TextRenderer.MeasureText(lbAddr1.Text, lbName.Font, proposedSize, TextFormatFlags.Left);
             txtAddr1 = new TextBox();
             txtAddr1.Name = "txtAddr1";
@@ -449,10 +738,7 @@ namespace bangna_hospital.gui
             txtAddr1.Width = 400;
             txtAddr1.Text = compaddr1;
 
-            Label lbAddr2 = new Label();
-            lbAddr2.Text = "ที่อยู่บริษัท2";
-            lbAddr2.Location = new System.Drawing.Point(20, 90);
-            lbAddr2.Font = fEdit;
+            Label lbAddr2 = new Label();            lbAddr2.Text = "ที่อยู่บริษัท2";            lbAddr2.Location = new System.Drawing.Point(20, 90);            lbAddr2.Font = fEdit;
             textSize = TextRenderer.MeasureText(lbAddr1.Text, lbName.Font, proposedSize, TextFormatFlags.Left);
             txtAddr2 = new TextBox();
             txtAddr2.Name = "txtAddr2";
@@ -470,25 +756,19 @@ namespace bangna_hospital.gui
             grf.Rows.Count = 1;
             grf.Cols.Count = 4;
 
-            frm.Controls.Add(lbName);
-            frm.Controls.Add(txtName);
-            frm.Controls.Add(lbAddr1);
-            frm.Controls.Add(lbAddr2);
-            frm.Controls.Add(txtAddr1);
-            frm.Controls.Add(txtAddr2);
-            frm.Controls.Add(grf);
-            frm.Controls.Add(btntaxid);
-            frm.Controls.Add(txttaxid);
+            frm.Controls.Add(lbName);            frm.Controls.Add(txtCompName);            frm.Controls.Add(lbAddr1);
+            frm.Controls.Add(lbAddr2);            frm.Controls.Add(txtAddr1);            frm.Controls.Add(txtAddr2);
+            frm.Controls.Add(grf);            frm.Controls.Add(btntaxid);            frm.Controls.Add(txttaxid);
             theme1.SetTheme(frm, bc.iniC.themeApp);
-
             frm.ShowDialog(this);
             
             //DataTable dtinv = new DataTable();
             float total = setPrintReceipt("",DTINV);
-            genPDFreceipt(DTINV, total);
+            //genPDFreceipt(DTINV, total);
 
             frm.Dispose();
             hideLbLoading();
+            printReceiptSIMB2();
             lfSbMessage.Text = "พิมพ์ ใบเสร็จรับเงิน OK";
         }
         private void genReceipt(DataTable dtinv, float total)
@@ -541,10 +821,10 @@ namespace bangna_hospital.gui
             {
                 //pdf.DrawString("โรงพยาบาล บางนา5  55 หมู่4 ถนนเทพารักษ์ ตำบลบางพลีใหญ่ อำเภอบางพลี จังหวัด สมุทรปราการ 10540", fPDF, Brushes.Black, new PointF(recf.Width + 65, linenumber += gapLine), _sfLeft);   
                 String compname = "", compaddr1 = "", compaddr2 = "", invno="", pttname="",hn="",vsdate="", diadesc="",vstime="", invdate="", sypmtoms="";
-                compname = txtName.Text.Trim();
+                compname = txtCompName.Text.Trim();
                 compaddr1 = "ที่อยู่ " + txtAddr1.Text.Trim();
                 compaddr2 = " " + txtAddr2.Text.Trim();
-                pdf.DrawString(txtName.Text.Trim() , fPDF, Brushes.Black, new PointF(xCol2-20, 35), _sfLeft);
+                pdf.DrawString(txtCompName.Text.Trim() , fPDF, Brushes.Black, new PointF(xCol2-20, 35), _sfLeft);
                 pdf.DrawString(compaddr1, compaddr1.Length>45 ? fPDFs2 : fPDF, Brushes.Black, new PointF(xCol2-20, 50), _sfLeft);
                 pdf.DrawString(compaddr2,compaddr2.Length >45 ? fPDFs2 : fPDF, Brushes.Black, new PointF(xCol2 - 20, 62), _sfLeft);
                 pdf.DrawString("TAX ID: "+ txttaxid.Text.Trim(), fPDFs2, Brushes.Black, new PointF(xCol2-20, 73), _sfLeft);
@@ -596,7 +876,7 @@ namespace bangna_hospital.gui
                             // สูตร: หน้า 2 = baseOffset, หน้า 3 = baseOffset + additionalOffset, หน้า 4 = baseOffset + (additionalOffset*2)
                             int pageOffset = baseOffset + (additionalOffset * (pageCounter - 2));
                             linenumber = 5 + pageOffset;
-                            pdf.DrawString(txtName.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2 - 20, 35 + pageOffset), _sfLeft);
+                            pdf.DrawString(txtCompName.Text.Trim(), fPDF, Brushes.Black, new PointF(xCol2 - 20, 35 + pageOffset), _sfLeft);
                             pdf.DrawString(compaddr1, compaddr1.Length > 45 ? fPDFs2 : fPDF, Brushes.Black, new PointF(xCol2 - 20, 50 + pageOffset), _sfLeft);
                             pdf.DrawString(compaddr2, compaddr2.Length > 45 ? fPDFs2 : fPDF, Brushes.Black, new PointF(xCol2 - 20, 62 + pageOffset), _sfLeft);
                             pdf.DrawString("TAX ID: " + txttaxid.Text.Trim(), fPDFs2, Brushes.Black, new PointF(xCol2 - 20, 73 + pageOffset), _sfLeft);
@@ -728,6 +1008,8 @@ namespace bangna_hospital.gui
             if (!DTINV.Columns.Contains("comp_addr2")) DTINV.Columns.Add("comp_addr2", typeof(String));
             if (!DTINV.Columns.Contains("symptoms")) DTINV.Columns.Add("symptoms", typeof(String));
             if (!DTINV.Columns.Contains("discount")) DTINV.Columns.Add("discount", typeof(String));
+            string disc = DTINV.Columns.Contains("MNC_DIS_TOT") ? (DTINV.Columns["MNC_DIS_TOT"]?.ToString() ?? "") : "";
+            new LogWriter("d"," discount "+disc);
             foreach (DataRow drow in DTINV.Rows)
             {
                 Boolean chkname = false;
@@ -776,7 +1058,7 @@ namespace bangna_hospital.gui
             {
                 setLbLoading("กำลังโหลดข้อมูล ...");
                 showLbLoading();
-                //setGrfOperList();
+                setGrfOperList(ribbonDatePicker1.Value.Year + "-" + ribbonDatePicker1.Value.ToString("MM-dd"));
                 hideLbLoading();
                 TABVSACTIVE = tabOper.Name;
             }
@@ -785,7 +1067,7 @@ namespace bangna_hospital.gui
                 TABVSACTIVE = tabFinish.Name;
                 setLbLoading("กำลังโหลดข้อมูล ...");
                 showLbLoading();
-                setGrfFinish();
+                setGrfFinish(ribbonDatePicker1.Value.Year+ "-" + ribbonDatePicker1.Value.ToString("MM-dd"));
                 rgPrn.Visible = true;
                 rgPrn1.Visible = true;
                 rgPrnReceipt.Visible = true;
@@ -832,6 +1114,7 @@ namespace bangna_hospital.gui
             txtMasterSimb2CodeBSG.Value = "";
             txtMasterSimb2CodeSubGTH.Value = "";
             txtMasterSimb2CodeSubGEN.Value = "";
+            txtMasterFnCode.Value = "";
         }
         private void setLbLoading(String txt)
         {
@@ -917,7 +1200,6 @@ namespace bangna_hospital.gui
                 txtMasterSimb2CodeSubGEN.Value = grfMasterSimb2[grfMasterSimb2.Row, colgrfSimb2CodeSubGEN]?.ToString() ?? "";
             }
         }
-
         private void setGrfMasterSimb2()
         {
             DataTable dt = new DataTable();
@@ -986,6 +1268,7 @@ namespace bangna_hospital.gui
             grfMasterDrug.Cols[colgrfDrugBillingSubGroupTH].AllowEditing = false;
             grfMasterDrug.SelectionMode = SelectionModeEnum.Row;
             pnMasterDrugView.Controls.Add(grfMasterDrug);
+            grfMasterDrug.SelectionMode = SelectionModeEnum.ListBox;
             grfMasterDrug.Click += GrfMasterDrug_Click;
         }
         private void GrfMasterDrug_Click(object sender, EventArgs e)
@@ -994,18 +1277,33 @@ namespace bangna_hospital.gui
             if (grfMasterDrug.Row <= 0) return;
             String code = grfMasterDrug[grfMasterDrug.Row, colgrfDrugCode]?.ToString() ?? "";
             String name = grfMasterDrug[grfMasterDrug.Row, colgrfDrugName]?.ToString() ?? "";
-            txtMasterDrugGenericCode.Value = code;
-            txtMasterDrugGenricName.Value = name;
+            String fncode = grfMasterDrug[grfMasterDrug.Row, colgrfDrugFnCd]?.ToString() ?? "";
+            var selectedRows = grfMasterDrug.Rows.Cast<Row>().Where(r => r.Index > 0 && r.Selected).ToList();
+            if (selectedRows.Count > 0)
+            {
+                String code1 = "";
+                foreach (var row in selectedRows)
+                {
+                    string drugCode = grfMasterDrug[row.Index, colgrfDrugCode]?.ToString() ?? "";
+                    string drugName = grfMasterDrug[row.Index, colgrfDrugName]?.ToString() ?? "";
+                    code1 += drugCode + ",";
+                }
+                txtMasterDrugGenericCode.Value = code1;
+                txtMasterDrugGenricName.Value = name;
+                txtMasterFnCode.Value = fncode;
+                txtMasterSimb2BillGEN.Value = grfMasterDrug[grfMasterDrug.Row, colgrfDrugFnName]?.ToString() ?? "";
+            }
         }
         private void setGrfMasterDrug()
         {
             DataTable dt = new DataTable();
-            if(chkMasterDrug.Checked )          {   dt = bc.bcDB.pharM01DB.SelectDrugMap("drug");            }
-            else if(chkMastersupply.Checked)    {   dt = bc.bcDB.pharM01DB.SelectDrugMap("supply");          }
+            if(chkMasterDrug.Checked )          {   dt = bc.bcDB.pharM01DB.SelectDrugMap("drug");           }
+            else if(chkMastersupply.Checked)    {   dt = bc.bcDB.pharM01DB.SelectDrugMap("supply");         }
             else if (chkMasterLab.Checked )     {   dt = bc.bcDB.labM01DB.SelectLabMap();                   }
             else if (chkMasterXray.Checked)     {   dt = bc.bcDB.xrayM01DB.SelectXrayMap();                 }
             else if (chkMasterProc.Checked)     {   dt = bc.bcDB.pm30DB.SelectProcedureMap();               }
             else if (chkMasterDf.Checked)       {   dt = bc.bcDB.finM01DB.SelectDfMap();                    }
+            else if (chkMasterFncode.Checked)   {   dt = bc.bcDB.finM01DB.SelectCodeDSGMap(); }
             grfMasterDrug.Rows.Count = 1;
             if (dt.Rows.Count > 0)
             {
@@ -1236,14 +1534,27 @@ namespace bangna_hospital.gui
             VSDATE = grfOperList[grfOperList.Row, colgrfOperListVsDate].ToString();
             HN = grfOperList[grfOperList.Row, colgrfOperListHn].ToString();
             //setControlOper(grfOperList.Name);
+
+
+            //if (grfFinish.Row <= 0) return;
+            //HN = grfFinish[grfFinish.Row, colgrfFinishHn].ToString();
+            //PRENO = grfFinish[grfFinish.Row, colgrfFinishPreno].ToString();
+            PTTNAME = grfOperList[grfOperList.Row, colgrfOperListFullNameT].ToString();
+            VSDATE = grfOperList[grfOperList.Row, colgrfOperListVsDate].ToString();
+            VSTIME = grfOperList[grfOperList.Row, colgrfOperListVsTime].ToString();
+            DOCDATE = grfOperList[grfOperList.Row, colgrfOperListVsDate].ToString();
+            //DOCNO = grfOperList[grfOperList.Row, colgrfOperListDocno].ToString();
+            //FNCODE = grfFinish[grfFinish.Row, colgrfDrugFnCd].ToString();
+
+            setGrfInv(DOCNO, DOCDATE);
         }
-        private void setGrfOperList()
+        private void setGrfOperList(String date)
         {
             if (isLoad) return;
             if (grfOperList == null || grfOperList.IsDisposed || !grfOperList.IsHandleCreated) return;
             C1.Win.C1FlexGrid.RowCollection rows;
-            try         {                rows = grfOperList.Rows;            }
-            catch       {                return; /* rows not ready yet */           }
+            try         {                rows = grfOperList.Rows;               }
+            catch       {                return; /* rows not ready yet */       }
 
             if (rows == null) return;
             isLoad = true;
@@ -1253,7 +1564,7 @@ namespace bangna_hospital.gui
                 showLbLoading();
                 DataTable dtvs = new DataTable();
                 String deptno = bc.bcDB.pm32DB.getDeptNoOPD(bc.iniC.station);
-                String vsdate = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
+                String vsdate = date;
                 DateTime dateTime = DateTime.Now.AddDays(-1);
                 //vsdate = dateTime.Year.ToString() + "-" + dateTime.ToString("MM-dd");
                 dtvs = bc.bcDB.vsDB.selectPttActNo131_600PharmacyOK("", "", vsdate, vsdate);
@@ -1293,61 +1604,87 @@ namespace bangna_hospital.gui
                 isLoad = false;
             }
         }
-        private void initGrfInv()
+        private void initGrfInv(ref C1FlexGrid grf, ref Panel pn)
         {
-            grfInv = new C1FlexGrid();
-            grfInv.Font = fEdit;
-            grfInv.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfInv.Location = new System.Drawing.Point(0, 0);
+            grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
             //grfOrder.Rows[0].Visible = false;
             //grfOrder.Cols[0].Visible = false;
-            grfInv.Rows.Count = 1;
-            grfInv.Cols.Count = 10;
-            grfInv.Cols[colgrfFinishHn].DataType = typeof(string);
-            grfInv.Cols[colgrfFinishHn].Caption = "MNC_DEF_CD";
-            grfInv.Cols[colgrfFinishFullNameT].Caption = "MNC_DEF_DSC";
-            grfInv.Cols[colgrfFinishSymptoms].Caption = "MNC_ORD_BY";
-            grfInv.Cols[colgrfFinishPaidName].Caption = "MNC_AMT";
-            grfInv.Cols[colgrfFinishPreno].Caption = "MNC_DEF_LEV";
-            grfInv.Cols[colgrfFinishVsDate].Caption = "MNC_TOT_AMT";
-            grfInv.Cols[colgrfFinishVsTime].Caption = "MNC_DIS_AMT";
-            grfInv.Cols[colgrfFinishActNo].Caption = "";
-            grfInv.Cols[colgrfFinishDocno].Caption = "MNC_DOC_NO";
-            grfInv.Cols[colgrfFinishHn].Width = 90;
-            grfInv.Cols[colgrfFinishFullNameT].Width = 300;
-            grfInv.Cols[colgrfFinishSymptoms].Width = 100;
-            grfInv.Cols[colgrfFinishPaidName].Width = 100;
-            grfInv.Cols[colgrfFinishPreno].Width = 50;
-            grfInv.Cols[colgrfFinishVsDate].Width = 100;
-            grfInv.Cols[colgrfFinishVsTime].Width = 70;
-            grfInv.Cols[colgrfFinishActNo].Width = 100;
-            grfInv.Cols[colgrfFinishDocno].Width = 200;
-            grfInv.Cols[colgrfFinishHn].AllowEditing = false;
-            grfInv.Cols[colgrfFinishFullNameT].AllowEditing = false;
-            grfInv.Cols[colgrfFinishSymptoms].AllowEditing = false;
-            grfInv.Cols[colgrfFinishPaidName].AllowEditing = false;
-            grfInv.Cols[colgrfFinishPreno].AllowEditing = false;
-            grfInv.Cols[colgrfFinishVsDate].AllowEditing = false;
-            grfInv.Cols[colgrfFinishVsTime].AllowEditing = false;
-            grfInv.Cols[colgrfFinishActNo].AllowEditing = false;
-            grfInv.Cols[colgrfFinishDocno].AllowEditing = false;
-            grfInv.Cols[colgrfFinishPreno].Visible = false;
-            grfInv.Name = "grfInv";
-            pnGrfFinishInv.Controls.Add(grfInv);
-            theme1.SetTheme(grfInv, bc.iniC.themegrfIpd);
+            grf.Rows.Count = 1;
+            grf.Cols.Count = 10;
+            grf.Cols[colgrfFinishHn].DataType = typeof(string);
+            grf.Cols[colgrfFinishHn].Caption = "MNC_DEF_CD";
+            grf.Cols[colgrfFinishFullNameT].Caption = "MNC_DEF_DSC";
+            grf.Cols[colgrfFinishSymptoms].Caption = "MNC_ORD_BY";
+            grf.Cols[colgrfFinishPaidName].Caption = "MNC_AMT";
+            grf.Cols[colgrfFinishPreno].Caption = "MNC_DEF_LEV";
+            grf.Cols[colgrfFinishVsDate].Caption = "MNC_TOT_AMT";
+            grf.Cols[colgrfFinishVsTime].Caption = "MNC_DIS_AMT";
+            grf.Cols[colgrfFinishActNo].Caption = "";
+            grf.Cols[colgrfFinishDocno].Caption = "MNC_DOC_NO";
+            grf.Cols[colgrfFinishHn].Width = 90;
+            grf.Cols[colgrfFinishFullNameT].Width = 300;
+            grf.Cols[colgrfFinishSymptoms].Width = 100;
+            grf.Cols[colgrfFinishPaidName].Width = 100;
+            grf.Cols[colgrfFinishPreno].Width = 50;
+            grf.Cols[colgrfFinishVsDate].Width = 100;
+            grf.Cols[colgrfFinishVsTime].Width = 70;
+            grf.Cols[colgrfFinishActNo].Width = 100;
+            grf.Cols[colgrfFinishDocno].Width = 200;
+            grf.Cols[colgrfFinishHn].AllowEditing = false;
+            grf.Cols[colgrfFinishFullNameT].AllowEditing = false;
+            grf.Cols[colgrfFinishSymptoms].AllowEditing = false;
+            grf.Cols[colgrfFinishPaidName].AllowEditing = false;
+            grf.Cols[colgrfFinishPreno].AllowEditing = false;
+            grf.Cols[colgrfFinishVsDate].AllowEditing = false;
+            grf.Cols[colgrfFinishVsTime].AllowEditing = false;
+            grf.Cols[colgrfFinishActNo].AllowEditing = false;
+            grf.Cols[colgrfFinishDocno].AllowEditing = false;
+            grf.Cols[colgrfFinishPreno].Visible = false;
+            if (pn.Name.Equals("pnGrfFinishInvIPD"))
+            {
+                grf.Name = "grfInvIPD";
+            }else if (pn.Name.Equals("pnGrfFinishView"))
+            {
+                grf.Name = "grfInv";
+            }
+            pn.Controls.Add(grf);
+            theme1.SetTheme(grf, bc.iniC.themegrfIpd);
         }
         private void setGrfInv(String docno, String docdate)
         {
             if (isLoad) return;
             setLbLoading("กำลังโหลดข้อมูล ...");
             showLbLoading();
+            PTT = bc.bcDB.pttDB.selectPatinetByHn(HN);
+            VS = bc.bcDB.vsDB.selectbyPreno(HN, VSDATE, PRENO);
+            setLbLoading("กำลังโหลดข้อมูล ...tem02");
             DTINV = bc.bcDB.tem02DB.SelectByDocno1(docno, docdate);
+            setLbLoading("กำลังโหลดข้อมูล ...finance");
+            DTSIMB2 = bc.bcDB.fint01DB.SelectItemsByDocNo(docno, docdate);
+            if ((DTSIMB2.Rows.Count > 0) && VS.VN.Length<=0)
+            {
+                VS.VN = DTSIMB2.Rows[0]["MNC_VN_NO"].ToString()+"."+ DTSIMB2.Rows[0]["MNC_VN_SEQ"].ToString();
+            }
             //DTINV = bc.bcDB.tem01DB.se(docno, docdate);
-            grfInv.Rows.Count = 1; grfInv.Rows.Count = DTINV.Rows.Count + 1;
+            if(TABFINISHACTIVE.Equals(tabFinishOPD.Name))
+            {
+                grfInv.Rows.Count = 1; grfInv.Rows.Count = DTINV.Rows.Count + 1;
+            }else if(TABFINISHACTIVE.Equals(tabFinishIPD.Name))
+            {
+                grfInvIPD.Rows.Count = 1; grfInvIPD.Rows.Count = DTINV.Rows.Count + 1;
+            }
+
             int i = 1, j = 1;
+            setLbLoading("กำลังโหลดข้อมูล ...setgrid");
             foreach (DataRow row1 in DTINV.Rows)
             {
-                Row rowa = grfInv.Rows[i];
+                Row rowa = null;
+                if (TABFINISHACTIVE.Equals(tabFinishOPD.Name))                {                    rowa = grfInv.Rows[i];                }
+                else if(TABFINISHACTIVE.Equals(tabFinishIPD.Name))                {                    rowa = grfInvIPD.Rows[i];                }
+                    
                 rowa[colgrfFinishHn] = row1["MNC_DEF_CD"].ToString();
                 rowa[colgrfFinishFullNameT] = row1["MNC_DEF_DSC"].ToString();
                 rowa[colgrfFinishSymptoms] = row1["MNC_ORD_BY"].ToString();
@@ -1364,89 +1701,137 @@ namespace bangna_hospital.gui
             lfSbMessage.Text = "พบ " + DTINV.Rows.Count + "รายการ";
             hideLbLoading();
         }
-        private void initGrfFinish()
-        {
-            grfFinish = new C1FlexGrid();
-            grfFinish.Font = fEdit;
-            grfFinish.Dock = System.Windows.Forms.DockStyle.Fill;
-            grfFinish.Location = new System.Drawing.Point(0, 0);
+        private void initGrfFinish(ref C1FlexGrid grf,ref Panel pn)
+        {            
+            grf = new C1FlexGrid();
+            grf.Font = fEdit;
+            grf.Dock = System.Windows.Forms.DockStyle.Fill;
+            grf.Location = new System.Drawing.Point(0, 0);
             //grfOrder.Rows[0].Visible = false;
             //grfOrder.Cols[0].Visible = false;
-            grfFinish.Rows.Count = 1;
-            grfFinish.Cols.Count = 11;
-            grfFinish.Cols[colgrfFinishHn].Caption = "HN";
-            grfFinish.Cols[colgrfFinishFullNameT].Caption = "Patient Name";
-            grfFinish.Cols[colgrfFinishSymptoms].Caption = "อาการ";
-            grfFinish.Cols[colgrfFinishPaidName].Caption = "สิทธิ";
-            grfFinish.Cols[colgrfFinishPreno].Caption = "preno";
-            grfFinish.Cols[colgrfFinishVsDate].Caption = "วันที่";
-            grfFinish.Cols[colgrfFinishVsTime].Caption = "เวลา";
-            grfFinish.Cols[colgrfFinishActNo].Caption = "Act No";
-            grfFinish.Cols[colgrfFinishDocno].Caption = "Dtr Name";
-            grfFinish.Cols[colgrfFinishHn].Width = 90;
-            grfFinish.Cols[colgrfFinishFullNameT].Width = 200;
-            grfFinish.Cols[colgrfFinishSymptoms].Width = 300;
-            grfFinish.Cols[colgrfFinishPaidName].Width = 120;
-            grfFinish.Cols[colgrfFinishPreno].Width = 50;
-            grfFinish.Cols[colgrfFinishVsDate].Width = 100;
-            grfFinish.Cols[colgrfFinishVsTime].Width = 70;
-            grfFinish.Cols[colgrfFinishActNo].Width = 100;
-            grfFinish.Cols[colgrfFinishDocno].Width = 200;
-            grfFinish.Cols[colgrfFinishHn].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishFullNameT].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishSymptoms].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishPaidName].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishPreno].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishVsDate].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishVsTime].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishActNo].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishDocno].AllowEditing = false;
-            grfFinish.Cols[colgrfFinishPreno].Visible = false;
-            grfFinish.Name = "grfFinish";
-            grfFinish.Click += GrfFinish_Click;
-            pnGrfFinishView.Controls.Add(grfFinish);
-            theme1.SetTheme(grfFinish, bc.iniC.themegrfIpd);
+            grf.Rows.Count = 1;
+            grf.Cols.Count = 13;
+            grf.Cols[colgrfFinishHn].Caption = "HN";
+            grf.Cols[colgrfFinishFullNameT].Caption = "Patient Name";
+            grf.Cols[colgrfFinishSymptoms].Caption = "อาการ";
+            grf.Cols[colgrfFinishPaidName].Caption = "สิทธิ";
+            grf.Cols[colgrfFinishPreno].Caption = "preno";
+            grf.Cols[colgrfFinishVsDate].Caption = "วันที่";
+            grf.Cols[colgrfFinishVsTime].Caption = "เวลา";
+            grf.Cols[colgrfFinishActNo].Caption = "Act No";
+            grf.Cols[colgrfFinishDocno].Caption = "Dtr Name";
+            grf.Cols[colgrfFinishHn].Width = 90;
+            grf.Cols[colgrfFinishFullNameT].Width = 200;
+            grf.Cols[colgrfFinishSymptoms].Width = 300;
+            grf.Cols[colgrfFinishPaidName].Width = 120;
+            grf.Cols[colgrfFinishPreno].Width = 50;
+            grf.Cols[colgrfFinishVsDate].Width = 100;
+            grf.Cols[colgrfFinishVsTime].Width = 70;
+            grf.Cols[colgrfFinishActNo].Width = 100;
+            grf.Cols[colgrfFinishDocno].Width = 200;
+            grf.Cols[colgrfFinishHn].AllowEditing = false;
+            grf.Cols[colgrfFinishFullNameT].AllowEditing = false;
+            grf.Cols[colgrfFinishSymptoms].AllowEditing = false;
+            grf.Cols[colgrfFinishPaidName].AllowEditing = false;
+            grf.Cols[colgrfFinishPreno].AllowEditing = false;
+            grf.Cols[colgrfFinishVsDate].AllowEditing = false;
+            grf.Cols[colgrfFinishVsTime].AllowEditing = false;
+            grf.Cols[colgrfFinishActNo].AllowEditing = false;
+            grf.Cols[colgrfFinishDocno].AllowEditing = false;
+            grf.Cols[colgrfFinishDocdate].AllowEditing = false;
+            grf.Cols[colgrfFinishPreno].Visible = false;
+            grf.Cols[colgrfFinishPaidCode].Visible = false;
+            grf.Dock = DockStyle.Fill;
+            grf.Click += GrfFinish_Click;
+            
+            pn.Controls.Add(grf);
+            if (pn.Name.Equals("pnGrfFinishViewIPD"))
+            {
+                grf.Name = "grfFinishOPD";
+            }
+            theme1.SetTheme(grf, bc.iniC.themegrfIpd);
+            
         }
         private void GrfFinish_Click(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (grfFinish.Row <= 0) return;
-            HN = grfFinish[grfFinish.Row, colgrfFinishHn].ToString();
-            PRENO = grfFinish[grfFinish.Row, colgrfFinishPreno].ToString();
-            PTTNAME = grfFinish[grfFinish.Row, colgrfFinishFullNameT].ToString();
-            VSDATE = grfFinish[grfFinish.Row, colgrfFinishVsDate].ToString();
-            VSTIME = grfFinish[grfFinish.Row, colgrfFinishVsTime].ToString();
-            DOCDATE = grfFinish[grfFinish.Row, colgrfFinishVsDate].ToString();
-            DOCNO = grfFinish[grfFinish.Row, colgrfFinishDocno].ToString();
+            if(((C1FlexGrid)sender).Row <= 0) return;
+            if (!(sender is C1FlexGrid grid) || grid.Row <= 0) return;
+            //if (((C1FlexGrid)sender).Name.Equals(grfFinishOPD.Name))
+            //{
+                HN = grid[grid.Row, colgrfFinishHn].ToString();
+                PRENO = grid[grid.Row, colgrfFinishPreno].ToString();
+                PTTNAME = grid[grid.Row, colgrfFinishFullNameT].ToString();
+                VSDATE = grid[grid.Row, colgrfFinishVsDate].ToString();
+                VSTIME = grid[grid.Row, colgrfFinishVsTime].ToString();
+                DOCDATE = grid[grid.Row, colgrfFinishDocdate].ToString();
+                DOCNO = grid[grid.Row, colgrfFinishDocno].ToString();
+                PAIDCODE = grid[grid.Row, colgrfFinishPaidName].ToString();
+                ANNO = grid[grid.Row, colgrfFinishAN].ToString();
+            //grid.Dispose();
+                setGrfInv(DOCNO, DOCDATE);
+            //}
+            //else if (((C1FlexGrid)sender).Name.Equals(grfFinishIPD.Name))
+            //{
+            //    HN = grfFinishIPD[grfFinishIPD.Row, colgrfFinishHn].ToString();
+            //    PRENO = grfFinishIPD[grfFinishIPD.Row, colgrfFinishPreno].ToString();
+            //    PTTNAME = grfFinishIPD[grfFinishIPD.Row, colgrfFinishFullNameT].ToString();
+            //    VSDATE = grfFinishIPD[grfFinishIPD.Row, colgrfFinishVsDate].ToString();
+            //    VSTIME = grfFinishIPD[grfFinishIPD.Row, colgrfFinishVsTime].ToString();
+            //    DOCDATE = grfFinishIPD[grfFinishIPD.Row, colgrfFinishDocdate].ToString();
+            //    DOCNO = grfFinishIPD[grfFinishIPD.Row, colgrfFinishDocno].ToString();
+            //    PAIDCODE = grfFinishIPD[grfFinishIPD.Row, colgrfFinishPaidName].ToString();
+            //    ANNO = grfFinishIPD[grfFinishIPD.Row, colgrfFinishAN].ToString();
+
+            //    setGrfInv(DOCNO, DOCDATE);
+            //}
             
-            setGrfInv(DOCNO, DOCDATE);
         }
-        private void setGrfFinish()
+        private void setGrfFinish(String date)
         {
             if (isLoad) return;
-            DataTable dtvs = new DataTable();
-            
-            dtvs = bc.bcDB.fint01DB.SelectPaidOPDByDate(System.DateTime.Now.Year+"-"+DateTime.Now.ToString("MM-dd"));
-
-            grfFinish.Rows.Count = 1; grfFinish.Rows.Count = dtvs.Rows.Count + 1;
+            DataTable dtvs = new DataTable();            
+            dtvs = bc.bcDB.fint01DB.SelectPaidOPDByDate(date);
+            grfFinishOPD.Rows.Count = 1; grfFinishOPD.Rows.Count = dtvs.Rows.Count + 1;
             int i = 1, j = 1;
+            int opdCount = 0, ipdCount = 0;
+            int rowCount = dtvs.Rows.Count;
+            for (int idx = 0; idx < rowCount; idx++)
+            {
+                DataRow row = dtvs.Rows[idx];
+                string anNo = row["MNC_AN_NO"]?.ToString() ?? "";
+                if (!anNo.Equals("0"))                    ipdCount++;
+                else                    opdCount++;
+            }
+            grfFinishOPD.Rows.Count = opdCount + 1;
+            grfFinishIPD.Rows.Count = ipdCount + 1;
+            int opdIndex = 1, ipdIndex = 1;
             foreach (DataRow row1 in dtvs.Rows)
             {
-                Row rowa = grfFinish.Rows[i];
+                Row rowa = null;
+                if (!row1["MNC_AN_NO"].ToString().Equals("0"))                
+                {                    
+                    rowa = grfFinishIPD.Rows[ipdIndex];
+                    rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#CCE5FF");
+                    ipdIndex++;
+                }
+                else                {                    rowa = grfFinishOPD.Rows[opdIndex]; opdIndex++; }
                 rowa[colgrfFinishHn] = row1["MNC_HN_NO"].ToString();
                 rowa[colgrfFinishFullNameT] = row1["pttfullname"].ToString();
                 rowa[colgrfFinishSymptoms] = row1["MNC_DIA_DSC"].ToString();
                 rowa[colgrfFinishPaidName] = row1["MNC_FN_TYP_DSC"].ToString();
                 rowa[colgrfFinishPreno] = row1["MNC_PRE_NO"].ToString();
-                rowa[colgrfFinishVsDate] = row1["MNC_DOC_DAT"].ToString();
-                rowa[colgrfFinishVsTime] = row1["MNC_DOC_TIM"].ToString();
+                rowa[colgrfFinishVsDate] = row1["MNC_DATE"].ToString();
+                rowa[colgrfFinishVsTime] = row1["MNC_TIME"].ToString();
                 rowa[colgrfFinishDocno] = row1["MNC_DOC_NO"].ToString();
+                rowa[colgrfFinishDocdate] = row1["MNC_DOC_DAT"].ToString();
                 rowa[colgrfFinishAN] = row1["MNC_AN_NO"].ToString();
+                rowa[colgrfFinishPaidCode] = row1["MNC_FN_TYP_CD"].ToString();
                 rowa[0] = i.ToString();
                 i++;
                 if(row1["MNC_AN_NO"].ToString().Length > 1)
                 {
-                    rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#EBBDB6");
+                    rowa.StyleNew.BackColor = ColorTranslator.FromHtml("#CCE5FF");      //- เขียวอ่อน     •	#CCE5FF - ฟ้าอ่อน
                 }
             }
             lfSbMessage.Text = "พบ " + dtvs.Rows.Count + "รายการ";
@@ -1482,20 +1867,141 @@ namespace bangna_hospital.gui
                 focusedControl = Control.FromHandle(focusedHandle);
             return focusedControl;
         }
-        private void printReceipt(String hn, String reqno, String reqdate)
+        private void printReceiptDetailSIMB2()
         {
-            dtPrint = bc.bcDB.xrayT02DB.selectbyHNReqNo(hn, reqdate, reqno);
-            if (dtPrint.Rows.Count == 0) { lfSbMessage.Text = "ไม่พบข้อมูลใบสั่ง Xray"; return; }
+            if ((DTSIMB2 != null) && (DTSIMB2.Rows.Count == 0)) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
             // Reset counter
+            //new LogWriter("e", "printReceiptDetailSIMB2 ");
+            currentPrintRow = 0; totalNet = 0;
+            PRINTORIGINAL = "ใบแจ้งรายละเอียดค่ารักษาพยาบาล/Receipt Detail (Original ต้นฉบับ)";
+            PrintDocument document = new PrintDocument();
+            document.PrinterSettings.PrinterName = bc.iniC.printerA4;
+            document.PrintPage += Document_PrintPageReceiptDetail;
+            document.EndPrint += Document_ReceiptDetailEndPrint;
+            document.BeginPrint += Document_ReceiptDetailBeginPrint;
+            document.DefaultPageSettings.Landscape = false;
+            //document.Print();
+            // ── Preview ──────────────────────────────────────────────
+            using (PrintPreviewDialog preview = new PrintPreviewDialog())
+            {
+                preview.Document = document;
+                preview.Width = 900;
+                preview.Height = 700;
+                preview.Text = PRINTORIGINAL;
+                preview.ShowDialog();   // แสดง Preview → กด Print ใน Dialog ได้เลย
+            }
+            PRINTORIGINAL = "ใบแจ้งรายละเอียดค่ารักษาพยาบาล/Receipt Detail (copy สำเนา)";
+            //document.PrintPage += Document_PrintPageReceipt1;
+            //document.Print();
+            // Clear ข้อมูลหลังพิมพ์เสร็จ
+            DTPRINT = null; DTSIMB2 = null;
+        }
+        private void Document_ReceiptDetailBeginPrint(object sender, PrintEventArgs e)
+        {
+            //throw new NotImplementedException();
+            totalNet = 0;
+        }
+        private void Document_ReceiptDetailEndPrint(object sender, PrintEventArgs e)
+        {
+            //throw new NotImplementedException();
+            totalNet = 0; currentPrintPage = 0;
+        }
+        private void Document_PrintPageReceiptDetail(object sender, PrintPageEventArgs e)
+        {
+            //ทำให้เหมือนเดิม Document_PrintPageReceipt1 แต่แยก header, table header, table rows, total+footer ออกเป็น method แยกกัน แล้วค่อยเรียกใช้ในนี้อีกที
+            Graphics g = e.Graphics;
+            float pageWidth = e.PageBounds.Width, pageHeight = e.PageBounds.Height, y = margin;
+            colDesc = margin;
+            colDescW = pageWidth - margin * 2 - 270;
+            colAmount = colDesc + colDescW;
+            colDiscount = colAmount + colAmountW;
+            colNet = colDiscount + colDiscountW;
+            currentPrintPage++;
+            //totalNet = 0;
+            // ... (fonts, brushes เหมือนเดิม)
+            // ============================================================
+            // HEADER — พิมพ์ทุกหน้า
+            // ============================================================
+            y = PrintReceiptHeader(g, pageWidth, margin, currentPrintPage);//Document_PrintPageReceiptDetail   ^ แยก header ออกเป็น method แล้ว return ค่า y หลัง header            
+            // ============================================================
+            // TABLE HEADER — พิมพ์ทุกหน้า
+            // ============================================================
+            y = PrintReceiptTableHeader(g, pageWidth, margin, y);
+            // ============================================================
+            // TABLE ROWS — วนต่อจาก currentPrintRow
+            // ============================================================
+            float footerHeight = 120f; // พื้นที่สำรองไว้สำหรับ total+footer (หน้าสุดท้าย)  // ลดลงจาก 200f
+            float maxY = pageHeight - margin - footerHeight - 40;
+            var allRows = DTPRINT.AsEnumerable().ToList(); // หรือแยก normal/doctor ตามเดิม
+            while (currentPrintRow < allRows.Count)
+            {
+                DataRow row = allRows[currentPrintRow];
+                DataRow rownext = null;
+                if (currentPrintRow + 1 < allRows.Count)        {       rownext = allRows[currentPrintRow + 1];     }
+                float rowH = MeasureRowHeight(g, row,"", pageWidth); // ความสูงแต่ละ row
+                // ถ้า row นี้จะเกินหน้า
+                if (y + rowH > maxY)
+                {
+                    PrintReceiptTotal(g, pageWidth, pageHeight, margin, 0, true);
+                    PrintReceiptFooter(g, pageWidth, pageHeight, margin);
+                    e.HasMorePages = true; return; /* หยุดแค่นี้ — event จะถูกเรียกอีกครั้งสำหรับหน้าถัดไป */
+                }
+                totalNet += PrintReceiptDetailRow(g, row,rownext, pageWidth, margin, y);
+                y += rowH;
+                currentPrintRow++;
+            }
+            y = PrintReceiptTotal(g, pageWidth, pageHeight, margin, totalNet, false); //Document_PrintPageReceiptDetail
+            PrintReceiptFooter(g, pageWidth, pageHeight, margin);//Document_PrintPageReceiptDetail
+
+            e.HasMorePages = false;
+
+            // Reset สำหรับครั้งถัดไป
             currentPrintRow = 0;
+            currentPrintPage = 0;
+        }
+        private void printReceiptSIMB2()
+        {
+            DTPRINT = DTSIMB2;
+            if (DTPRINT.Rows.Count == 0) { lfSbMessage.Text = "ไม่พบข้อมูล"; return; }
+            // Reset counter
+            currentPrintRow = 0; totalNet = 0;
+            PRINTORIGINAL = "ใบเสร็จรับเงิน/Receipt (Original ต้นฉบับ)";
             PrintDocument document = new PrintDocument();
             document.PrinterSettings.PrinterName = bc.iniC.printerA4;
             document.PrintPage += Document_PrintPageReceipt1;
+            document.BeginPrint += Document_BeginPrintReceipt1;
             document.DefaultPageSettings.Landscape = false;
-            document.Print();
+            if (bc.iniC.statusPrintPreview.Equals("1"))
+            {
+                using (PrintPreviewDialog preview = new PrintPreviewDialog())
+                {
+                    preview.Document = document;
+                    preview.Width = 900;
+                    preview.Height = 700;
+                    preview.Text = PRINTORIGINAL;
+                    preview.ShowDialog();   // แสดง Preview → กด Print ใน Dialog ได้เลย
+                }
+                PRINTORIGINAL = "ใบเสร็จรับเงิน/Receipt (copy สำเนา)";
+                //document.PrintPage += Document_PrintPageReceipt1;
+                //document.Print();
+            }
+            else
+            {
+                document.Print();
+                PRINTORIGINAL = "ใบเสร็จรับเงิน/Receipt (copy สำเนา)";
+                //document.PrintPage += Document_PrintPageReceipt1;
+                document.Print();
+            }
             // Clear ข้อมูลหลังพิมพ์เสร็จ
-            dtPrint = null;
+            DTPRINT = null; DTSIMB2 = null;
         }
+
+        private void Document_BeginPrintReceipt1(object sender, PrintEventArgs e)
+        {
+            //throw new NotImplementedException();
+            currentPrintRow = 0; totalNet = 0;
+        }
+
         private void Document_PrintPageReceipt(object sender, PrintPageEventArgs e)
         {
             //throw new NotImplementedException();
@@ -1508,7 +2014,7 @@ namespace bangna_hospital.gui
             int maxPrintableHeight = A5_HEIGHT - MARGIN_BOTTOM; // 400 points
             // ✅ กำหนดค่าคงที่สำหรับกระดาษ A5 Landscape
             const int MAX_Y = A5_HEIGHT - MARGIN_BOTTOM + adjHeight; // 390 points
-            if (dtPrint == null || dtPrint.Rows.Count == 0) { e.HasMorePages = false; lfSbMessage.Text = "ไม่พบข้อมูลใบสั่ง Xray"; return; }
+            if (DTPRINT == null || DTPRINT.Rows.Count == 0) { e.HasMorePages = false; lfSbMessage.Text = "ไม่พบข้อมูลใบสั่ง Xray"; return; }
             String pttname = "", deptname = "", dtrname = "", vsdatetime = "", reqdatetime = "", compname = "", paidname = "", hn = "", vn = "";
             String userreq = "", line = null, prndate = "", price = "", qty = "", price1 = "";
             float colName = 10, col1 = 50, col2 = 250, col3 = 450, col4 = 550, colPriceR2L = 180, colqty = 200, colqtyRtoL = 225, col5 = 620;
@@ -1516,9 +2022,9 @@ namespace bangna_hospital.gui
             var logo1 = System.Drawing.Image.FromFile(Environment.CurrentDirectory + "\\LOGO-BW-tran.jpg");
             System.Drawing.Image logo = (System.Drawing.Image)logo1.Clone();
             logo1.Dispose();
-            if (currentPrintRow == 0 || currentPrintRow >= dtPrint.Rows.Count)
+            if (currentPrintRow == 0 || currentPrintRow >= DTPRINT.Rows.Count)
             {
-                DataRow firstRow = dtPrint.Rows[0];
+                DataRow firstRow = DTPRINT.Rows[0];
                 pttname = firstRow["pttfullname"]?.ToString() ?? "";
                 deptname = firstRow["MNC_SEC_NO"]?.ToString() ?? "";
                 compname = firstRow["MNC_RES_MAS"]?.ToString() ?? "";
@@ -1573,9 +2079,9 @@ namespace bangna_hospital.gui
             // ✅ พิมพ์รายการ Lab (สูงสุด 9 รายการต่อหน้า)
             int rowsOnThisPage = 0; int startRow = currentPrintRow;
 
-            for (int i = startRow; i < dtPrint.Rows.Count && rowsOnThisPage < MAX_ROWS_PER_PAGE; i++)
+            for (int i = startRow; i < DTPRINT.Rows.Count && rowsOnThisPage < MAX_ROWS_PER_PAGE; i++)
             {
-                DataRow arow = dtPrint.Rows[i];
+                DataRow arow = DTPRINT.Rows[i];
                 offset += (int)fontHeight + 5;
                 String stat = "";
                 String desc = (arow["order_name"]?.ToString() ?? "") + " " + (arow["order_code"]?.ToString() ?? "");
@@ -1587,19 +2093,19 @@ namespace bangna_hospital.gui
                 rowsOnThisPage++; currentPrintRow++;
             }
             int pagecnt = 0;
-            pagecnt = (dtPrint.Rows.Count / 10);
-            if ((dtPrint.Rows.Count % 10) > 0) pagecnt++;
+            pagecnt = (DTPRINT.Rows.Count / 10);
+            if ((DTPRINT.Rows.Count % 10) > 0) pagecnt++;
             // ✅ Footer
             offset += (int)fontHeight + 5;
             g.DrawString("...............................................................................................................................................................................................................................................", fPDF, Brushes.Black, startX, MAX_Y);
             g.DrawString("user/เจ้าหน้าที่ " + userreq, fPDF, Brushes.Black, col1, MAX_Y + 15);
-            g.DrawString("total/รวมรายการ " + dtPrint.Rows.Count, fPDF, Brushes.Black, col3, MAX_Y + 15);
+            g.DrawString("total/รวมรายการ " + DTPRINT.Rows.Count, fPDF, Brushes.Black, col3, MAX_Y + 15);
             g.DrawString("page " + pagecur + "/" + pagecnt, fPDF, Brushes.Black, col5, MAX_Y + 15);
             g.DrawString("...............................................................................................................................................................................................................................................", fPDF, Brushes.Black, startX, MAX_Y + 25);
             g.DrawString("FM-XRT-040 (00-08/04/59)(1/1)", fPDFs2, Brushes.Black, startX, MAX_Y + 30);
 
             // ✅ ตรวจสอบว่ายังมีรายการเหลืออยู่หรือไม่
-            if (currentPrintRow < dtPrint.Rows.Count)
+            if (currentPrintRow < DTPRINT.Rows.Count)
             {
                 pagecur++;
                 e.HasMorePages = true;  // พิมพ์หน้าต่อไป
@@ -1613,21 +2119,19 @@ namespace bangna_hospital.gui
         private void Document_PrintPageReceipt1(object sender, PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
-            float pageWidth = e.PageBounds.Width;
-            float pageHeight = e.PageBounds.Height;
-            float y = margin;
+            float pageWidth = e.PageBounds.Width, pageHeight = e.PageBounds.Height, y = margin;            
             colDesc = margin;
             colDescW = pageWidth - margin * 2 - 270;
             colAmount = colDesc + colDescW;
             colDiscount = colAmount + colAmountW;
             colNet = colDiscount + colDiscountW;
+            totalNet = 0;
             currentPrintPage++;
             // ... (fonts, brushes เหมือนเดิม)
             // ============================================================
             // HEADER — พิมพ์ทุกหน้า
             // ============================================================
-            y = PrintReceiptHeader(g, pageWidth, margin, currentPrintPage);
-            //   ^ แยก header ออกเป็น method แล้ว return ค่า y หลัง header
+            y = PrintReceiptHeader(g, pageWidth, margin, currentPrintPage);//Document_PrintPageReceipt1   ^ แยก header ออกเป็น method แล้ว return ค่า y หลัง header            
             // ============================================================
             // TABLE HEADER — พิมพ์ทุกหน้า
             // ============================================================
@@ -1636,30 +2140,26 @@ namespace bangna_hospital.gui
             // TABLE ROWS — วนต่อจาก currentPrintRow
             // ============================================================
             float footerHeight = 120f; // พื้นที่สำรองไว้สำหรับ total+footer (หน้าสุดท้าย)
-            float maxY = pageHeight - margin - footerHeight;
-            var allRows = dtPrint.AsEnumerable().ToList(); // หรือแยก normal/doctor ตามเดิม
+            float maxY = pageHeight - margin - footerHeight - 40;
+            var allRows = DTPRINT.AsEnumerable().ToList(); // หรือแยก normal/doctor ตามเดิม
             while (currentPrintRow < allRows.Count)
             {
                 DataRow row = allRows[currentPrintRow];
-                float rowH = MeasureRowHeight(g, row, pageWidth); // ความสูงแต่ละ row
+                float rowH = MeasureRowHeight(g, row,"", pageWidth); // ความสูงแต่ละ row
                 // ถ้า row นี้จะเกินหน้า
                 if (y + rowH > maxY)
                 {
-                    e.HasMorePages = true;
-                    return; // หยุดแค่นี้ — event จะถูกเรียกอีกครั้งสำหรับหน้าถัดไป
+                    PrintReceiptTotal(g, pageWidth, pageHeight, margin, totalNet, true);
+                    PrintReceiptFooter(g, pageWidth, pageHeight, margin);
+                    e.HasMorePages = true;                    return; /* หยุดแค่นี้ — event จะถูกเรียกอีกครั้งสำหรับหน้าถัดไป */
                 }
-                totalNet = PrintReceiptRow(g, row, pageWidth, margin, y);
+                totalNet += PrintReceiptRow(g, row, pageWidth, margin, y);
                 y += rowH;
                 currentPrintRow++;
             }
-            // ============================================================
-            // ถึงตรงนี้ = พิมพ์ rows ครบแล้ว → พิมพ์ total + footer
-            // ============================================================
-            y = PrintReceiptTotal(g, pageWidth, margin, y, totalNet);
-            PrintReceiptFooter(g, pageWidth, margin, y);
-
+            y = PrintReceiptTotal(g, pageWidth, pageHeight, margin, totalNet, false);
+            PrintReceiptFooter(g, pageWidth, pageHeight, margin);
             e.HasMorePages = false;
-
             // Reset สำหรับครั้งถัดไป
             currentPrintRow = 0;
             currentPrintPage = 0;
@@ -1673,35 +2173,84 @@ namespace bangna_hospital.gui
             // ============================================================
             // TABLE HEADER
             // ============================================================
-            float colDesc = margin;
-            float colDescW = pageWidth - margin * 2 - 270;
-            float colAmount = colDesc + colDescW;
-            float colAmountW = 90f;
-            float colDiscount = colAmount + colAmountW;
-            float colDiscountW = 90f;
-            float colNet = colDiscount + colDiscountW;
-            float colNetW = 90f;
-            float rowH = 20f;
-
+            float colDesc = margin, rowH = 20f, colDescW = pageWidth - margin * 2 - 270, colAmount = colDesc + colDescW;
+            float colAmountW = 90f, colDiscountW = 90f, colNetW = 90f, colDiscount = colAmount + colAmountW, colNet = colDiscount + colDiscountW;
             // เส้นบน header
             g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
             y += 2;
+            //g.DrawRectangle(Pens.Black, margin, y, pageWidth - margin * 2, rowH);
+            // วาดพื้นหลังสีจางๆ
+            g.FillRectangle(new SolidBrush(Color.FromArgb(232, 232, 232)), margin, y-1, pageWidth - margin * 2, rowH*2);
 
-            g.DrawString("รายการ", fntBold, Brushes.Black,                new RectangleF(colDesc, y, colDescW, rowH), sfCenter);
-            g.DrawString("จำนวนเงิน", fntBold, Brushes.Black,                new RectangleF(colAmount, y, colAmountW, rowH), sfCenter);
-            g.DrawString("ส่วนลด", fntBold, Brushes.Black,                new RectangleF(colDiscount, y, colDiscountW, rowH), sfCenter);
-            g.DrawString("คงเหลือ", fntBold, Brushes.Black,                new RectangleF(colNet, y, colNetW, rowH), sfCenter);
+            g.DrawString("รายการ", fntBold, Brushes.Black,              new RectangleF(colDesc, y, colDescW, rowH), sfCenter);
+            g.DrawString("จำนวนเงิน", fntBold, Brushes.Black,            new RectangleF(colAmount, y, colAmountW, rowH), sfCenter);
+            g.DrawString("ส่วนลด", fntBold, Brushes.Black,               new RectangleF(colDiscount, y, colDiscountW, rowH), sfCenter);
+            g.DrawString("คงเหลือ", fntBold, Brushes.Black,              new RectangleF(colNet, y, colNetW, rowH), sfCenter);
             y += rowH;
 
-            g.DrawString("Description", fntBold, Brushes.Black,                new RectangleF(colDesc, y, colDescW, rowH), sfCenter);
-            g.DrawString("Amount", fntBold, Brushes.Black,                new RectangleF(colAmount, y, colAmountW, rowH), sfCenter);
-            g.DrawString("Discount", fntBold, Brushes.Black,                new RectangleF(colDiscount, y, colDiscountW, rowH), sfCenter);
-            g.DrawString("Net Amount", fntBold, Brushes.Black,                new RectangleF(colNet, y, colNetW, rowH), sfCenter);
+            g.DrawString("Description", fntBold, Brushes.Black,         new RectangleF(colDesc, y, colDescW, rowH), sfCenter);
+            g.DrawString("Amount", fntBold, Brushes.Black,              new RectangleF(colAmount, y, colAmountW, rowH), sfCenter);
+            g.DrawString("Discount", fntBold, Brushes.Black,            new RectangleF(colDiscount, y, colDiscountW, rowH), sfCenter);
+            g.DrawString("Net Amount", fntBold, Brushes.Black,          new RectangleF(colNet, y, colNetW, rowH), sfCenter);
             y += rowH;
 
             g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
+            
             y += 4;
-            return y + 20f; // ตัวอย่าง เพิ่มความสูง 20 หลัง header
+            //return y + 20f; // ตัวอย่าง เพิ่มความสูง 20 หลัง header
+            return y; // ตัวอย่าง เพิ่มความสูง 20 หลัง header
+        }
+        private decimal PrintReceiptDetailRow(Graphics g, DataRow row, DataRow rownext, float pageWidth, float margin, float y)
+        {
+            // พิมพ์ข้อมูลแต่ละ row ตาม column ต่างๆ
+            // ใช้ row["COLUMN_NAME"] เพื่อดึงข้อมูล
+            // ใช้ g.DrawString(...) เพื่อพิมพ์ข้อมูล
+            // คำนวณตำแหน่ง x ของแต่ละ column ตามที่กำหนดไว้
+            string space = "     ", desc1="", codebsg="", location="";
+            string parent = row["service_type"]?.ToString() ?? "";
+            string desc = parent.Equals("parent") ? row["item_name"]?.ToString() ?? "" :  row["MNC_DEF_DSC"]?.ToString() ?? "";
+            if((rownext != null)&&parent.Equals("parent2")) {
+                location = rownext["location_simb2"]?.ToString() ?? "";
+                if (!location.Equals("")) desc1 = desc + " (" + location+")";
+            }
+            else            {                desc1 = row["item_name"]?.ToString() ?? "";            }
+            codebsg = row["CodeBSG"]?.ToString() ?? "";
+            if (codebsg.Equals("1.1"))
+            {
+
+            }
+            if (codebsg.Equals("1.2"))
+            {
+
+            }
+            //decimal amount = row["MNC_FN_AMT"] != DBNull.Value ? Convert.ToDecimal(row["MNC_FN_AMT"]) : 0;
+            decimal amount = row["amount"] != DBNull.Value ? Convert.ToDecimal(row["amount"]) : 0;
+            //decimal disc = row["MNC_FN_DIS"] != DBNull.Value ? Convert.ToDecimal(row["MNC_FN_DIS"]) : 0;
+            decimal disc = row["discount"] != DBNull.Value ? Convert.ToDecimal(row["discount"]) : 0;
+            decimal amt = amount - disc;
+            if (parent.Equals("parent")) { desc = codebsg + " " + desc1; amount = 0; disc = 0; amt = 0; }
+            else if (parent.Equals("parent1")) { desc = space + codebsg + " " + desc1; }
+            else if (parent.Equals("parent2")) { desc = space + space + codebsg + " " + desc1; }
+            else desc = space + space + space + desc1;
+            
+            //totalNet += net;MNC_SIMB_CD
+            desc = row["MNC_SIMB_CD"]?.ToString() + "  " + desc;
+            g.DrawString(desc, fntNormal, Brushes.Black, new RectangleF(colDesc + 4, y, colDescW - 4, rowH));
+            if (amount != 0) g.DrawString(amount.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colAmount, y, colAmountW - 4, rowH), sfRight);
+            if (disc != 0) g.DrawString(disc.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colDiscount, y, colDiscountW - 4, rowH), sfRight);
+            if (amt > 0) g.DrawString(amt.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colNet, y, colNetW - 4, rowH), sfRight);
+            //if (!parent.Equals("parent"))
+            //{
+            //    if ((!parent.Equals("parent1")))
+            //    {
+            //        if ((!parent.Equals("parent2")))
+            //        {
+            //            g.DrawString(totalnet.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colNet, y, colNetW - 4, rowH), sfRight);
+            //        }
+            //    }
+            //}
+            y += rowH;
+            return amt;
         }
         private decimal PrintReceiptRow(Graphics g, DataRow row, float pageWidth, float margin, float y)
         {
@@ -1709,23 +2258,31 @@ namespace bangna_hospital.gui
             // ใช้ row["COLUMN_NAME"] เพื่อดึงข้อมูล
             // ใช้ g.DrawString(...) เพื่อพิมพ์ข้อมูล
             // คำนวณตำแหน่ง x ของแต่ละ column ตามที่กำหนดไว้
-            
-            string desc = row["ITEMNAME"]?.ToString() ?? "";
-            decimal amount = row["AMOUNT"] != DBNull.Value ? Convert.ToDecimal(row["AMOUNT"]) : 0;
-            decimal disc = row["DISCOUNT"] != DBNull.Value ? Convert.ToDecimal(row["DISCOUNT"]) : 0;
+            string desc = row["BillingSubGroupTH"]?.ToString() ?? "";
+            decimal amount = row["MNC_FN_AMT"] != DBNull.Value ? Convert.ToDecimal(row["MNC_FN_AMT"]) : 0;
+            decimal disc = row["MNC_FN_DIS"] != DBNull.Value ? Convert.ToDecimal(row["MNC_FN_DIS"]) : 0;
             decimal totalnet = amount - disc;
-            //totalNet += net;
-
+            //totalNet += net;MNC_SIMB_CD
+            //desc = row["MNC_SIMB_CD"]?.ToString()+"  " + desc;
+            String codebsg = row["CodeBSG"]?.ToString() ?? "";
+            codebsg = codebsg + "          ";
+            codebsg = codebsg.Substring(0, 10);
+            desc = codebsg + "  " + desc;
             g.DrawString(desc, fntNormal, Brushes.Black, new RectangleF(colDesc + 4, y, colDescW - 4, rowH));
-            if (amount != 0)
-                g.DrawString(amount.ToString("#,##0.00"), fntNormal, Brushes.Black,                        new RectangleF(colAmount, y, colAmountW - 4, rowH), sfRight);
-            if (disc != 0)
-                g.DrawString(disc.ToString("#,##0.00"), fntNormal, Brushes.Black,                        new RectangleF(colDiscount, y, colDiscountW - 4, rowH), sfRight);
-            g.DrawString(totalnet.ToString("#,##0.00"), fntNormal, Brushes.Black,                    new RectangleF(colNet, y, colNetW - 4, rowH), sfRight);
+            if (amount != 0) g.DrawString(amount.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colAmount, y, colAmountW - 4, rowH), sfRight);
+            if (disc != 0) g.DrawString(disc.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colDiscount, y, colDiscountW - 4, rowH), sfRight);
+            g.DrawString(totalnet.ToString("#,##0.00"), fntNormal, Brushes.Black, new RectangleF(colNet, y, colNetW - 4, rowH), sfRight);
             y += rowH;
             return totalnet;
         }
-        private float PrintReceiptTotal(Graphics g, float pageWidth, float margin, float y, decimal totalNet)
+        private float PrintReceiptTotal(Graphics g, float pageWidth, float pageHeight, float margin, Boolean hasmorepage)
+        {
+            float footerHeight = 160f; // ความสูงของ footer ทั้งหมด
+            float y = pageHeight - margin - footerHeight+70, top = 0f;
+            g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
+            return y + 20f; // ตัวอย่าง เพิ่มความสูง 20 หลัง total
+        }
+        private float PrintReceiptTotal(Graphics g, float pageWidth, float pageHeight, float margin, decimal totalNet, Boolean hasmorepage)
         {
             // พิมพ์ส่วน total เช่น "รวมทั้งสิ้น", "ส่วนลด", "ยอดสุทธิ" ฯลฯ
             // ใช้ g.DrawString(...) เพื่อพิมพ์ total
@@ -1733,43 +2290,78 @@ namespace bangna_hospital.gui
             // TOTAL
             // ============================================================
             // ดึงข้อมูล header จาก row แรก
-            DataRow hdr = dtPrint.Rows[0];
+            //decimal totalnet1 = totalNet;
+            //new LogWriter("e", "PrintReceiptTotal totalNet " + totalNet);
+            float footerHeight = 160f; // ความสูงของ footer ทั้งหมด
+            float y = pageHeight - margin - footerHeight,top=0f;
+            //top = (y + 8 + 36 +29) - (y);
+            top = 8 + 36 + 29;
+            DataRow hdr = DTPRINT.Rows[0];
             g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
-            y += 4;
-
-            string totalText = hdr["TOTALTEXT"]?.ToString() ?? NumberToText(totalNet);
-            string payMethod = hdr["PAYMETHOD"]?.ToString() ?? "";
-
-            g.DrawString("จำนวนเงิน\nTotal Amount in letters", fntNormal, Brushes.Black,                new RectangleF(margin, y, 120, 36));
-            g.DrawString($"{totalText}", fntNormal, Brushes.Black,                new RectangleF(margin + 124, y, colDescW - 124, 18));
-            g.DrawString("รวมทั้งสิ้น\nTotal", fntBold, Brushes.Black,                new RectangleF(colAmount, y, colAmountW + colDiscountW, 36), sfCenter);
-            g.DrawString(totalNet.ToString("#,##0.00"), fntBold, Brushes.Black,                new RectangleF(colNet, y, colNetW - 4, 18), sfRight);
-            g.DrawString(totalNet.ToString("#,##0.00"), fntBold, Brushes.Black,                new RectangleF(colNet, y + 18, colNetW - 4, 18), sfRight);
-            y += 36;
-            g.DrawString(payMethod, fntNormal, Brushes.Black,                new RectangleF(margin + 124, y, colDescW - 124, 18));
-            y += 24;
-            g.DrawLine(Pens.Black, margin, y, pageWidth - margin, y);
-            // ============================================================
-            // STAMP "จ่ายแล้ว" (ถ้าชำระแล้ว)
-            // ============================================================
-            bool isPaid = hdr["PAYSTATUS"]?.ToString() == "Y";
-            if (isPaid)
+            y += 1;
+            // ✅ วาดพื้นหลังสีจางๆ ให้ส่วน Total
+            g.FillRectangle(new SolidBrush(Color.FromArgb(232, 232, 232)), margin, (y), pageWidth - (margin * 2), top-2);
+            y += 6;
+            decimal amount = hdr["MNC_PAY_CASH"] != DBNull.Value ? Convert.ToDecimal(hdr["MNC_PAY_CASH"]) : 0;
+            if (amount <= 0) { if(hdr.Table.Columns.Contains("MNC_PAY_CARD")) amount = hdr["MNC_PAY_CARD"] != DBNull.Value ? Convert.ToDecimal(hdr["MNC_PAY_CARD"]) : 0; }
+            if (PRINTORIGINAL.Equals("ใบแจ้งรายละเอียดค่ารักษาพยาบาล/Receipt Detail (Original ต้นฉบับ)"))
             {
-                g.TranslateTransform(pageWidth - margin - 120, y - 100);
-                g.RotateTransform(-15);
-                g.DrawString("จ่ายแล้ว", fntStamp, Brushes.Red, 0, 0);
-                g.ResetTransform();
+                amount = totalNet;
             }
+            decimal discount = 0;
+            if (DTPRINT.Columns.Contains("MNC_DIS_TOT"))
+            {
+                discount = hdr["MNC_DIS_TOT"] != DBNull.Value ? Convert.ToDecimal(hdr["MNC_DIS_TOT"]) : 0;
+            }
+            string totalText = NumberToText(amount);
+            string payMethod = "";
+            //payMethod = hdr["MNC_NO"]?.ToString() ?? "";
+            if (!string.IsNullOrEmpty(CARDTXT))            {                payMethod = CARDTXT;            }
+            String txt = "จำนวนเงิน\nTotal Amount in letters", txttotalnet="", txtdiscount="";
+            SizeF sz = g.MeasureString(txt, fntNormal, (int)colDescW);
+            g.DrawString(txt, fntNormal, Brushes.Black,                new RectangleF(margin, y, sz.Width, sz.Height));
+            if(hasmorepage) totalText = " (มีรายการต่อหน้าถัดไป)";
+            g.DrawString($"{totalText}", fntNormal, Brushes.Black,                new RectangleF(margin + 124, y, colDescW - 124, 18));
+            txt = "รวมทั้งสิ้น/Total";            sz = g.MeasureString(txt, fntNormal, (int)colDescW);
+            g.DrawString(txt, fntBold, Brushes.Black,                new RectangleF(colAmount, y, colAmountW + colDiscountW, sz.Height), sfLeft);
+            if (hasmorepage) txttotalnet = ""; else txttotalnet = totalNet.ToString("#,##0.00");     //มีต่อหน้าถัดไป
+            g.DrawString(txttotalnet, fntBold, Brushes.Black,                new RectangleF(colNet, y, colNetW - 4, 18), sfRight);
+            
+            txt = "ส่วนลด/Discount"; sz = g.MeasureString(txt, fntNormal, (int)colDescW);
+            g.DrawString(txt, fntBold, Brushes.Black, new RectangleF(colAmount, (y+20), colAmountW + colDiscountW, sz.Height), sfLeft);
+            if(discount != 0) txtdiscount = discount.ToString("#,##0.00"); else txtdiscount = "";
+            g.DrawString(txtdiscount, fntBold, Brushes.Black, new RectangleF(colNet, y+20, colNetW - 4, 18), sfRight);
+            txt = "สุทธิ/nettotal"; sz = g.MeasureString(txt, fntNormal, (int)colDescW);
+            float ynettotal = (y + 40);
+            g.DrawString(txt, fntBold, Brushes.Black, new RectangleF(colAmount, ynettotal, colAmountW + colDiscountW, sz.Height), sfLeft);
+
+            y += 36;
+            txt = "ช่องทางชำระเงิน " + payMethod;            //sz = g.MeasureString(txt, fntSmall, (int)colDescW);
+            float colH2 = 0;
+            if (txt.Length > 150) { colH2 = MeasureRowWidth(g, txt, pageWidth, fntSmall);
+                g.DrawString(txt, fntSmall, Brushes.Black, new RectangleF(margin, y + 12, colH2, sz.Height), sfLeft);
+            }
+            else { colH2 = MeasureRowWidth(g, txt, pageWidth, fntNormal);
+                g.DrawString(txt, fntSmall, Brushes.Black, new RectangleF(margin, y + 12, colH2, sz.Height), sfLeft);
+            }
+
+            txttotalnet = amount.ToString("#,##0.00");
+            g.DrawString(txttotalnet, fntBold, Brushes.Black, new RectangleF(colNet, ynettotal, colNetW - 4, sz.Height), sfRight);
+            y += 29;
+            g.DrawLine(Pens.Black, margin, y+2, pageWidth - margin, y);
+            
             //y += 20;
             return y + 20f; // ตัวอย่าง เพิ่มความสูง 20 หลัง total
         }
-        private void PrintReceiptFooter(Graphics g, float pageWidth, float margin, float y)
+        private void PrintReceiptFooter(Graphics g, float pageWidth, float pageHeight, float margin)
         {
             // พิมพ์ส่วน footer เช่น "ขอบคุณที่ใช้บริการ", "ติดต่อเราได้ที่..." ฯลฯ
             // ใช้ g.DrawString(...) เพื่อพิมพ์ footer
             // ============================================================
             // FOOTER
             // ============================================================
+            float footerHeight = 80f; // ความสูงของ footer ทั้งหมด
+            float y = pageHeight - margin - footerHeight;
             string footerTh = "เพื่อความปลอดภัยของผู้ป่วย โรงพยาบาลขอสงวนสิทธิ์ไม่รับเปลี่ยนหรือคืนยา";
             string footerEn = "For patient safety, The hospital reseves the right not to accept any exchange or return of medication";
             g.DrawString(footerTh, fntSmall, Brushes.Black, new RectangleF(margin, y, pageWidth - margin * 2 - 120, 16), sfCenter);
@@ -1781,120 +2373,199 @@ namespace bangna_hospital.gui
             float sigX = pageWidth - margin - 130;
             g.DrawLine(Pens.Black, sigX, y, sigX + 120, y);
             y += 2;
-            g.DrawString("วิจิตรา นวลผ่อง", fntNormal, Brushes.Black,                new RectangleF(sigX, y, 120, 18), sfCenter);
+            
+            DataRow hdr = DTPRINT.Rows[0];
+            //String aaa =  hdr["MNC_USR_CD"].ToString();
+            string usrCode = GetColumnValue(hdr, "MNC_USR_CD");
+            usrCode = bc.bcDB.stfDB.selectBycd(usrCode);
+            float colH1 = MeasureRowWidth(g, usrCode, pageWidth, fntNormal);
+            g.DrawString(usrCode, fntNormal, Brushes.Black, new RectangleF(sigX, y, colH1, 18), sfCenter);
             y += 18;
-            g.DrawString("เจ้าหน้าที่การเงิน / Cashier", fntSmall, Brushes.Black,                new RectangleF(sigX, y, 120, 16), sfCenter);
+            colH1 = MeasureRowWidth(g, "เจ้าหน้าที่การเงิน / Cashier", pageWidth, fntSmall);
+            g.DrawString("เจ้าหน้าที่การเงิน / Cashier", fntSmall, Brushes.Black, new RectangleF(sigX, y, colH1, 16), sfCenter);
         }
-        private float MeasureRowHeight(Graphics g, DataRow row, float pageWidth)
+        // เพิ่ม method ช่วยใน FrmCashier class
+        private string GetColumnValue(DataRow row, string columnName, string defaultValue = "")
+        {
+            if (row == null || row.Table == null)
+                return defaultValue;
+
+            if (!row.Table.Columns.Contains(columnName))
+                return defaultValue;
+
+            return row[columnName]?.ToString() ?? defaultValue;
+        }
+        private float MeasureRowHeight(Graphics g, DataRow row, String txt, float pageWidth)
         {
             float colDescW = pageWidth - 40f * 2 - 270; // เหมือนที่คำนวณใน handler
-            Font fntNormal = new Font(pfc.Families[0], 13);
-            SizeF sz = g.MeasureString(row["ITEMNAME"]?.ToString() ?? "", fntNormal,  (int)colDescW);
-            fntNormal.Dispose();
+            //fntNormal = new Font(pfc.Families[0], 13);
+            SizeF sz;
+            if (row != null)            {                sz = g.MeasureString(row["MNC_DEF_DSC"]?.ToString(), fntNormal, (int)colDescW);            }
+            else            {                sz = g.MeasureString(txt, fntNormal, (int)colDescW);            }
+            //fntNormal.Dispose();
             return Math.Max(sz.Height, 20f);
+        }
+        private float MeasureRowWidth(Graphics g, String txt, float pageWidth, Font fnt)
+        {
+            float colDescW = pageWidth - 40f * 2 - 270; // เหมือนที่คำนวณใน handler
+            //fntNormal = new Font(pfc.Families[0], 13);
+            SizeF sz;
+            sz = g.MeasureString(txt, fnt, (int)colDescW);
+            //fntNormal.Dispose();
+            return Math.Max(sz.Width, 20f);
         }
         private float PrintReceiptHeader(Graphics g, float pageWidth, float margin, int pageNo)
         {
+            //new LogWriter("d", this.Name + " PrintReceiptHeader  ");
             float y = margin;
-            Font fntTitle = new Font(pfc.Families[0], 16, FontStyle.Bold);
-            Font fntBold = new Font(pfc.Families[0], 13, FontStyle.Bold);
-            Font fntNormal = new Font(pfc.Families[0], 13, FontStyle.Regular);
-            Font fntSmall = new Font(pfc.Families[0], 11, FontStyle.Regular);
-            StringFormat sfCenter = new StringFormat { Alignment = StringAlignment.Center };
-            StringFormat sfRight = new StringFormat { Alignment = StringAlignment.Far };
-            DataRow hdr = dtPrint.Rows[0];
+            DataRow hdr = DTPRINT.Rows[0];
             // ----------------------------------------
             // เลขหน้า (top right)
             // ----------------------------------------
-            int totalPages = CalcTotalPages(g, pageWidth, margin);
+            //new LogWriter("d", this.Name + " PrintReceiptHeader  aaa");
+            int totalPages = CalcTotalPages1(g, pageWidth, margin);
+            prndate = DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss");
             g.DrawString($"{pageNo}/{totalPages}", fntNormal, Brushes.Black,  new RectangleF(pageWidth - margin - 50, y, 50, 18), sfRight);
-
-            // ----------------------------------------
-            // Logo
-            // ----------------------------------------
-            g.DrawRectangle(Pens.Black, margin, y, 60, 50);
-            g.DrawString("INTRARAT\nHOSPITAL", fntSmall, Brushes.Black, new RectangleF(margin, y, 60, 50), sfCenter);
-
-            // ----------------------------------------
-            // ชื่อโรงพยาบาล
-            // ----------------------------------------
-            float cx = margin + 65;
-            float cw = pageWidth - margin * 2 - 65;
-
-            g.DrawString("บริษัท โรงพยาบาลอินทรารัตน์ จำกัด", fntTitle, Brushes.Black, new RectangleF(cx, y, cw, 22), sfCenter);
-            y += 22;
-            g.DrawString("INTRARAT HOSPITAL COMPANY LIMITED", fntBold, Brushes.Black, new RectangleF(cx, y, cw, 18), sfCenter);
-            y += 18;
-            g.DrawString("เลขที่ 555/5 ถนนรามอินทรา, แขวงรามอินทรา เขตคันนายาว, กรุงเทพฯ 10230 โทร 02 481 5555", fntSmall, Brushes.Black, new RectangleF(cx, y, cw, 16), sfCenter);
-            y += 16;
-            g.DrawString("555/5 Raminthra Rd, Raminthra, Khannayao Bangkok 10230 Tel +66 2 481 5555", fntSmall, Brushes.Black, new RectangleF(cx, y, cw, 16), sfCenter);
-            y += 20;
-
-            // ----------------------------------------
-            // แผนก OPD + Tax ID  (ทุกหน้า)
-            // ----------------------------------------
-            g.DrawString("แผนกผู้ป่วยนอก / OPD", fntBold, Brushes.Black, margin, y);
-            g.DrawString("เลขประจำตัวผู้เสียภาษี", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
-            y += 16;
-            g.DrawString("Tax ID 0105557153755", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
+            //new LogWriter("d", this.Name + " PrintReceiptHeader 00 ");
+            if ((logo != null)  && (imgRatio > boxRatio)) /* รูปกว้างกว่า */{  float h = logoW / imgRatio; float yOffset = (logoH - h) / 2;    g.DrawImage(logo, margin, y + yOffset-10, logoW, h);   }
+            else /* รูปสูงกว่าหรือพอดี */    {       float w = logoH * imgRatio;     float xOffset = (logoW - w) / 2;    g.DrawImage(logo, margin + xOffset, y, w, logoH);   }
+            //new LogWriter("d", this.Name + " PrintReceiptHeader 01 ");
+            //float cx = margin + 65;
+            float cx = margin + 25;
+            float cw = Math.Max(1f, pageWidth - margin * 2 - 65);
+            g.DrawString(bc.iniC.hostname, fntTitle, Brushes.Black, new RectangleF(cx, y, cw, (rowH+2)), sfCenter);
+            y += rowH;
+            g.DrawString(bc.iniC.hostnamee, fntTitle, Brushes.Black, new RectangleF(cx, y, cw, (rowH+2)), sfCenter);
+            y += (rowH+2);
+            g.DrawString(bc.iniC.hostaddresst, fntSmall, Brushes.Black, new RectangleF(cx, y, cw, (rowH)), sfCenter);
+            y += (rowH-2);
+            g.DrawString(bc.iniC.hostaddresse, fntSmall, Brushes.Black, new RectangleF(cx, y, cw, (rowH-2)), sfCenter);
+            y += rowH;
+            g.DrawString("เลขประจำตัวผู้เสียภาษี", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, rowH), sfRight);
+            y += (rowH-2);
+            g.DrawString("Tax ID 0105526004138", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, rowH), sfRight);
             y += 4;
-
-            // ----------------------------------------
-            // กล่อง ใบเสร็จรับเงิน — เฉพาะหน้าแรก
-            // ----------------------------------------
-            if (pageNo == 1)
+            //if (pageNo == 1)
+            //{float rowH = MeasureRowHeight(g, row, pageWidth); // ความสูงแต่ละ row
+            float rowH1 = MeasureRowHeight(g, null, PRINTORIGINAL, pageWidth); // ความสูงแต่ละ row
+            float colH1 = MeasureRowWidth(g, PRINTORIGINAL, pageWidth, fntBold); // ความกว้างแต่ละ row
+            RectangleF rcTitle = new RectangleF(margin, y-15, colH1+15, rowH1);
+            g.DrawRectangle(Pens.Black, rcTitle.X, rcTitle.Y-5, rcTitle.Width, rcTitle.Height+5);
+            g.DrawString(PRINTORIGINAL, fntBold, Brushes.Black, rcTitle, sfCenter);
+            
+            y += 32;
+            if ((txtCompName != null) && (txtCompName.Text.Trim().Length > 0))
             {
-                RectangleF rcTitle = new RectangleF(margin, y, 200, 26);
-                g.DrawRectangle(Pens.Black, rcTitle.X, rcTitle.Y, rcTitle.Width, rcTitle.Height);
-                g.DrawString("ใบเสร็จรับเงิน (ต้นฉบับ)", fntBold, Brushes.Black, rcTitle, sfCenter);
-                y += 32;
-                // ----------------------------------------
-                // ข้อมูลผู้ป่วย — เฉพาะหน้าแรก
-                // ----------------------------------------
-                string ptName = hdr["PTNAME"]?.ToString() ?? "";
-                string hnText = hdr["HN"]?.ToString() ?? "";
-                string vnText = hdr["VN"]?.ToString() ?? "";
-                string docNo = hdr["DOCNO"]?.ToString() ?? "";
-                string docDate = hdr["DOCDATE"]?.ToString() ?? "";
-                string visitDate = hdr["VISITDATE"]?.ToString() ?? "";
-                string rightType = hdr["RIGHTTYPE"]?.ToString() ?? "";
-
-                g.DrawString($"ชื่อ - นามสกุล / Patient name : {ptName}", fntNormal, Brushes.Black, margin, y);
-                g.DrawString($"เลขที่เอกสาร/Document No  {docNo}", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);  // ← sfRight หรือ sfLeft แล้วแต่ layout
-                y += 18;
-                g.DrawString($"เลขประจำตัวผู้ป่วย / HN :  {hnText}      VN : {vnText}", fntNormal, Brushes.Black, margin, y);
-                g.DrawString($"วันที่ / Date :  {docDate}", fntNormal, Brushes.Black,   new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
-                y += 18;
-                g.DrawString($"วันที่พบแพทย์ / Visit date :  {visitDate}", fntNormal, Brushes.Black, margin, y);
-                y += 18;
-                g.DrawString($"สิทธิการรักษา:   {rightType}", fntNormal, Brushes.Black, margin, y);
-                y += 22;
+                String addr = txttaxid.Text.Trim() + " "+txtCompName.Text.Trim();
+                g.DrawString(addr, fntNormal, Brushes.Black, margin, y - 18, sfLeft);
+                //g.DrawString(txtAddr1.Text.Trim(), fntNormal, Brushes.Black, margin, y - 20, sfLeft);
+                g.DrawString(txtAddr1.Text.Trim(), fntNormal, Brushes.Black, margin, y, sfLeft);
+                y += (rowH+2);
             }
-            else
+            // ----------------------------------------
+            // ข้อมูลผู้ป่วย — เฉพาะหน้าแรก
+            // ----------------------------------------
+            //string ptName = hdr["pttname"]?.ToString() ?? "";
+            //string hnText = hdr["hn"]?.ToString() ?? "";
+            //if(hdr["MNC_DOC_DAT"].ToString().Length<=0) return y;
+            DateTime dtdocdate = new DateTime();
+            DateTime.TryParse(hdr["MNC_DOC_DAT"]?.ToString(), out dtdocdate);
+            if(dtdocdate.Year <= 1900) { dtdocdate = dtdocdate.AddYears(543); }
+            //new LogWriter("d", this.Name + " PrintReceiptHeader 02 dtdocdate " + dtdocdate.ToString("dd-MM-yyyy"));
+            string vnText = VS.VN;
+            string docNo = "";
+            if(PRINTORIGINAL.Equals("ใบเสร็จรับเงิน/Receipt (Original ต้นฉบับ)"))
             {
-                // หน้า 2+ แสดงแค่ HN/ชื่อ ย่อ ๆ แทน
-                string ptName = hdr["PTNAME"]?.ToString() ?? "";
-                string hnText = hdr["HN"]?.ToString() ?? "";
-                g.DrawString($"HN: {hnText}  {ptName}  (ต่อ)", fntNormal, Brushes.Black, margin, y);
-                y += 22;
+                docNo = "BO" + (dtdocdate.Year + 543) + "-" + hdr["MNC_DOC_NO"]?.ToString().PadLeft(6, '0');
             }
-            fntTitle.Dispose(); fntBold.Dispose(); fntNormal.Dispose(); fntSmall.Dispose();
+            else if(PRINTORIGINAL.Equals("ใบแจ้งรายละเอียดค่ารักษาพยาบาล/Receipt Detail (Original ต้นฉบับ)"))
+            {
+                String an = hdr["an_no"]?.ToString() ?? "";
+                if (an.Length > 0)                {                    docNo = "PI" + (dtdocdate.Year + 543) + "-" + hdr["MNC_DOC_NO"]?.ToString().PadLeft(6, '0');                }
+                else                {                    docNo = "PO" + (dtdocdate.Year + 543) + "-" + hdr["MNC_DOC_NO"]?.ToString().PadLeft(6, '0');                }
+            }
+            //docNo ="BO" + (dtdocdate.Year+543) + "-"+ hdr["MNC_DOC_NO"]?.ToString();
+            string docDate = bc.datetoShow1(hdr["MNC_DOC_DAT"]?.ToString() ?? "");
+            string visitDate = hdr["MNC_DATE"]?.ToString() ?? "";
+            string discdate = "";
+            if(hdr.Table.Columns.Contains("ds_date"))            {                discdate = hdr["ds_date"]?.ToString() ?? "";            }
+            string rightType = hdr["MNC_FN_TYP_DSC"]?.ToString() ?? "";
+            string symptoms = hdr["MNC_SHIF_MEMO"]?.ToString() ?? "";
+            visitDate = bc.datetoShow1(visitDate) +" "+ bc.showTime(hdr["MNC_TIME"]?.ToString() ?? "");
+            discdate = discdate.Length>0 ? bc.datetoShow1(discdate) : "";
+            if (DISCHARGEDATE.Length > 0)
+            {
+                String[] dis = DISCHARGEDATE.Split(' ');
+                if (dis.Length > 1)                {                    DISCHARGEDATE = bc.datetoShow1(dis[0]) + " " + dis[1];                }
+                visitDate += " - " + bc.datetoShow1(DISCHARGEDATE);
+            }
+            //visitDate += discdate.Length>0 ? " - " + discdate : "";
+            g.DrawString($"ชื่อ - นามสกุล / Patient name : {PTT.Name}", fntNormal, Brushes.Black, margin, y);
+            g.DrawString($"เลขที่เอกสาร/Document No  {docNo}", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, rowH), sfRight);  // ← sfRight หรือ sfLeft แล้วแต่ layout
+            y += rowH;
+            g.DrawString($"เลขประจำตัวผู้ป่วย / HN :  {PTT.Hn}      VN : {vnText}", fntNormal, Brushes.Black, margin, y);
+            g.DrawString($"วันที่ / Date :  {docDate}", fntNormal, Brushes.Black,   new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
+            y += rowH;
+            g.DrawString($"วันที่พบแพทย์ / Visit date :  {visitDate}", fntNormal, Brushes.Black, margin, y);
+            g.DrawString($"วันที่พิมพ์ :  {prndate}", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, y, pageWidth / 2 - margin, 18), sfRight);
+            y += rowH;
+            g.DrawString($"สิทธิการรักษา:   {rightType}", fntNormal, Brushes.Black, margin, y);
+            g.DrawString($"มารักษาด้วยอาการ :  {symptoms.Replace("\r\n"," ")}", fntNormal, Brushes.Black, new RectangleF(pageWidth / 2, (y-2), pageWidth / 2 - margin, (rowH+3)), sfRight);
+            y += (rowH+5);
+            //}
+            //else
+            //{
+            //    // หน้า 2+ แสดงแค่ HN/ชื่อ ย่อ ๆ แทน
+            //    g.DrawString($"HN: {PTT.Hn}  {PTT.Name}  (ต่อ)", fntNormal, Brushes.Black, margin, y);
+            //    y += 22;
+            //}
+            //fntTitle.Dispose(); fntBold.Dispose(); fntNormal.Dispose(); fntSmall.Dispose();
             return y; // คืนค่า y ให้ handler ใช้ต่อ
         }
         private int CalcTotalPages(Graphics g, float pageWidth, float margin)
         {
             // ประมาณจำนวนหน้าจาก จำนวน rows ÷ rows ต่อหน้า
             float pageHeight = 1169f; // A4 ~1169 units
-            float headerHeight = 180f;  // ความสูง header หน้าแรก (ปรับตามจริง)
-            float headerNext = 120f;  // header หน้าถัดไป
-            float footerHeight = 120f;
-            float rowH = 20f;   // ความสูงเฉลี่ยต่อ row
-            int totalRows = dtPrint.Rows.Count;
-            float firstPageRows = (pageHeight - margin * 2 - headerHeight - footerHeight) / rowH;
+            float headerHeight = 300f;  // ความสูง header หน้าแรก (ปรับตามจริง)
+            float headerNext = 300f;  // header หน้าถัดไป
+            float footerHeight = 160f;
+            //float rowH = 20f;   // ความสูงเฉลี่ยต่อ row
+            int totalRows = DTPRINT.Rows.Count;
+            float firstPageRows = (pageHeight - (margin * 2) - headerHeight - footerHeight) / rowH;
             if (totalRows <= (int)firstPageRows) return 1;
-            float nextPageRows = (pageHeight - margin * 2 - headerNext - footerHeight) / rowH;
+            float nextPageRows = (pageHeight - (margin * 2) - headerNext - footerHeight) / rowH;
             int remaining = totalRows - (int)firstPageRows;
             return 1 + (int)Math.Ceiling(remaining / nextPageRows);
+        }
+        private int CalcTotalPages1(Graphics g, float pageWidth, float margin)
+        {
+            float pageHeight = 1169f; // A4
+            float headerHeight = 300f;
+            float footerHeight = 160f; // ✅ ปรับให้ตรงกับ PrintReceiptTotal
+
+            // หน้าที่ 1
+            float y = margin + headerHeight;
+            float maxY = pageHeight - margin - footerHeight - 40;
+            int pageCount = 1;
+
+            // วนลูปแต่ละ row เพื่อคำนวณความสูงจริง
+            var allRows = DTPRINT.AsEnumerable().ToList();
+            foreach (DataRow row in allRows)
+            {
+                float rowH = MeasureRowHeight(g, row, "", pageWidth); // ✅ วัดความสูงจริง
+
+                // ถ้า row นี้จะเกินหน้า
+                if (y + rowH > maxY)
+                {
+                    pageCount++;
+                    y = margin + 250f; // header หน้าถัดไป (เล็กกว่าหน้าแรก)
+                    maxY = pageHeight - margin - footerHeight - 40;
+                }
+
+                y += rowH;
+            }
+
+            return pageCount;
         }
         private string NumberToText(decimal amount)
         {
@@ -1973,12 +2644,17 @@ namespace bangna_hospital.gui
         }
         private void FrmCashier_Load(object sender, EventArgs e)
         {
-            this.Text = "Last Update 20260311  ";
+            this.Text = "Last Update 20260409-1 ";
             System.Drawing.Rectangle screenRect = Screen.GetBounds(Bounds);
             lbLoading.Location = new Point((screenRect.Width / 2) - 100, (screenRect.Height / 2) - 300);
             lbLoading.Text = "กรุณารอซักครู่ ...";
             lbLoading.Hide();
-            scFinish.HeaderHeight = 0;
+            scFinishOPD.HeaderHeight = 0;
+            scFinishIPD.HeaderHeight = 0;
+            ribbonDatePicker1.Value = DateTime.Now;
+            if(bc.iniC.hidecomponent.Equals("1"))            {                ribbonDatePicker1.Visible = false;            }
+            
+            acb = bc.bcDB.pm24DB.getlPaid1(true);
             timeOperList.Start();// Start timer after controls are ready
         }
     }

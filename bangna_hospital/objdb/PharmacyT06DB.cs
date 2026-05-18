@@ -311,7 +311,7 @@ namespace bangna_hospital.objdb
                 ", isnull(pharm24.MNC_PH_IND_DSC,'') as drug_properties, isnull(pharm24.MNC_PH_IND_DSC_E,'') as drug_properties_e  " +
                 ", pharm01.MNC_PH_TYP_CD " +
                 ", pm01.MNC_SEX as pttsex, pm01.MNC_NAT_CD as nation " +
-                ",phart06.using1, phart06.frequency, phart06.precautions, phart06.interaction, phart06.indication, phart06.properties,isnull(pharm01.MNC_PH_GN,'') as generic " +
+                ",isnull(phart06.using1,'') as using1, isnull(phart06.frequency,'') as frequency, isnull(phart06.precautions,'') as precautions, isnull(phart06.interaction,'') as interaction, isnull(phart06.indication,'') as indication, isnull(phart06.properties,'') as properties,isnull(pharm01.MNC_PH_GN,'') as generic " +
                 "From " + pharT06.table + " phart06 " +
                 "inner join pharmacy_t05 phart05 on phart06.MNC_DOC_CD = phart05.MNC_DOC_CD and phart06.MNC_CFR_YR = phart05.MNC_CFR_YR and phart06.MNC_CFR_NO = phart05.MNC_CFR_NO and phart06.MNC_CFR_DAT = phart05.MNC_CFG_DAT " +
                 "inner join pharmacy_m01 pharm01 on phart06.MNC_PH_CD = pharm01.MNC_PH_CD " +

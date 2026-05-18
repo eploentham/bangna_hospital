@@ -376,6 +376,9 @@
     <Compile Include="gui\FrmDrugAllergy.Designer.cs">
       <DependentUpon>FrmDrugAllergy.cs</DependentUpon>
     </Compile>
+    <Compile Include="gui\FrmDrugHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="gui\FrmDrugOrderSplit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1360,6 +1363,7 @@
     <Compile Include="services\Fix401ApiKey.cs" />
     <Compile Include="services\RateLimitedClaudeClient.cs" />
     <Compile Include="services\WebView2MessageFix.cs" />
+    <Compile Include="stock_insert_req.cs" />
     <Compile Include="utility\FontHelper.cs" />
     <EmbeddedResource Include="gui\FrmAipn.resx">
       <DependentUpon>FrmAipn.cs</DependentUpon>

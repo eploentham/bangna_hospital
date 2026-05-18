@@ -199,6 +199,7 @@
             this.tabOrder = new C1.Win.C1Command.C1DockingTabPage();
             this.spOrder = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.spOrderTop = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.label193 = new System.Windows.Forms.Label();
             this.lbOperCodeApprove = new System.Windows.Forms.Label();
             this.txtOperCodeApprove = new C1.Win.C1Input.C1TextBox();
             this.pnInformation = new System.Windows.Forms.Panel();
@@ -984,7 +985,7 @@
             this.rgSbModule = new C1.Win.C1Ribbon.RibbonLabel();
             this.btnScanSaveImg = new C1.Win.C1Ribbon.RibbonButton();
             this.btnOperClose = new C1.Win.C1Ribbon.RibbonButton();
-            this.label193 = new System.Windows.Forms.Label();
+            this.dropDownItem28 = new C1.Win.C1Input.DropDownItem();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
             this.tabOper.SuspendLayout();
@@ -2257,6 +2258,7 @@
             this.btnPrnStaffNote.Items.Add(this.dropDownItem25);
             this.btnPrnStaffNote.Items.Add(this.dropDownItem26);
             this.btnPrnStaffNote.Items.Add(this.dropDownItem27);
+            this.btnPrnStaffNote.Items.Add(this.dropDownItem28);
             this.btnPrnStaffNote.Location = new System.Drawing.Point(649, 136);
             this.btnPrnStaffNote.Name = "btnPrnStaffNote";
             this.btnPrnStaffNote.Size = new System.Drawing.Size(117, 30);
@@ -2969,7 +2971,7 @@
             this.spHistoryVS.SizeRatio = 49.862D;
             this.spHistoryVS.TabIndex = 0;
             this.spHistoryVS.Text = "Panel 1";
-            this.spHistoryVS.Width = 646;
+            this.spHistoryVS.Width = 653;
             // 
             // c1SplitterPanel6
             // 
@@ -3030,7 +3032,7 @@
             this.spOPDImgL.Size = new System.Drawing.Size(318, 658);
             this.spOPDImgL.TabIndex = 0;
             this.spOPDImgL.Text = "Panel 1";
-            this.spOPDImgL.Width = 318;
+            this.spOPDImgL.Width = 325;
             // 
             // picHisL
             // 
@@ -3174,7 +3176,7 @@
             this.spOrderTop.Controls.Add(this.chkItemLab);
             this.spOrderTop.Controls.Add(this.txtSearchItem);
             this.spOrderTop.Controls.Add(this.lbOperItem);
-            this.spOrderTop.Height = 154;
+            this.spOrderTop.Height = 147;
             this.spOrderTop.Location = new System.Drawing.Point(0, 21);
             this.spOrderTop.Name = "spOrderTop";
             this.spOrderTop.Size = new System.Drawing.Size(1313, 126);
@@ -3182,6 +3184,16 @@
             this.spOrderTop.TabIndex = 0;
             this.spOrderTop.Text = "Panel 1";
             this.spOrderTop.Width = 1313;
+            // 
+            // label193
+            // 
+            this.label193.AutoSize = true;
+            this.label193.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label193.Location = new System.Drawing.Point(633, 12);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(10, 16);
+            this.label193.TabIndex = 280;
+            this.label193.Text = ".";
             // 
             // lbOperCodeApprove
             // 
@@ -11801,15 +11813,9 @@
             this.btnOperClose.SmallImage = ((System.Drawing.Image)(resources.GetObject("btnOperClose.SmallImage")));
             this.btnOperClose.Text = "ปิดการรักษา";
             // 
-            // label193
+            // dropDownItem28
             // 
-            this.label193.AutoSize = true;
-            this.label193.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label193.Location = new System.Drawing.Point(633, 12);
-            this.label193.Name = "label193";
-            this.label193.Size = new System.Drawing.Size(10, 16);
-            this.label193.TabIndex = 280;
-            this.label193.Text = ".";
+            this.dropDownItem28.Text = "พิมพ์ยาเดิม";
             // 
             // FrmOPD
             // 
@@ -13293,5 +13299,6 @@
         private C1.Win.C1Input.C1TextBox c1TextBox2;
         private System.Windows.Forms.Button btnSimb2Save;
         private System.Windows.Forms.Label label193;
+        private C1.Win.C1Input.DropDownItem dropDownItem28;
     }
 }

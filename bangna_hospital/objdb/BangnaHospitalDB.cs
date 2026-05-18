@@ -521,6 +521,34 @@ namespace bangna_hospital.objdb
             }
             return re;
         }
-        
+        public DataTable getReceipt(String docid, String docdate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(conn.connMainHIS.ConnectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_get_receipt_detail", connection))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // เพิ่ม parameters
+                        cmd.Parameters.AddWithValue("@doc_no", docid);
+                        cmd.Parameters.AddWithValue("@doc_date", docdate);
+                        cmd.CommandTimeout = 120;   // 120 วินาที (default คือ 30 วิ)
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            connection.Open();
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", this.GetType().Name + " getReceipt " + ex.Message);
+            }
+            return dt;
+        }
     }
 }

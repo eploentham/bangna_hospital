@@ -493,7 +493,7 @@ namespace bangna_hospital.objdb
                 "Left join pharmacy_m04 pm04 on pm01.MNC_PH_DIR_CD = pm04.MNC_PH_DIR_CD " +//จริงๆคือ Using วิธีใช้
                 "Left join PHARMACY_M11 pm11 on pm01.MNC_PH_CAU_CD = pm11.MNC_PH_CAU_CD " +//Precautions จริงๆคือ คำเตือน
                 "Left join PHARMACY_M22 pm22 on pm01.MNC_PH_TIM_CD = pm22.MNC_PH_TIM_CD " +//Indication ข้อบ่งชี้
-                "Left join PHARMACY_M24 pm24 on pm01.MNC_PH_IND_CD = pm24.MNC_PH_IND_CD " +//สรรพคุณ
+                "Left join PHARMACY_M24 pm24 on pm01.MNC_PH_IND_CD = pm24.MNC_PH_IND_CD " +//สรรพคุณ Properties
                 "Left join PHARMACY_M21 pm21 on pm01.MNC_PH_FRE_CD = pm21.MNC_PH_FRE_CD " +//ความถี่
                 //"Left Join b_paid_map pmap on pm01.MNC_PH_CD = pmap.MNC_PH_CD " +     //join ไม่ได้ เพราะ มีหลายrecord
                 "Where pm01.mnc_ph_cd = '" + labgrpcode + "' " +
@@ -573,13 +573,32 @@ namespace bangna_hospital.objdb
 
             return chk;
         }
-        public String UpdateCodeBSG(String drugcode, String codebsg)
+        public String UpdateCodeBSG(String drugcode, String fncode, String codebsg)
         {
             String sql = "", chk = "";
+            string[] arrCode = drugcode.Split(',');
+            if (arrCode.Length > 1)
+            {
+                drugcode = "";
+                for (int i = 0; i < arrCode.Length; i++)
+                {
+                    if (arrCode[i]?.Length <= 0) continue;
+                    if (i == 0)
+                    {
+                        drugcode += "'" + arrCode[i] + "'";
+                    }
+                    else
+                    {
+                        drugcode += ",'" + arrCode[i] + "'";
+                    }
+                }
+            }
             sql = "Update pharmacy_m01 Set CodeBSG = '" + codebsg + "' " +
-                "Where mnc_ph_cd ='" + drugcode + "'";
+                "Where mnc_ph_cd in (" + drugcode + ") ";
             try
             {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                sql = "Update Finance_m01 Set CodeBSG = '"+codebsg+"' Where MNC_FN_CD = '"+ fncode+"' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)

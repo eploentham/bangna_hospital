@@ -1081,9 +1081,8 @@ namespace bangna_hospital.objdb
             //actno = flagVisit.Equals("finish") ? "610" : "110";
             DataTable dt = new DataTable();
             String sql = "";
-            sql = "Select   t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM " +
-                " ,t01.MNC_FN_TYP_CD " +
-                ", convert(VARCHAR(20),t01.mnc_date,23) as mnc_date " +
+            sql = "Select   t01.MNC_VN_NO,t01.MNC_VN_SEQ,t01.MNC_VN_SUM ,t01.MNC_FN_TYP_CD,t01.MNC_SHIF_MEMO " +
+                ", convert(VARCHAR(20),t01.mnc_date,23) as mnc_date, t01.MNC_PRE_NO " +
                 "From patient_t01 t01 " +
                 " Where  t01.MNC_HN_NO = '" + hn + "'  " +
                 "and t01.MNC_STS <> 'C' " +   
@@ -2833,6 +2832,19 @@ namespace bangna_hospital.objdb
                 "left join pharmacy_m36 pharm36 ON t02.MNC_PH_ALG_CD = pharm36.MNC_PH_ALG_CD  " +
                 "where  t02.mnc_hn_no = '" + hn + "' " +
                 "Order By t02.mnc_stamp_dat, t02.mnc_stamp_tim ";
+
+            dt = conn.selectData(sql);
+            return dt;
+        }
+        public DataTable selectDrugAllergyGroup(String hn)
+        {
+            DataTable dt = new DataTable();
+            String sql = "";
+            sql = "SELECT pharm14.MNC_PH_GRP_CD, pharm14.MNC_PH_GRP_DSC " +
+                "FROM     PATIENT_T02_2 t022  " +
+                "left join pharmacy_m14 pharm14 ON t022.MNC_PH_GRP_CD = pharm14.MNC_PH_GRP_CD    " +
+                "t022.mnc_hn_no = '" + hn + "' " +
+                "Order By t022.mnc_stamp_dat, t022.mnc_stamp_tim  ";
 
             dt = conn.selectData(sql);
             return dt;
@@ -4719,6 +4731,23 @@ namespace bangna_hospital.objdb
             //}
             dt = conn.selectData(sql);
             return dt;
+        }
+        public String selectDSDateAN1(String hn, String vsdate, String preNo)
+        {
+            String sql = "", an = "";
+            DataTable dt = new DataTable();            
+            sql = "Select convert(varchar(20),t08.MNC_ds_date,23) as MNC_ds_date, isnull(t08.mnc_ds_time,'') as mnc_ds_time, t08.mnc_an_no, t08.mnc_an_yr " +
+                "From PATIENT_T08 t08  " +
+                "where  t08.mnc_hn_no = '" + hn + "' " +
+                    " and t08.mnc_date = '" + vsdate + "' " +
+                "and t08.mnc_pre_no = '" + preNo + "'";
+            //"Order By t01.mnc_date, t01.mnc_hn_no ";
+            dt = conn.selectData(sql);
+            if (dt.Rows.Count > 0)
+            {
+                an = dt.Rows[0]["MNC_ds_date"].ToString() + " " + FormatTime(dt.Rows[0]["MNC_ds_time"].ToString()) ;
+            }
+            return an;
         }
         public String selectDSDateAN(String hn, String vn, String preNo)
         {

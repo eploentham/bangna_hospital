@@ -176,13 +176,32 @@ namespace bangna_hospital.objdb
             }
             return chk;
         }
-        public String UpdateCodeBSG(String drugcode, String codebsg)
+        public String UpdateCodeBSG(String drugcode, String fncode, String codebsg)
         {
             String sql = "", chk = "";
+            string[] arrCode = drugcode.Split(',');
+            if (arrCode.Length > 1)
+            {
+                drugcode = "";
+                for (int i = 0; i < arrCode.Length; i++)
+                {
+                    if (arrCode[i]?.Length <= 0) continue;
+                    if (i == 0)
+                    {
+                        drugcode += "'" + arrCode[i] + "'";
+                    }
+                    else
+                    {
+                        drugcode += ",'" + arrCode[i] + "'";
+                    }
+                }
+            }
             sql = "Update xray_m02 Set CodeBSG = '" + codebsg + "' " +
-                "Where mnc_xr_cd ='" + drugcode + "'";
+                "Where mnc_xr_cd in (" + drugcode + ") ";
             try
             {
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                sql = "Update Finance_m01 Set CodeBSG = '" + codebsg + "' Where MNC_FN_CD = '" + fncode + "' ";
                 chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
             }
             catch (Exception ex)

@@ -973,6 +973,12 @@ namespace bangna_hospital.gui
                 i++;
                 if (i == 3) break;
             }
+            foreach(DataRow row in DTALLERGYGRP.Rows)
+            {
+                allergy1 += row["MNC_PH_GRP_DSC"].ToString() + " " + row["MNC_ph_memo"].ToString() + ", ";
+                i++;
+                if (i == 3) break;
+            }
             i = 0;
             foreach (DataRow row in DTCHRONIC.Rows)
             {
@@ -1005,7 +1011,7 @@ namespace bangna_hospital.gui
                 e.Graphics.DrawString("[ ]มีโรค ระบุ", fStaffN, Brushes.Black, col2 + 70, yPos + 80, flags);
                 //e.Graphics.DrawRectangle(blackPen, new System.Drawing.Rectangle(col2int + 67 - recx, 99, recx, recy));
             }
-            if (DTALLERGY.Rows.Count > 0)
+            if ((DTALLERGY.Rows.Count > 0)|| DTALLERGYGRP.Rows.Count>0)
             {
                 e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ  " + allergy1.Replace(",", Environment.NewLine), fStaffN, Brushes.Black, col2, yPos + 180, flags);
                 e.Graphics.DrawString("แพ้ยา/อาหาร/อื่นๆ  " + allergy1.Replace(",", Environment.NewLine), fStaffN, Brushes.Black, col40, yPos + 180, flags);
@@ -1546,6 +1552,7 @@ namespace bangna_hospital.gui
                     e.Graphics.DrawString("- ORS จิบ", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
                     e.Graphics.DrawString("- 20 % Urea cream apply b.i.d", fStaffN, Brushes.Black, col40 + 10, yPos + 560, flags);
                 }
+                
             }
             else if (TEMPLATESTAFFNOTE.Equals("checkup_doe"))
             {
@@ -1572,6 +1579,10 @@ namespace bangna_hospital.gui
                         }
                     }
                 }
+            }
+            else if (TEMPLATESTAFFNOTE.Equals("28"))
+            {
+                if (sbDrugHistory != null && sbDrugHistory.Length > 0) { g.DrawString(sbDrugHistory.ToString(), fPDF, Brushes.Black, col40, yPos + 400); }
             }
             //ตามล่าม  พูดไทย X-ray Lab
             e.Graphics.DrawString("🔲ตามล่าม      🔲พูดไทยได้     🔲X-ray      🔲Lab        🔲EKG        🔲DTX", fStaffN, Brushes.Black, col40, yPos + 275, flags);

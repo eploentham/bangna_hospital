@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCashier));
             this.c1StatusBar1 = new C1.Win.C1Ribbon.C1StatusBar();
             this.lfSbMessage = new C1.Win.C1Ribbon.RibbonLabel();
             this.lfSbStation = new C1.Win.C1Ribbon.RibbonLabel();
@@ -43,13 +44,31 @@
             this.rgPrn1 = new C1.Win.C1Ribbon.RibbonButton();
             this.ribbonSeparator2 = new C1.Win.C1Ribbon.RibbonSeparator();
             this.rgPrnReceipt = new C1.Win.C1Ribbon.RibbonButton();
+            this.rgPrnReceiptDetail = new C1.Win.C1Ribbon.RibbonButton();
+            this.ribbonDatePicker1 = new C1.Win.C1Ribbon.RibbonDatePicker();
             this.tabMain = new C1.Win.C1Command.C1DockingTab();
             this.tabOper = new C1.Win.C1Command.C1DockingTabPage();
             this.pnOperList = new System.Windows.Forms.Panel();
+            this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
+            this.tabOperOPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnOperOPD = new System.Windows.Forms.Panel();
+            this.tabOperIPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.pnOperIPD = new System.Windows.Forms.Panel();
             this.tabFinish = new C1.Win.C1Command.C1DockingTabPage();
-            this.scFinish = new C1.Win.C1SplitContainer.C1SplitContainer();
-            this.pnGrfFinishView = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.pnGrfFinishInv = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.PnFinish = new System.Windows.Forms.Panel();
+            this.scFinish = new C1.Win.C1Command.C1DockingTab();
+            this.tabFinishOPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.scFinishOPD = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.pnGrfFinishView1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnGrfFinishView = new System.Windows.Forms.Panel();
+            this.pnGrfFinishInv1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnGrfFinishInv = new System.Windows.Forms.Panel();
+            this.tabFinishIPD = new C1.Win.C1Command.C1DockingTabPage();
+            this.scFinishIPD = new C1.Win.C1SplitContainer.C1SplitContainer();
+            this.c1SplitterPanel7 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnGrfFinishViewIPD = new System.Windows.Forms.Panel();
+            this.c1SplitterPanel8 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.pnGrfFinishInvIPD = new System.Windows.Forms.Panel();
             this.tabExpense = new C1.Win.C1Command.C1DockingTabPage();
             this.spExpense = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel1 = new C1.Win.C1SplitContainer.C1SplitterPanel();
@@ -72,6 +91,7 @@
             this.c1SplitterPanel3 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnMasterDrugView = new System.Windows.Forms.Panel();
             this.pnMasterDrugTop = new System.Windows.Forms.Panel();
+            this.chkMasterFncode = new System.Windows.Forms.RadioButton();
             this.chkMasterDf = new System.Windows.Forms.RadioButton();
             this.txtMasterSearch = new C1.Win.C1Input.C1TextBox();
             this.chkMasterProc = new System.Windows.Forms.RadioButton();
@@ -84,6 +104,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.c1SplitterPanel5 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnMasterSimb2ItemNew = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtMasterFnCode = new C1.Win.C1Input.C1TextBox();
             this.btnSimb2MapNew = new System.Windows.Forms.Button();
             this.btnSimb2New = new System.Windows.Forms.Button();
             this.txtMasterSimb2CodeSubGEN = new C1.Win.C1Input.C1TextBox();
@@ -114,9 +136,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).BeginInit();
             this.tabMain.SuspendLayout();
             this.tabOper.SuspendLayout();
+            this.pnOperList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
+            this.c1DockingTab1.SuspendLayout();
+            this.tabOperOPD.SuspendLayout();
+            this.tabOperIPD.SuspendLayout();
             this.tabFinish.SuspendLayout();
+            this.PnFinish.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scFinish)).BeginInit();
             this.scFinish.SuspendLayout();
+            this.tabFinishOPD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scFinishOPD)).BeginInit();
+            this.scFinishOPD.SuspendLayout();
+            this.pnGrfFinishView1.SuspendLayout();
+            this.pnGrfFinishInv1.SuspendLayout();
+            this.tabFinishIPD.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scFinishIPD)).BeginInit();
+            this.scFinishIPD.SuspendLayout();
+            this.c1SplitterPanel7.SuspendLayout();
+            this.c1SplitterPanel8.SuspendLayout();
             this.tabExpense.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spExpense)).BeginInit();
             this.spExpense.SuspendLayout();
@@ -137,6 +175,7 @@
             this.c1SplitterPanel4.SuspendLayout();
             this.c1SplitterPanel5.SuspendLayout();
             this.pnMasterSimb2ItemNew.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtMasterFnCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMasterSimb2CodeSubGEN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMasterSimb2BillGEN)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMasterSimb2id)).BeginInit();
@@ -175,6 +214,8 @@
             this.c1StatusBar1.RightPaneItems.Add(this.rgPrn1);
             this.c1StatusBar1.RightPaneItems.Add(this.ribbonSeparator2);
             this.c1StatusBar1.RightPaneItems.Add(this.rgPrnReceipt);
+            this.c1StatusBar1.RightPaneItems.Add(this.rgPrnReceiptDetail);
+            this.c1StatusBar1.RightPaneItems.Add(this.ribbonDatePicker1);
             this.c1StatusBar1.Size = new System.Drawing.Size(1303, 22);
             // 
             // lfSbMessage
@@ -248,6 +289,18 @@
             this.rgPrnReceipt.SmallImage = global::bangna_hospital.Properties.Resources.printer_green48;
             this.rgPrnReceipt.Text = "พิมพ์ทั้งหมด";
             // 
+            // rgPrnReceiptDetail
+            // 
+            this.rgPrnReceiptDetail.Name = "rgPrnReceiptDetail";
+            this.rgPrnReceiptDetail.SmallImage = ((System.Drawing.Image)(resources.GetObject("rgPrnReceiptDetail.SmallImage")));
+            this.rgPrnReceiptDetail.Text = "พิมพ์รายละเอียด";
+            // 
+            // ribbonDatePicker1
+            // 
+            this.ribbonDatePicker1.Label = "Date";
+            this.ribbonDatePicker1.Name = "ribbonDatePicker1";
+            this.ribbonDatePicker1.TextAreaWidth = 80;
+            // 
             // tabMain
             // 
             this.tabMain.Controls.Add(this.tabOper);
@@ -273,53 +326,208 @@
             // 
             // pnOperList
             // 
+            this.pnOperList.Controls.Add(this.c1DockingTab1);
             this.pnOperList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnOperList.Location = new System.Drawing.Point(0, 0);
             this.pnOperList.Name = "pnOperList";
             this.pnOperList.Size = new System.Drawing.Size(1301, 737);
             this.pnOperList.TabIndex = 0;
             // 
+            // c1DockingTab1
+            // 
+            this.c1DockingTab1.Controls.Add(this.tabOperOPD);
+            this.c1DockingTab1.Controls.Add(this.tabOperIPD);
+            this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
+            this.c1DockingTab1.Name = "c1DockingTab1";
+            this.c1DockingTab1.Size = new System.Drawing.Size(1301, 737);
+            this.c1DockingTab1.TabIndex = 0;
+            this.c1DockingTab1.TabsSpacing = 5;
+            // 
+            // tabOperOPD
+            // 
+            this.tabOperOPD.Controls.Add(this.pnOperOPD);
+            this.tabOperOPD.Location = new System.Drawing.Point(1, 24);
+            this.tabOperOPD.Name = "tabOperOPD";
+            this.tabOperOPD.Size = new System.Drawing.Size(1299, 712);
+            this.tabOperOPD.TabIndex = 0;
+            this.tabOperOPD.Text = "OPD";
+            // 
+            // pnOperOPD
+            // 
+            this.pnOperOPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnOperOPD.Location = new System.Drawing.Point(0, 0);
+            this.pnOperOPD.Name = "pnOperOPD";
+            this.pnOperOPD.Size = new System.Drawing.Size(1299, 712);
+            this.pnOperOPD.TabIndex = 0;
+            // 
+            // tabOperIPD
+            // 
+            this.tabOperIPD.Controls.Add(this.pnOperIPD);
+            this.tabOperIPD.Location = new System.Drawing.Point(1, 24);
+            this.tabOperIPD.Name = "tabOperIPD";
+            this.tabOperIPD.Size = new System.Drawing.Size(1299, 712);
+            this.tabOperIPD.TabIndex = 1;
+            this.tabOperIPD.Text = "IPD";
+            // 
+            // pnOperIPD
+            // 
+            this.pnOperIPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnOperIPD.Location = new System.Drawing.Point(0, 0);
+            this.pnOperIPD.Name = "pnOperIPD";
+            this.pnOperIPD.Size = new System.Drawing.Size(1299, 712);
+            this.pnOperIPD.TabIndex = 1;
+            // 
             // tabFinish
             // 
-            this.tabFinish.Controls.Add(this.scFinish);
+            this.tabFinish.Controls.Add(this.PnFinish);
             this.tabFinish.Location = new System.Drawing.Point(1, 24);
             this.tabFinish.Name = "tabFinish";
             this.tabFinish.Size = new System.Drawing.Size(1301, 737);
             this.tabFinish.TabIndex = 1;
             this.tabFinish.Text = "❤❤รับชำระเรียบร้อย❤❤";
             // 
+            // PnFinish
+            // 
+            this.PnFinish.Controls.Add(this.scFinish);
+            this.PnFinish.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnFinish.Location = new System.Drawing.Point(0, 0);
+            this.PnFinish.Name = "PnFinish";
+            this.PnFinish.Size = new System.Drawing.Size(1301, 737);
+            this.PnFinish.TabIndex = 1;
+            // 
             // scFinish
             // 
-            this.scFinish.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
-            this.scFinish.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.scFinish.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.scFinish.Controls.Add(this.tabFinishOPD);
+            this.scFinish.Controls.Add(this.tabFinishIPD);
             this.scFinish.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scFinish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.scFinish.Location = new System.Drawing.Point(0, 0);
             this.scFinish.Name = "scFinish";
-            this.scFinish.Panels.Add(this.pnGrfFinishView);
-            this.scFinish.Panels.Add(this.pnGrfFinishInv);
             this.scFinish.Size = new System.Drawing.Size(1301, 737);
             this.scFinish.TabIndex = 0;
+            this.scFinish.TabsSpacing = 5;
+            // 
+            // tabFinishOPD
+            // 
+            this.tabFinishOPD.Controls.Add(this.scFinishOPD);
+            this.tabFinishOPD.Location = new System.Drawing.Point(1, 24);
+            this.tabFinishOPD.Name = "tabFinishOPD";
+            this.tabFinishOPD.Size = new System.Drawing.Size(1299, 712);
+            this.tabFinishOPD.TabIndex = 0;
+            this.tabFinishOPD.Text = "OPD";
+            // 
+            // scFinishOPD
+            // 
+            this.scFinishOPD.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.scFinishOPD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.scFinishOPD.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.scFinishOPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scFinishOPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.scFinishOPD.Location = new System.Drawing.Point(0, 0);
+            this.scFinishOPD.Name = "scFinishOPD";
+            this.scFinishOPD.Panels.Add(this.pnGrfFinishView1);
+            this.scFinishOPD.Panels.Add(this.pnGrfFinishInv1);
+            this.scFinishOPD.Size = new System.Drawing.Size(1299, 712);
+            this.scFinishOPD.TabIndex = 0;
+            // 
+            // pnGrfFinishView1
+            // 
+            this.pnGrfFinishView1.Controls.Add(this.pnGrfFinishView);
+            this.pnGrfFinishView1.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.pnGrfFinishView1.Location = new System.Drawing.Point(0, 21);
+            this.pnGrfFinishView1.Name = "pnGrfFinishView1";
+            this.pnGrfFinishView1.Size = new System.Drawing.Size(650, 691);
+            this.pnGrfFinishView1.SizeRatio = 50.187D;
+            this.pnGrfFinishView1.TabIndex = 0;
+            this.pnGrfFinishView1.Text = "Panel 1";
+            this.pnGrfFinishView1.Width = 650;
             // 
             // pnGrfFinishView
             // 
-            this.pnGrfFinishView.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
-            this.pnGrfFinishView.Location = new System.Drawing.Point(0, 21);
+            this.pnGrfFinishView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnGrfFinishView.Location = new System.Drawing.Point(0, 0);
             this.pnGrfFinishView.Name = "pnGrfFinishView";
-            this.pnGrfFinishView.Size = new System.Drawing.Size(648, 716);
+            this.pnGrfFinishView.Size = new System.Drawing.Size(650, 691);
             this.pnGrfFinishView.TabIndex = 0;
-            this.pnGrfFinishView.Text = "Panel 1";
-            this.pnGrfFinishView.Width = 648;
+            // 
+            // pnGrfFinishInv1
+            // 
+            this.pnGrfFinishInv1.Controls.Add(this.pnGrfFinishInv);
+            this.pnGrfFinishInv1.Height = 712;
+            this.pnGrfFinishInv1.Location = new System.Drawing.Point(654, 21);
+            this.pnGrfFinishInv1.Name = "pnGrfFinishInv1";
+            this.pnGrfFinishInv1.Size = new System.Drawing.Size(645, 691);
+            this.pnGrfFinishInv1.TabIndex = 1;
+            this.pnGrfFinishInv1.Text = "Panel 2";
             // 
             // pnGrfFinishInv
             // 
-            this.pnGrfFinishInv.Height = 737;
-            this.pnGrfFinishInv.Location = new System.Drawing.Point(652, 21);
+            this.pnGrfFinishInv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnGrfFinishInv.Location = new System.Drawing.Point(0, 0);
             this.pnGrfFinishInv.Name = "pnGrfFinishInv";
-            this.pnGrfFinishInv.Size = new System.Drawing.Size(649, 716);
-            this.pnGrfFinishInv.TabIndex = 1;
-            this.pnGrfFinishInv.Text = "Panel 2";
+            this.pnGrfFinishInv.Size = new System.Drawing.Size(645, 691);
+            this.pnGrfFinishInv.TabIndex = 0;
+            // 
+            // tabFinishIPD
+            // 
+            this.tabFinishIPD.Controls.Add(this.scFinishIPD);
+            this.tabFinishIPD.Location = new System.Drawing.Point(1, 24);
+            this.tabFinishIPD.Name = "tabFinishIPD";
+            this.tabFinishIPD.Size = new System.Drawing.Size(1299, 712);
+            this.tabFinishIPD.TabIndex = 1;
+            this.tabFinishIPD.Text = "IPD";
+            // 
+            // scFinishIPD
+            // 
+            this.scFinishIPD.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
+            this.scFinishIPD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.scFinishIPD.CollapsingCueColor = System.Drawing.Color.FromArgb(((int)(((byte)(133)))), ((int)(((byte)(133)))), ((int)(((byte)(150)))));
+            this.scFinishIPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scFinishIPD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.scFinishIPD.Location = new System.Drawing.Point(0, 0);
+            this.scFinishIPD.Name = "scFinishIPD";
+            this.scFinishIPD.Panels.Add(this.c1SplitterPanel7);
+            this.scFinishIPD.Panels.Add(this.c1SplitterPanel8);
+            this.scFinishIPD.Size = new System.Drawing.Size(1299, 712);
+            this.scFinishIPD.TabIndex = 1;
+            // 
+            // c1SplitterPanel7
+            // 
+            this.c1SplitterPanel7.Controls.Add(this.pnGrfFinishViewIPD);
+            this.c1SplitterPanel7.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Left;
+            this.c1SplitterPanel7.Location = new System.Drawing.Point(0, 21);
+            this.c1SplitterPanel7.Name = "c1SplitterPanel7";
+            this.c1SplitterPanel7.Size = new System.Drawing.Size(660, 691);
+            this.c1SplitterPanel7.SizeRatio = 50.936D;
+            this.c1SplitterPanel7.TabIndex = 0;
+            this.c1SplitterPanel7.Text = "Panel 1";
+            this.c1SplitterPanel7.Width = 660;
+            // 
+            // pnGrfFinishViewIPD
+            // 
+            this.pnGrfFinishViewIPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnGrfFinishViewIPD.Location = new System.Drawing.Point(0, 0);
+            this.pnGrfFinishViewIPD.Name = "pnGrfFinishViewIPD";
+            this.pnGrfFinishViewIPD.Size = new System.Drawing.Size(660, 691);
+            this.pnGrfFinishViewIPD.TabIndex = 0;
+            // 
+            // c1SplitterPanel8
+            // 
+            this.c1SplitterPanel8.Controls.Add(this.pnGrfFinishInvIPD);
+            this.c1SplitterPanel8.Height = 712;
+            this.c1SplitterPanel8.Location = new System.Drawing.Point(664, 21);
+            this.c1SplitterPanel8.Name = "c1SplitterPanel8";
+            this.c1SplitterPanel8.Size = new System.Drawing.Size(635, 691);
+            this.c1SplitterPanel8.TabIndex = 1;
+            this.c1SplitterPanel8.Text = "Panel 2";
+            // 
+            // pnGrfFinishInvIPD
+            // 
+            this.pnGrfFinishInvIPD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnGrfFinishInvIPD.Location = new System.Drawing.Point(0, 0);
+            this.pnGrfFinishInvIPD.Name = "pnGrfFinishInvIPD";
+            this.pnGrfFinishInvIPD.Size = new System.Drawing.Size(635, 691);
+            this.pnGrfFinishInvIPD.TabIndex = 1;
             // 
             // tabExpense
             // 
@@ -544,6 +752,7 @@
             // 
             // pnMasterDrugTop
             // 
+            this.pnMasterDrugTop.Controls.Add(this.chkMasterFncode);
             this.pnMasterDrugTop.Controls.Add(this.chkMasterDf);
             this.pnMasterDrugTop.Controls.Add(this.txtMasterSearch);
             this.pnMasterDrugTop.Controls.Add(this.chkMasterProc);
@@ -558,10 +767,21 @@
             this.pnMasterDrugTop.Size = new System.Drawing.Size(755, 40);
             this.pnMasterDrugTop.TabIndex = 0;
             // 
+            // chkMasterFncode
+            // 
+            this.chkMasterFncode.AutoSize = true;
+            this.chkMasterFncode.Location = new System.Drawing.Point(523, 8);
+            this.chkMasterFncode.Name = "chkMasterFncode";
+            this.chkMasterFncode.Size = new System.Drawing.Size(76, 24);
+            this.chkMasterFncode.TabIndex = 92;
+            this.chkMasterFncode.TabStop = true;
+            this.chkMasterFncode.Text = "fncode";
+            this.chkMasterFncode.UseVisualStyleBackColor = true;
+            // 
             // chkMasterDf
             // 
             this.chkMasterDf.AutoSize = true;
-            this.chkMasterDf.Location = new System.Drawing.Point(489, 8);
+            this.chkMasterDf.Location = new System.Drawing.Point(460, 8);
             this.chkMasterDf.Name = "chkMasterDf";
             this.chkMasterDf.Size = new System.Drawing.Size(41, 24);
             this.chkMasterDf.TabIndex = 91;
@@ -581,7 +801,7 @@
             // chkMasterProc
             // 
             this.chkMasterProc.AutoSize = true;
-            this.chkMasterProc.Location = new System.Drawing.Point(390, 8);
+            this.chkMasterProc.Location = new System.Drawing.Point(366, 8);
             this.chkMasterProc.Name = "chkMasterProc";
             this.chkMasterProc.Size = new System.Drawing.Size(77, 24);
             this.chkMasterProc.TabIndex = 4;
@@ -592,7 +812,7 @@
             // chkMasterXray
             // 
             this.chkMasterXray.AutoSize = true;
-            this.chkMasterXray.Location = new System.Drawing.Point(300, 8);
+            this.chkMasterXray.Location = new System.Drawing.Point(290, 8);
             this.chkMasterXray.Name = "chkMasterXray";
             this.chkMasterXray.Size = new System.Drawing.Size(55, 24);
             this.chkMasterXray.TabIndex = 3;
@@ -614,7 +834,7 @@
             // chkMasterLab
             // 
             this.chkMasterLab.AutoSize = true;
-            this.chkMasterLab.Location = new System.Drawing.Point(218, 8);
+            this.chkMasterLab.Location = new System.Drawing.Point(202, 8);
             this.chkMasterLab.Name = "chkMasterLab";
             this.chkMasterLab.Size = new System.Drawing.Size(48, 24);
             this.chkMasterLab.TabIndex = 1;
@@ -665,16 +885,18 @@
             // c1SplitterPanel5
             // 
             this.c1SplitterPanel5.Controls.Add(this.pnMasterSimb2ItemNew);
-            this.c1SplitterPanel5.Height = 227;
+            this.c1SplitterPanel5.Height = 285;
             this.c1SplitterPanel5.Location = new System.Drawing.Point(759, 353);
             this.c1SplitterPanel5.Name = "c1SplitterPanel5";
-            this.c1SplitterPanel5.Size = new System.Drawing.Size(542, 206);
-            this.c1SplitterPanel5.SizeRatio = 56.608D;
+            this.c1SplitterPanel5.Size = new System.Drawing.Size(542, 264);
+            this.c1SplitterPanel5.SizeRatio = 71.072D;
             this.c1SplitterPanel5.TabIndex = 2;
             this.c1SplitterPanel5.Text = "SIMB II item new";
             // 
             // pnMasterSimb2ItemNew
             // 
+            this.pnMasterSimb2ItemNew.Controls.Add(this.label8);
+            this.pnMasterSimb2ItemNew.Controls.Add(this.txtMasterFnCode);
             this.pnMasterSimb2ItemNew.Controls.Add(this.btnSimb2MapNew);
             this.pnMasterSimb2ItemNew.Controls.Add(this.btnSimb2New);
             this.pnMasterSimb2ItemNew.Controls.Add(this.txtMasterSimb2CodeSubGEN);
@@ -693,15 +915,34 @@
             this.pnMasterSimb2ItemNew.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnMasterSimb2ItemNew.Location = new System.Drawing.Point(0, 0);
             this.pnMasterSimb2ItemNew.Name = "pnMasterSimb2ItemNew";
-            this.pnMasterSimb2ItemNew.Size = new System.Drawing.Size(542, 206);
+            this.pnMasterSimb2ItemNew.Size = new System.Drawing.Size(542, 264);
             this.pnMasterSimb2ItemNew.TabIndex = 0;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.label8.Location = new System.Drawing.Point(7, 146);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 20);
+            this.label8.TabIndex = 224;
+            this.label8.Text = "Fncode";
+            // 
+            // txtMasterFnCode
+            // 
+            this.txtMasterFnCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.txtMasterFnCode.Location = new System.Drawing.Point(102, 144);
+            this.txtMasterFnCode.Name = "txtMasterFnCode";
+            this.txtMasterFnCode.Size = new System.Drawing.Size(83, 24);
+            this.txtMasterFnCode.TabIndex = 223;
+            this.txtMasterFnCode.Tag = null;
             // 
             // btnSimb2MapNew
             // 
             this.btnSimb2MapNew.BackColor = System.Drawing.Color.Goldenrod;
             this.btnSimb2MapNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSimb2MapNew.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSimb2MapNew.Location = new System.Drawing.Point(255, 166);
+            this.btnSimb2MapNew.Location = new System.Drawing.Point(255, 223);
             this.btnSimb2MapNew.Name = "btnSimb2MapNew";
             this.btnSimb2MapNew.Size = new System.Drawing.Size(150, 32);
             this.btnSimb2MapNew.TabIndex = 222;
@@ -713,7 +954,7 @@
             this.btnSimb2New.BackColor = System.Drawing.Color.BurlyWood;
             this.btnSimb2New.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSimb2New.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSimb2New.Location = new System.Drawing.Point(3, 165);
+            this.btnSimb2New.Location = new System.Drawing.Point(3, 222);
             this.btnSimb2New.Name = "btnSimb2New";
             this.btnSimb2New.Size = new System.Drawing.Size(115, 32);
             this.btnSimb2New.TabIndex = 221;
@@ -723,7 +964,7 @@
             // txtMasterSimb2CodeSubGEN
             // 
             this.txtMasterSimb2CodeSubGEN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterSimb2CodeSubGEN.Location = new System.Drawing.Point(255, 136);
+            this.txtMasterSimb2CodeSubGEN.Location = new System.Drawing.Point(255, 196);
             this.txtMasterSimb2CodeSubGEN.Name = "txtMasterSimb2CodeSubGEN";
             this.txtMasterSimb2CodeSubGEN.Size = new System.Drawing.Size(372, 24);
             this.txtMasterSimb2CodeSubGEN.TabIndex = 220;
@@ -732,7 +973,7 @@
             // txtMasterSimb2BillGEN
             // 
             this.txtMasterSimb2BillGEN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterSimb2BillGEN.Location = new System.Drawing.Point(255, 72);
+            this.txtMasterSimb2BillGEN.Location = new System.Drawing.Point(255, 144);
             this.txtMasterSimb2BillGEN.Name = "txtMasterSimb2BillGEN";
             this.txtMasterSimb2BillGEN.Size = new System.Drawing.Size(372, 24);
             this.txtMasterSimb2BillGEN.TabIndex = 219;
@@ -741,7 +982,7 @@
             // txtMasterSimb2id
             // 
             this.txtMasterSimb2id.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterSimb2id.Location = new System.Drawing.Point(67, 12);
+            this.txtMasterSimb2id.Location = new System.Drawing.Point(11, 93);
             this.txtMasterSimb2id.Name = "txtMasterSimb2id";
             this.txtMasterSimb2id.Size = new System.Drawing.Size(29, 24);
             this.txtMasterSimb2id.TabIndex = 218;
@@ -753,7 +994,7 @@
             this.btnSimb2Save.BackColor = System.Drawing.Color.PaleGreen;
             this.btnSimb2Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.btnSimb2Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSimb2Save.Location = new System.Drawing.Point(476, 165);
+            this.btnSimb2Save.Location = new System.Drawing.Point(476, 222);
             this.btnSimb2Save.Name = "btnSimb2Save";
             this.btnSimb2Save.Size = new System.Drawing.Size(151, 32);
             this.btnSimb2Save.TabIndex = 217;
@@ -763,7 +1004,7 @@
             // txtMasterSimb2BillGTH
             // 
             this.txtMasterSimb2BillGTH.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterSimb2BillGTH.Location = new System.Drawing.Point(255, 42);
+            this.txtMasterSimb2BillGTH.Location = new System.Drawing.Point(255, 118);
             this.txtMasterSimb2BillGTH.Name = "txtMasterSimb2BillGTH";
             this.txtMasterSimb2BillGTH.Size = new System.Drawing.Size(372, 24);
             this.txtMasterSimb2BillGTH.TabIndex = 91;
@@ -773,7 +1014,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label5.Location = new System.Drawing.Point(7, 46);
+            this.label5.Location = new System.Drawing.Point(7, 120);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 20);
             this.label5.TabIndex = 90;
@@ -782,7 +1023,7 @@
             // txtMasterSimb2CodeBG
             // 
             this.txtMasterSimb2CodeBG.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterSimb2CodeBG.Location = new System.Drawing.Point(102, 43);
+            this.txtMasterSimb2CodeBG.Location = new System.Drawing.Point(102, 118);
             this.txtMasterSimb2CodeBG.Name = "txtMasterSimb2CodeBG";
             this.txtMasterSimb2CodeBG.Size = new System.Drawing.Size(147, 24);
             this.txtMasterSimb2CodeBG.TabIndex = 89;
@@ -791,7 +1032,7 @@
             // txtMasterSimb2CodeSubGTH
             // 
             this.txtMasterSimb2CodeSubGTH.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterSimb2CodeSubGTH.Location = new System.Drawing.Point(255, 106);
+            this.txtMasterSimb2CodeSubGTH.Location = new System.Drawing.Point(255, 170);
             this.txtMasterSimb2CodeSubGTH.Name = "txtMasterSimb2CodeSubGTH";
             this.txtMasterSimb2CodeSubGTH.Size = new System.Drawing.Size(372, 24);
             this.txtMasterSimb2CodeSubGTH.TabIndex = 88;
@@ -801,7 +1042,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.label4.Location = new System.Drawing.Point(7, 110);
+            this.label4.Location = new System.Drawing.Point(7, 174);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(82, 20);
             this.label4.TabIndex = 87;
@@ -810,7 +1051,7 @@
             // txtMasterSimb2CodeBSG
             // 
             this.txtMasterSimb2CodeBSG.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterSimb2CodeBSG.Location = new System.Drawing.Point(102, 107);
+            this.txtMasterSimb2CodeBSG.Location = new System.Drawing.Point(102, 171);
             this.txtMasterSimb2CodeBSG.Name = "txtMasterSimb2CodeBSG";
             this.txtMasterSimb2CodeBSG.Size = new System.Drawing.Size(147, 24);
             this.txtMasterSimb2CodeBSG.TabIndex = 86;
@@ -819,7 +1060,7 @@
             // txtMasterDrugGenricName
             // 
             this.txtMasterDrugGenricName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterDrugGenricName.Location = new System.Drawing.Point(255, 12);
+            this.txtMasterDrugGenricName.Location = new System.Drawing.Point(255, 92);
             this.txtMasterDrugGenricName.Name = "txtMasterDrugGenricName";
             this.txtMasterDrugGenricName.ReadOnly = true;
             this.txtMasterDrugGenricName.Size = new System.Drawing.Size(372, 24);
@@ -839,10 +1080,11 @@
             // txtMasterDrugGenericCode
             // 
             this.txtMasterDrugGenericCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.txtMasterDrugGenericCode.Location = new System.Drawing.Point(102, 12);
+            this.txtMasterDrugGenericCode.Location = new System.Drawing.Point(54, 12);
+            this.txtMasterDrugGenericCode.Multiline = true;
             this.txtMasterDrugGenericCode.Name = "txtMasterDrugGenericCode";
             this.txtMasterDrugGenericCode.ReadOnly = true;
-            this.txtMasterDrugGenericCode.Size = new System.Drawing.Size(147, 24);
+            this.txtMasterDrugGenericCode.Size = new System.Drawing.Size(563, 74);
             this.txtMasterDrugGenericCode.TabIndex = 83;
             this.txtMasterDrugGenericCode.Tag = null;
             // 
@@ -850,9 +1092,9 @@
             // 
             this.c1SplitterPanel6.Controls.Add(this.pnMasterSimb2Items);
             this.c1SplitterPanel6.Dock = C1.Win.C1SplitContainer.PanelDockStyle.Right;
-            this.c1SplitterPanel6.Location = new System.Drawing.Point(759, 584);
+            this.c1SplitterPanel6.Location = new System.Drawing.Point(759, 642);
             this.c1SplitterPanel6.Name = "c1SplitterPanel6";
-            this.c1SplitterPanel6.Size = new System.Drawing.Size(542, 153);
+            this.c1SplitterPanel6.Size = new System.Drawing.Size(542, 95);
             this.c1SplitterPanel6.TabIndex = 3;
             this.c1SplitterPanel6.Text = "SIMB II Items";
             this.c1SplitterPanel6.Width = 542;
@@ -871,7 +1113,7 @@
             this.pnMasterSimb2Items.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnMasterSimb2Items.Location = new System.Drawing.Point(0, 0);
             this.pnMasterSimb2Items.Name = "pnMasterSimb2Items";
-            this.pnMasterSimb2Items.Size = new System.Drawing.Size(542, 153);
+            this.pnMasterSimb2Items.Size = new System.Drawing.Size(542, 95);
             this.pnMasterSimb2Items.TabIndex = 0;
             // 
             // BtnSimb2NewSave
@@ -975,9 +1217,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.tabMain)).EndInit();
             this.tabMain.ResumeLayout(false);
             this.tabOper.ResumeLayout(false);
+            this.pnOperList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
+            this.c1DockingTab1.ResumeLayout(false);
+            this.tabOperOPD.ResumeLayout(false);
+            this.tabOperIPD.ResumeLayout(false);
             this.tabFinish.ResumeLayout(false);
+            this.PnFinish.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scFinish)).EndInit();
             this.scFinish.ResumeLayout(false);
+            this.tabFinishOPD.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scFinishOPD)).EndInit();
+            this.scFinishOPD.ResumeLayout(false);
+            this.pnGrfFinishView1.ResumeLayout(false);
+            this.pnGrfFinishInv1.ResumeLayout(false);
+            this.tabFinishIPD.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scFinishIPD)).EndInit();
+            this.scFinishIPD.ResumeLayout(false);
+            this.c1SplitterPanel7.ResumeLayout(false);
+            this.c1SplitterPanel8.ResumeLayout(false);
             this.tabExpense.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spExpense)).EndInit();
             this.spExpense.ResumeLayout(false);
@@ -1001,6 +1259,7 @@
             this.c1SplitterPanel5.ResumeLayout(false);
             this.pnMasterSimb2ItemNew.ResumeLayout(false);
             this.pnMasterSimb2ItemNew.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtMasterFnCode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMasterSimb2CodeSubGEN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMasterSimb2BillGEN)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMasterSimb2id)).EndInit();
@@ -1041,9 +1300,9 @@
         private C1.Win.C1Command.C1DockingTabPage tabFinish;
         private C1.Win.C1Command.C1DockingTabPage tabExpense;
         private C1.Win.C1Command.C1DockingTabPage tabReport;
-        private C1.Win.C1SplitContainer.C1SplitContainer scFinish;
-        private C1.Win.C1SplitContainer.C1SplitterPanel pnGrfFinishView;
-        private C1.Win.C1SplitContainer.C1SplitterPanel pnGrfFinishInv;
+        private C1.Win.C1SplitContainer.C1SplitContainer scFinishOPD;
+        private C1.Win.C1SplitContainer.C1SplitterPanel pnGrfFinishView1;
+        private C1.Win.C1SplitContainer.C1SplitterPanel pnGrfFinishInv1;
         private C1.Win.C1Ribbon.RibbonTextBox rgSearch;
         private C1.Win.C1Ribbon.RibbonSeparator ribbonSeparator1;
         private C1.Win.C1Ribbon.RibbonButton rgPrn1;
@@ -1108,5 +1367,26 @@
         private System.Windows.Forms.RadioButton chkMasterProc;
         private System.Windows.Forms.RadioButton chkMasterXray;
         private System.Windows.Forms.RadioButton chkMasterDf;
+        private C1.Win.C1Input.C1TextBox txtMasterFnCode;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RadioButton chkMasterFncode;
+        private C1.Win.C1Ribbon.RibbonButton rgPrnReceiptDetail;
+        private C1.Win.C1Ribbon.RibbonDatePicker ribbonDatePicker1;
+        private System.Windows.Forms.Panel PnFinish;
+        private C1.Win.C1Command.C1DockingTab scFinish;
+        private C1.Win.C1Command.C1DockingTabPage tabFinishOPD;
+        private C1.Win.C1Command.C1DockingTabPage tabFinishIPD;
+        private C1.Win.C1SplitContainer.C1SplitContainer scFinishIPD;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel7;
+        private C1.Win.C1SplitContainer.C1SplitterPanel c1SplitterPanel8;
+        private C1.Win.C1Command.C1DockingTab c1DockingTab1;
+        private C1.Win.C1Command.C1DockingTabPage tabOperOPD;
+        private C1.Win.C1Command.C1DockingTabPage tabOperIPD;
+        private System.Windows.Forms.Panel pnOperOPD;
+        private System.Windows.Forms.Panel pnOperIPD;
+        private System.Windows.Forms.Panel pnGrfFinishViewIPD;
+        private System.Windows.Forms.Panel pnGrfFinishInvIPD;
+        private System.Windows.Forms.Panel pnGrfFinishView;
+        private System.Windows.Forms.Panel pnGrfFinishInv;
     }
 }

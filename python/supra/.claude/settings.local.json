@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Content \"D:\\\\bangna_hospital_cashier\\\\log.txt\")",
+      "Bash(Select-Object -Last 40)",
+      "Read(//d/bangna_hospital_cashier/**)"
+    ]
+  }
+}

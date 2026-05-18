@@ -89,7 +89,7 @@ namespace bangna_hospital.gui
         C1PictureBox pic;
         C1FlexViewer fvCerti, fvTodayOutLab;
         C1BarCode qrcode;
-        DataTable DTRPT, DTALLERGY, DTCHRONIC, DTLABGRPSEARCH, DTLABSEARCH, DTXRAYGRPSEARCH, DTXRAYSEARCH, DTPROCEDUREGRPSEARCH, DTPROCEDURESEARCH, DTDRUGGRPSEARCH, DTDRUGSEARCH;
+        DataTable DTRPT, DTALLERGY, DTALLERGYGRP, DTCHRONIC, DTLABGRPSEARCH, DTLABSEARCH, DTXRAYGRPSEARCH, DTXRAYSEARCH, DTPROCEDUREGRPSEARCH, DTPROCEDURESEARCH, DTDRUGGRPSEARCH, DTDRUGSEARCH;
         
         int originalHeight = 0, newHeight = 720, mouseWheel = 0;
         
@@ -129,6 +129,7 @@ namespace bangna_hospital.gui
         private DataTable dtLabPrint;
         private int currentLabPrintRow = 0, pagecur=1;
         private const int MAX_LAB_ROWS_PER_PAGE = 10;
+        StringBuilder sbDrugHistory;
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetDefaultPrinter(string Printer);
         public FrmOPD(BangnaControl bc)
@@ -463,8 +464,51 @@ namespace bangna_hospital.gui
             txtOperCodeApprove.KeyUp += TxtOperCodeApprove_KeyUp;            cboApmDtr.SelectedItemChanged += CboApmDtr_SelectedItemChanged;
             btnOperDept.Click += BtnOperDept_Click;            btnOperConsult.Click += BtnOperConsult_Click;
             lbOperItem.DoubleClick += LbOperItem_DoubleClick;
-
+            dropDownItem28.Click += DropDownItem28_Click;
             //btnOperPrnReq.Click += BtnOperPrnReq_Click;
+        }
+
+        private void DropDownItem28_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (PRENO.Equals(""))            {                lfSbMessage.Text = "ไม่พบ PRENO";                return;            }
+            if (string.IsNullOrEmpty(HN))            {                lfSbMessage.Text = "ไม่พบ HN";                return;            }
+
+            // เปิด Form เลือกยา
+            FrmDrugHistory frm = new FrmDrugHistory(bc, HN);
+            if (frm.ShowDialog(this) == DialogResult.OK)
+            {
+                // ✅ ได้รหัสยาที่เลือกแล้ว
+                if (frm.SelectedDrugCodes.Count > 0)
+                {
+                    sbDrugHistory = new StringBuilder();
+                    sbDrugHistory.AppendLine($"เลือกยาทั้งหมด {frm.SelectedDrugCodes.Count} รายการ:");
+
+                    foreach (string drugCode in frm.SelectedDrugCodes)
+                    {
+                        sbDrugHistory.AppendLine($"- {drugCode}");
+                        // ✅ เพิ่มยาลงใน grfOrder
+                        //PharmacyM01 drug = bc.bcDB.pharM01DB.SelectByPk(drugCode);
+                        //if (drug != null)
+                        //{
+                        //    Row row = grfOrder.Rows.Add();
+                        //    row[colgrfOrderCode] = drug.MNC_PH_CD;
+                        //    row[colgrfOrderName] = drug.MNC_PH_TN;
+                        //    row[colgrfOrderQty] = "1";
+                        //    row[colgrfOrderStatus] = "drug";
+                        //    row[colgrfOrderID] = "";
+                        //    row[colgrfOrderReqNO] = "";
+                        //    row[colgrfOrdFlagSave] = "0";
+                        //    row[0] = (grfOrder.Rows.Count - 1).ToString();
+                        //    row.StyleNew.BackColor = ColorTranslator.FromHtml("#9FE2BF");
+                        //}
+                    }
+                    //lfSbMessage.Text = sbDrugHistory.ToString();
+                    //MessageBox.Show(sbDrugHistory.ToString(), "รายการยาที่เลือก");
+                }
+            }
+            frm.Dispose();
+            TEMPCANCER = false; printStaffNoteTemplate("28");
         }
 
         private void BtnOperPrnReq_Click(object sender, EventArgs e)
@@ -2158,9 +2202,10 @@ namespace bangna_hospital.gui
         {
             DTCHRONIC = bc.bcDB.vsDB.SelectChronicByPID(PTT.idcard);
             DTALLERGY = bc.bcDB.vsDB.selectDrugAllergy(txtOperHN.Text.Trim());
+            DTALLERGYGRP = bc.bcDB.vsDB.selectDrugGroupAllergy(txtOperHN.Text.Trim());
             //user แจ้งให้ save doctor ด้วย 68-10-21
-            saveDoctor();       //ด้วย 68-10-21
-            saveVitalSign();    //ด้วย 66-01-23
+            //saveDoctor();       //ด้วย 68-10-21
+            //saveVitalSign();    //ด้วย 66-01-23
             printStaffNote(temp);
             if (bc.iniC.statusPrintQue.Equals("1")) { printQueueDtr(); }
             setGrfOperList("");
@@ -3914,12 +3959,31 @@ namespace bangna_hospital.gui
                 //new LogWriter("e", "FrmOPD printStaffNote 02");
                 documentStaffNote.PrintPage += Document_PrintPageStaffNote;
             }
+            else if (TEMPLATESTAFFNOTE.Equals("28"))
+            {
+                //new LogWriter("e", "FrmOPD printStaffNote 02");
+                documentStaffNote.PrintPage += Document_PrintPageStaffNote;
+            }
             else
             {
                 //new LogWriter("e", "FrmOPD printStaffNote 02");
                 documentStaffNote.PrintPage += Document_PrintPageStaffNote;
             }
-            documentStaffNote.Print();
+            if(bc.iniC.statusPrintPreview.Equals("1"))
+            {
+                using (PrintPreviewDialog preview = new PrintPreviewDialog())
+                {
+                    preview.Document = documentStaffNote;
+                    preview.Width = 900;
+                    preview.Height = 700;
+                    preview.Text = "";
+                    preview.ShowDialog();   // แสดง Preview → กด Print ใน Dialog ได้เลย
+                }
+            }
+            else
+            {
+                documentStaffNote.Print();
+            }
         }
         
         private void printQueueDtr()
@@ -5639,7 +5703,7 @@ namespace bangna_hospital.gui
 
             lfSbStation.Text = DEPTNO+"[" +bc.iniC.station+"]"+ STATIONNAME;
             rgSbModule.Text = bc.iniC.hostDBMainHIS + " " + bc.iniC.nameDBMainHIS;
-            this.Text = "Last Update 2026-02-19 search staffnote";
+            this.Text = "Last Update 2026-04-01 allergy group";
             QUEDEPT = STATIONNAME;
             lfSbMessage.Text = "";
             //btnPrnStaffNote.Left = pnVitalSign.Width - btnPrnCertMed.Width - 10;

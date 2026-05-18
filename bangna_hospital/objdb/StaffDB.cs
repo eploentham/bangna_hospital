@@ -30,6 +30,22 @@ namespace bangna_hospital.objdb
 
             stf.table = "userlog_m01";
         }
+        public String selectBycd(String username)
+        {
+            String re = "";
+            DataTable dt = new DataTable();
+            String sql = "select isnull(pm02.MNC_PFIX_DSC,'') + ' ' + isnull(hm01.MNC_HR_FNAME_T,'') + ' ' + isnull(hm01.MNC_HR_LNAME_T,'') " +
+                "From HUMAN_M01 hm01 " +
+                "Left Join PATIENT_M02 pm02 On hm01.MNC_HR_PFIX_CDT = pm02.MNC_PFIX_CD " +
+                "Where hm01.MNC_HR_NO ='" + username + "' ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            if (dt.Rows.Count > 0)
+            {
+                re = dt.Rows[0][0].ToString();
+            }
+            
+            return re;
+        }
         public Staff selectByUsernameLevelDoctor(String username)
         {
             Staff cop1 = new Staff();

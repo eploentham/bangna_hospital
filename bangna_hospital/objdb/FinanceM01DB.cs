@@ -88,6 +88,21 @@ namespace bangna_hospital.objdb
             //new LogWriter("d", "SelectHnLabOut1 sql "+sql);MNC_DEF_DSC
             return dt;
         }
+        public DataTable SelectCodeDSGMap()
+        {
+            DataTable dt = new DataTable();
+            String sql = "select fm01.MNC_FN_CD, fm01.MNC_FN_DSCT, fm01.MNC_FN_GRP, isnull(fm11.MNC_DEF_DSC,'') as MNC_DEF_DSC " +
+                ",fm01.CodeBSG,simb2.BillingSubGroupTH,simb2.BillingSubGroupEN,fm01.MNC_SIMB_CD,fm01.MNC_CHARGE_CD,fm01.MNC_SUB_CHARGE_CD, '' as MNC_CHARGE_NO  " +
+                "From FINANCE_m01 fm01 " +
+                "Left join Finance_m11 fm11 on fm01.MNC_SIMB_CD = fm11.MNC_DEF_CD " +
+                "Left Join SIMB2_BillingGroup simb2 on fm01.CodeBSG = simb2.CodeBSG  " +
+                "inner Join finance_codebsg_temp temp on temp.MNC_FN_CD = fm01.MNC_FN_CD " +
+                " " +
+                "Order By temp.total desc ";
+            dt = conn.selectData(conn.connMainHIS, sql);
+            //new LogWriter("d", "SelectHnLabOut1 sql "+sql);
+            return dt;
+        }
         public DataTable SelectDfMap()
         {
             DataTable dt = new DataTable();
@@ -147,6 +162,23 @@ namespace bangna_hospital.objdb
             catch (Exception ex)
             {
                 new LogWriter("e", " finance_m01 updateSSOPcode error " + ex.InnerException);
+            }
+            return chk;
+        }
+        public String updateSCodeBSG(String fncode, String ssopcode)
+        {
+            String sql = "", chk = "";
+            try
+            {
+                sql = "Update finance_m01 Set " +
+                    "CodeBSG ='" + ssopcode + "' " +
+                    "Where MNC_FN_CD ='" + fncode + "' ";
+                chk = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+                //chk = p.RowNumber;
+            }
+            catch (Exception ex)
+            {
+                new LogWriter("e", " finance_m01 updateSCodeBSG error " + ex.InnerException);
             }
             return chk;
         }
