@@ -154,6 +154,8 @@
             this.tabpttChronic = new C1.Win.C1Command.C1DockingTabPage();
             this.pnChronic = new System.Windows.Forms.Panel();
             this.tabDrugMap = new C1.Win.C1Command.C1DockingTabPage();
+            this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
+            this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1SplitContainer3 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel8 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.pnDrugMap = new System.Windows.Forms.Panel();
@@ -162,15 +164,13 @@
             this.txtDrugMapSearch = new C1.Win.C1Input.C1TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.c1SplitterPanel9 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.c1DockingTab1 = new C1.Win.C1Command.C1DockingTab();
-            this.c1DockingTabPage1 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1DockingTabPage2 = new C1.Win.C1Command.C1DockingTabPage();
             this.c1SplitContainer1 = new C1.Win.C1SplitContainer.C1SplitContainer();
             this.c1SplitterPanel11 = new C1.Win.C1SplitContainer.C1SplitterPanel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.c1SplitterPanel12 = new C1.Win.C1SplitContainer.C1SplitterPanel();
             this.c1SplitterPanel13 = new C1.Win.C1SplitContainer.C1SplitterPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.c1StatusBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tC1)).BeginInit();
             this.tC1.SuspendLayout();
@@ -245,15 +245,15 @@
             this.tabpttAllergy.SuspendLayout();
             this.tabpttChronic.SuspendLayout();
             this.tabDrugMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
+            this.c1DockingTab1.SuspendLayout();
+            this.c1DockingTabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer3)).BeginInit();
             this.c1SplitContainer3.SuspendLayout();
             this.c1SplitterPanel8.SuspendLayout();
             this.pnDrugMapTop.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugMapSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugMapSearch)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).BeginInit();
-            this.c1DockingTab1.SuspendLayout();
-            this.c1DockingTabPage1.SuspendLayout();
             this.c1DockingTabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).BeginInit();
             this.c1SplitContainer1.SuspendLayout();
@@ -1522,6 +1522,26 @@
             this.tabDrugMap.TabIndex = 6;
             this.tabDrugMap.Text = "Drug Map Paid";
             // 
+            // c1DockingTab1
+            // 
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
+            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
+            this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
+            this.c1DockingTab1.Name = "c1DockingTab1";
+            this.c1DockingTab1.Size = new System.Drawing.Size(1576, 767);
+            this.c1DockingTab1.TabIndex = 1;
+            this.c1DockingTab1.TabsSpacing = 5;
+            // 
+            // c1DockingTabPage1
+            // 
+            this.c1DockingTabPage1.Controls.Add(this.c1SplitContainer3);
+            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 26);
+            this.c1DockingTabPage1.Name = "c1DockingTabPage1";
+            this.c1DockingTabPage1.Size = new System.Drawing.Size(1574, 740);
+            this.c1DockingTabPage1.TabIndex = 0;
+            this.c1DockingTabPage1.Text = "Drug Map Paid";
+            // 
             // c1SplitContainer3
             // 
             this.c1SplitContainer3.AutoSizeElement = C1.Framework.AutoSizeElement.Both;
@@ -1609,26 +1629,6 @@
             this.c1SplitterPanel9.TabIndex = 1;
             this.c1SplitterPanel9.Text = "Panel 2";
             // 
-            // c1DockingTab1
-            // 
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage1);
-            this.c1DockingTab1.Controls.Add(this.c1DockingTabPage2);
-            this.c1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1DockingTab1.Location = new System.Drawing.Point(0, 0);
-            this.c1DockingTab1.Name = "c1DockingTab1";
-            this.c1DockingTab1.Size = new System.Drawing.Size(1576, 767);
-            this.c1DockingTab1.TabIndex = 1;
-            this.c1DockingTab1.TabsSpacing = 5;
-            // 
-            // c1DockingTabPage1
-            // 
-            this.c1DockingTabPage1.Controls.Add(this.c1SplitContainer3);
-            this.c1DockingTabPage1.Location = new System.Drawing.Point(1, 26);
-            this.c1DockingTabPage1.Name = "c1DockingTabPage1";
-            this.c1DockingTabPage1.Size = new System.Drawing.Size(1574, 740);
-            this.c1DockingTabPage1.TabIndex = 0;
-            this.c1DockingTabPage1.Text = "Drug Map Paid";
-            // 
             // c1DockingTabPage2
             // 
             this.c1DockingTabPage2.Controls.Add(this.c1SplitContainer1);
@@ -1665,6 +1665,22 @@
             this.c1SplitterPanel11.Text = "SIMB II Master";
             this.c1SplitterPanel11.Width = 785;
             // 
+            // panel3
+            // 
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 66);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(785, 653);
+            this.panel3.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(785, 66);
+            this.panel2.TabIndex = 0;
+            // 
             // c1SplitterPanel12
             // 
             this.c1SplitterPanel12.Height = 368;
@@ -1682,22 +1698,6 @@
             this.c1SplitterPanel13.Size = new System.Drawing.Size(785, 347);
             this.c1SplitterPanel13.TabIndex = 2;
             this.c1SplitterPanel13.Text = "Panel 3";
-            // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(785, 66);
-            this.panel2.TabIndex = 0;
-            // 
-            // panel3
-            // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 66);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(785, 653);
-            this.panel3.TabIndex = 1;
             // 
             // FrmPharmacy
             // 
@@ -1787,6 +1787,9 @@
             this.tabpttAllergy.ResumeLayout(false);
             this.tabpttChronic.ResumeLayout(false);
             this.tabDrugMap.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
+            this.c1DockingTab1.ResumeLayout(false);
+            this.c1DockingTabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer3)).EndInit();
             this.c1SplitContainer3.ResumeLayout(false);
             this.c1SplitterPanel8.ResumeLayout(false);
@@ -1794,9 +1797,6 @@
             this.pnDrugMapTop.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnDrugMapSave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtDrugMapSearch)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.c1DockingTab1)).EndInit();
-            this.c1DockingTab1.ResumeLayout(false);
-            this.c1DockingTabPage1.ResumeLayout(false);
             this.c1DockingTabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.c1SplitContainer1)).EndInit();
             this.c1SplitContainer1.ResumeLayout(false);

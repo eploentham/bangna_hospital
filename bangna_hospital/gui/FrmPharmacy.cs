@@ -2154,7 +2154,7 @@ namespace bangna_hospital.gui
             grfdispOPDrug.Rows.Count = 1;
             grfdispOPDChronic.Rows.Count = 1;
             //grfDrugProfPttDrug.Rows.Count = 1;
-            if (pndrugedit.Controls.OfType<UCDrugEdit>().Any())             {                pndrugedit.Controls.OfType<UCDrugEdit>().First().clearControl();           }
+            if (pndrugedit != null && pndrugedit.Controls.OfType<UCDrugEdit>().Any())             {                pndrugedit.Controls.OfType<UCDrugEdit>().First().clearControl();           }
             if (pnDispensingOPD.Controls.OfType<UCPatient>().Any())         {                pnDispensingOPD.Controls.OfType<UCPatient>().First().clearControl();       }
             picLeft.Image = null;
             picRight.Image = null;
@@ -2534,7 +2534,7 @@ namespace bangna_hospital.gui
             if (grfdispOPDList.Row < 0) return;
             if (grfdispOPDList[grfdispOPDList.Row, 0] == null) return;
             if (grfdispOPDList.Row == 0) return;
-            if (pndrugedit.Controls.OfType<UCDrugEdit>().Any())
+            if (pndrugedit != null && pndrugedit.Controls.OfType<UCDrugEdit>().Any())
             {
                 (pndrugedit.Controls.OfType<UCDrugEdit>().First()).clearControl();
                 //ucDrugEdit.clearControl();
@@ -3331,7 +3331,7 @@ namespace bangna_hospital.gui
             String stationname = BC.bcDB.pm32DB.getDeptName(BC.iniC.station);
             lfSbStation.Text = DEPTNO + "[" + BC.iniC.station + "]" + stationname + " drugin " + BC.iniC.hostFTPDrugIn;
             rgSbModule.Text = BC.iniC.hostDBMainHIS + " " + BC.iniC.nameDBMainHIS + " " + BC.iniC.programLoad;
-            this.Text = "Last Update 2025-11-17 ";
+            this.Text = "Last Update 2026-06-19 ";
             lfSbStatus.Text = "";
             ll1.Text = "";
             rb2.Text = BC.iniC.printerStickerDrug;

@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace bangna_hospital.gui
 {
@@ -26,7 +27,7 @@ namespace bangna_hospital.gui
         Font fEdit, fEditB, fEdit3B, fEdit5B, famt, famtB, ftotal, fPrnBil, fEditS, fEditS1, fEdit2, fEdit2B;
         int colgrfHnHN = 1, colgrfHnDocNo=2, colgrfHnDocDate=3, colgrfHnDocCD=4, colgrfHnDocSts=5,colgrfHnAmt=6, colgrfHnJobNo=7, colgrfHnJobNoOld = 8;
         int colgrfAnanno = 1, colgrfAnAdDate = 2;
-        int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitStatusAdmit=3, colgrfDeptDept=4, colgrfDeptVisitVn=5;
+        int colgrfDeptVisitVsdate = 1, colgrfDeptVisitPreno=2, colgrfDeptVisitVoid = 3, colgrfDeptVisitStatusAdmit=4, colgrfDeptDept=5, colgrfDeptVisitVn=6;
         int colgrfxrayreqno = 1, colgrfxrayyear = 2, colgrfxrayreqdate = 3, colgrfxraystatuspacs = 4, colgrfxrayitemcode=5, colgrfxrayitemname=6;
         int colgrfLabReqHn = 1, colgrfLabReqReqno = 2, colgrfLabReqReqdate = 3, colgrfLabReqlbcode = 4, colgrfLabReqyear = 5, colgrfLabReqlabname = 6, colgrfLabReqordname = 7, colgrfLabRequsrcode = 8, colgrfLabRequsrname = 9, colgrfLabReqstatussend = 10, colgrfLabReqdatesend = 11;
         Boolean pageLoad = false;
@@ -93,7 +94,30 @@ namespace bangna_hospital.gui
             btnXrayDelReq.Click += BtnXrayDelReq_Click;
             cboDept1.SelectedItemChanged += CboDept1_SelectedItemChanged;
             txtLabReqHn.KeyUp += TxtLabReqHn_KeyUp;
+            btnDeptUpdateSTS.Click += BtnDeptUpdateSTS_Click;
             pageLoad = false;
+        }
+
+        private void BtnDeptUpdateSTS_Click(object sender, EventArgs e)
+        {
+            //throw new NotImplementedException();
+            if(txtDeptPreno.Text.Length > 0 && txtDeptVsdate.Text.Length > 0 && txtDeptHN.Text.Length > 0)
+            {
+                String re = bc.bcDB.vsDB.updateVisitSTS_O(txtDeptHN.Text.Trim(), txtDeptVsdate.Text.Trim(), txtDeptPreno.Text.Trim());
+                if (int.TryParse(re, out int chk))
+                {
+                    sbMessage.Text = "Update Visit STS_O เรียบร้อย";
+                }
+                else
+                {
+                    sbMessage.Text = "มีข้อผิดพลาด " + re;
+                }
+            }
+            else
+            {
+                sbMessage.Text = "กรุณาเลือก Visit ก่อน";
+            }
+            //String re = bc.bcDB.vsDB.updateVisitSTS_O(txtDeptHN.Text.Trim(), txtDeptVsdate.Text.Trim(), txtDeptPreno.Text.Trim());
         }
 
         private void TxtLabReqHn_KeyUp(object sender, KeyEventArgs e)
@@ -539,11 +563,13 @@ namespace bangna_hospital.gui
             grfDeptVisit.Dock = System.Windows.Forms.DockStyle.Fill;
             grfDeptVisit.Location = new System.Drawing.Point(0, 0);
             grfDeptVisit.Rows.Count = 1;
-            grfDeptVisit.Cols.Count = 6;
+            grfDeptVisit.Cols.Count = 7;
             grfDeptVisit.Cols[colgrfDeptVisitVsdate].Width = 100;
             grfDeptVisit.Cols[colgrfDeptVisitPreno].Width = 100;
             grfDeptVisit.Cols[colgrfDeptVisitStatusAdmit].Width = 60;
+            grfDeptVisit.Cols[colgrfDeptVisitVoid].Width = 50;
             grfDeptVisit.Cols[colgrfDeptVisitVn].Width = 60;
+
 
             grfDeptVisit.ShowCursor = true;
             grfDeptVisit.Cols[colgrfDeptVisitVsdate].Caption = "vsdate";
@@ -555,7 +581,9 @@ namespace bangna_hospital.gui
             grfDeptVisit.Cols[colgrfDeptVisitPreno].AllowEditing = false;
             grfDeptVisit.Cols[colgrfDeptVisitStatusAdmit].AllowEditing = false;
             grfDeptVisit.Cols[colgrfDeptDept].AllowEditing = false;
+            grfDeptVisit.Cols[colgrfDeptVisitVoid].AllowEditing = false;
             grfDeptVisit.Cols[colgrfDeptVisitVn].AllowEditing = false;
+
 
             grfDeptVisit.AllowFiltering = true;
 
@@ -604,6 +632,7 @@ namespace bangna_hospital.gui
                 Row rowa = grfDeptVisit.Rows[i];
                 rowa[colgrfDeptVisitVsdate] = row1["MNC_DATE"].ToString();
                 rowa[colgrfDeptVisitPreno] = row1["mnc_pre_no"].ToString();
+                rowa[colgrfDeptVisitVoid] = row1["mnc_sts"].ToString();
                 rowa[colgrfDeptVisitStatusAdmit] = row1["MNC_AN_NO"].ToString().Equals("0") ? "O" : "I";
                 rowa[colgrfDeptDept] = row1["MNC_AN_NO"].ToString().Equals("0") ? row1["MNC_SEC_NO"].ToString(): row1["MNC_SEC_NO_ipd"].ToString();
                 rowa[colgrfDeptVisitVn] = row1["mnc_vn_no"].ToString()+"."+ row1["MNC_VN_SEQ"].ToString()+"."+ row1["MNC_VN_SUM"].ToString();
@@ -969,6 +998,7 @@ namespace bangna_hospital.gui
             lb1.Text = "[hostDB " + bc.iniC.hostDB + " nameDB " + bc.iniC.nameDB + "] [hostDBMainHIS " + bc.iniC.hostDBMainHIS + " nameDBMainHIS " + bc.iniC.nameDBMainHIS+"]";
             txtVoidvsdate.Value = DateTime.Now.Year.ToString()+"-"+DateTime.Now.ToString("MM-dd");
             txtXrayDate.Value = DateTime.Now.Year.ToString() + "-" + DateTime.Now.ToString("MM-dd");
+            this.Text = "Last Update 2026-07-17";
         }
     }
 }

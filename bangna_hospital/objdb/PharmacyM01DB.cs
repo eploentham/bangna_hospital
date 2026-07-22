@@ -268,6 +268,7 @@ namespace bangna_hospital.objdb
             AutoCompleteStringCollection autoSymptom = new AutoCompleteStringCollection();
             DataTable dt = new DataTable();
             dt = SelectPropertiesAllThai();
+            AUTOPROPER = new AutoCompleteStringCollection(); AUTOPROPER1 = new AutoCompleteStringCollection();
             foreach (DataRow row in dt.Rows)
             {
                 autoSymptom.Add(row["MNC_PH_IND_CD"].ToString() + "#" + row["MNC_PH_IND_DSC"].ToString());

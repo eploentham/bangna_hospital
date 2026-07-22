@@ -170,6 +170,7 @@
             this.lb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb1 = new C1.Win.C1Ribbon.RibbonLabel();
             this.rb2 = new C1.Win.C1Ribbon.RibbonLabel();
+            this.btnDeptUpdateSTS = new C1.Win.C1Input.C1Button();
             ((System.ComponentModel.ISupportInitialize)(this.txtPttHn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNoCur)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtJobNo)).BeginInit();
@@ -244,6 +245,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdateSTS)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPttHn
@@ -710,6 +712,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnDeptUpdateSTS);
             this.groupBox1.Controls.Add(this.btnDeptUpdate);
             this.groupBox1.Controls.Add(this.cboDeptNew);
             this.groupBox1.Controls.Add(this.chkDeptIPDNew);
@@ -1753,6 +1756,16 @@
             this.rb2.Name = "rb2";
             this.rb2.Text = "Label";
             // 
+            // btnDeptUpdateSTS
+            // 
+            this.btnDeptUpdateSTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.btnDeptUpdateSTS.Location = new System.Drawing.Point(15, 78);
+            this.btnDeptUpdateSTS.Name = "btnDeptUpdateSTS";
+            this.btnDeptUpdateSTS.Size = new System.Drawing.Size(153, 45);
+            this.btnDeptUpdateSTS.TabIndex = 204;
+            this.btnDeptUpdateSTS.Text = "แก้ไข sts C -> O";
+            this.btnDeptUpdateSTS.UseVisualStyleBackColor = true;
+            // 
             // FrmEditJobNo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1852,6 +1865,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.c1Button3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.c1TextBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sbMessage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnDeptUpdateSTS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2001,5 +2015,6 @@
         private System.Windows.Forms.Label label39;
         private C1.Win.C1Input.C1Button c1Button3;
         private System.Windows.Forms.Panel panel7;
+        private C1.Win.C1Input.C1Button btnDeptUpdateSTS;
     }
 }

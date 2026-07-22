@@ -1301,7 +1301,7 @@ namespace bangna_hospital.objdb
                 ",m02.MNC_PFIX_DSC as prefix, m01.MNC_FNAME_T,m01.MNC_LNAME_T, isnull(m02.MNC_PFIX_DSC,'') +' '+ isnull(m01.MNC_FNAME_T,'')+' ' + isnull(m01.MNC_LNAME_T,'') as ptt_fullnamet,pt08.MNC_DS_TIME,convert(varchar(20),pt08.MNC_DS_DATE,23) as MNC_DS_DATE " +
                 ",pm02dtr.MNC_PFIX_DSC + ' ' + pm26dtr.MNC_DOT_FNAME + ' ' + pm26dtr.MNC_DOT_LNAME as dtr_name  " +
                 ",isnull(pm02dtripd.MNC_PFIX_DSC,'') + ' ' + isnull(pm26dtripd.MNC_DOT_FNAME,'') + ' ' + isnull(pm26dtripd.MNC_DOT_LNAME,'') as dtr_nameipd " +
-                ",isnull(t01.MNC_ADM_FLG,'') as MNC_ADM_FLG " +
+                ",isnull(t01.MNC_ADM_FLG,'') as MNC_ADM_FLG, t01.MNC_STS " +
                 "From patient_t01 t01 " +
                 " inner join patient_m01 m01 on t01.MNC_HN_NO = m01.MNC_HN_NO " +
                 " LEFT join patient_m02 m02 on m01.MNC_PFIX_CDT =m02.MNC_PFIX_CD " +
@@ -1317,7 +1317,7 @@ namespace bangna_hospital.objdb
                 " left join patient_m26  pm26dtripd on pt08.MNC_DOT_CD_S = pm26dtripd.MNC_DOT_CD " +
                 " left join patient_m02 pm02dtripd on pm26dtripd.MNC_DOT_PFIX = pm02dtripd.MNC_PFIX_CD " +
                 " Where t01.MNC_HN_NO = '" + hn + "' " +
-                "and t01.MNC_STS <> 'C'  " +
+                //"and t01.MNC_STS <> 'C'  " +      //ต้องการให้แสดง ยกเลิกด้วย
                 " Order by t01.MNC_HN_NO,t01.MNC_DATE desc,t01.MNC_TIME desc ";
             dt = conn.selectData(sql);
             return dt;
@@ -5056,6 +5056,29 @@ namespace bangna_hospital.objdb
             {
                 sql = ex.Message + " " + ex.InnerException;
                 new LogWriter("e", "updateVisit sql " + sql + " hn " + hn + " MNC_RES_MAS " + comp_code);
+                re = sql;
+            }
+            finally
+            {
+                conn.connMainHIS.Close();
+            }
+            return re;
+        }
+        public String updateVisitSTS_O(String hn, String vsdate, String preno)
+        {
+            String re = "";
+            String sql = "";
+            try
+            {
+                sql = "Update Patient_t01 Set " +
+                    "MNC_STSD = 'O' " +
+                    " Where MNC_HN_NO = '" + hn + "' and MNC_DATE = '" + vsdate + "' and MNC_PRE_NO = '" + preno + "' ";
+                re = conn.ExecuteNonQuery(conn.connMainHIS, sql);
+            }
+            catch (Exception ex)
+            {
+                sql = ex.Message + " " + ex.InnerException;
+                new LogWriter("e", "updateVisitSTS sql " + sql + " hn " + hn);
                 re = sql;
             }
             finally
